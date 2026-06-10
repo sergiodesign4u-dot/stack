@@ -2,7 +2,7 @@
 
 A mobile-first sport nutrition store for the Ukrainian market, built around coaches and gyms who order for their athletes. Turns a confusing catalog into a clear, trusted path from a person's goal to the right products.
 
-**Live research page:** [Will be linked when published]
+**Live research page:** https://sergiodesign4u-dot.github.io/stack/research.html
 
 ---
 
@@ -10,7 +10,7 @@ A mobile-first sport nutrition store for the Ukrainian market, built around coac
 
 | Phase | Status |
 |-------|--------|
-| Research | In progress |
+| Research | Done (competitive analysis, benchmark, UX patterns, Ukrainian research page) |
 | Wireframes | Not started |
 | Concept | Not started |
 | Design System | Not started |
