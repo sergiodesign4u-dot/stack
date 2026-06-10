@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack - Дослідження продукту</title>
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --surface: #ffffff;
+      --surface-alt: #f2f0eb;
+      --border: #e5e2db;
+      --text: #1a1916;
+      --text-secondary: #6b6760;
+      --text-light: #9b9790;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0ea;
+      --accent-mid: #4a8c62;
+      --score-high: #2d5a3d;
+      --score-mid: #7a9e4a;
+      --score-low: #b5882a;
+      --score-bg-high: #e8f0ea;
+      --score-bg-mid: #f3f7ea;
+      --score-bg-low: #fdf3e3;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(247, 246, 243, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 56px;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      margin-right: 32px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .nav-links::-webkit-scrollbar { display: none; }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: var(--surface-alt);
+    }
+
+    /* LAYOUT */
+    .page {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 96px 24px 80px;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 64px 0 56px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 64px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      color: var(--text);
+      margin-bottom: 20px;
+      max-width: 800px;
+    }
+
+    .hero-lead {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta-item {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
+    .hero-meta-item strong {
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    /* SECTIONS */
+    section {
+      margin-bottom: 72px;
+      scroll-margin-top: 72px;
+    }
+
+    .section-number {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-mid);
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .section-lead {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      margin: 32px 0 12px;
+    }
+
+    h4 {
+      font-size: 15px;
+      font-weight: 650;
+      color: var(--text);
+      margin: 24px 0 8px;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    /* CONCLUSIONS */
+    .conclusions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .conclusion-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+
+    .conclusion-card:hover {
+      box-shadow: var(--shadow);
+    }
+
+    .conclusion-number {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent-light);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 12px;
+      color: var(--accent-mid);
+      opacity: 0.35;
+    }
+
+    .conclusion-text {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    /* TABLES */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      font-size: 14px;
+    }
+
+    thead th {
+      background: var(--surface-alt);
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover td {
+      background: var(--bg);
+    }
+
+    .td-strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* SCORE BADGES */
+    .score {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .score-5 { background: var(--score-bg-high); color: var(--score-high); }
+    .score-4 { background: var(--score-bg-mid); color: var(--score-mid); }
+    .score-3 { background: var(--score-bg-low); color: var(--score-low); }
+    .score-2, .score-1 { background: #fce8e8; color: #c0392b; }
+
+    .score-total {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* SEGMENT CARDS */
+    .segment-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .segment-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .segment-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .badge-primary {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .badge-secondary {
+      background: #eef2ff;
+      color: #3d52a0;
+    }
+
+    .badge-supporting {
+      background: var(--surface-alt);
+      color: var(--text-secondary);
+    }
+
+    .segment-card h4 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .segment-field {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .segment-label {
+      color: var(--text-light);
+      font-weight: 600;
+      flex-shrink: 0;
+      width: 80px;
+    }
+
+    .segment-value {
+      color: var(--text-secondary);
+    }
+
+    /* HYPOTHESIS CARDS */
+    .hypothesis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .hyp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s;
+    }
+
+    .hyp-card:hover {
+      box-shadow: var(--shadow);
+    }
+
+    .hyp-row {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hyp-row:last-child {
+      border-bottom: none;
+    }
+
+    .hyp-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .hyp-if .hyp-label { color: #3d52a0; }
+    .hyp-then .hyp-label { color: var(--accent); }
+    .hyp-because .hyp-label { color: #8b5e3c; }
+
+    .hyp-if { background: #f5f6ff; }
+    .hyp-then { background: #f0f8f3; }
+    .hyp-because { background: #fdf8f3; }
+
+    .hyp-text {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* MECHANISM CARDS */
+    .mechanism-cards {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .mechanism-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+    }
+
+    .mechanism-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 18px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .mechanism-content h4 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+
+    .mechanism-content p {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .mechanism-source {
+      font-size: 12px;
+      color: var(--accent-mid);
+    }
+
+    .mechanism-why {
+      display: inline-block;
+      background: var(--surface-alt);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+
+    .mechanism-wont {
+      background: #fff9f9;
+      border-color: #f0d0d0;
+    }
+
+    .mechanism-wont .mechanism-num {
+      background: #fce8e8;
+      color: #c0392b;
+    }
+
+    /* SCREENSHOTS */
+    .screenshots-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 4px 0 16px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .screenshots-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .screenshots-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .screenshots-scroll::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .screenshot-item {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .screenshot-item img {
+      width: 320px;
+      height: 200px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      display: block;
+      background: var(--surface-alt);
+    }
+
+    .screenshot-label {
+      font-size: 12px;
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    /* GAPS TABLE */
+    .gap-priority-critical {
+      background: #fce8e8;
+      color: #c0392b;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .gap-priority-important {
+      background: var(--score-bg-low);
+      color: var(--score-low);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .gap-priority-nice {
+      background: var(--surface-alt);
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* OPEN QUESTIONS */
+    .questions-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .question-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .question-q {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .question-why {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .question-how {
+      font-size: 13px;
+      color: var(--accent-mid);
+    }
+
+    /* COMPETITOR GROUP TAGS */
+    .comp-hard { color: #c0392b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+    .comp-soft { color: #3d52a0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+    .comp-aspir { color: var(--accent-mid); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* PATTERNS */
+    .pattern-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .pattern-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pattern-letter {
+      display: inline-flex;
+      width: 32px;
+      height: 32px;
+      background: var(--surface-alt);
+      color: var(--text);
+      font-weight: 700;
+      border-radius: 8px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .pattern-card h4 {
+      margin: 0 0 8px;
+    }
+
+    .pattern-fit {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 13px;
+      margin-top: 8px;
+      color: var(--text-secondary);
+    }
+
+    .fit-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-light);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* AARRR */
+    .aarrr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .aarrr-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .aarrr-stage {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-mid);
+      margin-bottom: 8px;
+    }
+
+    .aarrr-metric {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .aarrr-target {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .aarrr-mechanic {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      margin-top: 40px;
+    }
+
+    .footer-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-text {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .nav-inner { padding: 0 16px; }
+      .page { padding: 80px 16px 48px; }
+      .hero { padding: 40px 0 36px; }
+      .hero-meta { flex-direction: column; gap: 8px; }
+      .mechanism-card { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ANIMATE */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero { animation: fadeUp 0.5s ease both; }
+    section { animation: fadeUp 0.4s ease both; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Stack</a>
+    <div class="nav-links">
+      <a href="#intro">Вступ</a>
+      <a href="#model">Продукт</a>
+      <a href="#aarrr">AARRR</a>
+      <a href="#competitors">Конкуренти</a>
+      <a href="#benchmark">Бенчмарк</a>
+      <a href="#patterns">UX-патерни</a>
+      <a href="#conclusions">Висновки</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Дослідження продукту</div>
+    <h1>Stack: довіра та шлях від мети до продукту</h1>
+    <p class="hero-lead">Синтез конкурентного аналізу, бенчмарку та UX-патернів для мобільного магазину спортивного харчування в Україні, побудованого навколо тренерського каналу.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Ринок</strong> Тільки Україна</div>
+      <div class="hero-meta-item"><strong>Платформа</strong> Мобільний веб (mobile-first)</div>
+      <div class="hero-meta-item"><strong>Дата</strong> Червень 2026</div>
+      <div class="hero-meta-item"><strong>Фаза</strong> 1 з 6</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: INTRO -->
+  <section id="intro">
+    <div class="section-number">01</div>
+    <h2>Вступ</h2>
+    <p class="section-lead">Проблема, підхід та п'ять головних висновків дослідження.</p>
+
+    <h3>Проблема</h3>
+    <p>Українські магазини спортивного харчування побудовані для того, хто вже знає, що шукає. Каталог на 2500+ SKU без жодної інтерактивної навігації по цілях - це норма ринку. Початківець, який не знає різниці між ізолятом і комплексним протеїном, залишає сторінку. Тренер, який замовляє для 15 спортсменів одночасно, мусить відкрити 15 вкладок і вгадувати формат замовлення. Постійний покупець щоразу заново шукає той самий продукт.</p>
+    <p>Нікого це не влаштовує, але такий стан речей зберігається, бо жоден локальний гравець не вирішив задачу системно.</p>
+
+    <h3>Підхід до дослідження</h3>
+    <p>П'ять послідовних фаз: гіпотези продуктової моделі, AARRR-воронка, конкурентний аналіз 15 компаній (HARD/SOFT/ASPIRATIONAL), бенчмарк 5 кращих продуктів за 8 критеріями, аналіз UX-патернів. Усі факти підкріплені прямим доступом до сайтів або посиланням на джерело. Нічого не вигадано.</p>
+
+    <h3>5 головних висновків</h3>
+    <div class="conclusions-grid">
+      <div class="conclusion-card">
+        <div class="conclusion-number">01</div>
+        <div class="conclusion-text">Навігація по цілях - це продуктовий диференціатор. Жоден украйнський магазин спортпіту не має інтерактивного квізу або goal selector. Liki24 вже навчив українських користувачів шукати за симптомом, а не за категорією. Stack - перший у спортпіті.</div>
+      </div>
+      <div class="conclusion-card">
+        <div class="conclusion-number">02</div>
+        <div class="conclusion-text">Тренерський канал - це відкрита ніша. Лише belok.ua має wholesale-форму (захована на /opt/). Всі інші конкуренти обслуговують тренерів як звичайних B2C-покупців. Самообслуговування для тренерів - це не функція, це категорійна позиція.</div>
+      </div>
+      <div class="conclusion-card">
+        <div class="conclusion-number">03</div>
+        <div class="conclusion-text">Довіра - основний бар'єр конверсії, не ціна. Порожня сторінка сертифікатів belok.ua і безліч "100% оригінал"-заявок без підтвердження показують: прозорість складу і походження - ще не норма на ринку. Всі топові міжнародні гравці ведуть з безпекою, а не з ціною.</div>
+      </div>
+      <div class="conclusion-card">
+        <div class="conclusion-number">04</div>
+        <div class="conclusion-text">Підписка - не правильне рішення для MVP в Україні. Проблема повторного замовлення реальна і підтверджена, але subscription-модель (Thorne, Bulk, AG1) вимагає рівня довіри до рекурентного списання, якого на українському ринку ще немає. MVP: email/SMS-нагадування + один дотик для повтору.</div>
+      </div>
+      <div class="conclusion-card">
+        <div class="conclusion-number">05</div>
+        <div class="conclusion-text">Мобільний досвід недорозвинений, але очікуваний. Лише belok.ua (Android) і Liki24 (iOS+Android) мають підтверджені застосунки в Україні. Кейс редизайну Liki24 підтверджує: українські покупці активно використовують мобільний. Mobile-first веб Stack повинен відчуватися як рідний, не стислий.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PRODUCT MODEL -->
+  <section id="model">
+    <div class="section-number">02</div>
+    <h2>Продуктова модель</h2>
+    <p class="section-lead">Версія 2, валідована після дослідження. Усі цілі, сегменти та JTBD.</p>
+
+    <h3>Stack в одному реченні</h3>
+    <div class="card" style="margin-bottom: 24px;">
+      <p style="font-size: 17px; font-weight: 500; color: var(--text); margin: 0;">Stack - мобільний магазин спортивного харчування для українського ринку, побудований навколо тренерів і залів, що замовляють для своїх спортсменів. Перетворює незрозумілий каталог на зрозумілий шлях від мети до правильного продукту - і підтримує постійних покупців простими повторними замовленнями.</p>
+    </div>
+
+    <h3>Jobs to Be Done</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Пріоритет</th>
+            <th>Робота (Job)</th>
+            <th>Сегмент</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge-primary segment-badge">Основний</span></td>
+            <td class="td-strong">Коли я замовляю продукти для своїх клієнтів, я хочу зібрати замовлення для кількох людей за одну сесію, щоб надійно обслуговувати своїх спортсменів і підтримувати їх довіру до моїх рекомендацій.</td>
+            <td>Тренери, зали, менеджери команд</td>
+          </tr>
+          <tr>
+            <td><span class="badge-secondary segment-badge">Вторинний</span></td>
+            <td class="td-strong">Коли я хочу покращити тіло або результати, але почуваюся розгубленим і невпевненим у каталозі, я хочу відповісти на кілька простих запитань і отримати чіткий, перевірений набір продуктів для моєї мети, щоб почати впевнено.</td>
+            <td>Початківці без досвіду</td>
+          </tr>
+          <tr>
+            <td><span class="badge-supporting segment-badge">Підтримувальний</span></td>
+            <td class="td-strong">Коли в мене закінчуються мої основні продукти, я хочу повторити замовлення за один-два дотики, щоб ніколи не залишатися без запасу.</td>
+            <td>Досвідчені постійні покупці</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Аудиторія</h3>
+    <div class="segment-cards">
+      <div class="segment-card">
+        <span class="segment-badge badge-primary">Основний</span>
+        <h4>Тренери, зали, менеджери команд</h4>
+        <div class="segment-field">
+          <span class="segment-label">Вік</span>
+          <span class="segment-value">25-45</span>
+        </div>
+        <div class="segment-field">
+          <span class="segment-label">Біль</span>
+          <span class="segment-value">Всі UA-магазини побудовані для одного покупця. Замовити для 15 спортсменів - це 15 окремих кошиків без будь-яких інструментів.</span>
+        </div>
+        <div class="segment-field">
+          <span class="segment-label">Драйвер</span>
+          <span class="segment-value">Операційна ефективність. Одна сесія - всі клієнти обслуговані.</span>
+        </div>
+        <div class="segment-field">
+          <span class="segment-label">Довіра</span>
+          <span class="segment-value">Висока (доменний експерт). Не потребує пояснень, потребує інструментів.</span>
+        </div>
+      </div>
+      <div class="segment-card">
+        <span class="segment-badge badge-secondary">Вторинний</span>
+        <h4>Початківці без досвіду</h4>
+        <div class="segment-field">
+          <span class="segment-label">Вік</span>
+          <span class="segment-value">18-35</span>
+        </div>
+        <div class="segment-field">
+          <span class="segment-label">Біль</span>
+          <span class="segment-value">Величезний каталог, незнайома термінологія, страх купити щось небезпечне або непотрібне.</span>
+        </div>
+        <div class="segment-field">
+          <span class="segment-label">Драйвер</span>
+          <span class="segment-value">Впевненість і ясність. "Покажи, що безпечно і підходить для моєї мети."</span>
+        </div>
+        <div class="segment-field">
+          <span class="segment-label">Довіра</span>
+          <span class="segment-value">Низька-середня. Сигнали безпеки критичні. Приходить часто через тренера.</span>
+        </div>
+      </div>
+      <div class="segment-card">
+        <span class="segment-badge badge-supporting">Підтримувальний</span>
+        <h4>Постійні покупці ("Завжди в запасі")</h4>
+        <div class="segment-field">
+          <span class="segment-label">Вік</span>
+          <span class="segment-value">22-40</span>
+        </div>
+        <div class="segment-field">
+          <span class="segment-label">Біль</span>
+          <span class="segment-value">Щоразу знову шукати той самий продукт. Несподівана відсутність товару. Немає нагадувань.</span>
+        </div>
+        <div class="segment-field">
+          <span class="segment-label">Драйвер</span>
+          <span class="segment-value">Зручність і надійність. Ніколи не закінчується, без зайвих дій.</span>
+        </div>
+        <div class="segment-field">
+          <span class="segment-label">Довіра</span>
+          <span class="segment-value">Висока (вже конвертований). Залишається, якщо магазин надійний.</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Скоуп MVP</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Функція</th>
+            <th>Сегмент</th>
+            <th>Статус</th>
+            <th>Примітка</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Тренерський кабінет (мультиклієнтський кошик, профілі клієнтів, bulk-ціни)</td>
+            <td>Основний</td>
+            <td><span class="gap-priority-critical">Must have</span></td>
+            <td>Диференціатор від всіх UA-конкурентів</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Goal quiz / goal selector</td>
+            <td>Вторинний</td>
+            <td><span class="gap-priority-critical">Must have</span></td>
+            <td>Основний механізм активації початківця</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Картки продуктів з сигналами довіри</td>
+            <td>Всі</td>
+            <td><span class="gap-priority-critical">Must have</span></td>
+            <td>Склад, дозування, походження, сертифікація</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Каталог зі smart-фільтрацією по цілях</td>
+            <td>Всі</td>
+            <td><span class="gap-priority-critical">Must have</span></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Повторне замовлення (email/SMS, "Мої основні", 1-дотик)</td>
+            <td>Підтримувальний</td>
+            <td><span class="gap-priority-important">Should have</span></td>
+            <td>Безкоштовна зручність. Не платний рівень.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Checkout і акаунт</td>
+            <td>Всі</td>
+            <td><span class="gap-priority-critical">Must have</span></td>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 3: AARRR -->
+  <section id="aarrr">
+    <div class="section-number">03</div>
+    <h2>AARRR-воронка</h2>
+    <p class="section-lead">Канали, гіпотези та ключові метрики по кожному етапу. Тренерський канал виокремлений на всіх рівнях.</p>
+
+    <div class="aarrr-grid">
+      <div class="aarrr-card">
+        <div class="aarrr-stage">Acquisition</div>
+        <div class="aarrr-metric">Нові тренерські акаунти / місяць</div>
+        <div class="aarrr-target">Ціль: 10 за 3 міс. [?]</div>
+        <div class="aarrr-mechanic">SEO по цілях, пряме охоплення тренерів (Telegram/Instagram), платний таргет. Тренерський шлях: пряме охоплення власників залів у фітнес-спільнотах.</div>
+      </div>
+      <div class="aarrr-card">
+        <div class="aarrr-stage">Activation</div>
+        <div class="aarrr-metric">Проходження квізу; перше замовлення тренера</div>
+        <div class="aarrr-target">40% завершення квізу; 60% тренерів - перше замовлення за 7 днів [?]</div>
+        <div class="aarrr-mechanic">Goal quiz, goal selector, онбординг тренерського акаунту. Активація = отримана цінність до першої покупки.</div>
+      </div>
+      <div class="aarrr-card">
+        <div class="aarrr-stage">Retention</div>
+        <div class="aarrr-metric">30-денний рівень повторних покупок</div>
+        <div class="aarrr-target">35% [?]</div>
+        <div class="aarrr-mechanic">Email/SMS-нагадування про поповнення (не підписка), список "Мої основні", сповіщення про наявність. Тренери - утримуються через надійність постачання.</div>
+      </div>
+      <div class="aarrr-card">
+        <div class="aarrr-stage">Revenue</div>
+        <div class="aarrr-metric">GMV; середній чек за сегментом</div>
+        <div class="aarrr-target">1200-2000 грн (індивід.); 4000-12000 грн (тренер) [?]</div>
+        <div class="aarrr-mechanic">Маржа з продажів. Bulk-ціни для тренерів - інвестиція в канал. Upsell з квізу.</div>
+      </div>
+      <div class="aarrr-card">
+        <div class="aarrr-stage">Referral</div>
+        <div class="aarrr-metric">% нових акаунтів через реферал</div>
+        <div class="aarrr-target">20% за 6 міс. [?]</div>
+        <div class="aarrr-mechanic">Тренер рекомендує Stack своїм спортсменам - реферал із вбудованою довірою. Реферальні посилання тренерів - фаза 2.</div>
+      </div>
+    </div>
+
+    <p style="margin-top: 16px; font-size: 13px; color: var(--text-light);">Усі значення, позначені [?], є гіпотезами. Потребують валідації через ранні продажі та інтерв'ю.</p>
+  </section>
+
+  <!-- SECTION 4: COMPETITORS -->
+  <section id="competitors">
+    <div class="section-number">04</div>
+    <h2>Конкуренти</h2>
+    <p class="section-lead">Три групи. HARD - прямі конкуренти на українському ринку. SOFT - інший продукт, однаковий JTBD. ASPIRATIONAL - міжнародні зразки поведінки, не ринкові суперники.</p>
+
+    <h3>Матриця 5 найважливіших конкурентів</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Конкурент</th>
+            <th>Аудиторія</th>
+            <th>Ключовий механізм</th>
+            <th>Довіра</th>
+            <th>Монетизація</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="td-strong">belok.ua</div>
+              <div class="comp-hard">HARD</div>
+            </td>
+            <td>Всі рівні; оптова форма для тренерів (захована)</td>
+            <td>Ціна за порцію; 3 цілі-бакети; накопичувальна знижка (5% після 10K грн)</td>
+            <td>Фізична присутність (40+ магазинів, 15 років); порожня сторінка сертифікатів</td>
+            <td>Маржа; оптова форма; Android-застосунок</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="td-strong">myprotein.com</div>
+              <div class="comp-aspir">ASPIRATIONAL</div>
+            </td>
+            <td>Глобально, all levels; trade accounts для B2B</td>
+            <td>6-goal selector; Expert Advice hub; 210K+ відгуків на Trustpilot</td>
+            <td>BRCGS AA+; Informed Choice/Protein/NSF; "ми не розбавляємо протеїн"</td>
+            <td>Маржа; підписки; 5% знижка за застосунок</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="td-strong">thorne.com</div>
+              <div class="comp-aspir">ASPIRATIONAL</div>
+            </td>
+            <td>Health-focused; атлети; практики охорони здоров'я</td>
+            <td>Taia AI-помічник; Health Tests (лікарська перевірка); "Take 5 Daily"</td>
+            <td>NSF+TGA+GRMA; 4 раунди тестування; партнерства Mayo Clinic, NIH, Duke</td>
+            <td>Маржа; підписка -20%; professional tools</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="td-strong">liki24.com</div>
+              <div class="comp-soft">SOFT</div>
+            </td>
+            <td>Українські покупці здоров'я; 1М+ клієнтів</td>
+            <td>Навігація за симптомами - найсильніша goal-to-product модель на UA ринку</td>
+            <td>1М+ клієнтів; визнання ЄС; редизайн мобільного застосунку</td>
+            <td>Маржа маркетплейсу; кешбек; реферал</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="td-strong">huel.com</div>
+              <div class="comp-aspir">ASPIRATIONAL</div>
+            </td>
+            <td>Health-conscious дорослі; фітнес-орієнтовані</td>
+            <td>Квіз "Який Huel тобі підходить?" + сторінка 4 цілей - подвійний шлях відкриття</td>
+            <td>B Corp 92.1; "100+ рецензованих досліджень"; гарантія смаку 30 днів</td>
+            <td>Маржа; підписка -20%; Huel+; "Give 25% Get 25%"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>3 спільні патерни</h3>
+    <div class="card-grid" style="margin-top: 16px;">
+      <div class="card">
+        <h4>Навігація по цілях - стандарт</h4>
+        <p style="font-size: 14px;">Кожен гравець використовує якусь форму goal-навігації. UA-магазини - 3-5 статичних категорій. Міжнародні лідери - квізи, AI-помічники, гендерні шляхи. Та сама концепція, гігантська різниця у виконанні.</p>
+      </div>
+      <div class="card">
+        <h4>Довіра будується по-різному за рівнем зрілості ринку</h4>
+        <p style="font-size: 14px;">Україна: фізична присутність, роки роботи, "100% оригінал". Міжнародні: сторонні сертифікати, клінічні партнерства, 200К+ відгуків. Обидва підходи валідні для свого контексту.</p>
+      </div>
+      <div class="card">
+        <h4>Повторне замовлення - продуктова функція, не аксесуар</h4>
+        <p style="font-size: 14px;">В Україні - накопичувальна знижка belok.ua у кращому разі. Миprotein, Bulk, Thorne, Huel мають структуровані підписки з явною економією. "Ніколи не закінчується" - незайнята ніша на UA ринку.</p>
+      </div>
+    </div>
+
+    <h3>Ключові прогалини ринку (можливості для Stack)</h3>
+    <div class="table-wrap" style="margin-top: 16px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Прогалина</th>
+            <th>Пріоритет</th>
+            <th>Джерело доказів</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Інтерактивна goal-to-product навігація</td>
+            <td><span class="gap-priority-critical">Критичний</span></td>
+            <td>Жоден UA-конкурент не має. Myprotein, Huel, Bulk мають.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Тренерське замовлення як front-of-site функція</td>
+            <td><span class="gap-priority-critical">Критичний</span></td>
+            <td>Тільки belok.ua/ua/opt/ - форма з передзвоном, не самообслуговування</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Комунікація якості (склад, тестування, походження)</td>
+            <td><span class="gap-priority-critical">Критичний</span></td>
+            <td>belok.ua/ua/serteficates/ - порожня. Жоден UA-магазин не пояснює глибину.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Smart-нагадування для повторного замовлення</td>
+            <td><span class="gap-priority-important">Важливий</span></td>
+            <td>Відсутнє у всіх UA hard competitors</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Ціна за порцію</td>
+            <td><span class="gap-priority-nice">Nice to have</span></td>
+            <td>Лише belok.ua показує. Корисний UX-сигнал для цінового порівняння.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Скріншоти конкурентів</h3>
+    <div class="screenshots-scroll">
+      <div class="screenshot-item">
+        <img src="research/screens/belok-ua-homepage.png" alt="belok.ua головна">
+        <div class="screenshot-label">belok.ua - головна</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="research/screens/belok-ua-protein-category.png" alt="belok.ua протеїн">
+        <div class="screenshot-label">belok.ua - категорія протеїн</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="research/screens/belok-ua-wholesale.png" alt="belok.ua опт">
+        <div class="screenshot-label">belok.ua - форма оптових клієнтів</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="research/screens/protein-kiev-ua-homepage.png" alt="protein.kiev.ua">
+        <div class="screenshot-label">protein.kiev.ua - головна</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="research/screens/bcaa-ua-homepage.png" alt="bcaa.ua">
+        <div class="screenshot-label">bcaa.ua - головна</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="research/screens/liki24-homepage.png" alt="liki24.com">
+        <div class="screenshot-label">liki24.com - навігація за симптомами</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: BENCHMARK -->
+  <section id="benchmark">
+    <div class="section-number">05</div>
+    <h2>Бенчмарк</h2>
+    <p class="section-lead">Як найкращі продукти переводять нееxперта від мети до безпечного продукту, будують довіру і спрощують повторне замовлення.</p>
+
+    <h3>Оцінки за 8 критеріями (шкала 1-5)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Критерій</th>
+            <th>Myprotein</th>
+            <th>Thorne</th>
+            <th>Huel</th>
+            <th>Bulk</th>
+            <th>Liki24</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ясність першого екрану</td>
+            <td><span class="score score-3">3</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-3">3</span></td>
+          </tr>
+          <tr>
+            <td>Шлях від мети до продукту</td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-5">5</span></td>
+            <td><span class="score score-5">5</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-4">4</span></td>
+          </tr>
+          <tr>
+            <td>Прозорість складу і дозування</td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-5">5</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-3">3</span></td>
+          </tr>
+          <tr>
+            <td>Сигнали походження і сертифікації</td>
+            <td><span class="score score-5">5</span></td>
+            <td><span class="score score-5">5</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-5">5</span></td>
+            <td><span class="score score-3">3</span></td>
+          </tr>
+          <tr>
+            <td>Якість соціального доказу</td>
+            <td><span class="score score-5">5</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-3">3</span></td>
+            <td><span class="score score-3">3</span></td>
+          </tr>
+          <tr>
+            <td>Спокійний, довірливий тон</td>
+            <td><span class="score score-3">3</span></td>
+            <td><span class="score score-5">5</span></td>
+            <td><span class="score score-5">5</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-4">4</span></td>
+          </tr>
+          <tr>
+            <td>Простота повторного замовлення</td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-5">5</span></td>
+            <td><span class="score score-3">3</span></td>
+          </tr>
+          <tr>
+            <td>Тренерське / оптове замовлення</td>
+            <td><span class="score score-3">3</span></td>
+            <td><span class="score score-4">4</span></td>
+            <td><span class="score score-1">1</span></td>
+            <td><span class="score score-1">1</span></td>
+            <td><span class="score score-1">1</span></td>
+          </tr>
+          <tr style="background: var(--accent-light);">
+            <td class="td-strong">Загальний бал (з 40)</td>
+            <td><span class="score-total">31</span></td>
+            <td><span class="score-total">36</span></td>
+            <td><span class="score-total">31</span></td>
+            <td><span class="score-total">30</span></td>
+            <td><span class="score-total">24</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Топ-3 механізми для MVP</h3>
+    <div class="mechanism-cards">
+      <div class="mechanism-card">
+        <div class="mechanism-num">1</div>
+        <div class="mechanism-content">
+          <h4>Goal Selector як основний вхід (Myprotein + Huel)</h4>
+          <p>Myprotein: 6 цілей на сторінці goal-selector (Кардіо, Збалансований спосіб життя, Сила, Маса, Схуднення, Еліт) - кожна веде до підібраної добірки продуктів. Huel: 4 цілі на сторінці choose-your-goal плюс квіз для глибшої персоналізації.</p>
+          <div class="mechanism-why">Усуває паралізацію вибором. Покупець не знає назв продуктів - але знає свою мету. Магазин бере на себе роботу з підбору.</div>
+          <div class="mechanism-source">us.myprotein.com/c/goal-selector/ - huel.com/pages/choose-your-goal</div>
+        </div>
+      </div>
+      <div class="mechanism-card">
+        <div class="mechanism-num">2</div>
+        <div class="mechanism-content">
+          <h4>Багаторівневі сигнали довіри на рівні продукту (Thorne + Bulk)</h4>
+          <p>Thorne: 4 раунди тестування (чистота сировини, потентність, відсутність забруднень, термін зберігання) - пояснені простою мовою на кожній картці продукту. Bulk: 149 продуктів із сертифікацією Informed Sport з результатами тестів LGC Sport Science.</p>
+          <div class="mechanism-why">Основний сумнів покупця на сторінці продукту - "чи безпечно і чи це справжнє?". Відповідь на питання безпеки ДО ціни будує довіру, що робить покупку відчутно правильною, а не ризикованою.</div>
+          <div class="mechanism-source">thorne.com/nsf-certified-for-sport - bulk.com/uk/sports-nutrition/informed-sport</div>
+        </div>
+      </div>
+      <div class="mechanism-card">
+        <div class="mechanism-num">3</div>
+        <div class="mechanism-content">
+          <h4>Навігація за симптомом/потребою як другорядний шлях (Liki24)</h4>
+          <p>Liki24: категорія "Симптоми" (liki24.com) організує товари за станами покупця, а не за категоріями продуктів. "При болю і спазмах," "Від грипу та застуди" - покупець описує ситуацію, а не шуканий продукт.</p>
+          <div class="mechanism-why">Зустрічає покупця там, де він є. "Я швидко втомлююся" - більш природний опис, ніж "хочу pre-workout". Вже доведено на українському ринку через 1М+ клієнтів Liki24.</div>
+          <div class="mechanism-source">liki24.com - підтверджено на UA ринку</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Механізм, що НЕ спрацює в нашому контексті</h3>
+    <div class="mechanism-card mechanism-wont" style="margin-top: 16px;">
+      <div class="mechanism-num" style="background: #fce8e8; color: #c0392b;">X</div>
+      <div class="mechanism-content">
+        <h4>Підписка як основний шлях покупки (AG1 / Thorne)</h4>
+        <p>AG1 і Thorne пропонують підписку як дефолтний варіант покупки. На українському ринку в MVP цей підхід не спрацює.</p>
+        <div class="mechanism-why">Українські покупці мають низьку довіру до рекурентних списань через складнощі з оформленням і обмежений захист споживачів. Ні belok.ua, ні жоден інший UA-конкурент не використовує підписки. Поведінка ще не сформована. MVP-рішення: email/SMS-нагадування + повтор замовлення одним дотиком.</div>
+      </div>
+    </div>
+
+    <h3>Скріншоти бенчмарку</h3>
+    <div class="screenshots-scroll">
+      <div class="screenshot-item">
+        <img src="research/screens/myprotein-homepage.png" alt="Myprotein головна">
+        <div class="screenshot-label">Myprotein - головна</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="research/screens/myprotein-goal-selector.png" alt="Myprotein goal selector">
+        <div class="screenshot-label">Myprotein - goal selector</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="research/screens/thorne-homepage.png" alt="Thorne головна">
+        <div class="screenshot-label">Thorne - головна</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="research/screens/thorne-taia-advisor.png" alt="Thorne Taia">
+        <div class="screenshot-label">Thorne - Taia AI-помічник</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="research/screens/huel-homepage.png" alt="Huel головна">
+        <div class="screenshot-label">Huel - головна</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="research/screens/huel-goal-selector.png" alt="Huel goal selector">
+        <div class="screenshot-label">Huel - "Choose Your Goal"</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="research/screens/bulk-homepage.png" alt="Bulk головна">
+        <div class="screenshot-label">Bulk - 4 цілі на головній</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: UX PATTERNS -->
+  <section id="patterns">
+    <div class="section-number">06</div>
+    <h2>UX-патерни</h2>
+    <p class="section-lead">П'ять фундаментально різних патернів, вибір основного, альтернатива і те, що не підходить.</p>
+
+    <h3>Поведінкові патерни аудиторії</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Патерн</th>
+            <th>Сегмент</th>
+            <th>Критичність</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Мета - перше, продукт - друге</td>
+            <td>Всі (особливо початківці)</td>
+            <td><span class="gap-priority-critical">Основна точка входу</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">Перевірка безпеки перед рішенням про покупку</td>
+            <td>Початківці</td>
+            <td><span class="gap-priority-critical">Критична</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">Тренер як посередник (замовлення для кількох)</td>
+            <td>Тренери/зали</td>
+            <td><span class="gap-priority-critical">Критична</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">Повторна покупка з мінімальними зусиллями</td>
+            <td>Постійні покупці</td>
+            <td><span class="gap-priority-important">Важлива</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">Довіра через видиму профкредентіальність</td>
+            <td>Всі (особливо UA)</td>
+            <td><span class="gap-priority-important">Важлива</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>5 фундаментально різних UX-патернів</h3>
+    <div class="pattern-grid">
+      <div class="pattern-card">
+        <div class="pattern-letter">A</div>
+        <h4>Goal Selector (підбір за ціллю)</h4>
+        <p style="font-size: 14px;">4-6 тайлів з цілями - основна навігація. Кожна ціль веде до підібраної добірки. Не потрібно знати назви продуктів.</p>
+        <div class="pattern-fit">
+          <span class="fit-label">Підходить</span>
+          <span>Великий каталог, початківці без знання термінології, стабільні цілі</span>
+        </div>
+        <div class="pattern-fit">
+          <span class="fit-label">Ламається</span>
+          <span>Коли цілі занадто широкі або покупець хоче описати стан, а не мету</span>
+        </div>
+      </div>
+      <div class="pattern-card">
+        <div class="pattern-letter">B</div>
+        <h4>Guided Quiz (персоналізований квіз)</h4>
+        <p style="font-size: 14px;">3-7 питань про мету, досвід, обмеження. Результат - іменований персоналізований набір продуктів.</p>
+        <div class="pattern-fit">
+          <span class="fit-label">Підходить</span>
+          <span>Перша покупка, максимальна конверсія початківця</span>
+        </div>
+        <div class="pattern-fit">
+          <span class="fit-label">Ламається</span>
+          <span>Для постійних покупців (зайве тертя), тренерів (немає мультиклієнтського контексту)</span>
+        </div>
+      </div>
+      <div class="pattern-card">
+        <div class="pattern-letter">C</div>
+        <h4>Навігація за симптомом</h4>
+        <p style="font-size: 14px;">Каталог організований за станами/проблемами покупця, не за категоріями. "Я швидко втомлююся" - а не "pre-workout".</p>
+        <div class="pattern-fit">
+          <span class="fit-label">Підходить</span>
+          <span>Другорядний шлях для початківців, які не можуть сформулювати фітнес-ціль</span>
+        </div>
+        <div class="pattern-fit">
+          <span class="fit-label">Ламається</span>
+          <span>Для тих, хто вже знає продукти; як основна структура для спортпіту</span>
+        </div>
+      </div>
+      <div class="pattern-card">
+        <div class="pattern-letter">D</div>
+        <h4>Тренерський кабінет / B2B-замовлення</h4>
+        <p style="font-size: 14px;">Окремий тип акаунту. Список клієнтів з профілями. Замовлення "для клієнта X". Bulk-ціни, виписка рахунку, архів замовлень по клієнту.</p>
+        <div class="pattern-fit">
+          <span class="fit-label">Підходить</span>
+          <span>Основний інтерфейс для сегменту тренерів. Ціль: самообслуговування за 5 хвилин реєстрації.</span>
+        </div>
+        <div class="pattern-fit">
+          <span class="fit-label">Ламається</span>
+          <span>Для звичайних покупців (занадто складно); коли tooling занадто корпоративний</span>
+        </div>
+      </div>
+      <div class="pattern-card">
+        <div class="pattern-letter">E</div>
+        <h4>"Завжди в запасі" / Акаунт-першого-повтору</h4>
+        <p style="font-size: 14px;">Головна акаунту - список "Мої основні" з наявністю та датою замовлення. Email/SMS за оцінкою споживання. Один дотик до кошика.</p>
+        <div class="pattern-fit">
+          <span class="fit-label">Підходить</span>
+          <span>Постійні покупці після першого замовлення</span>
+        </div>
+        <div class="pattern-fit">
+          <span class="fit-label">Ламається</span>
+          <span>Для нових покупців (немає списку основних); як канал залучення</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Вибір патернів</h3>
+    <div class="card" style="margin-top: 16px;">
+      <h4 style="color: var(--accent); margin-top: 0;">Основний: Goal Selector + Guided Quiz</h4>
+      <p>Головна - goal selector (4-6 тайлів з цілями). Другорядний шлях "допоможи вибрати" веде до квізу для тих, хто не може ідентифікувати ціль.</p>
+      <p style="font-size: 14px; color: var(--text-light);">Причина 1 (JTBD): найкоротший валідований шлях від наміру до підібраних продуктів. Причина 2 (аудиторія): Liki24 вже навчив українців шукати за потребою. Причина 3 (прогалина ринку): жоден UA-спортпіт не має цього. Перевага першого гравця.</p>
+
+      <h4 style="color: #3d52a0;">Альтернатива при умові X</h4>
+      <p style="font-size: 14px;">Якщо A/B-тест покаже значний відсів на тайлах цілей серед сегменту "загальне здоров'я / енергія", активувати навігацію за симптомом як другорядний шлях з міткою "Не знаєш, з чого почати?" - нижче тайлів, не замість них.</p>
+
+      <h4 style="color: #c0392b;">Що НЕ підходить</h4>
+      <p style="font-size: 14px;">Підписка як основний шлях покупки. Проблема повторного замовлення реальна. Але підписка вимагає рівня довіри до рекурентних платежів, якого ще немає на UA-ринку. Правильне MVP-рішення: email/SMS + один дотик для повтору.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 7: CONCLUSIONS -->
+  <section id="conclusions">
+    <div class="section-number">07</div>
+    <h2>Висновки</h2>
+    <p class="section-lead">Таблиця прогалин, 6 гіпотез у форматі Якщо / То / Тому що, і відкриті питання.</p>
+
+    <h3>Таблиця прогалин</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Прогалина</th>
+            <th>Пріоритет</th>
+            <th>Джерело</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Інтерактивна goal-to-product навігація - відсутня на UA ринку спортпіту</td>
+            <td><span class="gap-priority-critical">Критичний</span></td>
+            <td>Прямий аналіз всіх UA hard competitors</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Тренерські інструменти самообслуговування</td>
+            <td><span class="gap-priority-critical">Критичний</span></td>
+            <td>belok.ua/ua/opt/ - єдина UA-опція, форма з передзвоном</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Прозорість складу і тестування на сторінках продуктів</td>
+            <td><span class="gap-priority-critical">Критичний</span></td>
+            <td>belok.ua/ua/serteficates/ - порожня сторінка</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Smart-нагадування і зручне повторне замовлення</td>
+            <td><span class="gap-priority-important">Важливий</span></td>
+            <td>Відсутнє у всіх UA hard competitors</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Якісний мобільний досвід для спортпіту</td>
+            <td><span class="gap-priority-important">Важливий</span></td>
+            <td>Лише belok.ua (Android). Liki24 (soft) - кращий приклад в UA</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Ціна за порцію в каталозі</td>
+            <td><span class="gap-priority-nice">Nice to have</span></td>
+            <td>Тільки belok.ua показує. Корисна UX-деталь.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>6 гіпотез (Якщо / То / Тому що)</h3>
+    <div class="hypothesis-grid">
+      <div class="hyp-card">
+        <div class="hyp-row hyp-if">
+          <div class="hyp-label">Якщо</div>
+          <div class="hyp-text">Stack стане першим UA-магазином спортпіту з інтерактивним goal quiz</div>
+        </div>
+        <div class="hyp-row hyp-then">
+          <div class="hyp-label">То</div>
+          <div class="hyp-text">конверсія початківців буде значно вищою, ніж у конкурентів</div>
+        </div>
+        <div class="hyp-row hyp-because">
+          <div class="hyp-label">Тому що</div>
+          <div class="hyp-text">основна причина відмов початківців - перевантаження каталогом, а не ціна. Жоден UA-конкурент цього не вирішує.</div>
+        </div>
+      </div>
+
+      <div class="hyp-card">
+        <div class="hyp-row hyp-if">
+          <div class="hyp-label">Якщо</div>
+          <div class="hyp-text">тренери матимуть самообслуговування для мультиклієнтського замовлення (а не форму з передзвоном)</div>
+        </div>
+        <div class="hyp-row hyp-then">
+          <div class="hyp-label">То</div>
+          <div class="hyp-text">тренерські акаунти матимуть рівень повторних замовлень понад 80% за 90 днів</div>
+        </div>
+        <div class="hyp-row hyp-because">
+          <div class="hyp-label">Тому що</div>
+          <div class="hyp-text">тренери, що знайшли надійного постачальника, стають прив'язаними клієнтами - витрати на переключення високі, коли клієнтські стосунки залежать від стабільного постачання.</div>
+        </div>
+      </div>
+
+      <div class="hyp-card">
+        <div class="hyp-row hyp-if">
+          <div class="hyp-label">Якщо</div>
+          <div class="hyp-text">сторінки продуктів починаються зі складу, дозування і сигналів походження - ДО ціни</div>
+        </div>
+        <div class="hyp-row hyp-then">
+          <div class="hyp-label">То</div>
+          <div class="hyp-text">показник відмов на картках продуктів для нових відвідувачів знизиться</div>
+        </div>
+        <div class="hyp-row hyp-because">
+          <div class="hyp-label">Тому що</div>
+          <div class="hyp-text">основний тригер виходу для початківця - невирішений сумнів у безпеці. Відповідь на питання безпеки спочатку розриває цикл виходу.</div>
+        </div>
+      </div>
+
+      <div class="hyp-card">
+        <div class="hyp-row hyp-if">
+          <div class="hyp-label">Якщо</div>
+          <div class="hyp-text">тренерський канал генерує 40% GMV за 6 місяців</div>
+        </div>
+        <div class="hyp-row hyp-then">
+          <div class="hyp-label">То</div>
+          <div class="hyp-text">Stack може пропонувати тренерські ціни на 5-10% нижче роздрібних і все одно покращити загальну маржу [?]</div>
+        </div>
+        <div class="hyp-row hyp-because">
+          <div class="hyp-label">Тому що</div>
+          <div class="hyp-text">один тренерський акаунт замінює вартість залучення 10-30 індивідуальних клієнтів.</div>
+        </div>
+      </div>
+
+      <div class="hyp-card">
+        <div class="hyp-row hyp-if">
+          <div class="hyp-label">Якщо</div>
+          <div class="hyp-text">email/SMS-нагадування про поповнення надсилаються за 5-7 днів до прогнозованого вичерпання запасу</div>
+        </div>
+        <div class="hyp-row hyp-then">
+          <div class="hyp-label">То</div>
+          <div class="hyp-text">30-денний рівень повторних покупок перевищить 35% для сегменту постійних покупців [?]</div>
+        </div>
+        <div class="hyp-row hyp-because">
+          <div class="hyp-label">Тому що</div>
+          <div class="hyp-text">основний бар'єр для повтору - не мотивація (вони хочуть замовити), а момент і тертя. Нагадування усувають обидва.</div>
+        </div>
+      </div>
+
+      <div class="hyp-card">
+        <div class="hyp-row hyp-if">
+          <div class="hyp-label">Якщо</div>
+          <div class="hyp-text">Stack показує прапорець походження, розбивку складу і один сигнал якості на кожній картці продукту</div>
+        </div>
+        <div class="hyp-row hyp-then">
+          <div class="hyp-label">То</div>
+          <div class="hyp-text">взаємодія з сигналами довіри корелюватиме з вищим показником "додати до кошика"</div>
+        </div>
+        <div class="hyp-row hyp-because">
+          <div class="hyp-label">Тому що</div>
+          <div class="hyp-text">усунення сумніву в безпеці є безпосередньою причиною рішення про покупку у нееxперта. Всі лідери бенчмарку підтверджують цей патерн.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Відкриті питання</h3>
+    <div class="questions-list">
+      <div class="question-card">
+        <div class="question-q">Через які канали краще охопити українських тренерів - цифрові (Instagram/Telegram) чи особисті контакти?</div>
+        <div class="question-why">Визначає структуру і бюджет каналів залучення для основного сегменту.</div>
+        <div class="question-how">Якісні інтерв'ю з 5-10 тренерами; спостереження в фітнес-спільнотах.</div>
+      </div>
+      <div class="question-card">
+        <div class="question-q">Яка реальна конкуренція за украномовні goal-based пошукові терміни ("спортивне харчування для схуднення")?</div>
+        <div class="question-why">Визначає баланс SEO і платного таргету для залучення початківців.</div>
+        <div class="question-how">Keyword research через Ahrefs/Semrush з даними по Україні.</div>
+      </div>
+      <div class="question-card">
+        <div class="question-q">Які сигнали довіри найбільше резонують з українськими покупцями: сертифікаційні бейджі, рекомендації тренерів, лабораторні тести чи фізична присутність?</div>
+        <div class="question-why">Визначає пріоритет архітектури довіри на сторінках продуктів.</div>
+        <div class="question-how">A/B-тест лендінгу або 5-second test з цільовими користувачами.</div>
+      </div>
+      <div class="question-card">
+        <div class="question-q">Який реальний цикл споживання основних продуктів (сироватковий протеїн 2 кг, креатин 300 г)?</div>
+        <div class="question-why">Необхідно для точного налаштування нагадувань про поповнення.</div>
+        <div class="question-how">Документація продукту і короткі інтерв'ю з покупцями.</div>
+      </div>
+      <div class="question-card">
+        <div class="question-q">Чи є попит на платний тренерський акаунт, чи базових інструментів достатньо?</div>
+        <div class="question-why">Визначає складність бізнес-моделі на запуску.</div>
+        <div class="question-how">Якісні інтерв'ю з 5-10 тренерами до написання коду.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-text">Stack - Фаза 1: Дослідження. Червень 2026. Всі факти підкріплені джерелами.</div>
+    <div class="footer-text">Наступна фаза: Вайрфрейми</div>
+  </div>
+</footer>
+
+</body>
+</html>
