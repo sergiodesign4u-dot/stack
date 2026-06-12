@@ -37,7 +37,7 @@ handoff/          - Developer handoff files
 ## Key Documents
 
 - [CLAUDE.md](CLAUDE.md) - Product brief, JTBD, audience, MVP scope, design principles
-- [Research: Product Model](research/product-model.md)
+- [Research: Strategy](research/strategy.md) (migrated from product-model.md)
 - [Research: AARRR Model](research/aarrr.md)
 - [Research: Competitive Analysis](research/competitive-analysis.md)
 - [Research: Benchmark](research/benchmark.md)

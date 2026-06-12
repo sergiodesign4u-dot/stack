@@ -778,6 +778,88 @@
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
 
+    /* LEAN UX CANVAS */
+    .canvas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 24px;
+      background: var(--border);
+    }
+
+    .canvas-cell {
+      background: var(--surface);
+      padding: 20px 22px;
+    }
+
+    .canvas-problem { grid-column: 1; grid-row: 1; }
+    .canvas-outcomes { grid-column: 2; grid-row: 1; }
+    .canvas-users { grid-column: 3; grid-row: 1; }
+    .canvas-user-outcomes { grid-column: 1; grid-row: 2; }
+    .canvas-solutions { grid-column: 2; grid-row: 2; }
+    .canvas-hypotheses { grid-column: 3; grid-row: 2; }
+    .canvas-riskiest { grid-column: 1 / 3; grid-row: 3; }
+    .canvas-test { grid-column: 3; grid-row: 3; }
+
+    .canvas-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-mid);
+      margin-bottom: 10px;
+    }
+
+    .canvas-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .canvas-list li {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 4px 0 4px 14px;
+      position: relative;
+      line-height: 1.45;
+    }
+
+    .canvas-list li::before {
+      content: "•";
+      color: var(--accent-mid);
+      position: absolute;
+      left: 0;
+    }
+
+    .canvas-segment {
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 6px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .canvas-segment-primary { background: var(--accent-light); color: var(--accent); }
+    .canvas-segment-secondary { background: #ebe8f7; color: #4a3a8c; }
+    .canvas-segment-supporting { background: var(--surface-alt); color: var(--text-secondary); }
+
+    .canvas-risk {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.55;
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 760px) {
+      .canvas-grid { grid-template-columns: 1fr; }
+      .canvas-riskiest { grid-column: 1; }
+    }
+
     /* ANIMATE */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
@@ -795,7 +877,8 @@
     <a href="#" class="nav-logo">Stack</a>
     <div class="nav-links">
       <a href="#intro">Вступ</a>
-      <a href="#model">Продукт</a>
+      <a href="#canvas">Lean UX</a>
+      <a href="#model">Стратегія</a>
       <a href="#aarrr">AARRR</a>
       <a href="#competitors">Конкуренти</a>
       <a href="#benchmark">Бенчмарк</a>
@@ -857,11 +940,74 @@
     </div>
   </section>
 
-  <!-- SECTION 2: PRODUCT MODEL -->
-  <section id="model">
+  <!-- SECTION 2: LEAN UX CANVAS -->
+  <section id="canvas">
     <div class="section-number">02</div>
-    <h2>Продуктова модель</h2>
-    <p class="section-lead">Версія 2, валідована після дослідження. Усі цілі, сегменти та JTBD.</p>
+    <h2>Lean UX Canvas</h2>
+    <p class="section-lead">Виконавче резюме дослідження на одному екрані. Lean UX Canvas v2 (Jeff Gothelf).</p>
+
+    <div class="canvas-grid">
+      <div class="canvas-cell canvas-problem">
+        <div class="canvas-label">01. Бізнес-проблема</div>
+        <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin:0;">Українські магазини спортивного харчування побудовані для покупця, який вже знає, що шукає. Немає інтерактивного goal-квізу, немає тренерських інструментів самообслуговування, немає прозорості складу на рівні картки продукту. Початківець залишає сторінку. Тренер замовляє вручну через форми або дзвінки. Постійний покупець щоразу заново шукає той самий продукт.</p>
+      </div>
+      <div class="canvas-cell canvas-outcomes">
+        <div class="canvas-label">02. Бізнес-результати</div>
+        <ul class="canvas-list">
+          <li>Менше 5% повернень на сторінках продуктів</li>
+          <li>40% GMV від тренерських акаунтів за 6 місяців [?]</li>
+          <li>40% завершення goal-квізу [?]</li>
+          <li>35% повторних покупок за 30 днів [?]</li>
+        </ul>
+      </div>
+      <div class="canvas-cell canvas-users">
+        <div class="canvas-label">03. Користувачі</div>
+        <div class="canvas-segment canvas-segment-primary">Основний: тренери і зали (25-45) - замовляють для спортсменів</div>
+        <div class="canvas-segment canvas-segment-secondary">Вторинний: початківці (18-35) - розгублені в каталозі</div>
+        <div class="canvas-segment canvas-segment-supporting">Підтримувальний: постійні покупці (22-40) - поповнюють запас</div>
+      </div>
+      <div class="canvas-cell canvas-user-outcomes">
+        <div class="canvas-label">04. Результати і вигоди для користувача</div>
+        <ul class="canvas-list">
+          <li>Тренер: замовив для всіх клієнтів за одну сесію, надійно і швидко</li>
+          <li>Початківець: знаю, що безпечно і підходить для моєї мети</li>
+          <li>Постійний: ніколи не закінчується, без зайвих кроків і рішень</li>
+        </ul>
+      </div>
+      <div class="canvas-cell canvas-solutions">
+        <div class="canvas-label">05. Рішення</div>
+        <ul class="canvas-list">
+          <li>Мультиклієнтський кошик зі збереженими профілями спортсменів</li>
+          <li>Goal-квіз: 3-5 запитань, одразу перевірений набір продуктів</li>
+          <li>Картка продукту: склад, дозування, походження, сертифікація - до ціни</li>
+          <li>Email/SMS-нагадування + повтор замовлення в один дотик</li>
+        </ul>
+      </div>
+      <div class="canvas-cell canvas-hypotheses">
+        <div class="canvas-label">06. Гіпотези</div>
+        <ul class="canvas-list">
+          <li>Якщо goal-квіз - то вища конверсія початківців, бо проблема каталогу, а не ціна.</li>
+          <li>Якщо мультиклієнтський кошик - то повторні замовлення тренерів понад 80% за 90 днів, бо надійний постачальник - це висока вартість переключення.</li>
+          <li>Якщо довіра до ціни - то менший bounce, бо головний бар'єр - страх безпеки, а не ціна.</li>
+        </ul>
+      </div>
+      <div class="canvas-cell canvas-riskiest">
+        <div class="canvas-label">07. Що найважливіше дізнатися першим</div>
+        <p class="canvas-risk">Тренери справді будуть замовляти через Stack - і їх можна охопити цифровими каналами, - навіть попри часткові рішення GymBeam B2B і belok.ua wholesale. Якщо ні - основна бізнес-модель потребує перегляду до початку розробки.</p>
+      </div>
+      <div class="canvas-cell canvas-test">
+        <div class="canvas-label">08. Мінімальний тест</div>
+        <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin:0;">5-10 якісних інтерв'ю з українськими тренерами до написання коду. Ключові питання: як замовляєте зараз? Пробували GymBeam B2B чи belok.ua wholesale? Чого не вистачає? Вирішив би мультиклієнтський кошик зі збереженими профілями реальну проблему?</p>
+      </div>
+    </div>
+    <p style="font-size:12px; color:var(--text-light); margin-top:12px;">Lean UX Canvas v2, Jeff Gothelf. Заповнено з матеріалів дослідження (strategy.md, aarrr.md, competitive-analysis.md).</p>
+  </section>
+
+  <!-- SECTION 3: STRATEGY -->
+  <section id="model">
+    <div class="section-number">03</div>
+    <h2>Стратегія</h2>
+    <p class="section-lead">Версія refresh, валідована після конкурентного аналізу. Цілі, сегменти, бізнес-модель та найризикованіша гіпотеза.</p>
 
     <h3>Stack в одному реченні</h3>
     <div class="card" style="margin-bottom: 24px;">
@@ -1017,7 +1163,7 @@
 
   <!-- SECTION 3: AARRR -->
   <section id="aarrr">
-    <div class="section-number">03</div>
+    <div class="section-number">04</div>
     <h2>AARRR-воронка</h2>
     <p class="section-lead">Канали, гіпотези та ключові метрики по кожному етапу. Тренерський канал виокремлений на всіх рівнях.</p>
 
@@ -1059,7 +1205,7 @@
 
   <!-- SECTION 4: COMPETITORS -->
   <section id="competitors">
-    <div class="section-number">04</div>
+    <div class="section-number">05</div>
     <h2>Конкуренти</h2>
     <p class="section-lead">Три групи. HARD - прямі конкуренти на українському ринку. SOFT - інший продукт, однаковий JTBD. ASPIRATIONAL - міжнародні зразки поведінки, не ринкові суперники.</p>
 
@@ -1217,7 +1363,7 @@
 
   <!-- SECTION 5: BENCHMARK -->
   <section id="benchmark">
-    <div class="section-number">05</div>
+    <div class="section-number">06</div>
     <h2>Бенчмарк</h2>
     <p class="section-lead">Як найкращі продукти переводять нееxперта від мети до безпечного продукту, будують довіру і спрощують повторне замовлення.</p>
 
@@ -1387,7 +1533,7 @@
 
   <!-- SECTION 6: UX PATTERNS -->
   <section id="patterns">
-    <div class="section-number">06</div>
+    <div class="section-number">07</div>
     <h2>UX-патерни</h2>
     <p class="section-lead">П'ять фундаментально різних патернів, вибір основного, альтернатива і те, що не підходить.</p>
 
@@ -1516,7 +1662,7 @@
 
   <!-- SECTION 7: CONCLUSIONS -->
   <section id="conclusions">
-    <div class="section-number">07</div>
+    <div class="section-number">08</div>
     <h2>Висновки</h2>
     <p class="section-lead">Таблиця прогалин, 6 гіпотез у форматі Якщо / То / Тому що, і відкриті питання.</p>
 
