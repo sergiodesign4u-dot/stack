@@ -14,6 +14,7 @@
 | product-model v2 | 2026-06-10 | Updated after competitive analysis + benchmark |
 | strategy v_refresh | 2026-06-12 | Migrated to Strategy format. AIDA tables retired (AARRR is the single funnel). Each section updated with new competitor findings from v_refresh competitive analysis. Riskiest assumption added. Business model clarified (free reorder, no hardcoded subscription tier). |
 | strategy v2 | 2026-06-14 | Added loyalty / bonus sub-section to Business Model. Framed as a research task. Working hypothesis: bonus balance + cumulative lifetime discount. Illustrative tiers (owner sketch, unvalidated). References competitor loyalty data from competitive-analysis.md v2. |
+| strategy v3 | 2026-06-14 | Rewrote riskiest assumption: now frames the bet as SWITCHING coaches (experience over price, price as hygiene). Updated "Chosen" reasoning in discarded alternatives. Added price/volume open question. Reflects competitive analysis v3 finding that belok.ua, GymBeam UA, mega-mass.ua all have wholesale infrastructure. |
 
 ### What changed from product-model v2 to strategy v_refresh
 
@@ -133,25 +134,27 @@ These require validation through early sales data and user interviews before bei
 
 ## 4. Riskiest Assumption
 
-**The single assumption this entire product depends on: coaches and gym managers will actually order for their athletes through a digital platform - and Stack can reach them and convert them before they are satisfied by the existing partial solutions (GymBeam B2B, belok.ua wholesale form, vansiton.ua Coach Account).**
+**The single assumption this entire product depends on: coaches, gyms, and fitness professionals - both those already buying from belok.ua, GymBeam UA, mega-mass.ua, or vansiton.ua, and those without an established supplier - will SWITCH to Stack because of a clearly better ordering experience for themselves and their athletes. That experience means goal-based product selection, transparent composition and dosage, easy multi-client reorder, and a clear loyalty and bonus benefit. Price must stay within market range. It is competitive hygiene, the condition not to be blocked, not the reason to switch.**
 
-If coaches are not reachable digitally (they operate via personal relationships and WhatsApp/Telegram direct messages), or if the partial B2B solutions from GymBeam and vansiton.ua already satisfy their need well enough, then:
-- The coach-channel GMV projection fails
-- The primary differentiator disappears
-- Stack becomes a standard B2C store competing on price with belok.ua and GymBeam, where both have more scale and brand recognition
+The bet fails immediately if the only reason coaches would come to Stack is a lower price. A price war is won by the player with the largest purchasing volume, not the best product - and the established rivals (belok.ua, GymBeam UA, mega-mass.ua) have far more volume and likely lower per-unit wholesale costs at scale. Stack cannot win on price alone at launch.
 
 **Why this is the riskiest assumption:**
-- Risk to VALUE (not feasibility). The tech is buildable. The question is whether coaches will change behavior.
-- The v_refresh competitive research found that GymBeam and Vansiton both have coach/B2B programs - the assumption that "only belok.ua has any coach infrastructure" is no longer true. Stack must offer something coaches cannot get elsewhere.
-- Digital reachability of Ukrainian coaches via Instagram/Telegram is unconfirmed. This is Open Question 1 from the competitive analysis.
+
+Risk to VALUE, not feasibility. The coach channel is not an empty niche anymore. The competitive analysis (v3, 2026-06-14) confirmed that belok.ua, GymBeam UA, mega-mass.ua, and vansiton.ua all have some form of wholesale or B2B infrastructure for coaches. The question has shifted: it is no longer "will coaches order online?" - some already do. The question is whether they will switch suppliers for a better experience for their clients, or stay where they are because switching costs are high and price alone does not justify the change.
+
+If the ordering experience Stack builds is not meaningfully better than what rivals already offer - in the flow, the guidance, the trust signals, and the loyalty benefit - then:
+- The coach-channel GMV hypothesis fails
+- The primary differentiator disappears
+- Stack becomes a standard B2C store competing on price with rivals who have more scale, more volume, and lower per-unit costs
+- Volume economics (higher turnover compensating for lower margin per unit) is an UNVALIDATED hypothesis [?]: it depends on purchasing scale we do not have at launch and on wholesale cost data we do not yet have. Do not treat this as a plan.
 
 **What Stack is betting on:**
-Coaches will prefer a dedicated multi-client tool with client profiles and a community identity over the retailer-focused B2B bulk flows that exist today - and they are reachable through digital channels.
+Coaches will switch for a better experience for their athletes - goal-based product selection, composition transparency, easy multi-client reorder, and a loyalty structure that rewards them and their athletes - when price stays within market range. Experience is the reason to switch. Price is the condition not to be blocked.
 
 **The smallest test for this assumption:**
-Qualitative interviews with 5-10 Ukrainian gym coaches before writing a line of code. Key questions: How do you currently order for your athletes? Have you tried GymBeam B2B or belok.ua wholesale? What is missing? Would a multi-client cart with saved client profiles solve a real problem?
+Talk to coaches in two groups before writing a line of code. Group 1: coaches who already buy through a wholesale or B2B program (belok.ua /opt/, GymBeam B2B, mega-mass.ua, vansiton.ua). Group 2: coaches who have no established supplier and order ad hoc. For each group: What would realistically make you switch to a new supplier? Is it the ordering experience and what it enables for your athletes, or primarily the purchase price per unit? What does "better for your athletes" mean to you in practice?
 
-If coaches say their current method (even a spreadsheet + one phone call) is good enough, the core business model needs revision before building.
+If the consistent answer is "price is the only thing that would make me switch," the core positioning needs revision before building.
 
 ---
 
@@ -163,7 +166,16 @@ If coaches say their current method (even a spreadsheet + one phone call) is goo
 
 **Option C: Email/SMS reorder reminders don't drive repeat purchases.** A retention risk, not a model-level failure. Retention can be addressed through other mechanics.
 
-**Chosen: Coach-as-channel model fails.** This is the only scenario where the entire product positioning collapses. Objectives 1-2 (trust, goal guidance) are still valid standalone features for a B2C store - but the primary JTBD, the primary revenue driver hypothesis (40% GMV from coaches), and the referral flywheel all depend on coaches adopting the platform. That is why it is the riskiest assumption.
+**Chosen: Coach-as-channel model fails because the switching reason is wrong.** The coach channel is not an empty niche - belok.ua, GymBeam UA, mega-mass.ua, and vansiton.ua all have some B2B/wholesale infrastructure. The risk is no longer "will coaches order online at all" - some already do. The risk is whether the experience Stack offers is compelling enough to make coaches switch from an existing supplier relationship. If the differentiator is not experience (for them and their athletes) but only price, Stack cannot win: it lacks the purchasing volume to undercut established rivals with more scale. Objectives 1-2 (trust, goal guidance) are still valid standalone features for a B2C store - but the primary JTBD, the primary revenue driver hypothesis (40% GMV from coaches), and the referral flywheel all depend on the switching bet being right. That is why this is the riskiest assumption.
+
+---
+
+## Open Questions
+
+| # | Question | Why it matters |
+|---|----------|----------------|
+| 1 | What would actually make a coach switch suppliers - is it the ordering experience, price, product range, or delivery reliability? | Validates or invalidates the switching assumption. If price is the dominant answer and it is not hygiene but the primary driver, the positioning and go-to-market strategy need revision before building. |
+| 2 | Can Stack price within market range while sustaining margin at launch-stage volume - and does higher volume eventually compensate for lower per-unit margin? | Volume economics is an UNVALIDATED hypothesis [?]. Without wholesale cost data and real sales volume, no unit economics calculation is possible. This is a question for the technical scoping and supplier sourcing phase, not a number to invent now. |
 
 ---
 
