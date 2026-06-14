@@ -1,7 +1,7 @@
 # Competitive Analysis
 
-**Version:** v_refresh (2026-06-12)
-**Previous version:** v1 (2026-06-10) - initial analysis
+**Version:** v2 (2026-06-14)
+**Previous version:** v_refresh (2026-06-12)
 **Research method:** Direct site fetch + web search + Playwright screenshots
 **All claims cite sources. Unverified data marked [?].**
 
@@ -13,6 +13,7 @@
 |---------|------|--------|
 | v1 | 2026-06-10 | Initial analysis: 3-group structure, 5-competitor matrix, patterns/gaps |
 | v_refresh | 2026-06-12 | Added GymBeam UA (largest traffic in UA, confirmed B2B program); corrected belok.ua age (7 years, not 15); added vansiton.ua Coach Account Program; confirmed MyProtein direct shipping to UA is suspended; deepened belok.ua wholesale findings; refreshed comparison matrix |
+| v2 | 2026-06-14 | Added loyalty / bonus mechanics and SEO / organic visibility observations for all competitors. Added open questions 4 (loyalty structure) and 5 (SEO channel effectiveness). No changes to competitor groups or matrix. |
 
 ---
 
@@ -109,11 +110,49 @@ International best-in-class players. Studied for how they solve goal-to-product 
 - **Third-party quality certification communication.** Vansiton mentions ISO 22000:2005. Belok's certificates page is empty. No UA store explains testing, sourcing, or manufacturing at depth.
 - **Per-serving cost display.** Belok does this. GymBeam does not appear to (based on public pages [?]). Other UA competitors do not. A foundational UX feature worth matching.
 
-### 3 Open Questions
+### Open Questions
 
 1. How does GymBeam UA's B2B wholesale program actually perform with Ukrainian coaches and gym managers? If coaches already use it for bulk supply, Stack's coach channel must offer meaningfully more (client management, multi-client ordering) to displace it.
 2. Does vansiton.ua's "Coach Account Program" have active users, and what does it offer? If it is a real self-service tool, it narrows Stack's coach-channel differentiation gap.
 3. Do Ukrainian buyers respond to international quality certifications (NSF, Informed Sport) or do they require Ukrainian/EU-specific signals? The market is still developing trust vocabulary, and belok.ua's empty certificates page suggests local stores have not tested this yet.
+4. What loyalty / bonus structure keeps regulars buying from Stack without destroying margin? The market has cumulative tier discounts (belok.ua, 5lb.ua) and a points system (GymBeam UA). Which model works best for a store that also serves coaches (who hit high spend thresholds quickly)? This is a research task, not a decided feature.
+5. Do goal-based SEO landing pages outperform broad category pages for beginner acquisition in UA? GymBeam is the clear content-marketing incumbent (hundreds of blog articles). belok.ua and vansiton.ua have active blogs. No competitor is observed running goal-intent-matched landing pages ("протеїн для схуднення"). Whether that gap translates to traffic and conversion requires keyword research with real UA data.
+
+---
+
+## Loyalty and SEO Observations
+
+### Loyalty / Bonus Mechanics
+
+Research conducted 2026-06-14. Claims cite source URLs or are marked [?].
+
+| Competitor | Type | Earn Mechanic | Thresholds / Rate | Redemption | Expiry | Source |
+|------------|------|---------------|-------------------|------------|--------|--------|
+| belok.ua (HARD) | Cumulative lifetime discount (12-month window) | Spend accumulates per registered account; non-registered purchases do not count; in-store and online spend linked via phone number | 10,000 UAH = 5%; 50,000 UAH = 10% | Discount applied to subsequent purchases (not a points balance; rates are mutually exclusive) | 12-month window resets if spend drops below threshold | https://belok.ua/ua/sistema-skidok/ |
+| GymBeam UA (HARD) | Points-to-reward tiers (launched Feb 8, 2026; no retroactive pts) | 1 pt per 50 UAH via website; 2 pts per 50 UAH via mobile app; 10 pts per verified review; pts calculated on final price after discounts, excl. shipping | 4 redemption tiers at 250 / 450 / 700 / 1,000 pts (UAH value per tier not publicly disclosed) | Points redeem at tier thresholds; shipping excluded | 90 days after activation; review pts activate immediately on publication | https://gymbeam.ua/ua/content/prohrama-loialnosti |
+| bcaa.ua (HARD) | [?] - no loyalty program or bonus mechanics visible on public pages | [?] | [?] | [?] | [?] | https://bcaa.ua/ |
+| 5lb.ua (HARD) | Two-layer system: cumulative tier discount (lifetime spend) + bonus points balance | Tier discount on cumulative total spend; bonus pts: 5 pts at registration, 10 bonus UAH per review, ~1 pt per product purchased; promotional Google review bonus: 50 pts | Silver 3% at 1,000-4,999 UAH; Gold 5% at 5,000-9,999 UAH; VIP 8% at 10,000+ UAH lifetime; discount applies to subsequent orders after threshold is reached | Up to 7% of order value from bonus points balance (tier discount applies separately) | Not stated for bonus pts | https://5lb.ua/en/skidki.html |
+| vansiton.ua (HARD) | "Discounts for regular customers" mentioned; partner / referral program mentioned; no thresholds or percentages publicly disclosed | [?] | [?] | [?] | [?] | https://vansiton.ua/ua/ |
+| liki24.com (SOFT) | Product-tagged cashback (1 bonus = 1 UAH) on delivery orders; third-party PayBack cashback | Cashback applies only to products tagged with "кешбек" (not all SKUs); up to 30% on selected/promotional items; PayBack external service: 2.72% new customer / 0.85% returning (delivery); 3.8% / 1.19% at "loyal customer" PayBack tier | Product-specific (no flat rate published) | Delivery orders only; self-pickup ineligible | [?] | https://payback.ua/shops/health/liki24.com; https://liki24.com/ |
+| apteka24.ua (SOFT) | "Морквинки" bonus points; earn rate per UAH spent not publicly accessible; external PayBack cashback | [?] earn rate per purchase; reviews earn bonuses; PayBack external: 1.25%-1.75% base rate | Up to 50% of order value from bonus balance (highest cap observed in the sample) | [?] | https://payback.ua/shops/health/apteka24.ua |
+
+**Key pattern:** The two most common mechanics in UA e-commerce (sport nutrition and adjacent) are the cumulative lifetime discount tied to total spend (belok.ua, 5lb.ua) and a points-to-balance system (GymBeam UA). GymBeam's 90-day point expiry introduces friction for infrequent buyers. liki24's tagged cashback is complex to communicate. No competitor has a coach-specific loyalty or bulk discount structure that is transparent and self-service. The category is underserved exactly where Stack's primary channel lives.
+
+### SEO / Organic Visibility
+
+Observation only. Full SEO audit (keyword research, rankings, page-level analysis) is a later-phase task.
+
+| Competitor | Category URL Structure | Blog / Content Presence | Title Tag Pattern | Notable Signal |
+|------------|----------------------|------------------------|-------------------|---------------|
+| belok.ua (HARD) | `/ua/sportivnoye-pitaniye/[category]/` (transliterated slugs) | Active blog at `/ua/blog/[slug]/`; topic: product roundups ("ТОП-5 протеїнів"), guides | Keyword-heavy: brand + "купити" + city + national + transactional modifiers | 40+ physical stores boost local and branded search. Source: https://belok.ua/ua/ |
+| GymBeam UA (HARD) | `/ua/[category-name]` (e.g., `/ua/protejiny/`) | 111+ blog pages, hundreds of long-form articles (10-26 min reads): supplements, training science, recipes, psychology. Clear SEO-first content operation. | "GymBeam - магазин харчових добавок для спортсменів" | Largest blog footprint in UA sport nutrition by far; app 2x point multiplier doubles as an SEO-to-app funnel. Source: https://gymbeam.ua/ua/blog/uk/ |
+| bcaa.ua (HARD) | `/ua/[category-name]/` (e.g., `/ua/proteini/`, `/ua/aminokisloti/`) | Modest blog "Цікаві статті"; authored articles with visible author names (editorial credibility signal) | Brand name itself is a keyword (BCAA). "Київ - Україна - купити спортхарч" | Athlete endorsements may support branded and co-search volume. 3 Kyiv retail locations = local SEO signal. Source: https://bcaa.ua/ |
+| 5lb.ua (HARD) | `/ua/[category-name]/` (e.g., `/ua/protein/`, `/ua/aminokisloty/`) | Discount/bonus page as top-level nav item; content depth [?] | Geo-targeted: "Дніпро + доставка по Україні" | Geo-SEO for Dnipro city; national delivery claim captures broader intent. Source: https://5lb.ua/ua/ |
+| vansiton.ua (HARD) | Three taxonomies: `/ua/po-naznacheniju/[purpose]/`, `/ua/za-gruppami/[type]/`, `/ua/sport-guide/[sport]/` | Active blog, articles through 2026; manufacturer angle gives unique brand-search angles | "Спортивне харчування купити - низькою ціною - інтернет магазин Вансітон" | Multi-taxonomy URL structure is the most sophisticated observed for long-tail coverage. Source: https://vansiton.ua/ua/ |
+| liki24.com (SOFT) | Aggregator structure; sport nutrition under "Вітаміни та БАДи" | No sport-nutrition-specific content strategy observed | Pharmacy aggregator positioning; sport nutrition is incidental | Scale (50K+ products, 1M+ customers) drives volume; not an SEO threat on sport nutrition terms. Source: https://liki24.com/ |
+| apteka24.ua (SOFT) | General pharmacy structure | [?] - site unavailable for direct fetch at time of research | General pharmacy; no sport nutrition SEO positioning | Not a relevant SEO competitor for sport nutrition. Source: [?] |
+
+**Key pattern:** GymBeam is the clear SEO incumbent with the largest content operation. Vansiton.ua has the most sophisticated URL taxonomy (three-taxonomy structure). belok.ua combines keyword density with physical-presence signals. No UA sport nutrition competitor is observed running goal-intent-matched landing pages ("протеїн для схуднення," "спортпіт для початківця") as a primary organic channel. That is the potential SEO wedge for Stack - to be validated with keyword research using real UA data, which is a later-phase task.
 
 ---
 
