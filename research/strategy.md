@@ -1,8 +1,8 @@
 # Strategy
 
-**Version:** v_refresh (migrated from product-model.md)
+**Version:** v4 (2026-06-14)
 **Previous file:** research/product-model.md (kept for history)
-**Date:** 2026-06-12
+**Date:** 2026-06-14
 
 ---
 
@@ -15,6 +15,7 @@
 | strategy v_refresh | 2026-06-12 | Migrated to Strategy format. AIDA tables retired (AARRR is the single funnel). Each section updated with new competitor findings from v_refresh competitive analysis. Riskiest assumption added. Business model clarified (free reorder, no hardcoded subscription tier). |
 | strategy v2 | 2026-06-14 | Added loyalty / bonus sub-section to Business Model. Framed as a research task. Working hypothesis: bonus balance + cumulative lifetime discount. Illustrative tiers (owner sketch, unvalidated). References competitor loyalty data from competitive-analysis.md v2. |
 | strategy v3 | 2026-06-14 | Rewrote riskiest assumption: now frames the bet as SWITCHING coaches (experience over price, price as hygiene). Updated "Chosen" reasoning in discarded alternatives. Added price/volume open question. Reflects competitive analysis v3 finding that belok.ua, GymBeam UA, mega-mass.ua all have wholesale infrastructure. |
+| strategy v4 | 2026-06-14 | Added Product Decisions section: four founder decisions locked after People and JTBD research phase. Coach ordering = minimal saved client list + per-client tagging + order history. Goal guidance = goal tiles in MVP, quiz post-launch. Coach pricing = separate published transparent tier + cumulative individual loyalty (numbers [?]). Reorder = one-tap repeat in MVP, My Staples post-launch. Open Questions remain open (switching trigger, volume economics). |
 
 ### What changed from product-model v2 to strategy v_refresh
 
@@ -176,6 +177,118 @@ If the consistent answer is "price is the only thing that would make me switch,"
 |---|----------|----------------|
 | 1 | What would actually make a coach switch suppliers - is it the ordering experience, price, product range, or delivery reliability? | Validates or invalidates the switching assumption. If price is the dominant answer and it is not hygiene but the primary driver, the positioning and go-to-market strategy need revision before building. |
 | 2 | Can Stack price within market range while sustaining margin at launch-stage volume - and does higher volume eventually compensate for lower per-unit margin? | Volume economics is an UNVALIDATED hypothesis [?]. Without wholesale cost data and real sales volume, no unit economics calculation is possible. This is a question for the technical scoping and supplier sourcing phase, not a number to invent now. |
+
+---
+
+## Product Decisions (Locked, 2026-06-14)
+
+The following four decisions were made by the founder after reviewing the People and JTBD research phase (personas.md v1.1, jtbd.md v1, master-research.md v4). Each closes an open product scope question that was blocking wireframe work.
+
+Hard constraint: No specific percentages, discount rates, cumulative thresholds, or conversion rates are committed as targets anywhere. Any numbers shown are labeled as unvalidated placeholders only.
+
+---
+
+### Decision 1: Coach ordering flow (CLOSED)
+**Choice: Self-service multi-client cart, minimal version.**
+
+Ships in MVP:
+- Saved client list with client name and goal
+- Ability to place an order tagged to a specific client
+- Order history per client
+
+Coach identity verified via a social media link. Precedent: mega-mass.ua wholesale form uses this method in practice (OBS-C20).
+
+Does NOT include: full B2B order management, invoice export, client nutrition tracking, custom client-facing portal.
+
+Research basis:
+- The current universal B2B ordering workflow in Ukraine is entirely analog: Excel price list + email + manager phone callback. Stack replaces a spreadsheet and a phone call, not a competitor's digital product. This lowers the switching bar significantly. Sources: fitness-shop.ua, sport-factor.ua (OBS-C19, confirmed 2026-06-14)
+- Coaches are resellers who earn the margin between wholesale and retail price. Per-client order tracking protects their margin management workflow. Source: fitness-shop.ua (OBS-C18, confirmed 2026-06-14)
+- No UA competitor has a self-service multi-client cart with saved client profiles. Source: research/competitive-analysis.md v3 (OBS-C2)
+
+This closes: the MVP scope question for the coach ordering flow.
+
+---
+
+### Decision 2: Goal-to-product guidance (CLOSED)
+**Choice: Goal selector tiles in MVP, guided quiz as first post-launch iteration.**
+
+MVP ships: 4-6 goal tiles on the homepage (examples: Build Muscle, Fat Loss, Energy, Recovery, Performance), each leading to a curated product collection. No account required.
+
+First post-launch iteration: a short guided quiz (3-5 questions: goal, experience level, constraints) as a secondary "Help me choose" path for buyers who cannot map themselves to a tile.
+
+Research basis:
+- No Ukrainian sport nutrition store has any interactive goal-to-product path. belok.ua has 3 static goal buckets. This is a confirmed market gap. Source: research/competitive-analysis.md v3 (OBS-B3)
+- Goal tiles are proven in best-in-class international references: Myprotein 6-goal selector, Huel 4-goal, Bulk 4-goal. Source: research/benchmark.md
+- Ukrainian buyers already understand concern-based discovery from Liki24. Source: research/ux-patterns.md (OBS-B7)
+
+Important: The conversion hypotheses from aarrr.md v2 ("40% quiz completion," "3x more likely to buy") are NOT the basis for this decision and remain [?]. The decision rests on coverage logic: tiles for buyers who can self-identify a goal, quiz for those who cannot.
+
+This closes: the goal guidance scope question for MVP.
+
+---
+
+### Decision 3: Coach pricing structure (CLOSED - structure only; numbers remain [?])
+**Choice: Separate, published, transparent coach pricing tier + cumulative loyalty system for individual buyers.**
+
+The coach pricing tier:
+- Published on the public "For Coaches" page, visible before registration
+- A fixed wholesale discount below retail [? - specific % requires real wholesale cost data from supplier negotiations]
+- Accessible from day one of a verified coach account (social media link verification)
+- NOT a negotiated relationship: a published tier any coach can see and evaluate before signing up
+
+Individual buyer loyalty:
+- Cumulative system tied to lifetime spend
+- Thresholds and % rates remain [?] until real margin data exists (illustrative, unvalidated example from owner sketch: roughly 5K/25K/50K UAH at roughly 5/7/10%)
+- Separate from the coach tier
+
+Research basis:
+- None of the 8 identified wholesale suppliers in Ukraine publishes pricing publicly. All pricing is gated behind registration and manager contact. Source: research/master-research.md v4, post-persona research (8 supplier pages visited 2026-06-14, OBS-C21)
+- Publishing a transparent, self-service coach price is an experience differentiator - consistent with the riskiest assumption. The experience win is transparency and pricing predictability for a reseller who needs to plan their margin without a phone call. Source: research/strategy.md v3 (riskiest assumption)
+- A unified cumulative tier was rejected: a new coach with 5 clients may wait many orders before reaching the first threshold, giving them no immediate reason to switch from a supplier who already has their custom pricing.
+
+Numbers that remain [?] and require real data before commitment:
+- Specific coach discount % [?]
+- Cumulative loyalty thresholds [?]
+- Cumulative loyalty discount rates [?]
+- Minimum order for coach tier access [?]
+
+This closes: the STRUCTURE of the pricing decision (what it is: separate transparent coach tier + cumulative individual loyalty).
+This does NOT close: the specific numbers, which require real wholesale cost data from supplier negotiations.
+This is NOT a low-price strategy: the coach tier must stay consistent with the riskiest assumption (switch for experience, price as hygiene). The differentiator is transparency, not a race to the lowest price.
+
+---
+
+### Decision 4: Reorder mechanic (CLOSED)
+**Choice: One-tap repeat from order history in MVP; My Staples as first post-launch iteration.**
+
+MVP ships: Order history in the account page. "Repeat order" button adds all previous items to cart. Quick confirmation, done. No consumption estimation required.
+
+First post-launch iteration: "My Staples" saved list + email reminder triggered before estimated stockout. Reminder timing to be calibrated from real post-launch purchase data, not invented before launch.
+
+Research basis:
+- No Ukrainian sport nutrition competitor has any reorder mechanic. Source: research/competitive-analysis.md v3 (OBS-R2)
+- Consumption-cycle estimation (whey 2kg, creatine 300g) cannot be reasonably calculated before first sales data exists. Source: OBS-R2 (gap)
+- One-tap repeat from order history maps to established behavior in adjacent Ukrainian categories (Liki24 purchase history). Source: research/benchmark.md
+
+Numbers that remain [?]:
+- Consumption cycle for common products [?]
+- Email reminder timing [?]
+- Expected repeat purchase rate from the mechanic [?]
+
+This closes: the MVP reorder scope question.
+This does NOT close: consumption-cycle data, which requires real post-launch purchase history.
+
+---
+
+### What remains deferred (outside product scope - not forced closed)
+
+| Item | Why deferred | Where to resolve |
+|------|-------------|-----------------|
+| Real coach discount % | Requires wholesale cost data from supplier negotiations | Technical scoping + supplier sourcing phase |
+| Cumulative loyalty thresholds and rates | Requires real margin data; no number is load-bearing without it | Technical scoping + unit economics model |
+| Consumption cycle times for reorder reminders | Requires real purchase history from first sales cycle | Post-launch calibration (first 90 days) |
+| Coach AOV actual data | No real market data exists; current numbers are hypothesis [?] | First 90 days of sales data |
+| Switching trigger specifics | Requires direct coach interviews - no public data exists after 25+ source searches | User research, pre-launch or parallel to launch |
 
 ---
 

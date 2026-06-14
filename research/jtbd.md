@@ -1,9 +1,9 @@
 # JTBD
 
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
-**Version:** v1 (2026-06-14)
+**Version:** v1.1 (2026-06-14)
 **Language:** English (markdown research file)
-**Depends on:** research/personas.md v1, research/master-research.md v3
+**Depends on:** research/personas.md v1.2, research/master-research.md v5, research/strategy.md v4
 **All facts cite sources. Hypothetical jobs marked [H]. Invented jobs are in the Hypotheses section only.**
 
 ---
@@ -13,6 +13,7 @@
 | Version | Date | Change |
 |---------|------|--------|
 | v1 | 2026-06-14 | Initial JTBD set, matrix, and critique from research synthesis. |
+| v1.1 | 2026-06-14 | Four founder decisions locked (strategy.md v4). FUNCTION column updated in matrix for Main Job, Job 2, Job 4. Loyalty/bonus tier reclassified: structure decided, numbers [?]. |
 
 ---
 
@@ -131,11 +132,11 @@ COMPETITORS column: whether direct Ukrainian competitors already close this job 
 
 | Job | Olena (P1) Coach+Supplier | Dmytro (P2) Coach-New | Viktoriia (P3) Beginner | Andriy (P4) Regular | FUNCTION in Stack | COMPETITORS |
 |-----|--------------------------|----------------------|------------------------|--------------------|--------------------|-------------|
-| Main: multi-client ordering in one session | 3 (defining pain) | 3 (would unlock professional positioning) | 1 (not applicable) | 1 (not applicable) | Multi-client cart with saved client profiles | OPEN: no UA competitor has multi-client cart. GymBeam B2B = retailer flow (PARTIAL). belok.ua = callback form (PARTIAL). |
+| Main: multi-client ordering in one session | 3 (defining pain) | 3 (would unlock professional positioning) | 1 (not applicable) | 1 (not applicable) | DECIDED (Decision 1): saved client list + per-client order tagging + order history per client. Coach identity via social media link. No full B2B portal in MVP. | OPEN: no UA competitor has multi-client cart. GymBeam B2B = retailer flow (PARTIAL). belok.ua = callback form (PARTIAL). |
 | Job 1: switch to better supplier | 3 (this is the bet) | 1 (first choice, not switching) | - | - | Coach-specific landing, transparent pricing, self-service trial | OPEN: no competitor offers a clearly coach-oriented experience to switch TO |
-| Job 2: goal-to-product recommendation | 2 [?] (coaches know products but new product discovery matters) | 2 [?] | 3 (core activation need) | 1 | Goal quiz, goal selector tiles | OPEN: no UA store has interactive goal path |
+| Job 2: goal-to-product recommendation | 2 [?] (coaches know products but new product discovery matters) | 2 [?] | 3 (core activation need) | 1 | DECIDED (Decision 2): 4-6 goal selector tiles in MVP; guided quiz as first post-launch iteration. Conversion hypotheses [?] are NOT the basis - coverage logic is. | OPEN: no UA store has interactive goal path |
 | Job 3: verify safety before buying | 2 (coaches need to trust what they recommend) | 2 | 3 (top trust barrier) | 1 | Composition/dosage/origin block on product pages | OPEN: belok.ua certificates page empty; vansiton ISO at store level only; no product-level trust content in UA sport nutrition |
-| Job 4: reorder without effort | 2 (coaches reorder regularly for active clients) | 1 | 1 | 3 (primary driver for this persona) | One-tap repeat order, My Staples, email/SMS reminder | OPEN: no UA competitor has smart reorder or consumption reminders |
+| Job 4: reorder without effort | 2 (coaches reorder regularly for active clients) | 1 | 1 | 3 (primary driver for this persona) | DECIDED (Decision 4): one-tap repeat from order history in MVP; My Staples + email reminder as first post-launch iteration. Reminder timing [?] until real purchase data. | OPEN: no UA competitor has smart reorder or consumption reminders |
 | Job 5: recommend with visible evidence | 3 (protects professional credibility) | 3 | - | - | Product pages with composition/dosage/coach-shareable format | OPEN: no UA store communicates composition depth per product |
 | ESJ-1: coach credibility | 3 | 3 | - | - | Coach account positioning, community identity | OPEN: no competitor positions coaches as a community or identity |
 | ESJ-2: beginner confidence | - | - | 3 | - | Goal quiz, trust signals, calm tone | OPEN: all UA stores feel catalog-first, not guidance-first |
@@ -160,7 +161,7 @@ Note: Jobs 1 and 4 are important but less structurally urgent for MVP. Job 1 (sw
 
 - HYP-1 (referral/commission for coaches): No confirmed job. Deferrable to Phase 2.
 - HYP-2 (athlete adherence tracking): No confirmed job. Feature-ahead of validated need.
-- Loyalty/bonus tier: Important but does not open a door - it is a retention modifier on an existing relationship, not an acquisition or activation unlock. Deferrable post-launch with real margin data.
+- Loyalty/bonus tier: STRUCTURE DECIDED by Decision 3 - not cut. Separate published coach pricing tier + cumulative individual loyalty. Specific numbers (coach tier %, thresholds, rates) remain [?] pending real margin data from supplier negotiations. Closed by founder decision, not by user research.
 
 ---
 
@@ -217,9 +218,9 @@ Priority ordered by blast radius - what breaks if the claim is wrong:
 
 ## Sources
 
-- research/personas.md v1 (this file's base data)
-- research/master-research.md v3
-- research/strategy.md v3
+- research/personas.md v1.2 (this file's base data)
+- research/master-research.md v5
+- research/strategy.md v4
 - research/competitive-analysis.md v3
 - research/ux-patterns.md
 - research/aarrr.md v2

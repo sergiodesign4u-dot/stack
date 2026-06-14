@@ -1,9 +1,9 @@
 # Personas
 
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
-**Version:** v1 (2026-06-14)
+**Version:** v1.2 (2026-06-14)
 **Language:** English (markdown research file)
-**Depends on:** research/master-research.md v3, research/strategy.md v3, research/competitive-analysis.md v3, research/ux-patterns.md, research/benchmark.md
+**Depends on:** research/master-research.md v5, research/strategy.md v4, research/competitive-analysis.md v3, research/ux-patterns.md, research/benchmark.md
 **All facts cite sources. Unknowns marked [?]. No invented quotes or numbers.**
 
 ---
@@ -14,6 +14,7 @@
 |---------|------|--------|
 | v1 | 2026-06-14 | Initial people inventory and 4 personas from research synthesis. |
 | v1.1 | 2026-06-14 | Post-persona research updates: OBS-B10 (counterfeit concern confirmed by NADC case + reviews), OBS-C13 (coach Instagram/Telegram digital presence confirmed), OBS-C16 (SN-Import and SPORT-FACTOR as additional wholesale channels), OBS-C17 (Ukrainian buyer priorities from review analysis). Switching trigger remains [?]. |
+| v1.2 | 2026-06-14 | Four founder decisions locked (strategy.md v4). Notes added to Persona 1 (Olena): pricing structure and multi-client cart decisions resolved. Persona 2 (Dmytro): transparent pricing tier closed. Persona 4 (Andriy): reorder mechanic closed. Specific numbers remain [?]. |
 
 ---
 
@@ -169,9 +170,9 @@ Source: research/benchmark.md (Section 6), research/ux-patterns.md (Pattern That
 | Clients | 8-25 active clients [?] with different goals, budgets, and schedules |
 
 **Jobs (what she is trying to get done):**
-- Build and track orders for each client's specific product set in one session, not multiple separate browser tabs
+- Build and track orders for each client's specific product set in one session, not multiple separate browser tabs. CLOSED by Decision 1: Stack MVP ships saved client list + per-client order tagging + order history per client. Closed by founder decision, not by user research.
 - Maintain her professional credibility - athletes trust her recommendations and she cannot afford to recommend a product that turns out to be fake, out of stock, or wrongly dosed
-- Get pricing that allows her to either include supplements in her coaching fee or transparently pass savings to clients
+- Get pricing that allows her to either include supplements in her coaching fee or transparently pass savings to clients. CLOSED by Decision 3: Stack will publish a transparent coach pricing tier on the public "For Coaches" page before registration. Specific % remains [?] pending wholesale cost data. Closed by founder decision, not by user research.
 - Never have a client run out of a product mid-training block
 
 **Pains with current options (UPDATED with confirmed research):**
@@ -183,7 +184,7 @@ Source: research/benchmark.md (Section 6), research/ux-patterns.md (Pattern That
 
 **Trust triggers (what convinces her):**
 - Peer recommendation from a respected coach colleague (the #1 trigger [?] - no cited source yet)
-- Transparent, published pricing - knowing the coach rate before committing, not after a callback
+- Transparent, published pricing - knowing the coach rate before committing, not after a callback. CLOSED by Decision 3: Stack will publish the coach tier upfront. Specific rate [?].
 - Visible product range that covers everything her clients already use (switching suppliers means switching products, which athletes notice)
 - Signs of operational stability (years on market, physical presence, stock reliability)
 
@@ -222,7 +223,7 @@ Source: research/benchmark.md (Section 6), research/ux-patterns.md (Pattern That
 - Product authenticity assurance (critical in the Ukrainian market - concern about fakes is real [? - assumed, needs confirmation])
 - Low-friction onboarding - no form + callback required; can self-service from day one
 - "Used by coaches" social proof and positioning from the store itself
-- Clear coach pricing tier that is published, not negotiated
+- Clear coach pricing tier that is published, not negotiated. CLOSED by Decision 3: Stack will publish the coach tier on the public "For Coaches" page. Specific rate [?]. Closed by founder decision, not by user research.
 
 **Switching cost:** LOW - no established supplier relationship to displace. First-choice acquisition, not switching.
 
@@ -277,7 +278,7 @@ Source: research/benchmark.md (Section 6), research/ux-patterns.md (Pattern That
 | Current alternatives | Shops across belok.ua, GymBeam UA, bcaa.ua based on price and stock at the time |
 
 **Jobs:**
-- Reorder his staples in 1-2 taps without re-navigating the catalog
+- Reorder his staples in 1-2 taps without re-navigating the catalog. CLOSED by Decision 4: Stack MVP ships one-tap repeat from order history. Post-launch: My Staples list + email reminder before estimated stockout. Reminder timing [?] until real purchase data exists. Closed by founder decision, not by user research.
 - Get notified before he runs out (not after)
 - Never run out during a training block
 
@@ -301,8 +302,8 @@ Source: research/benchmark.md (Section 6), research/ux-patterns.md (Pattern That
 ## Sources
 
 - CLAUDE.md (product brief)
-- research/master-research.md v3
-- research/strategy.md v3
+- research/master-research.md v5
+- research/strategy.md v4
 - research/competitive-analysis.md v3
 - research/ux-patterns.md
 - research/benchmark.md

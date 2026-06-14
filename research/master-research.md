@@ -1,7 +1,7 @@
 # Master Research
 
 **Single source of truth for the Stack research phase.**
-**Version:** v_refresh (2026-06-12)
+**Version:** v5 (2026-06-14)
 **Previous version:** Final (2026-06-10)
 **All facts cite sources. Unknowns marked [?]. Never invented.**
 
@@ -16,6 +16,7 @@
 | v2 | 2026-06-14 | Reflected loyalty hypothesis in Strategy (Business Model) and Conclusions (open questions). Added SEO open question to conclusions. Reflects additions from competitive-analysis.md v2, strategy.md v2, aarrr.md v2. |
 | v3 | 2026-06-14 | Rewrote riskiest assumption: switching framing (experience over price, price as hygiene, volume economics [?]). Updated Hypothesis 2 [RISKIEST] to match. Added price positioning/volume open question. Reflects competitive-analysis.md v3 and strategy.md v3. |
 | v4 | 2026-06-14 | Added Post-Persona Research section (June 2026): counterfeit supplements confirmed as real market concern (NADC case + buyer reviews), SN-Import as additional wholesale channel for coaches, Instagram/Telegram presence for coach acquisition, buyer trust criteria from review analysis. Switching trigger remains [?]. |
+| v5 | 2026-06-14 | Added Product Decisions section: four founder decisions locked after People and JTBD research phase (strategy.md v4). Open Questions 5 and 6 partially resolved by decisions. Research phase complete. |
 
 ---
 
@@ -245,8 +246,8 @@ Subscription-first purchase model. See Benchmark Section and Strategy Business M
 | How does GymBeam UA's B2B wholesale perform with Ukrainian coaches in practice - do coaches use it, and is it good enough? | Determines Stack's real differentiation gap in the coach channel | Qualitative research with 5-10 coaches who have tried B2B tools |
 | What is the real competitive intensity for goal-based Ukrainian search terms? | Determines SEO vs. paid social mix for beginner acquisition | Keyword research (Ahrefs/Semrush) with UA data |
 | Which trust signals resonate most with Ukrainian buyers: certifications, coach endorsements, lab tests, or physical store presence? | Determines product page trust architecture priority | Landing page A/B test or 5-second test with target users |
-| What is the actual consumption cycle for common products (whey 2kg, creatine 300g)? | Required for accurate reorder reminders | Product documentation + user interviews |
-| What loyalty / bonus structure keeps regulars buying without destroying margin? Cumulative tier discount (belok.ua model) vs. points balance (GymBeam model) vs. a hybrid? | Determines retention mechanic and pricing architecture. Coaches hit high spend thresholds fast - loyalty structure affects coach channel economics. | Unit economics analysis with real margin data [?] + user research on what buyers value most |
+| What is the actual consumption cycle for common products (whey 2kg, creatine 300g)? | Required for accurate reorder reminders. DEFERRED: Decision 4 ships one-tap repeat from order history in MVP; reminder timing will be calibrated from real post-launch purchase data. Consumption cycle remains [?]. | Post-launch purchase data (first 90 days) |
+| What loyalty / bonus structure keeps regulars buying without destroying margin? Cumulative tier discount (belok.ua model) vs. points balance (GymBeam model) vs. a hybrid? | STRUCTURE CLOSED by Decision 3: separate published coach tier + cumulative lifetime loyalty for individual buyers. Specific numbers (coach tier %, thresholds, rates) remain [?] pending real margin data from supplier negotiations. | Unit economics model from real wholesale cost data (technical scoping + supplier sourcing) |
 | Do goal-based SEO landing pages actually outperform catalog category pages for beginner acquisition in UA? GymBeam has hundreds of blog articles; no competitor runs goal-intent pages. | Determines content and SEO strategy for Phase 2 (Wireframes / site structure). Full SEO plan is deferred. | Keyword research with UA data (Ahrefs/Semrush); traffic and conversion comparison once live |
 | What is Stack's viable price positioning given launch-stage volume - and does volume economics (higher turnover per unit compensating for lower per-unit margin) hold at the scale achievable in the first 6-12 months? | Determines whether the coach discount hypothesis (5-10% below retail) is structurally sustainable and whether price-as-hygiene is achievable at launch - or whether margin pressure makes the switching premise fragile. Volume economics is UNVALIDATED [?]. | Unit economics model built from real wholesale cost data obtained during supplier sourcing and technical scoping. Cannot be calculated before supplier negotiations. |
 
@@ -397,6 +398,36 @@ Source: FitnessConnectUA research cited at sportforall.info (2026-06-14)
 - https://nv.ua/ukr/ukraine/events/telegram-za-danimi-doslidzhennya-ukrajinci-chitayut-novini-u-socmerezhi-durova-50452249.html (Sep 2024)
 - https://business-broker.com.ua/blog/zarplata-fitnes-trenera-v-ukraini-skilky-realno-platiat/ (visited 2026-06-14)
 - https://pro-consulting.ua/en/issledovanie-rynka/analiz-rynka-sportivnogo-pitaniya-v-ukraine-2024-god (report exists; content behind paywall)
+
+---
+
+## 8. Product Decisions (Locked, 2026-06-14)
+
+Four product scope decisions made by the founder after the People and JTBD research phase (personas.md v1.1, jtbd.md v1). Full reasoning is in research/strategy.md v4. Summaries only here.
+
+Hard constraint: No specific percentages, discount rates, cumulative thresholds, or conversion rates are committed as facts anywhere. All numbers remain [?] until real wholesale cost and margin data is available.
+
+### Decision 1: Coach ordering flow (CLOSED)
+MVP ships: saved client list + per-client order tagging + order history per client. Coach identity verified via social media link (OBS-C20 precedent). No full B2B management, invoice export, or client portal in MVP.
+
+Research support: OBS-C19 (analog workflow confirmed - Stack replaces Excel+email+phone, not a digital competitor), OBS-C18 (coach reseller model confirmed - margin tracking matters), OBS-C2 (no UA competitor has a multi-client cart).
+
+### Decision 2: Goal guidance (CLOSED)
+MVP ships: 4-6 goal tiles on homepage, each leading to a curated collection. No account required. Post-launch iteration: short guided quiz (3-5 questions) as a secondary "Help me choose" path.
+
+Research support: OBS-B3 (no UA store has interactive goal path), research/benchmark.md (Myprotein, Huel, Bulk goal selectors), OBS-B7 (Ukrainian buyers understand concern-based navigation from Liki24). The "40% completion / 3x purchase" hypotheses remain [?] and were NOT the basis for this decision.
+
+### Decision 3: Pricing structure (CLOSED - structure only; numbers remain [?])
+Separate, published, transparent coach pricing tier + cumulative lifetime loyalty for individual buyers. Coach tier published on public "For Coaches" page, visible before registration. Tier accessible from day one with social media link verification. Individual loyalty tied to lifetime spend - thresholds and rates [?] pending margin data.
+
+Research support: OBS-C21 (none of 8 suppliers publishes pricing - transparency is itself a differentiator), riskiest assumption (switch for experience; transparency is experience for a reseller). Consistent with the switching bet: this is NOT a low-price strategy.
+
+Specific numbers deferred: coach discount % [?], cumulative thresholds [?], rates [?] - all require real wholesale cost data from supplier negotiations.
+
+### Decision 4: Reorder mechanic (CLOSED)
+MVP ships: order history with "Repeat order" button (all items to cart, confirm). Post-launch iteration: "My Staples" saved list + email reminder before estimated stockout. Reminder timing calibrated from real purchase data post-launch, not invented now.
+
+Research support: OBS-R2 (no UA competitor has any reorder mechanic), research/benchmark.md (adjacent pattern from Liki24). Consumption cycle times remain [?].
 
 ---
 
