@@ -15,6 +15,7 @@
 | v_refresh | 2026-06-12 | Updated competitors section (3 groups, new discoveries: GymBeam UA, vansiton Coach Account, MyProtein UA shipping suspended). Renamed Product Model section to Strategy. AARRR updated with new competitor findings. Hypotheses updated to If/Then/Because format; riskiest assumption marked. |
 | v2 | 2026-06-14 | Reflected loyalty hypothesis in Strategy (Business Model) and Conclusions (open questions). Added SEO open question to conclusions. Reflects additions from competitive-analysis.md v2, strategy.md v2, aarrr.md v2. |
 | v3 | 2026-06-14 | Rewrote riskiest assumption: switching framing (experience over price, price as hygiene, volume economics [?]). Updated Hypothesis 2 [RISKIEST] to match. Added price positioning/volume open question. Reflects competitive-analysis.md v3 and strategy.md v3. |
+| v4 | 2026-06-14 | Added Post-Persona Research section (June 2026): counterfeit supplements confirmed as real market concern (NADC case + buyer reviews), SN-Import as additional wholesale channel for coaches, Instagram/Telegram presence for coach acquisition, buyer trust criteria from review analysis. Switching trigger remains [?]. |
 
 ---
 
@@ -248,6 +249,75 @@ Subscription-first purchase model. See Benchmark Section and Strategy Business M
 | What loyalty / bonus structure keeps regulars buying without destroying margin? Cumulative tier discount (belok.ua model) vs. points balance (GymBeam model) vs. a hybrid? | Determines retention mechanic and pricing architecture. Coaches hit high spend thresholds fast - loyalty structure affects coach channel economics. | Unit economics analysis with real margin data [?] + user research on what buyers value most |
 | Do goal-based SEO landing pages actually outperform catalog category pages for beginner acquisition in UA? GymBeam has hundreds of blog articles; no competitor runs goal-intent pages. | Determines content and SEO strategy for Phase 2 (Wireframes / site structure). Full SEO plan is deferred. | Keyword research with UA data (Ahrefs/Semrush); traffic and conversion comparison once live |
 | What is Stack's viable price positioning given launch-stage volume - and does volume economics (higher turnover per unit compensating for lower per-unit margin) hold at the scale achievable in the first 6-12 months? | Determines whether the coach discount hypothesis (5-10% below retail) is structurally sustainable and whether price-as-hygiene is achievable at launch - or whether margin pressure makes the switching premise fragile. Volume economics is UNVALIDATED [?]. | Unit economics model built from real wholesale cost data obtained during supplier sourcing and technical scoping. Cannot be calculated before supplier negotiations. |
+
+---
+
+## Post-Persona Research, June 2026
+
+Targeted re-research conducted after building personas.md and jtbd.md to close the three most dangerous claim gaps: counterfeit product concern in Ukraine, coach-supplier switching trigger, and coach digital communication channel.
+
+### Finding 1: Counterfeit supplements are a confirmed, active concern in Ukraine - NOT an assumption
+
+**Confirmed.** Two independent lines of evidence:
+
+1. **Law enforcement case (June 2025):** The National Anti-Doping Center of Ukraine reported the "largest underground anabolic steroid manufacturing operation in the country's history." Five individuals charged. Products were "falsely marketed as imported sports supplements for athletes" with counterfeit labels "as if made in Malaysia." 20,000+ packages seized, distribution network active in Kharkiv, Kyiv, Odesa, and Lviv. Source: https://nadc.gov.ua/en/news/disguised-as-sports-supplements-large-scale-illegal-anabolic-steroid-production-uncovered-in-ukraine (June 20, 2025)
+
+2. **Buyer review behavior:** Among 205 reviews on hotline.ua for bcaa.ua, at least one buyer went directly to the manufacturer's office to verify product authenticity before trusting the store. Some GymBeam reviews (vidhuk.ua search results) mention "packaging not matching official packaging from the original manufacturer." Source: https://hotline.ua/ua/yp/26100/reviews/
+
+3. **Editorial confirmation:** A dedicated article titled "Сертифікати якості спортивного харчування: як відрізнити оригінал від підробки" (Quality certificates for sports nutrition: how to distinguish original from fake) was published on bodyforlife.com.ua (now redirected). The topic is actively discussed in the Ukrainian market. Search query: "спортивне харчування Україна відгуки покупців оригінал підробка перевірка," 2026-06-14.
+
+**Impact on personas.md and jtbd.md:** ESJ-3 (Ukrainian buyer skepticism about counterfeits) is now CONFIRMED by evidence, not assumption. The trust architecture must address authenticity explicitly - not as a nice-to-have but as table stakes. Persona 3 (Viktoriia) fear is real; Persona 1 (Olena) also affected - a fake product recommendation from a coach to a client damages professional reputation permanently.
+
+---
+
+### Finding 2: Ukrainian coaches use Instagram and Telegram - but not for structured supplement ordering
+
+**Partially confirmed.** Ukrainian fitness coaches are active on Instagram (mixsport.pro article documented top coaches with active Instagram audiences for workout content, nutrition advice, Q&A in stories). Source: https://mixsport.pro/blog/top-8-instagram-akkauntov-ukrainskih-fitnes-trenerov
+
+Telegram is used for wholesale supplement pricing: at least one channel (@sportiv_admin) explicitly offers "wholesale and trainer pricing" for sport equipment via Telegram. Source: tgstat.com search result, 2026-06-14.
+
+However, no evidence was found of structured supplement ordering from coaches to clients through digital channels. Coach-client supplement communication appears informal (personal recommendations, stories). Structured ordering workflows remain [?].
+
+**Impact:** The "For Coaches" acquisition channel via Instagram/Telegram is supported by digital presence data. The coach client management workflow (whether it replaces or supplements a current digital flow) remains [?].
+
+---
+
+### Finding 3: SN-Import is an additional wholesale channel for coaches - not in previous competitive analysis
+
+**New finding.** SN-Import (snimport.com.ua) explicitly serves "sports trainers and nutritional instructors" for wholesale purchases, alongside fitness centers and gyms. They are an official importer for 30+ brands (NOW Foods, Amix, Nutrend, Optimum Nutrition, Animal, Sporter). They serve as general sponsor of Ukrainian bodybuilding and fitness championships. Source: https://snimport.com.ua/ (visited 2026-06-14)
+
+This means the competitive wholesale landscape for coaches is wider than the 4 retailers profiled (belok.ua, GymBeam, mega-mass.ua, vansiton.ua). Distributors like SN-Import and SPORT-FACTOR (sport-factor.ua) serve coaches directly at wholesale, bypassing retail stores entirely.
+
+**Impact on strategy:** The switching bet now includes not just retail stores' wholesale programs but also distributor relationships. A coach who buys directly from SN-Import or SPORT-FACTOR is not visible in competitive analysis. Stack's "better experience" must also beat the distributor phone/email/Telegram ordering flow, not just the retail B2B forms.
+
+**Implication:** The coach's current supplier may be a distributor (not a store), and the relationship may be long-standing and price-driven (direct import pricing). This makes switching harder, not easier, than the retail comparison assumed.
+
+---
+
+### Finding 4: What makes Ukrainian buyers choose a supplement store
+
+From thepage.ua top 5 stores analysis and belok.ua customer reviews (top20.ua, 59 reviews, 4.0/5.0):
+
+- **Product authenticity** is the #1 trust concern - certificates, official supplier status, lab tests
+- **Knowledgeable staff** is a strong differentiator - belok.ua reviews specifically praise "real professional" staff members by name
+- **Prices and promotions** are important but secondary to trust
+- **Business transparency** - physical address, phone number, return policy
+- **No mention of coaching tools, wholesale flow, or B2B experience** in any consumer review or ranking article found
+
+**Gap still open:** What specifically triggers a coach to switch wholesale supplier remains unconfirmed by any cited source. No forum posts, reviews, or interviews with coaches on this topic were found. This is the most dangerous remaining gap.
+
+---
+
+### Sources Added in Post-Persona Research
+
+- https://nadc.gov.ua/en/news/disguised-as-sports-supplements-large-scale-illegal-anabolic-steroid-production-uncovered-in-ukraine (visited 2026-06-14)
+- https://hotline.ua/ua/yp/26100/reviews/ (visited 2026-06-14)
+- https://top20.ua/kyiv/sport-krasota/sportivnaya-odezhda-i-inventar/belokua-0.html (visited 2026-06-14)
+- https://thepage.ua/ua/news/top-5-magaziniv-sportivnogo-harchuvannya-v-ukrayini (visited 2026-06-14)
+- https://mixsport.pro/blog/top-8-instagram-akkauntov-ukrainskih-fitnes-trenerov (visited 2026-06-14)
+- https://sport-factor.ua/sportyvne-kharchuvannia-optom/ (visited 2026-06-14)
+- https://snimport.com.ua/ (visited 2026-06-14)
+- https://horoshop.ua/ua/suppliers/belok/ (visited 2026-06-14)
 
 ---
 

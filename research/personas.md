@@ -12,7 +12,8 @@
 
 | Version | Date | Change |
 |---------|------|--------|
-| v1 | 2026-06-14 | Initial people inventory and 4 personas from research synthesis. Persona 1 added post-persona research updates (see research/master-research.md Post-persona research section). |
+| v1 | 2026-06-14 | Initial people inventory and 4 personas from research synthesis. |
+| v1.1 | 2026-06-14 | Post-persona research updates: OBS-B10 (counterfeit concern confirmed by NADC case + reviews), OBS-C13 (coach Instagram/Telegram digital presence confirmed), OBS-C16 (SN-Import and SPORT-FACTOR as additional wholesale channels), OBS-C17 (Ukrainian buyer priorities from review analysis). Switching trigger remains [?]. |
 
 ---
 
@@ -56,11 +57,14 @@ Source: research/strategy.md v3 (labeled [?] hypothesis)
 **OBS-C12:** Coach acquisition metrics are entirely hypothetical at this stage: 10 new coach accounts per month by month 3 [?], 60% of registered coaches placing first order within 7 days [?].
 Source: research/aarrr.md v2
 
-**OBS-C13:** No data found on how Ukrainian coaches currently communicate supplement ordering to their athletes (WhatsApp group? Telegram? Spreadsheet? Face to face?). This is a critical unknown.
-Source: gap - not found in any research file or web source
+**OBS-C13 (UPDATED by post-persona research):** Ukrainian coaches are active on Instagram (documented top coaches with workout content, nutrition Q&A in stories). Telegram is used for wholesale supplement ordering - at least one Telegram channel (@sportiv_admin) explicitly offers "wholesale and trainer pricing." Sources: https://mixsport.pro/blog/top-8-instagram-akkauntov-ukrainskih-fitnes-trenerov; tgstat.com health/sport channels search (2026-06-14). However, structured digital ordering for clients (multi-client ordering workflow) remains [?] - no evidence of coaches using digital tools to manage per-client supplement orders was found.
 
 **OBS-C14:** No data found on the proportion of Ukrainian coaches who already have an established supplier relationship vs. those ordering ad hoc from B2C retail. This split determines the ratio of switching-required vs. first-choice acquisitions.
 Source: gap - not found
+
+**OBS-C16 (NEW from post-persona research):** The wholesale landscape for coaches extends beyond the 4 retail competitors profiled. SN-Import (snimport.com.ua) explicitly serves "sports trainers and nutritional instructors" for wholesale purchases, importing 30+ brands (NOW Foods, Amix, Nutrend, Optimum Nutrition, Sporter). SPORT-FACTOR (sport-factor.ua) similarly targets coaches, gym owners, and fitness club owners for wholesale with a registration form + weekly pricing via email/Telegram. These distributor relationships may be long-standing and price-driven (direct import pricing, bypassing retail margin). Source: https://snimport.com.ua/ (visited 2026-06-14), https://sport-factor.ua/sportyvne-kharchuvannia-optom/ (visited 2026-06-14)
+
+**OBS-C17 (NEW from post-persona research):** What Ukrainian buyers prioritize in supplement stores (from review analysis and editorial content): (1) product authenticity and certificates, (2) professional, knowledgeable staff, (3) prices and promotions, (4) business transparency (physical address, return policy). Coaching tools, wholesale flow, and B2B features were not mentioned in any consumer review or ranking found. Source: top20.ua/belok.ua reviews (59 reviews), thepage.ua top 5 stores article (visited 2026-06-14)
 
 **OBS-C15:** No data found on what specifically triggers a Ukrainian coach to change supplement suppliers. Price failure? Stockout? Peer recommendation? Something else?
 Source: gap - not found. This is the most dangerous missing piece given the switching-bet nature of the riskiest assumption.
@@ -96,8 +100,7 @@ Source: research/aarrr.md v2 (labeled [?])
 **OBS-B9:** No data found on how Ukrainian beginners actually discover supplement stores (TikTok? Instagram coach referral? Google search? In-gym recommendation?). Acquisition channel mix is unknown.
 Source: gap
 
-**OBS-B10:** No data found on the specific fears Ukrainian beginners have about supplements. In the Ukrainian market, counterfeit products are a real concern [? - assumed, not confirmed by a source], but what specific fears dominate (fakes vs. side effects vs. doping vs. dosage errors) is unknown.
-Source: gap
+**OBS-B10 (UPDATED by post-persona research):** Counterfeit and misrepresented supplements are a CONFIRMED real concern in Ukraine. Evidence: (1) NADC Ukraine (June 2025) documented the "largest underground anabolic steroid manufacturing in country's history" - 20,000+ packages of anabolic steroids sold as sports supplements with counterfeit labels, distributed in Kharkiv, Kyiv, Odesa, Lviv. Source: https://nadc.gov.ua/en/news/disguised-as-sports-supplements-large-scale-illegal-anabolic-steroid-production-uncovered-in-ukraine (2) bcaa.ua buyers actively verify authenticity with manufacturers before trusting stores (205 reviews, hotline.ua). Source: https://hotline.ua/ua/yp/26100/reviews/ (3) GymBeam reviews mentioned "packaging not matching official packaging." The fear is about fakes AND quality substitution (cheaper ingredient substitutes). What dominates - fake products vs. dosage substitution vs. side effects - is still [?] for the specific beginner segment.
 
 ---
 

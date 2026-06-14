@@ -92,7 +92,7 @@ These are jobs about how the person wants to feel or be perceived, separate from
 **ESJ-3 (Ukrainian buyer skepticism):** When I am a Ukrainian buyer, I want to feel confident that the product I am buying is not a fake or mislabeled version, so that I am not putting my health or money at risk.
 - Persona: all personas, strongest for Viktoriia (Persona 3)
 - Source: research/ux-patterns.md Pattern 5 (Ukrainian buyers sensitive to "who stands behind this"), belok.ua /ua/serteficates/ (empty certificates - store recognized the need), research/benchmark.md (Thorne, Bulk trust architecture)
-- Status: CONFIRMED as a market-level concern. Actual prevalence of fake products in the Ukrainian supplement market is [?] - need a cited source.
+- Status: CONFIRMED as a real, active market concern by post-persona research (nadc.gov.ua NADC Ukraine June 2025 case + hotline.ua review behavior + editorial coverage). The dominant fear is fakes/steroids disguised as supplements AND ingredient substitution (cheaper analogs), not primarily side effects. Specific fear hierarchy for the beginner segment is still [?].
 
 **ESJ-4 (Coach autonomy):** When I am a coach, I want to manage my athletes' supplement programs without depending on the supplier for support or advice, so that I maintain full control over what I recommend to clients.
 - Persona: Olena (Persona 1), Dmytro (Persona 2)
@@ -174,7 +174,7 @@ Note: Jobs 1 and 4 are important but less structurally urgent for MVP. Job 1 (sw
 | Coaches maintain personal spreadsheets [?] for client tracking | HYPOTHESIS - no cited source | HIGH - if false, the pain of not having a digital tool is lower |
 | Peer recommendation is the #1 switching trigger for coaches | HYPOTHESIS [?] - no cited source | CRITICAL - this drives the go-to-market approach but has no evidence |
 | belok.ua /opt/, GymBeam B2B, vansiton partner program all have active users | INFERRED - programs exist but usage/satisfaction data is unavailable | HIGH - if coaches are not actively using these tools, the switching framing changes |
-| Counterfeit supplements are a real concern for Ukrainian buyers | ASSUMED - mentioned in product brief, no cited source | HIGH - if not a real fear, trust signal priority may be wrong |
+| Counterfeit supplements are a real concern for Ukrainian buyers | CONFIRMED by post-persona research: NADC Ukraine June 2025 case (20,000+ packages of fake steroids sold as supplements); buyer authenticity-verification behavior on hotline.ua/bcaa.ua reviews; editorial content about "how to tell original from fake." Sources: nadc.gov.ua, hotline.ua | LOW - trust signal priority is validated |
 | Ukrainian coaches communicate with athletes via WhatsApp/Telegram [?] | HYPOTHESIS - no cited source | MEDIUM - affects whether a "coach referral link to athlete" feature has value |
 | Goal quiz 40% completion / 3x purchase likelihood | HYPOTHESIS [?] from aarrr.md | LOW risk for now - labeled as hypothesis, not a design input yet |
 | Coach AOV 4,000-12,000 UAH [?] | HYPOTHESIS [?] - no real data | LOW for design, HIGH for business model - needed before pricing decisions |
@@ -199,11 +199,9 @@ Priority ordered by blast radius - what breaks if the claim is wrong:
 - Design decision at stake: MVP scope of the coach tool - how much to build before validation.
 - Where to look: reviews of belok.ua and GymBeam on Google Maps, Trustpilot, Ukrainian forums.
 
-**3. Are counterfeit supplements a real, active concern for Ukrainian buyers - or is it a background assumption? (MEDIUM-HIGH)**
-- Current claim: Ukrainian buyers have specific skepticism about product authenticity, driving the trust signal priority.
-- Risk: if the fear is actually about side effects or wrong dosage (not fakes specifically), trust architecture should lead with ingredient transparency, not authenticity signals.
-- Design decision at stake: product page hierarchy and trust content priority.
-- Where to look: Ukrainian supplement consumer forums (sportlife.ua forum, r/ukraine fitness subreddits, Facebook groups for Ukrainian fitness), Google reviews mentioning authenticity.
+**3. Are counterfeit supplements a real, active concern for Ukrainian buyers - or is it a background assumption? (CLOSED by post-persona research)**
+- CONFIRMED: NADC Ukraine documented the largest underground anabolic steroid operation in the country's history (June 2025) - fake products sold as sports supplements. Buyer behavior on hotline.ua shows active authenticity verification. Editorial content discusses "how to tell original from fake." Trust architecture must address authenticity explicitly - not as optional content.
+- Open sub-question remains [?]: whether the beginner's primary fear is fakes, or ingredient underdosing, or side effects. Product page hierarchy should address all three but ordering is still unknown.
 
 ---
 
