@@ -12,6 +12,7 @@
 |---------|------|---------|
 | v1 | 2026-06-10 | Initial pre-research hypotheses. All targets marked [?]. |
 | v_refresh | 2026-06-12 | Folded in new competitor findings: GymBeam B2B narrows coach acquisition angle; vansiton.ua Coach Account is a discovery; MyProtein UA = local distributors only (not direct competitor at acquisition stage). Coach channel treated as distinct path throughout. One primary metric and one MVP decision per stage enforced. |
+| v2 | 2026-06-14 | Added loyalty / bonus system as a retention mechanic in Retention stage only. Framed as hypothesis. References competitor loyalty data and strategy.md loyalty sub-section. No new primary metric added; loyalty feeds the existing 30-day repeat purchase rate metric. |
 
 ---
 
@@ -110,6 +111,7 @@ The goal quiz is a required MVP feature, not optional. Ship it before investing 
 - **Coach account retention:** Coaches retain if the service is reliable. Stock availability, delivery speed, and pricing are primary drivers. Account dashboard showing client order history is the retention tool.
 - **Stock alert:** "Notify me when back in stock" for out-of-stock products. Captures intent and brings buyers back.
 - **Order history + repeat order:** Persistent order history with a single "repeat order" action.
+- **Loyalty / bonus system (hypothesis - to validate):** A bonus balance earned from purchases, plus a cumulative lifetime discount that grows with total spend. Positioned as a reason to keep buying from Stack rather than switch to a competitor. Working hypothesis on tiers: roughly 5K UAH lifetime - 5%; 25K - 7%; 50K - 10% (UNVALIDATED; needs real margin data [?]). The cumulative structure rewards coaches structurally because coach AOV is high - a coach hitting 10K+ UAH per order crosses lifetime tiers faster than individual buyers. Competitor reference: belok.ua (10K/50K UAH thresholds, 5%/10%), 5lb.ua (three-tier cumulative, 3-8%), GymBeam UA (points system with 90-day expiry). See research/competitive-analysis.md v2 for full competitor loyalty data and research/strategy.md v2 for the loyalty research task and hypothesis framing.
 
 ### Key hypotheses
 
