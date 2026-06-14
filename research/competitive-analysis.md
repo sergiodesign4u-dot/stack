@@ -1,7 +1,7 @@
 # Competitive Analysis
 
-**Version:** v2 (2026-06-14)
-**Previous version:** v_refresh (2026-06-12)
+**Version:** v3 (2026-06-14)
+**Previous version:** v2 (2026-06-14)
 **Research method:** Direct site fetch + web search + Playwright screenshots
 **All claims cite sources. Unverified data marked [?].**
 
@@ -14,6 +14,7 @@
 | v1 | 2026-06-10 | Initial analysis: 3-group structure, 5-competitor matrix, patterns/gaps |
 | v_refresh | 2026-06-12 | Added GymBeam UA (largest traffic in UA, confirmed B2B program); corrected belok.ua age (7 years, not 15); added vansiton.ua Coach Account Program; confirmed MyProtein direct shipping to UA is suspended; deepened belok.ua wholesale findings; refreshed comparison matrix |
 | v2 | 2026-06-14 | Added loyalty / bonus mechanics and SEO / organic visibility observations for all competitors. Added open questions 4 (loyalty structure) and 5 (SEO channel effectiveness). No changes to competitor groups or matrix. |
+| v3 | 2026-06-14 | Added mega-mass.ua to HARD group (replaced 5lb.ua; selection criteria noted). Added full profiles for all 5 HARD competitors (audience / product / mechanism / trust / monetization). Rebuilt comparison matrix to be HARD-weighted (3 HARD + 1 SOFT + 1 ASPIRATIONAL). Updated patterns and differences to reflect mega-mass findings. |
 
 ---
 
@@ -23,25 +24,91 @@
 
 Same product, same audience, same market - Ukrainian sport nutrition e-commerce stores. Max 5.
 
+**Selection criteria (v3, 2026-06-14):** Competitors selected based on market presence (traffic, physical stores), direct audience overlap with Stack's coach and beginner segments, and strategic relevance to the differentiation question. 5lb.ua (21,700 monthly visits, 1 store, Dnipro-only) was replaced by mega-mass.ua (126,600 monthly visits, 18+ stores across 10 cities, wholesale program) because mega-mass represents a more significant competitive threat by every measurable dimension. proteininkiev.com and waysport.ua are noted but not included: proteininkiev.com is smaller and Kyiv-niche; waysport.ua has physical scale in central Ukraine but no program differentiation and is not a relevant strategic reference for Stack's positioning. Sources: SimilarWeb May 2026; direct site fetches 2026-06-14.
+
 | Name | Type | Why in this group | What to study |
 |------|------|-------------------|---------------|
-| belok.ua | Ukrainian sport nutrition e-commerce | Owner's primary reference competitor; 2.345M monthly visits (Similarweb Sep 2024); 40+ physical stores | Wholesale/coach sign-up form, discount system, per-serving price display, goal navigation, 7-year market position |
-| GymBeam UA (gymbeam.ua) | International sport nutrition brand with strong UA presence | Largest traffic in UA market (2.39M monthly visits); self-service B2B wholesale program; 10,000+ SKUs | B2B wholesale self-service flow (contrast with belok.ua form-only), product breadth, goal navigation, UA-specific positioning |
-| bcaa.ua | Ukrainian sport nutrition e-commerce, Kyiv | 3 physical stores in Kyiv; named athlete endorsements; high review volume | Athlete endorsement model, goal navigation, loyalty program mechanics |
-| 5lb.ua | Ukrainian sport nutrition, Dnipro-based | 50+ brands, physical retail presence, loyalty/bonus mechanics | Loyalty/bonus program, brand breadth, multi-city presence |
-| vansiton.ua | Ukrainian own-brand manufacturer, sport nutrition store | Own production since 1993, ISO 22000:2005 certified, Coach Account Program; 150+ own-brand SKUs | Coach account model (another UA competitor with coach tools), manufacturing trust signals, ISO certification display |
+| belok.ua | Ukrainian sport nutrition e-commerce | Owner's primary reference; 2.345M monthly visits; 40+ stores nationwide; only HARD competitor with a publicly accessible coach wholesale form | Wholesale/coach form, cumulative discount system, per-serving price display, 3-goal navigation, 7-year market position |
+| GymBeam UA (gymbeam.ua) | International brand with strong UA presence | Largest traffic in UA market (2.39M monthly visits); self-service B2B wholesale; 10,000+ SKUs; points loyalty program launched Feb 2026 | B2B wholesale self-service flow (contrast with form-only competitors), product breadth, loyalty point mechanics, UA positioning |
+| bcaa.ua | Ukrainian sport nutrition e-commerce, Kyiv | 251,500 monthly visits; UA category rank #5; 120+ brands; 3 Kyiv physical stores; 11 years market; NO coach or B2B program - exposes the gap Stack targets | Athlete endorsement model, trust signals, catalog navigation, absence of coach program |
+| mega-mass.ua | Ukrainian sport nutrition omnichannel chain | 126,600 monthly visits; 18+ stores across 10 Ukrainian cities (biggest physical footprint in market); founded 2009; official distributor of 4 brands; wholesale program exists | Largest omnichannel competitor, western Ukraine dominance, wholesale program scope, physical presence strategy |
+| vansiton.ua | Ukrainian own-brand manufacturer and e-commerce store | 32+ years on market (oldest UA manufacturer); ISO 22000:2005; 2,190+ SKUs; only competitor with goal/sport-type navigation; manual Coach Account program | Manufacturing trust signals, ISO certification display, sport-goal navigation (partial UX analog), Coach Cabinet program scope |
 
-**Special focus: belok.ua**
+---
 
-Belok.ua is the owner's primary reference and the only UA hard competitor with an explicit coach/wholesale program publicly accessible. Key facts:
-- 80+ brands, 2,000+ SKUs, 40+ physical stores across Ukraine
-- Market position: 7 years (established 2019; site states "7 років на ринку"). Previous analysis incorrectly stated 15 years - corrected here.
-- Goal navigation: 3 buckets (Набрати масу / Спалити жир / Вітаміни та здоров'я)
-- Discount system: "Flexible discount system" - negotiated per partner, not a published tier. Form-based sign-up requires callback.
-- Wholesale program (belok.ua/ua/opt/): form collects company name, contact, business type (nutrition store, fitness club, personal trainer, or other), city, and expected monthly volume. No self-service ordering. Partner email: partner@belok.ua. Emphasizes "flexible discounts" and "individual approach" - terms not published.
-- Trust signals: physical presence, partnership with Ukrainian bodybuilding federations, Android app (confirmed on Play Store)
-- Certificates page (belok.ua/ua/serteficates/) is empty - a notable gap
-- Source: direct site fetch 2026-06-12
+#### Full HARD Competitor Profiles
+
+All facts from direct site fetches 2026-06-14. Sources listed per claim.
+
+---
+
+##### belok.ua
+
+| Dimension | Detail |
+|-----------|--------|
+| Audience | All buyer levels; national reach; gym-goers and regulars primarily; coaches/wholesale via callback-only form at /opt/ |
+| Product foundation | 80+ brands, 2,000+ SKUs, own Sporter sub-brand; 40+ physical stores across Ukraine; Android app (confirmed on Play Store) |
+| Key mechanism | Per-serving price display on product listings; 3-goal navigation buckets (Набрати масу / Спалити жир / Вітаміни та здоров'я); cumulative discount system (12-month window: 5% at 10,000 UAH, 10% at 50,000 UAH); wholesale form at /opt/ requires callback |
+| Trust | 7 years on market (est. 2019); 40+ physical stores; Ukrainian bodybuilding federation partnership; certificates page /ua/serteficates/ is empty (gap) |
+| Monetization | Margin on sales; wholesale/partner form for coaches, gyms, fitness clubs, trainers (no self-service, no published tiers); Android app |
+| Coach / B2B | Form at belok.ua/ua/opt/ - collects company name, contact, business type, city, expected monthly volume. Manual callback. No self-service ordering. Terms not published. |
+| Sources | https://belok.ua/ua/, https://belok.ua/ua/opt/, https://belok.ua/ua/sistema-skidok/, https://play.google.com/store/apps/details?id=starter.belok.client |
+
+---
+
+##### GymBeam UA (gymbeam.ua)
+
+| Dimension | Detail |
+|-----------|--------|
+| Audience | Broad fitness audience; 16 international markets including UA; individual buyers and B2B wholesalers via self-service; 2.39M monthly UA visits (largest in UA sport nutrition) |
+| Product foundation | 10,000+ products (own brand + third-party); spans supplements, sportswear, healthy food, accessories; significant own-brand manufacturing |
+| Key mechanism | Self-service B2B wholesale (register, activate, shop - no form or callback); points loyalty program launched Feb 2026 (1 pt/50 UAH web, 2 pt/50 UAH app, 90-day expiry); app install incentivized; static category navigation, no goal quiz |
+| Trust | International EU brand, 16-country presence; large catalog signals authority; no UA-specific certifications observed on UA site [?] |
+| Monetization | Margin on sales; B2B wholesale self-service (pricing not publicly tiered - customized by turnover); own-brand manufacturing margins; mobile app loyalty multiplier |
+| Coach / B2B | Self-service at gymbeam.com/b2b/form - register, submit application, activate account, shop at wholesale prices. Pricing negotiated based on planned turnover. No published tiers. Retailer/distributor framing, not coach-specific. |
+| Sources | https://gymbeam.ua/ua/, https://gymbeam.com/content/wholesale, https://gymbeam.ua/ua/content/prohrama-loialnosti |
+
+---
+
+##### bcaa.ua
+
+| Dimension | Detail |
+|-----------|--------|
+| Audience | B2C retail; beginner to intermediate; Kyiv-centric in-person but nationwide delivery; 251,500 monthly visits (UA sport nutrition category rank #5, SimilarWeb May 2026) |
+| Product foundation | 120+ international brands (BSN, Optimum Nutrition, MyProtein, BioTech USA, Scitec, MuscleTech, Dymatize, etc.); no own brand; 20+ categories including proteins, amino acids, fat burners, vitamins, accessories, apparel |
+| Key mechanism | Bundle promotions (товари за 1 грн), 6 named athlete endorsements including Ukrainian UBPF champions; free in-store expert consultations; blog/YouTube for SEO and education; no goal navigation, no quiz, no coach program |
+| Trust | Founded 2014 (11 years); 3 Kyiv physical stores (Darnytskyi, Solomiyanskyi, Obolonskyi districts); staff are competitive athletes and champions; "certified products only" messaging; named endorsers with verified titles |
+| Monetization | Margin on retail sales; no published loyalty tiers or points system; no coach or B2B program |
+| Coach / B2B | None. No wholesale page, no coach account, no /opt/ section. The single biggest structural gap relative to competitors. |
+| Sources | https://bcaa.ua/, https://bcaa.ua/ua/o_magazine, https://www.similarweb.com/website/bcaa.ua/competitors/ |
+
+---
+
+##### mega-mass.ua
+
+| Dimension | Detail |
+|-----------|--------|
+| Audience | All fitness levels; dominant in western Ukraine; 126,600 monthly visits (SimilarWeb May 2026); coaches and gym buyers via informal wholesale program |
+| Product foundation | 20+ international brands; official distributor of ActivLab, Real Pharm, Kevin Levrone, Muscle Care; also carries Power Pro, Sporter, Optimum Nutrition, BSN, BioTechUSA, Scitec, Universal, Olimp; sportswear and accessories; dedicated bundle section |
+| Key mechanism | Largest physical retail network in UA sport nutrition (18+ stores across 10 cities); loyalty cards with points and promotional codes; 4 quality certificates displayed; wholesale program for coaches and gyms; standard catalog/category navigation |
+| Trust | Founded 2009 (16+ years); 18+ stores: Kyiv (2), Lviv (8), Ivano-Frankivsk (6), Ternopil (4), Chernivtsi (2), Khmelnytsky (3), plus Rivne, Lutsk, Kolomyia, Kamianets-Podilsky; official distributor of 4 brands; 4 quality certificates; 29.76% bounce rate (lowest observed - strongest engagement) |
+| Monetization | Margin on retail sales; wholesale/coach program (exists but /uk/optom/ is inaccessible; details not publicly visible); loyalty card system |
+| Coach / B2B | Wholesale program confirmed on homepage but detail page unavailable at time of research [?]. Contact/scope unknown. Physical store network effectively doubles as a B2B touchpoint. |
+| Sources | https://mega-mass.ua/uk/, https://www.similarweb.com/website/mega-mass.ua/ |
+
+---
+
+##### vansiton.ua
+
+| Dimension | Detail |
+|-----------|--------|
+| Audience | B2C buyers and sports organizations (gyms, clubs, coaches, federations) via manual partner program; broad sports coverage from bodybuilding to MMA, CrossFit, running, cycling, eSports |
+| Product foundation | 2,190+ SKUs [? - UBA 2025 estimate], 61 categories; own-brand Vansiton line (manufactured since 1993 with raw materials from Holland, France, Germany, Lithuania); also carries Optimum Nutrition, Nutrend, BioTech USA; three-way taxonomy (by goal, by product, by sport) |
+| Key mechanism | Only UA competitor with meaningful sport/goal-based navigation - browse by sport type (bodybuilding, MMA, running...) and by purpose (muscle growth, fat loss, endurance...); own-brand pricing advantage; frequent 20-50% promotional sales; Coach Cabinet PDF program |
+| Trust | 32+ years on market (oldest UA manufacturer, est. 1993); ISO 22000:2005 Food Safety Management System certified; 76% positive reviews; 4.7/5 stars (22 reviews); all products certified; partner stores in Kyiv and major cities |
+| Monetization | Own-brand manufacturing margins (highest margin profile in group); third-party brand margins; partner/wholesale pricing negotiated, not published; free shipping above 2,000 UAH |
+| Coach / B2B | Partner program at /ua/partneram.html - targets sports organizations, fitness clubs, gyms, individual coaches, teams, federations. Benefits: wholesale pricing, marketing materials, product consulting, delivery support, event sponsorship. Contact by phone/email only: (050) 410-44-27, moka@vansiton.ua. NOT self-service. A "Кабінет тренера" (Coach Cabinet) is referenced via a 1.5 MB PDF at /pdf/comandaVansiton.pdf - document content not parseable. |
+| Sources | https://vansiton.ua/ua/, https://vansiton.ua/en/, https://vansiton.ua/ua/partneram.html, https://uba.top/sports-nutrition-stores-in-ukraine/ |
 
 ---
 
@@ -72,15 +139,17 @@ International best-in-class players. Studied for how they solve goal-to-product 
 
 ---
 
-## Comparison Matrix: 5 Most Relevant Competitors
+## Comparison Matrix: 5 Most Relevant Competitors (HARD-weighted, v3)
+
+**Why this composition:** At least 3 HARD (direct UA competitors) to compare ourselves against actual rivals; 1 SOFT for the best local guidance reference; 1 ASPIRATIONAL for best-in-class trust model. Previous matrix had 2 HARD + 2 ASPIRATIONAL + 1 SOFT - skewed toward international non-rivals. Thorne (ASPIRATIONAL) kept as single reference because it is the gold standard for the trust-first model Stack needs to bridge.
 
 | Competitor | Audience | Product Foundation | Key Mechanism | Trust | Monetization |
 |------------|----------|--------------------|---------------|-------|--------------|
-| **belok.ua** (HARD) | All levels; gym-goers primarily; wholesale/coach via buried form | 80+ brands, 2,000+ SKUs, own Sporter brand, 40+ physical stores | Per-serving cost display; cumulative discount system; 3-goal navigation buckets; Android app | 7 years on market, 40+ stores, federation partnership; empty certificates page | Margin on sales; wholesale form for coaches/gyms/trainers (no self-service) |
-| **GymBeam UA** (HARD) | Broad fitness audience; 16 markets including UA; B2B wholesalers via self-service | 10,000+ products (own brand + third-party); spans supplements, apparel, healthy food | Self-service B2B wholesale (register, activate, shop - no form/callback); 2.39M monthly UA visits | International brand, large product catalog, EU market presence | Margin; B2B wholesale self-service; own-brand manufacturing margins |
-| **myprotein.com** (ASPIRATIONAL) | All levels globally; male/female paths; trade accounts. UA: products via local retailers only, no direct shipping | Full supply chain; UK+EU manufacturing; Informed Choice/Protein/NSF | 6-goal selector; Expert Advice hub; gender-specific paths; 210k+ Trustpilot (4.4) | BRCGS AA+; Informed Choice/Protein/NSF; "we don't spike protein" anti-fraud claim | Margin; subscriptions; 5% mobile app discount; trade accounts |
-| **thorne.com** (ASPIRATIONAL) | Health-focused; athletes; healthcare practitioners | 40+ years science; 2 in-house labs; Mayo Clinic/NIH/Duke partnerships | Taia AI advisor; Health Tests (physician-reviewed plans); "Take 5 Daily" curated stack | NSF+TGA+GRMA; 4 rounds of testing; 40+ active clinical trials | Margin; subscribe-and-save 20% + free shipping; practitioner professional tools |
-| **liki24.com** (SOFT) | Ukrainian health consumers; 1M+ customers | Marketplace; 13,000 pharmacies; 50,000+ products | Symptom-based navigation - strongest goal-to-product model in UA market; price comparison across pharmacies | 1M+ customers; iOS+Android app (Qubstudio-redesigned); EU market recognition | Marketplace margin; cashback program; referral (up to 200 UAH/invitee) |
+| **belok.ua** (HARD) | All levels; gym-goers nationally; coaches/wholesale via callback form at /opt/ | 80+ brands, 2,000+ SKUs, own Sporter sub-brand, 40+ stores, Android app | Per-serving cost display; 3-goal buckets; cumulative discount (5% at 10K UAH, 10% at 50K UAH, 12-month window); callback wholesale form | 7 years on market (est. 2019); 40+ stores; federation partnership; empty certificates page (gap) | Margin on sales; wholesale callback form (no self-service, no published tiers) |
+| **GymBeam UA** (HARD) | Broad fitness audience; 16 markets; B2B wholesalers via self-service; 2.39M monthly UA visits | 10,000+ products (own brand + third-party); supplements, apparel, healthy food, accessories | Self-service B2B wholesale (no form, no callback); points loyalty (1 pt/50 UAH web, 2 pt/50 UAH app, 90-day expiry); static category navigation | International EU brand; 16-country presence; large catalog signals authority; no UA-specific certs observed [?] | Margin; B2B wholesale (pricing by turnover, not published); own-brand manufacturing margins; app loyalty multiplier |
+| **mega-mass.ua** (HARD) | All levels; western Ukraine dominant; 126,600 monthly visits; coaches/gyms via informal wholesale | 20+ brands; official distributor of ActivLab, Real Pharm, Kevin Levrone, Muscle Care; also carries Sporter, BSN, Scitec, BioTech; sportswear and accessories | Largest physical retail network in UA sport nutrition (18+ stores, 10 cities); loyalty card system; wholesale program; standard catalog navigation | 16+ years on market (est. 2009); 18+ stores across 10 cities; official distributor of 4 brands; 4 quality certificates; 29.76% bounce rate (lowest = strongest engagement) | Margin; wholesale/coach program (exists, details not publicly accessible [?]); loyalty cards and promo codes |
+| **liki24.com** (SOFT) | Ukrainian health consumers; 1M+ customers across pharmacy and health products | Marketplace; 13,000+ partner pharmacies; 50,000+ products; iOS+Android app | Symptom-based navigation - strongest goal-to-product model in UA market; price comparison across pharmacies | 1M+ customers; iOS+Android app (Qubstudio-redesigned); EU market recognition | Marketplace margin; tagged cashback (1 bonus = 1 UAH, delivery orders only); referral up to 200 UAH/invitee |
+| **thorne.com** (ASPIRATIONAL) | Health-focused individuals; competitive athletes; healthcare practitioners | 40+ years science; 2 in-house labs; Mayo Clinic/NIH/Duke partnerships; 1,500+ products | Taia AI advisor for personalized goal guidance; Health Tests (physician-reviewed curated plans); "Take 5 Daily" curated stack; 4-rounds-of-testing trust architecture | NSF+TGA+GRMA certified; 4 rounds of testing communicated plainly; 40+ active clinical trials; laboratory partnerships | Margin; subscribe-and-save 20% + free shipping; practitioner professional account tools |
 
 ---
 
@@ -96,19 +165,19 @@ International best-in-class players. Studied for how they solve goal-to-product 
 
 ### 3 Key Differences
 
-1. **GymBeam has self-service B2B wholesale; belok.ua uses a callback form. Neither treats the coach as a community or a primary front-of-site identity.** GymBeam's B2B is positioned as a retailer/distributor program - not a coach-specific tool. Belok's form requires a phone callback. No UA competitor has a self-service coach account with client management. The gap is structural, not just a feature.
+1. **Three competitors have some form of coach/B2B program; none of them is self-service with client management.** GymBeam has the best: a self-service B2B registration - but it is framed as a retailer/distributor tool, not a coach-specific product with client profiles. Belok.ua uses a callback form at /opt/. Mega-mass.ua has a wholesale program but details are not publicly visible [?]. Vansiton has a manual partner program and a Coach Cabinet PDF. No UA competitor has a self-service coach account with multi-client ordering, saved client profiles, and a coach community identity. The gap is structural, not just a feature.
 
-2. **No Ukrainian sport nutrition store communicates composition, dosage, or testing in depth.** Vansiton mentions ISO 22000:2005 - the strongest quality signal seen in UA. But no store communicates ingredient sourcing, lab testing, or per-serving breakdown at the level of Thorne (4 rounds of testing), Bulk (Informed Sport batch-level), or Huel (100+ peer-reviewed studies). The trust vocabulary gap is the largest observed.
+2. **No Ukrainian sport nutrition store communicates composition, dosage, or testing in depth.** Vansiton mentions ISO 22000:2005 - the strongest quality signal seen in UA, and it is a manufacturer-level certification, not a per-product signal. Mega-mass.ua displays 4 quality certificates on its homepage but does not explain them per product. Belok's certificates page at /ua/serteficates/ is empty. No UA store communicates ingredient sourcing, lab testing, or per-serving breakdown at the level of Thorne (4 rounds of testing). The trust vocabulary gap is the largest observed.
 
-3. **Mobile is underdeveloped in UA sport nutrition.** Only belok.ua has a confirmed Android app. Liki24 (SOFT) has a full iOS+Android redesigned app. GymBeam operates multi-platform internationally but UA-specific app status is [?]. No UA sport nutrition store has a confirmed iOS app.
+3. **Mobile is underdeveloped in UA sport nutrition.** Only belok.ua has a confirmed Android app. Liki24 (SOFT) has a full iOS+Android redesigned app. GymBeam operates multi-platform internationally but UA-specific app status is [?]. No UA sport nutrition store has a confirmed iOS app. Mega-mass.ua has no confirmed app [?].
 
 ### What is Missing Across All (Our Opportunity Gap)
 
-- **A real interactive goal-to-product path for the Ukrainian market.** The best UA store (belok.ua) offers 3 static goal buckets. GymBeam UA appears to use static categories as well [?]. No quiz, no personalization, no conversational guidance exists in UA sport nutrition.
-- **Coach ordering as a front-of-site, community-centered feature.** GymBeam has self-service B2B (retailer-focused). Belok has a wholesale form. Vansiton has a Coach Account (scope unclear). No competitor treats the coach as a channel with their own landing page, client management tools, and community identity.
-- **Subscription or smart reorder for consumers.** Completely absent from all UA hard competitors. Liki24 (SOFT) has a loyalty cashback; no UA sport nutrition store has reminders or smart reorder.
-- **Third-party quality certification communication.** Vansiton mentions ISO 22000:2005. Belok's certificates page is empty. No UA store explains testing, sourcing, or manufacturing at depth.
-- **Per-serving cost display.** Belok does this. GymBeam does not appear to (based on public pages [?]). Other UA competitors do not. A foundational UX feature worth matching.
+- **A real interactive goal-to-product path for the Ukrainian market.** Belok.ua offers 3 static goal buckets. GymBeam uses static categories. Vansiton has a sport-type browser (closest analog) but no quiz or personalized guidance. Mega-mass and bcaa.ua have no goal navigation at all. No quiz, no personalization, no conversational guidance exists in UA sport nutrition.
+- **Coach ordering as a front-of-site, community-centered feature.** Three competitors have some B2B infrastructure (GymBeam self-service, belok.ua callback form, vansiton.ua manual partner program, mega-mass.ua informal wholesale). None of them has a coach-specific identity: dedicated landing page, multi-client cart, saved client profiles, or a community element. The gap is differentiation quality, not competitor absence.
+- **Subscription or smart reorder for consumers.** Completely absent from all UA hard competitors. Liki24 (SOFT) has a tagged cashback. No UA sport nutrition store has consumption-based reminders or smart reorder mechanics.
+- **Third-party quality certification communication at product level.** Vansiton mentions ISO 22000:2005 at store level. Mega-mass displays 4 certificates on homepage. Belok's certificates page is empty. No UA store explains testing, sourcing, or per-serving breakdown per product.
+- **Per-serving cost display.** Belok does this. No other UA store confirmed [?]. A foundational UX feature worth matching from day one.
 
 ### Open Questions
 
@@ -171,6 +240,8 @@ Observation only. Full SEO audit (keyword research, rankings, page-level analysi
 - `research/screens/huel-homepage.png` - huel.com homepage
 - `research/screens/huel-goal-selector.png` - huel.com "Choose Your Goal" page
 - `research/screens/bulk-homepage.png` - bulk.com homepage
+- mega-mass.ua homepage: [not yet captured - to be added]
+- mega-mass.ua store network page: [not yet captured - to be added]
 
 ---
 
@@ -209,4 +280,13 @@ Observation only. Full SEO audit (keyword research, rankings, page-level analysi
 - https://huel.com/pages/choose-your-goal
 - https://huel.com/pages/huel-is-now-b-corp-certified
 - https://www.similarweb.com/website/bcaa.ua/competitors/
+- https://www.similarweb.com/website/mega-mass.ua/
+- https://www.similarweb.com/website/5lb.ua/
 - https://uba.top/sports-nutrition-stores-in-ukraine/
+- https://mega-mass.ua/uk/
+- https://bcaa.ua/ua/o_magazine
+- https://5lb.ua/en/o-nas.html
+- https://5lb.ua/en/skidki.html
+- https://proteininkiev.com/en/
+- https://waysport.ua/
+- https://willmax.com.ua/
