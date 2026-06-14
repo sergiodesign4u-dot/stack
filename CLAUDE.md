@@ -125,6 +125,34 @@ Ukraine only. Foreign stores (MyProtein, Bulk, Thorne, etc.) are behavioral refe
 - **Analytics:** Mixpanel or PostHog for product analytics
 - Note: this is a hypothesis, to be validated during the technical scoping phase.
 
+### E-commerce Platform Direction (HYPOTHESIS - not a decision)
+
+Two directions exist for a UA sport nutrition store at this scale. Neither is committed. This is a scoping question for the technical phase.
+
+**Direction A: Ready-made platform (e.g. Shopify, Medusa.js, Saleor)**
+- Faster to launch. Built-in checkout, payments, order management, inventory, and discount logic.
+- Tradeoffs: customization constraints (coach multi-client cart is non-standard); per-transaction fees on Shopify; may require significant theme work for a custom mobile-first experience.
+- Relevant for a UA store: Shopify has LiqPay and Wayforpay payment integrations available via third-party apps. Medusa.js is open-source and more customizable.
+
+**Direction B: Custom build (Next.js frontend + custom API + PostgreSQL)**
+- Full control over coach ordering flow, product page layout, loyalty logic, and SEO structure.
+- Tradeoffs: significantly more development time and operational overhead; no built-in order management.
+- Relevant for a UA store: the coach multi-client cart and goal quiz are non-standard enough that a custom build may be more practical than adapting a platform.
+
+**Recommendation to validate in technical scoping:** Assess whether the coach ordering flow (multi-client cart, saved client profiles, bulk pricing) can be built on a ready-made platform without unacceptable tradeoffs. If yes, a hybrid approach (Medusa.js or Shopify headless + custom coach layer) is likely faster to market than a full custom build.
+
+### Catalog Source and Freshness (HYPOTHESIS - open questions)
+
+Where product data would come from and how stock and prices stay current are unresolved operational questions. Design research cannot answer them alone.
+
+**Possible sources (hypothesis):**
+- Distributor price lists and feeds: most Ukrainian sport nutrition distributors provide Excel or CSV price lists. Whether any provide structured API feeds is [?].
+- Supplier direct feeds: individual brand suppliers (e.g. own-brand manufacturers) may provide structured data. Format and reliability are [?].
+- Manual entry: feasible for a small initial catalog (100-300 SKUs), but does not scale to 1,000+ SKUs without a real data pipeline.
+
+**Open question - catalog population at scale (operational, not a design question):**
+Populating the store with 500-2,000+ products requires: sourcing agreements with distributors or brands, a structured data format for product descriptions and images, a process for keeping prices and stock levels current (potentially near-real-time for popular SKUs), and a system for handling out-of-stock and back-in-stock states. This is an operational and sourcing challenge that design research cannot resolve. It requires real conversations with Ukrainian distributors and suppliers, actual price list formats, and a data operations plan. It is noted here as an open question so it is not forgotten, but it will not be answered by the research phase. Mark as [?] until technical scoping with real supplier data.
+
 ---
 
 ## Timeline (Hypothesis)
