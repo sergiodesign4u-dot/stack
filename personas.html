@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack - Персони</title>
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --surface: #ffffff;
+      --surface-alt: #f2f0eb;
+      --border: #e5e2db;
+      --text: #1a1916;
+      --text-secondary: #6b6760;
+      --text-light: #9b9790;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0ea;
+      --accent-mid: #4a8c62;
+      --score-high: #2d5a3d;
+      --score-mid: #7a9e4a;
+      --score-low: #b5882a;
+      --score-bg-high: #e8f0ea;
+      --score-bg-mid: #f3f7ea;
+      --score-bg-low: #fdf3e3;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; height: 52px;
+      background: rgba(247,246,243,0.94);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px; z-index: 101;
+    }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle {
+      background: none; border: none; cursor: pointer; padding: 8px;
+      color: var(--text-secondary); display: flex; align-items: center;
+      justify-content: center; border-radius: var(--radius-sm); transition: background 0.15s;
+    }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+
+    /* SIDEBAR OVERLAY */
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0; width: 220px;
+      background: rgba(247,246,243,0.98);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-right: 1px solid var(--border); z-index: 100;
+      display: flex; flex-direction: column;
+      transform: translateX(-100%); transition: transform 0.22s ease;
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-logo {
+      font-weight: 700; font-size: 17px; color: var(--accent);
+      letter-spacing: -0.02em; text-decoration: none;
+      display: block; padding: 22px 20px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-nav {
+      flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px;
+    }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+
+    .sidebar-nav a {
+      display: block; color: var(--text-secondary); text-decoration: none;
+      font-size: 13px; font-weight: 500; padding: 7px 12px;
+      border-radius: var(--radius-sm); transition: color 0.15s, background 0.15s; margin-bottom: 1px;
+    }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+
+    .sidebar-nav a.sidebar-sub {
+      font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light);
+    }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); }
+
+    .sidebar-page-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent); padding: 8px 12px 4px;
+    }
+
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+
+    .sidebar-upcoming {
+      padding: 12px 12px 16px; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-light); line-height: 1.8;
+    }
+
+    /* LAYOUT */
+    .page { max-width: 1160px; margin: 0 auto; padding: 68px 24px 80px; }
+
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 48px 48px 80px; }
+      section { scroll-margin-top: 24px; }
+    }
+
+    /* HERO */
+    .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); margin-bottom: 64px; animation: fadeUp 0.5s ease both; }
+    .hero-tag {
+      display: inline-block; background: var(--accent-light); color: var(--accent);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; color: var(--text); margin-bottom: 20px; max-width: 700px; }
+    .hero-lead { font-size: 18px; color: var(--text-secondary); max-width: 640px; line-height: 1.6; margin-bottom: 32px; }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+    .hero-meta-item { font-size: 13px; color: var(--text-light); }
+    .hero-meta-item strong { color: var(--text-secondary); font-weight: 600; }
+
+    /* SECTIONS */
+    section { margin-bottom: 72px; scroll-margin-top: 60px; animation: fadeUp 0.4s ease both; }
+    .section-number { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
+    h2 { font-size: clamp(22px, 3vw, 32px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: var(--text); margin-bottom: 8px; }
+    .section-lead { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; max-width: 600px; }
+    h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.015em; color: var(--text); margin: 32px 0 12px; }
+    h4 { font-size: 15px; font-weight: 650; color: var(--text); margin: 24px 0 8px; }
+    p { color: var(--text-secondary); margin-bottom: 12px; }
+
+    /* BADGES */
+    .badge-q {
+      display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+      padding: 1px 5px; border-radius: 100px; background: var(--score-bg-low);
+      color: var(--score-low); margin-left: 4px; letter-spacing: 0.04em;
+      vertical-align: middle; white-space: nowrap;
+    }
+    .badge-decided {
+      display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+      padding: 1px 5px; border-radius: 100px; background: var(--accent-light);
+      color: var(--accent); margin-left: 4px; letter-spacing: 0.04em;
+      vertical-align: middle; white-space: nowrap;
+    }
+    .badge-confirmed {
+      display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+      padding: 1px 5px; border-radius: 100px; background: #e8f0ea;
+      color: #2d5a3d; margin-left: 4px; letter-spacing: 0.04em;
+      vertical-align: middle; white-space: nowrap;
+    }
+
+    /* DECISION / UPDATE NOTES */
+    .decision-note {
+      display: block; font-size: 12px; color: var(--accent);
+      background: var(--accent-light); border-radius: var(--radius-sm);
+      padding: 5px 10px; margin-top: 5px; line-height: 1.45;
+    }
+    .update-note {
+      display: block; font-size: 12px; color: #7a5c2e;
+      background: #fdf8f0; border: 1px solid #e8d5a8; border-radius: var(--radius-sm);
+      padding: 5px 10px; margin-top: 5px; line-height: 1.45;
+    }
+
+    /* OBSERVATION CARDS */
+    .obs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .obs-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow-sm);
+    }
+    .obs-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent-mid); margin-bottom: 6px;
+    }
+    .obs-text { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+    .obs-source { font-size: 11px; color: var(--text-light); margin-top: 6px; }
+
+    /* PERSONA CARDS */
+    .persona-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow-sm);
+      overflow: hidden; margin-bottom: 32px;
+    }
+    .persona-header {
+      padding: 24px 28px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .persona-avatar {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--accent-light); color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
+    }
+    .persona-avatar.secondary { background: #eef2ff; }
+    .persona-avatar.supporting { background: var(--surface-alt); }
+    .persona-header-meta { flex: 1; }
+    .persona-name { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 4px; }
+    .persona-role-text { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+    .persona-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .persona-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 4px;
+    }
+    .pbadge-primary { background: var(--accent-light); color: var(--accent); }
+    .pbadge-secondary { background: #eef2ff; color: #3d52a0; }
+    .pbadge-supporting { background: var(--surface-alt); color: var(--text-secondary); }
+
+    .persona-context {
+      padding: 16px 28px; border-bottom: 1px solid var(--border);
+      background: var(--surface-alt);
+    }
+    .persona-context-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-light); margin-bottom: 10px;
+    }
+    .context-row { display: flex; gap: 12px; margin-bottom: 5px; font-size: 13px; }
+    .ctx-label { color: var(--text-light); font-weight: 600; flex-shrink: 0; min-width: 100px; }
+    .ctx-value { color: var(--text-secondary); }
+
+    .persona-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+
+    .persona-section {
+      padding: 20px 28px; border-bottom: 1px solid var(--border);
+    }
+    .persona-section:nth-child(odd) { border-right: 1px solid var(--border); }
+
+    .persona-section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-light); margin-bottom: 10px;
+    }
+    .persona-list { list-style: none; padding: 0; margin: 0; }
+    .persona-list li {
+      font-size: 13.5px; color: var(--text-secondary); padding: 5px 0 5px 14px;
+      position: relative; line-height: 1.5; border-bottom: 1px solid var(--surface-alt);
+    }
+    .persona-list li:last-child { border-bottom: none; }
+    .persona-list li::before { content: "-"; color: var(--text-light); position: absolute; left: 0; }
+
+    .persona-full { grid-column: 1 / -1; }
+
+    .persona-quote {
+      grid-column: 1 / -1; padding: 20px 28px;
+      background: var(--surface-alt); border-top: 1px solid var(--border);
+    }
+    .persona-quote blockquote {
+      font-size: 15px; color: var(--text); font-style: italic; line-height: 1.65;
+      border-left: 3px solid var(--accent-mid); padding-left: 16px; margin: 0 0 8px;
+    }
+    .persona-quote-note {
+      font-size: 11px; color: var(--text-light); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    .persona-switching {
+      grid-column: 1 / -1; padding: 14px 28px;
+      background: var(--surface); border-top: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .switching-label {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light);
+      margin-right: 8px;
+    }
+    .switching-low { color: #c0392b; font-weight: 600; }
+    .switching-medium { color: var(--score-low); font-weight: 600; }
+
+    @media (max-width: 700px) {
+      .persona-body { grid-template-columns: 1fr; }
+      .persona-section:nth-child(odd) { border-right: none; }
+      .persona-header { flex-direction: column; gap: 12px; }
+    }
+
+    /* GAPS TABLE */
+    .table-wrap {
+      overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm); margin: 20px 0;
+    }
+    table { width: 100%; border-collapse: collapse; background: var(--surface); font-size: 14px; }
+    thead th {
+      background: var(--surface-alt); padding: 12px 16px; text-align: left;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--text-secondary); border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: top; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--bg); }
+    .td-strong { color: var(--text); font-weight: 600; }
+
+    .priority-critical { background: #fce8e8; color: #c0392b; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+    .priority-high { background: var(--score-bg-low); color: var(--score-low); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+    .priority-medium { background: var(--surface-alt); color: var(--text-secondary); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 40px; }
+    .footer-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-text { font-size: 13px; color: var(--text-light); }
+
+    @media (max-width: 640px) {
+      .page { padding: 64px 16px 48px; }
+      .hero { padding: 40px 0 36px; }
+      .persona-header { padding: 18px 18px 16px; }
+      .persona-context, .persona-section, .persona-quote, .persona-switching { padding-left: 18px; padding-right: 18px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .hero { animation: fadeUp 0.5s ease both; }
+    section { animation: fadeUp 0.4s ease both; }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="research.html" class="sidebar-logo">Stack</a>
+  <nav class="sidebar-nav">
+    <a href="research.html">Дослідження</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Персони</div>
+    <a href="#observations" class="sidebar-sub">Спостереження</a>
+    <a href="#persona-olena" class="sidebar-sub">Олена - тренер</a>
+    <a href="#persona-dmytro" class="sidebar-sub">Дмитро - новий тренер</a>
+    <a href="#persona-viktoriia" class="sidebar-sub">Вікторія - початківець</a>
+    <a href="#persona-andriy" class="sidebar-sub">Андрій - постійний</a>
+    <a href="#gaps" class="sidebar-sub">Прогалини</a>
+    <hr class="sidebar-divider">
+    <a href="jtbd.html">JTBD</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-upcoming">Далі<br>Wireframes<br>Concept</div>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Фаза 1 - Дослідження</div>
+    <h1>Персони: хто купує і чому</h1>
+    <p class="hero-lead">Чотири персони на основі досліджень - тренерський канал як основний, початківці та постійні покупці як вторинні. Підтверджені факти відокремлені від гіпотез. Рішення засновника зафіксовані там, де вони закривають [?].</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Версія</strong> personas.md v1.2</div>
+      <div class="hero-meta-item"><strong>Дата</strong> Червень 2026</div>
+      <div class="hero-meta-item"><strong>Основна персона</strong> Олена (тренер)</div>
+      <div class="hero-meta-item"><strong>Фаза</strong> 1 з 6</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: OBSERVATIONS -->
+  <section id="observations">
+    <div class="section-number">01</div>
+    <h2>Спостереження з дослідження</h2>
+    <p class="section-lead">Ключові підтверджені факти і критичні прогалини, що впливають на всі чотири персони.</p>
+
+    <div class="obs-grid">
+      <div class="obs-card">
+        <div class="obs-tag">Підтверджено <span class="badge-confirmed">підтверджено</span></div>
+        <div class="obs-text">Тренери - це перепродавці, а не просто масові покупці. Вони купують за гуртовою ціною і продають клієнтам за роздрібною, залишаючи різницю як дохід. Це вбудована економічна модель ринку.</div>
+        <div class="obs-source">Джерело: fitness-shop.ua (оптова сторінка, 2026-06-14)</div>
+      </div>
+      <div class="obs-card">
+        <div class="obs-tag">Підтверджено <span class="badge-confirmed">підтверджено</span></div>
+        <div class="obs-text">Весь B2B-процес в Україні аналоговий: завантажити Excel-прайс, позначити кількість, надіслати email, чекати дзвінка менеджера. Stack замінює таблицю і телефонний дзвінок, а не цифровий продукт конкурента.</div>
+        <div class="obs-source">Джерело: fitness-shop.ua, sport-factor.ua (2026-06-14)</div>
+      </div>
+      <div class="obs-card">
+        <div class="obs-tag">Підтверджено <span class="badge-confirmed">підтверджено</span></div>
+        <div class="obs-text">Підробки - реальна і активна проблема. ДАЧА України задокументувала найбільшу підпільну операцію з виробництва анаболіків (червень 2025) - понад 20 000 пакетів продавалися як спортивні добавки.</div>
+        <div class="obs-source">Джерело: nadc.gov.ua (20.06.2025), hotline.ua reviews</div>
+      </div>
+      <div class="obs-card">
+        <div class="obs-tag">Підтверджено <span class="badge-confirmed">підтверджено</span></div>
+        <div class="obs-text">Жоден з 8 виявлених гуртових постачальників не публікує ціни відкрито. Всі ціни приховані за формою або дзвінком менеджера. Прозора публікація - це сам по собі диференціатор досвіду.</div>
+        <div class="obs-source">Джерело: 8 сторінок постачальників (2026-06-14)</div>
+      </div>
+      <div class="obs-card">
+        <div class="obs-tag">Підтверджено <span class="badge-confirmed">підтверджено</span></div>
+        <div class="obs-text">Надійність доставки і наявність товару - найчастіше згадувані причини похвали гуртових постачальників. DSN Group (5.0/5, 23 відгуки): "стабільні поставки, наявність на складі, швидка доставка". Ціна - найменш публічний фактор.</div>
+        <div class="obs-source">Джерело: dsn.ua/store-reviews/ (2026-06-14)</div>
+      </div>
+      <div class="obs-card">
+        <div class="obs-tag">Підтверджена відсутність</div>
+        <div class="obs-text">Жодних публічних обговорень, форумів чи відгуків, де українські тренери розповідали б про зміну постачальника - після пошуку 25+ джерел. Тригер переходу залишається <span class="badge-q">[?]</span>.</div>
+        <div class="obs-source">Джерело: 8 сторінок постачальників, 3 платформи відгуків (2026-06-14)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PERSONA OLENA -->
+  <section id="persona-olena">
+    <div class="section-number">02</div>
+    <h2>Персони</h2>
+    <p class="section-lead">Чотири персони відображають різну мотивацію, рівень довіри і відносини з продуктом. Тренерський канал розділений на дві субперсони через різну динаміку залучення.</p>
+
+    <div class="persona-card">
+      <div class="persona-header">
+        <div class="persona-avatar">🏋</div>
+        <div class="persona-header-meta">
+          <div class="persona-name">Олена</div>
+          <div class="persona-role-text">Тренер з усталеним постачальником</div>
+          <div class="persona-badges">
+            <span class="persona-badge pbadge-primary">Основна персона</span>
+            <span class="persona-badge pbadge-primary">Тренерський канал</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="persona-context">
+        <div class="persona-context-label">Контекст</div>
+        <div class="context-row"><span class="ctx-label">Вік</span><span class="ctx-value">30-42</span></div>
+        <div class="context-row"><span class="ctx-label">Роль</span><span class="ctx-value">Професійний або напівпрофесійний фітнес-тренер, тренер залу або менеджер спортивної команди</span></div>
+        <div class="context-row"><span class="ctx-label">Ситуація</span><span class="ctx-value">Купує на belok.ua /opt/, GymBeam B2B, mega-mass.ua або в дистриб'ютора вже 1-3+ роки. Є налагоджений процес замовлень, хоч і недосконалий.</span></div>
+        <div class="context-row"><span class="ctx-label">Поточні інструменти</span><span class="ctx-value">Excel-прайс від постачальника + email-замовлення + дзвінок менеджера. WhatsApp/Telegram для координації з клієнтами <span class="badge-q">[?]</span>. <span class="badge-confirmed">підтверджено: fitness-shop.ua</span></span></div>
+        <div class="context-row"><span class="ctx-label">Клієнти</span><span class="ctx-value">8-25 активних клієнтів <span class="badge-q">[?]</span> з різними цілями, бюджетами і розкладами</span></div>
+      </div>
+
+      <div class="persona-body">
+        <div class="persona-section">
+          <div class="persona-section-label">Завдання</div>
+          <ul class="persona-list">
+            <li>
+              Зібрати й відстежити замовлення для кожного клієнта за одну сесію, а не в кількох вкладках браузера.
+              <span class="badge-decided">вирішено</span>
+              <span class="decision-note">Рішення 1: збережений список клієнтів + теги замовлень по клієнтах + історія замовлень по клієнту (MVP). Верифікація через посилання на соціальні мережі.</span>
+            </li>
+            <li>Підтримувати довіру клієнтів - не рекомендувати підробки, прострочений або неправильно дозований продукт.</li>
+            <li>
+              Отримати ціну, яка дозволяє включити добавки у тренерський гонорар або прозоро передати економію клієнтам.
+              <span class="badge-decided">вирішено</span>
+              <span class="decision-note">Рішення 3: Stack публікує прозорий тренерський прайс на публічній сторінці "Для тренерів" до реєстрації. Конкретний % - <span class="badge-q">[?]</span> до отримання даних від постачальників.</span>
+            </li>
+            <li>Щоб клієнт ніколи не залишався без продукту посередині тренувального блоку.</li>
+          </ul>
+        </div>
+
+        <div class="persona-section">
+          <div class="persona-section-label">Болі (підтверджені і гіпотези)</div>
+          <ul class="persona-list">
+            <li>
+              Поточний процес - Excel-прайс, email, дзвінок менеджера. Жодного цифрового відстеження.
+              <span class="badge-confirmed">підтверджено</span>
+              <span class="update-note">Джерело: fitness-shop.ua, sport-factor.ua (2026-06-14)</span>
+            </li>
+            <li>
+              Жоден постачальник не має мультиклієнтського кошика або збережених профілів клієнтів.
+              <span class="badge-confirmed">підтверджено</span>
+            </li>
+            <li>
+              belok.ua - задокументована скарга на підробку ("печатка не збігається з оригіналом") і зриви доставки.
+              <span class="badge-confirmed">підтверджено</span>
+              <span class="update-note">Джерело: hotline.ua/ua/yp/23704/reviews/</span>
+            </li>
+            <li>
+              Жоден з 8 виявлених постачальників не публікує ціни - всі ціни за дзвінком або реєстрацією.
+              <span class="badge-confirmed">підтверджено</span>
+            </li>
+            <li>
+              Чи веде Олена таблицю клієнтів, чи покладається на WhatsApp або пам'ять.
+              <span class="badge-q">[?]</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="persona-section">
+          <div class="persona-section-label">Тригери довіри</div>
+          <ul class="persona-list">
+            <li>
+              Рекомендація від поважаного колеги-тренера.
+              <span class="badge-q">[?]</span> немає підтвердженого джерела
+            </li>
+            <li>
+              Прозорі, опубліковані ціни - знати тренерську ставку до реєстрації, а не після дзвінка.
+              <span class="badge-decided">вирішено</span>
+              <span class="decision-note">Рішення 3: Stack публікує тренерський прайс відкрито. Ставка - <span class="badge-q">[?]</span>.</span>
+            </li>
+            <li>Асортимент, який покриває все, що клієнти вже вживають (зміна постачальника = зміна продуктів, клієнти це відчують).</li>
+            <li>Ознаки операційної стабільності: роки на ринку, фізична присутність, надійність поставок.</li>
+          </ul>
+        </div>
+
+        <div class="persona-section">
+          <div class="persona-section-label">Блокери довіри</div>
+          <ul class="persona-list">
+            <li>Невідомий або нетестований постачальник - один поганий продукт назавжди шкодить репутації тренера.</li>
+            <li>Ціна вища, ніж у поточного постачальника за той самий продукт.</li>
+            <li>Складна реєстрація з формою, дзвінком і очікуванням.</li>
+          </ul>
+        </div>
+
+        <div class="persona-quote">
+          <blockquote>"У мене 14 клієнтів. Для кожного - окреме замовлення: завантажила прайс, відзначила позиції, надіслала email, чекаю дзвінка. Якщо продукт закінчився в розпал підготовки - це моя проблема перед клієнтом."</blockquote>
+          <div class="persona-quote-note">Синтетична цитата на основі OBS-C19, OBS-C7 - не реальне інтерв'ю</div>
+        </div>
+
+        <div class="persona-switching">
+          <span class="switching-label">Ймовірність переходу</span>
+          <span class="switching-low">НИЗЬКА</span> без вагомої причини. Є робоча система, хоч і недосконала. Причина для переходу має бути досвідною: інструмент справді кращий для роботи, а не просто дещо дешевший. Особисті відносини з менеджером постачальника додають тертя, якого немає в порівнянні цін.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: PERSONA DMYTRO -->
+  <section id="persona-dmytro">
+    <div class="section-number">03</div>
+
+    <div class="persona-card">
+      <div class="persona-header">
+        <div class="persona-avatar secondary">🧑‍💼</div>
+        <div class="persona-header-meta">
+          <div class="persona-name">Дмитро</div>
+          <div class="persona-role-text">Тренер без усталеного постачальника</div>
+          <div class="persona-badges">
+            <span class="persona-badge pbadge-secondary">Вторинна персона</span>
+            <span class="persona-badge pbadge-secondary">Тренерський канал</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="persona-context">
+        <div class="persona-context-label">Контекст</div>
+        <div class="context-row"><span class="ctx-label">Вік</span><span class="ctx-value">24-34</span></div>
+        <div class="context-row"><span class="ctx-label">Роль</span><span class="ctx-value">Тренер-початківець або нещодавно сертифікований тренер</span></div>
+        <div class="context-row"><span class="ctx-label">Ситуація</span><span class="ctx-value">3-10 клієнтів <span class="badge-q">[?]</span>, зараз купує в B2C-магазинах за роздрібними цінами, немає wholesale-акаунту</span></div>
+        <div class="context-row"><span class="ctx-label">Поточні інструменти</span><span class="ctx-value">Ті самі B2C-магазини, що й клієнти - без оптового доступу</span></div>
+      </div>
+
+      <div class="persona-body">
+        <div class="persona-section">
+          <div class="persona-section-label">Завдання</div>
+          <ul class="persona-list">
+            <li>Знайти постачальника, який зробить його більш професійним в очах клієнтів.</li>
+            <li>Отримати ціну нижче роздрібної, щоб пропонувати вигоду клієнтам або мати маржу.</li>
+            <li>Перестати відправляти клієнтів у різні магазини - стати єдиним надійним джерелом рекомендацій.</li>
+          </ul>
+        </div>
+
+        <div class="persona-section">
+          <div class="persona-section-label">Болі</div>
+          <ul class="persona-list">
+            <li>Платить роздрібну ціну, замовляючи обсяг для клієнтів - економіка не сходиться.</li>
+            <li>Клієнти бачать ті самі ціни на своїх замовленнях і на замовленнях тренера - підриває роль тренера як людини з доступом до кращого.</li>
+            <li>Кожне замовлення клієнта - окрема сесія в браузері, жодного зведеного вигляду.</li>
+          </ul>
+        </div>
+
+        <div class="persona-section">
+          <div class="persona-section-label">Тригери довіри</div>
+          <ul class="persona-list">
+            <li>
+              Підтвердження автентичності продукту - страх підробок реальний.
+              <span class="badge-confirmed">підтверджено: NADC 2025</span>
+            </li>
+            <li>Простий вхід - без форм і дзвінків, самообслуговування з першого дня.</li>
+            <li>"Обирають тренери" - позиціонування від магазину.</li>
+            <li>
+              Чітка тренерська ставка, опублікована, а не погоджена.
+              <span class="badge-decided">вирішено</span>
+              <span class="decision-note">Рішення 3: Stack публікує тренерський прайс відкрито. Конкретна ставка - <span class="badge-q">[?]</span>.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="persona-section">
+          <div class="persona-section-label">Вартість переходу і контекст</div>
+          <ul class="persona-list">
+            <li>НИЗЬКА - немає усталених відносин з постачальником. Це рішення про перший вибір, а не про зміну постачальника.</li>
+            <li>На відміну від Олени, Дмитро не ризикує існуючою довірою клієнтів. Бар'єр для залучення нижчий.</li>
+          </ul>
+        </div>
+
+        <div class="persona-quote">
+          <blockquote>"Поки що купую там само, де й клієнти - за роздрібними цінами. Виглядає непрофесійно, коли вони бачать ту саму ціну на своєму замовленні і на моєму."</blockquote>
+          <div class="persona-quote-note">Синтетична цитата на основі OBS-C7, OBS-C11 - не реальне інтерв'ю</div>
+        </div>
+
+        <div class="persona-switching">
+          <span class="switching-label">Вартість переходу</span>
+          <span class="switching-low">НИЗЬКА</span> - перший вибір, а не перехід. Для Дмитра Stack - не альтернатива чомусь кращому, а перший профілактичний крок до власного тренерського каналу.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: PERSONA VIKTORIIA -->
+  <section id="persona-viktoriia">
+    <div class="section-number">04</div>
+
+    <div class="persona-card">
+      <div class="persona-header">
+        <div class="persona-avatar secondary">🧘</div>
+        <div class="persona-header-meta">
+          <div class="persona-name">Вікторія</div>
+          <div class="persona-role-text">Початківець без досвіду</div>
+          <div class="persona-badges">
+            <span class="persona-badge pbadge-secondary">Вторинна персона</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="persona-context">
+        <div class="persona-context-label">Контекст</div>
+        <div class="context-row"><span class="ctx-label">Вік</span><span class="ctx-value">19-28</span></div>
+        <div class="context-row"><span class="ctx-label">Роль</span><span class="ctx-value">Людина, що починає фітнес-шлях або цілеспрямовано покращує конкретний показник</span></div>
+        <div class="context-row"><span class="ctx-label">Ситуація</span><span class="ctx-value">Є ціль ("хочу схуднути", "хочу більше енергії"), але жодних знань про спортпіт. Прийшла через рекомендацію тренера або цілевий пошук.</span></div>
+        <div class="context-row"><span class="ctx-label">Поточні дії</span><span class="ctx-value">Гуглить "протеїн для схуднення", відкриває belok.ua або GymBeam, губиться в каталозі, може запитати подругу чи тренера.</span></div>
+      </div>
+
+      <div class="persona-body">
+        <div class="persona-section">
+          <div class="persona-section-label">Завдання</div>
+          <ul class="persona-list">
+            <li>
+              Отримати конкретну, безпечну рекомендацію продуктів для своєї мети за кілька кроків - без вивчення термінології спортпіту.
+              <span class="badge-decided">вирішено</span>
+              <span class="decision-note">Рішення 2: 4-6 тайлів цілей на головній (MVP), короткий guided-квіз як перша ітерація після запуску.</span>
+            </li>
+            <li>
+              Перевірити, що продукт справжній і правильно маркований перед покупкою.
+              <span class="badge-confirmed">підтверджено: NADC 2025, hotline.ua</span>
+            </li>
+            <li>Прийняти перше рішення про покупку впевнено, без тривоги.</li>
+          </ul>
+        </div>
+
+        <div class="persona-section">
+          <div class="persona-section-label">Болі</div>
+          <ul class="persona-list">
+            <li>Каталоги на 2 000-10 000 SKU без жодного guided-шляху (belok.ua, GymBeam UA). <span class="badge-confirmed">підтверджено: competitive-analysis v3</span></li>
+            <li>Списки інгредієнтів, які неможливо оцінити за безпекою або ефективністю.</li>
+            <li>"100% оригінал" - без жодного підтвердження.</li>
+            <li>Нікого запитати - вона онлайн, а не в магазині з консультантом.</li>
+          </ul>
+        </div>
+
+        <div class="persona-section">
+          <div class="persona-section-label">Тригери довіри</div>
+          <ul class="persona-list">
+            <li>Чіткий шлях: "якщо твоя ціль X - ось що тобі потрібно". <span class="badge-confirmed">підтверджено: ux-patterns.md</span></li>
+            <li>Склад, пояснений простою мовою ("що це, що робить").</li>
+            <li>Видимий зв'язок з тренером або експертом ("рекомендують тренери, які працюють з атлетами").</li>
+            <li>Сигнал фізичного магазину (підтверджує, що бізнес реальний).</li>
+          </ul>
+        </div>
+
+        <div class="persona-section">
+          <div class="persona-section-label">Що відлякує</div>
+          <ul class="persona-list">
+            <li>Складні картки продуктів з переліком інгредієнтів без пояснень.</li>
+            <li>Запит оплати до того, як вона встигла побудувати довіру до магазину.</li>
+            <li>Будь-що, що дає відчуття "можу купити не те".</li>
+            <li>
+              Страх підробок і невідомих інгредієнтів.
+              <span class="badge-confirmed">підтверджено</span>
+              <span class="update-note">Оновлено після дослідження: NADC 2025, поведінка покупців на hotline.ua. Ієрархія страхів (підробки vs. дозування vs. побічні ефекти) - <span class="badge-q">[?]</span>.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="persona-quote">
+          <blockquote>"Відкрила каталог - 3 000 позицій. Закрила. Запитала тренера, що купити, він каже 'протеїн і BCAA'. Яких з цих 400 варіантів?"</blockquote>
+          <div class="persona-quote-note">Синтетична цитата на основі OBS-B3, OBS-B4 - не реальне інтерв'ю</div>
+        </div>
+
+        <div class="persona-switching">
+          <span class="switching-label">Контекст залучення</span>
+          Вікторія - це перший вибір: активне залучення, а не перехід. Головний бар'єр - не ціна, а нерозуміння і страх помилитися. Впевненість до покупки важливіша за знижку.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: PERSONA ANDRIY -->
+  <section id="persona-andriy">
+    <div class="section-number">05</div>
+
+    <div class="persona-card">
+      <div class="persona-header">
+        <div class="persona-avatar supporting">💪</div>
+        <div class="persona-header-meta">
+          <div class="persona-name">Андрій</div>
+          <div class="persona-role-text">Досвідчений постійний покупець</div>
+          <div class="persona-badges">
+            <span class="persona-badge pbadge-supporting">Підтримувальна персона</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="persona-context">
+        <div class="persona-context-label">Контекст</div>
+        <div class="context-row"><span class="ctx-label">Вік</span><span class="ctx-value">26-38</span></div>
+        <div class="context-row"><span class="ctx-label">Роль</span><span class="ctx-value">Досвідчений відвідувач залу з усталеною схемою прийому добавок</span></div>
+        <div class="context-row"><span class="ctx-label">Ситуація</span><span class="ctx-value">Вживає 2-4 продукти вже 12+ місяців, знає точно, що хоче, замовляє приблизно раз на місяць.</span></div>
+        <div class="context-row"><span class="ctx-label">Поточні дії</span><span class="ctx-value">Купує на belok.ua, GymBeam UA, bcaa.ua залежно від наявності і ціни в даний момент.</span></div>
+      </div>
+
+      <div class="persona-body">
+        <div class="persona-section">
+          <div class="persona-section-label">Завдання</div>
+          <ul class="persona-list">
+            <li>
+              Дозамовити свій запас за 1-2 дотики без повторного пошуку в каталозі.
+              <span class="badge-decided">вирішено</span>
+              <span class="decision-note">Рішення 4: "Повторити замовлення" з історії замовлень (MVP). "Мої базові" + email-нагадування - перша ітерація після запуску. Таймінг нагадувань - <span class="badge-q">[?]</span> до появи реальних даних про покупки.</span>
+            </li>
+            <li>Отримати сповіщення до того, як запаси закінчилися, а не після.</li>
+            <li>Ніколи не залишатися без продукту посередині тренувального блоку.</li>
+          </ul>
+        </div>
+
+        <div class="persona-section">
+          <div class="persona-section-label">Болі</div>
+          <ul class="persona-list">
+            <li>Щоразу шукає ті самі продукти заново (жоден UA-магазин не має збережених списків). <span class="badge-confirmed">підтверджено</span></li>
+            <li>Неочікувана відсутність на складі в розпал підготовки.</li>
+            <li>Жодної системи нагадувань або відстеження споживання.</li>
+          </ul>
+        </div>
+
+        <div class="persona-section">
+          <div class="persona-section-label">Тригери довіри</div>
+          <ul class="persona-list">
+            <li>Надійність складу - впевненість, що його позиції завжди є в наявності.</li>
+            <li>Стабільна ціна - без сюрпризів при повторному замовленні.</li>
+            <li>Швидкий процес повтору - сторінка акаунту показує останнє замовлення, один дотик - і в кошику.</li>
+          </ul>
+        </div>
+
+        <div class="persona-section">
+          <div class="persona-section-label">Гіпотези і прогалини</div>
+          <ul class="persona-list">
+            <li>Чи купує Андрій виключно за ціною, чи має якусь лояльність до конкретного магазину. <span class="badge-q">[?]</span></li>
+            <li>Реальна частота повторних замовлень і цикл споживання. <span class="badge-q">[?]</span></li>
+            <li>Чи сприймав би email-нагадування як зручний сервіс або як спам. <span class="badge-q">[?]</span></li>
+          </ul>
+        </div>
+
+        <div class="persona-quote">
+          <blockquote>"Купую один і той самий протеїн вже два роки. Щомісяця відкриваю сайт, шукаю його заново, бо список покупок ніде не зберігся. Жодного сенсу."</blockquote>
+          <div class="persona-quote-note">Синтетична цитата на основі OBS-R1, OBS-R2 - не реальне інтерв'ю</div>
+        </div>
+
+        <div class="persona-switching">
+          <span class="switching-label">Вартість переходу</span>
+          <span class="switching-medium">СЕРЕДНЯ</span> - немає сильної лояльності до одного магазину, купує за ціною і наявністю. Перейде, якщо Stack надійно тримає склад і має зручний повтор замовлень.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: GAPS -->
+  <section id="gaps">
+    <div class="section-number">06</div>
+    <h2>Що ми не знаємо про людей</h2>
+    <p class="section-lead">Критичні прогалини у даних, які впливають на продуктові рішення. Більшість потребують реальних інтерв'ю з тренерами, а не подальших досліджень.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Прогалина</th>
+            <th>Чому важливо</th>
+            <th>Пріоритет</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Що спонукає українського тренера змінити постачальника добавок?</td>
+            <td>Основа ризикованого припущення (ставка на перехід). Якщо відповідь - "тільки ціна", позиціонування потребує перегляду.</td>
+            <td><span class="priority-critical">КРИТИЧНО</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">Як тренери зараз координують замовлення добавок зі своїми спортсменами?</td>
+            <td>Визначає, чи замінює цифровий мультиклієнтський кошик наявний процес, чи створює новий паралельний.</td>
+            <td><span class="priority-high">ВИСОКИЙ</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">Яка частка тренерів вже має усталені відносини з постачальником, а яка замовляє хаотично?</td>
+            <td>Визначає співвідношення завдань "перехід" і "перший вибір" у залученні.</td>
+            <td><span class="priority-high">ВИСОКИЙ</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">Тренер платить за добавки клієнтів сам (перепродаж) чи клієнти купують самостійно?</td>
+            <td>Впливає на модель ціноутворення і тренерський канал. Модель перепродажу підтверджена на fitness-shop.ua, але не є універсальною.</td>
+            <td><span class="priority-high">ВИСОКИЙ</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">Яких саме підробок бояться українські початківці: фейкові продукти, невірне дозування, побічні ефекти?</td>
+            <td>Визначає пріоритет архітектури довіри і порядок сигналів на картці продукту.</td>
+            <td><span class="priority-high">ВИСОКИЙ</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">Як початківці знаходять магазини спортпіту в Україні?</td>
+            <td>Визначає пріоритет каналів залучення (Instagram, TikTok, Google, рекомендація тренера).</td>
+            <td><span class="priority-medium">СЕРЕДНІЙ</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">Яким реально є розподіл тренерів за кількістю клієнтів?</td>
+            <td>Впливає на MVP-обсяг - тренер з 5 клієнтами потребує іншого інструменту, ніж тренер з 30.</td>
+            <td><span class="priority-medium">СЕРЕДНІЙ</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">Яка реальна частота повторних замовлень тренерів і постійних покупців?</td>
+            <td>Визначає таймінг нагадувань і кадент механіки утримання. Цикл споживання - <span class="badge-q">[?]</span> до появи реальних даних.</td>
+            <td><span class="priority-medium">СЕРЕДНІЙ</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-text">Stack - Фаза 1: Дослідження. Персони v1.2. Червень 2026. Всі факти підкріплені джерелами.</div>
+    <div class="footer-text">Наступна фаза: Wireframes</div>
+  </div>
+</footer>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+
+  var navLinks = document.querySelectorAll('.sidebar-nav a[href^="#"]');
+  var sections = document.querySelectorAll('section[id]');
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.getAttribute('id');
+        navLinks.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+
+  sections.forEach(function(section) { observer.observe(section); });
+</script>
+</body>
+</html>

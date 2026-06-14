@@ -167,11 +167,34 @@ Sourcing agreements with Ukrainian distributors and brands, structured data form
 
 ---
 
+## Research Phase Output (Phase 1 complete, June 2026)
+
+**Live pages (GitHub Pages, Ukrainian):**
+- research.html - competitive analysis, benchmark, UX patterns, AARRR, Lean UX Canvas, strategy
+- personas.html - 4 personas (Olena primary coach, Dmytro new coach, Viktoriia beginner, Andriy regular)
+- jtbd.html - JTBD hierarchy, matrix, critique and danger list
+
+**Locked research files:**
+- research/master-research.md v5 - single source of truth
+- research/strategy.md v4 - product decisions locked (4 decisions)
+- research/personas.md v1.2 - people observations and 4 personas
+- research/jtbd.md v1.1 - JTBD set, matrix, critique
+
+**4 product decisions locked:**
+1. Coach ordering (MVP): saved client list + per-client order tagging + order history per client
+2. Goal guidance (MVP): 4-6 goal tiles; guided quiz post-launch
+3. Pricing structure: separate published coach tier + cumulative individual loyalty (specific numbers [?])
+4. Reorder (MVP): one-tap repeat from order history; My Staples post-launch
+
+**All numbers that require real data remain [?]**: coach tier %, loyalty thresholds, consumption cycles, AOV.
+
+---
+
 ## Timeline (Hypothesis)
 
 | Phase | Focus | Status |
 |-------|-------|--------|
-| Phase 1 | Research (this phase) | In Progress |
+| Phase 1 | Research (this phase) | Done |
 | Phase 2 | Wireframes | Not started |
 | Phase 3 | Concept & Visual Direction | Not started |
 | Phase 4 | Design System & Tokens | Not started |

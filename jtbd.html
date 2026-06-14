@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack - JTBD</title>
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --surface: #ffffff;
+      --surface-alt: #f2f0eb;
+      --border: #e5e2db;
+      --text: #1a1916;
+      --text-secondary: #6b6760;
+      --text-light: #9b9790;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0ea;
+      --accent-mid: #4a8c62;
+      --score-high: #2d5a3d;
+      --score-mid: #7a9e4a;
+      --score-low: #b5882a;
+      --score-bg-high: #e8f0ea;
+      --score-bg-mid: #f3f7ea;
+      --score-bg-low: #fdf3e3;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; height: 52px;
+      background: rgba(247,246,243,0.94);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px; z-index: 101;
+    }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle {
+      background: none; border: none; cursor: pointer; padding: 8px;
+      color: var(--text-secondary); display: flex; align-items: center;
+      justify-content: center; border-radius: var(--radius-sm); transition: background 0.15s;
+    }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0; width: 220px;
+      background: rgba(247,246,243,0.98);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-right: 1px solid var(--border); z-index: 100;
+      display: flex; flex-direction: column;
+      transform: translateX(-100%); transition: transform 0.22s ease;
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-logo {
+      font-weight: 700; font-size: 17px; color: var(--accent);
+      letter-spacing: -0.02em; text-decoration: none;
+      display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-nav {
+      flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px;
+    }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+
+    .sidebar-nav a {
+      display: block; color: var(--text-secondary); text-decoration: none;
+      font-size: 13px; font-weight: 500; padding: 7px 12px;
+      border-radius: var(--radius-sm); transition: color 0.15s, background 0.15s; margin-bottom: 1px;
+    }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+
+    .sidebar-nav a.sidebar-sub {
+      font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light);
+    }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); }
+
+    .sidebar-page-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent); padding: 8px 12px 4px;
+    }
+
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+
+    .sidebar-upcoming {
+      padding: 12px 12px 16px; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-light); line-height: 1.8;
+    }
+
+    /* LAYOUT */
+    .page { max-width: 1160px; margin: 0 auto; padding: 68px 24px 80px; }
+
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 48px 48px 80px; }
+      section { scroll-margin-top: 24px; }
+    }
+
+    /* HERO */
+    .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); margin-bottom: 64px; animation: fadeUp 0.5s ease both; }
+    .hero-tag {
+      display: inline-block; background: var(--accent-light); color: var(--accent);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; color: var(--text); margin-bottom: 20px; max-width: 700px; }
+    .hero-lead { font-size: 18px; color: var(--text-secondary); max-width: 640px; line-height: 1.6; margin-bottom: 32px; }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+    .hero-meta-item { font-size: 13px; color: var(--text-light); }
+    .hero-meta-item strong { color: var(--text-secondary); font-weight: 600; }
+
+    /* SECTIONS */
+    section { margin-bottom: 72px; scroll-margin-top: 60px; animation: fadeUp 0.4s ease both; }
+    .section-number { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
+    h2 { font-size: clamp(22px, 3vw, 32px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: var(--text); margin-bottom: 8px; }
+    .section-lead { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; max-width: 600px; }
+    h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.015em; color: var(--text); margin: 36px 0 12px; }
+    h4 { font-size: 15px; font-weight: 650; color: var(--text); margin: 24px 0 8px; }
+    p { color: var(--text-secondary); margin-bottom: 12px; }
+
+    /* BADGES */
+    .badge-q {
+      display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+      padding: 1px 5px; border-radius: 100px; background: var(--score-bg-low);
+      color: var(--score-low); margin-left: 4px; letter-spacing: 0.04em;
+      vertical-align: middle; white-space: nowrap;
+    }
+    .badge-decided {
+      display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+      padding: 1px 5px; border-radius: 100px; background: var(--accent-light);
+      color: var(--accent); margin-left: 4px; letter-spacing: 0.04em;
+      vertical-align: middle; white-space: nowrap;
+    }
+    .badge-confirmed {
+      display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+      padding: 1px 5px; border-radius: 100px; background: #e8f0ea;
+      color: #2d5a3d; margin-left: 4px; letter-spacing: 0.04em;
+      vertical-align: middle; white-space: nowrap;
+    }
+    .badge-hyp {
+      display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+      padding: 1px 5px; border-radius: 100px; background: #f0eef7;
+      color: #5a3fa0; margin-left: 4px; letter-spacing: 0.04em;
+      vertical-align: middle; white-space: nowrap;
+    }
+
+    /* JOB CARDS */
+    .job-grid { display: grid; gap: 16px; margin-top: 24px; }
+
+    .job-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+    }
+    .job-card.main-job { border-color: var(--accent-mid); border-width: 2px; }
+
+    .job-header {
+      padding: 16px 24px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .job-type-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+    }
+    .jtype-main { background: var(--accent-light); color: var(--accent); }
+    .jtype-related { background: #eef2ff; color: #3d52a0; }
+    .jtype-emotional { background: #fdf0f7; color: #9b3a7a; }
+    .jtype-hyp { background: var(--surface-alt); color: var(--text-light); }
+
+    .job-statement {
+      font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5;
+      font-style: italic;
+    }
+
+    .job-body { padding: 16px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .job-body-full { grid-column: 1 / -1; }
+
+    .job-meta-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-light); margin-bottom: 5px;
+    }
+    .job-meta-value { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+    .job-status-block {
+      padding: 12px 24px; background: var(--surface-alt); border-top: 1px solid var(--border);
+      font-size: 13px; color: var(--text-secondary);
+    }
+
+    .decision-note {
+      display: block; font-size: 12px; color: var(--accent);
+      background: var(--accent-light); border-radius: var(--radius-sm);
+      padding: 6px 10px; margin-top: 6px; line-height: 1.45;
+    }
+    .update-note {
+      display: block; font-size: 12px; color: #7a5c2e;
+      background: #fdf8f0; border: 1px solid #e8d5a8; border-radius: var(--radius-sm);
+      padding: 6px 10px; margin-top: 6px; line-height: 1.45;
+    }
+    .risk-note {
+      display: block; font-size: 12px; color: #8b2020;
+      background: #fff0f0; border: 1px solid #e8b0b0; border-radius: var(--radius-sm);
+      padding: 6px 10px; margin-top: 6px; line-height: 1.45;
+    }
+
+    @media (max-width: 600px) {
+      .job-body { grid-template-columns: 1fr; }
+    }
+
+    /* MVP CORE HIGHLIGHT */
+    .mvp-core {
+      background: var(--surface); border: 2px solid var(--accent);
+      border-radius: var(--radius); padding: 20px 24px; margin-top: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .mvp-core-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 12px;
+    }
+    .mvp-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid var(--surface-alt);
+    }
+    .mvp-item:last-child { border-bottom: none; }
+    .mvp-num {
+      width: 28px; height: 28px; border-radius: 8px; background: var(--accent-light);
+      color: var(--accent); font-weight: 700; font-size: 14px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .mvp-item-text { font-size: 14px; color: var(--text); line-height: 1.5; }
+
+    /* CUT CANDIDATES */
+    .cut-grid { display: grid; gap: 12px; margin-top: 16px; }
+    .cut-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow-sm);
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .cut-status {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 7px; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+    }
+    .cut-deferred { background: var(--surface-alt); color: var(--text-secondary); }
+    .cut-decided { background: var(--accent-light); color: var(--accent); }
+    .cut-text { font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; }
+
+    /* MATRIX TABLE */
+    .table-wrap {
+      overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm); margin: 20px 0;
+    }
+    table { width: 100%; border-collapse: collapse; background: var(--surface); font-size: 13px; }
+    thead th {
+      background: var(--surface-alt); padding: 11px 14px; text-align: left;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--text-secondary); border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    tbody td {
+      padding: 11px 14px; border-bottom: 1px solid var(--border);
+      color: var(--text-secondary); vertical-align: top; line-height: 1.45;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--bg); }
+    .td-strong { color: var(--text); font-weight: 600; }
+    .td-small { font-size: 11px; }
+
+    .score-3 { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 6px; font-size: 13px; font-weight: 700; background: var(--score-bg-high); color: var(--score-high); }
+    .score-2 { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 6px; font-size: 13px; font-weight: 700; background: var(--score-bg-mid); color: var(--score-mid); }
+    .score-1 { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 6px; font-size: 13px; font-weight: 700; background: var(--surface-alt); color: var(--text-light); }
+    .score-q { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 6px; font-size: 11px; font-weight: 700; background: var(--score-bg-low); color: var(--score-low); }
+
+    .market-open { color: #2d5a3d; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .market-partial { color: var(--score-low); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .market-closed { color: var(--text-light); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* CLAIM STATUS TABLE */
+    .claim-status { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+    .claim-confirmed { background: #e8f0ea; color: #2d5a3d; }
+    .claim-hyp { background: var(--score-bg-low); color: var(--score-low); }
+    .claim-assumed { background: #fce8e8; color: #c0392b; }
+    .claim-closed { background: var(--accent-light); color: var(--accent); }
+
+    /* DANGER LIST */
+    .danger-list { display: grid; gap: 16px; margin-top: 20px; }
+    .danger-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+    }
+    .danger-header {
+      padding: 14px 20px; background: #fff6f6; border-bottom: 1px solid #f0d0d0;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .danger-header.closed { background: var(--accent-light); border-bottom-color: var(--border); }
+    .danger-num {
+      width: 24px; height: 24px; border-radius: 6px; background: #fce8e8; color: #c0392b;
+      font-weight: 700; font-size: 12px; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .danger-num.closed { background: var(--accent-light); color: var(--accent); }
+    .danger-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.4; }
+    .danger-body { padding: 14px 20px; font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 40px; }
+    .footer-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-text { font-size: 13px; color: var(--text-light); }
+
+    @media (max-width: 640px) {
+      .page { padding: 64px 16px 48px; }
+      .hero { padding: 40px 0 36px; }
+      .job-header, .job-body, .job-status-block { padding-left: 16px; padding-right: 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .hero { animation: fadeUp 0.5s ease both; }
+    section { animation: fadeUp 0.4s ease both; }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="research.html" class="sidebar-logo">Stack</a>
+  <nav class="sidebar-nav">
+    <a href="research.html">Дослідження</a>
+    <a href="personas.html">Персони</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">JTBD</div>
+    <a href="#main-job" class="sidebar-sub">Основне завдання</a>
+    <a href="#related-jobs" class="sidebar-sub">Пов'язані завдання</a>
+    <a href="#emotional-jobs" class="sidebar-sub">Емоційні завдання</a>
+    <a href="#matrix" class="sidebar-sub">Матриця JTBD</a>
+    <a href="#critique" class="sidebar-sub">Критика і ризики</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-upcoming">Далі<br>Wireframes<br>Concept</div>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Фаза 1 - Дослідження</div>
+    <h1>JTBD: що і чому хочуть люди</h1>
+    <p class="hero-lead">Ієрархія завдань для Stack: одне основне, п'ять пов'язаних, чотири емоційних і соціальних. Матриця покриття по персонах і конкурентах. Рішення засновника відмічені там, де вони закривають відкриті питання.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Версія</strong> jtbd.md v1.1</div>
+      <div class="hero-meta-item"><strong>Дата</strong> Червень 2026</div>
+      <div class="hero-meta-item"><strong>Основне завдання</strong> Мультиклієнтське замовлення для тренера</div>
+      <div class="hero-meta-item"><strong>Фаза</strong> 1 з 6</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: MAIN JOB -->
+  <section id="main-job">
+    <div class="section-number">01</div>
+    <h2>Основне завдання продукту</h2>
+    <p class="section-lead">Завдання, заради якого існує цей продукт. Підтверджено конкурентним аналізом і моделлю перепродавця.</p>
+
+    <div class="job-grid">
+      <div class="job-card main-job">
+        <div class="job-header">
+          <span class="job-type-label jtype-main">Основне</span>
+          <div class="job-statement">"Коли я тренер і замовляю добавки для кількох спортсменів з різними цілями, я хочу зібрати повне замовлення для кожного клієнта за одну сесію від перевіреного постачальника і отримати продукти надійно, щоб виконати замовлення клієнтів прибутково і не підривати своєї репутації."</div>
+        </div>
+        <div class="job-body">
+          <div>
+            <div class="job-meta-label">Персона</div>
+            <div class="job-meta-value">Олена (Персона 1, ОСНОВНА)</div>
+          </div>
+          <div>
+            <div class="job-meta-label">Статус</div>
+            <div class="job-meta-value"><span class="badge-confirmed">підтверджено</span> конкурентним аналізом і моделлю перепродавця</div>
+          </div>
+          <div class="job-body-full">
+            <div class="job-meta-label">Економічна модель (критично важливо)</div>
+            <div class="job-meta-value">
+              Українські тренери, які використовують оптові канали, є перепродавцями: купують за гуртовою ціною і передають клієнтам за роздрібною. Це вбудована економічна модель ринку, а не просто зручність. Завдання тренера включає захист своєї маржі, що робить прозорий доступ до оптового прайсу (а не "дзвінок менеджера") ключовою частиною "кращого досвіду".
+              <span class="update-note">Підтверджено: fitness-shop.ua оптова сторінка, 2026-06-14. "Якщо ви тренер і маєте групу клієнтів - ви можете зібрати одне загальне замовлення та оформити його у нас."</span>
+              <span class="decision-note">Рішення 1: збережений список клієнтів + теги замовлень по клієнтах + історія замовлень по клієнту. Верифікація тренера через посилання на соцмережі (MVP). Без повного B2B-порталу в MVP.</span>
+            </div>
+          </div>
+        </div>
+        <div class="job-status-block">
+          <strong>Джерела:</strong> CLAUDE.md, research/ux-patterns.md (Патерн 3), research/competitive-analysis.md v3, fitness-shop.ua (2026-06-14)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: RELATED JOBS -->
+  <section id="related-jobs">
+    <div class="section-number">02</div>
+    <h2>Пов'язані завдання</h2>
+    <p class="section-lead">П'ять завдань, які відбуваються на шляху до основного або паралельно з ним. Три - ядро MVP.</p>
+
+    <div class="job-grid">
+
+      <div class="job-card">
+        <div class="job-header">
+          <span class="job-type-label jtype-related">Завдання 1</span>
+          <div class="job-statement">"Коли я тренер з усталеним постачальником, інструменти якого не підтримують мультиклієнтські замовлення, я хочу оцінити нового постачальника до того, як повністю перейти, щоб змінити постачальника без ризику для відносин з клієнтами."</div>
+        </div>
+        <div class="job-body">
+          <div>
+            <div class="job-meta-label">Персона</div>
+            <div class="job-meta-value">Олена (Персона 1)</div>
+          </div>
+          <div>
+            <div class="job-meta-label">Статус</div>
+            <div class="job-meta-value"><span class="badge-confirmed">підтверджено</span> як ключова динаміка переходу. Конкретний тригер переходу - <span class="badge-q">[?]</span></div>
+          </div>
+          <div class="job-body-full">
+            <div class="job-meta-label">Функція в Stack</div>
+            <div class="job-meta-value">
+              Лендінг "Для тренерів", прозорий прайс, самостійна реєстрація без форм і дзвінків.
+              <span class="decision-note">Рішення 3: тренерський прайс публікується на публічній сторінці до реєстрації. Конкретна ставка - <span class="badge-q">[?]</span>.</span>
+            </div>
+          </div>
+        </div>
+        <div class="job-status-block">
+          <strong>Конкуренти:</strong> Жоден конкурент не пропонує чітко тренерського досвіду для переходу. <span class="market-open">ВІДКРИТО</span>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-header">
+          <span class="job-type-label jtype-related">Завдання 2</span>
+          <div class="job-statement">"Коли я початківець з фітнес-ціллю, але без знань про добавки, я хочу відповісти на кілька простих запитань і отримати конкретний, безпечний набір продуктів, щоб почати впевнено без необхідності розбиратися в спортпіті самому."</div>
+        </div>
+        <div class="job-body">
+          <div>
+            <div class="job-meta-label">Персона</div>
+            <div class="job-meta-value">Вікторія (Персона 3, ВТОРИННА)</div>
+          </div>
+          <div>
+            <div class="job-meta-label">Статус</div>
+            <div class="job-meta-value"><span class="badge-confirmed">підтверджено</span> як ринкова прогалина</div>
+          </div>
+          <div class="job-body-full">
+            <div class="job-meta-label">Функція в Stack</div>
+            <div class="job-meta-value">
+              <span class="decision-note">Рішення 2: 4-6 тайлів цілей на головній сторінці (MVP, наприклад: Набір м'язів, Схуднення, Енергія, Відновлення). Кожен тайл веде на підібрану колекцію продуктів. Guided-квіз - перша ітерація після запуску. Конверсійні гіпотези ("40% завершення", "в 3 рази більше покупок") залишаються <span class="badge-q">[?]</span> і НЕ є основою цього рішення.</span>
+            </div>
+          </div>
+        </div>
+        <div class="job-status-block">
+          <strong>Конкуренти:</strong> Жоден UA-магазин спортпіту не має інтерактивного шляху до продукту за ціллю. <span class="market-open">ВІДКРИТО</span>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-header">
+          <span class="job-type-label jtype-related">Завдання 3</span>
+          <div class="job-statement">"Коли я покупець, який оцінює добавку, я хочу побачити склад, дозування і походження продукту, пояснені простою мовою, щоб підтвердити безпечність перед тим, як додати до кошика."</div>
+        </div>
+        <div class="job-body">
+          <div>
+            <div class="job-meta-label">Персона</div>
+            <div class="job-meta-value">Вікторія (П3), частково Олена (П1) - нові рекомендації для клієнтів</div>
+          </div>
+          <div>
+            <div class="job-meta-label">Статус</div>
+            <div class="job-meta-value"><span class="badge-confirmed">підтверджено</span> як ринкова прогалина. Ієрархія страхів (підробки vs. дозування vs. ефекти) - <span class="badge-q">[?]</span></div>
+          </div>
+          <div class="job-body-full">
+            <div class="job-meta-label">Функція в Stack</div>
+            <div class="job-meta-value">Блок складу/дозування/походження на кожній картці продукту. Пояснення простою мовою. Один сигнал якості (сертифікат або статус офіційного дистриб'ютора).</div>
+          </div>
+        </div>
+        <div class="job-status-block">
+          <strong>Конкуренти:</strong> Сторінка сертифікатів belok.ua - порожня. vansiton - ISO тільки на рівні магазину. Жоден UA-конкурент не надає інформацію про склад на рівні продукту. <span class="market-open">ВІДКРИТО</span>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-header">
+          <span class="job-type-label jtype-related">Завдання 4</span>
+          <div class="job-statement">"Коли я постійний покупець, у якого закінчуються базові продукти, я хочу дозамовити за 1-2 дотики, щоб мій режим не переривався."</div>
+        </div>
+        <div class="job-body">
+          <div>
+            <div class="job-meta-label">Персона</div>
+            <div class="job-meta-value">Андрій (Персона 4, ПІДТРИМУВАЛЬНА)</div>
+          </div>
+          <div>
+            <div class="job-meta-label">Статус</div>
+            <div class="job-meta-value"><span class="badge-confirmed">підтверджено</span> як ринкова прогалина</div>
+          </div>
+          <div class="job-body-full">
+            <div class="job-meta-label">Функція в Stack</div>
+            <div class="job-meta-value">
+              <span class="decision-note">Рішення 4: кнопка "Повторити замовлення" з історії замовлень (MVP). "Мої базові" + email-нагадування перед прогнозованим вичерпанням - перша ітерація після запуску. Таймінг нагадувань - <span class="badge-q">[?]</span> до появи реальних даних про покупки. Цикл споживання для основних продуктів - <span class="badge-q">[?]</span>.</span>
+            </div>
+          </div>
+        </div>
+        <div class="job-status-block">
+          <strong>Конкуренти:</strong> Жоден UA-конкурент не має смарт-повтору або нагадувань на основі споживання. <span class="market-open">ВІДКРИТО</span>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-header">
+          <span class="job-type-label jtype-related">Завдання 5</span>
+          <div class="job-statement">"Коли я тренер, який рекомендує продукт спортсмену, я хочу показати йому склад, інструкцію з дозування і сигнали якості прямо зі сторінки продукту, щоб спортсмен довірився рекомендації і не ставив зайвих запитань."</div>
+        </div>
+        <div class="job-body">
+          <div>
+            <div class="job-meta-label">Персона</div>
+            <div class="job-meta-value">Олена (П1), Дмитро (П2) - під час роботи зі спортсменом</div>
+          </div>
+          <div>
+            <div class="job-meta-label">Статус</div>
+            <div class="job-meta-value"><span class="badge-confirmed">підтверджено</span> як сценарій використання. Конкретні сигнали довіри, які переконують тренерів показувати клієнтам, - <span class="badge-q">[?]</span></div>
+          </div>
+          <div class="job-body-full">
+            <div class="job-meta-label">Функція в Stack</div>
+            <div class="job-meta-value">Картки продуктів зі складом, порадами з дозування та інформацією про якість - можна показати спортсмену на екрані телефону. Жоден UA-магазин спортпіту не передає інформацію про склад з такою глибиною.</div>
+          </div>
+        </div>
+        <div class="job-status-block">
+          <strong>Конкуренти:</strong> Жоден UA-магазин спортпіту не передає склад/дозування на рівні продукту. <span class="market-open">ВІДКРИТО</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: EMOTIONAL JOBS -->
+  <section id="emotional-jobs">
+    <div class="section-number">03</div>
+    <h2>Емоційні і соціальні завдання</h2>
+    <p class="section-lead">Завдання про те, як людина хоче почуватися або виглядати, окремо від функціональних результатів.</p>
+
+    <div class="job-grid">
+
+      <div class="job-card">
+        <div class="job-header">
+          <span class="job-type-label jtype-emotional">ESJ-1</span>
+          <div class="job-statement">"Коли я тренер, я хочу, щоб мене сприймали як надійного експерта, у якого завжди є правильний продукт для конкретної мети кожного спортсмена, щоб мої атлети довіряли мені і продовжували тренуватись зі мною."</div>
+        </div>
+        <div class="job-body">
+          <div><div class="job-meta-label">Персони</div><div class="job-meta-value">Олена (П1), Дмитро (П2)</div></div>
+          <div><div class="job-meta-label">Статус</div><div class="job-meta-value"><span class="badge-confirmed">підтверджено</span> як драйвер. Сила відносно чутливості до ціни - <span class="badge-q">[?]</span></div></div>
+        </div>
+        <div class="job-status-block">Жоден конкурент не позиціонує тренерів як спільноту або ідентичність. <span class="market-open">ВІДКРИТО</span></div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-header">
+          <span class="job-type-label jtype-emotional">ESJ-2</span>
+          <div class="job-statement">"Коли я початківець, я хочу відчувати, що роблю розумне, безпечне й обґрунтоване рішення, щоб не виглядати наївним у середовищі залу, де інші явно знають більше за мене."</div>
+        </div>
+        <div class="job-body">
+          <div><div class="job-meta-label">Персона</div><div class="job-meta-value">Вікторія (П3)</div></div>
+          <div><div class="job-meta-label">Статус</div><div class="job-meta-value"><span class="badge-confirmed">підтверджено</span> як драйвер. Соціальне порівняння і тривога - <span class="badge-q">[?]</span></div></div>
+        </div>
+        <div class="job-status-block">Всі UA-магазини відчуваються як каталог-перший, а не гід-перший. <span class="market-open">ВІДКРИТО</span></div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-header">
+          <span class="job-type-label jtype-emotional">ESJ-3</span>
+          <div class="job-statement">"Коли я український покупець, я хочу бути впевненим, що продукт, який я купую, не є підробкою або продуктом з неправильним маркуванням, щоб не ризикувати здоров'ям і грошима."</div>
+        </div>
+        <div class="job-body">
+          <div><div class="job-meta-label">Персони</div><div class="job-meta-value">Всі персони, найсильніше - Вікторія (П3)</div></div>
+          <div>
+            <div class="job-meta-label">Статус</div>
+            <div class="job-meta-value">
+              <span class="badge-confirmed">підтверджено</span> постдослідженням
+              <span class="update-note">Оновлено: ДАЧА України, червень 2025 - найбільша в країні підпільна операція з анаболіками, 20 000+ пакетів як "спортивні добавки". Поведінка покупців на hotline.ua - активна перевірка автентичності. Ієрархія страхів (підробки vs. недодозування vs. побічні ефекти) - <span class="badge-q">[?]</span>.</span>
+            </div>
+          </div>
+        </div>
+        <div class="job-status-block">belok.ua - порожня сторінка сертифікатів. vansiton - ISO тільки на рівні магазину. <span class="market-partial">ЧАСТКОВО</span></div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-header">
+          <span class="job-type-label jtype-emotional">ESJ-4</span>
+          <div class="job-statement">"Коли я тренер, я хочу управляти програмою добавок своїх спортсменів самостійно, без залежності від підтримки постачальника, щоб зберегти повний контроль над своїми рекомендаціями."</div>
+        </div>
+        <div class="job-body">
+          <div><div class="job-meta-label">Персони</div><div class="job-meta-value">Олена (П1), Дмитро (П2)</div></div>
+          <div><div class="job-meta-label">Статус</div><div class="job-meta-value"><span class="badge-confirmed">підтверджено</span> як ставлення. Конкретні вимоги до самообслуговування - <span class="badge-q">[?]</span></div></div>
+        </div>
+        <div class="job-status-block">GymBeam B2B - самообслуговування, але з позиціюванням для рітейлерів, не тренерів. <span class="market-partial">ЧАСТКОВО</span></div>
+      </div>
+
+    </div>
+
+    <h3>Гіпотетичні завдання</h3>
+    <p>Немає підтвердженого джерела. Не використовувати для дизайнерських рішень без попередньої валідації.</p>
+
+    <div class="job-grid" style="margin-top: 16px;">
+      <div class="job-card">
+        <div class="job-header">
+          <span class="job-type-label jtype-hyp">HYP-1 - відкладено</span>
+          <div class="job-statement">"Коли я тренер і мої спортсмени хочуть купувати самостійно, я хочу дати кожному реферальне посилання, щоб отримувати кредит і комісію, не обробляючи кожне замовлення особисто."</div>
+        </div>
+        <div class="job-status-block">Немає даних. Виведено з механіки рефералу в aarrr.md, але поведінка тренерів не підтверджена. <span class="badge-hyp">гіпотеза</span> Відкладено до Фази 2.</div>
+      </div>
+      <div class="job-card">
+        <div class="job-header">
+          <span class="job-type-label jtype-hyp">HYP-2 - відкладено</span>
+          <div class="job-statement">"Коли я тренер, я хочу бачити історію замовлень своїх спортсменів, щоб відстежувати дотримання режиму і коригувати програму виходячи з того, що вони реально вживають."</div>
+        </div>
+        <div class="job-status-block">Немає підтвердження. Виведено з концепції мультиклієнтського кошика. <span class="badge-hyp">гіпотеза</span> Ризик: передчасна функція до валідації базового процесу замовлення. Відкладено.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: MATRIX -->
+  <section id="matrix">
+    <div class="section-number">04</div>
+    <h2>Матриця JTBD</h2>
+    <p class="section-lead">Завдання по персонах і конкурентах. Шкала важливості: 3 = критична, 2 = важлива, 1 = бажана, [?] = невідомо. Рішення засновника відмічені в колонці "Функція в Stack".</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="min-width:180px">Завдання</th>
+            <th>Олена П1</th>
+            <th>Дмитро П2</th>
+            <th>Вікторія П3</th>
+            <th>Андрій П4</th>
+            <th style="min-width:200px">Функція в Stack</th>
+            <th style="min-width:160px">Конкуренти</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Мультиклієнтське замовлення за одну сесію</td>
+            <td><span class="score-3">3</span></td>
+            <td><span class="score-3">3</span></td>
+            <td><span class="score-1">1</span></td>
+            <td><span class="score-1">1</span></td>
+            <td class="td-small"><span class="badge-decided">вирішено</span> Рішення 1: список клієнтів + теги замовлень + історія по клієнту. Верифікація: посилання на соцмережі. Без B2B-порталу в MVP.</td>
+            <td class="td-small"><span class="market-open">ВІДКРИТО</span> GymBeam B2B - для рітейлерів. belok.ua - форма+дзвінок.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Перехід до кращого постачальника</td>
+            <td><span class="score-3">3</span></td>
+            <td><span class="score-1">1</span></td>
+            <td>-</td>
+            <td>-</td>
+            <td class="td-small">Лендінг "Для тренерів", прозорий прайс (Рішення 3), самостійна реєстрація.</td>
+            <td class="td-small"><span class="market-open">ВІДКРИТО</span> Жоден конкурент не пропонує чіткого тренерського досвіду для переходу.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Рекомендація продукту за ціллю</td>
+            <td><span class="score-2">2</span> <span class="badge-q">[?]</span></td>
+            <td><span class="score-2">2</span> <span class="badge-q">[?]</span></td>
+            <td><span class="score-3">3</span></td>
+            <td><span class="score-1">1</span></td>
+            <td class="td-small"><span class="badge-decided">вирішено</span> Рішення 2: 4-6 тайлів цілей (MVP). Guided-квіз - після запуску. Конверсійні гіпотези - <span class="badge-q">[?]</span>.</td>
+            <td class="td-small"><span class="market-open">ВІДКРИТО</span> Жоден UA-магазин спортпіту не має інтерактивного шляху за ціллю.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Перевірка безпеки перед покупкою</td>
+            <td><span class="score-2">2</span></td>
+            <td><span class="score-2">2</span></td>
+            <td><span class="score-3">3</span></td>
+            <td><span class="score-1">1</span></td>
+            <td class="td-small">Блок складу/дозування/походження на кожній картці продукту. Один сигнал якості.</td>
+            <td class="td-small"><span class="market-open">ВІДКРИТО</span> belok.ua сертифікати - порожньо. vansiton ISO - тільки на рівні магазину.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Повтор без зусиль</td>
+            <td><span class="score-2">2</span></td>
+            <td><span class="score-1">1</span></td>
+            <td><span class="score-1">1</span></td>
+            <td><span class="score-3">3</span></td>
+            <td class="td-small"><span class="badge-decided">вирішено</span> Рішення 4: "Повторити замовлення" з історії (MVP). "Мої базові" + email-нагадування - після запуску. Таймінг - <span class="badge-q">[?]</span>.</td>
+            <td class="td-small"><span class="market-open">ВІДКРИТО</span> Жоден UA-конкурент не має смарт-повтору.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Рекомендація з видимими доказами</td>
+            <td><span class="score-3">3</span></td>
+            <td><span class="score-3">3</span></td>
+            <td>-</td>
+            <td>-</td>
+            <td class="td-small">Картки продуктів з описом складу/дозування, зручні для показу спортсмену.</td>
+            <td class="td-small"><span class="market-open">ВІДКРИТО</span> Жоден UA-магазин не передає глибину складу на рівні продукту.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">ESJ-1: довіра до тренера</td>
+            <td><span class="score-3">3</span></td>
+            <td><span class="score-3">3</span></td>
+            <td>-</td>
+            <td>-</td>
+            <td class="td-small">Позиціювання тренерського акаунту, ідентичність спільноти.</td>
+            <td class="td-small"><span class="market-open">ВІДКРИТО</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">ESJ-2: впевненість початківця</td>
+            <td>-</td>
+            <td>-</td>
+            <td><span class="score-3">3</span></td>
+            <td>-</td>
+            <td class="td-small">Тайли цілей, сигнали довіри, спокійний тон. Рішення 2.</td>
+            <td class="td-small"><span class="market-open">ВІДКРИТО</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">ESJ-3: скептицизм щодо підробок</td>
+            <td><span class="score-2">2</span></td>
+            <td><span class="score-2">2</span></td>
+            <td><span class="score-3">3</span></td>
+            <td><span class="score-1">1</span></td>
+            <td class="td-small">Походження/сертифікація/статус дистриб'ютора. Автентичність в центрі.</td>
+            <td class="td-small"><span class="market-partial">ЧАСТКОВО</span> vansiton ISO 22000. belok.ua - порожньо.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">ESJ-4: автономія тренера</td>
+            <td><span class="score-3">3</span></td>
+            <td><span class="score-2">2</span></td>
+            <td>-</td>
+            <td>-</td>
+            <td class="td-small">Самостійний тренерський акаунт без форм і дзвінків.</td>
+            <td class="td-small"><span class="market-partial">ЧАСТКОВО</span> GymBeam B2B - самообслуговування, але для рітейлерів.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Три ключових завдання для MVP-ядра</h3>
+    <p>Завдання з оцінкою 3 для Олени (ОСНОВНА персона) і статусом ВІДКРИТО на ринку:</p>
+
+    <div class="mvp-core">
+      <div class="mvp-core-label">MVP-ядро</div>
+      <div class="mvp-item">
+        <div class="mvp-num">1</div>
+        <div class="mvp-item-text"><strong>Мультиклієнтське замовлення за одну сесію</strong> - 3 для Олени, 3 для Дмитра, ВІДКРИТО на ринку. Stack замінює Excel-таблицю і телефонний дзвінок. Це структурний диференціатор тренерського каналу. <span class="badge-decided">вирішено: Рішення 1</span></div>
+      </div>
+      <div class="mvp-item">
+        <div class="mvp-num">2</div>
+        <div class="mvp-item-text"><strong>Рекомендація з видимими доказами (Завдання 5 / ESJ-1)</strong> - 3 для обох тренерів, ВІДКРИТО. Картки продуктів з глибиною складу/дозування одночасно закривають ESJ-2 (початківці) і Завдання 3 (перевірка безпеки).</div>
+      </div>
+      <div class="mvp-item">
+        <div class="mvp-num">3</div>
+        <div class="mvp-item-text"><strong>Шлях "ціль - продукт" (Завдання 2)</strong> - 3 для початківців, ВІДКРИТО, 2 для тренерів. Найбільша прогалина в активації на ринку. Також допомагає тренерам відкривати нові продукти для клієнтів. <span class="badge-decided">вирішено: Рішення 2</span></div>
+      </div>
+    </div>
+
+    <h3>Кандидати на відкладання</h3>
+    <div class="cut-grid">
+      <div class="cut-card">
+        <div class="cut-status cut-deferred">Відкладено</div>
+        <div class="cut-text"><strong>HYP-1 - реферал/комісія для тренерів.</strong> Немає підтвердженого завдання. Відкладено до Фази 2 після валідації базового процесу замовлення.</div>
+      </div>
+      <div class="cut-card">
+        <div class="cut-status cut-deferred">Відкладено</div>
+        <div class="cut-text"><strong>HYP-2 - відстеження дотримання режиму спортсменами.</strong> Немає підтвердженого завдання. Ризик: передчасна функція до того, як базовий тренерський потік доведено.</div>
+      </div>
+      <div class="cut-card">
+        <div class="cut-status cut-decided">Структуру вирішено, цифри [?]</div>
+        <div class="cut-text"><strong>Система лояльності/бонусів.</strong> Структуру вирішено (Рішення 3): окремий опублікований тренерський прайс + накопичувальна лояльність для індивідуальних покупців. Конкретні числа (відсоток тренерської знижки, пороги лояльності) - <span class="badge-q">[?]</span> до отримання реальних даних маржі від постачальників. Закрито рішенням засновника, а не дослідженням.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: CRITIQUE -->
+  <section id="critique">
+    <div class="section-number">05</div>
+    <h2>Критика: статус тверджень і ризики</h2>
+    <p class="section-lead">Огляд того, що підтверджено, що є гіпотезою і що може зламати продукт, якщо виявиться хибним.</p>
+
+    <h3>Статус ключових тверджень</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="min-width:220px">Твердження</th>
+            <th>Статус</th>
+            <th>Ризик</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Тренери замовляють для 5-30+ спортсменів за сесію</td>
+            <td><span class="claim-status claim-hyp">гіпотеза</span></td>
+            <td>СЕРЕДНІЙ - може бути правильним порядком величини, але 5-30 - широкий діапазон</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Жоден UA-конкурент не має мультиклієнтського кошика</td>
+            <td><span class="claim-status claim-confirmed">підтверджено</span></td>
+            <td>НИЗЬКИЙ - перевірено прямими запитами до сайтів</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Тренери ведуть окремі таблиці по клієнтах</td>
+            <td><span class="claim-status claim-hyp">гіпотеза</span></td>
+            <td>ВИСОКИЙ - якщо хибно, то біль від відсутності цифрового інструменту нижчий</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Рекомендація від колеги - головний тригер переходу</td>
+            <td><span class="claim-status claim-hyp">гіпотеза <span class="badge-q">[?]</span></span></td>
+            <td>КРИТИЧНИЙ - визначає go-to-market підхід, але немає жодних доказів</td>
+          </tr>
+          <tr>
+            <td class="td-strong">belok.ua, GymBeam B2B, vansiton мають активних B2B-користувачів</td>
+            <td><span class="claim-status claim-hyp">гіпотеза</span></td>
+            <td>ВИСОКИЙ - якщо тренери не використовують ці інструменти, то динаміка переходу змінюється</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Підробки добавок - реальна, активна проблема в Україні</td>
+            <td><span class="claim-status claim-confirmed">підтверджено</span></td>
+            <td>НИЗЬКИЙ - ДАЧА 2025, поведінка покупців на hotline.ua, редакційний контент</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Поточний B2B-процес - Excel+email+дзвінок</td>
+            <td><span class="claim-status claim-confirmed">підтверджено</span></td>
+            <td>НИЗЬКИЙ - перевірено на fitness-shop.ua і sport-factor.ua</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Квіз: 40% завершення, у 3 рази більше покупок</td>
+            <td><span class="claim-status claim-hyp">гіпотеза <span class="badge-q">[?]</span></span></td>
+            <td>НИЗЬКИЙ поки що - помічено як гіпотеза, НЕ є основою для Рішення 2</td>
+          </tr>
+          <tr>
+            <td class="td-strong">AOV тренера 4 000-12 000 грн</td>
+            <td><span class="claim-status claim-hyp">гіпотеза <span class="badge-q">[?]</span></span></td>
+            <td>НИЗЬКИЙ для дизайну, ВИСОКИЙ для бізнес-моделі</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Тренер платить за добавки клієнтів сам (перепродаж)</td>
+            <td><span class="claim-status claim-confirmed">підтверджено</span></td>
+            <td>НИЗЬКИЙ - fitness-shop.ua явно описує цю модель</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Жоден з 8 постачальників не публікує ціни відкрито</td>
+            <td><span class="claim-status claim-confirmed">підтверджено</span></td>
+            <td>НИЗЬКИЙ - перевірено 8 сторінок постачальників (2026-06-14)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Список небезпек</h3>
+    <p>Гіпотези або недоведені твердження, які безпосередньо впливають на дизайнерське або продуктове рішення - впорядковані за радіусом ураження.</p>
+
+    <div class="danger-list">
+      <div class="danger-card">
+        <div class="danger-header">
+          <div class="danger-num">1</div>
+          <div class="danger-title">Що змушує українського тренера змінити постачальника? (НАЙНЕБЕЗПЕЧНІШЕ - підтверджена відсутність публічних даних)</div>
+        </div>
+        <div class="danger-body">
+          <p>Поточний загальний процес - Excel+email+телефон. Stack замінює аналоговий інструмент, а не цифровий продукт конкурента. Це знижує поріг переходу. Тренери є перепродавцями (fitness-shop.ua), тому "кращий досвід" включає прозорість ціноутворення (опублікований прайс, а не переговори) і надійність доставки (найчастіше згадуваний у відгуках фактор).</p>
+          <p>Ризик, що залишається: якщо відносини тренера з менеджером поточного постачальника особисті й довірені ("він дзвонить мені щотижня, знає моїх клієнтів") - цифровий продукт сам по собі може не витіснити цю відносину, навіть якщо технічно він кращий.</p>
+          <p><strong>Де шукати:</strong> прямі інтерв'ю з 5-8 українськими тренерами про їхній відносини з постачальником. Публічних даних немає - підтверджена відсутність після пошуку 25+ джерел.</p>
+        </div>
+      </div>
+
+      <div class="danger-card">
+        <div class="danger-header">
+          <div class="danger-num">2</div>
+          <div class="danger-title">Чи мають тренери, які вже використовують wholesale-програми, незадоволені потреби, які Stack може закрити?</div>
+        </div>
+        <div class="danger-body">
+          <p><span class="badge-confirmed">Частково закрито постдослідженням</span> - Поточний загальний процес замовлення - аналоговий (Excel+email+телефон). Самостійного мультиклієнтського кошика немає ніде на видимому ринку. belok.ua - задокументована скарга на підробку і зриви доставки. GymBeam - скарги на доставку.</p>
+          <p>Що залишається <span class="badge-q">[?]</span>: чи побачать тренери з DSN GROUP або sport-factor.ua, яких обслуговують з 5.0/5.0, причину для переходу. Ці тренери можуть бути задоволені аналоговими інструментами, бо постачальник доставляє надійно.</p>
+        </div>
+      </div>
+
+      <div class="danger-card">
+        <div class="danger-header closed">
+          <div class="danger-num closed">3</div>
+          <div class="danger-title">Чи є підробки реальною, активною проблемою для українських покупців - чи це фонове припущення?</div>
+        </div>
+        <div class="danger-body">
+          <span class="badge-confirmed">Закрито постдослідженням</span> ДАЧА України 2025: найбільша в країні підпільна операція з анаболіків - 20 000+ пакетів продавалися як спортивні добавки. Покупці на hotline.ua активно перевіряють автентичність. Архітектура довіри повинна чітко звертатися до цього - не як опції. Відкрите підпитання <span class="badge-q">[?]</span>: головний страх початківця - підробки, недодозування чи побічні ефекти?
+        </div>
+      </div>
+    </div>
+
+    <h3>Три питання для закриття найважливіших прогалин</h3>
+    <div style="display:grid;gap:12px;margin-top:16px;">
+      <div class="danger-card">
+        <div class="danger-body">
+          <strong>П1 (Тригер переходу):</strong> "Якщо ви зараз купуєте добавки для своїх спортсменів у вже знайомого постачальника - що мало б статися, щоб ви спробували інший магазин? Що колись у минулому змусило вас змінити постачальника?" - для будь-якого тренера, який купує через belok.ua /opt/, GymBeam B2B або mega-mass.ua.
+        </div>
+      </div>
+      <div class="danger-card">
+        <div class="danger-body">
+          <strong>П2 (Поточний процес):</strong> "Розкажіть мені, як ви зараз обробляєте замовлення для одного клієнта - від рішення, що йому потрібно, до отримання продукту. Де це стає незручним?" - для будь-якого тренера, який замовляє для 5+ спортсменів.
+        </div>
+      </div>
+      <div class="danger-card">
+        <div class="danger-body">
+          <strong>П3 (Страх покупця):</strong> "Що б змусило вас засумніватися перед купівлею добавки онлайн в Україні в магазині, де ви ніколи не купували?" - для початківців і тих, хто купує вперше в будь-якому українському магазині.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-text">Stack - Фаза 1: Дослідження. JTBD v1.1. Червень 2026. Всі факти підкріплені джерелами.</div>
+    <div class="footer-text">Наступна фаза: Wireframes</div>
+  </div>
+</footer>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+
+  var navLinks = document.querySelectorAll('.sidebar-nav a[href^="#"]');
+  var sections = document.querySelectorAll('section[id]');
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.getAttribute('id');
+        navLinks.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+
+  sections.forEach(function(section) { observer.observe(section); });
+</script>
+</body>
+</html>

@@ -2,7 +2,10 @@
 
 A mobile-first sport nutrition store for the Ukrainian market, built around coaches and gyms who order for their athletes. Turns a confusing catalog into a clear, trusted path from a person's goal to the right products.
 
-**Live research page:** https://sergiodesign4u-dot.github.io/stack/research.html
+**Live research pages:**
+- https://sergiodesign4u-dot.github.io/stack/research.html
+- https://sergiodesign4u-dot.github.io/stack/personas.html
+- https://sergiodesign4u-dot.github.io/stack/jtbd.html
 
 ---
 
@@ -10,7 +13,7 @@ A mobile-first sport nutrition store for the Ukrainian market, built around coac
 
 | Phase | Status |
 |-------|--------|
-| Research | Done (competitive analysis, benchmark, UX patterns, Ukrainian research page) |
+| Research | Done (competitive analysis, benchmark, UX patterns, personas, JTBD, product decisions locked) |
 | Wireframes | Not started |
 | Concept | Not started |
 | Design System | Not started |
@@ -43,3 +46,5 @@ handoff/          - Developer handoff files
 - [Research: Benchmark](research/benchmark.md)
 - [Research: UX Patterns](research/ux-patterns.md)
 - [Research: Master Synthesis](research/master-research.md)
+- [Research: Personas](research/personas.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/personas.html)
+- [Research: JTBD](research/jtbd.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/jtbd.html)
