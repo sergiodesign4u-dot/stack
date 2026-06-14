@@ -14,6 +14,7 @@
 | Final | 2026-06-10 | Initial synthesis of all research phases |
 | v_refresh | 2026-06-12 | Updated competitors section (3 groups, new discoveries: GymBeam UA, vansiton Coach Account, MyProtein UA shipping suspended). Renamed Product Model section to Strategy. AARRR updated with new competitor findings. Hypotheses updated to If/Then/Because format; riskiest assumption marked. |
 | v2 | 2026-06-14 | Reflected loyalty hypothesis in Strategy (Business Model) and Conclusions (open questions). Added SEO open question to conclusions. Reflects additions from competitive-analysis.md v2, strategy.md v2, aarrr.md v2. |
+| v3 | 2026-06-14 | Rewrote riskiest assumption: switching framing (experience over price, price as hygiene, volume economics [?]). Updated Hypothesis 2 [RISKIEST] to match. Added price positioning/volume open question. Reflects competitive-analysis.md v3 and strategy.md v3. |
 
 ---
 
@@ -88,13 +89,15 @@ Stack is a mobile-first sport nutrition store for the Ukrainian market, built ar
 
 ### Riskiest Assumption
 
-**The coach-as-channel model:** coaches and gym managers will actually order for their athletes through a digital platform - and Stack can reach them and convert them before they are satisfied by GymBeam B2B, belok.ua wholesale, or vansiton Coach Account.
+**The switching bet:** coaches, gyms, and fitness professionals - including those already buying from belok.ua, GymBeam UA, mega-mass.ua, or vansiton.ua - will SWITCH to Stack because of a clearly better ordering experience for themselves and their athletes. Experience is the reason to switch. Price is competitive hygiene: Stack must stay within market range so price is not a reason NOT to switch, but low price is not the differentiator.
 
-If coaches cannot be reached digitally, or if existing partial solutions satisfy them, the primary JTBD, primary revenue hypothesis (40% GMV from coaches), and referral flywheel all fail simultaneously. The product becomes a standard B2C store competing on price with belok.ua and GymBeam at a disadvantage.
+The coach channel is not an empty niche (competitive analysis v3, 2026-06-14). belok.ua, GymBeam UA, mega-mass.ua, and vansiton.ua all have some form of wholesale or B2B infrastructure. The question has shifted from "will coaches order online?" to "will they switch for a better experience?" If the only reason to switch is price, Stack cannot win - it lacks the purchasing volume to undercut established rivals with more scale. Volume economics (higher turnover compensating for lower per-unit margin) is UNVALIDATED [?]: it depends on purchasing scale and wholesale costs not yet available at launch.
 
-Smallest test: qualitative interviews with 5-10 Ukrainian gym coaches before writing code.
+If the experience Stack builds is not meaningfully better than what rivals already offer, the primary JTBD, the 40% GMV coach-channel hypothesis, and the referral flywheel all fail simultaneously. The product becomes a standard B2C store at a scale disadvantage.
 
-See research/strategy.md for full reasoning and discarded alternatives.
+Smallest test: qualitative interviews with coaches in two groups - those who already use a wholesale program and those without an established supplier - asking what would realistically make them switch.
+
+See research/strategy.md v3 for full reasoning and discarded alternatives.
 
 ---
 
@@ -227,7 +230,7 @@ Subscription-first purchase model. See Benchmark Section and Strategy Business M
 | # | If | Then | Because |
 |---|----|----|---------|
 | 1 | If Stack is the first UA sport nutrition store with an interactive goal-to-product quiz | Then it will convert beginners at a significantly higher rate than competitors | Because the primary drop-off for beginners is catalog overwhelm, not price - and no UA competitor addresses this |
-| 2 [RISKIEST] | If coaches find Stack's multi-client ordering tool meaningfully better than GymBeam B2B or belok.ua wholesale | Then coach accounts will have a repeat order rate over 80% within 90 days | Because coaches who find a reliable, efficient supply channel become sticky by necessity - switching costs are high when client relationships depend on consistent supply |
+| 2 [RISKIEST] | If coaches - including those already buying from belok.ua, GymBeam UA, mega-mass.ua, or vansiton.ua - experience Stack's ordering flow and the guidance it enables for their athletes as meaningfully better than what they currently use, AND Stack's price stays within market range | Then coach accounts will switch to Stack and have a repeat order rate over 80% within 90 days | Because experience, not price, is the switching reason: a coach who finds a tool that makes ordering easier and enables better outcomes for their athletes will not leave it for a marginal price difference from a rival - but if the experience is not clearly better, switching costs alone will keep them where they are |
 | 3 | If product pages lead with composition, dosage, and origin signals before price | Then bounce rate on product pages will decrease for first-time visitors | Because the primary exit trigger for beginners is unresolved safety doubt, not price - answering the safety question first breaks the exit loop |
 | 4 | If the coach channel generates 40% of GMV within 6 months | Then Stack can offer coach pricing at 5-10% below retail and still improve overall margin vs. a pure B2C model | Because one coach account replaces 10-30 individual customer acquisition costs [?] |
 | 5 | If email/SMS consumption reminders are sent 5-7 days before estimated stockout | Then 30-day repeat purchase rate will exceed 35% for the regular buyer segment | Because the primary barrier to reorder is not motivation but timing and friction - reminders remove both [?] |
@@ -244,6 +247,7 @@ Subscription-first purchase model. See Benchmark Section and Strategy Business M
 | What is the actual consumption cycle for common products (whey 2kg, creatine 300g)? | Required for accurate reorder reminders | Product documentation + user interviews |
 | What loyalty / bonus structure keeps regulars buying without destroying margin? Cumulative tier discount (belok.ua model) vs. points balance (GymBeam model) vs. a hybrid? | Determines retention mechanic and pricing architecture. Coaches hit high spend thresholds fast - loyalty structure affects coach channel economics. | Unit economics analysis with real margin data [?] + user research on what buyers value most |
 | Do goal-based SEO landing pages actually outperform catalog category pages for beginner acquisition in UA? GymBeam has hundreds of blog articles; no competitor runs goal-intent pages. | Determines content and SEO strategy for Phase 2 (Wireframes / site structure). Full SEO plan is deferred. | Keyword research with UA data (Ahrefs/Semrush); traffic and conversion comparison once live |
+| What is Stack's viable price positioning given launch-stage volume - and does volume economics (higher turnover per unit compensating for lower per-unit margin) hold at the scale achievable in the first 6-12 months? | Determines whether the coach discount hypothesis (5-10% below retail) is structurally sustainable and whether price-as-hygiene is achievable at launch - or whether margin pressure makes the switching premise fragile. Volume economics is UNVALIDATED [?]. | Unit economics model built from real wholesale cost data obtained during supplier sourcing and technical scoping. Cannot be calculated before supplier negotiations. |
 
 ---
 
