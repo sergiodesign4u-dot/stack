@@ -13,6 +13,7 @@
 | product-model v1 | 2026-06-10 | Initial pre-research hypotheses |
 | product-model v2 | 2026-06-10 | Updated after competitive analysis + benchmark |
 | strategy v_refresh | 2026-06-12 | Migrated to Strategy format. AIDA tables retired (AARRR is the single funnel). Each section updated with new competitor findings from v_refresh competitive analysis. Riskiest assumption added. Business model clarified (free reorder, no hardcoded subscription tier). |
+| strategy v2 | 2026-06-14 | Added loyalty / bonus sub-section to Business Model. Framed as a research task. Working hypothesis: bonus balance + cumulative lifetime discount. Illustrative tiers (owner sketch, unvalidated). References competitor loyalty data from competitive-analysis.md v2. |
 
 ### What changed from product-model v2 to strategy v_refresh
 
@@ -94,6 +95,27 @@
 **Reorder ("always in stock"):** FREE convenience feature in MVP. Email/SMS reminders at estimated consumption timing + one-tap repeat order from account history + "My Staples" saved list. This drives retention without requiring subscription infrastructure. It is NOT a paid tier.
 
 **Paid subscription tier:** Open question for a later phase. Do not hardcode it as a committed product feature. Possible future value: priority stock alerts, deeper analytics for coaches, exclusive products. Not an MVP commitment.
+
+**Loyalty / bonus structure (research task, not a settled decision):**
+
+The goal is a loyalty structure that is not worse than the UA market AND does not destroy margin. Both are unknowns until real sales data exists - no margin numbers are available, so no final structure can be calculated now.
+
+Market context (from research/competitive-analysis.md v2, 2026-06-14):
+- belok.ua: cumulative lifetime discount in a 12-month window - 5% at 10K UAH, 10% at 50K UAH. Simple, spend-based, no points accounting. Source: https://belok.ua/ua/sistema-skidok/
+- 5lb.ua: two-layer system - cumulative tier discount (3% at 1K-5K UAH, 5% at 5K-10K, 8% at 10K+) plus a bonus points balance redeemable up to 7% of order. Source: https://5lb.ua/en/skidki.html
+- GymBeam UA: points system (1 pt per 50 UAH web, 2 pt per 50 UAH app), 4 redemption tiers, 90-day expiry. Source: https://gymbeam.ua/ua/content/prohrama-loialnosti
+- No competitor has a coach-specific loyalty or bulk discount structure that is transparent and self-service.
+
+Working hypothesis (to validate against unit economics, which are not calculated yet):
+- A bonus balance earned from purchases (percentage of spend credited to a redeemable account balance), plus a cumulative lifetime discount that grows with total spend.
+- Illustrative tier sketch from the owner - UNVALIDATED HYPOTHESIS ONLY, never to be treated as decided:
+  - Roughly 5,000 UAH lifetime spend - approximately 5% discount
+  - Roughly 25,000 UAH lifetime spend - approximately 7% discount
+  - Roughly 50,000 UAH lifetime spend - approximately 10% discount
+- These thresholds and percentages need to be validated against actual margin data [?] before committing. Margin numbers do not yet exist.
+- The coach channel reaches high lifetime spend thresholds quickly (coach AOV hypothesis: 4,000-12,000 UAH per order [?]), which means a cumulative lifetime discount rewards coaches structurally without a separate discount category.
+
+Open question: Does a simpler cumulative tier discount (like belok.ua) outperform a points balance (like GymBeam) in practice for a UA sport nutrition buyer? This requires user research and early sales data, not desk research alone.
 
 **Value exchange:**
 - For coaches: faster multi-client ordering + better pricing in exchange for volume and loyalty
