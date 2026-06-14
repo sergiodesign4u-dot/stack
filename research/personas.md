@@ -62,6 +62,18 @@ Source: research/aarrr.md v2
 **OBS-C14:** No data found on the proportion of Ukrainian coaches who already have an established supplier relationship vs. those ordering ad hoc from B2C retail. This split determines the ratio of switching-required vs. first-choice acquisitions.
 Source: gap - not found
 
+**OBS-C18 (CRITICAL - post-persona research):** The coach-aggregated-order model is a confirmed commercial pattern in Ukraine. fitness-shop.ua explicitly pitches it: coaches collect group orders from multiple clients and place as a single wholesale order, earning the margin between wholesale and retail price. Coaches are RESELLERS with a margin incentive, not just bulk buyers seeking convenience. Source: https://fitness-shop.ua/optovyj-prajs-dlja-vykupa (2026-06-14)
+
+**OBS-C19 (CRITICAL - post-persona research):** The current universal B2B ordering workflow in Ukraine is entirely analog: (1) download Excel price list from supplier, (2) mark quantities, (3) email order back, (4) manager phones to confirm. No self-service multi-client digital tool was found in any publicly accessible supplier. Stack's multi-client cart replaces a spreadsheet and a phone call, not a competitor's digital product. This significantly lowers the switching bar for Persona 1. Sources: fitness-shop.ua, sport-factor.ua (2026-06-14)
+
+**OBS-C20 (NEW - post-persona research):** mega-mass.ua's wholesale form asks trainers for their social media links as identity verification: "якщо ви тренер, то посилання на соціальні мережі" (if you are a trainer, your social media links). This is a simple, low-friction coach verification method used in practice. Source: https://mega-mass.ua/uk/opt/ (2026-06-14)
+
+**OBS-C21 (NEW - post-persona research):** Delivery reliability and stock availability are the most consistently praised traits in wholesale supplement supplier reviews. DSN Group (5.0/5.0, 23 reviews): "stable wholesale supplies, stock availability, fast shipping." Authenticity/official distributor status is the second trust signal. Price is the least visible factor (none of 8 suppliers publishes pricing publicly). Sources: https://dsn.ua/store-reviews/ (2026-06-14)
+
+**OBS-C22 (NEW - post-persona research):** belok.ua has a documented counterfeit complaint: reviewer "Елена Андрейченко" explicitly states "selling non-original product, seal doesn't match the original" for Optimum Nutrition Opti-Men. Delivery failures also documented. Source: https://hotline.ua/ua/yp/23704/reviews/ (2026-06-14)
+
+**OBS-C23 (NEW - post-persona research):** No public forum discussions or reviews where Ukrainian coaches discuss supplement supplier switching were found after extensive search. No coach-specific B2B reviews exist on any accessible public platform. The switching trigger remains [?] - but structural evidence (analog workflow, personal pricing relationships) suggests switching cost is higher than a transparent price comparison would imply. Source: Confirmed absence across 8 supplier pages, 3 review platforms (2026-06-14)
+
 **OBS-C16 (NEW from post-persona research):** The wholesale landscape for coaches extends beyond the 4 retail competitors profiled. SN-Import (snimport.com.ua) explicitly serves "sports trainers and nutritional instructors" for wholesale purchases, importing 30+ brands (NOW Foods, Amix, Nutrend, Optimum Nutrition, Sporter). SPORT-FACTOR (sport-factor.ua) similarly targets coaches, gym owners, and fitness club owners for wholesale with a registration form + weekly pricing via email/Telegram. These distributor relationships may be long-standing and price-driven (direct import pricing, bypassing retail margin). Source: https://snimport.com.ua/ (visited 2026-06-14), https://sport-factor.ua/sportyvne-kharchuvannia-optom/ (visited 2026-06-14)
 
 **OBS-C17 (NEW from post-persona research):** What Ukrainian buyers prioritize in supplement stores (from review analysis and editorial content): (1) product authenticity and certificates, (2) professional, knowledgeable staff, (3) prices and promotions, (4) business transparency (physical address, return policy). Coaching tools, wholesale flow, and B2B features were not mentioned in any consumer review or ranking found. Source: top20.ua/belok.ua reviews (59 reviews), thepage.ua top 5 stores article (visited 2026-06-14)
@@ -153,7 +165,7 @@ Source: research/benchmark.md (Section 6), research/ux-patterns.md (Pattern That
 | Age | 30-42 |
 | Role | Professional or semi-professional fitness coach, gym trainer, or sports team manager |
 | Situation | Has been ordering from belok.ua /opt/, GymBeam B2B, mega-mass.ua, or a distributor for 1-3+ years. Has an established ordering routine - even if imperfect. |
-| Current tools | A mix of: competitor callback form or self-service B2B + personal spreadsheet [?] + WhatsApp/Telegram to coordinate with clients [?] |
+| Current tools | Excel price list downloaded from supplier + email order submission + manager phone callback. Personal spreadsheet for tracking client needs [?]. WhatsApp/Telegram to coordinate with clients [?]. SOURCE: fitness-shop.ua wholesale page (confirmed), coach client coordination channel still [?] |
 | Clients | 8-25 active clients [?] with different goals, budgets, and schedules |
 
 **Jobs (what she is trying to get done):**
@@ -162,11 +174,12 @@ Source: research/benchmark.md (Section 6), research/ux-patterns.md (Pattern That
 - Get pricing that allows her to either include supplements in her coaching fee or transparently pass savings to clients
 - Never have a client run out of a product mid-training block
 
-**Pains with current options:**
-- belok.ua: callback form required (not self-service), pricing not published, cannot order for client B while waiting for client A's order to process
-- GymBeam B2B: built for retailers, not coaches; must separately re-enter each client's needs; no saved client profiles; pricing negotiated, not predictable
-- vansiton.ua: phone/email contact only - a step backward from digital self-service
-- All options: no persistent client list; she maintains her own record of what each athlete takes
+**Pains with current options (UPDATED with confirmed research):**
+- CONFIRMED: The current universal workflow is Excel price list → email → manager phone callback. This is a manual, analog process with no digital order tracking.
+- CONFIRMED: No supplier has a self-service multi-client cart or saved client profiles. Stack would replace a spreadsheet and a phone call, not another product.
+- CONFIRMED: belok.ua has authenticity problems (documented fake seal complaint) and delivery failures (multi-day non-delivery). Source: hotline.ua reviews
+- CONFIRMED: None of 8 identified suppliers publishes pricing publicly - all pricing is negotiated directly with a manager. This creates a personal relationship dependency.
+- [?]: Whether coach manages client list in a spreadsheet, WhatsApp group, or memory - specific tool is unknown
 
 **Trust triggers (what convinces her):**
 - Peer recommendation from a respected coach colleague (the #1 trigger [?] - no cited source yet)

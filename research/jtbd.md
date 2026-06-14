@@ -20,11 +20,12 @@
 
 ### Product Main Job (the job this product exists to do)
 
-**When I am a coach ordering supplements for multiple athletes with different goals, I want to build a complete order for each of them in one session from a trusted supplier, so that I can serve my clients reliably without losing professional credibility.**
+**When I am a coach ordering supplements for multiple athletes with different goals, I want to build a complete order for each client in one session from a trusted supplier and receive my products reliably, so that I can fulfill my clients' orders profitably without losing professional credibility.**
 
+Note on economic model (CONFIRMED by post-persona research): Ukrainian coaches who use wholesale channels act as resellers - they purchase at wholesale price and pass on a marked-up price to clients, keeping the margin as income. This is not just a convenience workflow; it is part of how coaches earn income. The coach's job includes protecting their margin, which makes supplier pricing (accessible wholesale rate) AND reliability (on-time delivery so clients don't ask questions) equally important to the ordering flow.
 - Persona: Olena (Persona 1, PRIMARY)
-- Research source: CLAUDE.md JTBD table (Primary job), research/ux-patterns.md Pattern 3, research/competitive-analysis.md v3 (gap confirmed: no UA competitor has multi-client cart with saved profiles)
-- Status: CONFIRMED by competitive gap and strategy alignment
+- Research source: CLAUDE.md JTBD table (Primary job), research/ux-patterns.md Pattern 3, research/competitive-analysis.md v3 (gap confirmed: no UA competitor has multi-client cart with saved profiles), fitness-shop.ua wholesale page (coach reseller model confirmed 2026-06-14)
+- Status: CONFIRMED by competitive gap, strategy alignment, and reseller model evidence
 
 ---
 
@@ -187,17 +188,16 @@ Note: Jobs 1 and 4 are important but less structurally urgent for MVP. Job 1 (sw
 
 Priority ordered by blast radius - what breaks if the claim is wrong:
 
-**1. What triggers a coach to switch suppliers in Ukraine? (MOST DANGEROUS)**
-- Current claim: experience (multi-client tool + better athlete guidance) is the switching trigger, with price as hygiene.
-- Risk: if switching is actually triggered by price or stockout rather than experience, the MVP investment in the coach tool may not convert coaches away from existing suppliers.
-- Design decision at stake: the entire coach onboarding flow, pricing tier structure, and positioning.
-- Where to look: direct interviews with 5-8 Ukrainian coaches who switched supplement suppliers in the last 2 years; any Ukrainian fitness business community discussions (ProFit Ukraine, Ukrainian Bodybuilding Federation community, Telegram fitness channels).
+**1. What triggers a coach to switch suppliers in Ukraine? (MOST DANGEROUS - confirmed no public data exists)**
+- UPDATED by post-persona research: The current universal workflow is Excel+email+phone - Stack replaces an analog tool, not a competitor's digital product. This lowers the switching bar. Coaches are resellers who protect a margin (fitness-shop.ua confirms), so "experience" includes price access transparency (published tier, not negotiated), not just the UI. Delivery reliability is the most cited wholesale praise signal (DSN Group reviews). Personal pricing relationships with a supplier manager add switching friction not captured in price comparison.
+- Risk that remains: if a coach's relationship with their current supplier manager is personal and trusted ("he calls me every week, knows my clients"), a digital product alone may not displace that relationship even if technically superior.
+- Design decision at stake: the coach onboarding flow must feel like a professional welcome, not just an account setup. Price access must be transparent from day one. Delivery reliability must be signaled.
+- Where to look: direct interviews with 5-8 Ukrainian coaches about their supplier relationship. No public data exists - confirmed absent after searching 25+ sources.
 
-**2. Do coaches who already use belok.ua /opt/ or GymBeam B2B have unmet needs that Stack could address? (HIGH)**
-- Current claim: existing tools are frustrating due to retailer-focus, callback requirements, and no client management.
-- Risk: if coaches are actually satisfied with their current tools ("the callback is fine, I call once a month"), the switching bet has even less traction.
-- Design decision at stake: MVP scope of the coach tool - how much to build before validation.
-- Where to look: reviews of belok.ua and GymBeam on Google Maps, Trustpilot, Ukrainian forums.
+**2. Do coaches who already use wholesale programs have specific unmet needs Stack can address? (UPDATED - CONFIRMED YES)**
+- CONFIRMED by post-persona research: The current universal ordering process is analog (Excel+email+phone). No self-service multi-client cart exists anywhere in the visible market. Stack would not be competing with a digital B2B tool; it would be offering something that does not exist.
+- CONFIRMED: belok.ua has documented authenticity problems and delivery failures (hotline.ua reviews). GymBeam has delivery complaints (wrong product, delayed). These are NOT satisfied coaches.
+- Remaining [?]: Whether coaches with DSN GROUP or sport-factor.ua relationships (who rate their suppliers 5.0/5.0) would see a reason to switch. These coaches may be satisfied with analog tools because their supplier delivers reliably.
 
 **3. Are counterfeit supplements a real, active concern for Ukrainian buyers - or is it a background assumption? (CLOSED by post-persona research)**
 - CONFIRMED: NADC Ukraine documented the largest underground anabolic steroid operation in the country's history (June 2025) - fake products sold as sports supplements. Buyer behavior on hotline.ua shows active authenticity verification. Editorial content discusses "how to tell original from fake." Trust architecture must address authenticity explicitly - not as optional content.

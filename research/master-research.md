@@ -308,6 +308,72 @@ From thepage.ua top 5 stores analysis and belok.ua customer reviews (top20.ua, 5
 
 ---
 
+### Finding 5 (CRITICAL): The coach-aggregated-order model is confirmed as a commercial pattern in Ukraine
+
+**Confirmed.** fitness-shop.ua publishes this verbatim: "Якщо ви тренер і маєте групу клієнтів, які бажають замовити спортивне харчування - ви можете зібрати одне загальне замовлення та оформити його у нас." (If you are a trainer with a group of clients who want to order sports nutrition, you can collect one group order and place it with us.) The trainer earns the margin between the wholesale price they pay and the retail price clients pay.
+Source: https://fitness-shop.ua/optovyj-prajs-dlja-vykupa (confirmed 2026-06-14)
+
+**Structural implication:** Coaches are RESELLERS, not just bulk buyers. They earn a margin on each client's order. This is an economic incentive structure embedded in the market, not just a convenience. It changes the loyalty model (coaches need a lower wholesale price to maintain their margin, not just a discount), and it changes what "better experience" means - it must protect the coach's margin while reducing the overhead of managing multiple orders.
+
+---
+
+### Finding 6 (CRITICAL): The current coach ordering workflow is entirely analog - Excel price list, email, manager callback
+
+**Confirmed.** The universal B2B ordering process in Ukraine: download Excel price list from supplier → mark quantities → email back to supplier → manager phones to confirm order. No self-service multi-client cart exists anywhere in the publicly visible Ukrainian market. fitness-shop.ua minimum order for wholesale pricing: 5,000 UAH. Sport-Factor sends weekly price lists via Telegram/email after registration.
+Sources: https://fitness-shop.ua/optovyj-prajs-dlja-vykupa, https://sport-factor.ua/sportyvne-kharchuvannia-optom/ (2026-06-14)
+
+**Structural implication:** Stack's multi-client cart would not be replacing a competitor's digital tool - it would be replacing an analog, Excel-based workflow. This significantly lowers the switching bar. The comparison is not "Stack vs. GymBeam B2B" but "Stack vs. Excel + email + phone callback." The switching trigger is not "Stack must be better than a competitor's product" but "Stack must be better than a spreadsheet and a phone call."
+
+---
+
+### Finding 7: Wholesale supplier landscape is wider than competitive analysis captured
+
+Eight suppliers were confirmed as explicitly naming coaches as a target segment:
+
+| Supplier | URL | Notes |
+|---|---|---|
+| fitness-shop.ua | https://fitness-shop.ua/optovyj-prajs-dlja-vykupa | Explicit coach aggregation pitch; Excel price list; min 5K UAH |
+| Sport-Factor | https://sport-factor.ua/sportyvne-kharchuvannia-optom/ | Weekly Telegram price list to wholesale clients |
+| mega-mass.ua | https://mega-mass.ua/uk/opt/ | 4 customer types: Trainer / Gym Owner / Store Owner / Regular; asks trainers for social media links as identity verification; 72% repeat rate |
+| vansiton.ua | https://vansiton.ua/ua/partneram.html | Individual coaches, athletes, teams, federations; phone/email only |
+| belok.ua | https://belok.ua/ua/opt/ | "Fitness clubs, personal trainers, online stores"; contact via partner@belok.ua |
+| Nutrend Ukraine | https://nutrend.com.ua/spivpratsya/ | "Coaches of sports clubs and sections, sports teams"; 24/7 online catalog; loyalty bonuses |
+| GymBeam Ukraine | https://gymbeam.ua/ua/content/b2b/form | Gym/fitness studio/sports club on dropdown; 9,000+ SKUs; terms via email |
+| DSN GROUP | https://dsn.ua/ | "Personal trainers, nutritionists"; daily shipments; deposit-based tiered discounts; 23 reviews, 5.0/5 |
+
+No supplier publicly shows pricing or discount percentages. All pricing is gated behind registration + manager contact. This suggests pricing relationships are personal and negotiated, not market-transparent.
+
+**Structural implication for switching bet:** The current relationship between a coach and their supplier is personal and opaque (custom pricing, direct manager contact). This makes switching stickier than a transparent pricing comparison would suggest. Stack's "better experience" must outweigh a personal supplier relationship, not just a price sheet comparison.
+
+---
+
+### Finding 8: Delivery reliability and stock availability are the most praised traits in wholesale supplier reviews
+
+DSN Group (23 verified reviews, 5.0/5.0) reviews consistently praise: fast delivery, reliable stock availability, responsive communication. Sample quotes: "all agreements executed on time" (Михайлов Сергій, Feb 2026), "stable wholesale supplies, stock availability, fast shipping across Ukraine" (Protein-Vitamin, Feb 2026), "easy communication and good price" (Інна Скрипник, Apr 2024).
+Source: https://dsn.ua/store-reviews/ (2026-06-14)
+
+Belok.ua has documented counterfeit/authenticity complaint (Елена Андрейченко: "selling non-original product, seal doesn't match original" - specifically about Optimum Nutrition Opti-Men) and delivery failure complaints (multi-day delivery failures). Source: https://hotline.ua/ua/yp/23704/reviews/ (2026-06-14)
+
+**Inferred switching trigger (from supplier positioning + reviews):** Reliability (stock availability + delivery speed) is the most cited reason wholesale buyers praise a supplier. Authenticity/official distributor status is the second signal. Price is the least visible/public factor. This is consistent with the experience-over-price framing in strategy.md v3 but adds a specific dimension: "experience" for a coach means delivery reliability and stock predictability, not just the UI.
+
+---
+
+### Finding 9: Ukrainian digital platform data (2024)
+
+- Telegram: 92% weekly access among Ukrainian internet users; 330M total channel subscriptions. Supplier Telegram channels are broadcast-only (price lists, promotions). Source: nv.ua citing Gradus App research, Sep 2024
+- WhatsApp: grew from 30% to 41% of users in 2024. Source: billing.media survey
+- Instagram: 12.4M users (2024 Digital report). Top Ukrainian fitness trainers have 784K-24.7M followers. Source: hypeauditor.com/top-instagram-fitness-gym-ukraine/
+- No supplement/nutrition content at scale on Instagram - only 1 nutrition account (nutro.bio, 31.4K) appeared in top 20 Ukrainian fitness accounts. Source: hypeauditor.com
+
+---
+
+### Finding 10: Ukrainian fitness industry (pre-war baseline, 2019-2020)
+
+1,419 fitness clubs. 1.2 million gym members. Annual market turnover: $266.6 million. Ukraine was in top 20 European countries by both club count and visitor count. Post-war status is [?] - no 2024-2025 club count or membership data was found publicly.
+Source: FitnessConnectUA research cited at sportforall.info (2026-06-14)
+
+---
+
 ### Sources Added in Post-Persona Research
 
 - https://nadc.gov.ua/en/news/disguised-as-sports-supplements-large-scale-illegal-anabolic-steroid-production-uncovered-in-ukraine (visited 2026-06-14)
@@ -318,6 +384,19 @@ From thepage.ua top 5 stores analysis and belok.ua customer reviews (top20.ua, 5
 - https://sport-factor.ua/sportyvne-kharchuvannia-optom/ (visited 2026-06-14)
 - https://snimport.com.ua/ (visited 2026-06-14)
 - https://horoshop.ua/ua/suppliers/belok/ (visited 2026-06-14)
+- https://fitness-shop.ua/optovyj-prajs-dlja-vykupa (visited 2026-06-14)
+- https://mega-mass.ua/uk/opt/ (visited 2026-06-14)
+- https://mega-mass.ua/uk/o-kompanii/ (visited 2026-06-14)
+- https://dsn.ua/ (visited 2026-06-14)
+- https://dsn.ua/store-reviews/ (visited 2026-06-14)
+- https://gymbeam.ua/ua/content/b2b/form (visited 2026-06-14)
+- https://nutrend.com.ua/spivpratsya/ (visited 2026-06-14)
+- https://hotline.ua/ua/yp/23704/reviews/ (visited 2026-06-14)
+- https://vansiton.ua/ua/reviews_store/ (visited 2026-06-14)
+- https://hypeauditor.com/top-instagram-fitness-gym-ukraine/ (visited 2026-06-14)
+- https://nv.ua/ukr/ukraine/events/telegram-za-danimi-doslidzhennya-ukrajinci-chitayut-novini-u-socmerezhi-durova-50452249.html (Sep 2024)
+- https://business-broker.com.ua/blog/zarplata-fitnes-trenera-v-ukraini-skilky-realno-platiat/ (visited 2026-06-14)
+- https://pro-consulting.ua/en/issledovanie-rynka/analiz-rynka-sportivnogo-pitaniya-v-ukraine-2024-god (report exists; content behind paywall)
 
 ---
 
