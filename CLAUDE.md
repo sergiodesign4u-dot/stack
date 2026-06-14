@@ -155,6 +155,18 @@ Populating the store with 500-2,000+ products requires: sourcing agreements with
 
 ---
 
+## Deferred to Later Phases
+
+These topics were identified during research but are NOT built, designed, or decided in the research phase. They are noted here so they are not forgotten.
+
+**Full SEO plan (deferred to Wireframes / site structure phase):**
+Page-level H1 / H2 structure, meta titles and descriptions, image alt text, human-quality SEO copy, semantic optimization, goal-based landing page architecture, keyword-to-URL mapping. Belongs to Phase 2 (Wireframes). Do not design or commit URL structures without this plan.
+
+**Operational catalog population (deferred to technical scoping with real supplier data):**
+Sourcing agreements with Ukrainian distributors and brands, structured data format for product descriptions and images, processes for keeping prices and stock levels current, handling out-of-stock and back-in-stock states. This is an operational and sourcing challenge that design research cannot resolve. It will be handled with real supplier data in the technical scoping phase.
+
+---
+
 ## Timeline (Hypothesis)
 
 | Phase | Focus | Status |

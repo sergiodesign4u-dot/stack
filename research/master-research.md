@@ -13,6 +13,7 @@
 |---------|------|---------|
 | Final | 2026-06-10 | Initial synthesis of all research phases |
 | v_refresh | 2026-06-12 | Updated competitors section (3 groups, new discoveries: GymBeam UA, vansiton Coach Account, MyProtein UA shipping suspended). Renamed Product Model section to Strategy. AARRR updated with new competitor findings. Hypotheses updated to If/Then/Because format; riskiest assumption marked. |
+| v2 | 2026-06-14 | Reflected loyalty hypothesis in Strategy (Business Model) and Conclusions (open questions). Added SEO open question to conclusions. Reflects additions from competitive-analysis.md v2, strategy.md v2, aarrr.md v2. |
 
 ---
 
@@ -82,7 +83,8 @@ Stack is a mobile-first sport nutrition store for the Ukrainian market, built ar
 - Core: margin on product sales
 - Coach channel: slightly better pricing (5-10% discount or rebate) is an acquisition investment, not a margin cost
 - Reorder: FREE convenience feature in MVP; subscription tier is an open question for Phase 2 - do not hardcode
-- Sources: research/competitive-analysis.md v_refresh, research/strategy.md
+- Loyalty / bonus (research task, not a settled decision): working hypothesis is a bonus balance earned from purchases plus a cumulative lifetime discount that grows with total spend. Illustrative tiers (owner sketch, UNVALIDATED - needs real margin data [?]): roughly 5K UAH = 5%, 25K = 7%, 50K = 10%. The cumulative structure rewards coaches naturally because their AOV is high. Competitor context: belok.ua (10K/50K UAH, 5%/10% discount), 5lb.ua (three-tier, 3-8% + bonus points balance), GymBeam UA (points, 90-day expiry). See research/competitive-analysis.md v2 and research/strategy.md v2.
+- Sources: research/competitive-analysis.md v2, research/strategy.md v2
 
 ### Riskiest Assumption
 
@@ -240,6 +242,8 @@ Subscription-first purchase model. See Benchmark Section and Strategy Business M
 | What is the real competitive intensity for goal-based Ukrainian search terms? | Determines SEO vs. paid social mix for beginner acquisition | Keyword research (Ahrefs/Semrush) with UA data |
 | Which trust signals resonate most with Ukrainian buyers: certifications, coach endorsements, lab tests, or physical store presence? | Determines product page trust architecture priority | Landing page A/B test or 5-second test with target users |
 | What is the actual consumption cycle for common products (whey 2kg, creatine 300g)? | Required for accurate reorder reminders | Product documentation + user interviews |
+| What loyalty / bonus structure keeps regulars buying without destroying margin? Cumulative tier discount (belok.ua model) vs. points balance (GymBeam model) vs. a hybrid? | Determines retention mechanic and pricing architecture. Coaches hit high spend thresholds fast - loyalty structure affects coach channel economics. | Unit economics analysis with real margin data [?] + user research on what buyers value most |
+| Do goal-based SEO landing pages actually outperform catalog category pages for beginner acquisition in UA? GymBeam has hundreds of blog articles; no competitor runs goal-intent pages. | Determines content and SEO strategy for Phase 2 (Wireframes / site structure). Full SEO plan is deferred. | Keyword research with UA data (Ahrefs/Semrush); traffic and conversion comparison once live |
 
 ---
 
