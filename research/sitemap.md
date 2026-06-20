@@ -1,7 +1,7 @@
 # Sitemap
 
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
-**Version:** v0.2 (2026-06-20)
+**Version:** v0.3 (2026-06-20)
 **Language:** English (markdown research file)
 **Depends on:** research/jtbd.md v1.1, research/strategy.md v4, research/personas.md v1.2, research/master-research.md v5
 **All facts cite sources. Unknowns marked [?]. No invented entities or fields.**
@@ -14,6 +14,7 @@
 |---------|------|--------|
 | v0.1 | 2026-06-20 | Section IA added: product entity inventory (confirmed entities + under-question list). Screens and navigation deferred. |
 | v0.2 | 2026-06-20 | Section 3 added: draft screen hierarchy derived from the 10 confirmed entities and jobs. Each screen tagged with its job/Decision and persona. MVP and post-launch separated. Navigation and depth beyond level 1 still deferred. |
+| v0.3 | 2026-06-20 | Section 4 added: navigation model. 5 global entries mapped to job clusters; depth (tap count) measured separately for the coach work flow and the beginner first-purchase path; each screen assigned a level (global / contextual / deep). |
 
 ---
 
@@ -390,6 +391,113 @@ E. MANAGE ACCOUNT AND LOYALTY
 **Under Question entities get no screens.** The five Section 2 entities (Coach Referral Link, Athlete Adherence Tracker, Paid Subscription Tier, Athlete-Facing Client Portal, Invoice and Order Export) are out of MVP scope and intentionally absent from this tree. They get screens only if a job is validated or a Decision is reversed.
 
 **Post-launch items held out of the MVP tree** (tagged `[post-launch]` above): guided quiz / "Help me choose" path (Decision 2), My Staples list (Decision 4, entity E10), and the stockout email reminder (Decision 4, a notification rather than a screen).
+
+---
+
+### Section 4: Navigation
+
+Navigation is derived from the screens in Section 3 and the jobs behind them. It works only with the 10 confirmed entities. Under Question entities and `[post-launch]` items are not in navigation. Screen names match Section 3 exactly.
+
+The product has two different front doors, and the navigation must serve both: the beginner (Viktoriia) enters through a goal, and the coach (Olena, Dmytro) enters through the coach workspace. The global navigation below carries both entrances at once, so neither persona has to pass through the other's path.
+
+---
+
+#### 4.1 Global navigation (3 to 5 entries)
+
+Five global entries, each an entrance into a job cluster (groups A to E), not a copied menu. Three are primary destinations; two (Search, Cart) are persistent header utilities that stay visible because the coach work flow leans on them repeatedly.
+
+| Global entry | Cluster | Job behind it | Whose front door |
+|--------------|---------|---------------|------------------|
+| Home / goal selector | A (Find) | Job 2 + Decision 2: a beginner turns a goal into a safe product set through goal tiles on the landing screen. This is an activation entrance, not a generic "home." | Viktoriia (P3), beginner |
+| For Coaches page + published pricing -> Coach account home | C (Coach workspace) | Main JTBD + Decision 1 (multi-client ordering) and Job 1 + Decision 3 (evaluate a published coach price before switching). Logged out it shows the public For Coaches page; for a verified coach it becomes Coach account home. | Olena (P1), Dmytro (P2), coach |
+| Search | A (Find) | Main JTBD: the coach locates known products to add to client orders; Job 4: the regular finds a staple by name. Persistent because the coach hits it on every product while building a multi-client order. | Olena (P1) lead, Andriy (P4) |
+| Cart | B (Buy) | Completes the purchase for Main JTBD, Job 2, and Job 4. Carries per-client grouping (Decision 1) in the coach flow. Persistent so the running order is always one tap away. | all |
+| Account | D + E (Reorder, Manage) | Job 4 + Decision 4 (order history and one-tap repeat) and Decision 3 (cumulative loyalty). | Andriy (P4) lead, all |
+
+Why these and not more: clusters A, B, C, D, E are each reachable from a global entry. The coach entrance (For Coaches / Coach) and the beginner entrance (Home / goal selector) are deliberately separate top-level entries so the primary and secondary front doors never block each other. The For Coaches entry stays visible to non-coaches on purpose, so a new coach (Dmytro) can self-identify and switch into the coach path.
+
+---
+
+#### 4.2 Depth: coach work flow (Olena)
+
+Job: from entry to a placed multi-client order (Main JTBD, Decision 1). This is a work flow and is deeper by definition. The depth below is the real depth, not flattened.
+
+Returning verified coach, ordering for 2 clients, quick-adding known products from search results (she knows her products, so Product detail is optional here and used only for Job 5 when showing an athlete):
+
+```
+Coach account home                         (tap 0, landing)
+  tap New order session   -> Multi-client order session     (tap 1)
+  tap Client A            -> client context set             (tap 2)
+  tap Search              -> Catalog and search             (tap 3)
+  tap Quick-add (A)       -> product added, tagged to A     (tap 4)
+  tap Client B            -> client context set             (tap 5)
+  tap Search              -> Catalog and search             (tap 6)
+  tap Quick-add (B)       -> product added, tagged to B     (tap 7)
+  tap Review / Cart       -> Cart (per-client grouping)     (tap 8)
+  tap Checkout            -> Checkout                       (tap 9)
+  tap Place order         -> Order placed confirmation      (tap 10)
+```
+
+- 2-client order: 10 taps.
+- 1-client order: about 7 taps (drop the second client loop, taps 5 to 7).
+- Each additional client adds about 3 to 4 taps (select client, Search, Quick-add), and each extra product per client adds about 2 taps (Search, Quick-add). Depth stays flat; breadth grows with client and product count. This is the expected shape of a bulk work flow and is not a problem to optimize away.
+- First-time coach prepends a one-time onboarding of about 2 taps: For Coaches page -> Coach sign-up + social-link verify -> Coach account home. Building the saved client list the first time also adds a few taps per client, once.
+
+Decision held: the coach flow is intentionally not forced through Product detail. The coach quick-adds known SKUs from search; she opens Product detail only for Job 5 (showing an athlete the composition and evidence), which is a separate moment, not a step in placing the order.
+
+---
+
+#### 4.3 Depth: beginner first purchase (Viktoriia)
+
+Job: from entry to first purchase through a goal tile (Job 2, Decision 2). This path must be short. Budget: no more than 3 taps to reach the product under the goal.
+
+```
+Home / goal selector                       (tap 0, landing)
+  tap goal tile (e.g. Fat Loss)  -> Goal Collection         (tap 1)
+  tap a product                  -> Product detail          (tap 2)   <- product under goal reached here
+  tap Add to cart                -> cart updated            (tap 3)
+  tap Cart                       -> Cart                    (tap 4)
+  tap Checkout                   -> Checkout                (tap 5)
+  tap Place order                -> Order placed confirmation(tap 6)
+```
+
+- Product under the goal: 2 taps (Home goal tile -> Goal Collection -> Product detail). Inside the 3-tap budget, no restructuring needed.
+- Completed first purchase: about 6 taps.
+
+Two design choices protect the 2-tap figure, and both are real tradeoffs:
+- Goal tiles live on the Home landing screen (Decision 2), not behind a "Shop" or "Catalog" menu. Putting them behind a menu would push the product to 3 taps (still inside budget but at the limit) and would cost the home screen its activation role. Tradeoff accepted: the home is the goal selector, so the catalog-style entry is demoted to the Search utility for people who already know what they want.
+- The beginner checks out as a guest. Decision 2 requires no account for the goal path, so Sign in / register is not inserted before checkout. Forcing account creation first would add 1 to 2 taps and reintroduce the friction the goal path exists to remove. Tradeoff accepted: account creation is offered after the purchase, not before.
+
+---
+
+#### 4.4 Level of each screen and action
+
+Global = visible at all times. Contextual = appears inside a flow. Deep = rare actions reached by drilling in.
+
+| Screen / action | Cluster | Level | Reason |
+|-----------------|---------|-------|--------|
+| Home / goal selector | A | Global | Default landing and the beginner front door. |
+| Search (Catalog and search entry) | A | Global | Persistent header field; the coach uses it on every product mid-order. |
+| Cart | B | Global | Persistent running-order state, one tap from anywhere. |
+| Account (Buyer account home) | E | Global | Account hub; entrance to reorder and loyalty. |
+| For Coaches page + published pricing | C | Global | Coach self-identify entrance; becomes Coach account home when a coach is verified. |
+| Coach account home | C | Global | The verified coach's landing tab (the Coach entry resolves here). |
+| Goal Collection | A | Contextual | Appears after a goal tile is tapped. |
+| Catalog and search (results) | A | Contextual | Appears after a search query. |
+| Product detail | A | Contextual | Reached from a collection, search, or an order line. |
+| Checkout | B | Contextual | Appears from Cart. |
+| Order placed confirmation | B | Contextual | Terminal step after placing an order. |
+| Multi-client order session | C | Contextual | The coach working surface; appears on New order. |
+| Client list | C | Contextual | Inside the coach workspace. |
+| Order history | D | Contextual | Behind Account; source of one-tap repeat. |
+| Order detail + Repeat order | D | Contextual | Reached from Order history. |
+| Sign in / register | E | Contextual | Appears only when a flow needs authentication. |
+| Client profile | C | Deep | Per-client order history drill-down; infrequent. |
+| Coach sign-up + social-link verify | C | Deep | One-time onboarding action. |
+| Loyalty status | E | Deep | Checked occasionally, not every session. |
+| Saved addresses | E | Deep | Rare management action. |
+
+Excluded from navigation by rule: the five Under Question entities (Coach Referral Link, Athlete Adherence Tracker, Paid Subscription Tier, Athlete-Facing Client Portal, Invoice and Order Export) and the `[post-launch]` items (guided quiz / Help me choose, My Staples list, stockout email reminder). They get navigation only when a job is validated or a Decision is reversed.
 
 ---
 
