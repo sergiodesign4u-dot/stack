@@ -1,7 +1,7 @@
 # Sitemap
 
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
-**Version:** v0.1 (2026-06-20)
+**Version:** v0.2 (2026-06-20)
 **Language:** English (markdown research file)
 **Depends on:** research/jtbd.md v1.1, research/strategy.md v4, research/personas.md v1.2, research/master-research.md v5
 **All facts cite sources. Unknowns marked [?]. No invented entities or fields.**
@@ -13,6 +13,7 @@
 | Version | Date | Change |
 |---------|------|--------|
 | v0.1 | 2026-06-20 | Section IA added: product entity inventory (confirmed entities + under-question list). Screens and navigation deferred. |
+| v0.2 | 2026-06-20 | Section 3 added: draft screen hierarchy derived from the 10 confirmed entities and jobs. Each screen tagged with its job/Decision and persona. MVP and post-launch separated. Navigation and depth beyond level 1 still deferred. |
 
 ---
 
@@ -316,6 +317,79 @@ A downloadable business document (PDF or CSV) for a coach's wholesale orders, fo
 **Job source:** None confirmed in jtbd.md. The closest confirmed need is the coach reseller margin management job (OBS-C18, personas.md), which is served in MVP by Order history and per-client order tagging (E4, E5). Whether coaches need a formal document export is not validated.
 
 **Why cut:** Explicitly excluded from MVP scope in Decision 1: "Does NOT include: invoice export" (strategy.md v4).
+
+---
+
+### Section 3: Screens (draft hierarchy)
+
+Screens grow from what a person is trying to do, not from a competitor's menu. Every screen below derives from one of the 10 confirmed entities (Section 1) and is tagged with the job or Decision it serves. Groups are organized by human intent (find, buy, order for clients, reorder, manage), not by site sections.
+
+Depth is deliberately kept to one level under each group. Deeper levels (filters, sub-steps, states as flows) are added consciously in a later IA step, not here.
+
+**Legend:**
+- Persona tags: `[P1]` Olena, primary coach with established supplier; `[P2]` Dmytro, new coach; `[P3]` Viktoriia, beginner; `[P4]` Andriy, regular. "lead" marks the persona a screen is primarily built for.
+- `(job)` names the confirmed job from jtbd.md or the Decision from strategy.md v4 the screen closes.
+- `[post-launch]` ships after MVP per strategy.md v4. Kept separate from the MVP tree.
+- "supporting" marks a screen that is required by a job but does not close it on its own (it is a gate or a completion step, not an orphan).
+- States (empty, loading, error, out of stock) belong to a screen and are not listed as separate screens.
+
+```
+A. FIND THE RIGHT PRODUCT  (discover and validate what to buy)
+   Home / goal selector                  (Job 2; Decision 2)                         [P3 lead; serves all]
+   Goal Collection                       (Job 2; Decision 2)                         [P3]
+   Catalog and search                    (Main JTBD: coach locates known products)   [P1 lead; serves all]
+   Product detail                        (Job 3 verify safety; Job 5 recommend;
+                                          ESJ-3 counterfeit)                          [P3, P1]
+   [post-launch] Help me choose / quiz   (Job 2; Decision 2 post-launch)             [P3]
+
+B. BUY AND PAY  (complete the purchase)
+   Cart                                  (Main JTBD; Decision 1 per-client tagging)  [all; P1 uses per-client grouping]
+   Checkout                              supporting; completes the Job 2 / Job 4 /
+                                          Main JTBD purchase                          [all]
+   Order placed confirmation             supporting; terminal step of the purchase
+                                          (Order, E4)                                 [all]
+
+C. ORDER FOR MANY CLIENTS IN ONE SESSION  (coach workspace)
+   For Coaches page + published pricing  (Job 1 switch; Decision 3 coach tier;
+                                          ESJ-1 credibility)                          [P1, P2]
+   Coach sign-up + social-link verify    (Decision 1 verification; ESJ-4 autonomy)   [P1, P2]
+   Coach account home                    (Main JTBD; Decision 1; ESJ-4)              [P1 lead, P2]
+   Client list                           (Main JTBD; Decision 1 saved client list)   [P1]
+   Client profile                        (Main JTBD; Decision 1 order history
+                                          per client)                                [P1]
+   Multi-client order session            (Main JTBD; Decision 1 per-client tagging)  [P1]
+
+D. COME BACK AND REORDER  (stay stocked with no effort)
+   Order history                         (Job 4; Decision 4 one-tap repeat)          [P4 lead; P1 reorders for clients]
+   Order detail + Repeat order           (Job 4; Decision 4)                         [P4, P1]
+   [post-launch] My Staples list         (Job 4; Decision 4 post-launch)             [P4]
+   [post-launch] Stockout email reminder (Job 4; Decision 4 post-launch)            [P4]
+                 notification, NOT a screen
+
+E. MANAGE ACCOUNT AND LOYALTY
+   Sign in / register                    supporting; gate for Coach Account (E6)
+                                          and Buyer Account (E8); required by
+                                          Main JTBD, Decision 1, Job 4                [all]
+   Buyer account home                    (Decision 4 order-history access; Job 4)    [P4, P3]
+   Loyalty status                        (Decision 3 cumulative individual loyalty;
+                                          numbers [?])                                [P4, P3]
+   Saved addresses                       supporting; removes reorder friction
+                                          (Job 4; strategy.md segment 3 pain)         [all]
+```
+
+**Orphan check:** No screen in the tree is an orphan. The four screens marked "supporting" (Checkout, Order placed confirmation, Sign in / register, Saved addresses) do not close a job by themselves, but each is required by a named job and is anchored to it above. If a later screen cannot be anchored this way, it is marked `[ORPHAN]` and reconsidered.
+
+**Persona coverage at a glance:**
+- Primary persona (Olena, P1): the entire Group C coach workspace, plus Catalog and search (Group A), Cart (Group B), and Order history / Repeat order (Group D) when she reorders for active clients. Group C is the structural MVP differentiator and exists only for the coach channel.
+- Secondary (Viktoriia, P3 beginner): Group A discovery (Home / goal selector, Goal Collection, Product detail) and Group B purchase, plus Buyer account home and Loyalty status.
+- Secondary (Andriy, P4 regular): Group D reorder is built for him (Order history, Repeat order), plus Group B purchase and the account screens in Group E.
+- New coach (Dmytro, P2): the same Group C screens as Olena, entering through the public For Coaches page as a first-choice (not switching) acquisition.
+
+**Entity-to-screen coverage:** all 10 confirmed entities surface on at least one screen. E7 Coach Pricing Tier surfaces inside the For Coaches page rather than as a standalone screen; E9 Individual Loyalty Balance surfaces on Loyalty status; E3 Cart carries per-client grouping for the coach flow.
+
+**Under Question entities get no screens.** The five Section 2 entities (Coach Referral Link, Athlete Adherence Tracker, Paid Subscription Tier, Athlete-Facing Client Portal, Invoice and Order Export) are out of MVP scope and intentionally absent from this tree. They get screens only if a job is validated or a Decision is reversed.
+
+**Post-launch items held out of the MVP tree** (tagged `[post-launch]` above): guided quiz / "Help me choose" path (Decision 2), My Staples list (Decision 4, entity E10), and the stockout email reminder (Decision 4, a notification rather than a screen).
 
 ---
 
