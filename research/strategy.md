@@ -1,8 +1,8 @@
 # Strategy
 
-**Version:** v4 (2026-06-14)
+**Version:** v5 (2026-06-21)
 **Previous file:** research/product-model.md (kept for history)
-**Date:** 2026-06-14
+**Date:** 2026-06-21
 
 ---
 
@@ -16,6 +16,7 @@
 | strategy v2 | 2026-06-14 | Added loyalty / bonus sub-section to Business Model. Framed as a research task. Working hypothesis: bonus balance + cumulative lifetime discount. Illustrative tiers (owner sketch, unvalidated). References competitor loyalty data from competitive-analysis.md v2. |
 | strategy v3 | 2026-06-14 | Rewrote riskiest assumption: now frames the bet as SWITCHING coaches (experience over price, price as hygiene). Updated "Chosen" reasoning in discarded alternatives. Added price/volume open question. Reflects competitive analysis v3 finding that belok.ua, GymBeam UA, mega-mass.ua all have wholesale infrastructure. |
 | strategy v4 | 2026-06-14 | Added Product Decisions section: four founder decisions locked after People and JTBD research phase. Coach ordering = minimal saved client list + per-client tagging + order history. Goal guidance = goal tiles in MVP, quiz post-launch. Coach pricing = separate published transparent tier + cumulative individual loyalty (numbers [?]). Reorder = one-tap repeat in MVP, My Staples post-launch. Open Questions remain open (switching trigger, volume economics). |
+| strategy v5 | 2026-06-21 | Riskiest assumption rewritten after founder coach interviews (June 2026, field research, not web-sourced): price/margin is a primary switching driver and a gate, not only hygiene. Experience is the differentiator among price-acceptable suppliers. Previous v4 redaction preserved as superseded for trace. Updated "What Stack is betting on", the Discarded alternatives "Chosen" trace, Open Question 1, Decision 3 wording (numbers untouched), and the Olena segment Motivation. Price feasibility at launch volume remains [?]. |
 
 ### What changed from product-model v2 to strategy v_refresh
 
@@ -55,7 +56,7 @@
 |-------|--------|
 | Age | 25-45 |
 | Profile | Professional/semi-pro coaches, gym owners, team managers. Purchase for 5-30+ athletes. Know products well. Act as trust proxy for clients. |
-| Motivation | Serve athletes reliably. Maintain professional credibility. Save time on bulk ordering. |
+| Motivation | Serve athletes reliably. Maintain professional credibility. Save time on bulk ordering. Primary switching driver (founder coach interviews, June 2026, field research, not web-sourced): a wholesale price that protects the reseller margin is the gate - a coach will not consider a new supplier without a workable price that lets them mark up and earn. The ordering experience (multi-client flow, predictable pricing, reliable delivery, goal-based selection for athletes) is what wins among the suppliers that pass the price gate. Price is the precondition; experience is the differentiator beyond it. |
 | Pain | GymBeam's B2B is retailer-focused, not coach-focused (no client management). Belok's wholesale requires a callback form. Vansiton's Coach Account scope is unclear. No UA competitor has multi-client cart or saved client profiles. |
 | JTBD | When I am ordering supplements for my clients, I want to build multi-client orders in one session with saved client profiles, so that I can serve my athletes reliably and maintain their trust in my professional recommendations. |
 | Priority | PRIMARY. Coach accounts bring multiple repeat customers, high AOV, and remain underserved despite GymBeam and vansiton.ua partial offerings. Sources: gymbeam.com/content/wholesale, vansiton.ua, belok.ua/ua/opt/ |
@@ -135,7 +136,17 @@ These require validation through early sales data and user interviews before bei
 
 ## 4. Riskiest Assumption
 
-**The single assumption this entire product depends on: coaches, gyms, and fitness professionals - both those already buying from belok.ua, GymBeam UA, mega-mass.ua, or vansiton.ua, and those without an established supplier - will SWITCH to Stack because of a clearly better ordering experience for themselves and their athletes. That experience means goal-based product selection, transparent composition and dosage, easy multi-client reorder, and a clear loyalty and bonus benefit. Price must stay within market range. It is competitive hygiene, the condition not to be blocked, not the reason to switch.**
+**Updated v5 (2026-06-21) after founder coach interviews (June 2026, field research, not web-sourced). The interviews reversed the prior framing: price and reseller margin are a primary reason coaches switch, not only competitive hygiene. Price is the gate - without a workable wholesale price a coach will not even consider Stack - and experience is how Stack wins and keeps the coaches who pass that gate.**
+
+**The single assumption this entire product depends on (v5): coaches, gyms, and fitness professionals - both those already buying from belok.ua, GymBeam UA, mega-mass.ua, or vansiton.ua, and those without an established supplier - switch primarily on price and reseller margin. A wholesale price that lets the coach mark up and earn is the precondition for Stack to be considered at all. Among the suppliers that pass on price, the ordering experience wins and retains: the multi-client flow, transparent and predictable pricing, reliable delivery, and goal-based selection for their athletes. Stack must be BOTH competitive enough on price to pass the gate AND better on experience to win beyond it. It cannot win on the lowest price alone, because it lacks the purchasing volume to undercut larger rivals - it must clear the price gate and then win on experience.**
+
+**Open risk [?]:** whether Stack can offer a coach-acceptable price at launch-stage volume without wholesale-cost data. This gates the entire bet and is unconfirmed. The founder interviews give the motivation (price and margin are the gate); they do not give the wholesale-cost numbers that decide whether Stack can meet that gate. Specific prices remain [?]. Source: founder coach interviews, June 2026 (field research, not web-sourced).
+
+**Superseded v4 redaction (kept for trace, no longer operative):**
+
+> The single assumption this entire product depends on: coaches, gyms, and fitness professionals - both those already buying from belok.ua, GymBeam UA, mega-mass.ua, or vansiton.ua, and those without an established supplier - will SWITCH to Stack because of a clearly better ordering experience for themselves and their athletes. That experience means goal-based product selection, transparent composition and dosage, easy multi-client reorder, and a clear loyalty and bonus benefit. Price must stay within market range. It is competitive hygiene, the condition not to be blocked, not the reason to switch.
+
+Why it changed: founder coach interviews (June 2026) found that price and reseller margin are a primary switching driver and a gate, not merely hygiene. The v4 line "price is hygiene, not the reason to switch" understated price. Experience remains the differentiator, but only among price-acceptable suppliers.
 
 The bet fails immediately if the only reason coaches would come to Stack is a lower price. A price war is won by the player with the largest purchasing volume, not the best product - and the established rivals (belok.ua, GymBeam UA, mega-mass.ua) have far more volume and likely lower per-unit wholesale costs at scale. Stack cannot win on price alone at launch.
 
@@ -149,8 +160,8 @@ If the ordering experience Stack builds is not meaningfully better than what riv
 - Stack becomes a standard B2C store competing on price with rivals who have more scale, more volume, and lower per-unit costs
 - Volume economics (higher turnover compensating for lower margin per unit) is an UNVALIDATED hypothesis [?]: it depends on purchasing scale we do not have at launch and on wholesale cost data we do not yet have. Do not treat this as a plan.
 
-**What Stack is betting on:**
-Coaches will switch for a better experience for their athletes - goal-based product selection, composition transparency, easy multi-client reorder, and a loyalty structure that rewards them and their athletes - when price stays within market range. Experience is the reason to switch. Price is the condition not to be blocked.
+**What Stack is betting on (v5):**
+Coaches switch first on price and reseller margin: a wholesale price that lets them mark up and earn is the gate. Among suppliers that pass that gate, Stack wins on experience - goal-based product selection, composition transparency, easy multi-client reorder, reliable delivery, and a loyalty structure that rewards growing volume. Price is the precondition to be in the running; experience is what wins and retains. (Superseded v4 framing: "Experience is the reason to switch. Price is the condition not to be blocked." - now outdated; price is a primary driver, not only hygiene.)
 
 **The smallest test for this assumption:**
 Talk to coaches in two groups before writing a line of code. Group 1: coaches who already buy through a wholesale or B2B program (belok.ua /opt/, GymBeam B2B, mega-mass.ua, vansiton.ua). Group 2: coaches who have no established supplier and order ad hoc. For each group: What would realistically make you switch to a new supplier? Is it the ordering experience and what it enables for your athletes, or primarily the purchase price per unit? What does "better for your athletes" mean to you in practice?
@@ -167,7 +178,7 @@ If the consistent answer is "price is the only thing that would make me switch,"
 
 **Option C: Email/SMS reorder reminders don't drive repeat purchases.** A retention risk, not a model-level failure. Retention can be addressed through other mechanics.
 
-**Chosen: Coach-as-channel model fails because the switching reason is wrong.** The coach channel is not an empty niche - belok.ua, GymBeam UA, mega-mass.ua, and vansiton.ua all have some B2B/wholesale infrastructure. The risk is no longer "will coaches order online at all" - some already do. The risk is whether the experience Stack offers is compelling enough to make coaches switch from an existing supplier relationship. If the differentiator is not experience (for them and their athletes) but only price, Stack cannot win: it lacks the purchasing volume to undercut established rivals with more scale. Objectives 1-2 (trust, goal guidance) are still valid standalone features for a B2C store - but the primary JTBD, the primary revenue driver hypothesis (40% GMV from coaches), and the referral flywheel all depend on the switching bet being right. That is why this is the riskiest assumption.
+**Chosen: Coach-as-channel model fails because the switching reason is wrong.** The coach channel is not an empty niche - belok.ua, GymBeam UA, mega-mass.ua, and vansiton.ua all have some B2B/wholesale infrastructure. The risk is no longer "will coaches order online at all" - some already do. The risk is whether the experience Stack offers is compelling enough to make coaches switch from an existing supplier relationship. If the differentiator is not experience (for them and their athletes) but only price, Stack cannot win: it lacks the purchasing volume to undercut established rivals with more scale. Objectives 1-2 (trust, goal guidance) are still valid standalone features for a B2C store - but the primary JTBD, the primary revenue driver hypothesis (40% GMV from coaches), and the referral flywheel all depend on the switching bet being right. That is why this is the riskiest assumption. (v5 note: founder coach interviews, June 2026, refined this trace. Price and reseller margin are a primary switching driver and a gate, not only hygiene. The bet now has two conditions: Stack must pass the coach's price gate AND win on experience beyond it. The earlier "differentiator is experience, not price" framing is superseded - experience differentiates among price-acceptable suppliers, and price feasibility at launch volume remains [?].)
 
 ---
 
@@ -175,7 +186,7 @@ If the consistent answer is "price is the only thing that would make me switch,"
 
 | # | Question | Why it matters |
 |---|----------|----------------|
-| 1 | What would actually make a coach switch suppliers - is it the ordering experience, price, product range, or delivery reliability? | Validates or invalidates the switching assumption. If price is the dominant answer and it is not hygiene but the primary driver, the positioning and go-to-market strategy need revision before building. |
+| 1 | What would actually make a coach switch suppliers - is it the ordering experience, price, product range, or delivery reliability? | Validates or invalidates the switching assumption. If price is the dominant answer and it is not hygiene but the primary driver, the positioning and go-to-market strategy need revision before building. ANSWERED (v5) by founder coach interviews, June 2026 (field research, not web-sourced): price and reseller margin are a primary driver and a gate; the riskiest assumption was revised accordingly. The remaining [?] is whether Stack can meet a coach-acceptable price at launch volume (see Question 2). |
 | 2 | Can Stack price within market range while sustaining margin at launch-stage volume - and does higher volume eventually compensate for lower per-unit margin? | Volume economics is an UNVALIDATED hypothesis [?]. Without wholesale cost data and real sales volume, no unit economics calculation is possible. This is a question for the technical scoping and supplier sourcing phase, not a number to invent now. |
 
 ---
@@ -254,7 +265,7 @@ Numbers that remain [?] and require real data before commitment:
 
 This closes: the STRUCTURE of the pricing decision (what it is: separate transparent coach tier + cumulative individual loyalty).
 This does NOT close: the specific numbers, which require real wholesale cost data from supplier negotiations.
-This is NOT a low-price strategy: the coach tier must stay consistent with the riskiest assumption (switch for experience, price as hygiene). The differentiator is transparency, not a race to the lowest price.
+This is NOT a race to the lowest price: the coach tier must stay consistent with the riskiest assumption (v5) - the price must be competitive enough to pass the coach's gate AND the experience must win among price-acceptable suppliers. The differentiator beyond the price gate is transparency and predictable pricing, not the lowest possible number. Price is a primary gate, not mere hygiene.
 
 ---
 

@@ -1,9 +1,9 @@
 # JTBD
 
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
-**Version:** v1.1 (2026-06-14)
+**Version:** v1.2 (2026-06-21)
 **Language:** English (markdown research file)
-**Depends on:** research/personas.md v1.2, research/master-research.md v5, research/strategy.md v4
+**Depends on:** research/personas.md v1.2, research/master-research.md v5, research/strategy.md v5
 **All facts cite sources. Hypothetical jobs marked [H]. Invented jobs are in the Hypotheses section only.**
 
 ---
@@ -14,6 +14,7 @@
 |---------|------|--------|
 | v1 | 2026-06-14 | Initial JTBD set, matrix, and critique from research synthesis. |
 | v1.1 | 2026-06-14 | Four founder decisions locked (strategy.md v4). FUNCTION column updated in matrix for Main Job, Job 2, Job 4. Loyalty/bonus tier reclassified: structure decided, numbers [?]. |
+| v1.2 | 2026-06-21 | Added Job 6 (coach earns a growing price benefit from volume), confirmed as a switching and retention driver by founder coach interviews (June 2026, field research, not web-sourced). Added the Job 6 matrix row and updated the loyalty conclusion (loyalty now closes a primary-persona job). Added Job 6 and the price-driver finding to Claim Status. Cross-referenced the switching-trigger danger item with the interview finding. Benefit numbers remain [?]. |
 
 ---
 
@@ -74,6 +75,15 @@ When I am a coach recommending a product to an athlete, I want to show them the 
 - Persona: Olena (Persona 1, PRIMARY) in the athlete-facing moment
 - Research source: research/ux-patterns.md Pattern 5 (trust through professional credibility), OBS-C8 (coaches translate goals to products for clients)
 - Status: CONFIRMED as a use case. Specific trust signals that coaches find credible when showing clients are [?].
+
+---
+
+**Job 6: Earn a growing price benefit from volume**
+When I am a coach reselling to my athletes, I want my growing volume to earn a visible, growing price benefit, so that Stack stays the most profitable supplier for me to reorder from.
+
+- Persona: Olena (Persona 1, PRIMARY); weaker relevance to Andriy (Persona 4, SUPPORTING) through individual cumulative loyalty
+- Research source: founder coach interviews, June 2026 (field research, not web-sourced); research/strategy.md v5 Decision 3 (separate coach pricing tier + cumulative loyalty)
+- Status: CONFIRMED as a switching and retention driver by founder coach interviews. Specific benefit numbers (coach discount %, loyalty thresholds, rates) remain [?] pending real wholesale cost and margin data.
 
 ---
 
@@ -138,6 +148,7 @@ COMPETITORS column: whether direct Ukrainian competitors already close this job 
 | Job 3: verify safety before buying | 2 (coaches need to trust what they recommend) | 2 | 3 (top trust barrier) | 1 | Composition/dosage/origin block on product pages | OPEN: belok.ua certificates page empty; vansiton ISO at store level only; no product-level trust content in UA sport nutrition |
 | Job 4: reorder without effort | 2 (coaches reorder regularly for active clients) | 1 | 1 | 3 (primary driver for this persona) | DECIDED (Decision 4): one-tap repeat from order history in MVP; My Staples + email reminder as first post-launch iteration. Reminder timing [?] until real purchase data. | OPEN: no UA competitor has smart reorder or consumption reminders |
 | Job 5: recommend with visible evidence | 3 (protects professional credibility) | 3 | - | - | Product pages with composition/dosage/coach-shareable format | OPEN: no UA store communicates composition depth per product |
+| Job 6: earn a growing price benefit from volume | 3 (price/margin is a primary switching and retention driver) | 2 [?] (reseller, but low initial volume) | 1 (individual loyalty applies, low importance for a first-timer) | 2 (cumulative loyalty rewards his repeat spend) | DECIDED (Decision 3): Loyalty status + Coach pricing tier. Specific numbers [?]. | PARTIAL: belok.ua, 5lb.ua, GymBeam UA have individual loyalty or points; none is coach-specific or a reseller volume tier (coach-specific is OPEN) |
 | ESJ-1: coach credibility | 3 | 3 | - | - | Coach account positioning, community identity | OPEN: no competitor positions coaches as a community or identity |
 | ESJ-2: beginner confidence | - | - | 3 | - | Goal quiz, trust signals, calm tone | OPEN: all UA stores feel catalog-first, not guidance-first |
 | ESJ-3: counterfeit skepticism | 2 | 2 | 3 | 1 | Origin/certification/testing communication | PARTIAL: vansiton ISO 22000 (best in UA), belok certificates page empty |
@@ -161,7 +172,7 @@ Note: Jobs 1 and 4 are important but less structurally urgent for MVP. Job 1 (sw
 
 - HYP-1 (referral/commission for coaches): No confirmed job. Deferrable to Phase 2.
 - HYP-2 (athlete adherence tracking): No confirmed job. Feature-ahead of validated need.
-- Loyalty/bonus tier: STRUCTURE DECIDED by Decision 3 - not cut. Separate published coach pricing tier + cumulative individual loyalty. Specific numbers (coach tier %, thresholds, rates) remain [?] pending real margin data from supplier negotiations. Closed by founder decision, not by user research.
+- Loyalty/bonus tier: STRUCTURE DECIDED by Decision 3 - not cut. Separate published coach pricing tier + cumulative individual loyalty. Specific numbers (coach tier %, thresholds, rates) remain [?] pending real margin data from supplier negotiations. Update (v1.2): this is no longer a function without a job. Job 6, confirmed by founder coach interviews (June 2026), is a primary-persona job scored 3 for Olena and is closed by Loyalty status + Coach pricing tier. The structure was a founder decision; the underlying job is now confirmed by interviews.
 
 ---
 
@@ -182,6 +193,8 @@ Note: Jobs 1 and 4 are important but less structurally urgent for MVP. Job 1 (sw
 | Coach AOV 4,000-12,000 UAH [?] | HYPOTHESIS [?] - no real data | LOW for design, HIGH for business model - needed before pricing decisions |
 | Beginner fear is primarily about fakes or side effects | ASSUMED - no cited source for Ukrainian context specifically | HIGH - affects trust signal priority |
 | Coach pays for client supplements (resells) vs. client buys directly | UNKNOWN - no source | HIGH - affects loyalty/pricing architecture |
+| Coaches switch primarily on price and reseller margin; price is a gate, experience wins among price-acceptable suppliers | CONFIRMED by founder coach interviews, June 2026 (field research, not web-sourced) | The specific price Stack can offer remains [?] - interviews give motivation, not wholesale-cost data. This [?] gates the whole bet (see strategy.md v5 riskiest assumption). |
+| Coaches want a visible, growing price benefit as their volume grows (Job 6, loyalty retention) | CONFIRMED by founder coach interviews, June 2026 | Benefit numbers (discount %, thresholds, rates) remain [?] pending real margin data. |
 
 ---
 
@@ -194,6 +207,7 @@ Priority ordered by blast radius - what breaks if the claim is wrong:
 - Risk that remains: if a coach's relationship with their current supplier manager is personal and trusted ("he calls me every week, knows my clients"), a digital product alone may not displace that relationship even if technically superior.
 - Design decision at stake: the coach onboarding flow must feel like a professional welcome, not just an account setup. Price access must be transparent from day one. Delivery reliability must be signaled.
 - Where to look: direct interviews with 5-8 Ukrainian coaches about their supplier relationship. No public data exists - confirmed absent after searching 25+ sources.
+- UPDATED (v1.2, founder coach interviews June 2026, field research, not web-sourced): the trigger is now identified - price and reseller margin are a primary switching driver and a gate, and the ordering experience wins among price-acceptable suppliers. This was first-person field research, not public web data, so the "no public data exists" note above still holds for web sources. The remaining [?] is the specific price Stack can offer at launch volume (wholesale-cost data not yet available). strategy.md riskiest assumption rewritten to v5 accordingly.
 
 **2. Do coaches who already use wholesale programs have specific unmet needs Stack can address? (UPDATED - CONFIRMED YES)**
 - CONFIRMED by post-persona research: The current universal ordering process is analog (Excel+email+phone). No self-service multi-client cart exists anywhere in the visible market. Stack would not be competing with a digital B2B tool; it would be offering something that does not exist.
