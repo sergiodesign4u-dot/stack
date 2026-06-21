@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack - Інформаційна архітектура</title>
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --surface: #ffffff;
+      --surface-alt: #f2f0eb;
+      --border: #e5e2db;
+      --text: #1a1916;
+      --text-secondary: #6b6760;
+      --text-light: #9b9790;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0ea;
+      --accent-mid: #4a8c62;
+      --score-low: #b5882a;
+      --score-bg-low: #fdf3e3;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+      --panel: #15140f;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; height: 52px;
+      background: rgba(247,246,243,0.94);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px; z-index: 101;
+    }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); transition: background 0.15s; }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+
+    /* SIDEBAR */
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0; width: 220px;
+      background: rgba(247,246,243,0.98);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-right: 1px solid var(--border); z-index: 100;
+      display: flex; flex-direction: column;
+      transform: translateX(-100%); transition: transform 0.22s ease;
+    }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+    .sidebar-nav { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px; }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+    .sidebar-nav a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: var(--radius-sm); transition: color 0.15s, background 0.15s; margin-bottom: 1px; }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-nav a.sidebar-sub { font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light); }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); }
+    .sidebar-page-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 4px; }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+    .sidebar-upcoming { padding: 12px 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-light); line-height: 1.8; }
+
+    /* LAYOUT */
+    .page { max-width: 1160px; margin: 0 auto; padding: 68px 24px 80px; }
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 48px 48px 80px; }
+      section { scroll-margin-top: 24px; }
+    }
+
+    /* HERO */
+    .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); margin-bottom: 64px; animation: fadeUp 0.5s ease both; }
+    .hero-tag { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; color: var(--text); margin-bottom: 20px; max-width: 720px; }
+    .hero-lead { font-size: 18px; color: var(--text-secondary); max-width: 660px; line-height: 1.6; margin-bottom: 32px; }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+    .hero-meta-item { font-size: 13px; color: var(--text-light); }
+    .hero-meta-item strong { color: var(--text-secondary); font-weight: 600; }
+
+    /* SECTIONS */
+    section { margin-bottom: 72px; scroll-margin-top: 60px; animation: fadeUp 0.4s ease both; }
+    .section-number { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
+    h2 { font-size: clamp(22px, 3vw, 32px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: var(--text); margin-bottom: 8px; }
+    .section-lead { font-size: 16px; color: var(--text-secondary); margin-bottom: 28px; max-width: 640px; }
+    h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.015em; color: var(--text); margin: 32px 0 12px; }
+    h4 { font-size: 15px; font-weight: 650; color: var(--text); margin: 24px 0 8px; }
+    p { color: var(--text-secondary); margin-bottom: 12px; }
+
+    .badge-q { display: inline-flex; align-items: center; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 100px; background: var(--score-bg-low); color: var(--score-low); margin-left: 4px; letter-spacing: 0.04em; vertical-align: middle; white-space: nowrap; }
+
+    /* DIAGRAM CARDS (dark mermaid panels) */
+    .diagram-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); margin: 18px 0; overflow: hidden; }
+    .diagram-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .diagram-title { font-size: 15px; font-weight: 650; color: var(--text); }
+    .diagram-sub { font-size: 12px; color: var(--text-light); }
+    .mermaid-panel { background: var(--panel); padding: 22px 16px; overflow-x: auto; }
+    .mermaid { display: flex; justify-content: center; min-width: fit-content; }
+    .mermaid svg { max-width: 100%; height: auto; }
+
+    .shape-legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12px; color: var(--text-secondary); margin: 14px 0 0; align-items: center; }
+    .shape-legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .sw { width: 16px; height: 12px; border-radius: 3px; border: 1.5px solid var(--accent-mid); background: #23312a; display: inline-block; }
+    .sw.diamond { transform: rotate(45deg); width: 11px; height: 11px; }
+    .sw.stadium { border-radius: 100px; width: 20px; }
+
+    /* FLOW META */
+    .flow-meta { padding: 16px 18px; border-top: 1px solid var(--border); display: grid; gap: 12px; background: var(--surface-alt); }
+    .flow-meta-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); display: block; margin-bottom: 3px; }
+    .flow-meta-val { color: var(--text-secondary); font-size: 13px; line-height: 1.55; }
+    .flow-meta-val.dead { color: #b23a2e; }
+    .flow-meta-val code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+
+    /* STATUS BANNER */
+    .status-banner { background: var(--accent-light); border: 1px solid #cfe2d5; border-radius: var(--radius); padding: 20px 22px; margin: 18px 0; }
+    .status-banner h3 { margin: 0 0 12px; color: var(--accent); }
+    .status-checks { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+    .status-check { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text); font-weight: 600; }
+    .status-check .ck { color: var(--accent); font-weight: 800; font-size: 16px; }
+    .status-caveat { font-size: 12.5px; color: var(--text-secondary); margin-top: 14px; line-height: 1.55; background: var(--surface); border-radius: var(--radius-sm); padding: 11px 13px; border: 1px solid var(--border); }
+    .status-caveat strong { color: var(--text); }
+
+    /* MATRIX */
+    .matrix-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin: 18px 0; }
+    table.matrix { width: 100%; border-collapse: collapse; background: var(--surface); font-size: 12.5px; }
+    table.matrix th, table.matrix td { border: 1px solid var(--border); padding: 6px 5px; text-align: center; }
+    table.matrix thead th { background: var(--surface-alt); font-size: 11px; font-weight: 700; color: var(--text-secondary); }
+    table.matrix tbody th { text-align: left; font-weight: 600; color: var(--text); white-space: nowrap; padding: 6px 12px; background: var(--surface); position: sticky; left: 0; z-index: 1; }
+    table.matrix td.mk { color: var(--accent); font-weight: 800; background: var(--accent-light); }
+    table.matrix tr.substep th { font-weight: 500; color: var(--text-secondary); font-style: italic; }
+    .matrix-legend { font-size: 12px; color: var(--text-light); margin-top: 12px; line-height: 1.8; }
+    .matrix-legend b { color: var(--text-secondary); }
+
+    /* MUTED OUT-OF-SCOPE */
+    .muted-card { background: var(--surface-alt); border: 1px dashed var(--border); border-radius: var(--radius); padding: 16px 20px; margin-top: 18px; }
+    .muted-card .obs-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 8px; }
+    .muted-card ul { margin: 0; padding-left: 18px; }
+    .muted-card li { color: var(--text-light); font-size: 13px; line-height: 1.55; margin-bottom: 4px; }
+
+    /* NAV CARDS */
+    .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin: 18px 0; }
+    .nav-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow-sm); }
+    .nav-card .obs-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .nav-card .nav-name { font-size: 15px; font-weight: 650; color: var(--text); margin-bottom: 5px; }
+    .nav-card .nav-job { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+    .nav-card .nav-who { font-size: 11.5px; color: var(--text-light); margin-top: 8px; }
+
+    /* DEPTH */
+    .depth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+    @media (max-width: 700px) { .depth-grid { grid-template-columns: 1fr; } }
+    .depth-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow-sm); }
+    .depth-card h4 { margin: 0 0 2px; }
+    .depth-card .depth-who { font-size: 12px; color: var(--text-light); margin-bottom: 10px; }
+    .depth-num { font-size: 34px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1; }
+    .depth-num small { font-size: 13px; font-weight: 600; color: var(--text-light); }
+    .depth-chain { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; color: var(--text-secondary); background: var(--surface-alt); border-radius: var(--radius-sm); padding: 12px 14px; margin-top: 12px; line-height: 1.75; white-space: pre; overflow-x: auto; }
+
+    /* HTML TREE */
+    .ia-tree { margin: 18px 0; }
+    .ia-tree details { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; background: var(--surface); box-shadow: var(--shadow-sm); }
+    .ia-tree details[open] { background: var(--surface); }
+    .ia-tree summary { padding: 11px 16px; font-weight: 650; cursor: pointer; color: var(--text); font-size: 14px; list-style: none; }
+    .ia-tree summary::-webkit-details-marker { display: none; }
+    .ia-tree summary::before { content: "+"; color: var(--accent-mid); font-weight: 700; margin-right: 10px; }
+    .ia-tree details[open] summary::before { content: "-"; }
+    .ia-tree ul { list-style: none; margin: 0; padding: 2px 16px 12px 30px; }
+    .ia-tree li { font-size: 13.5px; color: var(--text-secondary); padding: 5px 0; border-bottom: 1px solid var(--surface-alt); }
+    .ia-tree li:last-child { border-bottom: none; }
+    .ia-tree .jt { font-size: 11px; color: var(--accent-mid); font-weight: 600; margin-left: 6px; }
+
+    .note { font-size: 13px; color: var(--text-secondary); background: var(--surface-alt); border-left: 3px solid var(--accent-mid); border-radius: var(--radius-sm); padding: 12px 16px; margin: 16px 0; line-height: 1.55; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 40px; }
+    .footer-inner { max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-text { font-size: 13px; color: var(--text-light); }
+
+    @media (max-width: 640px) {
+      .page { padding: 64px 16px 48px; }
+      .hero { padding: 40px 0 36px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="research.html" class="sidebar-logo">Stack</a>
+  <nav class="sidebar-nav">
+    <a href="research.html">Дослідження</a>
+    <a href="personas.html">Персони</a>
+    <a href="jtbd.html">JTBD</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Інформаційна архітектура</div>
+    <a href="#sitemap" class="sidebar-sub">Карта сайту</a>
+    <a href="#flows" class="sidebar-sub">User flows</a>
+    <a href="#matrix" class="sidebar-sub">Матриця трасування</a>
+    <a href="#navigation" class="sidebar-sub">Навігація</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-upcoming">Далі<br>Wireframes<br>Concept</div>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Підготовка до Wireframes</div>
+    <h1>Інформаційна архітектура</h1>
+    <p class="hero-lead">Візуальний підсумок IA для Stack: карта сайту, пʼять user flows, матриця трасування jobs до екранів і навігаційна модель. Кожен екран виростає з конкретного job, перевірений двома раундами критики. Інтерфейс українською, дані (екрани, jobs, стани) англійською - так само, як у markdown.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Джерела</strong> sitemap.md v0.6, flows.md v0.3</div>
+      <div class="hero-meta-item"><strong>Екранів</strong> 19 (MVP)</div>
+      <div class="hero-meta-item"><strong>Flows</strong> 5</div>
+      <div class="hero-meta-item"><strong>Дефектів</strong> 0</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: SITEMAP -->
+  <section id="sitemap">
+    <div class="section-number">01</div>
+    <h2>Карта сайту</h2>
+    <p class="section-lead">19 MVP-екранів, згрупованих у пʼять кластерів за людським наміром (A-E). Стани (loading, empty, error) тут не показані - вони у flows і в матриці. Біля кожного екрана короткий job-тег.</p>
+
+    <div class="diagram-card">
+      <div class="diagram-head">
+        <span class="diagram-title">Екрани за кластерами A-E</span>
+        <span class="diagram-sub">graph TD, тема dark, лише екрани</span>
+      </div>
+      <div class="mermaid-panel">
+        <div class="mermaid">
+graph TD
+  subgraph cA["A. Find the right product"]
+    A1["Home / goal selector (J2)"]
+    A2["Goal Collection (J2)"]
+    A3["Catalog and search (J3, J4)"]
+    A4["Product detail (J3, J5, ESJ3)"]
+  end
+  subgraph cB["B. Buy and pay"]
+    B1["Cart (Main, J2, J4)"]
+    B2["Checkout (Main, J2, J4)"]
+    B3["Order placed confirmation (Main, J2, J4)"]
+  end
+  subgraph cC["C. Order for many clients in one session"]
+    C1["For Coaches page + published pricing (J1, J6, ESJ1)"]
+    C2["Coach sign-up + social-link verify (J1, ESJ4)"]
+    C3["Coach account home (Main, J6, ESJ4)"]
+    C4["Client list (Main)"]
+    C5["Client profile (Main)"]
+    C6["Multi-client order session (Main)"]
+  end
+  subgraph cD["D. Come back and reorder"]
+    D1["Order history (J4)"]
+    D2["Order detail + Repeat order (J4)"]
+  end
+  subgraph cE["E. Manage account and loyalty"]
+    E1["Sign in / register (Main, J4)"]
+    E2["Buyer account home (J4, J6)"]
+    E3["Loyalty status (J6)"]
+    E4["Saved addresses (J4)"]
+  end
+  A1 --> A2 --> A4 --> B1
+  A3 --> A4
+  B1 --> B2 --> B3
+  C1 --> C2 --> C3
+  C3 --> C6 --> B1
+  C3 --> C4 --> C5
+  E1 --> E2 --> D1 --> D2 --> B1
+  E2 --> E3
+  C3 --> E3
+        </div>
+      </div>
+    </div>
+
+    <p class="section-lead" style="margin-top:8px;">Читабельна альтернатива тій самій карті - згорнуте дерево. Обери, що зручніше.</p>
+
+    <div class="ia-tree">
+      <details open>
+        <summary>A. Find the right product</summary>
+        <ul>
+          <li>Home / goal selector <span class="jt">J2</span></li>
+          <li>Goal Collection <span class="jt">J2</span></li>
+          <li>Catalog and search <span class="jt">J3, J4</span></li>
+          <li>Product detail <span class="jt">J3, J5, ESJ3</span></li>
+        </ul>
+      </details>
+      <details>
+        <summary>B. Buy and pay</summary>
+        <ul>
+          <li>Cart <span class="jt">Main, J2, J4</span></li>
+          <li>Checkout <span class="jt">Main, J2, J4</span></li>
+          <li>Order placed confirmation <span class="jt">Main, J2, J4</span></li>
+        </ul>
+      </details>
+      <details>
+        <summary>C. Order for many clients in one session</summary>
+        <ul>
+          <li>For Coaches page + published pricing <span class="jt">J1, J6, ESJ1</span></li>
+          <li>Coach sign-up + social-link verify <span class="jt">J1, ESJ4</span></li>
+          <li>Coach account home <span class="jt">Main, J6, ESJ4</span></li>
+          <li>Client list <span class="jt">Main</span></li>
+          <li>Client profile <span class="jt">Main</span></li>
+          <li>Multi-client order session <span class="jt">Main</span></li>
+        </ul>
+      </details>
+      <details>
+        <summary>D. Come back and reorder</summary>
+        <ul>
+          <li>Order history <span class="jt">J4</span></li>
+          <li>Order detail + Repeat order <span class="jt">J4</span></li>
+        </ul>
+      </details>
+      <details>
+        <summary>E. Manage account and loyalty</summary>
+        <ul>
+          <li>Sign in / register <span class="jt">Main, J4</span></li>
+          <li>Buyer account home <span class="jt">J4, J6</span></li>
+          <li>Loyalty status <span class="jt">J6</span></li>
+          <li>Saved addresses <span class="jt">J4</span></li>
+        </ul>
+      </details>
+    </div>
+
+    <div class="matrix-legend">
+      <b>Job-теги:</b> Main - коуч збирає мультиклієнтське замовлення за сесію · J1 - зміна постачальника · J2 - ціль до продукту · J3 - перевірка безпеки · J4 - повторне замовлення · J5 - рекомендація з доказами · J6 - зростаюча цінова вигода від обсягу · ESJ1-4 - емоційні та соціальні jobs (довіра, впевненість, страх підробок, автономія).
+    </div>
+  </section>
+
+  <!-- SECTION 2: FLOWS -->
+  <section id="flows">
+    <div class="section-number">02</div>
+    <h2>User flows</h2>
+    <p class="section-lead">Пʼять flows, відрендерених як живі діаграми. Кожна показує не лише happy path, а й рішення, стани і свідомі тупики. Під кожною - словесний список.</p>
+
+    <div class="shape-legend">
+      <span><i class="sw"></i> екран</span>
+      <span><i class="sw diamond"></i> рішення</span>
+      <span><i class="sw stadium"></i> стан / старт / успіх / тупик</span>
+    </div>
+
+    <!-- MAIN -->
+    <div class="diagram-card">
+      <div class="diagram-head">
+        <span class="diagram-title">Main job - коуч збирає мультиклієнтське замовлення</span>
+        <span class="diagram-sub">Olena, primary - Main JTBD, Decision 1</span>
+      </div>
+      <div class="mermaid-panel">
+        <div class="mermaid">
+flowchart TD
+    s0(["Coach opens Stack"])
+    q1{"Logged in as verified coach?"}
+    qacct{"Have an account?"}
+    e1["Sign in / register"]
+    slog(["Loading - signing in"])
+    qauth{"Sign in successful?"}
+    serr(["Error state - sign in failed"])
+    qretrylogin{"Retry sign in?"}
+    c1["For Coaches page + published pricing"]
+    c2["Coach sign-up + social-link verify"]
+    svrf(["Loading - verifying social link"])
+    q2{"Verification passed?"}
+    evf(["Error state - verification failed, resubmit link"])
+    qresub{"Resubmit link?"}
+    de1(["Dead end - verification not passed, no coach access"])
+    c3["Coach account home"]
+    c5p["Client profile"]
+    cpl(["Loading - client order history"])
+    qcp{"Client history loaded?"}
+    cperr(["Error state - client history failed to load"])
+    qcphas{"Any orders for this client?"}
+    cpempty(["Empty state - nothing ordered for this client yet"])
+    c4["Multi-client order session"]
+    q3{"Client already in list?"}
+    c5["Client list"]
+    addc(["Add client capture - name and goal"])
+    slqa(["Loading - quick-add catalog and coach-tier price"])
+    q4{"Product in stock?"}
+    so1(["Out of stock"])
+    q5{"Substitute available?"}
+    csub(["Choose substitute"])
+    q7{"Coach-tier price applied?"}
+    ee1(["Error state - coach price not applied"])
+    qprice{"Retry or stop?"}
+    blockc(["Coach price unresolved - session saved, checkout blocked"])
+    q6{"Order line tagged to client?"}
+    su1(["Untagged line - assign a client"])
+    qtag{"Assign client or discard line?"}
+    q8{"More clients to order for?"}
+    c6["Cart"]
+    qce{"Cart empty?"}
+    ec(["Empty state - cart empty"])
+    c7["Checkout"]
+    addr(["Address selection - read Saved addresses, capture if none"])
+    sl1(["Loading - processing payment"])
+    q9{"Payment successful?"}
+    ep1(["Error state - payment declined"])
+    q10{"Retry payment?"}
+    qaband{"Back to Cart or abandon?"}
+    de3(["Dead end - payment abandoned, cart preserved"])
+    c8["Order placed confirmation"]
+    ok1(["Success - multi-client order placed and confirmed"])
+
+    s0 --> q1
+    q1 -->|yes| c3
+    q1 -->|no| qacct
+    qacct -->|yes| e1
+    e1 --> slog
+    slog --> qauth
+    qauth -->|yes| c3
+    qauth -->|no| serr
+    serr --> qretrylogin
+    qretrylogin -->|yes| e1
+    qretrylogin -->|no| qacct
+    qacct -->|no| c1
+    c1 --> c2
+    c2 --> svrf
+    svrf --> q2
+    q2 -->|yes| c3
+    q2 -->|no| evf
+    evf --> qresub
+    qresub -->|yes| c2
+    qresub -->|no| de1
+    c3 -->|review client history| c5p
+    c5p --> cpl
+    cpl --> qcp
+    qcp -->|no| cperr
+    cperr -->|retry| cpl
+    qcp -->|yes| qcphas
+    qcphas -->|orders shown| c4
+    qcphas -->|none yet| cpempty
+    cpempty --> c4
+    c3 -->|new order| c4
+    c4 --> q3
+    q3 -->|yes| slqa
+    q3 -->|no| c5
+    c5 --> addc
+    addc -->|client added and selected| slqa
+    slqa --> q4
+    q4 -->|no| so1
+    so1 --> q5
+    q5 -->|no skip line| q8
+    q5 -->|yes| csub
+    csub --> q4
+    q4 -->|yes| q7
+    q7 -->|no| ee1
+    ee1 --> qprice
+    qprice -->|retry| q7
+    qprice -->|stop| blockc
+    blockc --> c3
+    q7 -->|yes| q6
+    q6 -->|no| su1
+    su1 --> qtag
+    qtag -->|assign| q6
+    qtag -->|discard line| q8
+    q6 -->|yes| q8
+    q8 -->|yes| q3
+    q8 -->|no| c6
+    c6 --> qce
+    qce -->|yes| ec
+    ec --> c4
+    qce -->|no| c7
+    c7 --> addr
+    addr --> sl1
+    sl1 --> q9
+    q9 -->|yes| c8
+    q9 -->|no| ep1
+    ep1 --> q10
+    q10 -->|yes| c7
+    q10 -->|no| qaband
+    qaband -->|back to cart| c6
+    qaband -->|abandon| de3
+    c8 --> ok1
+        </div>
+      </div>
+      <div class="flow-meta">
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">logged in as verified coach; have an account; sign in successful; retry sign in; verification passed; resubmit link; client history loaded; any orders for this client; client already in list; product in stock; substitute available; coach-tier price applied; retry or stop coach price; order line tagged to client; assign client or discard line; more clients to order for; cart empty; payment successful; retry payment; back to cart or abandon.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">loading (signing in); error (sign in failed); loading (verifying social link); error (verification failed, resubmit link); loading (client order history); error (client history failed to load); empty (nothing ordered for this client yet); Add client capture (name and goal); loading (quick-add); out of stock; Choose substitute; error (coach price not applied); coach price unresolved (session saved, checkout blocked); untagged line; empty (cart empty); address selection; loading (processing payment); error (payment declined).</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">verification not passed and resubmit declined (unfixable only); payment abandoned (cart preserved). Решта проблем мають шлях назад: skip line, retry-or-stop, discard line, back to cart, resubmit link.</span></div>
+      </div>
+    </div>
+
+    <!-- JOB 2 -->
+    <div class="diagram-card">
+      <div class="diagram-head">
+        <span class="diagram-title">Job 2 - початківець: ціль до першої покупки</span>
+        <span class="diagram-sub">Viktoriia, secondary - guest checkout, потім guest до account</span>
+      </div>
+      <div class="mermaid-panel">
+        <div class="mermaid">
+flowchart TD
+    b1["Home / goal selector"]
+    b2["Goal Collection"]
+    gcl(["Loading - goal collection"])
+    qgcl{"Collection loaded?"}
+    gcerr(["Error state - collection failed to load"])
+    qgc{"Any in-stock products?"}
+    gce(["Empty state - no in-stock products"])
+    b3["Product detail"]
+    qa{"Product in stock?"}
+    so(["Out of stock"])
+    b4["Cart"]
+    qce2{"Cart empty?"}
+    ec2(["Empty state - cart empty"])
+    b5["Checkout"]
+    qg{"Check out as guest or register?"}
+    b6["Sign in / register"]
+    slog2(["Loading - signing in"])
+    qauth2{"Sign in successful?"}
+    serr2(["Error state - sign in failed"])
+    qrl2{"Retry sign in or continue as guest?"}
+    addr2(["Address selection - read Saved addresses, capture if none"])
+    sl(["Loading - processing payment"])
+    qp{"Payment successful?"}
+    ep(["Error state - payment declined"])
+    qr{"Retry payment?"}
+    qaband2{"Back to Cart or abandon?"}
+    de1b(["Dead end - payment abandoned, cart preserved"])
+    b7["Order placed confirmation"]
+    qac{"Create account now?"}
+    b6b["Sign in / register"]
+    b8["Buyer account home"]
+    okg(["Success - first purchase complete as guest"])
+    oka(["Success - purchase complete, account saves history and loyalty"])
+
+    b1 -->|goal tile| b2
+    b2 --> gcl
+    gcl --> qgcl
+    qgcl -->|no| gcerr
+    gcerr -->|retry| gcl
+    qgcl -->|yes| qgc
+    qgc -->|no| gce
+    gce -->|try another goal| b1
+    qgc -->|yes open a product| b3
+    b3 --> qa
+    qa -->|no| so
+    so -->|back to collection| b2
+    qa -->|yes add to cart| b4
+    b4 --> qce2
+    qce2 -->|yes| ec2
+    ec2 -->|back to discovery| b1
+    qce2 -->|no| b5
+    b5 --> qg
+    qg -->|register| b6
+    b6 --> slog2
+    slog2 --> qauth2
+    qauth2 -->|yes| addr2
+    qauth2 -->|no| serr2
+    serr2 --> qrl2
+    qrl2 -->|retry| b6
+    qrl2 -->|guest| addr2
+    qg -->|guest| addr2
+    addr2 --> sl
+    sl --> qp
+    qp -->|yes| b7
+    qp -->|no| ep
+    ep --> qr
+    qr -->|yes| b5
+    qr -->|no| qaband2
+    qaband2 -->|back to cart| b4
+    qaband2 -->|abandon| de1b
+    b7 --> qac
+    qac -->|yes| b6b
+    b6b --> b8
+    b8 --> oka
+    qac -->|no| okg
+        </div>
+      </div>
+      <div class="flow-meta">
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">collection loaded; any in-stock products; product in stock; cart empty; check out as guest or register; sign in successful; retry sign in or continue as guest; payment successful; retry payment; back to cart or abandon; create account now.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">loading (goal collection); error (collection failed to load); empty (no in-stock products); out of stock; empty (cart empty); loading (signing in); error (sign in failed); address selection; loading (processing payment); error (payment declined).</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">payment abandoned (cart preserved). Два валідні фінали: guest end і account end.</span></div>
+      </div>
+    </div>
+
+    <!-- JOB 3 -->
+    <div class="diagram-card">
+      <div class="diagram-head">
+        <span class="diagram-title">Job 3 - перевірка безпеки перед покупкою</span>
+        <span class="diagram-sub">склад, дозування, походження, сертифікати на Product detail</span>
+      </div>
+      <div class="mermaid-panel">
+        <div class="mermaid">
+flowchart TD
+    j1["Goal Collection"]
+    j2["Catalog and search"]
+    csl(["Loading - search results"])
+    qcsl{"Results loaded?"}
+    cserr(["Error state - search failed"])
+    qcs{"Any results?"}
+    cse(["Empty state - no results, see suggestions"])
+    j3["Product detail"]
+    slt(["Loading - trust details"])
+    qd{"Trust details loaded?"}
+    se(["Error state - details failed to load"])
+    qr3{"Retry?"}
+    q1c{"Composition, dosage, origin, certification all clear?"}
+    rev(["Product detail reviews and certificate content"])
+    qrev{"Reassured after reviews and certificate?"}
+    leave(["Dead end - buyer leaves, safety doubt unresolved"])
+    q2c{"Product in stock?"}
+    so3(["Out of stock"])
+    qsub{"Back to collection for an alternative?"}
+    leave2(["Dead end - no in-stock option, buyer leaves"])
+    j4["Cart"]
+    ok3(["Success - product trusted, added to cart"])
+
+    j1 -->|product| j3
+    j2 --> csl
+    csl --> qcsl
+    qcsl -->|no| cserr
+    cserr -->|retry| csl
+    qcsl -->|yes| qcs
+    qcs -->|no| cse
+    cse -->|refine search| j2
+    qcs -->|yes open a product| j3
+    j3 --> slt
+    slt --> qd
+    qd -->|no| se
+    se --> qr3
+    qr3 -->|yes| slt
+    qr3 -->|no| leave
+    qd -->|yes| q1c
+    q1c -->|yes| q2c
+    q1c -->|no| rev
+    rev --> qrev
+    qrev -->|yes| q2c
+    qrev -->|no| leave
+    q2c -->|no| so3
+    so3 --> qsub
+    qsub -->|yes| j1
+    qsub -->|no| leave2
+    q2c -->|yes| j4
+    j4 --> ok3
+        </div>
+      </div>
+      <div class="flow-meta">
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">results loaded; any results; trust details loaded; retry; composition/dosage/origin/certification all clear; reassured after reviews and certificate; product in stock; back to collection for an alternative.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">loading (search results); error (search failed); empty (no results, see suggestions); loading (trust details); error (details failed to load); reviews and certificate content; out of stock.</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">buyer leaves after reviews and certificate (accepted lost sale); no in-stock option and the buyer leaves. Back-in-stock notify - у backlog (post-launch).</span></div>
+      </div>
+    </div>
+
+    <!-- JOB 4 -->
+    <div class="diagram-card">
+      <div class="diagram-head">
+        <span class="diagram-title">Job 4 - повторне замовлення в один тап</span>
+        <span class="diagram-sub">Andriy, supporting - one-tap repeat з рядка Order history</span>
+      </div>
+      <div class="mermaid-panel">
+        <div class="mermaid">
+flowchart TD
+    r0(["Andriy wants to restock"])
+    rq1{"Logged in?"}
+    r2["Sign in / register"]
+    slog3(["Loading - signing in"])
+    qauth3{"Sign in successful?"}
+    serr3(["Error state - sign in failed"])
+    qrl3{"Retry sign in?"}
+    r1["Buyer account home"]
+    r3["Order history"]
+    qe{"Any past orders?"}
+    se4(["Empty state - no past orders to repeat"])
+    rexit(["Exit - shop via Home / goal selector"])
+    qrepeat{"Repeat from history row or open order detail?"}
+    r4["Order detail + Repeat order"]
+    rq2{"All previous items in stock?"}
+    so4(["Out of stock - one or more staples"])
+    rq3{"Remove unavailable and continue?"}
+    qfind{"Back to order history or search the item?"}
+    csf["Catalog and search"]
+    r5["Cart"]
+    qce4{"Cart empty?"}
+    ec4(["Empty state - cart empty"])
+    r6["Checkout"]
+    addr4(["Address selection - read Saved addresses, capture if none"])
+    sl4(["Loading - processing payment"])
+    rq4{"Payment successful?"}
+    ep4(["Error state - payment declined"])
+    rq5{"Retry payment?"}
+    qaband4{"Back to Cart or abandon?"}
+    dep(["Dead end - payment abandoned, cart preserved"])
+    r7["Order placed confirmation"]
+    ok4(["Success - staples reordered in one tap"])
+
+    r0 --> rq1
+    rq1 -->|no| r2
+    r2 --> slog3
+    slog3 --> qauth3
+    qauth3 -->|yes| r1
+    qauth3 -->|no| serr3
+    serr3 --> qrl3
+    qrl3 -->|yes| r2
+    qrl3 -->|no| rexit
+    rq1 -->|yes| r1
+    r1 -->|order history| r3
+    r3 --> qe
+    qe -->|no| se4
+    se4 --> rexit
+    qe -->|yes| qrepeat
+    qrepeat -->|repeat from row one tap| rq2
+    qrepeat -->|open order detail| r4
+    r4 -->|repeat order| rq2
+    rq2 -->|no| so4
+    so4 --> rq3
+    rq3 -->|yes| r5
+    rq3 -->|no| qfind
+    qfind -->|order history| r3
+    qfind -->|search the item| csf
+    csf -->|found add to cart| r5
+    rq2 -->|yes| r5
+    r5 --> qce4
+    qce4 -->|yes| ec4
+    ec4 -->|back to discovery| r3
+    qce4 -->|no| r6
+    r6 --> addr4
+    addr4 --> sl4
+    sl4 --> rq4
+    rq4 -->|yes| r7
+    rq4 -->|no| ep4
+    ep4 --> rq5
+    rq5 -->|yes| r6
+    rq5 -->|no| qaband4
+    qaband4 -->|back to cart| r5
+    qaband4 -->|abandon| dep
+    r7 --> ok4
+        </div>
+      </div>
+      <div class="flow-meta">
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">logged in; sign in successful; retry sign in; any past orders; repeat from history row or open order detail; all previous items in stock; remove unavailable and continue; back to order history or search the item; cart empty; payment successful; retry payment; back to cart or abandon.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">loading (signing in); error (sign in failed); empty (no past orders to repeat); out of stock (one or more staples); empty (cart empty); address selection; loading (processing payment); error (payment declined).</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">payment abandoned (cart preserved). Empty order history - мʼякий вихід до Home / goal selector, не жорсткий тупик.</span></div>
+      </div>
+    </div>
+
+    <!-- JOB 6 -->
+    <div class="diagram-card">
+      <div class="diagram-head">
+        <span class="diagram-title">Job 6 - перегляд лояльності</span>
+        <span class="diagram-sub">Olena primary, Andriy secondary - Loyalty status, тільки перегляд</span>
+      </div>
+      <div class="mermaid-panel">
+        <div class="mermaid">
+flowchart TD
+    ch["Coach account home"]
+    bh["Buyer account home"]
+    ls["Loyalty status"]
+    lsl(["Loading - loyalty status"])
+    qll{"Loyalty loaded?"}
+    lserr(["Error state - loyalty failed to load"])
+    qlhas{"Any accumulated benefit yet?"}
+    lsempty(["Empty state - nothing accumulated yet"])
+    lback(["Return to account home"])
+
+    ch -->|view loyalty| ls
+    bh -->|view loyalty| ls
+    ls --> lsl
+    lsl --> qll
+    qll -->|no| lserr
+    lserr -->|retry| lsl
+    qll -->|yes| qlhas
+    qlhas -->|none yet| lsempty
+    qlhas -->|benefit shown| lback
+    lsempty --> lback
+        </div>
+      </div>
+      <div class="flow-meta">
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">loyalty loaded; any accumulated benefit yet.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">loading (loyalty status); error (loyalty failed to load); empty (nothing accumulated yet).</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val">немає. Перегляд тільки для читання, кожен шлях повертає на account home. Цифри лояльності - <span class="badge-q">[?]</span>, пороги не малюються.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: TRACEABILITY -->
+  <section id="matrix">
+    <div class="section-number">03</div>
+    <h2>Матриця трасування</h2>
+    <p class="section-lead">Jobs (рядки) на екрани (стовпці), згруповані A-E. Кожна позначка - там, де екран реально закриває job, підкріплена вузлом flow.</p>
+
+    <div class="status-banner">
+      <h3>Стан матриці після двох раундів критики</h3>
+      <div class="status-checks">
+        <div class="status-check"><span class="ck">0</span> orphan screens</div>
+        <div class="status-check"><span class="ck">0</span> orphan jobs</div>
+        <div class="status-check"><span class="ck">0</span> marked-but-unflowed</div>
+        <div class="status-check"><span class="ck">0</span> flowed-but-unmarked</div>
+      </div>
+      <div class="status-caveat">
+        <strong>Одна оговорка:</strong> Saved addresses (E4) працює через address-selection state на Checkout, який читає збережені адреси. Це його зареєстрована MVP-форма, а не пробіл у покритті. Кожен інший екран із позначкою має реальний вузол-екран у flow.
+      </div>
+    </div>
+
+    <div class="matrix-wrap">
+      <table class="matrix" id="matrix-table"></table>
+    </div>
+
+    <div class="matrix-legend" id="matrix-colmap"></div>
+
+    <div class="muted-card">
+      <div class="obs-tag">Поза MVP-скоупом - не рядки і не стовпці матриці</div>
+      <ul>
+        <li>HYP-1 (реферальне посилання тренера атлетам) і HYP-2 (трекінг прийому атлетом) - гіпотетичні jobs без підтвердженого джерела, сутності у Under Question (UQ1, UQ2). Екранів у MVP не мають.</li>
+        <li>Post-launch екрани: Help me choose / quiz (ітерація J2), My Staples list (ітерація J4), Stockout email reminder (Decision 4, сповіщення, не екран). Обслуговують наявні jobs пізнішою ітерацією, не нові jobs.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 4: NAVIGATION -->
+  <section id="navigation">
+    <div class="section-number">04</div>
+    <h2>Навігація</h2>
+    <p class="section-lead">Пʼять глобальних входів, кожен - вхід у job-кластер. Два передні входи: новачок через ціль, коуч через робочий простір.</p>
+
+    <div class="nav-grid">
+      <div class="nav-card">
+        <div class="obs-tag">A. Find</div>
+        <div class="nav-name">Home / goal selector</div>
+        <div class="nav-job">J2 + Decision 2: новачок перетворює ціль на безпечний набір продуктів через тайли цілей на головній. Активаційний вхід, не загальна "головна".</div>
+        <div class="nav-who">Передній вхід: Вікторія (P3), новачок</div>
+      </div>
+      <div class="nav-card">
+        <div class="obs-tag">C. Coach workspace</div>
+        <div class="nav-name">For Coaches -> Coach account home</div>
+        <div class="nav-job">Main JTBD + Decision 1 (мультиклієнтське замовлення) і J1 + Decision 3 (оцінити опублікований тренерський прайс до переходу). Розлогінений - публічна сторінка, верифікований - Coach account home.</div>
+        <div class="nav-who">Передній вхід: Олена (P1), Дмитро (P2), коуч</div>
+      </div>
+      <div class="nav-card">
+        <div class="obs-tag">A. Find</div>
+        <div class="nav-name">Search</div>
+        <div class="nav-job">J3 entry (покупець шукає відомий товар, щоб перевірити) і J4 recovery (постійний шукає товар, що закінчився). Доступна всім, але Main JTBD коуча йде через in-session quick-add, не через Search.</div>
+        <div class="nav-who">Передній вхід: Андрій (P4), Вікторія (P3); доступна всім</div>
+      </div>
+      <div class="nav-card">
+        <div class="obs-tag">B. Buy</div>
+        <div class="nav-name">Cart</div>
+        <div class="nav-job">Завершує покупку для Main, J2 і J4. Несе групування по клієнтах (Decision 1) у коуч-flow. Постійна - поточне замовлення завжди в один тап.</div>
+        <div class="nav-who">Передній вхід: усі</div>
+      </div>
+      <div class="nav-card">
+        <div class="obs-tag">D + E. Reorder, Manage</div>
+        <div class="nav-name">Account</div>
+        <div class="nav-job">J4 + Decision 4 (історія замовлень і one-tap repeat) і Decision 3 (накопичувальна лояльність).</div>
+        <div class="nav-who">Передній вхід: Андрій (P4), усі</div>
+      </div>
+    </div>
+
+    <h3>Глибина до main job</h3>
+    <p>Глибина рахується окремо для двох критичних шляхів. Коуч-flow глибокий за природою (bulk) - це не дефект; новачковий шлях має лишатися коротким.</p>
+
+    <div class="depth-grid">
+      <div class="depth-card">
+        <h4>Коуч (Olena)</h4>
+        <div class="depth-who">від входу до зібраного мультиклієнтського замовлення, quick-add у сесії</div>
+        <div class="depth-num">8 <small>тапів на 2 клієнтів</small></div>
+        <div class="depth-chain">Coach account home            tap 0
+ tap New order            -> Multi-client order session   tap 1
+ tap Client A             -> client context set           tap 2
+ quick-add product for A  -> tagged to A                  tap 3
+ tap Client B             -> client context set           tap 4
+ quick-add product for B  -> tagged to B                  tap 5
+ tap Review / Cart        -> Cart                         tap 6
+ tap Checkout             -> Checkout                     tap 7
+ tap Place order          -> Order placed confirmation    tap 8</div>
+      </div>
+      <div class="depth-card">
+        <h4>Новачок (Viktoriia)</h4>
+        <div class="depth-who">від входу до товару під ціль, тайли цілей на головній</div>
+        <div class="depth-num">2 <small>тапи до товару (6 до покупки)</small></div>
+        <div class="depth-chain">Home / goal selector          tap 0
+ tap goal tile            -> Goal Collection             tap 1
+ tap a product            -> Product detail              tap 2   товар під ціль
+ tap Add to cart          -> cart updated                tap 3
+ tap Cart                 -> Cart                         tap 4
+ tap Checkout             -> Checkout                     tap 5
+ tap Place order          -> Order placed confirmation    tap 6</div>
+      </div>
+    </div>
+
+    <div class="note">
+      Карта сайту, flows і навігація узгоджені: Main JTBD коуча йде через quick-add усередині Multi-client order session, а Catalog and search - глобальна утиліта для покупців, що шукають відомий товар (J3 entry, J4 recovery). Усі факти і числа, що потребують реальних даних, лишаються <span class="badge-q">[?]</span>.
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-text">Stack - Інформаційна архітектура. sitemap.md v0.6, flows.md v0.3. Червень 2026. 0 дефектів після двох раундів критики.</div>
+    <div class="footer-text">Наступна фаза: Wireframes</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+
+  /* Mermaid - dark diagram panels on the light page */
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, curve: 'basis', nodeSpacing: 38, rankSpacing: 44, useMaxWidth: true },
+    themeVariables: {
+      darkMode: true,
+      fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif',
+      fontSize: '13px',
+      background: '#15140f',
+      mainBkg: '#23312a',
+      primaryColor: '#23312a',
+      primaryTextColor: '#edeae3',
+      primaryBorderColor: '#4a8c62',
+      secondaryColor: '#2a2823',
+      secondaryTextColor: '#edeae3',
+      secondaryBorderColor: '#3a3833',
+      tertiaryColor: '#1b1a16',
+      tertiaryTextColor: '#d8d5cd',
+      tertiaryBorderColor: '#3a3833',
+      lineColor: '#9a958c',
+      textColor: '#d8d5cd',
+      nodeTextColor: '#edeae3',
+      clusterBkg: '#1b1a16',
+      clusterBorder: '#3a3833',
+      titleColor: '#9bbfa8',
+      edgeLabelBackground: '#15140f',
+      nodeBorder: '#4a8c62'
+    }
+  });
+
+  /* Build the traceability matrix from a data map */
+  var COLS = [
+    ['A1','Home / goal selector'],['A2','Goal Collection'],['A3','Catalog and search'],['A4','Product detail'],
+    ['B1','Cart'],['B2','Checkout'],['B3','Order placed confirmation'],
+    ['C1','For Coaches page + published pricing'],['C2','Coach sign-up + social-link verify'],['C3','Coach account home'],['C4','Client list'],['C5','Client profile'],['C6','Multi-client order session'],
+    ['D1','Order history'],['D2','Order detail + Repeat order'],
+    ['E1','Sign in / register'],['E2','Buyer account home'],['E3','Loyalty status'],['E4','Saved addresses']
+  ];
+  var ROWS = [
+    ['Main JTBD', ['B1','B2','B3','C3','C4','C5','C6','E1'], false],
+    ['Main sub-step: create client (name + goal)', ['C4'], true],
+    ['Job 1 switch supplier', ['C1','C2'], false],
+    ['Job 2 goal-to-product', ['A1','A2','B1','B2','B3'], false],
+    ['Job 3 verify safety', ['A3','A4'], false],
+    ['Job 4 reorder', ['A3','B1','B2','B3','D1','D2','E1','E2','E4'], false],
+    ['Job 5 recommend with evidence', ['A4'], false],
+    ['Job 6 growing price benefit', ['C1','C3','E2','E3'], false],
+    ['ESJ-1 coach credibility', ['A4','C1'], false],
+    ['ESJ-2 beginner confidence', ['A1','A2','A4'], false],
+    ['ESJ-3 counterfeit skepticism', ['A4'], false],
+    ['ESJ-4 coach autonomy', ['C2','C3'], false]
+  ];
+  (function(){
+    var t = document.getElementById('matrix-table');
+    if (!t) return;
+    var head = '<thead><tr><th>Job \\ Screen</th>' + COLS.map(function(c){return '<th>'+c[0]+'</th>';}).join('') + '</tr></thead>';
+    var body = '<tbody>' + ROWS.map(function(r){
+      var marks = r[1];
+      var cells = COLS.map(function(c){
+        return marks.indexOf(c[0]) !== -1 ? '<td class="mk">✓</td>' : '<td></td>';
+      }).join('');
+      return '<tr class="'+(r[2]?'substep':'')+'"><th>'+r[0]+'</th>'+cells+'</tr>';
+    }).join('') + '</tbody>';
+    t.innerHTML = head + body;
+    var legend = document.getElementById('matrix-colmap');
+    if (legend) {
+      legend.innerHTML = '<b>Стовпці:</b> ' + COLS.map(function(c){return c[0]+' '+c[1];}).join(' · ');
+    }
+  })();
+
+  /* Active section highlight */
+  var navLinks = document.querySelectorAll('.sidebar-nav a[href^="#"]');
+  var sections = document.querySelectorAll('section[id]');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.getAttribute('id');
+        navLinks.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) link.classList.add('active');
+        });
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(function(section) { observer.observe(section); });
+</script>
+</body>
+</html>

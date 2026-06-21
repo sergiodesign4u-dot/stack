@@ -173,12 +173,15 @@ Sourcing agreements with Ukrainian distributors and brands, structured data form
 - research.html - competitive analysis, benchmark, UX patterns, AARRR, Lean UX Canvas, strategy
 - personas.html - 4 personas (Olena primary coach, Dmytro new coach, Viktoriia beginner, Andriy regular)
 - jtbd.html - JTBD hierarchy, matrix, critique and danger list
+- ia.html - information architecture: sitemap, 5 user flows, traceability matrix, navigation
 
 **Locked research files:**
 - research/master-research.md v5 - single source of truth
-- research/strategy.md v4 - product decisions locked (4 decisions)
+- research/strategy.md v5 - product decisions locked (4 decisions); riskiest assumption updated after founder coach interviews
 - research/personas.md v1.2 - people observations and 4 personas
-- research/jtbd.md v1.1 - JTBD set, matrix, critique
+- research/jtbd.md v1.2 - JTBD set (now incl. Job 6 loyalty retention), matrix, critique
+- research/sitemap.md v0.6 - IA: entities, screens, navigation, traceability matrix
+- research/flows.md v0.3 - 5 user flows (Mermaid)
 
 **4 product decisions locked:**
 1. Coach ordering (MVP): saved client list + per-client order tagging + order history per client
@@ -188,6 +191,31 @@ Sourcing agreements with Ukrainian distributors and brands, structured data form
 
 **All numbers that require real data remain [?]**: coach tier %, loyalty thresholds, consumption cycles, AOV.
 
+**Strategy v5 update (founder coach interviews, June 2026, field research):** price and reseller margin are a PRIMARY switching driver and a gate, not only competitive hygiene. A workable wholesale price is the precondition for a coach to consider Stack at all; among price-acceptable suppliers, the ordering experience (multi-client flow, transparent pricing, reliable delivery, goal-based selection) is the differentiator that wins and retains. Stack must be both competitive on price (pass the gate) and better on experience (win beyond it). Whether Stack can meet a coach-acceptable price at launch volume remains [?]. This supersedes the earlier "experience is the reason to switch, price is hygiene" framing.
+
+---
+
+## Information Architecture (Phase 2 prep, June 2026)
+
+IA was built and audited across two critique rounds (zero defects: no orphan screens, no orphan jobs, no marked-but-unflowed or flowed-but-unmarked cells). Live page: ia.html. Sources: research/sitemap.md v0.6, research/flows.md v0.3.
+
+**Sitemap - 19 MVP screens in 5 clusters (by human intent):**
+- A. Find: Home / goal selector, Goal Collection, Catalog and search, Product detail
+- B. Buy: Cart, Checkout, Order placed confirmation
+- C. Coach workspace: For Coaches page + published pricing, Coach sign-up + social-link verify, Coach account home, Client list, Client profile, Multi-client order session
+- D. Reorder: Order history, Order detail + Repeat order
+- E. Account and loyalty: Sign in / register, Buyer account home, Loyalty status, Saved addresses
+
+**Coach main flow (Main JTBD, Decision 1):** Coach account home -> Multi-client order session -> per-client loop (select or add client, in-session quick-add, stock and coach-tier price checks, tag to client) -> Cart (per-client grouping) -> Checkout -> Order placed confirmation. The coach adds products via in-session quick-add, not the global Search.
+
+**Global navigation - 5 entries:** Home / goal selector (beginner front door), For Coaches -> Coach account home (coach front door), Search (buyer utility for known products), Cart, Account. Two separate front doors so coach and beginner never block each other.
+
+**Depth to main job:** coach 8 taps for a 2-client order (deep by nature, a bulk work flow, not flattened); beginner 2 taps to the product under a goal (6 taps to first purchase).
+
+**5 user flows** drawn with decisions, states and dead ends: Main (coach), Job 2 (beginner goal-to-product), Job 3 (safety verification), Job 4 (one-tap reorder), Job 6 (loyalty review).
+
+Wireframes (Phase 2) not started; this IA is its input.
+
 ---
 
 ## Timeline (Hypothesis)
@@ -195,7 +223,7 @@ Sourcing agreements with Ukrainian distributors and brands, structured data form
 | Phase | Focus | Status |
 |-------|-------|--------|
 | Phase 1 | Research (this phase) | Done |
-| Phase 2 | Wireframes | Not started |
+| Phase 2 | Wireframes | Not started (IA prep done: ia.html, sitemap.md v0.6, flows.md v0.3) |
 | Phase 3 | Concept & Visual Direction | Not started |
 | Phase 4 | Design System & Tokens | Not started |
 | Phase 5 | Component Library | Not started |

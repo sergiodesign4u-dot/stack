@@ -6,6 +6,7 @@ A mobile-first sport nutrition store for the Ukrainian market, built around coac
 - https://sergiodesign4u-dot.github.io/stack/research.html
 - https://sergiodesign4u-dot.github.io/stack/personas.html
 - https://sergiodesign4u-dot.github.io/stack/jtbd.html
+- https://sergiodesign4u-dot.github.io/stack/ia.html
 
 ---
 
@@ -14,7 +15,7 @@ A mobile-first sport nutrition store for the Ukrainian market, built around coac
 | Phase | Status |
 |-------|--------|
 | Research | Done (competitive analysis, benchmark, UX patterns, personas, JTBD, product decisions locked) |
-| Wireframes | Not started |
+| Wireframes | Not started (IA prep done: sitemap, 5 user flows, traceability matrix - see ia.html) |
 | Concept | Not started |
 | Design System | Not started |
 | Components | Not started |
@@ -35,6 +36,11 @@ design-system/    - Design system documentation
 handoff/          - Developer handoff files
 ```
 
+**Information architecture (Phase 2 prep, lives in `research/`):**
+- `research/sitemap.md` - IA: product entities, screens grouped in 5 clusters (A-E), navigation model, and the traceability matrix (jobs to screens, zero defects after two critique rounds)
+- `research/flows.md` - 5 user flows as Mermaid diagrams: Main (coach multi-client order), Job 2 (beginner goal-to-product), Job 3 (safety verification), Job 4 (one-tap reorder), Job 6 (loyalty review)
+- Live visual summary: https://sergiodesign4u-dot.github.io/stack/ia.html
+
 ---
 
 ## Key Documents
@@ -48,3 +54,4 @@ handoff/          - Developer handoff files
 - [Research: Master Synthesis](research/master-research.md)
 - [Research: Personas](research/personas.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/personas.html)
 - [Research: JTBD](research/jtbd.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/jtbd.html)
+- [IA: Sitemap](research/sitemap.md) and [IA: User Flows](research/flows.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/ia.html)
