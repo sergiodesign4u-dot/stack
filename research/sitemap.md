@@ -1,9 +1,9 @@
 # Sitemap
 
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
-**Version:** v0.4 (2026-06-20)
+**Version:** v0.5 (2026-06-21)
 **Language:** English (markdown research file)
-**Depends on:** research/jtbd.md v1.1, research/strategy.md v4, research/personas.md v1.2, research/master-research.md v5
+**Depends on:** research/jtbd.md v1.2, research/strategy.md v5, research/personas.md v1.2, research/master-research.md v5, research/flows.md v0.2
 **All facts cite sources. Unknowns marked [?]. No invented entities or fields.**
 
 ---
@@ -16,6 +16,7 @@
 | v0.2 | 2026-06-20 | Section 3 added: draft screen hierarchy derived from the 10 confirmed entities and jobs. Each screen tagged with its job/Decision and persona. MVP and post-launch separated. Navigation and depth beyond level 1 still deferred. |
 | v0.3 | 2026-06-20 | Section 4 added: navigation model. 5 global entries mapped to job clusters; depth (tap count) measured separately for the coach work flow and the beginner first-purchase path; each screen assigned a level (global / contextual / deep). |
 | v0.4 | 2026-06-20 | Section 5 added: traceability matrix (jobs to screens) with orphan-screen and orphan-job defect lists. Surfaces two defects: Loyalty status has no job (orphan screen) and the create-client name+goal step has no screen (orphan job). |
+| v0.5 | 2026-06-21 | IA corrective pass. Section 3: registered new screen states and in-flow steps (Add client capture, Choose substitute, address selection, coach price unresolved, reviews and certificate content, and missing empty/loading/error states). Section 5: added Job 6 row, marked Loyalty status and Coach pricing tier (no longer orphan), marked the create-client step against the Add client capture state (no longer orphan), and confirmed every mark is backed by a flow node. flows.md rewired to v0.2 from these registrations. |
 
 ---
 
@@ -392,6 +393,38 @@ E. MANAGE ACCOUNT AND LOYALTY
 **Under Question entities get no screens.** The five Section 2 entities (Coach Referral Link, Athlete Adherence Tracker, Paid Subscription Tier, Athlete-Facing Client Portal, Invoice and Order Export) are out of MVP scope and intentionally absent from this tree. They get screens only if a job is validated or a Decision is reversed.
 
 **Post-launch items held out of the MVP tree** (tagged `[post-launch]` above): guided quiz / "Help me choose" path (Decision 2), My Staples list (Decision 4, entity E10), and the stockout email reminder (Decision 4, a notification rather than a screen).
+
+---
+
+**Registered screen states and in-flow steps (added v0.5 in the IA corrective pass).**
+
+Integrity rule: a flow may draw a state or in-session step only after it is registered here with a job tag. The tree above stays one level; this registry is the explicit list the flows draw from. State vocabulary stays fixed (empty, loading, error, out of stock); in-session steps are sub-states of an existing screen, never new screens.
+
+Group A:
+- Goal Collection: loading; error (collection failed to load); empty (no in-stock products, route to other goals and to Search). Tag: Job 2 / Decision 2.
+- Catalog and search: loading (search results); error (search failed); empty (no results, with suggestions). Tag: Job 3 entry and the Search utility; also Job 4 out-of-stock recovery (find a sold-out staple another way).
+- Product detail: loading (trust details); error (details failed to load); out of stock; reviews and certificate content (same-screen recovery before a buyer leaves). Tag: Job 3 / Job 5 / ESJ-3.
+
+Group B:
+- Cart: empty cart (route back to discovery), including after an out-of-stock removal empties it. Tag: Main JTBD / Job 2 / Job 4 purchase.
+- Checkout: address selection (reads Saved addresses, handles "no saved address yet" with a first-time capture); loading (processing payment); error (payment declined). The address-selection state is what backs Saved addresses (E4) in the flows. Tag: Job 4 / Decision 4 friction reduction; Main JTBD and Job 2 purchase.
+
+Group C:
+- Client list: Add client capture (add-mode, captures client name and goal). This is the create-client step and is the screen state that closes the Main JTBD create-client sub-step. Also empty (no saved clients). Tag: Main JTBD / Decision 1 (saved client list with name and goal).
+- Coach sign-up + social-link verify: loading (verifying the social link, async); error (verification failed, resubmit link), which is recoverable. Tag: Decision 1 verification.
+- Multi-client order session: loading (quick-add, fetching catalog matches and coach-tier prices); Choose substitute (out-of-stock recovery step; the chosen substitute is run through the same stock and coach-tier price checks as a normal line); coach price unresolved (session saved, checkout blocked until the coach-tier price resolves, never bills retail silently). Tag: Main JTBD / Decision 1 / out-of-stock recovery.
+- Client profile: loading (per-client order history); error (history failed to load); empty (nothing ordered for this client yet). Tag: Main JTBD / Decision 1 (coach reviews per-client order history to verify what was ordered for whom).
+
+Group D:
+- Order history: inline "Repeat order" action on each order row (one-tap repeat per Decision 4), alongside the existing path through Order detail + Repeat order; empty (no past orders). Tag: Job 4 / Decision 4 one-tap repeat.
+
+Group E:
+- Sign in / register: loading (signing in); error (sign in failed, with retry). Tag: supporting gate (Main JTBD, Decision 1, Job 4).
+
+Backlog (deliberately out of MVP, with reason, not drawn in any flow):
+- Manual moderation of coach verification: no manual review desk in MVP, so a verification that cannot be fixed by resubmitting the link stays an explicit dead end. Revisit if auto-verification proves too strict.
+- In-app support contact from the coach price-unresolved state: no in-app support desk in MVP; the MVP behaviour is save-session-and-block-checkout. Add a support path when a support channel exists.
+- Back-in-stock notify (a wanted out-of-stock staple in reorder; a sold-out product in safety verification): this is the post-launch stockout reminder (Decision 4, entity E10), kept out of MVP.
 
 ---
 
