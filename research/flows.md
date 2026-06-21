@@ -1,9 +1,9 @@
 # User Flows
 
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
-**Version:** v0.2 (2026-06-21)
+**Version:** v0.3 (2026-06-21)
 **Language:** English (markdown research file)
-**Depends on:** research/sitemap.md v0.5 (IA: screens, navigation, registered states), research/jtbd.md v1.2, research/strategy.md v5
+**Depends on:** research/sitemap.md v0.6 (IA: screens, navigation, registered states), research/jtbd.md v1.2, research/strategy.md v5
 **All screen, state, and in-flow step nodes are registered in sitemap.md Section 3. No node appears that is not registered there. Under Question entities and [post-launch] items do not appear.**
 
 ---
@@ -14,6 +14,7 @@
 |---------|------|--------|
 | v0.1 | 2026-06-20 | Four Mermaid flows: Main Job (coach), Job 2 (beginner goal-to-product), Job 3 (safety verification), Job 4 (one-tap reorder). Decisions, states, and dead ends drawn, not only happy paths. |
 | v0.2 | 2026-06-21 | IA corrective pass. Main flow: returning-coach sign-in branch, recoverable verification, Add client capture closes the create-client step (qE gate removed), bounded coach-price loop, substitute runs the stock and price checks, out-of-stock skips the line, untagged line can be discarded, Client profile review step, address selection, payment back-to-cart. Job 2/3/4: added missing empty/loading/error states, one-tap reorder from Order history rows, reviews-and-certificate recovery, payment back-to-cart, out-of-stock recovery. All new nodes registered in sitemap.md v0.5 first. |
+| v0.3 | 2026-06-21 | Added a fifth flow, Job 6 Loyalty review (Loyalty status reachable from Coach account home and Buyer account home, with loading/empty/error states), so the Job 6 mark on Loyalty status is backed by a real flow node. States registered in sitemap.md v0.6 first. |
 
 ---
 
@@ -417,10 +418,45 @@ flowchart TD
 
 ---
 
+## Job 6 - Loyalty review, coach primary and regular secondary (Job 6, Decision 3)
+
+Olena (primary) and Andriy (secondary) open a read-only view of the price benefit their volume has accumulated. This is a review screen (enter, see, exit), with no action branches and no loyalty mechanics drawn (thresholds and percentages are [?]). It is reachable from both account homes so the Job 6 mark on Loyalty status is backed by a real flow node.
+
+```mermaid
+flowchart TD
+    ch["Coach account home"]
+    bh["Buyer account home"]
+    ls["Loyalty status"]
+    lsl(["Loading - loyalty status"])
+    qll{"Loyalty loaded?"}
+    lserr(["Error state - loyalty failed to load"])
+    qlhas{"Any accumulated benefit yet?"}
+    lsempty(["Empty state - nothing accumulated yet"])
+    back(["Return to account home"])
+
+    ch -->|view loyalty| ls
+    bh -->|view loyalty| ls
+    ls --> lsl
+    lsl --> qll
+    qll -->|no| lserr
+    lserr -->|retry| lsl
+    qll -->|yes| qlhas
+    qlhas -->|none yet| lsempty
+    qlhas -->|benefit shown| back
+    lsempty --> back
+```
+
+- **Decision points:** loyalty loaded; any accumulated benefit yet.
+- **States:** loading (loyalty status); error (loyalty failed to load); empty (nothing accumulated yet).
+- **Dead ends:** none. This is a read-only review; every path returns to the account home the coach or regular came from.
+- **Success:** the accumulated volume-based price benefit is shown (or the empty state if nothing is accumulated yet), then the user returns to the account home. No thresholds or percentages are drawn; loyalty numbers remain [?].
+
+---
+
 ## Integrity check
 
-- Every screen node in all four flows is a confirmed screen in sitemap.md Section 3: Home / goal selector, Goal Collection, Catalog and search, Product detail, Cart, Checkout, Order placed confirmation, For Coaches page + published pricing, Coach sign-up + social-link verify, Coach account home, Client list, Client profile, Multi-client order session, Order history, Order detail + Repeat order, Sign in / register, Buyer account home.
-- Every state and in-session step node is registered in sitemap.md Section 3 "Registered screen states and in-flow steps" (v0.5): Add client capture, Choose substitute, address selection, coach price unresolved, reviews and certificate content, and the loading / error / empty / out-of-stock states per screen. No node here is unregistered (no ghost screens, no ghost states).
+- Every screen node in all five flows is a confirmed screen in sitemap.md Section 3: Home / goal selector, Goal Collection, Catalog and search, Product detail, Cart, Checkout, Order placed confirmation, For Coaches page + published pricing, Coach sign-up + social-link verify, Coach account home, Client list, Client profile, Multi-client order session, Order history, Order detail + Repeat order, Sign in / register, Buyer account home, Loyalty status.
+- Every state and in-session step node is registered in sitemap.md Section 3 "Registered screen states and in-flow steps": Add client capture, Choose substitute, address selection, coach price unresolved, reviews and certificate content, Loyalty status loading/empty/error (added v0.6), and the loading / error / empty / out-of-stock states per screen. No node here is unregistered (no ghost screens, no ghost states).
 - No Under Question entity (referral link, adherence tracker, paid subscription, client portal, invoice export) and no [post-launch] item (guided quiz, My Staples list, stockout email reminder) appears in any flow.
 - Dead ends are terminal and deliberate; every recoverable problem routes back.
 
@@ -434,7 +470,7 @@ flowchart TD
 
 ## Sources
 
-- research/sitemap.md v0.5 (IA: entities, screens, navigation, registered states, traceability)
+- research/sitemap.md v0.6 (IA: entities, screens, navigation, registered states, traceability)
 - research/jtbd.md v1.2
 - research/strategy.md v5
 - research/personas.md v1.2

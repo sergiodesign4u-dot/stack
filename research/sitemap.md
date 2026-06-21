@@ -1,9 +1,9 @@
 # Sitemap
 
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
-**Version:** v0.5 (2026-06-21)
+**Version:** v0.6 (2026-06-21)
 **Language:** English (markdown research file)
-**Depends on:** research/jtbd.md v1.2, research/strategy.md v5, research/personas.md v1.2, research/master-research.md v5, research/flows.md v0.2
+**Depends on:** research/jtbd.md v1.2, research/strategy.md v5, research/personas.md v1.2, research/master-research.md v5, research/flows.md v0.3
 **All facts cite sources. Unknowns marked [?]. No invented entities or fields.**
 
 ---
@@ -17,6 +17,7 @@
 | v0.3 | 2026-06-20 | Section 4 added: navigation model. 5 global entries mapped to job clusters; depth (tap count) measured separately for the coach work flow and the beginner first-purchase path; each screen assigned a level (global / contextual / deep). |
 | v0.4 | 2026-06-20 | Section 5 added: traceability matrix (jobs to screens) with orphan-screen and orphan-job defect lists. Surfaces two defects: Loyalty status has no job (orphan screen) and the create-client name+goal step has no screen (orphan job). |
 | v0.5 | 2026-06-21 | IA corrective pass. Section 3: registered new screen states and in-flow steps (Add client capture, Choose substitute, address selection, coach price unresolved, reviews and certificate content, and missing empty/loading/error states). Section 5: added Job 6 row, marked Loyalty status and Coach pricing tier (no longer orphan), marked the create-client step against the Add client capture state (no longer orphan), and confirmed every mark is backed by a flow node. flows.md rewired to v0.2 from these registrations. |
+| v0.6 | 2026-06-21 | Audit follow-up: closed three debts. Registered Loyalty status states (loading/empty/error) with Job 6 tag and added a Loyalty review sub-flow so E3 is no longer marked-but-unflowed. Reconciled Navigation 4.1/4.2/4.4 with the flow (coach uses in-session quick-add, not global Search; coach depth recomputed to 8 taps for 2 clients). Ticked Catalog and search (A3) for Job 4 to match the csf recovery branch. Rewrote the Defects Result honestly. flows.md to v0.3. |
 
 ---
 
@@ -420,6 +421,7 @@ Group D:
 
 Group E:
 - Sign in / register: loading (signing in); error (sign in failed, with retry). Tag: supporting gate (Main JTBD, Decision 1, Job 4).
+- Loyalty status: loading; empty (nothing accumulated yet); error (loyalty failed to load). The screen is a read-only review of the accumulated volume-based price benefit (no thresholds or percentages drawn; loyalty numbers [?]). Tag: Job 6 (coach or regular reviews accumulated volume-based price benefit); Decision 3 cumulative loyalty.
 
 Backlog (deliberately out of MVP, with reason, not drawn in any flow):
 - Manual moderation of coach verification: no manual review desk in MVP, so a verification that cannot be fixed by resubmitting the link stays an explicit dead end. Revisit if auto-verification proves too strict.
@@ -438,13 +440,13 @@ The product has two different front doors, and the navigation must serve both: t
 
 #### 4.1 Global navigation (3 to 5 entries)
 
-Five global entries, each an entrance into a job cluster (groups A to E), not a copied menu. Three are primary destinations; two (Search, Cart) are persistent header utilities that stay visible because the coach work flow leans on them repeatedly.
+Five global entries, each an entrance into a job cluster (groups A to E), not a copied menu. Three are primary destinations; two (Search, Cart) are persistent header utilities. Cart stays visible because every flow returns to it; Search stays visible for buyers finding a known product. The coach has access to Search too, but her Main JTBD product-finding goes through in-session quick-add (see 4.2), not through Search.
 
 | Global entry | Cluster | Job behind it | Whose front door |
 |--------------|---------|---------------|------------------|
 | Home / goal selector | A (Find) | Job 2 + Decision 2: a beginner turns a goal into a safe product set through goal tiles on the landing screen. This is an activation entrance, not a generic "home." | Viktoriia (P3), beginner |
 | For Coaches page + published pricing -> Coach account home | C (Coach workspace) | Main JTBD + Decision 1 (multi-client ordering) and Job 1 + Decision 3 (evaluate a published coach price before switching). Logged out it shows the public For Coaches page; for a verified coach it becomes Coach account home. | Olena (P1), Dmytro (P2), coach |
-| Search | A (Find) | Main JTBD: the coach locates known products to add to client orders; Job 4: the regular finds a staple by name. Persistent because the coach hits it on every product while building a multi-client order. | Olena (P1) lead, Andriy (P4) |
+| Search | A (Find) | Job 3 entry (a buyer searches for a known product to verify it) and Job 4 recovery (a regular finds a sold-out staple another way). Available to all, but the coach Main JTBD does not run through Search: she quick-adds inside Multi-client order session. | Andriy (P4), Viktoriia (P3); available to all |
 | Cart | B (Buy) | Completes the purchase for Main JTBD, Job 2, and Job 4. Carries per-client grouping (Decision 1) in the coach flow. Persistent so the running order is always one tap away. | all |
 | Account | D + E (Reorder, Manage) | Job 4 + Decision 4 (order history and one-tap repeat) and Decision 3 (cumulative loyalty). | Andriy (P4) lead, all |
 
@@ -456,28 +458,26 @@ Why these and not more: clusters A, B, C, D, E are each reachable from a global 
 
 Job: from entry to a placed multi-client order (Main JTBD, Decision 1). This is a work flow and is deeper by definition. The depth below is the real depth, not flattened.
 
-Returning verified coach, ordering for 2 clients, quick-adding known products from search results (she knows her products, so Product detail is optional here and used only for Job 5 when showing an athlete):
+Returning verified coach, ordering for 2 clients, quick-adding known products inside the order session (she knows her products, so Product detail is optional here and used only for Job 5 when showing an athlete). This chain follows the Main flow in flows.md (in-session quick-add, not the global Catalog and search):
 
 ```
 Coach account home                         (tap 0, landing)
-  tap New order session   -> Multi-client order session     (tap 1)
-  tap Client A            -> client context set             (tap 2)
-  tap Search              -> Catalog and search             (tap 3)
-  tap Quick-add (A)       -> product added, tagged to A     (tap 4)
-  tap Client B            -> client context set             (tap 5)
-  tap Search              -> Catalog and search             (tap 6)
-  tap Quick-add (B)       -> product added, tagged to B     (tap 7)
-  tap Review / Cart       -> Cart (per-client grouping)     (tap 8)
-  tap Checkout            -> Checkout                       (tap 9)
-  tap Place order         -> Order placed confirmation      (tap 10)
+  tap New order             -> Multi-client order session   (tap 1)
+  tap Client A              -> client context set           (tap 2)
+  quick-add product for A   -> product added, tagged to A   (tap 3)
+  tap Client B              -> client context set           (tap 4)
+  quick-add product for B   -> product added, tagged to B   (tap 5)
+  tap Review / Cart         -> Cart (per-client grouping)   (tap 6)
+  tap Checkout              -> Checkout                     (tap 7)
+  tap Place order           -> Order placed confirmation    (tap 8)
 ```
 
-- 2-client order: 10 taps.
-- 1-client order: about 7 taps (drop the second client loop, taps 5 to 7).
-- Each additional client adds about 3 to 4 taps (select client, Search, Quick-add), and each extra product per client adds about 2 taps (Search, Quick-add). Depth stays flat; breadth grows with client and product count. This is the expected shape of a bulk work flow and is not a problem to optimize away.
-- First-time coach prepends a one-time onboarding of about 2 taps: For Coaches page -> Coach sign-up + social-link verify -> Coach account home. Building the saved client list the first time also adds a few taps per client, once.
+- 2-client order: 8 taps (quick-add is one tap inside the session; the coach is not sent out to a separate Search screen).
+- 1-client order: about 6 taps (drop the second client loop, taps 4 to 5).
+- Each additional client adds about 2 taps (select client, quick-add), and each extra product per client adds about 1 tap (quick-add). Depth stays flat; breadth grows with client and product count. This is the expected shape of a bulk work flow and is not flattened artificially.
+- First-time coach prepends a one-time onboarding: For Coaches page -> Coach sign-up + social-link verify -> Coach account home, plus an Add client capture (name and goal) per new client, once.
 
-Decision held: the coach flow is intentionally not forced through Product detail. The coach quick-adds known SKUs from search; she opens Product detail only for Job 5 (showing an athlete the composition and evidence), which is a separate moment, not a step in placing the order.
+Decision held: the coach flow is intentionally not forced through Product detail or the global Catalog and search. The coach quick-adds known SKUs inside the order session; she opens Product detail only for Job 5 (showing an athlete the composition and evidence), which is a separate moment, not a step in placing the order.
 
 ---
 
@@ -511,7 +511,7 @@ Global = visible at all times. Contextual = appears inside a flow. Deep = rare a
 | Screen / action | Cluster | Level | Reason |
 |-----------------|---------|-------|--------|
 | Home / goal selector | A | Global | Default landing and the beginner front door. |
-| Search (Catalog and search entry) | A | Global | Persistent header field; the coach uses it on every product mid-order. |
+| Search (Catalog and search entry) | A | Global | Persistent header field for buyers finding a known product (Job 3 entry, Job 4 recovery). The coach finds products via in-session quick-add, not this global Search. |
 | Cart | B | Global | Persistent running-order state, one tap from anywhere. |
 | Account (Buyer account home) | E | Global | Account hub; entrance to reorder and loyalty. |
 | For Coaches page + published pricing | C | Global | Coach self-identify entrance; becomes Coach account home when a coach is verified. |
@@ -555,7 +555,7 @@ Columns are split by group (A to E) for width. Every job row appears in every gr
 | Job 1 switch supplier |  |  |  |  |
 | Job 2 goal-to-product |  ✓  |  ✓  |  |  |
 | Job 3 verify safety |  |  |  ✓  |  ✓  |
-| Job 4 reorder |  |  |  |  |
+| Job 4 reorder |  |  |  ✓  |  |
 | Job 5 recommend with evidence |  |  |  |  ✓  |
 | Job 6 growing price benefit from volume |  |  |  |  |
 | ESJ-1 coach credibility |  |  |  |  ✓  |
@@ -650,9 +650,9 @@ Columns are split by group (A to E) for width. Every job row appears in every gr
 
 **Watch (not a defect, still worth tracking):**
 
-- A3 Catalog and search carries Job 3 (the finding entry to Product detail) and now also a Job 4 out-of-stock recovery role (a regular searches for a sold-out staple another way). Still thin; if usage shows few buyers search, reconsider folding it into Multi-client order session quick-add and Product detail entry.
+- A3 Catalog and search is marked for Job 3 (the finding entry to Product detail) and Job 4 (out-of-stock recovery, the csf branch in the Job 4 flow). Both marks are backed by real flow nodes (Job 3 j2, Job 4 csf). It is a thin utility serving buyers who search by name; the coach does not use it (she quick-adds in session). If usage shows few buyers search, reconsider folding it into Multi-client order session quick-add and Product detail entry.
 
-**Result:** no orphan screens, no orphan jobs, no marked-but-unflowed cells. Every job has at least one screen backed by a flow node, and every MVP screen has at least one job. The only deliberately empty matrix areas are the out-of-scope items (Under Question entities and post-launch screens) listed above.
+**Result (verified after the v0.6 audit follow-up):** no orphan screens, no orphan jobs, no marked-but-unflowed cells, and no flowed-but-unmarked cells. Every job has at least one screen backed by a real flow node, including Job 6: Loyalty status (E3) is now exercised by the Loyalty review sub-flow in flows.md (reachable from both Coach account home and Buyer account home), and Job 6 also surfaces on the For Coaches page (C1), Coach account home (C3), and Buyer account home (E2), all present in the Main, Job 2, and Job 4 flows. Catalog and search (A3) is marked for Job 3 and Job 4, matching its flow nodes (j2 entry and csf recovery). Saved addresses (E4) is the one screen exercised through a flow state node (the address-selection state at Checkout that reads it) rather than as a standalone screen node, which is its registered MVP form, not a coverage gap. Every MVP screen has at least one job. The only deliberately empty matrix areas are the out-of-scope items (Under Question entities and post-launch screens) listed above.
 
 ---
 
@@ -662,5 +662,5 @@ Columns are split by group (A to E) for width. Every job row appears in every gr
 - research/strategy.md v5
 - research/personas.md v1.2
 - research/master-research.md v5
-- research/flows.md v0.2
+- research/flows.md v0.3
 - CLAUDE.md (MVP feature scope, Out of scope for MVP section)
