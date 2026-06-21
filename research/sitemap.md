@@ -557,6 +557,7 @@ Columns are split by group (A to E) for width. Every job row appears in every gr
 | Job 3 verify safety |  |  |  ✓  |  ✓  |
 | Job 4 reorder |  |  |  |  |
 | Job 5 recommend with evidence |  |  |  |  ✓  |
+| Job 6 growing price benefit from volume |  |  |  |  |
 | ESJ-1 coach credibility |  |  |  |  ✓  |
 | ESJ-2 beginner confidence |  ✓  |  ✓  |  |  ✓  |
 | ESJ-3 counterfeit skepticism |  |  |  |  ✓  |
@@ -573,6 +574,7 @@ Columns are split by group (A to E) for width. Every job row appears in every gr
 | Job 3 verify safety |  |  |  |
 | Job 4 reorder |  ✓  |  ✓  |  ✓  |
 | Job 5 recommend with evidence |  |  |  |
+| Job 6 growing price benefit from volume |  |  |  |
 | ESJ-1 coach credibility |  |  |  |
 | ESJ-2 beginner confidence |  |  |  |
 | ESJ-3 counterfeit skepticism |  |  |  |
@@ -583,12 +585,13 @@ Columns are split by group (A to E) for width. Every job row appears in every gr
 | Job | C1 For Coaches page + published pricing | C2 Coach sign-up + social-link verify | C3 Coach account home | C4 Client list | C5 Client profile | C6 Multi-client order session |
 |-----|:--:|:--:|:--:|:--:|:--:|:--:|
 | Main JTBD |  |  |  ✓  |  ✓  |  ✓  |  ✓  |
-| Main JTBD sub-step: create client (name + goal) [Decision 1] |  |  |  |  |  |  |
+| Main JTBD sub-step: create client (name + goal) [Decision 1] |  |  |  |  ✓  |  |  |
 | Job 1 switch supplier |  ✓  |  ✓  |  |  |  |  |
 | Job 2 goal-to-product |  |  |  |  |  |  |
 | Job 3 verify safety |  |  |  |  |  |  |
 | Job 4 reorder |  |  |  |  |  |  |
 | Job 5 recommend with evidence |  |  |  |  |  |  |
+| Job 6 growing price benefit from volume |  ✓  |  |  ✓  |  |  |  |
 | ESJ-1 coach credibility |  ✓  |  |  |  |  |  |
 | ESJ-2 beginner confidence |  |  |  |  |  |  |
 | ESJ-3 counterfeit skepticism |  |  |  |  |  |  |
@@ -605,6 +608,7 @@ Columns are split by group (A to E) for width. Every job row appears in every gr
 | Job 3 verify safety |  |  |
 | Job 4 reorder |  ✓  |  ✓  |
 | Job 5 recommend with evidence |  |  |
+| Job 6 growing price benefit from volume |  |  |
 | ESJ-1 coach credibility |  |  |
 | ESJ-2 beginner confidence |  |  |
 | ESJ-3 counterfeit skepticism |  |  |
@@ -621,6 +625,7 @@ Columns are split by group (A to E) for width. Every job row appears in every gr
 | Job 3 verify safety |  |  |  |  |
 | Job 4 reorder |  ✓  |  ✓  |  |  ✓  |
 | Job 5 recommend with evidence |  |  |  |  |
+| Job 6 growing price benefit from volume |  |  ✓  |  ✓  |  |
 | ESJ-1 coach credibility |  |  |  |  |
 | ESJ-2 beginner confidence |  |  |  |  |
 | ESJ-3 counterfeit skepticism |  |  |  |  |
@@ -634,27 +639,28 @@ Columns are split by group (A to E) for width. Every job row appears in every gr
 
 #### Defects
 
-**ORPHAN SCREENS (a column with no mark - the screen exists but no job needs it):**
+**ORPHAN SCREENS: none (resolved in v0.5).** E3 Loyalty status was the one orphan screen. It now closes Job 6 (coach earns a growing price benefit from volume, jtbd.md v1.2), together with the Coach pricing tier on the For Coaches page (C1), Coach account home (C3), and Buyer account home (E2). Loyalty status is marked for Job 6 above and is no longer an orphan. No cosmetic fold was used; the screen was given a real job by adding Job 6 to jtbd.md.
 
-- E3 Loyalty status. No job in jtbd.md closes through it. It is backed only by Decision 3 (cumulative individual loyalty), a founder decision with no matching job row. Why it exists: it shows the buyer their accumulated discount tier, which is a retention mechanic, not a job a user came to do. Resolution: **attach to existing** - fold the loyalty view into Buyer account home (E2) for MVP; or **backlog** a validated retention or savings job in jtbd.md before keeping Loyalty status as a standalone screen.
+**ORPHAN JOBS: none (resolved in v0.5).** The Main JTBD create-client sub-step (name + goal) was the one orphan job. It is now closed by the Add client capture state on Client list (registered in Section 3, tag Main JTBD / Decision 1), marked C4 in the sub-step row above, and wired into the Main flow (q3 no -> Client list -> Add client capture -> session with the client selected). The qE gate that previously let a new client be skipped is removed.
 
-**ORPHAN JOBS (a row with no mark - the job exists but no screen does it):**
+**Marked-but-unflowed cells: none (resolved in v0.5).** The three cells the critique flagged as marked but not exercised by any flow are now backed by real flow nodes:
+- Client profile (C5), marked Main JTBD, is a real step in the Main flow (Coach account home -> Client profile review, with loading / empty / error states).
+- Saved addresses (E4), marked Job 4, is backed by the address-selection state at Checkout, which reads Saved addresses and captures one if none exists.
+- Sign in / register (E1), marked Main JTBD, appears in the Main flow via the returning-coach sign-in branch (q1 no -> have an account -> Sign in / register).
 
-- Main JTBD sub-step: create client with name + goal. No screen or state in Section 3 captures name+goal input. Client list (C4) lists and selects existing clients, but no screen describes entering a new client's name and goal. The Main flow in flows.md routes the "new client" branch through Client list without a capture step, which is the same gap seen from the flow side. Resolution: **add screen** - an "Add client" capture for name + goal (a small screen, or a defined input state of Client list), registered in Section 3 with a Main JTBD / Decision 1 tag, then wired into the Main flow.
+**Watch (not a defect, still worth tracking):**
 
-**Watch (not a defect, but thin and worth tracking):**
+- A3 Catalog and search carries Job 3 (the finding entry to Product detail) and now also a Job 4 out-of-stock recovery role (a regular searches for a sold-out staple another way). Still thin; if usage shows few buyers search, reconsider folding it into Multi-client order session quick-add and Product detail entry.
 
-- A3 Catalog and search carries a single mark (Job 3 entry only). Its earlier tag "coach locates known products (Main JTBD)" is superseded by the flow decision that the coach quick-adds inside Multi-client order session and the beginner uses goal tiles. A3 survives as the finding entry for a buyer who searches by name on the way to verifying a product. If later usage shows few buyers search, reconsider A3 (fold search into Multi-client order session and Product detail entry).
-
-**Result:** one orphan screen (Loyalty status) and one orphan job (create client name+goal). Both are action items to clear before wireframes. Every other job has at least one screen, and every other MVP screen has at least one job.
+**Result:** no orphan screens, no orphan jobs, no marked-but-unflowed cells. Every job has at least one screen backed by a flow node, and every MVP screen has at least one job. The only deliberately empty matrix areas are the out-of-scope items (Under Question entities and post-launch screens) listed above.
 
 ---
 
 ## Sources
 
-- research/jtbd.md v1.1
-- research/strategy.md v4
+- research/jtbd.md v1.2
+- research/strategy.md v5
 - research/personas.md v1.2
 - research/master-research.md v5
-- research/flows.md v0.1
+- research/flows.md v0.2
 - CLAUDE.md (MVP feature scope, Out of scope for MVP section)
