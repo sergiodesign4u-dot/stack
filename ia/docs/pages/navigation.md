@@ -60,7 +60,7 @@ labels **and** icons; tap targets ≥44px; product **categories should be a top-
 destination on mobile** (Baymard); search stays prominent. A dedicated "More/Menu" tab is
 avoided — it buries primary destinations behind overflow; secondary links live in Account.
 
-**Recommended set — 5 tabs (buyer / guest):**
+**Tab set — 5 tabs (buyer / guest) — LOCKED 2026-06-29:**
 
 | Tab | Icon | Destination | Note |
 |-----|------|-------------|------|
@@ -72,19 +72,17 @@ avoided — it buries primary destinations behind overflow; secondary links live
 
 - **Search** is NOT a tab — it lives in the persistent top bar (frees a slot, stays
   prominent).
-- **Coach role variant (proposed):** swap to **Кабінет тренера · Каталог · Кошик · Обране ·
-  Акаунт** — the coach's primary destination is the order workspace, not goal discovery.
-  Confirm before locking.
+- **Coach variant — LOCKED:** **Кабінет тренера · Каталог · Кошик · Обране · Акаунт** —
+  tab 1 swaps to the coach's order workspace; the rest match the buyer set.
 
-### Open micro-decisions (need confirmation)
+### Locked decisions (2026-06-29)
 
-- **Tab 1 label/intent:** keep **Головна** (goal-first home) vs label it **Цілі** (goal
-  catalog). The user is undecided. Recommendation: keep **Головна** (it already *is* the
-  goal selector in Stack, and a Home tab gives a reset/escape-hatch). `[?]`
-- **Dedicated "Меню" (burger) tab:** user floated it. Recommendation: **no** — spend the
-  5th slot on a primary destination and fold secondary links into Account. Reconsider only
-  if secondary destinations grow. `[?]`
-- **Coach tab set** (above) — confirm. `[?]`
+- **Tab 1 = Головна** (not Цілі): the Stack home leads with goal tiles (so it *is* the
+  goal catalog), gives a reset/escape-hatch, and sits in the thumb zone (the logo is
+  top-left, hard to reach). The Home tab does not duplicate the logo in practice.
+- **No dedicated "Меню" (burger) tab:** the 5th slot goes to a primary destination;
+  secondary links (For Coaches, delivery, blog, loyalty) live on the Account screen.
+- **Coach tab 1 = Кабінет тренера**; the rest of the set matches the buyer.
 
 ## State matrix (auth / role)
 
@@ -130,10 +128,10 @@ Favorites → 7.6 · Cart → 6.0 · Увійти → 1.0 · Account → 7.0 · 
 ## Open questions [?]
 
 - Guest favorites: local-store then merge on login, or require login to save?
-- Tab 1 = Головна vs Цілі (see micro-decisions).
-- Dedicated "Меню" tab — recommended against; confirm.
-- Coach mobile tab set — confirm.
+- Tariff badge (Free/Pro) in the header vs only in Account (leaning badge).
 - Mega-menu depth for "Цілі" (goals only vs goals + categories).
+
+(Tab set, no-Menu-tab, and coach tab 1 were locked 2026-06-29 — see Locked decisions.)
 
 ## Sources (mobile bottom-nav UX)
 

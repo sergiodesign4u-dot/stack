@@ -189,5 +189,10 @@ Output = the wireframe library. Wireframes then just render it.
   navigation model that mobile primary nav = bottom tabs. Did **not** touch the 5 flows'
   structure or add jobs (e.g. favorites stays a mechanism, not a flow) — conceptual stays
   the lean base.
+- **2026-06-29** — Mobile tab set **LOCKED**: buyer/guest = Головна · Каталог · Кошик ·
+  Обране · Акаунт; coach swaps tab 1 → Кабінет тренера. Search stays in top bar; no
+  «Меню» tab (secondary links go to the Account screen). Tab 1 = Головна over Цілі (home
+  leads with goal tiles, gives reset, thumb-reachable since the logo is top-left). Open
+  decisions in `navigation.html`/`.md` converted from `[?]` to ✓.
 - **Next** — Footer (0.2) then Home (0.0) as page-level IA pages (md + html), then cluster
   by cluster. Add each new node to the sidebar group and to `ia/docs/sitemap.md`.
