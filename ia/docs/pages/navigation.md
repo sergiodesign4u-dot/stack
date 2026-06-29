@@ -41,14 +41,14 @@ Plus **Favorites** (wishlist → 7.6), an MVP convenience and a mobile tab.
 | # | Element | Behavior | Goes to |
 |---|---------|----------|---------|
 | 1 | Logo (Stack) | Always visible | 0.0 Home |
-| 2 | **Цілі** | Mega-menu: goals + top categories (desktop); in drawer / Home tab (mobile) | 2.2 / 2.1 |
+| 2 | **Цілі** | Desktop mega-menu = 2 columns (goals + top categories) + "all products" link; on mobile via Home tab / Каталог. «Каталог» stays the entry to the full catalog. | 2.2 / 2.1 |
 | 3 | **Каталог** | All products | 2.0 |
 | 4 | **Для тренерів** | Coach front door, always visible regardless of role | 5.0 |
 | 5 | **Search** | Inline field (desktop) / icon → expanding field (mobile top bar) | 2.5 |
 | 6 | **Favorites** icon + count | Wishlist | 7.6 |
 | 7 | **Cart** icon + count | Opens cart dialog | 6.0 |
 | 8 | **Account** zone | State-dependent (see matrix) | 1.0 / 7.0 |
-| 9 | **Role / tier badge** | Coach only — Free / Pro chip | 7.7 / 5.1 |
+| 9 | **Role / tier badge** | Coach only — calm Free / Pro chip in the account zone; upgrade nudge is contextual (at the client-cap), not a banner | 7.7 / 5.1 |
 
 On mobile the top bar carries only Logo · Search · Favorites · Cart (primary destinations
 move to the bottom tabs); secondary links live inside the Account screen.
@@ -83,13 +83,21 @@ avoided — it buries primary destinations behind overflow; secondary links live
 - **No dedicated "Меню" (burger) tab:** the 5th slot goes to a primary destination;
   secondary links (For Coaches, delivery, blog, loyalty) live on the Account screen.
 - **Coach tab 1 = Кабінет тренера**; the rest of the set matches the buyer.
+- **Guest favorites = login required:** clicking ♡ (or the Обране tab) opens the sign-in /
+  register dialog. No guest/local wishlist — favorites becomes a registration driver.
+- **Tier badge = calm chip in the header account zone** (status/identity); upgrade nudge is
+  contextual at the client-cap moment, not a global banner. (Conditional on the Free/Pro
+  tier, still a hypothesis.)
+- **"Цілі" mega-menu = goals + top categories** (two columns) + an "all products" link;
+  «Каталог» remains the entry to the full catalog (intentional, useful overlap; satisfies
+  Baymard's "categories top-level").
 
 ## State matrix (auth / role)
 
 | Zone | Guest | Buyer (logged-in) | Coach (logged-in) |
 |------|-------|-------------------|-------------------|
 | Account | **«Увійти»** → 1.0 (+ Реєстрація) | Menu → 7.0 (Замовлення, Лояльність, Обране, Адреси, **Стати тренером** → 7.7, Вихід) | Menu adds **«Кабінет тренера»** → 5.2 + role/tier badge |
-| Favorites | Icon visible; on add → prompt login then merge `[?]` | Saved list, count badge | Saved list, count badge |
+| Favorites | Clicking ♡ / the Обране tab → **sign-in dialog** (login required to save; no guest wishlist → registration driver) | Saved list, count badge | Saved list, count badge |
 | Cart | Visible, count badge | Same | Same; groups per client (6.0) |
 | Mobile tabs | 5 (buyer set) | 5 (buyer set) | 5 (coach variant) |
 | Primary CTA | Discover (Цілі) + Увійти | Cart / repeat order | **Нова сесія замовлення** → 5.5 |
@@ -127,11 +135,9 @@ Favorites → 7.6 · Cart → 6.0 · Увійти → 1.0 · Account → 7.0 · 
 
 ## Open questions [?]
 
-- Guest favorites: local-store then merge on login, or require login to save?
-- Tariff badge (Free/Pro) in the header vs only in Account (leaning badge).
-- Mega-menu depth for "Цілі" (goals only vs goals + categories).
-
-(Tab set, no-Menu-tab, and coach tab 1 were locked 2026-06-29 — see Locked decisions.)
+- None open for navigation. All navigation decisions were locked 2026-06-29 (see Locked
+  decisions). Downstream/dependent: the Free/Pro coach tier itself is still a business-model
+  hypothesis; the tier badge applies if/when it ships.
 
 ## Sources (mobile bottom-nav UX)
 

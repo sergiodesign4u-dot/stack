@@ -194,5 +194,10 @@ Output = the wireframe library. Wireframes then just render it.
   «Меню» tab (secondary links go to the Account screen). Tab 1 = Головна over Цілі (home
   leads with goal tiles, gives reset, thumb-reachable since the logo is top-left). Open
   decisions in `navigation.html`/`.md` converted from `[?]` to ✓.
+- **2026-06-29** — Closed the rest of the navigation open questions: guest favorites =
+  **login required** (no guest wishlist → registration driver); tier badge = calm Free/Pro
+  chip in the header account zone + contextual upgrade nudge; «Цілі» desktop mega-menu =
+  goals + top categories (2 columns) + "all products" link, with «Каталог» kept as the
+  full-catalog entry. Navigation node now has zero open questions.
 - **Next** — Footer (0.2) then Home (0.0) as page-level IA pages (md + html), then cluster
   by cluster. Add each new node to the sidebar group and to `ia/docs/sitemap.md`.
