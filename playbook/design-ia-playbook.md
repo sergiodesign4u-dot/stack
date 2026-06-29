@@ -141,5 +141,18 @@ Output = the wireframe library. Wireframes then just render it.
   - Deliver sitemap and page-level IA as **two separate artifacts**.
   - **Do not change JTBD** — filters and symptom search are IA, not new jobs.
   - SEO **pulled forward** into IA. Mobile-first responsive confirmed as the stance.
-- **Next** — full sitemap (`ia/docs/sitemap.md`) → component library → page-level IA;
-  then a live visual schema page (Ukrainian).
+- **2026-06-29** — Built the live sitemap artifact `ia/sitemap.html` (Ukrainian cards +
+  Mermaid). User reviews HTML, not markdown — HTML is canonical, `ia/docs/sitemap.md` is
+  a light index. Iterations: split Home from Auth; renumbered clusters (Home=0, Auth=1, …,
+  Content=8); added Favorites/wishlist (MVP: header icon + account page, buyer + coach);
+  added a global Footer card; Cart became a dialog (selected items + "go to checkout");
+  split Blog into catalog + article.
+- **2026-06-29** — Auth model CONFIRMED: unified sign in/up as dialogs for all roles;
+  coach is a role activated on an existing account (landing CTA or account section); no
+  separate coach login, no role tabs.
+- **2026-06-29** — Coach-tier hypothesis Free vs Pro (numbers [?]): Free = better-than-
+  retail wholesale + 2-3 client cap, instant; Pro = max wholesale + unlimited clients,
+  paid (~99 UAH/mo). Activates the brief's deferred paid-subscription question; Free price
+  must still pass the coach price gate; primary persona needs Pro. Not committed.
+- **Next** — inherited component library as `ia/components.html` (header states, footer,
+  product card, filter panel, auth dialogs) → then page-level IA per cluster.
