@@ -108,8 +108,8 @@ Responsive: <mobile stack → desktop layout notes>
 ## Inherited components — documented as page-level IA nodes (not a separate artifact)
 
 _(Stack decision, 2026-06-29)_ Rather than a standalone "component library" page, the
-**global elements are documented as page-level IA nodes themselves** — Header is node 0.1,
-Footer is 0.2, etc. Each gets the same treatment as a page: an md source of truth in
+**global elements are documented as page-level IA nodes themselves** — Navigation (header +
+mobile tabs) is node 0.1, Footer is 0.2, etc. Each gets the same treatment as a page: an md source of truth in
 `ia/docs/pages/` plus a reviewable HTML visual in `ia/`, and a line in the unified
 sidebar. The "library" emerges as the set of these nodes; shared sub-elements (Search,
 Product card, Filter panel, Auth dialogs, Cart, Goal tiles) are described inside the nodes
@@ -175,5 +175,19 @@ Output = the wireframe library. Wireframes then just render it.
   `research/concept.html`, titled **«Концептуальна архітектура»** (jobs/persona-driven
   clusters, flows, traceability). The name **«Інформаційна архітектура»** is now reserved
   for the detailed page-level layer in `ia/`.
+- **2026-06-29** — Renamed Header node → **Navigation** (0.1): `header.*` → `navigation.*`,
+  sidebar label «Хедер» → «Навігація» on every page. Scope widened to **header + mobile
+  bottom tab bar**. Set **mobile baseline = 360px**. Did a small **UX research pass** on
+  mobile bottom-nav patterns (3–5 tabs max 5; categories top-level per Baymard; ≥44px;
+  labels+icons; search stays in top bar; avoid a "More" tab) and baked a research-backed
+  recommended tab set (Головна · Каталог · Кошик · Обране · Акаунт; coach variant swaps in
+  Кабінет) into `navigation.html`/`.md`. Open micro-decisions flagged: Home-vs-Цілі label,
+  no dedicated Menu tab, coach tab set.
+- **2026-06-29** — Reconciled the conceptual layer: translated the **whole `concept.html`
+  visual to Ukrainian** (all 6 Mermaid diagrams + tree + matrix + nav), since visual pages
+  must be in the product language (md sources stay English). Added a one-line note in its
+  navigation model that mobile primary nav = bottom tabs. Did **not** touch the 5 flows'
+  structure or add jobs (e.g. favorites stays a mechanism, not a flow) — conceptual stays
+  the lean base.
 - **Next** — Footer (0.2) then Home (0.0) as page-level IA pages (md + html), then cluster
   by cluster. Add each new node to the sidebar group and to `ia/docs/sitemap.md`.

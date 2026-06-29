@@ -9,8 +9,10 @@
   (`research/concept.html`, `research/docs/sitemap.md` v0.6, `research/docs/flows.md`).
   This `ia/` layer is the *detailed / page-level* IA («Інформаційна архітектура»).
 - **Page-level specs:** one md source of truth per node in `ia/docs/pages/`, each rendered
-  as a reviewable HTML visual in `ia/`. Done so far: `pages/header.md` → `ia/header.html`
-  (node 0.1). Next: Footer (0.2), Home (0.0), then cluster by cluster.
+  as a reviewable HTML visual in `ia/`. Done so far: `pages/navigation.md` →
+  `ia/navigation.html` (node 0.1 — Navigation = header + mobile bottom tabs; 360px
+  baseline; tab set grounded in UX research). Next: Footer (0.2), Home (0.0), then cluster
+  by cluster.
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
   nodes. Reference visual: `research/sitemap png example/`.
 - **Stance:** mobile-first, fully responsive. Coach = buyer (not a marketplace). SEO is

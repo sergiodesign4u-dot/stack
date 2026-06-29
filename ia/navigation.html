@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stack — IA: Хедер</title>
+  <title>Stack — IA: Навігація</title>
   <style>
     :root {
       --bg: #f7f6f3; --surface: #ffffff; --surface-alt: #f2f0eb; --border: #e5e2db;
@@ -83,7 +83,16 @@
     .tier.free { background: var(--surface-alt); color: var(--text-secondary); }
     .tier.pro { background: var(--warn-bg); color: var(--warn); }
 
-    .phone { max-width: 340px; }
+    .phone { max-width: 360px; }
+    /* bottom tab bar mockup */
+    .tabbar { display: flex; border-top: 1px solid var(--border); background: var(--surface); }
+    .tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 2px 9px; font-size: 10.5px; color: var(--text-light); position: relative; }
+    .tab .tg { font-size: 17px; line-height: 1; }
+    .tab.active { color: var(--accent); }
+    .tab .badge { position: absolute; top: 2px; right: 50%; margin-right: -16px; background: var(--accent); color: #fff; font-size: 8px; font-weight: 700; line-height: 1; padding: 2px 4px; border-radius: 100px; }
+    .baseline { font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--accent-mid); background: var(--accent-light); display: inline-block; padding: 3px 9px; border-radius: 100px; margin-bottom: 14px; }
+    .reco { background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--text); margin: 10px 0 14px; }
+    .reco b { color: var(--accent); }
     .phone .bar { gap: 12px; padding: 10px 12px; }
     .drawer { border-top: 1px solid var(--border); padding: 10px 14px 14px; background: var(--surface-alt); }
     .drawer .ditem { font-size: 13px; padding: 8px 4px; border-bottom: 1px solid var(--border); color: var(--text-secondary); display: flex; justify-content: space-between; }
@@ -141,7 +150,7 @@
     <hr class="sidebar-divider">
     <div class="sidebar-page-label">Інформаційна архітектура</div>
     <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
-    <a href="header.html" class="sidebar-sub active">Хедер</a>
+    <a href="navigation.html" class="sidebar-sub active">Навігація</a>
     <hr class="sidebar-divider">
     <div class="sidebar-upcoming">Далі<br>Футер · Головна<br>Каталог · Картка<br>Кошик · Акаунт<br>Wireframes</div>
   </nav>
@@ -151,13 +160,13 @@
 
   <div class="hero">
     <div class="hero-tag">Посторінкова IA · вузол 0.1</div>
-    <h1>Хедер</h1>
-    <p class="hero-lead">Глобальна навігаційна оболонка на кожній сторінці. Тримає <b>двоє вхідних дверей, що не блокують одне одного</b> — ціль-перші для початківця і «Для тренерів» для тренера — та утиліти покупця (пошук, обране, кошик, акаунт). Адаптується за станом входу й роллю; головна площина внутрішньої перелінковки для SEO.</p>
+    <h1>Навігація</h1>
+    <p class="hero-lead">Глобальна навігаційна оболонка на кожній сторінці = <b>хедер</b> (топ-бар десктоп + мобілка) <b>плюс нижні таби на мобілці</b>. Тримає <b>двоє вхідних дверей, що не блокують одне одного</b> — ціль-перші для початківця і «Для тренерів» для тренера — та утиліти покупця (пошук, обране, кошик, акаунт). Адаптується за станом входу й роллю; головна площина внутрішньої перелінковки для SEO.</p>
     <div class="hero-meta">
       <div><strong>Тип</strong> глобальний компонент / стан</div>
-      <div><strong>Джерело істини</strong> ia/docs/pages/header.md</div>
-      <div><strong>Стани</strong> гість · покупець · тренер × мобілка / десктоп</div>
-      <div><strong>Стійка</strong> mobile-first</div>
+      <div><strong>Джерело істини</strong> ia/docs/pages/navigation.md</div>
+      <div><strong>Охоплює</strong> хедер + нижні таби (мобілка)</div>
+      <div><strong>Стійка</strong> mobile-first · база <b>360px</b></div>
     </div>
   </div>
 
@@ -219,70 +228,95 @@
   <!-- 2. Mobile states -->
   <section class="section" id="mobile">
     <div class="section-num">02 · Мобілка (пріоритет)</div>
-    <h2>Мобілка: компактна панель + шухляда</h2>
-    <p class="section-lead">Компактна панель = Лого · Пошук · Обране · Кошик · Гамбургер. Основна навігація (Цілі / Каталог / Для тренерів), акаунт/вхід та інфо-лінки — у шухляді. Панель фіксована, ущільнюється при скролі.</p>
+    <span class="baseline">База 360px</span>
+    <h2>Мобілка: тонкий топ-бар + нижні таби</h2>
+    <p class="section-lead">На мобілці <b>первинна навігація — нижні таби</b> (досяжні великим пальцем). Тонкий топ-бар лишається лише для Лого · Пошук · Обране · Кошик. Решта пунктів (Цілі / Каталог / Для тренерів / інфо) — через таб «Головна» та екран «Акаунт». Обидва бари фіксовані.</p>
 
     <div class="cols two">
       <div>
         <div class="mock phone">
-          <div class="mock-label"><span class="chip guest">Гість</span> панель</div>
+          <div class="mock-label"><span class="chip guest">Гість / покупець</span> 360px</div>
           <div class="bar">
             <span class="mlogo">Stack</span>
             <div class="spacer"></div>
             <div class="icons">
               <div class="icon">🔍</div>
-              <div class="icon">♡</div>
-              <div class="icon">🛒</div>
-              <div class="icon">☰</div>
+              <div class="icon">♡<span class="badge">3</span></div>
+              <div class="icon">🛒<span class="badge">2</span></div>
             </div>
           </div>
+          <div style="height:120px;background:var(--surface-alt);display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:12px;">тіло сторінки</div>
+          <div class="tabbar">
+            <div class="tab active"><span class="tg">⌂</span>Головна</div>
+            <div class="tab"><span class="tg">▦</span>Каталог</div>
+            <div class="tab"><span class="tg">🛒</span><span class="badge">2</span>Кошик</div>
+            <div class="tab"><span class="tg">♡</span><span class="badge">3</span>Обране</div>
+            <div class="tab"><span class="tg">👤</span>Акаунт</div>
+          </div>
         </div>
-        <p class="note">Тап по 🔍 розгортає поле пошуку на всю ширину панелі.</p>
+        <p class="note">Пошук — у топ-барі (тап по 🔍 розгортає поле). Тому окремого таба пошуку немає.</p>
       </div>
 
       <div>
         <div class="mock phone">
-          <div class="mock-label"><span class="chip guest">Гість</span> шухляда відкрита</div>
+          <div class="mock-label"><span class="chip coach">Тренер</span> 360px · варіант ролі</div>
           <div class="bar">
             <span class="mlogo">Stack</span>
+            <span class="tier pro">Pro</span>
             <div class="spacer"></div>
-            <div class="icons"><div class="icon">✕</div></div>
+            <div class="icons">
+              <div class="icon">🔍</div>
+              <div class="icon">♡<span class="badge">5</span></div>
+              <div class="icon">🛒<span class="badge">8</span></div>
+            </div>
           </div>
-          <div class="drawer">
-            <div class="ditem head">Навігація</div>
-            <div class="ditem">Цілі <span class="arrow">▾</span></div>
-            <div class="ditem">Каталог</div>
-            <div class="ditem" style="color:var(--accent);font-weight:600">Для тренерів <span class="arrow">→ 5.0</span></div>
-            <div class="ditem head" style="margin-top:6px">Акаунт</div>
-            <div class="ditem">Увійти / Реєстрація <span class="arrow">→ 1.0</span></div>
-            <div class="ditem">Обране <span class="arrow">→ 7.6</span></div>
-            <div class="ditem head" style="margin-top:6px">Інфо</div>
-            <div class="ditem">Доставка · Контакти · Блог</div>
+          <div style="height:120px;background:var(--surface-alt);display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:12px;">тіло сторінки</div>
+          <div class="tabbar">
+            <div class="tab active"><span class="tg">▣</span>Кабінет</div>
+            <div class="tab"><span class="tg">▦</span>Каталог</div>
+            <div class="tab"><span class="tg">🛒</span><span class="badge">8</span>Кошик</div>
+            <div class="tab"><span class="tg">♡</span><span class="badge">5</span>Обране</div>
+            <div class="tab"><span class="tg">👤</span>Акаунт</div>
           </div>
         </div>
+        <p class="note">У тренера перший таб = <b>Кабінет тренера → 5.2</b> (його робоче місце), решта — як у покупця. <b>[?]</b> підтвердити набір.</p>
       </div>
     </div>
-
-    <div class="mock phone">
-      <div class="mock-label"><span class="chip coach">Тренер</span> панель · бейдж тарифу</div>
-      <div class="bar">
-        <span class="mlogo">Stack</span>
-        <span class="tier pro">Pro</span>
-        <div class="spacer"></div>
-        <div class="icons">
-          <div class="icon">🔍</div>
-          <div class="icon">♡<span class="badge">5</span></div>
-          <div class="icon">🛒<span class="badge">8</span></div>
-          <div class="icon">☰</div>
-        </div>
-      </div>
-    </div>
-    <p class="note">У шухляді тренера: <b>Кабінет тренера → 5.2</b>, <b>Нова сесія замовлення → 5.5</b>, статус ролі й тарифу. Розглядаємо нижній таб-бар (Головна · Пошук · Кошик · Акаунт) — <b>[?]</b> MVP чи post-launch.</p>
   </section>
 
-  <!-- 3. Anatomy -->
+  <!-- 3. UX research: bottom nav -->
+  <section class="section" id="bottomnav">
+    <div class="section-num">03 · UX-дослідження</div>
+    <h2>Нижня навігація: патерни e-commerce</h2>
+    <p class="section-lead">Набір табів обґрунтований патернами мобільної навігації (джерела внизу). Це не «на око» — рішення спирається на дослідження.</p>
+    <table>
+      <tr><th>Патерн</th><th>Чому</th></tr>
+      <tr><td><b>3–5 табів, не більше 5</b></td><td>Більше — дрібні тап-цілі й перевантаження (iOS HIG / Material).</td></tr>
+      <tr><td><b>Тап-ціль ≥ 44px</b></td><td>Середній розмір пальця; інакше промахи.</td></tr>
+      <tr><td><b>Іконка + підпис</b></td><td>Лише іконки шкодять впізнаваності (NN/g).</td></tr>
+      <tr><td><b>Категорії — верхній рівень</b></td><td>Baymard: на мобілці категорії мають бути top-level; тому окремий таб «Каталог».</td></tr>
+      <tr><td><b>Пошук — на видноті</b></td><td>Лишаємо в топ-барі (не ховаємо), звільняючи слот таба.</td></tr>
+      <tr><td><b>Уникати таба «Меню/Ще»</b></td><td>Ховає первинні напрямки в overflow і знижує впізнаваність — краще віддати слот напрямку.</td></tr>
+    </table>
+
+    <div class="reco">
+      <b>Рекомендований набір (покупець / гість):</b> Головна · Каталог · Кошик · Обране · Акаунт.
+      Пошук — у топ-барі. Вторинні лінки (Для тренерів, доставка, блог, лояльність) — на екрані «Акаунт».
+    </div>
+
+    <p class="section-lead" style="margin-bottom:10px"><b>Відкриті мікро-рішення</b> (потрібне підтвердження):</p>
+    <table>
+      <tr><th>Питання</th><th>Рекомендація</th></tr>
+      <tr><td>Таб 1: <b>Головна</b> vs <b>Цілі</b> (каталог за ціллю)</td><td>Лишити <b>Головна</b> — у Stack головна <i>і є</i> вибором цілі, плюс дає «скидання»/вихід. <b>[?]</b></td></tr>
+      <tr><td>Окремий таб <b>«Меню»</b> (бургер)</td><td><b>Ні</b> — віддати 5-й слот напрямку; вторинне — в «Акаунт». <b>[?]</b></td></tr>
+      <tr><td>Набір табів <b>тренера</b></td><td>Кабінет · Каталог · Кошик · Обране · Акаунт. Підтвердити. <b>[?]</b></td></tr>
+    </table>
+    <p class="note">Джерела: Baymard (категорії — top-level на мобілці; стан мобільного e-comm пошуку й навігації), Smashing Magazine (golden rules of mobile navigation; bottom navigation pattern), UX Planet (bottom tab bar best practices). Повний перелік — у ia/docs/pages/navigation.md.</p>
+  </section>
+
+  <!-- 4. Anatomy -->
   <section class="section" id="anatomy">
-    <div class="section-num">03 · Анатомія</div>
+    <div class="section-num">04 · Анатомія</div>
     <h2>Елементи й переходи</h2>
     <p class="section-lead">Десять елементів. Реалізує пʼять глобальних точок навігації + Обране як зручність MVP.</p>
     <table>
@@ -296,13 +330,13 @@
       <tr><td>7</td><td><b>Кошик</b> + лічильник</td><td>Відкриває діалог кошика</td><td class="arrow">6.0</td></tr>
       <tr><td>8</td><td><b>Зона акаунта</b></td><td>Залежить від стану (див. матрицю)</td><td class="arrow">1.0 / 7.0</td></tr>
       <tr><td>9</td><td><b>Бейдж ролі/тарифу</b></td><td>Лише тренер — чип Free / Pro</td><td class="arrow">7.7 / 5.1</td></tr>
-      <tr><td>10</td><td><b>Гамбургер</b> (мобілка)</td><td>Відкриває шухляду навігації</td><td>—</td></tr>
+      <tr><td>10</td><td><b>Нижні таби</b> (мобілка)</td><td>Первинна навігація — 5 табів (див. розділ 02–03)</td><td class="arrow">0.0 · 2.0 · 6.0 · 7.6 · 7.0</td></tr>
     </table>
   </section>
 
   <!-- 4. State matrix -->
   <section class="section" id="states">
-    <div class="section-num">04 · Матриця станів</div>
+    <div class="section-num">05 · Матриця станів</div>
     <h2>Що змінюється за станом і роллю</h2>
     <table>
       <tr><th>Зона</th><th>Гість</th><th>Покупець</th><th>Тренер</th></tr>
@@ -330,12 +364,18 @@
         <td>Кошик / повтор замовлення</td>
         <td><b>Нова сесія замовлення → 5.5</b></td>
       </tr>
+      <tr>
+        <td><b>Нижні таби (мобілка)</b></td>
+        <td>5 (набір покупця)</td>
+        <td>5 (набір покупця)</td>
+        <td>5 (варіант тренера: Кабінет…)</td>
+      </tr>
     </table>
   </section>
 
   <!-- 5. SEO & a11y -->
   <section class="section" id="seo">
-    <div class="section-num">05 · SEO та доступність</div>
+    <div class="section-num">06 · SEO та доступність</div>
     <h2>Розмітка глобального компонента</h2>
     <div class="cols two">
       <div>
@@ -351,10 +391,10 @@
       <div>
         <h3 style="font-size:14px;margin-bottom:8px;color:var(--accent)">Доступність</h3>
         <table>
-          <tr><td>Skip-to-content лінк на початку.</td></tr>
-          <tr><td>Гамбургер: <b>aria-expanded</b>, фокус-пастка в шухляді, ESC і клік по оверлею закривають.</td></tr>
-          <tr><td>Іконки кошика/обраного: <b>aria-label</b> з лічильником.</td></tr>
-          <tr><td>Мега-меню — навігація клавіатурою, видимий фокус.</td></tr>
+          <tr><td>Тап-цілі <b>≥ 44px</b> — і в топ-барі, і в табах.</td></tr>
+          <tr><td>Таби: <b>іконка + підпис</b>, <b>aria-current="page"</b> на активному.</td></tr>
+          <tr><td>Іконки кошика/обраного: <b>aria-label</b> з лічильником. Skip-to-content лінк.</td></tr>
+          <tr><td>Мега-меню — навігація клавіатурою, видимий фокус; шухляда (якщо є) — <b>aria-expanded</b>, ESC і оверлей закривають.</td></tr>
         </table>
       </div>
     </div>
@@ -365,8 +405,10 @@
     <div class="open">
       <h2>Відкриті питання [?]</h2>
       <ul>
-        <li>Обране для гостя: зберігати локально й зливати при вході — чи вимагати вхід для збереження?</li>
-        <li>Нижній таб-бар на мобілці на додачу до верхньої панелі — у MVP чи post-launch?</li>
+        <li>Таб 1: <b>Головна</b> vs <b>Цілі</b> (каталог за ціллю) — рекомендуємо «Головна».</li>
+        <li>Окремий таб <b>«Меню»</b> — рекомендуємо ні (вторинне ховаємо в «Акаунт»); підтвердити.</li>
+        <li>Набір табів <b>тренера</b> — підтвердити (Кабінет · Каталог · Кошик · Обране · Акаунт).</li>
+        <li>Обране для гостя: зберігати локально й зливати при вході — чи вимагати вхід?</li>
         <li>Бейдж тарифу (Free/Pro) у хедері — чи лише в акаунті? Схиляємось до бейджа.</li>
         <li>Глибина мега-меню «Цілі» — лише цілі чи цілі + категорії?</li>
       </ul>
@@ -374,7 +416,7 @@
   </section>
 
   <div class="footer-text">
-    Stack — Посторінкова IA · Хедер (вузол 0.1). Джерело істини: ia/docs/pages/header.md. Карта сайту: sitemap.html. Концептуальний шар: ../research/concept.html. Червень 2026, чернетка.
+    Stack — Посторінкова IA · Навігація (вузол 0.1): хедер + нижні таби. Джерело істини: ia/docs/pages/navigation.md. Карта сайту: sitemap.html. Концептуальний шар: ../research/concept.html. Червень 2026, чернетка.
   </div>
 
 </div>

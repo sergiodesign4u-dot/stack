@@ -221,11 +221,11 @@
     <a href="#sitemap" class="sidebar-sub">Глобальний сайтмап</a>
     <a href="#flows" class="sidebar-sub">User flows</a>
     <a href="#matrix" class="sidebar-sub">Матриця трасування</a>
-    <a href="#navigation" class="sidebar-sub">Навігація</a>
+    <a href="#navigation" class="sidebar-sub">Навігаційна модель</a>
     <hr class="sidebar-divider">
     <div class="sidebar-page-label">Інформаційна архітектура</div>
     <a href="../ia/sitemap.html" class="sidebar-sub">Карта сайту</a>
-    <a href="../ia/header.html" class="sidebar-sub">Хедер</a>
+    <a href="../ia/navigation.html" class="sidebar-sub">Навігація</a>
     <hr class="sidebar-divider">
     <div class="sidebar-upcoming">Далі<br>Футер · Головна<br>Каталог · Картка<br>Кошик · Акаунт<br>Wireframes</div>
   </nav>
@@ -259,34 +259,34 @@
       <div class="mermaid-panel">
         <div class="mermaid">
 graph TD
-  subgraph cA["A. Find the right product"]
-    A1["Home / goal selector (J2)"]
-    A2["Goal Collection (J2)"]
-    A3["Catalog and search (J3, J4)"]
-    A4["Product detail (J3, J5, ESJ3)"]
+  subgraph cA["A. Знайти потрібний товар"]
+    A1["Головна / вибір цілі (J2)"]
+    A2["Колекція за ціллю (J2)"]
+    A3["Каталог і пошук (J3, J4)"]
+    A4["Деталі товару (J3, J5, ESJ3)"]
   end
-  subgraph cB["B. Buy and pay"]
-    B1["Cart (Main, J2, J4)"]
-    B2["Checkout (Main, J2, J4)"]
-    B3["Order placed confirmation (Main, J2, J4)"]
+  subgraph cB["B. Купити й оплатити"]
+    B1["Кошик (Main, J2, J4)"]
+    B2["Оформлення (Main, J2, J4)"]
+    B3["Замовлення оформлено (Main, J2, J4)"]
   end
-  subgraph cC["C. Order for many clients in one session"]
-    C1["For Coaches page + published pricing (J1, J6, ESJ1)"]
-    C2["Coach sign-up + social-link verify (J1, ESJ4)"]
-    C3["Coach account home (Main, J6, ESJ4)"]
-    C4["Client list (Main)"]
-    C5["Client profile (Main)"]
-    C6["Multi-client order session (Main)"]
+  subgraph cC["C. Замовлення для багатьох клієнтів за сесію"]
+    C1["«Для тренерів» + опубліковані ціни (J1, J6, ESJ1)"]
+    C2["Реєстрація тренера + верифікація соц-лінку (J1, ESJ4)"]
+    C3["Кабінет тренера (Main, J6, ESJ4)"]
+    C4["Список клієнтів (Main)"]
+    C5["Профіль клієнта (Main)"]
+    C6["Мультиклієнтська сесія замовлення (Main)"]
   end
-  subgraph cD["D. Come back and reorder"]
-    D1["Order history (J4)"]
-    D2["Order detail + Repeat order (J4)"]
+  subgraph cD["D. Повернутися й повторити замовлення"]
+    D1["Історія замовлень (J4)"]
+    D2["Деталі замовлення + повтор (J4)"]
   end
-  subgraph cE["E. Manage account and loyalty"]
-    E1["Sign in / register (Main, J4)"]
-    E2["Buyer account home (J4, J6)"]
-    E3["Loyalty status (J6)"]
-    E4["Saved addresses (J4)"]
+  subgraph cE["E. Акаунт і лояльність"]
+    E1["Вхід / реєстрація (Main, J4)"]
+    E2["Кабінет покупця (J4, J6)"]
+    E3["Статус лояльності (J6)"]
+    E4["Збережені адреси (J4)"]
   end
   A1 --> A2 --> A4 --> B1
   A3 --> A4
@@ -305,47 +305,47 @@ graph TD
 
     <div class="ia-tree">
       <details open>
-        <summary>A. Find the right product</summary>
+        <summary>A. Знайти потрібний товар</summary>
         <ul>
-          <li>Home / goal selector <span class="jt">J2</span></li>
-          <li>Goal Collection <span class="jt">J2</span></li>
-          <li>Catalog and search <span class="jt">J3, J4</span></li>
-          <li>Product detail <span class="jt">J3, J5, ESJ3</span></li>
+          <li>Головна / вибір цілі <span class="jt">J2</span></li>
+          <li>Колекція за ціллю <span class="jt">J2</span></li>
+          <li>Каталог і пошук <span class="jt">J3, J4</span></li>
+          <li>Деталі товару <span class="jt">J3, J5, ESJ3</span></li>
         </ul>
       </details>
       <details>
-        <summary>B. Buy and pay</summary>
+        <summary>B. Купити й оплатити</summary>
         <ul>
-          <li>Cart <span class="jt">Main, J2, J4</span></li>
-          <li>Checkout <span class="jt">Main, J2, J4</span></li>
-          <li>Order placed confirmation <span class="jt">Main, J2, J4</span></li>
+          <li>Кошик <span class="jt">Main, J2, J4</span></li>
+          <li>Оформлення <span class="jt">Main, J2, J4</span></li>
+          <li>Замовлення оформлено <span class="jt">Main, J2, J4</span></li>
         </ul>
       </details>
       <details>
-        <summary>C. Order for many clients in one session</summary>
+        <summary>C. Замовлення для багатьох клієнтів за сесію</summary>
         <ul>
-          <li>For Coaches page + published pricing <span class="jt">J1, J6, ESJ1</span></li>
-          <li>Coach sign-up + social-link verify <span class="jt">J1, ESJ4</span></li>
-          <li>Coach account home <span class="jt">Main, J6, ESJ4</span></li>
-          <li>Client list <span class="jt">Main</span></li>
-          <li>Client profile <span class="jt">Main</span></li>
-          <li>Multi-client order session <span class="jt">Main</span></li>
+          <li>«Для тренерів» + опубліковані ціни <span class="jt">J1, J6, ESJ1</span></li>
+          <li>Реєстрація тренера + верифікація соц-лінку <span class="jt">J1, ESJ4</span></li>
+          <li>Кабінет тренера <span class="jt">Main, J6, ESJ4</span></li>
+          <li>Список клієнтів <span class="jt">Main</span></li>
+          <li>Профіль клієнта <span class="jt">Main</span></li>
+          <li>Мультиклієнтська сесія замовлення <span class="jt">Main</span></li>
         </ul>
       </details>
       <details>
-        <summary>D. Come back and reorder</summary>
+        <summary>D. Повернутися й повторити замовлення</summary>
         <ul>
-          <li>Order history <span class="jt">J4</span></li>
-          <li>Order detail + Repeat order <span class="jt">J4</span></li>
+          <li>Історія замовлень <span class="jt">J4</span></li>
+          <li>Деталі замовлення + повтор <span class="jt">J4</span></li>
         </ul>
       </details>
       <details>
-        <summary>E. Manage account and loyalty</summary>
+        <summary>E. Акаунт і лояльність</summary>
         <ul>
-          <li>Sign in / register <span class="jt">Main, J4</span></li>
-          <li>Buyer account home <span class="jt">J4, J6</span></li>
-          <li>Loyalty status <span class="jt">J6</span></li>
-          <li>Saved addresses <span class="jt">J4</span></li>
+          <li>Вхід / реєстрація <span class="jt">Main, J4</span></li>
+          <li>Кабінет покупця <span class="jt">J4, J6</span></li>
+          <li>Статус лояльності <span class="jt">J6</span></li>
+          <li>Збережені адреси <span class="jt">J4</span></li>
         </ul>
       </details>
     </div>
@@ -371,140 +371,140 @@ graph TD
     <div class="diagram-card">
       <div class="diagram-head">
         <span class="diagram-title">Main job - коуч збирає мультиклієнтське замовлення</span>
-        <span class="diagram-sub">Olena, primary - Main JTBD, Decision 1</span>
+        <span class="diagram-sub">Олена, первинна — Main JTBD, Рішення 1</span>
       </div>
       <div class="mermaid-panel">
         <div class="mermaid">
 flowchart TD
-    s0(["Coach opens Stack"])
-    q1{"Logged in as verified coach?"}
-    qacct{"Have an account?"}
-    e1["Sign in / register"]
-    slog(["Loading - signing in"])
-    qauth{"Sign in successful?"}
-    serr(["Error state - sign in failed"])
-    qretrylogin{"Retry sign in?"}
-    c1["For Coaches page + published pricing"]
-    c2["Coach sign-up + social-link verify"]
-    svrf(["Loading - verifying social link"])
-    q2{"Verification passed?"}
-    evf(["Error state - verification failed, resubmit link"])
-    qresub{"Resubmit link?"}
-    de1(["Dead end - verification not passed, no coach access"])
-    c3["Coach account home"]
-    c5p["Client profile"]
-    cpl(["Loading - client order history"])
-    qcp{"Client history loaded?"}
-    cperr(["Error state - client history failed to load"])
-    qcphas{"Any orders for this client?"}
-    cpempty(["Empty state - nothing ordered for this client yet"])
-    c4["Multi-client order session"]
-    q3{"Client already in list?"}
-    c5["Client list"]
-    addc(["Add client capture - name and goal"])
-    slqa(["Loading - quick-add catalog and coach-tier price"])
-    q4{"Product in stock?"}
-    so1(["Out of stock"])
-    q5{"Substitute available?"}
-    csub(["Choose substitute"])
-    q7{"Coach-tier price applied?"}
-    ee1(["Error state - coach price not applied"])
-    qprice{"Retry or stop?"}
-    blockc(["Coach price unresolved - session saved, checkout blocked"])
-    q6{"Order line tagged to client?"}
-    su1(["Untagged line - assign a client"])
-    qtag{"Assign client or discard line?"}
-    q8{"More clients to order for?"}
-    c6["Cart"]
-    qce{"Cart empty?"}
-    ec(["Empty state - cart empty"])
-    c7["Checkout"]
-    addr(["Address selection - read Saved addresses, capture if none"])
-    sl1(["Loading - processing payment"])
-    q9{"Payment successful?"}
-    ep1(["Error state - payment declined"])
-    q10{"Retry payment?"}
-    qaband{"Back to Cart or abandon?"}
-    de3(["Dead end - payment abandoned, cart preserved"])
-    c8["Order placed confirmation"]
-    ok1(["Success - multi-client order placed and confirmed"])
+    s0(["Тренер відкриває Stack"])
+    q1{"Залогінений як верифікований тренер?"}
+    qacct{"Є акаунт?"}
+    e1["Вхід / реєстрація"]
+    slog(["Завантаження — вхід"])
+    qauth{"Вхід успішний?"}
+    serr(["Помилка — вхід не вдався"])
+    qretrylogin{"Повторити вхід?"}
+    c1["«Для тренерів» + опубліковані ціни"]
+    c2["Реєстрація тренера + верифікація соц-лінку"]
+    svrf(["Завантаження — перевірка соц-лінку"])
+    q2{"Верифікацію пройдено?"}
+    evf(["Помилка — верифікація не вдалася, надішліть лінк ще раз"])
+    qresub{"Надіслати лінк ще раз?"}
+    de1(["Тупик — верифікацію не пройдено, без доступу тренера"])
+    c3["Кабінет тренера"]
+    c5p["Профіль клієнта"]
+    cpl(["Завантаження — історія замовлень клієнта"])
+    qcp{"Історію клієнта завантажено?"}
+    cperr(["Помилка — історія клієнта не завантажилась"])
+    qcphas{"Є замовлення для цього клієнта?"}
+    cpempty(["Порожньо — для цього клієнта ще нічого не замовляли"])
+    c4["Мультиклієнтська сесія замовлення"]
+    q3{"Клієнт уже у списку?"}
+    c5["Список клієнтів"]
+    addc(["Додавання клієнта — імʼя і ціль"])
+    slqa(["Завантаження — швидке додавання й тренерська ціна"])
+    q4{"Товар у наявності?"}
+    so1(["Немає в наявності"])
+    q5{"Є заміна?"}
+    csub(["Обрати заміну"])
+    q7{"Тренерську ціну застосовано?"}
+    ee1(["Помилка — тренерську ціну не застосовано"])
+    qprice{"Повторити чи зупинити?"}
+    blockc(["Тренерська ціна не вирішена — сесію збережено, оформлення заблоковано"])
+    q6{"Позицію привʼязано до клієнта?"}
+    su1(["Позиція без тегу — призначте клієнта"])
+    qtag{"Призначити клієнта чи відкинути позицію?"}
+    q8{"Ще є клієнти для замовлення?"}
+    c6["Кошик"]
+    qce{"Кошик порожній?"}
+    ec(["Порожньо — кошик порожній"])
+    c7["Оформлення"]
+    addr(["Вибір адреси — читання збережених, ввід якщо немає"])
+    sl1(["Завантаження — обробка платежу"])
+    q9{"Платіж успішний?"}
+    ep1(["Помилка — платіж відхилено"])
+    q10{"Повторити платіж?"}
+    qaband{"Назад у кошик чи покинути?"}
+    de3(["Тупик — платіж покинуто, кошик збережено"])
+    c8["Замовлення оформлено"]
+    ok1(["Успіх — мультиклієнтське замовлення оформлено й підтверджено"])
 
     s0 --> q1
-    q1 -->|yes| c3
-    q1 -->|no| qacct
-    qacct -->|yes| e1
+    q1 -->|так| c3
+    q1 -->|ні| qacct
+    qacct -->|так| e1
     e1 --> slog
     slog --> qauth
-    qauth -->|yes| c3
-    qauth -->|no| serr
+    qauth -->|так| c3
+    qauth -->|ні| serr
     serr --> qretrylogin
-    qretrylogin -->|yes| e1
-    qretrylogin -->|no| qacct
-    qacct -->|no| c1
+    qretrylogin -->|так| e1
+    qretrylogin -->|ні| qacct
+    qacct -->|ні| c1
     c1 --> c2
     c2 --> svrf
     svrf --> q2
-    q2 -->|yes| c3
-    q2 -->|no| evf
+    q2 -->|так| c3
+    q2 -->|ні| evf
     evf --> qresub
-    qresub -->|yes| c2
-    qresub -->|no| de1
-    c3 -->|review client history| c5p
+    qresub -->|так| c2
+    qresub -->|ні| de1
+    c3 -->|перегляд історії клієнта| c5p
     c5p --> cpl
     cpl --> qcp
-    qcp -->|no| cperr
-    cperr -->|retry| cpl
-    qcp -->|yes| qcphas
-    qcphas -->|orders shown| c4
-    qcphas -->|none yet| cpempty
+    qcp -->|ні| cperr
+    cperr -->|повтор| cpl
+    qcp -->|так| qcphas
+    qcphas -->|є замовлення| c4
+    qcphas -->|поки немає| cpempty
     cpempty --> c4
-    c3 -->|new order| c4
+    c3 -->|нове замовлення| c4
     c4 --> q3
-    q3 -->|yes| slqa
-    q3 -->|no| c5
+    q3 -->|так| slqa
+    q3 -->|ні| c5
     c5 --> addc
-    addc -->|client added and selected| slqa
+    addc -->|клієнта додано й обрано| slqa
     slqa --> q4
-    q4 -->|no| so1
+    q4 -->|ні| so1
     so1 --> q5
-    q5 -->|no skip line| q8
-    q5 -->|yes| csub
+    q5 -->|ні, пропустити позицію| q8
+    q5 -->|так| csub
     csub --> q4
-    q4 -->|yes| q7
-    q7 -->|no| ee1
+    q4 -->|так| q7
+    q7 -->|ні| ee1
     ee1 --> qprice
-    qprice -->|retry| q7
-    qprice -->|stop| blockc
+    qprice -->|повтор| q7
+    qprice -->|зупинити| blockc
     blockc --> c3
-    q7 -->|yes| q6
-    q6 -->|no| su1
+    q7 -->|так| q6
+    q6 -->|ні| su1
     su1 --> qtag
-    qtag -->|assign| q6
-    qtag -->|discard line| q8
-    q6 -->|yes| q8
-    q8 -->|yes| q3
-    q8 -->|no| c6
+    qtag -->|призначити| q6
+    qtag -->|відкинути позицію| q8
+    q6 -->|так| q8
+    q8 -->|так| q3
+    q8 -->|ні| c6
     c6 --> qce
-    qce -->|yes| ec
+    qce -->|так| ec
     ec --> c4
-    qce -->|no| c7
+    qce -->|ні| c7
     c7 --> addr
     addr --> sl1
     sl1 --> q9
-    q9 -->|yes| c8
-    q9 -->|no| ep1
+    q9 -->|так| c8
+    q9 -->|ні| ep1
     ep1 --> q10
-    q10 -->|yes| c7
-    q10 -->|no| qaband
-    qaband -->|back to cart| c6
-    qaband -->|abandon| de3
+    q10 -->|так| c7
+    q10 -->|ні| qaband
+    qaband -->|назад у кошик| c6
+    qaband -->|покинути| de3
     c8 --> ok1
         </div>
       </div>
       <div class="flow-meta">
-        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">logged in as verified coach; have an account; sign in successful; retry sign in; verification passed; resubmit link; client history loaded; any orders for this client; client already in list; product in stock; substitute available; coach-tier price applied; retry or stop coach price; order line tagged to client; assign client or discard line; more clients to order for; cart empty; payment successful; retry payment; back to cart or abandon.</span></div>
-        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">loading (signing in); error (sign in failed); loading (verifying social link); error (verification failed, resubmit link); loading (client order history); error (client history failed to load); empty (nothing ordered for this client yet); Add client capture (name and goal); loading (quick-add); out of stock; Choose substitute; error (coach price not applied); coach price unresolved (session saved, checkout blocked); untagged line; empty (cart empty); address selection; loading (processing payment); error (payment declined).</span></div>
-        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">verification not passed and resubmit declined (unfixable only); payment abandoned (cart preserved). Решта проблем мають шлях назад: skip line, retry-or-stop, discard line, back to cart, resubmit link.</span></div>
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">залогінений як верифікований тренер; є акаунт; вхід успішний; повторити вхід; верифікацію пройдено; надіслати лінк ще раз; історію клієнта завантажено; є замовлення для цього клієнта; клієнт уже у списку; товар у наявності; є заміна; тренерську ціну застосовано; повторити чи зупинити тренерську ціну; позицію привʼязано до клієнта; призначити клієнта чи відкинути позицію; ще є клієнти для замовлення; кошик порожній; платіж успішний; повторити платіж; назад у кошик чи покинути.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">завантаження (вхід); помилка (вхід не вдався); завантаження (перевірка соц-лінку); помилка (верифікація не вдалася, надіслати лінк ще раз); завантаження (історія замовлень клієнта); помилка (історія клієнта не завантажилась); порожньо (для цього клієнта ще нічого не замовляли); додавання клієнта (імʼя і ціль); завантаження (швидке додавання); немає в наявності; обрати заміну; помилка (тренерську ціну не застосовано); тренерська ціна не вирішена (сесію збережено, оформлення заблоковано); позиція без тегу; порожньо (кошик порожній); вибір адреси; завантаження (обробка платежу); помилка (платіж відхилено).</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">верифікацію не пройдено і повторне надсилання відхилено (тільки невиправний випадок); платіж покинуто (кошик збережено). Решта проблем мають шлях назад: пропустити позицію, повторити-чи-зупинити, відкинути позицію, назад у кошик, надіслати лінк ще раз.</span></div>
       </div>
     </div>
 
@@ -512,92 +512,92 @@ flowchart TD
     <div class="diagram-card">
       <div class="diagram-head">
         <span class="diagram-title">Job 2 - початківець: ціль до першої покупки</span>
-        <span class="diagram-sub">Viktoriia, secondary - guest checkout, потім guest до account</span>
+        <span class="diagram-sub">Вікторія, вторинна — гостьове оформлення, потім гість до акаунта</span>
       </div>
       <div class="mermaid-panel">
         <div class="mermaid">
 flowchart TD
-    b1["Home / goal selector"]
-    b2["Goal Collection"]
-    gcl(["Loading - goal collection"])
-    qgcl{"Collection loaded?"}
-    gcerr(["Error state - collection failed to load"])
-    qgc{"Any in-stock products?"}
-    gce(["Empty state - no in-stock products"])
-    b3["Product detail"]
-    qa{"Product in stock?"}
-    so(["Out of stock"])
-    b4["Cart"]
-    qce2{"Cart empty?"}
-    ec2(["Empty state - cart empty"])
-    b5["Checkout"]
-    qg{"Check out as guest or register?"}
-    b6["Sign in / register"]
-    slog2(["Loading - signing in"])
-    qauth2{"Sign in successful?"}
-    serr2(["Error state - sign in failed"])
-    qrl2{"Retry sign in or continue as guest?"}
-    addr2(["Address selection - read Saved addresses, capture if none"])
-    sl(["Loading - processing payment"])
-    qp{"Payment successful?"}
-    ep(["Error state - payment declined"])
-    qr{"Retry payment?"}
-    qaband2{"Back to Cart or abandon?"}
-    de1b(["Dead end - payment abandoned, cart preserved"])
-    b7["Order placed confirmation"]
-    qac{"Create account now?"}
-    b6b["Sign in / register"]
-    b8["Buyer account home"]
-    okg(["Success - first purchase complete as guest"])
-    oka(["Success - purchase complete, account saves history and loyalty"])
+    b1["Головна / вибір цілі"]
+    b2["Колекція за ціллю"]
+    gcl(["Завантаження — колекція за ціллю"])
+    qgcl{"Колекцію завантажено?"}
+    gcerr(["Помилка — колекція не завантажилась"])
+    qgc{"Є товари в наявності?"}
+    gce(["Порожньо — немає товарів у наявності"])
+    b3["Деталі товару"]
+    qa{"Товар у наявності?"}
+    so(["Немає в наявності"])
+    b4["Кошик"]
+    qce2{"Кошик порожній?"}
+    ec2(["Порожньо — кошик порожній"])
+    b5["Оформлення"]
+    qg{"Оформити як гість чи зареєструватися?"}
+    b6["Вхід / реєстрація"]
+    slog2(["Завантаження — вхід"])
+    qauth2{"Вхід успішний?"}
+    serr2(["Помилка — вхід не вдався"])
+    qrl2{"Повторити вхід чи продовжити як гість?"}
+    addr2(["Вибір адреси — читання збережених, ввід якщо немає"])
+    sl(["Завантаження — обробка платежу"])
+    qp{"Платіж успішний?"}
+    ep(["Помилка — платіж відхилено"])
+    qr{"Повторити платіж?"}
+    qaband2{"Назад у кошик чи покинути?"}
+    de1b(["Тупик — платіж покинуто, кошик збережено"])
+    b7["Замовлення оформлено"]
+    qac{"Створити акаунт зараз?"}
+    b6b["Вхід / реєстрація"]
+    b8["Кабінет покупця"]
+    okg(["Успіх — перша покупка завершена як гість"])
+    oka(["Успіх — покупка завершена, акаунт зберігає історію й лояльність"])
 
-    b1 -->|goal tile| b2
+    b1 -->|тайл цілі| b2
     b2 --> gcl
     gcl --> qgcl
-    qgcl -->|no| gcerr
-    gcerr -->|retry| gcl
-    qgcl -->|yes| qgc
-    qgc -->|no| gce
-    gce -->|try another goal| b1
-    qgc -->|yes open a product| b3
+    qgcl -->|ні| gcerr
+    gcerr -->|повтор| gcl
+    qgcl -->|так| qgc
+    qgc -->|ні| gce
+    gce -->|інша ціль| b1
+    qgc -->|так, відкрити товар| b3
     b3 --> qa
-    qa -->|no| so
-    so -->|back to collection| b2
-    qa -->|yes add to cart| b4
+    qa -->|ні| so
+    so -->|назад до колекції| b2
+    qa -->|так, у кошик| b4
     b4 --> qce2
-    qce2 -->|yes| ec2
-    ec2 -->|back to discovery| b1
-    qce2 -->|no| b5
+    qce2 -->|так| ec2
+    ec2 -->|назад до пошуку товару| b1
+    qce2 -->|ні| b5
     b5 --> qg
-    qg -->|register| b6
+    qg -->|реєстрація| b6
     b6 --> slog2
     slog2 --> qauth2
-    qauth2 -->|yes| addr2
-    qauth2 -->|no| serr2
+    qauth2 -->|так| addr2
+    qauth2 -->|ні| serr2
     serr2 --> qrl2
-    qrl2 -->|retry| b6
-    qrl2 -->|guest| addr2
-    qg -->|guest| addr2
+    qrl2 -->|повтор| b6
+    qrl2 -->|гість| addr2
+    qg -->|гість| addr2
     addr2 --> sl
     sl --> qp
-    qp -->|yes| b7
-    qp -->|no| ep
+    qp -->|так| b7
+    qp -->|ні| ep
     ep --> qr
-    qr -->|yes| b5
-    qr -->|no| qaband2
-    qaband2 -->|back to cart| b4
-    qaband2 -->|abandon| de1b
+    qr -->|так| b5
+    qr -->|ні| qaband2
+    qaband2 -->|назад у кошик| b4
+    qaband2 -->|покинути| de1b
     b7 --> qac
-    qac -->|yes| b6b
+    qac -->|так| b6b
     b6b --> b8
     b8 --> oka
-    qac -->|no| okg
+    qac -->|ні| okg
         </div>
       </div>
       <div class="flow-meta">
-        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">collection loaded; any in-stock products; product in stock; cart empty; check out as guest or register; sign in successful; retry sign in or continue as guest; payment successful; retry payment; back to cart or abandon; create account now.</span></div>
-        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">loading (goal collection); error (collection failed to load); empty (no in-stock products); out of stock; empty (cart empty); loading (signing in); error (sign in failed); address selection; loading (processing payment); error (payment declined).</span></div>
-        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">payment abandoned (cart preserved). Два валідні фінали: guest end і account end.</span></div>
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">колекцію завантажено; є товари в наявності; товар у наявності; кошик порожній; оформити як гість чи зареєструватися; вхід успішний; повторити вхід чи продовжити як гість; платіж успішний; повторити платіж; назад у кошик чи покинути; створити акаунт зараз.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">завантаження (колекція за ціллю); помилка (колекція не завантажилась); порожньо (немає товарів у наявності); немає в наявності; порожньо (кошик порожній); завантаження (вхід); помилка (вхід не вдався); вибір адреси; завантаження (обробка платежу); помилка (платіж відхилено).</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">платіж покинуто (кошик збережено). Два валідні фінали: гостьовий і з акаунтом.</span></div>
       </div>
     </div>
 
@@ -605,67 +605,67 @@ flowchart TD
     <div class="diagram-card">
       <div class="diagram-head">
         <span class="diagram-title">Job 3 - перевірка безпеки перед покупкою</span>
-        <span class="diagram-sub">склад, дозування, походження, сертифікати на Product detail</span>
+        <span class="diagram-sub">склад, дозування, походження, сертифікати на Деталях товару</span>
       </div>
       <div class="mermaid-panel">
         <div class="mermaid">
 flowchart TD
-    j1["Goal Collection"]
-    j2["Catalog and search"]
-    csl(["Loading - search results"])
-    qcsl{"Results loaded?"}
-    cserr(["Error state - search failed"])
-    qcs{"Any results?"}
-    cse(["Empty state - no results, see suggestions"])
-    j3["Product detail"]
-    slt(["Loading - trust details"])
-    qd{"Trust details loaded?"}
-    se(["Error state - details failed to load"])
-    qr3{"Retry?"}
-    q1c{"Composition, dosage, origin, certification all clear?"}
-    rev(["Product detail reviews and certificate content"])
-    qrev{"Reassured after reviews and certificate?"}
-    leave(["Dead end - buyer leaves, safety doubt unresolved"])
-    q2c{"Product in stock?"}
-    so3(["Out of stock"])
-    qsub{"Back to collection for an alternative?"}
-    leave2(["Dead end - no in-stock option, buyer leaves"])
-    j4["Cart"]
-    ok3(["Success - product trusted, added to cart"])
+    j1["Колекція за ціллю"]
+    j2["Каталог і пошук"]
+    csl(["Завантаження — результати пошуку"])
+    qcsl{"Результати завантажено?"}
+    cserr(["Помилка — пошук не вдався"])
+    qcs{"Є результати?"}
+    cse(["Порожньо — немає результатів, дивіться поради"])
+    j3["Деталі товару"]
+    slt(["Завантаження — деталі довіри"])
+    qd{"Деталі довіри завантажено?"}
+    se(["Помилка — деталі не завантажились"])
+    qr3{"Повторити?"}
+    q1c{"Склад, дозування, походження, сертифікація — все зрозуміло?"}
+    rev(["Відгуки й вміст сертифіката на Деталях товару"])
+    qrev{"Переконано після відгуків і сертифіката?"}
+    leave(["Тупик — покупець іде, сумнів у безпеці не знято"])
+    q2c{"Товар у наявності?"}
+    so3(["Немає в наявності"])
+    qsub{"Назад до колекції по альтернативу?"}
+    leave2(["Тупик — немає варіанта в наявності, покупець іде"])
+    j4["Кошик"]
+    ok3(["Успіх — товару довіряють, додано в кошик"])
 
-    j1 -->|product| j3
+    j1 -->|товар| j3
     j2 --> csl
     csl --> qcsl
-    qcsl -->|no| cserr
-    cserr -->|retry| csl
-    qcsl -->|yes| qcs
-    qcs -->|no| cse
-    cse -->|refine search| j2
-    qcs -->|yes open a product| j3
+    qcsl -->|ні| cserr
+    cserr -->|повтор| csl
+    qcsl -->|так| qcs
+    qcs -->|ні| cse
+    cse -->|уточнити пошук| j2
+    qcs -->|так, відкрити товар| j3
     j3 --> slt
     slt --> qd
-    qd -->|no| se
+    qd -->|ні| se
     se --> qr3
-    qr3 -->|yes| slt
-    qr3 -->|no| leave
-    qd -->|yes| q1c
-    q1c -->|yes| q2c
-    q1c -->|no| rev
+    qr3 -->|так| slt
+    qr3 -->|ні| leave
+    qd -->|так| q1c
+    q1c -->|так| q2c
+    q1c -->|ні| rev
     rev --> qrev
-    qrev -->|yes| q2c
-    qrev -->|no| leave
-    q2c -->|no| so3
+    qrev -->|так| q2c
+    qrev -->|ні| leave
+    q2c -->|ні| so3
     so3 --> qsub
-    qsub -->|yes| j1
-    qsub -->|no| leave2
-    q2c -->|yes| j4
+    qsub -->|так| j1
+    qsub -->|ні| leave2
+    q2c -->|так| j4
     j4 --> ok3
         </div>
       </div>
       <div class="flow-meta">
-        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">results loaded; any results; trust details loaded; retry; composition/dosage/origin/certification all clear; reassured after reviews and certificate; product in stock; back to collection for an alternative.</span></div>
-        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">loading (search results); error (search failed); empty (no results, see suggestions); loading (trust details); error (details failed to load); reviews and certificate content; out of stock.</span></div>
-        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">buyer leaves after reviews and certificate (accepted lost sale); no in-stock option and the buyer leaves. Back-in-stock notify - у backlog (post-launch).</span></div>
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">результати завантажено; є результати; деталі довіри завантажено; повторити; склад/дозування/походження/сертифікація все зрозуміло; переконано після відгуків і сертифіката; товар у наявності; назад до колекції по альтернативу.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">завантаження (результати пошуку); помилка (пошук не вдався); порожньо (немає результатів, поради); завантаження (деталі довіри); помилка (деталі не завантажились); відгуки й вміст сертифіката; немає в наявності.</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">покупець іде після відгуків і сертифіката (прийнята втрачена покупка); немає варіанта в наявності і покупець іде. Сповіщення «знову в наявності» — у backlog (post-launch).</span></div>
       </div>
     </div>
 
@@ -673,91 +673,91 @@ flowchart TD
     <div class="diagram-card">
       <div class="diagram-head">
         <span class="diagram-title">Job 4 - повторне замовлення в один тап</span>
-        <span class="diagram-sub">Andriy, supporting - one-tap repeat з рядка Order history</span>
+        <span class="diagram-sub">Андрій, підтримувальна персона — повтор в один тап із рядка Історії замовлень</span>
       </div>
       <div class="mermaid-panel">
         <div class="mermaid">
 flowchart TD
-    r0(["Andriy wants to restock"])
-    rq1{"Logged in?"}
-    r2["Sign in / register"]
-    slog3(["Loading - signing in"])
-    qauth3{"Sign in successful?"}
-    serr3(["Error state - sign in failed"])
-    qrl3{"Retry sign in?"}
-    r1["Buyer account home"]
-    r3["Order history"]
-    qe{"Any past orders?"}
-    se4(["Empty state - no past orders to repeat"])
-    rexit(["Exit - shop via Home / goal selector"])
-    qrepeat{"Repeat from history row or open order detail?"}
-    r4["Order detail + Repeat order"]
-    rq2{"All previous items in stock?"}
-    so4(["Out of stock - one or more staples"])
-    rq3{"Remove unavailable and continue?"}
-    qfind{"Back to order history or search the item?"}
-    csf["Catalog and search"]
-    r5["Cart"]
-    qce4{"Cart empty?"}
-    ec4(["Empty state - cart empty"])
-    r6["Checkout"]
-    addr4(["Address selection - read Saved addresses, capture if none"])
-    sl4(["Loading - processing payment"])
-    rq4{"Payment successful?"}
-    ep4(["Error state - payment declined"])
-    rq5{"Retry payment?"}
-    qaband4{"Back to Cart or abandon?"}
-    dep(["Dead end - payment abandoned, cart preserved"])
-    r7["Order placed confirmation"]
-    ok4(["Success - staples reordered in one tap"])
+    r0(["Андрій хоче поповнити запас"])
+    rq1{"Залогінений?"}
+    r2["Вхід / реєстрація"]
+    slog3(["Завантаження — вхід"])
+    qauth3{"Вхід успішний?"}
+    serr3(["Помилка — вхід не вдався"])
+    qrl3{"Повторити вхід?"}
+    r1["Кабінет покупця"]
+    r3["Історія замовлень"]
+    qe{"Є минулі замовлення?"}
+    se4(["Порожньо — немає минулих замовлень для повтору"])
+    rexit(["Вихід — за покупками через Головну / вибір цілі"])
+    qrepeat{"Повтор із рядка історії чи відкрити деталі замовлення?"}
+    r4["Деталі замовлення + повтор"]
+    rq2{"Усі попередні позиції в наявності?"}
+    so4(["Немає в наявності — одна чи більше позицій"])
+    rq3{"Прибрати недоступне і продовжити?"}
+    qfind{"Назад до історії чи шукати товар?"}
+    csf["Каталог і пошук"]
+    r5["Кошик"]
+    qce4{"Кошик порожній?"}
+    ec4(["Порожньо — кошик порожній"])
+    r6["Оформлення"]
+    addr4(["Вибір адреси — читання збережених, ввід якщо немає"])
+    sl4(["Завантаження — обробка платежу"])
+    rq4{"Платіж успішний?"}
+    ep4(["Помилка — платіж відхилено"])
+    rq5{"Повторити платіж?"}
+    qaband4{"Назад у кошик чи покинути?"}
+    dep(["Тупик — платіж покинуто, кошик збережено"])
+    r7["Замовлення оформлено"]
+    ok4(["Успіх — staples повторно замовлено в один тап"])
 
     r0 --> rq1
-    rq1 -->|no| r2
+    rq1 -->|ні| r2
     r2 --> slog3
     slog3 --> qauth3
-    qauth3 -->|yes| r1
-    qauth3 -->|no| serr3
+    qauth3 -->|так| r1
+    qauth3 -->|ні| serr3
     serr3 --> qrl3
-    qrl3 -->|yes| r2
-    qrl3 -->|no| rexit
-    rq1 -->|yes| r1
-    r1 -->|order history| r3
+    qrl3 -->|так| r2
+    qrl3 -->|ні| rexit
+    rq1 -->|так| r1
+    r1 -->|історія замовлень| r3
     r3 --> qe
-    qe -->|no| se4
+    qe -->|ні| se4
     se4 --> rexit
-    qe -->|yes| qrepeat
-    qrepeat -->|repeat from row one tap| rq2
-    qrepeat -->|open order detail| r4
-    r4 -->|repeat order| rq2
-    rq2 -->|no| so4
+    qe -->|так| qrepeat
+    qrepeat -->|повтор із рядка в один тап| rq2
+    qrepeat -->|відкрити деталі замовлення| r4
+    r4 -->|повторити замовлення| rq2
+    rq2 -->|ні| so4
     so4 --> rq3
-    rq3 -->|yes| r5
-    rq3 -->|no| qfind
-    qfind -->|order history| r3
-    qfind -->|search the item| csf
-    csf -->|found add to cart| r5
-    rq2 -->|yes| r5
+    rq3 -->|так| r5
+    rq3 -->|ні| qfind
+    qfind -->|історія замовлень| r3
+    qfind -->|шукати товар| csf
+    csf -->|знайдено, у кошик| r5
+    rq2 -->|так| r5
     r5 --> qce4
-    qce4 -->|yes| ec4
-    ec4 -->|back to discovery| r3
-    qce4 -->|no| r6
+    qce4 -->|так| ec4
+    ec4 -->|назад до пошуку товару| r3
+    qce4 -->|ні| r6
     r6 --> addr4
     addr4 --> sl4
     sl4 --> rq4
-    rq4 -->|yes| r7
-    rq4 -->|no| ep4
+    rq4 -->|так| r7
+    rq4 -->|ні| ep4
     ep4 --> rq5
-    rq5 -->|yes| r6
-    rq5 -->|no| qaband4
-    qaband4 -->|back to cart| r5
-    qaband4 -->|abandon| dep
+    rq5 -->|так| r6
+    rq5 -->|ні| qaband4
+    qaband4 -->|назад у кошик| r5
+    qaband4 -->|покинути| dep
     r7 --> ok4
         </div>
       </div>
       <div class="flow-meta">
-        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">logged in; sign in successful; retry sign in; any past orders; repeat from history row or open order detail; all previous items in stock; remove unavailable and continue; back to order history or search the item; cart empty; payment successful; retry payment; back to cart or abandon.</span></div>
-        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">loading (signing in); error (sign in failed); empty (no past orders to repeat); out of stock (one or more staples); empty (cart empty); address selection; loading (processing payment); error (payment declined).</span></div>
-        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">payment abandoned (cart preserved). Empty order history - мʼякий вихід до Home / goal selector, не жорсткий тупик.</span></div>
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">залогінений; вхід успішний; повторити вхід; є минулі замовлення; повтор із рядка історії чи відкрити деталі замовлення; усі попередні позиції в наявності; прибрати недоступне і продовжити; назад до історії чи шукати товар; кошик порожній; платіж успішний; повторити платіж; назад у кошик чи покинути.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">завантаження (вхід); помилка (вхід не вдався); порожньо (немає минулих замовлень для повтору); немає в наявності (одна чи більше позицій); порожньо (кошик порожній); вибір адреси; завантаження (обробка платежу); помилка (платіж відхилено).</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">платіж покинуто (кошик збережено). Порожня історія замовлень — мʼякий вихід до Головної / вибору цілі, не жорсткий тупик.</span></div>
       </div>
     </div>
 
@@ -765,30 +765,30 @@ flowchart TD
     <div class="diagram-card">
       <div class="diagram-head">
         <span class="diagram-title">Job 6 - перегляд лояльності</span>
-        <span class="diagram-sub">Olena primary, Andriy secondary - Loyalty status, тільки перегляд</span>
+        <span class="diagram-sub">Олена первинна, Андрій вторинна — Статус лояльності, тільки перегляд</span>
       </div>
       <div class="mermaid-panel">
         <div class="mermaid">
 flowchart TD
-    ch["Coach account home"]
-    bh["Buyer account home"]
-    ls["Loyalty status"]
-    lsl(["Loading - loyalty status"])
-    qll{"Loyalty loaded?"}
-    lserr(["Error state - loyalty failed to load"])
-    qlhas{"Any accumulated benefit yet?"}
-    lsempty(["Empty state - nothing accumulated yet"])
-    lback(["Return to account home"])
+    ch["Кабінет тренера"]
+    bh["Кабінет покупця"]
+    ls["Статус лояльності"]
+    lsl(["Завантаження — статус лояльності"])
+    qll{"Лояльність завантажено?"}
+    lserr(["Помилка — лояльність не завантажилась"])
+    qlhas{"Є вже накопичена вигода?"}
+    lsempty(["Порожньо — поки нічого не накопичено"])
+    lback(["Повернення до кабінету"])
 
-    ch -->|view loyalty| ls
-    bh -->|view loyalty| ls
+    ch -->|перегляд лояльності| ls
+    bh -->|перегляд лояльності| ls
     ls --> lsl
     lsl --> qll
-    qll -->|no| lserr
-    lserr -->|retry| lsl
-    qll -->|yes| qlhas
-    qlhas -->|none yet| lsempty
-    qlhas -->|benefit shown| lback
+    qll -->|ні| lserr
+    lserr -->|повтор| lsl
+    qll -->|так| qlhas
+    qlhas -->|поки немає| lsempty
+    qlhas -->|вигоду показано| lback
     lsempty --> lback
         </div>
       </div>
@@ -809,13 +809,13 @@ flowchart TD
     <div class="status-banner">
       <h3>Стан матриці після двох раундів критики</h3>
       <div class="status-checks">
-        <div class="status-check"><span class="ck">0</span> orphan screens</div>
-        <div class="status-check"><span class="ck">0</span> orphan jobs</div>
-        <div class="status-check"><span class="ck">0</span> marked-but-unflowed</div>
-        <div class="status-check"><span class="ck">0</span> flowed-but-unmarked</div>
+        <div class="status-check"><span class="ck">0</span> екранів-сиріт</div>
+        <div class="status-check"><span class="ck">0</span> джобів-сиріт</div>
+        <div class="status-check"><span class="ck">0</span> позначено-але-без-flow</div>
+        <div class="status-check"><span class="ck">0</span> у-flow-але-без-позначки</div>
       </div>
       <div class="status-caveat">
-        <strong>Одна оговорка:</strong> Saved addresses (E4) працює через address-selection state на Checkout, який читає збережені адреси. Це його зареєстрована MVP-форма, а не пробіл у покритті. Кожен інший екран із позначкою має реальний вузол-екран у flow.
+        <strong>Одна оговорка:</strong> Збережені адреси (E4) працюють через стан вибору адреси на Оформленні, який читає збережені адреси. Це його зареєстрована MVP-форма, а не пробіл у покритті. Кожен інший екран із позначкою має реальний вузол-екран у flow.
       </div>
     </div>
 
@@ -829,7 +829,7 @@ flowchart TD
       <div class="obs-tag">Поза MVP-скоупом - не рядки і не стовпці матриці</div>
       <ul>
         <li>HYP-1 (реферальне посилання тренера атлетам) і HYP-2 (трекінг прийому атлетом) - гіпотетичні jobs без підтвердженого джерела, сутності у Under Question (UQ1, UQ2). Екранів у MVP не мають.</li>
-        <li>Post-launch екрани: Help me choose / quiz (ітерація J2), My Staples list (ітерація J4), Stockout email reminder (Decision 4, сповіщення, не екран). Обслуговують наявні jobs пізнішою ітерацією, не нові jobs.</li>
+        <li>Post-launch екрани: «Допоможи обрати» / квіз (ітерація J2), список «Мої стейпли» (ітерація J4), email-нагадування про відсутність товару (Рішення 4, сповіщення, не екран). Обслуговують наявні jobs пізнішою ітерацією, не нові jobs.</li>
       </ul>
     </div>
   </section>
@@ -840,35 +840,39 @@ flowchart TD
     <h2>Навігація</h2>
     <p class="section-lead">Пʼять глобальних входів, кожен - вхід у job-кластер. Два передні входи: новачок через ціль, коуч через робочий простір.</p>
 
+    <div class="note">
+      На мобілці (базова ширина 360px) первинна навігація — нижні таби (до 5): Головна · Каталог · Кошик · Обране · Акаунт; пошук лишається в топ-барі. Детальна специфікація — у розділі «Інформаційна архітектура → Навігація».
+    </div>
+
     <div class="nav-grid">
       <div class="nav-card">
-        <div class="obs-tag">A. Find</div>
-        <div class="nav-name">Home / goal selector</div>
-        <div class="nav-job">J2 + Decision 2: новачок перетворює ціль на безпечний набір продуктів через тайли цілей на головній. Активаційний вхід, не загальна "головна".</div>
+        <div class="obs-tag">A. Знайти</div>
+        <div class="nav-name">Головна / вибір цілі</div>
+        <div class="nav-job">J2 + Рішення 2: новачок перетворює ціль на безпечний набір продуктів через тайли цілей на головній. Активаційний вхід, не загальна "головна".</div>
         <div class="nav-who">Передній вхід: Вікторія (P3), новачок</div>
       </div>
       <div class="nav-card">
-        <div class="obs-tag">C. Coach workspace</div>
-        <div class="nav-name">For Coaches -> Coach account home</div>
-        <div class="nav-job">Main JTBD + Decision 1 (мультиклієнтське замовлення) і J1 + Decision 3 (оцінити опублікований тренерський прайс до переходу). Розлогінений - публічна сторінка, верифікований - Coach account home.</div>
+        <div class="obs-tag">C. Робочий простір тренера</div>
+        <div class="nav-name">«Для тренерів» → Кабінет тренера</div>
+        <div class="nav-job">Main JTBD + Рішення 1 (мультиклієнтське замовлення) і J1 + Рішення 3 (оцінити опублікований тренерський прайс до переходу). Розлогінений - публічна сторінка, верифікований - Кабінет тренера.</div>
         <div class="nav-who">Передній вхід: Олена (P1), Дмитро (P2), коуч</div>
       </div>
       <div class="nav-card">
-        <div class="obs-tag">A. Find</div>
-        <div class="nav-name">Search</div>
-        <div class="nav-job">J3 entry (покупець шукає відомий товар, щоб перевірити) і J4 recovery (постійний шукає товар, що закінчився). Доступна всім, але Main JTBD коуча йде через in-session quick-add, не через Search.</div>
-        <div class="nav-who">Передній вхід: Андрій (P4), Вікторія (P3); доступна всім</div>
+        <div class="obs-tag">A. Знайти</div>
+        <div class="nav-name">Пошук</div>
+        <div class="nav-job">Вхід для J3 (покупець шукає відомий товар, щоб перевірити) і відновлення для J4 (постійний шукає товар, що закінчився). Доступний усім, але Main JTBD коуча йде через швидке додавання в сесії, не через Пошук.</div>
+        <div class="nav-who">Передній вхід: Андрій (P4), Вікторія (P3); доступний усім</div>
       </div>
       <div class="nav-card">
-        <div class="obs-tag">B. Buy</div>
-        <div class="nav-name">Cart</div>
-        <div class="nav-job">Завершує покупку для Main, J2 і J4. Несе групування по клієнтах (Decision 1) у коуч-flow. Постійна - поточне замовлення завжди в один тап.</div>
+        <div class="obs-tag">B. Купити</div>
+        <div class="nav-name">Кошик</div>
+        <div class="nav-job">Завершує покупку для Main, J2 і J4. Несе групування по клієнтах (Рішення 1) у коуч-flow. Постійний - поточне замовлення завжди в один тап.</div>
         <div class="nav-who">Передній вхід: усі</div>
       </div>
       <div class="nav-card">
-        <div class="obs-tag">D + E. Reorder, Manage</div>
-        <div class="nav-name">Account</div>
-        <div class="nav-job">J4 + Decision 4 (історія замовлень і one-tap repeat) і Decision 3 (накопичувальна лояльність).</div>
+        <div class="obs-tag">D + E. Повтор, Акаунт</div>
+        <div class="nav-name">Акаунт</div>
+        <div class="nav-job">J4 + Рішення 4 (історія замовлень і повтор в один тап) і Рішення 3 (накопичувальна лояльність).</div>
         <div class="nav-who">Передній вхід: Андрій (P4), усі</div>
       </div>
     </div>
@@ -881,32 +885,32 @@ flowchart TD
         <h4>Коуч (Olena)</h4>
         <div class="depth-who">від входу до зібраного мультиклієнтського замовлення, quick-add у сесії</div>
         <div class="depth-num">8 <small>тапів на 2 клієнтів</small></div>
-        <div class="depth-chain">Coach account home            tap 0
- tap New order            -> Multi-client order session   tap 1
- tap Client A             -> client context set           tap 2
- quick-add product for A  -> tagged to A                  tap 3
- tap Client B             -> client context set           tap 4
- quick-add product for B  -> tagged to B                  tap 5
- tap Review / Cart        -> Cart                         tap 6
- tap Checkout             -> Checkout                     tap 7
- tap Place order          -> Order placed confirmation    tap 8</div>
+        <div class="depth-chain">Кабінет тренера                тап 0
+ тап Нове замовлення     -> Мультиклієнтська сесія      тап 1
+ тап Клієнт A            -> контекст клієнта задано      тап 2
+ швидке додавання для A  -> привʼязано до A              тап 3
+ тап Клієнт B            -> контекст клієнта задано      тап 4
+ швидке додавання для B  -> привʼязано до B              тап 5
+ тап Переглянути / Кошик -> Кошик                        тап 6
+ тап Оформлення          -> Оформлення                   тап 7
+ тап Оформити замовлення -> Замовлення оформлено         тап 8</div>
       </div>
       <div class="depth-card">
         <h4>Новачок (Viktoriia)</h4>
         <div class="depth-who">від входу до товару під ціль, тайли цілей на головній</div>
         <div class="depth-num">2 <small>тапи до товару (6 до покупки)</small></div>
-        <div class="depth-chain">Home / goal selector          tap 0
- tap goal tile            -> Goal Collection             tap 1
- tap a product            -> Product detail              tap 2   товар під ціль
- tap Add to cart          -> cart updated                tap 3
- tap Cart                 -> Cart                         tap 4
- tap Checkout             -> Checkout                     tap 5
- tap Place order          -> Order placed confirmation    tap 6</div>
+        <div class="depth-chain">Головна / вибір цілі           тап 0
+ тап тайл цілі           -> Колекція за ціллю            тап 1
+ тап товар               -> Деталі товару               тап 2   товар під ціль
+ тап У кошик             -> кошик оновлено               тап 3
+ тап Кошик               -> Кошик                        тап 4
+ тап Оформлення          -> Оформлення                   тап 5
+ тап Оформити замовлення -> Замовлення оформлено         тап 6</div>
       </div>
     </div>
 
     <div class="note">
-      Карта сайту, flows і навігація узгоджені: Main JTBD коуча йде через quick-add усередині Multi-client order session, а Catalog and search - глобальна утиліта для покупців, що шукають відомий товар (J3 entry, J4 recovery). Усі факти і числа, що потребують реальних даних, лишаються <span class="badge-q">[?]</span>.
+      Карта сайту, flows і навігація узгоджені: Main JTBD коуча йде через швидке додавання усередині Мультиклієнтської сесії замовлення, а Каталог і пошук - глобальна утиліта для покупців, що шукають відомий товар (вхід J3, відновлення J4). Усі факти і числа, що потребують реальних даних, лишаються <span class="badge-q">[?]</span>.
     </div>
   </section>
 
@@ -967,30 +971,30 @@ flowchart TD
 
   /* Build the traceability matrix from a data map */
   var COLS = [
-    ['A1','Home / goal selector'],['A2','Goal Collection'],['A3','Catalog and search'],['A4','Product detail'],
-    ['B1','Cart'],['B2','Checkout'],['B3','Order placed confirmation'],
-    ['C1','For Coaches page + published pricing'],['C2','Coach sign-up + social-link verify'],['C3','Coach account home'],['C4','Client list'],['C5','Client profile'],['C6','Multi-client order session'],
-    ['D1','Order history'],['D2','Order detail + Repeat order'],
-    ['E1','Sign in / register'],['E2','Buyer account home'],['E3','Loyalty status'],['E4','Saved addresses']
+    ['A1','Головна / вибір цілі'],['A2','Колекція за ціллю'],['A3','Каталог і пошук'],['A4','Деталі товару'],
+    ['B1','Кошик'],['B2','Оформлення'],['B3','Замовлення оформлено'],
+    ['C1','«Для тренерів» + опубліковані ціни'],['C2','Реєстрація тренера + верифікація соц-лінку'],['C3','Кабінет тренера'],['C4','Список клієнтів'],['C5','Профіль клієнта'],['C6','Мультиклієнтська сесія замовлення'],
+    ['D1','Історія замовлень'],['D2','Деталі замовлення + повтор'],
+    ['E1','Вхід / реєстрація'],['E2','Кабінет покупця'],['E3','Статус лояльності'],['E4','Збережені адреси']
   ];
   var ROWS = [
     ['Main JTBD', ['B1','B2','B3','C3','C4','C5','C6','E1'], false],
-    ['Main sub-step: create client (name + goal)', ['C4'], true],
-    ['Job 1 switch supplier', ['C1','C2'], false],
-    ['Job 2 goal-to-product', ['A1','A2','B1','B2','B3'], false],
-    ['Job 3 verify safety', ['A3','A4'], false],
-    ['Job 4 reorder', ['A3','B1','B2','B3','D1','D2','E1','E2','E4'], false],
-    ['Job 5 recommend with evidence', ['A4'], false],
-    ['Job 6 growing price benefit', ['C1','C3','E2','E3'], false],
-    ['ESJ-1 coach credibility', ['A4','C1'], false],
-    ['ESJ-2 beginner confidence', ['A1','A2','A4'], false],
-    ['ESJ-3 counterfeit skepticism', ['A4'], false],
-    ['ESJ-4 coach autonomy', ['C2','C3'], false]
+    ['Main, підкрок: створити клієнта (імʼя + ціль)', ['C4'], true],
+    ['Job 1 зміна постачальника', ['C1','C2'], false],
+    ['Job 2 ціль до продукту', ['A1','A2','B1','B2','B3'], false],
+    ['Job 3 перевірка безпеки', ['A3','A4'], false],
+    ['Job 4 повторне замовлення', ['A3','B1','B2','B3','D1','D2','E1','E2','E4'], false],
+    ['Job 5 рекомендація з доказами', ['A4'], false],
+    ['Job 6 зростаюча цінова вигода', ['C1','C3','E2','E3'], false],
+    ['ESJ-1 авторитет тренера', ['A4','C1'], false],
+    ['ESJ-2 впевненість новачка', ['A1','A2','A4'], false],
+    ['ESJ-3 страх підробок', ['A4'], false],
+    ['ESJ-4 автономія тренера', ['C2','C3'], false]
   ];
   (function(){
     var t = document.getElementById('matrix-table');
     if (!t) return;
-    var head = '<thead><tr><th>Job \\ Screen</th>' + COLS.map(function(c){return '<th>'+c[0]+'</th>';}).join('') + '</tr></thead>';
+    var head = '<thead><tr><th>Завдання \\ Екран</th>' + COLS.map(function(c){return '<th>'+c[0]+'</th>';}).join('') + '</tr></thead>';
     var body = '<tbody>' + ROWS.map(function(r){
       var marks = r[1];
       var cells = COLS.map(function(c){

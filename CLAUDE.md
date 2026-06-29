@@ -227,7 +227,7 @@ user flows, traceability) — jobs/persona-driven, intentionally a skeleton, now
 its states, components, filters, and SEO. This is the **«Інформаційна архітектура»**
 section in the unified left-sidebar navigation. Each page-level node is delivered as an
 md source of truth (`ia/docs/pages/`) plus a reviewable HTML visual (`ia/*.html`), and is
-listed in the sidebar (Карта сайту → Хедер → Футер → Головна → …). Method and reusable
+listed in the sidebar (Карта сайту → Навігація → Футер → Головна → …). Method and reusable
 templates are documented in `playbook/design-ia-playbook.md`.
 
 **Platform stance:** mobile-first, **fully responsive** (desktop↔mobile, mobile is the
@@ -238,12 +238,13 @@ layout is still designed deliberately (it is a store).
 - *Conceptual / global IA* — in `research/` («Концептуальна архітектура»,
   `research/concept.html`, `research/docs/sitemap.md` v0.6, `research/docs/flows.md` v0.3).
 - *Page-level IA* — «Інформаційна архітектура», in `ia/`. Source of truth: `ia/docs/`.
-  Per-page specs live in `ia/docs/pages/` (started with `header.md`); the full sitemap is
+  Per-page specs live in `ia/docs/pages/` (started with `navigation.md` = header + mobile
+  tabs, node 0.1; mobile baseline 360px, bottom-tab nav grounded in UX research); the full sitemap is
   `ia/docs/sitemap.md` / `ia/sitemap.html`.
 
 **Unified navigation:** all docs pages (research, personas, jtbd, concept, and every
 page-level IA page) share one left sidebar. Group order: Дослідження · Персони · JTBD ·
-Концептуальна архітектура — then the «Інформаційна архітектура» group (Карта сайту, Хедер,
+Концептуальна архітектура — then the «Інформаційна архітектура» group (Карта сайту, Навігація,
 and subsequent per-page nodes). The old per-page topbar on `ia/sitemap.html` was replaced
 with this sidebar.
 
