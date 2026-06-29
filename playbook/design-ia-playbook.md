@@ -199,5 +199,16 @@ Output = the wireframe library. Wireframes then just render it.
   chip in the header account zone + contextual upgrade nudge; «Цілі» desktop mega-menu =
   goals + top categories (2 columns) + "all products" link, with «Каталог» kept as the
   full-catalog entry. Navigation node now has zero open questions.
+- **2026-06-30** — Detailed the desktop header (LOCKED). **Meta bar**: «Для тренерів»
+  (emphasized, the coach front door) + Акції · Бренди · Доставка · Повернення · Про нас on
+  the left; location + language (Укр/Рус) dropdowns on the right. **Main bar**: Logo ·
+  Каталог (primary button) · Цілі (secondary dropdown) · Search with a «Знайти» button ·
+  Увійти/Кабінет (icon + caption) · Обране · Бонуси · Кошик. **Каталог mega-menu** (Belok-
+  style): categories → subcategories → inner + a «За ціллю» column + "all products".
+  **Account dropdown** specced (guest/buyer/coach). **Informative cart** (empty / count+sum)
+  and **Бонуси** element (guest «Отримати» → register, logged-in balance; mechanics `[?]`).
+  Referenced Belok screenshots for structure. All header mockups are **black-and-white**
+  (wireframe level) so colour isn't carried into wireframes — colour comes at the concept
+  stage. On mobile, the meta bar + language/location + Бонуси move to the Account screen.
 - **Next** — Footer (0.2) then Home (0.0) as page-level IA pages (md + html), then cluster
   by cluster. Add each new node to the sidebar group and to `ia/docs/sitemap.md`.

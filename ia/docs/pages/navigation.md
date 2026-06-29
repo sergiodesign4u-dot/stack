@@ -4,7 +4,7 @@
 - **Type:** Global component / state (inherited on every page)
 - **Canonical visual:** `ia/navigation.html`. This markdown is the source of truth for the
   spec; the HTML is the rendered, reviewable view.
-- **Scope:** Navigation = the **header** (desktop top bar + mobile top bar) **plus the
+- **Scope:** Navigation = the **header** (desktop **meta bar + main bar**, mobile top bar) **plus the
   mobile bottom tab bar**. Both are documented here as one navigation node.
 - **Stance:** mobile-first, fully responsive. **Mobile baseline = 360px** (reason layouts
   from 360px up).
@@ -36,22 +36,59 @@ Five global entries (from the conceptual IA), expressed across header + tabs:
 
 Plus **Favorites** (wishlist → 7.6), an MVP convenience and a mobile tab.
 
-## A. Header — anatomy (desktop top bar / mobile top bar)
+## A. Header — meta bar + main bar (desktop) / top bar (mobile)
+
+Two desktop rows: a **meta bar** (utility) then the **main bar**. Mockups in
+`navigation.html` are intentionally **black-and-white** (wireframe level) — colour is added
+at the concept stage, not carried into wireframes.
+
+### Meta bar (desktop, top row)
+
+| Element | Behavior | Goes to |
+|---------|----------|---------|
+| **Для тренерів** (emphasized) | Coach front door, accented (like Belok's «Акції») | 5.0 |
+| Info links | Акції · Бренди · Доставка · Повернення · Про нас | 8.x |
+| **Location** dropdown | City select (delivery/availability; feeds SEO city pages) | 2.1a |
+| **Language** dropdown | Укр / Рус (hreflang, locale URLs) | — |
+
+### Main bar (desktop)
 
 | # | Element | Behavior | Goes to |
 |---|---------|----------|---------|
-| 1 | Logo (Stack) | Always visible | 0.0 Home |
-| 2 | **Цілі** | Desktop mega-menu = 2 columns (goals + top categories) + "all products" link; on mobile via Home tab / Каталог. «Каталог» stays the entry to the full catalog. | 2.2 / 2.1 |
-| 3 | **Каталог** | All products | 2.0 |
-| 4 | **Для тренерів** | Coach front door, always visible regardless of role | 5.0 |
-| 5 | **Search** | Inline field (desktop) / icon → expanding field (mobile top bar) | 2.5 |
-| 6 | **Favorites** icon + count | Wishlist | 7.6 |
-| 7 | **Cart** icon + count | Opens cart dialog | 6.0 |
-| 8 | **Account** zone | State-dependent (see matrix) | 1.0 / 7.0 |
-| 9 | **Role / tier badge** | Coach only — calm Free / Pro chip in the account zone; upgrade nudge is contextual (at the client-cap), not a banner | 7.7 / 5.1 |
+| 1 | Logo (Stack) | Always visible | 0.0 |
+| 2 | **Каталог** (primary button) | Prominent, icon; opens the mega-menu | 2.0 / 2.1 |
+| 3 | **Цілі** (secondary) | Short dropdown of 4–6 goals + "all goals" | 2.2 |
+| 4 | **Search** + «Знайти» button | Field with an explicit button; `<form role="search">` → /search?q= | 2.5 |
+| 5 | **Увійти / Кабінет** | Icon + caption: «Увійти» (guest) / «Кабінет» (logged-in); opens the account dropdown | 1.0 / 7.0 |
+| 6 | **Обране** + count | Guest → sign-in dialog; logged-in → list | 7.6 |
+| 7 | **Бонуси** | Guest: «бонуси» + big «Отримати»; logged-in: bonus balance | 7.4 `[?]` |
+| 8 | **Кошик** (informative) | Empty: icon + «Кошик»; active: count + total sum | 6.0 |
+| 9 | **Tier badge** (coach) | Calm Free/Pro chip in the account zone | 5.1 / 7.7 |
 
-On mobile the top bar carries only Logo · Search · Favorites · Cart (primary destinations
-move to the bottom tabs); secondary links live inside the Account screen.
+On **mobile** the top bar carries only Logo · Search · Favorites · Cart; the **meta bar
+(Для тренерів, info links), language, location, and Бонуси move to the Account screen**.
+Primary nav = the bottom tab bar (section B).
+
+### Catalog mega-menu (desktop)
+
+Opening «Каталог» reveals a mega-menu (structure like Belok):
+- **Left column** — top categories (Протеїн, Креатин, Амінокислоти, Гейнери, Вітаміни,
+  Жироспалювачі, Батончики, Бренди), each with a flyout ›.
+- **Middle** — the hovered category's **subcategories + inner** (e.g. Протеїн → за типом /
+  за формою / за ціллю; inner facets — brand, flavour, serving size, price — on the listing).
+- **Right column** — a **«За ціллю» duplicate** (Набір маси · Схуднення · Відновлення ·
+  Енергія) + an "all products" link. Goals are duplicated here as an alternate entry; the
+  short «Цілі» dropdown in the main bar is the quick version. «Каталог» stays the entry to
+  the full catalog.
+
+### Account dropdown
+
+- **Guest:** Увійти / Реєстрація buttons; links — Обране (→ sign-in), Бонуси (→ Отримати),
+  **Для тренерів → 5.0**, info links.
+- **Buyer (logged-in):** header with name + bonus balance; Кабінет → 7.0, Замовлення → 7.2,
+  Бонуси/лояльність → 7.4, Обране → 7.6, Адреси → 7.5, **Стати тренером → 7.7**, Вихід.
+- **Coach:** tier chip in the dropdown header; adds Кабінет тренера → 5.2, Клієнти → 5.3,
+  Нова сесія → 5.5; «Стати тренером» disappears (role already active).
 
 ## B. Mobile bottom tab bar (primary nav, mobile)
 
@@ -88,9 +125,24 @@ avoided — it buries primary destinations behind overflow; secondary links live
 - **Tier badge = calm chip in the header account zone** (status/identity); upgrade nudge is
   contextual at the client-cap moment, not a global banner. (Conditional on the Free/Pro
   tier, still a hypothesis.)
-- **"Цілі" mega-menu = goals + top categories** (two columns) + an "all products" link;
-  «Каталог» remains the entry to the full catalog (intentional, useful overlap; satisfies
-  Baymard's "categories top-level").
+- **Catalog mega-menu** (not «Цілі»): «Каталог» (primary button) opens the mega-menu —
+  categories → subcategories → inner + a «За ціллю» column + "all products". «Цілі» in the
+  main bar is a short goals dropdown. Satisfies Baymard's "categories top-level".
+
+### Header structure — LOCKED 2026-06-30
+
+- **Meta bar** (desktop top row): left — «Для тренерів» (emphasized) + Акції · Бренди ·
+  Доставка · Повернення · Про нас; right — location dropdown + language dropdown (Укр/Рус).
+- **Main bar:** Logo · Каталог (primary) · Цілі (secondary dropdown) · Search + «Знайти» ·
+  Увійти/Кабінет (icon + caption) · Обране · Бонуси · Кошик.
+- **Informative cart:** empty = icon + «Кошик»; active = count + total sum.
+- **Bonuses element:** guest = «бонуси» + big «Отримати» (→ register); logged-in = bonus
+  balance. Bonus mechanics (points vs %) `[?]`; activates loyalty (Decision 3) and touches
+  the brief's "loyalty points out of scope" — keep as a hypothesis.
+- **«Для тренерів» placement:** emphasized link in the meta bar (coach front door is also on
+  the home teaser + account). Primary audience stays reachable without crowding the main bar.
+- **Mockups are black-and-white** (wireframe level); colour is added at the concept stage.
+- On mobile, the meta bar, language, location, and Бонуси move to the Account screen.
 
 ## State matrix (auth / role)
 
@@ -135,9 +187,15 @@ Favorites → 7.6 · Cart → 6.0 · Увійти → 1.0 · Account → 7.0 · 
 
 ## Open questions [?]
 
-- None open for navigation. All navigation decisions were locked 2026-06-29 (see Locked
-  decisions). Downstream/dependent: the Free/Pro coach tier itself is still a business-model
-  hypothesis; the tier badge applies if/when it ships.
+- **Bonus mechanics:** points-wallet vs %-discount, earn/spend rules, expiry — `[?]`.
+  Activates loyalty (Decision 3) and touches the brief's "loyalty points out of scope";
+  the header «Бонуси» element shows a balance but the model is not committed.
+- **Free/Pro coach tier** itself is still a business-model hypothesis; the tier badge
+  applies if/when it ships.
+- City list for the location dropdown / SEO city pages (which cities at launch).
+
+All structural navigation decisions (tabs, header rows, mega-menu, dropdowns, favorites,
+search, language/location) were locked 2026-06-29 / 06-30 — see Locked decisions.
 
 ## Sources (mobile bottom-nav UX)
 
