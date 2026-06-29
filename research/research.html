@@ -151,6 +151,25 @@
       font-weight: 600;
     }
 
+    .sidebar-nav a.sidebar-sub {
+      font-size: 12px;
+      padding: 5px 12px 5px 22px;
+      color: var(--text-light);
+    }
+    .sidebar-nav a.sidebar-sub.active {
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .sidebar-page-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 8px 12px 4px;
+    }
+
     .sidebar-divider {
       border: none;
       border-top: 1px solid var(--border);
@@ -990,14 +1009,15 @@
 <aside class="sidebar" id="sidebar">
   <a href="#" class="sidebar-logo">Stack</a>
   <nav class="sidebar-nav">
-    <a href="#intro">Вступ</a>
-    <a href="#canvas">Lean UX</a>
-    <a href="#model">Стратегія</a>
-    <a href="#aarrr">AARRR</a>
-    <a href="#competitors">Конкуренти</a>
-    <a href="#benchmark">Бенчмарк</a>
-    <a href="#patterns">UX-патерни</a>
-    <a href="#conclusions">Висновки</a>
+    <div class="sidebar-page-label">Дослідження</div>
+    <a href="#intro" class="sidebar-sub">Вступ</a>
+    <a href="#canvas" class="sidebar-sub">Lean UX</a>
+    <a href="#model" class="sidebar-sub">Стратегія</a>
+    <a href="#aarrr" class="sidebar-sub">AARRR</a>
+    <a href="#competitors" class="sidebar-sub">Конкуренти</a>
+    <a href="#benchmark" class="sidebar-sub">Бенчмарк</a>
+    <a href="#patterns" class="sidebar-sub">UX-патерни</a>
+    <a href="#conclusions" class="sidebar-sub">Висновки</a>
     <hr class="sidebar-divider">
     <a href="personas.html">Персони</a>
     <a href="jtbd.html">JTBD</a>
