@@ -169,19 +169,19 @@ Sourcing agreements with Ukrainian distributors and brands, structured data form
 
 ## Research Phase Output (Phase 1 complete, June 2026)
 
-**Live pages (GitHub Pages, Ukrainian):**
-- research.html - competitive analysis, benchmark, UX patterns, AARRR, Lean UX Canvas, strategy
-- personas.html - 4 personas (Olena primary coach, Dmytro new coach, Viktoriia beginner, Andriy regular)
-- jtbd.html - JTBD hierarchy, matrix, critique and danger list
-- ia.html - information architecture: sitemap, 5 user flows, traceability matrix, navigation
+**Live pages (GitHub Pages, Ukrainian)** — now in `research/`:
+- research/research.html - competitive analysis, benchmark, UX patterns, AARRR, Lean UX Canvas, strategy
+- research/personas.html - 4 personas (Olena primary coach, Dmytro new coach, Viktoriia beginner, Andriy regular)
+- research/jtbd.html - JTBD hierarchy, matrix, critique and danger list
+- research/ia.html - information architecture: sitemap, 5 user flows, traceability matrix, navigation
 
-**Locked research files:**
-- research/master-research.md v5 - single source of truth
-- research/strategy.md v5 - product decisions locked (4 decisions); riskiest assumption updated after founder coach interviews
-- research/personas.md v1.2 - people observations and 4 personas
-- research/jtbd.md v1.2 - JTBD set (now incl. Job 6 loyalty retention), matrix, critique
-- research/sitemap.md v0.6 - IA: entities, screens, navigation, traceability matrix
-- research/flows.md v0.3 - 5 user flows (Mermaid)
+**Locked research files — SOURCE OF TRUTH in `research/docs/`** (markdown; the `research/*.html` pages above are the rendered Ukrainian summaries):
+- research/docs/master-research.md v5 - single source of truth
+- research/docs/strategy.md v5 - product decisions locked (4 decisions); riskiest assumption updated after founder coach interviews
+- research/docs/personas.md v1.2 - people observations and 4 personas
+- research/docs/jtbd.md v1.2 - JTBD set (now incl. Job 6 loyalty retention), matrix, critique
+- research/docs/sitemap.md v0.6 - IA: entities, screens, navigation, traceability matrix
+- research/docs/flows.md v0.3 - 5 user flows (Mermaid)
 
 **4 product decisions locked:**
 1. Coach ordering (MVP): saved client list + per-client order tagging + order history per client
@@ -197,7 +197,7 @@ Sourcing agreements with Ukrainian distributors and brands, structured data form
 
 ## Information Architecture (Phase 2 prep, June 2026)
 
-IA was built and audited across two critique rounds (zero defects: no orphan screens, no orphan jobs, no marked-but-unflowed or flowed-but-unmarked cells). Live page: ia.html. Sources: research/sitemap.md v0.6, research/flows.md v0.3.
+IA was built and audited across two critique rounds (zero defects: no orphan screens, no orphan jobs, no marked-but-unflowed or flowed-but-unmarked cells). Live page: research/ia.html. Sources: research/docs/sitemap.md v0.6, research/docs/flows.md v0.3.
 
 **Sitemap - 19 MVP screens in 5 clusters (by human intent):**
 - A. Find: Home / goal selector, Goal Collection, Catalog and search, Product detail
@@ -223,7 +223,7 @@ Wireframes (Phase 2) not started; this IA is its input.
 | Phase | Focus | Status |
 |-------|-------|--------|
 | Phase 1 | Research (this phase) | Done |
-| Phase 2 | Wireframes | Not started (IA prep done: ia.html, sitemap.md v0.6, flows.md v0.3) |
+| Phase 2 | Wireframes | Not started (IA prep done: research/ia.html, research/docs/sitemap.md v0.6, research/docs/flows.md v0.3) |
 | Phase 3 | Concept & Visual Direction | Not started |
 | Phase 4 | Design System & Tokens | Not started |
 | Phase 5 | Component Library | Not started |
