@@ -173,7 +173,7 @@ Sourcing agreements with Ukrainian distributors and brands, structured data form
 - research/research.html - competitive analysis, benchmark, UX patterns, AARRR, Lean UX Canvas, strategy
 - research/personas.html - 4 personas (Olena primary coach, Dmytro new coach, Viktoriia beginner, Andriy regular)
 - research/jtbd.html - JTBD hierarchy, matrix, critique and danger list
-- research/ia.html - information architecture: sitemap, 5 user flows, traceability matrix, navigation
+- research/concept.html - conceptual architecture (was ia.html): jobs/persona-driven sitemap clusters, 5 user flows, traceability matrix, navigation. Renamed to distinguish it from the detailed page-level IA in `ia/`.
 
 **Locked research files — SOURCE OF TRUTH in `research/docs/`** (markdown; the `research/*.html` pages above are the rendered Ukrainian summaries):
 - research/docs/master-research.md v5 - single source of truth
@@ -195,9 +195,9 @@ Sourcing agreements with Ukrainian distributors and brands, structured data form
 
 ---
 
-## Information Architecture (Phase 2 prep, June 2026)
+## Conceptual Architecture — global layer (Phase 2 prep, June 2026)
 
-IA was built and audited across two critique rounds (zero defects: no orphan screens, no orphan jobs, no marked-but-unflowed or flowed-but-unmarked cells). Live page: research/ia.html. Sources: research/docs/sitemap.md v0.6, research/docs/flows.md v0.3.
+This jobs/persona-driven layer was built and audited across two critique rounds (zero defects: no orphan screens, no orphan jobs, no marked-but-unflowed or flowed-but-unmarked cells). Live page: research/concept.html (renamed from ia.html — see the detailed page-level IA below for the "real" information architecture). Sources: research/docs/sitemap.md v0.6, research/docs/flows.md v0.3.
 
 **Sitemap - 19 MVP screens in 5 clusters (by human intent):**
 - A. Find: Home / goal selector, Goal Collection, Catalog and search, Product detail
@@ -220,20 +220,32 @@ Wireframes (Phase 2) not started; this IA is its input.
 
 ## Information Architecture v2 — Detailed / page-level (Phase 2 prep, June 2026)
 
-The research-phase IA above is the **global layer** (sitemap clusters, navigation, user
-flows, traceability). It is intentionally a skeleton. Before wireframes we add a
-**page-level layer**: what each page contains, its states, components, filters, and SEO.
-Method and reusable templates are documented in `playbook/design-ia-playbook.md`.
+The conceptual architecture above is the **global layer** (sitemap clusters, navigation,
+user flows, traceability) — jobs/persona-driven, intentionally a skeleton, now titled
+**«Концептуальна архітектура»** (`research/concept.html`). Before wireframes we add the
+**page-level layer** — the actual, full information architecture: what each page contains,
+its states, components, filters, and SEO. This is the **«Інформаційна архітектура»**
+section in the unified left-sidebar navigation. Each page-level node is delivered as an
+md source of truth (`ia/docs/pages/`) plus a reviewable HTML visual (`ia/*.html`), and is
+listed in the sidebar (Карта сайту → Хедер → Футер → Головна → …). Method and reusable
+templates are documented in `playbook/design-ia-playbook.md`.
 
 **Platform stance:** mobile-first, **fully responsive** (desktop↔mobile, mobile is the
 priority). Block priority and the first screen are reasoned from mobile; the desktop
 layout is still designed deliberately (it is a store).
 
 **Two IA layers:**
-- *Global IA* — in `research/` (`research/ia.html`, `research/docs/sitemap.md` v0.6,
-  `research/docs/flows.md` v0.3). Unchanged.
-- *Page-level IA* — new, in `ia/`. Source of truth: `ia/docs/`. Per-page specs live in
-  `ia/docs/pages/`; the full sitemap is `ia/docs/sitemap.md`.
+- *Conceptual / global IA* — in `research/` («Концептуальна архітектура»,
+  `research/concept.html`, `research/docs/sitemap.md` v0.6, `research/docs/flows.md` v0.3).
+- *Page-level IA* — «Інформаційна архітектура», in `ia/`. Source of truth: `ia/docs/`.
+  Per-page specs live in `ia/docs/pages/` (started with `header.md`); the full sitemap is
+  `ia/docs/sitemap.md` / `ia/sitemap.html`.
+
+**Unified navigation:** all docs pages (research, personas, jtbd, concept, and every
+page-level IA page) share one left sidebar. Group order: Дослідження · Персони · JTBD ·
+Концептуальна архітектура — then the «Інформаційна архітектура» group (Карта сайту, Хедер,
+and subsequent per-page nodes). The old per-page topbar on `ia/sitemap.html` was replaced
+with this sidebar.
 
 **Artifact format:** Sitemap + IA as numbered cards (`X.Y`, X = flow cluster) with an
 INCLUDES list and flow arrows; dialogs and states are first-class nodes. Reference

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack — IA: Хедер</title>
+  <style>
+    :root {
+      --bg: #f7f6f3; --surface: #ffffff; --surface-alt: #f2f0eb; --border: #e5e2db;
+      --text: #1a1916; --text-secondary: #6b6760; --text-light: #9b9790;
+      --accent: #2d5a3d; --accent-light: #e8f0ea; --accent-mid: #4a8c62;
+      --warn: #b5882a; --warn-bg: #fdf3e3;
+      --radius: 10px; --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); }
+
+    /* TOPBAR (mobile) */
+    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: rgba(247,246,243,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 101; }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); transition: background .15s; }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+
+    /* SIDEBAR */
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: rgba(247,246,243,.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-right: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform .22s ease; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+    .sidebar-nav { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px; }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+    .sidebar-nav a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: var(--radius-sm); transition: color .15s, background .15s; margin-bottom: 1px; }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-nav a.sidebar-sub { font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light); }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-page-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 4px; }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+    .sidebar-upcoming { padding: 12px 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-light); line-height: 1.8; }
+
+    /* LAYOUT */
+    .page { max-width: 1100px; margin: 0 auto; padding: 68px 20px 80px; }
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 44px 44px 80px; }
+    }
+
+    .hero { margin-bottom: 30px; }
+    .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+    .hero h1 { font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .hero-lead { font-size: 16px; color: var(--text-secondary); max-width: 760px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-size: 13px; color: var(--text-secondary); }
+    .hero-meta strong { color: var(--text); font-weight: 600; }
+
+    .section { margin-bottom: 44px; scroll-margin-top: 64px; }
+    .section-num { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .section h2 { font-size: 22px; letter-spacing: -0.015em; margin-bottom: 6px; }
+    .section-lead { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 20px; max-width: 720px; }
+
+    /* MOCKUPS */
+    .mock { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 16px; background: var(--surface); }
+    .mock-label { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-light); padding: 8px 12px; background: var(--surface-alt); border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
+    .bar { display: flex; align-items: center; gap: 16px; padding: 12px 16px; }
+    .mlogo { font-weight: 700; color: var(--accent); font-size: 16px; letter-spacing: -0.02em; }
+    .mnav { display: flex; gap: 14px; font-size: 13px; color: var(--text-secondary); }
+    .mnav span { white-space: nowrap; }
+    .mnav .coachdoor { color: var(--accent); font-weight: 600; }
+    .spacer { flex: 1; }
+    .msearch { flex: 0 1 230px; background: var(--surface-alt); border: 1px solid var(--border); border-radius: 100px; padding: 6px 12px; font-size: 12.5px; color: var(--text-light); }
+    .icons { display: flex; align-items: center; gap: 12px; }
+    .icon { position: relative; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--text-secondary); }
+    .icon .badge { position: absolute; top: -4px; right: -6px; background: var(--accent); color: #fff; font-size: 9px; font-weight: 700; line-height: 1; padding: 2px 4px; border-radius: 100px; min-width: 14px; text-align: center; }
+    .acct { font-size: 12.5px; font-weight: 600; }
+    .btn-login { background: var(--accent); color: #fff; padding: 6px 14px; border-radius: 100px; font-size: 12.5px; font-weight: 600; }
+    .acct-menu { display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; color: var(--text); }
+    .avatar { width: 26px; height: 26px; border-radius: 100px; background: var(--accent-light); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+    .tier { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 2px 7px; border-radius: 100px; }
+    .tier.free { background: var(--surface-alt); color: var(--text-secondary); }
+    .tier.pro { background: var(--warn-bg); color: var(--warn); }
+
+    .phone { max-width: 340px; }
+    .phone .bar { gap: 12px; padding: 10px 12px; }
+    .drawer { border-top: 1px solid var(--border); padding: 10px 14px 14px; background: var(--surface-alt); }
+    .drawer .ditem { font-size: 13px; padding: 8px 4px; border-bottom: 1px solid var(--border); color: var(--text-secondary); display: flex; justify-content: space-between; }
+    .drawer .ditem:last-child { border-bottom: none; }
+    .drawer .ditem.head { color: var(--accent); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+
+    .note { font-size: 12px; color: var(--text-light); margin: 4px 0 18px; }
+
+    /* TABLES */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 8px; }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--surface-alt); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-secondary); }
+    tr:last-child td { border-bottom: none; }
+    td b { color: var(--text); }
+    .arrow { color: var(--accent-mid); font-weight: 600; white-space: nowrap; }
+
+    .chip { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
+    .chip.guest { background: #f1f0eb; color: #6b6760; }
+    .chip.buyer { background: var(--accent-light); color: var(--accent); }
+    .chip.coach { background: #eef0f6; color: #46568c; }
+
+    .cols { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 720px) { .cols.two { grid-template-columns: 1fr 1fr; } }
+
+    .open { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 18px 20px; }
+    .open h2 { font-size: 18px; margin-bottom: 10px; color: var(--warn); }
+    .open ul { margin-left: 18px; } .open li { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+
+    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }
+    @media (max-width: 600px) { .hero h1 { font-size: 24px; } .bar { flex-wrap: wrap; } }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="../research/research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="../research/research.html" class="sidebar-logo">Stack</a>
+  <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Інформаційна архітектура</div>
+    <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
+    <a href="header.html" class="sidebar-sub active">Хедер</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-upcoming">Далі<br>Футер · Головна<br>Каталог · Картка<br>Кошик · Акаунт<br>Wireframes</div>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Посторінкова IA · вузол 0.1</div>
+    <h1>Хедер</h1>
+    <p class="hero-lead">Глобальна навігаційна оболонка на кожній сторінці. Тримає <b>двоє вхідних дверей, що не блокують одне одного</b> — ціль-перші для початківця і «Для тренерів» для тренера — та утиліти покупця (пошук, обране, кошик, акаунт). Адаптується за станом входу й роллю; головна площина внутрішньої перелінковки для SEO.</p>
+    <div class="hero-meta">
+      <div><strong>Тип</strong> глобальний компонент / стан</div>
+      <div><strong>Джерело істини</strong> ia/docs/pages/header.md</div>
+      <div><strong>Стани</strong> гість · покупець · тренер × мобілка / десктоп</div>
+      <div><strong>Стійка</strong> mobile-first</div>
+    </div>
+  </div>
+
+  <!-- 1. Desktop states -->
+  <section class="section" id="desktop">
+    <div class="section-num">01 · Стани на десктопі</div>
+    <h2>Десктоп: гість / покупець / тренер</h2>
+    <p class="section-lead">Повна панель: Лого · Цілі · Каталог · Для тренерів · (розтяжка) · Пошук · Обране · Кошик · Акаунт. Змінюється лише зона акаунта, обране й (для тренера) бейдж тарифу.</p>
+
+    <div class="mock">
+      <div class="mock-label"><span class="chip guest">Гість</span> не залогінений</div>
+      <div class="bar">
+        <span class="mlogo">Stack</span>
+        <div class="mnav"><span>Цілі ▾</span><span>Каталог</span><span class="coachdoor">Для тренерів</span></div>
+        <div class="spacer"></div>
+        <div class="msearch">Пошук товарів…</div>
+        <div class="icons">
+          <div class="icon">♡</div>
+          <div class="icon">🛒</div>
+          <span class="btn-login">Увійти</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock">
+      <div class="mock-label"><span class="chip buyer">Покупець</span> залогінений</div>
+      <div class="bar">
+        <span class="mlogo">Stack</span>
+        <div class="mnav"><span>Цілі ▾</span><span>Каталог</span><span class="coachdoor">Для тренерів</span></div>
+        <div class="spacer"></div>
+        <div class="msearch">Пошук товарів…</div>
+        <div class="icons">
+          <div class="icon">♡<span class="badge">3</span></div>
+          <div class="icon">🛒<span class="badge">2</span></div>
+          <div class="acct-menu"><span class="avatar">О</span>Олена ▾</div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Меню акаунта покупця: Замовлення · Лояльність · Обране · Адреси · <b>Стати тренером → 7.7</b> · Вихід.</p>
+
+    <div class="mock">
+      <div class="mock-label"><span class="chip coach">Тренер</span> залогінений · роль активована</div>
+      <div class="bar">
+        <span class="mlogo">Stack</span>
+        <div class="mnav"><span>Цілі ▾</span><span>Каталог</span><span class="coachdoor">Для тренерів</span></div>
+        <div class="spacer"></div>
+        <div class="msearch">Пошук товарів…</div>
+        <div class="icons">
+          <div class="icon">♡<span class="badge">5</span></div>
+          <div class="icon">🛒<span class="badge">8</span></div>
+          <span class="tier pro">Pro</span>
+          <div class="acct-menu"><span class="avatar">Д</span>Дмитро ▾</div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Меню акаунта тренера додає <b>Кабінет тренера → 5.2</b> і <b>Нову сесію замовлення → 5.5</b>; бейдж тарифу Free / <span class="tier pro" style="display:inline-block">Pro</span>.</p>
+  </section>
+
+  <!-- 2. Mobile states -->
+  <section class="section" id="mobile">
+    <div class="section-num">02 · Мобілка (пріоритет)</div>
+    <h2>Мобілка: компактна панель + шухляда</h2>
+    <p class="section-lead">Компактна панель = Лого · Пошук · Обране · Кошик · Гамбургер. Основна навігація (Цілі / Каталог / Для тренерів), акаунт/вхід та інфо-лінки — у шухляді. Панель фіксована, ущільнюється при скролі.</p>
+
+    <div class="cols two">
+      <div>
+        <div class="mock phone">
+          <div class="mock-label"><span class="chip guest">Гість</span> панель</div>
+          <div class="bar">
+            <span class="mlogo">Stack</span>
+            <div class="spacer"></div>
+            <div class="icons">
+              <div class="icon">🔍</div>
+              <div class="icon">♡</div>
+              <div class="icon">🛒</div>
+              <div class="icon">☰</div>
+            </div>
+          </div>
+        </div>
+        <p class="note">Тап по 🔍 розгортає поле пошуку на всю ширину панелі.</p>
+      </div>
+
+      <div>
+        <div class="mock phone">
+          <div class="mock-label"><span class="chip guest">Гість</span> шухляда відкрита</div>
+          <div class="bar">
+            <span class="mlogo">Stack</span>
+            <div class="spacer"></div>
+            <div class="icons"><div class="icon">✕</div></div>
+          </div>
+          <div class="drawer">
+            <div class="ditem head">Навігація</div>
+            <div class="ditem">Цілі <span class="arrow">▾</span></div>
+            <div class="ditem">Каталог</div>
+            <div class="ditem" style="color:var(--accent);font-weight:600">Для тренерів <span class="arrow">→ 5.0</span></div>
+            <div class="ditem head" style="margin-top:6px">Акаунт</div>
+            <div class="ditem">Увійти / Реєстрація <span class="arrow">→ 1.0</span></div>
+            <div class="ditem">Обране <span class="arrow">→ 7.6</span></div>
+            <div class="ditem head" style="margin-top:6px">Інфо</div>
+            <div class="ditem">Доставка · Контакти · Блог</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock phone">
+      <div class="mock-label"><span class="chip coach">Тренер</span> панель · бейдж тарифу</div>
+      <div class="bar">
+        <span class="mlogo">Stack</span>
+        <span class="tier pro">Pro</span>
+        <div class="spacer"></div>
+        <div class="icons">
+          <div class="icon">🔍</div>
+          <div class="icon">♡<span class="badge">5</span></div>
+          <div class="icon">🛒<span class="badge">8</span></div>
+          <div class="icon">☰</div>
+        </div>
+      </div>
+    </div>
+    <p class="note">У шухляді тренера: <b>Кабінет тренера → 5.2</b>, <b>Нова сесія замовлення → 5.5</b>, статус ролі й тарифу. Розглядаємо нижній таб-бар (Головна · Пошук · Кошик · Акаунт) — <b>[?]</b> MVP чи post-launch.</p>
+  </section>
+
+  <!-- 3. Anatomy -->
+  <section class="section" id="anatomy">
+    <div class="section-num">03 · Анатомія</div>
+    <h2>Елементи й переходи</h2>
+    <p class="section-lead">Десять елементів. Реалізує пʼять глобальних точок навігації + Обране як зручність MVP.</p>
+    <table>
+      <tr><th>#</th><th>Елемент</th><th>Поведінка</th><th>Веде до</th></tr>
+      <tr><td>1</td><td><b>Лого</b> Stack</td><td>Завжди видиме</td><td class="arrow">0.0 Головна</td></tr>
+      <tr><td>2</td><td><b>Цілі</b></td><td>Мега-меню: цілі + топ-категорії (десктоп); у шухляді (мобілка)</td><td class="arrow">2.2 / 2.1</td></tr>
+      <tr><td>3</td><td><b>Каталог</b></td><td>Усі товари</td><td class="arrow">2.0</td></tr>
+      <tr><td>4</td><td><b>Для тренерів</b></td><td>Вхідні двері тренера, видимі завжди</td><td class="arrow">5.0</td></tr>
+      <tr><td>5</td><td><b>Пошук</b></td><td>Поле (десктоп) / іконка → поле (мобілка)</td><td class="arrow">2.5</td></tr>
+      <tr><td>6</td><td><b>Обране</b> + лічильник</td><td>Список бажаного</td><td class="arrow">7.6</td></tr>
+      <tr><td>7</td><td><b>Кошик</b> + лічильник</td><td>Відкриває діалог кошика</td><td class="arrow">6.0</td></tr>
+      <tr><td>8</td><td><b>Зона акаунта</b></td><td>Залежить від стану (див. матрицю)</td><td class="arrow">1.0 / 7.0</td></tr>
+      <tr><td>9</td><td><b>Бейдж ролі/тарифу</b></td><td>Лише тренер — чип Free / Pro</td><td class="arrow">7.7 / 5.1</td></tr>
+      <tr><td>10</td><td><b>Гамбургер</b> (мобілка)</td><td>Відкриває шухляду навігації</td><td>—</td></tr>
+    </table>
+  </section>
+
+  <!-- 4. State matrix -->
+  <section class="section" id="states">
+    <div class="section-num">04 · Матриця станів</div>
+    <h2>Що змінюється за станом і роллю</h2>
+    <table>
+      <tr><th>Зона</th><th>Гість</th><th>Покупець</th><th>Тренер</th></tr>
+      <tr>
+        <td><b>Акаунт</b></td>
+        <td>«Увійти» → 1.0 (діалог) + Реєстрація</td>
+        <td>Меню → 7.0: Замовлення, Лояльність, Обране, Адреси, <b>Стати тренером</b>, Вихід</td>
+        <td>Меню додає <b>Кабінет тренера → 5.2</b> + бейдж тарифу</td>
+      </tr>
+      <tr>
+        <td><b>Обране</b></td>
+        <td>Іконка є; при додаванні → пропозиція входу, потім злиття <b>[?]</b></td>
+        <td>Список + лічильник</td>
+        <td>Власний список + лічильник</td>
+      </tr>
+      <tr>
+        <td><b>Кошик</b></td>
+        <td>Видимий, лічильник</td>
+        <td>Те саме</td>
+        <td>Те саме; групування по клієнтах (6.0)</td>
+      </tr>
+      <tr>
+        <td><b>Один наступний крок</b></td>
+        <td>Відкриття (Цілі) + Увійти</td>
+        <td>Кошик / повтор замовлення</td>
+        <td><b>Нова сесія замовлення → 5.5</b></td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- 5. SEO & a11y -->
+  <section class="section" id="seo">
+    <div class="section-num">05 · SEO та доступність</div>
+    <h2>Розмітка глобального компонента</h2>
+    <div class="cols two">
+      <div>
+        <h3 style="font-size:14px;margin-bottom:8px;color:var(--accent)">SEO</h3>
+        <table>
+          <tr><td>У хедері <b>немає H1</b> — H1 належить тілу сторінки.</td></tr>
+          <tr><td>Лого — <b>&lt;a&gt;</b> на «/», обгортає назву сайту.</td></tr>
+          <tr><td>Навігація в <b>&lt;nav aria-label&gt;</b>; розгляд schema.org SiteNavigationElement.</td></tr>
+          <tr><td>Мега-меню — <b>краулені &lt;a&gt;</b> з ключовими анкорами (Протеїн, Креатин, Вітаміни…). Головна площина внутрішньої перелінковки.</td></tr>
+          <tr><td>Пошук — справжня <b>&lt;form role="search"&gt;</b> на /search?q=.</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3 style="font-size:14px;margin-bottom:8px;color:var(--accent)">Доступність</h3>
+        <table>
+          <tr><td>Skip-to-content лінк на початку.</td></tr>
+          <tr><td>Гамбургер: <b>aria-expanded</b>, фокус-пастка в шухляді, ESC і клік по оверлею закривають.</td></tr>
+          <tr><td>Іконки кошика/обраного: <b>aria-label</b> з лічильником.</td></tr>
+          <tr><td>Мега-меню — навігація клавіатурою, видимий фокус.</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Open questions -->
+  <section class="section" id="open">
+    <div class="open">
+      <h2>Відкриті питання [?]</h2>
+      <ul>
+        <li>Обране для гостя: зберігати локально й зливати при вході — чи вимагати вхід для збереження?</li>
+        <li>Нижній таб-бар на мобілці на додачу до верхньої панелі — у MVP чи post-launch?</li>
+        <li>Бейдж тарифу (Free/Pro) у хедері — чи лише в акаунті? Схиляємось до бейджа.</li>
+        <li>Глибина мега-меню «Цілі» — лише цілі чи цілі + категорії?</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="footer-text">
+    Stack — Посторінкова IA · Хедер (вузол 0.1). Джерело істини: ia/docs/pages/header.md. Карта сайту: sitemap.html. Концептуальний шар: ../research/concept.html. Червень 2026, чернетка.
+  </div>
+
+</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+</script>
+</body>
+</html>

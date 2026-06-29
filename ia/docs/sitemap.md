@@ -4,10 +4,13 @@
 - **Canonical artifact:** `ia/sitemap.html` (the visual cards + Mermaid overview the team
   reviews and iterates on). This markdown is a lightweight structural index only — do not
   treat it as a second source to keep in lockstep; edit the HTML, then update this list.
-- **Relation to research-phase IA:** the global IA (clusters, navigation model,
-  traceability, user flows) stays in `research/` (`research/ia.html`,
-  `research/docs/sitemap.md` v0.6, `research/docs/flows.md`). This is the *detailed /
-  page-level* layer.
+- **Relation to the conceptual layer:** the conceptual / global IA (clusters, navigation
+  model, traceability, user flows) stays in `research/` — «Концептуальна архітектура»
+  (`research/concept.html`, `research/docs/sitemap.md` v0.6, `research/docs/flows.md`).
+  This `ia/` layer is the *detailed / page-level* IA («Інформаційна архітектура»).
+- **Page-level specs:** one md source of truth per node in `ia/docs/pages/`, each rendered
+  as a reviewable HTML visual in `ia/`. Done so far: `pages/header.md` → `ia/header.html`
+  (node 0.1). Next: Footer (0.2), Home (0.0), then cluster by cluster.
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
   nodes. Reference visual: `research/sitemap png example/`.
 - **Stance:** mobile-first, fully responsive. Coach = buyer (not a marketplace). SEO is

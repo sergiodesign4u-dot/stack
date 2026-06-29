@@ -105,14 +105,21 @@ Primary CTA (one clear next step): <...>
 Responsive: <mobile stack → desktop layout notes>
 ```
 
-## Inherited component library
+## Inherited components — documented as page-level IA nodes (not a separate artifact)
 
-Define once, reference everywhere. Typical members:
-Header (state variants: guest / logged-in / role), Footer, Breadcrumbs, Search,
-Product card, Filter panel / facets, Auth dialogs (sign in / sign up / forgot
-password / link sent / confirmation / reset / success), Cart, Goal tiles, Quiz entry.
+_(Stack decision, 2026-06-29)_ Rather than a standalone "component library" page, the
+**global elements are documented as page-level IA nodes themselves** — Header is node 0.1,
+Footer is 0.2, etc. Each gets the same treatment as a page: an md source of truth in
+`ia/docs/pages/` plus a reviewable HTML visual in `ia/`, and a line in the unified
+sidebar. The "library" emerges as the set of these nodes; shared sub-elements (Search,
+Product card, Filter panel, Auth dialogs, Cart, Goal tiles) are described inside the nodes
+that own them and cross-referenced, instead of duplicated in a separate doc.
 
-For each: variants, the states it reacts to, and where it appears.
+For a stateful global component, the node spec's core is a **state matrix** (e.g. Header:
+guest / buyer / coach × mobile / desktop, plus transient states like search-open,
+mega-open, scrolled), an **anatomy table** (element → behavior → destination), the
+**transitions**, and **SEO/a11y** notes (a global component carries no H1; it is the main
+internal-linking surface).
 
 ---
 
@@ -154,5 +161,19 @@ Output = the wireframe library. Wireframes then just render it.
   retail wholesale + 2-3 client cap, instant; Pro = max wholesale + unlimited clients,
   paid (~99 UAH/mo). Activates the brief's deferred paid-subscription question; Free price
   must still pass the coach price gate; primary persona needs Pro. Not committed.
-- **Next** — inherited component library as `ia/components.html` (header states, footer,
-  product card, filter panel, auth dialogs) → then page-level IA per cluster.
+- **2026-06-29** — Pivot on the component library: **no separate `components.html`.**
+  Each card/node becomes its own page-level IA page = md source of truth (`ia/docs/pages/`)
+  + reviewable HTML visual (`ia/*.html`). Started with the **Header** (node 0.1):
+  `ia/docs/pages/header.md` + `ia/header.html` (state matrix guest/buyer/coach × mobile/
+  desktop, anatomy table, transitions, SEO/a11y, open questions).
+- **2026-06-29** — Unified the doc site under **one left sidebar** across all pages
+  (research, personas, jtbd, concept, and every page-level IA page). Two groups:
+  research-phase pages, then an «Інформаційна архітектура» group listing the page-level
+  nodes (Карта сайту → Хедер → …). Converted `ia/sitemap.html` from its standalone topbar
+  to the shared sidebar layout.
+- **2026-06-29** — Renamed the old global-IA page: `research/ia.html` →
+  `research/concept.html`, titled **«Концептуальна архітектура»** (jobs/persona-driven
+  clusters, flows, traceability). The name **«Інформаційна архітектура»** is now reserved
+  for the detailed page-level layer in `ia/`.
+- **Next** — Footer (0.2) then Home (0.0) as page-level IA pages (md + html), then cluster
+  by cluster. Add each new node to the sidebar group and to `ia/docs/sitemap.md`.
