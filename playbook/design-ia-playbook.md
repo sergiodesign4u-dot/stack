@@ -1,0 +1,145 @@
+# Design & IA Process Playbook
+
+A reusable, project-agnostic methodology for taking a digital product from research
+to wireframe-ready information architecture. Captured while building **Stack**
+(a Ukrainian sport-nutrition e-commerce store), but written to be lifted into other
+projects. Stack-specific examples are marked _(example)_.
+
+> Conventions used in this repo (and recommended generally):
+> - Markdown docs are written in **English**.
+> - Live/visual pages are written in the **product language** (Ukrainian for Stack).
+> - Each artifact has **one source of truth** under a `docs/` folder; live HTML pages
+>   are rendered summaries of those docs, never the source.
+
+---
+
+## Core idea
+
+Build the full **library** of what goes into the product *before* wireframing, so
+wireframes become pure rendering, not invention. You grow a skeleton (sitemap) into a
+body (page-level IA) deliberately, layer by layer. Nothing new should appear for the
+first time inside a wireframe.
+
+## Phase model
+
+```
+Research → IA (global + page-level) → Wireframes → Concept → Design System → Components → Handoff
+```
+
+Research answers *who* and *why* (personas, JTBD). IA answers *where* and *what*. Only
+then do wireframes answer *how it looks*.
+
+---
+
+## Principle 1 — Two layers of IA
+
+| Layer | Question it answers | Artifacts |
+|-------|--------------------|-----------|
+| **Global IA** | "Where can a user go?" | Sitemap, navigation (header/footer), user flows, traceability matrix (jobs → screens) |
+| **Page-level IA** | "What is on each page and how does it behave?" | Per-page spec + inherited-component library |
+
+Most teams stop at the global layer and discover the page layer was missing only once
+they are deep in wireframes. Do the page layer explicitly.
+
+## Principle 2 — Jobs are "why", IA is "how"
+
+Keep the JTBD set small and stable. Filters, facets, alternate search modes (by
+category / goal / symptom / brand), city landing pages, etc. are **IA mechanisms that
+serve existing jobs** — they are not new jobs. Do not inflate the job list to justify a
+piece of UI. _(Stack example: "search by symptom" is a discovery entry point serving the
+beginner-guidance job, not a separate job.)_
+
+## Principle 3 — Mobile-first, fully responsive
+
+The product is fully responsive desktop↔mobile, but **mobile is the priority**. Reason
+block priority and the "above the fold" first screen from mobile; still design the
+desktop layout deliberately (it is a store, not an app). State this stance in the
+project context so every later artifact inherits it.
+
+## Principle 4 — SEO baked into IA (pulled forward)
+
+Do **not** defer SEO to wireframing. Before wireframes, define per page:
+H1, H2 structure, meta title, meta description, URL slug, breadcrumbs, SEO-copy intent,
+and any dynamic variables (e.g. city — _"Протеїн Одеса"_). This way the wireframes land
+on a finished SEO structure instead of bolting it on later.
+
+---
+
+## Artifact format — Sitemap + IA
+
+Adopted format (reference example lives in `research/sitemap png example/`):
+
+- **Numbered cards.** `X.Y` where `X` = a flow cluster and `Y` = a step/state within it.
+- Each card = **title** + **type** (page / dialog / state) + **INCLUDES** (the blocks
+  and components on it) + **flow arrows** to the next nodes.
+- **Dialogs and states are first-class nodes** (empty / loading / error / success /
+  logged-in / role variants), not footnotes.
+
+Deliver **two artifacts** (decided for Stack):
+
+1. **Lean schema** — structure + transitions + brief includes. The map you scan.
+2. **Full page-level IA** — one detailed spec per page, in docs. The detail you build from.
+
+## Per-page IA spec template
+
+Copy this per page:
+
+```
+Page: <name>            Type: page | dialog | state
+Cluster/№: <X.Y>
+Purpose: <one line>     Job(s) served: <#>
+URL / slug: </path>     Breadcrumbs: A > B > C
+SEO:
+  H1: <...>
+  H2 structure: <...>
+  meta title / description: <...>
+  SEO-copy intent: <what the copy must achieve>
+  dynamic vars: <e.g. city>
+Content blocks (priority order, mobile-first):
+  1. <above the fold>
+  2. ...
+Components (from library) + variants: <Header(role=guest), ProductCard, FilterPanel...>
+States: guest | logged-in | <role> | empty | loading | error | out-of-stock
+Filters / facets (catalog pages): price, brand, country, goal, form, availability
+Primary CTA (one clear next step): <...>
+Responsive: <mobile stack → desktop layout notes>
+```
+
+## Inherited component library
+
+Define once, reference everywhere. Typical members:
+Header (state variants: guest / logged-in / role), Footer, Breadcrumbs, Search,
+Product card, Filter panel / facets, Auth dialogs (sign in / sign up / forgot
+password / link sent / confirmation / reset / success), Cart, Goal tiles, Quiz entry.
+
+For each: variants, the states it reacts to, and where it appears.
+
+---
+
+## How to run it (sequence)
+
+0. **Reframe context** — platform stance (mobile-first responsive), the two IA layers,
+   SEO pulled forward. Update the project brief so all later work inherits it.
+1. **Complete the sitemap** — exhaustive page tree + auth/dialog/state nodes + dynamic
+   (e.g. city) variants. Lean includes only.
+2. **Inherited component library** — header/footer/dialogs/card/filters defined once.
+3. **Page-level IA per cluster** — fill the per-page template, cluster by cluster.
+
+Output = the wireframe library. Wireframes then just render it.
+
+---
+
+## Project log — Stack (append-only)
+
+- **2026-06-29** — Repo restructured: research HTML moved to `research/`, research
+  markdown moved to `research/docs/` as the single source of truth. Sidebar navigation
+  made consistent across pages.
+- **2026-06-29** — Adopted this playbook. Locked decisions for the new IA push:
+  - Coach model stays **"coach-as-buyer"** (multi-client ordering), **not** a coach
+    marketplace/directory. Rejected ChatGPT's directory model (it also pulled in
+    "consultation", which is out of MVP scope).
+  - Deliver sitemap and page-level IA as **two separate artifacts**.
+  - **Do not change JTBD** — filters and symptom search are IA, not new jobs.
+  - SEO **pulled forward** into IA. Mobile-first responsive confirmed as the stance.
+- **Next** — full sitemap (`ia/docs/sitemap.md`) → component library → page-level IA;
+  then a live visual schema page (Ukrainian).

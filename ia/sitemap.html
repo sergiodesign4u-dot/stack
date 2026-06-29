@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack — Карта сайту + IA (детальна)</title>
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --surface: #ffffff;
+      --surface-alt: #f2f0eb;
+      --border: #e5e2db;
+      --text: #1a1916;
+      --text-secondary: #6b6760;
+      --text-light: #9b9790;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0ea;
+      --accent-mid: #4a8c62;
+      --warn: #b5882a;
+      --warn-bg: #fdf3e3;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+      --panel: #15140f;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 20px; background: rgba(247,246,243,.9); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .topbar-meta { font-size: 12px; color: var(--text-light); }
+
+    .page { max-width: 1240px; margin: 0 auto; padding: 32px 20px 80px; }
+
+    .hero { margin-bottom: 28px; }
+    .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+    .hero h1 { font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .hero-lead { font-size: 16px; color: var(--text-secondary); max-width: 760px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 16px; font-size: 13px; color: var(--text-secondary); }
+    .hero-meta strong { color: var(--text); font-weight: 600; }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; padding: 14px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); margin-bottom: 26px; font-size: 13px; color: var(--text-secondary); }
+    .legend b { color: var(--text); font-weight: 600; }
+
+    .chip { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; letter-spacing: .02em; }
+    .chip.page { background: var(--accent-light); color: var(--accent); }
+    .chip.dialog { background: #eef0f6; color: #46568c; }
+    .chip.state { background: #f1f0eb; color: #6b6760; }
+    .chip.flow { background: #f3ecdd; color: var(--warn); }
+    .chip.section { background: #eef4f0; color: var(--accent-mid); }
+
+    .clusternav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+    .clusternav a { font-size: 13px; font-weight: 600; text-decoration: none; color: var(--text-secondary); background: var(--surface); border: 1px solid var(--border); padding: 6px 12px; border-radius: 100px; transition: all .15s; }
+    .clusternav a:hover { color: var(--accent); border-color: var(--accent-mid); background: var(--accent-light); }
+
+    .mermaid-panel { background: var(--panel); padding: 22px 16px; border-radius: var(--radius); overflow-x: auto; margin-bottom: 36px; box-shadow: var(--shadow); }
+    .mermaid { display: flex; justify-content: center; min-width: fit-content; }
+    .mermaid svg { max-width: 100%; height: auto; }
+
+    .cluster { margin-bottom: 40px; scroll-margin-top: 70px; }
+    .cluster-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+    .cluster-num { font-size: 13px; font-weight: 700; color: var(--accent-mid); }
+    .cluster-head h2 { font-size: 21px; letter-spacing: -0.01em; }
+    .cluster-sub { font-size: 13px; color: var(--text-light); margin-bottom: 18px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
+
+    .node { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 15px; box-shadow: var(--shadow-sm); scroll-margin-top: 70px; display: flex; flex-direction: column; }
+    .node:target { border-color: var(--accent-mid); box-shadow: 0 0 0 2px var(--accent-light); }
+    .node-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+    .node-num { font-size: 12px; font-weight: 700; color: var(--text-light); letter-spacing: .03em; }
+    .node h3 { font-size: 15px; line-height: 1.3; margin-bottom: 10px; }
+    .includes-label { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-light); margin-bottom: 5px; }
+    .includes { list-style: none; margin-bottom: 11px; }
+    .includes li { font-size: 12.5px; color: var(--text-secondary); padding-left: 13px; position: relative; line-height: 1.45; }
+    .includes li::before { content: "·"; position: absolute; left: 3px; color: var(--accent-mid); font-weight: 700; }
+    .includes li b { color: var(--text); font-weight: 600; }
+    .links { font-size: 12px; color: var(--text-light); margin-top: auto; padding-top: 9px; border-top: 1px dashed var(--border); }
+    .links a { text-decoration: none; font-weight: 600; white-space: nowrap; }
+    .links a:hover { text-decoration: underline; }
+    .job { font-size: 11px; color: var(--accent-mid); font-weight: 600; margin-top: 7px; }
+
+    .open { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 18px 20px; }
+    .open h2 { font-size: 18px; margin-bottom: 10px; color: var(--warn); }
+    .open ul { margin-left: 18px; }
+    .open li { font-size: 14px; color: var(--text-secondary); margin-bottom: 5px; }
+
+    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 24px; }
+      .page { padding: 22px 14px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../research/ia.html" class="topbar-logo">Stack</a>
+  <span class="topbar-meta">Карта сайту + IA · v0.4 (чернетка)</span>
+</div>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Фаза 2 — підготовка · детальна IA</div>
+    <h1>Карта сайту + інформаційна архітектура</h1>
+    <p class="hero-lead">Повне дерево сторінок Stack як вузли-картки: номер за флоу-кластером, тип, блок «включає» та переходи. Діалоги й стани — повноцінні вузли. Це «лагідна» схема (структура + переходи); повна постранична специфікація кожного вузла ведеться окремо.</p>
+    <div class="hero-meta">
+      <div><strong>Стійка</strong> mobile-first, повністю адаптивний (десктоп↔мобілка, пріоритет мобілка)</div>
+      <div><strong>Модель тренера</strong> тренер = покупець (мультиклієнт), не маркетплейс</div>
+      <div><strong>Авторизація</strong> єдиний вхід/реєстрація (діалог) для всіх; роль тренера активується в акаунті</div>
+      <div><strong>Глобальна IA</strong> у research/ia.html</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <b>Типи вузлів:</b>
+    <span class="chip page">Сторінка</span>
+    <span class="chip dialog">Діалог</span>
+    <span class="chip state">Стан</span>
+    <span class="chip flow">Флоу</span>
+    <span class="chip section">Секція</span>
+    <span>· <b>Включає</b> — блоки/компоненти на вузлі · <b>→</b> — переходи</span>
+  </div>
+
+  <div class="clusternav">
+    <a href="#c0">0 · Головна та навігація</a>
+    <a href="#c1">1 · Авторизація</a>
+    <a href="#c2">2 · Каталог і пошук</a>
+    <a href="#c3">3 · Картка товару</a>
+    <a href="#c4">4 · Гід за ціллю</a>
+    <a href="#c5">5 · Кабінет тренера</a>
+    <a href="#c6">6 · Кошик і оформлення</a>
+    <a href="#c7">7 · Акаунт покупця</a>
+    <a href="#c8">8 · Контент і legal</a>
+  </div>
+
+  <div class="mermaid-panel">
+    <div class="mermaid">
+flowchart TD
+  H["0 Головна + навігація"]
+  H --> C2["2 Каталог і пошук"]
+  H --> C3["3 Картка товару"]
+  H --> C4["4 Гід за ціллю / квіз"]
+  H --> C5["5 Кабінет тренера<br/>(тренер = покупець)"]
+  H --> C6["6 Кошик і оформлення"]
+  H --> C7["7 Акаунт покупця"]
+  H --> C8["8 Контент і legal"]
+  H -.-> C1["1 Авторизація<br/>(діалоги-стани)"]
+
+  C2 --> C3
+  C3 --> C6
+  C4 --> C6
+  C5 --> C6
+  C6 --> C7
+  C7 -->|повтор у 1 тап| C6
+  C1 --> C7
+  C7 -.->|стати тренером| C5
+    </div>
+  </div>
+
+  <!-- 0 Home & navigation -->
+  <section class="cluster" id="c0">
+    <div class="cluster-head"><span class="cluster-num">0.x</span><h2>Головна та навігація</h2></div>
+    <p class="cluster-sub">Точка входу й глобальні елементи-оболонки (хедер, футер), що змінюються залежно від стану входу. Наслідуються на всіх сторінках.</p>
+    <div class="grid">
+
+      <article class="node" id="n00">
+        <div class="node-head"><span class="node-num">0.0</span><span class="chip page">Сторінка</span></div>
+        <h3>Головна</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes">
+          <li>Hero / промо-банер</li>
+          <li>Плитки цілей</li>
+          <li>Топ-категорії</li>
+          <li>Вхід у квіз</li>
+          <li>Стрічка довіри</li>
+          <li>Тизер «Для тренерів»</li>
+        </ul>
+        <div class="links">→ <a href="#n20">2.0</a> · <a href="#n22">2.2</a> · <a href="#n30">3.0</a> · <a href="#n40">4.0</a> · <a href="#n50">5.0</a> · <a href="#n10">1.0</a></div>
+      </article>
+
+      <article class="node" id="n01">
+        <div class="node-head"><span class="node-num">0.1</span><span class="chip state">Стан</span></div>
+        <h3>Хедер (гість / покупець / тренер)</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes">
+          <li>Логотип, вхід у цілі, «Для тренерів»</li>
+          <li>Пошук</li>
+          <li><b>Обране (іконка)</b></li>
+          <li>Кошик (іконка)</li>
+          <li>Акаунт · Вхід / Реєстрація (діалог)</li>
+          <li>Залогінений: Замовлення, Лояльність</li>
+          <li>У меню акаунта: «Стати тренером» → 7.7</li>
+        </ul>
+        <div class="links">→ <a href="#n10">1.0</a> · <a href="#n20">2.0</a> · <a href="#n60">6.0</a> · <a href="#n76">7.6</a> · <a href="#n50">5.0</a></div>
+      </article>
+
+      <article class="node" id="n02">
+        <div class="node-head"><span class="node-num">0.2</span><span class="chip state">Стан</span></div>
+        <h3>Футер (глобальний)</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes">
+          <li>Лінки на категорії</li>
+          <li>Лінки на цілі</li>
+          <li>SEO-лінки міст</li>
+          <li>Інфо-сторінки (доставка, повернення…)</li>
+          <li>Legal, контакти</li>
+          <li>Соцмережі, контакт-телефон</li>
+        </ul>
+        <div class="links">→ <a href="#n21">2.1</a> · <a href="#n80">8.0</a> · <a href="#n82">8.2–8.5</a> · <a href="#n86">8.6</a></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 1 Authentication -->
+  <section class="cluster" id="c1">
+    <div class="cluster-head"><span class="cluster-num">1.x</span><h2>Авторизація</h2></div>
+    <p class="cluster-sub">Вхід і реєстрація — модальні вікна, не уводять зі сторінки. <b>Єдиний вхід для всіх ролей</b>; роль тренера активується пізніше в акаунті (5.1).</p>
+    <div class="grid">
+
+      <article class="node" id="n10">
+        <div class="node-head"><span class="node-num">1.0</span><span class="chip dialog">Діалог</span></div>
+        <h3>Вхід (Sign in)</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes">
+          <li><b>Єдиний вхід для всіх ролей</b> (модалка)</li>
+          <li>Email / пароль</li>
+          <li>Вхід через соцмережі</li>
+          <li>Посилання «Забули пароль?»</li>
+        </ul>
+        <div class="links">→ <a href="#n11">1.1</a> · <a href="#n12">1.2</a> · <a href="#n70">7.0</a></div>
+      </article>
+
+      <article class="node" id="n11">
+        <div class="node-head"><span class="node-num">1.1</span><span class="chip dialog">Діалог</span></div>
+        <h3>Реєстрація (Sign up)</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes">
+          <li><b>Єдина реєстрація для всіх</b> (модалка)</li>
+          <li>Форма реєстрації, згода (consent)</li>
+          <li>Роль тренера активується пізніше → 5.1</li>
+        </ul>
+        <div class="links">→ <a href="#n13">1.3</a></div>
+      </article>
+
+      <article class="node" id="n12">
+        <div class="node-head"><span class="node-num">1.2</span><span class="chip dialog">Діалог</span></div>
+        <h3>Забули пароль</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Поле email</li></ul>
+        <div class="links">→ <a href="#n13">1.3</a></div>
+      </article>
+
+      <article class="node" id="n13">
+        <div class="node-head"><span class="node-num">1.3</span><span class="chip dialog">Діалог</span></div>
+        <h3>Лист надіслано</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Текст підтвердження</li><li>Надіслати ще раз</li></ul>
+        <div class="links">→ <a href="#n14">1.4</a></div>
+      </article>
+
+      <article class="node" id="n14">
+        <div class="node-head"><span class="node-num">1.4</span><span class="chip dialog">Діалог</span></div>
+        <h3>Підтвердження email</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>CTA підтвердити</li></ul>
+        <div class="links">→ <a href="#n15">1.5</a></div>
+      </article>
+
+      <article class="node" id="n15">
+        <div class="node-head"><span class="node-num">1.5</span><span class="chip dialog">Діалог</span></div>
+        <h3>Скидання пароля</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Поля нового пароля</li></ul>
+        <div class="links">→ <a href="#n16">1.6</a></div>
+      </article>
+
+      <article class="node" id="n16">
+        <div class="node-head"><span class="node-num">1.6</span><span class="chip dialog">Діалог</span></div>
+        <h3>Успіх</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Повідомлення про успіх</li></ul>
+        <div class="links">→ <a href="#n70">7.0</a></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 2 Catalog -->
+  <section class="cluster" id="c2">
+    <div class="cluster-head"><span class="cluster-num">2.x</span><h2>Каталог і пошук</h2></div>
+    <p class="cluster-sub">Усі точки відкриття товару: категорії, цілі, симптоми, бренди, пошук, фільтри, SEO-сторінки міст.</p>
+    <div class="grid">
+
+      <article class="node" id="n20">
+        <div class="node-head"><span class="node-num">2.0</span><span class="chip page">Сторінка</span></div>
+        <h3>Каталог / усі товари</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Breadcrumbs, H1</li><li><b>Панель фільтрів</b></li><li>Сортування</li><li>Сітка товарів, пагінація</li></ul>
+        <div class="links">→ <a href="#n30">3.0</a> · <a href="#n21">2.1</a></div>
+      </article>
+
+      <article class="node" id="n21">
+        <div class="node-head"><span class="node-num">2.1</span><span class="chip page">Сторінка</span></div>
+        <h3>Категорія</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Протеїн, Вітаміни, Креатин, Амінокислоти, Гейнери…</li><li>H1 + змінна міста («Протеїн Одеса»)</li><li>SEO-текст, фільтри, сітка</li></ul>
+        <div class="links">→ <a href="#n30">3.0</a> · <a href="#n21a">2.1a</a></div>
+      </article>
+
+      <article class="node" id="n21a">
+        <div class="node-head"><span class="node-num">2.1a</span><span class="chip state">Стан</span></div>
+        <h3>Категорія — варіант міста</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>SEO-лендинг під місто</li><li>slug + H1 + текст</li></ul>
+        <div class="links">→ <a href="#n30">3.0</a></div>
+        <div class="job">SEO</div>
+      </article>
+
+      <article class="node" id="n22">
+        <div class="node-head"><span class="node-num">2.2</span><span class="chip page">Сторінка</span></div>
+        <h3>Колекція за ціллю</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Набір маси / Схуднення / Відновлення / Енергія</li><li>Вступ до цілі, кураторський набір</li><li>Нотатка довіри</li></ul>
+        <div class="links">→ <a href="#n30">3.0</a></div>
+        <div class="job">Рішення 2</div>
+      </article>
+
+      <article class="node" id="n23">
+        <div class="node-head"><span class="node-num">2.3</span><span class="chip page">Сторінка</span></div>
+        <h3>Симптом / стан</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Втома / Поганий сон / Суглоби / Імунітет</li><li>Вступ, рекомендовані товари</li></ul>
+        <div class="links">→ <a href="#n30">3.0</a></div>
+        <div class="job">Job 2 / 4 · MVP [?]</div>
+      </article>
+
+      <article class="node" id="n24">
+        <div class="node-head"><span class="node-num">2.4</span><span class="chip page">Сторінка</span></div>
+        <h3>Бренди</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Індекс брендів → лістинг</li></ul>
+        <div class="links">→ <a href="#n20">2.0</a> · <a href="#n30">3.0</a></div>
+      </article>
+
+      <article class="node" id="n25">
+        <div class="node-head"><span class="node-num">2.5</span><span class="chip page">Сторінка</span></div>
+        <h3>Результати пошуку</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Луна запиту</li><li>Фільтри, сітка</li><li>Порожній стан</li></ul>
+        <div class="links">→ <a href="#n30">3.0</a></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 3 Product -->
+  <section class="cluster" id="c3">
+    <div class="cluster-head"><span class="cluster-num">3.x</span><h2>Картка товару</h2></div>
+    <p class="cluster-sub">Сторінка довіри: спершу зняти сумнів (склад, дозування, походження, сертифікат), потім продати.</p>
+    <div class="grid">
+
+      <article class="node" id="n30">
+        <div class="node-head"><span class="node-num">3.0</span><span class="chip page">Сторінка</span></div>
+        <h3>Деталі товару</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Галерея, H1</li><li>Ціна (+ тариф тренера, якщо тренер)</li><li>CTA «У кошик», «В обране»</li><li><b>Склад / дозування / походження / сертифікат</b></li><li>Таби</li></ul>
+        <div class="links">→ <a href="#n31">3.1</a> · <a href="#n32">3.2</a> · <a href="#n33">3.3</a> · <a href="#n60">6.0</a></div>
+        <div class="job">Job 4 (довіра)</div>
+      </article>
+
+      <article class="node" id="n31">
+        <div class="node-head"><span class="node-num">3.1</span><span class="chip section">Секція</span></div>
+        <h3>Відгуки</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Відгуки користувачів</li><li>Зведення рейтингу</li></ul>
+        <div class="links">→ <a href="#n30">3.0</a></div>
+      </article>
+
+      <article class="node" id="n32">
+        <div class="node-head"><span class="node-num">3.2</span><span class="chip section">Секція</span></div>
+        <h3>Питання</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Питання й відповіді (Q&amp;A)</li></ul>
+        <div class="links">→ <a href="#n30">3.0</a></div>
+      </article>
+
+      <article class="node" id="n33">
+        <div class="node-head"><span class="node-num">3.3</span><span class="chip section">Секція</span></div>
+        <h3>Схожі / «беруть разом»</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Картки товарів</li></ul>
+        <div class="links">→ <a href="#n30">3.0</a></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 4 Quiz -->
+  <section class="cluster" id="c4">
+    <div class="cluster-head"><span class="cluster-num">4.x</span><h2>Гід за ціллю (квіз)</h2></div>
+    <p class="cluster-sub">Плитки цілей зараз; повний квіз — post-launch (Рішення 2). Без обовʼязкової реєстрації.</p>
+    <div class="grid">
+
+      <article class="node" id="n40">
+        <div class="node-head"><span class="node-num">4.0</span><span class="chip page">Сторінка</span></div>
+        <h3>Інтро квізу</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Ціннісна пропозиція</li><li>CTA «Почати» (без акаунта)</li></ul>
+        <div class="links">→ <a href="#n41">4.1</a></div>
+      </article>
+
+      <article class="node" id="n41">
+        <div class="node-head"><span class="node-num">4.1</span><span class="chip flow">Флоу</span></div>
+        <h3>Питання квізу</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>3–5 кроків: ціль, досвід, обмеження</li></ul>
+        <div class="links">→ <a href="#n42">4.2</a></div>
+      </article>
+
+      <article class="node" id="n42">
+        <div class="node-head"><span class="node-num">4.2</span><span class="chip page">Сторінка</span></div>
+        <h3>Результат</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Пояснена рекомендація</li></ul>
+        <div class="links">→ <a href="#n43">4.3</a></div>
+      </article>
+
+      <article class="node" id="n43">
+        <div class="node-head"><span class="node-num">4.3</span><span class="chip state">Стан</span></div>
+        <h3>Рекомендований набір</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Кураторські товари</li><li>CTA «Додати все»</li></ul>
+        <div class="links">→ <a href="#n60">6.0</a></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 5 Coach -->
+  <section class="cluster" id="c5">
+    <div class="cluster-head"><span class="cluster-num">5.x</span><h2>Кабінет тренера</h2></div>
+    <p class="cluster-sub">PRIMARY-джоб (Рішення 1). Тренер — це <b>покупець</b>, який замовляє для клієнтів, а не обʼєкт для перегляду.</p>
+    <div class="grid">
+
+      <article class="node" id="n50">
+        <div class="node-head"><span class="node-num">5.0</span><span class="chip page">Сторінка</span></div>
+        <h3>«Для тренерів» (лендинг)</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Ціннісна пропозиція</li><li><b>Порівняння тарифів Free / Pro</b> (гіпотеза)</li><li>CTA «Стати тренером» → 5.1</li><li>Якщо не залогінений — спершу єдиний вхід/реєстрація (1.x)</li></ul>
+        <div class="links">→ <a href="#n51">5.1</a> · <a href="#n10">1.0</a></div>
+      </article>
+
+      <article class="node" id="n51">
+        <div class="node-head"><span class="node-num">5.1</span><span class="chip flow">Флоу</span></div>
+        <h3>Стати тренером: верифікація + тариф</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Активація ролі на наявному акаунті</li><li>Верифікація по соц-лінку</li><li><b>Free</b>: миттєво — опт краще за роздріб, 2–3 клієнти [?]</li><li><b>Pro</b>: підписка ~99 грн/міс [?] — макс. опт + безліміт клієнтів</li><li>Вхід: лендинг 5.0 або акаунт 7.7</li></ul>
+        <div class="links">→ <a href="#n52">5.2</a></div>
+      </article>
+
+      <article class="node" id="n52">
+        <div class="node-head"><span class="node-num">5.2</span><span class="chip page">Сторінка</span></div>
+        <h3>Кабінет тренера</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Зведення по клієнтах</li><li>CTA нової сесії замовлення</li><li>Історія замовлень</li><li>Обране тренера</li></ul>
+        <div class="links">→ <a href="#n53">5.3</a> · <a href="#n55">5.5</a> · <a href="#n76">7.6</a></div>
+      </article>
+
+      <article class="node" id="n53">
+        <div class="node-head"><span class="node-num">5.3</span><span class="chip page">Сторінка</span></div>
+        <h3>Список клієнтів</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Збережені клієнти</li><li>Додати клієнта</li></ul>
+        <div class="links">→ <a href="#n54">5.4</a></div>
+      </article>
+
+      <article class="node" id="n54">
+        <div class="node-head"><span class="node-num">5.4</span><span class="chip page">Сторінка</span></div>
+        <h3>Профіль клієнта</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Цілі клієнта</li><li>Історія замовлень по клієнту</li></ul>
+        <div class="links">→ <a href="#n55">5.5</a></div>
+      </article>
+
+      <article class="node" id="n55">
+        <div class="node-head"><span class="node-num">5.5</span><span class="chip flow">Флоу</span></div>
+        <h3>Мультиклієнтська сесія замовлення</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Вибір / додавання клієнта</li><li>Швидке додавання в сесії</li><li>Перевірка складу й ціни тарифу</li><li>Тег на клієнта</li><li><b>Ліміт клієнтів за тарифом</b>: Free 2–3 [?], Pro — без обмежень</li></ul>
+        <div class="links">→ <a href="#n60">6.0</a></div>
+        <div class="job">Job 1 · Рішення 1</div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 6 Cart & checkout -->
+  <section class="cluster" id="c6">
+    <div class="cluster-head"><span class="cluster-num">6.x</span><h2>Кошик і оформлення</h2></div>
+    <p class="cluster-sub">Кошик — діалог зі швидким переглядом; для тренера — групування позицій по клієнтах.</p>
+    <div class="grid">
+
+      <article class="node" id="n60">
+        <div class="node-head"><span class="node-num">6.0</span><span class="chip dialog">Діалог</span></div>
+        <h3>Кошик</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Обрані товари (позиції)</li><li>Групування по клієнтах (тренер)</li><li>Підсумки</li><li><b>CTA «Перейти до оформлення»</b></li><li>Порожній стан</li></ul>
+        <div class="links">→ <a href="#n61">6.1</a></div>
+      </article>
+
+      <article class="node" id="n61">
+        <div class="node-head"><span class="node-num">6.1</span><span class="chip flow">Флоу</span></div>
+        <h3>Оформлення</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Контакт, доставка</li><li>Оплата (LiqPay / Wayforpay)</li><li>Перегляд</li></ul>
+        <div class="links">→ <a href="#n62">6.2</a></div>
+      </article>
+
+      <article class="node" id="n62">
+        <div class="node-head"><span class="node-num">6.2</span><span class="chip state">Стан</span></div>
+        <h3>Замовлення оформлено</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Підтвердження</li><li>Підсумок замовлення</li><li>Наступні кроки</li></ul>
+        <div class="links">→ <a href="#n72">7.2</a></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 7 Buyer account -->
+  <section class="cluster" id="c7">
+    <div class="cluster-head"><span class="cluster-num">7.x</span><h2>Акаунт покупця</h2></div>
+    <p class="cluster-sub">Повторне замовлення в один тап (Job 4), лояльність (Job 6), обране.</p>
+    <div class="grid">
+
+      <article class="node" id="n70">
+        <div class="node-head"><span class="node-num">7.0</span><span class="chip page">Сторінка</span></div>
+        <h3>Головна акаунта</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Огляд</li><li>Лінки: замовлення / лояльність / адреси / обране</li><li>Секція «Я тренер / Стати тренером» → 7.7</li></ul>
+        <div class="links">→ <a href="#n72">7.2</a> · <a href="#n74">7.4</a> · <a href="#n75">7.5</a> · <a href="#n76">7.6</a> · <a href="#n77">7.7</a></div>
+      </article>
+
+      <article class="node" id="n71">
+        <div class="node-head"><span class="node-num">7.1</span><span class="chip page">Сторінка</span></div>
+        <h3>Профіль</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Особисті дані</li><li>Пароль</li></ul>
+        <div class="links">—</div>
+      </article>
+
+      <article class="node" id="n72">
+        <div class="node-head"><span class="node-num">7.2</span><span class="chip page">Сторінка</span></div>
+        <h3>Замовлення / історія</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Список замовлень</li></ul>
+        <div class="links">→ <a href="#n73">7.3</a></div>
+      </article>
+
+      <article class="node" id="n73">
+        <div class="node-head"><span class="node-num">7.3</span><span class="chip page">Сторінка</span></div>
+        <h3>Деталі замовлення + повтор</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Позиції</li><li><b>Повтор у 1 тап</b></li></ul>
+        <div class="links">→ <a href="#n60">6.0</a></div>
+        <div class="job">Job 4</div>
+      </article>
+
+      <article class="node" id="n74">
+        <div class="node-head"><span class="node-num">7.4</span><span class="chip page">Сторінка</span></div>
+        <h3>Статус лояльності</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Прогрес тарифу / порогу</li></ul>
+        <div class="links">—</div>
+        <div class="job">Job 6 · Рішення 3</div>
+      </article>
+
+      <article class="node" id="n75">
+        <div class="node-head"><span class="node-num">7.5</span><span class="chip page">Сторінка</span></div>
+        <h3>Збережені адреси</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Список адрес</li><li>Додати / редагувати</li></ul>
+        <div class="links">—</div>
+      </article>
+
+      <article class="node" id="n76">
+        <div class="node-head"><span class="node-num">7.6</span><span class="chip page">Сторінка</span></div>
+        <h3>Обране (wishlist)</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Список збережених товарів</li><li>Додавання з картки / каталогу</li><li>Перенесення в кошик</li><li>Доступна <b>покупцю і тренеру</b>; іконка в хедері</li></ul>
+        <div class="links">→ <a href="#n60">6.0</a> · <a href="#n30">3.0</a></div>
+        <div class="job">MVP · «Мої стейпли» — post-launch</div>
+      </article>
+
+      <article class="node" id="n77">
+        <div class="node-head"><span class="node-num">7.7</span><span class="chip page">Сторінка</span></div>
+        <h3>Я тренер / Стати тренером</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Секція в акаунті: активувати роль тренера</li><li>Запуск верифікації → 5.1</li><li>Якщо вже тренер — статус ролі й тарифу</li><li>Щоб тренер не шукав «де вхід»: та сама точка, що й лендинг 5.0</li></ul>
+        <div class="links">→ <a href="#n51">5.1</a></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 8 Content & legal -->
+  <section class="cluster" id="c8">
+    <div class="cluster-head"><span class="cluster-num">8.x</span><h2>Контент, інфо й legal</h2></div>
+    <p class="cluster-sub">SEO-поверхня й службові сторінки.</p>
+    <div class="grid">
+
+      <article class="node" id="n80">
+        <div class="node-head"><span class="node-num">8.0</span><span class="chip page">Сторінка</span></div>
+        <h3>Каталог блога</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Список усіх статей</li><li>Рубрики / теги</li><li>Пошук, фільтр, пагінація</li><li>SEO-поверхня</li></ul>
+        <div class="links">→ <a href="#n81">8.1</a></div>
+      </article>
+
+      <article class="node" id="n81">
+        <div class="node-head"><span class="node-num">8.1</span><span class="chip page">Сторінка</span></div>
+        <h3>Стаття</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>H1, SEO-текст, тіло статті</li><li>Хлібні крихти</li><li>Повʼязані товари</li><li>Поділитися / схожі статті</li></ul>
+        <div class="links">→ <a href="#n80">8.0</a> · <a href="#n30">3.0</a></div>
+      </article>
+
+      <article class="node" id="n82">
+        <div class="node-head"><span class="node-num">8.2–8.5</span><span class="chip page">Сторінка</span></div>
+        <h3>Про нас · Доставка й оплата · Повернення · Контакти</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Інформаційні сторінки</li></ul>
+        <div class="links">—</div>
+      </article>
+
+      <article class="node" id="n86">
+        <div class="node-head"><span class="node-num">8.6</span><span class="chip page">Сторінка</span></div>
+        <h3>Legal</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li>Політика приватності</li><li>Умови</li><li>Публічна оферта</li></ul>
+        <div class="links">—</div>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="open">
+    <h2>Відкриті питання [?]</h2>
+    <ul>
+      <li>Список міст для SEO-сторінок (які міста на старті)?</li>
+      <li>Симптоми / стани (2.3) — у MVP чи post-launch?</li>
+      <li>% тарифу тренера та пороги лояльності — потрібні реальні дані.</li>
+      <li>Обране (7.6) — у MVP (іконка в хедері + сторінка); «Мої стейпли» — post-launch.</li>
+      <li><b>Тарифи тренера Free / Pro</b> — гіпотеза, активує відкладений у брифі «paid subscription tier». Рахувати юніт-економіку. [?]</li>
+      <li>Free-ціна має лишатися <b>тренер-прийнятною</b> (пройти «ворота» зі стратегії v5), інакше страждає привернення. [?]</li>
+      <li>Числа: ~99 грн/міс, ліміт 2–3 клієнти, розрив % опту Free↔Pro — усе [?].</li>
+    </ul>
+  </div>
+
+  <div class="footer-text">
+    Stack — Карта сайту + IA (детальна), v0.4 чернетка. Червень 2026. Джерело істини: ia/docs/sitemap.md. Глобальна IA: research/ia.html. Формат-приклад: research/sitemap png example/.
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, curve: 'basis', nodeSpacing: 38, rankSpacing: 44, useMaxWidth: true },
+    themeVariables: {
+      darkMode: true,
+      fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif',
+      fontSize: '13px',
+      background: '#15140f',
+      mainBkg: '#23312a',
+      primaryColor: '#23312a',
+      primaryTextColor: '#edeae3',
+      primaryBorderColor: '#4a8c62',
+      lineColor: '#9a958c',
+      textColor: '#d8d5cd',
+      nodeBorder: '#4a8c62',
+      edgeLabelBackground: '#15140f'
+    }
+  });
+</script>
+</body>
+</html>

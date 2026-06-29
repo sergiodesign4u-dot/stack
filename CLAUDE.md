@@ -159,8 +159,8 @@ Populating the store with 500-2,000+ products requires: sourcing agreements with
 
 These topics were identified during research but are NOT built, designed, or decided in the research phase. They are noted here so they are not forgotten.
 
-**Full SEO plan (deferred to Wireframes / site structure phase):**
-Page-level H1 / H2 structure, meta titles and descriptions, image alt text, human-quality SEO copy, semantic optimization, goal-based landing page architecture, keyword-to-URL mapping. Belongs to Phase 2 (Wireframes). Do not design or commit URL structures without this plan.
+**Full SEO plan (PULLED FORWARD into the page-level IA, June 2026 — no longer deferred):**
+Page-level H1 / H2 structure, meta titles and descriptions, URL slugs, breadcrumbs, SEO-copy intent, dynamic variables (e.g. city: "Протеїн Одеса"), goal-based landing architecture, keyword-to-URL mapping. Previously deferred to Phase 2; now baked into each page's IA spec *before* wireframes so wireframes land on a finished SEO structure. Human-quality final SEO copy and image alt text are still produced later, but the structure is decided in the IA layer.
 
 **Operational catalog population (deferred to technical scoping with real supplier data):**
 Sourcing agreements with Ukrainian distributors and brands, structured data format for product descriptions and images, processes for keeping prices and stock levels current, handling out-of-stock and back-in-stock states. This is an operational and sourcing challenge that design research cannot resolve. It will be handled with real supplier data in the technical scoping phase.
@@ -218,12 +218,59 @@ Wireframes (Phase 2) not started; this IA is its input.
 
 ---
 
+## Information Architecture v2 — Detailed / page-level (Phase 2 prep, June 2026)
+
+The research-phase IA above is the **global layer** (sitemap clusters, navigation, user
+flows, traceability). It is intentionally a skeleton. Before wireframes we add a
+**page-level layer**: what each page contains, its states, components, filters, and SEO.
+Method and reusable templates are documented in `playbook/design-ia-playbook.md`.
+
+**Platform stance:** mobile-first, **fully responsive** (desktop↔mobile, mobile is the
+priority). Block priority and the first screen are reasoned from mobile; the desktop
+layout is still designed deliberately (it is a store).
+
+**Two IA layers:**
+- *Global IA* — in `research/` (`research/ia.html`, `research/docs/sitemap.md` v0.6,
+  `research/docs/flows.md` v0.3). Unchanged.
+- *Page-level IA* — new, in `ia/`. Source of truth: `ia/docs/`. Per-page specs live in
+  `ia/docs/pages/`; the full sitemap is `ia/docs/sitemap.md`.
+
+**Artifact format:** Sitemap + IA as numbered cards (`X.Y`, X = flow cluster) with an
+INCLUDES list and flow arrows; dialogs and states are first-class nodes. Reference
+example: `research/sitemap png example/`. Delivered as **two artifacts** — a lean
+schema (structure + transitions) and full per-page specs.
+
+**Locked sub-decisions (June 2026):**
+1. Coach model stays **coach-as-buyer** (multi-client ordering), NOT a coach
+   marketplace/directory. Coach consulting/consultation remains out of MVP scope.
+2. Sitemap and page-level IA are **two separate artifacts**.
+3. **JTBD is not changed** — filters, facets, and symptom/concern search are IA
+   mechanisms serving existing jobs, not new jobs.
+4. **SEO is pulled forward** into the page-level IA (see Deferred section update above).
+5. **Auth model (confirmed):** one unified sign in / sign up for every role, as dialogs
+   (no full-page redirect, no separate coach login, no role tabs). Coach is a **role
+   activated on an existing account** via a verification flow reachable from both the
+   For-Coaches landing CTA and an account section, so coaches never hunt for a login.
+   Coach tiering is being explored as **Free vs Pro** (HYPOTHESIS, numbers [?]): Free =
+   better-than-retail wholesale + multi-client capped at 2-3 clients, activated instantly;
+   Pro = max wholesale price + unlimited multi-client, paid subscription (~99 UAH/mo
+   hypothesis, needs unit-economics). This activates the brief's deferred "paid
+   subscription tier" — keep as hypothesis, not committed. Watch the strategy-v5 tension:
+   the Free price must still pass the coach "price gate", or acquisition suffers; the
+   primary persona (5-30+ athletes) effectively needs Pro, so coach monetization =
+   Pro subscription + product margin.
+
+**Sequence:** (1) full sitemap → (2) inherited component library → (3) page-level IA per
+cluster. Output is the "wireframe library" that Phase 2 renders.
+
+---
+
 ## Timeline (Hypothesis)
 
 | Phase | Focus | Status |
 |-------|-------|--------|
 | Phase 1 | Research (this phase) | Done |
-| Phase 2 | Wireframes | Not started (IA prep done: research/ia.html, research/docs/sitemap.md v0.6, research/docs/flows.md v0.3) |
+| Phase 2 | Wireframes | Not started. Detailed IA in progress (page-level layer in `ia/`; global layer done in `research/`) |
 | Phase 3 | Concept & Visual Direction | Not started |
 | Phase 4 | Design System & Tokens | Not started |
 | Phase 5 | Component Library | Not started |
