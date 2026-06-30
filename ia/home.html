@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack — IA: Головна</title>
+  <style>
+    :root {
+      --bg: #f7f6f3; --surface: #ffffff; --surface-alt: #f2f0eb; --border: #e5e2db;
+      --text: #1a1916; --text-secondary: #6b6760; --text-light: #9b9790;
+      --accent: #2d5a3d; --accent-light: #e8f0ea; --accent-mid: #4a8c62;
+      --warn: #b5882a; --warn-bg: #fdf3e3;
+      --radius: 10px; --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); }
+
+    /* TOPBAR (mobile) */
+    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: rgba(247,246,243,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 101; }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+
+    /* SIDEBAR */
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: rgba(247,246,243,.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-right: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform .22s ease; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+    .sidebar-nav { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px; }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+    .sidebar-nav a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: var(--radius-sm); transition: color .15s, background .15s; margin-bottom: 1px; }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-nav a.sidebar-sub { font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light); }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-page-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 4px; }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+    .sidebar-upcoming { padding: 12px 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-light); line-height: 1.8; }
+
+    /* LAYOUT */
+    .page { max-width: 1100px; margin: 0 auto; padding: 68px 20px 80px; }
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 44px 44px 80px; }
+    }
+
+    .hero { margin-bottom: 30px; }
+    .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+    .hero h1 { font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .hero-lead { font-size: 16px; color: var(--text-secondary); max-width: 760px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-size: 13px; color: var(--text-secondary); }
+    .hero-meta strong { color: var(--text); font-weight: 600; }
+
+    .section { margin-bottom: 44px; scroll-margin-top: 64px; }
+    .section-num { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .section h2 { font-size: 22px; letter-spacing: -0.015em; margin-bottom: 6px; }
+    .section-lead { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 20px; max-width: 720px; }
+
+    .note { font-size: 12px; color: var(--text-light); margin: 4px 0 18px; }
+    .wf-note { font-size: 12px; color: var(--text-light); margin: 0 0 12px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 8px; }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--surface-alt); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-secondary); }
+    tr:last-child td { border-bottom: none; }
+    td b { color: var(--text); }
+    .arrow { color: var(--accent-mid); font-weight: 600; white-space: nowrap; }
+
+    .cols { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 720px) { .cols.two { grid-template-columns: 1fr 1fr; } }
+
+    .open { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 18px 20px; }
+    .open h2 { font-size: 18px; margin-bottom: 10px; color: var(--warn); }
+    .open ul { margin-left: 18px; } .open li { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+
+    .reco { background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--text); margin: 10px 0 14px; }
+    .reco b { color: var(--accent); }
+
+    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }
+
+    /* ===== WIREFRAME (B/W) ===== */
+    .wf { border: 1px solid #cfcfcf; border-radius: 10px; overflow: hidden; background: #fff; color: #1b1b1b; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
+    .wf-cap { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8a8a8a; padding: 7px 12px; background: #f4f4f4; border-bottom: 1px solid #e4e4e4; }
+    .wf-pad { padding: 16px; }
+    .blk { border-bottom: 1px dashed #d8d8d8; }
+    .blk:last-child { border-bottom: none; }
+    .blk-h { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #aaa; padding: 8px 14px 0; }
+
+    /* hero */
+    .hh1 { font-size: 21px; font-weight: 800; color: #111; letter-spacing: -.01em; }
+    .hsub { color: #777; font-size: 13px; margin: 6px 0 14px; max-width: 520px; }
+    .goaltiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .goaltile { border: 1.5px solid #c4c4c4; border-radius: 10px; padding: 16px 12px; font-weight: 700; font-size: 13px; color: #111; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .goaltile .ar { color: #999; }
+    .cta-row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+    .btn-dark { background: #161616; color: #fff; border-radius: 8px; padding: 11px 18px; font-weight: 700; font-size: 13px; display: inline-flex; gap: 8px; align-items: center; }
+    .btn-out { border: 1.5px solid #161616; border-radius: 8px; padding: 10px 16px; font-weight: 600; font-size: 13px; color: #111; }
+    @media (max-width: 520px) { .goaltiles { grid-template-columns: 1fr 1fr; } }
+
+    /* trust band */
+    .trustband { display: flex; flex-wrap: wrap; gap: 14px 22px; padding: 12px 16px; background: #fafafa; }
+    .trustband .ti { display: flex; gap: 8px; align-items: center; font-size: 12.5px; color: #444; }
+    .trustband .ti .ic { font-size: 16px; }
+
+    /* personal strip */
+    .pstrip { display: flex; gap: 10px; flex-wrap: wrap; }
+    .pcardx { flex: 1 1 220px; border: 1.5px solid #c4c4c4; border-radius: 10px; padding: 12px 14px; }
+    .pcardx .r { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #999; margin-bottom: 6px; }
+    .pcardx .t { font-size: 13px; font-weight: 700; color: #111; margin-bottom: 8px; }
+    .pcardx .b { display: inline-block; background: #161616; color: #fff; border-radius: 7px; padding: 7px 12px; font-size: 12px; font-weight: 700; }
+    .pcardx .b.out { background: #fff; color: #111; border: 1.5px solid #161616; }
+
+    /* coach banner */
+    .coachb { display: flex; justify-content: space-between; align-items: center; gap: 16px; border: 2px solid #161616; border-radius: 12px; padding: 18px; flex-wrap: wrap; }
+    .coachb .ct { font-size: 16px; font-weight: 800; color: #111; }
+    .coachb .cd { font-size: 12.5px; color: #666; margin-top: 4px; max-width: 460px; }
+
+    /* category tiles */
+    .cattiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+    .cattile { border: 1px solid #ddd; border-radius: 10px; padding: 14px 8px; text-align: center; font-size: 12px; font-weight: 600; color: #222; background: #fff; }
+    .cattile .ic { font-size: 18px; display: block; margin-bottom: 6px; }
+    @media (max-width: 680px) { .cattiles { grid-template-columns: repeat(3, 1fr); } }
+
+    /* product row */
+    .prow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .pcard { border: 1px solid #e2e2e2; border-radius: 10px; overflow: hidden; }
+    .pcard .img { height: 84px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 11px; }
+    .pcard .pn { font-size: 12px; color: #333; padding: 8px 8px 2px; line-height: 1.3; }
+    .pcard .pp { font-weight: 800; color: #111; font-size: 13px; padding: 0 8px; }
+    .pcard .pb { margin: 8px; border: 1.5px solid #161616; border-radius: 7px; text-align: center; padding: 6px; font-size: 12px; font-weight: 700; color: #111; }
+    @media (max-width: 680px) { .prow { grid-template-columns: 1fr 1fr; } }
+
+    /* brand row */
+    .brandrow { display: flex; gap: 10px; flex-wrap: wrap; }
+    .brandbox { border: 1px solid #ddd; border-radius: 8px; padding: 12px 18px; font-size: 12px; font-weight: 700; color: #555; background: #fff; }
+
+    /* blog row */
+    .blogrow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .blogcard { border: 1px solid #e2e2e2; border-radius: 10px; overflow: hidden; }
+    .blogcard .img { height: 64px; background: #f0f0f0; }
+    .blogcard .bt { font-size: 12.5px; font-weight: 600; color: #222; padding: 8px 10px; line-height: 1.35; }
+    @media (max-width: 680px) { .blogrow { grid-template-columns: 1fr; } }
+
+    /* seo text */
+    .seotext { padding: 14px 16px; background: #fafafa; }
+    .seotext .h { font-size: 14px; font-weight: 800; color: #111; margin-bottom: 6px; }
+    .seotext .ln { height: 8px; background: #ececec; border-radius: 4px; margin: 6px 0; }
+    .seotext .ln.s { width: 70%; }
+
+    /* phone skeleton */
+    .phone2 { max-width: 320px; border: 1px solid #cfcfcf; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: var(--shadow-sm); }
+    .p-top { display: flex; align-items: center; gap: 8px; padding: 9px 11px; border-bottom: 1px solid #eee; }
+    .p-top .wf-logo { font-size: 15px; font-weight: 800; color: #111; }
+    .p-top .sp { flex: 1; }
+    .p-top .ic { font-size: 14px; color: #555; }
+    .p-blk { padding: 10px 11px; border-bottom: 1px solid #f0f0f0; }
+    .p-blk .bh { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #aaa; margin-bottom: 6px; }
+    .p-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .p-tile { border: 1.5px solid #c4c4c4; border-radius: 8px; padding: 12px 8px; font-size: 11px; font-weight: 700; color: #111; }
+    .p-line { height: 7px; background: #ececec; border-radius: 4px; margin: 5px 0; }
+    .p-cta { background: #161616; color: #fff; border-radius: 7px; text-align: center; padding: 8px; font-size: 11px; font-weight: 700; margin-top: 8px; }
+    .p-tabs { display: flex; border-top: 1px solid #e4e4e4; }
+    .p-tab { flex: 1; text-align: center; padding: 7px 2px; font-size: 9px; color: #777; }
+    .p-tab.active { color: #111; font-weight: 700; }
+    .p-tab .ic { font-size: 15px; display: block; }
+
+    @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="../research/research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="../research/research.html" class="sidebar-logo">Stack</a>
+  <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Інформаційна архітектура</div>
+    <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
+    <a href="navigation.html" class="sidebar-sub">Навігація</a>
+    <a href="footer.html" class="sidebar-sub">Футер</a>
+    <a href="home.html" class="sidebar-sub active">Головна</a>
+    <a href="catalog.html" class="sidebar-sub">Каталог</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-upcoming">Далі<br>Картка · Кошик<br>Акаунт<br>Wireframes</div>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Посторінкова IA · вузол 0.0</div>
+    <h1>Головна</h1>
+    <p class="hero-lead">Двоє <b>вхідних дверей, що не блокують одне одного</b> + повернення. Веде початківця через <b>плитки цілей</b> (його «один зрозумілий крок»), тримає видимий вхід <b>«Для тренерів»</b> (тренер — це канал, не edge-case) і для залогіненого регуляра — <b>повтор замовлення</b>. Спершу довіра, спокійно, без таймерів. Це ще й <b>таб 1 на мобілці</b> та кореневий SEO-лендинг.</p>
+    <div class="hero-meta">
+      <div><strong>Тип</strong> сторінка (вузол 0.0)</div>
+      <div><strong>Джерело істини</strong> ia/docs/pages/home.md</div>
+      <div><strong>Першоджоб</strong> Job 2 (початківець) + видимий вхід Job 1 (тренер)</div>
+      <div><strong>Стійка</strong> mobile-first · база <b>360px</b></div>
+    </div>
+  </div>
+
+  <!-- 01 First screen -->
+  <section class="section" id="hero">
+    <div class="section-num">01 · Перший екран</div>
+    <h2>Hero — селектор цілей</h2>
+    <p class="section-lead">Перший екран = <b>один зрозумілий крок для початківця</b>: H1 + 6 плиток цілей (Принцип №2). Вторинно — «Відкрити каталог» для тих, хто хоче переглядати самі категорії. Цілі — та сама концерн-лінза, що в навігації й каталозі.</p>
+    <p class="wf-note">Мокапи навмисно <b>чорно-білі</b> (вайрфрейм-рівень) — колір додамо на етапі концепту.</p>
+    <div class="wf">
+      <div class="wf-cap">Hero — десктоп</div>
+      <div class="wf-pad">
+        <div class="hh1">Спортивне харчування під вашу ціль</div>
+        <div class="hsub">Оберіть ціль — підкажемо безпечний і зрозумілий набір. Без зайвого, з перевіреним складом і дозуванням.</div>
+        <div class="goaltiles">
+          <div class="goaltile">Набір маси <span class="ar">→</span></div>
+          <div class="goaltile">Схуднення <span class="ar">→</span></div>
+          <div class="goaltile">Відновлення <span class="ar">→</span></div>
+          <div class="goaltile">Енергія / тонус <span class="ar">→</span></div>
+          <div class="goaltile">Імунітет / здоров'я <span class="ar">→</span></div>
+          <div class="goaltile">Витривалість / кардіо <span class="ar">→</span></div>
+        </div>
+        <div class="cta-row">
+          <span class="btn-dark">Відкрити каталог</span>
+          <span class="btn-out">Підібрати за квізом →</span>
+        </div>
+      </div>
+    </div>
+    <p class="note">Кожна плитка → <b>Колекція за ціллю (2.2)</b>. «Відкрити каталог» → 2.0. «Підібрати за квізом» → 4.0 (післязапуск; зараз веде на плитки цілей). H1 несе головний кореневий ключ.</p>
+  </section>
+
+  <!-- 02 Personal strip -->
+  <section class="section" id="personal">
+    <div class="section-num">02 · Персональна стрічка</div>
+    <h2>Стрічка за станом (одразу під hero)</h2>
+    <p class="section-lead">Один блок, що змінюється за роллю — щоб регуляр і тренер отримали свій «один крок» без пошуку. Гість його не бачить (нема чого повторювати) → для нього перший екран лишається цілями.</p>
+    <div class="wf">
+      <div class="wf-cap">Варіанти за станом</div>
+      <div class="wf-pad">
+        <div class="pstrip">
+          <div class="pcardx">
+            <div class="r">Гість</div>
+            <div class="t">— (блок прихований)</div>
+            <span class="b out">Увійти / Реєстрація</span>
+          </div>
+          <div class="pcardx">
+            <div class="r">Покупець (регуляр)</div>
+            <div class="t">Повторити останнє замовлення</div>
+            <span class="b">Повторити в 1 тап</span>
+            <span class="b out">Мої стейпли*</span>
+          </div>
+          <div class="pcardx">
+            <div class="r">Тренер</div>
+            <div class="t">Нова сесія замовлення</div>
+            <span class="b">Нова сесія</span>
+            <span class="b out">Кабінет тренера</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Покупець → <b>повтор з історії (7.3, Job 4)</b>; «Мої стейпли» * — післязапуск. Тренер → <b>нова сесія (5.5)</b> + кабінет (5.2). Гість → вхід (1.0).</p>
+  </section>
+
+  <!-- 03 Trust band -->
+  <section class="section" id="trust">
+    <div class="section-num">03 · Смуга довіри</div>
+    <h2>Сигнали довіри</h2>
+    <p class="section-lead">Спершу зняти сумнів (Принцип №1). Коротка смуга одразу під першим екраном — повна стрічка з 4 картками живе у футері (0.2).</p>
+    <div class="wf">
+      <div class="wf-cap">Смуга довіри</div>
+      <div class="trustband">
+        <div class="ti"><span class="ic">✅</span>Сертифіковано, оригінал</div>
+        <div class="ti"><span class="ic">🚚</span>Доставка НП 1–2 дні</div>
+        <div class="ti"><span class="ic">💳</span>Зручна оплата</div>
+        <div class="ti"><span class="ic">🔄</span>Повернення 14 днів</div>
+        <div class="ti"><span class="ic">⭐</span>Реальні відгуки</div>
+      </div>
+    </div>
+    <p class="note">Текст, не картинки (читається краулером і скрінрідером). Лінки ведуть у 8.8 (гарантія), 8.4 (доставка/оплата), 8.5 (повернення), 8.11 (відгуки).</p>
+  </section>
+
+  <!-- 04 Coach block -->
+  <section class="section" id="coach">
+    <div class="section-num">04 · Блок «Для тренерів»</div>
+    <h2>Коуч-канал — видимий на головній</h2>
+    <p class="section-lead">Тренер — <b>основний бізнес-канал</b> (Принцип №3), тож на головній є помітний банер, а не лише лінк у мета-рядку. Опт-ціни, мультиклієнтське замовлення, надійна поставка.</p>
+    <div class="wf">
+      <div class="wf-cap">Банер «Для тренерів»</div>
+      <div class="wf-pad">
+        <div class="coachb">
+          <div>
+            <div class="ct">Замовляєте для клієнтів?</div>
+            <div class="cd">Опт-ціни, мультиклієнтське замовлення в одну сесію, історія по кожному клієнту. Активація ролі на наявному акаунті.</div>
+          </div>
+          <span class="btn-dark">Дізнатися про умови →</span>
+        </div>
+      </div>
+    </div>
+    <p class="note">CTA → лендинг <b>«Для тренерів» (5.0)</b> з порівнянням тарифів Free/Pro (гіпотеза). Не залогінений — спершу єдиний вхід (1.0), далі активація (5.1).</p>
+  </section>
+
+  <!-- 05 Catalog shortcuts -->
+  <section class="section" id="cats">
+    <div class="section-num">05 · Популярні категорії</div>
+    <h2>Швидкі входи в каталог</h2>
+    <p class="section-lead">Для тих, хто знає, що шукає (регуляр, обізнаний). Плитки топ-категорій — другий шлях відкриття, поруч із цілями.</p>
+    <div class="wf">
+      <div class="wf-cap">Плитки категорій</div>
+      <div class="wf-pad">
+        <div class="cattiles">
+          <div class="cattile"><span class="ic">🥛</span>Протеїн</div>
+          <div class="cattile"><span class="ic">💪</span>Гейнери</div>
+          <div class="cattile"><span class="ic">⚡</span>Креатин</div>
+          <div class="cattile"><span class="ic">🧬</span>Амінокислоти</div>
+          <div class="cattile"><span class="ic">🔥</span>Передтрен.</div>
+          <div class="cattile"><span class="ic">💊</span>Вітаміни</div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Плитки → Категорія (2.1). Повний перелік 12 категорій — у мега-меню «Каталог» (навігація) та <a href="catalog.html">структурі каталогу</a>.</p>
+  </section>
+
+  <!-- 06 Products -->
+  <section class="section" id="products">
+    <div class="section-num">06 · Товари</div>
+    <h2>Хіти продажів / рекомендації</h2>
+    <p class="section-lead">Соціальний доказ і швидке додавання. Для тренера ціни — за тарифом. Спокійні картки, без агресивних бейджів.</p>
+    <div class="wf">
+      <div class="wf-cap">Ряд карток товару</div>
+      <div class="wf-pad">
+        <div class="prow">
+          <div class="pcard"><div class="img">фото</div><div class="pn">Протеїн сироватковий 900 г</div><div class="pp">899 ₴</div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото</div><div class="pn">Креатин моногідрат 300 г</div><div class="pp">449 ₴</div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото</div><div class="pn">BCAA 2:1:1 400 г</div><div class="pp">599 ₴</div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото</div><div class="pn">Омега-3 90 капс.</div><div class="pp">349 ₴</div><div class="pb">У кошик</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Картка → Товар (3.0). «У кошик» → Кошик (6.0). Стрічки: «Хіти», «Новинки», «Рекомендовано» (правила — пізніше).</p>
+  </section>
+
+  <!-- 07 Promo + brands + blog -->
+  <section class="section" id="more">
+    <div class="section-num">07 · Промо · Бренди · Поради</div>
+    <h2>Акції, бренди, корисні поради</h2>
+    <p class="section-lead">Спокійне промо (без таймерів, Принцип №4), стрічка брендів (довіра + SEO) і тизер блогу (допомагає початківцю, SEO).</p>
+    <div class="wf">
+      <div class="wf-cap">Акції</div>
+      <div class="wf-pad" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="border:1px solid #ddd;border-radius:10px;height:74px;background:#f3f3f3;display:flex;align-items:center;justify-content:center;color:#999;font-size:12px;">Банер акції 1</div>
+        <div style="border:1px solid #ddd;border-radius:10px;height:74px;background:#f3f3f3;display:flex;align-items:center;justify-content:center;color:#999;font-size:12px;">Банер акції 2</div>
+      </div>
+    </div>
+    <div class="wf">
+      <div class="wf-cap">Бренди</div>
+      <div class="wf-pad">
+        <div class="brandrow">
+          <span class="brandbox">Optimum</span><span class="brandbox">BioTech</span><span class="brandbox">Scitec</span>
+          <span class="brandbox">OstroVit</span><span class="brandbox">Kevin Levrone</span><span class="brandbox">Усі бренди →</span>
+        </div>
+      </div>
+    </div>
+    <div class="wf">
+      <div class="wf-cap">Корисні поради (блог)</div>
+      <div class="wf-pad">
+        <div class="blogrow">
+          <div class="blogcard"><div class="img"></div><div class="bt">Як обрати протеїн початківцю</div></div>
+          <div class="blogcard"><div class="img"></div><div class="bt">Креатин: дозування й міфи</div></div>
+          <div class="blogcard"><div class="img"></div><div class="bt">Що приймати для відновлення</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Акції → 8.10 · Бренди → 2.4 · Поради → Стаття (8.1) / Блог (8.0). Усе спокійне, без countdown-таймерів.</p>
+  </section>
+
+  <!-- 08 SEO text -->
+  <section class="section" id="seotext">
+    <div class="section-num">08 · SEO-текст</div>
+    <h2>Описовий блок (низ сторінки)</h2>
+    <p class="section-lead">Унизу — H2 + описовий текст про магазин (кореневі ключі), щоб головна ранжувалася як «спортивне харчування Україна». Популярні запити-лінки — у футері (0.2).</p>
+    <div class="wf">
+      <div class="wf-cap">SEO-текст</div>
+      <div class="seotext">
+        <div class="h">Спортивне харчування в Україні — Stack</div>
+        <div class="ln"></div><div class="ln"></div><div class="ln s"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 Mobile skeleton -->
+  <section class="section" id="mobile">
+    <div class="section-num">09 · Мобілка</div>
+    <h2>Мобільний перший екран і порядок блоків</h2>
+    <p class="section-lead">База 360px. Перший екран = H1 + плитки цілей (2 колонки) — нічого не відволікає від «одного кроку». Далі персональна стрічка (за станом), довіра, тренери, категорії, товари, промо/бренди/блог, SEO-текст, футер.</p>
+    <div class="cols two">
+      <div>
+        <div class="phone2">
+          <div class="p-top"><span class="wf-logo">Stack</span><span class="sp"></span><span class="ic">🔍</span><span class="ic">♡</span><span class="ic">🛒</span></div>
+          <div class="p-blk">
+            <div style="font-size:14px;font-weight:800;color:#111;">Спортхарчування під вашу ціль</div>
+            <div class="p-tiles" style="margin-top:8px;">
+              <div class="p-tile">Набір маси</div><div class="p-tile">Схуднення</div>
+              <div class="p-tile">Відновлення</div><div class="p-tile">Енергія</div>
+              <div class="p-tile">Імунітет</div><div class="p-tile">Витривалість</div>
+            </div>
+            <div class="p-cta">Відкрити каталог</div>
+          </div>
+          <div class="p-blk"><div class="bh">Персональне (покупець)</div><div class="p-cta" style="background:#fff;color:#111;border:1.5px solid #161616;">Повторити замовлення</div></div>
+          <div class="p-blk"><div class="bh">Довіра</div><div class="p-line"></div></div>
+          <div class="p-blk"><div class="bh">Для тренерів</div><div class="p-line"></div><div class="p-cta">Умови →</div></div>
+          <div class="p-blk"><div class="bh">Категорії · Хіти · Бренди · Блог</div><div class="p-line"></div><div class="p-line"></div></div>
+          <div class="p-tabs">
+            <div class="p-tab active"><span class="ic">⌂</span>Головна</div>
+            <div class="p-tab"><span class="ic">▦</span>Каталог</div>
+            <div class="p-tab"><span class="ic">🛒</span>Кошик</div>
+            <div class="p-tab"><span class="ic">♡</span>Обране</div>
+            <div class="p-tab"><span class="ic">👤</span>Акаунт</div>
+          </div>
+        </div>
+        <p class="note">Перший екран не містить промо/каруселей — лише цілі + (для залогіненого) персональний крок. Таб «Головна» активний.</p>
+      </div>
+      <div>
+        <div class="reco"><b>Порядок блоків (mobile-first):</b> 1) Hero-цілі → 2) Персональна стрічка (стан) → 3) Довіра → 4) Для тренерів → 5) Категорії → 6) Товари → 7) Промо/Бренди/Блог → 8) SEO-текст → Футер.</div>
+        <p class="note">На десктопі ті самі блоки, але hero може йти у дві колонки (цілі + візуал), категорії й товари — ширші ряди. Пріоритет і перший екран продумані з мобілки.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 Anatomy -->
+  <section class="section" id="anatomy">
+    <div class="section-num">10 · Анатомія</div>
+    <h2>Блоки й переходи</h2>
+    <table>
+      <tr><th>#</th><th>Блок</th><th>Вміст</th><th>Веде до</th></tr>
+      <tr><td>1</td><td><b>Hero — цілі</b></td><td>H1 + 6 плиток цілей + «Відкрити каталог» / квіз</td><td class="arrow">2.2 · 2.0 · 4.0</td></tr>
+      <tr><td>2</td><td><b>Персональна стрічка</b></td><td>Гість: прихована. Покупець: повтор замовлення. Тренер: нова сесія + кабінет</td><td class="arrow">7.3 · 5.5 · 5.2 · 1.0</td></tr>
+      <tr><td>3</td><td><b>Смуга довіри</b></td><td>Сертифікат · доставка · оплата · повернення · відгуки</td><td class="arrow">8.8 · 8.4 · 8.5 · 8.11</td></tr>
+      <tr><td>4</td><td><b>Для тренерів</b></td><td>Банер коуч-каналу + CTA умови</td><td class="arrow">5.0</td></tr>
+      <tr><td>5</td><td><b>Популярні категорії</b></td><td>Плитки топ-категорій</td><td class="arrow">2.1</td></tr>
+      <tr><td>6</td><td><b>Товари</b></td><td>Хіти / новинки / рекомендації; «У кошик»</td><td class="arrow">3.0 · 6.0</td></tr>
+      <tr><td>7</td><td><b>Акції · Бренди · Блог</b></td><td>Промо (без таймерів) · бренди · тизер статей</td><td class="arrow">8.10 · 2.4 · 8.0/8.1</td></tr>
+      <tr><td>8</td><td><b>SEO-текст</b></td><td>H2 + опис магазину (кореневі ключі)</td><td>—</td></tr>
+    </table>
+  </section>
+
+  <!-- 11 State matrix -->
+  <section class="section" id="states">
+    <div class="section-num">11 · Матриця станів</div>
+    <h2>Що змінюється за станом і роллю</h2>
+    <table>
+      <tr><th>Блок</th><th>Гість</th><th>Покупець</th><th>Тренер</th></tr>
+      <tr><td><b>Hero-цілі</b></td><td colspan="3">Однаково для всіх — перший екран лишається селектором цілей.</td></tr>
+      <tr><td><b>Персональна стрічка</b></td><td>Прихована (показуємо «Увійти»)</td><td><b>Повтор замовлення</b> (7.3) + Мої стейпли*</td><td><b>Нова сесія (5.5)</b> + Кабінет (5.2)</td></tr>
+      <tr><td><b>Ціни на товарах</b></td><td>Роздріб</td><td>Роздріб + лояльність</td><td><b>Опт за тарифом</b> (чип Free/Pro)</td></tr>
+      <tr><td><b>Для тренерів</b></td><td>Банер → лендинг 5.0</td><td>Банер → 5.0 / стати тренером</td><td>Замість банера — <b>швидкі дії тренера</b></td></tr>
+      <tr><td><b>Один наступний крок</b></td><td>Обрати ціль / увійти</td><td>Повторити замовлення</td><td>Нова сесія замовлення</td></tr>
+    </table>
+  </section>
+
+  <!-- 12 SEO & a11y -->
+  <section class="section" id="seo">
+    <div class="section-num">12 · SEO та доступність</div>
+    <h2>Розмітка</h2>
+    <div class="cols two">
+      <div>
+        <h3 style="font-size:14px;margin-bottom:8px;color:var(--accent)">SEO</h3>
+        <table>
+          <tr><td><b>Один H1</b> у hero (кореневий ключ «спортивне харчування»).</td></tr>
+          <tr><td>Плитки цілей і категорій — краулені <b>&lt;a&gt;</b> з описовими анкорами (внутрішня перелінковка).</td></tr>
+          <tr><td>SEO-текст унизу (H2 + опис); популярні запити-лінки — у футері (0.2).</td></tr>
+          <tr><td>schema.org <b>Organization</b> + <b>WebSite</b> (sitelinks searchbox); хлібних крихт на головній немає.</td></tr>
+          <tr><td>Зображення банерів — з <b>alt</b>; LCP-банер не блокує рендер (продуктивність).</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3 style="font-size:14px;margin-bottom:8px;color:var(--accent)">Доступність</h3>
+        <table>
+          <tr><td>Логічний порядок заголовків H1 → H2; кожна секція має заголовок.</td></tr>
+          <tr><td>Плитки — тап-цілі <b>≥ 44px</b>, видимий фокус.</td></tr>
+          <tr><td>Каруселі товарів — керування клавіатурою, кнопки «вперед/назад» з aria-label.</td></tr>
+          <tr><td>Контраст тексту на банерах ≥ 4.5:1 (перевірити на етапі кольору).</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 Locked -->
+  <section class="section" id="open">
+    <div class="open">
+      <h2>Рішення зафіксовано ✓</h2>
+      <p style="font-size:13px;color:var(--text-secondary);margin:0 0 6px"><b>2026-06-30 — структура головної:</b></p>
+      <ul>
+        <li><b>Перший екран = селектор цілей</b> (H1 + 6 плиток) — «один зрозумілий крок» для початківця; вторинно «Відкрити каталог».</li>
+        <li><b>Персональна стрічка за станом</b> одразу під hero: гість — прихована; покупець — повтор замовлення (+ стейпли післязапуск); тренер — нова сесія + кабінет.</li>
+        <li><b>Смуга довіри</b> високо (Принцип №1); повна стрічка з 4 картками — у футері.</li>
+        <li><b>Видимий блок «Для тренерів»</b> на головній (Принцип №3) → лендинг 5.0.</li>
+        <li><b>Далі:</b> популярні категорії → товари (хіти) → акції/бренди/блог → SEO-текст.</li>
+        <li><b>Спокійно, без countdown-таймерів</b> (Принцип №4). Мокапи ч/б; колір — на концепті.</li>
+        <li><b>Порядок блоків продуманий з мобілки</b> (база 360px); десктоп — ті самі блоки, ширші ряди.</li>
+      </ul>
+      <p style="font-size:13px;color:var(--text-secondary);margin:12px 0 0"><b>Відкриті [?]:</b> правила добірок (хіти / новинки / рекомендації) — потрібні дані продажів; квіз (4.x) — післязапуск (зараз плитки цілей); «Мої стейпли» — післязапуск; чи показувати «переглянуті раніше» гостю.</p>
+    </div>
+  </section>
+
+  <div class="footer-text">
+    Stack — Посторінкова IA · Головна (вузол 0.0): hero-цілі + персональна стрічка + довіра + тренери + категорії + товари + промо/бренди/блог + SEO-текст. Джерело істини: ia/docs/pages/home.md. Карта сайту: sitemap.html. Концептуальний шар: ../research/concept.html. Червень 2026, чернетка.
+  </div>
+
+</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+</script>
+</body>
+</html>

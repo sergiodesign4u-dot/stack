@@ -292,5 +292,17 @@ Output = the wireframe library. Wireframes then just render it.
   .html/.md, footer.html/.md, catalog.md, CLAUDE.md. Lesson: when a leaf component (footer) starts
   promising destinations, immediately **register those destinations as sitemap nodes** — otherwise
   the map and the page drift, and "trust first" links point at nothing.
-- **Next** — Home (0.0) as a page-level IA page (md + html), then cluster by cluster. Add each
-  new node to the sidebar group and to `ia/docs/sitemap.md`.
+- **2026-06-30** — **Home (node 0.0)** built (`ia/docs/pages/home.md` + `ia/home.html`, B/W,
+  360px). Framed as **two non-blocking front doors + a return path**, straight from the concept
+  layer: (1) **goal-selector hero** — H1 + 6 goal tiles = the beginner's "one clear next step";
+  (2) a **state-based personal strip** right under the hero (guest hidden → «Увійти»; buyer →
+  repeat-order 7.3; coach → new session 5.5 + coach home 5.2) so the regular and the coach each
+  get their own next step without hunting; (3) a high **trust band** (full 4-card strip stays in
+  the footer); (4) a **visible «Для тренерів» block** (principle #3 — coach is a channel, not an
+  edge case); then popular categories → products → promo/brands/blog → bottom SEO text. Calm, **no
+  countdown timers** (principle #4). Block order reasoned from mobile (tab 1). Wired Головна into
+  every shared sidebar (after Футер) and enriched sitemap node 0.0. Lesson: the home page is where
+  the persona/jobs split becomes one screen — encode the front-door logic as a **state-switched
+  block** (one slot, three roles) rather than three competing hero variants.
+- **Next** — page-level IA cluster by cluster: Product (3.0), Cart/Checkout (6.x), Coach
+  workspace (5.x), Buyer account (7.x). Add each new node to the sidebar group and `ia/docs/sitemap.md`.

@@ -12,6 +12,10 @@
   as a reviewable HTML visual in `ia/`. Done so far:
   - `pages/navigation.md` → `ia/navigation.html` (node 0.1 — Navigation = meta bar + main
     bar + mega-menu + mobile tabs; 360px baseline; UX-research-backed; B/W mockups).
+  - `pages/home.md` → `ia/home.html` (node 0.0 — Home = goal-selector hero + state-based personal
+    strip [guest hidden / buyer repeat-order / coach new session] + trust band + visible
+    «Для тренерів» block + popular categories + products + promo/brands/blog + SEO text; two
+    non-blocking front doors; mobile tab 1; 360px; B/W).
   - `pages/footer.md` → `ia/footer.html` (node 0.2 — Footer = trust strip + main footer
     [newsletter+support · Stack · Customers · Consultation] + SEO popular-queries block
     [categories/types · goals · brands · cities] + bottom bar; 360px baseline; B/W mockups;
@@ -20,7 +24,8 @@
     categories → subcategories → types (rebalanced from 14; «Здоров'я» expanded into ~10
     subcategories), 6 goals as cross-cutting collections, facets; built from real UA
     catalogs, Belok-based).
-  Next: Home (0.0), then cluster by cluster.
+  Next: cluster by cluster — Product (3.0), Cart/Checkout (6.x), Coach workspace (5.x),
+  Buyer account (7.x).
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
   nodes. Reference visual: `research/sitemap png example/`.
 - **Stance:** mobile-first, fully responsive. Coach = buyer (not a marketplace). SEO is
@@ -28,9 +33,10 @@
 
 ## Clusters
 
-- **0 — Home & navigation:** 0.0 Home · 0.1 Header (guest/buyer/coach, incl. favorites
-  icon) · **0.1a City-selector dialog** (search + popular + full A–Z; canonical city list) ·
-  0.2 Footer (global). Header and footer are inherited on every page.
+- **0 — Home & navigation:** 0.0 Home (**goal-selector hero + state-based personal strip +
+  visible coach block**; two front doors; mobile tab 1) · 0.1 Header (guest/buyer/coach, incl.
+  favorites icon) · **0.1a City-selector dialog** (search + popular + full A–Z; canonical city
+  list) · 0.2 Footer (global). Header and footer are inherited on every page.
 - **1 — Authentication:** all dialogs/modals (do not navigate away). **Unified sign
   in / sign up for every role** — no separate coach login, no role tabs. 1.0 Sign in ·
   1.1 Sign up · 1.2 Forgot · 1.3 Link sent · 1.4 Email confirmation · 1.5 Reset

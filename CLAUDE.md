@@ -263,6 +263,11 @@ layout is still designed deliberately (it is a store).
   meta-bar promises: 8.7 Discount system · 8.8 Guarantee & certificates · 8.9 FAQ · 8.10
   Promotions (Акції) · 8.11 Store reviews (+ leave review / Google) · 8.12 Newsletter subscription
   (welcome-discount value [?]). Symptom node 2.3 and the city-list [?] are now resolved.
+  **Home page (`home.md`, node 0.0, done June 2026):** two non-blocking front doors + a return path —
+  a **goal-selector hero** (6 goal tiles = the beginner's one clear step), a **state-based personal
+  strip** under the hero (guest hidden / buyer = repeat order / coach = new session), a high trust
+  band, a **visible «Для тренерів» block** (coach is a channel, not an edge case), then popular
+  categories → products → promo/brands/blog → SEO text. Calm, no countdown timers; mobile tab 1.
 
 **Unified navigation:** all docs pages (research, personas, jtbd, concept, and every
 page-level IA page) share one left sidebar. Group order: Дослідження · Персони · JTBD ·
