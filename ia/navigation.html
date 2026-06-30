@@ -171,6 +171,17 @@
     .wf-acct .btns { display: flex; gap: 8px; padding: 12px 14px; }
     .wf-acct .pb { flex: 1; text-align: center; background: #161616; color: #fff; border-radius: 8px; padding: 9px; font-weight: 700; font-size: 13px; }
     .wf-acct .sb { flex: 1; text-align: center; border: 1.5px solid #161616; border-radius: 8px; padding: 9px; font-weight: 600; font-size: 13px; }
+    /* city selector dialog */
+    .wf-city { max-width: 460px; border: 1px solid #cfcfcf; border-radius: 10px; background: #fff; box-shadow: var(--shadow); overflow: hidden; }
+    .wf-city .cbody { padding: 12px 14px 14px; }
+    .wf-city .csrch { display: flex; align-items: center; gap: 8px; border: 1.5px solid #c4c4c4; border-radius: 8px; padding: 9px 12px; margin-bottom: 6px; color: #9a9a9a; font-size: 13px; }
+    .wf-city .csrch .ic { font-size: 14px; }
+    .wf-city .cgh { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #999; margin: 12px 0 6px; }
+    .wf-city .ctags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .wf-city .ctag { font-size: 12.5px; color: #333; background: #fff; border: 1px solid #ddd; border-radius: 100px; padding: 4px 11px; }
+    .wf-city .ctag.big { font-weight: 700; color: #111; border-color: #161616; }
+    .wf-city .clist { font-size: 12.5px; color: #666; line-height: 1.85; }
+    .wf-city .clist b { color: #111; }
     /* phone (B/W) */
     .phone2 { max-width: 360px; border: 1px solid #cfcfcf; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: var(--shadow-sm); }
     .p-top { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-bottom: 1px solid #eee; }
@@ -302,6 +313,31 @@
       </div>
     </div>
     <p class="note">У тренера: спокійний <b>чип тарифу</b> (Free/Pro) у зоні акаунта; «Кабінет» (👤) веде в кабінет тренера (5.2). Дроп акаунта — у розділі 03.</p>
+
+    <h3 style="font-size:15px;margin:24px 0 6px;">Локація → діалог вибору міста</h3>
+    <p class="section-lead">Клік по чипу міста (мета-рядок на десктопі / екран «Акаунт» на мобілці) відкриває <b>великий діалог</b>, а не вузький дроп — список довгий. Усередині: пошук міста + <b>популярні міста</b> (бейджі, два рівні) + повний список А–Я. Місто живить доставку, наявність і <b>SEO-сторінки міст</b> (2.1a, «Протеїн Одеса»). Дефолт визначається геолокацією, користувач може змінити.</p>
+    <div class="wf-city">
+      <div class="wf-cap">Діалог «Оберіть місто»</div>
+      <div class="cbody">
+        <div class="csrch"><span class="ic">🔍</span><span>Пошук міста…</span></div>
+        <div class="cgh">Популярні міста</div>
+        <div class="ctags">
+          <span class="ctag big">Київ</span><span class="ctag big">Харків</span><span class="ctag big">Дніпро</span>
+          <span class="ctag big">Одеса</span><span class="ctag big">Львів</span><span class="ctag big">Запоріжжя</span>
+          <span class="ctag big">Кривий Ріг</span><span class="ctag big">Миколаїв</span>
+        </div>
+        <div class="cgh">Ще популярні</div>
+        <div class="ctags">
+          <span class="ctag">Вінниця</span><span class="ctag">Полтава</span><span class="ctag">Чернігів</span>
+          <span class="ctag">Черкаси</span><span class="ctag">Суми</span><span class="ctag">Хмельницький</span>
+          <span class="ctag">Житомир</span><span class="ctag">Рівне</span><span class="ctag">Тернопіль</span>
+          <span class="ctag">Івано-Франківськ</span><span class="ctag">Кременчук</span><span class="ctag">Біла Церква</span>
+        </div>
+        <div class="cgh">Усі міста (А–Я)</div>
+        <div class="clist">Вінниця · Дніпро · Житомир · Запоріжжя · Івано-Франківськ · Київ · Кропивницький · Кривий Ріг · Луцьк · Львів · Миколаїв · Одеса · Полтава · Рівне · Суми · Тернопіль · Ужгород · Харків · Херсон · Хмельницький · Черкаси · Чернівці · Чернігів <b>+ інші міста, куди доставляє Нова Пошта</b></div>
+      </div>
+    </div>
+    <p class="note"><b>Канонічний список (єдиний на сайт):</b> усі обласні центри під контролем України (24 області − Донецьк і Луганськ + Київ = <b>23</b>) + великі міста-нецентри з попитом на спортпіт (Кривий Ріг, Кременчук…). <b>Виключено:</b> Крим (Сімферополь / Севастополь) і тимчасово окуповані території. <b>Популярні набори — інтерактивні:</b> ранжуються за часткою трафіку / замовлень (авто) з ручним перевизначенням — щоб юзер швидко знаходив своє місто, а ми підсвічували реально активні. Той самий список живить <b>SEO-блок міст у футері</b> (<a href="footer.html">0.2</a>).</p>
   </section>
 
   <!-- 2. Catalog mega-menu -->
@@ -497,7 +533,7 @@
       <tr><td colspan="4" style="background:#f4f4f4;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#777;">Мета-рядок</td></tr>
       <tr><td>1</td><td><b>Для тренерів</b> (виділено)</td><td>Коуч-двері, акцентовано (як «Акції» в Белок)</td><td class="arrow">5.0</td></tr>
       <tr><td>2</td><td><b>Інфо-лінки</b></td><td>Акції · Бренди · Доставка · Повернення · Про нас</td><td class="arrow">8.x</td></tr>
-      <tr><td>3</td><td><b>Дроп локації</b></td><td>Вибір міста (доставка/наявність; SEO-міста)</td><td class="arrow">2.1a</td></tr>
+      <tr><td>3</td><td><b>Локація → діалог вибору міста</b></td><td>Чип міста → великий діалог: пошук + популярні міста (інтерактивні, 2 рівні) + повний список А–Я. Дефолт за гео. Канонічний список = 23 обл. центри + великі міста; живить доставку/наявність і SEO-сторінки міст</td><td class="arrow">2.1a</td></tr>
       <tr><td>4</td><td><b>Дроп мови</b></td><td>Укр / Рус — перемикання мови (hreflang)</td><td>—</td></tr>
       <tr><td colspan="4" style="background:#f4f4f4;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#777;">Основний ряд</td></tr>
       <tr><td>5</td><td><b>Лого</b> Stack</td><td>Завжди видиме</td><td class="arrow">0.0</td></tr>
@@ -617,6 +653,13 @@
         <li><b>Цілі — концерн-лінза</b> (аналог «за симптомом» на Liki24), інтегровані в каталог: колонка «За ціллю» в мега-меню + <b>верхній блок дрилдауну «Каталог» на мобілці</b> → не зникають на мобілці.</li>
         <li><b>Симптом/стан (2.3)</b> — окремого дерева немає; покривають цілі + підкатегорії «Здоров'я».</li>
         <li>Каталог — <b>12 топ-категорій</b> (перебалансовано з 14), <b>6 цілей</b>; деталі — <a href="catalog.html">Структура каталогу</a>.</li>
+      </ul>
+      <p style="font-size:13px;color:var(--text-secondary);margin:12px 0 6px"><b>2026-06-30 — міста та діалог локації:</b></p>
+      <ul>
+        <li><b>Локація — це діалог</b> (не вузький дроп): пошук міста + популярні міста (бейджі, 2 рівні) + повний список А–Я.</li>
+        <li><b>Канонічний список міст:</b> усі обласні центри під контролем України (24 − Донецьк, Луганськ + Київ = <b>23</b>) + великі міста-нецентри з попитом (Кривий Ріг, Кременчук…). Крим і окуповані території виключено.</li>
+        <li><b>Популярні набори інтерактивні:</b> авто-ранжування за трафіком / замовленнями + ручне перевизначення. Дефолт-місто за геолокацією.</li>
+        <li><b>Єдиний список</b> живить доставку/наявність, цей діалог і <b>SEO-блок міст у футері</b> (0.2). Які саме міста стають SEO-лендингами — за пріоритетом трафіку.</li>
       </ul>
     </div>
   </section>

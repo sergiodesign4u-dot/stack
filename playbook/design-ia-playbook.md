@@ -263,5 +263,19 @@ Output = the wireframe library. Wireframes then just render it.
   shared sidebar (between Навігація and Каталог) and enriched sitemap node 0.2. Lesson: the
   footer is a *second* internal-linking surface — treat the popular-queries block as real SEO
   IA (groups + crawlable `<a>`), but lock the pattern now and fill exact terms at SEO-copy stage.
+- **2026-06-30** — **City list resolved** (was an open `[?]` on both Navigation and Footer).
+  Decision: the location chip opens a **large «Оберіть місто» dialog** (not a narrow dropdown,
+  because the list is long) — search + **Tier-1 popular** (metros: Київ/Харків/Дніпро/Одеса/
+  Львів/Запоріжжя/Кривий Ріг/Миколаїв) + **Tier-2 popular** (~12 secondary) + full A–Z. Canonical
+  list = **23 Ukraine-controlled oblast centers + large non-center cities** with sportpit demand
+  (Кривий Ріг, Кременчук…); Crimea (Сімферополь/Севастополь) + occupied territories excluded;
+  Nova Poshta covers the long tail. **Popular tiers are data-driven** (auto-ranked by traffic/
+  orders + manual override); default city by geo. **One canonical list** feeds delivery, the nav
+  dialog, and the footer SEO city pages — built it into Navigation (mock + locked block + anatomy)
+  and pointed Footer's city group at it. Web-grounded in real UA sportpit store coverage +
+  population data. Lesson: a value that recurs in several components (here: cities — nav selector,
+  delivery, footer SEO) should be defined **once as a canonical list** and referenced, not
+  re-listed per page; and "which cities are *popular*" is an operational/data knob, not a
+  structural IA decision — lock the mechanism (tiers + auto/manual), defer the contents.
 - **Next** — Home (0.0) as a page-level IA page (md + html), then cluster by cluster. Add each
   new node to the sidebar group and to `ia/docs/sitemap.md`.

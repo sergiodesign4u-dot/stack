@@ -48,8 +48,27 @@ at the concept stage, not carried into wireframes.
 |---------|----------|---------|
 | **Для тренерів** (emphasized) | Coach front door, accented (like Belok's «Акції») | 5.0 |
 | Info links | Акції · Бренди · Доставка · Повернення · Про нас | 8.x |
-| **Location** dropdown | City select (delivery/availability; feeds SEO city pages) | 2.1a |
+| **Location** → city dialog | City chip opens a large **«Оберіть місто» dialog** (not a narrow dropdown): search + popular-city badges + full A–Z. Default by geo. Feeds delivery/availability + SEO city pages | 2.1a |
 | **Language** dropdown | Укр / Рус (hreflang, locale URLs) | — |
+
+#### City selector & canonical city list (LOCKED 2026-06-30)
+The location chip opens a **large modal dialog** (the list is long), containing:
+- **Search** field (type-ahead).
+- **Tier-1 popular cities** (prominent badges) — big metros: Київ · Харків · Дніпро · Одеса · Львів · Запоріжжя · Кривий Ріг · Миколаїв.
+- **Tier-2 popular cities** (up to ~12 secondary): Вінниця · Полтава · Чернігів · Черкаси · Суми · Хмельницький · Житомир · Рівне · Тернопіль · Івано-Франківськ · Кременчук · Біла Церква.
+- **Full A–Z list** of all served cities.
+
+**Canonical city list (single source for the whole site):** all Ukraine-controlled **oblast
+centers** (24 oblasts − Donetsk & Luhansk + Kyiv = **23**) **plus large non-center cities with
+sportpit demand** (Кривий Ріг, Кременчук, …). **Excluded:** Crimea (Сімферополь / Севастополь)
+and temporarily occupied territories. Nova Poshta covers the long tail beyond landing-page cities.
+
+**Interactive curation:** the Tier-1/Tier-2 popular sets are **data-driven** — auto-ranked by
+traffic/orders share with a **manual override** — so they stay current and users find their city
+fast. The default city is detected by geolocation and is user-changeable.
+
+This one list also feeds the **footer SEO city block** (node 0.2). Which cities become SEO
+landing pages (2.1a) is prioritized by traffic.
 
 ### Main bar (desktop)
 
@@ -207,10 +226,13 @@ Favorites → 7.6 · Cart → 6.0 · Увійти → 1.0 · Account → 7.0 · 
   the header «Бонуси» element shows a balance but the model is not committed.
 - **Free/Pro coach tier** itself is still a business-model hypothesis; the tier badge
   applies if/when it ships.
-- City list for the location dropdown / SEO city pages (which cities at launch).
+- ~~City list for the location dropdown / SEO city pages~~ — **RESOLVED 2026-06-30**: canonical
+  list = 23 controlled oblast centers + large non-center cities (Crimea/occupied excluded);
+  location is a dialog with interactive popular-city tiers. Which cities get SEO landing pages
+  first is a traffic-priority call (data-driven), not an open structural question.
 
 All structural navigation decisions (tabs, header rows, mega-menu, dropdowns, favorites,
-search, language/location) were locked 2026-06-29 / 06-30 — see Locked decisions.
+search, language/location, **city selector**) were locked 2026-06-29 / 06-30 — see Locked decisions.
 
 ## Sources (mobile bottom-nav UX)
 

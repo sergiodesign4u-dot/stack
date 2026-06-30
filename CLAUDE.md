@@ -239,7 +239,12 @@ layout is still designed deliberately (it is a store).
   `research/concept.html`, `research/docs/sitemap.md` v0.6, `research/docs/flows.md` v0.3).
 - *Page-level IA* — «Інформаційна архітектура», in `ia/`. Source of truth: `ia/docs/`.
   Per-page specs live in `ia/docs/pages/`: `navigation.md` = header (meta bar + main bar +
-  Belok-style mega-menu) + mobile tabs (node 0.1; 360px baseline; B/W mockups); `footer.md`
+  Belok-style mega-menu) + mobile tabs (node 0.1; 360px baseline; B/W mockups). **City selector
+  (locked June 2026):** the location chip opens a large **«Оберіть місто» dialog** (search +
+  interactive popular-city tiers + full A–Z); canonical city list = the 23 Ukraine-controlled
+  oblast centers + large non-center cities (Кривий Ріг, Кременчук…), Crimea/occupied excluded;
+  popular sets are data-driven (traffic/orders, manual override); one list feeds delivery,
+  the dialog, and the footer SEO city pages. `footer.md`
   = the global footer (node 0.2): trust strip (delivery/guarantee/payment/returns) + main
   footer (newsletter+support · Stack · Customers · Consultation with phone/chat/Telegram/Viber/
   socials) + **SEO popular-queries block** (categories/types · goals · brands · cities — second

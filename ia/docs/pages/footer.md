@@ -72,7 +72,7 @@ Groups:
 - **Категорії та типи** — Протеїн, Сироватковий протеїн, Ізолят, Гейнер, Креатин моногідрат, BCAA, Амінокислоти, Передтренувальні, Жироспалювачі, L-карнітин, Вітамін D3, Омега-3, Колаген.
 - **За ціллю** — Для набору маси / схуднення / відновлення / енергії / імунітету / витривалості (the 6 locked goals).
 - **Бренди** — Optimum Nutrition, BioTech, Scitec, OstroVit, Kevin Levrone, "Усі бренди →".
-- **Міста (SEO)** — Протеїн Київ, Спортивне харчування Одеса, Спортпіт Львів, Протеїн Харків, Дніпро. Same SEO city pages as the location dropdown in Navigation (2.1a).
+- **Міста (SEO)** — Протеїн Київ, Спортивне харчування Одеса, Спортпіт Львів, Протеїн Харків, Дніпро. Drawn from the **same canonical city list** as the Navigation city-selector dialog (2.1a): 23 controlled oblast centers + large non-center cities (Crimea/occupied excluded). Which cities become SEO landing pages first is a traffic-priority call.
 
 All items are real crawlable `<a>` with descriptive anchors. Link **only to what users actually want** — avoid diluting weight with hundreds of footer links (SEO anti-pattern).
 
@@ -120,6 +120,8 @@ All items are real crawlable `<a>` with descriptive anchors. Link **only to what
 
 ## Open [?]
 - Exact popular-queries list & order (keyword research: volume, seasonality) — at SEO-copy stage.
-- Final city list (shared with Navigation location dropdown / SEO city pages).
 - Real support number, hours, and live channels (operational).
+- City list — **RESOLVED 2026-06-30** (canonical list = Navigation 2.1a: 23 oblast centers +
+  large cities; Crimea/occupied excluded). Only which cities get SEO landing pages first is a
+  traffic-priority call.
 - Newsletter welcome-discount value (−5% / fixed ₴) — promo + unit economics.
