@@ -28,26 +28,32 @@ also **mobile tab 1** and the root SEO landing.
 
 1. **Hero — category rail + banners (Foxtrot/Rozetka pattern).** Desktop: a **left category rail**
    (12 top categories; hover → **flyout** of subcategories → Category 2.1) + **banners on the right**
-   (a big promo **slider** + 2 **vertical** promo banners). Fast entry for the regular/known-item buyer
-   (Job 3) + merchandising. On **mobile** the rail collapses to a **banner + horizontal category chips**
-   (full catalog lives in the «Каталог» tab). Replaces the previous goal-selector hero — goals move to
-   block 3 (still high, concern-lens front door for the beginner).
+   — a **promo slider of 2–3 banner cards** (not one big banner) + 2 **vertical** promo banners. Fast
+   entry for the regular/known-item buyer (Job 3) + merchandising. The **wholesale «Для тренерів» banner
+   is targeted to coaches only** (not shown to everyone — showing wholesale prices to all is undesirable;
+   the dedicated «Для тренерів» block remains, principle #3). On **mobile** the rail collapses to a
+   **banner + horizontal category chips** (full catalog in the «Каталог» tab). Replaces the previous
+   goal-selector hero — goals move to block 3.
 2. **Cart shelf (state)** — shown when the cart is non-empty (now or from a previous visit; guest
    cart persisted locally): item count, total sum, item thumbnails, **«Оформити замовлення»** (→
    checkout 6.1) + «Переглянути кошик» (→ 6.0). A strong "continue your purchase" nudge. Coach: sum
    by tier + per-client grouping mention. (A by-role **personal strip** — guest/buyer/coach — is a
    detailed state variant of this block.)
-3. **Спортивне харчування під вашу ціль (goal selector).** H2 (root keyword) + **6 goal tiles**
-   (Набір маси · Схуднення · Відновлення · Енергія/тонус · Імунітет/здоров'я · Витривалість) — the
-   beginner's concern-lens front door (Job 2), right under the cart shelf. Tiles → Goal collection
-   (2.2); «Підібрати за квізом» → 4.0 (post-launch; for now routes to goal tiles).
+3. **Спортивне харчування під вашу ціль (goal selector).** **Big heading + description** (restored) +
+   **6 goal tiles** (Набір маси · Схуднення · Відновлення · Енергія/тонус · Імунітет/здоров'я ·
+   Витривалість) — the beginner's concern-lens front door (Job 2), right under the cart shelf. Primary
+   CTA is **«Пройти квіз»** (not «Відкрити каталог»). Tiles → Goal collection (2.2); quiz → 4.0
+   (post-launch; MVP routes to goal tiles). **Quiz surfacing (it had got lost):** this block's CTA +
+   the header **«✦ Квіз» button** (which replaces the «Цілі» mega-menu, see `navigation.md`); candidates:
+   empty catalog results, product page for a beginner.
 4. **Trust band** — certified/original · delivery NP 1–2 days · payment · 14-day returns · reviews.
    Short band; the full 4-card strip lives in the Footer (0.2). Links → 8.8 / 8.4 / 8.5 / 8.11. Text, not images.
-5. **Products — bestsellers (Хіти).** Rows of the **new canonical card** (see below). Card → Product
-   (3.0), 🛒 → Cart (6.0). Coach sees tier pricing.
+5. **Products — themed showcase tabs.** A tabbed product block: **Хіт продажу · Кращі цінові
+   пропозиції · Преміум товари · Новинки** (switching a tab swaps the card row). Uses the **new
+   canonical card** (see below). Card → Product (3.0), 🛒 → Cart (6.0). Coach sees tier pricing.
 6. **«Для тренерів» banner** — wholesale pricing, multi-client ordering, per-client history; CTA →
    For-coaches landing (5.0, Free/Pro comparison). Guest → unified sign-in (1.0) then activation (5.1).
-7. **Новинки (new arrivals)** — same card, corner **NEW** tag, empty rating.
+7. **(Новинки is a tab of block 5.)**
 8. **Recently viewed (state)** — shown when there's view history (guest: local; logged-in: account);
    same product card. Helps the user return to a product and finish buying.
 9. **Promotions · Brands · Blog** — calm promo (no timers, principle #4) → 8.10; brand strip → 2.4
@@ -59,10 +65,12 @@ also **mobile tab 1** and the root SEO landing.
 
 ### Product card (canonical component) — redesigned 2026-07-01 (Foxtrot/Belok-style)
 Reused on Home, Catalog and all listings. Fields, top→bottom:
-- **Large vertical photo** (~4:5 — jars/tubs are vertical) with **♡ favourite** (top-right; guest →
-  sign-in 1.0) and a **corner tag for Хіт / NEW only** (the discount is shown by the price, not a corner).
+- **Vertical photo** (~10:11 — slightly reduced from the first pass; jars/tubs read vertical) with
+  **♡ favourite** (top-right; guest → sign-in 1.0) and a **corner tag for Хіт / NEW only** (the
+  discount is shown by the price, not a corner).
 - **Rating** (★ score) **+ review count** → Reviews (3.1).
 - **Product name** — up to **2 lines** (clamped) → Product (3.0).
+- **Brand · country** — a separate meta line under the name (brand → 2.4).
 - **Price row:** new price (big) + old struck **with the −% badge next to the struck price** (universal
   rule), and an **icon-only «У кошик» button (cart icon, no text) beside the price** → Cart (6.0).
 - **Meta row (bottom):** **price-per-serving** «75 ₴ / порція» (Belok-style) on the left + **bonus-program

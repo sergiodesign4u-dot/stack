@@ -78,7 +78,7 @@ landing pages (2.1a) is prioritized by traffic.
 |---|---------|----------|---------|
 | 1 | Logo (Stack) | Always visible | 0.0 |
 | 2 | **Каталог** (primary button) | Prominent, icon; opens the mega-menu | 2.0 / 2.1 |
-| 3 | **Цілі** (secondary) | **Mega-menu, no side-category column**: the 6 goals as columns, each listing its relevant categories/subcategories + "all products for the goal" | 2.2 / 2.1 |
+| 3 | **✦ Квіз** (secondary; replaced «Цілі» 2026-07-01) | Opens the **Quiz (4.0)** — a few-question goal-set picker (the best beginner entry; MVP routes to goal tiles). The «Цілі» button is dropped: goals are already well surfaced in the catalog (the **«За ціллю» column** of the Каталог mega-menu, Catalog-hub 2.0 goal tiles, Category 2.1 goal chips, Goal collections 2.2), so the secondary slot goes to the otherwise-lost quiz. | 4.0 / 2.2 |
 | 4 | **Search** + «Знайти» button | Field with an explicit button; `<form role="search">` → /search?q= | 2.5 |
 | 5 | **Увійти / Кабінет** | Icon + caption: «Увійти» (guest) → **dialog 1.0** (no dropdown); «Кабінет» (logged-in) → **dropdown** | 1.0 / 7.0 |
 | 6 | **Обране** + count | Guest → sign-in dialog; logged-in → list | 7.6 |
@@ -92,7 +92,7 @@ Primary nav = the bottom tab bar (section B).
 
 ### Sticky header variant (simplified, no meta bar) — decided 2026-06-30
 On scroll the **meta bar hides** and the **main bar sticks to the top in a compact form**
-(Logo · Каталог · Цілі · Search · account · favorites · cart) — **no location / language / info
+(Logo · Каталог · Квіз · Search · account · favorites · **bonuses** · cart) — **no location / language / info
 links** (those live in the meta bar, visible only at the top of the page). Lower height = more
 content room. On the **product page** the **product section-nav tabs stick directly under this
 sticky header and become part of it**, gaining a compact **price (discount/none) + «Купити» + ♡**
@@ -108,16 +108,17 @@ Opening «Каталог» reveals a mega-menu (structure like Belok):
   за формою / за ціллю; inner facets — brand, flavour, serving size, price — on the listing).
 - **Right column** — **«За ціллю»** (the 6 goals) + an "all products" link. Goals are
   Stack's **concern lens** (analogue of "browse by symptom" on Liki24), first-class inside
-  the catalog. The short «Цілі» dropdown in the main bar is the quick version; on **mobile**
-  the Catalog tab opens a full-screen drilldown with **«За ціллю» as its top block**, so
-  goals never disappear on mobile. «Каталог» stays the entry to the full catalog. See the
-  catalog taxonomy (`ia/catalog.html`) for the 12 categories + 6 goals.
+  the catalog. On **mobile** the Catalog tab opens a full-screen drilldown with **«За ціллю» as
+  its top block**, so goals never disappear on mobile. «Каталог» stays the entry to the full
+  catalog. See the catalog taxonomy (`ia/catalog.html`) for the 12 categories + 6 goals.
 
-### «Цілі» mega-menu (desktop, LOCKED 2026-06-30)
-The «Цілі» secondary button is **also a mega-menu**, but **without the left side-category
-column** — it exposes all **6 goals as columns at once**, and under each goal a curated list of
-the **categories/subcategories relevant to that goal** + an "all products for the goal" link.
-This is the **concern lens** (goal → what fits it; the Liki24 "by symptom" analogy). Mapping:
+### Header «Квіз» button replaces the «Цілі» mega-menu (decided 2026-07-01)
+Because goals are **already well surfaced inside the catalog** (the «За ціллю» column above,
+Catalog-hub 2.0 goal tiles, Category 2.1 goal chips, Goal collections 2.2), the separate «Цілі»
+secondary header button was **redundant**. The main-bar secondary slot is now a **«✦ Квіз»
+button** → opens the **Quiz (4.0)** (the otherwise-lost beginner entry; MVP routes to goal
+tiles). The goal→category concern-lens mapping (previously rendered as the «Цілі» mega-menu)
+still lives in the catalog mega-menu's «За ціллю» column and the catalog taxonomy:
 - **Набір маси** → Протеїн · Гейнери · Креатин · Амінокислоти (BCAA/EAA) · Передтренувальні
 - **Схуднення** → Жироспалювачі · L-карнітин · Протеїн (ізолят) · Замінники їжі · Клітковина
 - **Відновлення** → BCAA/EAA · Глютамін · Казеїн · Омега-3 · Магній/сон
@@ -174,9 +175,10 @@ avoided — it buries primary destinations behind overflow; secondary links live
 - **Tier badge = calm chip in the header account zone** (status/identity); upgrade nudge is
   contextual at the client-cap moment, not a global banner. (Conditional on the Free/Pro
   tier, still a hypothesis.)
-- **Catalog mega-menu** (not «Цілі»): «Каталог» (primary button) opens the mega-menu —
-  categories → subcategories → inner + a «За ціллю» column + "all products". «Цілі» in the
-  main bar is a short goals dropdown. Satisfies Baymard's "categories top-level".
+- **Catalog mega-menu:** «Каталог» (primary button) opens the mega-menu — categories →
+  subcategories → inner + a **«За ціллю» column** + "all products". The secondary main-bar
+  button is **«✦ Квіз»** (4.0), not «Цілі» (goals live in the «За ціллю» column + catalog
+  pages). Satisfies Baymard's "categories top-level".
 
 ### Header structure — LOCKED 2026-06-30
 
