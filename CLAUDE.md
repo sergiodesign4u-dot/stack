@@ -240,8 +240,11 @@ layout is still designed deliberately (it is a store).
 - *Page-level IA* — «Інформаційна архітектура», in `ia/`. Source of truth: `ia/docs/`.
   Per-page specs live in `ia/docs/pages/`: `navigation.md` = header (meta bar + main bar +
   Belok-style mega-menu) + mobile tabs (node 0.1; 360px baseline; B/W mockups); `catalog.md`
-  = the **store taxonomy** (cluster 2): 14 top categories → subcategories → types + goals as
-  cross-cutting collections + facets, built from real UA catalogs (Belok-based). The full sitemap is
+  = the **store taxonomy** (cluster 2): 12 top categories (rebalanced from 14; «Здоров'я» is
+  an umbrella with ~10 subcategories incl. men's/women's health) → subcategories → types,
+  6 goals as cross-cutting collections (MVP: Набір маси · Схуднення · Відновлення · Енергія ·
+  Імунітет · Витривалість), facets; built from real UA catalogs (Belok-based). Full breadth
+  ships, rebalanced; catalog population at scale stays the operational [?]. The full sitemap is
   `ia/docs/sitemap.md` / `ia/sitemap.html`.
 
 **Unified navigation:** all docs pages (research, personas, jtbd, concept, and every

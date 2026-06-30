@@ -219,5 +219,15 @@ Output = the wireframe library. Wireframes then just render it.
   flavour/etc. are **facets**, not tree levels. Added «Каталог» to the sidebar on every page.
   Method note: when a node needs a real-world structure (taxonomy, channels), pull it from
   live references rather than inventing — ground the IA in actual market data.
+- **2026-06-30** — Catalog MVP breadth + goals locked. Ship **full breadth but rebalanced
+  14→12 well-filled top categories** (user flagged "many thin top-levels with half-empty
+  listings"): folded «Суглоби» into «Здоров'я», merged «Замінники харчування» into
+  «Батончики, снеки та харчування», expanded «Здоров'я» from a flat blob into ~10
+  subcategories (incl. men's/women's health), renamed «Передтренувальні та енергія».
+  **Goals = 6 LOCKED** (Набір маси · Схуднення · Відновлення · Енергія · Імунітет ·
+  Витривалість) — each backed by the launch catalog (a goal tile must not lead to an empty
+  listing; Витривалість only works because Ізотоніки ships). Lesson: **balance the taxonomy
+  to fill, don't multiply thin top-levels; and never ship a goal/collection the catalog
+  can't back.**
 - **Next** — Footer (0.2) then Home (0.0) as page-level IA pages (md + html), then cluster
   by cluster. Add each new node to the sidebar group and to `ia/docs/sitemap.md`.
