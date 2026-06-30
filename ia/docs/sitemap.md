@@ -12,11 +12,15 @@
   as a reviewable HTML visual in `ia/`. Done so far:
   - `pages/navigation.md` → `ia/navigation.html` (node 0.1 — Navigation = meta bar + main
     bar + mega-menu + mobile tabs; 360px baseline; UX-research-backed; B/W mockups).
+  - `pages/footer.md` → `ia/footer.html` (node 0.2 — Footer = trust strip + main footer
+    [newsletter+support · Stack · Customers · Consultation] + SEO popular-queries block
+    [categories/types · goals · brands · cities] + bottom bar; 360px baseline; B/W mockups;
+    second internal-linking surface).
   - `pages/catalog.md` → `ia/catalog.html` (cluster 2 — the **store taxonomy**: 12 top
     categories → subcategories → types (rebalanced from 14; «Здоров'я» expanded into ~10
     subcategories), 6 goals as cross-cutting collections, facets; built from real UA
     catalogs, Belok-based).
-  Next: Footer (0.2), Home (0.0), then cluster by cluster.
+  Next: Home (0.0), then cluster by cluster.
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
   nodes. Reference visual: `research/sitemap png example/`.
 - **Stance:** mobile-first, fully responsive. Coach = buyer (not a marketplace). SEO is

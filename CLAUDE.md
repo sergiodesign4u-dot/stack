@@ -239,7 +239,12 @@ layout is still designed deliberately (it is a store).
   `research/concept.html`, `research/docs/sitemap.md` v0.6, `research/docs/flows.md` v0.3).
 - *Page-level IA* — «Інформаційна архітектура», in `ia/`. Source of truth: `ia/docs/`.
   Per-page specs live in `ia/docs/pages/`: `navigation.md` = header (meta bar + main bar +
-  Belok-style mega-menu) + mobile tabs (node 0.1; 360px baseline; B/W mockups); `catalog.md`
+  Belok-style mega-menu) + mobile tabs (node 0.1; 360px baseline; B/W mockups); `footer.md`
+  = the global footer (node 0.2): trust strip (delivery/guarantee/payment/returns) + main
+  footer (newsletter+support · Stack · Customers · Consultation with phone/chat/Telegram/Viber/
+  socials) + **SEO popular-queries block** (categories/types · goals · brands · cities — second
+  internal-linking surface; exact list [?] via keyword research) + bottom bar (© · Visa/MC/Pay);
+  `catalog.md`
   = the **store taxonomy** (cluster 2): 12 top categories (rebalanced from 14; «Здоров'я» is
   an umbrella with ~10 subcategories incl. men's/women's health) → subcategories → types,
   6 goals as cross-cutting collections (MVP: Набір маси · Схуднення · Відновлення · Енергія ·

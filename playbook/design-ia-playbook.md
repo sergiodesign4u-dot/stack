@@ -246,5 +246,22 @@ Output = the wireframe library. Wireframes then just render it.
   model:** guest 👤 «Увійти» opens the **dialog** directly (no dropdown); only logged-in gets a
   **dropdown**, and that dropdown **drops «Обране» & «Бонуси»** since they're already their own
   header elements (don't duplicate a control that's visible on the bar).
-- **Next** — Footer (0.2) then Home (0.0) as page-level IA pages (md + html), then cluster
-  by cluster. Add each new node to the sidebar group and to `ia/docs/sitemap.md`.
+- **2026-06-30** — **Footer (node 0.2)** built as `ia/docs/pages/footer.md` + `ia/footer.html`
+  (B/W wireframe, 360px). Structure: (A) **trust strip** = 4 cards icon+heading+text
+  (delivery · guarantee · payment · returns), repeated per page per "trust first" principle;
+  (B) **main footer** 4 columns — newsletter (with anti-spam reassurance) + "support us"
+  (Google rating / review) · Stack (about, contacts, policy, public contract, terms, blog) ·
+  Customers (discounts, delivery & payment, FAQ, returns, «Для тренерів» dup) · Consultation
+  (big free phone first, hours, email, on-site chat, Telegram/Viber, socials FB·IG·TikTok·YT);
+  (C) **SEO popular-queries block** — the Comfy "iPhone 17 / smartphones / laptops" pattern;
+  groups = categories/types · goals · brands · cities; web-research-grounded (top categories in
+  header+footer + descriptive internal links is standard; link only valuable destinations or you
+  dilute weight); **structure locked, exact list deferred to keyword research [?]**, cities share
+  the Navigation location dropdown's SEO city pages; (D) **bottom bar** © + Visa/MC/Apple-Google
+  Pay badges + socials. Mobile: trust 2×2, newsletter+consultation expanded, link columns + SEO
+  block as **accordions** (collapsed but still crawlable in DOM). Added Футер to every page's
+  shared sidebar (between Навігація and Каталог) and enriched sitemap node 0.2. Lesson: the
+  footer is a *second* internal-linking surface — treat the popular-queries block as real SEO
+  IA (groups + crawlable `<a>`), but lock the pattern now and fill exact terms at SEO-copy stage.
+- **Next** — Home (0.0) as a page-level IA page (md + html), then cluster by cluster. Add each
+  new node to the sidebar group and to `ia/docs/sitemap.md`.
