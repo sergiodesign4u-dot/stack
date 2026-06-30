@@ -229,5 +229,16 @@ Output = the wireframe library. Wireframes then just render it.
   listing; Витривалість only works because Ізотоніки ships). Lesson: **balance the taxonomy
   to fill, don't multiply thin top-levels; and never ship a goal/collection the catalog
   can't back.**
+- **2026-06-30** — Closed the remaining catalog questions. **Goals integrated into the
+  Catalog** as a first-class **concern lens** (the user's analogy: "browse by symptom" on
+  Liki24): «За ціллю» is the mega-menu column *and* the top block of the mobile Catalog
+  drilldown, so goals never disappear on mobile (they also stay on the Головна hero and the
+  «Цілі» dropdown). **Symptom/concern node 2.3 dissolved into goals** + «Здоров'я»
+  subcategories (no separate tree). **Дитяче здоров'я — out of scope** (audience focus).
+  **L-карнітин → canonical category Жироспалювачі**, via a general rule: **one canonical
+  category per product**, multi-discovery through goal tags + facets + search (no dual
+  listings). Updated the Navigation page to reflect all of this. Catalog now has only the
+  operational population `[?]` left. Lesson: a recurring discovery dimension (goals/symptoms)
+  should live *inside* the catalog, not only in a top-bar dropdown that vanishes on mobile.
 - **Next** — Footer (0.2) then Home (0.0) as page-level IA pages (md + html), then cluster
   by cluster. Add each new node to the sidebar group and to `ia/docs/sitemap.md`.

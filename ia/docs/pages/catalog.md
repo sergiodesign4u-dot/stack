@@ -30,8 +30,20 @@ with real supplier data). The tree is the target structure.
   Subcategory → Type / inner**. Brand, flavour, serving size, price, form, country,
   certification, availability are **facets/filters** on the listing, not tree levels.
 - **Goals** = curated **collections** that cut across categories ("what outcome"). Not
-  categories (JTBD unchanged); they select products from the tree. Shown as the «За ціллю»
-  mega-menu column and goal pages (2.2).
+  categories (JTBD unchanged); they select products from the tree. Goals are Stack's
+  **concern/outcome discovery lens** — the analogue of "browse by symptom" on a pharmacy
+  aggregator (e.g. Liki24). So they are **first-class inside the Catalog**, not only a
+  separate top-bar dropdown: present as the «За ціллю» column in the desktop mega-menu AND
+  as the **top block of the mobile Catalog drilldown** + goal pages (2.2). This keeps goals
+  reachable everywhere (Головна hero · «Цілі» dropdown · Catalog · mobile Catalog).
+- **One canonical category per product.** A product lives in exactly one category;
+  multi-discovery is via **goal tags + facets + search**, not dual category listings.
+  _(Example: L-карнітин's canonical home is Жироспалювачі; it also surfaces under the
+  «Схуднення» goal and search — no second listing under Амінокислоти.)_
+- **Symptom/concern = goals.** There is no separate "symptom" tree (closes node 2.3):
+  goals are the concern lens; health-specific concerns (immunity, sleep, joints…) are the
+  «Здоров'я» subcategories + the Імунітет goal. A dedicated symptom landing, if ever needed,
+  is just an SEO variant of a goal/Здоров'я page.
 - **Brands** = a parallel index (2.4).
 
 ## Category tree — 12 top categories (Ukrainian = product language)
@@ -86,7 +98,9 @@ with real supplier data). The tree is the target structure.
   Залізо/фолієва
 - **Адаптогени:** Ашваганда · Женьшень · Родіола
 - **Антиоксиданти:** Q10 · Альфа-ліпоєва · Кверцетин · Куркумін
-- (Дитяче здоров'я — кандидат `[?]`: дитячі вітаміни, Омега для дітей)
+- _(Дитяче здоров'я — **out of scope**: audience is adult athletes/coaches/beginners; a
+  pediatric subtree dilutes focus and adds trust/safety surface. Revisit post-launch only if
+  demand shows.)_
 
 ### 11. Аксесуари
 - Шейкери та пляшки · Дозатори / таблетниці · Атрибутика (пояси, лямки/крюки, бинти,
@@ -117,16 +131,19 @@ Brand · Price · Goal · Form (порошок/капсули/RTD) · Flavour ·
 Country of origin · Certification · Availability (in stock / back-in-stock). These power the
 inherited Filter panel on Category/Catalog/Search pages.
 
+## Resolved (2026-06-30)
+
+- **Goals integrated into the Catalog** as the concern lens (mega-menu column + top of the
+  mobile Catalog drilldown), so they never disappear on mobile.
+- **Symptom/concern (2.3)** — no separate tree; goals + «Здоров'я» subcategories cover it.
+- **Дитяче здоров'я** — out of scope (not added).
+- **L-карнітин** — canonical category = Жироспалювачі; one-canonical-category rule.
+
 ## Open questions [?]
 
 - **Catalog population at scale** (sourcing, feeds, stock, out-of-stock handling) — the
   brief's deferred operational `[?]`; resolved in technical scoping with real supplier data.
-  Subcategory depth fills as SKUs land.
-- Symptom/concern entry (2.3) overlaps with «Здоров'я» — keep as a discovery lens over the
-  same products, not a separate tree. MVP vs post-launch `[?]`.
-- «Дитяче здоров'я» as a «Здоров'я» subcategory — candidate `[?]`.
-- L-карнітин placement (Амінокислоти vs Жироспалювачі) — kept under Жироспалювачі;
-  cross-list via facet if needed.
+  Subcategory depth fills as SKUs land. (The only navigation/structure question left.)
 
 ## Sources
 

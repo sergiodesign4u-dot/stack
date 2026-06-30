@@ -76,10 +76,12 @@ Opening «Каталог» reveals a mega-menu (structure like Belok):
   Жироспалювачі, Батончики, Бренди), each with a flyout ›.
 - **Middle** — the hovered category's **subcategories + inner** (e.g. Протеїн → за типом /
   за формою / за ціллю; inner facets — brand, flavour, serving size, price — on the listing).
-- **Right column** — a **«За ціллю» duplicate** (Набір маси · Схуднення · Відновлення ·
-  Енергія) + an "all products" link. Goals are duplicated here as an alternate entry; the
-  short «Цілі» dropdown in the main bar is the quick version. «Каталог» stays the entry to
-  the full catalog.
+- **Right column** — **«За ціллю»** (the 6 goals) + an "all products" link. Goals are
+  Stack's **concern lens** (analogue of "browse by symptom" on Liki24), first-class inside
+  the catalog. The short «Цілі» dropdown in the main bar is the quick version; on **mobile**
+  the Catalog tab opens a full-screen drilldown with **«За ціллю» as its top block**, so
+  goals never disappear on mobile. «Каталог» stays the entry to the full catalog. See the
+  catalog taxonomy (`ia/catalog.html`) for the 12 categories + 6 goals.
 
 ### Account dropdown
 
@@ -143,6 +145,15 @@ avoided — it buries primary destinations behind overflow; secondary links live
   the home teaser + account). Primary audience stays reachable without crowding the main bar.
 - **Mockups are black-and-white** (wireframe level); colour is added at the concept stage.
 - On mobile, the meta bar, language, location, and Бонуси move to the Account screen.
+
+### Goals & catalog — LOCKED 2026-06-30
+
+- **Goals are integrated into the Catalog** (concern lens, Liki24-style): «За ціллю» column
+  in the desktop mega-menu **and the top block of the mobile Catalog drilldown** — goals
+  never disappear on mobile. They also stay on the Головна hero and the «Цілі» dropdown.
+- **Symptom/concern (node 2.3) = goals** — no separate symptom tree; health concerns are
+  «Здоров'я» subcategories + the Імунітет goal.
+- Catalog = **12 top categories** (rebalanced from 14) + **6 goals** — see `ia/catalog.html`.
 
 ## State matrix (auth / role)
 
