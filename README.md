@@ -9,6 +9,7 @@ A mobile-first sport nutrition store for the Ukrainian market, built around coac
 - https://sergiodesign4u-dot.github.io/stack/research/concept.html — Conceptual architecture (was `ia.html`: jobs/persona-driven clusters, flows, traceability)
 - https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html — Information architecture: full sitemap
 - https://sergiodesign4u-dot.github.io/stack/ia/navigation.html — Information architecture: Navigation (header + mobile tabs)
+- https://sergiodesign4u-dot.github.io/stack/ia/catalog.html — Information architecture: Catalog structure (store taxonomy)
 
 ---
 
@@ -53,8 +54,8 @@ handoff/            - Developer handoff files
 
 **Detailed information architecture (page-level, Phase 2 prep; docs in `ia/docs/`):**
 - `ia/docs/sitemap.md` - full sitemap (structural index; `ia/sitemap.html` is canonical visual)
-- `ia/docs/pages/*.md` - per-page IA specs (source of truth), starting with `navigation.md`
-- Live visual: https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html · https://sergiodesign4u-dot.github.io/stack/ia/navigation.html
+- `ia/docs/pages/*.md` - per-page IA specs (source of truth): `navigation.md` (header + tabs), `catalog.md` (store taxonomy)
+- Live visual: https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html · https://sergiodesign4u-dot.github.io/stack/ia/navigation.html · https://sergiodesign4u-dot.github.io/stack/ia/catalog.html
 
 ---
 
@@ -70,5 +71,5 @@ handoff/            - Developer handoff files
 - [Research: Personas](research/docs/personas.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/research/personas.html)
 - [Research: JTBD](research/docs/jtbd.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/research/jtbd.html)
 - [Conceptual IA: Sitemap](research/docs/sitemap.md) and [User Flows](research/docs/flows.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/research/concept.html)
-- [Detailed IA: Sitemap](ia/docs/sitemap.md) and [Navigation spec](ia/docs/pages/navigation.md) - [Live: sitemap](https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html) · [Live: navigation](https://sergiodesign4u-dot.github.io/stack/ia/navigation.html)
+- [Detailed IA: Sitemap](ia/docs/sitemap.md), [Navigation spec](ia/docs/pages/navigation.md), [Catalog taxonomy](ia/docs/pages/catalog.md) - [Live: sitemap](https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html) · [navigation](https://sergiodesign4u-dot.github.io/stack/ia/navigation.html) · [catalog](https://sergiodesign4u-dot.github.io/stack/ia/catalog.html)
 - [Design & IA Playbook](playbook/design-ia-playbook.md) - reusable methodology

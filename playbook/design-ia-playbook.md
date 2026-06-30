@@ -210,5 +210,14 @@ Output = the wireframe library. Wireframes then just render it.
   Referenced Belok screenshots for structure. All header mockups are **black-and-white**
   (wireframe level) so colour isn't carried into wireframes — colour comes at the concept
   stage. On mobile, the meta bar + language/location + Бонуси move to the Account screen.
+- **2026-06-30** — Built the **store taxonomy** (`ia/docs/pages/catalog.md` +
+  `ia/catalog.html`, cluster 2). Pulled a real catalog tree from **Belok.ua** (WebFetch) and
+  cross-checked Sporter / bb.ua / Euro Protein, then de-duplicated (Belok lists Креатин /
+  Амінокислоти / Батончики both nested and top-level → one top-level each). Result: 14 top
+  categories → subcategories → types; **goals modelled as cross-cutting collections** (goal
+  → which categories it pulls from), not new categories (JTBD unchanged); brand/price/form/
+  flavour/etc. are **facets**, not tree levels. Added «Каталог» to the sidebar on every page.
+  Method note: when a node needs a real-world structure (taxonomy, channels), pull it from
+  live references rather than inventing — ground the IA in actual market data.
 - **Next** — Footer (0.2) then Home (0.0) as page-level IA pages (md + html), then cluster
   by cluster. Add each new node to the sidebar group and to `ia/docs/sitemap.md`.

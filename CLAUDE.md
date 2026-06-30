@@ -238,8 +238,10 @@ layout is still designed deliberately (it is a store).
 - *Conceptual / global IA* — in `research/` («Концептуальна архітектура»,
   `research/concept.html`, `research/docs/sitemap.md` v0.6, `research/docs/flows.md` v0.3).
 - *Page-level IA* — «Інформаційна архітектура», in `ia/`. Source of truth: `ia/docs/`.
-  Per-page specs live in `ia/docs/pages/` (started with `navigation.md` = header + mobile
-  tabs, node 0.1; mobile baseline 360px, bottom-tab nav grounded in UX research); the full sitemap is
+  Per-page specs live in `ia/docs/pages/`: `navigation.md` = header (meta bar + main bar +
+  Belok-style mega-menu) + mobile tabs (node 0.1; 360px baseline; B/W mockups); `catalog.md`
+  = the **store taxonomy** (cluster 2): 14 top categories → subcategories → types + goals as
+  cross-cutting collections + facets, built from real UA catalogs (Belok-based). The full sitemap is
   `ia/docs/sitemap.md` / `ia/sitemap.html`.
 
 **Unified navigation:** all docs pages (research, personas, jtbd, concept, and every
