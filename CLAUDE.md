@@ -268,6 +268,12 @@ layout is still designed deliberately (it is a store).
   strip** under the hero (guest hidden / buyer = repeat order / coach = new session), a high trust
   band, a **visible «Для тренерів» block** (coach is a channel, not an edge case), then popular
   categories → products → promo/brands/blog → SEO text. Calm, no countdown timers; mobile tab 1.
+  **Quiz / goal guide (`quiz.md`, node 4.x, POST-LAUNCH, drafted June 2026):** a focused **dialog**
+  (modal desktop / full-screen mobile) for the beginner — intro → 5 questions (goal · experience ·
+  frequency · constraints-multi · format/budget) + a conditional safety insert (meds/chronic) →
+  **curated set = a filtered Goal collection (2.2), NOT a single product**. Question order is fixed;
+  branching lives in the result mapping. No account. MVP keeps goal tiles; the quiz is the enriched
+  later version.
 
 **Unified navigation:** all docs pages (research, personas, jtbd, concept, and every
 page-level IA page) share one left sidebar. Group order: Дослідження · Персони · JTBD ·

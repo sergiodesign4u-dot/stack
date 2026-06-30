@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack — IA: Квіз (підбір за ціллю)</title>
+  <style>
+    :root {
+      --bg: #f7f6f3; --surface: #ffffff; --surface-alt: #f2f0eb; --border: #e5e2db;
+      --text: #1a1916; --text-secondary: #6b6760; --text-light: #9b9790;
+      --accent: #2d5a3d; --accent-light: #e8f0ea; --accent-mid: #4a8c62;
+      --warn: #b5882a; --warn-bg: #fdf3e3;
+      --radius: 10px; --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); }
+
+    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: rgba(247,246,243,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 101; }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: rgba(247,246,243,.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-right: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform .22s ease; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+    .sidebar-nav { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px; }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+    .sidebar-nav a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: var(--radius-sm); transition: color .15s, background .15s; margin-bottom: 1px; }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-nav a.sidebar-sub { font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light); }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-page-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 4px; }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+    .sidebar-upcoming { padding: 12px 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-light); line-height: 1.8; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 68px 20px 80px; }
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 44px 44px 80px; }
+    }
+
+    .hero { margin-bottom: 30px; }
+    .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+    .hero h1 { font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .hero-lead { font-size: 16px; color: var(--text-secondary); max-width: 760px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-size: 13px; color: var(--text-secondary); }
+    .hero-meta strong { color: var(--text); font-weight: 600; }
+
+    .section { margin-bottom: 44px; scroll-margin-top: 64px; }
+    .section-num { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .section h2 { font-size: 22px; letter-spacing: -0.015em; margin-bottom: 6px; }
+    .section-lead { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 20px; max-width: 720px; }
+    .note { font-size: 12px; color: var(--text-light); margin: 4px 0 18px; }
+    .wf-note { font-size: 12px; color: var(--text-light); margin: 0 0 12px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 8px; }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--surface-alt); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-secondary); }
+    tr:last-child td { border-bottom: none; }
+    td b { color: var(--text); }
+    .arrow { color: var(--accent-mid); font-weight: 600; white-space: nowrap; }
+
+    .cols { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 760px) { .cols.two { grid-template-columns: 1fr 1fr; } }
+
+    .open { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 18px 20px; }
+    .open h2 { font-size: 18px; margin-bottom: 10px; color: var(--warn); }
+    .open ul { margin-left: 18px; } .open li { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+    .reco { background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--text); margin: 10px 0 14px; }
+    .reco b { color: var(--accent); }
+    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }
+    .codebox { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; background: #f4f4f4; border: 1px solid #e4e4e4; border-radius: 8px; padding: 10px 12px; color: #333; white-space: pre-wrap; word-break: break-word; margin: 0 0 12px; line-height: 1.6; }
+    .codebox b { color: #111; }
+    .chklist { font-size: 13px; color: var(--text-secondary); margin: 0 0 8px 18px; } .chklist li { margin-bottom: 5px; }
+
+    /* ===== WIREFRAME (B/W) ===== */
+    .wf { border: 1px solid #cfcfcf; border-radius: 10px; overflow: hidden; background: #fff; color: #1b1b1b; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
+    .wf-cap { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8a8a8a; padding: 7px 12px; background: #f4f4f4; border-bottom: 1px solid #e4e4e4; }
+    .wf-pad { padding: 16px; }
+    .btn-dark { background: #161616; color: #fff; border-radius: 8px; padding: 11px 18px; font-weight: 700; font-size: 13px; display: inline-flex; gap: 8px; align-items: center; }
+    .btn-out { border: 1.5px solid #161616; border-radius: 8px; padding: 10px 16px; font-weight: 600; font-size: 13px; color: #111; }
+
+    /* quiz modal */
+    .qwrap { display: flex; justify-content: center; }
+    .qmodal { width: 100%; max-width: 540px; border: 1px solid #cfcfcf; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: var(--shadow); }
+    .qhead { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #eee; }
+    .qhead .t { font-weight: 800; font-size: 14px; color: #111; }
+    .qhead .x { color: #aaa; font-size: 17px; }
+    .qbar { height: 6px; background: #eee; }
+    .qbar .fill { height: 100%; background: #161616; }
+    .qstep { padding: 18px 16px; }
+    .qimg { height: 150px; border-radius: 12px; background: linear-gradient(135deg,#ededed,#f6f6f6); border: 1px dashed #d4d4d4; display: flex; align-items: center; justify-content: center; color: #b3b3b3; font-size: 12px; margin-bottom: 16px; }
+    .qprog { font-size: 11px; color: #999; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .05em; }
+    .qq { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 4px; letter-spacing: -.01em; }
+    .qsub { font-size: 12.5px; color: #777; margin-bottom: 16px; }
+    .qopts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .qopts.one { grid-template-columns: 1fr; }
+    .qopt { border: 1.5px solid #c4c4c4; border-radius: 10px; padding: 12px 12px; font-size: 13px; font-weight: 600; color: #111; display: flex; gap: 9px; align-items: center; }
+    .qopt .ic { font-size: 18px; line-height: 1; }
+    .qopt.sel { border-color: #161616; background: #161616; color: #fff; }
+    .qopt .ck { margin-left: auto; width: 16px; height: 16px; border: 1.5px solid #bbb; border-radius: 5px; }
+    .qopt.sel .ck { background: #fff; border-color: #fff; }
+    .qfoot { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-top: 1px solid #eee; }
+    .qsafe { border: 1.5px solid #e0c071; background: var(--warn-bg); border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #7a5c2e; line-height: 1.5; }
+    /* result */
+    .qchips { margin-bottom: 12px; }
+    .qchip { display: inline-flex; font-size: 11px; border: 1px solid #ddd; border-radius: 100px; padding: 3px 10px; color: #444; margin: 0 5px 5px 0; }
+    .qchip b { color: #111; }
+    .setrow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .pcard { border: 1px solid #e2e2e2; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+    .pcard .img { height: 70px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; }
+    .pcard .pn { font-size: 12px; color: #222; font-weight: 600; padding: 8px 8px 2px; line-height: 1.3; }
+    .pcard .why { font-size: 10.5px; color: #888; padding: 0 8px 2px; line-height: 1.3; }
+    .pcard .pp { font-weight: 800; color: #111; font-size: 13px; padding: 2px 8px 0; }
+    .pcard .pb { margin: 8px; margin-top: auto; border: 1.5px solid #161616; border-radius: 7px; text-align: center; padding: 6px; font-size: 11px; font-weight: 700; color: #111; }
+    @media (max-width: 680px) { .setrow { grid-template-columns: 1fr 1fr; } .qopts { grid-template-columns: 1fr; } }
+
+    /* logic scheme */
+    .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 12.5px; margin-bottom: 12px; }
+    .fstep { border: 1.5px solid #c4c4c4; border-radius: 8px; padding: 8px 12px; font-weight: 700; color: #111; background: #fff; }
+    .fstep.cond { border-style: dashed; border-color: #e0c071; background: var(--warn-bg); color: #7a5c2e; }
+    .fstep.end { background: #161616; color: #fff; border-color: #161616; }
+    .farrow { color: #999; font-weight: 700; }
+
+    @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="../research/research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="../research/research.html" class="sidebar-logo">Stack</a>
+  <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Інформаційна архітектура</div>
+    <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
+    <a href="navigation.html" class="sidebar-sub">Навігація</a>
+    <a href="footer.html" class="sidebar-sub">Футер</a>
+    <a href="home.html" class="sidebar-sub">Головна</a>
+    <a href="catalog.html" class="sidebar-sub">Каталог</a>
+    <a href="quiz.html" class="sidebar-sub active">Квіз</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-upcoming">Далі<br>Картка · Кошик<br>Акаунт<br>Wireframes</div>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Посторінкова IA · вузол 4.x · <b>post-launch</b></div>
+    <h1>Квіз — підбір за ціллю</h1>
+    <p class="hero-lead">Лагідний гід для <b>початківця</b> (персона Вікторія): кілька простих питань → <b>зрозумілий безпечний набір</b> зі складом і дозуванням. Формат — <b>фокус-діалог</b> (модалка на десктопі, повний екран на мобілці), один крок = одне питання, з прогресом і спокійним візуалом. <b>Без реєстрації.</b> Мета — привести не до одного товару, а до <b>curated-набору = відфільтрованої Колекції за ціллю</b>.</p>
+    <div class="hero-meta">
+      <div><strong>Тип</strong> діалог-флоу (4.0 → 4.3)</div>
+      <div><strong>Статус</strong> post-launch (MVP = плитки цілей)</div>
+      <div><strong>Джерело істини</strong> ia/docs/pages/quiz.md</div>
+      <div><strong>Джоб</strong> Job 2 (Рішення 2)</div>
+    </div>
+  </div>
+
+  <!-- 01 Format / intro -->
+  <section class="section" id="intro">
+    <div class="section-num">01 · Формат і інтро</div>
+    <h2>Фокус-діалог із «вау»-візуалом</h2>
+    <p class="section-lead">Інтро-екран запрошує пройти квіз: великий чистий візуал, обіцянка результату («підберемо безпечний набір за 1 хвилину»), CTA «Пройти квіз». Спокійно й привабливо — без тривоги й таймерів (Принцип №4). Закрити можна будь-коли.</p>
+    <p class="wf-note">Мокапи навмисно <b>чорно-білі</b> (вайрфрейм-рівень) — колір і фінальні ілюстрації додамо на етапі концепту.</p>
+    <div class="qwrap">
+      <div class="qmodal">
+        <div class="qhead"><span class="t">Підбір за ціллю</span><span class="x">✕</span></div>
+        <div class="qstep">
+          <div class="qimg">🏋️ «вау»-візуал (спокійний, чистий)</div>
+          <div class="qq">Підберемо спортхарчування під вашу ціль</div>
+          <div class="qsub">5 простих питань ≈ 1 хвилина. Покажемо безпечний набір зі складом і дозуванням. Реєстрація не потрібна.</div>
+          <span class="btn-dark">Пройти квіз →</span>
+          <span class="btn-out" style="margin-left:8px;">Просто відкрити каталог</span>
+        </div>
+      </div>
+    </div>
+    <p class="note">Входи: <b>Головна</b> (кнопка «Підібрати за квізом»), плитки цілей (опц. «уточнити квізом»), банер у Колекції за ціллю. «Просто відкрити каталог» → 2.0 (вихід без тиску).</p>
+  </section>
+
+  <!-- 02 Question step -->
+  <section class="section" id="step">
+    <div class="section-num">02 · Крок-питання</div>
+    <h2>Один крок = одне питання</h2>
+    <p class="section-lead">Прогрес-бар + «крок N з 5», підтримувальний візуал, питання-заголовок, короткий підзаголовок і <b>великі тап-картки відповідей</b>. Внизу «Назад» / «Далі» («Далі» активна після вибору).</p>
+    <div class="qwrap">
+      <div class="qmodal">
+        <div class="qhead"><span class="t">Підбір за ціллю</span><span class="x">✕</span></div>
+        <div class="qbar"><div class="fill" style="width:20%"></div></div>
+        <div class="qstep">
+          <div class="qprog">Крок 1 з 5</div>
+          <div class="qq">Яка ваша ціль?</div>
+          <div class="qsub">Оберіть головне — від цього залежить набір.</div>
+          <div class="qopts">
+            <div class="qopt sel"><span class="ic">💪</span>Набір м'язової маси</div>
+            <div class="qopt"><span class="ic">🔥</span>Схуднення і рельєф</div>
+            <div class="qopt"><span class="ic">🌿</span>Відновлення</div>
+            <div class="qopt"><span class="ic">⚡</span>Енергія і тонус</div>
+            <div class="qopt"><span class="ic">🛡️</span>Імунітет і здоров'я</div>
+            <div class="qopt"><span class="ic">🏃</span>Витривалість / кардіо</div>
+          </div>
+        </div>
+        <div class="qfoot"><span class="btn-out">← Назад</span><span class="btn-dark">Далі →</span></div>
+      </div>
+    </div>
+    <p class="note">Перше питання (ціль) задає весь контекст. Одиночний вибір → автоперехід або «Далі». Картки великі (тап ≥ 44px), з іконкою.</p>
+  </section>
+
+  <!-- 03 Multi-select + safety -->
+  <section class="section" id="multi">
+    <div class="section-num">03 · Мультивибір і безпека</div>
+    <h2>Обмеження (кілька) + запобіжник</h2>
+    <p class="section-lead">Питання про обмеження — <b>мультивибір</b> (чекбокси), можна пропустити. Якщо обрано «приймаю ліки / хронічне захворювання» — перед результатом показуємо <b>спокійний запобіжник</b>: порадитися з лікарем + консервативний набір. Довіра передусім (Принцип №1).</p>
+    <div class="cols two">
+      <div>
+        <div class="qmodal">
+          <div class="qhead"><span class="t">Підбір за ціллю</span><span class="x">✕</span></div>
+          <div class="qbar"><div class="fill" style="width:80%"></div></div>
+          <div class="qstep">
+            <div class="qprog">Крок 4 з 5</div>
+            <div class="qq">Чи є щось, що нам врахувати?</div>
+            <div class="qsub">Можна обрати кілька або пропустити.</div>
+            <div class="qopts one">
+              <div class="qopt sel">Непереносимість лактози <span class="ck"></span></div>
+              <div class="qopt">Вегетеріанство / веганство <span class="ck"></span></div>
+              <div class="qopt">Алергії (горіхи, глютен…) <span class="ck"></span></div>
+              <div class="qopt">Приймаю ліки / хронічне захворювання <span class="ck"></span></div>
+              <div class="qopt">Нічого з переліченого <span class="ck"></span></div>
+            </div>
+          </div>
+          <div class="qfoot"><span class="btn-out">← Назад</span><span class="btn-dark">Далі →</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="qmodal">
+          <div class="qhead"><span class="t">Невелике уточнення</span><span class="x">✕</span></div>
+          <div class="qstep">
+            <div class="qimg" style="height:90px;">🩺</div>
+            <div class="qsafe"><b>Порадьтеся з лікарем.</b> Якщо ви приймаєте ліки або маєте хронічне захворювання — перед прийомом добавок проконсультуйтеся з лікарем. Ми покажемо <b>обережний базовий набір</b> із прозорим складом і дозуванням. Це не медична порада.</div>
+            <div style="margin-top:12px;"><span class="btn-dark">Зрозуміло, показати набір →</span></div>
+          </div>
+        </div>
+        <p class="note">Запобіжник зʼявляється лише за відповідного вибору (умовна вставка, не окреме питання). Набір стає консервативнішим (база, добре переносиме).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Result -->
+  <section class="section" id="result">
+    <div class="section-num">04 · Результат</div>
+    <h2>Curated-набір (відфільтрована колекція за ціллю)</h2>
+    <p class="section-lead">Підсумок: заголовок «Ваш стартовий набір для [цілі]», <b>чипи-обґрунтування</b> (що врахували), 3–5 карток із короткою причиною «чому тут» + натяком складу/дозування, і CTA. Мета — <b>не один товар, а зрозумілий набір</b>; завжди є вихід у повну колекцію.</p>
+    <div class="qwrap">
+      <div class="qmodal" style="max-width:600px;">
+        <div class="qhead"><span class="t">Ваш набір готовий ✓</span><span class="x">✕</span></div>
+        <div class="qstep">
+          <div class="qq">Стартовий набір для набору маси</div>
+          <div class="qsub">Підібрано під вашу ціль і відповіді — без зайвого.</div>
+          <div class="qchips">
+            <span class="qchip"><b>Ціль:</b>&nbsp;набір маси</span>
+            <span class="qchip"><b>Досвід:</b>&nbsp;новачок</span>
+            <span class="qchip"><b>Без лактози</b></span>
+            <span class="qchip"><b>Формат:</b>&nbsp;порошок</span>
+          </div>
+          <div class="setrow">
+            <div class="pcard"><div class="img">фото</div><div class="pn">Ізолят протеїну</div><div class="why">База для росту м'язів, без лактози</div><div class="pp">949 ₴</div><div class="pb">У кошик</div></div>
+            <div class="pcard"><div class="img">фото</div><div class="pn">Креатин моногідрат</div><div class="why">Сила й об'єм, перевірено</div><div class="pp">449 ₴</div><div class="pb">У кошик</div></div>
+            <div class="pcard"><div class="img">фото</div><div class="pn">Гейнер / вуглеводи</div><div class="why">Калорії для маси</div><div class="pp">1 199 ₴</div><div class="pb">У кошик</div></div>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="btn-dark">Додати весь набір у кошик · 2 597 ₴</span>
+            <span class="btn-out">Переглянути всю колекцію</span>
+          </div>
+          <p class="note" style="margin-top:10px;">Це не медична порада. Уся продукція сертифікована; склад і дозування — на картці товару. <a href="#">Зберегти / надіслати на email</a> (опц., без реєстрації).</p>
+        </div>
+      </div>
+    </div>
+    <p class="note">CTA: <b>«Додати весь набір»</b> → Кошик (6.0); <b>«Переглянути всю колекцію»</b> → Колекція за ціллю (2.2); картка/«У кошик» → Товар (3.0) / Кошик. Набір = 2–3 для новачка, до 4–5 для досвідчених.</p>
+  </section>
+
+  <!-- 05 Logic / scheme -->
+  <section class="section" id="logic">
+    <div class="section-num">05 · Логіка і схема</div>
+    <h2>Послідовність + умовні гілки</h2>
+    <p class="section-lead">Моя рекомендація: <b>порядок питань фіксований</b> (лінійний), а «розгалуження» живе в <b>результаті</b> (маппінг відповідей → набір) + <b>одна умовна вставка</b> (запобіжник). Для квіза на 5 питань це простіше й надійніше за повне дерево гілок. Можемо ускладнити пізніше за даними.</p>
+    <div class="flow">
+      <span class="fstep">Інтро</span><span class="farrow">→</span>
+      <span class="fstep">Q1 Ціль</span><span class="farrow">→</span>
+      <span class="fstep">Q2 Досвід</span><span class="farrow">→</span>
+      <span class="fstep">Q3 Частота</span><span class="farrow">→</span>
+      <span class="fstep">Q4 Обмеження</span><span class="farrow">→</span>
+      <span class="fstep cond">⚠ Запобіжник (якщо ліки/хронічне)</span><span class="farrow">→</span>
+      <span class="fstep">Q5 Формат/бюджет</span><span class="farrow">→</span>
+      <span class="fstep end">Результат-набір</span>
+    </div>
+    <p class="section-lead" style="margin-top:10px;"><b>Умовні правила</b> (впливають на набір, не на порядок питань):</p>
+    <table>
+      <tr><th>Якщо відповідь…</th><th>Ефект на набір</th></tr>
+      <tr><td><b>Q1 Ціль</b> = X</td><td>Базові категорії набору = мапа «ціль → категорії» (див. <a href="catalog.html">каталог</a>)</td></tr>
+      <tr><td><b>Q2</b> Новачок</td><td>Менший набір (2–3 базові) + більше пояснень і застережень</td></tr>
+      <tr><td><b>Q2</b> Досвідчений</td><td>Повніший стек (до 4–5), менше «розжовування»</td></tr>
+      <tr><td><b>Q3</b> 5+ тренувань</td><td>Додаємо інтра/електроліти/відновлення; 1–2 — мінімалізм</td></tr>
+      <tr><td><b>Q4</b> Лактоза</td><td>Протеїн → ізолят/рослинний; виключаємо концентрат</td></tr>
+      <tr><td><b>Q4</b> Веган/вегетар.</td><td>Рослинний протеїн; виключаємо тваринне (whey/казеїн/яловичий)</td></tr>
+      <tr><td><b>Q4</b> Ліки/хронічне</td><td>Вставка-запобіжник + консервативний базовий набір</td></tr>
+      <tr><td><b>Q5</b> Формат/бюджет</td><td>Фільтр форми (порошок/капсули/RTD) і цінового рівня в наборі</td></tr>
+    </table>
+    <div class="reco"><b>Альтернатива (не беремо для MVP):</b> повне дерево, де кожна відповідь веде на інше питання. Для 5 питань це зайва складність і важче підтримувати; лишаємо лінійний порядок + розгалуження результату. Якщо квіз «вистрілить» — поглибимо за аналітикою.</div>
+  </section>
+
+  <!-- 06 All questions -->
+  <section class="section" id="questions">
+    <div class="section-num">06 · Усі питання й відповіді</div>
+    <h2>Готові тексти питань і варіантів</h2>
+
+    <p class="section-lead" style="margin-bottom:8px;"><b>Q1 · Яка ваша ціль?</b> (один вибір) — задає базові категорії</p>
+    <table>
+      <tr><th>Варіант</th><th>Веде у набір (база)</th></tr>
+      <tr><td>💪 Набір м'язової маси</td><td>Протеїн · Гейнери · Креатин · BCAA/EAA · Передтрен.</td></tr>
+      <tr><td>🔥 Схуднення і рельєф</td><td>Жироспалювачі · L-карнітин · Протеїн (ізолят) · Клітковина</td></tr>
+      <tr><td>🌿 Відновлення</td><td>BCAA/EAA · Глютамін · Казеїн · Омега-3 · Магній/сон</td></tr>
+      <tr><td>⚡ Енергія і тонус</td><td>Передтренувальні · Кофеїн · B-вітаміни · Ізотоніки</td></tr>
+      <tr><td>🛡️ Імунітет і здоров'я</td><td>Вітаміни (C, D3, цинк) · Омега-3 · Адаптогени</td></tr>
+      <tr><td>🏃 Витривалість / кардіо</td><td>Ізотоніки/електроліти · Бета-аланін · L-карнітин · Гелі</td></tr>
+    </table>
+
+    <p class="section-lead" style="margin:14px 0 8px;"><b>Q2 · Який у вас досвід?</b> (один) · <b>Q3 · Як часто тренуєтесь?</b> (один)</p>
+    <table>
+      <tr><th>Q2 Досвід</th><th>Q3 Частота</th></tr>
+      <tr><td>Новачок — тільки починаю</td><td>1–2 рази на тиждень</td></tr>
+      <tr><td>Є досвід — тренуюсь регулярно</td><td>3–4 рази на тиждень</td></tr>
+      <tr><td>Досвідчений — знаю, що треба</td><td>5+ разів / професійно</td></tr>
+    </table>
+
+    <p class="section-lead" style="margin:14px 0 8px;"><b>Q4 · Чи є щось, що нам врахувати?</b> (кілька, можна пропустити) · <b>Q5 · Що вам зручніше?</b></p>
+    <table>
+      <tr><th>Q4 Обмеження (мульти)</th><th>Q5 Формат / бюджет (один-два)</th></tr>
+      <tr><td>Непереносимість лактози</td><td>Формат: порошок</td></tr>
+      <tr><td>Вегетеріанство / веганство</td><td>Формат: капсули / таблетки</td></tr>
+      <tr><td>Алергії (горіхи, глютен…)</td><td>Формат: готові напої (RTD)</td></tr>
+      <tr><td>Приймаю ліки / хронічне захворювання</td><td>Бюджет: економний / оптимальний / максимальний</td></tr>
+      <tr><td>Нічого з переліченого</td><td>—</td></tr>
+    </table>
+    <p class="note">Усі тексти — чернетки під редактуру копірайтера; питання лагідні, плейн-мова (Принцип №5). 5 питань = верхня межа брифу (ціль/досвід/обмеження + 2 уточнення).</p>
+  </section>
+
+  <!-- 07 Anatomy -->
+  <section class="section" id="anatomy">
+    <div class="section-num">07 · Анатомія діалогу</div>
+    <h2>Елементи й переходи</h2>
+    <table>
+      <tr><th>#</th><th>Елемент</th><th>Поведінка</th><th>Веде до</th></tr>
+      <tr><td>4.0</td><td><b>Інтро</b></td><td>Візуал + обіцянка + «Пройти квіз» / «Відкрити каталог»</td><td class="arrow">4.1 · 2.0</td></tr>
+      <tr><td>4.1</td><td><b>Крок-питання</b></td><td>Прогрес, питання, картки відповідей, Назад/Далі</td><td class="arrow">4.1 → 4.2</td></tr>
+      <tr><td>4.1s</td><td><b>Запобіжник</b> (умовний)</td><td>Зʼявляється за «ліки/хронічне» → консервативний набір</td><td class="arrow">4.2</td></tr>
+      <tr><td>4.2</td><td><b>Результат</b></td><td>Заголовок + чипи + набір 3–5 + CTA + дисклеймер</td><td class="arrow">4.3 · 2.2 · 6.0</td></tr>
+      <tr><td>4.3</td><td><b>Набір у кошик</b></td><td>«Додати весь набір» / по товару</td><td class="arrow">6.0 · 3.0</td></tr>
+    </table>
+  </section>
+
+  <!-- 08 SEO -->
+  <section class="section" id="seo">
+    <div class="section-num">08 · SEO-блок сторінки</div>
+    <h2>SEO: мета-теги, заголовки, текст, схема</h2>
+    <p class="section-lead">Квіз — JS-флоу в модалці, але має <b>індексовану лендинг-сторінку</b> /pidbir (інтро). Її і оптимізуємо (A–E, як на головній).</p>
+    <div class="codebox">&lt;title&gt;<b>Підбір спортивного харчування — пройдіть тест | Stack</b>&lt;/title&gt;  <span style="color:#999">(≤60)</span>
+&lt;meta name="description" content="<b>Не знаєте, що обрати? Пройдіть короткий тест — і отримайте безпечний набір спортивного харчування під вашу ціль: склад, дозування, без зайвого.</b>"&gt;  <span style="color:#999">(≤155)</span>
+&lt;link rel="canonical" href="https://stack.ua/pidbir/"&gt; · hreflang uk/ru/x-default · robots index,follow
+&lt;meta property="og:type" content="website"&gt; · og:title/description/image · twitter:card</div>
+    <table>
+      <tr><th>Рівень</th><th>Текст</th></tr>
+      <tr><td><b>H1</b></td><td>Підберіть спортивне харчування під свою ціль</td></tr>
+      <tr><td>H2</td><td>Як це працює (3 кроки) · Кому підійде · Часті питання (FAQ)</td></tr>
+    </table>
+    <p class="note"><b>Схема:</b> WebPage + опц. FAQPage (часті питання про підбір) + HowTo («як працює»). Кроки квіза не індексуємо (стани в модалці). <b>Готовий текст</b> лендингу — на етапі копірайту.</p>
+  </section>
+
+  <!-- 09 Accessibility -->
+  <section class="section" id="a11y">
+    <div class="section-num">09 · Доступність</div>
+    <h2>Доступність діалогу</h2>
+    <table>
+      <tr><td><b>role="dialog" aria-modal</b>, фокус-пастка, ESC закриває, повернення фокуса на тригер.</td></tr>
+      <tr><td>Прогрес — <b>aria-valuenow</b> (крок N з 5); зміна кроку озвучується (aria-live).</td></tr>
+      <tr><td>Картки відповідей — <b>radiogroup</b> (один) / <b>group чекбоксів</b> (кілька), керування клавіатурою, тап ≥ 44px.</td></tr>
+      <tr><td>Можна пройти без миші; «Далі» недоступна, доки нема вибору (де вибір обовʼязковий).</td></tr>
+      <tr><td>Запобіжник — помітний, але спокійний; не блокує вихід.</td></tr>
+    </table>
+  </section>
+
+  <!-- 10 Mobile -->
+  <section class="section" id="mobile">
+    <div class="section-num">10 · Мобілка</div>
+    <h2>Мобільний — повний екран</h2>
+    <p class="section-lead">На мобілці (база 360px) діалог = <b>повний екран</b>: прогрес зверху, питання, картки відповідей у <b>1 колонку</b>, «Назад/Далі» зафіксовані знизу (зона великого пальця). Інтро й результат — теж повний екран.</p>
+    <div class="reco"><b>Порядок:</b> Інтро (повний екран) → Q1…Q5 (по одному, картки в стовпчик, sticky-футер дій) → [Запобіжник за потреби] → Результат (набір + «Додати все», sticky CTA).</div>
+  </section>
+
+  <!-- 11 Locked / open -->
+  <section class="section" id="open">
+    <div class="open">
+      <h2>Зафіксовано ✓ / на обговорення</h2>
+      <p style="font-size:13px;color:var(--text-secondary);margin:0 0 6px"><b>2026-06-30 — квіз (драфт IA):</b></p>
+      <ul>
+        <li><b>Статус: post-launch</b> (Рішення 2). MVP-вхід у ціль — плитки (2.2); квіз — обогащена версія.</li>
+        <li><b>Формат:</b> фокус-діалог (модалка десктоп / повний екран мобілка), 1 крок = 1 питання, прогрес, спокійний візуал, без реєстрації.</li>
+        <li><b>5 питань:</b> Ціль · Досвід · Частота · Обмеження (мульти) · Формат/бюджет. Запобіжник — умовна вставка.</li>
+        <li><b>Логіка:</b> порядок фіксований, розгалуження — у результаті + 1 умовна вставка (не повне дерево).</li>
+        <li><b>Мета/вихід:</b> curated-набір 3–5 = відфільтрована Колекція за ціллю (2.2), <b>не один товар</b>; «Додати весь набір» / «вся колекція».</li>
+        <li><b>Довіра:</b> дисклеймер «не медична порада», склад/дозування на картці, запобіжник при ліках/хронічному.</li>
+      </ul>
+      <p style="font-size:13px;color:var(--text-secondary);margin:12px 0 0"><b>На обговорення / [?]:</b> кількість питань (4 чи 5?); чи стартувати квіз із плитки цілі (Q1 пресет); email-збереження набору; точні правила добірки набору (за даними/контентом); чи показувати квіз у головній навігації, чи лише на Головній.</p>
+    </div>
+  </section>
+
+  <div class="footer-text">
+    Stack — Посторінкова IA · Квіз (вузол 4.x, post-launch): інтро → 5 питань → [запобіжник] → curated-набір. Джерело істини: ia/docs/pages/quiz.md. Карта сайту: sitemap.html. Концептуальний шар: ../research/concept.html. Червень 2026, чернетка.
+  </div>
+
+</div>
+
+<script>
+  function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('open'); }
+  function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.remove('open'); }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link){ link.addEventListener('click', closeSidebar); });
+</script>
+</body>
+</html>

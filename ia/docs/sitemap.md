@@ -24,6 +24,10 @@
     categories → subcategories → types (rebalanced from 14; «Здоров'я» expanded into ~10
     subcategories), 6 goals as cross-cutting collections, facets; built from real UA
     catalogs, Belok-based).
+  - `pages/quiz.md` → `ia/quiz.html` (node 4.x, **post-launch** — goal-guide quiz as a focused
+    dialog: intro → 5 questions [goal·experience·frequency·constraints·format/budget] + conditional
+    safety insert → curated set = filtered goal collection 2.2, not a single product; fixed order,
+    result-branching; B/W).
   Next: cluster by cluster — Product (3.0), Cart/Checkout (6.x), Coach workspace (5.x),
   Buyer account (7.x).
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
@@ -50,7 +54,10 @@
   Inherited filter panel: price, brand, country, goal, form, availability.
 - **3 — Product:** 3.0 Product detail (composition/dosage/origin/certification — Job 4) ·
   3.1 Reviews · 3.2 Questions · 3.3 Related.
-- **4 — Goal guide (quiz):** 4.0 Intro · 4.1 Questions · 4.2 Results · 4.3 Recommended set.
+- **4 — Goal guide (quiz, POST-LAUNCH):** focused dialog — 4.0 Intro · 4.1 Questions (5 steps:
+  goal·experience·frequency·constraints-multi·format/budget + conditional safety insert) · 4.2
+  Result (curated set = filtered goal collection 2.2, not one product) · 4.3 Add set to cart.
+  Fixed question order; branching lives in the result mapping. See `ia/quiz.html`.
 - **5 — Coach workspace (PRIMARY, Decision 1):** 5.0 For-Coaches landing + published
   pricing (CTA "become a coach") · 5.1 Become-a-coach: verification + tier activation
   (one flow, entered from landing 5.0 or account 7.7) · 5.2 Coach home · 5.3 Client list ·

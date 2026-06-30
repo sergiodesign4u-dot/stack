@@ -317,6 +317,18 @@ Output = the wireframe library. Wireframes then just render it.
   "SEO & a11y" section (now Accessibility-only). Lesson: write SEO at the IA stage as **finished
   copy + tags**, not "fill later" — wireframes then render a page whose title/description/H1/H2 and
   body text already exist. Apply A–E to every subsequent page (Catalog, Product, Goal, …).
+- **2026-06-30** — **Quiz / goal guide (node 4.x, post-launch)** drafted (`ia/docs/pages/quiz.md` +
+  `ia/quiz.html`). Designed as a **focused dialog** (modal desktop / full-screen mobile), one step =
+  one question, progress + calm visual, no account. **5 questions** (goal · experience · frequency ·
+  constraints-multi · format/budget) + a **conditional safety insert** (meds/chronic → consult a
+  doctor + conservative set). Two opinionated calls flagged for the user: (a) **fixed question order,
+  branch the RESULT** (answers → set mapping) instead of a full per-answer decision tree — simpler &
+  maintainable for 5 Qs; (b) **output = a curated set = a filtered Goal collection (2.2), not a single
+  product** (stock volatility + risk). Included the full ready Q&A copy, the logic scheme, the A–E SEO
+  block (indexable `/pidbir` landing wraps the JS modal), and dialog a11y (role=dialog, focus trap,
+  radiogroup/checkbox). Wired Квіз into every sidebar; enriched sitemap cluster 4. Lesson: for a guided
+  quiz, decide **what it outputs** (a set, not a SKU) and **where the branching lives** (result, not the
+  question tree) before drawing screens — those two calls shape every step.
 - **Next** — page-level IA cluster by cluster (each WITH its A–E SEO block): Product (3.0),
   Cart/Checkout (6.x), Coach workspace (5.x), Buyer account (7.x). Add each new node to the sidebar
   group and `ia/docs/sitemap.md`.
