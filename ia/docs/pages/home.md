@@ -26,8 +26,10 @@ also **mobile tab 1** and the root SEO landing.
 
 ## Block order (mobile-first priority) — restructured 2026-07-01 (Foxtrot-pattern hero)
 
-1. **Hero — category rail + banners (Foxtrot/Rozetka pattern).** Desktop: a **left category rail**
-   (12 top categories; hover → **flyout** of subcategories → Category 2.1) + **banners on the right**
+1. **Hero — category rail + banners (Foxtrot/Rozetka pattern).** Desktop: a **left category rail** —
+   **«За ціллю» is the FIRST item** (concern-lens, mirroring the catalog), then 12 top categories;
+   hover → **flyout** (goals for «За ціллю», subcategories for a category) → Goal collection 2.2 /
+   Category 2.1 + **banners on the right**
    — a **promo slider of 2–3 banner cards** (not one big banner) + 2 **vertical** promo banners. Fast
    entry for the regular/known-item buyer (Job 3) + merchandising. The **wholesale «Для тренерів» banner
    is targeted to coaches only** (not shown to everyone — showing wholesale prices to all is undesirable;
@@ -64,17 +66,17 @@ also **mobile tab 1** and the root SEO landing.
 (The old standalone "Popular categories" tiles block is **dropped** — the hero category rail covers it.)
 
 ### Product card (canonical component) — redesigned 2026-07-01 (Foxtrot/Belok-style)
-Reused on Home, Catalog and all listings. Fields, top→bottom:
-- **Vertical photo** (~10:11 — slightly reduced from the first pass; jars/tubs read vertical) with
-  **♡ favourite** (top-right; guest → sign-in 1.0) and a **corner tag for Хіт / NEW only** (the
-  discount is shown by the price, not a corner).
-- **Rating** (★ score) **+ review count** → Reviews (3.1).
-- **Product name** — up to **2 lines** (clamped) → Product (3.0).
-- **Brand · country** — a separate meta line under the name (brand → 2.4).
-- **Price row:** new price (big) + old struck **with the −% badge next to the struck price** (universal
-  rule), and an **icon-only «У кошик» button (cart icon, no text) beside the price** → Cart (6.0).
-- **Meta row (bottom):** **price-per-serving** «75 ₴ / порція» (Belok-style) on the left + **bonus-program
-  amount** «+9 ₴ Бонус» on the right.
+Reused on Home, Catalog and all listings. **Field order (top→bottom), set 2026-07-01:**
+1. **Vertical photo** (~10:11 — slightly reduced; jars/tubs read vertical) with **♡ favourite**
+   (top-right; guest → sign-in 1.0) and a **corner tag for Хіт / NEW only** (discount shown by the price).
+2. **Product name** — up to **2 lines** (clamped) → Product (3.0).
+3. **Brand · country** — a separate meta line under the name (brand → 2.4).
+4. **Price row:** new price (big) + old struck **with the −% badge next to the struck price** (universal
+   rule), and an **icon-only «У кошик» button (cart icon, no text) beside the price** → Cart (6.0).
+5. **Rating** (★ score) **+ review count** — **placed AFTER the price** (decided 2026-07-01; swapped with
+   the brand line so brand·country sits up top and the rating supports the price decision) → Reviews (3.1).
+6. **Meta row (bottom):** **price-per-serving** «75 ₴ / порція» (Belok-style) on the left + **bonus-program
+   amount** «+9 ₴ Бонус» on the right.
 Coach sees the tier price. Calm, no aggressive badges. **Canonical → must propagate to Category (2.1),
 Catalog-hub (2.0) and all listings** (follow-up). Per-serving + bonus values are data-stage [?].
 
@@ -159,10 +161,12 @@ ready SEO body text, schema/tags, and an optimization checklist.
   front door, kept high (just under the cart shelf). The standalone "popular categories" tiles are dropped.
 - **Product rows:** Хіти продажів · **Новинки** (NEW tag) · **Recently-viewed** (state) — all use the
   redesigned canonical card.
-- **Canonical product card (Foxtrot/Belok-style):** large **vertical** photo · ♡ favourite · Хіт/NEW
-  corner tag only · **rating + review count** · name up to **2 lines** · price (new + struck **with −%
-  beside the struck price**) · **icon-only 🛒 button beside the price** · **meta row: price-per-serving
-  + bonus («+N ₴ Бонус»)**. Canonical → must propagate to listings (2.1/2.0/…).
+- **Canonical product card (Foxtrot/Belok-style), order:** **vertical** photo (♡ + Хіт/NEW corner) →
+  name up to **2 lines** → **brand · country** → price (new + struck **with −% beside the struck price**)
+  + **icon-only 🛒 button beside the price** → **rating + review count (after the price)** → **meta row:
+  price-per-serving + bonus («+N ₴ Бонус»)**. Canonical → must propagate to listings (2.1/2.0/…).
+- **Category rail starts with «За ціллю»** (concern-lens), then categories — on the home hero AND in the
+  catalog (mega-menu / catalog hub), consistently.
 - **Full SEO block produced at IA** (meta tags + H1/H2 + ready text + schema + checklist) — template for every page.
 - **Trust band high** (principle #1); full 4-card strip in the footer.
 - **Visible «Для тренерів» block** on Home (principle #3) → landing 5.0.

@@ -33,9 +33,11 @@ with real supplier data). The tree is the target structure.
   categories (JTBD unchanged); they select products from the tree. Goals are Stack's
   **concern/outcome discovery lens** — the analogue of "browse by symptom" on a pharmacy
   aggregator (e.g. Liki24). So they are **first-class inside the Catalog**, not only a
-  separate top-bar dropdown: present as the «За ціллю» column in the desktop mega-menu AND
-  as the **top block of the mobile Catalog drilldown** + goal pages (2.2). This keeps goals
-  reachable everywhere (Головна hero · «Цілі» dropdown · Catalog · mobile Catalog).
+  separate dropdown: **«За ціллю» leads the category list** — it is the **first item** in the
+  home category rail and in the «Каталог» mega-menu category column, the first block on the
+  Catalog hub (2.0), and the top block of the mobile Catalog drilldown + goal pages (2.2)
+  (consistent goals-first ordering, decided 2026-07-01). This keeps goals reachable everywhere
+  (Головна hero · Catalog hub · mega-menu · mobile Catalog) and surfaced before the categories.
 - **One canonical category per product.** A product lives in exactly one category;
   multi-discovery is via **goal tags + facets + search**, not dual category listings.
   _(Example: L-карнітин's canonical home is Жироспалювачі; it also surfaces under the

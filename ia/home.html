@@ -176,18 +176,19 @@
     .pcard .fav { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1px solid #e6e6e6; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #888; }
     .pcard .tag { position: absolute; top: 8px; left: 8px; background: #fff; border: 1.5px solid #161616; color: #111; font-size: 9px; font-weight: 800; border-radius: 5px; padding: 1px 6px; text-transform: uppercase; }
     .pcard .bd { padding: 9px 10px 10px; display: flex; flex-direction: column; flex: 1; }
-    .pcard .rate { font-size: 10.5px; color: #999; display: flex; align-items: center; gap: 5px; }
+    /* visual order: name → brand·country → price → rating → meta (rating after price) */
+    .pcard .nm { order: 1; font-size: 12.5px; color: #222; line-height: 1.3; font-weight: 600; margin: 2px 0 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 33px; }
+    .pcard .pbrand { order: 2; font-size: 10.5px; color: #888; line-height: 1.3; margin: 0 0 9px; }
+    .pcard .prow2 { order: 3; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; margin-top: auto; }
+    .pcard .rate { order: 4; font-size: 10.5px; color: #999; display: flex; align-items: center; gap: 5px; margin-top: 9px; }
     .pcard .rate .st { color: #161616; font-weight: 700; }
-    .pcard .nm { font-size: 12.5px; color: #222; line-height: 1.3; font-weight: 600; margin: 5px 0 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 33px; }
-    .pcard .pbrand { font-size: 10.5px; color: #888; line-height: 1.3; margin: 0 0 9px; }
-    .pcard .prow2 { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; margin-top: auto; }
     .pcard .pcol { display: flex; flex-direction: column; gap: 1px; }
     .pcard .poldline { display: flex; align-items: center; gap: 6px; min-height: 14px; }
     .pcard .pold { font-size: 11px; color: #aaa; text-decoration: line-through; }
     .pcard .pcut { background: #161616; color: #fff; font-size: 9px; font-weight: 800; border-radius: 4px; padding: 1px 5px; }
     .pcard .pnew { font-weight: 800; color: #111; font-size: 17px; }
     .pcard .cartbtn { width: 40px; height: 40px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; background: #161616; color: #fff; }
-    .pcard .pmeta2 { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 9px; padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 10.5px; }
+    .pcard .pmeta2 { order: 5; display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 9px; padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 10.5px; }
     .pcard .perserv { color: #777; } .pcard .perserv b { color: #111; }
     .pcard .bonus { color: #2d7d46; font-weight: 700; white-space: nowrap; }
 
@@ -311,7 +312,8 @@
         <div class="blk-lbl">Перший екран — рейл категорій + банери</div>
         <div class="herowrap">
           <div class="catrail">
-            <div class="ci on">🥛 Протеїн <span class="ar">›</span></div>
+            <div class="ci on">🎯 За ціллю <span class="ar">›</span></div>
+            <div class="ci">🥛 Протеїн <span class="ar">›</span></div>
             <div class="ci">💪 Гейнери <span class="ar">›</span></div>
             <div class="ci">⚡ Креатин <span class="ar">›</span></div>
             <div class="ci">🧬 Амінокислоти / BCAA <span class="ar">›</span></div>
@@ -320,8 +322,8 @@
             <div class="ci">🍫 Батончики / снеки <span class="ar">›</span></div>
             <div class="ci">🥤 Аксесуари <span class="ar">›</span></div>
             <div class="flyout">
-              <div class="fh">Протеїн →</div>
-              <div class="fl"><b>Сироватковий</b> · Ізолят · Казеїн · Рослинний · Комплексний · Гідролізат · Яловичий</div>
+              <div class="fh">За ціллю →</div>
+              <div class="fl"><b>Набір маси</b> · Схуднення · Відновлення · Енергія/тонус · Імунітет/здоров'я · Витривалість</div>
             </div>
           </div>
           <div class="hero-r">
@@ -453,14 +455,15 @@
   <section class="section" id="hero">
     <div class="section-num">03 · Перший екран</div>
     <h2>Рейл категорій + банери (Foxtrot-патерн)</h2>
-    <p class="section-lead">Перший екран магазину — <b>лівий рейл категорій</b> (наведення → флайаут субкатегорій) + <b>банери справа</b>: великий слайдер-промо й 2 вертикальні банери. Швидкий вхід для регуляра/обізнаного (Job 3) + мерчандайзинг. Цілі-новачка не втрачаємо — вони одразу нижче (§07, концерн-лінза).</p>
+    <p class="section-lead">Перший екран магазину — <b>лівий рейл категорій</b> (наведення → флайаут субкатегорій) + <b>банери справа</b>: слайдер-промо (2–3 картки) й 2 вертикальні банери. <b>Перша позиція рейлу — «За ціллю»</b> (концерн-лінза, як у каталозі), далі Протеїн, Гейнери… Швидкий вхід і для новачка (за ціллю), і для регуляра (категорії). Великий блок цілей із квізом — одразу нижче (§07).</p>
     <p class="wf-note">Мокапи навмисно <b>чорно-білі</b> (вайрфрейм-рівень) — колір додамо на етапі концепту.</p>
     <div class="wf">
       <div class="wf-cap">Рейл категорій + банери — десктоп (наведено «Протеїн»)</div>
       <div class="wf-pad">
         <div class="herowrap">
           <div class="catrail">
-            <div class="ci on">🥛 Протеїн <span class="ar">›</span></div>
+            <div class="ci on">🎯 За ціллю <span class="ar">›</span></div>
+            <div class="ci">🥛 Протеїн <span class="ar">›</span></div>
             <div class="ci">💪 Гейнери <span class="ar">›</span></div>
             <div class="ci">⚡ Креатин <span class="ar">›</span></div>
             <div class="ci">🧬 Амінокислоти / BCAA <span class="ar">›</span></div>
@@ -469,8 +472,8 @@
             <div class="ci">🍫 Батончики / снеки <span class="ar">›</span></div>
             <div class="ci">🥤 Аксесуари <span class="ar">›</span></div>
             <div class="flyout">
-              <div class="fh">Протеїн →</div>
-              <div class="fl"><b>Сироватковий</b> · Ізолят · Казеїн · Рослинний · Комплексний · Гідролізат · Яловичий</div>
+              <div class="fh">За ціллю →</div>
+              <div class="fl"><b>Набір маси</b> · Схуднення · Відновлення · Енергія/тонус · Імунітет/здоров'я · Витривалість</div>
             </div>
           </div>
           <div class="hero-r">
@@ -611,7 +614,7 @@
   <section class="section" id="products">
     <div class="section-num">08 · Товари</div>
     <h2>Канонічна картка · хіти · новинки · переглянуті</h2>
-    <p class="section-lead">Оновлена <b>канонічна картка</b> (Foxtrot/Belok-стиль), що повторюється в каталозі й лістингах: <b>вертикальне фото</b> (трохи зменшене), ♡ в обране, рейтинг + к-сть відгуків, назва до 2 рядків, <b>бренд · країна окремим рядком</b>, ціна, <b>іконка-кнопка «У кошик» збоку</b>, а під ними мета-рядок: <b>ціна за порцію</b> + <b>бонус програми</b>. Товари групуємо у <b>тематичні добірки-таби</b>: Хіт продажу · Кращі цінові пропозиції · Преміум товари · Новинки. Спокійно, без агресії.</p>
+    <p class="section-lead">Оновлена <b>канонічна картка</b> (Foxtrot/Belok-стиль). Порядок (зверху вниз): <b>вертикальне фото</b> (трохи зменшене) з ♡ і кутовим Хіт/NEW → <b>назва</b> до 2 рядків → <b>бренд · країна</b> → <b>ціна + іконка-кнопка «У кошик» збоку</b> → <b>рейтинг + відгуки (після ціни)</b> → мета-рядок <b>ціна за порцію + бонус</b>. Товари групуємо у <b>тематичні добірки-таби</b>: Хіт продажу · Кращі цінові пропозиції · Преміум товари · Новинки. Спокійно, без агресії.</p>
 
     <div class="wf">
       <div class="wf-cap">Анатомія картки</div>
@@ -620,15 +623,14 @@
           <div class="pcard"><div class="ph">фото<span class="tag">Хіт</span><span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div><div class="nm">Протеїн 100% Whey Gold Standard 909 г</div><div class="pbrand">Optimum Nutrition · США</div><div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 124 ₴</span><span class="pcut">−20%</span></div><span class="pnew">899 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>75 ₴</b> / порція</span><span class="bonus">+9 ₴ Бонус</span></div></div></div>
         </div>
         <table style="box-shadow:none">
-          <tr><td><b>Фото</b></td><td>велике, <b>вертикальне</b> (≈4:5) — банки/туби займають висоту</td></tr>
-          <tr><td><b>♡ Обране</b></td><td>іконка вгорі-праворуч (гість → діалог входу 1.0)</td></tr>
-          <tr><td><b>Бейдж кутовий</b></td><td>лише Хіт / NEW (знижка — біля ціни, не в кутку)</td></tr>
-          <tr><td><b>Рейтинг + відгуки</b></td><td>★ оцінка · к-сть відгуків → секція відгуків 3.1</td></tr>
-          <tr><td><b>Назва</b></td><td>до <b>2 рядків</b> (обрізка), → Товар 3.0</td></tr>
-          <tr><td><b>Бренд · країна</b></td><td>окремий рядок під назвою (бренд → 2.4)</td></tr>
-          <tr><td><b>Ціна</b></td><td>нова велика; стара закреслена + <b>−% поруч</b> (єдине правило)</td></tr>
-          <tr><td><b>🛒 Кнопка</b></td><td><b>іконка без тексту, збоку</b> від ціни → Кошик 6.0</td></tr>
-          <tr><td><b>Мета-рядок</b></td><td>зліва <b>ціна за порцію</b> (як Белок), справа <b>бонус</b> (+₴)</td></tr>
+          <tr><td>1 · <b>Фото</b></td><td><b>вертикальне</b> (≈10:11, трохи зменшене) — банки/туби займають висоту</td></tr>
+          <tr><td>· <b>♡ Обране</b></td><td>іконка вгорі-праворуч над фото (гість → діалог входу 1.0)</td></tr>
+          <tr><td>· <b>Бейдж кутовий</b></td><td>лише Хіт / NEW (знижка — біля ціни, не в кутку)</td></tr>
+          <tr><td>2 · <b>Назва</b></td><td>до <b>2 рядків</b> (обрізка), → Товар 3.0</td></tr>
+          <tr><td>3 · <b>Бренд · країна</b></td><td>окремий рядок під назвою (бренд → 2.4)</td></tr>
+          <tr><td>4 · <b>Ціна + 🛒</b></td><td>нова велика; стара закреслена + <b>−% поруч</b>; <b>іконка-кнопка без тексту збоку</b> → Кошик 6.0</td></tr>
+          <tr><td>5 · <b>Рейтинг + відгуки</b></td><td>★ оцінка · к-сть відгуків — <b>після ціни</b> → секція відгуків 3.1</td></tr>
+          <tr><td>6 · <b>Мета-рядок</b></td><td>зліва <b>ціна за порцію</b> (як Белок), справа <b>бонус</b> (+₴)</td></tr>
         </table>
       </div>
     </div>
@@ -776,11 +778,11 @@
     <h2>Блоки й переходи</h2>
     <table>
       <tr><th>#</th><th>Блок</th><th>Вміст</th><th>Веде до</th></tr>
-      <tr><td>1</td><td><b>Рейл категорій + банери</b></td><td>Лівий рейл 12 категорій (hover → флайаут субкатегорій) + банер-слайдер + 2 вертикальні промо</td><td class="arrow">2.1 · 8.10 · 5.0</td></tr>
+      <tr><td>1</td><td><b>Рейл категорій + банери</b></td><td>Лівий рейл: <b>«За ціллю» перша</b> → 12 категорій (hover → флайаут) + банер-слайдер (2–3 картки) + 2 вертикальні промо (коуч-банер — лише тренерам)</td><td class="arrow">2.2 · 2.1 · 8.10 · 5.0</td></tr>
       <tr><td>2</td><td><b>Полиця кошика</b> (стан)</td><td>Якщо кошик не порожній: N товарів, сума, мініатюри, «Оформити замовлення» / «Переглянути кошик»</td><td class="arrow">6.1 · 6.0</td></tr>
       <tr><td>3</td><td><b>Спортхарчування під вашу ціль</b></td><td>Великий хедінг + опис + 6 плиток цілей + CTA <b>«Пройти квіз»</b></td><td class="arrow">2.2 · 4.0</td></tr>
       <tr><td>4</td><td><b>Смуга довіри</b></td><td>Сертифікат · доставка · оплата · повернення · відгуки</td><td class="arrow">8.8 · 8.4 · 8.5 · 8.11</td></tr>
-      <tr><td>5</td><td><b>Тематичні добірки</b> (таби)</td><td>Хіт продажу · Кращі ціни · Преміум · Новинки. <b>Канонічна картка</b>: фото · ♡ · рейтинг · назва · бренд·країна · ціна+🛒 · /порція+бонус</td><td class="arrow">3.0 · 6.0 · 7.6 · 3.1</td></tr>
+      <tr><td>5</td><td><b>Тематичні добірки</b> (таби)</td><td>Хіт продажу · Кращі ціни · Преміум · Новинки. <b>Канонічна картка</b>: фото(♡, Хіт/NEW) · назва · бренд·країна · ціна+🛒 · <b>рейтинг (після ціни)</b> · /порція+бонус</td><td class="arrow">3.0 · 6.0 · 7.6 · 3.1</td></tr>
       <tr><td>6</td><td><b>Для тренерів</b></td><td>Банер коуч-каналу + CTA умови</td><td class="arrow">5.0</td></tr>
       <tr><td>7</td><td><b>Новинки</b></td><td>Та сама картка, кутовий бейдж NEW (рейтинг порожній)</td><td class="arrow">3.0 · 6.0</td></tr>
       <tr><td>8</td><td><b>Переглянуті товари</b> (стан)</td><td>Якщо є історія переглядів; та сама картка</td><td class="arrow">3.0 · 6.0</td></tr>
@@ -825,13 +827,13 @@
       <h2>Рішення зафіксовано ✓</h2>
       <p style="font-size:13px;color:var(--text-secondary);margin:0 0 6px"><b>2026-07-01 — структура головної (Foxtrot-патерн):</b></p>
       <ul>
-        <li><b>Перший екран = рейл категорій + банери</b> (Foxtrot/Rozetka): лівий рейл 12 категорій (hover → флайаут субкатегорій) + банер-слайдер + 2 вертикальні промо. Швидкий вхід для регуляра + мерчандайзинг.</li>
+        <li><b>Перший екран = рейл категорій + банери</b> (Foxtrot/Rozetka): лівий рейл — <b>«За ціллю» першим пунктом</b> (концерн-лінза, як у каталозі), далі 12 категорій (hover → флайаут) + банер-<b>слайдер 2–3 картки</b> + 2 вертикальні промо (опт-банер «Для тренерів» — <b>лише тренерам</b>).</li>
         <li><b>Полиця кошика (стан)</b> одразу під hero, коли кошик не порожній: N товарів, сума, мініатюри, «Оформити замовлення» / «Переглянути кошик». Персональна стрічка за роллю — варіант цього блоку.</li>
         <li><b>«Спортивне харчування під вашу ціль» (блок 3)</b> — <b>великий хедінг + опис</b> (як було) + 6 плиток + CTA <b>«Пройти квіз»</b> (не «Відкрити каталог»). Front-door новачка. Окремий блок «популярні категорії» прибрано (рейл покриває).</li>
         <li><b>Квіз більше не губиться:</b> головний CTA блоку цілей + <b>кнопка «Квіз» у хедері замість мега-меню «Цілі»</b> (цілі вже добре показані в каталозі: 2.0/2.1/2.2). Квіз (4.x) післязапуск; MVP → плитки цілей.</li>
         <li><b>Банер-слайдер = 2–3 картки</b> (не одна) + вертикальні промо; опт-банер «Для тренерів» <b>таргетований лише на тренерів</b> (опт-ціни не показуємо всім). Окремий блок «Для тренерів» лишається (Принцип №3).</li>
         <li><b>Товари — тематичні добірки-таби:</b> Хіт продажу · Кращі цінові пропозиції · Преміум товари · Новинки (+ Переглянуті — стан).</li>
-        <li><b>Канонічна картка (Foxtrot/Belok):</b> <b>вертикальне</b> фото (зменшене) · ♡ · кутовий Хіт/NEW · <b>рейтинг + відгуки</b> · назва до 2 рядків · <b>бренд · країна</b> · ціна (нова + стара з <b>−% поруч</b>) · <b>іконка-кнопка 🛒 збоку</b> · мета-рядок <b>ціна/порція + бонус</b>. Канонічна → прокинути в лістинги (2.1/2.0).</li>
+        <li><b>Канонічна картка (Foxtrot/Belok), порядок:</b> <b>вертикальне</b> фото (зменшене, ♡ + кутовий Хіт/NEW) → назва до 2 рядків → <b>бренд · країна</b> → ціна (нова + стара з <b>−% поруч</b>) + <b>іконка-кнопка 🛒 збоку</b> → <b>рейтинг + відгуки (після ціни)</b> → мета-рядок <b>ціна/порція + бонус</b>. Канонічна → прокинути в лістинги (2.1/2.0).</li>
         <li><b>SEO-блок (A–E)</b> повний ще на IA — шаблон для кожної сторінки. <b>Смуга довіри</b> високо (Принцип №1). <b>Видимий «Для тренерів»</b> (Принцип №3) → 5.0.</li>
         <li><b>Спокійно, без countdown-таймерів</b> (Принцип №4). Мокапи ч/б; колір — на концепті. Порядок продуманий з мобілки (рейл → банер + чипи).</li>
       </ul>
