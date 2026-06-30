@@ -310,7 +310,23 @@ layout is still designed deliberately (it is a store).
   **Docs presentation pattern (June 2026):** page specs lead with **§01 «Анатомія сторінки»**
   (one consolidated desktop wireframe of the whole page with inherited header/footer zones) →
   **§02 «Мобілка»** → then the **розбір** (per-block detail, states, A–E SEO, anatomy table,
-  locked). `home.html`, `category.html`, `catalog-page.html` all follow this.
+  locked). `home.html`, `category.html`, `catalog-page.html`, `product.html` all follow this.
+  **Product detail / PDP (`product.md`, node 3.0, done June 2026):** the **conversion target of
+  every product card** and the home of the trust/verify job (Job 4). Sidebar order in «Сторінки»:
+  Головна · Каталог · Категорія · **Картка товару** · Квіз. Breadcrumb → **gallery + buy-box**
+  (H1 · brand·country · rating → reviews · availability · one-line plain «для чого» · price + per-
+  serving + **coach tier price** · variant pills смак/вага · qty · single primary **«У кошик»** + ♡ ·
+  trust micro-row) → **trust block is the LEAD directly under buy-box, not buried** (Склад per-serving
+  table · Дозування · Походження · **Сертифікація = real viewable certificate**) → опис (after trust,
+  principle #1) → характеристики (mirror catalog.md facets) → **3.1 Відгуки** (rating breakdown +
+  list + leave-review = the conversion **recovery**) → **3.2 Питання** → **3.3 Схожі / з цим купують**,
+  all rendered on one page → **sticky mobile buy-bar**. Locked: single CTA + sticky bar; lead-with-
+  simple-answer; **variants on one canonical PDP** (flavour/size params canonical to base, OOS variant
+  disabled not hidden); calm honest availability, out-of-stock → «Повідомити про надходження» +
+  back-to-collection (flow recovery, never a dead end); coach-aware CTA «Додати клієнту» + tier price;
+  A–E SEO with **Product/Offers (price·availability) + AggregateRating + Review + BreadcrumbList**
+  schema. Flow source: `research/docs/flows.md` "Job 3 — verify product safety". Per-product content
+  (composition, dosage, certificate files, reviews) stays the operational/data [?].
 
 **Unified navigation:** all docs pages (research, personas, jtbd, concept, and every
 page-level IA page) share one left sidebar. Group order: Дослідження · Персони · JTBD ·

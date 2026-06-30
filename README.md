@@ -15,6 +15,7 @@ A mobile-first sport nutrition store for the Ukrainian market, built around coac
 - https://sergiodesign4u-dot.github.io/stack/ia/catalog.html — Information architecture: Catalog structure (store taxonomy)
 - https://sergiodesign4u-dot.github.io/stack/ia/catalog-page.html — Information architecture: Catalog (hub / landing, node 2.0)
 - https://sergiodesign4u-dot.github.io/stack/ia/category.html — Information architecture: Category / product listing (PLP; shared listing template)
+- https://sergiodesign4u-dot.github.io/stack/ia/product.html — Information architecture: Product detail / PDP (node 3.0; trust block + reviews/questions/related; conversion target)
 - https://sergiodesign4u-dot.github.io/stack/ia/category-matrix.html — Information architecture: Category content matrix (populates all categories)
 - https://sergiodesign4u-dot.github.io/stack/ia/seo.html — Information architecture: SEO methodology & keyword reference (project engine)
 
@@ -61,7 +62,7 @@ handoff/            - Developer handoff files
 
 **Detailed information architecture (page-level, Phase 2 prep; docs in `ia/docs/`):**
 - `ia/docs/sitemap.md` - full sitemap (structural index; `ia/sitemap.html` is canonical visual)
-- `ia/docs/pages/*.md` - per-page IA specs (source of truth): `navigation.md` (header + tabs), `footer.md` (footer + SEO block), `home.md` (home page), `catalog.md` (store taxonomy / structure), `catalog-page.md` (catalog hub, node 2.0), `category.md` (category / product listing — shared listing template), `category-matrix.md` (content matrix populating all categories), `seo.md` (SEO methodology & keyword engine), `quiz.md` (goal-guide quiz, post-launch)
+- `ia/docs/pages/*.md` - per-page IA specs (source of truth): `navigation.md` (header + tabs), `footer.md` (footer + SEO block), `home.md` (home page), `catalog.md` (store taxonomy / structure), `catalog-page.md` (catalog hub, node 2.0), `category.md` (category / product listing — shared listing template), `product.md` (product detail / PDP, node 3.0 + 3.1/3.2/3.3), `category-matrix.md` (content matrix populating all categories), `seo.md` (SEO methodology & keyword engine), `quiz.md` (goal-guide quiz, post-launch)
 - Live visual: https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html · https://sergiodesign4u-dot.github.io/stack/ia/navigation.html · https://sergiodesign4u-dot.github.io/stack/ia/footer.html · https://sergiodesign4u-dot.github.io/stack/ia/home.html · https://sergiodesign4u-dot.github.io/stack/ia/catalog.html
 
 ---

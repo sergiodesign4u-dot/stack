@@ -44,8 +44,17 @@
     states + quick-add) → load-more + crawlable pagination → SEO text + related. **One shared
     listing template** for 2.0 Catalog-all / 2.2 Goal / 2.4 Brand / 2.5 Search / 2.1a city; A–E
     SEO block with explicit faceted-nav indexation control; B/W).
-  Next: cluster by cluster — Product (3.0), Cart/Checkout (6.x), Coach workspace (5.x),
-  Buyer account (7.x).
+  - `pages/product.md` → `ia/product.html` (node 3.0 — Product detail / PDP, **conversion target
+    of every product card** + trust/verify job): breadcrumb → gallery + buy-box (H1 · brand·country ·
+    rating · availability · plain "simple answer" · price + per-serving + coach tier · variant
+    selectors · qty · **«У кошик»** + ♡ · trust micro-row) → **trust block is the LEAD** (Склад ·
+    Дозування · Походження · Сертифікація with viewable certificate — Job 4) → опис → характеристики
+    (mirror catalog facets) → **3.1 Відгуки** → **3.2 Питання** → **3.3 Схожі**, all on one page →
+    sticky mobile buy-bar. Variants on one canonical URL (params canonical to base, OOS variants
+    disabled not hidden); out-of-stock → «Повідомити» + back-to-collection (flow recovery, no dead
+    end); coach-aware CTA «Додати клієнту»; A–E SEO with Product/Offers + AggregateRating + Review +
+    Breadcrumb schema. Flow source: flows.md "Job 3 — verify product safety". B/W).
+  Next: cluster by cluster — Coach workspace (5.x), Cart/Checkout (6.x), Buyer account (7.x).
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
   nodes. Reference visual: `research/sitemap png example/`.
 - **Stance:** mobile-first, fully responsive. Coach = buyer (not a marketplace). SEO is
