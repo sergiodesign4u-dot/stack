@@ -277,5 +277,20 @@ Output = the wireframe library. Wireframes then just render it.
   delivery, footer SEO) should be defined **once as a canonical list** and referenced, not
   re-listed per page; and "which cities are *popular*" is an operational/data knob, not a
   structural IA decision — lock the mechanism (tiers + auto/manual), defer the contents.
+- **2026-06-30** — **Consistency sweep + two nav refinements.** (1) **«Цілі» → mega-menu**
+  (was a flat dropdown): **no side-category column** — the 6 goals as columns, each listing its
+  relevant categories/subcategories + "all products for the goal" (the concern lens). The
+  goal→category map is **canonical in `catalog.md`**; nav references it. (2) **City dialog
+  simplified:** dropped the intermediate "Tier-2 / ще популярні" — now just search + one
+  «популярні» badge set + full A–Z; the A–Z is a **preliminary analyzed list** (final reconciled
+  with delivery/demand data [?]). Then a **full actualization pass** so the footer/nav promises
+  all resolve to real nodes: registered **8.7 Discounts · 8.8 Guarantee & certs · 8.9 FAQ ·
+  8.10 Promotions · 8.11 Store reviews · 8.12 Newsletter subscription** in the sitemap, plus a
+  **0.1a City-selector dialog** node; updated **2.2 to 6 goals + mega-menu entry**; pointed the
+  footer node 0.2 links at the new 8.x; fixed a stale `research/ia.html` reference → `concept.html`;
+  marked the **city-list and symptom-2.3 [?] as resolved**. Synced sitemap.html/.md, navigation
+  .html/.md, footer.html/.md, catalog.md, CLAUDE.md. Lesson: when a leaf component (footer) starts
+  promising destinations, immediately **register those destinations as sitemap nodes** — otherwise
+  the map and the page drift, and "trust first" links point at nothing.
 - **Next** — Home (0.0) as a page-level IA page (md + html), then cluster by cluster. Add each
   new node to the sidebar group and to `ia/docs/sitemap.md`.

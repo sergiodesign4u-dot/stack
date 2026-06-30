@@ -244,7 +244,11 @@ layout is still designed deliberately (it is a store).
   interactive popular-city tiers + full A–Z); canonical city list = the 23 Ukraine-controlled
   oblast centers + large non-center cities (Кривий Ріг, Кременчук…), Crimea/occupied excluded;
   popular sets are data-driven (traffic/orders, manual override); one list feeds delivery,
-  the dialog, and the footer SEO city pages. `footer.md`
+  the dialog, and the footer SEO city pages. **Dialog simplified June 2026:** search + a single
+  «популярні міста» badge set + full A–Z (no intermediate tier); canonical list registered as
+  sitemap node 0.1a. **«Цілі» is also a mega-menu (locked June 2026)** but with **no side-category
+  column** — the 6 goals as columns, each listing its relevant categories/subcategories (concern
+  lens); the goal→category mapping is canonical in `catalog.md`. `footer.md`
   = the global footer (node 0.2): trust strip (delivery/guarantee/payment/returns) + main
   footer (newsletter+support · Stack · Customers · Consultation with phone/chat/Telegram/Viber/
   socials) + **SEO popular-queries block** (categories/types · goals · brands · cities — second
@@ -255,7 +259,10 @@ layout is still designed deliberately (it is a store).
   6 goals as cross-cutting collections (MVP: Набір маси · Схуднення · Відновлення · Енергія ·
   Імунітет · Витривалість), facets; built from real UA catalogs (Belok-based). Full breadth
   ships, rebalanced; catalog population at scale stays the operational [?]. The full sitemap is
-  `ia/docs/sitemap.md` / `ia/sitemap.html`.
+  `ia/docs/sitemap.md` / `ia/sitemap.html`. **Cluster 8 expanded June 2026** to back the footer +
+  meta-bar promises: 8.7 Discount system · 8.8 Guarantee & certificates · 8.9 FAQ · 8.10
+  Promotions (Акції) · 8.11 Store reviews (+ leave review / Google) · 8.12 Newsletter subscription
+  (welcome-discount value [?]). Symptom node 2.3 and the city-list [?] are now resolved.
 
 **Unified navigation:** all docs pages (research, personas, jtbd, concept, and every
 page-level IA page) share one left sidebar. Group order: Дослідження · Персони · JTBD ·

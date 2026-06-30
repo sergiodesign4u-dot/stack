@@ -27,10 +27,10 @@ Icon (side) + heading + short text. Each card is a crawlable `<a>` to the matchi
 
 | Card | Heading | Sub-text | → |
 |---|---|---|---|
-| 🚚 | Швидка доставка | Самовивіз із магазину Stack, доставка за адресою або у відділення Нової Пошти. | Delivery 8.x |
-| ✅ | Гарантія якості | Сертифікована продукція з офіційною гарантією від виробника. | Guarantee/certs 8.x |
-| 💳 | Зручна оплата | Оплатити покупку можливо готівкою, картою чи безготівковим розрахунком. | Payment 8.x |
-| 🔄 | Обмін і повернення | Повернення товару протягом 14 днів після покупки, відповідно до чинного закону. | Returns 8.x |
+| 🚚 | Швидка доставка | Самовивіз із магазину Stack, доставка за адресою або у відділення Нової Пошти. | Delivery 8.4 |
+| ✅ | Гарантія якості | Сертифікована продукція з офіційною гарантією від виробника. | Guarantee & certs **8.8** |
+| 💳 | Зручна оплата | Оплатити покупку можливо готівкою, картою чи безготівковим розрахунком. | Payment 8.4 |
+| 🔄 | Обмін і повернення | Повернення товару протягом 14 днів після покупки, відповідно до чинного закону. | Returns 8.5 |
 
 Each card carries a **full sentence** (not a 2-word tag): clearer for the buyer and gives the
 crawler descriptive, keyword-relevant body text. Trust strip is **text, not images**
@@ -117,6 +117,11 @@ All items are real crawlable `<a>` with descriptive anchors. Link **only to what
 - SEO popular-queries block: **structure locked** (categories/types · goals · brands · cities); exact list via keyword research.
 - Bottom bar: copyright + Visa/Mastercard/Apple-Google Pay badges + socials + policy/contract.
 - B/W wireframe mockups (colour at concept stage). Mobile: trust 2×2, newsletter+consultation expanded, link columns + SEO block as accordions.
+- **Sitemap nodes (registered 2026-06-30):** every footer destination now resolves to a node —
+  Stack column → 8.2–8.6 + Blog 8.0; Customers → Discounts **8.7**, Delivery&payment 8.4, FAQ
+  **8.9**, Returns 8.5, For-coaches 5.0; trust strip Guarantee → **8.8**; "support us" → Store
+  reviews **8.11**; newsletter → **8.12**; popular-queries → 2.1/2.2/2.4/2.1a. (Meta-bar «Акції»
+  → Promotions **8.10**.)
 
 ## Open [?]
 - Exact popular-queries list & order (keyword research: volume, seasonality) — at SEO-copy stage.

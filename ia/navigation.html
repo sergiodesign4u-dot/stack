@@ -182,6 +182,15 @@
     .wf-city .ctag.big { font-weight: 700; color: #111; border-color: #161616; }
     .wf-city .clist { font-size: 12.5px; color: #666; line-height: 1.85; }
     .wf-city .clist b { color: #111; }
+    /* goals mega-menu (no side categories) */
+    .wf-gmega { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .wf-gmega .gcol { padding: 12px 14px; border-right: 1px solid #ededed; border-top: 1px solid #ededed; }
+    .wf-gmega .gcol:nth-child(3n) { border-right: none; }
+    .wf-gmega .gt { font-size: 13px; font-weight: 800; color: #111; margin-bottom: 8px; }
+    .wf-gmega .gi { font-size: 12.5px; color: #444; padding: 4px 0; }
+    .wf-gmega .gall { font-size: 12px; font-weight: 700; color: #111; margin-top: 8px; }
+    @media (max-width: 680px) { .wf-gmega { grid-template-columns: 1fr 1fr; } .wf-gmega .gcol:nth-child(3n) { border-right: 1px solid #ededed; } .wf-gmega .gcol:nth-child(2n) { border-right: none; } }
+    @media (max-width: 460px) { .wf-gmega { grid-template-columns: 1fr; } .wf-gmega .gcol { border-right: none; } }
     /* phone (B/W) */
     .phone2 { max-width: 360px; border: 1px solid #cfcfcf; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: var(--shadow-sm); }
     .p-top { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-bottom: 1px solid #eee; }
@@ -326,18 +335,11 @@
           <span class="ctag big">Одеса</span><span class="ctag big">Львів</span><span class="ctag big">Запоріжжя</span>
           <span class="ctag big">Кривий Ріг</span><span class="ctag big">Миколаїв</span>
         </div>
-        <div class="cgh">Ще популярні</div>
-        <div class="ctags">
-          <span class="ctag">Вінниця</span><span class="ctag">Полтава</span><span class="ctag">Чернігів</span>
-          <span class="ctag">Черкаси</span><span class="ctag">Суми</span><span class="ctag">Хмельницький</span>
-          <span class="ctag">Житомир</span><span class="ctag">Рівне</span><span class="ctag">Тернопіль</span>
-          <span class="ctag">Івано-Франківськ</span><span class="ctag">Кременчук</span><span class="ctag">Біла Церква</span>
-        </div>
         <div class="cgh">Усі міста (А–Я)</div>
-        <div class="clist">Вінниця · Дніпро · Житомир · Запоріжжя · Івано-Франківськ · Київ · Кропивницький · Кривий Ріг · Луцьк · Львів · Миколаїв · Одеса · Полтава · Рівне · Суми · Тернопіль · Ужгород · Харків · Херсон · Хмельницький · Черкаси · Чернівці · Чернігів <b>+ інші міста, куди доставляє Нова Пошта</b></div>
+        <div class="clist">Бердичів · Біла Церква · Бориспіль · Бровари · Вінниця · Дніпро · Дрогобич · Житомир · Запоріжжя · Івано-Франківськ · Ізмаїл · Ірпінь · Кам'янець-Подільський · Кам'янське · Київ · Коломия · Кременчук · Кривий Ріг · Кропивницький · Луцьк · Львів · Миколаїв · Мукачево · Ніжин · Нікополь · Одеса · Павлоград · Полтава · Рівне · Слов'янськ · Стрий · Суми · Тернопіль · Ужгород · Умань · Фастів · Харків · Херсон · Хмельницький · Черкаси · Чернівці · Чернігів · Чорноморськ · Шостка <b>… + інші міста, куди доставляє Нова Пошта</b></div>
       </div>
     </div>
-    <p class="note"><b>Канонічний список (єдиний на сайт):</b> усі обласні центри під контролем України (24 області − Донецьк і Луганськ + Київ = <b>23</b>) + великі міста-нецентри з попитом на спортпіт (Кривий Ріг, Кременчук…). <b>Виключено:</b> Крим (Сімферополь / Севастополь) і тимчасово окуповані території. <b>Популярні набори — інтерактивні:</b> ранжуються за часткою трафіку / замовлень (авто) з ручним перевизначенням — щоб юзер швидко знаходив своє місто, а ми підсвічували реально активні. Той самий список живить <b>SEO-блок міст у футері</b> (<a href="footer.html">0.2</a>).</p>
+    <p class="note"><b>Структура діалогу:</b> пошук + <b>популярні міста</b> (один набір бейджів) + <b>повний список А–Я</b> (без проміжного «ще популярні»). <b>Канонічний список:</b> усі обласні центри під контролем України (24 області − Донецьк і Луганськ + Київ = <b>23</b>) + великі міста й хаби доставки з попитом на спортпіт (Кривий Ріг, Кам'янське, Кременчук, Нікополь…). <b>Виключено:</b> Крим (Сімферополь / Севастополь) і тимчасово окуповані території; решту покриває Нова Пошта через пошук. <b>Набір «популярні» — інтерактивний:</b> авто-ранжування за трафіком / замовленнями + ручне перевизначення. Дефолт-місто за геолокацією. Той самий список живить <b>SEO-блок міст у футері</b> (<a href="footer.html">0.2</a>). <b>[?]</b> Перелік вище — попередній (після аналізу); фінал звіряємо з реальними даними доставки/попиту.</p>
   </section>
 
   <!-- 2. Catalog mega-menu -->
@@ -389,17 +391,49 @@
     </div>
     <p class="note">Цілі — <b>концерн-лінза</b> (аналог «за симптомом» на Liki24), першокласні всередині каталогу: колонка «За ціллю» тут (десктоп) <b>і верхній блок дрилдауну «Каталог» на мобілці</b> (розділ 04). «Цілі» в основному ряді — короткий дроп для швидкого входу; «Каталог» лишається входом у повний каталог. 6 цілей — див. <a href="catalog.html">структуру каталогу</a>.</p>
 
-    <p class="section-lead" style="margin-top:18px;"><b>Дроп «Цілі»</b> — secondary-кнопка в основному ряді: короткий швидкий вхід, ті самі 6 цілей + «усі цілі». (На мобілці ті ж цілі — у верхньому блоці дрилдауну «Каталог».)</p>
-    <div class="wf-acct">
-      <div class="wf-cap">Цілі ▾ — випадайка</div>
-      <div class="it">Набір маси</div>
-      <div class="it">Схуднення</div>
-      <div class="it">Відновлення</div>
-      <div class="it">Енергія / тонус</div>
-      <div class="it">Імунітет / здоров'я</div>
-      <div class="it">Витривалість / кардіо</div>
-      <div class="it accent">Усі цілі →</div>
+    <p class="section-lead" style="margin-top:18px;"><b>«Цілі» — теж мега-меню</b> (secondary-кнопка), але <b>без бічної колонки категорій</b>: одразу всі 6 цілей як колонки, у кожній — список релевантних категорій/субкатегорій + «усі товари для цілі». Це концерн-лінза: ціль → що під неї підходить (аналог «за симптомом» на Liki24). На мобілці ті самі цілі — у верхньому блоці дрилдауну «Каталог».</p>
+    <div class="wf">
+      <div class="wf-cap">Цілі ▾ — мега-меню (одразу всі цілі, без бічних категорій)</div>
+      <div class="wf-gmega">
+        <div class="gcol">
+          <div class="gt">Набір маси</div>
+          <div class="gi">Протеїн</div><div class="gi">Гейнери</div><div class="gi">Креатин</div>
+          <div class="gi">Амінокислоти (BCAA/EAA)</div><div class="gi">Передтренувальні</div>
+          <div class="gall">Усі товари →</div>
+        </div>
+        <div class="gcol">
+          <div class="gt">Схуднення</div>
+          <div class="gi">Жироспалювачі</div><div class="gi">L-карнітин</div><div class="gi">Протеїн (ізолят)</div>
+          <div class="gi">Замінники їжі</div><div class="gi">Клітковина</div>
+          <div class="gall">Усі товари →</div>
+        </div>
+        <div class="gcol">
+          <div class="gt">Відновлення</div>
+          <div class="gi">BCAA / EAA</div><div class="gi">Глютамін</div><div class="gi">Казеїн</div>
+          <div class="gi">Омега-3</div><div class="gi">Магній / сон</div>
+          <div class="gall">Усі товари →</div>
+        </div>
+        <div class="gcol">
+          <div class="gt">Енергія / тонус</div>
+          <div class="gi">Передтренувальні</div><div class="gi">Кофеїн / гуарана</div><div class="gi">Вітаміни групи B</div>
+          <div class="gi">Ізотоніки</div>
+          <div class="gall">Усі товари →</div>
+        </div>
+        <div class="gcol">
+          <div class="gt">Імунітет / здоров'я</div>
+          <div class="gi">Вітаміни та мінерали</div><div class="gi">Вітамін D3</div><div class="gi">Цинк / вітамін C</div>
+          <div class="gi">Омега-3</div><div class="gi">Адаптогени</div>
+          <div class="gall">Усі товари →</div>
+        </div>
+        <div class="gcol">
+          <div class="gt">Витривалість / кардіо</div>
+          <div class="gi">Ізотоніки та електроліти</div><div class="gi">Бета-аланін</div><div class="gi">L-карнітин</div>
+          <div class="gi">Гелі та батончики</div><div class="gi">Креатин</div>
+          <div class="gall">Усі товари →</div>
+        </div>
+      </div>
     </div>
+    <p class="note">Кожна колонка-ціль веде на <b>Колекцію за ціллю (2.2)</b>; пункти всередині — на категорії/субкатегорії (2.1) з відповідним фільтром цілі. Мапа ціль→категорії — у <a href="catalog.html">структурі каталогу</a>.</p>
   </section>
 
   <!-- 3. Account dropdown -->
@@ -538,7 +572,7 @@
       <tr><td colspan="4" style="background:#f4f4f4;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#777;">Основний ряд</td></tr>
       <tr><td>5</td><td><b>Лого</b> Stack</td><td>Завжди видиме</td><td class="arrow">0.0</td></tr>
       <tr><td>6</td><td><b>Каталог</b> (праймарі)</td><td>Помітна кнопка з іконкою → мега-меню: категорії → субкатегорії → внутрішні + колонка «За ціллю»</td><td class="arrow">2.0 / 2.1</td></tr>
-      <tr><td>7</td><td><b>Цілі</b> (secondary)</td><td>Короткий дроп 4–6 цілей + «усі цілі»</td><td class="arrow">2.2</td></tr>
+      <tr><td>7</td><td><b>Цілі</b> (secondary)</td><td><b>Мега-меню без бічних категорій</b>: 6 цілей як колонки, у кожній — релевантні категорії/субкатегорії + «усі товари»</td><td class="arrow">2.2 / 2.1</td></tr>
       <tr><td>8</td><td><b>Пошук</b> + кнопка «Знайти»</td><td>Поле з явною кнопкою (десктоп); іконка → поле (мобілка). <code>&lt;form role="search"&gt;</code></td><td class="arrow">2.5</td></tr>
       <tr><td>9</td><td><b>Увійти / Кабінет</b></td><td>Іконка + підпис: «Увійти» (гість) → <b>діалог</b> 1.0; «Кабінет» (залогінений) → <b>дроп</b> (без Обране/Бонуси — вони окремі елементи)</td><td class="arrow">1.0 / 7.0</td></tr>
       <tr><td>10</td><td><b>Обране</b> + лічильник</td><td>Гість → діалог входу; залогінений → список</td><td class="arrow">7.6</td></tr>
@@ -656,7 +690,8 @@
       </ul>
       <p style="font-size:13px;color:var(--text-secondary);margin:12px 0 6px"><b>2026-06-30 — міста та діалог локації:</b></p>
       <ul>
-        <li><b>Локація — це діалог</b> (не вузький дроп): пошук міста + популярні міста (бейджі, 2 рівні) + повний список А–Я.</li>
+        <li><b>«Цілі» — мега-меню без бічних категорій:</b> 6 цілей як колонки, у кожній — релевантні категорії/субкатегорії + «усі товари для цілі» (концерн-лінза).</li>
+        <li><b>Локація — це діалог</b> (не вузький дроп): пошук міста + <b>один</b> набір популярних міст (бейджі) + повний список А–Я (без проміжного «ще популярні»).</li>
         <li><b>Канонічний список міст:</b> усі обласні центри під контролем України (24 − Донецьк, Луганськ + Київ = <b>23</b>) + великі міста-нецентри з попитом (Кривий Ріг, Кременчук…). Крим і окуповані території виключено.</li>
         <li><b>Популярні набори інтерактивні:</b> авто-ранжування за трафіком / замовленнями + ручне перевизначення. Дефолт-місто за геолокацією.</li>
         <li><b>Єдиний список</b> живить доставку/наявність, цей діалог і <b>SEO-блок міст у футері</b> (0.2). Які саме міста стають SEO-лендингами — за пріоритетом трафіку.</li>

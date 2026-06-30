@@ -29,7 +29,8 @@
 ## Clusters
 
 - **0 — Home & navigation:** 0.0 Home · 0.1 Header (guest/buyer/coach, incl. favorites
-  icon) · 0.2 Footer (global). Header and footer are inherited on every page.
+  icon) · **0.1a City-selector dialog** (search + popular + full A–Z; canonical city list) ·
+  0.2 Footer (global). Header and footer are inherited on every page.
 - **1 — Authentication:** all dialogs/modals (do not navigate away). **Unified sign
   in / sign up for every role** — no separate coach login, no role tabs. 1.0 Sign in ·
   1.1 Sign up · 1.2 Forgot · 1.3 Link sent · 1.4 Email confirmation · 1.5 Reset
@@ -37,7 +38,9 @@
   / 7.7), reachable both from the For-Coaches landing CTA and an account section, so a
   coach never has to hunt for "where to log in".
 - **2 — Catalog & discovery:** 2.0 Catalog · 2.1 Category (+ 2.1a city variant for SEO) ·
-  2.2 Goal collection · 2.3 Symptom/concern · 2.4 Brands · 2.5 Search results.
+  2.2 Goal collection (**6 goals**; entered via the **«Цілі» mega-menu** = goal columns →
+  relevant categories/subcats, no side-category column) · 2.3 Symptom/concern (**= goals**,
+  no separate tree) · 2.4 Brands · 2.5 Search results.
   Inherited filter panel: price, brand, country, goal, form, availability.
 - **3 — Product:** 3.0 Product detail (composition/dosage/origin/certification — Job 4) ·
   3.1 Reviews · 3.2 Questions · 3.3 Related.
@@ -52,13 +55,20 @@
   one-tap repeat (Job 4) · 7.4 Loyalty (Job 6) · 7.5 Addresses · 7.6 Favorites/wishlist
   (MVP, buyer + coach; header icon) · 7.7 "I'm a coach / become a coach" (entry to the
   5.1 verification flow).
-- **8 — Content, info & legal:** 8.0 Blog · 8.1–8.4 About / Delivery & payment / Returns /
-  Contacts · 8.5 Legal (Privacy, Terms, Public offer).
+- **8 — Content, info & legal:** 8.0 Blog · 8.1 Article · 8.2–8.5 About / Contacts /
+  Delivery & payment / Returns · 8.6 Legal (Privacy, Terms, **Public contract / offer**) ·
+  **8.7 Discount system · 8.8 Guarantee & certificates · 8.9 FAQ · 8.10 Promotions (Акції) ·
+  8.11 Store reviews (+ leave review / rate on Google) · 8.12 Newsletter subscription (state;
+  welcome discount [?])**. (8.7–8.12 added 2026-06-30 to back the footer + meta-bar promises.)
 
 ## Open items [?]
 
-- City list for SEO city-variant pages (which cities at launch).
-- Symptom/concern (2.3) at MVP or post-launch.
+- ~~City list for SEO city-variant pages~~ — **RESOLVED**: canonical list (23 oblast centers +
+  large cities; Crimea/occupied excluded), dialog 0.1a; which become landing pages first is a
+  traffic-priority call.
+- ~~Symptom/concern (2.3) at MVP or post-launch~~ — **RESOLVED**: = goals (concern lens), no
+  separate tree.
+- Newsletter welcome-discount value (8.12) — promo + unit economics.
 - Coach-tier % and loyalty thresholds — need real data.
 - Favorites (7.6) is MVP (header icon + page); "Мої стейпли" stays post-launch.
 - Coach tiering hypothesis **Free vs Pro** (numbers [?]): Free = better-than-retail

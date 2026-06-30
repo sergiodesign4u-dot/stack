@@ -52,20 +52,22 @@ at the concept stage, not carried into wireframes.
 | **Language** dropdown | Укр / Рус (hreflang, locale URLs) | — |
 
 #### City selector & canonical city list (LOCKED 2026-06-30)
-The location chip opens a **large modal dialog** (the list is long), containing:
+The location chip opens a **large modal dialog** (the list is long), containing — **simplified
+2026-06-30**:
 - **Search** field (type-ahead).
-- **Tier-1 popular cities** (prominent badges) — big metros: Київ · Харків · Дніпро · Одеса · Львів · Запоріжжя · Кривий Ріг · Миколаїв.
-- **Tier-2 popular cities** (up to ~12 secondary): Вінниця · Полтава · Чернігів · Черкаси · Суми · Хмельницький · Житомир · Рівне · Тернопіль · Івано-Франківськ · Кременчук · Біла Церква.
-- **Full A–Z list** of all served cities.
+- **Popular cities** — a **single** badge set (no intermediate "Tier-2"): Київ · Харків · Дніпро · Одеса · Львів · Запоріжжя · Кривий Ріг · Миколаїв …
+- **Full A–Z list** of all served cities (analyzed shortlist below; search resolves any Nova Poshta city beyond it).
 
 **Canonical city list (single source for the whole site):** all Ukraine-controlled **oblast
-centers** (24 oblasts − Donetsk & Luhansk + Kyiv = **23**) **plus large non-center cities with
-sportpit demand** (Кривий Ріг, Кременчук, …). **Excluded:** Crimea (Сімферополь / Севастополь)
-and temporarily occupied territories. Nova Poshta covers the long tail beyond landing-page cities.
+centers** (24 oblasts − Donetsk & Luhansk + Kyiv = **23**) **plus large cities & delivery hubs with
+sportpit demand** (Кривий Ріг, Кам'янське, Кременчук, Нікополь, …). **Excluded:** Crimea
+(Сімферополь / Севастополь) and temporarily occupied territories. Nova Poshta covers the long tail
+via search. The full A–Z list shown in the mock is a **preliminary analyzed set**; the final
+membership is reconciled against real delivery/demand data **[?]**.
 
-**Interactive curation:** the Tier-1/Tier-2 popular sets are **data-driven** — auto-ranked by
-traffic/orders share with a **manual override** — so they stay current and users find their city
-fast. The default city is detected by geolocation and is user-changeable.
+**Interactive curation:** the **popular** set is **data-driven** — auto-ranked by traffic/orders
+share with a **manual override** — so it stays current and users find their city fast. The default
+city is detected by geolocation and is user-changeable.
 
 This one list also feeds the **footer SEO city block** (node 0.2). Which cities become SEO
 landing pages (2.1a) is prioritized by traffic.
@@ -76,7 +78,7 @@ landing pages (2.1a) is prioritized by traffic.
 |---|---------|----------|---------|
 | 1 | Logo (Stack) | Always visible | 0.0 |
 | 2 | **Каталог** (primary button) | Prominent, icon; opens the mega-menu | 2.0 / 2.1 |
-| 3 | **Цілі** (secondary) | Short dropdown of 4–6 goals + "all goals" | 2.2 |
+| 3 | **Цілі** (secondary) | **Mega-menu, no side-category column**: the 6 goals as columns, each listing its relevant categories/subcategories + "all products for the goal" | 2.2 / 2.1 |
 | 4 | **Search** + «Знайти» button | Field with an explicit button; `<form role="search">` → /search?q= | 2.5 |
 | 5 | **Увійти / Кабінет** | Icon + caption: «Увійти» (guest) → **dialog 1.0** (no dropdown); «Кабінет» (logged-in) → **dropdown** | 1.0 / 7.0 |
 | 6 | **Обране** + count | Guest → sign-in dialog; logged-in → list | 7.6 |
@@ -102,6 +104,21 @@ Opening «Каталог» reveals a mega-menu (structure like Belok):
   the Catalog tab opens a full-screen drilldown with **«За ціллю» as its top block**, so
   goals never disappear on mobile. «Каталог» stays the entry to the full catalog. See the
   catalog taxonomy (`ia/catalog.html`) for the 12 categories + 6 goals.
+
+### «Цілі» mega-menu (desktop, LOCKED 2026-06-30)
+The «Цілі» secondary button is **also a mega-menu**, but **without the left side-category
+column** — it exposes all **6 goals as columns at once**, and under each goal a curated list of
+the **categories/subcategories relevant to that goal** + an "all products for the goal" link.
+This is the **concern lens** (goal → what fits it; the Liki24 "by symptom" analogy). Mapping:
+- **Набір маси** → Протеїн · Гейнери · Креатин · Амінокислоти (BCAA/EAA) · Передтренувальні
+- **Схуднення** → Жироспалювачі · L-карнітин · Протеїн (ізолят) · Замінники їжі · Клітковина
+- **Відновлення** → BCAA/EAA · Глютамін · Казеїн · Омега-3 · Магній/сон
+- **Енергія / тонус** → Передтренувальні · Кофеїн/гуарана · Вітаміни групи B · Ізотоніки
+- **Імунітет / здоров'я** → Вітаміни та мінерали · Вітамін D3 · Цинк/вітамін C · Омега-3 · Адаптогени
+- **Витривалість / кардіо** → Ізотоніки та електроліти · Бета-аланін · L-карнітин · Гелі та батончики · Креатин
+
+Goal column → Goal collection (2.2); inner items → category/subcategory (2.1) with the goal
+filter applied. Full mapping lives in the catalog taxonomy.
 
 ### Account — guest dialog vs logged-in dropdown
 

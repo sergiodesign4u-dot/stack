@@ -111,7 +111,11 @@ with real supplier data). The tree is the target structure.
 
 ## Goals → categories — 6 goals (LOCKED 2026-06-30)
 
-All six are backed by the launch catalog (full breadth ships, incl. Ізотоніки → endurance):
+All six are backed by the launch catalog (full breadth ships, incl. Ізотоніки → endurance).
+**This table is the canonical source for the «Цілі» mega-menu** in the header (Navigation 0.1):
+each goal is a column, and the categories/subcategories below come from this mapping. It also
+powers the «За ціллю» column in the «Каталог» mega-menu and the goal block atop the mobile
+Catalog drilldown.
 
 | Goal | Pulls mainly from |
 |------|-------------------|
