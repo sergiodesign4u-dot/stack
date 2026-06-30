@@ -24,30 +24,30 @@ also **mobile tab 1** and the root SEO landing.
 
 ---
 
-## Block order (mobile-first priority)
+## Block order (mobile-first priority) — restructured 2026-07-01 (Foxtrot-pattern hero)
 
-1. **Hero — goal selector.** One H1 (root keyword "спортивне харчування …") + **6 goal tiles**
-   (Набір маси · Схуднення · Відновлення · Енергія/тонус · Імунітет/здоров'я · Витривалість/кардіо)
-   + secondary «Відкрити каталог» and «Підібрати за квізом». Tiles → Goal collection (2.2);
-   catalog → 2.0; quiz → 4.0 (post-launch; for now routes to goal tiles).
+1. **Hero — category rail + banners (Foxtrot/Rozetka pattern).** Desktop: a **left category rail**
+   (12 top categories; hover → **flyout** of subcategories → Category 2.1) + **banners on the right**
+   (a big promo **slider** + 2 **vertical** promo banners). Fast entry for the regular/known-item buyer
+   (Job 3) + merchandising. On **mobile** the rail collapses to a **banner + horizontal category chips**
+   (full catalog lives in the «Каталог» tab). Replaces the previous goal-selector hero — goals move to
+   block 3 (still high, concern-lens front door for the beginner).
 2. **Cart shelf (state)** — shown when the cart is non-empty (now or from a previous visit; guest
    cart persisted locally): item count, total sum, item thumbnails, **«Оформити замовлення»** (→
    checkout 6.1) + «Переглянути кошик» (→ 6.0). A strong "continue your purchase" nudge. Coach: sum
-   by tier + per-client grouping mention.
-3. **Personal strip (by state)** — one block that changes by role, right under the cart shelf:
-   - **Guest:** hidden (nothing to repeat) → show «Увійти / Реєстрація» (1.0).
-   - **Buyer (regular):** **Повторити останнє замовлення** (7.3, Job 4) + «Мої стейпли»* (post-launch).
-   - **Coach:** **Нова сесія замовлення** (5.5) + **Кабінет тренера** (5.2).
+   by tier + per-client grouping mention. (A by-role **personal strip** — guest/buyer/coach — is a
+   detailed state variant of this block.)
+3. **Спортивне харчування під вашу ціль (goal selector).** H2 (root keyword) + **6 goal tiles**
+   (Набір маси · Схуднення · Відновлення · Енергія/тонус · Імунітет/здоров'я · Витривалість) — the
+   beginner's concern-lens front door (Job 2), right under the cart shelf. Tiles → Goal collection
+   (2.2); «Підібрати за квізом» → 4.0 (post-launch; for now routes to goal tiles).
 4. **Trust band** — certified/original · delivery NP 1–2 days · payment · 14-day returns · reviews.
-   Short band high on the page; the full 4-card strip lives in the Footer (0.2). Links → 8.8 / 8.4 /
-   8.5 / 8.11. Text, not images.
-5. **«Для тренерів» banner** — wholesale pricing, multi-client ordering, per-client history; CTA →
+   Short band; the full 4-card strip lives in the Footer (0.2). Links → 8.8 / 8.4 / 8.5 / 8.11. Text, not images.
+5. **Products — bestsellers (Хіти).** Rows of the **new canonical card** (see below). Card → Product
+   (3.0), 🛒 → Cart (6.0). Coach sees tier pricing.
+6. **«Для тренерів» banner** — wholesale pricing, multi-client ordering, per-client history; CTA →
    For-coaches landing (5.0, Free/Pro comparison). Guest → unified sign-in (1.0) then activation (5.1).
-6. **Popular categories** — tiles of top categories (Протеїн, Гейнери, Креатин, Амінокислоти,
-   Передтренувальні, Вітаміни…) → Category (2.1). Full 12 in the «Каталог» mega-menu / catalog taxonomy.
-7. **Products — bestsellers & new arrivals** — rows of product cards (Хіти продажів + **Новинки**,
-   NEW badge instead of −%); card → Product (3.0), «У кошик» → Cart (6.0). Coach sees tier pricing.
-   Calm cards. Row curation rules (hits/new/recommended) come later, from sales data.
+7. **Новинки (new arrivals)** — same card, corner **NEW** tag, empty rating.
 8. **Recently viewed (state)** — shown when there's view history (guest: local; logged-in: account);
    same product card. Helps the user return to a product and finish buying.
 9. **Promotions · Brands · Blog** — calm promo (no timers, principle #4) → 8.10; brand strip → 2.4
@@ -55,12 +55,20 @@ also **mobile tab 1** and the root SEO landing.
 10. **SEO text** — bottom H2 + descriptive store copy (root keywords). Popular query-links live in
    the footer (0.2).
 
-### Product card (canonical component)
-Reused on Home, Catalog and listings. Fields:
-**photo · product name · meta (brand · country of production) · price (new + old struck-through
-when discounted, with the **−% badge next to the struck price** — the universal rule across PDP and
-all cards) · «У кошик» button.** Coach sees the tier price. Calm, no aggressive
-badges. (Card → Product 3.0; «У кошик» → Cart 6.0.)
+(The old standalone "Popular categories" tiles block is **dropped** — the hero category rail covers it.)
+
+### Product card (canonical component) — redesigned 2026-07-01 (Foxtrot/Belok-style)
+Reused on Home, Catalog and all listings. Fields, top→bottom:
+- **Large vertical photo** (~4:5 — jars/tubs are vertical) with **♡ favourite** (top-right; guest →
+  sign-in 1.0) and a **corner tag for Хіт / NEW only** (the discount is shown by the price, not a corner).
+- **Rating** (★ score) **+ review count** → Reviews (3.1).
+- **Product name** — up to **2 lines** (clamped) → Product (3.0).
+- **Price row:** new price (big) + old struck **with the −% badge next to the struck price** (universal
+  rule), and an **icon-only «У кошик» button (cart icon, no text) beside the price** → Cart (6.0).
+- **Meta row (bottom):** **price-per-serving** «75 ₴ / порція» (Belok-style) on the left + **bonus-program
+  amount** «+9 ₴ Бонус» on the right.
+Coach sees the tier price. Calm, no aggressive badges. **Canonical → must propagate to Category (2.1),
+Catalog-hub (2.0) and all listings** (follow-up). Per-serving + bonus values are data-stage [?].
 
 Desktop = the same blocks; the hero may go two-column (tiles + visual), categories/products run as
 wider rows. First-screen and priority are reasoned from mobile.
@@ -96,8 +104,9 @@ ready SEO body text, schema/tags, and an optimization checklist.
   `summary_large_image`.
 
 **B · Heading structure**
-- **H1 (single):** «Спортивне харчування під вашу ціль» (hero).
-- **H2:** Оберіть ціль · Для тренерів · Популярні категорії · Хіти продажів · Новинки ·
+- **H1 (single):** «Спортивне харчування — інтернет-магазин Stack» (page-level store heading near the
+  top of the content; root keyword). The hero rail is navigation, not the H1.
+- **H2:** Спортивне харчування під вашу ціль · Хіти продажів · Для тренерів · Новинки ·
   Корисні поради · «Спортивне харчування в Україні — Stack» (SEO text).
 
 **C · Ready SEO text (bottom)**
@@ -132,23 +141,25 @@ ready SEO body text, schema/tags, and an optimization checklist.
 
 ---
 
-## Locked decisions (2026-06-30)
-- First screen = **goal selector** (H1 + 6 tiles); secondary «Відкрити каталог».
-- **Cart shelf (state)** under the hero when the cart is non-empty (now or earlier): count, sum,
-  thumbnails, «Оформити замовлення» / «Переглянути кошик».
-- **Personal strip by state** right under the cart shelf (guest hidden · buyer repeat-order · coach new session).
-- **Product rows:** Хіти продажів · **Новинки** (NEW badge) · **Recently-viewed** (state; view
-  history) — all use the canonical product card.
-- **Canonical product card:** photo · name · meta (brand · country) · price (new + old struck-through
-  with the **−% badge beside the struck price**; NEW/Хіт corner tag for new/hit items, not the discount) ·
-  «У кошик».
-- **Full SEO block produced at IA** (meta tags + H1/H2 + ready text + schema + checklist) — see the
-  SEO block section; this is the **template for every page**.
+## Locked decisions (2026-06-30; hero + card restructured 2026-07-01)
+- **First screen = category rail + banners** (Foxtrot/Rozetka pattern): left rail of 12 categories
+  with hover **flyout** of subcategories + right **banner slider** & 2 **vertical** promo banners.
+  Mobile = banner + horizontal category chips. (Replaces the goal-selector hero.)
+- **Cart shelf (state)** right under the hero when the cart is non-empty: count, sum, thumbnails,
+  «Оформити замовлення» / «Переглянути кошик». A by-role personal strip is a state variant.
+- **Спортивне харчування під вашу ціль (goal selector, 6 tiles)** is block 3 — beginner's concern-lens
+  front door, kept high (just under the cart shelf). The standalone "popular categories" tiles are dropped.
+- **Product rows:** Хіти продажів · **Новинки** (NEW tag) · **Recently-viewed** (state) — all use the
+  redesigned canonical card.
+- **Canonical product card (Foxtrot/Belok-style):** large **vertical** photo · ♡ favourite · Хіт/NEW
+  corner tag only · **rating + review count** · name up to **2 lines** · price (new + struck **with −%
+  beside the struck price**) · **icon-only 🛒 button beside the price** · **meta row: price-per-serving
+  + bonus («+N ₴ Бонус»)**. Canonical → must propagate to listings (2.1/2.0/…).
+- **Full SEO block produced at IA** (meta tags + H1/H2 + ready text + schema + checklist) — template for every page.
 - **Trust band high** (principle #1); full 4-card strip in the footer.
 - **Visible «Для тренерів» block** on Home (principle #3) → landing 5.0.
-- Then: popular categories → products (bestsellers) → promo/brands/blog → SEO text.
 - **Calm, no countdown timers** (principle #4). B/W mockups; colour at concept stage.
-- Block order reasoned from mobile (360px); desktop = same blocks, wider rows.
+- Block order reasoned from mobile (360px); desktop = rail+banners, mobile = banner+chips.
 
 ## Open [?]
 - Curation rules for product rows (bestsellers / new / recommended) — need sales data.

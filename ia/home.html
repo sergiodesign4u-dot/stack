@@ -131,21 +131,54 @@
     .cattile .ic { font-size: 18px; display: block; margin-bottom: 6px; }
     @media (max-width: 680px) { .cattiles { grid-template-columns: repeat(3, 1fr); } }
 
-    /* product row */
+    /* ===== HERO: category rail + vertical banners ===== */
+    .herowrap { display: grid; grid-template-columns: 232px 1fr; gap: 12px; }
+    @media (max-width: 760px) { .herowrap { grid-template-columns: 1fr; } }
+    .catrail { border: 1px solid #e6e6e6; border-radius: 12px; padding: 5px; background: #fff; position: relative; }
+    .catrail .ci { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 8px; font-size: 12.5px; font-weight: 600; color: #222; }
+    .catrail .ci .ar { margin-left: auto; color: #c4c4c4; font-weight: 700; }
+    .catrail .ci.on { background: #161616; color: #fff; }
+    .catrail .ci.on .ar { color: #fff; }
+    /* flyout (hover) */
+    .flyout { position: absolute; left: 226px; top: 5px; width: 300px; border: 1px solid #e0e0e0; border-radius: 12px; background: #fff; box-shadow: 0 12px 34px rgba(0,0,0,.14); padding: 12px 14px; z-index: 5; }
+    .flyout .fh { font-size: 12px; font-weight: 800; color: #111; margin-bottom: 7px; }
+    .flyout .fl { font-size: 12px; color: #555; line-height: 1.9; }
+    .flyout .fl b { color: #111; }
+    .hero-r { display: grid; grid-template-columns: 1.7fr 1fr; gap: 12px; }
+    @media (max-width: 760px) { .hero-r { grid-template-columns: 1fr; } }
+    .bigbanner { border: 1px solid #e0e0e0; border-radius: 12px; background: repeating-linear-gradient(135deg,#ededed,#ededed 12px,#e6e6e6 12px,#e6e6e6 24px); min-height: 236px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; position: relative; }
+    .bigbanner .bt { font-size: 18px; font-weight: 800; color: #555; line-height: 1.25; max-width: 70%; }
+    .bigbanner .arrow-l, .bigbanner .arrow-r { position: absolute; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; color: #888; font-size: 13px; }
+    .bigbanner .arrow-l { left: 10px; } .bigbanner .arrow-r { right: 10px; }
+    .bigbanner .dots { position: absolute; bottom: 12px; left: 16px; display: flex; gap: 5px; }
+    .bigbanner .dots i { width: 7px; height: 7px; border-radius: 50%; background: #c4c4c4; }
+    .bigbanner .dots i.on { background: #161616; }
+    .bannerstack { display: grid; grid-template-rows: 1fr 1fr; gap: 12px; }
+    .vbanner { border: 1px solid #e0e0e0; border-radius: 12px; background: #f3f3f3; display: flex; flex-direction: column; justify-content: center; padding: 14px; min-height: 110px; }
+    .vbanner .vt { font-size: 13px; font-weight: 800; color: #444; }
+    .vbanner .vs { font-size: 11px; color: #888; margin-top: 3px; }
+
+    /* ===== CANONICAL PRODUCT CARD (Foxtrot/Belok-style) ===== */
     .prow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .pcard { border: 1px solid #e2e2e2; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
-    .pcard .img { height: 84px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 11px; }
-    .pcard .pn { font-size: 12px; color: #333; padding: 8px 8px 2px; line-height: 1.3; }
-    .pcard .pp { font-weight: 800; color: #111; font-size: 13px; padding: 0 8px; }
-    .pcard .img { position: relative; }
-    .pcard .pdisc { position: absolute; top: 6px; right: 6px; background: #161616; color: #fff; font-size: 10px; font-weight: 800; border-radius: 5px; padding: 2px 6px; }
-    .pcard .pmeta { font-size: 10.5px; color: #888; padding: 2px 8px 0; line-height: 1.3; }
-    .pcard .pprice { padding: 4px 8px 0; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
-    .pcard .pnew { font-weight: 800; color: #111; font-size: 14px; }
+    @media (max-width: 680px) { .prow { grid-template-columns: 1fr 1fr; } }
+    .pcard { border: 1px solid #e6e6e6; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; background: #fff; }
+    .pcard .ph { aspect-ratio: 4/5; background: #f2f2f2; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 11px; position: relative; }
+    .pcard .fav { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1px solid #e6e6e6; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #888; }
+    .pcard .tag { position: absolute; top: 8px; left: 8px; background: #fff; border: 1.5px solid #161616; color: #111; font-size: 9px; font-weight: 800; border-radius: 5px; padding: 1px 6px; text-transform: uppercase; }
+    .pcard .bd { padding: 9px 10px 10px; display: flex; flex-direction: column; flex: 1; }
+    .pcard .rate { font-size: 10.5px; color: #999; display: flex; align-items: center; gap: 5px; }
+    .pcard .rate .st { color: #161616; font-weight: 700; }
+    .pcard .nm { font-size: 12.5px; color: #222; line-height: 1.3; font-weight: 600; margin: 5px 0 9px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 33px; }
+    .pcard .prow2 { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; margin-top: auto; }
+    .pcard .pcol { display: flex; flex-direction: column; gap: 1px; }
+    .pcard .poldline { display: flex; align-items: center; gap: 6px; min-height: 14px; }
     .pcard .pold { font-size: 11px; color: #aaa; text-decoration: line-through; }
     .pcard .pcut { background: #161616; color: #fff; font-size: 9px; font-weight: 800; border-radius: 4px; padding: 1px 5px; }
-    .pcard .pb { margin: 8px; margin-top: auto; border: 1.5px solid #161616; border-radius: 7px; text-align: center; padding: 7px 6px; font-size: 12px; font-weight: 700; color: #111; }
-    @media (max-width: 680px) { .prow { grid-template-columns: 1fr 1fr; } }
+    .pcard .pnew { font-weight: 800; color: #111; font-size: 17px; }
+    .pcard .cartbtn { width: 40px; height: 40px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; background: #161616; color: #fff; }
+    .pcard .pmeta2 { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 9px; padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 10.5px; }
+    .pcard .perserv { color: #777; } .pcard .perserv b { color: #111; }
+    .pcard .bonus { color: #2d7d46; font-weight: 700; white-space: nowrap; }
 
     /* cart shelf (state) */
     .cartshelf { display: flex; align-items: center; gap: 14px; border: 2px solid #161616; border-radius: 12px; padding: 12px 14px; flex-wrap: wrap; }
@@ -256,24 +289,39 @@
   <section class="section" id="page">
     <div class="section-num">01 · Анатомія сторінки</div>
     <h2>Вся сторінка — десктоп</h2>
-    <p class="section-lead">Цілісний вид зверху вниз: хедер (наслідується) → hero-цілі → полиця кошика → персональна стрічка → довіра → «Для тренерів» → категорії → товари → промо/бренди/блог → SEO-текст → футер. Деталі кожного блоку та його стани — у «Розборі блоків» нижче.</p>
+    <p class="section-lead">Цілісний вид зверху вниз: хедер (наслідується) → <b>рейл категорій + банери</b> (Foxtrot-патерн) → <b>полиця кошика</b> (стан) → <b>цілі</b> «Спортивне харчування під вашу ціль» → довіра → <b>хіти продажів (нова канонічна картка)</b> → «Для тренерів» → промо/бренди/блог → SEO-текст → футер. Деталі кожного блоку та його стани — у «Розборі блоків» нижче.</p>
     <p class="wf-note">Мокап навмисно <b>чорно-білий</b> (вайрфрейм-рівень) — колір додамо на етапі концепту.</p>
     <div class="wf">
       <div class="wf-cap">Головна — десктоп</div>
       <div class="wf-pad">
         <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1): мета-рядок · панель · мега-меню «Каталог»/«Цілі» · пошук · ♡ · кошик</div>
 
-        <div class="hh1">Спортивне харчування під вашу ціль</div>
-        <div class="hsub">Оберіть ціль — підкажемо безпечний і зрозумілий набір. Без зайвого, з перевіреним складом і дозуванням.</div>
-        <div class="goaltiles">
-          <div class="goaltile">Набір маси <span class="ar">→</span></div>
-          <div class="goaltile">Схуднення <span class="ar">→</span></div>
-          <div class="goaltile">Відновлення <span class="ar">→</span></div>
-          <div class="goaltile">Енергія / тонус <span class="ar">→</span></div>
-          <div class="goaltile">Імунітет / здоров'я <span class="ar">→</span></div>
-          <div class="goaltile">Витривалість / кардіо <span class="ar">→</span></div>
+        <!-- HERO: category rail + vertical banners -->
+        <div class="blk-lbl">Перший екран — рейл категорій + банери</div>
+        <div class="herowrap">
+          <div class="catrail">
+            <div class="ci on">🥛 Протеїн <span class="ar">›</span></div>
+            <div class="ci">💪 Гейнери <span class="ar">›</span></div>
+            <div class="ci">⚡ Креатин <span class="ar">›</span></div>
+            <div class="ci">🧬 Амінокислоти / BCAA <span class="ar">›</span></div>
+            <div class="ci">🔥 Передтренувальні <span class="ar">›</span></div>
+            <div class="ci">💊 Вітаміни / здоров'я <span class="ar">›</span></div>
+            <div class="ci">🍫 Батончики / снеки <span class="ar">›</span></div>
+            <div class="ci">🥤 Аксесуари <span class="ar">›</span></div>
+            <div class="flyout">
+              <div class="fh">Протеїн →</div>
+              <div class="fl"><b>Сироватковий</b> · Ізолят · Казеїн · Рослинний · Комплексний · Гідролізат · Яловичий</div>
+            </div>
+          </div>
+          <div class="hero-r">
+            <div class="bigbanner"><span class="arrow-l">‹</span><span class="arrow-r">›</span><div class="bt">Знижки на протеїн до −25%</div><div class="dots"><i class="on"></i><i></i><i></i></div></div>
+            <div class="bannerstack">
+              <div class="vbanner"><div class="vt">Новинки місяця</div><div class="vs">щойно завезли →</div></div>
+              <div class="vbanner"><div class="vt">Для тренерів — опт</div><div class="vs">кращі ціни →</div></div>
+            </div>
+          </div>
         </div>
-        <div class="cta-row"><span class="btn-dark">Відкрити каталог</span><span class="btn-out">Підібрати за квізом →</span></div>
+        <p style="font-size:10.5px;color:#999;margin:7px 2px 0">↑ Наведення на категорію зліва → флайаут із субкатегоріями справа (як Foxtrot/Rozetka). Банери — слайдер + 2 вертикальні промо.</p>
 
         <div class="blk-lbl">Полиця кошика (стан — є товари)</div>
         <div class="cartshelf">
@@ -282,11 +330,14 @@
           <span class="btn-dark">Оформити замовлення →</span><span class="btn-out">Переглянути кошик</span>
         </div>
 
-        <div class="blk-lbl">Персональна стрічка (за роллю)</div>
-        <div class="pstrip">
-          <div class="pcardx"><div class="r">Гість</div><div class="t">— прихована</div><span class="b out">Увійти / Реєстрація</span></div>
-          <div class="pcardx"><div class="r">Покупець</div><div class="t">Повторити останнє</div><span class="b">Повторити в 1 тап</span></div>
-          <div class="pcardx"><div class="r">Тренер</div><div class="t">Нова сесія</div><span class="b">Нова сесія</span></div>
+        <div class="blk-lbl">Спортивне харчування під вашу ціль</div>
+        <div class="goaltiles">
+          <div class="goaltile">Набір маси <span class="ar">→</span></div>
+          <div class="goaltile">Схуднення <span class="ar">→</span></div>
+          <div class="goaltile">Відновлення <span class="ar">→</span></div>
+          <div class="goaltile">Енергія / тонус <span class="ar">→</span></div>
+          <div class="goaltile">Імунітет / здоров'я <span class="ar">→</span></div>
+          <div class="goaltile">Витривалість <span class="ar">→</span></div>
         </div>
 
         <div class="blk-lbl">Смуга довіри</div>
@@ -298,24 +349,18 @@
           <div class="ti"><span class="ic">⭐</span>Реальні відгуки</div>
         </div>
 
+        <div class="blk-lbl">Хіти продажів (канонічна картка)</div>
+        <div class="prow">
+          <div class="pcard"><div class="ph">фото<span class="tag">Хіт</span><span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div><div class="nm">Протеїн 100% Whey Gold Standard 909 г · Optimum Nutrition</div><div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 124 ₴</span><span class="pcut">−20%</span></div><span class="pnew">899 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>75 ₴</b> / порція</span><span class="bonus">+9 ₴ Бонус</span></div></div></div>
+          <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.7</span> · 54 відгуки</div><div class="nm">Креатин моногідрат 300 г · OstroVit</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">449 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>7 ₴</b> / порція</span><span class="bonus">+4 ₴ Бонус</span></div></div></div>
+          <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.9</span> · 88 відгуків</div><div class="nm">BCAA 2:1:1 400 г смак кавун · BioTechUSA</div><div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">599 ₴</span><span class="pcut">−15%</span></div><span class="pnew">509 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>13 ₴</b> / порція</span><span class="bonus">+5 ₴ Бонус</span></div></div></div>
+          <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.6</span> · 31 відгук</div><div class="nm">Омега-3 90 капсул · Scitec Nutrition</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">349 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>4 ₴</b> / порція</span><span class="bonus">+3 ₴ Бонус</span></div></div></div>
+        </div>
+
         <div class="blk-lbl">Для тренерів</div>
         <div class="coachb">
           <div><div class="ct">Замовляєте для клієнтів?</div><div class="cd">Опт-ціни, мультиклієнтське замовлення в одну сесію, історія по кожному клієнту.</div></div>
           <span class="btn-dark">Дізнатися про умови →</span>
-        </div>
-
-        <div class="blk-lbl">Популярні категорії</div>
-        <div class="cattiles">
-          <div class="cattile"><span class="ic">🥛</span>Протеїн</div><div class="cattile"><span class="ic">💪</span>Гейнери</div><div class="cattile"><span class="ic">⚡</span>Креатин</div>
-          <div class="cattile"><span class="ic">🧬</span>Амінокислоти</div><div class="cattile"><span class="ic">🔥</span>Передтрен.</div><div class="cattile"><span class="ic">💊</span>Вітаміни</div>
-        </div>
-
-        <div class="blk-lbl">Хіти продажів (картка товару)</div>
-        <div class="prow">
-          <div class="pcard"><div class="img">фото</div><div class="pn">Whey Gold 900 г</div><div class="pmeta">Optimum · США</div><div class="pprice"><span class="pnew">899 ₴</span><span class="pold">1 124 ₴</span><span class="pcut">−20%</span></div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото</div><div class="pn">Креатин 300 г</div><div class="pmeta">OstroVit · Польща</div><div class="pprice"><span class="pnew">449 ₴</span></div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото</div><div class="pn">BCAA 2:1:1 400 г</div><div class="pmeta">BioTech · Угорщина</div><div class="pprice"><span class="pnew">509 ₴</span><span class="pold">599 ₴</span><span class="pcut">−15%</span></div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото</div><div class="pn">Омега-3 90 капс.</div><div class="pmeta">Scitec · Угорщина</div><div class="pprice"><span class="pnew">349 ₴</span></div><div class="pb">У кошик</div></div>
         </div>
 
         <div class="blk-lbl">Акції · Бренди · Поради</div>
@@ -340,26 +385,30 @@
   <section class="section" id="mobile">
     <div class="section-num">02 · Мобілка</div>
     <h2>Мобільний перший екран і порядок блоків</h2>
-    <p class="section-lead">База 360px. Перший екран = H1 + плитки цілей (2 колонки) + кнопки <b>«Відкрити каталог»</b> і <b>«Підібрати за квізом»</b> — нічого зайвого, але обидва входи на місці. Далі полиця кошика й персональна стрічка (за станом), довіра, тренери, категорії, товари, промо/бренди/блог, <b>SEO-текст</b>, футер.</p>
+    <p class="section-lead">База 360px. Лівий рейл категорій у мобілку не вміщується → перший екран = <b>банер-слайдер + горизонтальні чипи категорій</b> (решта категорій — у табі «Каталог»), далі <b>полиця кошика</b> (стан), <b>цілі</b> (2 колонки), довіра, хіти, тренери, новинки/бренди/блог, <b>SEO-текст</b>, футер.</p>
     <div class="cols two">
       <div>
         <div class="phone2">
           <div class="p-top"><span class="wf-logo">Stack</span><span class="sp"></span><span class="ic">🔍</span><span class="ic">♡</span><span class="ic">🛒</span></div>
           <div class="p-blk">
-            <div style="font-size:14px;font-weight:800;color:#111;">Спортхарчування під вашу ціль</div>
+            <div style="height:74px;border-radius:8px;background:repeating-linear-gradient(135deg,#ededed,#ededed 9px,#e6e6e6 9px,#e6e6e6 18px);display:flex;align-items:flex-end;padding:8px;font-size:11px;font-weight:800;color:#666;">Знижки до −25% ·••</div>
+            <div style="display:flex;gap:6px;overflow:hidden;margin-top:8px;">
+              <span class="p-tile" style="white-space:nowrap;padding:7px 11px;">🥛 Протеїн</span><span class="p-tile" style="white-space:nowrap;padding:7px 11px;">💪 Гейнери</span><span class="p-tile" style="white-space:nowrap;padding:7px 11px;">⚡ Креатин</span>
+            </div>
+          </div>
+          <div class="p-blk"><div class="bh">Кошик · 5 товарів · 3 240 ₴</div><div class="p-cta">Оформити замовлення</div></div>
+          <div class="p-blk">
+            <div style="font-size:13px;font-weight:800;color:#111;">Спортхарчування під вашу ціль</div>
             <div class="p-tiles" style="margin-top:8px;">
               <div class="p-tile">Набір маси</div><div class="p-tile">Схуднення</div>
               <div class="p-tile">Відновлення</div><div class="p-tile">Енергія</div>
               <div class="p-tile">Імунітет</div><div class="p-tile">Витривалість</div>
             </div>
-            <div class="p-cta">Відкрити каталог</div>
-            <div class="p-cta" style="background:#fff;color:#111;border:1.5px solid #161616;margin-top:6px;">Підібрати за квізом →</div>
           </div>
-          <div class="p-blk"><div class="bh">Кошик · 5 товарів · 3 240 ₴</div><div class="p-cta">Оформити замовлення</div></div>
-          <div class="p-blk"><div class="bh">Персональне (покупець)</div><div class="p-cta" style="background:#fff;color:#111;border:1.5px solid #161616;">Повторити замовлення</div></div>
           <div class="p-blk"><div class="bh">Довіра</div><div class="p-line"></div></div>
+          <div class="p-blk"><div class="bh">Хіти продажів (картка: фото · рейтинг · ціна+🛒 · /порція · бонус)</div><div class="p-line"></div><div class="p-line"></div></div>
           <div class="p-blk"><div class="bh">Для тренерів</div><div class="p-line"></div><div class="p-cta">Умови →</div></div>
-          <div class="p-blk"><div class="bh">Категорії · Хіти · Новинки · Переглянуті · Бренди · Блог</div><div class="p-line"></div><div class="p-line"></div></div>
+          <div class="p-blk"><div class="bh">Новинки · Переглянуті · Бренди · Блог</div><div class="p-line"></div></div>
           <div class="p-blk"><div class="bh">SEO-текст (низ)</div><div class="p-line"></div><div class="p-line"></div><div class="p-line" style="width:65%"></div></div>
           <div class="p-tabs">
             <div class="p-tab active"><span class="ic">⌂</span>Головна</div>
@@ -369,11 +418,11 @@
             <div class="p-tab"><span class="ic">👤</span>Акаунт</div>
           </div>
         </div>
-        <p class="note">Перший екран не містить промо/каруселей — лише цілі + (для залогіненого) персональний крок. Таб «Головна» активний.</p>
+        <p class="note">Перший екран — банер + швидкі категорії; полиця кошика й цілі одразу під ним. Таб «Головна» активний.</p>
       </div>
       <div>
-        <div class="reco"><b>Порядок блоків (mobile-first):</b> 1) Hero-цілі → 2) Полиця кошика (стан) → 3) Персональна стрічка (стан) → 4) Довіра → 5) Для тренерів → 6) Категорії → 7) Товари (хіти) → 8) Переглянуті товари (стан) → 9) Промо/Бренди/Блог → 10) SEO-текст → Футер.</div>
-        <p class="note">На десктопі ті самі блоки, але hero може йти у дві колонки (цілі + візуал), категорії й товари — ширші ряди. Пріоритет і перший екран продумані з мобілки.</p>
+        <div class="reco"><b>Порядок блоків (mobile-first):</b> 1) Банер + чипи категорій → 2) Полиця кошика (стан) → 3) Цілі «під вашу ціль» → 4) Довіра → 5) Хіти продажів → 6) Для тренерів → 7) Новинки · Переглянуті (стан) → 8) Бренди/Блог/Промо → 9) SEO-текст → Футер.</div>
+        <p class="note">На десктопі перший екран — <b>лівий рейл категорій + банери</b> (Foxtrot-патерн); на мобілці рейл згортається у банер + чипи (повний каталог — у табі «Каталог»). Пріоритет продумано з мобілки.</p>
       </div>
     </div>
   </section>
@@ -381,29 +430,38 @@
   <!-- Breakdown: First screen -->
   <section class="section" id="hero">
     <div class="section-num">03 · Перший екран</div>
-    <h2>Hero — селектор цілей</h2>
-    <p class="section-lead">Перший екран = <b>один зрозумілий крок для початківця</b>: H1 + 6 плиток цілей (Принцип №2). Вторинно — «Відкрити каталог» для тих, хто хоче переглядати самі категорії. Цілі — та сама концерн-лінза, що в навігації й каталозі.</p>
+    <h2>Рейл категорій + банери (Foxtrot-патерн)</h2>
+    <p class="section-lead">Перший екран магазину — <b>лівий рейл категорій</b> (наведення → флайаут субкатегорій) + <b>банери справа</b>: великий слайдер-промо й 2 вертикальні банери. Швидкий вхід для регуляра/обізнаного (Job 3) + мерчандайзинг. Цілі-новачка не втрачаємо — вони одразу нижче (§07, концерн-лінза).</p>
     <p class="wf-note">Мокапи навмисно <b>чорно-білі</b> (вайрфрейм-рівень) — колір додамо на етапі концепту.</p>
     <div class="wf">
-      <div class="wf-cap">Hero — десктоп</div>
+      <div class="wf-cap">Рейл категорій + банери — десктоп (наведено «Протеїн»)</div>
       <div class="wf-pad">
-        <div class="hh1">Спортивне харчування під вашу ціль</div>
-        <div class="hsub">Оберіть ціль — підкажемо безпечний і зрозумілий набір. Без зайвого, з перевіреним складом і дозуванням.</div>
-        <div class="goaltiles">
-          <div class="goaltile">Набір маси <span class="ar">→</span></div>
-          <div class="goaltile">Схуднення <span class="ar">→</span></div>
-          <div class="goaltile">Відновлення <span class="ar">→</span></div>
-          <div class="goaltile">Енергія / тонус <span class="ar">→</span></div>
-          <div class="goaltile">Імунітет / здоров'я <span class="ar">→</span></div>
-          <div class="goaltile">Витривалість / кардіо <span class="ar">→</span></div>
-        </div>
-        <div class="cta-row">
-          <span class="btn-dark">Відкрити каталог</span>
-          <span class="btn-out">Підібрати за квізом →</span>
+        <div class="herowrap">
+          <div class="catrail">
+            <div class="ci on">🥛 Протеїн <span class="ar">›</span></div>
+            <div class="ci">💪 Гейнери <span class="ar">›</span></div>
+            <div class="ci">⚡ Креатин <span class="ar">›</span></div>
+            <div class="ci">🧬 Амінокислоти / BCAA <span class="ar">›</span></div>
+            <div class="ci">🔥 Передтренувальні <span class="ar">›</span></div>
+            <div class="ci">💊 Вітаміни / здоров'я <span class="ar">›</span></div>
+            <div class="ci">🍫 Батончики / снеки <span class="ar">›</span></div>
+            <div class="ci">🥤 Аксесуари <span class="ar">›</span></div>
+            <div class="flyout">
+              <div class="fh">Протеїн →</div>
+              <div class="fl"><b>Сироватковий</b> · Ізолят · Казеїн · Рослинний · Комплексний · Гідролізат · Яловичий</div>
+            </div>
+          </div>
+          <div class="hero-r">
+            <div class="bigbanner"><span class="arrow-l">‹</span><span class="arrow-r">›</span><div class="bt">Знижки на протеїн до −25%</div><div class="dots"><i class="on"></i><i></i><i></i></div></div>
+            <div class="bannerstack">
+              <div class="vbanner"><div class="vt">Новинки місяця</div><div class="vs">щойно завезли →</div></div>
+              <div class="vbanner"><div class="vt">Для тренерів — опт</div><div class="vs">кращі ціни →</div></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <p class="note">Кожна плитка → <b>Колекція за ціллю (2.2)</b>. «Відкрити каталог» → 2.0. «Підібрати за квізом» → 4.0 (післязапуск; зараз веде на плитки цілей). H1 несе головний кореневий ключ.</p>
+    <p class="note">Рейл — 12 топ-категорій (<a href="catalog.html">структура</a>); наведення → флайаут субкатегорій → Категорія (2.1). Банери: слайдер + вертикальні промо (Акції 8.10, Новинки, «Для тренерів» 5.0). Повний каталог — також у мега-меню «Каталог» (хедер 0.1).</p>
   </section>
 
   <!-- 02 Personal strip -->
@@ -497,64 +555,86 @@
 
   <!-- 05 Catalog shortcuts -->
   <section class="section" id="cats">
-    <div class="section-num">07 · Популярні категорії</div>
-    <h2>Швидкі входи в каталог</h2>
-    <p class="section-lead">Для тих, хто знає, що шукає (регуляр, обізнаний). Плитки топ-категорій — другий шлях відкриття, поруч із цілями.</p>
+    <div class="section-num">07 · Цілі</div>
+    <h2>Спортивне харчування під вашу ціль</h2>
+    <p class="section-lead">Front-door для <b>початківця</b> (Job 2, Принцип №2): 6 плиток цілей — концерн-лінза, та сама, що в навігації й каталозі. На сторінці блок стоїть <b>одразу під полицею кошика</b> (див. §01). H2 несе кореневий ключ.</p>
     <div class="wf">
-      <div class="wf-cap">Плитки категорій</div>
+      <div class="wf-cap">Спортивне харчування під вашу ціль</div>
       <div class="wf-pad">
-        <div class="cattiles">
-          <div class="cattile"><span class="ic">🥛</span>Протеїн</div>
-          <div class="cattile"><span class="ic">💪</span>Гейнери</div>
-          <div class="cattile"><span class="ic">⚡</span>Креатин</div>
-          <div class="cattile"><span class="ic">🧬</span>Амінокислоти</div>
-          <div class="cattile"><span class="ic">🔥</span>Передтрен.</div>
-          <div class="cattile"><span class="ic">💊</span>Вітаміни</div>
+        <div class="goaltiles">
+          <div class="goaltile">Набір маси <span class="ar">→</span></div>
+          <div class="goaltile">Схуднення <span class="ar">→</span></div>
+          <div class="goaltile">Відновлення <span class="ar">→</span></div>
+          <div class="goaltile">Енергія / тонус <span class="ar">→</span></div>
+          <div class="goaltile">Імунітет / здоров'я <span class="ar">→</span></div>
+          <div class="goaltile">Витривалість <span class="ar">→</span></div>
         </div>
+        <div class="cta-row"><span class="btn-out">Підібрати за квізом →</span></div>
       </div>
     </div>
-    <p class="note">Плитки → Категорія (2.1). Повний перелік 12 категорій — у мега-меню «Каталог» (навігація) та <a href="catalog.html">структурі каталогу</a>.</p>
+    <p class="note">Кожна плитка → <b>Колекція за ціллю (2.2)</b>. «Підібрати за квізом» → 4.0 (післязапуск; зараз веде на плитки цілей).</p>
   </section>
 
   <!-- 06 Products -->
   <section class="section" id="products">
     <div class="section-num">08 · Товари</div>
-    <h2>Хіти продажів · новинки · переглянуті товари</h2>
-    <p class="section-lead">Соціальний доказ і швидке додавання. <b>Картка товару</b> (канонічна, повторюється в каталозі/лістингах): фото · назва · мета (фірма · країна) · ціна зі знижкою і без · «У кошик». Для тренера ціна — за тарифом. Спокійно, без агресивних бейджів.</p>
+    <h2>Канонічна картка · хіти · новинки · переглянуті</h2>
+    <p class="section-lead">Оновлена <b>канонічна картка</b> (Foxtrot/Belok-стиль), що повторюється в каталозі й лістингах: <b>велике вертикальне фото</b> (банки — вертикальні), ♡ в обране, назва до 2 рядків, рейтинг + к-сть відгуків, ціна, <b>іконка-кнопка «У кошик» збоку</b>, а під ними мета-рядок: <b>ціна за порцію</b> + <b>бонус програми</b>. Спокійно, без агресії.</p>
+
+    <div class="wf">
+      <div class="wf-cap">Анатомія картки</div>
+      <div class="wf-pad" style="display:grid;grid-template-columns:200px 1fr;gap:18px;align-items:center;">
+        <div class="prow" style="grid-template-columns:1fr;">
+          <div class="pcard"><div class="ph">фото<span class="tag">Хіт</span><span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div><div class="nm">Протеїн 100% Whey Gold Standard 909 г · Optimum Nutrition</div><div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 124 ₴</span><span class="pcut">−20%</span></div><span class="pnew">899 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>75 ₴</b> / порція</span><span class="bonus">+9 ₴ Бонус</span></div></div></div>
+        </div>
+        <table style="box-shadow:none">
+          <tr><td><b>Фото</b></td><td>велике, <b>вертикальне</b> (≈4:5) — банки/туби займають висоту</td></tr>
+          <tr><td><b>♡ Обране</b></td><td>іконка вгорі-праворуч (гість → діалог входу 1.0)</td></tr>
+          <tr><td><b>Бейдж кутовий</b></td><td>лише Хіт / NEW (знижка — біля ціни, не в кутку)</td></tr>
+          <tr><td><b>Рейтинг + відгуки</b></td><td>★ оцінка · к-сть відгуків → секція відгуків 3.1</td></tr>
+          <tr><td><b>Назва</b></td><td>до <b>2 рядків</b> (обрізка), → Товар 3.0</td></tr>
+          <tr><td><b>Ціна</b></td><td>нова велика; стара закреслена + <b>−% поруч</b> (єдине правило)</td></tr>
+          <tr><td><b>🛒 Кнопка</b></td><td><b>іконка без тексту, збоку</b> від ціни → Кошик 6.0</td></tr>
+          <tr><td><b>Мета-рядок</b></td><td>зліва <b>ціна за порцію</b> (як Белок), справа <b>бонус</b> (+₴)</td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="note">Картка → Товар (3.0); 🛒 → Кошик (6.0); ♡ → Обране (7.6); рейтинг → відгуки (3.1). Для тренера ціна — за тарифом. <b>Ця картка — канонічна</b>: її треба прокинути в Категорію (2.1), Каталог-хаб (2.0), листинги.</p>
+
     <div class="wf">
       <div class="wf-cap">Хіти продажів — ряд карток</div>
       <div class="wf-pad">
         <div class="prow">
-          <div class="pcard"><div class="img">фото</div><div class="pn">Протеїн Whey Gold 900 г</div><div class="pmeta">Optimum Nutrition · США</div><div class="pprice"><span class="pnew">899 ₴</span><span class="pold">1 124 ₴</span><span class="pcut">−20%</span></div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото</div><div class="pn">Креатин моногідрат 300 г</div><div class="pmeta">OstroVit · Польща</div><div class="pprice"><span class="pnew">449 ₴</span></div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото</div><div class="pn">BCAA 2:1:1 400 г</div><div class="pmeta">BioTech · Угорщина</div><div class="pprice"><span class="pnew">509 ₴</span><span class="pold">599 ₴</span><span class="pcut">−15%</span></div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото</div><div class="pn">Омега-3 90 капс.</div><div class="pmeta">Scitec · Угорщина</div><div class="pprice"><span class="pnew">349 ₴</span></div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="ph">фото<span class="tag">Хіт</span><span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div><div class="nm">Протеїн 100% Whey Gold Standard 909 г · Optimum Nutrition</div><div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 124 ₴</span><span class="pcut">−20%</span></div><span class="pnew">899 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>75 ₴</b> / порція</span><span class="bonus">+9 ₴ Бонус</span></div></div></div>
+          <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.7</span> · 54 відгуки</div><div class="nm">Креатин моногідрат 300 г · OstroVit</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">449 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>7 ₴</b> / порція</span><span class="bonus">+4 ₴ Бонус</span></div></div></div>
+          <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.9</span> · 88 відгуків</div><div class="nm">BCAA 2:1:1 400 г смак кавун · BioTechUSA</div><div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">599 ₴</span><span class="pcut">−15%</span></div><span class="pnew">509 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>13 ₴</b> / порція</span><span class="bonus">+5 ₴ Бонус</span></div></div></div>
+          <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.6</span> · 31 відгук</div><div class="nm">Омега-3 90 капсул · Scitec Nutrition</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">349 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>4 ₴</b> / порція</span><span class="bonus">+3 ₴ Бонус</span></div></div></div>
         </div>
       </div>
     </div>
-    <p class="note">Поля картки: <b>фото · назва · мета (фірма · країна виробництва) · ціна (нова + стара перекреслена за наявності знижки + бейдж −%) · «У кошик»</b>. Картка → Товар (3.0); «У кошик» → Кошик (6.0).</p>
+    <p class="note">Стрічки «Хіти / Новинки / Рекомендовано» — правила добірок пізніше, за даними продажів. Ціна за порцію й бонус — реальні значення на етапі даних [?].</p>
 
     <div class="wf">
-      <div class="wf-cap">Новинки — ряд карток</div>
+      <div class="wf-cap">Новинки — ряд карток (бейдж NEW)</div>
       <div class="wf-pad">
         <div class="prow">
-          <div class="pcard"><div class="img">фото<span class="pdisc">NEW</span></div><div class="pn">Ізолят протеїну 700 г</div><div class="pmeta">Scitec · Угорщина</div><div class="pprice"><span class="pnew">949 ₴</span></div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото<span class="pdisc">NEW</span></div><div class="pn">Бета-аланін 250 г</div><div class="pmeta">OstroVit · Польща</div><div class="pprice"><span class="pnew">389 ₴</span></div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото<span class="pdisc">NEW</span></div><div class="pn">Колаген + вітамін C</div><div class="pmeta">BioTech · Угорщина</div><div class="pprice"><span class="pnew">579 ₴</span></div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото<span class="pdisc">NEW</span></div><div class="pn">Електроліти 40 порцій</div><div class="pmeta">Stack · Україна</div><div class="pprice"><span class="pnew">299 ₴</span></div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="ph">фото<span class="tag">NEW</span><span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ —</span> · ще немає відгуків</div><div class="nm">Ізолят протеїну 700 г · Scitec Nutrition</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">949 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>40 ₴</b> / порція</span><span class="bonus">+9 ₴ Бонус</span></div></div></div>
+          <div class="pcard"><div class="ph">фото<span class="tag">NEW</span><span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ —</span> · новинка</div><div class="nm">Бета-аланін 250 г · OstroVit</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">389 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>5 ₴</b> / порція</span><span class="bonus">+3 ₴ Бонус</span></div></div></div>
+          <div class="pcard"><div class="ph">фото<span class="tag">NEW</span><span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ —</span> · новинка</div><div class="nm">Колаген + вітамін C, 300 г · BioTechUSA</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">579 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>19 ₴</b> / порція</span><span class="bonus">+6 ₴ Бонус</span></div></div></div>
+          <div class="pcard"><div class="ph">фото<span class="tag">NEW</span><span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ —</span> · новинка</div><div class="nm">Електроліти 40 порцій · Stack</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">299 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>7 ₴</b> / порція</span><span class="bonus">+3 ₴ Бонус</span></div></div></div>
         </div>
       </div>
     </div>
-    <p class="note">«Новинки» — нещодавно додані товари (бейдж NEW замість −%). Та сама картка. Стрічки «Хіти / Новинки / Рекомендовано» — правила добірок пізніше, за даними продажів.</p>
+    <p class="note">«Новинки» — нещодавно додані товари (кутовий бейдж <b>NEW</b>; рейтинг ще порожній). Та сама канонічна картка.</p>
 
     <div class="wf">
       <div class="wf-cap">Переглянуті товари — стан «є історія переглядів»</div>
       <div class="wf-pad">
         <div class="prow">
-          <div class="pcard"><div class="img">фото</div><div class="pn">Гейнер Mass 3000 г</div><div class="pmeta">Kevin Levrone · Польща</div><div class="pprice"><span class="pnew">1 199 ₴</span></div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото</div><div class="pn">Передтрен. C4 390 г</div><div class="pmeta">Cellucor · США</div><div class="pprice"><span class="pnew">719 ₴</span><span class="pold">799 ₴</span><span class="pcut">−10%</span></div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото</div><div class="pn">Вітамін D3 2000 МО</div><div class="pmeta">Solgar · США</div><div class="pprice"><span class="pnew">399 ₴</span></div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото</div><div class="pn">L-карнітин 1500 рідкий</div><div class="pmeta">OstroVit · Польща</div><div class="pprice"><span class="pnew">329 ₴</span></div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.8</span> · 42 відгуки</div><div class="nm">Гейнер Mass 3000 г · Kevin Levrone</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 199 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>30 ₴</b> / порція</span><span class="bonus">+12 ₴ Бонус</span></div></div></div>
+          <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.5</span> · 67 відгуків</div><div class="nm">Передтренувальний C4 390 г · Cellucor</div><div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">799 ₴</span><span class="pcut">−10%</span></div><span class="pnew">719 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>24 ₴</b> / порція</span><span class="bonus">+7 ₴ Бонус</span></div></div></div>
+          <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.9</span> · 113 відгуків</div><div class="nm">Вітамін D3 2000 МО, 120 капс. · Solgar</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">399 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>3 ₴</b> / порція</span><span class="bonus">+4 ₴ Бонус</span></div></div></div>
+          <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="rate"><span class="st">★ 4.4</span> · 28 відгуків</div><div class="nm">L-карнітин 1500 рідкий · OstroVit</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">329 ₴</span></div><div class="cartbtn">🛒</div></div><div class="pmeta2"><span class="perserv"><b>11 ₴</b> / порція</span><span class="bonus">+3 ₴ Бонус</span></div></div></div>
         </div>
       </div>
     </div>
@@ -615,11 +695,10 @@
     <h3 style="font-size:14px;margin:14px 0 6px;color:var(--accent)">B · Структура заголовків</h3>
     <table>
       <tr><th>Рівень</th><th>Текст</th><th>Де</th></tr>
-      <tr><td><b>H1</b> (єдиний)</td><td>Спортивне харчування під вашу ціль</td><td>hero</td></tr>
-      <tr><td>H2</td><td>Оберіть ціль (плитки)</td><td>hero</td></tr>
-      <tr><td>H2</td><td>Замовляєте для клієнтів? (Для тренерів)</td><td>коуч-блок</td></tr>
-      <tr><td>H2</td><td>Популярні категорії</td><td>категорії</td></tr>
+      <tr><td><b>H1</b> (єдиний)</td><td>Спортивне харчування — інтернет-магазин Stack</td><td>верх контенту (рейл — навігація, не H1)</td></tr>
+      <tr><td>H2</td><td>Спортивне харчування під вашу ціль (плитки)</td><td>блок цілей</td></tr>
       <tr><td>H2</td><td>Хіти продажів · Новинки</td><td>товари</td></tr>
+      <tr><td>H2</td><td>Замовляєте для клієнтів? (Для тренерів)</td><td>коуч-блок</td></tr>
       <tr><td>H2</td><td>Корисні поради</td><td>блог</td></tr>
       <tr><td>H2</td><td>Спортивне харчування в Україні — Stack</td><td>SEO-текст (низ)</td></tr>
     </table>
@@ -663,13 +742,13 @@
     <h2>Блоки й переходи</h2>
     <table>
       <tr><th>#</th><th>Блок</th><th>Вміст</th><th>Веде до</th></tr>
-      <tr><td>1</td><td><b>Hero — цілі</b></td><td>H1 + 6 плиток цілей + «Відкрити каталог» / квіз</td><td class="arrow">2.2 · 2.0 · 4.0</td></tr>
+      <tr><td>1</td><td><b>Рейл категорій + банери</b></td><td>Лівий рейл 12 категорій (hover → флайаут субкатегорій) + банер-слайдер + 2 вертикальні промо</td><td class="arrow">2.1 · 8.10 · 5.0</td></tr>
       <tr><td>2</td><td><b>Полиця кошика</b> (стан)</td><td>Якщо кошик не порожній: N товарів, сума, мініатюри, «Оформити замовлення» / «Переглянути кошик»</td><td class="arrow">6.1 · 6.0</td></tr>
-      <tr><td>3</td><td><b>Персональна стрічка</b></td><td>Гість: прихована. Покупець: повтор замовлення. Тренер: нова сесія + кабінет</td><td class="arrow">7.3 · 5.5 · 5.2 · 1.0</td></tr>
+      <tr><td>3</td><td><b>Спортхарчування під вашу ціль</b></td><td>6 плиток цілей (концерн-лінза) + «Підібрати за квізом»</td><td class="arrow">2.2 · 4.0</td></tr>
       <tr><td>4</td><td><b>Смуга довіри</b></td><td>Сертифікат · доставка · оплата · повернення · відгуки</td><td class="arrow">8.8 · 8.4 · 8.5 · 8.11</td></tr>
-      <tr><td>5</td><td><b>Для тренерів</b></td><td>Банер коуч-каналу + CTA умови</td><td class="arrow">5.0</td></tr>
-      <tr><td>6</td><td><b>Популярні категорії</b></td><td>Плитки топ-категорій</td><td class="arrow">2.1</td></tr>
-      <tr><td>7</td><td><b>Товари — хіти / новинки</b></td><td>Картка: фото · назва · фірма·країна · ціна (нова+стара) · «У кошик». Новинки — бейдж NEW</td><td class="arrow">3.0 · 6.0</td></tr>
+      <tr><td>5</td><td><b>Хіти продажів</b></td><td><b>Канонічна картка</b>: фото вертик. · ♡ · рейтинг+відгуки · назва · ціна+🛒 · /порція + бонус</td><td class="arrow">3.0 · 6.0 · 7.6 · 3.1</td></tr>
+      <tr><td>6</td><td><b>Для тренерів</b></td><td>Банер коуч-каналу + CTA умови</td><td class="arrow">5.0</td></tr>
+      <tr><td>7</td><td><b>Новинки</b></td><td>Та сама картка, кутовий бейдж NEW (рейтинг порожній)</td><td class="arrow">3.0 · 6.0</td></tr>
       <tr><td>8</td><td><b>Переглянуті товари</b> (стан)</td><td>Якщо є історія переглядів; та сама картка</td><td class="arrow">3.0 · 6.0</td></tr>
       <tr><td>9</td><td><b>Акції · Бренди · Блог</b></td><td>Промо (без таймерів) · бренди · тизер статей</td><td class="arrow">8.10 · 2.4 · 8.0/8.1</td></tr>
       <tr><td>10</td><td><b>SEO-текст</b></td><td>H2 + опис магазину (кореневі ключі)</td><td>—</td></tr>
@@ -682,7 +761,7 @@
     <h2>Що змінюється за станом і роллю</h2>
     <table>
       <tr><th>Блок</th><th>Гість</th><th>Покупець</th><th>Тренер</th></tr>
-      <tr><td><b>Hero-цілі</b></td><td colspan="3">Однаково для всіх — перший екран лишається селектором цілей.</td></tr>
+      <tr><td><b>Рейл + банери</b></td><td colspan="3">Перший екран однаковий для всіх; банери можуть таргетуватись (напр. «Для тренерів» — помітніший залогіненому тренеру).</td></tr>
       <tr><td><b>Полиця кошика</b></td><td colspan="3">Порожній кошик — прихована. Є товари (зараз або з минулого) — показуємо для всіх ролей: N товарів, сума, мініатюри, «Оформити». Тренеру — сума за тарифом.</td></tr>
       <tr><td><b>Переглянуті товари</b></td><td colspan="3">Немає історії — прихований. Є — показуємо (гість: локально; залогінений: по акаунту).</td></tr>
       <tr><td><b>Персональна стрічка</b></td><td>Прихована (показуємо «Увійти»)</td><td><b>Повтор замовлення</b> (7.3) + Мої стейпли*</td><td><b>Нова сесія (5.5)</b> + Кабінет (5.2)</td></tr>
@@ -710,26 +789,22 @@
   <section class="section" id="open">
     <div class="open">
       <h2>Рішення зафіксовано ✓</h2>
-      <p style="font-size:13px;color:var(--text-secondary);margin:0 0 6px"><b>2026-06-30 — структура головної:</b></p>
+      <p style="font-size:13px;color:var(--text-secondary);margin:0 0 6px"><b>2026-07-01 — структура головної (Foxtrot-патерн):</b></p>
       <ul>
-        <li><b>Перший екран = селектор цілей</b> (H1 + 6 плиток) — «один зрозумілий крок» для початківця; вторинно «Відкрити каталог».</li>
-        <li><b>Полиця кошика (стан)</b> одразу під hero, коли кошик не порожній (зараз або з минулого візиту): N товарів, сума, мініатюри, «Оформити замовлення» / «Переглянути кошик».</li>
-        <li><b>Персональна стрічка за станом</b> під hero: гість — прихована; покупець — повтор замовлення (+ стейпли післязапуск); тренер — нова сесія + кабінет.</li>
-        <li><b>Ряди товарів:</b> Хіти продажів · <b>Новинки</b> (бейдж NEW) · <b>Переглянуті товари</b> (стан, коли є історія переглядів) — та сама картка.</li>
-        <li><b>SEO-блок сторінки (08)</b> робимо повним ще на IA: мета-теги з готовими текстами · H1/H2 · готовий SEO-текст · схема (Organization/WebSite) · чек-лист. Це <b>шаблон для кожної сторінки</b>.</li>
-        <li><b>Картка товару (канонічна):</b> фото · назва · мета (фірма · країна виробництва) · ціна (нова + стара перекреслена за наявності знижки + бейдж −%) · «У кошик». Повторюється в каталозі/лістингах.</li>
-        <li><b>Смуга довіри</b> високо (Принцип №1); повна стрічка з 4 картками — у футері.</li>
-        <li><b>Видимий блок «Для тренерів»</b> на головній (Принцип №3) → лендинг 5.0.</li>
-        <li><b>Далі:</b> популярні категорії → товари (хіти) → акції/бренди/блог → SEO-текст.</li>
-        <li><b>Спокійно, без countdown-таймерів</b> (Принцип №4). Мокапи ч/б; колір — на концепті.</li>
-        <li><b>Порядок блоків продуманий з мобілки</b> (база 360px); десктоп — ті самі блоки, ширші ряди.</li>
+        <li><b>Перший екран = рейл категорій + банери</b> (Foxtrot/Rozetka): лівий рейл 12 категорій (hover → флайаут субкатегорій) + банер-слайдер + 2 вертикальні промо. Швидкий вхід для регуляра + мерчандайзинг.</li>
+        <li><b>Полиця кошика (стан)</b> одразу під hero, коли кошик не порожній: N товарів, сума, мініатюри, «Оформити замовлення» / «Переглянути кошик». Персональна стрічка за роллю — варіант цього блоку.</li>
+        <li><b>«Спортивне харчування під вашу ціль» (6 плиток)</b> — блок 3, front-door новачка (концерн-лінза), високо під кошиком. Окремий блок «популярні категорії» прибрано (рейл його покриває).</li>
+        <li><b>Ряди товарів:</b> Хіти · <b>Новинки</b> (NEW) · <b>Переглянуті</b> (стан) — нова канонічна картка.</li>
+        <li><b>Канонічна картка (Foxtrot/Belok):</b> велике <b>вертикальне</b> фото · ♡ · кутовий Хіт/NEW · <b>рейтинг + відгуки</b> · назва до 2 рядків · ціна (нова + стара з <b>−% поруч</b>) · <b>іконка-кнопка 🛒 збоку</b> · мета-рядок <b>ціна/порція + бонус</b>. Канонічна → прокинути в лістинги (2.1/2.0).</li>
+        <li><b>SEO-блок (A–E)</b> повний ще на IA — шаблон для кожної сторінки. <b>Смуга довіри</b> високо (Принцип №1). <b>Видимий «Для тренерів»</b> (Принцип №3) → 5.0.</li>
+        <li><b>Спокійно, без countdown-таймерів</b> (Принцип №4). Мокапи ч/б; колір — на концепті. Порядок продуманий з мобілки (рейл → банер + чипи).</li>
       </ul>
-      <p style="font-size:13px;color:var(--text-secondary);margin:12px 0 0"><b>Відкриті [?]:</b> правила добірок (хіти / новинки / рекомендації) — потрібні дані продажів; квіз (4.x) — післязапуск (зараз плитки цілей); «Мої стейпли» — післязапуск; чи показувати «переглянуті раніше» гостю.</p>
+      <p style="font-size:13px;color:var(--text-secondary);margin:12px 0 0"><b>Відкриті [?]:</b> правила добірок (хіти/новинки/рекомендації) і добірка банерів — дані продажів/маркетинг; <b>ціна за порцію + бонус</b> — реальні значення на етапі даних; квіз (4.x) і «Мої стейпли» — післязапуск; чи показувати «переглянуті» гостю.</p>
     </div>
   </section>
 
   <div class="footer-text">
-    Stack — Посторінкова IA · Головна (вузол 0.0): hero-цілі + персональна стрічка + довіра + тренери + категорії + товари + промо/бренди/блог + SEO-текст. Джерело істини: ia/docs/pages/home.md. Карта сайту: sitemap.html. Концептуальний шар: ../research/concept.html. Червень 2026, чернетка.
+    Stack — Посторінкова IA · Головна (вузол 0.0): рейл категорій + банери → полиця кошика → цілі → довіра → хіти (канонічна картка) → тренери → новинки → промо/бренди/блог → SEO-текст. Джерело істини: ia/docs/pages/home.md. Карта сайту: sitemap.html. Концептуальний шар: ../research/concept.html. Липень 2026, чернетка.
   </div>
 
 </div>
