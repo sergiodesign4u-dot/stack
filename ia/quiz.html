@@ -114,6 +114,12 @@
     .qchips { margin-bottom: 12px; }
     .qchip { display: inline-flex; font-size: 11px; border: 1px solid #ddd; border-radius: 100px; padding: 3px 10px; color: #444; margin: 0 5px 5px 0; }
     .qchip b { color: #111; }
+    .qmail { margin-top: 16px; border-top: 1px dashed #ddd; padding-top: 14px; }
+    .qmail .h { font-size: 13px; font-weight: 800; color: #111; }
+    .qmail .s { font-size: 11.5px; color: #777; margin: 3px 0 9px; }
+    .qmail .row { display: flex; border: 1.5px solid #c4c4c4; border-radius: 8px; overflow: hidden; max-width: 380px; }
+    .qmail .row .ph { flex: 1; padding: 10px 12px; color: #9a9a9a; font-size: 13px; align-self: center; }
+    .qmail .row .go { background: #161616; color: #fff; padding: 10px 16px; font-weight: 700; font-size: 13px; display: flex; align-items: center; white-space: nowrap; }
     .setrow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .pcard { border: 1px solid #e2e2e2; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
     .pcard .img { height: 70px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; }
@@ -292,11 +298,16 @@
             <span class="btn-dark">Додати весь набір у кошик · 2 597 ₴</span>
             <span class="btn-out">Переглянути всю колекцію</span>
           </div>
-          <p class="note" style="margin-top:10px;">Це не медична порада. Уся продукція сертифікована; склад і дозування — на картці товару. <a href="#">Зберегти / надіслати на email</a> (опц., без реєстрації).</p>
+          <div class="qmail">
+            <div class="h">Зберегти набір на потім?</div>
+            <div class="s">Введіть email — надішлемо список і промокод на перше замовлення. Без реєстрації.</div>
+            <div class="row"><span class="ph">Ваш email</span><span class="go">Надіслати</span></div>
+          </div>
+          <p class="note" style="margin-top:12px;">Це не медична порада. Уся продукція сертифікована; склад і дозування — на картці товару.</p>
         </div>
       </div>
     </div>
-    <p class="note">CTA: <b>«Додати весь набір»</b> → Кошик (6.0); <b>«Переглянути всю колекцію»</b> → Колекція за ціллю (2.2); картка/«У кошик» → Товар (3.0) / Кошик. Набір = 2–3 для новачка, до 4–5 для досвідчених.</p>
+    <p class="note">CTA: <b>«Додати весь набір»</b> → Кошик (6.0); <b>«Переглянути всю колекцію»</b> → Колекція за ціллю (2.2); картка/«У кошик» → Товар (3.0) / Кошик. Набір = 2–3 для новачка, до 4–5 для досвідчених. <b>Email-збереження — інлайн-поле внизу результату</b> (не окремий діалог): email + «Надіслати», без реєстрації; opt-in у розсилку + промокод.</p>
   </section>
 
   <!-- 05 Logic / scheme -->
@@ -374,7 +385,7 @@
       <tr><td>4.0</td><td><b>Інтро</b></td><td>Візуал + обіцянка + «Пройти квіз» / «Відкрити каталог»</td><td class="arrow">4.1 · 2.0</td></tr>
       <tr><td>4.1</td><td><b>Крок-питання</b></td><td>Прогрес, питання, картки відповідей, Назад/Далі</td><td class="arrow">4.1 → 4.2</td></tr>
       <tr><td>4.1s</td><td><b>Запобіжник</b> (умовний)</td><td>Зʼявляється за «ліки/хронічне» → консервативний набір</td><td class="arrow">4.2</td></tr>
-      <tr><td>4.2</td><td><b>Результат</b></td><td>Заголовок + чипи + набір 3–5 + CTA + дисклеймер</td><td class="arrow">4.3 · 2.2 · 6.0</td></tr>
+      <tr><td>4.2</td><td><b>Результат</b></td><td>Заголовок + чипи + набір 3–5 + CTA + <b>інлайн email-збереження</b> + дисклеймер</td><td class="arrow">4.3 · 2.2 · 6.0 · 8.12</td></tr>
       <tr><td>4.3</td><td><b>Набір у кошик</b></td><td>«Додати весь набір» / по товару</td><td class="arrow">6.0 · 3.0</td></tr>
     </table>
   </section>
@@ -434,7 +445,7 @@
       <ul>
         <li><b>5 кроків, обовʼязковий лише Q1 (ціль)</b> — Q2–Q5 мають «Пропустити»/дефолт (досвід за замовч. = «новачок» → консервативніший набір). Можна завершити швидко, але є простір для уточнення.</li>
         <li><b>Старт із плитки цілі — так:</b> плитка цілі може запускати квіз із пресетом Q1 (одразу Q2). Основна дія плитки лишається → Колекція за ціллю (2.2); квіз — вторинне «уточнити підбір».</li>
-        <li><b>Email-збереження набору — так:</b> на результаті опційне «надіслати набір на email», без реєстрації (lead-capture, синергія з розсилкою 8.12).</li>
+        <li><b>Email-збереження набору — так, інлайн-поле внизу результату</b> (не окремий діалог): «Ваш email» + «Надіслати», без реєстрації (lead-capture + opt-in розсилки 8.12 + промокод).</li>
         <li><b>У глобальній навігації — ні.</b> Входи: Головна (hero CTA), плитка цілі (deep-link), банер у Колекції за ціллю (2.2). Навігацію не міняємо.</li>
       </ul>
       <p style="font-size:13px;color:var(--text-secondary);margin:8px 0 0"><b>Лишається [?] (операційне, не IA):</b> точні SKU у наборі — редакційно-даний таск на білді (механіку добірки зафіксовано: ціль→категорії · досвід→розмір · обмеження→свопи · формат/бюджет→фільтр · вихід 3–5 пояснених).</p>

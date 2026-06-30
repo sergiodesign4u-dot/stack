@@ -74,8 +74,10 @@
 - **3–5 product cards** (canonical card) each with a one-line "чому тут" + composition/dosage hint.
 - CTAs: **«Додати весь набір у кошик»** (→ 6.0, shows set total) · **«Переглянути всю колекцію»**
   (→ 2.2) · per-item «У кошик» (→ 3.0/6.0).
-- Trust: **«Це не медична порада»**, certified, composition/dosage on the product page. Optional
-  **save / email the set** (no account).
+- Trust: **«Це не медична порада»**, certified, composition/dosage on the product page.
+- **Save the set = inline email field at the bottom of the result** (NOT a separate dialog):
+  prompt «Зберегти набір на потім?» + `Ваш email` + «Надіслати». No account; opt-in to the newsletter
+  (8.12) + first-order promo code.
 - Set size: 2–3 for beginners, up to 4–5 for advanced.
 
 ## Entry points (locked)
@@ -120,8 +122,8 @@ trust disclaimer + safety insert.
   «новачок» → more conservative set). Fast to finish, room to refine.
 - **Start from a goal tile = yes** — deep-link with Q1 preset (jumps to Q2); the tile's primary action
   stays → Goal collection (2.2).
-- **Email-save of the set = yes** — optional «надіслати набір на email» on the result, no account
-  (lead capture; synergy with the newsletter 8.12).
+- **Email-save of the set = yes, as an inline field at the bottom of the result** (not a separate
+  dialog): `Ваш email` + «Надіслати», no account (lead capture + newsletter 8.12 opt-in + promo code).
 - **Global nav = no** — entries are Home hero, goal-tile deep-link, Goal-collection banner only.
 
 **Still [?] (operational, not IA):** exact SKU picks in the set — an editorial/data task at build time
