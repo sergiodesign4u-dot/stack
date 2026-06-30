@@ -27,19 +27,27 @@ Icon (side) + heading + short text. Each card is a crawlable `<a>` to the matchi
 
 | Card | Heading | Sub-text | → |
 |---|---|---|---|
-| 🚚 | Швидка доставка | Нова Пошта по Україні за 1–2 дні | Delivery 8.x |
-| ✅ | Гарантія оригіналу | Сертифіковані товари, дозвільні документи | Guarantee/certs 8.x |
-| 💳 | Зручна оплата | Картка, Apple / Google Pay, накладений платіж | Payment 8.x |
-| 🔄 | Обмін і повернення | 14 днів на повернення товару | Returns 8.x |
+| 🚚 | Швидка доставка | Самовивіз із магазину Stack, доставка за адресою або у відділення Нової Пошти. | Delivery 8.x |
+| ✅ | Гарантія якості | Сертифікована продукція з офіційною гарантією від виробника. | Guarantee/certs 8.x |
+| 💳 | Зручна оплата | Оплатити покупку можливо готівкою, картою чи безготівковим розрахунком. | Payment 8.x |
+| 🔄 | Обмін і повернення | Повернення товару протягом 14 днів після покупки, відповідно до чинного закону. | Returns 8.x |
 
-Mobile: 2×2 grid, shortened labels. Trust strip is **text, not images** (screen-reader + crawler legible).
+Each card carries a **full sentence** (not a 2-word tag): clearer for the buyer and gives the
+crawler descriptive, keyword-relevant body text. Trust strip is **text, not images**
+(screen-reader + crawler legible). Mobile: 2×2 grid, shortened headings (full text in the
+linked info page).
 
 ### B. Main footer — 4 columns (left → right)
 
 **Col 1 — Розсилка (Newsletter) + Support**
+- **Hook (benefit-led):** «Підписуйтесь на знижки!» — leads with the user benefit, not the
+  channel. Sub: "Промокоди, акції та новинки — першими на вашу пошту. Знижка на перше
+  замовлення після підписки."
 - Email field + «Підписатися» button (real `<form>`).
-- Gentle anti-spam line: "Ми не спамимо: лист раз на тиждень, відписатися можна будь-коли."
+- Gentle anti-spam line: "Тільки користь: листи зрідка, без спаму, відписатися можна будь-коли."
 - **Підтримайте нас:** «Оцінити в Google» + «Залишити відгук».
+- Note: the welcome-discount value (e.g. −5% / fixed ₴) is **[?]** — confirm with promo/unit
+  economics before committing the exact number; copy stays qualitative until then.
 
 **Col 2 — Stack**
 - Про нас · Контакти · Політика конфіденційності · Публічний договір (договір приєднання) · Умови використання · Блог.
@@ -99,8 +107,11 @@ All items are real crawlable `<a>` with descriptive anchors. Link **only to what
 ---
 
 ## Locked decisions (2026-06-30)
-- Trust strip = 4 cards (icon + heading + short text): delivery · guarantee · payment · returns.
-- Newsletter column with anti-spam reassurance + "support us" (Google rating + review).
+- Trust strip = 4 cards (icon + heading + **full descriptive sentence**, SEO-friendly):
+  delivery (pickup / address / Nova Poshta branch) · guarantee (certified, manufacturer
+  warranty) · payment (cash / card / bank transfer) · returns (14 days, per law).
+- Newsletter column = **benefit-led hook** «Підписуйтесь на знижки!» (promo/discount value
+  [?]) + anti-spam reassurance + "support us" (Google rating + review).
 - Stack / Customers / Consultation columns as specified above; «Для тренерів» duplicated in Customers as a second coach door.
 - Consultation: big free number first + schedule + email + on-site chat + Telegram/Viber + socials (FB · IG · TikTok · YouTube).
 - SEO popular-queries block: **structure locked** (categories/types · goals · brands · cities); exact list via keyword research.
@@ -111,3 +122,4 @@ All items are real crawlable `<a>` with descriptive anchors. Link **only to what
 - Exact popular-queries list & order (keyword research: volume, seasonality) — at SEO-copy stage.
 - Final city list (shared with Navigation location dropdown / SEO city pages).
 - Real support number, hours, and live channels (operational).
+- Newsletter welcome-discount value (−5% / fixed ₴) — promo + unit economics.
