@@ -240,5 +240,11 @@ Output = the wireframe library. Wireframes then just render it.
   listings). Updated the Navigation page to reflect all of this. Catalog now has only the
   operational population `[?]` left. Lesson: a recurring discovery dimension (goals/symptoms)
   should live *inside* the catalog, not only in a top-bar dropdown that vanishes on mobile.
+- **2026-06-30** — Navigation polish to match the catalog + a cleaner account model:
+  mega-menu left column now lists the real **12 categories** (+ middle subcats aligned, right
+  column **6 goals**); added a **«Цілі» dropdown** mock (same 6 goals + "all goals"). **Account
+  model:** guest 👤 «Увійти» opens the **dialog** directly (no dropdown); only logged-in gets a
+  **dropdown**, and that dropdown **drops «Обране» & «Бонуси»** since they're already their own
+  header elements (don't duplicate a control that's visible on the bar).
 - **Next** — Footer (0.2) then Home (0.0) as page-level IA pages (md + html), then cluster
   by cluster. Add each new node to the sidebar group and to `ia/docs/sitemap.md`.

@@ -59,7 +59,7 @@ at the concept stage, not carried into wireframes.
 | 2 | **Каталог** (primary button) | Prominent, icon; opens the mega-menu | 2.0 / 2.1 |
 | 3 | **Цілі** (secondary) | Short dropdown of 4–6 goals + "all goals" | 2.2 |
 | 4 | **Search** + «Знайти» button | Field with an explicit button; `<form role="search">` → /search?q= | 2.5 |
-| 5 | **Увійти / Кабінет** | Icon + caption: «Увійти» (guest) / «Кабінет» (logged-in); opens the account dropdown | 1.0 / 7.0 |
+| 5 | **Увійти / Кабінет** | Icon + caption: «Увійти» (guest) → **dialog 1.0** (no dropdown); «Кабінет» (logged-in) → **dropdown** | 1.0 / 7.0 |
 | 6 | **Обране** + count | Guest → sign-in dialog; logged-in → list | 7.6 |
 | 7 | **Бонуси** | Guest: «бонуси» + big «Отримати»; logged-in: bonus balance | 7.4 `[?]` |
 | 8 | **Кошик** (informative) | Empty: icon + «Кошик»; active: count + total sum | 6.0 |
@@ -72,8 +72,9 @@ Primary nav = the bottom tab bar (section B).
 ### Catalog mega-menu (desktop)
 
 Opening «Каталог» reveals a mega-menu (structure like Belok):
-- **Left column** — top categories (Протеїн, Креатин, Амінокислоти, Гейнери, Вітаміни,
-  Жироспалювачі, Батончики, Бренди), each with a flyout ›.
+- **Left column** — the **12 top categories** (Протеїн · Гейнери · Креатин · Амінокислоти ·
+  Передтренувальні та енергія · Жироспалювачі · Ізотоніки та витривалість · Батончики, снеки
+  та харчування · Вітаміни та мінерали · Здоров'я · Аксесуари · Бренди), each with a flyout ›.
 - **Middle** — the hovered category's **subcategories + inner** (e.g. Протеїн → за типом /
   за формою / за ціллю; inner facets — brand, flavour, serving size, price — on the listing).
 - **Right column** — **«За ціллю»** (the 6 goals) + an "all products" link. Goals are
@@ -83,12 +84,13 @@ Opening «Каталог» reveals a mega-menu (structure like Belok):
   goals never disappear on mobile. «Каталог» stays the entry to the full catalog. See the
   catalog taxonomy (`ia/catalog.html`) for the 12 categories + 6 goals.
 
-### Account dropdown
+### Account — guest dialog vs logged-in dropdown
 
-- **Guest:** Увійти / Реєстрація buttons; links — Обране (→ sign-in), Бонуси (→ Отримати),
-  **Для тренерів → 5.0**, info links.
-- **Buyer (logged-in):** header with name + bonus balance; Кабінет → 7.0, Замовлення → 7.2,
-  Бонуси/лояльність → 7.4, Обране → 7.6, Адреси → 7.5, **Стати тренером → 7.7**, Вихід.
+- **Guest:** 👤 «Увійти» opens the **sign-in/register dialog directly** (node 1.0) — **no
+  dropdown** (email/password + Увійти/Реєстрація + "forgot password"; social login).
+- **Buyer (logged-in):** 👤 «Кабінет» opens a **dropdown**: Кабінет → 7.0, Замовлення → 7.2,
+  Адреси → 7.5, **Стати тренером → 7.7**, Вихід. **No «Обране»/«Бонуси»** in the dropdown —
+  they are their own header elements (♡ icon + Бонуси button), no point duplicating.
 - **Coach:** tier chip in the dropdown header; adds Кабінет тренера → 5.2, Клієнти → 5.3,
   Нова сесія → 5.5; «Стати тренером» disappears (role already active).
 
@@ -141,6 +143,8 @@ avoided — it buries primary destinations behind overflow; secondary links live
 - **Bonuses element:** guest = «бонуси» + big «Отримати» (→ register); logged-in = bonus
   balance. Bonus mechanics (points vs %) `[?]`; activates loyalty (Decision 3) and touches
   the brief's "loyalty points out of scope" — keep as a hypothesis.
+- **Account:** guest 👤 «Увійти» → **dialog** (node 1.0), no dropdown; logged-in 👤 «Кабінет»
+  → **dropdown** that **excludes Обране & Бонуси** (they're their own header elements).
 - **«Для тренерів» placement:** emphasized link in the meta bar (coach front door is also on
   the home teaser + account). Primary audience stays reachable without crowding the main bar.
 - **Mockups are black-and-white** (wireframe level); colour is added at the concept stage.
@@ -159,7 +163,7 @@ avoided — it buries primary destinations behind overflow; secondary links live
 
 | Zone | Guest | Buyer (logged-in) | Coach (logged-in) |
 |------|-------|-------------------|-------------------|
-| Account | **«Увійти»** → 1.0 (+ Реєстрація) | Menu → 7.0 (Замовлення, Лояльність, Обране, Адреси, **Стати тренером** → 7.7, Вихід) | Menu adds **«Кабінет тренера»** → 5.2 + role/tier badge |
+| Account | 👤 «Увійти» → **dialog 1.0** (no dropdown) | 👤 «Кабінет» → **dropdown**: Замовлення, Адреси, **Стати тренером** → 7.7, Вихід (no Обране/Бонуси — header elements) | Dropdown adds **«Кабінет тренера»** → 5.2, Клієнти, Нова сесія + tier chip |
 | Favorites | Clicking ♡ / the Обране tab → **sign-in dialog** (login required to save; no guest wishlist → registration driver) | Saved list, count badge | Saved list, count badge |
 | Cart | Visible, count badge | Same | Same; groups per client (6.0) |
 | Mobile tabs | 5 (buyer set) | 5 (buyer set) | 5 (coach variant) |
