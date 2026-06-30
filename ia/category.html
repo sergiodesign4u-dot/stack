@@ -138,9 +138,24 @@
     .frow { display: flex; gap: 8px; font-size: 11px; color: #666; }
     .frow .in { flex: 1; border: 1px solid #ddd; border-radius: 6px; padding: 5px 8px; }
 
-    /* product grid (canonical card) */
-    .prow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    @media (max-width: 980px) { .prow { grid-template-columns: 1fr 1fr; } }
+    /* inherited zone strips (header / footer) */
+    .wf-zone { border: 1.5px dashed #bdbdbd; border-radius: 8px; background: repeating-linear-gradient(45deg,#fafafa,#fafafa 6px,#f3f3f3 6px,#f3f3f3 12px); padding: 9px 12px; font-size: 11px; font-weight: 700; color: #777; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .wf-zone.foot { margin: 14px 0 0; }
+    .wf-zone .zt { background: #161616; color: #fff; border-radius: 4px; font-size: 9px; padding: 1px 6px; letter-spacing: .04em; }
+    .wf-zone .zd { color: #999; font-weight: 600; }
+
+    /* open sort dropdown (shows real options) */
+    .sortwrap { position: relative; }
+    .sortmenu { border: 1.5px solid #c4c4c4; border-radius: 8px; background: #fff; padding: 4px; width: 220px; box-shadow: var(--shadow-sm); }
+    .sortmenu .so { font-size: 12px; padding: 7px 10px; border-radius: 6px; color: #333; display: flex; justify-content: space-between; }
+    .sortmenu .so.on { background: #161616; color: #fff; font-weight: 700; }
+    .sortmenu .so .k { color: #bbb; font-size: 10px; }
+
+    /* product grid (canonical card) — 5 cols max → 4 → 3 → 2 */
+    .prow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; }
+    @media (max-width: 1180px) { .prow { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 900px) { .prow { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 680px) { .prow { grid-template-columns: 1fr 1fr; } }
     .pcard { border: 1px solid #e2e2e2; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; position: relative; }
     .pcard .img { height: 92px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 11px; position: relative; }
     .pcard .pdisc { position: absolute; top: 6px; right: 6px; background: #161616; color: #fff; font-size: 10px; font-weight: 800; border-radius: 5px; padding: 2px 6px; }
@@ -275,31 +290,22 @@
   <section class="section" id="desktop">
     <div class="section-num">01 · Десктоп — повний лістинг</div>
     <h2>Анатомія сторінки категорії</h2>
-    <p class="section-lead">Приклад: категорія <b>«Протеїн»</b>. Хлібні крихти → H1 + короткий вступ → чипи субкатегорій → чипи «За ціллю» → тулбар (сортування / вигляд / лічильник) → активні фільтри → дві колонки (панель фільтрів + сітка карток) → пагінація → SEO-текст → суміжне.</p>
+    <p class="section-lead">Приклад: категорія <b>«Протеїн»</b>. <b>Хедер</b> (наслідується) → хлібні крихти (Каталог → 2.0) → H1 + короткий вступ («Читати більше» веде вниз на SEO-текст) → тулбар (сортування з повним списком / вигляд / лічильник) → активні фільтри → дві колонки: <b>панель фільтрів</b> (тип, ціль і всі фасети — наповнені реальними даними) + <b>сітка карток 4–5 у ряд</b> → пагінація → <b>футер</b> (наслідується). Чипи «за типом» і «за ціллю» <b>перенесено у панель фільтрів</b> (без дубля цілей).</p>
     <p class="wf-note">Мокап навмисно <b>чорно-білий</b> (вайрфрейм-рівень) — колір додамо на етапі концепту.</p>
 
     <div class="wf">
       <div class="wf-cap">Категорія «Протеїн» — десктоп</div>
       <div class="wf-pad">
 
+        <!-- inherited header zone -->
+        <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1): мета-рядок · головна панель · мега-меню «Каталог»/«Цілі» · пошук · ♡ · кошик <span class="zd">— той самий компонент на всіх сторінках</span></div>
+
         <!-- breadcrumb -->
-        <div class="crumb"><a href="#">Головна</a><span class="sep">/</span><a href="#">Каталог</a><span class="sep">/</span><span class="cur">Протеїн</span></div>
+        <div class="crumb"><a href="../research/concept.html">Головна</a><span class="sep">/</span><a href="catalog.html">Каталог</a><span class="sep">/</span><span class="cur">Протеїн</span></div>
 
         <!-- h1 + intro -->
         <div class="lh1">Протеїн <span class="cnt">84 товари</span></div>
-        <p class="lintro">Сироватковий, ізолят, казеїн і рослинний протеїн від перевірених брендів. Уся продукція сертифікована, з оригінальною гарантією виробника. <span class="more">Читати більше ▾</span></p>
-
-        <!-- subcategory chips -->
-        <div class="chiprow">
-          <span class="chip lbl">За типом</span>
-          <span class="chip on">Усі</span><span class="chip">Концентрат</span><span class="chip">Ізолят</span><span class="chip">Гідролізат</span><span class="chip">Казеїн</span><span class="chip">Комплексний</span><span class="chip">Рослинний</span><span class="chip">Яловичий</span>
-        </div>
-
-        <!-- goal chips -->
-        <div class="chiprow">
-          <span class="chip lbl">За ціллю</span>
-          <span class="chip goal">Набір маси</span><span class="chip goal">Схуднення</span><span class="chip goal">Відновлення</span>
-        </div>
+        <p class="lintro">Сироватковий, ізолят, казеїн і рослинний протеїн від перевірених брендів. Уся продукція сертифікована, з оригінальною гарантією виробника. <a href="#seo" class="more">Читати більше ↓</a></p>
 
         <!-- toolbar -->
         <div class="ltool">
@@ -309,6 +315,17 @@
           <span class="ctrl cap" style="border:none">84 товари</span>
           <span class="vtoggle"><span class="on">▦</span><span>☰</span></span>
         </div>
+
+        <!-- open sort dropdown (content of the «Сортування» control) -->
+        <div style="margin-top:8px"><div class="sortmenu">
+          <div class="so on">Популярні <span class="k">за замовч.</span></div>
+          <div class="so">Спочатку дешевші</div>
+          <div class="so">Спочатку дорожчі</div>
+          <div class="so">Новинки</div>
+          <div class="so">За рейтингом</div>
+          <div class="so">За розміром знижки</div>
+          <div class="so">За назвою (А–Я)</div>
+        </div></div>
 
         <!-- active filters -->
         <div class="afilters">
@@ -322,6 +339,15 @@
 
           <!-- filter rail -->
           <div class="frail">
+            <div class="fgroup"><div class="fh">Тип протеїну <span class="ar">▾</span></div>
+              <div class="fopt"><span class="cb"></span> Сироватковий концентрат <span class="ct">31</span></div>
+              <div class="fopt"><span class="cb"></span> Ізолят <span class="ct">18</span></div>
+              <div class="fopt"><span class="cb"></span> Гідролізат <span class="ct">5</span></div>
+              <div class="fopt"><span class="cb"></span> Казеїн <span class="ct">9</span></div>
+              <div class="fopt"><span class="cb"></span> Комплексний (багатокомпонентний) <span class="ct">14</span></div>
+              <div class="fopt"><span class="cb"></span> Рослинний <span class="ct">6</span></div>
+              <div class="fopt"><span class="cb"></span> Яловичий <span class="ct">1</span></div>
+            </div>
             <div class="fgroup"><div class="fh">Наявність <span class="ar">▾</span></div>
               <div class="fopt"><span class="cb on"></span> В наявності <span class="ct">71</span></div>
               <div class="fopt"><span class="cb"></span> Під замовлення <span class="ct">13</span></div>
@@ -332,48 +358,68 @@
             </div>
             <div class="fgroup"><div class="fh">Бренд <span class="ar">▾</span></div>
               <div class="fopt"><span class="cb on"></span> Optimum Nutrition <span class="ct">12</span></div>
-              <div class="fopt"><span class="cb"></span> BioTech <span class="ct">9</span></div>
+              <div class="fopt"><span class="cb"></span> BioTechUSA <span class="ct">9</span></div>
               <div class="fopt"><span class="cb"></span> Myprotein <span class="ct">7</span></div>
-              <div class="fopt" style="color:#999">+ ще 14 ▾</div>
+              <div class="fopt"><span class="cb"></span> Scitec Nutrition <span class="ct">6</span></div>
+              <div class="fopt"><span class="cb"></span> Dymatize <span class="ct">5</span></div>
+              <div class="fopt"><span class="cb"></span> OstroVit <span class="ct">8</span></div>
+              <div class="fopt" style="color:#999">+ ще 11 ▾ · 🔍 пошук бренду</div>
             </div>
             <div class="fgroup"><div class="fh">Ціль <span class="ar">▾</span></div>
               <div class="fopt"><span class="cb"></span> Набір маси <span class="ct">52</span></div>
               <div class="fopt"><span class="cb"></span> Схуднення <span class="ct">23</span></div>
+              <div class="fopt"><span class="cb"></span> Відновлення <span class="ct">18</span></div>
             </div>
             <div class="fgroup"><div class="fh">Форма <span class="ar">▾</span></div>
               <div class="fopt"><span class="cb"></span> Порошок <span class="ct">76</span></div>
               <div class="fopt"><span class="cb"></span> Готові напої (RTD) <span class="ct">8</span></div>
             </div>
-            <div class="fgroup"><div class="fh">Смак · Фасування <span class="ar">▾</span></div>
-              <div class="fopt" style="color:#999">Шоколад · Ваніль · …</div>
+            <div class="fgroup"><div class="fh">Смак <span class="ar">▾</span></div>
+              <div class="fopt"><span class="cb"></span> Шоколад <span class="ct">58</span></div>
+              <div class="fopt"><span class="cb"></span> Ваніль <span class="ct">44</span></div>
+              <div class="fopt"><span class="cb"></span> Полуниця <span class="ct">31</span></div>
+              <div class="fopt"><span class="cb"></span> Печиво-крем <span class="ct">22</span></div>
+              <div class="fopt"><span class="cb"></span> Без смаку <span class="ct">9</span></div>
             </div>
-            <div class="fgroup"><div class="fh">Країна · Сертифікація <span class="ar">▾</span></div>
-              <div class="fopt" style="color:#999">США · ЄС · Україна …</div>
+            <div class="fgroup"><div class="fh">Фасування / вага <span class="ar">▾</span></div>
+              <div class="fopt"><span class="cb"></span> Пробник 30–35 г <span class="ct">12</span></div>
+              <div class="fopt"><span class="cb"></span> 450–500 г <span class="ct">19</span></div>
+              <div class="fopt"><span class="cb"></span> 900 г – 1 кг <span class="ct">41</span></div>
+              <div class="fopt"><span class="cb"></span> 2–2,3 кг <span class="ct">34</span></div>
+              <div class="fopt"><span class="cb"></span> 4–5 кг <span class="ct">7</span></div>
+            </div>
+            <div class="fgroup"><div class="fh">Країна <span class="ar">▾</span></div>
+              <div class="fopt"><span class="cb"></span> США <span class="ct">28</span></div>
+              <div class="fopt"><span class="cb"></span> Велика Британія <span class="ct">11</span></div>
+              <div class="fopt"><span class="cb"></span> Німеччина <span class="ct">9</span></div>
+              <div class="fopt"><span class="cb"></span> Польща <span class="ct">14</span></div>
+              <div class="fopt"><span class="cb"></span> Україна <span class="ct">16</span></div>
+            </div>
+            <div class="fgroup"><div class="fh">Сертифікація <span class="ar">▾</span></div>
+              <div class="fopt"><span class="cb"></span> Сертифікат відповідності <span class="ct">84</span></div>
+              <div class="fopt"><span class="cb"></span> Лаб. тести (Informed Sport) <span class="ct">7</span></div>
             </div>
           </div>
 
           <!-- grid -->
           <div>
             <div class="prow">
-              <!-- in stock + discount + hit -->
               <div class="pcard">
                 <div class="img">фото<span class="ptag">Хіт</span><span class="pdisc">−15%</span><span class="fav">♡</span></div>
-                <div class="pn">Whey Gold Standard 2270 г</div>
+                <div class="pn">Gold Standard 100% Whey 2270 г</div>
                 <div class="pmeta">Optimum Nutrition · США</div>
                 <div class="pavail in">● В наявності</div>
                 <div class="pprice"><span class="pnew">1 290 ₴</span><span class="pold">1 520 ₴</span></div>
                 <div class="pb dark">У кошик</div>
               </div>
-              <!-- in stock -->
               <div class="pcard">
                 <div class="img">фото<span class="fav">♡</span></div>
                 <div class="pn">Iso Whey Zero 908 г</div>
-                <div class="pmeta">BioTech · Угорщина</div>
+                <div class="pmeta">BioTechUSA · Угорщина</div>
                 <div class="pavail in">● В наявності</div>
                 <div class="pprice"><span class="pnew">1 050 ₴</span></div>
                 <div class="pb dark">У кошик</div>
               </div>
-              <!-- new + low stock -->
               <div class="pcard">
                 <div class="img">фото<span class="ptag">NEW</span><span class="fav">♡</span></div>
                 <div class="pn">Impact Whey Isolate 1 кг</div>
@@ -382,16 +428,38 @@
                 <div class="pprice"><span class="pnew">990 ₴</span></div>
                 <div class="pb dark">У кошик</div>
               </div>
-              <!-- pre-order -->
+              <div class="pcard">
+                <div class="img">фото<span class="pdisc">−10%</span><span class="fav">♡</span></div>
+                <div class="pn">100% Whey Protein Professional 920 г</div>
+                <div class="pmeta">Scitec Nutrition · Угорщина</div>
+                <div class="pavail in">● В наявності</div>
+                <div class="pprice"><span class="pnew">845 ₴</span><span class="pold">940 ₴</span></div>
+                <div class="pb dark">У кошик</div>
+              </div>
               <div class="pcard">
                 <div class="img">фото<span class="fav">♡</span></div>
-                <div class="pn">Casein Pro 1816 г</div>
-                <div class="pmeta">Optimum Nutrition · США</div>
+                <div class="pn">WPC 80 Standard 2000 г</div>
+                <div class="pmeta">OstroVit · Польща</div>
+                <div class="pavail in">● В наявності</div>
+                <div class="pprice"><span class="pnew">1 180 ₴</span></div>
+                <div class="pb dark">У кошик</div>
+              </div>
+              <div class="pcard">
+                <div class="img">фото<span class="fav">♡</span></div>
+                <div class="pn">ISO 100 Hydrolyzed 1320 г</div>
+                <div class="pmeta">Dymatize · США</div>
                 <div class="pavail pre">● Під замовлення</div>
-                <div class="pprice"><span class="pnew">1 480 ₴</span></div>
+                <div class="pprice"><span class="pnew">1 640 ₴</span></div>
                 <div class="pb">У кошик</div>
               </div>
-              <!-- out of stock -->
+              <div class="pcard">
+                <div class="img">фото<span class="ptag">Хіт</span><span class="fav">♡</span></div>
+                <div class="pn">Casein Pro 1816 г</div>
+                <div class="pmeta">Optimum Nutrition · США</div>
+                <div class="pavail in">● В наявності</div>
+                <div class="pprice"><span class="pnew">1 480 ₴</span></div>
+                <div class="pb dark">У кошик</div>
+              </div>
               <div class="pcard dim">
                 <div class="img">фото<span class="fav">♡</span></div>
                 <div class="pn">Syntha-6 2270 г</div>
@@ -400,29 +468,39 @@
                 <div class="pprice"><span class="pnew">1 690 ₴</span></div>
                 <div class="pb notify">Повідомити про надходження</div>
               </div>
-              <!-- in stock -->
               <div class="pcard">
                 <div class="img">фото<span class="fav">♡</span></div>
-                <div class="pn">Rage Protein 900 г</div>
-                <div class="pmeta">Trec Nutrition · Польща</div>
+                <div class="pn">Protein Power Pro 1000 г</div>
+                <div class="pmeta">Power Pro · Україна</div>
                 <div class="pavail in">● В наявності</div>
-                <div class="pprice"><span class="pnew">720 ₴</span></div>
+                <div class="pprice"><span class="pnew">690 ₴</span></div>
+                <div class="pb dark">У кошик</div>
+              </div>
+              <div class="pcard">
+                <div class="img">фото<span class="pdisc">−20%</span><span class="fav">♡</span></div>
+                <div class="pn">Vegan Protein (горох/рис) 750 г</div>
+                <div class="pmeta">OstroVit · Польща</div>
+                <div class="pavail in">● В наявності</div>
+                <div class="pprice"><span class="pnew">720 ₴</span><span class="pold">900 ₴</span></div>
                 <div class="pb dark">У кошик</div>
               </div>
             </div>
 
             <!-- pagination -->
             <div class="pgnav">
-              <div class="loadmore">Показати ще 24</div>
+              <div class="loadmore">Показати ще 24 (з 84)</div>
               <div class="pages"><a class="on" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">›</a></div>
             </div>
           </div>
         </div>
 
+        <!-- inherited footer zone -->
+        <div class="wf-zone foot"><span class="zt">Футер</span> Наслідується — Футер (0.2): смуга довіри · колонки · SEO-блок популярних запитів · бренди · міста <span class="zd">— той самий компонент на всіх сторінках</span></div>
+
       </div>
     </div>
 
-    <p class="note">Картка — <b>канонічна</b> з home.md: фото · бейдж (Хіт / NEW / −%) · назва · фірма·країна · <b>наявність</b> · ціна (нова + стара закреслена) · ♡ обране · «У кошик». Кнопка «У кошик» темна на товарах у наявності, контурна — під замовлення, пунктирна «Повідомити» — коли немає. <b>Пагінація:</b> «Показати ще» (load-more) <b>+</b> кравлені номерні сторінки для SEO.</p>
+    <p class="note">Хедер і футер — <b>наслідувані зони</b> (Навігація 0.1 / Футер 0.2), не описуємо тут повторно. Крихта «Каталог» → <b>2.0 Каталог/усі товари</b> (той самий шаблон, обсяг = всі). Картка — <b>канонічна</b> з home.md: фото · бейдж (Хіт / NEW / −%) · назва · фірма·країна · <b>наявність</b> · ціна (нова + стара закреслена) · ♡ обране · «У кошик» (темна — в наявності, контурна — під замовлення, пунктирна «Повідомити» — коли немає). Сітка <b>5 у ряд</b> на широкому десктопі → 4 → 3 → 2 (мобілка). Сортування показано <b>розгорнутим списком</b> усіх опцій. <b>Пагінація:</b> «Показати ще» <b>+</b> кравлені номерні сторінки.</p>
   </section>
 
   <!-- 02 Filter panel -->
@@ -533,7 +611,7 @@
     <ul class="chklist">
       <li><b>Фасетна навігація:</b> індексуємо лише <b>білий список</b> цінних фасет-сторінок (бренд-у-категорії, ціль-у-категорії, місто 2.1a). Решта комбінацій фільтрів → <b>canonical</b> на базову категорію (або <code>noindex, follow</code>), щоб не плодити дублі. Список — за результатами keyword research [?].</li>
       <li><b>Пагінація:</b> номерні сторінки кравлені, кожна self-canonical; «Показати ще» не ховає лінки від краулера (реальні &lt;a&gt; на сторінки присутні).</li>
-      <li>Один <b>H1</b>; описові анкори на чипах субкатегорій і цілей.</li>
+      <li>Один <b>H1</b>; <b>субкатегорії (типи) мають власні кравлені URL-сторінки</b> (напр. /protein/isolate/), доступні з мега-меню та вибору «Тип» у фільтрах — переніс чипів у фільтри не ламає внутрішню перелінковку.</li>
       <li>Зображення карток — <b>alt</b> + lazy-load нижче згину; LCP не блокується.</li>
       <li>Наявність і сертифікація — <b>текст</b>, не картинки (читає краулер).</li>
       <li><b>canonical + hreflang</b> (uk/ru); Core Web Vitals у нормі.</li>
@@ -545,7 +623,7 @@
   <section class="section" id="mobile">
     <div class="section-num">05 · Мобілка</div>
     <h2>Мобільний лістинг і bottom-sheet фільтрів</h2>
-    <p class="section-lead">База 360px. Сітка в 2 колонки. Липка смуга «Фільтри» + «Сортування». Фільтри відкриваються <b>знизу як bottom-sheet</b> із «Застосувати (N)». Чипи субкатегорій і цілей скролляться горизонтально. Таб «Каталог» активний.</p>
+    <p class="section-lead">База 360px. Сітка в 2 колонки. Липка смуга «Фільтри» + «Сортування». Усі фасети (тип, ціль, бренд…) — у <b>bottom-sheet</b> із «Застосувати (N)»; окремих чипів зверху немає (узгоджено з десктопом). Таб «Каталог» активний.</p>
     <div class="cols two">
       <div>
         <div class="phone2">
@@ -553,7 +631,7 @@
           <div class="p-blk" style="padding-bottom:6px">
             <div style="font-size:10px;color:#999">Головна / Каталог /</div>
             <div style="font-size:15px;font-weight:800;color:#111;">Протеїн <span style="font-size:11px;font-weight:600;color:#999">84</span></div>
-            <div class="p-chips" style="margin-top:7px"><span class="c">Усі</span><span class="c">Ізолят</span><span class="c">Концентрат</span><span class="c">Казеїн</span></div>
+            <div style="font-size:10.5px;color:#777;margin-top:4px">Сироватковий, ізолят, казеїн… <span style="color:#111;font-weight:700">Читати більше ↓</span></div>
           </div>
           <div class="p-blk" style="padding-top:8px;padding-bottom:8px">
             <div class="p-bar"><span class="pc">Фільтри · 2</span><span class="pc">Популярні ▾</span></div>
@@ -576,14 +654,15 @@
             <div class="p-tab"><span class="ic">👤</span>Акаунт</div>
           </div>
         </div>
-        <p class="note">Перший екран: крихти + H1 + чипи типів + смуга «Фільтри/Сортування» + перші картки. Без зайвого.</p>
+        <p class="note">Перший екран: крихти + H1 + вступ + смуга «Фільтри/Сортування» + перші картки. Без зайвого; усі фасети — у sheet.</p>
       </div>
       <div>
         <div class="sheet">
           <div class="sh">Фільтри <span class="x">✕</span></div>
+          <div class="p-blk"><div class="bh">Тип протеїну</div><div class="fopt"><span class="cb"></span> Концентрат <span class="ct">31</span></div><div class="fopt"><span class="cb"></span> Ізолят <span class="ct">18</span></div><div class="fopt"><span class="cb"></span> Казеїн <span class="ct">9</span></div></div>
           <div class="p-blk"><div class="bh">Наявність</div><div class="fopt"><span class="cb on"></span> В наявності <span class="ct">71</span></div><div class="fopt"><span class="cb"></span> Під замовлення <span class="ct">13</span></div></div>
           <div class="p-blk"><div class="bh">Ціна, ₴</div><div class="frange"></div><div class="frow"><span class="in">800</span><span class="in">1500</span></div></div>
-          <div class="p-blk"><div class="bh">Бренд</div><div class="fopt"><span class="cb on"></span> Optimum <span class="ct">12</span></div><div class="fopt"><span class="cb"></span> BioTech <span class="ct">9</span></div></div>
+          <div class="p-blk"><div class="bh">Бренд · Ціль · Форма · Смак · Країна</div><div class="fopt"><span class="cb on"></span> Optimum <span class="ct">12</span></div><div class="fopt"><span class="cb"></span> Набір маси <span class="ct">52</span></div></div>
           <div class="sfoot"><span class="pc" style="flex:1;border:1.5px solid #c4c4c4;border-radius:7px;text-align:center;padding:9px;font-size:12px;font-weight:700">Скинути</span><span class="pc dark" style="flex:2;background:#161616;color:#fff;border-radius:7px;text-align:center;padding:9px;font-size:12px;font-weight:700">Застосувати (47)</span></div>
         </div>
         <p class="note">Bottom-sheet: фокус всередині, ESC / ✕ закриває, фокус повертається на «Фільтри». Кнопка «Застосувати» показує кількість результатів.</p>
@@ -597,17 +676,17 @@
     <h2>Блоки й переходи</h2>
     <table>
       <tr><th>#</th><th>Блок</th><th>Вміст</th><th>Веде до</th></tr>
+      <tr><td>0</td><td><b>Хедер</b> (наслідується)</td><td>Навігація 0.1 — мета-рядок · панель · мега-меню · пошук · ♡ · кошик</td><td class="arrow">0.1</td></tr>
       <tr><td>1</td><td><b>Хлібні крихти</b></td><td>Головна / Каталог / Категорія (BreadcrumbList)</td><td class="arrow">0.0 · 2.0</td></tr>
-      <tr><td>2</td><td><b>H1 + вступ</b></td><td>Назва · лічильник · короткий довірчий текст (згортається)</td><td>—</td></tr>
-      <tr><td>3</td><td><b>Чипи субкатегорій</b></td><td>За типом — кравлені лінки на відфільтрований лістинг</td><td class="arrow">2.1 (filtered)</td></tr>
-      <tr><td>4</td><td><b>Чипи «За ціллю»</b></td><td>Концерн-лінза — перехід до колекції цілі</td><td class="arrow">2.2</td></tr>
-      <tr><td>5</td><td><b>Тулбар</b></td><td>Фільтри (badge) · Сортування · лічильник · вигляд сітка/список</td><td>—</td></tr>
-      <tr><td>6</td><td><b>Активні фільтри</b></td><td>Знімні чипи + «Очистити все»</td><td>—</td></tr>
-      <tr><td>7</td><td><b>Панель фільтрів</b></td><td>Фасети з catalog.md (ліва колонка / мобільний sheet)</td><td>—</td></tr>
-      <tr><td>8</td><td><b>Сітка карток</b></td><td>Канонічна картка · стани наявності · ♡ · «У кошик»</td><td class="arrow">3.0 · 6.0 · 7.6</td></tr>
-      <tr><td>9</td><td><b>Пагінація</b></td><td>«Показати ще» + кравлені номерні сторінки</td><td>—</td></tr>
-      <tr><td>10</td><td><b>SEO-текст</b></td><td>H2 + опис категорії (як обрати, кореневі ключі)</td><td>—</td></tr>
-      <tr><td>11</td><td><b>Суміжне</b></td><td>Популярні бренди категорії · суміжні категорії</td><td class="arrow">2.4 · 2.1</td></tr>
+      <tr><td>2</td><td><b>H1 + вступ</b></td><td>Назва · лічильник · короткий довірчий текст; «Читати більше» → ↓ SEO-текст</td><td class="arrow">#seo</td></tr>
+      <tr><td>3</td><td><b>Тулбар</b></td><td>Фільтри (badge) · <b>Сортування (повний список)</b> · лічильник · вигляд сітка/список</td><td>—</td></tr>
+      <tr><td>4</td><td><b>Активні фільтри</b></td><td>Знімні чипи + «Очистити все»</td><td>—</td></tr>
+      <tr><td>5</td><td><b>Панель фільтрів</b></td><td>Тип (субкатегорія) · Ціль · Наявність · Ціна · Бренд · Форма · Смак · Фасування · Країна · Сертифікація (ліва колонка / мобільний sheet). Чипи типу/цілі живуть <b>тут</b></td><td class="arrow">2.1f · 2.2</td></tr>
+      <tr><td>6</td><td><b>Сітка карток</b></td><td>Канонічна картка · стани наявності · ♡ · «У кошик». <b>5 у ряд</b> → 4 → 3 → 2</td><td class="arrow">3.0 · 6.0 · 7.6</td></tr>
+      <tr><td>7</td><td><b>Пагінація</b></td><td>«Показати ще» + кравлені номерні сторінки</td><td>—</td></tr>
+      <tr><td>8</td><td><b>SEO-текст</b></td><td>H2 + опис категорії (як обрати, кореневі ключі) — <b>свій на кожну категорію</b></td><td>—</td></tr>
+      <tr><td>9</td><td><b>Суміжне</b></td><td>Популярні бренди категорії · суміжні категорії</td><td class="arrow">2.4 · 2.1</td></tr>
+      <tr><td>10</td><td><b>Футер</b> (наслідується)</td><td>Футер 0.2 — довіра · колонки · SEO-запити · бренди · міста</td><td class="arrow">0.2</td></tr>
     </table>
     <div class="wf" style="margin-top:10px">
       <div class="wf-cap">Суміжне — перелінковка</div>
@@ -627,11 +706,13 @@
       <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">✓ <b>Зафіксовано (чернетка, 2026-06-30):</b></p>
       <ul style="margin-bottom:14px">
         <li><b>Один шаблон лістингу</b> на Категорію / Каталог-усе / Ціль / Бренд / Пошук / місто — відрізняються H1, обсяг даних, SEO-блок.</li>
-        <li><b>Панель фільтрів</b> — наслідуваний компонент: ліва липка колонка (десктоп) / bottom-sheet (мобілка); фасети з catalog.md.</li>
-        <li><b>Цілі</b> — концерн-лінза всередині лістингу (рядок чипів «За ціллю»).</li>
-        <li><b>Картка</b> канонічна (home.md) + стани наявності + швидке «У кошик» + ♡ обране.</li>
+        <li><b>Хедер і футер</b> — наслідувані зони (0.1 / 0.2), не дублюємо опис; крихта «Каталог» → <b>2.0</b>.</li>
+        <li><b>Чипи «за типом» і «за ціллю» → у панель фільтрів</b> (дубль цілей прибрано). Субкатегорії зберігають власні кравлені URL-сторінки (мега-меню + вибір «Тип»).</li>
+        <li><b>Панель фільтрів</b> — наслідуваний компонент: ліва липка колонка (десктоп) / bottom-sheet (мобілка); фасети з catalog.md, <b>наповнені реальними даними</b> (типи, бренди, смаки, фасування, країни, сертифікація + лічильники).</li>
+        <li><b>Сортування</b> — повний список опцій у тулбарі (не дрібний сірий напис): популярні · дешевші · дорожчі · новинки · рейтинг · знижка · А–Я.</li>
+        <li><b>Картка</b> канонічна (home.md) + стани наявності + швидке «У кошик» + ♡ обране; сітка <b>5 у ряд</b> → 4 → 3 → 2.</li>
         <li><b>Пагінація:</b> «Показати ще» <b>+</b> кравлені номерні сторінки.</li>
-        <li><b>SEO-блок A–E</b> з явним керуванням фасетною індексацією + варіант для міста (2.1a).</li>
+        <li><b>SEO-блок A–E</b> з явним керуванням фасетною індексацією + варіант для міста (2.1a). <b>SEO-контент — свій на кожну категорію</b> (наповнення — окремий артефакт, нижче).</li>
       </ul>
       <h2 style="font-size:15px;margin:8px 0">Лишається [?] (операційне / дані, не IA)</h2>
       <ul>

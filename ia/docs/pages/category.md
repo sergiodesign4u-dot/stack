@@ -19,37 +19,48 @@
 
 - **One listing template for all scopes.** Category, Catalog-all, Goal collection, Brand and
   Search are the same page with a different query scope + H1 + SEO block. Build once.
+- **Header + footer are inherited zones** (Navigation 0.1 / Footer 0.2) — shown as labelled
+  zones on the wireframe, not re-specified here. The **«Каталог» breadcrumb → node 2.0**
+  (Catalog/all-products, same template scoped to all).
+- **Chips «за типом» + «за ціллю» live INSIDE the filter panel** (decided 2026-06-30), not as
+  separate top chip rows — and the goal duplicate is removed (goals existed both as a chip row
+  and as a «Ціль» facet). **Тип/субкатегорія** = the first, expanded filter group. Subcategories
+  still keep their **own crawlable URL pages** (e.g. `/protein/isolate/`) reachable from the
+  mega-menu + the «Тип» filter selection, so internal linking / SEO is preserved.
 - **Filter panel = inherited component.** Desktop: a **left rail** (sticky). Mobile: a
   **bottom-sheet** opened by a sticky «Фільтри» button (with active-count badge). Facets come
-  straight from `catalog.md`: Бренд · Ціна · Ціль · Форма · Смак · Фасування/вага · Країна ·
-  Сертифікація · Наявність. Subcategory/Тип is also expressible as a filter.
-- **Goals stay first-class inside the catalog** (concern lens, per `catalog.md`): a «За ціллю»
-  chip row sits near the top of the listing, so the beginner can switch from "what kind" to
-  "what outcome" without leaving.
+  straight from `catalog.md`: Тип · Наявність · Ціна · Бренд · Ціль · Форма · Смак ·
+  Фасування/вага · Країна · Сертифікація — **populated with real values + counts** at the IA
+  stage (this is content/structure work, not placeholders).
+- **Sort = full visible option list** in the toolbar (not a small grey note): Популярні (default)
+  · Спочатку дешевші · Спочатку дорожчі · Новинки · За рейтингом · За розміром знижки · За назвою.
+- **Grid 5 cards per row** at wide desktop → 4 → 3 → 2 (mobile); show a fuller page of products.
 - **Calm, trust-first** (principles #1, #4): no countdown timers; availability and certification
   are honest, plain-language signals on every card. The category intro reduces doubt before
-  the grid sells.
+  the grid sells; **«Читати більше» anchors down to the bottom SEO text** (not inline expand).
 
 ---
 
 ## Block order (mobile-first)
 
-1. **Breadcrumb** — Головна / Каталог / [Категорія] (BreadcrumbList schema; crawlable `<a>`).
-2. **H1 + short intro** — category name + 1–2 calm sentences (trust-first), collapsible
-   «читати більше». Result count «Знайдено N товарів».
-3. **Subcategory chips** — drilldown inside the category (e.g. Протеїн → Ізолят · Концентрат ·
-   Казеїн · Рослинний…). Crawlable links to the filtered/subcategory listing.
-4. **Goal cross-links** («За ціллю») — small chip row (concern lens); → Goal collection 2.2.
-5. **Toolbar** — Sort (популярні · дешевші · дорожчі · новинки · рейтинг · знижка), results
-   count, view toggle (сітка/список), and on mobile the **«Фільтри»** button (active-count badge).
-6. **Active-filter chips** — removable chips of applied facets + «Очистити все».
-7. **Listing** — two columns on desktop (filter rail + grid), single column on mobile.
-   **Product grid** uses the canonical card (`home.md`): photo · NEW/Хіт/−% badge · name ·
-   brand·country meta · price (new + old struck) · wishlist ♡ · **«У кошик»** quick-add.
-8. **Pagination** — «Показати ще» (load-more) **plus** crawlable numbered pages for SEO.
-9. **SEO text** — category description at the bottom (H2 + ready copy).
-10. **Related** — popular brands in this category + related categories (internal linking).
-11. Footer (inherited 0.2).
+0. **Header** — inherited (Navigation 0.1): meta bar · main bar · mega-menu · search · ♡ · cart.
+1. **Breadcrumb** — Головна / Каталог / [Категорія] (BreadcrumbList schema; crawlable `<a>`;
+   «Каталог» → 2.0).
+2. **H1 + short intro** — category name + result count + 1–2 calm sentences (trust-first);
+   **«Читати більше» → anchors down to the bottom SEO text**.
+3. **Toolbar** — Sort (full option list shown) · results count · view toggle (сітка/список) ·
+   on mobile the **«Фільтри»** button (active-count badge).
+4. **Active-filter chips** — removable chips of applied facets + «Очистити все».
+5. **Listing** — two columns on desktop (**filter rail** + grid), single column on mobile.
+   - **Filter rail** holds ALL facets incl. **Тип (субкатегорія)** as the first/expanded group
+     and **Ціль** (the goal chips moved here; the dupe removed).
+   - **Product grid** uses the canonical card (`home.md`): photo · NEW/Хіт/−% badge · name ·
+     brand·country meta · availability · price (new + old struck) · wishlist ♡ · **«У кошик»**
+     quick-add. **5 per row** (wide) → 4 → 3 → 2.
+6. **Pagination** — «Показати ще» (load-more) **plus** crawlable numbered pages for SEO.
+7. **SEO text** — category description at the bottom (H2 + ready copy) — **unique per category**.
+8. **Related** — popular brands in this category + related categories (internal linking).
+9. **Footer** — inherited (0.2).
 
 ## Product-card availability states (on the listing)
 | State | Card shows |
@@ -133,13 +144,23 @@ collapsible at the bottom. Tab «Каталог» active.
 
 ## Locked (draft) / open
 **Locked (draft, 2026-06-30):** one shared listing template for Category / Catalog-all / Goal /
-Brand / Search; inherited filter panel (left rail desktop, bottom-sheet mobile) with the
-`catalog.md` facets; goals as a concern-lens chip row inside the listing; canonical product card
-with availability states + quick-add; load-more **plus** crawlable numbered pagination; A–E SEO
-block with explicit faceted-nav indexation control; SEO city variant 2.1a.
+Brand / Search; header + footer as inherited zones (breadcrumb «Каталог» → 2.0); **chips «за
+типом»/«за ціллю» moved into the filter panel** (goal dupe removed; subcategories keep own
+crawlable URLs); inherited filter panel (left rail desktop, bottom-sheet mobile) **populated with
+real values + counts**; full sort option list visible in the toolbar; canonical product card with
+availability states + quick-add; **grid 5→4→3→2**; load-more **plus** crawlable numbered
+pagination; A–E SEO block with explicit faceted-nav indexation control; per-category SEO text;
+SEO city variant 2.1a.
+
+**Pending decision (raised 2026-06-30): per-category content population.** Each category needs
+its own filters subset, brand set, SEO meta/H1/text and FAQ. Brands/facets are largely shared
+across categories (same product pool). Options: (A) a single **category content matrix** (one
+structured artifact driving all 12 categories) — recommended; (B) a separate page/spec per
+category (heavy, 12+ artifacts); (C) template + data table hybrid. To confirm with the user
+before building.
 
 **Still [?] (operational / data, not IA):**
 - Faceted-nav indexation **whitelist** (which facet/brand/city pages get indexed) — keyword research.
 - Which city pages (2.1a) launch first — traffic priority.
-- Per-category SEO copy and FAQ content — copy stage.
+- Per-category SEO copy and FAQ content — copy stage (fed by the matrix once approach is chosen).
 - Default sort weighting (популярні) — needs analytics; начально = ручний/маржа+продажі.
