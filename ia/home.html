@@ -133,8 +133,22 @@
     .pcard .img { height: 84px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 11px; }
     .pcard .pn { font-size: 12px; color: #333; padding: 8px 8px 2px; line-height: 1.3; }
     .pcard .pp { font-weight: 800; color: #111; font-size: 13px; padding: 0 8px; }
-    .pcard .pb { margin: 8px; border: 1.5px solid #161616; border-radius: 7px; text-align: center; padding: 6px; font-size: 12px; font-weight: 700; color: #111; }
+    .pcard .img { position: relative; }
+    .pcard .pdisc { position: absolute; top: 6px; right: 6px; background: #161616; color: #fff; font-size: 10px; font-weight: 800; border-radius: 5px; padding: 2px 6px; }
+    .pcard .pmeta { font-size: 10.5px; color: #888; padding: 2px 8px 0; line-height: 1.3; }
+    .pcard .pprice { padding: 4px 8px 0; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+    .pcard .pnew { font-weight: 800; color: #111; font-size: 14px; }
+    .pcard .pold { font-size: 11px; color: #aaa; text-decoration: line-through; }
     @media (max-width: 680px) { .prow { grid-template-columns: 1fr 1fr; } }
+
+    /* cart shelf (state) */
+    .cartshelf { display: flex; align-items: center; gap: 14px; border: 2px solid #161616; border-radius: 12px; padding: 12px 14px; flex-wrap: wrap; }
+    .cartshelf .thumbs { display: flex; gap: 6px; }
+    .cartshelf .th { width: 42px; height: 42px; border-radius: 8px; background: #f0f0f0; border: 1px solid #e0e0e0; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 9px; }
+    .cartshelf .th.more { background: #fff; font-weight: 800; color: #555; font-size: 12px; }
+    .cartshelf .ci { flex: 1; min-width: 150px; }
+    .cartshelf .ci .t { font-weight: 800; color: #111; font-size: 14px; }
+    .cartshelf .ci .s { font-size: 12px; color: #777; }
 
     /* brand row */
     .brandrow { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -251,11 +265,30 @@
 
   <!-- 02 Personal strip -->
   <section class="section" id="personal">
-    <div class="section-num">02 · Персональна стрічка</div>
-    <h2>Стрічка за станом (одразу під hero)</h2>
-    <p class="section-lead">Один блок, що змінюється за роллю — щоб регуляр і тренер отримали свій «один крок» без пошуку. Гість його не бачить (нема чого повторювати) → для нього перший екран лишається цілями.</p>
+    <div class="section-num">02 · Полиця кошика + персональна стрічка</div>
+    <h2>Стани одразу під hero</h2>
+    <p class="section-lead">Дві стани-секції під першим екраном. <b>(А) Полиця кошика</b> — якщо в кошику є товари (зараз або з минулого візиту): скільки товарів, сума, мініатюри й кнопка «Оформити замовлення» (сильний нагад «продовжити покупку»). <b>(Б) Персональна стрічка</b> — змінюється за роллю, щоб регуляр і тренер мали свій «один крок».</p>
+
     <div class="wf">
-      <div class="wf-cap">Варіанти за станом</div>
+      <div class="wf-cap">(А) Полиця кошика — стан «у кошику є товари»</div>
+      <div class="wf-pad">
+        <div class="cartshelf">
+          <div class="thumbs">
+            <span class="th">фото</span><span class="th">фото</span><span class="th">фото</span><span class="th more">+2</span>
+          </div>
+          <div class="ci">
+            <div class="t">У кошику 5 товарів</div>
+            <div class="s">на суму 3 240 ₴</div>
+          </div>
+          <span class="btn-dark">Оформити замовлення →</span>
+          <span class="btn-out">Переглянути кошик</span>
+        </div>
+      </div>
+    </div>
+    <p class="note">Показується, лише коли кошик не порожній (гість — теж, кошик зберігається локально). «Оформити» → Оформлення (6.1); «Переглянути кошик» → Кошик (6.0). Для тренера — сума за тарифом + згадка про групування по клієнтах.</p>
+
+    <div class="wf">
+      <div class="wf-cap">(Б) Персональна стрічка — варіанти за станом</div>
       <div class="wf-pad">
         <div class="pstrip">
           <div class="pcardx">
@@ -343,20 +376,33 @@
   <!-- 06 Products -->
   <section class="section" id="products">
     <div class="section-num">06 · Товари</div>
-    <h2>Хіти продажів / рекомендації</h2>
-    <p class="section-lead">Соціальний доказ і швидке додавання. Для тренера ціни — за тарифом. Спокійні картки, без агресивних бейджів.</p>
+    <h2>Хіти продажів · переглянуті товари</h2>
+    <p class="section-lead">Соціальний доказ і швидке додавання. <b>Картка товару</b> (канонічна, повторюється в каталозі/лістингах): фото · назва · мета (фірма · країна) · ціна зі знижкою і без · «У кошик». Для тренера ціна — за тарифом. Спокійно, без агресивних бейджів.</p>
     <div class="wf">
-      <div class="wf-cap">Ряд карток товару</div>
+      <div class="wf-cap">Хіти продажів — ряд карток</div>
       <div class="wf-pad">
         <div class="prow">
-          <div class="pcard"><div class="img">фото</div><div class="pn">Протеїн сироватковий 900 г</div><div class="pp">899 ₴</div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото</div><div class="pn">Креатин моногідрат 300 г</div><div class="pp">449 ₴</div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото</div><div class="pn">BCAA 2:1:1 400 г</div><div class="pp">599 ₴</div><div class="pb">У кошик</div></div>
-          <div class="pcard"><div class="img">фото</div><div class="pn">Омега-3 90 капс.</div><div class="pp">349 ₴</div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото<span class="pdisc">−20%</span></div><div class="pn">Протеїн Whey Gold 900 г</div><div class="pmeta">Optimum Nutrition · США</div><div class="pprice"><span class="pnew">899 ₴</span><span class="pold">1 124 ₴</span></div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото</div><div class="pn">Креатин моногідрат 300 г</div><div class="pmeta">OstroVit · Польща</div><div class="pprice"><span class="pnew">449 ₴</span></div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото<span class="pdisc">−15%</span></div><div class="pn">BCAA 2:1:1 400 г</div><div class="pmeta">BioTech · Угорщина</div><div class="pprice"><span class="pnew">509 ₴</span><span class="pold">599 ₴</span></div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото</div><div class="pn">Омега-3 90 капс.</div><div class="pmeta">Scitec · Угорщина</div><div class="pprice"><span class="pnew">349 ₴</span></div><div class="pb">У кошик</div></div>
         </div>
       </div>
     </div>
-    <p class="note">Картка → Товар (3.0). «У кошик» → Кошик (6.0). Стрічки: «Хіти», «Новинки», «Рекомендовано» (правила — пізніше).</p>
+    <p class="note">Поля картки: <b>фото · назва · мета (фірма · країна виробництва) · ціна (нова + стара перекреслена за наявності знижки + бейдж −%) · «У кошик»</b>. Картка → Товар (3.0); «У кошик» → Кошик (6.0). Стрічки: «Хіти», «Новинки», «Рекомендовано» (правила добірок — пізніше, за даними).</p>
+
+    <div class="wf">
+      <div class="wf-cap">Переглянуті товари — стан «є історія переглядів»</div>
+      <div class="wf-pad">
+        <div class="prow">
+          <div class="pcard"><div class="img">фото</div><div class="pn">Гейнер Mass 3000 г</div><div class="pmeta">Kevin Levrone · Польща</div><div class="pprice"><span class="pnew">1 199 ₴</span></div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото<span class="pdisc">−10%</span></div><div class="pn">Передтрен. C4 390 г</div><div class="pmeta">Cellucor · США</div><div class="pprice"><span class="pnew">719 ₴</span><span class="pold">799 ₴</span></div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото</div><div class="pn">Вітамін D3 2000 МО</div><div class="pmeta">Solgar · США</div><div class="pprice"><span class="pnew">399 ₴</span></div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото</div><div class="pn">L-карнітин 1500 рідкий</div><div class="pmeta">OstroVit · Польща</div><div class="pprice"><span class="pnew">329 ₴</span></div><div class="pb">У кошик</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="note">«Переглянуті товари» показуються, лише коли є історія переглядів (гість — локально, залогінений — по акаунту); та сама картка. Допомагає повернутися до товару й завершити покупку.</p>
   </section>
 
   <!-- 07 Promo + brands + blog -->
@@ -425,10 +471,11 @@
             </div>
             <div class="p-cta">Відкрити каталог</div>
           </div>
+          <div class="p-blk"><div class="bh">Кошик · 5 товарів · 3 240 ₴</div><div class="p-cta">Оформити замовлення</div></div>
           <div class="p-blk"><div class="bh">Персональне (покупець)</div><div class="p-cta" style="background:#fff;color:#111;border:1.5px solid #161616;">Повторити замовлення</div></div>
           <div class="p-blk"><div class="bh">Довіра</div><div class="p-line"></div></div>
           <div class="p-blk"><div class="bh">Для тренерів</div><div class="p-line"></div><div class="p-cta">Умови →</div></div>
-          <div class="p-blk"><div class="bh">Категорії · Хіти · Бренди · Блог</div><div class="p-line"></div><div class="p-line"></div></div>
+          <div class="p-blk"><div class="bh">Категорії · Хіти · Переглянуті · Бренди · Блог</div><div class="p-line"></div><div class="p-line"></div></div>
           <div class="p-tabs">
             <div class="p-tab active"><span class="ic">⌂</span>Головна</div>
             <div class="p-tab"><span class="ic">▦</span>Каталог</div>
@@ -440,7 +487,7 @@
         <p class="note">Перший екран не містить промо/каруселей — лише цілі + (для залогіненого) персональний крок. Таб «Головна» активний.</p>
       </div>
       <div>
-        <div class="reco"><b>Порядок блоків (mobile-first):</b> 1) Hero-цілі → 2) Персональна стрічка (стан) → 3) Довіра → 4) Для тренерів → 5) Категорії → 6) Товари → 7) Промо/Бренди/Блог → 8) SEO-текст → Футер.</div>
+        <div class="reco"><b>Порядок блоків (mobile-first):</b> 1) Hero-цілі → 2) Полиця кошика (стан) → 3) Персональна стрічка (стан) → 4) Довіра → 5) Для тренерів → 6) Категорії → 7) Товари (хіти) → 8) Переглянуті товари (стан) → 9) Промо/Бренди/Блог → 10) SEO-текст → Футер.</div>
         <p class="note">На десктопі ті самі блоки, але hero може йти у дві колонки (цілі + візуал), категорії й товари — ширші ряди. Пріоритет і перший екран продумані з мобілки.</p>
       </div>
     </div>
@@ -453,13 +500,15 @@
     <table>
       <tr><th>#</th><th>Блок</th><th>Вміст</th><th>Веде до</th></tr>
       <tr><td>1</td><td><b>Hero — цілі</b></td><td>H1 + 6 плиток цілей + «Відкрити каталог» / квіз</td><td class="arrow">2.2 · 2.0 · 4.0</td></tr>
-      <tr><td>2</td><td><b>Персональна стрічка</b></td><td>Гість: прихована. Покупець: повтор замовлення. Тренер: нова сесія + кабінет</td><td class="arrow">7.3 · 5.5 · 5.2 · 1.0</td></tr>
-      <tr><td>3</td><td><b>Смуга довіри</b></td><td>Сертифікат · доставка · оплата · повернення · відгуки</td><td class="arrow">8.8 · 8.4 · 8.5 · 8.11</td></tr>
-      <tr><td>4</td><td><b>Для тренерів</b></td><td>Банер коуч-каналу + CTA умови</td><td class="arrow">5.0</td></tr>
-      <tr><td>5</td><td><b>Популярні категорії</b></td><td>Плитки топ-категорій</td><td class="arrow">2.1</td></tr>
-      <tr><td>6</td><td><b>Товари</b></td><td>Хіти / новинки / рекомендації; «У кошик»</td><td class="arrow">3.0 · 6.0</td></tr>
-      <tr><td>7</td><td><b>Акції · Бренди · Блог</b></td><td>Промо (без таймерів) · бренди · тизер статей</td><td class="arrow">8.10 · 2.4 · 8.0/8.1</td></tr>
-      <tr><td>8</td><td><b>SEO-текст</b></td><td>H2 + опис магазину (кореневі ключі)</td><td>—</td></tr>
+      <tr><td>2</td><td><b>Полиця кошика</b> (стан)</td><td>Якщо кошик не порожній: N товарів, сума, мініатюри, «Оформити замовлення» / «Переглянути кошик»</td><td class="arrow">6.1 · 6.0</td></tr>
+      <tr><td>3</td><td><b>Персональна стрічка</b></td><td>Гість: прихована. Покупець: повтор замовлення. Тренер: нова сесія + кабінет</td><td class="arrow">7.3 · 5.5 · 5.2 · 1.0</td></tr>
+      <tr><td>4</td><td><b>Смуга довіри</b></td><td>Сертифікат · доставка · оплата · повернення · відгуки</td><td class="arrow">8.8 · 8.4 · 8.5 · 8.11</td></tr>
+      <tr><td>5</td><td><b>Для тренерів</b></td><td>Банер коуч-каналу + CTA умови</td><td class="arrow">5.0</td></tr>
+      <tr><td>6</td><td><b>Популярні категорії</b></td><td>Плитки топ-категорій</td><td class="arrow">2.1</td></tr>
+      <tr><td>7</td><td><b>Товари — хіти</b></td><td>Картка: фото · назва · фірма·країна · ціна (нова+стара) · «У кошик»</td><td class="arrow">3.0 · 6.0</td></tr>
+      <tr><td>8</td><td><b>Переглянуті товари</b> (стан)</td><td>Якщо є історія переглядів; та сама картка</td><td class="arrow">3.0 · 6.0</td></tr>
+      <tr><td>9</td><td><b>Акції · Бренди · Блог</b></td><td>Промо (без таймерів) · бренди · тизер статей</td><td class="arrow">8.10 · 2.4 · 8.0/8.1</td></tr>
+      <tr><td>10</td><td><b>SEO-текст</b></td><td>H2 + опис магазину (кореневі ключі)</td><td>—</td></tr>
     </table>
   </section>
 
@@ -470,6 +519,8 @@
     <table>
       <tr><th>Блок</th><th>Гість</th><th>Покупець</th><th>Тренер</th></tr>
       <tr><td><b>Hero-цілі</b></td><td colspan="3">Однаково для всіх — перший екран лишається селектором цілей.</td></tr>
+      <tr><td><b>Полиця кошика</b></td><td colspan="3">Порожній кошик — прихована. Є товари (зараз або з минулого) — показуємо для всіх ролей: N товарів, сума, мініатюри, «Оформити». Тренеру — сума за тарифом.</td></tr>
+      <tr><td><b>Переглянуті товари</b></td><td colspan="3">Немає історії — прихований. Є — показуємо (гість: локально; залогінений: по акаунту).</td></tr>
       <tr><td><b>Персональна стрічка</b></td><td>Прихована (показуємо «Увійти»)</td><td><b>Повтор замовлення</b> (7.3) + Мої стейпли*</td><td><b>Нова сесія (5.5)</b> + Кабінет (5.2)</td></tr>
       <tr><td><b>Ціни на товарах</b></td><td>Роздріб</td><td>Роздріб + лояльність</td><td><b>Опт за тарифом</b> (чип Free/Pro)</td></tr>
       <tr><td><b>Для тренерів</b></td><td>Банер → лендинг 5.0</td><td>Банер → 5.0 / стати тренером</td><td>Замість банера — <b>швидкі дії тренера</b></td></tr>
@@ -511,7 +562,10 @@
       <p style="font-size:13px;color:var(--text-secondary);margin:0 0 6px"><b>2026-06-30 — структура головної:</b></p>
       <ul>
         <li><b>Перший екран = селектор цілей</b> (H1 + 6 плиток) — «один зрозумілий крок» для початківця; вторинно «Відкрити каталог».</li>
-        <li><b>Персональна стрічка за станом</b> одразу під hero: гість — прихована; покупець — повтор замовлення (+ стейпли післязапуск); тренер — нова сесія + кабінет.</li>
+        <li><b>Полиця кошика (стан)</b> одразу під hero, коли кошик не порожній (зараз або з минулого візиту): N товарів, сума, мініатюри, «Оформити замовлення» / «Переглянути кошик».</li>
+        <li><b>Персональна стрічка за станом</b> під hero: гість — прихована; покупець — повтор замовлення (+ стейпли післязапуск); тренер — нова сесія + кабінет.</li>
+        <li><b>Блок «Переглянуті товари»</b> (стан, коли є історія переглядів) — та сама картка товару.</li>
+        <li><b>Картка товару (канонічна):</b> фото · назва · мета (фірма · країна виробництва) · ціна (нова + стара перекреслена за наявності знижки + бейдж −%) · «У кошик». Повторюється в каталозі/лістингах.</li>
         <li><b>Смуга довіри</b> високо (Принцип №1); повна стрічка з 4 картками — у футері.</li>
         <li><b>Видимий блок «Для тренерів»</b> на головній (Принцип №3) → лендинг 5.0.</li>
         <li><b>Далі:</b> популярні категорії → товари (хіти) → акції/бренди/блог → SEO-текст.</li>

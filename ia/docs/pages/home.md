@@ -30,23 +30,35 @@ also **mobile tab 1** and the root SEO landing.
    (Набір маси · Схуднення · Відновлення · Енергія/тонус · Імунітет/здоров'я · Витривалість/кардіо)
    + secondary «Відкрити каталог» and «Підібрати за квізом». Tiles → Goal collection (2.2);
    catalog → 2.0; quiz → 4.0 (post-launch; for now routes to goal tiles).
-2. **Personal strip (by state)** — one block that changes by role, right under the hero:
+2. **Cart shelf (state)** — shown when the cart is non-empty (now or from a previous visit; guest
+   cart persisted locally): item count, total sum, item thumbnails, **«Оформити замовлення»** (→
+   checkout 6.1) + «Переглянути кошик» (→ 6.0). A strong "continue your purchase" nudge. Coach: sum
+   by tier + per-client grouping mention.
+3. **Personal strip (by state)** — one block that changes by role, right under the cart shelf:
    - **Guest:** hidden (nothing to repeat) → show «Увійти / Реєстрація» (1.0).
    - **Buyer (regular):** **Повторити останнє замовлення** (7.3, Job 4) + «Мої стейпли»* (post-launch).
    - **Coach:** **Нова сесія замовлення** (5.5) + **Кабінет тренера** (5.2).
-3. **Trust band** — certified/original · delivery NP 1–2 days · payment · 14-day returns · reviews.
+4. **Trust band** — certified/original · delivery NP 1–2 days · payment · 14-day returns · reviews.
    Short band high on the page; the full 4-card strip lives in the Footer (0.2). Links → 8.8 / 8.4 /
    8.5 / 8.11. Text, not images.
-4. **«Для тренерів» banner** — wholesale pricing, multi-client ordering, per-client history; CTA →
+5. **«Для тренерів» banner** — wholesale pricing, multi-client ordering, per-client history; CTA →
    For-coaches landing (5.0, Free/Pro comparison). Guest → unified sign-in (1.0) then activation (5.1).
-5. **Popular categories** — tiles of top categories (Протеїн, Гейнери, Креатин, Амінокислоти,
+6. **Popular categories** — tiles of top categories (Протеїн, Гейнери, Креатин, Амінокислоти,
    Передтренувальні, Вітаміни…) → Category (2.1). Full 12 in the «Каталог» mega-menu / catalog taxonomy.
-6. **Products** — bestsellers / new / recommended; card → Product (3.0), «У кошик» → Cart (6.0).
+7. **Products — bestsellers** — rows of product cards; card → Product (3.0), «У кошик» → Cart (6.0).
    Coach sees tier pricing. Calm cards, no aggressive badges.
-7. **Promotions · Brands · Blog** — calm promo (no timers, principle #4) → 8.10; brand strip → 2.4
+8. **Recently viewed (state)** — shown when there's view history (guest: local; logged-in: account);
+   same product card. Helps the user return to a product and finish buying.
+9. **Promotions · Brands · Blog** — calm promo (no timers, principle #4) → 8.10; brand strip → 2.4
    (trust + SEO); blog teaser → Article (8.1) / Blog (8.0) (helps the beginner + SEO).
-8. **SEO text** — bottom H2 + descriptive store copy (root keywords). Popular query-links live in
+10. **SEO text** — bottom H2 + descriptive store copy (root keywords). Popular query-links live in
    the footer (0.2).
+
+### Product card (canonical component)
+Reused on Home, Catalog and listings. Fields:
+**photo · product name · meta (brand · country of production) · price (new + old struck-through
+when discounted, + a −% badge) · «У кошик» button.** Coach sees the tier price. Calm, no aggressive
+badges. (Card → Product 3.0; «У кошик» → Cart 6.0.)
 
 Desktop = the same blocks; the hero may go two-column (tiles + visual), categories/products run as
 wider rows. First-screen and priority are reasoned from mobile.
@@ -58,6 +70,8 @@ wider rows. First-screen and priority are reasoned from mobile.
 | Block | Guest | Buyer | Coach |
 |---|---|---|---|
 | Hero goals | same | same | same |
+| Cart shelf | shown if cart non-empty (local) | shown if cart non-empty | shown if non-empty; tier sum |
+| Recently viewed | shown if local history | shown if account/local history | shown if history |
 | Personal strip | hidden (show «Увійти») | **Repeat order** (7.3) + staples* | **New session** (5.5) + Coach home (5.2) |
 | Product prices | retail | retail + loyalty | **wholesale by tier** (Free/Pro chip) |
 | «Для тренерів» | banner → 5.0 | banner → 5.0 / become a coach | replaced by coach quick actions |
@@ -82,7 +96,12 @@ wider rows. First-screen and priority are reasoned from mobile.
 
 ## Locked decisions (2026-06-30)
 - First screen = **goal selector** (H1 + 6 tiles); secondary «Відкрити каталог».
-- **Personal strip by state** right under the hero (guest hidden · buyer repeat-order · coach new session).
+- **Cart shelf (state)** under the hero when the cart is non-empty (now or earlier): count, sum,
+  thumbnails, «Оформити замовлення» / «Переглянути кошик».
+- **Personal strip by state** right under the cart shelf (guest hidden · buyer repeat-order · coach new session).
+- **Recently-viewed (state)** block when view history exists; uses the canonical product card.
+- **Canonical product card:** photo · name · meta (brand · country) · price (new + old struck-through
+  + −% badge) · «У кошик».
 - **Trust band high** (principle #1); full 4-card strip in the footer.
 - **Visible «Для тренерів» block** on Home (principle #3) → landing 5.0.
 - Then: popular categories → products (bestsellers) → promo/brands/blog → SEO text.
