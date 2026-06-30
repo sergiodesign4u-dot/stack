@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack — IA: Матриця наповнення категорій</title>
+  <style>
+    :root {
+      --bg: #f7f6f3; --surface: #ffffff; --surface-alt: #f2f0eb; --border: #e5e2db;
+      --text: #1a1916; --text-secondary: #6b6760; --text-light: #9b9790;
+      --accent: #2d5a3d; --accent-light: #e8f0ea; --accent-mid: #4a8c62;
+      --warn: #b5882a; --warn-bg: #fdf3e3;
+      --radius: 10px; --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); }
+
+    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: rgba(247,246,243,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 101; }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: rgba(247,246,243,.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-right: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform .22s ease; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+    .sidebar-nav { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px; }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+    .sidebar-nav a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: var(--radius-sm); transition: color .15s, background .15s; margin-bottom: 1px; }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-nav a.sidebar-sub { font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light); }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-page-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 4px; }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+    .sidebar-upcoming { padding: 12px 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-light); line-height: 1.8; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 68px 20px 80px; }
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 44px 44px 80px; }
+    }
+
+    .hero { margin-bottom: 26px; }
+    .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+    .hero h1 { font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .hero-lead { font-size: 16px; color: var(--text-secondary); max-width: 800px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-size: 13px; color: var(--text-secondary); }
+    .hero-meta strong { color: var(--text); font-weight: 600; }
+
+    .section { margin-bottom: 34px; scroll-margin-top: 64px; }
+    .section-num { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .section h2 { font-size: 22px; letter-spacing: -0.015em; margin-bottom: 6px; }
+    .section-lead { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 18px; max-width: 800px; }
+    .note { font-size: 12px; color: var(--text-light); margin: 4px 0 16px; }
+
+    .reco { background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--text); margin: 10px 0 14px; }
+    .reco b { color: var(--accent); }
+    .pool { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow-sm); font-size: 13.5px; color: var(--text-secondary); }
+    .pool b { color: var(--text); }
+
+    /* category cards */
+    .cmcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow-sm); margin-bottom: 14px; scroll-margin-top: 64px; }
+    .cmhead { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 9px; }
+    .cmnum { font-size: 13px; font-weight: 800; color: var(--accent); background: var(--accent-light); border-radius: 6px; padding: 1px 8px; }
+    .cmhead h3 { font-size: 18px; letter-spacing: -0.01em; }
+    .cmhead .url { margin-left: auto; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; color: var(--text-light); }
+    .rowf { font-size: 13px; line-height: 1.55; margin-bottom: 6px; }
+    .rowf b { color: var(--text); font-weight: 650; }
+    .rowf span { color: var(--text-secondary); }
+    .seoboxes { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 12px; }
+    @media (min-width: 760px) { .seoboxes { grid-template-columns: 1fr 1fr; } }
+    .seobox { background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 11px 13px; }
+    .seobox .lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--accent-mid); margin-bottom: 5px; }
+    .seobox .meta { font-size: 12px; color: var(--text-secondary); margin-bottom: 7px; }
+    .seobox .meta b { color: var(--text); }
+    .seobox p { font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 6px; }
+    .faq { font-size: 12.5px; color: var(--text-secondary); margin: 0 0 0 16px; }
+    .faq li { margin-bottom: 4px; }
+    .faq b { color: var(--text); font-weight: 600; }
+    .rel { font-size: 12px; color: var(--text-light); margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); }
+
+    /* toc */
+    .toc { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+    .toc a { font-size: 12px; font-weight: 600; color: var(--text-secondary); background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 5px 12px; text-decoration: none; }
+    .toc a:hover { color: var(--accent); border-color: var(--accent-mid); }
+
+    .open { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 18px 20px; }
+    .open h2 { font-size: 18px; margin-bottom: 10px; color: var(--warn); }
+    .open ul { margin-left: 18px; } .open li { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }
+    @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="../research/research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="../research/research.html" class="sidebar-logo">Stack</a>
+    <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Структура</div>
+    <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
+    <a href="navigation.html" class="sidebar-sub">Хедер</a>
+    <a href="footer.html" class="sidebar-sub">Футер</a>
+    <a href="catalog.html" class="sidebar-sub">Каталог</a>
+    <a href="category-matrix.html" class="sidebar-sub active">Матриця категорій</a>
+    <a href="seo.html" class="sidebar-sub">SEO-методика</a>
+    <div class="sidebar-page-label">Сторінки</div>
+    <a href="home.html" class="sidebar-sub">Головна</a>
+    <a href="catalog-page.html" class="sidebar-sub">Каталог</a>
+    <a href="category.html" class="sidebar-sub">Категорія</a>
+    <a href="quiz.html" class="sidebar-sub">Квіз</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-upcoming">Далі<br>Картка товару<br>Кошик · Акаунт<br>Wireframes</div>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Посторінкова IA · наповнення · кластер 2 · дані</div>
+    <h1>Матриця наповнення категорій</h1>
+    <p class="hero-lead">Один артефакт, що <b>наповнює кожну категорію</b>, яка працює на спільному шаблоні лістингу (<a href="category.html">Категорія 2.1</a>). Рядок на категорію → набір фасетів, релевантні бренди, цілі, SEO-мета (Title/Description/H1), готовий SEO-текст, FAQ і суміжні категорії. Бренди й фасети значною мірою <b>спільні</b>, тому тримаємо їх раз (спільний пул + глобальні фасети), а не 12 окремих специфікацій. Таксономія — у <a href="catalog.html">catalog.md</a>; тут наповнюємо її контентом. Принципи й шаблони SEO-текстів — <a href="seo.html">SEO-методика</a>.</p>
+    <div class="hero-meta">
+      <div><strong>Категорій</strong> 11 лістингових (+ Бренди = індекс 2.4)</div>
+      <div><strong>Джерело істини</strong> ia/docs/pages/category-matrix.md</div>
+      <div><strong>Рушій SEO</strong> seo.html</div>
+    </div>
+  </div>
+
+  <div class="toc">
+    <a href="#c1">1 Протеїн</a><a href="#c2">2 Гейнери</a><a href="#c3">3 Креатин</a><a href="#c4">4 Амінокислоти</a><a href="#c5">5 Передтренувальні</a><a href="#c6">6 Жироспалювачі</a><a href="#c7">7 Ізотоніки</a><a href="#c8">8 Батончики/снеки</a><a href="#c9">9 Вітаміни</a><a href="#c10">10 Здоров'я</a><a href="#c11">11 Аксесуари</a>
+  </div>
+
+  <!-- shared -->
+  <section class="section">
+    <div class="section-num">Спільне</div>
+    <h2>Пул брендів і глобальні фасети</h2>
+    <p class="section-lead">Бренди в кожній категорії — <b>підмножина</b> цього пулу; фасет «Бренд» — той самий компонент усюди, різняться лише значення й лічильники. Так уникаємо дублювання.</p>
+    <div class="pool" style="margin-bottom:12px"><b>Пул брендів (реальні, доступні в Україні):</b> Optimum Nutrition · BioTechUSA · Myprotein · Scitec Nutrition · Dymatize · BSN · MuscleTech · Universal Nutrition · Weider · OstroVit · Olimp Sport Nutrition · Trec Nutrition · Maxler · Quamtrax · Applied Nutrition · NOW Foods · Solgar · Puritan's Pride · Power Pro (UA) · Sporter (UA) · AB PRO (UA) · Progress Nutrition (UA) · BlenderBottle · SmartShake.</div>
+    <div class="pool"><b>Глобальні фасети:</b> Тип/субкатегорія · Наявність · Ціна · Бренд · Ціль · Форма · Смак · Фасування/вага · Країна · Сертифікація — плюс спец-фасети на категорію (нижче, курсивом). <b>SEO-мета на кожен рядок:</b> Title ≤60 · Description ≤155 · єдиний H1 = назва · canonical на чистий URL · пагінація self-canonical · hreflang uk/ru · BreadcrumbList + ItemList + опц. FAQPage.</div>
+  </section>
+
+  <!-- matrix cards -->
+  <section class="section">
+    <div class="section-num">Матриця</div>
+    <h2>11 категорій — наповнення</h2>
+
+    <!-- 1 Протеїн -->
+    <div class="cmcard" id="c1">
+      <div class="cmhead"><span class="cmnum">1</span><h3>Протеїн</h3><span class="url">/protein/</span></div>
+      <div class="rowf"><b>Типи:</b> <span>Сироватковий концентрат · Ізолят · Гідролізат · Казеїн · Комплексний · Яловичий · Рослинний · Яєчний</span></div>
+      <div class="rowf"><b>Фасети:</b> <span>Тип · Форма (порошок/RTD) · Смак · Фасування/вага · Бренд · Ціль · Країна · Ціна · Наявність · Сертифікація · <i>Білок на порцію · Без лактози · Веган</i></span></div>
+      <div class="rowf"><b>Бренди:</b> <span>Optimum Nutrition · BioTechUSA · Myprotein · Scitec · Dymatize · OstroVit · Power Pro</span></div>
+      <div class="rowf"><b>Цілі:</b> <span>Набір маси · Схуднення (ізолят) · Відновлення</span></div>
+      <div class="seoboxes">
+        <div class="seobox">
+          <div class="lbl">SEO-мета</div>
+          <div class="meta"><b>H1:</b> Протеїн</div>
+          <div class="meta"><b>Title:</b> Протеїн — купити протеїн в Україні, ціна | Stack</div>
+          <div class="meta"><b>Description:</b> Протеїн від перевірених брендів: сироватковий, ізолят, казеїн, рослинний. Оригінал і сертифікати, доставка Новою Поштою, оплата картою.</div>
+        </div>
+        <div class="seobox">
+          <div class="lbl">Готовий текст + FAQ</div>
+          <p><b>Вступ:</b> Сироватковий, ізолят, казеїн і рослинний протеїн від перевірених брендів — для росту м'язів і відновлення.</p>
+          <p><b>Низ:</b> Протеїн — базова добавка для набору й відновлення м'язів. Концентрат універсальний і вигідний, ізолят — з мінімумом лактози й вуглеводів для рельєфу, казеїн повільний і підходить на ніч, рослинний — для веганів. Уся продукція сертифікована, з оригінальною гарантією виробника.</p>
+          <ul class="faq">
+            <li><b>Який протеїн обрати початківцю?</b> Сироватковий концентрат.</li>
+            <li><b>Скільки на день?</b> ≈1,6–2,2 г/кг ваги з усієї їжі.</li>
+            <li><b>Чи схуднути з протеїном?</b> Так: ізолят + дефіцит калорій.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rel"><b>Суміжні:</b> Гейнери · Креатин · Амінокислоти · Батончики</div>
+    </div>
+
+    <!-- 2 Гейнери -->
+    <div class="cmcard" id="c2">
+      <div class="cmhead"><span class="cmnum">2</span><h3>Гейнери</h3><span class="url">/gainer/</span></div>
+      <div class="rowf"><b>Типи:</b> <span>Високовуглеводні · Збалансовані (білок+вуглеводи) · Вуглеводи/карбо</span></div>
+      <div class="rowf"><b>Фасети:</b> <span>Тип · Фасування/вага · Смак · Бренд · Ціль · Країна · Ціна · Наявність · <i>Співвідношення білок:вуглеводи · Калорійність порції</i></span></div>
+      <div class="rowf"><b>Бренди:</b> <span>Optimum (Serious Mass) · BioTechUSA · Scitec · Mutant · OstroVit · Power Pro</span></div>
+      <div class="rowf"><b>Цілі:</b> <span>Набір маси</span></div>
+      <div class="seoboxes">
+        <div class="seobox">
+          <div class="lbl">SEO-мета</div>
+          <div class="meta"><b>H1:</b> Гейнери</div>
+          <div class="meta"><b>Title:</b> Гейнер — купити гейнер для набору маси, ціна | Stack</div>
+          <div class="meta"><b>Description:</b> Гейнери для набору маси: високовуглеводні та збалансовані. Перевірені бренди, оригінал, доставка по Україні, оплата картою.</div>
+        </div>
+        <div class="seobox">
+          <div class="lbl">Готовий текст + FAQ</div>
+          <p><b>Вступ:</b> Висококалорійні суміші білка й вуглеводів для швидкого набору маси.</p>
+          <p><b>Низ:</b> Гейнер допомагає набрати вагу тим, кому важко добрати калорії з їжі — насамперед ектоморфам. Високовуглеводні дають максимум калорій, збалансовані містять більше білка. Пийте після тренування або між прийомами їжі.</p>
+          <ul class="faq">
+            <li><b>Кому потрібен гейнер?</b> Худим, хто не добирає калорій.</li>
+            <li><b>Коли пити?</b> Після тренування / між їжею.</li>
+            <li><b>Гейнер чи протеїн?</b> Гейнер — калорії, протеїн — білок.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rel"><b>Суміжні:</b> Протеїн · Креатин · Вуглеводи</div>
+    </div>
+
+    <!-- 3 Креатин -->
+    <div class="cmcard" id="c3">
+      <div class="cmhead"><span class="cmnum">3</span><h3>Креатин</h3><span class="url">/creatine/</span></div>
+      <div class="rowf"><b>Типи:</b> <span>Моногідрат · Creapure® · Гідрохлорид (HCl) · Kre-Alkalyn · Суміш креатинів</span></div>
+      <div class="rowf"><b>Фасети:</b> <span>Тип · Форма (порошок/капсули) · Фасування · Смак · Бренд · Країна · Ціна · Наявність</span></div>
+      <div class="rowf"><b>Бренди:</b> <span>Optimum · BioTechUSA · OstroVit · Olimp · Myprotein · Power Pro</span></div>
+      <div class="rowf"><b>Цілі:</b> <span>Набір маси</span></div>
+      <div class="seoboxes">
+        <div class="seobox">
+          <div class="lbl">SEO-мета</div>
+          <div class="meta"><b>H1:</b> Креатин</div>
+          <div class="meta"><b>Title:</b> Креатин — купити креатин моногідрат, ціна | Stack</div>
+          <div class="meta"><b>Description:</b> Креатин моногідрат, Creapure, HCl у порошку й капсулах — для сили й маси. Оригінал, сертифікати, доставка Новою Поштою.</div>
+        </div>
+        <div class="seobox">
+          <div class="lbl">Готовий текст + FAQ</div>
+          <p><b>Вступ:</b> Креатин моногідрат та інші форми — для сили, потужності й набору м'язів.</p>
+          <p><b>Низ:</b> Креатин — одна з найдосліджуваніших спортивних добавок. Моногідрат — золотий стандарт за ціною/ефективністю; HCl і Kre-Alkalyn — для кращої розчинності. Доза 3–5 г на день, фаза завантаження не обов'язкова.</p>
+          <ul class="faq">
+            <li><b>Як приймати?</b> 3–5 г щодня, можна без завантаження.</li>
+            <li><b>Затримує воду?</b> Трохи, у м'язах — це норма.</li>
+            <li><b>Безпечний?</b> Так, за дотримання дозування.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rel"><b>Суміжні:</b> Протеїн · Передтренувальні · Амінокислоти</div>
+    </div>
+
+    <!-- 4 Амінокислоти -->
+    <div class="cmcard" id="c4">
+      <div class="cmhead"><span class="cmnum">4</span><h3>Амінокислоти</h3><span class="url">/amino/</span></div>
+      <div class="rowf"><b>Типи:</b> <span>BCAA · EAA / комплексні · L-глютамін · L-аргінін · L-цитрулін · Бета-аланін · Таурин</span></div>
+      <div class="rowf"><b>Фасети:</b> <span>Вид · Форма (порошок/капсули/рідкі) · Смак · Бренд · Ціль · Ціна · Наявність · <i>Співвідношення BCAA (2:1:1…)</i></span></div>
+      <div class="rowf"><b>Бренди:</b> <span>Optimum · BioTechUSA · Scitec · OstroVit · Olimp · Power Pro</span></div>
+      <div class="rowf"><b>Цілі:</b> <span>Відновлення</span></div>
+      <div class="seoboxes">
+        <div class="seobox">
+          <div class="lbl">SEO-мета</div>
+          <div class="meta"><b>H1:</b> Амінокислоти</div>
+          <div class="meta"><b>Title:</b> Амінокислоти — BCAA, EAA, глютамін купити | Stack</div>
+          <div class="meta"><b>Description:</b> Амінокислоти BCAA, EAA, глютамін, аргінін у порошку та капсулах — для відновлення й захисту м'язів. Оригінал, доставка по Україні.</div>
+        </div>
+        <div class="seobox">
+          <div class="lbl">Готовий текст + FAQ</div>
+          <p><b>Вступ:</b> BCAA, EAA, глютамін та інші амінокислоти для відновлення й захисту м'язів.</p>
+          <p><b>Низ:</b> Амінокислоти — будівельний матеріал м'язів. BCAA зменшують втому й захищають м'язи, EAA дають повний спектр незамінних, глютамін підтримує відновлення. Зручні форми — порошок зі смаком або капсули.</p>
+          <ul class="faq">
+            <li><b>BCAA чи EAA?</b> EAA повніші, BCAA дешевші.</li>
+            <li><b>Коли пити BCAA?</b> До / під час тренування.</li>
+            <li><b>Потрібні при достатньому білку?</b> Необов'язкові, але зручні.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rel"><b>Суміжні:</b> Протеїн · Креатин · Відновлення</div>
+    </div>
+
+    <!-- 5 Передтренувальні -->
+    <div class="cmcard" id="c5">
+      <div class="cmhead"><span class="cmnum">5</span><h3>Передтренувальні та енергія</h3><span class="url">/pre-workout/</span></div>
+      <div class="rowf"><b>Типи:</b> <span>З кофеїном (стим) · Без стимуляторів (stim-free) · Пампінг / NO-бустери · Енергетики, кофеїн, гуарана</span></div>
+      <div class="rowf"><b>Фасети:</b> <span>Тип · Форма · Смак · Бренд · Ціль · Ціна · Наявність · <i>Вміст кофеїну на порцію</i></span></div>
+      <div class="rowf"><b>Бренди:</b> <span>BSN (N.O.-Xplode) · Scitec · BioTechUSA · OstroVit · Olimp · Trec</span></div>
+      <div class="rowf"><b>Цілі:</b> <span>Енергія / тонус</span></div>
+      <div class="seoboxes">
+        <div class="seobox">
+          <div class="lbl">SEO-мета</div>
+          <div class="meta"><b>H1:</b> Передтренувальні комплекси</div>
+          <div class="meta"><b>Title:</b> Передтренувальні комплекси (передтреники) купити | Stack</div>
+          <div class="meta"><b>Description:</b> Передтренувальні комплекси з кофеїном і без, пампінг та енергетики — більше енергії й фокусу на тренуванні. Оригінал, доставка.</div>
+        </div>
+        <div class="seobox">
+          <div class="lbl">Готовий текст + FAQ</div>
+          <p><b>Вступ:</b> Передтреники з кофеїном і без — енергія, фокус і пампінг на тренуванні.</p>
+          <p><b>Низ:</b> Передтренувальний комплекс підвищує енергію, концентрацію й витривалість. Зі стимуляторами дає потужний поштовх, stim-free — без впливу на сон. Пампінг-формули з аргініном і цитруліном посилюють кровонаповнення м'язів.</p>
+          <ul class="faq">
+            <li><b>Коли пити?</b> За 20–30 хв до тренування.</li>
+            <li><b>Скільки кофеїну?</b> За чутливістю, не на ніч.</li>
+            <li><b>Stim чи stim-free?</b> Вечірні тренування — stim-free.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rel"><b>Суміжні:</b> Креатин · Амінокислоти · Ізотоніки</div>
+    </div>
+
+    <!-- 6 Жироспалювачі -->
+    <div class="cmcard" id="c6">
+      <div class="cmhead"><span class="cmnum">6</span><h3>Жироспалювачі</h3><span class="url">/fatburner/</span></div>
+      <div class="rowf"><b>Типи:</b> <span>L-карнітин · Термогеніки (комплексні) · Ліпотропіки · Блокатори (вуглеводів/жирів)</span></div>
+      <div class="rowf"><b>Фасети:</b> <span>Тип · Форма (порошок/капсули/рідкі) · Бренд · Ціль · Ціна · Наявність · <i>Зі стимуляторами / без</i></span></div>
+      <div class="rowf"><b>Бренди:</b> <span>BioTechUSA · OstroVit · Olimp · Scitec · Power Pro · Trec</span></div>
+      <div class="rowf"><b>Цілі:</b> <span>Схуднення</span></div>
+      <div class="seoboxes">
+        <div class="seobox">
+          <div class="lbl">SEO-мета</div>
+          <div class="meta"><b>H1:</b> Жироспалювачі</div>
+          <div class="meta"><b>Title:</b> Жироспалювачі — купити для схуднення, ціна | Stack</div>
+          <div class="meta"><b>Description:</b> Жироспалювачі: L-карнітин, термогеніки, ліпотропіки — підтримка схуднення разом із дієтою. Оригінал, сертифікати, доставка.</div>
+        </div>
+        <div class="seobox">
+          <div class="lbl">Готовий текст + FAQ</div>
+          <p><b>Вступ:</b> L-карнітин, термогеніки й ліпотропіки — підтримка схуднення разом із дієтою та тренуваннями.</p>
+          <p><b>Низ:</b> Жироспалювачі — допоміжний інструмент, а не заміна дефіциту калорій. L-карнітин м'яко підтримує енергообмін, термогеніки прискорюють метаболізм. Працюють лише в парі зі збалансованим харчуванням і навантаженням.</p>
+          <ul class="faq">
+            <li><b>Чи працюють?</b> Лише з дефіцитом калорій.</li>
+            <li><b>Коли пити L-карнітин?</b> Перед кардіо.</li>
+            <li><b>Безпечно?</b> Так, за дозуванням; обережно зі стимуляторами.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rel"><b>Суміжні:</b> Протеїн (ізолят) · L-карнітин · Вітаміни</div>
+    </div>
+
+    <!-- 7 Ізотоніки -->
+    <div class="cmcard" id="c7">
+      <div class="cmhead"><span class="cmnum">7</span><h3>Ізотоніки та витривалість</h3><span class="url">/isotonic/</span></div>
+      <div class="rowf"><b>Типи:</b> <span>Ізотоніки · Енергетичні гелі · Електроліти / сольові таблетки</span></div>
+      <div class="rowf"><b>Фасети:</b> <span>Тип · Форма · Смак · Бренд · Ціль · Ціна · Наявність</span></div>
+      <div class="rowf"><b>Бренди:</b> <span>Sponser · GU · Isostar · SiS · OstroVit · Power Pro</span></div>
+      <div class="rowf"><b>Цілі:</b> <span>Витривалість / кардіо</span></div>
+      <div class="seoboxes">
+        <div class="seobox">
+          <div class="lbl">SEO-мета</div>
+          <div class="meta"><b>H1:</b> Ізотоніки та електроліти</div>
+          <div class="meta"><b>Title:</b> Ізотоніки, гелі, електроліти — купити | Stack</div>
+          <div class="meta"><b>Description:</b> Ізотоніки, енергетичні гелі та електроліти для витривалості й гідратації — біг, велоспорт, кардіо. Доставка по Україні.</div>
+        </div>
+        <div class="seobox">
+          <div class="lbl">Готовий текст + FAQ</div>
+          <p><b>Вступ:</b> Ізотоніки, гелі й електроліти — гідратація та енергія для довгих кардіо-навантажень.</p>
+          <p><b>Низ:</b> Під час тривалих навантажень тіло втрачає воду й солі. Ізотоніки відновлюють баланс рідини та електролітів, гелі дають швидкі вуглеводи на дистанції, електроліти запобігають судомам. Незамінні для бігу, велоспорту й довгого кардіо.</p>
+          <ul class="faq">
+            <li><b>Навіщо ізотонік?</b> Вода + солі + енергія.</li>
+            <li><b>Коли пити гель?</b> Кожні 30–45 хв на дистанції.</li>
+            <li><b>Електроліти для чого?</b> Проти зневоднення й судом.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rel"><b>Суміжні:</b> Передтренувальні · Амінокислоти · Вітаміни</div>
+    </div>
+
+    <!-- 8 Батончики -->
+    <div class="cmcard" id="c8">
+      <div class="cmhead"><span class="cmnum">8</span><h3>Батончики, снеки та харчування</h3><span class="url">/snacks/</span></div>
+      <div class="rowf"><b>Типи:</b> <span>Протеїнові батончики · Печиво/снеки · Паста (арахісова) · Замінники харчування · Суперфуди · Гранола · Сиропи без цукру</span></div>
+      <div class="rowf"><b>Фасети:</b> <span>Тип · Смак · Бренд · Ціна · Наявність · <i>Вміст білка · Без цукру</i></span></div>
+      <div class="rowf"><b>Бренди:</b> <span>BioTechUSA · Quest · Myprotein · OstroVit · Scitec · Power Pro</span></div>
+      <div class="rowf"><b>Цілі:</b> <span>Схуднення · Набір маси (cross)</span></div>
+      <div class="seoboxes">
+        <div class="seobox">
+          <div class="lbl">SEO-мета</div>
+          <div class="meta"><b>H1:</b> Батончики, снеки та харчування</div>
+          <div class="meta"><b>Title:</b> Протеїнові батончики та снеки — купити | Stack</div>
+          <div class="meta"><b>Description:</b> Протеїнові батончики, печиво, паста й замінники харчування без зайвого цукру — корисний перекус. Оригінал, доставка по Україні.</div>
+        </div>
+        <div class="seobox">
+          <div class="lbl">Готовий текст + FAQ</div>
+          <p><b>Вступ:</b> Протеїнові батончики, печиво, паста й замінники харчування — корисний перекус і білок у дорозі.</p>
+          <p><b>Низ:</b> Коли немає часу на повноцінний прийом їжі, протеїновий батончик або замінник харчування дає білок і ситність без зайвого цукру. Паста й гранола — джерело корисних жирів і вуглеводів, сиропи без цукру — смак без калорій.</p>
+          <ul class="faq">
+            <li><b>Чи корисні батончики?</b> Так, як перекус — дивіться склад.</li>
+            <li><b>Замінник харчування — це що?</b> Збалансований прийом у порції.</li>
+            <li><b>Скільки на день?</b> 1–2 як доповнення, не заміна раціону.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rel"><b>Суміжні:</b> Протеїн · Вітаміни · Арахісова паста</div>
+    </div>
+
+    <!-- 9 Вітаміни -->
+    <div class="cmcard" id="c9">
+      <div class="cmhead"><span class="cmnum">9</span><h3>Вітаміни та мінерали</h3><span class="url">/vitamins/</span></div>
+      <div class="rowf"><b>Типи:</b> <span>Комплекси (чол./жін./універс.) · Окремі вітаміни (D3·C·B·A·E) · Мінерали (магній·цинк·кальцій·залізо·селен) · Омега</span></div>
+      <div class="rowf"><b>Фасети:</b> <span>Тип · Для кого · Форма (капсули/таблетки/гель-капс) · Бренд · Ціль · Ціна · Наявність</span></div>
+      <div class="rowf"><b>Бренди:</b> <span>NOW Foods · Solgar · Puritan's Pride · OstroVit · BioTechUSA · Olimp</span></div>
+      <div class="rowf"><b>Цілі:</b> <span>Імунітет / здоров'я</span></div>
+      <div class="seoboxes">
+        <div class="seobox">
+          <div class="lbl">SEO-мета</div>
+          <div class="meta"><b>H1:</b> Вітаміни та мінерали</div>
+          <div class="meta"><b>Title:</b> Вітаміни та мінерали — купити, ціна в Україні | Stack</div>
+          <div class="meta"><b>Description:</b> Вітаміни та мінерали: комплекси, D3, C, магній, цинк, омега-3 — для імунітету, енергії та здоров'я. Оригінал, доставка по Україні.</div>
+        </div>
+        <div class="seobox">
+          <div class="lbl">Готовий текст + FAQ</div>
+          <p><b>Вступ:</b> Вітамінно-мінеральні комплекси, окремі вітаміни, мінерали й омега — для імунітету, енергії та загального здоров'я.</p>
+          <p><b>Низ:</b> Вітаміни й мінерали закривають дефіцити, яких важко уникнути навіть зі збалансованим раціоном. D3 і C — для імунітету, магній — для нервової системи й сну, омега-3 — для серця. Обирайте комплекс або окремий нутрієнт під потребу.</p>
+          <ul class="faq">
+            <li><b>Які пити взимку?</b> D3, C, цинк.</li>
+            <li><b>Скільки вітаміну D?</b> За призначенням, типово 2000 МО.</li>
+            <li><b>Поєднувати зі спортхарчуванням?</b> Так, доповнюють одне одного.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rel"><b>Суміжні:</b> Здоров'я · Омега-3 · Імунітет</div>
+    </div>
+
+    <!-- 10 Здоров'я -->
+    <div class="cmcard" id="c10">
+      <div class="cmhead"><span class="cmnum">10</span><h3>Здоров'я</h3><span class="url">/health/</span></div>
+      <div class="rowf"><b>Типи (за станом):</b> <span>Суглоби та зв'язки · Імунітет · Сон і нервова система · Травлення · Серце та судини · Печінка · Чоловіче здоров'я · Жіноче здоров'я та краса · Адаптогени · Антиоксиданти</span></div>
+      <div class="rowf"><b>Фасети:</b> <span>Стан · Форма · Бренд · Ціна · Наявність</span></div>
+      <div class="rowf"><b>Бренди:</b> <span>NOW Foods · Solgar · Puritan's Pride · OstroVit · Olimp · BioTechUSA</span></div>
+      <div class="rowf"><b>Цілі:</b> <span>Імунітет / здоров'я · Відновлення</span></div>
+      <div class="seoboxes">
+        <div class="seobox">
+          <div class="lbl">SEO-мета</div>
+          <div class="meta"><b>H1:</b> Здоров'я</div>
+          <div class="meta"><b>Title:</b> Добавки для здоров'я — суглоби, сон, імунітет | Stack</div>
+          <div class="meta"><b>Description:</b> Добавки для здоров'я: суглоби й зв'язки, сон, травлення, чоловіче й жіноче здоров'я, адаптогени. Оригінал, сертифікати, доставка.</div>
+        </div>
+        <div class="seobox">
+          <div class="lbl">Готовий текст + FAQ</div>
+          <p><b>Вступ:</b> Добавки за станом — суглоби й зв'язки, імунітет, сон, травлення, чоловіче й жіноче здоров'я.</p>
+          <p><b>Низ:</b> Розділ зібраний за станами, а не за типом продукту, щоб простіше знайти потрібне. Колаген і глюкозамін — для суглобів, мелатонін — для сну, пробіотики — для травлення, адаптогени — для стійкості до стресу.</p>
+          <ul class="faq">
+            <li><b>Що для суглобів?</b> Колаген, глюкозамін/хондроїтин.</li>
+            <li><b>Мелатонін безпечний?</b> Так, короткими курсами.</li>
+            <li><b>Чим відрізняється від «Вітамінів»?</b> Тут — за станом, там — за нутрієнтом.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rel"><b>Суміжні:</b> Вітаміни та мінерали · Омега-3 · Амінокислоти</div>
+    </div>
+
+    <!-- 11 Аксесуари -->
+    <div class="cmcard" id="c11">
+      <div class="cmhead"><span class="cmnum">11</span><h3>Аксесуари</h3><span class="url">/accessories/</span></div>
+      <div class="rowf"><b>Типи:</b> <span>Шейкери та пляшки · Дозатори / таблетниці · Атрибутика (пояси, лямки/крюки, бинти, рукавички, магнезія, фітнес-гумки)</span></div>
+      <div class="rowf"><b>Фасети:</b> <span>Тип · Бренд · Ціна · Наявність · <i>Об'єм (шейкери) · Матеріал</i></span></div>
+      <div class="rowf"><b>Бренди:</b> <span>BlenderBottle · SmartShake · OstroVit · Power System · Olimp</span></div>
+      <div class="rowf"><b>Цілі:</b> <span>—</span></div>
+      <div class="seoboxes">
+        <div class="seobox">
+          <div class="lbl">SEO-мета</div>
+          <div class="meta"><b>H1:</b> Аксесуари для спорту</div>
+          <div class="meta"><b>Title:</b> Спортивні аксесуари — шейкери, пояси, лямки | Stack</div>
+          <div class="meta"><b>Description:</b> Спортивні аксесуари: шейкери, пляшки, пояси, лямки, бинти, рукавички, магнезія — усе для тренувань. Доставка по Україні.</div>
+        </div>
+        <div class="seobox">
+          <div class="lbl">Готовий текст + FAQ</div>
+          <p><b>Вступ:</b> Шейкери, пляшки, пояси, лямки й інша атрибутика для зручних і безпечних тренувань.</p>
+          <p><b>Низ:</b> Аксесуари роблять тренування зручнішими й безпечнішими: шейкер рівномірно розмішує протеїн, пояс і бинти страхують на важких підходах, лямки допомагають у тязі, магнезія покращує хват.</p>
+          <ul class="faq">
+            <li><b>Який шейкер обрати?</b> З пружинкою/сіткою для розмішування.</li>
+            <li><b>Навіщо пояс?</b> Підтримка спини у важких присіданнях/тязі.</li>
+            <li><b>Лямки для чого?</b> Фіксація хвату у тязі.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rel"><b>Суміжні:</b> Протеїн · Креатин · Одяг (post-launch)</div>
+    </div>
+
+  </section>
+
+  <!-- brands note -->
+  <section class="section">
+    <div class="section-num">Бренди (2.4)</div>
+    <h2>Паралельний індекс, не рядок матриці</h2>
+    <p class="section-lead">«Бренди» — A–Z список пулу брендів; кожен веде на лістинг бренду на <b>тому самому шаблоні</b> (обсяг = бренд). SEO: H1 «[Бренд] в Україні», свій Title/Description, BreadcrumbList. Комбінації «бренд-у-категорії» входять у білий список індексації.</p>
+  </section>
+
+  <section class="section">
+    <div class="open">
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">✓ <b>Як це живить продакшн:</b> кожен інстанс 2.1 читає свій рядок (фасети, бренди, H1/мета, текст, FAQ); футер (0.2) і мега-меню «Каталог» тягнуть назви + ключові субкатегорії з таксономії; SEO-тексти тут — <b>готова чернетка IA-рівня</b> (структура + текст), валідація обсягів — за <a href="seo.html">SEO-методикою</a>.</p>
+      <h2 style="font-size:15px;margin:8px 0">Лишається [?]</h2>
+      <ul>
+        <li>Глибина каталогу / кількість SKU на категорію — операційне (дані постачальників).</li>
+        <li>Фінальний список брендів на категорію — залежить від угод про постачання.</li>
+        <li>Білий список фасетної індексації на категорію — keyword research.</li>
+        <li>FAQ можна розширювати понад 3 засіяні — на етапі копірайту.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="footer-text">
+    Stack — Посторінкова IA · Матриця наповнення категорій (кластер 2, дані). Джерело істини: ia/docs/pages/category-matrix.md. Шаблон лістингу: category.html (2.1). Таксономія: catalog.html. SEO-рушій: seo.html. Червень 2026, чернетка.
+  </div>
+
+</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+</script>
+</body>
+</html>

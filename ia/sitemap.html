@@ -149,22 +149,26 @@
 
 <aside class="sidebar" id="sidebar">
   <a href="../research/research.html" class="sidebar-logo">Stack</a>
-  <nav class="sidebar-nav">
+    <nav class="sidebar-nav">
     <a href="../research/research.html">Дослідження</a>
     <a href="../research/personas.html">Персони</a>
     <a href="../research/jtbd.html">JTBD</a>
     <a href="../research/concept.html">Концептуальна архітектура</a>
     <hr class="sidebar-divider">
-    <div class="sidebar-page-label">Інформаційна архітектура</div>
+    <div class="sidebar-page-label">Структура</div>
     <a href="sitemap.html" class="sidebar-sub active">Карта сайту</a>
-    <a href="navigation.html" class="sidebar-sub">Навігація</a>
+    <a href="navigation.html" class="sidebar-sub">Хедер</a>
     <a href="footer.html" class="sidebar-sub">Футер</a>
-    <a href="home.html" class="sidebar-sub">Головна</a>
     <a href="catalog.html" class="sidebar-sub">Каталог</a>
+    <a href="category-matrix.html" class="sidebar-sub">Матриця категорій</a>
+    <a href="seo.html" class="sidebar-sub">SEO-методика</a>
+    <div class="sidebar-page-label">Сторінки</div>
+    <a href="home.html" class="sidebar-sub">Головна</a>
+    <a href="catalog-page.html" class="sidebar-sub">Каталог</a>
     <a href="category.html" class="sidebar-sub">Категорія</a>
     <a href="quiz.html" class="sidebar-sub">Квіз</a>
     <hr class="sidebar-divider">
-    <div class="sidebar-upcoming">Далі<br>Картка · Кошик<br>Акаунт<br>Wireframes</div>
+    <div class="sidebar-upcoming">Далі<br>Картка товару<br>Кошик · Акаунт<br>Wireframes</div>
   </nav>
 </aside>
 
@@ -374,15 +378,15 @@ flowchart TD
   <!-- 2 Catalog -->
   <section class="cluster" id="c2">
     <div class="cluster-head"><span class="cluster-num">2.x</span><h2>Каталог і пошук</h2></div>
-    <p class="cluster-sub">Усі точки відкриття товару: категорії, цілі, симптоми, бренди, пошук, фільтри, SEO-сторінки міст. Повна таксономія магазину (12 топ-категорій → субкатегорії → типи + 6 цілей) — <a href="catalog.html">ia/catalog.html</a>. Сторінка лістингу (єдиний шаблон для 2.0/2.1/2.2/2.4/2.5) — <a href="category.html">ia/category.html</a>.</p>
+    <p class="cluster-sub">Усі точки відкриття товару: категорії, цілі, симптоми, бренди, пошук, фільтри, SEO-сторінки міст. Структура магазину (12 топ-категорій → субкатегорії → типи + 6 цілей) — <a href="catalog.html">ia/catalog.html</a>. Сторінка <b>Каталог-хаб</b> (2.0) — <a href="catalog-page.html">ia/catalog-page.html</a>. Шаблон лістингу (2.1, спільний для 2.2/2.4/2.5) — <a href="category.html">ia/category.html</a>. Наповнення категорій — <a href="category-matrix.html">матриця</a>; SEO-рушій — <a href="seo.html">методика</a>.</p>
     <div class="grid">
 
       <article class="node" id="n20">
         <div class="node-head"><span class="node-num">2.0</span><span class="chip page">Сторінка</span></div>
-        <h3>Каталог / усі товари</h3>
+        <h3>Каталог (хаб)</h3>
         <p class="includes-label">Включає</p>
-        <ul class="includes"><li>Breadcrumbs, H1</li><li><b>Панель фільтрів</b></li><li>Сортування</li><li>Сітка товарів, пагінація</li><li>Той самий <b>шаблон лістингу</b>, що 2.1 (обсяг = усі)</li><li>Деталі: <b>ia/category.html</b></li></ul>
-        <div class="links">→ <a href="#n30">3.0</a> · <a href="#n21">2.1</a></div>
+        <ul class="includes"><li>Breadcrumbs, H1 «Каталог»</li><li><b>6 плиток цілей</b> (концерн-лінза)</li><li><b>12 плиток категорій</b> (+ підказки субкатегорій)</li><li>Популярні товари · SEO-текст</li><li><b>Хаб-навігація</b>, не лістинг (без фільтрів/сітки товарів)</li><li>Деталі: <b>ia/catalog-page.html</b></li></ul>
+        <div class="links">→ <a href="#n21">2.1</a> · <a href="#n22">2.2</a> · <a href="#n24">2.4</a> · <a href="#n30">3.0</a></div>
       </article>
 
       <article class="node" id="n21">

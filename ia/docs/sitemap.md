@@ -28,6 +28,16 @@
     dialog: intro → 5 questions [goal·experience·frequency·constraints·format/budget] + conditional
     safety insert → curated set = filtered goal collection 2.2, not a single product; fixed order,
     result-branching; B/W).
+  - `pages/catalog-page.md` → `ia/catalog-page.html` (node 2.0 — Catalog **hub/landing**: H1
+    «Каталог» + 6 goal tiles + 12 category tiles + popular + SEO; navigation hub, NOT a listing
+    and NOT the taxonomy). `catalog.md`/`catalog.html` is the **structure/taxonomy** («Структура»
+    sidebar group); this is the «Каталог» page in the «Сторінки» group.
+  - `pages/category-matrix.md` → `ia/category-matrix.html` (node 2.x data — content matrix that
+    **populates all 11 categories**: facets subset, brands, goals, H1/Title/Description, ready SEO
+    text + FAQ, related; shared brand pool. One artifact instead of 12 specs).
+  - `pages/seo.md` → `ia/seo.html` (SEO **engine** for the whole project: principles, keyword model,
+    sportpit keyword clusters, intent modifiers, Title/Description/H1 templates, SEO-text structure,
+    schema, technical checklist, process. Search volumes = `[?]` (Ahrefs/Serpstat/GKP)).
   - `pages/category.md` → `ia/category.html` (node 2.1 — Category / product listing (PLP):
     breadcrumb → H1 + intro → subcategory chips + goal chips → toolbar/sort → active filters →
     filter rail (desktop) / bottom-sheet (mobile) + product grid (canonical card + availability

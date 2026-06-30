@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack — IA: SEO-методика та ключі</title>
+  <style>
+    :root {
+      --bg: #f7f6f3; --surface: #ffffff; --surface-alt: #f2f0eb; --border: #e5e2db;
+      --text: #1a1916; --text-secondary: #6b6760; --text-light: #9b9790;
+      --accent: #2d5a3d; --accent-light: #e8f0ea; --accent-mid: #4a8c62;
+      --warn: #b5882a; --warn-bg: #fdf3e3;
+      --radius: 10px; --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); }
+
+    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: rgba(247,246,243,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 101; }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: rgba(247,246,243,.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-right: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform .22s ease; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+    .sidebar-nav { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px; }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+    .sidebar-nav a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: var(--radius-sm); transition: color .15s, background .15s; margin-bottom: 1px; }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-nav a.sidebar-sub { font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light); }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-page-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 4px; }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+    .sidebar-upcoming { padding: 12px 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-light); line-height: 1.8; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 68px 20px 80px; }
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 44px 44px 80px; }
+    }
+
+    .hero { margin-bottom: 26px; }
+    .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+    .hero h1 { font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .hero-lead { font-size: 16px; color: var(--text-secondary); max-width: 800px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-size: 13px; color: var(--text-secondary); }
+    .hero-meta strong { color: var(--text); font-weight: 600; }
+
+    .section { margin-bottom: 36px; scroll-margin-top: 64px; }
+    .section-num { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .section h2 { font-size: 22px; letter-spacing: -0.015em; margin-bottom: 6px; }
+    .section h3 { font-size: 14px; margin: 14px 0 6px; color: var(--accent); }
+    .section-lead { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 18px; max-width: 800px; }
+    .note { font-size: 12px; color: var(--text-light); margin: 4px 0 16px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 10px; }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--surface-alt); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-secondary); }
+    tr:last-child td { border-bottom: none; }
+    td b { color: var(--text); }
+    code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; background: var(--surface-alt); padding: 1px 5px; border-radius: 4px; color: var(--accent); }
+    .q { color: var(--warn); font-weight: 700; }
+
+    ol.steps { margin: 0 0 8px 20px; font-size: 13.5px; color: var(--text-secondary); } ol.steps li { margin-bottom: 5px; }
+    ul.list { margin: 0 0 8px 18px; font-size: 13.5px; color: var(--text-secondary); } ul.list li { margin-bottom: 5px; }
+    ul.list b, ol.steps b { color: var(--text); }
+
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow-sm); margin-bottom: 10px; }
+    .card .ct { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+    .pill { display: inline-block; font-size: 12px; font-weight: 600; color: var(--text-secondary); background: var(--surface-alt); border: 1px solid var(--border); border-radius: 100px; padding: 4px 11px; margin: 0 5px 6px 0; }
+    .pill.c { color: var(--accent); background: var(--accent-light); border-color: #cfe0d4; }
+
+    .codebox { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; background: #f4f4f4; border: 1px solid #e4e4e4; border-radius: 8px; padding: 11px 13px; color: #333; white-space: pre-wrap; word-break: break-word; margin: 0 0 12px; line-height: 1.6; }
+    .codebox b { color: #111; }
+    .reco { background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--text); margin: 10px 0 14px; }
+    .reco b { color: var(--accent); }
+    .open { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 18px 20px; }
+    .open h2 { font-size: 18px; margin-bottom: 10px; color: var(--warn); }
+    .open ul { margin-left: 18px; } .open li { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }
+    @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="../research/research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="../research/research.html" class="sidebar-logo">Stack</a>
+    <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Структура</div>
+    <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
+    <a href="navigation.html" class="sidebar-sub">Хедер</a>
+    <a href="footer.html" class="sidebar-sub">Футер</a>
+    <a href="catalog.html" class="sidebar-sub">Каталог</a>
+    <a href="category-matrix.html" class="sidebar-sub">Матриця категорій</a>
+    <a href="seo.html" class="sidebar-sub active">SEO-методика</a>
+    <div class="sidebar-page-label">Сторінки</div>
+    <a href="home.html" class="sidebar-sub">Головна</a>
+    <a href="catalog-page.html" class="sidebar-sub">Каталог</a>
+    <a href="category.html" class="sidebar-sub">Категорія</a>
+    <a href="quiz.html" class="sidebar-sub">Квіз</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-upcoming">Далі<br>Картка товару<br>Кошик · Акаунт<br>Wireframes</div>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Посторінкова IA · SEO-рушій · усі сторінки</div>
+    <h1>SEO-методика та ключові слова</h1>
+    <p class="hero-lead">Рушій SEO проєкту: принципи, модель ключів, кластери запитів під спортпит, модифікатори інтенту, шаблони Title/Description/H1, структура SEO-тексту, схема й технічний чек-ліст. З цим можна генерувати <b>готову, оптимізовану українську копію для будь-якої сторінки вже на етапі IA</b> — чекає лише валідація обсягів за реальними даними. Живить A–E SEO-блок кожної сторінки, <a href="category-matrix.html">матрицю категорій</a> та SEO-лінки <a href="footer.html">футера</a>.</p>
+    <div class="hero-meta">
+      <div><strong>Джерело істини</strong> ia/docs/pages/seo.md</div>
+      <div><strong>Обсяги запитів</strong> <span class="q">[?]</span> Ahrefs · Serpstat · GKP</div>
+      <div><strong>Мова</strong> uk-first + ru hreflang</div>
+    </div>
+  </div>
+
+  <!-- 1 principles -->
+  <section class="section" id="principles">
+    <div class="section-num">01 · Принципи</div>
+    <h2>Принципи SEO для Stack</h2>
+    <ul class="list">
+      <li><b>Довіра передусім</b> (Принцип №1): спершу безпека/якість (сертифікати, оригінал, склад, дозування), потім продаж — знижує сумнів початківця.</li>
+      <li><b>Проста українська</b> (Принцип №5): щоденні слова в навігації; глибина — у тілі тексту. Кореневі ключі природно, <b>без переспаму</b>.</li>
+      <li><b>Збіг інтенту:</b> сторінка цілить в один домінантний інтент (комерційний/інформаційний) та один основний ключ; решта — LSI, не повтор.</li>
+      <li><b>Один H1</b> на сторінку, логічна ієрархія H2→H3.</li>
+      <li><b>Внутрішня перелінковка</b> описовими анкорами (категорії ↔ субкатегорії ↔ цілі ↔ бренди ↔ міста). Футер і мега-меню — дві головні поверхні лінкування.</li>
+      <li><b>Керування фасетною індексацією:</b> індексуємо лише білий список фасет-сторінок, решта — canonical-на-базу / noindex,follow (проти розпухання індексу).</li>
+      <li><b>Двомовність (uk/ru):</b> користувачі шукають і українською, і російською. Сайт <b>uk-first</b> (canonical uk) + `ru` hreflang; без змішування мов на одному URL.</li>
+      <li><b>Технічна гігієна:</b> mobile-first, Core Web Vitals, alt, lazy-load, чисті URL, sitemap.xml, крихти.</li>
+    </ul>
+  </section>
+
+  <!-- 2 keyword model + 3 modifiers -->
+  <section class="section" id="model">
+    <div class="section-num">02 · Модель ключів та модифікатори інтенту</div>
+    <h2>Head · Body · Long-tail + слова-модифікатори</h2>
+    <div class="card">
+      <div class="ct">Модель ключів</div>
+      <ul class="list" style="margin-bottom:0">
+        <li><b>Head</b> (широкі, високочастотні): <code>протеїн</code> · <code>креатин</code> · <code>вітаміни</code> → H1 категорії.</li>
+        <li><b>Body</b> (комерційні): <code>купити протеїн</code> · <code>протеїн ціна</code> · <code>сироватковий протеїн</code> → Title/Description + субкатегорії.</li>
+        <li><b>Long-tail</b> (вузькі, високий інтент/інфо): <code>протеїн без лактози купити</code> · <code>як приймати креатин</code> → фільтри/цілі/товар/блог.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="ct">Модифікатори інтенту (UA) — комбінуємо з head-словом</div>
+      <div style="margin-bottom:6px"><span class="pill c">Комерційні</span> купити · ціна · вартість · в Україні · [місто] · оригінал · дешево · знижка · акція · замовити · доставка</div>
+      <div style="margin-bottom:6px"><span class="pill c">Вибір/якість</span> найкращий · рейтинг · відгуки · який обрати · топ</div>
+      <div style="margin-bottom:6px"><span class="pill">Інформаційні</span> як приймати · дозування · для чого · користь · протипоказання · коли пити · скільки</div>
+      <div><span class="pill">Аудиторія/ціль</span> для набору маси · для схуднення · для відновлення · для жінок · для чоловіків · для початківців · для витривалості</div>
+    </div>
+  </section>
+
+  <!-- 4 keyword map -->
+  <section class="section" id="map">
+    <div class="section-num">03 · Карта ключів за типом сторінки</div>
+    <h2>Який ключ на яку сторінку</h2>
+    <table>
+      <tr><th>Тип сторінки</th><th>Патерн ключа</th><th>Приклад</th><th>Інтент</th></tr>
+      <tr><td><b>Головна</b> (0.0)</td><td>спортивне харчування + купити/Україна</td><td>спортивне харчування купити Україна</td><td>commercial</td></tr>
+      <tr><td><b>Категорія</b> (2.1)</td><td>[категорія] + купити/ціна</td><td>купити протеїн ціна</td><td>commercial</td></tr>
+      <tr><td><b>Субкатегорія</b></td><td>[тип] + купити</td><td>сироватковий протеїн купити</td><td>commercial</td></tr>
+      <tr><td><b>Ціль</b> (2.2)</td><td>спортхарчування для [цілі]</td><td>спортивне харчування для набору маси</td><td>commercial+info</td></tr>
+      <tr><td><b>Товар</b> (3.0)</td><td>[бренд]+[назва]+[фасування]</td><td>Optimum Whey Gold Standard 2.27 кг</td><td>transactional</td></tr>
+      <tr><td><b>Бренд</b> (2.4)</td><td>[бренд] + в Україні</td><td>Optimum Nutrition Україна</td><td>commercial</td></tr>
+      <tr><td><b>Місто</b> (2.1a)</td><td>[категорія] + [місто]</td><td>протеїн Одеса</td><td>local</td></tr>
+      <tr><td><b>Блог</b> (8.1)</td><td>як/чому/скільки + тема</td><td>як приймати креатин</td><td>informational</td></tr>
+    </table>
+  </section>
+
+  <!-- 5 clusters -->
+  <section class="section" id="clusters">
+    <div class="section-num">04 · Кластери запитів під спортпит (UA)</div>
+    <h2>Ключі за категоріями — обсяги <span class="q">[?]</span></h2>
+    <p class="section-lead">Основний + ключові body/long-tail на категорію. Обсяг/складність = <span class="q">[?]</span> (заповнюємо інструментами). uk + ru варіанти, де ru-форма поширена.</p>
+    <table>
+      <tr><th>Категорія</th><th>Ключі (uk / ru, body, long-tail)</th><th>Обсяг</th></tr>
+      <tr><td><b>Протеїн</b></td><td>протеїн / протеин · купити протеїн · протеїн ціна · сироватковий протеїн · ізолят протеїну · протеїн для набору маси · протеїн без лактози · рослинний протеїн</td><td class="q">[?]</td></tr>
+      <tr><td><b>Гейнери</b></td><td>гейнер · купити гейнер · гейнер для набору маси · гейнер ціна</td><td class="q">[?]</td></tr>
+      <tr><td><b>Креатин</b></td><td>креатин · креатин моногідрат · купити креатин · як приймати креатин · креатин ціна</td><td class="q">[?]</td></tr>
+      <tr><td><b>Амінокислоти</b></td><td>bcaa · купити bcaa · eaa · амінокислоти · глютамін · bcaa для чого</td><td class="q">[?]</td></tr>
+      <tr><td><b>Передтренувальні</b></td><td>передтреник · передтренувальний комплекс · pre workout купити · бустер азоту</td><td class="q">[?]</td></tr>
+      <tr><td><b>Жироспалювачі</b></td><td>жироспалювач · л-карнітин · карнітин для схуднення · жироспалювач для жінок</td><td class="q">[?]</td></tr>
+      <tr><td><b>Ізотоніки</b></td><td>ізотонік · купити ізотонік · електроліти · енергетичний гель біг</td><td class="q">[?]</td></tr>
+      <tr><td><b>Батончики/снеки</b></td><td>протеїновий батончик · батончик без цукру · замінник харчування · арахісова паста</td><td class="q">[?]</td></tr>
+      <tr><td><b>Вітаміни</b></td><td>вітаміни · вітамін d3 купити · омега 3 · магній · цинк · вітаміни для імунітету</td><td class="q">[?]</td></tr>
+      <tr><td><b>Здоров'я</b></td><td>колаген купити · глюкозамін хондроїтин · мелатонін · пробіотики · ашваганда</td><td class="q">[?]</td></tr>
+      <tr><td><b>Аксесуари</b></td><td>шейкер · шейкер для спортпиту · атлетичний пояс · кистьові бинти · лямки для тяги</td><td class="q">[?]</td></tr>
+    </table>
+  </section>
+
+  <!-- 6 templates -->
+  <section class="section" id="templates">
+    <div class="section-num">05 · Шаблони Title / Description / H1</div>
+    <h2>Шаблони мета-тегів</h2>
+    <div class="codebox"><b>Title (≤60):</b> [Head] — [купити/ціна] [в Україні] | Stack
+  → Креатин — купити креатин моногідрат, ціна | Stack
+
+<b>Description (≤155):</b> [Що є / типи] від перевірених брендів. [Оригінал/сертифікати]. [Доставка/оплата]. [Ціль/CTA].
+  → Креатин моногідрат, Creapure, HCl у порошку й капсулах — для сили й маси. Оригінал, сертифікати, доставка Новою Поштою.
+
+<b>H1 (єдиний):</b> гола назва сутності (Креатин) — без «купити» в H1
+<b>Ціль (2.2) H1:</b> Спортивне харчування для [цілі]
+<b>Місто (2.1a) H1:</b> [Категорія] [Місто] + локальний рядок доставки</div>
+  </section>
+
+  <!-- 7 text structure -->
+  <section class="section" id="text">
+    <div class="section-num">06 · Структура SEO-тексту</div>
+    <h2>Тіло тексту (блок унизу сторінки)</h2>
+    <ol class="steps">
+      <li><b>Вступ (довіра)</b> — що це за категорія + сигнал якості (1–2 речення).</li>
+      <li><b>Як обрати</b> — типи/сценарії простими словами (цінність для початківця), кореневі ключі природно.</li>
+      <li><b>Завершення (довіра/логістика)</b> — сертифікація, доставка Новою Поштою, оплата, повернення.</li>
+    </ol>
+    <p class="note">Обсяг ~600–1200 символів; щільність ключів ~1–2%; LSI/синоніми, не повтор. Розташування — <b>під</b> товарами+фільтрами; «Читати більше» зверху веде якорем сюди.</p>
+    <div class="reco"><b>Приклад готового тексту</b> для кожної з 11 категорій уже зібрано в <a href="category-matrix.html">матриці категорій</a> (вступ + низ + FAQ).</div>
+  </section>
+
+  <!-- 8 schema -->
+  <section class="section" id="schema">
+    <div class="section-num">07 · Структурована розмітка</div>
+    <h2>Schema.org за типом сторінки</h2>
+    <table>
+      <tr><th>Сторінка</th><th>Схема</th></tr>
+      <tr><td>Головна</td><td>Organization · WebSite + SearchAction</td></tr>
+      <tr><td>Категорія / лістинг</td><td>BreadcrumbList · ItemList / CollectionPage · (FAQPage опц.)</td></tr>
+      <tr><td>Товар</td><td>Product + Offer (ціна, наявність) · AggregateRating · BreadcrumbList</td></tr>
+      <tr><td>Бренд</td><td>BreadcrumbList · (Brand)</td></tr>
+      <tr><td>Стаття блогу</td><td>Article / BlogPosting · BreadcrumbList</td></tr>
+      <tr><td>Блок FAQ</td><td>FAQPage</td></tr>
+    </table>
+  </section>
+
+  <!-- 9 technical -->
+  <section class="section" id="tech">
+    <div class="section-num">08 · Технічний чек-ліст</div>
+    <h2>Технічне SEO</h2>
+    <ul class="list">
+      <li><b>canonical</b> на кожній; пагінація self-canonical; фасет-комбінації canonical-на-базу.</li>
+      <li><b>hreflang</b> uk / ru / x-default; без змішування мов на URL.</li>
+      <li>Чисті слаги: <code>/protein/</code> · <code>/protein/isolate/</code> · <code>/brand/optimum-nutrition/</code>.</li>
+      <li>XML-<b>sitemap</b> (категорії, субкатегорії, товари, бренди, міста, блог) + robots.txt.</li>
+      <li><b>Крихти</b> (BreadcrumbList) на всіх глибоких сторінках.</li>
+      <li>Зображення: описовий <b>alt</b>, lazy-load нижче згину, стиснені; LCP не блокується.</li>
+      <li><b>Core Web Vitals</b> (LCP/CLS/INP) у нормі; mobile-first.</li>
+      <li>Внутрішні лінки — реальні кравлені <code>&lt;a&gt;</code> (load-more не ховає пагінацію).</li>
+    </ul>
+  </section>
+
+  <!-- 10 process -->
+  <section class="section" id="process">
+    <div class="section-num">09 · Інструменти та процес</div>
+    <h2>Як генеруємо SEO-текст сторінки</h2>
+    <div class="card">
+      <div class="ct">Інструменти (обсяги <span class="q">[?]</span>)</div>
+      <div><span class="pill">Ahrefs</span><span class="pill">Serpstat (UA)</span><span class="pill">Google Keyword Planner</span><span class="pill">Search Console</span><span class="pill">Google Trends (uk vs ru)</span></div>
+    </div>
+    <ol class="steps">
+      <li>Визначаємо тип сторінки → її патерн основного ключа (§03).</li>
+      <li>Тягнемо кластер категорії (§04) + модифікатори інтенту (§02).</li>
+      <li>Заповнюємо шаблони Title/Description/H1 (§05).</li>
+      <li>Пишемо тіло за 3-частинною структурою (§06), довіра-перш, без переспаму.</li>
+      <li>Додаємо схему (§07) + проганяємо технічний чек-ліст (§08).</li>
+      <li>Пізніше валідуємо обсяги/складність інструментами; правимо формулювання, не структуру.</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="open">
+      <h2>Лишається [?]</h2>
+      <ul>
+        <li>Реальні обсяги / складність / конкуренти в видачі — дані інструментів (Ahrefs/Serpstat/GKP).</li>
+        <li>Розподіл uk-vs-ru запитів за кластером — Search Console / Trends після запуску.</li>
+        <li>Фінальний білий список фасетної індексації — keyword research.</li>
+        <li>План тем блогу (інформаційний long-tail) — контент-етап.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="footer-text">
+    Stack — Посторінкова IA · SEO-методика та ключові слова (рушій для всіх сторінок). Джерело істини: ia/docs/pages/seo.md. Застосування: A–E SEO-блок кожної сторінки · матриця категорій (category-matrix.html) · футер (footer.html). Обсяги запитів — [?] до етапу з даними. Червень 2026, чернетка.
+  </div>
+
+</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+</script>
+</body>
+</html>

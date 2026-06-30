@@ -274,6 +274,24 @@ layout is still designed deliberately (it is a store).
   **curated set = a filtered Goal collection (2.2), NOT a single product**. Question order is fixed;
   branching lives in the result mapping. No account. MVP keeps goal tiles; the quiz is the enriched
   later version.
+  **Catalog hub (`catalog-page.md`, node 2.0, done June 2026):** the actual «Каталог» page — a
+  **navigation hub** (H1 «Каталог» + 6 goal tiles + 12 category tiles with subcategory hints +
+  popular + SEO), NOT a product listing (that's 2.1) and NOT the taxonomy. **Three distinct things
+  now:** `catalog.html` = **structure/taxonomy** (sidebar group «Структура»); `catalog-page.html`
+  = the **Каталог page/hub 2.0** (sidebar group «Сторінки»); `category.html` = the **listing 2.1**.
+  **Category content matrix (`category-matrix.md`, done June 2026):** one artifact that populates
+  ALL 11 listing categories — per category: facet subset, brand set (from a shared brand pool),
+  goals, H1/Title/Description, ready SEO text + FAQ, related. Dedupes shared brands/facets instead
+  of 12 separate specs; feeds each 2.1 instance + footer + mega-menu.
+  **SEO methodology (`seo.md`, done June 2026):** the project's SEO **engine** — principles,
+  keyword model (head/body/long-tail), sportpit keyword clusters (UA), intent modifiers,
+  Title/Description/H1 templates, 3-part SEO-text structure, schema-by-page-type, technical
+  checklist, generation process. Lets ready optimized UA copy be produced at the IA stage; search
+  **volumes stay [?]** until Ahrefs/Serpstat/Keyword Planner. Every page's A–E SEO block draws on it.
+  **Docs sidebar reorganized (June 2026):** two IA groups — **«Структура»** (Карта сайту · Хедер
+  [was «Навігація»] · Футер · Каталог [taxonomy] · Матриця категорій · SEO-методика) and
+  **«Сторінки»** (Головна · Каталог [hub 2.0] · Категорія · Квіз). Two «Каталог» entries by design
+  (structure vs page).
   **Category / product listing (`category.md`, node 2.1, done June 2026):** the catalog workhorse
   PLP — breadcrumb → H1 + collapsible trust intro + result count → subcategory chips + «За ціллю»
   goal chips (concern lens) → toolbar (sort/view/active-filter chips) → **filter rail (desktop) /
