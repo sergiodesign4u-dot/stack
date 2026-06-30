@@ -274,6 +274,18 @@ layout is still designed deliberately (it is a store).
   **curated set = a filtered Goal collection (2.2), NOT a single product**. Question order is fixed;
   branching lives in the result mapping. No account. MVP keeps goal tiles; the quiz is the enriched
   later version.
+  **Category / product listing (`category.md`, node 2.1, done June 2026):** the catalog workhorse
+  PLP — breadcrumb → H1 + collapsible trust intro + result count → subcategory chips + «За ціллю»
+  goal chips (concern lens) → toolbar (sort/view/active-filter chips) → **filter rail (desktop) /
+  bottom-sheet (mobile)** with the `catalog.md` facets → product grid (the canonical home.md card +
+  availability states: в наявності/мало/під замовлення/немає→«Повідомити») + ♡ + quick-add «У кошик»
+  → **load-more PLUS crawlable numbered pagination** → category SEO text + related brands/categories.
+  **Key decision: one shared listing template** serves Category (2.1), Catalog-all (2.0), Goal
+  collection (2.2), Brand (2.4), Search (2.5) and the SEO city variant (2.1a) — differing only in
+  H1, data scope and SEO block. A–E SEO block includes explicit **faceted-nav indexation control**
+  (curated index whitelist; other filter combos → canonical-to-base / noindex,follow) — critical to
+  avoid store index bloat. Open [?] (operational): index whitelist, first city landings, per-category
+  copy/FAQ, default-sort weighting.
 
 **Unified navigation:** all docs pages (research, personas, jtbd, concept, and every
 page-level IA page) share one left sidebar. Group order: Дослідження · Персони · JTBD ·

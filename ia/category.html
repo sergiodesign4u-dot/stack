@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack — IA: Категорія (лістинг товарів)</title>
+  <style>
+    :root {
+      --bg: #f7f6f3; --surface: #ffffff; --surface-alt: #f2f0eb; --border: #e5e2db;
+      --text: #1a1916; --text-secondary: #6b6760; --text-light: #9b9790;
+      --accent: #2d5a3d; --accent-light: #e8f0ea; --accent-mid: #4a8c62;
+      --warn: #b5882a; --warn-bg: #fdf3e3;
+      --radius: 10px; --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); }
+
+    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: rgba(247,246,243,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 101; }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: rgba(247,246,243,.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-right: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform .22s ease; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+    .sidebar-nav { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px; }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+    .sidebar-nav a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: var(--radius-sm); transition: color .15s, background .15s; margin-bottom: 1px; }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-nav a.sidebar-sub { font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light); }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-page-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 4px; }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+    .sidebar-upcoming { padding: 12px 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-light); line-height: 1.8; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 68px 20px 80px; }
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 44px 44px 80px; }
+    }
+
+    .hero { margin-bottom: 30px; }
+    .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+    .hero h1 { font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .hero-lead { font-size: 16px; color: var(--text-secondary); max-width: 780px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-size: 13px; color: var(--text-secondary); }
+    .hero-meta strong { color: var(--text); font-weight: 600; }
+
+    .section { margin-bottom: 44px; scroll-margin-top: 64px; }
+    .section-num { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .section h2 { font-size: 22px; letter-spacing: -0.015em; margin-bottom: 6px; }
+    .section-lead { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 20px; max-width: 760px; }
+    .note { font-size: 12px; color: var(--text-light); margin: 4px 0 18px; }
+    .wf-note { font-size: 12px; color: var(--text-light); margin: 0 0 12px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 8px; }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--surface-alt); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-secondary); }
+    tr:last-child td { border-bottom: none; }
+    td b { color: var(--text); }
+    .arrow { color: var(--accent-mid); font-weight: 600; white-space: nowrap; }
+
+    .cols { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 720px) { .cols.two { grid-template-columns: 1fr 1fr; } }
+
+    .open { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 18px 20px; }
+    .open h2 { font-size: 18px; margin-bottom: 10px; color: var(--warn); }
+    .open ul { margin-left: 18px; } .open li { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+    .reco { background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--text); margin: 10px 0 14px; }
+    .reco b { color: var(--accent); }
+    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }
+
+    /* ===== WIREFRAME (B/W) ===== */
+    .wf { border: 1px solid #cfcfcf; border-radius: 10px; overflow: hidden; background: #fff; color: #1b1b1b; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
+    .wf-cap { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8a8a8a; padding: 7px 12px; background: #f4f4f4; border-bottom: 1px solid #e4e4e4; }
+    .wf-pad { padding: 16px; }
+
+    /* breadcrumb */
+    .crumb { font-size: 11.5px; color: #888; margin-bottom: 10px; }
+    .crumb a { color: #888; text-decoration: none; }
+    .crumb .sep { color: #ccc; margin: 0 5px; }
+    .crumb .cur { color: #111; font-weight: 700; }
+
+    /* listing head */
+    .lh1 { font-size: 21px; font-weight: 800; color: #111; letter-spacing: -.01em; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .lh1 .cnt { font-size: 12px; font-weight: 600; color: #999; }
+    .lintro { color: #777; font-size: 12.5px; margin: 7px 0 0; max-width: 640px; }
+    .lintro .more { color: #111; font-weight: 700; white-space: nowrap; }
+
+    /* chip rows */
+    .chiprow { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 12px; }
+    .chip { border: 1.5px solid #c4c4c4; border-radius: 100px; padding: 6px 13px; font-size: 12px; font-weight: 600; color: #111; background: #fff; }
+    .chip.on { background: #161616; color: #fff; border-color: #161616; }
+    .chip.lbl { border: none; padding: 6px 4px 6px 0; color: #999; font-weight: 700; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; }
+    .chip.goal { border-style: dashed; }
+
+    /* toolbar */
+    .ltool { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 14px; padding-top: 12px; border-top: 1px dashed #d8d8d8; }
+    .ctrl { border: 1.5px solid #c4c4c4; border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 600; color: #111; display: inline-flex; align-items: center; gap: 7px; background: #fff; }
+    .ctrl .cap { color: #999; font-weight: 600; }
+    .ctrl.badge { position: relative; }
+    .ctrl.badge .b { background: #161616; color: #fff; border-radius: 100px; font-size: 10px; font-weight: 800; padding: 1px 6px; }
+    .ltool .sp { flex: 1; }
+    .vtoggle { display: inline-flex; border: 1.5px solid #c4c4c4; border-radius: 8px; overflow: hidden; }
+    .vtoggle span { padding: 8px 11px; font-size: 13px; color: #999; }
+    .vtoggle span.on { background: #161616; color: #fff; }
+
+    /* active filter chips */
+    .afilters { display: flex; gap: 7px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+    .afilter { background: #f0f0f0; border: 1px solid #ddd; border-radius: 100px; padding: 5px 10px; font-size: 11.5px; color: #333; font-weight: 600; display: inline-flex; gap: 6px; align-items: center; }
+    .afilter .x { color: #999; font-weight: 800; }
+    .afilters .clear { font-size: 11.5px; color: #111; font-weight: 700; text-decoration: underline; }
+
+    /* listing two-col */
+    .listing { display: grid; grid-template-columns: 232px 1fr; gap: 16px; margin-top: 14px; }
+    @media (max-width: 720px) { .listing { grid-template-columns: 1fr; } }
+
+    /* filter rail */
+    .frail { border: 1px solid #e2e2e2; border-radius: 10px; padding: 4px 0; align-self: start; }
+    .fgroup { border-bottom: 1px solid #eee; padding: 11px 13px; }
+    .fgroup:last-child { border-bottom: none; }
+    .fgroup .fh { font-size: 12px; font-weight: 800; color: #111; display: flex; justify-content: space-between; align-items: center; }
+    .fgroup .fh .ar { color: #aaa; font-weight: 700; }
+    .fopt { font-size: 12px; color: #444; margin-top: 8px; display: flex; align-items: center; gap: 8px; }
+    .fopt .cb { width: 14px; height: 14px; border: 1.5px solid #bbb; border-radius: 4px; display: inline-block; flex: none; }
+    .fopt .cb.on { background: #161616; border-color: #161616; }
+    .fopt .ct { color: #bbb; margin-left: auto; font-size: 11px; }
+    .frange { height: 4px; background: #ddd; border-radius: 4px; margin: 12px 2px 8px; position: relative; }
+    .frange::before, .frange::after { content: ''; position: absolute; top: -4px; width: 12px; height: 12px; border-radius: 50%; background: #161616; }
+    .frange::before { left: 18%; } .frange::after { right: 26%; }
+    .frow { display: flex; gap: 8px; font-size: 11px; color: #666; }
+    .frow .in { flex: 1; border: 1px solid #ddd; border-radius: 6px; padding: 5px 8px; }
+
+    /* product grid (canonical card) */
+    .prow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    @media (max-width: 980px) { .prow { grid-template-columns: 1fr 1fr; } }
+    .pcard { border: 1px solid #e2e2e2; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+    .pcard .img { height: 92px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 11px; position: relative; }
+    .pcard .pdisc { position: absolute; top: 6px; right: 6px; background: #161616; color: #fff; font-size: 10px; font-weight: 800; border-radius: 5px; padding: 2px 6px; }
+    .pcard .ptag { position: absolute; top: 6px; left: 6px; background: #fff; border: 1.5px solid #161616; color: #111; font-size: 9px; font-weight: 800; border-radius: 5px; padding: 1px 5px; text-transform: uppercase; }
+    .pcard .fav { position: absolute; bottom: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 1px solid #e0e0e0; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #888; }
+    .pcard .pn { font-size: 12px; color: #333; padding: 8px 8px 2px; line-height: 1.3; }
+    .pcard .pmeta { font-size: 10.5px; color: #888; padding: 2px 8px 0; line-height: 1.3; }
+    .pcard .pavail { font-size: 10px; font-weight: 700; padding: 4px 8px 0; }
+    .pcard .pavail.in { color: #2d7d46; }
+    .pcard .pavail.low { color: #b5882a; }
+    .pcard .pavail.pre { color: #888; }
+    .pcard .pavail.out { color: #b04a4a; }
+    .pcard .pprice { padding: 3px 8px 0; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+    .pcard .pnew { font-weight: 800; color: #111; font-size: 14px; }
+    .pcard .pold { font-size: 11px; color: #aaa; text-decoration: line-through; }
+    .pcard .pb { margin: 8px; margin-top: auto; border: 1.5px solid #161616; border-radius: 7px; text-align: center; padding: 7px 6px; font-size: 12px; font-weight: 700; color: #111; }
+    .pcard .pb.dark { background: #161616; color: #fff; }
+    .pcard .pb.notify { border-style: dashed; color: #555; }
+    .pcard.dim .img, .pcard.dim .pprice { opacity: .55; }
+
+    /* pagination */
+    .pgnav { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 18px; }
+    .loadmore { border: 1.5px solid #161616; border-radius: 8px; padding: 10px 22px; font-size: 13px; font-weight: 700; color: #111; }
+    .pages { display: flex; gap: 6px; }
+    .pages a { min-width: 30px; height: 30px; border: 1px solid #ddd; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #444; text-decoration: none; }
+    .pages a.on { background: #161616; color: #fff; border-color: #161616; }
+
+    /* related strip */
+    .relrow { display: flex; gap: 8px; flex-wrap: wrap; }
+    .relbox { border: 1px solid #ddd; border-radius: 8px; padding: 9px 14px; font-size: 12px; font-weight: 700; color: #444; background: #fff; }
+
+    /* empty state */
+    .empty { border: 1.5px dashed #c4c4c4; border-radius: 10px; padding: 28px 18px; text-align: center; }
+    .empty .ei { font-size: 26px; }
+    .empty .et { font-size: 14px; font-weight: 800; color: #111; margin: 8px 0 4px; }
+    .empty .es { font-size: 12px; color: #777; margin-bottom: 12px; }
+
+    /* seo text */
+    .seotext { padding: 14px 16px; background: #fafafa; }
+    .seotext .h { font-size: 15px; font-weight: 800; color: #111; margin-bottom: 8px; }
+    .seotext p { font-size: 13px; color: #555; margin-bottom: 8px; line-height: 1.55; }
+    .codebox { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; background: #f4f4f4; border: 1px solid #e4e4e4; border-radius: 8px; padding: 10px 12px; color: #333; white-space: pre-wrap; word-break: break-word; margin: 0 0 12px; line-height: 1.6; }
+    .codebox b { color: #111; }
+    .chklist { font-size: 13px; color: var(--text-secondary); margin: 0 0 8px 18px; } .chklist li { margin-bottom: 5px; }
+
+    /* phone skeleton */
+    .phone2 { max-width: 320px; border: 1px solid #cfcfcf; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: var(--shadow-sm); }
+    .p-top { display: flex; align-items: center; gap: 8px; padding: 9px 11px; border-bottom: 1px solid #eee; }
+    .p-top .wf-logo { font-size: 15px; font-weight: 800; color: #111; }
+    .p-top .sp { flex: 1; }
+    .p-top .ic { font-size: 14px; color: #555; }
+    .p-blk { padding: 10px 11px; border-bottom: 1px solid #f0f0f0; }
+    .p-blk .bh { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #aaa; margin-bottom: 6px; }
+    .p-bar { display: flex; gap: 6px; }
+    .p-bar .pc { flex: 1; border: 1.5px solid #c4c4c4; border-radius: 7px; text-align: center; padding: 7px 4px; font-size: 11px; font-weight: 700; color: #111; }
+    .p-bar .pc.dark { background: #161616; color: #fff; border-color: #161616; }
+    .p-chips { display: flex; gap: 5px; overflow: hidden; }
+    .p-chips .c { border: 1.5px solid #c4c4c4; border-radius: 100px; padding: 4px 9px; font-size: 10px; font-weight: 700; color: #111; white-space: nowrap; }
+    .p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .p-pc { border: 1px solid #e2e2e2; border-radius: 8px; overflow: hidden; }
+    .p-pc .im { height: 46px; background: #f0f0f0; }
+    .p-pc .tx { padding: 5px 6px; }
+    .p-line { height: 6px; background: #ececec; border-radius: 4px; margin: 4px 0; }
+    .p-line.s { width: 60%; }
+    .p-cta { background: #161616; color: #fff; border-radius: 7px; text-align: center; padding: 8px; font-size: 11px; font-weight: 700; margin-top: 8px; }
+    .p-tabs { display: flex; border-top: 1px solid #e4e4e4; }
+    .p-tab { flex: 1; text-align: center; padding: 7px 2px; font-size: 9px; color: #777; }
+    .p-tab.active { color: #111; font-weight: 700; }
+    .p-tab .ic { font-size: 15px; display: block; }
+    /* sheet */
+    .sheet { max-width: 320px; border: 1px solid #cfcfcf; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: var(--shadow-sm); }
+    .sheet .sh { padding: 11px 13px; border-bottom: 1px solid #eee; font-size: 13px; font-weight: 800; color: #111; display: flex; justify-content: space-between; }
+    .sheet .sh .x { color: #999; }
+    .sheet .sfoot { display: flex; gap: 8px; padding: 11px 13px; border-top: 1px solid #eee; }
+
+    @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="../research/research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="../research/research.html" class="sidebar-logo">Stack</a>
+  <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Інформаційна архітектура</div>
+    <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
+    <a href="navigation.html" class="sidebar-sub">Навігація</a>
+    <a href="footer.html" class="sidebar-sub">Футер</a>
+    <a href="home.html" class="sidebar-sub">Головна</a>
+    <a href="catalog.html" class="sidebar-sub">Каталог</a>
+    <a href="category.html" class="sidebar-sub active">Категорія</a>
+    <a href="quiz.html" class="sidebar-sub">Квіз</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-upcoming">Далі<br>Картка · Кошик<br>Акаунт<br>Wireframes</div>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Посторінкова IA · лістинг товарів · вузол 2.1</div>
+    <h1>Категорія (лістинг товарів)</h1>
+    <p class="hero-lead">Сторінка-«робоча конячка» магазину: лістинг товарів із наслідуваною панеллю фільтрів. Це <b>єдиний шаблон лістингу</b> — той самий скелет обслуговує <b>Категорію (2.1)</b>, <b>корінь Каталогу (2.0)</b>, <b>колекцію «За ціллю» (2.2)</b>, <b>Бренд (2.4)</b>, <b>Пошук (2.5)</b> і SEO-варіант для міста <b>(2.1a)</b>. Відрізняються лише H1, обсяг даних і SEO-блок. Спокійно, довіра перед продажем (Принципи №1, №4).</p>
+    <div class="hero-meta">
+      <div><strong>Вузол</strong> 2.1 (+ шаблон для 2.0/2.2/2.4/2.5/2.1a)</div>
+      <div><strong>Фасети</strong> з catalog.md</div>
+      <div><strong>Картка товару</strong> канонічна (home.md)</div>
+      <div><strong>Джерело істини</strong> ia/docs/pages/category.md</div>
+    </div>
+  </div>
+
+  <div class="reco"><b>Ключове рішення:</b> один шаблон лістингу на всі обсяги (Категорія / Каталог-усе / Ціль / Бренд / Пошук / місто). Панель фільтрів — <b>наслідуваний компонент</b>: на десктопі ліва липка колонка, на мобілці — <b>bottom-sheet</b> за кнопкою «Фільтри». Цілі лишаються <b>першокласними всередині каталогу</b> (концерн-лінза) рядком чипів «За ціллю».</div>
+
+  <!-- 01 Desktop wireframe -->
+  <section class="section" id="desktop">
+    <div class="section-num">01 · Десктоп — повний лістинг</div>
+    <h2>Анатомія сторінки категорії</h2>
+    <p class="section-lead">Приклад: категорія <b>«Протеїн»</b>. Хлібні крихти → H1 + короткий вступ → чипи субкатегорій → чипи «За ціллю» → тулбар (сортування / вигляд / лічильник) → активні фільтри → дві колонки (панель фільтрів + сітка карток) → пагінація → SEO-текст → суміжне.</p>
+    <p class="wf-note">Мокап навмисно <b>чорно-білий</b> (вайрфрейм-рівень) — колір додамо на етапі концепту.</p>
+
+    <div class="wf">
+      <div class="wf-cap">Категорія «Протеїн» — десктоп</div>
+      <div class="wf-pad">
+
+        <!-- breadcrumb -->
+        <div class="crumb"><a href="#">Головна</a><span class="sep">/</span><a href="#">Каталог</a><span class="sep">/</span><span class="cur">Протеїн</span></div>
+
+        <!-- h1 + intro -->
+        <div class="lh1">Протеїн <span class="cnt">84 товари</span></div>
+        <p class="lintro">Сироватковий, ізолят, казеїн і рослинний протеїн від перевірених брендів. Уся продукція сертифікована, з оригінальною гарантією виробника. <span class="more">Читати більше ▾</span></p>
+
+        <!-- subcategory chips -->
+        <div class="chiprow">
+          <span class="chip lbl">За типом</span>
+          <span class="chip on">Усі</span><span class="chip">Концентрат</span><span class="chip">Ізолят</span><span class="chip">Гідролізат</span><span class="chip">Казеїн</span><span class="chip">Комплексний</span><span class="chip">Рослинний</span><span class="chip">Яловичий</span>
+        </div>
+
+        <!-- goal chips -->
+        <div class="chiprow">
+          <span class="chip lbl">За ціллю</span>
+          <span class="chip goal">Набір маси</span><span class="chip goal">Схуднення</span><span class="chip goal">Відновлення</span>
+        </div>
+
+        <!-- toolbar -->
+        <div class="ltool">
+          <span class="ctrl badge">Фільтри <span class="b">2</span></span>
+          <span class="ctrl"><span class="cap">Сортування:</span> Популярні ▾</span>
+          <span class="sp"></span>
+          <span class="ctrl cap" style="border:none">84 товари</span>
+          <span class="vtoggle"><span class="on">▦</span><span>☰</span></span>
+        </div>
+
+        <!-- active filters -->
+        <div class="afilters">
+          <span class="afilter">Бренд: Optimum <span class="x">✕</span></span>
+          <span class="afilter">Ціна: 800–1500 ₴ <span class="x">✕</span></span>
+          <span class="clear">Очистити все</span>
+        </div>
+
+        <!-- listing -->
+        <div class="listing">
+
+          <!-- filter rail -->
+          <div class="frail">
+            <div class="fgroup"><div class="fh">Наявність <span class="ar">▾</span></div>
+              <div class="fopt"><span class="cb on"></span> В наявності <span class="ct">71</span></div>
+              <div class="fopt"><span class="cb"></span> Під замовлення <span class="ct">13</span></div>
+            </div>
+            <div class="fgroup"><div class="fh">Ціна, ₴ <span class="ar">▾</span></div>
+              <div class="frange"></div>
+              <div class="frow"><span class="in">800</span><span class="in">1500</span></div>
+            </div>
+            <div class="fgroup"><div class="fh">Бренд <span class="ar">▾</span></div>
+              <div class="fopt"><span class="cb on"></span> Optimum Nutrition <span class="ct">12</span></div>
+              <div class="fopt"><span class="cb"></span> BioTech <span class="ct">9</span></div>
+              <div class="fopt"><span class="cb"></span> Myprotein <span class="ct">7</span></div>
+              <div class="fopt" style="color:#999">+ ще 14 ▾</div>
+            </div>
+            <div class="fgroup"><div class="fh">Ціль <span class="ar">▾</span></div>
+              <div class="fopt"><span class="cb"></span> Набір маси <span class="ct">52</span></div>
+              <div class="fopt"><span class="cb"></span> Схуднення <span class="ct">23</span></div>
+            </div>
+            <div class="fgroup"><div class="fh">Форма <span class="ar">▾</span></div>
+              <div class="fopt"><span class="cb"></span> Порошок <span class="ct">76</span></div>
+              <div class="fopt"><span class="cb"></span> Готові напої (RTD) <span class="ct">8</span></div>
+            </div>
+            <div class="fgroup"><div class="fh">Смак · Фасування <span class="ar">▾</span></div>
+              <div class="fopt" style="color:#999">Шоколад · Ваніль · …</div>
+            </div>
+            <div class="fgroup"><div class="fh">Країна · Сертифікація <span class="ar">▾</span></div>
+              <div class="fopt" style="color:#999">США · ЄС · Україна …</div>
+            </div>
+          </div>
+
+          <!-- grid -->
+          <div>
+            <div class="prow">
+              <!-- in stock + discount + hit -->
+              <div class="pcard">
+                <div class="img">фото<span class="ptag">Хіт</span><span class="pdisc">−15%</span><span class="fav">♡</span></div>
+                <div class="pn">Whey Gold Standard 2270 г</div>
+                <div class="pmeta">Optimum Nutrition · США</div>
+                <div class="pavail in">● В наявності</div>
+                <div class="pprice"><span class="pnew">1 290 ₴</span><span class="pold">1 520 ₴</span></div>
+                <div class="pb dark">У кошик</div>
+              </div>
+              <!-- in stock -->
+              <div class="pcard">
+                <div class="img">фото<span class="fav">♡</span></div>
+                <div class="pn">Iso Whey Zero 908 г</div>
+                <div class="pmeta">BioTech · Угорщина</div>
+                <div class="pavail in">● В наявності</div>
+                <div class="pprice"><span class="pnew">1 050 ₴</span></div>
+                <div class="pb dark">У кошик</div>
+              </div>
+              <!-- new + low stock -->
+              <div class="pcard">
+                <div class="img">фото<span class="ptag">NEW</span><span class="fav">♡</span></div>
+                <div class="pn">Impact Whey Isolate 1 кг</div>
+                <div class="pmeta">Myprotein · Велика Британія</div>
+                <div class="pavail low">● Залишилось мало</div>
+                <div class="pprice"><span class="pnew">990 ₴</span></div>
+                <div class="pb dark">У кошик</div>
+              </div>
+              <!-- pre-order -->
+              <div class="pcard">
+                <div class="img">фото<span class="fav">♡</span></div>
+                <div class="pn">Casein Pro 1816 г</div>
+                <div class="pmeta">Optimum Nutrition · США</div>
+                <div class="pavail pre">● Під замовлення</div>
+                <div class="pprice"><span class="pnew">1 480 ₴</span></div>
+                <div class="pb">У кошик</div>
+              </div>
+              <!-- out of stock -->
+              <div class="pcard dim">
+                <div class="img">фото<span class="fav">♡</span></div>
+                <div class="pn">Syntha-6 2270 г</div>
+                <div class="pmeta">BSN · США</div>
+                <div class="pavail out">● Немає в наявності</div>
+                <div class="pprice"><span class="pnew">1 690 ₴</span></div>
+                <div class="pb notify">Повідомити про надходження</div>
+              </div>
+              <!-- in stock -->
+              <div class="pcard">
+                <div class="img">фото<span class="fav">♡</span></div>
+                <div class="pn">Rage Protein 900 г</div>
+                <div class="pmeta">Trec Nutrition · Польща</div>
+                <div class="pavail in">● В наявності</div>
+                <div class="pprice"><span class="pnew">720 ₴</span></div>
+                <div class="pb dark">У кошик</div>
+              </div>
+            </div>
+
+            <!-- pagination -->
+            <div class="pgnav">
+              <div class="loadmore">Показати ще 24</div>
+              <div class="pages"><a class="on" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">›</a></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <p class="note">Картка — <b>канонічна</b> з home.md: фото · бейдж (Хіт / NEW / −%) · назва · фірма·країна · <b>наявність</b> · ціна (нова + стара закреслена) · ♡ обране · «У кошик». Кнопка «У кошик» темна на товарах у наявності, контурна — під замовлення, пунктирна «Повідомити» — коли немає. <b>Пагінація:</b> «Показати ще» (load-more) <b>+</b> кравлені номерні сторінки для SEO.</p>
+  </section>
+
+  <!-- 02 Filter panel -->
+  <section class="section" id="filters">
+    <div class="section-num">02 · Панель фільтрів (фасети)</div>
+    <h2>Наслідуваний компонент — той самий на Каталог / Категорія / Ціль / Бренд / Пошук</h2>
+    <p class="section-lead">Фасети беремо прямо з <b>catalog.md</b>. Це фільтри на лістингу, а не рівні дерева. У кожного фасета — лічильники; на мобілці — «Застосувати (N)» / «Скинути».</p>
+    <table>
+      <tr><th>Фасет</th><th>Тип</th><th>Значення / приклад</th></tr>
+      <tr><td><b>Наявність</b></td><td>чекбокси</td><td>В наявності · Під замовлення · Повідомити про надходження</td></tr>
+      <tr><td><b>Ціна</b></td><td>range-слайдер</td><td>від / до, ₴</td></tr>
+      <tr><td><b>Бренд</b></td><td>мульти + пошук у списку</td><td>Optimum · BioTech · Myprotein …</td></tr>
+      <tr><td><b>Ціль</b></td><td>чекбокси (6 цілей)</td><td>Набір маси · Схуднення · … (концерн-лінза)</td></tr>
+      <tr><td><b>Форма</b></td><td>чекбокси</td><td>Порошок · Капсули · Готові напої (RTD)</td></tr>
+      <tr><td><b>Смак</b></td><td>чекбокси</td><td>Шоколад · Ваніль · Полуниця …</td></tr>
+      <tr><td><b>Фасування / вага</b></td><td>чекбокси</td><td>900 г · 2 кг · 5 кг …</td></tr>
+      <tr><td><b>Країна походження</b></td><td>чекбокси</td><td>США · ЄС · Україна …</td></tr>
+      <tr><td><b>Сертифікація</b></td><td>чекбокси</td><td>Наявність сертифіката / лаб. тести</td></tr>
+      <tr><td><b>Субкатегорія / Тип</b></td><td>чипи зверху + фасет</td><td>Ізолят · Концентрат · Казеїн …</td></tr>
+    </table>
+    <p class="note"><b>Сортування:</b> Популярні (за замовч.) · Спочатку дешевші · Спочатку дорожчі · Новинки · За рейтингом · За розміром знижки.</p>
+  </section>
+
+  <!-- 03 States -->
+  <section class="section" id="states">
+    <div class="section-num">03 · Стани</div>
+    <h2>Стани сторінки та картки</h2>
+    <p class="section-lead">Сторінка ніколи не лишає глухий кут (Принцип №2): порожня видача дає вихід. Наявність товару — чесний, простими словами сигнал на кожній картці.</p>
+
+    <div class="cols two">
+      <div>
+        <div class="wf">
+          <div class="wf-cap">Порожня видача (фільтри без результатів)</div>
+          <div class="wf-pad">
+            <div class="empty">
+              <div class="ei">🔍</div>
+              <div class="et">За вашими фільтрами нічого не знайдено</div>
+              <div class="es">Спробуйте прибрати частину фільтрів або оберіть ціль.</div>
+              <div class="chiprow" style="justify-content:center"><span class="chip">Очистити фільтри</span><span class="chip goal">Набір маси</span><span class="chip goal">Схуднення</span></div>
+            </div>
+          </div>
+        </div>
+        <p class="note">Завжди є наступний крок: скинути фільтри, перейти до цілі або до пошуку.</p>
+      </div>
+      <div>
+        <table>
+          <tr><th>Стан картки</th><th>Що показуємо</th></tr>
+          <tr><td><b>В наявності</b></td><td>ціна + «У кошик» (темна)</td></tr>
+          <tr><td><b>Залишилось мало</b></td><td>жовта помітка + «У кошик»</td></tr>
+          <tr><td><b>Під замовлення</b></td><td>помітка + «У кошик» (контурна, довша доставка)</td></tr>
+          <tr><td><b>Немає</b></td><td>приглушена ціна + <b>«Повідомити про надходження»</b></td></tr>
+        </table>
+        <table style="margin-top:10px">
+          <tr><th>Стан сторінки</th><th>Поведінка</th></tr>
+          <tr><td><b>За замовч.</b></td><td>сітка, сортування «популярні»</td></tr>
+          <tr><td><b>З фільтрами</b></td><td>активні чипи, лічильник оновлюється, URL відображає фасети</td></tr>
+          <tr><td><b>Завантаження</b></td><td>скелетони карток (без зсуву лейауту)</td></tr>
+          <tr><td><b>Тренер у сесії</b></td><td>та сама сітка, але CTA картки = <b>«Додати клієнту»</b> (мульти-клієнт 5.5)</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 SEO block -->
+  <section class="section" id="seo">
+    <div class="section-num">04 · SEO-блок сторінки (A–E)</div>
+    <h2>SEO: мета-теги, заголовки, текст, схема, чек-лист</h2>
+    <p class="section-lead">Шаблон A–E для категорії. <b>Критично для магазину:</b> керування індексацією фасетної навігації — інакше індекс розпухне від дублів фільтрів.</p>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;color:var(--accent)">A · Мета-теги (приклад: Протеїн)</h3>
+    <div class="codebox">&lt;title&gt;<b>Протеїн — купити протеїн в Україні, ціна | Stack</b>&lt;/title&gt;  <span style="color:#999">(≤60 симв.)</span>
+&lt;meta name="description" content="<b>Протеїн від перевірених брендів: ізолят, концентрат, казеїн, рослинний. Оригінал і сертифікати, швидка доставка Новою Поштою, оплата картою.</b>"&gt;  <span style="color:#999">(≤155 симв.)</span>
+&lt;link rel="canonical" href="https://stack.ua/protein/"&gt;  <span style="color:#999">(сторінки пагінації — self-canonical: ?page=2 → на себе)</span>
+&lt;link rel="alternate" hreflang="uk" href="https://stack.ua/protein/"&gt; · hreflang ru / x-default
+&lt;meta name="robots" content="index, follow"&gt;
+&lt;meta property="og:type" content="website"&gt; · og:title · og:description · og:image</div>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;color:var(--accent)">B · Структура заголовків</h3>
+    <table>
+      <tr><th>Рівень</th><th>Текст</th><th>Де</th></tr>
+      <tr><td><b>H1</b> (єдиний)</td><td>Назва категорії (напр. «Протеїн»)</td><td>шапка лістингу</td></tr>
+      <tr><td>H2</td><td>Групи субкатегорій (Ізолят · Концентрат…)</td><td>чипи / блоки</td></tr>
+      <tr><td>H2</td><td>Як обрати [категорію]</td><td>SEO-текст</td></tr>
+      <tr><td>H2</td><td>Часті питання (FAQ)</td><td>опційний блок</td></tr>
+      <tr><td>H2</td><td>[Категорія] в Україні — Stack</td><td>SEO-текст (низ)</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;color:var(--accent)">C · Готовий SEO-текст (низ сторінки)</h3>
+    <div class="wf">
+      <div class="wf-cap">SEO-текст категорії — готовий</div>
+      <div class="seotext">
+        <div class="h">Протеїн в Україні — купити в магазині Stack</div>
+        <p>Протеїн — базова спортивна добавка для росту й відновлення м'язів. У каталозі Stack — сироватковий концентрат, ізолят, гідролізат, казеїн, комплексний і рослинний протеїн від перевірених брендів. Уся продукція сертифікована, з оригінальною гарантією виробника та зазначеним складом і дозуванням.</p>
+        <p>Як обрати: для набору маси підійде сироватковий концентрат або комплексний, для схуднення — ізолят із мінімумом вуглеводів, для повільного засвоєння вночі — казеїн. Не знаєте, з чого почати — оберіть ціль або пройдіть короткий підбір. Швидка доставка Новою Поштою, оплата картою чи готівкою, повернення протягом 14 днів.</p>
+      </div>
+    </div>
+    <p class="note">Короткий вступ під H1 (довіра) + довший опис унизу (як обрати, кореневі ключі без переспаму, Принцип №5). Текст на кожну категорію — на етапі копірайту; структура зафіксована тут.</p>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;color:var(--accent)">D · Структурована розмітка</h3>
+    <table>
+      <tr><th>Схема</th><th>Призначення</th></tr>
+      <tr><td><b>BreadcrumbList</b></td><td>Головна → Каталог → Категорія (хлібні крихти у видачі)</td></tr>
+      <tr><td><b>ItemList / CollectionPage</b></td><td>сітка товарів як список</td></tr>
+      <tr><td><b>FAQPage</b> (опц.)</td><td>якщо є блок «Часті питання» на категорії</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;color:var(--accent)">E · Чек-лист оптимізації + керування фасетною індексацією</h3>
+    <ul class="chklist">
+      <li><b>Фасетна навігація:</b> індексуємо лише <b>білий список</b> цінних фасет-сторінок (бренд-у-категорії, ціль-у-категорії, місто 2.1a). Решта комбінацій фільтрів → <b>canonical</b> на базову категорію (або <code>noindex, follow</code>), щоб не плодити дублі. Список — за результатами keyword research [?].</li>
+      <li><b>Пагінація:</b> номерні сторінки кравлені, кожна self-canonical; «Показати ще» не ховає лінки від краулера (реальні &lt;a&gt; на сторінки присутні).</li>
+      <li>Один <b>H1</b>; описові анкори на чипах субкатегорій і цілей.</li>
+      <li>Зображення карток — <b>alt</b> + lazy-load нижче згину; LCP не блокується.</li>
+      <li>Наявність і сертифікація — <b>текст</b>, не картинки (читає краулер).</li>
+      <li><b>canonical + hreflang</b> (uk/ru); Core Web Vitals у нормі.</li>
+    </ul>
+    <div class="reco"><b>SEO-варіант для міста (2.1a):</b> той самий лістинг, локалізований під місто («Протеїн Одеса») — H1 і текст із містом, локальна доставка, canonical на URL міста. Живиться канонічним списком міст (0.1a) і лінками міст у футері (0.2). Які міста стають лендингами першими — пріоритет за трафіком [?].</div>
+  </section>
+
+  <!-- 05 Mobile -->
+  <section class="section" id="mobile">
+    <div class="section-num">05 · Мобілка</div>
+    <h2>Мобільний лістинг і bottom-sheet фільтрів</h2>
+    <p class="section-lead">База 360px. Сітка в 2 колонки. Липка смуга «Фільтри» + «Сортування». Фільтри відкриваються <b>знизу як bottom-sheet</b> із «Застосувати (N)». Чипи субкатегорій і цілей скролляться горизонтально. Таб «Каталог» активний.</p>
+    <div class="cols two">
+      <div>
+        <div class="phone2">
+          <div class="p-top"><span class="wf-logo">Stack</span><span class="sp"></span><span class="ic">🔍</span><span class="ic">♡</span><span class="ic">🛒</span></div>
+          <div class="p-blk" style="padding-bottom:6px">
+            <div style="font-size:10px;color:#999">Головна / Каталог /</div>
+            <div style="font-size:15px;font-weight:800;color:#111;">Протеїн <span style="font-size:11px;font-weight:600;color:#999">84</span></div>
+            <div class="p-chips" style="margin-top:7px"><span class="c">Усі</span><span class="c">Ізолят</span><span class="c">Концентрат</span><span class="c">Казеїн</span></div>
+          </div>
+          <div class="p-blk" style="padding-top:8px;padding-bottom:8px">
+            <div class="p-bar"><span class="pc">Фільтри · 2</span><span class="pc">Популярні ▾</span></div>
+          </div>
+          <div class="p-blk">
+            <div class="p-grid">
+              <div class="p-pc"><div class="im"></div><div class="tx"><div class="p-line"></div><div class="p-line s"></div></div></div>
+              <div class="p-pc"><div class="im"></div><div class="tx"><div class="p-line"></div><div class="p-line s"></div></div></div>
+              <div class="p-pc"><div class="im"></div><div class="tx"><div class="p-line"></div><div class="p-line s"></div></div></div>
+              <div class="p-pc"><div class="im"></div><div class="tx"><div class="p-line"></div><div class="p-line s"></div></div></div>
+            </div>
+            <div class="p-cta">Показати ще 24</div>
+          </div>
+          <div class="p-blk"><div class="bh">SEO-текст (низ, згортається)</div><div class="p-line"></div><div class="p-line s"></div></div>
+          <div class="p-tabs">
+            <div class="p-tab"><span class="ic">⌂</span>Головна</div>
+            <div class="p-tab active"><span class="ic">▦</span>Каталог</div>
+            <div class="p-tab"><span class="ic">🛒</span>Кошик</div>
+            <div class="p-tab"><span class="ic">♡</span>Обране</div>
+            <div class="p-tab"><span class="ic">👤</span>Акаунт</div>
+          </div>
+        </div>
+        <p class="note">Перший екран: крихти + H1 + чипи типів + смуга «Фільтри/Сортування» + перші картки. Без зайвого.</p>
+      </div>
+      <div>
+        <div class="sheet">
+          <div class="sh">Фільтри <span class="x">✕</span></div>
+          <div class="p-blk"><div class="bh">Наявність</div><div class="fopt"><span class="cb on"></span> В наявності <span class="ct">71</span></div><div class="fopt"><span class="cb"></span> Під замовлення <span class="ct">13</span></div></div>
+          <div class="p-blk"><div class="bh">Ціна, ₴</div><div class="frange"></div><div class="frow"><span class="in">800</span><span class="in">1500</span></div></div>
+          <div class="p-blk"><div class="bh">Бренд</div><div class="fopt"><span class="cb on"></span> Optimum <span class="ct">12</span></div><div class="fopt"><span class="cb"></span> BioTech <span class="ct">9</span></div></div>
+          <div class="sfoot"><span class="pc" style="flex:1;border:1.5px solid #c4c4c4;border-radius:7px;text-align:center;padding:9px;font-size:12px;font-weight:700">Скинути</span><span class="pc dark" style="flex:2;background:#161616;color:#fff;border-radius:7px;text-align:center;padding:9px;font-size:12px;font-weight:700">Застосувати (47)</span></div>
+        </div>
+        <p class="note">Bottom-sheet: фокус всередині, ESC / ✕ закриває, фокус повертається на «Фільтри». Кнопка «Застосувати» показує кількість результатів.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 Anatomy -->
+  <section class="section" id="anatomy">
+    <div class="section-num">06 · Анатомія</div>
+    <h2>Блоки й переходи</h2>
+    <table>
+      <tr><th>#</th><th>Блок</th><th>Вміст</th><th>Веде до</th></tr>
+      <tr><td>1</td><td><b>Хлібні крихти</b></td><td>Головна / Каталог / Категорія (BreadcrumbList)</td><td class="arrow">0.0 · 2.0</td></tr>
+      <tr><td>2</td><td><b>H1 + вступ</b></td><td>Назва · лічильник · короткий довірчий текст (згортається)</td><td>—</td></tr>
+      <tr><td>3</td><td><b>Чипи субкатегорій</b></td><td>За типом — кравлені лінки на відфільтрований лістинг</td><td class="arrow">2.1 (filtered)</td></tr>
+      <tr><td>4</td><td><b>Чипи «За ціллю»</b></td><td>Концерн-лінза — перехід до колекції цілі</td><td class="arrow">2.2</td></tr>
+      <tr><td>5</td><td><b>Тулбар</b></td><td>Фільтри (badge) · Сортування · лічильник · вигляд сітка/список</td><td>—</td></tr>
+      <tr><td>6</td><td><b>Активні фільтри</b></td><td>Знімні чипи + «Очистити все»</td><td>—</td></tr>
+      <tr><td>7</td><td><b>Панель фільтрів</b></td><td>Фасети з catalog.md (ліва колонка / мобільний sheet)</td><td>—</td></tr>
+      <tr><td>8</td><td><b>Сітка карток</b></td><td>Канонічна картка · стани наявності · ♡ · «У кошик»</td><td class="arrow">3.0 · 6.0 · 7.6</td></tr>
+      <tr><td>9</td><td><b>Пагінація</b></td><td>«Показати ще» + кравлені номерні сторінки</td><td>—</td></tr>
+      <tr><td>10</td><td><b>SEO-текст</b></td><td>H2 + опис категорії (як обрати, кореневі ключі)</td><td>—</td></tr>
+      <tr><td>11</td><td><b>Суміжне</b></td><td>Популярні бренди категорії · суміжні категорії</td><td class="arrow">2.4 · 2.1</td></tr>
+    </table>
+    <div class="wf" style="margin-top:10px">
+      <div class="wf-cap">Суміжне — перелінковка</div>
+      <div class="wf-pad">
+        <div style="font-size:11px;font-weight:800;color:#111;margin-bottom:8px">Популярні бренди в «Протеїн»</div>
+        <div class="relrow"><span class="relbox">Optimum Nutrition</span><span class="relbox">BioTech</span><span class="relbox">Myprotein</span><span class="relbox">Trec</span><span class="relbox">BSN</span></div>
+        <div style="font-size:11px;font-weight:800;color:#111;margin:12px 0 8px">Суміжні категорії</div>
+        <div class="relrow"><span class="relbox">Гейнери</span><span class="relbox">Креатин</span><span class="relbox">BCAA / EAA</span><span class="relbox">Батончики</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 Locked / open -->
+  <section class="section" id="locked">
+    <div class="section-num">07 · Зафіксовано / відкрите</div>
+    <div class="open">
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">✓ <b>Зафіксовано (чернетка, 2026-06-30):</b></p>
+      <ul style="margin-bottom:14px">
+        <li><b>Один шаблон лістингу</b> на Категорію / Каталог-усе / Ціль / Бренд / Пошук / місто — відрізняються H1, обсяг даних, SEO-блок.</li>
+        <li><b>Панель фільтрів</b> — наслідуваний компонент: ліва липка колонка (десктоп) / bottom-sheet (мобілка); фасети з catalog.md.</li>
+        <li><b>Цілі</b> — концерн-лінза всередині лістингу (рядок чипів «За ціллю»).</li>
+        <li><b>Картка</b> канонічна (home.md) + стани наявності + швидке «У кошик» + ♡ обране.</li>
+        <li><b>Пагінація:</b> «Показати ще» <b>+</b> кравлені номерні сторінки.</li>
+        <li><b>SEO-блок A–E</b> з явним керуванням фасетною індексацією + варіант для міста (2.1a).</li>
+      </ul>
+      <h2 style="font-size:15px;margin:8px 0">Лишається [?] (операційне / дані, не IA)</h2>
+      <ul>
+        <li><b>Білий список фасетної індексації</b> (які бренд/ціль/місто-сторінки індексуємо) — keyword research.</li>
+        <li><b>Які міста</b> (2.1a) запускаємо лендингами першими — пріоритет за трафіком.</li>
+        <li><b>SEO-копія й FAQ</b> на кожну категорію — етап копірайту.</li>
+        <li><b>Вага сортування «популярні»</b> — потрібна аналітика; начально ручний (маржа + продажі).</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="footer-text">
+    Stack — Посторінкова IA · Категорія / лістинг товарів (вузол 2.1; шаблон для 2.0/2.2/2.4/2.5/2.1a). Джерело істини: ia/docs/pages/category.md. Таксономія: catalog.md / catalog.html. Картка товару (next): 3.0. Навігація: navigation.html. Карта сайту: sitemap.html. Червень 2026, чернетка.
+  </div>
+
+</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+</script>
+</body>
+</html>

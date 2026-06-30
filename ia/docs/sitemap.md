@@ -28,6 +28,12 @@
     dialog: intro → 5 questions [goal·experience·frequency·constraints·format/budget] + conditional
     safety insert → curated set = filtered goal collection 2.2, not a single product; fixed order,
     result-branching; B/W).
+  - `pages/category.md` → `ia/category.html` (node 2.1 — Category / product listing (PLP):
+    breadcrumb → H1 + intro → subcategory chips + goal chips → toolbar/sort → active filters →
+    filter rail (desktop) / bottom-sheet (mobile) + product grid (canonical card + availability
+    states + quick-add) → load-more + crawlable pagination → SEO text + related. **One shared
+    listing template** for 2.0 Catalog-all / 2.2 Goal / 2.4 Brand / 2.5 Search / 2.1a city; A–E
+    SEO block with explicit faceted-nav indexation control; B/W).
   Next: cluster by cluster — Product (3.0), Cart/Checkout (6.x), Coach workspace (5.x),
   Buyer account (7.x).
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class

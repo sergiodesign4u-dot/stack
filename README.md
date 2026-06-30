@@ -13,6 +13,7 @@ A mobile-first sport nutrition store for the Ukrainian market, built around coac
 - https://sergiodesign4u-dot.github.io/stack/ia/home.html — Information architecture: Home (goal-selector hero + front doors)
 - https://sergiodesign4u-dot.github.io/stack/ia/quiz.html — Information architecture: Quiz (goal-guide dialog, post-launch)
 - https://sergiodesign4u-dot.github.io/stack/ia/catalog.html — Information architecture: Catalog structure (store taxonomy)
+- https://sergiodesign4u-dot.github.io/stack/ia/category.html — Information architecture: Category / product listing (PLP; shared listing template)
 
 ---
 
@@ -57,7 +58,7 @@ handoff/            - Developer handoff files
 
 **Detailed information architecture (page-level, Phase 2 prep; docs in `ia/docs/`):**
 - `ia/docs/sitemap.md` - full sitemap (structural index; `ia/sitemap.html` is canonical visual)
-- `ia/docs/pages/*.md` - per-page IA specs (source of truth): `navigation.md` (header + tabs), `footer.md` (footer + SEO block), `home.md` (home page), `catalog.md` (store taxonomy), `quiz.md` (goal-guide quiz, post-launch)
+- `ia/docs/pages/*.md` - per-page IA specs (source of truth): `navigation.md` (header + tabs), `footer.md` (footer + SEO block), `home.md` (home page), `catalog.md` (store taxonomy), `category.md` (category / product listing — shared listing template), `quiz.md` (goal-guide quiz, post-launch)
 - Live visual: https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html · https://sergiodesign4u-dot.github.io/stack/ia/navigation.html · https://sergiodesign4u-dot.github.io/stack/ia/footer.html · https://sergiodesign4u-dot.github.io/stack/ia/home.html · https://sergiodesign4u-dot.github.io/stack/ia/catalog.html
 
 ---
@@ -74,5 +75,5 @@ handoff/            - Developer handoff files
 - [Research: Personas](research/docs/personas.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/research/personas.html)
 - [Research: JTBD](research/docs/jtbd.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/research/jtbd.html)
 - [Conceptual IA: Sitemap](research/docs/sitemap.md) and [User Flows](research/docs/flows.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/research/concept.html)
-- [Detailed IA: Sitemap](ia/docs/sitemap.md), [Navigation spec](ia/docs/pages/navigation.md), [Footer spec](ia/docs/pages/footer.md), [Home spec](ia/docs/pages/home.md), [Catalog taxonomy](ia/docs/pages/catalog.md) - [Live: sitemap](https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html) · [navigation](https://sergiodesign4u-dot.github.io/stack/ia/navigation.html) · [footer](https://sergiodesign4u-dot.github.io/stack/ia/footer.html) · [home](https://sergiodesign4u-dot.github.io/stack/ia/home.html) · [catalog](https://sergiodesign4u-dot.github.io/stack/ia/catalog.html)
+- [Detailed IA: Sitemap](ia/docs/sitemap.md), [Navigation spec](ia/docs/pages/navigation.md), [Footer spec](ia/docs/pages/footer.md), [Home spec](ia/docs/pages/home.md), [Catalog taxonomy](ia/docs/pages/catalog.md), [Category/listing spec](ia/docs/pages/category.md) - [Live: sitemap](https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html) · [navigation](https://sergiodesign4u-dot.github.io/stack/ia/navigation.html) · [footer](https://sergiodesign4u-dot.github.io/stack/ia/footer.html) · [home](https://sergiodesign4u-dot.github.io/stack/ia/home.html) · [catalog](https://sergiodesign4u-dot.github.io/stack/ia/catalog.html) · [category](https://sergiodesign4u-dot.github.io/stack/ia/category.html)
 - [Design & IA Playbook](playbook/design-ia-playbook.md) - reusable methodology
