@@ -62,6 +62,20 @@
 8. **Related** — popular brands in this category + related categories (internal linking).
 9. **Footer** — inherited (0.2).
 
+## Default card order (availability-first)
+Cards are ordered **available first, then under-order, then out-of-stock last**:
+1. **В наявності** (including «Залишилось мало») — shown first.
+2. **Під замовлення** — after the in-stock block.
+3. **Немає в наявності** — always last.
+The user's chosen **sort applies WITHIN these availability groups** (so a sold-out item never
+outranks an in-stock one). Out-of-stock is never hidden (SEO + «Повідомити про надходження»).
+
+## Per-category SEO text + matrix
+The SEO body text **lives at the bottom of the listing** (full width, below products+filters) and
+is **unique per category**. Ready text + FAQ for all 11 categories are in the **content matrix**
+(`category-matrix.md` / `ia/category-matrix.html`) — that is the "SEO-text matrix". Principles and
+templates are in `seo.md` / `ia/seo.html`.
+
 ## Product-card availability states (on the listing)
 | State | Card shows |
 |---|---|

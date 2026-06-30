@@ -302,8 +302,15 @@ layout is still designed deliberately (it is a store).
   collection (2.2), Brand (2.4), Search (2.5) and the SEO city variant (2.1a) — differing only in
   H1, data scope and SEO block. A–E SEO block includes explicit **faceted-nav indexation control**
   (curated index whitelist; other filter combos → canonical-to-base / noindex,follow) — critical to
-  avoid store index bloat. Open [?] (operational): index whitelist, first city landings, per-category
-  copy/FAQ, default-sort weighting.
+  avoid store index bloat. **Default card order = availability-first** (в наявності incl. «мало» →
+  під замовлення → немає в наявності last; user sort applies *within* groups). The **SEO body text
+  sits at the bottom of the listing** (visible in the wireframe) and is unique per category — ready
+  per-category text + FAQ live in the matrix. Open [?] (operational): index whitelist, first city
+  landings, per-category copy/FAQ, default-sort weighting.
+  **Docs presentation pattern (June 2026):** page specs lead with **§01 «Анатомія сторінки»**
+  (one consolidated desktop wireframe of the whole page with inherited header/footer zones) →
+  **§02 «Мобілка»** → then the **розбір** (per-block detail, states, A–E SEO, anatomy table,
+  locked). `home.html`, `category.html`, `catalog-page.html` all follow this.
 
 **Unified navigation:** all docs pages (research, personas, jtbd, concept, and every
 page-level IA page) share one left sidebar. Group order: Дослідження · Персони · JTBD ·
