@@ -50,14 +50,20 @@
 
 0. **Header** — inherited (Navigation 0.1).
 1. **Breadcrumb** — Головна / Каталог / [Категорія] / [Товар] (BreadcrumbList; crawlable `<a>`).
+1a. **Product section-nav tabs** — Про товар · Склад · Дозування · Характеристики · Відгуки · Питання
+   (anchor links to the page sections). **On scroll the tab bar sticks under the simplified header
+   (the sticky header variant — main bar only, no meta bar) and becomes part of it**; on the right it
+   gains a **compact price (with or without discount) + «Купити» + ♡** so the action is reachable at any
+   scroll depth. Active tab highlights by scroll position. (Header sticky variant spec: `navigation.md`.)
 2. **Gallery** — product photos (main + thumbs); zoom; lazy-loaded below the first image.
 3. **Buy box** (right column on desktop, under gallery on mobile):
    - **H1** product name (with weight/size in the name) · **brand · country** (brand → 2.4).
    - **Rating** stars + review count → anchors to Reviews (3.1).
    - **Article/SKU** · **availability** (в наявності / залишилось мало / під замовлення / немає).
    - **One-line simple answer** — «для чого це» in plain language.
-   - **Price (stacked order):** **old struck price on top → new price big → −% discount badge under
-     the price** (decided 2026-06-30); **per-serving price** («≈ X ₴ / порція»); coach sees **tier price**.
+   - **Price:** **old struck price on top → new price big with the −% discount badge BESIDE it**
+     (beside, not under — saves space; decided 2026-06-30); **per-serving price** («≈ X ₴ / порція»);
+     coach sees **tier price**. No discount → just the main price (no struck price / badge).
    - **Variant selectors** — Смак · Фасування/вага (disabled when a variant is out of stock).
    - **Quantity** stepper.
    - **Primary CTA «У кошик»** (→ Cart 6.0) + **♡ wishlist** (→ 7.6). Coach session → «Додати клієнту».
@@ -174,7 +180,10 @@ are always above the fold**. Tab «Каталог» active.
 
 ## Locked (draft) / open
 **Locked (draft, 2026-06-30):**
-- **Price stacked:** old struck on top → new big → **−% badge under the price**.
+- **Product section-nav tabs** after the breadcrumb (Про товар · Склад · Дозування · Характеристики ·
+  Відгуки · Питання); on scroll they **stick under the simplified header (no meta bar) and become part
+  of it**, with a compact **price (discount/none) + «Купити» + ♡** on the right.
+- **Price:** old struck on top → new big with **−% badge beside the price** (not under — saves space).
 - **Delivery + Payment block under the CTA** (НП відділення/поштомат · кур'єр на адресу · самовивіз
   за наявності; ціни від 50/70/безкоштовно; способи оплати).
 - **Single trust strip before composition** (оригінал · сертифікат · доставка · повернення), moved

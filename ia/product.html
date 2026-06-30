@@ -227,12 +227,12 @@
     .p-tab.active { color: #111; font-weight: 700; }
     .p-tab .ic { font-size: 15px; display: block; }
 
-    /* price (stacked: old → new → badge under) */
+    /* price (old on top → new price with discount badge BESIDE it) */
     .pricebox { margin: 12px 0 2px; }
-    .pricebox .pold { font-size: 13px; color: #aaa; text-decoration: line-through; }
-    .pricebox .pnew { font-size: 28px; font-weight: 800; color: #111; display: block; line-height: 1.1; margin-top: 1px; }
-    .pricebox .drow { margin-top: 5px; }
-    .pricebox .pdisc2 { display: inline-block; background: #161616; color: #fff; font-size: 11px; font-weight: 800; border-radius: 5px; padding: 3px 8px; }
+    .pricebox .pold { display: block; font-size: 13px; color: #aaa; text-decoration: line-through; }
+    .pricebox .pmain { display: flex; align-items: center; gap: 9px; margin-top: 1px; }
+    .pricebox .pnew { font-size: 28px; font-weight: 800; color: #111; line-height: 1.1; }
+    .pricebox .pdisc2 { background: #161616; color: #fff; font-size: 11px; font-weight: 800; border-radius: 5px; padding: 3px 8px; }
 
     /* delivery + payment box (under price) */
     .dpbox { border: 1px solid #e2e2e2; border-radius: 10px; margin-top: 14px; overflow: hidden; }
@@ -279,6 +279,29 @@
     .acard .aim { height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 11px; }
     .acard .at { padding: 8px 9px 2px; font-size: 12px; font-weight: 700; color: #111; line-height: 1.3; }
     .acard .am { padding: 2px 9px 9px; font-size: 10.5px; color: #888; }
+
+    /* product section-nav tabs (anchor by section) */
+    .pnav { display: flex; align-items: center; gap: 2px; border-bottom: 1.5px solid #e4e4e4; margin: 2px 0 14px; overflow-x: auto; }
+    .pnav a { font-size: 12.5px; font-weight: 700; color: #777; padding: 11px 13px; white-space: nowrap; border-bottom: 2px solid transparent; text-decoration: none; }
+    .pnav a.on { color: #111; border-bottom-color: #161616; }
+
+    /* sticky state: compact header (no meta) + product nav + price/buy/fav */
+    .stickyrow { border: 1px solid #cfcfcf; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,.12); margin-bottom: 12px; }
+    .sk-hdr { display: flex; align-items: center; gap: 12px; padding: 9px 14px; border-bottom: 1px solid #eee; }
+    .sk-hdr .lg { font-weight: 800; font-size: 17px; color: #111; }
+    .sk-hdr .cat { background: #161616; color: #fff; border-radius: 7px; padding: 7px 12px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .sk-hdr .gl { font-size: 12px; font-weight: 700; color: #555; white-space: nowrap; }
+    .sk-hdr .srch { flex: 1; border: 1.5px solid #c4c4c4; border-radius: 7px; padding: 7px 11px; font-size: 12px; color: #9a9a9a; min-width: 80px; }
+    .sk-hdr .ic { font-size: 15px; color: #555; }
+    .sk-bar { display: flex; align-items: center; gap: 12px; padding: 0 14px; flex-wrap: wrap; }
+    .sk-bar .pnav { flex: 1; border-bottom: none; margin: 0; min-width: 200px; }
+    .sk-buy { display: flex; align-items: center; gap: 9px; padding: 7px 0; }
+    .sk-buy .pr { display: flex; align-items: center; gap: 7px; }
+    .sk-buy .pr .nw { font-size: 17px; font-weight: 800; color: #111; }
+    .sk-buy .pr .od { font-size: 11px; color: #aaa; text-decoration: line-through; }
+    .sk-buy .pr .dc { background: #161616; color: #fff; font-size: 9px; font-weight: 800; border-radius: 4px; padding: 1px 5px; }
+    .sk-buy .cta { background: #161616; color: #fff; border-radius: 8px; padding: 9px 18px; font-size: 13px; font-weight: 800; }
+    .sk-buy .fav { width: 36px; height: 36px; border: 1.5px solid #c4c4c4; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; color: #888; }
 
     /* extra product photos row */
     .photorow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
@@ -348,7 +371,7 @@
   <section class="section" id="anatomy-screen">
     <div class="section-num">01 · Десктоп і мобілка</div>
     <h2>Анатомія сторінки товару</h2>
-    <p class="section-lead">Приклад: <b>Gold Standard 100% Whey 2270 г</b>. <b>Хедер</b> → крихти → дві колонки: <b>галерея</b> + <b>buy-box</b> (H1 · бренд · рейтинг · наявність · «проста відповідь» · <b>ціна: стара зверху → нова → бейдж −% під нею</b> · ціна за порцію · ціна тренера · варіанти смак/вага · кількість · «У кошик» + ♡ · <b>блоки Доставка + Оплата</b>) → <b>єдина смуга довіри</b> (оригінал · сертифікат · доставка · повернення) <b>перед складом</b> → <b>блок довіри</b> (склад + фото етикетки · дозування · походження · сертифікація — ведучий, секції відкриті) → опис (повний) + фото → характеристики → відгуки (3.1) → питання (3.2) → схожі (3.3) → <b>статті по темі</b> → <b>футер</b>.</p>
+    <p class="section-lead">Приклад: <b>Gold Standard 100% Whey 2270 г</b>. <b>Хедер</b> → крихти → <b>таб-навігація по товару</b> (Про товар · Склад · … — прилипає до хедера при скролі з ціною + «Купити» справа) → дві колонки: <b>галерея</b> + <b>buy-box</b> (H1 · бренд · рейтинг · наявність · «проста відповідь» · <b>ціна: стара зверху → нова → бейдж −% під нею</b> · ціна за порцію · ціна тренера · варіанти смак/вага · кількість · «У кошик» + ♡ · <b>блоки Доставка + Оплата</b>) → <b>єдина смуга довіри</b> (оригінал · сертифікат · доставка · повернення) <b>перед складом</b> → <b>блок довіри</b> (склад + фото етикетки · дозування · походження · сертифікація — ведучий, секції відкриті) → опис (повний) + фото → характеристики → відгуки (3.1) → питання (3.2) → схожі (3.3) → <b>статті по темі</b> → <b>футер</b>.</p>
     <p class="wf-note">Мокап навмисно <b>чорно-білий</b> (вайрфрейм-рівень) — колір додамо на етапі концепту.</p>
 
     <div class="wf">
@@ -358,6 +381,16 @@
         <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1): мета-рядок · головна панель · мега-меню · пошук · ♡ · кошик <span class="zd">— той самий компонент на всіх сторінках</span></div>
 
         <div class="crumb"><a href="../research/concept.html">Головна</a><span class="sep">/</span><a href="catalog.html">Каталог</a><span class="sep">/</span><a href="category.html">Протеїн</a><span class="sep">/</span><span class="cur">Gold Standard 100% Whey</span></div>
+
+        <!-- product section-nav tabs (after breadcrumb) -->
+        <div class="pnav">
+          <a class="on" href="#">Про товар</a>
+          <a href="#">Склад</a>
+          <a href="#">Дозування</a>
+          <a href="#">Характеристики</a>
+          <a href="#rev">Відгуки</a>
+          <a href="#">Питання</a>
+        </div>
 
         <!-- top: gallery + buy box -->
         <div class="pdp">
@@ -386,8 +419,7 @@
 
             <div class="pricebox">
               <span class="pold">1 520 ₴</span>
-              <span class="pnew">1 290 ₴</span>
-              <div class="drow"><span class="pdisc2">−15% знижка</span></div>
+              <div class="pmain"><span class="pnew">1 290 ₴</span><span class="pdisc2">−15%</span></div>
             </div>
             <div class="perserv">≈ 17 ₴ / порція · 74 порції в банці</div>
             <div class="coachprice">Ціна для тренера (Pro): <b>1 060 ₴</b> · бачить лише авторизований тренер</div>
@@ -632,6 +664,28 @@
 
     <p class="note">Хедер і футер — <b>наслідувані зони</b> (Навігація 0.1 / Футер 0.2). Картка-джерело — <b>канонічна</b> з home.md, її «У кошик» веде сюди (3.0). Варіанти (смак, вага) — на <b>одній сторінці з одним canonical</b>; зміна варіанта оновлює ціну/наявність/артикул на місці, відсутні варіанти вимкнено (не ховаємо).</p>
 
+    <!-- sticky product nav (attaches to header on scroll) -->
+    <h3 style="font-size:14px;margin:22px 0 8px;color:var(--accent)">Стики-навігація по товару (прилипає до хедера при скролі)</h3>
+    <p class="note" style="margin-top:0">Таб-навігація по секціях товару — після брекрамсів. При скролі вона <b>прилипає під стики-хедером</b> (спрощений, без мета-рядка — див. <a href="navigation.html">Хедер</a>) і <b>стає його частиною</b>. Справа з'являються <b>ціна (зі знижкою або без) + «Купити» + ♡</b>, щоб дія була доступна на будь-якій глибині сторінки.</p>
+    <div class="stickyrow">
+      <div class="sk-hdr">
+        <span class="lg">Stack</span><span class="cat">☰ Каталог</span><span class="gl">Цілі ▾</span>
+        <span class="srch">Пошук товарів…</span>
+        <span class="ic">👤</span><span class="ic">♡</span><span class="ic">🛒</span>
+      </div>
+      <div class="sk-bar">
+        <div class="pnav">
+          <a class="on" href="#">Про товар</a><a href="#">Склад</a><a href="#">Дозування</a><a href="#">Характеристики</a><a href="#">Відгуки</a><a href="#">Питання</a>
+        </div>
+        <div class="sk-buy">
+          <div class="pr"><span class="od">1 520 ₴</span><span class="nw">1 290 ₴</span><span class="dc">−15%</span></div>
+          <div class="cta">Купити</div>
+          <div class="fav">♡</div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Без знижки — у блоці ціни лише <b>основна ціна</b> (без закресленої та бейджа). Клік по табу — плавний скрол до секції; активний таб підсвічується за позицією скролу.</p>
+
     <!-- mobile -->
     <h3 style="font-size:14px;margin:22px 0 8px;color:var(--accent)">Мобілка (під десктопом — той самий екран)</h3>
     <p class="note" style="margin-top:0">База 360px. Один стовпець: галерея → buy-box → блок довіри → опис → характеристики → відгуки → питання → схожі. <b>Проста відповідь + ціна + «У кошик» — завжди над згином</b>; довгі секції — акордеони. Знизу — <b>липка смуга</b> (ціна + «У кошик»), що з'являється після прокрутки buy-box. Таб «Каталог» активний.</p>
@@ -646,7 +700,7 @@
             <div style="font-size:10.5px;color:#777;margin-top:3px">Optimum Nutrition · США · <span style="color:#161616">★ 4.8 (126)</span></div>
             <div style="font-size:11px;color:#2d7d46;font-weight:800;margin-top:5px">● В наявності</div>
             <div style="background:#f6f6f4;border-left:3px solid #161616;border-radius:0 6px 6px 0;padding:6px 9px;font-size:10.5px;color:#333;margin-top:8px"><b>Для чого:</b> ріст і відновлення м'язів, 24 г білка/порція</div>
-            <div style="margin-top:8px"><span style="font-size:12px;color:#aaa;text-decoration:line-through">1 520 ₴</span><div style="font-size:22px;font-weight:800;color:#111;line-height:1.1">1 290 ₴</div><span style="display:inline-block;background:#161616;color:#fff;font-size:10px;font-weight:800;border-radius:5px;padding:2px 7px;margin-top:4px">−15% знижка</span></div>
+            <div style="margin-top:8px"><span style="font-size:12px;color:#aaa;text-decoration:line-through">1 520 ₴</span><div style="display:flex;align-items:center;gap:8px"><span style="font-size:22px;font-weight:800;color:#111;line-height:1.1">1 290 ₴</span><span style="background:#161616;color:#fff;font-size:10px;font-weight:800;border-radius:5px;padding:2px 7px">−15%</span></div></div>
             <div style="font-size:10px;color:#888;margin-top:4px">≈ 17 ₴/порція · 74 порції</div>
           </div>
           <div class="p-blk">
@@ -805,6 +859,7 @@
       <tr><th>#</th><th>Блок</th><th>Вміст</th><th>Веде до</th></tr>
       <tr><td>0</td><td><b>Хедер</b> (наслідується)</td><td>Навігація 0.1</td><td class="arrow">0.1</td></tr>
       <tr><td>1</td><td><b>Хлібні крихти</b></td><td>Головна / Каталог / Категорія / Товар (BreadcrumbList)</td><td class="arrow">0.0 · 2.0 · 2.1</td></tr>
+      <tr><td>1a</td><td><b>Таб-навігація товару</b></td><td>Про товар · Склад · Дозування · Характеристики · Відгуки · Питання. <b>Стики</b>: прилипає під хедером (без мета-рядка) + справа ціна (зі знижкою/без) + «Купити» + ♡</td><td class="arrow">0.1 · #секції · 6.0</td></tr>
       <tr><td>2</td><td><b>Галерея</b></td><td>Фото + мініатюри + zoom; lazy нижче згину</td><td>—</td></tr>
       <tr><td>3</td><td><b>Buy-box</b></td><td>H1 · бренд·країна · рейтинг · артикул · наявність · проста відповідь · <b>ціна (стара→нова→бейдж −%)</b> + за порцію + тренера · варіанти · кількість · <b>«У кошик»</b> + ♡</td><td class="arrow">2.4 · 6.0 · 7.6 · #rev</td></tr>
       <tr><td>4</td><td><b>Доставка + Оплата</b></td><td>НП (відділення/поштомат) · кур'єр · самовивіз (за наявності) + ціни (від 50/70/безкоштовно) · способи оплати</td><td class="arrow">8.x</td></tr>
@@ -827,7 +882,8 @@
     <div class="open">
       <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">✓ <b>Зафіксовано (чернетка, 2026-06-30):</b></p>
       <ul style="margin-bottom:14px">
-        <li><b>Ціна:</b> стара (закреслена) <b>зверху</b> → нова крупно → <b>бейдж −% під ціною</b>.</li>
+        <li><b>Таб-навігація по товару</b> після брекрамсів (Про товар · Склад · Дозування · Характеристики · Відгуки · Питання); при скролі <b>прилипає під стики-хедером (без мета-рядка) і стає його частиною</b>, справа — <b>ціна (зі знижкою/без) + «Купити» + ♡</b>.</li>
+        <li><b>Ціна:</b> стара (закреслена) зверху → нова крупно, <b>бейдж −% поруч із ціною</b> (не під нею — економія простору).</li>
         <li><b>Блоки Доставка + Оплата під ціною/CTA</b> в buy-box: НП (відділення/поштомат), кур'єр на адресу, самовивіз (Одеса, адреса [?]); ціни від 50 / 70 / безкоштовно; самовивіз — лише за наявності на точці. Оплата: картка, накладений платіж, готівка при самовивозі.</li>
         <li><b>Єдина смуга довіри</b> (оригінал · сертифікат · доставка · повернення) одним блоком <b>перед складом</b> (винесено з buy-box).</li>
         <li><b>Блок довіри ведучий</b> (Склад + <b>фото етикетки складу</b> · Дозування · Походження · Сертифікація) одразу за смугою; <b>секції відкриті за замовч., можна згорнути</b>; опис — після (Принцип №1).</li>

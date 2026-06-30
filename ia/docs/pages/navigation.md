@@ -90,6 +90,14 @@ On **mobile** the top bar carries only Logo · Search · Favorites · Cart; the 
 (Для тренерів, info links), language, location, and Бонуси move to the Account screen**.
 Primary nav = the bottom tab bar (section B).
 
+### Sticky header variant (simplified, no meta bar) — decided 2026-06-30
+On scroll the **meta bar hides** and the **main bar sticks to the top in a compact form**
+(Logo · Каталог · Цілі · Search · account · favorites · cart) — **no location / language / info
+links** (those live in the meta bar, visible only at the top of the page). Lower height = more
+content room. On the **product page** the **product section-nav tabs stick directly under this
+sticky header and become part of it**, gaining a compact **price (discount/none) + «Купити» + ♡**
+on the right (see `product.md`).
+
 ### Catalog mega-menu (desktop)
 
 Opening «Каталог» reveals a mega-menu (structure like Belok):
