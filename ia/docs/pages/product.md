@@ -56,29 +56,47 @@
    - **Rating** stars + review count → anchors to Reviews (3.1).
    - **Article/SKU** · **availability** (в наявності / залишилось мало / під замовлення / немає).
    - **One-line simple answer** — «для чого це» in plain language.
-   - **Price** — new + old struck + −% badge; **per-serving price** («≈ X ₴ / порція»); coach sees
-     **tier price**.
+   - **Price (stacked order):** **old struck price on top → new price big → −% discount badge under
+     the price** (decided 2026-06-30); **per-serving price** («≈ X ₴ / порція»); coach sees **tier price**.
    - **Variant selectors** — Смак · Фасування/вага (disabled when a variant is out of stock).
    - **Quantity** stepper.
    - **Primary CTA «У кошик»** (→ Cart 6.0) + **♡ wishlist** (→ 7.6). Coach session → «Додати клієнту».
-   - **Trust micro-row** — сертифікат · оригінал/гарантія · доставка Новою Поштою · повернення 14 днів.
-4. **Trust block — the lead (Job 4).** Four grouped facts, plain language, expandable for depth:
-   - **Склад** — active ingredients **per serving** (table: речовина · на порцію · % добової норми),
-     allergens, «без домішок» notes.
+   - **Delivery + Payment block (under the CTA, decided 2026-06-30):**
+     - **Доставка:** Нова Пошта — **відділення або поштомат** (від 50 ₴); **кур'єр Нової Пошти на
+       адресу / до під'їзду** (від 70 ₴); **самовивіз** (Одеса, адреса [?]) — **безкоштовно**.
+       Terms: НП 1–2 дні; **самовивіз лише за наявності на точці** (own per-point stock state).
+     - **Оплата:** картка онлайн / Apple·Google Pay · накладений платіж · готівка при самовивозі.
+       (Delivery prices and pickup addresses are example values — operational [?].)
+4. **Trust strip (single block, before composition).** The four micro-signals — **оригінал+гарантія ·
+   сертифікат · доставка Новою Поштою · повернення 14 днів** — moved OUT of the buy box into one
+   full-width block placed **right before the trust facts** (decided 2026-06-30).
+5. **Trust block — the lead (Job 4).** Four grouped facts, **all sections open by default, collapsible**:
+   - **Склад** — active ingredients **per serving** (table: речовина · на порцію · % добової норми) +
+     **full ingredient list text** + allergens (МОЛОКО/СОЯ) + **photo of the on-pack composition label**
+     (extra trust — mirrors what competitors show).
    - **Дозування та застосування** — how much, when, how to take; plain steps.
    - **Походження** — manufacturer, country, importer; «оригінальний продукт» guarantee.
-   - **Сертифікація** — certificate of conformity + lab tests (Informed Sport etc.); **viewable
-     certificate** (open image/PDF).
-5. **Опис (description)** — marketing/explanatory copy, plain language; who it's for, why. After trust.
-6. **Характеристики (specs)** — full attribute table (brand · country · form · weight · servings ·
+   - **Сертифікація** — certificate of conformity + lab tests; **viewable certificate** (open image/PDF).
+6. **Опис (description)** — full product copy (plain language; what / who / why / key features). After
+   trust. **Additional product photos** row. (Per-product copy = copy stage.)
+7. **Характеристики (specs)** — full attribute table (brand · country · form · weight · servings ·
    flavour · certification · goal) — mirrors the catalog facets.
-7. **Відгуки (3.1)** — aggregate rating + breakdown + review list + **«Залишити відгук»**; this is the
-   trust **recovery** surface. Photos in reviews allowed.
-8. **Питання (3.2)** — Q&A; «Поставити запитання». FAQ schema if present.
-9. **Схожі / related (3.3)** — «Схожі товари» · «З цим купують» · same-goal collection (internal
+8. **Відгуки (3.1)** — aggregate rating + breakdown + **«Залишити відгук»**; the trust **recovery**
+   surface. **Review item layout: name + given rating + date on the LEFT, the review text on the RIGHT.**
+   Each review: **Переваги / Недоліки** categories (**may be empty → show only filled ones**),
+   **photos**, **replies** («Показати відповіді (N)» → expand, with dates, photos allowed on replies),
+   and **shop replies marked with a special chip (shop logo instead of a name)**. **Two states:**
+   **many reviews → paginated**, **few → simple list, no pagination**.
+9. **Питання (3.2)** — **«Поставити запитання» opens a dialog form** (modal desktop / full-screen
+   mobile); the question is added to the **Q&A feed**; the **shop answers (special chip)** or other
+   buyers do; **no rating, no pros/cons** — same mechanic as reviews otherwise. Optional moderation
+   before publish. FAQ schema if present.
+10. **Схожі / related (3.3)** — «Схожі товари» · «З цим купують» · same-goal collection (internal
    linking + AOV). Canonical product cards.
-10. **Sticky buy bar (mobile)** — price + «У кошик», visible after the buy box scrolls off.
-11. **Footer** — inherited (0.2).
+11. **Статті по темі (blog 8.0/8.1)** — article teasers related to the product (helps the beginner /
+   Job 2 + SEO; calm, no selling).
+12. **Sticky buy bar (mobile)** — price + «У кошик», visible after the buy box scrolls off.
+13. **Footer** — inherited (0.2).
 
 ## States
 | State | Behaviour |
@@ -93,6 +111,12 @@
 | Added to cart | Confirmation (toast / mini-cart drawer) with «Перейти в кошик» + «Продовжити». |
 | Coach in-session | CTA = **«Додати клієнту»**; tier price shown (per category 2.1 coach state). |
 | Unsure buyer | Same-screen route to Reviews (3.1) + certificate content before any leave (flow recovery). |
+| Reviews: many | Paginated list; rating + breakdown on top. |
+| Reviews: few | Simple list, no pagination. |
+| Review without cons | Empty «Недоліки» hidden; show only filled pros/cons. |
+| Review replies | «Показати відповіді (N)» expands; shop reply = special chip; replies can have photos. |
+| Ask a question | Opens a dialog form; on submit the question appears in the Q&A feed (optional moderation), shop answers. |
+| Pickup unavailable | Самовивіз shown only when the pickup point has stock; otherwise hidden / «немає на точці». |
 
 ---
 
@@ -149,19 +173,33 @@ are always above the fold**. Tab «Каталог» active.
 ---
 
 ## Locked (draft) / open
-**Locked (draft, 2026-06-30):** trust block (Склад · Дозування · Походження · Сертифікація) is the
-**lead** directly under the buy box (not buried); single primary CTA «У кошик» + sticky mobile bar;
-lead-with-simple-answer + depth; variants on one canonical PDP (params canonical to base,
-out-of-stock variants disabled not hidden); calm honest availability with «Повідомити про
-надходження» + route back to collection (no dead end); reviews (3.1) + **viewable certificate** as
-the conversion recovery; specs table mirrors catalog facets; questions (3.2) + related (3.3) on the
-same page; coach-aware CTA «Додати клієнту» + tier price; A–E SEO block with Product/Offers +
-AggregateRating + Review + Breadcrumb schema and variant-canonical control.
+**Locked (draft, 2026-06-30):**
+- **Price stacked:** old struck on top → new big → **−% badge under the price**.
+- **Delivery + Payment block under the CTA** (НП відділення/поштомат · кур'єр на адресу · самовивіз
+  за наявності; ціни від 50/70/безкоштовно; способи оплати).
+- **Single trust strip before composition** (оригінал · сертифікат · доставка · повернення), moved
+  out of the buy box.
+- **Trust block is the lead** (Склад + **on-pack composition photo** · Дозування · Походження ·
+  Сертифікація), **sections open by default, collapsible**; **опис** (full copy + extra photos) after.
+- Single primary CTA «У кошик» + sticky mobile bar; lead-with-simple-answer + depth.
+- Variants on one canonical PDP (params canonical to base, OOS variants disabled not hidden).
+- Calm honest availability with «Повідомити» + route back to collection (no dead end).
+- **Reviews (3.1):** name+rating+date LEFT ↔ text RIGHT; **Переваги/Недоліки** (may be empty);
+  photos; **replies** (expand/collapse, dates, photos); **shop reply = special chip (logo, not name)**;
+  states **many → paginated / few → no pagination**. Certificate + reviews = conversion recovery.
+- **Questions (3.2):** «Поставити запитання» = **dialog form** → Q&A feed; shop (chip) / buyers
+  answer; **no rating, no pros/cons**.
+- **Статті по темі (blog 8.0/8.1)** section before footer.
+- Specs mirror catalog facets; related (3.3) on the same page; coach-aware CTA «Додати клієнту» +
+  tier price; A–E SEO with Product/Offers + AggregateRating + Review + Breadcrumb + variant-canonical.
 
 **Still [?] (operational / data, not IA):**
-- Per-product copy, composition tables, dosage text, certificate files — copy/data stage (real
+- Per-product copy, composition tables/photos, dosage text, certificate files — copy/data stage (real
   supplier data; the operational catalog-population [?] from the brief).
 - Review/rating data — needs real reviews; aggregate rating depends on volume.
 - «З цим купують» recommendation logic — needs sales data (initially manual/related-category).
 - Coach tier price value — pricing decision [?] (Free vs Pro hypothesis).
 - Per-serving price display rule when pack sizes/servings vary — confirm at data stage.
+- **Pickup addresses + delivery prices** (НП від 50 ₴, кур'єр від 70 ₴ — examples) — operational [?].
+- **Per-pickup-point stock** for the самовивіз availability — operational [?].
+- **Moderation policy** for reviews/questions before publish — [?].

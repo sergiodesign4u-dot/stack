@@ -227,6 +227,63 @@
     .p-tab.active { color: #111; font-weight: 700; }
     .p-tab .ic { font-size: 15px; display: block; }
 
+    /* price (stacked: old → new → badge under) */
+    .pricebox { margin: 12px 0 2px; }
+    .pricebox .pold { font-size: 13px; color: #aaa; text-decoration: line-through; }
+    .pricebox .pnew { font-size: 28px; font-weight: 800; color: #111; display: block; line-height: 1.1; margin-top: 1px; }
+    .pricebox .drow { margin-top: 5px; }
+    .pricebox .pdisc2 { display: inline-block; background: #161616; color: #fff; font-size: 11px; font-weight: 800; border-radius: 5px; padding: 3px 8px; }
+
+    /* delivery + payment box (under price) */
+    .dpbox { border: 1px solid #e2e2e2; border-radius: 10px; margin-top: 14px; overflow: hidden; }
+    .dpsec { padding: 11px 13px; border-bottom: 1px solid #eee; }
+    .dpsec:last-child { border-bottom: none; }
+    .dpsec .dh { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #111; margin-bottom: 8px; display: flex; gap: 7px; align-items: center; }
+    .dpopt { font-size: 12px; color: #444; display: flex; justify-content: space-between; gap: 10px; margin: 6px 0; }
+    .dpopt .lbl b { color: #111; }
+    .dpopt .sub { color: #888; font-size: 11px; display: block; }
+    .dpopt .price { font-weight: 700; color: #111; white-space: nowrap; }
+    .dpopt .price.free { color: #2d7d46; }
+    .dpnote { font-size: 11px; color: #888; margin-top: 6px; }
+    .dpnote.out { color: #b04a4a; font-weight: 600; }
+
+    /* trust strip (single block before trust facts) */
+    .tstrip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; border: 1px solid #e2e2e2; border-radius: 12px; padding: 14px 16px; margin-top: 18px; }
+    @media (max-width: 680px) { .tstrip { grid-template-columns: 1fr 1fr; } }
+    .tsi { display: flex; gap: 9px; align-items: flex-start; font-size: 11.5px; color: #666; }
+    .tsi .ic { font-size: 17px; line-height: 1; }
+    .tsi b { display: block; color: #111; font-size: 12px; margin-bottom: 1px; }
+
+    /* reviews redesign */
+    .rv { display: grid; grid-template-columns: 150px 1fr; gap: 16px; border-top: 1px solid #eee; padding: 14px 0; }
+    @media (max-width: 600px) { .rv { grid-template-columns: 1fr; gap: 6px; } }
+    .rv .who .nm { font-size: 12.5px; font-weight: 800; color: #111; }
+    .rv .who .rs { color: #161616; font-size: 12px; letter-spacing: 1px; margin-top: 2px; }
+    .rv .who .dt { font-size: 10.5px; color: #aaa; margin-top: 4px; }
+    .rv .who .verified { font-size: 10px; color: #2d7d46; font-weight: 700; margin-top: 3px; }
+    .rv .body .rt { font-size: 12.5px; color: #444; line-height: 1.5; }
+    .pc2 { display: flex; gap: 8px 18px; flex-wrap: wrap; margin: 8px 0; }
+    .pc2 .pci { font-size: 11.5px; color: #555; }
+    .pc2 .pos b { color: #2d7d46; } .pc2 .neg b { color: #b04a4a; }
+    .rphotos { display: flex; gap: 6px; margin: 8px 0; }
+    .rph { width: 44px; height: 44px; border-radius: 6px; background: #f0f0f0; border: 1px solid #e0e0e0; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #bbb; }
+    .ranswers { margin-top: 9px; border-left: 2px solid #eee; padding-left: 12px; }
+    .rtoggle { font-size: 11.5px; color: #111; font-weight: 700; text-decoration: underline; }
+    .replybtn { font-size: 11px; color: #777; font-weight: 600; margin-top: 7px; display: inline-block; }
+    .shopreply { background: #f6f6f4; border-radius: 8px; padding: 9px 11px; margin-top: 8px; }
+    .shopchip { display: inline-flex; align-items: center; gap: 6px; background: #161616; color: #fff; font-size: 10px; font-weight: 800; border-radius: 5px; padding: 2px 8px; }
+    .revstate { font-size: 11px; font-weight: 700; color: #888; background: #f4f4f4; border-radius: 6px; padding: 3px 9px; }
+
+    /* article / blog cards */
+    .acard { border: 1px solid #e2e2e2; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+    .acard .aim { height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 11px; }
+    .acard .at { padding: 8px 9px 2px; font-size: 12px; font-weight: 700; color: #111; line-height: 1.3; }
+    .acard .am { padding: 2px 9px 9px; font-size: 10.5px; color: #888; }
+
+    /* extra product photos row */
+    .photorow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .photobox { width: 90px; height: 90px; border: 1px solid #e2e2e2; border-radius: 8px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #bbb; text-align: center; }
+
     @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
   </style>
 </head>
@@ -291,7 +348,7 @@
   <section class="section" id="anatomy-screen">
     <div class="section-num">01 · Десктоп і мобілка</div>
     <h2>Анатомія сторінки товару</h2>
-    <p class="section-lead">Приклад: <b>Gold Standard 100% Whey 2270 г</b>. <b>Хедер</b> (наслідується) → крихти → дві колонки: <b>галерея</b> + <b>buy-box</b> (H1, бренд, рейтинг, наявність, «проста відповідь», ціна + ціна за порцію + ціна тренера, варіанти смак/вага, кількість, «У кошик» + ♡, мікро-сигнали довіри) → <b>блок довіри</b> (склад · дозування · походження · сертифікація — ведучий) → опис → характеристики → відгуки (3.1) → питання (3.2) → схожі (3.3) → <b>футер</b> (наслідується).</p>
+    <p class="section-lead">Приклад: <b>Gold Standard 100% Whey 2270 г</b>. <b>Хедер</b> → крихти → дві колонки: <b>галерея</b> + <b>buy-box</b> (H1 · бренд · рейтинг · наявність · «проста відповідь» · <b>ціна: стара зверху → нова → бейдж −% під нею</b> · ціна за порцію · ціна тренера · варіанти смак/вага · кількість · «У кошик» + ♡ · <b>блоки Доставка + Оплата</b>) → <b>єдина смуга довіри</b> (оригінал · сертифікат · доставка · повернення) <b>перед складом</b> → <b>блок довіри</b> (склад + фото етикетки · дозування · походження · сертифікація — ведучий, секції відкриті) → опис (повний) + фото → характеристики → відгуки (3.1) → питання (3.2) → схожі (3.3) → <b>статті по темі</b> → <b>футер</b>.</p>
     <p class="wf-note">Мокап навмисно <b>чорно-білий</b> (вайрфрейм-рівень) — колір додамо на етапі концепту.</p>
 
     <div class="wf">
@@ -327,10 +384,10 @@
 
             <div class="simple"><b>Для чого:</b> сироватковий протеїн для росту й відновлення м'язів — 24 г білка на порцію. Базова добавка для набору маси.</div>
 
-            <div class="priceline">
-              <span class="pnew">1 290 ₴</span>
+            <div class="pricebox">
               <span class="pold">1 520 ₴</span>
-              <span class="pdisc2">−15%</span>
+              <span class="pnew">1 290 ₴</span>
+              <div class="drow"><span class="pdisc2">−15% знижка</span></div>
             </div>
             <div class="perserv">≈ 17 ₴ / порція · 74 порції в банці</div>
             <div class="coachprice">Ціна для тренера (Pro): <b>1 060 ₴</b> · бачить лише авторизований тренер</div>
@@ -361,22 +418,39 @@
               <div class="favbtn">♡</div>
             </div>
 
-            <!-- trust micro -->
-            <div class="trustmicro">
-              <div class="tm"><span class="ic">✓</span><span><b>Оригінал + гарантія</b> виробника</span></div>
-              <div class="tm"><span class="ic">📄</span><span><b>Сертифікат</b> відповідності</span></div>
-              <div class="tm"><span class="ic">🚚</span><span><b>Доставка</b> Новою Поштою 1–2 дні</span></div>
-              <div class="tm"><span class="ic">↩</span><span><b>Повернення</b> протягом 14 днів</span></div>
+            <!-- delivery + payment (under price/CTA) -->
+            <div class="dpbox">
+              <div class="dpsec">
+                <div class="dh"><span>🚚</span> Доставка</div>
+                <div class="dpopt"><span class="lbl"><b>Нова Пошта</b><span class="sub">Відділення або поштомат</span></span><span class="price">від 50 ₴</span></div>
+                <div class="dpopt"><span class="lbl"><b>Кур'єр Нової Пошти</b><span class="sub">На адресу, до під'їзду</span></span><span class="price">від 70 ₴</span></div>
+                <div class="dpopt"><span class="lbl"><b>Самовивіз</b><span class="sub">Одеса, вул. Дерибасівська, 1 [?]</span></span><span class="price free">безкоштовно</span></div>
+                <div class="dpnote">Нова Пошта — 1–2 дні. Самовивіз — лише за наявності на точці.</div>
+              </div>
+              <div class="dpsec">
+                <div class="dh"><span>💳</span> Оплата</div>
+                <div class="dpopt"><span class="lbl">Картка онлайн · Apple / Google Pay</span></div>
+                <div class="dpopt"><span class="lbl">Накладений платіж (при отриманні)</span></div>
+                <div class="dpopt"><span class="lbl">Готівка при самовивозі</span></div>
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- TRUST STRIP (single block before composition) -->
+        <div class="tstrip">
+          <div class="tsi"><span class="ic">✓</span><span><b>Оригінал + гарантія</b>офіційний імпорт</span></div>
+          <div class="tsi"><span class="ic">📄</span><span><b>Сертифікат</b>відповідності та лаб. тести</span></div>
+          <div class="tsi"><span class="ic">🚚</span><span><b>Доставка</b>Новою Поштою 1–2 дні</span></div>
+          <div class="tsi"><span class="ic">↩</span><span><b>Повернення</b>протягом 14 днів</span></div>
+        </div>
+
         <!-- TRUST BLOCK (lead) -->
-        <div class="blk-lbl">Блок довіри — ведучий (Job 4)</div>
+        <div class="blk-lbl">Блок довіри — ведучий (Job 4) · усі секції відкриті, можна згорнути ▴</div>
         <div class="trustblk">
           <div class="th">Склад · Дозування · Походження · Сертифікація</div>
           <div class="tacc open2">
-            <div class="ah">Склад (на порцію 30 г) <span class="ar">▾</span></div>
+            <div class="ah">Склад (харчова цінність на порцію 30 г) <span class="ar">▴</span></div>
             <div class="ab">
               <table class="ingr">
                 <tr><th>Речовина</th><th>На порцію</th><th>% добової норми</th></tr>
@@ -386,19 +460,25 @@
                 <tr><td>BCAA</td><td>5.5 г</td><td>—</td></tr>
                 <tr><td>Глутамін</td><td>4 г</td><td>—</td></tr>
               </table>
-              <p style="font-size:11.5px;color:#888;margin-top:6px">Алергени: молоко, соєвий лецитин. Без заборонених домішок.</p>
+              <p style="font-size:12px;color:#444;margin-top:10px"><b style="color:#111">Інгредієнти:</b> протеїнова суміш (ізолят сироваткового протеїну, концентрат сироваткового протеїну, сироваткові пептиди), натуральні та штучні ароматизатори, соняшниковий або соєвий лецитин, ацесульфам калію, Aminogen.</p>
+              <p style="font-size:11.5px;color:#b04a4a;font-weight:600;margin-top:6px">Містить алергени: МОЛОКО та СОЮ.</p>
+              <div class="blk-lbl" style="margin:12px 0 6px">Фото складу з упаковки — додаткова довіра</div>
+              <div class="photorow">
+                <div class="photobox">фото<br>етикетки<br>складу</div>
+                <div class="photobox">фото<br>харч.<br>цінності</div>
+              </div>
             </div>
           </div>
-          <div class="tacc">
-            <div class="ah">Дозування та застосування <span class="ar">▾</span></div>
-            <div class="ab">1 порція (1 мірна ложка ~30 г) на 200–300 мл води чи молока. 1–2 порції на день: після тренування та/або між прийомами їжі.</div>
+          <div class="tacc open2">
+            <div class="ah">Дозування та застосування <span class="ar">▴</span></div>
+            <div class="ab">Змішайте 1 мірну ложку (~30 г) зі 180–240 мл холодної води чи улюбленого напою. Приймайте 1–2 порції на день — після тренування та/або між прийомами їжі, щоб задовольнити потребу в білку. Також можна використовувати у приготуванні страв.</div>
           </div>
-          <div class="tacc">
-            <div class="ah">Походження <span class="ar">▾</span></div>
-            <div class="ab">Виробник: Optimum Nutrition (Glanbia), США. Імпортер та офіційний дистриб'ютор в Україні зазначені. Гарантія оригінальності продукту.</div>
+          <div class="tacc open2">
+            <div class="ah">Походження <span class="ar">▴</span></div>
+            <div class="ab">Виробник: Optimum Nutrition (Glanbia), США. Імпортер та офіційний дистриб'ютор в Україні зазначені. Гарантія оригінальності продукту — товар не підробка.</div>
           </div>
-          <div class="tacc">
-            <div class="ah">Сертифікація <span class="ar">▾</span></div>
+          <div class="tacc open2">
+            <div class="ah">Сертифікація <span class="ar">▴</span></div>
             <div class="ab">Сертифікат відповідності + лабораторні тести. <span class="certbtn">📄 Переглянути сертифікат</span><br><span style="font-size:11px;color:#888">Реальний переглядний документ (зображення / PDF), не лише текст.</span></div>
           </div>
         </div>
@@ -406,8 +486,18 @@
         <!-- description -->
         <div class="scard">
           <div class="sh">Опис</div>
-          <p>Gold Standard 100% Whey — еталонний сироватковий протеїн: основа складу — ізолят, доповнений концентратом і пептидами. 24 г білка та 5.5 г BCAA на порцію, легко розмішується. Підходить для набору м'язової маси й відновлення після тренувань.</p>
-          <p style="color:#999;font-size:11.5px">↑ Опис іде <b>після</b> блоку довіри (принцип №1: спершу факти, потім продаж).</p>
+          <p style="font-weight:700;color:#111">Optimum Nutrition 100% Whey Gold Standard — білок №1 у світі</p>
+          <p>Протеїн популярний серед активних людей, оскільки легко засвоюється і є багатим джерелом амінокислот для відновлення м'язів.</p>
+          <p>Ізолят сироваткового протеїну — одна з найчистіших форм сироватки і основний компонент Gold Standard 100% Whey. Кожна порція містить 24 г сироваткового протеїну, що швидко засвоюється, з мінімальним вмістом жиру та лактози. Це стандарт, на який рівняються інші виробники.</p>
+          <p style="font-weight:700;color:#111;margin-top:4px">Основні особливості:</p>
+          <p style="margin:0">• Виготовлений з ізоляту сироваткового протеїну<br>• Ізолят + ультрафільтрований концентрат, мікрофракції сироватки<br>• Понад 4 г глютаміну в кожній порції<br>• Більше 5 г BCAA (лейцин, ізолейцин, валін) у кожній порції</p>
+          <div class="blk-lbl" style="margin:12px 0 6px">Додаткові фото продукту</div>
+          <div class="photorow">
+            <div class="photobox">фото 2<br>в руці</div>
+            <div class="photobox">фото 3<br>порція</div>
+            <div class="photobox">фото 4<br>етикетка</div>
+          </div>
+          <p style="color:#999;font-size:11.5px;margin-top:10px">↑ Опис іде <b>після</b> блоку довіри (Принцип №1: спершу факти, потім продаж). Готовий текст на кожен товар — етап копірайту.</p>
         </div>
 
         <!-- specs -->
@@ -428,7 +518,7 @@
 
         <!-- reviews 3.1 -->
         <div class="scard" id="rev">
-          <div class="sh">Відгуки <span style="color:#999;font-weight:600;font-size:12px">· 3.1 · recovery для непереконаного покупця</span></div>
+          <div class="sh" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">Відгуки <span style="color:#999;font-weight:600;font-size:12px">· 3.1 · recovery для непереконаного покупця</span> <span class="revstate">стан: багато відгуків → з пагінацією</span></div>
           <div class="revsum">
             <div style="text-align:center"><div class="revbig">4.8</div><div class="rs" style="color:#161616;letter-spacing:1px">★★★★★</div><div style="font-size:11px;color:#888">126 відгуків</div></div>
             <div class="revbars">
@@ -440,15 +530,76 @@
             </div>
             <span class="certbtn">＋ Залишити відгук</span>
           </div>
-          <div class="revitem"><span class="rn">Андрій</span> · <span class="rs">★★★★★</span><div class="rt">Беру не перший раз. Добре розмішується, смак не нудотний. Сертифікат на місці — довіряю.</div></div>
-          <div class="revitem"><span class="rn">Олена (тренер)</span> · <span class="rs">★★★★★</span><div class="rt">Замовляю клієнтам. Оригінал, доставка швидка. Склад прозорий — зручно показувати підопічним.</div></div>
+
+          <!-- review: name+rating left, body right; pros/cons; photos; answers; shop reply -->
+          <div class="rv">
+            <div class="who">
+              <div class="nm">Андрій К.</div>
+              <div class="rs">★★★★★</div>
+              <div class="verified">✓ Купив товар</div>
+              <div class="dt">12 червня 2026</div>
+            </div>
+            <div class="body">
+              <div class="pc2">
+                <span class="pci pos"><b>＋ Переваги:</b> добре розмішується, не нудотний смак</span>
+                <span class="pci neg"><b>− Недоліки:</b> дорогувато</span>
+              </div>
+              <div class="rt">Беру не перший раз. Сертифікат на місці — довіряю. Банки вистачає надовго.</div>
+              <div class="rphotos"><div class="rph">фото</div><div class="rph">фото</div></div>
+              <div class="ranswers">
+                <div class="rtoggle">Показати відповіді (2) ▾</div>
+                <div class="shopreply">
+                  <span class="shopchip">◆ Stack · магазин</span>
+                  <div class="rt" style="margin-top:6px">Дякуємо за відгук, Андрію! Тариф знижуємо для постійних покупців у програмі лояльності.</div>
+                  <div class="dt" style="font-size:10.5px;color:#aaa;margin-top:4px">13 червня 2026</div>
+                </div>
+                <div style="margin-top:8px"><span class="nm" style="font-size:12px;font-weight:800;color:#111">Ігор</span> <span class="dt" style="display:inline;color:#aaa;font-size:10.5px">· 13 червня</span><div class="rt">Згоден, смак топ</div></div>
+              </div>
+              <span class="replybtn">↩ Відповісти</span>
+            </div>
+          </div>
+
+          <div class="rv">
+            <div class="who">
+              <div class="nm">Олена (тренер)</div>
+              <div class="rs">★★★★★</div>
+              <div class="verified">✓ Купила товар</div>
+              <div class="dt">3 червня 2026</div>
+            </div>
+            <div class="body">
+              <div class="pc2">
+                <span class="pci pos"><b>＋ Переваги:</b> оригінал, прозорий склад, швидка доставка</span>
+              </div>
+              <div class="rt">Замовляю клієнтам. Зручно показувати підопічним склад і сертифікат.</div>
+              <span class="replybtn">↩ Відповісти</span>
+              <p style="font-size:10.5px;color:#bbb;margin-top:6px">↑ «Недоліки» можуть бути порожні — показуємо лише заповнені.</p>
+            </div>
+          </div>
+
+          <div class="pgnav" style="margin-top:14px">
+            <div class="pages"><a class="on" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">›</a></div>
+          </div>
+          <p style="font-size:11px;color:#999;margin-top:8px">Два стани: <b>багато відгуків</b> → пагінація (як тут); <b>мало</b> → простий список без пагінації. Відповіді магазину — спец-чипс із логотипом замість імені.</p>
         </div>
 
         <!-- questions 3.2 -->
         <div class="scard">
-          <div class="sh">Питання та відповіді <span style="color:#999;font-weight:600;font-size:12px">· 3.2</span></div>
-          <p><b>— Чи підходить для схуднення?</b><br>Так, але для сушки краще ізолят із меншою кількістю вуглеводів. Напишіть нам — підкажемо.</p>
+          <div class="sh">Питання та відповіді <span style="color:#999;font-weight:600;font-size:12px">· 3.2 · діалог-форма, як відгуки, але без рейтингу</span></div>
+          <div class="rv">
+            <div class="who">
+              <div class="nm">Запитання</div>
+              <div class="dt">8 червня 2026</div>
+            </div>
+            <div class="body">
+              <div class="rt" style="font-weight:700;color:#111">Чи підходить для схуднення?</div>
+              <div class="shopreply" style="margin-top:8px">
+                <span class="shopchip">◆ Stack · магазин</span>
+                <div class="rt" style="margin-top:6px">Так, але для сушки краще ізолят із меншою кількістю вуглеводів. Напишіть нам — підкажемо.</div>
+              </div>
+            </div>
+          </div>
           <span class="certbtn">＋ Поставити запитання</span>
+          <p style="font-size:11px;color:#999;margin-top:8px">«Поставити запитання» відкриває <b>діалог-форму</b>; питання потрапляє у цю стрічку, відповідає магазин (спец-чипс) або інші покупці. Та сама механіка, що відгуки, але без рейтингу і без переваг/недоліків.</p>
         </div>
 
         <!-- related 3.3 -->
@@ -460,6 +611,18 @@
             <div class="pcard"><div class="img">фото</div><div class="pn">BCAA 5000 380 г</div><div class="pmeta">Scitec · Угорщина</div><div class="pprice">690 ₴</div><div class="pb">У кошик</div></div>
             <div class="pcard"><div class="img">фото</div><div class="pn">Шейкер 700 мл</div><div class="pmeta">Stack</div><div class="pprice">180 ₴</div><div class="pb">У кошик</div></div>
           </div>
+        </div>
+
+        <!-- blog / related articles -->
+        <div class="scard">
+          <div class="sh">Статті по темі <span style="color:#999;font-weight:600;font-size:12px">· блог (8.0/8.1)</span></div>
+          <div class="prow">
+            <div class="acard"><div class="aim">фото</div><div class="at">Як обрати протеїн: ізолят, концентрат чи казеїн</div><div class="am">7 хв · Гайд</div></div>
+            <div class="acard"><div class="aim">фото</div><div class="at">Скільки білка потрібно на день для набору маси</div><div class="am">5 хв · Поради</div></div>
+            <div class="acard"><div class="aim">фото</div><div class="at">Коли пити протеїн: до чи після тренування</div><div class="am">4 хв · Поради</div></div>
+            <div class="acard"><div class="aim">фото</div><div class="at">Сироватковий протеїн і лактоза: що варто знати</div><div class="am">6 хв · Здоров'я</div></div>
+          </div>
+          <p style="font-size:11px;color:#999;margin-top:8px">Перелінковка на блог (8.0) / статтю (8.1) — допомагає новачку (Job 2) і SEO; спокійно, без продажу.</p>
         </div>
 
         <div class="wf-zone foot"><span class="zt">Футер</span> Наслідується — Футер (0.2): смуга довіри · колонки · SEO-блок популярних запитів · бренди · міста <span class="zd">— той самий компонент на всіх сторінках</span></div>
@@ -483,21 +646,31 @@
             <div style="font-size:10.5px;color:#777;margin-top:3px">Optimum Nutrition · США · <span style="color:#161616">★ 4.8 (126)</span></div>
             <div style="font-size:11px;color:#2d7d46;font-weight:800;margin-top:5px">● В наявності</div>
             <div style="background:#f6f6f4;border-left:3px solid #161616;border-radius:0 6px 6px 0;padding:6px 9px;font-size:10.5px;color:#333;margin-top:8px"><b>Для чого:</b> ріст і відновлення м'язів, 24 г білка/порція</div>
-            <div style="display:flex;align-items:baseline;gap:8px;margin-top:8px"><span style="font-size:21px;font-weight:800;color:#111">1 290 ₴</span><span style="font-size:12px;color:#aaa;text-decoration:line-through">1 520 ₴</span></div>
-            <div style="font-size:10px;color:#888">≈ 17 ₴/порція · 74 порції</div>
+            <div style="margin-top:8px"><span style="font-size:12px;color:#aaa;text-decoration:line-through">1 520 ₴</span><div style="font-size:22px;font-weight:800;color:#111;line-height:1.1">1 290 ₴</div><span style="display:inline-block;background:#161616;color:#fff;font-size:10px;font-weight:800;border-radius:5px;padding:2px 7px;margin-top:4px">−15% знижка</span></div>
+            <div style="font-size:10px;color:#888;margin-top:4px">≈ 17 ₴/порція · 74 порції</div>
           </div>
           <div class="p-blk">
             <div class="bh">Смак</div>
             <div class="p-pills"><span class="pp on">Шоколад</span><span class="pp">Ваніль</span><span class="pp">Полуниця</span></div>
           </div>
           <div class="p-blk">
-            <div class="bh">Блок довіри (Job 4)</div>
-            <div class="p-acc">Склад <span>▾</span></div>
-            <div class="p-acc">Дозування <span>▾</span></div>
-            <div class="p-acc">Походження <span>▾</span></div>
-            <div class="p-acc">Сертифікація · 📄 переглянути <span>▾</span></div>
+            <div class="bh">Доставка · Оплата</div>
+            <div style="font-size:10.5px;color:#444;line-height:1.6">Нова Пошта від 50 ₴ · Кур'єр від 70 ₴ · <b style="color:#2d7d46">Самовивіз безкоштовно</b><br>Картка · накладений платіж · готівка при самовивозі</div>
           </div>
-          <div class="p-blk"><div class="bh">Опис · Характеристики · Відгуки (3.1) · Схожі (3.3)</div><div class="p-line"></div><div class="p-line m"></div><div class="p-line s"></div></div>
+          <div class="p-blk">
+            <div class="bh">Довіра — єдина смуга</div>
+            <div style="font-size:10.5px;color:#444;line-height:1.6">✓ Оригінал · 📄 Сертифікат · 🚚 НП 1–2 дні · ↩ Повернення 14 днів</div>
+          </div>
+          <div class="p-blk">
+            <div class="bh">Блок довіри (Job 4) — відкритий</div>
+            <div class="p-acc">Склад + фото етикетки <span>▴</span></div>
+            <div class="p-acc">Дозування <span>▴</span></div>
+            <div class="p-acc">Походження <span>▴</span></div>
+            <div class="p-acc">Сертифікація · 📄 переглянути <span>▴</span></div>
+          </div>
+          <div class="p-blk"><div class="bh">Опис · Характеристики</div><div class="p-line"></div><div class="p-line m"></div><div class="p-line s"></div></div>
+          <div class="p-blk"><div class="bh">Відгуки (3.1) · ім'я+рейтинг ↔ текст</div><div style="font-size:10px;color:#777;line-height:1.5">Переваги/недоліки · фото · відповіді (показати/сховати) · відповідь магазину (чипс)</div></div>
+          <div class="p-blk"><div class="bh">Питання (3.2) · Схожі (3.3) · Статті</div><div class="p-line"></div><div class="p-line s"></div></div>
           <div class="p-sticky"><span class="sp">1 290 ₴</span><span class="sc">У кошик</span><span style="font-size:18px;color:#888">♡</span></div>
           <div class="p-tabs">
             <div class="p-tab"><span class="ic">⌂</span>Головна</div>
@@ -543,6 +716,11 @@
       <tr><td><b>Додано в кошик</b></td><td>Підтвердження (toast / міні-кошик) з «Перейти в кошик» + «Продовжити».</td></tr>
       <tr><td><b>Тренер у сесії</b></td><td>CTA = <b>«Додати клієнту»</b>; показано <b>ціну тренера</b> (узгоджено зі станом 2.1).</td></tr>
       <tr><td><b>Непереконаний покупець</b></td><td>На цьому ж екрані — <b>відгуки (3.1) + сертифікат</b> перед будь-яким виходом (recovery потоку).</td></tr>
+      <tr><td><b>Відгуки: багато</b></td><td>Список із <b>пагінацією</b>; рейтинг + розподіл зверху.</td></tr>
+      <tr><td><b>Відгуки: мало</b></td><td>Простий список <b>без пагінації</b>.</td></tr>
+      <tr><td><b>Відгук без недоліків</b></td><td>Блок «Недоліки» порожній → не показуємо (показуємо лише заповнені переваги/недоліки).</td></tr>
+      <tr><td><b>Відповіді на відгук</b></td><td>«Показати відповіді (N)» → розгортає; відповідь магазину — спец-чипс; можна додати фото.</td></tr>
+      <tr><td><b>Поставити запитання</b></td><td>Відкриває <b>діалог-форму</b>; після відправки питання з'являється у стрічці Q&amp;A (опц. модерація), магазин відповідає.</td></tr>
     </table>
 
     <div class="cols two" style="margin-top:14px">
@@ -628,15 +806,18 @@
       <tr><td>0</td><td><b>Хедер</b> (наслідується)</td><td>Навігація 0.1</td><td class="arrow">0.1</td></tr>
       <tr><td>1</td><td><b>Хлібні крихти</b></td><td>Головна / Каталог / Категорія / Товар (BreadcrumbList)</td><td class="arrow">0.0 · 2.0 · 2.1</td></tr>
       <tr><td>2</td><td><b>Галерея</b></td><td>Фото + мініатюри + zoom; lazy нижче згину</td><td>—</td></tr>
-      <tr><td>3</td><td><b>Buy-box</b></td><td>H1 · бренд·країна · рейтинг · артикул · наявність · проста відповідь · ціна (+за порцію, +тренера) · варіанти · кількість · <b>«У кошик»</b> + ♡ · мікро-довіра</td><td class="arrow">2.4 · 6.0 · 7.6 · #rev</td></tr>
-      <tr><td>4</td><td><b>Блок довіри</b> (ведучий)</td><td>Склад · Дозування · Походження · Сертифікація (переглядний документ)</td><td class="arrow">Job 4</td></tr>
-      <tr><td>5</td><td><b>Опис</b></td><td>Простою мовою — для кого, навіщо (після довіри)</td><td>—</td></tr>
-      <tr><td>6</td><td><b>Характеристики</b></td><td>Повна таблиця атрибутів — дзеркалить фасети каталогу</td><td class="arrow">catalog.md</td></tr>
-      <tr><td>7</td><td><b>Відгуки</b> (3.1)</td><td>Рейтинг + розподіл + список + «Залишити відгук» — recovery</td><td class="arrow">3.1</td></tr>
-      <tr><td>8</td><td><b>Питання</b> (3.2)</td><td>Q&amp;A + «Поставити запитання»</td><td class="arrow">3.2</td></tr>
-      <tr><td>9</td><td><b>Схожі</b> (3.3)</td><td>Схожі · з цим купують · та сама ціль</td><td class="arrow">3.3 · 3.0 · 2.2</td></tr>
-      <tr><td>10</td><td><b>Липка смуга</b> (мобілка)</td><td>Ціна + «У кошик» після прокрутки buy-box</td><td class="arrow">6.0</td></tr>
-      <tr><td>11</td><td><b>Футер</b> (наслідується)</td><td>Футер 0.2</td><td class="arrow">0.2</td></tr>
+      <tr><td>3</td><td><b>Buy-box</b></td><td>H1 · бренд·країна · рейтинг · артикул · наявність · проста відповідь · <b>ціна (стара→нова→бейдж −%)</b> + за порцію + тренера · варіанти · кількість · <b>«У кошик»</b> + ♡</td><td class="arrow">2.4 · 6.0 · 7.6 · #rev</td></tr>
+      <tr><td>4</td><td><b>Доставка + Оплата</b></td><td>НП (відділення/поштомат) · кур'єр · самовивіз (за наявності) + ціни (від 50/70/безкоштовно) · способи оплати</td><td class="arrow">8.x</td></tr>
+      <tr><td>5</td><td><b>Смуга довіри</b> (єдина)</td><td>Оригінал+гарантія · сертифікат · доставка · повернення — одним блоком перед складом</td><td>—</td></tr>
+      <tr><td>6</td><td><b>Блок довіри</b> (ведучий)</td><td>Склад (+ фото етикетки) · Дозування · Походження · Сертифікація (переглядний документ); секції відкриті, можна згорнути</td><td class="arrow">Job 4</td></tr>
+      <tr><td>7</td><td><b>Опис</b></td><td>Повний текст простою мовою + додаткові фото (після довіри)</td><td>—</td></tr>
+      <tr><td>8</td><td><b>Характеристики</b></td><td>Повна таблиця атрибутів — дзеркалить фасети каталогу</td><td class="arrow">catalog.md</td></tr>
+      <tr><td>9</td><td><b>Відгуки</b> (3.1)</td><td>Рейтинг + розподіл; відгук = ім'я+рейтинг ↔ текст + переваги/недоліки + фото + відповіді + відповідь магазину (чипс); стани багато(пагінація)/мало</td><td class="arrow">3.1</td></tr>
+      <tr><td>10</td><td><b>Питання</b> (3.2)</td><td>Діалог-форма → стрічка Q&amp;A; відповідає магазин (чипс) / покупці; без рейтингу</td><td class="arrow">3.2</td></tr>
+      <tr><td>11</td><td><b>Схожі</b> (3.3)</td><td>Схожі · з цим купують · та сама ціль</td><td class="arrow">3.3 · 3.0 · 2.2</td></tr>
+      <tr><td>12</td><td><b>Статті по темі</b></td><td>Тизери блогу — допомога новачку + SEO</td><td class="arrow">8.0 · 8.1</td></tr>
+      <tr><td>13</td><td><b>Липка смуга</b> (мобілка)</td><td>Ціна + «У кошик» після прокрутки buy-box</td><td class="arrow">6.0</td></tr>
+      <tr><td>14</td><td><b>Футер</b> (наслідується)</td><td>Футер 0.2</td><td class="arrow">0.2</td></tr>
     </table>
   </section>
 
@@ -646,15 +827,19 @@
     <div class="open">
       <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">✓ <b>Зафіксовано (чернетка, 2026-06-30):</b></p>
       <ul style="margin-bottom:14px">
-        <li><b>Блок довіри ведучий</b> (Склад · Дозування · Походження · Сертифікація) одразу під buy-box, опис — після (Принцип №1).</li>
-        <li><b>Один головний CTA «У кошик»</b> + липка нижня смуга на мобілці; ♡ — вторинний.</li>
-        <li><b>Проста відповідь під H1</b> + глибина далі (Принцип №5).</li>
-        <li><b>Варіанти на одній PDP, один canonical</b>; параметри смак/вага → canonical на базу; відсутні варіанти вимкнено, не сховано.</li>
-        <li><b>Чесна наявність</b> без таймерів; out-of-stock → «Повідомити про надходження» + повернення до колекції (не глухий кут).</li>
-        <li><b>Відгуки (3.1) + переглядний сертифікат</b> = recovery конверсії (за потоком Job 3).</li>
-        <li><b>Характеристики</b> дзеркалять фасети catalog.md; <b>питання (3.2)</b> і <b>схожі (3.3)</b> на тій самій сторінці.</li>
-        <li><b>Coach-aware</b>: CTA «Додати клієнту» + ціна тренера.</li>
-        <li><b>SEO A–E</b>: Product/Offers + AggregateRating + Review + Breadcrumb; канонікалізація варіантів.</li>
+        <li><b>Ціна:</b> стара (закреслена) <b>зверху</b> → нова крупно → <b>бейдж −% під ціною</b>.</li>
+        <li><b>Блоки Доставка + Оплата під ціною/CTA</b> в buy-box: НП (відділення/поштомат), кур'єр на адресу, самовивіз (Одеса, адреса [?]); ціни від 50 / 70 / безкоштовно; самовивіз — лише за наявності на точці. Оплата: картка, накладений платіж, готівка при самовивозі.</li>
+        <li><b>Єдина смуга довіри</b> (оригінал · сертифікат · доставка · повернення) одним блоком <b>перед складом</b> (винесено з buy-box).</li>
+        <li><b>Блок довіри ведучий</b> (Склад + <b>фото етикетки складу</b> · Дозування · Походження · Сертифікація) одразу за смугою; <b>секції відкриті за замовч., можна згорнути</b>; опис — після (Принцип №1).</li>
+        <li><b>Опис</b> — повний продуктовий текст + <b>додаткові фото продукту</b>.</li>
+        <li><b>Один головний CTA «У кошик»</b> + липка нижня смуга на мобілці; ♡ — вторинний. <b>Проста відповідь під H1</b> (Принцип №5).</li>
+        <li><b>Варіанти на одній PDP, один canonical</b>; відсутні варіанти вимкнено, не сховано.</li>
+        <li><b>Чесна наявність</b> без таймерів; out-of-stock → «Повідомити» + повернення до колекції (не глухий кут).</li>
+        <li><b>Відгуки (3.1):</b> ім'я + рейтинг + дата <b>зліва</b>, текст <b>справа</b>; категорії <b>Переваги / Недоліки</b> (можуть бути порожні); фото; <b>відповіді</b> (показати/сховати, з датами, можна фото); <b>відповідь магазину</b> — спец-чипс із логотипом замість імені. Два стани: <b>багато</b> → пагінація, <b>мало</b> → без неї. Сертифікат + відгуки = recovery конверсії (потік Job 3).</li>
+        <li><b>Питання (3.2):</b> «Поставити запитання» = <b>діалог-форма</b>; питання → у стрічку Q&A; відповідає магазин (чипс) або покупці; <b>без рейтингу</b> і без переваг/недоліків.</li>
+        <li><b>Статті по темі (блог 8.0/8.1)</b> — секція перед футером: допомога новачку + SEO.</li>
+        <li><b>Характеристики</b> дзеркалять фасети catalog.md; <b>схожі (3.3)</b> на тій самій сторінці.</li>
+        <li><b>Coach-aware</b>: CTA «Додати клієнту» + ціна тренера. <b>SEO A–E</b>: Product/Offers + AggregateRating + Review + Breadcrumb; канонікалізація варіантів.</li>
       </ul>
       <h2 style="font-size:15px;margin:8px 0">Лишається [?] (операційне / дані, не IA)</h2>
       <ul>
@@ -663,6 +848,9 @@
         <li><b>Логіка «з цим купують»</b> — потрібна аналітика продажів (начально ручне / суміжна категорія).</li>
         <li><b>Ціна тренера</b> — рішення з ціноутворення [?] (гіпотеза Free vs Pro).</li>
         <li><b>Правило ціни за порцію</b> коли фасування/порції різняться — підтвердити на етапі даних.</li>
+        <li><b>Адреси самовивозу + ціни доставки</b> (НП від 50 ₴, кур'єр від 70 ₴ — приклади) — реальні значення й точки самовивозу [?] (операційне).</li>
+        <li><b>Наявність на точці самовивозу</b> — облік залишків по точках [?].</li>
+        <li><b>Модерація питань/відгуків</b> перед публікацією — політика [?].</li>
       </ul>
     </div>
   </section>
