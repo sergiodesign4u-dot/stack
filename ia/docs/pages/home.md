@@ -45,8 +45,9 @@ also **mobile tab 1** and the root SEO landing.
    For-coaches landing (5.0, Free/Pro comparison). Guest → unified sign-in (1.0) then activation (5.1).
 6. **Popular categories** — tiles of top categories (Протеїн, Гейнери, Креатин, Амінокислоти,
    Передтренувальні, Вітаміни…) → Category (2.1). Full 12 in the «Каталог» mega-menu / catalog taxonomy.
-7. **Products — bestsellers** — rows of product cards; card → Product (3.0), «У кошик» → Cart (6.0).
-   Coach sees tier pricing. Calm cards, no aggressive badges.
+7. **Products — bestsellers & new arrivals** — rows of product cards (Хіти продажів + **Новинки**,
+   NEW badge instead of −%); card → Product (3.0), «У кошик» → Cart (6.0). Coach sees tier pricing.
+   Calm cards. Row curation rules (hits/new/recommended) come later, from sales data.
 8. **Recently viewed (state)** — shown when there's view history (guest: local; logged-in: account);
    same product card. Helps the user return to a product and finish buying.
 9. **Promotions · Brands · Blog** — calm promo (no timers, principle #4) → 8.10; brand strip → 2.4
@@ -79,12 +80,48 @@ wider rows. First-screen and priority are reasoned from mobile.
 
 ---
 
-## SEO
-- **Single H1** in the hero (root keyword «спортивне харчування»).
-- Goal & category tiles are crawlable `<a>` with descriptive anchors (internal linking).
-- Bottom SEO text (H2 + copy); popular query-links are in the footer (0.2).
-- schema.org **Organization** + **WebSite** (sitelinks searchbox). No breadcrumbs on the root.
-- Banner images have `alt`; the LCP banner must not block render (performance).
+## SEO block (full, produced at the IA stage — template for every page)
+
+We finalize the page's whole SEO block during IA: meta tags (with ready copy), heading structure,
+ready SEO body text, schema/tags, and an optimization checklist.
+
+**A · Meta tags (ready copy)**
+- `<title>` (≤60): **Спортивне харчування — купити спортпіт в Україні | Stack**
+- `<meta name="description">` (≤155): **Магазин спортивного харчування Stack: протеїн, креатин,
+  амінокислоти, вітаміни. Оригінал і сертифікати, швидка доставка Новою Поштою, оплата картою.
+  Підберіть під вашу ціль.**
+- `canonical` = `https://stack.ua/`; `hreflang` uk / ru / x-default; `robots` = index, follow.
+- Open Graph (og:type=website, og:title, og:description, og:image, og:locale=uk_UA) + Twitter
+  `summary_large_image`.
+
+**B · Heading structure**
+- **H1 (single):** «Спортивне харчування під вашу ціль» (hero).
+- **H2:** Оберіть ціль · Для тренерів · Популярні категорії · Хіти продажів · Новинки ·
+  Корисні поради · «Спортивне харчування в Україні — Stack» (SEO text).
+
+**C · Ready SEO text (bottom)**
+> **Спортивне харчування в Україні — Stack**
+> Stack — інтернет-магазин спортивного харчування з доставкою по всій Україні. У каталозі —
+> протеїн, гейнери, креатин, амінокислоти (BCAA, EAA), передтренувальні комплекси, жироспалювачі,
+> вітаміни та продукти для здоров'я від перевірених брендів. Уся продукція сертифікована, з
+> оригінальною гарантією виробника.
+> Не знаєте, з чого почати? Оберіть ціль — набір маси, схуднення, відновлення, енергія, імунітет
+> чи витривалість — і отримайте зрозумілий, безпечний набір із вказаним складом і дозуванням.
+> Швидка доставка Новою Поштою за 1–2 дні, зручна оплата та повернення протягом 14 днів.
+
+**D · Tags / structured data**
+- schema.org **Organization** (name, logo, contacts, socials) + **WebSite** + SearchAction
+  (sitelinks searchbox). **No BreadcrumbList** on the root. ItemList (optional) for the product rows.
+- `lang="uk"` + hreflang (uk/ru).
+
+**E · Optimization checklist**
+- One H1, logical H2 → H3; every section has a meaningful heading.
+- LCP banner optimized, non-blocking; images have `alt`, below-the-fold lazy-loaded.
+- Internal linking via crawlable `<a>` tiles (goals/categories) with descriptive anchors.
+- canonical + hreflang (uk/ru), no duplicate content. Trust band is text, not images.
+- Core Web Vitals in the green; content language = Ukrainian. Popular query-links live in the footer.
+
+> **Template:** this A–E SEO block is produced for **every** IA page (Catalog, Product, Goal, …).
 
 ## Accessibility
 - Logical heading order H1 → H2; every section has a heading.
@@ -99,9 +136,12 @@ wider rows. First-screen and priority are reasoned from mobile.
 - **Cart shelf (state)** under the hero when the cart is non-empty (now or earlier): count, sum,
   thumbnails, «Оформити замовлення» / «Переглянути кошик».
 - **Personal strip by state** right under the cart shelf (guest hidden · buyer repeat-order · coach new session).
-- **Recently-viewed (state)** block when view history exists; uses the canonical product card.
+- **Product rows:** Хіти продажів · **Новинки** (NEW badge) · **Recently-viewed** (state; view
+  history) — all use the canonical product card.
 - **Canonical product card:** photo · name · meta (brand · country) · price (new + old struck-through
-  + −% badge) · «У кошик».
+  + −% badge; NEW badge for new arrivals) · «У кошик».
+- **Full SEO block produced at IA** (meta tags + H1/H2 + ready text + schema + checklist) — see the
+  SEO block section; this is the **template for every page**.
 - **Trust band high** (principle #1); full 4-card strip in the footer.
 - **Visible «Для тренерів» block** on Home (principle #3) → landing 5.0.
 - Then: popular categories → products (bestsellers) → promo/brands/blog → SEO text.

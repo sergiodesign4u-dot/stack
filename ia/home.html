@@ -129,7 +129,7 @@
 
     /* product row */
     .prow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .pcard { border: 1px solid #e2e2e2; border-radius: 10px; overflow: hidden; }
+    .pcard { border: 1px solid #e2e2e2; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
     .pcard .img { height: 84px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 11px; }
     .pcard .pn { font-size: 12px; color: #333; padding: 8px 8px 2px; line-height: 1.3; }
     .pcard .pp { font-weight: 800; color: #111; font-size: 13px; padding: 0 8px; }
@@ -139,6 +139,7 @@
     .pcard .pprice { padding: 4px 8px 0; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
     .pcard .pnew { font-weight: 800; color: #111; font-size: 14px; }
     .pcard .pold { font-size: 11px; color: #aaa; text-decoration: line-through; }
+    .pcard .pb { margin: 8px; margin-top: auto; border: 1.5px solid #161616; border-radius: 7px; text-align: center; padding: 7px 6px; font-size: 12px; font-weight: 700; color: #111; }
     @media (max-width: 680px) { .prow { grid-template-columns: 1fr 1fr; } }
 
     /* cart shelf (state) */
@@ -164,9 +165,11 @@
 
     /* seo text */
     .seotext { padding: 14px 16px; background: #fafafa; }
-    .seotext .h { font-size: 14px; font-weight: 800; color: #111; margin-bottom: 6px; }
-    .seotext .ln { height: 8px; background: #ececec; border-radius: 4px; margin: 6px 0; }
-    .seotext .ln.s { width: 70%; }
+    .seotext .h { font-size: 15px; font-weight: 800; color: #111; margin-bottom: 8px; }
+    .seotext p { font-size: 13px; color: #555; margin-bottom: 8px; line-height: 1.55; }
+    .codebox { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; background: #f4f4f4; border: 1px solid #e4e4e4; border-radius: 8px; padding: 10px 12px; color: #333; white-space: pre-wrap; word-break: break-word; margin: 0 0 12px; line-height: 1.6; }
+    .codebox b { color: #111; }
+    .chklist { font-size: 13px; color: var(--text-secondary); margin: 0 0 8px 18px; } .chklist li { margin-bottom: 5px; }
 
     /* phone skeleton */
     .phone2 { max-width: 320px; border: 1px solid #cfcfcf; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: var(--shadow-sm); }
@@ -377,7 +380,7 @@
   <!-- 06 Products -->
   <section class="section" id="products">
     <div class="section-num">06 · Товари</div>
-    <h2>Хіти продажів · переглянуті товари</h2>
+    <h2>Хіти продажів · новинки · переглянуті товари</h2>
     <p class="section-lead">Соціальний доказ і швидке додавання. <b>Картка товару</b> (канонічна, повторюється в каталозі/лістингах): фото · назва · мета (фірма · країна) · ціна зі знижкою і без · «У кошик». Для тренера ціна — за тарифом. Спокійно, без агресивних бейджів.</p>
     <div class="wf">
       <div class="wf-cap">Хіти продажів — ряд карток</div>
@@ -390,7 +393,20 @@
         </div>
       </div>
     </div>
-    <p class="note">Поля картки: <b>фото · назва · мета (фірма · країна виробництва) · ціна (нова + стара перекреслена за наявності знижки + бейдж −%) · «У кошик»</b>. Картка → Товар (3.0); «У кошик» → Кошик (6.0). Стрічки: «Хіти», «Новинки», «Рекомендовано» (правила добірок — пізніше, за даними).</p>
+    <p class="note">Поля картки: <b>фото · назва · мета (фірма · країна виробництва) · ціна (нова + стара перекреслена за наявності знижки + бейдж −%) · «У кошик»</b>. Картка → Товар (3.0); «У кошик» → Кошик (6.0).</p>
+
+    <div class="wf">
+      <div class="wf-cap">Новинки — ряд карток</div>
+      <div class="wf-pad">
+        <div class="prow">
+          <div class="pcard"><div class="img">фото<span class="pdisc">NEW</span></div><div class="pn">Ізолят протеїну 700 г</div><div class="pmeta">Scitec · Угорщина</div><div class="pprice"><span class="pnew">949 ₴</span></div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото<span class="pdisc">NEW</span></div><div class="pn">Бета-аланін 250 г</div><div class="pmeta">OstroVit · Польща</div><div class="pprice"><span class="pnew">389 ₴</span></div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото<span class="pdisc">NEW</span></div><div class="pn">Колаген + вітамін C</div><div class="pmeta">BioTech · Угорщина</div><div class="pprice"><span class="pnew">579 ₴</span></div><div class="pb">У кошик</div></div>
+          <div class="pcard"><div class="img">фото<span class="pdisc">NEW</span></div><div class="pn">Електроліти 40 порцій</div><div class="pmeta">Stack · Україна</div><div class="pprice"><span class="pnew">299 ₴</span></div><div class="pb">У кошик</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="note">«Новинки» — нещодавно додані товари (бейдж NEW замість −%). Та сама картка. Стрічки «Хіти / Новинки / Рекомендовано» — правила добірок пізніше, за даними продажів.</p>
 
     <div class="wf">
       <div class="wf-cap">Переглянуті товари — стан «є історія переглядів»</div>
@@ -440,25 +456,73 @@
     <p class="note">Акції → 8.10 · Бренди → 2.4 · Поради → Стаття (8.1) / Блог (8.0). Усе спокійне, без countdown-таймерів.</p>
   </section>
 
-  <!-- 08 SEO text -->
+  <!-- 08 SEO block -->
   <section class="section" id="seotext">
-    <div class="section-num">08 · SEO-текст</div>
-    <h2>Описовий блок (низ сторінки)</h2>
-    <p class="section-lead">Унизу — H2 + описовий текст про магазин (кореневі ключі), щоб головна ранжувалася як «спортивне харчування Україна». Популярні запити-лінки — у футері (0.2).</p>
+    <div class="section-num">08 · SEO-блок сторінки</div>
+    <h2>SEO: мета-теги, заголовки, готовий текст, схема</h2>
+    <p class="section-lead">На етапі IA фіксуємо <b>повний SEO-блок кожної сторінки</b>: мета-теги з готовими текстами, структуру H1/H2, описовий текст і теги/схему розмітки. Нижче — для головної (це <b>шаблон для всіх сторінок</b>).</p>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;color:var(--accent)">A · Мета-теги (готові тексти)</h3>
+    <div class="codebox">&lt;title&gt;<b>Спортивне харчування — купити спортпіт в Україні | Stack</b>&lt;/title&gt;  <span style="color:#999">(≤60 симв.)</span>
+&lt;meta name="description" content="<b>Магазин спортивного харчування Stack: протеїн, креатин, амінокислоти, вітаміни. Оригінал і сертифікати, швидка доставка Новою Поштою, оплата картою. Підберіть під вашу ціль.</b>"&gt;  <span style="color:#999">(≤155 симв.)</span>
+&lt;link rel="canonical" href="https://stack.ua/"&gt;
+&lt;link rel="alternate" hreflang="uk" href="https://stack.ua/"&gt;
+&lt;link rel="alternate" hreflang="ru" href="https://stack.ua/ru/"&gt;
+&lt;link rel="alternate" hreflang="x-default" href="https://stack.ua/"&gt;
+&lt;meta name="robots" content="index, follow"&gt;
+&lt;meta property="og:type" content="website"&gt; · og:title · og:description · og:image · og:locale="uk_UA"
+&lt;meta name="twitter:card" content="summary_large_image"&gt;</div>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;color:var(--accent)">B · Структура заголовків</h3>
+    <table>
+      <tr><th>Рівень</th><th>Текст</th><th>Де</th></tr>
+      <tr><td><b>H1</b> (єдиний)</td><td>Спортивне харчування під вашу ціль</td><td>hero</td></tr>
+      <tr><td>H2</td><td>Оберіть ціль (плитки)</td><td>hero</td></tr>
+      <tr><td>H2</td><td>Замовляєте для клієнтів? (Для тренерів)</td><td>коуч-блок</td></tr>
+      <tr><td>H2</td><td>Популярні категорії</td><td>категорії</td></tr>
+      <tr><td>H2</td><td>Хіти продажів · Новинки</td><td>товари</td></tr>
+      <tr><td>H2</td><td>Корисні поради</td><td>блог</td></tr>
+      <tr><td>H2</td><td>Спортивне харчування в Україні — Stack</td><td>SEO-текст (низ)</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;color:var(--accent)">C · Готовий SEO-текст (низ сторінки)</h3>
     <div class="wf">
-      <div class="wf-cap">SEO-текст</div>
+      <div class="wf-cap">SEO-текст — готовий</div>
       <div class="seotext">
         <div class="h">Спортивне харчування в Україні — Stack</div>
-        <div class="ln"></div><div class="ln"></div><div class="ln s"></div>
+        <p>Stack — інтернет-магазин спортивного харчування з доставкою по всій Україні. У каталозі — протеїн, гейнери, креатин, амінокислоти (BCAA, EAA), передтренувальні комплекси, жироспалювачі, вітаміни та продукти для здоров'я від перевірених брендів. Уся продукція сертифікована, з оригінальною гарантією виробника.</p>
+        <p>Не знаєте, з чого почати? Оберіть ціль — набір маси, схуднення, відновлення, енергія, імунітет чи витривалість — і отримайте зрозумілий, безпечний набір із вказаним складом і дозуванням. Швидка доставка Новою Поштою за 1–2 дні, зручна оплата карткою чи готівкою та повернення протягом 14 днів.</p>
       </div>
     </div>
+    <p class="note">Текст лагідний і інформативний (Принцип №5), з кореневими ключами без переспаму. Популярні запити-лінки (категорії/бренди/міста) — у футері (0.2).</p>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;color:var(--accent)">D · Теги та структурована розмітка</h3>
+    <table>
+      <tr><th>Тег / схема</th><th>Призначення</th></tr>
+      <tr><td><b>schema.org Organization</b></td><td>Назва, лого, контакти, соцмережі (єдино на сайт)</td></tr>
+      <tr><td><b>schema.org WebSite</b> + SearchAction</td><td>Sitelinks searchbox у видачі Google</td></tr>
+      <tr><td><b>ItemList</b> (опц.)</td><td>Ряди «Хіти / Новинки» як список товарів</td></tr>
+      <tr><td>BreadcrumbList</td><td><b>Не потрібен</b> на головній (корінь сайту)</td></tr>
+      <tr><td><code>lang="uk"</code> + hreflang</td><td>Мова сторінки + uk/ru локалі</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;color:var(--accent)">E · Чек-лист оптимізації</h3>
+    <ul class="chklist">
+      <li>Один <b>H1</b>, логічна ієрархія H2 → H3; кожна секція має змістовний заголовок.</li>
+      <li><b>LCP-банер</b> оптимізований і не блокує рендер; зображення з <b>alt</b>, нижні — lazy-load.</li>
+      <li>Внутрішня перелінковка <b>крауленими &lt;a&gt;</b> (плитки цілей і категорій) з описовими анкорами.</li>
+      <li><b>canonical</b> + <b>hreflang</b> (uk/ru), без дублів контенту.</li>
+      <li>Смуга довіри — <b>текст, не картинки</b> (читається краулером).</li>
+      <li>Core Web Vitals у нормі; мова контенту — українська.</li>
+    </ul>
+    <div class="reco"><b>Шаблон:</b> цей SEO-блок (A–E: мета-теги · заголовки · готовий текст · схема · чек-лист) робимо для <b>кожної</b> сторінки IA — далі для Каталогу, Картки товару, Цілі тощо.</div>
   </section>
 
   <!-- 09 Mobile skeleton -->
   <section class="section" id="mobile">
     <div class="section-num">09 · Мобілка</div>
     <h2>Мобільний перший екран і порядок блоків</h2>
-    <p class="section-lead">База 360px. Перший екран = H1 + плитки цілей (2 колонки) — нічого не відволікає від «одного кроку». Далі персональна стрічка (за станом), довіра, тренери, категорії, товари, промо/бренди/блог, SEO-текст, футер.</p>
+    <p class="section-lead">База 360px. Перший екран = H1 + плитки цілей (2 колонки) + кнопки <b>«Відкрити каталог»</b> і <b>«Підібрати за квізом»</b> — нічого зайвого, але обидва входи на місці. Далі полиця кошика й персональна стрічка (за станом), довіра, тренери, категорії, товари, промо/бренди/блог, <b>SEO-текст</b>, футер.</p>
     <div class="cols two">
       <div>
         <div class="phone2">
@@ -471,12 +535,14 @@
               <div class="p-tile">Імунітет</div><div class="p-tile">Витривалість</div>
             </div>
             <div class="p-cta">Відкрити каталог</div>
+            <div class="p-cta" style="background:#fff;color:#111;border:1.5px solid #161616;margin-top:6px;">Підібрати за квізом →</div>
           </div>
           <div class="p-blk"><div class="bh">Кошик · 5 товарів · 3 240 ₴</div><div class="p-cta">Оформити замовлення</div></div>
           <div class="p-blk"><div class="bh">Персональне (покупець)</div><div class="p-cta" style="background:#fff;color:#111;border:1.5px solid #161616;">Повторити замовлення</div></div>
           <div class="p-blk"><div class="bh">Довіра</div><div class="p-line"></div></div>
           <div class="p-blk"><div class="bh">Для тренерів</div><div class="p-line"></div><div class="p-cta">Умови →</div></div>
-          <div class="p-blk"><div class="bh">Категорії · Хіти · Переглянуті · Бренди · Блог</div><div class="p-line"></div><div class="p-line"></div></div>
+          <div class="p-blk"><div class="bh">Категорії · Хіти · Новинки · Переглянуті · Бренди · Блог</div><div class="p-line"></div><div class="p-line"></div></div>
+          <div class="p-blk"><div class="bh">SEO-текст (низ)</div><div class="p-line"></div><div class="p-line"></div><div class="p-line" style="width:65%"></div></div>
           <div class="p-tabs">
             <div class="p-tab active"><span class="ic">⌂</span>Головна</div>
             <div class="p-tab"><span class="ic">▦</span>Каталог</div>
@@ -506,7 +572,7 @@
       <tr><td>4</td><td><b>Смуга довіри</b></td><td>Сертифікат · доставка · оплата · повернення · відгуки</td><td class="arrow">8.8 · 8.4 · 8.5 · 8.11</td></tr>
       <tr><td>5</td><td><b>Для тренерів</b></td><td>Банер коуч-каналу + CTA умови</td><td class="arrow">5.0</td></tr>
       <tr><td>6</td><td><b>Популярні категорії</b></td><td>Плитки топ-категорій</td><td class="arrow">2.1</td></tr>
-      <tr><td>7</td><td><b>Товари — хіти</b></td><td>Картка: фото · назва · фірма·країна · ціна (нова+стара) · «У кошик»</td><td class="arrow">3.0 · 6.0</td></tr>
+      <tr><td>7</td><td><b>Товари — хіти / новинки</b></td><td>Картка: фото · назва · фірма·країна · ціна (нова+стара) · «У кошик». Новинки — бейдж NEW</td><td class="arrow">3.0 · 6.0</td></tr>
       <tr><td>8</td><td><b>Переглянуті товари</b> (стан)</td><td>Якщо є історія переглядів; та сама картка</td><td class="arrow">3.0 · 6.0</td></tr>
       <tr><td>9</td><td><b>Акції · Бренди · Блог</b></td><td>Промо (без таймерів) · бренди · тизер статей</td><td class="arrow">8.10 · 2.4 · 8.0/8.1</td></tr>
       <tr><td>10</td><td><b>SEO-текст</b></td><td>H2 + опис магазину (кореневі ключі)</td><td>—</td></tr>
@@ -531,29 +597,16 @@
 
   <!-- 12 SEO & a11y -->
   <section class="section" id="seo">
-    <div class="section-num">12 · SEO та доступність</div>
-    <h2>Розмітка</h2>
-    <div class="cols two">
-      <div>
-        <h3 style="font-size:14px;margin-bottom:8px;color:var(--accent)">SEO</h3>
-        <table>
-          <tr><td><b>Один H1</b> у hero (кореневий ключ «спортивне харчування»).</td></tr>
-          <tr><td>Плитки цілей і категорій — краулені <b>&lt;a&gt;</b> з описовими анкорами (внутрішня перелінковка).</td></tr>
-          <tr><td>SEO-текст унизу (H2 + опис); популярні запити-лінки — у футері (0.2).</td></tr>
-          <tr><td>schema.org <b>Organization</b> + <b>WebSite</b> (sitelinks searchbox); хлібних крихт на головній немає.</td></tr>
-          <tr><td>Зображення банерів — з <b>alt</b>; LCP-банер не блокує рендер (продуктивність).</td></tr>
-        </table>
-      </div>
-      <div>
-        <h3 style="font-size:14px;margin-bottom:8px;color:var(--accent)">Доступність</h3>
-        <table>
-          <tr><td>Логічний порядок заголовків H1 → H2; кожна секція має заголовок.</td></tr>
-          <tr><td>Плитки — тап-цілі <b>≥ 44px</b>, видимий фокус.</td></tr>
-          <tr><td>Каруселі товарів — керування клавіатурою, кнопки «вперед/назад» з aria-label.</td></tr>
-          <tr><td>Контраст тексту на банерах ≥ 4.5:1 (перевірити на етапі кольору).</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-num">12 · Доступність</div>
+    <h2>Доступність</h2>
+    <p class="section-lead">SEO винесено в окремий блок (08). Тут — доступність.</p>
+    <table>
+      <tr><td>Логічний порядок заголовків H1 → H2; кожна секція має заголовок.</td></tr>
+      <tr><td>Плитки — тап-цілі <b>≥ 44px</b>, видимий фокус.</td></tr>
+      <tr><td>Каруселі товарів — керування клавіатурою, кнопки «вперед/назад» з aria-label.</td></tr>
+      <tr><td>Полиця кошика / персональна стрічка — оголошення лічильника й суми (aria-label).</td></tr>
+      <tr><td>Контраст тексту на банерах ≥ 4.5:1 (перевірити на етапі кольору).</td></tr>
+    </table>
   </section>
 
   <!-- 13 Locked -->
@@ -565,7 +618,8 @@
         <li><b>Перший екран = селектор цілей</b> (H1 + 6 плиток) — «один зрозумілий крок» для початківця; вторинно «Відкрити каталог».</li>
         <li><b>Полиця кошика (стан)</b> одразу під hero, коли кошик не порожній (зараз або з минулого візиту): N товарів, сума, мініатюри, «Оформити замовлення» / «Переглянути кошик».</li>
         <li><b>Персональна стрічка за станом</b> під hero: гість — прихована; покупець — повтор замовлення (+ стейпли післязапуск); тренер — нова сесія + кабінет.</li>
-        <li><b>Блок «Переглянуті товари»</b> (стан, коли є історія переглядів) — та сама картка товару.</li>
+        <li><b>Ряди товарів:</b> Хіти продажів · <b>Новинки</b> (бейдж NEW) · <b>Переглянуті товари</b> (стан, коли є історія переглядів) — та сама картка.</li>
+        <li><b>SEO-блок сторінки (08)</b> робимо повним ще на IA: мета-теги з готовими текстами · H1/H2 · готовий SEO-текст · схема (Organization/WebSite) · чек-лист. Це <b>шаблон для кожної сторінки</b>.</li>
         <li><b>Картка товару (канонічна):</b> фото · назва · мета (фірма · країна виробництва) · ціна (нова + стара перекреслена за наявності знижки + бейдж −%) · «У кошик». Повторюється в каталозі/лістингах.</li>
         <li><b>Смуга довіри</b> високо (Принцип №1); повна стрічка з 4 картками — у футері.</li>
         <li><b>Видимий блок «Для тренерів»</b> на головній (Принцип №3) → лендинг 5.0.</li>

@@ -304,5 +304,19 @@ Output = the wireframe library. Wireframes then just render it.
   every shared sidebar (after Футер) and enriched sitemap node 0.0. Lesson: the home page is where
   the persona/jobs split becomes one screen — encode the front-door logic as a **state-switched
   block** (one slot, three roles) rather than three competing hero variants.
-- **Next** — page-level IA cluster by cluster: Product (3.0), Cart/Checkout (6.x), Coach
-  workspace (5.x), Buyer account (7.x). Add each new node to the sidebar group and `ia/docs/sitemap.md`.
+- **2026-06-30** — Home follow-ups + **a reusable method upgrade**. Added a **Новинки** product
+  row (NEW badge) next to Хіти / Переглянуті; fixed a regression where the product card's «У кошик»
+  button had lost its style rule (re-added `.pcard .pb`, and made the card a flex column with
+  `margin-top:auto` so buttons align at the bottom across uneven cards). Added the **quiz CTA** and
+  the **SEO-text block** to the mobile mock (both were missing). **Method upgrade — every page-level
+  IA node now carries a full SEO block (A–E):** (A) meta tags with *ready copy* (title ≤60, description
+  ≤155, canonical, hreflang uk/ru, robots, OG/Twitter); (B) heading structure (single H1 + the H2 list);
+  (C) *ready* SEO body text; (D) structured data (Organization/WebSite + SearchAction; no BreadcrumbList
+  on root; ItemList optional); (E) optimization checklist (one H1, LCP, crawlable `<a>`, canonical+hreflang,
+  text-not-images, CWV). Built it on Home (section 08) as the template; SEO moved out of the old
+  "SEO & a11y" section (now Accessibility-only). Lesson: write SEO at the IA stage as **finished
+  copy + tags**, not "fill later" — wireframes then render a page whose title/description/H1/H2 and
+  body text already exist. Apply A–E to every subsequent page (Catalog, Product, Goal, …).
+- **Next** — page-level IA cluster by cluster (each WITH its A–E SEO block): Product (3.0),
+  Cart/Checkout (6.x), Coach workspace (5.x), Buyer account (7.x). Add each new node to the sidebar
+  group and `ia/docs/sitemap.md`.
