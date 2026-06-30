@@ -58,7 +58,8 @@ also **mobile tab 1** and the root SEO landing.
 ### Product card (canonical component)
 Reused on Home, Catalog and listings. Fields:
 **photo · product name · meta (brand · country of production) · price (new + old struck-through
-when discounted, + a −% badge) · «У кошик» button.** Coach sees the tier price. Calm, no aggressive
+when discounted, with the **−% badge next to the struck price** — the universal rule across PDP and
+all cards) · «У кошик» button.** Coach sees the tier price. Calm, no aggressive
 badges. (Card → Product 3.0; «У кошик» → Cart 6.0.)
 
 Desktop = the same blocks; the hero may go two-column (tiles + visual), categories/products run as
@@ -139,7 +140,8 @@ ready SEO body text, schema/tags, and an optimization checklist.
 - **Product rows:** Хіти продажів · **Новинки** (NEW badge) · **Recently-viewed** (state; view
   history) — all use the canonical product card.
 - **Canonical product card:** photo · name · meta (brand · country) · price (new + old struck-through
-  + −% badge; NEW badge for new arrivals) · «У кошик».
+  with the **−% badge beside the struck price**; NEW/Хіт corner tag for new/hit items, not the discount) ·
+  «У кошик».
 - **Full SEO block produced at IA** (meta tags + H1/H2 + ready text + schema + checklist) — see the
   SEO block section; this is the **template for every page**.
 - **Trust band high** (principle #1); full 4-card strip in the footer.

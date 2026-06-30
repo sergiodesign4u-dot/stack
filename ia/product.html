@@ -227,11 +227,11 @@
     .p-tab.active { color: #111; font-weight: 700; }
     .p-tab .ic { font-size: 15px; display: block; }
 
-    /* price (old on top → new price with discount badge BESIDE it) */
+    /* price (struck price + discount badge BESIDE it on top → new price big below) */
     .pricebox { margin: 12px 0 2px; }
-    .pricebox .pold { display: block; font-size: 13px; color: #aaa; text-decoration: line-through; }
-    .pricebox .pmain { display: flex; align-items: center; gap: 9px; margin-top: 1px; }
-    .pricebox .pnew { font-size: 28px; font-weight: 800; color: #111; line-height: 1.1; }
+    .pricebox .poldrow { display: flex; align-items: center; gap: 8px; }
+    .pricebox .pold { font-size: 13px; color: #aaa; text-decoration: line-through; }
+    .pricebox .pnew { font-size: 28px; font-weight: 800; color: #111; line-height: 1.1; display: block; margin-top: 2px; }
     .pricebox .pdisc2 { background: #161616; color: #fff; font-size: 11px; font-weight: 800; border-radius: 5px; padding: 3px 8px; }
 
     /* delivery + payment box (under price) */
@@ -403,7 +403,7 @@
               <div class="gthumb">3</div>
               <div class="gthumb">скан<br>складу</div>
             </div>
-            <div class="gmain">фото товару<span class="ptag">Хіт</span><span class="pdisc">−15%</span><span class="zoom">⌕ збільшити</span></div>
+            <div class="gmain">фото товару<span class="ptag">Хіт</span><span class="zoom">⌕ збільшити</span></div>
           </div>
 
           <!-- buy box -->
@@ -419,8 +419,8 @@
             <div class="simple"><b>Для чого:</b> сироватковий протеїн для росту й відновлення м'язів — 24 г білка на порцію. Базова добавка для набору маси.</div>
 
             <div class="pricebox">
-              <span class="pold">1 520 ₴</span>
-              <div class="pmain"><span class="pnew">1 290 ₴</span><span class="pdisc2">−15%</span></div>
+              <div class="poldrow"><span class="pold">1 520 ₴</span><span class="pdisc2">−15%</span></div>
+              <span class="pnew">1 290 ₴</span>
             </div>
             <div class="perserv">≈ 17 ₴ / порція · 74 порції в банці</div>
             <div class="coachprice">Ціна для тренера (Pro): <b>1 060 ₴</b> · бачить лише авторизований тренер</div>
@@ -679,7 +679,7 @@
           <a class="on" href="#">Про товар</a><a href="#">Склад</a><a href="#">Дозування</a><a href="#">Характеристики</a><a href="#">Відгуки</a><a href="#">Питання</a>
         </div>
         <div class="sk-buy">
-          <div class="pr"><span class="od">1 520 ₴</span><span class="nw">1 290 ₴</span><span class="dc">−15%</span></div>
+          <div class="pr"><span class="nw">1 290 ₴</span><span class="od">1 520 ₴</span><span class="dc">−15%</span></div>
           <div class="cta">Купити</div>
           <div class="fav">♡</div>
         </div>
@@ -701,7 +701,7 @@
             <div style="font-size:10.5px;color:#777;margin-top:3px">Optimum Nutrition · США · <span style="color:#161616">★ 4.8 (126)</span></div>
             <div style="font-size:11px;color:#2d7d46;font-weight:800;margin-top:5px">● В наявності</div>
             <div style="background:#f6f6f4;border-left:3px solid #161616;border-radius:0 6px 6px 0;padding:6px 9px;font-size:10.5px;color:#333;margin-top:8px"><b>Для чого:</b> ріст і відновлення м'язів, 24 г білка/порція</div>
-            <div style="margin-top:8px"><span style="font-size:12px;color:#aaa;text-decoration:line-through">1 520 ₴</span><div style="display:flex;align-items:center;gap:8px"><span style="font-size:22px;font-weight:800;color:#111;line-height:1.1">1 290 ₴</span><span style="background:#161616;color:#fff;font-size:10px;font-weight:800;border-radius:5px;padding:2px 7px">−15%</span></div></div>
+            <div style="margin-top:8px"><div style="display:flex;align-items:center;gap:7px"><span style="font-size:12px;color:#aaa;text-decoration:line-through">1 520 ₴</span><span style="background:#161616;color:#fff;font-size:10px;font-weight:800;border-radius:5px;padding:2px 7px">−15%</span></div><span style="font-size:22px;font-weight:800;color:#111;line-height:1.1;display:block;margin-top:1px">1 290 ₴</span></div>
             <div style="font-size:10px;color:#888;margin-top:4px">≈ 17 ₴/порція · 74 порції</div>
           </div>
           <div class="p-blk">

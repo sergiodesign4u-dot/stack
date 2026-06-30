@@ -54,8 +54,9 @@
 5. **Listing** — two columns on desktop (**filter rail** + grid), single column on mobile.
    - **Filter rail** holds ALL facets incl. **Тип (субкатегорія)** as the first/expanded group
      and **Ціль** (the goal chips moved here; the dupe removed).
-   - **Product grid** uses the canonical card (`home.md`): photo · NEW/Хіт/−% badge · name ·
-     brand·country meta · availability · price (new + old struck) · wishlist ♡ · **«У кошик»**
+   - **Product grid** uses the canonical card (`home.md`): photo · NEW/Хіт corner tag · name ·
+     brand·country meta · availability · price (new + old struck **+ −% badge next to the struck
+     price**) · wishlist ♡ · **«У кошик»**
      quick-add. **5 per row** (wide) → 4 → 3 → 2.
 6. **Pagination** — «Показати ще» (load-more) **plus** crawlable numbered pages for SEO.
 7. **SEO text** — category description at the bottom (H2 + ready copy) — **unique per category**.

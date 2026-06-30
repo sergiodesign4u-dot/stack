@@ -61,9 +61,10 @@
    - **Rating** stars + review count → anchors to Reviews (3.1).
    - **Article/SKU** · **availability** (в наявності / залишилось мало / під замовлення / немає).
    - **One-line simple answer** — «для чого це» in plain language.
-   - **Price:** **old struck price on top → new price big with the −% discount badge BESIDE it**
-     (beside, not under — saves space; decided 2026-06-30); **per-serving price** («≈ X ₴ / порція»);
-     coach sees **tier price**. No discount → just the main price (no struck price / badge).
+   - **Price:** **struck (old) price + the −% discount badge BESIDE it on top → new price big below**
+     (the badge sits next to the struck price — the universal rule across PDP and all cards; decided
+     2026-06-30, refined from "beside the new price"); **per-serving price** («≈ X ₴ / порція»); coach
+     sees **tier price**. No discount → just the main price (no struck price / badge).
    - **Variant selectors** — Смак · Фасування/вага (disabled when a variant is out of stock).
    - **Quantity** stepper.
    - **Primary CTA «У кошик»** (→ Cart 6.0) + **♡ wishlist** (→ 7.6). Coach session → «Додати клієнту».
@@ -183,7 +184,8 @@ are always above the fold**. Tab «Каталог» active.
 - **Product section-nav tabs** after the breadcrumb (Про товар · Склад · Дозування · Характеристики ·
   Відгуки · Питання); on scroll they **stick under the simplified header (no meta bar) and become part
   of it**, with a compact **price (discount/none) + «Купити» + ♡** on the right.
-- **Price:** old struck on top → new big with **−% badge beside the price** (not under — saves space).
+- **Price:** struck (old) price **+ −% badge beside the struck price** on top → new big below
+  (universal rule across PDP and all catalog cards; the discount badge is NOT a corner overlay).
 - **Delivery + Payment block under the CTA** (НП відділення/поштомат · кур'єр на адресу · самовивіз
   за наявності; ціни від 50/70/безкоштовно; способи оплати).
 - **Single trust strip before composition** (оригінал · сертифікат · доставка · повернення), moved
