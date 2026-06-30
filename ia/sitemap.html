@@ -168,6 +168,7 @@
     <a href="category.html" class="sidebar-sub">Категорія</a>
     <a href="product.html" class="sidebar-sub">Картка товару</a>
     <a href="quiz.html" class="sidebar-sub">Квіз</a>
+    <a href="auth.html" class="sidebar-sub">Авторизація</a>
     <hr class="sidebar-divider">
     <div class="sidebar-upcoming">Далі<br>Кошик · Акаунт<br>Кабінет тренера<br>Wireframes</div>
   </nav>
@@ -305,72 +306,61 @@ flowchart TD
   <!-- 1 Authentication -->
   <section class="cluster" id="c1">
     <div class="cluster-head"><span class="cluster-num">1.x</span><h2>Авторизація</h2></div>
-    <p class="cluster-sub">Вхід і реєстрація — модальні вікна, не уводять зі сторінки. <b>Єдиний вхід для всіх ролей</b>; роль тренера активується пізніше в акаунті (5.1).</p>
+    <p class="cluster-sub"><b>Єдиний вхід/реєстрація</b> як діалог (не уводить зі сторінки). <b>Phone-OTP-first</b>: телефон → код у SMS; соцмережі / e-mail — кнопки. Passwordless. Роль тренера активується окремо (5.1). Деталі — <a href="auth.html">ia/auth.html</a>.</p>
     <div class="grid">
 
       <article class="node" id="n10">
         <div class="node-head"><span class="node-num">1.0</span><span class="chip dialog">Діалог</span></div>
-        <h3>Вхід (Sign in)</h3>
+        <h3>Вхід / Реєстрація</h3>
         <p class="includes-label">Включає</p>
         <ul class="includes">
-          <li><b>Єдиний вхід для всіх ролей</b> (модалка)</li>
-          <li>Email / пароль</li>
-          <li>Вхід через соцмережі</li>
-          <li>Посилання «Забули пароль?»</li>
+          <li><b>Єдиний потік для всіх ролей</b> (модалка, split: візуал + форма)</li>
+          <li><b>Єдине поле — телефон</b> + «Отримати код»</li>
+          <li>Згода-оферта під кнопкою</li>
+          <li>«або» → Google · Apple · E-mail (кнопки)</li>
+          <li>Деталі: <b>ia/auth.html</b></li>
         </ul>
-        <div class="links">→ <a href="#n11">1.1</a> · <a href="#n12">1.2</a> · <a href="#n70">7.0</a></div>
+        <div class="links">→ <a href="#n11">1.1</a> · <a href="#n13">1.3</a> · <a href="#n14">1.4</a></div>
       </article>
 
       <article class="node" id="n11">
         <div class="node-head"><span class="node-num">1.1</span><span class="chip dialog">Діалог</span></div>
-        <h3>Реєстрація (Sign up)</h3>
+        <h3>Код з SMS (OTP)</h3>
         <p class="includes-label">Включає</p>
-        <ul class="includes">
-          <li><b>Єдина реєстрація для всіх</b> (модалка)</li>
-          <li>Форма реєстрації, згода (consent)</li>
-          <li>Роль тренера активується пізніше → 5.1</li>
-        </ul>
-        <div class="links">→ <a href="#n13">1.3</a></div>
+        <ul class="includes"><li>4–6 клітинок коду, авто-сабміт</li><li>Таймер + «Надіслати ще раз»</li><li>«Змінити номер»; rate-limit</li></ul>
+        <div class="links">→ <a href="#n12">1.2</a> · <a href="#n15">1.5</a></div>
       </article>
 
       <article class="node" id="n12">
         <div class="node-head"><span class="node-num">1.2</span><span class="chip dialog">Діалог</span></div>
-        <h3>Забули пароль</h3>
+        <h3>Завершення профілю</h3>
         <p class="includes-label">Включає</p>
-        <ul class="includes"><li>Поле email</li></ul>
-        <div class="links">→ <a href="#n13">1.3</a></div>
+        <ul class="includes"><li>Лише для <b>нового</b> акаунта</li><li>Ім'я (+ e-mail опц.)</li></ul>
+        <div class="links">→ <a href="#n15">1.5</a></div>
       </article>
 
       <article class="node" id="n13">
         <div class="node-head"><span class="node-num">1.3</span><span class="chip dialog">Діалог</span></div>
-        <h3>Лист надіслано</h3>
+        <h3>E-mail спосіб</h3>
         <p class="includes-label">Включає</p>
-        <ul class="includes"><li>Текст підтвердження</li><li>Надіслати ще раз</li></ul>
-        <div class="links">→ <a href="#n14">1.4</a></div>
+        <ul class="includes"><li>E-mail → <b>код на пошту</b> (passwordless)</li><li>Та сама 2-крокова механіка</li></ul>
+        <div class="links">→ <a href="#n12">1.2</a> · <a href="#n15">1.5</a></div>
       </article>
 
       <article class="node" id="n14">
         <div class="node-head"><span class="node-num">1.4</span><span class="chip dialog">Діалог</span></div>
-        <h3>Підтвердження email</h3>
+        <h3>Соц-вхід (Google / Apple)</h3>
         <p class="includes-label">Включає</p>
-        <ul class="includes"><li>CTA підтвердити</li></ul>
+        <ul class="includes"><li>OAuth; зв'язування без дублів</li><li>Новий акаунт → м'який запит <b>додати телефон</b> (пропускний)</li></ul>
         <div class="links">→ <a href="#n15">1.5</a></div>
       </article>
 
       <article class="node" id="n15">
         <div class="node-head"><span class="node-num">1.5</span><span class="chip dialog">Діалог</span></div>
-        <h3>Скидання пароля</h3>
+        <h3>Успіх → повернення до дії</h3>
         <p class="includes-label">Включає</p>
-        <ul class="includes"><li>Поля нового пароля</li></ul>
-        <div class="links">→ <a href="#n16">1.6</a></div>
-      </article>
-
-      <article class="node" id="n16">
-        <div class="node-head"><span class="node-num">1.6</span><span class="chip dialog">Діалог</span></div>
-        <h3>Успіх</h3>
-        <p class="includes-label">Включає</p>
-        <ul class="includes"><li>Повідомлення про успіх</li></ul>
-        <div class="links">→ <a href="#n70">7.0</a></div>
+        <ul class="includes"><li>Діалог закривається</li><li><b>Повернення до дії-тригера</b> (кошик / ♡ / відгук / тренер)</li></ul>
+        <div class="links">→ <a href="#n70">7.0</a> · <a href="#n60">6.0</a> · <a href="#n51">5.1</a></div>
       </article>
 
     </div>

@@ -131,7 +131,8 @@ filter applied. Full mapping lives in the catalog taxonomy.
 ### Account — guest dialog vs logged-in dropdown
 
 - **Guest:** 👤 «Увійти» opens the **sign-in/register dialog directly** (node 1.0) — **no
-  dropdown** (email/password + Увійти/Реєстрація + "forgot password"; social login).
+  dropdown**. **Phone-OTP-first** (single phone field + «Отримати код» + consent; Google/Apple/Email
+  buttons) — passwordless, no "forgot password". Full spec: `auth.md`.
 - **Buyer (logged-in):** 👤 «Кабінет» opens a **dropdown**: Кабінет → 7.0, Замовлення → 7.2,
   Адреси → 7.5, **Стати тренером → 7.7**, Вихід. **No «Обране»/«Бонуси»** in the dropdown —
   they are their own header elements (♡ icon + Бонуси button), no point duplicating.

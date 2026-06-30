@@ -346,9 +346,18 @@ schema (structure + transitions) and full per-page specs.
 3. **JTBD is not changed** — filters, facets, and symptom/concern search are IA
    mechanisms serving existing jobs, not new jobs.
 4. **SEO is pulled forward** into the page-level IA (see Deferred section update above).
-5. **Auth model (confirmed):** one unified sign in / sign up for every role, as dialogs
-   (no full-page redirect, no separate coach login, no role tabs). Coach is a **role
-   activated on an existing account** via a verification flow reachable from both the
+5. **Auth model (confirmed; page-level done June 2026 — `auth.md`/`auth.html`, node 1.x):**
+   one unified sign in / sign up for every role, as dialogs (no full-page redirect, no
+   separate coach login, no role tabs). **Phone-OTP-first / passwordless (locked 2026-06-30):**
+   step 1 of the dialog is a **single phone field** + consent-offer text + «Отримати код»;
+   code via SMS; **secondary methods are buttons** (Google · Apple · E-mail) under an «або»
+   divider; **email is also passwordless (code to email)** so there is **no password / no
+   forgot-password** (supersedes the earlier email+password sketch). Split layout (sport-nutrition
+   visual one side, form the other); new user → name step; **success returns to the triggering
+   action**; social OAuth + soft skippable add-phone for new accounts; SMS code has expiry +
+   attempts + resend cooldown + rate-limit. Page is **noindex, no schema** (utility, not content).
+   Sidebar «Сторінки» order: Головна · Каталог · Категорія · Картка товару · Квіз · **Авторизація**.
+   Coach is a **role activated on an existing account** via a verification flow reachable from both the
    For-Coaches landing CTA and an account section, so coaches never hunt for a login.
    Coach tiering is being explored as **Free vs Pro** (HYPOTHESIS, numbers [?]): Free =
    better-than-retail wholesale + multi-client capped at 2-3 clients, activated instantly;

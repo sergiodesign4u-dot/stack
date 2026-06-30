@@ -54,6 +54,12 @@
     disabled not hidden); out-of-stock → «Повідомити» + back-to-collection (flow recovery, no dead
     end); coach-aware CTA «Додати клієнту»; A–E SEO with Product/Offers + AggregateRating + Review +
     Breadcrumb schema. Flow source: flows.md "Job 3 — verify product safety". B/W).
+  - `pages/auth.md` → `ia/auth.html` (node 1.x — Authentication, **unified Sign in / Sign up dialog**,
+    **phone-OTP-first / passwordless**): split layout (sport-nutrition visual + form); step 1 = single
+    phone field + consent + «Отримати код»; secondary buttons Google/Apple/Email; SMS code (OTP) →
+    new-user name step → success returns to the triggering action; email = passwordless code; social =
+    OAuth + soft add-phone; all states (invalid/loading/wrong-code/resend/rate-limit/social-new);
+    role-agnostic (coach role activated later 5.1/7.7); **noindex, no schema**. B/W).
   Next: cluster by cluster — Coach workspace (5.x), Cart/Checkout (6.x), Buyer account (7.x).
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
   nodes. Reference visual: `research/sitemap png example/`.
@@ -67,11 +73,15 @@
   favorites icon) · **0.1a City-selector dialog** (search + popular + full A–Z; canonical city
   list) · 0.2 Footer (global). Header and footer are inherited on every page.
 - **1 — Authentication:** all dialogs/modals (do not navigate away). **Unified sign
-  in / sign up for every role** — no separate coach login, no role tabs. 1.0 Sign in ·
-  1.1 Sign up · 1.2 Forgot · 1.3 Link sent · 1.4 Email confirmation · 1.5 Reset
-  password · 1.6 Success. Coach is a **role activated on an existing account** (see 5.1
-  / 7.7), reachable both from the For-Coaches landing CTA and an account section, so a
-  coach never has to hunt for "where to log in".
+  in / sign up for every role** — no separate coach login, no role tabs. **Phone-OTP-first,
+  passwordless** (revised 2026-06-30): 1.0 Sign in / Sign up (single **phone** field +
+  consent + «Отримати код» + social/email buttons) · 1.1 SMS code (OTP) · 1.2 Profile
+  completion (name, new user) · 1.3 Email method (passwordless code to email) · 1.4 Social
+  (Google/Apple + soft add-phone) · 1.5 Success → returns to the triggering action. **Email
+  is passwordless** → old forgot/reset-password nodes dropped. Split layout (sport-nutrition
+  visual + form); **noindex**, no schema. Coach is a **role activated on an existing account**
+  (see 5.1 / 7.7), reachable both from the For-Coaches landing CTA and an account section, so a
+  coach never has to hunt for "where to log in". Full spec: `pages/auth.md` → `ia/auth.html`.
 - **2 — Catalog & discovery:** 2.0 Catalog · 2.1 Category (+ 2.1a city variant for SEO) ·
   2.2 Goal collection (**6 goals**; entered via the **«Цілі» mega-menu** = goal columns →
   relevant categories/subcats, no side-category column) · 2.3 Symptom/concern (**= goals**,
