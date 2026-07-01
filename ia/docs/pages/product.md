@@ -57,7 +57,8 @@
    scroll depth. Active tab highlights by scroll position. (Header sticky variant spec: `navigation.md`.)
 2. **Gallery** — product photos (main + thumbs); zoom; lazy-loaded below the first image.
 3. **Buy box** (right column on desktop, under gallery on mobile):
-   - **H1** product name (with weight/size in the name) · **brand · country** (brand → 2.4).
+   - **brand · country eyebrow ABOVE the H1** (brand → 2.4), then the **H1** product name (with
+     weight/size in the name). Same brand-above-title pattern as the canonical product card.
    - **Rating** stars + review count → anchors to Reviews (3.1).
    - **Article/SKU** · **availability** (в наявності / залишилось мало / під замовлення / немає).
    - **One-line simple answer** — «для чого це» in plain language.

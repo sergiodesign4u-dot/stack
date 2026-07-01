@@ -162,9 +162,11 @@ ready SEO body text, schema/tags, and an optimization checklist.
 - **Product rows:** Хіти продажів · **Новинки** (NEW tag) · **Recently-viewed** (state) — all use the
   redesigned canonical card.
 - **Canonical product card (Foxtrot/Belok-style), order:** **vertical** photo (♡ + Хіт/NEW corner) →
-  name up to **2 lines** → **brand · country** → price (new + struck **with −% beside the struck price**)
-  + **icon-only 🛒 button beside the price** → **rating + review count (after the price)** → **meta row:
-  price-per-serving + bonus («+N ₴ Бонус»)**. Canonical → must propagate to listings (2.1/2.0/…).
+  **brand · country (eyebrow, ABOVE the name)** → name up to **2 lines** → price (new + struck **with −%
+  beside the struck price**) + **icon-only 🛒 button beside the price** → **rating + review count (after
+  the price)** → **meta row: price-per-serving + bonus («+N ₴ Бонус»)**. **Brand·country as an eyebrow
+  above the title is the universal rule** — same pattern on the PDP buy-box (eyebrow above H1). Canonical
+  → must propagate to listings (2.1/2.0/…).
 - **Category rail starts with «За ціллю»** (concern-lens), then categories — on the home hero AND in the
   catalog (mega-menu / catalog hub), consistently.
 - **Full SEO block produced at IA** (meta tags + H1/H2 + ready text + schema + checklist) — template for every page.
