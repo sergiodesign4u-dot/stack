@@ -94,12 +94,29 @@
     .cattile .nm { font-size: 13px; font-weight: 700; color: #111; margin: 4px 0 3px; }
     .cattile .sub { font-size: 10.5px; color: #999; line-height: 1.35; }
     @media (max-width: 680px) { .cattiles { grid-template-columns: 1fr 1fr; } }
-    .prow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; }
-    .pcard { border: 1px solid #e2e2e2; border-radius: 10px; overflow: hidden; }
-    .pcard .img { height: 70px; background: #f0f0f0; }
-    .pcard .pn { font-size: 11px; color: #333; padding: 6px 7px 1px; line-height: 1.3; }
-    .pcard .pp { font-weight: 800; color: #111; font-size: 12px; padding: 0 7px 8px; }
+    .prow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    @media (max-width: 900px) { .prow { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 680px) { .prow { grid-template-columns: 1fr 1fr; } }
+    /* Canonical product card (shared with home.html) */
+    .pcard { border: 1px solid #e6e6e6; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; background: #fff; }
+    .pcard .ph { aspect-ratio: 10/11; background: #f2f2f2; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 11px; position: relative; }
+    .pcard .fav { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1px solid #e6e6e6; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #888; }
+    .pcard .tag { position: absolute; top: 8px; left: 8px; background: #fff; border: 1.5px solid #161616; color: #111; font-size: 9px; font-weight: 800; border-radius: 5px; padding: 1px 6px; text-transform: uppercase; }
+    .pcard .bd { padding: 9px 10px 10px; display: flex; flex-direction: column; flex: 1; }
+    .pcard .pbrand { order: 1; font-size: 10.5px; color: #888; line-height: 1.3; margin: 2px 0 3px; }
+    .pcard .nm { order: 2; font-size: 12.5px; color: #222; line-height: 1.3; font-weight: 600; margin: 0 0 9px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 33px; }
+    .pcard .prow2 { order: 3; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; margin-top: auto; }
+    .pcard .rate { order: 4; font-size: 10.5px; color: #999; display: flex; align-items: center; gap: 5px; margin-top: 9px; }
+    .pcard .rate .st { color: #161616; font-weight: 700; }
+    .pcard .pcol { display: flex; flex-direction: column; gap: 1px; }
+    .pcard .poldline { display: flex; align-items: center; gap: 6px; min-height: 14px; }
+    .pcard .pold { font-size: 11px; color: #aaa; text-decoration: line-through; }
+    .pcard .pcut { background: #161616; color: #fff; font-size: 9px; font-weight: 800; border-radius: 4px; padding: 1px 5px; }
+    .pcard .pnew { font-weight: 800; color: #111; font-size: 17px; }
+    .pcard .cartbtn { width: 40px; height: 40px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; background: #161616; color: #fff; }
+    .pcard .pmeta2 { order: 5; display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 9px; padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 10.5px; }
+    .pcard .perserv { color: #777; } .pcard .perserv b { color: #111; }
+    .pcard .bonus { color: #2d7d46; font-weight: 700; white-space: nowrap; }
     .seotext { padding: 14px 16px; background: #fafafa; }
     .seotext .h { font-size: 14px; font-weight: 800; color: #111; margin-bottom: 7px; }
     .seotext p { font-size: 12.5px; color: #555; margin-bottom: 7px; line-height: 1.5; }
@@ -223,11 +240,10 @@
 
             <div class="blk-h">Популярні товари</div>
             <div class="prow">
-              <div class="pcard"><div class="img"></div><div class="pn">Whey Gold Standard</div><div class="pp">1 290 ₴</div></div>
-              <div class="pcard"><div class="img"></div><div class="pn">Креатин моногідрат</div><div class="pp">540 ₴</div></div>
-              <div class="pcard"><div class="img"></div><div class="pn">BCAA 2:1:1</div><div class="pp">690 ₴</div></div>
-              <div class="pcard"><div class="img"></div><div class="pn">Омега-3</div><div class="pp">380 ₴</div></div>
-              <div class="pcard"><div class="img"></div><div class="pn">Передтреник</div><div class="pp">820 ₴</div></div>
+              <div class="pcard"><div class="ph">фото<span class="tag">Хіт</span><span class="fav">♡</span></div><div class="bd"><div class="pbrand">Optimum Nutrition · США</div><div class="nm">Whey Gold Standard 909 г</div><div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 124 ₴</span><span class="pcut">−20%</span></div><span class="pnew">899 ₴</span></div><div class="cartbtn">🛒</div></div><div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div><div class="pmeta2"><span class="perserv"><b>75 ₴</b> / порція</span><span class="bonus">+9 ₴ Бонус</span></div></div></div>
+              <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="pbrand">OstroVit · Польща</div><div class="nm">Креатин моногідрат 300 г</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">449 ₴</span></div><div class="cartbtn">🛒</div></div><div class="rate"><span class="st">★ 4.7</span> · 54 відгуки</div><div class="pmeta2"><span class="perserv"><b>7 ₴</b> / порція</span><span class="bonus">+4 ₴ Бонус</span></div></div></div>
+              <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="pbrand">BioTechUSA · Угорщина</div><div class="nm">BCAA 2:1:1 400 г</div><div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">599 ₴</span><span class="pcut">−15%</span></div><span class="pnew">509 ₴</span></div><div class="cartbtn">🛒</div></div><div class="rate"><span class="st">★ 4.9</span> · 88 відгуків</div><div class="pmeta2"><span class="perserv"><b>13 ₴</b> / порція</span><span class="bonus">+5 ₴ Бонус</span></div></div></div>
+              <div class="pcard"><div class="ph">фото<span class="fav">♡</span></div><div class="bd"><div class="pbrand">Scitec Nutrition · Угорщина</div><div class="nm">Омега-3 90 капсул</div><div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">349 ₴</span></div><div class="cartbtn">🛒</div></div><div class="rate"><span class="st">★ 4.6</span> · 31 відгук</div><div class="pmeta2"><span class="perserv"><b>4 ₴</b> / порція</span><span class="bonus">+3 ₴ Бонус</span></div></div></div>
             </div>
 
             <div class="blk-h">SEO-текст</div>

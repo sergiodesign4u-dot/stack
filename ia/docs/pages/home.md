@@ -165,8 +165,10 @@ ready SEO body text, schema/tags, and an optimization checklist.
   **brand · country (eyebrow, ABOVE the name)** → name up to **2 lines** → price (new + struck **with −%
   beside the struck price**) + **icon-only 🛒 button beside the price** → **rating + review count (after
   the price)** → **meta row: price-per-serving + bonus («+N ₴ Бонус»)**. **Brand·country as an eyebrow
-  above the title is the universal rule** — same pattern on the PDP buy-box (eyebrow above H1). Canonical
-  → must propagate to listings (2.1/2.0/…).
+  above the title is the universal rule** — same pattern on the PDP buy-box (eyebrow above H1).
+  **Propagated (2026-07-01)** to Category listing (2.1), Catalog hub popular (2.0) and PDP related (3.3):
+  all now use this exact card. Listing (2.1) adds an **availability line + 🔔 notify** for OOS; listing
+  grids are **4 per row** (down from 5) since the bigger card reads better at 4-up.
 - **Category rail starts with «За ціллю»** (concern-lens), then categories — on the home hero AND in the
   catalog (mega-menu / catalog hub), consistently.
 - **Full SEO block produced at IA** (meta tags + H1/H2 + ready text + schema + checklist) — template for every page.
