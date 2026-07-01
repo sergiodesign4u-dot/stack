@@ -9,6 +9,7 @@
 const WF_STATE_LABEL = {
   base: 'Базовий', empty: 'Порожньо', loading: 'Завантаження', error: 'Помилка',
   filtered: 'З фільтрами', list: 'Списком', oos: 'Немає в наявності', reviews: 'Відгуки (Job 3)',
+  buyer: 'Покупець', coach: 'Тренер',
   guest: 'Гість', declined: 'Оплата відхилена', noaddr: 'Без адреси',
   code: 'Крок коду', newuser: 'Новий користувач', 'account-end': 'З акаунтом'
 };
@@ -18,7 +19,7 @@ const WF_FLOWS = [
     id: 'f1', name: 'Флоу 1 · Покупець-новачок', status: 'active',
     note: 'Головна → Категорія → Картка товару → Кошик → Оформлення → Замовлення',
     screens: [
-      { file: 'home.html',         name: 'Головна',              node: '0.0', built: false, states: ['empty','loading','error'], builtStates: [] },
+      { file: 'home.html',         name: 'Головна',              node: '0.0', built: true,  states: ['buyer','coach'], builtStates: [] },
       { file: 'listing.html',      name: 'Категорія (лістинг)',  node: '2.1', built: true,  states: ['filtered','list','empty','loading','error'], builtStates: ['filtered','list','empty','loading','error'] },
       { file: 'goal.html',         name: 'Ціль-колекція',        node: '2.2', built: false, states: ['empty','loading','error'], builtStates: [] },
       { file: 'product.html',      name: 'Картка товару',        node: '3.0', built: false, states: ['loading','error','oos','reviews'], builtStates: [] },
