@@ -63,6 +63,37 @@ H1, H2 structure, meta title, meta description, URL slug, breadcrumbs, SEO-copy 
 and any dynamic variables (e.g. city — _"Протеїн Одеса"_). This way the wireframes land
 on a finished SEO structure instead of bolting it on later.
 
+**SEO is three layers, one per phase — don't collapse them onto the wireframe.**
+
+| Layer | What it is | Phase | Why there |
+|-------|-----------|-------|-----------|
+| **1. Structure** | URL/slug, H1/H2 hierarchy, breadcrumbs, schema.org type, indexation rules (canonical / `noindex`, faceted-nav control), goal/city landing architecture, internal-linking blocks (footer SEO block, related links) | **IA** (now) | This *is* information architecture — it defines which pages exist and how they link. Wireframes must render a finished structure, not invent it. |
+| **2. Layout validation** | A quick pass confirming every SEO-required block has a visible home and the right priority | **Wireframe** | The wireframe's only SEO job. Not "working out SEO" — checking the layout doesn't bury or omit a block. |
+| **3. Final content** | Human-quality copy (title/description/body/FAQ), keyword mapping with **real volumes** (Ahrefs/Serpstat), alt text | **Production** | Needs real keyword tools + live copywriting; nothing to do on a wireframe. |
+
+**Why not "work out all SEO on the wireframe":** a wireframe is a *layout* artifact; SEO
+logic (keywords, indexation, schema) is *structure*. Mixing them means solving two problems
+at once and cluttering the mock — and if SEO later reveals a missing block (bottom SEO text,
+FAQ, breadcrumb), you **redraw the wireframe**. That's exactly the rework pulling SEO forward
+avoids.
+
+### Wireframe SEO-validation checklist (Layer 2 — run per page at Phase 2)
+
+For each wireframe, confirm — this is a *check*, not new SEO work:
+
+- [ ] The **H1** is present exactly once and is visually the page's main heading.
+- [ ] **H2s** map to real on-page blocks in the intended order (heading skeleton is honoured).
+- [ ] **Breadcrumb** is placed (where the IA spec calls for one).
+- [ ] The **SEO body text** block has a real position (e.g. bottom of a listing) and is visible, not hidden.
+- [ ] **FAQ block** present where the spec has one (feeds FAQ schema).
+- [ ] **Internal-linking surfaces** are laid out and not buried: footer SEO block, related categories/products, goal/city links.
+- [ ] Content is **real text, not baked into images** (crawlable), and key copy isn't clipped by the layout.
+- [ ] Any **dynamic-variable** slot (e.g. city in H1/title) has room and doesn't overflow.
+- [ ] Nothing SEO-required appears **for the first time** on the wireframe — if it does, fix the IA spec first, then the wireframe.
+
+Final copy and real search volumes stay `[?]` at this stage — the wireframe uses the IA's
+ready-but-provisional text; production swaps in tool-validated copy.
+
 ---
 
 ## Artifact format — Sitemap + IA
@@ -329,6 +360,19 @@ Output = the wireframe library. Wireframes then just render it.
   radiogroup/checkbox). Wired Квіз into every sidebar; enriched sitemap cluster 4. Lesson: for a guided
   quiz, decide **what it outputs** (a set, not a SKU) and **where the branching lives** (result, not the
   question tree) before drawing screens — those two calls shape every step.
+- **2026-07-01** — **Canonical product card propagated + SEO layering clarified.** Replaced the
+  old listing cards on Category (2.1), Catalog hub popular (2.0) and PDP related (3.3) with the one
+  canonical Foxtrot-style card from `home.html` (brand·country eyebrow above the name, price with
+  −% beside the struck price + icon 🛒 quick-add, rating after price, per-serving + bonus meta);
+  Category extends it with the availability line + a 🔔 notify state for OOS. Listing grids went
+  **5 → 4 per row** (the bigger card reads better at 4-up). Closed the canonical-card propagation
+  debt; if the card changes, all four files' `.pcard` CSS blocks move together. Lesson: a "canonical"
+  component isn't canonical until it's the *same* markup+CSS everywhere — define it once, then
+  actually propagate, and record the propagation set so the next change touches all copies.
+  **Also answered a recurring process question** ("should we work out all SEO on the wireframes?"):
+  no — split SEO into **structure (IA, now) → layout validation (wireframe) → final copy+volumes
+  (production)**; added the 3-layer table + a **wireframe SEO-validation checklist** to Principle 4
+  so Phase 2 does only the layout check, not SEO invention.
 - **Next** — page-level IA cluster by cluster (each WITH its A–E SEO block): Product (3.0),
   Cart/Checkout (6.x), Coach workspace (5.x), Buyer account (7.x). Add each new node to the sidebar
   group and `ia/docs/sitemap.md`.
