@@ -74,7 +74,14 @@
     tabs + in-session quick-add + coach-tier price + tag → **cart grouped by client 6.0**). Coach-as-buyer
     (Decision 1); per-client loop with recovery (OOS/tier-price-blocked/untagged). **Mixed SEO:** landing
     indexes, 5.1–5.5 **noindex**. B/W).
-  Next: Cart/Checkout (6.x, with per-client grouping).
+  - `pages/cart.md` → `ia/cart.html` (node 6.x — **Cart & checkout**, convergence of both flows): **6.0
+    Cart** = right-side **drawer dialog** (buyer: flat list + loyalty auto + **bonuses toggle**; coach:
+    **grouped by client** with per-client subtotals + tier price, **single delivery** to the coach,
+    breakdown kept) · **6.1 Checkout** = one sectioned page (Контакт phone-OTP passwordless · Доставка
+    НП/кур'єр/самовивіз + city 0.1a + addresses 7.5 · Оплата LiqPay/Wayforpay/Pay/COD + sticky summary) ·
+    **6.2 Order placed** → history 7.2 (repeat, Job 4). Recovery: payment back-to-cart, OOS not orderable.
+    **Transactional → noindex, no schema**. B/W).
+  All JTBD clusters (0–7) now have page-level IA. Next phase: **Wireframes** (Phase 2 renders this library).
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
   nodes. Reference visual: `research/sitemap png example/`.
 - **Stance:** mobile-first, fully responsive. Coach = buyer (not a marketplace). SEO is

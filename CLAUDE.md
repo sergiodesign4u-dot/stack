@@ -356,7 +356,7 @@ schema (structure + transitions) and full per-page specs.
    visual one side, form the other); new user → name step; **success returns to the triggering
    action**; social OAuth + soft skippable add-phone for new accounts; SMS code has expiry +
    attempts + resend cooldown + rate-limit. Page is **noindex, no schema** (utility, not content).
-   Sidebar «Сторінки» order: Головна · Каталог · Категорія · Картка товару · Квіз · **Авторизація** · **Акаунт** · **Кабінет тренера**.
+   Sidebar «Сторінки» order: Головна · Каталог · Категорія · Картка товару · Квіз · **Авторизація** · **Акаунт** · **Кабінет тренера** · **Кошик · Оформлення**.
    Coach is a **role activated on an existing account** via a verification flow reachable from both the
    For-Coaches landing CTA and an account section, so coaches never hunt for a login.
    Coach tiering is being explored as **Free vs Pro** (HYPOTHESIS, numbers [?]): Free =
@@ -394,8 +394,19 @@ subtotals) + active-client panel (goals → **in-session quick-add**, NOT global
 Per-client loop with recovery (OOS→substitute/skip · **tier price unresolved → session saved, checkout
 blocked** · untagged line → assign/discard). **Coach-as-buyer** (Decision 1), not a marketplace; flow
 depth intentional (~8 taps / 2-client order). **Mixed SEO:** landing indexes, **work zone 5.1–5.5 =
-noindex, no schema**. Free/Pro numbers + wholesale price gate stay **[?]**. Cart/Checkout (6.x) with
-per-client grouping is the next cluster (not yet page-level).
+noindex, no schema**. Free/Pro numbers + wholesale price gate stay **[?]**.
+
+**Cart & checkout (`cart.md`/`cart.html`, node 6.x, done July 2026):** the **convergence point** of both
+flows (product card 3.0 → cart; coach session 5.5 → cart). **6.0 Cart = right-side drawer dialog** —
+buyer: flat list + **loyalty discount auto** + **bonuses toggle**; coach: **grouped by client** (per-client
+subtotals, tier price on lines), **single delivery to the coach** with the breakdown kept in the order.
+**6.1 Checkout = one sectioned page** (not a wizard): Контакт (phone-OTP, **passwordless** — guest confirms
+by code → account auto-created) · Доставка (**НП відділення/поштомат · кур'єр · самовивіз Одеса**; city via
+dialog 0.1a; addresses from 7.5) · Оплата (**LiqPay/Wayforpay · Apple/Google Pay · накладений · готівка при
+самовивозі**) + sticky order summary. **6.2 Order placed** → confirmation + next steps → history 7.2 (repeat,
+Job 4). Recovery: payment back-to-cart, OOS not orderable. **Transactional → noindex, no schema**; calm, no
+timers. Loyalty %/rates + delivery tariffs + payment-provider choice stay **[?]**. This closes the JTBD
+page-level gaps (all clusters 0–7 now have page-level IA); next phase = Wireframes.
 
 **Sequence:** (1) full sitemap → (2) inherited component library → (3) page-level IA per
 cluster. Output is the "wireframe library" that Phase 2 renders.
@@ -407,7 +418,7 @@ cluster. Output is the "wireframe library" that Phase 2 renders.
 | Phase | Focus | Status |
 |-------|-------|--------|
 | Phase 1 | Research (this phase) | Done |
-| Phase 2 | Wireframes | Not started. Detailed IA in progress (page-level layer in `ia/`; global layer done in `research/`) |
+| Phase 2 | Wireframes | Detailed IA **complete** (page-level layer in `ia/` — all JTBD clusters 0–7; global layer in `research/`). Wireframe rendering not started. |
 | Phase 3 | Concept & Visual Direction | Not started |
 | Phase 4 | Design System & Tokens | Not started |
 | Phase 5 | Component Library | Not started |

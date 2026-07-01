@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack — IA: Кошик і оформлення</title>
+  <style>
+    :root {
+      --bg: #f7f6f3; --surface: #ffffff; --surface-alt: #f2f0eb; --border: #e5e2db;
+      --text: #1a1916; --text-secondary: #6b6760; --text-light: #9b9790;
+      --accent: #2d5a3d; --accent-light: #e8f0ea; --accent-mid: #4a8c62;
+      --warn: #b5882a; --warn-bg: #fdf3e3;
+      --radius: 10px; --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); }
+
+    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: rgba(247,246,243,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 101; }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: rgba(247,246,243,.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-right: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform .22s ease; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+    .sidebar-nav { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px; }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+    .sidebar-nav a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: var(--radius-sm); transition: color .15s, background .15s; margin-bottom: 1px; }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-nav a.sidebar-sub { font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light); }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-page-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 4px; }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+    .sidebar-upcoming { padding: 12px 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-light); line-height: 1.8; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 68px 20px 80px; }
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 44px 44px 80px; }
+    }
+
+    .hero { margin-bottom: 30px; }
+    .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+    .hero h1 { font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .hero-lead { font-size: 16px; color: var(--text-secondary); max-width: 760px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-size: 13px; color: var(--text-secondary); }
+    .hero-meta strong { color: var(--text); font-weight: 600; }
+
+    .section { margin-bottom: 44px; scroll-margin-top: 64px; }
+    .section-num { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .section h2 { font-size: 22px; letter-spacing: -0.015em; margin-bottom: 6px; }
+    .section-lead { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 20px; max-width: 730px; }
+
+    .note { font-size: 12px; color: var(--text-light); margin: 4px 0 18px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 8px; }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--surface-alt); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-secondary); }
+    tr:last-child td { border-bottom: none; }
+    td b { color: var(--text); }
+    .arrow { color: var(--accent-mid); font-weight: 600; white-space: nowrap; }
+
+    .cols { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 720px) { .cols.two { grid-template-columns: 1fr 1fr; } }
+
+    .open { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 18px 20px; }
+    .open h2 { font-size: 18px; margin-bottom: 10px; color: var(--warn); }
+    .open ul { margin-left: 18px; } .open li { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+
+    .reco { background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--text); margin: 10px 0 14px; }
+    .reco b { color: var(--accent); }
+
+    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }
+
+    /* ===== WIREFRAME (B/W) ===== */
+    .wf { border: 1px solid #cfcfcf; border-radius: 10px; overflow: hidden; background: #fff; color: #1b1b1b; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
+    .wf-cap { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8a8a8a; padding: 7px 12px; background: #f4f4f4; border-bottom: 1px solid #e4e4e4; }
+    .wf-pad { padding: 16px; }
+    .wf-zone { border: 1.5px dashed #bdbdbd; border-radius: 8px; background: repeating-linear-gradient(45deg,#fafafa,#fafafa 6px,#f3f3f3 6px,#f3f3f3 12px); padding: 9px 12px; font-size: 11px; font-weight: 700; color: #777; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .wf-zone.foot { margin: 14px 0 0; }
+    .wf-zone .zt { background: #161616; color: #fff; border-radius: 4px; font-size: 9px; padding: 1px 6px; letter-spacing: .04em; }
+    .wf-zone .zd { color: #999; font-weight: 600; }
+
+    /* ===== CART DRAWER ===== */
+    .dwrap { background: repeating-linear-gradient(45deg,#ececec,#ececec 8px,#e6e6e6 8px,#e6e6e6 16px); border-radius: 10px; padding: 16px; display: flex; justify-content: flex-end; }
+    .drawer { width: 380px; max-width: 100%; background: #fff; border: 1px solid #d6d6d6; border-radius: 12px; box-shadow: 0 22px 54px rgba(0,0,0,.20); overflow: hidden; }
+    .drawer .dh { display: flex; align-items: center; justify-content: space-between; padding: 13px 15px; border-bottom: 1px solid #eee; }
+    .drawer .dh b { font-size: 15px; color: #111; } .drawer .dh .x { color: #999; font-size: 17px; }
+    .drawer .db { padding: 13px 15px; }
+    .citem { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f3f3f3; }
+    .citem .th { width: 44px; height: 48px; border-radius: 7px; background: #f0f0f0; border: 1px solid #e2e2e2; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #bbb; flex: none; }
+    .citem .ci { flex: 1; min-width: 0; }
+    .citem .cn { font-size: 12px; font-weight: 700; color: #111; line-height: 1.25; }
+    .citem .cb { font-size: 10px; color: #999; margin: 1px 0 5px; }
+    .citem .cr { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .qty { display: inline-flex; align-items: center; border: 1px solid #d5d5d5; border-radius: 7px; overflow: hidden; }
+    .qty span { padding: 3px 8px; font-size: 12px; color: #555; } .qty b { padding: 3px 9px; font-size: 12px; font-weight: 800; color: #111; border-left: 1px solid #eee; border-right: 1px solid #eee; }
+    .citem .cp { font-size: 13px; font-weight: 800; color: #111; }
+    .citem .cp .retail { font-size: 10.5px; color: #aaa; text-decoration: line-through; font-weight: 500; display: block; text-align: right; }
+    .citem .rm { color: #b04a4a; font-size: 14px; }
+    .cgroup { border: 1px solid #eee; border-radius: 9px; margin-bottom: 10px; overflow: hidden; }
+    .cghead { display: flex; align-items: center; justify-content: space-between; background: #f7f6f4; padding: 7px 11px; font-size: 11.5px; font-weight: 800; color: #111; }
+    .cghead .gs { font-weight: 700; color: #555; }
+    .cgroup .db2 { padding: 2px 11px 8px; }
+    .drawer .sum { border-top: 1px solid #eee; padding-top: 10px; margin-top: 4px; }
+    .srow { display: flex; justify-content: space-between; font-size: 12px; color: #444; padding: 4px 0; }
+    .srow.bonus { color: #2d7d46; font-weight: 700; }
+    .srow.tot { font-size: 15px; font-weight: 800; color: #111; border-top: 1px solid #eee; margin-top: 5px; padding-top: 9px; }
+    .bonustoggle { display: flex; align-items: center; gap: 8px; background: #eef4f0; border: 1px solid #cfe0d4; border-radius: 8px; padding: 8px 10px; font-size: 11.5px; color: #2d5a3d; margin: 8px 0; }
+    .bonustoggle .sw { margin-left: auto; width: 30px; height: 17px; border-radius: 20px; background: #2d7d46; position: relative; } .bonustoggle .sw:after { content: ""; position: absolute; top: 2px; right: 2px; width: 13px; height: 13px; border-radius: 50%; background: #fff; }
+    .gobtn { display: block; text-align: center; background: #161616; color: #fff; border-radius: 9px; padding: 12px; font-size: 13px; font-weight: 800; margin-top: 10px; }
+    .ghint { font-size: 10.5px; color: #999; text-align: center; margin-top: 7px; }
+
+    /* empty */
+    .empty { border: 1.5px dashed #d5d5d5; border-radius: 12px; padding: 26px 16px; text-align: center; }
+    .empty .ei { font-size: 26px; margin-bottom: 8px; }
+    .empty .et { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 4px; }
+    .empty .es { font-size: 11.5px; color: #999; margin-bottom: 12px; }
+    .empty .ebtn { display: inline-block; background: #161616; color: #fff; border-radius: 8px; padding: 8px 16px; font-size: 12px; font-weight: 700; }
+
+    /* ===== CHECKOUT ===== */
+    .cochk { display: grid; grid-template-columns: 1fr 320px; gap: 16px; }
+    @media (max-width: 760px) { .cochk { grid-template-columns: 1fr; } }
+    .fsec { border: 1px solid #e6e6e6; border-radius: 11px; padding: 14px; margin-bottom: 12px; }
+    .fsh { display: flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 800; color: #111; margin-bottom: 11px; }
+    .fsh .n { width: 22px; height: 22px; border-radius: 50%; background: #161616; color: #fff; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: none; }
+    .field { border: 1px solid #d5d5d5; border-radius: 8px; padding: 10px 12px; font-size: 12.5px; color: #999; margin-bottom: 9px; }
+    .field .lb { font-size: 9.5px; color: #999; display: block; margin-bottom: 1px; } .field .vl { font-size: 13px; color: #111; font-weight: 600; }
+    .frow { display: flex; gap: 9px; } .frow .field { flex: 1; }
+    .ropt { display: flex; align-items: flex-start; gap: 10px; border: 1.5px solid #e0e0e0; border-radius: 9px; padding: 10px 12px; margin-bottom: 8px; }
+    .ropt.on { border-color: #161616; background: #fbfbfa; }
+    .ropt .rc { width: 17px; height: 17px; border-radius: 50%; border: 1.5px solid #bbb; flex: none; margin-top: 1px; }
+    .ropt.on .rc { border: 5px solid #161616; }
+    .ropt .rt { font-size: 12.5px; font-weight: 700; color: #111; } .ropt .rx { font-size: 11px; color: #888; }
+    .ropt .rp { margin-left: auto; font-size: 12px; font-weight: 800; color: #111; white-space: nowrap; }
+    .subfield { margin: 2px 0 8px 27px; }
+    .paygrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    @media (max-width: 520px) { .paygrid { grid-template-columns: 1fr; } }
+
+    .osum { border: 1px solid #e6e6e6; border-radius: 11px; padding: 14px; align-self: start; position: sticky; top: 20px; }
+    .osum .ot { font-size: 13px; font-weight: 800; color: #111; margin-bottom: 10px; }
+    .oitem { display: flex; gap: 9px; padding: 6px 0; border-bottom: 1px solid #f3f3f3; }
+    .oitem .th { width: 34px; height: 38px; border-radius: 6px; background: #f0f0f0; border: 1px solid #e2e2e2; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #bbb; flex: none; }
+    .oitem .oi { flex: 1; font-size: 11px; color: #333; line-height: 1.3; } .oitem .oi b { color: #111; }
+    .oitem .oq { font-size: 11px; color: #888; }
+    .osum .srow { padding: 5px 0; } .osum .sum { margin-top: 6px; }
+    .trustmicro { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 10px; font-size: 10.5px; color: #888; }
+
+    /* order placed */
+    .placed { text-align: center; padding: 8px 10px 4px; }
+    .placed .ok { width: 52px; height: 52px; border-radius: 50%; background: #e7f2ea; color: #2d7d46; font-size: 26px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+    .placed .pt { font-size: 19px; font-weight: 800; color: #111; }
+    .placed .ps { font-size: 12.5px; color: #777; margin-top: 4px; }
+    .pcard2 { border: 1px solid #e6e6e6; border-radius: 11px; padding: 14px; text-align: left; margin: 16px 0; }
+    .nextrow { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    .nbtn { font-size: 12px; font-weight: 700; border: 1.5px solid #c4c4c4; border-radius: 8px; padding: 9px 14px; color: #111; }
+    .nbtn.dark { background: #161616; color: #fff; border-color: #161616; }
+
+    /* phone */
+    .phone { max-width: 300px; border: 1px solid #cfcfcf; border-radius: 16px; overflow: hidden; background: #fff; box-shadow: var(--shadow-sm); }
+    .p-top { display: flex; align-items: center; justify-content: space-between; padding: 10px 13px; border-bottom: 1px solid #eee; }
+    .p-top .lg { font-weight: 800; color: #161616; font-size: 14px; }
+    .p-body { padding: 13px; }
+    .p-tabs { display: flex; border-top: 1px solid #eee; background: #fafafa; }
+    .p-tab { flex: 1; text-align: center; padding: 7px 2px; font-size: 9px; color: #777; }
+    .p-tab.active { color: #111; font-weight: 700; }
+    .p-tab .ic { font-size: 15px; display: block; }
+    .p-sticky { border-top: 1px solid #eee; padding: 10px 13px; display: flex; align-items: center; gap: 10px; background: #fafafa; }
+
+    @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="../research/research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="../research/research.html" class="sidebar-logo">Stack</a>
+    <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Структура</div>
+    <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
+    <a href="navigation.html" class="sidebar-sub">Хедер</a>
+    <a href="footer.html" class="sidebar-sub">Футер</a>
+    <a href="catalog.html" class="sidebar-sub">Каталог</a>
+    <a href="category-matrix.html" class="sidebar-sub">Матриця категорій</a>
+    <a href="seo.html" class="sidebar-sub">SEO-методика</a>
+    <div class="sidebar-page-label">Сторінки</div>
+    <a href="home.html" class="sidebar-sub">Головна</a>
+    <a href="catalog-page.html" class="sidebar-sub">Каталог</a>
+    <a href="category.html" class="sidebar-sub">Категорія</a>
+    <a href="product.html" class="sidebar-sub">Картка товару</a>
+    <a href="quiz.html" class="sidebar-sub">Квіз</a>
+    <a href="auth.html" class="sidebar-sub">Авторизація</a>
+    <a href="account.html" class="sidebar-sub">Акаунт</a>
+    <a href="coach.html" class="sidebar-sub">Кабінет тренера</a>
+    <a href="cart.html" class="sidebar-sub active">Кошик · Оформлення</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-upcoming">Далі<br>Wireframes</div>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Посторінкова IA · вузол 6.x</div>
+    <h1>Кошик і оформлення</h1>
+    <p class="hero-lead"><b>Точка сходження обох флоу.</b> Сюди веде і <b>картка товару</b> (покупець), і <b>мультиклієнтська сесія тренера</b> (5.5). Кошик — <b>швидкий діалог-drawer</b> (для тренера — <b>групування по клієнтах</b>); оформлення — контакт → доставка → оплата → перегляд; далі стан «Замовлення оформлено» → історія (7.2). Тут застосовуються <b>бонуси й лояльність</b> покупця та <b>тариф тренера</b>. Транзакційна зона — <b>noindex</b>.</p>
+    <div class="hero-meta">
+      <div><strong>Тип</strong> діалог (6.0) + флоу (6.1) + стан (6.2)</div>
+      <div><strong>Ролі</strong> покупець · тренер (per-client)</div>
+      <div><strong>Оплата</strong> LiqPay / Wayforpay · Apple/Google Pay · накладений · при самовивозі</div>
+      <div><strong>SEO</strong> noindex, без схеми</div>
+    </div>
+  </div>
+
+  <!-- 01 cart -->
+  <section class="section" id="cart">
+    <div class="section-num">01 · Кошик (6.0) — діалог-drawer</div>
+    <h2>Швидкий перегляд: покупець і тренер (per-client)</h2>
+    <p class="section-lead">Кошик відкривається <b>drawer'ом справа</b> (іконка кошика в хедері / після «У кошик»), не забираючи зі сторінки. Позиції · кількість · підсумок · <b>бонуси</b> (покупець) · CTA «Перейти до оформлення». Для <b>тренера</b> — позиції <b>згруповані по клієнтах</b> із сабтоталом кожного (з сесії 5.5), тариф тренера на рядках.</p>
+    <div class="cols two">
+      <div>
+        <div class="wf"><div class="wf-cap">Кошик покупця (6.0)</div><div class="wf-pad">
+          <div class="dwrap">
+            <div class="drawer">
+              <div class="dh"><b>Кошик · 3 товари</b><span class="x">✕</span></div>
+              <div class="db">
+                <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard 100% Whey 2270 г</div><div class="cb">Optimum Nutrition</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">1 290 ₴<span class="retail">1 520 ₴</span></span></div></div><span class="rm">✕</span></div>
+                <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Креатин моногідрат 300 г</div><div class="cb">OstroVit</div><div class="cr"><span class="qty"><span>−</span><b>2</b><span>+</span></span><span class="cp">898 ₴</span></div></div><span class="rm">✕</span></div>
+                <div class="bonustoggle">★ Списати бонуси — 240 ₴<span class="sw"></span></div>
+                <div class="sum">
+                  <div class="srow"><span>Сума товарів</span><span>2 418 ₴</span></div>
+                  <div class="srow"><span>Знижка лояльності [?]</span><span>− 120 ₴</span></div>
+                  <div class="srow bonus"><span>Бонуси</span><span>− 240 ₴</span></div>
+                  <div class="srow"><span>Доставка</span><span>за тарифом перевізника</span></div>
+                  <div class="srow tot"><span>Разом</span><span>2 058 ₴</span></div>
+                </div>
+                <span class="gobtn">Перейти до оформлення →</span>
+                <div class="ghint">Безпечна оплата · повернення 14 днів</div>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:10.5px;color:#999;margin-top:7px">Знижка лояльності застосовується авто (Рішення 3); бонуси — перемикачем (списати доступний баланс). Реальні % і курс — <b>[?]</b>.</p>
+        </div></div>
+      </div>
+      <div>
+        <div class="wf"><div class="wf-cap">Кошик тренера — групування по клієнтах</div><div class="wf-pad">
+          <div class="dwrap">
+            <div class="drawer">
+              <div class="dh"><b>Кошик · 2 клієнти</b><span class="x">✕</span></div>
+              <div class="db">
+                <div class="cgroup">
+                  <div class="cghead"><span>👤 Оля · Набір маси</span><span class="gs">2 560 ₴</span></div>
+                  <div class="db2">
+                    <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard Whey 2270 г ×2</div><div class="cb">тариф тренера</div><div class="cr"><span class="qty"><span>−</span><b>2</b><span>+</span></span><span class="cp">2 180 ₴</span></div></div><span class="rm">✕</span></div>
+                    <div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">Креатин 500 г</div><div class="cb">тариф тренера</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">380 ₴</span></div></div><span class="rm">✕</span></div>
+                  </div>
+                </div>
+                <div class="cgroup">
+                  <div class="cghead"><span>👤 Ігор · Схуднення</span><span class="gs">680 ₴</span></div>
+                  <div class="db2"><div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">L-карнітин 1500</div><div class="cb">тариф тренера</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">680 ₴</span></div></div><span class="rm">✕</span></div></div>
+                </div>
+                <div class="sum">
+                  <div class="srow"><span>Разом (2 клієнти)</span><span></span></div>
+                  <div class="srow" style="color:#2d7d46;font-weight:700"><span>✓ Тариф тренера застосовано</span><span></span></div>
+                  <div class="srow tot"><span>Разом</span><span>3 240 ₴</span></div>
+                </div>
+                <span class="gobtn">Перейти до оформлення →</span>
+                <div class="ghint">Одна доставка тренеру · групування збережеться в замовленні</div>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:10.5px;color:#999;margin-top:7px">Групування по клієнтах — для ясності й тегування; <b>доставка — одна</b> (тренеру), розбивка по клієнтах зберігається в історії, щоб тренер розподілив. Бонусів у тренера немає — діє тариф.</p>
+        </div></div>
+      </div>
+    </div>
+    <div class="wf" style="max-width:420px"><div class="wf-cap">Порожній кошик</div><div class="wf-pad"><div class="empty"><div class="ei">🛒</div><div class="et">Кошик порожній</div><div class="es">Оберіть товари в каталозі або за ціллю.</div><span class="ebtn">До каталогу</span></div></div></div>
+  </section>
+
+  <!-- 02 checkout -->
+  <section class="section" id="checkout">
+    <div class="section-num">02 · Оформлення (6.1)</div>
+    <h2>Контакт → доставка → оплата → перегляд</h2>
+    <p class="section-lead">Одна сторінка з секціями (не багатокроковий майстер): <b>контакт</b> (телефон — вхід за кодом, якщо гість) → <b>доставка</b> (НП відділення/поштомат · кур'єр · самовивіз Одеса; місто+відділення через діалог 0.1a; збережені адреси 7.5) → <b>оплата</b> → <b>підсумок</b> справа (липкий). Тренер бачить розбивку по клієнтах у підсумку.</p>
+    <div class="wf">
+      <div class="wf-cap">Оформлення — десктоп (6.1)</div>
+      <div class="wf-pad">
+        <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1) <span class="zd">— на оформленні шапка спрощена</span></div>
+        <div class="cochk">
+          <div>
+            <!-- contact -->
+            <div class="fsec">
+              <div class="fsh"><span class="n">1</span> Контакт</div>
+              <div class="frow"><div class="field"><span class="lb">Телефон</span><span class="vl">+380 __ ___ __ __</span></div><div class="field"><span class="lb">Ім'я</span><span class="vl">Андрій К.</span></div></div>
+              <div class="field"><span class="lb">E-mail (для чека, необов'язково)</span><span class="vl">—</span></div>
+              <p style="font-size:10.5px;color:#999">Гість підтверджує телефон кодом (passwordless, як 1.x) — акаунт створюється автоматично. Залогінений — дані підставлені.</p>
+            </div>
+            <!-- delivery -->
+            <div class="fsec">
+              <div class="fsh"><span class="n">2</span> Доставка</div>
+              <div class="ropt on"><span class="rc"></span><div><div class="rt">Нова Пошта — відділення / поштомат</div><div class="rx">1–2 дні</div></div><span class="rp">від 50 ₴</span></div>
+              <div class="subfield"><div class="field"><span class="lb">Місто</span><span class="vl">Одеса ▾ <span style="color:#999;font-weight:500">(діалог «Оберіть місто» 0.1a)</span></span></div><div class="field"><span class="lb">Відділення / поштомат</span><span class="vl">№12, вул. Дерибасівська ▾</span></div></div>
+              <div class="ropt"><span class="rc"></span><div><div class="rt">Кур'єр Нової Пошти — на адресу</div><div class="rx">1–2 дні</div></div><span class="rp">від 70 ₴</span></div>
+              <div class="ropt"><span class="rc"></span><div><div class="rt">Самовивіз — Одеса, вул. Дерибасівська 1</div><div class="rx">лише за наявності на точці · безкоштовно</div></div><span class="rp">0 ₴</span></div>
+              <p style="font-size:10.5px;color:#999">Збережені адреси покупця (7.5) підставляються списком; нову можна зберегти. Тариф перевізника — за його розцінками.</p>
+            </div>
+            <!-- payment -->
+            <div class="fsec">
+              <div class="fsh"><span class="n">3</span> Оплата</div>
+              <div class="paygrid">
+                <div class="ropt on"><span class="rc"></span><div class="rt">Карта онлайн<div class="rx">LiqPay / Wayforpay</div></div></div>
+                <div class="ropt"><span class="rc"></span><div class="rt">Apple Pay / Google Pay</div></div>
+                <div class="ropt"><span class="rc"></span><div class="rt">Накладений платіж<div class="rx">при отриманні</div></div></div>
+                <div class="ropt"><span class="rc"></span><div class="rt">Готівка при самовивозі</div></div>
+              </div>
+              <div class="field" style="margin-top:9px"><span class="lb">Коментар до замовлення (необов'язково)</span><span class="vl">—</span></div>
+            </div>
+          </div>
+
+          <!-- summary -->
+          <div class="osum">
+            <div class="ot">Ваше замовлення</div>
+            <div class="oitem"><span class="th">фото</span><span class="oi"><b>Gold Standard Whey 2270 г</b><br>Optimum Nutrition</span><span class="oq">×1</span></div>
+            <div class="oitem"><span class="th">фото</span><span class="oi"><b>Креатин моногідрат 300 г</b><br>OstroVit</span><span class="oq">×2</span></div>
+            <div class="sum">
+              <div class="srow"><span>Сума товарів</span><span>2 418 ₴</span></div>
+              <div class="srow"><span>Знижка лояльності</span><span>− 120 ₴</span></div>
+              <div class="srow bonus"><span>Бонуси</span><span>− 240 ₴</span></div>
+              <div class="srow"><span>Доставка</span><span>за тарифом НП</span></div>
+              <div class="srow tot"><span>До сплати</span><span>2 058 ₴</span></div>
+            </div>
+            <span class="gobtn">Підтвердити замовлення</span>
+            <div class="trustmicro"><span>🔒 Безпечна оплата</span><span>↩ Повернення 14 днів</span><span>✓ Оригінал</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Флоу (flows.md):</b> адреса — читаємо збережені (7.5), захоплюємо якщо немає; оплата <b>назад у кошик</b> при відмові (не термінал); порожній кошик → empty. Тренер: підсумок показує розбивку по клієнтах, доставка одна.</p>
+  </section>
+
+  <!-- 03 order placed -->
+  <section class="section" id="placed">
+    <div class="section-num">03 · Замовлення оформлено (6.2)</div>
+    <h2>Підтвердження + наступні кроки</h2>
+    <div class="wf" style="max-width:560px"><div class="wf-cap">Замовлення оформлено (6.2)</div><div class="wf-pad">
+      <div class="placed">
+        <div class="ok">✓</div>
+        <div class="pt">Замовлення #1044 оформлено</div>
+        <div class="ps">Ми надіслали підтвердження в SMS. Зберемо й передамо на доставку.</div>
+      </div>
+      <div class="pcard2">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#444;padding:5px 0;border-bottom:1px solid #f3f3f3"><span>2 товари</span><span>2 418 ₴</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#444;padding:5px 0;border-bottom:1px solid #f3f3f3"><span>Знижка + бонуси</span><span>− 360 ₴</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#444;padding:5px 0;border-bottom:1px solid #f3f3f3"><span>Доставка · Нова Пошта №12, Одеса</span><span>за тарифом</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800;color:#111;padding:7px 0 0"><span>Сплачено карткою</span><span>2 058 ₴</span></div>
+      </div>
+      <div class="nextrow">
+        <span class="nbtn dark">Відстежити замовлення</span>
+        <span class="nbtn">Мої замовлення</span>
+        <span class="nbtn">Продовжити покупки</span>
+      </div>
+      <p style="font-size:10.5px;color:#999;text-align:center;margin-top:10px">«Мої замовлення» → історія 7.2 (там повтор у 1 тап, Job 4). Нараховані бонуси відображаються в акаунті. Тренер бачить розбивку по клієнтах.</p>
+    </div></div>
+  </section>
+
+  <!-- 04 mobile -->
+  <section class="section" id="mobile">
+    <div class="section-num">04 · Мобілка</div>
+    <h2>Кошик full-screen + оформлення однією стрічкою</h2>
+    <p class="section-lead">База 360px. На мобілці кошик — <b>повноекранний</b> (drawer → екран), таб «Кошик» із лічильником. Оформлення — секції стрічкою, підсумок і CTA <b>липкою смугою</b> внизу.</p>
+    <div class="cols two">
+      <div>
+        <div class="phone">
+          <div class="p-top"><span style="color:#888">‹</span><span class="lg" style="font-size:13px">Кошик · 3</span><span></span></div>
+          <div class="p-body" style="padding-bottom:6px">
+            <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard Whey 2270 г</div><div class="cb">Optimum Nutrition</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">1 290 ₴</span></div></div></div>
+            <div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">Креатин 300 г</div><div class="cb">OstroVit</div><div class="cr"><span class="qty"><span>−</span><b>2</b><span>+</span></span><span class="cp">898 ₴</span></div></div></div>
+            <div class="bonustoggle">★ Списати 240 ₴ бонусів<span class="sw"></span></div>
+          </div>
+          <div class="p-sticky"><div><div style="font-size:10px;color:#888">Разом</div><b style="font-size:15px">2 058 ₴</b></div><span style="margin-left:auto;background:#161616;color:#fff;border-radius:8px;padding:10px 16px;font-size:12px;font-weight:800">Оформити →</span></div>
+        </div>
+        <p class="note">Кошик — окремий екран; бонуси перемикачем; липка смуга «Оформити».</p>
+      </div>
+      <div>
+        <div class="phone">
+          <div class="p-top"><span style="color:#888">‹</span><span class="lg" style="font-size:13px">Оформлення</span><span></span></div>
+          <div class="p-body" style="padding-bottom:6px">
+            <div class="fsh" style="font-size:12.5px"><span class="n">1</span> Контакт</div>
+            <div class="field" style="margin-bottom:8px"><span class="lb">Телефон</span><span class="vl">+380 __ ___ __ __</span></div>
+            <div class="fsh" style="font-size:12.5px"><span class="n">2</span> Доставка</div>
+            <div class="ropt on" style="margin-bottom:6px"><span class="rc"></span><div><div class="rt" style="font-size:11.5px">Нова Пошта — відділення</div><div class="rx">Одеса №12</div></div><span class="rp" style="font-size:11px">від 50 ₴</span></div>
+            <div class="fsh" style="font-size:12.5px"><span class="n">3</span> Оплата</div>
+            <div class="ropt on"><span class="rc"></span><div class="rt" style="font-size:11.5px">Карта онлайн</div></div>
+          </div>
+          <div class="p-sticky"><div><div style="font-size:10px;color:#888">До сплати</div><b style="font-size:15px">2 058 ₴</b></div><span style="margin-left:auto;background:#161616;color:#fff;border-radius:8px;padding:10px 16px;font-size:12px;font-weight:800">Підтвердити</span></div>
+        </div>
+        <p class="note">Оформлення — секції 1-2-3 стрічкою; сума + CTA липкі внизу (велика ціль, доступна завжди).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 states -->
+  <section class="section" id="states">
+    <div class="section-num">05 · Стани</div>
+    <h2>Стани кошика й оформлення</h2>
+    <table>
+      <tr><th>Стан</th><th>Поведінка</th></tr>
+      <tr><td><b>Порожній кошик</b></td><td>Empty-state 🛒 + «До каталогу» / «За ціллю».</td></tr>
+      <tr><td><b>Гість на оформленні</b></td><td>Телефон + код (passwordless) — акаунт створюється авто; далі одразу оформлення.</td></tr>
+      <tr><td><b>Немає збережених адрес</b></td><td>Захоплюємо адресу в секції доставки; пропонуємо зберегти (→ 7.5).</td></tr>
+      <tr><td><b>Товар став OOS у кошику</b></td><td>Позначаємо рядок, пропонуємо прибрати / замінити; не даємо оформити недоступне.</td></tr>
+      <tr><td><b>Оплата відхилена</b></td><td><b>Назад у кошик/оплату</b> (retry), не термінал; замовлення не втрачається.</td></tr>
+      <tr><td><b>Самовивіз, товару немає на точці</b></td><td>Метод недоступний для цих позицій → підказка обрати доставку.</td></tr>
+      <tr><td><b>Тренер: групування</b></td><td>Кошик і підсумок — по клієнтах; одна доставка тренеру; розбивка зберігається в замовленні.</td></tr>
+      <tr><td><b>Бонуси / лояльність</b></td><td>Покупець: знижка авто + бонуси перемикачем. Тренер: тариф на рядках, без персональних бонусів.</td></tr>
+      <tr><td><b>Завантаження / підтвердження</b></td><td>Скелетони; після оплати — стан 6.2 + SMS-підтвердження.</td></tr>
+    </table>
+  </section>
+
+  <!-- 06 SEO -->
+  <section class="section" id="seo">
+    <div class="section-num">06 · SEO / приватність</div>
+    <h2>Транзакційна зона — noindex, без схеми</h2>
+    <p class="section-lead">Кошик та оформлення — <b>транзакційні</b>, не контентні сторінки (як акаунт і авторизація). Виняток із A–E.</p>
+    <table>
+      <tr><th>Аспект</th><th>Рішення</th></tr>
+      <tr><td><b>robots</b></td><td><code>noindex, nofollow</code> на /cart, /checkout, /order/{id}</td></tr>
+      <tr><td><b>Schema</b></td><td>Немає (транзакційні дані). Order-confirmation — приватна</td></tr>
+      <tr><td><b>URL</b></td><td>/cart (діалог також на будь-якій сторінці) · /checkout · /order/{id}</td></tr>
+      <tr><td><b>Аналітика</b></td><td>Ключова воронка: add-to-cart → checkout → purchase (події для Mixpanel/PostHog)</td></tr>
+      <tr><td><b>A11y / довіра</b></td><td>Кроки як fieldset/legend; помилки полів озвучені; бейджі оплати/повернення; жодних таймерів (принцип #4)</td></tr>
+    </table>
+  </section>
+
+  <!-- 07 anatomy -->
+  <section class="section" id="anatomy-table">
+    <div class="section-num">07 · Анатомія (мапа вузлів)</div>
+    <h2>Вузли кластера</h2>
+    <table>
+      <tr><th>#</th><th>Вузол</th><th>Що всередині</th><th>Звʼязки</th></tr>
+      <tr><td>1</td><td><b>Кошик (6.0)</b> · діалог</td><td>Позиції · кількість · <b>групування по клієнтах (тренер)</b> · бонуси/лояльність · підсумок · CTA · порожній стан</td><td class="arrow">← 3.0 · 5.5 → 6.1</td></tr>
+      <tr><td>2</td><td><b>Оформлення (6.1)</b> · флоу</td><td>Контакт (phone-OTP) · доставка (НП/кур'єр/самовивіз + місто 0.1a + адреси 7.5) · оплата (LiqPay/Wayforpay/Pay/накладений) · підсумок</td><td class="arrow">→ 6.2 · 7.5</td></tr>
+      <tr><td>3</td><td><b>Замовлення оформлено (6.2)</b> · стан</td><td>Підтвердження · підсумок · наступні кроки (відстежити / мої замовлення / повтор)</td><td class="arrow">→ 7.2 (Job 4)</td></tr>
+    </table>
+  </section>
+
+  <!-- 08 locked -->
+  <section class="section" id="locked">
+    <div class="section-num">08 · Зафіксовано / відкрите</div>
+    <div class="cols two">
+      <div>
+        <h2 style="font-size:18px;margin-bottom:10px">Зафіксовано</h2>
+        <ul style="margin-left:18px">
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Кошик = діалог-drawer</b> (швидкий перегляд, не забирає зі сторінки); порожній стан веде в каталог/цілі.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Тренер — групування по клієнтах</b> (із сесії 5.5); <b>одна доставка</b> тренеру, розбивка зберігається в замовленні.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Оформлення однією сторінкою</b> (секції контакт/доставка/оплата + липкий підсумок), не багатокроковий майстер.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Доставка:</b> НП відділення/поштомат · кур'єр · самовивіз Одеса; місто через діалог 0.1a; адреси з 7.5.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Оплата:</b> LiqPay/Wayforpay (карта) · Apple/Google Pay · накладений · готівка при самовивозі.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Passwordless-checkout:</b> гість підтверджує телефон кодом → акаунт створюється авто.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Бонуси/лояльність</b> покупця тут; <b>тариф тренера</b> — на рядках. Recovery: оплата назад у кошик, OOS не оформлюється.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Транзакційна зона noindex</b>; спокійно, без таймерів (принцип #4).</li>
+        </ul>
+      </div>
+      <div>
+        <div class="open">
+          <h2>Відкриті [?]</h2>
+          <ul>
+            <li><b>Знижка лояльності / бонуси:</b> % , курс, чи сумуються зі знижками — з 7.4 [?].</li>
+            <li><b>Тариф доставки:</b> точні суми НП/кур'єр — за розцінками перевізника (інтеграція).</li>
+            <li><b>Платіжний провайдер:</b> LiqPay vs Wayforpay — рішення технічного скоупінгу.</li>
+            <li><b>Мін. сума / поріг безкоштовної доставки</b> — маркетинг/операційно [?].</li>
+            <li><b>Тренер:</b> чи можлива розбивка доставки по клієнтах у майбутньому (зараз — одна) [?].</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-text">
+    Stack — Посторінкова IA · Кошик і оформлення (вузол 6.x): Кошик 6.0 (діалог, per-client для тренера) → Оформлення 6.1 (контакт · доставка · оплата · підсумок) → Замовлення оформлено 6.2 → історія 7.2. Точка сходження карток товару (3.0) і сесії тренера (5.5). Транзакційне (noindex). Джерело істини: ia/docs/pages/cart.md. Флоу: research/docs/flows.md. Карта сайту: sitemap.html. Липень 2026, чернетка.
+  </div>
+
+</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+</script>
+</body>
+</html>

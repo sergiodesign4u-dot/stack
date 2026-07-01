@@ -404,6 +404,20 @@ Output = the wireframe library. Wireframes then just render it.
   the wireframe **directly from the flow doc's decision/recovery nodes** (every «error/OOS/blocked/
   untagged» state gets a visible treatment), and **reuse the sibling shell** instead of inventing a new
   layout for a role variant.
+- **2026-07-01** — **Cart & checkout (node 6.x)** built (`ia/docs/pages/cart.md` + `ia/cart.html`) — the
+  **convergence point** of both flows (product card → cart; coach session 5.5 → cart), so it inherits
+  earlier decisions rather than re-deciding: delivery/payment options come verbatim from the PDP's
+  delivery+payment block, bonuses/loyalty from the account (7.4), per-client grouping from the coach
+  session (5.5). Shape: **6.0 cart = drawer dialog** (buyer flat + bonuses toggle / coach grouped by
+  client), **6.1 checkout = one sectioned page** (contact/delivery/payment + sticky summary, not a
+  wizard), **6.2 order placed** → order history (repeat, Job 4). Two calls worth noting: coach cart
+  **groups by client but ships once** to the coach (grouping is for tagging/clarity, preserved in the
+  order for distribution — not N deliveries); guest checkout is **passwordless** (confirm phone by code →
+  account auto-created) so there's no separate "guest vs register" fork. Transactional → **noindex, no
+  schema** (same private-zone exception as account/auth). Lesson: a convergence node should **quote the
+  upstream nodes' decisions** (delivery, payment, tier, bonuses) instead of inventing parallel ones — its
+  job is to unify, not to add. **This closes the JTBD page-level gaps: all clusters 0–7 now have
+  page-level IA. Next phase = Wireframes (Phase 2 renders the library).**
 - **Next** — page-level IA cluster by cluster (each WITH its A–E SEO block): Product (3.0),
   Cart/Checkout (6.x), Coach workspace (5.x), Buyer account (7.x). Add each new node to the sidebar
   group and `ia/docs/sitemap.md`.
