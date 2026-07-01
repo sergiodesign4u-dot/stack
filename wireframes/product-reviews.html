@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Gold Standard 100% Whey — відгуки та сертифікат (wireframe 3.0)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+  .recbanner { border:1px solid var(--hair); background:var(--fill2); border-radius:12px; padding:16px 18px; margin:8px 0 22px; }
+  .recbanner .rt { font-size:16px; font-weight:800; color:var(--strong); }
+  .recbanner .rs { font-size:13px; color:var(--sec); margin-top:4px; }
+  .reccta { display:flex; gap:10px; flex-wrap:wrap; margin-top:24px; }
+</style>
+</head>
+<body>
+<!-- WIREFRAME · 3.0 STATE = reviews recovery (Job 3). Unsure buyer routed to reviews + certificate BEFORE leaving. -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <a href="listing.html">Протеїн</a><span class="sep">/</span>
+    <a href="product.html">Gold Standard 100% Whey</a><span class="sep">/</span>
+    <span class="cur">Відгуки та сертифікат</span>
+  </nav>
+
+  <div class="recbanner">
+    <div class="rt">Ще сумніваєтесь?</div>
+    <div class="rs">Подивіться, що кажуть покупці, які вже брали цей товар, і перегляньте реальний сертифікат відповідності — перш ніж вирішувати.</div>
+  </div>
+
+  <!-- certificate (viewable — real content) -->
+  <section aria-label="Сертифікація">
+    <div class="sech"><h2>Сертифікація</h2></div>
+    <div class="certbox">
+      <a class="certthumb" href="content.html">переглянути сертифікат (PDF)</a>
+      <div>Сертифікат відповідності на партію + лабораторні тести чистоти. Натисніть, щоб відкрити документ — оригінальний продукт із гарантією виробника (Optimum Nutrition, США).</div>
+    </div>
+  </section>
+
+  <!-- reviews (aggregate + list; many → paginated) -->
+  <section aria-label="Відгуки" style="margin-top:26px">
+    <div class="sech"><h2>Відгуки покупців</h2><a class="all" href="#">＋ Залишити відгук</a></div>
+    <div class="rvhead">
+      <div class="rvbig"><div class="n">4.8</div><div class="s">★★★★★<br>126 відгуків</div></div>
+      <div class="rvbars">
+        <div class="rvbar"><span>5</span><div class="track"><div class="fill" style="width:82%"></div></div><span>103</span></div>
+        <div class="rvbar"><span>4</span><div class="track"><div class="fill" style="width:12%"></div></div><span>15</span></div>
+        <div class="rvbar"><span>3</span><div class="track"><div class="fill" style="width:4%"></div></div><span>5</span></div>
+        <div class="rvbar"><span>2</span><div class="track"><div class="fill" style="width:1%"></div></div><span>2</span></div>
+        <div class="rvbar"><span>1</span><div class="track"><div class="fill" style="width:1%"></div></div><span>1</span></div>
+      </div>
+      <a class="btn dark" href="#">＋ Залишити відгук</a>
+    </div>
+
+    <div class="rvitem">
+      <div class="rvmeta"><div class="rname">Олександр К.</div><div class="rdate">12 червня 2026</div><div class="rstars">★ 5.0</div><div class="rbadge">✓ Купив товар</div></div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> смак не приторний, добре розмішується, є ефект</div>
+        <div class="prc"><b>Недоліки:</b> ціна підросла</div>
+        <div class="rtext">Беру вже третю банку. Оригінал, сертифікат був у наявності. Рекомендую початківцям.</div>
+        <div class="rvreply"><div class="rchip"><span class="lg">Stack</span> Магазин</div>Дякуємо за відгук! Тримаємо ціну максимально доступною 🙌</div>
+      </div>
+    </div>
+    <div class="rvitem">
+      <div class="rvmeta"><div class="rname">Ірина М.</div><div class="rdate">3 червня 2026</div><div class="rstars">★ 4.0</div><div class="rbadge">✓ Купив товар</div></div>
+      <div class="rvbody"><div class="prc"><b>Переваги:</b> якісний білок, швидка доставка</div><div class="rtext">Все сподобалось, ваніль трохи солодка. Загалом задоволена.</div></div>
+    </div>
+    <div class="rvitem">
+      <div class="rvmeta"><div class="rname">Дмитро П.</div><div class="rdate">28 травня 2026</div><div class="rstars">★ 5.0</div><div class="rbadge">✓ Купив товар</div></div>
+      <div class="rvbody"><div class="prc"><b>Переваги:</b> оригінал, є лаб. тести</div><div class="rtext">Порівнював склад із сайтом виробника — усе збігається. Беру постійно.</div></div>
+    </div>
+    <div class="pgnav"><button class="loadmore">Показати ще відгуки (з 126)</button><div class="pages"><a class="on" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">›</a></div></div>
+  </section>
+
+  <!-- recovery CTAs: convinced → cart; still not → back to collection -->
+  <div class="reccta">
+    <a class="btn dark" href="cart.html">Все зрозуміло — у кошик</a>
+    <a class="btn" href="listing.html">Повернутись до колекції</a>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+<div id="wf-sheet"></div>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('product.html', 'reviews');</script>
+</body>
+</html>

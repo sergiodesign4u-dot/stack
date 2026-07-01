@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Картка товару — помилка (wireframe 3.0)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- WIREFRAME · 3.0 STATE = error (details failed). Exit: «Спробувати ще» (retry) — flows.md se→qr. No dead end. -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <a href="listing.html">Протеїн</a><span class="sep">/</span>
+    <span class="cur">Товар</span>
+  </nav>
+
+  <div class="empty" style="margin-top:24px" role="alert">
+    <div class="ei">⚠</div>
+    <div class="et">Не вдалося завантажити товар</div>
+    <div class="es">Перевірте зʼєднання з інтернетом і спробуйте ще раз.</div>
+    <div class="eact">
+      <a class="btn dark" href="product.html">Спробувати ще</a>
+      <a class="btn" href="listing.html">Повернутись до каталогу</a>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+<div id="wf-sheet"></div>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('product.html', 'error');</script>
+</body>
+</html>

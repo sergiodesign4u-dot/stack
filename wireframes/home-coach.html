@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Stack — спортивне харчування (wireframe 0.0, головна)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 0.0 Головна (state = COACH). Two non-blocking front doors + return path.
+  Job 2 (goal selector) + Job 1 (coach block) + Job 4 (cart shelf / repeat). Flow entry.
+  Role variants: home-buyer.html, home-coach.html.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- single H1 (store heading, near top) -->
+  <h1 class="homeh1">Спортивне харчування — інтернет-магазин Stack</h1>
+
+  <!-- Block 1: HERO — category rail + banners (desktop) / banner + chips (mobile) -->
+  <section aria-label="Каталог і акції">
+    <!-- mobile category chips -->
+    <div class="hero-chips">
+      <a href="listing.html">За ціллю</a><a href="listing.html">Протеїн</a><a href="listing.html">Гейнери</a>
+      <a href="listing.html">Креатин</a><a href="listing.html">BCAA</a><a href="listing.html">Передтрен.</a>
+      <a href="listing.html">Вітаміни</a><a href="listing.html">Жироспалювачі</a>
+    </div>
+    <div class="hero-wrap">
+      <nav class="hrail" aria-label="Категорії">
+        <a class="lead" href="listing.html">За ціллю <span class="ar">›</span></a>
+        <div class="rsep"></div>
+        <a href="listing.html">Протеїн <span class="ar">›</span></a>
+        <a href="listing.html">Гейнери <span class="ar">›</span></a>
+        <a href="listing.html">Креатин <span class="ar">›</span></a>
+        <a href="listing.html">Амінокислоти <span class="ar">›</span></a>
+        <a href="listing.html">Передтренувальні <span class="ar">›</span></a>
+        <a href="listing.html">Жироспалювачі <span class="ar">›</span></a>
+        <a href="listing.html">Вітаміни й мінерали <span class="ar">›</span></a>
+        <a href="listing.html">Здоров'я <span class="ar">›</span></a>
+        <a href="listing.html">Батончики та снеки <span class="ar">›</span></a>
+        <a href="listing.html">Ізотоніки <span class="ar">›</span></a>
+        <a href="listing.html">Аксесуари <span class="ar">›</span></a>
+      </nav>
+      <div class="hbanners">
+        <div class="hbanner main">Промо-банер (слайдер 2–3) — спокійно, без таймерів</div>
+        <div class="hbanner">Вертикальний банер — новий бренд</div>
+        <div class="hbanner">Вертикальний банер — сезон</div>
+      </div>
+    </div>
+    <div class="bdots"><i class="on"></i><i></i><i></i></div>
+  </section>
+
+  <!-- Block 2: personal strip — COACH (new session + coach home; tier prices) -->
+  <div class="pstrip">
+    <span class="pt">Кабінет тренера · тариф Pro · гуртові ціни активні</span>
+    <span class="psp"></span>
+    <a class="btn" href="coach.html">Кабінет тренера</a>
+    <a class="btn dark" href="coach.html">＋ Нова сесія замовлення</a>
+  </div>
+
+  <!-- Block 3: goal selector (Job 2 front door) -->
+  <section class="goalsec" aria-label="Ціль">
+    <div class="sech"><h2>Спортивне харчування під вашу ціль</h2><a class="all" href="catalog-page.html">Усі категорії →</a></div>
+    <p class="lintro" style="margin:0 0 14px">Не знаєте, з чого почати? Оберіть ціль — підберемо зрозумілий, безпечний набір зі складом і дозуванням.</p>
+    <div class="goaltiles">
+      <a class="gtile" href="goal.html"><span class="gph"></span><span class="gt">Набір маси</span></a>
+      <a class="gtile" href="goal.html"><span class="gph"></span><span class="gt">Схуднення</span></a>
+      <a class="gtile" href="goal.html"><span class="gph"></span><span class="gt">Відновлення</span></a>
+      <a class="gtile" href="goal.html"><span class="gph"></span><span class="gt">Енергія / тонус</span></a>
+      <a class="gtile" href="goal.html"><span class="gph"></span><span class="gt">Імунітет / здоров'я</span></a>
+      <a class="gtile" href="goal.html"><span class="gph"></span><span class="gt">Витривалість</span></a>
+    </div>
+    <div class="goalcta">
+      <a class="btn dark" href="goal.html">Пройти квіз</a>
+      <span class="hint">5 питань — і готовий набір під вашу ціль (без реєстрації)</span>
+    </div>
+  </section>
+
+  <!-- Block 4: trust band (short; full strip in footer) -->
+  <div class="tband">
+    <span><b>Оригінал і сертифікати</b> на кожен товар</span>
+    <span><b>Доставка</b> Новою Поштою 1–2 дні</span>
+    <span><b>Оплата</b> картою · при отриманні</span>
+    <span><b>Повернення</b> 14 днів</span>
+    <span><b>4.9 ★</b> за відгуками покупців</span>
+  </div>
+
+  <!-- Block 5: products — themed tabs -->
+  <section aria-label="Товари">
+    <div class="sech"><h2>Хіти продажів</h2><a class="all" href="listing.html">Дивитись усі →</a></div>
+    <div class="ptabs">
+      <span class="ptab on">Хіт продажу</span>
+      <span class="ptab">Кращі цінові пропозиції</span>
+      <span class="ptab">Преміум товари</span>
+      <span class="ptab">Новинки</span>
+    </div>
+    <div class="prow">
+      <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Optimum Nutrition · США</div>
+          <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div><span class="pnew">1 290 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+          <div class="pmeta2"><span class="perserv"><b>28 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+        </div>
+      </article>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">BioTechUSA · Угорщина</div>
+          <a href="product.html" class="nm">Iso Whey Zero 908 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div>
+          <div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div>
+        </div>
+      </article>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Scitec Nutrition · Угорщина</div>
+          <a href="product.html" class="nm">100% Whey Protein Professional 920 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">940 ₴</span><span class="pcut">−10%</span></div><span class="pnew">845 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div>
+          <div class="pmeta2"><span class="perserv"><b>31 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div>
+        </div>
+      </article>
+      <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">NEW</span></a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Myprotein · Велика Британія</div>
+          <a href="product.html" class="nm">Impact Whey Isolate 1 кг</a>
+          <div class="pavail low">● Залишилось мало</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">990 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ —</span> · новинка</div>
+          <div class="pmeta2"><span class="perserv"><b>33 ₴</b> / порція</span><span class="bonus">+10 ₴ бонус</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Block 6: coach banner (principle #3) -->
+  <div class="coachbn">
+    <div><div class="ct">Швидкі дії тренера</div>
+      <div class="cs">Нова мультиклієнтська сесія, ваші збережені клієнти та історія замовлень по кожному.</div></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn dark" href="coach.html">＋ Нова сесія</a><a class="btn" href="coach.html">Клієнти</a><a class="btn" href="coach.html">Історія</a></div>
+  </div>
+
+  <!-- Block 8: recently viewed (state) -->
+  <section aria-label="Ви переглядали">
+    <div class="sech"><h2>Ви переглядали</h2><a class="all" href="listing.html">Усі →</a></div>
+    <div class="prow">
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">OstroVit · Польща</div>
+          <a href="product.html" class="nm">WPC 80 Standard 2000 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 180 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.5</span> · 52 відгуки</div>
+          <div class="pmeta2"><span class="perserv"><b>20 ₴</b> / порція</span><span class="bonus">+12 ₴ бонус</span></div>
+        </div>
+      </article>
+      <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Optimum Nutrition · США</div>
+          <a href="product.html" class="nm">Casein Pro 1816 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 480 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.8</span> · 73 відгуки</div>
+          <div class="pmeta2"><span class="perserv"><b>29 ₴</b> / порція</span><span class="bonus">+15 ₴ бонус</span></div>
+        </div>
+      </article>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Power Pro · Україна</div>
+          <a href="product.html" class="nm">Protein Power Pro 1000 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">690 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.3</span> · 41 відгук</div>
+          <div class="pmeta2"><span class="perserv"><b>23 ₴</b> / порція</span><span class="bonus">+7 ₴ бонус</span></div>
+        </div>
+      </article>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Dymatize · США</div>
+          <a href="product.html" class="nm">ISO 100 Hydrolyzed 1320 г</a>
+          <div class="pavail pre">● Під замовлення</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 640 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.9</span> · 55 відгуків</div>
+          <div class="pmeta2"><span class="perserv"><b>41 ₴</b> / порція</span><span class="bonus">+16 ₴ бонус</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Block 9: promo · brands · blog -->
+  <div class="promo"><div class="pt">Знижки тижня — до −25% на протеїн і креатин</div><div class="ps">Спокійно, без таймерів. <a href="content.html" style="text-decoration:underline;font-weight:700;color:#111">Усі акції →</a></div></div>
+
+  <div class="sech"><h2>Бренди</h2><a class="all" href="brands.html">Усі бренди →</a></div>
+  <div class="brandrow">
+    <a class="brandbox" href="listing.html">Optimum</a>
+    <a class="brandbox" href="listing.html">BioTechUSA</a>
+    <a class="brandbox" href="listing.html">Myprotein</a>
+    <a class="brandbox" href="listing.html">Scitec</a>
+    <a class="brandbox" href="listing.html">Dymatize</a>
+    <a class="brandbox" href="listing.html">OstroVit</a>
+  </div>
+
+  <div class="sech"><h2>Корисні поради</h2><a class="all" href="content.html">Усі статті →</a></div>
+  <div class="blogrow">
+    <a class="blogcard" href="content.html"><div class="bim"></div><div class="btx"><div class="bt">Протеїн для початківця: з чого почати</div><div class="bdt">Скільки, коли і який обрати — простими словами.</div></div></a>
+    <a class="blogcard" href="content.html"><div class="bim"></div><div class="btx"><div class="bt">Креатин: як приймати без «завантаження»</div><div class="bdt">Дозування та поширені міфи.</div></div></a>
+    <a class="blogcard" href="content.html"><div class="bim"></div><div class="btx"><div class="bt">Набір маси vs схуднення: базовий набір</div><div class="bdt">Що реально працює для кожної цілі.</div></div></a>
+  </div>
+
+  <!-- Block 10: SEO text (fully expanded) -->
+  <section class="seotext" aria-label="Про магазин">
+    <div class="h">Спортивне харчування в Україні — Stack</div>
+    <p>Stack — інтернет-магазин спортивного харчування з доставкою по всій Україні. У каталозі —
+      протеїн, гейнери, креатин, амінокислоти (BCAA, EAA), передтренувальні комплекси, жироспалювачі,
+      вітаміни та продукти для здоров'я від перевірених брендів. Уся продукція сертифікована, з
+      оригінальною гарантією виробника.</p>
+    <p>Не знаєте, з чого почати? Оберіть ціль — набір маси, схуднення, відновлення, енергія, імунітет
+      чи витривалість — і отримайте зрозумілий, безпечний набір із вказаним складом і дозуванням.
+      Швидка доставка Новою Поштою за 1–2 дні, зручна оплата та повернення протягом 14 днів.</p>
+  </section>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<div id="wf-sheet"></div>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('home.html', 'coach');</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Картка товару — завантаження (wireframe 3.0)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- WIREFRAME · 3.0 STATE = loading (trust details). Skeletons, no layout shift. Resolves to base or error. -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <a href="listing.html">Протеїн</a><span class="sep">/</span>
+    <span class="cur">Завантаження…</span>
+  </nav>
+
+  <div class="pdp" aria-busy="true" aria-label="Завантаження товару">
+    <div class="gal">
+      <div class="gmain skpulse"></div>
+      <div class="gthumbs"><div class="gthumb skpulse"></div><div class="gthumb skpulse"></div><div class="gthumb skpulse"></div><div class="gthumb skpulse"></div></div>
+    </div>
+    <div class="bb skpulse">
+      <div class="skline s" style="margin-bottom:10px"></div>
+      <div class="skline l" style="height:22px"></div>
+      <div class="skline m"></div>
+      <div class="skline" style="height:60px;margin:14px 0"></div>
+      <div class="skline s" style="height:30px;width:40%"></div>
+      <div class="skline" style="height:46px;margin:16px 0"></div>
+      <div class="skline l" style="height:50px"></div>
+      <div class="skline" style="height:120px;margin-top:16px"></div>
+    </div>
+  </div>
+  <p class="loadnote">Завантажуємо товар…</p>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+<div id="wf-sheet"></div>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('product.html', 'loading');</script>
+</body>
+</html>
