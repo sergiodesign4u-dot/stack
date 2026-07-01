@@ -2,9 +2,10 @@
 
 - **Node:** 5.x — Coach workspace. One artifact covering the whole cluster: **5.0 For-Coaches landing**
   (public), **5.1 Become-a-coach** (verify + tier flow), **5.2 Coach home**, **5.3 Clients**, **5.4
-  Client profile**, **5.5 Multi-client order session** (the core). Like `product.md`/`account.md`,
+  Client profile**, **5.5 Multi-client order session** (the core), **5.6 Order history**, **5.7 Order
+  detail** (added 2026-07-02 to close the Step-9 wireframe IA gap). Like `product.md`/`account.md`,
   the whole cluster is one spec.
-- **Type:** public landing (5.0) + private work shell (5.2–5.5) + flow (5.1).
+- **Type:** public landing (5.0) + private work shell (5.2–5.7) + flow (5.1).
 - **Canonical visual:** `ia/coach.html`. This markdown is the source of truth.
 - **Job:** **Job 1 — PRIMARY** (Decision 1). The deepest flow by design — it is a **work flow**, not
   to be flattened (coach = ~8 taps for a 2-client order).
@@ -42,6 +43,20 @@
    **stock?** OOS → choose substitute / skip line → **tier price?** unresolved → session saved,
    **checkout blocked** → **tagged to client?** untagged → assign or discard line → **more clients?** →
    Cart → Checkout → address → payment. Recoverable problems route back; never a terminal.
+6. **Замовлення тренера / order history (5.6)** — the coach's list of **placed multi-client orders**
+   (distinct from the buyer's own order history 7.2, and from a single client's history inside 5.4).
+   Each row: order № · date · **clients in the order** (names / count) · item count · **coach total** ·
+   status (прийнято / збирається / у дорозі / доставлено) · actions **«Деталі» → 5.7** and **«↻ Повторити»
+   → cart 6.0** (Job 4 in a coach context — reloads the whole multi-client order into the grouped cart).
+   Light filters (за клієнтом · за статусом). Reached from Coach home (5.2) «Замовлення / Усі замовлення».
+   States: base (has orders) · **empty** (no orders yet → «＋ Нова сесія») · loading · error → retry.
+7. **Деталі замовлення тренера / order detail (5.7)** — one placed order, **grouped by client** (same
+   grouping as the coach cart 6.0): header (№ · date · status · coach total) → **single delivery to the
+   coach** + payment facts → per-client sections (client · goal · lines with **coach-tier price** vs
+   struck retail · per-client subtotal) → grand total. Actions: **«↻ Повторити замовлення» → cart 6.0**,
+   **«Повторити для клієнта X»** (per-client repeat, Job 4), «Відстежити», back to 5.6. States: base ·
+   loading · error → retry. (No empty — an order always has content.) The bridge that resolves the
+   Step-9 IA gap: coach-home «Замовлення»/«Усі замовлення» → 5.6; a client's order «Деталі» → 5.7.
 
 ## States
 
@@ -53,14 +68,17 @@
 - **Tier price not applied → session saved, checkout blocked** until confirmed.
 - Untagged line → assign client or discard (untagged never reaches the cart).
 - Client history: loading (skeleton) · empty · error → retry.
+- **Order history (5.6):** base · empty (no orders yet) · loading · error → retry.
+- **Order detail (5.7):** base · loading · error → retry (no empty — an order always has lines).
 
 ## SEO / privacy (mixed)
 
 - **5.0 landing** — `index, follow`; H1 «Спортивне харчування оптом для тренерів» [?]; Title/Description
   for «спортпіт оптом / для тренерів / гуртові ціни»; Organization + BreadcrumbList; full A–E block;
   internal links from header/footer.
-- **5.1–5.5 work zone** — `noindex, nofollow`, **no schema** (private data: clients, tier prices).
-- URLs: `/for-coaches` (public) · `/coach`, `/coach/clients`, `/coach/session` (private).
+- **5.1–5.7 work zone** — `noindex, nofollow`, **no schema** (private data: clients, tier prices, orders).
+- URLs: `/for-coaches` (public) · `/coach`, `/coach/clients`, `/coach/session`, `/coach/orders`,
+  `/coach/orders/:id` (private).
 - A11y: client tabs = tablist/tab/tabpanel; session keyboard-operable; tier price + stock announced.
 
 ## Locked (2026-07-01)

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Замовлення тренера — завантаження (wireframe 5.6 · loading)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* ============================================================
+   node 5.6 Замовлення тренера / order history — list of PLACED
+   multi-client orders (distinct from buyer 7.2 and a client's own
+   history in 5.4). Row → Деталі (5.7) / ↻ Повторити (cart 6.0, Job 4).
+   Private → noindex. States: empty · loading · error.
+   ============================================================ */
+.co-wrap { max-width: 940px; }
+.co-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin: 8px 0 14px; }
+.co-top h1 { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.co-top .sub { font-size: 12.5px; color: var(--sec); margin-top: 4px; }
+.co-new { flex: none; }
+
+/* filters */
+.co-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.co-fil { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--hair2); border-radius: 100px; padding: 8px 13px; font-size: 12.5px; font-weight: 700; color: var(--strong); background: #fff; }
+.co-search { flex: 1; min-width: 160px; border: 1.5px solid var(--hair2); border-radius: 100px; padding: 8px 14px; font-size: 13px; font-family: inherit; }
+
+/* order card */
+.ord { border: 1px solid var(--hair); border-radius: 12px; padding: 15px 16px; margin-bottom: 12px; }
+.ord-h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.ord-no { font-size: 15px; font-weight: 800; color: var(--strong); }
+.ord-date { font-size: 12.5px; color: var(--sec); }
+.ord-status { display: inline-block; font-size: 11px; font-weight: 800; border: 1px solid var(--hair2); border-radius: 100px; padding: 2px 10px; color: var(--strong); }
+.ord-status.way { border-color: var(--dark); }
+.ord-meta { font-size: 13px; color: var(--ink); margin: 9px 0 2px; }
+.ord-meta b { color: var(--strong); }
+.ord-cli { display: flex; gap: 6px; flex-wrap: wrap; margin: 9px 0 12px; }
+.ord-chip { font-size: 11.5px; font-weight: 700; color: var(--strong); background: var(--fill2); border: 1px solid var(--hair); border-radius: 100px; padding: 3px 10px; }
+.ord-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--hair); padding-top: 12px; }
+.ord-tot { font-size: 18px; font-weight: 800; color: var(--strong); }
+.ord-tot small { font-size: 11.5px; font-weight: 600; color: var(--sec); display: block; }
+.ord-acts { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.co-more { display: block; width: 100%; text-align: center; margin-top: 6px; border-color: var(--hair2); }
+.ord-empty, .ord-err { text-align: center; border: 1px solid var(--hair); border-radius: 14px; padding: 44px 24px; }
+.ord-empty .ei { font-size: 36px; }
+.ord-empty .et, .ord-err .et { font-size: 19px; font-weight: 800; color: var(--strong); margin: 12px 0 6px; }
+.ord-empty .es, .ord-err .es { font-size: 13.5px; color: var(--sec); max-width: 460px; margin: 0 auto 20px; line-height: 1.5; }
+.ord-acts-c { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.ord.skel { pointer-events: none; }
+.skln { height: 12px; border-radius: 6px; background: #ececec; margin: 8px 0; }
+.skgrp { border: 1px solid var(--hair); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.6 Замовлення тренера — LOADING (skeleton).
+  List of placed multi-client orders. Row → Деталі 5.7 / ↻ Повторити 6.0.
+  States: empty · loading · error.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page co-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <span class="cur">Замовлення</span>
+  </nav>
+
+  <div class="co-top">
+    <div>
+      <h1>Замовлення</h1>
+      <div class="sub">Ваші мультиклієнтські замовлення · гуртові ціни (тариф Pro)</div>
+    </div>
+    <a class="btn dark co-new" href="coach-session.html">＋ Нова сесія</a>
+  </div>
+
+  <div aria-busy="true" aria-label="Завантаження замовлень">
+    <div class="ord skel"><div class="skln" style="width:40%"></div><div class="skln" style="width:72%"></div><div class="skln" style="width:52%"></div><div class="skln" style="width:32%;margin-top:16px"></div></div>
+    <div class="ord skel"><div class="skln" style="width:40%"></div><div class="skln" style="width:72%"></div><div class="skln" style="width:52%"></div><div class="skln" style="width:32%;margin-top:16px"></div></div>
+    <div class="ord skel"><div class="skln" style="width:40%"></div><div class="skln" style="width:72%"></div><div class="skln" style="width:52%"></div><div class="skln" style="width:32%;margin-top:16px"></div></div>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('coach-orders.html', 'loading');</script>
+</body>
+</html>

@@ -81,7 +81,9 @@ first as the coach-flow **reference**, then the rest fan out via subagents cloni
 | 4 | **Клієнти** (5.3) | `coach-clients.html` | page (private) | account shell + list | ✓ | **empty** (no clients) · loading · error · **cap** (Free client cap → Pro upsell) |
 | 5 | **Профіль клієнта** (5.4) | `coach-client.html` | page (private) | account + order rows (Job 4 repeat) | ✓ | **empty** (nothing ordered yet) · loading · error |
 | 6 | **Мультиклієнтська сесія** (5.5) ★ | `coach-session.html` | page (private) | listing quick-add + card + new session components | ✓ *(client tabs + active panel + summary)* | **addclient** (capture name+goal) · **loading** (quick-add stock+tier price) · **oos** (substitute/skip) · **priceblock** (tier price unresolved → session saved, checkout blocked) · **untagged** (assign/discard line) |
-| 7 | **Кошик — за клієнтами** (6.0 coach) | `cart-coach.html` | dialog (drawer) | **cart drawer** + per-client grouping | ✓ *(grouped by client, single delivery to coach)* | empty (→ back to session) |
+| 7 | **Замовлення тренера** (5.6) | `coach-orders.html` | page (private) | account shell + order rows (Job 4 repeat) | ✓ *(list of multi-client orders → Деталі 5.7 / ↻ Повторити 6.0)* | **empty** (no orders) · loading · error |
+| 8 | **Деталі замовлення** (5.7) | `coach-order.html` | page (private) | order recap grouped by client (= cart 6.0 grouping) | ✓ *(header + per-client sections + grand total + per-client repeat)* | loading · error *(no empty — order always has lines)* |
+| 9 | **Кошик — за клієнтами** (6.0 coach) | `cart-coach.html` | dialog (drawer) | **cart drawer** + per-client grouping | ✓ *(grouped by client, single delivery to coach)* | empty (→ back to session) |
 | — | Checkout (6.1) · Order placed (6.2) | **reuse** `checkout.html` / `order-placed.html` | — | Flow-1 checkout/confirmation (single delivery to coach; breakdown kept in order) | — | — |
 
 **New shared components** introduced by 5.5 (added to `_wf.css`, reused by `cart-coach`):

@@ -71,9 +71,12 @@
     Become-a-coach** (role on top of account; social-link verification → tier choice) · **5.2 Coach
     home** (= account shell in coach mode + «Нова сесія» CTA) · **5.3 Clients + 5.4 Client profile**
     (saved clients + tag-to-client + per-client history) · **5.5 Multi-client order session** ★ (client
-    tabs + in-session quick-add + coach-tier price + tag → **cart grouped by client 6.0**). Coach-as-buyer
-    (Decision 1); per-client loop with recovery (OOS/tier-price-blocked/untagged). **Mixed SEO:** landing
-    indexes, 5.1–5.5 **noindex**. B/W).
+    tabs + in-session quick-add + coach-tier price + tag → **cart grouped by client 6.0**) · **5.6 Order
+    history** (placed multi-client orders: row = №/date/clients/total/status → «Деталі» 5.7 / «↻ Повторити»
+    6.0; states base/empty/loading/error) · **5.7 Order detail** (one order **grouped by client**, single
+    delivery to coach, per-client subtotals + grand total, per-client repeat; states base/loading/error).
+    Coach-as-buyer (Decision 1); per-client loop with recovery (OOS/tier-price-blocked/untagged). **Mixed
+    SEO:** landing indexes, 5.1–5.7 **noindex**. B/W).
   - `pages/cart.md` → `ia/cart.html` (node 6.x — **Cart & checkout**, convergence of both flows): **6.0
     Cart** = right-side **drawer dialog** (buyer: flat list + loyalty auto + **bonuses toggle**; coach:
     **grouped by client** with per-client subtotals + tier price, **single delivery** to the coach,
@@ -135,7 +138,8 @@
 - **5 — Coach workspace (PRIMARY, Decision 1):** 5.0 For-Coaches landing + published
   pricing (CTA "become a coach") · 5.1 Become-a-coach: verification + tier activation
   (one flow, entered from landing 5.0 or account 7.7) · 5.2 Coach home · 5.3 Client list ·
-  5.4 Client profile · 5.5 Multi-client order session.
+  5.4 Client profile · 5.5 Multi-client order session · 5.6 Order history · 5.7 Order detail
+  (grouped by client; per-client repeat).
 - **6 — Cart & checkout:** 6.0 Cart (dialog: selected items, per-client grouping for
   coach, CTA "go to checkout") · 6.1 Checkout · 6.2 Order placed.
 - **7 — Buyer account:** 7.0 Account home · 7.1 Profile · 7.2 Orders · 7.3 Order detail +

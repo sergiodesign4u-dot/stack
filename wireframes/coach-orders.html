@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Замовлення тренера — Stack (wireframe 5.6)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* ============================================================
+   node 5.6 Замовлення тренера / order history — list of PLACED
+   multi-client orders (distinct from buyer 7.2 and a client's own
+   history in 5.4). Row → Деталі (5.7) / ↻ Повторити (cart 6.0, Job 4).
+   Private → noindex. States: empty · loading · error.
+   ============================================================ */
+.co-wrap { max-width: 940px; }
+.co-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin: 8px 0 14px; }
+.co-top h1 { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.co-top .sub { font-size: 12.5px; color: var(--sec); margin-top: 4px; }
+.co-new { flex: none; }
+
+/* filters */
+.co-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.co-fil { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--hair2); border-radius: 100px; padding: 8px 13px; font-size: 12.5px; font-weight: 700; color: var(--strong); background: #fff; }
+.co-search { flex: 1; min-width: 160px; border: 1.5px solid var(--hair2); border-radius: 100px; padding: 8px 14px; font-size: 13px; font-family: inherit; }
+
+/* order card */
+.ord { border: 1px solid var(--hair); border-radius: 12px; padding: 15px 16px; margin-bottom: 12px; }
+.ord-h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.ord-no { font-size: 15px; font-weight: 800; color: var(--strong); }
+.ord-date { font-size: 12.5px; color: var(--sec); }
+.ord-status { display: inline-block; font-size: 11px; font-weight: 800; border: 1px solid var(--hair2); border-radius: 100px; padding: 2px 10px; color: var(--strong); }
+.ord-status.way { border-color: var(--dark); }
+.ord-meta { font-size: 13px; color: var(--ink); margin: 9px 0 2px; }
+.ord-meta b { color: var(--strong); }
+.ord-cli { display: flex; gap: 6px; flex-wrap: wrap; margin: 9px 0 12px; }
+.ord-chip { font-size: 11.5px; font-weight: 700; color: var(--strong); background: var(--fill2); border: 1px solid var(--hair); border-radius: 100px; padding: 3px 10px; }
+.ord-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--hair); padding-top: 12px; }
+.ord-tot { font-size: 18px; font-weight: 800; color: var(--strong); }
+.ord-tot small { font-size: 11.5px; font-weight: 600; color: var(--sec); display: block; }
+.ord-acts { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.co-more { display: block; width: 100%; text-align: center; margin-top: 6px; border-color: var(--hair2); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.6 Замовлення тренера (base = has orders).
+  List of placed multi-client orders. Row → Деталі 5.7 / ↻ Повторити 6.0.
+  States: empty · loading · error.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page co-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <span class="cur">Замовлення</span>
+  </nav>
+
+  <div class="co-top">
+    <div>
+      <h1>Замовлення</h1>
+      <div class="sub">Ваші мультиклієнтські замовлення · гуртові ціни (тариф Pro)</div>
+    </div>
+    <a class="btn dark co-new" href="coach-session.html">＋ Нова сесія</a>
+  </div>
+
+  <!-- light filters -->
+  <div class="co-filters">
+    <button class="co-fil" type="button">Усі клієнти ▾</button>
+    <button class="co-fil" type="button">Будь-який статус ▾</button>
+    <input class="co-search" type="search" placeholder="Пошук за № замовлення…" aria-label="Пошук замовлення">
+  </div>
+
+  <!-- order rows -->
+  <article class="ord">
+    <div class="ord-h">
+      <div><span class="ord-no">Замовлення № К-2075</span> <span class="ord-date">· 1 липня 2026</span></div>
+      <span class="ord-status way">● У дорозі</span>
+    </div>
+    <div class="ord-meta"><b>1 клієнт</b> · 2 товари · Нова Пошта, відділення №12 (Одеса)</div>
+    <div class="ord-cli"><span class="ord-chip">👤 Марія · Схуднення</span></div>
+    <div class="ord-foot">
+      <div class="ord-tot">1 160 ₴<small>гуртом, тариф Pro</small></div>
+      <div class="ord-acts">
+        <a class="btn" href="coach-order.html">Деталі</a>
+        <a class="btn dark" href="cart-coach.html">↻ Повторити</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="ord">
+    <div class="ord-h">
+      <div><span class="ord-no">Замовлення № К-2041</span> <span class="ord-date">· 28 червня 2026</span></div>
+      <span class="ord-status">● Доставлено</span>
+    </div>
+    <div class="ord-meta"><b>2 клієнти</b> · 4 товари · Нова Пошта, відділення №12 (Одеса)</div>
+    <div class="ord-cli"><span class="ord-chip">👤 Андрій · Набір маси</span><span class="ord-chip">👤 Марія · Схуднення</span></div>
+    <div class="ord-foot">
+      <div class="ord-tot">3 480 ₴<small>гуртом, тариф Pro</small></div>
+      <div class="ord-acts">
+        <a class="btn" href="coach-order.html">Деталі</a>
+        <a class="btn dark" href="cart-coach.html">↻ Повторити</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="ord">
+    <div class="ord-h">
+      <div><span class="ord-no">Замовлення № К-1987</span> <span class="ord-date">· 14 червня 2026</span></div>
+      <span class="ord-status">● Доставлено</span>
+    </div>
+    <div class="ord-meta"><b>1 клієнт</b> · 3 товари · Самовивіз (Одеса)</div>
+    <div class="ord-cli"><span class="ord-chip">👤 Андрій · Набір маси</span></div>
+    <div class="ord-foot">
+      <div class="ord-tot">2 020 ₴<small>гуртом, тариф Pro</small></div>
+      <div class="ord-acts">
+        <a class="btn" href="coach-order.html">Деталі</a>
+        <a class="btn dark" href="cart-coach.html">↻ Повторити</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="ord">
+    <div class="ord-h">
+      <div><span class="ord-no">Замовлення № К-1902</span> <span class="ord-date">· 30 травня 2026</span></div>
+      <span class="ord-status">● Доставлено</span>
+    </div>
+    <div class="ord-meta"><b>3 клієнти</b> · 6 товарів · Кур'єр Нова Пошта (Одеса)</div>
+    <div class="ord-cli"><span class="ord-chip">👤 Андрій</span><span class="ord-chip">👤 Марія</span><span class="ord-chip">👤 Ігор · Витривалість</span></div>
+    <div class="ord-foot">
+      <div class="ord-tot">4 260 ₴<small>гуртом, тариф Pro</small></div>
+      <div class="ord-acts">
+        <a class="btn" href="coach-order.html">Деталі</a>
+        <a class="btn dark" href="cart-coach.html">↻ Повторити</a>
+      </div>
+    </div>
+  </article>
+
+  <button class="btn co-more" type="button">Показати більше замовлень</button>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('coach-orders.html');</script>
+</body>
+</html>
