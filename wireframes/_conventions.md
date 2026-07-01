@@ -81,6 +81,19 @@ array, so 30+ pages never drift by copy-paste.
 screen + its states + click-wiring — then **Флоу 2 (Тренер)**, with `index.html` tracking coverage
 throughout. This groups the playbook's Steps 5–8 by flow rather than running them globally.
 
+**Order (refined 2026-07-01):**
+1. **[6] Build Флоу 1 (Покупець)** — all its screens + state pages off the etalon (in progress).
+2. **[7] Wire Флоу 1** — a **small** pass once its screens exist: every main action + both decision
+   branches + state transitions along `flows.md` Job 2/3, no dead ends, links only to files that exist.
+3. **[8] Roll out the WHOLE product** — this is the big fan-out: **all the other flows/clusters**
+   (Флоу 2 Тренер 5.x · reorder Job 4 · loyalty Job 6 · content 8.x · system · other listing
+   instances 2.0/2.4/2.5) built + wired **by subagents**, one screen/flow per agent, against this
+   contract + the etalons. Cheap because the components (`_nav.js`) and patterns already exist.
+4. **[9] Critique** — defect table → fix (dead ends + missing states first) → `_critique.md`.
+
+Don't run the Step-7 wiring pass until Флоу 1's screens all exist — until then, intended `href`s are
+placeholders that may 404.
+
 ## 7. Inherited components — render once, include everywhere (Principle 4)
 
 - Global components were specced as IA nodes; wireframes **reuse** them, they don't redraw the header

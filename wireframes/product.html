@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Gold Standard 100% Whey 2270 г — Stack (wireframe 3.0)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 3.0 Картка товару / PDP (base = in stock).
+  Job 4: verify safe/certified/dosed — TRUST IS THE LEAD under the buy box.
+  Conversion step of Job 2/3. States: loading, error, oos, reviews (Job 3), coach.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <a href="listing.html">Протеїн</a><span class="sep">/</span>
+    <span class="cur">Gold Standard 100% Whey</span>
+  </nav>
+
+  <!-- Section-nav tabs (sticky; gains compact price + buy on desktop) -->
+  <nav class="pdp-tabs" aria-label="Розділи товару">
+    <a class="on" href="#pro">Про товар</a>
+    <a href="#sklad">Склад</a>
+    <a href="#doz">Дозування</a>
+    <a href="#spec">Характеристики</a>
+    <a href="#rev">Відгуки</a>
+    <a href="#qa">Питання</a>
+    <span class="tsp"></span>
+    <span class="tprice">1 290 ₴</span>
+    <a class="tbuy" href="cart.html">Купити</a>
+  </nav>
+
+  <!-- Gallery + buy box -->
+  <div class="pdp" id="pro">
+    <div class="gal">
+      <div class="gmain">фото товару<span class="gtag">Хіт</span></div>
+      <div class="gthumbs">
+        <div class="gthumb on"></div><div class="gthumb"></div><div class="gthumb"></div><div class="gthumb"></div>
+      </div>
+    </div>
+
+    <div class="bb">
+      <div class="eyebrow"><a href="listing.html">Optimum Nutrition</a> · США</div>
+      <h1>Gold Standard 100% Whey 2270 г</h1>
+      <div class="bbrate"><a href="#rev"><span class="st">★ 4.8</span> · 126 відгуків</a></div>
+      <div class="bbmeta"><span>Артикул: ON-GS-2270</span><span class="bbavail">● В наявності</span></div>
+      <div class="simple">Сироватковий протеїн для росту та відновлення м'язів. 24 г білка на порцію — базова добавка для набору маси й підтримки форми.</div>
+
+      <div class="priceblk">
+        <div class="oldrow"><span class="old">1 520 ₴</span><span class="cut">−15%</span></div>
+        <div class="new">1 290 ₴</div>
+        <div class="perserv">≈ 28 ₴ / порція · +13 ₴ бонус на рахунок</div>
+        <div class="tier">Ціна тренера (Pro): 1 090 ₴ — <a href="coach.html">увійти як тренер</a></div>
+      </div>
+
+      <div class="vgroup">
+        <div class="vlbl">Смак</div>
+        <div class="vopts">
+          <span class="vopt on">Подвійний шоколад</span>
+          <span class="vopt">Ваніль</span>
+          <span class="vopt">Полуниця</span>
+          <span class="vopt off">Печиво-крем</span>
+        </div>
+      </div>
+      <div class="vgroup">
+        <div class="vlbl">Фасування</div>
+        <div class="vopts">
+          <span class="vopt">908 г</span>
+          <span class="vopt on">2270 г</span>
+          <span class="vopt">4540 г</span>
+        </div>
+      </div>
+
+      <div class="buyrow">
+        <div class="qty"><button aria-label="Менше">−</button><span class="qn">1</span><button aria-label="Більше">+</button></div>
+        <a class="addcart" href="cart.html">У кошик</a>
+        <button class="wish" aria-label="В обране">♡</button>
+      </div>
+
+      <div class="dpblk">
+        <div class="dph">Доставка</div>
+        <div class="dprow"><span>Нова Пошта — відділення / поштомат</span><b>від 50 ₴ · 1–2 дні</b></div>
+        <div class="dprow"><span>Кур'єр НП — на адресу</span><b>від 70 ₴</b></div>
+        <div class="dprow"><span>Самовивіз (Одеса)</span><b>безкоштовно</b></div>
+        <div class="dph" style="margin-top:12px">Оплата</div>
+        <div class="dprow"><span>Картка · Apple / Google Pay · накладений · готівка при самовивозі</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trust strip (4 micro-signals, before composition) -->
+  <div class="truststrip">
+    <div class="tsx"><b>Оригінал + гарантія</b><span>офіційний імпорт</span></div>
+    <div class="tsx"><b>Сертифікат</b><span>відповідності — переглянути</span></div>
+    <div class="tsx"><b>Доставка НП</b><span>1–2 дні по Україні</span></div>
+    <div class="tsx"><b>Повернення</b><span>14 днів</span></div>
+  </div>
+
+  <!-- TRUST BLOCK = the lead (Job 4). Sections open by default, collapsible. -->
+  <section aria-label="Про товар — склад, дозування, походження, сертифікація">
+    <details class="trustsec" open id="sklad">
+      <summary>Склад <span class="chev">▾</span></summary>
+      <div class="tsb">
+        <table class="ctable">
+          <tr><th>Речовина</th><th>На порцію (30 г)</th><th>% добової норми</th></tr>
+          <tr><td><b>Білок</b></td><td>24 г</td><td>48%</td></tr>
+          <tr><td>BCAA</td><td>5.5 г</td><td>—</td></tr>
+          <tr><td>Глутамін і глутамінова кислота</td><td>4 г</td><td>—</td></tr>
+          <tr><td>Вуглеводи</td><td>3 г</td><td>1%</td></tr>
+          <tr><td>Жири</td><td>1.5 г</td><td>2%</td></tr>
+        </table>
+        <p class="allerg"><b>Повний склад:</b> суміш сироваткового протеїну (концентрат, ізолят, гідролізат), какао, ароматизатори, лецитин, підсолоджувачі (сукралоза). <b>Алергени:</b> МОЛОКО, СОЯ.</p>
+        <div class="onpack">фото складу на упаковці (для довіри)</div>
+      </div>
+    </details>
+    <details class="trustsec" open id="doz">
+      <summary>Дозування та застосування <span class="chev">▾</span></summary>
+      <div class="tsb">1 порція = 1 мірна ложка (~30 г) на 250–300 мл води чи молока. Приймати 1–2 порції на день:
+        одразу після тренування та/або між прийомами їжі. У дні відпочинку — 1 порція вранці або між їжею.</div>
+    </details>
+    <details class="trustsec" open>
+      <summary>Походження <span class="chev">▾</span></summary>
+      <div class="tsb">Виробник: Optimum Nutrition (Glanbia), США. Офіційний імпортер в Україну. Оригінальний продукт — гарантія відповідності партії.</div>
+    </details>
+    <details class="trustsec" open>
+      <summary>Сертифікація <span class="chev">▾</span></summary>
+      <div class="tsb">
+        <div class="certbox">
+          <a class="certthumb" href="content.html">переглянути сертифікат (PDF)</a>
+          <div>Сертифікат відповідності на партію + лабораторні тести чистоти. Натисніть, щоб відкрити документ.</div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- Опис (after trust) + extra photos -->
+  <section aria-label="Опис">
+    <div class="sech"><h2>Опис</h2></div>
+    <p class="lintro" style="max-width:760px">Gold Standard 100% Whey — еталонний сироватковий протеїн від Optimum Nutrition. Основа формули — ізолят сироватки як перший інгредієнт. Швидке засвоєння, 24 г білка та 5.5 г BCAA на порцію роблять його оптимальним вибором для відновлення після тренувань і щоденної норми білка. Підходить початківцям і досвідченим.</p>
+    <div class="gthumbs" style="margin-top:14px">
+      <div class="gthumb" style="width:120px;height:120px"></div>
+      <div class="gthumb" style="width:120px;height:120px"></div>
+      <div class="gthumb" style="width:120px;height:120px"></div>
+    </div>
+  </section>
+
+  <!-- Характеристики -->
+  <section aria-label="Характеристики" id="spec">
+    <div class="sech"><h2>Характеристики</h2></div>
+    <table class="spectbl">
+      <tr><td>Бренд</td><td><b>Optimum Nutrition</b></td></tr>
+      <tr><td>Країна</td><td><b>США</b></td></tr>
+      <tr><td>Тип протеїну</td><td><b>Сироватковий (концентрат + ізолят)</b></td></tr>
+      <tr><td>Форма</td><td><b>Порошок</b></td></tr>
+      <tr><td>Вага</td><td><b>2270 г</b></td></tr>
+      <tr><td>Порцій в упаковці</td><td><b>72</b></td></tr>
+      <tr><td>Білка на порцію</td><td><b>24 г</b></td></tr>
+      <tr><td>Ціль</td><td><b>Набір маси · Відновлення</b></td></tr>
+      <tr><td>Сертифікація</td><td><b>Сертифікат відповідності</b></td></tr>
+    </table>
+  </section>
+
+  <!-- Відгуки (3.1) — conversion recovery -->
+  <section aria-label="Відгуки" id="rev">
+    <div class="sech"><h2>Відгуки</h2><a class="all" href="#">＋ Залишити відгук</a></div>
+    <div class="rvhead">
+      <div class="rvbig"><div class="n">4.8</div><div class="s">★★★★★<br>126 відгуків</div></div>
+      <div class="rvbars">
+        <div class="rvbar"><span>5</span><div class="track"><div class="fill" style="width:82%"></div></div><span>103</span></div>
+        <div class="rvbar"><span>4</span><div class="track"><div class="fill" style="width:12%"></div></div><span>15</span></div>
+        <div class="rvbar"><span>3</span><div class="track"><div class="fill" style="width:4%"></div></div><span>5</span></div>
+        <div class="rvbar"><span>2</span><div class="track"><div class="fill" style="width:1%"></div></div><span>2</span></div>
+        <div class="rvbar"><span>1</span><div class="track"><div class="fill" style="width:1%"></div></div><span>1</span></div>
+      </div>
+      <a class="btn dark" href="#">＋ Залишити відгук</a>
+    </div>
+
+    <!-- review item: name+rating+date LEFT, text RIGHT; pros/cons; shop reply chip -->
+    <div class="rvitem">
+      <div class="rvmeta">
+        <div class="rname">Олександр К.</div>
+        <div class="rdate">12 червня 2026</div>
+        <div class="rstars">★ 5.0</div>
+        <div class="rbadge">✓ Купив товар</div>
+      </div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> смак не приторний, добре розмішується, є ефект</div>
+        <div class="prc"><b>Недоліки:</b> ціна підросла</div>
+        <div class="rtext">Беру вже третю банку. Оригінал, сертифікат був у наявності. Рекомендую початківцям.</div>
+        <div class="rvreply">
+          <div class="rchip"><span class="lg">Stack</span> Магазин</div>
+          Дякуємо за відгук! Тримаємо ціну максимально доступною, стежте за акціями 🙌
+        </div>
+      </div>
+    </div>
+    <div class="rvitem">
+      <div class="rvmeta">
+        <div class="rname">Ірина М.</div>
+        <div class="rdate">3 червня 2026</div>
+        <div class="rstars">★ 4.0</div>
+        <div class="rbadge">✓ Купив товар</div>
+      </div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> якісний білок, швидка доставка</div>
+        <div class="rtext">Все сподобалось, ваніль трохи солодка на мій смак. Загалом задоволена.</div>
+      </div>
+    </div>
+    <div class="pgnav"><button class="loadmore">Показати ще відгуки (з 126)</button></div>
+  </section>
+
+  <!-- Питання (3.2) -->
+  <section aria-label="Питання" id="qa">
+    <div class="sech"><h2>Питання</h2><a class="all" href="#">＋ Поставити запитання</a></div>
+    <div class="qaitem">
+      <div class="qq">Чи підходить для схуднення?</div>
+      <div class="qans"><b>Магазин:</b> так, як джерело білка при дефіциті калорій. Для схуднення краще ізолят — підкажемо в чаті.</div>
+    </div>
+    <div class="qaitem">
+      <div class="qq">Скільки порцій виходить з банки 2270 г?</div>
+      <div class="qans"><b>Магазин:</b> ~72 порції по 30 г.</div>
+    </div>
+  </section>
+
+  <!-- Схожі (3.3) -->
+  <section aria-label="Схожі товари">
+    <div class="sech"><h2>Схожі товари</h2><a class="all" href="listing.html">Усі →</a></div>
+    <div class="prow">
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd"><div class="pbrand">BioTechUSA · Угорщина</div><a href="product.html" class="nm">Iso Whey Zero 908 г</a><div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div><div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div></div></article>
+      <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd"><div class="pbrand">Optimum Nutrition · США</div><a href="product.html" class="nm">Casein Pro 1816 г</a><div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 480 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.8</span> · 73 відгуки</div><div class="pmeta2"><span class="perserv"><b>29 ₴</b> / порція</span><span class="bonus">+15 ₴ бонус</span></div></div></article>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd"><div class="pbrand">Scitec Nutrition · Угорщина</div><a href="product.html" class="nm">100% Whey Protein Professional 920 г</a><div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">940 ₴</span><span class="pcut">−10%</span></div><span class="pnew">845 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div><div class="pmeta2"><span class="perserv"><b>31 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div></div></article>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd"><div class="pbrand">OstroVit · Польща</div><a href="product.html" class="nm">WPC 80 Standard 2000 г</a><div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 180 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.5</span> · 52 відгуки</div><div class="pmeta2"><span class="perserv"><b>20 ₴</b> / порція</span><span class="bonus">+12 ₴ бонус</span></div></div></article>
+    </div>
+  </section>
+
+  <!-- Статті по темі -->
+  <section aria-label="Статті по темі">
+    <div class="sech"><h2>Статті по темі</h2><a class="all" href="content.html">Блог →</a></div>
+    <div class="blogrow">
+      <a class="blogcard" href="content.html"><div class="bim"></div><div class="btx"><div class="bt">Скільки протеїну потрібно на день</div><div class="bdt">Проста формула під вашу вагу й ціль.</div></div></a>
+      <a class="blogcard" href="content.html"><div class="bim"></div><div class="btx"><div class="bt">Концентрат чи ізолят — що обрати</div><div class="bdt">Різниця простими словами.</div></div></a>
+      <a class="blogcard" href="content.html"><div class="bim"></div><div class="btx"><div class="bt">Коли пити протеїн для набору маси</div><div class="bdt">Тайминг без міфів.</div></div></a>
+    </div>
+  </section>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<!-- sticky mobile buy bar (after buy box scrolls off) -->
+<div class="mbuybar">
+  <div class="mbp">1 290 ₴</div>
+  <a class="mba" href="cart.html">У кошик</a>
+</div>
+
+<div id="wf-sheet"></div>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('product.html');</script>
+</body>
+</html>

@@ -22,7 +22,7 @@ const WF_FLOWS = [
       { file: 'home.html',         name: 'Головна',              node: '0.0', built: true,  states: ['buyer','coach'], builtStates: [] },
       { file: 'listing.html',      name: 'Категорія (лістинг)',  node: '2.1', built: true,  states: ['filtered','list','empty','loading','error'], builtStates: ['filtered','list','empty','loading','error'] },
       { file: 'goal.html',         name: 'Ціль-колекція',        node: '2.2', built: false, states: ['empty','loading','error'], builtStates: [] },
-      { file: 'product.html',      name: 'Картка товару',        node: '3.0', built: false, states: ['loading','error','oos','reviews'], builtStates: [] },
+      { file: 'product.html',      name: 'Картка товару',        node: '3.0', built: true,  states: ['loading','error','oos','reviews'], builtStates: [] },
       { file: 'cart.html',         name: 'Кошик',                node: '6.0', built: false, states: ['empty','oos'], builtStates: [] },
       { file: 'checkout.html',     name: 'Оформлення',           node: '6.1', built: false, states: ['guest','loading','declined','noaddr'], builtStates: [] },
       { file: 'auth.html',         name: 'Авторизація',          node: '1.x', built: false, states: ['code','newuser','loading','error'], builtStates: [] },
