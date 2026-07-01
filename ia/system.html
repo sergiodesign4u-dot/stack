@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack — IA: Системні сторінки та глобальні компоненти</title>
+  <style>
+    :root {
+      --bg: #f7f6f3; --surface: #ffffff; --surface-alt: #f2f0eb; --border: #e5e2db;
+      --text: #1a1916; --text-secondary: #6b6760; --text-light: #9b9790;
+      --accent: #2d5a3d; --accent-light: #e8f0ea; --accent-mid: #4a8c62;
+      --warn: #b5882a; --warn-bg: #fdf3e3;
+      --radius: 10px; --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); }
+
+    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: rgba(247,246,243,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 101; }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: rgba(247,246,243,.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-right: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform .22s ease; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+    .sidebar-nav { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px; }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+    .sidebar-nav a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: var(--radius-sm); transition: color .15s, background .15s; margin-bottom: 1px; }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-nav a.sidebar-sub { font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light); }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-page-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 4px; }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+    .sidebar-upcoming { padding: 12px 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-light); line-height: 1.8; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 68px 20px 80px; }
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 44px 44px 80px; }
+    }
+
+    .hero { margin-bottom: 30px; }
+    .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+    .hero h1 { font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .hero-lead { font-size: 16px; color: var(--text-secondary); max-width: 760px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-size: 13px; color: var(--text-secondary); }
+    .hero-meta strong { color: var(--text); font-weight: 600; }
+
+    .section { margin-bottom: 44px; scroll-margin-top: 64px; }
+    .section-num { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .section h2 { font-size: 22px; letter-spacing: -0.015em; margin-bottom: 6px; }
+    .section-lead { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 20px; max-width: 730px; }
+
+    .note { font-size: 12px; color: var(--text-light); margin: 4px 0 18px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 8px; }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--surface-alt); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-secondary); }
+    tr:last-child td { border-bottom: none; }
+    td b { color: var(--text); }
+    .arrow { color: var(--accent-mid); font-weight: 600; white-space: nowrap; }
+
+    .cols { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 720px) { .cols.two { grid-template-columns: 1fr 1fr; } }
+
+    .open { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 18px 20px; }
+    .open h2 { font-size: 18px; margin-bottom: 10px; color: var(--warn); }
+    .open ul { margin-left: 18px; } .open li { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+
+    .reco { background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--text); margin: 10px 0 14px; }
+    .reco b { color: var(--accent); }
+
+    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }
+
+    /* ===== WIREFRAME (B/W) ===== */
+    .wf { border: 1px solid #cfcfcf; border-radius: 10px; overflow: hidden; background: #fff; color: #1b1b1b; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
+    .wf-cap { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8a8a8a; padding: 7px 12px; background: #f4f4f4; border-bottom: 1px solid #e4e4e4; }
+    .wf-pad { padding: 16px; }
+    .wf-zone { border: 1.5px dashed #bdbdbd; border-radius: 8px; background: repeating-linear-gradient(45deg,#fafafa,#fafafa 6px,#f3f3f3 6px,#f3f3f3 12px); padding: 9px 12px; font-size: 11px; font-weight: 700; color: #777; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .wf-zone.foot { margin: 14px 0 0; }
+    .wf-zone .zt { background: #161616; color: #fff; border-radius: 4px; font-size: 9px; padding: 1px 6px; letter-spacing: .04em; }
+    .wf-zone .zd { color: #999; font-weight: 600; }
+
+    /* error page */
+    .errp { text-align: center; padding: 20px 16px 8px; }
+    .errp .code { font-size: 52px; font-weight: 800; color: #161616; line-height: 1; letter-spacing: -.02em; }
+    .errp .et { font-size: 18px; font-weight: 800; color: #111; margin: 10px 0 4px; }
+    .errp .es { font-size: 12.5px; color: #888; margin-bottom: 14px; }
+    .errsearch { display: flex; gap: 8px; max-width: 420px; margin: 0 auto 14px; }
+    .errsearch .f { flex: 1; border: 1.5px solid #161616; border-radius: 9px; padding: 10px 13px; font-size: 12.5px; color: #999; text-align: left; }
+    .errsearch .b { background: #161616; color: #fff; border-radius: 9px; padding: 10px 18px; font-size: 12.5px; font-weight: 700; }
+    .quicklinks { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; }
+    .ql { font-size: 11.5px; font-weight: 700; border: 1.5px solid #c4c4c4; border-radius: 20px; padding: 6px 13px; color: #111; }
+    .ql.dark { background: #161616; color: #fff; border-color: #161616; }
+
+    /* cookie banner */
+    .cookiewrap { position: relative; border: 1px dashed #cfcfcf; border-radius: 10px; min-height: 150px; background: repeating-linear-gradient(45deg,#fafafa,#fafafa 7px,#f4f4f4 7px,#f4f4f4 14px); padding: 12px; display: flex; align-items: flex-end; }
+    .cookiebar { width: 100%; background: #fff; border: 1px solid #e2e2e2; border-radius: 11px; box-shadow: 0 12px 34px rgba(0,0,0,.14); padding: 13px 15px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .cookiebar .ct { flex: 1; min-width: 220px; font-size: 12px; color: #444; line-height: 1.5; } .cookiebar .ct b { color: #111; }
+    .cookiebar .acts { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cbtn { font-size: 12px; font-weight: 700; border-radius: 8px; padding: 9px 14px; white-space: nowrap; }
+    .cbtn.dark { background: #161616; color: #fff; } .cbtn.out { border: 1.5px solid #161616; color: #111; } .cbtn.ghost { color: #555; text-decoration: underline; padding: 9px 6px; }
+
+    .cookiedlg { border: 1px solid #e2e2e2; border-radius: 12px; overflow: hidden; max-width: 460px; box-shadow: var(--shadow-sm); }
+    .cookiedlg .dh { display: flex; align-items: center; justify-content: space-between; padding: 13px 15px; border-bottom: 1px solid #eee; font-size: 14px; font-weight: 800; color: #111; }
+    .cookiedlg .db { padding: 6px 15px 14px; }
+    .cookrow { display: flex; align-items: flex-start; gap: 11px; padding: 11px 0; border-bottom: 1px solid #f3f3f3; }
+    .cookrow:last-of-type { border-bottom: none; }
+    .cookrow .ci { flex: 1; } .cookrow .cn { font-size: 12.5px; font-weight: 800; color: #111; } .cookrow .cx { font-size: 11px; color: #888; }
+    .sw { width: 34px; height: 19px; border-radius: 20px; position: relative; flex: none; margin-top: 2px; }
+    .sw.on { background: #2d7d46; } .sw.on:after { content:""; position:absolute; top:2px; right:2px; width:15px; height:15px; border-radius:50%; background:#fff; }
+    .sw.off { background: #ddd; } .sw.off:after { content:""; position:absolute; top:2px; left:2px; width:15px; height:15px; border-radius:50%; background:#fff; }
+    .sw.lock { background: #cfe0d4; } .sw.lock:after { content:"🔒"; position:absolute; top:1px; right:2px; font-size:10px; }
+
+    /* toast */
+    .toast { display: flex; align-items: center; gap: 10px; border-radius: 10px; padding: 11px 14px; font-size: 12.5px; margin-bottom: 8px; box-shadow: var(--shadow-sm); }
+    .toast.ok { background: #e7f2ea; color: #2d7d46; border: 1px solid #cfe4d5; }
+    .toast.err { background: #fdf6f6; color: #b04a4a; border: 1px solid #eecaca; }
+    .toast.info { background: #fff; color: #333; border: 1px solid #e2e2e2; }
+    .toast .x { margin-left: auto; color: #aaa; }
+
+    @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="../research/research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="../research/research.html" class="sidebar-logo">Stack</a>
+    <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Структура</div>
+    <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
+    <a href="navigation.html" class="sidebar-sub">Хедер</a>
+    <a href="footer.html" class="sidebar-sub">Футер</a>
+    <a href="catalog.html" class="sidebar-sub">Каталог</a>
+    <a href="category-matrix.html" class="sidebar-sub">Матриця категорій</a>
+    <a href="seo.html" class="sidebar-sub">SEO-методика</a>
+    <div class="sidebar-page-label">Сторінки</div>
+    <a href="home.html" class="sidebar-sub">Головна</a>
+    <a href="catalog-page.html" class="sidebar-sub">Каталог</a>
+    <a href="category.html" class="sidebar-sub">Категорія</a>
+    <a href="search.html" class="sidebar-sub">Пошук</a>
+    <a href="product.html" class="sidebar-sub">Картка товару</a>
+    <a href="quiz.html" class="sidebar-sub">Квіз</a>
+    <a href="auth.html" class="sidebar-sub">Авторизація</a>
+    <a href="account.html" class="sidebar-sub">Акаунт</a>
+    <a href="coach.html" class="sidebar-sub">Кабінет тренера</a>
+    <a href="cart.html" class="sidebar-sub">Кошик · Оформлення</a>
+    <a href="content.html" class="sidebar-sub">Контент та інфо</a>
+    <a href="system.html" class="sidebar-sub active">Системні та глобальні</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-upcoming">Далі<br>Wireframes</div>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Посторінкова IA · системне</div>
+    <h1>Системні сторінки та глобальні компоненти</h1>
+    <p class="hero-lead">Те, що потрібно <b>перед вайрфреймами</b>, але не належить жодному кластеру: <b>404 / помилки</b>, <b>техроботи</b>, <b>банер згоди на cookie</b> (за законом України) і <b>тости-сповіщення</b>. Усе — у стилі принципів: спокійно, з <b>одним зрозумілим наступним кроком</b>, без глухих кутів.</p>
+    <div class="hero-meta">
+      <div><strong>Склад</strong> 404 · 500 · техроботи · cookie-згода · тости</div>
+      <div><strong>Cookie</strong> ЗУ «Про захист персональних даних» → попередня згода</div>
+      <div><strong>SEO</strong> 404 = статус 404, noindex</div>
+    </div>
+  </div>
+
+  <!-- 01 404 -->
+  <section class="section" id="e404">
+    <div class="section-num">01 · 404 — сторінку не знайдено</div>
+    <h2>Помилка, що веде далі, а не в глухий кут</h2>
+    <p class="section-lead">Наслідує хедер/футер (це повноцінна сторінка, не голий екран). Дає одразу <b>пошук</b> + <b>швидкі лінки</b> (каталог · за ціллю · головна), щоб користувач не пішов із сайту.</p>
+    <div class="wf" style="max-width:620px"><div class="wf-cap">404 — десктоп</div><div class="wf-pad">
+      <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1)</div>
+      <div class="errp">
+        <div class="code">404</div>
+        <div class="et">Такої сторінки немає</div>
+        <div class="es">Можливо, товар зняли з продажу або посилання застаріло. Знайдімо потрібне:</div>
+        <div class="errsearch"><span class="f">🔎 Пошук товарів, брендів…</span><span class="b">Знайти</span></div>
+        <div class="quicklinks"><span class="ql dark">На головну</span><span class="ql">Каталог</span><span class="ql">За ціллю</span><span class="ql">Акції</span><span class="ql">Підтримка</span></div>
+      </div>
+      <div class="wf-zone foot"><span class="zt">Футер</span> Наслідується — Футер (0.2)</div>
+    </div></div>
+    <p class="note"><b>HTTP 404</b> (не 200!) + <code>noindex</code>. Пошук — той самий компонент (2.5). Якщо 404 на картці товару — додатково показуємо <b>схожі товари / категорію</b>, куди він належав (recovery, як OOS на PDP). Спокійно, без гумору-на-межі — тон бренду.</p>
+  </section>
+
+  <!-- 02 500 / maintenance -->
+  <section class="section" id="e500">
+    <div class="section-num">02 · 500 / технічні роботи</div>
+    <h2>Рідкісні, але потрібні стани</h2>
+    <div class="cols two">
+      <div>
+        <div class="wf"><div class="wf-cap">500 — щось пішло не так</div><div class="wf-pad">
+          <div class="errp" style="padding-bottom:12px">
+            <div class="code" style="font-size:40px">500</div>
+            <div class="et" style="font-size:16px">Щось пішло не так</div>
+            <div class="es">Ми вже розбираємось. Спробуйте оновити сторінку за хвилину.</div>
+            <div class="quicklinks"><span class="ql dark">Оновити</span><span class="ql">На головну</span><span class="ql">Підтримка</span></div>
+          </div>
+        </div></div>
+      </div>
+      <div>
+        <div class="wf"><div class="wf-cap">Технічні роботи (maintenance)</div><div class="wf-pad">
+          <div class="errp" style="padding-bottom:12px">
+            <div style="font-size:34px">🛠</div>
+            <div class="et" style="font-size:16px;margin-top:8px">Ненадовго на технічних роботах</div>
+            <div class="es">Оновлюємо магазин. Скоро повернемось — зазвичай це кілька хвилин.</div>
+            <div class="quicklinks"><span class="ql">Telegram-підтримка</span><span class="ql">Подзвонити</span></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <p class="note"><b>500</b> — статус 500, noindex, без хедера-меню, що теж може падати (мінімальний шаблон). <b>Техроботи</b> — статус <b>503</b> + <code>Retry-After</code> (щоб SEO не сприйняв як зникнення сайту). Контакти підтримки — з футера (0.2). Спланований стан, не аварія.</p>
+  </section>
+
+  <!-- 03 cookie consent -->
+  <section class="section" id="cookie">
+    <div class="section-num">03 · Банер згоди на cookie</div>
+    <h2>Попередня згода — за законом України</h2>
+    <p class="section-lead">За <b>ЗУ «Про захист персональних даних»</b> cookie ставлять лише <b>після згоди</b> (не за замовчуванням при заході); користувач має прочитати політику. Законопроєкт <b>№8153</b> (2024) веде до GDPR-моделі (явна згода + винятки для суто необхідних). Тому: банер до постановки необовʼязкових cookie, <b>«Відхилити» так само легко, як «Прийняти»</b>, і налаштування за категоріями.</p>
+    <div class="cols two">
+      <div>
+        <div class="wf"><div class="wf-cap">Банер (перший візит, унизу)</div><div class="wf-pad">
+          <div class="cookiewrap">
+            <div class="cookiebar">
+              <div class="ct">🍪 <b>Ми використовуємо cookie</b>, щоб магазин працював і ставав зручнішим. Необхідні — завжди; аналітику й маркетинг вмикаємо <b>лише з вашої згоди</b>. Деталі — у <a href="content.html">Політиці конфіденційності</a>.</div>
+              <div class="acts">
+                <span class="cbtn ghost">Налаштувати</span>
+                <span class="cbtn out">Тільки необхідні</span>
+                <span class="cbtn dark">Прийняти всі</span>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:10.5px;color:#999;margin-top:8px">Три однакової ваги дії: «Прийняти всі» / «Тільки необхідні» (= відхилити необовʼязкові) / «Налаштувати». Не блокує перегляд, але до вибору — жодних аналітичних/маркетингових cookie.</p>
+        </div></div>
+      </div>
+      <div>
+        <div class="wf"><div class="wf-cap">Налаштування cookie (діалог)</div><div class="wf-pad">
+          <div class="cookiedlg">
+            <div class="dh">Налаштування cookie <span style="color:#999;font-size:16px">✕</span></div>
+            <div class="db">
+              <div class="cookrow"><div class="ci"><div class="cn">Необхідні</div><div class="cx">Кошик, вхід, безпека. Без них магазин не працює.</div></div><span class="sw lock"></span></div>
+              <div class="cookrow"><div class="ci"><div class="cn">Аналітика</div><div class="cx">Знеособлена статистика (Mixpanel/PostHog), щоб покращувати сайт.</div></div><span class="sw off"></span></div>
+              <div class="cookrow"><div class="ci"><div class="cn">Маркетинг</div><div class="cx">Релевантні пропозиції й ремаркетинг.</div></div><span class="sw off"></span></div>
+              <div style="display:flex;gap:8px;margin-top:12px"><span class="cbtn out" style="flex:1;text-align:center">Зберегти вибір</span><span class="cbtn dark" style="flex:1;text-align:center">Прийняти всі</span></div>
+            </div>
+          </div>
+          <p style="font-size:10.5px;color:#999;margin-top:8px">Необхідні — завжди увімк (🔒, вимкнути не можна). Аналітика/Маркетинг — <b>вимкнені за замовчуванням</b> (opt-in). Вибір зберігаємо (напр. 6–12 міс) + <b>«Змінити згоду»</b> лінк у футері.</p>
+        </div></div>
+      </div>
+    </div>
+    <p class="note">Узгоджено з <b>consent-текстом авторизації</b> (1.x) і <b>Політикою конфіденційності (8.6)</b>. Технічно — до згоди вантажимо лише суто необхідні скрипти; аналітику/пікселі — після opt-in. Точні строки зберігання згоди й перелік провайдерів — <b>[?]</b> (юрист + технічний скоуп).</p>
+  </section>
+
+  <!-- 04 toast -->
+  <section class="section" id="toast">
+    <div class="section-num">04 · Тости / сповіщення (глобальний компонент)</div>
+    <h2>Легкий зворотний звʼязок на дії</h2>
+    <div class="wf" style="max-width:460px"><div class="wf-cap">Тости — 3 типи</div><div class="wf-pad">
+      <div class="toast ok">✓ Додано в кошик — Gold Standard Whey<span class="x">✕</span></div>
+      <div class="toast err">✕ Не вдалось застосувати бонуси. Спробуйте ще раз<span class="x">✕</span></div>
+      <div class="toast info">🔔 Ми повідомимо, коли товар зʼявиться<span class="x">✕</span></div>
+    </div></div>
+    <p class="note">Використовують: додати в кошик/обране, зберегти адресу, підписка, відгук на модерації, повтор замовлення, помилки. <b>Автозникнення</b> (~3–5 с) + закриття; <code>aria-live="polite"</code>. Не для критичних рішень (ті — діалог). Спокійно, без спаму тостами.</p>
+  </section>
+
+  <!-- 05 SEO/tech -->
+  <section class="section" id="seo">
+    <div class="section-num">05 · Технічне / SEO</div>
+    <h2>Статуси й індексація</h2>
+    <table>
+      <tr><th>Стан</th><th>HTTP</th><th>Індексація / нотатки</th></tr>
+      <tr><td><b>404</b></td><td><code>404</code></td><td>noindex; повна сторінка з пошуком + лінками; <b>не</b> віддавати 200 (soft-404 шкодить SEO)</td></tr>
+      <tr><td><b>500</b></td><td><code>500</code></td><td>Мінімальний шаблон (незалежний від бекенду), noindex</td></tr>
+      <tr><td><b>Техроботи</b></td><td><code>503</code> + <code>Retry-After</code></td><td>Щоб пошуковик знав, що це тимчасово</td></tr>
+      <tr><td><b>Cookie-банер</b></td><td>—</td><td>Компонент, не сторінка; до згоди — лише необхідні скрипти; політика — 8.6</td></tr>
+      <tr><td><b>Тости</b></td><td>—</td><td>Компонент; aria-live; не впливають на SEO</td></tr>
+      <tr><td><b>301/410</b></td><td><code>301/410</code></td><td>Знятий товар: <b>301</b> на категорію (краще за 404) або <b>410</b>, якщо назавжди — операційне правило [?]</td></tr>
+    </table>
+  </section>
+
+  <!-- 06 locked -->
+  <section class="section" id="locked">
+    <div class="section-num">06 · Зафіксовано / відкрите</div>
+    <div class="cols two">
+      <div>
+        <h2 style="font-size:18px;margin-bottom:10px">Зафіксовано</h2>
+        <ul style="margin-left:18px">
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>404 — повноцінна сторінка</b> (хедер/футер) з пошуком + швидкими лінками; HTTP 404 + noindex; ніколи не глухий кут.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>500 / техроботи</b> — мінімальні шаблони; техроботи = <b>503 + Retry-After</b>.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Cookie — попередня згода</b> (закон UA): банер до необовʼязкових cookie; «Відхилити» так само легко, як «Прийняти»; категорії opt-in (аналітика/маркетинг вимкнені).</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Необхідні cookie</b> — завжди; політика (8.6) лінкована; «Змінити згоду» у футері.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Тости</b> — глобальний компонент (ok/err/info), автозникнення, aria-live; критичне — діалог, не тост.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)">Тон — спокійний (Принцип №4), <b>без таймерів і тиску</b>.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="open">
+          <h2>Відкриті [?]</h2>
+          <ul>
+            <li><b>Cookie:</b> точні строки зберігання згоди, перелік провайдерів (аналітика/піксель), фінальні тексти — юрист + технічний скоуп; слідкувати за долею Закону №8153.</li>
+            <li><b>Знятий товар:</b> правило 301 (на категорію) vs 410 — операційне.</li>
+            <li><b>Тривалість тостів</b> і черга (скільки одночасно) — дизайн-деталь.</li>
+            <li><b>Локалізація</b> системних сторінок (укр/рос) — узгодити з i18n.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-text">
+    Stack — Посторінкова IA · Системні сторінки та глобальні компоненти: 404 (HTTP 404, пошук + лінки) · 500 · техроботи (503) · банер згоди на cookie (закон UA, opt-in категорії, політика 8.6) · тости (ok/err/info, aria-live). Джерело істини: ia/docs/pages/system.md. Карта сайту: sitemap.html. Липень 2026, чернетка.
+  </div>
+
+</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+</script>
+</body>
+</html>

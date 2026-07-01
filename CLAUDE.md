@@ -363,7 +363,7 @@ schema (structure + transitions) and full per-page specs.
    visual one side, form the other); new user → name step; **success returns to the triggering
    action**; social OAuth + soft skippable add-phone for new accounts; SMS code has expiry +
    attempts + resend cooldown + rate-limit. Page is **noindex, no schema** (utility, not content).
-   Sidebar «Сторінки» order: Головна · Каталог · Категорія · Картка товару · Квіз · **Авторизація** · **Акаунт** · **Кабінет тренера** · **Кошик · Оформлення** · **Контент та інфо**.
+   Sidebar «Сторінки» order: Головна · Каталог · Категорія · **Пошук** · Картка товару · Квіз · **Авторизація** · **Акаунт** · **Кабінет тренера** · **Кошик · Оформлення** · **Контент та інфо** · **Системні та глобальні**.
    Coach is a **role activated on an existing account** via a verification flow reachable from both the
    For-Coaches landing CTA and an account section, so coaches never hunt for a login.
    Coach tiering is being explored as **Free vs Pro** (HYPOTHESIS, numbers [?]): Free =
@@ -431,6 +431,25 @@ reviews, separate from product reviews 3.1, AggregateRating on Organization + Go
 guarantee/certs/returns/FAQ on show, linked from the footer trust strip + PDP «Сертифікація»; and is the
 **second internal-link hub** after the footer SEO block. Content pages index (A–E + schema); newsletter
 noindex. Ready copy / certificate files / legal texts / discount numbers stay **[?]**.
+
+**Search (`search.md`/`search.html`, node 2.5, done July 2026):** the **known-item utility** (regular
+buyer), secondary to catalog nav (grounded: Belok leads with catalog). Two parts — **header autocomplete
+overlay** (recent + popular + query completions + categories/brands + product previews, all from **real
+project data**: catalog.md, footer 0.2 popular queries, brands 2.4, goals) + **results page = the shared
+listing template (2.1)** (default sort = relevance, name-match highlight). **No-results is never a dead
+end** (spelling correction + goal tiles + popular + catalog). **Results = `noindex, follow`** (standard SEO
+for internal search); WebSite+SearchAction stays site-level. Desktop field always in header; mobile 🔎 →
+full-screen. Search engine (typo-tolerance/synonyms/ranking) stays **[?]**.
+
+**System pages & global components (`system.md`/`system.html`, done July 2026):** cross-cutting things
+needed before wireframes — **404** (full page w/ header/footer + search + quick links; **HTTP 404 +
+noindex**; never a dead end) · **500** (minimal, backend-independent) · **maintenance** (**503 +
+Retry-After**) · **cookie-consent banner** (grounded in the UA **Law "On Personal Data Protection"** →
+**prior consent, not by inaction**; equal-weight Прийняти всі / Тільки необхідні / Налаштувати; settings
+dialog with Необхідні locked-on + Аналітика/Маркетинг **opt-in off**; policy link to 8.6; «Змінити згоду»
+in footer; watch Draft Law 8153) · **toasts** (ok/err/info, auto-dismiss, aria-live; critical → dialog).
+Removed-product rule 301-to-category vs 410 stays **[?]**. **This closes the pre-wireframe gaps flagged in
+the audit (Search + 404 + cookie).**
 
 **Sequence:** (1) full sitemap → (2) inherited component library → (3) page-level IA per
 cluster. Output is the "wireframe library" that Phase 2 renders.

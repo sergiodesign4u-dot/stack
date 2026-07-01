@@ -86,7 +86,16 @@
     covers 8.2–8.8 with contacts/table/certificate/legal variants) · FAQ (accordion + FAQPage) · Blog
     (listing + article) · Promo (calm, no timers) · Store reviews (AggregateRating on Org) · Newsletter
     (footer component, noindex). Serves Principle 1 trust; second internal-link hub after the footer. B/W).
-  **All clusters 0–8 now have page-level IA.** Next phase: **Wireframes** (Phase 2 renders this library).
+  - `pages/search.md` → `ia/search.html` (node 2.5 — **Search**, known-item utility): header **autocomplete
+    overlay** (recent + popular + query completions + categories/brands + product previews, from real
+    project data) + **results page = shared listing template (2.1)**, relevance sort + **no-results** (never
+    a dead end: correction + goals + popular). **Results noindex,follow.** B/W).
+  - `pages/system.md` → `ia/system.html` (**System pages & global components**): **404** (HTTP 404, full
+    page + search + links, never a dead end) · **500** · **maintenance** (503 + Retry-After) · **cookie
+    consent** (UA Personal Data Law → prior consent; equal-weight accept/reject/settings; opt-in analytics/
+    marketing; policy → 8.6) · **toasts** (ok/err/info, aria-live). B/W).
+  **All clusters 0–8 + search (2.5) + system pages now have page-level IA.** Next phase: **Wireframes**
+  (Phase 2 renders this library).
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
   nodes. Reference visual: `research/sitemap png example/`.
 - **Stance:** mobile-first, fully responsive. Coach = buyer (not a marketplace). SEO is

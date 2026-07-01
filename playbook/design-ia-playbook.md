@@ -430,6 +430,22 @@ Output = the wireframe library. Wireframes then just render it.
   **Principle-1 trust surface**. Lesson: when a cluster is a pile of near-identical content/legal pages,
   the deliverable is a **template map + the shared template**, not a spec per page — one artifact covers
   all of them and stays maintainable. **All page-level clusters (0–8) now done; next phase = Wireframes.**
+- **2026-07-01** — **Pre-wireframe gap-closing (from a consistency+completeness audit).** The audit
+  passed on consistency (uniform sidebar, no broken links, no stale card/grid/password refs; fixed one
+  stale `research/ia.html`→`concept.html`) and surfaced **specced-but-not-drawn** nodes + genuinely
+  missing globals. Built two: **Search (2.5)** — the known-item utility (header **autocomplete overlay**
+  from *real project data* — categories/popular-queries/brands/goals — + results = the **shared listing
+  template**, + a never-dead-end no-results); results **noindex,follow** (standard for internal search).
+  **System pages & global components** — 404 (full page, HTTP 404, never a dead end) / 500 / maintenance
+  (503+Retry-After) / **cookie-consent banner** (I **researched UA law** rather than invent: Law «Про
+  захист персональних даних» requires **prior consent, not by inaction** → equal-weight accept/reject/
+  settings, analytics/marketing opt-in-off, policy link; Draft Law 8153 trends GDPR-ward) / toasts.
+  Lessons: (1) a **shared listing template** legitimately covers Category/Goal/Brand/Search/City — but the
+  variant with **distinctive states** (search: autocomplete + no-results) still needs its own spec; the
+  ones that are pure H1/scope swaps (goal, city) don't. (2) **System/global pages** (404, cookie, toast)
+  belong to no cluster and are easy to forget — audit for them explicitly before wireframes. (3) For
+  compliance UI, **ground in the actual law**, don't invent requirements. **All page-level IA + search +
+  system now done; next phase = Wireframes.**
 - **Next** — page-level IA cluster by cluster (each WITH its A–E SEO block): Product (3.0),
   Cart/Checkout (6.x), Coach workspace (5.x), Buyer account (7.x). Add each new node to the sidebar
   group and `ia/docs/sitemap.md`.
