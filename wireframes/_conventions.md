@@ -127,12 +127,19 @@ These apply to **every** wireframe (fix once in `_wf.css`, all screens inherit):
 
 - **Header width:** meta bar + main bar content are constrained to the **content width**
   (`.wfh-in`, max 1200) — nothing touches the viewport edges.
+- **Header height:** give the main bar breathing room (≈14px vertical padding) — controls not
+  jammed against the top/bottom edges.
 - **Header hierarchy:** «Каталог» = **primary** (filled dark) **with an icon**; «Цілі» secondary.
-- **Header actions order (locked): Увійти · Обране · Бонуси · Кошик** — each a real bordered
-  button, not a bare icon. **Бонуси** = two-line (cap «Бонуси» / value «Отримати» for guest,
-  balance for logged-in). **Кошик** = icon + «Кошик» when empty; when full → icon left, right =
-  small «Кошик» + sum under it (+ item counter later, at the states pass).
-- **Listing toolbar:** result **count on the left**; **sort + view-toggle on the right**.
+- **Search** fills all remaining free space between the nav and the action cluster.
+- **Header actions order (locked): Увійти · Обране · Бонуси · Кошик.**
+  - **Увійти / Обране** = **stacked icon-over-label**, borderless (light).
+  - **Бонуси** = bordered button, two-line (cap «Бонуси» / value «Отримати» for guest, balance
+    for logged-in). **Кошик** = bordered button, icon + «Кошик» when empty; when full → icon left,
+    right = small «Кошик» + sum under it (+ item counter later, at the states pass).
+- **Listing toolbar:** **«Знайдено: N товарів» on the left**; **sort dropdown + view-toggle pinned
+  to the far right** of the content column (a flex spacer between). ⚠️ Build gotcha: never hang the
+  `.only-desk` helper (which sets `display:block`) on a **flex** container — it kills the spacer;
+  hide such containers on mobile with their own media query and keep `display:flex` on desktop.
 - **Active filters:** **«Очистити все» first**, then the selected-filter chips.
 - **Taxonomy vs facets:** a **type / subcategory** is a **link to its own listing page**
   (`.flink`, more pages = more SEO weight), **not** a facet checkbox. True facets (availability,
