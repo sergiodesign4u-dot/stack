@@ -263,5 +263,24 @@ rolls out the rest via subagents; step 9 reviews and finalizes.
   First flow = the **beginner conversion path** (Головна → Категорія → PDP → кошик →
   оформлення), chosen for highest reuse of the PLP etalon; the coach flow (primary Job 1)
   follows on the same templates. Wireframe folder still empty; next = Step 1 (`_screens.md` matrix).
-- **Next** — Step 1: read sitemap/flows/jtbd + the IA specs' States sections, build
-  `wireframes/_screens.md` (screen × state, main-flow first). Then Step 2 `_conventions.md`.
+- **2026-07-01** — Steps 1–4 done. **Step 1** `_screens.md` (9 beginner-flow screens × states,
+  Job 2+3). **Step 2** `_conventions.md` (greyscale contract, inherits IA CSS/text/components).
+  **Step 3** etalon `listing.html` (Категорія 2.1) + shared `_wf.css` — verified at 360/1280.
+  Etalon review (user) surfaced fixes now **locked in `_conventions.md`** and worth generalizing:
+  header constrained to content width; «Каталог» primary+icon; header actions Увійти·Обране
+  (stacked) · Бонуси·Кошик (bordered); toolbar «Знайдено: N» left / sort+view far right (⚠ never
+  hang the `display:block` mobile-hide helper on a flex container — it kills the spacer); **type/
+  subcategory = links to real pages, not facet checkboxes** (more pages = SEO weight); **card CTA/
+  rows never shift** (reserve fixed row heights); **SEO body always fully expanded** (hidden text
+  isn't indexed). **Step 4 — navigation reframed to FLOW-FIRST** (user idea, better for a
+  clickable prototype): `index.html` «Всі екрани» coverage tree + thin per-screen prototype bar +
+  a «Вайрфрейми» section in the project sidebar (Флоу 1 / Флоу 2·скоро / Всі екрани), all from one
+  `_nav.js` source of truth. **Build order is now flow-by-flow**, not global steps. Lesson: build
+  the etalon first precisely to catch component-level defects (header/toolbar/card) **before**
+  cloning — and when the medium is a clickable prototype, navigate it **by flow**, not by a rail.
+- **Method upgrade (reusable):** for any project, prefer **flow-first prototype navigation** — an
+  «all screens» coverage index (single-source-of-truth array) + a thin per-screen bar + flow entry
+  points — over a persistent nav rail that fights each screen's own layout.
+- **Next** — Step 5/6 (flow-first): build the Флоу-1 screens + their state pages off the etalon
+  (home 0.0 · goal 2.2 · product 3.0 · cart 6.0 · checkout 6.1 · auth 1.x · order-placed 6.2 ·
+  account 7.0), flipping `built`/`builtStates` in `_nav.js` as each lands; then Step 7 wire the flow.

@@ -34,7 +34,7 @@ A mobile-first sport nutrition store for the Ukrainian market, built around coac
 | Phase | Status |
 |-------|--------|
 | Research | Done (competitive analysis, benchmark, UX patterns, personas, JTBD, product decisions locked) |
-| Wireframes | Not started. Conceptual IA done (`research/concept.html`); detailed page-level IA in progress (`ia/` — sitemap + per-page specs, starting with Header) |
+| Wireframes | **In progress** (`wireframes/`). Playbook + `_screens.md` (screen×state matrix) + `_conventions.md` (greyscale contract) done; **flow-first prototype** navigation (`index.html` «Всі екрани» + `_nav.js`). Etalon built: `listing.html` (Категорія 2.1). Building Флоу 1 (beginner) screens next. |
 | Concept | Not started |
 | Design System | Not started |
 | Components | Not started |

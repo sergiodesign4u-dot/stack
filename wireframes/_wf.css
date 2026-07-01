@@ -34,10 +34,6 @@ img { max-width: 100%; display: block; }
 /* ---------- prototype shell (screen canvas + Step-4 nav rail) ---------- */
 .wf-canvas { min-height: 100vh; }
 .wf-page { max-width: 1200px; margin: 0 auto; padding: 0 16px 40px; }
-@media (min-width: 960px) {
-  /* Step 4 injects a 240px left nav rail; canvas shifts over on desktop */
-  body.has-tree .wf-canvas { margin-left: 240px; }
-}
 
 /* ---------- inherited header (Navigation 0.1), greyscale ---------- */
 .wfh { position: sticky; top: 0; z-index: 30; background: #fff; border-bottom: 1px solid var(--hair); }
@@ -242,8 +238,23 @@ img { max-width: 100%; display: block; }
 .wf-states a { color: var(--sec); text-decoration: underline; }
 .wf-states a.cur { color: var(--strong); font-weight: 800; text-decoration: none; }
 
-/* ---------- nav-tree rail (populated by _nav.js in Step 4) ---------- */
-#wf-tree { display: none; }
-@media (min-width: 960px) {
-  body.has-tree #wf-tree { display: block; position: fixed; top: 0; left: 0; bottom: 0; width: 240px; overflow-y: auto; background: var(--fill2); border-right: 1px solid var(--hair); z-index: 40; padding: 14px 10px; }
-}
+/* ---------- prototype bar (thin, top of every screen; from _nav.js) ---------- */
+.wf-bar { background: var(--dark); color: #fff; font-size: 12px; padding: 7px 16px; display: flex; gap: 6px 13px; flex-wrap: wrap; align-items: center; }
+.wf-bar a { color: #fff; opacity: .8; }
+.wf-bar a:hover { opacity: 1; text-decoration: underline; }
+.wf-bar .sepb { opacity: .35; }
+.wf-bar .cur { font-weight: 800; }
+
+/* ---------- «Всі екрани» tree (index.html; from _nav.js) ---------- */
+.wt-flow { border: 1px solid var(--hair); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+.wt-fh { background: var(--fill); padding: 13px 16px; font-weight: 800; color: var(--strong); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.wt-fh .soon { background: var(--dark); color: #fff; font-size: 10px; font-weight: 800; border-radius: 100px; padding: 2px 9px; text-transform: uppercase; letter-spacing: .04em; }
+.wt-fnote { font-size: 12px; color: var(--sec); font-weight: 500; }
+.wt-screen { border-top: 1px solid var(--hair); padding: 11px 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.wt-sname { font-weight: 700; color: var(--strong); font-size: 14px; min-width: 190px; }
+.wt-sname .node { color: var(--light); font-weight: 600; font-size: 11px; margin-left: 6px; }
+.wt-sname.planned { color: var(--light); }
+.wt-states { display: flex; flex-wrap: wrap; gap: 6px; }
+.wt-st { border: 1px solid var(--hair2); border-radius: 100px; padding: 3px 11px; font-size: 11px; font-weight: 600; color: #444; }
+.wt-st.base { border-color: var(--dark); color: var(--strong); }
+.wt-st.planned { color: #bbb; border-style: dashed; border-color: var(--hair); }

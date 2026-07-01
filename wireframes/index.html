@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Вайрфрейми Stack — всі екрани</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+  .wfx { max-width: 900px; margin: 0 auto; padding: 26px 18px 60px; }
+  .wfx h1 { font-size: 24px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+  .wfx .lead { font-size: 14px; color: var(--sec); margin: 8px 0 22px; max-width: 640px; }
+  .wfx .legend { font-size: 12px; color: var(--light); margin: 18px 0 22px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .wfx .legend b { color: var(--strong); }
+  .wfx .flowlinks { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
+  .wfx .flowlink { border: 1.5px solid var(--dark); border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 700; color: var(--strong); }
+  .wfx .flowlink.soon { border-color: var(--hair2); color: var(--light); border-style: dashed; }
+</style>
+</head>
+<body>
+
+<!-- thin prototype bar -->
+<div class="wf-bar" id="wf-bar"></div>
+
+<main class="wfx">
+  <h1>Вайрфрейми Stack — усі екрани</h1>
+  <p class="lead">Прототип у сірому: структура + кліки. Кожен екран — на мобілці (360) і десктопі,
+    з усіма станами. Ходіть по флоу або відкривайте окремий екран нижче.</p>
+
+  <div class="flowlinks">
+    <a class="flowlink" href="listing.html">▶ Пройти Флоу 1 · Покупець-новачок</a>
+    <span class="flowlink soon">Флоу 2 · Тренер · скоро</span>
+  </div>
+
+  <div class="legend">
+    <span><b>Базовий</b> — основний вид екрана</span>
+    <span>Порожньо · Завантаження · Помилка · доменні стани — окремі сторінки</span>
+    <span style="color:#bbb">пунктир = ще не намальовано</span>
+  </div>
+
+  <!-- tree rendered from _nav.js (single source of truth, mirrors _screens.md) -->
+  <div id="wf-tree"></div>
+
+  <p class="lead" style="margin-top:22px">Побудовано: <b>Категорія (лістинг 2.1)</b> — еталон.
+    Далі за методом (playbook §How-to-run): стани еталона → решта екранів Флоу 1 → звʼязування кліками → Флоу 2.</p>
+</main>
+
+<script src="_nav.js"></script>
+<script>wfTree('wf-tree'); wfBar('index.html');</script>
+</body>
+</html>

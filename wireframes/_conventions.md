@@ -59,16 +59,27 @@ the existing B/W wireframe vocabulary and the IA text, we do not invent a second
   Reason block priority and the first screen from mobile; lay out desktop deliberately.
 - Review = screenshot at **360** and at **~1280**. Both must be correct before a screen is "done".
 
-## 6. Prototype chrome — the greyscale nav-tree (Step 4)
+## 6. Prototype navigation — flow-first (Step 4, decided 2026-07-01)
 
-- Reuse the existing **220px sidebar shell** (desktop rail / mobile hamburger overlay) — but
-  **fully greyscale** (it is a wireframe deliverable, not a doc page; no green here).
-- Content = a **tree**: section → screen → its state pages, indented, current node marked. It is the
-  live coverage index (you can *see* which states don't exist yet).
-- **One source of truth for the tree:** a shared `wireframes/_nav.js` renders it from a single screen
-  array (mirrors `_screens.md`), injected into a `<nav id="wf-tree">` on every page — so 30+ pages
-  don't drift by copy-paste. Minimal vanilla JS, no libraries.
-- The nav-tree is chrome; it must **not** participate in the product's own layout/grid.
+Navigation is **flow-first**, not a per-screen rail (a rail would clash with a screen's own
+layout, e.g. the catalog filter rail). Three layers:
+
+1. **`wireframes/index.html` = «Всі екрани»** — a greyscale hub showing the whole tree
+   **флоу → екран → стани**; the **live coverage index** (built screens/states are links, planned
+   ones are dashed/muted). Rendered from **`wireframes/_nav.js`** — the **single source of truth**
+   (mirrors `_screens.md`); flip `built` / add to `builtStates` as screens are drawn.
+2. **Thin prototype bar** (`<div class="wf-bar" id="wf-bar">` + `wfBar('file.html')`) at the very
+   top of every screen: `« Всі екрани · <flow> · <screen>` + sibling-state links once built. Keeps
+   the screen a clean product but never a dead end.
+3. **Project sidebar** (green, on research/IA pages) has a top-level **«Вайрфрейми»** →
+   Флоу 1 · Покупець / Флоу 2 · Тренер (**скоро** until built) / Всі екрани.
+
+`_nav.js` is minimal vanilla JS, no libraries; both the tree and the bar read the same `WF_FLOWS`
+array, so 30+ pages never drift by copy-paste.
+
+**Build order is flow-first** (agreed): assemble **Флоу 1 (Покупець-новачок)** end-to-end — every
+screen + its states + click-wiring — then **Флоу 2 (Тренер)**, with `index.html` tracking coverage
+throughout. This groups the playbook's Steps 5–8 by flow rather than running them globally.
 
 ## 7. Inherited components — render once, include everywhere (Principle 4)
 

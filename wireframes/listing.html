@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="_wf.css">
 </head>
 <body>
+<!-- thin prototype bar (from _nav.js) -->
+<div class="wf-bar" id="wf-bar"></div>
 <!-- ============================================================
   WIREFRAME · node 2.1 Категорія / лістинг (ETALON, success/base view)
   Job: Job 3 discovery entry + the shared listing template (2.0/2.2/2.4/2.5/2.1a).
@@ -354,7 +356,9 @@
   </div>
 </div>
 
+<script src="_nav.js"></script>
 <script>
+  wfBar('listing.html');
   function openSheet(){ document.getElementById('fsheet').classList.add('open'); document.getElementById('fsheet-ov').classList.add('open'); }
   function closeSheet(){ document.getElementById('fsheet').classList.remove('open'); document.getElementById('fsheet-ov').classList.remove('open'); }
   document.addEventListener('keydown', e => { if(e.key==='Escape') closeSheet(); });
