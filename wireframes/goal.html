@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ціль «Схуднення» — Stack (wireframe 2.2)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.2 Ціль-колекція «Схуднення» (base/populated view)
+  The shared listing template with GOAL scope (clones 2.1 listing.html).
+  Job: Job 2 beginner goal-to-product (flows.md b2 «Goal Collection» → PDP).
+  Inherited header/footer/rail/sheet injected from _nav.js (conventions §7);
+  only the RESULTS AREA + goal framing differ from the category etalon.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb: goal scope -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <a href="catalog-page.html">Цілі</a><span class="sep">/</span>
+    <span class="cur">Схуднення</span>
+  </nav>
+
+  <!-- Listing head: H1 + count + goal-framed trust intro (safe curated set) -->
+  <section aria-label="Заголовок цілі">
+    <h1 class="lh1">Схуднення <span class="cnt">38 товарів</span></h1>
+    <p class="lintro">Безпечний, підібраний набір добавок для контрольованого зниження ваги:
+      ізолят із мінімумом вуглеводів, жироспалювачі, L-карнітин та амінокислоти для збереження
+      м'язів. Усе сертифіковане, з чіткою дозою на порцію — почніть без ризику.
+      <a class="more" href="#seo">Читати більше ↓</a></p>
+  </section>
+
+  <!-- Desktop toolbar: count left, sort + view-toggle far right. BASE = no active filters. -->
+  <div class="ltool">
+    <span class="ctrl count">Знайдено: 38 товарів</span>
+    <span class="sp"></span>
+    <span class="ctrl"><span class="cap">Сортування:</span> Популярні ▾</span>
+    <span class="vtoggle"><span class="on" aria-label="Сіткою">▦</span><span aria-label="Списком">☰</span></span>
+  </div>
+
+  <!-- Mobile toolbar (sticky): opens filter sheet (no active-filter badge on the clean base) -->
+  <div class="mtoolbar">
+    <button class="mc" onclick="openSheet()">Фільтри</button>
+    <button class="mc">Популярні ▾</button>
+  </div>
+
+  <!-- Listing = filter rail (injected, with the «За ціллю» concern lens) + product grid -->
+  <div class="listing">
+    <aside class="frail" id="wf-rail"></aside>
+
+    <section aria-label="Список товарів">
+      <div class="prow">
+
+        <!-- 1) В наявності (вкл. «мало») — goal-relevant mix: ізолят, жироспалювачі, L-карнітин, BCAA -->
+        <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">BioTechUSA · Угорщина</div>
+            <a href="product.html" class="nm">Iso Whey Zero 908 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Optimum Nutrition · США</div>
+            <a href="product.html" class="nm">Gold Standard 100% Isolate 930 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 890 ₴</span><span class="pcut">−11%</span></div><span class="pnew">1 690 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.8</span> · 104 відгуки</div>
+            <div class="pmeta2"><span class="perserv"><b>42 ₴</b> / порція</span><span class="bonus">+17 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">OstroVit · Польща</div>
+            <a href="product.html" class="nm">Thermo Fat Burner 90 капсул</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">420 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.4</span> · 46 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>9 ₴</b> / порція</span><span class="bonus">+4 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Power Pro · Україна</div>
+            <a href="product.html" class="nm">L-Carnitine 500 мл (рідкий)</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">320 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.3</span> · 61 відгук</div>
+            <div class="pmeta2"><span class="perserv"><b>13 ₴</b> / порція</span><span class="bonus">+3 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">NEW</span></a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Myprotein · Велика Британія</div>
+            <a href="product.html" class="nm">Impact Whey Isolate 1 кг</a>
+            <div class="pavail low">● Залишилось мало</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">990 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ —</span> · новинка</div>
+            <div class="pmeta2"><span class="perserv"><b>33 ₴</b> / порція</span><span class="bonus">+10 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Nutrend · Чехія</div>
+            <a href="product.html" class="nm">Carnitine 60000 + Synephrine 500 мл</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">620 ₴</span><span class="pcut">−13%</span></div><span class="pnew">540 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.5</span> · 38 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+5 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">BioTechUSA · Угорщина</div>
+            <a href="product.html" class="nm">Thermo Drine 60 капсул</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">480 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.2</span> · 29 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>16 ₴</b> / порція</span><span class="bonus">+5 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Optimum Nutrition · США</div>
+            <a href="product.html" class="nm">BCAA 1000 Caps (200 капсул)</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">890 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.6</span> · 57 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>22 ₴</b> / порція</span><span class="bonus">+9 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">OstroVit · Польща</div>
+            <a href="product.html" class="nm">L-Carnitine 1000 (200 капсул)</a>
+            <div class="pavail low">● Залишилось мало</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">390 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.4</span> · 33 відгуки</div>
+            <div class="pmeta2"><span class="perserv"><b>8 ₴</b> / порція</span><span class="bonus">+4 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <!-- 2) Під замовлення -->
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Scitec Nutrition · Угорщина</div>
+            <a href="product.html" class="nm">L-Carnitine 3300 (100 мл)</a>
+            <div class="pavail pre">● Під замовлення</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">260 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.5</span> · 22 відгуки</div>
+            <div class="pmeta2"><span class="perserv"><b>26 ₴</b> / порція</span><span class="bonus">+3 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <!-- 3) Немає в наявності — наприкінці, 🛒 → 🔔 -->
+        <article class="pcard dim"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Cloma Pharma · США</div>
+            <a href="product.html" class="nm">Black Spider 25 (100 капсул)</a>
+            <div class="pavail out">● Немає в наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">720 ₴</span></div><button class="cartbtn notify" aria-label="Повідомити про надходження">🔔</button></div>
+            <div class="rate" aria-hidden="true"></div>
+            <div class="pmeta2"><span class="perserv">Повідомимо, коли з'явиться</span></div>
+          </div>
+        </article>
+
+      </div>
+      <p class="gnote">↑ Порядок карток (за замовч.): спершу <b>в наявності</b> (вкл. «мало»), далі
+        <b>під замовлення</b>, наприкінці <b>немає в наявності</b>. Сортування користувача — в межах цих груп.</p>
+
+      <!-- Pagination -->
+      <nav class="pgnav" aria-label="Пагінація">
+        <button class="loadmore">Показати ще 24 (з 38)</button>
+        <div class="pages"><a class="on" href="?page=1">1</a><a href="?page=2">2</a><a href="?page=2">›</a></div>
+      </nav>
+    </section>
+  </div>
+
+  <!-- SEO text (always fully expanded) — goal-framed -->
+  <section class="seotext" id="seo" aria-label="Опис цілі">
+    <div class="h">Схуднення — добавки для зниження ваги в магазині Stack</div>
+    <p>Ціль «Схуднення» — це підібраний набір спортивного харчування для контрольованого зниження
+      ваги без втрати м'язів. Сюди входять сироватковий ізолят із мінімумом вуглеводів і жиру,
+      жироспалювачі (термогеніки), L-карнітин для транспортування жирних кислот і амінокислоти BCAA,
+      що зберігають м'язи під час дефіциту калорій. Уся продукція сертифікована, з оригінальною
+      гарантією виробника та чіткою дозою на порцію.</p>
+    <p>Як обрати безпечно: почніть з ізоляту як основного джерела білка (низька калорійність),
+      додайте L-карнітин перед кардіо, а термогеніки використовуйте курсом і за інструкцією.
+      Якщо ви новачок — оберіть базовий набір із ізоляту та L-карнітину, без стимуляторів.
+      Швидка доставка Новою Поштою, оплата картою чи готівкою, повернення протягом 14 днів.</p>
+  </section>
+
+  <!-- Related internal links: other goals + relevant categories -->
+  <div class="relh">Інші цілі та схожі категорії</div>
+  <div class="relrow">
+    <a class="relbox" href="goal.html">Набір маси</a>
+    <a class="relbox" href="goal.html">Відновлення</a>
+    <a class="relbox" href="goal.html">Енергія</a>
+    <a class="relbox" href="listing.html">Жироспалювачі</a>
+    <a class="relbox" href="listing.html">L-карнітин</a>
+    <a class="relbox" href="listing.html">Протеїн-ізолят</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<!-- inherited mobile filter bottom-sheet (injected) -->
+<div id="wf-sheet"></div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); wfBar('goal.html');</script>
+</body>
+</html>

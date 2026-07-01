@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Оформлення замовлення — Stack (wireframe 6.1)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* ============================================================
+   CHECKOUT (node 6.1) — page-specific greyscale styles.
+   Simplified header/footer inline (per cart.md: logo + support only).
+   Two columns: left = Контакт → Замовлення → Доставка → Оплата;
+   right = money only, sticky. Upsell full width; simplified footer.
+   ============================================================ */
+.co-head { position: sticky; top: 0; z-index: 30; background: #fff; border-bottom: 1px solid var(--hair); }
+.co-head-in { max-width: 1200px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.co-logo { font-size: 20px; font-weight: 800; color: var(--strong); letter-spacing: -.02em; }
+.co-support { text-align: right; font-size: 11.5px; color: var(--sec); line-height: 1.35; }
+.co-support .sh { color: var(--light); }
+.co-support b { color: var(--strong); font-size: 14px; font-weight: 800; }
+
+.co-wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px 40px; }
+.co-h1 { font-size: 22px; font-weight: 800; color: var(--strong); margin: 20px 0 16px; letter-spacing: -.01em; }
+.co-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+@media (min-width: 900px) { .co-grid { grid-template-columns: minmax(0, 1fr) 360px; align-items: start; } }
+
+.co-sec { border: 1px solid var(--hair); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+.co-sec-h { font-size: 16px; font-weight: 800; color: var(--strong); display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.co-sec-h .num { width: 24px; height: 24px; border-radius: 50%; background: var(--dark); color: #fff; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+
+/* 1 — Контакт (guest sign-in prompt, passwordless) */
+.co-signin-note { font-size: 13px; color: var(--sec); margin-bottom: 12px; }
+.co-field { display: flex; gap: 8px; }
+.co-input { flex: 1; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 12px 13px; font-size: 14px; font-family: inherit; width: 100%; }
+.co-getcode { background: var(--dark); color: #fff; border-radius: 8px; padding: 0 18px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+.co-or { display: flex; align-items: center; gap: 12px; color: var(--light); font-size: 12px; margin: 14px 0; }
+.co-or::before, .co-or::after { content: ''; flex: 1; height: 1px; background: var(--hair); }
+.co-social { display: flex; gap: 10px; }
+.co-soc { flex: 1; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 11px; font-size: 13px; font-weight: 700; color: var(--strong); text-align: center; background: #fff; }
+.co-consent { font-size: 11px; color: var(--light); margin-top: 10px; line-height: 1.5; }
+
+/* order line items */
+.co-line { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--hair); }
+.co-line:first-of-type { border-top: none; padding-top: 2px; }
+.co-line .li-img { width: 60px; height: 60px; border-radius: 8px; background: var(--fill); flex: none; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 9px; }
+.co-line .li-bd { flex: 1; min-width: 0; }
+.co-line .li-nm { font-size: 14px; font-weight: 600; color: var(--strong); line-height: 1.3; }
+.co-line .li-meta { font-size: 12px; color: var(--sec); margin-top: 3px; }
+.co-line .li-acts { display: flex; gap: 14px; margin-top: 9px; }
+.co-line .li-acts button { font-size: 12px; color: var(--sec); font-weight: 600; display: inline-flex; gap: 5px; align-items: center; }
+.co-line .li-right { text-align: right; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.co-qty { display: inline-flex; align-items: center; border: 1.5px solid var(--hair2); border-radius: 8px; }
+.co-qty button { width: 30px; height: 32px; font-size: 16px; color: var(--strong); }
+.co-qty .qn { width: 28px; text-align: center; font-weight: 700; font-size: 13px; }
+.co-line .li-price { font-size: 16px; font-weight: 800; color: var(--strong); }
+
+/* radio options (delivery / payment) */
+.co-opt { display: flex; gap: 12px; align-items: flex-start; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 13px 14px; margin-bottom: 10px; cursor: pointer; }
+.co-opt:last-child { margin-bottom: 0; }
+.co-opt.on { border-color: var(--dark); }
+.co-radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--hair2); flex: none; margin-top: 1px; position: relative; }
+.co-opt.on .co-radio { border-color: var(--dark); }
+.co-opt.on .co-radio::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--dark); }
+.co-opt .ot { flex: 1; }
+.co-opt .otn { font-size: 14px; font-weight: 700; color: var(--strong); }
+.co-opt .otd { font-size: 12px; color: var(--sec); margin-top: 2px; }
+.co-opt .op { font-size: 13px; font-weight: 800; color: var(--strong); white-space: nowrap; }
+
+/* delivery sub-fields (revealed under active method) */
+.co-sub { margin: 0 0 12px 30px; display: flex; flex-direction: column; gap: 8px; }
+.co-city { display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 10px 13px; font-size: 13px; font-weight: 700; color: var(--strong); align-self: flex-start; }
+.co-cmt { width: 100%; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 11px 13px; font-size: 13px; font-family: inherit; margin-top: 6px; min-height: 60px; resize: vertical; }
+.co-cmt-lbl { font-size: 12px; font-weight: 700; color: var(--sec); margin-top: 12px; }
+
+/* upsell (full width, under both columns) */
+.co-upsell { border: 1px solid var(--hair); border-radius: 12px; padding: 16px; }
+.co-upsell-h { font-size: 16px; font-weight: 800; color: var(--strong); margin-bottom: 4px; }
+.co-upsell-s { font-size: 12.5px; color: var(--sec); margin-bottom: 14px; }
+.co-ups-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+@media (min-width: 620px) { .co-ups-row { grid-template-columns: repeat(4, 1fr); } }
+.co-ups { border: 1px solid var(--hair); border-radius: 10px; padding: 12px; text-align: center; display: flex; flex-direction: column; }
+.co-ups .ui { height: 70px; border-radius: 8px; background: var(--fill); margin-bottom: 9px; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 9px; }
+.co-ups .un { font-size: 12.5px; font-weight: 600; color: var(--strong); line-height: 1.3; min-height: 32px; }
+.co-ups .up { font-size: 13px; font-weight: 800; color: var(--strong); margin: 5px 0 9px; }
+.co-ups .uadd { border: 1.5px solid var(--dark); border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 700; color: var(--strong); margin-top: auto; }
+
+/* right summary — money only, sticky */
+.co-sum { border: 1px solid var(--hair); border-radius: 12px; padding: 16px; }
+@media (min-width: 900px) { .co-sum { position: sticky; top: 78px; } }
+.co-sum-h { font-size: 15px; font-weight: 800; color: var(--strong); margin-bottom: 12px; }
+.co-bonus { border: 1px solid var(--hair); border-radius: 10px; padding: 12px; background: var(--fill2); margin-bottom: 14px; }
+.co-bonus-top { display: flex; justify-content: space-between; align-items: baseline; }
+.co-bonus .bl { font-size: 13px; font-weight: 700; color: var(--strong); }
+.co-bonus .bv { font-size: 14px; font-weight: 800; color: var(--strong); }
+.co-bonus .bnote { font-size: 11.5px; color: var(--light); margin-top: 3px; }
+.co-toggle { display: flex; align-items: center; gap: 9px; font-size: 12.5px; color: var(--strong); font-weight: 700; margin-top: 11px; cursor: pointer; }
+.co-sw { width: 38px; height: 22px; border-radius: 100px; background: var(--hair2); position: relative; flex: none; }
+.co-sw::after { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; }
+.co-sw.on { background: var(--dark); } .co-sw.on::after { left: 18px; }
+.co-brow { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--ink); padding: 6px 0; }
+.co-brow b { color: var(--strong); }
+.co-brow .disc { color: var(--sec); }
+.co-total { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0 2px; border-top: 1px solid var(--hair); margin-top: 6px; }
+.co-total .tl { font-size: 14px; font-weight: 800; color: var(--strong); }
+.co-total .tv { font-size: 24px; font-weight: 800; color: var(--strong); }
+.co-accrual { font-size: 12.5px; color: var(--sec); margin: 12px 0; display: flex; gap: 7px; align-items: center; background: var(--fill2); border: 1px solid var(--hair); border-radius: 8px; padding: 9px 11px; }
+.co-accrual .star { color: var(--strong); font-weight: 800; }
+.co-confirm { display: block; text-align: center; background: var(--dark); color: #fff; border-radius: 10px; padding: 15px; font-size: 15px; font-weight: 800; }
+.co-trust { font-size: 11.5px; color: var(--light); text-align: center; margin-top: 12px; line-height: 1.7; }
+
+/* simplified footer */
+.co-foot { border-top: 1px solid var(--hair); background: var(--fill2); margin-top: 30px; }
+.co-foot-in { max-width: 1200px; margin: 0 auto; padding: 18px 16px; display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; justify-content: space-between; font-size: 12px; color: var(--light); }
+.co-foot-links { display: flex; gap: 14px; flex-wrap: wrap; }
+.co-foot-links a { color: var(--sec); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 6.1 Оформлення / Checkout (base = guest).
+  Convergence of both flows. ONE sectioned page (not a wizard).
+  Simplified header/footer (logo + support only). Left = sections,
+  right = money-only sticky summary. States: loading, declined.
+  Flow: research/docs/flows.md Job 2 b5 → addr → sl → (qp) → b7.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+
+<!-- SIMPLIFIED HEADER (inline — NOT wfHeader) -->
+<header class="co-head" role="banner">
+  <div class="co-head-in">
+    <a class="co-logo" href="home.html">Stack</a>
+    <div class="co-support">
+      <span class="sh">Центр підтримки · Пн–Нд 9:00–21:00</span><br>
+      <b>0 800 000 000</b>
+    </div>
+  </div>
+</header>
+
+<main class="co-wrap">
+  <h1 class="co-h1">Оформлення замовлення</h1>
+
+  <div class="co-grid">
+
+    <!-- LEFT COLUMN -->
+    <div>
+
+      <!-- 1 · КОНТАКТ (guest — passwordless sign-in prompt) -->
+      <section class="co-sec" aria-label="Контакт">
+        <div class="co-sec-h"><span class="num">1</span> Контакт</div>
+        <p class="co-signin-note">Увійдіть для оформлення замовлення — код підтвердження надійде у SMS, акаунт створиться автоматично. Пароль не потрібен.</p>
+        <form class="co-field" action="checkout-loading.html">
+          <label for="co-phone" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Номер телефону</label>
+          <input class="co-input" id="co-phone" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __" autocomplete="tel">
+          <button class="co-getcode" type="submit">Отримати код</button>
+        </form>
+        <div class="co-or">або</div>
+        <div class="co-social">
+          <a class="co-soc" href="auth.html">Google</a>
+          <a class="co-soc" href="auth.html">Apple</a>
+          <a class="co-soc" href="auth.html">E-mail</a>
+        </div>
+        <p class="co-consent">Продовжуючи, ви погоджуєтесь з <a href="content.html">публічною офертою</a> та <a href="content.html">політикою конфіденційності</a>.</p>
+      </section>
+
+      <!-- ВАШЕ ЗАМОВЛЕННЯ (line items moved here from the right rail) -->
+      <section class="co-sec" aria-label="Ваше замовлення">
+        <div class="co-sec-h">🛒 Ваше замовлення <span style="font-weight:600;color:var(--light);font-size:13px">· 2 товари</span></div>
+
+        <div class="co-line">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
+            <div class="li-meta">Смак: Подвійний шоколад · США</div>
+            <div class="li-acts">
+              <button type="button">♡ В обране</button>
+              <button type="button">🗑 Видалити</button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></div>
+            <div class="li-price">1 290 ₴</div>
+          </div>
+        </div>
+
+        <div class="co-line">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">BioTechUSA 100% Creatine Monohydrate 300 г</div>
+            <div class="li-meta">Без смаку · Угорщина</div>
+            <div class="li-acts">
+              <button type="button">♡ В обране</button>
+              <button type="button">🗑 Видалити</button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></div>
+            <div class="li-price">549 ₴</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 · ДОСТАВКА -->
+      <section class="co-sec" aria-label="Доставка">
+        <div class="co-sec-h"><span class="num">2</span> Доставка</div>
+
+        <label class="co-opt on">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Нова Пошта — відділення / поштомат</span><span class="otd">1–2 дні по Україні</span></span>
+          <span class="op">від 50 ₴</span>
+        </label>
+        <div class="co-sub">
+          <button type="button" class="co-city">📍 Одеса <span style="color:var(--light);font-weight:600">· змінити</span></button>
+          <input class="co-input" type="text" placeholder="Відділення / поштомат — почніть вводити №">
+        </div>
+
+        <label class="co-opt">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Кур'єр Нова Пошта — на адресу</span><span class="otd">Доставка до дверей, 1–2 дні</span></span>
+          <span class="op">від 70 ₴</span>
+        </label>
+
+        <label class="co-opt">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Самовивіз — Одеса</span><span class="otd">вул. Дерибасівська, 1 · за наявності на точці</span></span>
+          <span class="op">безкоштовно</span>
+        </label>
+      </section>
+
+      <!-- 3 · ОПЛАТА -->
+      <section class="co-sec" aria-label="Оплата">
+        <div class="co-sec-h"><span class="num">3</span> Оплата</div>
+
+        <label class="co-opt on">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Картка онлайн — LiqPay / Wayforpay</span><span class="otd">Visa · Mastercard · безпечна оплата на сторінці банку</span></span>
+        </label>
+        <label class="co-opt">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Apple Pay / Google Pay</span><span class="otd">Оплата в один дотик</span></span>
+        </label>
+        <label class="co-opt">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Накладений платіж</span><span class="otd">Оплата при отриманні на Новій Пошті</span></span>
+        </label>
+        <label class="co-opt">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Готівка при самовивозі</span><span class="otd">Оплата на точці в Одесі</span></span>
+        </label>
+
+        <div class="co-cmt-lbl">Коментар до замовлення (необов'язково)</div>
+        <textarea class="co-cmt" placeholder="Наприклад: подзвоніть перед доставкою"></textarea>
+      </section>
+    </div>
+
+    <!-- RIGHT COLUMN — money only, sticky -->
+    <aside class="co-sum" aria-label="Разом">
+      <div class="co-sum-h">Разом</div>
+
+      <!-- bonus module — state «є бонуси», списання off -->
+      <div class="co-bonus">
+        <div class="co-bonus-top"><span class="bl">Бонусний рахунок</span><span class="bv">240 ₴</span></div>
+        <div class="bnote">Можна оплатити бонусами частину замовлення</div>
+        <div class="co-toggle" role="button" tabindex="0"><span class="co-sw"></span> Списати бонуси</div>
+      </div>
+
+      <div class="co-brow"><span>Сума товарів</span><b>1 839 ₴</b></div>
+      <div class="co-brow"><span class="disc">Знижка лояльності 🥈 Срібло</span><b>−92 ₴</b></div>
+      <div class="co-brow"><span>Доставка</span><b>60 ₴</b></div>
+      <div class="co-total"><span class="tl">До сплати</span><span class="tv">1 807 ₴</span></div>
+
+      <div class="co-accrual"><span class="star">★</span> Нарахуємо <b>+18 ₴</b>&nbsp;бонусів за це замовлення (~1%)</div>
+
+      <a class="co-confirm" href="checkout-loading.html">Підтвердити замовлення</a>
+
+      <div class="co-trust">🔒 Безпечна оплата · 14 днів на повернення · Гарантія оригіналу</div>
+    </aside>
+
+  </div>
+
+  <!-- UPSELL (full width, after all sections) -->
+  <section class="co-upsell" aria-label="Не забудьте додати">
+    <div class="co-upsell-h">Не забудьте додати</div>
+    <div class="co-upsell-s">Дрібниці, які часто беруть із цим замовленням</div>
+    <div class="co-ups-row">
+      <div class="co-ups"><div class="ui">фото</div><div class="un">Протеїновий батончик Power Pro 60 г</div><div class="up">49 ₴</div><button type="button" class="uadd">+ Додати</button></div>
+      <div class="co-ups"><div class="ui">фото</div><div class="un">Ізотонік Powerade 500 мл</div><div class="up">39 ₴</div><button type="button" class="uadd">+ Додати</button></div>
+      <div class="co-ups"><div class="ui">фото</div><div class="un">BCAA-шот Olimp 60 мл</div><div class="up">89 ₴</div><button type="button" class="uadd">+ Додати</button></div>
+      <div class="co-ups"><div class="ui">фото</div><div class="un">Шейкер Stack 700 мл</div><div class="up">129 ₴</div><button type="button" class="uadd">+ Додати</button></div>
+    </div>
+  </section>
+</main>
+
+<!-- SIMPLIFIED FOOTER (inline) -->
+<footer class="co-foot" role="contentinfo">
+  <div class="co-foot-in">
+    <span>© 2026 Stack. Спортивне харчування в Україні.</span>
+    <span class="co-foot-links">
+      <a href="content.html">Публічна оферта</a>
+      <a href="content.html">Конфіденційність</a>
+      <a href="content.html">Доставка й оплата</a>
+      <a href="content.html">Підтримка</a>
+    </span>
+    <span>Visa · Mastercard · Apple Pay · Google Pay</span>
+  </div>
+</footer>
+
+<script src="_nav.js"></script>
+<script>wfBar('checkout.html');</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ціль «Схуднення» — завантаження (wireframe 2.2)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- WIREFRAME · 2.2 STATE = loading. Filters ready; goal collection loading (grey skeletons).
+     Transient — resolves to base (success) or error. -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <a href="catalog-page.html">Цілі</a><span class="sep">/</span>
+    <span class="cur">Схуднення</span>
+  </nav>
+
+  <section aria-label="Заголовок цілі">
+    <h1 class="lh1">Схуднення</h1>
+    <p class="lintro">Безпечний, підібраний набір добавок для контрольованого зниження ваги:
+      ізолят, жироспалювачі, L-карнітин та амінокислоти. Усе сертифіковане, з чіткою дозою на порцію.</p>
+  </section>
+
+  <div class="ltool">
+    <span class="ctrl count">Завантаження…</span>
+    <span class="sp"></span>
+    <span class="ctrl"><span class="cap">Сортування:</span> Популярні ▾</span>
+    <span class="vtoggle"><span class="on">▦</span><span>☰</span></span>
+  </div>
+
+  <div class="mtoolbar">
+    <button class="mc" onclick="openSheet()">Фільтри</button>
+    <button class="mc">Популярні ▾</button>
+  </div>
+
+  <div class="listing">
+    <aside class="frail" id="wf-rail"></aside>
+
+    <section aria-label="Завантаження товарів" aria-busy="true">
+      <!-- LOADING: skeleton cards in place of the grid -->
+      <div class="skgrid skpulse">
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+      </div>
+      <p class="loadnote">Підбираємо товари для цілі…</p>
+    </section>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<div id="wf-sheet"></div>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); wfBar('goal.html', 'loading');</script>
+</body>
+</html>

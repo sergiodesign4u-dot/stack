@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Обробляємо оплату… — Stack (wireframe 6.1 · loading)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* CHECKOUT 6.1 — loading state (card redirect / payment in progress) */
+.co-head { position: sticky; top: 0; z-index: 30; background: #fff; border-bottom: 1px solid var(--hair); }
+.co-head-in { max-width: 1200px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.co-logo { font-size: 20px; font-weight: 800; color: var(--strong); letter-spacing: -.02em; }
+.co-support { text-align: right; font-size: 11.5px; color: var(--sec); line-height: 1.35; }
+.co-support .sh { color: var(--light); }
+.co-support b { color: var(--strong); font-size: 14px; font-weight: 800; }
+
+.co-proc { max-width: 520px; margin: 56px auto; padding: 0 16px; text-align: center; }
+.co-proc-box { border: 1px solid var(--hair); border-radius: 14px; padding: 40px 26px; }
+.spinner { width: 46px; height: 46px; border: 4px solid var(--hair); border-top-color: var(--dark); border-radius: 50%; margin: 0 auto 22px; animation: cospin .9s linear infinite; }
+@keyframes cospin { to { transform: rotate(360deg); } }
+.co-proc-h { font-size: 20px; font-weight: 800; color: var(--strong); margin-bottom: 8px; }
+.co-proc-s { font-size: 13.5px; color: var(--sec); line-height: 1.6; }
+.co-skel { margin: 26px auto 6px; max-width: 320px; }
+.co-skel .sl { height: 11px; border-radius: 6px; background: #ececec; margin: 9px 0; animation: copulse 1.1s ease-in-out infinite; }
+.co-skel .sl.m { width: 72%; margin-left: auto; margin-right: auto; }
+.co-skel .sl.s { width: 46%; margin-left: auto; margin-right: auto; }
+@keyframes copulse { 0%,100% { opacity: 1; } 50% { opacity: .5; } }
+.co-proc-note { font-size: 12px; color: var(--light); margin-top: 22px; line-height: 1.6; }
+.co-proc-cancel { display: inline-block; margin-top: 16px; font-size: 12.5px; color: var(--sec); text-decoration: underline; }
+
+.co-foot { border-top: 1px solid var(--hair); background: var(--fill2); margin-top: 30px; }
+.co-foot-in { max-width: 1200px; margin: 0 auto; padding: 18px 16px; display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; justify-content: space-between; font-size: 12px; color: var(--light); }
+.co-foot-links { display: flex; gap: 14px; flex-wrap: wrap; }
+.co-foot-links a { color: var(--sec); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 6.1 Оформлення — LOADING state.
+  «Обробляємо оплату…» — card payment redirects to the provider's
+  hosted page (LiqPay/Wayforpay). No dead end: cancel → back to cart.
+  flows.md Job 2: sl (Loading - processing payment) → qp.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+
+<header class="co-head" role="banner">
+  <div class="co-head-in">
+    <a class="co-logo" href="home.html">Stack</a>
+    <div class="co-support">
+      <span class="sh">Центр підтримки · Пн–Нд 9:00–21:00</span><br>
+      <b>0 800 000 000</b>
+    </div>
+  </div>
+</header>
+
+<main class="co-proc">
+  <div class="co-proc-box" role="status" aria-live="polite">
+    <div class="spinner" aria-hidden="true"></div>
+    <div class="co-proc-h">Обробляємо оплату…</div>
+    <p class="co-proc-s">Перенаправляємо на захищену сторінку банку (LiqPay / Wayforpay). Не закривайте вкладку — це займе кілька секунд.</p>
+    <div class="co-skel" aria-hidden="true">
+      <div class="sl m"></div>
+      <div class="sl s"></div>
+    </div>
+    <p class="co-proc-note">🔒 Дані картки вводяться на стороні банку — ми їх не зберігаємо.</p>
+    <a class="co-proc-cancel" href="cart.html">Скасувати та повернутися до кошика</a>
+  </div>
+</main>
+
+<footer class="co-foot" role="contentinfo">
+  <div class="co-foot-in">
+    <span>© 2026 Stack. Спортивне харчування в Україні.</span>
+    <span class="co-foot-links">
+      <a href="content.html">Публічна оферта</a>
+      <a href="content.html">Конфіденційність</a>
+      <a href="content.html">Підтримка</a>
+    </span>
+    <span>Visa · Mastercard · Apple Pay · Google Pay</span>
+  </div>
+</footer>
+
+<script src="_nav.js"></script>
+<script>wfBar('checkout.html', 'loading');</script>
+</body>
+</html>

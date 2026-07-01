@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Кабінет покупця — Огляд — Stack (wireframe 7.0)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* ============================================================
+   ACCOUNT SHELL (node 7.x) — private zone. New CSS only for the shell;
+   product cards / buttons / sections reuse _wf.css. Greyscale only.
+   Desktop: left section-nav (aside) + content panel. Mobile: menu-hub.
+   ============================================================ */
+.acc { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 16px; }
+@media (min-width: 960px) { .acc { grid-template-columns: 268px 1fr; gap: 28px; } }
+
+/* -- section nav / mobile menu-hub -- */
+.acc-nav { align-self: start; }
+@media (min-width: 960px) { .acc-nav { position: sticky; top: 120px; } }
+.acc-prof { border: 1px solid var(--hair); border-radius: 14px; padding: 15px 16px; display: flex; gap: 13px; align-items: center; }
+.acc-prof .av { width: 48px; height: 48px; border-radius: 50%; background: var(--fill); border: 1px solid var(--hair); flex: none; display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 19px; }
+.acc-prof .who { min-width: 0; }
+.acc-prof .nm { font-weight: 800; color: var(--strong); font-size: 15px; }
+.acc-prof .ph { font-size: 12px; color: var(--sec); margin-top: 2px; }
+.acc-tier { display: inline-flex; align-items: center; gap: 5px; margin-top: 7px; font-size: 11px; font-weight: 800; border: 1px solid var(--hair2); border-radius: 100px; padding: 2px 9px; color: var(--strong); }
+
+.acc-links { margin-top: 12px; border: 1px solid var(--hair); border-radius: 14px; overflow: hidden; }
+.acc-link { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; padding: 13px 15px; border-bottom: 1px solid var(--hair); font-size: 14px; font-weight: 600; color: var(--strong); background: #fff; }
+.acc-link:last-child { border-bottom: none; }
+.acc-link .ic { width: 20px; text-align: center; color: var(--sec); font-size: 15px; }
+.acc-link .ct { margin-left: auto; font-size: 12px; font-weight: 800; color: var(--light); }
+.acc-link .ar { margin-left: 8px; color: #bbb; font-weight: 700; }
+@media (min-width: 960px) { .acc-link .ar { display: none; } }
+.acc-link[aria-current="page"] { background: var(--fill); }
+.acc-link[aria-current="page"] .ic { color: var(--strong); }
+.acc-link.logout { color: var(--sec); font-weight: 700; }
+
+/* -- dashboard main -- */
+.acc-h1 { font-size: 24px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.acc-sub { color: var(--sec); font-size: 14px; margin-top: 4px; }
+.acc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+@media (min-width: 640px) { .acc-grid { grid-template-columns: 1fr 1fr; } }
+.acard { border: 1px solid var(--hair); border-radius: 14px; padding: 16px; }
+.acard.span2 { grid-column: 1 / -1; }
+.acard .ah { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 11px; }
+.acard .ah h3 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); }
+.acard .ah a, .acard .ah .lnk { font-size: 12.5px; font-weight: 700; color: var(--strong); }
+
+/* bonus card */
+.abonus .big { font-size: 34px; font-weight: 800; color: var(--strong); line-height: 1; }
+.abonus .u { font-size: 13px; color: var(--sec); margin-top: 4px; }
+.abonus .warn { font-size: 12.5px; color: var(--sec); margin-top: 12px; border: 1px dashed var(--hair2); border-radius: 8px; padding: 8px 10px; }
+.abonus .warn b { color: var(--strong); }
+
+/* loyalty progress */
+.loy .lt { font-size: 16px; font-weight: 800; color: var(--strong); }
+.loy .lbar { height: 8px; background: var(--fill); border-radius: 6px; overflow: hidden; margin: 11px 0 7px; }
+.loy .lbar i { display: block; height: 100%; background: var(--dark); }
+.loy .ls { font-size: 12.5px; color: var(--sec); }
+.loy .ls b { color: var(--strong); }
+.loy .ladder { display: flex; gap: 8px; margin-top: 13px; }
+.loy .lrung { flex: 1; border: 1px solid var(--hair); border-radius: 9px; padding: 9px 6px; text-align: center; font-size: 11.5px; color: var(--sec); }
+.loy .lrung .rn { display: block; font-weight: 800; color: var(--strong); font-size: 12px; }
+.loy .lrung.on { border-color: var(--dark); }
+.loy .lrung.on .rn { color: var(--strong); }
+
+/* last order card */
+.aorder .orow { display: flex; align-items: flex-start; gap: 13px; }
+.aord-thumbs { display: flex; gap: 6px; flex: none; }
+.aord-thumbs .t { width: 46px; height: 46px; border-radius: 8px; background: var(--fill); border: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 9px; }
+.aord-info { min-width: 0; }
+.aord-info .no { font-weight: 800; color: var(--strong); font-size: 14px; }
+.aord-info .meta { font-size: 12.5px; color: var(--sec); margin-top: 3px; }
+.aord-status { display: inline-block; font-size: 11px; font-weight: 800; border: 1px solid var(--hair2); border-radius: 100px; padding: 2px 9px; color: var(--strong); margin-top: 8px; }
+.aord-actions { display: flex; gap: 9px; margin-top: 15px; flex-wrap: wrap; }
+.aord-actions .btn { padding: 10px 16px; }
+
+/* addresses card */
+.aaddr .adef { border: 1px solid var(--hair); border-radius: 10px; padding: 11px 12px; font-size: 13px; }
+.aaddr .adef .tag { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); }
+.aaddr .adef .line { color: var(--strong); font-weight: 700; margin-top: 3px; }
+.aaddr .amore { font-size: 12.5px; color: var(--sec); margin-top: 10px; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.0 Кабінет покупця / Огляд (base = has data).
+  Private zone → noindex. One shell: left section-nav + content panel (desktop),
+  menu-hub (mobile). Dashboard snapshot; each card deep-links its section.
+  Jobs: 4 (one-tap repeat) · 6 (loyalty review). States: empty, loading, error.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Кабінет</span>
+  </nav>
+
+  <div class="acc">
+
+    <!-- ============ SECTION NAV (desktop) / MENU-HUB (mobile) ============ -->
+    <aside class="acc-nav">
+      <div class="acc-prof">
+        <div class="av">АК</div>
+        <div class="who">
+          <div class="nm">Андрій Коваль</div>
+          <div class="ph">+380 ** *** 45 67</div>
+          <span class="acc-tier">🥈 Срібний рівень</span>
+        </div>
+      </div>
+
+      <nav class="acc-links" aria-label="Розділи кабінету">
+        <a class="acc-link" href="account.html" aria-current="page"><span class="ic">▦</span> Огляд <span class="ar">›</span></a>
+        <button class="acc-link" type="button"><span class="ic">📦</span> Замовлення <span class="ct" aria-label="12 замовлень">12</span><span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">★</span> Лояльність і бонуси <span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">📍</span> Адреси <span class="ct" aria-label="2 адреси">2</span><span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">👤</span> Профіль <span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">♡</span> Обране <span class="ct" aria-label="8 товарів">8</span><span class="ar">›</span></button>
+        <a class="acc-link" href="coach.html"><span class="ic">🎓</span> Стати тренером <span class="ar">›</span></a>
+        <a class="acc-link logout" href="home.html"><span class="ic">⎋</span> Вийти</a>
+      </nav>
+    </aside>
+
+    <!-- ============ CONTENT PANEL = ОГЛЯД (dashboard snapshot) ============ -->
+    <div class="acc-main">
+      <h1 class="acc-h1">Вітаємо, Андрію!</h1>
+      <p class="acc-sub">Ваш кабінет: бонуси, замовлення, обране та адреси в одному місці.</p>
+
+      <div class="acc-grid">
+
+        <!-- Bonus balance → Лояльність (7.4) -->
+        <div class="acard abonus">
+          <div class="ah"><h3>Бонусний рахунок</h3><button class="lnk" type="button">Детальніше →</button></div>
+          <div class="big">124 ₴</div>
+          <div class="u">бонусів на рахунку · 1 бонус = 1 ₴</div>
+          <div class="warn"><b>18 ₴ згорять 20.09.2026.</b> Використайте бонуси в кошику під час наступного замовлення.</div>
+        </div>
+
+        <!-- Loyalty progress (Job 6) → Лояльність (7.4) -->
+        <div class="acard loy">
+          <div class="ah"><h3>Рівень лояльності</h3><button class="lnk" type="button">Як це працює →</button></div>
+          <div class="lt">🥈 Срібний</div>
+          <div class="lbar"><i style="width:62%"></i></div>
+          <div class="ls">Куплено на <b>18 400 ₴</b> · до 🥇 Золотого ще <b>6 600 ₴</b></div>
+          <div class="ladder">
+            <div class="lrung on"><span class="rn">🥉 Бронза</span>−3%</div>
+            <div class="lrung on"><span class="rn">🥈 Срібло</span>−5%</div>
+            <div class="lrung"><span class="rn">🥇 Золото</span>−8%</div>
+          </div>
+        </div>
+
+        <!-- Last order + Повторити (Job 4) → Замовлення (7.2/7.3) -->
+        <div class="acard aorder span2">
+          <div class="ah"><h3>Останнє замовлення</h3><button class="lnk" type="button">Усі замовлення →</button></div>
+          <div class="orow">
+            <div class="aord-thumbs">
+              <span class="t">фото</span><span class="t">фото</span><span class="t">фото</span>
+            </div>
+            <div class="aord-info">
+              <div class="no">Замовлення № 10432</div>
+              <div class="meta">12 червня 2026 · 3 товари · 2 340 ₴</div>
+              <span class="aord-status">● Доставлено</span>
+            </div>
+          </div>
+          <div class="aord-actions">
+            <a class="btn dark" href="cart.html">↻ Повторити замовлення</a>
+            <button class="btn" type="button">Деталі та ТТН</button>
+            <button class="btn" type="button">Залишити відгук</button>
+          </div>
+        </div>
+
+        <!-- Saved addresses → Адреси (7.5) -->
+        <div class="acard aaddr">
+          <div class="ah"><h3>Адреси доставки</h3><button class="lnk" type="button">Керувати →</button></div>
+          <div class="adef">
+            <div class="tag">За замовчуванням</div>
+            <div class="line">Нова Пошта, відділення № 12</div>
+            <div style="font-size:12.5px;color:var(--sec);margin-top:2px">Одеса · Андрій Коваль</div>
+          </div>
+          <div class="amore">Ще 1 збережена адреса (кур'єр НП, Одеса).</div>
+        </div>
+
+        <!-- Become a coach banner → coach landing (5.0) -->
+        <div class="acard" style="display:flex;flex-direction:column;justify-content:center">
+          <div class="ah"><h3>Ви тренер?</h3></div>
+          <p style="font-size:13.5px;color:var(--sec);margin-bottom:14px">Активуйте роль тренера: гуртові ціни та замовлення одразу для кількох клієнтів в одну сесію.</p>
+          <a class="btn dark" href="coach.html" style="align-self:flex-start">Стати тренером</a>
+        </div>
+
+      </div>
+
+      <!-- Wishlist preview → Обране (7.6). Canonical .pcard -->
+      <section aria-label="Обране">
+        <div class="sech"><h2>Обране</h2><button class="all" type="button">Усі 8 →</button></div>
+        <div class="prow">
+          <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+            <div class="bd"><div class="pbrand">BioTechUSA · Угорщина</div><a href="product.html" class="nm">Iso Whey Zero 908 г</a><div class="pavail in">● В наявності</div>
+              <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+              <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div><div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div></div></article>
+          <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+            <div class="bd"><div class="pbrand">Optimum Nutrition · США</div><a href="product.html" class="nm">Micronized Creatine Powder 317 г</a><div class="pavail in">● В наявності</div>
+              <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">720 ₴</span><span class="pcut">−11%</span></div><span class="pnew">640 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+              <div class="rate"><span class="st">★ 4.9</span> · 204 відгуки</div><div class="pmeta2"><span class="perserv"><b>10 ₴</b> / порція</span><span class="bonus">+6 ₴ бонус</span></div></div></article>
+          <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+            <div class="bd"><div class="pbrand">Scitec Nutrition · Угорщина</div><a href="product.html" class="nm">100% Whey Protein Professional 920 г</a><div class="pavail pre">● Під замовлення</div>
+              <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">845 ₴</span></div><button class="cartbtn notify" aria-label="Повідомити про наявність">🔔</button></div>
+              <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div><div class="pmeta2"><span class="perserv"><b>31 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div></div></article>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('account.html');</script>
+</body>
+</html>

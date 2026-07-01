@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ціль «Схуднення» — немає товарів у наявності (wireframe 2.2)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- WIREFRAME · 2.2 STATE = empty (no in-stock products for this goal).
+     Exit: pick another goal (→ home goal selector) / go to catalog.
+     Reconciled with flows.md Job 2 (empty collection → back to goal selector) — never a dead end. -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <a href="catalog-page.html">Цілі</a><span class="sep">/</span>
+    <span class="cur">Схуднення</span>
+  </nav>
+
+  <section aria-label="Заголовок цілі">
+    <h1 class="lh1">Схуднення <span class="cnt">0 товарів</span></h1>
+    <p class="lintro">Безпечний, підібраний набір добавок для контрольованого зниження ваги:
+      ізолят, жироспалювачі, L-карнітин та амінокислоти. Усе сертифіковане, з чіткою дозою на порцію.</p>
+  </section>
+
+  <div class="ltool">
+    <span class="ctrl count">Знайдено: 0 товарів</span>
+    <span class="sp"></span>
+    <span class="ctrl"><span class="cap">Сортування:</span> Популярні ▾</span>
+    <span class="vtoggle"><span class="on">▦</span><span>☰</span></span>
+  </div>
+
+  <div class="mtoolbar">
+    <button class="mc" onclick="openSheet()">Фільтри</button>
+    <button class="mc">Популярні ▾</button>
+  </div>
+
+  <div class="listing">
+    <aside class="frail" id="wf-rail"></aside>
+
+    <section aria-label="Результати">
+      <!-- EMPTY: no in-stock products for this goal — visible exits: choose another goal / catalog -->
+      <div class="empty">
+        <div class="ei">🎯</div>
+        <div class="et">Зараз немає товарів у наявності для цієї цілі</div>
+        <div class="es">Оберіть іншу ціль — підберемо безпечний набір під ваше завдання —
+          або перегляньте весь каталог.</div>
+        <div class="eact">
+          <a class="btn dark" href="home.html">Обрати іншу ціль</a>
+          <a class="btn" href="catalog-page.html">До каталогу</a>
+          <a class="btn" href="goal.html">Набір маси</a>
+          <a class="btn" href="goal.html">Відновлення</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- SEO text stays (crawlable) even on an empty result -->
+  <section class="seotext" id="seo" aria-label="Опис цілі">
+    <div class="h">Схуднення — добавки для зниження ваги в магазині Stack</div>
+    <p>Ціль «Схуднення» — це підібраний набір спортивного харчування для контрольованого зниження
+      ваги без втрати м'язів: сироватковий ізолят, жироспалювачі, L-карнітин і амінокислоти BCAA.
+      Уся продукція сертифікована, з оригінальною гарантією виробника та чіткою дозою на порцію.</p>
+    <p>Як обрати безпечно: почніть з ізоляту як основного джерела білка, додайте L-карнітин перед
+      кардіо, а термогеніки використовуйте курсом і за інструкцією. Швидка доставка Новою Поштою,
+      оплата картою чи готівкою, повернення протягом 14 днів.</p>
+  </section>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<div id="wf-sheet"></div>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); wfBar('goal.html', 'empty');</script>
+</body>
+</html>

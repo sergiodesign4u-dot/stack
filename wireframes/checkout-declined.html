@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Оплату відхилено — Stack (wireframe 6.1 · declined)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* CHECKOUT 6.1 — payment declined state. Order preserved, not lost.
+   flows.md Job 2: ep (Error - payment declined) → qr (retry?) → b5 / back to cart. */
+.co-head { position: sticky; top: 0; z-index: 30; background: #fff; border-bottom: 1px solid var(--hair); }
+.co-head-in { max-width: 1200px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.co-logo { font-size: 20px; font-weight: 800; color: var(--strong); letter-spacing: -.02em; }
+.co-support { text-align: right; font-size: 11.5px; color: var(--sec); line-height: 1.35; }
+.co-support .sh { color: var(--light); }
+.co-support b { color: var(--strong); font-size: 14px; font-weight: 800; }
+
+.co-err { max-width: 560px; margin: 48px auto; padding: 0 16px; }
+.co-err-box { border: 1px solid var(--hair2); border-radius: 14px; padding: 34px 26px; text-align: center; }
+.co-err-mark { width: 54px; height: 54px; border: 2px solid var(--strong); border-radius: 50%; margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; color: var(--strong); }
+.co-err-h { font-size: 21px; font-weight: 800; color: var(--strong); margin-bottom: 8px; }
+.co-err-s { font-size: 13.5px; color: var(--sec); line-height: 1.6; }
+
+/* preserved order recap */
+.co-keep { border: 1px solid var(--hair); border-radius: 12px; background: var(--fill2); padding: 14px 16px; margin: 22px 0; text-align: left; }
+.co-keep-h { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); margin-bottom: 10px; }
+.co-keep .kr { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--ink); padding: 4px 0; }
+.co-keep .kr b { color: var(--strong); }
+.co-keep .kr.tot { border-top: 1px solid var(--hair); margin-top: 6px; padding-top: 10px; }
+.co-keep .kr.tot .kv { font-size: 17px; font-weight: 800; color: var(--strong); }
+.co-keep .knote { font-size: 12px; color: var(--light); margin-top: 8px; }
+
+.co-err-acts { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+@media (min-width: 480px) { .co-err-acts { flex-direction: row; } }
+.co-err-acts .btn { flex: 1; text-align: center; }
+.co-help { font-size: 12px; color: var(--light); margin-top: 16px; line-height: 1.6; }
+.co-help a { color: var(--sec); text-decoration: underline; }
+
+.co-foot { border-top: 1px solid var(--hair); background: var(--fill2); margin-top: 30px; }
+.co-foot-in { max-width: 1200px; margin: 0 auto; padding: 18px 16px; display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; justify-content: space-between; font-size: 12px; color: var(--light); }
+.co-foot-links { display: flex; gap: 14px; flex-wrap: wrap; }
+.co-foot-links a { color: var(--sec); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 6.1 Оформлення — DECLINED state.
+  «Оплату відхилено» — order is PRESERVED, never lost. Two exits:
+  «Спробувати ще» → checkout · «Повернутись до кошика» → cart.
+  flows.md Job 2: ep → qr(retry)→b5 / qaband(back to cart)→b4.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+
+<header class="co-head" role="banner">
+  <div class="co-head-in">
+    <a class="co-logo" href="home.html">Stack</a>
+    <div class="co-support">
+      <span class="sh">Центр підтримки · Пн–Нд 9:00–21:00</span><br>
+      <b>0 800 000 000</b>
+    </div>
+  </div>
+</header>
+
+<main class="co-err">
+  <div class="co-err-box" role="alert">
+    <div class="co-err-mark" aria-hidden="true">✕</div>
+    <div class="co-err-h">Оплату відхилено</div>
+    <p class="co-err-s">Банк не підтвердив платіж. Гроші не списано. Ваше замовлення збережено — можна спробувати ще раз або повернутися до кошика.</p>
+
+    <div class="co-keep">
+      <div class="co-keep-h">Замовлення збережено</div>
+      <div class="kr"><span>Gold Standard 100% Whey 2270 г</span><b>1 290 ₴</b></div>
+      <div class="kr"><span>Creatine Monohydrate 300 г</span><b>549 ₴</b></div>
+      <div class="kr"><span>Доставка · Нова Пошта</span><b>60 ₴</b></div>
+      <div class="kr"><span>Знижка лояльності 🥈</span><b>−92 ₴</b></div>
+      <div class="kr tot"><span><b>До сплати</b></span><span class="kv">1 807 ₴</span></div>
+      <div class="knote">Товари й адреса доставки залишаються у замовленні.</div>
+    </div>
+
+    <div class="co-err-acts">
+      <a class="btn dark" href="checkout.html">Спробувати ще</a>
+      <a class="btn" href="cart.html">Повернутись до кошика</a>
+    </div>
+
+    <p class="co-help">Часті причини: недостатньо коштів, ліміт картки або відмова банку. Спробуйте іншу картку чи оберіть <a href="checkout.html">накладений платіж</a>. Потрібна допомога? <a href="content.html">Напишіть нам</a> або телефонуйте 0 800 000 000.</p>
+  </div>
+</main>
+
+<footer class="co-foot" role="contentinfo">
+  <div class="co-foot-in">
+    <span>© 2026 Stack. Спортивне харчування в Україні.</span>
+    <span class="co-foot-links">
+      <a href="content.html">Публічна оферта</a>
+      <a href="content.html">Конфіденційність</a>
+      <a href="content.html">Підтримка</a>
+    </span>
+    <span>Visa · Mastercard · Apple Pay · Google Pay</span>
+  </div>
+</footer>
+
+<script src="_nav.js"></script>
+<script>wfBar('checkout.html', 'declined');</script>
+</body>
+</html>

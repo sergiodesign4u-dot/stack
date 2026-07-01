@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Вхід або реєстрація — Stack (wireframe 1.x)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* ============================================================
+   AUTH DIALOG (node 1.x) — modal over dimmed context.
+   Split layout: sport-nutrition visual + form. Phone-OTP-first,
+   passwordless. New CSS lives here (per contract; _wf.css untouched).
+   ============================================================ */
+.auth-ov { position: fixed; inset: 0; background: rgba(18,18,18,.55); z-index: 60;
+  display: flex; align-items: stretch; justify-content: center; }
+.auth-modal { background: #fff; width: 100%; display: flex; overflow-y: auto;
+  role: dialog; }
+@media (min-width: 720px) {
+  .auth-ov { align-items: center; padding: 24px; }
+  .auth-modal { max-width: 880px; min-height: 560px; max-height: 94vh; border-radius: 16px;
+    overflow: hidden; box-shadow: 0 14px 44px rgba(0,0,0,.28); }
+}
+/* left visual panel (desktop) */
+.auth-visual { display: none; }
+@media (min-width: 720px) {
+  .auth-visual { display: flex; flex-direction: column; justify-content: space-between;
+    width: 42%; flex: none; padding: 26px; color: var(--sec); font-size: 12px;
+    background: repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#f2f2f2 10px,#f2f2f2 20px);
+    border-right: 1px solid var(--hair); }
+}
+.auth-visual .vlogo { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.02em; }
+.auth-visual .vmid { align-self: center; text-align: center; color: var(--light); }
+.auth-visual .vmid .vi { font-size: 34px; }
+.auth-visual .vtag { font-size: 12.5px; color: var(--sec); }
+.auth-visual .vtag b { color: var(--strong); display: block; font-size: 14px; margin-bottom: 3px; }
+/* right / form panel */
+.auth-form { flex: 1; min-width: 0; padding: 20px 20px 30px; display: flex; flex-direction: column; }
+@media (min-width: 720px) { .auth-form { padding: 34px 40px; } }
+.auth-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.auth-mlogo { font-size: 18px; font-weight: 800; color: var(--strong); }
+@media (min-width: 720px) { .auth-mlogo { display: none; } }
+.auth-x { font-size: 15px; color: var(--sec); border: 1px solid var(--hair); border-radius: 8px;
+  padding: 6px 11px; display: inline-flex; align-items: center; gap: 7px; font-weight: 600; }
+/* slim mobile banner replacing the visual */
+.auth-banner { display: flex; align-items: center; gap: 10px; background: var(--fill2);
+  border: 1px solid var(--hair); border-radius: 12px; padding: 12px 14px; margin: 8px 0 18px; }
+.auth-banner .bi { width: 40px; height: 40px; border-radius: 9px; background: var(--fill);
+  display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 18px; flex: none; }
+.auth-banner .bt { font-size: 12.5px; color: var(--sec); } .auth-banner .bt b { color: var(--strong); display: block; }
+@media (min-width: 720px) { .auth-banner { display: none; } }
+.auth-h1 { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.auth-sub { font-size: 13.5px; color: var(--sec); margin: 6px 0 20px; }
+/* field */
+.fld { margin-bottom: 14px; }
+.fld > label { display: block; font-size: 12px; font-weight: 700; color: var(--sec); margin-bottom: 7px; }
+.ph-field { display: flex; align-items: center; border: 1.5px solid var(--hair2); border-radius: 10px; overflow: hidden; }
+.ph-field .cc { padding: 13px 12px; background: var(--fill); color: var(--strong); font-weight: 700;
+  font-size: 15px; border-right: 1.5px solid var(--hair2); }
+.ph-field input { flex: 1; border: none; padding: 13px 12px; font-size: 16px; width: 100%; letter-spacing: .04em; }
+.ph-field input:focus { outline: none; }
+.txt-field { width: 100%; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 13px 12px; font-size: 16px; }
+.txt-field:focus { outline: 2px solid var(--dark); outline-offset: -2px; }
+.opt { font-size: 11.5px; color: var(--light); font-weight: 600; }
+/* primary button (full width, dark) */
+.auth-cta { display: block; width: 100%; text-align: center; background: var(--dark); color: #fff;
+  border-radius: 10px; padding: 15px; font-size: 15px; font-weight: 700; }
+.auth-consent { font-size: 11.5px; color: var(--light); line-height: 1.55; margin: 14px 0 4px; }
+.auth-consent a { color: var(--strong); text-decoration: underline; }
+/* «або» divider */
+.auth-or { display: flex; align-items: center; gap: 12px; color: var(--light); font-size: 12px; margin: 20px 0; }
+.auth-or::before, .auth-or::after { content: ''; flex: 1; height: 1px; background: var(--hair); }
+/* secondary method buttons */
+.smeths { display: flex; flex-direction: column; gap: 10px; }
+.sbtn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+  border: 1.5px solid var(--hair2); border-radius: 10px; padding: 13px; font-size: 14px; font-weight: 700; color: var(--strong); background: #fff; }
+.sbtn .ic { width: 22px; height: 22px; border-radius: 5px; background: var(--fill); display: inline-flex;
+  align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: var(--strong); }
+.auth-foot { margin-top: auto; padding-top: 18px; font-size: 12px; color: var(--light); }
+.auth-foot a { color: var(--strong); text-decoration: underline; }
+/* OTP boxes */
+.otp { display: flex; gap: 8px; margin: 4px 0 8px; }
+.otp .box { flex: 1; min-width: 0; height: 56px; border: 1.5px solid var(--hair2); border-radius: 10px;
+  text-align: center; font-size: 22px; font-weight: 800; color: var(--strong); }
+.otp .box:focus { outline: 2px solid var(--dark); outline-offset: -2px; }
+.otp .box.on { border-color: var(--dark); }
+.otp .box.err { border-color: var(--dark); border-width: 2px; background: var(--fill); }
+.otp-note { font-size: 12.5px; color: var(--sec); margin: 6px 0 2px; }
+.otp-err { font-size: 13px; font-weight: 700; color: var(--strong); border: 1px solid var(--hair2);
+  background: var(--fill); border-radius: 8px; padding: 9px 12px; margin: 6px 0 14px; display: flex; gap: 8px; align-items: center; }
+.otp-err .m { font-size: 15px; }
+.resend { font-size: 12.5px; color: var(--light); margin-top: 14px; }
+.resend .cool { font-weight: 700; color: var(--sec); }
+.resend a { color: var(--strong); font-weight: 700; text-decoration: underline; }
+.linkrow { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; margin-top: 14px; }
+.linkrow a { color: var(--strong); font-weight: 700; text-decoration: underline; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 1.x Авторизація / Sign in · Sign up (BASE = phone step).
+  Unified dialog, phone-OTP-first, passwordless. Split layout.
+  States: code (1.1 OTP) · newuser (1.2 name) · error (wrong/expired code).
+  Success returns to the triggering action. noindex, no schema (utility).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<header id="wf-header"></header>
+
+
+<!-- the dialog over a dimmed backdrop -->
+<div class="auth-ov">
+  <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authttl">
+
+    <aside class="auth-visual" aria-hidden="true">
+      <div class="vlogo">Stack</div>
+      <div class="vmid"><div class="vi">🏋️</div>спортивне харчування</div>
+      <div class="vtag"><b>Один акаунт — усе під рукою</b>Замовлення, бонуси, обране та швидке повторне замовлення.</div>
+    </aside>
+
+    <div class="auth-form">
+      <div class="auth-top">
+        <span class="auth-mlogo">Stack</span>
+        <a class="auth-x" href="home.html" aria-label="Закрити">✕ Закрити</a>
+      </div>
+
+      <div class="auth-banner">
+        <div class="bi">🏋️</div>
+        <div class="bt"><b>Stack</b>Спортивне харчування</div>
+      </div>
+
+      <h1 class="auth-h1" id="authttl">Вхід або реєстрація</h1>
+      <p class="auth-sub">Введіть номер телефону — надішлемо код у SMS. Пароль не потрібен.</p>
+
+      <form action="auth-code.html" method="get">
+        <div class="fld">
+          <label for="phone">Номер телефону</label>
+          <div class="ph-field">
+            <span class="cc">+380</span>
+            <input id="phone" name="phone" type="tel" inputmode="numeric"
+              autocomplete="tel" placeholder="67 123 45 67" aria-label="Номер телефону">
+          </div>
+        </div>
+        <a class="auth-cta" href="auth-code.html">Отримати код</a>
+        <p class="auth-consent">Продовжуючи, ви підтверджуєте, що згодні увійти до облікового запису
+          <b>Stack</b> та надаєте згоду на обробку персональних даних згідно з
+          <a href="content.html">публічною офертою</a> та
+          <a href="content.html">політикою конфіденційності</a>.</p>
+      </form>
+
+      <div class="auth-or">або</div>
+
+      <div class="smeths">
+        <a class="sbtn" href="auth-code.html"><span class="ic">G</span> Продовжити з Google</a>
+        <a class="sbtn" href="auth-code.html"><span class="ic"></span> Продовжити з Apple</a>
+        <button class="sbtn" type="button"><span class="ic">@</span> Продовжити з E-mail</button>
+      </div>
+
+      <div class="auth-foot">
+        Уже маєте акаунт чи ні — вхід і реєстрація в одному кроці.
+        <a href="home.html">Повернутися до магазину</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfBar('auth.html');</script>
+</body>
+</html>

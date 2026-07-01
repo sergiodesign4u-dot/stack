@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Кабінет покупця — новий акаунт — Stack (wireframe 7.0 · порожньо)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* Shell CSS shared with account.html (kept inline per screen; greyscale). */
+.acc { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 16px; }
+@media (min-width: 960px) { .acc { grid-template-columns: 268px 1fr; gap: 28px; } }
+.acc-nav { align-self: start; }
+@media (min-width: 960px) { .acc-nav { position: sticky; top: 120px; } }
+.acc-prof { border: 1px solid var(--hair); border-radius: 14px; padding: 15px 16px; display: flex; gap: 13px; align-items: center; }
+.acc-prof .av { width: 48px; height: 48px; border-radius: 50%; background: var(--fill); border: 1px solid var(--hair); flex: none; display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 19px; }
+.acc-prof .nm { font-weight: 800; color: var(--strong); font-size: 15px; }
+.acc-prof .ph { font-size: 12px; color: var(--sec); margin-top: 2px; }
+.acc-tier { display: inline-flex; align-items: center; gap: 5px; margin-top: 7px; font-size: 11px; font-weight: 800; border: 1px solid var(--hair2); border-radius: 100px; padding: 2px 9px; color: var(--strong); }
+.acc-links { margin-top: 12px; border: 1px solid var(--hair); border-radius: 14px; overflow: hidden; }
+.acc-link { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; padding: 13px 15px; border-bottom: 1px solid var(--hair); font-size: 14px; font-weight: 600; color: var(--strong); background: #fff; }
+.acc-link:last-child { border-bottom: none; }
+.acc-link .ic { width: 20px; text-align: center; color: var(--sec); font-size: 15px; }
+.acc-link .ct { margin-left: auto; font-size: 12px; font-weight: 800; color: var(--light); }
+.acc-link .ar { margin-left: 8px; color: #bbb; font-weight: 700; }
+@media (min-width: 960px) { .acc-link .ar { display: none; } }
+.acc-link[aria-current="page"] { background: var(--fill); }
+.acc-link[aria-current="page"] .ic { color: var(--strong); }
+.acc-link.logout { color: var(--sec); font-weight: 700; }
+.acc-h1 { font-size: 24px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.acc-sub { color: var(--sec); font-size: 14px; margin-top: 4px; }
+.acc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+@media (min-width: 640px) { .acc-grid { grid-template-columns: 1fr 1fr; } }
+.acard { border: 1px solid var(--hair); border-radius: 14px; padding: 16px; }
+.acard.span2 { grid-column: 1 / -1; }
+.acard .ah { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 11px; }
+.acard .ah h3 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); }
+.abonus .big { font-size: 34px; font-weight: 800; color: var(--strong); line-height: 1; }
+.abonus .u { font-size: 13px; color: var(--sec); margin-top: 4px; }
+.abonus .hint { font-size: 12.5px; color: var(--sec); margin-top: 12px; border: 1px dashed var(--hair2); border-radius: 8px; padding: 8px 10px; }
+.loy .lt { font-size: 16px; font-weight: 800; color: var(--strong); }
+.loy .lbar { height: 8px; background: var(--fill); border-radius: 6px; overflow: hidden; margin: 11px 0 7px; }
+.loy .lbar i { display: block; height: 100%; background: var(--dark); }
+.loy .ls { font-size: 12.5px; color: var(--sec); }
+.loy .ls b { color: var(--strong); }
+.emptybox { border: 1.5px dashed var(--hair2); border-radius: 12px; padding: 26px 18px; text-align: center; }
+.emptybox .ei { font-size: 26px; }
+.emptybox .et { font-size: 15px; font-weight: 800; color: var(--strong); margin: 9px 0 5px; }
+.emptybox .es { font-size: 13px; color: var(--sec); margin-bottom: 15px; }
+.emptybox .eact { display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.0 STATE = empty (just-registered buyer, no history).
+  No orders / no wishlist / no addresses / bonuses 0. NEVER a dead end:
+  every empty block has an exit to shop (Обрати ціль / До каталогу).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Кабінет</span>
+  </nav>
+
+  <div class="acc">
+
+    <!-- ============ SECTION NAV / MENU-HUB ============ -->
+    <aside class="acc-nav">
+      <div class="acc-prof">
+        <div class="av">ОН</div>
+        <div class="who">
+          <div class="nm">Олег Новак</div>
+          <div class="ph">+380 ** *** 88 21</div>
+          <span class="acc-tier">🥉 Бронзовий рівень</span>
+        </div>
+      </div>
+
+      <nav class="acc-links" aria-label="Розділи кабінету">
+        <a class="acc-link" href="account-empty.html" aria-current="page"><span class="ic">▦</span> Огляд <span class="ar">›</span></a>
+        <button class="acc-link" type="button"><span class="ic">📦</span> Замовлення <span class="ct" aria-label="0 замовлень">0</span><span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">★</span> Лояльність і бонуси <span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">📍</span> Адреси <span class="ct" aria-label="0 адрес">0</span><span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">👤</span> Профіль <span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">♡</span> Обране <span class="ct" aria-label="0 товарів">0</span><span class="ar">›</span></button>
+        <a class="acc-link" href="coach.html"><span class="ic">🎓</span> Стати тренером <span class="ar">›</span></a>
+        <a class="acc-link logout" href="home.html"><span class="ic">⎋</span> Вийти</a>
+      </nav>
+    </aside>
+
+    <!-- ============ CONTENT PANEL = ОГЛЯД (new account) ============ -->
+    <div class="acc-main">
+      <h1 class="acc-h1">Вітаємо у Stack, Олеже!</h1>
+      <p class="acc-sub">Акаунт створено. Зробіть перше замовлення — і тут з'явиться історія, бонуси та обране.</p>
+
+      <div class="acc-grid">
+
+        <!-- Bonuses = 0, how to earn -->
+        <div class="acard abonus">
+          <div class="ah"><h3>Бонусний рахунок</h3></div>
+          <div class="big">0 ₴</div>
+          <div class="u">бонусів на рахунку</div>
+          <div class="hint">Отримуйте <b>~1% бонусами</b> з кожного замовлення. Наприклад, 600 ₴ покупки → 6 ₴ бонусів на наступну.</div>
+        </div>
+
+        <!-- Loyalty: start at Bronze -->
+        <div class="acard loy">
+          <div class="ah"><h3>Рівень лояльності</h3><button class="lnk" type="button" style="font-size:12.5px;font-weight:700;color:var(--strong)">Як це працює →</button></div>
+          <div class="lt">🥉 Бронзовий — старт</div>
+          <div class="lbar"><i style="width:4%"></i></div>
+          <div class="ls">Купуйте на <b>10 000 ₴</b> сумарно — і отримаєте 🥈 Срібний рівень із більшою знижкою.</div>
+        </div>
+
+        <!-- Orders empty -->
+        <div class="acard span2">
+          <div class="ah"><h3>Замовлення</h3></div>
+          <div class="emptybox">
+            <div class="ei">📦</div>
+            <div class="et">Ще немає замовлень</div>
+            <div class="es">Оберіть ціль або перегляньте каталог — почніть із товарів для вашого завдання.</div>
+            <div class="eact">
+              <a class="btn dark" href="home.html">Обрати ціль</a>
+              <a class="btn" href="catalog-page.html">До каталогу</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Addresses empty -->
+        <div class="acard">
+          <div class="ah"><h3>Адреси доставки</h3></div>
+          <div class="emptybox" style="padding:20px 14px">
+            <div class="et" style="margin-top:0">Немає збережених адрес</div>
+            <div class="es">Додайте адресу — і оформлення замовлення буде швидшим.</div>
+            <div class="eact"><button class="btn" type="button">＋ Додати адресу</button></div>
+          </div>
+        </div>
+
+        <!-- Become a coach -->
+        <div class="acard" style="display:flex;flex-direction:column;justify-content:center">
+          <div class="ah"><h3>Ви тренер?</h3></div>
+          <p style="font-size:13.5px;color:var(--sec);margin-bottom:14px">Активуйте роль тренера: гуртові ціни та замовлення для кількох клієнтів в одну сесію.</p>
+          <a class="btn dark" href="coach.html" style="align-self:flex-start">Стати тренером</a>
+        </div>
+
+      </div>
+
+      <!-- Wishlist empty -->
+      <section aria-label="Обране">
+        <div class="sech"><h2>Обране</h2></div>
+        <div class="emptybox">
+          <div class="ei">♡</div>
+          <div class="et">Список обраного порожній</div>
+          <div class="es">Тисніть ♡ на товарах, які сподобались — і вони збережуться тут.</div>
+          <div class="eact"><a class="btn" href="listing.html">Перейти до товарів</a></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('account.html', 'empty');</script>
+</body>
+</html>

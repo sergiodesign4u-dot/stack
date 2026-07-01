@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Введіть код зі SMS — Stack (wireframe 1.1)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* AUTH DIALOG (node 1.x) — shared modal styles (see auth.html). */
+.auth-ov { position: fixed; inset: 0; background: rgba(18,18,18,.55); z-index: 60;
+  display: flex; align-items: stretch; justify-content: center; }
+.auth-modal { background: #fff; width: 100%; display: flex; overflow-y: auto; }
+@media (min-width: 720px) {
+  .auth-ov { align-items: center; padding: 24px; }
+  .auth-modal { max-width: 880px; min-height: 560px; max-height: 94vh; border-radius: 16px;
+    overflow: hidden; box-shadow: 0 14px 44px rgba(0,0,0,.28); }
+}
+.auth-visual { display: none; }
+@media (min-width: 720px) {
+  .auth-visual { display: flex; flex-direction: column; justify-content: space-between;
+    width: 42%; flex: none; padding: 26px; color: var(--sec); font-size: 12px;
+    background: repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#f2f2f2 10px,#f2f2f2 20px);
+    border-right: 1px solid var(--hair); }
+}
+.auth-visual .vlogo { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.02em; }
+.auth-visual .vmid { align-self: center; text-align: center; color: var(--light); }
+.auth-visual .vmid .vi { font-size: 34px; }
+.auth-visual .vtag { font-size: 12.5px; color: var(--sec); }
+.auth-visual .vtag b { color: var(--strong); display: block; font-size: 14px; margin-bottom: 3px; }
+.auth-form { flex: 1; min-width: 0; padding: 20px 20px 30px; display: flex; flex-direction: column; }
+@media (min-width: 720px) { .auth-form { padding: 34px 40px; } }
+.auth-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.auth-mlogo { font-size: 18px; font-weight: 800; color: var(--strong); }
+@media (min-width: 720px) { .auth-mlogo { display: none; } }
+.auth-x { font-size: 15px; color: var(--sec); border: 1px solid var(--hair); border-radius: 8px;
+  padding: 6px 11px; display: inline-flex; align-items: center; gap: 7px; font-weight: 600; }
+.auth-banner { display: flex; align-items: center; gap: 10px; background: var(--fill2);
+  border: 1px solid var(--hair); border-radius: 12px; padding: 12px 14px; margin: 8px 0 18px; }
+.auth-banner .bi { width: 40px; height: 40px; border-radius: 9px; background: var(--fill);
+  display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 18px; flex: none; }
+.auth-banner .bt { font-size: 12.5px; color: var(--sec); } .auth-banner .bt b { color: var(--strong); display: block; }
+@media (min-width: 720px) { .auth-banner { display: none; } }
+.auth-h1 { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.auth-sub { font-size: 13.5px; color: var(--sec); margin: 6px 0 20px; }
+.auth-sub b { color: var(--strong); }
+.fld { margin-bottom: 14px; }
+.fld > label { display: block; font-size: 12px; font-weight: 700; color: var(--sec); margin-bottom: 7px; }
+.auth-cta { display: block; width: 100%; text-align: center; background: var(--dark); color: #fff;
+  border-radius: 10px; padding: 15px; font-size: 15px; font-weight: 700; }
+.auth-foot { margin-top: auto; padding-top: 18px; font-size: 12px; color: var(--light); }
+.auth-foot a { color: var(--strong); text-decoration: underline; }
+.otp { display: flex; gap: 8px; margin: 4px 0 8px; }
+.otp .box { flex: 1; min-width: 0; height: 56px; border: 1.5px solid var(--hair2); border-radius: 10px;
+  text-align: center; font-size: 22px; font-weight: 800; color: var(--strong); }
+.otp .box:focus { outline: 2px solid var(--dark); outline-offset: -2px; }
+.otp .box.on { border-color: var(--dark); }
+.otp-note { font-size: 12.5px; color: var(--sec); margin: 6px 0 2px; }
+.resend { font-size: 12.5px; color: var(--light); margin-top: 14px; }
+.resend .cool { font-weight: 700; color: var(--sec); }
+.resend a { color: var(--strong); font-weight: 700; text-decoration: underline; }
+.linkrow { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; margin-top: 14px; }
+.linkrow a { color: var(--strong); font-weight: 700; text-decoration: underline; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 1.1 OTP — SMS code entry. 6 boxes, resend cooldown,
+  change-number, attempts note. Verified → new user (1.2) / returning → success.
+  No dead ends: back to phone step, error branch linked. noindex.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<header id="wf-header"></header>
+
+
+<div class="auth-ov">
+  <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authttl">
+
+    <aside class="auth-visual" aria-hidden="true">
+      <div class="vlogo">Stack</div>
+      <div class="vmid"><div class="vi">🏋️</div>спортивне харчування</div>
+      <div class="vtag"><b>Майже готово</b>Введіть код із SMS, щоб завершити вхід.</div>
+    </aside>
+
+    <div class="auth-form">
+      <div class="auth-top">
+        <span class="auth-mlogo">Stack</span>
+        <a class="auth-x" href="home.html" aria-label="Закрити">✕ Закрити</a>
+      </div>
+
+      <div class="auth-banner">
+        <div class="bi">💬</div>
+        <div class="bt"><b>Код надіслано</b>SMS на +380 67 123 45 67</div>
+      </div>
+
+      <h1 class="auth-h1" id="authttl">Введіть код</h1>
+      <p class="auth-sub">Ми надіслали SMS із кодом на номер <b>+380 67 123 45 67</b>.
+        <a href="auth.html" style="color:var(--strong);text-decoration:underline;font-weight:700">Змінити номер</a></p>
+
+      <form action="auth-newuser.html" method="get">
+        <div class="fld">
+          <label for="c1">Код підтвердження</label>
+          <div class="otp" role="group" aria-label="Код із шести цифр">
+            <input id="c1" class="box on" maxlength="1" inputmode="numeric" autocomplete="one-time-code" value="4" aria-label="Цифра 1">
+            <input class="box on" maxlength="1" inputmode="numeric" value="9" aria-label="Цифра 2">
+            <input class="box on" maxlength="1" inputmode="numeric" value="2" aria-label="Цифра 3">
+            <input class="box" maxlength="1" inputmode="numeric" value="" aria-label="Цифра 4">
+            <input class="box" maxlength="1" inputmode="numeric" value="" aria-label="Цифра 5">
+            <input class="box" maxlength="1" inputmode="numeric" value="" aria-label="Цифра 6">
+          </div>
+          <div class="otp-note">Код діє 5 хвилин. Введеться автоматично, якщо телефон його підставить.</div>
+        </div>
+
+        <a class="auth-cta" href="auth-newuser.html">Підтвердити</a>
+      </form>
+
+      <div class="resend">Не отримали код? <span class="cool">Надіслати ще (0:45)</span></div>
+
+      <div class="linkrow">
+        <a href="auth.html">← Змінити номер</a>
+        <a href="auth-error.html">Ввів неправильний код?</a>
+      </div>
+
+      <div class="auth-foot">
+        Якщо номер уже зареєстровано — ви одразу увійдете. Новий номер — попросимо ім'я.
+        <a href="home.html">Повернутися до магазину</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfBar('auth.html', 'code');</script>
+</body>
+</html>

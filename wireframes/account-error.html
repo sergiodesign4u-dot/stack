@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Кабінет покупця — помилка — Stack (wireframe 7.0 · помилка)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* Shell layout shared with account.html. Error = shell chrome intact, data failed. */
+.acc { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 16px; }
+@media (min-width: 960px) { .acc { grid-template-columns: 268px 1fr; gap: 28px; } }
+.acc-nav { align-self: start; }
+@media (min-width: 960px) { .acc-nav { position: sticky; top: 120px; } }
+.acc-prof { border: 1px solid var(--hair); border-radius: 14px; padding: 15px 16px; display: flex; gap: 13px; align-items: center; }
+.acc-prof .av { width: 48px; height: 48px; border-radius: 50%; background: var(--fill); border: 1px solid var(--hair); flex: none; display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 19px; }
+.acc-prof .nm { font-weight: 800; color: var(--strong); font-size: 15px; }
+.acc-prof .ph { font-size: 12px; color: var(--sec); margin-top: 2px; }
+.acc-links { margin-top: 12px; border: 1px solid var(--hair); border-radius: 14px; overflow: hidden; }
+.acc-link { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; padding: 13px 15px; border-bottom: 1px solid var(--hair); font-size: 14px; font-weight: 600; color: var(--strong); background: #fff; }
+.acc-link:last-child { border-bottom: none; }
+.acc-link .ic { width: 20px; text-align: center; color: var(--sec); font-size: 15px; }
+.acc-link .ar { margin-left: auto; color: #bbb; font-weight: 700; }
+@media (min-width: 960px) { .acc-link .ar { display: none; } }
+.acc-link[aria-current="page"] { background: var(--fill); }
+.acc-link.logout { color: var(--sec); font-weight: 700; }
+.errbox { border: 1.5px dashed var(--hair2); border-radius: 14px; padding: 48px 22px; text-align: center; margin-top: 22px; }
+.errbox .ei { font-size: 34px; }
+.errbox .et { font-size: 19px; font-weight: 800; color: var(--strong); margin: 14px 0 7px; }
+.errbox .es { font-size: 13.5px; color: var(--sec); margin-bottom: 20px; max-width: 420px; margin-left: auto; margin-right: auto; }
+.errbox .eact { display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.0 STATE = error. Snapshot failed to load.
+  NEVER a dead end: primary «Спробувати ще» → reload (account.html);
+  section nav still works; secondary exit «На головну».
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Кабінет</span>
+  </nav>
+
+  <div class="acc">
+
+    <!-- section nav still available -->
+    <aside class="acc-nav">
+      <div class="acc-prof">
+        <div class="av">АК</div>
+        <div class="who">
+          <div class="nm">Андрій Коваль</div>
+          <div class="ph">+380 ** *** 45 67</div>
+        </div>
+      </div>
+      <nav class="acc-links" aria-label="Розділи кабінету">
+        <a class="acc-link" href="account-error.html" aria-current="page"><span class="ic">▦</span> Огляд <span class="ar">›</span></a>
+        <button class="acc-link" type="button"><span class="ic">📦</span> Замовлення <span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">★</span> Лояльність і бонуси <span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">📍</span> Адреси <span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">👤</span> Профіль <span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">♡</span> Обране <span class="ar">›</span></button>
+        <a class="acc-link" href="coach.html"><span class="ic">🎓</span> Стати тренером <span class="ar">›</span></a>
+        <a class="acc-link logout" href="home.html"><span class="ic">⎋</span> Вийти</a>
+      </nav>
+    </aside>
+
+    <!-- error panel -->
+    <div class="acc-main">
+      <h1 class="acc-h1" style="font-size:24px;font-weight:800;color:var(--strong)">Огляд</h1>
+      <div class="errbox">
+        <div class="ei">⚠️</div>
+        <div class="et">Не вдалося завантажити кабінет</div>
+        <div class="es">Не змогли отримати ваші дані. Перевірте зʼєднання та спробуйте ще раз — ваші замовлення й бонуси нікуди не зникли.</div>
+        <div class="eact">
+          <a class="btn dark" href="account.html">Спробувати ще</a>
+          <a class="btn" href="home.html">На головну</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('account.html', 'error');</script>
+</body>
+</html>
