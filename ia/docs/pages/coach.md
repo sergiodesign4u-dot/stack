@@ -2,10 +2,10 @@
 
 - **Node:** 5.x — Coach workspace. One artifact covering the whole cluster: **5.0 For-Coaches landing**
   (public), **5.1 Become-a-coach** (verify + tier flow), **5.2 Coach home**, **5.3 Clients**, **5.4
-  Client profile**, **5.5 Multi-client order session** (the core), **5.6 Order history**, **5.7 Order
-  detail** (added 2026-07-02 to close the Step-9 wireframe IA gap). Like `product.md`/`account.md`,
-  the whole cluster is one spec.
-- **Type:** public landing (5.0) + private work shell (5.2–5.7) + flow (5.1).
+  Client profile** (+ **5.4a Edit client**), **5.5 Multi-client order session** (the core), **5.6 Order
+  history**, **5.7 Order detail** (5.4a/5.6/5.7 added 2026-07-02 to close the Step-9 wireframe IA gaps).
+  Like `product.md`/`account.md`, the whole cluster is one spec.
+- **Type:** public landing (5.0) + private work shell (5.2–5.7 + 5.4a) + flow (5.1).
 - **Canonical visual:** `ia/coach.html`. This markdown is the source of truth.
 - **Job:** **Job 1 — PRIMARY** (Decision 1). The deepest flow by design — it is a **work flow**, not
   to be flattened (coach = ~8 taps for a 2-client order).
@@ -34,6 +34,11 @@
    session. From a profile: **repeat a client's previous order** (Job 4 in a coach context) or start a
    session for that client. States: loading / empty / error for client history. Free tier caps clients
    at **2–3 [?]** → soft upsell to Pro.
+   **Edit client (5.4a):** from the profile «Редагувати клієнта» — a form (name · **goal** [drives future
+   selection] · optional phone/e-mail/notes the coach keeps) as a **modal over the profile**, plus a
+   **delete-client** action behind a **confirm dialog** (removes the client from the list; past orders
+   keep their record). States: base (edit) · confirm (delete). Added 2026-07-02 to close the last Step-9
+   IA gap. Private → noindex.
 5. **Мультиклієнтська сесія замовлення (5.5) — ★ the differentiator.** Client tabs on top (each with a
    per-client subtotal) + active-client panel (their goals → **in-session quick-add** → order lines
    with **coach-tier price** vs struck retail + qty + tag-to-client) + **session summary** (per-client
@@ -68,6 +73,7 @@
 - **Tier price not applied → session saved, checkout blocked** until confirmed.
 - Untagged line → assign client or discard (untagged never reaches the cart).
 - Client history: loading (skeleton) · empty · error → retry.
+- **Edit client (5.4a):** base (edit form) · confirm (delete-client dialog → remove from list, keep past orders).
 - **Order history (5.6):** base · empty (no orders yet) · loading · error → retry.
 - **Order detail (5.7):** base · loading · error → retry (no empty — an order always has lines).
 
