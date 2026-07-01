@@ -1,7 +1,7 @@
 # Page-level IA — Content, info & legal (node 8.x)
 
-- **Node:** 8.x — Content, info & legal. **13 nodes (8.0–8.12)** specced as **one template system**,
-  not 13 bespoke layouts (the same dedup approach as the category matrix).
+- **Node:** 8.x — Content, info & legal. **13 nodes (8.0–8.12)** specced as **one template system**
+  (7 templates), not 13 bespoke layouts (the same dedup approach as the category matrix).
 - **Type:** SEO-surface + service pages + one footer component.
 - **Canonical visual:** `ia/content.html`. This markdown is the source of truth.
 - **Serves:** **Principle 1 (trust first)** — guarantee, certificates, returns, FAQ are on show; and
@@ -17,7 +17,7 @@
 | 8.4 | Доставка й оплата | Info page (A) | index |
 | 8.5 | Обмін і повернення | Info page (A) | index |
 | 8.6 | Legal (privacy · terms · **public offer**) | Info page (A), legal variant | index, low-prio |
-| 8.7 | Система знижок | Info page (A) + **table** | index |
+| 8.7 | **Бонусна програма та знижки** | **Explainer landing** (2 mechanisms + example) | index |
 | 8.8 | Гарантія та сертифікати | Info page (A) + **certificate gallery** | index (trust) |
 | 8.9 | FAQ | **FAQ accordion** | index + FAQPage |
 | 8.0 | Каталог блога | **Blog listing** | index |
@@ -30,21 +30,28 @@ Common to all: inherited header/footer · breadcrumb · H1 · full A–E SEO blo
 
 ## Templates
 
-1. **Info page (A) — covers 8.2–8.8.** Breadcrumb → H1 + updated-date → **TOC** (long pages) +
+1. **Info page (A) — covers 8.2–8.6, 8.8.** Breadcrumb → H1 + updated-date → **TOC** (long pages) +
    **prose body** (H3 sections, lists, info cards) → related links. Variants: **contacts block** (8.3
-   — phone/hours/email/messengers/map, single source of truth with the footer), **table** (8.7 discounts),
-   **certificate gallery** (8.8, viewable docs like PDP 3.0), **legal** (8.6 — prose + date, no TOC).
-2. **FAQ (8.9)** — grouped **accordion** Q&A; **global shop FAQ**, separate from product Q&A (3.2);
+   — phone/hours/email/messengers/map, single source of truth with the footer), **certificate gallery**
+   (8.8, viewable docs like PDP 3.0), **legal** (8.6 — prose + date, no TOC).
+2. **Loyalty explainer landing (8.7 «Бонусна програма та знижки»)** — a public/indexable **landing**
+   (like the coach 5.0 landing, but for buyers), so the program feels **clear and rewarding** («о, у мене
+   ще й бонуси»). **Two independent mechanisms:** ① **personal discount — 3 tiers** on lifetime spend
+   (grows, doesn't expire, auto in cart); ② **bonus account — ~1%** accrual (600 ₴ → 6 ₴ [?]) with a
+   **3-month expiry**, shown via a movement example (accrual + spend + **burn**) — a retention driver.
+   Hero + 2 mechanism cards + example table + FAQ + CTA. The account (7.4) shows the buyer's **personal**
+   status of both; the coach tier is separate (5.x). Numbers **[?]**. Organization + BreadcrumbList (no Product).
+3. **FAQ (8.9)** — grouped **accordion** Q&A; **global shop FAQ**, separate from product Q&A (3.2);
    **FAQPage schema** for rich results.
-3. **Blog listing (8.0)** — tags/categories · search · pagination; SEO surface for top-of-funnel
+4. **Blog listing (8.0)** — tags/categories · search · pagination; SEO surface for top-of-funnel
    informational queries. **Article (8.1)** — H1 · SEO body (simple answer first) · **Article schema** ·
    breadcrumb · **related products** (canonical cards → 3.0, internal linking) · related articles.
-4. **Promo listing (8.10)** — active promos; entry = meta-bar «Акції»; **calm, no timers** (Principle 4
+5. **Promo listing (8.10)** — active promos; entry = meta-bar «Акції»; **calm, no timers** (Principle 4
    — «до …» date, not a countdown); each promo → a collection/listing (2.x) or a product.
-5. **Reviews (8.11)** — reviews about the **shop** (service/delivery), separate from product reviews
+6. **Reviews (8.11)** — reviews about the **shop** (service/delivery), separate from product reviews
    (3.1); same review card; «Залишити відгук» dialog (like 3.1a) + «Оцінити в Google»;
    **AggregateRating on Organization**.
-6. **Newsletter (8.12)** — a **footer component**, not a page: email field + welcome discount [?] +
+7. **Newsletter (8.12)** — a **footer component**, not a page: email field + welcome discount [?] +
    states (empty → loading → success/double-opt-in + promo code / error / unsubscribe). A small
    «subscription confirmed» state page after the email click. **noindex.**
 

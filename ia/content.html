@@ -236,7 +236,7 @@
     <p class="hero-lead"><b>SEO-поверхня + службові сторінки</b> (13 вузлів 8.0–8.12). Головна ідея — <b>не 13 окремих специфікацій, а мала система шаблонів</b>: більшість інфо/legal-сторінок ділять один <b>шаблон «Інфо-сторінка»</b>, решта — кілька окремих (FAQ · Блог · Акції · Відгуки про магазин · Підписка). Служать «Принципу №1» (спершу довіра: гарантія, сертифікати, повернення, FAQ) і внутрішній перелінковці з футера.</p>
     <div class="hero-meta">
       <div><strong>Вузли</strong> 8.0–8.12 (13)</div>
-      <div><strong>Шаблони</strong> Інфо · FAQ · Блог · Промо · Відгуки · Підписка</div>
+      <div><strong>Шаблони</strong> Інфо · Лендинг (бонуси) · FAQ · Блог · Промо · Відгуки · Підписка</div>
       <div><strong>Вхід</strong> футер · мета-рядок (Акції) · товар (сертифікати)</div>
       <div><strong>SEO</strong> контентні індексуються · підписка — компонент</div>
     </div>
@@ -245,8 +245,8 @@
   <!-- 00 template map -->
   <section class="section" id="map">
     <div class="section-num">00 · Мапа шаблонів (дедуплікація)</div>
-    <h2>13 вузлів → 6 шаблонів</h2>
-    <p class="section-lead">Замість 13 макетів — <b>6 шаблонів</b>. Це той самий підхід, що й «Матриця категорій»: описуємо шаблон один раз, а сторінки = дані в ньому.</p>
+    <h2>13 вузлів → 7 шаблонів</h2>
+    <p class="section-lead">Замість 13 макетів — <b>7 шаблонів</b> (6 контентних + окремий пояснювальний <b>лендинг бонусів</b>). Це той самий підхід, що й «Матриця категорій»: описуємо шаблон один раз, а сторінки = дані в ньому.</p>
     <table>
       <tr><th>Вузол</th><th>Сторінка</th><th>Шаблон</th><th>Індексація</th></tr>
       <tr><td>8.2</td><td>Про нас</td><td><b>Інфо-сторінка (A)</b></td><td>index</td></tr>
@@ -254,7 +254,7 @@
       <tr><td>8.4</td><td>Доставка й оплата</td><td>Інфо-сторінка (A)</td><td>index</td></tr>
       <tr><td>8.5</td><td>Обмін і повернення</td><td>Інфо-сторінка (A)</td><td>index</td></tr>
       <tr><td>8.6</td><td>Legal (політика · умови · <b>оферта</b>)</td><td>Інфо-сторінка (A), legal-варіант</td><td>index, low-prio</td></tr>
-      <tr><td>8.7</td><td>Система знижок</td><td>Інфо-сторінка (A) + <b>таблиця</b></td><td>index</td></tr>
+      <tr><td>8.7</td><td><b>Бонусна програма та знижки</b></td><td><b>Пояснювальний лендинг</b> (2 механіки + приклад)</td><td>index</td></tr>
       <tr><td>8.8</td><td>Гарантія та сертифікати</td><td>Інфо-сторінка (A) + <b>галерея сертифікатів</b></td><td>index (довіра)</td></tr>
       <tr><td>8.9</td><td>FAQ</td><td><b>FAQ-акордеон</b></td><td>index + FAQPage schema</td></tr>
       <tr><td>8.0</td><td>Каталог блога</td><td><b>Блог-лістинг</b></td><td>index</td></tr>
@@ -340,9 +340,9 @@
     </div>
   </section>
 
-  <!-- 03 guarantee + discounts -->
+  <!-- 03 guarantee -->
   <section class="section" id="trust-disc">
-    <div class="section-num">03 · Гарантія та сертифікати (8.8) і Система знижок (8.7)</div>
+    <div class="section-num">03 · Гарантія та сертифікати (8.8)</div>
     <h2>Сигнали довіри (Принцип №1)</h2>
     <div class="wf"><div class="wf-cap">Гарантія та сертифікати (8.8)</div><div class="wf-pad">
       <div class="trustrow">
@@ -360,15 +360,66 @@
       </div>
       <p style="font-size:10.5px;color:#999;margin-top:9px">Клік → перегляд документа (як сертифікат на товарі 3.0). Ця сторінка лінкується зі смуги довіри футера й з блоку «Сертифікація» на картці товару. Реальні файли — операційно <b>[?]</b>.</p>
     </div></div>
-    <div class="wf"><div class="wf-cap">Система знижок (8.7)</div><div class="wf-pad">
-      <table style="margin-bottom:0">
-        <tr><th>Кому</th><th>Механіка</th><th>Значення</th></tr>
-        <tr><td><b>Покупець</b></td><td>Накопичувальна лояльність (сума покупок → рівень/знижка) + бонуси</td><td>% і пороги <b>[?]</b></td></tr>
-        <tr><td><b>Тренер</b></td><td>Опублікований оптовий тариф (Free / Pro)</td><td>тариф <b>[?]</b></td></tr>
-        <tr><td><b>Підписка</b></td><td>Вітальна знижка за підписку на розсилку</td><td>розмір <b>[?]</b></td></tr>
+  </section>
+
+  <!-- 03b loyalty landing -->
+  <section class="section" id="loyalty">
+    <div class="section-num">03б · Бонусна програма та знижки (8.7) — окремий пояснювальний лендинг</div>
+    <h2>Дві механіки: персональна знижка + бонусний рахунок</h2>
+    <p class="section-lead"><b>Окрема сторінка-лендинг</b> (як «Для тренерів» 5.0, але для покупця) — розповідає програму так, щоб було <b>зрозуміло й приємно</b>: «о, у мене ще й бонуси». Публічна, індексується («бонусна програма», «знижки»). Пояснює те, що застосовується в кошику (6.x) і живе в акаунті (7.4).</p>
+    <div class="wf"><div class="wf-cap">Бонусна програма — десктоп (8.7)</div><div class="wf-pad">
+      <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1)</div>
+      <div style="text-align:center;padding:12px 10px 16px">
+        <div style="font-size:22px;font-weight:800;color:#111;letter-spacing:-.01em">Bonus &amp; знижки Stack</div>
+        <div style="font-size:13px;color:#666;max-width:560px;margin:8px auto 0">Чим більше берете — тим більша <b>особиста знижка</b>. А за кожну покупку повертаємо <b>бонусні гривні</b> на наступні замовлення.</div>
+        <div style="margin-top:12px"><span style="background:#161616;color:#fff;border-radius:9px;padding:10px 20px;font-size:13px;font-weight:800">Зареєструватися й почати</span></div>
+      </div>
+
+      <div class="cols two" style="margin-bottom:4px">
+        <!-- mechanism 1 -->
+        <div>
+          <div style="border:1px solid #e2e2e2;border-radius:12px;padding:14px;height:100%">
+            <div style="font-size:15px;font-weight:800;color:#111">① Персональна знижка · 3 рівні</div>
+            <div style="font-size:12px;color:#666;margin:3px 0 11px">Рахуємо <b>пожиттєву суму покупок</b>. Росте сума — росте рівень — <b>більша знижка на все</b>. Не згорає.</div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <div style="display:flex;justify-content:space-between;font-size:12px;border:1px solid #e6e6e6;border-radius:9px;padding:9px 11px"><span>🥉 <b>Бронзовий</b><br><span style="font-size:10.5px;color:#999">від 0 ₴</span></span><span style="font-weight:800;align-self:center">[?] %</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;border:1px solid #e6e6e6;border-radius:9px;padding:9px 11px"><span>🥈 <b>Срібний</b><br><span style="font-size:10.5px;color:#999">від [?] ₴</span></span><span style="font-weight:800;align-self:center">[?] %</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;border:1.5px solid #161616;border-radius:9px;padding:9px 11px;background:#fbfbfa"><span>🥇 <b>Золотий</b><br><span style="font-size:10.5px;color:#999">від [?] ₴</span></span><span style="font-weight:800;align-self:center">[?] %</span></div>
+            </div>
+            <div style="font-size:10.5px;color:#999;margin-top:9px">Знижка застосовується автоматично в кошику. Пороги й % — <b>[?]</b>.</div>
+          </div>
+        </div>
+        <!-- mechanism 2 -->
+        <div>
+          <div style="border:1px solid #e2e2e2;border-radius:12px;padding:14px;height:100%">
+            <div style="font-size:15px;font-weight:800;color:#111">② Бонусний рахунок · ~1%, 3 місяці</div>
+            <div style="font-size:12px;color:#666;margin:3px 0 11px">За покупки нараховуємо <b>бонусні гривні</b>: 600 ₴ покупок → <b>6 ₴ бонусів</b> [?]. Витрачаєте на наступні замовлення.</div>
+            <div class="infocard" style="margin:0 0 7px"><span class="ic">💸</span><div><b>Нарахування ~1%</b> від суми покупки [?].</div></div>
+            <div class="infocard" style="margin:0 0 7px"><span class="ic">⏳</span><div><b>Термін дії 3 місяці</b> — щоб було привід повернутись і витратити.</div></div>
+            <div class="infocard" style="margin:0"><span class="ic">🛒</span><div>Списуються в кошику як частина оплати.</div></div>
+            <div style="font-size:10.5px;color:#999;margin-top:9px">Ціль — <b>ретеншн</b>: користувач повертається за бонусами. % і строк — <b>[?]</b>.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faqgroup">Приклад руху бонусів (нарахування + згорання)</div>
+      <table style="margin-bottom:8px">
+        <tr><th>Подія</th><th>Дата</th><th>Бонуси</th><th>Строк</th></tr>
+        <tr><td>Вітальний бонус за реєстрацію</td><td>1 черв</td><td><b style="color:#2d7d46">+50 ₴</b></td><td>до 1 вер</td></tr>
+        <tr><td>Замовлення #1043 (900 ₴) · нараховано</td><td>12 черв</td><td><b style="color:#2d7d46">+9 ₴</b></td><td>до 12 вер</td></tr>
+        <tr><td>Замовлення #1050 · <b>списано</b></td><td>20 черв</td><td><b style="color:#b04a4a">−180 ₴</b></td><td>—</td></tr>
+        <tr><td>Згоріло за строком (3 міс)</td><td>1 вер</td><td><b style="color:#999">−12 ₴</b></td><td>—</td></tr>
       </table>
-      <p style="font-size:10.5px;color:#999;margin-top:9px">Пояснює те, що застосовується в кошику (6.x) і акаунті (7.4) / кабінеті тренера (5.x). Числа — з Рішення 3, поки <b>[?]</b>.</p>
+
+      <div class="faqgroup">Часті питання</div>
+      <div class="faq">
+        <div class="faqi"><div class="faqq">Чи згорає персональна знижка? <span class="ch">▾</span></div><div class="faqa">Ні. Знижка рівня — це пожиттєва сума покупок, вона не згорає. Згорають лише <b>бонуси</b> (строк 3 місяці).</div></div>
+        <div class="faqi"><div class="faqq">Скільки бонусів я отримаю? <span class="ch">›</span></div></div>
+        <div class="faqi"><div class="faqq">Чи діють бонуси разом зі знижкою? <span class="ch">›</span></div></div>
+      </div>
+      <div class="wf-zone foot"><span class="zt">Футер</span> Наслідується — Футер (0.2)</div>
     </div></div>
+    <p class="note"><b>Дві незалежні механіки:</b> знижка = <b>пожиттєва сума</b> (3 рівні, не згорає) · бонуси = <b>рахунок зі строком 3 міс</b> (~1%, драйвер ретеншну). Лендинг публічний/індексується; акаунт (7.4) показує <b>особистий</b> статус обох. Тариф тренера — окремо (5.x). Усі числа — гіпотези <b>[?]</b> (Рішення 3 / юніт-економіка). Схема: Organization + BreadcrumbList (не Product).</p>
   </section>
 
   <!-- 04 blog -->
@@ -479,7 +530,8 @@
     <h2>Повне покриття 8.0–8.12</h2>
     <table>
       <tr><th>Шаблон</th><th>Вузли</th><th>Особливе</th></tr>
-      <tr><td><b>Інфо-сторінка (A)</b></td><td>8.2 · 8.3 · 8.4 · 8.5 · 8.6 · 8.7 · 8.8</td><td>крихти · H1 · TOC (довгі) · проза · дата; варіанти: контакти (8.3) · таблиця (8.7) · сертифікати (8.8) · legal (8.6)</td></tr>
+      <tr><td><b>Інфо-сторінка (A)</b></td><td>8.2 · 8.3 · 8.4 · 8.5 · 8.6 · 8.8</td><td>крихти · H1 · TOC (довгі) · проза · дата; варіанти: контакти (8.3) · сертифікати (8.8) · legal (8.6)</td></tr>
+      <tr><td><b>Пояснювальний лендинг</b></td><td>8.7 (бонусна програма)</td><td>2 механіки (знижка 3 рівні · бонуси ~1%/3 міс) + приклад руху + FAQ + CTA; як лендинг тренера 5.0</td></tr>
       <tr><td><b>FAQ</b></td><td>8.9</td><td>групи + акордеон + FAQPage</td></tr>
       <tr><td><b>Блог-лістинг</b></td><td>8.0</td><td>теги · пошук · пагінація</td></tr>
       <tr><td><b>Стаття</b></td><td>8.1</td><td>Article schema · пов'язані товари · схожі</td></tr>
@@ -496,8 +548,8 @@
       <div>
         <h2 style="font-size:18px;margin-bottom:10px">Зафіксовано</h2>
         <ul style="margin-left:18px">
-          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Мала система шаблонів</b> (6) замість 13 макетів; сторінки = дані в шаблоні (як матриця категорій).</li>
-          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Інфо-сторінка (A)</b> покриває 8.2–8.8 з варіантами (контакти · таблиця · сертифікати · legal).</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Мала система шаблонів</b> (7) замість 13 макетів; сторінки = дані в шаблоні (як матриця категорій).</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Інфо-сторінка (A)</b> покриває 8.2–8.6/8.8; <b>8.7 «Бонусна програма»</b> — окремий <b>пояснювальний лендинг</b> (2 механіки: знижка 3 рівні + бонуси ~1%/3 міс), як лендинг тренера 5.0.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Довіра — сервіс Принципу №1:</b> гарантія/сертифікати/повернення/FAQ на видноті; лінк зі смуги довіри й картки товару.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>FAQ магазину</b> окремо від Q&A товару (3.2); <b>відгуки магазину</b> окремо від відгуків товару (3.1).</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Акції — спокійно, без таймерів</b> (Принцип №4); дата «до…», а не відлік.</li>
@@ -521,7 +573,7 @@
   </section>
 
   <div class="footer-text">
-    Stack — Посторінкова IA · Контент, інфо й legal (вузол 8.x): 13 вузлів 8.0–8.12 → 6 шаблонів (Інфо-сторінка A · FAQ · Блог · Промо · Відгуки · Підписка). Служить довірі (Принцип №1) і внутрішній перелінковці. Джерело істини: ia/docs/pages/content.md. SEO: seo.html. Карта сайту: sitemap.html. Липень 2026, чернетка.
+    Stack — Посторінкова IA · Контент, інфо й legal (вузол 8.x): 13 вузлів 8.0–8.12 → 7 шаблонів (Інфо-сторінка A · Лендинг бонусів 8.7 · FAQ · Блог · Промо · Відгуки · Підписка). Служить довірі (Принцип №1) і внутрішній перелінковці. Джерело істини: ia/docs/pages/content.md. SEO: seo.html. Карта сайту: sitemap.html. Липень 2026, чернетка.
   </div>
 
 </div>

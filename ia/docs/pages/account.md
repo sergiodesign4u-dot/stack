@@ -33,10 +33,17 @@
    Repeat adds available items to the cart and **honestly flags** anything out of stock (leads to an
    alternative — never a silent failure or dead end). States: Оформлено / В дорозі (ТТН) / Доставлено
    / Скасовано; many → pagination; empty → «Ще немає замовлень» + «До каталогу».
-3. **Лояльність і бонуси (7.4)** — **personal cumulative loyalty** (Decision 3), separate from the
-   coach's published tier: **level / discount %**, **progress to the next threshold**, and **bonus
-   balance + ledger** (the header «Бонуси» element links here). **Job 6.** Guest sees «бонуси /
-   Отримати» in the header → registration. All thresholds, %, accrual mechanics are **[?]**.
+3. **Лояльність і бонуси (7.4)** — **two independent mechanisms** (Decision 3), separate from the
+   coach's published tier. **Job 6.**
+   - **(1) Personal discount — 3 tiers on lifetime spend.** Cumulative **lifetime** purchase sum →
+     tier (🥉 Bronze / 🥈 Silver / 🥇 Gold) → bigger **auto discount** applied in the cart. Lifetime sum
+     **does not expire**. Show current tier, progress to the next, and the 3-tier ladder. Thresholds & %
+     are **[?]**.
+   - **(2) Bonus account — ~1% accrual, 3-month expiry.** Earn **bonus hryvnia** (~1%: 600 ₴ → 6 ₴ [?])
+     on purchases; **bonuses expire after 3 months**, so the **ledger shows accrual AND expiry/burn rows**
+     (+ a «X ₴ згорять DD.MM» warning). Spend in the cart. Goal = **retention** (come back to spend).
+   - The header «Бонуси» element links here; guest sees «бонуси / Отримати» → registration. The full
+     explainer is the public **Бонусна програма landing (8.7)** in `content.md`. Numbers are **[?]**.
 4. **Адреси (7.5)** — list + add/edit + one **default**. Address types mirror the delivery options
    (Nova Poshta відділення/поштомат · courier · Odesa pickup). Speeds up checkout (6.x).
 5. **Профіль (7.1)** — **passwordless** (consistent with auth 1.x): name · **phone (primary,

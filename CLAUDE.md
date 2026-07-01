@@ -186,10 +186,17 @@ Sourcing agreements with Ukrainian distributors and brands, structured data form
 **4 product decisions locked:**
 1. Coach ordering (MVP): saved client list + per-client order tagging + order history per client
 2. Goal guidance (MVP): 4-6 goal tiles; guided quiz post-launch
-3. Pricing structure: separate published coach tier + cumulative individual loyalty (specific numbers [?])
+3. Pricing structure: separate published coach tier + individual buyer loyalty (specific numbers [?]).
+   **Buyer loyalty = TWO independent mechanisms (locked July 2026):** (a) **personal discount, 3 tiers
+   on lifetime spend** — cumulative lifetime purchase sum → tier (🥉/🥈/🥇) → bigger auto discount in the
+   cart; lifetime sum does not expire; (b) **bonus account** — ~1% accrual (600 ₴ → 6 ₴, hypothesis) in
+   bonus hryvnia, **bonuses expire after 3 months** (ledger shows accrual **and** burn) — a retention
+   driver. Both live in the account (7.4); explained on the public **Бонусна програма landing (8.7)**.
+   Coach tier is separate. All numbers [?].
 4. Reorder (MVP): one-tap repeat from order history; My Staples post-launch
 
-**All numbers that require real data remain [?]**: coach tier %, loyalty thresholds, consumption cycles, AOV.
+**All numbers that require real data remain [?]**: coach tier %, loyalty tier thresholds + discount %,
+bonus accrual rate + expiry, consumption cycles, AOV.
 
 **Strategy v5 update (founder coach interviews, June 2026, field research):** price and reseller margin are a PRIMARY switching driver and a gate, not only competitive hygiene. A workable wholesale price is the precondition for a coach to consider Stack at all; among price-acceptable suppliers, the ordering experience (multi-client flow, transparent pricing, reliable delivery, goal-based selection) is the differentiator that wins and retains. Stack must be both competitive on price (pass the gate) and better on experience (win beyond it). Whether Stack can meet a coach-acceptable price at launch volume remains [?]. This supersedes the earlier "experience is the reason to switch, price is hygiene" framing.
 
@@ -374,7 +381,8 @@ content panel; mobile = a **menu-hub** screen (tab «Акаунт»). The sectio
 «Кабінет» dropdown. Covers 7.0 **Огляд** (dashboard snapshot: bonuses · last order with **«↻
 Повторити»** · wishlist · addresses + loyalty progress + become-a-coach banner) · 7.2/7.3 **Замовлення**
 (list → detail with **one-tap repeat → cart 6.0**, honest OOS handling — **Job 4**) · 7.4 **Лояльність
-і бонуси** (personal cumulative loyalty, Decision 3; bonus balance+ledger; **Job 6**; numbers [?]) ·
+і бонуси** (Decision 3 — **two mechanisms**: 3-tier lifetime-spend discount + ~1%/3-month-expiry bonus
+account with accrual+burn ledger; **Job 6**; full explainer = 8.7 landing; numbers [?]) ·
 7.5 **Адреси** (НП/courier/pickup, default) · 7.1 **Профіль** (**passwordless** — phone/e-mail by code,
 **no password**, per auth 1.x; the old sitemap «Пароль» removed) · 7.6 **Обране** (canonical card,
 buyer+coach) · 7.7 **Стати тренером / Я тренер** (same entry as landing 5.0 → verification 5.1; coach
@@ -410,9 +418,12 @@ page-level gaps (all clusters 0–7 now have page-level IA); next phase = Wirefr
 
 **Content, info & legal (`content.md`/`content.html`, node 8.x, done July 2026):** the 13 nodes
 (8.0–8.12) specced as **one small template system, not 13 layouts** (same dedup approach as the category
-matrix), with a **node→template map**. **6 templates:** **Info page (A)** — covers **8.2–8.8** (About ·
-Contacts+contacts-block · Delivery&payment · Returns · Legal/**public offer** · Discounts+table ·
-Guarantee+**certificate gallery**): breadcrumb → H1+date → TOC(long) → prose → related · **FAQ** (8.9,
+matrix), with a **node→template map**. **7 templates:** **Info page (A)** — covers **8.2–8.6, 8.8** (About ·
+Contacts+contacts-block · Delivery&payment · Returns · Legal/**public offer** · Guarantee+**certificate
+gallery**): breadcrumb → H1+date → TOC(long) → prose → related · **Loyalty explainer landing** (8.7
+«Бонусна програма та знижки» — public/indexable, like the coach 5.0 landing: **2 mechanisms** — personal
+discount 3 tiers on lifetime spend + bonus account ~1%/3-month-expiry — + movement example + FAQ + CTA) ·
+**FAQ** (8.9,
 accordion + FAQPage, separate from product Q&A 3.2) · **Blog** (8.0 listing + 8.1 article, Article schema,
 related products → 3.0) · **Promo** (8.10, **calm, no timers** — Principle 4) · **Reviews** (8.11, shop
 reviews, separate from product reviews 3.1, AggregateRating on Organization + Google) · **Newsletter**
