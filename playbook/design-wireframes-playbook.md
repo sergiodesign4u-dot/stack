@@ -319,7 +319,30 @@ rolls out the rest via subagents; step 9 reviews and finalizes.
   built and lit in `_nav.js`/`index.html`. Known minor mismatches deferred to Step 7: cart basket differs
   across cart/checkout/order-placed (illustrative data); `wfCatalogRail()` type group is protein-specific
   on the goal collection.
-- **Next** — **[7] wire Флоу 1** (small pass, `flows.md` Job 2/3: both decision branches · state
-  transitions · sync the cart basket · no dead ends · links only to existing files). Then **[8] roll out
-  the WHOLE product** via subagents (coach 5.x · reorder Job 4 · loyalty Job 6 · content 8.x · system ·
-  listing instances catalog-hub 2.0/brands 2.4/search 2.5), then **[9] critique**.
+- **2026-07-01** — **Step 9 (critique) done for Флоу 1** + a promo-banner rework. Ran the critique as a
+  **5-way parallel read-only audit** (home+listing · goal+product · cart+checkout · auth+order-placed ·
+  account+coverage), each auditor given the allowed greyscale palette + the six-defect taxonomy + the
+  reference docs, returning a defect table. Synthesised one prioritised table, showed it to the user
+  **before touching anything** (the method's "table first" checkpoint), then fixed dead-ends/missing-states
+  first. Fixes (full log → `wireframes/_critique.md`): **H1** the known cart-desync — locked ONE canonical
+  basket across cart/checkout/declined/order-placed with **two honest money variants** (guest 3 999 ₴ vs
+  logged-in 3 802 ₴), which also resolved a guest page that wrongly showed loyalty/bonus lines; **H2/H3**
+  added the matrix-required states that were missing — `checkout-loggedin`, `checkout-noaddr`,
+  `auth-loading` (registered in `_nav.js`); **H4** wired the payment happy path forward; **M1** newuser →
+  account; **M2** account `noindex,nofollow`; **M3** softened (not removed) the modal shadow to the
+  drawer's accepted low-alpha; **L1/L2/L5** button-ise fake `#`, drop motion, fix the flow-start link.
+  Promo banner reworked to **IG-stories** (one visible portrait + segmented progress + prev/next). Also
+  fixed a **cross-cutting sidebar bug**: «Флоу 2» was a `<span>` while `.sidebar-sub` sizing was scoped to
+  `a`, so it rendered at body 16px — broadened the selector across all 23 research/ia pages. Lessons:
+  (1) **audit fan-out wants the accepted-palette list up front** or auditors false-positive the project's
+  own placeholder textures (the 45°-hatch is a *placeholder*, not a leak — one auditor flagged it, another
+  correctly didn't; the critique keeps it); (2) a "colour/leak" finding is a **judgement call** — resolve
+  it against what the rest of the prototype already accepts (low-alpha shadows, hatch placeholders), don't
+  blanket-remove; (3) **canonical illustrative data** (one basket, stated once) prevents desync when many
+  agents author sibling screens — record it in the critique so Step 8 reuses it.
+- **Milestone — Флоу 1 COMPLETE + CRITIQUED (2026-07-01):** 38 html files; one canonical basket; no
+  dead ends; every matrix-required state built and lit in `_nav.js`/`index.html`.
+- **Next** — **[8] roll out the WHOLE product** via subagents (coach 5.x · reorder Job 4 · loyalty Job 6 ·
+  content 8.x · system · listing instances catalog-hub 2.0/brands 2.4/search 2.5). Reuse the canonical
+  basket + the guest/logged-in money split from `_critique.md`. Forward-refs (brands/catalog-page/coach/
+  content/quiz/search `.html`) already linked; they resolve as those screens are built.

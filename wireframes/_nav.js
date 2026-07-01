@@ -10,7 +10,7 @@ const WF_STATE_LABEL = {
   base: 'Базовий', empty: 'Порожньо', loading: 'Завантаження', error: 'Помилка',
   filtered: 'З фільтрами', list: 'Списком', oos: 'Немає в наявності', reviews: 'Відгуки (Job 3)',
   buyer: 'Покупець', coach: 'Тренер',
-  guest: 'Гість', declined: 'Оплата відхилена', noaddr: 'Без адреси',
+  guest: 'Гість', declined: 'Оплата відхилена', noaddr: 'Без адреси', loggedin: 'У кабінеті',
   code: 'Крок коду', newuser: 'Новий користувач', 'account-end': 'З акаунтом'
 };
 
@@ -24,8 +24,8 @@ const WF_FLOWS = [
       { file: 'goal.html',         name: 'Ціль-колекція',        node: '2.2', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'product.html',      name: 'Картка товару',        node: '3.0', built: true,  states: ['loading','error','oos','reviews'], builtStates: ['loading','error','oos','reviews'] },
       { file: 'cart.html',         name: 'Кошик',                node: '6.0', built: true,  states: ['empty','oos'], builtStates: ['empty','oos'] },
-      { file: 'checkout.html',     name: 'Оформлення',           node: '6.1', built: true,  states: ['loading','declined'], builtStates: ['loading','declined'] },
-      { file: 'auth.html',         name: 'Авторизація',          node: '1.x', built: true,  states: ['code','newuser','error'], builtStates: ['code','newuser','error'] },
+      { file: 'checkout.html',     name: 'Оформлення',           node: '6.1', built: true,  states: ['loggedin','noaddr','loading','declined'], builtStates: ['loggedin','noaddr','loading','declined'] },
+      { file: 'auth.html',         name: 'Авторизація',          node: '1.x', built: true,  states: ['code','loading','newuser','error'], builtStates: ['code','loading','newuser','error'] },
       { file: 'order-placed.html', name: 'Замовлення оформлено', node: '6.2', built: true,  states: ['account-end'], builtStates: ['account-end'] },
       { file: 'account.html',      name: 'Кабінет покупця',      node: '7.0', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] }
     ]

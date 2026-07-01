@@ -486,7 +486,7 @@ cluster. Output is the "wireframe library" that Phase 2 renders.
 | Phase | Focus | Status |
 |-------|-------|--------|
 | Phase 1 | Research (this phase) | Done |
-| Phase 2 | Wireframes | Detailed IA complete (page-level in `ia/`, global in `research/`). **Wireframes IN PROGRESS** (`wireframes/` — greyscale clickable prototype): **Флоу 1 (beginner) COMPLETE** — 35 html, all screens + states. Next: wire Флоу 1, then fan out the rest via subagents. Method: `playbook/design-wireframes-playbook.md`; contract `wireframes/_conventions.md`; coverage source of truth `wireframes/_nav.js`. |
+| Phase 2 | Wireframes | Detailed IA complete (page-level in `ia/`, global in `research/`). **Wireframes IN PROGRESS** (`wireframes/` — greyscale clickable prototype): **Флоу 1 (beginner) COMPLETE + CRITIQUED (Step 9)** — 38 html, all screens + states. Step 9 fixed a cart-desync across cart/checkout/order-placed (one canonical basket; guest 3 999 ₴ vs logged-in 3 802 ₴), added the missing matrix states **checkout-loggedin · checkout-noaddr · auth-loading**, wired checkout-loading→order-placed, and closed route/robots/polish defects (log: `wireframes/_critique.md`). Home promo banner reworked to **IG-stories format** (one visible portrait, 3 swiped). Next: Step 8 — fan out the rest (coach/reorder/loyalty/content/system) via subagents. Method: `playbook/design-wireframes-playbook.md`; contract `wireframes/_conventions.md`; coverage source of truth `wireframes/_nav.js`; critique `wireframes/_critique.md`. |
 | Phase 3 | Concept & Visual Direction | Not started |
 | Phase 4 | Design System & Tokens | Not started |
 | Phase 5 | Component Library | Not started |

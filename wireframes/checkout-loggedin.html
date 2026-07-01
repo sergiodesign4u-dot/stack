@@ -4,14 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Оформлення замовлення — Stack (wireframe 6.1)</title>
+<title>Оформлення замовлення (у кабінеті) — Stack (wireframe 6.1 · logged-in)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
 /* ============================================================
-   CHECKOUT (node 6.1) — page-specific greyscale styles.
-   Simplified header/footer inline (per cart.md: logo + support only).
-   Two columns: left = Контакт → Замовлення → Доставка → Оплата;
-   right = money only, sticky. Upsell full width; simplified footer.
+   CHECKOUT (node 6.1) — LOGGED-IN state. Same page as guest base,
+   but: Контакт collapsed & prefilled; right column has the bonus
+   module + loyalty discount + accrual. Money = logged-in canonical.
    ============================================================ */
 .co-head { position: sticky; top: 0; z-index: 30; background: #fff; border-bottom: 1px solid var(--hair); }
 .co-head-in { max-width: 1200px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -29,16 +28,11 @@
 .co-sec-h { font-size: 16px; font-weight: 800; color: var(--strong); display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .co-sec-h .num { width: 24px; height: 24px; border-radius: 50%; background: var(--dark); color: #fff; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex: none; }
 
-/* 1 — Контакт (guest sign-in prompt, passwordless) */
-.co-signin-note { font-size: 13px; color: var(--sec); margin-bottom: 12px; }
-.co-field { display: flex; gap: 8px; }
-.co-input { flex: 1; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 12px 13px; font-size: 14px; font-family: inherit; width: 100%; }
-.co-getcode { background: var(--dark); color: #fff; border-radius: 8px; padding: 0 18px; font-size: 13px; font-weight: 700; white-space: nowrap; }
-.co-or { display: flex; align-items: center; gap: 12px; color: var(--light); font-size: 12px; margin: 14px 0; }
-.co-or::before, .co-or::after { content: ''; flex: 1; height: 1px; background: var(--hair); }
-.co-social { display: flex; gap: 10px; }
-.co-soc { flex: 1; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 11px; font-size: 13px; font-weight: 700; color: var(--strong); text-align: center; background: #fff; }
-.co-consent { font-size: 11px; color: var(--light); margin-top: 10px; line-height: 1.5; }
+/* 1 — Контакт (logged-in, collapsed prefilled) */
+.co-me { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.co-me .mn { font-size: 14px; font-weight: 700; color: var(--strong); }
+.co-me .md { font-size: 13px; color: var(--sec); margin-top: 2px; }
+.co-edit { flex: none; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 700; color: var(--strong); background: #fff; }
 
 /* order line items */
 .co-line { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--hair); }
@@ -69,6 +63,10 @@
 
 /* delivery sub-fields (revealed under active method) */
 .co-sub { margin: 0 0 12px 30px; display: flex; flex-direction: column; gap: 8px; }
+.co-saved { border: 1.5px solid var(--dark); border-radius: 8px; padding: 10px 13px; font-size: 13px; color: var(--strong); background: var(--fill2); }
+.co-saved b { font-weight: 700; }
+.co-saved .ch { font-size: 12px; color: var(--sec); font-weight: 600; margin-left: 6px; }
+.co-input { border: 1.5px solid var(--hair2); border-radius: 8px; padding: 12px 13px; font-size: 14px; font-family: inherit; width: 100%; }
 .co-city { display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 10px 13px; font-size: 13px; font-weight: 700; color: var(--strong); align-self: flex-start; }
 .co-cmt { width: 100%; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 11px 13px; font-size: 13px; font-family: inherit; margin-top: 6px; min-height: 60px; resize: vertical; }
 .co-cmt-lbl { font-size: 12px; font-weight: 700; color: var(--sec); margin-top: 12px; }
@@ -118,11 +116,10 @@
 </head>
 <body>
 <!-- ============================================================
-  WIREFRAME · node 6.1 Оформлення / Checkout (base = guest).
-  Convergence of both flows. ONE sectioned page (not a wizard).
-  Simplified header/footer (logo + support only). Left = sections,
-  right = money-only sticky summary. States: loading, declined.
-  Flow: research/docs/flows.md Job 2 b5 → addr → sl → (qp) → b7.
+  WIREFRAME · node 6.1 Оформлення / Checkout — LOGGED-IN state.
+  Matrix row 6: «guest vs logged-in contact». Reached from the guest
+  base after sign-in. Контакт collapsed & prefilled; right column shows
+  the loyalty discount + bonus module + accrual. Same basket, logged-in money.
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 
@@ -145,25 +142,19 @@
     <!-- LEFT COLUMN -->
     <div>
 
-      <!-- 1 · КОНТАКТ (guest — passwordless sign-in prompt) -->
+      <!-- 1 · КОНТАКТ (logged-in — collapsed, prefilled) -->
       <section class="co-sec" aria-label="Контакт">
         <div class="co-sec-h"><span class="num">1</span> Контакт</div>
-        <p class="co-signin-note">Увійдіть для оформлення замовлення — код підтвердження надійде у SMS, акаунт створиться автоматично. Пароль не потрібен.</p>
-        <form class="co-field" action="checkout-loggedin.html">
-          <label for="co-phone" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Номер телефону</label>
-          <input class="co-input" id="co-phone" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __" autocomplete="tel">
-          <button class="co-getcode" type="submit">Отримати код</button>
-        </form>
-        <div class="co-or">або</div>
-        <div class="co-social">
-          <a class="co-soc" href="checkout-loggedin.html">Google</a>
-          <a class="co-soc" href="checkout-loggedin.html">Apple</a>
-          <a class="co-soc" href="checkout-loggedin.html">E-mail</a>
+        <div class="co-me">
+          <div>
+            <div class="mn">Вікторія Коваль · 🥈 Срібний рівень</div>
+            <div class="md">+380 67 123 45 67 · viktoriia@example.com</div>
+          </div>
+          <a class="co-edit" href="account.html">Змінити</a>
         </div>
-        <p class="co-consent">Продовжуючи, ви погоджуєтесь з <a href="content.html">публічною офертою</a> та <a href="content.html">політикою конфіденційності</a>.</p>
       </section>
 
-      <!-- ВАШЕ ЗАМОВЛЕННЯ (line items moved here from the right rail) -->
+      <!-- ВАШЕ ЗАМОВЛЕННЯ -->
       <section class="co-sec" aria-label="Ваше замовлення">
         <div class="co-sec-h">🛒 Ваше замовлення <span style="font-weight:600;color:var(--light);font-size:13px">· 3 товари</span></div>
 
@@ -216,7 +207,7 @@
         </div>
       </section>
 
-      <!-- 2 · ДОСТАВКА -->
+      <!-- 2 · ДОСТАВКА (saved address preselected) -->
       <section class="co-sec" aria-label="Доставка">
         <div class="co-sec-h"><span class="num">2</span> Доставка</div>
 
@@ -226,8 +217,7 @@
           <span class="op">від 50 ₴</span>
         </label>
         <div class="co-sub">
-          <button type="button" class="co-city">📍 Одеса <span style="color:var(--light);font-weight:600">· змінити</span></button>
-          <input class="co-input" type="text" placeholder="Відділення / поштомат — почніть вводити №">
+          <div class="co-saved"><b>📍 Одеса · Відділення №12</b>, вул. Катерининська, 27 <a href="account.html" class="ch">· змінити</a></div>
         </div>
 
         <label class="co-opt">
@@ -269,20 +259,23 @@
       </section>
     </div>
 
-    <!-- RIGHT COLUMN — money only, sticky -->
+    <!-- RIGHT COLUMN — money only, sticky (logged-in) -->
     <aside class="co-sum" aria-label="Разом">
       <div class="co-sum-h">Разом</div>
 
-      <!-- guest: no bonus account yet — sign-in incentive (bonuses/discount live only for accounts) -->
+      <!-- bonus module — state «є бонуси», списання off -->
       <div class="co-bonus">
-        <div class="co-bonus-top"><span class="bl">Знижка та бонуси</span></div>
-        <div class="bnote">Увійдіть або створіть акаунт — застосуємо знижку за вашим рівнем і нарахуємо ~1% бонусами. Реєстрація за номером, без пароля.</div>
-        <a class="co-toggle" href="checkout-loggedin.html" style="text-decoration:none"><span class="co-sw"></span> Увійти й застосувати знижку</a>
+        <div class="co-bonus-top"><span class="bl">Бонусний рахунок</span><span class="bv">240 ₴</span></div>
+        <div class="bnote">Можна оплатити бонусами частину замовлення (діють 3 місяці)</div>
+        <div class="co-toggle" role="button" tabindex="0"><span class="co-sw"></span> Списати бонуси</div>
       </div>
 
       <div class="co-brow"><span>Сума товарів (4 шт)</span><b>3 939 ₴</b></div>
+      <div class="co-brow"><span class="disc">Знижка лояльності 🥈 Срібло −5%</span><b>−197 ₴</b></div>
       <div class="co-brow"><span>Доставка · Нова Пошта</span><b>60 ₴</b></div>
-      <div class="co-total"><span class="tl">До сплати</span><span class="tv">3 999 ₴</span></div>
+      <div class="co-total"><span class="tl">До сплати</span><span class="tv">3 802 ₴</span></div>
+
+      <div class="co-accrual"><span class="star">★</span> Нарахуємо <b>+38 ₴</b>&nbsp;бонусів за це замовлення (~1%)</div>
 
       <a class="co-confirm" href="checkout-loading.html">Підтвердити замовлення</a>
 
@@ -319,6 +312,6 @@
 </footer>
 
 <script src="_nav.js"></script>
-<script>wfBar('checkout.html');</script>
+<script>wfBar('checkout.html', 'loggedin');</script>
 </body>
 </html>

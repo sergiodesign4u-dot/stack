@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Введіть код зі SMS — Stack (wireframe 1.1)</title>
+<title>Надсилаємо код… — Stack (wireframe 1.x · loading)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
-/* AUTH DIALOG (node 1.x) — shared modal styles (see auth.html). */
+/* AUTH DIALOG (node 1.x) — LOADING state (sending code / signing in).
+   Matrix row 7: loading (slog2). Shared modal styles (see auth.html). */
 .auth-ov { position: fixed; inset: 0; background: rgba(18,18,18,.55); z-index: 60;
   display: flex; align-items: stretch; justify-content: center; }
 .auth-modal { background: #fff; width: 100%; display: flex; overflow-y: auto; }
@@ -43,86 +44,77 @@
 @media (min-width: 720px) { .auth-banner { display: none; } }
 .auth-h1 { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
 .auth-sub { font-size: 13.5px; color: var(--sec); margin: 6px 0 20px; }
-.auth-sub b { color: var(--strong); }
-.fld { margin-bottom: 14px; }
-.fld > label { display: block; font-size: 12px; font-weight: 700; color: var(--sec); margin-bottom: 7px; }
+/* loading block (static — motion deferred) */
+.auth-load { display: flex; flex-direction: column; align-items: center; text-align: center; margin: 22px 0 6px; }
+.auth-spin { width: 46px; height: 46px; border: 4px solid var(--hair); border-top-color: var(--dark); border-radius: 50%; margin-bottom: 20px; }
+.auth-load .lt { font-size: 15px; font-weight: 800; color: var(--strong); }
+.auth-load .lp { font-size: 13.5px; color: var(--sec); margin-top: 6px; }
+.auth-load .lp b { color: var(--strong); }
+.auth-skel { width: 100%; max-width: 300px; margin: 24px auto 0; }
+.auth-skel .sl { height: 11px; border-radius: 6px; background: #ececec; margin: 9px 0; }
+.auth-skel .sl.m { width: 70%; margin-inline: auto; }
 .auth-cta { display: block; width: 100%; text-align: center; background: var(--dark); color: #fff;
-  border-radius: 10px; padding: 15px; font-size: 15px; font-weight: 700; }
+  border-radius: 10px; padding: 15px; font-size: 15px; font-weight: 700; margin-top: 26px; }
+.auth-note { font-size: 12px; color: var(--light); text-align: center; margin-top: 14px; line-height: 1.6; }
+.linkrow { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; font-size: 12.5px; margin-top: 14px; }
+.linkrow a { color: var(--strong); font-weight: 700; text-decoration: underline; }
 .auth-foot { margin-top: auto; padding-top: 18px; font-size: 12px; color: var(--light); }
 .auth-foot a { color: var(--strong); text-decoration: underline; }
-.otp { display: flex; gap: 8px; margin: 4px 0 8px; }
-.otp .box { flex: 1; min-width: 0; height: 56px; border: 1.5px solid var(--hair2); border-radius: 10px;
-  text-align: center; font-size: 22px; font-weight: 800; color: var(--strong); }
-.otp .box:focus { outline: 2px solid var(--dark); outline-offset: -2px; }
-.otp .box.on { border-color: var(--dark); }
-.otp-note { font-size: 12.5px; color: var(--sec); margin: 6px 0 2px; }
-.resend { font-size: 12.5px; color: var(--light); margin-top: 14px; }
-.resend .cool { font-weight: 700; color: var(--sec); }
-.resend a { color: var(--strong); font-weight: 700; text-decoration: underline; }
-.linkrow { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; margin-top: 14px; }
-.linkrow a { color: var(--strong); font-weight: 700; text-decoration: underline; }
 </style>
 </head>
 <body>
 <!-- ============================================================
-  WIREFRAME · node 1.1 OTP — SMS code entry. 6 boxes, resend cooldown,
-  change-number, attempts note. Verified → new user (1.2) / returning → success.
-  No dead ends: back to phone step, error branch linked. noindex.
+  WIREFRAME · node 1.x Авторизація — LOADING state (matrix row 7).
+  «Надсилаємо код…» after «Отримати код». Field locked, no dead end:
+  forward → auth-code (code sent); cancel → back to phone step.
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 <header id="wf-header"></header>
 
 
 <div class="auth-ov">
-  <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authttl">
+  <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authttl" aria-busy="true">
 
     <aside class="auth-visual" aria-hidden="true">
       <div class="vlogo">Stack</div>
       <div class="vmid"><div class="vi">🏋️</div>спортивне харчування</div>
-      <div class="vtag"><b>Майже готово</b>Введіть код із SMS, щоб завершити вхід.</div>
+      <div class="vtag"><b>Один акаунт — усе під рукою</b>Замовлення, бонуси, обране та швидке повторне замовлення.</div>
     </aside>
 
     <div class="auth-form">
       <div class="auth-top">
         <span class="auth-mlogo">Stack</span>
-        <a class="auth-x" href="home.html" aria-label="Закрити">✕ Закрити</a>
+        <a class="auth-x" href="auth.html" aria-label="Закрити">✕ Закрити</a>
       </div>
 
       <div class="auth-banner">
-        <div class="bi">💬</div>
-        <div class="bt"><b>Код надіслано</b>SMS на +380 67 123 45 67</div>
+        <div class="bi">🏋️</div>
+        <div class="bt"><b>Stack</b>Спортивне харчування</div>
       </div>
 
-      <h1 class="auth-h1" id="authttl">Введіть код</h1>
-      <p class="auth-sub">Ми надіслали SMS із кодом на номер <b>+380 67 123 45 67</b>.
-        <a href="auth.html" style="color:var(--strong);text-decoration:underline;font-weight:700">Змінити номер</a></p>
+      <h1 class="auth-h1" id="authttl">Майже готово</h1>
+      <p class="auth-sub">Надсилаємо одноразовий код підтвердження.</p>
 
-      <form action="auth-newuser.html" method="get">
-        <div class="fld">
-          <label for="c1">Код підтвердження</label>
-          <div class="otp" role="group" aria-label="Код із шести цифр">
-            <input id="c1" class="box on" maxlength="1" inputmode="numeric" autocomplete="one-time-code" value="4" aria-label="Цифра 1">
-            <input class="box on" maxlength="1" inputmode="numeric" value="9" aria-label="Цифра 2">
-            <input class="box on" maxlength="1" inputmode="numeric" value="2" aria-label="Цифра 3">
-            <input class="box" maxlength="1" inputmode="numeric" value="" aria-label="Цифра 4">
-            <input class="box" maxlength="1" inputmode="numeric" value="" aria-label="Цифра 5">
-            <input class="box" maxlength="1" inputmode="numeric" value="" aria-label="Цифра 6">
-          </div>
-          <div class="otp-note">Код діє 5 хвилин. Введеться автоматично, якщо телефон його підставить.</div>
+      <div class="auth-load" role="status" aria-live="polite">
+        <div class="auth-spin" aria-hidden="true"></div>
+        <div class="lt">Надсилаємо код у SMS…</div>
+        <div class="lp">На номер <b>+380&nbsp;67&nbsp;123&nbsp;45&nbsp;67</b></div>
+        <div class="auth-skel" aria-hidden="true">
+          <div class="sl"></div>
+          <div class="sl m"></div>
         </div>
+      </div>
 
-        <a class="auth-cta" href="auth-newuser.html">Підтвердити</a>
-      </form>
-
-      <div class="resend">Не отримали код? <span class="cool">Надіслати ще (0:45)</span></div>
+      <!-- prototype: forward when code is sent (у продукті — авто-перехід) -->
+      <a class="auth-cta" href="auth-code.html">Код надіслано — ввести →</a>
+      <p class="auth-note">🔒 Код діє 5 хвилин. Нікому не повідомляйте його.</p>
 
       <div class="linkrow">
         <a href="auth.html">← Змінити номер</a>
-        <a href="auth-error.html">Ввів неправильний код?</a>
       </div>
 
       <div class="auth-foot">
-        Якщо номер уже зареєстровано — ви одразу увійдете. Новий номер — попросимо ім'я.
+        Не отримали SMS? За кілька секунд зможете надіслати код повторно.
         <a href="home.html">Повернутися до магазину</a>
       </div>
     </div>
@@ -131,6 +123,6 @@
 </div>
 
 <script src="_nav.js"></script>
-<script>wfHeader(); wfBar('auth.html', 'code');</script>
+<script>wfHeader(); wfBar('auth.html', 'loading');</script>
 </body>
 </html>
