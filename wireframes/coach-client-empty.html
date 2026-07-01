@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Профіль клієнта — без замовлень (wireframe 5.4 · empty)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 5.4 Профіль клієнта — EMPTY: client saved, nothing ordered yet.
+   Not a dead end → «Нова сесія для клієнта». Greyscale only. */
+.cc-wrap { max-width: 900px; }
+.ch { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin: 8px 0 6px; }
+.ch-id { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.ch-av { width: 56px; height: 56px; border-radius: 50%; background: var(--fill); border: 1px solid var(--hair); flex: none; display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 21px; font-weight: 800; }
+.ch-name { font-size: 24px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.ch-goal { display: inline-flex; align-items: center; gap: 5px; margin-top: 6px; font-size: 12px; font-weight: 800; border: 1.5px solid var(--dark); border-radius: 100px; padding: 3px 11px; color: var(--strong); }
+.ch-edit { font-size: 12.5px; font-weight: 700; color: var(--strong); border: 1.5px solid var(--hair2); border-radius: 8px; padding: 9px 15px; white-space: nowrap; }
+.cc-note { font-size: 12.5px; color: var(--sec); line-height: 1.55; border: 1px dashed var(--hair2); border-radius: 10px; padding: 11px 13px; margin: 14px 0 4px; }
+.cc-note b { color: var(--strong); }
+.oh-h { font-size: 15px; font-weight: 800; color: var(--strong); margin: 22px 0 12px; }
+
+.empty { text-align: center; border: 1px solid var(--hair); border-radius: 14px; padding: 40px 22px; background: var(--fill2); }
+.empty .ic { font-size: 34px; color: #cfcfcf; }
+.empty h3 { font-size: 17px; font-weight: 800; color: var(--strong); margin: 12px 0 6px; }
+.empty p { font-size: 13.5px; color: var(--sec); line-height: 1.6; max-width: 420px; margin: 0 auto 20px; }
+.empty .btn { padding: 13px 24px; }
+</style>
+</head>
+<body>
+<!-- WIREFRAME · node 5.4 Профіль клієнта (EMPTY). Client exists, no orders yet.
+     Never a dead end → start a session. -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page cc-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <a href="coach-clients.html">Клієнти</a><span class="sep">/</span>
+    <span class="cur">Андрій</span>
+  </nav>
+
+  <div class="ch">
+    <div class="ch-id">
+      <div class="ch-av">А</div>
+      <div>
+        <div class="ch-name">Андрій</div>
+        <span class="ch-goal">🎯 Ціль: Набір маси</span>
+      </div>
+    </div>
+    <a class="ch-edit" href="coach-clients.html">Редагувати клієнта</a>
+  </div>
+
+  <p class="cc-note">Ціль клієнта <b>«Набір маси»</b> формує підбір товарів у сесії замовлення.</p>
+
+  <h2 class="oh-h">Історія замовлень клієнта</h2>
+  <div class="empty">
+    <div class="ic">📦</div>
+    <h3>Ще немає замовлень</h3>
+    <p>Для цього клієнта ви ще нічого не замовляли. Створіть сесію — підбір товарів
+      автоматично враховуватиме ціль «Набір маси».</p>
+    <a class="btn dark" href="coach-session.html">＋ Нова сесія для клієнта</a>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('coach-client.html', 'empty');</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Оберіть тариф — тренера підтверджено (wireframe 5.1 · tier)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 5.1 Стати тренером — VERIFIED → TIER CHOICE (step 3).
+   Free (better-than-retail opt + до 2–3 клієнтів, миттєво) vs
+   Pro (максимальний опт + безлімітні клієнти, підписка ~99 ₴/міс [?]).
+   All numbers [?]. Both → coach-home.html. flows.md "verified". */
+.cv-wrap { max-width: 900px; }
+.cv-steps { display: flex; gap: 8px; margin: 6px 0 20px; flex-wrap: wrap; }
+.cv-step { flex: 1; min-width: 92px; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 9px 12px; font-size: 12px; color: var(--sec); background: #fff; }
+.cv-step .n { display: inline-flex; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--hair2); align-items: center; justify-content: center; font-size: 11px; font-weight: 800; margin-right: 7px; color: var(--sec); }
+.cv-step b { display: block; color: var(--strong); font-weight: 800; font-size: 12.5px; margin-top: 4px; }
+.cv-step.on { border-color: var(--dark); }
+.cv-step.on .n { background: var(--dark); border-color: var(--dark); color: #fff; }
+.cv-step.done .n { background: var(--fill); color: var(--strong); }
+/* verified banner */
+.cv-ok { display: flex; gap: 12px; align-items: center; border: 1.5px solid var(--dark); border-radius: 12px; padding: 14px 16px; margin-bottom: 22px; }
+.cv-ok .m { width: 38px; height: 38px; border-radius: 50%; background: var(--dark); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; flex: none; }
+.cv-ok b { color: var(--strong); font-size: 15px; }
+.cv-ok span { display: block; font-size: 12.5px; color: var(--sec); margin-top: 2px; }
+h1.cv-h1 { font-size: 24px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.cv-lead { font-size: 13.5px; color: var(--sec); margin: 8px 0 22px; line-height: 1.55; }
+/* two tier cards */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 720px) { .tiers { grid-template-columns: 1fr 1fr; align-items: start; } }
+.tier { border: 1.5px solid var(--hair2); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; }
+.tier.pro { border-color: var(--dark); }
+.tier-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+.tier-name { font-size: 18px; font-weight: 800; color: var(--strong); }
+.tier-flag { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; color: #fff; background: var(--dark); border-radius: 5px; padding: 3px 8px; }
+.tier-price { font-size: 22px; font-weight: 800; color: var(--strong); margin: 8px 0 2px; }
+.tier-price small { font-size: 13px; font-weight: 600; color: var(--sec); }
+.tier-sub { font-size: 12px; color: var(--light); margin-bottom: 16px; }
+.tier ul { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.tier li { font-size: 13px; color: var(--ink); display: flex; gap: 9px; align-items: flex-start; line-height: 1.45; }
+.tier li .m { color: var(--strong); font-weight: 800; flex: none; }
+.tier li.muted { color: var(--light); }
+.tier li.muted .m { color: var(--light); }
+.tier-cta { display: block; text-align: center; border: 1.5px solid var(--dark); border-radius: 10px; padding: 14px; font-size: 14px; font-weight: 700; color: var(--strong); }
+.tier-cta.dark { background: var(--dark); color: #fff; }
+.tier-note { font-size: 11px; color: var(--light); text-align: center; margin-top: 9px; }
+.cv-foot { font-size: 12px; color: var(--light); margin-top: 22px; line-height: 1.6; }
+.cv-foot a { color: var(--strong); font-weight: 700; text-decoration: underline; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.1 Стати тренером — TIER CHOICE (verified).
+  Step 3 of 3. Free (instant) vs Pro (subscription). Both → coach-home.
+  All numbers [?] (client cap, Pro price, wholesale size). flows.md "verified".
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page cv-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <a href="coach-verify.html">Стати тренером</a><span class="sep">/</span>
+    <span class="cur">Тариф</span>
+  </nav>
+
+  <div class="cv-steps" aria-label="Кроки">
+    <div class="cv-step done"><span class="n">✓</span>Крок 1<b>Заявка</b></div>
+    <div class="cv-step done"><span class="n">✓</span>Крок 2<b>Перевірка</b></div>
+    <div class="cv-step on"><span class="n">3</span>Крок 3<b>Тариф</b></div>
+  </div>
+
+  <div class="cv-ok" role="status">
+    <span class="m" aria-hidden="true">✓</span>
+    <div><b>Вас підтверджено як тренера</b><span>Гуртовий доступ відкрито. Залишилось обрати тариф.</span></div>
+  </div>
+
+  <h1 class="cv-h1">Оберіть тариф</h1>
+  <p class="cv-lead">Обидва тарифи дають гуртові ціни, кращі за роздрібні. Тариф можна змінити пізніше в кабінеті.</p>
+
+  <div class="tiers">
+    <!-- FREE -->
+    <div class="tier free">
+      <div class="tier-top"><span class="tier-name">Free</span><span class="tier-flag">миттєво</span></div>
+      <div class="tier-price">0 ₴</div>
+      <div class="tier-sub">безкоштовно, активація одразу</div>
+      <ul>
+        <li><span class="m">✓</span> Гуртові ціни, кращі за роздрібні</li>
+        <li><span class="m">✓</span> Мультиклієнтські замовлення — до 2–3 клієнтів <span style="color:var(--light)">[?]</span></li>
+        <li><span class="m">✓</span> Збережені клієнти та історія по кожному</li>
+        <li class="muted"><span class="m">—</span> Без максимальної гуртової знижки</li>
+      </ul>
+      <a class="tier-cta" href="coach-home.html">Активувати Free</a>
+      <div class="tier-note">Активується миттєво, без оплати</div>
+    </div>
+
+    <!-- PRO -->
+    <div class="tier pro">
+      <div class="tier-top"><span class="tier-name">Pro</span><span class="tier-flag">максимум опту</span></div>
+      <div class="tier-price">~99 ₴ <small>/ міс <span style="color:var(--light)">[?]</span></small></div>
+      <div class="tier-sub">підписка · для 5–30+ клієнтів</div>
+      <ul>
+        <li><span class="m">✓</span> Максимальна гуртова ціна</li>
+        <li><span class="m">✓</span> Безлімітні клієнти в мультиклієнтській сесії</li>
+        <li><span class="m">✓</span> Збережені клієнти, історія, швидке повторне замовлення</li>
+        <li><span class="m">✓</span> Пріоритетні сповіщення про наявність <span style="color:var(--light)">[пізніше]</span></li>
+      </ul>
+      <a class="tier-cta dark" href="coach-home.html">Оформити Pro</a>
+      <div class="tier-note">Підписку можна скасувати будь-коли · ціна [?]</div>
+    </div>
+  </div>
+
+  <p class="cv-foot">Не впевнені? Почніть з <a href="coach-home.html">Free</a> — перейти на Pro можна в кабінеті будь-коли. Деталі гуртових умов — на сторінці <a href="coach-landing.html">«Для тренерів»</a>.</p>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('coach-verify.html', 'tier');</script>
+</body>
+</html>

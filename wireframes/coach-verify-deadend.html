@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Гуртовий доступ недоступний (wireframe 5.1 · deadend)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 5.1 Стати тренером — the DELIBERATE terminal (flows.md dead end).
+   Verification not passed & resubmit declined → no wholesale access.
+   NOT a black hole: offers the ordinary-buyer path (home / account). */
+.cv-wrap { max-width: 860px; }
+.cv-steps { display: flex; gap: 8px; margin: 6px 0 20px; flex-wrap: wrap; }
+.cv-step { flex: 1; min-width: 92px; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 9px 12px; font-size: 12px; color: var(--sec); background: #fff; }
+.cv-step .n { display: inline-flex; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--hair2); align-items: center; justify-content: center; font-size: 11px; font-weight: 800; margin-right: 7px; color: var(--sec); }
+.cv-step b { display: block; color: var(--strong); font-weight: 800; font-size: 12.5px; margin-top: 4px; }
+.cv-step.done .n { background: var(--fill); color: var(--strong); }
+.cv-step.stop { border-color: var(--dark); }
+.cv-step.stop .n { background: var(--dark); border-color: var(--dark); color: #fff; }
+.cv-card { border: 1px solid var(--hair); border-radius: 16px; padding: 34px 24px; max-width: 560px; margin: 0 auto; text-align: center; }
+.cv-badge { width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--hair2); display: flex; align-items: center; justify-content: center; font-size: 26px; color: var(--sec); margin: 0 auto 18px; }
+.cv-card h1 { font-size: 22px; font-weight: 800; color: var(--strong); }
+.cv-card .lead { font-size: 14px; color: var(--sec); margin: 10px auto 8px; max-width: 440px; line-height: 1.6; }
+.cv-card .lead b { color: var(--strong); }
+.cv-sub { font-size: 12.5px; color: var(--light); margin: 0 auto 26px; max-width: 420px; line-height: 1.55; }
+.cv-actions { display: flex; flex-direction: column; gap: 11px; max-width: 340px; margin: 0 auto; }
+.cv-cta { display: block; width: 100%; text-align: center; background: var(--dark); color: #fff; border: 1.5px solid var(--dark); border-radius: 10px; padding: 15px; font-size: 15px; font-weight: 700; }
+.btn { display: block; text-align: center; }
+.cv-alt { display: block; text-align: center; margin-top: 20px; font-size: 12px; color: var(--light); line-height: 1.6; }
+.cv-alt a { color: var(--strong); font-weight: 700; text-decoration: underline; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.1 Стати тренером — DEAD END (deliberate, flows.md).
+  Verification not passed and no other link offered → no wholesale.
+  Still offers the buyer path (home / account) so it is a terminal,
+  not a black hole. No path forward to coach zone by design.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page cv-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <a href="coach-verify.html">Стати тренером</a><span class="sep">/</span>
+    <span class="cur">Перевірка</span>
+  </nav>
+
+  <div class="cv-steps" aria-label="Кроки">
+    <div class="cv-step done"><span class="n">✓</span>Крок 1<b>Заявка</b></div>
+    <div class="cv-step stop"><span class="n">✕</span>Крок 2<b>Перевірка</b></div>
+    <div class="cv-step"><span class="n">3</span>Крок 3<b>Тариф</b></div>
+  </div>
+
+  <div class="cv-card">
+    <div class="cv-badge" aria-hidden="true">✕</div>
+    <h1>Гуртовий доступ недоступний</h1>
+    <p class="lead">Ми не змогли підтвердити, що ви тренер, тож <b>гуртові ціни й тренерські інструменти</b> зараз відкрити не можемо.</p>
+    <p class="cv-sub">Це не заважає покупкам: ви можете й далі користуватись магазином як звичайний покупець — з роздрібними цінами, бонусами та швидким повторним замовленням.</p>
+
+    <div class="cv-actions">
+      <a class="cv-cta" href="home.html">Перейти до магазину</a>
+      <a class="btn" href="account.html">Мій кабінет покупця</a>
+    </div>
+
+    <div class="cv-alt">
+      З'явилось відповідне посилання? <a href="coach-verify.html">Подати заявку знову</a><br>
+      або <a href="content.html">напишіть у підтримку</a>, якщо це помилка.
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('coach-verify.html', 'deadend');</script>
+</body>
+</html>

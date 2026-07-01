@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Не вдалося підтвердити (wireframe 5.1 · error)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 5.1 Стати тренером — VERIFICATION FAILED, RECOVERABLE (step 2).
+   Reasons + «Надіслати інше посилання» → base + «Зв'язатися з підтримкою».
+   Declining resubmit → the deliberate dead end. flows.md "failed → resubmit". */
+.cv-wrap { max-width: 860px; }
+.cv-steps { display: flex; gap: 8px; margin: 6px 0 20px; flex-wrap: wrap; }
+.cv-step { flex: 1; min-width: 92px; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 9px 12px; font-size: 12px; color: var(--sec); background: #fff; }
+.cv-step .n { display: inline-flex; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--hair2); align-items: center; justify-content: center; font-size: 11px; font-weight: 800; margin-right: 7px; color: var(--sec); }
+.cv-step b { display: block; color: var(--strong); font-weight: 800; font-size: 12.5px; margin-top: 4px; }
+.cv-step.on { border-color: var(--dark); }
+.cv-step.on .n { background: var(--dark); border-color: var(--dark); color: #fff; }
+.cv-step.done .n { background: var(--fill); color: var(--strong); }
+.cv-card { border: 1px solid var(--hair); border-radius: 16px; padding: 32px 24px; max-width: 560px; margin: 0 auto; }
+.cv-badge { width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--dark); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--strong); margin-bottom: 16px; }
+.cv-card h1 { font-size: 22px; font-weight: 800; color: var(--strong); }
+.cv-card .lead { font-size: 13.5px; color: var(--sec); margin: 8px 0 20px; line-height: 1.55; }
+.cv-reasons { border: 1px solid var(--hair); border-radius: 12px; padding: 4px 14px; margin-bottom: 22px; }
+.cv-reasons h2 { font-size: 12px; font-weight: 800; color: var(--sec); text-transform: uppercase; letter-spacing: .03em; padding: 14px 0 4px; }
+.cv-reasons ul { list-style: none; margin: 0; padding: 0; }
+.cv-reasons li { font-size: 13px; color: var(--ink); display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-top: 1px solid var(--hair); }
+.cv-reasons li:first-of-type { border-top: none; }
+.cv-reasons li .m { color: var(--strong); font-weight: 800; flex: none; }
+.cv-cta { display: block; width: 100%; text-align: center; background: var(--dark); color: #fff; border: 1.5px solid var(--dark); border-radius: 10px; padding: 15px; font-size: 15px; font-weight: 700; }
+.btn { display: block; text-align: center; margin-top: 11px; }
+.cv-alt { display: block; text-align: center; margin-top: 18px; font-size: 12.5px; color: var(--sec); line-height: 1.6; }
+.cv-alt a { color: var(--strong); font-weight: 700; text-decoration: underline; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.1 Стати тренером — ERROR (recoverable).
+  Verification did not pass. Reasons + resubmit → base + support.
+  Declining another link → the deliberate dead end. flows.md "failed → resubmit".
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page cv-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <a href="coach-verify.html">Стати тренером</a><span class="sep">/</span>
+    <span class="cur">Перевірка</span>
+  </nav>
+
+  <div class="cv-steps" aria-label="Кроки">
+    <div class="cv-step done"><span class="n">✓</span>Крок 1<b>Заявка</b></div>
+    <div class="cv-step on"><span class="n">2</span>Крок 2<b>Перевірка</b></div>
+    <div class="cv-step"><span class="n">3</span>Крок 3<b>Тариф</b></div>
+  </div>
+
+  <div class="cv-card">
+    <div class="cv-badge" aria-hidden="true">!</div>
+    <h1>Не вдалося підтвердити</h1>
+    <p class="lead">За вашим посиланням ми не змогли переконатися, що ви тренер. Це можна виправити — надішліть інше посилання.</p>
+
+    <div class="cv-reasons">
+      <h2>Можливі причини</h2>
+      <ul>
+        <li><span class="m">•</span> Профіль закритий або недоступний за посиланням</li>
+        <li><span class="m">•</span> На сторінці немає ознак тренерської / залової діяльності</li>
+        <li><span class="m">•</span> Посилання введено з помилкою або веде на іншу сторінку</li>
+      </ul>
+    </div>
+
+    <a class="cv-cta" href="coach-verify.html">Надіслати інше посилання</a>
+    <a class="btn" href="content.html">Зв'язатися з підтримкою</a>
+
+    <div class="cv-alt">
+      Немає іншого посилання для перевірки?
+      <a href="coach-verify-deadend.html">Пропустити гуртовий доступ</a>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('coach-verify.html', 'error');</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кошик порожній — Stack (wireframe 6.0 · тренер)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 6.0 Кошик (ТРЕНЕР) — EMPTY state. No dead end: back to the session. */
+#wf-bar { position: relative; z-index: 80; }
+
+.cart-behind { max-width: 1200px; margin: 0 auto; padding: 24px 16px 60px; }
+.cart-behind h2 { font-size: 20px; font-weight: 800; color: var(--strong); margin-bottom: 4px; }
+.cart-behind p { font-size: 13.5px; color: var(--sec); }
+.cart-behind .ph-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-top: 18px; }
+@media (min-width: 620px) { .cart-behind .ph-grid { grid-template-columns: repeat(4,1fr); } }
+.cart-behind .ph-card { border: 1px solid var(--hair); border-radius: 12px; height: 150px; background: var(--fill2); }
+
+.cart-ov { position: fixed; inset: 0; background: rgba(0,0,0,.34); z-index: 60; }
+.cart-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 61;
+  width: 100%; max-width: 440px; background: #fff; display: flex; flex-direction: column;
+  border-left: 1px solid var(--hair); box-shadow: -2px 0 14px rgba(0,0,0,.08);
+}
+.cd-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--hair); }
+.cd-head h1 { font-size: 18px; font-weight: 800; color: var(--strong); display: flex; align-items: baseline; gap: 9px; }
+.cd-head .cd-cnt { font-size: 12.5px; font-weight: 600; color: var(--light); }
+.cd-x { font-size: 20px; color: var(--light); line-height: 1; padding: 4px; }
+
+.cd-body { flex: 1; overflow-y: auto; padding: 0 18px; display: flex; flex-direction: column; justify-content: center; }
+.cd-empty { text-align: center; padding: 40px 12px; }
+.cd-empty .ei { font-size: 34px; }
+.cd-empty .et { font-size: 18px; font-weight: 800; color: var(--strong); margin: 14px 0 6px; }
+.cd-empty .es { font-size: 13.5px; color: var(--sec); margin-bottom: 22px; line-height: 1.5; }
+.cd-empty .btn { display: block; width: 100%; text-align: center; margin-top: 9px; }
+.cd-empty .btn.cont { border-color: var(--hair2); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 6.0 Кошик за клієнтами (ТРЕНЕР) — EMPTY.
+  Never a dead end: primary exit back to the multi-client session.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+
+<div class="wf-canvas">
+  <header id="wf-header"></header>
+  <main class="cart-behind" aria-hidden="true">
+    <h2>Мультиклієнтська сесія</h2>
+    <p>Сесія замовлення під кошиком — кошик відкрито поверх неї.</p>
+    <div class="ph-grid"><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div></div>
+  </main>
+  <footer id="wf-footer"></footer>
+</div>
+
+<!-- ===== CART DRAWER — empty ===== -->
+<div class="cart-ov" id="cart-ov"><a href="coach-session.html" aria-label="Закрити кошик" style="position:absolute;inset:0;display:block"></a></div>
+<aside class="cart-drawer" role="dialog" aria-modal="true" aria-label="Кошик за клієнтами">
+  <header class="cd-head">
+    <h1>Кошик <span class="cd-cnt">0 позицій</span></h1>
+    <a class="cd-x" href="coach-session.html" aria-label="Закрити">✕</a>
+  </header>
+
+  <div class="cd-body">
+    <div class="cd-empty">
+      <div class="ei">🛒</div>
+      <div class="et">Кошик порожній</div>
+      <div class="es">Додайте товари клієнтам у сесії замовлення — вони згрупуються тут за клієнтами.</div>
+      <a class="btn dark" href="coach-session.html">Повернутись до сесії</a>
+      <a class="btn cont" href="coach-clients.html">До списку клієнтів</a>
+    </div>
+  </div>
+</aside>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('cart-coach.html', 'empty');</script>
+</body>
+</html>

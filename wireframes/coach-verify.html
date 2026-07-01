@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Стати тренером — заявка на перевірку (wireframe 5.1)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* ============================================================
+   node 5.1 «Стати тренером» — verify + tier, a PAGE (not a modal).
+   Role activated on top of an existing account: request → social-link
+   verification → tier choice. Reuses the auth form vocabulary
+   (.fld/.txt-field/.cv-cta) in greyscale. States: loading · error ·
+   deadend (deliberate terminal) · tier. flows.md "Стати тренером".
+   New CSS lives here (per contract; _wf.css untouched).
+   ============================================================ */
+.cv-wrap { max-width: 860px; }
+/* progress steps */
+.cv-steps { display: flex; gap: 8px; margin: 6px 0 20px; flex-wrap: wrap; }
+.cv-step { flex: 1; min-width: 92px; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 9px 12px; font-size: 12px; color: var(--sec); background: #fff; }
+.cv-step .n { display: inline-flex; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--hair2); align-items: center; justify-content: center; font-size: 11px; font-weight: 800; margin-right: 7px; color: var(--sec); }
+.cv-step b { display: block; color: var(--strong); font-weight: 800; font-size: 12.5px; margin-top: 4px; }
+.cv-step.on { border-color: var(--dark); }
+.cv-step.on .n { background: var(--dark); border-color: var(--dark); color: #fff; }
+.cv-step.done .n { background: var(--fill); }
+/* split card */
+.cv-card { border: 1px solid var(--hair); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+@media (min-width: 760px) { .cv-card { flex-direction: row; align-items: stretch; } }
+.cv-aside { padding: 22px; background: repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#f2f2f2 10px,#f2f2f2 20px); border-bottom: 1px solid var(--hair); }
+@media (min-width: 760px) { .cv-aside { width: 38%; flex: none; border-bottom: none; border-right: 1px solid var(--hair); display: flex; flex-direction: column; justify-content: space-between; } }
+.cv-aside .vlogo { font-size: 20px; font-weight: 800; color: var(--strong); letter-spacing: -.02em; }
+.cv-aside .vtag { font-size: 13px; color: var(--sec); margin-top: 16px; }
+.cv-aside .vtag b { color: var(--strong); display: block; font-size: 14.5px; margin-bottom: 4px; }
+.cv-aside ul { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.cv-aside li { font-size: 12.5px; color: var(--sec); display: flex; gap: 8px; align-items: flex-start; }
+.cv-aside li .m { color: var(--strong); }
+.cv-body { flex: 1; min-width: 0; padding: 22px; }
+@media (min-width: 760px) { .cv-body { padding: 30px 34px; } }
+.cv-body h1 { font-size: 24px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.cv-lead { font-size: 13.5px; color: var(--sec); margin: 8px 0 22px; line-height: 1.55; }
+/* fields (auth vocabulary) */
+.fld { margin-bottom: 16px; }
+.fld > label { display: block; font-size: 12px; font-weight: 700; color: var(--sec); margin-bottom: 7px; }
+.txt-field { width: 100%; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 13px 12px; font-size: 15px; font-family: inherit; background: #fff; }
+.txt-field:focus { outline: 2px solid var(--dark); outline-offset: -2px; }
+.fhint { font-size: 11.5px; color: var(--light); margin-top: 6px; line-height: 1.5; }
+/* city chip → dialog */
+.city-chip { display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 12px 14px; font-size: 15px; font-weight: 700; color: var(--strong); background: #fff; }
+.city-chip .ch { font-size: 12px; color: var(--light); font-weight: 700; }
+/* type-of-coach segmented options */
+.opt-tiles { display: grid; grid-template-columns: 1fr; gap: 9px; }
+@media (min-width: 520px) { .opt-tiles { grid-template-columns: repeat(3,1fr); } }
+.opt-tile { border: 1.5px solid var(--hair2); border-radius: 10px; padding: 12px; font-size: 13px; font-weight: 700; color: var(--strong); text-align: center; background: #fff; cursor: pointer; }
+.opt-tile small { display: block; font-size: 11px; font-weight: 600; color: var(--sec); margin-top: 3px; }
+.opt-tile.on { border-color: var(--dark); background: var(--dark); color: #fff; }
+.opt-tile.on small { color: #ddd; }
+/* link-field with leading icon (verification link) */
+.link-field { display: flex; align-items: center; border: 1.5px solid var(--hair2); border-radius: 10px; overflow: hidden; }
+.link-field .pre { padding: 13px 12px; background: var(--fill); color: var(--strong); font-weight: 700; font-size: 14px; border-right: 1.5px solid var(--hair2); }
+.link-field input { flex: 1; border: none; padding: 13px 12px; font-size: 15px; width: 100%; }
+.link-field input:focus { outline: none; }
+/* consent */
+.cv-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; color: var(--sec); line-height: 1.55; margin: 6px 0 20px; }
+.cv-consent input { margin-top: 2px; width: 16px; height: 16px; flex: none; }
+.cv-consent a { color: var(--strong); text-decoration: underline; }
+/* primary + secondary CTA */
+.cv-cta { display: block; width: 100%; text-align: center; background: var(--dark); color: #fff; border: 1.5px solid var(--dark); border-radius: 10px; padding: 15px; font-size: 15px; font-weight: 700; }
+.cv-alt { display: block; text-align: center; margin-top: 12px; font-size: 12.5px; color: var(--sec); }
+.cv-alt a { color: var(--strong); font-weight: 700; text-decoration: underline; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.1 Стати тренером (BASE = role-request form).
+  Step 1 of 3: заявка → перевірка посилання → тариф. Role added on top
+  of the existing account. Primary «Надіслати на перевірку» → loading.
+  States: loading · error · deadend · tier.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page cv-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <a href="coach-landing.html">Для тренерів</a><span class="sep">/</span>
+    <span class="cur">Стати тренером</span>
+  </nav>
+
+  <!-- progress -->
+  <div class="cv-steps" aria-label="Кроки">
+    <div class="cv-step on"><span class="n">1</span>Крок 1<b>Заявка</b></div>
+    <div class="cv-step"><span class="n">2</span>Крок 2<b>Перевірка</b></div>
+    <div class="cv-step"><span class="n">3</span>Крок 3<b>Тариф</b></div>
+  </div>
+
+  <div class="cv-card">
+    <!-- context / value aside -->
+    <aside class="cv-aside" aria-label="Навіщо це">
+      <div>
+        <div class="vlogo">Stack</div>
+        <div class="vtag"><b>Гуртовий доступ для тренерів</b>Оптові ціни, мультиклієнтські замовлення й історія по кожному клієнту — на вашому акаунті.</div>
+        <ul>
+          <li><span class="m">✓</span> Ціни, кращі за роздрібні</li>
+          <li><span class="m">✓</span> Замовлення для кількох клієнтів за одну сесію</li>
+          <li><span class="m">✓</span> Роль додається поверх вашого акаунта — окремий вхід не потрібен</li>
+        </ul>
+      </div>
+      <div class="vtag" style="margin-top:22px"><b>Чому перевірка?</b>Гуртові ціни — тільки для справжніх тренерів. Ми перевіримо це за вашим посиланням (Instagram або сайт залу).</div>
+    </aside>
+
+    <!-- request form -->
+    <div class="cv-body">
+      <h1>Стати тренером</h1>
+      <p class="cv-lead">Заповніть коротку заявку. Ми перевіримо, що ви справді тренер — за посиланням на ваш профіль, — і відкриємо гуртовий доступ.</p>
+
+      <form action="coach-verify-loading.html" method="get">
+        <div class="fld">
+          <label for="cvname">Ім'я або назва бренду / залу</label>
+          <input id="cvname" name="name" class="txt-field" type="text" placeholder="Напр. Олена Коваль · FitZone Одеса">
+        </div>
+
+        <div class="fld">
+          <label for="cvcity">Місто</label><br>
+          <button id="cvcity" class="city-chip" type="button" aria-label="Обрати місто">📍 Одеса <span class="ch">Змінити ▾</span></button>
+          <div class="fhint">Основне місто роботи — для гуртової доставки.</div>
+        </div>
+
+        <div class="fld">
+          <label>Тип</label>
+          <div class="opt-tiles" role="radiogroup" aria-label="Тип тренера">
+            <button class="opt-tile on" type="button" role="radio" aria-checked="true">Зал<small>власник / менеджер</small></button>
+            <button class="opt-tile" type="button" role="radio" aria-checked="false">Персональний<small>тренер</small></button>
+            <button class="opt-tile" type="button" role="radio" aria-checked="false">Команда<small>клуб / збірна</small></button>
+          </div>
+        </div>
+
+        <div class="fld">
+          <label for="cvlink">Посилання на профіль для перевірки</label>
+          <div class="link-field">
+            <span class="pre">🔗</span>
+            <input id="cvlink" name="link" type="url" inputmode="url" placeholder="instagram.com/ваш_профіль або сайт залу">
+          </div>
+          <div class="fhint">Instagram, сайт залу чи сторінка команди — щоб ми переконалися, що ви справді тренер.</div>
+        </div>
+
+        <label class="cv-consent">
+          <input type="checkbox" aria-label="Згода">
+          <span>Підтверджую, що дані правдиві, і надаю згоду на їх обробку згідно з
+            <a href="content.html">публічною офертою</a> та
+            <a href="content.html">політикою конфіденційності</a>.</span>
+        </label>
+
+        <a class="cv-cta" href="coach-verify-loading.html">Надіслати на перевірку</a>
+        <div class="cv-alt">Передумали? <a href="account.html">Повернутися в кабінет</a></div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('coach-verify.html');</script>
+</body>
+</html>

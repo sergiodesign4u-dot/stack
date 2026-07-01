@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Клієнти — помилка — Кабінет тренера — Stack (wireframe 5.3)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+.acc { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 16px; }
+@media (min-width: 960px) { .acc { grid-template-columns: 268px 1fr; gap: 28px; } }
+.acc-nav { align-self: start; }
+@media (min-width: 960px) { .acc-nav { position: sticky; top: 120px; } }
+.acc-prof { border: 1px solid var(--hair); border-radius: 14px; padding: 15px 16px; display: flex; gap: 13px; align-items: center; }
+.acc-prof .av { width: 48px; height: 48px; border-radius: 50%; background: var(--fill); border: 1px solid var(--hair); flex: none; display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 19px; }
+.acc-prof .nm { font-weight: 800; color: var(--strong); font-size: 15px; }
+.acc-prof .ph { font-size: 12px; color: var(--sec); margin-top: 2px; }
+.acc-tier { display: inline-flex; align-items: center; gap: 5px; margin-top: 7px; font-size: 11px; font-weight: 800; border: 1.5px solid var(--dark); border-radius: 100px; padding: 2px 9px; color: var(--strong); }
+.acc-links { margin-top: 12px; border: 1px solid var(--hair); border-radius: 14px; overflow: hidden; }
+.acc-link { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; padding: 13px 15px; border-bottom: 1px solid var(--hair); font-size: 14px; font-weight: 600; color: var(--strong); background: #fff; }
+.acc-link:last-child { border-bottom: none; }
+.acc-link .ic { width: 20px; text-align: center; color: var(--sec); font-size: 15px; }
+.acc-link .ct { margin-left: auto; font-size: 12px; font-weight: 800; color: var(--light); }
+.acc-link .ar { margin-left: 8px; color: #bbb; font-weight: 700; }
+@media (min-width: 960px) { .acc-link .ar { display: none; } }
+.acc-link[aria-current="page"] { background: var(--fill); }
+.acc-link[aria-current="page"] .ic { color: var(--strong); }
+.acc-link.logout { color: var(--sec); font-weight: 700; }
+.cl-h1 { font-size: 24px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; margin-bottom: 4px; }
+.empty p.lead { font-size: 13.5px; color: var(--sec); max-width: 42ch; margin: 0 auto 16px; }
+</style>
+</head>
+<body>
+<!-- WIREFRAME · node 5.3 Клієнти — ERROR (failed to load). Not a dead end:
+     «Спробувати ще» → base + back to cabinet. Private → noindex. -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <span class="cur">Клієнти</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav">
+      <div class="acc-prof">
+        <div class="av">ОЛ</div>
+        <div class="who">
+          <div class="nm">Олена Тренер</div>
+          <div class="ph">+380 ** *** 88 21</div>
+          <span class="acc-tier">⬢ Pro тариф</span>
+        </div>
+      </div>
+      <nav class="acc-links" aria-label="Розділи кабінету тренера">
+        <a class="acc-link" href="coach-home.html"><span class="ic">▦</span> Кабінет <span class="ar">›</span></a>
+        <a class="acc-link" href="coach-clients.html" aria-current="page"><span class="ic">👥</span> Клієнти <span class="ar">›</span></a>
+        <a class="acc-link" href="coach-session.html"><span class="ic">🛒</span> Нова сесія <span class="ar">›</span></a>
+        <button class="acc-link" type="button"><span class="ic">📦</span> Замовлення <span class="ar">›</span></button>
+        <button class="acc-link" type="button"><span class="ic">♡</span> Обране <span class="ar">›</span></button>
+        <a class="acc-link logout" href="home.html"><span class="ic">⎋</span> Вийти</a>
+      </nav>
+    </aside>
+
+    <div class="acc-main">
+      <h1 class="cl-h1">Клієнти</h1>
+
+      <div class="empty">
+        <div class="ei" aria-hidden="true">⚠️</div>
+        <div class="et">Не вдалося завантажити список клієнтів</div>
+        <p class="lead">Стався збій зв'язку. Ваші клієнти нікуди не зникли — спробуйте оновити сторінку ще раз.</p>
+        <div class="eact">
+          <a class="btn dark" href="coach-clients.html">↻ Спробувати ще</a>
+          <a class="btn" href="coach-home.html">← До кабінету</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('coach-clients.html','error');</script>
+</body>
+</html>

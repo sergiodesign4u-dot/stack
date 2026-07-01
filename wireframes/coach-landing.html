@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Спортивне харчування оптом для тренерів — Stack (wireframe 5.0)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* ============================================================
+   node 5.0 «Для тренерів» landing — PUBLIC, INDEXABLE front door.
+   Value prop for the coach (Olena): build a multi-client order in
+   ONE session · wholesale price (the gate) · reliable supply ·
+   saved clients + per-client history (experience wins on top).
+   Sections: hero → how-it-works (4 steps) → Free/Pro comparison →
+   trust band → SEO text → final CTA. All [?] numbers = hypothesis.
+   ============================================================ */
+
+/* HERO */
+.clh { display: grid; grid-template-columns: 1fr; gap: 22px; align-items: center;
+  border: 1px solid var(--hair); border-radius: 16px; background: var(--fill2); padding: 26px 22px; margin: 6px 0 8px; }
+@media (min-width: 860px) { .clh { grid-template-columns: 1.15fr .85fr; padding: 40px 34px; gap: 34px; } }
+.clh .kicker { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--strong); border: 1.5px solid var(--dark); border-radius: 100px; padding: 4px 12px; margin-bottom: 14px; }
+.clh h1 { font-size: 26px; line-height: 1.15; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+@media (min-width: 860px) { .clh h1 { font-size: 34px; } }
+.clh .sub { font-size: 15px; line-height: 1.55; color: var(--sec); margin: 14px 0 6px; max-width: 560px; }
+.clh .sub b { color: var(--strong); font-weight: 700; }
+.clh-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.clh-cta .btn { padding: 13px 24px; font-size: 14px; }
+.clh-note { font-size: 12px; color: var(--light); margin-top: 12px; }
+/* hatch placeholder art */
+.clh-art { min-height: 190px; border-radius: 12px; border: 1px solid var(--hair); color: #999; font-size: 12px;
+  display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px;
+  background-color: #f3f3f3;
+  background-image: repeating-linear-gradient(45deg, #e4e4e4 0, #e4e4e4 1px, transparent 1px, transparent 9px); }
+
+/* value chips under hero */
+.clv { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 8px; }
+.clv span { font-size: 12.5px; font-weight: 700; color: var(--strong); background: #fff;
+  border: 1.5px solid var(--hair2); border-radius: 100px; padding: 7px 13px; }
+
+/* HOW IT WORKS — 4 steps */
+.steps { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 620px) { .steps { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 980px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+.step { border: 1px solid var(--hair); border-radius: 12px; padding: 18px 16px; background: #fff; }
+.step .n { width: 30px; height: 30px; border-radius: 50%; background: var(--dark); color: #fff;
+  font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.step h3 { font-size: 15px; font-weight: 800; color: var(--strong); margin-bottom: 6px; line-height: 1.3; }
+.step p { font-size: 13px; color: var(--sec); line-height: 1.55; }
+
+/* FREE / PRO COMPARISON */
+.cmp { border: 1px solid var(--hair); border-radius: 14px; overflow: hidden; }
+.cmp-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr; }
+.cmp-row + .cmp-row { border-top: 1px solid var(--hair); }
+.cmp-cell { padding: 14px 15px; font-size: 13px; color: var(--ink); line-height: 1.45; }
+.cmp-cell.feat { font-weight: 700; color: var(--strong); background: var(--fill2); }
+.cmp-cell.pro { background: var(--fill2); }
+.cmp-head .cmp-cell { padding: 18px 15px; }
+.cmp-head .plan { font-size: 17px; font-weight: 800; color: var(--strong); }
+.cmp-head .plan .badge { display: inline-block; font-size: 10px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .03em; border: 1.5px solid var(--dark); border-radius: 100px; padding: 2px 9px; margin-left: 7px; vertical-align: middle; }
+.cmp-head .price { font-size: 13px; color: var(--sec); font-weight: 600; margin-top: 5px; }
+.cmp-head .price b { color: var(--strong); font-weight: 800; font-size: 15px; }
+.cmp-foot .cmp-cell { padding: 16px 15px; }
+.cmp-foot .cmp-cell.feat { background: #fff; }
+.cmp .yes { font-weight: 800; color: var(--strong); }
+.cmp .lim { color: var(--sec); }
+@media (max-width: 560px) {
+  /* stack the two plans; keep feature label above each pair via data flow */
+  .cmp-row { grid-template-columns: 1fr 1fr; }
+  .cmp-cell.feat { grid-column: 1 / -1; padding: 11px 15px; font-size: 13.5px; }
+}
+
+/* FINAL CTA band */
+.finalcta { text-align: center; border: 1.5px solid var(--dark); border-radius: 16px; padding: 30px 22px; margin: 32px 0 8px; }
+.finalcta h2 { font-size: 22px; font-weight: 800; color: var(--strong); }
+.finalcta p { font-size: 14px; color: var(--sec); margin: 10px auto 20px; max-width: 520px; line-height: 1.55; }
+.finalcta .btn { padding: 13px 26px; font-size: 14px; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.0 «Для тренерів» landing (PUBLIC, INDEXABLE).
+  The coach front door. hero → how-it-works → Free/Pro → trust → SEO → CTA.
+  CTA «Стати тренером» → coach-verify.html (guest hits auth first in reality).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Для тренерів</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="clh" aria-label="Спортивне харчування оптом для тренерів">
+    <div>
+      <span class="kicker">Тренерам · залам · командам</span>
+      <h1>Спортивне харчування оптом для тренерів</h1>
+      <p class="sub">Зберіть замовлення для <b>всіх клієнтів в одну сесію</b>: гуртові ціни,
+        збережені клієнти, історія по кожному та надійна доставка. Ціна проходить —
+        досвід замовлення виграє зверху.</p>
+      <div class="clh-cta">
+        <a class="btn dark" href="coach-verify.html">Стати тренером</a>
+        <a class="btn" href="auth.html">Увійти</a>
+      </div>
+      <div class="clh-note">Уже є акаунт? Роль тренера активуємо поверх нього — окремий вхід не потрібен.
+        Спершу вхід, далі — підтвердження.</div>
+    </div>
+    <div class="clh-art" aria-hidden="true">Мультиклієнтська сесія<br>замовлення</div>
+  </section>
+
+  <!-- value chips -->
+  <div class="clv" aria-label="Чому Stack для тренерів">
+    <span>Гуртові ціни</span>
+    <span>Одна сесія — усі клієнти</span>
+    <span>Історія по кожному клієнту</span>
+    <span>Одна доставка на тренера</span>
+    <span>Надійний склад і постачання</span>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section aria-label="Як це працює">
+    <div class="sech"><h2>Як це працює</h2></div>
+    <div class="steps">
+      <article class="step">
+        <div class="n">1</div>
+        <h3>Додайте клієнтів</h3>
+        <p>Збережіть список клієнтів із їхніми цілями — набір маси, схуднення, відновлення.
+          Ціль клієнта підказує правильний набір.</p>
+      </article>
+      <article class="step">
+        <div class="n">2</div>
+        <h3>Зберіть мультизамовлення</h3>
+        <p>В одну сесію додавайте товари кожному клієнту через швидке додавання за ціллю —
+          з гуртовою ціною на кожній позиції.</p>
+      </article>
+      <article class="step">
+        <div class="n">3</div>
+        <h3>Одна доставка на тренера</h3>
+        <p>Оформіть усе одним замовленням із доставкою на вас. Розподіл за клієнтами
+          зберігається в замовленні.</p>
+      </article>
+      <article class="step">
+        <div class="n">4</div>
+        <h3>Історія по кожному</h3>
+        <p>Наступного разу повторюйте попереднє замовлення клієнта в один тап —
+          нічого не тримати в голові.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- FREE / PRO COMPARISON -->
+  <section aria-label="Тарифи для тренерів">
+    <div class="sech"><h2>Free чи Pro</h2><a class="all" href="coach-verify.html">Обрати тариф →</a></div>
+    <div class="cmp">
+      <!-- head -->
+      <div class="cmp-row cmp-head">
+        <div class="cmp-cell feat">Тариф</div>
+        <div class="cmp-cell">
+          <div class="plan">Free<span class="badge">миттєво</span></div>
+          <div class="price">Активація одразу · <b>0 ₴</b></div>
+        </div>
+        <div class="cmp-cell pro">
+          <div class="plan">Pro<span class="badge">опт</span></div>
+          <div class="price">Підписка · <b>~99 ₴/міс</b> <span style="color:var(--light)">[?]</span></div>
+        </div>
+      </div>
+      <!-- rows -->
+      <div class="cmp-row">
+        <div class="cmp-cell feat">Ціна</div>
+        <div class="cmp-cell">Кращі за роздрібні гуртові ціни</div>
+        <div class="cmp-cell pro"><span class="yes">Максимальний опт</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell feat">Кількість клієнтів</div>
+        <div class="cmp-cell"><span class="lim">до 2–3 клієнтів <span style="color:var(--light)">[?]</span></span></div>
+        <div class="cmp-cell pro"><span class="yes">Безлімітні клієнти</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell feat">Мультиклієнтська сесія</div>
+        <div class="cmp-cell">Так, у межах ліміту клієнтів</div>
+        <div class="cmp-cell pro"><span class="yes">Так, без обмежень</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell feat">Історія по клієнту · повтор замовлення</div>
+        <div class="cmp-cell">Так</div>
+        <div class="cmp-cell pro">Так</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell feat">Активація</div>
+        <div class="cmp-cell">Миттєво після підтвердження</div>
+        <div class="cmp-cell pro">Після підтвердження + підписка</div>
+      </div>
+      <!-- foot CTAs -->
+      <div class="cmp-row cmp-foot">
+        <div class="cmp-cell feat"></div>
+        <div class="cmp-cell"><a class="btn" href="coach-verify.html">Почати з Free</a></div>
+        <div class="cmp-cell pro"><a class="btn dark" href="coach-verify.html">Оформити Pro</a></div>
+      </div>
+    </div>
+    <p class="lintro" style="margin:12px 0 0">Точні цифри — гуртова знижка, ліміт клієнтів на Free та ціна Pro —
+      уточнюються за реальними даними <span style="color:var(--light)">[?]</span>. Free має пройти «ціновий поріг» тренера;
+      для 5–30+ клієнтів потрібен Pro.</p>
+  </section>
+
+  <!-- TRUST BAND -->
+  <div class="tband">
+    <span><b>Оригінал і сертифікати</b> на кожен товар</span>
+    <span><b>Гуртові ціни</b> за тарифом тренера</span>
+    <span><b>Доставка</b> Новою Поштою 1–2 дні</span>
+    <span><b>Надійний склад</b> і постачання</span>
+    <span><b>Історія</b> по кожному клієнту</span>
+  </div>
+
+  <!-- SEO TEXT -->
+  <section class="seotext" aria-label="Спортивне харчування оптом — Stack">
+    <div class="h">Спортивне харчування оптом для тренерів і залів в Україні</div>
+    <p>Stack — інтернет-магазин спортивного харчування з гуртовими цінами для тренерів, залів і команд.
+      На відміну від звичайних магазинів, побудованих під одного покупця, Stack дає тренеру зібрати
+      замовлення для всіх клієнтів в одну сесію: протеїн, гейнери, креатин, амінокислоти,
+      передтренувальні комплекси та вітаміни — усе з оригінальною гарантією та сертифікатами.</p>
+    <p>Збережіть список клієнтів, працюйте з ціллю кожного (набір маси, схуднення, відновлення,
+      витривалість), додавайте товари за гуртовою ціною та оформлюйте одне замовлення з доставкою на
+      тренера. Історія по кожному клієнту дозволяє повторювати попередні замовлення в один тап.
+      Тариф Free активуємо миттєво з кращими за роздрібні цінами; Pro відкриває максимальний опт і
+      безлімітну кількість клієнтів.</p>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="finalcta" aria-label="Стати тренером">
+    <h2>Готові замовляти для всіх клієнтів одразу?</h2>
+    <p>Активуйте роль тренера поверх свого акаунта — підтвердження за посиланням на профіль,
+      і гуртові ціни ваші.</p>
+    <a class="btn dark" href="coach-verify.html">Стати тренером</a>
+  </section>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('coach-landing.html');</script>
+</body>
+</html>

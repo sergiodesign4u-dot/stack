@@ -36,13 +36,13 @@ const WF_FLOWS = [
     id: 'f2', name: 'Флоу 2 · Тренер', status: 'active',
     note: 'Для тренерів → стати тренером → кабінет → клієнти → мультиклієнтська сесія → кошик (за клієнтами) → оформлення',
     screens: [
-      { file: 'coach-landing.html', name: 'Для тренерів (лендинг)', node: '5.0', built: false, states: [], builtStates: [] },
-      { file: 'coach-verify.html',  name: 'Стати тренером',         node: '5.1', built: false, states: ['loading','error','deadend','tier'], builtStates: [] },
-      { file: 'coach-home.html',    name: 'Кабінет тренера',        node: '5.2', built: false, states: ['loading','error'], builtStates: [] },
-      { file: 'coach-clients.html', name: 'Клієнти',                node: '5.3', built: false, states: ['empty','loading','error','cap'], builtStates: [] },
-      { file: 'coach-client.html',  name: 'Профіль клієнта',        node: '5.4', built: false, states: ['empty','loading','error'], builtStates: [] },
+      { file: 'coach-landing.html', name: 'Для тренерів (лендинг)', node: '5.0', built: true,  states: [], builtStates: [] },
+      { file: 'coach-verify.html',  name: 'Стати тренером',         node: '5.1', built: true,  states: ['loading','error','deadend','tier'], builtStates: ['loading','error','deadend','tier'] },
+      { file: 'coach-home.html',    name: 'Кабінет тренера',        node: '5.2', built: true,  states: ['loading','error'], builtStates: ['loading','error'] },
+      { file: 'coach-clients.html', name: 'Клієнти',                node: '5.3', built: true,  states: ['empty','loading','error','cap'], builtStates: ['empty','loading','error','cap'] },
+      { file: 'coach-client.html',  name: 'Профіль клієнта',        node: '5.4', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'coach-session.html', name: 'Мультиклієнтська сесія', node: '5.5', built: true,  states: ['addclient','loading','oos','priceblock','untagged'], builtStates: ['addclient','loading','oos','priceblock','untagged'] },
-      { file: 'cart-coach.html',    name: 'Кошик (за клієнтами)',   node: '6.0', built: false, states: ['empty'], builtStates: [] }
+      { file: 'cart-coach.html',    name: 'Кошик (за клієнтами)',   node: '6.0', built: true,  states: ['empty'], builtStates: ['empty'] }
     ]
   }
 ];

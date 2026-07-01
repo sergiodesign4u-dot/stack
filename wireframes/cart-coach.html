@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кошик за клієнтами — Stack (wireframe 6.0 · тренер)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* ============================================================
+   node 6.0 Кошик (ТРЕНЕР) — RIGHT-SIDE DRAWER, pure quick view,
+   але GROUPED BY CLIENT. Line items + qty + remove + client subtotals
+   + ONLY the grand total. Discount/bonus/delivery → checkout (6.1).
+   Convergence point of the coach session (coach-session.html → cart).
+   ============================================================ */
+#wf-bar { position: relative; z-index: 80; }
+
+/* dimmed page behind the drawer */
+.cart-behind { max-width: 1200px; margin: 0 auto; padding: 24px 16px 60px; }
+.cart-behind h2 { font-size: 20px; font-weight: 800; color: var(--strong); margin-bottom: 4px; }
+.cart-behind p { font-size: 13.5px; color: var(--sec); }
+.cart-behind .ph-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-top: 18px; }
+@media (min-width: 620px) { .cart-behind .ph-grid { grid-template-columns: repeat(4,1fr); } }
+.cart-behind .ph-card { border: 1px solid var(--hair); border-radius: 12px; height: 150px; background: var(--fill2); }
+
+/* overlay + drawer */
+.cart-ov { position: fixed; inset: 0; background: rgba(0,0,0,.34); z-index: 60; }
+.cart-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 61;
+  width: 100%; max-width: 440px; background: #fff; display: flex; flex-direction: column;
+  border-left: 1px solid var(--hair); box-shadow: -2px 0 14px rgba(0,0,0,.08);
+}
+.cd-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--hair); }
+.cd-head h1 { font-size: 18px; font-weight: 800; color: var(--strong); display: flex; align-items: baseline; gap: 9px; }
+.cd-head .cd-cnt { font-size: 12.5px; font-weight: 600; color: var(--light); }
+.cd-x { font-size: 20px; color: var(--light); line-height: 1; padding: 4px; }
+
+.cd-body { flex: 1; overflow-y: auto; padding: 0 18px; }
+
+/* client group */
+.cd-group { border-bottom: 1px solid var(--hair2); }
+.cd-group:last-child { border-bottom: 0; }
+.cg-head { position: sticky; top: 0; background: var(--fill2); border: 1px solid var(--hair); border-radius: 8px; padding: 9px 12px; margin: 14px 0 2px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.cg-who { min-width: 0; }
+.cg-nm { font-size: 14px; font-weight: 800; color: var(--strong); }
+.cg-goal { font-size: 11.5px; color: var(--sec); }
+.cg-sub { font-size: 13px; font-weight: 800; color: var(--strong); white-space: nowrap; }
+.cg-sub small { display: block; font-size: 10.5px; font-weight: 600; color: var(--light); text-align: right; }
+
+/* line item */
+.ci { display: grid; grid-template-columns: 66px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--hair); }
+.ci:last-child { border-bottom: 0; }
+.ci-ph { width: 66px; aspect-ratio: 10/11; background: var(--fill); border: 1px solid var(--hair); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; }
+.ci-mid { min-width: 0; }
+.ci-brand { font-size: 11.5px; color: var(--faint); }
+.ci-nm { display: block; font-size: 13.5px; font-weight: 600; color: var(--strong); line-height: 1.3; margin: 2px 0 5px; }
+.ci-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 9px; }
+.ci-qty { display: inline-flex; align-items: center; border: 1.5px solid var(--hair2); border-radius: 8px; }
+.ci-qty button { width: 30px; height: 32px; font-size: 16px; color: var(--strong); }
+.ci-qty .qn { width: 28px; text-align: center; font-weight: 700; font-size: 13px; }
+
+/* coach-tier price (from coach-session.html) */
+.cprice { font-size: 15px; font-weight: 800; color: var(--strong); white-space: nowrap; text-align: right; }
+.cprice .old { display: block; font-size: 11.5px; font-weight: 500; color: #aaa; text-decoration: line-through; }
+.cprice .wtag { display: inline-block; font-size: 9.5px; font-weight: 800; color: var(--strong); border: 1px solid var(--hair2); border-radius: 4px; padding: 0 4px; margin-left: 5px; vertical-align: middle; }
+
+.ci-links { display: flex; gap: 16px; margin-top: 9px; }
+.ci-lnk { font-size: 12px; font-weight: 600; color: var(--sec); display: inline-flex; align-items: center; gap: 5px; }
+.ci-lnk:hover { color: var(--strong); text-decoration: underline; }
+
+/* footer of drawer */
+.cd-foot { border-top: 1px solid var(--hair); padding: 14px 18px 18px; background: #fff; }
+.cd-note { border: 1px solid var(--hair2); border-radius: 10px; background: var(--fill2); padding: 10px 12px; font-size: 11.5px; color: var(--ink); margin-bottom: 12px; line-height: 1.5; }
+.cd-total { display: flex; align-items: baseline; justify-content: space-between; }
+.cd-total span { font-size: 14px; font-weight: 700; color: var(--strong); }
+.cd-total span small { color: var(--light); font-weight: 600; }
+.cd-total b { font-size: 24px; font-weight: 800; color: var(--strong); }
+.cd-cta, .cd-cont { display: block; width: 100%; text-align: center; margin-top: 12px; }
+.cd-cont { margin-top: 9px; border-color: var(--hair2); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 6.0 Кошик за клієнтами (ТРЕНЕР).
+  Right-side drawer over a dimmed page, GROUPED BY CLIENT.
+  Quick view: items + per-client subtotals + grand total only.
+  Primary CTA → checkout.html (6.1). Secondary → coach-session.html (5.5).
+  State: empty (cart-coach-empty.html).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+
+<!-- dimmed page behind the drawer -->
+<div class="wf-canvas">
+  <header id="wf-header"></header>
+  <main class="cart-behind" aria-hidden="true">
+    <h2>Мультиклієнтська сесія</h2>
+    <p>Сесія замовлення під кошиком — кошик відкрито поверх неї.</p>
+    <div class="ph-grid"><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div></div>
+  </main>
+  <footer id="wf-footer"></footer>
+</div>
+
+<!-- ===== CART DRAWER (coach, grouped by client) ===== -->
+<div class="cart-ov" id="cart-ov"><a href="coach-session.html" aria-label="Закрити кошик" style="position:absolute;inset:0;display:block"></a></div>
+<aside class="cart-drawer" role="dialog" aria-modal="true" aria-label="Кошик за клієнтами">
+  <header class="cd-head">
+    <h1>Кошик <span class="cd-cnt">4 позиції · 2 клієнти</span></h1>
+    <a class="cd-x" href="coach-session.html" aria-label="Закрити">✕</a>
+  </header>
+
+  <div class="cd-body">
+
+    <!-- ===== group: Андрій ===== -->
+    <section class="cd-group">
+      <header class="cg-head">
+        <div class="cg-who"><div class="cg-nm">Андрій</div><div class="cg-goal">Ціль: Набір маси</div></div>
+        <div class="cg-sub">2 320 ₴<small>2 позиції</small></div>
+      </header>
+
+      <article class="ci">
+        <a href="product.html" class="ci-ph">фото</a>
+        <div class="ci-mid">
+          <div class="ci-brand">BioTechUSA · Угорщина</div>
+          <a href="product.html" class="ci-nm">Hyper Mass 4000 г</a>
+          <div class="ci-row">
+            <div class="ci-qty"><button aria-label="Менше">−</button><span class="qn">1</span><button aria-label="Більше">+</button></div>
+            <div class="cprice">1 230 ₴<span class="old">1 450 ₴</span><span class="wtag">гурт</span></div>
+          </div>
+          <div class="ci-links"><button class="ci-lnk">🗑 Видалити</button></div>
+        </div>
+      </article>
+
+      <article class="ci">
+        <a href="product.html" class="ci-ph">фото</a>
+        <div class="ci-mid">
+          <div class="ci-brand">Optimum Nutrition · США</div>
+          <a href="product.html" class="ci-nm">Gold Standard 100% Whey 2270 г</a>
+          <div class="ci-row">
+            <div class="ci-qty"><button aria-label="Менше">−</button><span class="qn">1</span><button aria-label="Більше">+</button></div>
+            <div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div>
+          </div>
+          <div class="ci-links"><button class="ci-lnk">🗑 Видалити</button></div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== group: Марія ===== -->
+    <section class="cd-group">
+      <header class="cg-head">
+        <div class="cg-who"><div class="cg-nm">Марія</div><div class="cg-goal">Ціль: Схуднення</div></div>
+        <div class="cg-sub">1 160 ₴<small>2 позиції</small></div>
+      </header>
+
+      <article class="ci">
+        <a href="product.html" class="ci-ph">фото</a>
+        <div class="ci-mid">
+          <div class="ci-brand">BioTechUSA · Угорщина</div>
+          <a href="product.html" class="ci-nm">Iso Whey Zero 908 г</a>
+          <div class="ci-row">
+            <div class="ci-qty"><button aria-label="Менше">−</button><span class="qn">1</span><button aria-label="Більше">+</button></div>
+            <div class="cprice">890 ₴<span class="old">1 050 ₴</span><span class="wtag">гурт</span></div>
+          </div>
+          <div class="ci-links"><button class="ci-lnk">🗑 Видалити</button></div>
+        </div>
+      </article>
+
+      <article class="ci">
+        <a href="product.html" class="ci-ph">фото</a>
+        <div class="ci-mid">
+          <div class="ci-brand">OstroVit · Польща</div>
+          <a href="product.html" class="ci-nm">L-Carnitine 1000</a>
+          <div class="ci-row">
+            <div class="ci-qty"><button aria-label="Менше">−</button><span class="qn">1</span><button aria-label="Більше">+</button></div>
+            <div class="cprice">270 ₴<span class="old">320 ₴</span><span class="wtag">гурт</span></div>
+          </div>
+          <div class="ci-links"><button class="ci-lnk">🗑 Видалити</button></div>
+        </div>
+      </article>
+    </section>
+
+  </div>
+
+  <footer class="cd-foot">
+    <div class="cd-note">Одна доставка на тренера · розподіл за клієнтами зберігається в замовленні · знижка й бонуси — на оформленні.</div>
+    <div class="cd-total"><span>Разом <small>· 2 клієнти</small></span><b>3 480 ₴</b></div>
+    <a class="btn dark cd-cta" href="checkout.html">Перейти до оформлення</a>
+    <a class="btn cd-cont" href="coach-session.html">Повернутись до сесії</a>
+  </footer>
+</aside>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('cart-coach.html');</script>
+</body>
+</html>
