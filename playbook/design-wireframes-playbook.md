@@ -281,6 +281,17 @@ rolls out the rest via subagents; step 9 reviews and finalizes.
 - **Method upgrade (reusable):** for any project, prefer **flow-first prototype navigation** — an
   «all screens» coverage index (single-source-of-truth array) + a thin per-screen bar + flow entry
   points — over a persistent nav rail that fights each screen's own layout.
+- **2026-07-01** — **Step 5 done + a well-timed refactor.** Before cloning, extracted the truly
+  global components — **header, footer, filter-rail, bottom-sheet — into `_nav.js` render functions**
+  (injected into `#wf-header`/`#wf-footer`/`#wf-rail`/`#wf-sheet` placeholders), per conventions §7.
+  Now each page is thin: only its unique zone differs. Built the etalon's 3 state pages
+  (`listing-empty/-loading/-error`) — same structure, different results area, each with a **visible
+  exit** reconciled to `flows.md` (empty → clear filters + goal chips; error → retry; loading →
+  skeleton grid, resolves to base/error). The prototype bar marks the current state and links
+  siblings. Lesson: the moment to **componentize is right after the etalon and before cloning** —
+  extract globals into one render module so 30 pages inherit one header/footer, and state pages
+  become a few lines. Also: only build states the scenario truly produces — dropped a redundant
+  «filtered» page (the base already shows the filter-applied view).
 - **Next** — Step 5/6 (flow-first): build the Флоу-1 screens + their state pages off the etalon
   (home 0.0 · goal 2.2 · product 3.0 · cart 6.0 · checkout 6.1 · auth 1.x · order-placed 6.2 ·
   account 7.0), flipping `built`/`builtStates` in `_nav.js` as each lands; then Step 7 wire the flow.
