@@ -69,3 +69,38 @@ Prototype bars show the new sibling states. No colour leaks introduced; all edit
 **Result:** all High + Med resolved; selected Low fixed; the rest consciously kept with reasons.
 Флоу 1 is internally consistent (one basket, two honest money variants, no dead ends, no
 matrix-required state missing). Next: Step 8 — roll out the remaining flows via subagents.
+
+---
+
+# Step 9 — Critique · Flow 2 (Coach workspace, Job 1) — 2026-07-02
+
+Scope: the 26 coach files (5.0 landing · 5.1 verify+4 · 5.2 home+2 · 5.3 clients+4 · 5.4 client+3 ·
+5.5 session+5 · 6.0 cart-coach+1). Same method: 5 parallel read-only auditors (session · landing+verify
+· home+clients · client+cart · coverage+wiring) → one prioritised table → fixes. Coverage/wiring came
+back **0 defects** (26/26 on disk = _nav.js = matrix; spine + recoveries intact; robots + wfBar clean).
+cart-coach matches coach-session **verbatim** (2 320 / 1 160 / 3 480) — no desync.
+
+## Defect table → resolution
+
+| # | Sev | Screen(s) | Defect | Resolution | Status |
+|---|-----|-----------|--------|------------|--------|
+| H1 | H | global footer (`_nav.js wfFooter`, every page) + header meta-bar + home×3 · product · account×3 | «Для тренерів»/«Стати тренером»/«Тарифи» linked to **`coach.html` (never built)** → 404 on every page + broken buyer→coach entry | Repointed: footer/header/home/product «Для тренерів»/«Тарифи» → `coach-landing.html`; account «Стати тренером» → `coach-verify.html`; header meta-bar «Для тренерів» given a real href. Zero bare `coach.html` left. | ✅ |
+| M1 | M | coach-session -oos / -untagged / -priceblock | Banner said a line was excluded but per-client subtotal + session summary + grand total + mobile bar still counted it (all 2 320 / 3 480) | Recomputed per state: **oos** Андрій 1 090 / Разом 2 250 (Hyper Mass excluded) · **untagged** 1 230 / 2 390 (untagged line won't reach cart) · **priceblock** 1 230 confirmed / 2 390 «без 1 позиції» (pending line unpriced). | ✅ |
+| M2 | M | coach-home ↔ coach-clients (×6) | Shell drift: coach identity («Олена» vs «Олена Тренер», av «О» vs «ОЛ», phone …21 09 vs …88 21), client count (2 vs 3), order counts (4/2 vs 8/5), first-nav label («Огляд» vs «Кабінет»), tier chip variants | Canonicalised one coach profile (Олена · «О» · …21 09 · «Pro · Тренер»), nav label «Огляд», client count **3** (added Ігор to the home summary), order counts **8 / 5 / 2** across all coach-clients* + coach-home. | ✅ |
+| M3 | M | coach-home | Order-list links → `checkout.html` (semantic-wrong; no coach order-history screen) | «↻ Повторити» → `cart-coach.html` (Job 4); «Замовлення» nav + «Усі замовлення» → `coach-home.html` (dashboard) pending the coach order-history node (IA gap, see below). | ✅ |
+| L1 | L | coach-session-loading + -addclient | Loading never resolved forward («Знайти» self-link); addclient skipped the specified loading step | Added forward demo edges on session-loading → base (loaded) + → oos; wired addclient «Додати клієнта» → session-loading (flows `addc → slqa`). | ✅ |
+| L2 | L | coach-session quick-add rows | Quick-add suggestions showed `.cprice` without the «гурт» `.wtag` (wholesale framing only on committed lines) | Added «гурт» tag to all quick-add rows (base + 4 states). | ✅ |
+| L5 | L | coach-verify-loading | Only the pass branch was clickable | Added a «Демо: не пройдено» edge → coach-verify-error (mirrors flows `svrf → q2 → evf`). | ✅ |
+| L7 | L | coach-home | «Тариф» / «Керувати тарифом» self-linked | → `coach-verify-tier.html`. | ✅ |
+
+### Intentionally kept / noted (IA gaps — need spec, not wiring)
+- **M4 (Med→noted):** coach-client «Деталі» → session and «Редагувати клієнта» → clients list are **stand-ins** — there is **no coach order-detail and no client-edit node** in the IA. Per convention §10 (IA gap → fix the spec first), left as-is and flagged; add the nodes to `coach.md`/sitemap before wiring.
+- **Coach order-history node missing:** coach-home «Замовлення»/«Усі замовлення» point at the dashboard because no coach order-list screen exists (buyer 7.2 is separate). Same IA gap.
+- **L6 nav order/icons** differ between coach-home and coach-clients (Нова сесія position + ＋ vs 🛒 icon). Real fix = **extract the coach section-nav into a `_nav.js` component** (like `wfHeader`), deferred; low visual impact.
+- **content.html** links (verify consent/support, footer) — expected forward-ref (node 8.x), shared with ~50 other screens.
+- Modal/drawer low-alpha shadows on addclient/cart-coach — the accepted dialog-depth treatment (same as auth/cart), kept.
+
+**Result:** all High + Med resolved and the chosen Low; Flow 2 is internally consistent (canonical coach
+profile + counts, honest session-state numbers, no `coach.html` 404, cart matches session). Remaining
+items are genuine IA gaps (coach order-detail / client-edit / order-history nodes) to be specced, not
+wireframe bugs. Verified renders: coach-session-oos summary (2 250), coach-clients profile (Олена/О/Pro).

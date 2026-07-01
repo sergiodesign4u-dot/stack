@@ -123,7 +123,7 @@ function wfHeader() {
   el.className = 'wfh';
   el.innerHTML = `
     <div class="wfh-meta"><div class="wfh-in">
-      <a class="strongl">Для тренерів</a><a>Акції</a><a>Бренди</a><a>Доставка</a><a>Повернення</a>
+      <a class="strongl" href="coach-landing.html">Для тренерів</a><a>Акції</a><a>Бренди</a><a>Доставка</a><a>Повернення</a>
       <span class="wfh-sp"></span><a>📍 Одеса</a><a>Укр</a>
     </div></div>
     <div class="wfh-main wfh-in">
@@ -165,7 +165,7 @@ function wfFooter() {
     <div class="wff-cols">
       <div class="wff-col"><h4>Stack</h4><a href="content.html">Про нас</a><a href="content.html">Контакти</a><a href="content.html">Блог</a><a href="content.html">Публічна оферта</a></div>
       <div class="wff-col"><h4>Покупцям</h4><a href="content.html">Знижки та бонуси</a><a href="content.html">Доставка й оплата</a><a href="content.html">Повернення</a><a href="content.html">FAQ</a></div>
-      <div class="wff-col"><h4>Тренерам</h4><a href="coach.html">Для тренерів</a><a href="coach.html">Тарифи Free / Pro</a></div>
+      <div class="wff-col"><h4>Тренерам</h4><a href="coach-landing.html">Для тренерів</a><a href="coach-landing.html">Тарифи Free / Pro</a></div>
       <div class="wff-col"><h4>Консультація</h4><a href="content.html">0 800 000 000</a><a href="content.html">Telegram · Viber</a><a href="content.html">Пн–Нд 9:00–21:00</a></div>
     </div>
     <div class="wff-seo">

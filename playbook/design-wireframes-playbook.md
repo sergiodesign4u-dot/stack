@@ -342,7 +342,28 @@ rolls out the rest via subagents; step 9 reviews and finalizes.
   agents author sibling screens — record it in the critique so Step 8 reuses it.
 - **Milestone — Флоу 1 COMPLETE + CRITIQUED (2026-07-01):** 38 html files; one canonical basket; no
   dead ends; every matrix-required state built and lit in `_nav.js`/`index.html`.
-- **Next** — **[8] roll out the WHOLE product** via subagents (coach 5.x · reorder Job 4 · loyalty Job 6 ·
-  content 8.x · system · listing instances catalog-hub 2.0/brands 2.4/search 2.5). Reuse the canonical
-  basket + the guest/logged-in money split from `_critique.md`. Forward-refs (brands/catalog-page/coach/
-  content/quiz/search `.html`) already linked; they resolve as those screens are built.
+- **2026-07-01/02** — **Флоу 2 (Coach, Job 1) built + critiqued.** Approach = **hybrid, NOT a fresh
+  9-step run**: the etalon + Flow-1 primitives are reused, so this was Step-8-for-one-flow. Because the
+  one genuinely-new screen (**5.5 multi-client session**) had no precedent, hand-built it first as the
+  coach **reference** (client tabs w/ per-client subtotals · in-session quick-add, NOT global search ·
+  coach-tier price vs struck retail · tag-to-client · session summary) + its 5 recovery states, then
+  **fanned out the other 6** (5.0 landing · 5.1 verify · 5.2 home=account-shell-coach-mode · 5.3 clients ·
+  5.4 client · 6.0 cart grouped-by-client) via conflict-free subagents cloning 5.5 — with **canonical
+  coach data handed to every agent** so cart-coach matched the session verbatim (no desync). Reconcile
+  fixed `coach.html→coach-home.html`. **Step-9 critique** (5 auditors, coverage=0 defects) then caught:
+  a **global `coach.html` 404** (footer/header/home/product/account all linked a screen that was never
+  built → `coach-landing.html`); **session-state number drift** (oos/untagged/priceblock banners said a
+  line was excluded while subtotals still counted it → recomputed); **coach-shell drift** between
+  coach-home and coach-clients (identity, client count, order counts, nav label — canonicalised). Lessons:
+  (1) when a placeholder node name (`coach.html`) is referenced by many screens before it's built, the
+  real screen often lands under a **different filename** — sweep the old name globally at reconcile;
+  (2) a **shared shell reused by parallel agents drifts** (each invents the profile card / counts / nav) —
+  either hand one canonical block to all agents or extract the shell to a `_nav.js` component;
+  (3) **recovery states that exclude a line must recompute every total** (line subtotal + summary +
+  grand + mobile bar), not just show a banner.
+- **Milestone — Флоу 1 + Флоу 2 COMPLETE + CRITIQUED (2026-07-02):** ~64 html; both flows internally
+  consistent; coverage clean; critique log in `wireframes/_critique.md`.
+- **Next** — remaining product areas via subagents (loyalty Job 6 / 8.7 · content 8.x · system pages ·
+  listing instances catalog-hub 2.0 / brands 2.4 / search 2.5) + the IA gaps surfaced by the Flow-2
+  critique (coach order-detail / order-history / client-edit nodes — spec first, then wire). Forward-ref
+  `content.html` still links from ~50 screens; resolve when 8.x is built.
