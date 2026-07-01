@@ -66,7 +66,15 @@
     (section nav + panel desktop / menu-hub mobile, tab «Акаунт»); section set = header «Кабінет»
     dropdown; Overview = dashboard snapshot; profile **passwordless** (no «Пароль», per 1.x); wishlist
     uses the canonical card; coach = role on the same account. **Private → noindex, no schema**. B/W).
-  Next: cluster by cluster — Coach workspace (5.x), Cart/Checkout (6.x).
+  - `pages/coach.md` → `ia/coach.html` (node 5.x — **Coach workspace, PRIMARY Job 1**, whole cluster in
+    one spec): **5.0 For-Coaches landing** (public/indexable — value prop + **Free/Pro** + CTA) · **5.1
+    Become-a-coach** (role on top of account; social-link verification → tier choice) · **5.2 Coach
+    home** (= account shell in coach mode + «Нова сесія» CTA) · **5.3 Clients + 5.4 Client profile**
+    (saved clients + tag-to-client + per-client history) · **5.5 Multi-client order session** ★ (client
+    tabs + in-session quick-add + coach-tier price + tag → **cart grouped by client 6.0**). Coach-as-buyer
+    (Decision 1); per-client loop with recovery (OOS/tier-price-blocked/untagged). **Mixed SEO:** landing
+    indexes, 5.1–5.5 **noindex**. B/W).
+  Next: Cart/Checkout (6.x, with per-client grouping).
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
   nodes. Reference visual: `research/sitemap png example/`.
 - **Stance:** mobile-first, fully responsive. Coach = buyer (not a marketplace). SEO is

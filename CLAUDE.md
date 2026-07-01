@@ -356,7 +356,7 @@ schema (structure + transitions) and full per-page specs.
    visual one side, form the other); new user → name step; **success returns to the triggering
    action**; social OAuth + soft skippable add-phone for new accounts; SMS code has expiry +
    attempts + resend cooldown + rate-limit. Page is **noindex, no schema** (utility, not content).
-   Sidebar «Сторінки» order: Головна · Каталог · Категорія · Картка товару · Квіз · **Авторизація** · **Акаунт**.
+   Sidebar «Сторінки» order: Головна · Каталог · Категорія · Картка товару · Квіз · **Авторизація** · **Акаунт** · **Кабінет тренера**.
    Coach is a **role activated on an existing account** via a verification flow reachable from both the
    For-Coaches landing CTA and an account section, so coaches never hunt for a login.
    Coach tiering is being explored as **Free vs Pro** (HYPOTHESIS, numbers [?]): Free =
@@ -380,6 +380,22 @@ content panel; mobile = a **menu-hub** screen (tab «Акаунт»). The sectio
 buyer+coach) · 7.7 **Стати тренером / Я тренер** (same entry as landing 5.0 → verification 5.1; coach
 cluster 5.x still separate/not page-level). **Private zone → `noindex, nofollow`, no schema** (A–E
 exception, like Auth). Coach is a role on top of the same account, not a separate account.
+
+**Coach workspace (`coach.md`/`coach.html`, node 5.x — PRIMARY Job 1, done July 2026):** the whole
+cluster in one spec. **5.0 «Для тренерів» landing** (public/indexable — value prop + **Free/Pro**
+comparison + CTA, guest → auth first) · **5.1 Стати тренером** (role activated **on top of the
+account**; social-link **verification** with waiting/fail-resubmit/**dead-end**/verified states →
+tier choice Free-instant / Pro-subscription) · **5.2 Кабінет** (= the **account shell in coach mode**:
+tier chip + big **«＋ Нова сесія»** CTA + clients/orders/wishlist) · **5.3 Клієнти + 5.4 Профіль
+клієнта** (saved clients + **tag-to-client + per-client history**; client goal drives selection;
+per-client repeat = Job 4) · **5.5 Мультиклієнтська сесія замовлення** ★ — client tabs (per-client
+subtotals) + active-client panel (goals → **in-session quick-add**, NOT global search → lines with
+**coach-tier price** vs struck retail + qty + tag) + session summary → **cart grouped by client (6.0)**.
+Per-client loop with recovery (OOS→substitute/skip · **tier price unresolved → session saved, checkout
+blocked** · untagged line → assign/discard). **Coach-as-buyer** (Decision 1), not a marketplace; flow
+depth intentional (~8 taps / 2-client order). **Mixed SEO:** landing indexes, **work zone 5.1–5.5 =
+noindex, no schema**. Free/Pro numbers + wholesale price gate stay **[?]**. Cart/Checkout (6.x) with
+per-client grouping is the next cluster (not yet page-level).
 
 **Sequence:** (1) full sitemap → (2) inherited component library → (3) page-level IA per
 cluster. Output is the "wireframe library" that Phase 2 renders.

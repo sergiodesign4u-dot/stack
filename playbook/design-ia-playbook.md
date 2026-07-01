@@ -386,6 +386,24 @@ Output = the wireframe library. Wireframes then just render it.
   spec it as **one shell + section list mirroring an existing nav surface** rather than N page docs —
   and mark it noindex up front so it never leaks into the SEO structure. Coach workspace (5.x) stays a
   separate cluster the account only links into (7.7 → 5.1).
+- **2026-07-01** — **Coach workspace (node 5.x, PRIMARY Job 1)** built (`ia/docs/pages/coach.md` +
+  `ia/coach.html`) — the primary job, so treated thoroughly. Whole cluster in one spec: public
+  **landing (5.0)** with a Free/Pro comparison · **become-a-coach flow (5.1)** with social-link
+  verification (waiting / fail→resubmit / **deliberate dead-end** / verified) · **coach home (5.2)** ·
+  **clients + client profile (5.3/5.4)** · **multi-client order session (5.5)** — the differentiator.
+  Key reuse/design calls: the coach home is the **same account shell in "coach mode"** (reused the
+  `.acc/.accnav/.snap` CSS, swapped sections + a tier chip + a big «Нова сесія» CTA) — don't build a
+  second shell; the session models the flows.md **per-client loop** literally (client tabs with
+  per-client subtotals → **in-session quick-add, not global search** → lines with **coach-tier price**
+  vs struck retail + tag-to-client → summary → **cart grouped by client**), with **recovery at every
+  branch** (OOS→substitute/skip · tier-price-unresolved → session saved + **checkout blocked** ·
+  untagged line → assign/discard) rather than happy-path only. **Mixed SEO in one cluster:** the public
+  landing indexes (full A–E), the private work zone (5.1–5.5) is noindex/no-schema — spell the split out
+  in the SEO section so it isn't lost. Coach-as-buyer (Decision 1), not a marketplace; flow depth kept
+  intentional (~8 taps / 2-client order — a work flow, not flattened). Lesson: for the PRIMARY job, wire
+  the wireframe **directly from the flow doc's decision/recovery nodes** (every «error/OOS/blocked/
+  untagged» state gets a visible treatment), and **reuse the sibling shell** instead of inventing a new
+  layout for a role variant.
 - **Next** — page-level IA cluster by cluster (each WITH its A–E SEO block): Product (3.0),
   Cart/Checkout (6.x), Coach workspace (5.x), Buyer account (7.x). Add each new node to the sidebar
   group and `ia/docs/sitemap.md`.
