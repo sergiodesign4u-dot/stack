@@ -356,7 +356,7 @@ schema (structure + transitions) and full per-page specs.
    visual one side, form the other); new user → name step; **success returns to the triggering
    action**; social OAuth + soft skippable add-phone for new accounts; SMS code has expiry +
    attempts + resend cooldown + rate-limit. Page is **noindex, no schema** (utility, not content).
-   Sidebar «Сторінки» order: Головна · Каталог · Категорія · Картка товару · Квіз · **Авторизація**.
+   Sidebar «Сторінки» order: Головна · Каталог · Категорія · Картка товару · Квіз · **Авторизація** · **Акаунт**.
    Coach is a **role activated on an existing account** via a verification flow reachable from both the
    For-Coaches landing CTA and an account section, so coaches never hunt for a login.
    Coach tiering is being explored as **Free vs Pro** (HYPOTHESIS, numbers [?]): Free =
@@ -367,6 +367,19 @@ schema (structure + transitions) and full per-page specs.
    the Free price must still pass the coach "price gate", or acquisition suffers; the
    primary persona (5-30+ athletes) effectively needs Pro, so coach monetization =
    Pro subscription + product margin.
+
+**Buyer account (`account.md`/`account.html`, node 7.x, done July 2026):** the **regular buyer's
+account**, built as **one shell** — desktop = left **section nav** (profile + counters + «Вийти») +
+content panel; mobile = a **menu-hub** screen (tab «Акаунт»). The section set equals the header
+«Кабінет» dropdown. Covers 7.0 **Огляд** (dashboard snapshot: bonuses · last order with **«↻
+Повторити»** · wishlist · addresses + loyalty progress + become-a-coach banner) · 7.2/7.3 **Замовлення**
+(list → detail with **one-tap repeat → cart 6.0**, honest OOS handling — **Job 4**) · 7.4 **Лояльність
+і бонуси** (personal cumulative loyalty, Decision 3; bonus balance+ledger; **Job 6**; numbers [?]) ·
+7.5 **Адреси** (НП/courier/pickup, default) · 7.1 **Профіль** (**passwordless** — phone/e-mail by code,
+**no password**, per auth 1.x; the old sitemap «Пароль» removed) · 7.6 **Обране** (canonical card,
+buyer+coach) · 7.7 **Стати тренером / Я тренер** (same entry as landing 5.0 → verification 5.1; coach
+cluster 5.x still separate/not page-level). **Private zone → `noindex, nofollow`, no schema** (A–E
+exception, like Auth). Coach is a role on top of the same account, not a separate account.
 
 **Sequence:** (1) full sitemap → (2) inherited component library → (3) page-level IA per
 cluster. Output is the "wireframe library" that Phase 2 renders.

@@ -60,7 +60,13 @@
     new-user name step → success returns to the triggering action; email = passwordless code; social =
     OAuth + soft add-phone; all states (invalid/loading/wrong-code/resend/rate-limit/social-new);
     role-agnostic (coach role activated later 5.1/7.7); **noindex, no schema**. B/W).
-  Next: cluster by cluster — Coach workspace (5.x), Cart/Checkout (6.x), Buyer account (7.x).
+  - `pages/account.md` → `ia/account.html` (node 7.x — **Buyer account shell**, covers 7.0 Overview ·
+    7.1 Profile · 7.2 Orders · 7.3 Order detail + **one-tap repeat (Job 4)** · 7.4 Loyalty & bonuses
+    (Job 6, Decision 3) · 7.5 Addresses · 7.6 Wishlist · entry to 7.7 Become-a-coach → 5.1): one shell
+    (section nav + panel desktop / menu-hub mobile, tab «Акаунт»); section set = header «Кабінет»
+    dropdown; Overview = dashboard snapshot; profile **passwordless** (no «Пароль», per 1.x); wishlist
+    uses the canonical card; coach = role on the same account. **Private → noindex, no schema**. B/W).
+  Next: cluster by cluster — Coach workspace (5.x), Cart/Checkout (6.x).
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
   nodes. Reference visual: `research/sitemap png example/`.
 - **Stance:** mobile-first, fully responsive. Coach = buyer (not a marketplace). SEO is

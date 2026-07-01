@@ -373,6 +373,19 @@ Output = the wireframe library. Wireframes then just render it.
   no — split SEO into **structure (IA, now) → layout validation (wireframe) → final copy+volumes
   (production)**; added the 3-layer table + a **wireframe SEO-validation checklist** to Principle 4
   so Phase 2 does only the layout check, not SEO invention.
+- **2026-07-01** — **Buyer account (node 7.x)** built (`ia/docs/pages/account.md` + `ia/account.html`).
+  Modelled as **one shell** (desktop = left section-nav + content panel; mobile = a menu-hub screen on
+  tab «Акаунт»), covering all sub-nodes in one artifact — 7.0 Overview (dashboard snapshot) · 7.2/7.3
+  Orders + **one-tap repeat → cart** (Job 4) · 7.4 Loyalty & bonuses (Job 6, Decision 3) · 7.5 Addresses ·
+  7.1 Profile · 7.6 Wishlist · entry to 7.7 Become-a-coach → 5.1. Key reuse decisions: the account
+  **section set = the header «Кабінет» dropdown** (don't invent a second nav taxonomy); **Overview =
+  dashboard snapshot** where each card deep-links its section; **profile is passwordless** (aligned to
+  Auth 1.x — removed the stale sitemap «Пароль»); wishlist reuses the **canonical product card**; the
+  account is a **private zone → noindex, no schema** (same A–E exception as Auth). Registered «Акаунт»
+  in the shared sidebar on **all 12 pages** via a script. Lesson: for a private, multi-section area,
+  spec it as **one shell + section list mirroring an existing nav surface** rather than N page docs —
+  and mark it noindex up front so it never leaks into the SEO structure. Coach workspace (5.x) stays a
+  separate cluster the account only links into (7.7 → 5.1).
 - **Next** — page-level IA cluster by cluster (each WITH its A–E SEO block): Product (3.0),
   Cart/Checkout (6.x), Coach workspace (5.x), Buyer account (7.x). Add each new node to the sidebar
   group and `ia/docs/sitemap.md`.
