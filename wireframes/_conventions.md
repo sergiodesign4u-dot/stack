@@ -121,6 +121,28 @@ the existing B/W wireframe vocabulary and the IA text, we do not invent a second
 
 ---
 
+## Locked refinements (2026-07-01, from the etalon review)
+
+These apply to **every** wireframe (fix once in `_wf.css`, all screens inherit):
+
+- **Header width:** meta bar + main bar content are constrained to the **content width**
+  (`.wfh-in`, max 1200) — nothing touches the viewport edges.
+- **Header hierarchy:** «Каталог» = **primary** (filled dark) **with an icon**; «Цілі» secondary.
+- **Header actions order (locked): Увійти · Обране · Бонуси · Кошик** — each a real bordered
+  button, not a bare icon. **Бонуси** = two-line (cap «Бонуси» / value «Отримати» for guest,
+  balance for logged-in). **Кошик** = icon + «Кошик» when empty; when full → icon left, right =
+  small «Кошик» + sum under it (+ item counter later, at the states pass).
+- **Listing toolbar:** result **count on the left**; **sort + view-toggle on the right**.
+- **Active filters:** **«Очистити все» first**, then the selected-filter chips.
+- **Taxonomy vs facets:** a **type / subcategory** is a **link to its own listing page**
+  (`.flink`, more pages = more SEO weight), **not** a facet checkbox. True facets (availability,
+  price, brand, goal, flavour, country, certification) stay checkboxes/range in the rail/sheet.
+- **Card stability:** the price + buy/notify button (and every card row) **never shifts between
+  cards** — reserve fixed row heights (name 2 lines, availability, rating) so OOS/short cards
+  align with full ones. No `margin-top:auto` pushes that depend on variable lower content.
+- **SEO body text is always fully expanded** — **never** a «read more» collapse (hidden text
+  isn't indexed). Top-of-page «Читати більше ↓» is only an anchor jump to the open block.
+
 ## Build order (per the playbook's How-to-run)
 
 1. **Step 3 — etalon:** `wireframes/listing.html` (Категорія 2.1), base view, mobile + desktop,

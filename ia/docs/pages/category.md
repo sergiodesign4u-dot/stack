@@ -24,9 +24,11 @@
   (Catalog/all-products, same template scoped to all).
 - **Chips «за типом» + «за ціллю» live INSIDE the filter panel** (decided 2026-06-30), not as
   separate top chip rows — and the goal duplicate is removed (goals existed both as a chip row
-  and as a «Ціль» facet). **Тип/субкатегорія** = the first, expanded filter group. Subcategories
-  still keep their **own crawlable URL pages** (e.g. `/protein/isolate/`) reachable from the
-  mega-menu + the «Тип» filter selection, so internal linking / SEO is preserved.
+  and as a «Ціль» facet). **Тип/субкатегорія** = the first filter group, but rendered as
+  **links, not checkboxes** (refined 2026-07-01, wireframe review): each type is an `<a>` to its
+  **own crawlable listing page** (e.g. `/protein/isolate/`) — more real pages = more SEO weight,
+  and it matches the taxonomy (type = a subcategory page, not just a facet). True facets
+  (availability, price, brand, goal, flavour, weight, country, certification) stay checkboxes/range.
 - **Filter panel = inherited component.** Desktop: a **left rail** (sticky). Mobile: a
   **bottom-sheet** opened by a sticky «Фільтри» button (with active-count badge). Facets come
   straight from `catalog.md`: Тип · Наявність · Ціна · Бренд · Ціль · Форма · Смак ·
@@ -39,6 +41,8 @@
 - **Calm, trust-first** (principles #1, #4): no countdown timers; availability and certification
   are honest, plain-language signals on every card. The category intro reduces doubt before
   the grid sells; **«Читати більше» anchors down to the bottom SEO text** (not inline expand).
+  The **bottom SEO text is always fully rendered** (never a read-more collapse) — hidden text
+  isn't indexed (locked 2026-07-01).
 
 ---
 

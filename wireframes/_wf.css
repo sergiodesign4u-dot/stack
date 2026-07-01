@@ -41,29 +41,39 @@ img { max-width: 100%; display: block; }
 
 /* ---------- inherited header (Navigation 0.1), greyscale ---------- */
 .wfh { position: sticky; top: 0; z-index: 30; background: #fff; border-bottom: 1px solid var(--hair); }
-.wfh-meta { display: none; font-size: 11.5px; color: var(--sec); border-bottom: 1px solid var(--hair);
-  padding: 6px 16px; gap: 18px; }
+.wfh-in { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 12px; padding: 10px 16px; }
+.wfh-meta { display: none; font-size: 11.5px; color: var(--sec); border-bottom: 1px solid var(--hair); }
+.wfh-meta .wfh-in { padding: 6px 16px; gap: 18px; }
 .wfh-meta a { color: var(--sec); }
 .wfh-meta .strongl { color: var(--strong); font-weight: 700; }
-.wfh-main { display: flex; align-items: center; gap: 12px; padding: 10px 16px; max-width: 1200px; margin: 0 auto; }
+.wfh-main { padding: 0; }
 .wfh-burger { font-size: 20px; line-height: 1; padding: 4px; }
 .wfh-logo { font-size: 20px; font-weight: 800; color: var(--strong); letter-spacing: -.02em; }
 .wfh-nav { display: none; gap: 6px; }
-.wfh-nav .navbtn { border: 1.5px solid var(--dark); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 700; color: var(--strong); }
+.wfh-nav .navbtn { display: inline-flex; align-items: center; gap: 7px; background: var(--dark); color: #fff; border: 1.5px solid var(--dark); border-radius: 8px; padding: 9px 15px; font-size: 13px; font-weight: 700; }
+.wfh-nav .navbtn .g { font-size: 15px; }
 .wfh-nav .navlink { padding: 8px 10px; font-size: 13px; font-weight: 600; color: var(--strong); display: inline-flex; align-items: center; gap: 5px; }
 .wfh-search { display: none; flex: 1; border: 1.5px solid var(--hair2); border-radius: 8px; overflow: hidden; }
 .wfh-search input { flex: 1; border: none; padding: 9px 12px; font-size: 13px; width: 100%; }
 .wfh-search .go { background: var(--dark); color: #fff; padding: 0 16px; font-size: 13px; font-weight: 700; }
 .wfh-sp { flex: 1; }
-.wfh-icons { display: flex; align-items: center; gap: 14px; font-size: 13px; }
-.wfh-ic { display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--strong); }
-.wfh-ic .g { font-size: 18px; }
-.wfh-ic .cap { font-size: 10px; color: var(--sec); }
+/* desktop action buttons: Увійти · Обране · Бонуси · Кошик (order locked) */
+.wfh-actions { display: none; align-items: center; gap: 8px; }
+.wfh-act { display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--hair2); border-radius: 9px; padding: 6px 11px; color: var(--strong); }
+.wfh-act .g { font-size: 17px; }
+.wfh-act .lbl { font-size: 12.5px; font-weight: 700; }
+.wfh-act .t { display: flex; flex-direction: column; line-height: 1.12; }
+.wfh-act .t .cap { font-size: 9px; color: var(--sec); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
+.wfh-act .t .val { font-size: 12.5px; font-weight: 800; }
+/* mobile icon row */
+.wfh-mi { display: flex; align-items: center; gap: 15px; font-size: 19px; }
 @media (min-width: 860px) {
-  .wfh-meta { display: flex; }
+  .wfh-meta { display: block; }
   .wfh-burger { display: none; }
   .wfh-nav { display: flex; }
   .wfh-search { display: flex; }
+  .wfh-actions { display: flex; }
+  .wfh-mi { display: none; }
 }
 
 /* ---------- breadcrumb ---------- */
@@ -113,6 +123,10 @@ img { max-width: 100%; display: block; }
 .fopt .cb.on::after { content: '✓'; color: #fff; font-size: 10px; position: absolute; top: -2px; left: 2px; }
 .fopt .ct { color: #bbb; margin-left: auto; font-size: 12px; }
 .fmore { font-size: 12px; color: var(--light); margin-top: 9px; }
+/* taxonomy (type / subcategory) = links to inner category pages, not facet checkboxes (SEO + real pages) */
+.flinks { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
+.flink { border: 1.5px solid var(--hair2); border-radius: 100px; padding: 6px 12px; font-size: 12.5px; font-weight: 600; color: var(--strong); }
+.flink .ct { color: #bbb; margin-left: 5px; font-size: 11px; }
 .frange { height: 4px; background: #ddd; border-radius: 4px; margin: 14px 2px 9px; position: relative; }
 .frange::before, .frange::after { content: ''; position: absolute; top: -4px; width: 12px; height: 12px; border-radius: 50%; background: var(--dark); }
 .frange::before { left: 18%; } .frange::after { right: 26%; }
@@ -130,7 +144,8 @@ img { max-width: 100%; display: block; }
 .pcard .bd { padding: 11px 12px 12px; display: flex; flex-direction: column; flex: 1; }
 .pcard .pbrand { font-size: 11.5px; color: var(--faint); margin: 0 0 4px; }
 .pcard .nm { font-size: 14px; color: var(--strong); line-height: 1.3; font-weight: 600; margin: 0 0 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 37px; }
-.pcard .pavail { margin-top: auto; margin-bottom: 7px; font-size: 11px; font-weight: 700; }
+/* fixed row heights so the price + buy button NEVER shift between cards */
+.pcard .pavail { margin-bottom: 7px; min-height: 15px; font-size: 11px; font-weight: 700; }
 .pcard .pavail.in { color: var(--strong); }
 .pcard .pavail.low { color: var(--strong); }        /* honesty via text, not colour */
 .pcard .pavail.pre { color: var(--sec); }
@@ -143,7 +158,7 @@ img { max-width: 100%; display: block; }
 .pcard .pnew { font-weight: 800; color: var(--strong); font-size: 20px; }
 .pcard .cartbtn { width: 44px; height: 44px; flex: none; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; background: var(--dark); color: #fff; }
 .pcard .cartbtn.notify { background: #fff; color: var(--dark); border: 1.5px solid var(--dark); font-size: 16px; }
-.pcard .rate { font-size: 11.5px; color: var(--light); display: flex; align-items: center; gap: 6px; margin-top: 10px; }
+.pcard .rate { font-size: 11.5px; color: var(--light); display: flex; align-items: center; gap: 6px; margin-top: 10px; min-height: 15px; }
 .pcard .rate .st { color: var(--strong); font-weight: 700; }
 .pcard .pmeta2 { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-top: 10px; padding-top: 9px; border-top: 1px solid #f0f0f0; font-size: 11.5px; }
 .pcard .perserv { color: var(--sec); } .pcard .perserv b { color: var(--strong); }
@@ -162,8 +177,7 @@ img { max-width: 100%; display: block; }
 .seotext { padding: 18px 18px; background: var(--fill2); border: 1px solid var(--hair); border-radius: var(--r); margin-top: 26px; }
 .seotext .h { font-size: 17px; font-weight: 800; color: var(--strong); margin-bottom: 10px; }
 .seotext p { font-size: 13.5px; color: #555; margin-bottom: 9px; line-height: 1.6; }
-.seotext.collapsed p:nth-child(n+3) { display: none; }
-.seotoggle { font-size: 13px; font-weight: 700; color: var(--strong); text-decoration: underline; margin-top: 4px; display: inline-block; }
+/* SEO body is always fully expanded — never collapse (hidden text isn't indexed) */
 
 /* ---------- related strip ---------- */
 .relrow { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 16px; }
