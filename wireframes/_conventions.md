@@ -165,8 +165,10 @@ These apply to **every** wireframe (fix once in `_wf.css`, all screens inherit):
   **separate state page**. Keep the two consistent — pass the active set to the shared rail
   (`wfCatalogRail([...])`) so a chip and its facet checkbox always agree.
 - **Grid ↔ list view toggle** is real: **two pages** (`listing.html` grid ▦ / `listing-list.html`
-  list ☰), the ▦/☰ control links between them, active view marked. List card = image · brand/name/
-  availability/meta · price + «У кошик» (♡ top of the price column).
+  list ☰), the ▦/☰ control links between them, active view marked. **List card layout:** image ·
+  brand/name/availability/meta · **price in the middle** (struck old price **+ discount badge**,
+  then new) · **right = ♡ + clean icon cart button** (🛒 / 🔔 for OOS). Reserve the old-price row
+  height so prices align across rows.
 
 ## Build order (per the playbook's How-to-run)
 

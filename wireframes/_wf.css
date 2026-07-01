@@ -170,9 +170,9 @@ img { max-width: 100%; display: block; }
 .pcard.dim .ph, .pcard.dim .prow2 { opacity: .5; }
 .gnote { font-size: 12px; color: var(--light); margin: 10px 2px 0; line-height: 1.4; }
 
-/* ---------- product LIST view (☰ toggle) ---------- */
+/* ---------- product LIST view (☰ toggle) — image · info · price (middle) · ♡+cart (right) ---------- */
 .plist { display: flex; flex-direction: column; gap: 10px; }
-.pcard-l { display: grid; grid-template-columns: 84px 1fr auto; gap: 14px; border: 1px solid var(--hair); border-radius: 12px; padding: 12px; align-items: center; position: relative; }
+.pcard-l { display: grid; grid-template-columns: 84px 1fr auto auto; gap: 16px; border: 1px solid var(--hair); border-radius: 12px; padding: 12px; align-items: center; }
 .pcard-l .lph { width: 84px; aspect-ratio: 1; background: var(--fill); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; position: relative; }
 .pcard-l .lph .tag { position: absolute; top: 5px; left: 5px; background: #fff; border: 1.5px solid var(--dark); color: var(--strong); font-size: 8.5px; font-weight: 800; border-radius: 4px; padding: 1px 5px; text-transform: uppercase; }
 .pcard-l .lbd { min-width: 0; }
@@ -182,17 +182,23 @@ img { max-width: 100%; display: block; }
 .pcard-l .lavail.pre, .pcard-l .lavail.out { color: var(--sec); }
 .pcard-l .lmeta { font-size: 11.5px; color: var(--sec); margin-top: 5px; }
 .pcard-l .lmeta .st { color: var(--strong); font-weight: 700; }
-.pcard-l .lright { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; white-space: nowrap; }
+/* price block in the middle (old price + badge, then new) */
+.pcard-l .lprice-col { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; white-space: nowrap; }
+.pcard-l .lold-row { display: flex; align-items: center; gap: 6px; min-height: 15px; }
 .pcard-l .lold { font-size: 12px; color: #aaa; text-decoration: line-through; }
+.pcard-l .lcut { background: var(--dark); color: #fff; font-size: 10px; font-weight: 800; border-radius: 4px; padding: 1px 6px; }
 .pcard-l .lprice { font-size: 21px; font-weight: 800; color: var(--strong); }
-.pcard-l .lbtn { border: none; background: var(--dark); color: #fff; border-radius: 9px; padding: 10px 18px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 7px; }
-.pcard-l .lbtn.notify { background: #fff; color: var(--dark); border: 1.5px solid var(--dark); }
-.pcard-l .lfav { align-self: flex-end; font-size: 16px; color: var(--faint); background: none; line-height: 1; }
+/* right actions: favourite + clean cart button */
+.pcard-l .lactions { display: flex; align-items: center; gap: 10px; }
+.pcard-l .lfav { font-size: 18px; color: var(--faint); background: none; line-height: 1; }
+.pcard-l .cartbtn { width: 44px; height: 44px; flex: none; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; background: var(--dark); color: #fff; }
+.pcard-l .cartbtn.notify { background: #fff; color: var(--dark); border: 1.5px solid var(--dark); font-size: 16px; }
 .pcard-l.dim .lph, .pcard-l.dim .lprice { opacity: .5; }
 @media (max-width: 560px) {
-  .pcard-l { grid-template-columns: 64px 1fr; }
-  .pcard-l .lph { width: 64px; }
-  .pcard-l .lright { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; border-top: 1px solid #f0f0f0; padding-top: 10px; }
+  .pcard-l { grid-template-columns: 56px 1fr; row-gap: 12px; }
+  .pcard-l .lph { width: 56px; }
+  .pcard-l .lprice-col { align-items: flex-start; }
+  .pcard-l .lactions { justify-content: flex-end; }
 }
 
 /* ---------- pagination ---------- */
