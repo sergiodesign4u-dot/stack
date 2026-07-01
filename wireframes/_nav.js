@@ -11,7 +11,9 @@ const WF_STATE_LABEL = {
   filtered: 'З фільтрами', list: 'Списком', oos: 'Немає в наявності', reviews: 'Відгуки (Job 3)',
   buyer: 'Покупець', coach: 'Тренер',
   guest: 'Гість', declined: 'Оплата відхилена', noaddr: 'Без адреси', loggedin: 'У кабінеті',
-  code: 'Крок коду', newuser: 'Новий користувач', 'account-end': 'З акаунтом'
+  code: 'Крок коду', newuser: 'Новий користувач', 'account-end': 'З акаунтом',
+  tier: 'Вибір тарифу', deadend: 'Глухий кут', cap: 'Ліміт клієнтів',
+  addclient: 'Додати клієнта', priceblock: 'Ціна не підтверджена', untagged: 'Без клієнта'
 };
 
 const WF_FLOWS = [
@@ -31,9 +33,17 @@ const WF_FLOWS = [
     ]
   },
   {
-    id: 'f2', name: 'Флоу 2 · Тренер', status: 'soon',
-    note: 'Кабінет тренера → мультиклієнтська сесія → кошик (за клієнтами) → оформлення',
-    screens: []
+    id: 'f2', name: 'Флоу 2 · Тренер', status: 'active',
+    note: 'Для тренерів → стати тренером → кабінет → клієнти → мультиклієнтська сесія → кошик (за клієнтами) → оформлення',
+    screens: [
+      { file: 'coach-landing.html', name: 'Для тренерів (лендинг)', node: '5.0', built: false, states: [], builtStates: [] },
+      { file: 'coach-verify.html',  name: 'Стати тренером',         node: '5.1', built: false, states: ['loading','error','deadend','tier'], builtStates: [] },
+      { file: 'coach-home.html',    name: 'Кабінет тренера',        node: '5.2', built: false, states: ['loading','error'], builtStates: [] },
+      { file: 'coach-clients.html', name: 'Клієнти',                node: '5.3', built: false, states: ['empty','loading','error','cap'], builtStates: [] },
+      { file: 'coach-client.html',  name: 'Профіль клієнта',        node: '5.4', built: false, states: ['empty','loading','error'], builtStates: [] },
+      { file: 'coach-session.html', name: 'Мультиклієнтська сесія', node: '5.5', built: true,  states: ['addclient','loading','oos','priceblock','untagged'], builtStates: [] },
+      { file: 'cart-coach.html',    name: 'Кошик (за клієнтами)',   node: '6.0', built: false, states: ['empty'], builtStates: [] }
+    ]
   }
 ];
 

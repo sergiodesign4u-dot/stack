@@ -61,6 +61,41 @@ account-end of Job 2.
 
 ---
 
+## Flow 2 — Coach workspace (Main Job 1) · matrix
+
+Built as **Step 8 for the coach flow** (not a new run of the method): the etalon + shared
+components + Flow-1 primitives (listing/PDP card, cart drawer, checkout, auth, account shell)
+are **reused**. The one genuinely-new screen is **5.5 Мультиклієнтська сесія** — hand-built
+first as the coach-flow **reference**, then the rest fan out via subagents cloning it.
+
+- **Scope:** JTBD **Job 1** (Decision 1) — coach builds a multi-client order in one session.
+- **Sources:** `ia/docs/pages/coach.md` (cluster spec), `research/docs/flows.md` "Main Job"
+  (states/branches drawn verbatim), `ia/docs/sitemap.md` (5.x nodes).
+- **SEO/privacy:** landing 5.0 = `index,follow`; work zone 5.1–5.5 + coach cart = `noindex,nofollow`.
+
+| # | Screen (node) | file | Type | Reuses | Base | States (real) |
+|---|---------------|------|------|--------|:----:|----------------|
+| 1 | **Для тренерів** landing (5.0) | `coach-landing.html` | page (public) | home/content patterns | ✓ | guest CTA → auth (1.x) |
+| 2 | **Стати тренером** / verify (5.1) | `coach-verify.html` | flow (dialog/page) | auth modal + states | ✓ *(role request)* | **loading** (verifying link) · **error** (failed → resubmit) · **deadend** (no wholesale, stays buyer) · **tier** (Free instant / Pro choice) |
+| 3 | **Кабінет тренера** (5.2) | `coach-home.html` | page (private) | **account shell** (7.x) coach-mode | ✓ *(dashboard + «＋ Нова сесія»)* | loading · error |
+| 4 | **Клієнти** (5.3) | `coach-clients.html` | page (private) | account shell + list | ✓ | **empty** (no clients) · loading · error · **cap** (Free client cap → Pro upsell) |
+| 5 | **Профіль клієнта** (5.4) | `coach-client.html` | page (private) | account + order rows (Job 4 repeat) | ✓ | **empty** (nothing ordered yet) · loading · error |
+| 6 | **Мультиклієнтська сесія** (5.5) ★ | `coach-session.html` | page (private) | listing quick-add + card + new session components | ✓ *(client tabs + active panel + summary)* | **addclient** (capture name+goal) · **loading** (quick-add stock+tier price) · **oos** (substitute/skip) · **priceblock** (tier price unresolved → session saved, checkout blocked) · **untagged** (assign/discard line) |
+| 7 | **Кошик — за клієнтами** (6.0 coach) | `cart-coach.html` | dialog (drawer) | **cart drawer** + per-client grouping | ✓ *(grouped by client, single delivery to coach)* | empty (→ back to session) |
+| — | Checkout (6.1) · Order placed (6.2) | **reuse** `checkout.html` / `order-placed.html` | — | Flow-1 checkout/confirmation (single delivery to coach; breakdown kept in order) | — | — |
+
+**New shared components** introduced by 5.5 (added to `_wf.css`, reused by `cart-coach`):
+client **tabs** with per-client subtotals · **per-client order group** · **in-session quick-add**
+row · **coach-tier price line** (tier price vs struck retail). NOT the global search.
+
+**Per-client loop (flows.md Main Job) — recoveries, never terminal:** select/add client →
+quick-add (loads stock + coach price) → *stock?* OOS → substitute / skip line → *tier price?*
+unresolved → session saved, checkout **blocked** → *tagged?* untagged → assign / discard →
+*more clients?* → Cart (grouped) → Checkout → address → payment. Deliberate dead ends only:
+verification failed + resubmit declined (`coach-verify` deadend); payment abandoned (Flow-1).
+
+---
+
 ## State-page count (main flow, for Step 3/5/6 planning)
 
 Base pages: 9. Extra state pages (each a separate `<screen>-<state>.html`, playbook §Artifacts):
