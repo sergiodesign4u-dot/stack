@@ -25,6 +25,17 @@
 
 ## 6.1 Checkout — one page, sectioned (not a multi-step wizard)
 
+- **Simplified header** — the checkout page uses a **stripped header**: logo + a support block
+  (phone / hours) only. **No main nav, mega-menu, search or cart icon** — fewer exits from the funnel
+  (one clear action, principle #2). Standard competitor pattern.
+- **Left column** holds the content: **«Ваше замовлення»** block (line items with **♡ В обране** and
+  **🗑 Видалити** buttons per item — moved out of the right rail) → **upsell «Не забудьте додати»**
+  (a horizontal strip of snacks/small add-ons — батончик, ізотонік, паста, BCAA-shot — each with «+
+  Додати», for extra sales) → then the input steps below.
+- **Right column** is **money only** and stays compact so **«Підтвердити замовлення» is always in view**:
+  a **compact bonus block** (balance + spend toggle; the full input/states live in the states gallery)
+  → totals breakdown → accrual line → confirm button → trust micro. Sticky.
+
 1. **Контакт** — phone (guest confirms by **code, passwordless** like 1.x → account auto-created);
    name; email optional (for the receipt). Logged-in → prefilled.
 2. **Доставка** — methods (radio): **Нова Пошта — відділення/поштомат** (1–2 дні, від 50 ₴) · **Кур'єр
@@ -33,6 +44,11 @@
    saved. Carrier tariff per the carrier.
 3. **Оплата** — **Карта онлайн (LiqPay / Wayforpay)** · **Apple Pay / Google Pay** · **Накладений
    платіж** (COD) · **Готівка при самовивозі**. Optional order comment.
+   - **No separate internal payment page.** The method is chosen *here*; on «Підтвердити» card
+     payments **redirect to the provider's hosted page** (LiqPay/Wayforpay — PCI-safe, off our
+     servers), then return to **6.2 Order placed**. COD / cash-on-pickup place the order directly (no
+     payment step). A dedicated `/payment` screen is **not** part of the IA; if ever needed it'd be a
+     thin redirect/return handler, not a designed page. [decision]
 - **Sticky order summary** (right / bottom on mobile): items · **bonus module** (see below) · сума
   товарів · знижка лояльності · списано бонусів · доставка · **До сплати** · **accrual line** «★
   Нарахуємо +N ₴ (~1% [?])» right by the button · «Підтвердити замовлення» · trust micro (secure pay ·
@@ -70,6 +86,9 @@
    breakdown (those move to checkout); empty state → catalog/goals.
 2. **Coach = per-client grouping** (from 5.5); **single delivery** to the coach, breakdown kept in the order.
 3. **Checkout on one page** (contact/delivery/payment + sticky summary), not a multi-step wizard.
+   **Simplified header** (logo + support only). **Items live in a left «Ваше замовлення» block** (each
+   with ♡ В обране / 🗑 Видалити) + an **upsell strip**; **right column is money-only & compact** so the
+   confirm button stays visible. **No standalone payment page** — card → provider-hosted redirect → 6.2.
 4. **Delivery:** НП відділення/поштомат · courier · Odesa pickup; city via dialog 0.1a; addresses from 7.5.
 5. **Payment:** LiqPay/Wayforpay (card) · Apple/Google Pay · COD · cash on pickup.
 6. **Passwordless checkout:** guest confirms phone by code → account auto-created.
