@@ -95,10 +95,16 @@
    **photos**, **replies** («Показати відповіді (N)» → expand, with dates, photos allowed on replies),
    and **shop replies marked with a special chip (shop logo instead of a name)**. **Two states:**
    **many reviews → paginated**, **few → simple list, no pagination**.
-9. **Питання (3.2)** — **«Поставити запитання» opens a dialog form** (modal desktop / full-screen
-   mobile); the question is added to the **Q&A feed**; the **shop answers (special chip)** or other
-   buyers do; **no rating, no pros/cons** — same mechanic as reviews otherwise. Optional moderation
-   before publish. FAQ schema if present.
+   - **«Залишити відгук» dialog (3.1a)** — modal (centered desktop / full-screen mobile): **rating
+     (required)** star picker · **Переваги / Недоліки** (optional) · review text · **photo upload (up
+     to 5)** · name. Guest → auth dialog (1.x) → **returns to this dialog**. Submit → optional
+     moderation → appears in the 3.1 feed (buyers who ordered get a **«✓ Купив товар»** badge).
+9. **Питання (3.2)** — **«Поставити запитання» opens a dialog form (3.2a)** (modal desktop / full-screen
+   mobile): **question text + name + optional «notify me of the answer»** only; the question is added
+   to the **Q&A feed**; the **shop answers (special chip)** or other buyers do; **no rating, no
+   pros/cons** — same mechanic as reviews otherwise. Optional moderation before publish. FAQ schema if
+   present. Both dialogs share: trigger button «＋ …» → modal → guest auth → return → submit → toast +
+   feed insert; drawn in `product.html` §01б.
 10. **Схожі / related (3.3)** — «Схожі товари» · «З цим купують» · same-goal collection (internal
    linking + AOV). Canonical product cards.
 11. **Статті по темі (blog 8.0/8.1)** — article teasers related to the product (helps the beginner /

@@ -322,6 +322,30 @@
     .photobox { width: 90px; height: 90px; border: 1px solid #e2e2e2; border-radius: 8px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #bbb; text-align: center; }
 
     @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
+
+    /* review / question dialogs (3.1a / 3.2a) */
+    .dlgstage { position: relative; background: repeating-linear-gradient(45deg,#ececec,#ececec 8px,#e6e6e6 8px,#e6e6e6 16px); border-radius: 10px; padding: 22px; display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .dlg { flex: 1 1 340px; max-width: 420px; border: 1px solid #d6d6d6; border-radius: 14px; background: #fff; box-shadow: 0 22px 54px rgba(0,0,0,.20); overflow: hidden; align-self: flex-start; }
+    .dlg .dhead { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #eee; }
+    .dlg .dhead h4 { font-size: 15px; font-weight: 800; color: #111; margin: 0; }
+    .dlg .dclose { color: #999; font-size: 18px; line-height: 1; }
+    .dlg .dbody { padding: 14px 16px 16px; }
+    .dprod { display: flex; align-items: center; gap: 10px; background: #f7f6f4; border: 1px solid #eee; border-radius: 9px; padding: 8px 10px; margin-bottom: 14px; }
+    .dprod .th { width: 34px; height: 38px; border-radius: 6px; background: #eee; border: 1px solid #e0e0e0; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #bbb; flex: none; }
+    .dprod .pt { font-size: 11.5px; color: #333; line-height: 1.3; }
+    .dlbl { font-size: 11.5px; font-weight: 700; color: #444; margin: 0 0 5px; display: block; }
+    .dlbl .opt { color: #aaa; font-weight: 600; }
+    .starpick { font-size: 26px; letter-spacing: 4px; margin-bottom: 14px; }
+    .starpick .on { color: #161616; } .starpick .off { color: #d2d2d2; }
+    .dfield { border: 1px solid #d5d5d5; border-radius: 8px; padding: 9px 11px; font-size: 12px; color: #9a9a9a; margin-bottom: 12px; background: #fff; }
+    .dfield.area { min-height: 60px; }
+    .dfield.area.big { min-height: 84px; }
+    .dphoto { border: 1.5px dashed #cfcfcf; border-radius: 8px; padding: 13px; text-align: center; color: #999; font-size: 11.5px; margin-bottom: 12px; }
+    .dnote { font-size: 10.5px; color: #999; line-height: 1.45; margin: 0 0 12px; }
+    .dsubmit { background: #161616; color: #fff; border-radius: 9px; text-align: center; padding: 11px; font-weight: 700; font-size: 13px; }
+    .dcheck { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: #555; margin-bottom: 12px; }
+    .dcheck .box { width: 15px; height: 15px; border: 1.5px solid #999; border-radius: 4px; flex: none; }
+    @media (max-width: 560px) { .dlgstage { padding: 12px; } .dlg { flex-basis: 100%; } }
   </style>
 </head>
 <body>
@@ -393,7 +417,7 @@
       <div class="wf-cap">Картка товару — десктоп</div>
       <div class="wf-pad">
 
-        <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1): мета-рядок · головна панель · мега-меню · пошук · ♡ · кошик <span class="zd">— той самий компонент на всіх сторінках</span></div>
+        <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1): мета-рядок · лого · мега-меню «Каталог» · «✦ Квіз» · пошук · ♡ Обране · Бонуси · Кошик · Увійти/Кабінет <span class="zd">— той самий компонент на всіх сторінках</span></div>
 
         <div class="crumb"><a href="../research/concept.html">Головна</a><span class="sep">/</span><a href="catalog.html">Каталог</a><span class="sep">/</span><a href="category.html">Протеїн</a><span class="sep">/</span><span class="cur">Gold Standard 100% Whey</span></div>
 
@@ -575,7 +599,7 @@
               <div class="revbar"><span>2★</span><span class="tr"><i style="width:1%"></i></span><span>1</span></div>
               <div class="revbar"><span>1★</span><span class="tr"><i style="width:1%"></i></span><span>1</span></div>
             </div>
-            <span class="certbtn">＋ Залишити відгук</span>
+            <a href="#dialogs" class="certbtn" style="text-decoration:none;color:#111">＋ Залишити відгук</a>
           </div>
 
           <!-- review: name+rating left, body right; pros/cons; photos; answers; shop reply -->
@@ -645,7 +669,7 @@
               </div>
             </div>
           </div>
-          <span class="certbtn">＋ Поставити запитання</span>
+          <a href="#dialogs" class="certbtn" style="text-decoration:none;color:#111">＋ Поставити запитання</a>
           <p style="font-size:11px;color:#999;margin-top:8px">«Поставити запитання» відкриває <b>діалог-форму</b>; питання потрапляє у цю стрічку, відповідає магазин (спец-чипс) або інші покупці. Та сама механіка, що відгуки, але без рейтингу і без переваг/недоліків.</p>
         </div>
 
@@ -769,6 +793,69 @@
     </div>
   </section>
 
+  <!-- 01b Dialogs -->
+  <section class="section" id="dialogs">
+    <div class="section-num">01б · Діалоги — залишити відгук і поставити запитання</div>
+    <h2>Два діалоги картки товару (3.1a · 3.2a)</h2>
+    <p class="section-lead"><b>«＋ Залишити відгук»</b> (у блоці Відгуки 3.1) і <b>«＋ Поставити запитання»</b> (у блоці Питання 3.2) відкривають <b>модальні діалоги</b> — на десктопі по центру поверх затемненої сторінки, на мобілці на весь екран. Після відправки запис з'являється у відповідній стрічці (відгук — з рейтингом і перевагами/недоліками; питання — без рейтингу), відповідає <b>магазин</b> (спец-чипс). <b>Гість</b> → спершу авторизація (діалог 1.x), після входу <b>повертається у той самий діалог</b>. Фокус усередині, ESC / ✕ / клік по фону закривають.</p>
+
+    <div class="wf">
+      <div class="wf-cap">Модальні діалоги (поверх сторінки товару) — десктоп</div>
+      <div class="dlgstage">
+
+        <!-- review dialog 3.1a -->
+        <div class="dlg">
+          <div class="dhead"><h4>Залишити відгук</h4><span class="dclose">✕</span></div>
+          <div class="dbody">
+            <div class="dprod"><span class="th">фото</span><span class="pt">Gold Standard 100% Whey, 2270 г · Optimum Nutrition</span></div>
+
+            <span class="dlbl">Ваша оцінка</span>
+            <div class="starpick"><span class="on">★</span><span class="on">★</span><span class="on">★</span><span class="on">★</span><span class="off">★</span></div>
+
+            <span class="dlbl">Переваги <span class="opt">· необов'язково</span></span>
+            <div class="dfield">Що сподобалось…</div>
+
+            <span class="dlbl">Недоліки <span class="opt">· необов'язково</span></span>
+            <div class="dfield">Що можна покращити…</div>
+
+            <span class="dlbl">Ваш відгук</span>
+            <div class="dfield area big">Розкажіть про досвід використання…</div>
+
+            <div class="dphoto">＋ Додати фото <span style="color:#bbb">(до 5, необов'язково)</span></div>
+
+            <span class="dlbl">Ім'я</span>
+            <div class="dfield">Андрій К.</div>
+
+            <p class="dnote">Публікуємо після короткої модерації. У покупців із замовленням цього товару поряд з ім'ям буде позначка <b>«✓ Купив товар»</b>.</p>
+            <div class="dsubmit">Опублікувати відгук</div>
+          </div>
+        </div>
+
+        <!-- question dialog 3.2a -->
+        <div class="dlg">
+          <div class="dhead"><h4>Поставити запитання</h4><span class="dclose">✕</span></div>
+          <div class="dbody">
+            <div class="dprod"><span class="th">фото</span><span class="pt">Gold Standard 100% Whey, 2270 г · Optimum Nutrition</span></div>
+
+            <span class="dlbl">Ваше запитання</span>
+            <div class="dfield area big">Напишіть питання про товар — склад, дозування, сумісність, доставку…</div>
+
+            <span class="dlbl">Ім'я</span>
+            <div class="dfield">Ваше ім'я</div>
+
+            <div class="dcheck"><span class="box"></span><span>Сповістити мене про відповідь</span></div>
+
+            <p class="dnote">Відповідає <b>магазин</b> (спец-чипс з логотипом) або інші покупці. Питання й відповідь з'являться у стрічці <b>«Питання та відповіді»</b>. <b>Без рейтингу</b> і без переваг/недоліків.</p>
+            <div class="dsubmit">Надіслати запитання</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <p class="note"><b>Спільна механіка:</b> тригер — кнопка «＋ …» у своєму блоці; відкривається модалка (desktop центр / mobile fullscreen); гість → авторизація (1.x) → <b>повернення в діалог</b>; після сабміту — <b>тост-підтвердження</b> + запис у стрічку (відгук може йти на модерацію). Відмінності: <b>відгук</b> = рейтинг + переваги/недоліки + фото; <b>запитання</b> = лише текст + опційне сповіщення про відповідь.</p>
+  </section>
+
   <!-- 02 States -->
   <section class="section" id="states">
     <div class="section-num">02 · Стани</div>
@@ -790,7 +877,8 @@
       <tr><td><b>Відгуки: мало</b></td><td>Простий список <b>без пагінації</b>.</td></tr>
       <tr><td><b>Відгук без недоліків</b></td><td>Блок «Недоліки» порожній → не показуємо (показуємо лише заповнені переваги/недоліки).</td></tr>
       <tr><td><b>Відповіді на відгук</b></td><td>«Показати відповіді (N)» → розгортає; відповідь магазину — спец-чипс; можна додати фото.</td></tr>
-      <tr><td><b>Поставити запитання</b></td><td>Відкриває <b>діалог-форму</b>; після відправки питання з'являється у стрічці Q&amp;A (опц. модерація), магазин відповідає.</td></tr>
+      <tr><td><b>Залишити відгук (діалог 3.1a)</b></td><td>Модалка: рейтинг (обов'язк.) · переваги/недоліки (опц.) · текст · фото (до 5) · ім'я. Гість → авторизація → повернення в діалог. Сабміт → модерація → запис у стрічку 3.1 (позначка «✓ Купив товар» у покупця).</td></tr>
+      <tr><td><b>Поставити запитання (діалог 3.2a)</b></td><td>Відкриває <b>діалог-форму</b> (лише текст + ім'я + опц. сповіщення); після відправки питання з'являється у стрічці Q&amp;A (опц. модерація), магазин відповідає (спец-чипс). Без рейтингу.</td></tr>
     </table>
 
     <div class="cols two" style="margin-top:14px">
@@ -908,7 +996,8 @@
         <li><b>Варіанти на одній PDP, один canonical</b>; відсутні варіанти вимкнено, не сховано.</li>
         <li><b>Чесна наявність</b> без таймерів; out-of-stock → «Повідомити» + повернення до колекції (не глухий кут).</li>
         <li><b>Відгуки (3.1):</b> ім'я + рейтинг + дата <b>зліва</b>, текст <b>справа</b>; категорії <b>Переваги / Недоліки</b> (можуть бути порожні); фото; <b>відповіді</b> (показати/сховати, з датами, можна фото); <b>відповідь магазину</b> — спец-чипс із логотипом замість імені. Два стани: <b>багато</b> → пагінація, <b>мало</b> → без неї. Сертифікат + відгуки = recovery конверсії (потік Job 3).</li>
-        <li><b>Питання (3.2):</b> «Поставити запитання» = <b>діалог-форма</b>; питання → у стрічку Q&A; відповідає магазин (чипс) або покупці; <b>без рейтингу</b> і без переваг/недоліків.</li>
+        <li><b>Діалог «Залишити відгук» (3.1a):</b> модалка — рейтинг (обов'язковий) · переваги/недоліки (опц.) · текст · фото до 5 · ім'я; гість → авторизація (1.x) → <b>повернення в діалог</b>; сабміт → модерація → у стрічку 3.1.</li>
+        <li><b>Питання (3.2):</b> «Поставити запитання» = <b>діалог-форма (3.2a)</b>: лише текст + ім'я + опц. «сповістити про відповідь»; питання → у стрічку Q&A; відповідає магазин (чипс) або покупці; <b>без рейтингу</b> і без переваг/недоліків.</li>
         <li><b>Статті по темі (блог 8.0/8.1)</b> — секція перед футером: допомога новачку + SEO.</li>
         <li><b>Характеристики</b> дзеркалять фасети catalog.md; <b>схожі (3.3)</b> на тій самій сторінці.</li>
         <li><b>Coach-aware</b>: CTA «Додати клієнту» + ціна тренера. <b>SEO A–E</b>: Product/Offers + AggregateRating + Review + Breadcrumb; канонікалізація варіантів.</li>
