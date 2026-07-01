@@ -28,16 +28,21 @@
 - **Simplified header** — the checkout page uses a **stripped header**: logo + a support block
   (phone / hours) only. **No main nav, mega-menu, search or cart icon** — fewer exits from the funnel
   (one clear action, principle #2). Standard competitor pattern.
-- **Left column** holds the content: **«Ваше замовлення»** block (line items with **♡ В обране** and
-  **🗑 Видалити** buttons per item — moved out of the right rail) → **upsell «Не забудьте додати»**
-  (a horizontal strip of snacks/small add-ons — батончик, ізотонік, паста, BCAA-shot — each with «+
-  Додати», for extra sales) → then the input steps below.
+- **Left column order (locked):** **1 Контакт** → **Ваше замовлення** → **2 Доставка** → **3 Оплата**,
+  then — after all sections, full width — the **upsell «Не забудьте додати»**, then the **footer**.
+- **Ваше замовлення** block = line items with **♡ В обране** and **🗑 Видалити** buttons per item
+  (moved out of the right rail). **Upsell «Не забудьте додати»** = a horizontal strip of snacks/small
+  add-ons (батончик, ізотонік, паста, BCAA-shot, шейкер) each with «+ Додати», for extra sales.
+- **Simplified footer** (matches the simplified header): © · legal links (offer / privacy / delivery) ·
+  support · payment badges.
 - **Right column** is **money only** and stays compact so **«Підтвердити замовлення» is always in view**:
   a **compact bonus block** (balance + spend toggle; the full input/states live in the states gallery)
   → totals breakdown → accrual line → confirm button → trust micro. Sticky.
 
-1. **Контакт** — phone (guest confirms by **code, passwordless** like 1.x → account auto-created);
-   name; email optional (for the receipt). Logged-in → prefilled.
+1. **Контакт** — **guests see a sign-in prompt «Увійдіть для оформлення замовлення»**: phone field +
+   «Отримати код» (passwordless, like 1.x → account auto-created), with secondary Google/Apple/E-mail
+   (auth 1.x). Logged-in → the section is collapsed with name · phone · email prefilled (editable). No
+   password anywhere.
 2. **Доставка** — methods (radio): **Нова Пошта — відділення/поштомат** (1–2 дні, від 50 ₴) · **Кур'єр
    НП — на адресу** (від 70 ₴) · **Самовивіз Одеса** (безкоштовно, лише за наявності на точці). City +
    warehouse via the **«Оберіть місто» dialog (0.1a)**; **saved addresses (7.5)** prefilled; new can be

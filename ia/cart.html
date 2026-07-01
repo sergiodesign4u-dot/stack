@@ -197,6 +197,18 @@
     .upcard .up { font-size: 11px; font-weight: 800; color: #111; margin: 3px 0 6px; }
     .upcard .uadd { display: block; text-align: center; font-size: 10.5px; font-weight: 800; color: #2d5a3d; border: 1px solid #cfe0d4; border-radius: 6px; padding: 5px; background: #f4f9f5; }
 
+    /* guest sign-in prompt (contact, not logged in) */
+    .signin { border: 1px dashed #cfd9d0; background: #f6faf7; border-radius: 9px; padding: 11px 12px; }
+    .signin .sit { font-size: 13px; font-weight: 800; color: #2d5a3d; margin-bottom: 3px; }
+    .signin .six { font-size: 10.5px; color: #7a8a7e; margin-bottom: 9px; line-height: 1.4; }
+    .signin .sior { font-size: 10.5px; color: #999; margin-top: 8px; } .signin .sior a { color: #2d7d46; font-weight: 700; }
+    .siget { white-space: nowrap; background: #161616; color: #fff; border-radius: 8px; padding: 10px 14px; font-size: 12px; font-weight: 800; display: flex; align-items: center; }
+
+    /* simplified checkout footer */
+    .cofoot { border-top: 1px solid #e4e4e4; margin-top: 16px; padding-top: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; font-size: 10.5px; color: #999; }
+    .cofoot .lks { display: flex; flex-wrap: wrap; gap: 4px 12px; } .cofoot .lks a { color: #777; }
+    .cofoot .pays { display: flex; gap: 5px; } .cofoot .pays span { border: 1px solid #e0e0e0; border-radius: 4px; padding: 1px 6px; font-size: 9px; font-weight: 800; color: #888; background: #fafafa; }
+
     /* order placed */
     .placed { text-align: center; padding: 8px 10px 4px; }
     .placed .ok { width: 52px; height: 52px; border-radius: 50%; background: #e7f2ea; color: #2d7d46; font-size: 26px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
@@ -348,7 +360,7 @@
   <section class="section" id="checkout">
     <div class="section-num">02 · Оформлення (6.1)</div>
     <h2>Контакт → доставка → оплата → перегляд</h2>
-    <p class="section-lead">Одна сторінка з секціями (не багатокроковий майстер). <b>Спрощений хедер</b> (лише лого + підтримка). Ліва колонка: <b>Ваше замовлення</b> (позиції з ♡/🗑) → <b>апселл «Не забудьте додати»</b> → <b>контакт</b> (телефон, вхід за кодом) → <b>доставка</b> (НП/кур'єр/самовивіз; місто 0.1a; адреси 7.5) → <b>оплата</b>. Права колонка — <b>компактний підсумок</b>: короткий блок бонусів + розбір + <b>рядок нарахування</b> + <b>«Підтвердити»</b> завжди на виду (принцип правої частини — бачити кнопку й перейти до оплати). Повні стани бонусів — у галереї нижче. Тренер бачить розбивку по клієнтах.</p>
+    <p class="section-lead">Одна сторінка з секціями (не багатокроковий майстер). <b>Спрощений хедер</b> (лише лого + підтримка). Ліва колонка в порядку: <b>1 Контакт</b> (гість → <b>«Увійдіть для оформлення замовлення»</b>: телефон + код, passwordless) → <b>Ваше замовлення</b> (позиції з ♡/🗑) → <b>2 Доставка</b> (НП/кур'єр/самовивіз; місто 0.1a; адреси 7.5) → <b>3 Оплата</b>. Далі, під усім, — <b>апселл «Не забудьте додати»</b> і <b>спрощений футер</b>. Права колонка — <b>компактний підсумок</b>: короткий блок бонусів + розбір + <b>рядок нарахування</b> + <b>«Підтвердити»</b> завжди на виду. Повні стани бонусів — у галереї нижче. Тренер бачить розбивку по клієнтах.</p>
     <div class="wf">
       <div class="wf-cap">Оформлення — десктоп (6.1)</div>
       <div class="wf-pad">
@@ -356,28 +368,22 @@
         <p style="font-size:10.5px;color:#999;margin:3px 0 12px"><b>Спрощений хедер на оформленні:</b> лише логотип + центр підтримки з телефоном. Без меню/каталогу/пошуку/кошика — менше виходів із воронки (одна ясна дія, принцип #2).</p>
         <div class="cochk">
           <div>
-            <!-- order (moved from the right column) -->
+            <!-- contact (guest = sign-in prompt) -->
+            <div class="fsec">
+              <div class="fsh"><span class="n">1</span> Контакт</div>
+              <div class="signin">
+                <div class="sit">Увійдіть для оформлення замовлення</div>
+                <div class="six">Введіть телефон — надішлемо код. Пароль не потрібен (passwordless, як 1.x); акаунт створюється автоматично.</div>
+                <div class="frow"><div class="field" style="margin:0;flex:1"><span class="lb">Телефон</span><span class="vl">+380 __ ___ __ __</span></div><span class="siget">Отримати код</span></div>
+                <div class="sior">або <a>Google</a> · <a>Apple</a> · <a>E-mail</a> — авторизація 1.x</div>
+              </div>
+              <p style="font-size:10.5px;color:#999;margin-top:8px">Залогінений покупець — секція згорнута, дані (ім'я · телефон · e-mail для чека) підставлені; можна змінити.</p>
+            </div>
+            <!-- order -->
             <div class="fsec">
               <div class="fsh">🛒 Ваше замовлення <span style="margin-left:auto;font-size:11px;font-weight:600;color:#888">2 товари</span></div>
               <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard Whey 2270 г</div><div class="cb">Optimum Nutrition</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">1 290 ₴<span class="retail">1 520 ₴</span></span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
               <div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">Креатин моногідрат 300 г</div><div class="cb">OstroVit</div><div class="cr"><span class="qty"><span>−</span><b>2</b><span>+</span></span><span class="cp">898 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
-            </div>
-            <!-- upsell -->
-            <div class="upsell">
-              <div class="uh">🍫 Не забудьте додати</div>
-              <div class="uprow">
-                <div class="upcard"><div class="ut">фото</div><div class="un">Протеїновий батончик 60 г</div><div class="up">59 ₴</div><span class="uadd">+ Додати</span></div>
-                <div class="upcard"><div class="ut">фото</div><div class="un">Ізотонік напій 500 мл</div><div class="up">45 ₴</div><span class="uadd">+ Додати</span></div>
-                <div class="upcard"><div class="ut">фото</div><div class="un">Арахісова паста 500 г</div><div class="up">180 ₴</div><span class="uadd">+ Додати</span></div>
-                <div class="upcard"><div class="ut">фото</div><div class="un">BCAA-шот 60 мл</div><div class="up">69 ₴</div><span class="uadd">+ Додати</span></div>
-              </div>
-            </div>
-            <!-- contact -->
-            <div class="fsec">
-              <div class="fsh"><span class="n">1</span> Контакт</div>
-              <div class="frow"><div class="field"><span class="lb">Телефон</span><span class="vl">+380 __ ___ __ __</span></div><div class="field"><span class="lb">Ім'я</span><span class="vl">Андрій К.</span></div></div>
-              <div class="field"><span class="lb">E-mail (для чека, необов'язково)</span><span class="vl">—</span></div>
-              <p style="font-size:10.5px;color:#999">Гість підтверджує телефон кодом (passwordless, як 1.x) — акаунт створюється автоматично. Залогінений — дані підставлені.</p>
             </div>
             <!-- delivery -->
             <div class="fsec">
@@ -420,6 +426,23 @@
             <span class="gobtn">Підтвердити замовлення</span>
             <div class="trustmicro"><span>🔒 Безпечна оплата</span><span>↩ Повернення 14 днів</span><span>✓ Оригінал</span></div>
           </div>
+        </div>
+        <!-- upsell (after all sections, full width) -->
+        <div class="upsell" style="margin-top:16px;margin-bottom:0">
+          <div class="uh">🍫 Не забудьте додати</div>
+          <div class="uprow">
+            <div class="upcard"><div class="ut">фото</div><div class="un">Протеїновий батончик 60 г</div><div class="up">59 ₴</div><span class="uadd">+ Додати</span></div>
+            <div class="upcard"><div class="ut">фото</div><div class="un">Ізотонік напій 500 мл</div><div class="up">45 ₴</div><span class="uadd">+ Додати</span></div>
+            <div class="upcard"><div class="ut">фото</div><div class="un">Арахісова паста 500 г</div><div class="up">180 ₴</div><span class="uadd">+ Додати</span></div>
+            <div class="upcard"><div class="ut">фото</div><div class="un">BCAA-шот 60 мл</div><div class="up">69 ₴</div><span class="uadd">+ Додати</span></div>
+            <div class="upcard"><div class="ut">фото</div><div class="un">Шейкер 700 мл</div><div class="up">120 ₴</div><span class="uadd">+ Додати</span></div>
+          </div>
+        </div>
+        <!-- simplified footer -->
+        <div class="cofoot">
+          <span>© 2026 Stack · Спортивне харчування</span>
+          <span class="lks"><a>Публічна оферта</a><a>Конфіденційність</a><a>Доставка й оплата</a><a>Підтримка</a></span>
+          <span class="pays"><span>Visa</span><span>MC</span><span>Apple Pay</span><span>G Pay</span></span>
         </div>
       </div>
     </div>
@@ -509,20 +532,21 @@
         <div class="phone">
           <div class="p-top"><span style="color:#888">‹</span><span class="lg" style="font-size:13px">Оформлення</span><span></span></div>
           <div class="p-body" style="padding-bottom:6px">
-            <div class="fsh" style="font-size:12.5px">🛒 Ваше замовлення <span style="margin-left:auto;font-size:10px;font-weight:600;color:#888">2</span></div>
+            <div class="fsh" style="font-size:12.5px"><span class="n">1</span> Контакт</div>
+            <div class="signin" style="padding:9px 10px"><div class="sit" style="font-size:12px">Увійдіть для оформлення</div><div class="six" style="margin-bottom:7px">Телефон → код (без пароля)</div><div class="frow"><div class="field" style="margin:0;flex:1"><span class="lb">Телефон</span><span class="vl">+380 __ ___</span></div><span class="siget" style="padding:9px 11px;font-size:11px">Код</span></div></div>
+            <div class="fsh" style="font-size:12.5px;margin-top:10px">🛒 Ваше замовлення <span style="margin-left:auto;font-size:10px;font-weight:600;color:#888">2</span></div>
             <div class="citem" style="border-bottom:none;padding-top:0"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard Whey 2270 г</div><div class="cb">×1 · 1 290 ₴</div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
-            <div class="fsh" style="font-size:12.5px;margin-top:8px"><span class="n">1</span> Контакт</div>
-            <div class="field" style="margin-bottom:8px"><span class="lb">Телефон</span><span class="vl">+380 __ ___ __ __</span></div>
-            <div class="fsh" style="font-size:12.5px"><span class="n">2</span> Доставка</div>
+            <div class="fsh" style="font-size:12.5px;margin-top:6px"><span class="n">2</span> Доставка</div>
             <div class="ropt on" style="margin-bottom:6px"><span class="rc"></span><div><div class="rt" style="font-size:11.5px">Нова Пошта — відділення</div><div class="rx">Одеса №12</div></div><span class="rp" style="font-size:11px">від 50 ₴</span></div>
             <div class="fsh" style="font-size:12.5px"><span class="n">3</span> Оплата</div>
             <div class="ropt on" style="margin-bottom:8px"><span class="rc"></span><div class="rt" style="font-size:11.5px">Карта онлайн</div></div>
             <div class="bonusbox" style="margin:0"><div class="bbh"><span>★ Бонуси</span><span class="bbal">240 ₴</span></div><div class="bbtoggle"><span>Списати 240 ₴</span><span class="sw on"></span></div></div>
             <div class="accrue" style="margin:8px 0 0">★ Нарахуємо <b>+21 ₴</b> <span class="pct">~1% [?]</span></div>
+            <div class="upsell" style="margin:10px 0 0;padding:9px 10px"><div class="uh" style="margin-bottom:6px">🍫 Не забудьте додати</div><div class="uprow"><div class="upcard" style="width:96px"><div class="ut" style="height:40px">фото</div><div class="un">Батончик 60 г</div><div class="up">59 ₴</div><span class="uadd">+ Додати</span></div><div class="upcard" style="width:96px"><div class="ut" style="height:40px">фото</div><div class="un">Ізотонік 500 мл</div><div class="up">45 ₴</div><span class="uadd">+ Додати</span></div></div></div>
           </div>
           <div class="p-sticky"><div><div style="font-size:10px;color:#888">До сплати</div><b style="font-size:15px">2 058 ₴</b></div><span style="margin-left:auto;background:#161616;color:#fff;border-radius:8px;padding:10px 16px;font-size:12px;font-weight:800">Підтвердити</span></div>
         </div>
-        <p class="note">Оформлення — секції 1-2-3 стрічкою; <b>блок бонусів</b> (списати/ввід) у стрічці; сума + CTA липкі внизу. Рядок «нарахуємо +бонуси» — біля кнопки.</p>
+        <p class="note">Порядок стрічкою: <b>Контакт (увійти)</b> → <b>Замовлення</b> → Доставка → Оплата → бонуси → <b>Не забудьте додати</b>; сума + CTA липкі внизу. Рядок «нарахуємо +бонуси» — біля кнопки.</p>
       </div>
     </div>
   </section>
@@ -569,7 +593,7 @@
     <table>
       <tr><th>#</th><th>Вузол</th><th>Що всередині</th><th>Звʼязки</th></tr>
       <tr><td>1</td><td><b>Кошик (6.0)</b> · діалог</td><td><b>Швидкий перегляд:</b> позиції · кількість · <b>групування по клієнтах (тренер)</b> · <b>лише підсумкова сума</b> · CTA · порожній стан. Знижка/бонуси/доставка — не тут</td><td class="arrow">← 3.0 · 5.5 → 6.1</td></tr>
-      <tr><td>2</td><td><b>Оформлення (6.1)</b> · флоу</td><td><b>Спрощений хедер</b> (лого + підтримка). Зліва: <b>Ваше замовлення</b> (позиції ♡/🗑) · <b>апселл «Не забудьте додати»</b> · контакт (phone-OTP) · доставка (НП/кур'єр/самовивіз + місто 0.1a + адреси 7.5) · оплата (LiqPay/Wayforpay/Pay/накладений). Справа: <b>компактний підсумок</b> (бонуси + розбір + нарахування + «Підтвердити»)</td><td class="arrow">→ 6.2 · 7.5</td></tr>
+      <tr><td>2</td><td><b>Оформлення (6.1)</b> · флоу</td><td><b>Спрощений хедер</b> (лого + підтримка). Зліва по порядку: <b>1 Контакт</b> (гість → «Увійдіть…», phone-OTP) · <b>Ваше замовлення</b> (позиції ♡/🗑) · <b>2 Доставка</b> (НП/кур'єр/самовивіз + місто 0.1a + адреси 7.5) · <b>3 Оплата</b> (LiqPay/Wayforpay/Pay/накладений); під усім — <b>апселл «Не забудьте додати»</b> + <b>футер</b>. Справа: <b>компактний підсумок</b> (бонуси + розбір + нарахування + «Підтвердити»)</td><td class="arrow">→ 6.2 · 7.5</td></tr>
       <tr><td>3</td><td><b>Замовлення оформлено (6.2)</b> · стан</td><td>Підтвердження · підсумок · наступні кроки (відстежити / мої замовлення / повтор)</td><td class="arrow">→ 7.2 (Job 4)</td></tr>
     </table>
   </section>
@@ -587,8 +611,9 @@
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Доставка:</b> НП відділення/поштомат · кур'єр · самовивіз Одеса; місто через діалог 0.1a; адреси з 7.5.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Оплата:</b> LiqPay/Wayforpay (карта) · Apple/Google Pay · накладений · готівка при самовивозі.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Спрощений хедер на оформленні</b>: лише логотип + центр підтримки (телефон). Без меню/пошуку/кошика — менше виходів із воронки.</li>
-          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Список товарів — у лівій колонці</b> (блок «Ваше замовлення» з кнопками ♡ В обране / 🗑 Видалити на кожній позиції); права колонка — <b>лише гроші</b> (компактний бонус-блок + розбір + «Підтвердити» на виду).</li>
-          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Апселл «Не забудьте додати»</b> — стрічка снеків/дрібниць (батончик, ізотонік, паста…) з «+ Додати» для дод. продажів.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Порядок лівої колонки:</b> 1 Контакт (гість → <b>«Увійдіть для оформлення замовлення»</b>, phone-OTP passwordless) → <b>Ваше замовлення</b> (позиції з ♡ В обране / 🗑 Видалити) → 2 Доставка → 3 Оплата → <b>апселл</b> → <b>футер</b>. Права колонка — <b>лише гроші</b> (компактний бонус-блок + розбір + «Підтвердити» на виду).</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Апселл «Не забудьте додати»</b> — стрічка снеків/дрібниць (батончик, ізотонік, паста…) з «+ Додати» для дод. продажів; стоїть <b>після всіх секцій</b>, перед футером.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Спрощений футер</b> на оформленні: © · юр-лінки (оферта/конфіденційність/доставка) · підтримка · бейджі оплати.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Passwordless-checkout:</b> гість підтверджує телефон кодом → акаунт створюється авто.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Бонуси — лише на оформленні</b> (не в кошику): блок у підсумку з 4 станами (немає / є / списання / ввід суми) + <b>рядок нарахування «+N ₴»</b> біля кнопки «Підтвердити». Знижка лояльності — авто; <b>тариф тренера</b> — на рядках (без персональних бонусів). Recovery: оплата назад у кошик, OOS не оформлюється.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Транзакційна зона noindex</b>; спокійно, без таймерів (принцип #4).</li>
