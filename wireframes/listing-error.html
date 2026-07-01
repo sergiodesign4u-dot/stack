@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Категорія «Протеїн» — помилка завантаження (wireframe 2.1)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- WIREFRAME · 2.1 STATE = error (load failed). Exit: «Спробувати ще» (retry) — not a dead end.
+     Reconciled with flows.md (error → retry). -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <span class="cur">Протеїн</span>
+  </nav>
+
+  <section aria-label="Заголовок категорії">
+    <h1 class="lh1">Протеїн</h1>
+    <p class="lintro">Сироватковий, ізолят, казеїн і рослинний протеїн від перевірених брендів.
+      Уся продукція сертифікована, з оригінальною гарантією виробника.</p>
+  </section>
+
+  <div class="ltool">
+    <span class="ctrl count">—</span>
+    <span class="sp"></span>
+    <span class="ctrl"><span class="cap">Сортування:</span> Популярні ▾</span>
+    <span class="vtoggle"><span class="on">▦</span><span>☰</span></span>
+  </div>
+
+  <div class="mtoolbar">
+    <button class="mc" onclick="openSheet()">Фільтри</button>
+    <button class="mc">Популярні ▾</button>
+  </div>
+
+  <div class="listing">
+    <aside class="frail" id="wf-rail"></aside>
+
+    <section aria-label="Помилка" role="alert">
+      <!-- ERROR: visible exit — retry -->
+      <div class="empty">
+        <div class="ei">⚠</div>
+        <div class="et">Не вдалося завантажити товари</div>
+        <div class="es">Перевірте зʼєднання з інтернетом і спробуйте ще раз.</div>
+        <div class="eact">
+          <a class="btn dark" href="listing.html">Спробувати ще</a>
+          <a class="btn" href="catalog-page.html">До каталогу</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<div id="wf-sheet"></div>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); wfBar('listing.html', 'error');</script>
+</body>
+</html>

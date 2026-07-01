@@ -19,7 +19,7 @@ const WF_FLOWS = [
     note: 'Головна → Категорія → Картка товару → Кошик → Оформлення → Замовлення',
     screens: [
       { file: 'home.html',         name: 'Головна',              node: '0.0', built: false, states: ['empty','loading','error'], builtStates: [] },
-      { file: 'listing.html',      name: 'Категорія (лістинг)',  node: '2.1', built: true,  states: ['empty','loading','error','filtered'], builtStates: [] },
+      { file: 'listing.html',      name: 'Категорія (лістинг)',  node: '2.1', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'goal.html',         name: 'Ціль-колекція',        node: '2.2', built: false, states: ['empty','loading','error'], builtStates: [] },
       { file: 'product.html',      name: 'Картка товару',        node: '3.0', built: false, states: ['loading','error','oos','reviews'], builtStates: [] },
       { file: 'cart.html',         name: 'Кошик',                node: '6.0', built: false, states: ['empty','oos'], builtStates: [] },
@@ -81,20 +81,176 @@ function wfTree(elId) {
   root.innerHTML = html;
 }
 
-/* (b) thin prototype bar for a screen */
-function wfBar(currentFile) {
-  const found = wfFindScreen(currentFile);
+/* (b) thin prototype bar. baseFile = the screen's base file; currentState = '' for base */
+function wfBar(baseFile, currentState) {
+  const found = wfFindScreen(baseFile);
   const bar = document.getElementById('wf-bar');
   if (!bar) return;
   let html = '<a href="index.html">« Всі екрани</a><span class="sepb">·</span>';
   if (found) {
     html += '<span>' + found.flow.name + '</span><span class="sepb">·</span>';
     html += '<span class="cur">' + found.screen.name + ' ' + found.screen.node + '</span>';
-    const sib = found.screen.states.filter(st => found.screen.builtStates.includes(st));
-    if (sib.length) {
-      html += '<span class="sepb">·</span><span>Стани:</span> <a href="' + found.screen.file + '">базовий</a>';
-      for (const st of sib) html += ' <a href="' + wfStateFile(found.screen.file, st) + '">' + (WF_STATE_LABEL[st] || st) + '</a>';
+    const parts = [];
+    parts.push(!currentState ? '<span class="cur">базовий</span>' : '<a href="' + found.screen.file + '">базовий</a>');
+    for (const st of found.screen.states) {
+      const label = WF_STATE_LABEL[st] || st;
+      if (st === currentState) parts.push('<span class="cur">' + label + '</span>');
+      else if (found.screen.builtStates.includes(st)) parts.push('<a href="' + wfStateFile(found.screen.file, st) + '">' + label + '</a>');
+      else parts.push('<span style="opacity:.4">' + label + '</span>');
     }
+    html += '<span class="sepb">·</span><span>Стани:</span> ' + parts.join(' ');
   }
   bar.innerHTML = html;
 }
+
+/* ============================================================
+   Inherited components rendered once (conventions §7). Inject into
+   #wf-header / #wf-footer / #wf-rail / #wf-sheet placeholders.
+   ============================================================ */
+function wfHeader() {
+  const el = document.getElementById('wf-header'); if (!el) return;
+  el.className = 'wfh';
+  el.innerHTML = `
+    <div class="wfh-meta"><div class="wfh-in">
+      <a class="strongl">Для тренерів</a><a>Акції</a><a>Бренди</a><a>Доставка</a><a>Повернення</a>
+      <span class="wfh-sp"></span><a>📍 Одеса</a><a>Укр</a>
+    </div></div>
+    <div class="wfh-main wfh-in">
+      <button class="wfh-burger" aria-label="Меню">☰</button>
+      <a class="wfh-logo" href="home.html">Stack</a>
+      <nav class="wfh-nav" aria-label="Головна навігація">
+        <a class="navbtn" href="catalog-page.html"><span class="g">▦</span> Каталог</a>
+        <a class="navlink" href="#">Цілі ▾</a>
+      </nav>
+      <form class="wfh-search" role="search" action="search.html">
+        <input type="search" placeholder="Пошук товарів, брендів…" aria-label="Пошук">
+        <button class="go" type="submit">Знайти</button>
+      </form>
+      <div class="wfh-mi">
+        <a href="search.html" aria-label="Пошук">🔍</a>
+        <a href="account.html" aria-label="Обране">♡</a>
+        <a href="cart.html" aria-label="Кошик">🛒</a>
+      </div>
+      <div class="wfh-actions">
+        <a class="wfh-act stack" href="auth.html"><span class="g">👤</span><span class="lbl">Увійти</span></a>
+        <a class="wfh-act stack" href="account.html"><span class="g">♡</span><span class="lbl">Обране</span></a>
+        <a class="wfh-act" href="account.html"><span class="g">★</span><span class="t"><span class="cap">Бонуси</span><span class="val">Отримати</span></span></a>
+        <a class="wfh-act" href="cart.html"><span class="g">🛒</span><span class="lbl">Кошик</span></a>
+      </div>
+    </div>`;
+  el.setAttribute('role', 'banner');
+}
+
+function wfFooter() {
+  const el = document.getElementById('wf-footer'); if (!el) return;
+  el.className = 'wff';
+  el.innerHTML = `
+    <div class="wff-trust">
+      <div class="wff-tc"><div class="th">Доставка 1–2 дні</div><div class="ts">Нова Пошта по всій Україні</div></div>
+      <div class="wff-tc"><div class="th">Гарантія оригіналу</div><div class="ts">Сертифікати на кожен товар</div></div>
+      <div class="wff-tc"><div class="th">Оплата як зручно</div><div class="ts">Картка · Apple/Google Pay · при отриманні</div></div>
+      <div class="wff-tc"><div class="th">Повернення 14 днів</div><div class="ts">Без зайвих питань</div></div>
+    </div>
+    <div class="wff-cols">
+      <div class="wff-col"><h4>Stack</h4><a href="content.html">Про нас</a><a href="content.html">Контакти</a><a href="content.html">Блог</a><a href="content.html">Публічна оферта</a></div>
+      <div class="wff-col"><h4>Покупцям</h4><a href="content.html">Знижки та бонуси</a><a href="content.html">Доставка й оплата</a><a href="content.html">Повернення</a><a href="content.html">FAQ</a></div>
+      <div class="wff-col"><h4>Тренерам</h4><a href="coach.html">Для тренерів</a><a href="coach.html">Тарифи Free / Pro</a></div>
+      <div class="wff-col"><h4>Консультація</h4><a href="content.html">0 800 000 000</a><a href="content.html">Telegram · Viber</a><a href="content.html">Пн–Нд 9:00–21:00</a></div>
+    </div>
+    <div class="wff-seo">
+      <b>Популярні категорії:</b> Протеїн · Гейнери · Креатин · BCAA · Передтренувальні · Вітаміни ·&nbsp;&nbsp;
+      <b>За ціллю:</b> Набір маси · Схуднення · Відновлення · Енергія ·&nbsp;&nbsp;
+      <b>Бренди:</b> Optimum Nutrition · BioTechUSA · Myprotein ·&nbsp;&nbsp;
+      <b>Міста:</b> Протеїн Київ · Протеїн Одеса · Протеїн Львів
+    </div>
+    <div class="wff-bot"><span>© 2026 Stack. Спортивне харчування в Україні.</span><span>Visa · Mastercard · Apple Pay · Google Pay</span></div>`;
+  el.setAttribute('role', 'contentinfo');
+}
+
+/* listing filter rail (category «Протеїн»); Тип = subcategory links, rest = facets */
+function wfCatalogRail() {
+  const el = document.getElementById('wf-rail'); if (!el) return;
+  el.className = 'frail';
+  el.setAttribute('aria-label', 'Фільтри');
+  el.innerHTML = `
+    <div class="fgroup"><div class="fh">Тип протеїну <span class="ar">▾</span></div>
+      <div class="flinks">
+        <a class="flink" href="listing.html">Концентрат <span class="ct">31</span></a>
+        <a class="flink" href="listing.html">Ізолят <span class="ct">18</span></a>
+        <a class="flink" href="listing.html">Гідролізат <span class="ct">5</span></a>
+        <a class="flink" href="listing.html">Казеїн <span class="ct">9</span></a>
+        <a class="flink" href="listing.html">Комплексний <span class="ct">14</span></a>
+        <a class="flink" href="listing.html">Рослинний <span class="ct">6</span></a>
+      </div>
+    </div>
+    <div class="fgroup"><div class="fh">Наявність <span class="ar">▾</span></div>
+      <label class="fopt"><span class="cb on"></span> В наявності <span class="ct">71</span></label>
+      <label class="fopt"><span class="cb"></span> Під замовлення <span class="ct">13</span></label>
+    </div>
+    <div class="fgroup"><div class="fh">Ціна, ₴ <span class="ar">▾</span></div>
+      <div class="frange"></div>
+      <div class="frow"><span class="in">800</span><span class="in">1500</span></div>
+    </div>
+    <div class="fgroup"><div class="fh">Бренд <span class="ar">▾</span></div>
+      <label class="fopt"><span class="cb on"></span> Optimum Nutrition <span class="ct">12</span></label>
+      <label class="fopt"><span class="cb"></span> BioTechUSA <span class="ct">9</span></label>
+      <label class="fopt"><span class="cb"></span> Myprotein <span class="ct">7</span></label>
+      <label class="fopt"><span class="cb"></span> Scitec Nutrition <span class="ct">6</span></label>
+      <label class="fopt"><span class="cb"></span> OstroVit <span class="ct">8</span></label>
+      <div class="fmore">+ ще 11 ▾ · 🔍 пошук бренду</div>
+    </div>
+    <div class="fgroup"><div class="fh">Ціль <span class="ar">▾</span></div>
+      <label class="fopt"><span class="cb"></span> Набір маси <span class="ct">52</span></label>
+      <label class="fopt"><span class="cb"></span> Схуднення <span class="ct">23</span></label>
+      <label class="fopt"><span class="cb"></span> Відновлення <span class="ct">18</span></label>
+    </div>
+    <div class="fgroup"><div class="fh">Смак <span class="ar">▾</span></div>
+      <label class="fopt"><span class="cb"></span> Шоколад <span class="ct">58</span></label>
+      <label class="fopt"><span class="cb"></span> Ваніль <span class="ct">44</span></label>
+      <label class="fopt"><span class="cb"></span> Полуниця <span class="ct">31</span></label>
+      <label class="fopt"><span class="cb"></span> Без смаку <span class="ct">9</span></label>
+    </div>
+    <div class="fgroup"><div class="fh">Країна <span class="ar">▾</span></div>
+      <label class="fopt"><span class="cb"></span> США <span class="ct">28</span></label>
+      <label class="fopt"><span class="cb"></span> Німеччина <span class="ct">9</span></label>
+      <label class="fopt"><span class="cb"></span> Україна <span class="ct">16</span></label>
+    </div>
+    <div class="fgroup"><div class="fh">Сертифікація <span class="ar">▾</span></div>
+      <label class="fopt"><span class="cb"></span> Сертифікат відповідності <span class="ct">84</span></label>
+      <label class="fopt"><span class="cb"></span> Лаб. тести (Informed Sport) <span class="ct">7</span></label>
+    </div>`;
+}
+
+function wfSheet() {
+  const el = document.getElementById('wf-sheet'); if (!el) return;
+  el.innerHTML = `
+    <div class="fsheet-ov" id="fsheet-ov" onclick="closeSheet()"></div>
+    <div class="fsheet" id="fsheet" role="dialog" aria-modal="true" aria-label="Фільтри">
+      <div class="fsheet-h">Фільтри <button class="x" onclick="closeSheet()" aria-label="Закрити">✕</button></div>
+      <div style="padding:4px 0">
+        <div class="fgroup"><div class="fh">Тип протеїну</div>
+          <div class="flinks">
+            <a class="flink" href="listing.html">Концентрат <span class="ct">31</span></a>
+            <a class="flink" href="listing.html">Ізолят <span class="ct">18</span></a>
+            <a class="flink" href="listing.html">Казеїн <span class="ct">9</span></a>
+          </div>
+        </div>
+        <div class="fgroup"><div class="fh">Наявність</div>
+          <label class="fopt"><span class="cb on"></span> В наявності <span class="ct">71</span></label>
+          <label class="fopt"><span class="cb"></span> Під замовлення <span class="ct">13</span></label>
+        </div>
+        <div class="fgroup"><div class="fh">Ціна, ₴</div><div class="frange"></div><div class="frow"><span class="in">800</span><span class="in">1500</span></div></div>
+        <div class="fgroup"><div class="fh">Бренд · Ціль · Смак · Країна</div>
+          <label class="fopt"><span class="cb on"></span> Optimum Nutrition <span class="ct">12</span></label>
+          <label class="fopt"><span class="cb"></span> Набір маси <span class="ct">52</span></label>
+        </div>
+      </div>
+      <div class="fsheet-foot">
+        <a class="btn" href="listing.html">Скинути</a>
+        <button class="btn dark" onclick="closeSheet()">Застосувати (47)</button>
+      </div>
+    </div>`;
+}
+function openSheet() { document.getElementById('fsheet').classList.add('open'); document.getElementById('fsheet-ov').classList.add('open'); }
+function closeSheet() { const s = document.getElementById('fsheet'), o = document.getElementById('fsheet-ov'); if (s) s.classList.remove('open'); if (o) o.classList.remove('open'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
