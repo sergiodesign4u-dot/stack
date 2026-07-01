@@ -335,11 +335,15 @@ layout is still designed deliberately (it is a store).
   schema. Flow source: `research/docs/flows.md` "Job 3 — verify product safety". Per-product content
   (composition, dosage, certificate files, reviews) stays the operational/data [?].
 
-**Unified navigation:** all docs pages (research, personas, jtbd, concept, and every
-page-level IA page) share one left sidebar. Group order: Дослідження · Персони · JTBD ·
-Концептуальна архітектура — then the «Інформаційна архітектура» group (Карта сайту, Навігація,
-and subsequent per-page nodes). The old per-page topbar on `ia/sitemap.html` was replaced
-with this sidebar.
+**Unified navigation (revised July 2026):** all docs pages (research, personas, jtbd, concept, and
+every page-level IA page) share one left sidebar. Top-level items: Дослідження · Персони · JTBD ·
+Концептуальна архітектура · **Інформаційна архітектура**. **IA is one top-level section** (link →
+Карта сайту/`sitemap.html`) that behaves like the research sections — an **accordion**: its sub-tree
+(the «Структура» + «Сторінки» separators with all page links) is shown **only while you are on an IA
+page**; on research pages it collapses to the single «Інформаційна архітектура» link (sub-tree hidden).
+No JS collapse — driven by which page you're on. All 4 research sidebars were **resynced** to the full
+13-link «Сторінки» list. The bottom «Далі» hint = just **Wireframes** on every page. The old per-page
+topbar on `ia/sitemap.html` was replaced with this sidebar.
 
 **Artifact format:** Sitemap + IA as numbered cards (`X.Y`, X = flow cluster) with an
 INCLUDES list and flow arrows; dialogs and states are first-class nodes. Reference
@@ -404,17 +408,29 @@ blocked** · untagged line → assign/discard). **Coach-as-buyer** (Decision 1),
 depth intentional (~8 taps / 2-client order). **Mixed SEO:** landing indexes, **work zone 5.1–5.5 =
 noindex, no schema**. Free/Pro numbers + wholesale price gate stay **[?]**.
 
-**Cart & checkout (`cart.md`/`cart.html`, node 6.x, done July 2026):** the **convergence point** of both
-flows (product card 3.0 → cart; coach session 5.5 → cart). **6.0 Cart = right-side drawer dialog** —
-buyer: flat list + **loyalty discount auto** + **bonuses toggle**; coach: **grouped by client** (per-client
-subtotals, tier price on lines), **single delivery to the coach** with the breakdown kept in the order.
-**6.1 Checkout = one sectioned page** (not a wizard): Контакт (phone-OTP, **passwordless** — guest confirms
-by code → account auto-created) · Доставка (**НП відділення/поштомат · кур'єр · самовивіз Одеса**; city via
-dialog 0.1a; addresses from 7.5) · Оплата (**LiqPay/Wayforpay · Apple/Google Pay · накладений · готівка при
-самовивозі**) + sticky order summary. **6.2 Order placed** → confirmation + next steps → history 7.2 (repeat,
-Job 4). Recovery: payment back-to-cart, OOS not orderable. **Transactional → noindex, no schema**; calm, no
-timers. Loyalty %/rates + delivery tariffs + payment-provider choice stay **[?]**. This closes the JTBD
-page-level gaps (all clusters 0–7 now have page-level IA); next phase = Wireframes.
+**Cart & checkout (`cart.md`/`cart.html`, node 6.x, done July 2026; revised July 2026):** the
+**convergence point** of both flows (product card 3.0 → cart; coach session 5.5 → cart). **6.0 Cart =
+right-side drawer dialog, PURE QUICK VIEW** — line items + qty + **just the «Разом» total**; **no
+discount/bonus/delivery breakdown in the drawer** (those move to checkout). Each item shows **clear ♡ В
+обране / 🗑 Видалити buttons** (buyer + mobile; coach lines show 🗑 Видалити). Coach: **grouped by client**
+(per-client subtotals, tier price on lines), **single delivery to the coach** with the breakdown kept in the
+order. **6.1 Checkout = one sectioned page** (not a wizard) with a **SIMPLIFIED HEADER** (logo + support
+phone only — no nav/search/cart, fewer funnel exits). **Left-column order (locked):** ① **Контакт** — guests
+lead with **«Увійдіть для оформлення замовлення»** (phone + «Отримати код», passwordless per 1.x → account
+auto-created; secondary Google/Apple/E-mail); logged-in → collapsed prefilled → **Ваше замовлення** (items
+moved here from the right rail, with ♡/🗑) → ② **Доставка** (**НП відділення/поштомат · кур'єр · самовивіз
+Одеса**; city via dialog 0.1a; addresses 7.5) → ③ **Оплата** (**LiqPay/Wayforpay · Apple/Google Pay ·
+накладений · готівка**) → then, full-width under all sections, an **upsell «Не забудьте додати»** (snack
+add-ons + «+ Додати») → **simplified footer** (© · legal · support · pay badges). **Right column = money
+only & compact** so **«Підтвердити» is always in view**: a **compact bonus block** (balance + spend toggle)
++ breakdown + an **accrual line «★ Нарахуємо +N ₴ (~1%)»** by the button. **Bonuses live ONLY at checkout**,
+never in the cart — a **4-state bonus module** (none / has / spend-on / amount-input), shown in a states
+gallery. **No standalone payment page** — card pays via the **provider-hosted redirect** (LiqPay/Wayforpay,
+PCI-safe) → returns to **6.2 Order placed**; COD/pickup place the order directly. 6.2 → confirmation + next
+steps → history 7.2 (repeat, Job 4). Recovery: payment back-to-cart, OOS not orderable. **Transactional →
+noindex, no schema**; calm, no timers. Loyalty %/rates + delivery tariffs + payment-provider choice stay
+**[?]**. This closes the JTBD page-level gaps (all clusters 0–7 now have page-level IA); next phase =
+Wireframes.
 
 **Content, info & legal (`content.md`/`content.html`, node 8.x, done July 2026):** the 13 nodes
 (8.0–8.12) specced as **one small template system, not 13 layouts** (same dedup approach as the category
