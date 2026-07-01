@@ -160,6 +160,13 @@ These apply to **every** wireframe (fix once in `_wf.css`, all screens inherit):
   align with full ones. No `margin-top:auto` pushes that depend on variable lower content.
 - **SEO body text is always fully expanded** — **never** a «read more» collapse (hidden text
   isn't indexed). Top-of-page «Читати більше ↓» is only an anchor jump to the open block.
+- **Listing base = the clean/unfiltered view** (no active-filter chips; facets unchecked; full
+  count). **Filtered** (active-filter chips + narrowed count + matching checked facets) is a
+  **separate state page**. Keep the two consistent — pass the active set to the shared rail
+  (`wfCatalogRail([...])`) so a chip and its facet checkbox always agree.
+- **Grid ↔ list view toggle** is real: **two pages** (`listing.html` grid ▦ / `listing-list.html`
+  list ☰), the ▦/☰ control links between them, active view marked. List card = image · brand/name/
+  availability/meta · price + «У кошик» (♡ top of the price column).
 
 ## Build order (per the playbook's How-to-run)
 

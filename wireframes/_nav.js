@@ -8,7 +8,7 @@
 
 const WF_STATE_LABEL = {
   base: 'Базовий', empty: 'Порожньо', loading: 'Завантаження', error: 'Помилка',
-  filtered: 'З фільтром', oos: 'Немає в наявності', reviews: 'Відгуки (Job 3)',
+  filtered: 'З фільтрами', list: 'Списком', oos: 'Немає в наявності', reviews: 'Відгуки (Job 3)',
   guest: 'Гість', declined: 'Оплата відхилена', noaddr: 'Без адреси',
   code: 'Крок коду', newuser: 'Новий користувач', 'account-end': 'З акаунтом'
 };
@@ -19,7 +19,7 @@ const WF_FLOWS = [
     note: 'Головна → Категорія → Картка товару → Кошик → Оформлення → Замовлення',
     screens: [
       { file: 'home.html',         name: 'Головна',              node: '0.0', built: false, states: ['empty','loading','error'], builtStates: [] },
-      { file: 'listing.html',      name: 'Категорія (лістинг)',  node: '2.1', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
+      { file: 'listing.html',      name: 'Категорія (лістинг)',  node: '2.1', built: true,  states: ['filtered','list','empty','loading','error'], builtStates: ['filtered','list','empty','loading','error'] },
       { file: 'goal.html',         name: 'Ціль-колекція',        node: '2.2', built: false, states: ['empty','loading','error'], builtStates: [] },
       { file: 'product.html',      name: 'Картка товару',        node: '3.0', built: false, states: ['loading','error','oos','reviews'], builtStates: [] },
       { file: 'cart.html',         name: 'Кошик',                node: '6.0', built: false, states: ['empty','oos'], builtStates: [] },
@@ -167,9 +167,12 @@ function wfFooter() {
   el.setAttribute('role', 'contentinfo');
 }
 
-/* listing filter rail (category «Протеїн»); Тип = subcategory links, rest = facets */
-function wfCatalogRail() {
+/* listing filter rail (category «Протеїн»); Тип = subcategory links, rest = facets.
+   checked = array of facet labels to render as active (e.g. ['Optimum Nutrition','В наявності']). */
+function wfCatalogRail(checked) {
   const el = document.getElementById('wf-rail'); if (!el) return;
+  checked = checked || [];
+  const opt = (label, ct) => `<label class="fopt"><span class="cb${checked.includes(label) ? ' on' : ''}"></span> ${label} <span class="ct">${ct}</span></label>`;
   el.className = 'frail';
   el.setAttribute('aria-label', 'Фільтри');
   el.innerHTML = `
@@ -184,40 +187,27 @@ function wfCatalogRail() {
       </div>
     </div>
     <div class="fgroup"><div class="fh">Наявність <span class="ar">▾</span></div>
-      <label class="fopt"><span class="cb on"></span> В наявності <span class="ct">71</span></label>
-      <label class="fopt"><span class="cb"></span> Під замовлення <span class="ct">13</span></label>
+      ${opt('В наявності', 71)}${opt('Під замовлення', 13)}
     </div>
     <div class="fgroup"><div class="fh">Ціна, ₴ <span class="ar">▾</span></div>
       <div class="frange"></div>
       <div class="frow"><span class="in">800</span><span class="in">1500</span></div>
     </div>
     <div class="fgroup"><div class="fh">Бренд <span class="ar">▾</span></div>
-      <label class="fopt"><span class="cb on"></span> Optimum Nutrition <span class="ct">12</span></label>
-      <label class="fopt"><span class="cb"></span> BioTechUSA <span class="ct">9</span></label>
-      <label class="fopt"><span class="cb"></span> Myprotein <span class="ct">7</span></label>
-      <label class="fopt"><span class="cb"></span> Scitec Nutrition <span class="ct">6</span></label>
-      <label class="fopt"><span class="cb"></span> OstroVit <span class="ct">8</span></label>
+      ${opt('Optimum Nutrition', 12)}${opt('BioTechUSA', 9)}${opt('Myprotein', 7)}${opt('Scitec Nutrition', 6)}${opt('OstroVit', 8)}
       <div class="fmore">+ ще 11 ▾ · 🔍 пошук бренду</div>
     </div>
     <div class="fgroup"><div class="fh">Ціль <span class="ar">▾</span></div>
-      <label class="fopt"><span class="cb"></span> Набір маси <span class="ct">52</span></label>
-      <label class="fopt"><span class="cb"></span> Схуднення <span class="ct">23</span></label>
-      <label class="fopt"><span class="cb"></span> Відновлення <span class="ct">18</span></label>
+      ${opt('Набір маси', 52)}${opt('Схуднення', 23)}${opt('Відновлення', 18)}
     </div>
     <div class="fgroup"><div class="fh">Смак <span class="ar">▾</span></div>
-      <label class="fopt"><span class="cb"></span> Шоколад <span class="ct">58</span></label>
-      <label class="fopt"><span class="cb"></span> Ваніль <span class="ct">44</span></label>
-      <label class="fopt"><span class="cb"></span> Полуниця <span class="ct">31</span></label>
-      <label class="fopt"><span class="cb"></span> Без смаку <span class="ct">9</span></label>
+      ${opt('Шоколад', 58)}${opt('Ваніль', 44)}${opt('Полуниця', 31)}${opt('Без смаку', 9)}
     </div>
     <div class="fgroup"><div class="fh">Країна <span class="ar">▾</span></div>
-      <label class="fopt"><span class="cb"></span> США <span class="ct">28</span></label>
-      <label class="fopt"><span class="cb"></span> Німеччина <span class="ct">9</span></label>
-      <label class="fopt"><span class="cb"></span> Україна <span class="ct">16</span></label>
+      ${opt('США', 28)}${opt('Німеччина', 9)}${opt('Україна', 16)}
     </div>
     <div class="fgroup"><div class="fh">Сертифікація <span class="ar">▾</span></div>
-      <label class="fopt"><span class="cb"></span> Сертифікат відповідності <span class="ct">84</span></label>
-      <label class="fopt"><span class="cb"></span> Лаб. тести (Informed Sport) <span class="ct">7</span></label>
+      ${opt('Сертифікат відповідності', 84)}${opt('Лаб. тести (Informed Sport)', 7)}
     </div>`;
 }
 

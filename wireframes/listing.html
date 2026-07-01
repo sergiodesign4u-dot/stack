@@ -35,23 +35,17 @@
       <a class="more" href="#seo">Читати більше ↓</a></p>
   </section>
 
-  <!-- Desktop toolbar: count left, sort + view-toggle far right -->
+  <!-- Desktop toolbar: count left, sort + view-toggle far right. BASE = no active filters. -->
   <div class="ltool">
     <span class="ctrl count">Знайдено: 84 товари</span>
     <span class="sp"></span>
     <span class="ctrl"><span class="cap">Сортування:</span> Популярні ▾</span>
-    <span class="vtoggle"><span class="on">▦</span><span>☰</span></span>
-  </div>
-  <!-- Active filters: «Очистити все» first, then chips -->
-  <div class="afilters">
-    <a class="clear" href="listing.html">Очистити все</a>
-    <span class="afilter">Бренд: Optimum Nutrition <button class="x" aria-label="Прибрати фільтр">✕</button></span>
-    <span class="afilter">Ціна: 800–1500 ₴ <button class="x" aria-label="Прибрати фільтр">✕</button></span>
+    <span class="vtoggle"><a href="listing.html" class="on" aria-label="Сіткою">▦</a><a href="listing-list.html" aria-label="Списком">☰</a></span>
   </div>
 
-  <!-- Mobile toolbar (sticky): opens filter sheet -->
+  <!-- Mobile toolbar (sticky): opens filter sheet (no active-filter badge on the clean base) -->
   <div class="mtoolbar">
-    <button class="mc" onclick="openSheet()">Фільтри <span class="b">2</span></button>
+    <button class="mc" onclick="openSheet()">Фільтри</button>
     <button class="mc">Популярні ▾</button>
   </div>
 
