@@ -363,7 +363,7 @@ schema (structure + transitions) and full per-page specs.
    visual one side, form the other); new user → name step; **success returns to the triggering
    action**; social OAuth + soft skippable add-phone for new accounts; SMS code has expiry +
    attempts + resend cooldown + rate-limit. Page is **noindex, no schema** (utility, not content).
-   Sidebar «Сторінки» order: Головна · Каталог · Категорія · **Пошук** · Картка товару · Квіз · **Авторизація** · **Акаунт** · **Кабінет тренера** · **Кошик · Оформлення** · **Контент та інфо** · **Системні та глобальні**.
+   Sidebar «Сторінки» order: Головна · Каталог · Категорія · **Бренди** · **Пошук** · Картка товару · Квіз · **Авторизація** · **Акаунт** · **Кабінет тренера** · **Кошик · Оформлення** · **Контент та інфо** · **Системні та глобальні**.
    Coach is a **role activated on an existing account** via a verification flow reachable from both the
    For-Coaches landing CTA and an account section, so coaches never hunt for a login.
    Coach tiering is being explored as **Free vs Pro** (HYPOTHESIS, numbers [?]): Free =
@@ -431,6 +431,15 @@ reviews, separate from product reviews 3.1, AggregateRating on Organization + Go
 guarantee/certs/returns/FAQ on show, linked from the footer trust strip + PDP «Сертифікація»; and is the
 **second internal-link hub** after the footer SEO block. Content pages index (A–E + schema); newsletter
 noindex. Ready copy / certificate files / legal texts / discount numbers stay **[?]**.
+
+**Brand index (`brands.md`/`brands.html`, node 2.4, done July 2026):** the **parallel index** — an «all
+brands» page (A–Z card grid: logo · name · country · product count), **structurally distinct** from a brand
+*listing* (products of one brand = shared listing template 2.1, `scope=brand`). Anatomy: breadcrumb → H1 +
+trust intro → toolbar (brand search · country · category · A–Z) → popular brands → A–Z grid → SEO text. Each
+card → the brand listing. Uses the **real 24-brand pool** from `category-matrix.md` (global + UA). Different
+intent than a listing (choose by brand trust) + a separate SEO surface; **indexable** (CollectionPage +
+Breadcrumb), a second index→listing bridge like the Catalog hub. Entries: meta-bar «Бренди» · mega-menu ·
+footer. Product counts / popular / logos / final brand list stay **[?]**.
 
 **Search (`search.md`/`search.html`, node 2.5, done July 2026):** the **known-item utility** (regular
 buyer), secondary to catalog nav (grounded: Belok leads with catalog). Two parts — **header autocomplete

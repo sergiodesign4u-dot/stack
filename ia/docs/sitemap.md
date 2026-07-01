@@ -86,6 +86,10 @@
     covers 8.2–8.8 with contacts/table/certificate/legal variants) · FAQ (accordion + FAQPage) · Blog
     (listing + article) · Promo (calm, no timers) · Store reviews (AggregateRating on Org) · Newsletter
     (footer component, noindex). Serves Principle 1 trust; second internal-link hub after the footer. B/W).
+  - `pages/brands.md` → `ia/brands.html` (node 2.4 — **Brand index**, parallel index): an «all brands»
+    A–Z card grid (search · country · category · A–Z + popular + brand cards) → each card = **brand listing
+    (2.1, scope=brand)**. Real 24-brand pool (category matrix). Index ≠ listing (nav hub vs PLP). Indexable
+    (CollectionPage + Breadcrumb). B/W).
   - `pages/search.md` → `ia/search.html` (node 2.5 — **Search**, known-item utility): header **autocomplete
     overlay** (recent + popular + query completions + categories/brands + product previews, from real
     project data) + **results page = shared listing template (2.1)**, relevance sort + **no-results** (never
