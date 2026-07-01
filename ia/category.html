@@ -132,6 +132,10 @@
     .fopt .cb { width: 14px; height: 14px; border: 1.5px solid #bbb; border-radius: 4px; display: inline-block; flex: none; }
     .fopt .cb.on { background: #161616; border-color: #161616; }
     .fopt .ct { color: #bbb; margin-left: auto; font-size: 11px; }
+    /* Тип/субкатегорія = crawlable links, not checkboxes (decision 2026-07-01) */
+    .flinks { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
+    .flink { border: 1.5px solid #ccc; border-radius: 100px; padding: 6px 11px; font-size: 12px; font-weight: 600; color: #222; text-decoration: none; }
+    .flink .ct { color: #bbb; margin-left: 5px; font-size: 11px; }
     .frange { height: 4px; background: #ddd; border-radius: 4px; margin: 12px 2px 8px; position: relative; }
     .frange::before, .frange::after { content: ''; position: absolute; top: -4px; width: 12px; height: 12px; border-radius: 50%; background: #161616; }
     .frange::before { left: 18%; } .frange::after { right: 26%; }
@@ -151,7 +155,7 @@
     .sortmenu .so.on { background: #161616; color: #fff; font-weight: 700; }
     .sortmenu .so .k { color: #bbb; font-size: 10px; }
 
-    /* product grid (canonical card) — 5 cols max → 4 → 3 → 2 */
+    /* product grid (canonical card) — 4 cols → 3 → 2 */
     .prow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
     @media (max-width: 900px) { .prow { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 680px) { .prow { grid-template-columns: 1fr 1fr; } }
@@ -291,7 +295,7 @@
     <hr class="sidebar-divider">
     <a href="../wireframes/index.html">Вайрфрейми</a>
     <a href="../wireframes/index.html#f1" class="sidebar-sub">Флоу 1 · Покупець</a>
-    <span class="sidebar-sub" style="opacity:.45">Флоу 2 · Тренер · скоро</span>
+    <a href="../wireframes/index.html#f2" class="sidebar-sub">Флоу 2 · Тренер</a>
     <a href="../wireframes/index.html" class="sidebar-sub">Всі екрани</a>
   </nav>
 </aside>
@@ -310,7 +314,7 @@
     </div>
   </div>
 
-  <div class="reco"><b>Ключове рішення:</b> один шаблон лістингу на всі обсяги (Категорія / Каталог-усе / Ціль / Бренд / Пошук / місто). Панель фільтрів — <b>наслідуваний компонент</b>: на десктопі ліва липка колонка, на мобілці — <b>bottom-sheet</b> за кнопкою «Фільтри». Цілі лишаються <b>першокласними всередині каталогу</b> (концерн-лінза) рядком чипів «За ціллю».</div>
+  <div class="reco"><b>Ключове рішення:</b> один шаблон лістингу на всі обсяги (Категорія / Каталог-усе / Ціль / Бренд / Пошук / місто). Панель фільтрів — <b>наслідуваний компонент</b>: на десктопі ліва липка колонка, на мобілці — <b>bottom-sheet</b> за кнопкою «Фільтри». Цілі лишаються <b>першокласними всередині каталогу</b> (концерн-лінза) — вони живуть у <b>панелі фільтрів</b>, у групі «За ціллю» (окремий верхній ряд чипів прибрано, без дубля).</div>
 
   <!-- 01 Desktop wireframe -->
   <section class="section" id="desktop">
@@ -327,7 +331,7 @@
         <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1): мета-рядок · лого · мега-меню «Каталог» · «✦ Квіз» · пошук · ♡ Обране · Бонуси · Кошик · Увійти/Кабінет <span class="zd">— той самий компонент на всіх сторінках</span></div>
 
         <!-- breadcrumb -->
-        <div class="crumb"><a href="../research/concept.html">Головна</a><span class="sep">/</span><a href="catalog.html">Каталог</a><span class="sep">/</span><span class="cur">Протеїн</span></div>
+        <div class="crumb"><a href="../research/concept.html">Головна</a><span class="sep">/</span><a href="catalog-page.html">Каталог</a><span class="sep">/</span><span class="cur">Протеїн</span></div>
 
         <!-- h1 + intro -->
         <div class="lh1">Протеїн <span class="cnt">84 товари</span></div>
@@ -355,13 +359,14 @@
           <!-- filter rail -->
           <div class="frail">
             <div class="fgroup"><div class="fh">Тип протеїну <span class="ar">▾</span></div>
-              <div class="fopt"><span class="cb"></span> Сироватковий концентрат <span class="ct">31</span></div>
-              <div class="fopt"><span class="cb"></span> Ізолят <span class="ct">18</span></div>
-              <div class="fopt"><span class="cb"></span> Гідролізат <span class="ct">5</span></div>
-              <div class="fopt"><span class="cb"></span> Казеїн <span class="ct">9</span></div>
-              <div class="fopt"><span class="cb"></span> Комплексний (багатокомпонентний) <span class="ct">14</span></div>
-              <div class="fopt"><span class="cb"></span> Рослинний <span class="ct">6</span></div>
-              <div class="fopt"><span class="cb"></span> Яловичий <span class="ct">1</span></div>
+              <div class="flinks">
+                <a class="flink" href="#">Концентрат <span class="ct">31</span></a>
+                <a class="flink" href="#">Ізолят <span class="ct">18</span></a>
+                <a class="flink" href="#">Гідролізат <span class="ct">5</span></a>
+                <a class="flink" href="#">Казеїн <span class="ct">9</span></a>
+                <a class="flink" href="#">Комплексний <span class="ct">14</span></a>
+                <a class="flink" href="#">Рослинний <span class="ct">6</span></a>
+              </div>
             </div>
             <div class="fgroup"><div class="fh">Наявність <span class="ar">▾</span></div>
               <div class="fopt"><span class="cb on"></span> В наявності <span class="ct">71</span></div>
@@ -613,7 +618,7 @@
       <div>
         <div class="sheet">
           <div class="sh">Фільтри <span class="x">✕</span></div>
-          <div class="p-blk"><div class="bh">Тип протеїну</div><div class="fopt"><span class="cb"></span> Концентрат <span class="ct">31</span></div><div class="fopt"><span class="cb"></span> Ізолят <span class="ct">18</span></div><div class="fopt"><span class="cb"></span> Казеїн <span class="ct">9</span></div></div>
+          <div class="p-blk"><div class="bh">Тип протеїну</div><div class="flinks"><a class="flink" href="#">Концентрат <span class="ct">31</span></a><a class="flink" href="#">Ізолят <span class="ct">18</span></a><a class="flink" href="#">Казеїн <span class="ct">9</span></a></div></div>
           <div class="p-blk"><div class="bh">Наявність</div><div class="fopt"><span class="cb on"></span> В наявності <span class="ct">71</span></div><div class="fopt"><span class="cb"></span> Під замовлення <span class="ct">13</span></div></div>
           <div class="p-blk"><div class="bh">Ціна, ₴</div><div class="frange"></div><div class="frow"><span class="in">800</span><span class="in">1500</span></div></div>
           <div class="p-blk"><div class="bh">Бренд · Ціль · Форма · Смак · Країна</div><div class="fopt"><span class="cb on"></span> Optimum <span class="ct">12</span></div><div class="fopt"><span class="cb"></span> Набір маси <span class="ct">52</span></div></div>

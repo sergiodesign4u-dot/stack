@@ -80,7 +80,7 @@ auth, activate role 5.1).
 |---|---|
 | 1.0 Default (phone) | Single phone field, «Отримати код» primary, consent, social/email buttons. |
 | Invalid phone | Inline validation (red field + «Введіть коректний номер»); CTA disabled until valid. |
-| Loading (sending SMS) | CTA spinner «Надсилаємо код…»; field locked. |
+| Loading (sending SMS) | Full-dialog interstitial: spinner + skeleton, «Надсилаємо код у SMS…» + 5-хв note; forwards to OTP entry when the code is sent; «Скасувати» returns to the phone step. (Wireframe: `auth-loading.html`.) |
 | 1.1 OTP entry | 4–6 code boxes; auto-advance; auto-submit on full code; «Змінити номер» link. |
 | OTP wrong | Boxes red + «Невірний код, спробуйте ще»; attempts counter. |
 | OTP resend timer | «Надіслати код повторно через 0:59» → enabled «Надіслати ще раз» after countdown. |

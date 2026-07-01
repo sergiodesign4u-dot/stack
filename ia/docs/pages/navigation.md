@@ -184,7 +184,8 @@ avoided — it buries primary destinations behind overflow; secondary links live
 
 - **Meta bar** (desktop top row): left — «Для тренерів» (emphasized) + Акції · Бренди ·
   Доставка · Повернення · Про нас; right — location dropdown + language dropdown (Укр/Рус).
-- **Main bar:** Logo · Каталог (primary) · Цілі (secondary dropdown) · Search + «Знайти» ·
+- **Main bar:** Logo · Каталог (primary) · **✦ Квіз** (secondary; replaced «Цілі» 2026-07-01,
+  goals now live in the Каталог mega-menu «За ціллю» column) · Search + «Знайти» ·
   Увійти/Кабінет (icon + caption) · Обране · Бонуси · Кошик.
 - **Informative cart:** empty = icon + «Кошик»; active = count + total sum.
 - **Bonuses element:** guest = «бонуси» + big «Отримати» (→ register); logged-in = bonus
@@ -201,7 +202,8 @@ avoided — it buries primary destinations behind overflow; secondary links live
 
 - **Goals are integrated into the Catalog** (concern lens, Liki24-style): «За ціллю» column
   in the desktop mega-menu **and the top block of the mobile Catalog drilldown** — goals
-  never disappear on mobile. They also stay on the Головна hero and the «Цілі» dropdown.
+  never disappear on mobile. They also stay on the Головна hero goal tiles and the Каталог
+  mega-menu «За ціллю» column (the old separate «Цілі» dropdown was dropped 2026-07-01).
 - **Symptom/concern (node 2.3) = goals** — no separate symptom tree; health concerns are
   «Здоров'я» subcategories + the Імунітет goal.
 - Catalog = **12 top categories** (rebalanced from 14) + **6 goals** — see `ia/catalog.html`.
@@ -214,18 +216,19 @@ avoided — it buries primary destinations behind overflow; secondary links live
 | Favorites | Clicking ♡ / the Обране tab → **sign-in dialog** (login required to save; no guest wishlist → registration driver) | Saved list, count badge | Saved list, count badge |
 | Cart | Visible, count badge | Same | Same; groups per client (6.0) |
 | Mobile tabs | 5 (buyer set) | 5 (buyer set) | 5 (coach variant) |
-| Primary CTA | Discover (Цілі) + Увійти | Cart / repeat order | **Нова сесія замовлення** → 5.5 |
+| Primary CTA | Discover (hero goal tiles / ✦ Квіз) + Увійти | Cart / repeat order | **Нова сесія замовлення** → 5.5 |
 
 ## Breakpoints
 
 - **Mobile (360px baseline, <860px):** slim top bar (Logo · Search · Favorites · Cart) +
-  **bottom tab bar** (primary nav). Цілі / Каталог / For Coaches reachable via Home tab /
-  Account. Bars fixed; top bar condenses on scroll.
-- **Desktop (≥860px):** single full top header bar; no bottom tabs. Mega-menu on "Цілі".
+  **bottom tab bar** (primary nav). Каталог / goals (hero tiles + «За ціллю») / For Coaches
+  reachable via Home tab / Account. Bars fixed; top bar condenses on scroll.
+- **Desktop (≥860px):** single full top header bar; no bottom tabs. Mega-menu on **Каталог**
+  (goals live in its «За ціллю» column); the secondary button is **✦ Квіз** (4.0).
 
 ## Transitions
 
-Logo → 0.0 · Цілі → 2.2 / 2.1 · Каталог → 2.0 · Для тренерів → 5.0 · Search → 2.5 ·
+Logo → 0.0 · ✦ Квіз → 4.0 / 2.2 · Каталог → 2.0 · Для тренерів → 5.0 · Search → 2.5 ·
 Favorites → 7.6 · Cart → 6.0 · Увійти → 1.0 · Account → 7.0 · Стати тренером → 7.7 → 5.1 ·
 Кабінет тренера → 5.2 · Нова сесія → 5.5.
 

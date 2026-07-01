@@ -127,7 +127,7 @@ function wfHeader() {
   el.className = 'wfh';
   el.innerHTML = `
     <div class="wfh-meta"><div class="wfh-in">
-      <a class="strongl" href="coach-landing.html">Для тренерів</a><a>Акції</a><a>Бренди</a><a>Доставка</a><a>Повернення</a>
+      <a class="strongl" href="coach-landing.html">Для тренерів</a><a>Акції</a><a>Бренди</a><a>Доставка</a><a>Повернення</a><a>Про нас</a>
       <span class="wfh-sp"></span><a>📍 Одеса</a><a>Укр</a>
     </div></div>
     <div class="wfh-main wfh-in">
@@ -135,7 +135,7 @@ function wfHeader() {
       <a class="wfh-logo" href="home.html">Stack</a>
       <nav class="wfh-nav" aria-label="Головна навігація">
         <a class="navbtn" href="catalog-page.html"><span class="g">▦</span> Каталог</a>
-        <a class="navlink" href="#">Цілі ▾</a>
+        <a class="navlink" href="quiz.html">✦ Квіз</a>
       </nav>
       <form class="wfh-search" role="search" action="search.html">
         <input type="search" placeholder="Пошук товарів, брендів…" aria-label="Пошук">
@@ -167,7 +167,10 @@ function wfFooter() {
       <div class="wff-tc"><div class="th">Повернення 14 днів</div><div class="ts">Без зайвих питань</div></div>
     </div>
     <div class="wff-cols">
-      <div class="wff-col"><h4>Stack</h4><a href="content.html">Про нас</a><a href="content.html">Контакти</a><a href="content.html">Блог</a><a href="content.html">Публічна оферта</a></div>
+      <div class="wff-col"><h4>Розсилка</h4>
+        <div class="wff-news"><input type="email" placeholder="E-mail для новин та акцій" aria-label="E-mail"><button type="button">OK</button></div>
+        <a href="content.html">★ Підтримайте нас — оцінка в Google</a></div>
+      <div class="wff-col"><h4>Stack</h4><a href="content.html">Про нас</a><a href="content.html">Контакти</a><a href="content.html">Блог</a><a href="content.html">Публічна оферта</a><a href="content.html">Політика конфіденційності</a><a href="content.html">Умови використання</a></div>
       <div class="wff-col"><h4>Покупцям</h4><a href="content.html">Знижки та бонуси</a><a href="content.html">Доставка й оплата</a><a href="content.html">Повернення</a><a href="content.html">FAQ</a></div>
       <div class="wff-col"><h4>Тренерам</h4><a href="coach-landing.html">Для тренерів</a><a href="coach-landing.html">Тарифи Free / Pro</a></div>
       <div class="wff-col"><h4>Консультація</h4><a href="content.html">0 800 000 000</a><a href="content.html">Telegram · Viber</a><a href="content.html">Пн–Нд 9:00–21:00</a></div>
@@ -178,7 +181,11 @@ function wfFooter() {
       <b>Бренди:</b> Optimum Nutrition · BioTechUSA · Myprotein ·&nbsp;&nbsp;
       <b>Міста:</b> Протеїн Київ · Протеїн Одеса · Протеїн Львів
     </div>
-    <div class="wff-bot"><span>© 2026 Stack. Спортивне харчування в Україні.</span><span>Visa · Mastercard · Apple Pay · Google Pay</span></div>`;
+    <div class="wff-bot">
+      <span>© 2026 Stack. Спортивне харчування в Україні. · <a href="content.html" style="color:inherit;text-decoration:underline">Політика</a> · <a href="content.html" style="color:inherit;text-decoration:underline">Умови</a></span>
+      <span class="wff-soc"><a href="content.html" style="color:inherit">Instagram</a><a href="content.html" style="color:inherit">Telegram</a><a href="content.html" style="color:inherit">YouTube</a></span>
+      <span>Visa · Mastercard · Apple Pay · Google Pay</span>
+    </div>`;
   el.setAttribute('role', 'contentinfo');
 }
 
@@ -221,6 +228,12 @@ function wfCatalogRail(checked) {
     <div class="fgroup"><div class="fh">Країна <span class="ar">▾</span></div>
       ${opt('США', 28)}${opt('Німеччина', 9)}${opt('Україна', 16)}
     </div>
+    <div class="fgroup"><div class="fh">Форма випуску <span class="ar">▾</span></div>
+      ${opt('Порошок', 68)}${opt('Готовий напій (RTD)', 6)}${opt('Капсули / таблетки', 4)}
+    </div>
+    <div class="fgroup"><div class="fh">Фасування, вага <span class="ar">▾</span></div>
+      ${opt('до 1 кг', 22)}${opt('1–2 кг', 39)}${opt('2 кг і більше', 17)}
+    </div>
     <div class="fgroup"><div class="fh">Сертифікація <span class="ar">▾</span></div>
       ${opt('Сертифікат відповідності', 84)}${opt('Лаб. тести (Informed Sport)', 7)}
     </div>`;
@@ -245,9 +258,10 @@ function wfSheet() {
           <label class="fopt"><span class="cb"></span> Під замовлення <span class="ct">13</span></label>
         </div>
         <div class="fgroup"><div class="fh">Ціна, ₴</div><div class="frange"></div><div class="frow"><span class="in">800</span><span class="in">1500</span></div></div>
-        <div class="fgroup"><div class="fh">Бренд · Ціль · Смак · Країна</div>
+        <div class="fgroup"><div class="fh">Бренд · Ціль · Смак · Країна · Форма · Фасування</div>
           <label class="fopt"><span class="cb on"></span> Optimum Nutrition <span class="ct">12</span></label>
           <label class="fopt"><span class="cb"></span> Набір маси <span class="ct">52</span></label>
+          <label class="fopt"><span class="cb"></span> Порошок <span class="ct">68</span></label>
         </div>
       </div>
       <div class="fsheet-foot">

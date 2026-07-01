@@ -84,6 +84,11 @@
 - **Cart drawer** → quick view: line items + one total only; no discount/bonus/delivery rows.
 - **Bonuses/loyalty (checkout only)** → buyer: auto discount + bonus module (4 states: none / has / spend
   on / amount input) + accrual line; coach: tier on lines, no personal bonuses.
+- **Confirm → payment interstitial** → full-page «Опрацьовуємо оплату…» redirect/return handler before
+  6.2 (card via provider-hosted page). Wireframe: `checkout-loading.html`.
+- **6.2 has two ends** → guest = confirmation + «створіть акаунт, щоб зберегти замовлення» offer;
+  logged-in = confirmation with the order already saved to 7.2. Wireframes: `order-placed.html` /
+  `order-placed-account-end.html`.
 
 ## Locked (2026-07-01)
 

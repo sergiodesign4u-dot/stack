@@ -79,6 +79,8 @@ Reused on Home, Catalog and all listings. **Field order (top→bottom), set 2026
    amount** «+9 ₴ Бонус» on the right.
 Coach sees the tier price. Calm, no aggressive badges. **Canonical → must propagate to Category (2.1),
 Catalog-hub (2.0) and all listings** (follow-up). Per-serving + bonus values are data-stage [?].
+The card is **availability-aware**: it may carry a small status line (● В наявності / Залишилось мало /
+Під замовлення / Немає) — used on the Home shelves and Category (2.1) alike; on Home it stays subtle.
 
 Desktop = the same blocks; the hero may go two-column (tiles + visual), categories/products run as
 wider rows. First-screen and priority are reasoned from mobile.

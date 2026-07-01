@@ -286,7 +286,7 @@
     <hr class="sidebar-divider">
     <a href="../wireframes/index.html">Вайрфрейми</a>
     <a href="../wireframes/index.html#f1" class="sidebar-sub">Флоу 1 · Покупець</a>
-    <span class="sidebar-sub" style="opacity:.45">Флоу 2 · Тренер · скоро</span>
+    <a href="../wireframes/index.html#f2" class="sidebar-sub">Флоу 2 · Тренер</a>
     <a href="../wireframes/index.html" class="sidebar-sub">Всі екрани</a>
   </nav>
 </aside>
@@ -296,12 +296,12 @@
   <div class="hero">
     <div class="hero-tag">Посторінкова IA · вузол 5.x</div>
     <h1>Кабінет тренера</h1>
-    <p class="hero-lead"><b>PRIMARY-джоба (Job 1, Рішення 1).</b> Тренер — це <b>покупець</b>, що замовляє для клієнтів, а не об'єкт для перегляду. Глибокий за природою <b>робочий</b> флоу: <b>«Для тренерів» лендинг (5.0)</b> → активація ролі + верифікація + тариф <b>(5.1)</b> → <b>кабінет (5.2)</b> → клієнти <b>(5.3/5.4)</b> → <b>мультиклієнтська сесія замовлення (5.5)</b> з <b>per-client групуванням</b> у кошику. Тренер додає товари через <b>швидке додавання в сесії</b>, а не через глобальний пошук. Лендинг — публічний (SEO); робоча зона — приватна (noindex).</p>
+    <p class="hero-lead"><b>PRIMARY-джоба (Job 1, Рішення 1).</b> Тренер — це <b>покупець</b>, що замовляє для клієнтів, а не об'єкт для перегляду. Глибокий за природою <b>робочий</b> флоу: <b>«Для тренерів» лендинг (5.0)</b> → активація ролі + верифікація + тариф <b>(5.1)</b> → <b>кабінет (5.2)</b> → клієнти <b>(5.3/5.4</b>, редагування <b>5.4a)</b> → <b>мультиклієнтська сесія замовлення (5.5)</b> з <b>per-client групуванням</b> у кошику, далі — історія й деталі замовлень тренера <b>(5.6/5.7)</b>. Тренер додає товари через <b>швидке додавання в сесії</b>, а не через глобальний пошук. Лендинг — публічний (SEO); робоча зона — приватна (noindex).</p>
     <div class="hero-meta">
-      <div><strong>Тип</strong> лендинг (5.0) + робочий шелл (5.2–5.5) + флоу (5.1)</div>
+      <div><strong>Тип</strong> лендинг (5.0) + робочий шелл (5.2–5.7) + флоу (5.1)</div>
       <div><strong>Джоба</strong> Job 1 (PRIMARY) · Рішення 1</div>
       <div><strong>Тариф</strong> Free / Pro (гіпотеза, [?])</div>
-      <div><strong>SEO</strong> 5.0 індексується · 5.1–5.5 noindex</div>
+      <div><strong>SEO</strong> 5.0 індексується · 5.1–5.7 noindex</div>
     </div>
   </div>
 
@@ -422,8 +422,8 @@
             </div>
             <div style="border:1px solid #e6e6e6;border-radius:10px;padding:12px">
               <div style="font-size:12px;font-weight:800;color:#111;margin-bottom:8px">Останні замовлення</div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;color:#444;padding:6px 0;border-bottom:1px solid #f3f3f3"><span>#2043 · для 3 клієнтів</span><span>Доставлено · 6 120 ₴</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;color:#444;padding:6px 0"><span>#2036 · Ігор</span><span>В дорозі · 870 ₴</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:#444;padding:6px 0;border-bottom:1px solid #f3f3f3"><span>№ К-2041 · Андрій, Марія</span><span>Доставлено · 3 480 ₴</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:#444;padding:6px 0"><span>№ К-2075 · Марія</span><span>У дорозі · 1 160 ₴</span></div>
             </div>
           </div>
         </div>
@@ -443,18 +443,13 @@
         <div class="wf"><div class="wf-cap">Список клієнтів (5.3)</div><div class="wf-pad">
           <div class="clis">
             <div class="cli">
-              <div class="ch"><span class="cav">О</span><div><div class="cn">Оля</div><div class="cm">22 р · з травня 2026</div></div></div>
-              <div class="goalchips"><span class="gchip">Набір маси</span><span class="gchip">Відновлення</span></div>
+              <div class="ch"><span class="cav">А</span><div><div class="cn">Андрій</div><div class="cm">28 р · 8 замовлень</div></div></div>
+              <div class="goalchips"><span class="gchip">Набір маси</span></div>
               <div class="cacts"><span class="cbtn dark">＋ У сесію</span><span class="cbtn">Профіль</span></div>
             </div>
             <div class="cli">
-              <div class="ch"><span class="cav">І</span><div><div class="cn">Ігор</div><div class="cm">31 р · 5 замовлень</div></div></div>
+              <div class="ch"><span class="cav">М</span><div><div class="cn">Марія</div><div class="cm">24 р · 5 замовлень</div></div></div>
               <div class="goalchips"><span class="gchip">Схуднення</span></div>
-              <div class="cacts"><span class="cbtn dark">＋ У сесію</span><span class="cbtn">Профіль</span></div>
-            </div>
-            <div class="cli">
-              <div class="ch"><span class="cav">М</span><div><div class="cn">Марина</div><div class="cm">27 р · новий клієнт</div></div></div>
-              <div class="goalchips"><span class="gchip">Витривалість</span></div>
               <div class="cacts"><span class="cbtn dark">＋ У сесію</span><span class="cbtn">Профіль</span></div>
             </div>
             <div class="cliadd">＋ Додати клієнта</div>
@@ -464,13 +459,13 @@
       </div>
       <div>
         <div class="wf"><div class="wf-cap">Профіль клієнта (5.4)</div><div class="wf-pad">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><span class="cav" style="width:38px;height:38px">О</span><div><div style="font-size:15px;font-weight:800;color:#111">Оля, 22 р</div><div style="font-size:11px;color:#888">клієнт із травня 2026</div></div></div>
-          <div class="goalchips" style="margin-bottom:10px"><span class="gchip">Набір маси</span><span class="gchip">Відновлення</span><span class="gchip" style="border-style:dashed">＋ ціль</span></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><span class="cav" style="width:38px;height:38px">А</span><div style="flex:1"><div style="font-size:15px;font-weight:800;color:#111">Андрій, 28 р</div><div style="font-size:11px;color:#888">клієнт · 8 замовлень</div></div><span class="cbtn">✎ Редагувати</span></div>
+          <div class="goalchips" style="margin-bottom:10px"><span class="gchip">Набір маси</span><span class="gchip" style="border-style:dashed">＋ ціль</span></div>
           <div style="font-size:11.5px;font-weight:800;color:#111;margin-bottom:6px">Історія замовлень клієнта</div>
-          <div style="display:flex;justify-content:space-between;font-size:12px;color:#444;padding:6px 0;border-bottom:1px solid #f3f3f3"><span>#2043 · 3 позиції</span><span>12 черв · <a href="#" style="font-weight:700">↻ Повторити</a></span></div>
-          <div style="display:flex;justify-content:space-between;font-size:12px;color:#444;padding:6px 0"><span>#1998 · 2 позиції</span><span>2 черв · <a href="#" style="font-weight:700">↻ Повторити</a></span></div>
-          <div style="margin-top:11px"><span class="cbtn dark">＋ Нова сесія для Олі</span></div>
-          <p style="font-size:10.5px;color:#999;margin-top:9px">Стани: <b>завантаження</b> історії (скелетон) · <b>порожньо</b> «Ще нічого не замовляли» + «Почати сесію» · <b>помилка</b> → повтор.</p>
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:#444;padding:6px 0;border-bottom:1px solid #f3f3f3"><span>№ К-2041 · 2 позиції</span><span>28 черв · <a href="#" style="font-weight:700">↻ Повторити</a></span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:#444;padding:6px 0"><span>№ К-1987 · 3 позиції</span><span>14 черв · <a href="#" style="font-weight:700">↻ Повторити</a></span></div>
+          <div style="margin-top:11px"><span class="cbtn dark">＋ Нова сесія для Андрія</span></div>
+          <p style="font-size:10.5px;color:#999;margin-top:9px">Стани: <b>завантаження</b> історії (скелетон) · <b>порожньо</b> «Ще нічого не замовляли» + «Почати сесію» · <b>помилка</b> → повтор. «✎ Редагувати» → модалка <b>5.4a</b> (див. нижче).</p>
         </div></div>
       </div>
     </div>
@@ -488,29 +483,29 @@
 
         <!-- client tabs -->
         <div class="ctabs">
-          <div class="ctab on"><div class="cc">Оля</div><div class="cs">Набір маси · Відновлення</div><div class="cz">3 позиції · 2 560 ₴</div></div>
-          <div class="ctab"><div class="cc">Ігор</div><div class="cs">Схуднення</div><div class="cz">1 позиція · 680 ₴</div></div>
+          <div class="ctab on"><div class="cc">Андрій</div><div class="cs">Набір маси</div><div class="cz">2 позиції · 2 320 ₴</div></div>
+          <div class="ctab"><div class="cc">Марія</div><div class="cs">Схуднення</div><div class="cz">2 позиції · 1 160 ₴</div></div>
           <div class="ctabadd">＋ Додати клієнта</div>
-          <div class="ctotal">Разом сесія: <b>3 240 ₴</b></div>
+          <div class="ctotal">Разом сесія: <b>3 480 ₴</b></div>
         </div>
 
         <div class="csession">
           <!-- main: active client order building -->
           <div class="cmain">
-            <div class="climead"><span class="cn">Оля, 22 р</span><span class="goalchips" style="margin:0"><span class="gchip">Набір маси</span><span class="gchip">Відновлення</span></span><a href="#" class="lk">Історія клієнта</a></div>
+            <div class="climead"><span class="cn">Андрій, 28 р</span><span class="goalchips" style="margin:0"><span class="gchip">Набір маси</span></span><a href="#" class="lk">Історія клієнта</a></div>
 
             <div class="qadd">🔎 Швидке додавання в сесії — назва / бренд…</div>
             <div class="qcats"><span class="qcat">🎯 Під ціль: Набір маси</span><span class="qcat">Протеїн</span><span class="qcat">Гейнер</span><span class="qcat">Креатин</span><span class="qcat">BCAA</span></div>
 
             <div class="oline">
               <span class="oth">фото</span>
-              <div class="oi"><div class="on">Gold Standard 100% Whey 2270 г</div><div class="op"><span class="tier">1 090 ₴</span><span class="retail">1 520 ₴</span><span class="save">опт −28%</span></div></div>
-              <div class="qty"><span>−</span><b>2</b><span>+</span></div>
+              <div class="oi"><div class="on">ON Gold Standard 100% Whey 2270 г</div><div class="op"><span class="tier">1 090 ₴</span><span class="retail">1 290 ₴</span><span class="save">гурт</span></div></div>
+              <div class="qty"><span>−</span><b>1</b><span>+</span></div>
               <span class="rm">✕</span>
             </div>
             <div class="oline">
               <span class="oth">фото</span>
-              <div class="oi"><div class="on">Креатин моногідрат 500 г</div><div class="op"><span class="tier">380 ₴</span><span class="retail">520 ₴</span><span class="save">опт −27%</span></div></div>
+              <div class="oi"><div class="on">BioTechUSA Hyper Mass 4000 г</div><div class="op"><span class="tier">1 230 ₴</span><span class="retail">1 450 ₴</span><span class="save">гурт</span></div></div>
               <div class="qty"><span>−</span><b>1</b><span>+</span></div>
               <span class="rm">✕</span>
             </div>
@@ -521,15 +516,15 @@
               <span class="rm">✕</span>
             </div>
 
-            <div class="clisub"><span>Разом для Олі</span><span>2 560 ₴</span></div>
+            <div class="clisub"><span>Разом для Андрія</span><span>2 320 ₴</span></div>
           </div>
 
           <!-- session summary -->
           <div class="csum">
             <div class="st">Підсумок сесії</div>
-            <div class="csum-row"><span>Оля <span class="cq">· 3 поз.</span></span><span>2 560 ₴</span></div>
-            <div class="csum-row"><span>Ігор <span class="cq">· 1 поз.</span></span><span>680 ₴</span></div>
-            <div class="csum-total"><span>Разом</span><span>3 240 ₴</span></div>
+            <div class="csum-row"><span>Андрій <span class="cq">· 2 поз.</span></span><span>2 320 ₴</span></div>
+            <div class="csum-row"><span>Марія <span class="cq">· 2 поз.</span></span><span>1 160 ₴</span></div>
+            <div class="csum-total"><span>Разом</span><span>3 480 ₴</span></div>
             <div class="tierline">✓ Тариф тренера (Pro) застосовано</div>
             <span class="gobtn">Перейти в кошик →</span>
             <p style="font-size:10px;color:#999;margin-top:9px">У кошику (6.0) позиції <b>згруповані по клієнтах</b>. Глибина за природою: ~8 тапів на замовлення для 2 клієнтів — це робочий флоу, не сплющуємо.</p>
@@ -542,9 +537,128 @@
     <p class="note"><b>Петля по клієнту (flows.md, Job 1):</b> обрати/додати клієнта → quick-add (вантажить склад + ціну тарифу) → <b>склад?</b> немає → заміна / пропустити рядок → <b>ціна тарифу?</b> не застосувалась → сесію збережено, оформлення заблоковано → <b>тег на клієнта?</b> без тега → призначити або відкинути рядок → <b>ще клієнти?</b> → Кошик (per-client) → Оформлення → адреса → оплата. Тренер додає товар <b>лише через quick-add у сесії</b>.</p>
   </section>
 
-  <!-- 06 mobile -->
+  <!-- 06 edit client 5.4a -->
+  <section class="section" id="client-edit">
+    <div class="section-num">06 · Редагування клієнта (5.4a)</div>
+    <h2>Модалка редагування + видалення за підтвердженням</h2>
+    <p class="section-lead">Із профілю клієнта — «Редагувати клієнта»: форма (<b>ім'я · ціль · телефон · e-mail · нотатки тренера</b>) <b>модалкою над затемненим профілем</b> (5.4). Ціль підбирає товари в сесії й у профілі. Видалення клієнта — за <b>діалогом підтвердження</b>: клієнта прибираємо зі списку, <b>минулі замовлення лишаються</b> в історії. Приватне → noindex.</p>
+    <div class="cols two">
+      <div>
+        <div class="wf"><div class="wf-cap">Редагувати клієнта — модалка (5.4a, база)</div><div class="wf-pad">
+          <div style="border:1px solid #e6e6e6;border-radius:11px;padding:15px;background:#fff">
+            <div style="font-size:15px;font-weight:800;color:#111;margin-bottom:3px">Редагувати клієнта</div>
+            <div style="font-size:11.5px;color:#888;margin-bottom:12px">Ім'я та ціль клієнта. Ціль підбирає товари в сесії й у профілі.</div>
+            <div style="font-size:11px;font-weight:700;color:#777;margin-bottom:5px">Ім'я клієнта</div>
+            <div style="border:1.5px solid #d5d5d5;border-radius:8px;padding:9px 11px;font-size:12.5px;color:#111;margin-bottom:11px">Андрій</div>
+            <div style="font-size:11px;font-weight:700;color:#777;margin-bottom:5px">Ціль</div>
+            <div class="goalchips" style="margin:0 0 11px"><span class="gchip" style="border-color:#161616;background:#161616;color:#fff">Набір маси</span><span class="gchip">Схуднення</span><span class="gchip">Відновлення</span><span class="gchip">Енергія</span><span class="gchip">Імунітет</span><span class="gchip">Витривалість</span></div>
+            <div style="font-size:11px;font-weight:700;color:#777;margin-bottom:5px">Телефон <span style="color:#aaa">— необов'язково</span></div>
+            <div style="border:1.5px solid #d5d5d5;border-radius:8px;padding:9px 11px;font-size:12.5px;color:#aaa;margin-bottom:11px">+380 __ ___ __ __</div>
+            <div style="font-size:11px;font-weight:700;color:#777;margin-bottom:5px">E-mail <span style="color:#aaa">— необов'язково</span></div>
+            <div style="border:1.5px solid #d5d5d5;border-radius:8px;padding:9px 11px;font-size:12.5px;color:#aaa;margin-bottom:11px">you@email.com</div>
+            <div style="font-size:11px;font-weight:700;color:#777;margin-bottom:5px">Нотатки тренера <span style="color:#aaa">— необов'язково</span></div>
+            <div style="border:1.5px solid #d5d5d5;border-radius:8px;padding:9px 11px;font-size:12px;color:#aaa;min-height:38px;margin-bottom:13px">Напр., алергія на лактозу; ранкові тренування</div>
+            <div style="display:flex;gap:9px"><span class="cbtn" style="flex:1;text-align:center">Скасувати</span><span class="cbtn dark" style="flex:1;text-align:center">Зберегти зміни</span></div>
+            <div style="border-top:1px solid #eee;margin-top:14px;padding-top:12px"><span class="cbtn">🗑 Видалити клієнта</span><div style="font-size:10.5px;color:#999;margin-top:7px">Клієнта буде вилучено зі списку. Минулі замовлення залишаться в історії.</div></div>
+          </div>
+          <p style="font-size:10.5px;color:#999;margin-top:9px">Модалка над затемненим профілем (5.4). «Зберегти»/«Скасувати» → профіль клієнта.</p>
+        </div></div>
+      </div>
+      <div>
+        <div class="wf"><div class="wf-cap">Видалити клієнта — підтвердження (стан: confirm)</div><div class="wf-pad">
+          <div style="border:1px solid #e6e6e6;border-radius:11px;padding:18px;text-align:center;background:#fff;max-width:340px;margin:0 auto">
+            <div style="font-size:26px;margin-bottom:8px">🗑</div>
+            <div style="font-size:15px;font-weight:800;color:#111;margin-bottom:6px">Видалити клієнта «Андрій»?</div>
+            <div style="font-size:12px;color:#666;margin-bottom:14px">Клієнта буде вилучено з вашого списку. Минулі замовлення залишаться в історії замовлень. Цю дію не можна скасувати.</div>
+            <div style="display:flex;gap:9px"><span class="cbtn" style="flex:1;text-align:center">Скасувати</span><span class="cbtn dark" style="flex:1;text-align:center">Видалити клієнта</span></div>
+          </div>
+          <p style="font-size:10.5px;color:#999;margin-top:11px">Стани: <b>база</b> (форма редагування) · <b>confirm</b> (діалог видалення → прибрати зі списку, зберегти минулі замовлення).</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 coach orders 5.6 -->
+  <section class="section" id="orders">
+    <div class="section-num">07 · Замовлення тренера — історія (5.6)</div>
+    <h2>Список розміщених мультиклієнтських замовлень</h2>
+    <p class="section-lead">Список <b>розміщених</b> замовлень тренера (окремо від власної історії покупця 7.2 і від історії окремого клієнта в 5.4). Кожен рядок: № · дата · <b>клієнти в замовленні</b> · к-ть товарів · <b>сума тренера</b> · статус · дії <b>«Деталі» → 5.7</b> та <b>«↻ Повторити» → кошик 6.0</b> (Job 4 у тренерському контексті — вантажить усе мультизамовлення у згрупований кошик). Легкі фільтри (за клієнтом · за статусом). Вхід — з Кабінету (5.2) «Замовлення».</p>
+    <div class="wf">
+      <div class="wf-cap">Замовлення тренера — десктоп (5.6)</div>
+      <div class="wf-pad">
+        <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1)</div>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px">
+          <div><div style="font-size:16px;font-weight:800;color:#111">Замовлення</div><div style="font-size:11.5px;color:#888;margin-top:3px">Ваші мультиклієнтські замовлення · гуртові ціни (тариф Pro)</div></div>
+          <span class="cbtn dark">＋ Нова сесія</span>
+        </div>
+        <div class="qcats" style="margin-bottom:12px"><span class="qcat">Усі клієнти ▾</span><span class="qcat">Будь-який статус ▾</span><span class="qcat" style="border-style:dashed">🔎 Пошук за № замовлення…</span></div>
+
+        <div style="border:1px solid #e6e6e6;border-radius:10px;padding:13px;margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><div><b style="font-size:13.5px;color:#111">Замовлення № К-2075</b> <span style="font-size:11.5px;color:#888">· 1 липня 2026</span></div><span class="gchip" style="border-color:#161616">● У дорозі</span></div>
+          <div style="font-size:12px;color:#444;margin:8px 0 6px"><b>1 клієнт</b> · 2 товари · Нова Пошта, відділення №12 (Одеса)</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px"><span class="gchip">👤 Марія · Схуднення</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #f0f0f0;padding-top:10px;flex-wrap:wrap"><div style="font-size:16px;font-weight:800;color:#111">1 160 ₴ <span style="font-size:10.5px;font-weight:600;color:#888">гуртом, тариф Pro</span></div><div style="display:flex;gap:8px"><span class="cbtn">Деталі</span><span class="cbtn dark">↻ Повторити</span></div></div>
+        </div>
+
+        <div style="border:1px solid #e6e6e6;border-radius:10px;padding:13px;margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><div><b style="font-size:13.5px;color:#111">Замовлення № К-2041</b> <span style="font-size:11.5px;color:#888">· 28 червня 2026</span></div><span class="gchip">● Доставлено</span></div>
+          <div style="font-size:12px;color:#444;margin:8px 0 6px"><b>2 клієнти</b> · 4 товари · Нова Пошта, відділення №12 (Одеса)</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px"><span class="gchip">👤 Андрій · Набір маси</span><span class="gchip">👤 Марія · Схуднення</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #f0f0f0;padding-top:10px;flex-wrap:wrap"><div style="font-size:16px;font-weight:800;color:#111">3 480 ₴ <span style="font-size:10.5px;font-weight:600;color:#888">гуртом, тариф Pro</span></div><div style="display:flex;gap:8px"><span class="cbtn">Деталі</span><span class="cbtn dark">↻ Повторити</span></div></div>
+        </div>
+
+        <div style="text-align:center;border:1px solid #e6e6e6;border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#555">Показати більше замовлень</div>
+        <div class="wf-zone foot"><span class="zt">Футер</span> Наслідується — Футер (0.2)</div>
+      </div>
+    </div>
+    <p class="note"><b>Стани:</b> <b>база</b> (є замовлення) · <b>порожньо</b> (ще немає → «＋ Нова сесія») · <b>завантаження</b> (скелетон) · <b>помилка</b> → повтор.</p>
+  </section>
+
+  <!-- 08 coach order detail 5.7 -->
+  <section class="section" id="order">
+    <div class="section-num">08 · Деталі замовлення тренера (5.7)</div>
+    <h2>Одне замовлення, згруповане по клієнтах</h2>
+    <p class="section-lead">Одне розміщене замовлення, <b>згруповане по клієнтах</b> (те саме групування, що й у кошику тренера 6.0): шапка (№ · дата · статус · сума) → <b>одна доставка на тренера</b> + факти оплати → секції по клієнтах (клієнт · ціль · рядки з <b>ціною тарифу тренера</b> vs закреслений роздріб · сабтотал) → загальний підсумок. Дії: <b>«↻ Повторити замовлення» → кошик 6.0</b>, <b>«Повторити для клієнта X»</b> (per-client, Job 4), «Відстежити», назад до 5.6.</p>
+    <div class="wf">
+      <div class="wf-cap">Деталі замовлення № К-2041 — десктоп (5.7)</div>
+      <div class="wf-pad">
+        <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1)</div>
+
+        <div style="border:1px solid #e6e6e6;border-radius:11px;padding:14px;margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><div><b style="font-size:16px;color:#111">Замовлення № К-2041</b> <span style="font-size:12px;color:#888">· 28 червня 2026</span></div><span class="gchip">● Доставлено</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+            <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:#aaa">Доставка (одна на тренера)</div><div style="font-size:12px;color:#111;font-weight:600;margin-top:3px">Нова Пошта — відділення №12 <span style="font-weight:400;color:#888">Одеса</span></div></div>
+            <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:#aaa">Оплата</div><div style="font-size:12px;color:#111;font-weight:600;margin-top:3px">✓ Сплачено карткою онлайн</div></div>
+          </div>
+        </div>
+
+        <!-- Андрій group -->
+        <div style="border:1px solid #e6e6e6;border-radius:10px;overflow:hidden;margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 13px;background:#f7f7f6;border-bottom:1px solid #eee"><div><b style="font-size:13px;color:#111">👤 Андрій</b> <span style="font-size:11.5px;color:#888">· Набір маси</span></div><b style="font-size:14px;color:#111">2 320 ₴</b></div>
+          <div class="oline" style="border-color:transparent;border-bottom:1px solid #f3f3f3;border-radius:0;margin:0"><span class="oth">фото</span><div class="oi"><div class="on">BioTechUSA Hyper Mass 4000 г</div><div class="op"><span class="tier">1 230 ₴</span><span class="retail">1 450 ₴</span><span class="save">гурт</span></div></div></div>
+          <div class="oline" style="border-color:transparent;border-radius:0;margin:0"><span class="oth">фото</span><div class="oi"><div class="on">ON Gold Standard 100% Whey 2270 г</div><div class="op"><span class="tier">1 090 ₴</span><span class="retail">1 290 ₴</span><span class="save">гурт</span></div></div></div>
+          <div style="display:flex;justify-content:flex-end;padding:9px 13px"><a href="#" style="font-size:11.5px;font-weight:700;color:#111">↻ Повторити для Андрія</a></div>
+        </div>
+
+        <!-- Марія group -->
+        <div style="border:1px solid #e6e6e6;border-radius:10px;overflow:hidden;margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 13px;background:#f7f7f6;border-bottom:1px solid #eee"><div><b style="font-size:13px;color:#111">👤 Марія</b> <span style="font-size:11.5px;color:#888">· Схуднення</span></div><b style="font-size:14px;color:#111">1 160 ₴</b></div>
+          <div class="oline" style="border-color:transparent;border-bottom:1px solid #f3f3f3;border-radius:0;margin:0"><span class="oth">фото</span><div class="oi"><div class="on">BioTechUSA Iso Whey Zero 908 г</div><div class="op"><span class="tier">890 ₴</span><span class="retail">1 050 ₴</span><span class="save">гурт</span></div></div></div>
+          <div class="oline" style="border-color:transparent;border-radius:0;margin:0"><span class="oth">фото</span><div class="oi"><div class="on">OstroVit L-Carnitine 1000</div><div class="op"><span class="tier">270 ₴</span><span class="retail">320 ₴</span><span class="save">гурт</span></div></div></div>
+          <div style="display:flex;justify-content:flex-end;padding:9px 13px"><a href="#" style="font-size:11.5px;font-weight:700;color:#111">↻ Повторити для Марії</a></div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-top:1.5px solid #ddd;padding-top:12px"><div style="font-size:14px;font-weight:800;color:#111">Разом за замовленням <span style="display:block;font-size:10.5px;font-weight:600;color:#888">2 клієнти · 4 товари · гуртом (тариф Pro)</span></div><div style="font-size:22px;font-weight:800;color:#111">3 480 ₴</div></div>
+        <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:13px"><span class="cbtn dark">↻ Повторити замовлення</span><span class="cbtn">Відстежити</span><span class="cbtn">← Усі замовлення</span></div>
+        <div class="wf-zone foot"><span class="zt">Футер</span> Наслідується — Футер (0.2)</div>
+      </div>
+    </div>
+    <p class="note"><b>Стани:</b> <b>база</b> · <b>завантаження</b> (скелетон) · <b>помилка</b> → повтор. Empty немає — замовлення завжди має вміст.</p>
+  </section>
+
+  <!-- 09 mobile -->
   <section class="section" id="mobile">
-    <div class="section-num">06 · Мобілка</div>
+    <div class="section-num">09 · Мобілка</div>
     <h2>Кабінет-хаб + сесія на телефоні</h2>
     <p class="section-lead">База 360px. Таб <b>«Кабінет»</b> (у тренера замінює «Головна») → хаб із великою дією «Нова сесія». У сесії клієнти — <b>горизонтальні вкладки</b>, панель активного клієнта на весь екран, підсумок — липкою смугою внизу.</p>
     <div class="cols two">
@@ -571,14 +685,14 @@
       </div>
       <div>
         <div class="phone">
-          <div class="p-top"><span style="color:#888">‹</span><span class="lg" style="font-size:13px">Сесія замовлення</span><span style="font-size:11px;color:#888">3 240 ₴</span></div>
+          <div class="p-top"><span style="color:#888">‹</span><span class="lg" style="font-size:13px">Сесія замовлення</span><span style="font-size:11px;color:#888">3 480 ₴</span></div>
           <div class="p-body" style="padding-bottom:0">
-            <div style="display:flex;gap:6px;overflow:auto;margin-bottom:10px"><span style="border:1.5px solid #161616;background:#161616;color:#fff;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;white-space:nowrap">Оля · 2 560 ₴</span><span style="border:1.5px solid #d5d5d5;border-radius:8px;padding:5px 10px;font-size:11px;white-space:nowrap">Ігор · 680 ₴</span><span style="border:1.5px dashed #bbb;border-radius:8px;padding:5px 10px;font-size:11px;white-space:nowrap">＋</span></div>
+            <div style="display:flex;gap:6px;overflow:auto;margin-bottom:10px"><span style="border:1.5px solid #161616;background:#161616;color:#fff;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;white-space:nowrap">Андрій · 2 320 ₴</span><span style="border:1.5px solid #d5d5d5;border-radius:8px;padding:5px 10px;font-size:11px;white-space:nowrap">Марія · 1 160 ₴</span><span style="border:1.5px dashed #bbb;border-radius:8px;padding:5px 10px;font-size:11px;white-space:nowrap">＋</span></div>
             <div style="border:1.5px solid #161616;border-radius:8px;padding:8px 10px;font-size:11.5px;color:#999;margin-bottom:8px">🔎 Швидке додавання…</div>
-            <div class="oline" style="margin-bottom:6px"><span class="oth">ф</span><div class="oi"><div class="on">Gold Standard Whey 2270</div><div class="op"><span class="tier">1 090 ₴</span><span class="retail">1 520</span></div></div><div class="qty"><span>−</span><b>2</b><span>+</span></div></div>
-            <div class="oline"><span class="oth">ф</span><div class="oi"><div class="on">Креатин 500 г</div><div class="op"><span class="tier">380 ₴</span></div></div><div class="qty"><span>−</span><b>1</b><span>+</span></div></div>
+            <div class="oline" style="margin-bottom:6px"><span class="oth">ф</span><div class="oi"><div class="on">ON Gold Standard Whey 2270</div><div class="op"><span class="tier">1 090 ₴</span><span class="retail">1 290</span></div></div><div class="qty"><span>−</span><b>1</b><span>+</span></div></div>
+            <div class="oline"><span class="oth">ф</span><div class="oi"><div class="on">Hyper Mass 4000</div><div class="op"><span class="tier">1 230 ₴</span><span class="retail">1 450</span></div></div><div class="qty"><span>−</span><b>1</b><span>+</span></div></div>
           </div>
-          <div style="border-top:1px solid #eee;padding:10px 13px;display:flex;align-items:center;gap:10px;background:#fafafa"><div style="font-size:12px"><div style="color:#888;font-size:10px">Разом сесія</div><b style="font-size:15px">3 240 ₴</b></div><span style="margin-left:auto;background:#161616;color:#fff;border-radius:8px;padding:9px 14px;font-size:12px;font-weight:800">У кошик →</span></div>
+          <div style="border-top:1px solid #eee;padding:10px 13px;display:flex;align-items:center;gap:10px;background:#fafafa"><div style="font-size:12px"><div style="color:#888;font-size:10px">Разом сесія</div><b style="font-size:15px">3 480 ₴</b></div><span style="margin-left:auto;background:#161616;color:#fff;border-radius:8px;padding:9px 14px;font-size:12px;font-weight:800">У кошик →</span></div>
         </div>
         <p class="note">Клієнти — горизонтальні вкладки; підсумок сесії — липка смуга «У кошик» знизу.</p>
       </div>
@@ -587,7 +701,7 @@
 
   <!-- 07 states -->
   <section class="section" id="states">
-    <div class="section-num">07 · Стани</div>
+    <div class="section-num">10 · Стани</div>
     <h2>Стани флоу тренера</h2>
     <table>
       <tr><th>Стан</th><th>Поведінка</th></tr>
@@ -597,32 +711,35 @@
       <tr><td><b>Верифікація: невдало</b></td><td>«Надіслати інший лінк» → повтор (не термінал).</td></tr>
       <tr><td><b>Верифікація: глухий кут</b></td><td>Лінк не підтверджує тренера → без опт-доступу; магазин лишається як покупцю.</td></tr>
       <tr><td><b>Free: ліміт клієнтів</b></td><td>2–3 клієнти [?] → м'який апсел на Pro при додаванні наступного.</td></tr>
-      <tr><td><b>Товар у сесії: немає в наявності</b></td><td>Рядок OOS → «Обрати заміну» або пропустити; не блокує решту.</td></tr>
-      <tr><td><b>Ціна тарифу не застосована</b></td><td>Сесію збережено, <b>оформлення заблоковано</b> до підтвердження ціни (повтор / прибрати позицію).</td></tr>
+      <tr><td><b>Товар у сесії: немає в наявності</b></td><td>Рядок OOS → «Обрати заміну» або пропустити; не блокує решту (сума сесії у прикладі без OOS-рядка — <b>2 250 ₴</b>).</td></tr>
+      <tr><td><b>Ціна тарифу не застосована</b></td><td>Сесію збережено, <b>оформлення заблоковано</b> до підтвердження ціни (повтор / прибрати позицію; у прикладі — <b>2 390 ₴</b>).</td></tr>
       <tr><td><b>Рядок без клієнта</b></td><td>«Призначити клієнта» або відкинути рядок (не тегнутий не йде в кошик).</td></tr>
       <tr><td><b>Історія клієнта</b></td><td>Завантаження (скелетон) · порожньо «Ще нічого не замовляли» · помилка → повтор.</td></tr>
+      <tr><td><b>Редагування клієнта (5.4a)</b></td><td>База (форма) · <b>confirm</b> — діалог видалення → клієнта прибрано зі списку, минулі замовлення лишаються.</td></tr>
+      <tr><td><b>Історія замовлень тренера (5.6)</b></td><td>База (є замовлення) · <b>порожньо</b> (ще немає → «＋ Нова сесія») · завантаження (скелетон) · помилка → повтор.</td></tr>
+      <tr><td><b>Деталі замовлення (5.7)</b></td><td>База · завантаження (скелетон) · помилка → повтор. Empty немає — замовлення завжди має вміст.</td></tr>
       <tr><td><b>Кошик порожній / оформлення</b></td><td>Empty-state → до каталогу; далі кошик (6.0, per-client) → оформлення (6.x).</td></tr>
     </table>
   </section>
 
   <!-- 08 SEO -->
   <section class="section" id="seo">
-    <div class="section-num">08 · SEO / приватність (змішано)</div>
+    <div class="section-num">11 · SEO / приватність (змішано)</div>
     <h2>Лендинг індексується · робоча зона — noindex</h2>
-    <p class="section-lead">Кластер має <b>дві природи</b>: публічний лендинг 5.0 — контентна SEO-сторінка; робоча зона 5.1–5.5 — приватна за логіном.</p>
+    <p class="section-lead">Кластер має <b>дві природи</b>: публічний лендинг 5.0 — контентна SEO-сторінка; робоча зона 5.1–5.7 — приватна за логіном.</p>
     <table>
       <tr><th>Зона</th><th>Індексація</th><th>Схема / нотатки</th></tr>
       <tr><td><b>5.0 «Для тренерів» (лендинг)</b></td><td><code>index, follow</code></td><td>H1 «Спортивне харчування оптом для тренерів» [?]; Title/Description під «спортпіт оптом / для тренерів / гуртові ціни»; Organization + BreadcrumbList; A–E-блок як у контентних сторінок; внутрішні лінки з хедера/футера</td></tr>
       <tr><td><b>5.1 Стати тренером</b></td><td><code>noindex</code></td><td>Флоу/діалог, без схеми</td></tr>
-      <tr><td><b>5.2–5.5 Кабінет / клієнти / сесія</b></td><td><code>noindex, nofollow</code></td><td>Приватні дані (клієнти, ціни тарифу); жодної розмітки; за логіном — недоступно краулеру</td></tr>
-      <tr><td><b>URL</b></td><td>—</td><td>/for-coaches (публічний) · /coach, /coach/clients, /coach/session (приватні)</td></tr>
+      <tr><td><b>5.2–5.7 Кабінет / клієнти / сесія / замовлення</b></td><td><code>noindex, nofollow</code></td><td>Приватні дані (клієнти, ціни тарифу, замовлення); жодної розмітки; за логіном — недоступно краулеру</td></tr>
+      <tr><td><b>URL</b></td><td>—</td><td>/for-coaches (публічний) · /coach, /coach/clients, /coach/session, <b>/coach/orders</b>, <b>/coach/orders/:id</b> (приватні)</td></tr>
       <tr><td><b>A11y</b></td><td>—</td><td>Вкладки клієнтів = tablist/tab/tabpanel; сесія — керована з клавіатури; ціна тарифу й сток озвучуються</td></tr>
     </table>
   </section>
 
   <!-- 09 anatomy -->
   <section class="section" id="anatomy-table">
-    <div class="section-num">09 · Анатомія (мапа вузлів)</div>
+    <div class="section-num">12 · Анатомія (мапа вузлів)</div>
     <h2>Секції кластера → вузли</h2>
     <table>
       <tr><th>#</th><th>Секція</th><th>Що всередині</th><th>Вузол</th></tr>
@@ -633,12 +750,16 @@
       <tr><td>4</td><td><b>Клієнти</b></td><td>Збережені клієнти · ціль · «＋ у сесію» · додати клієнта</td><td class="arrow">5.3</td></tr>
       <tr><td>5</td><td><b>Профіль клієнта</b></td><td>Цілі · історія по клієнту · повтор · нова сесія для клієнта</td><td class="arrow">5.4 · Job 4</td></tr>
       <tr><td>6</td><td><b>Сесія замовлення</b> ★</td><td>Вкладки клієнтів · quick-add · рядки з ціною тарифу + кількість + тег · підсумок по клієнтах → кошик</td><td class="arrow">5.5 · 6.0 · Job 1</td></tr>
+      <tr><td>7</td><td><b>Редагування клієнта</b></td><td>Модалка: ім'я · ціль · телефон · e-mail · нотатки + видалення за підтвердженням</td><td class="arrow">5.4a</td></tr>
+      <tr><td>8</td><td><b>Замовлення тренера</b></td><td>Історія мультизамовлень · клієнти · сума · статус · «Деталі» / «↻ Повторити»</td><td class="arrow">5.6 · 6.0 · Job 4</td></tr>
+      <tr><td>9</td><td><b>Деталі замовлення</b></td><td>Групування по клієнтах · одна доставка · ціни тарифу · per-client повтор</td><td class="arrow">5.7 · 6.0 · Job 4</td></tr>
     </table>
+    <p class="note"><b>Хлібні крихти (стандартизовано):</b> лендинг 5.0 = <code>Головна › Для тренерів</code>; активація 5.1 = <code>Головна › Кабінет › Стати тренером › [Перевірка|Тариф]</code>; робочий кабінет 5.2–5.7 = <code>Головна › Кабінет тренера › …</code> (напр. <code>… › Клієнти › Андрій</code>, <code>… › Замовлення › № К-2041</code>, <code>… › Сесія замовлення</code>). Кабінет тренера — <b>паралельна</b> персональна зона, не вкладена в «Кабінет» покупця (уникаємо повтору «Кабінет / Кабінет тренера»).</p>
   </section>
 
   <!-- 10 locked -->
   <section class="section" id="locked">
-    <div class="section-num">10 · Зафіксовано / відкрите</div>
+    <div class="section-num">13 · Зафіксовано / відкрите</div>
     <div class="cols two">
       <div>
         <h2 style="font-size:18px;margin-bottom:10px">Зафіксовано</h2>
@@ -659,7 +780,7 @@
             <li><b>Тарифи Free/Pro:</b> ціна Pro, ліміт клієнтів Free (2–3?), розмір опт-знижки — юніт-економіка й «ціновий гейт» тренера.</li>
             <li><b>Оптова ціна на launch-обсязі</b> — чи взагалі прохідна для тренера (стратегія v5, головний ризик).</li>
             <li><b>Верифікація соц-лінку</b> — ручна/автоматична, хто модерує — операційний процес.</li>
-            <li><b>Кошик/оформлення (6.x)</b> з per-client групуванням — ще не в page-level (наступний кластер).</li>
+            <li><b>Тарифи доставки / вибір платіжного провайдера</b> для кошика тренера (6.x, per-client групування вже в page-level — cart.md).</li>
             <li><b>Аналітика / пріоритетні сток-сповіщення Pro</b> — post-launch, обсяг [?].</li>
           </ul>
         </div>
@@ -668,7 +789,7 @@
   </section>
 
   <div class="footer-text">
-    Stack — Посторінкова IA · Кабінет тренера (вузол 5.x, PRIMARY Job 1): «Для тренерів» 5.0 (публічний) → Стати тренером 5.1 → Кабінет 5.2 → Клієнти 5.3 / Профіль клієнта 5.4 → Мультиклієнтська сесія 5.5 → Кошик (6.0, per-client). Джерело істини: ia/docs/pages/coach.md. Флоу: research/docs/flows.md (Main — coach). Карта сайту: sitemap.html. Липень 2026, чернетка.
+    Stack — Посторінкова IA · Кабінет тренера (вузол 5.x, PRIMARY Job 1): «Для тренерів» 5.0 (публічний) → Стати тренером 5.1 → Кабінет 5.2 → Клієнти 5.3 / Профіль клієнта 5.4 (+ Редагування 5.4a) → Мультиклієнтська сесія 5.5 → Кошик (6.0, per-client) → Замовлення тренера 5.6 → Деталі замовлення 5.7. Джерело істини: ia/docs/pages/coach.md. Флоу: research/docs/flows.md (Main — coach). Карта сайту: sitemap.html. Липень 2026, чернетка.
   </div>
 
 </div>

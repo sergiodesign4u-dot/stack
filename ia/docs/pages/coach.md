@@ -97,6 +97,14 @@
 6. **Recovery, not dead ends:** OOS → substitute/skip; tier price unresolved → saved + checkout
    blocked; untagged line → assign/discard.
 7. **Landing indexable**, work zone **noindex**.
+8. **Breadcrumbs (standardized 2026-07-02):** landing 5.0 = `Головна › Для тренерів`; become-a-coach /
+   verify 5.1 = `Головна › Кабінет › Стати тренером › [Перевірка|Тариф]` (activation lives under the
+   buyer account); the working cabinet 5.2–5.7 = `Головна › Кабінет тренера › …` (e.g. `… › Клієнти ›
+   Андрій`, `… › Замовлення › № К-2041`, `… › Сесія замовлення`). The cabinet is a **parallel** personal
+   zone (like buyer `Головна › Кабінет`), not nested under it — avoids a «Кабінет / Кабінет тренера» repeat.
+9. **Coach section-nav order (pinned):** Огляд · **＋ Нова сесія** · Клієнти · Замовлення · Обране ·
+   Профіль (акаунт покупця) · Вийти — identical on every cabinet page (5.2–5.7); «Нова сесія» is the top
+   action and «Профіль» must never be dropped.
 
 ## Open questions [?]
 
@@ -105,5 +113,5 @@
 - **Wholesale price at launch volume** — whether it clears the coach's gate at all (strategy v5, the
   main risk).
 - **Social-link verification** — manual/automated, who moderates — operational process.
-- **Cart/Checkout (6.x)** with per-client grouping — not yet page-level (next cluster).
+- **Cart/Checkout (6.x)** with per-client grouping — now page-level in `cart.md` (6.0 grouped by client).
 - **Pro analytics / priority stock alerts** — post-launch, scope [?].
