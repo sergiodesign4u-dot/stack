@@ -114,8 +114,6 @@
     .srow { display: flex; justify-content: space-between; font-size: 12px; color: #444; padding: 4px 0; }
     .srow.bonus { color: #2d7d46; font-weight: 700; }
     .srow.tot { font-size: 15px; font-weight: 800; color: #111; border-top: 1px solid #eee; margin-top: 5px; padding-top: 9px; }
-    .bonustoggle { display: flex; align-items: center; gap: 8px; background: #eef4f0; border: 1px solid #cfe0d4; border-radius: 8px; padding: 8px 10px; font-size: 11.5px; color: #2d5a3d; margin: 8px 0; }
-    .bonustoggle .sw { margin-left: auto; width: 30px; height: 17px; border-radius: 20px; background: #2d7d46; position: relative; } .bonustoggle .sw:after { content: ""; position: absolute; top: 2px; right: 2px; width: 13px; height: 13px; border-radius: 50%; background: #fff; }
     .gobtn { display: block; text-align: center; background: #161616; color: #fff; border-radius: 9px; padding: 12px; font-size: 13px; font-weight: 800; margin-top: 10px; }
     .ghint { font-size: 10.5px; color: #999; text-align: center; margin-top: 7px; }
 
@@ -153,6 +151,32 @@
     .oitem .oq { font-size: 11px; color: #888; }
     .osum .srow { padding: 5px 0; } .osum .sum { margin-top: 6px; }
     .trustmicro { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 10px; font-size: 10.5px; color: #888; }
+
+    /* quick-view hint (cart drawer) */
+    .qvhint { font-size: 10.5px; color: #8a8a8a; text-align: center; margin-top: 8px; }
+    .qvhint b { color: #2d5a3d; }
+
+    /* ===== BONUS MODULE (checkout) ===== */
+    .bonusbox { border: 1px solid #d9e6dd; background: #f4f9f5; border-radius: 9px; padding: 9px 11px; margin: 8px 0 10px; }
+    .bbh { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 800; color: #2d5a3d; }
+    .bbal { color: #2d7d46; } .bbal.muted { color: #a3a3a3; }
+    .bbtoggle { display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; color: #333; margin-top: 8px; }
+    .bbtoggle .sw { width: 30px; height: 17px; border-radius: 20px; background: #cfd4cf; position: relative; flex: none; }
+    .bbtoggle .sw:after { content: ""; position: absolute; top: 2px; left: 2px; width: 13px; height: 13px; border-radius: 50%; background: #fff; }
+    .bbtoggle .sw.on { background: #2d7d46; } .bbtoggle .sw.on:after { left: auto; right: 2px; }
+    .bbinput { display: flex; align-items: center; gap: 8px; border: 1px solid #cfe0d4; border-radius: 7px; background: #fff; padding: 6px 9px; margin-top: 8px; }
+    .bbinput .lb { font-size: 10px; color: #999; } .bbinput .vl { font-size: 13px; font-weight: 800; color: #111; } .bbinput .bmax { margin-left: auto; font-size: 10px; color: #999; }
+    .bbnote { font-size: 10px; color: #7a8a7e; margin-top: 6px; line-height: 1.45; } .bbnote a { color: #2d7d46; }
+    .bapplied { font-size: 11px; font-weight: 800; color: #2d7d46; margin-top: 7px; }
+    /* accrual preview near confirm */
+    .accrue { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; background: #fdf3e3; border: 1px solid #ecd9b0; border-radius: 8px; padding: 8px 10px; font-size: 11.5px; color: #7a5c15; margin: 4px 0 9px; }
+    .accrue b { color: #b5882a; } .accrue .pct { color: #b09a6a; font-size: 10px; }
+    /* states gallery */
+    .bstates { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 12px; }
+    @media (max-width: 760px) { .bstates { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 440px) { .bstates { grid-template-columns: 1fr; } }
+    .bstate .bsc { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #8a8a8a; margin-bottom: 6px; }
+    .bstate .bsb { border: 1px solid #e6e6e6; border-radius: 9px; padding: 10px; background: #fff; }
 
     /* order placed */
     .placed { text-align: center; padding: 8px 10px 4px; }
@@ -247,7 +271,7 @@
   <section class="section" id="cart">
     <div class="section-num">01 · Кошик (6.0) — діалог-drawer</div>
     <h2>Швидкий перегляд: покупець і тренер (per-client)</h2>
-    <p class="section-lead">Кошик відкривається <b>drawer'ом справа</b> (іконка кошика в хедері / після «У кошик»), не забираючи зі сторінки. Позиції · кількість · підсумок · <b>бонуси</b> (покупець) · CTA «Перейти до оформлення». Для <b>тренера</b> — позиції <b>згруповані по клієнтах</b> із сабтоталом кожного (з сесії 5.5), тариф тренера на рядках.</p>
+    <p class="section-lead">Кошик відкривається <b>drawer'ом справа</b> (іконка кошика в хедері / після «У кошик»), не забираючи зі сторінки. Це <b>швидкий перегляд</b>: позиції · кількість · <b>лише підсумкова сума</b> · CTA «Перейти до оформлення». <b>Знижка, бонуси й доставка — не тут, а на оформленні (6.1)</b>. Для <b>тренера</b> — позиції <b>згруповані по клієнтах</b> із сабтоталом кожного (з сесії 5.5), тариф тренера на рядках.</p>
     <div class="cols two">
       <div>
         <div class="wf"><div class="wf-cap">Кошик покупця (6.0)</div><div class="wf-pad">
@@ -257,20 +281,15 @@
               <div class="db">
                 <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard 100% Whey 2270 г</div><div class="cb">Optimum Nutrition</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">1 290 ₴<span class="retail">1 520 ₴</span></span></div></div><span class="rm">✕</span></div>
                 <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Креатин моногідрат 300 г</div><div class="cb">OstroVit</div><div class="cr"><span class="qty"><span>−</span><b>2</b><span>+</span></span><span class="cp">898 ₴</span></div></div><span class="rm">✕</span></div>
-                <div class="bonustoggle">★ Списати бонуси — 240 ₴<span class="sw"></span></div>
                 <div class="sum">
-                  <div class="srow"><span>Сума товарів</span><span>2 418 ₴</span></div>
-                  <div class="srow"><span>Знижка лояльності [?]</span><span>− 120 ₴</span></div>
-                  <div class="srow bonus"><span>Бонуси</span><span>− 240 ₴</span></div>
-                  <div class="srow"><span>Доставка</span><span>за тарифом перевізника</span></div>
-                  <div class="srow tot"><span>Разом</span><span>2 058 ₴</span></div>
+                  <div class="srow tot"><span>Разом</span><span>2 418 ₴</span></div>
                 </div>
                 <span class="gobtn">Перейти до оформлення →</span>
-                <div class="ghint">Безпечна оплата · повернення 14 днів</div>
+                <div class="qvhint">Знижка й <b>бонуси</b> — на оформленні · доставка рахується там</div>
               </div>
             </div>
           </div>
-          <p style="font-size:10.5px;color:#999;margin-top:7px">Знижка лояльності застосовується авто (Рішення 3); бонуси — перемикачем (списати доступний баланс). Реальні % і курс — <b>[?]</b>.</p>
+          <p style="font-size:10.5px;color:#999;margin-top:7px">Кошик — <b>швидкий перегляд</b>: лише позиції та підсумкова сума. Знижка лояльності (авто) і <b>списання бонусів</b> — на кроці оформлення (6.1), де є місце для станів і поля вводу. Реальні % і курс — <b>[?]</b>.</p>
         </div></div>
       </div>
       <div>
@@ -291,12 +310,11 @@
                   <div class="db2"><div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">L-карнітин 1500</div><div class="cb">тариф тренера</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">680 ₴</span></div></div><span class="rm">✕</span></div></div>
                 </div>
                 <div class="sum">
-                  <div class="srow"><span>Разом (2 клієнти)</span><span></span></div>
                   <div class="srow" style="color:#2d7d46;font-weight:700"><span>✓ Тариф тренера застосовано</span><span></span></div>
-                  <div class="srow tot"><span>Разом</span><span>3 240 ₴</span></div>
+                  <div class="srow tot"><span>Разом (2 клієнти)</span><span>3 240 ₴</span></div>
                 </div>
                 <span class="gobtn">Перейти до оформлення →</span>
-                <div class="ghint">Одна доставка тренеру · групування збережеться в замовленні</div>
+                <div class="qvhint">Одна доставка тренеру · групування збережеться в замовленні · доставка — на оформленні</div>
               </div>
             </div>
           </div>
@@ -311,7 +329,7 @@
   <section class="section" id="checkout">
     <div class="section-num">02 · Оформлення (6.1)</div>
     <h2>Контакт → доставка → оплата → перегляд</h2>
-    <p class="section-lead">Одна сторінка з секціями (не багатокроковий майстер): <b>контакт</b> (телефон — вхід за кодом, якщо гість) → <b>доставка</b> (НП відділення/поштомат · кур'єр · самовивіз Одеса; місто+відділення через діалог 0.1a; збережені адреси 7.5) → <b>оплата</b> → <b>підсумок</b> справа (липкий). Тренер бачить розбивку по клієнтах у підсумку.</p>
+    <p class="section-lead">Одна сторінка з секціями (не багатокроковий майстер): <b>контакт</b> (телефон — вхід за кодом, якщо гість) → <b>доставка</b> (НП відділення/поштомат · кур'єр · самовивіз Одеса; місто+відділення через діалог 0.1a; збережені адреси 7.5) → <b>оплата</b> → <b>підсумок</b> справа (липкий) з <b>блоком бонусів</b> (стани: немає / є / списати / ввід суми), розбором знижки й доставки та <b>рядком нарахування бонусів</b> біля кнопки. Тренер бачить розбивку по клієнтах у підсумку.</p>
     <div class="wf">
       <div class="wf-cap">Оформлення — десктоп (6.1)</div>
       <div class="wf-pad">
@@ -352,15 +370,61 @@
             <div class="ot">Ваше замовлення</div>
             <div class="oitem"><span class="th">фото</span><span class="oi"><b>Gold Standard Whey 2270 г</b><br>Optimum Nutrition</span><span class="oq">×1</span></div>
             <div class="oitem"><span class="th">фото</span><span class="oi"><b>Креатин моногідрат 300 г</b><br>OstroVit</span><span class="oq">×2</span></div>
+
+            <!-- bonus module (стан: є бонуси + списання увімкнено + поле вводу) -->
+            <div class="bonusbox">
+              <div class="bbh"><span>★ Бонусний рахунок</span><span class="bbal">240 ₴</span></div>
+              <div class="bbtoggle"><span>Списати бонуси</span><span class="sw on"></span></div>
+              <div class="bbinput"><span class="lb">Списати</span><span class="vl">240 ₴</span><span class="bmax">макс 240</span></div>
+              <div class="bbnote">Списуємо до 100% суми [?]; решта лишається на рахунку. <a>Як працюють бонуси →</a></div>
+            </div>
+
             <div class="sum">
               <div class="srow"><span>Сума товарів</span><span>2 418 ₴</span></div>
               <div class="srow"><span>Знижка лояльності</span><span>− 120 ₴</span></div>
-              <div class="srow bonus"><span>Бонуси</span><span>− 240 ₴</span></div>
+              <div class="srow bonus"><span>Списано бонусів</span><span>− 240 ₴</span></div>
               <div class="srow"><span>Доставка</span><span>за тарифом НП</span></div>
               <div class="srow tot"><span>До сплати</span><span>2 058 ₴</span></div>
             </div>
+            <div class="accrue">★ Нарахуємо <b>+21 ₴</b> бонусів за це замовлення <span class="pct">~1% [?]</span></div>
             <span class="gobtn">Підтвердити замовлення</span>
             <div class="trustmicro"><span>🔒 Безпечна оплата</span><span>↩ Повернення 14 днів</span><span>✓ Оригінал</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:18px">
+      <div class="section-num" style="margin-bottom:4px">Блок бонусів у підсумку — стани</div>
+      <p class="note" style="margin:0 0 4px">Живе <b>у правій колонці оформлення</b> (не в кошику). Курс нарахування ~1% і межа списання — <b>[?]</b> (з 7.4 / лендингу 8.7).</p>
+      <div class="bstates">
+        <div class="bstate">
+          <div class="bsc">1 · Немає бонусів</div>
+          <div class="bsb">
+            <div class="bbh"><span>★ Бонусний рахунок</span><span class="bbal muted">0 ₴</span></div>
+            <div class="bbnote">Бонусів поки немає — вони нарахуються з цього замовлення. <a>Про програму →</a></div>
+          </div>
+        </div>
+        <div class="bstate">
+          <div class="bsc">2 · Є бонуси (згорнуто)</div>
+          <div class="bsb">
+            <div class="bbh"><span>★ Бонусний рахунок</span><span class="bbal">240 ₴</span></div>
+            <div class="bbtoggle"><span>Списати бонуси</span><span class="sw"></span></div>
+          </div>
+        </div>
+        <div class="bstate">
+          <div class="bsc">3 · Списання увімкнено</div>
+          <div class="bsb">
+            <div class="bbh"><span>★ Бонусний рахунок</span><span class="bbal">240 ₴</span></div>
+            <div class="bbtoggle"><span>Списати бонуси</span><span class="sw on"></span></div>
+            <div class="bapplied">− 240 ₴ до оплати</div>
+          </div>
+        </div>
+        <div class="bstate">
+          <div class="bsc">4 · Ввід суми</div>
+          <div class="bsb">
+            <div class="bbh"><span>★ Бонусний рахунок</span><span class="bbal">240 ₴</span></div>
+            <div class="bbtoggle"><span>Списати бонуси</span><span class="sw on"></span></div>
+            <div class="bbinput"><span class="lb">Списати</span><span class="vl">150 ₴</span><span class="bmax">з 240</span></div>
           </div>
         </div>
       </div>
@@ -405,11 +469,11 @@
           <div class="p-body" style="padding-bottom:6px">
             <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard Whey 2270 г</div><div class="cb">Optimum Nutrition</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">1 290 ₴</span></div></div></div>
             <div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">Креатин 300 г</div><div class="cb">OstroVit</div><div class="cr"><span class="qty"><span>−</span><b>2</b><span>+</span></span><span class="cp">898 ₴</span></div></div></div>
-            <div class="bonustoggle">★ Списати 240 ₴ бонусів<span class="sw"></span></div>
+            <div class="qvhint" style="margin-top:10px">Знижка й <b>бонуси</b> — на оформленні</div>
           </div>
-          <div class="p-sticky"><div><div style="font-size:10px;color:#888">Разом</div><b style="font-size:15px">2 058 ₴</b></div><span style="margin-left:auto;background:#161616;color:#fff;border-radius:8px;padding:10px 16px;font-size:12px;font-weight:800">Оформити →</span></div>
+          <div class="p-sticky"><div><div style="font-size:10px;color:#888">Разом</div><b style="font-size:15px">2 418 ₴</b></div><span style="margin-left:auto;background:#161616;color:#fff;border-radius:8px;padding:10px 16px;font-size:12px;font-weight:800">Оформити →</span></div>
         </div>
-        <p class="note">Кошик — окремий екран; бонуси перемикачем; липка смуга «Оформити».</p>
+        <p class="note">Кошик — окремий екран: лише позиції та підсумкова сума; липка смуга «Оформити». Бонуси/знижка — на оформленні.</p>
       </div>
       <div>
         <div class="phone">
@@ -420,11 +484,13 @@
             <div class="fsh" style="font-size:12.5px"><span class="n">2</span> Доставка</div>
             <div class="ropt on" style="margin-bottom:6px"><span class="rc"></span><div><div class="rt" style="font-size:11.5px">Нова Пошта — відділення</div><div class="rx">Одеса №12</div></div><span class="rp" style="font-size:11px">від 50 ₴</span></div>
             <div class="fsh" style="font-size:12.5px"><span class="n">3</span> Оплата</div>
-            <div class="ropt on"><span class="rc"></span><div class="rt" style="font-size:11.5px">Карта онлайн</div></div>
+            <div class="ropt on" style="margin-bottom:8px"><span class="rc"></span><div class="rt" style="font-size:11.5px">Карта онлайн</div></div>
+            <div class="bonusbox" style="margin:0"><div class="bbh"><span>★ Бонуси · 240 ₴</span><span class="sw on" style="width:30px;height:17px;border-radius:20px;background:#2d7d46;position:relative"></span></div><div class="bbinput" style="margin-top:7px"><span class="lb">Списати</span><span class="vl">240 ₴</span><span class="bmax">макс 240</span></div></div>
+            <div class="accrue" style="margin:8px 0 0">★ Нарахуємо <b>+21 ₴</b> <span class="pct">~1% [?]</span></div>
           </div>
           <div class="p-sticky"><div><div style="font-size:10px;color:#888">До сплати</div><b style="font-size:15px">2 058 ₴</b></div><span style="margin-left:auto;background:#161616;color:#fff;border-radius:8px;padding:10px 16px;font-size:12px;font-weight:800">Підтвердити</span></div>
         </div>
-        <p class="note">Оформлення — секції 1-2-3 стрічкою; сума + CTA липкі внизу (велика ціль, доступна завжди).</p>
+        <p class="note">Оформлення — секції 1-2-3 стрічкою; <b>блок бонусів</b> (списати/ввід) у стрічці; сума + CTA липкі внизу. Рядок «нарахуємо +бонуси» — біля кнопки.</p>
       </div>
     </div>
   </section>
@@ -442,7 +508,9 @@
       <tr><td><b>Оплата відхилена</b></td><td><b>Назад у кошик/оплату</b> (retry), не термінал; замовлення не втрачається.</td></tr>
       <tr><td><b>Самовивіз, товару немає на точці</b></td><td>Метод недоступний для цих позицій → підказка обрати доставку.</td></tr>
       <tr><td><b>Тренер: групування</b></td><td>Кошик і підсумок — по клієнтах; одна доставка тренеру; розбивка зберігається в замовленні.</td></tr>
-      <tr><td><b>Бонуси / лояльність</b></td><td>Покупець: знижка авто + бонуси перемикачем. Тренер: тариф на рядках, без персональних бонусів.</td></tr>
+      <tr><td><b>Кошик (швидкий перегляд)</b></td><td>Лише позиції + підсумкова сума. Без знижки/бонусів/доставки — усе це на оформленні.</td></tr>
+      <tr><td><b>Бонуси на оформленні</b></td><td>Блок у підсумку, 4 стани: <b>немає</b> (0 ₴, лише нарахування) · <b>є</b> (згорнуто, тумблер) · <b>списання ввімк.</b> (− сума до оплати) · <b>ввід суми</b> (часткове списання). Знижка лояльності — авто. Тренер: тариф на рядках, без персональних бонусів.</td></tr>
+      <tr><td><b>Нарахування бонусів</b></td><td>Рядок «★ Нарахуємо +N ₴ (~1% [?])» біля кнопки «Підтвердити»; фактичне зарахування — після оплати, видно в акаунті (7.4).</td></tr>
       <tr><td><b>Завантаження / підтвердження</b></td><td>Скелетони; після оплати — стан 6.2 + SMS-підтвердження.</td></tr>
     </table>
   </section>
@@ -468,8 +536,8 @@
     <h2>Вузли кластера</h2>
     <table>
       <tr><th>#</th><th>Вузол</th><th>Що всередині</th><th>Звʼязки</th></tr>
-      <tr><td>1</td><td><b>Кошик (6.0)</b> · діалог</td><td>Позиції · кількість · <b>групування по клієнтах (тренер)</b> · бонуси/лояльність · підсумок · CTA · порожній стан</td><td class="arrow">← 3.0 · 5.5 → 6.1</td></tr>
-      <tr><td>2</td><td><b>Оформлення (6.1)</b> · флоу</td><td>Контакт (phone-OTP) · доставка (НП/кур'єр/самовивіз + місто 0.1a + адреси 7.5) · оплата (LiqPay/Wayforpay/Pay/накладений) · підсумок</td><td class="arrow">→ 6.2 · 7.5</td></tr>
+      <tr><td>1</td><td><b>Кошик (6.0)</b> · діалог</td><td><b>Швидкий перегляд:</b> позиції · кількість · <b>групування по клієнтах (тренер)</b> · <b>лише підсумкова сума</b> · CTA · порожній стан. Знижка/бонуси/доставка — не тут</td><td class="arrow">← 3.0 · 5.5 → 6.1</td></tr>
+      <tr><td>2</td><td><b>Оформлення (6.1)</b> · флоу</td><td>Контакт (phone-OTP) · доставка (НП/кур'єр/самовивіз + місто 0.1a + адреси 7.5) · оплата (LiqPay/Wayforpay/Pay/накладений) · підсумок з <b>блоком бонусів (4 стани) + рядком нарахування</b></td><td class="arrow">→ 6.2 · 7.5</td></tr>
       <tr><td>3</td><td><b>Замовлення оформлено (6.2)</b> · стан</td><td>Підтвердження · підсумок · наступні кроки (відстежити / мої замовлення / повтор)</td><td class="arrow">→ 7.2 (Job 4)</td></tr>
     </table>
   </section>
@@ -481,13 +549,13 @@
       <div>
         <h2 style="font-size:18px;margin-bottom:10px">Зафіксовано</h2>
         <ul style="margin-left:18px">
-          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Кошик = діалог-drawer</b> (швидкий перегляд, не забирає зі сторінки); порожній стан веде в каталог/цілі.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Кошик = діалог-drawer, суто швидкий перегляд</b>: позиції + <b>лише підсумкова сума</b>. Знижка, бонуси й доставка тут <b>не показуються</b> — усе на оформленні; порожній стан веде в каталог/цілі.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Тренер — групування по клієнтах</b> (із сесії 5.5); <b>одна доставка</b> тренеру, розбивка зберігається в замовленні.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Оформлення однією сторінкою</b> (секції контакт/доставка/оплата + липкий підсумок), не багатокроковий майстер.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Доставка:</b> НП відділення/поштомат · кур'єр · самовивіз Одеса; місто через діалог 0.1a; адреси з 7.5.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Оплата:</b> LiqPay/Wayforpay (карта) · Apple/Google Pay · накладений · готівка при самовивозі.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Passwordless-checkout:</b> гість підтверджує телефон кодом → акаунт створюється авто.</li>
-          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Бонуси/лояльність</b> покупця тут; <b>тариф тренера</b> — на рядках. Recovery: оплата назад у кошик, OOS не оформлюється.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Бонуси — лише на оформленні</b> (не в кошику): блок у підсумку з 4 станами (немає / є / списання / ввід суми) + <b>рядок нарахування «+N ₴»</b> біля кнопки «Підтвердити». Знижка лояльності — авто; <b>тариф тренера</b> — на рядках (без персональних бонусів). Recovery: оплата назад у кошик, OOS не оформлюється.</li>
           <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Транзакційна зона noindex</b>; спокійно, без таймерів (принцип #4).</li>
         </ul>
       </div>

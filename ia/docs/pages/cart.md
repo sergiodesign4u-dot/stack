@@ -10,17 +10,18 @@
   (address selection, payment back-to-cart, empty state, OOS at checkout).
 - **SEO:** transactional/private → **noindex, no schema** (like account & auth).
 
-## 6.0 Cart — dialog drawer
+## 6.0 Cart — dialog drawer (pure quick view)
 
 - Opens as a **right-side drawer** (header cart icon / after «У кошик») — doesn't take the user off
-  the page. Items · qty steppers · remove · subtotal · CTA «Перейти до оформлення» · **empty state**
-  (→ catalog / goals).
-- **Buyer:** flat item list; **loyalty discount auto-applied** (Decision 3); **bonuses toggle**
-  (spend available balance); delivery «за тарифом перевізника».
-- **Coach:** items **grouped by client** (from session 5.5) with a **per-client subtotal**; coach-tier
-  price on lines; grand total; note «✓ Тариф тренера застосовано». **Delivery is a single shipment to
-  the coach** — the per-client grouping is for clarity/tagging and is **preserved in the order** so the
-  coach can distribute. No personal bonuses for the coach (tier instead).
+  the page. **Quick view only:** items · qty steppers · remove · **just the total («Разом»)** · CTA
+  «Перейти до оформлення» · **empty state** (→ catalog / goals).
+- **No breakdown in the drawer.** Loyalty discount, **bonuses spend**, and delivery are **NOT shown
+  here** — they belong to checkout (6.1), which has room for states and input fields. The drawer shows
+  only the line items and one total sum, with a hint «Знижка й бонуси — на оформленні».
+- **Buyer:** flat item list + total. **Coach:** items **grouped by client** (from session 5.5) with a
+  **per-client subtotal**; coach-tier price on lines; note «✓ Тариф тренера застосовано» + grand total.
+  **Delivery is a single shipment to the coach** — the per-client grouping is for clarity/tagging and is
+  **preserved in the order** so the coach can distribute. No personal bonuses for the coach (tier instead).
 
 ## 6.1 Checkout — one page, sectioned (not a multi-step wizard)
 
@@ -32,9 +33,17 @@
    saved. Carrier tariff per the carrier.
 3. **Оплата** — **Карта онлайн (LiqPay / Wayforpay)** · **Apple Pay / Google Pay** · **Накладений
    платіж** (COD) · **Готівка при самовивозі**. Optional order comment.
-- **Sticky order summary** (right / bottom on mobile): items · сума товарів · знижка лояльності ·
-  бонуси · доставка · **До сплати** · «Підтвердити замовлення» · trust micro (secure pay · 14-day
-  return · original). Coach summary shows the per-client breakdown.
+- **Sticky order summary** (right / bottom on mobile): items · **bonus module** (see below) · сума
+  товарів · знижка лояльності · списано бонусів · доставка · **До сплати** · **accrual line** «★
+  Нарахуємо +N ₴ (~1% [?])» right by the button · «Підтвердити замовлення» · trust micro (secure pay ·
+  14-day return · original). Coach summary shows the per-client breakdown.
+- **Bonus module (right column, 4 states)** — the whole loyalty-spend UX lives here, not in the cart:
+  1. **Немає бонусів** — balance 0 ₴; only «нарахуємо ~1%» note + link to the programme (8.7).
+  2. **Є бонуси (collapsed)** — balance shown + «Списати бонуси» toggle (off).
+  3. **Списання увімкнено** — toggle on → «− N ₴ до оплати», reflected in the «Списано бонусів» row.
+  4. **Ввід суми** — amount field for **partial** spend (e.g. 150 з 240), max = balance / up-to-100% [?].
+- **Accrual preview** — an amber line by the confirm button: «★ Нарахуємо +N ₴ бонусів за це замовлення
+  (~1% [?])». Actual credit happens after payment and shows in the account (7.4). Rate/spend cap = [?].
 
 ## 6.2 Order placed — state
 
@@ -51,17 +60,22 @@
 - **Payment declined** → **back to cart/payment (retry)**, not a terminal; order not lost.
 - **Pickup, not on-site** → method unavailable for those items → prompt a delivery method.
 - **Coach grouping** → cart & summary by client; single delivery to the coach; breakdown kept in the order.
-- **Bonuses/loyalty** → buyer: auto discount + bonuses toggle; coach: tier on lines, no personal bonuses.
+- **Cart drawer** → quick view: line items + one total only; no discount/bonus/delivery rows.
+- **Bonuses/loyalty (checkout only)** → buyer: auto discount + bonus module (4 states: none / has / spend
+  on / amount input) + accrual line; coach: tier on lines, no personal bonuses.
 
 ## Locked (2026-07-01)
 
-1. **Cart = drawer dialog** (quick view); empty state → catalog/goals.
+1. **Cart = drawer dialog, pure quick view** — line items + **total only**; no discount/bonus/delivery
+   breakdown (those move to checkout); empty state → catalog/goals.
 2. **Coach = per-client grouping** (from 5.5); **single delivery** to the coach, breakdown kept in the order.
 3. **Checkout on one page** (contact/delivery/payment + sticky summary), not a multi-step wizard.
 4. **Delivery:** НП відділення/поштомат · courier · Odesa pickup; city via dialog 0.1a; addresses from 7.5.
 5. **Payment:** LiqPay/Wayforpay (card) · Apple/Google Pay · COD · cash on pickup.
 6. **Passwordless checkout:** guest confirms phone by code → account auto-created.
-7. Buyer **bonuses/loyalty** here; coach **tier** on lines. Recovery: payment back-to-cart, OOS not orderable.
+7. Buyer **bonuses live only at checkout** — a right-column **bonus module with 4 states** (none / has /
+   spend-on / amount-input) + an **accrual line** «+N ₴» by the confirm button; loyalty discount auto;
+   coach **tier** on lines (no personal bonuses). Recovery: payment back-to-cart, OOS not orderable.
 8. **Transactional zone noindex**; calm, no timers (principle #4).
 
 ## Open questions [?]
