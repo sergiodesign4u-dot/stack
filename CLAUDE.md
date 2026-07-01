@@ -221,7 +221,7 @@ This jobs/persona-driven layer was built and audited across two critique rounds 
 
 **5 user flows** drawn with decisions, states and dead ends: Main (coach), Job 2 (beginner goal-to-product), Job 3 (safety verification), Job 4 (one-tap reorder), Job 6 (loyalty review).
 
-Wireframes (Phase 2) not started; this IA is its input.
+Wireframes (Phase 2) are now **in progress** in `wireframes/` (Флоу 1 complete); this IA is their input. See the Timeline + `playbook/design-wireframes-playbook.md`.
 
 ---
 
@@ -486,7 +486,7 @@ cluster. Output is the "wireframe library" that Phase 2 renders.
 | Phase | Focus | Status |
 |-------|-------|--------|
 | Phase 1 | Research (this phase) | Done |
-| Phase 2 | Wireframes | Detailed IA **complete** (page-level layer in `ia/` — all JTBD clusters 0–7; global layer in `research/`). Wireframe rendering not started. |
+| Phase 2 | Wireframes | Detailed IA complete (page-level in `ia/`, global in `research/`). **Wireframes IN PROGRESS** (`wireframes/` — greyscale clickable prototype): **Флоу 1 (beginner) COMPLETE** — 35 html, all screens + states. Next: wire Флоу 1, then fan out the rest via subagents. Method: `playbook/design-wireframes-playbook.md`; contract `wireframes/_conventions.md`; coverage source of truth `wireframes/_nav.js`. |
 | Phase 3 | Concept & Visual Direction | Not started |
 | Phase 4 | Design System & Tokens | Not started |
 | Phase 5 | Component Library | Not started |

@@ -292,6 +292,34 @@ rolls out the rest via subagents; step 9 reviews and finalizes.
   extract globals into one render module so 30 pages inherit one header/footer, and state pages
   become a few lines. Also: only build states the scenario truly produces — dropped a redundant
   «filtered» page (the base already shows the filter-applied view).
-- **Next** — Step 5/6 (flow-first): build the Флоу-1 screens + their state pages off the etalon
-  (home 0.0 · goal 2.2 · product 3.0 · cart 6.0 · checkout 6.1 · auth 1.x · order-placed 6.2 ·
-  account 7.0), flipping `built`/`builtStates` in `_nav.js` as each lands; then Step 7 wire the flow.
+- **2026-07-01** — **Step 5.5 (etalon completeness).** Before cloning, finished the listing pattern:
+  flipped the base to the **clean/unfiltered** view and added **`listing-filtered`** (chips + narrowed
+  + matching checked facets via a parametrized `wfCatalogRail([...])`) and **`listing-list`** (grid↔list
+  ▦/☰ toggle as two linked pages; list card = image · info · price-middle+badge · ♡+cart-right). Lesson:
+  a real view toggle is two linked pages, and a facet-rail should take its active set as a param so a
+  chip and its checkbox always agree.
+- **2026-07-01** — **Step 6 (Флоу-1 screens).** Built **home 0.0** (Foxtrot hero: category rail +
+  banners, role personal strip, goal tiles, trust, product tabs, coach block, recently-viewed, promo/
+  brands/blog, SEO) and **product 3.0** (PDP with **trust as the lead**: sticky tabs, gallery + buy box
+  w/ variants + delivery/payment, trust strip, Склад/Дозування/Походження/Сертифікація, reviews w/
+  shop-reply, Q&A, related, sticky mobile bar). Then applied the **Step-8 subagent fan-out to the rest of
+  Flow 1** (the user's call — Step 8's method scoped to one flow): **6 general-purpose agents, one screen
+  each** (goal · cart · checkout · auth · order-placed · account), each told to build ONLY its own html
+  (base + states) using the shared `_nav.js`/`_wf.css`, put screen-specific CSS inline, and NOT touch the
+  shared files (parent registers). **Reconcile pass:** flipped all `built`/`builtStates` in `_nav.js`;
+  removed redundant per-agent `.wf-states` strips (rely on the unified prototype bar); swept greyscale
+  (no colour leaks) + structure (css/bar/noindex/wfBar) + broken links; verified renders. Then completed
+  coverage: **home-buyer/home-coach** (generated from home.html — swap the role strip + coach block only,
+  structure identical) and **product states** loading/error/oos/reviews. Lessons: (1) for a parallel
+  fan-out, keep agents **conflict-free** — own files only, inline CSS, parent owns the shared source +
+  registration; (2) give each agent a **complete example** (product.html) + the contract so they clone
+  the pattern rather than reinvent (result: zero colour leaks, consistent components); (3) a **reconcile
+  pass is mandatory** after any fan-out (register, de-dup, sweep, verify).
+- **Milestone — Флоу 1 COMPLETE (2026-07-01):** 35 html files, every beginner-flow screen + all states
+  built and lit in `_nav.js`/`index.html`. Known minor mismatches deferred to Step 7: cart basket differs
+  across cart/checkout/order-placed (illustrative data); `wfCatalogRail()` type group is protein-specific
+  on the goal collection.
+- **Next** — **[7] wire Флоу 1** (small pass, `flows.md` Job 2/3: both decision branches · state
+  transitions · sync the cart basket · no dead ends · links only to existing files). Then **[8] roll out
+  the WHOLE product** via subagents (coach 5.x · reorder Job 4 · loyalty Job 6 · content 8.x · system ·
+  listing instances catalog-hub 2.0/brands 2.4/search 2.5), then **[9] critique**.

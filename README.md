@@ -34,7 +34,7 @@ A mobile-first sport nutrition store for the Ukrainian market, built around coac
 | Phase | Status |
 |-------|--------|
 | Research | Done (competitive analysis, benchmark, UX patterns, personas, JTBD, product decisions locked) |
-| Wireframes | **In progress** (`wireframes/`). Playbook + `_screens.md` (screen×state matrix) + `_conventions.md` (greyscale contract) done; **flow-first prototype** navigation (`index.html` «Всі екрани» + `_nav.js`). Etalon built: `listing.html` (Категорія 2.1). Building Флоу 1 (beginner) screens next. |
+| Wireframes | **In progress** (`wireframes/` — greyscale clickable prototype). **Флоу 1 (beginner) COMPLETE**: 35 html — home(+buyer/coach) · listing(+5 states) · goal · product(+4 states) · cart · checkout · auth · order-placed · account, all states built. Flow-first nav (`index.html` «Всі екрани» + `_nav.js` coverage source of truth + prototype bar). Next: Step 7 wire Флоу 1, then Step 8 fan-out the rest (coach/reorder/loyalty/content/system) via subagents. Method: `playbook/design-wireframes-playbook.md`, contract `wireframes/_conventions.md`, matrix `wireframes/_screens.md`. |
 | Concept | Not started |
 | Design System | Not started |
 | Components | Not started |
