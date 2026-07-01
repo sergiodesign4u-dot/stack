@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack — IA: Контент, інфо й legal</title>
+  <style>
+    :root {
+      --bg: #f7f6f3; --surface: #ffffff; --surface-alt: #f2f0eb; --border: #e5e2db;
+      --text: #1a1916; --text-secondary: #6b6760; --text-light: #9b9790;
+      --accent: #2d5a3d; --accent-light: #e8f0ea; --accent-mid: #4a8c62;
+      --warn: #b5882a; --warn-bg: #fdf3e3;
+      --radius: 10px; --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); }
+
+    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: rgba(247,246,243,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 101; }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: rgba(247,246,243,.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-right: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform .22s ease; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+    .sidebar-nav { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px; }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+    .sidebar-nav a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: var(--radius-sm); transition: color .15s, background .15s; margin-bottom: 1px; }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-nav a.sidebar-sub { font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light); }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .sidebar-page-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 4px; }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+    .sidebar-upcoming { padding: 12px 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-light); line-height: 1.8; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 68px 20px 80px; }
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 44px 44px 80px; }
+    }
+
+    .hero { margin-bottom: 30px; }
+    .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+    .hero h1 { font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .hero-lead { font-size: 16px; color: var(--text-secondary); max-width: 760px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-size: 13px; color: var(--text-secondary); }
+    .hero-meta strong { color: var(--text); font-weight: 600; }
+
+    .section { margin-bottom: 44px; scroll-margin-top: 64px; }
+    .section-num { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .section h2 { font-size: 22px; letter-spacing: -0.015em; margin-bottom: 6px; }
+    .section-lead { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 20px; max-width: 730px; }
+
+    .note { font-size: 12px; color: var(--text-light); margin: 4px 0 18px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 8px; }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--surface-alt); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-secondary); }
+    tr:last-child td { border-bottom: none; }
+    td b { color: var(--text); }
+    .arrow { color: var(--accent-mid); font-weight: 600; white-space: nowrap; }
+
+    .cols { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 720px) { .cols.two { grid-template-columns: 1fr 1fr; } }
+
+    .open { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 18px 20px; }
+    .open h2 { font-size: 18px; margin-bottom: 10px; color: var(--warn); }
+    .open ul { margin-left: 18px; } .open li { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+
+    .reco { background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--text); margin: 10px 0 14px; }
+    .reco b { color: var(--accent); }
+
+    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }
+
+    /* ===== WIREFRAME (B/W) ===== */
+    .wf { border: 1px solid #cfcfcf; border-radius: 10px; overflow: hidden; background: #fff; color: #1b1b1b; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
+    .wf-cap { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8a8a8a; padding: 7px 12px; background: #f4f4f4; border-bottom: 1px solid #e4e4e4; }
+    .wf-pad { padding: 16px; }
+    .wf-zone { border: 1.5px dashed #bdbdbd; border-radius: 8px; background: repeating-linear-gradient(45deg,#fafafa,#fafafa 6px,#f3f3f3 6px,#f3f3f3 12px); padding: 9px 12px; font-size: 11px; font-weight: 700; color: #777; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .wf-zone.foot { margin: 14px 0 0; }
+    .wf-zone .zt { background: #161616; color: #fff; border-radius: 4px; font-size: 9px; padding: 1px 6px; letter-spacing: .04em; }
+    .wf-zone .zd { color: #999; font-weight: 600; }
+
+    .crumb { font-size: 11px; color: #888; margin-bottom: 10px; }
+    .crumb .sep { color: #ccc; margin: 0 5px; } .crumb .cur { color: #111; font-weight: 700; }
+
+    /* info/legal template */
+    .infolayout { display: grid; grid-template-columns: 200px 1fr; gap: 18px; }
+    @media (max-width: 640px) { .infolayout { grid-template-columns: 1fr; } }
+    .toc { border: 1px solid #e6e6e6; border-radius: 10px; padding: 11px; align-self: start; }
+    .toc .tt { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: #999; margin-bottom: 7px; }
+    .toc a { display: block; font-size: 12px; color: #333; padding: 4px 0; text-decoration: none; }
+    .toc a.on { color: #111; font-weight: 700; }
+    .prose h1 { font-size: 23px; font-weight: 800; color: #111; letter-spacing: -.01em; margin-bottom: 4px; }
+    .prose .upd { font-size: 11px; color: #999; margin-bottom: 14px; }
+    .prose h3 { font-size: 15px; font-weight: 800; color: #111; margin: 16px 0 6px; }
+    .prose p, .prose li { font-size: 12.5px; color: #444; line-height: 1.6; }
+    .prose ul { margin: 4px 0 6px 18px; }
+    .infocard { border: 1px solid #eee; border-radius: 9px; padding: 11px 13px; margin: 8px 0; display: flex; gap: 10px; font-size: 12px; color: #333; }
+    .infocard .ic { font-size: 16px; }
+
+    /* contacts */
+    .contactgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 520px) { .contactgrid { grid-template-columns: 1fr; } }
+    .ccard { border: 1px solid #e6e6e6; border-radius: 10px; padding: 12px; }
+    .ccard .ck { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #999; margin-bottom: 4px; }
+    .ccard .cv { font-size: 14px; font-weight: 800; color: #111; }
+    .ccard .cx { font-size: 11px; color: #888; margin-top: 2px; }
+    .msgs { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 6px; }
+    .msg { font-size: 10.5px; font-weight: 700; border: 1px solid #d8d8d8; border-radius: 20px; padding: 3px 10px; color: #333; }
+    .mapbox { border: 1.5px dashed #cfcfcf; border-radius: 10px; min-height: 120px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; margin-top: 10px; }
+
+    /* FAQ accordion */
+    .faq { border: 1px solid #e6e6e6; border-radius: 10px; overflow: hidden; }
+    .faqi { border-bottom: 1px solid #eee; }
+    .faqi:last-child { border-bottom: none; }
+    .faqq { display: flex; align-items: center; gap: 10px; padding: 11px 13px; font-size: 12.5px; font-weight: 700; color: #111; }
+    .faqq .ch { margin-left: auto; color: #888; }
+    .faqa { padding: 0 13px 12px; font-size: 12px; color: #555; line-height: 1.55; }
+    .faqgroup { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: #999; margin: 14px 0 7px; }
+
+    /* certificates */
+    .certgrid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+    @media (max-width: 620px) { .certgrid { grid-template-columns: repeat(2,1fr); } }
+    .cert { border: 1px solid #e2e2e2; border-radius: 9px; overflow: hidden; }
+    .cert .ci { aspect-ratio: 3/4; background: #f2f2f2; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; }
+    .cert .cl { font-size: 10.5px; color: #444; padding: 6px 8px; }
+    .trustrow { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 12px; }
+    @media (max-width: 620px) { .trustrow { grid-template-columns: 1fr 1fr; } }
+    .trustc { border: 1px solid #e6e6e6; border-radius: 10px; padding: 12px; text-align: center; }
+    .trustc .ti { font-size: 20px; } .trustc .th2 { font-size: 12px; font-weight: 800; color: #111; margin: 4px 0 2px; } .trustc .tx { font-size: 10.5px; color: #888; }
+
+    /* blog */
+    .bloglist { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+    @media (max-width: 760px) { .bloglist { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px) { .bloglist { grid-template-columns: 1fr; } }
+    .blogc { border: 1px solid #e6e6e6; border-radius: 11px; overflow: hidden; }
+    .blogc .bi { aspect-ratio: 16/9; background: #f2f2f2; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; }
+    .blogc .bt { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #4a8c62; padding: 9px 11px 0; }
+    .blogc .bn { font-size: 13px; font-weight: 700; color: #111; line-height: 1.3; padding: 3px 11px 4px; }
+    .blogc .bm { font-size: 10.5px; color: #999; padding: 0 11px 11px; }
+    .tagrow { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .tagc { font-size: 11px; font-weight: 700; border: 1px solid #d8d8d8; border-radius: 20px; padding: 4px 11px; color: #333; }
+    .tagc.on { background: #161616; color: #fff; border-color: #161616; }
+
+    /* promo */
+    .promolist { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+    @media (max-width: 560px) { .promolist { grid-template-columns: 1fr; } }
+    .promoc { border: 1px solid #e6e6e6; border-radius: 11px; overflow: hidden; }
+    .promoc .pi { aspect-ratio: 2/1; background: repeating-linear-gradient(135deg,#ededed,#ededed 11px,#e6e6e6 11px,#e6e6e6 22px); display: flex; align-items: center; justify-content: center; color: #999; font-size: 11px; }
+    .promoc .pn { font-size: 13.5px; font-weight: 800; color: #111; padding: 10px 12px 2px; }
+    .promoc .px { font-size: 11.5px; color: #777; padding: 0 12px 5px; }
+    .promoc .pd { font-size: 10.5px; color: #999; padding: 0 12px 11px; }
+
+    /* store reviews */
+    .revsum { display: flex; align-items: center; gap: 16px; border: 1px solid #e6e6e6; border-radius: 11px; padding: 13px; margin-bottom: 12px; flex-wrap: wrap; }
+    .revsum .big { font-size: 30px; font-weight: 800; color: #111; }
+    .revsum .stars { color: #161616; letter-spacing: 1px; }
+    .revsum .cnt { font-size: 11px; color: #888; }
+    .revsum .gbtn { margin-left: auto; font-size: 12px; font-weight: 700; border: 1.5px solid #c4c4c4; border-radius: 8px; padding: 8px 13px; color: #111; }
+    .rev { border: 1px solid #eee; border-radius: 10px; padding: 12px; margin-bottom: 9px; }
+    .rev .rh { display: flex; align-items: center; gap: 8px; font-size: 12px; margin-bottom: 5px; }
+    .rev .rn { font-weight: 800; color: #111; } .rev .rs { color: #161616; } .rev .rd { color: #aaa; font-size: 10.5px; margin-left: auto; }
+    .rev .rt { font-size: 12px; color: #555; }
+
+    /* newsletter states */
+    .newsbox { border: 1px solid #e6e6e6; border-radius: 11px; padding: 14px; }
+    .newsfield { display: flex; gap: 8px; margin: 9px 0; }
+    .newsfield .f { flex: 1; border: 1px solid #d5d5d5; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #999; }
+    .newsfield .b { background: #161616; color: #fff; border-radius: 8px; padding: 10px 16px; font-size: 12px; font-weight: 800; white-space: nowrap; }
+    .newstate { border-radius: 8px; padding: 10px 12px; font-size: 11.5px; margin-top: 8px; }
+    .newstate.ok { background: #e7f2ea; color: #2d7d46; } .newstate.err { background: #fdf6f6; color: #b04a4a; border: 1px solid #eecaca; } .newstate.info { background: var(--warn-bg); color: #7a5a17; }
+
+    @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="../research/research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="../research/research.html" class="sidebar-logo">Stack</a>
+    <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Структура</div>
+    <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
+    <a href="navigation.html" class="sidebar-sub">Хедер</a>
+    <a href="footer.html" class="sidebar-sub">Футер</a>
+    <a href="catalog.html" class="sidebar-sub">Каталог</a>
+    <a href="category-matrix.html" class="sidebar-sub">Матриця категорій</a>
+    <a href="seo.html" class="sidebar-sub">SEO-методика</a>
+    <div class="sidebar-page-label">Сторінки</div>
+    <a href="home.html" class="sidebar-sub">Головна</a>
+    <a href="catalog-page.html" class="sidebar-sub">Каталог</a>
+    <a href="category.html" class="sidebar-sub">Категорія</a>
+    <a href="product.html" class="sidebar-sub">Картка товару</a>
+    <a href="quiz.html" class="sidebar-sub">Квіз</a>
+    <a href="auth.html" class="sidebar-sub">Авторизація</a>
+    <a href="account.html" class="sidebar-sub">Акаунт</a>
+    <a href="coach.html" class="sidebar-sub">Кабінет тренера</a>
+    <a href="cart.html" class="sidebar-sub">Кошик · Оформлення</a>
+    <a href="content.html" class="sidebar-sub active">Контент та інфо</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-upcoming">Далі<br>Wireframes</div>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Посторінкова IA · вузол 8.x</div>
+    <h1>Контент, інфо й legal</h1>
+    <p class="hero-lead"><b>SEO-поверхня + службові сторінки</b> (13 вузлів 8.0–8.12). Головна ідея — <b>не 13 окремих специфікацій, а мала система шаблонів</b>: більшість інфо/legal-сторінок ділять один <b>шаблон «Інфо-сторінка»</b>, решта — кілька окремих (FAQ · Блог · Акції · Відгуки про магазин · Підписка). Служать «Принципу №1» (спершу довіра: гарантія, сертифікати, повернення, FAQ) і внутрішній перелінковці з футера.</p>
+    <div class="hero-meta">
+      <div><strong>Вузли</strong> 8.0–8.12 (13)</div>
+      <div><strong>Шаблони</strong> Інфо · FAQ · Блог · Промо · Відгуки · Підписка</div>
+      <div><strong>Вхід</strong> футер · мета-рядок (Акції) · товар (сертифікати)</div>
+      <div><strong>SEO</strong> контентні індексуються · підписка — компонент</div>
+    </div>
+  </div>
+
+  <!-- 00 template map -->
+  <section class="section" id="map">
+    <div class="section-num">00 · Мапа шаблонів (дедуплікація)</div>
+    <h2>13 вузлів → 6 шаблонів</h2>
+    <p class="section-lead">Замість 13 макетів — <b>6 шаблонів</b>. Це той самий підхід, що й «Матриця категорій»: описуємо шаблон один раз, а сторінки = дані в ньому.</p>
+    <table>
+      <tr><th>Вузол</th><th>Сторінка</th><th>Шаблон</th><th>Індексація</th></tr>
+      <tr><td>8.2</td><td>Про нас</td><td><b>Інфо-сторінка (A)</b></td><td>index</td></tr>
+      <tr><td>8.3</td><td>Контакти</td><td>Інфо-сторінка (A) + <b>блок контактів</b></td><td>index</td></tr>
+      <tr><td>8.4</td><td>Доставка й оплата</td><td>Інфо-сторінка (A)</td><td>index</td></tr>
+      <tr><td>8.5</td><td>Обмін і повернення</td><td>Інфо-сторінка (A)</td><td>index</td></tr>
+      <tr><td>8.6</td><td>Legal (політика · умови · <b>оферта</b>)</td><td>Інфо-сторінка (A), legal-варіант</td><td>index, low-prio</td></tr>
+      <tr><td>8.7</td><td>Система знижок</td><td>Інфо-сторінка (A) + <b>таблиця</b></td><td>index</td></tr>
+      <tr><td>8.8</td><td>Гарантія та сертифікати</td><td>Інфо-сторінка (A) + <b>галерея сертифікатів</b></td><td>index (довіра)</td></tr>
+      <tr><td>8.9</td><td>FAQ</td><td><b>FAQ-акордеон</b></td><td>index + FAQPage schema</td></tr>
+      <tr><td>8.0</td><td>Каталог блога</td><td><b>Блог-лістинг</b></td><td>index</td></tr>
+      <tr><td>8.1</td><td>Стаття</td><td><b>Стаття</b></td><td>index + Article schema</td></tr>
+      <tr><td>8.10</td><td>Акції / Промо</td><td><b>Промо-лістинг</b></td><td>index</td></tr>
+      <tr><td>8.11</td><td>Відгуки про магазин</td><td><b>Відгуки</b> (картка з 3.1)</td><td>index + AggregateRating(Org)</td></tr>
+      <tr><td>8.12</td><td>Підписка на розсилку</td><td><b>Стан/компонент</b> (поле у футері)</td><td>noindex</td></tr>
+    </table>
+    <p class="note">Спільне для всіх: наслідувані <b>хедер/футер</b> · хлібні крихти · H1 · A–E SEO-блок (за методикою <a href="seo.html">seo.md</a>). Далі — розбір кожного шаблону.</p>
+  </section>
+
+  <!-- 01 info template -->
+  <section class="section" id="info">
+    <div class="section-num">01 · Шаблон «Інфо-сторінка» (A) — 8.2–8.8</div>
+    <h2>Один шаблон на сім сторінок</h2>
+    <p class="section-lead">Хлібні крихти → H1 + дата оновлення → <b>TOC</b> (для довгих) + <b>тіло-проза</b> (H3-секції, списки, інфо-картки) → пов'язані лінки. Приклад — <b>«Доставка й оплата»</b> (8.4).</p>
+    <div class="wf">
+      <div class="wf-cap">Інфо-сторінка (A) — десктоп · приклад «Доставка й оплата»</div>
+      <div class="wf-pad">
+        <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1)</div>
+        <div class="crumb">Головна <span class="sep">/</span> Інформація <span class="sep">/</span> <span class="cur">Доставка й оплата</span></div>
+        <div class="infolayout">
+          <div class="toc">
+            <div class="tt">На сторінці</div>
+            <a class="on" href="#">Способи доставки</a>
+            <a href="#">Терміни й вартість</a>
+            <a href="#">Способи оплати</a>
+            <a href="#">Самовивіз</a>
+          </div>
+          <div class="prose">
+            <h1>Доставка й оплата</h1>
+            <div class="upd">Оновлено: червень 2026</div>
+            <h3>Способи доставки</h3>
+            <p>Доставляємо по всій Україні Новою Поштою — на відділення, поштомат або кур'єром на адресу. Самовивіз — з нашої точки в Одесі.</p>
+            <div class="infocard"><span class="ic">📦</span><div><b>Нова Пошта — відділення / поштомат.</b> 1–2 дні, від 50 ₴ за тарифом перевізника.</div></div>
+            <div class="infocard"><span class="ic">🚚</span><div><b>Кур'єр Нової Пошти.</b> На адресу, 1–2 дні, від 70 ₴.</div></div>
+            <div class="infocard"><span class="ic">🏬</span><div><b>Самовивіз, Одеса.</b> вул. Дерибасівська 1, безкоштовно, лише за наявності на точці.</div></div>
+            <h3>Способи оплати</h3>
+            <ul><li>Карта онлайн (LiqPay / Wayforpay), Apple Pay / Google Pay</li><li>Накладений платіж при отриманні</li><li>Готівка при самовивозі</li></ul>
+            <p style="color:#999;font-size:11px">Точні тарифи доставки — за розцінками перевізника; поріг безкоштовної доставки — <b>[?]</b>.</p>
+          </div>
+        </div>
+        <div class="wf-zone foot"><span class="zt">Футер</span> Наслідується — Футер (0.2)</div>
+      </div>
+    </div>
+    <p class="note">Той самий каркас у <b>Про нас (8.2)</b>, <b>Обмін і повернення (8.5)</b>, <b>Legal (8.6)</b> (без TOC — просто проза + дата), <b>Система знижок (8.7)</b> (+таблиця), <b>Гарантія (8.8)</b> (+галерея). Контент — готовий текст на етапі копірайту; каркас однаковий.</p>
+  </section>
+
+  <!-- 02 contacts + faq -->
+  <section class="section" id="contacts-faq">
+    <div class="section-num">02 · Контакти (8.3) і FAQ (8.9)</div>
+    <h2>Варіант з контактами + FAQ-акордеон</h2>
+    <div class="cols two">
+      <div>
+        <div class="wf"><div class="wf-cap">Контакти (8.3) — інфо + блок контактів</div><div class="wf-pad">
+          <h1 style="font-size:19px;font-weight:800;color:#111;margin-bottom:10px">Контакти</h1>
+          <div class="contactgrid">
+            <div class="ccard"><div class="ck">Телефон</div><div class="cv">0 800 ХХ ХХ ХХ</div><div class="cx">безкоштовно по Україні</div></div>
+            <div class="ccard"><div class="ck">Графік</div><div class="cv">Пн–Нд 9:00–20:00</div><div class="cx">підтримка й консультація</div></div>
+            <div class="ccard"><div class="ck">E-mail</div><div class="cv">hello@stack.ua</div><div class="cx">відповідаємо до 24 год</div></div>
+            <div class="ccard"><div class="ck">Месенджери</div><div class="msgs"><span class="msg">Telegram</span><span class="msg">Viber</span><span class="msg">Чат</span></div></div>
+          </div>
+          <div class="mapbox">🗺 Карта — Одеса, вул. Дерибасівська 1</div>
+          <p style="font-size:10.5px;color:#999;margin-top:8px">Ті самі контакти, що в футері (0.2) → джерело істини одне. Реквізити ФОП/ТОВ — у legal (8.6).</p>
+        </div></div>
+      </div>
+      <div>
+        <div class="wf"><div class="wf-cap">FAQ (8.9) — акордеон + FAQPage schema</div><div class="wf-pad">
+          <h1 style="font-size:19px;font-weight:800;color:#111;margin-bottom:8px">Питання і відповіді</h1>
+          <div class="faqgroup">Доставка й оплата</div>
+          <div class="faq">
+            <div class="faqi"><div class="faqq">Скільки йде доставка? <span class="ch">▾</span></div><div class="faqa">Нова Пошта — 1–2 дні по Україні. Самовивіз в Одесі — того ж дня за наявності.</div></div>
+            <div class="faqi"><div class="faqq">Чи можна оплатити при отриманні? <span class="ch">›</span></div></div>
+          </div>
+          <div class="faqgroup">Товар і безпека</div>
+          <div class="faq">
+            <div class="faqi"><div class="faqq">Товар оригінальний? <span class="ch">›</span></div></div>
+            <div class="faqi"><div class="faqq">Як підібрати дозування? <span class="ch">›</span></div></div>
+          </div>
+          <p style="font-size:10.5px;color:#999;margin-top:9px"><b>Глобальний</b> FAQ (магазин), окремо від Q&A на товарі (3.2). Групи + <b>FAQPage schema</b> → rich-результати. Готові Q&A — на етапі копірайту.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 guarantee + discounts -->
+  <section class="section" id="trust-disc">
+    <div class="section-num">03 · Гарантія та сертифікати (8.8) і Система знижок (8.7)</div>
+    <h2>Сигнали довіри (Принцип №1)</h2>
+    <div class="wf"><div class="wf-cap">Гарантія та сертифікати (8.8)</div><div class="wf-pad">
+      <div class="trustrow">
+        <div class="trustc"><div class="ti">✅</div><div class="th2">Оригінал</div><div class="tx">офіційний імпорт</div></div>
+        <div class="trustc"><div class="ti">📄</div><div class="th2">Сертифікати</div><div class="tx">на кожен бренд</div></div>
+        <div class="trustc"><div class="ti">↩</div><div class="th2">Повернення 14 днів</div><div class="tx">за законом</div></div>
+        <div class="trustc"><div class="ti">🛡</div><div class="th2">Гарантія</div><div class="tx">якості виробника</div></div>
+      </div>
+      <div class="faqgroup">Сертифікати й дозвільні документи</div>
+      <div class="certgrid">
+        <div class="cert"><div class="ci">📄 сертифікат</div><div class="cl">Optimum Nutrition</div></div>
+        <div class="cert"><div class="ci">📄 сертифікат</div><div class="cl">BioTechUSA</div></div>
+        <div class="cert"><div class="ci">📄 сертифікат</div><div class="cl">Scitec Nutrition</div></div>
+        <div class="cert"><div class="ci">📄 висновок МОЗ</div><div class="cl">Декларація</div></div>
+      </div>
+      <p style="font-size:10.5px;color:#999;margin-top:9px">Клік → перегляд документа (як сертифікат на товарі 3.0). Ця сторінка лінкується зі смуги довіри футера й з блоку «Сертифікація» на картці товару. Реальні файли — операційно <b>[?]</b>.</p>
+    </div></div>
+    <div class="wf"><div class="wf-cap">Система знижок (8.7)</div><div class="wf-pad">
+      <table style="margin-bottom:0">
+        <tr><th>Кому</th><th>Механіка</th><th>Значення</th></tr>
+        <tr><td><b>Покупець</b></td><td>Накопичувальна лояльність (сума покупок → рівень/знижка) + бонуси</td><td>% і пороги <b>[?]</b></td></tr>
+        <tr><td><b>Тренер</b></td><td>Опублікований оптовий тариф (Free / Pro)</td><td>тариф <b>[?]</b></td></tr>
+        <tr><td><b>Підписка</b></td><td>Вітальна знижка за підписку на розсилку</td><td>розмір <b>[?]</b></td></tr>
+      </table>
+      <p style="font-size:10.5px;color:#999;margin-top:9px">Пояснює те, що застосовується в кошику (6.x) і акаунті (7.4) / кабінеті тренера (5.x). Числа — з Рішення 3, поки <b>[?]</b>.</p>
+    </div></div>
+  </section>
+
+  <!-- 04 blog -->
+  <section class="section" id="blog">
+    <div class="section-num">04 · Блог — каталог (8.0) і стаття (8.1)</div>
+    <h2>Контент-хаб для SEO й довіри новачка</h2>
+    <div class="cols two">
+      <div>
+        <div class="wf"><div class="wf-cap">Каталог блога (8.0)</div><div class="wf-pad">
+          <h1 style="font-size:19px;font-weight:800;color:#111;margin-bottom:8px">Блог</h1>
+          <div class="tagrow"><span class="tagc on">Усі</span><span class="tagc">Новачкам</span><span class="tagc">Тренування</span><span class="tagc">Харчування</span><span class="tagc">Огляди</span></div>
+          <div class="bloglist">
+            <div class="blogc"><div class="bi">обкладинка</div><div class="bt">Новачкам</div><div class="bn">Протеїн: з чого почати</div><div class="bm">5 хв · черв 2026</div></div>
+            <div class="blogc"><div class="bi">обкладинка</div><div class="bt">Харчування</div><div class="bn">Креатин: міфи й факти</div><div class="bm">7 хв · черв 2026</div></div>
+            <div class="blogc"><div class="bi">обкладинка</div><div class="bt">Огляди</div><div class="bn">Топ гейнерів 2026</div><div class="bm">6 хв · трав 2026</div></div>
+          </div>
+          <p style="font-size:10.5px;color:#999;margin-top:9px">Рубрики/теги · пошук · пагінація. SEO-поверхня для інформаційних запитів (верх воронки).</p>
+        </div></div>
+      </div>
+      <div>
+        <div class="wf"><div class="wf-cap">Стаття (8.1)</div><div class="wf-pad">
+          <div class="crumb">Головна <span class="sep">/</span> Блог <span class="sep">/</span> <span class="cur">Протеїн: з чого почати</span></div>
+          <div class="prose">
+            <div class="bt" style="color:#4a8c62;font-size:9.5px;font-weight:800;text-transform:uppercase">Новачкам</div>
+            <h1 style="font-size:20px">Протеїн: з чого почати</h1>
+            <div class="upd">5 хв читання · червень 2026</div>
+            <div style="aspect-ratio:16/9;background:#f2f2f2;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:11px;margin-bottom:10px">обкладинка</div>
+            <p>Коротка проста відповідь у першому абзаці, далі — H2-секції з деталями…</p>
+          </div>
+          <div style="border:1px solid #eee;border-radius:9px;padding:10px;margin-top:10px"><div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#999;margin-bottom:6px">Пов'язані товари</div><div style="font-size:11.5px;color:#333">Картки товарів (канонічні) → 3.0 · «поділитися» · схожі статті</div></div>
+          <p style="font-size:10.5px;color:#999;margin-top:9px">H1 · SEO-текст · <b>Article schema</b> · крихти · пов'язані товари (перелінковка в каталог) · схожі статті.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 promo + store reviews -->
+  <section class="section" id="promo-reviews">
+    <div class="section-num">05 · Акції (8.10) і Відгуки про магазин (8.11)</div>
+    <h2>Промо-лістинг (спокійно) + відгуки магазину</h2>
+    <div class="cols two">
+      <div>
+        <div class="wf"><div class="wf-cap">Акції / Промо (8.10)</div><div class="wf-pad">
+          <h1 style="font-size:19px;font-weight:800;color:#111;margin-bottom:8px">Акції</h1>
+          <div class="promolist">
+            <div class="promoc"><div class="pi">банер акції</div><div class="pn">−20% на протеїни</div><div class="px">Обрані бренди сироваткового протеїну</div><div class="pd">до 30 червня</div></div>
+            <div class="promoc"><div class="pi">банер акції</div><div class="pn">Креатин + шейкер</div><div class="px">Набір за спеціальною ціною</div><div class="pd">поки є в наявності</div></div>
+          </div>
+          <p style="font-size:10.5px;color:#999;margin-top:9px">Вхід — <b>мета-рядок «Акції»</b> (хедер 0.1). <b>Спокійно, без таймерів</b> (Принцип №4): дата «до…», а не зворотний відлік. Кожна акція → добірка/лістинг (2.x) або товар.</p>
+        </div></div>
+      </div>
+      <div>
+        <div class="wf"><div class="wf-cap">Відгуки про магазин (8.11)</div><div class="wf-pad">
+          <div class="revsum"><div style="text-align:center"><div class="big">4.9</div><div class="stars">★★★★★</div><div class="cnt">312 відгуків</div></div><span class="gbtn">Оцінити в Google</span></div>
+          <div class="rev"><div class="rh"><span class="rn">Оксана</span><span class="rs">★★★★★</span><span class="rd">10 черв</span></div><div class="rt">Швидка доставка, оригінал, консультація по телефону допомогла обрати.</div></div>
+          <div class="rev"><div class="rh"><span class="rn">Дмитро</span><span class="rs">★★★★★</span><span class="rd">2 черв</span></div><div class="rt">Замовляю для залу — зручний кабінет тренера, ціни ок.</div></div>
+          <span class="gbtn" style="display:inline-block;margin-top:4px">＋ Залишити відгук</span>
+          <p style="font-size:10.5px;color:#999;margin-top:9px">Відгуки про <b>магазин</b> (сервіс/доставка), не про товар (той — 3.1). Картка відгуку — та сама, що на товарі. «Залишити відгук» — діалог (як 3.1a); «Оцінити в Google». <b>AggregateRating</b> на Organization.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 newsletter -->
+  <section class="section" id="newsletter">
+    <div class="section-num">06 · Підписка на розсилку (8.12)</div>
+    <h2>Компонент футера + стани</h2>
+    <p class="section-lead">Не окрема сторінка, а <b>компонент</b> (поле e-mail у футері 0.2 + welcome-знижка) зі своїми станами. Подвійний opt-in, легка відписка.</p>
+    <div class="cols two">
+      <div>
+        <div class="wf"><div class="wf-cap">Підписка — поле + стани</div><div class="wf-pad">
+          <div class="newsbox">
+            <div style="font-size:13px;font-weight:800;color:#111">Знижка [?]% за підписку</div>
+            <div style="font-size:11.5px;color:#777;margin-top:2px">Новини, акції, поради. Без спаму.</div>
+            <div class="newsfield"><span class="f">e-mail</span><span class="b">Підписатися</span></div>
+            <div class="newstate ok">✓ Готово! Підтвердіть підписку в листі (double opt-in) — і отримайте промокод.</div>
+            <div class="newstate err" style="margin-top:6px">✕ Невірний e-mail / вже підписані.</div>
+            <div class="newstate info" style="margin-top:6px">↩ Відписатися можна одним кліком у будь-якому листі.</div>
+          </div>
+        </div></div>
+      </div>
+      <div>
+        <div class="reco" style="margin-top:0"><b>Стани:</b> порожнє поле → введення → <b>завантаження</b> → <b>успіх</b> (double opt-in + промокод) / <b>помилка</b> (невірний / вже є) / <b>відписка</b>.</div>
+        <p class="note">Розмір welcome-знижки — <b>[?]</b> (маркетинг). Компонент живе у футері на всіх сторінках; окрема сторінка-стан «підписку підтверджено» після кліку в листі. GDPR/згода — consent-текст біля поля.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 SEO -->
+  <section class="section" id="seo">
+    <div class="section-num">07 · SEO / індексація</div>
+    <h2>Що індексується, що ні</h2>
+    <table>
+      <tr><th>Тип</th><th>Індексація</th><th>Схема</th></tr>
+      <tr><td><b>Інфо/legal (8.2–8.8)</b></td><td>index (legal — low-priority)</td><td>BreadcrumbList; Organization на «Про нас/Контакти»</td></tr>
+      <tr><td><b>FAQ (8.9)</b></td><td>index</td><td><b>FAQPage</b></td></tr>
+      <tr><td><b>Блог (8.0/8.1)</b></td><td>index</td><td><b>Article</b> + BreadcrumbList; каталог — CollectionPage</td></tr>
+      <tr><td><b>Акції (8.10)</b></td><td>index</td><td>—</td></tr>
+      <tr><td><b>Відгуки магазину (8.11)</b></td><td>index</td><td><b>AggregateRating</b> на Organization</td></tr>
+      <tr><td><b>Підписка (8.12)</b></td><td>noindex (компонент)</td><td>—</td></tr>
+    </table>
+    <p class="note">Кожна індексована сторінка має повний A–E-блок (методика <a href="seo.html">seo.md</a>): мета-теги · H1/H2 · готовий текст · схема · чек-лист. Це <b>другий внутрішній лінк-хаб</b> після футерного SEO-блоку.</p>
+  </section>
+
+  <!-- 08 anatomy -->
+  <section class="section" id="anatomy-table">
+    <div class="section-num">08 · Анатомія (вузол → шаблон)</div>
+    <h2>Повне покриття 8.0–8.12</h2>
+    <table>
+      <tr><th>Шаблон</th><th>Вузли</th><th>Особливе</th></tr>
+      <tr><td><b>Інфо-сторінка (A)</b></td><td>8.2 · 8.3 · 8.4 · 8.5 · 8.6 · 8.7 · 8.8</td><td>крихти · H1 · TOC (довгі) · проза · дата; варіанти: контакти (8.3) · таблиця (8.7) · сертифікати (8.8) · legal (8.6)</td></tr>
+      <tr><td><b>FAQ</b></td><td>8.9</td><td>групи + акордеон + FAQPage</td></tr>
+      <tr><td><b>Блог-лістинг</b></td><td>8.0</td><td>теги · пошук · пагінація</td></tr>
+      <tr><td><b>Стаття</b></td><td>8.1</td><td>Article schema · пов'язані товари · схожі</td></tr>
+      <tr><td><b>Промо-лістинг</b></td><td>8.10</td><td>без таймерів; акція → добірка/товар</td></tr>
+      <tr><td><b>Відгуки</b></td><td>8.11</td><td>картка з 3.1 · Google · AggregateRating(Org)</td></tr>
+      <tr><td><b>Стан/компонент</b></td><td>8.12</td><td>поле у футері · double opt-in · noindex</td></tr>
+    </table>
+  </section>
+
+  <!-- 09 locked -->
+  <section class="section" id="locked">
+    <div class="section-num">09 · Зафіксовано / відкрите</div>
+    <div class="cols two">
+      <div>
+        <h2 style="font-size:18px;margin-bottom:10px">Зафіксовано</h2>
+        <ul style="margin-left:18px">
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Мала система шаблонів</b> (6) замість 13 макетів; сторінки = дані в шаблоні (як матриця категорій).</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Інфо-сторінка (A)</b> покриває 8.2–8.8 з варіантами (контакти · таблиця · сертифікати · legal).</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Довіра — сервіс Принципу №1:</b> гарантія/сертифікати/повернення/FAQ на видноті; лінк зі смуги довіри й картки товару.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>FAQ магазину</b> окремо від Q&A товару (3.2); <b>відгуки магазину</b> окремо від відгуків товару (3.1).</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Акції — спокійно, без таймерів</b> (Принцип №4); дата «до…», а не відлік.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Контакти — джерело істини одне</b> з футером; підписка — компонент футера зі станами (double opt-in).</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)">Контентні сторінки <b>індексуються</b> (A–E + schema); підписка — noindex. Другий лінк-хаб після футера.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="open">
+          <h2>Відкриті [?]</h2>
+          <ul>
+            <li><b>Готовий копірайт</b> усіх сторінок (Про нас, доставка, повернення, legal, FAQ Q&A) — етап копірайту.</li>
+            <li><b>Реальні файли сертифікатів</b> і дозвільних документів — операційно.</li>
+            <li><b>Числа знижок/лояльності/тарифу/підписки</b> — з Рішення 3 / юніт-економіки [?].</li>
+            <li><b>Legal-тексти</b> (політика, умови, публічний договір/оферта) — юрист.</li>
+            <li><b>Обсяг блогу на launch</b> і контент-план — маркетинг.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-text">
+    Stack — Посторінкова IA · Контент, інфо й legal (вузол 8.x): 13 вузлів 8.0–8.12 → 6 шаблонів (Інфо-сторінка A · FAQ · Блог · Промо · Відгуки · Підписка). Служить довірі (Принцип №1) і внутрішній перелінковці. Джерело істини: ia/docs/pages/content.md. SEO: seo.html. Карта сайту: sitemap.html. Липень 2026, чернетка.
+  </div>
+
+</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+</script>
+</body>
+</html>

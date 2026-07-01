@@ -418,6 +418,18 @@ Output = the wireframe library. Wireframes then just render it.
   upstream nodes' decisions** (delivery, payment, tier, bonuses) instead of inventing parallel ones — its
   job is to unify, not to add. **This closes the JTBD page-level gaps: all clusters 0–7 now have
   page-level IA. Next phase = Wireframes (Phase 2 renders the library).**
+- **2026-07-01** — **Content, info & legal (node 8.x)** built (`ia/docs/pages/content.md` +
+  `ia/content.html`). 13 nodes (8.0–8.12), but specced as **one small template system (6 templates), not
+  13 layouts** — led with a **node→template map** table (the same dedup move as the category matrix). One
+  **Info page (A)** template absorbs 8.2–8.8 via variants (contacts block · table · certificate gallery ·
+  legal); the genuinely distinct ones (FAQ accordion, blog listing+article, promo, store reviews,
+  newsletter component) get their own compact template. Reuse threaded through: the certificate gallery
+  opens the **same viewable doc as the PDP**; shop reviews reuse the **product review card (3.1)** but are
+  scoped to the shop (≠ product Q&A/reviews); contacts are a **single source of truth with the footer**;
+  the whole cluster is framed as the **second internal-link hub** after the footer SEO block and as
+  **Principle-1 trust surface**. Lesson: when a cluster is a pile of near-identical content/legal pages,
+  the deliverable is a **template map + the shared template**, not a spec per page — one artifact covers
+  all of them and stays maintainable. **All page-level clusters (0–8) now done; next phase = Wireframes.**
 - **Next** — page-level IA cluster by cluster (each WITH its A–E SEO block): Product (3.0),
   Cart/Checkout (6.x), Coach workspace (5.x), Buyer account (7.x). Add each new node to the sidebar
   group and `ia/docs/sitemap.md`.

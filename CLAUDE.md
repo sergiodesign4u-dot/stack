@@ -356,7 +356,7 @@ schema (structure + transitions) and full per-page specs.
    visual one side, form the other); new user → name step; **success returns to the triggering
    action**; social OAuth + soft skippable add-phone for new accounts; SMS code has expiry +
    attempts + resend cooldown + rate-limit. Page is **noindex, no schema** (utility, not content).
-   Sidebar «Сторінки» order: Головна · Каталог · Категорія · Картка товару · Квіз · **Авторизація** · **Акаунт** · **Кабінет тренера** · **Кошик · Оформлення**.
+   Sidebar «Сторінки» order: Головна · Каталог · Категорія · Картка товару · Квіз · **Авторизація** · **Акаунт** · **Кабінет тренера** · **Кошик · Оформлення** · **Контент та інфо**.
    Coach is a **role activated on an existing account** via a verification flow reachable from both the
    For-Coaches landing CTA and an account section, so coaches never hunt for a login.
    Coach tiering is being explored as **Free vs Pro** (HYPOTHESIS, numbers [?]): Free =
@@ -407,6 +407,19 @@ dialog 0.1a; addresses from 7.5) · Оплата (**LiqPay/Wayforpay · Apple/Go
 Job 4). Recovery: payment back-to-cart, OOS not orderable. **Transactional → noindex, no schema**; calm, no
 timers. Loyalty %/rates + delivery tariffs + payment-provider choice stay **[?]**. This closes the JTBD
 page-level gaps (all clusters 0–7 now have page-level IA); next phase = Wireframes.
+
+**Content, info & legal (`content.md`/`content.html`, node 8.x, done July 2026):** the 13 nodes
+(8.0–8.12) specced as **one small template system, not 13 layouts** (same dedup approach as the category
+matrix), with a **node→template map**. **6 templates:** **Info page (A)** — covers **8.2–8.8** (About ·
+Contacts+contacts-block · Delivery&payment · Returns · Legal/**public offer** · Discounts+table ·
+Guarantee+**certificate gallery**): breadcrumb → H1+date → TOC(long) → prose → related · **FAQ** (8.9,
+accordion + FAQPage, separate from product Q&A 3.2) · **Blog** (8.0 listing + 8.1 article, Article schema,
+related products → 3.0) · **Promo** (8.10, **calm, no timers** — Principle 4) · **Reviews** (8.11, shop
+reviews, separate from product reviews 3.1, AggregateRating on Organization + Google) · **Newsletter**
+(8.12, **footer component** with states/double-opt-in, noindex). Serves **Principle 1 (trust first)** —
+guarantee/certs/returns/FAQ on show, linked from the footer trust strip + PDP «Сертифікація»; and is the
+**second internal-link hub** after the footer SEO block. Content pages index (A–E + schema); newsletter
+noindex. Ready copy / certificate files / legal texts / discount numbers stay **[?]**.
 
 **Sequence:** (1) full sitemap → (2) inherited component library → (3) page-level IA per
 cluster. Output is the "wireframe library" that Phase 2 renders.

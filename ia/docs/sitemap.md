@@ -81,7 +81,12 @@
     НП/кур'єр/самовивіз + city 0.1a + addresses 7.5 · Оплата LiqPay/Wayforpay/Pay/COD + sticky summary) ·
     **6.2 Order placed** → history 7.2 (repeat, Job 4). Recovery: payment back-to-cart, OOS not orderable.
     **Transactional → noindex, no schema**. B/W).
-  All JTBD clusters (0–7) now have page-level IA. Next phase: **Wireframes** (Phase 2 renders this library).
+  - `pages/content.md` → `ia/content.html` (node 8.x — **Content, info & legal**: 13 nodes 8.0–8.12 as
+    **one template system**, not 13 layouts, with a node→template map. **6 templates:** Info page (A,
+    covers 8.2–8.8 with contacts/table/certificate/legal variants) · FAQ (accordion + FAQPage) · Blog
+    (listing + article) · Promo (calm, no timers) · Store reviews (AggregateRating on Org) · Newsletter
+    (footer component, noindex). Serves Principle 1 trust; second internal-link hub after the footer. B/W).
+  **All clusters 0–8 now have page-level IA.** Next phase: **Wireframes** (Phase 2 renders this library).
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
   nodes. Reference visual: `research/sitemap png example/`.
 - **Stance:** mobile-first, fully responsive. Coach = buyer (not a marketplace). SEO is
