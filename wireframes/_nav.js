@@ -41,7 +41,7 @@ const WF_FLOWS = [
       { file: 'coach-home.html',    name: 'Кабінет тренера',        node: '5.2', built: false, states: ['loading','error'], builtStates: [] },
       { file: 'coach-clients.html', name: 'Клієнти',                node: '5.3', built: false, states: ['empty','loading','error','cap'], builtStates: [] },
       { file: 'coach-client.html',  name: 'Профіль клієнта',        node: '5.4', built: false, states: ['empty','loading','error'], builtStates: [] },
-      { file: 'coach-session.html', name: 'Мультиклієнтська сесія', node: '5.5', built: true,  states: ['addclient','loading','oos','priceblock','untagged'], builtStates: [] },
+      { file: 'coach-session.html', name: 'Мультиклієнтська сесія', node: '5.5', built: true,  states: ['addclient','loading','oos','priceblock','untagged'], builtStates: ['addclient','loading','oos','priceblock','untagged'] },
       { file: 'cart-coach.html',    name: 'Кошик (за клієнтами)',   node: '6.0', built: false, states: ['empty'], builtStates: [] }
     ]
   }

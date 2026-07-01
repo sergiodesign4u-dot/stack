@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Сесія — позиція без клієнта (wireframe 5.5 · untagged)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* ============================================================
+   node 5.5 Мультиклієнтська сесія замовлення — ★ PRIMARY Job 1.
+   Client tabs (per-client subtotal) + active-client panel
+   (goals → in-session quick-add, NOT global search → order lines with
+   coach-tier price vs struck retail + qty + tag) + session summary.
+   Reusable primitives (.ctabs/.ctab · .cprice) will move to _wf.css
+   when cart-coach.html reuses them. flows.md "Main Job".
+   ============================================================ */
+.cs-wrap { max-width: 1200px; }
+.cs-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin: 8px 0 14px; }
+.cs-top h1 { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.cs-meta { font-size: 12.5px; color: var(--sec); margin-top: 5px; }
+.cs-meta b { color: var(--strong); }
+.tierchip { display: inline-block; font-size: 11px; font-weight: 800; color: var(--strong); border: 1.5px solid var(--dark); border-radius: 100px; padding: 2px 9px; }
+
+/* client tabs (tablist) — each carries a per-client subtotal */
+.ctabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; border-bottom: 1px solid var(--hair); }
+.ctabs::-webkit-scrollbar { display: none; }
+.ctab { flex: 0 0 auto; border: 1.5px solid var(--hair2); border-bottom: none; border-radius: 10px 10px 0 0; background: var(--fill2);
+  padding: 10px 15px; display: flex; flex-direction: column; gap: 2px; min-width: 118px; color: var(--strong); position: relative; top: 1px; }
+.ctab .ctn { font-size: 14px; font-weight: 800; }
+.ctab .cts { font-size: 13px; font-weight: 800; color: var(--strong); }
+.ctab .ctg { font-size: 11px; color: var(--sec); font-weight: 600; }
+.ctab.on { background: #fff; border-color: var(--dark); border-bottom: 1px solid #fff; }
+.ctab.add { flex-direction: row; align-items: center; justify-content: center; min-width: 0; background: #fff; border-style: dashed; font-weight: 800; font-size: 13px; }
+
+/* two columns: active panel + sticky session summary */
+.cs-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 18px; }
+@media (min-width: 940px) { .cs-grid { grid-template-columns: minmax(0,1fr) 320px; align-items: start; } }
+
+.cs-panel { border: 1px solid var(--hair); border-top: none; border-radius: 0 0 12px 12px; padding: 16px; }
+.cs-client { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+.cc-name { font-size: 16px; font-weight: 800; color: var(--strong); }
+.cc-name .cc-goal { font-size: 13px; font-weight: 600; color: var(--sec); }
+.cc-repeat { font-size: 12.5px; font-weight: 700; color: var(--strong); text-decoration: underline; }
+.cc-goals { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 4px; }
+.cc-goals a { font-size: 12px; font-weight: 700; border: 1.5px solid var(--hair2); border-radius: 100px; padding: 6px 12px; color: var(--strong); }
+.cc-goals a.on { border-color: var(--dark); background: var(--dark); color: #fff; }
+
+/* in-session quick-add (NOT global search) */
+.qadd { border: 1px solid var(--hair); border-radius: 10px; background: var(--fill2); padding: 13px; margin: 14px 0 18px; }
+.qadd-h { font-size: 13px; font-weight: 800; color: var(--strong); margin-bottom: 9px; }
+.qadd-h span { font-weight: 600; color: var(--sec); font-size: 12px; }
+.qadd-field { display: flex; gap: 8px; }
+.qadd-field input { flex: 1; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 11px 12px; font-size: 14px; font-family: inherit; background: #fff; }
+.qadd-res { margin-top: 10px; display: flex; flex-direction: column; }
+.qa-row { display: grid; grid-template-columns: 44px 1fr auto auto; gap: 11px; align-items: center; padding: 9px 0; border-top: 1px solid var(--hair); }
+.qa-ph { width: 44px; height: 44px; border-radius: 7px; background: var(--fill); border: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 8px; }
+.qa-nm { font-size: 13px; font-weight: 700; color: var(--strong); line-height: 1.3; }
+.qa-av { font-size: 11.5px; color: var(--sec); margin-top: 2px; }
+.qa-av.low { color: var(--strong); font-weight: 700; }
+.qa-add { padding: 8px 13px; font-size: 12.5px; white-space: nowrap; }
+
+/* coach-tier price (bold) vs struck retail — the key coach primitive */
+.cprice { font-size: 15px; font-weight: 800; color: var(--strong); white-space: nowrap; text-align: right; }
+.cprice .old { display: block; font-size: 11.5px; font-weight: 500; color: #aaa; text-decoration: line-through; }
+.cprice .wtag { display: inline-block; font-size: 9.5px; font-weight: 800; color: var(--strong); border: 1px solid var(--hair2); border-radius: 4px; padding: 0 4px; margin-left: 5px; vertical-align: middle; }
+
+/* order lines for the active client */
+.cs-lines-h { font-size: 13px; font-weight: 800; color: var(--strong); margin: 4px 0 6px; }
+.cline { display: grid; grid-template-columns: 52px 1fr auto; gap: 12px; padding: 13px 0; border-top: 1px solid var(--hair); align-items: start; }
+.cl-ph { width: 52px; height: 56px; border-radius: 8px; background: var(--fill); border: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 9px; }
+.cl-nm { font-size: 13.5px; font-weight: 700; color: var(--strong); line-height: 1.3; }
+.cl-var { font-size: 12px; color: var(--sec); margin: 2px 0 8px; }
+.cl-ctrls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.cq { display: inline-flex; align-items: center; border: 1.5px solid var(--hair2); border-radius: 8px; }
+.cq button { width: 30px; height: 32px; font-size: 16px; color: var(--strong); }
+.cq .qn { width: 26px; text-align: center; font-weight: 700; font-size: 13px; }
+.cl-tag { font-size: 11px; font-weight: 700; color: var(--strong); border: 1px solid var(--hair2); border-radius: 100px; padding: 3px 10px; }
+.cl-rm { font-size: 12px; font-weight: 600; color: var(--sec); text-decoration: underline; }
+.cl-right { text-align: right; }
+.cline-sub { display: flex; justify-content: space-between; align-items: baseline; padding: 13px 0 2px; border-top: 1.5px solid var(--hair2); margin-top: 4px; font-size: 14px; font-weight: 700; color: var(--strong); }
+.cline-sub b { font-size: 17px; font-weight: 800; }
+
+/* session summary (sticky) */
+.cs-summ { border: 1px solid var(--hair); border-radius: 12px; padding: 16px; }
+@media (min-width: 940px) { .cs-summ { position: sticky; top: 16px; } }
+.cs-summ-h { font-size: 15px; font-weight: 800; color: var(--strong); margin-bottom: 12px; }
+.cs-cli { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 13px; color: var(--ink); padding: 7px 0; border-bottom: 1px solid var(--hair); }
+.cs-cli small { color: var(--sec); font-weight: 600; display: block; font-size: 11px; }
+.cs-cli b { color: var(--strong); font-weight: 800; white-space: nowrap; }
+.cs-tot { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0 2px; margin-top: 4px; }
+.cs-tot span { font-size: 14px; font-weight: 800; color: var(--strong); }
+.cs-tot b { font-size: 22px; font-weight: 800; color: var(--strong); }
+.cs-note { font-size: 11.5px; color: var(--light); line-height: 1.55; margin: 10px 0 14px; }
+.cs-go { display: block; text-align: center; }
+.cs-save { display: block; text-align: center; margin-top: 9px; border-color: var(--hair2); }
+
+/* sticky mobile action bar */
+.cs-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: #fff; border-top: 1px solid var(--hair); padding: 10px 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 -2px 10px rgba(0,0,0,.06); }
+.cs-bar .bt { flex: 1; font-size: 12px; color: var(--sec); } .cs-bar .bt b { display: block; font-size: 16px; font-weight: 800; color: var(--strong); }
+.cs-bar .btn { flex: none; }
+@media (min-width: 940px) { .cs-bar { display: none; } }
+.cs-panel { margin-bottom: 76px; }
+@media (min-width: 940px) { .cs-panel { margin-bottom: 0; } }
+/* untagged state — a line has no client: assign or discard (never reaches cart) */
+.cs-banner { border: 1.5px solid var(--dark); background: var(--fill2); border-radius: 10px; padding: 11px 13px; font-size: 12.5px; color: var(--ink); margin: 0 0 12px; line-height: 1.5; }
+.cs-banner b { color: var(--strong); }
+.cline.untag { border: 1.5px solid var(--hair2); border-radius: 10px; padding: 13px; background: var(--fill2); }
+.cl-untag { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 800; color: var(--strong); border: 1px solid var(--dark); border-radius: 100px; padding: 3px 10px; }
+.cl-assign { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--strong); border: 1.5px solid var(--hair2); border-radius: 8px; padding: 7px 12px; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.5 Сесія — UNTAGGED (assign a client or discard the line). flows.md: su1.
+  ★ The coach-flow differentiator (Job 1). Client tabs + active-client
+  quick-add + coach-tier priced lines + session summary → cart-coach.
+  States: addclient · loading (quick-add) · oos · priceblock · untagged.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page cs-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <span class="cur">Сесія замовлення</span>
+  </nav>
+
+  <div class="cs-top">
+    <div>
+      <h1>Сесія замовлення</h1>
+      <div class="cs-meta"><span class="tierchip">Pro</span> гуртові ціни активні · <b>2 клієнти</b> · 4 позиції</div>
+    </div>
+    <a class="btn" href="coach-home.html">Зберегти й вийти</a>
+  </div>
+
+  <!-- CLIENT TABS (each with a per-client subtotal) -->
+  <div class="ctabs" role="tablist" aria-label="Клієнти сесії">
+    <button class="ctab on" role="tab" aria-selected="true">
+      <span class="ctn">Андрій</span><span class="cts">2 320 ₴</span><span class="ctg">Набір маси</span>
+    </button>
+    <button class="ctab" role="tab" aria-selected="false">
+      <span class="ctn">Марія</span><span class="cts">1 160 ₴</span><span class="ctg">Схуднення</span>
+    </button>
+    <a class="ctab add" href="coach-session-addclient.html">＋ Клієнт</a>
+  </div>
+
+  <div class="cs-grid">
+
+    <!-- ACTIVE-CLIENT PANEL -->
+    <section class="cs-panel" role="tabpanel" aria-label="Замовлення для клієнта Андрій">
+      <div class="cs-client">
+        <div class="cc-name">Андрій <span class="cc-goal">· ціль: Набір маси</span></div>
+        <a class="cc-repeat" href="cart-coach.html">↻ Повторити попереднє замовлення</a>
+      </div>
+      <!-- goal drives selection -->
+      <div class="cc-goals" aria-label="Цілі клієнта">
+        <a class="on" href="coach-session.html">Набір маси</a>
+        <a href="coach-session.html">Відновлення</a>
+        <a href="coach-session.html">Витривалість</a>
+      </div>
+
+      <!-- IN-SESSION QUICK-ADD (not the global search) -->
+      <div class="qadd">
+        <div class="qadd-h">Швидке додавання <span>— підбір за ціллю «Набір маси», не загальний пошук</span></div>
+        <div class="qadd-field">
+          <input type="text" placeholder="Назва або артикул — протеїн, гейнер, креатин…" aria-label="Швидке додавання товару">
+          <a class="btn dark" href="coach-session-loading.html">Знайти</a>
+        </div>
+        <div class="qadd-res">
+          <div class="qa-row">
+            <div class="qa-ph">фото</div>
+            <div class="qa-bd"><div class="qa-nm">OstroVit Creatine Monohydrate 500 г</div><div class="qa-av">● В наявності</div></div>
+            <div class="cprice">460 ₴<span class="old">549 ₴</span></div>
+            <button class="btn qa-add" type="button">＋ Додати</button>
+          </div>
+          <div class="qa-row">
+            <div class="qa-ph">фото</div>
+            <div class="qa-bd"><div class="qa-nm">Power Pro Gainer 2000 г</div><div class="qa-av low">● Залишилось мало</div></div>
+            <div class="cprice">690 ₴<span class="old">820 ₴</span></div>
+            <button class="btn qa-add" type="button">＋ Додати</button>
+          </div>
+          <div class="qa-row">
+            <div class="qa-ph">фото</div>
+            <div class="qa-bd"><div class="qa-nm">Olimp BCAA Xplode 250 г</div><div class="qa-av">● В наявності</div></div>
+            <div class="cprice">380 ₴<span class="old">450 ₴</span></div>
+            <button class="btn qa-add" type="button">＋ Додати</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDER LINES for the active client (coach-tier priced + tagged) -->
+      <div class="cs-banner"><b>Одну позицію не призначено клієнту.</b> Непризначені позиції не потраплять у кошик — оберіть клієнта або відхиліть позицію.</div>
+      <div class="cs-lines-h">Позиції для клієнта Андрій</div>
+      <div class="cs-lines">
+        <div class="cline">
+          <div class="cl-ph">фото</div>
+          <div class="cl-bd">
+            <div class="cl-nm">BioTechUSA Hyper Mass 4000 г</div>
+            <div class="cl-var">Смак: Ваніль · Угорщина</div>
+            <div class="cl-ctrls">
+              <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
+              <span class="cl-tag">👤 Андрій</span>
+              <button class="cl-rm" type="button">Видалити</button>
+            </div>
+          </div>
+          <div class="cl-right"><div class="cprice">1 230 ₴<span class="old">1 450 ₴</span><span class="wtag">гурт</span></div></div>
+        </div>
+
+        <div class="cline untag">
+          <div class="cl-ph">фото</div>
+          <div class="cl-bd">
+            <div class="cl-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
+            <div class="cl-var">Смак: Подвійний шоколад · США</div>
+            <div class="cl-ctrls">
+              <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
+              <span class="cl-untag">⚠ Не призначено клієнта</span>
+              <a class="cl-assign" href="coach-session.html">Призначити клієнта ▾</a>
+              <a class="cl-rm" href="coach-session.html">Відхилити</a>
+            </div>
+          </div>
+          <div class="cl-right"><div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div></div>
+        </div>
+
+        <div class="cline-sub"><span>Підсумок по клієнту Андрій</span><b>2 320 ₴</b></div>
+      </div>
+    </section>
+
+    <!-- SESSION SUMMARY (sticky) -->
+    <aside class="cs-summ" aria-label="Сесія — разом">
+      <div class="cs-summ-h">Сесія — разом</div>
+      <div class="cs-cli"><span>Андрій<small>Набір маси · 2 позиції</small></span><b>2 320 ₴</b></div>
+      <div class="cs-cli"><span>Марія<small>Схуднення · 2 позиції</small></span><b>1 160 ₴</b></div>
+      <div class="cs-tot"><span>Разом (2 клієнти)</span><b>3 480 ₴</b></div>
+      <div class="cs-note">Ціни гуртові (тариф Pro). Доставка — одна на тренера; розподіл за клієнтами зберігається в замовленні. Знижки й бонуси — на оформленні.</div>
+      <a class="btn dark cs-go" href="cart-coach.html">Перейти в кошик →</a>
+      <a class="btn cs-save" href="coach-home.html">Зберегти сесію</a>
+    </aside>
+
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<!-- sticky mobile action bar -->
+<div class="cs-bar">
+  <div class="bt">Разом (2 клієнти)<b>3 480 ₴</b></div>
+  <a class="btn dark" href="cart-coach.html">У кошик →</a>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('coach-session.html', 'untagged');</script>
+</body>
+</html>
