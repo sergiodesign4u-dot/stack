@@ -131,19 +131,6 @@
     @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
   </style>
 
-    /* collapsible sidebar groups (Структура / Сторінки) */
-    details.sidebar-group > summary.sidebar-page-label {
-      list-style: none; cursor: pointer; display: flex; align-items: center;
-      justify-content: space-between; user-select: none;
-    }
-    details.sidebar-group > summary.sidebar-page-label::-webkit-details-marker { display: none; }
-    details.sidebar-group > summary.sidebar-page-label::after {
-      content: ""; width: 6px; height: 6px; margin-right: 4px; flex: none;
-      border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
-      transform: rotate(-45deg); transition: transform .15s ease; opacity: .65;
-    }
-    details.sidebar-group[open] > summary.sidebar-page-label::after { transform: rotate(45deg); }
-    details.sidebar-group > summary.sidebar-page-label:hover { opacity: .82; }
   </head>
 <body>
 
@@ -168,31 +155,28 @@
     <a href="../research/jtbd.html">JTBD</a>
     <a href="../research/concept.html">Концептуальна архітектура</a>
     <hr class="sidebar-divider">
-    <details class="sidebar-group">
-      <summary class="sidebar-page-label">Структура</summary>
-      <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
-      <a href="navigation.html" class="sidebar-sub">Хедер</a>
-      <a href="footer.html" class="sidebar-sub">Футер</a>
-      <a href="catalog.html" class="sidebar-sub">Каталог</a>
-      <a href="category-matrix.html" class="sidebar-sub">Матриця категорій</a>
-      <a href="seo.html" class="sidebar-sub">SEO-методика</a>
-    </details>
-    <details class="sidebar-group" open>
-      <summary class="sidebar-page-label">Сторінки</summary>
-      <a href="home.html" class="sidebar-sub">Головна</a>
-      <a href="catalog-page.html" class="sidebar-sub">Каталог</a>
-      <a href="category.html" class="sidebar-sub">Категорія</a>
-      <a href="brands.html" class="sidebar-sub active">Бренди</a>
-      <a href="search.html" class="sidebar-sub">Пошук</a>
-      <a href="product.html" class="sidebar-sub">Картка товару</a>
-      <a href="quiz.html" class="sidebar-sub">Квіз</a>
-      <a href="auth.html" class="sidebar-sub">Авторизація</a>
-      <a href="account.html" class="sidebar-sub">Акаунт</a>
-      <a href="coach.html" class="sidebar-sub">Кабінет тренера</a>
-      <a href="cart.html" class="sidebar-sub">Кошик · Оформлення</a>
-      <a href="content.html" class="sidebar-sub">Контент та інфо</a>
-      <a href="system.html" class="sidebar-sub">Системні та глобальні</a>
-    </details>
+    <a href="sitemap.html" class="active">Інформаційна архітектура</a>
+    <div class="sidebar-page-label">Структура</div>
+    <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
+    <a href="navigation.html" class="sidebar-sub">Хедер</a>
+    <a href="footer.html" class="sidebar-sub">Футер</a>
+    <a href="catalog.html" class="sidebar-sub">Каталог</a>
+    <a href="category-matrix.html" class="sidebar-sub">Матриця категорій</a>
+    <a href="seo.html" class="sidebar-sub">SEO-методика</a>
+    <div class="sidebar-page-label">Сторінки</div>
+    <a href="home.html" class="sidebar-sub">Головна</a>
+    <a href="catalog-page.html" class="sidebar-sub">Каталог</a>
+    <a href="category.html" class="sidebar-sub">Категорія</a>
+    <a href="brands.html" class="sidebar-sub active">Бренди</a>
+    <a href="search.html" class="sidebar-sub">Пошук</a>
+    <a href="product.html" class="sidebar-sub">Картка товару</a>
+    <a href="quiz.html" class="sidebar-sub">Квіз</a>
+    <a href="auth.html" class="sidebar-sub">Авторизація</a>
+    <a href="account.html" class="sidebar-sub">Акаунт</a>
+    <a href="coach.html" class="sidebar-sub">Кабінет тренера</a>
+    <a href="cart.html" class="sidebar-sub">Кошик · Оформлення</a>
+    <a href="content.html" class="sidebar-sub">Контент та інфо</a>
+    <a href="system.html" class="sidebar-sub">Системні та глобальні</a>
     <hr class="sidebar-divider">
     <div class="sidebar-upcoming">Далі<br>Wireframes</div>
   </nav>

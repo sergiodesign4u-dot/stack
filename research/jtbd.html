@@ -336,19 +336,6 @@
     section { animation: fadeUp 0.4s ease both; }
   </style>
 
-    /* collapsible sidebar groups (Структура / Сторінки) */
-    details.sidebar-group > summary.sidebar-page-label {
-      list-style: none; cursor: pointer; display: flex; align-items: center;
-      justify-content: space-between; user-select: none;
-    }
-    details.sidebar-group > summary.sidebar-page-label::-webkit-details-marker { display: none; }
-    details.sidebar-group > summary.sidebar-page-label::after {
-      content: ""; width: 6px; height: 6px; margin-right: 4px; flex: none;
-      border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
-      transform: rotate(-45deg); transition: transform .15s ease; opacity: .65;
-    }
-    details.sidebar-group[open] > summary.sidebar-page-label::after { transform: rotate(45deg); }
-    details.sidebar-group > summary.sidebar-page-label:hover { opacity: .82; }
   </head>
 <body>
 
@@ -379,32 +366,7 @@
     <a href="#critique" class="sidebar-sub">Критика і ризики</a>
     <hr class="sidebar-divider">
     <a href="concept.html">Концептуальна архітектура</a>
-    <hr class="sidebar-divider">
-    <details class="sidebar-group">
-      <summary class="sidebar-page-label">Структура</summary>
-      <a href="../ia/sitemap.html" class="sidebar-sub">Карта сайту</a>
-      <a href="../ia/navigation.html" class="sidebar-sub">Хедер</a>
-      <a href="../ia/footer.html" class="sidebar-sub">Футер</a>
-      <a href="../ia/catalog.html" class="sidebar-sub">Каталог</a>
-      <a href="../ia/category-matrix.html" class="sidebar-sub">Матриця категорій</a>
-      <a href="../ia/seo.html" class="sidebar-sub">SEO-методика</a>
-    </details>
-    <details class="sidebar-group">
-      <summary class="sidebar-page-label">Сторінки</summary>
-      <a href="../ia/home.html" class="sidebar-sub">Головна</a>
-      <a href="../ia/catalog-page.html" class="sidebar-sub">Каталог</a>
-      <a href="../ia/category.html" class="sidebar-sub">Категорія</a>
-      <a href="../ia/brands.html" class="sidebar-sub">Бренди</a>
-      <a href="../ia/search.html" class="sidebar-sub">Пошук</a>
-      <a href="../ia/product.html" class="sidebar-sub">Картка товару</a>
-      <a href="../ia/quiz.html" class="sidebar-sub">Квіз</a>
-      <a href="../ia/auth.html" class="sidebar-sub">Авторизація</a>
-      <a href="../ia/account.html" class="sidebar-sub">Акаунт</a>
-      <a href="../ia/coach.html" class="sidebar-sub">Кабінет тренера</a>
-      <a href="../ia/cart.html" class="sidebar-sub">Кошик · Оформлення</a>
-      <a href="../ia/content.html" class="sidebar-sub">Контент та інфо</a>
-      <a href="../ia/system.html" class="sidebar-sub">Системні та глобальні</a>
-    </details>
+    <a href="../ia/sitemap.html">Інформаційна архітектура</a>
     <hr class="sidebar-divider">
     <div class="sidebar-upcoming">Далі<br>Картка · Кошик<br>Акаунт<br>Wireframes</div>
   </nav>
