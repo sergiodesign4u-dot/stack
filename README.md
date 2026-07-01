@@ -88,4 +88,5 @@ handoff/            - Developer handoff files
 - [Research: JTBD](research/docs/jtbd.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/research/jtbd.html)
 - [Conceptual IA: Sitemap](research/docs/sitemap.md) and [User Flows](research/docs/flows.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/research/concept.html)
 - [Detailed IA: Sitemap](ia/docs/sitemap.md), [Navigation spec](ia/docs/pages/navigation.md), [Footer spec](ia/docs/pages/footer.md), [Home spec](ia/docs/pages/home.md), [Catalog taxonomy](ia/docs/pages/catalog.md), [Category/listing spec](ia/docs/pages/category.md) - [Live: sitemap](https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html) · [navigation](https://sergiodesign4u-dot.github.io/stack/ia/navigation.html) · [footer](https://sergiodesign4u-dot.github.io/stack/ia/footer.html) · [home](https://sergiodesign4u-dot.github.io/stack/ia/home.html) · [catalog](https://sergiodesign4u-dot.github.io/stack/ia/catalog.html) · [category](https://sergiodesign4u-dot.github.io/stack/ia/category.html)
-- [Design & IA Playbook](playbook/design-ia-playbook.md) - reusable methodology
+- [Design & IA Playbook](playbook/design-ia-playbook.md) - reusable IA methodology
+- [Design Wireframes Playbook](playbook/design-wireframes-playbook.md) - reusable wireframe methodology (greyscale structure + clickable prototype; 9-step process)
