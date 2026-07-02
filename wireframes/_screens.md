@@ -171,3 +171,40 @@ Base pages: 9. Extra state pages (each a separate `<screen>-<state>.html`, playb
 
 **Next step → Step 2:** write `wireframes/_conventions.md` (the contract), inheriting the existing
 B/W CSS/tokens + unified sidebar + 360/desktop viewports + A–E text source. Then Step 3: the etalon (Категорія 2.1).
+
+---
+
+## Крок 11 — Interactive global nav + Quiz (2026-07-02)
+
+Made the prototype's navigation actually work (clickable), per user ask «мега меню, квиз, и так далее».
+
+**Mega-menu (node 0.1)** — in `_nav.js` `wfHeader()`, so it's on every page. Belok-style:
+- data: `WF_CAT_MENU` (12 categories × subcategories) + `WF_GOAL_MENU` (6 goals).
+- `wfMegaHTML()` renders left 12 cats + middle 12 sub-panels + right «За ціллю» + «Усі товари».
+- `wfMega(i)` switches the active category on `onmouseenter`; opens on `.wfh-cat:hover` (CSS).
+- All links real `<a>` (SEO). Categories/subs → `listing.html`; goals → `goal.html`; Бренди → `brands.html`; «Усі товари» → `catalog-page.html`. Desktop-only (inside `.wfh-nav`, hidden < 860).
+
+**City dialog (node 0.1a)** — `wfCityHTML()` + `openCity`/`closeCity`/`wfPickCity`. Off the 📍 chip
+(meta bar) and the drawer. Search + 8 popular badges (`WF_CITIES_POP`) + full А–Я 24 cities
+(`WF_CITIES_ALL`) + NP delivery note. Pick → writes into `.wfh-city-lbl`.
+
+**Mobile burger drawer** — `wfDrawerHTML()` + `openBurger`/`closeBurger`; ☰ was a dead button.
+Left slide-in: city · «За ціллю» chips · 12 category links · meta links (Для тренерів/Квіз/Акції/
+Бренди/Доставка/Повернення/Про нас/Контакти/Бонуси/Увійти). Desktop-hidden.
+
+**Quiz (node 4.x, `quiz.html`)** — built by subagent to `ia/docs/pages/quiz.md`. Real stepped
+`role=dialog` flow (~560px card / full-screen mobile): intro (4.0) → Q1 goal (required, gates «Далі»)
+→ Q2 experience → Q3 frequency → Q4 constraints (multi) → **safety insert (conditional: only if
+meds/chronic checked)** → Q5 format/budget → result (4.2): «Ваш стартовий набір для [ціль]» + rationale
+chips + 4 canonical `.pcard` products each with «Чому тут:…» + «Додати весь набір у кошик · 4 009 ₴»
+(→ cart.html) + «Переглянути всю колекцію» (→ goal.html) + inline email-save + «Це не медична порада».
+Registered WF_FLOWS `f1` + WF_SITEMAP 4.x (ia→file). Entry points rewired goal.html→quiz.html: header
+«✦ Квіз», home hero «Пройти квіз», catalog-hub «→ Квіз».
+
+**Verified** (Playwright, 1280 + 390): mega opens + category-switch (Протеїн→Креатин middle updates),
+city dialog (popular + А–Я), mobile drawer, full quiz run (intro→Q1 gate→skip Q2–Q5→result 4 cards).
+Full map now **«36 збудовано · 5 у специфікації»**.
+
+**Still IA-only (5):** system pages (404/500/maintenance/cookie/toasts → `ia/system.html`) · account
+sub-sections 7.1–7.7 (sections within `account.html`) · header/footer components (live in `_nav.js`) ·
+logged-in account dropdown (static proto header = guest state).

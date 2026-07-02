@@ -25,6 +25,7 @@ const WF_FLOWS = [
       { file: 'home.html',         name: 'Головна',              node: '0.0', built: true,  states: ['buyer','coach'], builtStates: ['buyer','coach'] },
       { file: 'listing.html',      name: 'Категорія (лістинг)',  node: '2.1', built: true,  states: ['filtered','list','empty','loading','error'], builtStates: ['filtered','list','empty','loading','error'] },
       { file: 'goal.html',         name: 'Ціль-колекція',        node: '2.2', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
+      { file: 'quiz.html',         name: 'Квіз (підбір за ціллю)', node: '4.x', built: true, states: [], builtStates: [] },
       { file: 'product.html',      name: 'Картка товару',        node: '3.0', built: true,  states: ['loading','error','oos','reviews'], builtStates: ['loading','error','oos','reviews'] },
       { file: 'cart.html',         name: 'Кошик',                node: '6.0', built: true,  states: ['empty','oos'], builtStates: ['empty','oos'] },
       { file: 'checkout.html',     name: 'Оформлення',           node: '6.1', built: true,  states: ['loggedin','noaddr','loading','declined'], builtStates: ['loggedin','noaddr','loading','declined'] },
@@ -106,7 +107,7 @@ const WF_SITEMAP = [
     { node: '3.0',  name: 'Картка товару',                     file: 'product.html' },
   ]},
   { cluster: '4 · Гайд', items: [
-    { node: '4.x',  name: 'Квіз-гайд',                         ia: 'quiz.html' },
+    { node: '4.x',  name: 'Квіз (підбір за ціллю)',            file: 'quiz.html' },
   ]},
   { cluster: '5 · Тренер (Job 1)', items: [
     { node: '5.0',  name: 'Для тренерів (лендинг)',            file: 'coach-landing.html' },
@@ -248,6 +249,99 @@ function wfBar(baseFile, currentState) {
 }
 
 /* ============================================================
+   Catalog mega-menu data (node 0.1) — Belok-style.
+   Left = 12 top categories; middle = the hovered category's subcategories;
+   right = «За ціллю» (6 goals) + all-products. All links are real <a>
+   (crawlable, SEO). In the wireframe every category/subcategory routes to
+   the shared listing template (listing.html); goals → goal.html; Бренди →
+   brands.html. ============================================================ */
+const WF_CAT_MENU = [
+  { name: 'Протеїн',                 href: 'listing.html', subs: ['Сироватковий', 'Ізолят', 'Гідролізат', 'Казеїн', 'Комплексний', 'Рослинний'] },
+  { name: 'Гейнери',                 href: 'listing.html', subs: ['Високовуглеводні', 'Збалансовані', 'Вуглеводи (карбо)'] },
+  { name: 'Креатин',                 href: 'listing.html', subs: ['Моногідрат', 'Creapure®', 'Креатин HCl', 'Транспортні системи'] },
+  { name: 'Амінокислоти',            href: 'listing.html', subs: ['BCAA', 'EAA', 'Глютамін', 'Аргінін', 'Комплексні аміно'] },
+  { name: 'Передтренувальні та енергія', href: 'listing.html', subs: ['З кофеїном', 'Без стимуляторів', 'Пампінг', 'Енергетики', 'Кофеїн у капсулах'] },
+  { name: 'Жироспалювачі',           href: 'listing.html', subs: ['L-карнітин', 'Термогеніки', 'Ліпотропіки', 'Блокатори'] },
+  { name: 'Ізотоніки та витривалість', href: 'listing.html', subs: ['Ізотоніки', 'Електроліти', 'Енергетичні гелі', 'Бета-аланін'] },
+  { name: 'Батончики, снеки, харчування', href: 'listing.html', subs: ['Протеїнові батончики', 'Арахісова паста', 'Замінники їжі', 'Снеки'] },
+  { name: 'Вітаміни та мінерали',    href: 'listing.html', subs: ['Вітамінні комплекси', 'Вітамін D3', 'Магній', 'Омега-3', 'Цинк · Вітамін C'] },
+  { name: 'Здоровʼя',                href: 'listing.html', subs: ['Суглоби і звʼязки', 'Імунітет', 'Сон і релакс', 'Травлення', 'Жіноче / чоловіче здоровʼя'] },
+  { name: 'Аксесуари',               href: 'listing.html', subs: ['Шейкери', 'Дозатори', 'Пляшки', 'Атрибутика'] },
+  { name: 'Бренди',                  href: 'brands.html',  subs: ['Optimum Nutrition', 'BioTechUSA', 'Myprotein', 'Scitec Nutrition', 'OstroVit', 'Усі бренди А–Я →'] },
+];
+const WF_GOAL_MENU = [
+  { ic: '💪', name: 'Набір маси' }, { ic: '🔥', name: 'Схуднення' }, { ic: '🌿', name: 'Відновлення' },
+  { ic: '⚡', name: 'Енергія / тонус' }, { ic: '🛡️', name: 'Імунітет / здоровʼя' }, { ic: '🏃', name: 'Витривалість / кардіо' },
+];
+/* canonical served-cities list (node 0.1a) — 23 controlled oblast centres + large hubs; Crimea/occupied excluded */
+const WF_CITIES_POP = ['Київ', 'Харків', 'Дніпро', 'Одеса', 'Львів', 'Запоріжжя', 'Кривий Ріг', 'Миколаїв'];
+const WF_CITIES_ALL = ['Вінниця', 'Дніпро', 'Житомир', 'Запоріжжя', 'Івано-Франківськ', 'Камʼянець', 'Київ', 'Кременчук', 'Кривий Ріг', 'Луцьк', 'Львів', 'Миколаїв', 'Одеса', 'Полтава', 'Рівне', 'Суми', 'Тернопіль', 'Ужгород', 'Харків', 'Херсон', 'Хмельницький', 'Черкаси', 'Чернівці', 'Чернігів'];
+
+function wfMegaHTML() {
+  let cats = '', mids = '';
+  WF_CAT_MENU.forEach((c, i) => {
+    cats += '<a class="mega-cat' + (i === 0 ? ' on' : '') + '" href="' + c.href + '" onmouseenter="wfMega(' + i + ')">' + c.name + '<span class="ar">›</span></a>';
+    let subs = '<div class="mega-panel' + (i === 0 ? ' on' : '') + '" id="mp' + i + '"><a class="mph" href="' + c.href + '">' + c.name + ' — усі →</a><div class="mega-sublist">';
+    c.subs.forEach(s => { subs += '<a class="mega-sub" href="' + c.href + '">' + s + '</a>'; });
+    mids += subs + '</div></div>';
+  });
+  let goals = '<div class="mgh">За ціллю</div>';
+  WF_GOAL_MENU.forEach(g => { goals += '<a class="mega-goal" href="goal.html"><span class="gi">' + g.ic + '</span>' + g.name + '</a>'; });
+  goals += '<a class="mega-all" href="catalog-page.html">Усі товари каталогу →</a>';
+  return '<div class="wfh-mega" role="menu" aria-label="Каталог">' +
+    '<div class="mega-cats">' + cats + '</div>' +
+    '<div class="mega-mid">' + mids + '</div>' +
+    '<div class="mega-goals">' + goals + '</div></div>';
+}
+function wfMega(i) {
+  document.querySelectorAll('.mega-cat').forEach((el, n) => el.classList.toggle('on', n === i));
+  document.querySelectorAll('.mega-panel').forEach((el, n) => el.classList.toggle('on', n === i));
+}
+
+/* city selector dialog (node 0.1a) + mobile menu drawer + open/close */
+function wfCityHTML() {
+  let pop = ''; WF_CITIES_POP.forEach(c => { pop += '<button class="city-badge" onclick="wfPickCity(\'' + c + '\')">' + c + '</button>'; });
+  let az = ''; WF_CITIES_ALL.forEach(c => { az += '<button class="city-az" onclick="wfPickCity(\'' + c + '\')">' + c + '</button>'; });
+  return '<div class="wf-ov" id="city-ov" onclick="closeCity()"></div>' +
+    '<div class="wf-city" id="city-dlg" role="dialog" aria-modal="true" aria-label="Оберіть місто">' +
+    '<div class="wf-city-h">Оберіть місто<button class="x" onclick="closeCity()" aria-label="Закрити">✕</button></div>' +
+    '<div class="wf-city-b">' +
+    '<input class="city-search" type="search" placeholder="Пошук міста…" aria-label="Пошук міста">' +
+    '<div class="city-lbl">Популярні міста</div><div class="city-pop">' + pop + '</div>' +
+    '<div class="city-lbl">Усі міста (А–Я)</div><div class="city-list">' + az + '</div>' +
+    '<div class="city-note">Доставка Новою Поштою по всій Україні — знайдемо будь-яке місто через пошук.</div>' +
+    '</div></div>';
+}
+function wfDrawerHTML() {
+  let goals = ''; WF_GOAL_MENU.forEach(g => { goals += '<a class="dr-chip" href="goal.html"><span>' + g.ic + '</span>' + g.name + '</a>'; });
+  let cats = ''; WF_CAT_MENU.forEach(c => { cats += '<a class="dr-cat" href="' + c.href + '">' + c.name + '<span class="ar">›</span></a>'; });
+  return '<div class="wf-ov" id="drawer-ov" onclick="closeBurger()"></div>' +
+    '<nav class="wf-drawer" id="drawer" aria-label="Меню">' +
+    '<div class="dr-h"><span class="dr-logo">Stack</span><button class="x" onclick="closeBurger()" aria-label="Закрити">✕</button></div>' +
+    '<div class="dr-b">' +
+    '<a class="dr-city" href="#" onclick="closeBurger();openCity();return false">📍 Одеса — змінити місто</a>' +
+    '<div class="dr-lbl">За ціллю</div><div class="dr-chips">' + goals + '</div>' +
+    '<div class="dr-lbl">Категорії</div>' + cats +
+    '<div class="dr-lbl">Ще</div>' +
+    '<a class="dr-link strong" href="coach-landing.html">Для тренерів</a>' +
+    '<a class="dr-link" href="quiz.html">✦ Квіз — підбір за ціллю</a>' +
+    '<a class="dr-link" href="content-promo.html">Акції</a>' +
+    '<a class="dr-link" href="brands.html">Бренди</a>' +
+    '<a class="dr-link" href="content-delivery.html">Доставка й оплата</a>' +
+    '<a class="dr-link" href="content-returns.html">Повернення</a>' +
+    '<a class="dr-link" href="content-about.html">Про нас</a>' +
+    '<a class="dr-link" href="content-contacts.html">Контакти</a>' +
+    '<a class="dr-link" href="account.html">★ Бонуси</a>' +
+    '<a class="dr-link" href="auth.html">👤 Увійти / Реєстрація</a>' +
+    '</div></nav>';
+}
+function openCity() { var d = document.getElementById('city-dlg'), o = document.getElementById('city-ov'); if (d) d.classList.add('open'); if (o) o.classList.add('open'); }
+function closeCity() { var d = document.getElementById('city-dlg'), o = document.getElementById('city-ov'); if (d) d.classList.remove('open'); if (o) o.classList.remove('open'); }
+function wfPickCity(name) { document.querySelectorAll('.wfh-city-lbl').forEach(el => el.textContent = name); closeCity(); }
+function openBurger() { var d = document.getElementById('drawer'), o = document.getElementById('drawer-ov'); if (d) d.classList.add('open'); if (o) o.classList.add('open'); }
+function closeBurger() { var d = document.getElementById('drawer'), o = document.getElementById('drawer-ov'); if (d) d.classList.remove('open'); if (o) o.classList.remove('open'); }
+
+/* ============================================================
    Inherited components rendered once (conventions §7). Inject into
    #wf-header / #wf-footer / #wf-rail / #wf-sheet placeholders.
    ============================================================ */
@@ -257,14 +351,17 @@ function wfHeader() {
   el.innerHTML = `
     <div class="wfh-meta"><div class="wfh-in">
       <a class="strongl" href="coach-landing.html">Для тренерів</a><a href="content-promo.html">Акції</a><a href="brands.html">Бренди</a><a href="content-delivery.html">Доставка</a><a href="content-returns.html">Повернення</a><a href="content-about.html">Про нас</a>
-      <span class="wfh-sp"></span><a>📍 Одеса</a><a>Укр</a>
+      <span class="wfh-sp"></span><a href="#" onclick="openCity();return false">📍 <span class="wfh-city-lbl">Одеса</span> ▾</a><a>Укр ▾</a>
     </div></div>
     <div class="wfh-main wfh-in">
-      <button class="wfh-burger" aria-label="Меню">☰</button>
+      <button class="wfh-burger" aria-label="Меню" onclick="openBurger()">☰</button>
       <a class="wfh-logo" href="home.html">Stack</a>
       <nav class="wfh-nav" aria-label="Головна навігація">
-        <a class="navbtn" href="catalog-page.html"><span class="g">▦</span> Каталог</a>
-        <a class="navlink" href="goal.html">✦ Квіз</a>
+        <div class="wfh-cat">
+          <a class="navbtn" href="catalog-page.html"><span class="g">▦</span> Каталог <span class="cav">▾</span></a>
+          ${wfMegaHTML()}
+        </div>
+        <a class="navlink" href="quiz.html">✦ Квіз</a>
       </nav>
       <form class="wfh-search" role="search" action="search.html">
         <input type="search" placeholder="Пошук товарів, брендів…" aria-label="Пошук">
@@ -281,7 +378,9 @@ function wfHeader() {
         <a class="wfh-act" href="account.html"><span class="g">★</span><span class="t"><span class="cap">Бонуси</span><span class="val">Отримати</span></span></a>
         <a class="wfh-act" href="cart.html"><span class="g">🛒</span><span class="lbl">Кошик</span></a>
       </div>
-    </div>`;
+    </div>
+    ${wfCityHTML()}
+    ${wfDrawerHTML()}`;
   el.setAttribute('role', 'banner');
 }
 
@@ -401,4 +500,4 @@ function wfSheet() {
 }
 function openSheet() { document.getElementById('fsheet').classList.add('open'); document.getElementById('fsheet-ov').classList.add('open'); }
 function closeSheet() { const s = document.getElementById('fsheet'), o = document.getElementById('fsheet-ov'); if (s) s.classList.remove('open'); if (o) o.classList.remove('open'); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); } });
