@@ -2,91 +2,37 @@
 
 A mobile-first sport nutrition store for the Ukrainian market, built around coaches and gyms who order for their athletes. Turns a confusing catalog into a clear, trusted path from a person's goal to the right products.
 
-**Live pages** — research phase (`/research/`) and detailed IA (`/ia/`):
-- https://sergiodesign4u-dot.github.io/stack/research/research.html
-- https://sergiodesign4u-dot.github.io/stack/research/personas.html
-- https://sergiodesign4u-dot.github.io/stack/research/jtbd.html
-- https://sergiodesign4u-dot.github.io/stack/research/concept.html — Conceptual architecture (was `ia.html`: jobs/persona-driven clusters, flows, traceability)
-- https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html — Information architecture: full sitemap
-- https://sergiodesign4u-dot.github.io/stack/ia/navigation.html — Information architecture: Navigation (header + mobile tabs)
-- https://sergiodesign4u-dot.github.io/stack/ia/footer.html — Information architecture: Footer (trust strip + columns + SEO block)
-- https://sergiodesign4u-dot.github.io/stack/ia/home.html — Information architecture: Home (goal-selector hero + front doors)
-- https://sergiodesign4u-dot.github.io/stack/ia/quiz.html — Information architecture: Quiz (goal-guide dialog, post-launch)
-- https://sergiodesign4u-dot.github.io/stack/ia/catalog.html — Information architecture: Catalog structure (store taxonomy)
-- https://sergiodesign4u-dot.github.io/stack/ia/catalog-page.html — Information architecture: Catalog (hub / landing, node 2.0)
-- https://sergiodesign4u-dot.github.io/stack/ia/category.html — Information architecture: Category / product listing (PLP; shared listing template)
-- https://sergiodesign4u-dot.github.io/stack/ia/product.html — Information architecture: Product detail / PDP (node 3.0; trust block + reviews/questions/related; conversion target)
-- https://sergiodesign4u-dot.github.io/stack/ia/auth.html — Information architecture: Authentication (node 1.x; unified sign in / sign up dialog, phone-OTP-first, all states)
-- https://sergiodesign4u-dot.github.io/stack/ia/account.html — Information architecture: Buyer account (node 7.x; one shell — orders + one-tap repeat, loyalty & bonuses, addresses, profile, wishlist, become-a-coach; private/noindex)
-- https://sergiodesign4u-dot.github.io/stack/ia/coach.html — Information architecture: Coach workspace (node 5.x, PRIMARY Job 1; For-Coaches landing + Free/Pro, become-a-coach verify, coach home, clients, multi-client order session with per-client cart grouping)
-- https://sergiodesign4u-dot.github.io/stack/ia/cart.html — Information architecture: Cart & checkout (node 6.x; cart drawer with per-client grouping for coaches, one-page checkout — delivery/payment, order placed; convergence of buyer + coach flows; noindex)
-- https://sergiodesign4u-dot.github.io/stack/ia/content.html — Information architecture: Content, info & legal (node 8.x; 13 nodes → 7 templates — info page, loyalty landing, FAQ, blog, promo, store reviews, newsletter; trust surface + second internal-link hub)
-- https://sergiodesign4u-dot.github.io/stack/ia/brands.html — Information architecture: Brand index (node 2.4; all-brands A–Z grid — search/country/A–Z + popular + brand cards → per-brand listing; real 24-brand pool; indexable)
-- https://sergiodesign4u-dot.github.io/stack/ia/search.html — Information architecture: Search (node 2.5; header autocomplete overlay + results page reusing the listing template + no-results; noindex,follow)
-- https://sergiodesign4u-dot.github.io/stack/ia/system.html — Information architecture: System pages & global components (404 / 500 / maintenance · cookie-consent banner per UA law · toasts)
-- https://sergiodesign4u-dot.github.io/stack/ia/category-matrix.html — Information architecture: Category content matrix (populates all categories)
-- https://sergiodesign4u-dot.github.io/stack/ia/seo.html — Information architecture: SEO methodology & keyword reference (project engine)
+## Live pages
 
----
+- **Research** — https://sergiodesign4u-dot.github.io/stack/research/research.html
+- **Conceptual architecture** — https://sergiodesign4u-dot.github.io/stack/research/concept.html
+- **Information architecture** — https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html
+- **Wireframes** (clickable prototype) — https://sergiodesign4u-dot.github.io/stack/wireframes/index.html
 
-## Project Status
+Each page carries a left-sidebar (docs) or prototype bar (wireframes) that navigates to every sub-page in that area — no need to list them here.
+
+## Project status
 
 | Phase | Status |
 |-------|--------|
-| Research | Done (competitive analysis, benchmark, UX patterns, personas, JTBD, product decisions locked) |
-| Wireframes | **In progress** (`wireframes/` — greyscale clickable prototype). **Флоу 1 (beginner) + Флоу 2 (coach) COMPLETE + critiqued (Step 9)**: ~64 html. **Flow 1** — home(+buyer/coach, IG-stories promo) · listing(+5) · goal(+3) · product(+4) · cart(+2) · checkout(+loggedin/noaddr/loading/declined) · auth(+code/loading/newuser/error) · order-placed(+account-end) · account(+3); canonical basket guest 3 999 ₴ / logged-in 3 802 ₴. **Flow 2 (PRIMARY Job 1)** — coach-landing(5.0) · coach-verify(5.1 +loading/error/deadend/tier) · coach-home(5.2, account shell coach-mode) · coach-clients(5.3 +empty/loading/error/cap) · coach-client(5.4 +empty/loading/error) · coach-client-edit(5.4a edit modal +confirm delete) · **coach-session(5.5 ★** client tabs + in-session quick-add + coach-tier price + tag-to-client, +addclient/loading/oos/priceblock/untagged) · coach-orders(5.6 order history +empty/loading/error) · coach-order(5.7 order detail, grouped by client + per-client repeat, +loading/error) · cart-coach(6.0 grouped by client, +empty). Both critiqued via 5 parallel auditors → fixes logged in `wireframes/_critique.md`. Flow-first nav (`index.html` «Всі екрани» + `_nav.js` coverage source of truth + prototype bar) with a **«Повна карта сайту»** block — a complete product sitemap (built → wireframe, remainder → IA spec), data-driven from `WF_SITEMAP`/`wfFullMap()` in `_nav.js`. **«Крок 10» IA↔wireframe reconciliation done (2026-07-02):** 8 parallel auditors compared wireframe ↔ `ia/docs/*.md` ↔ `ia/*.html`; unified cabinet breadcrumbs, refreshed stale `ia/*.html` visuals (esp. `ia/coach.html` → 5.4a/5.6/5.7), header «✦ Квіз»/footer Розсилка+policy/rail Форма+Фасування, canonical buyer = Вікторія Коваль. **Catalog surfaces built (2026-07-02):** catalog-page (2.0 hub), brands (2.4 A–Z index, 24 brands), search (2.5 results + autocomplete overlay), all +states (WF_FLOWS group `f3`). **Content + loyalty (8.x, 2026-07-02):** 13 pages / 7-template system — loyalty landing (8.7, Job 6) + info-variants (about/contacts/delivery/returns/legal/guarantee) + faq/blog/article/promo/reviews/newsletter (WF_FLOWS group `f4`); fixed the latent `content.html` 404 (75 anchors remapped). Full map «35 збудовано · 6 у специфікації». Next: remaining areas (system pages · quiz · account sub-sections). Method: `playbook/design-wireframes-playbook.md`, contract `wireframes/_conventions.md`, matrix `wireframes/_screens.md`, critique `wireframes/_critique.md` (§Крок 10). |
-| Concept | Not started |
-| Design System | Not started |
-| Components | Not started |
-| Handoff | Not started |
+| Research | Done |
+| Information architecture | Done — page-level specs in `ia/docs/` |
+| Wireframes | In progress — greyscale clickable prototype (`wireframes/`) |
+| Concept · Design system · Components · Handoff | Not started |
 
----
-
-## Repository Structure
+## Repository structure
 
 ```
-research/           - Research phase: visual HTML pages + source docs
-research/*.html     - Live visual pages (research, personas, jtbd, concept)
-research/docs/      - SOURCE OF TRUTH: all research markdown (analysis, benchmarks, UX patterns, personas, JTBD, conceptual IA sitemap & flows, strategy)
-research/screens/   - Screenshots captured during research
-ia/                 - Detailed page-level IA (Phase 2 prep)
-ia/*.html           - Live visual pages (sitemap, header, …)
-ia/docs/            - SOURCE OF TRUTH for page-level IA (sitemap.md + pages/*.md)
-playbook/           - Reusable, project-agnostic design/IA process playbook
-wireframes/         - Low-fidelity wireframes
-concept/            - Visual concept and direction
-tokens/             - Design tokens
-components/         - Component library
-design-system/      - Design system documentation
-handoff/            - Developer handoff files
+research/    - Research phase: visual HTML + source docs (research/docs/ = source of truth)
+ia/          - Page-level IA: visual HTML + source docs (ia/docs/ = source of truth)
+wireframes/  - Greyscale clickable prototype
+playbook/    - Reusable design / IA process playbooks
+concept/ tokens/ components/ design-system/ handoff/  - Later phases
 ```
 
-**Source of truth:** all research markdown lives in `research/docs/`. The `research/*.html` files are the rendered, Ukrainian-language visual summaries of those docs.
+## Key documents
 
-**Conceptual architecture (jobs/persona-driven; docs in `research/docs/`):**
-- `research/docs/sitemap.md` - product entities, screens grouped in 5 clusters (A-E), navigation model, traceability matrix (jobs to screens, zero defects after two critique rounds)
-- `research/docs/flows.md` - 5 user flows as Mermaid diagrams: Main (coach multi-client order), Job 2 (beginner goal-to-product), Job 3 (safety verification), Job 4 (one-tap reorder), Job 6 (loyalty review)
-- Live visual summary: https://sergiodesign4u-dot.github.io/stack/research/concept.html
-
-**Detailed information architecture (page-level, Phase 2 prep; docs in `ia/docs/`):**
-- `ia/docs/sitemap.md` - full sitemap (structural index; `ia/sitemap.html` is canonical visual)
-- `ia/docs/pages/*.md` - per-page IA specs (source of truth): `navigation.md` (header + tabs), `footer.md` (footer + SEO block), `home.md` (home page), `catalog.md` (store taxonomy / structure), `catalog-page.md` (catalog hub, node 2.0), `category.md` (category / product listing — shared listing template), `product.md` (product detail / PDP, node 3.0 + 3.1/3.2/3.3), `auth.md` (authentication, node 1.x — unified phone-OTP dialog), `category-matrix.md` (content matrix populating all categories), `seo.md` (SEO methodology & keyword engine), `quiz.md` (goal-guide quiz, post-launch), `account.md` (buyer account shell, node 7.x — orders/repeat, loyalty, addresses, profile, wishlist, become-a-coach; private/noindex), `coach.md` (coach workspace, node 5.x — PRIMARY Job 1; For-Coaches landing + Free/Pro, verify, coach home, clients, multi-client order session), `cart.md` (cart & checkout, node 6.x — cart drawer with per-client grouping, one-page checkout, order placed; convergence of both flows; noindex), `content.md` (content/info/legal, node 8.x — 13 nodes → 7 templates: info page, loyalty landing, FAQ, blog, promo, store reviews, newsletter), `brands.md` (brand index, node 2.4 — all-brands A–Z grid → per-brand listing), `search.md` (search, node 2.5 — autocomplete overlay + results/no-results), `system.md` (system pages & global components — 404/500/maintenance, cookie consent, toasts)
-- Live visual: https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html · https://sergiodesign4u-dot.github.io/stack/ia/navigation.html · https://sergiodesign4u-dot.github.io/stack/ia/footer.html · https://sergiodesign4u-dot.github.io/stack/ia/home.html · https://sergiodesign4u-dot.github.io/stack/ia/catalog.html
-
----
-
-## Key Documents
-
-- [CLAUDE.md](CLAUDE.md) - Product brief, JTBD, audience, MVP scope, design principles
-- [Research: Strategy](research/docs/strategy.md) (migrated from product-model.md)
-- [Research: AARRR Model](research/docs/aarrr.md)
-- [Research: Competitive Analysis](research/docs/competitive-analysis.md)
-- [Research: Benchmark](research/docs/benchmark.md)
-- [Research: UX Patterns](research/docs/ux-patterns.md)
-- [Research: Master Synthesis](research/docs/master-research.md)
-- [Research: Personas](research/docs/personas.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/research/personas.html)
-- [Research: JTBD](research/docs/jtbd.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/research/jtbd.html)
-- [Conceptual IA: Sitemap](research/docs/sitemap.md) and [User Flows](research/docs/flows.md) - [Live page](https://sergiodesign4u-dot.github.io/stack/research/concept.html)
-- [Detailed IA: Sitemap](ia/docs/sitemap.md), [Navigation spec](ia/docs/pages/navigation.md), [Footer spec](ia/docs/pages/footer.md), [Home spec](ia/docs/pages/home.md), [Catalog taxonomy](ia/docs/pages/catalog.md), [Category/listing spec](ia/docs/pages/category.md) - [Live: sitemap](https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html) · [navigation](https://sergiodesign4u-dot.github.io/stack/ia/navigation.html) · [footer](https://sergiodesign4u-dot.github.io/stack/ia/footer.html) · [home](https://sergiodesign4u-dot.github.io/stack/ia/home.html) · [catalog](https://sergiodesign4u-dot.github.io/stack/ia/catalog.html) · [category](https://sergiodesign4u-dot.github.io/stack/ia/category.html)
-- [Design & IA Playbook](playbook/design-ia-playbook.md) - reusable IA methodology
-- [Design Wireframes Playbook](playbook/design-wireframes-playbook.md) - reusable wireframe methodology (greyscale structure + clickable prototype; 9-step process)
+- [CLAUDE.md](CLAUDE.md) — product brief (JTBD, audience, MVP scope, design principles)
+- Research source of truth: [`research/docs/`](research/docs/) — strategy, personas, JTBD, conceptual sitemap & flows
+- IA source of truth: [`ia/docs/`](ia/docs/) — full sitemap + per-page specs in [`ia/docs/pages/`](ia/docs/pages/)
+- Playbooks: [IA](playbook/design-ia-playbook.md) · [Wireframes](playbook/design-wireframes-playbook.md)
