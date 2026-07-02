@@ -518,3 +518,32 @@ sticky-price «1 090 ₴ гурт»). Зареєстрував стан `coach` 
 buyer+Персональний; home-buyer/home-coach залогінені; діалог «Новий клієнт» інлайн; блок «Дані клієнта»
 = модалка; coach-tariff Pro + cancel-діалог + coach-home лінк. Аудит: 0 битих / 0 сиріт / 0 дед-кнопок /
 0 JS-помилок (118 файлів, +4).
+
+## Крок 22 (2026-07-02) — IA-coherence + polish (post-compact, user-driven)
+**IA fix «A» — прибрано «untagged».** Сесія тренера — **client-first**: активна вкладка = клієнт, тож
+рядок quick-add автоприв'язується і не може бути «без клієнта». Видалено `coach-session-untagged.html` +
+вузли `q6/su1/qtag` з `flows.md` v0.4 (q7→q8), `coach.md`, `sitemap.md`, `concept.html` (Mermaid),
+`ia/coach.html` (таблиця recovery). Заміна — два реальні краї:
+- **coach-session-newclient.html** (стан `newclient` «Новий клієнт») — щойно доданий клієнт із 0 позицій;
+  діалог «Додати клієнта» на `coach-session-addclient` тепер веде сюди (префіл Ігор/Витривалість).
+- **coach-session-empty.html** (стан `empty` «Порожньо») — 0 клієнтів, «＋ Додати першого клієнта».
+- Ідея «C» (bulk «Додати кільком клієнтам») — відкладено користувачем на потім, НЕ побудовано.
+
+**Квіз (4.x) — компактні картки набору.** Важкі PLP-картки → `.qsc` (мініатюра·бренд·назва·1 рядок
+«чому»·ціна+＋), 4 в ряд через `:has(#step-result.on){max-width:760px}`, мобілка 2×2, висота ~276px.
+
+**home.html — рейка категорій = flyout ОВЕРЛЕЙ.** Винесено `wfHomeRail()` у `_nav.js` + спільні
+`.hrail-fly`/`.hrail-scrim` у `_wf.css`; home.html відкриває flyout по ховеру над scrim; `home-catalog.html`
++ `home-buyer`/`home-coach` переведені на ту саму функцію (без дрейфу). Полірування за фідбеком: непрозорий
+білий фон `.hrail` (був прозорий над scrim), пункти вирівняно вліво як `.mega-cat` (стрілка → правий край),
+flyout на всю висоту рейки (top:0/bottom:0) — успадковує вигляд мега-меню.
+
+**home — стан «cart-shelf»** (`home-cart.html`, стан `cart`, ia/home.md §Cart shelf): полиця непорожнього
+кошика під героєм (к-сть·сума·мініатюри·Переглянути кошик/Оформити) над стрічкою покупця. `.cshelf` у `_wf.css`.
+
+**goal — бредкрамс.** Прибрано зайвий «Цілі» (і він, і «Каталог» вели на catalog-page) →
+`Головна/Каталог/Схуднення` на goal + 3 станах (loading/error/empty).
+
+Реєстрація: WF_FLOWS f2 (coach-session states +newclient/empty) · home states +cart · WF_STATE_LABEL
+(newclient/cart). **120 файлів; аудит 0 битих / 0 сиріт / 0 дед-кнопок / 0 JS-помилок.** Перевірено 1280+390.
+Коміти: 40d653b (A) · 82581d5 (квіз) · 0f12478 (flyout) · 1f09c79 (cart-shelf+polish).
