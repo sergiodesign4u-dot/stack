@@ -128,7 +128,12 @@ Built in `_nav.js` (`wfHeader`) + demonstrated as a real open **overlay** on
   card.
 - **Mobile** = the burger drawer opens a **2-level accordion** (goals chips on top → categories → tap
   to expand subcategories), so goals never disappear. The homepage **category rail** (`.hrail`) opens
-  the same content as a **flyout overlay** — see `wireframes/home-catalog.html`.
+  the same content as a **flyout overlay** (**оновлено 2026-07-02**): the mechanism is the shared
+  `wfHomeRail()` in `_nav.js` (+ `.hrail-fly`/`.hrail-scrim` in `_wf.css`), built from the same
+  `WF_CAT_MENU`/`WF_GOAL_MENU` as the mega, so it never drifts. It is **live on `home.html`**
+  (hover-to-open, closed by default, dimmed scrim, opaque white rail, left-aligned items like the
+  mega, flyout spans the full rail height) and on the state variants `home-buyer`/`home-coach`;
+  `wireframes/home-catalog.html` is the pinned open-state demo.
 
 ### Header «Квіз» button replaces the «Цілі» mega-menu (decided 2026-07-01)
 Because goals are **already well surfaced inside the catalog** (the «За ціллю» column above,

@@ -71,7 +71,10 @@
 ## Result (4.2 / 4.3)
 - Headline «Ваш стартовий набір для [цілі]» + **rationale chips** (goal, experience, "без лактози",
   format…).
-- **3–5 product cards** (canonical card) each with a one-line "чому тут" + composition/dosage hint.
+- **3–5 product cards** in a **compact set-card** form (**оновлено 2026-07-02**: NOT the full catalog
+  card — a lighter card = thumb · brand · name · **one-line «чому тут»** · price + add), laid out
+  **≥3 in a row** so the whole set reads at a glance without much vertical space. In the wireframe the
+  result dialog widens for this row (desktop 4-across, mobile 2×2). Full composition/dosage stays on the PDP.
 - CTAs: **«Додати весь набір у кошик»** (→ 6.0, shows set total) · **«Переглянути всю колекцію»**
   (→ 2.2) · per-item «У кошик» (→ 3.0/6.0).
 - Trust: **«Це не медична порада»**, certified, composition/dosage on the product page.

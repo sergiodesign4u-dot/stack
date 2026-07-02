@@ -49,8 +49,11 @@
 ## Block order (mobile-first)
 
 0. **Header** — inherited (Navigation 0.1): meta bar · main bar · mega-menu · search · ♡ · cart.
-1. **Breadcrumb** — Головна / Каталог / [Категорія] (BreadcrumbList schema; crawlable `<a>`;
-   «Каталог» → 2.0).
+1. **Breadcrumb** — Головна / Каталог / [scope-name] (BreadcrumbList schema; crawlable `<a>`;
+   «Каталог» → 2.0). Scope-name = category · goal · brand · «Пошук». For the **goal collection (2.2)**
+   it is **Головна / Каталог / [Ціль]** — **no intermediate «Цілі» node** (уточнено 2026-07-02: the
+   goal.html wireframe’s extra «Цілі» crumb was removed to match this pattern; «Цілі» has no landing
+   page — it is a mega-menu, so a crumb pointing at it was misleading).
 2. **H1 + short intro** — category name + result count + 1–2 calm sentences (trust-first);
    **«Читати більше» → anchors down to the bottom SEO text**.
 3. **Toolbar** — Sort (full option list shown) · results count · view toggle (сітка/список) ·

@@ -179,6 +179,17 @@ ready SEO body text, schema/tags, and an optimization checklist.
 - **Calm, no countdown timers** (principle #4). B/W mockups; colour at concept stage.
 - Block order reasoned from mobile (360px); desktop = rail+banners, mobile = banner+chips.
 
+## Realized in the wireframe (нове 2026-07-02)
+The specced states are now built (`wireframes/`):
+- **Category rail → flyout overlay** — the hero rail (`.hrail`) opens the same content as a **flyout
+  over a dimmed scrim** (Comfy/Foxtrot pattern), via the shared `wfHomeRail()` (see `navigation.md`).
+  Live on `home.html` + `home-buyer`/`home-coach`; open-state demo = `home-catalog.html`.
+- **Cart shelf state** = `home-cart.html` (home state `cart`): the non-empty-cart nudge under the hero
+  (count · sum · item thumbnails with qty · «Переглянути кошик» → 6.0 / «Оформити замовлення» → 6.1),
+  sitting above the buyer personal strip. Matches §Block 2 / State matrix above.
+- Role/personal-strip variants: `home-buyer.html` (repeat order + loyalty) · `home-coach.html`
+  (new session + coach home) · guest (default `home.html`, «Увійти»).
+
 ## Open [?]
 - Curation rules for product rows (bestsellers / new / recommended) — need sales data.
 - Quiz (4.x) is post-launch (goal tiles for now); «Мої стейпли» post-launch.

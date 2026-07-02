@@ -54,6 +54,10 @@
    (`newclient` — a just-added tab with 0 items, arriving from the «Додати клієнта» capture dialog) →
    recovery = quick-add for that client; (b) **empty session** (`empty` — 0 clients at all) → one clear
    step «＋ Додати першого клієнта». Clients with no positions simply don't enter the order.
+   **States (5.5):** base · addclient (capture dialog) · loading (quick-add) · oos (line out of stock →
+   substitute/skip) · priceblock (tier price unresolved → checkout blocked) · **newclient** (new client,
+   0 items) · **empty** (session, 0 clients). Wireframe files: `coach-session.html` (+ `-addclient`,
+   `-loading`, `-oos`, `-priceblock`, `-newclient`, `-empty`).
 6. **Замовлення тренера / order history (5.6)** — the coach's list of **placed multi-client orders**
    (distinct from the buyer's own order history 7.2, and from a single client's history inside 5.4).
    Each row: order № · date · **clients in the order** (names / count) · item count · **coach total** ·
