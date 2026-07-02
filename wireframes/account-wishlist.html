@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет — Обране — Stack (wireframe 7.6)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.6 Обране (buyer account, private → noindex).
+  Grid of saved products using the canonical .pcard (♥ active); «У кошик» → 6.0;
+  availability states incl. «Під замовлення» → 🔔 notify. Buyer + coach. Reuses
+  the shared account shell (acc-nav via wfAccountNav) — identical to account.html.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <span class="cur">Обране</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Обране</h1>
+      <p class="acc-sub">Збережені товари — додайте в кошик, коли будете готові.</p>
+
+      <div class="prow" style="margin-top:18px">
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <div class="bd"><div class="pbrand">BioTechUSA · Угорщина</div><a href="product.html" class="nm">Iso Whey Zero 908 г</a><div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div><div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div></div></article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <div class="bd"><div class="pbrand">Optimum Nutrition · США</div><a href="product.html" class="nm">Micronized Creatine Powder 317 г</a><div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">720 ₴</span><span class="pcut">−11%</span></div><span class="pnew">640 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.9</span> · 204 відгуки</div><div class="pmeta2"><span class="perserv"><b>10 ₴</b> / порція</span><span class="bonus">+6 ₴ бонус</span></div></div></article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <div class="bd"><div class="pbrand">Scitec Nutrition · Угорщина</div><a href="product.html" class="nm">100% Whey Protein Professional 920 г</a><div class="pavail pre">● Під замовлення</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">845 ₴</span></div><button class="cartbtn notify" aria-label="Повідомити про наявність">🔔</button></div>
+            <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div><div class="pmeta2"><span class="perserv"><b>31 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div></div></article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <div class="bd"><div class="pbrand">MyProtein · Велика Британія</div><a href="product.html" class="nm">Impact Whey Isolate 1 кг</a><div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 190 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.8</span> · 156 відгуків</div><div class="pmeta2"><span class="perserv"><b>30 ₴</b> / порція</span><span class="bonus">+12 ₴ бонус</span></div></div></article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <div class="bd"><div class="pbrand">Optimum Nutrition · США</div><a href="product.html" class="nm">Gold Standard Pre-Workout 330 г</a><div class="pavail low">● Залишилось мало</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">890 ₴</span><span class="pcut">−9%</span></div><span class="pnew">810 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.5</span> · 72 відгуки</div><div class="pmeta2"><span class="perserv"><b>27 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div></div></article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <div class="bd"><div class="pbrand">NOW Foods · США</div><a href="product.html" class="nm">Omega-3 1000 мг, 200 капсул</a><div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">520 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.9</span> · 310 відгуків</div><div class="pmeta2"><span class="perserv"><b>3 ₴</b> / порція</span><span class="bonus">+5 ₴ бонус</span></div></div></article>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+  var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
+  wfHeader(isCoach ? 'coach' : 'buyer');
+  wfAccountNav('wishlist', isCoach);
+  wfFooter(); wfBar('account-wishlist.html');
+</script>
+</body>
+</html>

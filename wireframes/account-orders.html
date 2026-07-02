@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет — Замовлення — Stack (wireframe 7.2)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+  /* page-local: order-list layout on top of the shared .aorder/.aord-* look */
+  .ord-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 4px; }
+  .ord-tab { font-size: 12.5px; font-weight: 700; border: 1px solid var(--hair2); border-radius: 100px; padding: 7px 15px; color: var(--sec); background: #fff; }
+  .ord-tab.on { border-color: var(--dark); color: var(--strong); background: var(--fill); }
+  .ord-list { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
+  .ord-list .acard { padding: 16px; }
+  .ord-oos { font-size: 12px; color: var(--sec); margin-top: 12px; border: 1px dashed var(--hair2); border-radius: 8px; padding: 8px 10px; }
+  .ord-oos b { color: var(--strong); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.2/7.3 Замовлення (buyer account, private → noindex).
+  Order list; one-tap repeat (Job 4) → cart; OOS honestly flagged. Reuses the
+  shared account shell (acc-nav via wfAccountNav) — identical to account.html.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <span class="cur">Замовлення</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Замовлення</h1>
+      <p class="acc-sub">Історія замовлень, статус доставки та повтор в один дотик.</p>
+
+      <!-- filter tabs (static) -->
+      <div class="ord-tabs" role="tablist" aria-label="Фільтр замовлень">
+        <span class="ord-tab on">Усі</span>
+        <span class="ord-tab">Доставлені</span>
+        <span class="ord-tab">В дорозі</span>
+      </div>
+
+      <div class="ord-list">
+
+        <!-- order 1 — delivered -->
+        <div class="acard aorder">
+          <div class="orow">
+            <div class="aord-thumbs"><span class="t">фото</span><span class="t">фото</span><span class="t">фото</span></div>
+            <div class="aord-info">
+              <div class="no">Замовлення № 10432</div>
+              <div class="meta">12 червня 2026 · 3 товари · 2 340 ₴</div>
+              <span class="aord-status">● Доставлено</span>
+            </div>
+          </div>
+          <div class="aord-actions">
+            <a class="btn dark" href="cart.html">↻ Повторити замовлення</a>
+            <a class="btn" href="#order-10432">Деталі та ТТН</a>
+            <a class="btn" href="product-reviews.html">Залишити відгук</a>
+          </div>
+        </div>
+
+        <!-- order 2 — in transit -->
+        <div class="acard aorder">
+          <div class="orow">
+            <div class="aord-thumbs"><span class="t">фото</span><span class="t">фото</span></div>
+            <div class="aord-info">
+              <div class="no">Замовлення № 10418</div>
+              <div class="meta">3 червня 2026 · 2 товари · 1 180 ₴</div>
+              <span class="aord-status">● В дорозі</span>
+            </div>
+          </div>
+          <div class="aord-actions">
+            <a class="btn dark" href="cart.html">↻ Повторити замовлення</a>
+            <a class="btn" href="#order-10418">Деталі та ТТН</a>
+          </div>
+        </div>
+
+        <!-- order 3 — processing, with an OOS repeat note -->
+        <div class="acard aorder">
+          <div class="orow">
+            <div class="aord-thumbs"><span class="t">фото</span><span class="t">фото</span><span class="t">фото</span><span class="t">фото</span></div>
+            <div class="aord-info">
+              <div class="no">Замовлення № 10390</div>
+              <div class="meta">21 травня 2026 · 4 товари · 3 060 ₴</div>
+              <span class="aord-status">● Обробляється</span>
+            </div>
+          </div>
+          <div class="ord-oos">При повторі <b>1 товар зараз недоступний</b> — ми позначимо його й запропонуємо заміну. Решту одразу додамо в кошик.</div>
+          <div class="aord-actions">
+            <a class="btn dark" href="cart.html">↻ Повторити замовлення</a>
+            <a class="btn" href="#order-10390">Деталі та ТТН</a>
+          </div>
+        </div>
+
+        <!-- order 4 — delivered -->
+        <div class="acard aorder">
+          <div class="orow">
+            <div class="aord-thumbs"><span class="t">фото</span></div>
+            <div class="aord-info">
+              <div class="no">Замовлення № 10355</div>
+              <div class="meta">2 травня 2026 · 1 товар · 640 ₴</div>
+              <span class="aord-status">● Доставлено</span>
+            </div>
+          </div>
+          <div class="aord-actions">
+            <a class="btn dark" href="cart.html">↻ Повторити замовлення</a>
+            <a class="btn" href="#order-10355">Деталі та ТТН</a>
+            <a class="btn" href="product-reviews.html">Залишити відгук</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+  var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
+  wfHeader(isCoach ? 'coach' : 'buyer');
+  wfAccountNav('orders', isCoach);
+  wfFooter(); wfBar('account-orders.html');
+</script>
+</body>
+</html>

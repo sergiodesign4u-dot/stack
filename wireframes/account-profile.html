@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет — Профіль — Stack (wireframe 7.1)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+  /* page-local: profile form (passwordless per auth 1.x) */
+  .pcard { border: 1px solid var(--hair); border-radius: 14px; padding: 18px; margin-top: 18px; max-width: 620px; }
+  .pfield { padding: 15px 0; border-bottom: 1px solid var(--hair); }
+  .pfield:first-child { padding-top: 2px; }
+  .pfield:last-child { border-bottom: none; padding-bottom: 2px; }
+  .pf-lbl { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); }
+  .pf-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 6px; }
+  .pf-val { font-size: 15px; font-weight: 700; color: var(--strong); }
+  .pf-val .ok { font-size: 12px; font-weight: 800; color: var(--strong); margin-left: 6px; }
+  .pf-act { font-size: 12.5px; font-weight: 700; color: var(--strong); white-space: nowrap; }
+  .pf-hint { font-size: 12px; color: var(--sec); margin-top: 4px; }
+  .pf-input { width: 100%; border: 1px solid var(--hair2); border-radius: 8px; padding: 11px 12px; font-size: 15px; color: var(--strong); background: #fafafa; margin-top: 6px; }
+  /* toggle switch — greyscale */
+  .sw { position: relative; width: 44px; height: 26px; border-radius: 100px; background: var(--dark); flex: none; }
+  .sw i { position: absolute; top: 3px; left: 21px; width: 20px; height: 20px; border-radius: 50%; background: #fff; }
+  .sw.off { background: #ddd; } .sw.off i { left: 3px; }
+  .pf-note { font-size: 12.5px; color: var(--sec); margin-top: 16px; border: 1px dashed var(--hair2); border-radius: 8px; padding: 10px 12px; max-width: 620px; }
+  .pf-note b { color: var(--strong); }
+  .pf-save { margin-top: 18px; }
+  .pf-danger { margin-top: 22px; }
+  .pf-danger a { font-size: 12.5px; font-weight: 700; color: var(--sec); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.1 Профіль (buyer account, private → noindex).
+  PASSWORDLESS per auth 1.x — NO password field, no «forgot password».
+  Name · phone (verified, change via SMS code) · e-mail (code) · language ·
+  newsletter consent · delete account. Reuses the shared account shell.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <span class="cur">Профіль</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Профіль</h1>
+      <p class="acc-sub">Особисті дані та сповіщення. Вхід — за кодом, без пароля.</p>
+
+      <div class="pcard">
+
+        <!-- name -->
+        <div class="pfield">
+          <div class="pf-lbl">Ім'я</div>
+          <input class="pf-input" type="text" value="Вікторія Коваль" aria-label="Ім'я">
+        </div>
+
+        <!-- phone (primary, verified) -->
+        <div class="pfield">
+          <div class="pf-lbl">Телефон</div>
+          <div class="pf-row">
+            <div class="pf-val">+380 ** *** 45 67 <span class="ok">✓ підтверджено</span></div>
+            <a class="pf-act" href="#change-phone">Змінити — код у SMS</a>
+          </div>
+          <div class="pf-hint">Основний спосіб входу. Зміна підтверджується кодом зі SMS.</div>
+        </div>
+
+        <!-- email (optional) -->
+        <div class="pfield">
+          <div class="pf-lbl">E-mail</div>
+          <div class="pf-row">
+            <div class="pf-val" style="color:var(--sec);font-weight:600">не додано</div>
+            <a class="pf-act" href="#add-email">Додати — код на пошту</a>
+          </div>
+          <div class="pf-hint">Необов'язково. Підтвердження — кодом на пошту (без пароля).</div>
+        </div>
+
+        <!-- language -->
+        <div class="pfield">
+          <div class="pf-lbl">Мова інтерфейсу</div>
+          <div class="pf-row">
+            <div class="pf-val">Українська</div>
+            <a class="pf-act" href="#change-lang">Змінити</a>
+          </div>
+        </div>
+
+        <!-- newsletter consent toggle -->
+        <div class="pfield">
+          <div class="pf-lbl">Розсилка та нагадування</div>
+          <div class="pf-row">
+            <div>
+              <div class="pf-val" style="font-size:14px">Отримувати листи й нагадування про поповнення</div>
+              <div class="pf-hint">Нагадування про закінчення запасів — за оцінкою циклу споживання.</div>
+            </div>
+            <span class="sw" id="nl-toggle" role="switch" aria-checked="true" aria-label="Згода на розсилку"><i></i></span>
+          </div>
+        </div>
+
+      </div>
+
+      <a class="btn dark pf-save" href="#save">Зберегти</a>
+
+      <div class="pf-note"><b>Без пароля.</b> Ваш акаунт захищено входом за одноразовим кодом (SMS або e-mail) — немає пароля й немає «забули пароль».</div>
+
+      <div class="pf-danger"><a href="#delete-account">Видалити акаунт</a></div>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+  var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
+  wfHeader(isCoach ? 'coach' : 'buyer');
+  wfAccountNav('profile', isCoach);
+  wfFooter(); wfBar('account-profile.html');
+  // demo: toggle newsletter switch
+  var sw = document.getElementById('nl-toggle');
+  if (sw) sw.addEventListener('click', function () {
+    var on = !sw.classList.toggle('off');
+    sw.setAttribute('aria-checked', on ? 'true' : 'false');
+  });
+  // prefill name for coach variant to match shell persona
+  if (isCoach) { var ni = document.querySelector('.pf-input'); if (ni) ni.value = 'Олена Кравець'; }
+</script>
+</body>
+</html>

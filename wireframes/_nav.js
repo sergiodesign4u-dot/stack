@@ -90,6 +90,17 @@ const WF_FLOWS = [
       { file: 'maintenance.html', name: 'Технічні роботи (503)',      node: 'S', built: true, states: [], builtStates: [] },
       { file: 'system.html',      name: 'Глобальні компоненти (cookie · тости)', node: 'S', built: true, states: [], builtStates: [] }
     ]
+  },
+  {
+    id: 'f6', name: 'Кабінет покупця · розділи', status: 'active',
+    note: 'розділи кабінету (7.1–7.7) на спільному шеллі (wfAccountNav): замовлення · лояльність · адреси · профіль · обране',
+    screens: [
+      { file: 'account-orders.html',    name: 'Замовлення',           node: '7.2', built: true, states: [], builtStates: [] },
+      { file: 'account-loyalty.html',   name: 'Лояльність і бонуси',   node: '7.4', built: true, states: [], builtStates: [] },
+      { file: 'account-addresses.html', name: 'Адреси',               node: '7.5', built: true, states: [], builtStates: [] },
+      { file: 'account-profile.html',   name: 'Профіль',              node: '7.1', built: true, states: [], builtStates: [] },
+      { file: 'account-wishlist.html',  name: 'Обране',               node: '7.6', built: true, states: [], builtStates: [] }
+    ]
   }
 ];
 
@@ -141,8 +152,12 @@ const WF_SITEMAP = [
     { node: '6.2',  name: 'Замовлення оформлено',              file: 'order-placed.html' },
   ]},
   { cluster: '7 · Кабінет покупця', items: [
-    { node: '7.0',  name: 'Кабінет покупця',                   file: 'account.html' },
-    { node: '7.1–7.7', name: 'Профіль · Лояльність · Адреси · Обране (розділи)', ia: 'account.html' },
+    { node: '7.0',  name: 'Кабінет покупця (огляд)',           file: 'account.html' },
+    { node: '7.2',  name: 'Замовлення',                        file: 'account-orders.html' },
+    { node: '7.4',  name: 'Лояльність і бонуси',               file: 'account-loyalty.html' },
+    { node: '7.5',  name: 'Адреси',                            file: 'account-addresses.html' },
+    { node: '7.1',  name: 'Профіль',                           file: 'account-profile.html' },
+    { node: '7.6',  name: 'Обране',                            file: 'account-wishlist.html' },
   ]},
   { cluster: '8 · Контент та інфо', items: [
     { node: '8.7',  name: 'Бонусна програма та знижки',        file: 'content-loyalty.html' },
@@ -524,6 +539,41 @@ function openQuestion() { var m = document.getElementById('pm-question'), o = do
 function closePM() { document.querySelectorAll('.pm.open').forEach(m => m.classList.remove('open')); var o = document.getElementById('pm-ov'); if (o) o.classList.remove('open'); }
 function submitPM(msg) { closePM(); wfToast('ok', msg); }
 
+/* SHARED account section-nav (node 7.x) — one source for account.html + every
+   account-*.html sub-page. active = section key; isCoach swaps «Стати тренером»
+   → «Кабінет тренера» (the already-a-coach state). Inject into #acc-nav. */
+const WF_ACC_LINKS = [
+  { k: 'overview',  href: 'account.html',           ic: '▦', label: 'Огляд' },
+  { k: 'orders',    href: 'account-orders.html',     ic: '📦', label: 'Замовлення', ct: '12' },
+  { k: 'loyalty',   href: 'account-loyalty.html',    ic: '★', label: 'Лояльність і бонуси' },
+  { k: 'wishlist',  href: 'account-wishlist.html',   ic: '♡', label: 'Обране', ct: '8' },
+  { k: 'addresses', href: 'account-addresses.html',  ic: '📍', label: 'Адреси', ct: '2' },
+  { k: 'profile',   href: 'account-profile.html',    ic: '👤', label: 'Профіль' },
+];
+function wfAccountNav(active, isCoach) {
+  const el = document.getElementById('acc-nav'); if (!el) return;
+  el.className = 'acc-nav';
+  let links = '';
+  WF_ACC_LINKS.forEach(l => {
+    const cur = l.k === active ? ' aria-current="page"' : '';
+    const ct = l.ct ? '<span class="ct">' + l.ct + '</span>' : '';
+    links += '<a class="acc-link" href="' + l.href + '"' + cur + '><span class="ic">' + l.ic + '</span> ' + l.label + ' ' + ct + '<span class="ar">›</span></a>';
+  });
+  // become-a-coach vs already-a-coach (role active)
+  links += isCoach
+    ? '<a class="acc-link" href="coach-home.html"><span class="ic">🎓</span> Кабінет тренера <span class="ar">›</span></a>'
+    : '<a class="acc-link" href="coach-verify.html"><span class="ic">🎓</span> Стати тренером <span class="ar">›</span></a>';
+  links += '<a class="acc-link logout" href="home.html"><span class="ic">⎋</span> Вийти</a>';
+  const nm = isCoach ? 'Олена Кравець' : 'Вікторія Коваль';
+  const av = isCoach ? 'ОК' : 'ВК';
+  const ph = isCoach ? '+380 ** *** 21 09' : '+380 ** *** 45 67';
+  el.innerHTML =
+    '<div class="acc-prof"><div class="av">' + av + '</div><div class="who">' +
+    '<div class="nm">' + nm + '</div><div class="ph">' + ph + '</div>' +
+    '<span class="acc-tier">' + (isCoach ? 'Pro · Тренер' : '🥈 Срібний рівень') + '</span></div></div>' +
+    '<nav class="acc-links" aria-label="Розділи кабінету">' + links + '</nav>';
+}
+
 function wfToasts() { const el = document.getElementById('wf-toast'); if (!el) return; el.className = 'wf-toasts'; el.setAttribute('aria-live', 'polite'); el.innerHTML = ''; }
 function wfToast(type, msg) {
   const wrap = document.getElementById('wf-toast'); if (!wrap) return;
@@ -559,7 +609,7 @@ function wfHeader(role) {
     if (isCoach) {
       items += `<a href="coach-home.html">Кабінет тренера</a><a href="coach-clients.html">Клієнти</a>` +
         `<a href="coach-session.html">＋ Нова сесія</a><a href="coach-orders.html">Замовлення тренера</a>` +
-        `<div class="cab-sep"></div><a href="account.html">Мій профіль</a><a href="account.html">Адреси</a>`;
+        `<div class="cab-sep"></div><a href="account.html?r=coach">Мій профіль</a><a href="account-addresses.html?r=coach">Адреси</a>`;
     } else {
       items += `<a href="account.html">Кабінет</a><a href="account.html">Замовлення</a>` +
         `<a href="account.html">Адреси</a><a href="coach-verify.html">Стати тренером</a>`;

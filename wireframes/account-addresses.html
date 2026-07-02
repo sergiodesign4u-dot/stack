@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет — Адреси — Stack (wireframe 7.5)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+  /* page-local: address cards grid on top of the shared .aaddr look */
+  .addr-list { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+  @media (min-width: 720px) { .addr-list { grid-template-columns: 1fr 1fr; } }
+  .addr-card { border: 1px solid var(--hair); border-radius: 14px; padding: 16px; }
+  .addr-card.def { border-color: var(--dark); }
+  .addr-tag { display: inline-block; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); border: 1px solid var(--hair2); border-radius: 100px; padding: 2px 9px; margin-bottom: 10px; }
+  .addr-card.def .addr-tag { border-color: var(--dark); color: var(--strong); }
+  .addr-type { font-size: 12px; color: var(--sec); }
+  .addr-line { font-size: 15px; font-weight: 700; color: var(--strong); margin: 4px 0 2px; }
+  .addr-sub { font-size: 12.5px; color: var(--sec); }
+  .addr-acts { display: flex; gap: 9px; margin-top: 15px; flex-wrap: wrap; }
+  .addr-acts .btn { padding: 9px 15px; }
+  .addr-add { margin-top: 18px; }
+  .addr-hint { font-size: 12.5px; color: var(--sec); margin-top: 14px; border: 1px dashed var(--hair2); border-radius: 8px; padding: 10px 12px; }
+  .addr-hint b { color: var(--strong); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.5 Адреси (buyer account, private → noindex).
+  Saved delivery addresses (Nova Poshta / courier / pickup) + one default;
+  edit/delete/make-default; add-address. City via shared dialog 0.1a. Speeds up
+  checkout (6.x). Reuses the shared account shell (acc-nav via wfAccountNav).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <span class="cur">Адреси</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Адреси</h1>
+      <p class="acc-sub">Збережені адреси доставки — щоб оформлювати замовлення швидше.</p>
+
+      <div class="addr-list">
+
+        <!-- default — Nova Poshta відділення -->
+        <div class="addr-card def">
+          <span class="addr-tag">За замовчуванням</span>
+          <div class="addr-type">Нова Пошта · відділення</div>
+          <div class="addr-line">Відділення № 12, Одеса</div>
+          <div class="addr-sub">Вікторія Коваль · +380 ** *** 45 67</div>
+          <div class="addr-acts">
+            <a class="btn" href="#edit-addr-1">Редагувати</a>
+            <a class="btn" href="#delete-addr-1">Видалити</a>
+          </div>
+        </div>
+
+        <!-- courier -->
+        <div class="addr-card">
+          <span class="addr-tag">Кур'єр</span>
+          <div class="addr-type">Кур'єр Нова Пошта</div>
+          <div class="addr-line">вул. Дерибасівська, 15, кв. 8, Одеса</div>
+          <div class="addr-sub">Вікторія Коваль · +380 ** *** 45 67</div>
+          <div class="addr-acts">
+            <a class="btn" href="#make-default-2">Зробити основною</a>
+            <a class="btn" href="#edit-addr-2">Редагувати</a>
+            <a class="btn" href="#delete-addr-2">Видалити</a>
+          </div>
+        </div>
+
+        <!-- pickup -->
+        <div class="addr-card">
+          <span class="addr-tag">Самовивіз</span>
+          <div class="addr-type">Пункт самовивозу Stack</div>
+          <div class="addr-line">вул. Катерининська, 42, Одеса</div>
+          <div class="addr-sub">Безкоштовно · пн–сб 10:00–20:00</div>
+          <div class="addr-acts">
+            <a class="btn" href="#make-default-3">Зробити основною</a>
+            <a class="btn" href="#delete-addr-3">Видалити</a>
+          </div>
+        </div>
+
+      </div>
+
+      <a class="btn dark addr-add" href="#add-address">＋ Додати адресу</a>
+
+      <div class="addr-hint"><b>Місто</b> обирається через спільний діалог «Оберіть місто» — один список живить доставку, картку адреси й SEO-сторінки міст.</div>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+  var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
+  wfHeader(isCoach ? 'coach' : 'buyer');
+  wfAccountNav('addresses', isCoach);
+  wfFooter(); wfBar('account-addresses.html');
+</script>
+</body>
+</html>
