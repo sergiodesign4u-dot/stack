@@ -678,7 +678,15 @@ var wfAuthDest = null;
 function openAuth(state, dest) { wfAuthMount(); wfAuthDest = dest || null; wfAuthGo(state || 'phone'); var ov = document.getElementById('wf-auth'); if (ov) ov.classList.add('open'); }
 function wfAuthGo(state) { wfAuthMount(); var ov = document.getElementById('wf-auth'); if (ov) { ov.dataset.state = state; ov.innerHTML = wfAuthPanel(state); } }
 function closeAuth() { var ov = document.getElementById('wf-auth'); if (ov) ov.classList.remove('open'); }
-function wfAuthDone() { if (wfAuthDest) { location.href = wfAuthDest; return; } closeAuth(); wfToast('ok', 'Вітаємо у Stack! Ви увійшли 🎉'); }
+function wfAuthDone() {
+  if (wfAuthDest) { location.href = wfAuthDest; return; }  // explicit twin (e.g. order-placed → account-end)
+  closeAuth();
+  // No explicit destination → flip THIS page to logged-in in place. The header/footer are
+  // role-aware (window.WF_ROLE), so re-rendering them as 'buyer' turns any page into its
+  // logged-in state (cabinet dropdown, bonuses, role-aware links) without a duplicate file.
+  if (typeof wfHeader === 'function') { try { wfHeader('buyer'); if (typeof wfFooter === 'function') wfFooter(); } catch (e) {} }
+  wfToast('ok', 'Вітаємо у Stack! Ви увійшли 🎉');
+}
 
 /* ============================================================
    CLIENT EDIT (node 5.4a) — SHARED modal (single source of truth). Injected into
