@@ -789,8 +789,11 @@ function wfToast(type, msg) {
    тренером»). «Обране» + «Бонуси» stay their own header elements (not in menu). */
 function wfHeader(role) {
   role = role || 'guest';
+  window.WF_ROLE = role;   // shared so wfFooter() (and any shared nav) can route guest vs logged-in variants
   const isCoach = role === 'coach';
   const loggedIn = isCoach || role === 'buyer';
+  // role-aware home target: logged-in pages link to the logged-in home variant
+  const homeHref = isCoach ? 'home-coach.html' : (role === 'buyer' ? 'home-buyer.html' : 'home.html');
   const name = isCoach ? 'Олена Кравець' : 'Вікторія Коваль';
   let acctHTML;
   if (!loggedIn) {
@@ -821,7 +824,7 @@ function wfHeader(role) {
     </div></div>
     <div class="wfh-main wfh-in">
       <button class="wfh-burger" aria-label="Меню" onclick="openBurger()">☰</button>
-      <a class="wfh-logo" href="home.html">Stack</a>
+      <a class="wfh-logo" href="${homeHref}">Stack</a>
       <nav class="wfh-nav" aria-label="Головна навігація">
         <div class="wfh-cat" onmouseenter="openMega()" onmouseleave="closeMega()">
           <a class="navbtn" href="catalog-page.html"><span class="g">▦</span> Каталог <span class="cav">▾</span></a>
@@ -860,6 +863,8 @@ function wfHeader(role) {
 
 function wfFooter() {
   const el = document.getElementById('wf-footer'); if (!el) return;
+  // logged-in buyer → personal loyalty variant; guest/coach → generic public landing
+  const loyHref = (window.WF_ROLE === 'buyer') ? 'content-loyalty-buyer.html' : 'content-loyalty.html';
   el.className = 'wff';
   el.innerHTML = `
     <div class="wff-trust">
@@ -873,7 +878,7 @@ function wfFooter() {
         <div class="wff-news"><input type="email" placeholder="E-mail для новин та акцій" aria-label="E-mail"><button type="button">OK</button></div>
         <a href="content-reviews.html">★ Підтримайте нас — оцінка в Google</a></div>
       <div class="wff-col"><h4>Stack</h4><a href="content-about.html">Про нас</a><a href="content-contacts.html">Контакти</a><a href="content-blog.html">Блог</a><a href="content-legal.html">Публічна оферта</a><a href="content-legal.html">Політика конфіденційності</a><a href="content-legal.html">Умови використання</a></div>
-      <div class="wff-col"><h4>Покупцям</h4><a href="content-loyalty.html">Знижки та бонуси</a><a href="content-delivery.html">Доставка й оплата</a><a href="content-returns.html">Повернення</a><a href="content-faq.html">FAQ</a></div>
+      <div class="wff-col"><h4>Покупцям</h4><a href="${loyHref}">Знижки та бонуси</a><a href="content-delivery.html">Доставка й оплата</a><a href="content-returns.html">Повернення</a><a href="content-faq.html">FAQ</a></div>
       <div class="wff-col"><h4>Тренерам</h4><a href="coach-landing.html">Для тренерів</a><a href="coach-landing.html">Тарифи Free / Pro</a></div>
       <div class="wff-col"><h4>Консультація</h4><a href="content-contacts.html">0 800 000 000</a><a href="content-contacts.html">Telegram · Viber</a><a href="content-contacts.html">Пн–Нд 9:00–21:00</a></div>
     </div>
