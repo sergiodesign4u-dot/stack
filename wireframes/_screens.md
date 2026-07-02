@@ -208,3 +208,46 @@ Full map now **«36 збудовано · 5 у специфікації»**.
 **Still IA-only (5):** system pages (404/500/maintenance/cookie/toasts → `ia/system.html`) · account
 sub-sections 7.1–7.7 (sections within `account.html`) · header/footer components (live in `_nav.js`) ·
 logged-in account dropdown (static proto header = guest state).
+
+---
+
+## Крок 12 — System pages & global components (2026-07-02)
+
+Node S. Cross-cutting things needed before wireframes, per `ia/docs/pages/system.md`.
+
+**Pages built:**
+- `404.html` — full page (header/footer) + search + quick links (На головну · Каталог · Підбір за
+  ціллю · Акції · Підтримка) + recovery (популярні розділи chips + 4 canonical product cards). Never a
+  dead end. HTTP 404 + noindex (meta). Never soft-404 (200).
+- `500.html` — MINIMAL, backend-independent (no `wfHeader`/`wfFooter` — the backend may be down): logo
+  + «500» + «Оновити» / «На головну» / «Підтримка» + support line. noindex.
+- `maintenance.html` — minimal, planned state; note «HTTP 503 · Retry-After» (temporary, not
+  disappearance). Calm, no countdown timer (Principle 4).
+
+**Global components (in `_nav.js`, injected via placeholders):**
+- **Cookie-consent banner** (`wfCookie()` → `#wf-cookie`) — UA law: prior consent (inaction ≠ consent),
+  three **equal-weight** actions «Прийняти всі / Тільки необхідні / Налаштувати» (reject as easy as
+  accept). Settings dialog: **Необхідні** 🔒 locked-on, **Аналітика** + **Маркетинг** opt-in OFF by
+  default. `openCookieSettings`/`closeCookieSettings`/`wfCkTog`/`saveCookiePrefs`/`showCookieBar`. Footer
+  bottom-bar gained **«Змінити згоду»** (opens the dialog where present, else → system.html).
+- **Toasts** (`wfToasts()` → `#wf-toast`; `wfToast(type,msg)`) — ok / error / info, bottom-centre,
+  auto-dismiss ~4.2 s + close, `aria-live="polite"`, greyscale (error = outline). Critical → dialog, not
+  toast. Icon circle + message + ✕.
+
+**Demo:** `system.html` = component gallery (noindex) — 3 state-page cards (link to 404/500/maintenance
+with HTTP codes) + a live cookie banner + «Показати банер знову»/«Налаштувати» + 3 toast triggers +
+removed-product 301/410 [?] note.
+
+**Registered:** WF_FLOWS group `f5` (Системні та глобальні: 404 · 500 · maintenance · system) +
+WF_SITEMAP cluster S flipped ia→file (4 entries). **Verified** (Playwright 1280): hub, cookie banner +
+settings (necessary locked / analytics-marketing opt-in), save→banner hides + toast, toasts ok/err/info
+(static-render screenshot; live `wfToast` confirmed via evaluate — element is `position:fixed
+bottom:22px z:70`, on-screen, icon+close, `tt-in` fade 0→1 over .22s), 404 full page, 500 minimal.
+Toast is hard to catch in a static screenshot because auto-dismiss (4.2 s) < MCP round-trip; verify via
+`browser_evaluate` bounding-rect, not a plain screenshot.
+
+Full map now **«40 збудовано · 3 у специфікації»**.
+
+**Remaining IA-only (3):** navigation/footer components (0.1/0.2 — live in `_nav.js`, no standalone
+page) · account sub-sections 7.1–7.7 (sections within `account.html`) · logged-in account dropdown
+(static proto header = guest state).

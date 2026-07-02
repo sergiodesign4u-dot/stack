@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<title>Системні сторінки та глобальні компоненти — Stack (wireframe S)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node S · System hub / component gallery. Demonstrates the
+  cross-cutting global pieces: links to 404/500/maintenance, a LIVE cookie
+  banner + settings dialog (UA law: prior consent, opt-in), and toast triggers
+  (ok/err/info). Prototype-only demo page → noindex.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Всі екрани</a><span class="sep">/</span>
+    <span class="cur">Системні та глобальні</span>
+  </nav>
+
+  <h1 class="lh1">Системні сторінки та глобальні компоненти</h1>
+  <p class="lintro">Крос-функційні елементи, потрібні на всьому сайті: сторінки помилок і
+    глобальні компоненти. Тон — спокійний (Принцип 4, без таймерів) і завжди <b>один зрозумілий
+    наступний крок</b> (жодних глухих кутів).</p>
+
+  <!-- Error pages -->
+  <div class="sech"><h2>Сторінки станів</h2></div>
+  <div class="sysgrid">
+    <div class="syscard">
+      <div class="sc-code">HTTP 404 · noindex</div>
+      <div class="sc-t">Сторінку не знайдено</div>
+      <div class="sc-d">Повноцінна сторінка з хедером/футером: пошук + швидкі посилання + рекомендовані
+        товари. Ніколи не soft-404 (200). Не глухий кут.</div>
+      <a class="sc-open" href="404.html">Відкрити 404 →</a>
+    </div>
+    <div class="syscard">
+      <div class="sc-code">HTTP 500 · noindex</div>
+      <div class="sc-t">Помилка сервера</div>
+      <div class="sc-d">Мінімальний шаблон, незалежний від бекенду (він сам може лежати): лого + «Оновити»
+        / «На головну» / «Підтримка».</div>
+      <a class="sc-open" href="500.html">Відкрити 500 →</a>
+    </div>
+    <div class="syscard">
+      <div class="sc-code">HTTP 503 · Retry-After</div>
+      <div class="sc-t">Технічні роботи</div>
+      <div class="sc-d">Запланований стан, не збій. 503 + Retry-After — щоб пошук трактував як тимчасове,
+        а не зникнення сайту. Без зворотного таймера.</div>
+      <a class="sc-open" href="maintenance.html">Відкрити тех. роботи →</a>
+    </div>
+  </div>
+
+  <!-- Cookie banner demo -->
+  <div class="sysdemo">
+    <h3>Cookie-банер (Закон України «Про захист персональних даних»)</h3>
+    <p>Cookie ставимо <b>лише після згоди</b> (бездіяльність ≠ згода). Три рівнозначні дії —
+      «Прийняти всі» / «Тільки необхідні» / «Налаштувати»; відмова така ж проста, як згода.
+      Категорії Аналітика/Маркетинг <b>вимкнені за замовчуванням</b> (opt-in), Необхідні —
+      завжди активні. Банер живий унизу сторінки; «Змінити згоду» також є у футері.</p>
+    <div class="demo-btns">
+      <button class="btn" onclick="showCookieBar()">Показати банер знову</button>
+      <button class="btn" onclick="openCookieSettings()">Відкрити «Налаштувати»</button>
+    </div>
+  </div>
+
+  <!-- Toasts demo -->
+  <div class="sysdemo">
+    <h3>Тости / сповіщення (глобальний компонент)</h3>
+    <p>Легкий зворотний зв'язок для дій: додано в кошик, збережено адресу, підписка, відгук.
+      Три типи — <b>ok / error / info</b>, авто-зникнення (~4 c) + закриття, <code>aria-live="polite"</code>.
+      Критичні рішення — діалог, не тост. Без спаму.</p>
+    <div class="demo-btns">
+      <button class="btn dark" onclick="wfToast('ok','Товар додано в кошик')">Показати ok</button>
+      <button class="btn" onclick="wfToast('error','Не вдалося застосувати промокод')">Показати error</button>
+      <button class="btn" onclick="wfToast('info','Ми надішлемо, щойно товар буде в наявності')">Показати info</button>
+    </div>
+  </div>
+
+  <!-- Operational note -->
+  <section class="seotext" aria-label="Примітка">
+    <div class="h">Видалений товар — 301 чи 410 <span style="color:var(--light)">[?]</span></div>
+    <p>Коли товар прибрали назавжди: <b>301</b> на категорію, до якої він належав (краще за 404),
+      або <b>410 Gone</b>, якщо його не буде взагалі. Це операційне правило — фіналізується з реальними
+      даними каталогу. Локалізація системних сторінок (uk/ru) — за загальним i18n.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<!-- global component placeholders (injected by _nav.js) -->
+<div id="wf-cookie"></div>
+<div id="wf-toast"></div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfCookie(); wfToasts(); wfBar('system.html');</script>
+</body>
+</html>

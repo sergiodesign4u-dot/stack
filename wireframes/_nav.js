@@ -77,6 +77,16 @@ const WF_FLOWS = [
       { file: 'content-guarantee.html',name:'Гарантія та сертифікати', node: '8.8', built: true, states: [], builtStates: [] },
       { file: 'content-newsletter.html',name:'Розсилка (підтвердження)', node: '8.12', built: true, states: [], builtStates: [] }
     ]
+  },
+  {
+    id: 'f5', name: 'Системні та глобальні', status: 'active',
+    note: 'крос-функційне (нода S): 404 / 500 / тех.роботи + глобальні компоненти (cookie-банер, тости) — демо на system.html',
+    screens: [
+      { file: '404.html',         name: 'Сторінку не знайдено (404)', node: 'S', built: true, states: [], builtStates: [] },
+      { file: '500.html',         name: 'Помилка сервера (500)',      node: 'S', built: true, states: [], builtStates: [] },
+      { file: 'maintenance.html', name: 'Технічні роботи (503)',      node: 'S', built: true, states: [], builtStates: [] },
+      { file: 'system.html',      name: 'Глобальні компоненти (cookie · тости)', node: 'S', built: true, states: [], builtStates: [] }
+    ]
   }
 ];
 
@@ -146,8 +156,10 @@ const WF_SITEMAP = [
     { node: '8.12', name: 'Розсилка',                          file: 'content-newsletter.html' },
   ]},
   { cluster: 'S · Системні та глобальні', items: [
-    { node: '',     name: '404 · 500 · Технічні роботи',       ia: 'system.html' },
-    { node: '',     name: 'Cookie-банер · Тости',              ia: 'system.html' },
+    { node: 'S',    name: '404 — не знайдено',                 file: '404.html' },
+    { node: 'S',    name: '500 — помилка сервера',             file: '500.html' },
+    { node: 'S',    name: 'Технічні роботи (503)',             file: 'maintenance.html' },
+    { node: 'S',    name: 'Cookie-банер · Тости',              file: 'system.html' },
   ]},
 ];
 
@@ -342,6 +354,52 @@ function openBurger() { var d = document.getElementById('drawer'), o = document.
 function closeBurger() { var d = document.getElementById('drawer'), o = document.getElementById('drawer-ov'); if (d) d.classList.remove('open'); if (o) o.classList.remove('open'); }
 
 /* ============================================================
+   Global system components (node S) — cookie-consent banner + toasts.
+   Builders inject into #wf-cookie / #wf-toast placeholders (present only on
+   pages that demo them, e.g. system.html). Footer «Змінити згоду» opens the
+   settings dialog where present, else routes to system.html.
+   Grounded in UA law "On Personal Data Protection": prior consent, reject as
+   easy as accept, analytics/marketing opt-in (off by default). ============ */
+function wfCookieHTML() {
+  const cat = (id, title, desc, locked) =>
+    '<label class="ck-cat"><span class="ck-cat-t">' + title + (locked ? ' <span class="ck-lock">🔒</span>' : '') + '<span class="ck-cat-d">' + desc + '</span></span>' +
+    '<span class="ck-tog' + (locked ? ' on locked' : '') + '" data-ck="' + id + '" onclick="wfCkTog(this)" role="switch" aria-checked="' + (locked ? 'true' : 'false') + '"><i></i></span></label>';
+  return '<div class="wf-cookie" id="cookie-bar" role="region" aria-label="Згода на використання cookie">' +
+    '<div class="ck-txt"><b>Ми використовуємо файли cookie.</b> Необхідні — щоб сайт працював (кошик, вхід, безпека). Аналітику й маркетинг вмикаємо <b>лише за вашою згодою</b>. Докладніше — у <a href="content-legal.html">Політиці конфіденційності</a>.</div>' +
+    '<div class="ck-acts"><button class="ck-btn" onclick="saveCookiePrefs(\'all\')">Прийняти всі</button>' +
+    '<button class="ck-btn" onclick="saveCookiePrefs(\'necessary\')">Тільки необхідні</button>' +
+    '<button class="ck-btn ghost" onclick="openCookieSettings()">Налаштувати</button></div></div>' +
+    '<div class="wf-ov" id="ckset-ov" onclick="closeCookieSettings()"></div>' +
+    '<div class="wf-ckset" id="ckset" role="dialog" aria-modal="true" aria-label="Налаштування cookie">' +
+    '<div class="wf-ckset-h">Налаштування cookie<button class="x" onclick="closeCookieSettings()" aria-label="Закрити">✕</button></div>' +
+    '<div class="wf-ckset-b">' +
+    cat('necessary', 'Необхідні', 'Кошик, авторизація, безпека. Завжди активні.', true) +
+    cat('analytics', 'Аналітика', 'Анонімна статистика відвідувань (Mixpanel / PostHog).', false) +
+    cat('marketing', 'Маркетинг', 'Персоналізовані пропозиції та ремаркетинг.', false) +
+    '<p class="ck-note">Змінити вибір можна будь-коли — посилання «Змінити згоду» у футері. Див. <a href="content-legal.html">Політику конфіденційності</a>.</p>' +
+    '</div><div class="wf-ckset-f"><button class="btn" onclick="saveCookiePrefs(\'necessary\')">Тільки необхідні</button>' +
+    '<button class="btn dark" onclick="saveCookiePrefs(\'custom\')">Зберегти вибір</button></div></div>';
+}
+function wfCookie() { const el = document.getElementById('wf-cookie'); if (!el) return; el.innerHTML = wfCookieHTML(); }
+function wfCkTog(el) { if (el.classList.contains('locked')) return; const on = el.classList.toggle('on'); el.setAttribute('aria-checked', on ? 'true' : 'false'); }
+function openCookieSettings() { const d = document.getElementById('ckset'); if (!d) { location.href = 'system.html'; return; } d.classList.add('open'); const o = document.getElementById('ckset-ov'); if (o) o.classList.add('open'); }
+function closeCookieSettings() { const d = document.getElementById('ckset'), o = document.getElementById('ckset-ov'); if (d) d.classList.remove('open'); if (o) o.classList.remove('open'); }
+function saveCookiePrefs() { const b = document.getElementById('cookie-bar'); if (b) b.classList.add('hidden'); closeCookieSettings(); wfToast('ok', 'Налаштування cookie збережено'); }
+function showCookieBar() { const b = document.getElementById('cookie-bar'); if (b) b.classList.remove('hidden'); }
+
+function wfToasts() { const el = document.getElementById('wf-toast'); if (!el) return; el.className = 'wf-toasts'; el.setAttribute('aria-live', 'polite'); el.innerHTML = ''; }
+function wfToast(type, msg) {
+  const wrap = document.getElementById('wf-toast'); if (!wrap) return;
+  const ic = type === 'ok' ? '✓' : (type === 'error' ? '!' : 'i');
+  const t = document.createElement('div');
+  t.className = 'wf-toast ' + (type || 'info');
+  t.innerHTML = '<span class="tt-ic">' + ic + '</span><span class="tt-m">' + msg + '</span><button class="tt-x" aria-label="Закрити">✕</button>';
+  t.querySelector('.tt-x').onclick = () => t.remove();
+  wrap.appendChild(t);
+  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 250); }, 4200);
+}
+
+/* ============================================================
    Inherited components rendered once (conventions §7). Inject into
    #wf-header / #wf-footer / #wf-rail / #wf-sheet placeholders.
    ============================================================ */
@@ -410,7 +468,7 @@ function wfFooter() {
       <b>Міста:</b> Протеїн Київ · Протеїн Одеса · Протеїн Львів
     </div>
     <div class="wff-bot">
-      <span>© 2026 Stack. Спортивне харчування в Україні. · <a href="content-legal.html" style="color:inherit;text-decoration:underline">Політика</a> · <a href="content-legal.html" style="color:inherit;text-decoration:underline">Умови</a></span>
+      <span>© 2026 Stack. Спортивне харчування в Україні. · <a href="content-legal.html" style="color:inherit;text-decoration:underline">Політика</a> · <a href="content-legal.html" style="color:inherit;text-decoration:underline">Умови</a> · <a href="#" onclick="openCookieSettings();return false" style="color:inherit;text-decoration:underline">Змінити згоду</a></span>
       <span class="wff-soc"><a href="content-contacts.html" style="color:inherit">Instagram</a><a href="content-contacts.html" style="color:inherit">Telegram</a><a href="content-contacts.html" style="color:inherit">YouTube</a></span>
       <span>Visa · Mastercard · Apple Pay · Google Pay</span>
     </div>`;
@@ -500,4 +558,4 @@ function wfSheet() {
 }
 function openSheet() { document.getElementById('fsheet').classList.add('open'); document.getElementById('fsheet-ov').classList.add('open'); }
 function closeSheet() { const s = document.getElementById('fsheet'), o = document.getElementById('fsheet-ov'); if (s) s.classList.remove('open'); if (o) o.classList.remove('open'); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); } });

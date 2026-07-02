@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<title>Сторінку не знайдено (404) — Stack (wireframe S)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node S · 404 — full page (header/footer inherited) with search + quick links + recovery.
+   HTTP 404 in production (never soft-404 with 200); noindex. Never a dead end. */
+.e404 { text-align: center; padding: 40px 0 14px; }
+.e404 .sys-code { margin-bottom: 4px; }
+.rec-chips { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin: 4px 0 8px; }
+.rec-chips a { border: 1.5px solid var(--hair2); border-radius: 100px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; color: var(--strong); }
+.rec-chips a:hover { border-color: var(--dark); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node S · 404. Full page: search + quick links + recovery
+  (popular + products), so the user never dead-ends. HTTP 404 + noindex.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <section class="e404" aria-label="Сторінку не знайдено">
+    <div class="sys-code">404</div>
+    <h1 class="sys-h">Такої сторінки немає</h1>
+    <p class="sys-s">Можливо, посилання застаріло або сторінку переміщено. Спробуйте пошук
+      або перейдіть до потрібного розділу — нічого не загубилось.</p>
+
+    <form class="sys-search" role="search" action="search.html">
+      <input type="search" placeholder="Пошук товарів, брендів…" aria-label="Пошук">
+      <button class="go" type="submit">Знайти</button>
+    </form>
+
+    <nav class="sys-links" aria-label="Швидкі посилання">
+      <a href="home.html">На головну</a>
+      <a href="catalog-page.html">Каталог</a>
+      <a href="quiz.html">Підбір за ціллю</a>
+      <a href="content-promo.html">Акції</a>
+      <a href="content-contacts.html">Підтримка</a>
+    </nav>
+  </section>
+
+  <!-- Recovery: popular categories (like OOS recovery on the PDP) -->
+  <div class="sech"><h2>Популярні розділи</h2><a class="all" href="catalog-page.html">Увесь каталог →</a></div>
+  <div class="rec-chips">
+    <a href="listing.html">Протеїн</a><a href="listing.html">Креатин</a><a href="listing.html">Гейнери</a>
+    <a href="listing.html">BCAA</a><a href="listing.html">Передтренувальні</a><a href="listing.html">Вітаміни</a>
+    <a href="goal.html">Набір маси</a><a href="goal.html">Схуднення</a><a href="brands.html">Бренди</a>
+  </div>
+
+  <!-- Recovery: recommended products (canonical card) -->
+  <div class="sech"><h2>Можливо, вам підійде</h2><a class="all" href="listing.html">Усі товари →</a></div>
+  <div class="prow">
+    <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Optimum Nutrition · США</div>
+        <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div><span class="pnew">1 290 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">OstroVit · Польща</div>
+        <a href="product.html" class="nm">Creatine Monohydrate 500 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">549 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.9</span> · 210 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>5 ₴</b> / порція</span><span class="bonus">+6 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">BioTechUSA · Угорщина</div>
+        <a href="product.html" class="nm">Iso Whey Zero 908 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Power Pro · Україна</div>
+        <a href="product.html" class="nm">Hyper Mass 4000 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 450 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.6</span> · 74 відгуки</div>
+        <div class="pmeta2"><span class="perserv"><b>29 ₴</b> / порція</span><span class="bonus">+14 ₴ бонус</span></div>
+      </div>
+    </article>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('404.html');</script>
+</body>
+</html>
