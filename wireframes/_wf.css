@@ -58,9 +58,11 @@ img { max-width: 100%; display: block; }
   background: #fff; border: 1px solid var(--hair); border-top: 2px solid var(--dark);
   border-radius: 0 0 12px 12px; box-shadow: 0 14px 34px rgba(0,0,0,.12); margin-top: 6px; overflow: hidden; }
 .wfh.mega-open .wfh-mega, .wfh.mega-pinned .wfh-mega { display: grid; }
-/* Comfy-style overlay: dark scrim over the page while the mega is open */
-.wfh-scrim { display: none; position: fixed; left: 0; right: 0; bottom: 0; top: 104px; background: rgba(0,0,0,.44); z-index: 34; }
-.wfh.mega-open .wfh-scrim, .wfh.mega-pinned .wfh-scrim { display: block; }
+/* Comfy-style overlay: dark scrim over the page while the mega is open. Body-level,
+   full viewport, z-index BELOW the sticky header (30) but ABOVE page content (0) → the
+   whole header stays crisp, the page dims. No hard-coded header height. */
+.wfh-scrim { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.44); z-index: 20; }
+.wfh-scrim.open, .wfh-scrim.pinned { display: block; }
 @media (max-width: 859px) { .wfh-scrim { display: none !important; } }
 /* left rail — «За ціллю» first, then 12 categories */
 .wfh-mega .mega-cats { border-right: 1px solid var(--hair); padding: 8px 0; background: var(--fill2); max-height: 74vh; overflow-y: auto; }

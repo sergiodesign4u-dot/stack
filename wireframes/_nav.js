@@ -406,8 +406,8 @@ function wfMega(k) {
   document.querySelectorAll('.wfh-mega .mega-panel').forEach(el => el.classList.toggle('on', el.dataset.k === k));
 }
 /* mega opens as an overlay (Comfy-style) — dark scrim over the page while open */
-function openMega() { var h = document.querySelector('.wfh'); if (h) h.classList.add('mega-open'); }
-function closeMega() { var h = document.querySelector('.wfh'); if (h) h.classList.remove('mega-open'); }
+function openMega() { var h = document.querySelector('.wfh'); if (h) h.classList.add('mega-open'); var s = document.getElementById('wfh-scrim'); if (s) s.classList.add('open'); }
+function closeMega() { var h = document.querySelector('.wfh'); if (h) h.classList.remove('mega-open'); var s = document.getElementById('wfh-scrim'); if (s) s.classList.remove('open'); }
 
 /* city selector dialog (node 0.1a) + mobile menu drawer + open/close */
 function wfCityHTML() {
@@ -573,10 +573,17 @@ function wfHeader(role) {
         <a class="wfh-act" href="cart.html"><span class="g">🛒</span><span class="lbl">Кошик</span></a>
       </div>
     </div>
-    <div class="wfh-scrim" id="wfh-scrim" onclick="closeMega()" aria-hidden="true"></div>
     ${wfCityHTML()}
     ${wfDrawerHTML()}`;
   el.setAttribute('role', 'banner');
+  /* body-level scrim (BELOW the sticky header in z-order, above page content) so the
+     whole header stays crisp while the page dims when the mega opens */
+  if (!document.getElementById('wfh-scrim')) {
+    var sc = document.createElement('div');
+    sc.id = 'wfh-scrim'; sc.className = 'wfh-scrim'; sc.setAttribute('aria-hidden', 'true');
+    sc.onclick = closeMega;
+    document.body.appendChild(sc);
+  }
 }
 
 function wfFooter() {
