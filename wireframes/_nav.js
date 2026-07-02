@@ -68,7 +68,7 @@ const WF_FLOWS = [
     id: 'f4', name: 'Контент, інфо та лояльність', status: 'active',
     note: 'сервісні / SEO-сторінки (8.x): 7 шаблонів на 13 вузлів — інфо · лояльність · FAQ · блог · акції · відгуки · розсилка',
     screens: [
-      { file: 'content-loyalty.html', name: 'Бонусна програма', node: '8.7', built: true, states: [], builtStates: [] },
+      { file: 'content-loyalty.html', name: 'Бонусна програма', node: '8.7', built: true, states: ['buyer'], builtStates: ['buyer'] },
       { file: 'content-faq.html',     name: 'FAQ',              node: '8.9', built: true, states: [], builtStates: [] },
       { file: 'content-blog.html',    name: 'Блог',             node: '8.0', built: true, states: [], builtStates: [] },
       { file: 'content-article.html', name: 'Стаття',           node: '8.1', built: true, states: [], builtStates: [] },
@@ -811,7 +811,7 @@ function wfHeader(role) {
       `<span class="g">👤</span><span class="lbl">Кабінет ▾</span></button>` +
       `<div class="wfh-cabmenu" id="wfh-cabmenu" role="menu">${items}</div></div>`;
   }
-  const bonusVal = loggedIn ? '240 ₴' : 'Отримати';
+  const bonusVal = loggedIn ? '124 ₴' : 'Отримати';  // canonical buyer balance (account 7.4 · Вікторія)
   const el = document.getElementById('wf-header'); if (!el) return;
   el.className = 'wfh';
   el.innerHTML = `

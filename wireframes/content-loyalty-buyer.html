@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Бонусна програма та знижки — Stack (wireframe 8.7 · залогінений)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 8.7 — loyalty explainer landing, LOGGED-IN (buyer) state.
+   Same public/indexable page (bots see the guest version); for an authenticated
+   buyer the register-hero is replaced by a PERSONAL STATUS BAND pulling the real
+   tier + progress + bonus balance from the account (7.4). Numbers = canonical
+   buyer Вікторія (🥈 Срібло, 8 400 ₴ spent, 6 600 ₴ to Золото, 124 ₴ bonus). */
+.loy-mechs { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 26px 0; }
+.loy-card { border: 1.5px solid var(--hair2); border-radius: 14px; padding: 20px; }
+.loy-card .k { font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--light); }
+.loy-card h2 { font-size: 19px; font-weight: 800; color: var(--strong); margin: 6px 0 4px; }
+.loy-card .lead { font-size: 13.5px; color: var(--sec); line-height: 1.55; margin-bottom: 16px; }
+.loy-tiers { display: flex; flex-direction: column; gap: 8px; }
+.loy-tier { display: flex; align-items: center; gap: 12px; border: 1px solid var(--hair); border-radius: 10px; padding: 11px 13px; }
+.loy-tier.on { border-color: var(--dark); background: var(--fill); }
+.loy-tier.me { border-color: var(--dark); background: var(--fill); }
+.loy-tier .md { font-size: 20px; width: 26px; text-align: center; }
+.loy-tier .nm { font-size: 14px; font-weight: 800; color: var(--strong); }
+.loy-tier .cond { font-size: 11.5px; color: var(--light); margin-top: 1px; }
+.loy-tier .youchip { font-size: 10px; font-weight: 800; border: 1.5px solid var(--dark); border-radius: 100px; padding: 1px 8px; margin-left: 8px; }
+.loy-tier .pct { margin-left: auto; font-size: 17px; font-weight: 800; color: var(--strong); }
+.loy-note { font-size: 12px; color: var(--light); margin-top: 12px; line-height: 1.5; }
+.loy-tbl { width: 100%; border-collapse: collapse; margin-top: 4px; font-size: 13px; }
+.loy-tbl th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--light); font-weight: 700; padding: 7px 6px; border-bottom: 1px solid var(--hair2); }
+.loy-tbl td { padding: 9px 6px; border-bottom: 1px solid var(--hair); color: var(--sec); }
+.loy-tbl td.amt { font-weight: 800; color: var(--strong); text-align: right; }
+.loy-tbl td.bal { text-align: right; font-weight: 700; color: var(--strong); }
+.loy-tbl .burn td { color: var(--light); }
+.loy-faq { margin: 8px 0; }
+.loy-q { border-bottom: 1px solid var(--hair); padding: 14px 2px; }
+.loy-q .qq { font-size: 14px; font-weight: 700; color: var(--strong); }
+.loy-q .qa { font-size: 13px; color: var(--sec); margin-top: 6px; line-height: 1.55; }
+.loy-h2 { font-size: 18px; font-weight: 800; color: var(--strong); margin: 28px 0 12px; }
+.loy-qmark { font-size: 12px; color: var(--light); }
+@media (min-width: 800px) { .loy-mechs { grid-template-columns: 1fr 1fr; } }
+
+/* PERSONAL STATUS BAND (logged-in) — replaces the guest register-hero */
+.loy-me { display: grid; grid-template-columns: 1fr; gap: 18px; border: 1.5px solid var(--dark); border-radius: 16px; padding: 20px 22px; margin: 20px 0 8px; background: var(--fill2); }
+@media (min-width: 760px) { .loy-me { grid-template-columns: 1.4fr 1fr; } }
+.me-hi { font-size: 18px; font-weight: 800; color: var(--strong); }
+.me-tier { font-size: 13px; color: var(--sec); line-height: 1.5; margin: 5px 0 12px; }
+.me-tier b { color: var(--strong); }
+.me-bar { height: 8px; border-radius: 100px; background: var(--hair); overflow: hidden; }
+.me-bar i { display: block; height: 100%; background: var(--dark); border-radius: 100px; }
+.me-prog { font-size: 12.5px; color: var(--sec); margin-top: 7px; }
+.me-prog b { color: var(--strong); }
+.me-r { border-top: 1px solid var(--hair); padding-top: 16px; }
+@media (min-width: 760px) { .me-r { border-top: none; border-left: 1px solid var(--hair); padding-top: 0; padding-left: 22px; } }
+.me-bnum { font-size: 30px; font-weight: 800; color: var(--strong); line-height: 1; }
+.me-bu { font-size: 12px; color: var(--sec); display: block; margin-top: 4px; }
+.me-warn { font-size: 11.5px; color: var(--strong); border: 1px dashed var(--hair2); border-radius: 8px; padding: 8px 10px; margin: 12px 0; line-height: 1.45; }
+.me-cta { display: flex; gap: 9px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.7 Бонусна програма — LOGGED-IN (buyer) state.
+  Same indexable landing; for an authenticated buyer the register-hero is
+  swapped for a personal status band (real tier + progress + bonus balance
+  from the account 7.4). Header = buyer. Guest version = content-loyalty.html.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Бонусна програма</span>
+  </nav>
+
+  <h1 style="font-size:24px;font-weight:800;color:var(--strong);margin:8px 0 2px;letter-spacing:-.01em">Бонусна програма та знижки</h1>
+  <p style="font-size:13.5px;color:var(--sec);margin:0 0 4px">Ваш поточний статус і як працюють дві переваги, що діють разом.</p>
+
+  <!-- PERSONAL STATUS BAND (logged-in) — replaces the guest hero CTA -->
+  <section class="loy-me" aria-label="Ваш статус лояльності">
+    <div class="me-l">
+      <div class="me-hi">З поверненням, Вікторіє! 🥈</div>
+      <div class="me-tier">Рівень <b>Срібло</b> · персональна знижка <b>−5%</b> застосовується
+        автоматично в кошику.</div>
+      <div class="me-bar"><i style="width:56%"></i></div>
+      <div class="me-prog">Куплено на <b>8 400 ₴</b> за весь час · до 🥇 Золота (−8%) ще <b>6 600 ₴</b></div>
+    </div>
+    <div class="me-r">
+      <div><span class="me-bnum">124 ₴</span><span class="me-bu">бонусів на рахунку · 1 бонус = 1 ₴</span></div>
+      <div class="me-warn"><b>18 ₴ згорять 20.09.2026.</b> Використайте їх у кошику під час наступного замовлення.</div>
+      <div class="me-cta">
+        <a class="btn dark" href="account-loyalty.html">Кабінет → Лояльність</a>
+        <a class="btn" href="catalog-page.html">До каталогу</a>
+      </div>
+    </div>
+  </section>
+  <div class="loy-qmark" style="margin:0 0 6px">Усі відсотки та суми — орієнтовні (уточнюються) [?]</div>
+
+  <!-- Two mechanisms (same educational content; your tier highlighted) -->
+  <div class="loy-mechs">
+
+    <!-- ① personal discount -->
+    <section class="loy-card" aria-label="Персональна знижка">
+      <div class="k">Механізм 1</div>
+      <h2>Персональна знижка</h2>
+      <p class="lead">Що більше ви купуєте <b>за весь час</b> — то більша ваша особиста знижка.
+        Сума покупок <b>не згорає</b>, а знижка застосовується <b>автоматично в кошику</b>.</p>
+      <div class="loy-tiers">
+        <div class="loy-tier"><span class="md">🥉</span><span><span class="nm">Бронза</span><span class="cond">від 0 ₴ покупок</span></span><span class="pct">−3%</span></div>
+        <div class="loy-tier me"><span class="md">🥈</span><span><span class="nm">Срібло <span class="youchip">ваш рівень</span></span><span class="cond">від 6 600 ₴ покупок</span></span><span class="pct">−5%</span></div>
+        <div class="loy-tier"><span class="md">🥇</span><span><span class="nm">Золото</span><span class="cond">від 15 000 ₴ покупок</span></span><span class="pct">−8%</span></div>
+      </div>
+      <div class="loy-note">Пороги та відсотки — гіпотеза [?]. Повний прогрес — у кабінеті → «Лояльність і бонуси».</div>
+    </section>
+
+    <!-- ② bonus account -->
+    <section class="loy-card" aria-label="Бонусний рахунок">
+      <div class="k">Механізм 2</div>
+      <h2>Бонусний рахунок</h2>
+      <p class="lead">Повертаємо <b>~1%</b> від кожного замовлення бонусами (1 бонус = 1 ₴).
+        Бонуси <b>діють 3 місяці</b> — оплачуйте ними частину наступних покупок. Ваш рух:</p>
+      <table class="loy-tbl">
+        <thead><tr><th>Дата</th><th>Операція</th><th style="text-align:right">Бонуси</th><th style="text-align:right">Баланс</th></tr></thead>
+        <tbody>
+          <tr><td>12.06</td><td>Нараховано за замовлення № 10432</td><td class="amt">+23</td><td class="bal">124 ₴</td></tr>
+          <tr><td>03.06</td><td>Використано в кошику (№ 10418)</td><td class="amt">−40</td><td class="bal">101 ₴</td></tr>
+          <tr><td>03.06</td><td>Нараховано за замовлення № 10418</td><td class="amt">+12</td><td class="bal">141 ₴</td></tr>
+          <tr class="burn"><td>20.09</td><td>Згорять (мин. 3 місяці)</td><td class="amt">−18</td><td class="bal">—</td></tr>
+        </tbody>
+      </table>
+      <div class="loy-note">Ставка нарахування, максимум оплати бонусами й термін дії — гіпотеза [?].
+        Повний журнал — у кабінеті → <a href="account-loyalty.html" style="color:var(--strong);font-weight:700">«Лояльність і бонуси»</a>.</div>
+    </section>
+
+  </div>
+
+  <!-- FAQ -->
+  <h2 class="loy-h2">Часті питання</h2>
+  <div class="loy-faq">
+    <div class="loy-q"><div class="qq">Чи згорає моя знижка?</div><div class="qa">Ні. Персональна знижка залежить від суми покупок за весь час — вона лише зростає й не згорає.</div></div>
+    <div class="loy-q"><div class="qq">Коли нараховуються бонуси?</div><div class="qa">Після отримання замовлення бонуси зʼявляються на рахунку. Повний баланс і журнал — у кабінеті → «Лояльність і бонуси».</div></div>
+    <div class="loy-q"><div class="qq">Скільки діють бонуси?</div><div class="qa">Орієнтовно 3 місяці з моменту нарахування [?]. У кабінеті видно і нарахування, і коли бонуси згорять.</div></div>
+    <div class="loy-q"><div class="qq">Чи працюють знижка й бонуси разом?</div><div class="qa">Так, це два незалежні механізми: спершу застосовується ваша персональна знижка, потім ви можете доплатити частину бонусами.</div></div>
+    <div class="loy-q"><div class="qq">А що для тренерів?</div><div class="qa">У тренерів окрема гуртова ціна (тариф Free / Pro) — див. сторінку <a href="coach-landing.html">Для тренерів</a>.</div></div>
+  </div>
+
+  <!-- CTA (logged-in → to cabinet, not register) -->
+  <section style="text-align:center;padding:24px 0 8px;border-top:1px solid var(--hair);margin-top:20px">
+    <div style="font-size:20px;font-weight:800;color:var(--strong);margin-bottom:12px">До Золота (−8%) залишилось 6 600 ₴</div>
+    <div style="display:inline-flex;gap:10px"><a class="btn dark" href="catalog-page.html">До каталогу</a><a class="btn" href="account-loyalty.html">Мій статус у кабінеті</a></div>
+  </section>
+
+  <!-- SEO (same public copy; bots see the guest page) -->
+  <section class="seotext" id="seo" aria-label="Про бонусну програму">
+    <div class="h">Бонусна програма Stack — знижки та бонуси за покупки</div>
+    <p>У Stack діють дві переваги для покупців: персональна накопичувальна знижка (3 рівні — Бронза,
+      Срібло, Золото — залежно від суми покупок за весь час) і бонусний рахунок, на який повертається
+      близько 1% від кожного замовлення. Знижка застосовується автоматично в кошику, а бонусами можна
+      оплатити частину наступних покупок.</p>
+    <p>Реєстрація безкоштовна — акаунт створюється за номером телефону. Точні відсотки, пороги рівнів,
+      ставка нарахування та термін дії бонусів уточнюються.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+<script src="_nav.js"></script>
+<script>wfHeader('buyer'); wfFooter(); wfBar('content-loyalty.html', 'buyer');</script>
+</body>
+</html>

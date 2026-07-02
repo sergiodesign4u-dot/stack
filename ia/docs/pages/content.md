@@ -41,6 +41,11 @@ Common to all: inherited header/footer · breadcrumb · H1 · full A–E SEO blo
    **3-month expiry**, shown via a movement example (accrual + spend + **burn**) — a retention driver.
    Hero + 2 mechanism cards + example table + FAQ + CTA. The account (7.4) shows the buyer's **personal**
    status of both; the coach tier is separate (5.x). Numbers **[?]**. Organization + BreadcrumbList (no Product).
+   **Logged-in state (нове 2026-07-02):** for an authenticated buyer the same URL swaps the register-hero for
+   a **personal status band** — greeting + current tier + progress bar to the next tier + **real bonus balance**
+   + nearest expiry + CTAs «Кабінет → Лояльність» / «До каталогу»; the tier ladder marks «ваш рівень» and the
+   example table shows the buyer's own movement (data mirrors the account 7.4). Page stays indexable (bots see
+   the guest version). Wireframe: `content-loyalty.html` (guest) · `content-loyalty-buyer.html` (state `buyer`).
 3. **FAQ (8.9)** — grouped **accordion** Q&A; **global shop FAQ**, separate from product Q&A (3.2);
    **FAQPage schema** for rich results.
 4. **Blog listing (8.0)** — tags/categories · search · pagination; SEO surface for top-of-funnel
