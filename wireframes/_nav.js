@@ -51,6 +51,72 @@ const WF_FLOWS = [
   }
 ];
 
+/* ============================================================
+   WF_SITEMAP — the COMPLETE product map by IA cluster (0–8 + system).
+   Every product page: `file` = built wireframe (→ links to it, shows view
+   count via WF_FLOWS lookup); `ia` = not-yet-built (→ links to its IA spec,
+   dashed). Single source for the «Повна карта сайту» block on index.html.
+   As screens get built, move an entry from `ia:` to `file:`.
+   ============================================================ */
+const WF_SITEMAP = [
+  { cluster: '0 · Глобальне', items: [
+    { node: '0.0',  name: 'Головна',                          file: 'home.html' },
+    { node: '0.1',  name: 'Хедер · мега-меню · діалог міста',  ia: 'navigation.html' },
+    { node: '0.2',  name: 'Футер',                             ia: 'footer.html' },
+  ]},
+  { cluster: '1 · Авторизація', items: [
+    { node: '1.x',  name: 'Авторизація',                       file: 'auth.html' },
+  ]},
+  { cluster: '2 · Каталог і пошук', items: [
+    { node: '2.0',  name: 'Каталог-хаб',                       ia: 'catalog-page.html' },
+    { node: '2.1',  name: 'Категорія (лістинг)',               file: 'listing.html' },
+    { node: '2.2',  name: 'Ціль-колекція',                     file: 'goal.html' },
+    { node: '2.4',  name: 'Бренди',                            ia: 'brands.html' },
+    { node: '2.5',  name: 'Пошук',                             ia: 'search.html' },
+  ]},
+  { cluster: '3 · Товар', items: [
+    { node: '3.0',  name: 'Картка товару',                     file: 'product.html' },
+  ]},
+  { cluster: '4 · Гайд', items: [
+    { node: '4.x',  name: 'Квіз-гайд',                         ia: 'quiz.html' },
+  ]},
+  { cluster: '5 · Тренер (Job 1)', items: [
+    { node: '5.0',  name: 'Для тренерів (лендинг)',            file: 'coach-landing.html' },
+    { node: '5.1',  name: 'Стати тренером',                    file: 'coach-verify.html' },
+    { node: '5.2',  name: 'Кабінет тренера',                   file: 'coach-home.html' },
+    { node: '5.3',  name: 'Клієнти',                           file: 'coach-clients.html' },
+    { node: '5.4',  name: 'Профіль клієнта',                   file: 'coach-client.html' },
+    { node: '5.4a', name: 'Редагування клієнта',               file: 'coach-client-edit.html' },
+    { node: '5.5',  name: 'Мультиклієнтська сесія',            file: 'coach-session.html' },
+    { node: '5.6',  name: 'Замовлення тренера',                file: 'coach-orders.html' },
+    { node: '5.7',  name: 'Деталі замовлення',                 file: 'coach-order.html' },
+  ]},
+  { cluster: '6 · Кошик і оформлення', items: [
+    { node: '6.0',  name: 'Кошик',                             file: 'cart.html' },
+    { node: '6.0',  name: 'Кошик тренера (за клієнтами)',      file: 'cart-coach.html' },
+    { node: '6.1',  name: 'Оформлення',                        file: 'checkout.html' },
+    { node: '6.2',  name: 'Замовлення оформлено',              file: 'order-placed.html' },
+  ]},
+  { cluster: '7 · Кабінет покупця', items: [
+    { node: '7.0',  name: 'Кабінет покупця',                   file: 'account.html' },
+    { node: '7.1–7.7', name: 'Профіль · Лояльність · Адреси · Обране (розділи)', ia: 'account.html' },
+  ]},
+  { cluster: '8 · Контент та інфо', items: [
+    { node: '8.7',  name: 'Бонусна програма та знижки',        ia: 'content.html' },
+    { node: '8.0/8.1', name: 'Блог + стаття',                  ia: 'content.html' },
+    { node: '8.2–8.6', name: 'Про нас · Контакти · Доставка · Повернення · Оферта', ia: 'content.html' },
+    { node: '8.8',  name: 'Гарантія та сертифікати',           ia: 'content.html' },
+    { node: '8.9',  name: 'FAQ',                               ia: 'content.html' },
+    { node: '8.10', name: 'Акції',                             ia: 'content.html' },
+    { node: '8.11', name: 'Відгуки магазину',                  ia: 'content.html' },
+    { node: '8.12', name: 'Розсилка',                          ia: 'content.html' },
+  ]},
+  { cluster: 'S · Системні та глобальні', items: [
+    { node: '',     name: '404 · 500 · Технічні роботи',       ia: 'system.html' },
+    { node: '',     name: 'Cookie-банер · Тости',              ia: 'system.html' },
+  ]},
+];
+
 /* helper: state file name, e.g. wfStateFile('listing.html','empty') → 'listing-empty.html' */
 function wfStateFile(file, state) {
   if (state === 'base') return file;
@@ -93,6 +159,36 @@ function wfTree(elId) {
     if (!(fl.screens || []).length) html += '<div class="wt-screen"><span class="wt-sname planned">Екрани зʼявляться на цьому етапі</span></div>';
     html += '</div>';
   }
+  root.innerHTML = html;
+}
+
+/* (a2) full product sitemap for index.html — every page by cluster; built → wireframe
+   (with view count = base + built states), not-built → its IA spec (dashed). */
+function wfFullMap(elId) {
+  const root = document.getElementById(elId);
+  if (!root) return;
+  let html = '';
+  let built = 0, planned = 0;
+  for (const cl of WF_SITEMAP) {
+    html += '<div class="sm-cluster"><h3>' + cl.cluster + '</h3><div class="sm-list">';
+    for (const it of cl.items) {
+      const node = it.node ? ' <span class="node">' + it.node + '</span>' : '';
+      if (it.file) {
+        built++;
+        const f = wfFindScreen(it.file);
+        const n = f ? 1 + (f.screen.builtStates ? f.screen.builtStates.length : 0) : 1;
+        html += '<a class="sm-item" href="' + it.file + '">' + it.name + node +
+          '<span class="cnt" title="екранів зі станами">' + n + '</span></a>';
+      } else {
+        planned++;
+        html += '<a class="sm-item planned" href="../ia/' + it.ia + '">' + it.name + node +
+          '<span class="ia">IA</span></a>';
+      }
+    }
+    html += '</div></div>';
+  }
+  const legend = document.getElementById(elId + '-count');
+  if (legend) legend.textContent = built + ' збудовано · ' + planned + ' у специфікації (IA)';
   root.innerHTML = html;
 }
 

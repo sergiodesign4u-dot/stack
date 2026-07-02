@@ -15,16 +15,20 @@
   .wfx .flowlinks { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
   .wfx .flowlink { border: 1.5px solid var(--dark); border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 700; color: var(--strong); }
   .wfx .flowlink.soon { border-color: var(--hair2); color: var(--light); border-style: dashed; }
-  /* full sitemap block — pages not (yet) in a flow; each links to its IA spec */
+  /* full product sitemap — EVERY page by cluster; built → wireframe, else → IA spec */
   .fullmap { margin-top: 36px; border-top: 1px solid var(--hair); padding-top: 26px; }
   .fullmap h2 { font-size: 20px; font-weight: 800; color: var(--strong); }
-  .fullmap .lead { margin: 8px 0 18px; }
-  .fm-group { margin-bottom: 16px; }
-  .fm-group h3 { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--light); margin-bottom: 9px; }
-  .fm-list { display: flex; flex-wrap: wrap; gap: 8px; }
-  .fm-list a { display: inline-flex; align-items: center; gap: 7px; border: 1.5px dashed var(--hair2); border-radius: 8px; padding: 7px 12px; font-size: 12.5px; font-weight: 600; color: var(--strong); }
-  .fm-list a .nd { font-size: 11px; font-weight: 700; color: var(--light); }
-  .fm-list a .ia { font-size: 10px; font-weight: 800; letter-spacing: .04em; color: var(--light); border: 1px solid var(--hair2); border-radius: 4px; padding: 1px 4px; }
+  .fullmap .lead { margin: 8px 0 20px; }
+  .smc { color: var(--light); font-weight: 700; }
+  .sm-legend { font-size: 12px; color: var(--light); margin: 0 0 16px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .sm-cluster { margin-bottom: 15px; }
+  .sm-cluster h3 { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--light); margin-bottom: 9px; }
+  .sm-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sm-item { display: inline-flex; align-items: center; gap: 7px; border: 1.5px solid var(--dark); border-radius: 8px; padding: 7px 12px; font-size: 12.5px; font-weight: 600; color: var(--strong); }
+  .sm-item.planned { border-style: dashed; border-color: var(--hair2); color: var(--sec); }
+  .sm-item .node { font-size: 11px; font-weight: 700; color: var(--light); }
+  .sm-item .cnt { font-size: 10.5px; font-weight: 800; color: #fff; background: var(--dark); border-radius: 20px; padding: 1px 7px; }
+  .sm-item.planned .ia { font-size: 10px; font-weight: 800; letter-spacing: .04em; color: var(--light); border: 1px solid var(--hair2); border-radius: 4px; padding: 1px 4px; }
 </style>
 </head>
 <body>
@@ -51,52 +55,18 @@
   <!-- tree rendered from _nav.js (single source of truth, mirrors _screens.md) -->
   <div id="wf-tree"></div>
 
-  <!-- Повна карта сайту: решта продукту поза Флоу 1/2 — специфікації готові в «Інформаційній
-       архітектурі», вайрфрейми будуть далі. Кожен пункт → відкриває IA-спеку (ia/*.html). -->
+  <!-- Повна карта сайту: УВЕСЬ продукт за структурою IA (кластери 0–8 + системні).
+       Будовані екрани → ведуть на вайрфрейм (цифра = екранів зі станами); решта → на IA-спеку.
+       Data-driven із WF_SITEMAP у _nav.js — оновлюється, щойно екран будується. -->
   <section class="fullmap" id="allpages">
     <h2>Повна карта сайту</h2>
-    <p class="lead">Решта сторінок продукту, які ще не в Флоу 1/2. Специфікації в «Інформаційній
-      архітектурі» вже готові — клік відкриває IA-спеку; вайрфрейми йдуть наступними.</p>
-
-    <div class="fm-group">
-      <h3>Каталог та пошук</h3>
-      <div class="fm-list">
-        <a href="../ia/catalog-page.html">Каталог-хаб <span class="nd">2.0</span> <span class="ia">IA</span></a>
-        <a href="../ia/brands.html">Бренди <span class="nd">2.4</span> <span class="ia">IA</span></a>
-        <a href="../ia/search.html">Пошук <span class="nd">2.5</span> <span class="ia">IA</span></a>
-      </div>
+    <p class="lead">Увесь продукт за структурою IA — і збудовані екрани (ведуть на вайрфрейм,
+      цифра = екранів зі станами), і решта сторінок (ведуть на IA-спеку). <span id="wf-map-count" class="smc"></span></p>
+    <div class="sm-legend">
+      <span><b style="color:var(--strong)">суцільна рамка</b> — збудовано (вайрфрейм)</span>
+      <span style="color:#bbb">пунктир + IA — лише специфікація</span>
     </div>
-
-    <div class="fm-group">
-      <h3>Гайд і лояльність</h3>
-      <div class="fm-list">
-        <a href="../ia/quiz.html">Квіз-гайд <span class="nd">4.x</span> <span class="ia">IA</span></a>
-        <a href="../ia/content.html">Бонусна програма та знижки <span class="nd">8.7</span> <span class="ia">IA</span></a>
-      </div>
-    </div>
-
-    <div class="fm-group">
-      <h3>Контент та інфо</h3>
-      <div class="fm-list">
-        <a href="../ia/content.html">Блог + стаття <span class="nd">8.0 / 8.1</span> <span class="ia">IA</span></a>
-        <a href="../ia/content.html">Про нас · Контакти · Доставка · Повернення · Оферта <span class="nd">8.2–8.6</span> <span class="ia">IA</span></a>
-        <a href="../ia/content.html">Гарантія та сертифікати <span class="nd">8.8</span> <span class="ia">IA</span></a>
-        <a href="../ia/content.html">FAQ <span class="nd">8.9</span> <span class="ia">IA</span></a>
-        <a href="../ia/content.html">Акції <span class="nd">8.10</span> <span class="ia">IA</span></a>
-        <a href="../ia/content.html">Відгуки магазину <span class="nd">8.11</span> <span class="ia">IA</span></a>
-        <a href="../ia/content.html">Розсилка <span class="nd">8.12</span> <span class="ia">IA</span></a>
-      </div>
-    </div>
-
-    <div class="fm-group">
-      <h3>Системні та глобальні</h3>
-      <div class="fm-list">
-        <a href="../ia/system.html">404 · 500 · Технічні роботи <span class="ia">IA</span></a>
-        <a href="../ia/system.html">Cookie-банер · Тости <span class="ia">IA</span></a>
-        <a href="../ia/navigation.html">Хедер · мега-меню · діалог міста <span class="nd">0.1</span> <span class="ia">IA</span></a>
-        <a href="../ia/footer.html">Футер <span class="nd">0.2</span> <span class="ia">IA</span></a>
-      </div>
-    </div>
+    <div id="wf-map"></div>
   </section>
 
   <p class="lead" style="margin-top:26px">Побудовано: <b>Флоу 1 (покупець-новачок)</b> +
@@ -106,6 +76,6 @@
 </main>
 
 <script src="_nav.js"></script>
-<script>wfTree('wf-tree'); wfBar('index.html');</script>
+<script>wfTree('wf-tree'); wfFullMap('wf-map'); wfBar('index.html');</script>
 </body>
 </html>
