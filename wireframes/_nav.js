@@ -80,8 +80,9 @@ const WF_FLOWS = [
   },
   {
     id: 'f5', name: 'Системні та глобальні', status: 'active',
-    note: 'крос-функційне (нода S): 404 / 500 / тех.роботи + глобальні компоненти (cookie-банер, тости) — демо на system.html',
+    note: 'крос-функційне: мега-меню (0.1) + 404 / 500 / тех.роботи (S) + глобальні компоненти (cookie-банер, тости) — демо на system.html',
     screens: [
+      { file: 'megamenu.html',    name: 'Мега-меню «Каталог» (спека)', node: '0.1', built: true, states: [], builtStates: [] },
       { file: '404.html',         name: 'Сторінку не знайдено (404)', node: 'S', built: true, states: [], builtStates: [] },
       { file: '500.html',         name: 'Помилка сервера (500)',      node: 'S', built: true, states: [], builtStates: [] },
       { file: 'maintenance.html', name: 'Технічні роботи (503)',      node: 'S', built: true, states: [], builtStates: [] },
@@ -100,7 +101,7 @@ const WF_FLOWS = [
 const WF_SITEMAP = [
   { cluster: '0 · Глобальне', items: [
     { node: '0.0',  name: 'Головна',                          file: 'home.html' },
-    { node: '0.1',  name: 'Хедер · мега-меню · діалог міста',  ia: 'navigation.html' },
+    { node: '0.1',  name: 'Мега-меню «Каталог» (спека + стани)', file: 'megamenu.html' },
     { node: '0.2',  name: 'Футер',                             ia: 'footer.html' },
   ]},
   { cluster: '1 · Авторизація', items: [
@@ -268,46 +269,138 @@ function wfBar(baseFile, currentState) {
    the shared listing template (listing.html); goals → goal.html; Бренди →
    brands.html. ============================================================ */
 const WF_CAT_MENU = [
-  { name: 'Протеїн',                 href: 'listing.html', subs: ['Сироватковий', 'Ізолят', 'Гідролізат', 'Казеїн', 'Комплексний', 'Рослинний'] },
-  { name: 'Гейнери',                 href: 'listing.html', subs: ['Високовуглеводні', 'Збалансовані', 'Вуглеводи (карбо)'] },
-  { name: 'Креатин',                 href: 'listing.html', subs: ['Моногідрат', 'Creapure®', 'Креатин HCl', 'Транспортні системи'] },
-  { name: 'Амінокислоти',            href: 'listing.html', subs: ['BCAA', 'EAA', 'Глютамін', 'Аргінін', 'Комплексні аміно'] },
-  { name: 'Передтренувальні та енергія', href: 'listing.html', subs: ['З кофеїном', 'Без стимуляторів', 'Пампінг', 'Енергетики', 'Кофеїн у капсулах'] },
-  { name: 'Жироспалювачі',           href: 'listing.html', subs: ['L-карнітин', 'Термогеніки', 'Ліпотропіки', 'Блокатори'] },
-  { name: 'Ізотоніки та витривалість', href: 'listing.html', subs: ['Ізотоніки', 'Електроліти', 'Енергетичні гелі', 'Бета-аланін'] },
-  { name: 'Батончики, снеки, харчування', href: 'listing.html', subs: ['Протеїнові батончики', 'Арахісова паста', 'Замінники їжі', 'Снеки'] },
-  { name: 'Вітаміни та мінерали',    href: 'listing.html', subs: ['Вітамінні комплекси', 'Вітамін D3', 'Магній', 'Омега-3', 'Цинк · Вітамін C'] },
-  { name: 'Здоровʼя',                href: 'listing.html', subs: ['Суглоби і звʼязки', 'Імунітет', 'Сон і релакс', 'Травлення', 'Жіноче / чоловіче здоровʼя'] },
-  { name: 'Аксесуари',               href: 'listing.html', subs: ['Шейкери', 'Дозатори', 'Пляшки', 'Атрибутика'] },
-  { name: 'Бренди',                  href: 'brands.html',  subs: ['Optimum Nutrition', 'BioTechUSA', 'Myprotein', 'Scitec Nutrition', 'OstroVit', 'Усі бренди А–Я →'] },
+  { name: 'Протеїн', href: 'listing.html', ic: '🥛', goals: ['Набір маси', 'Схуднення', 'Відновлення'],
+    subs: ['Сироватковий (концентрат)', 'Ізолят', 'Гідролізат', 'Казеїн', 'Комплексний', 'Яловичий', 'Рослинний (соя/горох/рис)', 'Яєчний'],
+    groups: [
+      { label: 'За типом', items: ['Сироватковий (концентрат)', 'Ізолят', 'Гідролізат', 'Казеїн', 'Комплексний', 'Яловичий', 'Рослинний (соя/горох/рис)', 'Яєчний'] },
+      { label: 'За формою', items: ['Порошок', 'Готові напої (RTD)'] },
+    ] },
+  { name: 'Гейнери', href: 'listing.html', ic: '🍚', goals: ['Набір маси'],
+    subs: ['Високовуглеводні', 'Збалансовані', 'Вуглеводи / карбо'],
+    groups: [
+      { label: 'За типом', items: ['Високовуглеводні', 'Збалансовані (білок+вуглеводи)', 'Вуглеводи / карбо (мальтодекстрин, амілопектин)'] },
+    ] },
+  { name: 'Креатин', href: 'listing.html', ic: '⚗️', goals: ['Набір маси', 'Витривалість / кардіо'],
+    subs: ['Моногідрат', 'Creapure®', 'Гідрохлорид (HCl)', 'Kre-Alkalyn', 'Суміш креатинів'],
+    groups: [
+      { label: 'За типом', items: ['Моногідрат', 'Creapure®', 'Гідрохлорид (HCl)', 'Kre-Alkalyn', 'Суміш креатинів'] },
+      { label: 'За формою', items: ['Порошок', 'Капсули / таблетки'] },
+    ] },
+  { name: 'Амінокислоти', href: 'listing.html', ic: '🧬', goals: ['Набір маси', 'Відновлення', 'Витривалість / кардіо'],
+    subs: ['BCAA', 'EAA / комплексні', 'L-глютамін', 'L-аргінін', 'L-цитрулін', 'Бета-аланін', 'Таурин', 'L-лізин'],
+    groups: [
+      { label: 'За типом', items: ['BCAA', 'EAA / комплексні', 'L-глютамін', 'L-аргінін', 'L-цитрулін', 'Бета-аланін', 'Таурин', 'L-лізин'] },
+      { label: 'За формою', items: ['Порошок', 'Капсули', 'Рідкі'] },
+    ] },
+  { name: 'Передтренувальні та енергія', href: 'listing.html', ic: '⚡', goals: ['Енергія / тонус', 'Набір маси'],
+    subs: ['З кофеїном (стим)', 'Без стимуляторів (stim-free)', 'Пампінг / NO-бустери', 'Енергетики, кофеїн, гуарана'],
+    groups: [
+      { label: 'За типом', items: ['З кофеїном (стим)', 'Без стимуляторів (stim-free)', 'Пампінг / NO-бустери', 'Енергетики, кофеїн, гуарана'] },
+    ] },
+  { name: 'Жироспалювачі', href: 'listing.html', ic: '🔥', goals: ['Схуднення'],
+    subs: ['L-карнітин', 'Термогеніки (комплексні)', 'Ліпотропіки', 'Блокатори (вуглеводів/жирів)'],
+    groups: [
+      { label: 'За типом', items: ['L-карнітин', 'Термогеніки (комплексні)', 'Ліпотропіки', 'Блокатори (вуглеводів/жирів, хітозан)'] },
+    ] },
+  { name: 'Ізотоніки та витривалість', href: 'listing.html', ic: '💧', goals: ['Витривалість / кардіо', 'Енергія / тонус'],
+    subs: ['Ізотоніки', 'Енергетичні гелі', 'Електроліти / сольові таблетки'],
+    groups: [
+      { label: 'За типом', items: ['Ізотоніки', 'Енергетичні гелі', 'Електроліти / сольові таблетки'] },
+    ] },
+  { name: 'Батончики, снеки та харчування', href: 'listing.html', ic: '🍫', goals: ['Схуднення', 'Набір маси'],
+    subs: ['Протеїнові батончики', 'Печиво, цукерки, снеки', 'Паста (арахісова/горіхова)', 'Замінники харчування', 'Суперфуди', 'Гранола', 'Сиропи без цукру'],
+    groups: [
+      { label: 'Снеки та батончики', items: ['Протеїнові батончики (без цукру / високобілкові / вуглеводні)', 'Протеїнове печиво, цукерки, снеки', 'Паста (арахісова / горіхова)'] },
+      { label: 'Харчування', items: ['Замінники харчування (meal replacement)', 'Суперфуди', 'Гранола', 'Сиропи без цукру'] },
+    ] },
+  { name: 'Вітаміни та мінерали', href: 'listing.html', ic: '💊', goals: ['Імунітет / здоровʼя', 'Схуднення', 'Відновлення'],
+    subs: ['Комплекси', 'Вітамін D3', 'Вітамін C', 'Група B', 'Магній', 'Цинк', 'Омега-3'],
+    groups: [
+      { label: 'Комплекси', items: ['Чоловічі', 'Жіночі', 'Універсальні'] },
+      { label: 'Окремі вітаміни', items: ['D3', 'C', 'Група B', 'A', 'E'] },
+      { label: 'Мінерали', items: ['Магній', 'Цинк', 'Кальцій', 'Залізо', 'Селен'] },
+      { label: 'Омега / риб’ячий жир', items: ['Омега-3', 'Омега 3-6-9', 'Омега-3 + D3'] },
+    ] },
+  { name: 'Здоровʼя', href: 'listing.html', ic: '❤️', goals: ['Відновлення', 'Імунітет / здоровʼя'],
+    subs: ['Суглоби та звʼязки', 'Імунітет', 'Сон і нервова система', 'Травлення', 'Серце та судини', 'Печінка', 'Чоловіче здоровʼя', 'Жіноче здоровʼя та краса', 'Адаптогени', 'Антиоксиданти'],
+    groups: [
+      { label: 'За напрямком', items: ['Суглоби та звʼязки', 'Імунітет', 'Сон і нервова система', 'Травлення', 'Серце та судини', 'Печінка', 'Чоловіче здоровʼя', 'Жіноче здоровʼя та краса', 'Адаптогени', 'Антиоксиданти'] },
+    ] },
+  { name: 'Аксесуари', href: 'listing.html', ic: '🧴', goals: [],
+    subs: ['Шейкери та пляшки', 'Дозатори / таблетниці', 'Атрибутика'],
+    groups: [
+      { label: 'За типом', items: ['Шейкери та пляшки', 'Дозатори / таблетниці', 'Атрибутика (пояси, лямки, бинти, рукавички, магнезія)'] },
+    ] },
+  { name: 'Бренди', href: 'brands.html', ic: '🏷️', goals: [], brandIndex: true,
+    subs: ['Optimum Nutrition', 'BioTechUSA', 'Myprotein', 'Scitec Nutrition', 'OstroVit', 'Power Pro'],
+    groups: [
+      { label: 'Популярні бренди', items: ['Optimum Nutrition', 'BioTechUSA', 'Myprotein', 'Scitec Nutrition', 'OstroVit', 'Power Pro'] },
+    ] },
 ];
 const WF_GOAL_MENU = [
-  { ic: '💪', name: 'Набір маси' }, { ic: '🔥', name: 'Схуднення' }, { ic: '🌿', name: 'Відновлення' },
-  { ic: '⚡', name: 'Енергія / тонус' }, { ic: '🛡️', name: 'Імунітет / здоровʼя' }, { ic: '🏃', name: 'Витривалість / кардіо' },
+  { ic: '💪', name: 'Набір маси',            cats: 'Протеїн · Гейнери · Креатин · BCAA/EAA · Передтреники' },
+  { ic: '🔥', name: 'Схуднення',             cats: 'Ізолят · Жироспалювачі · L-карнітин · Клітковина · Вітаміни' },
+  { ic: '🌿', name: 'Відновлення',           cats: 'BCAA/EAA · Глютамін · Суглоби/колаген · Омега · Магній · Сон' },
+  { ic: '⚡', name: 'Енергія / тонус',       cats: 'Передтренувальні · B-вітаміни · Адаптогени · Ізотоніки' },
+  { ic: '🛡️', name: 'Імунітет / здоровʼя',   cats: 'Вітаміни C, D3, цинк · Омега · Пробіотики' },
+  { ic: '🏃', name: 'Витривалість / кардіо', cats: 'Ізотоніки · Гелі · Електроліти · Бета-аланін' },
 ];
 /* canonical served-cities list (node 0.1a) — 23 controlled oblast centres + large hubs; Crimea/occupied excluded */
 const WF_CITIES_POP = ['Київ', 'Харків', 'Дніпро', 'Одеса', 'Львів', 'Запоріжжя', 'Кривий Ріг', 'Миколаїв'];
 const WF_CITIES_ALL = ['Вінниця', 'Дніпро', 'Житомир', 'Запоріжжя', 'Івано-Франківськ', 'Камʼянець', 'Київ', 'Кременчук', 'Кривий Ріг', 'Луцьк', 'Львів', 'Миколаїв', 'Одеса', 'Полтава', 'Рівне', 'Суми', 'Тернопіль', 'Ужгород', 'Харків', 'Херсон', 'Хмельницький', 'Черкаси', 'Чернівці', 'Чернігів'];
 
-function wfMegaHTML() {
-  let cats = '', mids = '';
-  WF_CAT_MENU.forEach((c, i) => {
-    cats += '<a class="mega-cat' + (i === 0 ? ' on' : '') + '" href="' + c.href + '" onmouseenter="wfMega(' + i + ')">' + c.name + '<span class="ar">›</span></a>';
-    let subs = '<div class="mega-panel' + (i === 0 ? ' on' : '') + '" id="mp' + i + '"><a class="mph" href="' + c.href + '">' + c.name + ' — усі →</a><div class="mega-sublist">';
-    c.subs.forEach(s => { subs += '<a class="mega-sub" href="' + c.href + '">' + s + '</a>'; });
-    mids += subs + '</div></div>';
+/* goals middle panel (data-k="g") — the concern lens, shown first by default */
+function wfMegaGoalsPanel() {
+  let cards = '';
+  WF_GOAL_MENU.forEach(g => {
+    cards += '<a class="mega-goalcard" href="goal.html"><span class="gi">' + g.ic + '</span>' +
+      '<span class="gtx"><b>' + g.name + '</b><span class="gc">' + g.cats + '</span></span></a>';
   });
-  let goals = '<div class="mgh">За ціллю</div>';
-  WF_GOAL_MENU.forEach(g => { goals += '<a class="mega-goal" href="goal.html"><span class="gi">' + g.ic + '</span>' + g.name + '</a>'; });
-  goals += '<a class="mega-all" href="catalog-page.html">Усі товари каталогу →</a>';
+  return '<div class="mega-panel on" data-k="g"><a class="mph" href="catalog-page.html">Оберіть ціль — підберемо набір →</a>' +
+    '<div class="mega-goalgrid">' + cards + '</div></div>';
+}
+/* one middle panel per category — grouped subcategories + goal chips */
+function wfMegaCatPanel(c, i) {
+  let grp = '';
+  (c.groups || [{ label: '', items: c.subs }]).forEach(g => {
+    grp += '<div class="mega-grp">' + (g.label ? '<div class="mgt">' + g.label + '</div>' : '');
+    g.items.forEach(it => { grp += '<a class="mega-sub" href="' + c.href + '">' + it + '</a>'; });
+    grp += '</div>';
+  });
+  let goalrow = '';
+  if (c.goals && c.goals.length) {
+    goalrow = '<div class="mega-goalrow"><span class="mgl">За ціллю:</span>';
+    c.goals.forEach(gn => { goalrow += '<a class="mgchip" href="goal.html">' + gn + '</a>'; });
+    goalrow += '</div>';
+  }
+  const head = c.brandIndex ? 'Усі бренди А–Я →' : c.name + ' — усі товари →';
+  return '<div class="mega-panel" data-k="' + i + '"><a class="mph" href="' + c.href + '">' + head + '</a>' +
+    '<div class="mega-groups">' + grp + '</div>' + goalrow + '</div>';
+}
+function wfMegaHTML() {
+  let cats = '<a class="mega-cat mega-cat-goals on" data-k="g" href="catalog-page.html" onmouseenter="wfMega(\'g\')">✦ За ціллю<span class="ar">›</span></a>';
+  let mids = wfMegaGoalsPanel();
+  WF_CAT_MENU.forEach((c, i) => {
+    cats += '<a class="mega-cat" data-k="' + i + '" href="' + c.href + '" onmouseenter="wfMega(\'' + i + '\')"><span class="mci">' + (c.ic || '') + '</span>' + c.name + '<span class="ar">›</span></a>';
+    mids += wfMegaCatPanel(c, i);
+  });
+  const side = '<div class="mega-side">' +
+    '<a class="ms-lead" href="catalog-page.html">Усі товари каталогу →</a>' +
+    '<a class="ms-link" href="brands.html">Бренди А–Я</a>' +
+    '<a class="ms-link" href="listing.html">Новинки</a>' +
+    '<a class="ms-link" href="content-promo.html">Акції та знижки</a>' +
+    '<a class="ms-link" href="listing.html">Розпродаж</a>' +
+    '<div class="ms-feat"><div class="ms-ph">фото</div><div class="ms-ftag">Хіт місяця</div>' +
+    '<div class="ms-fh">Gold Standard 100% Whey</div><div class="ms-fs">від 1 290 ₴ · −15%</div>' +
+    '<a class="ms-fb" href="product.html">Дивитися →</a></div></div>';
   return '<div class="wfh-mega" role="menu" aria-label="Каталог">' +
     '<div class="mega-cats">' + cats + '</div>' +
-    '<div class="mega-mid">' + mids + '</div>' +
-    '<div class="mega-goals">' + goals + '</div></div>';
+    '<div class="mega-mid">' + mids + '</div>' + side + '</div>';
 }
-function wfMega(i) {
-  document.querySelectorAll('.mega-cat').forEach((el, n) => el.classList.toggle('on', n === i));
-  document.querySelectorAll('.mega-panel').forEach((el, n) => el.classList.toggle('on', n === i));
+function wfMega(k) {
+  k = String(k);
+  document.querySelectorAll('.wfh-mega .mega-cat').forEach(el => el.classList.toggle('on', el.dataset.k === k));
+  document.querySelectorAll('.wfh-mega .mega-panel').forEach(el => el.classList.toggle('on', el.dataset.k === k));
 }
 
 /* city selector dialog (node 0.1a) + mobile menu drawer + open/close */
@@ -326,7 +419,14 @@ function wfCityHTML() {
 }
 function wfDrawerHTML() {
   let goals = ''; WF_GOAL_MENU.forEach(g => { goals += '<a class="dr-chip" href="goal.html"><span>' + g.ic + '</span>' + g.name + '</a>'; });
-  let cats = ''; WF_CAT_MENU.forEach(c => { cats += '<a class="dr-cat" href="' + c.href + '">' + c.name + '<span class="ar">›</span></a>'; });
+  let cats = '';
+  WF_CAT_MENU.forEach((c, i) => {
+    cats += '<div class="dr-catwrap">' +
+      '<button class="dr-cat" onclick="toggleDrCat(' + i + ')" aria-expanded="false"><span class="dc-ic">' + (c.ic || '') + '</span>' + c.name + '<span class="ar" id="dra' + i + '">＋</span></button>' +
+      '<div class="dr-subs" id="drs' + i + '"><a class="dr-suball" href="' + c.href + '">Усі: ' + c.name + ' →</a>';
+    (c.subs || []).forEach(s => { cats += '<a class="dr-sub" href="' + c.href + '">' + s + '</a>'; });
+    cats += '</div></div>';
+  });
   return '<div class="wf-ov" id="drawer-ov" onclick="closeBurger()"></div>' +
     '<nav class="wf-drawer" id="drawer" aria-label="Меню">' +
     '<div class="dr-h"><span class="dr-logo">Stack</span><button class="x" onclick="closeBurger()" aria-label="Закрити">✕</button></div>' +
@@ -352,6 +452,7 @@ function closeCity() { var d = document.getElementById('city-dlg'), o = document
 function wfPickCity(name) { document.querySelectorAll('.wfh-city-lbl').forEach(el => el.textContent = name); closeCity(); }
 function openBurger() { var d = document.getElementById('drawer'), o = document.getElementById('drawer-ov'); if (d) d.classList.add('open'); if (o) o.classList.add('open'); }
 function closeBurger() { var d = document.getElementById('drawer'), o = document.getElementById('drawer-ov'); if (d) d.classList.remove('open'); if (o) o.classList.remove('open'); }
+function toggleDrCat(i) { var s = document.getElementById('drs' + i), a = document.getElementById('dra' + i); if (!s) return; var open = s.classList.toggle('open'); if (a) a.textContent = open ? '－' : '＋'; var b = s.previousElementSibling; if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
 
 /* ============================================================
    Global system components (node S) — cookie-consent banner + toasts.

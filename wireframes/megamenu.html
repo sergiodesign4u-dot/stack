@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<title>Мега-меню «Каталог» — структура, наповнення, стани (wireframe 0.1)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* spec/states gallery for the Catalog mega-menu (node 0.1). Renders the LIVE mega
+   pinned-open for review + mobile drilldown mocks + full content table + states. */
+.mm-sec { margin: 30px 0 6px; }
+.mm-sec h2 { font-size: 20px; font-weight: 800; color: var(--strong); }
+.mm-sec p { font-size: 13.5px; color: var(--sec); margin-top: 6px; max-width: 760px; line-height: 1.55; }
+.mm-note { font-size: 12.5px; color: var(--light); margin: 8px 0 14px; }
+/* anatomy diagram */
+.mm-anat { display: grid; grid-template-columns: 226px 1fr 196px; gap: 0; border: 1.5px solid var(--hair2); border-radius: 12px; overflow: hidden; margin: 14px 0; }
+.mm-anat > div { padding: 16px 16px 20px; border-right: 1px dashed var(--hair2); }
+.mm-anat > div:last-child { border-right: none; }
+.mm-anat .z { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--sec); }
+.mm-anat .zt { font-size: 14px; font-weight: 800; color: var(--strong); margin: 6px 0 8px; }
+.mm-anat .zd { font-size: 12px; color: var(--sec); line-height: 1.5; }
+@media (max-width: 720px) { .mm-anat { grid-template-columns: 1fr; } .mm-anat > div { border-right: none; border-bottom: 1px dashed var(--hair2); } }
+/* pinned live mega for review */
+.mega-demo { position: relative; border: 1px solid var(--hair); border-radius: 12px; overflow: auto; background: #fff; margin: 8px 0 4px; }
+.mega-demo .wfh-mega { position: static; display: grid; margin: 0; width: 100%; max-width: none; border: none; border-radius: 0; box-shadow: none; }
+@media (max-width: 900px) { .mega-demo { display: none; } .mm-desk-only-note { display: block; } }
+.mm-desk-only-note { display: none; font-size: 13px; color: var(--sec); border: 1.5px dashed var(--hair2); border-radius: 10px; padding: 16px; margin: 10px 0; }
+/* mobile drilldown mocks */
+.mm-phones { display: flex; gap: 22px; flex-wrap: wrap; margin: 12px 0; }
+.mm-phone { width: 300px; border: 1.5px solid var(--hair2); border-radius: 18px; overflow: hidden; background: #fff; }
+.mm-phcap { font-size: 12px; font-weight: 700; color: var(--sec); text-align: center; padding: 8px; background: var(--fill); border-bottom: 1px solid var(--hair); }
+.mm-phtop { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--hair); }
+.mm-phtop b { font-size: 17px; font-weight: 800; color: var(--strong); }
+.mm-phtop .x { color: var(--light); }
+.mm-phbody { padding: 12px 14px 16px; }
+.mm-lbl { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--sec); margin: 12px 0 8px; }
+.mm-lbl:first-child { margin-top: 0; }
+.mm-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.mm-chips span { border: 1.5px solid var(--hair2); border-radius: 100px; padding: 6px 10px; font-size: 11.5px; font-weight: 600; color: var(--strong); }
+.mm-crow { display: flex; align-items: center; gap: 8px; padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 13.5px; font-weight: 600; color: var(--strong); }
+.mm-crow .ic { width: 18px; text-align: center; }
+.mm-crow .pm { margin-left: auto; color: var(--sec); font-weight: 700; }
+.mm-subs { padding: 2px 0 8px 26px; border-bottom: 1px solid var(--hair); }
+.mm-subs a { display: block; font-size: 12.5px; color: var(--sec); padding: 5px 0; }
+.mm-subs a.all { font-weight: 700; color: var(--strong); }
+/* content table */
+.mmct { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 10px 0; }
+.mmct th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); border-bottom: 1.5px solid var(--hair2); padding: 8px 10px; }
+.mmct td { border-bottom: 1px solid var(--hair); padding: 9px 10px; vertical-align: top; color: var(--sec); line-height: 1.55; }
+.mmct td.c1 { font-weight: 800; color: var(--strong); white-space: nowrap; width: 190px; }
+.mmct td b { color: var(--strong); font-weight: 700; }
+.mmct td.c3 { width: 150px; color: var(--strong); font-weight: 600; }
+/* states list */
+.mm-states { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 12px 0; }
+@media (min-width: 720px) { .mm-states { grid-template-columns: 1fr 1fr; } }
+.mm-st { border: 1px solid var(--hair); border-radius: 10px; padding: 13px 15px; }
+.mm-st b { font-size: 13.5px; color: var(--strong); }
+.mm-st span { display: block; font-size: 12.5px; color: var(--sec); margin-top: 3px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 0.1 · Catalog mega-menu SPEC & STATES gallery.
+  Structure (3 zones) + live pinned mega (interactive) + mobile drilldown mocks
+  + full content table (all 12 categories, generated from WF_CAT_MENU) + states.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Всі екрани</a><span class="sep">/</span>
+    <span class="cur">Мега-меню «Каталог»</span>
+  </nav>
+
+  <h1 class="lh1">Мега-меню «Каталог»</h1>
+  <p class="lintro">Структура, повне наповнення та стани головного меню каталогу (нода 0.1). Belok-style,
+    <b>goals-first</b>: «За ціллю» веде список. Джерело таксономії — <b>catalog.md</b>; меню живе в
+    <code>_nav.js</code> (<code>wfHeader()</code>) і працює на кожній сторінці.</p>
+
+  <!-- §01 Anatomy -->
+  <div class="mm-sec"><h2>01 · Анатомія (десктоп)</h2>
+    <p>Три зони. Ліва рейка перемикає середину; права панель — постійна.</p></div>
+  <div class="mm-anat">
+    <div><div class="z">Ліва рейка</div><div class="zt">✦ За ціллю + 12 категорій</div>
+      <div class="zd">«За ціллю» — перший пункт (концерн-лінза, рішення 2026-07-01). Далі 12 top-категорій
+        з іконкою та ›. Наведення перемикає середину.</div></div>
+    <div><div class="z">Середина (змінна)</div><div class="zt">Наповнення активного пункту</div>
+      <div class="zd">Для категорії — підкатегорії, згруповані («За типом» / «За формою» / концерн) +
+        рядок чипів «За ціллю». Для «За ціллю» — 6 карток цілей з переліком категорій. Зверху —
+        посилання «{Категорія} — усі товари →».</div></div>
+    <div><div class="z">Права панель (постійна)</div><div class="zt">Утиліта + промо</div>
+      <div class="zd">Усі товари каталогу · Бренди А–Я · Новинки · Акції · Розпродаж + featured-картка
+        («Хіт місяця»).</div></div>
+  </div>
+
+  <!-- §02 Live desktop mega -->
+  <div class="mm-sec"><h2>02 · Десктоп — інтерактивний перегляд</h2>
+    <p>Реальне меню, закріплене відкритим. Наведіть на пункт зліва — середина зміниться (за
+      замовчуванням показано «За ціллю»).</p></div>
+  <div class="mega-demo" id="mega-demo"></div>
+  <div class="mm-desk-only-note">Інтерактивний перегляд меню доступний на ширині ≥ 900px (десктоп).
+    Нижче — мобільний варіант.</div>
+  <p class="mm-note">Відкривається наведенням на «Каталог» у шапці; посилання — справжні
+    <code>&lt;a&gt;</code> (crawlable, SEO). На мобільному — drilldown (нижче).</p>
+
+  <!-- §03 Mobile drilldown -->
+  <div class="mm-sec"><h2>03 · Мобільний drilldown</h2>
+    <p>На мобільному «Каталог» відкривається бургером ☰. Рівень 0 — «За ціллю» (зверху) + категорії
+      акордеоном; тап на категорію розкриває підкатегорії (рівень 1). «За ціллю» ніколи не зникає.</p></div>
+  <div class="mm-phones">
+    <div class="mm-phone">
+      <div class="mm-phcap">Рівень 0 — цілі + категорії</div>
+      <div class="mm-phtop"><b>Stack</b><span class="x">✕</span></div>
+      <div class="mm-phbody">
+        <div class="mm-lbl">За ціллю</div>
+        <div class="mm-chips"><span>💪 Набір маси</span><span>🔥 Схуднення</span><span>🌿 Відновлення</span><span>⚡ Енергія</span><span>🛡️ Імунітет</span><span>🏃 Витривалість</span></div>
+        <div class="mm-lbl">Категорії</div>
+        <div class="mm-crow"><span class="ic">🥛</span>Протеїн<span class="pm">＋</span></div>
+        <div class="mm-crow"><span class="ic">🍚</span>Гейнери<span class="pm">＋</span></div>
+        <div class="mm-crow"><span class="ic">⚗️</span>Креатин<span class="pm">＋</span></div>
+        <div class="mm-crow"><span class="ic">🧬</span>Амінокислоти<span class="pm">＋</span></div>
+        <div class="mm-crow"><span class="ic">⚡</span>Передтренувальні<span class="pm">＋</span></div>
+        <div class="mm-crow"><span class="ic">🔥</span>Жироспалювачі<span class="pm">＋</span></div>
+      </div>
+    </div>
+    <div class="mm-phone">
+      <div class="mm-phcap">Рівень 1 — категорію розкрито</div>
+      <div class="mm-phtop"><b>Stack</b><span class="x">✕</span></div>
+      <div class="mm-phbody">
+        <div class="mm-lbl">Категорії</div>
+        <div class="mm-crow"><span class="ic">🥛</span>Протеїн<span class="pm">－</span></div>
+        <div class="mm-subs">
+          <a class="all" href="listing.html">Усі: Протеїн →</a>
+          <a href="listing.html">Сироватковий (концентрат)</a>
+          <a href="listing.html">Ізолят</a>
+          <a href="listing.html">Гідролізат</a>
+          <a href="listing.html">Казеїн</a>
+          <a href="listing.html">Комплексний</a>
+          <a href="listing.html">Рослинний</a>
+        </div>
+        <div class="mm-crow"><span class="ic">🍚</span>Гейнери<span class="pm">＋</span></div>
+        <div class="mm-crow"><span class="ic">⚗️</span>Креатин<span class="pm">＋</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="mm-note">Живий варіант — бургер ☰ на мобільній ширині (той самий <code>_nav.js</code>).</p>
+
+  <!-- §04 Full content table -->
+  <div class="mm-sec"><h2>04 · Повне наповнення (усі 12 категорій)</h2>
+    <p>Джерело — <code>catalog.md</code>. Таблиця генерується з <code>WF_CAT_MENU</code>, тож меню й
+      специфікація не розходяться.</p></div>
+  <table class="mmct">
+    <thead><tr><th>Категорія</th><th>Підкатегорії / наповнення</th><th>За ціллю</th></tr></thead>
+    <tbody id="mmct-body"></tbody>
+  </table>
+
+  <!-- §05 States -->
+  <div class="mm-sec"><h2>05 · Стани меню</h2></div>
+  <div class="mm-states">
+    <div class="mm-st"><b>Закрито</b><span>Лише кнопка «Каталог ▾» у шапці.</span></div>
+    <div class="mm-st"><b>Відкрито · За ціллю (за замовчуванням)</b><span>Наведення на «Каталог» → середина показує 6 карток цілей.</span></div>
+    <div class="mm-st"><b>Відкрито · категорію наведено</b><span>Кожна з 12 категорій → її згруповані підкатегорії + чипи цілей.</span></div>
+    <div class="mm-st"><b>Sticky / compact</b><span>При скролі меню-бар компактний, «Каталог» відкриває те саме меню (без мета-бару).</span></div>
+    <div class="mm-st"><b>Мобільний · рівень 0</b><span>Бургер → «За ціллю» + категорії акордеоном.</span></div>
+    <div class="mm-st"><b>Мобільний · рівень 1</b><span>Тап на категорію → підкатегорії + «Усі: {категорія}».</span></div>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>
+  wfHeader(); wfFooter(); wfBar('megamenu.html');
+  // pin the live mega open for review
+  var demo = document.getElementById('mega-demo');
+  if (demo) { demo.innerHTML = wfMegaHTML(); wfMega('g'); }
+  // build the full content table from WF_CAT_MENU (single source with the live menu)
+  var tb = '';
+  WF_CAT_MENU.forEach(function (c) {
+    var subs = (c.groups || []).map(function (g) {
+      return (g.label ? '<b>' + g.label + ':</b> ' : '') + g.items.join(' · ');
+    }).join('<br>');
+    var goals = (c.goals && c.goals.length) ? c.goals.join(', ') : '—';
+    tb += '<tr><td class="c1">' + (c.ic || '') + ' ' + c.name + '</td><td>' + subs + '</td><td class="c3">' + goals + '</td></tr>';
+  });
+  var body = document.getElementById('mmct-body');
+  if (body) body.innerHTML = tb;
+</script>
+</body>
+</html>

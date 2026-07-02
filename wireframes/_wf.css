@@ -51,32 +51,54 @@ img { max-width: 100%; display: block; }
 .wfh-nav .navlink { padding: 8px 10px; font-size: 13px; font-weight: 600; color: var(--strong); display: inline-flex; align-items: center; gap: 5px; }
 .wfh-nav .navbtn .cav { font-size: 11px; opacity: .8; }
 
-/* ---------- Catalog mega-menu (node 0.1), desktop hover ---------- */
+/* ---------- Catalog mega-menu (node 0.1), desktop hover — Belok-style, goals-first ---------- */
 .wfh-cat { position: relative; }
 .wfh-mega { display: none; position: absolute; top: 100%; left: 0; z-index: 40;
-  grid-template-columns: 232px minmax(300px, 1fr) 236px; width: 800px; max-width: 92vw;
+  grid-template-columns: 226px minmax(420px, 1fr) 196px; width: 940px; max-width: 94vw;
   background: #fff; border: 1px solid var(--hair); border-top: 2px solid var(--dark);
-  border-radius: 0 0 12px 12px; box-shadow: 0 12px 30px rgba(0,0,0,.10); margin-top: 6px; overflow: hidden; }
-.wfh-cat:hover .wfh-mega { display: grid; }
-.wfh-mega .mega-cats { border-right: 1px solid var(--hair); padding: 8px 0; background: var(--fill2); }
-.wfh-mega .mega-cat { display: flex; align-items: center; justify-content: space-between; gap: 8px;
-  padding: 9px 16px; font-size: 13px; font-weight: 600; color: var(--strong); }
-.wfh-mega .mega-cat .ar { color: #bbb; font-weight: 700; }
+  border-radius: 0 0 12px 12px; box-shadow: 0 14px 34px rgba(0,0,0,.12); margin-top: 6px; overflow: hidden; }
+.wfh-cat:hover .wfh-mega, .wfh-mega.pinned { display: grid; }
+/* left rail — «За ціллю» first, then 12 categories */
+.wfh-mega .mega-cats { border-right: 1px solid var(--hair); padding: 8px 0; background: var(--fill2); max-height: 74vh; overflow-y: auto; }
+.wfh-mega .mega-cat { display: flex; align-items: center; gap: 8px; padding: 9px 15px; font-size: 12.5px; font-weight: 600; color: var(--strong); }
+.wfh-mega .mega-cat .mci { width: 18px; text-align: center; font-size: 13px; flex: none; }
+.wfh-mega .mega-cat .ar { margin-left: auto; color: #bbb; font-weight: 700; }
 .wfh-mega .mega-cat:hover, .wfh-mega .mega-cat.on { background: #fff; font-weight: 800; }
 .wfh-mega .mega-cat.on .ar { color: var(--strong); }
-.wfh-mega .mega-mid { padding: 16px 18px; }
+.wfh-mega .mega-cat-goals { font-weight: 800; border-bottom: 1px solid var(--hair); margin-bottom: 6px; padding-bottom: 12px; padding-top: 11px; }
+/* middle — changes per hovered left item */
+.wfh-mega .mega-mid { padding: 16px 18px; max-height: 74vh; overflow-y: auto; }
 .wfh-mega .mega-panel { display: none; }
 .wfh-mega .mega-panel.on { display: block; }
-.wfh-mega .mega-panel .mph { display: inline-block; font-size: 13px; font-weight: 800; color: var(--strong); margin-bottom: 12px; }
-.wfh-mega .mega-sublist { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; }
-.wfh-mega .mega-sub { font-size: 12.5px; color: var(--sec); padding: 5px 0; }
+.wfh-mega .mph { display: inline-block; font-size: 13px; font-weight: 800; color: var(--strong); margin-bottom: 13px; text-decoration: underline; text-decoration-color: var(--hair2); }
+.wfh-mega .mega-groups { display: flex; flex-wrap: wrap; gap: 10px 26px; }
+.wfh-mega .mega-grp { min-width: 150px; }
+.wfh-mega .mgt { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--light); margin-bottom: 6px; }
+.wfh-mega .mega-sub { display: block; font-size: 12.5px; color: var(--sec); padding: 4px 0; }
 .wfh-mega .mega-sub:hover { color: var(--strong); text-decoration: underline; }
-.wfh-mega .mega-goals { border-left: 1px solid var(--hair); background: var(--fill2); padding: 16px 16px; }
-.wfh-mega .mgh { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--sec); margin-bottom: 10px; }
-.wfh-mega .mega-goal { display: flex; align-items: center; gap: 9px; font-size: 12.5px; font-weight: 600; color: var(--strong); padding: 7px 0; }
-.wfh-mega .mega-goal .gi { width: 22px; text-align: center; }
-.wfh-mega .mega-goal:hover { text-decoration: underline; }
-.wfh-mega .mega-all { display: block; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--hair); font-size: 12.5px; font-weight: 800; color: var(--strong); }
+.wfh-mega .mega-goalrow { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--hair); }
+.wfh-mega .mgl { font-size: 11px; font-weight: 800; color: var(--sec); }
+.wfh-mega .mgchip { font-size: 11.5px; font-weight: 600; color: var(--strong); border: 1.5px solid var(--hair2); border-radius: 100px; padding: 4px 11px; }
+.wfh-mega .mgchip:hover { border-color: var(--dark); }
+/* goals middle panel — 6 concern cards */
+.wfh-mega .mega-goalgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.wfh-mega .mega-goalcard { display: flex; gap: 10px; align-items: flex-start; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 10px 12px; }
+.wfh-mega .mega-goalcard:hover { border-color: var(--dark); }
+.wfh-mega .mega-goalcard .gi { font-size: 17px; flex: none; }
+.wfh-mega .mega-goalcard .gtx { display: flex; flex-direction: column; gap: 2px; }
+.wfh-mega .mega-goalcard b { font-size: 13px; color: var(--strong); }
+.wfh-mega .mega-goalcard .gc { font-size: 11px; color: var(--light); line-height: 1.4; }
+/* right utility + featured panel */
+.wfh-mega .mega-side { border-left: 1px solid var(--hair); background: var(--fill2); padding: 14px 15px; }
+.wfh-mega .ms-lead { display: block; font-size: 12.5px; font-weight: 800; color: var(--strong); padding: 6px 0 10px; border-bottom: 1px solid var(--hair); margin-bottom: 6px; }
+.wfh-mega .ms-link { display: block; font-size: 12.5px; color: var(--sec); padding: 6px 0; }
+.wfh-mega .ms-link:hover { color: var(--strong); text-decoration: underline; }
+.wfh-mega .ms-feat { margin-top: 12px; border: 1px solid var(--hair); border-radius: 10px; background: #fff; padding: 10px; }
+.wfh-mega .ms-ph { height: 78px; border-radius: 7px; background: repeating-linear-gradient(45deg, #fafafa, #fafafa 8px, #f1f1f1 8px, #f1f1f1 16px); display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; margin-bottom: 8px; }
+.wfh-mega .ms-ftag { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--sec); }
+.wfh-mega .ms-fh { font-size: 12.5px; font-weight: 800; color: var(--strong); margin: 3px 0; line-height: 1.25; }
+.wfh-mega .ms-fs { font-size: 11.5px; color: var(--sec); }
+.wfh-mega .ms-fb { display: inline-block; margin-top: 7px; font-size: 11.5px; font-weight: 800; color: var(--strong); text-decoration: underline; }
 
 /* ---------- generic modal overlay (city dialog, drawer share it) ---------- */
 .wf-ov { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.32); z-index: 60; }
@@ -115,8 +137,14 @@ img { max-width: 100%; display: block; }
 .dr-lbl { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--sec); margin: 16px 0 8px; }
 .dr-chips { display: flex; flex-wrap: wrap; gap: 7px; }
 .dr-chip { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--hair2); border-radius: 100px; padding: 7px 12px; font-size: 12.5px; font-weight: 600; color: var(--strong); }
-.dr-cat { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 600; color: var(--strong); padding: 11px 0; border-bottom: 1px solid var(--hair); }
-.dr-cat .ar { color: #bbb; }
+.dr-catwrap { border-bottom: 1px solid var(--hair); }
+.dr-cat { display: flex; align-items: center; gap: 9px; width: 100%; text-align: left; font-size: 14px; font-weight: 600; color: var(--strong); padding: 12px 0; background: none; }
+.dr-cat .dc-ic { width: 20px; text-align: center; flex: none; }
+.dr-cat .ar { margin-left: auto; color: var(--sec); font-weight: 700; font-size: 15px; }
+.dr-subs { display: none; padding: 2px 0 10px 29px; }
+.dr-subs.open { display: block; }
+.dr-suball { display: block; font-size: 13px; font-weight: 700; color: var(--strong); padding: 7px 0; }
+.dr-sub { display: block; font-size: 13px; color: var(--sec); padding: 6px 0; }
 .dr-link { display: block; font-size: 13.5px; color: var(--ink); padding: 10px 0; border-bottom: 1px solid var(--hair); }
 .dr-link.strong { font-weight: 800; color: var(--strong); }
 @media (min-width: 860px) { .wf-drawer, #drawer-ov { display: none !important; } }
