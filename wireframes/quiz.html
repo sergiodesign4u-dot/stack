@@ -100,10 +100,22 @@
 .q-setrow { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 20px 0 12px; }
 .q-setrow .st-h { font-size: 15px; font-weight: 800; color: var(--strong); }
 .q-setrow .st-c { font-size: 12.5px; color: var(--light); font-weight: 700; }
-.q-res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-/* rationale line under each card name */
-.q-why { font-size: 11.5px; color: var(--sec); line-height: 1.45; padding: 0 12px 12px; margin-top: -4px; }
-.q-why b { color: var(--strong); }
+/* result — COMPACT set cards, ≥3 across, low height (not the full PLP card) */
+.q-res-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.qsc { border: 1px solid var(--hair); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; background: #fff; position: relative; }
+.qsc .ph { aspect-ratio: 5 / 4; background: var(--fill); display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; position: relative; text-decoration: none; }
+.qsc .tag { position: absolute; top: 6px; left: 6px; background: #fff; border: 1.5px solid var(--dark); color: var(--strong); font-size: 9px; font-weight: 800; border-radius: 4px; padding: 1px 5px; text-transform: uppercase; }
+.qsc .bd { padding: 8px 9px 10px; display: flex; flex-direction: column; flex: 1; }
+.qsc .br { font-size: 10.5px; color: var(--faint); margin-bottom: 2px; }
+.qsc .nm { font-size: 12px; font-weight: 700; color: var(--strong); line-height: 1.25; text-decoration: none;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 30px; }
+.qsc .why { font-size: 10.5px; color: var(--sec); line-height: 1.35; margin: 5px 0 8px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.qsc .ft { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.qsc .pr { font-size: 13px; font-weight: 800; color: var(--strong); white-space: nowrap; }
+.qsc .adds { width: 30px; height: 30px; border: 1.5px solid var(--dark); border-radius: 8px; background: #fff; font-size: 14px; color: var(--strong); flex: none; }
+/* widen the modal only on the result step so 4 compact cards fit one row */
+.q-card:has(#step-result.on) { max-width: 760px; }
 .q-cta { display: flex; flex-direction: column; gap: 10px; margin: 20px 0 6px; }
 .q-cta .btn { text-align: center; padding: 14px 20px; font-size: 14.5px; }
 .q-cta .btn .setsum { font-weight: 800; }
@@ -126,7 +138,7 @@
   .q-wrap { padding: 0; }
   .q-backdrop { display: none; }
   .q-card { max-width: none; border: none; border-radius: 0; min-height: calc(100vh - 40px); box-shadow: none; }
-  .q-res-grid { grid-template-columns: 1fr; }
+  .q-res-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
   .q-qh { font-size: 19px; }
   .q-intro-h1 { font-size: 20px; }
 }
@@ -293,53 +305,45 @@
           </div>
 
           <div class="q-res-grid">
-            <!-- canonical .pcard (from catalog-page.html) + one-line «Чому тут» -->
-            <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Основа</span></a><button class="fav" aria-label="В обране">♡</button>
+            <!-- compact quiz-set cards: thumb · brand · name · one-line «чому» · price + add -->
+            <article class="qsc">
+              <a href="product.html" class="ph">фото<span class="tag">Основа</span></a>
               <div class="bd">
-                <div class="pbrand">Optimum Nutrition · США</div>
+                <div class="br">Optimum Nutrition</div>
                 <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
-                <div class="pavail in">● В наявності</div>
-                <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div><span class="pnew">1 290 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
-                <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
-                <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+                <div class="why">Базовий білок для росту м'язів — 24 г на порцію.</div>
+                <div class="ft"><span class="pr">1 290 ₴</span><button class="adds" type="button" aria-label="Додати в кошик">＋</button></div>
               </div>
-              <p class="q-why"><b>Чому тут:</b> базовий білок для росту м'язів — 24 г протеїну на порцію.</p>
             </article>
 
-            <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Основа</span></a><button class="fav" aria-label="В обране">♡</button>
+            <article class="qsc">
+              <a href="product.html" class="ph">фото<span class="tag">Основа</span></a>
               <div class="bd">
-                <div class="pbrand">OstroVit · Польща</div>
+                <div class="br">OstroVit</div>
                 <a href="product.html" class="nm">Creatine Monohydrate 500 г</a>
-                <div class="pavail in">● В наявності</div>
-                <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">549 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
-                <div class="rate"><span class="st">★ 4.9</span> · 210 відгуків</div>
-                <div class="pmeta2"><span class="perserv"><b>5 ₴</b> / порція</span><span class="bonus">+6 ₴ бонус</span></div>
+                <div class="why">Найдоказовіша добавка для сили — 5 г щодня.</div>
+                <div class="ft"><span class="pr">549 ₴</span><button class="adds" type="button" aria-label="Додати в кошик">＋</button></div>
               </div>
-              <p class="q-why"><b>Чому тут:</b> найдоказовіша добавка для сили — 5 г моногідрату щодня.</p>
             </article>
 
-            <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+            <article class="qsc">
+              <a href="product.html" class="ph">фото</a>
               <div class="bd">
-                <div class="pbrand">BioTechUSA · Угорщина</div>
+                <div class="br">BioTechUSA</div>
                 <a href="product.html" class="nm">BCAA Flow Zero 360 г</a>
-                <div class="pavail in">● В наявності</div>
-                <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">720 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
-                <div class="rate"><span class="st">★ 4.6</span> · 54 відгуки</div>
-                <div class="pmeta2"><span class="perserv"><b>16 ₴</b> / порція</span><span class="bonus">+7 ₴ бонус</span></div>
+                <div class="why">Амінокислоти для відновлення між тренуваннями.</div>
+                <div class="ft"><span class="pr">720 ₴</span><button class="adds" type="button" aria-label="Додати в кошик">＋</button></div>
               </div>
-              <p class="q-why"><b>Чому тут:</b> амінокислоти для відновлення між тренуваннями.</p>
             </article>
 
-            <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+            <article class="qsc">
+              <a href="product.html" class="ph">фото<span class="tag">Хіт</span></a>
               <div class="bd">
-                <div class="pbrand">Power Pro · Україна</div>
+                <div class="br">Power Pro</div>
                 <a href="product.html" class="nm">Hyper Mass 4000 г</a>
-                <div class="pavail in">● В наявності</div>
-                <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 450 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
-                <div class="rate"><span class="st">★ 4.6</span> · 74 відгуки</div>
-                <div class="pmeta2"><span class="perserv"><b>29 ₴</b> / порція</span><span class="bonus">+14 ₴ бонус</span></div>
+                <div class="why">Калорійний гейнер, щоб добрати норму калорій.</div>
+                <div class="ft"><span class="pr">1 450 ₴</span><button class="adds" type="button" aria-label="Додати в кошик">＋</button></div>
               </div>
-              <p class="q-why"><b>Чому тут:</b> калорійний гейнер, щоб добрати норму для набору маси.</p>
             </article>
           </div>
 
