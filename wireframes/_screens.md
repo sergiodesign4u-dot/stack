@@ -251,3 +251,37 @@ Full map now **«40 збудовано · 3 у специфікації»**.
 **Remaining IA-only (3):** navigation/footer components (0.1/0.2 — live in `_nav.js`, no standalone
 page) · account sub-sections 7.1–7.7 (sections within `account.html`) · logged-in account dropdown
 (static proto header = guest state).
+
+---
+
+## Крок 13 — Logged-in account dropdown (2026-07-02)
+
+Built the last interactive nav element from `navigation.md` — the header account zone by auth/role.
+
+**`wfHeader(role)`** — `role`: `'guest'` (default → all existing pages unchanged) · `'buyer'` · `'coach'`.
+- **Guest:** 👤 «Увійти» → `auth.html` dialog (unchanged); Бонуси = «Отримати».
+- **Logged-in:** 👤 «Кабінет ▾» button opens a right-aligned dropdown (`.wfh-cabmenu`), Бонуси shows a
+  balance «240 ₴», «Обране»/«Бонуси» stay their own header elements (NOT in the menu, per spec).
+  - **buyer:** header = «Вікторія Коваль» + 🥈 Срібний рівень → Кабінет · Замовлення · Адреси ·
+    Стати тренером (→ `coach-verify.html`) · Вийти.
+  - **coach:** header = «Олена Кравець» + PRO chip → Кабінет тренера · Клієнти · ＋Нова сесія ·
+    Замовлення тренера · (sep) · Мій профіль · Адреси · (sep) · Вийти. «Стати тренером» dropped
+    (role active).
+
+**Interactions:** `toggleCab(e)` (stopPropagation + aria-expanded), `closeCab()`, close on
+click-outside (`.wfh-cab`) and ESC. CSS: `.wfh-cab`/`.wfh-cabmenu`/`.cab-head`/`.cab-tier`/`.cab-lvl`/
+`.cab-sep` in `_wf.css`.
+
+**Wired (sed):** `account*.html` → `wfHeader('buyer')` (4 pages) · all coach cabinet pages
+(`coach-home/clients/client/client-edit/session/orders/order*` + `cart-coach*`) → `wfHeader('coach')`
+(29). `coach-landing` (public) + `coach-verify` (pre-activation) stay guest. Counts: buyer 4 · coach 29 ·
+guest-default 61. This also **fixes the Крок-10 drift** where logged-in areas rendered the guest header.
+
+**Verified** (Playwright 1280): buyer dropdown on `account.html` (Кабінет ▾ + 🥈 + 5 items, no
+Обране/Бонуси in menu, Бонуси header = 240 ₴), coach dropdown on `coach-home.html` (Олена Кравець + PRO +
+coach items + profile/addresses, no «Стати тренером»). No broken links, syntax OK. Full map unchanged
+(«40 збудовано · 3 у специфікації» — the dropdown is a header state of node 0.1, not a new page).
+
+**Remaining IA-only:** navigation/footer components (0.1/0.2 — live in `_nav.js`, no standalone page) ·
+account sub-sections 7.1–7.7 (sections within `account.html`). The clickable prototype's navigation is
+now feature-complete.

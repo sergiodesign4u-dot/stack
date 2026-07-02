@@ -403,7 +403,36 @@ function wfToast(type, msg) {
    Inherited components rendered once (conventions §7). Inject into
    #wf-header / #wf-footer / #wf-rail / #wf-sheet placeholders.
    ============================================================ */
-function wfHeader() {
+/* wfHeader(role) — role: undefined/'guest' (default) · 'buyer' · 'coach'.
+   Guest → 👤 «Увійти» (opens dialog). Logged-in → 👤 «Кабінет» + dropdown
+   (per navigation.md: Кабінет · Замовлення · Адреси · Стати тренером · Вихід;
+   coach adds tier chip + Кабінет тренера · Клієнти · Нова сесія, drops «Стати
+   тренером»). «Обране» + «Бонуси» stay their own header elements (not in menu). */
+function wfHeader(role) {
+  role = role || 'guest';
+  const isCoach = role === 'coach';
+  const loggedIn = isCoach || role === 'buyer';
+  const name = isCoach ? 'Олена Кравець' : 'Вікторія Коваль';
+  let acctHTML;
+  if (!loggedIn) {
+    acctHTML = `<a class="wfh-act stack" href="auth.html"><span class="g">👤</span><span class="lbl">Увійти</span></a>`;
+  } else {
+    let items = `<div class="cab-head"><span class="cab-nm">${name}</span>` +
+      (isCoach ? `<span class="cab-tier">PRO</span>` : `<span class="cab-lvl">🥈 Срібний рівень</span>`) + `</div>`;
+    if (isCoach) {
+      items += `<a href="coach-home.html">Кабінет тренера</a><a href="coach-clients.html">Клієнти</a>` +
+        `<a href="coach-session.html">＋ Нова сесія</a><a href="coach-orders.html">Замовлення тренера</a>` +
+        `<div class="cab-sep"></div><a href="account.html">Мій профіль</a><a href="account.html">Адреси</a>`;
+    } else {
+      items += `<a href="account.html">Кабінет</a><a href="account.html">Замовлення</a>` +
+        `<a href="account.html">Адреси</a><a href="coach-verify.html">Стати тренером</a>`;
+    }
+    items += `<div class="cab-sep"></div><a href="home.html">Вийти</a>`;
+    acctHTML = `<div class="wfh-cab"><button class="wfh-act stack wfh-cabbtn" onclick="toggleCab(event)" aria-haspopup="true" aria-expanded="false">` +
+      `<span class="g">👤</span><span class="lbl">Кабінет ▾</span></button>` +
+      `<div class="wfh-cabmenu" id="wfh-cabmenu" role="menu">${items}</div></div>`;
+  }
+  const bonusVal = loggedIn ? '240 ₴' : 'Отримати';
   const el = document.getElementById('wf-header'); if (!el) return;
   el.className = 'wfh';
   el.innerHTML = `
@@ -431,9 +460,9 @@ function wfHeader() {
         <a href="cart.html" aria-label="Кошик">🛒</a>
       </div>
       <div class="wfh-actions">
-        <a class="wfh-act stack" href="auth.html"><span class="g">👤</span><span class="lbl">Увійти</span></a>
+        ${acctHTML}
         <a class="wfh-act stack" href="account.html"><span class="g">♡</span><span class="lbl">Обране</span></a>
-        <a class="wfh-act" href="account.html"><span class="g">★</span><span class="t"><span class="cap">Бонуси</span><span class="val">Отримати</span></span></a>
+        <a class="wfh-act" href="account.html"><span class="g">★</span><span class="t"><span class="cap">Бонуси</span><span class="val">${bonusVal}</span></span></a>
         <a class="wfh-act" href="cart.html"><span class="g">🛒</span><span class="lbl">Кошик</span></a>
       </div>
     </div>
@@ -558,4 +587,8 @@ function wfSheet() {
 }
 function openSheet() { document.getElementById('fsheet').classList.add('open'); document.getElementById('fsheet-ov').classList.add('open'); }
 function closeSheet() { const s = document.getElementById('fsheet'), o = document.getElementById('fsheet-ov'); if (s) s.classList.remove('open'); if (o) o.classList.remove('open'); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); } });
+/* logged-in account dropdown (navigation.md) */
+function toggleCab(e) { if (e) e.stopPropagation(); const m = document.getElementById('wfh-cabmenu'); if (!m) return; const open = m.classList.toggle('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+function closeCab() { const m = document.getElementById('wfh-cabmenu'); if (!m) return; m.classList.remove('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', 'false'); }
+document.addEventListener('click', e => { const cab = document.getElementById('wfh-cabmenu'); if (cab && cab.classList.contains('open') && !e.target.closest('.wfh-cab')) closeCab(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); } });
