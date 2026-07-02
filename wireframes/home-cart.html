@@ -9,9 +9,11 @@
 </head>
 <body>
 <!-- ============================================================
-  WIREFRAME · node 0.0 Головна (state = BUYER). Two non-blocking front doors + return path.
-  Job 2 (goal selector) + Job 1 (coach block) + Job 4 (cart shelf / repeat). Flow entry.
-  Role variants: home-buyer.html, home-coach.html.
+  WIREFRAME · node 0.0 Головна (state = CART SHELF, non-empty cart). ia/home.md §«Cart shelf».
+  When the cart is non-empty (now or persisted from a previous visit), a «continue your
+  purchase» nudge appears right under the hero: count + sum + item thumbnails +
+  «Оформити замовлення» (→ checkout 6.1) / «Переглянути кошик» (→ cart 6.0). Shown here on
+  a returning buyer. States: buyer · coach · cart.
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 <div class="wf-canvas">
@@ -53,6 +55,25 @@
       </div>
     </div>
   </section>
+
+  <!-- Block 1b: CART SHELF (state) — non-empty cart nudge, right under the hero -->
+  <div class="cshelf" role="region" aria-label="Ваш кошик">
+    <span class="cs-ico">🛒</span>
+    <div class="cs-tx">
+      <span class="cs-h">У вашому кошику 3 товари</span>
+      <span class="cs-s">на суму <b>3 129 ₴</b> · продовжуйте покупку, коли зручно</span>
+    </div>
+    <div class="cs-thumbs" aria-hidden="true">
+      <span class="cs-th">фото<span class="q">1</span></span>
+      <span class="cs-th">фото<span class="q">1</span></span>
+      <span class="cs-th more">+1</span>
+    </div>
+    <span class="cs-sp"></span>
+    <div class="cs-act">
+      <a class="btn" href="cart.html">Переглянути кошик</a>
+      <a class="btn dark" href="checkout.html">Оформити замовлення →</a>
+    </div>
+  </div>
 
   <!-- Block 2: personal strip — BUYER (repeat order + loyalty) -->
   <div class="pstrip">
@@ -235,6 +256,6 @@
 <div id="wf-sheet"></div>
 <div class="hrail-scrim" id="home-scrim" onclick="window.hcClose&&hcClose()"></div>
 <script src="_nav.js"></script>
-<script>wfHeader('buyer'); wfFooter(); wfBar('home.html', 'buyer'); wfHomeRail();</script>
+<script>wfHeader('buyer'); wfFooter(); wfBar('home.html', 'cart'); wfHomeRail();</script>
 </body>
 </html>

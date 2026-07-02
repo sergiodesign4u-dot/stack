@@ -13,7 +13,7 @@ const WF_STATE_LABEL = {
   guest: 'Гість', declined: 'Оплата відхилена', noaddr: 'Без адреси', loggedin: 'У кабінеті',
   code: 'Крок коду', newuser: 'Новий користувач', 'account-end': 'З акаунтом',
   tier: 'Вибір тарифу', deadend: 'Глухий кут', cap: 'Ліміт клієнтів',
-  addclient: 'Додати клієнта', priceblock: 'Ціна не підтверджена', newclient: 'Новий клієнт',
+  addclient: 'Додати клієнта', priceblock: 'Ціна не підтверджена', newclient: 'Новий клієнт', cart: 'Кошик-полиця',
   confirm: 'Підтвердження', suggest: 'Підказки', 'no-results': 'Нічого не знайдено',
   protein: 'Протеїн', health: 'Здоровʼя', vitamins: 'Вітаміни',
   free: 'Тариф Free', cancel: 'Скасування Pro'
@@ -24,7 +24,7 @@ const WF_FLOWS = [
     id: 'f1', name: 'Флоу 1 · Покупець-новачок', status: 'active',
     note: 'Головна → Категорія → Картка товару → Кошик → Оформлення → Замовлення',
     screens: [
-      { file: 'home.html',         name: 'Головна',              node: '0.0', built: true,  states: ['buyer','coach'], builtStates: ['buyer','coach'] },
+      { file: 'home.html',         name: 'Головна',              node: '0.0', built: true,  states: ['buyer','coach','cart'], builtStates: ['buyer','coach','cart'] },
       { file: 'listing.html',      name: 'Категорія (лістинг)',  node: '2.1', built: true,  states: ['filtered','list','sheet','empty','loading','error'], builtStates: ['filtered','list','sheet','empty','loading','error'] },
       { file: 'goal.html',         name: 'Ціль-колекція',        node: '2.2', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'quiz.html',         name: 'Квіз (підбір за ціллю)', node: '4.x', built: true, states: [], builtStates: [] },
