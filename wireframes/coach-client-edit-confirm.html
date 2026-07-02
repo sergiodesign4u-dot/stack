@@ -7,7 +7,8 @@
 <title>Видалити клієнта? — Кабінет тренера (wireframe 5.4a · confirm)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
-/* node 5.4a — CONFIRM (delete-client) dialog over the dimmed profile. */
+/* node 5.4a REFERENCE — CONFIRM state of the SHARED wfClientEdit() modal, pinned
+   over the dimmed client profile. Same component as coach-client.html inline. */
 #wf-bar { position: relative; z-index: 80; }
 .ce-behind { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
 .ce-behind .crumb { margin-bottom: 14px; }
@@ -18,21 +19,13 @@
 .ce-ph .gl { font-size: 13px; color: var(--sec); margin-top: 3px; }
 .ce-ph .bar { height: 12px; background: var(--fill); border-radius: 6px; margin: 18px 0; }
 .ce-ph .bar.s { width: 60%; }
-
-.ceov { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 55; display: flex; align-items: center; justify-content: center; padding: 20px; }
-.cedlg { background: #fff; width: 100%; max-width: 400px; border: 1px solid var(--hair2); border-radius: 14px; box-shadow: 0 6px 24px rgba(0,0,0,.12); padding: 24px; text-align: center; }
-.cedlg .ic { width: 48px; height: 48px; margin: 0 auto 14px; border: 2px solid var(--strong); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-.cedlg h2 { font-size: 19px; font-weight: 800; color: var(--strong); }
-.cedlg p { font-size: 13.5px; color: var(--sec); margin: 8px 0 20px; line-height: 1.55; }
-.cedlg .act { display: flex; gap: 10px; }
-.cedlg .act .btn { flex: 1; text-align: center; }
 </style>
 </head>
 <body>
 <!-- ============================================================
-  WIREFRAME · node 5.4a Редагування клієнта — CONFIRM (delete dialog).
-  «Видалити клієнта Андрій?» → remove from list (past orders kept) / cancel.
-  Cancel → coach-client-edit; delete → coach-clients (client gone). No dead end.
+  WIREFRAME · node 5.4a — CONFIRM (delete dialog) REFERENCE render. Renders the
+  SHARED wfClientEdit() component in its confirm state, pinned over the dimmed
+  profile. «Скасувати» → back to edit; «Видалити» → coach-clients (client gone).
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 <div class="wf-canvas">
@@ -49,21 +42,10 @@
 
 <footer id="wf-footer"></footer>
 </div>
-
-<!-- CONFIRM DELETE DIALOG -->
-<div class="ceov" role="dialog" aria-modal="true" aria-label="Видалити клієнта">
-  <div class="cedlg">
-    <div class="ic" aria-hidden="true">🗑</div>
-    <h2>Видалити клієнта «Андрій»?</h2>
-    <p>Клієнта буде вилучено з вашого списку. Минулі замовлення залишаться в історії замовлень. Цю дію не можна скасувати.</p>
-    <div class="act">
-      <a class="btn" href="coach-client-edit.html">Скасувати</a>
-      <a class="btn dark" href="coach-clients.html">Видалити клієнта</a>
-    </div>
-  </div>
-</div>
+<div id="wf-client-edit"></div>
+<div id="wf-toast"></div>
 
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-client-edit.html', 'confirm');</script>
+<script>wfHeader('coach'); wfFooter(); wfToasts(); openClientDelete(); wfBar('coach-client-edit.html', 'confirm');</script>
 </body>
 </html>

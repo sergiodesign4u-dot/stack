@@ -434,3 +434,28 @@ Stack! Ви увійшли»). passwordless, phone-OTP-first, split-layout. Кн
 **Verified:** повний прогін станів на home (клік хедер-«Увійти» → phone→loading→code→error→newuser→done+тост,
 URL не змінюється), reference `auth-loading` (pinned loading + бар «Авторизація 1.x»), мобілка 390 (банер +
 фул-скрин), drawer-тригер (закриває drawer + відкриває auth). 0 broken / 0 orphans (112 файлів).
+
+## Крок 19 — Довели список патерну модалок: фільтр-шит · клієнт-модалка · coach-PDP (2026-07-02)
+
+Три пункти «дальше» з Кроку 18, усі за тим самим SHARED inline+reference патерном.
+
+**1. Фільтр bottom-sheet (`wfSheet`) → +reference.** Inline-частина вже була спільна (`#wf-sheet` на
+11 сторінках listing/goal/search). Додав **reference-стан** `listing-sheet.html` — той самий `wfSheet()`
+запінений через `openSheet()` над лістингом (мобільний, ≤860px). Зареєстрував стан `sheet` у listing
+(WF_FLOWS + WF_STATE_LABEL «Фільтри (шит)»). Verified 390: шит відкритий, foot Скинути/Застосувати(47).
+
+**2. `coach-client-edit` (5.4a) → інлайн-модалка.** Виніс edit+delete-confirm у SHARED **`wfClientEdit()`**
+(`_nav.js`) + CSS `.ceov/.cemodal/.cef/.cegoals/.cedlg` у `_wf.css`. `coach-client.html`: кнопка
+«Редагувати клієнта» → `openClientEdit()` **інлайн над реальним профілем** (не окрема сторінка); «Видалити»
+→ `openClientDelete()` (confirm) → `coach-clients.html`; save/cancel → `closeClientEdit()` (+тост). Сторінки
+`coach-client-edit.html`/`-confirm.html` стали REFERENCE — рендерять ТОЙ САМИЙ компонент запіненим над
+димованим `.ce-behind`. ESC/клік-поза закривають. Verified 1280: edit inline (URL не змінюється) → confirm.
+
+**3. Coach-режим PDP `product-coach.html` (стан 3.0 `coach`).** Копія `product.html` з: `wfHeader('coach')`;
+**гуртова ціна тренера** повернена (роздріб 1 290 ₴ закреслено → «🎓 Гуртова ціна тренера · Pro 1 090 ₴,
+−200 ₴/шт») — та, що прибрали для покупця в Кроку 17; **пікер «Додати клієнту»** (Андрій/Марія/Ігор/новий);
+CTA «У кошик»→**«Додати клієнту»**→`coach-session.html` (і в buyrow, і в sticky-барі, і в компактному
+sticky-price «1 090 ₴ гурт»). Зареєстрував стан `coach` у product (WF_FLOWS). Verified 1280.
+
+**Verified разом:** 0 broken / 0 orphans (114 файлів, +2). Спільні компоненти тепер: `wfPdpModals`,
+`wfAuth`, `wfClientEdit`, `wfSheet`, `wfCity`, `wfCookie`, `wfAccountNav`, mega/drawer.

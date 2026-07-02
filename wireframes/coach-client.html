@@ -84,7 +84,7 @@
         <span class="ch-goal">🎯 Ціль: Набір маси</span>
       </div>
     </div>
-    <a class="ch-edit" href="coach-client-edit.html">Редагувати клієнта</a>
+    <a class="ch-edit" href="coach-client-edit.html" onclick="openClientEdit();return false">Редагувати клієнта</a>
   </div>
 
   <p class="cc-note">Ціль клієнта <b>«Набір маси»</b> формує підбір товарів у сесії замовлення —
@@ -157,8 +157,10 @@
 
 <footer id="wf-footer"></footer>
 </div>
+<div id="wf-client-edit"></div>
+<div id="wf-toast"></div>
 
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-client.html');</script>
+<script>wfHeader('coach'); wfFooter(); wfClientEdit(); wfToasts(); wfBar('coach-client.html');</script>
 </body>
 </html>

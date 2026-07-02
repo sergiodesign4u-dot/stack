@@ -7,13 +7,10 @@
 <title>Редагувати клієнта — Кабінет тренера (wireframe 5.4a)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
-/* ============================================================
-   node 5.4a Редагування клієнта — edit MODAL over the dimmed client
-   profile (5.4). Fields name/goal/notes + delete behind a confirm.
-   Private → noindex. State: confirm (delete dialog).
-   ============================================================ */
+/* node 5.4a REFERENCE — the SHARED wfClientEdit() modal (in _nav.js) pinned open
+   over the dimmed client-profile context. The modal markup/CSS live once in
+   _nav.js/_wf.css and are the same inline on coach-client.html. Context only: */
 #wf-bar { position: relative; z-index: 80; }
-/* dimmed profile context behind the modal */
 .ce-behind { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
 .ce-behind .crumb { margin-bottom: 14px; }
 .ce-ph { border: 1px solid var(--hair); border-radius: 12px; padding: 18px; }
@@ -23,33 +20,14 @@
 .ce-ph .gl { font-size: 13px; color: var(--sec); margin-top: 3px; }
 .ce-ph .bar { height: 12px; background: var(--fill); border-radius: 6px; margin: 18px 0; }
 .ce-ph .bar.s { width: 60%; }
-
-/* modal */
-.ceov { position: fixed; inset: 0; background: rgba(0,0,0,.34); z-index: 55; display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
-.cemodal { background: #fff; width: 100%; max-width: 460px; border: 1px solid var(--hair2); border-radius: 14px; box-shadow: 0 6px 24px rgba(0,0,0,.12); padding: 22px; margin: auto; }
-.cemodal h2 { font-size: 19px; font-weight: 800; color: var(--strong); }
-.cemodal .sub { font-size: 13px; color: var(--sec); margin: 6px 0 16px; line-height: 1.5; }
-.cef { margin-bottom: 14px; }
-.cef label { display: block; font-size: 12px; font-weight: 700; color: var(--sec); margin-bottom: 6px; }
-.cef label .opt { color: var(--light); font-weight: 600; }
-.cef input, .cef textarea { width: 100%; border: 1.5px solid var(--hair2); border-radius: 9px; padding: 12px; font-size: 15px; font-family: inherit; }
-.cef textarea { min-height: 62px; resize: vertical; font-size: 14px; }
-.cegoals { display: flex; flex-wrap: wrap; gap: 8px; }
-.cegoals button { font-size: 12.5px; font-weight: 700; border: 1.5px solid var(--hair2); border-radius: 100px; padding: 8px 13px; color: var(--strong); background: #fff; }
-.cegoals button.on { border-color: var(--dark); background: var(--dark); color: #fff; }
-.ceact { display: flex; gap: 10px; margin-top: 18px; }
-.ceact .btn { flex: 1; text-align: center; }
-/* delete zone (greyscale, no colour) */
-.cedel { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--hair); }
-.cedel a { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700; color: var(--strong); border: 1.5px solid var(--hair2); border-radius: 9px; padding: 9px 14px; }
-.cedel .dn { font-size: 11.5px; color: var(--light); margin-top: 8px; line-height: 1.5; }
 </style>
 </head>
 <body>
 <!-- ============================================================
-  WIREFRAME · node 5.4a Редагування клієнта (base = edit form modal).
-  Modal over the dimmed client profile (5.4). Save/cancel → profile.
-  Delete → confirm dialog. State: confirm.
+  WIREFRAME · node 5.4a Редагування клієнта — REFERENCE render (base = edit form).
+  Renders the SHARED wfClientEdit() component pinned over the dimmed profile (5.4).
+  The very same modal opens inline on coach-client.html («Редагувати клієнта»).
+  Save/Cancel → close (back to profile); «Видалити» → confirm. State: confirm.
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 <div class="wf-canvas">
@@ -67,51 +45,10 @@
 
 <footer id="wf-footer"></footer>
 </div>
-
-<!-- EDIT MODAL -->
-<div class="ceov" role="dialog" aria-modal="true" aria-label="Редагувати клієнта">
-  <div class="cemodal">
-    <h2>Редагувати клієнта</h2>
-    <p class="sub">Ім'я та ціль клієнта. Ціль підбирає товари в сесії й у профілі.</p>
-
-    <div class="cef">
-      <label for="cen">Ім'я клієнта</label>
-      <input id="cen" type="text" value="Андрій">
-    </div>
-    <div class="cef">
-      <label>Ціль</label>
-      <div class="cegoals">
-        <button type="button" class="on">Набір маси</button><button type="button">Схуднення</button>
-        <button type="button">Відновлення</button><button type="button">Енергія</button>
-        <button type="button">Імунітет</button><button type="button">Витривалість</button>
-      </div>
-    </div>
-    <div class="cef">
-      <label for="cep">Телефон <span class="opt">— необов'язково</span></label>
-      <input id="cep" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __">
-    </div>
-    <div class="cef">
-      <label for="cem">E-mail <span class="opt">— необов'язково</span></label>
-      <input id="cem" type="email" placeholder="you@email.com">
-    </div>
-    <div class="cef">
-      <label for="cenote">Нотатки тренера <span class="opt">— необов'язково</span></label>
-      <textarea id="cenote" placeholder="Напр., алергія на лактозу; ранкові тренування"></textarea>
-    </div>
-
-    <div class="ceact">
-      <a class="btn" href="coach-client.html">Скасувати</a>
-      <a class="btn dark" href="coach-client.html">Зберегти зміни</a>
-    </div>
-
-    <div class="cedel">
-      <a href="coach-client-edit-confirm.html">🗑 Видалити клієнта</a>
-      <div class="dn">Клієнта буде вилучено зі списку. Минулі замовлення залишаться в історії.</div>
-    </div>
-  </div>
-</div>
+<div id="wf-client-edit"></div>
+<div id="wf-toast"></div>
 
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-client-edit.html');</script>
+<script>wfHeader('coach'); wfFooter(); wfToasts(); openClientEdit(); wfBar('coach-client-edit.html');</script>
 </body>
 </html>

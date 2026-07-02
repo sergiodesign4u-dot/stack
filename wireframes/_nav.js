@@ -8,7 +8,7 @@
 
 const WF_STATE_LABEL = {
   base: 'Базовий', empty: 'Порожньо', loading: 'Завантаження', error: 'Помилка',
-  filtered: 'З фільтрами', list: 'Списком', oos: 'Немає в наявності', reviews: 'Відгуки (Job 3)',
+  filtered: 'З фільтрами', list: 'Списком', sheet: 'Фільтри (шит)', oos: 'Немає в наявності', reviews: 'Відгуки (Job 3)',
   buyer: 'Покупець', coach: 'Тренер',
   guest: 'Гість', declined: 'Оплата відхилена', noaddr: 'Без адреси', loggedin: 'У кабінеті',
   code: 'Крок коду', newuser: 'Новий користувач', 'account-end': 'З акаунтом',
@@ -24,10 +24,10 @@ const WF_FLOWS = [
     note: 'Головна → Категорія → Картка товару → Кошик → Оформлення → Замовлення',
     screens: [
       { file: 'home.html',         name: 'Головна',              node: '0.0', built: true,  states: ['buyer','coach'], builtStates: ['buyer','coach'] },
-      { file: 'listing.html',      name: 'Категорія (лістинг)',  node: '2.1', built: true,  states: ['filtered','list','empty','loading','error'], builtStates: ['filtered','list','empty','loading','error'] },
+      { file: 'listing.html',      name: 'Категорія (лістинг)',  node: '2.1', built: true,  states: ['filtered','list','sheet','empty','loading','error'], builtStates: ['filtered','list','sheet','empty','loading','error'] },
       { file: 'goal.html',         name: 'Ціль-колекція',        node: '2.2', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'quiz.html',         name: 'Квіз (підбір за ціллю)', node: '4.x', built: true, states: [], builtStates: [] },
-      { file: 'product.html',      name: 'Картка товару',        node: '3.0', built: true,  states: ['loading','error','oos','reviews'], builtStates: ['loading','error','oos','reviews'] },
+      { file: 'product.html',      name: 'Картка товару',        node: '3.0', built: true,  states: ['loading','error','oos','reviews','coach'], builtStates: ['loading','error','oos','reviews','coach'] },
       { file: 'cart.html',         name: 'Кошик',                node: '6.0', built: true,  states: ['empty','oos'], builtStates: ['empty','oos'] },
       { file: 'checkout.html',     name: 'Оформлення',           node: '6.1', built: true,  states: ['loggedin','noaddr','loading','declined'], builtStates: ['loggedin','noaddr','loading','declined'] },
       { file: 'auth.html',         name: 'Авторизація',          node: '1.x', built: true,  states: ['code','loading','newuser','error'], builtStates: ['code','loading','newuser','error'] },
@@ -639,6 +639,42 @@ function wfAuthGo(state) { wfAuthMount(); var ov = document.getElementById('wf-a
 function closeAuth() { var ov = document.getElementById('wf-auth'); if (ov) ov.classList.remove('open'); }
 function wfAuthDone() { closeAuth(); wfToast('ok', 'Вітаємо у Stack! Ви увійшли 🎉'); }
 
+/* ============================================================
+   CLIENT EDIT (node 5.4a) — SHARED modal (single source of truth). Injected into
+   #wf-client-edit on coach-client.html (inline, over the real profile) AND on the
+   reference pages coach-client-edit(.html) / -confirm (pinned over dimmed context),
+   so they never drift. Edit form + delete-behind-confirm. Client = Андрій / Набір
+   маси (matches coach-client.html). openClientEdit()/openClientDelete()/close. ==== */
+function wfClientEdit() {
+  const el = document.getElementById('wf-client-edit'); if (!el) return;
+  const goals = ['Набір маси', 'Схуднення', 'Відновлення', 'Енергія', 'Імунітет', 'Витривалість'];
+  let gbtns = ''; goals.forEach((g, i) => { gbtns += '<button type="button"' + (i === 0 ? ' class="on"' : '') + '>' + g + '</button>'; });
+  el.innerHTML =
+    '<div class="ceov" id="ce-edit" role="dialog" aria-modal="true" aria-label="Редагувати клієнта"><div class="cemodal">' +
+    '<div class="ce-top"><h2>Редагувати клієнта</h2><button class="ce-x" onclick="closeClientEdit()" aria-label="Закрити">✕</button></div>' +
+    '<p class="sub">Ім\'я та ціль клієнта. Ціль підбирає товари в сесії й у профілі.</p>' +
+    '<div class="cef"><label for="cen">Ім\'я клієнта</label><input id="cen" type="text" value="Андрій"></div>' +
+    '<div class="cef"><label>Ціль</label><div class="cegoals">' + gbtns + '</div></div>' +
+    '<div class="cef"><label for="cep">Телефон <span class="opt">— необов\'язково</span></label><input id="cep" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __"></div>' +
+    '<div class="cef"><label for="cem">E-mail <span class="opt">— необов\'язково</span></label><input id="cem" type="email" placeholder="you@email.com"></div>' +
+    '<div class="cef"><label for="cenote">Нотатки тренера <span class="opt">— необов\'язково</span></label><textarea id="cenote" placeholder="Напр., алергія на лактозу; ранкові тренування"></textarea></div>' +
+    '<div class="ceact"><button class="btn" onclick="closeClientEdit()">Скасувати</button>' +
+    '<button class="btn dark" onclick="saveClientEdit()">Зберегти зміни</button></div>' +
+    '<div class="cedel"><button onclick="openClientDelete()">🗑 Видалити клієнта</button>' +
+    '<div class="dn">Клієнта буде вилучено зі списку. Минулі замовлення залишаться в історії.</div></div>' +
+    '</div></div>' +
+    '<div class="ceov" id="ce-confirm" role="dialog" aria-modal="true" aria-label="Видалити клієнта"><div class="cedlg">' +
+    '<div class="ic" aria-hidden="true">🗑</div><h2>Видалити клієнта «Андрій»?</h2>' +
+    '<p>Клієнта буде вилучено з вашого списку. Минулі замовлення залишаться в історії замовлень. Цю дію не можна скасувати.</p>' +
+    '<div class="act"><button class="btn" onclick="openClientEdit()">Скасувати</button>' +
+    '<a class="btn dark" href="coach-clients.html">Видалити клієнта</a></div>' +
+    '</div></div>';
+}
+function openClientEdit() { wfClientEdit(); var e = document.getElementById('ce-edit'), c = document.getElementById('ce-confirm'); if (c) c.classList.remove('open'); if (e) e.classList.add('open'); }
+function openClientDelete() { var e = document.getElementById('ce-edit'), c = document.getElementById('ce-confirm'); if (e) e.classList.remove('open'); if (c) c.classList.add('open'); }
+function closeClientEdit() { document.querySelectorAll('#wf-client-edit .ceov.open').forEach(o => o.classList.remove('open')); }
+function saveClientEdit() { closeClientEdit(); wfToast('ok', 'Зміни клієнта збережено'); }
+
 /* SHARED account section-nav (node 7.x) — one source for account.html + every
    account-*.html sub-page. active = section key; isCoach swaps «Стати тренером»
    → «Кабінет тренера» (the already-a-coach state). Inject into #acc-nav. */
@@ -886,4 +922,4 @@ function closeSheet() { const s = document.getElementById('fsheet'), o = documen
 function toggleCab(e) { if (e) e.stopPropagation(); const m = document.getElementById('wfh-cabmenu'); if (!m) return; const open = m.classList.toggle('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
 function closeCab() { const m = document.getElementById('wfh-cabmenu'); if (!m) return; m.classList.remove('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', 'false'); }
 document.addEventListener('click', e => { const cab = document.getElementById('wfh-cabmenu'); if (cab && cab.classList.contains('open') && !e.target.closest('.wfh-cab')) closeCab(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); closeMega(); closeAuth(); if (typeof closePM === 'function') closePM(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); closeMega(); closeAuth(); if (typeof closeClientEdit === 'function') closeClientEdit(); if (typeof closePM === 'function') closePM(); } });
