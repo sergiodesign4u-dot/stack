@@ -285,3 +285,33 @@ coach items + profile/addresses, no «Стати тренером»). No broken 
 **Remaining IA-only:** navigation/footer components (0.1/0.2 — live in `_nav.js`, no standalone page) ·
 account sub-sections 7.1–7.7 (sections within `account.html`). The clickable prototype's navigation is
 now feature-complete.
+
+---
+
+## Крок 14 — Сквозной клик-QA всього прототипу (2026-07-02)
+
+**Phase A — static integrity audit** (script over all 102 html + `_nav.js`; traces href/action/
+`location.href` → local .html, builds link graph, checks WF_FLOWS/WF_SITEMAP):
+- **BROKEN local links: 0** · **ORPHAN pages: 0** · **registered-but-missing (WF_FLOWS/SITEMAP): 0**.
+- Static `<a href="#">` without onclick: **1 fixed + 8 accepted.**
+  - **Fixed:** `product-oos.html` rating link `★ 4.8 · 126 відгуків` → was dead `#`, now `product.html#rev`
+    (OOS variant has no reviews section; routes to the canonical PDP reviews — matches product.html).
+  - **Accepted (8):** `content-guarantee.html` `.cert` tiles — «Переглянути ⤢» certificate documents.
+    These open a PDF asset in production (out of wireframe scope), not a page. Kept as placeholders.
+
+**Phase B — interactive journey QA** (Playwright 1280, clicking real elements, not URL-typing):
+- **Flow 1 (beginner):** home → goal tile → goal.html → product card → product.html → «У кошик» →
+  cart.html → checkout CTA → checkout.html → «Підтвердити» → checkout-loading.html → «Оплату
+  підтверджено» → order-placed.html. ✓ every hop.
+- **Flow 2 (coach):** coach-home.html → «Нова сесія» (page CTA) → coach-session.html → cart-coach.html →
+  «Оформити» → checkout.html (converges to shared checkout). ✓
+- **Catalog surfaces:** catalog-page.html → category tile → listing.html ✓; header search submit →
+  search.html ✓.
+- **Auth:** header «Увійти» → auth.html ✓.
+- **Interactive components** (verified earlier this session): Catalog mega-menu + hover category-switch ·
+  city dialog · mobile drawer · quiz full run (intro→Q1 gate→Q2–Q5→result) · cookie banner + settings +
+  save→toast · toasts ok/err/info · logged-in dropdown (buyer + coach). ✓
+- Console: only `favicon.ico` 404 across all pages (no favicon asset) — harmless, not a code error.
+
+**Verdict:** прототип цілісний — 0 битих посилань, 0 сиріт, усі головні флоу проходяться кліком до
+кінця. Audit script kept at `scratchpad/qa_audit.py` (re-runnable).
