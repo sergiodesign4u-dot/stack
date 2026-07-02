@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<title>Пошук «креатин» — завантаження (wireframe 2.5)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.5 Пошук — STATE = loading (debounced search running).
+  Skeleton grid in place of results; transient → resolves to results or no-results.
+  Header/footer injected; no filter rail on this state.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Пошук</span>
+  </nav>
+
+  <!-- H1 while searching -->
+  <section aria-label="Пошук">
+    <h1 class="lh1">Шукаємо за запитом «креатин»…</h1>
+  </section>
+
+  <div class="ltool">
+    <span class="ctrl count">Шукаємо…</span>
+    <span class="sp"></span>
+    <span class="ctrl"><span class="cap">Сортування:</span> Релевантні ▾</span>
+    <span class="vtoggle"><span class="on">▦</span><span>☰</span></span>
+  </div>
+
+  <div class="mtoolbar">
+    <button class="mc">Фільтри</button>
+    <button class="mc">Релевантні ▾</button>
+  </div>
+
+  <!-- Skeleton grid -->
+  <section aria-label="Завантаження результатів" aria-busy="true">
+    <div class="skgrid skpulse">
+      <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+      <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+      <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+      <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+      <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+      <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+      <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+      <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+    </div>
+    <p class="loadnote">Шукаємо товари…</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('search.html', 'loading');</script>
+</body>
+</html>

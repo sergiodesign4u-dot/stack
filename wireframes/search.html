@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<title>Пошук «креатин» — Stack (wireframe 2.5, результати)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 2.5 Пошук — results = the shared listing template (2.1), scope=query.
+   Differs from Category only in H1, query scope and SEO (here none — noindex).
+   Matched word in each product name is highlighted (greyscale <mark>). */
+mark { background: #e4e4e4; color: #111; padding: 0 2px; border-radius: 2px; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.5 Пошук — RESULTS page (query = "креатин").
+  Reuses the listing template: header/footer/rail/sheet injected from _nav.js.
+  Default sort = Релевантні; load-more ONLY (no crawlable numbered pages — noindex).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Пошук</span>
+  </nav>
+
+  <!-- Listing head: H1 = «Знайдено N …за запитом» + count -->
+  <section aria-label="Результати пошуку">
+    <h1 class="lh1">Знайдено <span class="cnt">12 товарів</span> за запитом «креатин»</h1>
+    <p class="lintro">Моногідрат, Creapure®, креатин HCl та комплекси від перевірених брендів.
+      Уся продукція оригінальна, сертифікована, з гарантією виробника.</p>
+  </section>
+
+  <!-- Desktop toolbar: count left, sort (default = Релевантні) + view-toggle right -->
+  <div class="ltool">
+    <span class="ctrl count">Знайдено: 12 товарів</span>
+    <span class="sp"></span>
+    <span class="ctrl"><span class="cap">Сортування:</span> Релевантні ▾</span>
+    <span class="vtoggle"><a href="search.html" class="on" aria-label="Сіткою">▦</a><a href="search.html" aria-label="Списком">☰</a></span>
+  </div>
+
+  <!-- Mobile toolbar (sticky) -->
+  <div class="mtoolbar">
+    <button class="mc" onclick="openSheet()">Фільтри</button>
+    <button class="mc">Релевантні ▾</button>
+  </div>
+
+  <!-- Listing = filter rail (injected) + product grid (matched word highlighted) -->
+  <div class="listing">
+    <aside class="frail" id="wf-rail"></aside>
+
+    <section aria-label="Список товарів">
+      <div class="prow">
+
+        <!-- 1) В наявності (вкл. «мало») -->
+        <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">OstroVit · Польща</div>
+            <a href="product.html" class="nm"><mark>Creatine</mark> Monohydrate 500 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">549 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.9</span> · 210 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>5 ₴</b> / порція</span><span class="bonus">+6 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Optimum Nutrition · США</div>
+            <a href="product.html" class="nm">Micronised <mark>Creatine</mark> Powder 634 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 090 ₴</span><span class="pcut">−12%</span></div><span class="pnew">960 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.8</span> · 143 відгуки</div>
+            <div class="pmeta2"><span class="perserv"><b>8 ₴</b> / порція</span><span class="bonus">+10 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">BioTechUSA · Угорщина</div>
+            <a href="product.html" class="nm">100% <mark>Creatine</mark> Monohydrate 500 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">590 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.7</span> · 96 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>6 ₴</b> / порція</span><span class="bonus">+7 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Scitec Nutrition · Угорщина</div>
+            <a href="product.html" class="nm"><mark>Creatine</mark> 100% Pure 500 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">620 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.6</span> · 71 відгук</div>
+            <div class="pmeta2"><span class="perserv"><b>6 ₴</b> / порція</span><span class="bonus">+7 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Power Pro · Україна</div>
+            <a href="product.html" class="nm"><mark>Креатин</mark> Моногідрат 500 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">420 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.4</span> · 58 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>4 ₴</b> / порція</span><span class="bonus">+4 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">OstroVit · Польща</div>
+            <a href="product.html" class="nm"><mark>Creatine</mark> HCl 300 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">560 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.5</span> · 44 відгуки</div>
+            <div class="pmeta2"><span class="perserv"><b>7 ₴</b> / порція</span><span class="bonus">+6 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">NEW</span></a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Myprotein · Велика Британія</div>
+            <a href="product.html" class="nm"><mark>Creatine</mark> Monohydrate (Creapure®) 500 г</a>
+            <div class="pavail low">● Залишилось мало</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">690 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ —</span> · новинка</div>
+            <div class="pmeta2"><span class="perserv"><b>7 ₴</b> / порція</span><span class="bonus">+7 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Dymatize · США</div>
+            <a href="product.html" class="nm"><mark>Creatine</mark> Micronized 500 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">720 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.7</span> · 39 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>7 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <!-- 2) Під замовлення -->
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Universal Nutrition · США</div>
+            <a href="product.html" class="nm"><mark>Creatine</mark> Powder 200 г</a>
+            <div class="pavail pre">● Під замовлення</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">480 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.6</span> · 33 відгуки</div>
+            <div class="pmeta2"><span class="perserv"><b>6 ₴</b> / порція</span><span class="bonus">+5 ₴ бонус</span></div>
+          </div>
+        </article>
+
+      </div>
+      <p class="gnote">↑ Порядок карток (за замовч.): спершу <b>в наявності</b> (вкл. «мало»), далі
+        <b>під замовлення</b>. Сортування «Релевантні» — в межах цих груп; далі за ціною / новизною / рейтингом.</p>
+
+      <!-- Pagination: load-more ONLY (no numbered pages — results are noindex) -->
+      <nav class="pgnav" aria-label="Пагінація">
+        <button class="loadmore">Показати ще 3 (з 12)</button>
+      </nav>
+    </section>
+  </div>
+
+  <!-- NO SEO body text on search results (noindex, follow) -->
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<!-- inherited mobile filter bottom-sheet (injected) -->
+<div id="wf-sheet"></div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); wfBar('search.html');</script>
+</body>
+</html>

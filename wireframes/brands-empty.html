@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Бренди — нічого не знайдено — Stack (wireframe 2.4, empty)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 2.4 Бренди — EMPTY state (brand search finds nothing). Never a dead end. */
+.btoolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 18px 0 6px; }
+.bsearch { flex: 1 1 240px; min-width: 180px; display: flex; align-items: center; gap: 8px; border: 1.5px solid var(--dark); border-radius: 10px; padding: 10px 13px; background: #fff; }
+.bsearch .mag { font-size: 14px; color: var(--light); }
+.bsearch input { flex: 1; border: none; outline: none; font-size: 13.5px; color: var(--strong); background: transparent; }
+.bsel { border: 1.5px solid var(--hair2); border-radius: 10px; padding: 10px 13px; font-size: 13px; font-weight: 700; color: var(--strong); background: #fff; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.4 Бренди — EMPTY (search «Xyz…» → 0 matches).
+  Never a dead end: «Очистити пошук» → brands.html (full A–Z index).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <span class="cur">Бренди</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Бренди спортивного харчування</h1>
+    <p class="lintro">Усі бренди, які представлені в Stack — світові та українські. Ми працюємо
+      <b>тільки з оригінальною, сертифікованою продукцією</b> з гарантією виробника.</p>
+  </section>
+
+  <!-- Toolbar with a typed query -->
+  <div class="btoolbar">
+    <label class="bsearch"><span class="mag">🔎</span>
+      <input type="text" value="Xyzzy Labs" aria-label="Пошук бренду">
+    </label>
+    <span class="bsel">Країна: всі ▾</span>
+    <span class="bsel">Категорія: всі ▾</span>
+  </div>
+
+  <!-- Empty result -->
+  <div class="empty">
+    <div class="ei">🔍</div>
+    <div class="et">Бренд «Xyzzy Labs» не знайдено</div>
+    <div class="es">Перевірте написання або перегляньте повний список брендів — можливо, потрібний
+      бренд є під іншою назвою.</div>
+    <div class="eact">
+      <a class="btn dark" href="brands.html">Очистити пошук</a>
+      <a class="btn" href="catalog-page.html">До каталогу</a>
+    </div>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('brands.html','empty');</script>
+</body>
+</html>

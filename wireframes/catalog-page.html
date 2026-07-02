@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Каталог спортивного харчування — Stack (wireframe 2.0, хаб)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 2.0 Каталог-хаб — navigation hub (tiles + goals), NOT a listing (2.1) and
+   NOT the taxonomy (catalog.html). Own tile layout on shared header/footer/card. */
+.chub-h2 { font-size: 17px; font-weight: 800; color: var(--strong); margin: 26px 0 12px; }
+.chub-h2 .all { float: right; font-size: 12.5px; font-weight: 700; color: var(--light); }
+/* goal tiles */
+.chub-goals { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.chub-goal { display: flex; align-items: center; gap: 11px; border: 1.5px solid var(--hair2); border-radius: 12px; padding: 13px 14px; }
+.chub-goal .ic { width: 34px; height: 34px; flex: none; display: flex; align-items: center; justify-content: center; font-size: 18px; border: 1px solid var(--hair); border-radius: 8px; background: var(--fill); }
+.chub-goal .nm { display: block; font-size: 14px; font-weight: 800; color: var(--strong); }
+.chub-goal .hint { display: block; font-size: 11px; color: var(--light); margin-top: 2px; line-height: 1.4; }
+/* category tiles */
+.chub-cats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.chub-cat { border: 1.5px solid var(--hair2); border-radius: 12px; padding: 13px 14px; }
+.chub-cat .top { display: flex; align-items: center; gap: 10px; }
+.chub-cat .ic { width: 30px; height: 30px; flex: none; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.chub-cat .nm { font-size: 14px; font-weight: 800; color: var(--strong); }
+.chub-cat .subs { font-size: 11.5px; color: var(--sec); margin-top: 8px; line-height: 1.5; }
+.chub-cat .subs a { color: var(--sec); text-decoration: underline; text-decoration-color: var(--hair2); }
+@media (min-width: 720px) {
+  .chub-goals { grid-template-columns: repeat(3, 1fr); }
+  .chub-cats { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1040px) { .chub-cats { grid-template-columns: repeat(4, 1fr); } }
+.chub-pop { margin-top: 8px; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.0 Каталог (хаб / лендинг). Mobile tab «Каталог».
+  Navigation hub: 6 goal tiles + 12 category tiles + popular + SEO. One tap →
+  category listing (2.1) or goal collection (2.2). No filters, no product grid.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Каталог</span>
+  </nav>
+
+  <!-- H1 + intro -->
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Каталог</h1>
+    <p class="lintro">Усе спортивне харчування Stack — оберіть <b>ціль</b> або <b>категорію</b>.
+      Уся продукція оригінальна та сертифікована, з гарантією виробника й доставкою по Україні.</p>
+  </section>
+
+  <!-- За ціллю — 6 goal tiles → goal collection 2.2 -->
+  <h2 class="chub-h2">За ціллю <a class="all" href="quiz.html">Не знаю з чого почати → Квіз</a></h2>
+  <div class="chub-goals">
+    <a class="chub-goal" href="goal.html"><span class="ic">💪</span><span><span class="nm">Набір маси</span><span class="hint">Протеїн · Гейнери · Креатин</span></span></a>
+    <a class="chub-goal" href="goal.html"><span class="ic">🔥</span><span><span class="nm">Схуднення</span><span class="hint">Ізолят · Жироспалювачі · L-карнітин</span></span></a>
+    <a class="chub-goal" href="goal.html"><span class="ic">🌙</span><span><span class="nm">Відновлення</span><span class="hint">BCAA · Глютамін · Магній · Сон</span></span></a>
+    <a class="chub-goal" href="goal.html"><span class="ic">⚡</span><span><span class="nm">Енергія / тонус</span><span class="hint">Передтреники · B-вітаміни · Адаптогени</span></span></a>
+    <a class="chub-goal" href="goal.html"><span class="ic">🛡️</span><span><span class="nm">Імунітет / здоров'я</span><span class="hint">Вітаміни C, D3 · Омега · Пробіотики</span></span></a>
+    <a class="chub-goal" href="goal.html"><span class="ic">🏃</span><span><span class="nm">Витривалість / кардіо</span><span class="hint">Ізотоніки · Гелі · Електроліти</span></span></a>
+  </div>
+
+  <!-- Категорії — 12 top categories → listing 2.1 (Бренди → index 2.4) -->
+  <h2 class="chub-h2">Категорії</h2>
+  <div class="chub-cats">
+    <a class="chub-cat" href="listing.html"><div class="top"><span class="ic">🥛</span><span class="nm">Протеїн</span></div><div class="subs">Сироватковий · Ізолят · Казеїн · Рослинний</div></a>
+    <a class="chub-cat" href="listing.html"><div class="top"><span class="ic">🍚</span><span class="nm">Гейнери</span></div><div class="subs">Високовуглеводні · Збалансовані · Карбо</div></a>
+    <a class="chub-cat" href="listing.html"><div class="top"><span class="ic">⚗️</span><span class="nm">Креатин</span></div><div class="subs">Моногідрат · Creapure® · HCl</div></a>
+    <a class="chub-cat" href="listing.html"><div class="top"><span class="ic">🧬</span><span class="nm">Амінокислоти</span></div><div class="subs">BCAA · EAA · Глютамін · Аргінін</div></a>
+    <a class="chub-cat" href="listing.html"><div class="top"><span class="ic">⚡</span><span class="nm">Передтренувальні</span></div><div class="subs">З кофеїном · Stim-free · Пампінг</div></a>
+    <a class="chub-cat" href="listing.html"><div class="top"><span class="ic">🔥</span><span class="nm">Жироспалювачі</span></div><div class="subs">L-карнітин · Термогеніки · Ліпотропіки</div></a>
+    <a class="chub-cat" href="listing.html"><div class="top"><span class="ic">💧</span><span class="nm">Ізотоніки та витривалість</span></div><div class="subs">Ізотоніки · Гелі · Електроліти</div></a>
+    <a class="chub-cat" href="listing.html"><div class="top"><span class="ic">🍫</span><span class="nm">Батончики та снеки</span></div><div class="subs">Батончики · Паста · Замінники їжі</div></a>
+    <a class="chub-cat" href="listing.html"><div class="top"><span class="ic">💊</span><span class="nm">Вітаміни та мінерали</span></div><div class="subs">Комплекси · D3 · Магній · Омега-3</div></a>
+    <a class="chub-cat" href="listing.html"><div class="top"><span class="ic">❤️</span><span class="nm">Здоров'я</span></div><div class="subs">Суглоби · Імунітет · Сон · Травлення</div></a>
+    <a class="chub-cat" href="listing.html"><div class="top"><span class="ic">🧴</span><span class="nm">Аксесуари</span></div><div class="subs">Шейкери · Дозатори · Атрибутика</div></a>
+    <a class="chub-cat" href="brands.html"><div class="top"><span class="ic">🏷️</span><span class="nm">Бренди</span></div><div class="subs">Усі бренди — індекс А–Я →</div></a>
+  </div>
+
+  <!-- Популярні товари — optional product row (canonical card) -->
+  <h2 class="chub-h2">Популярні товари <a class="all" href="listing.html">Усі товари →</a></h2>
+  <div class="prow chub-pop">
+    <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Optimum Nutrition · США</div>
+        <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div><span class="pnew">1 290 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">BioTechUSA · Угорщина</div>
+        <a href="product.html" class="nm">Iso Whey Zero 908 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">OstroVit · Польща</div>
+        <a href="product.html" class="nm">Creatine Monohydrate 500 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">549 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.9</span> · 210 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>5 ₴</b> / порція</span><span class="bonus">+6 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Power Pro · Україна</div>
+        <a href="product.html" class="nm">Hyper Mass 4000 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 450 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.6</span> · 74 відгуки</div>
+        <div class="pmeta2"><span class="perserv"><b>29 ₴</b> / порція</span><span class="bonus">+14 ₴ бонус</span></div>
+      </div>
+    </article>
+  </div>
+
+  <!-- SEO text -->
+  <section class="seotext" id="seo" aria-label="Опис каталогу">
+    <div class="h">Каталог спортивного харчування Stack</div>
+    <p>Каталог Stack — це протеїн, гейнери, креатин, амінокислоти, передтренувальні комплекси,
+      жироспалювачі, вітаміни й мінерали, товари для здоров'я, батончики та аксесуари від перевірених
+      світових і українських брендів. Уся продукція оригінальна, сертифікована, з гарантією виробника.</p>
+    <p>Не знаєте, з чого почати? Оберіть свою <b>ціль</b> — ми підберемо зрозумілий і безпечний набір
+      зі складом і дозуванням. Швидка доставка Новою Поштою, оплата картою чи при отриманні,
+      повернення протягом 14 днів.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('catalog-page.html');</script>
+</body>
+</html>

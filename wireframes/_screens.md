@@ -99,6 +99,23 @@ verification failed + resubmit declined (`coach-verify` deadend); payment abando
 
 ---
 
+## Flow 3 — Каталог та пошук (навігаційні поверхні) · matrix (built 2026-07-02)
+
+Not a journey — the standalone catalog/search entry surfaces. Reuse the shared header/footer,
+canonical card, and (for search) the listing template + filter rail. Registered as WF_FLOWS `f3`
+and flipped `ia:`→`file:` in `WF_SITEMAP` (so the «Повна карта сайту» shows them built).
+
+| # | Screen (node) | File | Type | Reuse / notes | States built |
+|---|---|---|---|---|---|
+| 1 | **Каталог-хаб** (2.0) | `catalog-page.html` | hub (tiles) | 6 goal tiles + 12 category tiles + popular row (canonical card) + SEO. NOT a listing. No filter/grid. | loading · error |
+| 2 | **Бренди / індекс** (2.4) | `brands.html` | index (A–Z grid) | toolbar (search·country·category·A–Z) + popular + A–Z brand cards (logo·name·country·count) + «А–Я (UA)» group; 24 real brands from `category-matrix.md`; card → brand listing (2.1). Indexable. | empty (search no-match) · loading · error |
+| 3 | **Пошук** (2.5) | `search.html` | overlay + results | results = shared listing template (relevance sort, `<mark>` match highlight, load-more only, noindex); `search-suggest` = autocomplete overlay (recent·popular·completions·categories/brands·product previews); `search-empty` = no-results w/ correction + goals + popular (never dead end). | suggest · empty (no-results) · loading |
+
+**New pattern:** the full sitemap is now data-driven — `WF_SITEMAP` + `wfFullMap()` in `_nav.js`;
+building a screen = move its entry `ia:`→`file:` (+ add to a WF_FLOWS group for the count/bar).
+
+---
+
 ## State-page count (main flow, for Step 3/5/6 planning)
 
 Base pages: 9. Extra state pages (each a separate `<screen>-<state>.html`, playbook §Artifacts):

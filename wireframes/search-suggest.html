@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<title>Пошук — підказки (wireframe 2.5, автодоповнення)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 2.5 Пошук — SUGGESTIONS OVERLAY OPEN (autocomplete dropdown under the header
+   search field, over a lightly dimmed page). Header/footer stay behind; the overlay
+   is an inline-styled panel. All data = real project data (catalog, footer queries,
+   brands 2.4, goals). */
+
+/* the page behind is faded so the overlay reads as a layer */
+.dimbehind { opacity: .5; filter: grayscale(1); pointer-events: none; }
+
+/* full-screen click-catcher backdrop */
+.ov-dim { position: fixed; inset: 0; background: rgba(17,17,17,.28); z-index: 40; }
+
+/* dropdown panel — sits just under the header search field */
+.ov-panel { position: fixed; z-index: 41; top: 96px; left: 50%; transform: translateX(-50%);
+  width: min(680px, 94vw); max-height: calc(100vh - 120px); overflow: auto;
+  background: #fff; border: 1px solid var(--hair2); border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(17,17,17,.18); }
+
+/* faux search field at the top of the panel (echoes the typed query «креа») */
+.ov-field { display: flex; align-items: center; gap: 9px; padding: 12px 14px;
+  border-bottom: 1px solid var(--hair); position: sticky; top: 0; background: #fff; border-radius: 12px 12px 0 0; }
+.ov-field .mag { font-size: 15px; color: #777; }
+.ov-field .q { flex: 1; font-size: 15px; font-weight: 700; color: var(--strong); }
+.ov-field .q .car { display: inline-block; width: 1px; height: 15px; background: #111; margin-left: 1px; vertical-align: -2px; }
+.ov-field .clr { border: none; background: none; font-size: 14px; color: #999; cursor: pointer; }
+
+.ov-sec { padding: 12px 14px; border-bottom: 1px solid var(--hair); }
+.ov-sec:last-of-type { border-bottom: none; }
+.ov-sh { font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #999; margin-bottom: 9px; }
+.ov-sh .more { float: right; font-size: 11px; font-weight: 700; color: #777; text-transform: none; letter-spacing: 0; }
+
+/* completion / recent rows */
+.ov-row { display: flex; align-items: center; gap: 10px; padding: 8px 6px; border-radius: 8px; text-decoration: none; color: var(--strong); }
+.ov-row:hover, .ov-row.on { background: var(--fill); }
+.ov-row .ic { width: 18px; text-align: center; color: #999; font-size: 13px; flex: none; }
+.ov-row .tx { flex: 1; font-size: 14px; }
+.ov-row .tx mark { background: transparent; color: var(--strong); font-weight: 800; padding: 0; }
+.ov-row .cn { font-size: 12px; color: #999; }
+
+/* chips (popular queries) */
+.ov-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.ov-chip { border: 1px solid var(--hair2); border-radius: 20px; padding: 6px 13px; font-size: 13px; color: var(--strong); text-decoration: none; }
+.ov-chip:hover { background: var(--fill); }
+
+/* categories / brands pills */
+.ov-cbs { display: flex; flex-wrap: wrap; gap: 8px; }
+.ov-cb { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--hair2); border-radius: 8px; padding: 7px 11px; font-size: 13px; color: var(--strong); text-decoration: none; }
+.ov-cb:hover { background: var(--fill); }
+.ov-cb .k { font-size: 10px; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; color: #999; }
+
+/* product previews */
+.ov-prod { display: flex; align-items: center; gap: 11px; padding: 8px 6px; border-radius: 8px; text-decoration: none; }
+.ov-prod:hover { background: var(--fill); }
+.ov-prod .th { width: 44px; height: 44px; flex: none; border: 1px solid var(--hair); border-radius: 8px; background: var(--fill);
+  display: flex; align-items: center; justify-content: center; font-size: 10px; color: #999; }
+.ov-prod .pn { flex: 1; font-size: 13.5px; font-weight: 600; color: var(--strong); line-height: 1.35; }
+.ov-prod .pn mark { background: #e4e4e4; color: #111; padding: 0 2px; border-radius: 2px; }
+.ov-prod .pp { font-size: 13.5px; font-weight: 800; color: var(--strong); white-space: nowrap; }
+
+/* show-all footer link */
+.ov-all { display: block; text-align: center; padding: 13px; font-size: 13.5px; font-weight: 800;
+  color: var(--strong); text-decoration: none; background: var(--fill); border-radius: 0 0 12px 12px; }
+.ov-all:hover { background: #ececec; }
+
+@media (max-width: 560px) {
+  /* mobile: full-screen search sheet (🔎 in the top bar opens this) */
+  .ov-panel { top: 0; left: 0; transform: none; width: 100vw; max-height: 100vh; height: 100vh; border-radius: 0; border: none; }
+  .ov-field { border-radius: 0; }
+  .ov-all { border-radius: 0; }
+}
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.5 Пошук — SUGGESTIONS OVERLAY OPEN (typed query = "креа").
+  Dropdown under the header search field over a dimmed page. Header/footer injected.
+  No filter rail on this state. Sections: completions · categories/brands · products ·
+  recent · popular · «показати всі результати». Desktop dropdown / mobile full-screen.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<!-- page behind the overlay (dimmed) -->
+<main class="wf-page dimbehind" aria-hidden="true">
+  <nav class="crumb"><a>Головна</a><span class="sep">/</span><span class="cur">Каталог</span></nav>
+  <h1 class="lh1">Каталог</h1>
+  <p class="lintro">Усе спортивне харчування Stack — оберіть ціль або категорію.</p>
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<!-- ===== overlay layer ===== -->
+<div class="ov-dim"></div>
+<div class="ov-panel" role="listbox" aria-label="Підказки пошуку">
+
+  <!-- faux field echoing the typed query -->
+  <div class="ov-field">
+    <span class="mag">🔍</span>
+    <span class="q">креа<span class="car"></span></span>
+    <button class="clr" aria-label="Очистити">✕</button>
+  </div>
+
+  <!-- query completions (typed ≥2 chars) — with result counts -->
+  <div class="ov-sec">
+    <div class="ov-sh">Можливо, ви шукаєте</div>
+    <a class="ov-row on" href="search.html"><span class="ic">🔍</span><span class="tx"><mark>креа</mark>тин</span><span class="cn">12 товарів</span></a>
+    <a class="ov-row" href="search.html"><span class="ic">🔍</span><span class="tx"><mark>креа</mark>тин моногідрат</span><span class="cn">5 товарів</span></a>
+    <a class="ov-row" href="search.html"><span class="ic">🔍</span><span class="tx"><mark>креа</mark>тин hcl</span><span class="cn">3 товари</span></a>
+  </div>
+
+  <!-- categories / brands -->
+  <div class="ov-sec">
+    <div class="ov-sh">Категорії та бренди</div>
+    <div class="ov-cbs">
+      <a class="ov-cb" href="listing.html"><span class="k">Категорія</span> Креатин</a>
+      <a class="ov-cb" href="listing.html"><span class="k">Категорія</span> Амінокислоти</a>
+      <a class="ov-cb" href="brands.html"><span class="k">Бренд</span> OstroVit</a>
+    </div>
+  </div>
+
+  <!-- product previews (3–4) -->
+  <div class="ov-sec">
+    <div class="ov-sh">Товари</div>
+    <a class="ov-prod" href="product.html"><span class="th">фото</span><span class="pn">OstroVit <mark>Creatine</mark> Monohydrate 500 г</span><span class="pp">549 ₴</span></a>
+    <a class="ov-prod" href="product.html"><span class="th">фото</span><span class="pn">Optimum Micronised <mark>Creatine</mark> 634 г</span><span class="pp">960 ₴</span></a>
+    <a class="ov-prod" href="product.html"><span class="th">фото</span><span class="pn">BioTechUSA 100% <mark>Creatine</mark> 500 г</span><span class="pp">590 ₴</span></a>
+  </div>
+
+  <!-- recent searches -->
+  <div class="ov-sec">
+    <div class="ov-sh">Нещодавні <a class="more" href="search-suggest.html">Очистити</a></div>
+    <a class="ov-row" href="search.html"><span class="ic">🕘</span><span class="tx">протеїн</span></a>
+    <a class="ov-row" href="search.html"><span class="ic">🕘</span><span class="tx">bcaa</span></a>
+  </div>
+
+  <!-- popular queries (footer SEO block) -->
+  <div class="ov-sec">
+    <div class="ov-sh">Популярні запити</div>
+    <div class="ov-chips">
+      <a class="ov-chip" href="search.html">Протеїн</a>
+      <a class="ov-chip" href="search.html">Креатин</a>
+      <a class="ov-chip" href="search.html">Гейнер</a>
+      <a class="ov-chip" href="search.html">Омега-3</a>
+      <a class="ov-chip" href="search.html">Вітамін D3</a>
+      <a class="ov-chip" href="search.html">L-карнітин</a>
+    </div>
+  </div>
+
+  <!-- show all -->
+  <a class="ov-all" href="search.html">Показати всі результати за «креа» →</a>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('search.html', 'suggest');</script>
+</body>
+</html>

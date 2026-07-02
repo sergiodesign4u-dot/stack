@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Бренди — помилка завантаження — Stack (wireframe 2.4, error)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.4 Бренди — ERROR. Retry → brands.html; «До каталогу» → catalog-page.html.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <span class="cur">Бренди</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Бренди спортивного харчування</h1>
+  </section>
+
+  <!-- Error -->
+  <div class="empty">
+    <div class="ei">⚠</div>
+    <div class="et">Не вдалося завантажити бренди</div>
+    <div class="es">Сталася технічна помилка. Перевірте з'єднання та спробуйте ще раз —
+      або перейдіть до каталогу.</div>
+    <div class="eact">
+      <a class="btn dark" href="brands.html">Спробувати ще раз</a>
+      <a class="btn" href="catalog-page.html">До каталогу</a>
+    </div>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('brands.html','error');</script>
+</body>
+</html>

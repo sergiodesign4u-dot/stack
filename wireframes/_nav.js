@@ -14,7 +14,7 @@ const WF_STATE_LABEL = {
   code: 'Крок коду', newuser: 'Новий користувач', 'account-end': 'З акаунтом',
   tier: 'Вибір тарифу', deadend: 'Глухий кут', cap: 'Ліміт клієнтів',
   addclient: 'Додати клієнта', priceblock: 'Ціна не підтверджена', untagged: 'Без клієнта',
-  confirm: 'Підтвердження'
+  confirm: 'Підтвердження', suggest: 'Підказки', 'no-results': 'Нічого не знайдено'
 };
 
 const WF_FLOWS = [
@@ -48,6 +48,15 @@ const WF_FLOWS = [
       { file: 'coach-order.html',   name: 'Деталі замовлення',      node: '5.7', built: true,  states: ['loading','error'], builtStates: ['loading','error'] },
       { file: 'cart-coach.html',    name: 'Кошик (за клієнтами)',   node: '6.0', built: true,  states: ['empty'], builtStates: ['empty'] }
     ]
+  },
+  {
+    id: 'f3', name: 'Каталог та пошук', status: 'active',
+    note: 'навігаційні поверхні (не подорож): хаб → категорія · бренди · пошук — точки входу до товарів',
+    screens: [
+      { file: 'catalog-page.html', name: 'Каталог-хаб',       node: '2.0', built: true, states: ['loading','error'], builtStates: ['loading','error'] },
+      { file: 'brands.html',       name: 'Бренди (індекс)',    node: '2.4', built: true, states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
+      { file: 'search.html',       name: 'Пошук',              node: '2.5', built: true, states: ['suggest','empty','loading'], builtStates: ['suggest','empty','loading'] }
+    ]
   }
 ];
 
@@ -68,11 +77,11 @@ const WF_SITEMAP = [
     { node: '1.x',  name: 'Авторизація',                       file: 'auth.html' },
   ]},
   { cluster: '2 · Каталог і пошук', items: [
-    { node: '2.0',  name: 'Каталог-хаб',                       ia: 'catalog-page.html' },
+    { node: '2.0',  name: 'Каталог-хаб',                       file: 'catalog-page.html' },
     { node: '2.1',  name: 'Категорія (лістинг)',               file: 'listing.html' },
     { node: '2.2',  name: 'Ціль-колекція',                     file: 'goal.html' },
-    { node: '2.4',  name: 'Бренди',                            ia: 'brands.html' },
-    { node: '2.5',  name: 'Пошук',                             ia: 'search.html' },
+    { node: '2.4',  name: 'Бренди',                            file: 'brands.html' },
+    { node: '2.5',  name: 'Пошук',                             file: 'search.html' },
   ]},
   { cluster: '3 · Товар', items: [
     { node: '3.0',  name: 'Картка товару',                     file: 'product.html' },

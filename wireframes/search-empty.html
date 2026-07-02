@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<title>Пошук «креатинн» — нічого не знайдено (wireframe 2.5)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 2.5 Пошук — NO RESULTS. Never a dead end: spelling correction + goal tiles +
+   popular queries + catalog link (one clear next step, Principle #2). */
+
+/* correction line */
+.sc-fix { margin: 14px 0 6px; font-size: 14px; color: var(--sec); }
+.sc-fix a { font-weight: 800; color: var(--strong); }
+
+/* goal tiles (reuse the catalog-hub tile look) */
+.sc-h2 { font-size: 15px; font-weight: 800; color: var(--strong); margin: 26px 0 12px; }
+.sc-goals { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.sc-goal { display: flex; align-items: center; gap: 11px; border: 1.5px solid var(--hair2); border-radius: 12px; padding: 13px 14px; text-decoration: none; }
+.sc-goal:hover { background: var(--fill); }
+.sc-goal .ic { width: 34px; height: 34px; flex: none; display: flex; align-items: center; justify-content: center; font-size: 18px; border: 1px solid var(--hair); border-radius: 8px; background: var(--fill); }
+.sc-goal .nm { font-size: 14px; font-weight: 800; color: var(--strong); }
+.sc-goal .hint { font-size: 11px; color: var(--light); margin-top: 2px; line-height: 1.4; }
+@media (min-width: 720px) { .sc-goals { grid-template-columns: repeat(3, 1fr); } }
+
+/* popular query chips */
+.sc-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.sc-chip { border: 1px solid var(--hair2); border-radius: 20px; padding: 7px 14px; font-size: 13px; color: var(--strong); text-decoration: none; }
+.sc-chip:hover { background: var(--fill); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.5 Пошук — STATE = no results (query = "креатинн").
+  Never a dead end: correction → goal tiles → popular queries → catalog.
+  Header/footer injected; no filter rail on the empty state.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Пошук</span>
+  </nav>
+
+  <!-- H1 + spelling correction -->
+  <section aria-label="Результати пошуку">
+    <h1 class="lh1">За запитом «креатинн» нічого не знайшли</h1>
+    <p class="sc-fix">Можливо, ви шукали: <a href="search.html">креатин</a>?</p>
+  </section>
+
+  <!-- Empty block with the primary next step -->
+  <div class="empty">
+    <div class="ei">🔍</div>
+    <div class="et">Нічого не знайдено</div>
+    <div class="es">Перевірте правопис або скористайтесь підказками нижче — ми точно знайдемо, що вам потрібно.</div>
+    <div class="eact">
+      <a class="btn dark" href="search.html">Шукати «креатин»</a>
+      <a class="btn" href="catalog-page.html">Перейти до каталогу</a>
+    </div>
+  </div>
+
+  <!-- Goal tiles → goal collection 2.2 -->
+  <h2 class="sc-h2">Оберіть ціль — підберемо безпечний набір</h2>
+  <div class="sc-goals">
+    <a class="sc-goal" href="goal.html"><span class="ic">💪</span><span><span class="nm">Набір маси</span><span class="hint">Протеїн · Гейнери · Креатин</span></span></a>
+    <a class="sc-goal" href="goal.html"><span class="ic">🔥</span><span><span class="nm">Схуднення</span><span class="hint">Ізолят · Жироспалювачі · L-карнітин</span></span></a>
+    <a class="sc-goal" href="goal.html"><span class="ic">🌙</span><span><span class="nm">Відновлення</span><span class="hint">BCAA · Глютамін · Магній</span></span></a>
+    <a class="sc-goal" href="goal.html"><span class="ic">⚡</span><span><span class="nm">Енергія / тонус</span><span class="hint">Передтреники · B-вітаміни</span></span></a>
+    <a class="sc-goal" href="goal.html"><span class="ic">🛡️</span><span><span class="nm">Імунітет / здоров'я</span><span class="hint">Вітаміни C, D3 · Омега</span></span></a>
+    <a class="sc-goal" href="goal.html"><span class="ic">🏃</span><span><span class="nm">Витривалість / кардіо</span><span class="hint">Ізотоніки · Гелі · Електроліти</span></span></a>
+  </div>
+
+  <!-- Popular queries -->
+  <h2 class="sc-h2">Популярні запити</h2>
+  <div class="sc-chips">
+    <a class="sc-chip" href="search.html">Протеїн</a>
+    <a class="sc-chip" href="search.html">Креатин</a>
+    <a class="sc-chip" href="search.html">Гейнер</a>
+    <a class="sc-chip" href="search.html">Омега-3</a>
+    <a class="sc-chip" href="search.html">Вітамін D3</a>
+    <a class="sc-chip" href="search.html">L-карнітин</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('search.html', 'empty');</script>
+</body>
+</html>

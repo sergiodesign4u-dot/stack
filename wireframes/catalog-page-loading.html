@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Каталог — завантаження — Stack (wireframe 2.0 · loading)</title>
+<link rel="stylesheet" href="_wf.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.0 Каталог-хаб — LOADING (skeleton).
+  H1 + intro stay; tiles + popular row render as skeleton while data loads.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Каталог</span>
+  </nav>
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Каталог</h1>
+    <p class="lintro">Усе спортивне харчування Stack — оберіть <b>ціль</b> або <b>категорію</b>.</p>
+  </section>
+
+  <div class="skgrid skpulse" aria-hidden="true" style="margin-top:20px">
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+  </div>
+  <div class="skgrid skpulse" aria-hidden="true" style="margin-top:14px">
+    <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div></div></div>
+    <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div></div></div>
+    <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div></div></div>
+    <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div></div></div>
+  </div>
+  <p class="loadnote">Завантажуємо каталог…</p>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('catalog-page.html', 'loading');</script>
+</body>
+</html>
