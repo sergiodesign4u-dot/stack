@@ -264,7 +264,7 @@ function wfHeader() {
       <a class="wfh-logo" href="home.html">Stack</a>
       <nav class="wfh-nav" aria-label="Головна навігація">
         <a class="navbtn" href="catalog-page.html"><span class="g">▦</span> Каталог</a>
-        <a class="navlink" href="quiz.html">✦ Квіз</a>
+        <a class="navlink" href="goal.html">✦ Квіз</a>
       </nav>
       <form class="wfh-search" role="search" action="search.html">
         <input type="search" placeholder="Пошук товарів, брендів…" aria-label="Пошук">
