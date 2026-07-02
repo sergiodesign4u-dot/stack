@@ -14,7 +14,8 @@ const WF_STATE_LABEL = {
   code: 'Крок коду', newuser: 'Новий користувач', 'account-end': 'З акаунтом',
   tier: 'Вибір тарифу', deadend: 'Глухий кут', cap: 'Ліміт клієнтів',
   addclient: 'Додати клієнта', priceblock: 'Ціна не підтверджена', untagged: 'Без клієнта',
-  confirm: 'Підтвердження', suggest: 'Підказки', 'no-results': 'Нічого не знайдено'
+  confirm: 'Підтвердження', suggest: 'Підказки', 'no-results': 'Нічого не знайдено',
+  protein: 'Протеїн', health: 'Здоровʼя', vitamins: 'Вітаміни'
 };
 
 const WF_FLOWS = [
@@ -55,6 +56,7 @@ const WF_FLOWS = [
     note: 'навігаційні поверхні (не подорож): хаб → категорія · бренди · пошук — точки входу до товарів',
     screens: [
       { file: 'catalog-page.html', name: 'Каталог-хаб',       node: '2.0', built: true, states: ['loading','error'], builtStates: ['loading','error'] },
+      { file: 'home-catalog.html', name: 'Рейка категорій з головної (flyout-оверлей)', node: '0.0', built: true, states: [], builtStates: [] },
       { file: 'brands.html',       name: 'Бренди (індекс)',    node: '2.4', built: true, states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'search.html',       name: 'Пошук',              node: '2.5', built: true, states: ['suggest','empty','loading'], builtStates: ['suggest','empty','loading'] }
     ]
@@ -82,7 +84,7 @@ const WF_FLOWS = [
     id: 'f5', name: 'Системні та глобальні', status: 'active',
     note: 'крос-функційне: мега-меню (0.1) + 404 / 500 / тех.роботи (S) + глобальні компоненти (cookie-банер, тости) — демо на system.html',
     screens: [
-      { file: 'megamenu.html',    name: 'Мега-меню «Каталог» (спека)', node: '0.1', built: true, states: [], builtStates: [] },
+      { file: 'megamenu.html',    name: 'Мега-меню «Каталог» (оверлей)', node: '0.1', built: true, states: ['protein', 'health', 'vitamins'], builtStates: ['protein', 'health', 'vitamins'] },
       { file: '404.html',         name: 'Сторінку не знайдено (404)', node: 'S', built: true, states: [], builtStates: [] },
       { file: '500.html',         name: 'Помилка сервера (500)',      node: 'S', built: true, states: [], builtStates: [] },
       { file: 'maintenance.html', name: 'Технічні роботи (503)',      node: 'S', built: true, states: [], builtStates: [] },
@@ -101,7 +103,8 @@ const WF_FLOWS = [
 const WF_SITEMAP = [
   { cluster: '0 · Глобальне', items: [
     { node: '0.0',  name: 'Головна',                          file: 'home.html' },
-    { node: '0.1',  name: 'Мега-меню «Каталог» (спека + стани)', file: 'megamenu.html' },
+    { node: '0.1',  name: 'Мега-меню «Каталог» (оверлей + стани)', file: 'megamenu.html' },
+    { node: '0.0',  name: 'Рейка категорій з головної (flyout)', file: 'home-catalog.html' },
     { node: '0.2',  name: 'Футер',                             ia: 'footer.html' },
   ]},
   { cluster: '1 · Авторизація', items: [
@@ -402,6 +405,9 @@ function wfMega(k) {
   document.querySelectorAll('.wfh-mega .mega-cat').forEach(el => el.classList.toggle('on', el.dataset.k === k));
   document.querySelectorAll('.wfh-mega .mega-panel').forEach(el => el.classList.toggle('on', el.dataset.k === k));
 }
+/* mega opens as an overlay (Comfy-style) — dark scrim over the page while open */
+function openMega() { var h = document.querySelector('.wfh'); if (h) h.classList.add('mega-open'); }
+function closeMega() { var h = document.querySelector('.wfh'); if (h) h.classList.remove('mega-open'); }
 
 /* city selector dialog (node 0.1a) + mobile menu drawer + open/close */
 function wfCityHTML() {
@@ -545,7 +551,7 @@ function wfHeader(role) {
       <button class="wfh-burger" aria-label="Меню" onclick="openBurger()">☰</button>
       <a class="wfh-logo" href="home.html">Stack</a>
       <nav class="wfh-nav" aria-label="Головна навігація">
-        <div class="wfh-cat">
+        <div class="wfh-cat" onmouseenter="openMega()" onmouseleave="closeMega()">
           <a class="navbtn" href="catalog-page.html"><span class="g">▦</span> Каталог <span class="cav">▾</span></a>
           ${wfMegaHTML()}
         </div>
@@ -567,6 +573,7 @@ function wfHeader(role) {
         <a class="wfh-act" href="cart.html"><span class="g">🛒</span><span class="lbl">Кошик</span></a>
       </div>
     </div>
+    <div class="wfh-scrim" id="wfh-scrim" onclick="closeMega()" aria-hidden="true"></div>
     ${wfCityHTML()}
     ${wfDrawerHTML()}`;
   el.setAttribute('role', 'banner');
@@ -692,4 +699,4 @@ function closeSheet() { const s = document.getElementById('fsheet'), o = documen
 function toggleCab(e) { if (e) e.stopPropagation(); const m = document.getElementById('wfh-cabmenu'); if (!m) return; const open = m.classList.toggle('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
 function closeCab() { const m = document.getElementById('wfh-cabmenu'); if (!m) return; m.classList.remove('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', 'false'); }
 document.addEventListener('click', e => { const cab = document.getElementById('wfh-cabmenu'); if (cab && cab.classList.contains('open') && !e.target.closest('.wfh-cab')) closeCab(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); closeMega(); } });

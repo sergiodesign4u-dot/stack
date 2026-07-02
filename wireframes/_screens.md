@@ -343,3 +343,32 @@ now feature-complete.
 **Реєстрація:** WF_FLOWS `f5` (+megamenu) · WF_SITEMAP 0.1 (ia→file). **Verified** 1280 (goals default +
 Вітаміни groups) + 390 (drawer accordion). 0 broken / 0 orphans. Full map **«41 збудовано · 2 у
 специфікації»** (лишилось: футер 0.2 у `_nav.js` · розділи акаунта 7.1–7.7 у `account.html`).
+
+---
+
+## Крок 16 — Мега-меню як реальний ОВЕРЛЕЙ + `megamenu.html` перероблено (2026-07-02)
+
+За запитом користувача: `megamenu.html` — не IA-звід, а **реальний вайрфрейм відкритого меню** (як
+сторінки auth-діалогу), і саме меню — **оверлей (як у Comfy)**.
+
+**Мега як оверлей (усі сторінки, `_nav.js`):** відкриття «Каталог» затемнює сторінку **scrim'ом**
+(`.wfh-scrim`, rgba .44, top:104px) + панель над ним. `openMega`/`closeMega` перемикають `.mega-open`
+на `.wfh`; закриття — mouse-leave / клік по scrim / ESC. `.mega-pinned` тримає відкритим для демо.
+Підтверджено `elementFromPoint` — scrim реально поверх усього контенту нижче шапки.
+
+**`megamenu.html` (перероблено):** реальний відкритий оверлей над затемненою faux-головною
+(hero-рейка + промо + товари позаду). Стани через прото-бар: **base = Цілі**, +
+`megamenu-protein.html` / `megamenu-health.html` / `megamenu-vitamins.html` (стан = на якій категорії
+відкрито меню). Наведення на рейку перемикає середину наживо; state-файли лише пресетять активний пункт
+на завантаженні. Реєстрація: WF_FLOWS f5 megamenu states `['protein','health','vitamins']`.
+
+**`home-catalog.html` (новий артефакт):** рейка категорій з головної (`.hrail`) відкриває **flyout-панель
+оверлеєм** (Comfy-home) — ліва рейка постійна, наведення відкриває панель праворуч над затемненою
+сторінкою. Реюз `WF_CAT_MENU` + `wfMegaGoalsPanel`/`wfMegaCatPanel` (не розходиться з меню). WF_FLOWS f3,
+WF_SITEMAP 0.0.
+
+**IA:** описову структуру записано в `ia/docs/pages/navigation.md` (§«Realized in the wireframe») —
+goals-first ліва рейка, права = утиліта+featured (не «За ціллю»), overlay, мобільний акордеон.
+
+**Verified** 1280 (Цілі + Протеїн; scrim поверх контенту) + попередньо 390 (drawer). 0 broken / 0
+orphans / 0 registered-missing (107 файлів). Full map **«42 збудовано · 2 у специфікації»**.

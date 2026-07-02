@@ -112,6 +112,24 @@ Opening «Каталог» reveals a mega-menu (structure like Belok):
   its top block**, so goals never disappear on mobile. «Каталог» stays the entry to the full
   catalog. See the catalog taxonomy (`ia/catalog.html`) for the 12 categories + 6 goals.
 
+#### Realized in the wireframe (2026-07-02) — REPLACES the column sketch above
+Built in `_nav.js` (`wfHeader`) + demonstrated as a real open **overlay** on
+`wireframes/megamenu.html` (states: Цілі / Протеїн / Здоров'я / Вітаміни). Final structure:
+- **Presentation = overlay (Comfy-style):** opening «Каталог» dims the page with a dark **scrim**;
+  the panel sits over it. Closes on mouse-leave / scrim-click / ESC.
+- **Left rail = goals-first:** **«✦ За ціллю» is the FIRST item** (concern lens leads, per the
+  2026-07-01 goals-first decision), then the 12 categories (icon + ›).
+- **Middle (changes on hover):** a category → its subcategories **grouped** («За типом» / «За формою»
+  / concern) + a **«За ціллю» chip row** (goals this category serves); **«За ціллю» → 6 concern cards**
+  (goal + the categories it pulls). Full per-category content = the table on `megamenu.html`
+  (auto-generated from the same data as the live menu) and `catalog.md`.
+- **Right column is NOT «За ціллю» anymore** (goals moved to the left rail): it is a **utility +
+  featured panel** — Усі товари каталогу · Бренди А–Я · Новинки · Акції · Розпродаж + a «Хіт місяця»
+  card.
+- **Mobile** = the burger drawer opens a **2-level accordion** (goals chips on top → categories → tap
+  to expand subcategories), so goals never disappear. The homepage **category rail** (`.hrail`) opens
+  the same content as a **flyout overlay** — see `wireframes/home-catalog.html`.
+
 ### Header «Квіз» button replaces the «Цілі» mega-menu (decided 2026-07-01)
 Because goals are **already well surfaced inside the catalog** (the «За ціллю» column above,
 Catalog-hub 2.0 goal tiles, Category 2.1 goal chips, Goal collections 2.2), the separate «Цілі»
