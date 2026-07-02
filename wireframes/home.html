@@ -31,21 +31,11 @@
       <a href="listing.html">Вітаміни</a><a href="listing.html">Жироспалювачі</a>
     </div>
     <div class="hero-wrap">
-      <nav class="hrail" aria-label="Категорії">
-        <a class="lead" href="listing.html">За ціллю <span class="ar">›</span></a>
-        <div class="rsep"></div>
-        <a href="listing.html">Протеїн <span class="ar">›</span></a>
-        <a href="listing.html">Гейнери <span class="ar">›</span></a>
-        <a href="listing.html">Креатин <span class="ar">›</span></a>
-        <a href="listing.html">Амінокислоти <span class="ar">›</span></a>
-        <a href="listing.html">Передтренувальні <span class="ar">›</span></a>
-        <a href="listing.html">Жироспалювачі <span class="ar">›</span></a>
-        <a href="listing.html">Вітаміни й мінерали <span class="ar">›</span></a>
-        <a href="listing.html">Здоров'я <span class="ar">›</span></a>
-        <a href="listing.html">Батончики та снеки <span class="ar">›</span></a>
-        <a href="listing.html">Ізотоніки <span class="ar">›</span></a>
-        <a href="listing.html">Аксесуари <span class="ar">›</span></a>
-      </nav>
+      <!-- category rail → opens a flyout panel as an OVERLAY on hover (wfHomeRail) -->
+      <div class="hrail-wrap" onmouseleave="window.hcClose&&hcClose()">
+        <nav class="hrail" id="home-rail" aria-label="Категорії"><!-- built by wfHomeRail --></nav>
+        <div class="hrail-fly wfh-mega" id="home-fly" role="menu"><!-- built by wfHomeRail --></div>
+      </div>
       <!-- PROMO: slider of 2–3 vertical banner cards (visible at once, swipe) + 2 stacked side banners -->
       <div class="hbanners">
         <div class="hslider" aria-label="Промо-банери" aria-roledescription="карусель">
@@ -242,7 +232,8 @@
 </div>
 
 <div id="wf-sheet"></div>
+<div class="hrail-scrim" id="home-scrim" onclick="window.hcClose&&hcClose()"></div>
 <script src="_nav.js"></script>
-<script>wfHeader(); wfFooter(); wfBar('home.html');</script>
+<script>wfHeader(); wfFooter(); wfBar('home.html'); wfHomeRail();</script>
 </body>
 </html>

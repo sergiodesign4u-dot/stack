@@ -511,8 +511,23 @@ img { max-width: 100%; display: block; }
 .hrail a { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; font-size: 13px; color: var(--strong); font-weight: 600; }
 .hrail a:hover { background: var(--fill); }
 .hrail a.lead { font-weight: 800; }
+.hrail a.on { background: var(--fill); font-weight: 800; }
 .hrail a .ar { color: #bbb; }
 .hrail .rsep { border-top: 1px solid var(--hair); margin: 5px 12px; }
+.hrail a .ic { display: inline-block; width: 18px; text-align: center; flex: none; }
+/* HOME RAIL FLYOUT (overlay) — shared by home.html + home-catalog.html (wfHomeRail).
+   The rail wrapper sits above the scrim; the flyout floats to the right of the rail
+   over a dimmed page (Comfy-home). Panel visibility reuses .wfh-mega .mega-panel.on. */
+.hrail-wrap { position: relative; align-self: start; }
+@media (min-width: 860px) { .hrail-wrap { z-index: 25; } }
+.hrail-fly.wfh-mega { display: none; position: absolute; top: 0; left: calc(100% + 14px); width: 600px; max-width: calc(100vw - 300px);
+  grid-template-columns: none; margin: 0; padding: 16px 20px; border: 1px solid var(--hair); border-top: 2px solid var(--dark);
+  border-radius: 12px; box-shadow: 0 16px 36px rgba(0,0,0,.14); z-index: 38; max-height: 520px; overflow-y: auto; background: #fff; }
+.hrail-fly.wfh-mega.open { display: block; }
+@media (max-width: 859px) { .hrail-fly.wfh-mega { display: none !important; } }
+.hrail-scrim { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.44); z-index: 20; }
+.hrail-scrim.open { display: block; }
+@media (max-width: 859px) { .hrail-scrim { display: none !important; } }
 .hero-chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
 .hero-chips::-webkit-scrollbar { display: none; }
 @media (min-width: 860px) { .hero-chips { display: none; } }

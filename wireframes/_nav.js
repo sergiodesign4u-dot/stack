@@ -400,6 +400,38 @@ function wfMegaCatPanel(c, i) {
   return '<div class="mega-panel" data-k="' + i + '"><a class="mph" href="' + c.href + '">' + head + '</a>' +
     '<div class="mega-groups">' + grp + '</div>' + goalrow + '</div>';
 }
+/* Home category rail with a flyout that opens as an OVERLAY (Comfy-home style).
+   Shared by home.html (hover-to-open, closed by default) and home-catalog.html
+   (opened on «За ціллю» to demo the overlay). Builds rail + flyout from the same
+   WF_CAT_MENU/WF_GOAL_MENU as the header mega, so it never drifts.
+   opts: { rail, fly, scrim (selectors), open (bool: open «g» by default) } */
+function wfHomeRail(opts) {
+  opts = opts || {};
+  var railEl = document.querySelector(opts.rail || '#home-rail');
+  var flyEl = document.querySelector(opts.fly || '#home-fly');
+  if (!railEl || !flyEl) return;
+  var scrimSel = opts.scrim || '#home-scrim';
+  var rail = '<a class="lead on" data-k="g" href="catalog-page.html" onmouseenter="hcFly(\'g\')">✦ За ціллю <span class="ar">›</span></a><div class="rsep"></div>';
+  WF_CAT_MENU.forEach(function (c, i) {
+    rail += '<a data-k="' + i + '" href="' + c.href + '" onmouseenter="hcFly(\'' + i + '\')"><span class="ic">' + (c.ic || '') + '</span> ' + c.name + ' <span class="ar">›</span></a>';
+  });
+  railEl.innerHTML = rail;
+  var fly = wfMegaGoalsPanel();
+  WF_CAT_MENU.forEach(function (c, i) { fly += wfMegaCatPanel(c, i); });
+  flyEl.innerHTML = fly;
+  window.hcFly = function (k) {
+    k = String(k);
+    railEl.querySelectorAll('[data-k]').forEach(function (e) { e.classList.toggle('on', e.dataset.k === k); });
+    flyEl.querySelectorAll('.mega-panel').forEach(function (e) { e.classList.toggle('on', e.dataset.k === k); });
+    flyEl.classList.add('open');
+    var s = document.querySelector(scrimSel); if (s) s.classList.add('open');
+  };
+  window.hcClose = function () {
+    flyEl.classList.remove('open');
+    var s = document.querySelector(scrimSel); if (s) s.classList.remove('open');
+  };
+  if (opts.open) hcFly('g');
+}
 function wfMegaHTML() {
   let cats = '<a class="mega-cat mega-cat-goals on" data-k="g" href="catalog-page.html" onmouseenter="wfMega(\'g\')">✦ За ціллю<span class="ar">›</span></a>';
   let mids = wfMegaGoalsPanel();

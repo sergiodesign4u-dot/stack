@@ -8,26 +8,11 @@
 <link rel="stylesheet" href="_wf.css">
 <style>
 /* node 0.0/0.1 · REAL open state of the home category rail (.hrail) with a flyout
-   panel that opens as an overlay (Comfy-home style). Not a spec — the actual thing.
-   Reuses the catalog data (WF_CAT_MENU) + mega panel builders from _nav.js. */
+   panel that opens as an overlay (Comfy-home style). Rail + flyout + scrim are the
+   SHARED wfHomeRail() mechanism (also on home.html) — this page just opens it on
+   «За ціллю» by default so the overlay is visible immediately. */
 .hc-hero { position: relative; display: grid; grid-template-columns: 1fr; gap: 14px; margin: 14px 0 6px; }
 @media (min-width: 860px) { .hc-hero { grid-template-columns: 250px 1fr; } }
-/* rail + flyout float above the scrim */
-.hc-nav { position: relative; z-index: 25; }
-@media (max-width: 859px) { .hc-nav { z-index: auto; } }
-.hc-hero .hrail { display: block; background: #fff; align-self: start; }
-.hc-hero .hrail .on { background: var(--fill); font-weight: 800; }
-.hc-hero .hrail .ic { display: inline-block; width: 18px; }
-/* flyout — reuse .wfh-mega descendant styles (mega-panel/groups), override the container */
-/* flyout matches the height of the category rail (top:0 → bottom:0 spans the rail) */
-.hc-fly.wfh-mega { display: block; position: absolute; top: 0; bottom: 0; left: 250px; width: 600px; max-width: calc(100vw - 292px);
-  grid-template-columns: none; margin: 0; padding: 16px 20px; border: 1px solid var(--hair);
-  border-top: 2px solid var(--dark); border-radius: 12px; box-shadow: 0 16px 36px rgba(0,0,0,.14); z-index: 38; overflow-y: auto; background: #fff; }
-@media (max-width: 859px) { .hc-fly.wfh-mega { display: none; } }
-/* scrim dims the rest of the page while the flyout is open */
-.hc-scrim { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.44); z-index: 20; }
-.hc-scrim.open { display: block; }
-@media (max-width: 859px) { .hc-scrim { display: none !important; } }
 .hc-hint { font-size: 12.5px; color: var(--light); margin: 4px 0 0; }
 </style>
 </head>
@@ -35,8 +20,8 @@
 <!-- ============================================================
   WIREFRAME · home category rail (.hrail) OPEN as an overlay flyout (Comfy-home).
   Left = persistent category rail on the homepage; hovering a category opens a
-  flyout panel to the right over a dimmed page. Data + panels reused from _nav.js
-  (WF_CAT_MENU · wfMegaCatPanel · wfMegaGoalsPanel), so it never drifts.
+  flyout panel to the right over a dimmed page. Rail/flyout/scrim = the shared
+  wfHomeRail() (same as home.html); data from WF_CAT_MENU, so it never drifts.
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 <div class="wf-canvas">
@@ -44,12 +29,13 @@
 
 <main class="wf-page">
   <p class="hc-hint">Рейка категорій на головній — відкритий стан: наведення на категорію відкриває
-    flyout-панель оверлеєм над сторінкою (як у Comfy). Наведіть мишею на пункт рейки.</p>
+    flyout-панель оверлеєм над сторінкою (як у Comfy). Наведіть мишею на пункт рейки. Той самий
+    механізм працює на <a href="home.html">home.html</a>.</p>
 
   <section class="hc-hero" aria-label="Каталог з головної">
-    <div class="hc-nav">
+    <div class="hrail-wrap" onmouseleave="window.hcClose&&hcClose()">
       <nav class="hrail" id="hc-rail" aria-label="Категорії"></nav>
-      <div class="hc-fly wfh-mega" id="hc-fly" role="menu"></div>
+      <div class="hrail-fly wfh-mega" id="hc-fly" role="menu"></div>
     </div>
     <!-- promo banners behind the flyout (dimmed by the scrim) -->
     <div class="hbanners">
@@ -102,28 +88,13 @@
 
 <footer id="wf-footer"></footer>
 </div><!-- /wf-canvas -->
-<div class="hc-scrim" id="hc-scrim" onclick="this.classList.remove('open')"></div>
+<div class="hrail-scrim" id="hc-scrim" onclick="window.hcClose&&hcClose()"></div>
 
 <script src="_nav.js"></script>
 <script>
   wfHeader(); wfFooter(); wfBar('home-catalog.html');
-  /* build the home rail + flyout from the shared catalog data */
-  var rail = '<a class="lead on" data-k="g" href="catalog-page.html" onmouseenter="hcFly(\'g\')">✦ За ціллю <span class="ar">›</span></a><div class="rsep"></div>';
-  WF_CAT_MENU.forEach(function (c, i) {
-    rail += '<a data-k="' + i + '" href="' + c.href + '" onmouseenter="hcFly(\'' + i + '\')"><span class="ic">' + (c.ic || '') + '</span> ' + c.name + ' <span class="ar">›</span></a>';
-  });
-  document.getElementById('hc-rail').innerHTML = rail;
-  var fly = wfMegaGoalsPanel();
-  WF_CAT_MENU.forEach(function (c, i) { fly += wfMegaCatPanel(c, i); });
-  document.getElementById('hc-fly').innerHTML = fly;
-  window.hcFly = function (k) {
-    k = String(k);
-    document.querySelectorAll('#hc-rail [data-k]').forEach(function (e) { e.classList.toggle('on', e.dataset.k === k); });
-    document.querySelectorAll('#hc-fly .mega-panel').forEach(function (e) { e.classList.toggle('on', e.dataset.k === k); });
-    document.getElementById('hc-scrim').classList.add('open');
-  };
-  /* open on «За ціллю» by default so the artifact shows the overlay immediately */
-  hcFly('g');
+  /* shared home rail+flyout; open «За ціллю» by default so the overlay shows immediately */
+  wfHomeRail({ rail: '#hc-rail', fly: '#hc-fly', scrim: '#hc-scrim', open: true });
 </script>
 </body>
 </html>
