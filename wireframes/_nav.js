@@ -465,7 +465,7 @@ function wfDrawerHTML() {
     '<a class="dr-link" href="content-about.html">Про нас</a>' +
     '<a class="dr-link" href="content-contacts.html">Контакти</a>' +
     '<a class="dr-link" href="account.html">★ Бонуси</a>' +
-    '<a class="dr-link" href="auth.html">👤 Увійти / Реєстрація</a>' +
+    '<a class="dr-link" href="auth.html" onclick="closeBurger();openAuth(\'phone\');return false">👤 Увійти / Реєстрація</a>' +
     '</div></nav>';
 }
 function openCity() { var d = document.getElementById('city-dlg'), o = document.getElementById('city-ov'); if (d) d.classList.add('open'); if (o) o.classList.add('open'); }
@@ -539,6 +539,106 @@ function openQuestion() { var m = document.getElementById('pm-question'), o = do
 function closePM() { document.querySelectorAll('.pm.open').forEach(m => m.classList.remove('open')); var o = document.getElementById('pm-ov'); if (o) o.classList.remove('open'); }
 function submitPM(msg) { closePM(); wfToast('ok', msg); }
 
+/* ============================================================
+   AUTH DIALOG (node 1.x) — SHARED component (single source of truth).
+   Mounted once into <body> on demand (like the scrim). Every «Увійти» trigger
+   calls openAuth('phone'); the prototype advances state IN PLACE via
+   wfAuthGo(state) — no page reload. Passwordless, phone-OTP-first. States:
+   phone (base) · loading · code · error · newuser. The auth*.html files are
+   REFERENCE renders (openAuth(state) pinned), so screens never drift. ======= */
+const WF_AUTH_PHONE = '+380 67 123 45 67';
+function wfAuthMount() {
+  if (!document.getElementById('wf-auth')) {
+    var ov = document.createElement('div');
+    ov.className = 'auth-ov'; ov.id = 'wf-auth';
+    ov.setAttribute('aria-label', 'Вхід або реєстрація');
+    ov.onclick = function (e) { if (e.target === ov) closeAuth(); };
+    document.body.appendChild(ov);
+  }
+  if (!document.getElementById('wf-toast')) {
+    var t = document.createElement('div'); t.id = 'wf-toast'; document.body.appendChild(t); wfToasts();
+  }
+}
+function wfAuthShell(vi, vt, vs, bi, bt1, bt2, inner) {
+  return '<div class="auth-modal" role="dialog" aria-modal="true" aria-label="Вхід або реєстрація">' +
+    '<aside class="auth-visual" aria-hidden="true"><div class="vlogo">Stack</div>' +
+    '<div class="vmid"><div class="vi">' + vi + '</div>спортивне харчування</div>' +
+    '<div class="vtag"><b>' + vt + '</b>' + vs + '</div></aside>' +
+    '<div class="auth-form"><div class="auth-top"><span class="auth-mlogo">Stack</span>' +
+    '<button class="auth-x" onclick="closeAuth()" aria-label="Закрити">✕ Закрити</button></div>' +
+    '<div class="auth-banner"><div class="bi">' + bi + '</div><div class="bt"><b>' + bt1 + '</b>' + bt2 + '</div></div>' +
+    inner + '</div></div>';
+}
+function wfAuthFoot(t) { return '<div class="auth-foot">' + t + ' <a onclick="closeAuth()">Повернутися до магазину</a></div>'; }
+function wfOtp(vals, err) {
+  var b = ''; vals.forEach(function (v, i) {
+    var cls = 'box' + (err ? ' err' : (v ? ' on' : ''));
+    b += '<input class="' + cls + '" maxlength="1" inputmode="numeric" value="' + v + '" aria-label="Цифра ' + (i + 1) + '">';
+  });
+  return '<div class="otp" role="group" aria-label="Код із шести цифр">' + b + '</div>';
+}
+function wfAuthPanel(state) {
+  var chg = '<a onclick="wfAuthGo(\'phone\')">Змінити номер</a>';
+  if (state === 'loading') {
+    return wfAuthShell('🏋️', 'Один акаунт — усе під рукою', 'Замовлення, бонуси, обране та швидке повторне замовлення.', '🏋️', 'Stack', 'Спортивне харчування',
+      '<h1 class="auth-h1">Майже готово</h1><p class="auth-sub">Надсилаємо одноразовий код підтвердження.</p>' +
+      '<div class="auth-load" role="status" aria-live="polite"><div class="auth-spin" aria-hidden="true"></div>' +
+      '<div class="lt">Надсилаємо код у SMS…</div><div class="lp">На номер <b>' + WF_AUTH_PHONE + '</b></div>' +
+      '<div class="auth-skel" aria-hidden="true"><div class="sl"></div><div class="sl m"></div></div></div>' +
+      '<button class="auth-cta" onclick="wfAuthGo(\'code\')">Код надіслано — ввести →</button>' +
+      '<p class="auth-note">🔒 Код діє 5 хвилин. Нікому не повідомляйте його.</p>' +
+      '<div class="linkrow"><a onclick="wfAuthGo(\'phone\')">← Змінити номер</a></div>' +
+      wfAuthFoot('Не отримали SMS? За кілька секунд зможете надіслати код повторно.'));
+  }
+  if (state === 'code') {
+    return wfAuthShell('🏋️', 'Майже готово', 'Введіть код із SMS, щоб завершити вхід.', '💬', 'Код надіслано', 'SMS на ' + WF_AUTH_PHONE,
+      '<h1 class="auth-h1">Введіть код</h1><p class="auth-sub">Ми надіслали SMS із кодом на номер <b>' + WF_AUTH_PHONE + '</b>. ' + chg + '</p>' +
+      '<div class="fld"><label>Код підтвердження</label>' + wfOtp(['4', '9', '2', '', '', ''], false) +
+      '<div class="otp-note">Код діє 5 хвилин. Введеться автоматично, якщо телефон його підставить.</div></div>' +
+      '<button class="auth-cta" onclick="wfAuthGo(\'newuser\')">Підтвердити</button>' +
+      '<div class="resend">Не отримали код? <span class="cool">Надіслати ще (0:45)</span></div>' +
+      '<div class="linkrow"><a onclick="wfAuthGo(\'phone\')">← Змінити номер</a><a onclick="wfAuthGo(\'error\')">Ввів неправильний код?</a></div>' +
+      wfAuthFoot('Якщо номер уже зареєстровано — ви одразу увійдете. Новий номер — попросимо ім\'я.'));
+  }
+  if (state === 'error') {
+    return wfAuthShell('🔒', 'Перевірте код', 'Введіть код ще раз або надішліть новий.', '⚠️', 'Невірний код', 'Спробуйте ще раз',
+      '<h1 class="auth-h1">Введіть код</h1><p class="auth-sub">Код для номера <b>' + WF_AUTH_PHONE + '</b>. ' + chg + '</p>' +
+      '<div class="fld"><label>Код підтвердження</label>' + wfOtp(['1', '2', '3', '4', '5', '6'], true) +
+      '<div class="otp-err" role="alert"><span class="m">⚠️</span><span>Невірний код. Перевірте SMS і спробуйте ще раз.<small>Залишилось спроб: 2. Код діє 5 хвилин.</small></span></div></div>' +
+      '<button class="auth-cta" onclick="wfAuthGo(\'code\')">Спробувати ще</button>' +
+      '<button class="auth-alt" onclick="wfAuthGo(\'code\')">Надіслати новий код</button>' +
+      '<div class="linkrow"><a onclick="wfAuthGo(\'phone\')">← Змінити номер</a><a onclick="wfAuthGo(\'phone\')">Увійти іншим способом</a></div>' +
+      wfAuthFoot('Забагато спроб? Зачекайте кілька хвилин або скористайтесь Google / Apple / E-mail.'));
+  }
+  if (state === 'newuser') {
+    return wfAuthShell('🎉', 'Створюємо ваш акаунт', 'Ім\'я — щоб звертатися до вас і підписувати замовлення.', '🎉', 'Номер підтверджено', 'Ще один крок — і готово',
+      '<h1 class="auth-h1">Як вас звати?</h1><p class="auth-sub">Створюємо ваш акаунт Stack. Залишилося вказати ім\'я.</p>' +
+      '<div class="fld"><label for="wfa-name">Ім\'я</label><input id="wfa-name" class="txt-field" type="text" placeholder="Напр., Вікторія"></div>' +
+      '<div class="fld"><label>E-mail <span class="opt">— необов\'язково</span></label><input class="txt-field" type="email" placeholder="you@email.com"></div>' +
+      '<label class="optin"><span class="cb"></span><span>Хочу отримувати листи про акції та новинки. Можна вимкнути будь-коли.</span></label>' +
+      '<p class="auth-consent">Натискаючи «Продовжити», ви приймаєте <a href="content-legal.html">публічну оферту</a> та <a href="content-legal.html">політику конфіденційності</a> Stack.</p>' +
+      '<button class="auth-cta" onclick="wfAuthDone()">Продовжити</button>' +
+      '<div class="linkrow"><a onclick="wfAuthGo(\'code\')">← Назад до коду</a></div>' +
+      wfAuthFoot('Після цього кроку ви повернетесь туди, де почали — у кошик, обране чи оформлення.'));
+  }
+  /* phone (base) */
+  return wfAuthShell('🏋️', 'Один акаунт — усе під рукою', 'Замовлення, бонуси, обране та швидке повторне замовлення.', '🏋️', 'Stack', 'Спортивне харчування',
+    '<h1 class="auth-h1">Вхід або реєстрація</h1><p class="auth-sub">Введіть номер телефону — надішлемо код у SMS. Пароль не потрібен.</p>' +
+    '<div class="fld"><label for="wfa-phone">Номер телефону</label><div class="ph-field"><span class="cc">+380</span>' +
+    '<input id="wfa-phone" type="tel" inputmode="numeric" placeholder="67 123 45 67" aria-label="Номер телефону"></div></div>' +
+    '<button class="auth-cta" onclick="wfAuthGo(\'loading\')">Отримати код</button>' +
+    '<p class="auth-consent">Продовжуючи, ви підтверджуєте, що згодні увійти до облікового запису <b>Stack</b> та надаєте згоду на обробку персональних даних згідно з <a href="content-legal.html">публічною офертою</a> та <a href="content-legal.html">політикою конфіденційності</a>.</p>' +
+    '<div class="auth-or">або</div>' +
+    '<div class="smeths"><button class="sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic">G</span> Продовжити з Google</button>' +
+    '<button class="sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic"></span> Продовжити з Apple</button>' +
+    '<button class="sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic">@</span> Продовжити з E-mail</button></div>' +
+    wfAuthFoot('Уже маєте акаунт чи ні — вхід і реєстрація в одному кроці.'));
+}
+function openAuth(state) { wfAuthMount(); wfAuthGo(state || 'phone'); var ov = document.getElementById('wf-auth'); if (ov) ov.classList.add('open'); }
+function wfAuthGo(state) { wfAuthMount(); var ov = document.getElementById('wf-auth'); if (ov) { ov.dataset.state = state; ov.innerHTML = wfAuthPanel(state); } }
+function closeAuth() { var ov = document.getElementById('wf-auth'); if (ov) ov.classList.remove('open'); }
+function wfAuthDone() { closeAuth(); wfToast('ok', 'Вітаємо у Stack! Ви увійшли 🎉'); }
+
 /* SHARED account section-nav (node 7.x) — one source for account.html + every
    account-*.html sub-page. active = section key; isCoach swaps «Стати тренером»
    → «Кабінет тренера» (the already-a-coach state). Inject into #acc-nav. */
@@ -602,7 +702,7 @@ function wfHeader(role) {
   const name = isCoach ? 'Олена Кравець' : 'Вікторія Коваль';
   let acctHTML;
   if (!loggedIn) {
-    acctHTML = `<a class="wfh-act stack" href="auth.html"><span class="g">👤</span><span class="lbl">Увійти</span></a>`;
+    acctHTML = `<a class="wfh-act stack" href="auth.html" onclick="openAuth('phone');return false"><span class="g">👤</span><span class="lbl">Увійти</span></a>`;
   } else {
     let items = `<div class="cab-head"><span class="cab-nm">${name}</span>` +
       (isCoach ? `<span class="cab-tier">PRO</span>` : `<span class="cab-lvl">🥈 Срібний рівень</span>`) + `</div>`;
@@ -786,4 +886,4 @@ function closeSheet() { const s = document.getElementById('fsheet'), o = documen
 function toggleCab(e) { if (e) e.stopPropagation(); const m = document.getElementById('wfh-cabmenu'); if (!m) return; const open = m.classList.toggle('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
 function closeCab() { const m = document.getElementById('wfh-cabmenu'); if (!m) return; m.classList.remove('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', 'false'); }
 document.addEventListener('click', e => { const cab = document.getElementById('wfh-cabmenu'); if (cab && cab.classList.contains('open') && !e.target.closest('.wfh-cab')) closeCab(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); closeMega(); if (typeof closePM === 'function') closePM(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); closeMega(); closeAuth(); if (typeof closePM === 'function') closePM(); } });

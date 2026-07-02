@@ -6,131 +6,14 @@
 <meta name="robots" content="noindex">
 <title>Як вас звати? — Stack (wireframe 1.2)</title>
 <link rel="stylesheet" href="_wf.css">
-<style>
-/* AUTH DIALOG (node 1.x) — shared modal styles (see auth.html). */
-.auth-ov { position: fixed; inset: 0; background: rgba(18,18,18,.55); z-index: 60;
-  display: flex; align-items: stretch; justify-content: center; }
-.auth-modal { background: #fff; width: 100%; display: flex; overflow-y: auto; }
-@media (min-width: 720px) {
-  .auth-ov { align-items: center; padding: 24px; }
-  .auth-modal { max-width: 880px; min-height: 560px; max-height: 94vh; border-radius: 16px;
-    overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,.12); }
-}
-.auth-visual { display: none; }
-@media (min-width: 720px) {
-  .auth-visual { display: flex; flex-direction: column; justify-content: space-between;
-    width: 42%; flex: none; padding: 26px; color: var(--sec); font-size: 12px;
-    background: repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#f2f2f2 10px,#f2f2f2 20px);
-    border-right: 1px solid var(--hair); }
-}
-.auth-visual .vlogo { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.02em; }
-.auth-visual .vmid { align-self: center; text-align: center; color: var(--light); }
-.auth-visual .vmid .vi { font-size: 34px; }
-.auth-visual .vtag { font-size: 12.5px; color: var(--sec); }
-.auth-visual .vtag b { color: var(--strong); display: block; font-size: 14px; margin-bottom: 3px; }
-.auth-form { flex: 1; min-width: 0; padding: 20px 20px 30px; display: flex; flex-direction: column; }
-@media (min-width: 720px) { .auth-form { padding: 34px 40px; } }
-.auth-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-.auth-mlogo { font-size: 18px; font-weight: 800; color: var(--strong); }
-@media (min-width: 720px) { .auth-mlogo { display: none; } }
-.auth-x { font-size: 15px; color: var(--sec); border: 1px solid var(--hair); border-radius: 8px;
-  padding: 6px 11px; display: inline-flex; align-items: center; gap: 7px; font-weight: 600; }
-.auth-banner { display: flex; align-items: center; gap: 10px; background: var(--fill2);
-  border: 1px solid var(--hair); border-radius: 12px; padding: 12px 14px; margin: 8px 0 18px; }
-.auth-banner .bi { width: 40px; height: 40px; border-radius: 9px; background: var(--fill);
-  display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 18px; flex: none; }
-.auth-banner .bt { font-size: 12.5px; color: var(--sec); } .auth-banner .bt b { color: var(--strong); display: block; }
-@media (min-width: 720px) { .auth-banner { display: none; } }
-.auth-h1 { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
-.auth-sub { font-size: 13.5px; color: var(--sec); margin: 6px 0 20px; }
-.fld { margin-bottom: 14px; }
-.fld > label { display: block; font-size: 12px; font-weight: 700; color: var(--sec); margin-bottom: 7px; }
-.fld > label .opt { color: var(--light); font-weight: 600; }
-.txt-field { width: 100%; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 13px 12px; font-size: 16px; }
-.txt-field:focus { outline: 2px solid var(--dark); outline-offset: -2px; }
-.auth-cta { display: block; width: 100%; text-align: center; background: var(--dark); color: #fff;
-  border-radius: 10px; padding: 15px; font-size: 15px; font-weight: 700; }
-.auth-consent { font-size: 11.5px; color: var(--light); line-height: 1.55; margin: 14px 0 4px; }
-.auth-consent a { color: var(--strong); text-decoration: underline; }
-.optin { display: flex; align-items: flex-start; gap: 10px; font-size: 12.5px; color: var(--sec); margin: 16px 0 4px; }
-.optin .cb { width: 18px; height: 18px; border: 1.5px solid var(--hair2); border-radius: 5px; flex: none; margin-top: 1px; }
-.auth-foot { margin-top: auto; padding-top: 18px; font-size: 12px; color: var(--light); }
-.auth-foot a { color: var(--strong); text-decoration: underline; }
-.linkrow { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; margin-top: 14px; }
-.linkrow a { color: var(--strong); font-weight: 700; text-decoration: underline; }
-</style>
 </head>
 <body>
-<!-- ============================================================
-  WIREFRAME · node 1.2 Profile completion (NEW USER). After OTP for a new
-  phone: ask name (+ optional email). «Продовжити» → resume triggering action.
-  No dead ends: back to code step; close to home. noindex.
-============================================================ -->
+<!-- WIREFRAME · node 1.2 Profile completion — REFERENCE render (state = newuser).
+  Shared wfAuth(); after OTP for a new phone: ask name (+ optional email) →
+  «Продовжити» closes the dialog and returns to the triggering action. -->
 <div class="wf-bar" id="wf-bar"></div>
 <header id="wf-header"></header>
-
-
-<div class="auth-ov">
-  <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authttl">
-
-    <aside class="auth-visual" aria-hidden="true">
-      <div class="vlogo">Stack</div>
-      <div class="vmid"><div class="vi">🎉</div>вітаємо у Stack</div>
-      <div class="vtag"><b>Створюємо ваш акаунт</b>Ім'я — щоб звертатися до вас і підписувати замовлення.</div>
-    </aside>
-
-    <div class="auth-form">
-      <div class="auth-top">
-        <span class="auth-mlogo">Stack</span>
-        <a class="auth-x" href="home.html" aria-label="Закрити">✕ Закрити</a>
-      </div>
-
-      <div class="auth-banner">
-        <div class="bi">🎉</div>
-        <div class="bt"><b>Номер підтверджено</b>Ще один крок — і готово</div>
-      </div>
-
-      <h1 class="auth-h1" id="authttl">Як вас звати?</h1>
-      <p class="auth-sub">Створюємо ваш акаунт Stack. Залишилося вказати ім'я.</p>
-
-      <form action="account.html" method="get">
-        <div class="fld">
-          <label for="name">Ім'я</label>
-          <input id="name" name="name" class="txt-field" type="text" autocomplete="given-name"
-            placeholder="Напр., Вікторія" aria-label="Ім'я">
-        </div>
-        <div class="fld">
-          <label for="email">E-mail <span class="opt">— необов'язково</span></label>
-          <input id="email" name="email" class="txt-field" type="email" autocomplete="email"
-            placeholder="you@email.com" aria-label="E-mail (необов'язково)">
-        </div>
-
-        <label class="optin">
-          <span class="cb"></span>
-          <span>Хочу отримувати листи про акції та новинки. Можна вимкнути будь-коли.</span>
-        </label>
-
-        <p class="auth-consent">Натискаючи «Продовжити», ви приймаєте
-          <a href="content-legal.html">публічну оферту</a> та
-          <a href="content-legal.html">політику конфіденційності</a> Stack.</p>
-
-        <a class="auth-cta" href="account.html">Продовжити</a>
-      </form>
-
-      <div class="linkrow">
-        <a href="auth-code.html">← Назад до коду</a>
-      </div>
-
-      <div class="auth-foot">
-        Після цього кроку ви повернетесь туди, де почали — у кошик, обране чи оформлення.
-        <a href="home.html">На головну</a>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <script src="_nav.js"></script>
-<script>wfHeader(); wfBar('auth.html', 'newuser');</script>
+<script>wfHeader(); openAuth('newuser'); wfBar('auth.html', 'newuser');</script>
 </body>
 </html>

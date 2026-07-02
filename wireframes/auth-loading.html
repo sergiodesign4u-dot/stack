@@ -6,123 +6,13 @@
 <meta name="robots" content="noindex">
 <title>Надсилаємо код… — Stack (wireframe 1.x · loading)</title>
 <link rel="stylesheet" href="_wf.css">
-<style>
-/* AUTH DIALOG (node 1.x) — LOADING state (sending code / signing in).
-   Matrix row 7: loading (slog2). Shared modal styles (see auth.html). */
-.auth-ov { position: fixed; inset: 0; background: rgba(18,18,18,.55); z-index: 60;
-  display: flex; align-items: stretch; justify-content: center; }
-.auth-modal { background: #fff; width: 100%; display: flex; overflow-y: auto; }
-@media (min-width: 720px) {
-  .auth-ov { align-items: center; padding: 24px; }
-  .auth-modal { max-width: 880px; min-height: 560px; max-height: 94vh; border-radius: 16px;
-    overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,.12); }
-}
-.auth-visual { display: none; }
-@media (min-width: 720px) {
-  .auth-visual { display: flex; flex-direction: column; justify-content: space-between;
-    width: 42%; flex: none; padding: 26px; color: var(--sec); font-size: 12px;
-    background: repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#f2f2f2 10px,#f2f2f2 20px);
-    border-right: 1px solid var(--hair); }
-}
-.auth-visual .vlogo { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.02em; }
-.auth-visual .vmid { align-self: center; text-align: center; color: var(--light); }
-.auth-visual .vmid .vi { font-size: 34px; }
-.auth-visual .vtag { font-size: 12.5px; color: var(--sec); }
-.auth-visual .vtag b { color: var(--strong); display: block; font-size: 14px; margin-bottom: 3px; }
-.auth-form { flex: 1; min-width: 0; padding: 20px 20px 30px; display: flex; flex-direction: column; }
-@media (min-width: 720px) { .auth-form { padding: 34px 40px; } }
-.auth-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-.auth-mlogo { font-size: 18px; font-weight: 800; color: var(--strong); }
-@media (min-width: 720px) { .auth-mlogo { display: none; } }
-.auth-x { font-size: 15px; color: var(--sec); border: 1px solid var(--hair); border-radius: 8px;
-  padding: 6px 11px; display: inline-flex; align-items: center; gap: 7px; font-weight: 600; }
-.auth-banner { display: flex; align-items: center; gap: 10px; background: var(--fill2);
-  border: 1px solid var(--hair); border-radius: 12px; padding: 12px 14px; margin: 8px 0 18px; }
-.auth-banner .bi { width: 40px; height: 40px; border-radius: 9px; background: var(--fill);
-  display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 18px; flex: none; }
-.auth-banner .bt { font-size: 12.5px; color: var(--sec); } .auth-banner .bt b { color: var(--strong); display: block; }
-@media (min-width: 720px) { .auth-banner { display: none; } }
-.auth-h1 { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
-.auth-sub { font-size: 13.5px; color: var(--sec); margin: 6px 0 20px; }
-/* loading block (static — motion deferred) */
-.auth-load { display: flex; flex-direction: column; align-items: center; text-align: center; margin: 22px 0 6px; }
-.auth-spin { width: 46px; height: 46px; border: 4px solid var(--hair); border-top-color: var(--dark); border-radius: 50%; margin-bottom: 20px; }
-.auth-load .lt { font-size: 15px; font-weight: 800; color: var(--strong); }
-.auth-load .lp { font-size: 13.5px; color: var(--sec); margin-top: 6px; }
-.auth-load .lp b { color: var(--strong); }
-.auth-skel { width: 100%; max-width: 300px; margin: 24px auto 0; }
-.auth-skel .sl { height: 11px; border-radius: 6px; background: #ececec; margin: 9px 0; }
-.auth-skel .sl.m { width: 70%; margin-inline: auto; }
-.auth-cta { display: block; width: 100%; text-align: center; background: var(--dark); color: #fff;
-  border-radius: 10px; padding: 15px; font-size: 15px; font-weight: 700; margin-top: 26px; }
-.auth-note { font-size: 12px; color: var(--light); text-align: center; margin-top: 14px; line-height: 1.6; }
-.linkrow { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; font-size: 12.5px; margin-top: 14px; }
-.linkrow a { color: var(--strong); font-weight: 700; text-decoration: underline; }
-.auth-foot { margin-top: auto; padding-top: 18px; font-size: 12px; color: var(--light); }
-.auth-foot a { color: var(--strong); text-decoration: underline; }
-</style>
 </head>
 <body>
-<!-- ============================================================
-  WIREFRAME · node 1.x Авторизація — LOADING state (matrix row 7).
-  «Надсилаємо код…» after «Отримати код». Field locked, no dead end:
-  forward → auth-code (code sent); cancel → back to phone step.
-============================================================ -->
+<!-- WIREFRAME · node 1.x — REFERENCE render (state = loading). Shared wfAuth();
+  «Надсилаємо код…» after «Отримати код» → forward to code, cancel → phone. -->
 <div class="wf-bar" id="wf-bar"></div>
 <header id="wf-header"></header>
-
-
-<div class="auth-ov">
-  <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authttl" aria-busy="true">
-
-    <aside class="auth-visual" aria-hidden="true">
-      <div class="vlogo">Stack</div>
-      <div class="vmid"><div class="vi">🏋️</div>спортивне харчування</div>
-      <div class="vtag"><b>Один акаунт — усе під рукою</b>Замовлення, бонуси, обране та швидке повторне замовлення.</div>
-    </aside>
-
-    <div class="auth-form">
-      <div class="auth-top">
-        <span class="auth-mlogo">Stack</span>
-        <a class="auth-x" href="auth.html" aria-label="Закрити">✕ Закрити</a>
-      </div>
-
-      <div class="auth-banner">
-        <div class="bi">🏋️</div>
-        <div class="bt"><b>Stack</b>Спортивне харчування</div>
-      </div>
-
-      <h1 class="auth-h1" id="authttl">Майже готово</h1>
-      <p class="auth-sub">Надсилаємо одноразовий код підтвердження.</p>
-
-      <div class="auth-load" role="status" aria-live="polite">
-        <div class="auth-spin" aria-hidden="true"></div>
-        <div class="lt">Надсилаємо код у SMS…</div>
-        <div class="lp">На номер <b>+380&nbsp;67&nbsp;123&nbsp;45&nbsp;67</b></div>
-        <div class="auth-skel" aria-hidden="true">
-          <div class="sl"></div>
-          <div class="sl m"></div>
-        </div>
-      </div>
-
-      <!-- prototype: forward when code is sent (у продукті — авто-перехід) -->
-      <a class="auth-cta" href="auth-code.html">Код надіслано — ввести →</a>
-      <p class="auth-note">🔒 Код діє 5 хвилин. Нікому не повідомляйте його.</p>
-
-      <div class="linkrow">
-        <a href="auth.html">← Змінити номер</a>
-      </div>
-
-      <div class="auth-foot">
-        Не отримали SMS? За кілька секунд зможете надіслати код повторно.
-        <a href="home.html">Повернутися до магазину</a>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <script src="_nav.js"></script>
-<script>wfHeader(); wfBar('auth.html', 'loading');</script>
+<script>wfHeader(); openAuth('loading'); wfBar('auth.html', 'loading');</script>
 </body>
 </html>

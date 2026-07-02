@@ -407,3 +407,30 @@ WF_FLOWS `f6` + WF_SITEMAP 7.x (ia→file).
 
 **Verified** 1280: account buyer (сайдбар-компонент, живі лінки), `?r=coach` (вже-тренер), account-loyalty.
 0 broken / 0 orphans (112 файлів). Full map оновлюється (account 7.x → files).
+
+## Крок 18 — Авторизація-діалог як SHARED-компонент (2026-07-02)
+
+Другий екземпляр узгодженого патерну модалок (після `wfPdpModals`), тепер для **авторизації (1.x)**.
+
+**Спільний компонент `wfAuth()` (`_nav.js`) + auth-CSS у `_wf.css`:** увесь `.auth-*`/`.otp*`/`.ph-field`/
+`.txt-field`/`.smeths`/`.sbtn`/`.optin`/`.auth-load` виніс з 5 inline-`<style>` у `_wf.css` (одна копія).
+Діалог **монтується в `<body>` на вимогу** (`wfAuthMount`, як скрим) + гарантує хост тостів → `openAuth()`
+працює на **будь-якій** сторінці без per-page плейсхолдерів. `.auth-ov` прихований (`display:none`),
+`.open` показує; власний бекдроп `rgba(18,18,18,.55)` z60 (над хедером z30 — `elementFromPoint` підтвердив).
+
+**State-machine (прототип, БЕЗ перезавантаження):** `wfAuthGo(state)` перемальовує панель inline —
+`phone` (база) → `loading` → `code` → `error` → `newuser` → `wfAuthDone()` (закриває + тост «Вітаємо у
+Stack! Ви увійшли»). passwordless, phone-OTP-first, split-layout. Кнопки/лінки всередині ведуть по станах
+(«Отримати код»→loading, «Ввів неправильний код?»→error, «Змінити номер»→phone тощо). ESC + клік-поза = закрити.
+
+**Тригери «Увійти» → `openAuth('phone')` in-context (замість переходу на `auth.html`):** хедер-гість,
+мобільний drawer (+`closeBurger()`), home personal-strip, coach-landing, order-placed, content-loyalty (×3).
+`href="auth.html"` лишили як fallback (`return false`).
+
+**Референс-сторінки перероблено:** `auth.html`(phone) · `auth-code` · `auth-loading` · `auth-newuser` ·
+`auth-error` — тепер мінімальні: хедер + `openAuth('<state>')` рендерить ТОЙ САМИЙ компонент запіненим
+(як `megamenu.html`). Inline-стилі/розмітку діалогу прибрано → екрани не розходяться з живим діалогом.
+
+**Verified:** повний прогін станів на home (клік хедер-«Увійти» → phone→loading→code→error→newuser→done+тост,
+URL не змінюється), reference `auth-loading` (pinned loading + бар «Авторизація 1.x»), мобілка 390 (банер +
+фул-скрин), drawer-тригер (закриває drawer + відкриває auth). 0 broken / 0 orphans (112 файлів).
