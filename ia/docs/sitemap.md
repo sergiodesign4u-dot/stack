@@ -76,7 +76,7 @@
     history** (placed multi-client orders: row = №/date/clients/total/status → «Деталі» 5.7 / «↻ Повторити»
     6.0; states base/empty/loading/error) · **5.7 Order detail** (one order **grouped by client**, single
     delivery to coach, per-client subtotals + grand total, per-client repeat; states base/loading/error).
-    Coach-as-buyer (Decision 1); per-client loop with recovery (OOS/tier-price-blocked/untagged). **Mixed
+    Coach-as-buyer (Decision 1); per-client loop with recovery (OOS/tier-price-blocked/empty-client). **Mixed
     SEO:** landing indexes, 5.1–5.7 **noindex**. B/W).
   - `pages/cart.md` → `ia/cart.html` (node 6.x — **Cart & checkout**, convergence of both flows): **6.0
     Cart** = right-side **drawer dialog** (buyer: flat list + loyalty auto + **bonuses toggle**; coach:

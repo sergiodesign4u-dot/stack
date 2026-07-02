@@ -1,7 +1,7 @@
 # User Flows
 
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
-**Version:** v0.3 (2026-06-21)
+**Version:** v0.4 (2026-07-02)
 **Language:** English (markdown research file)
 **Depends on:** research/sitemap.md v0.6 (IA: screens, navigation, registered states), research/jtbd.md v1.2, research/strategy.md v5
 **All screen, state, and in-flow step nodes are registered in sitemap.md Section 3. No node appears that is not registered there. Under Question entities and [post-launch] items do not appear.**
@@ -15,6 +15,7 @@
 | v0.1 | 2026-06-20 | Four Mermaid flows: Main Job (coach), Job 2 (beginner goal-to-product), Job 3 (safety verification), Job 4 (one-tap reorder). Decisions, states, and dead ends drawn, not only happy paths. |
 | v0.2 | 2026-06-21 | IA corrective pass. Main flow: returning-coach sign-in branch, recoverable verification, Add client capture closes the create-client step (qE gate removed), bounded coach-price loop, substitute runs the stock and price checks, out-of-stock skips the line, untagged line can be discarded, Client profile review step, address selection, payment back-to-cart. Job 2/3/4: added missing empty/loading/error states, one-tap reorder from Order history rows, reviews-and-certificate recovery, payment back-to-cart, out-of-stock recovery. All new nodes registered in sitemap.md v0.5 first. |
 | v0.3 | 2026-06-21 | Added a fifth flow, Job 6 Loyalty review (Loyalty status reachable from Coach account home and Buyer account home, with loading/empty/error states), so the Job 6 mark on Loyalty status is backed by a real flow node. States registered in sitemap.md v0.6 first. |
+| v0.4 | 2026-07-02 | Main flow: removed the incoherent **untagged-line** recovery (`q6`/`su1`/`qtag`). The multi-client session is **client-first** — the active client tab **is** the assignment, so a quick-added line is auto-tagged and can never be client-less. `q7` (coach-tier price applied) now flows straight to `q8` (more clients?). The real per-client edge is an **empty client** (active tab with 0 items) → recovery = quick-add; clients with no positions don't enter the order. Wireframe: `coach-session-untagged.html` deleted, `coach-session-empty.html` added (state `empty`). |
 
 ---
 
@@ -69,9 +70,6 @@ flowchart TD
     ee1(["Error state - coach price not applied"])
     qprice{"Retry or stop?"}
     blockc(["Coach price unresolved - session saved, checkout blocked"])
-    q6{"Order line tagged to client?"}
-    su1(["Untagged line - assign a client"])
-    qtag{"Assign client or discard line?"}
     q8{"More clients to order for?"}
     c6["Cart"]
     qce{"Cart empty?"}
@@ -134,12 +132,7 @@ flowchart TD
     qprice -->|retry| q7
     qprice -->|stop| blockc
     blockc --> c3
-    q7 -->|yes| q6
-    q6 -->|no| su1
-    su1 --> qtag
-    qtag -->|assign| q6
-    qtag -->|discard line| q8
-    q6 -->|yes| q8
+    q7 -->|yes, auto-tagged to active client| q8
     q8 -->|yes| q3
     q8 -->|no| c6
     c6 --> qce
@@ -160,9 +153,9 @@ flowchart TD
 ```
 
 - **Decision points:** logged in as verified coach; have an account; sign in successful; retry sign in; verification passed; resubmit link; client history loaded; any orders for this client; client already in list; product in stock; substitute available; coach-tier price applied; retry or stop coach price; order line tagged to client; assign client or discard line; more clients to order for; cart empty; payment successful; retry payment; back to cart or abandon.
-- **States:** loading (signing in); error (sign in failed); loading (verifying social link); error (verification failed, resubmit link); loading (client order history); error (client history failed to load); empty (nothing ordered for this client yet); Add client capture (name and goal); loading (quick-add); out of stock; Choose substitute; error (coach price not applied); coach price unresolved (session saved, checkout blocked); untagged line; empty (cart empty); address selection; loading (processing payment); error (payment declined).
+- **States:** loading (signing in); error (sign in failed); loading (verifying social link); error (verification failed, resubmit link); loading (client order history); error (client history failed to load); empty (nothing ordered for this client yet); Add client capture (name and goal); loading (quick-add); out of stock; Choose substitute; error (coach price not applied); coach price unresolved (session saved, checkout blocked); empty (active client has no items yet); empty (cart empty); address selection; loading (processing payment); error (payment declined).
 - **Dead ends (terminal, deliberate):** verification not passed and resubmit declined (no coach access; unfixable case only); payment abandoned (cart preserved).
-- **Recoveries that replaced former dead ends:** out-of-stock with no substitute now skips the line and continues (was a hard dead end); the coach-price loop is bounded by retry-or-stop, where stop saves the session, returns to Coach account home, and blocks checkout until the coach-tier price resolves (was an infinite loop); an untagged line can be discarded; payment declined can return to Cart with contents preserved; an existing logged-out coach has a sign-in path; a fixable verification failure can resubmit the link.
+- **Recoveries that replaced former dead ends:** out-of-stock with no substitute now skips the line and continues (was a hard dead end); the coach-price loop is bounded by retry-or-stop, where stop saves the session, returns to Coach account home, and blocks checkout until the coach-tier price resolves (was an infinite loop); payment declined can return to Cart with contents preserved; an existing logged-out coach has a sign-in path; a fixable verification failure can resubmit the link.
 - **Success:** multi-client order placed and confirmed. Each additional client loops back through the client and quick-add steps (breadth), not deeper screens.
 
 ---

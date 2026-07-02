@@ -13,7 +13,7 @@ const WF_STATE_LABEL = {
   guest: 'Гість', declined: 'Оплата відхилена', noaddr: 'Без адреси', loggedin: 'У кабінеті',
   code: 'Крок коду', newuser: 'Новий користувач', 'account-end': 'З акаунтом',
   tier: 'Вибір тарифу', deadend: 'Глухий кут', cap: 'Ліміт клієнтів',
-  addclient: 'Додати клієнта', priceblock: 'Ціна не підтверджена', untagged: 'Без клієнта',
+  addclient: 'Додати клієнта', priceblock: 'Ціна не підтверджена', newclient: 'Новий клієнт',
   confirm: 'Підтвердження', suggest: 'Підказки', 'no-results': 'Нічого не знайдено',
   protein: 'Протеїн', health: 'Здоровʼя', vitamins: 'Вітаміни',
   free: 'Тариф Free', cancel: 'Скасування Pro'
@@ -48,7 +48,7 @@ const WF_FLOWS = [
       { file: 'coach-client-new.html', name: 'Новий клієнт',        node: '5.3a', built: true, states: [], builtStates: [] },
       { file: 'coach-client.html',  name: 'Профіль клієнта',        node: '5.4', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'coach-client-edit.html', name: 'Редагування клієнта', node: '5.4a', built: true, states: ['confirm'], builtStates: ['confirm'] },
-      { file: 'coach-session.html', name: 'Мультиклієнтська сесія', node: '5.5', built: true,  states: ['addclient','loading','oos','priceblock','untagged'], builtStates: ['addclient','loading','oos','priceblock','untagged'] },
+      { file: 'coach-session.html', name: 'Мультиклієнтська сесія', node: '5.5', built: true,  states: ['addclient','loading','oos','priceblock','newclient','empty'], builtStates: ['addclient','loading','oos','priceblock','newclient','empty'] },
       { file: 'coach-orders.html',  name: 'Замовлення тренера',     node: '5.6', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'coach-order.html',   name: 'Деталі замовлення',      node: '5.7', built: true,  states: ['loading','error'], builtStates: ['loading','error'] },
       { file: 'cart-coach.html',    name: 'Кошик (за клієнтами)',   node: '6.0', built: true,  states: ['empty'], builtStates: ['empty'] }

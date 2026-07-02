@@ -46,8 +46,14 @@
    NOT the global search.** → **Cart with per-client grouping (6.0)** → Checkout (6.x).
    **Per-client loop (flows.md):** select/add client → quick-add (loads stock + coach-tier price) →
    **stock?** OOS → choose substitute / skip line → **tier price?** unresolved → session saved,
-   **checkout blocked** → **tagged to client?** untagged → assign or discard line → **more clients?** →
-   Cart → Checkout → address → payment. Recoverable problems route back; never a terminal.
+   **checkout blocked** → **more clients?** → Cart → Checkout → address → payment. Recoverable
+   problems route back; never a terminal.
+   **Client-first model (locked 2026-07-02):** the active tab **IS** the client, so quick-add auto-tags
+   the line to the current client — there is **no «untagged» line** (structurally impossible; the old
+   assign-or-discard recovery was removed as incoherent). Two real edges replace it: (a) **new client**
+   (`newclient` — a just-added tab with 0 items, arriving from the «Додати клієнта» capture dialog) →
+   recovery = quick-add for that client; (b) **empty session** (`empty` — 0 clients at all) → one clear
+   step «＋ Додати першого клієнта». Clients with no positions simply don't enter the order.
 6. **Замовлення тренера / order history (5.6)** — the coach's list of **placed multi-client orders**
    (distinct from the buyer's own order history 7.2, and from a single client's history inside 5.4).
    Each row: order № · date · **clients in the order** (names / count) · item count · **coach total** ·
@@ -71,7 +77,7 @@
 - Free client cap (2–3 [?]) → soft Pro upsell on adding the next client.
 - Session OOS line → substitute / skip (doesn't block the rest).
 - **Tier price not applied → session saved, checkout blocked** until confirmed.
-- Untagged line → assign client or discard (untagged never reaches the cart).
+- New client (tab with 0 items) → quick-add prompt · Empty session (0 clients) → «Додати першого клієнта». Clients with no positions don't enter the order.
 - Client history: loading (skeleton) · empty · error → retry.
 - **Edit client (5.4a):** base (edit form) · confirm (delete-client dialog → remove from list, keep past orders).
 - **Order history (5.6):** base · empty (no orders yet) · loading · error → retry.
@@ -95,7 +101,7 @@
 4. **In-session quick-add** (not global search); **coach-tier price** on every line.
 5. **Cart groups by client** (6.0). Flow depth is intentional (work flow), not flattened.
 6. **Recovery, not dead ends:** OOS → substitute/skip; tier price unresolved → saved + checkout
-   blocked; untagged line → assign/discard.
+   blocked; new client (0 items) → quick-add · empty session (0 clients) → add first client (no untagged line — active tab auto-tags).
 7. **Landing indexable**, work zone **noindex**.
 8. **Breadcrumbs (standardized 2026-07-02):** landing 5.0 = `Головна › Для тренерів`; become-a-coach /
    verify 5.1 = `Головна › Кабінет › Стати тренером › [Перевірка|Тариф]` (activation lives under the

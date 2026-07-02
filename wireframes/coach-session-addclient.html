@@ -123,7 +123,8 @@
   WIREFRAME · node 5.5 Сесія — ДОДАТИ КЛІЄНТА (capture: name + goal). flows.md: addc.
   ★ The coach-flow differentiator (Job 1). Client tabs + active-client
   quick-add + coach-tier priced lines + session summary → cart-coach.
-  States: addclient · loading (quick-add) · oos · priceblock · untagged.
+  States: addclient · loading (quick-add) · oos · priceblock · newclient · empty.
+  «Додати клієнта» → coach-session-newclient.html (the new client Ігор, 0 items).
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 <div class="wf-canvas">
@@ -262,17 +263,17 @@
   <div class="acmodal">
     <h2>Додати клієнта</h2>
     <p>Ім'я та ціль клієнта — ціль підбиратиме товари в сесії. Клієнт збережеться у вашому списку для наступних замовлень.</p>
-    <div class="acf"><label for="acn">Ім'я клієнта</label><input id="acn" type="text" placeholder="Напр., Олег"></div>
+    <div class="acf"><label for="acn">Ім'я клієнта</label><input id="acn" type="text" placeholder="Напр., Олег" value="Ігор"></div>
     <div class="acf"><label>Ціль</label>
       <div class="acgoals">
-        <button type="button" class="on">Набір маси</button><button type="button">Схуднення</button>
+        <button type="button">Набір маси</button><button type="button">Схуднення</button>
         <button type="button">Відновлення</button><button type="button">Енергія</button>
-        <button type="button">Імунітет</button><button type="button">Витривалість</button>
+        <button type="button">Імунітет</button><button type="button" class="on">Витривалість</button>
       </div>
     </div>
     <div class="acact">
       <a class="btn" href="coach-session.html">Скасувати</a>
-      <a class="btn dark" href="coach-session-loading.html">Додати клієнта</a>
+      <a class="btn dark" href="coach-session-newclient.html">Додати клієнта</a>
     </div>
   </div>
 </div>
