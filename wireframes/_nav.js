@@ -494,6 +494,36 @@ function closeCookieSettings() { const d = document.getElementById('ckset'), o =
 function saveCookiePrefs() { const b = document.getElementById('cookie-bar'); if (b) b.classList.add('hidden'); closeCookieSettings(); wfToast('ok', 'Налаштування cookie збережено'); }
 function showCookieBar() { const b = document.getElementById('cookie-bar'); if (b) b.classList.remove('hidden'); }
 
+/* PDP review + question modals — SHARED component (single source of truth). Injected
+   into #wf-pdp-modals on the product page AND the product-reviews reference state, so
+   they never drift. openReview()/openQuestion() are the triggers. */
+function wfPdpModals() {
+  const el = document.getElementById('wf-pdp-modals'); if (!el) return;
+  el.innerHTML =
+    '<div class="wf-ov" id="pm-ov" onclick="closePM()"></div>' +
+    '<div class="pm" id="pm-review" role="dialog" aria-modal="true" aria-label="Залишити відгук">' +
+    '<div class="pm-h">Залишити відгук<button class="x" onclick="closePM()" aria-label="Закрити">✕</button></div>' +
+    '<div class="pm-b"><label>Ваша оцінка</label><div class="pm-stars"><b>★★★★</b>★</div>' +
+    '<label>Переваги</label><input type="text" placeholder="Що сподобалось">' +
+    '<label>Недоліки</label><input type="text" placeholder="Що можна покращити">' +
+    '<label>Відгук</label><textarea placeholder="Ваші враження про товар…"></textarea>' +
+    '<label>Ім\'я</label><input type="text" placeholder="Як вас підписати">' +
+    '<div class="pm-note">Відгук пройде модерацію. Публікуємо чесно — і схвальні, і критичні.</div></div>' +
+    '<div class="pm-f"><button class="btn" onclick="closePM()">Скасувати</button>' +
+    '<button class="btn dark" onclick="submitPM(\'Дякуємо! Відгук надіслано на модерацію\')">Надіслати відгук</button></div></div>' +
+    '<div class="pm" id="pm-question" role="dialog" aria-modal="true" aria-label="Поставити запитання">' +
+    '<div class="pm-h">Поставити запитання<button class="x" onclick="closePM()" aria-label="Закрити">✕</button></div>' +
+    '<div class="pm-b"><label>Ваше запитання про товар</label><textarea placeholder="Напр., чи підходить для схуднення?"></textarea>' +
+    '<label>E-mail для відповіді</label><input type="email" placeholder="you@email.com">' +
+    '<div class="pm-note">Відповідь надішлемо на пошту й опублікуємо в розділі «Питання».</div></div>' +
+    '<div class="pm-f"><button class="btn" onclick="closePM()">Скасувати</button>' +
+    '<button class="btn dark" onclick="submitPM(\'Дякуємо! Запитання надіслано\')">Надіслати запитання</button></div></div>';
+}
+function openReview() { var m = document.getElementById('pm-review'), o = document.getElementById('pm-ov'); if (m) m.classList.add('open'); if (o) o.classList.add('open'); }
+function openQuestion() { var m = document.getElementById('pm-question'), o = document.getElementById('pm-ov'); if (m) m.classList.add('open'); if (o) o.classList.add('open'); }
+function closePM() { document.querySelectorAll('.pm.open').forEach(m => m.classList.remove('open')); var o = document.getElementById('pm-ov'); if (o) o.classList.remove('open'); }
+function submitPM(msg) { closePM(); wfToast('ok', msg); }
+
 function wfToasts() { const el = document.getElementById('wf-toast'); if (!el) return; el.className = 'wf-toasts'; el.setAttribute('aria-live', 'polite'); el.innerHTML = ''; }
 function wfToast(type, msg) {
   const wrap = document.getElementById('wf-toast'); if (!wrap) return;
@@ -706,4 +736,4 @@ function closeSheet() { const s = document.getElementById('fsheet'), o = documen
 function toggleCab(e) { if (e) e.stopPropagation(); const m = document.getElementById('wfh-cabmenu'); if (!m) return; const open = m.classList.toggle('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
 function closeCab() { const m = document.getElementById('wfh-cabmenu'); if (!m) return; m.classList.remove('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', 'false'); }
 document.addEventListener('click', e => { const cab = document.getElementById('wfh-cabmenu'); if (cab && cab.classList.contains('open') && !e.target.closest('.wfh-cab')) closeCab(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); closeMega(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); closeMega(); if (typeof closePM === 'function') closePM(); } });

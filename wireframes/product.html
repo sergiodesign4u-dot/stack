@@ -60,7 +60,8 @@
         <div class="oldrow"><span class="old">1 520 ₴</span><span class="cut">−15%</span></div>
         <div class="new">1 290 ₴</div>
         <div class="perserv">≈ 18 ₴ / порція · +13 ₴ бонус на рахунок</div>
-        <div class="tier">Ціна тренера (Pro): 1 090 ₴ — <a href="coach-landing.html">увійти як тренер</a></div>
+        <!-- Coach-tier price shown ONLY in coach mode (product-coach state), not to buyers —
+             so regular buyers don't hold off waiting for a cheaper coach price. -->
       </div>
 
       <div class="vgroup">
@@ -172,7 +173,7 @@
 
   <!-- Відгуки (3.1) — conversion recovery -->
   <section aria-label="Відгуки" id="rev">
-    <div class="sech"><h2>Відгуки</h2><button class="all" type="button">＋ Залишити відгук</button></div>
+    <div class="sech"><h2>Відгуки</h2></div>
     <div class="rvhead">
       <div class="rvbig"><div class="n">4.8</div><div class="s">★★★★★<br>126 відгуків</div></div>
       <div class="rvbars">
@@ -182,7 +183,7 @@
         <div class="rvbar"><span>2</span><div class="track"><div class="fill" style="width:1%"></div></div><span>2</span></div>
         <div class="rvbar"><span>1</span><div class="track"><div class="fill" style="width:1%"></div></div><span>1</span></div>
       </div>
-      <button class="btn dark" type="button">＋ Залишити відгук</button>
+      <button class="btn dark" type="button" onclick="openReview()">＋ Залишити відгук</button>
     </div>
 
     <!-- review item: name+rating+date LEFT, text RIGHT; pros/cons; shop reply chip -->
@@ -220,7 +221,7 @@
 
   <!-- Питання (3.2) -->
   <section aria-label="Питання" id="qa">
-    <div class="sech"><h2>Питання</h2><button class="all" type="button">＋ Поставити запитання</button></div>
+    <div class="sech"><h2>Питання</h2><button class="all" type="button" onclick="openQuestion()">＋ Поставити запитання</button></div>
     <div class="qaitem">
       <div class="qq">Чи підходить для схуднення?</div>
       <div class="qans"><b>Магазин:</b> так, як джерело білка при дефіциті калорій. Для схуднення краще ізолят — підкажемо в чаті.</div>
@@ -275,7 +276,9 @@
 </div>
 
 <div id="wf-sheet"></div>
+<div id="wf-pdp-modals"></div>
+<div id="wf-toast"></div>
 <script src="_nav.js"></script>
-<script>wfHeader(); wfFooter(); wfBar('product.html');</script>
+<script>wfHeader(); wfFooter(); wfToasts(); wfPdpModals(); wfBar('product.html');</script>
 </body>
 </html>

@@ -44,7 +44,7 @@
 
   <!-- reviews (aggregate + list; many → paginated) -->
   <section aria-label="Відгуки" style="margin-top:26px">
-    <div class="sech"><h2>Відгуки покупців</h2><button class="all" type="button">＋ Залишити відгук</button></div>
+    <div class="sech"><h2>Відгуки покупців</h2></div>
     <div class="rvhead">
       <div class="rvbig"><div class="n">4.8</div><div class="s">★★★★★<br>126 відгуків</div></div>
       <div class="rvbars">
@@ -54,7 +54,7 @@
         <div class="rvbar"><span>2</span><div class="track"><div class="fill" style="width:1%"></div></div><span>2</span></div>
         <div class="rvbar"><span>1</span><div class="track"><div class="fill" style="width:1%"></div></div><span>1</span></div>
       </div>
-      <button class="btn dark" type="button">＋ Залишити відгук</button>
+      <button class="btn dark" type="button" onclick="openReview()">＋ Залишити відгук</button>
     </div>
 
     <div class="rvitem">
@@ -87,7 +87,9 @@
 <footer id="wf-footer"></footer>
 </div>
 <div id="wf-sheet"></div>
+<div id="wf-pdp-modals"></div>
+<div id="wf-toast"></div>
 <script src="_nav.js"></script>
-<script>wfHeader(); wfFooter(); wfBar('product.html', 'reviews');</script>
+<script>wfHeader(); wfFooter(); wfToasts(); wfPdpModals(); wfBar('product.html', 'reviews');</script>
 </body>
 </html>
