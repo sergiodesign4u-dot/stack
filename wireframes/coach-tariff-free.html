@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Тариф Free — Кабінет тренера (wireframe 5.2a · free)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 5.2a Тариф — STATE = Free active. Reuses coach-tariff.html styling;
+   current plan = Free, primary action = activate Pro. Greyscale only. */
+.tf-wrap { max-width: 760px; }
+.tf-lead { font-size: 14px; color: var(--sec); margin: 4px 0 22px; line-height: 1.5; }
+.tf-cur { border: 1.5px solid var(--hair2); border-radius: 14px; padding: 20px 22px; }
+.tf-cur-h { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tf-plan { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.tf-badge { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; border: 1px solid var(--hair2); border-radius: 100px; padding: 3px 11px; color: var(--sec); }
+.tf-price { font-size: 26px; font-weight: 800; color: var(--strong); margin: 14px 0 4px; }
+.tf-price .per { font-size: 14px; font-weight: 600; color: var(--sec); }
+.tf-renew { font-size: 13px; color: var(--sec); }
+.tf-renew b { color: var(--strong); }
+.tf-incl { list-style: none; margin: 16px 0 0; padding: 0; }
+.tf-incl li { font-size: 13.5px; color: var(--strong); padding: 6px 0 6px 24px; position: relative; }
+.tf-incl li::before { content: "✓"; position: absolute; left: 0; font-weight: 900; color: var(--strong); }
+.tf-incl li.off { color: var(--light); }
+.tf-incl li.off::before { content: "✕"; color: var(--light); }
+.tf-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--hair); }
+.tf-upsell { border: 1.5px solid var(--dark); border-radius: 14px; background: var(--fill2); padding: 20px 22px; margin-top: 18px; }
+.tf-upsell h2 { font-size: 17px; font-weight: 800; color: var(--strong); margin: 0 0 6px; }
+.tf-upsell p { font-size: 13px; color: var(--sec); margin: 0 0 8px; line-height: 1.5; }
+.tf-upsell .tf-price2 { font-size: 20px; font-weight: 800; color: var(--strong); margin: 8px 0 14px; }
+.tf-upsell .tf-price2 .per { font-size: 12.5px; font-weight: 600; color: var(--sec); }
+.tf-note { font-size: 12px; color: var(--light); margin-top: 20px; line-height: 1.5; }
+.tf-note b { color: var(--strong); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.2a Тариф — STATE = Free active. Current plan = Free
+  (capped clients, no fee); primary action = activate Pro → coach-tariff (Pro).
+  Sibling of base (Pro active). Private/coach → noindex.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page tf-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <span class="cur">Тариф</span>
+  </nav>
+
+  <h1 class="acc-h1" style="font-size:24px;font-weight:800">Тариф</h1>
+  <p class="tf-lead">Ваш поточний тариф і керування підпискою. Гуртові ціни доступні вже на Free — Pro знімає ліміт клієнтів і дає максимальну ціну.</p>
+
+  <!-- CURRENT PLAN = Free active -->
+  <section class="tf-cur" aria-label="Поточний тариф">
+    <div class="tf-cur-h"><span class="tf-plan">Free</span><span class="tf-badge">● Активний</span></div>
+    <div class="tf-price">0 ₴ <span class="per">/ міс</span></div>
+    <div class="tf-renew">Безкоштовний тариф · без списань</div>
+    <ul class="tf-incl">
+      <li>Гуртова ціна, краще за роздріб</li>
+      <li>До 3 клієнтів у сесії</li>
+      <li class="off">Без обмежень на клієнтів — лише на Pro</li>
+      <li class="off">Максимальна гуртова ціна — лише на Pro</li>
+    </ul>
+  </section>
+
+  <!-- UPGRADE TO PRO -->
+  <section class="tf-upsell" aria-label="Перейти на Pro">
+    <h2>Перейдіть на Pro</h2>
+    <p>Зніміть ліміт на кількість клієнтів у сесії й отримайте максимальну гуртову ціну та пріоритетну підтримку.</p>
+    <div class="tf-price2">99 ₴ <span class="per">/ міс [?]</span></div>
+    <a class="btn dark" href="coach-tariff.html">Активувати Pro</a>
+  </section>
+
+  <p class="tf-note"><b>[?]</b> Ціна Pro (~99 ₴/міс) та ліміт клієнтів на Free — гіпотеза, уточнюються (юніт-економіка).</p>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-tariff.html', 'free');</script>
+</body>
+</html>

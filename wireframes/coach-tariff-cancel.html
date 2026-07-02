@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Тариф — Кабінет тренера (wireframe 5.2a)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 5.2a Керування тарифом — current plan + manage (cancel Pro / switch).
+   Private/coach zone → noindex. Greyscale only. States: free · cancel. */
+.tf-wrap { max-width: 760px; }
+.tf-lead { font-size: 14px; color: var(--sec); margin: 4px 0 22px; line-height: 1.5; }
+/* current plan card */
+.tf-cur { border: 1.5px solid var(--dark); border-radius: 14px; padding: 20px 22px; }
+.tf-cur-h { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tf-plan { font-size: 22px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.tf-badge { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; border: 1px solid var(--hair2); border-radius: 100px; padding: 3px 11px; color: var(--strong); }
+.tf-badge.muted { color: var(--sec); }
+.tf-price { font-size: 26px; font-weight: 800; color: var(--strong); margin: 14px 0 4px; }
+.tf-price .per { font-size: 14px; font-weight: 600; color: var(--sec); }
+.tf-price .qm { font-size: 13px; font-weight: 700; color: var(--light); }
+.tf-renew { font-size: 13px; color: var(--sec); }
+.tf-renew b { color: var(--strong); }
+.tf-incl { list-style: none; margin: 16px 0 0; padding: 0; }
+.tf-incl li { font-size: 13.5px; color: var(--strong); padding: 6px 0 6px 24px; position: relative; }
+.tf-incl li::before { content: "✓"; position: absolute; left: 0; font-weight: 900; color: var(--strong); }
+.tf-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--hair); }
+/* comparison */
+.tf-ch { font-size: 16px; font-weight: 800; color: var(--strong); margin: 30px 0 14px; }
+.tf-compare { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .tf-compare { grid-template-columns: 1fr 1fr; } }
+.tf-col { border: 1px solid var(--hair); border-radius: 12px; padding: 18px; }
+.tf-col.on { border: 1.5px solid var(--dark); background: var(--fill2); }
+.tf-col-h { font-size: 16px; font-weight: 800; color: var(--strong); display: flex; align-items: center; gap: 8px; }
+.tf-mini { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; border: 1px solid var(--hair2); border-radius: 100px; padding: 2px 8px; color: var(--sec); }
+.tf-col-p { font-size: 19px; font-weight: 800; color: var(--strong); margin: 6px 0 12px; }
+.tf-col-p .per { font-size: 12.5px; font-weight: 600; color: var(--sec); }
+.tf-col ul { list-style: none; margin: 0; padding: 0; }
+.tf-col li { font-size: 12.5px; color: var(--sec); padding: 5px 0 5px 20px; position: relative; }
+.tf-col li::before { content: "·"; position: absolute; left: 6px; font-weight: 900; color: var(--strong); }
+.tf-note { font-size: 12px; color: var(--light); margin-top: 20px; line-height: 1.5; }
+.tf-note b { color: var(--strong); }
+/* cancel-confirm dialog */
+.tfov { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 55; align-items: center; justify-content: center; padding: 20px; }
+.tfov.open { display: flex; }
+.tfdlg { background: #fff; width: 100%; max-width: 440px; border: 1px solid var(--hair2); border-radius: 14px; box-shadow: 0 6px 24px rgba(0,0,0,.12); padding: 24px; text-align: center; }
+.tfdlg .ic { width: 48px; height: 48px; margin: 0 auto 14px; border: 2px solid var(--strong); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.tfdlg h2 { font-size: 19px; font-weight: 800; color: var(--strong); }
+.tfdlg p { font-size: 13.5px; color: var(--sec); margin: 8px 0 20px; line-height: 1.55; }
+.tfdlg p b { color: var(--strong); }
+.tfdlg .act { display: flex; gap: 10px; }
+.tfdlg .act .btn { flex: 1; text-align: center; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.2a Тариф (BASE = Pro active). Manage current plan:
+  see active tariff + next billing, cancel Pro (→ Free) or compare plans.
+  Reached from coach cabinet «Тариф» / «Керувати тарифом» — NOT the
+  registration tier step. States: free (Free active) · cancel (confirm).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page tf-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <span class="cur">Тариф</span>
+  </nav>
+
+  <h1 class="acc-h1" style="font-size:24px;font-weight:800">Тариф</h1>
+  <p class="tf-lead">Ваш поточний тариф і керування підпискою. Змінити або скасувати можна будь-коли — гуртові ціни на товари зберігаються на обох тарифах.</p>
+
+  <!-- CURRENT PLAN = Pro active -->
+  <section class="tf-cur" aria-label="Поточний тариф">
+    <div class="tf-cur-h"><span class="tf-plan">Pro</span><span class="tf-badge">● Активний</span></div>
+    <div class="tf-price">99 ₴ <span class="per">/ міс</span> <span class="qm">[?]</span></div>
+    <div class="tf-renew">Наступне списання — <b>12 липня 2026</b> · картка •• 1234</div>
+    <ul class="tf-incl">
+      <li>Максимальна гуртова ціна на всі товари</li>
+      <li>Без обмежень на кількість клієнтів у сесії</li>
+      <li>Мультиклієнтські замовлення та історія по кожному клієнту</li>
+      <li>Пріоритетна підтримка</li>
+    </ul>
+    <div class="tf-actions">
+      <button class="btn" type="button" onclick="tfCancelOpen()">Скасувати підписку Pro</button>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <h2 class="tf-ch">Порівняння тарифів</h2>
+  <div class="tf-compare">
+    <div class="tf-col">
+      <div class="tf-col-h">Free</div>
+      <div class="tf-col-p">0 ₴</div>
+      <ul>
+        <li>Гуртова ціна, краще за роздріб</li>
+        <li>До 3 клієнтів у сесії</li>
+        <li>Активація миттєва, без оплати</li>
+      </ul>
+    </div>
+    <div class="tf-col on">
+      <div class="tf-col-h">Pro <span class="tf-mini">ваш тариф</span></div>
+      <div class="tf-col-p">99 ₴ <span class="per">/ міс [?]</span></div>
+      <ul>
+        <li>Максимальна гуртова ціна</li>
+        <li>Без обмежень на клієнтів</li>
+        <li>Пріоритетна підтримка</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="tf-note"><b>[?]</b> Ціна Pro (~99 ₴/міс), ліміт клієнтів на Free та умови — гіпотеза, уточнюються (юніт-економіка).</p>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<!-- CANCEL CONFIRM DIALOG (hidden; opened by «Скасувати підписку Pro») -->
+<div class="tfov open" id="tf-cancel" role="dialog" aria-modal="true" aria-label="Скасувати підписку Pro">
+  <div class="tfdlg">
+    <div class="ic" aria-hidden="true">◈</div>
+    <h2>Скасувати підписку Pro?</h2>
+    <p>Pro залишиться активним до <b>12 липня 2026</b>. Після цього тариф автоматично перейде на <b>Free</b>: гуртові ціни збережуться, але кількість клієнтів у сесії буде обмежена (до 3). Повернути Pro можна будь-коли.</p>
+    <div class="act">
+      <button class="btn" type="button" onclick="tfCancelClose()">Залишити Pro</button>
+      <a class="btn dark" href="coach-tariff-free.html">Скасувати підписку</a>
+    </div>
+  </div>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+  wfHeader('coach'); wfFooter(); wfBar('coach-tariff.html', 'cancel');
+  function tfCancelOpen() { document.getElementById('tf-cancel').classList.add('open'); }
+  function tfCancelClose() { document.getElementById('tf-cancel').classList.remove('open'); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') tfCancelClose(); });
+</script>
+</body>
+</html>

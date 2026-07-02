@@ -104,7 +104,7 @@
           <p class="cl-sub">Збережені клієнти з їхніми цілями та історією замовлень.</p>
         </div>
         <div class="cl-acts">
-          <a class="btn" href="coach-session-addclient.html">＋ Додати клієнта</a>
+          <a class="btn" href="coach-client-new.html" onclick="openClientNew();return false">＋ Додати клієнта</a>
           <a class="btn dark" href="coach-session.html">＋ Нова сесія</a>
         </div>
       </div>
@@ -172,8 +172,10 @@
 
 <footer id="wf-footer"></footer>
 </div>
+<div id="wf-client-edit"></div>
+<div id="wf-toast"></div>
 
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-clients.html');</script>
+<script>wfHeader('coach'); wfFooter(); wfClientEdit(); wfToasts(); wfBar('coach-clients.html');</script>
 </body>
 </html>

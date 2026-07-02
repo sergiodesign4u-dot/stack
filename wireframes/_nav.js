@@ -15,7 +15,8 @@ const WF_STATE_LABEL = {
   tier: 'Вибір тарифу', deadend: 'Глухий кут', cap: 'Ліміт клієнтів',
   addclient: 'Додати клієнта', priceblock: 'Ціна не підтверджена', untagged: 'Без клієнта',
   confirm: 'Підтвердження', suggest: 'Підказки', 'no-results': 'Нічого не знайдено',
-  protein: 'Протеїн', health: 'Здоровʼя', vitamins: 'Вітаміни'
+  protein: 'Протеїн', health: 'Здоровʼя', vitamins: 'Вітаміни',
+  free: 'Тариф Free', cancel: 'Скасування Pro'
 };
 
 const WF_FLOWS = [
@@ -42,7 +43,9 @@ const WF_FLOWS = [
       { file: 'coach-landing.html', name: 'Для тренерів (лендинг)', node: '5.0', built: true,  states: [], builtStates: [] },
       { file: 'coach-verify.html',  name: 'Стати тренером',         node: '5.1', built: true,  states: ['loading','error','deadend','tier'], builtStates: ['loading','error','deadend','tier'] },
       { file: 'coach-home.html',    name: 'Кабінет тренера',        node: '5.2', built: true,  states: ['loading','error'], builtStates: ['loading','error'] },
+      { file: 'coach-tariff.html',  name: 'Тариф (керування)',      node: '5.2a', built: true, states: ['free','cancel'], builtStates: ['free','cancel'] },
       { file: 'coach-clients.html', name: 'Клієнти',                node: '5.3', built: true,  states: ['empty','loading','error','cap'], builtStates: ['empty','loading','error','cap'] },
+      { file: 'coach-client-new.html', name: 'Новий клієнт',        node: '5.3a', built: true, states: [], builtStates: [] },
       { file: 'coach-client.html',  name: 'Профіль клієнта',        node: '5.4', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'coach-client-edit.html', name: 'Редагування клієнта', node: '5.4a', built: true, states: ['confirm'], builtStates: ['confirm'] },
       { file: 'coach-session.html', name: 'Мультиклієнтська сесія', node: '5.5', built: true,  states: ['addclient','loading','oos','priceblock','untagged'], builtStates: ['addclient','loading','oos','priceblock','untagged'] },
@@ -138,7 +141,9 @@ const WF_SITEMAP = [
     { node: '5.0',  name: 'Для тренерів (лендинг)',            file: 'coach-landing.html' },
     { node: '5.1',  name: 'Стати тренером',                    file: 'coach-verify.html' },
     { node: '5.2',  name: 'Кабінет тренера',                   file: 'coach-home.html' },
+    { node: '5.2a', name: 'Тариф (керування)',                 file: 'coach-tariff.html' },
     { node: '5.3',  name: 'Клієнти',                           file: 'coach-clients.html' },
+    { node: '5.3a', name: 'Новий клієнт (діалог)',             file: 'coach-client-new.html' },
     { node: '5.4',  name: 'Профіль клієнта',                   file: 'coach-client.html' },
     { node: '5.4a', name: 'Редагування клієнта',               file: 'coach-client-edit.html' },
     { node: '5.5',  name: 'Мультиклієнтська сесія',            file: 'coach-session.html' },
@@ -634,10 +639,14 @@ function wfAuthPanel(state) {
     '<button class="sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic">@</span> Продовжити з E-mail</button></div>' +
     wfAuthFoot('Уже маєте акаунт чи ні — вхід і реєстрація в одному кроці.'));
 }
-function openAuth(state) { wfAuthMount(); wfAuthGo(state || 'phone'); var ov = document.getElementById('wf-auth'); if (ov) ov.classList.add('open'); }
+/* optional destination after a completed sign-up/in (e.g. order-placed → its
+   account-end state). openAuth(state, dest); wfAuthDone() navigates there if set,
+   otherwise closes in place + toast («return to the triggering action»). */
+var wfAuthDest = null;
+function openAuth(state, dest) { wfAuthMount(); wfAuthDest = dest || null; wfAuthGo(state || 'phone'); var ov = document.getElementById('wf-auth'); if (ov) ov.classList.add('open'); }
 function wfAuthGo(state) { wfAuthMount(); var ov = document.getElementById('wf-auth'); if (ov) { ov.dataset.state = state; ov.innerHTML = wfAuthPanel(state); } }
 function closeAuth() { var ov = document.getElementById('wf-auth'); if (ov) ov.classList.remove('open'); }
-function wfAuthDone() { closeAuth(); wfToast('ok', 'Вітаємо у Stack! Ви увійшли 🎉'); }
+function wfAuthDone() { if (wfAuthDest) { location.href = wfAuthDest; return; } closeAuth(); wfToast('ok', 'Вітаємо у Stack! Ви увійшли 🎉'); }
 
 /* ============================================================
    CLIENT EDIT (node 5.4a) — SHARED modal (single source of truth). Injected into
@@ -649,15 +658,28 @@ function wfClientEdit() {
   const el = document.getElementById('wf-client-edit'); if (!el) return;
   const goals = ['Набір маси', 'Схуднення', 'Відновлення', 'Енергія', 'Імунітет', 'Витривалість'];
   let gbtns = ''; goals.forEach((g, i) => { gbtns += '<button type="button"' + (i === 0 ? ' class="on"' : '') + '>' + g + '</button>'; });
-  el.innerHTML =
+  let gbtnsNew = ''; goals.forEach(g => { gbtnsNew += '<button type="button">' + g + '</button>'; });
+  const ceNew =
+    '<div class="ceov" id="ce-new" role="dialog" aria-modal="true" aria-label="Новий клієнт"><div class="cemodal">' +
+    '<div class="ce-top"><h2>Новий клієнт</h2><button class="ce-x" onclick="closeClientEdit()" aria-label="Закрити">✕</button></div>' +
+    '<p class="sub">Додайте клієнта у ваш список. Ім\'я та ціль — обов\'язкові; ціль формує підбір товарів у сесії.</p>' +
+    '<div class="cef"><label for="cnn">Ім\'я клієнта</label><input id="cnn" type="text" placeholder="Напр., Андрій"></div>' +
+    '<div class="cef"><label>Ціль</label><div class="cegoals">' + gbtnsNew + '</div></div>' +
+    '<div class="cef"><label for="cnp">Телефон <span class="opt">— необов\'язково</span></label><input id="cnp" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __"></div>' +
+    '<div class="cef"><label for="cnm">E-mail <span class="opt">— необов\'язково</span></label><input id="cnm" type="email" placeholder="you@email.com"></div>' +
+    '<div class="cef"><label for="cnnote">Нотатки тренера <span class="opt">— необов\'язково</span></label><textarea id="cnnote" placeholder="Напр., алергія на лактозу; ранкові тренування"></textarea></div>' +
+    '<div class="ceact"><button class="btn" onclick="closeClientEdit()">Скасувати</button>' +
+    '<button class="btn dark" onclick="createClient()">Додати клієнта</button></div>' +
+    '</div></div>';
+  el.innerHTML = ceNew +
     '<div class="ceov" id="ce-edit" role="dialog" aria-modal="true" aria-label="Редагувати клієнта"><div class="cemodal">' +
     '<div class="ce-top"><h2>Редагувати клієнта</h2><button class="ce-x" onclick="closeClientEdit()" aria-label="Закрити">✕</button></div>' +
     '<p class="sub">Ім\'я та ціль клієнта. Ціль підбирає товари в сесії й у профілі.</p>' +
     '<div class="cef"><label for="cen">Ім\'я клієнта</label><input id="cen" type="text" value="Андрій"></div>' +
     '<div class="cef"><label>Ціль</label><div class="cegoals">' + gbtns + '</div></div>' +
-    '<div class="cef"><label for="cep">Телефон <span class="opt">— необов\'язково</span></label><input id="cep" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __"></div>' +
-    '<div class="cef"><label for="cem">E-mail <span class="opt">— необов\'язково</span></label><input id="cem" type="email" placeholder="you@email.com"></div>' +
-    '<div class="cef"><label for="cenote">Нотатки тренера <span class="opt">— необов\'язково</span></label><textarea id="cenote" placeholder="Напр., алергія на лактозу; ранкові тренування"></textarea></div>' +
+    '<div class="cef"><label for="cep">Телефон</label><input id="cep" type="tel" inputmode="tel" value="+380 67 123 45 67"></div>' +
+    '<div class="cef"><label for="cem">E-mail <span class="opt">— необов\'язково</span></label><input id="cem" type="email" value="andriy.koval@email.com"></div>' +
+    '<div class="cef"><label for="cenote">Нотатки тренера</label><textarea id="cenote">Алергія на лактозу; тренування вранці</textarea></div>' +
     '<div class="ceact"><button class="btn" onclick="closeClientEdit()">Скасувати</button>' +
     '<button class="btn dark" onclick="saveClientEdit()">Зберегти зміни</button></div>' +
     '<div class="cedel"><button onclick="openClientDelete()">🗑 Видалити клієнта</button>' +
@@ -670,10 +692,12 @@ function wfClientEdit() {
     '<a class="btn dark" href="coach-clients.html">Видалити клієнта</a></div>' +
     '</div></div>';
 }
-function openClientEdit() { wfClientEdit(); var e = document.getElementById('ce-edit'), c = document.getElementById('ce-confirm'); if (c) c.classList.remove('open'); if (e) e.classList.add('open'); }
+function openClientEdit() { wfClientEdit(); closeClientEdit(); var e = document.getElementById('ce-edit'); if (e) e.classList.add('open'); }
+function openClientNew() { wfClientEdit(); closeClientEdit(); var n = document.getElementById('ce-new'); if (n) n.classList.add('open'); }
 function openClientDelete() { var e = document.getElementById('ce-edit'), c = document.getElementById('ce-confirm'); if (e) e.classList.remove('open'); if (c) c.classList.add('open'); }
 function closeClientEdit() { document.querySelectorAll('#wf-client-edit .ceov.open').forEach(o => o.classList.remove('open')); }
 function saveClientEdit() { closeClientEdit(); wfToast('ok', 'Зміни клієнта збережено'); }
+function createClient() { closeClientEdit(); wfToast('ok', 'Клієнта додано до списку'); }
 
 /* SHARED account section-nav (node 7.x) — one source for account.html + every
    account-*.html sub-page. active = section key; isCoach swaps «Стати тренером»

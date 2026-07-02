@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Новий клієнт — Кабінет тренера (wireframe 5.3a)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 5.3a REFERENCE — the SHARED wfClientEdit() «Новий клієнт» modal (in _nav.js)
+   pinned open over the dimmed clients-list context. Same modal opens inline on
+   coach-clients.html («＋ Додати клієнта»). Context only: */
+#wf-bar { position: relative; z-index: 80; }
+.ce-behind { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+.ce-behind .crumb { margin-bottom: 14px; }
+.ce-behind h1 { font-size: 22px; font-weight: 800; color: var(--strong); margin: 0 0 16px; }
+.ce-row { display: flex; align-items: center; gap: 14px; border: 1px solid var(--hair); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
+.ce-row .av { width: 44px; height: 44px; border-radius: 50%; background: var(--fill); border: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--light); }
+.ce-row .nm { font-size: 15px; font-weight: 800; color: var(--strong); }
+.ce-row .gl { font-size: 12.5px; color: var(--sec); margin-top: 2px; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.3a Новий клієнт — REFERENCE render. Renders the SHARED
+  wfClientEdit() «Новий клієнт» modal pinned over the dimmed clients list (5.3).
+  The very same modal opens inline on coach-clients.html («＋ Додати клієнта»).
+  «Додати клієнта» → close + toast (client added); «Скасувати» → close.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<!-- dimmed clients-list context behind -->
+<main class="ce-behind" aria-hidden="true">
+  <nav class="crumb"><a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span><span class="cur">Клієнти</span></nav>
+  <h1>Клієнти</h1>
+  <div class="ce-row"><div class="av">А</div><div><div class="nm">Андрій</div><div class="gl">Ціль: Набір маси · 8 замовлень</div></div></div>
+  <div class="ce-row"><div class="av">М</div><div><div class="nm">Марія</div><div class="gl">Ціль: Схуднення · 3 замовлення</div></div></div>
+  <div class="ce-row"><div class="av">І</div><div><div class="nm">Ігор</div><div class="gl">Ціль: Витривалість · 5 замовлень</div></div></div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+<div id="wf-client-edit"></div>
+<div id="wf-toast"></div>
+
+<script src="_nav.js"></script>
+<script>wfHeader('coach'); wfFooter(); wfToasts(); openClientNew(); wfBar('coach-client-new.html');</script>
+</body>
+</html>
