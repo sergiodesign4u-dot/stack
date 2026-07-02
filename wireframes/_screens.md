@@ -116,6 +116,35 @@ building a screen = move its entry `ia:`→`file:` (+ add to a WF_FLOWS group fo
 
 ---
 
+## Flow 4 — Контент, інфо та лояльність (8.x) · matrix (built 2026-07-02)
+
+13 nodes → **7-template system** (per `content.md`), NOT 13 bespoke layouts. All base-only (service/SEO
+pages). Registered as WF_FLOWS `f4`; WF_SITEMAP cluster 8 = 13 `file:` entries. All indexable except
+newsletter. Loyalty hand-built (Job 6); the other 12 fanned out via 2 subagents (info-variants + misc).
+
+| Node | File | Template | Notes |
+|---|---|---|---|
+| 8.7 | `content-loyalty.html` | **Loyalty landing** | public, Job 6 — 2 mechanisms (3-tier lifetime discount 🥉−3/🥈−5/🥇−8% + ~1% bonus, 3-mo expiry, movement table w/ burn) + FAQ + CTA; numbers [?] |
+| 8.2 | `content-about.html` | Info page (A) | who/принципи/якість |
+| 8.3 | `content-contacts.html` | Info + **contacts block** | phone/hours/email/messengers/map + form; single source with footer |
+| 8.4 | `content-delivery.html` | Info + TOC | НП/кур'єр/самовивіз + оплата |
+| 8.5 | `content-returns.html` | Info + TOC | 14 днів + step process |
+| 8.6 | `content-legal.html` | Info, **legal variant** | anchored оферта/політика/умови, no TOC |
+| 8.8 | `content-guarantee.html` | Info + **certificate gallery** | trust row + viewable certs (same as PDP «Сертифікація») |
+| 8.9 | `content-faq.html` | **FAQ accordion** | shop FAQ, distinct from product Q&A (3.2) |
+| 8.0 | `content-blog.html` | **Blog listing** | tags/search/cards/pagination |
+| 8.1 | `content-article.html` | **Article** | simple-answer-first + related products (→3.0) |
+| 8.10 | `content-promo.html` | **Promo listing** | **calm, no timers** (Principle 4) — «діє до <дата>» |
+| 8.11 | `content-reviews.html` | **Shop reviews** | AggregateRating(Org) + review cards; distinct from product reviews (3.1) |
+| 8.12 | `content-newsletter.html` | **State/component** | subscription-confirmed page, **noindex** |
+
+**Latent 404 fixed:** footer/PDP/consent links used a never-built `content.html`; a text→target rewire
+remapped **75 anchors** to the specific pages above (0 `content.html` left). Meta-bar links given hrefs.
+**Remaining IA-only after this:** quiz 4.x · system pages (404/500/cookie/toasts) · account sub-sections
+7.1–7.7 · header/footer components (0.1/0.2, live in `_nav.js`).
+
+---
+
 ## State-page count (main flow, for Step 3/5/6 planning)
 
 Base pages: 9. Extra state pages (each a separate `<screen>-<state>.html`, playbook §Artifacts):
