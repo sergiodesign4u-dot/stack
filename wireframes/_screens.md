@@ -459,3 +459,23 @@ sticky-price «1 090 ₴ гурт»). Зареєстрував стан `coach` 
 
 **Verified разом:** 0 broken / 0 orphans (114 файлів, +2). Спільні компоненти тепер: `wfPdpModals`,
 `wfAuth`, `wfClientEdit`, `wfSheet`, `wfCity`, `wfCookie`, `wfAccountNav`, mega/drawer.
+
+## Крок 20 — Сквозний клік-QA всього прототипу (2026-07-02)
+
+Багатошаровий прогін, усе зелене:
+
+1. **Статичний граф ссилок** (`scratchpad/qa_audit.py`): **0** битих / **0** сиріт / **0** зареєстрованих-
+   але-відсутніх (114 файлів).
+2. **Резолюція обробників** (новий `scratchpad/qa_handlers.py`): усі `on*="fn()"` резолвляться у визначені
+   функції. Єдині «флаги» — ложні: `hcFly` (визначена як `window.hcFly=`) + `PDF (` всередині рядка тоста.
+3. **Console-свип усіх 114 сторінок** (тимчасовий iframe-harness + Playwright console): **0 JS-помилок** на
+   завантаженні (лише favicon 404). Тобто `wfHeader/wfFooter/wfBar/wfCatalogRail/wfSheet/openAuth/...` резолвляться скрізь.
+4. **Інтерактивний smoke оверлеїв** (open→state→close): мега, місто, бургер-дровер, auth-діалог, кабінет-
+   дропдаун, cookie-банер + налаштування + тумблер + save(ховає бар), тости (ok/err/info), PDP відгук/питання,
+   клієнт-модалка edit→confirm, фільтр-шит — **усі відкриваються й закриваються**.
+5. **Досяжність обох флоу**: 14 хопів (home→listing→product→cart→checkout→order-placed→account + coach-
+   landing→verify→home→clients→client→session→cart-coach) — усі **HTTP 200**. Картки лістингу → product.html.
+6. **Фікс:** 8 плейсхолдерів сертифікатів на `content-guarantee.html` були `href="#"` без дії → тепер
+   **клікабельні** (тост «Сертифікат відкриється як PDF (демо)», +`wfToasts` хост). Дед-кнопок тепер **0**.
+
+Разом: 0 битих, 0 сиріт, 0 дед-кнопок, 0 JS-помилок, обидва флоу проходяться, всі оверлеї працюють.

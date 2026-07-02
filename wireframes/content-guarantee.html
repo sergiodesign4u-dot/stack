@@ -89,21 +89,21 @@
   <p class="cert-sub">Натисніть, щоб переглянути документ. Це ті самі сертифікати, на які посилаються
     сторінки товарів у блоці «Сертифікація».</p>
   <div class="cert-grid">
-    <a class="cert moz" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+    <a class="cert moz" href="#" onclick="wfToast('info','Декларація МОЗ відкриється як PDF (демо-прототип)');return false"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
       <div class="cb"><div class="cn">Декларація МОЗ</div><div class="ct">Державна декларація відповідності</div></div></a>
-    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+    <a class="cert" href="#" onclick="wfToast('info','Сертифікат відкриється як PDF (демо-прототип)');return false"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
       <div class="cb"><div class="cn">Optimum Nutrition</div><div class="ct">Сертифікат відповідності · США</div></div></a>
-    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+    <a class="cert" href="#" onclick="wfToast('info','Сертифікат відкриється як PDF (демо-прототип)');return false"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
       <div class="cb"><div class="cn">BioTechUSA</div><div class="ct">Сертифікат відповідності · Угорщина</div></div></a>
-    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+    <a class="cert" href="#" onclick="wfToast('info','Сертифікат відкриється як PDF (демо-прототип)');return false"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
       <div class="cb"><div class="cn">OstroVit</div><div class="ct">Сертифікат відповідності · Польща</div></div></a>
-    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+    <a class="cert" href="#" onclick="wfToast('info','Сертифікат відкриється як PDF (демо-прототип)');return false"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
       <div class="cb"><div class="cn">Power Pro</div><div class="ct">Сертифікат відповідності · Україна</div></div></a>
-    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+    <a class="cert" href="#" onclick="wfToast('info','Сертифікат відкриється як PDF (демо-прототип)');return false"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
       <div class="cb"><div class="cn">Scitec Nutrition</div><div class="ct">Сертифікат відповідності · Угорщина</div></div></a>
-    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+    <a class="cert" href="#" onclick="wfToast('info','Сертифікат відкриється як PDF (демо-прототип)');return false"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
       <div class="cb"><div class="cn">Weider</div><div class="ct">Сертифікат відповідності · Німеччина</div></div></a>
-    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+    <a class="cert" href="#" onclick="wfToast('info','Сертифікат відкриється як PDF (демо-прототип)');return false"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
       <div class="cb"><div class="cn">MyProtein</div><div class="ct">Сертифікат відповідності · Велика Британія</div></div></a>
   </div>
   <p class="cert-sub" style="margin-top:12px"><b>[?]</b> Реальні файли сертифікатів і перелік брендів — операційне питання (постачальники).</p>
@@ -120,8 +120,9 @@
 
 <footer id="wf-footer"></footer>
 </div><!-- /wf-canvas -->
+<div id="wf-toast"></div>
 
 <script src="_nav.js"></script>
-<script>wfHeader(); wfFooter(); wfBar('content-guarantee.html');</script>
+<script>wfHeader(); wfFooter(); wfToasts(); wfBar('content-guarantee.html');</script>
 </body>
 </html>
