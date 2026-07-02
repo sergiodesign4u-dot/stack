@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Доставка й оплата — Stack (wireframe 8.4, Info page A + TOC)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 8.4 Доставка й оплата — Info page (A), long page with in-page TOC. */
+.info-updated { font-size: 12.5px; color: var(--light); margin: 8px 0 0; }
+/* TOC of in-page anchors (long pages) */
+.info-toc { border: 1px solid var(--hair); border-radius: 12px; background: var(--fill2); padding: 15px 18px; margin: 22px 0 6px; max-width: 760px; }
+.info-toc .tt { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--light); margin-bottom: 9px; }
+.info-toc ol { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.info-toc a { font-size: 14px; color: var(--strong); font-weight: 600; }
+.info-toc .num { display: inline-block; width: 22px; color: var(--light); font-weight: 800; }
+.info-body { max-width: 760px; margin-top: 8px; }
+.info-body h3 { font-size: 18px; font-weight: 800; color: var(--strong); margin: 30px 0 10px; scroll-margin-top: 80px; display: flex; gap: 9px; align-items: center; }
+.info-body p { font-size: 14px; color: var(--ink); margin-bottom: 12px; line-height: 1.65; }
+.info-body ul { margin: 0 0 14px; padding: 0; list-style: none; }
+.info-body ul li { font-size: 14px; color: var(--ink); margin-bottom: 8px; padding-left: 22px; position: relative; line-height: 1.6; }
+.info-body ul li::before { content: '—'; position: absolute; left: 0; color: var(--light); }
+.info-card { border: 1px solid var(--hair); border-radius: 12px; background: var(--fill2); padding: 13px 15px; margin: 10px 0 14px; font-size: 13px; color: var(--sec); }
+.info-card b { color: var(--strong); }
+/* payment methods grid */
+.pay-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 6px 0 14px; }
+@media (min-width: 620px) { .pay-grid { grid-template-columns: repeat(2, 1fr); } }
+.pay-m { border: 1px solid var(--hair); border-radius: 12px; padding: 14px 15px; }
+.pay-m .pm-h { font-size: 14px; font-weight: 800; color: var(--strong); display: flex; gap: 8px; align-items: center; }
+.pay-m .pm-s { font-size: 12.5px; color: var(--sec); margin-top: 4px; line-height: 1.5; }
+/* delivery terms table */
+.dl-tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 6px 0 14px; }
+.dl-tbl th, .dl-tbl td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--hair); }
+.dl-tbl th { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); }
+.dl-tbl td b { color: var(--strong); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.4 Доставка й оплата — Info page (A), long + TOC.
+  Delivery: НП / кур'єр / самовивіз Одеса / терміни + payment. index, follow.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Доставка й оплата</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Доставка й оплата</h1>
+    <p class="info-updated">Оновлено: 1 липня 2026</p>
+    <p class="lintro">Доставляємо по всій Україні Новою Поштою та кур'єром, є самовивіз в Одесі.
+      Оплата — карткою онлайн, Apple/Google Pay, накладеним платежем або готівкою при самовивозі.</p>
+  </section>
+
+  <!-- TOC -->
+  <nav class="info-toc" aria-label="Зміст сторінки">
+    <div class="tt">Зміст</div>
+    <ol>
+      <li><a href="#np"><span class="num">1.</span> Нова Пошта</a></li>
+      <li><a href="#courier"><span class="num">2.</span> Кур'єр</a></li>
+      <li><a href="#pickup"><span class="num">3.</span> Самовивіз (Одеса)</a></li>
+      <li><a href="#terms"><span class="num">4.</span> Терміни доставки</a></li>
+      <li><a href="#pay"><span class="num">5.</span> Способи оплати</a></li>
+    </ol>
+  </nav>
+
+  <div class="info-body">
+
+    <h3 id="np">🚚 Нова Пошта</h3>
+    <p>Найпопулярніший спосіб доставки. Обираєте зручне відділення або поштомат у своєму місті —
+      трек-номер приходить у SMS одразу після відправлення.</p>
+    <ul>
+      <li>Відділення Нової Пошти — по всій Україні</li>
+      <li>Поштомат — для невеликих замовлень 24/7</li>
+      <li>Вартість — за тарифами перевізника, орієнтовно від 60–90 ₴ <b>[?]</b></li>
+    </ul>
+    <div class="info-card">Місто вибирається у діалозі «Оберіть місто» під час оформлення — той самий
+      список, що й для інших способів доставки.</div>
+
+    <h3 id="courier">🏠 Кур'єр</h3>
+    <p>Доставка кур'єром Нової Пошти прямо на вашу адресу — зручно для великих замовлень
+      або коли немає часу на відділення.</p>
+    <ul>
+      <li>Доступно у великих містах</li>
+      <li>Вартість — за тарифами перевізника <b>[?]</b></li>
+    </ul>
+
+    <h3 id="pickup">📍 Самовивіз (Одеса)</h3>
+    <p>Заберіть замовлення самостійно з нашого пункту в Одесі — безкоштовно й без очікування
+      доставки. Ми повідомимо, коли замовлення буде готове до видачі.</p>
+    <ul>
+      <li>Безкоштовно</li>
+      <li>Оплата на місці — готівкою або карткою</li>
+      <li>Точна адреса й час — на сторінці <a href="content-contacts.html" style="color:var(--strong);font-weight:700;text-decoration:underline">Контакти</a></li>
+    </ul>
+
+    <h3 id="terms">⏱️ Терміни доставки</h3>
+    <table class="dl-tbl">
+      <thead><tr><th>Спосіб</th><th>Термін</th><th>Вартість</th></tr></thead>
+      <tbody>
+        <tr><td>Нова Пошта, відділення</td><td><b>1–2 дні</b></td><td>за тарифами НП</td></tr>
+        <tr><td>Нова Пошта, поштомат</td><td><b>1–2 дні</b></td><td>за тарифами НП</td></tr>
+        <tr><td>Кур'єр НП</td><td><b>1–2 дні</b></td><td>за тарифами НП</td></tr>
+        <tr><td>Самовивіз, Одеса</td><td><b>у день готовності</b></td><td>безкоштовно</td></tr>
+      </tbody>
+    </table>
+    <div class="info-card">Замовлення, оформлені до 15:00, зазвичай відправляємо того ж дня.
+      Терміни орієнтовні й залежать від завантаженості перевізника.</div>
+
+    <h3 id="pay">💳 Способи оплати</h3>
+    <div class="pay-grid">
+      <div class="pay-m"><div class="pm-h">💳 Карткою онлайн</div><div class="pm-s">Visa / Mastercard через
+        LiqPay або Wayforpay — безпечно, на захищеній сторінці банку.</div></div>
+      <div class="pay-m"><div class="pm-h">📱 Apple Pay / Google Pay</div><div class="pm-s">Оплата в один дотик
+        зі смартфона — без введення реквізитів картки.</div></div>
+      <div class="pay-m"><div class="pm-h">📦 Накладений платіж</div><div class="pm-s">Оплата при отриманні
+        у відділенні Нової Пошти. Може стягуватися комісія перевізника.</div></div>
+      <div class="pay-m"><div class="pm-h">💵 Готівка при самовивозі</div><div class="pm-s">Оплата на місці
+        в пункті самовивозу в Одесі — готівкою або карткою.</div></div>
+    </div>
+  </div>
+
+  <p class="relh">Далі</p>
+  <div class="relrow">
+    <a class="relbox" href="content-returns.html">Обмін і повернення</a>
+    <a class="relbox" href="content-guarantee.html">Гарантія та сертифікати</a>
+    <a class="relbox" href="content-faq.html">Часті питання</a>
+    <a class="relbox" href="content-contacts.html">Контакти</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-delivery.html');</script>
+</body>
+</html>

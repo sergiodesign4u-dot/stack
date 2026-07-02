@@ -57,6 +57,25 @@ const WF_FLOWS = [
       { file: 'brands.html',       name: 'Бренди (індекс)',    node: '2.4', built: true, states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'search.html',       name: 'Пошук',              node: '2.5', built: true, states: ['suggest','empty','loading'], builtStates: ['suggest','empty','loading'] }
     ]
+  },
+  {
+    id: 'f4', name: 'Контент, інфо та лояльність', status: 'active',
+    note: 'сервісні / SEO-сторінки (8.x): 7 шаблонів на 13 вузлів — інфо · лояльність · FAQ · блог · акції · відгуки · розсилка',
+    screens: [
+      { file: 'content-loyalty.html', name: 'Бонусна програма', node: '8.7', built: true, states: [], builtStates: [] },
+      { file: 'content-faq.html',     name: 'FAQ',              node: '8.9', built: true, states: [], builtStates: [] },
+      { file: 'content-blog.html',    name: 'Блог',             node: '8.0', built: true, states: [], builtStates: [] },
+      { file: 'content-article.html', name: 'Стаття',           node: '8.1', built: true, states: [], builtStates: [] },
+      { file: 'content-promo.html',   name: 'Акції',            node: '8.10', built: true, states: [], builtStates: [] },
+      { file: 'content-reviews.html', name: 'Відгуки про магазин', node: '8.11', built: true, states: [], builtStates: [] },
+      { file: 'content-about.html',   name: 'Про нас',          node: '8.2', built: true, states: [], builtStates: [] },
+      { file: 'content-contacts.html',name: 'Контакти',         node: '8.3', built: true, states: [], builtStates: [] },
+      { file: 'content-delivery.html',name: 'Доставка й оплата',node: '8.4', built: true, states: [], builtStates: [] },
+      { file: 'content-returns.html', name: 'Обмін і повернення',node: '8.5', built: true, states: [], builtStates: [] },
+      { file: 'content-legal.html',   name: 'Правова інформація',node: '8.6', built: true, states: [], builtStates: [] },
+      { file: 'content-guarantee.html',name:'Гарантія та сертифікати', node: '8.8', built: true, states: [], builtStates: [] },
+      { file: 'content-newsletter.html',name:'Розсилка (підтвердження)', node: '8.12', built: true, states: [], builtStates: [] }
+    ]
   }
 ];
 
@@ -111,14 +130,19 @@ const WF_SITEMAP = [
     { node: '7.1–7.7', name: 'Профіль · Лояльність · Адреси · Обране (розділи)', ia: 'account.html' },
   ]},
   { cluster: '8 · Контент та інфо', items: [
-    { node: '8.7',  name: 'Бонусна програма та знижки',        ia: 'content.html' },
-    { node: '8.0/8.1', name: 'Блог + стаття',                  ia: 'content.html' },
-    { node: '8.2–8.6', name: 'Про нас · Контакти · Доставка · Повернення · Оферта', ia: 'content.html' },
-    { node: '8.8',  name: 'Гарантія та сертифікати',           ia: 'content.html' },
-    { node: '8.9',  name: 'FAQ',                               ia: 'content.html' },
-    { node: '8.10', name: 'Акції',                             ia: 'content.html' },
-    { node: '8.11', name: 'Відгуки магазину',                  ia: 'content.html' },
-    { node: '8.12', name: 'Розсилка',                          ia: 'content.html' },
+    { node: '8.7',  name: 'Бонусна програма та знижки',        file: 'content-loyalty.html' },
+    { node: '8.0',  name: 'Блог',                              file: 'content-blog.html' },
+    { node: '8.1',  name: 'Стаття',                            file: 'content-article.html' },
+    { node: '8.2',  name: 'Про нас',                           file: 'content-about.html' },
+    { node: '8.3',  name: 'Контакти',                          file: 'content-contacts.html' },
+    { node: '8.4',  name: 'Доставка й оплата',                 file: 'content-delivery.html' },
+    { node: '8.5',  name: 'Обмін і повернення',                file: 'content-returns.html' },
+    { node: '8.6',  name: 'Правова інформація',                file: 'content-legal.html' },
+    { node: '8.8',  name: 'Гарантія та сертифікати',           file: 'content-guarantee.html' },
+    { node: '8.9',  name: 'FAQ',                               file: 'content-faq.html' },
+    { node: '8.10', name: 'Акції',                             file: 'content-promo.html' },
+    { node: '8.11', name: 'Відгуки магазину',                  file: 'content-reviews.html' },
+    { node: '8.12', name: 'Розсилка',                          file: 'content-newsletter.html' },
   ]},
   { cluster: 'S · Системні та глобальні', items: [
     { node: '',     name: '404 · 500 · Технічні роботи',       ia: 'system.html' },
@@ -232,7 +256,7 @@ function wfHeader() {
   el.className = 'wfh';
   el.innerHTML = `
     <div class="wfh-meta"><div class="wfh-in">
-      <a class="strongl" href="coach-landing.html">Для тренерів</a><a>Акції</a><a>Бренди</a><a>Доставка</a><a>Повернення</a><a>Про нас</a>
+      <a class="strongl" href="coach-landing.html">Для тренерів</a><a href="content-promo.html">Акції</a><a href="brands.html">Бренди</a><a href="content-delivery.html">Доставка</a><a href="content-returns.html">Повернення</a><a href="content-about.html">Про нас</a>
       <span class="wfh-sp"></span><a>📍 Одеса</a><a>Укр</a>
     </div></div>
     <div class="wfh-main wfh-in">
@@ -274,11 +298,11 @@ function wfFooter() {
     <div class="wff-cols">
       <div class="wff-col"><h4>Розсилка</h4>
         <div class="wff-news"><input type="email" placeholder="E-mail для новин та акцій" aria-label="E-mail"><button type="button">OK</button></div>
-        <a href="content.html">★ Підтримайте нас — оцінка в Google</a></div>
-      <div class="wff-col"><h4>Stack</h4><a href="content.html">Про нас</a><a href="content.html">Контакти</a><a href="content.html">Блог</a><a href="content.html">Публічна оферта</a><a href="content.html">Політика конфіденційності</a><a href="content.html">Умови використання</a></div>
-      <div class="wff-col"><h4>Покупцям</h4><a href="content.html">Знижки та бонуси</a><a href="content.html">Доставка й оплата</a><a href="content.html">Повернення</a><a href="content.html">FAQ</a></div>
+        <a href="content-reviews.html">★ Підтримайте нас — оцінка в Google</a></div>
+      <div class="wff-col"><h4>Stack</h4><a href="content-about.html">Про нас</a><a href="content-contacts.html">Контакти</a><a href="content-blog.html">Блог</a><a href="content-legal.html">Публічна оферта</a><a href="content-legal.html">Політика конфіденційності</a><a href="content-legal.html">Умови використання</a></div>
+      <div class="wff-col"><h4>Покупцям</h4><a href="content-loyalty.html">Знижки та бонуси</a><a href="content-delivery.html">Доставка й оплата</a><a href="content-returns.html">Повернення</a><a href="content-faq.html">FAQ</a></div>
       <div class="wff-col"><h4>Тренерам</h4><a href="coach-landing.html">Для тренерів</a><a href="coach-landing.html">Тарифи Free / Pro</a></div>
-      <div class="wff-col"><h4>Консультація</h4><a href="content.html">0 800 000 000</a><a href="content.html">Telegram · Viber</a><a href="content.html">Пн–Нд 9:00–21:00</a></div>
+      <div class="wff-col"><h4>Консультація</h4><a href="content-contacts.html">0 800 000 000</a><a href="content-contacts.html">Telegram · Viber</a><a href="content-contacts.html">Пн–Нд 9:00–21:00</a></div>
     </div>
     <div class="wff-seo">
       <b>Популярні категорії:</b> Протеїн · Гейнери · Креатин · BCAA · Передтренувальні · Вітаміни ·&nbsp;&nbsp;
@@ -287,8 +311,8 @@ function wfFooter() {
       <b>Міста:</b> Протеїн Київ · Протеїн Одеса · Протеїн Львів
     </div>
     <div class="wff-bot">
-      <span>© 2026 Stack. Спортивне харчування в Україні. · <a href="content.html" style="color:inherit;text-decoration:underline">Політика</a> · <a href="content.html" style="color:inherit;text-decoration:underline">Умови</a></span>
-      <span class="wff-soc"><a href="content.html" style="color:inherit">Instagram</a><a href="content.html" style="color:inherit">Telegram</a><a href="content.html" style="color:inherit">YouTube</a></span>
+      <span>© 2026 Stack. Спортивне харчування в Україні. · <a href="content-legal.html" style="color:inherit;text-decoration:underline">Політика</a> · <a href="content-legal.html" style="color:inherit;text-decoration:underline">Умови</a></span>
+      <span class="wff-soc"><a href="content-contacts.html" style="color:inherit">Instagram</a><a href="content-contacts.html" style="color:inherit">Telegram</a><a href="content-contacts.html" style="color:inherit">YouTube</a></span>
       <span>Visa · Mastercard · Apple Pay · Google Pay</span>
     </div>`;
   el.setAttribute('role', 'contentinfo');

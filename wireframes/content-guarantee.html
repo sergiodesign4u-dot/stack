@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Гарантія та сертифікати — Stack (wireframe 8.8, Info page A + certificate gallery)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 8.8 Гарантія та сертифікати — Info page (A) + trust row + certificate gallery.
+   Linked from the footer trust strip and the PDP «Сертифікація» block (same docs). index (trust). */
+.info-updated { font-size: 12.5px; color: var(--light); margin: 8px 0 0; }
+/* trust row: original · certificates · 14-day · manufacturer guarantee */
+.g-trust { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+@media (min-width: 720px) { .g-trust { grid-template-columns: repeat(4, 1fr); } }
+.g-tc { border: 1px solid var(--hair); border-radius: 12px; background: var(--fill2); padding: 15px 14px; }
+.g-tc .g { font-size: 22px; }
+.g-tc .th { font-size: 14px; font-weight: 800; color: var(--strong); margin: 8px 0 3px; }
+.g-tc .ts { font-size: 12px; color: var(--sec); line-height: 1.5; }
+.info-body { max-width: 760px; margin-top: 8px; }
+.info-body h3 { font-size: 18px; font-weight: 800; color: var(--strong); margin: 30px 0 10px; }
+.info-body p { font-size: 14px; color: var(--ink); margin-bottom: 12px; line-height: 1.65; }
+.info-body ul { margin: 0 0 14px; padding: 0; list-style: none; }
+.info-body ul li { font-size: 14px; color: var(--ink); margin-bottom: 8px; padding-left: 22px; position: relative; line-height: 1.6; }
+.info-body ul li::before { content: '—'; position: absolute; left: 0; color: var(--light); }
+/* certificate gallery — viewable doc placeholders (greyscale hatch), like PDP «Сертифікація» */
+.cert-h { font-size: 18px; font-weight: 800; color: var(--strong); margin: 32px 0 4px; }
+.cert-sub { font-size: 13px; color: var(--sec); margin-bottom: 14px; max-width: 760px; }
+.cert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (min-width: 620px) { .cert-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 960px) { .cert-grid { grid-template-columns: repeat(4, 1fr); } }
+.cert { border: 1px solid var(--hair); border-radius: 12px; overflow: hidden; background: #fff; display: block; }
+.cert .doc { aspect-ratio: 3/4; border-bottom: 1px solid var(--hair); position: relative;
+  background: repeating-linear-gradient(45deg, #fafafa, #fafafa 9px, #f2f2f2 9px, #f2f2f2 18px);
+  display: flex; align-items: center; justify-content: center; }
+.cert .doc .pdf { border: 1.5px solid var(--hair2); background: #fff; border-radius: 6px; padding: 6px 12px; font-size: 12px; font-weight: 800; color: var(--sec); letter-spacing: .05em; }
+.cert .doc .view { position: absolute; bottom: 8px; right: 8px; background: var(--dark); color: #fff; font-size: 10.5px; font-weight: 700; border-radius: 100px; padding: 4px 10px; }
+.cert .cb { padding: 11px 13px 13px; }
+.cert .cb .cn { font-size: 13.5px; font-weight: 800; color: var(--strong); }
+.cert .cb .ct { font-size: 11.5px; color: var(--sec); margin-top: 3px; }
+.cert.moz .doc { background: repeating-linear-gradient(45deg, #f4f4f4, #f4f4f4 9px, #ececec 9px, #ececec 18px); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.8 Гарантія та сертифікати — Info page (A) + certificate gallery.
+  Trust row + gallery of viewable docs (per brand + Декларація МОЗ) = same certs the PDP links to.
+  Serves Principle 1 (trust first). index (trust). Real cert files = [?] (operational).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Гарантія та сертифікати</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Гарантія та сертифікати</h1>
+    <p class="info-updated">Оновлено: 1 липня 2026</p>
+    <p class="lintro">Уся продукція Stack — оригінальна, сертифікована й безпечна. Нижче — наші
+      гарантії та відкриті для перегляду сертифікати відповідності.</p>
+  </section>
+
+  <!-- Trust row -->
+  <div class="g-trust">
+    <div class="g-tc"><div class="g">✅</div><div class="th">100% оригінал</div><div class="ts">Тільки офіційні поставки від брендів і дистриб'юторів.</div></div>
+    <div class="g-tc"><div class="g">📄</div><div class="th">Сертифікати</div><div class="ts">Документи відповідності відкриті для перегляду.</div></div>
+    <div class="g-tc"><div class="g">↩️</div><div class="th">14 днів на повернення</div><div class="ts">Не підійшло — повернемо кошти.</div></div>
+    <div class="g-tc"><div class="g">🛡️</div><div class="th">Гарантія виробника</div><div class="ts">Брак замінимо або повернемо гроші повністю.</div></div>
+  </div>
+
+  <div class="info-body">
+    <h3>Що ми гарантуємо</h3>
+    <p>Ми несемо відповідальність за кожен товар, який продаємо. Це означає прозорість походження,
+      правильні умови зберігання й відкриті документи.</p>
+    <ul>
+      <li>Кожна партія має сертифікат відповідності та, за потреби, декларацію МОЗ</li>
+      <li>Той самий сертифікат доступний і на сторінці товару, у блоці «Сертифікація»</li>
+      <li>Строк придатності й умови зберігання дотримані на складі й у дорозі</li>
+    </ul>
+  </div>
+
+  <!-- Certificate gallery -->
+  <h2 class="cert-h">Сертифікати та декларації</h2>
+  <p class="cert-sub">Натисніть, щоб переглянути документ. Це ті самі сертифікати, на які посилаються
+    сторінки товарів у блоці «Сертифікація».</p>
+  <div class="cert-grid">
+    <a class="cert moz" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+      <div class="cb"><div class="cn">Декларація МОЗ</div><div class="ct">Державна декларація відповідності</div></div></a>
+    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+      <div class="cb"><div class="cn">Optimum Nutrition</div><div class="ct">Сертифікат відповідності · США</div></div></a>
+    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+      <div class="cb"><div class="cn">BioTechUSA</div><div class="ct">Сертифікат відповідності · Угорщина</div></div></a>
+    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+      <div class="cb"><div class="cn">OstroVit</div><div class="ct">Сертифікат відповідності · Польща</div></div></a>
+    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+      <div class="cb"><div class="cn">Power Pro</div><div class="ct">Сертифікат відповідності · Україна</div></div></a>
+    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+      <div class="cb"><div class="cn">Scitec Nutrition</div><div class="ct">Сертифікат відповідності · Угорщина</div></div></a>
+    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+      <div class="cb"><div class="cn">Weider</div><div class="ct">Сертифікат відповідності · Німеччина</div></div></a>
+    <a class="cert" href="#"><div class="doc"><span class="pdf">PDF</span><span class="view">Переглянути ⤢</span></div>
+      <div class="cb"><div class="cn">MyProtein</div><div class="ct">Сертифікат відповідності · Велика Британія</div></div></a>
+  </div>
+  <p class="cert-sub" style="margin-top:12px"><b>[?]</b> Реальні файли сертифікатів і перелік брендів — операційне питання (постачальники).</p>
+
+  <p class="relh">Далі</p>
+  <div class="relrow">
+    <a class="relbox" href="content-returns.html">Обмін і повернення</a>
+    <a class="relbox" href="content-delivery.html">Доставка й оплата</a>
+    <a class="relbox" href="content-faq.html">Часті питання</a>
+    <a class="relbox" href="brands.html">Усі бренди</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-guarantee.html');</script>
+</body>
+</html>

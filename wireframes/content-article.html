@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Протеїн для початківця: з чого почати — Блог Stack (wireframe 8.1)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 8.1 Стаття. SEO body — simple answer first, then H3 sections. Related products
+   (canonical .pcard → product.html, internal linking) + related articles.
+   Schema note: Article + BreadcrumbList. */
+.art { max-width: 760px; }
+.art-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 12.5px; color: var(--light); margin: 10px 0 0; }
+.art-meta .dot { color: var(--hair2); }
+.art-hero { aspect-ratio: 16/9; background: var(--fill); border: 1px solid var(--hair); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 13px; margin: 20px 0 4px; }
+.art-body { font-size: 15px; color: var(--ink); line-height: 1.7; }
+.art-body .lede { font-size: 16.5px; color: var(--strong); font-weight: 600; line-height: 1.6; margin: 22px 0 6px; }
+.art-body h3 { font-size: 19px; font-weight: 800; color: var(--strong); margin: 30px 0 10px; }
+.art-body p { margin: 0 0 14px; }
+.art-body ul { margin: 0 0 16px; padding-left: 20px; }
+.art-body li { margin-bottom: 7px; }
+.art-body a { color: var(--strong); font-weight: 700; text-decoration: underline; text-decoration-color: var(--hair2); }
+.art-callout { border: 1px solid var(--hair); background: var(--fill2); border-radius: 10px; padding: 14px 16px; font-size: 14px; color: #555; margin: 4px 0 18px; }
+.relart { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 16px; }
+@media (min-width: 620px) { .relart { grid-template-columns: repeat(3, 1fr); } }
+.relart a { border: 1px solid var(--hair); border-radius: 10px; padding: 13px 14px; background: #fff; }
+.relart .rt { font-size: 14px; font-weight: 800; color: var(--strong); line-height: 1.4; display: block; }
+.relart .rd { font-size: 11.5px; color: var(--light); margin-top: 8px; display: block; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.1 Стаття. Тіло — проста відповідь спершу, далі H3-розділи + hero.
+  Пов'язані товари (canonical card → product.html) + пов'язані статті. index + Article.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="content-blog.html">Блог</a><span class="sep">/</span>
+    <span class="cur">Протеїн для початківця</span>
+  </nav>
+
+  <article class="art">
+    <h1 class="lh1">Протеїн для початківця: з чого почати</h1>
+    <div class="art-meta">
+      <span>28 червня 2026</span><span class="dot">·</span>
+      <span>Команда Stack</span><span class="dot">·</span>
+      <span>5 хв читання</span>
+    </div>
+
+    <div class="art-hero">фото</div>
+
+    <div class="art-body">
+      <!-- simple answer first -->
+      <p class="lede">Коротка відповідь: початківцю підійде звичайний сироватковий протеїн (whey concentrate).
+        Пийте 1 порцію (25–30 г) на день — після тренування або між прийомами їжі. Цього достатньо, щоб
+        добрати білок і почати бачити результат.</p>
+
+      <div class="art-callout">Головне: протеїн — це не «хімія» й не стероїд, а концентрований білок з молока.
+        Він доповнює раціон, а не замінює їжу.</div>
+
+      <h3>Який протеїн обрати першим</h3>
+      <p>Для старту не потрібні дорогі ізоляти чи гідролізати. Сироватковий концентрат — оптимальний
+        баланс ціни та якості. Ізолят має сенс, якщо ви на схудненні або погано переносите лактозу.</p>
+      <ul>
+        <li><b>Концентрат</b> — база для більшості цілей, найкраща ціна за порцію.</li>
+        <li><b>Ізолят</b> — менше вуглеводів і лактози, дорожчий.</li>
+        <li><b>Казеїн</b> — «повільний» білок на ніч, не для першої банки.</li>
+      </ul>
+
+      <h3>Скільки й коли пити</h3>
+      <p>Орієнтир — 1 порція на день на додачу до звичайного харчування. Час не критичний: після
+        тренування або коли не встигаєте поїсти. Розмішуйте у воді чи молоці згідно з інструкцією
+        на банці.</p>
+
+      <h3>На що дивитися на етикетці</h3>
+      <p>Читайте склад: кількість білка на порцію, розмір порції та наявність
+        <a href="content-guarantee.html">сертифіката відповідності</a>. У Stack склад, дозування й сертифікацію
+        видно одразу на <a href="product.html">картці товару</a>.</p>
+
+      <p>Не впевнені, з чого почати? Оберіть ціль «Набір маси» у
+        <a href="catalog-page.html">каталозі</a> — ми підберемо безпечний і зрозумілий набір.</p>
+    </div>
+  </article>
+
+  <!-- Related products (canonical card → PDP, internal linking) -->
+  <div class="sech"><h2>Товари зі статті</h2><a class="all" href="listing.html">Усі протеїни →</a></div>
+  <div class="prow">
+    <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Хіт</span></a><button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Optimum Nutrition · США</div>
+        <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div><span class="pnew">1 290 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">OstroVit · Польща</div>
+        <a href="product.html" class="nm">WPC 80 Standard 2000 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 180 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.5</span> · 52 відгуки</div>
+        <div class="pmeta2"><span class="perserv"><b>20 ₴</b> / порція</span><span class="bonus">+12 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Power Pro · Україна</div>
+        <a href="product.html" class="nm">Protein Power Pro 1000 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">690 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.3</span> · 41 відгук</div>
+        <div class="pmeta2"><span class="perserv"><b>23 ₴</b> / порція</span><span class="bonus">+7 ₴ бонус</span></div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Related articles -->
+  <div class="relh">Читайте також</div>
+  <div class="relart">
+    <a href="content-article.html"><span class="rt">Гейнер чи протеїн: що обрати для набору маси</span><span class="rd">24 червня 2026 · 4 хв</span></a>
+    <a href="content-article.html"><span class="rt">Креатин моногідрат: скільки, коли і навіщо</span><span class="rd">19 червня 2026 · 6 хв</span></a>
+    <a href="content-article.html"><span class="rt">BCAA, EAA та глютамін: чи потрібні вони вам</span><span class="rd">9 червня 2026 · 5 хв</span></a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-article.html');</script>
+</body>
+</html>

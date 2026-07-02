@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Відгуки про магазин — Stack (wireframe 8.11)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 8.11 Відгуки про магазин — service/delivery/packaging, separate from product
+   reviews (3.1). Same review card. Schema note: AggregateRating on Organization.
+   «Оцінити в Google» = external trust surface. */
+.rev-lead { color: var(--sec); font-size: 14px; margin: 8px 0 0; max-width: 720px; }
+.rev-google { border: 1.5px solid var(--hair2); border-radius: 8px; padding: 11px 18px; font-size: 13px; font-weight: 700; color: var(--strong); background: #fff; display: inline-flex; align-items: center; gap: 8px; }
+.rev-cta { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.rev-tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 22px 0 4px; }
+.rev-tags a { border: 1.5px solid var(--hair2); border-radius: 100px; padding: 7px 13px; font-size: 12.5px; font-weight: 700; color: var(--strong); background: #fff; }
+.rev-tags a.on { background: var(--dark); color: #fff; border-color: var(--dark); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.11 Відгуки про магазин. Про СЕРВІС (доставка/пакування/підтримка),
+  окремо від відгуків на товар (3.1). Той самий review card. AggregateRating(Organization).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Відгуки про магазин</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Відгуки про магазин</h1>
+    <p class="rev-lead">Що кажуть покупці про сервіс Stack — швидкість доставки, пакування,
+      оригінальність товару та роботу підтримки. Це відгуки про <b>магазин</b>, а не про окремий
+      товар (їх шукайте на картці товару).</p>
+  </section>
+
+  <!-- AggregateRating summary + breakdown + CTAs -->
+  <section aria-label="Загальна оцінка" style="margin-top:20px">
+    <div class="rvhead">
+      <div class="rvbig"><div class="n">4.8</div><div class="s">★★★★★<br>342 відгуки про магазин</div></div>
+      <div class="rvbars">
+        <div class="rvbar"><span>5</span><div class="track"><div class="fill" style="width:84%"></div></div><span>287</span></div>
+        <div class="rvbar"><span>4</span><div class="track"><div class="fill" style="width:11%"></div></div><span>38</span></div>
+        <div class="rvbar"><span>3</span><div class="track"><div class="fill" style="width:3%"></div></div><span>11</span></div>
+        <div class="rvbar"><span>2</span><div class="track"><div class="fill" style="width:1%"></div></div><span>4</span></div>
+        <div class="rvbar"><span>1</span><div class="track"><div class="fill" style="width:1%"></div></div><span>2</span></div>
+      </div>
+      <div class="rev-cta" style="flex-direction:column;align-items:stretch;gap:10px">
+        <button class="btn dark" type="button">＋ Залишити відгук</button>
+        <a class="rev-google" href="content-reviews.html">🔗 Оцінити в Google</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- filter chips by theme -->
+  <div class="rev-tags" aria-label="Фільтр відгуків">
+    <a class="on" href="content-reviews.html">Усі</a>
+    <a href="content-reviews.html">Доставка</a>
+    <a href="content-reviews.html">Пакування</a>
+    <a href="content-reviews.html">Підтримка</a>
+    <a href="content-reviews.html">Оригінальність</a>
+  </div>
+
+  <!-- review list (same card as product-reviews.html, but about the SHOP) -->
+  <section aria-label="Відгуки про магазин" style="margin-top:10px">
+
+    <div class="rvitem">
+      <div class="rvmeta"><div class="rname">Олена В.</div><div class="rdate">27 червня 2026</div><div class="rstars">★ 5.0</div><div class="rbadge">✓ Покупець</div></div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> швидка відправка, надійне пакування</div>
+        <div class="rtext">Замовлення відправили того ж дня, прийшло на Нову Пошту за два дні.
+          Банки прийшли цілі, все запаковано з плівкою. Замовляю для клієнтів регулярно.</div>
+        <div class="rvreply"><div class="rchip"><span class="lg">Stack</span> Магазин</div>Дякуємо, Олено! Раді, що доставка й пакування не підвели 🙌</div>
+      </div>
+    </div>
+
+    <div class="rvitem">
+      <div class="rvmeta"><div class="rname">Андрій С.</div><div class="rdate">21 червня 2026</div><div class="rstars">★ 5.0</div><div class="rbadge">✓ Покупець</div></div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> оригінал, є сертифікати</div>
+        <div class="rtext">Порівнював склад із сайтом виробника — усе збігається. Сертифікат показали
+          без питань. Довіряю магазину.</div>
+      </div>
+    </div>
+
+    <div class="rvitem">
+      <div class="rvmeta"><div class="rname">Марія К.</div><div class="rdate">14 червня 2026</div><div class="rstars">★ 4.0</div><div class="rbadge">✓ Покупець</div></div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> уважна підтримка</div>
+        <div class="prc"><b>Недоліки:</b> трохи чекала відповідь у вихідний</div>
+        <div class="rtext">Переплутала адресу відділення — підтримка допомогла перенаправити посилку.
+          Загалом сервісом задоволена.</div>
+        <div class="rvreply"><div class="rchip"><span class="lg">Stack</span> Магазин</div>Дякуємо за відгук! У вихідні відповідаємо трохи довше — врахуємо.</div>
+      </div>
+    </div>
+
+    <div class="rvitem">
+      <div class="rvmeta"><div class="rname">Ігор П.</div><div class="rdate">8 червня 2026</div><div class="rstars">★ 5.0</div><div class="rbadge">✓ Покупець</div></div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> зручне оформлення, бонуси</div>
+        <div class="rtext">Оформив за телефоном без реєстрації, прийшли бонуси на рахунок. Наступного
+          разу частину оплатив ними. Дрібниця, а приємно.</div>
+      </div>
+    </div>
+
+    <div class="pgnav">
+      <button class="loadmore">Показати ще відгуки (з 342)</button>
+      <div class="pages"><button class="on" type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">›</button></div>
+    </div>
+  </section>
+
+  <!-- SEO text -->
+  <section class="seotext" id="seo" aria-label="Опис">
+    <div class="h">Відгуки про магазин спортивного харчування Stack</div>
+    <p>На цій сторінці зібрані відгуки покупців про сервіс Stack: швидкість і надійність доставки
+      Новою Поштою, якість пакування, роботу підтримки, зручність оформлення й оригінальність
+      товару з сертифікатами. Це оцінки магазину загалом, окремо від відгуків на конкретні товари.</p>
+    <p>Хочете поділитися досвідом? Залиште відгук про замовлення або оцініть нас у Google — це
+      допомагає іншим покупцям обирати впевнено.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-reviews.html');</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Правова інформація — Stack (wireframe 8.6, Info page A, legal variant)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 8.6 Правова інформація — Info page (A), LEGAL variant.
+   Three anchored sections (Публічна оферта · Політика конфіденційності · Умови використання)
+   with an in-page tab/anchor nav on top. Prose + date, NO TOC. index, low-priority. */
+.info-updated { font-size: 12.5px; color: var(--light); margin: 8px 0 0; }
+/* in-page anchor "tabs" (sticky), not a TOC */
+.legal-tabs { position: sticky; top: 57px; z-index: 20; background: #fff; display: flex; gap: 6px; overflow-x: auto; padding: 12px 0; margin: 18px 0 4px; border-bottom: 1px solid var(--hair); scrollbar-width: none; }
+.legal-tabs::-webkit-scrollbar { display: none; }
+.legal-tabs a { flex: none; border: 1.5px solid var(--hair2); border-radius: 100px; padding: 8px 15px; font-size: 13px; font-weight: 700; color: var(--strong); white-space: nowrap; }
+.legal-tabs a.on { background: var(--dark); color: #fff; border-color: var(--dark); }
+.legal-body { max-width: 760px; margin-top: 10px; }
+.legal-sec { padding: 26px 0; border-bottom: 1px solid var(--hair); scroll-margin-top: 120px; }
+.legal-sec:last-child { border-bottom: none; }
+.legal-sec h2 { font-size: 21px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.legal-sec .sdate { font-size: 12px; color: var(--light); margin: 4px 0 12px; }
+.legal-sec h4 { font-size: 14.5px; font-weight: 800; color: var(--strong); margin: 18px 0 8px; }
+.legal-sec p { font-size: 13.5px; color: var(--ink); margin-bottom: 11px; line-height: 1.7; }
+.legal-sec ul { margin: 0 0 12px; padding: 0; list-style: none; }
+.legal-sec li { font-size: 13.5px; color: var(--ink); margin-bottom: 7px; padding-left: 20px; position: relative; line-height: 1.6; }
+.legal-sec li::before { content: '—'; position: absolute; left: 0; color: var(--light); }
+.legal-note { border: 1px solid var(--hair); border-radius: 10px; background: var(--fill2); padding: 12px 14px; font-size: 12.5px; color: var(--sec); margin: 4px 0 14px; }
+.legal-note b { color: var(--strong); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.6 Правова інформація — Info page (A), legal variant.
+  3 anchored sections + tab nav, prose + date, NO TOC. index (low-priority).
+  Legal texts = [?] (lawyer). BreadcrumbList schema.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Правова інформація</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Правова інформація</h1>
+    <p class="info-updated">Оновлено: 1 липня 2026</p>
+    <p class="lintro">Публічна оферта, політика конфіденційності та умови використання магазину Stack.
+      Тексти готуються юристом — тут наведено структуру.</p>
+  </section>
+
+  <!-- in-page anchor tabs (not a TOC) -->
+  <nav class="legal-tabs" aria-label="Розділи">
+    <a href="#offer" class="on">Публічна оферта</a>
+    <a href="#privacy">Політика конфіденційності</a>
+    <a href="#terms">Умови використання</a>
+  </nav>
+
+  <div class="legal-body">
+
+    <!-- 1) Публічна оферта -->
+    <section class="legal-sec" id="offer">
+      <h2>Публічна оферта</h2>
+      <div class="sdate">Редакція від 1 липня 2026</div>
+      <p>Цей документ є офіційною пропозицією (публічною офертою) магазину Stack укласти договір
+        купівлі-продажу товарів дистанційним способом на умовах, викладених нижче. Оформлення
+        замовлення є повним і беззастережним прийняттям умов цієї оферти.</p>
+      <h4>1. Предмет договору</h4>
+      <p>Продавець зобов'язується передати покупцеві товар спортивного харчування, а покупець —
+        прийняти й оплатити його відповідно до умов замовлення.</p>
+      <h4>2. Ціна та оплата</h4>
+      <ul>
+        <li>Ціни вказані в гривнях і можуть змінюватися до моменту оформлення замовлення</li>
+        <li>Способи оплати наведені на сторінці «Доставка й оплата»</li>
+      </ul>
+      <h4>3. Доставка та повернення</h4>
+      <p>Умови доставки, обміну й повернення регулюються відповідними сторінками магазину та
+        чинним законодавством України.</p>
+      <div class="legal-note"><b>[?]</b> Повний юридичний текст оферти готується — розділ є заглушкою структури.</div>
+    </section>
+
+    <!-- 2) Політика конфіденційності -->
+    <section class="legal-sec" id="privacy">
+      <h2>Політика конфіденційності</h2>
+      <div class="sdate">Редакція від 1 липня 2026</div>
+      <p>Ми поважаємо вашу приватність і обробляємо персональні дані відповідно до Закону України
+        «Про захист персональних даних».</p>
+      <h4>1. Які дані ми збираємо</h4>
+      <ul>
+        <li>Контактні дані: ім'я, телефон, e-mail, адреса доставки</li>
+        <li>Дані замовлень та історія покупок</li>
+        <li>Технічні дані: cookie, аналітика (за вашою згодою)</li>
+      </ul>
+      <h4>2. Як ми використовуємо дані</h4>
+      <p>Для оброблення замовлень, доставки, зв'язку з вами, нарахування бонусів і покращення сервісу.
+        Ми не передаємо ваші дані третім особам, крім потреб виконання замовлення (перевізник, платіжний
+        сервіс).</p>
+      <h4>3. Ваші права</h4>
+      <ul>
+        <li>Доступ до своїх даних, їх виправлення чи видалення</li>
+        <li>Відкликання згоди на обробку та маркетингові розсилки</li>
+      </ul>
+      <div class="legal-note">Керувати згодою на cookie можна через посилання «Змінити згоду» у футері.</div>
+    </section>
+
+    <!-- 3) Умови використання -->
+    <section class="legal-sec" id="terms">
+      <h2>Умови використання</h2>
+      <div class="sdate">Редакція від 1 липня 2026</div>
+      <p>Використовуючи сайт Stack, ви погоджуєтеся з правилами, наведеними в цьому розділі.</p>
+      <h4>1. Реєстрація та акаунт</h4>
+      <p>Ви відповідаєте за достовірність наданих даних та за дії у своєму акаунті.
+        Авторизація відбувається за кодом (без пароля).</p>
+      <h4>2. Контент і права</h4>
+      <p>Тексти, зображення й дизайн сайту належать Stack. Копіювання без дозволу заборонено.</p>
+      <h4>3. Відповідальність</h4>
+      <ul>
+        <li>Інформація про товар має довідковий характер; перед прийомом консультуйтеся з фахівцем</li>
+        <li>Ми докладаємо зусиль для актуальності цін і наявності, але залишаємо право їх коригувати</li>
+      </ul>
+      <div class="legal-note"><b>[?]</b> Повні тексти всіх трьох документів — на етапі юридичного опрацювання.</div>
+    </section>
+
+  </div>
+
+  <p class="relh">Далі</p>
+  <div class="relrow">
+    <a class="relbox" href="content-delivery.html">Доставка й оплата</a>
+    <a class="relbox" href="content-returns.html">Обмін і повернення</a>
+    <a class="relbox" href="content-contacts.html">Контакти</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-legal.html');</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Про нас — Stack (wireframe 8.2, Info page A)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 8.x Info page (A) — shared .info-* pattern (defined per file, see content.md).
+   8.2 Про нас = base Info page: breadcrumb → H1 + updated-date → prose → related. */
+.info-updated { font-size: 12.5px; color: var(--light); margin: 8px 0 0; }
+.info-body { max-width: 760px; margin-top: 10px; }
+.info-body h3 { font-size: 18px; font-weight: 800; color: var(--strong); margin: 28px 0 10px; scroll-margin-top: 80px; }
+.info-body p { font-size: 14px; color: var(--ink); margin-bottom: 12px; line-height: 1.65; }
+.info-body ul { margin: 0 0 14px; padding: 0; list-style: none; }
+.info-body ul li { font-size: 14px; color: var(--ink); margin-bottom: 8px; padding-left: 22px; position: relative; line-height: 1.6; }
+.info-body ul li::before { content: '—'; position: absolute; left: 0; color: var(--light); }
+.info-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 18px 0; }
+@media (min-width: 620px) { .info-stats { grid-template-columns: repeat(4, 1fr); } }
+.info-stat { border: 1px solid var(--hair); border-radius: 12px; background: var(--fill2); padding: 16px 14px; }
+.info-stat .n { font-size: 26px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+.info-stat .l { font-size: 12px; color: var(--sec); margin-top: 4px; }
+.info-vals { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 14px 0; }
+@media (min-width: 620px) { .info-vals { grid-template-columns: repeat(2, 1fr); } }
+.info-card { border: 1px solid var(--hair); border-radius: 12px; background: #fff; padding: 15px 16px; }
+.info-card .ic-h { font-size: 14px; font-weight: 800; color: var(--strong); margin-bottom: 5px; display: flex; gap: 8px; align-items: center; }
+.info-card p { font-size: 13px; color: var(--sec); margin: 0; line-height: 1.55; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.2 Про нас — Info page (A), base variant.
+  Inherited header/footer from _nav.js. index, follow · Organization + BreadcrumbList.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Про нас</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Про Stack</h1>
+    <p class="info-updated">Оновлено: 1 липня 2026</p>
+    <p class="lintro">Ми — український магазин спортивного харчування. Наша задача проста:
+      провести людину від «хочу досягти результату» до безпечного, зрозумілого набору продуктів —
+      без плутанини й без страху купити не те.</p>
+  </section>
+
+  <div class="info-body">
+
+    <div class="info-stats">
+      <div class="info-stat"><div class="n">1000+</div><div class="l">товарів у каталозі</div></div>
+      <div class="info-stat"><div class="n">24</div><div class="l">перевірені бренди</div></div>
+      <div class="info-stat"><div class="n">100%</div><div class="l">оригінал і сертифікати</div></div>
+      <div class="info-stat"><div class="n">1–2 дні</div><div class="l">доставка по Україні</div></div>
+    </div>
+
+    <h3 id="story">Хто ми</h3>
+    <p>Stack — це команда, яка любить спорт і розбирається в харчуванні. Ми почали з простого
+      спостереження: більшість магазинів спортпіту зроблені як склад із сотнями банок, де новачок
+      губиться, а досвідчений витрачає час на пошук того, що й так купує щомісяця.</p>
+    <p>Ми будуємо магазин інакше — навколо цілі людини й довіри до продукту. Кожна картка товару
+      показує склад, дозування, походження й сертифікацію відкрито, а не ховає їх у дрібному шрифті.</p>
+
+    <h3 id="values">Наші принципи</h3>
+    <div class="info-vals">
+      <div class="info-card"><div class="ic-h">🛡️ Спочатку довіра</div><p>Склад, дозування, походження й
+        сертифікат — це не другорядні деталі, а головне. Спершу знімаємо сумнів, потім пропонуємо купити.</p></div>
+      <div class="info-card"><div class="ic-h">🎯 Один зрозумілий крок</div><p>Від цілі до товару, від
+        товару до кошика — завжди є одна очевидна наступна дія. Жодних глухих кутів.</p></div>
+      <div class="info-card"><div class="ic-h">💬 Проста мова</div><p>Everyday-слова в навігації, глибока
+        інформація — на сторінці товару. Спершу проста відповідь.</p></div>
+      <div class="info-card"><div class="ic-h">🤝 Тренер — це канал</div><p>Ми зручні для тренерів і залів,
+        які замовляють для своїх атлетів, а не тільки для соло-покупця.</p></div>
+    </div>
+
+    <h3 id="quality">Якість і безпека</h3>
+    <p>Ми працюємо лише з перевіреними постачальниками й брендами. Уся продукція оригінальна,
+      має сертифікати відповідності та декларацію МОЗ, зберігається за правильних умов.</p>
+    <ul>
+      <li>Тільки офіційні поставки — жодних «сірих» партій</li>
+      <li>Сертифікати відкриті для перегляду на сторінці товару та на сторінці гарантій</li>
+      <li>14 днів на повернення, гарантія виробника</li>
+    </ul>
+  </div>
+
+  <p class="relh">Далі</p>
+  <div class="relrow">
+    <a class="relbox" href="content-guarantee.html">Гарантія та сертифікати</a>
+    <a class="relbox" href="content-delivery.html">Доставка й оплата</a>
+    <a class="relbox" href="content-contacts.html">Контакти</a>
+    <a class="relbox" href="catalog-page.html">Каталог</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-about.html');</script>
+</body>
+</html>

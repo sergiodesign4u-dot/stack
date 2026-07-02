@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Обмін і повернення — Stack (wireframe 8.5, Info page A + TOC)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 8.5 Обмін і повернення — Info page (A), long page with TOC + step process. */
+.info-updated { font-size: 12.5px; color: var(--light); margin: 8px 0 0; }
+.info-toc { border: 1px solid var(--hair); border-radius: 12px; background: var(--fill2); padding: 15px 18px; margin: 22px 0 6px; max-width: 760px; }
+.info-toc .tt { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--light); margin-bottom: 9px; }
+.info-toc ol { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.info-toc a { font-size: 14px; color: var(--strong); font-weight: 600; }
+.info-toc .num { display: inline-block; width: 22px; color: var(--light); font-weight: 800; }
+.info-body { max-width: 760px; margin-top: 8px; }
+.info-body h3 { font-size: 18px; font-weight: 800; color: var(--strong); margin: 30px 0 10px; scroll-margin-top: 80px; display: flex; gap: 9px; align-items: center; }
+.info-body p { font-size: 14px; color: var(--ink); margin-bottom: 12px; line-height: 1.65; }
+.info-body ul { margin: 0 0 14px; padding: 0; list-style: none; }
+.info-body ul li { font-size: 14px; color: var(--ink); margin-bottom: 8px; padding-left: 22px; position: relative; line-height: 1.6; }
+.info-body ul li::before { content: '—'; position: absolute; left: 0; color: var(--light); }
+/* 14-day highlight */
+.ret-hero { border: 1.5px solid var(--dark); border-radius: 14px; padding: 18px 20px; margin: 8px 0 4px; display: flex; gap: 16px; align-items: center; max-width: 760px; }
+.ret-hero .big { font-size: 40px; font-weight: 800; color: var(--strong); line-height: 1; letter-spacing: -.02em; flex: none; }
+.ret-hero .t { font-size: 15px; font-weight: 800; color: var(--strong); }
+.ret-hero .s { font-size: 13px; color: var(--sec); margin-top: 3px; }
+/* numbered process steps */
+.info-steps { counter-reset: st; list-style: none; padding: 0; margin: 4px 0 14px; }
+.info-steps li { counter-increment: st; position: relative; padding: 0 0 16px 44px; }
+.info-steps li:last-child { padding-bottom: 0; }
+.info-steps li::before { content: counter(st); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--dark); color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.info-steps .sh { font-size: 14.5px; font-weight: 800; color: var(--strong); }
+.info-steps .ss { font-size: 13.5px; color: var(--sec); margin-top: 3px; line-height: 1.55; }
+.info-card { border: 1px solid var(--hair); border-radius: 12px; background: var(--fill2); padding: 13px 15px; margin: 10px 0 14px; font-size: 13px; color: var(--sec); }
+.info-card b { color: var(--strong); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.5 Обмін і повернення — Info page (A), long + TOC + steps.
+  14 days · умови · покроковий процес · гроші назад. index, follow.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Обмін і повернення</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Обмін і повернення</h1>
+    <p class="info-updated">Оновлено: 1 липня 2026</p>
+    <p class="lintro">Якщо товар не підійшов — його можна повернути або обміняти протягом 14 днів.
+      Нижче — умови, покроковий процес і як повертаються гроші.</p>
+  </section>
+
+  <div class="ret-hero">
+    <div class="big">14</div>
+    <div><div class="t">днів на повернення</div>
+      <div class="s">З дня отримання замовлення, згідно із Законом України «Про захист прав споживачів».</div></div>
+  </div>
+
+  <!-- TOC -->
+  <nav class="info-toc" aria-label="Зміст сторінки">
+    <div class="tt">Зміст</div>
+    <ol>
+      <li><a href="#terms"><span class="num">1.</span> Умови повернення</a></li>
+      <li><a href="#process"><span class="num">2.</span> Як повернути — покроково</a></li>
+      <li><a href="#money"><span class="num">3.</span> Повернення коштів</a></li>
+      <li><a href="#defect"><span class="num">4.</span> Бракований товар</a></li>
+    </ol>
+  </nav>
+
+  <div class="info-body">
+
+    <h3 id="terms">✅ Умови повернення</h3>
+    <p>Повернути можна товар належної якості протягом <b>14 днів</b> з дня отримання, якщо він
+      не був у використанні та збережений товарний вигляд.</p>
+    <ul>
+      <li>Упаковка ціла, захисна плівка / мембрана не пошкоджена</li>
+      <li>Товар не використовувався, збережено ярлики й пломби</li>
+      <li>Є документ, що підтверджує покупку (номер замовлення)</li>
+    </ul>
+    <div class="info-card">Зверніть увагу: харчові продукти з порушеною захисною мембраною поверненню
+      не підлягають з міркувань безпеки — крім випадків браку.</div>
+
+    <h3 id="process">🔄 Як повернути — покроково</h3>
+    <ol class="info-steps">
+      <li><div class="sh">Зв'яжіться з нами</div><div class="ss">Напишіть у месенджер або зателефонуйте
+        0 800 000 000, назвіть номер замовлення й товар, який повертаєте.</div></li>
+      <li><div class="sh">Заповніть заяву</div><div class="ss">Ми надішлемо коротку форму на повернення —
+        її потрібно заповнити й додати до посилки.</div></li>
+      <li><div class="sh">Відправте товар</div><div class="ss">Надішліть товар Новою Поштою на нашу адресу.
+        Ми повідомимо реквізити відправлення.</div></li>
+      <li><div class="sh">Отримайте кошти</div><div class="ss">Після перевірки товару повертаємо гроші
+        тим самим способом, яким була оплата.</div></li>
+    </ol>
+
+    <h3 id="money">💰 Повернення коштів</h3>
+    <p>Гроші повертаються протягом <b>3–7 робочих днів</b> після того, як ми отримали й перевірили товар.</p>
+    <ul>
+      <li>Оплата карткою — повернення на ту саму картку</li>
+      <li>Накладений платіж — повернення на вказані реквізити</li>
+      <li>Використані бонуси повертаються на бонусний рахунок</li>
+    </ul>
+
+    <h3 id="defect">🛠️ Бракований товар</h3>
+    <p>Якщо товар виявився бракованим або прийшов пошкодженим — ми замінимо його або повернемо
+      кошти повністю, включно з вартістю доставки. Просто зв'яжіться з нами й додайте фото.</p>
+  </div>
+
+  <p class="relh">Далі</p>
+  <div class="relrow">
+    <a class="relbox" href="content-guarantee.html">Гарантія та сертифікати</a>
+    <a class="relbox" href="content-delivery.html">Доставка й оплата</a>
+    <a class="relbox" href="content-faq.html">Часті питання</a>
+    <a class="relbox" href="content-contacts.html">Контакти</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-returns.html');</script>
+</body>
+</html>

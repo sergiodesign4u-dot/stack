@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Контакти — Stack (wireframe 8.3, Info page A + contacts block)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 8.3 Контакти — Info page (A) + contacts block variant.
+   Contacts = single source of truth with the footer. Organization + BreadcrumbList. */
+.info-updated { font-size: 12.5px; color: var(--light); margin: 8px 0 0; }
+/* two-col: contact facts (left) + map/form (right) */
+.cnt-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 20px; }
+@media (min-width: 860px) { .cnt-grid { grid-template-columns: 1fr 1.1fr; align-items: start; } }
+.cnt-block { border: 1px solid var(--hair); border-radius: 12px; padding: 6px 0; }
+.cnt-row { display: flex; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #eee; align-items: flex-start; }
+.cnt-row:last-child { border-bottom: none; }
+.cnt-row .g { font-size: 18px; flex: none; width: 24px; text-align: center; }
+.cnt-row .cap { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--light); font-weight: 700; }
+.cnt-row .val { font-size: 15px; font-weight: 700; color: var(--strong); margin-top: 2px; }
+.cnt-row .sub { font-size: 12.5px; color: var(--sec); margin-top: 2px; }
+.cnt-msgrs { display: flex; gap: 8px; margin-top: 7px; flex-wrap: wrap; }
+.cnt-msg { border: 1.5px solid var(--hair2); border-radius: 8px; padding: 6px 12px; font-size: 12.5px; font-weight: 700; color: var(--strong); display: inline-flex; gap: 6px; align-items: center; }
+/* map placeholder */
+.cnt-map { height: 220px; border: 1px solid var(--hair); border-radius: 12px; margin-bottom: 16px;
+  background: repeating-linear-gradient(45deg, #fafafa, #fafafa 10px, #f2f2f2 10px, #f2f2f2 20px);
+  display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 13px; }
+/* form */
+.cnt-form { border: 1px solid var(--hair); border-radius: 12px; padding: 18px 18px 20px; }
+.cnt-form .fh { font-size: 16px; font-weight: 800; color: var(--strong); margin-bottom: 4px; }
+.cnt-form .fs { font-size: 12.5px; color: var(--sec); margin-bottom: 14px; }
+.cnt-field { margin-bottom: 12px; }
+.cnt-field label { display: block; font-size: 12px; font-weight: 700; color: var(--sec); margin-bottom: 5px; }
+.cnt-field input, .cnt-field textarea { width: 100%; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 11px 12px; font-size: 14px; background: #fff; font-family: inherit; }
+.cnt-field textarea { min-height: 96px; resize: vertical; }
+.cnt-form .btn.dark { width: 100%; text-align: center; margin-top: 4px; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.3 Контакти — Info page (A) + contacts block.
+  Contacts = single source of truth with the footer. index, follow.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Контакти</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Контакти</h1>
+    <p class="info-updated">Оновлено: 1 липня 2026</p>
+    <p class="lintro">Зв'яжіться з нами будь-яким зручним способом — відповідаємо щодня.
+      Ці ж контакти дублюються у футері магазину.</p>
+  </section>
+
+  <div class="cnt-grid">
+
+    <!-- LEFT — contact facts (single source of truth with footer) -->
+    <div class="cnt-block">
+      <div class="cnt-row"><span class="g">📞</span><div>
+        <div class="cap">Телефон</div>
+        <div class="val">0 800 000 000</div>
+        <div class="sub">Безкоштовно в межах України</div>
+      </div></div>
+      <div class="cnt-row"><span class="g">🕘</span><div>
+        <div class="cap">Графік роботи</div>
+        <div class="val">Пн–Нд · 9:00–21:00</div>
+        <div class="sub">Замовлення на сайті — цілодобово</div>
+      </div></div>
+      <div class="cnt-row"><span class="g">✉️</span><div>
+        <div class="cap">E-mail</div>
+        <div class="val">hello@stack.ua</div>
+        <div class="sub">Відповідаємо протягом дня</div>
+      </div></div>
+      <div class="cnt-row"><span class="g">💬</span><div>
+        <div class="cap">Месенджери</div>
+        <div class="cnt-msgrs">
+          <span class="cnt-msg">✈️ Telegram</span>
+          <span class="cnt-msg">📲 Viber</span>
+        </div>
+      </div></div>
+      <div class="cnt-row"><span class="g">📍</span><div>
+        <div class="cap">Пункт самовивозу</div>
+        <div class="val">Одеса</div>
+        <div class="sub">Адреса й точний час — при оформленні самовивозу</div>
+      </div></div>
+    </div>
+
+    <!-- RIGHT — map placeholder + "Напишіть нам" form -->
+    <div>
+      <div class="cnt-map">🗺️ Мапа · пункт самовивозу, Одеса</div>
+
+      <form class="cnt-form" onsubmit="return false">
+        <div class="fh">Напишіть нам</div>
+        <div class="fs">Залиште повідомлення — ми зв'яжемося з вами.</div>
+        <div class="cnt-field"><label>Ім'я</label><input type="text" placeholder="Ваше ім'я"></div>
+        <div class="cnt-field"><label>E-mail або телефон</label><input type="text" placeholder="Куди відповісти"></div>
+        <div class="cnt-field"><label>Повідомлення</label><textarea placeholder="Ваше питання"></textarea></div>
+        <button class="btn dark">Надіслати</button>
+      </form>
+    </div>
+
+  </div>
+
+  <p class="relh">Далі</p>
+  <div class="relrow">
+    <a class="relbox" href="content-delivery.html">Доставка й оплата</a>
+    <a class="relbox" href="content-returns.html">Обмін і повернення</a>
+    <a class="relbox" href="content-faq.html">Часті питання</a>
+    <a class="relbox" href="content-about.html">Про нас</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-contacts.html');</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Акції — Stack (wireframe 8.10)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 8.10 Акції / Промо (listing). Principle 4: calm, NO countdown timers —
+   «Діє до …» date only. Each promo → a collection/listing (2.x) or a product. */
+.promo-lead { color: var(--sec); font-size: 14px; margin: 8px 0 0; max-width: 720px; }
+.promo-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 22px; }
+@media (min-width: 720px) { .promo-grid { grid-template-columns: repeat(2, 1fr); } }
+.pcard-promo { border: 1px solid var(--hair); border-radius: 12px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+.pcard-promo .banner { aspect-ratio: 21/9; background: var(--fill); display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 13px; position: relative; }
+.pcard-promo .badge { position: absolute; top: 12px; left: 12px; background: #161616; color: #fff; font-size: 11px; font-weight: 700; padding: 5px 11px; border-radius: 100px; }
+.pcard-promo .bd { padding: 16px 17px 18px; display: flex; flex-direction: column; flex: 1; }
+.pcard-promo .ttl { font-size: 17px; font-weight: 800; color: var(--strong); line-height: 1.35; }
+.pcard-promo .desc { font-size: 13.5px; color: var(--sec); margin-top: 8px; line-height: 1.55; flex: 1; }
+.pcard-promo .until { font-size: 12.5px; color: var(--light); margin-top: 14px; display: inline-flex; align-items: center; gap: 6px; }
+.pcard-promo .cta { margin-top: 14px; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.10 Акції / Промо (listing). Entry = meta-bar «Акції».
+  CALM — no countdown timers (Principle 4): a plain «Діє до …» date only.
+  Each promo → a listing (2.x) or a product. index, follow.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Акції</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Акції</h1>
+    <p class="promo-lead">Актуальні пропозиції Stack — знижки на перевірені товари й набори. Без
+      таймерів і поспіху: кожна акція діє до вказаної дати, обирайте спокійно.</p>
+  </section>
+
+  <!-- Promo card grid -->
+  <div class="promo-grid">
+
+    <article class="pcard-promo">
+      <div class="banner">банер<span class="badge">−20%</span></div>
+      <div class="bd">
+        <div class="ttl">−20% на весь протеїн</div>
+        <p class="desc">Сироватковий, ізолят, казеїн і рослинний — від перевірених брендів.
+          Знижка вже врахована в ціні товарів категорії.</p>
+        <span class="until">🗓 Діє до 31 липня</span>
+        <a class="btn dark cta" href="listing.html">До товарів акції</a>
+      </div>
+    </article>
+
+    <article class="pcard-promo">
+      <div class="banner">банер<span class="badge">Набір</span></div>
+      <div class="bd">
+        <div class="ttl">Стартовий набір для початківця</div>
+        <p class="desc">Протеїн + креатин + шейкер за вигіднішою ціною, ніж окремо. Простий і
+          безпечний старт під ціль «Набір маси».</p>
+        <span class="until">🗓 Діє до 15 серпня</span>
+        <a class="btn dark cta" href="goal.html">Переглянути набір</a>
+      </div>
+    </article>
+
+    <article class="pcard-promo">
+      <div class="banner">банер<span class="badge">−15%</span></div>
+      <div class="bd">
+        <div class="ttl">Креатин Creapure® дешевше</div>
+        <p class="desc">Найбільш вивчена добавка для сили й об'єму — зі знижкою на монобренд
+          преміального моногідрату.</p>
+        <span class="until">🗓 Діє до 20 липня</span>
+        <a class="btn dark cta" href="product.html">До товару</a>
+      </div>
+    </article>
+
+    <article class="pcard-promo">
+      <div class="banner">банер<span class="badge">Бонуси ×2</span></div>
+      <div class="bd">
+        <div class="ttl">Подвійні бонуси на вітаміни</div>
+        <p class="desc">Замовляйте вітаміни, омегу й товари для здоров'я — нараховуємо вдвічі
+          більше бонусних гривень на рахунок.</p>
+        <span class="until">🗓 Діє до 31 липня</span>
+        <a class="btn dark cta" href="listing.html">До категорії</a>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- SEO text -->
+  <section class="seotext" id="seo" aria-label="Опис акцій">
+    <div class="h">Акції та знижки на спортивне харчування Stack</div>
+    <p>У розділі «Акції» — актуальні знижки на протеїн, гейнери, креатин, амінокислоти, вітаміни та
+      готові набори від перевірених брендів. Уся продукція оригінальна й сертифікована, з гарантією
+      виробника.</p>
+    <p>Ми не використовуємо таймери зворотного відліку й тиск — кожна пропозиція діє до чесно
+      вказаної дати. Оформлюйте зручно: доставка Новою Поштою, оплата картою чи при отриманні,
+      повернення протягом 14 днів.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-promo.html');</script>
+</body>
+</html>

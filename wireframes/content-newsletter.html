@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Підписку підтверджено — Stack (wireframe 8.12)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 8.12 Розсилка — «subscription confirmed» state page (after the double-opt-in
+   email click). Newsletter itself is a FOOTER component; this is its success state page.
+   noindex, nofollow (utility). Minimal, centered. */
+.nl-wrap { min-height: 52vh; display: flex; align-items: center; justify-content: center; padding: 30px 0; }
+.nl-card { max-width: 480px; width: 100%; text-align: center; border: 1.5px solid var(--hair2); border-radius: 16px; padding: 36px 28px; background: #fff; }
+.nl-check { width: 60px; height: 60px; margin: 0 auto 8px; border: 1.5px solid var(--hair2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--strong); }
+.nl-h1 { font-size: 22px; font-weight: 800; color: var(--strong); margin: 14px 0 6px; }
+.nl-sub { font-size: 14px; color: var(--sec); line-height: 1.6; margin: 0 auto; max-width: 380px; }
+.nl-promo { border: 1.5px dashed var(--hair2); border-radius: 12px; background: var(--fill2); padding: 18px; margin: 22px 0 4px; }
+.nl-promo .cap { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--light); }
+.nl-promo .code { font-size: 26px; font-weight: 800; color: var(--strong); letter-spacing: .08em; margin: 8px 0 4px; }
+.nl-promo .note { font-size: 12.5px; color: var(--sec); }
+.nl-cta { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 22px; }
+.nl-foot { font-size: 11.5px; color: var(--light); margin-top: 18px; line-height: 1.55; }
+.nl-foot a { color: var(--sec); text-decoration: underline; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.12 Розсилка — стан «Підписку підтверджено» (після double-opt-in).
+  Розсилка = footer-компонент; це її сторінка-стан успіху. noindex, nofollow. Minimal.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <div class="nl-wrap">
+    <section class="nl-card" aria-label="Підписку підтверджено">
+      <div class="nl-check" aria-hidden="true">✓</div>
+      <h1 class="nl-h1">Підписку підтверджено</h1>
+      <p class="nl-sub">Дякуємо! Тепер ви першими дізнаєтесь про акції, новинки й корисні гайди
+        від Stack. А за вами — промокод на першу покупку.</p>
+
+      <div class="nl-promo">
+        <div class="cap">Ваш промокод</div>
+        <div class="code">STACK-XXXX</div>
+        <div class="note">Знижка на перше замовлення. Введіть його в кошику при оформленні. <span style="color:var(--light)">[розмір знижки — [?]]</span></div>
+      </div>
+
+      <div class="nl-cta">
+        <a class="btn dark" href="catalog-page.html">Перейти до каталогу</a>
+        <a class="btn" href="home.html">На головну</a>
+      </div>
+
+      <p class="nl-foot">Передумали? Ви завжди можете
+        <a href="content-newsletter.html">відписатися</a> одним кліком у будь-якому листі.</p>
+    </section>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-newsletter.html');</script>
+</body>
+</html>

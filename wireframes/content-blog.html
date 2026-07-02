@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Блог — Stack (wireframe 8.0)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* node 8.0 Блог — listing (SEO surface for top-of-funnel informational queries).
+   Schema note: CollectionPage + BreadcrumbList. */
+.blog-lead { color: var(--sec); font-size: 14px; margin: 8px 0 0; max-width: 720px; }
+.blog-tools { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 20px 0 6px; }
+.blog-search { flex: 1; min-width: 220px; display: flex; border: 1.5px solid var(--hair2); border-radius: 8px; overflow: hidden; }
+.blog-search input { flex: 1; border: 0; padding: 10px 13px; font-size: 13.5px; background: #fff; color: var(--ink); }
+.blog-search button { border: 0; border-left: 1px solid var(--hair); background: var(--fill); padding: 0 15px; font-size: 15px; color: var(--sec); }
+.blog-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.blog-tags a { border: 1.5px solid var(--hair2); border-radius: 100px; padding: 7px 13px; font-size: 12.5px; font-weight: 700; color: var(--strong); background: #fff; }
+.blog-tags a.on { background: var(--dark); color: #fff; border-color: var(--dark); }
+.blog-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 22px; }
+@media (min-width: 620px) { .blog-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .blog-grid { grid-template-columns: repeat(3, 1fr); } }
+.bcard { border: 1px solid var(--hair); border-radius: 12px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+.bcard .thumb { aspect-ratio: 16/9; background: var(--fill); display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 12px; position: relative; }
+.bcard .cat { position: absolute; top: 10px; left: 10px; background: #161616; color: #fff; font-size: 10.5px; font-weight: 700; padding: 4px 9px; border-radius: 100px; }
+.bcard .bd { padding: 14px 15px 16px; display: flex; flex-direction: column; flex: 1; }
+.bcard .ttl { font-size: 15.5px; font-weight: 800; color: var(--strong); line-height: 1.35; }
+.bcard .ex { font-size: 13px; color: var(--sec); margin-top: 8px; line-height: 1.55; flex: 1; }
+.bcard .foot { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+.bcard .date { font-size: 11.5px; color: var(--light); }
+.bcard .read { font-size: 13px; font-weight: 700; color: var(--strong); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.0 Блог (listing). Тег/категорія chips + пошук + пагінація.
+  Article card → content-article.html. index, follow + CollectionPage.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Блог</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Блог</h1>
+    <p class="blog-lead">Гайди, розбори складу й дозувань, підбірки під ціль та поради від команди
+      Stack — просто й без води, щоб ви обирали спортивне харчування впевнено.</p>
+  </section>
+
+  <!-- Search + tag chips -->
+  <div class="blog-tools">
+    <form class="blog-search" role="search" onsubmit="return false">
+      <input type="search" placeholder="Пошук у блозі — напр. «протеїн для початківця»" aria-label="Пошук у блозі">
+      <button type="submit" aria-label="Знайти">🔎</button>
+    </form>
+  </div>
+  <div class="blog-tags" aria-label="Категорії блога">
+    <a class="on" href="content-blog.html">Усі</a>
+    <a href="content-blog.html">Для початківців</a>
+    <a href="content-blog.html">Набір маси</a>
+    <a href="content-blog.html">Схуднення</a>
+    <a href="content-blog.html">Відновлення</a>
+    <a href="content-blog.html">Склад і дозування</a>
+    <a href="content-blog.html">Тренерам</a>
+  </div>
+
+  <!-- Article card grid -->
+  <div class="blog-grid">
+
+    <article class="bcard">
+      <a href="content-article.html" class="thumb">фото<span class="cat">Для початківців</span></a>
+      <div class="bd">
+        <a href="content-article.html" class="ttl">Протеїн для початківця: з чого почати</a>
+        <p class="ex">Який протеїн обрати новачку, скільки й коли пити, і чому склад важливіший за смак.</p>
+        <div class="foot"><span class="date">28 червня 2026</span><a href="content-article.html" class="read">Читати →</a></div>
+      </div>
+    </article>
+
+    <article class="bcard">
+      <a href="content-article.html" class="thumb">фото<span class="cat">Набір маси</span></a>
+      <div class="bd">
+        <a href="content-article.html" class="ttl">Гейнер чи протеїн: що обрати для набору маси</a>
+        <p class="ex">Розбираємо різницю, кому підходить гейнер, і як не переплатити за зайві калорії.</p>
+        <div class="foot"><span class="date">24 червня 2026</span><a href="content-article.html" class="read">Читати →</a></div>
+      </div>
+    </article>
+
+    <article class="bcard">
+      <a href="content-article.html" class="thumb">фото<span class="cat">Склад і дозування</span></a>
+      <div class="bd">
+        <a href="content-article.html" class="ttl">Креатин моногідрат: скільки, коли і навіщо</a>
+        <p class="ex">Проста інструкція з дозування без фази завантаження — і чому це найбільш вивчена добавка.</p>
+        <div class="foot"><span class="date">19 червня 2026</span><a href="content-article.html" class="read">Читати →</a></div>
+      </div>
+    </article>
+
+    <article class="bcard">
+      <a href="content-article.html" class="thumb">фото<span class="cat">Схуднення</span></a>
+      <div class="bd">
+        <a href="content-article.html" class="ttl">Жироспалювачі й L-карнітин: що реально працює</a>
+        <p class="ex">Чесно про очікування, безпеку й місце добавок у процесі схуднення.</p>
+        <div class="foot"><span class="date">14 червня 2026</span><a href="content-article.html" class="read">Читати →</a></div>
+      </div>
+    </article>
+
+    <article class="bcard">
+      <a href="content-article.html" class="thumb">фото<span class="cat">Відновлення</span></a>
+      <div class="bd">
+        <a href="content-article.html" class="ttl">BCAA, EAA та глютамін: чи потрібні вони вам</a>
+        <p class="ex">Коли амінокислоти мають сенс, а коли вистачить якісного протеїну.</p>
+        <div class="foot"><span class="date">9 червня 2026</span><a href="content-article.html" class="read">Читати →</a></div>
+      </div>
+    </article>
+
+    <article class="bcard">
+      <a href="content-article.html" class="thumb">фото<span class="cat">Тренерам</span></a>
+      <div class="bd">
+        <a href="content-article.html" class="ttl">Як тренеру швидко замовляти для групи клієнтів</a>
+        <p class="ex">Мультиклієнтська сесія, оптові ціни й історія по кожному клієнту — за один захід.</p>
+        <div class="foot"><span class="date">3 червня 2026</span><a href="content-article.html" class="read">Читати →</a></div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- Pagination -->
+  <nav class="pgnav" aria-label="Пагінація">
+    <button class="loadmore">Показати ще статті</button>
+    <div class="pages"><a class="on" href="?page=1">1</a><a href="?page=2">2</a><a href="?page=3">3</a><a href="?page=2">›</a></div>
+  </nav>
+
+  <!-- SEO text -->
+  <section class="seotext" id="seo" aria-label="Опис блога">
+    <div class="h">Блог про спортивне харчування Stack</div>
+    <p>У блозі Stack ми пояснюємо просто: який протеїн, гейнер, креатин чи амінокислоти обрати під
+      вашу ціль, як читати склад і дозування, і як почати без страху й помилок. Матеріали готують
+      із опорою на дані виробників і практику тренерів.</p>
+    <p>Читайте гайди для початківців, підбірки для набору маси, схуднення й відновлення, а також
+      поради тренерам — і переходьте одразу до перевірених товарів у каталозі.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-blog.html');</script>
+</body>
+</html>
