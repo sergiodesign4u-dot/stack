@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет — Адреси (порожньо) — Stack (wireframe 7.5 · empty)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+  .emptybox { border: 1.5px dashed var(--hair2); border-radius: 14px; padding: 46px 22px; text-align: center; margin-top: 18px; }
+  .emptybox .ei { font-size: 34px; }
+  .emptybox .et { font-size: 17px; font-weight: 800; color: var(--strong); margin: 12px 0 6px; }
+  .emptybox .es { font-size: 13.5px; color: var(--sec); margin-bottom: 18px; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+  .addr-hint { font-size: 12.5px; color: var(--sec); margin-top: 16px; border: 1px dashed var(--hair2); border-radius: 8px; padding: 10px 12px; line-height: 1.5; }
+  .addr-hint b { color: var(--strong); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.5 Адреси — STATE: empty (немає збережених адрес).
+  «＋ Додати адресу» → the shared add-address dialog (method-first). noindex.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <span class="cur">Адреси</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Адреси</h1>
+      <p class="acc-sub">Збережені адреси доставки — щоб оформлювати замовлення швидше.</p>
+
+      <div class="emptybox">
+        <div class="ei">📍</div>
+        <div class="et">Ще немає збережених адрес</div>
+        <div class="es">Додайте адресу доставки — відділення чи поштомат Нової Пошти або кур’єрську адресу. Наступного разу оформлення замовлення займе лічені секунди.</div>
+        <button type="button" class="btn dark" onclick="openAddr()">＋ Додати адресу</button>
+      </div>
+
+      <div class="addr-hint"><b>Місто</b> обирається через спільний діалог «Оберіть місто» — один список живить доставку, картку адреси й SEO-сторінки міст.</div>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+<div id="wf-addr"></div>
+<div id="wf-toast"></div>
+
+<script src="_nav.js"></script>
+<script>
+  var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
+  wfHeader(isCoach ? 'coach' : 'buyer');
+  wfAccountNav('addresses', isCoach);
+  // state patch: no saved addresses → drop the sidebar count badge
+  var ac = document.querySelector('.acc-link[aria-current="page"] .ct'); if (ac) ac.remove();
+  wfFooter(); wfToasts(); wfAddrDialog(); wfBar('account-addresses.html', 'empty');
+</script>
+</body>
+</html>

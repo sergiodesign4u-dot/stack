@@ -69,6 +69,20 @@
      досягнуто», no next-tier target; explanations kept). Private → **noindex**.
 4. **Адреси (7.5)** — list + add/edit + one **default**. Address types mirror the delivery options
    (Nova Poshta відділення/поштомат · courier · Odesa pickup). Speeds up checkout (6.x).
+   - **Add-address = a method-first dialog (wireframe 2026-07-05).** «＋ Додати адресу» opens a shared
+     dialog (`wfAddrDialog` in `_nav.js`): **step 1 «choose»** picks the method — **📦 Відділення / 🔳
+     Поштомат / 🚚 Кур'єр** (Nova Poshta) — then **step 2 = a method-specific form**: Відділення / Поштомат
+     ask city + branch/parcel-locker № + recipient + phone; Кур'єр asks city + street + house/flat +
+     entrance/floor (opt) + recipient + phone. Each form has a **«‹ Інший спосіб» back** + «Зробити
+     основною» + save. **City reuses the global «Оберіть місто» dialog (0.1a).** Pickup is chosen in the
+     cart at checkout, not saved here (noted in the chooser).
+   - **Edit reuses the same dialog** (`openAddrEdit`): opens the address's method form **prefilled**,
+     titled «Редагувати адресу · <спосіб>», with **no method-chooser back link**, a **«Зберегти зміни»**
+     button, and a **«🗑 Видалити адресу»** row → a **delete-confirm** sub-dialog («Видалити адресу?»).
+     Cards' «Редагувати»/«Видалити»/«Зробити основною» are all wired (toasts on save/delete/default).
+   - **States (wireframe):** `base` (saved list) · **`empty`** («Ще немає збережених адрес» + add;
+     count badge dropped) · `add` (chooser) · `viddilennia` · `postomat` · `courier` (add-form snapshots)
+     · **`edit`** (edit form + delete row) · **`delete`** (delete-confirm). noindex.
 5. **Профіль (7.1)** — **passwordless** (consistent with auth 1.x): name · **phone (primary,
    verified, change via OTP)** · **e-mail (optional, code)** · language · notification consents
    (SMS status + e-mail reorder reminders — Decision 4) · delete account. **No password** (the old

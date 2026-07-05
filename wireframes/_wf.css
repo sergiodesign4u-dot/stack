@@ -991,3 +991,24 @@ img { max-width: 100%; display: block; }
 .cedlg p { font-size: 13.5px; color: var(--sec); margin: 8px 0 20px; line-height: 1.55; }
 .cedlg .act { display: flex; gap: 10px; }
 .cedlg .act .btn { flex: 1; text-align: center; cursor: pointer; }
+
+/* add-address dialog (node 7.5) — reuses .ceov/.cemodal/.cef/.ceact */
+.addr-modal { max-height: 90vh; overflow: auto; }
+.addr-methods { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.addr-method { display: flex; align-items: center; gap: 13px; width: 100%; text-align: left; border: 1.5px solid var(--hair2); border-radius: 12px; padding: 14px; background: #fff; cursor: pointer; }
+.addr-method:hover { border-color: var(--dark); background: var(--fill); }
+.addr-method .am-ic { font-size: 22px; flex: none; }
+.addr-method .am-tx { display: flex; flex-direction: column; min-width: 0; }
+.addr-method .am-tx b { font-size: 14px; color: var(--strong); }
+.addr-method .am-tx i { font-size: 12px; color: var(--sec); font-style: normal; margin-top: 2px; }
+.addr-method .am-ar { margin-left: auto; color: #bbb; font-weight: 700; font-size: 17px; }
+.addr-back { background: none; border: none; color: var(--strong); font-weight: 700; font-size: 13px; cursor: pointer; padding: 0; margin-bottom: 14px; text-decoration: underline; }
+.addr-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.addr-cityfld { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1.5px solid var(--hair2); border-radius: 9px; padding: 12px; background: #fff; cursor: pointer; font-size: 15px; color: var(--strong); }
+.addr-cityfld .chg { font-size: 12px; font-weight: 700; color: var(--sec); text-decoration: underline; }
+.addr-check { display: flex; align-items: center; gap: 9px; font-size: 13.5px; color: var(--strong); font-weight: 600; margin-top: 2px; cursor: pointer; }
+.addr-check input { width: 18px; height: 18px; flex: none; }
+.addr-note { font-size: 12.5px; color: var(--sec); border: 1px dashed var(--hair2); border-radius: 8px; padding: 10px 12px; margin-top: 14px; line-height: 1.5; }
+.cemodal.mode-edit .addr-back { display: none; }
+.addr-del-row { margin-top: 16px; padding-top: 15px; border-top: 1px solid var(--hair); }
+.addr-del-row button { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700; color: var(--strong); border: 1.5px solid var(--hair2); border-radius: 9px; padding: 9px 14px; background: none; cursor: pointer; }

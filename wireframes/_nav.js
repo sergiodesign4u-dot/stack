@@ -17,7 +17,9 @@ const WF_STATE_LABEL = {
   confirm: 'Підтвердження', suggest: 'Підказки', 'no-results': 'Нічого не знайдено',
   protein: 'Протеїн', health: 'Здоровʼя', vitamins: 'Вітаміни',
   free: 'Тариф Free', cancel: 'Скасування Pro',
-  max: 'Максимальний рівень', many: 'Багато (пагінація)'
+  max: 'Максимальний рівень', many: 'Багато (пагінація)',
+  add: 'Додати — вибір способу', viddilennia: 'Відділення', postomat: 'Поштомат', courier: 'Кур\'єр',
+  edit: 'Редагувати', delete: 'Видалення'
 };
 
 const WF_FLOWS = [
@@ -101,7 +103,7 @@ const WF_FLOWS = [
     screens: [
       { file: 'account-orders.html',    name: 'Замовлення',           node: '7.2', built: true, states: ['empty'], builtStates: ['empty'] },
       { file: 'account-loyalty.html',   name: 'Лояльність і бонуси',   node: '7.4', built: true, states: ['empty','max'], builtStates: ['empty','max'] },
-      { file: 'account-addresses.html', name: 'Адреси',               node: '7.5', built: true, states: [], builtStates: [] },
+      { file: 'account-addresses.html', name: 'Адреси',               node: '7.5', built: true, states: ['empty','add','viddilennia','postomat','courier','edit','delete'], builtStates: ['empty','add','viddilennia','postomat','courier','edit','delete'] },
       { file: 'account-profile.html',   name: 'Профіль',              node: '7.1', built: true, states: [], builtStates: [] },
       { file: 'account-wishlist.html',  name: 'Обране',               node: '7.6', built: true, states: ['empty','many'], builtStates: ['empty','many'] }
     ]
@@ -739,6 +741,81 @@ function openClientDelete() { var e = document.getElementById('ce-edit'), c = do
 function closeClientEdit() { document.querySelectorAll('#wf-client-edit .ceov.open').forEach(o => o.classList.remove('open')); }
 function saveClientEdit() { closeClientEdit(); wfToast('ok', 'Зміни клієнта збережено'); }
 function createClient() { closeClientEdit(); wfToast('ok', 'Клієнта додано до списку'); }
+
+/* SHARED add/edit-address dialog (node 7.5) — a method-first flow: step «choose»
+   (Відділення / Поштомат / Кур'єр) → a method-specific form. Same dialog serves
+   ADD (openAddr) and EDIT (openAddrEdit — prefilled, «Зберегти зміни» + delete).
+   City reuses the global «Оберіть місто» dialog (openCity). Into #wf-addr. */
+function wfAddrDialog() {
+  var el = document.getElementById('wf-addr'); if (!el) return;
+  el.className = '';
+  var cityFld = '<div class="cef"><label>Місто</label><button type="button" class="addr-cityfld" onclick="openCity()"><span>📍 Одеса</span><span class="chg">Змінити</span></button></div>';
+  var recv = '<div class="addr-2col"><div class="cef"><label>Ім\'я</label><input type="text" value="Вікторія"></div><div class="cef"><label>Прізвище</label><input type="text" value="Коваль"></div></div>' +
+             '<div class="cef"><label>Телефон</label><input type="tel" inputmode="tel" value="+380 67 123 45 67"></div>';
+  var def = '<label class="addr-check"><input type="checkbox"> Зробити основною адресою</label>';
+  var delRow = '<div class="addr-del-row" hidden><button type="button" onclick="openAddrDelete()">🗑 Видалити адресу</button></div>';
+  function acts() { return '<div class="ceact"><button type="button" class="btn" onclick="closeAddr()">Скасувати</button><button type="button" class="btn dark addr-save" onclick="saveAddr()">Зберегти адресу</button></div>'; }
+  function back() { return '<button type="button" class="addr-back" onclick="addrStep(\'choose\')">‹ Інший спосіб</button>'; }
+
+  el.innerHTML =
+    '<div class="ceov" id="addr-dlg" role="dialog" aria-modal="true" aria-label="Адреса доставки"><div class="cemodal addr-modal">' +
+    '<div class="ce-top"><h2 id="addr-title">Нова адреса</h2><button class="ce-x" onclick="closeAddr()" aria-label="Закрити">✕</button></div>' +
+
+    '<div class="addr-step" data-step="choose">' +
+      '<p class="sub">Оберіть спосіб доставки — далі заповнимо лише потрібні поля.</p>' +
+      '<div class="addr-methods">' +
+        '<button type="button" class="addr-method" onclick="addrStep(\'vidd\')"><span class="am-ic">📦</span><span class="am-tx"><b>Відділення Нової Пошти</b><i>Забрати у відділенні — за номером або адресою</i></span><span class="am-ar">›</span></button>' +
+        '<button type="button" class="addr-method" onclick="addrStep(\'post\')"><span class="am-ic">🔳</span><span class="am-tx"><b>Поштомат Нової Пошти</b><i>Самостійно, цілодобово — за номером поштомата</i></span><span class="am-ar">›</span></button>' +
+        '<button type="button" class="addr-method" onclick="addrStep(\'cour\')"><span class="am-ic">🚚</span><span class="am-tx"><b>Кур\'єр Нової Пошти</b><i>Доставка за вашою адресою</i></span><span class="am-ar">›</span></button>' +
+      '</div>' +
+      '<div class="addr-note">Самовивіз із магазину Stack обирається безпосередньо в кошику під час оформлення — його не треба зберігати тут.</div>' +
+    '</div>' +
+
+    '<div class="addr-step" data-step="vidd" hidden>' + back() + cityFld +
+      '<div class="cef"><label>Відділення</label><input type="text" placeholder="Почніть вводити номер або вулицю" value="№ 12 — вул. Катерининська, 27"></div>' +
+      recv + def + acts() + delRow + '</div>' +
+
+    '<div class="addr-step" data-step="post" hidden>' + back() + cityFld +
+      '<div class="cef"><label>Поштомат</label><input type="text" placeholder="Номер поштомата або адреса" value="№ 24857 — просп. Небесної Сотні, 4"></div>' +
+      recv + def + acts() + delRow + '</div>' +
+
+    '<div class="addr-step" data-step="cour" hidden>' + back() + cityFld +
+      '<div class="cef"><label>Вулиця</label><input type="text" placeholder="Напр., вул. Дерибасівська" value="вул. Дерибасівська"></div>' +
+      '<div class="addr-2col"><div class="cef"><label>Будинок</label><input type="text" value="15"></div><div class="cef"><label>Квартира</label><input type="text" value="8"></div></div>' +
+      '<div class="cef"><label>Під\'їзд / поверх <span class="opt">— необов\'язково</span></label><input type="text" placeholder="Напр., 2 під\'їзд, 4 поверх"></div>' +
+      recv + def + acts() + delRow + '</div>' +
+
+    '</div></div>' +
+
+    '<div class="ceov" id="addr-del" role="dialog" aria-modal="true" aria-label="Видалити адресу"><div class="cedlg">' +
+    '<div class="ic" aria-hidden="true">🗑</div><h2>Видалити адресу?</h2>' +
+    '<p>Адресу буде вилучено зі збережених. Це не вплине на вже оформлені замовлення.</p>' +
+    '<div class="act"><button type="button" class="btn" onclick="closeAddrDelete()">Скасувати</button>' +
+    '<button type="button" class="btn dark" onclick="confirmAddrDelete()">Видалити</button></div>' +
+    '</div></div>';
+}
+function addrSetMode(edit) {
+  var m = document.querySelector('#addr-dlg .cemodal'); if (!m) return;
+  m.classList.toggle('mode-edit', !!edit);
+  document.querySelectorAll('#addr-dlg .addr-save').forEach(function (b) { b.textContent = edit ? 'Зберегти зміни' : 'Зберегти адресу'; });
+  document.querySelectorAll('#addr-dlg .addr-del-row').forEach(function (r) { r.hidden = !edit; });
+}
+function openAddr(step) { wfAddrDialog(); addrSetMode(false); var d = document.getElementById('addr-dlg'); if (d) d.classList.add('open'); addrStep(step || 'choose'); }
+function openAddrEdit(step) { wfAddrDialog(); addrSetMode(true); var d = document.getElementById('addr-dlg'); if (d) d.classList.add('open'); addrStep(step || 'vidd'); }
+function addrStep(s) {
+  var m = document.querySelector('#addr-dlg .cemodal');
+  var edit = m && m.classList.contains('mode-edit');
+  var names = { choose: '', vidd: 'Відділення', post: 'Поштомат', cour: 'Кур\'єр' };
+  document.querySelectorAll('#addr-dlg .addr-step').forEach(function (p) { p.hidden = (p.getAttribute('data-step') !== s); });
+  var t = document.getElementById('addr-title');
+  if (t) t.textContent = (edit ? 'Редагувати адресу' : 'Нова адреса') + (names[s] ? ' · ' + names[s] : '');
+}
+function closeAddr() { var d = document.getElementById('addr-dlg'); if (d) d.classList.remove('open'); }
+function saveAddr() { var m = document.querySelector('#addr-dlg .cemodal'); var edit = m && m.classList.contains('mode-edit'); closeAddr(); wfToast('ok', edit ? 'Зміни адреси збережено' : 'Адресу збережено'); }
+function openAddrDelete() { var d = document.getElementById('addr-dlg'), c = document.getElementById('addr-del'); if (d) d.classList.remove('open'); if (c) c.classList.add('open'); }
+function closeAddrDelete() { var c = document.getElementById('addr-del'), d = document.getElementById('addr-dlg'); if (c) c.classList.remove('open'); if (d) d.classList.add('open'); }
+function confirmAddrDelete() { closeAddrDelete(); closeAddr(); wfToast('ok', 'Адресу видалено'); }
+function wfAddrMakeDefault() { wfToast('ok', 'Адресу призначено основною'); }
 
 /* SHARED account section-nav (node 7.x) — one source for account.html + every
    account-*.html sub-page. active = section key; isCoach swaps «Стати тренером»
