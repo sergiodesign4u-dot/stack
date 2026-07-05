@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Кабінет — Лояльність і бонуси — Stack (wireframe 7.4)</title>
+<title>Кабінет — Лояльність і бонуси (макс. рівень) — Stack (wireframe 7.4)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
   /* page-local: two-mechanism layout + ledger table (greyscale) */
@@ -12,6 +12,8 @@
   @media (min-width: 760px) { .loy-two { grid-template-columns: 1fr 1fr; } }
   .loy-two .acard { padding: 18px; }
   .mech-kicker { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--light); }
+  .lbar.maxed i { background: var(--strong); }
+  .lrung.top { border-color: var(--strong); }
   .led-wrap { border: 1px solid var(--hair); border-radius: 14px; overflow: hidden; margin-top: 22px; }
   .led-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 15px 16px 13px; border-bottom: 1px solid var(--hair); }
   .led-head h2 { font-size: 16px; font-weight: 800; color: var(--strong); }
@@ -29,10 +31,9 @@
 </head>
 <body>
 <!-- ============================================================
-  WIREFRAME · node 7.4 Лояльність і бонуси (buyer account, private → noindex).
-  TWO independent mechanisms (Decision 3, Job 6): (1) 3-tier lifetime-spend
-  discount ladder; (2) ~1% bonus account with 3-month expiry + accrual/burn
-  ledger. Numbers = hypothesis [?]. Reuses the shared account shell.
+  WIREFRAME · node 7.4 Лояльність і бонуси — STATE: max (лояльність на
+  найвищому рівні 🥇 Золото −8%). Прогрес-бар повний, «до наступного» немає,
+  пояснення до обох механізмів залишені (як просив користувач). noindex.
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 <div class="wf-canvas">
@@ -54,7 +55,7 @@
 
       <div class="loy-two">
 
-        <!-- mechanism 1 — bonus account (bonuses first, consistent with the account overview) -->
+        <!-- mechanism 1 — bonus account -->
         <div class="acard abonus">
           <div class="ah"><span class="mech-kicker">Бонусний рахунок</span></div>
           <div class="big">124 ₴</div>
@@ -62,18 +63,18 @@
           <div class="warn"><b>18 ₴ згорять 20.09.2026.</b> Бонуси діють 3 місяці — використайте їх у кошику під час наступного замовлення.</div>
         </div>
 
-        <!-- mechanism 2 — lifetime-spend discount ladder -->
+        <!-- mechanism 2 — lifetime-spend discount ladder (max: top tier reached) -->
         <div class="acard loy">
           <div class="ah"><span class="mech-kicker">Рівень лояльності</span></div>
-          <div class="lt">🥈 Срібло · персональна знижка −5%</div>
-          <div class="lbar"><i style="width:62%"></i></div>
-          <div class="ls">Куплено на <b>18 400 ₴</b> за весь час · до 🥇 Золота ще <b>6 600 ₴</b></div>
+          <div class="lt">🥇 Золото · персональна знижка −8% · максимальний рівень</div>
+          <div class="lbar maxed"><i style="width:100%"></i></div>
+          <div class="ls">Куплено на <b>24 800 ₴</b> за весь час · максимальний рівень досягнуто 🎉</div>
           <div class="ladder">
             <div class="lrung on"><span class="rn">🥉 Бронза</span>−3%</div>
             <div class="lrung on"><span class="rn">🥈 Срібло</span>−5%</div>
-            <div class="lrung"><span class="rn">🥇 Золото</span>−8%</div>
+            <div class="lrung on top"><span class="rn">🥇 Золото</span>−8%</div>
           </div>
-          <div class="abonus"><div class="warn" style="margin-top:14px"><b>Сума покупок не згорає.</b> Знижка застосовується автоматично в кошику. Пороги та % — попередні [?].</div></div>
+          <div class="abonus"><div class="warn" style="margin-top:14px"><b>Ви на найвищому рівні.</b> Знижка −8% застосовується автоматично в кошику. Сума покупок не згорає, рівень залишається назавжди. Пороги та % — попередні [?].</div></div>
         </div>
 
       </div>
@@ -112,7 +113,9 @@
   var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
   wfHeader(isCoach ? 'coach' : 'buyer');
   wfAccountNav('loyalty', isCoach);
-  wfFooter(); wfBar('account-loyalty.html');
+  // state patch: top loyalty tier
+  var tierEl = document.querySelector('.acc-tier'); if (tierEl) tierEl.textContent = '🥇 Золотий рівень';
+  wfFooter(); wfBar('account-loyalty.html', 'max');
 </script>
 </body>
 </html>

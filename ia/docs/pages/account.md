@@ -44,6 +44,12 @@
      (+ a «X ₴ згорять DD.MM» warning). Spend in the cart. Goal = **retention** (come back to spend).
    - The header «Бонуси» element links here; guest sees «бонуси / Отримати» → registration. The full
      explainer is the public **Бонусна програма landing (8.7)** in `content.md`. Numbers are **[?]**.
+   - **Block order (locked, consistent with the 7.0 overview): bonuses first, then loyalty.** The two
+     cards are titled **«Бонусний рахунок»** and **«Рівень лояльності»** (not «Механізм 1/2»).
+   - **States (wireframe, updated 2026-07-05):** `base` (🥈 Silver, mid-progress) · **`empty`** (new
+     buyer — bonus **0 ₴**, base tier **0%**, «до 🥉 Бронзи ще 3 000 ₴» [example], empty ledger; sidebar
+     chip «Базовий рівень»; explanations kept) · **`max`** (🥇 Gold −8%, full bar, «максимальний рівень
+     досягнуто», no next-tier target; explanations kept). Private → **noindex**.
 4. **Адреси (7.5)** — list + add/edit + one **default**. Address types mirror the delivery options
    (Nova Poshta відділення/поштомат · courier · Odesa pickup). Speeds up checkout (6.x).
 5. **Профіль (7.1)** — **passwordless** (consistent with auth 1.x): name · **phone (primary,
@@ -51,8 +57,11 @@
    (SMS status + e-mail reorder reminders — Decision 4) · delete account. **No password** (the old
    sitemap «Пароль» is removed).
 6. **Обране (7.6)** — grid of saved products using the **canonical product card**; ♡ active; «У кошик»
-   moves to 6.0; available to **buyer and coach**; ♡ icon in the header. Empty state. «My staples» is
-   post-launch.
+   moves to 6.0; available to **buyer and coach**; ♡ icon in the header. «My staples» is post-launch.
+   - **States (wireframe, 2026-07-05):** `base` (small grid) · **`empty`** (dashed emptybox «В обраному
+     поки порожньо» → ♥-hint + exits Обрати ціль / До каталогу; sidebar count badge dropped) ·
+     **`many`** (large wishlist — saved-count in H1 «42 товари збережено» + **«Показати ще» load-more
+     + crawlable numbered pagination**, mirroring the listing 2.1 pattern; sidebar count = 42). noindex.
 7. **Стати тренером / Я тренер (7.7)** — **same entry point as the For-Coaches landing (5.0)** so a
    coach never hunts for «where to activate»: launches verification (social-link) → **5.1**. If the
    role is already active — shows role status + tier (**Free/Pro [?]**) + a link to Coach workspace

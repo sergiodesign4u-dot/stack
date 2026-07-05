@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет — Лояльність і бонуси (порожньо) — Stack (wireframe 7.4)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+  /* page-local: two-mechanism layout + ledger table (greyscale) */
+  .loy-two { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+  @media (min-width: 760px) { .loy-two { grid-template-columns: 1fr 1fr; } }
+  .loy-two .acard { padding: 18px; }
+  .mech-kicker { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--light); }
+  .led-wrap { border: 1px solid var(--hair); border-radius: 14px; overflow: hidden; margin-top: 22px; }
+  .led-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 15px 16px 13px; border-bottom: 1px solid var(--hair); }
+  .led-head h2 { font-size: 16px; font-weight: 800; color: var(--strong); }
+  .led-empty { padding: 34px 20px; text-align: center; color: var(--sec); font-size: 13.5px; line-height: 1.5; }
+  .led-empty b { color: var(--strong); display: block; margin-bottom: 4px; font-size: 15px; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.4 Лояльність і бонуси — STATE: empty (новий покупець,
+  ще без покупок). Бонуси 0 ₴, базовий рівень (знижка 0%), порожній леджер.
+  Пояснення до обох механізмів залишені (як просив користувач). noindex.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <span class="cur">Лояльність і бонуси</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Лояльність і бонуси</h1>
+      <p class="acc-sub">Дві незалежні програми: бонусний рахунок і персональна знижка за суму покупок. <a href="content-loyalty-buyer.html" style="color:var(--strong);font-weight:700">Докладніше про програму →</a></p>
+
+      <div class="loy-two">
+
+        <!-- mechanism 1 — bonus account (empty: 0 ₴, explanation kept) -->
+        <div class="acard abonus">
+          <div class="ah"><span class="mech-kicker">Бонусний рахунок</span></div>
+          <div class="big">0 ₴</div>
+          <div class="u">бонусів на рахунку · 1 бонус = 1 ₴ · нараховуємо ~1% з покупки</div>
+          <div class="warn"><b>Тут поки порожньо.</b> Нараховуємо ~1% бонусів з кожного замовлення. Бонуси діють 3 місяці й списуються в кошику під час оплати.</div>
+        </div>
+
+        <!-- mechanism 2 — lifetime-spend discount ladder (empty: base tier, 0%) -->
+        <div class="acard loy">
+          <div class="ah"><span class="mech-kicker">Рівень лояльності</span></div>
+          <div class="lt">Базовий · персональна знижка 0%</div>
+          <div class="lbar"><i style="width:0%"></i></div>
+          <div class="ls">Куплено на <b>0 ₴</b> за весь час · до 🥉 Бронзи ще <b>3 000 ₴</b></div>
+          <div class="ladder">
+            <div class="lrung"><span class="rn">🥉 Бронза</span>−3%</div>
+            <div class="lrung"><span class="rn">🥈 Срібло</span>−5%</div>
+            <div class="lrung"><span class="rn">🥇 Золото</span>−8%</div>
+          </div>
+          <div class="abonus"><div class="warn" style="margin-top:14px"><b>Сума покупок не згорає.</b> Що більше купуєте за весь час — то вищий рівень і більша автоматична знижка в кошику. Пороги та % — попередні [?].</div></div>
+        </div>
+
+      </div>
+
+      <!-- movements ledger — empty -->
+      <div class="led-wrap">
+        <div class="led-head">
+          <h2>Рух бонусів</h2>
+          <a href="content-loyalty-buyer.html">Як нараховуються →</a>
+        </div>
+        <div class="led-empty">
+          <b>Ще немає руху бонусів</b>
+          Зробіть перше замовлення — і тут з’являться нарахування та списання.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+  var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
+  wfHeader(isCoach ? 'coach' : 'buyer');
+  wfAccountNav('loyalty', isCoach);
+  // state patch: brand-new buyer, no purchases yet
+  var tierEl = document.querySelector('.acc-tier'); if (tierEl) tierEl.textContent = 'Базовий рівень';
+  var bv = document.querySelector('.wfh-act .val'); if (bv) bv.textContent = '0 ₴';
+  wfFooter(); wfBar('account-loyalty.html', 'empty');
+</script>
+</body>
+</html>

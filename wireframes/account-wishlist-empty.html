@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет — Обране порожнє — Stack (wireframe 7.6 · empty)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+  /* page-local empty state (same pattern as account-empty.html) */
+  .emptybox { border: 1.5px dashed var(--hair2); border-radius: 14px; padding: 46px 22px; text-align: center; margin-top: 18px; }
+  .emptybox .ei { font-size: 34px; }
+  .emptybox .et { font-size: 17px; font-weight: 800; color: var(--strong); margin: 12px 0 6px; }
+  .emptybox .es { font-size: 13.5px; color: var(--sec); margin-bottom: 18px; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+  .emptybox .eact { display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.6 Обране — STATE: empty (немає збережених товарів).
+  Ніколи не глухий кут: виходи в каталог / до цілей (♥ на картках повертає сюди).
+  Buyer + coach. noindex.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <span class="cur">Обране</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Обране</h1>
+      <p class="acc-sub">Збережені товари — додайте в кошик, коли будете готові.</p>
+
+      <div class="emptybox">
+        <div class="ei">♡</div>
+        <div class="et">В обраному поки порожньо</div>
+        <div class="es">Натискайте ♥ на картці товару — і він збережеться тут. Зручно збирати набір і повертатися до нього пізніше.</div>
+        <div class="eact">
+          <a class="btn dark" href="home.html">Обрати ціль</a>
+          <a class="btn" href="catalog-page.html">До каталогу</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+  var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
+  wfHeader(isCoach ? 'coach' : 'buyer');
+  wfAccountNav('wishlist', isCoach);
+  // state patch: no saved items → drop the sidebar count badge
+  var wlc = document.querySelector('.acc-link[aria-current="page"] .ct'); if (wlc) wlc.remove();
+  wfFooter(); wfBar('account-wishlist.html', 'empty');
+</script>
+</body>
+</html>

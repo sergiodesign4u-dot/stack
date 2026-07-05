@@ -16,7 +16,8 @@ const WF_STATE_LABEL = {
   addclient: 'Додати клієнта', priceblock: 'Ціна не підтверджена', newclient: 'Новий клієнт', cart: 'Кошик-полиця',
   confirm: 'Підтвердження', suggest: 'Підказки', 'no-results': 'Нічого не знайдено',
   protein: 'Протеїн', health: 'Здоровʼя', vitamins: 'Вітаміни',
-  free: 'Тариф Free', cancel: 'Скасування Pro'
+  free: 'Тариф Free', cancel: 'Скасування Pro',
+  max: 'Максимальний рівень', many: 'Багато (пагінація)'
 };
 
 const WF_FLOWS = [
@@ -99,10 +100,10 @@ const WF_FLOWS = [
     note: 'розділи кабінету (7.1–7.7) на спільному шеллі (wfAccountNav): замовлення · лояльність · адреси · профіль · обране',
     screens: [
       { file: 'account-orders.html',    name: 'Замовлення',           node: '7.2', built: true, states: [], builtStates: [] },
-      { file: 'account-loyalty.html',   name: 'Лояльність і бонуси',   node: '7.4', built: true, states: [], builtStates: [] },
+      { file: 'account-loyalty.html',   name: 'Лояльність і бонуси',   node: '7.4', built: true, states: ['empty','max'], builtStates: ['empty','max'] },
       { file: 'account-addresses.html', name: 'Адреси',               node: '7.5', built: true, states: [], builtStates: [] },
       { file: 'account-profile.html',   name: 'Профіль',              node: '7.1', built: true, states: [], builtStates: [] },
-      { file: 'account-wishlist.html',  name: 'Обране',               node: '7.6', built: true, states: [], builtStates: [] }
+      { file: 'account-wishlist.html',  name: 'Обране',               node: '7.6', built: true, states: ['empty','many'], builtStates: ['empty','many'] }
     ]
   }
 ];
