@@ -29,6 +29,13 @@
 1. **Огляд / dashboard (7.0)** — greeting + **snapshot cards**: bonus balance · **last order with a
    «↻ Повторити» button** · wishlist count · saved-addresses count; a **loyalty progress** strip; a
    **«Стати тренером» banner**. Each card deep-links into its section. The default section.
+   - **«↻ Час поповнити запаси» restock nudge (wireframe 2026-07-05)** — a calm, top-of-dashboard card
+     surfacing the **reorder mechanic (Decision 4 · Job 3-restock)**: 1–2 staple products the buyer is
+     due to rebuy, each with «куплено N днів тому · зазвичай вистачає на ~N днів» + a one-tap **«↻ У кошик»**
+     (toast). No countdowns/anxiety (Principle 4). Shown only when there's purchase history; **hidden for
+     the coach** role (coach dashboard = order-for-clients, not personal restock). «My staples» stays
+     post-launch; this is the MVP dashboard surface of the reminder mechanic. Consumption estimates are
+     operational **[?]**.
 2. **Замовлення (7.2) + Деталі (7.3) — one accordion page (redesigned 2026-07-05).** 7.2 list and
    7.3 detail are **merged into a single accordion** (there is no separate detail page). Each order is a
    **collapsed row**: `№ {number}` (no «Замовлення» word) · date · **status pill** · sum · **2–3 item

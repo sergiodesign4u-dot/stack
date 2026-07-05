@@ -6,6 +6,19 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Кабінет покупця — Огляд — Stack (wireframe 7.0)</title>
 <link rel="stylesheet" href="_wf.css">
+<style>
+  /* page-local: restock nudge (reorder mechanic, Decision 4 · Job 3-restock) — calm, no anxiety */
+  .restock .rk-lead { font-size: 13px; color: var(--sec); margin: -4px 0 12px; }
+  .rk-item { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--hair); }
+  .rk-item:last-child { border-bottom: none; padding-bottom: 2px; }
+  .rk-item:first-of-type { padding-top: 2px; }
+  .rk-ph { width: 46px; height: 46px; border-radius: 8px; background: var(--fill); border: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 9px; flex: none; }
+  .rk-tx { min-width: 0; }
+  .rk-nm { font-size: 13.5px; font-weight: 700; color: var(--strong); line-height: 1.3; }
+  .rk-cy { font-size: 12px; color: var(--sec); margin-top: 2px; }
+  .rk-cy b { color: var(--strong); font-weight: 700; }
+  .rk-add { margin-left: auto; white-space: nowrap; }
+</style>
 </head>
 <body>
 <!-- ============================================================
@@ -35,6 +48,28 @@
       <p class="acc-sub">Ваш кабінет: бонуси, замовлення, обране та адреси в одному місці.</p>
 
       <div class="acc-grid">
+
+        <!-- Restock nudge (reorder mechanic, Decision 4 · Job 3-restock) → repeat to cart. Calm. -->
+        <div class="acard restock span2" id="restock-card">
+          <div class="ah"><h3>↻ Час поповнити запаси</h3><a class="lnk" href="account-orders.html">Усі покупки →</a></div>
+          <p class="rk-lead">За вашим ритмом купівлі ці товари скоро закінчаться. Додайте в кошик в один дотик.</p>
+          <div class="rk-item">
+            <div class="rk-ph">фото</div>
+            <div class="rk-tx">
+              <div class="rk-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
+              <div class="rk-cy">Купували 34 дні тому · зазвичай вистачає на <b>~30 днів</b></div>
+            </div>
+            <button class="btn dark rk-add" type="button" onclick="wfToast('ok','Додано в кошик')">↻ У кошик</button>
+          </div>
+          <div class="rk-item">
+            <div class="rk-ph">фото</div>
+            <div class="rk-tx">
+              <div class="rk-nm">NOW Foods Omega-3 1000 мг, 200 капсул</div>
+              <div class="rk-cy">Купували 88 днів тому · зазвичай вистачає на <b>~100 днів</b></div>
+            </div>
+            <button class="btn dark rk-add" type="button" onclick="wfToast('ok','Додано в кошик')">↻ У кошик</button>
+          </div>
+        </div>
 
         <!-- Bonus balance → Лояльність (7.4) -->
         <div class="acard abonus">
@@ -122,18 +157,21 @@
 
 <footer id="wf-footer"></footer>
 </div>
+<div id="wf-toast"></div>
 
 <script src="_nav.js"></script>
 <script>
   var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
   wfHeader(isCoach ? 'coach' : 'buyer');
   wfAccountNav('overview', isCoach);
-  wfFooter(); wfBar('account.html');
+  wfFooter(); wfToasts(); wfBar('account.html');
   if (isCoach) {
     document.querySelector('.acc-h1').textContent = 'Вітаємо, Олено!';
     document.querySelector('#coach-banner h3').textContent = 'Ви вже тренер ✓';
     document.querySelector('#coach-banner p').textContent = 'Гуртові ціни та мультиклієнтські замовлення активні. Керуйте клієнтами й сесіями в кабінеті тренера.';
     var cta = document.getElementById('coach-cta'); cta.textContent = 'Перейти в кабінет тренера'; cta.setAttribute('href', 'coach-home.html');
+    // coach dashboard is order-for-clients, not personal restock — hide the nudge
+    var rk = document.getElementById('restock-card'); if (rk) rk.style.display = 'none';
   }
 </script>
 </body>
