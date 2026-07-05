@@ -99,7 +99,7 @@ const WF_FLOWS = [
     id: 'f6', name: 'Кабінет покупця · розділи', status: 'active',
     note: 'розділи кабінету (7.1–7.7) на спільному шеллі (wfAccountNav): замовлення · лояльність · адреси · профіль · обране',
     screens: [
-      { file: 'account-orders.html',    name: 'Замовлення',           node: '7.2', built: true, states: [], builtStates: [] },
+      { file: 'account-orders.html',    name: 'Замовлення',           node: '7.2', built: true, states: ['empty'], builtStates: ['empty'] },
       { file: 'account-loyalty.html',   name: 'Лояльність і бонуси',   node: '7.4', built: true, states: ['empty','max'], builtStates: ['empty','max'] },
       { file: 'account-addresses.html', name: 'Адреси',               node: '7.5', built: true, states: [], builtStates: [] },
       { file: 'account-profile.html',   name: 'Профіль',              node: '7.1', built: true, states: [], builtStates: [] },

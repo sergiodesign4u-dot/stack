@@ -19,20 +19,37 @@
   «Кабінет» dropdown** (Navigation 0.1): Огляд 7.0 · Замовлення 7.2 · Лояльність 7.4 · Обране 7.6 ·
   Адреси 7.5 · Профіль 7.1 · Стати тренером 7.7 · Вийти.
 - **Mobile:** the left nav collapses into a **menu-hub** screen (profile + bonuses/discount on top,
-  then the section list with counters); tapping a section opens it full-screen with a «‹ back». This
-  is **tab 5 «Акаунт»** of the mobile bottom nav.
+  then the sections); tapping a section opens it full-screen. This is **tab 5 «Акаунт»** of the mobile
+  bottom nav. **Section nav on mobile (wireframe 2026-07-05) = a horizontal, swipeable chips row**
+  (not a full-height vertical list) so it doesn't eat the screen; the current section is a filled dark
+  chip; counters ride as small pills on the chip. Implemented in `wfAccountNav` / `_wf.css` (shared).
 
 ## Sections
 
 1. **Огляд / dashboard (7.0)** — greeting + **snapshot cards**: bonus balance · **last order with a
    «↻ Повторити» button** · wishlist count · saved-addresses count; a **loyalty progress** strip; a
    **«Стати тренером» banner**. Each card deep-links into its section. The default section.
-2. **Замовлення (7.2) → Деталі + повтор (7.3)** — order list (number · date · **status pill** ·
-   sum · item thumbnails · «Повторити»/«Деталі»). Detail = line items · sums · bonuses used · ТТН ·
-   **«Повторити замовлення» → cart (6.0)** · documents · «Залишити відгук» (→ 3.1a). **Job 4.**
-   Repeat adds available items to the cart and **honestly flags** anything out of stock (leads to an
-   alternative — never a silent failure or dead end). States: Оформлено / В дорозі (ТТН) / Доставлено
-   / Скасовано; many → pagination; empty → «Ще немає замовлень» + «До каталогу».
+2. **Замовлення (7.2) + Деталі (7.3) — one accordion page (redesigned 2026-07-05).** 7.2 list and
+   7.3 detail are **merged into a single accordion** (there is no separate detail page). Each order is a
+   **collapsed row**: `№ {number}` (no «Замовлення» word) · date · **status pill** · sum · **2–3 item
+   thumbnails (extra → «+N»)** · a **drop button** that expands the row.
+   - **Expanded body = two columns.** *Main (left):* line items (photo + name; under the name a
+     **«✎ Залишити відгук»** icon-link → 3.1a, on delivered orders) + a **«ціна × N од.» → row total**
+     line; then the **money breakdown in this fixed order** — Товари (к-сть · сума) → Знижка на товари →
+     Використано бонусів → Промокод → Знижка лояльності → **Разом (bold)** → **★ Нараховано на бонусний
+     рахунок (+N)** → **⭳ Завантажити квитанцію** (bottom). *Side (right):* big **«↻ Повторити
+     замовлення» → cart (6.0)** + a delivery facts block — спосіб доставки · адреса (for Nova Poshta:
+     address + відділення/поштомат №) · **Номер ТТН** (Nova Poshta only; pickup has none) · отримувач ·
+     телефон. **Job 4.**
+   - Repeat adds available items to the cart and **honestly flags** anything out of stock (inline
+     «1 товар недоступний — запропонуємо заміну» note — never a silent failure or dead end).
+   - Status pills: Оформлено / **В дорозі (ТТН)** / Обробляється / Доставлено / Скасовано.
+   - **Mobile card (wireframe 2026-07-05):** collapsed row = a **2-col header** — left «№ / статус», right
+     «дата / сума» (aligned) → **small item thumbnails** → a full-width **«Детальніше ⌄»** button that
+     expands. Open card stacks to one column and **ends with a «Згорнути ⌃» button**. (Desktop keeps the
+     inline row + corner chevron.)
+   - **States (wireframe):** `base` (accordion, first order open) · **`empty`** («Ще немає замовлень» +
+     Обрати ціль / До каталогу; sidebar count badge dropped). noindex.
 3. **Лояльність і бонуси (7.4)** — **two independent mechanisms** (Decision 3), separate from the
    coach's published tier. **Job 6.**
    - **(1) Personal discount — 3 tiers on lifetime spend.** Cumulative **lifetime** purchase sum →

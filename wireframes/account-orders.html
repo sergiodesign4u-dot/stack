@@ -7,21 +7,100 @@
 <title>Кабінет — Замовлення — Stack (wireframe 7.2)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
-  /* page-local: order-list layout on top of the shared .aorder/.aord-* look */
+  /* ============================================================
+     node 7.2/7.3 Замовлення — accordion: collapsed row (№ · дата · статус ·
+     сума · thumbs+N · drop) → expands to full order detail (items + leave-
+     review · money breakdown · accrual · receipt | repeat + delivery block).
+     Merges the old list (7.2) and detail (7.3) into one page. noindex.
+     ============================================================ */
   .ord-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 4px; }
   .ord-tab { font-size: 12.5px; font-weight: 700; border: 1px solid var(--hair2); border-radius: 100px; padding: 7px 15px; color: var(--sec); background: #fff; }
   .ord-tab.on { border-color: var(--dark); color: var(--strong); background: var(--fill); }
-  .ord-list { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
-  .ord-list .acard { padding: 16px; }
-  .ord-oos { font-size: 12px; color: var(--sec); margin-top: 12px; border: 1px dashed var(--hair2); border-radius: 8px; padding: 8px 10px; }
+  .ord-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+
+  .ord { border: 1px solid var(--hair); border-radius: 14px; overflow: hidden; background: #fff; }
+  .ord-h { width: 100%; display: flex; align-items: center; flex-wrap: wrap; gap: 9px 14px; padding: 14px 16px; background: #fff; border: 0; text-align: left; cursor: pointer; font: inherit; }
+  .oh-no { font-size: 15px; font-weight: 800; color: var(--strong); white-space: nowrap; }
+  .oh-date { font-size: 12.5px; color: var(--sec); white-space: nowrap; }
+  .oh-status { font-size: 11.5px; font-weight: 800; border: 1px solid var(--hair2); border-radius: 100px; padding: 3px 10px; white-space: nowrap; color: var(--strong); }
+  .oh-status.ok::before, .oh-status.go::before, .oh-status.wait::before { content: "● "; }
+  .oh-thumbs { display: flex; gap: 5px; margin-left: auto; }
+  .oh-thumbs i { width: 34px; height: 38px; border-radius: 7px; background: var(--fill); border: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; font-size: 8px; color: #bbb; font-style: normal; }
+  .oh-thumbs i.more { font-weight: 800; color: var(--sec); font-size: 12px; background: var(--fill2); }
+  .oh-sum { font-size: 15px; font-weight: 800; color: var(--strong); white-space: nowrap; min-width: 72px; text-align: right; }
+  .oh-drop { width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--hair2); display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--sec); flex: none; }
+  .chev { display: inline-block; transition: transform .15s; line-height: 1; }
+  .ord.open .chev { transform: rotate(180deg); }
+  .ob-collapse { display: none; }
+
+  .ord-body { display: none; border-top: 1px solid var(--hair); padding: 16px; }
+  .ord.open .ord-body { display: block; }
+  .ob-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  @media (min-width: 820px) { .ob-grid { grid-template-columns: 1fr 292px; } }
+
+  /* left: items + money breakdown */
+  .ob-line { display: grid; grid-template-columns: 52px 1fr auto; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--hair); align-items: start; }
+  .ob-line:first-child { padding-top: 2px; }
+  .ob-line .ph { width: 52px; height: 56px; border-radius: 8px; background: var(--fill); border: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 9px; }
+  .ln-nm { font-size: 13.5px; font-weight: 700; color: var(--strong); line-height: 1.3; }
+  .ln-review { display: inline-flex; align-items: center; gap: 5px; margin-top: 7px; font-size: 12px; font-weight: 700; color: var(--strong); text-decoration: underline; }
+  .ln-right { text-align: right; white-space: nowrap; }
+  .ln-calc { font-size: 12px; color: var(--sec); }
+  .ln-tot { font-size: 14px; font-weight: 800; color: var(--strong); margin-top: 3px; }
+
+  .ob-sum { margin-top: 15px; }
+  .sr { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; padding: 5px 0; }
+  .sr span:first-child { color: var(--sec); }
+  .sr span:last-child { color: var(--strong); font-weight: 600; white-space: nowrap; }
+  .sr.total { border-top: 1.5px solid var(--hair2); margin-top: 7px; padding-top: 12px; }
+  .sr.total span { font-size: 16px; font-weight: 800; color: var(--strong); }
+  .sr.accrual span:last-child { color: var(--strong); font-weight: 800; }
+  .ob-receipt { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; font-size: 13px; font-weight: 700; color: var(--strong); text-decoration: underline; }
+
+  /* right: repeat + delivery facts */
+  .ob-repeat { width: 100%; justify-content: center; }
+  .ob-del { border: 1px solid var(--hair); border-radius: 12px; padding: 15px; margin-top: 14px; display: flex; flex-direction: column; gap: 13px; }
+  .dl .dk { font-size: 11px; text-transform: uppercase; letter-spacing: .03em; color: var(--light); font-weight: 700; }
+  .dl .dv { font-size: 13px; color: var(--strong); font-weight: 600; margin-top: 3px; line-height: 1.4; }
+
+  .ord-oos { font-size: 12px; color: var(--sec); margin: 14px 0 2px; border: 1px dashed var(--hair2); border-radius: 8px; padding: 9px 11px; }
   .ord-oos b { color: var(--strong); }
+
+  /* ---- Mobile order card: 2-col facts (№/статус · дата/сума) → thumbs →
+     «Детальніше» bar; open card ends with a «Згорнути» button ---- */
+  @media (max-width: 640px) {
+    .ord-h {
+      display: grid; align-items: center; gap: 3px 12px;
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "no date" "stat sum" "thmb thmb" "more more";
+    }
+    .oh-no   { grid-area: no; }
+    .oh-date { grid-area: date; justify-self: end; }
+    .oh-status { grid-area: stat; justify-self: start; margin-top: 3px; }
+    .oh-sum  { grid-area: sum; justify-self: end; margin-top: 3px; }
+    .oh-thumbs { grid-area: thmb; margin-left: 0; margin-top: 11px; }
+    .oh-drop {
+      grid-area: more; width: 100%; height: auto; margin-top: 13px;
+      padding: 11px; border-radius: 10px; gap: 7px;
+      font-size: 13px; font-weight: 800; color: var(--strong);
+    }
+    .oh-drop::before { content: "Детальніше"; }
+    .ord.open .oh-drop { display: none; }
+    .ob-collapse {
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      width: 100%; margin-top: 16px; padding: 11px;
+      border: 1px solid var(--hair2); border-radius: 10px; background: #fff;
+      font: inherit; font-size: 13px; font-weight: 800; color: var(--strong); cursor: pointer;
+    }
+  }
 </style>
 </head>
 <body>
 <!-- ============================================================
   WIREFRAME · node 7.2/7.3 Замовлення (buyer account, private → noindex).
-  Order list; one-tap repeat (Job 4) → cart; OOS honestly flagged. Reuses the
-  shared account shell (acc-nav via wfAccountNav) — identical to account.html.
+  Accordion of orders; each expands to full detail. One-tap repeat (Job 4) →
+  cart; OOS honestly flagged. Reuses the shared account shell (wfAccountNav).
+  States: empty.
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 <div class="wf-canvas">
@@ -39,7 +118,7 @@
 
     <div class="acc-main">
       <h1 class="acc-h1">Замовлення</h1>
-      <p class="acc-sub">Історія замовлень, статус доставки та повтор в один дотик.</p>
+      <p class="acc-sub">Історія замовлень, статус доставки та повтор в один дотик. Натисніть на замовлення, щоб побачити деталі.</p>
 
       <!-- filter tabs (static) -->
       <div class="ord-tabs" role="tablist" aria-label="Фільтр замовлень">
@@ -50,70 +129,204 @@
 
       <div class="ord-list">
 
-        <!-- order 1 — delivered -->
-        <div class="acard aorder">
-          <div class="orow">
-            <div class="aord-thumbs"><span class="t">фото</span><span class="t">фото</span><span class="t">фото</span></div>
-            <div class="aord-info">
-              <div class="no">Замовлення № 10432</div>
-              <div class="meta">12 червня 2026 · 3 товари · 2 340 ₴</div>
-              <span class="aord-status">● Доставлено</span>
+        <!-- order 1 — delivered, OPEN by default (shows the full detail design) -->
+        <div class="ord open">
+          <button class="ord-h" type="button" onclick="toggleOrd(this)" aria-expanded="true">
+            <span class="oh-no">№ 10432</span>
+            <span class="oh-date">12 червня 2026</span>
+            <span class="oh-status ok">Доставлено</span>
+            <span class="oh-thumbs"><i>фото</i><i>фото</i><i>фото</i></span>
+            <span class="oh-sum">2 340 ₴</span>
+            <span class="oh-drop" aria-hidden="true"><i class="chev">⌄</i></span>
+          </button>
+          <div class="ord-body">
+            <div class="ob-grid">
+              <!-- items + breakdown -->
+              <div class="ob-main">
+                <div class="ob-line">
+                  <div class="ph">фото</div>
+                  <div><div class="ln-nm">BioTechUSA Iso Whey Zero 908 г</div><a class="ln-review" href="product-reviews.html">✎ Залишити відгук</a></div>
+                  <div class="ln-right"><div class="ln-calc">1 190 ₴ × 1 од.</div><div class="ln-tot">1 190 ₴</div></div>
+                </div>
+                <div class="ob-line">
+                  <div class="ph">фото</div>
+                  <div><div class="ln-nm">Optimum Nutrition Micronized Creatine 317 г</div><a class="ln-review" href="product-reviews.html">✎ Залишити відгук</a></div>
+                  <div class="ln-right"><div class="ln-calc">640 ₴ × 1 од.</div><div class="ln-tot">640 ₴</div></div>
+                </div>
+                <div class="ob-line">
+                  <div class="ph">фото</div>
+                  <div><div class="ln-nm">NOW Foods Omega-3 1000 мг, 200 капсул</div><a class="ln-review" href="product-reviews.html">✎ Залишити відгук</a></div>
+                  <div class="ln-right"><div class="ln-calc">450 ₴ × 2 од.</div><div class="ln-tot">900 ₴</div></div>
+                </div>
+
+                <div class="ob-sum">
+                  <div class="sr"><span>Товари · 3 позиції (4 од.)</span><span>2 730 ₴</span></div>
+                  <div class="sr"><span>Знижка на товари</span><span>−150 ₴</span></div>
+                  <div class="sr"><span>Використано бонусів</span><span>−40 ₴</span></div>
+                  <div class="sr"><span>Промокод WELCOME</span><span>−100 ₴</span></div>
+                  <div class="sr"><span>Знижка лояльності · 🥈 Срібло −5%</span><span>−100 ₴</span></div>
+                  <div class="sr total"><span>Разом</span><span>2 340 ₴</span></div>
+                  <div class="sr accrual"><span>★ Нараховано на бонусний рахунок</span><span>+23 ₴</span></div>
+                </div>
+                <a class="ob-receipt" href="#receipt-10432">⭳ Завантажити квитанцію</a>
+              </div>
+
+              <!-- repeat + delivery -->
+              <aside class="ob-side">
+                <a class="btn dark ob-repeat" href="cart.html">↻ Повторити замовлення</a>
+                <div class="ob-del">
+                  <div class="dl"><div class="dk">Спосіб доставки</div><div class="dv">Нова Пошта · відділення</div></div>
+                  <div class="dl"><div class="dk">Адреса доставки</div><div class="dv">вул. Катерининська, 27, Одеса<br>відділення №12</div></div>
+                  <div class="dl"><div class="dk">Номер ТТН</div><div class="dv">2045 1298 7643</div></div>
+                  <div class="dl"><div class="dk">Отримувач</div><div class="dv">Вікторія Коваль</div></div>
+                  <div class="dl"><div class="dk">Телефон</div><div class="dv">+380 ** *** 45 67</div></div>
+                </div>
+              </aside>
             </div>
-          </div>
-          <div class="aord-actions">
-            <a class="btn dark" href="cart.html">↻ Повторити замовлення</a>
-            <a class="btn" href="#order-10432">Деталі та ТТН</a>
-            <a class="btn" href="product-reviews.html">Залишити відгук</a>
+            <button class="ob-collapse" type="button" onclick="toggleOrd(this)"><i class="chev">⌄</i> Згорнути</button>
           </div>
         </div>
 
-        <!-- order 2 — in transit -->
-        <div class="acard aorder">
-          <div class="orow">
-            <div class="aord-thumbs"><span class="t">фото</span><span class="t">фото</span></div>
-            <div class="aord-info">
-              <div class="no">Замовлення № 10418</div>
-              <div class="meta">3 червня 2026 · 2 товари · 1 180 ₴</div>
-              <span class="aord-status">● В дорозі</span>
+        <!-- order 2 — in transit (collapsed) -->
+        <div class="ord">
+          <button class="ord-h" type="button" onclick="toggleOrd(this)" aria-expanded="false">
+            <span class="oh-no">№ 10418</span>
+            <span class="oh-date">3 червня 2026</span>
+            <span class="oh-status go">В дорозі</span>
+            <span class="oh-thumbs"><i>фото</i><i>фото</i></span>
+            <span class="oh-sum">1 180 ₴</span>
+            <span class="oh-drop" aria-hidden="true"><i class="chev">⌄</i></span>
+          </button>
+          <div class="ord-body">
+            <div class="ob-grid">
+              <div class="ob-main">
+                <div class="ob-line">
+                  <div class="ph">фото</div>
+                  <div><div class="ln-nm">Optimum Nutrition Gold Standard Pre-Workout 330 г</div></div>
+                  <div class="ln-right"><div class="ln-calc">810 ₴ × 1 од.</div><div class="ln-tot">810 ₴</div></div>
+                </div>
+                <div class="ob-line">
+                  <div class="ph">фото</div>
+                  <div><div class="ln-nm">OstroVit L-Carnitine 1000</div></div>
+                  <div class="ln-right"><div class="ln-calc">370 ₴ × 1 од.</div><div class="ln-tot">370 ₴</div></div>
+                </div>
+                <div class="ob-sum">
+                  <div class="sr"><span>Товари · 2 позиції (2 од.)</span><span>1 240 ₴</span></div>
+                  <div class="sr"><span>Знижка лояльності · 🥈 Срібло −5%</span><span>−60 ₴</span></div>
+                  <div class="sr total"><span>Разом</span><span>1 180 ₴</span></div>
+                  <div class="sr accrual"><span>★ Нараховано на бонусний рахунок</span><span>+12 ₴</span></div>
+                </div>
+                <a class="ob-receipt" href="#receipt-10418">⭳ Завантажити квитанцію</a>
+              </div>
+              <aside class="ob-side">
+                <a class="btn dark ob-repeat" href="cart.html">↻ Повторити замовлення</a>
+                <div class="ob-del">
+                  <div class="dl"><div class="dk">Спосіб доставки</div><div class="dv">Нова Пошта · кур'єр</div></div>
+                  <div class="dl"><div class="dk">Адреса доставки</div><div class="dv">вул. Дерибасівська, 12, кв. 5, Одеса</div></div>
+                  <div class="dl"><div class="dk">Номер ТТН</div><div class="dv">2045 1305 2288</div></div>
+                  <div class="dl"><div class="dk">Отримувач</div><div class="dv">Вікторія Коваль</div></div>
+                  <div class="dl"><div class="dk">Телефон</div><div class="dv">+380 ** *** 45 67</div></div>
+                </div>
+              </aside>
             </div>
-          </div>
-          <div class="aord-actions">
-            <a class="btn dark" href="cart.html">↻ Повторити замовлення</a>
-            <a class="btn" href="#order-10418">Деталі та ТТН</a>
+            <button class="ob-collapse" type="button" onclick="toggleOrd(this)"><i class="chev">⌄</i> Згорнути</button>
           </div>
         </div>
 
-        <!-- order 3 — processing, with an OOS repeat note -->
-        <div class="acard aorder">
-          <div class="orow">
-            <div class="aord-thumbs"><span class="t">фото</span><span class="t">фото</span><span class="t">фото</span><span class="t">фото</span></div>
-            <div class="aord-info">
-              <div class="no">Замовлення № 10390</div>
-              <div class="meta">21 травня 2026 · 4 товари · 3 060 ₴</div>
-              <span class="aord-status">● Обробляється</span>
+        <!-- order 3 — processing, 4 items (+1 thumb), OOS-on-repeat note (collapsed) -->
+        <div class="ord">
+          <button class="ord-h" type="button" onclick="toggleOrd(this)" aria-expanded="false">
+            <span class="oh-no">№ 10390</span>
+            <span class="oh-date">21 травня 2026</span>
+            <span class="oh-status wait">Обробляється</span>
+            <span class="oh-thumbs"><i>фото</i><i>фото</i><i>фото</i><i class="more">+1</i></span>
+            <span class="oh-sum">3 060 ₴</span>
+            <span class="oh-drop" aria-hidden="true"><i class="chev">⌄</i></span>
+          </button>
+          <div class="ord-body">
+            <div class="ord-oos">При повторі <b>1 товар зараз недоступний</b> — ми позначимо його й запропонуємо заміну. Решту одразу додамо в кошик.</div>
+            <div class="ob-grid">
+              <div class="ob-main">
+                <div class="ob-line">
+                  <div class="ph">фото</div>
+                  <div><div class="ln-nm">Universal Nutrition Animal Pak, 44 пакети</div></div>
+                  <div class="ln-right"><div class="ln-calc">1 380 ₴ × 1 од.</div><div class="ln-tot">1 380 ₴</div></div>
+                </div>
+                <div class="ob-line">
+                  <div class="ph">фото</div>
+                  <div><div class="ln-nm">BSN Amino X BCAA 1010 г</div></div>
+                  <div class="ln-right"><div class="ln-calc">890 ₴ × 1 од.</div><div class="ln-tot">890 ₴</div></div>
+                </div>
+                <div class="ob-line">
+                  <div class="ph">фото</div>
+                  <div><div class="ln-nm">Solgar Vitamin D3 2200 IU, 100 капсул</div></div>
+                  <div class="ln-right"><div class="ln-calc">610 ₴ × 1 од.</div><div class="ln-tot">610 ₴</div></div>
+                </div>
+                <div class="ob-line">
+                  <div class="ph">фото</div>
+                  <div><div class="ln-nm">Puritan's Pride Magnesium 500 мг, 200 таблеток</div></div>
+                  <div class="ln-right"><div class="ln-calc">380 ₴ × 1 од.</div><div class="ln-tot">380 ₴</div></div>
+                </div>
+                <div class="ob-sum">
+                  <div class="sr"><span>Товари · 4 позиції (4 од.)</span><span>3 260 ₴</span></div>
+                  <div class="sr"><span>Знижка лояльності · 🥈 Срібло −5%</span><span>−163 ₴</span></div>
+                  <div class="sr"><span>Використано бонусів</span><span>−37 ₴</span></div>
+                  <div class="sr total"><span>Разом</span><span>3 060 ₴</span></div>
+                  <div class="sr accrual"><span>★ Нараховано на бонусний рахунок</span><span>+31 ₴</span></div>
+                </div>
+                <a class="ob-receipt" href="#receipt-10390">⭳ Завантажити квитанцію</a>
+              </div>
+              <aside class="ob-side">
+                <a class="btn dark ob-repeat" href="cart.html">↻ Повторити замовлення</a>
+                <div class="ob-del">
+                  <div class="dl"><div class="dk">Спосіб доставки</div><div class="dv">Нова Пошта · поштомат</div></div>
+                  <div class="dl"><div class="dk">Адреса доставки</div><div class="dv">просп. Небесної Сотні, 4, Одеса<br>поштомат №24857</div></div>
+                  <div class="dl"><div class="dk">Номер ТТН</div><div class="dv">2045 1341 9017</div></div>
+                  <div class="dl"><div class="dk">Отримувач</div><div class="dv">Вікторія Коваль</div></div>
+                  <div class="dl"><div class="dk">Телефон</div><div class="dv">+380 ** *** 45 67</div></div>
+                </div>
+              </aside>
             </div>
-          </div>
-          <div class="ord-oos">При повторі <b>1 товар зараз недоступний</b> — ми позначимо його й запропонуємо заміну. Решту одразу додамо в кошик.</div>
-          <div class="aord-actions">
-            <a class="btn dark" href="cart.html">↻ Повторити замовлення</a>
-            <a class="btn" href="#order-10390">Деталі та ТТН</a>
+            <button class="ob-collapse" type="button" onclick="toggleOrd(this)"><i class="chev">⌄</i> Згорнути</button>
           </div>
         </div>
 
-        <!-- order 4 — delivered -->
-        <div class="acard aorder">
-          <div class="orow">
-            <div class="aord-thumbs"><span class="t">фото</span></div>
-            <div class="aord-info">
-              <div class="no">Замовлення № 10355</div>
-              <div class="meta">2 травня 2026 · 1 товар · 640 ₴</div>
-              <span class="aord-status">● Доставлено</span>
+        <!-- order 4 — delivered, single item (collapsed) -->
+        <div class="ord">
+          <button class="ord-h" type="button" onclick="toggleOrd(this)" aria-expanded="false">
+            <span class="oh-no">№ 10355</span>
+            <span class="oh-date">2 травня 2026</span>
+            <span class="oh-status ok">Доставлено</span>
+            <span class="oh-thumbs"><i>фото</i></span>
+            <span class="oh-sum">640 ₴</span>
+            <span class="oh-drop" aria-hidden="true"><i class="chev">⌄</i></span>
+          </button>
+          <div class="ord-body">
+            <div class="ob-grid">
+              <div class="ob-main">
+                <div class="ob-line">
+                  <div class="ph">фото</div>
+                  <div><div class="ln-nm">Optimum Nutrition Micronized Creatine 317 г</div><a class="ln-review" href="product-reviews.html">✎ Залишити відгук</a></div>
+                  <div class="ln-right"><div class="ln-calc">640 ₴ × 1 од.</div><div class="ln-tot">640 ₴</div></div>
+                </div>
+                <div class="ob-sum">
+                  <div class="sr"><span>Товари · 1 позиція (1 од.)</span><span>640 ₴</span></div>
+                  <div class="sr total"><span>Разом</span><span>640 ₴</span></div>
+                  <div class="sr accrual"><span>★ Нараховано на бонусний рахунок</span><span>+6 ₴</span></div>
+                </div>
+                <a class="ob-receipt" href="#receipt-10355">⭳ Завантажити квитанцію</a>
+              </div>
+              <aside class="ob-side">
+                <a class="btn dark ob-repeat" href="cart.html">↻ Повторити замовлення</a>
+                <div class="ob-del">
+                  <div class="dl"><div class="dk">Спосіб доставки</div><div class="dv">Самовивіз · Одеса</div></div>
+                  <div class="dl"><div class="dk">Адреса</div><div class="dv">вул. Грецька, 1а, Одеса (магазин Stack)</div></div>
+                  <div class="dl"><div class="dk">Отримувач</div><div class="dv">Вікторія Коваль</div></div>
+                  <div class="dl"><div class="dk">Телефон</div><div class="dv">+380 ** *** 45 67</div></div>
+                </div>
+              </aside>
             </div>
-          </div>
-          <div class="aord-actions">
-            <a class="btn dark" href="cart.html">↻ Повторити замовлення</a>
-            <a class="btn" href="#order-10355">Деталі та ТТН</a>
-            <a class="btn" href="product-reviews.html">Залишити відгук</a>
+            <button class="ob-collapse" type="button" onclick="toggleOrd(this)"><i class="chev">⌄</i> Згорнути</button>
           </div>
         </div>
 
@@ -127,6 +340,12 @@
 
 <script src="_nav.js"></script>
 <script>
+  function toggleOrd(el) {
+    var ord = el.closest('.ord');
+    var open = ord.classList.toggle('open');
+    var h = ord.querySelector('.ord-h');
+    if (h) h.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
   var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
   wfHeader(isCoach ? 'coach' : 'buyer');
   wfAccountNav('orders', isCoach);
