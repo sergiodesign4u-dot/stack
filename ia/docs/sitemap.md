@@ -61,11 +61,16 @@
     OAuth + soft add-phone; all states (invalid/loading/wrong-code/resend/rate-limit/social-new);
     role-agnostic (coach role activated later 5.1/7.7); **noindex, no schema**. B/W).
   - `pages/account.md` → `ia/account.html` (node 7.x — **Buyer account shell**, covers 7.0 Overview ·
-    7.1 Profile · 7.2 Orders · 7.3 Order detail + **one-tap repeat (Job 4)** · 7.4 Loyalty & bonuses
-    (Job 6, Decision 3) · 7.5 Addresses · 7.6 Wishlist · entry to 7.7 Become-a-coach → 5.1): one shell
-    (section nav + panel desktop / menu-hub mobile, tab «Акаунт»); section set = header «Кабінет»
-    dropdown; Overview = dashboard snapshot; profile **passwordless** (no «Пароль», per 1.x); wishlist
-    uses the canonical card; coach = role on the same account. **Private → noindex, no schema**. B/W).
+    7.1 Profile · **7.2 + 7.3 Orders — merged into one accordion** (list rows expand to full detail
+    inline; **one-tap repeat, Job 4**; money breakdown + ТТН) · 7.4 Loyalty & bonuses (Job 6, Decision 3;
+    **bonuses-first** order) · 7.5 Addresses · 7.6 Wishlist · entry to 7.7 Become-a-coach → 5.1): one shell
+    (section nav + panel desktop / menu-hub mobile, tab «Акаунт»; **mobile section nav = horizontal
+    swipeable chips**); section set = header «Кабінет» dropdown; Overview = dashboard snapshot; profile
+    **passwordless** (no «Пароль», per 1.x; change phone/e-mail = OTP dialogs); wishlist uses the canonical
+    card; coach = role on the same account. **States (2026-07-05):** orders `empty`; loyalty `empty`/`max`;
+    wishlist `empty`/`many` (load-more + pagination); addresses `empty`/`add`/`viddilennia`/`postomat`/
+    `courier`/`edit`/`delete`; profile `withemail`/`phone`/`email`/`lang`/`delete`. **Private → noindex,
+    no schema**. B/W).
   - `pages/coach.md` → `ia/coach.html` (node 5.x — **Coach workspace, PRIMARY Job 1**, whole cluster in
     one spec): **5.0 For-Coaches landing** (public/indexable — value prop + **Free/Pro** + CTA) · **5.1
     Become-a-coach** (role on top of account; social-link verification → tier choice) · **5.2 Coach
@@ -143,10 +148,10 @@
   5.7 Order detail (grouped by client; per-client repeat).
 - **6 — Cart & checkout:** 6.0 Cart (dialog: selected items, per-client grouping for
   coach, CTA "go to checkout") · 6.1 Checkout · 6.2 Order placed.
-- **7 — Buyer account:** 7.0 Account home · 7.1 Profile · 7.2 Orders · 7.3 Order detail +
-  one-tap repeat (Job 4) · 7.4 Loyalty (Job 6) · 7.5 Addresses · 7.6 Favorites/wishlist
-  (MVP, buyer + coach; header icon) · 7.7 "I'm a coach / become a coach" (entry to the
-  5.1 verification flow).
+- **7 — Buyer account:** 7.0 Account home · 7.1 Profile · **7.2 + 7.3 Orders (merged accordion:
+  list rows expand to detail inline)** + one-tap repeat (Job 4) · 7.4 Loyalty (Job 6) · 7.5 Addresses ·
+  7.6 Favorites/wishlist (MVP, buyer + coach; header icon) · 7.7 "I'm a coach / become a coach" (entry to
+  the 5.1 verification flow). Section states are listed per page in `pages/account.md` (updated 2026-07-05).
 - **8 — Content, info & legal:** 8.0 Blog · 8.1 Article · 8.2–8.5 About / Contacts /
   Delivery & payment / Returns · 8.6 Legal (Privacy, Terms, **Public contract / offer**) ·
   **8.7 Discount system · 8.8 Guarantee & certificates · 8.9 FAQ · 8.10 Promotions (Акції) ·

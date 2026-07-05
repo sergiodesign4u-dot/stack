@@ -87,6 +87,14 @@
    verified, change via OTP)** · **e-mail (optional, code)** · language · notification consents
    (SMS status + e-mail reorder reminders — Decision 4) · delete account. **No password** (the old
    sitemap «Пароль» is removed).
+   - **Actions are working dialogs (wireframe 2026-07-05, shared `wfProfileDialogs` in `_nav.js`):**
+     **Change phone / add-or-change e-mail = a 2-step OTP flow** (enter new value → «Отримати код» →
+     6-box OTP + resend → confirm), the **same passwordless pattern as auth 1.x** (reuses `wfOtp`).
+     **Language** = a radio picker dialog (Українська / English). **Delete account** = a danger confirm
+     that spells out what's lost (**profile, addresses, wishlist, bonuses burn**; order history kept for
+     accounting) and **gates the button behind an «Розумію…» checkbox**. Save + each action fire toasts.
+   - **States (wireframe):** `base` (e-mail «не додано») · **`withemail`** (e-mail added + «✓ підтверджено»
+     → «Змінити») · `phone` (OTP step) · `email` (add dialog) · `lang` · `delete`. noindex.
 6. **Обране (7.6)** — grid of saved products using the **canonical product card**; ♡ active; «У кошик»
    moves to 6.0; available to **buyer and coach**; ♡ icon in the header. «My staples» is post-launch.
    - **States (wireframe, 2026-07-05):** `base` (small grid) · **`empty`** (dashed emptybox «В обраному

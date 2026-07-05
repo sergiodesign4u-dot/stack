@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Кабінет — Профіль — Stack (wireframe 7.1)</title>
+<title>Кабінет — Профіль · Мова — Stack (wireframe 7.1)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
   /* page-local: profile form (passwordless per auth 1.x) */
@@ -127,7 +127,7 @@
   var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
   wfHeader(isCoach ? 'coach' : 'buyer');
   wfAccountNav('profile', isCoach);
-  wfFooter(); wfToasts(); wfProfileDialogs(); wfBar('account-profile.html');
+  wfFooter(); wfToasts(); wfProfileDialogs(); openProfLang(); wfBar('account-profile.html', 'lang');
   // demo: toggle newsletter switch
   var sw = document.getElementById('nl-toggle');
   if (sw) sw.addEventListener('click', function () {

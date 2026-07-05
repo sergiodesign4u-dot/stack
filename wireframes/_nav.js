@@ -19,7 +19,8 @@ const WF_STATE_LABEL = {
   free: 'Тариф Free', cancel: 'Скасування Pro',
   max: 'Максимальний рівень', many: 'Багато (пагінація)',
   add: 'Додати — вибір способу', viddilennia: 'Відділення', postomat: 'Поштомат', courier: 'Кур\'єр',
-  edit: 'Редагувати', delete: 'Видалення'
+  edit: 'Редагувати', delete: 'Видалення',
+  phone: 'Змінити номер', email: 'Додати e-mail', lang: 'Мова інтерфейсу', withemail: 'E-mail додано'
 };
 
 const WF_FLOWS = [
@@ -104,7 +105,7 @@ const WF_FLOWS = [
       { file: 'account-orders.html',    name: 'Замовлення',           node: '7.2', built: true, states: ['empty'], builtStates: ['empty'] },
       { file: 'account-loyalty.html',   name: 'Лояльність і бонуси',   node: '7.4', built: true, states: ['empty','max'], builtStates: ['empty','max'] },
       { file: 'account-addresses.html', name: 'Адреси',               node: '7.5', built: true, states: ['empty','add','viddilennia','postomat','courier','edit','delete'], builtStates: ['empty','add','viddilennia','postomat','courier','edit','delete'] },
-      { file: 'account-profile.html',   name: 'Профіль',              node: '7.1', built: true, states: [], builtStates: [] },
+      { file: 'account-profile.html',   name: 'Профіль',              node: '7.1', built: true, states: ['withemail','phone','email','lang','delete'], builtStates: ['withemail','phone','email','lang','delete'] },
       { file: 'account-wishlist.html',  name: 'Обране',               node: '7.6', built: true, states: ['empty','many'], builtStates: ['empty','many'] }
     ]
   }
@@ -816,6 +817,73 @@ function openAddrDelete() { var d = document.getElementById('addr-dlg'), c = doc
 function closeAddrDelete() { var c = document.getElementById('addr-del'), d = document.getElementById('addr-dlg'); if (c) c.classList.remove('open'); if (d) d.classList.add('open'); }
 function confirmAddrDelete() { closeAddrDelete(); closeAddr(); wfToast('ok', 'Адресу видалено'); }
 function wfAddrMakeDefault() { wfToast('ok', 'Адресу призначено основною'); }
+
+/* SHARED profile dialogs (node 7.1) — passwordless (auth 1.x): change phone /
+   add-or-change e-mail are 2-step OTP flows (enter → code); plus language pick
+   and a delete-account danger confirm. Rendered into #wf-profile. */
+function wfProfileDialogs() {
+  var el = document.getElementById('wf-profile'); if (!el) return;
+  el.className = '';
+  function otp() { return (typeof wfOtp === 'function') ? wfOtp(['', '', '', '', '', ''], false) : ''; }
+
+  var phone =
+    '<div class="ceov" id="pf-phone" role="dialog" aria-modal="true" aria-label="Змінити номер"><div class="cemodal">' +
+    '<div class="ce-top"><h2 id="pf-phone-t">Змінити номер телефону</h2><button class="ce-x" onclick="closeProf()" aria-label="Закрити">✕</button></div>' +
+    '<div class="pf-dstep" data-s="enter"><p class="sub">Введіть новий номер — надішлемо на нього код у SMS. Пароль не потрібен.</p>' +
+      '<div class="cef"><label>Новий номер телефону</label><input type="tel" inputmode="tel" placeholder="+380 __ ___ __ __" value="+380 "></div>' +
+      '<div class="ceact"><button type="button" class="btn" onclick="closeProf()">Скасувати</button><button type="button" class="btn dark" onclick="profStep(\'pf-phone\',\'code\')">Отримати код</button></div></div>' +
+    '<div class="pf-dstep" data-s="code" hidden><p class="sub">Ми надіслали код у SMS на новий номер. Введіть його, щоб підтвердити зміну.</p>' +
+      '<div class="cef"><label>Код підтвердження</label>' + otp() + '<div class="otp-note">Код діє 5 хвилин. <a class="pf-resend" onclick="wfToast(\'info\',\'Код надіслано ще раз\')">Надіслати ще раз</a></div></div>' +
+      '<div class="ceact"><button type="button" class="btn" onclick="profStep(\'pf-phone\',\'enter\')">‹ Змінити номер</button><button type="button" class="btn dark" onclick="closeProf();wfToast(\'ok\',\'Номер телефону оновлено\')">Підтвердити</button></div></div>' +
+    '</div></div>';
+
+  var email =
+    '<div class="ceov" id="pf-email" role="dialog" aria-modal="true" aria-label="E-mail"><div class="cemodal">' +
+    '<div class="ce-top"><h2 id="pf-email-t">Додати e-mail</h2><button class="ce-x" onclick="closeProf()" aria-label="Закрити">✕</button></div>' +
+    '<div class="pf-dstep" data-s="enter"><p class="sub">Вкажіть e-mail — надішлемо код для підтвердження. Без пароля.</p>' +
+      '<div class="cef"><label>E-mail</label><input type="email" placeholder="you@email.com"></div>' +
+      '<div class="ceact"><button type="button" class="btn" onclick="closeProf()">Скасувати</button><button type="button" class="btn dark" onclick="profStep(\'pf-email\',\'code\')">Отримати код</button></div></div>' +
+    '<div class="pf-dstep" data-s="code" hidden><p class="sub">Ми надіслали код на вашу пошту. Введіть його, щоб підтвердити e-mail.</p>' +
+      '<div class="cef"><label>Код підтвердження</label>' + otp() + '<div class="otp-note">Код діє 5 хвилин. <a class="pf-resend" onclick="wfToast(\'info\',\'Код надіслано ще раз\')">Надіслати ще раз</a></div></div>' +
+      '<div class="ceact"><button type="button" class="btn" onclick="profStep(\'pf-email\',\'enter\')">‹ Змінити e-mail</button><button type="button" class="btn dark" onclick="closeProf();wfToast(\'ok\',\'E-mail підтверджено\')">Підтвердити</button></div></div>' +
+    '</div></div>';
+
+  var langs = ['Українська', 'English'];
+  var lrows = ''; langs.forEach(function (l, i) {
+    lrows += '<label class="pf-lang' + (i === 0 ? ' on' : '') + '"><input type="radio" name="pf-lang"' + (i === 0 ? ' checked' : '') + '><span>' + l + '</span><span class="rc" aria-hidden="true"></span></label>';
+  });
+  var lang =
+    '<div class="ceov" id="pf-lang" role="dialog" aria-modal="true" aria-label="Мова інтерфейсу"><div class="cemodal">' +
+    '<div class="ce-top"><h2>Мова інтерфейсу</h2><button class="ce-x" onclick="closeProf()" aria-label="Закрити">✕</button></div>' +
+    '<div class="pf-langs">' + lrows + '</div>' +
+    '<div class="ceact"><button type="button" class="btn" onclick="closeProf()">Скасувати</button><button type="button" class="btn dark" onclick="closeProf();wfToast(\'ok\',\'Мову збережено\')">Зберегти</button></div>' +
+    '</div></div>';
+
+  var del =
+    '<div class="ceov" id="pf-del" role="dialog" aria-modal="true" aria-label="Видалити акаунт"><div class="cedlg">' +
+    '<div class="ic" aria-hidden="true">⚠️</div><h2>Видалити акаунт?</h2>' +
+    '<p>Буде видалено ваш профіль, збережені адреси, обране та <b>бонуси, що згорять безповоротно</b>. Історія замовлень зберігається за вимогами обліку. Цю дію не можна скасувати.</p>' +
+    '<label class="pf-delcheck"><input type="checkbox" id="pf-del-ok" onchange="document.getElementById(\'pf-del-btn\').disabled=!this.checked"> Розумію, що акаунт буде видалено назавжди</label>' +
+    '<div class="act"><button type="button" class="btn" onclick="closeProf()">Скасувати</button>' +
+    '<button type="button" class="btn dark" id="pf-del-btn" disabled onclick="closeProf();wfToast(\'ok\',\'Запит на видалення прийнято\')">Видалити акаунт</button></div>' +
+    '</div></div>';
+
+  el.innerHTML = phone + email + lang + del;
+}
+function closeProf() { document.querySelectorAll('#wf-profile .ceov.open').forEach(function (o) { o.classList.remove('open'); }); }
+function profStep(dlg, s) {
+  var d = document.getElementById(dlg); if (!d) return;
+  d.querySelectorAll('.pf-dstep').forEach(function (p) { p.hidden = (p.getAttribute('data-s') !== s); });
+}
+function openProfPhone() { wfProfileDialogs(); closeProf(); profStep('pf-phone', 'enter'); var d = document.getElementById('pf-phone'); if (d) d.classList.add('open'); }
+function openProfEmail(mode) {
+  wfProfileDialogs(); closeProf(); profStep('pf-email', 'enter');
+  var t = document.getElementById('pf-email-t'); if (t) t.textContent = (mode === 'change') ? 'Змінити e-mail' : 'Додати e-mail';
+  var d = document.getElementById('pf-email'); if (d) d.classList.add('open');
+}
+function openProfLang() { wfProfileDialogs(); closeProf(); var d = document.getElementById('pf-lang'); if (d) d.classList.add('open'); }
+function openProfDelete() { wfProfileDialogs(); closeProf(); var d = document.getElementById('pf-del'); if (d) d.classList.add('open'); }
+function profSave() { wfToast('ok', 'Зміни збережено'); }
 
 /* SHARED account section-nav (node 7.x) — one source for account.html + every
    account-*.html sub-page. active = section key; isCoach swaps «Стати тренером»

@@ -60,6 +60,7 @@
     .section-lead { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 20px; max-width: 720px; }
 
     .note { font-size: 12px; color: var(--text-light); margin: 4px 0 18px; }
+    .upd { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: 100px; padding: 1px 8px; margin-left: 8px; vertical-align: middle; }
 
     table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 8px; }
     th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
@@ -377,77 +378,74 @@
             </div>
           </div>
         </div>
-        <p class="note">Секція повноекранна; кожне замовлення — статус + сума + мініатюри + <b>«↻ Повторити»</b> (Job 4). «Деталі» → 7.3.</p>
+        <p class="note">Секція повноекранна; кожне замовлення — <b>акордеон</b>: двоколонкова шапка (№/статус · дата/сума) → мініатюри → «Детальніше» розкриває деталі просто в картці (7.2+7.3 злиті), знизу «Згорнути». Повтор у 1 тап (Job 4).</p>
       </div>
     </div>
   </section>
 
   <!-- 03 orders + repeat -->
   <section class="section" id="orders">
-    <div class="section-num">03 · Розбір — Замовлення й повтор (7.2 / 7.3)</div>
-    <h2>Історія замовлень + повтор у 1 тап (Job 4)</h2>
-    <p class="section-lead">Головна повторна цінність регуляра. Список замовлень (номер · дата · статус · сума · мініатюри) → <b>деталі (7.3)</b> з позиціями й <b>«Повторити замовлення»</b>. Повтор <b>кладе позиції в кошик (6.0)</b>; якщо чогось немає в наявності — додаємо доступне й <b>чесно позначаємо</b> пропущене (не мовчазний збій).</p>
-    <div class="cols two">
-      <div>
-        <div class="wf"><div class="wf-cap">Список замовлень (7.2)</div><div class="wf-pad">
-          <div class="ord">
-            <div class="oh"><span class="onum">Замовлення #1043</span><span class="odate">12 червня 2026</span><span class="pill done">Доставлено</span><span class="osum">1 290 ₴</span></div>
-            <div class="othumbs"><span class="oth">фото</span><span class="oth">фото</span><span class="oth">+1</span></div>
-            <div class="oacts"><span class="obtn dark">↻ Повторити замовлення</span><span class="obtn">Деталі й документи</span></div>
+    <div class="section-num">03 · Розбір — Замовлення й повтор (7.2 + 7.3)</div>
+    <h2>Історія замовлень + повтор у 1 тап (Job 4) <span class="upd">оновлено 07-2026</span></h2>
+    <p class="section-lead"><b>7.2 (список) і 7.3 (деталі) злиті в один <u>акордеон</u></b> — окремої сторінки деталей немає. Згорнутий рядок: <b>№ · дата · статус · сума · мініатюри (+N) · кнопка розкриття</b>; тап розкриває повні деталі просто в рядку. Повтор <b>кладе позиції в кошик (6.0)</b>; якщо чогось немає — додаємо доступне й <b>чесно позначаємо</b> пропущене (не мовчазний збій).</p>
+
+    <div class="wf"><div class="wf-cap">Замовлення (7.2 + 7.3) — акордеон, перший рядок розкрито</div><div class="wf-pad">
+
+      <!-- expanded row -->
+      <div class="ord" style="border-color:#161616">
+        <div class="oh"><span class="onum">№ 1043</span><span class="odate">12 червня 2026</span><span class="pill done">Доставлено</span><span class="osum">1 290 ₴</span><span style="margin-left:8px;color:#888">▲</span></div>
+        <div class="othumbs"><span class="oth">фото</span><span class="oth">фото</span><span class="oth">+1</span></div>
+        <div class="cols two" style="margin-top:4px">
+          <!-- left: items + breakdown -->
+          <div>
+            <div style="display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0f0"><span class="oth">фото</span><div style="font-size:11.5px;color:#333"><b>Gold Standard 100% Whey 2270 г</b><br><span style="color:#888">Optimum Nutrition</span> · 1 190 ₴ × 1 од. · <a href="#">✎ Залишити відгук</a></div><span style="margin-left:auto;font-weight:800;font-size:12px">1 190 ₴</span></div>
+            <div style="display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0f0"><span class="oth">фото</span><div style="font-size:11.5px;color:#333"><b>Шейкер 700 мл</b><br><span style="color:#888">Stack</span> · 280 ₴ × 1 од. · <a href="#">✎ Залишити відгук</a></div><span style="margin-left:auto;font-weight:800;font-size:12px">280 ₴</span></div>
+            <div style="margin-top:9px;font-size:12px;color:#555">
+              <div style="display:flex;justify-content:space-between;padding:2px 0"><span>Товари · 2 позиції</span><span>1 470 ₴</span></div>
+              <div style="display:flex;justify-content:space-between;padding:2px 0"><span>Знижка на товари</span><span>− 0 ₴</span></div>
+              <div style="display:flex;justify-content:space-between;padding:2px 0"><span>Використано бонусів</span><span>− 100 ₴</span></div>
+              <div style="display:flex;justify-content:space-between;padding:2px 0"><span>Промокод</span><span>− 0 ₴</span></div>
+              <div style="display:flex;justify-content:space-between;padding:2px 0"><span>Знижка лояльності · [?] %</span><span>− 80 ₴</span></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 0 2px;border-top:1.5px solid #ddd;margin-top:4px;font-weight:800;color:#111;font-size:13px"><span>Разом</span><span>1 290 ₴</span></div>
+              <div style="display:flex;justify-content:space-between;padding:2px 0;color:#2d7d46;font-weight:700"><span>★ Нараховано на бонусний рахунок</span><span>+13 ₴</span></div>
+            </div>
+            <div style="margin-top:10px"><a href="#" style="font-size:11.5px;font-weight:700">⭳ Завантажити квитанцію</a></div>
           </div>
-          <div class="ord">
-            <div class="oh"><span class="onum">Замовлення #1039</span><span class="odate">1 червня 2026</span><span class="pill way">В дорозі</span><span class="osum">870 ₴</span></div>
-            <div class="othumbs"><span class="oth">фото</span><span class="oth">фото</span></div>
-            <div class="oacts"><span class="obtn">Відстежити (ТТН)</span><span class="obtn">Деталі</span></div>
+          <!-- right: repeat + delivery + TTN -->
+          <div>
+            <span class="obtn dark" style="width:100%;text-align:center;box-sizing:border-box;margin-bottom:10px">↻ Повторити замовлення</span>
+            <div style="border:1px solid #e6e6e6;border-radius:9px;padding:11px;font-size:11.5px;color:#333;line-height:1.7">
+              <div style="color:#999;font-size:10px;text-transform:uppercase;letter-spacing:.03em">Спосіб доставки</div><div><b>Нова Пошта · відділення</b></div>
+              <div style="color:#999;font-size:10px;text-transform:uppercase;letter-spacing:.03em;margin-top:7px">Адреса</div><div>вул. Катерининська, 27, Одеса · відділення №12</div>
+              <div style="color:#999;font-size:10px;text-transform:uppercase;letter-spacing:.03em;margin-top:7px">Номер ТТН</div><div><b>2045 1298 7643</b></div>
+              <div style="color:#999;font-size:10px;text-transform:uppercase;letter-spacing:.03em;margin-top:7px">Отримувач · телефон</div><div>Андрій К. · +380 67 ••• 45 12</div>
+            </div>
           </div>
-          <div class="ord" style="margin-bottom:0">
-            <div class="oh"><span class="onum">Замовлення #1021</span><span class="odate">14 травня 2026</span><span class="pill new">Оформлено</span><span class="osum">2 140 ₴</span></div>
-            <div class="othumbs"><span class="oth">фото</span></div>
-            <div class="oacts"><span class="obtn dark">↻ Повторити</span><span class="obtn">Деталі</span></div>
-          </div>
-        </div></div>
+        </div>
       </div>
-      <div>
-        <div class="wf"><div class="wf-cap">Деталі замовлення + повтор (7.3)</div><div class="wf-pad">
-          <div style="font-size:14px;font-weight:800;color:#111">Замовлення #1043</div>
-          <div style="font-size:11.5px;color:#888;margin-bottom:10px">12 червня 2026 · <span style="color:#2d7d46;font-weight:700">Доставлено</span> · Нова Пошта, відділення №12, Одеса</div>
-          <div class="ord" style="border-style:solid;margin-bottom:10px">
-            <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><span class="oth">фото</span><div style="font-size:11.5px;color:#333"><b>Gold Standard 100% Whey 2270 г</b><br>Optimum Nutrition · 1 шт · 1 290 ₴</div></div>
-            <div style="display:flex;gap:10px;align-items:center"><span class="oth">фото</span><div style="font-size:11.5px;color:#333"><b>Шейкер 700 мл</b> · Stack · 1 шт · 180 ₴</div></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;font-size:12px;color:#555;margin-bottom:3px"><span>Сума</span><span>1 470 ₴</span></div>
-          <div style="display:flex;justify-content:space-between;font-size:12px;color:#555;margin-bottom:3px"><span>Бонусами</span><span>− 180 ₴</span></div>
-          <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800;color:#111;margin-bottom:11px"><span>До сплати</span><span>1 290 ₴</span></div>
-          <div class="oacts"><span class="obtn dark">↻ Повторити замовлення</span><span class="obtn">Рахунок / документи</span><span class="obtn">Залишити відгук</span></div>
-          <p style="font-size:10.5px;color:#999;margin-top:10px">«Повторити» → кошик (6.0) з тими самими позиціями; недоступне позначаємо, ведемо до альтернативи (не глухий кут).</p>
-        </div></div>
+
+      <!-- collapsed rows -->
+      <div class="ord">
+        <div class="oh"><span class="onum">№ 1039</span><span class="odate">1 червня 2026</span><span class="pill way">В дорозі</span><span class="osum">870 ₴</span><span style="margin-left:8px;color:#bbb">▾</span></div>
+        <div class="othumbs" style="margin-bottom:0"><span class="oth">фото</span><span class="oth">фото</span></div>
       </div>
-    </div>
-    <p class="note"><b>Стани:</b> статуси Оформлено / В дорозі (ТТН) / Доставлено / Скасовано · багато замовлень → пагінація · порожньо → empty-state «Ще немає замовлень» + «До каталогу». «Залишити відгук» на доставлений товар → діалог 3.1a. Джоба-джерело: <a href="../research/concept.html">flows Job 4</a>.</p>
+      <div class="ord" style="margin-bottom:0">
+        <div class="oh"><span class="onum">№ 1021</span><span class="odate">14 травня 2026</span><span class="pill new">Оформлено</span><span class="osum">2 140 ₴</span><span style="margin-left:8px;color:#bbb">▾</span></div>
+        <div class="othumbs" style="margin-bottom:0"><span class="oth">фото</span><span class="oth">+3</span></div>
+      </div>
+    </div></div>
+
+    <p class="note"><b>Розкритий блок — дві колонки:</b> зліва позиції (+ «✎ Залишити відгук» → 3.1a) і <b>розбивка у фіксованому порядку</b> Товари → Знижка → Використано бонусів → Промокод → Знижка лояльності → <b>Разом</b> → ★ Нараховано → ⭳ квитанція; справа велика <b>«Повторити»</b> (Job 4) + блок доставки з <b>Номером ТТН</b> (тільки Нова Пошта; самовивіз — без ТТН). <b>Мобілка:</b> двоколонкова шапка (№/статус · дата/сума) → мініатюри → кнопка «Детальніше», розкрита картка завершується «Згорнути». <b>Стани:</b> Оформлено / В дорозі (ТТН) / Обробляється / Доставлено / Скасовано · порожньо → «Ще немає замовлень» + «До каталогу». Джоба-джерело: <a href="../research/concept.html">flows Job 4</a>.</p>
   </section>
 
   <!-- 04 loyalty -->
   <section class="section" id="loyalty">
     <div class="section-num">04 · Розбір — Лояльність і бонуси (7.4)</div>
-    <h2>Дві механіки: персональна знижка + бонусний рахунок (Job 6 · Рішення 3)</h2>
-    <p class="section-lead"><b>Два незалежні шляхи</b> (обидва на акаунті): <b>(1) персональна знижка</b> — пожиттєва сума покупок росте → рівень росте → <b>знижка більша</b> (3 рівні); <b>(2) бонусний рахунок</b> — нараховуємо <b>~1% бонусних гривень</b> за покупки, вони <b>живуть 3 місяці</b> — драйвер повернення. Повний опис — на сторінці <a href="content.html">Бонусна програма (8.7)</a>. Числа — гіпотези <b>[?]</b>.</p>
+    <h2>Дві механіки: бонусний рахунок + рівень лояльності (Job 6 · Рішення 3) <span class="upd">оновлено 07-2026</span></h2>
+    <p class="section-lead"><b>Два незалежні шляхи</b> (обидва на акаунті), <b>порядок — бонуси перші</b> (як в «Огляді»): <b>(1) бонусний рахунок</b> — нараховуємо <b>~1% бонусних гривень</b> за покупки, вони <b>живуть 3 місяці</b> — драйвер повернення; <b>(2) рівень лояльності</b> — пожиттєва сума покупок росте → рівень росте → <b>знижка більша</b> (3 рівні). Картки звуться <b>«Бонусний рахунок»</b> і <b>«Рівень лояльності»</b> (нумерацію «1/2» знято). Повний опис — на сторінці <a href="content.html">Бонусна програма (8.7)</a>. Числа — гіпотези <b>[?]</b>.</p>
     <div class="cols two">
       <div>
-        <div class="wf"><div class="wf-cap">1 · Персональна знижка — 3 рівні (пожиттєва сума)</div><div class="wf-pad">
-          <div style="font-size:12px;color:#555;margin-bottom:2px">Ваш рівень</div>
-          <div style="font-size:20px;font-weight:800;color:#111;margin-bottom:8px">Срібний <span style="font-size:12px;color:#777;font-weight:600">· знижка [?] %</span></div>
-          <div class="lbar"><i style="width:62%"></i></div>
-          <div class="lrow" style="margin-bottom:12px"><span>пожиттєво 6 200 ₴ <b>[?]</b></span><span>до Золотого — 1 800 ₴ <b>[?]</b></span></div>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;justify-content:space-between;font-size:11.5px;border:1px solid #e6e6e6;border-radius:8px;padding:7px 10px"><span>🥉 Бронзовий · від 0 ₴</span><span style="font-weight:700">знижка [?] %</span></div>
-            <div style="display:flex;justify-content:space-between;font-size:11.5px;border:1.5px solid #161616;border-radius:8px;padding:7px 10px;background:#fbfbfa"><span><b>🥈 Срібний</b> · від [?] ₴ — ви тут</span><span style="font-weight:800">знижка [?] %</span></div>
-            <div style="display:flex;justify-content:space-between;font-size:11.5px;border:1px solid #e6e6e6;border-radius:8px;padding:7px 10px;color:#777"><span>🥇 Золотий · від [?] ₴</span><span style="font-weight:700">знижка [?] %</span></div>
-          </div>
-          <p style="font-size:10.5px;color:#999;margin-top:10px">Рахунок — <b>пожиттєва</b> сума покупок (не згорає). Знижка рівня застосовується <b>автоматично в кошику</b>. 3 пороги й % — <b>[?]</b>.</p>
-        </div></div>
-      </div>
-      <div>
-        <div class="wf"><div class="wf-cap">2 · Бонусний рахунок — ~1%, термін 3 місяці</div><div class="wf-pad">
+        <div class="wf"><div class="wf-cap">Бонусний рахунок — ~1%, термін 3 місяці</div><div class="wf-pad">
           <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px"><span style="font-size:24px;font-weight:800;color:#111">240 ₴</span><span style="font-size:11.5px;color:#777">доступно бонусів</span></div>
           <div style="background:var(--warn-bg);border:1px solid #ecd9b0;border-radius:8px;padding:7px 10px;font-size:10.5px;color:#7a5a17;margin-bottom:9px">⏳ <b>18 ₴ згорять 12 вересня</b> — встигніть витратити</div>
           <div style="border-top:1px solid #eee">
@@ -459,34 +457,55 @@
           <p style="font-size:10.5px;color:#999;margin-top:8px">Нарахування <b>~1%</b> (600 ₴ → 6 ₴) [?]; <b>термін дії 3 місяці</b> → таблиця показує і нарахування, і <b>згорання</b>. Ціль — ретеншн: повернутись і витратити.</p>
         </div></div>
       </div>
+      <div>
+        <div class="wf"><div class="wf-cap">Рівень лояльності — 3 рівні (пожиттєва сума)</div><div class="wf-pad">
+          <div style="font-size:12px;color:#555;margin-bottom:2px">Ваш рівень</div>
+          <div style="font-size:20px;font-weight:800;color:#111;margin-bottom:8px">🥈 Срібний <span style="font-size:12px;color:#777;font-weight:600">· знижка [?] %</span></div>
+          <div class="lbar"><i style="width:62%"></i></div>
+          <div class="lrow" style="margin-bottom:12px"><span>пожиттєво 6 200 ₴ <b>[?]</b></span><span>до Золотого — 1 800 ₴ <b>[?]</b></span></div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;border:1px solid #e6e6e6;border-radius:8px;padding:7px 10px"><span>🥉 Бронзовий · від 0 ₴</span><span style="font-weight:700">знижка [?] %</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;border:1.5px solid #161616;border-radius:8px;padding:7px 10px;background:#fbfbfa"><span><b>🥈 Срібний</b> · від [?] ₴ — ви тут</span><span style="font-weight:800">знижка [?] %</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;border:1px solid #e6e6e6;border-radius:8px;padding:7px 10px;color:#777"><span>🥇 Золотий · від [?] ₴</span><span style="font-weight:700">знижка [?] %</span></div>
+          </div>
+          <p style="font-size:10.5px;color:#999;margin-top:10px">Рахунок — <b>пожиттєва</b> сума покупок (не згорає). Знижка рівня застосовується <b>автоматично в кошику</b>. 3 пороги й % — <b>[?]</b>.</p>
+        </div></div>
+      </div>
     </div>
-    <p class="note">Гість замість цієї секції бачить у хедері «бонуси / <b>Отримати</b>» → реєстрація (драйвер лояльності). Дві механіки незалежні: знижка = <b>пожиттєва сума</b> (не згорає), бонуси = <b>рахунок зі строком 3 міс</b>. Пороги/відсотки/курс/строк — гіпотези <b>[?]</b>. Повний пояснювальний лендинг — <a href="content.html">Бонусна програма (8.7)</a>.</p>
+    <p class="note">Порядок карток — <b>бонуси, потім лояльність</b> (як в «Огляді»). <b>Стани секції:</b> базовий (🥈 Срібний) · <b>порожній</b> (новий покупець: бонуси <b>0 ₴</b>, базовий рівень <b>0 %</b>, «до Бронзи ще [?] ₴», порожній леджер) · <b>максимум</b> (🥇 Золотий −8 %, повний прогрес, «максимальний рівень досягнуто»); пояснення лишаються в обох. Гість бачить у хедері «бонуси / <b>Отримати</b>» → реєстрація. Пороги/відсотки/курс/строк — <b>[?]</b>. Повний лендинг — <a href="content.html">Бонусна програма (8.7)</a>.</p>
   </section>
 
   <!-- 05 addresses + profile -->
   <section class="section" id="addr-profile">
     <div class="section-num">05 · Розбір — Адреси (7.5) і Профіль (7.1)</div>
-    <h2>Збережені адреси й дані профілю</h2>
-    <p class="section-lead">Адреси прискорюють оформлення (6.x): список + додати/редагувати + одна <b>за замовчуванням</b>. Профіль — <b>passwordless</b> (як авторизація 1.x): телефон (основний, підтверджений), e-mail (опційно, код), ім'я, мова, згоди на сповіщення. <b>Пароля немає</b> (застаріле «Пароль» знято).</p>
+    <h2>Збережені адреси й дані профілю <span class="upd">оновлено 07-2026</span></h2>
+    <p class="section-lead">Адреси прискорюють оформлення (6.x): список + одна <b>за замовчуванням</b>; <b>додавання — діалог «спочатку спосіб»</b> (Відділення / Поштомат / Кур'єр → форма під спосіб). Профіль — <b>passwordless</b> (як авторизація 1.x); дії — <b>робочі діалоги</b> (OTP-код), а не переходи. <b>Пароля немає</b>.</p>
     <div class="cols two">
       <div>
-        <div class="wf"><div class="wf-cap">Адреси (7.5)</div><div class="wf-pad">
-          <div class="addrs">
-            <div class="addr def"><span class="dtag">за замовч.</span><div class="at">Нова Пошта · Одеса</div><div class="al">Відділення №12, вул. Дерибасівська<br>Андрій К. · +380 67 ••• 45 12</div><div class="aedit">Редагувати</div></div>
-            <div class="addr"><div class="at">Кур'єр · Одеса</div><div class="al">вул. Катерининська 25, кв. 4<br>Андрій К. · +380 67 ••• 45 12</div><div class="aedit">Редагувати · Зробити основною</div></div>
-            <div class="addnew">＋ Додати адресу</div>
+        <div class="wf"><div class="wf-cap">Адреси (7.5) — список + діалог «спочатку спосіб»</div><div class="wf-pad">
+          <div class="addrs" style="margin-bottom:10px">
+            <div class="addr def"><span class="dtag">за замовч.</span><div class="at">Нова Пошта · відділення</div><div class="al">Відділення №12, вул. Катерининська, 27, Одеса<br>Андрій К. · +380 67 ••• 45 12</div><div class="aedit">Редагувати · Видалити</div></div>
+            <div class="addr"><div class="at">Кур'єр Нова Пошта</div><div class="al">вул. Дерибасівська 15, кв. 8, Одеса<br>Андрій К. · +380 67 ••• 45 12</div><div class="aedit">Основною · Редагувати · Видалити</div></div>
           </div>
-          <p style="font-size:10.5px;color:#999;margin-top:9px">Тип адреси = способи доставки з картки товару/оформлення: НП відділення/поштомат · кур'єр · самовивіз Одеса.</p>
+          <div style="border:1px solid #e6e6e6;border-radius:9px;padding:10px">
+            <div style="font-size:11px;font-weight:800;color:#111;margin-bottom:7px">＋ Нова адреса — оберіть спосіб</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="border:1px solid #e6e6e6;border-radius:8px;padding:7px 10px;font-size:11.5px">📦 <b>Відділення</b> Нової Пошти <span style="float:right;color:#bbb">›</span></div>
+              <div style="border:1px solid #e6e6e6;border-radius:8px;padding:7px 10px;font-size:11.5px">🔳 <b>Поштомат</b> Нової Пошти <span style="float:right;color:#bbb">›</span></div>
+              <div style="border:1px solid #e6e6e6;border-radius:8px;padding:7px 10px;font-size:11.5px">🚚 <b>Кур'єр</b> Нової Пошти <span style="float:right;color:#bbb">›</span></div>
+            </div>
+          </div>
+          <p style="font-size:10.5px;color:#999;margin-top:9px">Спосіб → форма під нього (місто через діалог «Оберіть місто» 0.1a). <b>Редагування</b> — той самий діалог, заповнений, + «🗑 Видалити» з підтвердженням. Самовивіз обирається в кошику, тут не зберігається. Стани: порожньо · вибір способу · відділення/поштомат/кур'єр · редагування · видалення.</p>
         </div></div>
       </div>
       <div>
-        <div class="wf"><div class="wf-cap">Профіль (7.1) — passwordless</div><div class="wf-pad">
+        <div class="wf"><div class="wf-cap">Профіль (7.1) — passwordless, дії = діалоги</div><div class="wf-pad">
           <div class="fld"><span class="fk">Ім'я</span><span class="fv">Андрій К.</span><span class="fx">Змінити</span></div>
-          <div class="fld"><span class="fk">Телефон</span><span class="fv">+380 67 ••• 45 12 <span class="vbadge">✓ підтв.</span></span><span class="fx">Змінити (код)</span></div>
-          <div class="fld"><span class="fk">E-mail</span><span class="fv" style="color:#999;font-weight:500">не додано</span><span class="fx">Додати (код)</span></div>
-          <div class="fld"><span class="fk">Мова</span><span class="fv">Українська</span><span class="fx">Укр / Рус</span></div>
+          <div class="fld"><span class="fk">Телефон</span><span class="fv">+380 67 ••• 45 12 <span class="vbadge">✓ підтв.</span></span><span class="fx">Змінити (код у SMS)</span></div>
+          <div class="fld"><span class="fk">E-mail</span><span class="fv" style="color:#999;font-weight:500">не додано / <b style="color:#2d7d46">додано ✓</b></span><span class="fx">Додати / Змінити (код)</span></div>
+          <div class="fld"><span class="fk">Мова</span><span class="fv">Українська</span><span class="fx">Укр / English</span></div>
           <div class="fld" style="margin-bottom:0"><span class="fk">Сповіщення</span><span class="fv" style="font-weight:500;font-size:12px">SMS про статус · e-mail-нагадування про поповнення запасів</span></div>
-          <p style="font-size:10.5px;color:#999;margin-top:10px">Без пароля: вхід за кодом (SMS / e-mail), тож зміна телефону/пошти — через OTP. Внизу — «Видалити акаунт». Нагадування про поповнення = реордер-механіка (Рішення 4).</p>
+          <p style="font-size:10.5px;color:#999;margin-top:10px"><b>Робочі діалоги:</b> зміна телефону / додавання-зміна e-mail = <b>2 кроки OTP</b> (той самий passwordless-патерн, що й авторизація 1.x); мова = діалог-перемикач; <b>«Видалити акаунт»</b> = небезпечне підтвердження з чекбоксом. Стани: e-mail «не додано» / <b>«додано»</b> · діалоги телефону/пошти/мови/видалення.</p>
         </div></div>
       </div>
     </div>
@@ -495,14 +514,19 @@
   <!-- 06 wishlist + become coach -->
   <section class="section" id="wishlist">
     <div class="section-num">06 · Розбір — Обране (7.6) і Стати тренером (7.7)</div>
-    <h2>Обране (канонічна картка) + вхід у роль тренера</h2>
-    <p class="section-lead"><b>Обране</b> — сітка збережених товарів <b>канонічною карткою</b> (як каталог), ♡ активне, «У кошик» переносить у 6.0; доступне <b>покупцю і тренеру</b>, іконка ♡ в хедері. «Мої стейпли» — післязапуск. <b>«Стати тренером»</b> — та сама точка входу, що й лендинг 5.0, щоб тренер не шукав вхід: запускає верифікацію (5.1); якщо вже тренер — показує роль і тариф (Free/Pro) + лінк у Кабінет тренера (5.2).</p>
-    <div class="wf"><div class="wf-cap">Обране (7.6) — канонічна картка</div><div class="wf-pad">
+    <h2>Обране (канонічна картка) + вхід у роль тренера <span class="upd">оновлено 07-2026</span></h2>
+    <p class="section-lead"><b>Обране</b> — сітка збережених товарів <b>канонічною карткою</b> (як каталог), ♡ активне, «У кошик» переносить у 6.0; доступне <b>покупцю і тренеру</b>, іконка ♡ в хедері. <b>Багато збережених</b> → лічильник + «Показати ще» + нумерована пагінація (як лістинг 2.1). «Мої стейпли» — післязапуск. <b>«Стати тренером»</b> — та сама точка входу, що й лендинг 5.0, щоб тренер не шукав вхід: запускає верифікацію (5.1); якщо вже тренер — показує роль і тариф (Free/Pro) + лінк у Кабінет тренера (5.2).</p>
+    <div class="wf"><div class="wf-cap">Обране (7.6) — канонічна картка · стан «багато» (42 товари)</div><div class="wf-pad">
+      <div style="font-size:12px;font-weight:800;color:#777;margin-bottom:9px">42 товари збережено</div>
       <div class="prow">
         <div class="pcard"><div class="ph2">фото<span class="fav">♥</span></div><div class="bd"><div class="pbrand">Optimum Nutrition · США</div><div class="nm">Gold Standard 100% Whey 909 г</div><div class="prow2"><span class="pnew">899 ₴</span><div class="cartbtn">🛒</div></div></div></div>
         <div class="pcard"><div class="ph2">фото<span class="fav">♥</span></div><div class="bd"><div class="pbrand">OstroVit · Польща</div><div class="nm">Креатин моногідрат 300 г</div><div class="prow2"><span class="pnew">449 ₴</span><div class="cartbtn">🛒</div></div></div></div>
         <div class="pcard"><div class="ph2">фото<span class="fav">♥</span></div><div class="bd"><div class="pbrand">BioTechUSA · Угорщина</div><div class="nm">BCAA 2:1:1 400 г</div><div class="prow2"><span class="pnew">509 ₴</span><div class="cartbtn">🛒</div></div></div></div>
         <div class="pcard"><div class="ph2">фото<span class="fav">♥</span></div><div class="bd"><div class="pbrand">Scitec Nutrition · Угорщина</div><div class="nm">Омега-3 90 капсул</div><div class="prow2"><span class="pnew">349 ₴</span><div class="cartbtn">🛒</div></div></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:9px;margin-top:12px">
+        <span class="obtn">Показати ще 12 (з 42)</span>
+        <div style="display:flex;gap:5px"><span style="width:26px;height:26px;border:1px solid #161616;background:#161616;color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">1</span><span style="width:26px;height:26px;border:1px solid #ddd;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px">2</span><span style="width:26px;height:26px;border:1px solid #ddd;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px">3</span><span style="width:26px;height:26px;border:1px solid #ddd;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px">4</span><span style="width:26px;height:26px;border:1px solid #ddd;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px">›</span></div>
       </div>
     </div></div>
     <div class="cols two">
@@ -523,15 +547,17 @@
   <!-- 07 states -->
   <section class="section" id="states">
     <div class="section-num">07 · Стани</div>
-    <h2>Стани сторінки та секцій</h2>
+    <h2>Стани сторінки та секцій <span class="upd">оновлено 07-2026</span></h2>
     <table>
       <tr><th>Стан</th><th>Поведінка</th></tr>
       <tr><td><b>Гість (не залогінений)</b></td><td>Прямий захід у /account → <b>діалог авторизації (1.0)</b>; після входу — повернення в запитану секцію. Приватну зону не рендеримо гостю.</td></tr>
-      <tr><td><b>Покупець (default)</b></td><td>Повний шелл; ліва навігація без тренерських пунктів.</td></tr>
+      <tr><td><b>Покупець (default)</b></td><td>Повний шелл; ліва навігація без тренерських пунктів. На мобілці навігація секцій — <b>горизонтальні чипси зі свайпом</b> (не довгий список), активний — тёмний чип.</td></tr>
       <tr><td><b>Тренер</b></td><td>У навігації — чип тарифу (Free/Pro) + «Кабінет тренера» (5.2) / «Клієнти» (5.3); «Стати тренером» → «Я тренер» (статус).</td></tr>
-      <tr><td><b>Порожньо: замовлення</b></td><td>Empty-state «Ще немає замовлень» + «До каталогу».</td></tr>
-      <tr><td><b>Порожньо: обране</b></td><td>Empty-state ♡ + «До каталогу».</td></tr>
-      <tr><td><b>Порожньо: адреси</b></td><td>Лише картка «＋ Додати адресу».</td></tr>
+      <tr><td><b>Замовлення: акордеон / порожньо</b></td><td>Рядки розкриваються в деталі (7.2+7.3 злиті); порожньо → «Ще немає замовлень» + «До каталогу».</td></tr>
+      <tr><td><b>Лояльність: порожньо / максимум</b></td><td><b>Порожньо</b> — бонуси 0 ₴, базовий рівень 0 %, порожній леджер; <b>максимум</b> — 🥇 Золотий −8 %, повний прогрес, без «до наступного». Пояснення лишаються в обох.</td></tr>
+      <tr><td><b>Обране: багато / порожньо</b></td><td><b>Багато</b> — лічильник «42 товари» + «Показати ще» + нумерована пагінація; <b>порожньо</b> — ♡ + «До каталогу».</td></tr>
+      <tr><td><b>Адреси: діалог / порожньо</b></td><td>Порожньо → «＋ Додати адресу»; додавання — <b>діалог «спочатку спосіб»</b> (відділення/поштомат/кур'єр); <b>редагування</b> — той самий діалог заповнений + <b>видалення з підтвердженням</b>.</td></tr>
+      <tr><td><b>Профіль: OTP / e-mail / видалення</b></td><td>Зміна телефону та додавання/зміна e-mail — <b>2-крокові OTP-діалоги</b>; e-mail «не додано» / <b>«додано ✓»</b>; мова — перемикач; <b>видалення акаунта</b> — небезпечне підтвердження з чекбоксом.</td></tr>
       <tr><td><b>Бонуси = 0 / гість</b></td><td>Секція показує 0 + як заробити; у хедері гість бачить «бонуси / Отримати» → реєстрація.</td></tr>
       <tr><td><b>Повтор із OOS</b></td><td>У кошик додається доступне; відсутні позиції <b>чесно позначені</b> + альтернатива (не мовчазний збій, не глухий кут).</td></tr>
       <tr><td><b>Завантаження</b></td><td>Скелетони карток/рядків; дії з підтвердженням — тост.</td></tr>
@@ -547,7 +573,7 @@
       <tr><th>Аспект</th><th>Рішення</th></tr>
       <tr><td><b>robots</b></td><td><code>noindex, nofollow</code> на всіх /account-екранах; за логіном — недоступно краулеру</td></tr>
       <tr><td><b>Schema</b></td><td>Немає (приватні дані; жодного Product/Breadcrumb)</td></tr>
-      <tr><td><b>URL</b></td><td>/account, /account/orders, /account/orders/{id}, /account/loyalty, /account/addresses, /account/profile, /account/wishlist — прості, не для SEO</td></tr>
+      <tr><td><b>URL</b></td><td>/account, /account/orders (деталі — акордеон на тій самій сторінці, deep-link #№), /account/loyalty, /account/addresses, /account/profile, /account/wishlist — прості, не для SEO</td></tr>
       <tr><td><b>Приватність</b></td><td>Телефон/пошта маскуються в UI; дані — лише власнику; «Видалити акаунт»</td></tr>
       <tr><td><b>A11y</b></td><td>Ліва навігація = <code>nav</code> з поточним пунктом (aria-current); фокус при зміні секції; лічильники в aria-label</td></tr>
     </table>
@@ -561,9 +587,9 @@
       <tr><th>#</th><th>Секція</th><th>Що всередині</th><th>Вузол</th></tr>
       <tr><td>0</td><td><b>Хедер / Футер</b> (наслідуються)</td><td>Навігація 0.1 / Футер 0.2</td><td class="arrow">0.1 · 0.2</td></tr>
       <tr><td>1</td><td><b>Огляд / дашборд</b></td><td>Привітання · знімки (бонуси · останнє замовлення+повтор · обране · адреси) · прогрес лояльності · банер тренера</td><td class="arrow">7.0</td></tr>
-      <tr><td>2</td><td><b>Замовлення</b></td><td>Список: номер · дата · статус · сума · мініатюри · «Повторити»/«Деталі»</td><td class="arrow">7.2</td></tr>
-      <tr><td>3</td><td><b>Деталі замовлення + повтор</b></td><td>Позиції · суми · бонуси · ТТН · <b>«Повторити» → кошик</b> · документи · «Залишити відгук»</td><td class="arrow">7.3 · 6.0 · Job 4</td></tr>
-      <tr><td>4</td><td><b>Лояльність і бонуси</b></td><td>Рівень/знижка · прогрес до порогу · баланс бонусів + рух</td><td class="arrow">7.4 · Job 6 · Рішення 3</td></tr>
+      <tr><td>2</td><td><b>Замовлення (акордеон)</b></td><td>Згорнутий рядок: № · дата · статус · сума · мініатюри (+N) · розкриття. <b>7.2 і 7.3 злиті</b> — окремої сторінки деталей немає</td><td class="arrow">7.2 + 7.3</td></tr>
+      <tr><td>3</td><td><b>Розкриті деталі + повтор</b></td><td>Позиції (+ відгук) · <b>розбивка</b> (товари→знижка→бонуси→промокод→лояльність→разом→нараховано→квитанція) · <b>ТТН</b> · <b>«Повторити» → кошик</b></td><td class="arrow">6.0 · Job 4</td></tr>
+      <tr><td>4</td><td><b>Лояльність і бонуси</b></td><td><b>Бонуси перші</b>: баланс бонусів + рух (леджер) · далі рівень лояльності + прогрес до порогу</td><td class="arrow">7.4 · Job 6 · Рішення 3</td></tr>
       <tr><td>5</td><td><b>Адреси</b></td><td>Список · додати/редагувати · за замовчуванням</td><td class="arrow">7.5 · 6.x</td></tr>
       <tr><td>6</td><td><b>Профіль</b></td><td>Ім'я · телефон (підтв.) · e-mail · мова · сповіщення · видалити акаунт (<b>passwordless</b>)</td><td class="arrow">7.1 · 1.x</td></tr>
       <tr><td>7</td><td><b>Обране</b></td><td>Канонічні картки · «У кошик» · порожній стан (покупець і тренер)</td><td class="arrow">7.6 · 3.0 · 6.0</td></tr>

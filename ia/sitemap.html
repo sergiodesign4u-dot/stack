@@ -637,52 +637,63 @@ flowchart TD
       </article>
 
       <article class="node" id="n71">
-        <div class="node-head"><span class="node-num">7.1</span><span class="chip page">Сторінка</span></div>
+        <div class="node-head"><span class="node-num">7.1</span><span class="chip page">Сторінка</span><span class="chip state">Стани</span></div>
         <h3>Профіль</h3>
         <p class="includes-label">Включає</p>
-        <ul class="includes"><li>Особисті дані (ім'я · телефон підтв. · e-mail)</li><li><b>Passwordless</b> — вхід/зміна за кодом, <b>без пароля</b></li><li>Мова · сповіщення · видалити акаунт</li></ul>
+        <ul class="includes"><li>Особисті дані (ім'я · телефон підтв. · e-mail)</li><li><b>Passwordless</b> — вхід/зміна за кодом, <b>без пароля</b>; зміна телефону/пошти = <b>OTP-діалоги</b></li><li>Мова · сповіщення · видалити акаунт (підтвердження)</li></ul>
+        <p class="includes-label">Стани</p>
+        <ul class="includes"><li>e-mail «не додано» / <b>«додано»</b> · діалоги: телефон · e-mail · мова · видалення</li></ul>
         <div class="links">—</div>
       </article>
 
       <article class="node" id="n72">
-        <div class="node-head"><span class="node-num">7.2</span><span class="chip page">Сторінка</span></div>
-        <h3>Замовлення / історія</h3>
+        <div class="node-head"><span class="node-num">7.2 + 7.3</span><span class="chip page">Сторінка</span><span class="chip state">Стани</span></div>
+        <h3>Замовлення — акордеон (список + деталі)</h3>
         <p class="includes-label">Включає</p>
-        <ul class="includes"><li>Список замовлень</li></ul>
-        <div class="links">→ <a href="#n73">7.3</a></div>
-      </article>
-
-      <article class="node" id="n73">
-        <div class="node-head"><span class="node-num">7.3</span><span class="chip page">Сторінка</span></div>
-        <h3>Деталі замовлення + повтор</h3>
-        <p class="includes-label">Включає</p>
-        <ul class="includes"><li>Позиції</li><li><b>Повтор у 1 тап</b></li></ul>
+        <ul class="includes"><li>Рядок: № · дата · статус · сума · мініатюри (+N) · розкриття</li><li><b>Розкриті деталі просто в рядку</b> (7.3 злито): позиції + відгук · розбивка · <b>ТТН</b></li><li><b>Повтор у 1 тап</b> → кошик</li></ul>
+        <p class="includes-label">Стани</p>
+        <ul class="includes"><li>рядок згорнуто / розкрито · порожньо «Ще немає замовлень»</li></ul>
         <div class="links">→ <a href="#n60">6.0</a></div>
         <div class="job">Job 4</div>
       </article>
 
-      <article class="node" id="n74">
-        <div class="node-head"><span class="node-num">7.4</span><span class="chip page">Сторінка</span></div>
-        <h3>Статус лояльності</h3>
+      <article class="node" id="n73">
+        <div class="node-head"><span class="node-num">7.3</span><span class="chip state">Стан 7.2</span></div>
+        <h3>Деталі замовлення = розкритий рядок</h3>
         <p class="includes-label">Включає</p>
-        <ul class="includes"><li>Прогрес тарифу / порогу</li></ul>
-        <div class="links">—</div>
+        <ul class="includes"><li><b>Не окрема сторінка</b> — розкритий стан рядка в 7.2</li><li>Позиції · розбивка (товари→знижка→бонуси→промокод→лояльність→разом→нараховано→квитанція) · ТТН · повтор</li></ul>
+        <div class="links">→ <a href="#n72">7.2</a> · <a href="#n60">6.0</a></div>
+        <div class="job">Job 4</div>
+      </article>
+
+      <article class="node" id="n74">
+        <div class="node-head"><span class="node-num">7.4</span><span class="chip page">Сторінка</span><span class="chip state">Стани</span></div>
+        <h3>Лояльність і бонуси</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li><b>Бонусний рахунок</b> (перший) — баланс + рух/леджер, ~1% / 3 міс</li><li><b>Рівень лояльності</b> — 3 рівні, прогрес до порогу, авто-знижка</li></ul>
+        <p class="includes-label">Стани</p>
+        <ul class="includes"><li>базовий · <b>порожній</b> (0 ₴ / базовий) · <b>максимум</b> (🥇 −8 %)</li></ul>
+        <div class="links">→ <a href="#n87">8.7</a></div>
         <div class="job">Job 6 · Рішення 3</div>
       </article>
 
       <article class="node" id="n75">
-        <div class="node-head"><span class="node-num">7.5</span><span class="chip page">Сторінка</span></div>
+        <div class="node-head"><span class="node-num">7.5</span><span class="chip page">Сторінка</span><span class="chip state">Стани</span></div>
         <h3>Збережені адреси</h3>
         <p class="includes-label">Включає</p>
-        <ul class="includes"><li>Список адрес</li><li>Додати / редагувати</li></ul>
-        <div class="links">—</div>
+        <ul class="includes"><li>Список адрес · за замовчуванням</li><li>Додавання — <b>діалог «спочатку спосіб»</b> (відділення / поштомат / кур'єр)</li><li>Редагування = той самий діалог + видалення з підтвердженням</li></ul>
+        <p class="includes-label">Стани</p>
+        <ul class="includes"><li>порожньо · вибір способу · відділення / поштомат / кур'єр · редагування · видалення</li></ul>
+        <div class="links">→ <a href="#n01a">0.1a</a></div>
       </article>
 
       <article class="node" id="n76">
-        <div class="node-head"><span class="node-num">7.6</span><span class="chip page">Сторінка</span></div>
+        <div class="node-head"><span class="node-num">7.6</span><span class="chip page">Сторінка</span><span class="chip state">Стани</span></div>
         <h3>Обране (wishlist)</h3>
         <p class="includes-label">Включає</p>
-        <ul class="includes"><li>Список збережених товарів</li><li>Додавання з картки / каталогу</li><li>Перенесення в кошик</li><li>Доступна <b>покупцю і тренеру</b>; іконка в хедері</li></ul>
+        <ul class="includes"><li>Список збережених товарів (канонічна картка)</li><li>Додавання з картки / каталогу · перенесення в кошик</li><li>Доступна <b>покупцю і тренеру</b>; іконка в хедері</li></ul>
+        <p class="includes-label">Стани</p>
+        <ul class="includes"><li>базовий · <b>порожньо</b> · <b>багато</b> (лічильник + «Показати ще» + пагінація)</li></ul>
         <div class="links">→ <a href="#n60">6.0</a> · <a href="#n30">3.0</a></div>
         <div class="job">MVP · «Мої стейпли» — post-launch</div>
       </article>

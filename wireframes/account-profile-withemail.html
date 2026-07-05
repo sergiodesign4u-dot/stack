@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Кабінет — Профіль — Stack (wireframe 7.1)</title>
+<title>Кабінет — Профіль · E-mail додано — Stack (wireframe 7.1)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
   /* page-local: profile form (passwordless per auth 1.x) */
@@ -74,14 +74,14 @@
           <div class="pf-hint">Основний спосіб входу. Зміна підтверджується кодом зі SMS.</div>
         </div>
 
-        <!-- email (optional) -->
+        <!-- email (added + verified) -->
         <div class="pfield">
           <div class="pf-lbl">E-mail</div>
           <div class="pf-row">
-            <div class="pf-val" style="color:var(--sec);font-weight:600">не додано</div>
-            <button type="button" class="pf-act pf-actbtn" onclick="openProfEmail('add')">Додати — код на пошту</button>
+            <div class="pf-val">viktoriia.koval@email.com <span class="ok">✓ підтверджено</span></div>
+            <button type="button" class="pf-act pf-actbtn" onclick="openProfEmail('change')">Змінити — код на пошту</button>
           </div>
-          <div class="pf-hint">Необов'язково. Підтвердження — кодом на пошту (без пароля).</div>
+          <div class="pf-hint">Використовується для чеків, статусів замовлень і нагадувань. Зміна підтверджується кодом на пошту.</div>
         </div>
 
         <!-- language -->
@@ -127,7 +127,7 @@
   var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
   wfHeader(isCoach ? 'coach' : 'buyer');
   wfAccountNav('profile', isCoach);
-  wfFooter(); wfToasts(); wfProfileDialogs(); wfBar('account-profile.html');
+  wfFooter(); wfToasts(); wfProfileDialogs(); wfBar('account-profile.html', 'withemail');
   // demo: toggle newsletter switch
   var sw = document.getElementById('nl-toggle');
   if (sw) sw.addEventListener('click', function () {
