@@ -60,6 +60,7 @@
     .section-lead { font-size: 14.5px; color: var(--text-secondary); margin-bottom: 20px; max-width: 730px; }
 
     .note { font-size: 12px; color: var(--text-light); margin: 4px 0 18px; }
+    .upd { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: 100px; padding: 1px 8px; margin-left: 8px; vertical-align: middle; }
 
     table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 8px; }
     th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
@@ -394,7 +395,7 @@
   <!-- 03 coach home -->
   <section class="section" id="home">
     <div class="section-num">03 · Кабінет тренера — головна (5.2)</div>
-    <h2>Робочий шелл: та сама навігація акаунта в «режимі тренера»</h2>
+    <h2>Робочий шелл: та сама навігація акаунта в «режимі тренера» <span class="upd">оновлено 07-2026</span></h2>
     <p class="section-lead">Кабінет = <b>шелл акаунта (7.x) з тренерськими секціями</b>: угорі — <b>чип тарифу</b>, велика дія <b>«+ Нова сесія замовлення»</b> (головний CTA, веде в 5.5), далі зведення по клієнтах, останні замовлення, обране тренера. Секції в лівій навігації відповідають дропдауну «Кабінет» для тренера (Навігація 0.1).</p>
     <div class="wf">
       <div class="wf-cap">Кабінет тренера — десктоп (5.2)</div>
@@ -414,8 +415,14 @@
           <div class="panel">
             <div class="ph">Вітаємо, Олено 👋</div>
             <div class="psub">Зберіть замовлення для клієнтів за одну сесію.</div>
+            <div style="border:1px solid #e6e6e6;border-radius:10px;padding:10px 12px;margin:12px 0;font-size:12px;color:#555"><b style="color:#111">Pro</b> · гуртові ціни активні · зекономлено цього місяця <b style="color:#111">1 240 ₴</b> [?]</div>
             <div class="newsess"><div><div class="nt">＋ Нова сесія замовлення</div><div class="nd">Оберіть клієнтів → додайте товари під ціль кожного → кошик згрупується по клієнтах.</div></div><span class="nbtn">Почати сесію →</span></div>
-            <div class="snap">
+            <!-- client-restock nudge (coach-level reorder, Decision 4 · Job 4) -->
+            <div style="border:1px solid #e6e6e6;border-radius:10px;padding:12px;margin-top:12px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><b style="font-size:12.5px;color:#111">↻ Час поповнити клієнтам</b><span style="font-size:10.5px;color:#999">Усі клієнти →</span></div>
+              <div style="display:flex;align-items:center;gap:10px"><span class="av" style="width:32px;height:32px;font-size:12px">А</span><div style="font-size:11.5px;color:#333;flex:1"><b>Андрій · Набір маси</b><br><span style="color:#888">Останнє замовлення 32 дні тому · протеїн на ~30 днів</span></div><span class="sbtn dark" style="margin:0">↻ У сесію</span></div>
+            </div>
+            <div class="snap" style="margin-top:12px">
               <div class="snapc"><div class="sk">👥 Клієнти</div><div class="sv">14</div><div class="sx">Pro — без обмежень</div><span class="sbtn">Список клієнтів</span></div>
               <div class="snapc"><div class="sk">Замовлення</div><div class="sv">37</div><div class="sx">останнє 3 дні тому</div><span class="sbtn">Історія</span></div>
               <div class="snapc"><div class="sk">💳 Тариф тренера</div><div class="sv">Pro</div><div class="sx">оптова ціна на всі товари</div><span class="sbtn">Тариф</span></div>
@@ -430,7 +437,7 @@
         <div class="wf-zone foot"><span class="zt">Футер</span> Наслідується — Футер (0.2)</div>
       </div>
     </div>
-    <p class="note">Free-тренер: чип «FREE», ліміт клієнтів 2–3 [?] + м'який апсел на Pro. «Обране тренера» — та сама сторінка 7.6 (спільна для покупця й тренера). Лояльність тренера = <b>опублікований тариф</b> (Рішення 3), окремо від персональної лояльності покупця.</p>
+    <p class="note"><b>Оновлено 07-2026:</b> статус-стрічка Pro несе <b>гуртову економію</b> (зекономлено N ₴ [?] — цінність, яку strategy v5 називає головним драйвером), + блок <b>«↻ Час поповнити клієнтам»</b> (реордер на рівні тренера, Рішення 4 · Job 4 → «У сесію» 5.5). <b>Єдина навігація кабінету (wfCoachNav):</b> один рендерер на всіх сторінках-секціях (Огляд · Клієнти · Замовлення · Обране · Тариф · Профіль · Вийти) — <b>«＋ Нова сесія» = окремий виділений CTA-блок</b> (не зникає, не змішується зі списком), усі пункти — реальні лінки, «Обране» веде в <b>контекст тренера (5.8)</b>, а не в акаунт покупця. Рейл є на всіх секціях; свідомо без рейла — <b>сесія (5.5)</b>, кошик, верифікація, і <b>деталі</b> (профіль клієнта 5.4 / замовлення 5.7) як дрил-дауни з брендкрамбом. Шелл — той самий <b>_wf.css</b> (мобільна навігація = <b>горизонтальні чипси зі свайпом</b>). <b>Стани 5.2:</b> базовий (Pro) · <b>порожньо</b> (новий тренер: 0 клієнтів/замовлень, «Зібрати першу сесію») · <b>Free</b> (чип Free, ліміт 2 клієнти в сесії [?], апсел на Pro). Лояльність тренера = <b>опублікований тариф</b> (Рішення 3), окремо від персональної лояльності покупця.</p>
   </section>
 
   <!-- 04 clients -->
@@ -534,7 +541,7 @@
         <div class="warn">⚠ <b>Ціну тарифу для 1 позиції не застосовано.</b> Сесію збережено, оформлення заблоковано, доки ціна не підтвердиться (повтор / прибрати позицію).</div>
       </div>
     </div>
-    <p class="note"><b>Петля по клієнту (flows.md, Job 1):</b> обрати/додати клієнта → quick-add (вантажить склад + ціну тарифу) → <b>склад?</b> немає → заміна / пропустити рядок → <b>ціна тарифу?</b> не застосувалась → сесію збережено, оформлення заблоковано → <b>тег на клієнта?</b> без тега → призначити або відкинути рядок → <b>ще клієнти?</b> → Кошик (per-client) → Оформлення → адреса → оплата. Тренер додає товар <b>лише через quick-add у сесії</b>.</p>
+    <p class="note"><b>Петля по клієнту (flows.md, Job 1):</b> обрати/додати клієнта → quick-add (вантажить склад + ціну тарифу) → <b>склад?</b> немає → заміна / пропустити рядок → <b>ціна тарифу?</b> не застосувалась → сесію збережено, оформлення заблоковано → <b>ще клієнти?</b> → Кошик (per-client) → Оформлення. Активна вкладка <b>=</b> клієнт, тож рядок автоприв'язується (немає стану «без клієнта»). Тренер додає товар <b>лише через quick-add у сесії</b>. <b>«＋ Клієнт» (оновлено 07-2026)</b> = діалог <b>вибору зі збережених клієнтів</b>, яких ще немає в сесії (пошук + мультивибір), або <b>«＋ Новий клієнт»</b> = окреме <b>повне додавання</b> (5.3a); порожній варіант — «Немає збережених клієнтів» → створити першого.</p>
   </section>
 
   <!-- 06 edit client 5.4a -->

@@ -53,12 +53,16 @@
 <div class="wf-canvas">
 <header id="wf-header"></header>
 
-<main class="wf-page co-wrap">
+<main class="wf-page">
   <nav class="crumb" aria-label="Хлібні крихти">
     <a href="home.html">Головна</a><span class="sep">/</span>
     <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
     <span class="cur">Замовлення</span>
   </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+    <div class="acc-main">
 
   <div class="co-top">
     <div>
@@ -141,12 +145,15 @@
   </article>
 
   <button class="btn co-more" type="button">Показати більше замовлень</button>
+
+    </div>
+  </div>
 </main>
 
 <footer id="wf-footer"></footer>
 </div>
 
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-orders.html');</script>
+<script>wfHeader('coach'); wfCoachNav('orders'); wfFooter(); wfBar('coach-orders.html');</script>
 </body>
 </html>

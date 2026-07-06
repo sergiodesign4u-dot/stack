@@ -3,9 +3,10 @@
 - **Node:** 5.x — Coach workspace. One artifact covering the whole cluster: **5.0 For-Coaches landing**
   (public), **5.1 Become-a-coach** (verify + tier flow), **5.2 Coach home**, **5.3 Clients**, **5.4
   Client profile** (+ **5.4a Edit client**), **5.5 Multi-client order session** (the core), **5.6 Order
-  history**, **5.7 Order detail** (5.4a/5.6/5.7 added 2026-07-02 to close the Step-9 wireframe IA gaps).
-  Like `product.md`/`account.md`, the whole cluster is one spec.
-- **Type:** public landing (5.0) + private work shell (5.2–5.7 + 5.4a) + flow (5.1).
+  history**, **5.7 Order detail** (5.4a/5.6/5.7 added 2026-07-02 to close the Step-9 wireframe IA gaps),
+  **5.8 Обране тренера** (coach-context favorites, added 2026-07-05). Like `product.md`/`account.md`, the
+  whole cluster is one spec.
+- **Type:** public landing (5.0) + private work shell (5.2–5.8 + 5.4a) + flow (5.1).
 - **Canonical visual:** `ia/coach.html`. This markdown is the source of truth.
 - **Job:** **Job 1 — PRIMARY** (Decision 1). The deepest flow by design — it is a **work flow**, not
   to be flattened (coach = ~8 taps for a 2-client order).
@@ -27,8 +28,17 @@
    **deliberate dead end** (link doesn't confirm → no wholesale access, shop stays as a buyer) · verified.
 3. **Кабінет тренера / home (5.2)** — the **account shell (7.x) in coach mode**: tier chip on top,
    the big **«＋ Нова сесія замовлення»** primary CTA (→ 5.5), clients summary, recent orders, coach
-   wishlist (shared 7.6). Left nav = the coach «Кабінет» dropdown (Navigation 0.1). Coach loyalty =
+   wishlist (**coach-context 5.8**, not the buyer account). Left nav = the coach «Кабінет» dropdown (Navigation 0.1). Coach loyalty =
    the **published tier** (Decision 3), separate from the buyer's personal loyalty.
+   - **Shell reuse (wireframe 2026-07-05):** styling comes from `_wf.css` (same primitives as the buyer
+     account, incl. the **mobile swipeable-chips section nav**), only the coach markup differs — so the
+     coach cabinet inherits the mobile nav + width fixes for free (no duplicated shell CSS).
+   - **Pro status strip** carries a **wholesale-savings stat** («зекономлено цього місяця N ₴» [?]) —
+     reinforces the price/margin value that strategy v5 names the primary switching driver.
+   - **«↻ Час поповнити клієнтам» restock nudge** — the **coach-level reorder mechanic** (Decision 4 ·
+     per-client repeat, Job 4): 1–2 clients due to reorder their staples («останнє замовлення N днів тому»)
+     + one-tap **«↻ У сесію»** → 5.5. The coach analog of the buyer dashboard restock; consumption
+     estimates operational **[?]**.
 4. **Клієнти (5.3) + Профіль клієнта (5.4)** — the core of Decision 1: **saved client list + per-client
    order tagging + per-client order history**. A client's **goal** drives product selection in the
    session. From a profile: **repeat a client's previous order** (Job 4 in a coach context) or start a
@@ -50,14 +60,22 @@
    problems route back; never a terminal.
    **Client-first model (locked 2026-07-02):** the active tab **IS** the client, so quick-add auto-tags
    the line to the current client — there is **no «untagged» line** (structurally impossible; the old
-   assign-or-discard recovery was removed as incoherent). Two real edges replace it: (a) **new client**
-   (`newclient` — a just-added tab with 0 items, arriving from the «Додати клієнта» capture dialog) →
-   recovery = quick-add for that client; (b) **empty session** (`empty` — 0 clients at all) → one clear
-   step «＋ Додати першого клієнта». Clients with no positions simply don't enter the order.
-   **States (5.5):** base · addclient (capture dialog) · loading (quick-add) · oos (line out of stock →
-   substitute/skip) · priceblock (tier price unresolved → checkout blocked) · **newclient** (new client,
-   0 items) · **empty** (session, 0 clients). Wireframe files: `coach-session.html` (+ `-addclient`,
-   `-loading`, `-oos`, `-priceblock`, `-newclient`, `-empty`).
+   assign-or-discard recovery was removed as incoherent).
+   **«＋ Клієнт» = a PICK dialog (redesigned 2026-07-06).** Tapping the «＋ Клієнт» tab opens a dialog to
+   **select from the coach's SAVED clients not yet in this session** (search + multi-select checkboxes;
+   here Ігор, since Андрій/Марія are already tabs) → «Додати обраних (N)». It is **not** an inline
+   create-form. A distinct **«＋ Новий клієнт» launcher** opens the **full new-client flow** (5.3a
+   `coach-client-new` — name · goal · phone · e-mail · notes) as a separate flow that saves the client
+   for future sessions. **Empty variant** (`addempty` — no saved clients yet) shows «Немає збережених
+   клієнтів» + «Створити першого клієнта» → 5.3a. Both add paths land on `newclient` (the new tab, 0 items).
+   Two real edges: (a) **new client** (`newclient` — a just-added tab with 0 items) → recovery = quick-add
+   for that client; (b) **empty session** (`empty` — 0 clients at all) → «＋ Додати першого клієнта».
+   Clients with no positions simply don't enter the order.
+   **States (5.5):** base · **addclient** (pick-from-saved dialog) · **addempty** (pick dialog, no saved
+   clients) · loading (quick-add) · oos (line out of stock → substitute/skip) · priceblock (tier price
+   unresolved → checkout blocked) · **newclient** (new client, 0 items) · **empty** (session, 0 clients).
+   Wireframe files: `coach-session.html` (+ `-addclient`, `-addempty`, `-loading`, `-oos`, `-priceblock`,
+   `-newclient`, `-empty`).
 6. **Замовлення тренера / order history (5.6)** — the coach's list of **placed multi-client orders**
    (distinct from the buyer's own order history 7.2, and from a single client's history inside 5.4).
    Each row: order № · date · **clients in the order** (names / count) · item count · **coach total** ·
@@ -112,9 +130,27 @@
    buyer account); the working cabinet 5.2–5.7 = `Головна › Кабінет тренера › …` (e.g. `… › Клієнти ›
    Андрій`, `… › Замовлення › № К-2041`, `… › Сесія замовлення`). The cabinet is a **parallel** personal
    zone (like buyer `Головна › Кабінет`), not nested under it — avoids a «Кабінет / Кабінет тренера» repeat.
-9. **Coach section-nav order (pinned):** Огляд · **＋ Нова сесія** · Клієнти · Замовлення · Обране ·
-   Профіль (акаунт покупця) · Вийти — identical on every cabinet page (5.2–5.7); «Нова сесія» is the top
-   action and «Профіль» must never be dropped.
+9. **Coach section-nav — ONE shared renderer (`wfCoachNav`, wireframe 2026-07-05).** After an audit found
+   every page hardcoded its own rail (drift: dead «Замовлення»/«Обране» buttons on Клієнти, no rail on
+   Замовлення/Тариф, «Нова сесія» icon/order drift, Обране → buyer account), the rail is now rendered
+   from **one source** on every cabinet page. Guarantees:
+   - **«＋ Нова сесія» is a DISTINCT highlighted CTA block** (dark, above the section list) — never a
+     vanishing list item; present on every cabinet page.
+   - **Section list (pinned order):** Огляд · Клієнти(ct) · Замовлення(ct) · Обране(ct) · Тариф ·
+     Профіль / акаунт покупця · Вийти — every item a real link, no dead buttons; correct active per page.
+   - **«Обране» stays in COACH context → `coach-wishlist.html` (5.8)**, NOT the buyer account.
+   - **Where the rail appears:** all cabinet **section** pages — Огляд (5.2), Клієнти (5.3), Замовлення
+     (5.6), Обране (5.8), Тариф (5.2a) + their states. **Intentionally without the rail** (focused /
+     drill-down): the multi-client **session (5.5)**, checkout/**cart (6.0)**, **verify/landing (5.0/5.1)**,
+     and the **detail drill-downs** client profile (5.4) & order detail (5.7) — reached by a row click,
+     they use a breadcrumb back to the cabinet (like PDP has no listing rail).
+   - Styling comes from `_wf.css` (same primitives as the buyer account → **mobile swipeable chips** for free).
+10. **5.8 Обране тренера** — the **shared favorites** (one wishlist for buyer + coach) rendered **in coach
+    context**: coach rail + coach header + **гуртові (Pro) prices** and «add to session». Reached from the
+    coach «Обране»; the buyer's personal account is a separate entry («Профіль / акаунт покупця»).
+11. **5.2 dashboard states (wireframe):** `base` (Pro, has data) · **`empty`** (new coach: 0 clients/orders/
+    wishlist, empty-state cards, «Зібрати першу сесію») · **`free`** (Free tier: Free chip, **«ліміт 2 клієнти
+    в сесії»**, Pro upsell banner) · loading · error.
 
 ## Open questions [?]
 

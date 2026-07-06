@@ -76,25 +76,8 @@
 
   <div class="acc">
 
-    <!-- ============ COACH SECTION NAV (shared account shell) ============ -->
-    <aside class="acc-nav">
-      <div class="acc-prof">
-        <div class="av">О</div>
-        <div class="who">
-          <div class="nm">Олена</div>
-          <div class="ph">+380 ** *** 21 09</div>
-          <span class="acc-tier">Pro · Тренер</span>
-        </div>
-      </div>
-      <nav class="acc-links" aria-label="Розділи кабінету тренера">
-        <a class="acc-link" href="coach-home.html"><span class="ic">▦</span> Огляд <span class="ar">›</span></a>
-        <a class="acc-link" href="coach-clients.html" aria-current="page"><span class="ic">👥</span> Клієнти <span class="ct" aria-label="3 клієнти">3</span><span class="ar">›</span></a>
-        <a class="acc-link" href="coach-session.html"><span class="ic">🛒</span> Нова сесія <span class="ar">›</span></a>
-        <button class="acc-link" type="button"><span class="ic">📦</span> Замовлення <span class="ar">›</span></button>
-        <button class="acc-link" type="button"><span class="ic">♡</span> Обране <span class="ar">›</span></button>
-        <a class="acc-link logout" href="home.html"><span class="ic">⎋</span> Вийти</a>
-      </nav>
-    </aside>
+    <!-- ============ COACH SECTION NAV (shared wfCoachNav) ============ -->
+    <aside class="acc-nav" id="acc-nav"></aside>
 
     <!-- ============ CONTENT = CLIENTS LIST ============ -->
     <div class="acc-main">
@@ -176,6 +159,6 @@
 <div id="wf-toast"></div>
 
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfClientEdit(); wfToasts(); wfBar('coach-clients.html');</script>
+<script>wfHeader('coach'); wfCoachNav('clients'); wfFooter(); wfClientEdit(); wfToasts(); wfBar('coach-clients.html');</script>
 </body>
 </html>

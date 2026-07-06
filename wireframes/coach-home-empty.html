@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет тренера — Огляд (порожньо) — Stack (wireframe 5.2 · empty)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+/* ============================================================
+   node 5.2 Кабінет тренера = the ACCOUNT SHELL (7.x) in COACH MODE.
+   Reuses the account shell primitives (left section-nav + content panel /
+   mobile menu-hub) verbatim; adds the coach dashboard (Pro chip, big
+   «Нова сесія» CTA, clients summary, recent multi-client orders, wishlist).
+   Greyscale only. Coach is a ROLE on top of the buyer account.
+   Shell primitives (.acc, .acc-nav, .acc-prof, .acc-links, .acc-link, .acc-h1,
+   .acc-grid, .acard, …) come from _wf.css — SAME as the buyer account, so the
+   coach gets the mobile swipeable-chips nav + width fix for free. Only the
+   coach-specific dashboard styles live here.
+   ============================================================ */
+/* coach status strip: Pro chip + wholesale-active note */
+.cstat { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 15px; border: 1px solid var(--hair); border-radius: 12px; padding: 13px 15px; background: var(--fill2); }
+.cstat .tierchip { display: inline-block; font-size: 12px; font-weight: 800; color: var(--strong); border: 1.5px solid var(--dark); border-radius: 100px; padding: 3px 12px; }
+.cstat .cnote { font-size: 13px; color: var(--sec); }
+.cstat .cnote b { color: var(--strong); }
+.cstat .cmanage { margin-left: auto; font-size: 12.5px; font-weight: 700; color: var(--strong); text-decoration: underline; }
+
+/* big primary CTA */
+.cnew { display: flex; align-items: center; gap: 16px; margin-top: 16px; border: 1.5px solid var(--dark); border-radius: 14px; padding: 20px; background: var(--dark); color: #fff; }
+.cnew .cn-ic { width: 46px; height: 46px; flex: none; border-radius: 12px; border: 1.5px solid rgba(255,255,255,.4); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.cnew .cn-tx { min-width: 0; }
+.cnew .cn-t { font-size: 18px; font-weight: 800; }
+.cnew .cn-s { font-size: 13px; color: rgba(255,255,255,.72); margin-top: 3px; }
+.cnew .cn-go { margin-left: auto; font-size: 22px; font-weight: 800; }
+@media (max-width: 520px) { .cnew .cn-go { display: none; } }
+
+.acc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+@media (min-width: 640px) { .acc-grid { grid-template-columns: 1fr 1fr; } }
+.acard { border: 1px solid var(--hair); border-radius: 14px; padding: 16px; }
+.acard.span2 { grid-column: 1 / -1; }
+.acard .ah { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.acard .ah h3 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); }
+.acard .ah a, .acard .ah .lnk { font-size: 12.5px; font-weight: 700; color: var(--strong); }
+
+/* clients summary */
+.cli { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid var(--hair); }
+.cli:first-of-type { border-top: none; }
+.cli .cav { width: 40px; height: 40px; flex: none; border-radius: 50%; background: var(--fill); border: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; color: var(--sec); font-size: 14px; font-weight: 800; }
+.cli .cinfo { min-width: 0; }
+.cli .cinfo .cn { font-size: 14px; font-weight: 800; color: var(--strong); }
+.cli .cinfo .cg { font-size: 12.5px; color: var(--sec); margin-top: 2px; }
+.cli .cgo { margin-left: auto; font-size: 12.5px; font-weight: 700; color: var(--strong); text-decoration: underline; white-space: nowrap; }
+.cli .cgo-btn { margin-left: auto; white-space: nowrap; padding: 8px 14px; }
+.cli-add { margin-top: 13px; }
+.crestock .rk-lead { font-size: 13px; color: var(--sec); margin: -4px 0 8px; }
+.crestock .cg b { color: var(--strong); font-weight: 700; }
+
+/* recent coach orders */
+.cord { display: flex; align-items: flex-start; gap: 12px; padding: 13px 0; border-top: 1px solid var(--hair); }
+.cord:first-of-type { border-top: none; }
+.cord .co-info { min-width: 0; flex: 1; }
+.cord .co-no { font-size: 14px; font-weight: 800; color: var(--strong); }
+.cord .co-meta { font-size: 12.5px; color: var(--sec); margin-top: 3px; }
+.cord .co-meta b { color: var(--strong); }
+.cord .co-status { display: inline-block; font-size: 11px; font-weight: 800; border: 1px solid var(--hair2); border-radius: 100px; padding: 2px 9px; color: var(--strong); margin-top: 7px; }
+.cord .co-sum { text-align: right; white-space: nowrap; }
+.cord .co-sum .cs-b { font-size: 16px; font-weight: 800; color: var(--strong); }
+.cord .co-sum a { display: block; font-size: 12px; font-weight: 700; color: var(--strong); text-decoration: underline; margin-top: 8px; }
+.emptybox { border: 1.5px dashed var(--hair2); border-radius: 12px; padding: 30px 18px; text-align: center; }
+.emptybox .ei { font-size: 28px; }
+.emptybox .et { font-size: 15px; font-weight: 800; color: var(--strong); margin: 10px 0 5px; }
+.emptybox .es { font-size: 13px; color: var(--sec); margin-bottom: 15px; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+.emptybox .eact { display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.2 Кабінет тренера / Огляд (base = has data).
+  Account shell in COACH MODE. Private zone → noindex. Coach = Олена, Pro.
+  Clients: Андрій (Набір маси) · Марія (Схуднення). PRIMARY Job 1 entry.
+  States: loading, error.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Кабінет тренера</span>
+  </nav>
+
+  <div class="acc">
+
+    <!-- ============ SECTION NAV (shared wfCoachNav; desktop rail / mobile chips) ============ -->
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <!-- ============ CONTENT PANEL = ОГЛЯД (coach dashboard) ============ -->
+    <div class="acc-main">
+      <h1 class="acc-h1">Вітаємо у Stack, Олено!</h1>
+      <p class="acc-sub">Роль тренера активна. Додайте клієнтів і зберіть першу мультиклієнтську сесію — далі тут з'явиться історія замовлень.</p>
+
+      <!-- coach status: Pro active, но ще без замовлень -->
+      <div class="cstat">
+        <span class="tierchip">Pro</span>
+        <span class="cnote"><b>Гуртові ціни активні</b> · без обмежень на клієнтів · зробіть перше замовлення, щоб побачити економію</span>
+        <a class="cmanage" href="coach-tariff.html">Керувати тарифом</a>
+      </div>
+
+      <!-- BIG primary CTA → multi-client session (5.5) -->
+      <a class="cnew" href="coach-session.html">
+        <span class="cn-ic">＋</span>
+        <span class="cn-tx">
+          <span class="cn-t">Зібрати першу сесію</span>
+          <span class="cn-s">Оберіть клієнтів → додайте товари під ціль кожного → кошик згрупується по клієнтах</span>
+        </span>
+        <span class="cn-go">→</span>
+      </a>
+
+      <div class="acc-grid">
+
+        <!-- Clients empty -->
+        <div class="acard span2">
+          <div class="ah"><h3>Клієнти</h3></div>
+          <div class="emptybox">
+            <div class="ei">👥</div>
+            <div class="et">Ще немає клієнтів</div>
+            <div class="es">Додайте перших клієнтів (ім'я + ціль) — і зможете замовляти для кожного з них в одну сесію.</div>
+            <div class="eact"><a class="btn dark" href="coach-clients.html">＋ Додати клієнта</a></div>
+          </div>
+        </div>
+
+        <!-- Orders empty -->
+        <div class="acard span2">
+          <div class="ah"><h3>Замовлення</h3></div>
+          <div class="emptybox">
+            <div class="ei">📦</div>
+            <div class="et">Ще немає замовлень</div>
+            <div class="es">Зберіть мультиклієнтську сесію — після оформлення історія й повтор з'являться тут.</div>
+            <div class="eact"><a class="btn dark" href="coach-session.html">＋ Нова сесія</a><a class="btn" href="coach-clients.html">Спершу додати клієнтів</a></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Wishlist empty -->
+      <section aria-label="Обране тренера">
+        <div class="sech"><h2>Обране</h2></div>
+        <div class="emptybox">
+          <div class="ei">♡</div>
+          <div class="et">В обраному поки порожньо</div>
+          <div class="es">Тисніть ♡ на товарах — зберігайте те, що часто замовляєте клієнтам, з гуртовою ціною Pro.</div>
+          <div class="eact"><a class="btn" href="catalog-page.html">До каталогу</a></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader('coach'); wfCoachNav('overview', {counts:{clients:0,orders:0,wishlist:0}}); wfFooter(); wfBar('coach-home.html','empty');</script>
+</body>
+</html>

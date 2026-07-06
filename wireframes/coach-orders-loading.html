@@ -61,12 +61,16 @@
 <div class="wf-canvas">
 <header id="wf-header"></header>
 
-<main class="wf-page co-wrap">
+<main class="wf-page">
   <nav class="crumb" aria-label="Хлібні крихти">
     <a href="home.html">Головна</a><span class="sep">/</span>
     <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
     <span class="cur">Замовлення</span>
   </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+    <div class="acc-main">
 
   <div class="co-top">
     <div>
@@ -82,12 +86,14 @@
     <div class="ord skel"><div class="skln" style="width:40%"></div><div class="skln" style="width:72%"></div><div class="skln" style="width:52%"></div><div class="skln" style="width:32%;margin-top:16px"></div></div>
   </div>
 
+    </div>
+  </div>
 </main>
 
 <footer id="wf-footer"></footer>
 </div>
 
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-orders.html', 'loading');</script>
+<script>wfHeader('coach'); wfFooter(); wfCoachNav('orders'); wfBar('coach-orders.html', 'loading');</script>
 </body>
 </html>

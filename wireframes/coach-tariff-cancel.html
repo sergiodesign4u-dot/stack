@@ -64,12 +64,16 @@
 <div class="wf-canvas">
 <header id="wf-header"></header>
 
-<main class="wf-page tf-wrap">
+<main class="wf-page">
   <nav class="crumb" aria-label="Хлібні крихти">
     <a href="home.html">Головна</a><span class="sep">/</span>
     <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
     <span class="cur">Тариф</span>
   </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+    <div class="acc-main">
 
   <h1 class="acc-h1" style="font-size:24px;font-weight:800">Тариф</h1>
   <p class="tf-lead">Ваш поточний тариф і керування підпискою. Змінити або скасувати можна будь-коли — гуртові ціни на товари зберігаються на обох тарифах.</p>
@@ -114,6 +118,8 @@
   </div>
 
   <p class="tf-note"><b>[?]</b> Ціна Pro (~99 ₴/міс), ліміт клієнтів на Free та умови — гіпотеза, уточнюються (юніт-економіка).</p>
+    </div>
+  </div>
 </main>
 
 <footer id="wf-footer"></footer>
@@ -134,7 +140,7 @@
 
 <script src="_nav.js"></script>
 <script>
-  wfHeader('coach'); wfFooter(); wfBar('coach-tariff.html', 'cancel');
+  wfHeader('coach'); wfFooter(); wfCoachNav('tariff'); wfBar('coach-tariff.html', 'cancel');
   function tfCancelOpen() { document.getElementById('tf-cancel').classList.add('open'); }
   function tfCancelClose() { document.getElementById('tf-cancel').classList.remove('open'); }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') tfCancelClose(); });

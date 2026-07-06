@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Кабінет тренера — Огляд — Stack (wireframe 5.2)</title>
+<title>Кабінет тренера — Огляд (тариф Free) — Stack (wireframe 5.2 · free)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
 /* ============================================================
@@ -95,11 +95,17 @@
       <h1 class="acc-h1">Вітаємо, Олено!</h1>
       <p class="acc-sub">Кабінет тренера: замовлення для клієнтів, гуртові ціни та історія в одному місці.</p>
 
-      <!-- coach status: Pro tier chip + wholesale-active note + savings stat (price = the driver, strategy v5) -->
-      <div class="cstat">
-        <span class="tierchip">Pro</span>
-        <span class="cnote"><b>Гуртові ціни активні</b> · без обмежень на клієнтів · зекономлено цього місяця <b>1 240 ₴</b> <span style="color:var(--light)">[?]</span></span>
-        <a class="cmanage" href="coach-tariff.html">Керувати тарифом</a>
+      <!-- coach status: FREE tier — better-than-retail, but capped clients + upsell to Pro -->
+      <div class="cstat" style="background:var(--fill)">
+        <span class="tierchip" style="border-color:var(--hair2)">Free</span>
+        <span class="cnote"><b>Ціни краще за роздрібні</b> · ліміт <b>2 клієнти</b> в сесії <span style="color:var(--light)">[?]</span></span>
+        <a class="cmanage" href="coach-tariff.html">Порівняти тарифи</a>
+      </div>
+
+      <!-- upsell to Pro (Free limitation) -->
+      <div class="cstat" style="border-color:var(--dark);background:#fff;margin-top:10px">
+        <span style="font-size:13px;color:var(--strong)"><b>Оновіть до Pro</b> — максимальна гуртова ціна на всі товари та безлімітні клієнти в сесії. ~99 ₴/міс <span style="color:var(--light)">[?]</span>.</span>
+        <a class="btn dark" href="coach-tariff.html" style="margin-left:auto">Перейти на Pro</a>
       </div>
 
       <!-- BIG primary CTA → multi-client session (5.5) -->
@@ -201,6 +207,6 @@
 </div>
 
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfCoachNav('overview'); wfFooter(); wfBar('coach-home.html');</script>
+<script>wfHeader('coach'); wfCoachNav('overview', {tier:'Free'}); wfFooter(); wfBar('coach-home.html','free');</script>
 </body>
 </html>

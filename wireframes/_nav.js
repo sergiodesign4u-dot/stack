@@ -13,7 +13,7 @@ const WF_STATE_LABEL = {
   guest: 'Гість', declined: 'Оплата відхилена', noaddr: 'Без адреси', loggedin: 'У кабінеті',
   code: 'Крок коду', newuser: 'Новий користувач', 'account-end': 'З акаунтом',
   tier: 'Вибір тарифу', deadend: 'Глухий кут', cap: 'Ліміт клієнтів',
-  addclient: 'Додати клієнта', priceblock: 'Ціна не підтверджена', newclient: 'Новий клієнт', cart: 'Кошик-полиця',
+  addclient: 'Додати клієнта (вибір)', addempty: 'Додати клієнта (порожньо)', priceblock: 'Ціна не підтверджена', newclient: 'Новий клієнт', cart: 'Кошик-полиця',
   confirm: 'Підтвердження', suggest: 'Підказки', 'no-results': 'Нічого не знайдено',
   protein: 'Протеїн', health: 'Здоровʼя', vitamins: 'Вітаміни',
   free: 'Тариф Free', cancel: 'Скасування Pro',
@@ -46,14 +46,15 @@ const WF_FLOWS = [
     screens: [
       { file: 'coach-landing.html', name: 'Для тренерів (лендинг)', node: '5.0', built: true,  states: [], builtStates: [] },
       { file: 'coach-verify.html',  name: 'Стати тренером',         node: '5.1', built: true,  states: ['loading','error','deadend','tier'], builtStates: ['loading','error','deadend','tier'] },
-      { file: 'coach-home.html',    name: 'Кабінет тренера',        node: '5.2', built: true,  states: ['loading','error'], builtStates: ['loading','error'] },
+      { file: 'coach-home.html',    name: 'Кабінет тренера',        node: '5.2', built: true,  states: ['empty','free','loading','error'], builtStates: ['empty','free','loading','error'] },
       { file: 'coach-tariff.html',  name: 'Тариф (керування)',      node: '5.2a', built: true, states: ['free','cancel'], builtStates: ['free','cancel'] },
       { file: 'coach-clients.html', name: 'Клієнти',                node: '5.3', built: true,  states: ['empty','loading','error','cap'], builtStates: ['empty','loading','error','cap'] },
       { file: 'coach-client-new.html', name: 'Новий клієнт',        node: '5.3a', built: true, states: [], builtStates: [] },
       { file: 'coach-client.html',  name: 'Профіль клієнта',        node: '5.4', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'coach-client-edit.html', name: 'Редагування клієнта', node: '5.4a', built: true, states: ['confirm'], builtStates: ['confirm'] },
-      { file: 'coach-session.html', name: 'Мультиклієнтська сесія', node: '5.5', built: true,  states: ['addclient','loading','oos','priceblock','newclient','empty'], builtStates: ['addclient','loading','oos','priceblock','newclient','empty'] },
+      { file: 'coach-session.html', name: 'Мультиклієнтська сесія', node: '5.5', built: true,  states: ['addclient','addempty','loading','oos','priceblock','newclient','empty'], builtStates: ['addclient','addempty','loading','oos','priceblock','newclient','empty'] },
       { file: 'coach-orders.html',  name: 'Замовлення тренера',     node: '5.6', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
+      { file: 'coach-wishlist.html', name: 'Обране тренера',         node: '5.8', built: true,  states: [], builtStates: [] },
       { file: 'coach-order.html',   name: 'Деталі замовлення',      node: '5.7', built: true,  states: ['loading','error'], builtStates: ['loading','error'] },
       { file: 'cart-coach.html',    name: 'Кошик (за клієнтами)',   node: '6.0', built: true,  states: ['empty'], builtStates: ['empty'] }
     ]
@@ -153,6 +154,7 @@ const WF_SITEMAP = [
     { node: '5.5',  name: 'Мультиклієнтська сесія',            file: 'coach-session.html' },
     { node: '5.6',  name: 'Замовлення тренера',                file: 'coach-orders.html' },
     { node: '5.7',  name: 'Деталі замовлення',                 file: 'coach-order.html' },
+    { node: '5.8',  name: 'Обране тренера',                    file: 'coach-wishlist.html' },
   ]},
   { cluster: '6 · Кошик і оформлення', items: [
     { node: '6.0',  name: 'Кошик',                             file: 'cart.html' },
@@ -918,6 +920,42 @@ function wfAccountNav(active, isCoach) {
     '<div class="nm">' + nm + '</div><div class="ph">' + ph + '</div>' +
     '<span class="acc-tier">' + (isCoach ? 'Pro · Тренер' : '🥈 Срібний рівень') + '</span></div></div>' +
     '<nav class="acc-links" aria-label="Розділи кабінету">' + links + '</nav>';
+}
+
+/* SHARED coach cabinet section-nav (node 5.2 shell) — ONE source for every coach
+   cabinet page (home/clients/orders/tariff/wishlist + states), mirroring
+   wfAccountNav. «Нова сесія» is a DISTINCT highlighted CTA block, separate from
+   the section list (never a vanishing list item). Every section is a real <a>.
+   «Обране» stays in COACH context (coach-wishlist.html), not the buyer account.
+   opts: { tier:'Pro'|'Free', counts:{clients,orders,wishlist}, cap:bool }.
+   Renders into #acc-nav (same slot as wfAccountNav). */
+function wfCoachNav(active, opts) {
+  const el = document.getElementById('acc-nav'); if (!el) return;
+  opts = opts || {};
+  const tier = opts.tier || 'Pro';
+  const c = opts.counts || { clients: 3, orders: 6, wishlist: 4 };
+  el.className = 'acc-nav';
+  function link(k, href, ic, label, ct) {
+    const cur = (k === active) ? ' aria-current="page"' : '';
+    const ctHtml = (ct != null && ct !== '') ? '<span class="ct">' + ct + '</span>' : '';
+    return '<a class="acc-link" href="' + href + '"' + cur + '><span class="ic">' + ic + '</span> ' + label + ' ' + ctHtml + '<span class="ar">›</span></a>';
+  }
+  const links =
+    link('overview', 'coach-home.html', '▦', 'Огляд', null) +
+    link('clients', 'coach-clients.html', '👥', 'Клієнти', c.clients) +
+    link('orders', 'coach-orders.html', '📦', 'Замовлення', c.orders) +
+    link('wishlist', 'coach-wishlist.html', '♡', 'Обране', c.wishlist) +
+    link('tariff', 'coach-tariff.html', '◈', 'Тариф', null) +
+    '<a class="acc-link buyer" href="account.html?r=coach"><span class="ic">👤</span> Профіль / акаунт покупця <span class="ar">›</span></a>' +
+    '<a class="acc-link logout" href="home.html"><span class="ic">⎋</span> Вийти</a>';
+  const chip = (tier === 'Free')
+    ? '<span class="acc-tier free">Free · Тренер</span>'
+    : '<span class="acc-tier">Pro · Тренер</span>';
+  el.innerHTML =
+    '<div class="acc-prof"><div class="av">О</div><div class="who">' +
+    '<div class="nm">Олена</div><div class="ph">+380 ** *** 21 09</div>' + chip + '</div></div>' +
+    '<a class="coach-newcta" href="coach-session.html"><span class="cn-plus">＋</span><span>Нова сесія</span></a>' +
+    '<nav class="acc-links" aria-label="Розділи кабінету тренера">' + links + '</nav>';
 }
 
 function wfToasts() { const el = document.getElementById('wf-toast'); if (!el) return; el.className = 'wf-toasts'; el.setAttribute('aria-live', 'polite'); el.innerHTML = ''; }

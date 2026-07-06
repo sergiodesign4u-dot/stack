@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Сесія — додати клієнта (wireframe 5.5 · addclient)</title>
+<title>Сесія — додати клієнта (порожній список) (wireframe 5.5 · addempty)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
 /* ============================================================
@@ -123,7 +123,6 @@
 .ac-list { display: flex; flex-direction: column; gap: 8px; max-height: 240px; overflow: auto; }
 .ac-cli { display: flex; align-items: center; gap: 11px; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 10px 12px; cursor: pointer; }
 .ac-cli input { width: 18px; height: 18px; flex: none; }
-.ac-cli .ac-info { display: flex; flex-direction: column; min-width: 0; }
 .ac-cli.on { border-color: var(--dark); background: var(--fill); }
 .ac-cli .cav { width: 34px; height: 34px; flex: none; border-radius: 50%; background: var(--fill); border: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: var(--sec); }
 .ac-cli .cn { font-size: 14px; font-weight: 800; color: var(--strong); }
@@ -283,16 +282,13 @@
 <div class="acov" role="dialog" aria-modal="true" aria-label="Додати клієнта в сесію">
   <div class="acmodal">
     <div class="ac-top"><h2>Додати клієнта в сесію</h2><a class="ac-x" href="coach-session.html" aria-label="Закрити">✕</a></div>
-    <p>Оберіть клієнтів зі свого списку — або створіть нового. Ті, хто вже в сесії (Андрій, Марія), приховані.</p>
-    <div class="ac-search"><input type="search" placeholder="Пошук клієнта за ім'ям…" aria-label="Пошук клієнта"></div>
+    <p>У вашому списку ще немає збережених клієнтів — створіть першого, і він з'явиться тут для наступних сесій.</p>
 
-    <!-- saved clients NOT yet in this session (multi-select) -->
-    <div class="ac-list" role="group" aria-label="Збережені клієнти">
-      <label class="ac-cli on">
-        <input type="checkbox" checked>
-        <span class="cav">І</span>
-        <span class="ac-info"><span class="cn">Ігор</span><span class="cg">Ціль: Витривалість · 2 замовлення</span></span>
-      </label>
+    <!-- empty: no saved clients to pick -->
+    <div class="ac-empty">
+      <div class="ei">👥</div>
+      <div class="et">Немає збережених клієнтів</div>
+      <div class="es">Додайте клієнта (ім'я + ціль) — і зможете замовляти для нього в сесії.</div>
     </div>
 
     <!-- launch the FULL new-client flow (separate) -->
@@ -303,11 +299,11 @@
 
     <div class="acact">
       <a class="btn" href="coach-session.html">Скасувати</a>
-      <a class="btn dark" href="coach-session-newclient.html">Додати обраних (1)</a>
+      <a class="btn dark" href="coach-client-new.html">Створити першого клієнта</a>
     </div>
   </div>
 </div>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'addclient');</script>
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'addempty');</script>
 </body>
 </html>

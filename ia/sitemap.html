@@ -554,11 +554,13 @@ flowchart TD
       </article>
 
       <article class="node" id="n52">
-        <div class="node-head"><span class="node-num">5.2</span><span class="chip page">Сторінка</span></div>
+        <div class="node-head"><span class="node-num">5.2</span><span class="chip page">Сторінка</span><span class="chip state">Стани</span></div>
         <h3>Кабінет тренера</h3>
         <p class="includes-label">Включає</p>
-        <ul class="includes"><li>Зведення по клієнтах</li><li>CTA нової сесії замовлення</li><li>Історія замовлень</li><li>Обране тренера</li></ul>
-        <div class="links">→ <a href="#n53">5.3</a> · <a href="#n55">5.5</a> · <a href="#n76">7.6</a></div>
+        <ul class="includes"><li><b>Єдина навігація (wfCoachNav)</b>: «＋ Нова сесія» = окремий CTA-блок; усі пункти — лінки</li><li>Статус тарифу + гуртова економія · зведення по клієнтах</li><li><b>«Час поповнити клієнтам»</b> (реордер)</li><li>Історія замовлень · Обране тренера (5.8)</li></ul>
+        <p class="includes-label">Стани</p>
+        <ul class="includes"><li>базовий (Pro) · <b>порожньо</b> (новий тренер) · <b>Free</b> (ліміт 2 клієнти + апсел Pro)</li></ul>
+        <div class="links">→ <a href="#n53">5.3</a> · <a href="#n55">5.5</a> · <a href="#n58">5.8</a></div>
       </article>
 
       <article class="node" id="n53">
@@ -584,6 +586,14 @@ flowchart TD
         <ul class="includes"><li>Вибір / додавання клієнта</li><li>Швидке додавання в сесії</li><li>Перевірка складу й ціни тарифу</li><li>Тег на клієнта</li><li><b>Ліміт клієнтів за тарифом</b>: Free 2–3 [?], Pro — без обмежень</li></ul>
         <div class="links">→ <a href="#n60">6.0</a></div>
         <div class="job">Job 1 · Рішення 1</div>
+      </article>
+
+      <article class="node" id="n58">
+        <div class="node-head"><span class="node-num">5.8</span><span class="chip page">Сторінка</span></div>
+        <h3>Обране тренера</h3>
+        <p class="includes-label">Включає</p>
+        <ul class="includes"><li><b>Спільний список обраного</b> покупця й тренера, показаний <b>у контексті тренера</b></li><li>Рейл тренера + хедер тренера + <b>гуртові ціни Pro</b> · «додати в сесію»</li><li>«Обране» з кабінету веде сюди, а не в акаунт покупця</li></ul>
+        <div class="links">→ <a href="#n52">5.2</a></div>
       </article>
 
     </div>

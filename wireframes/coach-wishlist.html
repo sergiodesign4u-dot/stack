@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет тренера — Обране — Stack (wireframe 5.8)</title>
+<link rel="stylesheet" href="_wf.css">
+<style>
+  /* node 5.8 Обране тренера — the SHARED wishlist (same favorites) rendered inside
+     the COACH shell (coach nav + coach header + Pro wholesale pricing on cards),
+     so «Обране» from the coach cabinet stays in coach context (never the buyer
+     account). Canonical .pcard grid. Private → noindex. */
+  .cw-note { font-size: 12.5px; color: var(--sec); margin-top: 14px; border: 1px dashed var(--hair2); border-radius: 8px; padding: 10px 12px; }
+  .cw-note b { color: var(--strong); }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 5.8 Обране тренера (base). Shared favorites in coach context:
+  coach nav (wfCoachNav 'wishlist') + coach header + Pro (гуртові) prices.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <span class="cur">Обране</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Обране</h1>
+      <p class="acc-sub">Збережені товари з <b>гуртовими цінами (тариф Pro)</b> — додайте в сесію для клієнтів у один дотик.</p>
+
+      <div class="prow" style="margin-top:18px">
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <div class="bd"><div class="pbrand">BioTechUSA · Угорщина</div><a href="product.html" class="nm">Hyper Mass 4000 г</a><div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 450 ₴</span></div><span class="pnew">1 230 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div><div class="pmeta2"><span class="perserv"><b>гурт</b> · ціна Pro</span></div></div></article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <div class="bd"><div class="pbrand">Optimum Nutrition · США</div><a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a><div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 290 ₴</span></div><span class="pnew">1 090 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.9</span> · 204 відгуки</div><div class="pmeta2"><span class="perserv"><b>гурт</b> · ціна Pro</span></div></div></article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <div class="bd"><div class="pbrand">OstroVit · Польща</div><a href="product.html" class="nm">Creatine Monohydrate 500 г</a><div class="pavail pre">● Під замовлення</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">549 ₴</span></div><span class="pnew">460 ₴</span></div><button class="cartbtn notify" aria-label="Повідомити про наявність">🔔</button></div>
+            <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div><div class="pmeta2"><span class="perserv"><b>гурт</b> · ціна Pro</span></div></div></article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <div class="bd"><div class="pbrand">Scitec Nutrition · Угорщина</div><a href="product.html" class="nm">100% Whey Protein Professional 920 г</a><div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">845 ₴</span></div><span class="pnew">720 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div><div class="pmeta2"><span class="perserv"><b>гурт</b> · ціна Pro</span></div></div></article>
+
+      </div>
+
+      <div class="cw-note"><b>Одне обране</b> для тренера й покупця (спільний список), але тут воно показане <b>в контексті тренера</b>: гуртові ціни Pro та дія «додати в сесію». Персональний акаунт покупця — окремо (пункт «Профіль / акаунт покупця»).</div>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="_nav.js"></script>
+<script>wfHeader('coach'); wfCoachNav('wishlist'); wfFooter(); wfBar('coach-wishlist.html');</script>
+</body>
+</html>
