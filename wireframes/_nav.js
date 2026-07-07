@@ -417,7 +417,7 @@ function wfHomeRail(opts) {
   var flyEl = document.querySelector(opts.fly || '#home-fly');
   if (!railEl || !flyEl) return;
   var scrimSel = opts.scrim || '#home-scrim';
-  var rail = '<a class="lead on" data-k="g" href="catalog-page.html" onmouseenter="hcFly(\'g\')">✦ За ціллю <span class="ar">›</span></a><div class="rsep"></div>';
+  var rail = '<a class="lead" data-k="g" href="catalog-page.html" onmouseenter="hcFly(\'g\')">✦ За ціллю <span class="ar">›</span></a><div class="rsep"></div>';
   WF_CAT_MENU.forEach(function (c, i) {
     rail += '<a data-k="' + i + '" href="' + c.href + '" onmouseenter="hcFly(\'' + i + '\')"><span class="ic">' + (c.ic || '') + '</span> ' + c.name + ' <span class="ar">›</span></a>';
   });
@@ -463,9 +463,11 @@ function wfMega(k) {
   document.querySelectorAll('.wfh-mega .mega-cat').forEach(el => el.classList.toggle('on', el.dataset.k === k));
   document.querySelectorAll('.wfh-mega .mega-panel').forEach(el => el.classList.toggle('on', el.dataset.k === k));
 }
-/* mega opens as an overlay (Comfy-style) — dark scrim over the page while open */
-function openMega() { var h = document.querySelector('.wfh'); if (h) h.classList.add('mega-open'); var s = document.getElementById('wfh-scrim'); if (s) s.classList.add('open'); }
-function closeMega() { var h = document.querySelector('.wfh'); if (h) h.classList.remove('mega-open'); var s = document.getElementById('wfh-scrim'); if (s) s.classList.remove('open'); }
+/* mega opens as an overlay (Comfy-style) — dark scrim over the page while open.
+   Close is deferred a beat so a fast diagonal move into the panel never closes it. */
+var _megaCloseT;
+function openMega() { clearTimeout(_megaCloseT); var h = document.querySelector('.wfh'); if (h) h.classList.add('mega-open'); var s = document.getElementById('wfh-scrim'); if (s) s.classList.add('open'); }
+function closeMega() { clearTimeout(_megaCloseT); _megaCloseT = setTimeout(function () { var h = document.querySelector('.wfh'); if (h) h.classList.remove('mega-open'); var s = document.getElementById('wfh-scrim'); if (s) s.classList.remove('open'); }, 140); }
 
 /* city selector dialog (node 0.1a) + mobile menu drawer + open/close */
 function wfCityHTML() {

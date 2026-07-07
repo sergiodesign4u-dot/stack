@@ -58,6 +58,14 @@ img { max-width: 100%; display: block; }
   background: #fff; border: 1px solid var(--hair); border-top: 2px solid var(--dark);
   border-radius: 0 0 12px 12px; box-shadow: 0 14px 34px rgba(0,0,0,.12); margin-top: 6px; overflow: hidden; }
 .wfh.mega-open .wfh-mega, .wfh.mega-pinned .wfh-mega { display: grid; }
+/* transparent hover-bridge across the 6px gap between the Каталог button and the panel,
+   so moving the mouse down into the mega does NOT fire mouseleave and close it */
+.wfh-cat::after { content: ""; display: none; position: absolute; top: 100%; left: 0; width: 100%; height: 12px; }
+.wfh.mega-open .wfh-cat::after, .wfh.mega-pinned .wfh-cat::after { display: block; }
+/* the Каталог button darkens + caret flips while its mega is open */
+.wfh-nav .navbtn .cav { transition: transform .15s; }
+.wfh.mega-open .wfh-cat .navbtn, .wfh.mega-pinned .wfh-cat .navbtn { background: #000; border-color: #000; }
+.wfh.mega-open .wfh-cat .navbtn .cav, .wfh.mega-pinned .wfh-cat .navbtn .cav { transform: rotate(180deg); }
 /* Comfy-style overlay: dark scrim over the page while the mega is open. Body-level,
    full viewport, z-index BELOW the sticky header (30) but ABOVE page content (0) → the
    whole header stays crisp, the page dims. No hard-coded header height. */
