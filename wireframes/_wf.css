@@ -69,7 +69,10 @@ img { max-width: 100%; display: block; }
 /* Comfy-style overlay: dark scrim over the page while the mega is open. Body-level,
    full viewport, z-index BELOW the sticky header (30) but ABOVE page content (0) → the
    whole header stays crisp, the page dims. No hard-coded header height. */
-.wfh-scrim { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.44); z-index: 20; }
+/* z-index 28: below the sticky header (30) so header+mega stay crisp, but ABOVE the home
+   category rail wrapper (.hrail-wrap z-index 25) so that rail dims too — otherwise it peeks
+   bright beside the mega and looks selected. */
+.wfh-scrim { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.44); z-index: 28; }
 .wfh-scrim.open, .wfh-scrim.pinned { display: block; }
 @media (max-width: 859px) { .wfh-scrim { display: none !important; } }
 /* left rail — «За ціллю» first, then 12 categories */
