@@ -1052,11 +1052,13 @@ function wfTabbarActive() {
   if (f.indexOf('megamenu') === 0 || f.indexOf('category') === 0 || f.indexOf('goal') === 0) return 'catalog';
   return '';
 }
-function wfTabbarHTML(role) {
+function wfTabbarHTML(role, opts) {
+  opts = opts || {};
   var active = wfTabbarActive();
   var coach = role === 'coach';
   var loggedIn = coach || role === 'buyer';
-  var cartN = WF_CART_COUNT, favN = loggedIn ? WF_FAV_COUNT : 0;  // guest favourites require login → no count
+  var cartN = opts.cart != null ? opts.cart : 0;                          // state-driven; empty by default
+  var favN = opts.fav != null ? opts.fav : (loggedIn ? WF_FAV_COUNT : 0); // guest favourites require login → no count
   var tabs = coach ? [
     { k: 'home', ic: '🎽', l: 'Кабінет', href: 'coach-home.html' },
     { k: 'catalog', ic: '▦', l: 'Каталог', href: 'catalog-page.html', cat: true },
@@ -1077,8 +1079,9 @@ function wfTabbarHTML(role) {
     return '<a class="wf-tab" href="' + t.href + '"' + cur + oc + '><span class="ti">' + t.ic + badge + '</span><span class="tl">' + t.l + '</span></a>';
   }).join('');
 }
-function wfHeader(role) {
+function wfHeader(role, opts) {
   role = role || 'guest';
+  opts = opts || {};
   window.WF_ROLE = role;   // shared so wfFooter() (and any shared nav) can route guest vs logged-in variants
   const isCoach = role === 'coach';
   const loggedIn = isCoach || role === 'buyer';
@@ -1105,10 +1108,20 @@ function wfHeader(role) {
       `<div class="wfh-cabmenu" id="wfh-cabmenu" role="menu">${items}</div></div>`;
   }
   const bonusVal = loggedIn ? '124 ₴' : 'Отримати';  // canonical buyer balance (account 7.4 · Вікторія)
-  const cartN = WF_CART_COUNT, favN = loggedIn ? WF_FAV_COUNT : 0;  // guest favourites need login
+  // bonus button: guests (and anyone not logged in) go to the public bonus-programme explainer (8.7),
+  // logged-in users go to their loyalty section
+  const bonusHref = loggedIn ? 'account-loyalty.html' : 'content-loyalty.html';
+  // cart count/sum are STATE-driven (empty by default → no counter); pages with items pass opts.cart/cartSum
+  const cartN = opts.cart != null ? opts.cart : 0;
+  const cartSum = opts.cartSum || '';
+  const favN = opts.fav != null ? opts.fav : (loggedIn ? WF_FAV_COUNT : 0);  // guest favourites need login
   const favHref = isCoach ? 'coach-wishlist.html' : 'account-wishlist.html';
   const cartBadge = cartN > 0 ? `<span class="hb">${cartN}</span>` : '';
   const favBadge = favN > 0 ? `<span class="hb">${favN}</span>` : '';
+  // Кошик button: with items → two-line «Кошик» + sum (like Бонуси); empty → plain label
+  const cartActHTML = cartSum
+    ? `<a class="wfh-act numbtn" href="cart.html"><span class="g">🛒${cartBadge}</span><span class="t"><span class="cap">Кошик</span><span class="val">${cartSum}</span></span></a>`
+    : `<a class="wfh-act numbtn" href="cart.html"><span class="g">🛒${cartBadge}</span><span class="lbl">Кошик</span></a>`;
   const el = document.getElementById('wf-header'); if (!el) return;
   el.className = 'wfh';
   el.innerHTML = `
@@ -1138,8 +1151,8 @@ function wfHeader(role) {
       <div class="wfh-actions">
         ${acctHTML}
         <a class="wfh-act stack" href="${favHref}"><span class="g">♡${favBadge}</span><span class="lbl">Обране</span></a>
-        <a class="wfh-act" href="account.html"><span class="g">★</span><span class="t"><span class="cap">Бонуси</span><span class="val">${bonusVal}</span></span></a>
-        <a class="wfh-act" href="cart.html"><span class="g">🛒${cartBadge}</span><span class="lbl">Кошик</span></a>
+        <a class="wfh-act numbtn" href="${bonusHref}"><span class="g">★</span><span class="t"><span class="cap">Бонуси</span><span class="val">${bonusVal}</span></span></a>
+        ${cartActHTML}
       </div>
     </div>
     ${wfCityHTML()}
@@ -1160,7 +1173,7 @@ function wfHeader(role) {
     tb.id = 'wf-tabbar'; tb.className = 'wf-tabbar'; tb.setAttribute('aria-label', 'Основна навігація');
     document.body.appendChild(tb);
   }
-  tb.innerHTML = wfTabbarHTML(role);
+  tb.innerHTML = wfTabbarHTML(role, { cart: cartN, fav: favN });
 }
 
 function wfFooter() {
