@@ -318,12 +318,15 @@ img { max-width: 100%; display: block; }
 }
 
 /* header badge counters (cart / favourites) — small corner counter on the buttons */
+.wfh-mi { padding-right: 8px; }   /* room so the last icon's badge never pokes past the edge */
 .wfh-mi a { position: relative; }
 .wfh-act { position: relative; }
-.wfh-mi .hb, .wfh-act .g .hb { position: absolute; top: -6px; right: -9px; min-width: 15px; height: 15px; padding: 0 4px;
+.wfh-mi .hb, .wfh-act .g .hb { position: absolute; top: -6px; right: -4px; min-width: 15px; height: 15px; padding: 0 4px;
   border-radius: 100px; background: var(--dark); color: #fff; font-size: 9.5px; font-weight: 800; line-height: 15px;
   text-align: center; box-shadow: 0 0 0 2px #fff; }
 .wfh-act .g { position: relative; }
+/* belt-and-suspenders: a few px of decorative overhang must never scroll the page */
+html { overflow-x: hidden; }
 
 /* ---------- Mobile catalog overlay (node 0.1 drill-down; opened by the Каталог tab) ---------- */
 .wf-catov { display: none; }
