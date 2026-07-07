@@ -290,3 +290,36 @@ Observation only. Full SEO audit (keyword research, rankings, page-level analysi
 - https://proteininkiev.com/en/
 - https://waysport.ua/
 - https://willmax.com.ua/
+
+---
+
+## Competitor Voice / Мова конкурентів (captured 2026-07-07 for the Voice phase)
+
+Verbatim on-page microcopy from 6 UA sport-nutrition stores (belok.ua, mega-mass.ua,
+gymbeam.ua, bcaa.ua, 5lb.ua). Captured to ground the product-voice document: *where every
+competitor sounds the same, Stack differentiates through voice.* Method: direct web fetch of
+homepage + category + product/promo pages, 2026-07-07. Strings verbatim (Ukrainian unless noted).
+
+### Verbatim strings by store
+
+- **belok.ua:** CTA «Купити в 1 клік» · «В кошик» · «Купити». Promo «Хіт продажу» · «-40% / -36% / -16%» (badges) · «Новинки» · «Акції». Trust «Офіційний імпортер відомих міжнародних брендів» (asserted, no cert link) · «7 років на ринку» · «Понад 40 магазинів». Loyalty «Система знижок» · «Одноразові та накопичувальні знижки». *Tone: relatively restrained; protein listing notably calm (badges + «₴ / порція»).*
+- **mega-mass.ua:** CTA «Купити в 1 клік» · «В кошик». Promo «Зберегти 12% / 5%» · «Хіт продаж» · «Топ-50» · «Новинка» · «Уцінені товари» · «Акція». Loyalty «Бонусні бали: N баллів» · «Ціни в баллах» (note RU spelling «баллів») · «промокоду на знижку». Trust «офіційний дистриб'ютор» · «Сертифікати якості» (asserted). Tone «Купуючи товар!» · «Вживаючи будь-який продукт!» · «Приєднуйтесь до нас» · «з радістю допоможуть».
+- **gymbeam.ua:** CTA «Купити» · «В кошик» · «Додати» · «НАДІСЛАТИ» (ALL-CAPS). Promo/tone «ХІТ» · «Топ» · «Розпродаж» (ALL-CAPS) · «ВИГОДА -15%» · «ДО -34%». Trust «6млн+ задоволених замовників» · «9000+ продуктів» (scale-flex, unverifiable) · card ratings 4.5–4.9★. Tone «Відкрийте для себе».
+- **bcaa.ua:** CTA «Купити в 1 клік» · «В кошик» · «Замовити дзвінок» (callback). Trust «100% оригінал» · «сертифіковано» · «офіційний імпортер» · «Купуйте сертіфіковану продукцію тільки у нас» (asserted; note misspelling «сертіфіковану») · «Всі бренди (120+)». Promo «Комплекти з товарами за 1 грн» · «NEW Товари за 1 грн» · «Знижка на другий товар».
+- **5lb.ua:** CTA «Купити» · «В кошик». Promo/tone «Лідер продажу!» · «Хіти продажів» · «Акційні ціни» · «Нові товари». Loyalty «Ваша знижка: {сума}» (personalized) · «Бонусна програма» · «Подарункові сертифікати». Trust «офіційний дистриб'ютор» · «сертифіковано». Tone 🏆💪 in header · «Дуже дякуємо!» · «Вітаємо» · «Шановні клієнти».
+
+### The shared register (what Stack inverts)
+
+1. **Discount-forward by default** — cards lead with «-40%», «ДО -34%», «Зберегти 12%»; price cut, not fit-for-goal, is the headline.
+2. **Urgency & "hit/top" ranking wallpaper** — «ХІТ», «Топ-50», «Лідер продажу!»; social-proof-by-assertion, never explains *why*.
+3. **Unverifiable trust claims** — «100% оригінал», «офіційний імпортер», «сертифіковано» asserted as slogans, never linked to a viewable certificate (bcaa even misspells it). **Stack's clearest opening: show the actual certificate.**
+4. **Scale-flex instead of substance** — «9000+ продуктів», «6млн+ замовників», «120+ брендів», «40 магазинів» — bigness as a trust proxy.
+5. **Gimmick pricing & one-click pressure** — «за 1 грн» bait, «Купити в 1 клік» nearly everywhere; speed-to-purchase over confidence-to-purchase.
+6. **Cheerful/hype tone** — «!», emoji 🏆💪, ALL-CAPS «НАДІСЛАТИ / ВИГОДА»; contradicts a "calm and confident" voice.
+7. **Loyalty named plainly but generic** — «Бонусні бали», «накопичувальні знижки», «Ваша знижка: N»; everyone has it, nobody makes it a voice differentiator.
+8. **No coach/wholesale voice** — none surfaces a coach/wholesale price; bcaa's «Замовити дзвінок» callback is the closest. B2B pricing hidden behind a phone form → **Stack's coach wording is greenfield.**
+
+**Net:** the category sounds identical — loud, badge-driven, asserting trust it never proves,
+hurrying the click. Stack's voice wins by inverting each: prove trust (real certificate), lead
+with fit-not-discount, name the coach/wholesale price plainly, and stay calm (no «!», no
+ALL-CAPS badges, no «за 1 грн» bait). Feeds `Voices/docs/voice.md` §Принципи.

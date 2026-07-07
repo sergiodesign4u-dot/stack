@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Stack — Голос продукту</title>
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --surface: #ffffff;
+      --surface-alt: #f2f0eb;
+      --border: #e5e2db;
+      --text: #1a1916;
+      --text-secondary: #6b6760;
+      --text-light: #9b9790;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0ea;
+      --accent-mid: #4a8c62;
+      --score-high: #2d5a3d;
+      --score-mid: #7a9e4a;
+      --score-low: #b5882a;
+      --score-bg-high: #e8f0ea;
+      --score-bg-mid: #f3f7ea;
+      --score-bg-low: #fdf3e3;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; height: 52px;
+      background: rgba(247,246,243,0.94);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px; z-index: 101;
+    }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle {
+      background: none; border: none; cursor: pointer; padding: 8px;
+      color: var(--text-secondary); display: flex; align-items: center;
+      justify-content: center; border-radius: var(--radius-sm); transition: background 0.15s;
+    }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0; width: 220px;
+      background: rgba(247,246,243,0.98);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-right: 1px solid var(--border); z-index: 100;
+      display: flex; flex-direction: column;
+      transform: translateX(-100%); transition: transform 0.22s ease;
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-logo {
+      font-weight: 700; font-size: 17px; color: var(--accent);
+      letter-spacing: -0.02em; text-decoration: none;
+      display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-nav {
+      flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px;
+    }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+
+    .sidebar-nav a {
+      display: block; color: var(--text-secondary); text-decoration: none;
+      font-size: 13px; font-weight: 500; padding: 7px 12px;
+      border-radius: var(--radius-sm); transition: color 0.15s, background 0.15s; margin-bottom: 1px;
+    }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+
+    .sidebar-nav .sidebar-sub { display: block;
+      font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light);
+    }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); }
+
+    .sidebar-page-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent); padding: 8px 12px 4px;
+    }
+
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+
+    .sidebar-upcoming {
+      padding: 12px 12px 16px; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-light); line-height: 1.8;
+    }
+
+    /* LAYOUT */
+    .page { max-width: 1160px; margin: 0 auto; padding: 68px 24px 80px; }
+
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 48px 48px 80px; }
+      section { scroll-margin-top: 24px; }
+    }
+
+    /* HERO */
+    .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); margin-bottom: 64px; animation: fadeUp 0.5s ease both; }
+    .hero-tag {
+      display: inline-block; background: var(--accent-light); color: var(--accent);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; color: var(--text); margin-bottom: 20px; max-width: 700px; }
+    .hero-lead { font-size: 18px; color: var(--text-secondary); max-width: 640px; line-height: 1.6; margin-bottom: 32px; }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+    .hero-meta-item { font-size: 13px; color: var(--text-light); }
+    .hero-meta-item strong { color: var(--text-secondary); font-weight: 600; }
+
+    /* SECTIONS */
+    section { margin-bottom: 72px; scroll-margin-top: 60px; animation: fadeUp 0.4s ease both; }
+    .section-number { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
+    h2 { font-size: clamp(22px, 3vw, 32px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: var(--text); margin-bottom: 8px; }
+    .section-lead { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; max-width: 600px; }
+    h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.015em; color: var(--text); margin: 36px 0 12px; }
+    h4 { font-size: 15px; font-weight: 650; color: var(--text); margin: 24px 0 8px; }
+    p { color: var(--text-secondary); margin-bottom: 12px; }
+
+    /* BADGES */
+    .badge-q {
+      display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+      padding: 1px 5px; border-radius: 100px; background: var(--score-bg-low);
+      color: var(--score-low); margin-left: 4px; letter-spacing: 0.04em;
+      vertical-align: middle; white-space: nowrap;
+    }
+    .badge-decided {
+      display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+      padding: 1px 5px; border-radius: 100px; background: var(--accent-light);
+      color: var(--accent); margin-left: 4px; letter-spacing: 0.04em;
+      vertical-align: middle; white-space: nowrap;
+    }
+
+    /* TABLES */
+    .table-wrap {
+      overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm); margin: 20px 0;
+    }
+    table { width: 100%; border-collapse: collapse; background: var(--surface); font-size: 13px; }
+    thead th {
+      background: var(--surface-alt); padding: 11px 14px; text-align: left;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--text-secondary); border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    tbody td {
+      padding: 11px 14px; border-bottom: 1px solid var(--border);
+      color: var(--text-secondary); vertical-align: top; line-height: 1.45;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--bg); }
+    .td-strong { color: var(--text); font-weight: 600; }
+
+    /* CONCLUSION CARD */
+    .conclusion-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow-sm);
+      margin-top: 24px;
+    }
+
+    /* ===== VOICE-SPECIFIC (scoped) ===== */
+    /* Principle card */
+    .principle-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow-sm);
+      padding: 22px 24px; margin-top: 20px;
+    }
+    .principle-rule {
+      font-size: 15px; font-weight: 650; color: var(--text); line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .principle-rule .rule-tag {
+      display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px;
+    }
+    .ex-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-light); margin: 14px 0 6px;
+    }
+    /* ✓ / ✗ example rows */
+    .ex-row {
+      border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 8px;
+      font-size: 13.5px; line-height: 1.55;
+    }
+    .ex-row ul { margin: 0; padding-left: 18px; }
+    .ex-row li { margin-bottom: 3px; }
+    .ex-row li:last-child { margin-bottom: 0; }
+    .ex-good {
+      background: var(--accent-light); border-left: 3px solid var(--accent);
+      color: var(--text);
+    }
+    .ex-bad {
+      background: #fff0f0; border-left: 3px solid #c0392b; color: #5a2020;
+    }
+    .ex-good::before, .ex-bad::before {
+      font-weight: 700; margin-right: 6px;
+    }
+    .principle-note {
+      font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+      margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--surface-alt);
+    }
+    .principle-note strong { color: var(--text); font-weight: 650; }
+    .principle-note code, .voice-body code {
+      background: var(--surface-alt); border-radius: 4px; padding: 1px 5px;
+      font-size: 12px; color: var(--accent);
+    }
+    .competitor-note {
+      display: block; font-size: 12.5px; color: var(--score-low);
+      background: var(--score-bg-low); border-radius: var(--radius-sm);
+      padding: 8px 12px; margin-top: 12px; line-height: 1.5;
+    }
+    .competitor-note strong { color: #8a6a20; }
+
+    /* Inline good/bad chips for microcopy element rules */
+    .micro-rule {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow-sm);
+      padding: 16px 20px; margin-bottom: 14px;
+    }
+    .micro-rule h4 { margin: 0 0 6px; font-size: 15px; }
+    .micro-rule .rule-text { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.55; }
+    .micro-line { font-size: 13.5px; line-height: 1.6; padding: 3px 0; }
+    .micro-line.good { color: var(--accent); }
+    .micro-line.bad { color: #a03434; }
+    .micro-line .mk { font-weight: 700; margin-right: 6px; }
+
+    .dict-note { font-size: 13px; color: var(--text-secondary); max-width: 640px; margin-bottom: 8px; line-height: 1.6; }
+    .voice-body p code, td code { background: var(--surface-alt); border-radius: 4px; padding: 1px 5px; font-size: 12px; color: var(--accent); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 40px; }
+    .footer-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-text { font-size: 13px; color: var(--text-light); }
+
+    @media (max-width: 640px) {
+      .page { padding: 64px 16px 48px; }
+      .hero { padding: 40px 0 36px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .hero { animation: fadeUp 0.5s ease both; }
+    section { animation: fadeUp 0.4s ease both; }
+  </style>
+
+  </head>
+<body>
+
+<nav class="topbar">
+  <a href="../research/research.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="../research/research.html" class="sidebar-logo">Stack</a>
+  <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <a href="../ia/sitemap.html">Інформаційна архітектура</a>
+    <hr class="sidebar-divider">
+    <a href="voice.html" class="active">Голос продукту</a>
+    <div class="sidebar-page-label">Voice</div>
+    <a href="voice.html#principles" class="sidebar-sub">Принципи</a>
+    <a href="voice.html#dictionary" class="sidebar-sub">Словник</a>
+    <a href="voice.html#forbidden" class="sidebar-sub">Заборонене</a>
+    <a href="voice.html#microcopy" class="sidebar-sub">Мікрокопі</a>
+    <a href="microcopy.html" class="sidebar-sub">Інвентар тексту</a>
+    <hr class="sidebar-divider">
+    <a href="../wireframes/index.html">Вайрфрейми</a>
+    <a href="../wireframes/index.html#f1" class="sidebar-sub">Флоу 1 · Покупець</a>
+    <a href="../wireframes/index.html#f2" class="sidebar-sub">Флоу 2 · Тренер</a>
+    <a href="../wireframes/index.html" class="sidebar-sub">Всі екрани</a>
+  </nav>
+</aside>
+
+<div class="page voice-body">
+
+  <div class="hero">
+    <div class="hero-tag">Фаза 2 · Voice</div>
+    <h1>Голос продукту Stack</h1>
+    <p class="hero-lead">Голос — це правила, а не настрій: кожен принцип має правило, приклад, антиприклад і пояснення з дослідження, щоб будь-який рядок писався однаково — і людиною, і Claude.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Статус</strong> Крок 4 — повний</div>
+      <div class="hero-meta-item"><strong>Джерела</strong> personas · jtbd · strategy · competitive-analysis</div>
+      <div class="hero-meta-item"><strong>Пара</strong> microcopy.md</div>
+    </div>
+  </div>
+
+  <!-- SECTION 01: PRINCIPLES -->
+  <section id="principles">
+    <div class="section-number">01</div>
+    <h2>Принципи</h2>
+    <p class="section-lead">П'ять принципів голосу. Кожен — правило (одне речення), приклад, антиприклад і пояснення з research/персон/JTBD. Персони кажуть, як писати; мова конкурентів — де вирізнятися.</p>
+
+    <!-- Principle 1 -->
+    <h3>Принцип 1 — Спокій замість тиску: спершу знімаємо сумнів, потім кличемо до дії</h3>
+    <div class="principle-card">
+      <div class="principle-rule">
+        <span class="rule-tag">Правило</span>
+        Продукт говорить спокійно і чесно; він ніколи не тисне терміновістю, дефіцитом, окличним ажіотажем чи святкуванням. Кожен екран спершу зменшує тривогу, і лише тоді пропонує дію.
+      </div>
+      <div class="ex-label">✓ Приклад</div>
+      <div class="ex-row ex-good">
+        <ul>
+          <li>«● Немає в наявності — повідомимо, коли з'явиться»</li>
+          <li>«Сертифікат відповідності — переглянути» <em>(поруч — реальний файл)</em></li>
+          <li>«🗓 Діє до 20 липня» <em>(без таймера зворотного відліку)</em></li>
+        </ul>
+      </div>
+      <div class="ex-label">✗ Антиприклад</div>
+      <div class="ex-row ex-bad">
+        <ul>
+          <li>«🔥 ГАРЯЧИЙ ХІТ! Встигни! Залишилось 3 шт — знижка згорає!»</li>
+          <li>«Вітаємо! 🎉 Ви щойно зробили чудовий вибір!»</li>
+        </ul>
+      </div>
+      <div class="principle-note">
+        <strong>Пояснення:</strong> Вікторія (Persona 3) хоче зробити першу покупку «with confidence, not anxiety» і її відлякує «being asked for payment before she has built trust» (<code>personas.md</code>, Persona 3). CLAUDE.md, Принцип 4: «no countdown timers, no anxiety-inducing popups… no noise». ESJ-3 (<code>jtbd.md</code>): активний скепсис українського покупця до підробок — тиск читається як шахрайство, не як вигода.
+      </div>
+      <span class="competitor-note"><strong>Де конкуренти звучать однаково:</strong> уся категорія — «-40%», «ХІТ», «Лідер продажу!», «Купити в 1 клік», 🏆💪, ALL-CAPS «ВИГОДА» (<code>competitive-analysis.md</code> §Competitor Voice, реєстри 1,2,5,6). Спокій — це вже відмінність.</span>
+    </div>
+
+    <!-- Principle 2 -->
+    <h3>Принцип 2 — Проста відповідь спереду, глибина під нею</h3>
+    <div class="principle-card">
+      <div class="principle-rule">
+        <span class="rule-tag">Правило</span>
+        Спершу — просте «що це і для чого» звичайними словами; терміни, склад і цифри доступні, але <strong>нижче</strong> і <strong>на додачу</strong>, ніколи замість простої відповіді.
+      </div>
+      <div class="ex-label">✓ Приклад</div>
+      <div class="ex-row ex-good">
+        <ul>
+          <li>Заголовок вигоди в картці товару: «Швидкий білок для відновлення після тренування»</li>
+          <li>Під ним — розкривний блок: «Склад на порцію», «Як приймати», «Походження»</li>
+        </ul>
+      </div>
+      <div class="ex-label">✗ Антиприклад</div>
+      <div class="ex-row ex-bad">
+        <ul>
+          <li>Перше, що бачить новачок: «Ізолят сироватки (WPI) 90%, BCAA 5.5 г, глутамін, мікрофільтрація CFM» — без жодного пояснення, що це і навіщо.</li>
+        </ul>
+      </div>
+      <div class="principle-note">
+        <strong>Пояснення:</strong> Вікторія приходить, знаючи <strong>результат, а не продукт</strong> («I want to lose fat», не «thermogenic + CLA»), і не може оцінити «ingredient lists… for safety» (<code>personas.md</code> Persona 3; OBS-B2, OBS-B4). CLAUDE.md, Принцип 5: «Plain language, deep information… lead with the simple answer». Тренер теж виграє: він показує цю просту відповідь клієнту (Job 5, «recommend with visible evidence»).
+      </div>
+    </div>
+
+    <!-- Principle 3 -->
+    <h3>Принцип 3 — Одна ясна дія, і кнопка називає результат</h3>
+    <div class="principle-card">
+      <div class="principle-rule">
+        <span class="rule-tag">Правило</span>
+        На кожному екрані одна очевидна наступна дія. Кнопка — дієслово, з якого видно <strong>що станеться</strong> (не абстрактні «ОК», «Далі», «Купити»). Одна дія — одна назва, скрізь однаково.
+      </div>
+      <div class="ex-label">✓ Приклад</div>
+      <div class="ex-row ex-good">
+        «Підтвердити замовлення» · «Отримати код» · «Повідомити про надходження» · «Повторити замовлення»
+      </div>
+      <div class="ex-label">✗ Антиприклад</div>
+      <div class="ex-row ex-bad">
+        «OK» · «Далі» · «Купити» <em>(купити що і куди?)</em> · та сама дія під п'ятьма іменами («Повторити» / «…замовлення» / «…попереднє» / «↻ У кошик») — як зараз в інвентарі.
+      </div>
+      <div class="principle-note">
+        <strong>Пояснення:</strong> CLAUDE.md, Принцип 2: «One clear next step. The user should never face a blank stare… always one obvious action». Вікторія хоче результат «in a few steps without learning terminology» (<code>personas.md</code>). Прямо лікує розбіжності з <code>microcopy.md</code> Розділ B1 (одна дія — багато кнопок).
+      </div>
+    </div>
+
+    <!-- Principle 4 -->
+    <h3>Принцип 4 — Двоє дверей, два регістри: новачку — турбота й пояснення, тренеру — діловитість і прямі числа</h3>
+    <div class="principle-card">
+      <div class="principle-rule">
+        <span class="rule-tag">Правило</span>
+        Продукт говорить двома регістрами одного голосу. З новачком — тепло, простими словами, крок за кроком. З тренером — стисло й по-діловому: ціна, клієнт, час, наявність — прямо, без пояснень «для чайників» і без святкувань. Обидва — спокійні й чесні (Принцип 1).
+      </div>
+      <div class="ex-label">✓ Приклад</div>
+      <div class="ex-row ex-good">
+        <ul>
+          <li>Новачку: «Не впевнені, з чого почати? Пройдіть коротке опитування — підберемо під вашу ціль.»</li>
+          <li>Тренеру: «Ціна тренера 1 740 ₴ · роздріб 2 320 ₴» · «Нова сесія» · «Ціну не підтверджено — сесію збережено, оформлення заблоковано.»</li>
+        </ul>
+      </div>
+      <div class="ex-label">✗ Антиприклад</div>
+      <div class="ex-row ex-bad">
+        <ul>
+          <li>Тренеру: «Вітаємо, Олено! 🎉 Готові підібрати щось смачненьке для ваших підопічних?»</li>
+          <li>Новачку: «Активуйте мультиклієнтську сесію та тегуйте позиції за client-профілем» <em>(жаргон не про нього)</em></li>
+        </ul>
+      </div>
+      <div class="principle-note">
+        <strong>Пояснення:</strong> Олена (Persona 1, PRIMARY) — доменний експерт: «don't need guidance on what products are — they need speed, bulk ordering» (CLAUDE.md; ESJ-4 «coach autonomy», <code>jtbd.md</code>). Ціна для тренера — не деталь, а ворота входу: «price… is the gate» і прозора, опублікована ціна — сама по собі досвід-відмінність (<code>strategy.md</code> v5, Riskiest assumption + Decision 3). CLAUDE.md, Принцип 3: «The coach is a channel, not an edge case». Новачок — навпаки, потребує «clear path… plain language» (Принцип 2).
+      </div>
+      <span class="competitor-note"><strong>Де конкуренти звучать однаково:</strong> <strong>жоден</strong> UA-магазин не показує ціну тренера — вона захована за «Замовити дзвінок» (<code>competitive-analysis.md</code> §Competitor Voice, реєстр 8). Прямо назвати гуртову ціну — чиста галявина.</span>
+    </div>
+
+    <!-- Principle 5 -->
+    <h3>Принцип 5 — Стани кажуть правду й завжди дають вихід</h3>
+    <div class="principle-card">
+      <div class="principle-rule">
+        <span class="rule-tag">Правило</span>
+        Кожен стан говорить чесно і не лишає в глухому куті. <strong>Порожньо</strong> — пояснює, чому порожньо, і дає дію. <strong>Помилка</strong> — каже, що сталося і що робити далі; без вибачень-жартів. <strong>Наявність</strong> — чесна (є / мало / під замовлення / немає + «повідомимо»). <strong>Успіх</strong> — називає факт і наступний крок, <strong>без святкування</strong>.
+      </div>
+      <div class="ex-label">✓ Приклад</div>
+      <div class="ex-row ex-good">
+        <ul>
+          <li>Порожній кошик: «Кошик порожній. Оберіть ціль або перегляньте каталог» + кнопка.</li>
+          <li>Помилка: «Не вдалося завантажити. Перевірте з'єднання та спробуйте ще раз — або перейдіть до каталогу.»</li>
+          <li>Успіх: «Замовлення №1024 прийнято. Ми надішлемо трек-номер у SMS.»</li>
+        </ul>
+      </div>
+      <div class="ex-label">✗ Антиприклад</div>
+      <div class="ex-row ex-bad">
+        «Ой! Щось пішло не так 😕» · «Вітаємо! Ваш акаунт створено 🎉» · порожній екран без виходу.
+      </div>
+      <div class="principle-note">
+        <strong>Пояснення:</strong> якщо сторінка не відповідає на питання (безпека, наявність), покупець іде і може не повернутися (OBS-B5, <code>personas.md</code>). CLAUDE.md, Принцип 2: «never face a blank stare». Принцип 4 (спокій): успіх не святкує. Прямо лікує <code>microcopy.md</code> Розділ D (<code>[CHEER]</code>: «Вітаємо, Олено!», «…Ви увійшли 🎉», «З поверненням, Вікторіє! 🥈»).
+      </div>
+    </div>
+
+    <h3>Як користуватися принципами</h3>
+    <div class="conclusion-card">
+      <ul style="margin:0; padding-left:20px; color:var(--text-secondary); font-size:14px; line-height:1.7;">
+        <li>Кожен рядок продукту має <strong>проходити всі п'ять</strong>. Конфлікт вирішується на користь Принципу 1 (довіра/спокій) — це головна ставка бренду (<code>strategy.md</code>: Objective 1 «Build trust»).</li>
+        <li>Прикметник — не правило. «Дружній», «сучасний», «преміальний» — не критерії: за ними не переписати кнопку. Критерій — приклад + антиприклад вище.</li>
+        <li>Регістр (Принцип 4) обирається за зоною: публічна вітрина й акаунт покупця — регістр новачка/покупця; кабінет тренера (5.x) — діловий регістр. Системні тексти — нейтральні, за Принципом 5.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 02: DICTIONARY -->
+  <section id="dictionary">
+    <div class="section-number">02</div>
+    <h2>Словник</h2>
+    <p class="section-lead">Одне поняття — одне слово. Рішення для кожної розбіжності, позначеної в <code>microcopy.md</code> Розділ B. Нових термінів не вигадуємо — беремо мову персон і ресерчу. Що вибрано — те й скрізь, без винятків.</p>
+
+    <h3>Звертання</h3>
+    <div class="conclusion-card">
+      <p style="margin:0; color:var(--text-secondary); font-size:14px; line-height:1.7;">
+        <strong style="color:var(--text);">«ви» — з малої літери, однаково на всіх екранах</strong> (крім початку речення). Не «ти».
+        <br><em>Чому:</em> житло тут — це здоров'я, гроші й довіра (Принцип 1). Олена — професіонал 30–42 (<code>personas.md</code> P1), Вікторія боїться «feel foolish» (ESJ-2) — обом «ви» звучить як повага, а не дистанція. Бриф: «Sport nutrition is serious for people who take it seriously». «Ти» лишаємо конкурентам з 🏆💪.
+      </p>
+    </div>
+
+    <h3>Ключові поняття</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="min-width:150px">Поняття</th>
+            <th>Пишемо</th>
+            <th>НЕ пишемо</th>
+            <th style="min-width:220px">Чому</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>товарна одиниця</td>
+            <td class="td-strong">товар</td>
+            <td>позиція, продукт (як SKU), пропозиція</td>
+            <td>покупець каже «цей товар»; «позиція»/«шт» — складські слова. Лічильник кошика скрізь «товар/товари/товарів» (і в тренера теж), не «позиції»</td>
+          </tr>
+          <tr>
+            <td>що оформлює покупець</td>
+            <td class="td-strong">замовлення</td>
+            <td>заявка, запит, ордер</td>
+            <td>«моє замовлення» — мова покупця; «заявка/запит» звучить бюрократично</td>
+          </tr>
+          <tr>
+            <td>куди складають товари</td>
+            <td class="td-strong">кошик</td>
+            <td>корзина</td>
+            <td>стандарт UA e-commerce; «корзина» — росіянізм</td>
+          </tr>
+          <tr>
+            <td>хто веде клієнтів</td>
+            <td class="td-strong">тренер</td>
+            <td>коуч, наставник</td>
+            <td>Олена називає себе тренером (<code>personas.md</code> P1); «коуч» — зайвий англіцизм</td>
+          </tr>
+          <tr>
+            <td>люди тренера</td>
+            <td class="td-strong">клієнт</td>
+            <td>підопічний, атлет, спортсмен (в UI)</td>
+            <td>тренер думає «клієнти» (<code>jtbd.md</code> Main Job); коротко й нейтрально в інструменті</td>
+          </tr>
+          <tr>
+            <td>чого хоче покупець</td>
+            <td class="td-strong">ціль (6 цілей)</td>
+            <td>мета, goal, напрям</td>
+            <td>покупець приходить з ціллю (Job 2, <code>jtbd.md</code>); «мета» двозначне</td>
+          </tr>
+          <tr>
+            <td>накопичувальна знижка</td>
+            <td class="td-strong">знижка</td>
+            <td>персональна ставка, тір-знижка</td>
+            <td>Decision 3, механізм А: за сумою покупок за весь час</td>
+          </tr>
+          <tr>
+            <td>бонусний рахунок</td>
+            <td class="td-strong">бонуси (бонусні гривні)</td>
+            <td>кешбек, бали, поінти</td>
+            <td>Decision 3, механізм Б: ~1%, згорають; «бали/кешбек» — не наше</td>
+          </tr>
+          <tr>
+            <td>спільна поверхня лояльності</td>
+            <td class="td-strong">Знижки та бонуси (розділ) · Бонусна програма (лендинг)</td>
+            <td>—</td>
+            <td>це <strong>два різні механізми</strong> — називаємо обидва чесно, не зливаємо в одне</td>
+          </tr>
+          <tr>
+            <td>наявність</td>
+            <td class="td-strong">В наявності · Залишилось мало · Під замовлення · Немає в наявності</td>
+            <td>«Є», «В складі», «Аут оф сток»</td>
+            <td>чесні 4 стани (Принцип 5); OOS-дія — «Повідомити про надходження», підтвердження — «Повідомимо, коли з'явиться»</td>
+          </tr>
+          <tr>
+            <td>тарифи тренера</td>
+            <td class="td-strong">Free · Pro</td>
+            <td>FREE, PRO, ПРО, Про</td>
+            <td>назви тарифів; звичайний регістр, не ALL-CAPS (Принцип 1)</td>
+          </tr>
+          <tr>
+            <td>повернення товару</td>
+            <td class="td-strong">Повернення</td>
+            <td>Обмін і повернення, Повернення/обмін (як різні назви)</td>
+            <td>одна назва в меню, футері й на сторінці (H1)</td>
+          </tr>
+          <tr>
+            <td>відгуки про товар</td>
+            <td class="td-strong">Відгуки</td>
+            <td>Відгуки покупців (як окрема назва вкладки)</td>
+            <td>одна назва секції; на сторінці 8.11 «Відгуки про магазин» — це <strong>інша</strong> сутність, не плутати</td>
+          </tr>
+          <tr>
+            <td>підбір за ціллю</td>
+            <td class="td-strong">Квіз</td>
+            <td>Цілі (як назва квіза), Помічник, Тест</td>
+            <td>одна коротка назва; «підбір за ціллю» — допоміжний підзаголовок, не друга назва</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Повторювані дії (одна дія — одна кнопка)</h3>
+    <p class="dict-note">Лікує <code>microcopy.md</code> Розділ B1. Повний набір правил мікрокопі — Крок 4; тут фіксуємо канон.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="min-width:200px">Дія</th>
+            <th>Кнопка</th>
+            <th style="min-width:220px">НЕ пишемо</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>додати товар у кошик</td><td class="td-strong">У кошик</td><td>Купити, Купити в 1 клік, Замовити, В кошик</td></tr>
+          <tr><td>додати товар клієнту (тренер)</td><td class="td-strong">Додати клієнту</td><td>У кошик (у режимі тренера)</td></tr>
+          <tr><td>повторити попереднє замовлення</td><td class="td-strong">Повторити замовлення</td><td>Повторити, …попереднє замовлення, ↻ У кошик, Повторити для {клієнт}</td></tr>
+          <tr><td>почати оформлення (з кошика)</td><td class="td-strong">Оформити замовлення</td><td>Перейти до оформлення, Checkout</td></tr>
+          <tr><td>підтвердити на checkout</td><td class="td-strong">Підтвердити замовлення</td><td>Оформити, Замовити, Готово</td></tr>
+          <tr><td>нова сесія тренера</td><td class="td-strong">Нова сесія</td><td>Нова сесія замовлення, …для клієнта, Зібрати сесію</td></tr>
+          <tr><td>додати клієнта</td><td class="td-strong">Додати клієнта</td><td>Новий клієнт (лишається лише як H1 модалки), Створити клієнта</td></tr>
+          <tr><td>повторити спробу</td><td class="td-strong">Спробувати ще раз</td><td>Спробувати ще, Оновити, Повторити</td></tr>
+          <tr><td>перейти в каталог</td><td class="td-strong">До каталогу</td><td>Перейти до каталогу, У каталог</td></tr>
+          <tr><td>підписка на тариф</td><td class="td-strong">Оформити Pro · Активувати Free</td><td>Перейти на Pro, Активувати Pro, Купити Pro</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Англіцизми</h3>
+    <div class="conclusion-card">
+      <p style="margin:0 0 10px; color:var(--text-secondary); font-size:14px; line-height:1.7;">
+        <strong style="color:var(--accent);">Дозволені</strong> (впізнавані, коротші за UA-аналог, вже в мові персон): <code>онлайн</code>, <code>промокод</code>, <code>SMS</code>, <code>e-mail</code> (як канал), <code>Free</code>/<code>Pro</code> (назви тарифів), <code>Квіз</code>, бренди й платіжки латиницею (<code>Apple Pay</code>, <code>Google Pay</code>, <code>LiqPay</code>, <code>Wayforpay</code>, <code>Нова Пошта</code>, назви товарів/брендів).
+      </p>
+      <p style="margin:0; color:var(--text-secondary); font-size:14px; line-height:1.7;">
+        <strong style="color:#a03434;">Замінюємо:</strong> <code>коуч → тренер</code> · <code>корзина → кошик</code> · <code>логін/войти → увійти / вхід</code> · <code>чекаут → оформлення</code> · <code>саппорт → підтримка</code> · <code>кешбек/бали → бонуси</code> · <code>айтем/позиція → товар</code> · <code>ордер → замовлення</code>.
+      </p>
+    </div>
+
+    <h3>Типографіка (одна форма)</h3>
+    <div class="conclusion-card">
+      <ul style="margin:0; padding-left:20px; color:var(--text-secondary); font-size:14px; line-height:1.7;">
+        <li><strong>Апостроф — один символ скрізь</strong> (<code>Здоров'я</code>, не <code>Здоровʼя</code>) — прибрати змішування U+0027/U+02BC.</li>
+        <li><strong>₴</strong> після суми з нерозривним пробілом: <code>1 740 ₴</code>. Тисячі — пробілом: <code>2 320</code>, не <code>2320</code>/<code>2,320</code>.</li>
+        <li><strong>№</strong> для номера замовлення в одному форматі: <code>№ К-2041</code> (не <code>#К-204</code>).</li>
+        <li>Emoji — лише як <strong>функціональний значок</strong> статусу/іконки (<code>●</code> наявність, <code>🥈</code> рівень, іконки навігації). У реченнях, системних повідомленнях і привітаннях — <strong>ні</strong> (див. «Заборонене»).</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 03: FORBIDDEN -->
+  <section id="forbidden">
+    <div class="section-number">03</div>
+    <h2>Заборонене</h2>
+    <p class="section-lead">Чого не пишемо ніколи. До кожного пункту — «було» (реальний рядок з інвентаря) → «як треба». Без цього списку дефолт повертається: захват, оклики, emoji. Джерело «було» — <code>microcopy.md</code> Розділ D + §Competitor Voice.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="min-width:150px">Не пишемо</th>
+            <th style="min-width:220px">Було (з продукту)</th>
+            <th style="min-width:200px">Як треба</th>
+            <th>Чому</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Привітання-святкування</td>
+            <td>«Вітаємо, Олено!» · «Вітаємо у Stack! Ви увійшли 🎉» · «З поверненням, Вікторіє! 🥈»</td>
+            <td>«Олено, ось ваш кабінет» · «Ви увійшли» · «Ваш рівень: 🥈 Срібло»</td>
+            <td>Принцип 1 + 5: успіх не святкує</td>
+          </tr>
+          <tr>
+            <td class="td-strong">AI-кліше помилки</td>
+            <td>«Ой! Щось пішло не так 😕»</td>
+            <td>«Не вдалося завантажити. Спробуйте ще раз або перейдіть до каталогу.»</td>
+            <td>Принцип 5: помилка каже, що робити</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Мотиваційний тон</td>
+            <td>«Почніть накопичувати вже з першого замовлення» · «Відкрийте для себе»</td>
+            <td>«1% від кожного замовлення повертається бонусами»</td>
+            <td>факт замість заклику (Принцип 2)</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Оклики в UI / слово «успішно»</td>
+            <td>«Замовлення успішно оформлено!» · «Дякуємо!»</td>
+            <td>«Замовлення №1024 прийнято»</td>
+            <td>Принцип 1: спокій, без окликів у системних текстах</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Emoji в реченнях / системних</td>
+            <td>«🎉 Створюємо ваш акаунт» · «Дякуємо за відгук! 🙌»</td>
+            <td>«Створюємо акаунт» · «Дякуємо за відгук»</td>
+            <td>emoji лише як значок статусу, не в тексті</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Терміновість і дефіцит-тиск</td>
+            <td>«Встигни!» · «Залишилось 3 — знижка згорає!» · таймери</td>
+            <td>«Залишилось мало» <em>(чесно, без тиску)</em></td>
+            <td>Принцип 1; бриф «no countdown timers»</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Недоведені claims</td>
+            <td>«100% оригінал» · «сертифіковано» <em>(гаслом, без файлу)</em></td>
+            <td>«Сертифікат відповідності — переглянути» <em>(з реальним файлом)</em></td>
+            <td>ESJ-3; наша відмінність — доводити, не заявляти (§Competitor Voice)</td>
+          </tr>
+          <tr>
+            <td class="td-strong">ALL-CAPS і хайп-бейджі</td>
+            <td>«ХІТ» · «ВИГОДА -34%» · «НАДІСЛАТИ»</td>
+            <td>«Популярне» · «Надіслати»</td>
+            <td>Принцип 1: без крику</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Бейт-прайсинг і one-click тиск</td>
+            <td>«Товари за 1 грн» · «Купити в 1 клік»</td>
+            <td>«У кошик»</td>
+            <td>Принцип 1 + 3</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Канцелярит</td>
+            <td>«здійснити оформлення замовлення» · «в разі виникнення помилки»</td>
+            <td>«оформити замовлення» · «якщо сталася помилка»</td>
+            <td>Принцип 2: звичайні слова</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 04: MICROCOPY -->
+  <section id="microcopy">
+    <div class="section-number">04</div>
+    <h2>Мікрокопі — правила за типами елементів</h2>
+    <p class="section-lead">Правила, за якими пишеться конкретний рядок. Кожне звірене з Принципами і Словником вище. Типи й стани — з <code>wireframes/_screens.md</code> (реальний набір прототипу: кнопка · H1 · поле форми · empty×16 · loading×16 · error×13 · OOS · no-address · price-block · declined · dead-end · cap · confirm-видалення · toast). До кожного правила — приклад Stack словами словника.</p>
+
+    <div class="micro-rule">
+      <h4>Кнопка</h4>
+      <div class="rule-text"><strong>Правило:</strong> дієслово результату зі словника, з якого видно, що станеться. Одна дія — одна назва (Словник §Повторювані дії). Одна первинна дія на екран; вторинна — теж дієслово. Без «ОК/Далі/Купити».</div>
+      <div class="micro-line good"><span class="mk">✓</span>«У кошик» · «Підтвердити замовлення» · «Отримати код» · «Повідомити про надходження» · «Назад до каталогу»</div>
+      <div class="micro-line bad"><span class="mk">✗</span>«ОК» · «Далі» · «Купити в 1 клік» · «Готово»</div>
+    </div>
+
+    <div class="micro-rule">
+      <h4>Заголовок екрана (H1)</h4>
+      <div class="rule-text"><strong>Правило:</strong> називає місце словами словника; без маркетингу й окликів. SEO-заголовки — за <code>ia/docs/pages/seo.md</code> («Протеїн — купити в Одесі»), але теж без окликів.</div>
+      <div class="micro-line good"><span class="mk">✓</span>«Кошик» · «Оформлення» · «Кабінет тренера» · «Знижки та бонуси» · «Протеїн»</div>
+      <div class="micro-line bad"><span class="mk">✗</span>«Ваш чарівний кошик 🛒» · «Ласкаво просимо до Stack!»</div>
+    </div>
+
+    <div class="micro-rule">
+      <h4>Поле форми</h4>
+      <div class="rule-text"><strong>Правило:</strong> підпис каже, <strong>що</strong> ввести; підказка — <strong>як</strong> (формат); помилка валідації — <strong>що саме</strong> виправити, конкретно. Passwordless: жодного «пароль/забули пароль» — підпис пояснює, що код прийде в SMS/e-mail.</div>
+      <div class="micro-line good"><span class="mk">✓</span>підпис «Номер телефону» · підказка «+380 __ ___ __ __» · помилка «Введіть номер у форматі +380…» · «Код із 4 цифр — перевірте SMS»</div>
+      <div class="micro-line bad"><span class="mk">✗</span>підпис «Телефон*» · помилка «Невірні дані» · «Помилка поля»</div>
+    </div>
+
+    <div class="micro-rule">
+      <h4>Порожній стан</h4>
+      <div class="rule-text"><strong>Правило:</strong> чому порожньо + одна дія-вихід. Ніколи глухий кут (OBS-B5, Принцип 5).</div>
+      <div class="micro-line good"><span class="mk">✓</span>кошик: «Кошик порожній. Оберіть ціль або перегляньте каталог» + «До каталогу»</div>
+      <div class="micro-line good"><span class="mk">✓</span>пошук/фільтр без результату: «За запитом «{q}» нічого не знайшли. Перевірте написання або оберіть ціль» + плитки цілей <em>(не «Нічого не знайдено» тупиком)</em></div>
+      <div class="micro-line good"><span class="mk">✓</span>замовлень немає: «Замовлень поки немає. Ось із чого почати» + добірка</div>
+      <div class="micro-line bad"><span class="mk">✗</span>«Тут порожньо 🙁»</div>
+    </div>
+
+    <div class="micro-rule">
+      <h4>Помилка (завантаження / система)</h4>
+      <div class="rule-text"><strong>Правило:</strong> що сталося + що робити; без вибачень-жартів, без «Ой».</div>
+      <div class="micro-line good"><span class="mk">✓</span>«Не вдалося завантажити. Перевірте з'єднання та спробуйте ще раз — або перейдіть до каталогу.» + «Спробувати ще раз»</div>
+      <div class="micro-line good"><span class="mk">✓</span>платіж: «Оплату не завершено. Спробуйте ще раз або поверніться до кошика — замовлення збережено.» <em>(declined; дані не втрачені)</em></div>
+      <div class="micro-line bad"><span class="mk">✗</span>«Ой! Щось пішло не так 😕»</div>
+    </div>
+
+    <div class="micro-rule">
+      <h4>Завантаження</h4>
+      <div class="rule-text"><strong>Правило:</strong> мовчить або каже, що саме вантажиться; коротко, без вибачень. Одна форма на тип.</div>
+      <div class="micro-line good"><span class="mk">✓</span>«Завантажуємо товари…» · «Шукаємо…» · «Надсилаємо код…» · «Обробляємо оплату…»</div>
+      <div class="micro-line bad"><span class="mk">✗</span>«Зачекайте, будь ласка, майже готово! 🎉» · «Завантаження…» і «Завантажуємо…» вперемішку</div>
+    </div>
+
+    <div class="micro-rule">
+      <h4>Успіх</h4>
+      <div class="rule-text"><strong>Правило:</strong> назви факт і наступний крок; без святкування, без «успішно», без 🎉 (Принцип 5, Заборонене).</div>
+      <div class="micro-line good"><span class="mk">✓</span>«Замовлення №1024 прийнято. Ми надішлемо трек-номер у SMS.» + «Мої замовлення» / «Відстежити»</div>
+      <div class="micro-line good"><span class="mk">✓</span>toast: «Адресу збережено» · «Товар в обраному»</div>
+      <div class="micro-line bad"><span class="mk">✗</span>«Вітаємо! Замовлення успішно оформлено! 🎉»</div>
+    </div>
+
+    <div class="micro-rule">
+      <h4>Наявність і «немає в наявності» (domain-стан)</h4>
+      <div class="rule-text"><strong>Правило:</strong> чесні 4 стани зі словника; OOS — не глухий кут: сповіщення + вихід до колекції. Варіант OOS вимкнений, не прихований.</div>
+      <div class="micro-line good"><span class="mk">✓</span>«● Залишилось мало» · «● Немає в наявності» + «Повідомити про надходження» + «Повернутись до колекції»</div>
+      <div class="micro-line bad"><span class="mk">✗</span>ховати OOS-товар · «Немає :(» без виходу</div>
+    </div>
+
+    <div class="micro-rule">
+      <h4>Ціна (вітрина й тренер)</h4>
+      <div class="rule-text"><strong>Правило:</strong> ціна — факт, поряд корисний контекст (за порцію), без хайпу. Тренеру — прямо: тир-ціна і закреслена роздрібна (Принцип 4, strategy «price is the gate»). Знижка й бонуси — окремо (Словник), не змішувати.</div>
+      <div class="micro-line good"><span class="mk">✓</span>«1 740 ₴ · ≈18 ₴ / порція» · тренеру «Ціна тренера 1 740 ₴ · роздріб <s>2 320 ₴</s>» · «★ Нарахуємо +38 ₴ бонусами (~1%)»</div>
+      <div class="micro-line bad"><span class="mk">✗</span>«-25%! Вигода! Спеццінa!»</div>
+    </div>
+
+    <div class="micro-rule">
+      <h4>Небезпечна дія (видалення, скасування)</h4>
+      <div class="rule-text"><strong>Правило:</strong> до натискання попередь, <strong>що станеться</strong> і <strong>чого не повернути</strong>; кнопка називає саме цю дію (не «ОК/Так»); поряд — нейтральний вихід. Незворотне — з окремим підтвердженням.</div>
+      <div class="micro-line good"><span class="mk">✓</span>«Видалити адресу? Її не можна буде повернути.» → «Видалити адресу» / «Скасувати»</div>
+      <div class="micro-line good"><span class="mk">✓</span>«Видалити акаунт назавжди? Замовлення й бонуси зникнуть.» + чекбокс «Розумію, що акаунт буде видалено назавжди» → «Видалити акаунт»</div>
+      <div class="micro-line good"><span class="mk">✓</span>«Скасувати підписку Pro? З наступного місяця діятиме Free (до 3 клієнтів).» → «Скасувати Pro» / «Залишити Pro»</div>
+      <div class="micro-line bad"><span class="mk">✗</span>«Ви впевнені?» → «Так» / «Ні»</div>
+    </div>
+
+    <div class="micro-rule">
+      <h4>Значок-лічильник (badge)</h4>
+      <div class="rule-text"><strong>Правило:</strong> лише число, без тексту; 0 не показуємо (порожній кошик — без лічильника).</div>
+      <div class="micro-line good"><span class="mk">✓</span>кошик «3» · обране «4»</div>
+      <div class="micro-line bad"><span class="mk">✗</span>«У вас 3 товари!» на бейджі</div>
+    </div>
+
+    <div class="micro-rule">
+      <h4>Тост / системне повідомлення</h4>
+      <div class="rule-text"><strong>Правило:</strong> короткий факт, автозникнення; критичне — діалог. <code>aria-live</code>. Без окликів/emoji в тексті.</div>
+      <div class="micro-line good"><span class="mk">✓</span>«Адресу збережено» · «Не вдалося зберегти — спробуйте ще раз»</div>
+      <div class="micro-line bad"><span class="mk">✗</span>«Готово! 🎉»</div>
+    </div>
+
+    <h3>Тон за станом (зведення)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="min-width:160px">Стан</th>
+            <th>Одне правило</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-strong">Порожній</td><td>чому порожньо + дія-вихід; ніколи глухий кут</td></tr>
+          <tr><td class="td-strong">Помилка</td><td>що сталося + що робити; без вибачень і жартів</td></tr>
+          <tr><td class="td-strong">Завантаження</td><td>мовчить або каже, що вантажиться; коротко</td></tr>
+          <tr><td class="td-strong">Успіх</td><td>факт + наступний крок; без святкування</td></tr>
+          <tr><td class="td-strong">OOS / наявність</td><td>чесно + сповіщення + вихід до колекції</td></tr>
+          <tr><td class="td-strong">Небезпечна дія</td><td>попередь про наслідок і незворотність до натискання</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="conclusion-card">
+      <p style="margin:0; color:var(--text-secondary); font-size:14px; line-height:1.7;">
+        <code>voice.md</code> повний: принципи + словник + заборонене + мікрокопі. За ним пишеться будь-який рядок продукту. Наступне — <strong>візуалізація <code>Voices/*.html</code> + встройка в бічну панель</strong> (після Кроку 4, перед Кроком 5), далі <strong>Крок 5</strong> (зразок-екран) і <strong>Крок 6</strong> (розкатка на всі екрани).
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-text">Stack — Фаза 2: Voice продукту. voice.md повний (Крок 4). Джерела: personas · jtbd · strategy · competitive-analysis.</div>
+    <div class="footer-text">Пара: microcopy.md · Далі: Wireframes</div>
+  </div>
+</footer>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+
+  var navLinks = document.querySelectorAll('.sidebar-nav a[href*="#"]');
+  var sections = document.querySelectorAll('section[id]');
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.getAttribute('id');
+        navLinks.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === 'voice.html#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+
+  sections.forEach(function(section) { observer.observe(section); });
+</script>
+</body>
+</html>

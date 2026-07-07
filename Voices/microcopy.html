@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Stack — Інвентар тексту</title>
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --surface: #ffffff;
+      --surface-alt: #f2f0eb;
+      --border: #e5e2db;
+      --text: #1a1916;
+      --text-secondary: #6b6760;
+      --text-light: #9b9790;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0ea;
+      --accent-mid: #4a8c62;
+      --score-high: #2d5a3d;
+      --score-mid: #7a9e4a;
+      --score-low: #b5882a;
+      --score-bg-high: #e8f0ea;
+      --score-bg-mid: #f3f7ea;
+      --score-bg-low: #fdf3e3;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; height: 52px;
+      background: rgba(247,246,243,0.94);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px; z-index: 101;
+    }
+    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .sidebar-toggle {
+      background: none; border: none; cursor: pointer; padding: 8px;
+      color: var(--text-secondary); display: flex; align-items: center;
+      justify-content: center; border-radius: var(--radius-sm); transition: background 0.15s;
+    }
+    .sidebar-toggle:hover { background: var(--surface-alt); }
+
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+    .sidebar-overlay.open { display: block; }
+
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0; width: 220px;
+      background: rgba(247,246,243,0.98);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-right: 1px solid var(--border); z-index: 100;
+      display: flex; flex-direction: column;
+      transform: translateX(-100%); transition: transform 0.22s ease;
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-logo {
+      font-weight: 700; font-size: 17px; color: var(--accent);
+      letter-spacing: -0.02em; text-decoration: none;
+      display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-nav {
+      flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px;
+    }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+
+    .sidebar-nav a {
+      display: block; color: var(--text-secondary); text-decoration: none;
+      font-size: 13px; font-weight: 500; padding: 7px 12px;
+      border-radius: var(--radius-sm); transition: color 0.15s, background 0.15s; margin-bottom: 1px;
+    }
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+
+    .sidebar-nav .sidebar-sub { display: block;
+      font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light);
+    }
+    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); }
+
+    .sidebar-page-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent); padding: 8px 12px 4px;
+    }
+
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
+
+    .sidebar-upcoming {
+      padding: 12px 12px 16px; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-light); line-height: 1.8;
+    }
+
+    /* LAYOUT */
+    .page { max-width: 1160px; margin: 0 auto; padding: 68px 24px 80px; }
+
+    @media (min-width: 860px) {
+      .topbar { display: none; }
+      .sidebar { transform: translateX(0); }
+      .page { margin-left: 220px; padding: 48px 48px 80px; }
+      section { scroll-margin-top: 24px; }
+    }
+
+    /* HERO */
+    .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); margin-bottom: 64px; animation: fadeUp 0.5s ease both; }
+    .hero-tag {
+      display: inline-block; background: var(--accent-light); color: var(--accent);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; color: var(--text); margin-bottom: 20px; max-width: 700px; }
+    .hero-lead { font-size: 18px; color: var(--text-secondary); max-width: 640px; line-height: 1.6; margin-bottom: 32px; }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+    .hero-meta-item { font-size: 13px; color: var(--text-light); }
+    .hero-meta-item strong { color: var(--text-secondary); font-weight: 600; }
+
+    /* SECTIONS */
+    section { margin-bottom: 72px; scroll-margin-top: 60px; animation: fadeUp 0.4s ease both; }
+    .section-number { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
+    h2 { font-size: clamp(22px, 3vw, 32px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: var(--text); margin-bottom: 8px; }
+    .section-lead { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; max-width: 600px; }
+    h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.015em; color: var(--text); margin: 36px 0 12px; }
+    h4 { font-size: 15px; font-weight: 650; color: var(--text); margin: 24px 0 8px; }
+    p { color: var(--text-secondary); margin-bottom: 12px; }
+
+    /* BADGES */
+    .badge-q {
+      display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+      padding: 1px 5px; border-radius: 100px; background: var(--score-bg-low);
+      color: var(--score-low); margin-left: 4px; letter-spacing: 0.04em;
+      vertical-align: middle; white-space: nowrap;
+    }
+    .badge-decided {
+      display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+      padding: 1px 5px; border-radius: 100px; background: var(--accent-light);
+      color: var(--accent); margin-left: 4px; letter-spacing: 0.04em;
+      vertical-align: middle; white-space: nowrap;
+    }
+    .badge-confirmed {
+      display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+      padding: 1px 5px; border-radius: 100px; background: #e8f0ea;
+      color: #2d5a3d; margin-left: 4px; letter-spacing: 0.04em;
+      vertical-align: middle; white-space: nowrap;
+    }
+
+    /* MATRIX TABLE */
+    .table-wrap {
+      overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm); margin: 20px 0;
+    }
+    table { width: 100%; border-collapse: collapse; background: var(--surface); font-size: 13px; }
+    thead th {
+      background: var(--surface-alt); padding: 11px 14px; text-align: left;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--text-secondary); border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    tbody td {
+      padding: 11px 14px; border-bottom: 1px solid var(--border);
+      color: var(--text-secondary); vertical-align: top; line-height: 1.45;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--bg); }
+    .td-strong { color: var(--text); font-weight: 600; }
+    .td-small { font-size: 11px; }
+    .td-num { text-align: center; font-weight: 700; color: var(--accent); white-space: nowrap; }
+
+    /* CONCLUSION CARD */
+    .conclusion-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid var(--accent); border-radius: var(--radius);
+      padding: 18px 22px; margin: 20px 0; box-shadow: var(--shadow-sm);
+      font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+    }
+    .conclusion-card strong { color: var(--text); }
+
+    /* ============ SCOPED: microcopy page ============ */
+    /* stat cards */
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 8px 0 28px; }
+    @media (max-width: 720px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 18px 16px; box-shadow: var(--shadow-sm);
+    }
+    .stat-num { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); line-height: 1.1; }
+    .stat-label { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+    .stat-card.is-ugc .stat-num { color: #3d52a0; }
+    .stat-card.is-cheer .stat-num { color: #9b3a7a; }
+
+    /* tag chips */
+    .tag {
+      display: inline-flex; align-items: center; font-size: 11px; font-weight: 700;
+      padding: 2px 7px; border-radius: 4px; letter-spacing: 0.03em;
+      vertical-align: middle; white-space: nowrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .tag-ugc { background: #eef2ff; color: #3d52a0; }
+    .tag-cheer { background: #fdf0f7; color: #9b3a7a; }
+    .tag-q { background: var(--score-bg-low); color: var(--score-low); }
+
+    /* legend */
+    .legend { display: grid; gap: 10px; margin: 16px 0 4px; }
+    .legend-item {
+      display: flex; align-items: flex-start; gap: 12px; font-size: 13.5px;
+      color: var(--text-secondary); line-height: 1.5;
+    }
+    .legend-item .tag { flex-shrink: 0; margin-top: 2px; }
+
+    /* code-ish inline for verbatim strings */
+    code, .str {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px; background: var(--surface-alt); color: var(--text);
+      padding: 1px 5px; border-radius: 4px;
+    }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 40px; }
+    .footer-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-text { font-size: 13px; color: var(--text-light); }
+
+    @media (max-width: 640px) {
+      .page { padding: 64px 16px 48px; }
+      .hero { padding: 40px 0 36px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .hero { animation: fadeUp 0.5s ease both; }
+    section { animation: fadeUp 0.4s ease both; }
+  </style>
+
+  </head>
+<body>
+
+<nav class="topbar">
+  <a href="voice.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="../research/research.html" class="sidebar-logo">Stack</a>
+  <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <a href="../ia/sitemap.html">Інформаційна архітектура</a>
+    <hr class="sidebar-divider">
+    <a href="voice.html">Голос продукту</a>
+    <div class="sidebar-page-label">Voice</div>
+    <a href="voice.html#principles" class="sidebar-sub">Принципи</a>
+    <a href="voice.html#dictionary" class="sidebar-sub">Словник</a>
+    <a href="voice.html#forbidden" class="sidebar-sub">Заборонене</a>
+    <a href="voice.html#microcopy" class="sidebar-sub">Мікрокопі</a>
+    <a href="microcopy.html" class="sidebar-sub active">Інвентар тексту</a>
+    <hr class="sidebar-divider">
+    <a href="../wireframes/index.html">Вайрфрейми</a>
+    <a href="../wireframes/index.html#f1" class="sidebar-sub">Флоу 1 · Покупець</a>
+    <a href="../wireframes/index.html#f2" class="sidebar-sub">Флоу 2 · Тренер</a>
+    <a href="../wireframes/index.html" class="sidebar-sub">Всі екрани</a>
+  </nav>
+</aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Фаза 2 · Voice</div>
+    <h1>Інвентар тексту</h1>
+    <p class="hero-lead">Повний перепис тексту інтерфейсу — джерело правди, з яким звіряється кожен рядок.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>157</strong> екранів</div>
+      <div class="hero-meta-item"><strong>3220</strong> рядків</div>
+      <div class="hero-meta-item"><strong>515</strong> UGC</div>
+      <div class="hero-meta-item"><strong>11</strong> CHEER</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: OVERVIEW -->
+  <section id="overview">
+    <div class="section-number">01</div>
+    <h2>Огляд</h2>
+    <p class="section-lead">Крок 1 фази «Voice продукту»: повний перепис наявного тексту прототипу в одну таблицю. Поки що нічого не переписано — це інвентар.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">157</div>
+        <div class="stat-label">екранів</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3220</div>
+        <div class="stat-label">рядків тексту</div>
+      </div>
+      <div class="stat-card is-ugc">
+        <div class="stat-num">515</div>
+        <div class="stat-label"><span class="tag tag-ugc">[UGC]</span> не переписуємо</div>
+      </div>
+      <div class="stat-card is-cheer">
+        <div class="stat-num">11</div>
+        <div class="stat-label"><span class="tag tag-cheer">[CHEER]</span> заборонений тон</div>
+      </div>
+    </div>
+
+    <h3>Як читати</h3>
+    <p>Таблиця по кластерах (Розділ A). Колонки: <strong>Зона</strong> (де на екрані) · <strong>Тип</strong> рядка · <strong>Текст</strong> (verbatim, укр.) · <strong>Нотатки</strong> (контекст, стан, варіант). Динамічні значення зведено до шаблонів (<code>Разом {sum} ₴</code>).</p>
+
+    <div class="legend">
+      <div class="legend-item">
+        <span class="tag tag-ugc">[UGC]</span>
+        <span>Контент користувача/редакції (назви товарів, відгуки, описи, статті блогу, правові тексти, семпл-імена). <strong>Ми його не переписуємо</strong> — тільки інтерфейс навколо. Список — Розділ C.</span>
+      </div>
+      <div class="legend-item">
+        <span class="tag tag-cheer">[CHEER]</span>
+        <span>Бадьорий / окличний / emoji-тон, привітання, терміновість. Бриф забороняє тривогу й святкування → кандидати на переписування. Список — Розділ D.</span>
+      </div>
+      <div class="legend-item">
+        <span class="tag tag-q">[?]</span>
+        <span>Плейсхолдер, що чекає реальних даних (тарифи, %, пороги, юр. тексти). Не вигадуємо.</span>
+      </div>
+    </div>
+
+    <h3>Інвентар по кластерах</h3>
+    <p>Головний результат кроку — це не таблиця A, а Розділ B (Розбіжності) нижче: те, чого не видно на одному екрані. Повний verbatim-перепис усіх 3220 рядків живе в <code>docs/microcopy.md</code>.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:70px">Кластер</th>
+            <th style="min-width:200px">Назва</th>
+            <th>Що входить</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-num">0</td>
+            <td class="td-strong">Спільні компоненти (<code>_nav.js</code>)</td>
+            <td>хедер, мега-меню, таб-бар, футер, діалоги, cookie, тости</td>
+          </tr>
+          <tr>
+            <td class="td-num">1</td>
+            <td class="td-strong">Головна · Ціль · Каталог-хаб</td>
+            <td>головна сторінка, тайли цілей, каталог-хаб</td>
+          </tr>
+          <tr>
+            <td class="td-num">2</td>
+            <td class="td-strong">Лістинг · Пошук · Бренди</td>
+            <td>сторінки лістингу, результати пошуку, індекс брендів</td>
+          </tr>
+          <tr>
+            <td class="td-num">3</td>
+            <td class="td-strong">Картка товару (PDP)</td>
+            <td>buy-box, блок довіри, відгуки, питання, схожі</td>
+          </tr>
+          <tr>
+            <td class="td-num">4</td>
+            <td class="td-strong">Кошик · Checkout · Замовлення прийнято</td>
+            <td>кошик-дровер, оформлення, підтвердження замовлення</td>
+          </tr>
+          <tr>
+            <td class="td-num">5</td>
+            <td class="td-strong">Акаунт покупця</td>
+            <td>огляд, замовлення, лояльність, адреси, профіль, обране</td>
+          </tr>
+          <tr>
+            <td class="td-num">6</td>
+            <td class="td-strong">Кабінет тренера — онбординг</td>
+            <td>лендинг · верифікація · тариф · кабінет</td>
+          </tr>
+          <tr>
+            <td class="td-num">7</td>
+            <td class="td-strong">Кабінет тренера — робоча зона</td>
+            <td>клієнти · сесія · замовлення</td>
+          </tr>
+          <tr>
+            <td class="td-num">8</td>
+            <td class="td-strong">Контент/інфо · Авторизація · Квіз · Системні</td>
+            <td>контент-сторінки, авторизація, квіз, 404/500/maintenance</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 2: DIVERGENCES -->
+  <section id="divergences">
+    <div class="section-number">02</div>
+    <h2>Розбіжності</h2>
+    <p class="section-lead">Головний результат кроку. Те, чого не видно на одному екрані — та сама річ під різними іменами, та сама дія з різними кнопками, кліше, розсинхрон даних. Нічого не переписано — лише позначено. Це вхід у Крок 3 (словник) і Крок 4 (правила).</p>
+
+    <h3>B1. Та сама дія — різні назви кнопок</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:36px">#</th>
+            <th style="min-width:160px">Дія</th>
+            <th>Варіанти в продукті</th>
+            <th style="min-width:150px">Де</th>
+            <th style="min-width:150px">Треба (Крок 3–4)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-num">1</td><td class="td-strong">Повторити замовлення (Job 4)</td><td>«↻ Повторити» · «↻ Повторити замовлення» · «↻ Повторити попереднє замовлення» · «↻ Повторити для {клієнт}» · «↻ У кошик»</td><td>account (огляд/замовлення), coach (клієнт/сесія/замовлення)</td><td>одне формулювання</td></tr>
+          <tr><td class="td-num">2</td><td class="td-strong">Нова сесія (тренер)</td><td>«＋ Нова сесія» · «Нова сесія» · «Нова сесія замовлення» · «＋ Нова сесія для клієнта» · «＋ Нова сесія замовлення» · «Зібрати першу сесію» · «↻ У сесію»</td><td>coach-home, clients, session, orders</td><td>одне ядро + одна кнопка «першої»</td></tr>
+          <tr><td class="td-num">3</td><td class="td-strong">Додати клієнта</td><td>«＋ Додати клієнта» · «＋ Новий клієнт» · «Новий клієнт» (заголовок модалки) · «＋ Додати першого клієнта» · «Створити першого клієнта»</td><td>coach clients / session-picker / empty</td><td>одне формулювання</td></tr>
+          <tr><td class="td-num">4</td><td class="td-strong">У кошик (покупець)</td><td>buy-box «У кошик» · sticky nav-таб «Купити» · картка 🛒 (aria «У кошик»)</td><td>product.html</td><td>один дієслівний варіант</td></tr>
+          <tr><td class="td-num">5</td><td class="td-strong">Головний CTA оформлення</td><td>кошик «Перейти до оформлення» · checkout «Підтвердити замовлення»</td><td>cart, checkout</td><td>розвести за етапом (норм), але зафіксувати</td></tr>
+          <tr><td class="td-num">6</td><td class="td-strong">Спробувати ще (помилка)</td><td>«Спробувати ще» · «Спробувати ще раз» (± ↻ гліф)</td><td>listing-error / brands-error / coach errors</td><td>одне формулювання</td></tr>
+          <tr><td class="td-num">7</td><td class="td-strong">До каталогу</td><td>«До каталогу» · «Перейти до каталогу»</td><td>listing/brands empty+error · search-empty</td><td>одне формулювання</td></tr>
+          <tr><td class="td-num">8</td><td class="td-strong">Оформити Pro</td><td>«Оформити Pro» · «Активувати Pro» · «Перейти на Pro»</td><td>coach landing/tier/tariff/home</td><td>одне формулювання</td></tr>
+          <tr><td class="td-num">9</td><td class="td-strong">Керувати тарифом</td><td>«Керувати тарифом» · «Порівняти тарифи»</td><td>coach-home base vs free</td><td>розвести за станом або уніфікувати</td></tr>
+          <tr><td class="td-num">10</td><td class="td-strong">Підписка (розсилка)</td><td>футер-кнопка «OK» · решта форм — повні дієслова</td><td>футер (<code>_nav.js</code>)</td><td>дієслово результату</td></tr>
+          <tr><td class="td-num">11</td><td class="td-strong">Показати всі (добірки)</td><td>~7 варіантів «показати всі / показати ще / усі товари…»</td><td>home, catalog-hub, listing</td><td>шаблон один</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>B2. Той самий предмет — різні імена <span style="font-size:13px;font-weight:400;color:var(--text-light)">(кандидати у словник, Крок 3)</span></h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:36px">#</th>
+            <th style="min-width:150px">Предмет</th>
+            <th>Варіанти</th>
+            <th style="min-width:140px">Де</th>
+            <th style="min-width:150px">Нотатка</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-num">1</td><td class="td-strong">Лояльність / бонуси</td><td>хедер «★ Бонуси» · футер-колонка «Знижки та бонуси» · сторінка «Бонусна програма»</td><td>глобально</td><td>вибрати одне ядро для поверхні</td></tr>
+          <tr><td class="td-num">2</td><td class="td-strong">Одиниця позицій кошика</td><td>«товари/товарів» (покупець) · «позиції/позицій» (тренер) · «шт» (розбивка checkout)</td><td>cart, checkout, order</td><td>один іменник (+ узгодити з даними, B4-1)</td></tr>
+          <tr><td class="td-num">3</td><td class="td-strong">Повернення</td><td>навігація «Повернення» · сторінка «Обмін і повернення»</td><td>meta-bar/drawer/footer vs content</td><td>назва сторінки vs пункт меню</td></tr>
+          <tr><td class="td-num">4</td><td class="td-strong">Відгуки</td><td>«Відгуки» · «Відгуки покупців»</td><td>PDP base vs product-reviews</td><td>одне</td></tr>
+          <tr><td class="td-num">5</td><td class="td-strong">Ціль (енергія/витривалість)</td><td>«Витривалість» · «Витривалість / кардіо» · «Енергія» · «Енергія / тонус»</td><td>home, goal, mega-menu</td><td>канон = 6 цілей з <code>catalog.md</code></td></tr>
+          <tr><td class="td-num">6</td><td class="td-strong">Назви категорій</td><td>«Вітаміни та мінерали»/«Вітаміни й мінерали» · «Ізотоніки та витривалість»/«Ізотоніки» · «Здоров'я»/«Здоровʼя» (різний апостроф!)</td><td>catalog-hub vs mega-menu</td><td>канон = <code>catalog.md</code>, один апостроф '</td></tr>
+          <tr><td class="td-num">7</td><td class="td-strong">Квіз</td><td>«✦ Квіз» · «✦ Квіз — підбір за ціллю»</td><td>хедер vs drawer</td><td>одне</td></tr>
+          <tr><td class="td-num">8</td><td class="td-strong">Тир тренера</td><td>«PRO» · «Pro · Тренер» · «Pro» · «Free»</td><td>хедер / sidenav / tariff</td><td>один регістр і форма</td></tr>
+          <tr><td class="td-num">9</td><td class="td-strong">Сортування (за типом сторінки)</td><td>«Популярні ▾» (лістинг) · «Релевантні ▾» (пошук)</td><td>listing vs search</td><td>різне — <strong>навмисно</strong>, лишаємо</td></tr>
+          <tr><td class="td-num">10</td><td class="td-strong">Заголовок «нічого не знайдено»</td><td>H1 «…нічого не знайшли» vs блок «Нічого не знайдено»</td><td>search-empty (один екран!)</td><td>активний vs пасивний — звести</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>B3. Кліше / бадьорий тон / терміновість → <span class="tag tag-cheer">[CHEER]</span></h3>
+    <p>Коротко: привітання-святкування («Вітаємо…», «З поверненням…», 🎉/🙌), окличні подяки розсилки/відгуків, мотиваційні заклики. <strong>Добра новина:</strong> промо-сторінка <strong>без таймерів</strong> і прямо декларує відмову від зворотного відліку — тримаємо як еталон Принципу 4. Детально — Розділ D (секція 04).</p>
+
+    <h3>B4. Розсинхрон даних / формату <span style="font-size:13px;font-weight:400;color:var(--text-light)">(не «голос», а гігієна прототипу)</span></h3>
+    <p>Це не переписування тексту, а неузгоджені числа/формати. Правимо під час розкатки (Крок 6), де це семпл-дані; решта лишається <span class="tag tag-q">[?]</span> до реальних даних.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:36px">#</th>
+            <th style="min-width:150px">Що</th>
+            <th>Розсинхрон</th>
+            <th style="min-width:160px">Де</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-num">1</td><td class="td-strong">Кількість у замовленні</td><td>«3 товари» (шапка) vs «4 шт» (розбивка) vs «Товари (4)»</td><td>checkout / order-placed</td></tr>
+          <tr><td class="td-num">2</td><td class="td-strong">Нарахування бонусів</td><td>«+40 ₴» (гість) vs «+38 ₴» (залогінений)</td><td>order-placed vs checkout</td></tr>
+          <tr><td class="td-num">3</td><td class="td-strong">Ім'я отримувача</td><td>«Вікторія Гість» vs «Вікторія Коваль»</td><td>order-placed guest vs account</td></tr>
+          <tr><td class="td-num">4</td><td class="td-strong">Персона у станах акаунту</td><td>«Олег Новак / 🥉 Бронзовий» vs «Вікторія Коваль / 🥈 Срібний»</td><td>account-empty (хардкод nav)</td></tr>
+          <tr><td class="td-num">5</td><td class="td-strong">Ім'я тренера</td><td>«Олена Кравець» vs «Олена»</td><td>header/buyer-nav vs coach-nav</td></tr>
+          <tr><td class="td-num">6</td><td class="td-strong">Формат № замовлення</td><td>«#К-204» (3 цифри) vs «№ К-2041» (4 цифри)</td><td>coach client-history vs orders</td></tr>
+          <tr><td class="td-num">7</td><td class="td-strong">Ліміт Free-клієнтів</td><td>«2–3» vs «2» vs «3»</td><td>coach landing/home-free/tariff</td></tr>
+          <tr><td class="td-num">8</td><td class="td-strong">Ціна за порцію</td><td>«≈18 ₴» (base) vs «≈28 ₴» (OOS) той самий товар</td><td>product vs product-oos</td></tr>
+          <tr><td class="td-num">9</td><td class="td-strong">Одиниці в леджері лояльності</td><td>голі числа (гість) vs «₴»-суфікс (залогінений)</td><td>content-loyalty</td></tr>
+          <tr><td class="td-num">10</td><td class="td-strong">Апостроф</td><td>' (U+0027) vs ʼ (U+02BC) у «Здоров'я»</td><td>catalog-hub vs mega-menu</td></tr>
+          <tr><td class="td-num">11</td><td class="td-strong">index</td><td><code>&lt;title&gt;</code> «всі екрани» vs H1 «усі екрани»</td><td>index.html</td></tr>
+          <tr><td class="td-num">12</td><td class="td-strong">Орфографія</td><td>«Вегетеріанство» (ймовірно «Вегетаріанство»)</td><td>quiz Q4</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>B5. Плейсхолдери <span class="tag tag-q">[?]</span> <span style="font-size:13px;font-weight:400;color:var(--text-light)">(не вигадуємо — чекають реальних даних)</span></h3>
+    <div class="conclusion-card">
+      Тарифи доставки · % знижок тирів лояльності + пороги · % і термін згорання бонусів · тариф Pro тренера + ліміти Free · знижка промо · welcome-знижка розсилки · файли сертифікатів · юр. тексти (оферта/політика) · правило 301-vs-410 для знятих товарів.
+    </div>
+  </section>
+
+  <!-- SECTION 3: UGC -->
+  <section id="ugc">
+    <div class="section-number">03</div>
+    <h2>UGC — не переписуємо</h2>
+    <p class="section-lead">Ці рядки пише користувач/редакція або це семпл-дані. Голос продукту на них не впливає — переписуємо лише інтерфейс навколо них.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="min-width:150px">Тип</th>
+            <th>Що входить</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong"><span class="tag tag-ugc">[UGC]</span> Товари</td>
+            <td>назви + бренди + країни + рейтинги/кількість відгуків + ціни + за-порцію + склад/дозування + характеристики (Gold Standard, Iso Whey Zero, Creatine Monohydrate, Hyper Mass, L-Carnitine; ON / BioTechUSA / OstroVit / Myprotein …)</td>
+          </tr>
+          <tr>
+            <td class="td-strong"><span class="tag tag-ugc">[UGC]</span> Відгуки й Q&amp;A</td>
+            <td>тексти відгуків + імена (Олена В., Андрій С., Марія К., Ігор П.) + дати + відповіді магазину; питання-відповіді на PDP</td>
+          </tr>
+          <tr>
+            <td class="td-strong"><span class="tag tag-ugc">[UGC]</span> Блог</td>
+            <td>заголовки + анонси + тіло статей (8.0/8.1)</td>
+          </tr>
+          <tr>
+            <td class="td-strong"><span class="tag tag-ugc">[UGC]</span> Правові тексти</td>
+            <td>оферта / політика / умови (8.6) — заглушки <span class="tag tag-q">[?]</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong"><span class="tag tag-ugc">[UGC]</span> Семпл-персони</td>
+            <td>покупець Вікторія Коваль (🥈, бонус 124/240 ₴), тренер Олена, клієнти Андрій / Марія / Ігор (+ цілі, нотатки, суми), телефони/e-mail/адреси/ТТН, № замовлень</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="conclusion-card">
+      <strong>Виняток:</strong> якщо семпл-дані <strong>суперечать самі собі</strong> між екранами (Розділ B4) — це не «голос», а гігієна даних; узгоджуємо під час розкатки.
+    </div>
+  </section>
+
+  <!-- SECTION 4: CHEER -->
+  <section id="cheer">
+    <div class="section-number">04</div>
+    <h2>Заборонений тон</h2>
+    <p class="section-lead">Бадьорий / окличний тон і кліше <span class="tag tag-cheer">[CHEER]</span>. Бриф (Принцип 4: «Спокійно і впевнено»; успіх не святкує) → прибираємо. Кандидати на переписування.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="min-width:160px">Екран</th>
+            <th style="min-width:200px">Було</th>
+            <th>Що не так</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-strong">coach-home / -empty</td><td>«Вітаємо, Олено!» / «Вітаємо у Stack, Олено!»</td><td>привітання-святкування</td></tr>
+          <tr><td class="td-strong">auth (success toast)</td><td>«Вітаємо у Stack! Ви увійшли 🎉»</td><td>оклик + emoji + святкування</td></tr>
+          <tr><td class="td-strong">auth-newuser</td><td>«🎉 Створюємо ваш акаунт» · «Ще один крок — і готово»</td><td>emoji + бадьорість</td></tr>
+          <tr><td class="td-strong">content-newsletter</td><td>«Дякуємо! Тепер ви першими дізнаєтесь…»</td><td>оклик + FOMO</td></tr>
+          <tr><td class="td-strong">content-loyalty-buyer</td><td>«З поверненням, Вікторіє! 🥈»</td><td>окличне привітання</td></tr>
+          <tr><td class="td-strong">content-reviews</td><td>відповіді магазину «Дякуємо, Олено! …🙌», «Дякуємо за відгук!»</td><td>оклик + emoji</td></tr>
+          <tr><td class="td-strong">content-loyalty</td><td>CTA «Почніть накопичувати вже з першого замовлення»</td><td>мотиваційний тон</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="conclusion-card">
+      <strong>Еталон (лишаємо):</strong> content-promo — без таймерів, «🗓 Діє до {дата}», прямо: «Ми не використовуємо таймери зворотного відліку й тиск». Це зразок Принципу 4.
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-text">Stack — Фаза 2: Voice. Інвентар тексту (Крок 1). Джерело правди: docs/microcopy.md.</div>
+    <div class="footer-text">Наступний крок: Крок 2 — принципи голосу</div>
+  </div>
+</footer>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+
+  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
+    link.addEventListener('click', closeSidebar);
+  });
+
+  var navLinks = document.querySelectorAll('.sidebar-nav a[href^="#"]');
+  var sections = document.querySelectorAll('section[id]');
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.getAttribute('id');
+        navLinks.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+
+  sections.forEach(function(section) { observer.observe(section); });
+</script>
+</body>
+</html>
