@@ -309,7 +309,7 @@ img { max-width: 100%; display: block; }
     padding: 6px 2px; font-size: 10.5px; font-weight: 600; color: var(--light); position: relative; }
   .wf-tab .ti { font-size: 20px; line-height: 1; }
   .wf-tab .tl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-  .wf-tab[aria-current="page"] { color: var(--strong); font-weight: 800; }
+  .wf-tab[aria-current="page"], .wf-tab.catov-open { color: var(--strong); font-weight: 800; }
   .wf-tab .tbadge { position: absolute; top: 2px; left: 50%; margin-left: 4px; min-width: 15px; height: 15px;
     padding: 0 4px; border-radius: 100px; background: var(--dark); color: #fff; font-size: 9.5px; font-weight: 800;
     display: flex; align-items: center; justify-content: center; }
@@ -331,7 +331,9 @@ html { overflow-x: hidden; }
 /* ---------- Mobile catalog overlay (node 0.1 drill-down; opened by the Каталог tab) ---------- */
 .wf-catov { display: none; }
 @media (max-width: 859px) {
-  .wf-catov { position: fixed; inset: 0; z-index: 56; background: #fff; flex-direction: column; }
+  /* sits above the header but below the bottom tab bar (z 50), and stops above it, so the
+     tab bar stays visible + clickable → re-tapping «Каталог» toggles the overlay closed */
+  .wf-catov { position: fixed; top: 0; left: 0; right: 0; bottom: 57px; z-index: 49; background: #fff; flex-direction: column; }
   .wf-catov.open { display: flex; }
   .wf-catov-h { display: flex; align-items: center; gap: 10px; padding: 13px 14px; border-bottom: 1px solid var(--hair);
     position: sticky; top: 0; background: #fff; min-height: 52px; }

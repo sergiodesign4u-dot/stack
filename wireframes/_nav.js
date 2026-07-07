@@ -572,8 +572,9 @@ function catOverlayGoals() {
   document.getElementById('wf-catov-body').innerHTML = body;
   document.getElementById('wf-catov-body').scrollTop = 0;
 }
-function openCatOverlay() { var c = wfCatOverlayEnsure(); catOverlayL0(); c.classList.add('open'); document.body.style.overflow = 'hidden'; }
-function closeCatOverlay() { var c = document.getElementById('wf-catov'); if (c) c.classList.remove('open'); document.body.style.overflow = ''; }
+function wfCatTabEl() { return document.querySelector('.wf-tab[href="catalog-page.html"]'); }
+function openCatOverlay() { var c = wfCatOverlayEnsure(); catOverlayL0(); c.classList.add('open'); document.body.style.overflow = 'hidden'; var t = wfCatTabEl(); if (t) t.classList.add('catov-open'); }
+function closeCatOverlay() { var c = document.getElementById('wf-catov'); if (c) c.classList.remove('open'); document.body.style.overflow = ''; var t = wfCatTabEl(); if (t) t.classList.remove('catov-open'); }
 function wfCatTabClick(e) { if (e) e.preventDefault(); var c = document.getElementById('wf-catov'); if (c && c.classList.contains('open')) closeCatOverlay(); else openCatOverlay(); return false; }
 
 /* ============================================================
