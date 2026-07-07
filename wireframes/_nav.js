@@ -297,6 +297,9 @@ function wfBar(baseFile, currentState) {
    (crawlable, SEO). In the wireframe every category/subcategory routes to
    the shared listing template (listing.html); goals → goal.html; Бренди →
    brands.html. ============================================================ */
+/* canonical badge counts (wireframe) — cart items + saved favourites */
+const WF_CART_COUNT = 3;
+const WF_FAV_COUNT = 4;
 const WF_CAT_MENU = [
   { name: 'Протеїн', href: 'listing.html', ic: '🥛', goals: ['Набір маси', 'Схуднення', 'Відновлення'],
     subs: ['Сироватковий (концентрат)', 'Ізолят', 'Гідролізат', 'Казеїн', 'Комплексний', 'Яловичий', 'Рослинний (соя/горох/рис)', 'Яєчний'],
@@ -519,6 +522,59 @@ function wfPickCity(name) { document.querySelectorAll('.wfh-city-lbl').forEach(e
 function openBurger() { var d = document.getElementById('drawer'), o = document.getElementById('drawer-ov'); if (d) d.classList.add('open'); if (o) o.classList.add('open'); }
 function closeBurger() { var d = document.getElementById('drawer'), o = document.getElementById('drawer-ov'); if (d) d.classList.remove('open'); if (o) o.classList.remove('open'); }
 function toggleDrCat(i) { var s = document.getElementById('drs' + i), a = document.getElementById('dra' + i); if (!s) return; var open = s.classList.toggle('open'); if (a) a.textContent = open ? '－' : '＋'; var b = s.previousElementSibling; if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+
+/* ---------- Mobile catalog overlay (node 0.1, mobile drill-down) ----------
+   Opened by the «Каталог» bottom-tab on mobile. Full-screen sheet with two levels:
+   L0 = «✦ За ціллю» + 12 top categories → tap → L1 = that category's subcategories
+   (with a back row). Close on ✕ / ESC / backdrop / re-tap of the Каталог tab. */
+function wfCatOverlayEnsure() {
+  var c = document.getElementById('wf-catov');
+  if (!c) {
+    c = document.createElement('div');
+    c.id = 'wf-catov'; c.className = 'wf-catov'; c.setAttribute('role', 'dialog'); c.setAttribute('aria-label', 'Каталог');
+    c.innerHTML = '<div class="wf-catov-h" id="wf-catov-h"></div><div class="wf-catov-body" id="wf-catov-body"></div>';
+    document.body.appendChild(c);
+  }
+  return c;
+}
+function catOvHead(opts) {
+  // opts: { title, back(fn-name string) }
+  var left = opts.back
+    ? '<button class="cback" onclick="' + opts.back + '">‹ <span>Каталог</span></button>'
+    : '<span class="ctitle">Каталог</span>';
+  var mid = opts.back ? '<span class="ctitle sub">' + opts.title + '</span>' : '';
+  return left + mid + '<button class="cx" aria-label="Закрити" onclick="closeCatOverlay()">✕</button>';
+}
+function catOverlayL0() {
+  document.getElementById('wf-catov-h').innerHTML = catOvHead({ back: null });
+  var body = '<button class="wf-catov-row lead" onclick="catOverlayGoals()"><span class="ci">✦</span><span class="cl">За ціллю</span><span class="car">›</span></button>';
+  WF_CAT_MENU.forEach(function (c, i) {
+    body += '<button class="wf-catov-row" onclick="catOverlayCat(' + i + ')"><span class="ci">' + (c.ic || '') + '</span><span class="cl">' + c.name + '</span><span class="car">›</span></button>';
+  });
+  document.getElementById('wf-catov-body').innerHTML = body;
+}
+function catOverlayCat(i) {
+  var c = WF_CAT_MENU[i]; if (!c) return;
+  document.getElementById('wf-catov-h').innerHTML = catOvHead({ title: c.name, back: 'catOverlayL0()' });
+  var body = '<a class="wf-catov-all" href="' + c.href + '"><span class="ci">' + (c.ic || '') + '</span> Усі товари: ' + c.name + ' <span class="car">›</span></a>';
+  (c.subs || []).forEach(function (s) {
+    body += '<a class="wf-catov-sub" href="' + c.href + '">' + s + '</a>';
+  });
+  document.getElementById('wf-catov-body').innerHTML = body;
+  document.getElementById('wf-catov-body').scrollTop = 0;
+}
+function catOverlayGoals() {
+  document.getElementById('wf-catov-h').innerHTML = catOvHead({ title: 'За ціллю', back: 'catOverlayL0()' });
+  var body = '';
+  WF_GOAL_MENU.forEach(function (g) {
+    body += '<a class="wf-catov-goal" href="goal.html"><span class="ci">' + g.ic + '</span><span class="cg"><span class="gn">' + g.name + '</span><span class="gc">' + g.cats + '</span></span><span class="car">›</span></a>';
+  });
+  document.getElementById('wf-catov-body').innerHTML = body;
+  document.getElementById('wf-catov-body').scrollTop = 0;
+}
+function openCatOverlay() { var c = wfCatOverlayEnsure(); catOverlayL0(); c.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeCatOverlay() { var c = document.getElementById('wf-catov'); if (c) c.classList.remove('open'); document.body.style.overflow = ''; }
+function wfCatTabClick(e) { if (e) e.preventDefault(); var c = document.getElementById('wf-catov'); if (c && c.classList.contains('open')) closeCatOverlay(); else openCatOverlay(); return false; }
 
 /* ============================================================
    Global system components (node S) — cookie-consent banner + toasts.
@@ -998,22 +1054,26 @@ function wfTabbarActive() {
 function wfTabbarHTML(role) {
   var active = wfTabbarActive();
   var coach = role === 'coach';
+  var loggedIn = coach || role === 'buyer';
+  var cartN = WF_CART_COUNT, favN = loggedIn ? WF_FAV_COUNT : 0;  // guest favourites require login → no count
   var tabs = coach ? [
     { k: 'home', ic: '🎽', l: 'Кабінет', href: 'coach-home.html' },
-    { k: 'catalog', ic: '▦', l: 'Каталог', href: 'catalog-page.html' },
-    { k: 'cart', ic: '🛒', l: 'Кошик', href: 'cart.html' },
-    { k: 'fav', ic: '♡', l: 'Обране', href: 'coach-wishlist.html' },
+    { k: 'catalog', ic: '▦', l: 'Каталог', href: 'catalog-page.html', cat: true },
+    { k: 'cart', ic: '🛒', l: 'Кошик', href: 'cart.html', badge: cartN },
+    { k: 'fav', ic: '♡', l: 'Обране', href: 'coach-wishlist.html', badge: favN },
     { k: 'account', ic: '👤', l: 'Акаунт', href: 'account.html?r=coach' }
   ] : [
     { k: 'home', ic: '🏠', l: 'Головна', href: 'home.html' },
-    { k: 'catalog', ic: '▦', l: 'Каталог', href: 'catalog-page.html' },
-    { k: 'cart', ic: '🛒', l: 'Кошик', href: 'cart.html' },
-    { k: 'fav', ic: '♡', l: 'Обране', href: 'account-wishlist.html' },
+    { k: 'catalog', ic: '▦', l: 'Каталог', href: 'catalog-page.html', cat: true },
+    { k: 'cart', ic: '🛒', l: 'Кошик', href: 'cart.html', badge: cartN },
+    { k: 'fav', ic: '♡', l: 'Обране', href: 'account-wishlist.html', badge: favN },
     { k: 'account', ic: '👤', l: 'Акаунт', href: 'account.html' }
   ];
   return tabs.map(function (t) {
     var cur = (t.k === active) ? ' aria-current="page"' : '';
-    return '<a class="wf-tab" href="' + t.href + '"' + cur + '><span class="ti">' + t.ic + '</span><span class="tl">' + t.l + '</span></a>';
+    var oc = t.cat ? ' onclick="return wfCatTabClick(event)"' : '';
+    var badge = (t.badge > 0) ? '<span class="tbadge">' + t.badge + '</span>' : '';
+    return '<a class="wf-tab" href="' + t.href + '"' + cur + oc + '><span class="ti">' + t.ic + badge + '</span><span class="tl">' + t.l + '</span></a>';
   }).join('');
 }
 function wfHeader(role) {
@@ -1044,6 +1104,10 @@ function wfHeader(role) {
       `<div class="wfh-cabmenu" id="wfh-cabmenu" role="menu">${items}</div></div>`;
   }
   const bonusVal = loggedIn ? '124 ₴' : 'Отримати';  // canonical buyer balance (account 7.4 · Вікторія)
+  const cartN = WF_CART_COUNT, favN = loggedIn ? WF_FAV_COUNT : 0;  // guest favourites need login
+  const favHref = isCoach ? 'coach-wishlist.html' : 'account-wishlist.html';
+  const cartBadge = cartN > 0 ? `<span class="hb">${cartN}</span>` : '';
+  const favBadge = favN > 0 ? `<span class="hb">${favN}</span>` : '';
   const el = document.getElementById('wf-header'); if (!el) return;
   el.className = 'wfh';
   el.innerHTML = `
@@ -1067,14 +1131,14 @@ function wfHeader(role) {
       </form>
       <div class="wfh-mi">
         <a href="search.html" aria-label="Пошук">🔍</a>
-        <a href="account.html" aria-label="Обране">♡</a>
-        <a href="cart.html" aria-label="Кошик">🛒</a>
+        <a href="${favHref}" aria-label="Обране">♡${favBadge}</a>
+        <a href="cart.html" aria-label="Кошик">🛒${cartBadge}</a>
       </div>
       <div class="wfh-actions">
         ${acctHTML}
-        <a class="wfh-act stack" href="account.html"><span class="g">♡</span><span class="lbl">Обране</span></a>
+        <a class="wfh-act stack" href="${favHref}"><span class="g">♡${favBadge}</span><span class="lbl">Обране</span></a>
         <a class="wfh-act" href="account.html"><span class="g">★</span><span class="t"><span class="cap">Бонуси</span><span class="val">${bonusVal}</span></span></a>
-        <a class="wfh-act" href="cart.html"><span class="g">🛒</span><span class="lbl">Кошик</span></a>
+        <a class="wfh-act" href="cart.html"><span class="g">🛒${cartBadge}</span><span class="lbl">Кошик</span></a>
       </div>
     </div>
     ${wfCityHTML()}
@@ -1220,4 +1284,4 @@ function closeSheet() { const s = document.getElementById('fsheet'), o = documen
 function toggleCab(e) { if (e) e.stopPropagation(); const m = document.getElementById('wfh-cabmenu'); if (!m) return; const open = m.classList.toggle('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
 function closeCab() { const m = document.getElementById('wfh-cabmenu'); if (!m) return; m.classList.remove('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', 'false'); }
 document.addEventListener('click', e => { const cab = document.getElementById('wfh-cabmenu'); if (cab && cab.classList.contains('open') && !e.target.closest('.wfh-cab')) closeCab(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); closeMega(); closeAuth(); if (typeof closeClientEdit === 'function') closeClientEdit(); if (typeof closePM === 'function') closePM(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); closeMega(); closeCatOverlay(); closeAuth(); if (typeof closeClientEdit === 'function') closeClientEdit(); if (typeof closePM === 'function') closePM(); } });

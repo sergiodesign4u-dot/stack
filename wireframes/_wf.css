@@ -317,6 +317,45 @@ img { max-width: 100%; display: block; }
   body { padding-bottom: 60px; }
 }
 
+/* header badge counters (cart / favourites) — small corner counter on the buttons */
+.wfh-mi a { position: relative; }
+.wfh-act { position: relative; }
+.wfh-mi .hb, .wfh-act .g .hb { position: absolute; top: -6px; right: -9px; min-width: 15px; height: 15px; padding: 0 4px;
+  border-radius: 100px; background: var(--dark); color: #fff; font-size: 9.5px; font-weight: 800; line-height: 15px;
+  text-align: center; box-shadow: 0 0 0 2px #fff; }
+.wfh-act .g { position: relative; }
+
+/* ---------- Mobile catalog overlay (node 0.1 drill-down; opened by the Каталог tab) ---------- */
+.wf-catov { display: none; }
+@media (max-width: 859px) {
+  .wf-catov { position: fixed; inset: 0; z-index: 56; background: #fff; flex-direction: column; }
+  .wf-catov.open { display: flex; }
+  .wf-catov-h { display: flex; align-items: center; gap: 10px; padding: 13px 14px; border-bottom: 1px solid var(--hair);
+    position: sticky; top: 0; background: #fff; min-height: 52px; }
+  .wf-catov-h .ctitle { font-size: 17px; font-weight: 800; color: var(--strong); }
+  .wf-catov-h .ctitle.sub { font-size: 15px; font-weight: 700; color: var(--sec); }
+  .wf-catov-h .cback { font-size: 14px; font-weight: 700; color: var(--strong); display: inline-flex; align-items: center; gap: 4px; }
+  .wf-catov-h .cx { margin-left: auto; font-size: 20px; color: var(--light); line-height: 1; padding: 4px; }
+  .wf-catov-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .wf-catov-row { display: flex; align-items: center; gap: 13px; width: 100%; padding: 14px 16px; background: #fff;
+    font-size: 14.5px; font-weight: 600; color: var(--strong); border-bottom: 1px solid var(--hair); text-align: left; }
+  .wf-catov-row .ci { width: 24px; text-align: center; font-size: 18px; flex: none; }
+  .wf-catov-row .cl { min-width: 0; overflow-wrap: anywhere; }
+  .wf-catov-row .car { margin-left: auto; color: #cbcbcb; font-weight: 700; font-size: 17px; }
+  .wf-catov-row.lead { font-weight: 800; }
+  .wf-catov-all { display: flex; align-items: center; gap: 10px; padding: 15px 16px; font-size: 14.5px; font-weight: 800;
+    color: var(--strong); border-bottom: 1px solid var(--hair); background: var(--fill2); }
+  .wf-catov-all .ci { font-size: 17px; }
+  .wf-catov-all .car { margin-left: auto; color: #bbb; }
+  .wf-catov-sub { display: block; padding: 13px 16px 13px 20px; font-size: 14px; color: var(--sec); border-bottom: 1px solid var(--hair); }
+  .wf-catov-goal { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-bottom: 1px solid var(--hair); }
+  .wf-catov-goal .ci { width: 24px; text-align: center; font-size: 19px; flex: none; }
+  .wf-catov-goal .cg { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .wf-catov-goal .gn { font-size: 14.5px; font-weight: 800; color: var(--strong); }
+  .wf-catov-goal .gc { font-size: 11.5px; color: var(--light); line-height: 1.4; overflow-wrap: anywhere; }
+  .wf-catov-goal .car { margin-left: auto; color: #cbcbcb; font-weight: 700; }
+}
+
 /* ---------- breadcrumb ---------- */
 .crumb { font-size: 12px; color: var(--light); padding: 14px 0 10px; }
 .crumb a { color: var(--light); }
