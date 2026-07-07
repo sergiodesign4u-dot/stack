@@ -981,6 +981,41 @@ function wfToast(type, msg) {
    (per navigation.md: Кабінет · Замовлення · Адреси · Стати тренером · Вихід;
    coach adds tier chip + Кабінет тренера · Клієнти · Нова сесія, drops «Стати
    тренером»). «Обране» + «Бонуси» stay their own header elements (not in menu). */
+/* Mobile bottom tab bar (navigation.md §B) — primary mobile nav, mobile-only (CSS-gated).
+   5 tabs; coach swaps tab 1 (Головна → Кабінет тренера) + routes Обране/Акаунт to coach context.
+   Active tab is auto-derived from the current filename. */
+function wfTabbarActive() {
+  var f = (location.pathname.split('/').pop() || 'home.html').toLowerCase().replace(/\?.*$/, '');
+  if (f === '' || f === 'home.html' || f === 'home-buyer.html' || f === 'home-coach.html' || f === 'index.html') return 'home';
+  if (f === 'account-wishlist.html' || f === 'coach-wishlist.html') return 'fav';
+  if (f === 'cart.html' || f === 'checkout.html') return 'cart';
+  if (f.indexOf('coach-') === 0) return 'home';          // coach cabinet workspace = tab 1 (Кабінет тренера)
+  if (f.indexOf('account') === 0) return 'account';
+  if (['catalog-page.html','catalog.html','category.html','listing.html','goal.html','search.html','brands.html','product.html','megamenu.html','home-catalog.html','quiz.html'].indexOf(f) >= 0) return 'catalog';
+  if (f.indexOf('megamenu') === 0 || f.indexOf('category') === 0 || f.indexOf('goal') === 0) return 'catalog';
+  return '';
+}
+function wfTabbarHTML(role) {
+  var active = wfTabbarActive();
+  var coach = role === 'coach';
+  var tabs = coach ? [
+    { k: 'home', ic: '🎽', l: 'Кабінет', href: 'coach-home.html' },
+    { k: 'catalog', ic: '▦', l: 'Каталог', href: 'catalog-page.html' },
+    { k: 'cart', ic: '🛒', l: 'Кошик', href: 'cart.html' },
+    { k: 'fav', ic: '♡', l: 'Обране', href: 'coach-wishlist.html' },
+    { k: 'account', ic: '👤', l: 'Акаунт', href: 'account.html?r=coach' }
+  ] : [
+    { k: 'home', ic: '🏠', l: 'Головна', href: 'home.html' },
+    { k: 'catalog', ic: '▦', l: 'Каталог', href: 'catalog-page.html' },
+    { k: 'cart', ic: '🛒', l: 'Кошик', href: 'cart.html' },
+    { k: 'fav', ic: '♡', l: 'Обране', href: 'account-wishlist.html' },
+    { k: 'account', ic: '👤', l: 'Акаунт', href: 'account.html' }
+  ];
+  return tabs.map(function (t) {
+    var cur = (t.k === active) ? ' aria-current="page"' : '';
+    return '<a class="wf-tab" href="' + t.href + '"' + cur + '><span class="ti">' + t.ic + '</span><span class="tl">' + t.l + '</span></a>';
+  }).join('');
+}
 function wfHeader(role) {
   role = role || 'guest';
   window.WF_ROLE = role;   // shared so wfFooter() (and any shared nav) can route guest vs logged-in variants
@@ -1053,6 +1088,14 @@ function wfHeader(role) {
     sc.onclick = closeMega;
     document.body.appendChild(sc);
   }
+  /* mobile bottom tab bar — appended to body (like the scrim), shown only on mobile via CSS */
+  var tb = document.getElementById('wf-tabbar');
+  if (!tb) {
+    tb = document.createElement('nav');
+    tb.id = 'wf-tabbar'; tb.className = 'wf-tabbar'; tb.setAttribute('aria-label', 'Основна навігація');
+    document.body.appendChild(tb);
+  }
+  tb.innerHTML = wfTabbarHTML(role);
 }
 
 function wfFooter() {
