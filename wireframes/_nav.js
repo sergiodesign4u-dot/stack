@@ -82,7 +82,7 @@ const WF_FLOWS = [
       { file: 'content-about.html',   name: 'Про нас',          node: '8.2', built: true, states: [], builtStates: [] },
       { file: 'content-contacts.html',name: 'Контакти',         node: '8.3', built: true, states: [], builtStates: [] },
       { file: 'content-delivery.html',name: 'Доставка й оплата',node: '8.4', built: true, states: [], builtStates: [] },
-      { file: 'content-returns.html', name: 'Обмін і повернення',node: '8.5', built: true, states: [], builtStates: [] },
+      { file: 'content-returns.html', name: 'Повернення',node: '8.5', built: true, states: [], builtStates: [] },
       { file: 'content-legal.html',   name: 'Правова інформація',node: '8.6', built: true, states: [], builtStates: [] },
       { file: 'content-guarantee.html',name:'Гарантія та сертифікати', node: '8.8', built: true, states: [], builtStates: [] },
       { file: 'content-newsletter.html',name:'Розсилка (підтвердження)', node: '8.12', built: true, states: [], builtStates: [] }
@@ -104,7 +104,7 @@ const WF_FLOWS = [
     note: 'розділи кабінету (7.1–7.7) на спільному шеллі (wfAccountNav): замовлення · лояльність · адреси · профіль · обране',
     screens: [
       { file: 'account-orders.html',    name: 'Замовлення',           node: '7.2', built: true, states: ['empty'], builtStates: ['empty'] },
-      { file: 'account-loyalty.html',   name: 'Лояльність і бонуси',   node: '7.4', built: true, states: ['empty','max'], builtStates: ['empty','max'] },
+      { file: 'account-loyalty.html',   name: 'Знижки та бонуси',   node: '7.4', built: true, states: ['empty','max'], builtStates: ['empty','max'] },
       { file: 'account-addresses.html', name: 'Адреси',               node: '7.5', built: true, states: ['empty','add','viddilennia','postomat','courier','edit','delete'], builtStates: ['empty','add','viddilennia','postomat','courier','edit','delete'] },
       { file: 'account-profile.html',   name: 'Профіль',              node: '7.1', built: true, states: ['withemail','phone','email','lang','delete'], builtStates: ['withemail','phone','email','lang','delete'] },
       { file: 'account-wishlist.html',  name: 'Обране',               node: '7.6', built: true, states: ['empty','many'], builtStates: ['empty','many'] }
@@ -165,7 +165,7 @@ const WF_SITEMAP = [
   { cluster: '7 · Кабінет покупця', items: [
     { node: '7.0',  name: 'Кабінет покупця (огляд)',           file: 'account.html' },
     { node: '7.2',  name: 'Замовлення',                        file: 'account-orders.html' },
-    { node: '7.4',  name: 'Лояльність і бонуси',               file: 'account-loyalty.html' },
+    { node: '7.4',  name: 'Знижки та бонуси',               file: 'account-loyalty.html' },
     { node: '7.5',  name: 'Адреси',                            file: 'account-addresses.html' },
     { node: '7.1',  name: 'Профіль',                           file: 'account-profile.html' },
     { node: '7.6',  name: 'Обране',                            file: 'account-wishlist.html' },
@@ -177,7 +177,7 @@ const WF_SITEMAP = [
     { node: '8.2',  name: 'Про нас',                           file: 'content-about.html' },
     { node: '8.3',  name: 'Контакти',                          file: 'content-contacts.html' },
     { node: '8.4',  name: 'Доставка й оплата',                 file: 'content-delivery.html' },
-    { node: '8.5',  name: 'Обмін і повернення',                file: 'content-returns.html' },
+    { node: '8.5',  name: 'Повернення',                file: 'content-returns.html' },
     { node: '8.6',  name: 'Правова інформація',                file: 'content-legal.html' },
     { node: '8.8',  name: 'Гарантія та сертифікати',           file: 'content-guarantee.html' },
     { node: '8.9',  name: 'FAQ',                               file: 'content-faq.html' },
@@ -312,19 +312,19 @@ const WF_CAT_MENU = [
     groups: [
       { label: 'За типом', items: ['Високовуглеводні', 'Збалансовані (білок+вуглеводи)', 'Вуглеводи / карбо (мальтодекстрин, амілопектин)'] },
     ] },
-  { name: 'Креатин', href: 'listing.html', ic: '⚗️', goals: ['Набір маси', 'Витривалість / кардіо'],
+  { name: 'Креатин', href: 'listing.html', ic: '⚗️', goals: ['Набір маси', 'Витривалість'],
     subs: ['Моногідрат', 'Creapure®', 'Гідрохлорид (HCl)', 'Kre-Alkalyn', 'Суміш креатинів'],
     groups: [
       { label: 'За типом', items: ['Моногідрат', 'Creapure®', 'Гідрохлорид (HCl)', 'Kre-Alkalyn', 'Суміш креатинів'] },
       { label: 'За формою', items: ['Порошок', 'Капсули / таблетки'] },
     ] },
-  { name: 'Амінокислоти', href: 'listing.html', ic: '🧬', goals: ['Набір маси', 'Відновлення', 'Витривалість / кардіо'],
+  { name: 'Амінокислоти', href: 'listing.html', ic: '🧬', goals: ['Набір маси', 'Відновлення', 'Витривалість'],
     subs: ['BCAA', 'EAA / комплексні', 'L-глютамін', 'L-аргінін', 'L-цитрулін', 'Бета-аланін', 'Таурин', 'L-лізин'],
     groups: [
       { label: 'За типом', items: ['BCAA', 'EAA / комплексні', 'L-глютамін', 'L-аргінін', 'L-цитрулін', 'Бета-аланін', 'Таурин', 'L-лізин'] },
       { label: 'За формою', items: ['Порошок', 'Капсули', 'Рідкі'] },
     ] },
-  { name: 'Передтренувальні та енергія', href: 'listing.html', ic: '⚡', goals: ['Енергія / тонус', 'Набір маси'],
+  { name: 'Передтренувальні та енергія', href: 'listing.html', ic: '⚡', goals: ['Енергія', 'Набір маси'],
     subs: ['З кофеїном (стим)', 'Без стимуляторів (stim-free)', 'Пампінг / NO-бустери', 'Енергетики, кофеїн, гуарана'],
     groups: [
       { label: 'За типом', items: ['З кофеїном (стим)', 'Без стимуляторів (stim-free)', 'Пампінг / NO-бустери', 'Енергетики, кофеїн, гуарана'] },
@@ -334,7 +334,7 @@ const WF_CAT_MENU = [
     groups: [
       { label: 'За типом', items: ['L-карнітин', 'Термогеніки (комплексні)', 'Ліпотропіки', 'Блокатори (вуглеводів/жирів, хітозан)'] },
     ] },
-  { name: 'Ізотоніки та витривалість', href: 'listing.html', ic: '💧', goals: ['Витривалість / кардіо', 'Енергія / тонус'],
+  { name: 'Ізотоніки та витривалість', href: 'listing.html', ic: '💧', goals: ['Витривалість', 'Енергія'],
     subs: ['Ізотоніки', 'Енергетичні гелі', 'Електроліти / сольові таблетки'],
     groups: [
       { label: 'За типом', items: ['Ізотоніки', 'Енергетичні гелі', 'Електроліти / сольові таблетки'] },
@@ -345,18 +345,18 @@ const WF_CAT_MENU = [
       { label: 'Снеки та батончики', items: ['Протеїнові батончики (без цукру / високобілкові / вуглеводні)', 'Протеїнове печиво, цукерки, снеки', 'Паста (арахісова / горіхова)'] },
       { label: 'Харчування', items: ['Замінники харчування (meal replacement)', 'Суперфуди', 'Гранола', 'Сиропи без цукру'] },
     ] },
-  { name: 'Вітаміни та мінерали', href: 'listing.html', ic: '💊', goals: ['Імунітет / здоровʼя', 'Схуднення', 'Відновлення'],
+  { name: 'Вітаміни та мінерали', href: 'listing.html', ic: '💊', goals: ['Імунітет', 'Схуднення', 'Відновлення'],
     subs: ['Комплекси', 'Вітамін D3', 'Вітамін C', 'Група B', 'Магній', 'Цинк', 'Омега-3'],
     groups: [
       { label: 'Комплекси', items: ['Чоловічі', 'Жіночі', 'Універсальні'] },
       { label: 'Окремі вітаміни', items: ['D3', 'C', 'Група B', 'A', 'E'] },
       { label: 'Мінерали', items: ['Магній', 'Цинк', 'Кальцій', 'Залізо', 'Селен'] },
-      { label: 'Омега / риб’ячий жир', items: ['Омега-3', 'Омега 3-6-9', 'Омега-3 + D3'] },
+      { label: 'Омега / риб\'ячий жир', items: ['Омега-3', 'Омега 3-6-9', 'Омега-3 + D3'] },
     ] },
-  { name: 'Здоровʼя', href: 'listing.html', ic: '❤️', goals: ['Відновлення', 'Імунітет / здоровʼя'],
-    subs: ['Суглоби та звʼязки', 'Імунітет', 'Сон і нервова система', 'Травлення', 'Серце та судини', 'Печінка', 'Чоловіче здоровʼя', 'Жіноче здоровʼя та краса', 'Адаптогени', 'Антиоксиданти'],
+  { name: 'Здоров\'я', href: 'listing.html', ic: '❤️', goals: ['Відновлення', 'Імунітет'],
+    subs: ['Суглоби та зв\'язки', 'Імунітет', 'Сон і нервова система', 'Травлення', 'Серце та судини', 'Печінка', 'Чоловіче здоров\'я', 'Жіноче здоров\'я та краса', 'Адаптогени', 'Антиоксиданти'],
     groups: [
-      { label: 'За напрямком', items: ['Суглоби та звʼязки', 'Імунітет', 'Сон і нервова система', 'Травлення', 'Серце та судини', 'Печінка', 'Чоловіче здоровʼя', 'Жіноче здоровʼя та краса', 'Адаптогени', 'Антиоксиданти'] },
+      { label: 'За напрямком', items: ['Суглоби та зв\'язки', 'Імунітет', 'Сон і нервова система', 'Травлення', 'Серце та судини', 'Печінка', 'Чоловіче здоров\'я', 'Жіноче здоров\'я та краса', 'Адаптогени', 'Антиоксиданти'] },
     ] },
   { name: 'Аксесуари', href: 'listing.html', ic: '🧴', goals: [],
     subs: ['Шейкери та пляшки', 'Дозатори / таблетниці', 'Атрибутика'],
@@ -373,9 +373,9 @@ const WF_GOAL_MENU = [
   { ic: '💪', name: 'Набір маси',            cats: 'Протеїн · Гейнери · Креатин · BCAA/EAA · Передтреники' },
   { ic: '🔥', name: 'Схуднення',             cats: 'Ізолят · Жироспалювачі · L-карнітин · Клітковина · Вітаміни' },
   { ic: '🌿', name: 'Відновлення',           cats: 'BCAA/EAA · Глютамін · Суглоби/колаген · Омега · Магній · Сон' },
-  { ic: '⚡', name: 'Енергія / тонус',       cats: 'Передтренувальні · B-вітаміни · Адаптогени · Ізотоніки' },
-  { ic: '🛡️', name: 'Імунітет / здоровʼя',   cats: 'Вітаміни C, D3, цинк · Омега · Пробіотики' },
-  { ic: '🏃', name: 'Витривалість / кардіо', cats: 'Ізотоніки · Гелі · Електроліти · Бета-аланін' },
+  { ic: '⚡', name: 'Енергія',       cats: 'Передтренувальні · B-вітаміни · Адаптогени · Ізотоніки' },
+  { ic: '🛡️', name: 'Імунітет',   cats: 'Вітаміни C, D3, цинк · Омега · Пробіотики' },
+  { ic: '🏃', name: 'Витривалість', cats: 'Ізотоніки · Гелі · Електроліти · Бета-аланін' },
 ];
 /* canonical served-cities list (node 0.1a) — 23 controlled oblast centres + large hubs; Crimea/occupied excluded */
 const WF_CITIES_POP = ['Київ', 'Харків', 'Дніпро', 'Одеса', 'Львів', 'Запоріжжя', 'Кривий Ріг', 'Миколаїв'];
@@ -454,7 +454,7 @@ function wfMegaHTML() {
     '<a class="ms-link" href="listing.html">Новинки</a>' +
     '<a class="ms-link" href="content-promo.html">Акції та знижки</a>' +
     '<a class="ms-link" href="listing.html">Розпродаж</a>' +
-    '<div class="ms-feat"><div class="ms-ph">фото</div><div class="ms-ftag">Хіт місяця</div>' +
+    '<div class="ms-feat"><div class="ms-ph">фото</div><div class="ms-ftag">Вибір місяця</div>' +
     '<div class="ms-fh">Gold Standard 100% Whey</div><div class="ms-fs">від 1 290 ₴ · −15%</div>' +
     '<a class="ms-fb" href="product.html">Дивитися →</a></div></div>';
   return '<div class="wfh-mega" role="menu" aria-label="Каталог">' +
@@ -627,14 +627,14 @@ function wfPdpModals() {
     '<label>Ім\'я</label><input type="text" placeholder="Як вас підписати">' +
     '<div class="pm-note">Відгук пройде модерацію. Публікуємо чесно — і схвальні, і критичні.</div></div>' +
     '<div class="pm-f"><button class="btn" onclick="closePM()">Скасувати</button>' +
-    '<button class="btn dark" onclick="submitPM(\'Дякуємо! Відгук надіслано на модерацію\')">Надіслати відгук</button></div></div>' +
+    '<button class="btn dark" onclick="submitPM(\'Дякуємо за відгук — він на модерації\')">Надіслати відгук</button></div></div>' +
     '<div class="pm" id="pm-question" role="dialog" aria-modal="true" aria-label="Поставити запитання">' +
     '<div class="pm-h">Поставити запитання<button class="x" onclick="closePM()" aria-label="Закрити">✕</button></div>' +
     '<div class="pm-b"><label>Ваше запитання про товар</label><textarea placeholder="Напр., чи підходить для схуднення?"></textarea>' +
     '<label>E-mail для відповіді</label><input type="email" placeholder="you@email.com">' +
     '<div class="pm-note">Відповідь надішлемо на пошту й опублікуємо в розділі «Питання».</div></div>' +
     '<div class="pm-f"><button class="btn" onclick="closePM()">Скасувати</button>' +
-    '<button class="btn dark" onclick="submitPM(\'Дякуємо! Запитання надіслано\')">Надіслати запитання</button></div></div>';
+    '<button class="btn dark" onclick="submitPM(\'Дякуємо за запитання\')">Надіслати запитання</button></div></div>';
 }
 function openReview() { var m = document.getElementById('pm-review'), o = document.getElementById('pm-ov'); if (m) m.classList.add('open'); if (o) o.classList.add('open'); }
 function openQuestion() { var m = document.getElementById('pm-question'), o = document.getElementById('pm-ov'); if (m) m.classList.add('open'); if (o) o.classList.add('open'); }
@@ -707,13 +707,13 @@ function wfAuthPanel(state) {
       '<h1 class="auth-h1">Введіть код</h1><p class="auth-sub">Код для номера <b>' + WF_AUTH_PHONE + '</b>. ' + chg + '</p>' +
       '<div class="fld"><label>Код підтвердження</label>' + wfOtp(['1', '2', '3', '4', '5', '6'], true) +
       '<div class="otp-err" role="alert"><span class="m">⚠️</span><span>Невірний код. Перевірте SMS і спробуйте ще раз.<small>Залишилось спроб: 2. Код діє 5 хвилин.</small></span></div></div>' +
-      '<button class="auth-cta" onclick="wfAuthGo(\'code\')">Спробувати ще</button>' +
+      '<button class="auth-cta" onclick="wfAuthGo(\'code\')">Спробувати ще раз</button>' +
       '<button class="auth-alt" onclick="wfAuthGo(\'code\')">Надіслати новий код</button>' +
       '<div class="linkrow"><a onclick="wfAuthGo(\'phone\')">← Змінити номер</a><a onclick="wfAuthGo(\'phone\')">Увійти іншим способом</a></div>' +
       wfAuthFoot('Забагато спроб? Зачекайте кілька хвилин або скористайтесь Google / Apple / E-mail.'));
   }
   if (state === 'newuser') {
-    return wfAuthShell('🎉', 'Створюємо ваш акаунт', 'Ім\'я — щоб звертатися до вас і підписувати замовлення.', '🎉', 'Номер підтверджено', 'Ще один крок — і готово',
+    return wfAuthShell('👤', 'Створюємо ваш акаунт', 'Ім\'я — щоб звертатися до вас і підписувати замовлення.', '✓', 'Номер підтверджено', 'Ще один крок — і готово',
       '<h1 class="auth-h1">Як вас звати?</h1><p class="auth-sub">Створюємо ваш акаунт Stack. Залишилося вказати ім\'я.</p>' +
       '<div class="fld"><label for="wfa-name">Ім\'я</label><input id="wfa-name" class="txt-field" type="text" placeholder="Напр., Вікторія"></div>' +
       '<div class="fld"><label>E-mail <span class="opt">— необов\'язково</span></label><input class="txt-field" type="email" placeholder="you@email.com"></div>' +
@@ -750,7 +750,7 @@ function wfAuthDone() {
   // role-aware (window.WF_ROLE), so re-rendering them as 'buyer' turns any page into its
   // logged-in state (cabinet dropdown, bonuses, role-aware links) without a duplicate file.
   if (typeof wfHeader === 'function') { try { wfHeader('buyer'); if (typeof wfFooter === 'function') wfFooter(); } catch (e) {} }
-  wfToast('ok', 'Вітаємо у Stack! Ви увійшли 🎉');
+  wfToast('ok', 'Ви увійшли');
 }
 
 /* ============================================================
@@ -952,7 +952,7 @@ function profSave() { wfToast('ok', 'Зміни збережено'); }
 const WF_ACC_LINKS = [
   { k: 'overview',  href: 'account.html',           ic: '▦', label: 'Огляд' },
   { k: 'orders',    href: 'account-orders.html',     ic: '📦', label: 'Замовлення', ct: '12' },
-  { k: 'loyalty',   href: 'account-loyalty.html',    ic: '★', label: 'Лояльність і бонуси' },
+  { k: 'loyalty',   href: 'account-loyalty.html',    ic: '★', label: 'Знижки та бонуси' },
   { k: 'wishlist',  href: 'account-wishlist.html',   ic: '♡', label: 'Обране', ct: '8' },
   { k: 'addresses', href: 'account-addresses.html',  ic: '📍', label: 'Адреси', ct: '2' },
   { k: 'profile',   href: 'account-profile.html',    ic: '👤', label: 'Профіль' },
@@ -1093,7 +1093,7 @@ function wfHeader(role, opts) {
     acctHTML = `<a class="wfh-act stack" href="auth.html" onclick="openAuth('phone');return false"><span class="g">👤</span><span class="lbl">Увійти</span></a>`;
   } else {
     let items = `<div class="cab-head"><span class="cab-nm">${name}</span>` +
-      (isCoach ? `<span class="cab-tier">PRO</span>` : `<span class="cab-lvl">🥈 Срібний рівень</span>`) + `</div>`;
+      (isCoach ? `<span class="cab-tier">Pro</span>` : `<span class="cab-lvl">🥈 Срібний рівень</span>`) + `</div>`;
     if (isCoach) {
       items += `<a href="coach-home.html">Кабінет тренера</a><a href="coach-clients.html">Клієнти</a>` +
         `<a href="coach-session.html">＋ Нова сесія</a><a href="coach-orders.html">Замовлення тренера</a>` +
@@ -1190,8 +1190,8 @@ function wfFooter() {
     </div>
     <div class="wff-cols">
       <div class="wff-col"><h4>Розсилка</h4>
-        <div class="wff-news"><input type="email" placeholder="E-mail для новин та акцій" aria-label="E-mail"><button type="button">OK</button></div>
-        <a href="content-reviews.html">★ Підтримайте нас — оцінка в Google</a></div>
+        <div class="wff-news"><input type="email" placeholder="E-mail для новин та акцій" aria-label="E-mail"><button type="button">Підписатись</button></div>
+        <a href="content-reviews.html">★ Оцініть нас у Google</a></div>
       <div class="wff-col"><h4>Stack</h4><a href="content-about.html">Про нас</a><a href="content-contacts.html">Контакти</a><a href="content-blog.html">Блог</a><a href="content-legal.html">Публічна оферта</a><a href="content-legal.html">Політика конфіденційності</a><a href="content-legal.html">Умови використання</a></div>
       <div class="wff-col"><h4>Покупцям</h4><a href="${loyHref}">Знижки та бонуси</a><a href="content-delivery.html">Доставка й оплата</a><a href="content-returns.html">Повернення</a><a href="content-faq.html">FAQ</a></div>
       <div class="wff-col"><h4>Тренерам</h4><a href="coach-landing.html">Для тренерів</a><a href="coach-landing.html">Тарифи Free / Pro</a></div>

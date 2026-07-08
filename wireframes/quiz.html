@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index, follow">
-<title>Підбір спортивного харчування — пройдіть тест | Stack (wireframe 4.x)</title>
+<title>Підбір спортивного харчування за ціллю | Stack (wireframe 4.x)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
 /* ============================================================
@@ -209,7 +209,7 @@
             <label class="q-opt"><input type="radio" name="goal" value="Відновлення"><span class="ic">🌿</span><span class="tx"><span class="nm">Відновлення</span><span class="sub">BCAA/EAA · Глютамін · Казеїн · Омега-3 · Магній</span></span><span class="mk radio">✓</span></label>
             <label class="q-opt"><input type="radio" name="goal" value="Енергія і тонус"><span class="ic">⚡</span><span class="tx"><span class="nm">Енергія і тонус</span><span class="sub">Передтренувальні · Кофеїн · B-вітаміни · Ізотоніки</span></span><span class="mk radio">✓</span></label>
             <label class="q-opt"><input type="radio" name="goal" value="Імунітет і здоров'я"><span class="ic">🛡️</span><span class="tx"><span class="nm">Імунітет і здоров'я</span><span class="sub">Вітаміни C, D3, цинк · Омега-3 · Адаптогени</span></span><span class="mk radio">✓</span></label>
-            <label class="q-opt"><input type="radio" name="goal" value="Витривалість"><span class="ic">🏃</span><span class="tx"><span class="nm">Витривалість / кардіо</span><span class="sub">Ізотоніки/електроліти · Бета-аланін · L-карнітин · Гелі</span></span><span class="mk radio">✓</span></label>
+            <label class="q-opt"><input type="radio" name="goal" value="Витривалість"><span class="ic">🏃</span><span class="tx"><span class="nm">Витривалість</span><span class="sub">Ізотоніки/електроліти · Бета-аланін · L-карнітин · Гелі</span></span><span class="mk radio">✓</span></label>
           </div>
         </div>
 
@@ -223,7 +223,7 @@
             <label class="q-opt"><input type="radio" name="exp" value="Є досвід"><span class="ic">📈</span><span class="tx"><span class="nm">Є досвід</span><span class="sub">Тренуюся регулярно, орієнтуюся в базовому.</span></span><span class="mk radio">✓</span></label>
             <label class="q-opt"><input type="radio" name="exp" value="Досвідчений"><span class="ic">🏆</span><span class="tx"><span class="nm">Досвідчений</span><span class="sub">Знаю, що мені треба — потрібен повний стек.</span></span><span class="mk radio">✓</span></label>
           </div>
-          <p class="q-hint-skip">Не обовʼязково — можна пропустити (за замовчуванням «Новачок»).</p>
+          <p class="q-hint-skip">Не обов'язково — можна пропустити (за замовчуванням «Новачок»).</p>
         </div>
 
         <!-- STEP 3 · Q3 FREQUENCY (single, skippable) -->
@@ -236,7 +236,7 @@
             <label class="q-opt"><input type="radio" name="freq" value="3–4 рази"><span class="ic">📅</span><span class="tx"><span class="nm">3–4 рази на тиждень</span><span class="sub">Оптимальний режим.</span></span><span class="mk radio">✓</span></label>
             <label class="q-opt"><input type="radio" name="freq" value="5+ разів"><span class="ic">🔁</span><span class="tx"><span class="nm">5+ разів на тиждень</span><span class="sub">Додамо intra-workout і відновлення.</span></span><span class="mk radio">✓</span></label>
           </div>
-          <p class="q-hint-skip">Не обовʼязково — можна пропустити.</p>
+          <p class="q-hint-skip">Не обов'язково — можна пропустити.</p>
         </div>
 
         <!-- STEP 4 · Q4 CONSTRAINTS (multi, skippable) -->
@@ -246,12 +246,12 @@
           <p class="q-sub">Можна обрати кілька. Ми підберемо набір без зайвого для вас.</p>
           <div class="q-opts" role="group" aria-label="Обмеження">
             <label class="q-opt"><input type="checkbox" name="cons" value="Без лактози"><span class="ic">🥛</span><span class="tx"><span class="nm">Непереносимість лактози</span><span class="sub">Протеїн → ізолят / рослинний.</span></span><span class="mk check">✓</span></label>
-            <label class="q-opt"><input type="checkbox" name="cons" value="Веган/веге"><span class="ic">🌱</span><span class="tx"><span class="nm">Вегетеріанство / веганство</span><span class="sub">Рослинний протеїн, без тваринного.</span></span><span class="mk check">✓</span></label>
+            <label class="q-opt"><input type="checkbox" name="cons" value="Веган/веге"><span class="ic">🌱</span><span class="tx"><span class="nm">Вегетаріанство / веганство</span><span class="sub">Рослинний протеїн, без тваринного.</span></span><span class="mk check">✓</span></label>
             <label class="q-opt"><input type="checkbox" name="cons" value="Алергії"><span class="ic">⚠️</span><span class="tx"><span class="nm">Алергії (горіхи, глютен…)</span><span class="sub">Виключимо відповідні складники.</span></span><span class="mk check">✓</span></label>
             <label class="q-opt" id="opt-meds"><input type="checkbox" name="cons" value="Ліки/хронічне" id="cb-meds"><span class="ic">💊</span><span class="tx"><span class="nm">Приймаю ліки / хронічне захворювання</span><span class="sub">Покажемо застереження + консервативний набір.</span></span><span class="mk check">✓</span></label>
             <label class="q-opt"><input type="checkbox" name="cons" value="Нічого"><span class="ic">✅</span><span class="tx"><span class="nm">Нічого з переліченого</span></span><span class="mk check">✓</span></label>
           </div>
-          <p class="q-hint-skip">Не обовʼязково — можна пропустити.</p>
+          <p class="q-hint-skip">Не обов'язково — можна пропустити.</p>
         </div>
 
         <!-- STEP 5 · SAFETY INSERT (conditional: only if meds/chronic checked) -->
@@ -286,7 +286,7 @@
               <button type="button" class="q-pill" data-grp="budget" role="radio" aria-checked="false">Максимальний</button>
             </div>
           </div>
-          <p class="q-hint-skip">Не обовʼязково — можна пропустити.</p>
+          <p class="q-hint-skip">Не обов'язково — можна пропустити.</p>
         </div>
 
         <!-- STEP 7 · RESULT (4.2 / 4.3) -->
@@ -337,7 +337,7 @@
             </article>
 
             <article class="qsc">
-              <a href="product.html" class="ph">фото<span class="tag">Хіт</span></a>
+              <a href="product.html" class="ph">фото<span class="tag">Популярне</span></a>
               <div class="bd">
                 <div class="br">Power Pro</div>
                 <a href="product.html" class="nm">Hyper Mass 4000 г</a>
@@ -363,7 +363,7 @@
             <p class="sv-opt">Погоджуюсь отримувати добірку й новини Stack. Реєстрація не потрібна. Відписатися можна будь-коли.</p>
           </div>
 
-          <p class="q-trust">Це не медична порада. Усі товари сертифіковані — склад і дозування на сторінці товару.</p>
+          <p class="q-trust">Це не медична порада. Склад, дозування й сертифікат — на сторінці кожного товару.</p>
         </div>
 
       </div><!-- /q-body -->

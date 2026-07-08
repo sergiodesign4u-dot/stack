@@ -44,7 +44,7 @@
 
     <!-- ============ CONTENT PANEL = ОГЛЯД (dashboard snapshot) ============ -->
     <div class="acc-main">
-      <h1 class="acc-h1">Вітаємо, Вікторіє!</h1>
+      <h1 class="acc-h1">Вікторіє, ось ваш кабінет</h1>
       <p class="acc-sub">Ваш кабінет: бонуси, замовлення, обране та адреси в одному місці.</p>
 
       <div class="acc-grid">
@@ -59,7 +59,7 @@
               <div class="rk-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
               <div class="rk-cy">Купували 34 дні тому · зазвичай вистачає на <b>~30 днів</b></div>
             </div>
-            <button class="btn dark rk-add" type="button" onclick="wfToast('ok','Додано в кошик')">↻ У кошик</button>
+            <button class="btn dark rk-add" type="button" onclick="wfToast('ok','Додано в кошик')">У кошик</button>
           </div>
           <div class="rk-item">
             <div class="rk-ph">фото</div>
@@ -67,7 +67,7 @@
               <div class="rk-nm">NOW Foods Omega-3 1000 мг, 200 капсул</div>
               <div class="rk-cy">Купували 88 днів тому · зазвичай вистачає на <b>~100 днів</b></div>
             </div>
-            <button class="btn dark rk-add" type="button" onclick="wfToast('ok','Додано в кошик')">↻ У кошик</button>
+            <button class="btn dark rk-add" type="button" onclick="wfToast('ok','Додано в кошик')">У кошик</button>
           </div>
         </div>
 
@@ -146,7 +146,7 @@
               <div class="rate"><span class="st">★ 4.9</span> · 204 відгуки</div><div class="pmeta2"><span class="perserv"><b>10 ₴</b> / порція</span><span class="bonus">+6 ₴ бонус</span></div></div></article>
           <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
             <div class="bd"><div class="pbrand">Scitec Nutrition · Угорщина</div><a href="product.html" class="nm">100% Whey Protein Professional 920 г</a><div class="pavail pre">● Під замовлення</div>
-              <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">845 ₴</span></div><button class="cartbtn notify" aria-label="Повідомити про наявність">🔔</button></div>
+              <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">845 ₴</span></div><button class="cartbtn notify" aria-label="Повідомити про надходження">🔔</button></div>
               <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div><div class="pmeta2"><span class="perserv"><b>31 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div></div></article>
         </div>
       </section>
@@ -166,7 +166,7 @@
   wfAccountNav('overview', isCoach);
   wfFooter(); wfToasts(); wfBar('account.html');
   if (isCoach) {
-    document.querySelector('.acc-h1').textContent = 'Вітаємо, Олено!';
+    document.querySelector('.acc-h1').textContent = 'Олено, ось ваш кабінет';
     document.querySelector('#coach-banner h3').textContent = 'Ви вже тренер ✓';
     document.querySelector('#coach-banner p').textContent = 'Гуртові ціни та мультиклієнтські замовлення активні. Керуйте клієнтами й сесіями в кабінеті тренера.';
     var cta = document.getElementById('coach-cta'); cta.textContent = 'Перейти в кабінет тренера'; cta.setAttribute('href', 'coach-home.html');
