@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Stack — Концепт: мова продукту</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo-s.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Concept - concept.html (Step 5)
+   The language stand. CONTENT = the product brand (DESIGN.md).
+   CHROME (sidebar/topbar) = the docs-site style (research.html),
+   so the design docs navigate the same everywhere.
+   ============================================================ */
+
+/* --- Product brand tokens (DESIGN.md) --- */
+:root{
+  --ink:#1C1C1C; --canvas:#FFFFFF; --orange:#FF5A00; --ash:#D9D9D9; --warm:#F2F0ED;
+  --ink-2:#3A3A36; --muted:#5B5B54; --line:#E9E7E2;
+  --ok:#2E7D46; --warn:#C9821E; --err:#C42B1C; --gold:#8A5A0E; /* AA-safe amber for text */
+  --r:12px; --r-sm:9px;
+  --shadow:0 1px 2px rgba(20,20,15,.05), 0 10px 30px rgba(20,20,15,.05);
+
+  /* --- Docs-site chrome tokens (research.html) --- */
+  --d-bg:#f7f6f3; --d-surface-alt:#f2f0eb; --d-border:#e5e2db;
+  --d-text:#1a1916; --d-text-2:#6b6760; --d-text-3:#9b9790;
+  --d-accent:#2d5a3d; --d-accent-light:#e8f0ea; --d-radius-sm:6px;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+body{background:var(--d-bg); color:var(--ink); font:400 16px/1.6 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased}
+img{display:block; max-width:100%}
+.disp{font-family:Oswald, Inter, sans-serif; font-weight:700; letter-spacing:-.01em; line-height:1.02; text-transform:uppercase}
+.num{font-family:"IBM Plex Mono", ui-monospace, monospace; font-weight:600; font-variant-numeric:tabular-nums}
+
+/* ---------- Docs sidebar (research.html style) ---------- */
+.topbar{position:fixed; top:0; left:0; right:0; height:52px; background:rgba(247,246,243,.94); backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--d-border); display:flex; align-items:center; justify-content:space-between;
+  padding:0 16px; z-index:101; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif}
+.topbar-logo{font-weight:700; font-size:17px; color:var(--d-accent); letter-spacing:-.02em; text-decoration:none}
+.sidebar-toggle{background:none; border:none; cursor:pointer; padding:8px; color:var(--d-text-2); display:flex; border-radius:var(--d-radius-sm)}
+.sidebar-overlay{display:none; position:fixed; inset:0; background:rgba(0,0,0,.18); z-index:99}
+.sidebar-overlay.open{display:block}
+.sidebar{position:fixed; top:0; left:0; bottom:0; width:220px; background:rgba(247,246,243,.98); backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px); border-right:1px solid var(--d-border); z-index:100; display:flex; flex-direction:column;
+  transform:translateX(-100%); transition:transform .22s ease; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif}
+.sidebar.open{transform:translateX(0)}
+.sidebar-logo{font-weight:700; font-size:17px; color:var(--d-accent); letter-spacing:-.02em; text-decoration:none; display:block;
+  padding:22px 20px 18px; border-bottom:1px solid var(--d-border)}
+.sidebar-nav{flex:1; overflow-y:auto; scrollbar-width:none; padding:12px 8px 8px}
+.sidebar-nav::-webkit-scrollbar{display:none}
+.sidebar-nav a{display:block; color:var(--d-text-2); text-decoration:none; font-size:13px; font-weight:500; padding:7px 12px;
+  border-radius:var(--d-radius-sm); transition:color .15s, background .15s; margin-bottom:1px}
+.sidebar-nav a:hover{color:var(--d-text); background:var(--d-surface-alt)}
+.sidebar-nav a.active{color:var(--d-accent); background:var(--d-accent-light); font-weight:600}
+.sidebar-nav .sidebar-sub{font-size:12px; padding:5px 12px 5px 22px; color:var(--d-text-3)}
+.sidebar-nav a.sidebar-sub.active{color:var(--d-accent); background:var(--d-accent-light)}
+.sidebar-nav .sidebar-sub.deep{padding-left:34px}
+.sidebar-page-label{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--d-accent); padding:8px 12px 4px}
+.sidebar-divider{border:none; border-top:1px solid var(--d-border); margin:10px 8px}
+
+/* ---------- Doc content shell ---------- */
+.doc{max-width:1120px; margin:0 auto; padding:68px 20px 90px}
+@media(min-width:860px){
+  .topbar{display:none}
+  .sidebar{transform:translateX(0)}
+  .doc{margin-left:220px; padding:52px 48px 90px}
+  section{scroll-margin-top:24px}
+}
+
+/* ---------- Stand typography / structure ---------- */
+.hero-tag{display:inline-block; font:600 12px/1 Inter; letter-spacing:.08em; text-transform:uppercase; color:var(--orange);
+  border:1px solid var(--line); border-radius:20px; padding:6px 12px; background:#fff}
+.stand-h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing:-.015em;
+  font-size:clamp(2rem,1.4rem+3vw,3.4rem); line-height:.98; margin:14px 0 10px; text-wrap:balance}
+.stand-lead{max-width:70ch; color:var(--ink-2); font-size:1.08rem}
+.stand-lead b{color:var(--ink)}
+
+section.block{margin-top:clamp(40px,6vw,72px)}
+.block-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; border-bottom:2px solid var(--ink); padding-bottom:12px; margin-bottom:24px}
+.block-head h2{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing:-.01em; font-size:clamp(1.35rem,1rem+1.4vw,1.9rem)}
+.block-head .n{font:700 12px/1 "IBM Plex Mono",monospace; color:#fff; background:var(--ink); padding:6px 9px; border-radius:6px}
+.block-head p{width:100%; margin:2px 0 0; color:var(--muted); max-width:80ch; font-size:.98rem}
+.att{display:inline-block; font:600 11.5px/1 Inter; color:var(--ink-2); background:var(--warm); border:1px solid var(--line); border-radius:20px; padding:5px 10px; margin:0 3px 3px 0}
+.surface{background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); padding:clamp(20px,3vw,32px)}
+
+/* palette */
+.sw-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px}
+.sw{border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fff}
+.sw .chip{height:76px}
+.sw .meta{padding:12px 13px}
+.sw .meta .nm{font-weight:600; font-size:.95rem}
+.sw .meta .hex{font-family:"IBM Plex Mono",monospace; font-size:.8rem; color:var(--muted); margin:2px 0 6px}
+.sw .meta .role{font-size:.82rem; color:var(--ink-2); line-height:1.4}
+.sw .meta .att{margin-top:8px}
+.ctable{width:100%; border-collapse:collapse; margin-top:20px; font-size:.9rem}
+.ctable th,.ctable td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line)}
+.ctable th{font:600 11px/1 Inter; letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
+.ctable .pair{display:inline-flex; align-items:center; gap:8px; font-weight:600}
+.ctable .pair i{width:34px; height:20px; border-radius:5px; display:inline-grid; place-items:center; font:700 11px/1 Inter; border:1px solid rgba(0,0,0,.08)}
+.ctable .ratio{font-family:"IBM Plex Mono",monospace; font-weight:600}
+.verdict{font:600 11px/1 Inter; padding:4px 8px; border-radius:20px; white-space:nowrap}
+.verdict.aaa{color:#1f5c34; background:#e4f2e9} .verdict.aa{color:#2d5a3d; background:#e8f0ea}
+.verdict.large{color:#8A5A0E; background:#fbf1df}
+
+/* type specimen */
+.type-row{display:grid; grid-template-columns:120px 1fr; gap:18px; align-items:baseline; padding:16px 0; border-bottom:1px solid var(--line)}
+.type-row .lab{font:600 11px/1.4 Inter; letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
+.type-row .lab span{display:block; color:var(--ink-2); font-weight:500; text-transform:none; letter-spacing:0; margin-top:4px}
+.scale span{display:inline-block; margin:0 14px 8px 0; color:var(--ink); font-family:Oswald; font-weight:700; text-transform:uppercase; line-height:1}
+
+/* form (radii/shadow/spacing) */
+.spec-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:16px}
+.spec{background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px}
+.spec .demo{height:60px; background:var(--warm); border:1px solid var(--line); margin-bottom:10px}
+.spec .k{font-weight:600; font-size:.9rem}
+.spec .v{font-family:"IBM Plex Mono",monospace; font-size:.8rem; color:var(--muted)}
+
+/* photo */
+.photo-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:16px}
+.photo{background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden}
+.photo .ph{aspect-ratio:1/1; display:grid; place-items:center; background:#fff}
+.photo .ph img{width:100%; height:100%; object-fit:contain; padding:10%; mix-blend-mode:multiply}
+.photo .cap{padding:10px 12px; font-size:.82rem; color:var(--ink-2); border-top:1px solid var(--line)}
+.photo .cap code{font-family:"IBM Plex Mono",monospace; font-size:.75rem; color:var(--muted)}
+
+/* icons */
+.icon-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:12px}
+.ic{display:flex; flex-direction:column; align-items:center; gap:9px; padding:18px 10px; background:#fff; border:1px solid var(--line); border-radius:12px}
+.ic svg{width:26px; height:26px; color:var(--ink)}
+.ic span{font-size:.8rem; color:var(--muted)}
+
+/* ---------- Shared product component atoms ---------- */
+.ph{position:relative; background:var(--canvas); border-radius:var(--r-sm); overflow:hidden; display:grid; place-items:center}
+.ph img{width:100%; height:100%; object-fit:contain; mix-blend-mode:multiply}
+.tag{position:absolute; top:10px; left:10px; font:600 11px/1 Inter; color:var(--ink); background:#fff; border:1px solid var(--line); padding:5px 9px; border-radius:20px}
+.fav{position:absolute; top:8px; right:8px; width:34px; height:34px; display:grid; place-items:center; background:rgba(255,255,255,.92); border:1px solid var(--line); border-radius:50%; cursor:pointer; color:var(--ink-2)}
+.fav svg{width:18px; height:18px}
+.brand{font:600 12px/1.2 Inter; color:var(--muted)}
+.nm{font-weight:600; color:var(--ink); text-decoration:none; display:block}
+.avail{display:inline-flex; align-items:center; gap:7px; font-size:.85rem; color:var(--ink-2); font-weight:500}
+.avail .dot{width:8px; height:8px; border-radius:50%; flex:none}
+.avail.in .dot{background:var(--ok)} .avail.low .dot{background:var(--warn)}
+.price .new{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--ink)}
+.price .old{font-family:"IBM Plex Mono",monospace; font-size:.85em; color:var(--muted); text-decoration:line-through; margin-right:8px}
+.cut{font:600 12px/1 Inter; color:var(--err); background:#fbeae7; border-radius:6px; padding:3px 7px; margin-left:8px}
+.serv b{font-family:"IBM Plex Mono",monospace}
+.serv{font-size:.85rem; color:var(--ink-2)}
+.bonus{font-size:.82rem; color:var(--gold); font-weight:600}
+.rate{font-size:.85rem; color:var(--muted)} .rate .st{color:var(--ink-2); font-weight:600}
+.facts{display:flex; gap:6px; flex-wrap:wrap}
+.facts span{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.76rem; color:var(--ink-2); background:var(--warm); border-radius:6px; padding:4px 7px}
+.trust{display:flex; gap:16px; flex-wrap:wrap; list-style:none}
+.trust li{display:inline-flex; align-items:center; gap:7px; font-size:.88rem; color:var(--ink-2); font-weight:500}
+.trust svg{width:18px; height:18px; color:var(--orange)}
+
+.btn{font:700 1.1875rem/1 Inter; display:inline-flex; align-items:center; justify-content:center; gap:.55rem; border-radius:10px;
+  padding:.8rem 1.25rem; border:1.5px solid transparent; cursor:pointer; transition:filter .18s, border-color .18s}
+.btn svg{width:19px; height:19px}
+/* white on Signal Orange = 3.1:1, used only as WCAG large text (>=18.66px bold) */
+.btn-primary{background:var(--orange); color:#fff} .btn-primary:hover{filter:brightness(.93)}
+.btn-ghost{background:#fff; color:var(--ink); border-color:var(--ash)} .btn-ghost:hover{border-color:var(--ink)}
+.btn-block{width:100%}
+.btn[disabled]{opacity:.45; cursor:not-allowed; filter:none}
+.iconbtn{width:44px; height:44px; flex:none; border-radius:10px; display:grid; place-items:center; border:1.5px solid transparent; cursor:pointer; color:#fff; background:var(--orange)}
+.iconbtn svg{width:20px; height:20px}
+.btn:focus-visible,.iconbtn:focus-visible,.fav:focus-visible,.field input:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+
+/* live demo row */
+.live{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:start}
+.live .lc{background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px; box-shadow:var(--shadow); display:flex; flex-direction:column}
+.live .lc h4{font:600 12px/1 Inter; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); margin-bottom:12px}
+.live .ph{border:1px solid var(--line)}
+.live .card--focus .ph{aspect-ratio:1/1; margin-bottom:12px}
+.live .card--focus .nm{font-size:1.05rem; margin:6px 0}
+.live .card--focus .btn{margin-top:12px}
+.tile .ph{aspect-ratio:1/1; margin-bottom:10px}
+.tile .nm{font-size:.92rem; margin:4px 0 8px}
+.tile .foot{display:flex; align-items:center; gap:8px; margin-top:auto}
+.tile .foot .rate{flex:1; font-size:.76rem}
+/* mini guide: same huge-background-mascot pattern as directions d3, scaled to the card */
+.guide{position:relative; overflow:hidden; background:var(--warm)!important; min-height:clamp(560px,64vw,680px)}
+.guide > *:not(.g-bear){position:relative; z-index:1}
+/* big bear emerging from the bottom-left, cropped by the left edge; gesture reaches into the card */
+.guide .g-bear{position:absolute; z-index:0; left:clamp(-150px,-13vw,-80px); right:auto; top:auto; bottom:clamp(-70px,-6vw,-34px); transform:none;
+  height:clamp(320px,44vw,450px); width:auto; max-width:none; mix-blend-mode:multiply; pointer-events:none}
+.guide .disp{display:block; font-size:1.15rem; margin:2px 0 6px}
+.guide .chips{display:flex; gap:7px; flex-wrap:wrap; margin-bottom:12px; max-width:58%}
+.guide .chips a{font:600 .82rem/1 Inter; color:var(--ink); background:#fff; border:1.5px solid var(--ash); border-radius:20px; padding:7px 12px; text-decoration:none}
+.guide .chips a.on{background:var(--orange); color:#fff; border-color:var(--orange)}
+
+/* component group */
+.cgroup{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; align-items:start}
+.comp{background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); padding:20px}
+.comp h3{font:600 13px/1 Inter; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); margin-bottom:16px}
+.comp .row{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:12px}
+.comp .lbl{font-size:.78rem; color:var(--muted); width:100%; margin-top:6px}
+.field{display:flex; flex-direction:column; gap:6px; margin-bottom:16px}
+.field label{font-weight:600; font-size:.9rem}
+.field input{font:400 1rem/1 Inter; padding:12px 14px; border:1.5px solid var(--ash); border-radius:10px; background:#fff; color:var(--ink)}
+.field input::placeholder{color:var(--muted)}
+.field .help{font-size:.82rem; color:var(--muted)}
+.field.err input{border-color:var(--err)}
+.field.err .help{color:var(--err); font-weight:500}
+.vbadge{display:inline-flex; align-items:center; gap:7px; font:600 .82rem/1 Inter; color:var(--ok); background:#e6f2ea; border:1px solid #cfe6d8; border-radius:20px; padding:6px 11px}
+.vbadge svg{width:16px; height:16px}
+
+.foot-note{margin-top:70px; padding-top:22px; border-top:1px solid var(--line); color:var(--muted); font-size:.95rem; max-width:80ch}
+.foot-note b{color:var(--ink-2)}
+
+@media(max-width:720px){ .live{grid-template-columns:1fr} .type-row{grid-template-columns:1fr} }
+@media(prefers-reduced-motion:reduce){ *{transition:none!important} html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+<!-- icon set (bold outline, Solar spirit) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20S3.5 15 3.5 9.2C3.5 6.6 5.4 5 7.5 5c1.7 0 3.3 1 4.5 3 1.2-2 2.8-3 4.5-3 2.1 0 4 1.6 4 4.2C20.5 15 12 20 12 20z"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h2l1.7 9.4a1.6 1.6 0 001.6 1.3h8.2a1.6 1.6 0 001.6-1.2L20.5 8H6"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 2.6v5.6c0 4.6-3.2 7.6-7.5 9.8-4.3-2.2-7.5-5.2-7.5-9.8V5.6L12 3z"/><path d="M8.8 11.8l2.2 2.2 4.2-4.4"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19C5 11 11 5.4 20 5c.2 8.6-5.4 14.6-15 14z"/><path d="M8.6 16.4c2.2-3 5-5.2 8.4-6.6"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6.2l-4.6 8A2 2 0 007.2 20h9.6a2 2 0 001.8-2.8L14 9.2V3"/><path d="M8 14.5h8"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4c3 4 5 6.5 5 9a5 5 0 01-10 0c0-2.5 2-5 5-9z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 13h6l-1 8 8-11h-6l1-7z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.2 4.3L19 7"/></symbol>
+</svg>
+
+<!-- ===== Docs chrome (research.html style) ===== -->
+<nav class="topbar">
+  <a href="#" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>
+  </button>
+</nav>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="#" class="sidebar-logo">Stack</a>
+  <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <a href="../ia/sitemap.html">Інформаційна архітектура</a>
+    <a href="../Voices/voice.html">Голос продукту</a>
+    <hr class="sidebar-divider">
+    <a href="../wireframes/index.html">Вайрфрейми</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Concept</div>
+    <a href="directions.html" class="sidebar-sub">Напрями</a>
+    <a href="concept.html" class="sidebar-sub active">Концепт</a>
+    <a href="logo.html" class="sidebar-sub">Лого</a>
+    <a href="#lang" class="sidebar-sub deep">Мова живцем</a>
+    <a href="#palette" class="sidebar-sub deep">Палітра</a>
+    <a href="#type" class="sidebar-sub deep">Типографіка</a>
+    <a href="#form" class="sidebar-sub deep">Форма</a>
+    <a href="#photo" class="sidebar-sub deep">Фото</a>
+    <a href="#icons" class="sidebar-sub deep">Іконки</a>
+    <a href="#components" class="sidebar-sub deep">Компоненти</a>
+  </nav>
+</aside>
+
+<div class="doc">
+
+  <header>
+    <span class="hero-tag">Концепт · крок 5 · мова продукту</span>
+    <h1 class="stand-h1">Мова Stack</h1>
+    <p class="stand-lead">Знайдена й перевірена візуальна мова: палітра, типографіка, форма, фото та іконки з <b>DESIGN.md</b>, кожне рішення підписане атрибутом. Спершу - мова живцем на компонентах; специфікація нижче. Одна мова, три щільності за контекстом.</p>
+  </header>
+
+  <!-- ===== 1. МОВА ЖИВЦЕМ ===== -->
+  <section class="block" id="lang">
+    <div class="block-head"><span class="n">01</span><h2>Мова живцем</h2>
+      <p>Та сама мова у трьох щільностях (рішення кроку 4): <b>фокус</b> на товарі, <b>щільний тайл</b> для лістингу, <b>гід</b> для новачка. Однакові колір, шрифт, іконки - різна композиція.
+        <span class="att">A1 спокій</span><span class="att">A4 темп</span><span class="att">A3 характер</span></p>
+    </div>
+    <div class="live">
+      <div class="lc card--focus">
+        <h4>Фокус на товарі</h4>
+        <div class="ph"><span class="tag">Популярне</span><button class="fav" aria-label="В обране"><svg><use href="#i-heart"/></svg></button><img src="assets/product-whey.png" alt="Stack Сироватковий протеїн"></div>
+        <div class="brand">Stack · Україна</div>
+        <a class="nm" href="#">Сироватковий протеїн, шоколад, 900 г</a>
+        <div class="avail in" style="margin:2px 0 8px"><span class="dot"></span> В наявності</div>
+        <div class="price"><span class="old">1 090 ₴</span><span class="new">925 ₴</span><span class="cut">−15%</span></div>
+        <div style="display:flex;gap:14px;margin-top:6px"><span class="serv"><b>28 ₴</b> / порція</span><span class="bonus">+9 ₴ бонус</span></div>
+        <button class="btn btn-primary btn-block"><svg><use href="#i-cart"/></svg> У кошик</button>
+      </div>
+
+      <div class="lc tile">
+        <h4>Щільний тайл</h4>
+        <div class="ph"><button class="fav" aria-label="В обране"><svg><use href="#i-heart"/></svg></button><img src="assets/product-creatine.png" alt="Stack Креатин"></div>
+        <div class="brand">Stack</div>
+        <a class="nm" href="#">Креатин моногідрат, 300 г</a>
+        <div class="facts" style="margin:6px 0 8px"><span>5 г креатину</span><span>8 ₴/порція</span></div>
+        <div class="avail in" style="font-size:.8rem;margin-bottom:8px"><span class="dot"></span> В наявності</div>
+        <div class="price" style="margin-bottom:2px"><span class="new" style="font-size:1.1rem">490 ₴</span></div>
+        <div class="foot"><span class="rate"><span class="st">★ 4.8</span> · 96</span><button class="iconbtn" aria-label="У кошик"><svg><use href="#i-cart"/></svg></button></div>
+      </div>
+
+      <div class="lc guide">
+        <h4>Гід для новачка</h4>
+        <img class="g-bear" src="assets/mascot-guide.png" alt="Маскот Stack">
+        <span class="disp">З чого почати?</span>
+        <p style="font-size:.9rem;color:var(--ink-2);margin-bottom:12px;max-width:66%">Обери ціль - покажу зрозумілий набір.</p>
+        <div class="chips"><a href="#" class="on">Набір маси</a><a href="#">Схуднення</a><a href="#">Енергія</a></div>
+        <button class="btn btn-primary btn-block" style="margin-top:auto"><svg><use href="#i-arrow"/></svg> Підібрати набір</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 2. ПАЛІТРА ===== -->
+  <section class="block" id="palette">
+    <div class="block-head"><span class="n">02</span><h2>Палітра</h2>
+      <p> Core з DESIGN.md. Оранж - єдиний акцент на дії, ніколи не розсіяний. Нейтраль тепла (нахил до бренду), не чисто-сіра.
+        <span class="att">A1 спокій</span><span class="att">A4 енергія-акцент</span></p>
+    </div>
+    <div class="sw-grid">
+      <div class="sw"><div class="chip" style="background:#1C1C1C"></div><div class="meta"><div class="nm">Ink</div><div class="hex">#1C1C1C</div><div class="role">Текст, темні поверхні, база продукту. М'який near-black, не чистий чорний.</div><span class="att">A1 · таст: м'якший чорний</span></div></div>
+      <div class="sw"><div class="chip" style="background:#FFFFFF; border-bottom:1px solid var(--line)"></div><div class="meta"><div class="nm">Canvas</div><div class="hex">#FFFFFF</div><div class="role">Тло сторінки. Фото товару лежить на білому.</div><span class="att">таст: товар на білому</span></div></div>
+      <div class="sw"><div class="chip" style="background:#FF5A00"></div><div class="meta"><div class="nm">Signal Orange</div><div class="hex">#FF5A00</div><div class="role">Єдиний акцент дії: кнопка, активний стан, один ключовий хайлайт.</div><span class="att">A4 + A1 · один акцент</span></div></div>
+      <div class="sw"><div class="chip" style="background:#D9D9D9"></div><div class="meta"><div class="nm">Ash</div><div class="hex">#D9D9D9</div><div class="role">Поверхні, роздільники, межі, disabled.</div><span class="att">A1</span></div></div>
+      <div class="sw"><div class="chip" style="background:#F2F0ED; border-bottom:1px solid var(--line)"></div><div class="meta"><div class="nm">Warm Neutral</div><div class="hex">#F2F0ED</div><div class="role">Теплі секції (напр. гід). Робить нейтраль людяною, не клінічною.</div><span class="att">A3 · тепло в нейтралі</span></div></div>
+      <div class="sw"><div class="chip" style="background:#2E7D46"></div><div class="meta"><div class="nm">Success</div><div class="hex">#2E7D46</div><div class="role">Наявність, підтвердження. Спокійний, не святковий.</div><span class="att">voice.md · стани</span></div></div>
+      <div class="sw"><div class="chip" style="background:#C9821E"></div><div class="meta"><div class="nm">Warning</div><div class="hex">#C9821E</div><div class="role">«Мало», увага. Помітний, і явно НЕ оранж-акцент. Для тексту - темніший #8A5A0E.</div><span class="att">voice.md · стани</span></div></div>
+      <div class="sw"><div class="chip" style="background:#C42B1C"></div><div class="meta"><div class="nm">Error</div><div class="hex">#C42B1C</div><div class="role">Помилка. Навмисно відділений від Signal Orange - помилка не читається як бренд-акцент чи свято.</div><span class="att">voice.md · помилка каже правду</span></div></div>
+    </div>
+
+    <table class="ctable">
+      <thead><tr><th>Пара текст / тло</th><th>Контраст</th><th>Вердикт</th><th>Застосування</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pair"><i style="background:#1C1C1C;color:#fff">A</i> Ink на Canvas</span></td><td class="ratio">16.1 : 1</td><td><span class="verdict aaa">AAA</span></td><td>основний текст</td></tr>
+        <tr><td><span class="pair"><i style="background:#fff;color:#3A3A36">A</i> Ink-2 на Canvas</span></td><td class="ratio">10.3 : 1</td><td><span class="verdict aaa">AAA</span></td><td>вторинний текст</td></tr>
+        <tr><td><span class="pair"><i style="background:#fff;color:#5B5B54">A</i> Muted на Canvas</span></td><td class="ratio">6.7 : 1</td><td><span class="verdict aa">AA</span></td><td>підписи, meta</td></tr>
+        <tr><td><span class="pair"><i style="background:#FF5A00;color:#fff">A</i> White на Orange</span></td><td class="ratio">3.1 : 1</td><td><span class="verdict large">AA large</span></td><td>мітки кнопок ≥19px/700</td></tr>
+        <tr><td><span class="pair"><i style="background:#FF5A00;color:#1C1C1C">A</i> Ink на Orange</span></td><td class="ratio">5.2 : 1</td><td><span class="verdict aa">AA</span></td><td>альтернатива на акценті</td></tr>
+        <tr><td><span class="pair"><i style="background:#fff;color:#2E7D46">A</i> Success на Canvas</span></td><td class="ratio">4.9 : 1</td><td><span class="verdict aa">AA</span></td><td>текст наявності / крапка</td></tr>
+        <tr><td><span class="pair"><i style="background:#fff;color:#C42B1C">A</i> Error на Canvas</span></td><td class="ratio">5.3 : 1</td><td><span class="verdict aa">AA</span></td><td>помилки</td></tr>
+        <tr><td><span class="pair"><i style="background:#fff;color:#8A5A0E">A</i> Gold на Canvas</span></td><td class="ratio">5.5 : 1</td><td><span class="verdict aa">AA</span></td><td>текст бонусу (темна амбра)</td></tr>
+        <tr><td><span class="pair"><i style="background:#fff;color:#C9821E">A</i> Warning на Canvas</span></td><td class="ratio">3.0 : 1</td><td><span class="verdict large">AA large</span></td><td>лише крапка / великий, не дрібний текст</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ===== 3. ТИПОГРАФІКА ===== -->
+  <section class="block" id="type">
+    <div class="block-head"><span class="n">03</span><h2>Типографіка</h2>
+      <p>Три ролі, кожна зі своєю задачею. Дисплей упевнений, текст простий, цифри моно - як доказ.
+        <span class="att">A4 · упевнений заголовок</span><span class="att">A5 · простий текст</span><span class="att">A2 · моно-цифри = довіра</span></p>
+    </div>
+    <div class="surface">
+      <div class="type-row"><div class="lab">Дисплей<span>Oswald 700 · uppercase</span></div><div><span class="disp" style="font-size:2.6rem">Fuel · Train · Recover</span></div></div>
+      <div class="type-row"><div class="lab">Текст<span>Inter 400 / 600</span></div><div style="font-size:1.05rem;color:var(--ink-2);max-width:60ch">Спершу проста відповідь: для чого це і що всередині. Глибина - нижче, коли захочеш. <b style="color:var(--ink)">Плюс жирне для наголосу.</b></div></div>
+      <div class="type-row"><div class="lab">Цифри<span>IBM Plex Mono 600 · tabular</span></div><div class="num" style="font-size:1.5rem;color:var(--ink)">24 г білка · 8 ₴/порція · 925 ₴ · ★ 4.8</div></div>
+      <div class="type-row" style="border-bottom:none"><div class="lab">Шкала<span>дисплей</span></div><div class="scale"><span style="font-size:3rem">Aa</span><span style="font-size:2.2rem">Aa</span><span style="font-size:1.6rem">Aa</span><span style="font-size:1.2rem">Aa</span><span style="font-size:1rem">Aa</span></div></div>
+    </div>
+  </section>
+
+  <!-- ===== 4. ФОРМА ===== -->
+  <section class="block" id="form">
+    <div class="block-head"><span class="n">04</span><h2>Форма</h2>
+      <p>Радіуси чіткі й помірні, тіні стримані, поверхні пласкі. Спокійно, без важких ефектів.
+        <span class="att">A1 · спокій</span></p>
+    </div>
+    <div class="spec-grid">
+      <div class="spec"><div class="demo" style="border-radius:12px"></div><div class="k">Радіус картки</div><div class="v">--r · 12px</div></div>
+      <div class="spec"><div class="demo" style="border-radius:9px"></div><div class="k">Радіус малий</div><div class="v">--r-sm · 9px</div></div>
+      <div class="spec"><div class="demo" style="border-radius:10px; box-shadow:0 1px 2px rgba(20,20,15,.05),0 10px 30px rgba(20,20,15,.05); background:#fff"></div><div class="k">Тінь</div><div class="v">--shadow · стримана</div></div>
+      <div class="spec"><div class="demo" style="border-radius:10px; background:linear-gradient(90deg,var(--warm) 8px,transparent 8px 16px,var(--warm) 16px 24px) repeat-x; background-size:16px 100%; border:none"></div><div class="k">Ритм відступів</div><div class="v">8 · 12 · 16 · 24</div></div>
+    </div>
+  </section>
+
+  <!-- ===== 5. ФОТО ===== -->
+  <section class="block" id="photo">
+    <div class="block-head"><span class="n">05</span><h2>Фото</h2>
+      <p>Фото товару - матове чорне на білому (товар як герой картки). Маскот - реалістичний 3D. Список файлів фіксований у <b>concept.md</b> для відтворюваності.
+        <span class="att">таст · фото-перший, товар на білому</span><span class="att">A3 · маскот</span></p>
+    </div>
+    <div class="photo-grid">
+      <div class="photo"><div class="ph"><img src="assets/product-whey.png" alt="протеїн"></div><div class="cap">Протеїн<br><code>product-whey.png</code></div></div>
+      <div class="photo"><div class="ph"><img src="assets/product-creatine.png" alt="креатин"></div><div class="cap">Креатин<br><code>product-creatine.png</code></div></div>
+      <div class="photo"><div class="ph"><img src="assets/product-preworkout.png" alt="передтрен"></div><div class="cap">Передтрен<br><code>product-preworkout.png</code></div></div>
+      <div class="photo"><div class="ph"><img src="assets/mascot-guide.png" alt="маскот"></div><div class="cap">Маскот-гід<br><code>mascot-guide.png</code></div></div>
+    </div>
+  </section>
+
+  <!-- ===== 6. ІКОНКИ ===== -->
+  <section class="block" id="icons">
+    <div class="block-head"><span class="n">06</span><h2>Іконки</h2>
+      <p>Solar-стилістика, inline SVG (не CDN), одна вага. Використання: довіра, метадані, дія, стани.
+        <span class="att">A4 · впевнена вага</span></p>
+    </div>
+    <div class="icon-grid">
+      <div class="ic"><svg><use href="#i-cart"/></svg><span>У кошик</span></div>
+      <div class="ic"><svg><use href="#i-heart"/></svg><span>Обране</span></div>
+      <div class="ic"><svg><use href="#i-shield"/></svg><span>Сертифікат</span></div>
+      <div class="ic"><svg><use href="#i-flask"/></svg><span>Склад</span></div>
+      <div class="ic"><svg><use href="#i-leaf"/></svg><span>Походження</span></div>
+      <div class="ic"><svg><use href="#i-bolt"/></svg><span>Енергія</span></div>
+      <div class="ic"><svg><use href="#i-drop"/></svg><span>Гідратація</span></div>
+      <div class="ic"><svg><use href="#i-target"/></svg><span>Ціль</span></div>
+      <div class="ic"><svg><use href="#i-check"/></svg><span>Готово</span></div>
+      <div class="ic"><svg><use href="#i-arrow"/></svg><span>Далі</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 7. КОМПОНЕНТИ ===== -->
+  <section class="block" id="components">
+    <div class="block-head"><span class="n">07</span><h2>Компоненти</h2>
+      <p>Три живі компоненти зі станами: кнопка дії, картка товару з бейджем-довірою, поле форми.
+        <span class="att">A3 · одна дія кнопкою</span><span class="att">A2 · доказ довіри</span><span class="att">A1 · стан каже правду</span></p>
+    </div>
+    <div class="cgroup">
+
+      <!-- 1. Buttons -->
+      <div class="comp">
+        <h3>Кнопка дії</h3>
+        <div class="row"><button class="btn btn-primary"><svg><use href="#i-cart"/></svg> У кошик</button></div>
+        <div class="lbl">Primary · Signal Orange · мітка як великий текст</div>
+        <div class="row"><a class="btn btn-ghost" href="#">Підібрати ціль <svg><use href="#i-arrow"/></svg></a></div>
+        <div class="lbl">Ghost · вторинна дія</div>
+        <div class="row"><button class="btn btn-primary" disabled>У кошик</button><button class="iconbtn" aria-label="У кошик"><svg><use href="#i-cart"/></svg></button></div>
+        <div class="lbl">Disabled · та icon-only (для щільної сітки)</div>
+      </div>
+
+      <!-- 2. Product card with trust badge -->
+      <div class="comp">
+        <h3>Картка з бейджем-довірою</h3>
+        <div class="ph" style="aspect-ratio:4/3;border:1px solid var(--line);margin-bottom:12px"><span class="tag">Популярне</span><button class="fav" aria-label="В обране"><svg><use href="#i-heart"/></svg></button><img src="assets/product-preworkout.png" alt="передтрен"></div>
+        <div class="brand">Stack · Україна</div>
+        <a class="nm" href="#" style="margin:4px 0 8px">Передтрен, цитрус, 360 г</a>
+        <div class="vbadge" style="margin-bottom:10px"><svg><use href="#i-shield"/></svg> Сертифікат перевірено</div>
+        <ul class="trust"><li><svg><use href="#i-flask"/></svg> Склад</li><li><svg><use href="#i-leaf"/></svg> Походження</li></ul>
+      </div>
+
+      <!-- 3. Form field -->
+      <div class="comp">
+        <h3>Поле форми</h3>
+        <div class="field"><label for="f1">Телефон</label><input id="f1" type="tel" placeholder="+38 (0__) ___-__-__"><div class="help">Надішлемо код підтвердження</div></div>
+        <div class="field err"><label for="f2">Код із SMS</label><input id="f2" value="12" inputmode="numeric"><div class="help">Код неправильний. Спробуйте ще раз</div></div>
+        <button class="btn btn-primary btn-block">Підтвердити</button>
+      </div>
+
+    </div>
+  </section>
+
+  <p class="foot-note">Стенд не суперечить <b>DESIGN.md</b> - усі значення взяті звідти, кожне рішення підписане атрибутом, контраст перевірено (таблиця вище). Далі - <b>крок 6</b>: беремо еталон із <b>wireframes/</b>, копіюємо у <b>ui-visual/</b> і фарбуємо цією мовою; сірі вайрфрейми лишаються сірими.</p>
+
+</div>
+
+<script>
+  function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('open'); }
+  function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.remove('open'); }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(l){ l.addEventListener('click', closeSidebar); });
+  var navLinks = document.querySelectorAll('.sidebar-nav a[href^="#"]');
+  var sections = document.querySelectorAll('section[id]');
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ var id=e.target.getAttribute('id');
+      navLinks.forEach(function(l){ l.classList.remove('active'); if(l.getAttribute('href')==='#'+id) l.classList.add('active'); }); } });
+  }, { rootMargin:'-15% 0px -75% 0px' });
+  sections.forEach(function(s){ observer.observe(s); });
+</script>
+</body>
+</html>

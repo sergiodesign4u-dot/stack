@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Stack — Лого</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo-s.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1C1C1C; --orange:#FF5A00; --warm:#F2F0ED; --line:#E9E7E2; --muted:#5B5B54;
+  --d-bg:#f7f6f3; --d-surface-alt:#f2f0eb; --d-border:#e5e2db; --d-text:#1a1916; --d-text-2:#6b6760; --d-text-3:#9b9790;
+  --d-accent:#2d5a3d; --d-accent-light:#e8f0ea; --d-radius-sm:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--d-bg);color:var(--ink);font:400 16px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+
+/* docs sidebar (research.html chrome) */
+.topbar{position:fixed;top:0;left:0;right:0;height:52px;background:rgba(247,246,243,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--d-border);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:101}
+.topbar-logo{font-weight:700;font-size:17px;color:var(--d-accent);letter-spacing:-.02em;text-decoration:none}
+.sidebar-toggle{background:none;border:none;cursor:pointer;padding:8px;color:var(--d-text-2);display:flex;border-radius:var(--d-radius-sm)}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.18);z-index:99}
+.sidebar-overlay.open{display:block}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:rgba(247,246,243,.98);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-right:1px solid var(--d-border);z-index:100;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .22s ease}
+.sidebar.open{transform:translateX(0)}
+.sidebar-logo{font-weight:700;font-size:17px;color:var(--d-accent);letter-spacing:-.02em;text-decoration:none;display:block;padding:22px 20px 18px;border-bottom:1px solid var(--d-border)}
+.sidebar-nav{flex:1;overflow-y:auto;scrollbar-width:none;padding:12px 8px 8px}
+.sidebar-nav::-webkit-scrollbar{display:none}
+.sidebar-nav a{display:block;color:var(--d-text-2);text-decoration:none;font-size:13px;font-weight:500;padding:7px 12px;border-radius:var(--d-radius-sm);transition:color .15s,background .15s;margin-bottom:1px}
+.sidebar-nav a:hover{color:var(--d-text);background:var(--d-surface-alt)}
+.sidebar-nav a.active{color:var(--d-accent);background:var(--d-accent-light);font-weight:600}
+.sidebar-nav .sidebar-sub{font-size:12px;padding:5px 12px 5px 22px;color:var(--d-text-3)}
+.sidebar-nav a.sidebar-sub.active{color:var(--d-accent);background:var(--d-accent-light)}
+.sidebar-page-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--d-accent);padding:8px 12px 4px}
+.sidebar-divider{border:none;border-top:1px solid var(--d-border);margin:10px 8px}
+
+.doc{max-width:1120px;margin:0 auto;padding:68px 20px 90px}
+@media(min-width:860px){ .topbar{display:none} .sidebar{transform:translateX(0)} .doc{margin-left:220px;padding:52px 48px 90px} }
+
+h1{font-family:Oswald;font-weight:700;text-transform:uppercase;letter-spacing:-.01em;font-size:2rem;margin-bottom:6px}
+.lead{color:var(--muted);margin-bottom:28px;max-width:70ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.cell{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.cell .disp{min-height:190px;display:grid;place-items:center;padding:24px}
+.cell .disp.dark{background:var(--ink)} .cell .disp.warm{background:var(--warm)}
+.cell .cap{font:600 12px/1.3 Inter;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:11px 14px;border-top:1px solid var(--line)}
+.mark{display:block}
+.mark.s2{width:120px} .mark.s3{width:64px}
+.wm{font-family:Oswald;font-weight:700;letter-spacing:-.01em;line-height:1;color:var(--ink)}
+.wm.up{text-transform:uppercase}
+.lock-h{display:flex;align-items:center;gap:16px}
+.lock-h .mark{width:70px} .lock-h .wm{font-size:2.6rem}
+.lock-v{display:flex;flex-direction:column;align-items:center;gap:14px}
+.lock-v .mark{width:88px} .lock-v .wm{font-size:2rem}
+.on-dark .wm{color:#fff}
+.sub{font:600 10px/1 Inter;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.on-dark .sub{color:#b9b6ae}
+.sectitle{grid-column:1/-1;font:700 12px/1 Inter;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);margin:20px 0 2px}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="#" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>
+  </button>
+</nav>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+  <a href="#" class="sidebar-logo">Stack</a>
+  <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <a href="../ia/sitemap.html">Інформаційна архітектура</a>
+    <a href="../Voices/voice.html">Голос продукту</a>
+    <hr class="sidebar-divider">
+    <a href="../wireframes/index.html">Вайрфрейми</a>
+    <hr class="sidebar-divider">
+    <div class="sidebar-page-label">Concept</div>
+    <a href="directions.html" class="sidebar-sub">Напрями</a>
+    <a href="concept.html" class="sidebar-sub">Концепт</a>
+    <a href="logo.html" class="sidebar-sub active">Лого</a>
+  </nav>
+</aside>
+
+<div class="doc">
+  <h1>Лого Stack</h1>
+  <p class="lead">Векторна марка «S» (векторизована з референсу, суцільний Signal Orange) + вордмарк і локапи. Варіанти на світлому, темному та моно. Основний локап - горизонтальний; марка - для фавікона й малих розмірів.</p>
+
+  <div class="grid">
+
+    <div class="sectitle">Марка «S»</div>
+    <div class="cell"><div class="disp"><img class="mark s2" src="assets/logo-s.svg" alt="Stack S"></div><div class="cap">Orange на білому</div></div>
+    <div class="cell"><div class="disp dark"><img class="mark s2" src="assets/logo-s.svg" alt="Stack S"></div><div class="cap">Orange на charcoal</div></div>
+    <div class="cell"><div class="disp dark"><img class="mark s2" src="assets/logo-s-white.svg" alt="Stack S"></div><div class="cap">White на charcoal</div></div>
+    <div class="cell"><div class="disp warm"><img class="mark s2" src="assets/logo-s-dark.svg" alt="Stack S"></div><div class="cap">Моно charcoal</div></div>
+
+    <div class="sectitle">Вордмарк</div>
+    <div class="cell"><div class="disp"><span class="wm" style="font-size:3rem">Stack</span></div><div class="cap">Oswald 700 · title-case</div></div>
+    <div class="cell"><div class="disp"><span class="wm up" style="font-size:3rem">Stack</span></div><div class="cap">Oswald 700 · uppercase</div></div>
+
+    <div class="sectitle">Горизонтальний локап (основний)</div>
+    <div class="cell"><div class="disp"><div class="lock-h"><img class="mark" src="assets/logo-s.svg" alt="Stack S"><span class="wm">Stack</span></div></div><div class="cap">S + Stack · білий</div></div>
+    <div class="cell"><div class="disp dark on-dark"><div class="lock-h"><img class="mark" src="assets/logo-s.svg" alt="Stack S"><span class="wm">Stack</span></div></div><div class="cap">S + Stack · charcoal</div></div>
+
+    <div class="sectitle">Вертикальний локап</div>
+    <div class="cell"><div class="disp warm"><div class="lock-v"><img class="mark" src="assets/logo-s.svg" alt="Stack S"><div style="text-align:center"><span class="wm">Stack</span><div class="sub">Sport Nutrition</div></div></div></div><div class="cap">S над Stack + тег</div></div>
+    <div class="cell"><div class="disp dark on-dark"><div class="lock-v"><img class="mark" src="assets/logo-s-white.svg" alt="Stack S"><div style="text-align:center"><span class="wm">Stack</span><div class="sub">Sport Nutrition</div></div></div></div><div class="cap">Реверс на charcoal</div></div>
+
+    <div class="sectitle">Малий розмір / фавікон</div>
+    <div class="cell"><div class="disp"><img class="mark s3" src="assets/logo-s.svg" alt="Stack S"></div><div class="cap">S @ 64px</div></div>
+    <div class="cell"><div class="disp dark"><div style="width:64px;height:64px;background:var(--orange);border-radius:14px;display:grid;place-items:center"><img src="assets/logo-s-dark.svg" alt="Stack S" style="width:38px"></div></div><div class="cap">App icon (S на orange)</div></div>
+
+  </div>
+</div>
+
+<script>
+  function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('open'); }
+  function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.remove('open'); }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(l){ l.addEventListener('click', closeSidebar); });
+</script>
+</body>
+</html>
