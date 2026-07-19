@@ -596,11 +596,16 @@ html { overflow-x: hidden; }
    over a dimmed page (Comfy-home). Panel visibility reuses .wfh-mega .mega-panel.on. */
 .hrail-wrap { position: relative; align-self: start; }
 @media (min-width: 860px) { .hrail-wrap { z-index: 25; } }
-/* flyout spans the FULL height of the category rail (top:0 → bottom:0), like a mega panel */
-.hrail-fly.wfh-mega { display: none; position: absolute; top: 0; bottom: 0; left: calc(100% + 14px); width: 600px; max-width: calc(100vw - 300px);
+/* flyout spans the FULL height of the category rail (top:0 → bottom:0), like a mega panel.
+   It joins the rail with NO gap (left: calc(100% - 1px) overlaps the shared 1px seam) so the
+   rail + panel read as ONE continuous block and the mouse never crosses an empty hole that
+   would fire .hrail-wrap's onmouseleave and close the overlay mid-move. */
+.hrail-fly.wfh-mega { display: none; position: absolute; top: 0; bottom: 0; left: calc(100% - 1px); width: 600px; max-width: calc(100vw - 249px);
   grid-template-columns: none; margin: 0; padding: 16px 20px; border: 1px solid var(--hair); border-top: 2px solid var(--dark);
-  border-radius: 12px; box-shadow: 0 16px 36px rgba(0,0,0,.14); z-index: 38; overflow-y: auto; background: #fff; }
+  border-radius: 0 12px 12px 0; box-shadow: 0 16px 36px rgba(0,0,0,.14); z-index: 38; overflow-y: auto; background: #fff; }
 .hrail-fly.wfh-mega.open { display: block; }
+/* when the panel is open, square the rail's right corners so the join is a clean seam, one block */
+.hrail-wrap:has(.hrail-fly.open) .hrail { border-top-right-radius: 0; border-bottom-right-radius: 0; border-top: 2px solid var(--dark); }
 @media (max-width: 859px) { .hrail-fly.wfh-mega { display: none !important; } }
 .hrail-scrim { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.44); z-index: 20; }
 .hrail-scrim.open { display: block; }
