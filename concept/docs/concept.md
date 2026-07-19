@@ -99,6 +99,7 @@ Each pair is `attribute, not opposite`, with the data line it comes from and the
 
 - Board of record: `concept/assets/brand-plate-d-2.png` - upright wordmark (calmer and more premium than the italic D-1), IBM Plex Mono numerals (matches Attribute 2), clear-space discipline.
 - Mascot of record: `concept/assets/brand-mascot-3d-realistic.png` - the realistic 3D register (grown-up, premium, bear-like), chosen over the plush register.
+- Mascot pose and expression set (added 2026-07-20): reusable single-asset renders generated from the mascot of record as a character reference (Nano Banana Pro), so the character holds across all frames. Poses `mascot-guide.png`, `mascot-pose-point.png`, `mascot-pose-present.png`, `mascot-pose-product.png`; faces `mascot-face-curious.png`, `mascot-face-reassure.png`, `mascot-face-concern.png`. Context mapping and full canon in `DESIGN.md` section 2; shown in `concept/concept.html` section 06. Fixed here for reproducibility.
 
 **Why D-2 plus realistic:** white canvas fits product-on-white photography (taste addendum 1); soft charcoal plus a single signal orange keeps energy on a leash (A1, A4); the upright wordmark reads trust-first rather than sporty-aggressive (A1); IBM Plex Mono numerals carry the trust-by-proof technique (A2); the 3D bear delivers character and warmth inside the calm frame (A3), which no UA competitor offers.
 

@@ -128,6 +128,24 @@ section.block{margin-top:clamp(40px,6vw,72px)}
 .photo .cap{padding:10px 12px; font-size:.82rem; color:var(--ink-2); border-top:1px solid var(--line)}
 .photo .cap code{font-family:"IBM Plex Mono",monospace; font-size:.75rem; color:var(--muted)}
 
+/* mascot canon gallery */
+.mcanon{background:var(--warm); border:1px solid var(--line); border-radius:14px; overflow:hidden; margin-bottom:8px}
+.mcanon img{width:100%; object-fit:contain; mix-blend-mode:multiply}
+.mcanon .cap{padding:12px 16px; border-top:1px solid var(--line); font-size:.88rem; color:var(--ink-2)}
+.mcanon .cap code{font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--muted)}
+.msub{font:600 12px/1 Inter; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); margin:24px 0 12px}
+.mgrid{display:grid; gap:16px}
+.mgrid.poses{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+.mgrid.faces{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.mcard{background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden}
+.mcard .mph{display:grid; place-items:center; background:var(--warm)}
+.mgrid.poses .mph{aspect-ratio:3/4}
+.mgrid.faces .mph{aspect-ratio:1/1}
+.mcard .mph img{width:100%; height:100%; object-fit:contain; padding:5%; mix-blend-mode:multiply}
+.mcard .mcap{padding:10px 12px; border-top:1px solid var(--line)}
+.mcard .mcap .t{font-weight:600; font-size:.9rem; color:var(--ink)}
+.mcard .mcap .u{font-size:.8rem; color:var(--muted); margin-top:3px; line-height:1.35}
+
 /* icons */
 .icon-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:12px}
 .ic{display:flex; flex-direction:column; align-items:center; gap:9px; padding:18px 10px; background:#fff; border:1px solid var(--line); border-radius:12px}
@@ -262,6 +280,7 @@ section.block{margin-top:clamp(40px,6vw,72px)}
     <a href="#type" class="sidebar-sub deep">Типографіка</a>
     <a href="#form" class="sidebar-sub deep">Форма</a>
     <a href="#photo" class="sidebar-sub deep">Фото</a>
+    <a href="#mascot" class="sidebar-sub deep">Маскот</a>
     <a href="#icons" class="sidebar-sub deep">Іконки</a>
     <a href="#components" class="sidebar-sub deep">Компоненти</a>
   </nav>
@@ -379,20 +398,47 @@ section.block{margin-top:clamp(40px,6vw,72px)}
   <!-- ===== 5. ФОТО ===== -->
   <section class="block" id="photo">
     <div class="block-head"><span class="n">05</span><h2>Фото</h2>
-      <p>Фото товару - матове чорне на білому (товар як герой картки). Маскот - реалістичний 3D. Список файлів фіксований у <b>concept.md</b> для відтворюваності.
-        <span class="att">таст · фото-перший, товар на білому</span><span class="att">A3 · маскот</span></p>
+      <p>Фото товару - матове чорне на білому (товар як герой картки). Список файлів фіксований у <b>concept.md</b> для відтворюваності. Маскот - у секції нижче.
+        <span class="att">таст · фото-перший, товар на білому</span></p>
     </div>
     <div class="photo-grid">
       <div class="photo"><div class="ph"><img src="assets/product-whey.png" alt="протеїн"></div><div class="cap">Протеїн<br><code>product-whey.png</code></div></div>
       <div class="photo"><div class="ph"><img src="assets/product-creatine.png" alt="креатин"></div><div class="cap">Креатин<br><code>product-creatine.png</code></div></div>
       <div class="photo"><div class="ph"><img src="assets/product-preworkout.png" alt="передтрен"></div><div class="cap">Передтрен<br><code>product-preworkout.png</code></div></div>
-      <div class="photo"><div class="ph"><img src="assets/mascot-guide.png" alt="маскот"></div><div class="cap">Маскот-гід<br><code>mascot-guide.png</code></div></div>
     </div>
   </section>
 
-  <!-- ===== 6. ІКОНКИ ===== -->
+  <!-- ===== 6. МАСКОТ ===== -->
+  <section class="block" id="mascot">
+    <div class="block-head"><span class="n">06</span><h2>Маскот</h2>
+      <p>Реалістичний 3D-ведмідь: та сама постать, вугільне худі, один оранжевий акцент. Спокійний, компетентний, веде - ніколи не агресивний і не святкує (за <b>voice.md</b>). Живе в героях, онбордингу, порожніх станах, підборі цілі й тренерських моментах. Один актив - різні кадри за контекстом.
+        <span class="att">A3 · характер і тепло</span><span class="att">A5 · один крок</span><span class="att">voice.md · без вітань і свята</span></p>
+    </div>
+
+    <div class="mcanon">
+      <img src="assets/brand-mascot-3d-realistic.png" alt="Канон маскота Stack: постать і базові вирази">
+      <div class="cap">Канон-лист: постать, шейкер і базові вирази - спокій · зосередженість · упевненість. <code>brand-mascot-3d-realistic.png</code></div>
+    </div>
+
+    <div class="msub">Пози - за контекстом</div>
+    <div class="mgrid poses">
+      <div class="mcard"><div class="mph"><img src="assets/mascot-guide.png" alt="Маскот-гід"></div><div class="mcap"><div class="t">Гід / підбір</div><div class="u">Онбординг, підбір цілі, квіз</div></div></div>
+      <div class="mcard"><div class="mph"><img src="assets/mascot-pose-point.png" alt="Маскот показує напрям"></div><div class="mcap"><div class="t">Веде далі</div><div class="u">Порожні стани, «один крок»</div></div></div>
+      <div class="mcard"><div class="mph"><img src="assets/mascot-pose-present.png" alt="Маскот показує"></div><div class="mcap"><div class="t">Показує</div><div class="u">Колекція, банер, спокійне промо</div></div></div>
+      <div class="mcard"><div class="mph"><img src="assets/mascot-pose-product.png" alt="Маскот з товаром"></div><div class="mcap"><div class="t">З товаром</div><div class="u">Товарні моменти, стартовий набір</div></div></div>
+    </div>
+
+    <div class="msub">Вирази - стани кажуть правду</div>
+    <div class="mgrid faces">
+      <div class="mcard"><div class="mph"><img src="assets/mascot-face-curious.png" alt="Маскот - уважний вираз"></div><div class="mcap"><div class="t">Уважний</div><div class="u">Слухає: квіз, онбординг</div></div></div>
+      <div class="mcard"><div class="mph"><img src="assets/mascot-face-reassure.png" alt="Маскот - підтримка"></div><div class="mcap"><div class="t">Підтримка</div><div class="u">«Ти в надійних руках»: порожні стани, довіра</div></div></div>
+      <div class="mcard"><div class="mph"><img src="assets/mascot-face-concern.png" alt="Маскот - чесний стан"></div><div class="mcap"><div class="t">Чесний стан</div><div class="u">Немає в наявності / помилка - спокійно, без тривоги</div></div></div>
+    </div>
+  </section>
+
+  <!-- ===== 7. ІКОНКИ ===== -->
   <section class="block" id="icons">
-    <div class="block-head"><span class="n">06</span><h2>Іконки</h2>
+    <div class="block-head"><span class="n">07</span><h2>Іконки</h2>
       <p>Solar-стилістика, inline SVG (не CDN), одна вага. Використання: довіра, метадані, дія, стани.
         <span class="att">A4 · впевнена вага</span></p>
     </div>
@@ -410,9 +456,9 @@ section.block{margin-top:clamp(40px,6vw,72px)}
     </div>
   </section>
 
-  <!-- ===== 7. КОМПОНЕНТИ ===== -->
+  <!-- ===== 8. КОМПОНЕНТИ ===== -->
   <section class="block" id="components">
-    <div class="block-head"><span class="n">07</span><h2>Компоненти</h2>
+    <div class="block-head"><span class="n">08</span><h2>Компоненти</h2>
       <p>Три живі компоненти зі станами: кнопка дії, картка товару з бейджем-довірою, поле форми.
         <span class="att">A3 · одна дія кнопкою</span><span class="att">A2 · доказ довіри</span><span class="att">A1 · стан каже правду</span></p>
     </div>

@@ -10,6 +10,15 @@ Magnific MCP became reachable, so the three prompts below were generated directl
 
 **Chosen:** board `brand-plate-d-2.png` + mascot `brand-mascot-3d-realistic.png`. The root `DESIGN.md` was written from these (Step 3b), and the choice plus runners-up are recorded in `concept/docs/concept.md` (section Brand). The prompt library below is kept as history.
 
+## Update (2026-07-20): mascot pose & expression set
+
+Extended the mascot canon with reusable single-asset renders (Magnific, Nano Banana Pro / `imagen-nano-banana-2`), each generated with `brand-mascot-3d-realistic.png` uploaded as an **image character reference** so the same bear, charcoal hoodie, and single orange stripe hold. All on a white background for clean compositing.
+
+- Poses (2:3): `mascot-pose-point.png` (leads to the next step), `mascot-pose-present.png` (presents a collection), `mascot-pose-product.png` (holds a matte-black tub). Plus the existing `mascot-guide.png`.
+- Faces (1:1): `mascot-face-curious.png` (attentive), `mascot-face-reassure.png` (support), `mascot-face-concern.png` (honest OOS/error, calm).
+
+Context mapping in `DESIGN.md` section 2; displayed in `concept/concept.html` section 06 «Маскот».
+
 ## How to use this file
 
 Magnific is not reachable from the assistant in this session (no MCP, no API key in env), so per the stage dependency rule the assistant does not silently swap in another generator. Instead: below are three ready, model-agnostic image prompts. Generate each in your Magnific (or any GPT image 2+ / Mystic model), one image per plate, and save the files here as:
