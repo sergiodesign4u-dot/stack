@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Категорія «Протеїн» — з фільтрами (wireframe 2.1)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- WIREFRAME · 2.1 STATE = filtered (active filters applied → narrowed result).
+     Base is the clean/unfiltered view; this shows the applied-filter variant. -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <span class="cur">Протеїн</span>
+  </nav>
+
+  <section aria-label="Заголовок категорії">
+    <h1 class="lh1">Протеїн <span class="cnt">12 товарів</span></h1>
+    <p class="lintro">Сироватковий, ізолят, казеїн і рослинний протеїн від перевірених брендів.
+      Для кожного товару показуємо склад, походження і сертифікат — щоб ви бачили, що берете.
+      <a class="more" href="#seo">Читати більше ↓</a></p>
+  </section>
+
+  <div class="ltool">
+    <span class="ctrl count">Знайдено: 12 товарів</span>
+    <span class="sp"></span>
+    <span class="ctrl"><span class="cap">Сортування:</span> Популярні ▾</span>
+    <span class="vtoggle"><a href="listing-filtered.html" class="on" aria-label="Сіткою">▦</a><a href="listing-list.html" aria-label="Списком">☰</a></span>
+  </div>
+  <!-- Active filters: «Очистити все» first, then chips -->
+  <div class="afilters">
+    <a class="clear" href="listing.html">Очистити все</a>
+    <span class="afilter">Бренд: Optimum Nutrition <button class="x" aria-label="Прибрати фільтр">✕</button></span>
+    <span class="afilter">Наявність: В наявності <button class="x" aria-label="Прибрати фільтр">✕</button></span>
+  </div>
+
+  <div class="mtoolbar">
+    <button class="mc" onclick="openSheet()">Фільтри <span class="b">2</span></button>
+    <button class="mc">Популярні ▾</button>
+  </div>
+
+  <div class="listing">
+    <aside class="frail" id="wf-rail"></aside>
+
+    <section aria-label="Список товарів">
+      <div class="prow">
+        <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Optimum Nutrition · США</div>
+            <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div><span class="pnew">1 290 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+          </div>
+        </article>
+        <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Optimum Nutrition · США</div>
+            <a href="product.html" class="nm">Casein Pro 1816 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 480 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.8</span> · 73 відгуки</div>
+            <div class="pmeta2"><span class="perserv"><b>29 ₴</b> / порція</span><span class="bonus">+15 ₴ бонус</span></div>
+          </div>
+        </article>
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Optimum Nutrition · США</div>
+            <a href="product.html" class="nm">Gold Standard 100% Isolate 1320 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 690 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.9</span> · 61 відгук</div>
+            <div class="pmeta2"><span class="perserv"><b>42 ₴</b> / порція</span><span class="bonus">+17 ₴ бонус</span></div>
+          </div>
+        </article>
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Optimum Nutrition · США</div>
+            <a href="product.html" class="nm">Gold Standard 100% Whey 908 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">720 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.7</span> · 54 відгуки</div>
+            <div class="pmeta2"><span class="perserv"><b>30 ₴</b> / порція</span><span class="bonus">+7 ₴ бонус</span></div>
+          </div>
+        </article>
+        <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Новинка</span></a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Optimum Nutrition · США</div>
+            <a href="product.html" class="nm">Gold Standard 100% Plant 684 г</a>
+            <div class="pavail low">● Залишилось мало</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">890 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.5</span> · 22 відгуки</div>
+            <div class="pmeta2"><span class="perserv"><b>34 ₴</b> / порція</span><span class="bonus">+9 ₴ бонус</span></div>
+          </div>
+        </article>
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Optimum Nutrition · США</div>
+            <a href="product.html" class="nm">Gold Standard 100% Casein 908 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">990 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.6</span> · 48 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>36 ₴</b> / порція</span><span class="bonus">+10 ₴ бонус</span></div>
+          </div>
+        </article>
+      </div>
+
+      <nav class="pgnav" aria-label="Пагінація">
+        <button class="loadmore">Показати ще 6 (з 12)</button>
+        <div class="pages"><a class="on" href="?page=1">1</a><a href="?page=2">2</a><a href="?page=2">›</a></div>
+      </nav>
+    </section>
+  </div>
+
+  <section class="seotext" id="seo" aria-label="Опис категорії">
+    <div class="h">Протеїн в Україні — купити в магазині Stack</div>
+    <p>Протеїн — базова спортивна добавка для росту й відновлення м'язів. У каталозі Stack —
+      сироватковий концентрат, ізолят, гідролізат, казеїн, комплексний і рослинний протеїн від
+      перевірених брендів. Для кожного товару показуємо склад, походження і сертифікат — щоб ви бачили, що берете.</p>
+    <p>Як обрати: для набору маси — сироватковий концентрат або комплексний, для схуднення — ізолят,
+      для ночі — казеїн. Швидка доставка Новою Поштою, оплата картою чи готівкою, повернення протягом 14 днів.</p>
+  </section>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<div id="wf-sheet"></div>
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>wfHeader(); wfCatalogRail(['Optimum Nutrition','В наявності']); wfFooter(); wfSheet(); wfBar('listing.html', 'filtered'); uivFixLinks(); uivBar();</script>
+</body>
+</html>

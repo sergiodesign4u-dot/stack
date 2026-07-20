@@ -1,0 +1,141 @@
+/* ============================================================
+   ui-visual · _theme.css  (Concept, Step 6)
+   The COLOR LAYER. Loaded AFTER ../wireframes/_wf.css, overrides it.
+   Structure/behaviour stay owned by wireframes/ (grey, untouched);
+   this file adds only the visual language from DESIGN.md / concept.html.
+   Values transcribed from DESIGN.md, not read off pixels.
+   Rule: exactly ONE orange per view, on the action + selected state.
+   No em dash in this file.
+   ============================================================ */
+
+/* ---- brand tokens over the grey wireframe tokens ---- */
+:root{
+  --ink:#1C1C1C;         /* was #1b1b1b */
+  --strong:#1C1C1C;      /* headings / emphasis (was #111) */
+  --sec:#5B5B54;         /* secondary text, AA on white */
+  --light:#6E6A62;       /* meta / tertiary, still AA on white (was #999, failed) */
+  --faint:#6E6A62;       /* brand line, fav (was #8a8a8a) */
+  --hair:#E9E7E2;        /* hairline */
+  --hair2:#D9D9D9;       /* stronger border (Ash) */
+  --fill:#F2F0ED;        /* Warm Neutral surface */
+  --fill2:#FAF9F7;       /* lighter zone */
+  --dark:#1C1C1C;        /* KEPT charcoal for header + dark surfaces, NOT orange */
+  --r:12px; --rs:9px;
+  --sh:0 1px 2px rgba(20,20,15,.05), 0 10px 30px rgba(20,20,15,.05);
+
+  /* new brand roles (not in _wf.css) */
+  --orange:#FF5A00;      /* the single action / selected accent */
+  --ok:#2E7D46;          /* success, calm not celebratory */
+  --warn:#8A5A0E;        /* amber for text, AA on white (C9821E fails small) */
+  --err:#C42B1C;         /* serious red, separated from the brand accent */
+  --info:#4A5568;        /* neutral slate */
+  --gold:#8A5A0E;        /* bonus figure */
+}
+
+/* ---- typography: Oswald display · Inter body · IBM Plex Mono numbers ---- */
+body{ font-family:'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+.lh1, .seotext .h, .wfh-logo, .empty-h, .estate h2{ font-family:'Oswald', sans-serif; letter-spacing:-.01em; }
+.lh1{ font-weight:700; }
+.wfh-logo{ font-weight:700; letter-spacing:-.02em; }
+/* every dose / serving / price / rating figure is mono, per Attribute 2 (trust proven) */
+.pcard .pnew, .pcard .pold, .pcard .pcut, .pcard .perserv b, .pcard .rate .st,
+.pcard .bonus, .pages a, .pages button, .lh1 .cnt{
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+}
+
+/* ---- product photo on cards (visual layer; grey "фото" glyph hidden) ---- */
+.pcard .ph{ background:#fff center/72% no-repeat; color:transparent; }
+.pcard .ph .tag{ color:var(--ink); }                 /* restore the badge text */
+.pcard:nth-of-type(3n+1) .ph{ background-image:url(../concept/assets/product-whey.png); }
+.pcard:nth-of-type(3n+2) .ph{ background-image:url(../concept/assets/product-creatine.png); }
+.pcard:nth-of-type(3n)   .ph{ background-image:url(../concept/assets/product-preworkout.png); }
+.pcard.dim .ph{ opacity:.5; }
+
+/* ---- the ONE accent: primary action + selected state = Signal Orange ---- */
+/* wireframe uses an emoji glyph; hide it (font-size:0) and paint a clean SVG icon */
+.pcard .cartbtn{ background:var(--orange) url(icon-cart.svg) center/21px no-repeat; border-radius:10px; font-size:0; }
+.pcard .cartbtn:hover{ opacity:.93; }
+.pcard .cartbtn.notify{ background:#fff url(icon-bell.svg) center/19px no-repeat; border:1.5px solid var(--hair2); } /* OOS notify stays neutral ink, orange is reserved for buying */
+.vtoggle a.on, .vtoggle span.on{ background:var(--orange); color:#fff; }              /* icon glyph, graphic 3:1 */
+.pages a.on, .pages button.on{ background:var(--orange); color:var(--ink); border-color:var(--orange); } /* small text: ink on orange 5.2:1 */
+.mtoolbar .mc .b{ background:var(--orange); color:var(--ink); }                         /* count text: ink on orange */
+
+/* ---- availability: states tell the truth (voice.md 5), semantic colour ---- */
+.pcard .pavail.in{ color:var(--ok); }      /* ● В наявності */
+.pcard .pavail.low{ color:var(--warn); }   /* ● Залишилось мало */
+.pcard .pavail.pre{ color:var(--info); }   /* ● Під замовлення */
+.pcard .pavail.out{ color:var(--sec); }    /* ● Немає в наявності */
+
+/* ---- discount: calm, red-muted, never a brand-accent burst ---- */
+.pcard .pcut{ background:#FBEAE7; color:var(--err); font-weight:700; }
+
+/* ---- badges / prices / bonus ---- */
+.pcard .tag{ border:1.5px solid var(--ink); color:var(--ink); background:#fff; } /* neutral, not orange */
+.pcard .pnew{ color:var(--ink); }
+.pcard .pold{ color:var(--light); }
+.pcard .bonus{ color:var(--gold); font-weight:700; }
+.pcard .rate .st{ color:var(--ink); }
+
+/* ---- list view (node 2.1 "Списком"): same language, horizontal card ---- */
+.pcard-l .lnm, .pcard-l .lprice{ color:var(--ink); }
+.pcard-l .lprice, .pcard-l .lold, .pcard-l .lmeta b, .pcard-l .lmeta .st{
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums; }
+.pcard-l .lold{ color:var(--light); }
+.pcard-l .lavail.in{ color:var(--ok); }
+.pcard-l .lavail.low{ color:var(--warn); }
+.pcard-l .lavail.pre{ color:var(--info); }
+.pcard-l .lavail.out{ color:var(--sec); }
+.pcard-l .lcut{ background:#FBEAE7; color:var(--err); font-weight:700; }
+.pcard-l .lph{ background:#fff center/contain no-repeat; color:transparent; }
+.pcard-l .lph .tag{ border-color:var(--ink); color:var(--ink); }
+.pcard-l:nth-of-type(3n+1) .lph{ background-image:url(../concept/assets/product-whey.png); }
+.pcard-l:nth-of-type(3n+2) .lph{ background-image:url(../concept/assets/product-creatine.png); }
+.pcard-l:nth-of-type(3n)   .lph{ background-image:url(../concept/assets/product-preworkout.png); }
+.pcard-l .cartbtn{ background:var(--orange) url(icon-cart.svg) center/21px no-repeat; font-size:0; border-radius:10px; }
+.pcard-l .cartbtn:hover{ opacity:.93; }
+.pcard-l .cartbtn.notify{ background:#fff url(icon-bell.svg) center/19px no-repeat; border:1.5px solid var(--hair2); }
+
+/* secondary actions = ghost charcoal, never orange */
+.loadmore{ border:1.5px solid var(--hair2); color:var(--ink); }
+.loadmore:hover{ border-color:var(--ink); }
+
+/* ---- buttons: primary = orange, secondary = ghost (brand-wide, incl. sheet + states) ---- */
+/* 19px/700 so white-on-orange qualifies as WCAG large text (3:1); matches concept.html */
+.btn{ border-color:var(--hair2); color:var(--ink); font-size:19px; }   /* ghost secondary */
+.btn.dark{ background:var(--orange); border-color:var(--orange); color:#fff; } /* primary action */
+.btn.dark:hover{ opacity:.93; }
+/* selected facet = the brand accent */
+input[type="checkbox"], input[type="radio"]{ accent-color:var(--orange); }
+
+/* ---- empty / error states ---- */
+.empty{ border-color:var(--hair2); background:var(--fill2); }
+.empty .et{ color:var(--ink); }
+.afilter{ background:var(--fill); border-color:var(--hair); }
+.afilter .x{ color:var(--light); }
+/* no-results: the mascot is the calm guide here (DESIGN.md §2, empty states) */
+section[aria-label="Результати"] .empty .ei{ width:118px; height:118px; margin:2px auto 0; font-size:0;
+  background:center/contain no-repeat url(../concept/assets/mascot-face-reassure.png); }
+/* load error: honest warning, calm amber, not the brand accent (voice.md 5) */
+section[aria-label="Помилка"] .empty .ei{ font-size:40px; color:var(--warn); }
+
+/* keep the crisp brand radius/shadow on cards + zones */
+.pcard{ box-shadow:var(--sh); }
+.seotext{ background:var(--fill); }
+
+/* ============================================================
+   ui-visual meta strip (built by _uivis.js): back to the language stand
+   ============================================================ */
+.uiv-bar{
+  background:var(--ink); color:#fff; font-family:'Inter',system-ui,sans-serif;
+  font-size:12px; line-height:1.4; padding:8px 16px; display:flex; gap:7px 12px;
+  flex-wrap:wrap; align-items:center;
+}
+.uiv-bar a{ color:#fff; opacity:.82; text-decoration:none; }
+.uiv-bar a:hover{ opacity:1; text-decoration:underline; }
+.uiv-bar .sepb{ opacity:.3; }
+.uiv-bar .uiv-tag{
+  background:var(--orange); color:var(--ink); font-weight:700; letter-spacing:.02em;
+  border-radius:5px; padding:2px 8px; text-transform:uppercase; font-size:10.5px;
+}
+
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }

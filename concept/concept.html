@@ -230,6 +230,13 @@ section.block{margin-top:clamp(40px,6vw,72px)}
 .foot-note{margin-top:70px; padding-top:22px; border-top:1px solid var(--line); color:var(--muted); font-size:.95rem; max-width:80ch}
 .foot-note b{color:var(--ink-2)}
 
+/* screens (step 6) */
+.scr-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px}
+.scr{display:flex; flex-direction:column; gap:3px; padding:15px 16px; background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); text-decoration:none; transition:border-color .15s}
+.scr:hover{border-color:var(--orange)}
+.scr .scr-t{font-weight:600; color:var(--ink)}
+.scr .scr-u{font-size:.84rem; color:var(--muted)}
+
 @media(max-width:720px){ .live{grid-template-columns:1fr} .type-row{grid-template-columns:1fr} }
 @media(prefers-reduced-motion:reduce){ *{transition:none!important} html{scroll-behavior:auto} }
 </style>
@@ -274,7 +281,6 @@ section.block{margin-top:clamp(40px,6vw,72px)}
     <div class="sidebar-page-label">Concept</div>
     <a href="directions.html" class="sidebar-sub">Напрями</a>
     <a href="concept.html" class="sidebar-sub active">Концепт</a>
-    <a href="logo.html" class="sidebar-sub">Лого</a>
     <a href="#lang" class="sidebar-sub deep">Мова живцем</a>
     <a href="#palette" class="sidebar-sub deep">Палітра</a>
     <a href="#type" class="sidebar-sub deep">Типографіка</a>
@@ -283,6 +289,8 @@ section.block{margin-top:clamp(40px,6vw,72px)}
     <a href="#mascot" class="sidebar-sub deep">Маскот</a>
     <a href="#icons" class="sidebar-sub deep">Іконки</a>
     <a href="#components" class="sidebar-sub deep">Компоненти</a>
+    <a href="#screen" class="sidebar-sub deep">На екрані</a>
+    <a href="logo.html" class="sidebar-sub">Лого</a>
   </nav>
 </aside>
 
@@ -496,7 +504,25 @@ section.block{margin-top:clamp(40px,6vw,72px)}
     </div>
   </section>
 
-  <p class="foot-note">Стенд не суперечить <b>DESIGN.md</b> - усі значення взяті звідти, кожне рішення підписане атрибутом, контраст перевірено (таблиця вище). Далі - <b>крок 6</b>: беремо еталон із <b>wireframes/</b>, копіюємо у <b>ui-visual/</b> і фарбуємо цією мовою; сірі вайрфрейми лишаються сірими.</p>
+  <!-- ===== 9. МОВА НА РЕАЛЬНОМУ ЕКРАНІ ===== -->
+  <section class="block" id="screen">
+    <div class="block-head"><span class="n">09</span><h2>Мова на реальному екрані</h2>
+      <p>Та сама мова, покладена на реальний екран - лістинг «Протеїн» (вузол 2.1) з усіма станами. Це <b>кольорові копії</b> в <code>ui-visual/</code>: сірі вайрфрейми лишаються сірими, копія володіє лише візуальним шаром, а не-пофарбовані переходи ведуть на сірий оригінал.
+        <span class="att">крок 6 · копія, не фарбування</span><span class="att">A1 спокій</span><span class="att">A2 моно-цифри</span><span class="att">voice.md · стани кажуть правду</span></p>
+    </div>
+    <div class="scr-grid">
+      <a class="scr" href="../ui-visual/listing.html"><span class="scr-t">Лістинг · базовий</span><span class="scr-u">сітка, картки, ціни, наявність</span></a>
+      <a class="scr" href="../ui-visual/listing-list.html"><span class="scr-t">Списком</span><span class="scr-u">та сама мова, інша щільність</span></a>
+      <a class="scr" href="../ui-visual/listing-filtered.html"><span class="scr-t">З фільтрами</span><span class="scr-u">активні фільтри, обрані фасети (оранж)</span></a>
+      <a class="scr" href="../ui-visual/listing-sheet.html"><span class="scr-t">Фільтри · мобілка</span><span class="scr-u">bottom-sheet, «Застосувати» = дія</span></a>
+      <a class="scr" href="../ui-visual/listing-empty.html"><span class="scr-t">Порожньо</span><span class="scr-u">маскот-гід, вихід без глухого кута</span></a>
+      <a class="scr" href="../ui-visual/listing-error.html"><span class="scr-t">Помилка</span><span class="scr-u">чесний стан + «Спробувати ще раз»</span></a>
+      <a class="scr" href="../ui-visual/listing-loading.html"><span class="scr-t">Завантаження</span><span class="scr-u">скелетони</span></a>
+    </div>
+    <p style="margin-top:14px; color:var(--muted); font-size:.92rem">Повний розділ «UI + Visual» у роадмепі буде на етапі 07. Крок 7 - другий, контрастний екран тією ж мовою.</p>
+  </section>
+
+  <p class="foot-note">Стенд не суперечить <b>DESIGN.md</b> - усі значення взяті звідти, кожне рішення підписане атрибутом, контраст перевірено (таблиця вище). Крок 6 виконано - мова живе на реальному екрані в <b>ui-visual/</b>. Далі - <b>крок 7</b>: другий, контрастний екран тією ж мовою, щоб довести, що це мова, а не разова вдача.</p>
 
 </div>
 

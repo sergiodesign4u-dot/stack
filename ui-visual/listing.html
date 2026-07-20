@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Категорія «Протеїн» — Stack (wireframe 2.1, еталон)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.1 Категорія / лістинг (ETALON, base/success view)
+  Job: Job 3 discovery + the shared listing template. Flow: Job 2 b2 / Job 3 j2 → PDP.
+  Inherited header/footer/rail/sheet are injected from _nav.js (conventions §7);
+  only the RESULTS AREA differs between this base page and its state pages.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <span class="cur">Протеїн</span>
+  </nav>
+
+  <!-- Listing head: H1 + count + trust intro -->
+  <section aria-label="Заголовок категорії">
+    <h1 class="lh1">Протеїн <span class="cnt">84 товари</span></h1>
+    <p class="lintro">Сироватковий, ізолят, казеїн і рослинний протеїн від перевірених брендів.
+      Для кожного товару показуємо склад, походження і сертифікат — щоб ви бачили, що берете.
+      <a class="more" href="#seo">Читати більше ↓</a></p>
+  </section>
+
+  <!-- Desktop toolbar: count left, sort + view-toggle far right. BASE = no active filters. -->
+  <div class="ltool">
+    <span class="ctrl count">Знайдено: 84 товари</span>
+    <span class="sp"></span>
+    <span class="ctrl"><span class="cap">Сортування:</span> Популярні ▾</span>
+    <span class="vtoggle"><a href="listing.html" class="on" aria-label="Сіткою">▦</a><a href="listing-list.html" aria-label="Списком">☰</a></span>
+  </div>
+
+  <!-- Mobile toolbar (sticky): opens filter sheet (no active-filter badge on the clean base) -->
+  <div class="mtoolbar">
+    <button class="mc" onclick="openSheet()">Фільтри</button>
+    <button class="mc">Популярні ▾</button>
+  </div>
+
+  <!-- Listing = filter rail (injected) + product grid -->
+  <div class="listing">
+    <aside class="frail" id="wf-rail"></aside>
+
+    <section aria-label="Список товарів">
+      <div class="prow">
+
+        <!-- 1) В наявності (вкл. «мало») -->
+        <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Optimum Nutrition · США</div>
+            <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div><span class="pnew">1 290 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">BioTechUSA · Угорщина</div>
+            <a href="product.html" class="nm">Iso Whey Zero 908 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Scitec Nutrition · Угорщина</div>
+            <a href="product.html" class="nm">100% Whey Protein Professional 920 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">940 ₴</span><span class="pcut">−10%</span></div><span class="pnew">845 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div>
+            <div class="pmeta2"><span class="perserv"><b>31 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">OstroVit · Польща</div>
+            <a href="product.html" class="nm">WPC 80 Standard 2000 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 180 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.5</span> · 52 відгуки</div>
+            <div class="pmeta2"><span class="perserv"><b>20 ₴</b> / порція</span><span class="bonus">+12 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Optimum Nutrition · США</div>
+            <a href="product.html" class="nm">Casein Pro 1816 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 480 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.8</span> · 73 відгуки</div>
+            <div class="pmeta2"><span class="perserv"><b>29 ₴</b> / порція</span><span class="bonus">+15 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">OstroVit · Польща</div>
+            <a href="product.html" class="nm">Vegan Protein (горох/рис) 750 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">900 ₴</span><span class="pcut">−20%</span></div><span class="pnew">720 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.4</span> · 37 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>30 ₴</b> / порція</span><span class="bonus">+7 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Power Pro · Україна</div>
+            <a href="product.html" class="nm">Protein Power Pro 1000 г</a>
+            <div class="pavail in">● В наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">690 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.3</span> · 41 відгук</div>
+            <div class="pmeta2"><span class="perserv"><b>23 ₴</b> / порція</span><span class="bonus">+7 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Новинка</span></a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Myprotein · Велика Британія</div>
+            <a href="product.html" class="nm">Impact Whey Isolate 1 кг</a>
+            <div class="pavail low">● Залишилось мало</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">990 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ —</span> · новинка</div>
+            <div class="pmeta2"><span class="perserv"><b>33 ₴</b> / порція</span><span class="bonus">+10 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <!-- 2) Під замовлення -->
+        <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">Dymatize · США</div>
+            <a href="product.html" class="nm">ISO 100 Hydrolyzed 1320 г</a>
+            <div class="pavail pre">● Під замовлення</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 640 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+            <div class="rate"><span class="st">★ 4.9</span> · 55 відгуків</div>
+            <div class="pmeta2"><span class="perserv"><b>41 ₴</b> / порція</span><span class="bonus">+16 ₴ бонус</span></div>
+          </div>
+        </article>
+
+        <!-- 3) Немає в наявності — наприкінці, 🛒 → 🔔 -->
+        <article class="pcard dim"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+          <div class="bd">
+            <div class="pbrand">BSN · США</div>
+            <a href="product.html" class="nm">Syntha-6 2270 г</a>
+            <div class="pavail out">● Немає в наявності</div>
+            <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 690 ₴</span></div><button class="cartbtn notify" aria-label="Повідомити про надходження">🔔</button></div>
+            <div class="rate" aria-hidden="true"></div>
+            <div class="pmeta2"><span class="perserv">Повідомимо, коли з'явиться</span></div>
+          </div>
+        </article>
+
+      </div>
+      <p class="gnote">↑ Порядок карток (за замовч.): спершу <b>в наявності</b> (вкл. «мало»), далі
+        <b>під замовлення</b>, наприкінці <b>немає в наявності</b>. Сортування користувача — в межах цих груп.</p>
+
+      <!-- Pagination -->
+      <nav class="pgnav" aria-label="Пагінація">
+        <button class="loadmore">Показати ще 24 (з 84)</button>
+        <div class="pages"><a class="on" href="?page=1">1</a><a href="?page=2">2</a><a href="?page=3">3</a><a href="?page=4">4</a><a href="?page=2">›</a></div>
+      </nav>
+    </section>
+  </div>
+
+  <!-- SEO text (always fully expanded) -->
+  <section class="seotext" id="seo" aria-label="Опис категорії">
+    <div class="h">Протеїн в Україні — купити в магазині Stack</div>
+    <p>Протеїн — базова спортивна добавка для росту й відновлення м'язів. У каталозі Stack —
+      сироватковий концентрат, ізолят, гідролізат, казеїн, комплексний і рослинний протеїн від
+      перевірених брендів. Для кожного товару показуємо склад, походження і сертифікат — щоб ви бачили, що берете.</p>
+    <p>Як обрати: для набору маси — сироватковий концентрат або комплексний, для схуднення — ізолят,
+      для ночі — казеїн. Швидка доставка Новою Поштою, оплата картою чи готівкою, повернення протягом 14 днів.</p>
+  </section>
+
+  <!-- Related internal links -->
+  <div class="relh">Схожі категорії та бренди</div>
+  <div class="relrow">
+    <a class="relbox" href="listing.html">Гейнери</a>
+    <a class="relbox" href="listing.html">Амінокислоти BCAA</a>
+    <a class="relbox" href="listing.html">Креатин</a>
+    <a class="relbox" href="listing.html">Optimum Nutrition</a>
+    <a class="relbox" href="listing.html">BioTechUSA</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<!-- inherited mobile filter bottom-sheet (injected) -->
+<div id="wf-sheet"></div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); wfBar('listing.html'); uivFixLinks(); uivBar();</script>
+</body>
+</html>

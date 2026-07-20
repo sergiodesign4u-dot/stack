@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Категорія «Протеїн» — порожня видача (wireframe 2.1)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- WIREFRAME · 2.1 STATE = empty (filters return nothing). Exit: clear filters / pick a goal.
+     Reconciled with flows.md Job 2 (empty collection → try another goal) — never a dead end. -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <span class="cur">Протеїн</span>
+  </nav>
+
+  <section aria-label="Заголовок категорії">
+    <h1 class="lh1">Протеїн <span class="cnt">0 товарів</span></h1>
+    <p class="lintro">Сироватковий, ізолят, казеїн і рослинний протеїн від перевірених брендів.
+      Для кожного товару показуємо склад, походження і сертифікат — щоб ви бачили, що берете.</p>
+  </section>
+
+  <div class="ltool">
+    <span class="ctrl count">Знайдено: 0 товарів</span>
+    <span class="sp"></span>
+    <span class="ctrl"><span class="cap">Сортування:</span> Популярні ▾</span>
+    <span class="vtoggle"><span class="on">▦</span><span>☰</span></span>
+  </div>
+  <div class="afilters">
+    <a class="clear" href="listing.html">Очистити все</a>
+    <span class="afilter">Бренд: Dymatize <button class="x" aria-label="Прибрати фільтр">✕</button></span>
+    <span class="afilter">Смак: Без смаку <button class="x" aria-label="Прибрати фільтр">✕</button></span>
+    <span class="afilter">Ціна: до 500 ₴ <button class="x" aria-label="Прибрати фільтр">✕</button></span>
+  </div>
+
+  <div class="mtoolbar">
+    <button class="mc" onclick="openSheet()">Фільтри <span class="b">3</span></button>
+    <button class="mc">Популярні ▾</button>
+  </div>
+
+  <div class="listing">
+    <aside class="frail" id="wf-rail"></aside>
+
+    <section aria-label="Результати">
+      <!-- EMPTY: visible exits — clear filters + choose a goal -->
+      <div class="empty">
+        <div class="ei">🔍</div>
+        <div class="et">За вашими фільтрами нічого не знайдено</div>
+        <div class="es">Спробуйте прибрати частину фільтрів або оберіть ціль — підберемо безпечний набір.</div>
+        <div class="eact">
+          <a class="btn dark" href="listing.html">Очистити фільтри</a>
+          <a class="btn" href="goal.html">Набір маси</a>
+          <a class="btn" href="goal.html">Схуднення</a>
+          <a class="btn" href="goal.html">Відновлення</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- SEO text stays (crawlable) even on an empty result -->
+  <section class="seotext" id="seo" aria-label="Опис категорії">
+    <div class="h">Протеїн в Україні — купити в магазині Stack</div>
+    <p>Протеїн — базова спортивна добавка для росту й відновлення м'язів. У каталозі Stack —
+      сироватковий концентрат, ізолят, гідролізат, казеїн, комплексний і рослинний протеїн від
+      перевірених брендів. Для кожного товару показуємо склад, походження і сертифікат — щоб ви бачили, що берете.</p>
+    <p>Як обрати: для набору маси — сироватковий концентрат або комплексний, для схуднення — ізолят,
+      для ночі — казеїн. Швидка доставка Новою Поштою, оплата картою чи готівкою, повернення протягом 14 днів.</p>
+  </section>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<div id="wf-sheet"></div>
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); wfBar('listing.html', 'empty'); uivFixLinks(); uivBar();</script>
+</body>
+</html>
