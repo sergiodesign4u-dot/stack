@@ -41,7 +41,7 @@ Core palette (locked, transcribed from `brand-plate-d-2.png`, not read off the p
 |---|---|---|---|
 | Ink (Soft Charcoal) | `#1C1C1C` | primary text, near-black surfaces, product base. A softened near-black, not pure `#000000` | Designer's taste (softer black), A1 |
 | Canvas | `#FFFFFF` | page background. Product photos sit on white | Designer's taste (product photos on white), A1 |
-| Signal Orange | `#FF5A00` | the ONE action accent: primary button, active or selected state, single key highlight. Never decorative, never a discount burst | B palette, A4 energy, A1 single-accent discipline |
+| Signal Orange | `#FF5A00` | the ONE action accent: primary button, active or selected state, single key highlight — plus the **reduced price** (see the price rule below). Never decorative, never a discount *burst* | B palette, A4 energy, A1 single-accent discipline |
 | Ash Grey | `#D9D9D9` | surfaces, dividers, borders, disabled | A1 |
 | Warm Neutral | `#F2F0ED` | warm section backgrounds. Keeps neutrals human, not clinical white | A3 warmth in the neutral (anti sterile-pharma) |
 
@@ -58,8 +58,13 @@ Core palette (locked, transcribed from `brand-plate-d-2.png`, not read off the p
 - Exactly one orange per view, on the single primary action. Everything else is charcoal, white, or grey. [A1, anti loud-discounter]
 - **Label on an orange fill = white, at every size (locked 2026-07-27).** One action must look like one action, so a compact «У кошик» on the sticky shelf reads the same as the full CTA in the buy box. Contrast note: white on `#FF5A00` is 3.1:1 - it clears the 3:1 bar for graphics and for large text (>=19px/700, e.g. the buy-box CTA), and sits under the 4.5:1 AA bar for small text; ink would give 5.4:1 but split one action into two visual styles. Owner's call, taken knowingly.
 - Small orange things that are **not** buttons - badges, counters, the «Новинка» tag - keep the **ink** label. There orange is a marker, not an action, and ink stays crisp at 10-12px.
+- **Price colour states the discount (locked 2026-07-29, owner's rule).** A price that is **reduced** is set in Signal Orange; a price with **no discount** stays ink. Nothing else about the price changes. So across a grid, an orange figure means exactly one thing — "cheaper than usual" — and the absence of orange is just as readable. This is the one place orange is allowed on text that is not an action, because the figure *is* the fact being marked, not decoration.
+  - Applies to every price surface: product card (grid + list), PDP buy box, PDP sticky shelf, mobile buy bar. Struck old prices, per-serving and bonus lines stay grey — small print never turns orange.
+  - The `-N%` chip keeps its muted red: the chip states the **size** of the cut, the accent marks **which** price is live. Two jobs, two marks.
+  - **Contrast gate:** `#FF5A00` on white is 3.13:1 — AA for large text only. A price is allowed the accent only at **>=19px bold**; every surface is sized to clear it (card 22 / mobile 19, list 21, buy box 36, shelf 19, buy bar 19).
+  - Implemented data-driven in `ui-visual/_theme.css` via `:has()` on the struck old price, so the colour cannot drift from the fact.
 - Error must never look like the brand accent or a celebration. Warning must be visible. [voice.md 5]
-- No discount-red bursts, no neon, no beast-mode black-plus-neon. [anti-references: loud UA discounter, beast mode]
+- No discount-red bursts, no neon, no beast-mode black-plus-neon. The rule above colours the **price itself**, which is a fact; it is not a licence for red splashes, "sale" banners or countdowns. [anti-references: loud UA discounter, beast mode]
 
 ## 4. Typography
 

@@ -135,6 +135,32 @@ body{ overflow-anchor:none; }
 .pcard .bonus{ color:var(--gold); font-weight:700; }
 .pcard .rate .st{ color:var(--ink); }
 
+/* ---- PRICE COLOUR = THE DISCOUNT RULE (owner's call 2026-07-29) --------------
+   A REDUCED price is the one figure that earns colour: it goes Signal Orange, so
+   the saving is seen before it is read. A price with NO discount stays ink, so the
+   colour never becomes decoration - across a whole grid, "orange figure" means
+   "this one is cheaper than usual" and nothing else.
+   Data-driven, not hand-tagged: :has() paints the price exactly when a struck old
+   price sits next to it, so the colour and the fact can never drift apart. Add or
+   remove an old price and the accent follows on its own.
+   Contrast: #FF5A00 on white is 3.13:1 - AA for LARGE text only, so every surface
+   that can carry an accent price keeps that figure at 19px+ bold (grid card 22 /
+   mobile 19, list 21, PDP buy box 36, sticky shelf 19, mobile buy bar 19). Struck
+   prices, per-serving lines and other small print never turn orange.
+   The -N% chip keeps its calm muted red: the chip states the SIZE of the cut, the
+   accent marks WHICH price is the live one. Two different jobs, two marks.
+   ------------------------------------------------------------------------- */
+.pcard:has(.pold) .pnew{ color:var(--orange); }        /* grid card */
+.pcard-l:has(.lold) .lprice{ color:var(--orange); }    /* list card */
+.bb:has(.old) .new{ color:var(--orange); }             /* PDP buy box */
+.pdp-tabs:has(.told) .tnew{ color:var(--orange); }     /* PDP sticky shelf */
+.mbuybar:has(.mold) .mbp b{ color:var(--orange); }     /* PDP mobile buy bar */
+/* ONE live price per view. In the coach state (product-coach) the price the user
+   actually pays is the tier price in the coach box, so the retail block above it is
+   marked .retailref and gives its accent up - it keeps the struck 1 520 ₴ and the
+   -15% chip (still honest), it just stops claiming to be the live figure. */
+.bb.retailref:has(.old) .new{ color:var(--ink); }
+
 /* ---- list view (node 2.1 "Списком"): same language, horizontal card ---- */
 .pcard-l .lnm, .pcard-l .lprice{ color:var(--ink); }
 .pcard-l .lprice, .pcard-l .lold, .pcard-l .lmeta b, .pcard-l .lmeta .st{
@@ -171,6 +197,14 @@ input[type="checkbox"], input[type="radio"]{ accent-color:var(--orange); }
 /* ---- empty / error states ---- */
 .empty{ border-color:var(--hair2); background:var(--fill2); }
 .empty .et{ color:var(--ink); }
+/* ---- loading skeletons: warm neutral, never a cold grey box on a warm page.
+   The gallery frame has a gradient of its own, so while it is a skeleton it is
+   flattened back to the plain fill - a loading frame must not look like an
+   empty product frame. ---- */
+.skline{ background:var(--fill); }
+.gal .gmain.skpulse{ background:var(--fill); border-color:var(--hair); }
+.gal .gthumb.skpulse{ background:var(--fill); border-color:var(--hair); }
+.loadnote{ color:var(--sec); }
 .afilter{ background:var(--fill); border-color:var(--hair); }
 .afilter .x{ color:var(--light); }
 /* no-results: the mascot is the calm guide here (DESIGN.md §2, empty states).
@@ -504,7 +538,10 @@ section[aria-label="Помилка"] .empty .ei img{ width:118px; height:118px; 
   .pcard .poldline{ flex-wrap:nowrap; white-space:nowrap; gap:4px; margin-bottom:2px; }
   .pcard .pold{ font-size:10px; white-space:nowrap; }
   .pcard .pcut{ font-size:10px; padding:2px 6px; }
-  .pcard .pnew{ font-size:18px; white-space:nowrap; }
+  /* 19px, not 18: a discounted price is orange here too, and the accent is only
+     allowed on text the 3:1 large-text bar covers (>=18.66px bold). Verified at
+     360/390 - «1 290 ₴» still holds one line next to the 40px cart button. */
+  .pcard .pnew{ font-size:19px; white-space:nowrap; }
   .pcard .cartbtn{ width:40px; height:40px; }
   .pcard .cartbtn .uiv-ic svg{ width:18px; height:18px; }
   .pcard .rate{ font-size:12px; }
@@ -748,11 +785,28 @@ body.pdp-stuck .wfh.uiv-scrolled{ box-shadow:none; }
    on mobile that job belongs to the sticky bottom buy bar) */
 .pdp-tabs .tprice, .pdp-tabs .tbuy{ display:none; }
 @media (min-width:860px){
-  .pdp-tabs.stuck .tprice{ display:inline; }
+  .pdp-tabs.stuck .tprice{ display:inline-grid; }
   .pdp-tabs.stuck .tbuy{ display:inline-flex; }
 }
+/* The shelf carries the WHOLE price fact, not just the live figure: when the product
+   is on sale, the struck old price + the cut sit ABOVE it, exactly as in the buy box,
+   so scrolling past the buy box never quietly drops the discount (owner's call
+   2026-07-29). Two rows, one block, vertically centred on «У кошик» - the price and
+   the action read as one unit, the way they do in the buy box and the mobile bar. */
 .pdp-tabs .tprice{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
-  word-spacing:-.24em; font-weight:600; font-size:16px; color:var(--ink); }
+  word-spacing:-.24em; font-weight:600; color:var(--ink); flex:none;
+  grid-template-columns:auto auto; column-gap:7px; align-items:center; justify-items:start;
+  line-height:1.15; margin-right:6px; }
+.pdp-tabs .tprice .told{ grid-row:1; grid-column:1; font-size:11.5px; color:var(--light);
+  text-decoration:line-through; }
+.pdp-tabs .tprice .tcut{ grid-row:1; grid-column:2; font-size:10.5px; font-weight:700;
+  background:#FBEAE7; color:var(--err); border-radius:4px; padding:1px 5px; }
+/* 19px bold: the live figure has to clear the 3:1 large-text bar to be allowed the
+   accent (see the price-colour rule above), and it matches the mobile buy bar. */
+.pdp-tabs .tprice .tnew{ grid-row:2; grid-column:1 / -1; font-size:19px; font-weight:700; }
+/* no discount on this product → the old-price row is absent and the figure is the
+   whole block, so it sits on one line and stays ink */
+.pdp-tabs .tprice:not(:has(.told)) .tnew{ grid-row:1; }
 /* same buying action as the buy box, so the same white label (see the label rule) */
 .pdp-tabs .tbuy{ background:var(--orange); color:#fff; font-weight:700; font-size:15px;
   border-radius:9px; padding:9px 17px; }
@@ -822,6 +876,9 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 .bb .bbmeta{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:11.5px; color:var(--light);
   display:flex; align-items:center; gap:10px; }
 .bb .bbavail{ color:var(--ok); font-family:'Inter', sans-serif; font-size:12.5px; font-weight:700; }
+/* out of stock is a fact, not an alarm: it steps down to secondary ink, it does not turn
+   red (same scale as the card states .pavail.out) */
+.bb .bbavail.out{ color:var(--sec); }
 /* a hairline dot between the two facts, not a wide gap */
 .bb .bbmeta .art::before{ content:"·"; margin-right:10px; color:var(--hair2); }
 .bb .bbrate{ font-size:13px; color:var(--sec); white-space:nowrap; }
@@ -1094,6 +1151,14 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 .rvbar{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
 .rvbar .track{ background:var(--hair); height:7px; }
 .rvbar .fill{ background:var(--ink); }
+/* the count column is FIXED and left-aligned (owner's call 2026-07-29): with the
+   spans sized by their own text, «103» stole width from its track and that row's bar
+   ended short of the others, so the five bars read as a ragged edge. A 3ch column
+   (mono, so 3ch = 3 digits) ends every track on the same line and starts every figure
+   on the same line - the bars compare, and the numbers read as a column. */
+.rvbar > span{ text-align:left; }
+.rvbar > span:first-child{ min-width:1ch; }
+.rvbar > span:last-child{ min-width:3ch; }
 /* flex, not inline-flex: the rating owns its line and «✓ Купив товар» drops under it
    (inline-level put the badge next to the stars and the pair read as one label) */
 .rvmeta .rstars{ display:flex; width:fit-content; align-items:center; gap:5px;

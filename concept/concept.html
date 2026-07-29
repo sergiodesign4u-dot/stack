@@ -164,6 +164,9 @@ section.block{margin-top:clamp(40px,6vw,72px)}
 .avail .dot{width:8px; height:8px; border-radius:50%; flex:none}
 .avail.in .dot{background:var(--ok)} .avail.low .dot{background:var(--warn)}
 .price .new{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--ink)}
+/* Знижена ціна = акцент, звичайна = чорнило (правило власника, 2026-07-29). Колір
+   веде від факту, а не від руки: :has() фарбує ціну рівно тоді, коли поруч є стара. */
+.price:has(.old) .new{color:var(--orange)}
 .price .old{font-family:"IBM Plex Mono",monospace; font-size:.85em; color:var(--muted); text-decoration:line-through; margin-right:8px}
 .cut{font:600 12px/1 Inter; color:var(--err); background:#fbeae7; border-radius:6px; padding:3px 7px; margin-left:8px}
 .serv b{font-family:"IBM Plex Mono",monospace}
@@ -353,7 +356,7 @@ section.block{margin-top:clamp(40px,6vw,72px)}
     <div class="sw-grid">
       <div class="sw"><div class="chip" style="background:#1C1C1C"></div><div class="meta"><div class="nm">Ink</div><div class="hex">#1C1C1C</div><div class="role">Текст, темні поверхні, база продукту. М'який near-black, не чистий чорний.</div><span class="att">A1 · таст: м'якший чорний</span></div></div>
       <div class="sw"><div class="chip" style="background:#FFFFFF; border-bottom:1px solid var(--line)"></div><div class="meta"><div class="nm">Canvas</div><div class="hex">#FFFFFF</div><div class="role">Тло сторінки. Фото товару лежить на білому.</div><span class="att">таст: товар на білому</span></div></div>
-      <div class="sw"><div class="chip" style="background:#FF5A00"></div><div class="meta"><div class="nm">Signal Orange</div><div class="hex">#FF5A00</div><div class="role">Єдиний акцент дії: кнопка, активний стан, один ключовий хайлайт.</div><span class="att">A4 + A1 · один акцент</span></div></div>
+      <div class="sw"><div class="chip" style="background:#FF5A00"></div><div class="meta"><div class="nm">Signal Orange</div><div class="hex">#FF5A00</div><div class="role">Єдиний акцент дії: кнопка, активний стан, один ключовий хайлайт. Плюс <b>знижена ціна</b> - єдиний текст-не-дія, якому дозволено акцент (від 19px bold): оранжева цифра означає рівно одне - «дешевше, ніж зазвичай». Ціна без знижки лишається чорнилом.</div><span class="att">A4 + A1 · один акцент</span></div></div>
       <div class="sw"><div class="chip" style="background:#D9D9D9"></div><div class="meta"><div class="nm">Ash</div><div class="hex">#D9D9D9</div><div class="role">Поверхні, роздільники, межі, disabled.</div><span class="att">A1</span></div></div>
       <div class="sw"><div class="chip" style="background:#F2F0ED; border-bottom:1px solid var(--line)"></div><div class="meta"><div class="nm">Warm Neutral</div><div class="hex">#F2F0ED</div><div class="role">Теплі секції (напр. гід). Робить нейтраль людяною, не клінічною.</div><span class="att">A3 · тепло в нейтралі</span></div></div>
       <div class="sw"><div class="chip" style="background:#2E7D46"></div><div class="meta"><div class="nm">Success</div><div class="hex">#2E7D46</div><div class="role">Наявність, підтвердження. Спокійний, не святковий.</div><span class="att">voice.md · стани</span></div></div>

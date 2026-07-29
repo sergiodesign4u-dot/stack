@@ -4,18 +4,51 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Gold Standard 100% Whey 2270 г - Stack (wireframe 3.0)</title>
+<title>Gold Standard 100% Whey 2270 г - Кабінет тренера (wireframe 3.0 · coach)</title>
 <link rel="stylesheet" href="../wireframes/_wf.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="_theme.css">
+<style>
+  /* COLOR LAYER · PDP coach state (3.0). The coach box is the ONE thing that is not on
+     the buyer's page, so it is drawn as a real panel, not a note: ink frame, warm floor,
+     the tier price in the accent - because for this user THAT is the live price.
+     The retail block above it therefore drops its accent (see .bb.retailref in
+     _theme.css): one view, one live price. */
+  .coachbox { border: 1.5px solid var(--ink); background: var(--fill2); border-radius: 14px;
+    padding: 15px 17px; margin: 16px 0 4px; }
+  .coachbox .cbh { display: flex; align-items: center; gap: 8px; font: 700 11.5px/1 'Inter', sans-serif;
+    text-transform: uppercase; letter-spacing: .05em; color: var(--ink); }
+  .coachbox .cbh .cbtier { font-size: 10px; letter-spacing: .04em; color: #fff; background: var(--ink);
+    border-radius: 20px; padding: 3px 8px; }
+  .coachbox .cbrow { display: flex; align-items: baseline; gap: 10px; margin-top: 10px; flex-wrap: wrap;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums;
+    word-spacing: -.24em; }
+  .coachbox .cbnew { font-size: 28px; font-weight: 600; letter-spacing: -.02em; color: var(--orange); }
+  .coachbox .cbold { font-size: 14px; color: var(--light); text-decoration: line-through; }
+  .coachbox .cbsave { font: 700 11.5px/1 'IBM Plex Mono', ui-monospace, monospace; color: var(--err);
+    background: #FBEAE7; border-radius: 5px; padding: 3px 7px; }
+  .coachbox .cbnote { font: 400 13px/1.55 'Inter', sans-serif; color: var(--sec); margin-top: 8px; }
+  .clientpick { margin: 16px 0 2px; }
+  .clientpick label { display: block; font: 700 12px/1 'Inter', sans-serif; color: var(--light);
+    text-transform: uppercase; letter-spacing: .05em; margin-bottom: 7px; }
+  .clientpick select { border: 1.5px solid var(--hair2); border-radius: 10px; padding: 12px 13px;
+    font: 500 15px/1.2 'Inter', sans-serif; color: var(--ink); width: 100%; max-width: 280px; background: #fff; }
+  .clientpick select:focus { outline: none; border-color: var(--orange); }
+  /* the chip says WHICH tier, not how big the cut - so it is a neutral mark, never the
+     red discount chip (shelf + mobile buy bar) */
+  .pdp-tabs .tprice .tcut.ttier,
+  .mbuybar .mbp .mcut.ttier { background: var(--fill); color: var(--sec); font-weight: 600; }
+  .coachbox .cbh .uiv-ic svg { width: 17px; height: 17px; }
+</style>
 </head>
 <body>
 <!-- ============================================================
-  WIREFRAME · node 3.0 Картка товару / PDP (base = in stock).
-  Job 4: verify safe/certified/dosed - TRUST IS THE LEAD under the buy box.
-  Conversion step of Job 2/3. States: loading, error, oos, reviews (Job 3), coach.
+  WIREFRAME · node 3.0 Картка товару / PDP · STATE = coach (Job 1).
+  The same product page seen by a COACH: coach-tier price + «Додати клієнту»
+  instead of «У кошик». Buyers never see this box, so a retail buyer never
+  holds off waiting for a cheaper price (coach.md 5.5).
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 <div class="wf-canvas">
@@ -40,13 +73,13 @@
     <a href="#rev">Відгуки</a>
     <a href="#qa">Питання</a>
     <span class="tsp"></span>
-    <!-- the shelf repeats the price the way the buy box states it: struck old price +
-         cut above, the live (accent, because reduced) figure under them -->
+    <!-- coach shelf: the live price here is the TIER price, so the retail figure is the
+         struck one above it and the accent sits on what the coach actually pays -->
     <span class="tprice">
-      <span class="told">1 520 ₴</span><span class="tcut">−15%</span>
-      <b class="tnew">1 290 ₴</b>
+      <span class="told">1 290 ₴</span><span class="tcut ttier">гурт</span>
+      <b class="tnew">1 090 ₴</b>
     </span>
-    <a class="tbuy" href="cart.html">У кошик</a>
+    <a class="tbuy" href="coach-session.html">Додати клієнту</a>
   </nav>
 
   <!-- Gallery + buy box -->
@@ -58,7 +91,9 @@
       </div>
     </div>
 
-    <div class="bb">
+    <!-- .retailref = this price block is the RETAIL reference, not what this user pays,
+         so it keeps the struck old price but gives the accent up to the coach box -->
+    <div class="bb retailref">
       <div class="eyebrow"><a href="listing.html">Optimum Nutrition</a> · США</div>
       <h1>Gold Standard 100% Whey 2270 г</h1>
       <!-- one line: availability + SKU left, rating right (owner's call 2026-07-27) -->
@@ -93,16 +128,36 @@
         <div class="pbl">
           <div class="oldrow"><span class="old">1 520 ₴</span><span class="cut">−15%</span></div>
           <div class="new">1 290 ₴</div>
-          <!-- Coach-tier price shown ONLY in coach mode (product-coach state), not to buyers -
-               so regular buyers don't hold off waiting for a cheaper coach price. -->
         </div>
         <div class="buyrow">
-          <a class="addcart" href="cart.html">У кошик</a>
+          <a class="addcart" href="coach-session.html">Додати клієнту</a>
           <button class="wish" aria-label="В обране">♡</button>
         </div>
         <!-- per-serving + bonus sit UNDER both columns, so the figure and the action
              stay on one baseline and the small print never pushes them apart -->
-        <div class="perserv">≈ 18 ₴ / порція · +13 ₴ бонус на рахунок</div>
+        <div class="perserv">Роздрібна ціна · ≈ 18 ₴ / порція</div>
+      </div>
+
+      <!-- COACH-TIER PRICE - shown ONLY in coach mode, never to regular buyers -->
+      <div class="coachbox">
+        <div class="cbh">🎓 Гуртова ціна тренера <span class="cbtier">Pro</span></div>
+        <div class="cbrow">
+          <span class="cbnew">1 090 ₴</span>
+          <span class="cbold">1 290 ₴</span>
+          <span class="cbsave">−200 ₴ / шт</span>
+        </div>
+        <div class="cbnote">Ваша тарифна ціна для замовлень клієнтам. Що більше товарів у сесії -
+          то вигідніша поставка.</div>
+      </div>
+
+      <div class="clientpick">
+        <label for="cl">Додати клієнту</label>
+        <select id="cl" aria-label="Оберіть клієнта">
+          <option>Андрій - Набір маси</option>
+          <option>Марія - Схуднення</option>
+          <option>Ігор - Витривалість</option>
+          <option>+ Новий клієнт…</option>
+        </select>
       </div>
 
       <div class="simple">Сироватковий протеїн для росту та відновлення м'язів. 24 г білка на порцію - базова добавка для набору маси й підтримки форми.</div>
@@ -369,8 +424,8 @@
 
 <!-- sticky mobile buy bar (after buy box scrolls off) -->
 <div class="mbuybar">
-  <div class="mbp"><span class="mold">1 520 ₴</span><span class="mcut">−15%</span><b>1 290 ₴</b></div>
-  <a class="mba" href="cart.html">У кошик</a>
+  <div class="mbp"><span class="mold">1 290 ₴</span><span class="mcut ttier">гурт</span><b>1 090 ₴</b></div>
+  <a class="mba" href="coach-session.html">Додати клієнту</a>
 </div>
 
 <div id="wf-sheet"></div>
@@ -378,7 +433,7 @@
 <div id="wf-toast"></div>
 <script src="../wireframes/_nav.js"></script>
 <script src="_uivis.js"></script>
-<script>wfHeader(); wfFooter(); wfToasts(); wfPdpModals(); wfBar('product.html');
+<script>wfHeader('coach'); wfFooter(); wfToasts(); wfPdpModals(); wfBar('product.html', 'coach');
         uivFixLinks(); uivBar(); uivChrome(); uivPdp();</script>
 </body>
 </html>

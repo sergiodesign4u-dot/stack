@@ -20,7 +20,8 @@
 var UIV_SET = [
   'listing.html', 'listing-empty.html', 'listing-error.html', 'listing-loading.html',
   'listing-filtered.html', 'listing-list.html', 'listing-sheet.html',
-  'product.html'
+  'product.html', 'product-loading.html', 'product-error.html', 'product-oos.html',
+  'product-reviews.html', 'product-coach.html'
 ];
 
 function uivFixLinks(){
@@ -81,6 +82,8 @@ var UIV_P = {
   clock:'<circle cx="12" cy="12" r="8.3"/><path d="M12 7.4V12l3.2 2"/>',
   /* allergen warning: a triangle, not the error glyph - it cautions, it is not a failure */
   alert:'<path d="M12 4.3 21 19.7H3z"/><path d="M12 10.2v4.1"/><circle cx="12" cy="17" r=".95" fill="currentColor" stroke="none"/>',
+  /* coach tier: a graduation cap - the coach badge on the PDP coach state */
+  cap:'<path d="M2.8 9.2 12 5l9.2 4.2-9.2 4.2z"/><path d="M6.8 11.5v4.1c0 1.5 2.3 2.6 5.2 2.6s5.2-1.1 5.2-2.6v-4.1"/><path d="M20.6 9.9v4.4"/>',
   /* certificate / document with a verified mark (PDP trust strip) */
   doc:'<path d="M6 3.6h7.4L18 8.2V20a.6.6 0 0 1-.6.6H6a.6.6 0 0 1-.6-.6V4.2A.6.6 0 0 1 6 3.6z"/><path d="M13.2 3.8v4.6h4.6"/><path d="M8.6 14.1l2.1 2.1 4.4-4.6"/>'
 };
@@ -91,7 +94,7 @@ var UIV_EMOJI = {
   '🛒':'cart','🔍':'search','📍':'pin','☰':'burger','▦':'grid','▾':'chevron','▲':'chevUp','›':'caret','🔔':'bell',
   '🥛':'jar','🍚':'cup','⚗️':'flask','🧬':'dna','⚡':'bolt','🔥':'flame','💧':'drop','🍫':'bar',
   '💊':'capsule','🧴':'dumbbell','🏷️':'tag','🌿':'leaf','🛡️':'shield','💪':'trending','🏃':'pulse',
-  '🎯':'target','✦':'spark'
+  '🎯':'target','✦':'spark','🎓':'cap'
 };
 var UIV_RE = new RegExp('(' + Object.keys(UIV_EMOJI)
   .sort(function(a,b){ return b.length - a.length; })
@@ -172,6 +175,10 @@ function uivChrome(){
      pager "next" caret. Scoped per element so the view-toggle (☰ → list, handled
      below) is never caught by the global ☰ → burger mapping. */
   document.querySelectorAll('.ltool .ctrl, .mtoolbar .mc, .pages').forEach(uivIcons);
+  /* PDP state pages carry two content glyphs of their own: the OOS «🔔 Повідомити»
+     button and the coach-tier header (🎓). Scoped per element - no other body copy
+     is ever touched by the icon swap. */
+  document.querySelectorAll('.oosbtn, .coachbox .cbh').forEach(uivIcons);
   /* product-card fav heart (♡) → outline heart icon; grid uses .fav, list uses .lfav */
   document.querySelectorAll('.fav, .lfav').forEach(function(b){
     if(/[♡♥]/.test(b.textContent)) b.innerHTML = uivWrap('heart');
@@ -470,12 +477,16 @@ function uivPdpTabs(){
 
 function uivPdp(){
   var pdp = document.querySelector('.pdp');
-  if(!pdp || pdp.dataset.uiv) return;
-  pdp.dataset.uiv = '1';
+  /* the reviews-recovery state (3.0 · reviews) is a PDP page with no gallery and no buy
+     box at all - the polish below (stars, trust icons, certificate seal, ₴) still has to
+     run there, so the whole page is the fallback root and the gallery steps are guarded */
+  var root = pdp || document.querySelector('main.wf-page');
+  if(!root || root.dataset.uiv) return;
+  root.dataset.uiv = '1';
   uivPdpTabs();
 
   /* gallery: real photo in the main frame, thumbs = crops of the same shot */
-  var main = pdp.querySelector('.gmain');
+  var main = pdp && pdp.querySelector('.gmain');
   if(main){
     var tag = main.querySelector('.gtag');
     var img = document.createElement('img');
@@ -504,7 +515,7 @@ function uivPdp(){
   /* variant groups: the label carries the CHOSEN value («Смак: Подвійний шоколад»),
      so the current pick is readable without scanning the pills - and picking another
      one actually switches, label included. Sold-out options stay unpickable. */
-  pdp.querySelectorAll('.vgroup').forEach(function(g){
+  root.querySelectorAll('.vgroup').forEach(function(g){
     var lbl = g.querySelector('.vlbl'), opts = [].slice.call(g.querySelectorAll('.vopt'));
     if(!lbl || !opts.length) return;
     var sel = document.createElement('span');
@@ -527,7 +538,7 @@ function uivPdp(){
   });
 
   /* wishlist heart → the icon set; filled orange once added (mirrors the card fav) */
-  var wish = pdp.querySelector('.wish');
+  var wish = root.querySelector('.wish');
   if(wish && /[♡♥]/.test(wish.textContent)){
     wish.innerHTML = uivWrap('heart');
     wish.addEventListener('click', function(){ wish.classList.toggle('on'); });
@@ -607,7 +618,7 @@ function uivPdp(){
   });
 
   /* PDP prices are built/rewritten above, so shrink their ₴ after the fact */
-  uivCurrency(pdp);
+  uivCurrency(root);
   uivCurrency(document.querySelector('.mbuybar'));
   uivCurrency(document.querySelector('.pdp-tabs'));
 }
