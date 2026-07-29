@@ -55,6 +55,10 @@
    (the sticky header variant — main bar only, no meta bar) and becomes part of it**; on the right it
    gains a **compact price (with or without discount) + «Купити» + ♡** so the action is reachable at any
    scroll depth. Active tab highlights by scroll position. (Header sticky variant spec: `navigation.md`.)
+   **The shelf carries the WHOLE price fact, not just the live figure (locked 2026-07-29):** when the
+   product is discounted, the struck old price + the −% badge sit ABOVE the figure, exactly as in the
+   buy box, and the two-row block is vertically centred on the CTA. A discount the page states must
+   not disappear in the bar that actually sells.
 2. **Gallery** — product photos (main + thumbs); zoom; lazy-loaded below the first image.
 3. **Buy box** (right column on desktop, under gallery on mobile):
    - **brand · country eyebrow ABOVE the H1** (brand → 2.4), then the **H1** product name (with
@@ -71,7 +75,10 @@
      2026-06-30, refined from "beside the new price"); **per-serving price** («≈ X ₴ / порція»); coach
      sees **tier price**. No discount → just the main price (no struck price / badge).
    - **Variant selectors** — Смак · Фасування/вага (disabled when a variant is out of stock).
-   - **Quantity** stepper.
+   - **Price and action share ONE row (locked 2026-07-29):** the figure on the left, the CTA + ♡ on
+     the right, per-serving / bonus small print full-width under both; on phones (≤479px) they stack.
+     **No quantity stepper** — quantity is a cart job, and on a PDP a stepper only delays the one
+     clear action (this supersedes the earlier "Quantity stepper" line).
    - **Primary CTA «У кошик»** (→ Cart 6.0) + **♡ wishlist** (→ 7.6). Coach session → «Додати клієнту».
    - **Delivery + Payment block (under the CTA, decided 2026-06-30; row layout locked 2026-07-27):**
      - **One row per method: icon · method over term · price on the right.** Price and term are two
@@ -126,7 +133,8 @@
    linking + AOV). Canonical product cards.
 11. **Статті по темі (blog 8.0/8.1)** — article teasers related to the product (helps the beginner /
    Job 2 + SEO; calm, no selling).
-12. **Sticky buy bar (mobile)** — price + «У кошик», visible after the buy box scrolls off.
+12. **Sticky buy bar (mobile)** — price + «У кошик», visible after the buy box scrolls off. Same rule
+   as the shelf: a discounted product shows the struck price + −% above the live figure.
 13. **Footer** — inherited (0.2).
 
 ## States
@@ -216,7 +224,13 @@ are always above the fold**. Tab «Каталог» active.
   out of the buy box.
 - **Trust block is the lead** (Склад + **on-pack composition photo** · Дозування · Походження ·
   Сертифікація), **sections open by default, collapsible**; **опис** (full copy + extra photos) after.
-- Single primary CTA «У кошик» + sticky mobile bar; lead-with-simple-answer + depth.
+- Single primary CTA «У кошик» + sticky mobile bar; lead-with-simple-answer + depth. **Price and CTA
+  on one row, no quantity stepper** (locked 2026-07-29).
+- **Price colour states the discount (locked 2026-07-29; full rule in `DESIGN.md` §3 Color).** A
+  reduced price is set in the accent, a price with no discount stays ink — on every price surface
+  (card, buy box, sticky shelf, mobile bar). Consequences on this page: **out of stock carries no
+  accent** (nothing to act on), and in the **coach state the live price is the tier price**, so the
+  retail block above it keeps its struck price but gives the accent up (one live price per view).
 - Variants on one canonical PDP (params canonical to base, OOS variants disabled not hidden).
 - Calm honest availability with «Повідомити» + route back to collection (no dead end).
 - **Reviews (3.1):** name+rating+date LEFT ↔ text RIGHT; **Переваги/Недоліки** (may be empty);

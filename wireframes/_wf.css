@@ -765,9 +765,20 @@ html { overflow-x: hidden; }
 .pdp-tabs a { flex: none; font-size: 13px; font-weight: 600; color: var(--sec); padding: 6px 12px; border-radius: 100px; white-space: nowrap; }
 .pdp-tabs a.on { background: var(--dark); color: #fff; }
 .pdp-tabs .tsp { flex: 1; }
-.pdp-tabs .tprice { display: none; font-weight: 800; color: var(--strong); font-size: 15px; white-space: nowrap; }
+/* the shelf repeats the WHOLE price fact, not just the figure (synced 2026-07-29):
+   struck old price + −% chip on the top row, the live figure under them, the two-row
+   block vertically centred on «У кошик» — the same story the buy box tells. */
+.pdp-tabs .tprice { display: none; flex: none; grid-template-columns: auto auto; column-gap: 7px;
+  align-items: center; justify-items: start; line-height: 1.15; color: var(--strong);
+  white-space: nowrap; margin-right: 6px; }
+.pdp-tabs .tprice .told { grid-row: 1; grid-column: 1; font-size: 11.5px; color: #aaa; text-decoration: line-through; }
+.pdp-tabs .tprice .tcut { grid-row: 1; grid-column: 2; font-size: 10.5px; font-weight: 800;
+  background: var(--dark); color: #fff; border-radius: 4px; padding: 1px 5px; }
+.pdp-tabs .tprice .tnew { grid-row: 2; grid-column: 1 / -1; font-size: 17px; font-weight: 800; }
+/* no discount → the figure is the whole block and sits on one line */
+.pdp-tabs .tprice:not(:has(.told)) .tnew { grid-row: 1; }
 .pdp-tabs .tbuy { display: none; }
-@media (min-width: 860px) { .pdp-tabs { top: 87px; } .pdp-tabs .tprice { display: inline; } .pdp-tabs .tbuy { display: inline-flex; background: var(--dark); color: #fff; border-radius: 8px; padding: 7px 14px; font-size: 13px; font-weight: 700; margin-left: 10px; } }
+@media (min-width: 860px) { .pdp-tabs { top: 87px; } .pdp-tabs .tprice { display: inline-grid; } .pdp-tabs .tbuy { display: inline-flex; background: var(--dark); color: #fff; border-radius: 8px; padding: 7px 14px; font-size: 13px; font-weight: 700; margin-left: 10px; } }
 
 .pdp { display: grid; grid-template-columns: 1fr; gap: 22px; }
 @media (min-width: 860px) { .pdp { grid-template-columns: minmax(0, 1fr) 420px; align-items: start; } }
@@ -783,8 +794,28 @@ html { overflow-x: hidden; }
 .bb .bbrate { font-size: 13px; color: var(--light); } .bb .bbrate .st { color: var(--strong); font-weight: 700; }
 .bb .bbmeta { font-size: 12.5px; color: var(--sec); margin: 8px 0; display: flex; gap: 14px; flex-wrap: wrap; }
 .bb .bbavail { font-weight: 700; color: var(--strong); }
+/* out of stock is a fact, not an alarm: it steps down in tone, it never becomes a red
+   pill (contract §2 - no colour semantics) */
+.bb .bbavail.out { color: var(--sec); }
+/* status line, ONE row under the H1 (locked 2026-07-27): availability + SKU on the
+   left, rating + review count on the right. Two facts of the same weight share a row
+   instead of stacking two thin lines; under 480px they stack, rating first. */
+.bb .bbline { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 18px; margin: 9px 0 4px; }
+.bb .bbline .bbmeta, .bb .bbline .bbrate { margin: 0; }
+.bb .bbline .bbmeta { align-items: center; gap: 10px; }
+.bb .bbmeta .art::before { content: "·"; margin-right: 10px; color: var(--hair2); }
+@media (max-width: 479px) { .bb .bbline { gap: 3px 14px; } .bb .bbline .bbrate { order: -1; } }
 .bb .simple { font-size: 14px; color: var(--ink); background: var(--fill2); border: 1px solid var(--hair); border-radius: 10px; padding: 11px 13px; margin: 12px 0; }
-.bb .priceblk { margin: 14px 0; }
+/* price and action share ONE row (synced from the coloured PDP 2026-07-29): the
+   figure on the left, «У кошик» + ♡ on the right, the small print full-width under
+   both. No quantity stepper — quantity is a cart job, here it only delays the one
+   clear action. */
+.bb .priceblk { margin: 14px 0; padding: 16px 0; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);
+  display: grid; grid-template-columns: auto minmax(200px, 1fr); column-gap: 22px; row-gap: 9px; align-items: center; }
+.bb .priceblk .pbl { grid-column: 1; }
+.bb .priceblk .buyrow { grid-column: 2; margin: 0; }
+.bb .priceblk .perserv { grid-column: 1 / -1; margin-top: 0; }
+@media (max-width: 479px) { .bb .priceblk { grid-template-columns: 1fr; row-gap: 14px; } .bb .priceblk .buyrow { grid-column: 1; } }
 .bb .oldrow { display: flex; align-items: center; gap: 8px; min-height: 18px; }
 .bb .old { font-size: 14px; color: #aaa; text-decoration: line-through; }
 .bb .cut { background: var(--dark); color: #fff; font-size: 11px; font-weight: 800; border-radius: 4px; padding: 1px 7px; }
@@ -798,15 +829,29 @@ html { overflow-x: hidden; }
 .bb .vopt.on { border-color: var(--dark); background: var(--dark); color: #fff; }
 .bb .vopt.off { color: #bbb; text-decoration: line-through; border-style: dashed; }
 .bb .buyrow { display: flex; gap: 10px; align-items: center; margin: 16px 0; }
-.qty { display: flex; align-items: center; border: 1.5px solid var(--hair2); border-radius: 9px; }
-.qty button { width: 40px; height: 46px; font-size: 18px; color: var(--strong); }
-.qty .qn { width: 40px; text-align: center; font-weight: 700; }
 .bb .addcart { flex: 1; background: var(--dark); color: #fff; border-radius: 9px; padding: 15px; font-size: 15px; font-weight: 700; text-align: center; }
 .bb .wish { width: 50px; height: 50px; flex: none; border: 1.5px solid var(--hair2); border-radius: 9px; font-size: 18px; color: var(--faint); }
+/* delivery + payment: ONE row per method — mark · method over term · price on the
+   right (locked 2026-07-27). Term and price are two different answers (when it
+   arrives / what it costs) and must not be glued into one string. Free is stated in
+   words. The city chip in the header is the one input that changes every number
+   below, so it is a real control and opens the «Оберіть місто» dialog (0.1a). */
 .bb .dpblk { border: 1px solid var(--hair); border-radius: 12px; padding: 14px; margin-top: 14px; font-size: 13px; }
+.bb .dphead { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .bb .dph { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); margin: 4px 0 8px; }
-.bb .dprow { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; color: var(--ink); }
-.bb .dprow b { color: var(--strong); }
+.bb .dph2 { margin-top: 14px; padding-top: 13px; }
+.bb .dpcity { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--hair2); border-radius: 8px;
+  padding: 4px 9px; margin-bottom: 6px; font-size: 12.5px; font-weight: 700; color: var(--strong); background: #fff; cursor: pointer; }
+.bb .dpcity .dpcar { font-size: 10px; color: var(--light); }
+.bb .dprow { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center;
+  column-gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--hair); color: var(--ink); }
+.bb .dpic { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px;
+  border-radius: 10px; background: var(--fill); font-size: 10px; font-weight: 800; color: var(--sec); }
+.bb .dpt b { display: block; font-weight: 700; color: var(--strong); line-height: 1.3; }
+.bb .dpt span { display: block; margin-top: 2px; font-size: 12px; color: var(--sec); }
+.bb .dpp { font-weight: 700; color: var(--strong); white-space: nowrap; text-align: right; }
+.bb .dppay { display: flex; flex-wrap: wrap; gap: 6px; }
+.bb .paych { border: 1px solid var(--hair2); border-radius: 7px; padding: 4px 9px; font-size: 12px; color: var(--sec); }
 
 .truststrip { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 28px 0 20px; }
 @media (min-width: 720px) { .truststrip { grid-template-columns: repeat(4, 1fr); } }
@@ -824,8 +869,54 @@ html { overflow-x: hidden; }
 .ctable th, .ctable td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--hair); }
 .ctable th { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); }
 .ctable td b { color: var(--strong); }
-.allerg { font-size: 12.5px; color: var(--sec); margin-top: 10px; }
-.onpack { margin-top: 12px; height: 120px; border: 1px dashed var(--hair2); border-radius: 10px; background: var(--fill); display: flex; align-items: center; justify-content: center; color: var(--light); font-size: 12px; }
+.fullcomp { background: var(--fill2); border: 1px solid var(--hair); border-radius: 10px;
+  padding: 11px 13px; margin-top: 10px; font-size: 12.5px; line-height: 1.55; color: var(--ink); }
+/* allergens are pulled OUT of the ingredient paragraph (locked 2026-07-27): a safety
+   fact must be findable in one glance, so it gets its own block with a warning mark.
+   Greyscale: weight + the ⚠ glyph carry it, never a colour (contract §2). */
+.allerg { display: flex; align-items: flex-start; gap: 9px; margin-top: 9px; font-size: 12.5px;
+  line-height: 1.5; color: var(--ink); border: 1px solid var(--hair2); border-radius: 10px; padding: 11px 13px; }
+.allerg .algic { flex: none; font-weight: 800; color: var(--strong); }
+.allerg b { color: var(--strong); font-weight: 800; }
+.allerg .algv { font-weight: 800; color: var(--strong); letter-spacing: .02em; }
+/* the composition label as printed on the pack, shown LARGE (locked 2026-07-27):
+   the same figures as .ctable above, laid out the way the buyer will check them
+   against the jar in their hand. Built in DOM, never a generated image — this block
+   exists to be read. */
+.packlabel { margin: 16px 0 0; }
+.pl-panel { border: 1px solid var(--hair2); border-radius: 14px; background: var(--fill); padding: 16px; display: grid; gap: 16px; }
+@media (min-width: 720px) {
+  .pl-panel { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 20px; padding: 20px; align-items: stretch; }
+  .pl-foot { grid-column: 1 / -1; }
+}
+.pl-facts { background: #fff; border: 1px solid var(--hair); border-radius: 10px; padding: 14px 15px 12px; }
+.pl-h { font-size: 18px; font-weight: 800; color: var(--strong); line-height: 1.1; border-bottom: 2px solid var(--dark); padding-bottom: 7px; }
+.pl-serv { font-size: 12.5px; line-height: 1.45; padding: 7px 0; border-bottom: 1px solid var(--hair); color: var(--ink); }
+.pl-cal { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 2px solid var(--dark); }
+.pl-cal span { font-size: 12.5px; font-weight: 700; color: var(--sec); }
+.pl-cal b { font-size: 22px; font-weight: 800; color: var(--strong); line-height: 1; }
+.pl-t { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.pl-t th { text-align: left; font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--sec);
+  padding: 6px 0 5px; border-bottom: 1px solid var(--hair2); }
+.pl-t th:last-child, .pl-t td:last-child { text-align: right; white-space: nowrap; }
+.pl-t td { padding: 6px 0; border-bottom: 1px solid var(--hair); line-height: 1.35; color: var(--ink); }
+.pl-t tr:last-child td { border-bottom: none; }
+.pl-note { font-size: 10.5px; line-height: 1.4; color: var(--light); padding-top: 8px; border-top: 1px solid var(--hair2); margin-top: 2px; }
+.pl-right { display: grid; gap: 14px; grid-template-rows: auto 1fr; align-content: stretch; }
+.pl-how { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; text-align: center;
+  padding-bottom: 14px; border-bottom: 1px solid var(--hair2); }
+.pl-hw { display: grid; justify-items: center; gap: 2px; }
+/* :empty so the placeholder box disappears the moment a real icon is injected */
+.pl-hw .pl-ic:empty { width: 26px; height: 26px; border: 1px solid var(--hair2); border-radius: 7px; margin-bottom: 4px; }
+.pl-hw b { font-size: 14px; font-weight: 800; color: var(--strong); }
+.pl-hw span:not(.pl-ic) { font-size: 10.5px; line-height: 1.35; color: var(--sec); }
+.pl-ing { background: #fff; border: 1px solid var(--hair); border-radius: 10px; padding: 12px 14px; font-size: 12.5px; line-height: 1.5; color: var(--ink); }
+.pl-ing b { font-weight: 800; color: var(--strong); }
+.pl-alg { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--hair); }
+.pl-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; border-top: 1px solid var(--hair2);
+  padding-top: 12px; font-size: 10.5px; line-height: 1.4; color: var(--sec); }
+.pl-mark { width: 17px; height: 17px; flex: none; background: var(--fill2); border-radius: 4px; }
+.packlabel figcaption { font-size: 12px; color: var(--light); margin-top: 9px; }
 /* PDP description — stacked blocks: text, then a picture below it (repeatable) */
 .pdesc { display: flex; flex-direction: column; gap: 28px; margin-top: 12px; max-width: 900px; }
 .pd-tx { color: var(--sec); font-size: 14px; line-height: 1.6; }
@@ -846,6 +937,13 @@ html { overflow-x: hidden; }
 .rvbig .s { font-size: 13px; color: var(--sec); margin-top: 4px; }
 .rvbars { display: flex; flex-direction: column; gap: 5px; }
 .rvbar { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--sec); }
+/* the count column is FIXED and left-aligned: sized by its own text, «103» stole width
+   from its track and that row's bar ended short of the others - five bars that should
+   compare read as a ragged edge (fixed 2026-07-29; px, not ch, because the wireframe
+   font is proportional) */
+.rvbar > span { text-align: left; }
+.rvbar > span:first-child { min-width: 9px; }
+.rvbar > span:last-child { min-width: 26px; }
 .rvbar .track { flex: 1; height: 6px; background: var(--fill); border-radius: 4px; overflow: hidden; }
 .rvbar .fill { height: 100%; background: var(--dark); }
 .rvitem { border-top: 1px solid var(--hair); padding: 16px 0; display: grid; grid-template-columns: 1fr; gap: 10px; }
@@ -866,7 +964,14 @@ html { overflow-x: hidden; }
 
 .mbuybar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: #fff; border-top: 1px solid var(--hair); display: flex; gap: 12px; align-items: center; padding: 10px 16px; }
 @media (min-width: 860px) { .mbuybar { display: none; } }
-.mbuybar .mbp { font-size: 19px; font-weight: 800; color: var(--strong); }
+/* the same price story as the buy box: struck price + −% above, the figure below.
+   A discount the page shows must not vanish in the bar that actually sells. */
+.mbuybar .mbp { display: grid; grid-template-columns: auto auto; column-gap: 7px; align-items: center;
+  font-size: 19px; font-weight: 800; color: var(--strong); line-height: 1.15; }
+.mbuybar .mbp .mold { grid-row: 1; grid-column: 1; font-size: 12px; color: #aaa; text-decoration: line-through; }
+.mbuybar .mbp .mcut { grid-row: 1; grid-column: 2; font-size: 11px; font-weight: 800;
+  background: var(--dark); color: #fff; border-radius: 4px; padding: 1px 6px; }
+.mbuybar .mbp b { grid-row: 2; grid-column: 1 / -1; font-size: 19px; font-weight: 800; }
 .mbuybar .mba { flex: 1; background: var(--dark); color: #fff; border-radius: 9px; padding: 13px; font-size: 15px; font-weight: 700; text-align: center; }
 
 /* ---------- prototype bar (thin, top of every screen; from _nav.js) ---------- */

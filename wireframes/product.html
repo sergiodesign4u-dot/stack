@@ -36,7 +36,12 @@
     <a href="#rev">Відгуки</a>
     <a href="#qa">Питання</a>
     <span class="tsp"></span>
-    <span class="tprice">1 290 ₴</span>
+    <!-- the shelf repeats the price the way the buy box states it: struck old price +
+         cut above, the live figure under them -->
+    <span class="tprice">
+      <span class="told">1 520 ₴</span><span class="tcut">−15%</span>
+      <b class="tnew">1 290 ₴</b>
+    </span>
     <a class="tbuy" href="cart.html">У кошик</a>
   </nav>
 
@@ -52,8 +57,11 @@
     <div class="bb">
       <div class="eyebrow"><a href="listing.html">Optimum Nutrition</a> · США</div>
       <h1>Gold Standard 100% Whey 2270 г</h1>
-      <div class="bbrate"><a href="#rev"><span class="st">★ 4.8</span> · 126 відгуків</a></div>
-      <div class="bbmeta"><span>Артикул: ON-GS-2270</span><span class="bbavail">● В наявності</span></div>
+      <!-- one line: availability + SKU left, rating right (locked 2026-07-27) -->
+      <div class="bbline">
+        <div class="bbmeta"><span class="bbavail">● В наявності</span><span class="art">Артикул: ON-GS-2270</span></div>
+        <div class="bbrate"><a href="#rev"><span class="st">★ 4.8</span> · 126 відгуків</a></div>
+      </div>
 
       <div class="vgroup">
         <div class="vlbl">Фасування</div>
@@ -73,29 +81,56 @@
         </div>
       </div>
 
+      <!-- Price and action share ONE row: the figure on the left, «У кошик» + ♡ on the
+           right. No qty stepper - quantity is a cart job, and on a PDP it only delays
+           the one clear action.
+           Coach-tier price is shown ONLY in coach mode (product-coach state), not to
+           buyers - so regular buyers don't hold off waiting for a cheaper coach price. -->
       <div class="priceblk">
-        <div class="oldrow"><span class="old">1 520 ₴</span><span class="cut">−15%</span></div>
-        <div class="new">1 290 ₴</div>
+        <div class="pbl">
+          <div class="oldrow"><span class="old">1 520 ₴</span><span class="cut">−15%</span></div>
+          <div class="new">1 290 ₴</div>
+        </div>
+        <div class="buyrow">
+          <a class="addcart" href="cart.html">У кошик</a>
+          <button class="wish" aria-label="В обране">♡</button>
+        </div>
+        <!-- per-serving + bonus sit UNDER both columns, so the figure and the action
+             stay on one baseline and the small print never pushes them apart -->
         <div class="perserv">≈ 18 ₴ / порція · +13 ₴ бонус на рахунок</div>
-        <!-- Coach-tier price shown ONLY in coach mode (product-coach state), not to buyers -
-             so regular buyers don't hold off waiting for a cheaper coach price. -->
-      </div>
-
-      <div class="buyrow">
-        <div class="qty"><button aria-label="Менше">−</button><span class="qn">1</span><button aria-label="Більше">+</button></div>
-        <a class="addcart" href="cart.html">У кошик</a>
-        <button class="wish" aria-label="В обране">♡</button>
       </div>
 
       <div class="simple">Сироватковий протеїн для росту та відновлення м'язів. 24 г білка на порцію - базова добавка для набору маси й підтримки форми.</div>
 
+      <!-- one row per method: mark · method over term · price on the right; the city
+           chip opens the shared «Оберіть місто» dialog (0.1a) -->
       <div class="dpblk">
-        <div class="dph">Доставка</div>
-        <div class="dprow"><span>Нова Пошта - відділення / поштомат</span><b>від 50 ₴ · 1–2 дні</b></div>
-        <div class="dprow"><span>Кур'єр НП - на адресу</span><b>від 70 ₴</b></div>
-        <div class="dprow"><span>Самовивіз (Одеса)</span><b>безкоштовно</b></div>
-        <div class="dph" style="margin-top:12px">Оплата</div>
-        <div class="dprow"><span>Картка · Apple / Google Pay · накладений · готівка при самовивозі</span></div>
+        <div class="dphead">
+          <div class="dph">Доставка</div>
+          <button class="dpcity" type="button" onclick="openCity()">Одеса <span class="dpcar">▾</span></button>
+        </div>
+        <div class="dprow">
+          <span class="dpic np">НП</span>
+          <div class="dpt"><b>До відділення або поштомату</b><span>1–2 дні</span></div>
+          <div class="dpp">від 50 ₴</div>
+        </div>
+        <div class="dprow">
+          <span class="dpic np">НП</span>
+          <div class="dpt"><b>Кур'єр на адресу</b><span>2+ днів</span></div>
+          <div class="dpp">від 70 ₴</div>
+        </div>
+        <div class="dprow">
+          <span class="dpic"></span>
+          <div class="dpt"><b>Самовивіз в Одесі</b><span>завтра</span></div>
+          <div class="dpp free">безкоштовно</div>
+        </div>
+        <div class="dph dph2">Оплата</div>
+        <div class="dppay">
+          <span class="paych">Картка</span>
+          <span class="paych">Apple / Google Pay</span>
+          <span class="paych">Накладений платіж</span>
+          <span class="paych">Готівка при самовивозі</span>
+        </div>
       </div>
     </div>
   </div>
@@ -121,8 +156,47 @@
           <tr><td>Вуглеводи</td><td>3 г</td><td>1%</td></tr>
           <tr><td>Жири</td><td>1.5 г</td><td>2%</td></tr>
         </table>
-        <p class="allerg"><b>Повний склад:</b> суміш сироваткового протеїну (концентрат, ізолят, гідролізат), какао, ароматизатори, лецитин, підсолоджувачі (сукралоза). <b>Алергени:</b> МОЛОКО, СОЯ.</p>
-        <div class="onpack">фото складу на упаковці (для довіри)</div>
+        <p class="fullcomp"><b>Повний склад:</b> суміш сироваткового протеїну (концентрат, ізолят, гідролізат), какао, ароматизатори, лецитин, підсолоджувачі (сукралоза).</p>
+        <!-- allergens are a safety fact, not a footnote: own block with a warning mark -->
+        <p class="allerg"><span class="algic">⚠</span><b>Алергени:</b> <span class="algv">МОЛОКО, СОЯ</span></p>
+        <!-- the label as it is printed on the pack: the same numbers as the table
+             above, shown the way the buyer will check them in their hands -->
+        <figure class="packlabel">
+          <div class="pl-panel">
+            <div class="pl-facts">
+              <div class="pl-h">Поживна цінність</div>
+              <div class="pl-serv">75 порцій в упаковці<br><b>Порція 30 г (1 мірна ложка)</b></div>
+              <div class="pl-cal"><span>Калорійність</span><b>120 ккал</b></div>
+              <table class="pl-t">
+                <tr><th>На порцію</th><th>% ДН*</th></tr>
+                <tr><td><b>Білок</b> 24 г</td><td>48%</td></tr>
+                <tr><td>BCAA 5.5 г</td><td>—</td></tr>
+                <tr><td>Глутамін і глутамінова кислота 4 г</td><td>—</td></tr>
+                <tr><td>Вуглеводи 3 г</td><td>1%</td></tr>
+                <tr><td>Жири 1.5 г</td><td>2%</td></tr>
+              </table>
+              <div class="pl-note">* Відсоток добової норми за раціоном 2000 ккал.</div>
+            </div>
+            <div class="pl-right">
+              <div class="pl-how">
+                <div class="pl-hw"><span class="pl-ic"></span><b>30 г</b><span>1 мірна ложка</span></div>
+                <div class="pl-hw"><span class="pl-ic"></span><b>250–300 мл</b><span>вода або молоко</span></div>
+                <div class="pl-hw"><span class="pl-ic"></span><b>30 секунд</b><span>розмішати</span></div>
+              </div>
+              <div class="pl-ing">
+                <b>СКЛАД:</b> суміш сироваткового протеїну (концентрат, ізолят, гідролізат), какао,
+                ароматизатори, лецитин, підсолоджувачі (сукралоза).
+                <div class="pl-alg"><b>МІСТИТЬ:</b> МОЛОКО, СОЯ.</div>
+              </div>
+            </div>
+            <div class="pl-foot">
+              <span class="pl-mark"></span>
+              <span>Виробник: Optimum Nutrition, США · Імпортер: ТОВ «Стек», Одеса</span>
+              <span>Партія L-2270 · Придатний до 09.2027</span>
+            </div>
+          </div>
+          <figcaption>Так склад надруковано на упаковці - цифри ті самі, що в таблиці вище</figcaption>
+        </figure>
       </div>
     </details>
     <details class="trustsec" open id="doz">
@@ -289,7 +363,7 @@
 
 <!-- sticky mobile buy bar (after buy box scrolls off) -->
 <div class="mbuybar">
-  <div class="mbp">1 290 ₴</div>
+  <div class="mbp"><span class="mold">1 520 ₴</span><span class="mcut">−15%</span><b>1 290 ₴</b></div>
   <a class="mba" href="cart.html">У кошик</a>
 </div>
 

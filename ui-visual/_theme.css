@@ -1048,7 +1048,9 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
   font-variant-numeric:tabular-nums; word-spacing:-.24em; color:var(--ink); }
 .ctable tr:first-child th{ border-bottom-color:var(--hair2); }
 .ctable td b{ font-weight:700; }
-.fullcomp{ background:var(--fill2); border-radius:10px; padding:11px 13px; line-height:1.55; }
+/* the wireframe layer draws hairlines around these cards so the greyscale structure
+   reads; in colour the surface itself does that job, so the borders come off */
+.fullcomp{ background:var(--fill2); border:none; border-radius:10px; padding:11px 13px; line-height:1.55; }
 /* allergens pulled OUT of the ingredient paragraph (2026-07-27): whoever needs this
    line needs to find it in one glance. Amber = the semantic warning colour: clearly
    visible, clearly not Signal Orange (an action) and not the error red. */
@@ -1064,7 +1066,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
    checks the site's numbers against the pack in their hand - and a generated photo
    would carry mangled Cyrillic. Same figures as .ctable above, on purpose. ---- */
 .packlabel{ margin:16px 0 0; }
-.pl-panel{ position:relative; overflow:hidden; border-radius:14px; color:#fff;
+.pl-panel{ position:relative; overflow:hidden; border:none; border-radius:14px; color:#fff;
   /* the pack's own dark surface: diagonal weave + a soft top light, so it reads as
      packaging, not as another UI card */
   background:
@@ -1077,7 +1079,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
   .pl-foot{ grid-column:1 / -1; }
 }
 /* the cream nutrition card - the one thing on a pack that is always legible */
-.pl-facts{ background:#FBF6EC; color:var(--ink); border-radius:10px; padding:15px 17px 13px; }
+.pl-facts{ background:#FBF6EC; color:var(--ink); border:none; border-radius:10px; padding:15px 17px 13px; }
 .pl-h{ font-family:'Oswald', sans-serif; font-weight:700; font-size:23px; letter-spacing:-.01em;
   line-height:1.1; border-bottom:2.5px solid var(--ink); padding-bottom:7px; }
 .pl-serv{ font-size:12.5px; line-height:1.45; padding:7px 0; border-bottom:1px solid rgba(28,28,28,.25); }
@@ -1105,7 +1107,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 .pl-hw .pl-ic svg{ width:26px; height:26px; }
 .pl-hw b{ font-family:'Oswald', sans-serif; font-weight:600; font-size:14.5px; letter-spacing:.01em; }
 .pl-hw span:not(.pl-ic){ font-size:10.5px; line-height:1.35; color:rgba(255,255,255,.68); }
-.pl-ing{ background:#FBF6EC; color:var(--ink); border-radius:10px; padding:13px 15px;
+.pl-ing{ background:#FBF6EC; color:var(--ink); border:none; border-radius:10px; padding:13px 15px;
   font-size:12.5px; line-height:1.5; }
 .pl-ing b{ font-weight:700; letter-spacing:.02em; }
 .pl-alg{ margin-top:9px; padding-top:9px; border-top:1px solid rgba(28,28,28,.2); }
