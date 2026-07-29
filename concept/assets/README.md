@@ -19,6 +19,14 @@ Extended the mascot canon with reusable single-asset renders (Magnific, Nano Ban
 
 Context mapping in `DESIGN.md` section 2; displayed in `concept/concept.html` section 06 «Маскот».
 
+## Update (2026-07-20): logo mark tight crop + lockup construction canon
+
+The S monogram vector (`logo-s.svg`, orange, from the owner's reference) carries ~21% built-in artboard padding (ink bbox `101 74.7 457.7 537.1` inside the `700 677` viewBox), so sizing it by height reads smaller than the wordmark. Added tight-cropped variants where viewBox = the ink bbox, so the mark's optical height maps directly to a target height:
+
+- `logo-mark.svg` (orange `#FF5A00`), `logo-mark-white.svg` (`#FFFFFF`), `logo-mark-ink.svg` (mono `#1C1C1C`). Optical aspect 0,852 : 1. Used in every lockup and as the favicon; the padded `logo-s*.svg` stay as the standalone-mark artboard source.
+
+Built the horizontal S + "Stack" lockup on a grid + canon (method adapted from the owner-supplied MTS logo-grid guideline). Oswald 700 metrics were measured live (cap-ratio 0.81, "Stack" ink width 2.258em); the mark aspect from its ink bbox. One module **x** = a quarter of the wordmark cap-height: wordmark **H = 4x**; the S mark is 1x taller (optical height **5x**) and vertically centered on the wordmark (overshoots cap-line/baseline by 0.5x each), mark width ~4,3x; gap = 1x; clear space >= 1x; wordmark width ~11,2x (font-intrinsic). The mark-to-wordmark ratio is the owner-tunable knob (raised 4x -> 5x / +1x on 2026-07-20); the SVG diagram generator is parametric on it via `MARK_H`. Full canon in `DESIGN.md` (Identity); construction grid + clear-space diagrams + variants + minimum sizes in `concept/logo.html` (section «Побудова та канон»).
+
 ## How to use this file
 
 Magnific is not reachable from the assistant in this session (no MCP, no API key in env), so per the stage dependency rule the assistant does not silently swap in another generator. Instead: below are three ready, model-agnostic image prompts. Generate each in your Magnific (or any GPT image 2+ / Mystic model), one image per plate, and save the files here as:
@@ -105,3 +113,16 @@ Drop the three PNGs here with the names above and say go. Step 3b:
 3. keeps the mascot decision explicit (whether it becomes canon, and which creature).
 
 If you would rather the assistant generate these directly next time, export a Freepik or Magnific API key into the environment (or add a Magnific MCP), and it will call the generator itself.
+
+---
+
+## Third-party marks
+
+**`np-mark.png`** (534×534, transparent) — the Нова Пошта carrier mark, used in the PDP
+delivery block to identify the delivery option (nominative use, the way any store shows
+its carriers). Cropped from the official 2022 lockup published on Wikimedia Commons
+(`File:Nova Poshta 2022 logo.png`, marked **public domain** — simple geometric shapes,
+below the threshold of originality — with the usual **trademark** notice). Cropping was
+mechanical: the mark was split from the wordmark at the 70px empty column between them,
+white paper made transparent. Do not restyle, recolour or stretch it — a carrier's mark is
+theirs. If a newer official SVG turns up, swap the file and keep the name.

@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Stack — Лого</title>
-<link rel="icon" type="image/svg+xml" href="assets/logo-s.svg">
+<title>Stack - Лого</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#1C1C1C; --orange:#FF5A00; --warm:#F2F0ED; --line:#E9E7E2; --muted:#5B5B54;
@@ -35,6 +35,7 @@ img{display:block;max-width:100%}
 .sidebar-nav a.active{color:var(--d-accent);background:var(--d-accent-light);font-weight:600}
 .sidebar-nav .sidebar-sub{font-size:12px;padding:5px 12px 5px 22px;color:var(--d-text-3)}
 .sidebar-nav a.sidebar-sub.active{color:var(--d-accent);background:var(--d-accent-light)}
+.sidebar-nav .deep{font-size:11.5px;padding:4px 12px 4px 34px;color:var(--d-text-3)}
 .sidebar-page-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--d-accent);padding:8px 12px 4px}
 .sidebar-divider{border:none;border-top:1px solid var(--d-border);margin:10px 8px}
 
@@ -42,23 +43,54 @@ img{display:block;max-width:100%}
 @media(min-width:860px){ .topbar{display:none} .sidebar{transform:translateX(0)} .doc{margin-left:220px;padding:52px 48px 90px} }
 
 h1{font-family:Oswald;font-weight:700;text-transform:uppercase;letter-spacing:-.01em;font-size:2rem;margin-bottom:6px}
-.lead{color:var(--muted);margin-bottom:28px;max-width:70ch}
+.lead{color:var(--muted);margin-bottom:30px;max-width:74ch}
+.sect-h{font-family:Oswald;font-weight:600;text-transform:uppercase;letter-spacing:.01em;font-size:1.35rem;margin:34px 0 4px;scroll-margin-top:64px}
+.sect-h:first-of-type{margin-top:8px}
+.sect-note{color:var(--muted);font-size:14px;max-width:78ch;margin-bottom:18px}
+
+/* ---- the canon lockup component: mark 4.5x centered on the 4x wordmark, gap = 1x ---- */
+.lockup{display:inline-flex;align-items:baseline;gap:.2em;line-height:1}
+.lockup .mk{height:1.0125em;width:auto;transform:translateY(.101em)}   /* mark = 5x (1.25 * cap-height), centered on the caps */
+.lockup .wd{font-family:Oswald;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.on-dark .lockup .wd{color:#fff}
+.lockup-v{display:inline-flex;flex-direction:column;align-items:center;gap:.32em;line-height:1;font-size:2rem}
+.lockup-v .mk{height:1.5em;width:auto}
+.lockup-v .wd{font-family:Oswald;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.on-dark .lockup-v .wd{color:#fff}
+.lockup-v .sub{font:600 10px/1 Inter;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.on-dark .lockup-v .sub{color:#b9b6ae}
+
+/* ---- construction blocks ---- */
+.cblock{border:1px solid var(--line);border-radius:16px;background:#fff;padding:24px 24px 20px;margin-bottom:18px}
+.cdraw{display:block;width:100%;height:auto;max-width:820px;margin:2px auto}
+.cblock.narrow .cdraw{max-width:660px}
+.ccap{color:var(--muted);font-size:12.5px;text-align:center;margin-top:12px;max-width:74ch;margin-left:auto;margin-right:auto}
+.ccap b{color:var(--ink);font-weight:600}
+
+/* canon rules table */
+.ctable{width:100%;border-collapse:collapse;font-size:14px;max-width:680px}
+.ctable td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.ctable tr:last-child td{border-bottom:none}
+.ctable tr td:first-child{color:var(--muted);width:42%}
+.ctable tr td:last-child{color:var(--ink)}
+.ctable .u{color:var(--orange);font-weight:700}
+
+/* minimum sizes */
+.minrow{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-top:4px}
+.mintile{border:1px solid var(--line);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;align-items:center;background:var(--warm);min-width:170px}
+.mincap{font-size:12px;color:var(--muted);text-align:center;line-height:1.4}
+.mincap b{color:var(--ink)}
+
+/* variants grid */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
 .cell{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
 .cell .disp{min-height:190px;display:grid;place-items:center;padding:24px}
 .cell .disp.dark{background:var(--ink)} .cell .disp.warm{background:var(--warm)}
 .cell .cap{font:600 12px/1.3 Inter;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:11px 14px;border-top:1px solid var(--line)}
 .mark{display:block}
-.mark.s2{width:120px} .mark.s3{width:64px}
+.mark.s2{width:104px} .mark.s3{width:56px}
 .wm{font-family:Oswald;font-weight:700;letter-spacing:-.01em;line-height:1;color:var(--ink)}
 .wm.up{text-transform:uppercase}
-.lock-h{display:flex;align-items:center;gap:16px}
-.lock-h .mark{width:70px} .lock-h .wm{font-size:2.6rem}
-.lock-v{display:flex;flex-direction:column;align-items:center;gap:14px}
-.lock-v .mark{width:88px} .lock-v .wm{font-size:2rem}
-.on-dark .wm{color:#fff}
-.sub{font:600 10px/1 Inter;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);margin-top:6px}
-.on-dark .sub{color:#b9b6ae}
 .sectitle{grid-column:1/-1;font:700 12px/1 Inter;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);margin:20px 0 2px}
 </style>
 </head>
@@ -87,36 +119,144 @@ h1{font-family:Oswald;font-weight:700;text-transform:uppercase;letter-spacing:-.
     <a href="directions.html" class="sidebar-sub">Напрями</a>
     <a href="concept.html" class="sidebar-sub">Концепт</a>
     <a href="logo.html" class="sidebar-sub active">Лого</a>
+    <a href="#build" class="deep">Побудова та канон</a>
+    <a href="#variants" class="deep">Варіанти</a>
+    <hr class="sidebar-divider">
+    <a href="../ui-visual/screens.html">UI Visual</a>
   </nav>
 </aside>
 
 <div class="doc">
   <h1>Лого Stack</h1>
-  <p class="lead">Векторна марка «S» (векторизована з референсу, суцільний Signal Orange) + вордмарк і локапи. Варіанти на світлому, темному та моно. Основний локап - горизонтальний; марка - для фавікона й малих розмірів.</p>
+  <p class="lead">Основний локап - горизонтальний: марка «S» (векторизована з референсу, суцільний Signal Orange) плюс вордмарк «Stack» (Oswald 700). Нижче - як він побудований по сітці й канону: одиниця <b>x</b>, висота, крок і охоронне поле. Далі - варіанти на світлому, темному та моно.</p>
+
+  <h2 class="sect-h" id="build">Побудова та канон</h2>
+  <p class="sect-note">Уся геометрія прив'язана до одного модуля <b style="color:var(--orange)">x</b> - це чверть висоти вордмарка. Марка помітно більша за текст (на <b>1x</b>: по 0,5x над cap-line і під baseline) і центрована по вертикалі, тож вона тримає око як сильний акцент, але логотип лишається єдиним цілим на спільній осі. Пропорції марки й тексту виміряні зі шрифту, не на око.</p>
+
+  <div class="cblock">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.9 -0.35 22.661 7.85" class="cdraw" role="img" aria-label="Сітка побудови логотипа Stack">
+      <defs><marker id="ar" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M4.4 1.4 2 3l2.4 1.6" fill="none" stroke="#8A857C" stroke-width="0.5"/></marker></defs>
+      <style>
+        .grid line{stroke:#E4E1DB;stroke-width:.02}
+        .key{stroke:#B8B3A9;stroke-width:.05}
+        .field{fill:none;stroke:#B8B3A9;stroke-width:.05}
+        .mkln{stroke:#FF5A00;stroke-width:.03;stroke-dasharray:.16 .12;opacity:.5}
+        .rul line{stroke:#8A857C;stroke-width:.03}
+        .dl{fill:#8A857C;font:.44px/1 Inter,sans-serif;text-anchor:middle}
+        .vl{fill:#8A857C;font:600 .46px/1 Inter,sans-serif;text-anchor:middle}
+        .vo{fill:#FF5A00;font:600 .44px/1 Inter,sans-serif;text-anchor:middle}
+        .cwm{fill:#1C1C1C;font-family:Oswald,sans-serif;font-weight:700}
+        .kl{fill:#FF5A00;font:600 .4px/1 Inter,sans-serif;text-anchor:end}
+        .klt{stroke:#FF5A00;stroke-width:.03}
+      </style>
+      <g class="grid"><line x1="0" y1="0" x2="0" y2="6"/><line x1="1" y1="0" x2="1" y2="6"/><line x1="2" y1="0" x2="2" y2="6"/><line x1="3" y1="0" x2="3" y2="6"/><line x1="4" y1="0" x2="4" y2="6"/><line x1="5" y1="0" x2="5" y2="6"/><line x1="6" y1="0" x2="6" y2="6"/><line x1="7" y1="0" x2="7" y2="6"/><line x1="8" y1="0" x2="8" y2="6"/><line x1="9" y1="0" x2="9" y2="6"/><line x1="10" y1="0" x2="10" y2="6"/><line x1="11" y1="0" x2="11" y2="6"/><line x1="12" y1="0" x2="12" y2="6"/><line x1="13" y1="0" x2="13" y2="6"/><line x1="14" y1="0" x2="14" y2="6"/><line x1="15" y1="0" x2="15" y2="6"/><line x1="16" y1="0" x2="16" y2="6"/><line x1="17" y1="0" x2="17" y2="6"/><line x1="18" y1="0" x2="18" y2="6"/><line x1="18.411" y1="0" x2="18.411" y2="6"/><line x1="0" y1="0" x2="18.411" y2="0"/><line x1="0" y1="1" x2="18.411" y2="1"/><line x1="0" y1="2" x2="18.411" y2="2"/><line x1="0" y1="3" x2="18.411" y2="3"/><line x1="0" y1="4" x2="18.411" y2="4"/><line x1="0" y1="5" x2="18.411" y2="5"/><line x1="0" y1="6" x2="18.411" y2="6"/></g>
+      <rect class="field" x="0" y="0" width="18.411" height="6"/>
+      <line class="mkln" x1="0" y1="0.5" x2="20.061" y2="0.5"/>
+      <line class="mkln" x1="0" y1="5.5" x2="20.061" y2="5.5"/>
+      <line class="key" x1="0" y1="1" x2="18.411" y2="1"/>
+      <line class="key" x1="0" y1="5" x2="18.411" y2="5"/>
+      <line class="klt" x1="-0.2" y1="1" x2="0" y2="1"/>
+      <line class="klt" x1="-0.2" y1="5" x2="0" y2="5"/>
+      <text class="kl" x="-0.32" y="1.13">cap-line</text>
+      <text class="kl" x="-0.32" y="5.13">baseline</text>
+      <image href="assets/logo-mark.svg" x="1" y="0.5" width="4.261" height="5"/>
+      <text class="cwm" x="6.261" y="5" font-size="4.938">Stack</text>
+      <g class="rul"><line x1="1" y1="6.1" x2="1" y2="6.69"/><line x1="5.261" y1="6.1" x2="5.261" y2="6.69"/><line x1="1" y1="6.55" x2="5.261" y2="6.55" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="3.131" y="7.15" class="dl">≈ 4,3x</text><line x1="5.261" y1="6.1" x2="5.261" y2="6.69"/><line x1="6.261" y1="6.1" x2="6.261" y2="6.69"/><line x1="5.261" y1="6.55" x2="6.261" y2="6.55" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="5.761" y="7.15" class="dl">1x</text><line x1="6.261" y1="6.1" x2="6.261" y2="6.69"/><line x1="17.411" y1="6.1" x2="17.411" y2="6.69"/><line x1="6.261" y1="6.55" x2="17.411" y2="6.55" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="11.836" y="7.15" class="dl">≈ 11,2x</text></g>
+      <g class="rul"><line x1="18.961" y1="1" x2="18.961" y2="5" marker-start="url(#ar)" marker-end="url(#ar)"/><line x1="18.411" y1="1" x2="19.101" y2="1"/><line x1="18.411" y1="5" x2="19.101" y2="5"/></g>
+      <text class="vl" x="19.381" y="3" transform="rotate(90 19.381 3)">H = 4x</text>
+      <g class="rul"><line x1="20.061" y1="0.5" x2="20.061" y2="5.5" marker-start="url(#ar)" marker-end="url(#ar)" stroke="#FF5A00"/></g>
+      <text class="vo" x="20.481" y="3" transform="rotate(90 20.481 3)">S = 5x</text>
+    </svg>
+    <p class="ccap"><b>Сітка побудови.</b> Крок сітки = <b>x</b>. Вордмарк «Stack» - висота великих літер <b>H = 4x</b> (cap-line - baseline). Марка «S» на <b>1x</b> вища за вордмарк (<b>5x</b>) і центрована по вертикалі - виступає <b>0,5x</b> над cap-line і 0,5x під baseline. Оптична ширина марки ≈ 4,3x, проміжок марка - вордмарк = <b>1x</b>. Ширина слова «Stack» ≈ 11,2x - це інтринсік Oswald 700.</p>
+  </div>
+
+  <div class="cblock narrow">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.35 -0.35 19.111 7.7" class="cdraw" role="img" aria-label="Охоронне поле логотипа Stack">
+      <defs><marker id="ar2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M4.4 1.4 2 3l2.4 1.6" fill="none" stroke="#8A857C" stroke-width="0.5"/></marker></defs>
+      <style>
+        .band{fill:#F2F0ED}
+        .clear{fill:#fff}
+        .keep{fill:none;stroke:#FF5A00;stroke-width:.045;stroke-dasharray:.2 .13}
+        .rul line{stroke:#8A857C;stroke-width:.03}
+        .dl{fill:#8A857C;font:600 .44px/1 Inter,sans-serif;text-anchor:middle}
+        .cwm{fill:#1C1C1C;font-family:Oswald,sans-serif;font-weight:700}
+      </style>
+      <rect class="band" x="0" y="0" width="18.411" height="7"/>
+      <rect class="clear" x="1" y="1" width="16.411" height="5"/>
+      <image href="assets/logo-mark.svg" x="1" y="1" width="4.261" height="5"/>
+      <text class="cwm" x="6.261" y="5.5" font-size="4.938">Stack</text>
+      <rect class="keep" x="1" y="1" width="16.411" height="5"/>
+      <g class="rul">
+        <line x1="0" y1="3.5" x2="1" y2="3.5" marker-start="url(#ar2)" marker-end="url(#ar2)"/>
+        <text class="dl" x="0.5" y="3.3">1x</text>
+        <line x1="17.411" y1="3.5" x2="18.411" y2="3.5" marker-start="url(#ar2)" marker-end="url(#ar2)"/>
+        <text class="dl" x="17.911" y="3.3">1x</text>
+        <line x1="9.206" y1="0" x2="9.206" y2="1" marker-start="url(#ar2)" marker-end="url(#ar2)"/>
+        <text class="dl" x="9.556" y="0.65">1x</text>
+        <line x1="9.206" y1="6" x2="9.206" y2="7" marker-start="url(#ar2)" marker-end="url(#ar2)"/>
+        <text class="dl" x="9.556" y="6.65">1x</text>
+      </g>
+    </svg>
+    <p class="ccap"><b>Охоронне поле.</b> Навколо логотипа завжди вільна зона не менша за <b>1x</b> з кожного боку (біла рамка) - її межа проходить по крайніх точках марки. У це поле не заходять інші елементи, текст чи край макета.</p>
+  </div>
+
+  <div class="cblock">
+    <table class="ctable">
+      <tr><td>Одиниця сітки</td><td><span class="u">x</span> = чверть висоти вордмарка</td></tr>
+      <tr><td>Висота вордмарка (H)</td><td><b>4x</b> (cap-line - baseline)</td></tr>
+      <tr><td>Оптична висота марки «S»</td><td><b>5x</b> (на 1x вища за вордмарк)</td></tr>
+      <tr><td>Розташування марки</td><td>центрована по вертикалі; виступ <b>0,5x</b> над cap-line і 0,5x під baseline</td></tr>
+      <tr><td>Оптична ширина марки «S»</td><td>≈ 4,3x (пропорція марки 0,85 : 1)</td></tr>
+      <tr><td>Проміжок марка - вордмарк</td><td><b>1x</b></td></tr>
+      <tr><td>Вордмарк</td><td>«Stack», Oswald 700, title-case; ширина ≈ 11,2x зі шрифту</td></tr>
+      <tr><td>Вирівнювання</td><td>по вертикальному центру вордмарка; марка ліворуч</td></tr>
+      <tr><td>Охоронне поле</td><td>≥ <b>1x</b> з усіх боків</td></tr>
+    </table>
+  </div>
+
+  <h2 class="sect-h">Мінімальні розміри</h2>
+  <p class="sect-note">Нижче цих розмірів марка забивається, а вордмарк втрачає читабельність. На дуже малих плашках (фавікон, аватар) використовуємо тільки марку «S».</p>
+  <div class="minrow">
+    <div class="mintile">
+      <span class="lockup" style="font-size:22px"><img class="mk" src="assets/logo-mark.svg" alt="Stack S"><span class="wd">Stack</span></span>
+      <span class="mincap">Горизонтальний локап<br>веб-хедер (десктоп)</span>
+    </div>
+    <div class="mintile">
+      <span class="lockup" style="font-size:17px"><img class="mk" src="assets/logo-mark.svg" alt="Stack S"><span class="wd">Stack</span></span>
+      <span class="mincap">Абсолютний мінімум локапа<br>нижче - тільки марка</span>
+    </div>
+    <div class="mintile">
+      <img src="assets/logo-mark.svg" alt="Stack S" style="height:16px">
+      <span class="mincap">Тільки марка «S»<br><b>16px</b> (фавікон, аватар)</span>
+    </div>
+  </div>
+
+  <h2 class="sect-h" id="variants">Варіанти</h2>
+  <p class="sect-note">Ті самі побудова й канон на всіх поверхнях. Orange на світлому - основний; на charcoal - реверс білою маркою; моно charcoal - для одноколірного друку.</p>
 
   <div class="grid">
 
     <div class="sectitle">Марка «S»</div>
-    <div class="cell"><div class="disp"><img class="mark s2" src="assets/logo-s.svg" alt="Stack S"></div><div class="cap">Orange на білому</div></div>
-    <div class="cell"><div class="disp dark"><img class="mark s2" src="assets/logo-s.svg" alt="Stack S"></div><div class="cap">Orange на charcoal</div></div>
-    <div class="cell"><div class="disp dark"><img class="mark s2" src="assets/logo-s-white.svg" alt="Stack S"></div><div class="cap">White на charcoal</div></div>
-    <div class="cell"><div class="disp warm"><img class="mark s2" src="assets/logo-s-dark.svg" alt="Stack S"></div><div class="cap">Моно charcoal</div></div>
+    <div class="cell"><div class="disp"><img class="mark s2" src="assets/logo-mark.svg" alt="Stack S"></div><div class="cap">Orange на білому</div></div>
+    <div class="cell"><div class="disp dark"><img class="mark s2" src="assets/logo-mark.svg" alt="Stack S"></div><div class="cap">Orange на charcoal</div></div>
+    <div class="cell"><div class="disp dark"><img class="mark s2" src="assets/logo-mark-white.svg" alt="Stack S"></div><div class="cap">White на charcoal</div></div>
+    <div class="cell"><div class="disp warm"><img class="mark s2" src="assets/logo-mark-ink.svg" alt="Stack S"></div><div class="cap">Моно charcoal</div></div>
 
     <div class="sectitle">Вордмарк</div>
     <div class="cell"><div class="disp"><span class="wm" style="font-size:3rem">Stack</span></div><div class="cap">Oswald 700 · title-case</div></div>
     <div class="cell"><div class="disp"><span class="wm up" style="font-size:3rem">Stack</span></div><div class="cap">Oswald 700 · uppercase</div></div>
 
     <div class="sectitle">Горизонтальний локап (основний)</div>
-    <div class="cell"><div class="disp"><div class="lock-h"><img class="mark" src="assets/logo-s.svg" alt="Stack S"><span class="wm">Stack</span></div></div><div class="cap">S + Stack · білий</div></div>
-    <div class="cell"><div class="disp dark on-dark"><div class="lock-h"><img class="mark" src="assets/logo-s.svg" alt="Stack S"><span class="wm">Stack</span></div></div><div class="cap">S + Stack · charcoal</div></div>
+    <div class="cell"><div class="disp"><span class="lockup" style="font-size:2.6rem"><img class="mk" src="assets/logo-mark.svg" alt="Stack S"><span class="wd">Stack</span></span></div><div class="cap">S + Stack · білий</div></div>
+    <div class="cell"><div class="disp dark on-dark"><span class="lockup" style="font-size:2.6rem"><img class="mk" src="assets/logo-mark.svg" alt="Stack S"><span class="wd">Stack</span></span></div><div class="cap">S + Stack · charcoal</div></div>
 
     <div class="sectitle">Вертикальний локап</div>
-    <div class="cell"><div class="disp warm"><div class="lock-v"><img class="mark" src="assets/logo-s.svg" alt="Stack S"><div style="text-align:center"><span class="wm">Stack</span><div class="sub">Sport Nutrition</div></div></div></div><div class="cap">S над Stack + тег</div></div>
-    <div class="cell"><div class="disp dark on-dark"><div class="lock-v"><img class="mark" src="assets/logo-s-white.svg" alt="Stack S"><div style="text-align:center"><span class="wm">Stack</span><div class="sub">Sport Nutrition</div></div></div></div><div class="cap">Реверс на charcoal</div></div>
+    <div class="cell"><div class="disp warm"><span class="lockup-v"><img class="mk" src="assets/logo-mark.svg" alt="Stack S"><span class="wd">Stack</span><span class="sub">Sport Nutrition</span></span></div><div class="cap">S над Stack + тег</div></div>
+    <div class="cell"><div class="disp dark on-dark"><span class="lockup-v"><img class="mk" src="assets/logo-mark-white.svg" alt="Stack S"><span class="wd">Stack</span><span class="sub">Sport Nutrition</span></span></div><div class="cap">Реверс на charcoal</div></div>
 
     <div class="sectitle">Малий розмір / фавікон</div>
-    <div class="cell"><div class="disp"><img class="mark s3" src="assets/logo-s.svg" alt="Stack S"></div><div class="cap">S @ 64px</div></div>
-    <div class="cell"><div class="disp dark"><div style="width:64px;height:64px;background:var(--orange);border-radius:14px;display:grid;place-items:center"><img src="assets/logo-s-dark.svg" alt="Stack S" style="width:38px"></div></div><div class="cap">App icon (S на orange)</div></div>
+    <div class="cell"><div class="disp"><img class="mark s3" src="assets/logo-mark.svg" alt="Stack S"></div><div class="cap">S @ 56px</div></div>
+    <div class="cell"><div class="disp dark"><div style="width:64px;height:64px;background:var(--orange);border-radius:14px;display:grid;place-items:center"><img src="assets/logo-mark-ink.svg" alt="Stack S" style="width:34px"></div></div><div class="cap">App icon (S на orange)</div></div>
 
   </div>
 </div>

@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Кабінет покупця — Огляд — Stack (wireframe 7.0)</title>
+<title>Кабінет покупця - Огляд - Stack (wireframe 7.0)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
-  /* page-local: restock nudge (reorder mechanic, Decision 4 · Job 3-restock) — calm, no anxiety */
+  /* page-local: restock nudge (reorder mechanic, Decision 4 · Job 3-restock) - calm, no anxiety */
   .restock .rk-lead { font-size: 13px; color: var(--sec); margin: -4px 0 12px; }
   .rk-item { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--hair); }
   .rk-item:last-child { border-bottom: none; padding-bottom: 2px; }
@@ -123,7 +123,7 @@
           <div class="amore">Ще 1 збережена адреса (кур'єр НП, Одеса).</div>
         </div>
 
-        <!-- Become-a-coach (or, if already a coach, go-to-cabinet) — role-aware via JS -->
+        <!-- Become-a-coach (or, if already a coach, go-to-cabinet) - role-aware via JS -->
         <div class="acard" id="coach-banner" style="display:flex;flex-direction:column;justify-content:center">
           <div class="ah"><h3>Ви тренер?</h3></div>
           <p style="font-size:13.5px;color:var(--sec);margin-bottom:14px">Активуйте роль тренера: гуртові ціни та замовлення одразу для кількох клієнтів в одну сесію.</p>
@@ -170,7 +170,7 @@
     document.querySelector('#coach-banner h3').textContent = 'Ви вже тренер ✓';
     document.querySelector('#coach-banner p').textContent = 'Гуртові ціни та мультиклієнтські замовлення активні. Керуйте клієнтами й сесіями в кабінеті тренера.';
     var cta = document.getElementById('coach-cta'); cta.textContent = 'Перейти в кабінет тренера'; cta.setAttribute('href', 'coach-home.html');
-    // coach dashboard is order-for-clients, not personal restock — hide the nudge
+    // coach dashboard is order-for-clients, not personal restock - hide the nudge
     var rk = document.getElementById('restock-card'); if (rk) rk.style.display = 'none';
   }
 </script>

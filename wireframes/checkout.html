@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Оформлення замовлення — Stack (wireframe 6.1)</title>
+<title>Оформлення замовлення - Stack (wireframe 6.1)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
 /* ============================================================
-   CHECKOUT (node 6.1) — page-specific greyscale styles.
+   CHECKOUT (node 6.1) - page-specific greyscale styles.
    Simplified header/footer inline (per cart.md: logo + support only).
    Two columns: left = Контакт → Замовлення → Доставка → Оплата;
    right = money only, sticky. Upsell full width; simplified footer.
@@ -29,7 +29,7 @@
 .co-sec-h { font-size: 16px; font-weight: 800; color: var(--strong); display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .co-sec-h .num { width: 24px; height: 24px; border-radius: 50%; background: var(--dark); color: #fff; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex: none; }
 
-/* 1 — Контакт (guest sign-in prompt, passwordless) */
+/* 1 - Контакт (guest sign-in prompt, passwordless) */
 .co-signin-note { font-size: 13px; color: var(--sec); margin-bottom: 12px; }
 .co-field { display: flex; gap: 8px; }
 .co-input { flex: 1; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 12px 13px; font-size: 14px; font-family: inherit; width: 100%; }
@@ -85,7 +85,7 @@
 .co-ups .up { font-size: 13px; font-weight: 800; color: var(--strong); margin: 5px 0 9px; }
 .co-ups .uadd { border: 1.5px solid var(--dark); border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 700; color: var(--strong); margin-top: auto; }
 
-/* right summary — money only, sticky */
+/* right summary - money only, sticky */
 .co-sum { border: 1px solid var(--hair); border-radius: 12px; padding: 16px; }
 @media (min-width: 900px) { .co-sum { position: sticky; top: 78px; } }
 .co-sum-h { font-size: 15px; font-weight: 800; color: var(--strong); margin-bottom: 12px; }
@@ -126,7 +126,7 @@
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 
-<!-- SIMPLIFIED HEADER (inline — NOT wfHeader) -->
+<!-- SIMPLIFIED HEADER (inline - NOT wfHeader) -->
 <header class="co-head" role="banner">
   <div class="co-head-in">
     <a class="co-logo" href="home.html">Stack</a>
@@ -145,10 +145,10 @@
     <!-- LEFT COLUMN -->
     <div>
 
-      <!-- 1 · КОНТАКТ (guest — passwordless sign-in prompt) -->
+      <!-- 1 · КОНТАКТ (guest - passwordless sign-in prompt) -->
       <section class="co-sec" aria-label="Контакт">
         <div class="co-sec-h"><span class="num">1</span> Контакт</div>
-        <p class="co-signin-note">Увійдіть для оформлення замовлення — код підтвердження надійде у SMS, акаунт створиться автоматично. Пароль не потрібен.</p>
+        <p class="co-signin-note">Увійдіть для оформлення замовлення - код підтвердження надійде у SMS, акаунт створиться автоматично. Пароль не потрібен.</p>
         <form class="co-field" action="checkout-loggedin.html">
           <label for="co-phone" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Номер телефону</label>
           <input class="co-input" id="co-phone" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __" autocomplete="tel">
@@ -222,23 +222,23 @@
 
         <label class="co-opt on">
           <span class="co-radio"></span>
-          <span class="ot"><span class="otn">Нова Пошта — відділення / поштомат</span><span class="otd">1–2 дні по Україні</span></span>
+          <span class="ot"><span class="otn">Нова Пошта - відділення / поштомат</span><span class="otd">1–2 дні по Україні</span></span>
           <span class="op">від 50 ₴</span>
         </label>
         <div class="co-sub">
           <button type="button" class="co-city">📍 Одеса <span style="color:var(--light);font-weight:600">· змінити</span></button>
-          <input class="co-input" type="text" placeholder="Відділення / поштомат — почніть вводити №">
+          <input class="co-input" type="text" placeholder="Відділення / поштомат - почніть вводити №">
         </div>
 
         <label class="co-opt">
           <span class="co-radio"></span>
-          <span class="ot"><span class="otn">Кур'єр Нова Пошта — на адресу</span><span class="otd">Доставка до дверей, 1–2 дні</span></span>
+          <span class="ot"><span class="otn">Кур'єр Нова Пошта - на адресу</span><span class="otd">Доставка до дверей, 1–2 дні</span></span>
           <span class="op">від 70 ₴</span>
         </label>
 
         <label class="co-opt">
           <span class="co-radio"></span>
-          <span class="ot"><span class="otn">Самовивіз — Одеса</span><span class="otd">вул. Дерибасівська, 1 · за наявності на точці</span></span>
+          <span class="ot"><span class="otn">Самовивіз - Одеса</span><span class="otd">вул. Дерибасівська, 1 · за наявності на точці</span></span>
           <span class="op">безкоштовно</span>
         </label>
       </section>
@@ -249,7 +249,7 @@
 
         <label class="co-opt on">
           <span class="co-radio"></span>
-          <span class="ot"><span class="otn">Картка онлайн — LiqPay / Wayforpay</span><span class="otd">Visa · Mastercard · безпечна оплата на сторінці банку</span></span>
+          <span class="ot"><span class="otn">Картка онлайн - LiqPay / Wayforpay</span><span class="otd">Visa · Mastercard · безпечна оплата на сторінці банку</span></span>
         </label>
         <label class="co-opt">
           <span class="co-radio"></span>
@@ -269,14 +269,14 @@
       </section>
     </div>
 
-    <!-- RIGHT COLUMN — money only, sticky -->
+    <!-- RIGHT COLUMN - money only, sticky -->
     <aside class="co-sum" aria-label="Разом">
       <div class="co-sum-h">Разом</div>
 
-      <!-- guest: no bonus account yet — sign-in incentive (bonuses/discount live only for accounts) -->
+      <!-- guest: no bonus account yet - sign-in incentive (bonuses/discount live only for accounts) -->
       <div class="co-bonus">
         <div class="co-bonus-top"><span class="bl">Знижка та бонуси</span></div>
-        <div class="bnote">Увійдіть або створіть акаунт — застосуємо знижку за вашим рівнем і нарахуємо ~1% бонусами. Реєстрація за номером, без пароля.</div>
+        <div class="bnote">Увійдіть або створіть акаунт - застосуємо знижку за вашим рівнем і нарахуємо ~1% бонусами. Реєстрація за номером, без пароля.</div>
         <a class="co-toggle" href="checkout-loggedin.html" style="text-decoration:none"><span class="co-sw"></span> Увійти й застосувати знижку</a>
       </div>
 

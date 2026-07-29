@@ -59,8 +59,12 @@
 3. **Buy box** (right column on desktop, under gallery on mobile):
    - **brand · country eyebrow ABOVE the H1** (brand → 2.4), then the **H1** product name (with
      weight/size in the name). Same brand-above-title pattern as the canonical product card.
-   - **Rating** stars + review count → anchors to Reviews (3.1).
-   - **Article/SKU** · **availability** (в наявності / залишилось мало / під замовлення / немає).
+   - **Status line, ONE row under the H1** (locked 2026-07-27, from the coloured PDP):
+     **availability · Article/SKU on the LEFT**, **rating + review count on the RIGHT**
+     (rating → anchors to Reviews 3.1). Availability = в наявності / залишилось мало / під
+     замовлення / немає. Below ~480px the two do not fit on one row: they stack, and the
+     **rating goes first** (directly under the H1). The rating star is the gold star from
+     DESIGN.md — evidence, never an action, so it is never orange.
    - **One-line simple answer** — «для чого це» in plain language.
    - **Price:** **struck (old) price + the −% discount badge BESIDE it on top → new price big below**
      (the badge sits next to the struck price — the universal rule across PDP and all cards; decided
@@ -69,19 +73,32 @@
    - **Variant selectors** — Смак · Фасування/вага (disabled when a variant is out of stock).
    - **Quantity** stepper.
    - **Primary CTA «У кошик»** (→ Cart 6.0) + **♡ wishlist** (→ 7.6). Coach session → «Додати клієнту».
-   - **Delivery + Payment block (under the CTA, decided 2026-06-30):**
-     - **Доставка:** Нова Пошта — **відділення або поштомат** (від 50 ₴); **кур'єр Нової Пошти на
-       адресу / до під'їзду** (від 70 ₴); **самовивіз** (Одеса, адреса [?]) — **безкоштовно**.
-       Terms: НП 1–2 дні; **самовивіз лише за наявності на точці** (own per-point stock state).
-     - **Оплата:** картка онлайн / Apple·Google Pay · накладений платіж · готівка при самовивозі.
-       (Delivery prices and pickup addresses are example values — operational [?].)
+   - **Delivery + Payment block (under the CTA, decided 2026-06-30; row layout locked 2026-07-27):**
+     - **One row per method: icon · method over term · price on the right.** Price and term are two
+       different answers (what it costs / when it arrives) and must not be glued into one string.
+       Free is stated in words, in the success colour, not as «0 ₴».
+     - **Доставка:** Нова Пошта — **відділення або поштомат** (від 50 ₴ · 1–2 дні); **кур'єр Нової
+       Пошти на адресу / до під'їзду** (від 70 ₴ · **2+ днів**); **самовивіз** (Одеса, адреса [?]) —
+       **безкоштовно · завтра**. **самовивіз лише за наявності на точці** (own per-point stock state).
+     - **City chip in the block header** — the one input that changes every number below; opens the
+       shared «Оберіть місто» dialog (0.1a).
+     - **Оплата:** картка онлайн / Apple·Google Pay · накладений платіж · готівка при самовивозі,
+       as separate chips (not a run-on sentence).
+       (Delivery prices, terms and pickup addresses are example values — operational [?].)
 4. **Trust strip (single block, before composition).** The four micro-signals — **оригінал+гарантія ·
    сертифікат · доставка Новою Поштою · повернення 14 днів** — moved OUT of the buy box into one
    full-width block placed **right before the trust facts** (decided 2026-06-30).
 5. **Trust block — the lead (Job 4).** Four grouped facts, **all sections open by default, collapsible**:
    - **Склад** — active ingredients **per serving** (table: речовина · на порцію · % добової норми) +
-     **full ingredient list text** + allergens (МОЛОКО/СОЯ) + **photo of the on-pack composition label**
-     (extra trust — mirrors what competitors show).
+     **full ingredient list text** + **allergens as their OWN block** (locked 2026-07-27: a safety
+     fact, so it leaves the ingredient paragraph and gets the **amber warning colour** + a triangle —
+     amber, never Signal Orange (an action) and never the error red) + **the on-pack composition
+     label, shown LARGE** (locked 2026-07-27): the pack's dark panel with the nutrition card, the
+     3-step preparation row (30 г · 250–300 мл · 30 секунд), the ingredient/allergen box and the
+     manufacturer line. **Same figures as the table above** — the whole point is that the buyer can
+     match the site against the pack in their hand. In the prototype it is built in DOM, not a photo:
+     this block exists to be read, and a generated label image carries unreadable text. In production
+     it is a real macro photo of the label.
    - **Дозування та застосування** — how much, when, how to take; plain steps.
    - **Походження** — manufacturer, country, importer; «оригінальний продукт» guarantee.
    - **Сертифікація** — certificate of conformity + lab tests; **viewable certificate** (open image/PDF).

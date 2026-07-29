@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Stack - UI Visual</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-mark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1C1C1C; --canvas:#FFFFFF; --orange:#FF5A00; --warm:#F2F0ED;
+  --ink-2:#3A3A36; --muted:#5B5B54; --line:#E9E7E2;
+  --shadow:0 1px 2px rgba(20,20,15,.05), 0 4px 14px rgba(20,20,15,.04);
+  --d-bg:#f7f6f3; --d-surface-alt:#f2f0eb; --d-border:#e5e2db;
+  --d-text:#1a1916; --d-text-2:#6b6760; --d-text-3:#9b9790;
+  --d-accent:#2d5a3d; --d-accent-light:#e8f0ea; --d-radius-sm:6px;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--d-bg); color:var(--ink); font:400 16px/1.6 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased}
+
+/* ---------- Docs sidebar (research.html style) ---------- */
+.topbar{position:fixed; top:0; left:0; right:0; height:52px; background:rgba(247,246,243,.94); backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--d-border); display:flex; align-items:center; justify-content:space-between;
+  padding:0 16px; z-index:101; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif}
+.topbar-logo{font-weight:700; font-size:17px; color:var(--d-accent); letter-spacing:-.02em; text-decoration:none}
+.sidebar-toggle{background:none; border:none; cursor:pointer; padding:8px; color:var(--d-text-2); display:flex; border-radius:var(--d-radius-sm)}
+.sidebar-overlay{display:none; position:fixed; inset:0; background:rgba(0,0,0,.18); z-index:99}
+.sidebar-overlay.open{display:block}
+.sidebar{position:fixed; top:0; left:0; bottom:0; width:220px; background:rgba(247,246,243,.98); backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px); border-right:1px solid var(--d-border); z-index:100; display:flex; flex-direction:column;
+  transform:translateX(-100%); transition:transform .22s ease; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif}
+.sidebar.open{transform:translateX(0)}
+.sidebar-logo{font-weight:700; font-size:17px; color:var(--d-accent); letter-spacing:-.02em; text-decoration:none; display:block;
+  padding:22px 20px 18px; border-bottom:1px solid var(--d-border)}
+.sidebar-nav{flex:1; overflow-y:auto; scrollbar-width:none; padding:12px 8px 8px}
+.sidebar-nav::-webkit-scrollbar{display:none}
+.sidebar-nav a{display:block; color:var(--d-text-2); text-decoration:none; font-size:13px; font-weight:500; padding:7px 12px;
+  border-radius:var(--d-radius-sm); transition:color .15s, background .15s; margin-bottom:1px}
+.sidebar-nav a:hover{color:var(--d-text); background:var(--d-surface-alt)}
+.sidebar-nav a.active{color:var(--d-accent); background:var(--d-accent-light); font-weight:600}
+.sidebar-nav .sidebar-sub{font-size:12px; padding:5px 12px 5px 22px; color:var(--d-text-3)}
+.sidebar-nav a.sidebar-sub.active{color:var(--d-accent); background:var(--d-accent-light)}
+.sidebar-page-label{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--d-accent); padding:8px 12px 4px}
+.sidebar-divider{border:none; border-top:1px solid var(--d-border); margin:10px 8px}
+
+/* ---------- Content ---------- */
+.doc{max-width:1120px; margin:0 auto; padding:68px 20px 90px}
+@media(min-width:860px){
+  .topbar{display:none}
+  .sidebar{transform:translateX(0)}
+  .doc{margin-left:220px; padding:52px 48px 90px}
+}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font:700 11px/1 Inter; letter-spacing:.1em; text-transform:uppercase; color:#fff; background:var(--orange); padding:6px 10px; border-radius:6px}
+h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing:-.015em; line-height:1.03;
+  font-size:clamp(1.9rem,1.4rem+2vw,2.8rem); margin:16px 0 12px}
+.lead{max-width:72ch; color:var(--ink-2); font-size:1.06rem}
+.lead b{color:var(--ink)}
+.lead code{font-family:"IBM Plex Mono",monospace; font-size:.85em; color:var(--muted); background:var(--warm); border:1px solid var(--line); border-radius:5px; padding:1px 5px}
+
+.section-h{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; border-bottom:2px solid var(--ink); padding-bottom:11px; margin:40px 0 20px}
+.section-h h2{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing:-.01em; font-size:clamp(1.25rem,1rem+1.2vw,1.7rem); margin:0}
+.section-h .n{font:700 12px/1 "IBM Plex Mono",monospace; color:#fff; background:var(--ink); padding:6px 9px; border-radius:6px}
+.section-h .hint{font-size:.85rem; color:var(--muted); margin-left:auto}
+
+.scr-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px}
+.scr{display:flex; flex-direction:column; gap:4px; padding:15px 16px; background:#fff; border:1px solid var(--line); border-radius:12px;
+  box-shadow:var(--shadow); text-decoration:none; transition:border-color .15s, transform .15s}
+.scr:hover{border-color:var(--orange); transform:translateY(-2px)}
+.scr .scr-t{font-weight:600; color:var(--ink); display:flex; align-items:center; gap:8px}
+.scr .scr-u{font-size:.84rem; color:var(--muted)}
+.scr .badge{font:600 10px/1 "IBM Plex Mono",monospace; color:var(--orange); border:1px solid rgba(255,90,0,.35); background:rgba(255,90,0,.06); border-radius:20px; padding:3px 7px}
+
+.foot-note{margin-top:44px; padding:18px 20px; background:var(--warm); border:1px solid var(--line); border-radius:12px;
+  font-size:.92rem; color:var(--ink-2); max-width:78ch}
+.foot-note b{color:var(--ink)}
+.foot-note code{font-family:"IBM Plex Mono",monospace; font-size:.82em; color:var(--muted)}
+.backrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:22px}
+.backrow a{font-size:13px; font-weight:600; color:var(--d-accent); text-decoration:none; border:1px solid var(--d-border); border-radius:8px; padding:8px 14px; background:#fff; transition:border-color .15s, color .15s}
+.backrow a:hover{border-color:var(--orange); color:var(--orange)}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="../concept/concept.html" class="topbar-logo">Stack</a>
+  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>
+  </button>
+</nav>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+  <a href="../concept/concept.html" class="sidebar-logo">Stack</a>
+  <nav class="sidebar-nav">
+    <a href="../research/research.html">Дослідження</a>
+    <a href="../research/personas.html">Персони</a>
+    <a href="../research/jtbd.html">JTBD</a>
+    <a href="../research/concept.html">Концептуальна архітектура</a>
+    <a href="../ia/sitemap.html">Інформаційна архітектура</a>
+    <a href="../Voices/voice.html">Голос продукту</a>
+    <hr class="sidebar-divider">
+    <a href="../wireframes/index.html">Вайрфрейми</a>
+    <hr class="sidebar-divider">
+    <a href="../concept/directions.html">Concept</a>
+    <hr class="sidebar-divider">
+    <a href="screens.html" class="active">UI Visual</a>
+    <a href="listing.html" class="sidebar-sub">Лістинг · еталон</a>
+    <a href="#states" class="sidebar-sub">Доменні стани</a>
+    <a href="product.html" class="sidebar-sub">Картка товару</a>
+  </nav>
+</aside>
+
+<main class="doc">
+  <span class="eyebrow">Крок 6-7 · мова на екрані</span>
+  <h1>UI Visual</h1>
+  <p class="lead">Мова продукту, покладена на реальні екрани. Це <b>кольорові копії</b> сірих вайрфреймів у теці
+    <code>ui-visual/</code>: сірий прототип лишається сірим, копія володіє <b>лише візуальним шаром</b> (структура,
+    текст і набір станів - власність <code>wireframes/</code>). Переходи на ще-не-пофарбовані екрани ведуть на
+    сірий оригінал, а не в глухий кут. Ця сторінка службова (<b>noindex</b>) - карта кольорового прототипу;
+    <code>index.html</code> лишаємо під майбутню кольорову <b>головну сторінку продукту</b> (етап 07).</p>
+
+  <div class="backrow">
+    <a href="../concept/concept.html">← Стенд мови (Концепт)</a>
+    <a href="../concept/directions.html">Три напрями верстки</a>
+    <a href="../wireframes/index.html">Сірі вайрфрейми ↗</a>
+  </div>
+
+  <div class="section-h">
+    <span class="n">2.1</span>
+    <h2>Лістинг «Протеїн» - еталон</h2>
+    <span class="hint">робоча конячка етапу 04, у кольорі</span>
+  </div>
+  <div class="scr-grid">
+    <a class="scr" href="listing.html"><span class="scr-t">Базовий <span class="badge">еталон</span></span><span class="scr-u">сітка, картки, ціни, наявність, слайдер ціни</span></a>
+    <a class="scr" href="listing-list.html"><span class="scr-t">Списком</span><span class="scr-u">та сама мова, інша щільність</span></a>
+    <a class="scr" href="listing-filtered.html"><span class="scr-t">З фільтрами</span><span class="scr-u">активні фасети, обране підсвічено оранжем</span></a>
+    <a class="scr" href="listing-sheet.html"><span class="scr-t">Фільтри · мобілка</span><span class="scr-u">bottom-sheet, «Застосувати» = дія</span></a>
+  </div>
+
+  <div class="section-h" id="states">
+    <span class="n">Стани</span>
+    <h2>Доменні стани</h2>
+    <span class="hint">кажуть правду й дають вихід (Принцип 5)</span>
+  </div>
+  <div class="scr-grid">
+    <a class="scr" href="listing-empty.html"><span class="scr-t">Порожньо</span><span class="scr-u">маскот-гід, вихід без глухого кута</span></a>
+    <a class="scr" href="listing-error.html"><span class="scr-t">Помилка</span><span class="scr-u">чесний стан + «Спробувати ще раз»</span></a>
+    <a class="scr" href="listing-loading.html"><span class="scr-t">Завантаження</span><span class="scr-u">скелетони</span></a>
+  </div>
+
+  <div class="section-h" id="pdp">
+    <span class="n">3.0</span>
+    <h2>Картка товару</h2>
+    <span class="hint">ціль конверсії кожної картки + дім довіри (Job 4)</span>
+  </div>
+  <div class="scr-grid">
+    <a class="scr" href="product.html"><span class="scr-t">Базовий <span class="badge">в наявності</span></span><span class="scr-u">галерея, buy-box, склад · дозування · походження · сертифікат, відгуки, sticky buy-bar</span></a>
+  </div>
+
+  <p class="foot-note">Це засів <b>етапу 06</b>: мова доведена на еталоні й станах. Кожне рішення (колір, форма, шрифт,
+    іконка) має пару в <b>DESIGN-artifacts.md</b> / стенді <code>concept.html</code>. Повний UI + Visual - кіт компонентів
+    і <b>всі</b> екрани в кольорі - це <b>етап 07</b>; тоді ця сторінка доросте до повної карти кольорового прототипу.</p>
+</main>
+
+<script>
+  function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('open'); }
+  function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.remove('open'); }
+  document.querySelectorAll('.sidebar-nav a').forEach(function(l){ l.addEventListener('click', closeSidebar); });
+</script>
+</body>
+</html>

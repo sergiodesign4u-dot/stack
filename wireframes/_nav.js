@@ -1,5 +1,5 @@
 /* ============================================================
-   Stack — Wireframes navigation (_nav.js)
+   Stack - Wireframes navigation (_nav.js)
    ONE source of truth (mirrors wireframes/_screens.md).
    Powers: (a) the «Всі екрани» tree on index.html  → wfTree('id')
            (b) the thin prototype bar on each screen → wfBar('file.html')
@@ -18,7 +18,7 @@ const WF_STATE_LABEL = {
   protein: 'Протеїн', health: 'Здоровʼя', vitamins: 'Вітаміни',
   free: 'Тариф Free', cancel: 'Скасування Pro',
   max: 'Максимальний рівень', many: 'Багато (пагінація)',
-  add: 'Додати — вибір способу', viddilennia: 'Відділення', postomat: 'Поштомат', courier: 'Кур\'єр',
+  add: 'Додати - вибір способу', viddilennia: 'Відділення', postomat: 'Поштомат', courier: 'Кур\'єр',
   edit: 'Редагувати', delete: 'Видалення',
   phone: 'Змінити номер', email: 'Додати e-mail', lang: 'Мова інтерфейсу', withemail: 'E-mail додано'
 };
@@ -61,7 +61,7 @@ const WF_FLOWS = [
   },
   {
     id: 'f3', name: 'Каталог та пошук', status: 'active',
-    note: 'навігаційні поверхні (не подорож): хаб → категорія · бренди · пошук — точки входу до товарів',
+    note: 'навігаційні поверхні (не подорож): хаб → категорія · бренди · пошук - точки входу до товарів',
     screens: [
       { file: 'catalog-page.html', name: 'Каталог-хаб',       node: '2.0', built: true, states: ['loading','error'], builtStates: ['loading','error'] },
       { file: 'home-catalog.html', name: 'Рейка категорій з головної (flyout-оверлей)', node: '0.0', built: true, states: [], builtStates: [] },
@@ -71,7 +71,7 @@ const WF_FLOWS = [
   },
   {
     id: 'f4', name: 'Контент, інфо та лояльність', status: 'active',
-    note: 'сервісні / SEO-сторінки (8.x): 7 шаблонів на 13 вузлів — інфо · лояльність · FAQ · блог · акції · відгуки · розсилка',
+    note: 'сервісні / SEO-сторінки (8.x): 7 шаблонів на 13 вузлів - інфо · лояльність · FAQ · блог · акції · відгуки · розсилка',
     screens: [
       { file: 'content-loyalty.html', name: 'Бонусна програма', node: '8.7', built: true, states: ['buyer'], builtStates: ['buyer'] },
       { file: 'content-faq.html',     name: 'FAQ',              node: '8.9', built: true, states: [], builtStates: [] },
@@ -90,7 +90,7 @@ const WF_FLOWS = [
   },
   {
     id: 'f5', name: 'Системні та глобальні', status: 'active',
-    note: 'крос-функційне: мега-меню (0.1) + 404 / 500 / тех.роботи (S) + глобальні компоненти (cookie-банер, тости) — демо на system.html',
+    note: 'крос-функційне: мега-меню (0.1) + 404 / 500 / тех.роботи (S) + глобальні компоненти (cookie-банер, тости) - демо на system.html',
     screens: [
       { file: 'megamenu.html',    name: 'Мега-меню «Каталог» (оверлей)', node: '0.1', built: true, states: ['protein', 'health', 'vitamins'], builtStates: ['protein', 'health', 'vitamins'] },
       { file: '404.html',         name: 'Сторінку не знайдено (404)', node: 'S', built: true, states: [], builtStates: [] },
@@ -113,7 +113,7 @@ const WF_FLOWS = [
 ];
 
 /* ============================================================
-   WF_SITEMAP — the COMPLETE product map by IA cluster (0–8 + system).
+   WF_SITEMAP - the COMPLETE product map by IA cluster (0–8 + system).
    Every product page: `file` = built wireframe (→ links to it, shows view
    count via WF_FLOWS lookup); `ia` = not-yet-built (→ links to its IA spec,
    dashed). Single source for the «Повна карта сайту» block on index.html.
@@ -186,8 +186,8 @@ const WF_SITEMAP = [
     { node: '8.12', name: 'Розсилка',                          file: 'content-newsletter.html' },
   ]},
   { cluster: 'S · Системні та глобальні', items: [
-    { node: 'S',    name: '404 — не знайдено',                 file: '404.html' },
-    { node: 'S',    name: '500 — помилка сервера',             file: '500.html' },
+    { node: 'S',    name: '404 - не знайдено',                 file: '404.html' },
+    { node: 'S',    name: '500 - помилка сервера',             file: '500.html' },
     { node: 'S',    name: 'Технічні роботи (503)',             file: 'maintenance.html' },
     { node: 'S',    name: 'Cookie-банер · Тости',              file: 'system.html' },
   ]},
@@ -238,7 +238,7 @@ function wfTree(elId) {
   root.innerHTML = html;
 }
 
-/* (a2) full product sitemap for index.html — every page by cluster; built → wireframe
+/* (a2) full product sitemap for index.html - every page by cluster; built → wireframe
    (with view count = base + built states), not-built → its IA spec (dashed). */
 function wfFullMap(elId) {
   const root = document.getElementById(elId);
@@ -291,13 +291,13 @@ function wfBar(baseFile, currentState) {
 }
 
 /* ============================================================
-   Catalog mega-menu data (node 0.1) — Belok-style.
+   Catalog mega-menu data (node 0.1) - Belok-style.
    Left = 12 top categories; middle = the hovered category's subcategories;
    right = «За ціллю» (6 goals) + all-products. All links are real <a>
    (crawlable, SEO). In the wireframe every category/subcategory routes to
    the shared listing template (listing.html); goals → goal.html; Бренди →
    brands.html. ============================================================ */
-/* canonical badge counts (wireframe) — cart items + saved favourites */
+/* canonical badge counts (wireframe) - cart items + saved favourites */
 const WF_CART_COUNT = 3;
 const WF_FAV_COUNT = 4;
 const WF_CAT_MENU = [
@@ -377,21 +377,21 @@ const WF_GOAL_MENU = [
   { ic: '🛡️', name: 'Імунітет',   cats: 'Вітаміни C, D3, цинк · Омега · Пробіотики' },
   { ic: '🏃', name: 'Витривалість', cats: 'Ізотоніки · Гелі · Електроліти · Бета-аланін' },
 ];
-/* canonical served-cities list (node 0.1a) — 23 controlled oblast centres + large hubs; Crimea/occupied excluded */
+/* canonical served-cities list (node 0.1a) - 23 controlled oblast centres + large hubs; Crimea/occupied excluded */
 const WF_CITIES_POP = ['Київ', 'Харків', 'Дніпро', 'Одеса', 'Львів', 'Запоріжжя', 'Кривий Ріг', 'Миколаїв'];
 const WF_CITIES_ALL = ['Вінниця', 'Дніпро', 'Житомир', 'Запоріжжя', 'Івано-Франківськ', 'Камʼянець', 'Київ', 'Кременчук', 'Кривий Ріг', 'Луцьк', 'Львів', 'Миколаїв', 'Одеса', 'Полтава', 'Рівне', 'Суми', 'Тернопіль', 'Ужгород', 'Харків', 'Херсон', 'Хмельницький', 'Черкаси', 'Чернівці', 'Чернігів'];
 
-/* goals middle panel (data-k="g") — the concern lens, shown first by default */
+/* goals middle panel (data-k="g") - the concern lens, shown first by default */
 function wfMegaGoalsPanel() {
   let cards = '';
   WF_GOAL_MENU.forEach(g => {
     cards += '<a class="mega-goalcard" href="goal.html"><span class="gi">' + g.ic + '</span>' +
       '<span class="gtx"><b>' + g.name + '</b><span class="gc">' + g.cats + '</span></span></a>';
   });
-  return '<div class="mega-panel on" data-k="g"><a class="mph" href="catalog-page.html">Оберіть ціль — підберемо набір →</a>' +
+  return '<div class="mega-panel on" data-k="g"><a class="mph" href="catalog-page.html">Оберіть ціль - підберемо набір →</a>' +
     '<div class="mega-goalgrid">' + cards + '</div></div>';
 }
-/* one middle panel per category — grouped subcategories + goal chips */
+/* one middle panel per category - grouped subcategories + goal chips */
 function wfMegaCatPanel(c, i) {
   let grp = '';
   (c.groups || [{ label: '', items: c.subs }]).forEach(g => {
@@ -405,7 +405,7 @@ function wfMegaCatPanel(c, i) {
     c.goals.forEach(gn => { goalrow += '<a class="mgchip" href="goal.html">' + gn + '</a>'; });
     goalrow += '</div>';
   }
-  const head = c.brandIndex ? 'Усі бренди А–Я →' : c.name + ' — усі товари →';
+  const head = c.brandIndex ? 'Усі бренди А–Я →' : c.name + ' - усі товари →';
   return '<div class="mega-panel" data-k="' + i + '"><a class="mph" href="' + c.href + '">' + head + '</a>' +
     '<div class="mega-groups">' + grp + '</div>' + goalrow + '</div>';
 }
@@ -420,7 +420,7 @@ function wfHomeRail(opts) {
   var flyEl = document.querySelector(opts.fly || '#home-fly');
   if (!railEl || !flyEl) return;
   var scrimSel = opts.scrim || '#home-scrim';
-  var rail = '<a class="lead" data-k="g" href="catalog-page.html" onmouseenter="hcFly(\'g\')">✦ За ціллю <span class="ar">›</span></a><div class="rsep"></div>';
+  var rail = '<a class="lead" data-k="g" href="catalog-page.html" onmouseenter="hcFly(\'g\')"><span class="ic">🎯</span> За ціллю <span class="ar">›</span></a><div class="rsep"></div>';
   WF_CAT_MENU.forEach(function (c, i) {
     rail += '<a data-k="' + i + '" href="' + c.href + '" onmouseenter="hcFly(\'' + i + '\')"><span class="ic">' + (c.ic || '') + '</span> ' + c.name + ' <span class="ar">›</span></a>';
   });
@@ -442,7 +442,7 @@ function wfHomeRail(opts) {
   if (opts.open) hcFly('g');
 }
 function wfMegaHTML() {
-  let cats = '<a class="mega-cat mega-cat-goals on" data-k="g" href="catalog-page.html" onmouseenter="wfMega(\'g\')">✦ За ціллю<span class="ar">›</span></a>';
+  let cats = '<a class="mega-cat mega-cat-goals on" data-k="g" href="catalog-page.html" onmouseenter="wfMega(\'g\')"><span class="mci">🎯</span>За ціллю<span class="ar">›</span></a>';
   let mids = wfMegaGoalsPanel();
   WF_CAT_MENU.forEach((c, i) => {
     cats += '<a class="mega-cat" data-k="' + i + '" href="' + c.href + '" onmouseenter="wfMega(\'' + i + '\')"><span class="mci">' + (c.ic || '') + '</span>' + c.name + '<span class="ar">›</span></a>';
@@ -454,9 +454,9 @@ function wfMegaHTML() {
     '<a class="ms-link" href="listing.html">Новинки</a>' +
     '<a class="ms-link" href="content-promo.html">Акції та знижки</a>' +
     '<a class="ms-link" href="listing.html">Розпродаж</a>' +
-    '<div class="ms-feat"><div class="ms-ph">фото</div><div class="ms-ftag">Вибір місяця</div>' +
+    '<a class="ms-feat" href="product.html"><div class="ms-ph">фото</div><div class="ms-ftag">Вибір місяця</div>' +
     '<div class="ms-fh">Gold Standard 100% Whey</div><div class="ms-fs">від 1 290 ₴ · −15%</div>' +
-    '<a class="ms-fb" href="product.html">Дивитися →</a></div></div>';
+    '<span class="ms-fb">Дивитися →</span></a></div>';
   return '<div class="wfh-mega" role="menu" aria-label="Каталог">' +
     '<div class="mega-cats">' + cats + '</div>' +
     '<div class="mega-mid">' + mids + '</div>' + side + '</div>';
@@ -466,7 +466,7 @@ function wfMega(k) {
   document.querySelectorAll('.wfh-mega .mega-cat').forEach(el => el.classList.toggle('on', el.dataset.k === k));
   document.querySelectorAll('.wfh-mega .mega-panel').forEach(el => el.classList.toggle('on', el.dataset.k === k));
 }
-/* mega opens as an overlay (Comfy-style) — dark scrim over the page while open.
+/* mega opens as an overlay (Comfy-style) - dark scrim over the page while open.
    Close is deferred a beat so a fast diagonal move into the panel never closes it. */
 var _megaCloseT;
 function openMega() { clearTimeout(_megaCloseT); var h = document.querySelector('.wfh'); if (h) h.classList.add('mega-open'); var s = document.getElementById('wfh-scrim'); if (s) s.classList.add('open'); }
@@ -483,7 +483,7 @@ function wfCityHTML() {
     '<input class="city-search" type="search" placeholder="Пошук міста…" aria-label="Пошук міста">' +
     '<div class="city-lbl">Популярні міста</div><div class="city-pop">' + pop + '</div>' +
     '<div class="city-lbl">Усі міста (А–Я)</div><div class="city-list">' + az + '</div>' +
-    '<div class="city-note">Доставка Новою Поштою по всій Україні — знайдемо будь-яке місто через пошук.</div>' +
+    '<div class="city-note">Доставка Новою Поштою по всій Україні - знайдемо будь-яке місто через пошук.</div>' +
     '</div></div>';
 }
 function wfDrawerHTML() {
@@ -496,16 +496,16 @@ function wfDrawerHTML() {
     (c.subs || []).forEach(s => { cats += '<a class="dr-sub" href="' + c.href + '">' + s + '</a>'; });
     cats += '</div></div>';
   });
-  return '<div class="wf-ov" id="drawer-ov" onclick="closeBurger()"></div>' +
-    '<nav class="wf-drawer" id="drawer" aria-label="Меню">' +
-    '<div class="dr-h"><span class="dr-logo">Stack</span><button class="x" onclick="closeBurger()" aria-label="Закрити">✕</button></div>' +
+  /* No scrim and no own header row: the panel unfolds under the store header,
+     which stays visible and carries the close control (☰ → ✕). */
+  return '<nav class="wf-drawer" id="drawer" aria-label="Меню">' +
     '<div class="dr-b">' +
-    '<a class="dr-city" href="#" onclick="closeBurger();openCity();return false">📍 Одеса — змінити місто</a>' +
+    '<a class="dr-city" href="#" onclick="closeBurger();openCity();return false">📍 Одеса - змінити місто</a>' +
     '<div class="dr-lbl">За ціллю</div><div class="dr-chips">' + goals + '</div>' +
     '<div class="dr-lbl">Категорії</div>' + cats +
     '<div class="dr-lbl">Ще</div>' +
     '<a class="dr-link strong" href="coach-landing.html">Для тренерів</a>' +
-    '<a class="dr-link" href="quiz.html">✦ Квіз — підбір за ціллю</a>' +
+    '<a class="dr-link" href="quiz.html">✦ Квіз - підбір за ціллю</a>' +
     '<a class="dr-link" href="content-promo.html">Акції</a>' +
     '<a class="dr-link" href="brands.html">Бренди</a>' +
     '<a class="dr-link" href="content-delivery.html">Доставка й оплата</a>' +
@@ -519,8 +519,35 @@ function wfDrawerHTML() {
 function openCity() { var d = document.getElementById('city-dlg'), o = document.getElementById('city-ov'); if (d) d.classList.add('open'); if (o) o.classList.add('open'); }
 function closeCity() { var d = document.getElementById('city-dlg'), o = document.getElementById('city-ov'); if (d) d.classList.remove('open'); if (o) o.classList.remove('open'); }
 function wfPickCity(name) { document.querySelectorAll('.wfh-city-lbl').forEach(el => el.textContent = name); closeCity(); }
-function openBurger() { var d = document.getElementById('drawer'), o = document.getElementById('drawer-ov'); if (d) d.classList.add('open'); if (o) o.classList.add('open'); }
-function closeBurger() { var d = document.getElementById('drawer'), o = document.getElementById('drawer-ov'); if (d) d.classList.remove('open'); if (o) o.classList.remove('open'); }
+/* the panel hangs off the bottom edge of the sticky header - measured live, so the
+   prototype bar, the desktop meta row and the current scroll position all work out */
+function wfDrawerTop() {
+  var h = document.getElementById('wf-header');
+  var b = h ? h.getBoundingClientRect().bottom : 56;
+  return Math.max(0, Math.round(b));
+}
+function openBurger() {
+  var d = document.getElementById('drawer'); if (!d) return;
+  d.style.setProperty('--dr-top', wfDrawerTop() + 'px');
+  d.classList.add('open');
+  document.documentElement.classList.add('dr-lock');        /* page does not scroll behind the panel */
+  var h = document.getElementById('wf-header'); if (h) h.classList.add('drawer-open');
+  var b = document.querySelector('.wfh-burger'); if (b) b.setAttribute('aria-expanded', 'true');
+}
+function closeBurger() {
+  var d = document.getElementById('drawer'); if (d) d.classList.remove('open');
+  document.documentElement.classList.remove('dr-lock');
+  var h = document.getElementById('wf-header'); if (h) h.classList.remove('drawer-open');
+  var b = document.querySelector('.wfh-burger'); if (b) b.setAttribute('aria-expanded', 'false');
+}
+function toggleBurger() {
+  var d = document.getElementById('drawer');
+  if (d && d.classList.contains('open')) closeBurger(); else openBurger();
+}
+window.addEventListener('resize', function () {
+  var d = document.getElementById('drawer');
+  if (d && d.classList.contains('open')) d.style.setProperty('--dr-top', wfDrawerTop() + 'px');
+});
 function toggleDrCat(i) { var s = document.getElementById('drs' + i), a = document.getElementById('dra' + i); if (!s) return; var open = s.classList.toggle('open'); if (a) a.textContent = open ? '－' : '＋'; var b = s.previousElementSibling; if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
 
 /* ---------- Mobile catalog overlay (node 0.1, mobile drill-down) ----------
@@ -547,7 +574,7 @@ function catOvHead(opts) {
 }
 function catOverlayL0() {
   document.getElementById('wf-catov-h').innerHTML = catOvHead({ back: null });
-  var body = '<button class="wf-catov-row lead" onclick="catOverlayGoals()"><span class="ci">✦</span><span class="cl">За ціллю</span><span class="car">›</span></button>';
+  var body = '<button class="wf-catov-row lead" onclick="catOverlayGoals()"><span class="ci">🎯</span><span class="cl">За ціллю</span><span class="car">›</span></button>';
   WF_CAT_MENU.forEach(function (c, i) {
     body += '<button class="wf-catov-row" onclick="catOverlayCat(' + i + ')"><span class="ci">' + (c.ic || '') + '</span><span class="cl">' + c.name + '</span><span class="car">›</span></button>';
   });
@@ -578,7 +605,7 @@ function closeCatOverlay() { var c = document.getElementById('wf-catov'); if (c)
 function wfCatTabClick(e) { if (e) e.preventDefault(); var c = document.getElementById('wf-catov'); if (c && c.classList.contains('open')) closeCatOverlay(); else openCatOverlay(); return false; }
 
 /* ============================================================
-   Global system components (node S) — cookie-consent banner + toasts.
+   Global system components (node S) - cookie-consent banner + toasts.
    Builders inject into #wf-cookie / #wf-toast placeholders (present only on
    pages that demo them, e.g. system.html). Footer «Змінити згоду» opens the
    settings dialog where present, else routes to system.html.
@@ -589,7 +616,7 @@ function wfCookieHTML() {
     '<label class="ck-cat"><span class="ck-cat-t">' + title + (locked ? ' <span class="ck-lock">🔒</span>' : '') + '<span class="ck-cat-d">' + desc + '</span></span>' +
     '<span class="ck-tog' + (locked ? ' on locked' : '') + '" data-ck="' + id + '" onclick="wfCkTog(this)" role="switch" aria-checked="' + (locked ? 'true' : 'false') + '"><i></i></span></label>';
   return '<div class="wf-cookie" id="cookie-bar" role="region" aria-label="Згода на використання cookie">' +
-    '<div class="ck-txt"><b>Ми використовуємо файли cookie.</b> Необхідні — щоб сайт працював (кошик, вхід, безпека). Аналітику й маркетинг вмикаємо <b>лише за вашою згодою</b>. Докладніше — у <a href="content-legal.html">Політиці конфіденційності</a>.</div>' +
+    '<div class="ck-txt"><b>Ми використовуємо файли cookie.</b> Необхідні - щоб сайт працював (кошик, вхід, безпека). Аналітику й маркетинг вмикаємо <b>лише за вашою згодою</b>. Докладніше - у <a href="content-legal.html">Політиці конфіденційності</a>.</div>' +
     '<div class="ck-acts"><button class="ck-btn" onclick="saveCookiePrefs(\'all\')">Прийняти всі</button>' +
     '<button class="ck-btn" onclick="saveCookiePrefs(\'necessary\')">Тільки необхідні</button>' +
     '<button class="ck-btn ghost" onclick="openCookieSettings()">Налаштувати</button></div></div>' +
@@ -600,7 +627,7 @@ function wfCookieHTML() {
     cat('necessary', 'Необхідні', 'Кошик, авторизація, безпека. Завжди активні.', true) +
     cat('analytics', 'Аналітика', 'Анонімна статистика відвідувань (Mixpanel / PostHog).', false) +
     cat('marketing', 'Маркетинг', 'Персоналізовані пропозиції та ремаркетинг.', false) +
-    '<p class="ck-note">Змінити вибір можна будь-коли — посилання «Змінити згоду» у футері. Див. <a href="content-legal.html">Політику конфіденційності</a>.</p>' +
+    '<p class="ck-note">Змінити вибір можна будь-коли - посилання «Змінити згоду» у футері. Див. <a href="content-legal.html">Політику конфіденційності</a>.</p>' +
     '</div><div class="wf-ckset-f"><button class="btn" onclick="saveCookiePrefs(\'necessary\')">Тільки необхідні</button>' +
     '<button class="btn dark" onclick="saveCookiePrefs(\'custom\')">Зберегти вибір</button></div></div>';
 }
@@ -611,7 +638,7 @@ function closeCookieSettings() { const d = document.getElementById('ckset'), o =
 function saveCookiePrefs() { const b = document.getElementById('cookie-bar'); if (b) b.classList.add('hidden'); closeCookieSettings(); wfToast('ok', 'Налаштування cookie збережено'); }
 function showCookieBar() { const b = document.getElementById('cookie-bar'); if (b) b.classList.remove('hidden'); }
 
-/* PDP review + question modals — SHARED component (single source of truth). Injected
+/* PDP review + question modals - SHARED component (single source of truth). Injected
    into #wf-pdp-modals on the product page AND the product-reviews reference state, so
    they never drift. openReview()/openQuestion() are the triggers. */
 function wfPdpModals() {
@@ -620,21 +647,115 @@ function wfPdpModals() {
     '<div class="wf-ov" id="pm-ov" onclick="closePM()"></div>' +
     '<div class="pm" id="pm-review" role="dialog" aria-modal="true" aria-label="Залишити відгук">' +
     '<div class="pm-h">Залишити відгук<button class="x" onclick="closePM()" aria-label="Закрити">✕</button></div>' +
-    '<div class="pm-b"><label>Ваша оцінка</label><div class="pm-stars"><b>★★★★</b>★</div>' +
-    '<label>Переваги</label><input type="text" placeholder="Що сподобалось">' +
-    '<label>Недоліки</label><input type="text" placeholder="Що можна покращити">' +
-    '<label>Відгук</label><textarea placeholder="Ваші враження про товар…"></textarea>' +
-    '<label>Ім\'я</label><input type="text" placeholder="Як вас підписати">' +
-    '<div class="pm-note">Відгук пройде модерацію. Публікуємо чесно — і схвальні, і критичні.</div></div>' +
+    '<div class="pm-b">' +
+    '<div class="pm-rhead"><label>Ваша оцінка</label><span class="pm-rw" id="pm-rate-w"></span></div>' +
+    '<div class="pm-rate"><div class="pm-stars" id="pm-rate" role="radiogroup" aria-label="Ваша оцінка" ' +
+    'onmouseleave="wfPmRateOut()">' + wfPmStars() + '</div><b class="pm-rv" id="pm-rate-v"></b></div>' +
+    '<div class="pm-e" id="pm-rate-e"></div>' +
+    '<label for="pm-rv-pros">Переваги <span class="opt">необов\'язково</span></label>' +
+    '<input id="pm-rv-pros" type="text" placeholder="Що сподобалось" oninput="wfPmInput(this)">' +
+    '<label for="pm-rv-cons">Недоліки <span class="opt">необов\'язково</span></label>' +
+    '<input id="pm-rv-cons" type="text" placeholder="Що можна покращити" oninput="wfPmInput(this)">' +
+    '<label for="pm-rv-text">Відгук</label>' +
+    '<textarea id="pm-rv-text" maxlength="600" data-count="pm-rv-cnt" placeholder="Ваші враження про товар…" oninput="wfPmInput(this)"></textarea>' +
+    '<div class="pm-cnt"><b id="pm-rv-cnt">0</b> / 600</div><div class="pm-e" id="pm-rv-text-e"></div>' +
+    '<label for="pm-rv-name">Ім\'я</label>' +
+    '<input id="pm-rv-name" type="text" placeholder="Як вас підписати" oninput="wfPmInput(this)">' +
+    '<div class="pm-e" id="pm-rv-name-e"></div>' +
+    '<div class="pm-note">Відгук пройде модерацію. Публікуємо чесно - і схвальні, і критичні.</div></div>' +
     '<div class="pm-f"><button class="btn" onclick="closePM()">Скасувати</button>' +
-    '<button class="btn dark" onclick="submitPM(\'Дякуємо за відгук — він на модерації\')">Надіслати відгук</button></div></div>' +
+    '<button class="btn dark" onclick="wfPmSubmitReview()">Надіслати відгук</button></div></div>' +
     '<div class="pm" id="pm-question" role="dialog" aria-modal="true" aria-label="Поставити запитання">' +
     '<div class="pm-h">Поставити запитання<button class="x" onclick="closePM()" aria-label="Закрити">✕</button></div>' +
-    '<div class="pm-b"><label>Ваше запитання про товар</label><textarea placeholder="Напр., чи підходить для схуднення?"></textarea>' +
-    '<label>E-mail для відповіді</label><input type="email" placeholder="you@email.com">' +
+    '<div class="pm-b"><label for="pm-q-text">Ваше запитання про товар</label>' +
+    '<textarea id="pm-q-text" maxlength="400" data-count="pm-q-cnt" placeholder="Напр., чи підходить для схуднення?" oninput="wfPmInput(this)"></textarea>' +
+    '<div class="pm-cnt"><b id="pm-q-cnt">0</b> / 400</div><div class="pm-e" id="pm-q-text-e"></div>' +
+    '<label for="pm-q-mail">E-mail для відповіді</label>' +
+    '<input id="pm-q-mail" type="email" placeholder="you@email.com" oninput="wfPmInput(this)">' +
+    '<div class="pm-e" id="pm-q-mail-e"></div>' +
     '<div class="pm-note">Відповідь надішлемо на пошту й опублікуємо в розділі «Питання».</div></div>' +
     '<div class="pm-f"><button class="btn" onclick="closePM()">Скасувати</button>' +
-    '<button class="btn dark" onclick="submitPM(\'Дякуємо за запитання\')">Надіслати запитання</button></div></div>';
+    '<button class="btn dark" onclick="wfPmSubmitQuestion()">Надіслати запитання</button></div></div>';
+}
+/* ---- rating widget + field states (shared behaviour; colour lives in the theme) ----
+   The stars are real radio buttons: hover paints the row up to the pointer, click
+   locks it in, leaving the row returns to what was chosen. Fields carry .has when
+   filled and .err with a message under them when the form is submitted incomplete -
+   the dialog never closes on an invalid submit. */
+var WF_PM_RATE = 0;
+var WF_PM_WORDS = ['', 'Погано', 'Так собі', 'Нормально', 'Добре', 'Відмінно'];
+function wfPmStars() {
+  var s = '';
+  for (var i = 1; i <= 5; i++) {
+    s += '<button type="button" class="pmst" data-v="' + i + '" role="radio" aria-checked="false" ' +
+      'aria-label="' + i + ' з 5" onclick="wfPmRate(' + i + ')" onmouseenter="wfPmRateHover(' + i + ')" ' +
+      'onfocus="wfPmRateHover(' + i + ')">★</button>';
+  }
+  return s;
+}
+function wfPmPaint(n) {
+  document.querySelectorAll('#pm-rate .pmst').forEach(function (b) {
+    var v = +b.dataset.v;
+    b.classList.toggle('on', v <= n);
+    b.setAttribute('aria-checked', String(v === WF_PM_RATE));
+  });
+  /* the readout echoes the rating summary of the reviews section: the verdict word
+     rides on the label's line, the figure sits large next to the stars */
+  var num = document.getElementById('pm-rate-v');
+  var word = document.getElementById('pm-rate-w');
+  if (num) num.textContent = n ? n : '';
+  if (word) word.textContent = n ? WF_PM_WORDS[n] : '';
+}
+function wfPmRate(v) { WF_PM_RATE = v; wfPmPaint(v); wfPmClear(document.getElementById('pm-rate')); }
+function wfPmRateHover(v) { wfPmPaint(v); }
+function wfPmRateOut() { wfPmPaint(WF_PM_RATE); }
+function wfPmInput(el) {
+  el.classList.toggle('has', !!el.value.trim());
+  wfPmClear(el);
+  var c = el.dataset.count && document.getElementById(el.dataset.count);
+  if (c) c.textContent = el.value.length;
+}
+function wfPmClear(el) {
+  if (!el) return;
+  el.classList.remove('err');
+  var e = document.getElementById(el.id + '-e');
+  if (e) { e.textContent = ''; e.classList.remove('on'); }
+}
+function wfPmFail(el, msg) {
+  if (!el) return false;
+  el.classList.add('err');
+  var e = document.getElementById(el.id + '-e');
+  if (e) { e.textContent = msg; e.classList.add('on'); }
+  return false;
+}
+function wfPmNeed(id, msg) {
+  var el = document.getElementById(id);
+  return (el && el.value.trim()) ? true : wfPmFail(el, msg);
+}
+function wfPmSubmitReview() {
+  var ok = true;
+  if (!WF_PM_RATE) ok = wfPmFail(document.getElementById('pm-rate'), 'Оберіть оцінку');
+  if (!wfPmNeed('pm-rv-text', 'Напишіть кілька слів про товар')) ok = false;
+  if (!wfPmNeed('pm-rv-name', 'Вкажіть, як вас підписати')) ok = false;
+  if (!ok) { wfToast('error', 'Заповніть виділені поля'); return; }
+  submitPM('Дякуємо за відгук - він на модерації');
+  wfPmReset();
+}
+function wfPmSubmitQuestion() {
+  var ok = wfPmNeed('pm-q-text', 'Напишіть запитання');
+  var mail = document.getElementById('pm-q-mail');
+  var v = mail ? mail.value.trim() : '';
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) ok = wfPmFail(mail, v ? 'Схоже, в адресі помилка' : 'Вкажіть e-mail для відповіді');
+  if (!ok) { wfToast('error', 'Заповніть виділені поля'); return; }
+  submitPM('Дякуємо за запитання');
+  wfPmReset();
+}
+function wfPmReset() {
+  WF_PM_RATE = 0; wfPmPaint(0);
+  document.querySelectorAll('.pm-b input, .pm-b textarea').forEach(function (el) {
+    el.value = ''; el.classList.remove('has'); wfPmClear(el);
+  });
+  document.querySelectorAll('.pm-cnt b').forEach(function (b) { b.textContent = '0'; });
 }
 function openReview() { var m = document.getElementById('pm-review'), o = document.getElementById('pm-ov'); if (m) m.classList.add('open'); if (o) o.classList.add('open'); }
 function openQuestion() { var m = document.getElementById('pm-question'), o = document.getElementById('pm-ov'); if (m) m.classList.add('open'); if (o) o.classList.add('open'); }
@@ -642,10 +763,10 @@ function closePM() { document.querySelectorAll('.pm.open').forEach(m => m.classL
 function submitPM(msg) { closePM(); wfToast('ok', msg); }
 
 /* ============================================================
-   AUTH DIALOG (node 1.x) — SHARED component (single source of truth).
+   AUTH DIALOG (node 1.x) - SHARED component (single source of truth).
    Mounted once into <body> on demand (like the scrim). Every «Увійти» trigger
    calls openAuth('phone'); the prototype advances state IN PLACE via
-   wfAuthGo(state) — no page reload. Passwordless, phone-OTP-first. States:
+   wfAuthGo(state) - no page reload. Passwordless, phone-OTP-first. States:
    phone (base) · loading · code · error · newuser. The auth*.html files are
    REFERENCE renders (openAuth(state) pinned), so screens never drift. ======= */
 const WF_AUTH_PHONE = '+380 67 123 45 67';
@@ -682,12 +803,12 @@ function wfOtp(vals, err) {
 function wfAuthPanel(state) {
   var chg = '<a onclick="wfAuthGo(\'phone\')">Змінити номер</a>';
   if (state === 'loading') {
-    return wfAuthShell('🏋️', 'Один акаунт — усе під рукою', 'Замовлення, бонуси, обране та швидке повторне замовлення.', '🏋️', 'Stack', 'Спортивне харчування',
+    return wfAuthShell('🏋️', 'Один акаунт - усе під рукою', 'Замовлення, бонуси, обране та швидке повторне замовлення.', '🏋️', 'Stack', 'Спортивне харчування',
       '<h1 class="auth-h1">Майже готово</h1><p class="auth-sub">Надсилаємо одноразовий код підтвердження.</p>' +
       '<div class="auth-load" role="status" aria-live="polite"><div class="auth-spin" aria-hidden="true"></div>' +
       '<div class="lt">Надсилаємо код у SMS…</div><div class="lp">На номер <b>' + WF_AUTH_PHONE + '</b></div>' +
       '<div class="auth-skel" aria-hidden="true"><div class="sl"></div><div class="sl m"></div></div></div>' +
-      '<button class="auth-cta" onclick="wfAuthGo(\'code\')">Код надіслано — ввести →</button>' +
+      '<button class="auth-cta" onclick="wfAuthGo(\'code\')">Код надіслано - ввести →</button>' +
       '<p class="auth-note">🔒 Код діє 5 хвилин. Нікому не повідомляйте його.</p>' +
       '<div class="linkrow"><a onclick="wfAuthGo(\'phone\')">← Змінити номер</a></div>' +
       wfAuthFoot('Не отримали SMS? За кілька секунд зможете надіслати код повторно.'));
@@ -700,7 +821,7 @@ function wfAuthPanel(state) {
       '<button class="auth-cta" onclick="wfAuthGo(\'newuser\')">Підтвердити</button>' +
       '<div class="resend">Не отримали код? <span class="cool">Надіслати ще (0:45)</span></div>' +
       '<div class="linkrow"><a onclick="wfAuthGo(\'phone\')">← Змінити номер</a><a onclick="wfAuthGo(\'error\')">Ввів неправильний код?</a></div>' +
-      wfAuthFoot('Якщо номер уже зареєстровано — ви одразу увійдете. Новий номер — попросимо ім\'я.'));
+      wfAuthFoot('Якщо номер уже зареєстровано - ви одразу увійдете. Новий номер - попросимо ім\'я.'));
   }
   if (state === 'error') {
     return wfAuthShell('🔒', 'Перевірте код', 'Введіть код ще раз або надішліть новий.', '⚠️', 'Невірний код', 'Спробуйте ще раз',
@@ -713,19 +834,19 @@ function wfAuthPanel(state) {
       wfAuthFoot('Забагато спроб? Зачекайте кілька хвилин або скористайтесь Google / Apple / E-mail.'));
   }
   if (state === 'newuser') {
-    return wfAuthShell('👤', 'Створюємо ваш акаунт', 'Ім\'я — щоб звертатися до вас і підписувати замовлення.', '✓', 'Номер підтверджено', 'Ще один крок — і готово',
+    return wfAuthShell('👤', 'Створюємо ваш акаунт', 'Ім\'я - щоб звертатися до вас і підписувати замовлення.', '✓', 'Номер підтверджено', 'Ще один крок - і готово',
       '<h1 class="auth-h1">Як вас звати?</h1><p class="auth-sub">Створюємо ваш акаунт Stack. Залишилося вказати ім\'я.</p>' +
       '<div class="fld"><label for="wfa-name">Ім\'я</label><input id="wfa-name" class="txt-field" type="text" placeholder="Напр., Вікторія"></div>' +
-      '<div class="fld"><label>E-mail <span class="opt">— необов\'язково</span></label><input class="txt-field" type="email" placeholder="you@email.com"></div>' +
+      '<div class="fld"><label>E-mail <span class="opt">- необов\'язково</span></label><input class="txt-field" type="email" placeholder="you@email.com"></div>' +
       '<label class="optin"><span class="cb"></span><span>Хочу отримувати листи про акції та новинки. Можна вимкнути будь-коли.</span></label>' +
       '<p class="auth-consent">Натискаючи «Продовжити», ви приймаєте <a href="content-legal.html">публічну оферту</a> та <a href="content-legal.html">політику конфіденційності</a> Stack.</p>' +
       '<button class="auth-cta" onclick="wfAuthDone()">Продовжити</button>' +
       '<div class="linkrow"><a onclick="wfAuthGo(\'code\')">← Назад до коду</a></div>' +
-      wfAuthFoot('Після цього кроку ви повернетесь туди, де почали — у кошик, обране чи оформлення.'));
+      wfAuthFoot('Після цього кроку ви повернетесь туди, де почали - у кошик, обране чи оформлення.'));
   }
   /* phone (base) */
-  return wfAuthShell('🏋️', 'Один акаунт — усе під рукою', 'Замовлення, бонуси, обране та швидке повторне замовлення.', '🏋️', 'Stack', 'Спортивне харчування',
-    '<h1 class="auth-h1">Вхід або реєстрація</h1><p class="auth-sub">Введіть номер телефону — надішлемо код у SMS. Пароль не потрібен.</p>' +
+  return wfAuthShell('🏋️', 'Один акаунт - усе під рукою', 'Замовлення, бонуси, обране та швидке повторне замовлення.', '🏋️', 'Stack', 'Спортивне харчування',
+    '<h1 class="auth-h1">Вхід або реєстрація</h1><p class="auth-sub">Введіть номер телефону - надішлемо код у SMS. Пароль не потрібен.</p>' +
     '<div class="fld"><label for="wfa-phone">Номер телефону</label><div class="ph-field"><span class="cc">+380</span>' +
     '<input id="wfa-phone" type="tel" inputmode="numeric" placeholder="67 123 45 67" aria-label="Номер телефону"></div></div>' +
     '<button class="auth-cta" onclick="wfAuthGo(\'loading\')">Отримати код</button>' +
@@ -734,7 +855,7 @@ function wfAuthPanel(state) {
     '<div class="smeths"><button class="sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic">G</span> Продовжити з Google</button>' +
     '<button class="sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic"></span> Продовжити з Apple</button>' +
     '<button class="sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic">@</span> Продовжити з E-mail</button></div>' +
-    wfAuthFoot('Уже маєте акаунт чи ні — вхід і реєстрація в одному кроці.'));
+    wfAuthFoot('Уже маєте акаунт чи ні - вхід і реєстрація в одному кроці.'));
 }
 /* optional destination after a completed sign-up/in (e.g. order-placed → its
    account-end state). openAuth(state, dest); wfAuthDone() navigates there if set,
@@ -754,7 +875,7 @@ function wfAuthDone() {
 }
 
 /* ============================================================
-   CLIENT EDIT (node 5.4a) — SHARED modal (single source of truth). Injected into
+   CLIENT EDIT (node 5.4a) - SHARED modal (single source of truth). Injected into
    #wf-client-edit on coach-client.html (inline, over the real profile) AND on the
    reference pages coach-client-edit(.html) / -confirm (pinned over dimmed context),
    so they never drift. Edit form + delete-behind-confirm. Client = Андрій / Набір
@@ -767,12 +888,12 @@ function wfClientEdit() {
   const ceNew =
     '<div class="ceov" id="ce-new" role="dialog" aria-modal="true" aria-label="Новий клієнт"><div class="cemodal">' +
     '<div class="ce-top"><h2>Новий клієнт</h2><button class="ce-x" onclick="closeClientEdit()" aria-label="Закрити">✕</button></div>' +
-    '<p class="sub">Додайте клієнта у ваш список. Ім\'я та ціль — обов\'язкові; ціль формує підбір товарів у сесії.</p>' +
+    '<p class="sub">Додайте клієнта у ваш список. Ім\'я та ціль - обов\'язкові; ціль формує підбір товарів у сесії.</p>' +
     '<div class="cef"><label for="cnn">Ім\'я клієнта</label><input id="cnn" type="text" placeholder="Напр., Андрій"></div>' +
     '<div class="cef"><label>Ціль</label><div class="cegoals">' + gbtnsNew + '</div></div>' +
-    '<div class="cef"><label for="cnp">Телефон <span class="opt">— необов\'язково</span></label><input id="cnp" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __"></div>' +
-    '<div class="cef"><label for="cnm">E-mail <span class="opt">— необов\'язково</span></label><input id="cnm" type="email" placeholder="you@email.com"></div>' +
-    '<div class="cef"><label for="cnnote">Нотатки тренера <span class="opt">— необов\'язково</span></label><textarea id="cnnote" placeholder="Напр., алергія на лактозу; ранкові тренування"></textarea></div>' +
+    '<div class="cef"><label for="cnp">Телефон <span class="opt">- необов\'язково</span></label><input id="cnp" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __"></div>' +
+    '<div class="cef"><label for="cnm">E-mail <span class="opt">- необов\'язково</span></label><input id="cnm" type="email" placeholder="you@email.com"></div>' +
+    '<div class="cef"><label for="cnnote">Нотатки тренера <span class="opt">- необов\'язково</span></label><textarea id="cnnote" placeholder="Напр., алергія на лактозу; ранкові тренування"></textarea></div>' +
     '<div class="ceact"><button class="btn" onclick="closeClientEdit()">Скасувати</button>' +
     '<button class="btn dark" onclick="createClient()">Додати клієнта</button></div>' +
     '</div></div>';
@@ -783,7 +904,7 @@ function wfClientEdit() {
     '<div class="cef"><label for="cen">Ім\'я клієнта</label><input id="cen" type="text" value="Андрій"></div>' +
     '<div class="cef"><label>Ціль</label><div class="cegoals">' + gbtns + '</div></div>' +
     '<div class="cef"><label for="cep">Телефон</label><input id="cep" type="tel" inputmode="tel" value="+380 67 123 45 67"></div>' +
-    '<div class="cef"><label for="cem">E-mail <span class="opt">— необов\'язково</span></label><input id="cem" type="email" value="andriy.koval@email.com"></div>' +
+    '<div class="cef"><label for="cem">E-mail <span class="opt">- необов\'язково</span></label><input id="cem" type="email" value="andriy.koval@email.com"></div>' +
     '<div class="cef"><label for="cenote">Нотатки тренера</label><textarea id="cenote">Алергія на лактозу; тренування вранці</textarea></div>' +
     '<div class="ceact"><button class="btn" onclick="closeClientEdit()">Скасувати</button>' +
     '<button class="btn dark" onclick="saveClientEdit()">Зберегти зміни</button></div>' +
@@ -804,9 +925,9 @@ function closeClientEdit() { document.querySelectorAll('#wf-client-edit .ceov.op
 function saveClientEdit() { closeClientEdit(); wfToast('ok', 'Зміни клієнта збережено'); }
 function createClient() { closeClientEdit(); wfToast('ok', 'Клієнта додано до списку'); }
 
-/* SHARED add/edit-address dialog (node 7.5) — a method-first flow: step «choose»
+/* SHARED add/edit-address dialog (node 7.5) - a method-first flow: step «choose»
    (Відділення / Поштомат / Кур'єр) → a method-specific form. Same dialog serves
-   ADD (openAddr) and EDIT (openAddrEdit — prefilled, «Зберегти зміни» + delete).
+   ADD (openAddr) and EDIT (openAddrEdit - prefilled, «Зберегти зміни» + delete).
    City reuses the global «Оберіть місто» dialog (openCity). Into #wf-addr. */
 function wfAddrDialog() {
   var el = document.getElementById('wf-addr'); if (!el) return;
@@ -824,27 +945,27 @@ function wfAddrDialog() {
     '<div class="ce-top"><h2 id="addr-title">Нова адреса</h2><button class="ce-x" onclick="closeAddr()" aria-label="Закрити">✕</button></div>' +
 
     '<div class="addr-step" data-step="choose">' +
-      '<p class="sub">Оберіть спосіб доставки — далі заповнимо лише потрібні поля.</p>' +
+      '<p class="sub">Оберіть спосіб доставки - далі заповнимо лише потрібні поля.</p>' +
       '<div class="addr-methods">' +
-        '<button type="button" class="addr-method" onclick="addrStep(\'vidd\')"><span class="am-ic">📦</span><span class="am-tx"><b>Відділення Нової Пошти</b><i>Забрати у відділенні — за номером або адресою</i></span><span class="am-ar">›</span></button>' +
-        '<button type="button" class="addr-method" onclick="addrStep(\'post\')"><span class="am-ic">🔳</span><span class="am-tx"><b>Поштомат Нової Пошти</b><i>Самостійно, цілодобово — за номером поштомата</i></span><span class="am-ar">›</span></button>' +
+        '<button type="button" class="addr-method" onclick="addrStep(\'vidd\')"><span class="am-ic">📦</span><span class="am-tx"><b>Відділення Нової Пошти</b><i>Забрати у відділенні - за номером або адресою</i></span><span class="am-ar">›</span></button>' +
+        '<button type="button" class="addr-method" onclick="addrStep(\'post\')"><span class="am-ic">🔳</span><span class="am-tx"><b>Поштомат Нової Пошти</b><i>Самостійно, цілодобово - за номером поштомата</i></span><span class="am-ar">›</span></button>' +
         '<button type="button" class="addr-method" onclick="addrStep(\'cour\')"><span class="am-ic">🚚</span><span class="am-tx"><b>Кур\'єр Нової Пошти</b><i>Доставка за вашою адресою</i></span><span class="am-ar">›</span></button>' +
       '</div>' +
-      '<div class="addr-note">Самовивіз із магазину Stack обирається безпосередньо в кошику під час оформлення — його не треба зберігати тут.</div>' +
+      '<div class="addr-note">Самовивіз із магазину Stack обирається безпосередньо в кошику під час оформлення - його не треба зберігати тут.</div>' +
     '</div>' +
 
     '<div class="addr-step" data-step="vidd" hidden>' + back() + cityFld +
-      '<div class="cef"><label>Відділення</label><input type="text" placeholder="Почніть вводити номер або вулицю" value="№ 12 — вул. Катерининська, 27"></div>' +
+      '<div class="cef"><label>Відділення</label><input type="text" placeholder="Почніть вводити номер або вулицю" value="№ 12 - вул. Катерининська, 27"></div>' +
       recv + def + acts() + delRow + '</div>' +
 
     '<div class="addr-step" data-step="post" hidden>' + back() + cityFld +
-      '<div class="cef"><label>Поштомат</label><input type="text" placeholder="Номер поштомата або адреса" value="№ 24857 — просп. Небесної Сотні, 4"></div>' +
+      '<div class="cef"><label>Поштомат</label><input type="text" placeholder="Номер поштомата або адреса" value="№ 24857 - просп. Небесної Сотні, 4"></div>' +
       recv + def + acts() + delRow + '</div>' +
 
     '<div class="addr-step" data-step="cour" hidden>' + back() + cityFld +
       '<div class="cef"><label>Вулиця</label><input type="text" placeholder="Напр., вул. Дерибасівська" value="вул. Дерибасівська"></div>' +
       '<div class="addr-2col"><div class="cef"><label>Будинок</label><input type="text" value="15"></div><div class="cef"><label>Квартира</label><input type="text" value="8"></div></div>' +
-      '<div class="cef"><label>Під\'їзд / поверх <span class="opt">— необов\'язково</span></label><input type="text" placeholder="Напр., 2 під\'їзд, 4 поверх"></div>' +
+      '<div class="cef"><label>Під\'їзд / поверх <span class="opt">- необов\'язково</span></label><input type="text" placeholder="Напр., 2 під\'їзд, 4 поверх"></div>' +
       recv + def + acts() + delRow + '</div>' +
 
     '</div></div>' +
@@ -879,7 +1000,7 @@ function closeAddrDelete() { var c = document.getElementById('addr-del'), d = do
 function confirmAddrDelete() { closeAddrDelete(); closeAddr(); wfToast('ok', 'Адресу видалено'); }
 function wfAddrMakeDefault() { wfToast('ok', 'Адресу призначено основною'); }
 
-/* SHARED profile dialogs (node 7.1) — passwordless (auth 1.x): change phone /
+/* SHARED profile dialogs (node 7.1) - passwordless (auth 1.x): change phone /
    add-or-change e-mail are 2-step OTP flows (enter → code); plus language pick
    and a delete-account danger confirm. Rendered into #wf-profile. */
 function wfProfileDialogs() {
@@ -890,7 +1011,7 @@ function wfProfileDialogs() {
   var phone =
     '<div class="ceov" id="pf-phone" role="dialog" aria-modal="true" aria-label="Змінити номер"><div class="cemodal">' +
     '<div class="ce-top"><h2 id="pf-phone-t">Змінити номер телефону</h2><button class="ce-x" onclick="closeProf()" aria-label="Закрити">✕</button></div>' +
-    '<div class="pf-dstep" data-s="enter"><p class="sub">Введіть новий номер — надішлемо на нього код у SMS. Пароль не потрібен.</p>' +
+    '<div class="pf-dstep" data-s="enter"><p class="sub">Введіть новий номер - надішлемо на нього код у SMS. Пароль не потрібен.</p>' +
       '<div class="cef"><label>Новий номер телефону</label><input type="tel" inputmode="tel" placeholder="+380 __ ___ __ __" value="+380 "></div>' +
       '<div class="ceact"><button type="button" class="btn" onclick="closeProf()">Скасувати</button><button type="button" class="btn dark" onclick="profStep(\'pf-phone\',\'code\')">Отримати код</button></div></div>' +
     '<div class="pf-dstep" data-s="code" hidden><p class="sub">Ми надіслали код у SMS на новий номер. Введіть його, щоб підтвердити зміну.</p>' +
@@ -901,7 +1022,7 @@ function wfProfileDialogs() {
   var email =
     '<div class="ceov" id="pf-email" role="dialog" aria-modal="true" aria-label="E-mail"><div class="cemodal">' +
     '<div class="ce-top"><h2 id="pf-email-t">Додати e-mail</h2><button class="ce-x" onclick="closeProf()" aria-label="Закрити">✕</button></div>' +
-    '<div class="pf-dstep" data-s="enter"><p class="sub">Вкажіть e-mail — надішлемо код для підтвердження. Без пароля.</p>' +
+    '<div class="pf-dstep" data-s="enter"><p class="sub">Вкажіть e-mail - надішлемо код для підтвердження. Без пароля.</p>' +
       '<div class="cef"><label>E-mail</label><input type="email" placeholder="you@email.com"></div>' +
       '<div class="ceact"><button type="button" class="btn" onclick="closeProf()">Скасувати</button><button type="button" class="btn dark" onclick="profStep(\'pf-email\',\'code\')">Отримати код</button></div></div>' +
     '<div class="pf-dstep" data-s="code" hidden><p class="sub">Ми надіслали код на вашу пошту. Введіть його, щоб підтвердити e-mail.</p>' +
@@ -946,7 +1067,7 @@ function openProfLang() { wfProfileDialogs(); closeProf(); var d = document.getE
 function openProfDelete() { wfProfileDialogs(); closeProf(); var d = document.getElementById('pf-del'); if (d) d.classList.add('open'); }
 function profSave() { wfToast('ok', 'Зміни збережено'); }
 
-/* SHARED account section-nav (node 7.x) — one source for account.html + every
+/* SHARED account section-nav (node 7.x) - one source for account.html + every
    account-*.html sub-page. active = section key; isCoach swaps «Стати тренером»
    → «Кабінет тренера» (the already-a-coach state). Inject into #acc-nav. */
 const WF_ACC_LINKS = [
@@ -981,7 +1102,7 @@ function wfAccountNav(active, isCoach) {
     '<nav class="acc-links" aria-label="Розділи кабінету">' + links + '</nav>';
 }
 
-/* SHARED coach cabinet section-nav (node 5.2 shell) — ONE source for every coach
+/* SHARED coach cabinet section-nav (node 5.2 shell) - ONE source for every coach
    cabinet page (home/clients/orders/tariff/wishlist + states), mirroring
    wfAccountNav. «Нова сесія» is a DISTINCT highlighted CTA block, separate from
    the section list (never a vanishing list item). Every section is a real <a>.
@@ -1033,12 +1154,12 @@ function wfToast(type, msg) {
    Inherited components rendered once (conventions §7). Inject into
    #wf-header / #wf-footer / #wf-rail / #wf-sheet placeholders.
    ============================================================ */
-/* wfHeader(role) — role: undefined/'guest' (default) · 'buyer' · 'coach'.
+/* wfHeader(role) - role: undefined/'guest' (default) · 'buyer' · 'coach'.
    Guest → 👤 «Увійти» (opens dialog). Logged-in → 👤 «Кабінет» + dropdown
    (per navigation.md: Кабінет · Замовлення · Адреси · Стати тренером · Вихід;
    coach adds tier chip + Кабінет тренера · Клієнти · Нова сесія, drops «Стати
    тренером»). «Обране» + «Бонуси» stay their own header elements (not in menu). */
-/* Mobile bottom tab bar (navigation.md §B) — primary mobile nav, mobile-only (CSS-gated).
+/* Mobile bottom tab bar (navigation.md §B) - primary mobile nav, mobile-only (CSS-gated).
    5 tabs; coach swaps tab 1 (Головна → Кабінет тренера) + routes Обране/Акаунт to coach context.
    Active tab is auto-derived from the current filename. */
 function wfTabbarActive() {
@@ -1127,10 +1248,10 @@ function wfHeader(role, opts) {
   el.innerHTML = `
     <div class="wfh-meta"><div class="wfh-in">
       <a class="strongl" href="coach-landing.html">Для тренерів</a><a href="content-promo.html">Акції</a><a href="brands.html">Бренди</a><a href="content-delivery.html">Доставка</a><a href="content-returns.html">Повернення</a><a href="content-about.html">Про нас</a>
-      <span class="wfh-sp"></span><a href="#" onclick="openCity();return false">📍 <span class="wfh-city-lbl">Одеса</span> ▾</a><a>Укр ▾</a>
+      <span class="wfh-sp"></span><a class="wfh-loc" href="#" onclick="openCity();return false">📍 <span class="wfh-city-lbl">Одеса</span></a><span class="wfh-lang-wrap"><a class="wfh-lang" href="#" onclick="toggleLang(event)" aria-haspopup="true" aria-expanded="false"><span class="wfh-lang-code">Укр</span> ▾</a><div class="wfh-langmenu" id="wfh-langmenu" role="menu"><a class="on" data-code="Укр" href="#" onclick="pickLang(event,'Укр')">Українська</a><a data-code="Eng" href="#" onclick="pickLang(event,'Eng')">English</a></div></span>
     </div></div>
     <div class="wfh-main wfh-in">
-      <button class="wfh-burger" aria-label="Меню" onclick="openBurger()">☰</button>
+      <button class="wfh-burger" aria-label="Меню" aria-controls="drawer" aria-expanded="false" onclick="toggleBurger()"><span class="bi-open">☰</span><span class="bi-close">✕</span></button>
       <a class="wfh-logo" href="${homeHref}">Stack</a>
       <nav class="wfh-nav" aria-label="Головна навігація">
         <div class="wfh-cat" onmouseenter="openMega()" onmouseleave="closeMega()">
@@ -1155,9 +1276,13 @@ function wfHeader(role, opts) {
         ${cartActHTML}
       </div>
     </div>
-    ${wfCityHTML()}
-    ${wfDrawerHTML()}`;
+    ${wfCityHTML()}`;
   el.setAttribute('role', 'banner');
+  /* mobile menu panel - on <body>, NOT inside .wfh: the header owns a stacking
+     context, so a child could never paint below it. On body the panel can sit
+     under the header (z 29 < 30) and unfold downward from its bottom edge. */
+  var oldDr = document.getElementById('drawer'); if (oldDr) oldDr.remove();
+  document.body.insertAdjacentHTML('beforeend', wfDrawerHTML());
   /* body-level scrim (BELOW the sticky header in z-order, above page content) so the
      whole header stays crisp while the page dims when the mega opens */
   if (!document.getElementById('wfh-scrim')) {
@@ -1166,7 +1291,7 @@ function wfHeader(role, opts) {
     sc.onclick = closeMega;
     document.body.appendChild(sc);
   }
-  /* mobile bottom tab bar — appended to body (like the scrim), shown only on mobile via CSS */
+  /* mobile bottom tab bar - appended to body (like the scrim), shown only on mobile via CSS */
   var tb = document.getElementById('wf-tabbar');
   if (!tb) {
     tb = document.createElement('nav');
@@ -1195,7 +1320,7 @@ function wfFooter() {
       <div class="wff-col"><h4>Stack</h4><a href="content-about.html">Про нас</a><a href="content-contacts.html">Контакти</a><a href="content-blog.html">Блог</a><a href="content-legal.html">Публічна оферта</a><a href="content-legal.html">Політика конфіденційності</a><a href="content-legal.html">Умови використання</a></div>
       <div class="wff-col"><h4>Покупцям</h4><a href="${loyHref}">Знижки та бонуси</a><a href="content-delivery.html">Доставка й оплата</a><a href="content-returns.html">Повернення</a><a href="content-faq.html">FAQ</a></div>
       <div class="wff-col"><h4>Тренерам</h4><a href="coach-landing.html">Для тренерів</a><a href="coach-landing.html">Тарифи Free / Pro</a></div>
-      <div class="wff-col"><h4>Консультація</h4><a href="content-contacts.html">0 800 000 000</a><a href="content-contacts.html">Telegram · Viber</a><a href="content-contacts.html">Пн–Нд 9:00–21:00</a></div>
+      <div class="wff-col"><h4>Консультація</h4><a class="wff-phone" href="content-contacts.html">0 800 000 000</a><a href="content-contacts.html">Telegram</a><a href="content-contacts.html">Viber</a><a href="content-contacts.html">Пн–Нд 9:00–21:00</a></div>
     </div>
     <div class="wff-seo">
       <b>Популярні категорії:</b> Протеїн · Гейнери · Креатин · BCAA · Передтренувальні · Вітаміни ·&nbsp;&nbsp;
@@ -1213,13 +1338,13 @@ function wfFooter() {
 
 /* listing filter rail (category «Протеїн»); Тип = subcategory links, rest = facets.
    checked = array of facet labels to render as active (e.g. ['Optimum Nutrition','В наявності']). */
-function wfCatalogRail(checked) {
-  const el = document.getElementById('wf-rail'); if (!el) return;
+/* The facet groups — SINGLE SOURCE shared by the desktop rail (wfCatalogRail) and
+   the mobile filter sheet (wfSheet), so mobile always mirrors desktop and they never
+   drift. Pass the checked-label list for the pre-selected demo state. */
+function wfFilterGroupsHTML(checked) {
   checked = checked || [];
   const opt = (label, ct) => `<label class="fopt"><span class="cb${checked.includes(label) ? ' on' : ''}"></span> ${label} <span class="ct">${ct}</span></label>`;
-  el.className = 'frail';
-  el.setAttribute('aria-label', 'Фільтри');
-  el.innerHTML = `
+  return `
     <div class="fgroup"><div class="fh">Тип протеїну <span class="ar">▾</span></div>
       <div class="flinks">
         <a class="flink" href="listing.html">Концентрат <span class="ct">31</span></a>
@@ -1260,6 +1385,12 @@ function wfCatalogRail(checked) {
       ${opt('Сертифікат відповідності', 84)}${opt('Лаб. тести (Informed Sport)', 7)}
     </div>`;
 }
+function wfCatalogRail(checked) {
+  const el = document.getElementById('wf-rail'); if (!el) return;
+  el.className = 'frail';
+  el.setAttribute('aria-label', 'Фільтри');
+  el.innerHTML = wfFilterGroupsHTML(checked);
+}
 
 function wfSheet() {
   const el = document.getElementById('wf-sheet'); if (!el) return;
@@ -1267,35 +1398,28 @@ function wfSheet() {
     <div class="fsheet-ov" id="fsheet-ov" onclick="closeSheet()"></div>
     <div class="fsheet" id="fsheet" role="dialog" aria-modal="true" aria-label="Фільтри">
       <div class="fsheet-h">Фільтри <button class="x" onclick="closeSheet()" aria-label="Закрити">✕</button></div>
-      <div style="padding:4px 0">
-        <div class="fgroup"><div class="fh">Тип протеїну</div>
-          <div class="flinks">
-            <a class="flink" href="listing.html">Концентрат <span class="ct">31</span></a>
-            <a class="flink" href="listing.html">Ізолят <span class="ct">18</span></a>
-            <a class="flink" href="listing.html">Казеїн <span class="ct">9</span></a>
-          </div>
-        </div>
-        <div class="fgroup"><div class="fh">Наявність</div>
-          <label class="fopt"><span class="cb on"></span> В наявності <span class="ct">71</span></label>
-          <label class="fopt"><span class="cb"></span> Під замовлення <span class="ct">13</span></label>
-        </div>
-        <div class="fgroup"><div class="fh">Ціна, ₴</div><div class="frange"></div><div class="frow"><span class="in">800</span><span class="in">1500</span></div></div>
-        <div class="fgroup"><div class="fh">Бренд · Ціль · Смак · Країна · Форма · Фасування</div>
-          <label class="fopt"><span class="cb on"></span> Optimum Nutrition <span class="ct">12</span></label>
-          <label class="fopt"><span class="cb"></span> Набір маси <span class="ct">52</span></label>
-          <label class="fopt"><span class="cb"></span> Порошок <span class="ct">68</span></label>
-        </div>
-      </div>
+      <div class="fsheet-body">${wfFilterGroupsHTML(['В наявності', 'Optimum Nutrition'])}</div>
       <div class="fsheet-foot">
         <a class="btn" href="listing.html">Скинути</a>
         <button class="btn dark" onclick="closeSheet()">Застосувати (47)</button>
       </div>
     </div>`;
 }
+/* collapse/expand a filter group when its header is clicked (rail + mobile sheet) */
+document.addEventListener('click', function (e) {
+  const fh = e.target.closest ? e.target.closest('.fh') : null;
+  if (!fh || !fh.parentElement || !fh.parentElement.classList.contains('fgroup')) return;
+  fh.parentElement.classList.toggle('collapsed');
+});
 function openSheet() { document.getElementById('fsheet').classList.add('open'); document.getElementById('fsheet-ov').classList.add('open'); }
 function closeSheet() { const s = document.getElementById('fsheet'), o = document.getElementById('fsheet-ov'); if (s) s.classList.remove('open'); if (o) o.classList.remove('open'); }
 /* logged-in account dropdown (navigation.md) */
 function toggleCab(e) { if (e) e.stopPropagation(); const m = document.getElementById('wfh-cabmenu'); if (!m) return; const open = m.classList.toggle('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
 function closeCab() { const m = document.getElementById('wfh-cabmenu'); if (!m) return; m.classList.remove('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', 'false'); }
 document.addEventListener('click', e => { const cab = document.getElementById('wfh-cabmenu'); if (cab && cab.classList.contains('open') && !e.target.closest('.wfh-cab')) closeCab(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); closeMega(); closeCatOverlay(); closeAuth(); if (typeof closeClientEdit === 'function') closeClientEdit(); if (typeof closePM === 'function') closePM(); } });
+/* language switcher dropdown (meta bar) — opens on click, mirrors the cabinet menu */
+function toggleLang(e) { if (e) { e.preventDefault(); e.stopPropagation(); } const m = document.getElementById('wfh-langmenu'); if (!m) return; const open = m.classList.toggle('open'); const w = m.closest('.wfh-lang-wrap'); if (w) { const b = w.querySelector('.wfh-lang'); if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); const meta = m.closest('.wfh-meta'); if (meta) meta.classList.toggle('wfh-menuopen', open); } }
+function closeLang() { const m = document.getElementById('wfh-langmenu'); if (!m) return; m.classList.remove('open'); const w = m.closest('.wfh-lang-wrap'); if (w) { const b = w.querySelector('.wfh-lang'); if (b) b.setAttribute('aria-expanded', 'false'); } const meta = m.closest('.wfh-meta'); if (meta) meta.classList.remove('wfh-menuopen'); }
+function pickLang(e, code) { if (e) { e.preventDefault(); e.stopPropagation(); } const m = document.getElementById('wfh-langmenu'); if (!m) return; const w = m.closest('.wfh-lang-wrap'); const codeEl = w ? w.querySelector('.wfh-lang-code') : null; if (codeEl) codeEl.textContent = code; m.querySelectorAll('a').forEach(a => a.classList.toggle('on', a.dataset.code === code)); closeLang(); }
+document.addEventListener('click', e => { const lang = document.getElementById('wfh-langmenu'); if (lang && lang.classList.contains('open') && !e.target.closest('.wfh-lang-wrap')) closeLang(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); closeLang(); closeMega(); closeCatOverlay(); closeAuth(); if (typeof closeClientEdit === 'function') closeClientEdit(); if (typeof closePM === 'function') closePM(); } });

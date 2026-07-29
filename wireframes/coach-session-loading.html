@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Сесія — швидке додавання… (wireframe 5.5 · loading)</title>
+<title>Сесія - швидке додавання… (wireframe 5.5 · loading)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
 /* ============================================================
-   node 5.5 Мультиклієнтська сесія замовлення — ★ PRIMARY Job 1.
+   node 5.5 Мультиклієнтська сесія замовлення - ★ PRIMARY Job 1.
    Client tabs (per-client subtotal) + active-client panel
    (goals → in-session quick-add, NOT global search → order lines with
    coach-tier price vs struck retail + qty + tag) + session summary.
@@ -22,7 +22,7 @@
 .cs-meta b { color: var(--strong); }
 .tierchip { display: inline-block; font-size: 11px; font-weight: 800; color: var(--strong); border: 1.5px solid var(--dark); border-radius: 100px; padding: 2px 9px; }
 
-/* client tabs (tablist) — each carries a per-client subtotal */
+/* client tabs (tablist) - each carries a per-client subtotal */
 .ctabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; border-bottom: 1px solid var(--hair); }
 .ctabs::-webkit-scrollbar { display: none; }
 .ctab { flex: 0 0 auto; border: 1.5px solid var(--hair2); border-bottom: none; border-radius: 10px 10px 0 0; background: var(--fill2);
@@ -60,7 +60,7 @@
 .qa-av.low { color: var(--strong); font-weight: 700; }
 .qa-add { padding: 8px 13px; font-size: 12.5px; white-space: nowrap; }
 
-/* coach-tier price (bold) vs struck retail — the key coach primitive */
+/* coach-tier price (bold) vs struck retail - the key coach primitive */
 .cprice { font-size: 15px; font-weight: 800; color: var(--strong); white-space: nowrap; text-align: right; }
 .cprice .old { display: block; font-size: 11.5px; font-weight: 500; color: #aaa; text-decoration: line-through; }
 .cprice .wtag { display: inline-block; font-size: 9.5px; font-weight: 800; color: var(--strong); border: 1px solid var(--hair2); border-radius: 4px; padding: 0 4px; margin-left: 5px; vertical-align: middle; }
@@ -102,7 +102,7 @@
 @media (min-width: 940px) { .cs-bar { display: none; } }
 .cs-panel { margin-bottom: 76px; }
 @media (min-width: 940px) { .cs-panel { margin-bottom: 0; } }
-/* loading state — quick-add skeleton (static, motion deferred) */
+/* loading state - quick-add skeleton (static, motion deferred) */
 .qa-skel { display: grid; grid-template-columns: 44px 1fr 70px; gap: 11px; align-items: center; padding: 9px 0; border-top: 1px solid var(--hair); }
 .qa-skel .sk { height: 12px; border-radius: 6px; background: #ececec; }
 .qa-skel .sk-ph { width: 44px; height: 44px; border-radius: 7px; }
@@ -110,7 +110,7 @@
 </head>
 <body>
 <!-- ============================================================
-  WIREFRAME · node 5.5 Сесія — LOADING (quick-add stock + coach price). flows.md: slqa.
+  WIREFRAME · node 5.5 Сесія - LOADING (quick-add stock + coach price). flows.md: slqa.
   ★ The coach-flow differentiator (Job 1). Client tabs + active-client
   quick-add + coach-tier priced lines + session summary → cart-coach.
   States: addclient · loading (quick-add) · oos · priceblock · untagged.
@@ -162,9 +162,9 @@
 
       <!-- IN-SESSION QUICK-ADD (not the global search) -->
       <div class="qadd">
-        <div class="qadd-h">Швидке додавання <span>— підбір за ціллю «Набір маси», не загальний пошук</span></div>
+        <div class="qadd-h">Швидке додавання <span>- підбір за ціллю «Набір маси», не загальний пошук</span></div>
         <div class="qadd-field">
-          <input type="text" placeholder="Назва або артикул — протеїн, гейнер, креатин…" aria-label="Швидке додавання товару">
+          <input type="text" placeholder="Назва або артикул - протеїн, гейнер, креатин…" aria-label="Швидке додавання товару">
           <a class="btn dark" href="coach-session-loading.html">Знайти</a>
         </div>
         <div class="qadd-res" aria-busy="true">
@@ -174,7 +174,7 @@
           <div class="qa-skel"><span class="sk sk-ph"></span><span class="sk"></span><span class="sk" style="width:60px"></span></div>
           <!-- prototype: loading resolves forward (flows.md slqa → q4) -->
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
-            <a class="btn dark" href="coach-session.html" style="font-size:12.5px">Товари завантажено — до сесії →</a>
+            <a class="btn dark" href="coach-session.html" style="font-size:12.5px">Товари завантажено - до сесії →</a>
             <a class="btn" href="coach-session-oos.html" style="font-size:12.5px">Демо: товару немає в наявності</a>
           </div>
         </div>
@@ -216,12 +216,12 @@
     </section>
 
     <!-- SESSION SUMMARY (sticky) -->
-    <aside class="cs-summ" aria-label="Сесія — разом">
-      <div class="cs-summ-h">Сесія — разом</div>
+    <aside class="cs-summ" aria-label="Сесія - разом">
+      <div class="cs-summ-h">Сесія - разом</div>
       <div class="cs-cli"><span>Андрій<small>Набір маси · 2 товари</small></span><b>2 320 ₴</b></div>
       <div class="cs-cli"><span>Марія<small>Схуднення · 2 товари</small></span><b>1 160 ₴</b></div>
       <div class="cs-tot"><span>Разом (2 клієнти)</span><b>3 480 ₴</b></div>
-      <div class="cs-note">Ціни гуртові (тариф Pro). Доставка — одна на тренера; розподіл за клієнтами зберігається в замовленні. Знижки й бонуси — на оформленні.</div>
+      <div class="cs-note">Ціни гуртові (тариф Pro). Доставка - одна на тренера; розподіл за клієнтами зберігається в замовленні. Знижки й бонуси - на оформленні.</div>
       <a class="btn dark cs-go" href="cart-coach.html">Перейти в кошик →</a>
       <a class="btn cs-save" href="coach-home.html">Зберегти сесію</a>
     </aside>

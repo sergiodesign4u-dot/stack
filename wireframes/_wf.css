@@ -21,7 +21,7 @@
   --sh: 0 1px 2px rgba(0,0,0,.05);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; } /* keep anchor targets clear of the sticky header */
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
   background: #fff; color: var(--ink); font-size: 15px; line-height: 1.55;
@@ -42,8 +42,23 @@ img { max-width: 100%; display: block; }
 .wfh-meta .wfh-in { padding: 6px 16px; gap: 18px; }
 .wfh-meta a { color: var(--sec); }
 .wfh-meta .strongl { color: var(--strong); font-weight: 700; }
+/* language switcher dropdown (meta bar) */
+.wfh-lang-wrap { position: relative; }
+.wfh-lang { cursor: pointer; }
+.wfh-langmenu { display: none; position: absolute; right: 0; top: 100%; z-index: 46; margin-top: 7px;
+  min-width: 152px; background: #fff; border: 1px solid var(--hair); border-top: 2px solid var(--dark);
+  border-radius: 0 0 12px 12px; box-shadow: 0 12px 30px rgba(0,0,0,.12); padding: 6px 0; }
+.wfh-langmenu.open { display: block; }
+.wfh-langmenu a { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 9px 14px; font-size: 13px; font-weight: 600; color: var(--strong); }
+.wfh-langmenu a:hover { background: var(--fill); }
+.wfh-langmenu a.on::after { content: '✓'; font-weight: 800; color: var(--sec); }
 .wfh-main { padding: 0; }
 .wfh-burger { font-size: 20px; line-height: 1; padding: 4px; }
+/* ☰ becomes ✕ while the mobile menu panel is open (the header is the close control) */
+.wfh-burger .bi-close { display: none; }
+.wfh.drawer-open .wfh-burger .bi-open { display: none; }
+.wfh.drawer-open .wfh-burger .bi-close { display: inline; }
 .wfh-logo { font-size: 20px; font-weight: 800; color: var(--strong); letter-spacing: -.02em; }
 .wfh-nav { display: none; gap: 6px; }
 .wfh-nav .navbtn { display: inline-flex; align-items: center; gap: 7px; background: var(--dark); color: #fff; border: 1.5px solid var(--dark); border-radius: 8px; padding: 9px 15px; font-size: 13px; font-weight: 700; }
@@ -110,7 +125,8 @@ img { max-width: 100%; display: block; }
 .wfh-mega .ms-lead { display: block; font-size: 12.5px; font-weight: 800; color: var(--strong); padding: 6px 0 10px; border-bottom: 1px solid var(--hair); margin-bottom: 6px; }
 .wfh-mega .ms-link { display: block; font-size: 12.5px; color: var(--sec); padding: 6px 0; }
 .wfh-mega .ms-link:hover { color: var(--strong); text-decoration: underline; }
-.wfh-mega .ms-feat { margin-top: 12px; border: 1px solid var(--hair); border-radius: 10px; background: #fff; padding: 10px; }
+.wfh-mega .ms-feat { display: block; margin-top: 12px; border: 1px solid var(--hair); border-radius: 10px; background: #fff; padding: 10px; transition: border-color .15s ease, box-shadow .15s ease; }
+.wfh-mega a.ms-feat:hover { border-color: var(--hair2); box-shadow: 0 6px 18px rgba(0,0,0,.07); }
 .wfh-mega .ms-ph { height: 78px; border-radius: 7px; background: repeating-linear-gradient(45deg, #fafafa, #fafafa 8px, #f1f1f1 8px, #f1f1f1 16px); display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; margin-bottom: 8px; }
 .wfh-mega .ms-ftag { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--sec); }
 .wfh-mega .ms-fh { font-size: 12.5px; font-weight: 800; color: var(--strong); margin: 3px 0; line-height: 1.25; }
@@ -142,14 +158,26 @@ img { max-width: 100%; display: block; }
 .city-az:hover { color: var(--strong); text-decoration: underline; }
 .city-note { font-size: 12px; color: var(--light); margin-top: 16px; line-height: 1.5; border-top: 1px solid var(--hair); padding-top: 14px; }
 
-/* ---------- mobile menu drawer (burger) ---------- */
-.wf-drawer { display: none; position: fixed; z-index: 61; top: 0; left: 0; bottom: 0; width: 86%; max-width: 340px;
-  background: #fff; overflow-y: auto; box-shadow: 4px 0 30px rgba(0,0,0,.18); transform: translateX(-100%); }
-.wf-drawer.open { display: block; transform: translateX(0); }
-.dr-h { display: flex; justify-content: space-between; align-items: center; padding: 15px 16px; border-bottom: 1px solid var(--hair); position: sticky; top: 0; background: #fff; }
-.dr-h .dr-logo { font-size: 19px; font-weight: 800; color: var(--strong); }
-.dr-h .x { font-size: 20px; color: var(--light); }
-.dr-b { padding: 10px 16px 30px; }
+/* ---------- mobile menu panel (burger) ----------
+   Unfolds DOWNWARD from the header instead of sliding over the page as a side
+   drawer: full width, pinned under the sticky header (--dr-top is measured in JS
+   at open time, so the прототип bar / meta bar / scroll position never break it),
+   its own internal scroll, and it stops above the bottom tab bar.
+   It lives on <body> (not inside .wfh) and sits BELOW the header in z-order
+   (29 < .wfh 30), so the panel really rolls out from under the header, the header
+   with its ☰ → ✕ stays visible, and no dark scrim is needed.
+   The page underneath never reflows; its scroll is frozen while the panel is open. */
+.wf-drawer { position: fixed; z-index: 29; left: 0; right: 0; top: var(--dr-top, 56px); bottom: 57px;
+  background: #fff; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  border-top: 1px solid var(--hair); box-shadow: 0 16px 34px rgba(0,0,0,.13);
+  transform: translateY(-100%); visibility: hidden;
+  transition: transform .22s ease, visibility 0s linear .22s; }
+.wf-drawer.open { transform: translateY(0); visibility: visible; transition: transform .22s ease; }
+/* freeze the page behind the panel. Lock the root ONLY: `overflow:hidden` on
+   <body> would turn body into the scroll container and the sticky header would
+   stop sticking (it must stay pinned - it carries the ✕). */
+html.dr-lock { overflow: hidden; }
+.dr-b { padding: 14px 16px 30px; }
 .dr-city { display: block; font-size: 13px; font-weight: 700; color: var(--strong); padding: 10px 0; border-bottom: 1px solid var(--hair); margin-bottom: 6px; }
 .dr-lbl { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--sec); margin: 16px 0 8px; }
 .dr-chips { display: flex; flex-wrap: wrap; gap: 7px; }
@@ -164,7 +192,7 @@ img { max-width: 100%; display: block; }
 .dr-sub { display: block; font-size: 13px; color: var(--sec); padding: 6px 0; }
 .dr-link { display: block; font-size: 13.5px; color: var(--ink); padding: 10px 0; border-bottom: 1px solid var(--hair); }
 .dr-link.strong { font-weight: 800; color: var(--strong); }
-@media (min-width: 860px) { .wf-drawer, #drawer-ov { display: none !important; } }
+@media (min-width: 860px) { .wf-drawer { display: none !important; } }
 
 /* ---------- cookie-consent banner + settings (node S, UA law) ---------- */
 .wf-cookie { position: fixed; left: 0; right: 0; bottom: 0; z-index: 55; background: #fff;
@@ -228,8 +256,23 @@ img { max-width: 100%; display: block; }
 .pm-b label:first-child { margin-top: 0; }
 .pm-b input, .pm-b textarea { width: 100%; border: 1.5px solid var(--hair2); border-radius: 8px; padding: 10px 12px; font-size: 14px; font-family: inherit; }
 .pm-b textarea { min-height: 84px; resize: vertical; }
-.pm-stars { font-size: 26px; color: var(--hair2); letter-spacing: 3px; cursor: pointer; }
-.pm-stars b { color: var(--strong); }
+/* rating widget: five real buttons (wfPmStars in _nav.js paints them on hover) */
+/* label row: «Ваша оцінка» left, the verdict word right, on the same line */
+.pm-rhead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.pm-rhead label { margin: 0; }
+.pm-rw { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--sec); }
+.pm-rate { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 40px; margin-top: 6px; }
+.pm-stars { display: flex; gap: 2px; }
+.pm-stars .pmst { font-size: 27px; line-height: 1; color: var(--hair2); background: none; border: none; padding: 0 1px; cursor: pointer; }
+.pm-stars .pmst.on { color: var(--strong); }
+/* readout: the figure, large, level with the stars */
+.pm-rv { font-size: 26px; font-weight: 800; line-height: 1; color: var(--strong); }
+/* field states: .has = filled, .err + message under the field on an invalid submit */
+.pm-e { display: none; font-size: 12px; font-weight: 600; color: var(--strong); margin-top: 5px; }
+.pm-e.on { display: block; }
+.pm-b input.err, .pm-b textarea.err { border-color: var(--strong); }
+.pm-cnt { text-align: right; font-size: 11.5px; color: var(--light); margin-top: 4px; }
+.pm-b label .opt { font-weight: 600; color: var(--light); }
 .pm-f { display: flex; gap: 10px; padding: 14px 18px; border-top: 1px solid var(--hair); }
 .pm-f .btn { flex: 1; text-align: center; }
 .pm-note { font-size: 11.5px; color: var(--light); margin-top: 10px; }
@@ -408,6 +451,11 @@ html { overflow-x: hidden; }
 .fgroup:last-child { border-bottom: none; }
 .fgroup .fh { font-size: 13px; font-weight: 800; color: var(--strong); display: flex; justify-content: space-between; align-items: center; }
 .fgroup .fh .ar { color: #aaa; font-weight: 700; }
+/* collapsible filter groups (rail + mobile sheet): click the header to fold */
+.fgroup .fh { cursor: pointer; user-select: none; }
+.fgroup .fh .ar { transition: transform .2s ease; }
+.fgroup.collapsed .fh .ar { transform: rotate(180deg); }
+.fgroup.collapsed > *:not(.fh) { display: none; }
 .fopt { font-size: 13px; color: #444; margin-top: 9px; display: flex; align-items: center; gap: 9px; cursor: pointer; }
 .fopt .cb { width: 15px; height: 15px; border: 1.5px solid #bbb; border-radius: 4px; display: inline-block; flex: none; }
 .fopt .cb.on { background: var(--dark); border-color: var(--dark); position: relative; }
@@ -539,6 +587,7 @@ html { overflow-x: hidden; }
 @media (min-width: 720px) { .wff-cols { grid-template-columns: 1.5fr repeat(4, 1fr); } }
 .wff-col h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--strong); margin-bottom: 9px; }
 .wff-col a { display: block; font-size: 12.5px; color: var(--sec); padding: 3px 0; }
+.wff-col a.wff-phone { font-size: 23px; font-weight: 800; color: var(--strong); letter-spacing: -.02em; padding: 2px 0 8px; line-height: 1.1; white-space: nowrap; }
 .wff-news { display: flex; gap: 6px; margin-bottom: 10px; }
 .wff-news input { flex: 1; min-width: 0; border: 1px solid var(--hair2); border-radius: 6px; padding: 7px 9px; font-size: 12px; background: #fff; }
 .wff-news button { border: 1px solid var(--dark); background: var(--dark); color: #fff; border-radius: 6px; padding: 7px 11px; font-size: 12px; font-weight: 700; }

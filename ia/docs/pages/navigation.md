@@ -126,8 +126,17 @@ Built in `_nav.js` (`wfHeader`) + demonstrated as a real open **overlay** on
 - **Right column is NOT «За ціллю» anymore** (goals moved to the left rail): it is a **utility +
   featured panel** — Усі товари каталогу · Бренди А–Я · Новинки · Акції · Розпродаж + a «Хіт місяця»
   card.
-- **Mobile** = the burger drawer opens a **2-level accordion** (goals chips on top → categories → tap
-  to expand subcategories), so goals never disappear. The homepage **category rail** (`.hrail`) opens
+- **Mobile** = the burger menu opens a **2-level accordion** (goals chips on top → categories → tap
+  to expand subcategories), so goals never disappear. **Presentation = push-down panel, NOT a side
+  drawer (оновлено 2026-07-27):** the menu unfolds **downward from the header** — full width, pinned
+  to the header's bottom edge (offset measured live in JS, so the прототип bar / meta row / scroll
+  position all work out), own internal scroll, stopping above the bottom tab bar (which stays usable).
+  It sits **below the header in z-order** (panel 29 < `.wfh` 30, so it lives on `<body>`, not inside
+  the header): the header stays visible and **carries the close control — ☰ turns into ✕** — and
+  **no dark scrim is needed**, because the panel already covers the full width. The page underneath
+  **never reflows**; its scroll is frozen (`html.dr-lock`, root only — locking `<body>` would kill the
+  sticky header). Closes on ✕ / ESC / navigating away. Mechanism: `wfDrawerHTML()` + `openBurger`/
+  `closeBurger`/`toggleBurger` in `_nav.js`, `.wf-drawer` in `_wf.css`. The homepage **category rail** (`.hrail`) opens
   the same content as a **flyout overlay** (**оновлено 2026-07-02**): the mechanism is the shared
   `wfHomeRail()` in `_nav.js` (+ `.hrail-fly`/`.hrail-scrim` in `_wf.css`), built from the same
   `WF_CAT_MENU`/`WF_GOAL_MENU` as the mega, so it never drifts. It is **live on `home.html`**

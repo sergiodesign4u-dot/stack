@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Сесія — ціну не підтверджено (wireframe 5.5 · priceblock)</title>
+<title>Сесія - ціну не підтверджено (wireframe 5.5 · priceblock)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
 /* ============================================================
-   node 5.5 Мультиклієнтська сесія замовлення — ★ PRIMARY Job 1.
+   node 5.5 Мультиклієнтська сесія замовлення - ★ PRIMARY Job 1.
    Client tabs (per-client subtotal) + active-client panel
    (goals → in-session quick-add, NOT global search → order lines with
    coach-tier price vs struck retail + qty + tag) + session summary.
@@ -22,7 +22,7 @@
 .cs-meta b { color: var(--strong); }
 .tierchip { display: inline-block; font-size: 11px; font-weight: 800; color: var(--strong); border: 1.5px solid var(--dark); border-radius: 100px; padding: 2px 9px; }
 
-/* client tabs (tablist) — each carries a per-client subtotal */
+/* client tabs (tablist) - each carries a per-client subtotal */
 .ctabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; border-bottom: 1px solid var(--hair); }
 .ctabs::-webkit-scrollbar { display: none; }
 .ctab { flex: 0 0 auto; border: 1.5px solid var(--hair2); border-bottom: none; border-radius: 10px 10px 0 0; background: var(--fill2);
@@ -60,7 +60,7 @@
 .qa-av.low { color: var(--strong); font-weight: 700; }
 .qa-add { padding: 8px 13px; font-size: 12.5px; white-space: nowrap; }
 
-/* coach-tier price (bold) vs struck retail — the key coach primitive */
+/* coach-tier price (bold) vs struck retail - the key coach primitive */
 .cprice { font-size: 15px; font-weight: 800; color: var(--strong); white-space: nowrap; text-align: right; }
 .cprice .old { display: block; font-size: 11.5px; font-weight: 500; color: #aaa; text-decoration: line-through; }
 .cprice .wtag { display: inline-block; font-size: 9.5px; font-weight: 800; color: var(--strong); border: 1px solid var(--hair2); border-radius: 4px; padding: 0 4px; margin-left: 5px; vertical-align: middle; }
@@ -102,7 +102,7 @@
 @media (min-width: 940px) { .cs-bar { display: none; } }
 .cs-panel { margin-bottom: 76px; }
 @media (min-width: 940px) { .cs-panel { margin-bottom: 0; } }
-/* priceblock state — coach-tier price unresolved: session saved, checkout blocked */
+/* priceblock state - coach-tier price unresolved: session saved, checkout blocked */
 .cs-warn { border: 1.5px solid var(--dark); background: var(--fill2); border-radius: 10px; padding: 13px 15px; margin: 14px 0 4px; }
 .cs-warn .wt { font-size: 13.5px; font-weight: 800; color: var(--strong); }
 .cs-warn .ws { font-size: 12.5px; color: var(--sec); margin-top: 4px; line-height: 1.5; }
@@ -115,7 +115,7 @@
 </head>
 <body>
 <!-- ============================================================
-  WIREFRAME · node 5.5 Сесія — PRICEBLOCK (tier price unresolved → checkout blocked). flows.md: blockc.
+  WIREFRAME · node 5.5 Сесія - PRICEBLOCK (tier price unresolved → checkout blocked). flows.md: blockc.
   ★ The coach-flow differentiator (Job 1). Client tabs + active-client
   quick-add + coach-tier priced lines + session summary → cart-coach.
   States: addclient · loading (quick-add) · oos · priceblock · untagged.
@@ -167,9 +167,9 @@
 
       <!-- IN-SESSION QUICK-ADD (not the global search) -->
       <div class="qadd">
-        <div class="qadd-h">Швидке додавання <span>— підбір за ціллю «Набір маси», не загальний пошук</span></div>
+        <div class="qadd-h">Швидке додавання <span>- підбір за ціллю «Набір маси», не загальний пошук</span></div>
         <div class="qadd-field">
-          <input type="text" placeholder="Назва або артикул — протеїн, гейнер, креатин…" aria-label="Швидке додавання товару">
+          <input type="text" placeholder="Назва або артикул - протеїн, гейнер, креатин…" aria-label="Швидке додавання товару">
           <a class="btn dark" href="coach-session-loading.html">Знайти</a>
         </div>
         <div class="qadd-res">
@@ -235,12 +235,12 @@
     </section>
 
     <!-- SESSION SUMMARY (sticky) -->
-    <aside class="cs-summ" aria-label="Сесія — разом">
-      <div class="cs-summ-h">Сесія — разом</div>
+    <aside class="cs-summ" aria-label="Сесія - разом">
+      <div class="cs-summ-h">Сесія - разом</div>
       <div class="cs-cli"><span>Андрій<small>Набір маси · 1 враховано · 1 очікує ціну</small></span><b>1 230 ₴</b></div>
       <div class="cs-cli"><span>Марія<small>Схуднення · 2 товари</small></span><b>1 160 ₴</b></div>
       <div class="cs-tot"><span>Разом (2 клієнти) <span style="font-weight:600;color:var(--sec);font-size:11px">без 1 товару</span></span><b>2 390 ₴</b></div>
-      <div class="cs-note">Ціни гуртові (тариф Pro). Доставка — одна на тренера; розподіл за клієнтами зберігається в замовленні. Знижки й бонуси — на оформленні.</div>
+      <div class="cs-note">Ціни гуртові (тариф Pro). Доставка - одна на тренера; розподіл за клієнтами зберігається в замовленні. Знижки й бонуси - на оформленні.</div>
       <span class="btn cs-go blocked" role="button" aria-disabled="true">Перейти в кошик →</span>
       <div class="cs-blocknote">Оформлення заблоковано до підтвердження гуртової ціни</div>
       <a class="btn cs-save" href="coach-home.html">Зберегти сесію</a>

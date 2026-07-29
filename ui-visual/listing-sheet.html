@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Категорія «Протеїн» — фільтри (wireframe 2.1 · sheet)</title>
+<title>Категорія «Протеїн» - фільтри (wireframe 2.1 · sheet)</title>
 <link rel="stylesheet" href="../wireframes/_wf.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,10 +13,10 @@
 </head>
 <body>
 <!-- ============================================================
-  WIREFRAME · node 2.1 Категорія / лістинг — STATE = filter bottom-sheet (mobile).
+  WIREFRAME · node 2.1 Категорія / лістинг - STATE = filter bottom-sheet (mobile).
   Reference render of the SHARED wfSheet() component (in _nav.js) pinned open over
   the listing. The same sheet opens inline on every listing surface via openSheet()
-  (listing/goal/search…). Mobile-only (≤860px) — view at 390. Apply/Reset → listing.
+  (listing/goal/search…). Mobile-only (≤860px) - view at 390. Apply/Reset → listing.
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 <div class="wf-canvas">
@@ -35,7 +35,7 @@
   <section aria-label="Заголовок категорії">
     <h1 class="lh1">Протеїн <span class="cnt">84 товари</span></h1>
     <p class="lintro">Сироватковий, ізолят, казеїн і рослинний протеїн від перевірених брендів.
-      Для кожного товару показуємо склад, походження і сертифікат — щоб ви бачили, що берете.
+      Для кожного товару показуємо склад, походження і сертифікат - щоб ви бачили, що берете.
       <a class="more" href="#seo">Читати більше ↓</a></p>
   </section>
 
@@ -144,7 +144,7 @@
             <a href="product.html" class="nm">Impact Whey Isolate 1 кг</a>
             <div class="pavail low">● Залишилось мало</div>
             <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">990 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
-            <div class="rate"><span class="st">★ —</span> · новинка</div>
+            <div class="rate"><span class="st">★ -</span> · новинка</div>
             <div class="pmeta2"><span class="perserv"><b>33 ₴</b> / порція</span><span class="bonus">+10 ₴ бонус</span></div>
           </div>
         </article>
@@ -161,7 +161,7 @@
           </div>
         </article>
 
-        <!-- 3) Немає в наявності — наприкінці, 🛒 → 🔔 -->
+        <!-- 3) Немає в наявності - наприкінці, 🛒 → 🔔 -->
         <article class="pcard dim"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
           <div class="bd">
             <div class="pbrand">BSN · США</div>
@@ -174,8 +174,9 @@
         </article>
 
       </div>
-      <p class="gnote">↑ Порядок карток (за замовч.): спершу <b>в наявності</b> (вкл. «мало»), далі
-        <b>під замовлення</b>, наприкінці <b>немає в наявності</b>. Сортування користувача — в межах цих груп.</p>
+      <!-- Default card order = availability-first (в наявності → під замовлення → немає),
+           user sort applies within groups. Rule lives in ia/docs/pages/category.md
+           §"Default card order (availability-first)"; kept out of the visible UI. -->
 
       <!-- Pagination -->
       <nav class="pgnav" aria-label="Пагінація">
@@ -187,12 +188,12 @@
 
   <!-- SEO text (always fully expanded) -->
   <section class="seotext" id="seo" aria-label="Опис категорії">
-    <div class="h">Протеїн в Україні — купити в магазині Stack</div>
-    <p>Протеїн — базова спортивна добавка для росту й відновлення м'язів. У каталозі Stack —
+    <div class="h">Протеїн в Україні - купити в магазині Stack</div>
+    <p>Протеїн - базова спортивна добавка для росту й відновлення м'язів. У каталозі Stack -
       сироватковий концентрат, ізолят, гідролізат, казеїн, комплексний і рослинний протеїн від
-      перевірених брендів. Для кожного товару показуємо склад, походження і сертифікат — щоб ви бачили, що берете.</p>
-    <p>Як обрати: для набору маси — сироватковий концентрат або комплексний, для схуднення — ізолят,
-      для ночі — казеїн. Швидка доставка Новою Поштою, оплата картою чи готівкою, повернення протягом 14 днів.</p>
+      перевірених брендів. Для кожного товару показуємо склад, походження і сертифікат - щоб ви бачили, що берете.</p>
+    <p>Як обрати: для набору маси - сироватковий концентрат або комплексний, для схуднення - ізолят,
+      для ночі - казеїн. Швидка доставка Новою Поштою, оплата картою чи готівкою, повернення протягом 14 днів.</p>
   </section>
 
   <!-- Related internal links -->
@@ -215,6 +216,6 @@
 
 <script src="../wireframes/_nav.js"></script>
 <script src="_uivis.js"></script>
-<script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); openSheet(); wfBar('listing.html', 'sheet'); uivFixLinks(); uivBar();</script>
+<script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); openSheet(); wfBar('listing.html', 'sheet'); uivFixLinks(); uivBar(); uivChrome();</script>
 </body>
 </html>

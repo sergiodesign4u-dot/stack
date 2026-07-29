@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="_wf.css">
 <style>
 /* ============================================================
-   node 4.x Quiz / goal guide — focused stepped dialog (POST-LAUNCH).
+   node 4.x Quiz / goal guide - focused stepped dialog (POST-LAUNCH).
    Rendered as a centered ~560px card on a dimmed backdrop, over the
    site header/footer. Own styles here; reuses shared .pcard / .btn / .crumb.
    GREYSCALE ONLY.
@@ -37,7 +37,7 @@
 .q-sub { font-size: 13.5px; color: var(--sec); margin-bottom: 16px; }
 .q-hint-skip { font-size: 12px; color: var(--light); margin-top: 12px; }
 
-/* answer cards — radiogroup / checkbox group */
+/* answer cards - radiogroup / checkbox group */
 .q-opts { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
 .q-opt { display: flex; align-items: center; gap: 12px; min-height: 52px; border: 1.5px solid var(--hair2);
   border-radius: 12px; padding: 11px 14px; cursor: pointer; background: #fff; }
@@ -100,7 +100,7 @@
 .q-setrow { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 20px 0 12px; }
 .q-setrow .st-h { font-size: 15px; font-weight: 800; color: var(--strong); }
 .q-setrow .st-c { font-size: 12.5px; color: var(--light); font-weight: 700; }
-/* result — COMPACT set cards, ≥3 across, low height (not the full PLP card) */
+/* result - COMPACT set cards, ≥3 across, low height (not the full PLP card) */
 .q-res-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 .qsc { border: 1px solid var(--hair); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; background: #fff; position: relative; }
 .qsc .ph { aspect-ratio: 5 / 4; background: var(--fill); display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; position: relative; text-decoration: none; }
@@ -188,11 +188,11 @@
         <div class="q-step on" data-step="0" id="step-intro">
           <span class="q-eyebrow">Підбір за ціллю · без реєстрації</span>
           <h1 class="q-intro-h1">Підберіть спортивне харчування під свою ціль</h1>
-          <p class="q-intro-lead">Не впевнені, з чого почати? Дайте відповідь на кілька простих запитань —
+          <p class="q-intro-lead">Не впевнені, з чого почати? Дайте відповідь на кілька простих запитань -
             і ми зберемо зрозумілий, безпечний стартовий набір саме під вас. Спокійно, без тиску.</p>
           <div class="q-steps" aria-label="Як це працює">
             <div class="q-stepx"><span class="n">1</span><span><span class="st-t">Розкажіть про ціль</span><span class="st-s">Маса, схуднення, відновлення, енергія, імунітет чи витривалість.</span></span></div>
-            <div class="q-stepx"><span class="n">2</span><span><span class="st-t">Кілька уточнень</span><span class="st-s">Досвід, частота тренувань і обмеження (усе — за бажанням).</span></span></div>
+            <div class="q-stepx"><span class="n">2</span><span><span class="st-t">Кілька уточнень</span><span class="st-s">Досвід, частота тренувань і обмеження (усе - за бажанням).</span></span></div>
             <div class="q-stepx"><span class="n">3</span><span><span class="st-t">Готовий набір</span><span class="st-s">3–5 товарів зі складом і дозуванням + «чому саме це».</span></span></div>
           </div>
           <p class="q-note">Без реєстрації · 1 хвилина</p>
@@ -202,7 +202,7 @@
         <div class="q-step" data-step="1" id="step-q1">
           <span class="q-eyebrow">Запитання 1 з 5</span>
           <h2 class="q-qh">Яка ваша ціль?</h2>
-          <p class="q-sub">Оберіть головне — від цього залежить базовий набір категорій.</p>
+          <p class="q-sub">Оберіть головне - від цього залежить базовий набір категорій.</p>
           <div class="q-opts" role="radiogroup" aria-label="Ваша ціль" aria-required="true">
             <label class="q-opt"><input type="radio" name="goal" value="Набір маси"><span class="ic">💪</span><span class="tx"><span class="nm">Набір м'язової маси</span><span class="sub">Протеїн · Гейнери · Креатин · BCAA · Передтрен.</span></span><span class="mk radio">✓</span></label>
             <label class="q-opt"><input type="radio" name="goal" value="Схуднення"><span class="ic">🔥</span><span class="tx"><span class="nm">Схуднення і рельєф</span><span class="sub">Жироспалювачі · L-карнітин · Ізолят · Клітковина</span></span><span class="mk radio">✓</span></label>
@@ -217,26 +217,26 @@
         <div class="q-step" data-step="2" id="step-q2">
           <span class="q-eyebrow">Запитання 2 з 5</span>
           <h2 class="q-qh">Який у вас досвід?</h2>
-          <p class="q-sub">Впливає на розмір набору: новачкам — менше й з поясненнями.</p>
+          <p class="q-sub">Впливає на розмір набору: новачкам - менше й з поясненнями.</p>
           <div class="q-opts" role="radiogroup" aria-label="Досвід">
             <label class="q-opt"><input type="radio" name="exp" value="Новачок"><span class="ic">🌱</span><span class="tx"><span class="nm">Новачок</span><span class="sub">Тільки починаю або менше пів року.</span></span><span class="mk radio">✓</span></label>
             <label class="q-opt"><input type="radio" name="exp" value="Є досвід"><span class="ic">📈</span><span class="tx"><span class="nm">Є досвід</span><span class="sub">Тренуюся регулярно, орієнтуюся в базовому.</span></span><span class="mk radio">✓</span></label>
-            <label class="q-opt"><input type="radio" name="exp" value="Досвідчений"><span class="ic">🏆</span><span class="tx"><span class="nm">Досвідчений</span><span class="sub">Знаю, що мені треба — потрібен повний стек.</span></span><span class="mk radio">✓</span></label>
+            <label class="q-opt"><input type="radio" name="exp" value="Досвідчений"><span class="ic">🏆</span><span class="tx"><span class="nm">Досвідчений</span><span class="sub">Знаю, що мені треба - потрібен повний стек.</span></span><span class="mk radio">✓</span></label>
           </div>
-          <p class="q-hint-skip">Не обов'язково — можна пропустити (за замовчуванням «Новачок»).</p>
+          <p class="q-hint-skip">Не обов'язково - можна пропустити (за замовчуванням «Новачок»).</p>
         </div>
 
         <!-- STEP 3 · Q3 FREQUENCY (single, skippable) -->
         <div class="q-step" data-step="3" id="step-q3">
           <span class="q-eyebrow">Запитання 3 з 5</span>
           <h2 class="q-qh">Як часто тренуєтесь?</h2>
-          <p class="q-sub">Частіші тренування — додамо відновлення й електроліти.</p>
+          <p class="q-sub">Частіші тренування - додамо відновлення й електроліти.</p>
           <div class="q-opts" role="radiogroup" aria-label="Частота тренувань">
             <label class="q-opt"><input type="radio" name="freq" value="1–2 рази"><span class="ic">🗓️</span><span class="tx"><span class="nm">1–2 рази на тиждень</span><span class="sub">Мінімальний, базовий набір.</span></span><span class="mk radio">✓</span></label>
             <label class="q-opt"><input type="radio" name="freq" value="3–4 рази"><span class="ic">📅</span><span class="tx"><span class="nm">3–4 рази на тиждень</span><span class="sub">Оптимальний режим.</span></span><span class="mk radio">✓</span></label>
             <label class="q-opt"><input type="radio" name="freq" value="5+ разів"><span class="ic">🔁</span><span class="tx"><span class="nm">5+ разів на тиждень</span><span class="sub">Додамо intra-workout і відновлення.</span></span><span class="mk radio">✓</span></label>
           </div>
-          <p class="q-hint-skip">Не обов'язково — можна пропустити.</p>
+          <p class="q-hint-skip">Не обов'язково - можна пропустити.</p>
         </div>
 
         <!-- STEP 4 · Q4 CONSTRAINTS (multi, skippable) -->
@@ -251,7 +251,7 @@
             <label class="q-opt" id="opt-meds"><input type="checkbox" name="cons" value="Ліки/хронічне" id="cb-meds"><span class="ic">💊</span><span class="tx"><span class="nm">Приймаю ліки / хронічне захворювання</span><span class="sub">Покажемо застереження + консервативний набір.</span></span><span class="mk check">✓</span></label>
             <label class="q-opt"><input type="checkbox" name="cons" value="Нічого"><span class="ic">✅</span><span class="tx"><span class="nm">Нічого з переліченого</span></span><span class="mk check">✓</span></label>
           </div>
-          <p class="q-hint-skip">Не обов'язково — можна пропустити.</p>
+          <p class="q-hint-skip">Не обов'язково - можна пропустити.</p>
         </div>
 
         <!-- STEP 5 · SAFETY INSERT (conditional: only if meds/chronic checked) -->
@@ -259,7 +259,7 @@
           <div class="q-safety">
             <div class="si">⚠</div>
             <div class="sh">Порадьтеся з лікарем</div>
-            <p>Якщо ви приймаєте ліки або маєте хронічне захворювання — перед початком прийому будь-яких
+            <p>Якщо ви приймаєте ліки або маєте хронічне захворювання - перед початком прийому будь-яких
               добавок варто проконсультуватися з лікарем. Ми зберемо максимально консервативний і безпечний набір.</p>
             <p class="disc">Це не медична порада. Stack не замінює консультацію лікаря.</p>
           </div>
@@ -286,7 +286,7 @@
               <button type="button" class="q-pill" data-grp="budget" role="radio" aria-checked="false">Максимальний</button>
             </div>
           </div>
-          <p class="q-hint-skip">Не обов'язково — можна пропустити.</p>
+          <p class="q-hint-skip">Не обов'язково - можна пропустити.</p>
         </div>
 
         <!-- STEP 7 · RESULT (4.2 / 4.3) -->
@@ -311,7 +311,7 @@
               <div class="bd">
                 <div class="br">Optimum Nutrition</div>
                 <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
-                <div class="why">Базовий білок для росту м'язів — 24 г на порцію.</div>
+                <div class="why">Базовий білок для росту м'язів - 24 г на порцію.</div>
                 <div class="ft"><span class="pr">1 290 ₴</span><button class="adds" type="button" aria-label="Додати в кошик">＋</button></div>
               </div>
             </article>
@@ -321,7 +321,7 @@
               <div class="bd">
                 <div class="br">OstroVit</div>
                 <a href="product.html" class="nm">Creatine Monohydrate 500 г</a>
-                <div class="why">Найдоказовіша добавка для сили — 5 г щодня.</div>
+                <div class="why">Найдоказовіша добавка для сили - 5 г щодня.</div>
                 <div class="ft"><span class="pr">549 ₴</span><button class="adds" type="button" aria-label="Додати в кошик">＋</button></div>
               </div>
             </article>
@@ -355,7 +355,7 @@
           <!-- inline email-save (no account; newsletter 8.12 opt-in) -->
           <div class="q-save">
             <div class="sv-h">Зберегти набір на потім?</div>
-            <div class="sv-s">Надішлемо ваш набір на пошту — повернетесь до нього коли зручно.</div>
+            <div class="sv-s">Надішлемо ваш набір на пошту - повернетесь до нього коли зручно.</div>
             <div class="sv-row">
               <input type="email" placeholder="Ваш email" aria-label="Ваш email">
               <button type="button">Надіслати</button>
@@ -363,7 +363,7 @@
             <p class="sv-opt">Погоджуюсь отримувати добірку й новини Stack. Реєстрація не потрібна. Відписатися можна будь-коли.</p>
           </div>
 
-          <p class="q-trust">Це не медична порада. Склад, дозування й сертифікат — на сторінці кожного товару.</p>
+          <p class="q-trust">Це не медична порада. Склад, дозування й сертифікат - на сторінці кожного товару.</p>
         </div>
 
       </div><!-- /q-body -->
@@ -513,7 +513,7 @@ wfHeader(); wfFooter();
       c.closest('.q-opt').classList.toggle('sel', c.checked);
     });
   });
-  // Q5 pills — single-select within each group (format / budget)
+  // Q5 pills - single-select within each group (format / budget)
   document.querySelectorAll('.q-pill').forEach(function (p) {
     p.addEventListener('click', function () {
       var grp = p.getAttribute('data-grp');

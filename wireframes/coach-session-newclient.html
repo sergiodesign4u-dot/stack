@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Сесія — новий клієнт без товарів (wireframe 5.5 · newclient)</title>
+<title>Сесія - новий клієнт без товарів (wireframe 5.5 · newclient)</title>
 <link rel="stylesheet" href="_wf.css">
 <style>
 /* ============================================================
-   node 5.5 Мультиклієнтська сесія — NEW-CLIENT state («Новий клієнт»).
+   node 5.5 Мультиклієнтська сесія - NEW-CLIENT state («Новий клієнт»).
    The real edge in the client-first model: a just-added client tab
    with 0 items yet (arrives from the «Додати клієнта» capture dialog).
-   There is NO «untagged» line — the active tab IS the assignment, so a
+   There is NO «untagged» line - the active tab IS the assignment, so a
    line can never be client-less. Recovery = quick-add for this client.
    (Separate from the EMPTY-SESSION state = zero clients at all.)
    Shares all base styles; adds only .cs-empty.
@@ -93,10 +93,10 @@
 </head>
 <body>
 <!-- ============================================================
-  WIREFRAME · node 5.5 Сесія — NEW CLIENT (just-added tab, 0 items yet).
+  WIREFRAME · node 5.5 Сесія - NEW CLIENT (just-added tab, 0 items yet).
   Arrives from the «Додати клієнта» capture dialog (coach-session-addclient).
   Replaces the removed «untagged» state: the active tab IS the client, so a
-  line is never client-less — the honest edge is a client with nothing added yet.
+  line is never client-less - the honest edge is a client with nothing added yet.
   Recovery = quick-add. States: addclient · loading · oos · priceblock · newclient · empty.
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
@@ -118,7 +118,7 @@
     <a class="btn" href="coach-home.html">Зберегти й вийти</a>
   </div>
 
-  <!-- CLIENT TABS — active = newly-added Ігор with no items yet -->
+  <!-- CLIENT TABS - active = newly-added Ігор with no items yet -->
   <div class="ctabs" role="tablist" aria-label="Клієнти сесії">
     <button class="ctab" role="tab" aria-selected="false">
       <span class="ctn">Андрій</span><span class="cts">2 320 ₴</span><span class="ctg">Набір маси</span>
@@ -134,7 +134,7 @@
 
   <div class="cs-grid">
 
-    <!-- ACTIVE-CLIENT PANEL — Ігор, no items yet -->
+    <!-- ACTIVE-CLIENT PANEL - Ігор, no items yet -->
     <section class="cs-panel" role="tabpanel" aria-label="Замовлення для клієнта Ігор">
       <div class="cs-client">
         <div class="cc-name">Ігор <span class="cc-goal">· ціль: Витривалість</span></div>
@@ -147,11 +147,11 @@
         <a href="coach-session.html">Енергія</a>
       </div>
 
-      <!-- IN-SESSION QUICK-ADD — the recovery for an empty client -->
+      <!-- IN-SESSION QUICK-ADD - the recovery for an empty client -->
       <div class="qadd">
-        <div class="qadd-h">Швидке додавання <span>— підбір за ціллю «Витривалість», не загальний пошук</span></div>
+        <div class="qadd-h">Швидке додавання <span>- підбір за ціллю «Витривалість», не загальний пошук</span></div>
         <div class="qadd-field">
-          <input type="text" placeholder="Назва або артикул — ізотонік, BCAA, електроліти…" aria-label="Швидке додавання товару">
+          <input type="text" placeholder="Назва або артикул - ізотонік, BCAA, електроліти…" aria-label="Швидке додавання товару">
           <a class="btn dark" href="coach-session-loading.html">Знайти</a>
         </div>
         <div class="qadd-res">
@@ -175,19 +175,19 @@
       <div class="cs-empty">
         <div class="ico">🛒</div>
         <h3>Для Ігоря ще нічого не додано</h3>
-        <p>Скористайтеся швидким додаванням вище — підбір іде за ціллю клієнта «Витривалість».
+        <p>Скористайтеся швидким додаванням вище - підбір іде за ціллю клієнта «Витривалість».
           Товари, додані на цій вкладці, автоматично закріплюються за Ігорем.</p>
       </div>
     </section>
 
     <!-- SESSION SUMMARY (sticky) -->
-    <aside class="cs-summ" aria-label="Сесія — разом">
-      <div class="cs-summ-h">Сесія — разом</div>
+    <aside class="cs-summ" aria-label="Сесія - разом">
+      <div class="cs-summ-h">Сесія - разом</div>
       <div class="cs-cli"><span>Андрій<small>Набір маси · 2 товари</small></span><b>2 320 ₴</b></div>
       <div class="cs-cli"><span>Марія<small>Схуднення · 2 товари</small></span><b>1 160 ₴</b></div>
       <div class="cs-cli zero"><span>Ігор<small>Витривалість · ще без товарів</small></span><b>0 ₴</b></div>
       <div class="cs-tot"><span>Разом (3 клієнти)</span><b>3 480 ₴</b></div>
-      <div class="cs-note">Клієнти без товарів не потраплять у замовлення. Ціни гуртові (тариф Pro). Доставка — одна на тренера. Знижки й бонуси — на оформленні.</div>
+      <div class="cs-note">Клієнти без товарів не потраплять у замовлення. Ціни гуртові (тариф Pro). Доставка - одна на тренера. Знижки й бонуси - на оформленні.</div>
       <a class="btn dark cs-go" href="cart-coach.html">Перейти в кошик →</a>
       <a class="btn cs-save" href="coach-home.html">Зберегти сесію</a>
     </aside>
