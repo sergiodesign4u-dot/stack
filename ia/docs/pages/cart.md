@@ -74,6 +74,12 @@
 - Confirmation (✓ «Замовлення #N оформлено» + SMS sent) · order summary (items · discount+bonuses ·
   delivery · paid) · **next steps**: «Відстежити» · **«Мої замовлення» → 7.2** (one-tap repeat, Job 4)
   · «Продовжити покупки». Bonuses accrued show in the account. Coach sees the per-client breakdown.
+- **Says which channel will carry the status and when** (added 2026-08-04 with the MVP decision on
+  order status notifications, `cjm-to-be.md` zone Z3): one plain line under the confirmation, e.g.
+  «Повідомимо на 067 123 45 67, коли замовлення поїде». Not a promise of speed - a promise that she
+  will not have to come back and check. The message set fires on the status transitions defined in
+  `account.md` 7.2 / 7.3; the wording lives in `voice/docs/microcopy.md` with the phase-8 tone
+  (honest, dated, no celebration). Opt-out placement and SMS cost per order stay `[?]`.
 
 ## States
 

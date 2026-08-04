@@ -513,3 +513,37 @@ Status now lives in `README.md` and `/_nav.js` alone.
 their pages), the MVP / later estimate on the concept map, the emotional and social jobs table, the
 stage-07 component kit, and the two-instrument critique. Each is named out loud on the surface it
 belongs to rather than left silent - see the "Банк блоків" section on `ia/structure.html`.
+
+---
+
+## 9. Order status notification enters the MVP (2026-08-04)
+
+**Decision: option A.** A change of order status sends an e-mail or SMS. Owner's call, taken after the
+CJM stage produced the evidence.
+
+**Why.** Zone Z3 of `cjm-as-is.md` - silence during the wait - is one of the three deepest lows of the
+map, and all three sit **after the money is paid**. Two independent reviews, taken from hotline.ua on
+2026-08-04, describe the same failure four years apart:
+
+- Михаил Морозов, 22.06.2022: ordered ahead for a fixed date, never shipped, "никто не предупредил за
+  столько дней"
+- Кайзер Билл, 24.12.2021: "Второй день подряд не могут привезти заказ... Сейчас 15:30 никто даже не
+  звонил"
+
+The locked MVP answered this with honest status **inside the account**, which only reaches a coach who
+thinks to go and look - while both quotes are precisely about nobody reaching out. For Olena the cost
+is not her own inconvenience: it is the credibility she spends in front of an athlete who is waiting
+(ESJ-1).
+
+**What was rejected.** Option B - keep it out of MVP and accept Z3 half closed. Rejected because the
+barrier is sourced, deep, and cheap to close: it adds no IA node and no screen.
+
+**Cost and shape.** A notification, not a screen. The 19 MVP screens and the concept map are unchanged.
+Obligations it creates are listed in `cjm-to-be.md` "Where To-Be argued with the locked scope": a
+defined set of status transitions (7.2 / 7.3), a line on order-placed saying which channel and when
+(6.2), the message text as a product string in `microcopy.md` with the phase-8 tone (honest, dated, no
+celebration), an opt-out `[?]`, and the SMS cost per order `[?]`.
+
+**Why this one matters beyond itself.** It is the first MVP item this project added because of
+something found in the field rather than decided at the desk. Every other MVP feature was a founder
+decision that the CJM stage later supplied a reason for; this one ran the other way.

@@ -50,7 +50,10 @@ but the interface is not built around them.
 In: coach ordering flow (saved client list, per-client order tagging, per-client history, coach
 tier price) · goal-to-product guidance (6 goal tiles; the quiz is post-launch) · product pages with
 trust signals leading, not buried · catalog with smart filtering · reorder from order history ·
-checkout and buyer account (orders, addresses, wishlist, loyalty).
+checkout and buyer account (orders, addresses, wishlist, loyalty) · **order status notification by
+e-mail or SMS** (added to MVP 2026-08-04 from CJM zone Z3: the As-Is bottom is silence during the
+wait, and status inside the account only reaches someone who thinks to look. A notification, not a
+screen, so the 19 MVP screens are unchanged).
 
 Out: native app · loyalty gamification · live chat and coach consulting · custom formulation ·
 private label. A paid coach tier (Free / Pro) is a **hypothesis**, not a commitment.

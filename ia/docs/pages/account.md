@@ -51,6 +51,12 @@
    - Repeat adds available items to the cart and **honestly flags** anything out of stock (inline
      «1 товар недоступний — запропонуємо заміну» note — never a silent failure or dead end).
    - Status pills: Оформлено / **В дорозі (ТТН)** / Обробляється / Доставлено / Скасовано.
+   - **This list is now also the notification trigger set** (added 2026-08-04 with the MVP decision on
+     order status notifications, `cjm-to-be.md` zone Z3). A message fires on the **transition**, not on
+     the state, so the vocabulary above has to stay closed: a status that exists in the UI but not in
+     this list would show on the card and notify nobody. Which of the five transitions are worth a
+     message, and the SMS cost per order, stay `[?]` (operational). Wording lives in
+     `voice/docs/microcopy.md`, tone from the phase-8 row: honest, dated, no celebration.
    - **Mobile card (wireframe 2026-07-05):** collapsed row = a **2-col header** — left «№ / статус», right
      «дата / сума» (aligned) → **small item thumbnails** → a full-width **«Детальніше ⌄»** button that
      expands. Open card stacks to one column and **ends with a «Згорнути ⌃» button**. (Desktop keeps the

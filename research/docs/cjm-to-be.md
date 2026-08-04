@@ -27,7 +27,7 @@ Where it disagrees with the locked scope, that is said out loud in "Where To-Be 
 | 5 | Next client | tabs with per-client subtotals; an empty tab is a recovery, not an error | Z4 | +1 |
 | 6 | Session summary -> cart | cart **grouped by client**, per-client subtotals kept into the order | Z4 | +2 the split she used to do twice is done once, by the tool |
 | 7 | Checkout | one page, published tier price, **single delivery to the coach**, no manager call anywhere on the path | **Z5**, Z6 | +2 |
-| 8 | Waiting | honest order status; the state is on the order, not in someone's head | **Z3** | 0 instead of -3: not delight, the removal of silence |
+| 8 | Waiting | honest order status **plus a message on every status change** - the store reaches out, she does not have to go and look | **Z3** | 0 instead of -3: not delight, the removal of silence |
 | 9 | Receive and split | order in history **grouped by client**, so unpacking follows the same split as ordering | Z1, Z4 | +1 |
 | 10 | Face the athlete | **viewable certificate**, composition and origin on the product page; reviews with answers; a claim has an address | **Z1, Z2** | +2 she can answer the question instead of absorbing it |
 
@@ -47,7 +47,7 @@ Where it disagrees with the locked scope, that is said out loud in "Where To-Be 
 | Reviews with store answers, questions block (3.1, 3.2) | Z1, Z2 | **in, MVP** |
 | Goal tiles as the beginner front door (0.0) | job 2 - a different persona, kept because the same catalogue serves both | **in, MVP** |
 | Loyalty: lifetime-spend tier + bonus ledger with burn (7.4) | job 6; `personas.md` "cumulative discount" is what belok already trains coaches to expect | **in, MVP** |
-| Proactive delivery notification (SMS / e-mail on status change) | **Z3** directly - "никто даже не звонил" | **in, but as a notification, not a screen**; later |
+| **Proactive order status notification (e-mail / SMS on status change)** | **Z3** directly - "никто даже не звонил", "никто не предупредил за столько дней" | **in, MVP** - owner's decision 2026-08-04, option A |
 | Quiz (4.x) | job 2, iteration | **later** - the locked scope already says so |
 | "My staples" list | job 3, iteration | **later** |
 | Back-in-stock e-mail | job 3 | **later** |
@@ -62,18 +62,29 @@ Where it disagrees with the locked scope, that is said out loud in "Where To-Be 
 | Client-facing portal where the athlete sees their own set | traces to no barrier of Olena's; invents a second product. |
 | Push notifications | native app is out of MVP scope. |
 
-## Where To-Be argues with the locked scope
+## Where To-Be argued with the locked scope - resolved
 
-**One disagreement, and it is a real one.** The locked MVP does not include any **proactive
-notification of order status**, and Z3 is one of the three deepest low points in the As-Is map, backed
-by two independent reviews four years apart. Honest status inside the account (phase 8) removes the
-silence only for a coach who thinks to go and look.
+**One disagreement, and it was a real one.** The locked MVP had no **proactive notification of order
+status**, while Z3 is one of the three deepest low points in the As-Is map, backed by two independent
+reviews. Honest status inside the account (phase 8) removes the silence only for a coach who thinks
+to go and look - and the two sourced quotes are precisely about nobody reaching out.
 
-- **Option A (recommended):** add status change -> e-mail or SMS to the MVP. It is a notification,
-  not a screen, so it does not add an IA node; it closes the third-deepest barrier.
-- **Option B:** keep it out and accept that Z3 is only half closed in MVP, written down here.
+**Decision (owner, 2026-08-04): option A.** Order status change -> e-mail or SMS enters the MVP. It
+is a notification, not a screen, so **no IA node is added and the 19 MVP screens do not change**; it
+closes the third-deepest barrier of the map.
 
-**This is the owner's call.** Until it is made, the row above stays "later" and the gap is named.
+What this obliges, named here so it is not discovered later:
+
+| Obligation | Where it lands |
+|---|---|
+| Status transitions have to be a defined set, because a notification fires on a transition | `ia/docs/pages/account.md` 7.2 / 7.3, the same status vocabulary the history already shows |
+| Order placed (6.2) states which channel will be used and when | `ia/docs/pages/cart.md` 6.2 |
+| The text of each notification is a product string, so it belongs to the voice inventory | `voice/docs/microcopy.md`, tone from the phase-8 row: honest, dated, no celebration |
+| An opt-out has to exist for a channel a person did not ask for | `[?]` - whether it is a profile toggle (7.1) or an unsubscribe link in the message itself is not decided here |
+| Which transitions are worth a message, and SMS cost per order | `[?]` - operational, needs real delivery and pricing data |
+
+**The notification is the first MVP item this project added for a reason found in the field rather
+than decided at the desk.** That is the whole point of the stage.
 
 ## Backlog
 
@@ -82,7 +93,7 @@ Refines the MVP core from `CLAUDE.md` and `concept-map.md`; it does not create a
 | Priority | Item | Traces to | Where it lands |
 |---|---|---|---|
 | P0 | everything marked "in, MVP" above | Z1-Z6 | already in the 19 MVP screens |
-| P1 | order status notification | Z3 | open question above |
+| P0 | **order status notification (e-mail / SMS)** | **Z3** | **in MVP, decided 2026-08-04**; not a screen, so the screen count is unchanged. Obligations listed above. |
 | P2 | quiz | job 2 | later, node 4.x |
 | P2 | "my staples" | job 3 | later |
 | P2 | back-in-stock e-mail | job 3 | later |
