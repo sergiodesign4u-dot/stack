@@ -467,3 +467,27 @@ flowchart TD
 - research/docs/jtbd.md v1.2
 - research/docs/strategy.md v5
 - research/docs/personas.md v1.2
+
+---
+
+## Tracing to CJM phases (added 2026-08-04)
+
+A screen step traces to a **phase** of the journey, not to a single job - that is what the CJM stage
+is for. Source: `research/docs/cjm-to-be.md`. Without this table the flows say what happens next but
+not what the person feels there, and Voice has nothing to key its tone off.
+
+| Main flow step | To-Be phase | Zone it closes | Target emotion |
+|---|---|---|---|
+| Coach account home | 2 open a session | Z4 | +1 |
+| Multi-client order session, select or add client | 3 pick a client | Z4 | +1 |
+| In-session quick-add, stock and tier price checks | 4 fill this client's set | Z4, Z5 | +2 |
+| Tag to client, next client tab | 5 next client | Z4 | +1 |
+| Cart with per-client grouping | 6 summary to cart | Z4 | +2 |
+| Checkout | 7 checkout | Z5, Z6 | +2 |
+| Order placed confirmation | 8 waiting | **Z3** | **0 - the removal of silence, not delight** |
+| Order history, order detail | 9 receive and split | Z1, Z4 | +1 |
+| Product detail: composition, dosage, origin, certificate (Job 3 flow) | 10 face the athlete | **Z1, Z2** | +2 |
+
+**Recovery paths trace to the same phases.** Out of stock and substitute belong to phase 4; the
+coach-price-unresolved gate belongs to phase 4 as well; payment back-to-cart belongs to phase 7.
+A recovery that lands the person in a phase deeper than the one they were in is a defect, not a flow.

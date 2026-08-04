@@ -12,8 +12,8 @@ window.NAV = [
   { label: 'Дослідження людей', children: [
       { label: 'Персони',                page: 'research/personas.html', done: true },
       { label: 'JTBD',                   page: 'research/jtbd.html',     done: true },
-      { label: 'CJM · як є',             page: 'research/cjm-as-is.html', done: false },
-      { label: 'CJM · як буде',          page: 'research/cjm-to-be.html', done: false }
+      { label: 'CJM · як є',             page: 'research/cjm-as-is.html', done: true  },
+      { label: 'CJM · як буде',          page: 'research/cjm-to-be.html', done: true  }
   ]},
 
   { label: 'Інформаційна архітектура', children: [

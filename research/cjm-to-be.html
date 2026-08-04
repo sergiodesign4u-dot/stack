@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stack - CJM: як буде</title>
+<link rel="icon" type="image/svg+xml" href="../design/concept/assets/logo-s.svg">
+<link rel="stylesheet" href="../_nav.css">
+<style>
+  :root {
+    --bg: #f7f6f3; --surface: #fff; --surface-alt: #f2f0eb; --border: #e5e2db;
+    --text: #1a1916; --text-secondary: #6b6760; --text-light: #9b9790;
+    --accent: #2d5a3d; --accent-light: #e8f0ea; --accent-mid: #4a8c62;
+    --low: #b23a2e; --warn: #b5882a; --warn-bg: #fdf3e3;
+    --radius: 10px; --radius-sm: 6px;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, system-ui, sans-serif;
+    background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 1160px; margin: 0 auto; padding: 68px 24px 80px; }
+  @media (min-width: 860px) { .page { margin-left: 220px; padding: 48px 48px 80px; } }
+
+  .hero { padding: 48px 0 40px; border-bottom: 1px solid var(--border); margin-bottom: 56px; }
+  .hero-tag { display: inline-block; background: var(--accent-light); color: var(--accent);
+    font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 20px; }
+  .hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -.03em; line-height: 1.12; margin-bottom: 18px; }
+  .hero-lead { font-size: 18px; color: var(--text-secondary); max-width: 700px; }
+  .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 26px; }
+  .hero-meta-item { font-size: 13px; color: var(--text-light); }
+  .hero-meta-item strong { color: var(--text-secondary); font-weight: 600; }
+
+  section { margin-bottom: 64px; scroll-margin-top: 24px; }
+  .section-number { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
+  h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 700; letter-spacing: -.025em; margin-bottom: 10px; }
+  .section-lead { font-size: 16px; color: var(--text-secondary); max-width: 740px; margin-bottom: 26px; }
+  p { color: var(--text-secondary); margin-bottom: 12px; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .card-h { font-size: 11px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--text-light); margin-bottom: 10px; }
+
+  .rule { background: var(--accent-light); border: 1px solid #cfe2d5; border-radius: var(--radius); padding: 18px 22px; margin-bottom: 26px; }
+  .rule b { color: var(--accent); }
+  .rule p:last-child { margin-bottom: 0; }
+  .ask { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 20px 22px; margin-bottom: 16px; }
+  .ask b { color: #8a5a0e; }
+  .ask p:last-child { margin-bottom: 0; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--text-light); }
+  td:first-child { font-weight: 600; }
+  .tabwrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; }
+  .tabwrap table { min-width: 660px; }
+  .tabwrap tr:last-child td { border-bottom: 0; }
+
+  .tag { font-size: 9.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 2px 7px; border-radius: 100px; white-space: nowrap; }
+  .tag-in { color: var(--accent); background: var(--accent-light); }
+  .tag-later { color: var(--warn); background: var(--warn-bg); }
+  .tag-cut { color: var(--low); background: #fbeceb; }
+  .z { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; font-weight: 700; color: var(--low); }
+  .pos { color: var(--accent); font-weight: 700; }
+  .zero { color: var(--text-secondary); font-weight: 700; }
+
+  .chart { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 18px 12px; box-shadow: var(--shadow); overflow-x: auto; }
+  .chart svg { display: block; min-width: 640px; width: 100%; height: auto; }
+  .legend { display: flex; gap: 20px; flex-wrap: wrap; font-size: 12.5px; color: var(--text-secondary); margin-top: 12px; padding: 0 4px; }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .sw { width: 22px; height: 0; border-top: 2.5px solid var(--accent-mid); display: inline-block; }
+  .sw.old { border-top: 2px dashed var(--low); }
+
+  code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; background: var(--surface-alt); padding: 1px 5px; border-radius: 4px; }
+  a { color: var(--accent); }
+  ul { margin: 0 0 12px 18px; color: var(--text-secondary); }
+  li { margin-bottom: 5px; }
+</style>
+</head>
+<body>
+<aside id="sidebar"></aside>
+
+<main class="page">
+  <div class="hero">
+    <div class="hero-tag">Дослідження людей · CJM</div>
+    <h1>Як буде</h1>
+    <p class="hero-lead">
+      Той самий шлях Олени, але зі Stack. Кожна фіча трасується на зону росту з карти
+      «<a href="cjm-as-is.html">Як є</a>» або на job. <b>Фіча, яка не трасується ні на що,
+      вирізається</b> - не відкладається, не «колись потім». Асиметрія свідома: As-Is не має права
+      вигадати емоцію, To-Be не має права вигадати причину.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Фокус</strong> Олена × main job</div>
+      <div class="hero-meta-item"><strong>Фаз</strong> 10</div>
+      <div class="hero-meta-item"><strong>Вирізано</strong> 5 фіч</div>
+      <div class="hero-meta-item"><strong>Відкрите питання</strong> 1, до власника</div>
+      <div class="hero-meta-item"><strong>Джерело істини</strong> research/docs/cjm-to-be.md</div>
+    </div>
+  </div>
+
+  <section id="path">
+    <div class="section-number">01</div>
+    <h2>Шлях</h2>
+    <div class="rule">
+      <p style="margin-bottom:0">To-Be <b>уточнює</b> ядро MVP, зафіксоване в <code>CLAUDE.md</code>
+        і на концепт-карті, а не форкає його. Там, де він з обсягом сперечається, це сказано вголос
+        у розділі 04.</p>
+    </div>
+    <div class="tabwrap">
+      <table>
+        <thead><tr><th>#</th><th>Фаза</th><th>Що робить Stack</th><th>Трасується</th><th>Цільова емоція</th></tr></thead>
+        <tbody id="phrows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="curve">
+    <div class="section-number">02</div>
+    <h2>Емоційна крива</h2>
+    <p class="section-lead">
+      Пунктиром - те, що є сьогодні, суцільним - те, що має стати. Найбільший приріст стоїть не там,
+      де магазини зазвичай змагаються: він у фазах <b>після оплати</b>, бо саме там у Олени дно.
+    </p>
+    <div class="chart" id="chart"></div>
+    <div class="legend">
+      <span><i class="sw"></i> як буде (цільова)</span>
+      <span><i class="sw old"></i> як є (з карти «Як є»)</span>
+      <span>розрив у пунктирі - фаза, для якої джерела немає</span>
+    </div>
+    <div class="card" style="margin-top:22px">
+      <div class="card-h">Чому фаза 8 має ціль 0, а не +2</div>
+      <p style="margin-bottom:0">Зняття тиші виводить її в нуль. Дата доставки - не захват, а
+        очікуване. Поставити тут +2 означало б рівно ту саму намальовану емоцію, яку забороняє
+        правило As-Is, лише перенесену на документ далі. <b>Нуль тут - чесна ціль.</b></p>
+    </div>
+  </section>
+
+  <section id="tracing">
+    <div class="section-number">03</div>
+    <h2>Трасування фіч</h2>
+    <p class="section-lead">Що всередині, чому, і що вирізано з названою причиною.</p>
+    <div class="tabwrap">
+      <table>
+        <thead><tr><th>Фіча</th><th>Трасується на</th><th>Вердикт</th></tr></thead>
+        <tbody>
+          <tr><td>Мультиклієнтська сесія з вкладками (5.5)</td><td><span class="z">Z4</span> · main job</td><td><span class="tag tag-in">MVP</span></td></tr>
+          <tr><td>Список клієнтів + профіль із цілями (5.3, 5.4)</td><td><span class="z">Z4</span></td><td><span class="tag tag-in">MVP</span></td></tr>
+          <tr><td>Історія по клієнту + повтор по клієнту</td><td><span class="z">Z4</span> · фаза 1</td><td><span class="tag tag-in">MVP</span></td></tr>
+          <tr><td>Тарифна ціна числом, ще до реєстрації (5.0)</td><td><span class="z">Z5</span> · тригер довіри «опублікована ціна»</td><td><span class="tag tag-in">MVP</span></td></tr>
+          <tr><td>Активація ролі без дзвінка (5.1)</td><td><span class="z">Z5 Z6</span> · блокер «форма + дзвінок + очікування»</td><td><span class="tag tag-in">MVP</span></td></tr>
+          <tr><td>Жива наявність у рядку, «немає» - це стан, а не сюрприз</td><td><span class="z">Z5</span> · фаза 3</td><td><span class="tag tag-in">MVP</span></td></tr>
+          <tr><td>Кошик, згрупований по клієнтах, одна доставка тренеру (6.0)</td><td><span class="z">Z4</span></td><td><span class="tag tag-in">MVP</span></td></tr>
+          <tr><td>Чесний статус замовлення в історії (7.2, 7.3)</td><td><span class="z">Z3</span></td><td><span class="tag tag-in">MVP</span></td></tr>
+          <tr><td>Переглядний сертифікат + склад + дозування + походження, ведучі на картці (3.0)</td><td><span class="z">Z2</span> · ESJ-3 · job 4</td><td><span class="tag tag-in">MVP</span></td></tr>
+          <tr><td>Відгуки з відповідями, блок питань (3.1, 3.2)</td><td><span class="z">Z1 Z2</span></td><td><span class="tag tag-in">MVP</span></td></tr>
+          <tr><td>Плитки цілей як двері новачка (0.0)</td><td>job 2 - <b>інша персона</b>, лишено бо каталог спільний</td><td><span class="tag tag-in">MVP</span></td></tr>
+          <tr><td>Лояльність: рівень за сумою + журнал бонусів зі згорянням (7.4)</td><td>job 6 · belok уже привчив тренерів до накопичувальної знижки</td><td><span class="tag tag-in">MVP</span></td></tr>
+          <tr><td>Сповіщення про зміну статусу доставки</td><td><span class="z">Z3</span> напряму - «никто даже не звонил»</td><td><span class="tag tag-later">потім</span> - див. 04</td></tr>
+          <tr><td>Квіз (4.x)</td><td>job 2, ітерація</td><td><span class="tag tag-later">потім</span></td></tr>
+          <tr><td>Список «Мої стейпли»</td><td>job 3, ітерація</td><td><span class="tag tag-later">потім</span></td></tr>
+          <tr><td>Лист «товар зʼявився»</td><td>job 3</td><td><span class="tag tag-later">потім</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tabwrap">
+      <table>
+        <thead><tr><th>Вирізано</th><th>Чому</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>Дашборд тренера з аналітикою по спортсменах</td><td>не трасується ні на барʼєр As-Is, ні на job. HYP-2 (трекінг прийому) - гіпотетична робота без підтвердженого джерела.</td><td><span class="tag tag-cut">виріз</span></td></tr>
+          <tr><td>Чат із менеджером у кабінеті</td><td><span class="z">Z6</span> каже, що добре сьогодні - це людина. Але відповідь на «людина не масштабується» - не відбудувати той самий дзвінок, а зробити так, щоб інструмент відповідав без нього. Консультації й так поза MVP.</td><td><span class="tag tag-cut">виріз</span></td></tr>
+          <tr><td>Реферальне посилання тренера атлетам</td><td>HYP-1, гіпотетична робота, джерела немає</td><td><span class="tag tag-cut">виріз</span></td></tr>
+          <tr><td>Портал для спортсмена, де він бачить свій набір</td><td>не трасується на жоден барʼєр Олени; вигадує другий продукт</td><td><span class="tag tag-cut">виріз</span></td></tr>
+          <tr><td>Пуш-сповіщення</td><td>нативний застосунок поза MVP</td><td><span class="tag tag-cut">виріз</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="conflict">
+    <div class="section-number">04</div>
+    <h2>Де To-Be сперечається з обсягом</h2>
+    <div class="ask">
+      <p><b>Одна незгода, і вона справжня.</b> У зафіксованому MVP немає жодного
+        <b>проактивного сповіщення про статус замовлення</b>, а <span class="z">Z3</span> - одне з
+        трьох найглибших дна карти «Як є», підкріплене двома незалежними відгуками з різницею в пів
+        року. Чесний статус усередині кабінету (фаза 8) знімає тишу лише для тренерки, яка здогадається
+        туди зайти.</p>
+      <p><b>Варіант A (рекомендую):</b> додати «зміна статусу → e-mail або SMS» у MVP. Це сповіщення,
+        а не екран, тож вузол IA не додається, а третій за глибиною барʼєр закривається.</p>
+      <p><b>Варіант B:</b> лишити поза MVP і свідомо прийняти, що Z3 закрито наполовину.</p>
+      <p style="margin-bottom:0">Це <b>рішення власника</b>. Поки його немає, рядок стоїть «потім»,
+        а дірка названа тут, а не прихована.</p>
+    </div>
+  </section>
+
+  <section id="backlog">
+    <div class="section-number">05</div>
+    <h2>Беклог і ядро MVP</h2>
+    <p class="section-lead">
+      Уточнює ядро MVP з <code>CLAUDE.md</code> і концепт-карти, а не створює другий обсяг.
+    </p>
+    <div class="tabwrap">
+      <table>
+        <thead><tr><th>Пріоритет</th><th>Пункт</th><th>Трасується</th><th>Куди лягає</th></tr></thead>
+        <tbody>
+          <tr><td>P0</td><td>усе, позначене «MVP» вище</td><td><span class="z">Z1-Z6</span></td><td>вже в 19 екранах MVP</td></tr>
+          <tr><td>P1</td><td>сповіщення про статус замовлення</td><td><span class="z">Z3</span></td><td>відкрите питання, розділ 04</td></tr>
+          <tr><td>P2</td><td>квіз</td><td>job 2</td><td>потім, вузол 4.x</td></tr>
+          <tr><td>P2</td><td>«Мої стейпли»</td><td>job 3</td><td>потім</td></tr>
+          <tr><td>P2</td><td>лист «товар зʼявився»</td><td>job 3</td><td>потім</td></tr>
+          <tr><td>P3</td><td>аналітика тренера, реферали, портал спортсмена</td><td>нічого</td><td><b>виріз</b>, лишені тут лише щоб їх не запропонували вдруге</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="critique">
+    <div class="section-number">06</div>
+    <h2>Критика</h2>
+    <div class="tabwrap">
+      <table>
+        <thead><tr><th>#</th><th>Знахідка</th><th>Вердикт</th><th>Дія</th></tr></thead>
+        <tbody>
+          <tr><td>C1</td><td>Ціль фази 8 - нуль, а не +2. Хіба нейтральна ціль не є поразкою дизайну?</td><td><b>Ні, вона чесна.</b> Зняття тиші виводить у нуль; дата доставки - очікуване, а не захопливе. Заявити тут +2 означало б ту саму намальовану емоцію, лише в іншому документі.</td><td>лишено нулем</td></tr>
+          <tr><td>C2</td><td><span class="z">Z6</span> («добре сьогодні - це людина») не має проти себе жодної фічі</td><td><b>Так, і це свідомо.</b> Жодна окрема фіча її не закриває; її закриває сума фаз 4, 7, 8 і 10 - інструмент, що відповідає без дзвінка. Записано наскрізною вимогою, а не фальшивим рядком.</td><td>лишено нотаткою</td></tr>
+          <tr><td>C3</td><td>Плитки цілей трасуються на job 2, а це інша персона, ніж фокус карти</td><td><b>Так.</b> Названо, а не протягнуто тихцем: ця карта - Олена × main job, а плитки в обсязі тому, що каталог спільний, а не тому, що цей шлях їх потребує.</td><td>помічено в таблиці</td></tr>
+          <tr><td>C4</td><td>«Жива наявність» - це реальність чи обіцянка проти операційних даних, яких немає?</td><td><b>Обіцянка з названою залежністю.</b> Свіжість каталогу - постійне операційне <span class="tag tag-later">[?]</span>. Стан екрана існує в будь-якому разі («мало», «під замовлення» намальовані), але точність за ним - не зобовʼязання цього етапу.</td><td>лишено, залежність названа</td></tr>
+          <tr><td>C5</td><td>Кожен рядок «MVP» уже був у зафіксованому обсязі. То що взагалі змінив To-Be?</td><td><b>Одне, і воно назване:</b> питання про сповіщення. Усе інше, що зробила ця карта, - дала <i>причину</i>: кожна фіча MVP тепер указує на барʼєр із джерелом, а не на рішення засновника. Це і була справжня дірка.</td><td>сказано тут</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+window.NAV_BASE = '../';
+window.NAV_SECTIONS = [
+  { "id": "path", "label": "Шлях" },
+  { "id": "curve", "label": "Емоційна крива" },
+  { "id": "tracing", "label": "Трасування фіч" },
+  { "id": "conflict", "label": "Незгода з обсягом" },
+  { "id": "backlog", "label": "Беклог" },
+  { "id": "critique", "label": "Критика" }
+];
+</script>
+<script src="../_nav.js"></script>
+<script>
+/* Phase table and curve share one array. The As-Is value on each row is the value of the
+   corresponding phase of the As-Is map, so the two documents cannot drift apart. */
+var TB = [
+  { n: 1,  name: 'Тригер',            what: 'історія по клієнту + повтор останнього замовлення; <b>жодних пушів і нагадувань у MVP</b>', z: 'Z4 · «щоб клієнт не лишився без банки»', v: 0,  old: null },
+  { n: 2,  name: 'Відкрити сесію',    what: 'кабінет у режимі тренера - одна велика дія <b>«＋ Нова сесія»</b>', z: 'Z4', v: 1,  old: null },
+  { n: 3,  name: 'Обрати клієнта',    what: 'вкладки клієнтів; додати клієнта можна всередині сесії, а не окремим походом', z: 'Z4', v: 1,  old: null },
+  { n: 4,  name: 'Набрати набір',     what: '<b>quick-add усередині сесії</b> (не глобальний пошук), цілі саме цього клієнта ведуть добір, <b>тарифна ціна в рядку</b> поруч із закресленою роздрібною, жива наявність', z: 'Z4 · Z5', v: 2,  old: -1 },
+  { n: 5,  name: 'Наступний клієнт',  what: 'вкладки з підсумком по кожному; порожня вкладка - це відновлення, а не помилка', z: 'Z4', v: 1,  old: null },
+  { n: 6,  name: 'Підсумок → кошик',  what: 'кошик <b>згрупований по клієнтах</b>, підсумки по кожному доїжджають у замовлення', z: 'Z4', v: 2,  old: -1 },
+  { n: 7,  name: 'Оформлення',        what: 'одна сторінка, опублікована тарифна ціна, <b>одна доставка тренеру</b>, жодного дзвінка менеджера на всьому шляху', z: 'Z5 · Z6', v: 2,  old: -2 },
+  { n: 8,  name: 'Очікування',        what: 'чесний статус замовлення; стан лежить на замовленні, а не в чиїйсь голові', z: 'Z3', v: 0,  old: -3 },
+  { n: 9,  name: 'Отримання',         what: 'замовлення в історії <b>згруповане по клієнтах</b>, тож розбір коробки йде тим самим поділом, що й замовлення', z: 'Z1 · Z4', v: 1,  old: -3 },
+  { n: 10, name: 'Погляд в очі',      what: '<b>переглядний сертифікат</b>, склад і походження на картці; відгуки з відповідями; у претензії є адреса', z: 'Z1 · Z2', v: 2,  old: -3 }
+];
+
+(function () {
+  document.getElementById('phrows').innerHTML = TB.map(function (p) {
+    var cls = p.v > 0 ? 'pos' : 'zero';
+    var em = p.v === 0 ? '0' : '+' + p.v;
+    return '<tr><td>' + p.n + '</td><td>' + p.name + '</td><td style="font-weight:400">' + p.what +
+      '</td><td style="font-weight:400"><span class="z">' + p.z + '</span></td>' +
+      '<td style="font-weight:400"><span class="' + cls + '">' + em + '</span></td></tr>';
+  }).join('');
+
+  var W = 940, H = 320, PADL = 46, PADR = 20, PADT = 20, PADB = 60;
+  var iw = W - PADL - PADR, ih = H - PADT - PADB;
+  var x = function (i) { return PADL + iw * (i / (TB.length - 1)); };
+  var y = function (v) { return PADT + ih * ((3 - v) / 6); };
+
+  var grid = '', i;
+  for (i = 3; i >= -3; i--) {
+    grid += '<line x1="' + PADL + '" y1="' + y(i) + '" x2="' + (W - PADR) + '" y2="' + y(i) +
+      '" stroke="' + (i === 0 ? '#cdc8bf' : '#eceae4') + '" stroke-width="1"/>' +
+      '<text x="' + (PADL - 10) + '" y="' + (y(i) + 4) + '" text-anchor="end" font-size="11" fill="#9b9790">' + (i > 0 ? '+' + i : i) + '</text>';
+  }
+
+  // as-is line: only between adjacent sourced phases, gaps left open
+  var oldSeg = '', oldPts = '';
+  for (i = 0; i < TB.length - 1; i++) {
+    if (TB[i].old === null || TB[i + 1].old === null) continue;
+    oldSeg += '<line x1="' + x(i) + '" y1="' + y(TB[i].old) + '" x2="' + x(i + 1) + '" y2="' + y(TB[i + 1].old) +
+      '" stroke="#b23a2e" stroke-width="2" stroke-dasharray="6 4" opacity=".75"/>';
+  }
+  TB.forEach(function (p, k) {
+    if (p.old !== null) oldPts += '<circle cx="' + x(k) + '" cy="' + y(p.old) + '" r="4" fill="#b23a2e" opacity=".75"/>';
+  });
+
+  // to-be line
+  var newSeg = '', newPts = '', labels = '';
+  for (i = 0; i < TB.length - 1; i++) {
+    newSeg += '<line x1="' + x(i) + '" y1="' + y(TB[i].v) + '" x2="' + x(i + 1) + '" y2="' + y(TB[i + 1].v) +
+      '" stroke="#4a8c62" stroke-width="2.8" stroke-linecap="round"/>';
+  }
+  TB.forEach(function (p, k) {
+    newPts += '<circle cx="' + x(k) + '" cy="' + y(p.v) + '" r="5.5" fill="#2d5a3d"/>';
+    labels += '<text x="' + x(k) + '" y="' + (H - 34) + '" text-anchor="middle" font-size="10.5" font-weight="700" fill="#6b6760">' + p.n + '</text>' +
+      '<text x="' + x(k) + '" y="' + (H - 19) + '" text-anchor="middle" font-size="9.5" fill="#9b9790">' + p.name.split(' ')[0] + '</text>';
+  });
+
+  document.getElementById('chart').innerHTML =
+    '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Емоційна крива: як є проти як буде">' +
+    grid + oldSeg + oldPts + newSeg + newPts + labels + '</svg>';
+})();
+</script>
+</body>
+</html>

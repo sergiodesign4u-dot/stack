@@ -184,6 +184,13 @@ Source: research/docs/benchmark.md (Section 6), research/docs/ux-patterns.md (Pa
 
 **Trust triggers (what convinces her):**
 - Peer recommendation from a respected coach colleague (the #1 trigger [?] - no cited source yet)
+- **CONFIRMED by CJM mining (2026-08-04, `cjm-as-is.md` S2):** a working relationship with a person at
+  the supplier. Both positive peaks in the whole belok review corpus are people, not the tool -
+  traxtor 16.11.2021 "клиент уже лет 5... ребята всегда идут на встречу", Арни Шварц 03.04.2023
+  "консультанту Сергію особиста подяка". This reframes her low switching likelihood: she is not
+  attached to a spreadsheet, she is attached to someone who picks up the phone. A self-service tool
+  has to carry what that person carried - someone answers, someone takes responsibility, someone
+  remembers who she is.
 - Transparent, published pricing - knowing the coach rate before committing, not after a callback. CLOSED by Decision 3: Stack will publish the coach tier upfront. Specific rate [?].
 - Visible product range that covers everything her clients already use (switching suppliers means switching products, which athletes notice)
 - Signs of operational stability (years on market, physical presence, stock reliability)

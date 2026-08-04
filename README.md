@@ -14,8 +14,8 @@ there is no page list to maintain here.
 |---|-------|--------|
 | 01 | Foundation Research | Done |
 | 02 | User Research (personas + JTBD) | Done |
-| 02+ | CJM (As-Is + To-Be) | Not started |
-| 03 | Information architecture | In progress - detail layer done, base layer pages and block bank open |
+| 02+ | CJM (As-Is + To-Be) | Done - Olena x main job, emotions sourced live, one open question for the owner |
+| 03 | Information architecture | Done - base layer, detail layer, node hub and block bank |
 | 04 | Wireframes | Done - grey clickable prototype, 142 screens |
 | 05 | Voice | Done - rulebook + microcopy inventory, rolled out to the prototype |
 | 06 | Concept | Done - visual language on two screens |
