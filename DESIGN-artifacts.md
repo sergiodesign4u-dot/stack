@@ -62,7 +62,7 @@ Core palette (locked, transcribed from `brand-plate-d-2.png`, not read off the p
   - Applies to every price surface: product card (grid + list), PDP buy box, PDP sticky shelf, mobile buy bar. Struck old prices, per-serving and bonus lines stay grey — small print never turns orange.
   - The `-N%` chip keeps its muted red: the chip states the **size** of the cut, the accent marks **which** price is live. Two jobs, two marks.
   - **Contrast gate:** `#FF5A00` on white is 3.13:1 — AA for large text only. A price is allowed the accent only at **>=19px bold**; every surface is sized to clear it (card 22 / mobile 19, list 21, buy box 36, shelf 19, buy bar 19).
-  - Implemented data-driven in `design/_theme.css` via `:has()` on the struck old price, so the colour cannot drift from the fact.
+  - Implemented data-driven in `design/kit/kit.css` via `:has()` on the struck old price, so the colour cannot drift from the fact.
 - Error must never look like the brand accent or a celebration. Warning must be visible. [voice.md 5]
 - No discount-red bursts, no neon, no beast-mode black-plus-neon. The rule above colours the **price itself**, which is a fact; it is not a licence for red splashes, "sale" banners or countdowns. [anti-references: loud UA discounter, beast mode]
 

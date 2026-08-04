@@ -49,7 +49,12 @@ h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing
 .foot-note code{font-family:"IBM Plex Mono",monospace; font-size:.82em; color:var(--muted)}
 .backrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:22px}
 .backrow a{font-size:13px; font-weight:600; color:var(--d-accent); text-decoration:none; border:1px solid var(--d-border); border-radius:8px; padding:8px 14px; background:#fff; transition:border-color .15s, color .15s}
-.backrow a:hover{border-color:var(--orange); color:var(--orange)}</style>
+.backrow a:hover{border-color:var(--orange); color:var(--orange)}  .invtab { background:#fff; border:1px solid #E9E7E2; border-radius:12px; overflow:auto; margin:16px 0 18px; }
+  .invtab table { width:100%; border-collapse:collapse; font-size:13.5px; }
+  .invtab th, .invtab td { text-align:left; padding:10px 14px; border-bottom:1px solid #F2F0ED; vertical-align:top; }
+  .invtab th { font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#6E6A62; }
+  .invtab tr:last-child td { border-bottom:0; }
+</style>
   <link rel="stylesheet" href="../_nav.css">
 </head>
 <body>
@@ -205,6 +210,30 @@ h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing
     <a class="scr" href="account-error.html"><span class="scr-t">Помилка</span><span class="scr-u">дані не прийшли - оболонка й навігація цілі, вихід один дотик</span></a>
   </div>
 
+  <h2 class="sech2" id="inventory">Інвентар компонентів</h2>
+  <p class="sub">Прочитаний з <b>усіх 142</b> вайрфреймів, а не з пофарбованої вибірки: колір звужує те,
+    що ми <i>фарбуємо</i>, а не те, що ми <i>знаємо</i> про продукт. Система, побудована під 40 екранів,
+    на розкотці недорахувалася б половини компонентів. Повна таблиця - <code>design/kit/inventory.md</code>,
+    жива вітрина - <a href="kit/kit.html">кіт компонентів</a>.</p>
+
+  <div class="invtab">
+    <table>
+      <thead><tr><th>Рівень</th><th>Скільки</th><th>Означає</th><th>Найважчий</th></tr></thead>
+      <tbody>
+        <tr><td><b>1 · Атоми</b></td><td>18</td><td>не містять нічого з кіта; форм-контроли входять навіть з одним входженням</td><td>кнопка - 90 екранів</td></tr>
+        <tr><td><b>2 · Молекули</b></td><td>18</td><td>містять атоми</td><td>картка товару - 32 екрани + кожна сітка</td></tr>
+        <tr><td><b>3 · Організми</b></td><td>14</td><td>містять молекули або є оболонкою екрана</td><td>оболонка кабінету - 44 екрани</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="foot-note"><b>Дванадцять компонентів існують лише як рендер-функції</b> у
+    <code>wireframes/_nav.js</code> - хедер, футер, таб-бар, оверлеї, діалоги, тост, банер cookie.
+    Саме тому кількість екранів це погана міра важливості: футер має нуль у розмітці й стоїть на всіх
+    142 екранах. Рівень виробляється <b>рівно один раз</b>, тут, і далі лише читається: з нього етап 08
+    бере порядок розколу <code>kit.css</code> на файли, порядок <code>@import</code>, групи стенда і
+    раунди збірки.</p>
+
   <p class="foot-note">Це засів <b>етапу 06</b>: мова доведена на еталоні й станах. Кожне рішення (колір, форма, шрифт,
     іконка) має пару в <b>DESIGN-artifacts.md</b> / стенді <code>concept.html</code>. Повний UI + Visual - кіт компонентів
     і <b>всі</b> екрани в кольорі - це <b>етап 07</b>; тоді ця сторінка доросте до повної карти кольорового прототипу.</p>
@@ -213,7 +242,7 @@ h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing
 
 <script>
 window.NAV_BASE = '../';
-window.NAV_SECTIONS = [{"id": "states", "label": "Доменні стани"}, {"id": "pdp", "label": "Стани картки"}, {"id": "auth", "label": "Кроки входу"}, {"id": "cart", "label": "Стани кошика"}, {"id": "checkout", "label": "Стани оформлення"}, {"id": "home", "label": "Ролі на головній"}, {"id": "account", "label": "Розділи кабінету"}];
+window.NAV_SECTIONS = [{"id": "states", "label": "Доменні стани"}, {"id": "pdp", "label": "Стани картки"}, {"id": "auth", "label": "Кроки входу"}, {"id": "cart", "label": "Стани кошика"}, {"id": "checkout", "label": "Стани оформлення"}, {"id": "home", "label": "Ролі на головній"}, {"id": "account", "label": "Розділи кабінету"}, {"id": "inventory", "label": "Інвентар"}];
 </script>
 <script src="../_nav.js"></script>
 </body>

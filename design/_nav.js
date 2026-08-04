@@ -1,5 +1,5 @@
 /* ============================================================
-   ui-visual · _uivis.js  (Concept, Step 6)
+   ui-visual · _nav.js  (Concept, Step 6)
    Thin navigation + presentation layer for the colored copies. The wireframes
    stay grey and own structure/behaviour; these copies own only the visual layer.
 
@@ -17,7 +17,7 @@
    ============================================================ */
 
 /* screens that exist here in color (Step 6 = the listing set; Step 7 extends this) */
-var UIV_SET = [
+var DESIGN_NAV = [
   'listing.html', 'listing-empty.html', 'listing-error.html', 'listing-loading.html',
   'listing-filtered.html', 'listing-list.html', 'listing-sheet.html',
   'product.html', 'product-loading.html', 'product-error.html', 'product-oos.html',
@@ -34,7 +34,7 @@ var UIV_SET = [
 
 function uivFixLinks(){
   var inSet = {};
-  UIV_SET.forEach(function(f){ inSet[f] = 1; });
+  DESIGN_NAV.forEach(function(f){ inSet[f] = 1; });
   document.querySelectorAll('a[href]').forEach(function(a){
     var raw = a.getAttribute('href');
     if(!raw) return;
@@ -238,7 +238,7 @@ function uivChrome(){
      greyscale keeps the «фото» placeholder in _nav.js untouched. */
   document.querySelectorAll('.ms-feat .ms-ph').forEach(function(ph){
     if(ph.dataset.uiv) return; ph.dataset.uiv = '1';
-    ph.innerHTML = '<img src="concept/assets/product-whey.png" alt="Gold Standard 100% Whey">';
+    ph.innerHTML = '<img src="visuals/product-whey.png" alt="Gold Standard 100% Whey">';
   });
   /* product-card corner badge → a typed chip: Популярне = dark + ★, Новинка = accent + ✦ */
   document.querySelectorAll('.pcard .ph .tag, .pcard-l .lph .tag').forEach(function(t){
@@ -470,7 +470,7 @@ function uivMascot(){
    working thumbs, the composition photographed on the pack, a certificate that
    looks like a document, and a Solar icon on every proof in the trust strip.
    ============================================================ */
-var UIV_PDP_SHOT = 'concept/assets/product-whey.png';
+var UIV_PDP_SHOT = 'visuals/product-whey.png';
 /* the 4 gallery views: same render, different framing (one product, one shot) */
 var UIV_PDP_VIEWS = [
   { s: 1,    p: 'center 50%' },   /* уся банка */
@@ -480,15 +480,15 @@ var UIV_PDP_VIEWS = [
 ];
 /* description blocks: formula · dosage · mixing · storage → the renders we have */
 var UIV_PDP_DESC = [
-  'concept/assets/product-whey.png',
-  'concept/assets/product-creatine.png',
-  'concept/assets/product-preworkout.png',
+  'visuals/product-whey.png',
+  'visuals/product-creatine.png',
+  'visuals/product-preworkout.png',
   'concept/assets/mascot-pose-product.png'
 ];
 
 /* the section tabs: pinned to the header's real bottom edge, and flagged .stuck the
    moment they get there (that is when the shelf, its shadow and the price + buy
-   button appear - see .pdp-tabs in _theme.css) */
+   button appear - see .pdp-tabs in kit/kit.css) */
 function uivPdpTabs(){
   var tabs = document.querySelector('.pdp-tabs');
   var header = document.getElementById('wf-header');
@@ -498,7 +498,7 @@ function uivPdpTabs(){
     var top = Math.round(header.getBoundingClientRect().bottom);
     if(top < 0) top = 0;
     tabs.style.top = top + 'px';
-    /* the shelf background is a FIXED pseudo-element (see _theme.css), so it needs
+    /* the shelf background is a FIXED pseudo-element (see kit/kit.css), so it needs
        the same edge in viewport coordinates plus the strip's own height */
     tabs.style.setProperty('--shelf-top', top + 'px');
     tabs.style.setProperty('--shelf-h', tabs.offsetHeight + 'px');
@@ -628,7 +628,7 @@ function uivPdp(){
     band.appendChild(bwrap);
   }
 
-  /* «фото складу на упаковці»: the pack render + an honest caption (see _theme.css) */
+  /* «фото складу на упаковці»: the pack render + an honest caption (see kit/kit.css) */
   var onpack = document.querySelector('.onpack');
   if(onpack) onpack.textContent = 'фото складу на упаковці';
 
@@ -706,7 +706,7 @@ function uivAuthPaint(state){
   /* the state glyph, twice: the brand panel (desktop) and the mobile banner */
   var vi = ov.querySelector('.auth-visual .vi'); if(vi) vi.innerHTML = uivWrap(key);
   var bi = ov.querySelector('.auth-banner .bi'); if(bi) bi.innerHTML = uivWrap(key);
-  /* the brand panel is a full-bleed photograph (see _theme.css §AUTH) - the mascot is
+  /* the brand panel is a full-bleed photograph (see kit/kit.css §AUTH) - the mascot is
      IN the picture, so nothing is injected into the panel any more. */
   /* the two lone content glyphs of the dialog: the code-lifetime note and the
      inline error mark. Scoped per element - no other copy is touched. */
@@ -760,7 +760,7 @@ function uivCart(){
   /* empty cart: the mascot answers, exactly as it does on an empty listing */
   var ei = drawer.querySelector('.cd-empty .ei');
   if(ei && /🛒/.test(ei.textContent)){
-    ei.innerHTML = '<img src="concept/assets/mascot-face-reassure.png" alt="">';
+    ei.innerHTML = '<img src="visuals/mascot-face-reassure.png" alt="">';
   }
   /* the unavailable-line note gets the caution triangle, not the error glyph */
   var note = drawer.querySelector('.cd-oosnote');
@@ -1060,12 +1060,12 @@ function uivBar(){
   var cur = (location.pathname.split('/').pop() || 'listing.html');
   var f = uivFindScreen(cur);
 
-  /* the rail lists EVERY screen already colored here (derived from UIV_SET, so it can
+  /* the rail lists EVERY screen already colored here (derived from DESIGN_NAV, so it can
      never drift from the real set), grouped by flow. The screen you are on expands
      into its states; the others stay one link each, so jumping листинг → картка
      товару never goes through «Усі екрани». */
   var seen = {}, screens = [];
-  UIV_SET.forEach(function(file){
+  DESIGN_NAV.forEach(function(file){
     var r = uivFindScreen(file);
     if(!r || seen[r.screen.file]) return;
     seen[r.screen.file] = 1;
@@ -1085,7 +1085,7 @@ function uivBar(){
     });
     return list.map(function(s){
       var label = (typeof WF_STATE_LABEL !== 'undefined' && WF_STATE_LABEL[s.st]) ? WF_STATE_LABEL[s.st] : s.st;
-      var colored = UIV_SET.indexOf(s.file) >= 0;
+      var colored = DESIGN_NAV.indexOf(s.file) >= 0;
       var cls = 'us-st' + (s.cur ? ' on' : '') + (!s.on ? ' off' : '') + (s.on && !colored ? ' grey' : '');
       if(s.cur) return '<span class="' + cls + '" aria-current="page">' + label + '</span>';
       if(!s.on) return '<span class="' + cls + '">' + label + '</span>';

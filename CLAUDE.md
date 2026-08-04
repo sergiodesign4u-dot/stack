@@ -155,8 +155,8 @@ ia/           stage 03            base layer (flows, concept-map) + detail layer
                                   structure, blocks, docs/pages/<node>.md + ia/<node>.html)
 wireframes/   stage 04            grey clickable prototype, FROZEN after Voice
 voice/        stage 05            voice.md rulebook + microcopy.md inventory
-design/       stages 06-09        concept/ (how the language was found) · _theme.css ·
-                                  kit/ (showcase) · system/ (code) · visuals/ · product screens
+design/       stages 06-09        concept/ (how the language was found) ·
+                                  kit/ (kit.css + showcase) · system/ (code) · visuals/
 docs/         decisions.md, playbook/
 ```
 

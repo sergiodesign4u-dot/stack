@@ -19,7 +19,7 @@ there is no page list to maintain here.
 | 04 | Wireframes | Done - grey clickable prototype, 142 screens |
 | 05 | Voice | Done - rulebook + microcopy inventory, rolled out to the prototype |
 | 06 | Concept | Done - visual language on two screens |
-| 07 | UI + Visual | In progress - 39 coloured screens, component kit open |
+| 07 | UI + Visual | Done - 40 coloured screens, component kit and inventory over all 142 wireframes |
 | 08 | Tokens + Components | Not started |
 | 09 | Design System | Not started |
 | 10 | Responsive | Not started |

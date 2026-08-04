@@ -38,7 +38,7 @@ window.NAV = [
      an unfinished stage has to be visible on the route, not only in the README. */
   { label: 'UI + візуал', children: [
       { label: 'Всі екрани',             page: 'design/overview.html',  done: true },
-      { label: 'Кіт компонентів',        page: 'design/kit/kit.html',   done: false }
+      { label: 'Кіт компонентів',        page: 'design/kit/kit.html',   done: true  }
   ]},
 
   { label: 'Токени і компоненти',        page: 'design/kit/overview.html', done: false },

@@ -1,9 +1,15 @@
 /* ============================================================
-   ui-visual · _theme.css  (Concept, Step 6)
+   design/kit/kit.css - the component kit (stage 07)
+
+   MOVED here from design/_theme.css with `git mv` on 2026-08-04. The `:root`
+   block below is BYTE FOR BYTE the one written at the concept stage: values
+   travel through the stages, they are never re-derived. The origin of each
+   value stays in DESIGN-artifacts.md; the next move is the split into
+   primitive + semantic in design/system/tokens.css at stage 08.
+
    The COLOR LAYER. Loaded AFTER ../wireframes/_wf.css, overrides it.
    Structure/behaviour stay owned by wireframes/ (grey, untouched);
-   this file adds only the visual language from DESIGN.md / concept.html.
-   Values transcribed from DESIGN.md, not read off pixels.
+   this file adds only the visual language.
    Rule: exactly ONE orange per view, on the action + selected state.
    No em dash in this file.
    ============================================================ */
@@ -71,7 +77,7 @@ body{ overflow-anchor:none; }
 /* align the header main bar to the content column + give it vertical air
    (the wireframe main bar had 0 padding, so everything was cramped) */
 .wfh-main{ padding:16px; }
-/* brand SVG icons (built by _uivis.js) replacing the wireframe emoji */
+/* brand SVG icons (built by _nav.js) replacing the wireframe emoji */
 .uiv-ic{ display:inline-flex; align-items:center; justify-content:center; vertical-align:middle; line-height:0; }
 .uiv-ic svg{ width:1.05em; height:1.05em; display:block; }
 /* logo: canonical horizontal lockup (see concept/logo.html «Побудова та канон»).
@@ -81,7 +87,7 @@ body{ overflow-anchor:none; }
 .wfh-logo{ font-family:'Oswald', sans-serif; font-weight:700; color:var(--ink);
   display:inline-flex; align-items:baseline; gap:.2em; line-height:1; }
 .wfh-logo::before{ content:""; flex:none; height:1.0125em; width:.863em;
-  background:center/contain no-repeat url(concept/assets/logo-mark.svg);
+  background:center/contain no-repeat url(../concept/assets/logo-mark.svg);
   transform:translateY(.101em); }
 /* Каталог = the primary browse anchor → orange fill, white label (label rule ~line 600) */
 .wfh-nav .navbtn{ background:var(--orange); border-color:var(--orange); color:#fff; }
@@ -93,7 +99,7 @@ body{ overflow-anchor:none; }
 /* right-side actions stay calm: outlined ink, warm hover */
 .wfh-act{ border-color:var(--hair2); color:var(--ink); }
 .wfh-act .t .val{ color:var(--ink); }
-/* icons are real Solar SVG now (built by _uivis.js) - no emoji to desaturate */
+/* icons are real Solar SVG now (built by _nav.js) - no emoji to desaturate */
 /* footer newsletter = an action → orange fill, white label */
 .wff-news button{ background:var(--orange); border-color:var(--orange); color:#fff; }
 /* mobile tab bar: orange marker on the active tab (the tab label itself is ink on white) */
@@ -105,13 +111,13 @@ body{ overflow-anchor:none; }
 /* ---- product photo on cards (visual layer; grey "фото" glyph hidden) ---- */
 .pcard .ph{ background:#fff center/72% no-repeat; color:transparent; }
 .pcard .ph .tag{ color:var(--ink); }                 /* restore the badge text */
-.pcard:nth-of-type(3n+1) .ph{ background-image:url(concept/assets/product-whey.png); }
-.pcard:nth-of-type(3n+2) .ph{ background-image:url(concept/assets/product-creatine.png); }
-.pcard:nth-of-type(3n)   .ph{ background-image:url(concept/assets/product-preworkout.png); }
+.pcard:nth-of-type(3n+1) .ph{ background-image:url(../visuals/product-whey.png); }
+.pcard:nth-of-type(3n+2) .ph{ background-image:url(../visuals/product-creatine.png); }
+.pcard:nth-of-type(3n)   .ph{ background-image:url(../visuals/product-preworkout.png); }
 .pcard.dim .ph{ opacity:.5; }
 
 /* ---- the ONE accent: primary action + selected state = Signal Orange ---- */
-/* cart glyph → inline Solar cart icon (built by _uivis.js), perfectly centered */
+/* cart glyph → inline Solar cart icon (built by _nav.js), perfectly centered */
 .pcard .cartbtn{ background:var(--orange); color:#fff; border-radius:10px; font-size:0; }
 .pcard .cartbtn .uiv-ic svg{ width:20px; height:20px; }
 .pcard .cartbtn.notify{ background:#fff; color:var(--ink); border:1.5px solid var(--hair2); } /* OOS notify stays neutral ink, orange is reserved for buying */
@@ -178,9 +184,9 @@ body{ overflow-anchor:none; }
 .pcard-l .lcut{ background:#FBEAE7; color:var(--err); font-weight:700; }
 .pcard-l .lph{ background:#fff center/contain no-repeat; color:transparent; }
 .pcard-l .lph .tag{ border-color:var(--ink); color:var(--ink); }
-.pcard-l:nth-of-type(3n+1) .lph{ background-image:url(concept/assets/product-whey.png); }
-.pcard-l:nth-of-type(3n+2) .lph{ background-image:url(concept/assets/product-creatine.png); }
-.pcard-l:nth-of-type(3n)   .lph{ background-image:url(concept/assets/product-preworkout.png); }
+.pcard-l:nth-of-type(3n+1) .lph{ background-image:url(../visuals/product-whey.png); }
+.pcard-l:nth-of-type(3n+2) .lph{ background-image:url(../visuals/product-creatine.png); }
+.pcard-l:nth-of-type(3n)   .lph{ background-image:url(../visuals/product-preworkout.png); }
 .pcard-l .cartbtn{ background:var(--orange); color:#fff; font-size:0; border-radius:10px; }
 .pcard-l .cartbtn .uiv-ic svg{ width:20px; height:20px; }
 .pcard-l .cartbtn.notify{ background:#fff; color:var(--ink); border:1.5px solid var(--hair2); }
@@ -229,7 +235,7 @@ section[aria-label="Помилка"] .empty .ei img{ width:118px; height:118px; 
 .seotext{ background:var(--fill); }
 
 /* ============================================================
-   ui-visual prototype navigator (built by _uivis.js): a LEFT rail that
+   ui-visual prototype navigator (built by _nav.js): a LEFT rail that
    replaces the two old top strips. Lists the current flow page + every
    state; top button → усі екрани; foot = back to the language stand +
    the grey original. Dark chrome keeps the old bar identity (orange
@@ -325,7 +331,7 @@ section[aria-label="Помилка"] .empty .ei img{ width:118px; height:118px; 
      (document flow position, not viewport-pinned), so it scrolls away with the page,
      and it sits BELOW the store header in z-order (20 < .wfh 30) - the tool chrome
      must never cover the store header. No scrim: nothing is covered any more.
-     --uiv-side-h = the panel's measured height (uivSideMeasure() in _uivis.js). */
+     --uiv-side-h = the panel's measured height (uivSideMeasure() in _nav.js). */
   .uiv-side{ position:absolute; z-index:20; top:40px; left:0; right:0; bottom:auto; width:auto;
     max-height:0; overflow:hidden; border-right:none; border-bottom:none; box-shadow:none;
     transform:none; transition:max-height .24s ease; }
@@ -588,7 +594,7 @@ section[aria-label="Помилка"] .empty .ei img{ width:118px; height:118px; 
   left:50%; top:50%; width:5px; height:9px; border:solid #fff; border-width:0 2px 2px 0;
   transform:translate(-50%,-58%) rotate(45deg); font-size:0; }
 .fopt .ct{ color:var(--light); font-family:'IBM Plex Mono', ui-monospace, monospace; }
-/* price range - upgraded by _uivis.js into a real draggable dual slider
+/* price range - upgraded by _nav.js into a real draggable dual slider
    (see .uiv-slider below). The static .frange is only a fallback if JS is off. */
 .frange{ background:var(--hair2); }
 .frange::before, .frange::after{ background:var(--orange); }
@@ -1000,7 +1006,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
    official 2022 lockup, see the assets README). White tile + hairline, so the red
    sits on its own surface and does not fight Signal Orange. The «НП» text stays in
    the DOM at font-size:0 - invisible, still read by a screen reader. */
-.bb .dpic.np{ background:#fff url(concept/assets/np-mark.png) center/72% no-repeat;
+.bb .dpic.np{ background:#fff url(../visuals/np-mark.png) center/72% no-repeat;
   border:1px solid var(--hair); font-size:0; }
 .bb .dpt b{ display:block; font-weight:600; color:var(--ink); line-height:1.3; }
 .bb .dpt span{ display:block; margin-top:2px; font-size:12px; color:var(--sec); }
@@ -1151,7 +1157,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
   border-top:1px solid rgba(255,255,255,.18); padding-top:13px;
   font-size:10.5px; line-height:1.4; color:rgba(255,255,255,.62); }
 .pl-mark{ width:17px; height:17px; flex:none;
-  background:center/contain no-repeat url(concept/assets/logo-mark.svg); }
+  background:center/contain no-repeat url(../concept/assets/logo-mark.svg); }
 .packlabel figcaption{ font-size:12px; color:var(--light); margin-top:9px; }
 /* certificate: reads as an actual document, and the whole tile is the link */
 .certbox{ gap:16px; }
@@ -1324,12 +1330,12 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
    real gym says «спортивне харчування» better than the words did, so the words go and
    the frame carries brand + promise only. Two scrims make the overlay legible without
    dimming the whole image: light at the top under the wordmark, warm ink at the bottom
-   under the promise card. Photo: concept/assets/mascot-gym-a.jpg (b = alternative). */
+   under the promise card. Photo: ../visuals/mascot-gym-a.jpg (b = alternative). */
 /* the canonical horizontal lockup, same construction as the header logo */
 .auth-visual .vlogo{ display:inline-flex; align-items:center; gap:.36em;
   font-family:'Oswald', sans-serif; font-weight:700; font-size:23px; letter-spacing:-.02em; color:var(--ink); }
 .auth-visual .vlogo::before{ content:""; flex:none; height:1.0125em; width:.863em;
-  background:center/contain no-repeat url(concept/assets/logo-mark.svg); }
+  background:center/contain no-repeat url(../concept/assets/logo-mark.svg); }
 .auth-visual .vmid{ display:flex; flex-direction:column; align-items:center; gap:6px;
   font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:10.5px; letter-spacing:.14em;
   text-transform:uppercase; color:var(--light); }
@@ -1354,7 +1360,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 /* the photograph itself (desktop) - last, so it overrides the panel defaults above */
 @media (min-width:720px){
   .auth-visual{ width:44%; padding:26px; position:relative; overflow:hidden; border-right:none;
-    background:var(--fill) url(concept/assets/mascot-gym-a.jpg) 52% 34%/cover no-repeat; }
+    background:var(--fill) url(../visuals/mascot-gym-a.jpg) 52% 34%/cover no-repeat; }
   .auth-visual::before{ content:""; position:absolute; inset:0; pointer-events:none;
     background:linear-gradient(180deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 22%,
       rgba(20,20,15,0) 50%, rgba(20,20,15,.42) 100%); }
@@ -1377,7 +1383,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
   .auth-mlogo{ display:inline-flex; align-items:center; gap:.36em; font-family:'Oswald', sans-serif;
     font-weight:700; color:var(--ink); }
   .auth-mlogo::before{ content:""; flex:none; height:1.0125em; width:.863em;
-    background:center/contain no-repeat url(concept/assets/logo-mark.svg); }
+    background:center/contain no-repeat url(../concept/assets/logo-mark.svg); }
 }
 .auth-x{ border-color:var(--hair); border-radius:10px; color:var(--sec);
   transition:border-color .15s ease, color .15s ease, background .15s ease; }
@@ -1533,9 +1539,9 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 /* the page under the drawer: a real catalog, dimmed - not four grey boxes */
 .cart-behind h2{ font-family:'Oswald', sans-serif; font-weight:600; letter-spacing:-.01em; color:var(--ink); }
 .cart-behind .ph-card{ background:#fff center/62% no-repeat; border-color:var(--hair); box-shadow:var(--sh); }
-.cart-behind .ph-card:nth-of-type(3n+1){ background-image:url(concept/assets/product-whey.png); }
-.cart-behind .ph-card:nth-of-type(3n+2){ background-image:url(concept/assets/product-creatine.png); }
-.cart-behind .ph-card:nth-of-type(3n){   background-image:url(concept/assets/product-preworkout.png); }
+.cart-behind .ph-card:nth-of-type(3n+1){ background-image:url(../visuals/product-whey.png); }
+.cart-behind .ph-card:nth-of-type(3n+2){ background-image:url(../visuals/product-creatine.png); }
+.cart-behind .ph-card:nth-of-type(3n){   background-image:url(../visuals/product-preworkout.png); }
 
 /* ---- head ---- */
 .cd-head{ padding:18px; border-bottom-color:var(--hair); }
@@ -1551,9 +1557,9 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 /* ---- line item ---- */
 .ci{ border-bottom-color:var(--hair); }
 .ci-ph{ background:#fff center/80% no-repeat; border-color:var(--hair); border-radius:11px; color:transparent; }
-.cart-drawer .ci:nth-of-type(3n+1) .ci-ph{ background-image:url(concept/assets/product-whey.png); }
-.cart-drawer .ci:nth-of-type(3n+2) .ci-ph{ background-image:url(concept/assets/product-creatine.png); }
-.cart-drawer .ci:nth-of-type(3n)   .ci-ph{ background-image:url(concept/assets/product-preworkout.png); }
+.cart-drawer .ci:nth-of-type(3n+1) .ci-ph{ background-image:url(../visuals/product-whey.png); }
+.cart-drawer .ci:nth-of-type(3n+2) .ci-ph{ background-image:url(../visuals/product-creatine.png); }
+.cart-drawer .ci:nth-of-type(3n)   .ci-ph{ background-image:url(../visuals/product-preworkout.png); }
 .ci-brand{ color:var(--light); }
 .ci-nm{ color:var(--ink); transition:color .15s ease; }
 .ci-nm:hover{ color:var(--orange); }
@@ -1661,7 +1667,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 .co-logo{ font-family:'Oswald', sans-serif; font-weight:700; color:var(--ink); letter-spacing:-.02em;
   display:inline-flex; align-items:baseline; gap:.2em; line-height:1; }
 .co-logo::before{ content:""; flex:none; height:1.0125em; width:.863em;
-  background:center/contain no-repeat url(concept/assets/logo-mark.svg); transform:translateY(.101em); }
+  background:center/contain no-repeat url(../concept/assets/logo-mark.svg); transform:translateY(.101em); }
 .co-support .sh{ color:var(--light); }
 .co-support b{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; font-size:14px;
   color:var(--ink); word-spacing:-.1em; }
@@ -1708,9 +1714,9 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 /* ---- order lines: the cart's price language, unchanged ---- */
 .co-line{ border-top-color:var(--hair); }
 .co-line .li-img{ background:#fff center/86% no-repeat; border:1px solid var(--hair); border-radius:10px; color:transparent; }
-.co-line:nth-of-type(3n+1) .li-img{ background-image:url(concept/assets/product-whey.png); }
-.co-line:nth-of-type(3n+2) .li-img{ background-image:url(concept/assets/product-creatine.png); }
-.co-line:nth-of-type(3n)   .li-img{ background-image:url(concept/assets/product-preworkout.png); }
+.co-line:nth-of-type(3n+1) .li-img{ background-image:url(../visuals/product-whey.png); }
+.co-line:nth-of-type(3n+2) .li-img{ background-image:url(../visuals/product-creatine.png); }
+.co-line:nth-of-type(3n)   .li-img{ background-image:url(../visuals/product-preworkout.png); }
 .co-line .li-nm{ color:var(--ink); }
 .co-line .li-meta{ color:var(--sec); }
 .co-line .li-acts button{ color:var(--sec); font-size:12.5px; transition:color .15s ease; }
@@ -1900,8 +1906,8 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 .hstrip > .hpromo:nth-child(1) .hptag{ color:var(--orange); }
 .hstrip > .hpromo:nth-child(1) .hph{ color:#fff; font-size:38px; }
 .hstrip > .hpromo:nth-child(1) .hps{ color:rgba(255,255,255,.72); }
-.hstrip > .hpromo:nth-child(2){ background-image:url(concept/assets/product-creatine.png); }
-.hstrip > .hpromo:nth-child(3){ background-image:url(concept/assets/mascot-pose-present.png); background-size:80%; background-position:center 4%; }
+.hstrip > .hpromo:nth-child(2){ background-image:url(../visuals/product-creatine.png); }
+.hstrip > .hpromo:nth-child(3){ background-image:url(../concept/assets/mascot-pose-present.png); background-size:80%; background-position:center 4%; }
 /* ---- offer of the day: the hero's third voice ----
    A product card given hero room. It obeys the SAME price rule as every other card —
    a struck price is what earns the live figure its accent — so the loudest product on
@@ -1914,7 +1920,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
    what the accent needs: Oswald 19/700 uppercase clears the large-text threshold. */
 .hdeal .hd-tag{ font-family:'Oswald', sans-serif; font-weight:700; font-size:19px;
   letter-spacing:.02em; color:var(--orange); }
-.hdeal .hd-ph{ background:#fff center/94% no-repeat url(concept/assets/product-whey.png);
+.hdeal .hd-ph{ background:#fff center/94% no-repeat url(../visuals/product-whey.png);
   color:transparent; border-radius:12px; }
 .hdeal .hd-brand{ color:var(--light); }
 .hdeal .hd-nm{ font-family:'Oswald', sans-serif; font-weight:600; font-size:19px; letter-spacing:-.005em;
@@ -1942,11 +1948,11 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
   transition:transform .15s ease, box-shadow .15s ease; overflow:hidden;
   background:#fff right -14px bottom -26px/62% no-repeat; }
 .hvert:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(20,20,15,.10); }
-.hside > .hvert:nth-child(1){ background:url(concept/assets/banner-new-a.jpg) center right/cover no-repeat; }
+.hside > .hvert:nth-child(1){ background:url(../visuals/banner-new-a.jpg) center right/cover no-repeat; }
 .hside > .hvert:nth-child(1)::before{ content:""; position:absolute; inset:0; pointer-events:none;
   background:linear-gradient(90deg, rgba(247,243,236,.96) 0%, rgba(247,243,236,.72) 42%, rgba(247,243,236,0) 72%); }
 .hside > .hvert:nth-child(1) > *{ position:relative; }
-.hside > .hvert:nth-child(2){ background-image:url(concept/assets/product-whey.png); }
+.hside > .hvert:nth-child(2){ background-image:url(../visuals/product-whey.png); }
 .hvert .hvt{ font-family:'Oswald', sans-serif; font-weight:600; font-size:17px; letter-spacing:-.005em; color:var(--ink); }
 .hvert .hvs{ color:var(--sec); }
 
@@ -1969,8 +1975,8 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 .cshelf .cs-s{ color:var(--sec); }
 .cshelf .cs-s b{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; color:var(--ink); word-spacing:-.1em; }
 .cshelf .cs-th{ background:#fff center/82% no-repeat; border-color:var(--hair); border-radius:9px; color:transparent; }
-.cshelf .cs-thumbs .cs-th:nth-child(1){ background-image:url(concept/assets/product-whey.png); }
-.cshelf .cs-thumbs .cs-th:nth-child(2){ background-image:url(concept/assets/product-creatine.png); }
+.cshelf .cs-thumbs .cs-th:nth-child(1){ background-image:url(../visuals/product-whey.png); }
+.cshelf .cs-thumbs .cs-th:nth-child(2){ background-image:url(../visuals/product-creatine.png); }
 .cshelf .cs-th.more{ background-image:none; color:var(--sec); font-family:'IBM Plex Mono', ui-monospace, monospace; }
 .cshelf .cs-th .q{ background:var(--orange); color:#fff; font-family:'IBM Plex Mono', ui-monospace, monospace; }
 .cshelf .cs-act .btn{ font-size:14.5px; padding:11px 18px; border-radius:11px; }
@@ -2004,12 +2010,12 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
   transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease; }
 .tbanners .tbn:hover{ border-color:var(--orange); transform:translateY(-2px); box-shadow:0 10px 26px rgba(20,20,15,.10); }
 .tbanners .tbim{ height:104px; background:var(--fill) center/cover no-repeat; }
-.tbanners .tbn:nth-child(1) .tbim{ background-image:url(concept/assets/trust-cert.jpg); }
-.tbanners .tbn:nth-child(2) .tbim{ background-image:url(concept/assets/trust-delivery.jpg); }
-.tbanners .tbn:nth-child(3) .tbim{ background-image:url(concept/assets/trust-pay.jpg); }
-.tbanners .tbn:nth-child(4) .tbim{ background-image:url(concept/assets/trust-return.jpg); }
+.tbanners .tbn:nth-child(1) .tbim{ background-image:url(../visuals/trust-cert.jpg); }
+.tbanners .tbn:nth-child(2) .tbim{ background-image:url(../visuals/trust-delivery.jpg); }
+.tbanners .tbn:nth-child(3) .tbim{ background-image:url(../visuals/trust-pay.jpg); }
+.tbanners .tbn:nth-child(4) .tbim{ background-image:url(../visuals/trust-return.jpg); }
 .tbanners .tbn:nth-child(5) .tbim{ background:var(--fill) center 22%/auto 170% no-repeat
-  url(concept/assets/mascot-face-reassure.png); background-blend-mode:multiply; }
+  url(../visuals/mascot-face-reassure.png); background-blend-mode:multiply; }
 .tbanners .tbx b{ color:var(--ink); font-size:13.5px; }
 .tbanners .tbx i{ color:var(--sec); }
 .tbanners .tbn:nth-child(5) .tbx b .uiv-star svg{ width:14px; height:14px; }
@@ -2035,7 +2041,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 /* the weekly promo is a banner now: the picture fills the strip, the claim sits on a
    warm scrim at the left. Still no timer and no sale sticker - the offer is stated. */
 .promo{ border:1px solid var(--hair); border-radius:16px; position:relative; overflow:hidden;
-  background:url(concept/assets/banner-promo-a.jpg) center right/cover no-repeat;
+  background:url(../visuals/banner-promo-a.jpg) center right/cover no-repeat;
   min-height:190px; padding:30px 32px; }
 .promo::before{ content:""; position:absolute; inset:0; pointer-events:none;
   background:linear-gradient(90deg, rgba(247,243,236,.97) 0%, rgba(247,243,236,.86) 40%, rgba(247,243,236,0) 78%); }
@@ -2047,7 +2053,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 .promo .ps a:hover{ color:var(--orange) !important; text-decoration-color:var(--orange); }
 /* A brand plate shows the BRAND, so it shows its logo when we have the file and the
    wordmark when we do not. The <img> removes itself on error, so :has(img) is a live
-   test of «is there a logo?» - drop a file into concept/assets/brands/ and the plate
+   test of «is there a logo?» - drop a file into ../visuals/brands/ and the plate
    switches by itself, with no second place to update. */
 .brandbox{ border-color:var(--hair); border-radius:12px; background:#fff; color:var(--sec);
   font-size:12.5px; padding:10px 14px; transition:border-color .15s ease, color .15s ease; }
@@ -2064,13 +2070,13 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 .blogcard:hover{ transform:translateY(-2px); box-shadow:0 10px 26px rgba(20,20,15,.10); }
 /* real article photographs, shot in the same light as the trust banners */
 .blogcard .bim{ background:var(--fill) center/cover no-repeat; height:158px; }
-.blogrow > .blogcard:nth-child(1) .bim{ background-image:url(concept/assets/blog-protein.jpg); }
-.blogrow > .blogcard:nth-child(2) .bim{ background-image:url(concept/assets/blog-creatine.jpg); }
-.blogrow > .blogcard:nth-child(3) .bim{ background-image:url(concept/assets/blog-goals.jpg); }
+.blogrow > .blogcard:nth-child(1) .bim{ background-image:url(../visuals/blog-protein.jpg); }
+.blogrow > .blogcard:nth-child(2) .bim{ background-image:url(../visuals/blog-creatine.jpg); }
+.blogrow > .blogcard:nth-child(3) .bim{ background-image:url(../visuals/blog-goals.jpg); }
 .blogcard .bt{ color:var(--ink); font-size:14.5px; }
 .blogcard .bdt{ color:var(--sec); line-height:1.5; }
 
-/* ---- loyalty tier mark (see uivTier in _uivis.js) ----
+/* ---- loyalty tier mark (see uivTier in _nav.js) ----
    Three metals at the contrast end that survives 15px body copy: the mark carries
    meaning (which tier you are), so it may not be decorative-only colour. */
 .uiv-tier{ vertical-align:-4px; margin-right:1px; }
@@ -2145,11 +2151,11 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 /* ---- 7.0 restock nudge: real renders in the thumbs, one action per row ---- */
 .rk-ph, .aord-thumbs .t, .oh-thumbs i, .ob-line .ph{ background:#fff center/78% no-repeat;
   border-color:var(--hair); color:transparent; }
-.rk-item:nth-of-type(odd) .rk-ph{ background-image:url(concept/assets/product-whey.png); }
-.rk-item:nth-of-type(even) .rk-ph{ background-image:url(concept/assets/product-creatine.png); }
-.aord-thumbs .t:nth-child(1), .oh-thumbs i:nth-child(1), .ob-line:nth-of-type(3n+1) .ph{ background-image:url(concept/assets/product-whey.png); }
-.aord-thumbs .t:nth-child(2), .oh-thumbs i:nth-child(2), .ob-line:nth-of-type(3n+2) .ph{ background-image:url(concept/assets/product-creatine.png); }
-.aord-thumbs .t:nth-child(3), .oh-thumbs i:nth-child(3), .ob-line:nth-of-type(3n) .ph{ background-image:url(concept/assets/product-preworkout.png); }
+.rk-item:nth-of-type(odd) .rk-ph{ background-image:url(../visuals/product-whey.png); }
+.rk-item:nth-of-type(even) .rk-ph{ background-image:url(../visuals/product-creatine.png); }
+.aord-thumbs .t:nth-child(1), .oh-thumbs i:nth-child(1), .ob-line:nth-of-type(3n+1) .ph{ background-image:url(../visuals/product-whey.png); }
+.aord-thumbs .t:nth-child(2), .oh-thumbs i:nth-child(2), .ob-line:nth-of-type(3n+2) .ph{ background-image:url(../visuals/product-creatine.png); }
+.aord-thumbs .t:nth-child(3), .oh-thumbs i:nth-child(3), .ob-line:nth-of-type(3n) .ph{ background-image:url(../visuals/product-preworkout.png); }
 .oh-thumbs i.more{ background:var(--fill2); color:var(--sec);
   font-family:'IBM Plex Mono', ui-monospace, monospace; }
 .rk-nm{ color:var(--ink); }
