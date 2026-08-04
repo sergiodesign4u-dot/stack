@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stack — IA: Контент, інфо й legal</title>
-  <link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+  <link rel="icon" type="image/svg+xml" href="../design/concept/assets/logo-s.svg">
   <style>
     :root {
       --bg: #f7f6f3; --surface: #ffffff; --surface-alt: #f2f0eb; --border: #e5e2db;
@@ -20,33 +20,9 @@
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
     a { color: var(--accent); }
 
-    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: rgba(247,246,243,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 101; }
-    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
-    .sidebar-toggle { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); }
-    .sidebar-toggle:hover { background: var(--surface-alt); }
-
-    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
-    .sidebar-overlay.open { display: block; }
-    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: rgba(247,246,243,.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-right: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform .22s ease; }
-    .sidebar.open { transform: translateX(0); }
-    .sidebar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
-    .sidebar-nav { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px; }
-    .sidebar-nav::-webkit-scrollbar { display: none; }
-    .sidebar-nav a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: var(--radius-sm); transition: color .15s, background .15s; margin-bottom: 1px; }
-    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
-    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
-    .sidebar-nav .sidebar-sub { display: block; font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light); }
-    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
-    .sidebar-page-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 4px; }
-    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
-    .sidebar-upcoming { padding: 12px 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-light); line-height: 1.8; }
-
     .page { max-width: 1100px; margin: 0 auto; padding: 68px 20px 80px; }
     @media (min-width: 860px) {
-      .topbar { display: none; }
-      .sidebar { transform: translateX(0); }
-      .page { margin-left: 220px; padding: 44px 44px 80px; }
-    }
+      .page { margin-left: 220px; padding: 44px 44px 80px; }}
 
     .hero { margin-bottom: 30px; }
     .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
@@ -70,7 +46,7 @@
     .arrow { color: var(--accent-mid); font-weight: 600; white-space: nowrap; }
 
     .cols { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    @media (min-width: 720px) { .cols.two { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 720px) { .cols.two { grid-template-columns: 1fr 1fr; }}
 
     .open { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 18px 20px; }
     .open h2 { font-size: 18px; margin-bottom: 10px; color: var(--warn); }
@@ -79,9 +55,7 @@
     .reco { background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--text); margin: 10px 0 14px; }
     .reco b { color: var(--accent); }
 
-    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }
-
-    /* ===== WIREFRAME (B/W) ===== */
+    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }/* ===== WIREFRAME (B/W) ===== */
     .wf { border: 1px solid #cfcfcf; border-radius: 10px; overflow: hidden; background: #fff; color: #1b1b1b; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
     .wf-cap { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8a8a8a; padding: 7px 12px; background: #f4f4f4; border-bottom: 1px solid #e4e4e4; }
     .wf-pad { padding: 16px; }
@@ -91,11 +65,9 @@
     .wf-zone .zd { color: #999; font-weight: 600; }
 
     .crumb { font-size: 11px; color: #888; margin-bottom: 10px; }
-    .crumb .sep { color: #ccc; margin: 0 5px; } .crumb .cur { color: #111; font-weight: 700; }
-
-    /* info/legal template */
+    .crumb .sep { color: #ccc; margin: 0 5px; } .crumb .cur { color: #111; font-weight: 700; }/* info/legal template */
     .infolayout { display: grid; grid-template-columns: 200px 1fr; gap: 18px; }
-    @media (max-width: 640px) { .infolayout { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .infolayout { grid-template-columns: 1fr; }}
     .toc { border: 1px solid #e6e6e6; border-radius: 10px; padding: 11px; align-self: start; }
     .toc .tt { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: #999; margin-bottom: 7px; }
     .toc a { display: block; font-size: 12px; color: #333; padding: 4px 0; text-decoration: none; }
@@ -106,43 +78,35 @@
     .prose p, .prose li { font-size: 12.5px; color: #444; line-height: 1.6; }
     .prose ul { margin: 4px 0 6px 18px; }
     .infocard { border: 1px solid #eee; border-radius: 9px; padding: 11px 13px; margin: 8px 0; display: flex; gap: 10px; font-size: 12px; color: #333; }
-    .infocard .ic { font-size: 16px; }
-
-    /* contacts */
+    .infocard .ic { font-size: 16px; }/* contacts */
     .contactgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    @media (max-width: 520px) { .contactgrid { grid-template-columns: 1fr; } }
+    @media (max-width: 520px) { .contactgrid { grid-template-columns: 1fr; }}
     .ccard { border: 1px solid #e6e6e6; border-radius: 10px; padding: 12px; }
     .ccard .ck { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #999; margin-bottom: 4px; }
     .ccard .cv { font-size: 14px; font-weight: 800; color: #111; }
     .ccard .cx { font-size: 11px; color: #888; margin-top: 2px; }
     .msgs { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 6px; }
     .msg { font-size: 10.5px; font-weight: 700; border: 1px solid #d8d8d8; border-radius: 20px; padding: 3px 10px; color: #333; }
-    .mapbox { border: 1.5px dashed #cfcfcf; border-radius: 10px; min-height: 120px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; margin-top: 10px; }
-
-    /* FAQ accordion */
+    .mapbox { border: 1.5px dashed #cfcfcf; border-radius: 10px; min-height: 120px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; margin-top: 10px; }/* FAQ accordion */
     .faq { border: 1px solid #e6e6e6; border-radius: 10px; overflow: hidden; }
     .faqi { border-bottom: 1px solid #eee; }
     .faqi:last-child { border-bottom: none; }
     .faqq { display: flex; align-items: center; gap: 10px; padding: 11px 13px; font-size: 12.5px; font-weight: 700; color: #111; }
     .faqq .ch { margin-left: auto; color: #888; }
     .faqa { padding: 0 13px 12px; font-size: 12px; color: #555; line-height: 1.55; }
-    .faqgroup { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: #999; margin: 14px 0 7px; }
-
-    /* certificates */
+    .faqgroup { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: #999; margin: 14px 0 7px; }/* certificates */
     .certgrid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
-    @media (max-width: 620px) { .certgrid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 620px) { .certgrid { grid-template-columns: repeat(2,1fr); }}
     .cert { border: 1px solid #e2e2e2; border-radius: 9px; overflow: hidden; }
     .cert .ci { aspect-ratio: 3/4; background: #f2f2f2; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; }
     .cert .cl { font-size: 10.5px; color: #444; padding: 6px 8px; }
     .trustrow { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 12px; }
-    @media (max-width: 620px) { .trustrow { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 620px) { .trustrow { grid-template-columns: 1fr 1fr; }}
     .trustc { border: 1px solid #e6e6e6; border-radius: 10px; padding: 12px; text-align: center; }
-    .trustc .ti { font-size: 20px; } .trustc .th2 { font-size: 12px; font-weight: 800; color: #111; margin: 4px 0 2px; } .trustc .tx { font-size: 10.5px; color: #888; }
-
-    /* blog */
+    .trustc .ti { font-size: 20px; } .trustc .th2 { font-size: 12px; font-weight: 800; color: #111; margin: 4px 0 2px; } .trustc .tx { font-size: 10.5px; color: #888; }/* blog */
     .bloglist { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
-    @media (max-width: 760px) { .bloglist { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 520px) { .bloglist { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) { .bloglist { grid-template-columns: 1fr 1fr; }}
+    @media (max-width: 520px) { .bloglist { grid-template-columns: 1fr; }}
     .blogc { border: 1px solid #e6e6e6; border-radius: 11px; overflow: hidden; }
     .blogc .bi { aspect-ratio: 16/9; background: #f2f2f2; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; }
     .blogc .bt { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #4a8c62; padding: 9px 11px 0; }
@@ -150,18 +114,14 @@
     .blogc .bm { font-size: 10.5px; color: #999; padding: 0 11px 11px; }
     .tagrow { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
     .tagc { font-size: 11px; font-weight: 700; border: 1px solid #d8d8d8; border-radius: 20px; padding: 4px 11px; color: #333; }
-    .tagc.on { background: #161616; color: #fff; border-color: #161616; }
-
-    /* promo */
+    .tagc.on { background: #161616; color: #fff; border-color: #161616; }/* promo */
     .promolist { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
-    @media (max-width: 560px) { .promolist { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .promolist { grid-template-columns: 1fr; }}
     .promoc { border: 1px solid #e6e6e6; border-radius: 11px; overflow: hidden; }
     .promoc .pi { aspect-ratio: 2/1; background: repeating-linear-gradient(135deg,#ededed,#ededed 11px,#e6e6e6 11px,#e6e6e6 22px); display: flex; align-items: center; justify-content: center; color: #999; font-size: 11px; }
     .promoc .pn { font-size: 13.5px; font-weight: 800; color: #111; padding: 10px 12px 2px; }
     .promoc .px { font-size: 11.5px; color: #777; padding: 0 12px 5px; }
-    .promoc .pd { font-size: 10.5px; color: #999; padding: 0 12px 11px; }
-
-    /* store reviews */
+    .promoc .pd { font-size: 10.5px; color: #999; padding: 0 12px 11px; }/* store reviews */
     .revsum { display: flex; align-items: center; gap: 16px; border: 1px solid #e6e6e6; border-radius: 11px; padding: 13px; margin-bottom: 12px; flex-wrap: wrap; }
     .revsum .big { font-size: 30px; font-weight: 800; color: #111; }
     .revsum .stars { color: #161616; letter-spacing: 1px; }
@@ -170,9 +130,7 @@
     .rev { border: 1px solid #eee; border-radius: 10px; padding: 12px; margin-bottom: 9px; }
     .rev .rh { display: flex; align-items: center; gap: 8px; font-size: 12px; margin-bottom: 5px; }
     .rev .rn { font-weight: 800; color: #111; } .rev .rs { color: #161616; } .rev .rd { color: #aaa; font-size: 10.5px; margin-left: auto; }
-    .rev .rt { font-size: 12px; color: #555; }
-
-    /* newsletter states */
+    .rev .rt { font-size: 12px; color: #555; }/* newsletter states */
     .newsbox { border: 1px solid #e6e6e6; border-radius: 11px; padding: 14px; }
     .newsfield { display: flex; gap: 8px; margin: 9px 0; }
     .newsfield .f { flex: 1; border: 1px solid #d5d5d5; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #999; }
@@ -180,66 +138,13 @@
     .newstate { border-radius: 8px; padding: 10px 12px; font-size: 11.5px; margin-top: 8px; }
     .newstate.ok { background: #e7f2ea; color: #2d7d46; } .newstate.err { background: #fdf6f6; color: #b04a4a; border: 1px solid #eecaca; } .newstate.info { background: var(--warn-bg); color: #7a5a17; }
 
-    @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
-  </style>
+    @media (max-width: 600px) { .hero h1 { font-size: 24px; }}</style>
 
-  </head>
+    <link rel="stylesheet" href="../_nav.css">
+</head>
 <body>
 
-<nav class="topbar">
-  <a href="../research/research.html" class="topbar-logo">Stack</a>
-  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
-      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
-      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
-    </svg>
-  </button>
-</nav>
-
-<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
-
-<aside class="sidebar" id="sidebar">
-  <a href="../research/research.html" class="sidebar-logo">Stack</a>
-    <nav class="sidebar-nav">
-    <a href="../research/research.html">Дослідження</a>
-    <a href="../research/personas.html">Персони</a>
-    <a href="../research/jtbd.html">JTBD</a>
-    <a href="../research/concept.html">Концептуальна архітектура</a>
-    <hr class="sidebar-divider">
-    <a href="sitemap.html" class="active">Інформаційна архітектура</a>
-    <div class="sidebar-page-label">Структура</div>
-    <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
-    <a href="navigation.html" class="sidebar-sub">Хедер</a>
-    <a href="footer.html" class="sidebar-sub">Футер</a>
-    <a href="catalog.html" class="sidebar-sub">Каталог</a>
-    <a href="category-matrix.html" class="sidebar-sub">Матриця категорій</a>
-    <a href="seo.html" class="sidebar-sub">SEO-методика</a>
-    <div class="sidebar-page-label">Сторінки</div>
-    <a href="home.html" class="sidebar-sub">Головна</a>
-    <a href="catalog-page.html" class="sidebar-sub">Каталог</a>
-    <a href="category.html" class="sidebar-sub">Категорія</a>
-    <a href="brands.html" class="sidebar-sub">Бренди</a>
-    <a href="search.html" class="sidebar-sub">Пошук</a>
-    <a href="product.html" class="sidebar-sub">Картка товару</a>
-    <a href="quiz.html" class="sidebar-sub">Квіз</a>
-    <a href="auth.html" class="sidebar-sub">Авторизація</a>
-    <a href="account.html" class="sidebar-sub">Акаунт</a>
-    <a href="coach.html" class="sidebar-sub">Кабінет тренера</a>
-    <a href="cart.html" class="sidebar-sub">Кошик · Оформлення</a>
-    <a href="content.html" class="sidebar-sub active">Контент та інфо</a>
-    <a href="system.html" class="sidebar-sub">Системні та глобальні</a>
-    <a href="../Voices/voice.html">Голос продукту</a>
-    <hr class="sidebar-divider">
-    <a href="../wireframes/index.html">Вайрфрейми</a>
-    <a href="../wireframes/index.html#f1" class="sidebar-sub">Флоу 1 · Покупець</a>
-    <a href="../wireframes/index.html#f2" class="sidebar-sub">Флоу 2 · Тренер</a>
-    <a href="../wireframes/index.html" class="sidebar-sub">Всі екрани</a>
-    <hr class="sidebar-divider">
-    <a href="../concept/directions.html">Concept</a>
-    <a href="../ui-visual/screens.html">UI Visual</a>
-  </nav>
-</aside>
+<aside id="sidebar"></aside>
 
 <div class="page">
 
@@ -591,18 +496,12 @@
 
 </div>
 
+
 <script>
-  function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-    document.getElementById('sidebar-overlay').classList.toggle('open');
-  }
-  function closeSidebar() {
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('sidebar-overlay').classList.remove('open');
-  }
-  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
-    link.addEventListener('click', closeSidebar);
-  });
+window.NAV_BASE = '../';
+window.NAV_ACTIVE = 'ia/structure.html';
+window.NAV_ACTIVE_LABEL = '8.x Контент та інфо';
 </script>
+<script src="../_nav.js"></script>
 </body>
 </html>

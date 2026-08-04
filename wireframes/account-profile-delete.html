@@ -6,30 +6,6 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Кабінет - Профіль · Видалити акаунт - Stack (wireframe 7.1)</title>
 <link rel="stylesheet" href="_wf.css">
-<style>
-  /* page-local: profile form (passwordless per auth 1.x) */
-  .pcard { border: 1px solid var(--hair); border-radius: 14px; padding: 18px; margin-top: 18px; max-width: 620px; }
-  .pfield { padding: 15px 0; border-bottom: 1px solid var(--hair); }
-  .pfield:first-child { padding-top: 2px; }
-  .pfield:last-child { border-bottom: none; padding-bottom: 2px; }
-  .pf-lbl { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); }
-  .pf-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 6px; }
-  .pf-val { font-size: 15px; font-weight: 700; color: var(--strong); }
-  .pf-val .ok { font-size: 12px; font-weight: 800; color: var(--strong); margin-left: 6px; }
-  .pf-act { font-size: 12.5px; font-weight: 700; color: var(--strong); white-space: nowrap; }
-  .pf-hint { font-size: 12px; color: var(--sec); margin-top: 4px; }
-  .pf-input { width: 100%; border: 1px solid var(--hair2); border-radius: 8px; padding: 11px 12px; font-size: 15px; color: var(--strong); background: #fafafa; margin-top: 6px; }
-  /* toggle switch - greyscale */
-  .sw { position: relative; width: 44px; height: 26px; border-radius: 100px; background: var(--dark); flex: none; }
-  .sw i { position: absolute; top: 3px; left: 21px; width: 20px; height: 20px; border-radius: 50%; background: #fff; }
-  .sw.off { background: #ddd; } .sw.off i { left: 3px; }
-  .pf-note { font-size: 12.5px; color: var(--sec); margin-top: 16px; border: 1px dashed var(--hair2); border-radius: 8px; padding: 10px 12px; max-width: 620px; }
-  .pf-note b { color: var(--strong); }
-  .pf-save { margin-top: 18px; }
-  .pf-danger { margin-top: 22px; }
-  .pf-actbtn { background: none; border: none; padding: 0; cursor: pointer; text-decoration: underline; font-family: inherit; }
-  .pf-dangerbtn { background: none; border: none; padding: 0; cursor: pointer; font-family: inherit; font-size: 12.5px; font-weight: 700; color: var(--sec); text-decoration: underline; }
-</style>
 </head>
 <body>
 <!-- ============================================================
@@ -44,7 +20,7 @@
 
 <main class="wf-page">
   <nav class="crumb" aria-label="Хлібні крихти">
-    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="index.html">Головна</a><span class="sep">/</span>
     <a href="account.html">Кабінет</a><span class="sep">/</span>
     <span class="cur">Профіль</span>
   </nav>
@@ -56,7 +32,7 @@
       <h1 class="acc-h1">Профіль</h1>
       <p class="acc-sub">Особисті дані та сповіщення. Вхід - за кодом, без пароля.</p>
 
-      <div class="pcard">
+      <div class="pfcard">
 
         <!-- name -->
         <div class="pfield">

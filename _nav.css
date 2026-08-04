@@ -1,0 +1,124 @@
+/* Roadmap sidebar - the only place the nav look is described.
+   Structure comes from /_nav.js, look comes from here, pages describe no nav-* rule.
+   Theme = 8 variables. Accent stays off small text on purpose:
+   Signal Orange #FF5A00 on white is 3.13:1, which is AA for large text only,
+   so the current item is said by weight + fill + a 2px marker, never by orange 13px type. */
+
+:root {
+  --nav-fg:     #1c1c1c;
+  --nav-active: #1c1c1c;
+  --nav-muted:  #7a736a;
+  --nav-rule:   #e5e2db;
+  --nav-badge:  #ff5a00;
+  --nav-w:      220px;
+  --nav-size:   13px;
+  --nav-lh:     1.45;
+}
+
+/* ---- mobile top bar ---- */
+.nav-topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px; z-index: 101;
+  background: rgba(247, 246, 243, .94);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--nav-rule);
+  font-family: inherit;
+}
+.nav-topbar-logo {
+  font-weight: 700; font-size: 17px; letter-spacing: -.02em;
+  color: var(--nav-active); text-decoration: none;
+}
+.nav-toggle {
+  background: none; border: 0; cursor: pointer; padding: 8px;
+  color: var(--nav-muted); display: flex; align-items: center; border-radius: 6px;
+}
+.nav-toggle:hover { background: #f2f0eb; }
+.nav-scrim { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
+.nav-scrim.is-open { display: block; }
+
+/* ---- shell ---- */
+#sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0; width: var(--nav-w);
+  z-index: 100; display: flex; flex-direction: column;
+  background: rgba(247, 246, 243, .98);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-right: 1px solid var(--nav-rule);
+  transform: translateX(-100%); transition: transform .22s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, system-ui, sans-serif;
+  font-size: var(--nav-size); line-height: var(--nav-lh);
+}
+#sidebar.is-open { transform: translateX(0); }
+
+.nav-brand {
+  display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--nav-rule);
+  font-weight: 700; font-size: 17px; letter-spacing: -.02em;
+  color: var(--nav-active); text-decoration: none;
+}
+.nav-brand span { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--nav-muted); margin-top: 3px; }
+
+.nav-roadmap { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 20px; }
+.nav-roadmap::-webkit-scrollbar { display: none; }
+
+/* ---- one stage ---- */
+.nav-item { margin-bottom: 1px; }
+
+.nav-top {
+  position: relative; display: flex; align-items: center; gap: 8px;
+  padding: 7px 12px; border-radius: 6px;
+  color: var(--nav-muted); text-decoration: none; font-weight: 500;
+}
+a.nav-top:hover { color: var(--nav-fg); background: #f2f0eb; }
+.nav-item.is-soon > .nav-top { color: #a8a29a; cursor: default; }
+
+.nav-item.is-active > .nav-top,
+.nav-top.is-current {
+  color: var(--nav-active); font-weight: 700; background: #efece5;
+}
+.nav-item.is-active > .nav-top::before,
+.nav-top.is-current::before {
+  content: ''; position: absolute; left: 0; top: 6px; bottom: 6px;
+  width: 2px; border-radius: 2px; background: var(--nav-badge);
+}
+
+.nav-badge {
+  margin-left: auto; font-size: 9.5px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: 2px 6px; border-radius: 100px; white-space: nowrap;
+}
+.nav-badge-next { color: #fff; background: var(--nav-badge); }
+.nav-badge-soon { color: var(--nav-muted); background: #eae7e0; }
+
+/* ---- children of the open stage ---- */
+.nav-sub { padding: 2px 0 6px; }
+.nav-subhead {
+  padding: 8px 12px 3px; font-size: 10px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: #a8a29a;
+}
+.nav-subitem { margin-bottom: 1px; }
+.nav-link {
+  position: relative; display: block; padding: 6px 12px 6px 22px; border-radius: 6px;
+  color: var(--nav-muted); text-decoration: none; font-weight: 500;
+}
+.nav-link:hover { color: var(--nav-fg); background: #f2f0eb; }
+.nav-link.is-current { color: var(--nav-active); font-weight: 700; background: #efece5; }
+.nav-link.is-current::before {
+  content: ''; position: absolute; left: 8px; top: 6px; bottom: 6px;
+  width: 2px; border-radius: 2px; background: var(--nav-badge);
+}
+.nav-subitem.is-soon > .nav-link { color: #b5afa6; cursor: default; }
+.nav-subitem.is-soon > .nav-link:hover { background: none; color: #b5afa6; }
+
+/* ---- sections of the current page ---- */
+.nav-sections { padding: 2px 0 6px; }
+.nav-section {
+  display: block; padding: 4px 12px 4px 32px; border-radius: 6px;
+  color: #9b958c; text-decoration: none; font-size: 12.5px;
+}
+.nav-section:hover { color: var(--nav-fg); }
+.nav-section.is-current { color: var(--nav-active); font-weight: 600; }
+
+@media (min-width: 860px) {
+  .nav-topbar, .nav-scrim { display: none; }
+  #sidebar { transform: translateX(0); }
+}

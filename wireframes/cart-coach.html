@@ -8,75 +8,26 @@
 <link rel="stylesheet" href="_wf.css">
 <style>
 /* ============================================================
-   node 6.0 Кошик (ТРЕНЕР) - RIGHT-SIDE DRAWER, pure quick view,
-   але GROUPED BY CLIENT. Line items + qty + remove + client subtotals
-   + ONLY the grand total. Discount/bonus/delivery → checkout (6.1).
-   Convergence point of the coach session (coach-session.html → cart).
+   node 6.0 Кошик (ТРЕНЕР) - the SAME drawer as 6.0, grouped by client.
+   Line items + qty + remove + client subtotals + ONLY the grand total.
+   Discount/bonus/delivery → checkout (6.1). Convergence point of the coach
+   session (coach-session.html → cart).
+   The component (drawer, line, group, tier price) lives in _wf.css §CART DRAWER;
+   only the coach deltas stay here - a tighter line and a roomier panel.
    ============================================================ */
-#wf-bar { position: relative; z-index: 80; }
-
-/* dimmed page behind the drawer */
-.cart-behind { max-width: 1200px; margin: 0 auto; padding: 24px 16px 60px; }
-.cart-behind h2 { font-size: 20px; font-weight: 800; color: var(--strong); margin-bottom: 4px; }
-.cart-behind p { font-size: 13.5px; color: var(--sec); }
-.cart-behind .ph-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-top: 18px; }
-@media (min-width: 620px) { .cart-behind .ph-grid { grid-template-columns: repeat(4,1fr); } }
-.cart-behind .ph-card { border: 1px solid var(--hair); border-radius: 12px; height: 150px; background: var(--fill2); }
-
-/* overlay + drawer */
-.cart-ov { position: fixed; inset: 0; background: rgba(0,0,0,.34); z-index: 60; }
-.cart-drawer {
-  position: fixed; top: 0; right: 0; bottom: 0; z-index: 61;
-  width: 100%; max-width: 440px; background: #fff; display: flex; flex-direction: column;
-  border-left: 1px solid var(--hair); box-shadow: -2px 0 14px rgba(0,0,0,.08);
-}
-.cd-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--hair); }
-.cd-head h1 { font-size: 18px; font-weight: 800; color: var(--strong); display: flex; align-items: baseline; gap: 9px; }
-.cd-head .cd-cnt { font-size: 12.5px; font-weight: 600; color: var(--light); }
-.cd-x { font-size: 20px; color: var(--light); line-height: 1; padding: 4px; }
-
-.cd-body { flex: 1; overflow-y: auto; padding: 0 18px; }
-
-/* client group */
-.cd-group { border-bottom: 1px solid var(--hair2); }
-.cd-group:last-child { border-bottom: 0; }
-.cg-head { position: sticky; top: 0; background: var(--fill2); border: 1px solid var(--hair); border-radius: 8px; padding: 9px 12px; margin: 14px 0 2px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-.cg-who { min-width: 0; }
-.cg-nm { font-size: 14px; font-weight: 800; color: var(--strong); }
-.cg-goal { font-size: 11.5px; color: var(--sec); }
-.cg-sub { font-size: 13px; font-weight: 800; color: var(--strong); white-space: nowrap; }
-.cg-sub small { display: block; font-size: 10.5px; font-weight: 600; color: var(--light); text-align: right; }
-
-/* line item */
-.ci { display: grid; grid-template-columns: 66px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--hair); }
+.cart-drawer { max-width: 440px; }
+.cd-body { padding: 0 18px; }
+.ci { grid-template-columns: 66px 1fr; gap: 12px; padding: 14px 0; }
 .ci:last-child { border-bottom: 0; }
-.ci-ph { width: 66px; aspect-ratio: 10/11; background: var(--fill); border: 1px solid var(--hair); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 10px; }
-.ci-mid { min-width: 0; }
-.ci-brand { font-size: 11.5px; color: var(--faint); }
-.ci-nm { display: block; font-size: 13.5px; font-weight: 600; color: var(--strong); line-height: 1.3; margin: 2px 0 5px; }
-.ci-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 9px; }
-.ci-qty { display: inline-flex; align-items: center; border: 1.5px solid var(--hair2); border-radius: 8px; }
-.ci-qty button { width: 30px; height: 32px; font-size: 16px; color: var(--strong); }
-.ci-qty .qn { width: 28px; text-align: center; font-weight: 700; font-size: 13px; }
-
-/* coach-tier price (from coach-session.html) */
-.cprice { font-size: 15px; font-weight: 800; color: var(--strong); white-space: nowrap; text-align: right; }
-.cprice .old { display: block; font-size: 11.5px; font-weight: 500; color: #aaa; text-decoration: line-through; }
-.cprice .wtag { display: inline-block; font-size: 9.5px; font-weight: 800; color: var(--strong); border: 1px solid var(--hair2); border-radius: 4px; padding: 0 4px; margin-left: 5px; vertical-align: middle; }
-
-.ci-links { display: flex; gap: 16px; margin-top: 9px; }
-.ci-lnk { font-size: 12px; font-weight: 600; color: var(--sec); display: inline-flex; align-items: center; gap: 5px; }
-.ci-lnk:hover { color: var(--strong); text-decoration: underline; }
-
-/* footer of drawer */
-.cd-foot { border-top: 1px solid var(--hair); padding: 14px 18px 18px; background: #fff; }
-.cd-note { border: 1px solid var(--hair2); border-radius: 10px; background: var(--fill2); padding: 10px 12px; font-size: 11.5px; color: var(--ink); margin-bottom: 12px; line-height: 1.5; }
-.cd-total { display: flex; align-items: baseline; justify-content: space-between; }
-.cd-total span { font-size: 14px; font-weight: 700; color: var(--strong); }
+.ci-ph { width: 66px; }
+.ci-nm { font-size: 13.5px; }
+.ci-row { margin-top: 9px; }
+.ci-qty button { width: 30px; height: 32px; }
+.ci-qty .qn { width: 28px; }
+.ci-links { margin-top: 9px; }
+.cd-foot { padding: 14px 18px 18px; }
 .cd-total span small { color: var(--light); font-weight: 600; }
-.cd-total b { font-size: 24px; font-weight: 800; color: var(--strong); }
-.cd-cta, .cd-cont { display: block; width: 100%; text-align: center; margin-top: 12px; }
-.cd-cont { margin-top: 9px; border-color: var(--hair2); }
+.cd-cta { margin-top: 12px; }
 </style>
 </head>
 <body>

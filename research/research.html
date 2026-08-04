@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stack - Дослідження продукту</title>
-  <link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+  <link rel="icon" type="image/svg+xml" href="../design/concept/assets/logo-s.svg">
   <style>
     :root {
       --bg: #f7f6f3;
@@ -40,180 +40,7 @@
       font-size: 16px;
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
-    }
-
-    /* TOPBAR (mobile) */
-    .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 52px;
-      background: rgba(247, 246, 243, 0.94);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-      z-index: 101;
-    }
-
-    .topbar-logo {
-      font-weight: 700;
-      font-size: 17px;
-      color: var(--accent);
-      letter-spacing: -0.02em;
-      text-decoration: none;
-    }
-
-    .sidebar-toggle {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: var(--radius-sm);
-      transition: background 0.15s;
-    }
-    .sidebar-toggle:hover { background: var(--surface-alt); }
-
-    /* SIDEBAR OVERLAY (mobile) */
-    .sidebar-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.18);
-      z-index: 99;
-    }
-    .sidebar-overlay.open { display: block; }
-
-    /* SIDEBAR */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 220px;
-      background: rgba(247, 246, 243, 0.98);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-right: 1px solid var(--border);
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      padding: 0;
-      transform: translateX(-100%);
-      transition: transform 0.22s ease;
-    }
-    .sidebar.open { transform: translateX(0); }
-
-    .sidebar-logo {
-      font-weight: 700;
-      font-size: 17px;
-      color: var(--accent);
-      letter-spacing: -0.02em;
-      text-decoration: none;
-      display: block;
-      padding: 22px 20px 18px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .sidebar-nav {
-      flex: 1;
-      overflow-y: auto;
-      scrollbar-width: none;
-      padding: 12px 8px 8px;
-    }
-    .sidebar-nav::-webkit-scrollbar { display: none; }
-
-    .sidebar-nav a {
-      display: block;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
-      padding: 7px 12px;
-      border-radius: var(--radius-sm);
-      transition: color 0.15s, background 0.15s;
-      margin-bottom: 1px;
-    }
-    .sidebar-nav a:hover {
-      color: var(--text);
-      background: var(--surface-alt);
-    }
-    .sidebar-nav a.active {
-      color: var(--accent);
-      background: var(--accent-light);
-      font-weight: 600;
-    }
-
-    .sidebar-nav .sidebar-sub { display: block;
-      font-size: 12px;
-      padding: 5px 12px 5px 22px;
-      color: var(--text-light);
-    }
-    .sidebar-nav a.sidebar-sub.active {
-      color: var(--accent);
-      background: var(--accent-light);
-    }
-
-    .sidebar-page-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      padding: 8px 12px 4px;
-    }
-
-    .sidebar-divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 10px 8px;
-    }
-
-    .sidebar-soon {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 500;
-      padding: 7px 12px;
-      border-radius: var(--radius-sm);
-      color: var(--text-light);
-      margin-bottom: 1px;
-      cursor: default;
-      user-select: none;
-    }
-
-    .soon-badge {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--accent-mid);
-      background: var(--accent-light);
-      padding: 2px 6px;
-      border-radius: 100px;
-      white-space: nowrap;
-    }
-
-    .sidebar-upcoming {
-      padding: 12px 12px 16px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--text-light);
-      line-height: 1.8;
-    }
-
-    /* LAYOUT */
+    }/* LAYOUT */
     .page {
       max-width: 1160px;
       margin: 0 auto;
@@ -221,16 +48,11 @@
     }
 
     @media (min-width: 860px) {
-      .topbar { display: none; }
-      .sidebar { transform: translateX(0); }
       .page {
         margin-left: 220px;
         padding: 48px 48px 80px;
       }
-      section { scroll-margin-top: 24px; }
-    }
-
-    /* HERO */
+      section { scroll-margin-top: 24px; }}/* HERO */
     .hero {
       padding: 64px 0 56px;
       border-bottom: 1px solid var(--border);
@@ -282,9 +104,7 @@
     .hero-meta-item strong {
       color: var(--text-secondary);
       font-weight: 600;
-    }
-
-    /* SECTIONS */
+    }/* SECTIONS */
     section {
       margin-bottom: 72px;
       scroll-margin-top: 60px;
@@ -333,9 +153,7 @@
     p {
       color: var(--text-secondary);
       margin-bottom: 12px;
-    }
-
-    /* CARDS */
+    }/* CARDS */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -348,9 +166,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
-    }
-
-    /* CONCLUSIONS */
+    }/* CONCLUSIONS */
     .conclusions-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -388,9 +204,7 @@
       color: var(--text);
       line-height: 1.55;
       font-weight: 500;
-    }
-
-    /* TABLES */
+    }/* TABLES */
     .table-wrap {
       overflow-x: auto;
       border-radius: var(--radius);
@@ -437,9 +251,7 @@
     .td-strong {
       color: var(--text);
       font-weight: 600;
-    }
-
-    /* SCORE BADGES */
+    }/* SCORE BADGES */
     .score {
       display: inline-flex;
       align-items: center;
@@ -463,9 +275,7 @@
       font-size: 13px;
       font-weight: 700;
       color: var(--accent);
-    }
-
-    /* SEGMENT CARDS */
+    }/* SEGMENT CARDS */
     .segment-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -528,9 +338,7 @@
 
     .segment-value {
       color: var(--text-secondary);
-    }
-
-    /* HYPOTHESIS CARDS */
+    }/* HYPOTHESIS CARDS */
     .hypothesis-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -580,9 +388,7 @@
       font-size: 14px;
       color: var(--text);
       line-height: 1.5;
-    }
-
-    /* MECHANISM CARDS */
+    }/* MECHANISM CARDS */
     .mechanism-cards {
       display: grid;
       gap: 16px;
@@ -647,9 +453,7 @@
     .mechanism-wont .mechanism-num {
       background: #fce8e8;
       color: #c0392b;
-    }
-
-    /* SCREENSHOTS */
+    }/* SCREENSHOTS */
     .screenshots-scroll {
       display: flex;
       gap: 12px;
@@ -694,9 +498,7 @@
       font-size: 12px;
       color: var(--text-light);
       text-align: center;
-    }
-
-    /* GAPS TABLE */
+    }/* GAPS TABLE */
     .gap-priority-critical {
       background: #fce8e8;
       color: #c0392b;
@@ -725,9 +527,7 @@
       padding: 2px 8px;
       border-radius: 4px;
       white-space: nowrap;
-    }
-
-    /* OPEN QUESTIONS */
+    }/* OPEN QUESTIONS */
     .questions-list {
       display: grid;
       gap: 12px;
@@ -758,14 +558,10 @@
     .question-how {
       font-size: 13px;
       color: var(--accent-mid);
-    }
-
-    /* COMPETITOR GROUP TAGS */
+    }/* COMPETITOR GROUP TAGS */
     .comp-hard { color: #c0392b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
     .comp-soft { color: #3d52a0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
-    .comp-aspir { color: var(--accent-mid); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
-
-    /* PATTERNS */
+    .comp-aspir { color: var(--accent-mid); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }/* PATTERNS */
     .pattern-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -822,9 +618,7 @@
       border: none;
       border-top: 1px solid var(--border);
       margin: 48px 0;
-    }
-
-    /* AARRR */
+    }/* AARRR */
     .aarrr-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -866,9 +660,7 @@
       color: var(--text-secondary);
       margin-top: 8px;
       line-height: 1.4;
-    }
-
-    /* FOOTER */
+    }/* FOOTER */
     footer {
       border-top: 1px solid var(--border);
       padding: 32px 0;
@@ -889,18 +681,13 @@
     .footer-text {
       font-size: 13px;
       color: var(--text-light);
-    }
-
-    /* RESPONSIVE */
+    }/* RESPONSIVE */
     @media (max-width: 640px) {
       .page { padding: 64px 16px 48px; }
       .hero { padding: 40px 0 36px; }
       .hero-meta { flex-direction: column; gap: 8px; }
       .mechanism-card { grid-template-columns: 1fr; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
-    }
-
-    /* LEAN UX CANVAS */
+      .footer-inner { flex-direction: column; align-items: flex-start; }}/* LEAN UX CANVAS */
     .canvas-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -979,63 +766,20 @@
 
     @media (max-width: 760px) {
       .canvas-grid { grid-template-columns: 1fr; }
-      .canvas-riskiest { grid-column: 1; }
-    }
-
-    /* ANIMATE */
+      .canvas-riskiest { grid-column: 1; }}/* ANIMATE */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .hero { animation: fadeUp 0.5s ease both; }
-    section { animation: fadeUp 0.4s ease both; }
-  </style>
+    section { animation: fadeUp 0.4s ease both; }</style>
 
-  </head>
+    <link rel="stylesheet" href="../_nav.css">
+</head>
 <body>
 
-<nav class="topbar">
-  <a href="#" class="topbar-logo">Stack</a>
-  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
-      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
-      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
-    </svg>
-  </button>
-</nav>
-
-<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
-
-<aside class="sidebar" id="sidebar">
-  <a href="#" class="sidebar-logo">Stack</a>
-  <nav class="sidebar-nav">
-    <div class="sidebar-page-label">Дослідження</div>
-    <a href="#intro" class="sidebar-sub">Вступ</a>
-    <a href="#canvas" class="sidebar-sub">Lean UX</a>
-    <a href="#model" class="sidebar-sub">Стратегія</a>
-    <a href="#aarrr" class="sidebar-sub">AARRR</a>
-    <a href="#competitors" class="sidebar-sub">Конкуренти</a>
-    <a href="#benchmark" class="sidebar-sub">Бенчмарк</a>
-    <a href="#patterns" class="sidebar-sub">UX-патерни</a>
-    <a href="#conclusions" class="sidebar-sub">Висновки</a>
-    <hr class="sidebar-divider">
-    <a href="personas.html">Персони</a>
-    <a href="jtbd.html">JTBD</a>
-    <a href="concept.html">Концептуальна архітектура</a>
-    <a href="../ia/sitemap.html">Інформаційна архітектура</a>
-    <a href="../Voices/voice.html">Голос продукту</a>
-    <hr class="sidebar-divider">
-    <a href="../wireframes/index.html">Вайрфрейми</a>
-    <a href="../wireframes/index.html#f1" class="sidebar-sub">Флоу 1 · Покупець</a>
-    <a href="../wireframes/index.html#f2" class="sidebar-sub">Флоу 2 · Тренер</a>
-    <a href="../wireframes/index.html" class="sidebar-sub">Всі екрани</a>
-    <hr class="sidebar-divider">
-    <a href="../concept/directions.html">Concept</a>
-    <a href="../ui-visual/screens.html">UI Visual</a>
-  </nav>
-</aside>
+<aside id="sidebar"></aside>
 
 <div class="page">
 
@@ -2134,40 +1878,11 @@
   </div>
 </footer>
 
+
 <script>
-  function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-    document.getElementById('sidebar-overlay').classList.toggle('open');
-  }
-  function closeSidebar() {
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('sidebar-overlay').classList.remove('open');
-  }
-
-  // Close sidebar when a link is clicked (mobile)
-  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
-    link.addEventListener('click', closeSidebar);
-  });
-
-  // IntersectionObserver for active nav tracking
-  var navLinks = document.querySelectorAll('.sidebar-nav a[href^="#"]');
-  var sections = document.querySelectorAll('section[id]');
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var id = entry.target.getAttribute('id');
-        navLinks.forEach(function(link) {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + id) {
-            link.classList.add('active');
-          }
-        });
-      }
-    });
-  }, { rootMargin: '-15% 0px -75% 0px' });
-
-  sections.forEach(function(section) { observer.observe(section); });
+window.NAV_BASE = '../';
+window.NAV_SECTIONS = [{"id": "intro", "label": "Вступ"}, {"id": "canvas", "label": "Lean UX"}, {"id": "model", "label": "Стратегія"}, {"id": "aarrr", "label": "AARRR"}, {"id": "competitors", "label": "Конкуренти"}, {"id": "benchmark", "label": "Бенчмарк"}, {"id": "patterns", "label": "UX-патерни"}, {"id": "conclusions", "label": "Висновки"}];
 </script>
+<script src="../_nav.js"></script>
 </body>
 </html>

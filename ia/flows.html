@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack - User flows</title>
+  <link rel="icon" type="image/svg+xml" href="../design/concept/assets/logo-s.svg">
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --surface: #ffffff;
+      --surface-alt: #f2f0eb;
+      --border: #e5e2db;
+      --text: #1a1916;
+      --text-secondary: #6b6760;
+      --text-light: #9b9790;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0ea;
+      --accent-mid: #4a8c62;
+      --score-low: #b5882a;
+      --score-bg-low: #fdf3e3;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+      --panel: #15140f;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }/* LAYOUT */
+    .page { max-width: 1160px; margin: 0 auto; padding: 68px 24px 80px; }
+    @media (min-width: 860px) {
+      .page { margin-left: 220px; padding: 48px 48px 80px; }
+      section { scroll-margin-top: 24px; }}/* HERO */
+    .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); margin-bottom: 64px; animation: fadeUp 0.5s ease both; }
+    .hero-tag { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; color: var(--text); margin-bottom: 20px; max-width: 720px; }
+    .hero-lead { font-size: 18px; color: var(--text-secondary); max-width: 660px; line-height: 1.6; margin-bottom: 32px; }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+    .hero-meta-item { font-size: 13px; color: var(--text-light); }
+    .hero-meta-item strong { color: var(--text-secondary); font-weight: 600; }/* SECTIONS */
+    section { margin-bottom: 72px; scroll-margin-top: 60px; animation: fadeUp 0.4s ease both; }
+    .section-number { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
+    h2 { font-size: clamp(22px, 3vw, 32px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: var(--text); margin-bottom: 8px; }
+    .section-lead { font-size: 16px; color: var(--text-secondary); margin-bottom: 28px; max-width: 640px; }
+    h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.015em; color: var(--text); margin: 32px 0 12px; }
+    h4 { font-size: 15px; font-weight: 650; color: var(--text); margin: 24px 0 8px; }
+    p { color: var(--text-secondary); margin-bottom: 12px; }
+
+    .badge-q { display: inline-flex; align-items: center; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 100px; background: var(--score-bg-low); color: var(--score-low); margin-left: 4px; letter-spacing: 0.04em; vertical-align: middle; white-space: nowrap; }/* DIAGRAM CARDS (dark mermaid panels) */
+    .diagram-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); margin: 18px 0; overflow: hidden; }
+    .diagram-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .diagram-title { font-size: 15px; font-weight: 650; color: var(--text); }
+    .diagram-sub { font-size: 12px; color: var(--text-light); }
+    .mermaid-panel { background: var(--panel); padding: 22px 16px; overflow-x: auto; }
+    .mermaid { display: flex; justify-content: center; min-width: fit-content; }
+    .mermaid svg { max-width: 100%; height: auto; }
+
+    .shape-legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12px; color: var(--text-secondary); margin: 14px 0 0; align-items: center; }
+    .shape-legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .sw { width: 16px; height: 12px; border-radius: 3px; border: 1.5px solid var(--accent-mid); background: #23312a; display: inline-block; }
+    .sw.diamond { transform: rotate(45deg); width: 11px; height: 11px; }
+    .sw.stadium { border-radius: 100px; width: 20px; }/* FLOW META */
+    .flow-meta { padding: 16px 18px; border-top: 1px solid var(--border); display: grid; gap: 12px; background: var(--surface-alt); }
+    .flow-meta-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); display: block; margin-bottom: 3px; }
+    .flow-meta-val { color: var(--text-secondary); font-size: 13px; line-height: 1.55; }
+    .flow-meta-val.dead { color: #b23a2e; }
+    .flow-meta-val code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }/* STATUS BANNER */
+    .status-banner { background: var(--accent-light); border: 1px solid #cfe2d5; border-radius: var(--radius); padding: 20px 22px; margin: 18px 0; }
+    .status-banner h3 { margin: 0 0 12px; color: var(--accent); }
+    .status-checks { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+    .status-check { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text); font-weight: 600; }
+    .status-check .ck { color: var(--accent); font-weight: 800; font-size: 16px; }
+    .status-caveat { font-size: 12.5px; color: var(--text-secondary); margin-top: 14px; line-height: 1.55; background: var(--surface); border-radius: var(--radius-sm); padding: 11px 13px; border: 1px solid var(--border); }
+    .status-caveat strong { color: var(--text); }/* MATRIX */
+    .matrix-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin: 18px 0; }
+    table.matrix { width: 100%; border-collapse: collapse; background: var(--surface); font-size: 12.5px; }
+    table.matrix th, table.matrix td { border: 1px solid var(--border); padding: 6px 5px; text-align: center; }
+    table.matrix thead th { background: var(--surface-alt); font-size: 11px; font-weight: 700; color: var(--text-secondary); }
+    table.matrix tbody th { text-align: left; font-weight: 600; color: var(--text); white-space: nowrap; padding: 6px 12px; background: var(--surface); position: sticky; left: 0; z-index: 1; }
+    table.matrix td.mk { color: var(--accent); font-weight: 800; background: var(--accent-light); }
+    table.matrix tr.substep th { font-weight: 500; color: var(--text-secondary); font-style: italic; }
+    .matrix-legend { font-size: 12px; color: var(--text-light); margin-top: 12px; line-height: 1.8; }
+    .matrix-legend b { color: var(--text-secondary); }/* MUTED OUT-OF-SCOPE */
+    .muted-card { background: var(--surface-alt); border: 1px dashed var(--border); border-radius: var(--radius); padding: 16px 20px; margin-top: 18px; }
+    .muted-card .obs-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 8px; }
+    .muted-card ul { margin: 0; padding-left: 18px; }
+    .muted-card li { color: var(--text-light); font-size: 13px; line-height: 1.55; margin-bottom: 4px; }/* NAV CARDS */
+    .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin: 18px 0; }
+    .nav-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow-sm); }
+    .nav-card .obs-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .nav-card .nav-name { font-size: 15px; font-weight: 650; color: var(--text); margin-bottom: 5px; }
+    .nav-card .nav-job { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+    .nav-card .nav-who { font-size: 11.5px; color: var(--text-light); margin-top: 8px; }/* DEPTH */
+    .depth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+    @media (max-width: 700px) { .depth-grid { grid-template-columns: 1fr; }}
+    .depth-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow-sm); }
+    .depth-card h4 { margin: 0 0 2px; }
+    .depth-card .depth-who { font-size: 12px; color: var(--text-light); margin-bottom: 10px; }
+    .depth-num { font-size: 34px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1; }
+    .depth-num small { font-size: 13px; font-weight: 600; color: var(--text-light); }
+    .depth-chain { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; color: var(--text-secondary); background: var(--surface-alt); border-radius: var(--radius-sm); padding: 12px 14px; margin-top: 12px; line-height: 1.75; white-space: pre; overflow-x: auto; }/* HTML TREE */
+    .ia-tree { margin: 18px 0; }
+    .ia-tree details { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; background: var(--surface); box-shadow: var(--shadow-sm); }
+    .ia-tree details[open] { background: var(--surface); }
+    .ia-tree summary { padding: 11px 16px; font-weight: 650; cursor: pointer; color: var(--text); font-size: 14px; list-style: none; }
+    .ia-tree summary::-webkit-details-marker { display: none; }
+    .ia-tree summary::before { content: "+"; color: var(--accent-mid); font-weight: 700; margin-right: 10px; }
+    .ia-tree details[open] summary::before { content: "-"; }
+    .ia-tree ul { list-style: none; margin: 0; padding: 2px 16px 12px 30px; }
+    .ia-tree li { font-size: 13.5px; color: var(--text-secondary); padding: 5px 0; border-bottom: 1px solid var(--surface-alt); }
+    .ia-tree li:last-child { border-bottom: none; }
+    .ia-tree .jt { font-size: 11px; color: var(--accent-mid); font-weight: 600; margin-left: 6px; }
+
+    .note { font-size: 13px; color: var(--text-secondary); background: var(--surface-alt); border-left: 3px solid var(--accent-mid); border-radius: var(--radius-sm); padding: 12px 16px; margin: 16px 0; line-height: 1.55; }/* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 40px; }
+    .footer-inner { max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-text { font-size: 13px; color: var(--text-light); }
+
+    @media (max-width: 640px) {
+      .page { padding: 64px 16px 48px; }
+      .hero { padding: 40px 0 36px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }}
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }</style>
+
+    <link rel="stylesheet" href="../_nav.css">
+</head>
+<body>
+<aside id="sidebar"></aside>
+
+<main class="page">
+  <div class="hero">
+    <div class="hero-tag">Базовий шар IA</div>
+    <h1>User flows</h1>
+    <p class="hero-lead">Пʼять шляхів, якими людина проходить свою роботу: не лише щасливий
+      сценарій, а рішення, стани і свідомі тупики. Кожен вузол зареєстрований у карті сайту,
+      кожен колір означає результат: зелений - успіх, червоний - тупик, сірий - нейтральний крок.
+      Звідси кроки шляху беруть детальна IA і вайрфрейми.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Джерело</strong> ia/docs/flows.md v0.4</div>
+      <div class="hero-meta-item"><strong>Flows</strong> 5</div>
+      <div class="hero-meta-item"><strong>Первинна персона</strong> Олена, тренерка</div>
+    </div>
+  </div>
+
+  <section id="flows">
+    <div class="section-number">02</div>
+    <h2>User flows</h2>
+    <p class="section-lead">Пʼять flows, відрендерених як живі діаграми. Кожна показує не лише happy path, а й рішення, стани і свідомі тупики. Під кожною - словесний список.</p>
+
+    <div class="shape-legend">
+      <span><i class="sw"></i> екран</span>
+      <span><i class="sw diamond"></i> рішення</span>
+      <span><i class="sw stadium"></i> стан / старт / успіх / тупик</span>
+    </div>
+
+    <!-- MAIN -->
+    <div class="diagram-card">
+      <div class="diagram-head">
+        <span class="diagram-title">Main job - коуч збирає мультиклієнтське замовлення</span>
+        <span class="diagram-sub">Олена, первинна — Main JTBD, Рішення 1</span>
+      </div>
+      <div class="mermaid-panel">
+        <div class="mermaid">
+flowchart TD
+    s0(["Тренер відкриває Stack"])
+    q1{"Залогінений як верифікований тренер?"}
+    qacct{"Є акаунт?"}
+    e1["Вхід / реєстрація"]
+    slog(["Завантаження — вхід"])
+    qauth{"Вхід успішний?"}
+    serr(["Помилка — вхід не вдався"])
+    qretrylogin{"Повторити вхід?"}
+    c1["«Для тренерів» + опубліковані ціни"]
+    c2["Реєстрація тренера + верифікація соц-лінку"]
+    svrf(["Завантаження — перевірка соц-лінку"])
+    q2{"Верифікацію пройдено?"}
+    evf(["Помилка — верифікація не вдалася, надішліть лінк ще раз"])
+    qresub{"Надіслати лінк ще раз?"}
+    de1(["Тупик — верифікацію не пройдено, без доступу тренера"])
+    c3["Кабінет тренера"]
+    c5p["Профіль клієнта"]
+    cpl(["Завантаження — історія замовлень клієнта"])
+    qcp{"Історію клієнта завантажено?"}
+    cperr(["Помилка — історія клієнта не завантажилась"])
+    qcphas{"Є замовлення для цього клієнта?"}
+    cpempty(["Порожньо — для цього клієнта ще нічого не замовляли"])
+    c4["Мультиклієнтська сесія замовлення"]
+    q3{"Клієнт уже у списку?"}
+    c5["Список клієнтів"]
+    addc(["Додавання клієнта — імʼя і ціль"])
+    slqa(["Завантаження — швидке додавання й тренерська ціна"])
+    q4{"Товар у наявності?"}
+    so1(["Немає в наявності"])
+    q5{"Є заміна?"}
+    csub(["Обрати заміну"])
+    q7{"Тренерську ціну застосовано?"}
+    ee1(["Помилка — тренерську ціну не застосовано"])
+    qprice{"Повторити чи зупинити?"}
+    blockc(["Тренерська ціна не вирішена — сесію збережено, оформлення заблоковано"])
+    q8{"Ще є клієнти для замовлення?"}
+    c6["Кошик"]
+    qce{"Кошик порожній?"}
+    ec(["Порожньо — кошик порожній"])
+    c7["Оформлення"]
+    addr(["Вибір адреси — читання збережених, ввід якщо немає"])
+    sl1(["Завантаження — обробка платежу"])
+    q9{"Платіж успішний?"}
+    ep1(["Помилка — платіж відхилено"])
+    q10{"Повторити платіж?"}
+    qaband{"Назад у кошик чи покинути?"}
+    de3(["Тупик — платіж покинуто, кошик збережено"])
+    c8["Замовлення оформлено"]
+    ok1(["Успіх — мультиклієнтське замовлення оформлено й підтверджено"])
+
+    s0 --> q1
+    q1 -->|так| c3
+    q1 -->|ні| qacct
+    qacct -->|так| e1
+    e1 --> slog
+    slog --> qauth
+    qauth -->|так| c3
+    qauth -->|ні| serr
+    serr --> qretrylogin
+    qretrylogin -->|так| e1
+    qretrylogin -->|ні| qacct
+    qacct -->|ні| c1
+    c1 --> c2
+    c2 --> svrf
+    svrf --> q2
+    q2 -->|так| c3
+    q2 -->|ні| evf
+    evf --> qresub
+    qresub -->|так| c2
+    qresub -->|ні| de1
+    c3 -->|перегляд історії клієнта| c5p
+    c5p --> cpl
+    cpl --> qcp
+    qcp -->|ні| cperr
+    cperr -->|повтор| cpl
+    qcp -->|так| qcphas
+    qcphas -->|є замовлення| c4
+    qcphas -->|поки немає| cpempty
+    cpempty --> c4
+    c3 -->|нове замовлення| c4
+    c4 --> q3
+    q3 -->|так| slqa
+    q3 -->|ні| c5
+    c5 --> addc
+    addc -->|клієнта додано й обрано| slqa
+    slqa --> q4
+    q4 -->|ні| so1
+    so1 --> q5
+    q5 -->|ні, пропустити позицію| q8
+    q5 -->|так| csub
+    csub --> q4
+    q4 -->|так| q7
+    q7 -->|ні| ee1
+    ee1 --> qprice
+    qprice -->|повтор| q7
+    qprice -->|зупинити| blockc
+    blockc --> c3
+    q7 -->|так, автоприв'язка до активного клієнта| q8
+    q8 -->|так| q3
+    q8 -->|ні| c6
+    c6 --> qce
+    qce -->|так| ec
+    ec --> c4
+    qce -->|ні| c7
+    c7 --> addr
+    addr --> sl1
+    sl1 --> q9
+    q9 -->|так| c8
+    q9 -->|ні| ep1
+    ep1 --> q10
+    q10 -->|так| c7
+    q10 -->|ні| qaband
+    qaband -->|назад у кошик| c6
+    qaband -->|покинути| de3
+    c8 --> ok1
+        </div>
+      </div>
+      <div class="flow-meta">
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">залогінений як верифікований тренер; є акаунт; вхід успішний; повторити вхід; верифікацію пройдено; надіслати лінк ще раз; історію клієнта завантажено; є замовлення для цього клієнта; клієнт уже у списку; товар у наявності; є заміна; тренерську ціну застосовано; повторити чи зупинити тренерську ціну; ще є клієнти для замовлення; кошик порожній; платіж успішний; повторити платіж; назад у кошик чи покинути.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">завантаження (вхід); помилка (вхід не вдався); завантаження (перевірка соц-лінку); помилка (верифікація не вдалася, надіслати лінк ще раз); завантаження (історія замовлень клієнта); помилка (історія клієнта не завантажилась); порожньо (для цього клієнта ще нічого не замовляли); додавання клієнта (імʼя і ціль); завантаження (швидке додавання); немає в наявності; обрати заміну; помилка (тренерську ціну не застосовано); тренерська ціна не вирішена (сесію збережено, оформлення заблоковано); позиція без тегу; порожньо (кошик порожній); вибір адреси; завантаження (обробка платежу); помилка (платіж відхилено).</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">верифікацію не пройдено і повторне надсилання відхилено (тільки невиправний випадок); платіж покинуто (кошик збережено). Решта проблем мають шлях назад: пропустити позицію, повторити-чи-зупинити, відкинути позицію, назад у кошик, надіслати лінк ще раз.</span></div>
+      </div>
+    </div>
+
+    <!-- JOB 2 -->
+    <div class="diagram-card">
+      <div class="diagram-head">
+        <span class="diagram-title">Job 2 - початківець: ціль до першої покупки</span>
+        <span class="diagram-sub">Вікторія, вторинна — гостьове оформлення, потім гість до акаунта</span>
+      </div>
+      <div class="mermaid-panel">
+        <div class="mermaid">
+flowchart TD
+    b1["Головна / вибір цілі"]
+    b2["Колекція за ціллю"]
+    gcl(["Завантаження — колекція за ціллю"])
+    qgcl{"Колекцію завантажено?"}
+    gcerr(["Помилка — колекція не завантажилась"])
+    qgc{"Є товари в наявності?"}
+    gce(["Порожньо — немає товарів у наявності"])
+    b3["Деталі товару"]
+    qa{"Товар у наявності?"}
+    so(["Немає в наявності"])
+    b4["Кошик"]
+    qce2{"Кошик порожній?"}
+    ec2(["Порожньо — кошик порожній"])
+    b5["Оформлення"]
+    qg{"Оформити як гість чи зареєструватися?"}
+    b6["Вхід / реєстрація"]
+    slog2(["Завантаження — вхід"])
+    qauth2{"Вхід успішний?"}
+    serr2(["Помилка — вхід не вдався"])
+    qrl2{"Повторити вхід чи продовжити як гість?"}
+    addr2(["Вибір адреси — читання збережених, ввід якщо немає"])
+    sl(["Завантаження — обробка платежу"])
+    qp{"Платіж успішний?"}
+    ep(["Помилка — платіж відхилено"])
+    qr{"Повторити платіж?"}
+    qaband2{"Назад у кошик чи покинути?"}
+    de1b(["Тупик — платіж покинуто, кошик збережено"])
+    b7["Замовлення оформлено"]
+    qac{"Створити акаунт зараз?"}
+    b6b["Вхід / реєстрація"]
+    b8["Кабінет покупця"]
+    okg(["Успіх — перша покупка завершена як гість"])
+    oka(["Успіх — покупка завершена, акаунт зберігає історію й лояльність"])
+
+    b1 -->|тайл цілі| b2
+    b2 --> gcl
+    gcl --> qgcl
+    qgcl -->|ні| gcerr
+    gcerr -->|повтор| gcl
+    qgcl -->|так| qgc
+    qgc -->|ні| gce
+    gce -->|інша ціль| b1
+    qgc -->|так, відкрити товар| b3
+    b3 --> qa
+    qa -->|ні| so
+    so -->|назад до колекції| b2
+    qa -->|так, у кошик| b4
+    b4 --> qce2
+    qce2 -->|так| ec2
+    ec2 -->|назад до пошуку товару| b1
+    qce2 -->|ні| b5
+    b5 --> qg
+    qg -->|реєстрація| b6
+    b6 --> slog2
+    slog2 --> qauth2
+    qauth2 -->|так| addr2
+    qauth2 -->|ні| serr2
+    serr2 --> qrl2
+    qrl2 -->|повтор| b6
+    qrl2 -->|гість| addr2
+    qg -->|гість| addr2
+    addr2 --> sl
+    sl --> qp
+    qp -->|так| b7
+    qp -->|ні| ep
+    ep --> qr
+    qr -->|так| b5
+    qr -->|ні| qaband2
+    qaband2 -->|назад у кошик| b4
+    qaband2 -->|покинути| de1b
+    b7 --> qac
+    qac -->|так| b6b
+    b6b --> b8
+    b8 --> oka
+    qac -->|ні| okg
+        </div>
+      </div>
+      <div class="flow-meta">
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">колекцію завантажено; є товари в наявності; товар у наявності; кошик порожній; оформити як гість чи зареєструватися; вхід успішний; повторити вхід чи продовжити як гість; платіж успішний; повторити платіж; назад у кошик чи покинути; створити акаунт зараз.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">завантаження (колекція за ціллю); помилка (колекція не завантажилась); порожньо (немає товарів у наявності); немає в наявності; порожньо (кошик порожній); завантаження (вхід); помилка (вхід не вдався); вибір адреси; завантаження (обробка платежу); помилка (платіж відхилено).</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">платіж покинуто (кошик збережено). Два валідні фінали: гостьовий і з акаунтом.</span></div>
+      </div>
+    </div>
+
+    <!-- JOB 3 -->
+    <div class="diagram-card">
+      <div class="diagram-head">
+        <span class="diagram-title">Job 3 - перевірка безпеки перед покупкою</span>
+        <span class="diagram-sub">склад, дозування, походження, сертифікати на Деталях товару</span>
+      </div>
+      <div class="mermaid-panel">
+        <div class="mermaid">
+flowchart TD
+    j1["Колекція за ціллю"]
+    j2["Каталог і пошук"]
+    csl(["Завантаження — результати пошуку"])
+    qcsl{"Результати завантажено?"}
+    cserr(["Помилка — пошук не вдався"])
+    qcs{"Є результати?"}
+    cse(["Порожньо — немає результатів, дивіться поради"])
+    j3["Деталі товару"]
+    slt(["Завантаження — деталі довіри"])
+    qd{"Деталі довіри завантажено?"}
+    se(["Помилка — деталі не завантажились"])
+    qr3{"Повторити?"}
+    q1c{"Склад, дозування, походження, сертифікація — все зрозуміло?"}
+    rev(["Відгуки й вміст сертифіката на Деталях товару"])
+    qrev{"Переконано після відгуків і сертифіката?"}
+    leave(["Тупик — покупець іде, сумнів у безпеці не знято"])
+    q2c{"Товар у наявності?"}
+    so3(["Немає в наявності"])
+    qsub{"Назад до колекції по альтернативу?"}
+    leave2(["Тупик — немає варіанта в наявності, покупець іде"])
+    j4["Кошик"]
+    ok3(["Успіх — товару довіряють, додано в кошик"])
+
+    j1 -->|товар| j3
+    j2 --> csl
+    csl --> qcsl
+    qcsl -->|ні| cserr
+    cserr -->|повтор| csl
+    qcsl -->|так| qcs
+    qcs -->|ні| cse
+    cse -->|уточнити пошук| j2
+    qcs -->|так, відкрити товар| j3
+    j3 --> slt
+    slt --> qd
+    qd -->|ні| se
+    se --> qr3
+    qr3 -->|так| slt
+    qr3 -->|ні| leave
+    qd -->|так| q1c
+    q1c -->|так| q2c
+    q1c -->|ні| rev
+    rev --> qrev
+    qrev -->|так| q2c
+    qrev -->|ні| leave
+    q2c -->|ні| so3
+    so3 --> qsub
+    qsub -->|так| j1
+    qsub -->|ні| leave2
+    q2c -->|так| j4
+    j4 --> ok3
+        </div>
+      </div>
+      <div class="flow-meta">
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">результати завантажено; є результати; деталі довіри завантажено; повторити; склад/дозування/походження/сертифікація все зрозуміло; переконано після відгуків і сертифіката; товар у наявності; назад до колекції по альтернативу.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">завантаження (результати пошуку); помилка (пошук не вдався); порожньо (немає результатів, поради); завантаження (деталі довіри); помилка (деталі не завантажились); відгуки й вміст сертифіката; немає в наявності.</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">покупець іде після відгуків і сертифіката (прийнята втрачена покупка); немає варіанта в наявності і покупець іде. Сповіщення «знову в наявності» — у backlog (post-launch).</span></div>
+      </div>
+    </div>
+
+    <!-- JOB 4 -->
+    <div class="diagram-card">
+      <div class="diagram-head">
+        <span class="diagram-title">Job 4 - повторне замовлення в один тап</span>
+        <span class="diagram-sub">Андрій, підтримувальна персона — повтор в один тап із рядка Історії замовлень</span>
+      </div>
+      <div class="mermaid-panel">
+        <div class="mermaid">
+flowchart TD
+    r0(["Андрій хоче поповнити запас"])
+    rq1{"Залогінений?"}
+    r2["Вхід / реєстрація"]
+    slog3(["Завантаження — вхід"])
+    qauth3{"Вхід успішний?"}
+    serr3(["Помилка — вхід не вдався"])
+    qrl3{"Повторити вхід?"}
+    r1["Кабінет покупця"]
+    r3["Історія замовлень"]
+    qe{"Є минулі замовлення?"}
+    se4(["Порожньо — немає минулих замовлень для повтору"])
+    rexit(["Вихід — за покупками через Головну / вибір цілі"])
+    qrepeat{"Повтор із рядка історії чи відкрити деталі замовлення?"}
+    r4["Деталі замовлення + повтор"]
+    rq2{"Усі попередні позиції в наявності?"}
+    so4(["Немає в наявності — одна чи більше позицій"])
+    rq3{"Прибрати недоступне і продовжити?"}
+    qfind{"Назад до історії чи шукати товар?"}
+    csf["Каталог і пошук"]
+    r5["Кошик"]
+    qce4{"Кошик порожній?"}
+    ec4(["Порожньо — кошик порожній"])
+    r6["Оформлення"]
+    addr4(["Вибір адреси — читання збережених, ввід якщо немає"])
+    sl4(["Завантаження — обробка платежу"])
+    rq4{"Платіж успішний?"}
+    ep4(["Помилка — платіж відхилено"])
+    rq5{"Повторити платіж?"}
+    qaband4{"Назад у кошик чи покинути?"}
+    dep(["Тупик — платіж покинуто, кошик збережено"])
+    r7["Замовлення оформлено"]
+    ok4(["Успіх — staples повторно замовлено в один тап"])
+
+    r0 --> rq1
+    rq1 -->|ні| r2
+    r2 --> slog3
+    slog3 --> qauth3
+    qauth3 -->|так| r1
+    qauth3 -->|ні| serr3
+    serr3 --> qrl3
+    qrl3 -->|так| r2
+    qrl3 -->|ні| rexit
+    rq1 -->|так| r1
+    r1 -->|історія замовлень| r3
+    r3 --> qe
+    qe -->|ні| se4
+    se4 --> rexit
+    qe -->|так| qrepeat
+    qrepeat -->|повтор із рядка в один тап| rq2
+    qrepeat -->|відкрити деталі замовлення| r4
+    r4 -->|повторити замовлення| rq2
+    rq2 -->|ні| so4
+    so4 --> rq3
+    rq3 -->|так| r5
+    rq3 -->|ні| qfind
+    qfind -->|історія замовлень| r3
+    qfind -->|шукати товар| csf
+    csf -->|знайдено, у кошик| r5
+    rq2 -->|так| r5
+    r5 --> qce4
+    qce4 -->|так| ec4
+    ec4 -->|назад до пошуку товару| r3
+    qce4 -->|ні| r6
+    r6 --> addr4
+    addr4 --> sl4
+    sl4 --> rq4
+    rq4 -->|так| r7
+    rq4 -->|ні| ep4
+    ep4 --> rq5
+    rq5 -->|так| r6
+    rq5 -->|ні| qaband4
+    qaband4 -->|назад у кошик| r5
+    qaband4 -->|покинути| dep
+    r7 --> ok4
+        </div>
+      </div>
+      <div class="flow-meta">
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">залогінений; вхід успішний; повторити вхід; є минулі замовлення; повтор із рядка історії чи відкрити деталі замовлення; усі попередні позиції в наявності; прибрати недоступне і продовжити; назад до історії чи шукати товар; кошик порожній; платіж успішний; повторити платіж; назад у кошик чи покинути.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">завантаження (вхід); помилка (вхід не вдався); порожньо (немає минулих замовлень для повтору); немає в наявності (одна чи більше позицій); порожньо (кошик порожній); вибір адреси; завантаження (обробка платежу); помилка (платіж відхилено).</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val dead">платіж покинуто (кошик збережено). Порожня історія замовлень — мʼякий вихід до Головної / вибору цілі, не жорсткий тупик.</span></div>
+      </div>
+    </div>
+
+    <!-- JOB 6 -->
+    <div class="diagram-card">
+      <div class="diagram-head">
+        <span class="diagram-title">Job 6 - перегляд лояльності</span>
+        <span class="diagram-sub">Олена первинна, Андрій вторинна — Статус лояльності, тільки перегляд</span>
+      </div>
+      <div class="mermaid-panel">
+        <div class="mermaid">
+flowchart TD
+    ch["Кабінет тренера"]
+    bh["Кабінет покупця"]
+    ls["Статус лояльності"]
+    lsl(["Завантаження — статус лояльності"])
+    qll{"Лояльність завантажено?"}
+    lserr(["Помилка — лояльність не завантажилась"])
+    qlhas{"Є вже накопичена вигода?"}
+    lsempty(["Порожньо — поки нічого не накопичено"])
+    lback(["Повернення до кабінету"])
+
+    ch -->|перегляд лояльності| ls
+    bh -->|перегляд лояльності| ls
+    ls --> lsl
+    lsl --> qll
+    qll -->|ні| lserr
+    lserr -->|повтор| lsl
+    qll -->|так| qlhas
+    qlhas -->|поки немає| lsempty
+    qlhas -->|вигоду показано| lback
+    lsempty --> lback
+        </div>
+      </div>
+      <div class="flow-meta">
+        <div><span class="flow-meta-label">Рішення</span><span class="flow-meta-val">loyalty loaded; any accumulated benefit yet.</span></div>
+        <div><span class="flow-meta-label">Стани</span><span class="flow-meta-val">loading (loyalty status); error (loyalty failed to load); empty (nothing accumulated yet).</span></div>
+        <div><span class="flow-meta-label">Тупики</span><span class="flow-meta-val">немає. Перегляд тільки для читання, кожен шлях повертає на account home. Цифри лояльності - <span class="badge-q">[?]</span>, пороги не малюються.</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+window.NAV_BASE = '../';
+window.NAV_SECTIONS = [{"id": "flows", "label": "Пʼять flows"}];
+</script>
+<script src="../_nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  
+  
+
+  /* Mermaid - dark diagram panels on the light page */
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, curve: 'basis', nodeSpacing: 38, rankSpacing: 44, useMaxWidth: true },
+    themeVariables: {
+      darkMode: true,
+      fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif',
+      fontSize: '13px',
+      background: '#15140f',
+      mainBkg: '#23312a',
+      primaryColor: '#23312a',
+      primaryTextColor: '#edeae3',
+      primaryBorderColor: '#4a8c62',
+      secondaryColor: '#2a2823',
+      secondaryTextColor: '#edeae3',
+      secondaryBorderColor: '#3a3833',
+      tertiaryColor: '#1b1a16',
+      tertiaryTextColor: '#d8d5cd',
+      tertiaryBorderColor: '#3a3833',
+      lineColor: '#9a958c',
+      textColor: '#d8d5cd',
+      nodeTextColor: '#edeae3',
+      clusterBkg: '#1b1a16',
+      clusterBorder: '#3a3833',
+      titleColor: '#9bbfa8',
+      edgeLabelBackground: '#15140f',
+      nodeBorder: '#4a8c62'
+    }
+  });
+
+  /* Build the traceability matrix from a data map */
+  var COLS = [
+    ['A1','Головна / вибір цілі'],['A2','Колекція за ціллю'],['A3','Каталог і пошук'],['A4','Деталі товару'],
+    ['B1','Кошик'],['B2','Оформлення'],['B3','Замовлення оформлено'],
+    ['C1','«Для тренерів» + опубліковані ціни'],['C2','Реєстрація тренера + верифікація соц-лінку'],['C3','Кабінет тренера'],['C4','Список клієнтів'],['C5','Профіль клієнта'],['C6','Мультиклієнтська сесія замовлення'],
+    ['D1','Історія замовлень'],['D2','Деталі замовлення + повтор'],
+    ['E1','Вхід / реєстрація'],['E2','Кабінет покупця'],['E3','Статус лояльності'],['E4','Збережені адреси']
+  ];
+  var ROWS = [
+    ['Main JTBD', ['B1','B2','B3','C3','C4','C5','C6','E1'], false],
+    ['Main, підкрок: створити клієнта (імʼя + ціль)', ['C4'], true],
+    ['Job 1 зміна постачальника', ['C1','C2'], false],
+    ['Job 2 ціль до продукту', ['A1','A2','B1','B2','B3'], false],
+    ['Job 3 перевірка безпеки', ['A3','A4'], false],
+    ['Job 4 повторне замовлення', ['A3','B1','B2','B3','D1','D2','E1','E2','E4'], false],
+    ['Job 5 рекомендація з доказами', ['A4'], false],
+    ['Job 6 зростаюча цінова вигода', ['C1','C3','E2','E3'], false],
+    ['ESJ-1 авторитет тренера', ['A4','C1'], false],
+    ['ESJ-2 впевненість новачка', ['A1','A2','A4'], false],
+    ['ESJ-3 страх підробок', ['A4'], false],
+    ['ESJ-4 автономія тренера', ['C2','C3'], false]
+  ];
+  (function(){
+    var t = document.getElementById('matrix-table');
+    if (!t) return;
+    var head = '<thead><tr><th>Завдання \\ Екран</th>' + COLS.map(function(c){return '<th>'+c[0]+'</th>';}).join('') + '</tr></thead>';
+    var body = '<tbody>' + ROWS.map(function(r){
+      var marks = r[1];
+      var cells = COLS.map(function(c){
+        return marks.indexOf(c[0]) !== -1 ? '<td class="mk">✓</td>' : '<td></td>';
+      }).join('');
+      return '<tr class="'+(r[2]?'substep':'')+'"><th>'+r[0]+'</th>'+cells+'</tr>';
+    }).join('') + '</tbody>';
+    t.innerHTML = head + body;
+    var legend = document.getElementById('matrix-colmap');
+    if (legend) {
+      legend.innerHTML = '<b>Стовпці:</b> ' + COLS.map(function(c){return c[0]+' '+c[1];}).join(' · ');
+    }
+  })();
+
+  /* Active section highlight */
+  
+  
+  
+  
+</script>
+<script>
+window.NAV_BASE = '../';
+window.NAV_SECTIONS = [{"id": "sitemap", "label": "Глобальний сайтмап"}, {"id": "flows", "label": "User flows"}, {"id": "matrix", "label": "Матриця трасування"}, {"id": "navigation", "label": "Навігаційна модель"}];
+</script>
+<script src="../_nav.js"></script>
+</body>
+</html>

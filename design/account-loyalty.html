@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет - Знижки та бонуси - Stack (wireframe 7.4)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.4 Знижки та бонуси (buyer account, private → noindex).
+  TWO independent mechanisms (Decision 3, Job 6): (1) 3-tier lifetime-spend
+  discount ladder; (2) ~1% bonus account with 3-month expiry + accrual/burn
+  ledger. Numbers = hypothesis [?]. Reuses the shared account shell.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <span class="cur">Знижки та бонуси</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Знижки та бонуси</h1>
+      <p class="acc-sub">Дві незалежні програми: бонусний рахунок і персональна знижка за суму покупок. <a href="content-loyalty-buyer.html" style="color:var(--strong);font-weight:700">Докладніше про програму →</a></p>
+
+      <div class="loy-two">
+
+        <!-- mechanism 1 - bonus account (bonuses first, consistent with the account overview) -->
+        <div class="acard abonus">
+          <div class="ah"><span class="mech-kicker">Бонусний рахунок</span></div>
+          <div class="big">124 ₴</div>
+          <div class="u">бонусів на рахунку · 1 бонус = 1 ₴ · нараховуємо ~1% з покупки</div>
+          <div class="warn"><b>18 ₴ згорять 20.09.2026.</b> Бонуси діють 3 місяці - використайте їх у кошику під час наступного замовлення.</div>
+        </div>
+
+        <!-- mechanism 2 - lifetime-spend discount ladder -->
+        <div class="acard loy">
+          <div class="ah"><span class="mech-kicker">Рівень лояльності</span></div>
+          <div class="lt">🥈 Срібло · персональна знижка −5%</div>
+          <div class="lbar"><i style="width:62%"></i></div>
+          <div class="ls">Куплено на <b>18 400 ₴</b> за весь час · до 🥇 Золота ще <b>6 600 ₴</b></div>
+          <div class="ladder">
+            <div class="lrung done"><span class="rn">🥉 Бронза</span>−3%<span class="rs">✓ отримано</span></div>
+            <div class="lrung now"><span class="rn">🥈 Срібло</span>−5%<span class="rs">ваш рівень</span></div>
+            <div class="lrung next"><span class="rn">🥇 Золото</span>−8%<span class="rs">наступний</span></div>
+          </div>
+          <div class="abonus"><div class="warn" style="margin-top:14px"><b>Сума покупок не згорає.</b> Знижка застосовується автоматично в кошику. Пороги та % - попередні [?].</div></div>
+        </div>
+
+      </div>
+
+      <!-- movements ledger - accruals (+), spends and burns (−) -->
+      <div class="led-wrap">
+        <div class="led-head">
+          <h2>Рух бонусів</h2>
+          <a href="content-loyalty-buyer.html">Як нараховуються →</a>
+        </div>
+        <table class="led">
+          <thead>
+            <tr><th>Дата</th><th>Операція</th><th class="num">Бонуси</th><th class="num">Баланс</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="dt">12.06.2026</td><td>Нараховано за замовлення № 10432</td><td class="num amt pos">+23</td><td class="num bal">124 ₴</td></tr>
+            <tr><td class="dt">03.06.2026</td><td>Використано в кошику (№ 10418)</td><td class="num amt neg">−40</td><td class="num bal">101 ₴</td></tr>
+            <tr><td class="dt">03.06.2026</td><td>Нараховано за замовлення № 10418</td><td class="num amt pos">+12</td><td class="num bal">141 ₴</td></tr>
+            <tr class="burn"><td class="dt">21.05.2026</td><td>Згоріли бонуси (термін дії 3 міс.)</td><td class="num amt neg">−12</td><td class="num bal">129 ₴</td></tr>
+            <tr><td class="dt">21.05.2026</td><td>Нараховано за замовлення № 10390</td><td class="num amt pos">+31</td><td class="num bal">141 ₴</td></tr>
+            <tr><td class="dt">02.05.2026</td><td>Нараховано за замовлення № 10355</td><td class="num amt pos">+6</td><td class="num bal">110 ₴</td></tr>
+          </tbody>
+        </table>
+        <div class="led-note">Показано і нарахування, і списання (використання та згоряння). Ставка нарахування й термін дії - попередні [?].</div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>
+  var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
+  wfHeader(isCoach ? 'coach' : 'buyer');
+  wfAccountNav('loyalty', isCoach);
+  wfFooter(); wfBar('account-loyalty.html');
+
+  uivFixLinks(); uivBar(); uivChrome(); uivAccount();
+</script>
+</body>
+</html>

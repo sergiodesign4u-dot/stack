@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Обробляємо оплату… - Stack (wireframe 6.1 · loading)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 6.1 Оформлення - LOADING state.
+  «Обробляємо оплату…» - card payment redirects to the provider's
+  hosted page (LiqPay/Wayforpay). No dead end: cancel → back to cart.
+  flows.md Job 2: sl (Loading - processing payment) → qp.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+
+<header class="co-head" role="banner">
+  <div class="co-head-in">
+    <a class="co-logo" href="index.html">Stack</a>
+    <div class="co-support">
+      <span class="sh">Центр підтримки · Пн–Нд 9:00–21:00</span><br>
+      <b>0 800 000 000</b>
+    </div>
+  </div>
+</header>
+
+<main class="co-proc">
+  <div class="co-proc-box" role="status" aria-live="polite">
+    <div class="co-spin" aria-hidden="true"></div>
+    <div class="co-proc-h">Обробляємо оплату…</div>
+    <p class="co-proc-s">Перенаправляємо на захищену сторінку банку (LiqPay / Wayforpay). Не закривайте вкладку - це займе кілька секунд.</p>
+    <div class="co-skel" aria-hidden="true">
+      <div class="sl m"></div>
+      <div class="sl s"></div>
+    </div>
+    <p class="co-proc-note">🔒 Дані картки вводяться на стороні банку - ми їх не зберігаємо.</p>
+    <!-- prototype: happy path forward (у продукті - авто-редірект після підтвердження банку) -->
+    <a class="co-proc-go" href="order-placed.html">Оплату підтверджено - продовжити →</a>
+    <a class="co-proc-cancel" href="cart.html">Скасувати та повернутися до кошика</a>
+  </div>
+</main>
+
+<footer class="co-foot" role="contentinfo">
+  <div class="co-foot-in">
+    <span>© 2026 Stack. Спортивне харчування в Україні.</span>
+    <span class="co-foot-links">
+      <a href="content-legal.html">Публічна оферта</a>
+      <a href="content-legal.html">Конфіденційність</a>
+      <a href="content-contacts.html">Підтримка</a>
+    </span>
+    <span>Visa · Mastercard · Apple Pay · Google Pay</span>
+  </div>
+</footer>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>wfBar('checkout.html', 'loading');
+        uivFixLinks(); uivBar(); uivChrome(); uivCheckout();</script>
+</body>
+</html>

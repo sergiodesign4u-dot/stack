@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Stack - UI Visual</title>
+<link rel="icon" type="image/svg+xml" href="concept/assets/logo-mark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1C1C1C; --canvas:#FFFFFF; --orange:#FF5A00; --warm:#F2F0ED;
+  --ink-2:#3A3A36; --muted:#5B5B54; --line:#E9E7E2;
+  --shadow:0 1px 2px rgba(20,20,15,.05), 0 4px 14px rgba(20,20,15,.04);
+  --d-bg:#f7f6f3; --d-surface-alt:#f2f0eb; --d-border:#e5e2db;
+  --d-text:#1a1916; --d-text-2:#6b6760; --d-text-3:#9b9790;
+  --d-accent:#2d5a3d; --d-accent-light:#e8f0ea; --d-radius-sm:6px;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--d-bg); color:var(--ink); font:400 16px/1.6 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased}/* ---------- Content ---------- */
+.doc{max-width:1120px; margin:0 auto; padding:68px 20px 90px}
+@media(min-width:860px){
+  .doc{margin-left:220px; padding:52px 48px 90px}}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font:700 11px/1 Inter; letter-spacing:.1em; text-transform:uppercase; color:#fff; background:var(--orange); padding:6px 10px; border-radius:6px}
+h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing:-.015em; line-height:1.03;
+  font-size:clamp(1.9rem,1.4rem+2vw,2.8rem); margin:16px 0 12px}
+.lead{max-width:72ch; color:var(--ink-2); font-size:1.06rem}
+.lead b{color:var(--ink)}
+.lead code{font-family:"IBM Plex Mono",monospace; font-size:.85em; color:var(--muted); background:var(--warm); border:1px solid var(--line); border-radius:5px; padding:1px 5px}
+
+.section-h{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; border-bottom:2px solid var(--ink); padding-bottom:11px; margin:40px 0 20px}
+.section-h h2{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing:-.01em; font-size:clamp(1.25rem,1rem+1.2vw,1.7rem); margin:0}
+.section-h .n{font:700 12px/1 "IBM Plex Mono",monospace; color:#fff; background:var(--ink); padding:6px 9px; border-radius:6px}
+.section-h .hint{font-size:.85rem; color:var(--muted); margin-left:auto}
+
+.scr-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px}
+.scr{display:flex; flex-direction:column; gap:4px; padding:15px 16px; background:#fff; border:1px solid var(--line); border-radius:12px;
+  box-shadow:var(--shadow); text-decoration:none; transition:border-color .15s, transform .15s}
+.scr:hover{border-color:var(--orange); transform:translateY(-2px)}
+.scr .scr-t{font-weight:600; color:var(--ink); display:flex; align-items:center; gap:8px}
+.scr .scr-u{font-size:.84rem; color:var(--muted)}
+.scr .badge{font:600 10px/1 "IBM Plex Mono",monospace; color:var(--orange); border:1px solid rgba(255,90,0,.35); background:rgba(255,90,0,.06); border-radius:20px; padding:3px 7px}
+
+.foot-note{margin-top:44px; padding:18px 20px; background:var(--warm); border:1px solid var(--line); border-radius:12px;
+  font-size:.92rem; color:var(--ink-2); max-width:78ch}
+.foot-note b{color:var(--ink)}
+.foot-note code{font-family:"IBM Plex Mono",monospace; font-size:.82em; color:var(--muted)}
+.backrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:22px}
+.backrow a{font-size:13px; font-weight:600; color:var(--d-accent); text-decoration:none; border:1px solid var(--d-border); border-radius:8px; padding:8px 14px; background:#fff; transition:border-color .15s, color .15s}
+.backrow a:hover{border-color:var(--orange); color:var(--orange)}</style>
+  <link rel="stylesheet" href="../_nav.css">
+</head>
+<body>
+
+<aside id="sidebar"></aside>
+
+<main class="doc">
+  <span class="eyebrow">Крок 6-7 · мова на екрані</span>
+  <h1>UI Visual</h1>
+  <p class="lead">Мова продукту, покладена на реальні екрани. Це <b>кольорові копії</b> сірих вайрфреймів у теці
+    <code>ui-visual/</code>: сірий прототип лишається сірим, копія володіє <b>лише візуальним шаром</b> (структура,
+    текст і набір станів - власність <code>wireframes/</code>). Переходи на ще-не-пофарбовані екрани ведуть на
+    сірий оригінал, а не в глухий кут. Ця сторінка службова (<b>noindex</b>) - карта кольорового прототипу;
+    <code>index.html</code> лишаємо під майбутню кольорову <b>головну сторінку продукту</b> (етап 07).</p>
+
+  <div class="backrow">
+    <a href="concept/concept.html">← Стенд мови (Концепт)</a>
+    <a href="concept/directions.html">Три напрями верстки</a>
+    <a href="../wireframes/overview.html">Сірі вайрфрейми ↗</a>
+  </div>
+
+  <div class="section-h">
+    <span class="n">2.1</span>
+    <h2>Лістинг «Протеїн» - еталон</h2>
+    <span class="hint">робоча конячка етапу 04, у кольорі</span>
+  </div>
+  <div class="scr-grid">
+    <a class="scr" href="listing.html"><span class="scr-t">Базовий <span class="badge">еталон</span></span><span class="scr-u">сітка, картки, ціни, наявність, слайдер ціни</span></a>
+    <a class="scr" href="listing-list.html"><span class="scr-t">Списком</span><span class="scr-u">та сама мова, інша щільність</span></a>
+    <a class="scr" href="listing-filtered.html"><span class="scr-t">З фільтрами</span><span class="scr-u">активні фасети, обране підсвічено оранжем</span></a>
+    <a class="scr" href="listing-sheet.html"><span class="scr-t">Фільтри · мобілка</span><span class="scr-u">bottom-sheet, «Застосувати» = дія</span></a>
+  </div>
+
+  <div class="section-h" id="states">
+    <span class="n">Стани</span>
+    <h2>Доменні стани</h2>
+    <span class="hint">кажуть правду й дають вихід (Принцип 5)</span>
+  </div>
+  <div class="scr-grid">
+    <a class="scr" href="listing-empty.html"><span class="scr-t">Порожньо</span><span class="scr-u">маскот-гід, вихід без глухого кута</span></a>
+    <a class="scr" href="listing-error.html"><span class="scr-t">Помилка</span><span class="scr-u">чесний стан + «Спробувати ще раз»</span></a>
+    <a class="scr" href="listing-loading.html"><span class="scr-t">Завантаження</span><span class="scr-u">скелетони</span></a>
+  </div>
+
+  <div class="section-h" id="pdp">
+    <span class="n">3.0</span>
+    <h2>Картка товару</h2>
+    <span class="hint">ціль конверсії кожної картки + дім довіри (Job 4) · базовий і всі 5 станів</span>
+  </div>
+  <div class="scr-grid">
+    <a class="scr" href="product.html"><span class="scr-t">Базовий <span class="badge">в наявності</span></span><span class="scr-u">галерея, buy-box, склад · дозування · походження · сертифікат, відгуки, sticky buy-bar</span></a>
+    <a class="scr" href="product-oos.html"><span class="scr-t">Немає в наявності</span><span class="scr-u">чесний стан, «Повідомити про надходження», аналоги - не глухий кут</span></a>
+    <a class="scr" href="product-reviews.html"><span class="scr-t">Відгуки <span class="badge">Job 3</span></span><span class="scr-u">повернення сумніву: сертифікат + відгуки перед виходом</span></a>
+    <a class="scr" href="product-coach.html"><span class="scr-t">Тренер <span class="badge">Job 1</span></span><span class="scr-u">гуртова ціна тренера, «Додати клієнту», вибір клієнта</span></a>
+    <a class="scr" href="product-loading.html"><span class="scr-t">Завантаження</span><span class="scr-u">скелетони на місці базового макета, без стрибка</span></a>
+    <a class="scr" href="product-error.html"><span class="scr-t">Помилка</span><span class="scr-u">спокійний ведмідь + «Спробувати ще раз»</span></a>
+  </div>
+
+  <div class="section-h" id="auth">
+    <span class="n">1.x</span>
+    <h2>Авторизація</h2>
+    <span class="hint">одні двері для всіх ролей · без пароля, код у SMS · спільний діалог на кожній сторінці</span>
+  </div>
+  <p class="lead" style="margin:0 0 18px">Це не окрема сторінка, а <b>спільний компонент</b>: діалог живе в
+    <code>wireframes/_nav.js</code> і відкривається з будь-якого «Увійти». Ці екрани - <b>референс-рендери</b>
+    (діалог відкрито закріпленим), тож стани не можуть розійтися з канонічним компонентом. Кольоровий шар лише
+    перефарбовує його на кожному кроці: <b>один оранжевий</b> на дію, кожна цифра - моно, помилка - серйозний
+    червоний, а не акцент.</p>
+  <div class="scr-grid">
+    <a class="scr" href="auth.html"><span class="scr-t">Телефон <span class="badge">базовий</span></span><span class="scr-u">одне поле + «Отримати код»; Google · Apple · E-mail - другорядні</span></a>
+    <a class="scr" href="auth-loading.html"><span class="scr-t">Надсилаємо код</span><span class="scr-u">чесне очікування: спінер, номер, без фальшивого прогресу</span></a>
+    <a class="scr" href="auth-code.html"><span class="scr-t">Код зі SMS</span><span class="scr-u">шість моно-комірок, повтор із відліком, «Змінити номер» завжди відкрито</span></a>
+    <a class="scr" href="auth-error.html"><span class="scr-t">Невірний код</span><span class="scr-u">червоний = стан, не дія; названо спроби, два шляхи вперед</span></a>
+    <a class="scr" href="auth-newuser.html"><span class="scr-t">Новий користувач</span><span class="scr-u">номер підтверджено, лишилось ім'я; повернення туди, де почали</span></a>
+  </div>
+
+  <div class="section-h" id="cart">
+    <span class="n">6.0</span>
+    <h2>Кошик</h2>
+    <span class="hint">права шухляда, швидкий перегляд · товари + «Разом», без знижок і бонусів (вони - на оформленні)</span>
+  </div>
+  <p class="lead" style="margin:0 0 18px"><b>Знижка їде разом зі своїм товаром, «Разом» - просто сума.</b> Товар,
+    що на полиці йде −15%, несе ту саму закреслену ціну й чип −% на рядку кошика, а його жива цифра бере акцент за
+    звичайним правилом ціни: <b>один товар - одна історія ціни</b>, де б ви його не зустріли. «Разом» лишається
+    чорнильним - це арифметика набраного, а не пропозиція; розкладка <b>замовлення</b> (лояльність, бонуси,
+    доставка) далі живе на оформленні. Сума рядка, «Разом» і цифра в хедері рахуються з <b>однієї</b> величини -
+    ціни за штуку на рядку, - тож плюс, мінус і кошик у шапці завжди кажуть одне й те саме.</p>
+  <div class="scr-grid">
+    <a class="scr" href="cart.html"><span class="scr-t">Базовий <span class="badge">3 товари</span></span><span class="scr-u">рядки з фото, знижка товару на рядку, живий лічильник кількості, ♡ В обране · Видалити, «Разом» і одна дія</span></a>
+    <a class="scr" href="cart-empty.html"><span class="scr-t">Порожньо</span><span class="scr-u">маскот відповідає замість порожнього місця: «Обрати ціль» або каталог - не глухий кут</span></a>
+    <a class="scr" href="cart-oos.html"><span class="scr-t">Немає в наявності</span><span class="scr-u">факт, не помилка: рядок тьмяніє, оформлення видимо закрите, акцент - на дії, що розблокує крок</span></a>
+  </div>
+
+  <div class="section-h" id="checkout">
+    <span class="n">6.1</span>
+    <h2>Оформлення</h2>
+    <span class="hint">одна сторінка з розділами, не візард · спрощена шапка · праворуч лише гроші</span>
+  </div>
+  <p class="lead" style="margin:0 0 18px">Сторінку тримає <b>просторове правило</b>: ліва колонка - там, де ви
+    <b>вводите</b>, права - там, де <b>вирішуєте</b>. Тому зліва немає жодної залитої дії: обраний спосіб доставки
+    чи оплати позначено так само, як позначається вибір скрізь у продукті - <b>оранжевим контуром</b>, - а єдиний
+    залитий оранжевий на сторінці це «Підтвердити замовлення» у грошовій колонці. Вхід - не покупка, тож «Отримати
+    код» - чорнильна кнопка: один акцент, одне значення. Уся права колонка <b>обчислюється</b>: зміна кількості,
+    вибір доставки, списання бонусів і додавання з апселу одразу переписують «До сплати» й нарахування. Апсел «Не забудьте додати» — <b>полиця, а не коробка</b>: канонічні картки товару без панелі позаду, бо додаток - це теж товар.</p>
+  <div class="scr-grid">
+    <a class="scr" href="checkout.html"><span class="scr-t">Базовий <span class="badge">гість</span></span><span class="scr-u">вхід без пароля, замовлення, доставка й оплата вибором, «До сплати» без знижки</span></a>
+    <a class="scr" href="checkout-loggedin.html"><span class="scr-t">У кабінеті</span><span class="scr-u">контакт згорнуто, знижка рівня, бонусний рахунок із перемикачем, нарахування</span></a>
+    <a class="scr" href="checkout-noaddr.html"><span class="scr-t">Без адреси</span><span class="scr-u">задача, а не помилка: бурштинова нотатка + обов'язкові поля, кнопка каже, чого бракує</span></a>
+    <a class="scr" href="checkout-loading.html"><span class="scr-t">Оплата в дорозі</span><span class="scr-u">чесне очікування: картку вводять на сторінці банку, вихід до кошика відкрито</span></a>
+    <a class="scr" href="checkout-declined.html"><span class="scr-t">Оплату відхилено</span><span class="scr-u">справжня помилка - серйозний червоний; замовлення збережено, два шляхи вперед</span></a>
+  </div>
+
+  <div class="section-h" id="home">
+    <span class="n">0.0</span>
+    <h2>Головна</h2>
+    <span class="hint">двоє дверей, які не блокують одна одну · спокійно, без таймерів</span>
+  </div>
+  <p class="lead" style="margin:0 0 18px">Головна має <b>двоє вхідних дверей</b>, і їм дано не два конкурентні
+    акценти, а <b>два регістри</b>. Двері новачка - <b>вибір цілі</b>: шість теплих плиток з акцентом на іконці
+    (іконки взято з того самого <code>WF_GOAL_MENU</code>, що й мега-меню, тож розійтися не можуть) і квіз під
+    ними. Двері тренера - <b>вугільна смуга з білою дією</b>: та сама вага на сторінці, інший голос - справа,
+    а не турбота, - і вона ніколи не забирає купівельний акцент. Промо каже пропозицію без таймера, смуга довіри -
+    тихі факти з іконкою на кожен, а решта оранжевого - лише кнопка кошика на картці.</p>
+  <div class="scr-grid">
+    <a class="scr" href="index.html"><span class="scr-t">Базовий <span class="badge">гість</span></span><span class="scr-u">рейка категорій, промо-слайдер, вибір цілі, товари, смуга тренера</span></a>
+    <a class="scr" href="home-buyer.html"><span class="scr-t">Покупець</span><span class="scr-u">рівень і бонуси в персональній смузі, повтор замовлення - Job 4</span></a>
+    <a class="scr" href="home-coach.html"><span class="scr-t">Тренер</span><span class="scr-u">тариф Pro, кабінет і «＋ Нова сесія» одразу з головної - Job 1</span></a>
+    <a class="scr" href="home-cart.html"><span class="scr-t">Кошик-полиця</span><span class="scr-u">повернення до покупки: полиця володіє головною дією, персональна смуга поступається</span></a>
+  </div>
+
+  <div class="section-h" id="account">
+    <span class="n">7.x</span>
+    <h2>Кабінет покупця</h2>
+    <span class="hint">приватна зона · оранжевий = дія, золото = лояльність, стан говорить кольором стану</span>
+  </div>
+  <p class="lead" style="margin:0 0 18px">Кабінет - не вітрина, тому колір тут розкладено інакше. <b>Оранжевий</b>
+    лишається тим, чим був завжди: дія і місце, де ви стоїте (повторити замовлення, у кошик, поточний розділ).
+    <b>Золото</b> (та сама фарба, що й бонусна цифра на оформленні) веде історію <b>лояльності</b>: баланс,
+    прогрес, досягнуті щаблі, нарахування - це <b>статус, а не дія</b>, і саме тут він є темою сторінки.
+    <b>Стан замовлення</b> говорить кольорами стану: доставлено - спокійний зелений, у дорозі - бурштин,
+    обробляється - сірий; акцент до цього не залучається. Рух бонусів розрізняє <b>списання і згоряння</b>
+    (згоряння - підсвічений рядок і бурштинова цифра): згоряння - це драйвер повернення, воно не має губитись
+    серед звичайних витрат. Кожна цифра - грошi, баланс, телефон, номер замовлення - моноширинна.</p>
+  <div class="scr-grid">
+    <a class="scr" href="account.html"><span class="scr-t">Огляд <span class="badge">7.0</span></span><span class="scr-u">знімок кабінету: поповнити запаси, бонуси, рівень, останнє замовлення + повтор - Job 4</span></a>
+    <a class="scr" href="account-orders.html"><span class="scr-t">Замовлення <span class="badge">7.2/7.3</span></span><span class="scr-u">акордеон: рядок → повна деталізація, розкладка грошей, ТТН, повтор в один дотик</span></a>
+    <a class="scr" href="account-loyalty.html"><span class="scr-t">Знижки та бонуси <span class="badge">7.4</span></span><span class="scr-u">дві механіки + журнал руху бонусів з нарахуванням і згорянням - Job 6</span></a>
+    <a class="scr" href="account-wishlist.html"><span class="scr-t">Обране <span class="badge">7.6</span></span><span class="scr-u">канонічна сітка карток - той самий компонент, що в лістингу</span></a>
+    <a class="scr" href="account-addresses.html"><span class="scr-t">Адреси <span class="badge">7.5</span></span><span class="scr-u">основна адреса = обрана: акцентний контур, мова вибору з оформлення</span></a>
+    <a class="scr" href="account-profile.html"><span class="scr-t">Профіль <span class="badge">7.1</span></span><span class="scr-u">без пароля: вхід за кодом, перемикач розсилки, видалення акаунта тихим лінком</span></a>
+    <a class="scr" href="account-empty.html"><span class="scr-t">Порожньо</span><span class="scr-u">новий акаунт: нулі в лічильниках, бронза на старті, порожні блоки - це задачі</span></a>
+    <a class="scr" href="account-loading.html"><span class="scr-t">Завантаження</span><span class="scr-u">скелет оболонки в теплій нейтралі</span></a>
+    <a class="scr" href="account-error.html"><span class="scr-t">Помилка</span><span class="scr-u">дані не прийшли - оболонка й навігація цілі, вихід один дотик</span></a>
+  </div>
+
+  <p class="foot-note">Це засів <b>етапу 06</b>: мова доведена на еталоні й станах. Кожне рішення (колір, форма, шрифт,
+    іконка) має пару в <b>DESIGN-artifacts.md</b> / стенді <code>concept.html</code>. Повний UI + Visual - кіт компонентів
+    і <b>всі</b> екрани в кольорі - це <b>етап 07</b>; тоді ця сторінка доросте до повної карти кольорового прототипу.</p>
+</main>
+
+
+<script>
+window.NAV_BASE = '../';
+window.NAV_SECTIONS = [{"id": "states", "label": "Доменні стани"}, {"id": "pdp", "label": "Стани картки"}, {"id": "auth", "label": "Кроки входу"}, {"id": "cart", "label": "Стани кошика"}, {"id": "checkout", "label": "Стани оформлення"}, {"id": "home", "label": "Ролі на головній"}, {"id": "account", "label": "Розділи кабінету"}];
+</script>
+<script src="../_nav.js"></script>
+</body>
+</html>

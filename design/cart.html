@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Кошик - Stack (wireframe 6.0)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 6.0 Кошик (base = 3 items, buyer).
+  Right-side drawer over a dimmed page. Quick view: items + total only.
+  No discount/bonus/delivery breakdown here - those live at checkout (6.1).
+  CTA → checkout.html (6.1). States: empty, oos.
+  Component CSS lives in _wf.css §CART DRAWER; qty/remove behaviour in _nav.js (wfCart).
+  Each line declares its unit price in data-unit - every figure is computed from it.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+
+<!-- dimmed page behind the drawer (minimal) -->
+<div class="wf-canvas">
+  <header id="wf-header"></header>
+  <main class="cart-behind" aria-hidden="true">
+    <h2>Каталог</h2>
+    <p>Сторінка під кошиком - кошик відкрито поверх неї.</p>
+    <div class="ph-grid"><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div></div>
+  </main>
+  <footer id="wf-footer"></footer>
+</div>
+
+<!-- ===== CART DRAWER ===== -->
+<div class="cart-ov" id="cart-ov"><a href="index.html" aria-label="Закрити кошик" style="position:absolute;inset:0;display:block"></a></div>
+<aside class="cart-drawer" role="dialog" aria-modal="true" aria-label="Кошик">
+  <header class="cd-head">
+    <h1>Кошик <span class="cd-cnt">3 товари</span></h1>
+    <a class="cd-x" href="index.html" aria-label="Закрити">✕</a>
+  </header>
+
+  <div class="cd-body">
+    <!-- item 1 -->
+    <article class="ci" data-unit="1290" data-old="1520">
+      <a href="product.html" class="ci-ph">фото</a>
+      <div class="ci-mid">
+        <div class="ci-brand">Optimum Nutrition · США</div>
+        <a href="product.html" class="ci-nm">Gold Standard 100% Whey 2270 г</a>
+        <div class="ci-var">Смак: Подвійний шоколад</div>
+        <div class="ci-row">
+          <div class="ci-qty"><button aria-label="Менше">−</button><span class="qn">1</span><button aria-label="Більше">+</button></div>
+          <div class="ci-price"><span class="ci-oldline"><span class="ci-old">1 520 ₴</span><span class="ci-cut">−15%</span></span><span class="ci-sum">1 290 ₴</span><span class="ci-per"></span></div>
+        </div>
+        <div class="ci-links">
+          <button class="ci-lnk">♡ В обране</button>
+          <button class="ci-lnk">🗑 Видалити</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- item 2 -->
+    <article class="ci" data-unit="1050">
+      <a href="product.html" class="ci-ph">фото</a>
+      <div class="ci-mid">
+        <div class="ci-brand">BioTechUSA · Угорщина</div>
+        <a href="product.html" class="ci-nm">Iso Whey Zero 908 г</a>
+        <div class="ci-var">Смак: Ваніль</div>
+        <div class="ci-row">
+          <div class="ci-qty"><button aria-label="Менше">−</button><span class="qn">2</span><button aria-label="Більше">+</button></div>
+          <div class="ci-price"><span class="ci-sum">2 100 ₴</span><span class="ci-per">1 050 ₴ / шт</span></div>
+        </div>
+        <div class="ci-links">
+          <button class="ci-lnk">♡ В обране</button>
+          <button class="ci-lnk">🗑 Видалити</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- item 3 -->
+    <article class="ci" data-unit="549">
+      <a href="product.html" class="ci-ph">фото</a>
+      <div class="ci-mid">
+        <div class="ci-brand">OstroVit · Польща</div>
+        <a href="product.html" class="ci-nm">Creatine Monohydrate 500 г</a>
+        <div class="ci-var">Без смаку</div>
+        <div class="ci-row">
+          <div class="ci-qty"><button aria-label="Менше">−</button><span class="qn">1</span><button aria-label="Більше">+</button></div>
+          <div class="ci-price"><span class="ci-sum">549 ₴</span><span class="ci-per"></span></div>
+        </div>
+        <div class="ci-links">
+          <button class="ci-lnk">♡ В обране</button>
+          <button class="ci-lnk">🗑 Видалити</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <footer class="cd-foot">
+    <div class="cd-total"><span>Разом</span><b>3 939 ₴</b></div>
+    <div class="cd-hint">Знижка й бонуси - на оформленні</div>
+    <a class="btn dark cd-cta" href="checkout.html">Оформити замовлення</a>
+    <a class="btn cd-cont" href="index.html">Продовжити покупки</a>
+  </footer>
+</aside>
+
+<div id="wf-toast"></div>
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>wfHeader('guest', {cart:3, cartSum:'3 939 ₴'}); wfFooter(); wfToasts(); wfCart(); wfBar('cart.html');
+        uivFixLinks(); uivBar(); uivChrome(); uivCart();</script>
+</body>
+</html>

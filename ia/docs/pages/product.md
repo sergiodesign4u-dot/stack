@@ -54,7 +54,10 @@
    (anchor links to the page sections). **On scroll the tab bar sticks under the simplified header
    (the sticky header variant — main bar only, no meta bar) and becomes part of it**; on the right it
    gains a **compact price (with or without discount) + «Купити» + ♡** so the action is reachable at any
-   scroll depth. Active tab highlights by scroll position. (Header sticky variant spec: `navigation.md`.)
+   scroll depth. Active tab highlights by scroll position (scroll-spy: `wfPdpSpy()` in
+   `wireframes/_nav.js`, shared by the grey prototype and the coloured copy since 2026-07-29 —
+   before that the tabs kept whatever `.on` the markup shipped with). (Header sticky variant
+   spec: `navigation.md`.)
    **The shelf carries the WHOLE price fact, not just the live figure (locked 2026-07-29):** when the
    product is discounted, the struck old price + the −% badge sit ABOVE the figure, exactly as in the
    buy box, and the two-row block is vertically centred on the CTA. A discount the page states must
@@ -149,7 +152,7 @@
 | Error (details failed) | Inline error + **«Спробувати ще»** (retry), per the flow's `se → qr` recovery. |
 | Added to cart | Confirmation (toast / mini-cart drawer) with «Перейти в кошик» + «Продовжити». |
 | Coach in-session | CTA = **«Додати клієнту»**; tier price shown (per category 2.1 coach state). |
-| Unsure buyer | Same-screen route to Reviews (3.1) + certificate content before any leave (flow recovery). |
+| Unsure buyer | Same-screen route to Reviews (3.1) + certificate content before any leave (flow recovery). **Layout (locked 2026-07-30):** proof (certificate + reviews) in the main column, the product itself in a **pinned card beside it that follows the scroll**. The pinned card **is the canonical product card** (the same component as the listing grid — photo · brand · name · availability · price row with the compact cart button · rating · per-serving/bonus), plus a quiet «← Повернутись до колекції» under it; no bespoke panel, so it can never drift from the card language. The two bare CTAs at the page bottom are gone: the decision can be made at any point in the reading, and both exits live in the card. Mobile: the card moves **above** the proof as compact context (horizontal, photo left) and the **sticky buy bar** carries the persistent action. |
 | Reviews: many | Paginated list; rating + breakdown on top. |
 | Reviews: few | Simple list, no pagination. |
 | Review without cons | Empty «Недоліки» hidden; show only filled pros/cons. |
@@ -235,7 +238,9 @@ are always above the fold**. Tab «Каталог» active.
 - Calm honest availability with «Повідомити» + route back to collection (no dead end).
 - **Reviews (3.1):** name+rating+date LEFT ↔ text RIGHT; **Переваги/Недоліки** (may be empty);
   photos; **replies** (expand/collapse, dates, photos); **shop reply = special chip (logo, not name)**;
-  states **many → paginated / few → no pagination**. Certificate + reviews = conversion recovery.
+  states **many → paginated / few → no pagination**. Certificate + reviews = conversion recovery —
+  in that state the product is **pinned beside the proof and follows the scroll** (locked 2026-07-30;
+  full description in States), instead of two bare CTAs waiting at the bottom of the page.
 - **Questions (3.2):** «Поставити запитання» = **dialog form** → Q&A feed; shop (chip) / buyers
   answer; **no rating, no pros/cons**.
 - **Статті по темі (blog 8.0/8.1)** section before footer.

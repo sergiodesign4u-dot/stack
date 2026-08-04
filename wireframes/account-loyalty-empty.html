@@ -6,18 +6,6 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Кабінет - Знижки та бонуси (порожньо) - Stack (wireframe 7.4)</title>
 <link rel="stylesheet" href="_wf.css">
-<style>
-  /* page-local: two-mechanism layout + ledger table (greyscale) */
-  .loy-two { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
-  @media (min-width: 760px) { .loy-two { grid-template-columns: 1fr 1fr; } }
-  .loy-two .acard { padding: 18px; }
-  .mech-kicker { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--light); }
-  .led-wrap { border: 1px solid var(--hair); border-radius: 14px; overflow: hidden; margin-top: 22px; }
-  .led-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 15px 16px 13px; border-bottom: 1px solid var(--hair); }
-  .led-head h2 { font-size: 16px; font-weight: 800; color: var(--strong); }
-  .led-empty { padding: 34px 20px; text-align: center; color: var(--sec); font-size: 13.5px; line-height: 1.5; }
-  .led-empty b { color: var(--strong); display: block; margin-bottom: 4px; font-size: 15px; }
-</style>
 </head>
 <body>
 <!-- ============================================================
@@ -31,7 +19,7 @@
 
 <main class="wf-page">
   <nav class="crumb" aria-label="Хлібні крихти">
-    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="index.html">Головна</a><span class="sep">/</span>
     <a href="account.html">Кабінет</a><span class="sep">/</span>
     <span class="cur">Знижки та бонуси</span>
   </nav>
@@ -56,13 +44,13 @@
         <!-- mechanism 2 - lifetime-spend discount ladder (empty: base tier, 0%) -->
         <div class="acard loy">
           <div class="ah"><span class="mech-kicker">Рівень лояльності</span></div>
-          <div class="lt">Базовий · персональна знижка 0%</div>
+          <div class="lt">🫙 Базовий рівень · персональна знижка 0%</div>
           <div class="lbar"><i style="width:0%"></i></div>
           <div class="ls">Куплено на <b>0 ₴</b> за весь час · до 🥉 Бронзи ще <b>3 000 ₴</b></div>
           <div class="ladder">
-            <div class="lrung"><span class="rn">🥉 Бронза</span>−3%</div>
-            <div class="lrung"><span class="rn">🥈 Срібло</span>−5%</div>
-            <div class="lrung"><span class="rn">🥇 Золото</span>−8%</div>
+            <div class="lrung next"><span class="rn">🥉 Бронза</span>−3%<span class="rs">наступний</span></div>
+            <div class="lrung locked"><span class="rn">🥈 Срібло</span>−5%<span class="rs">ще не відкрито</span></div>
+            <div class="lrung locked"><span class="rn">🥇 Золото</span>−8%<span class="rs">ще не відкрито</span></div>
           </div>
           <div class="abonus"><div class="warn" style="margin-top:14px"><b>Сума покупок не згорає.</b> Що більше купуєте за весь час - то вищий рівень і більша автоматична знижка в кошику. Пороги та % - попередні [?].</div></div>
         </div>

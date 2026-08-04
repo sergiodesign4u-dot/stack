@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stack - дизайн-процес</title>
+<link rel="icon" type="image/svg+xml" href="design/concept/assets/logo-s.svg">
+<link rel="stylesheet" href="./_nav.css">
+<style>
+  :root {
+    --bg: #f7f6f3; --surface: #fff; --border: #e5e2db;
+    --text: #1c1c1c; --muted: #6b6760; --light: #9b9790; --accent: #ff5a00;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, system-ui, sans-serif;
+    background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 900px; margin: 0 auto; padding: 68px 24px 80px; }
+  @media (min-width: 860px) { .page { margin-left: 220px; padding: 64px 48px 96px; } }
+
+  .hero { padding-bottom: 40px; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+  .hero-tag {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .09em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 18px;
+  }
+  h1 { font-size: clamp(32px, 5vw, 46px); font-weight: 700; letter-spacing: -.03em; line-height: 1.1; }
+  .lead { font-size: 18px; color: var(--muted); max-width: 620px; margin-top: 18px; }
+
+  h2 {
+    font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--light); margin: 44px 0 16px;
+  }
+
+  .stage {
+    display: flex; align-items: baseline; gap: 14px; padding: 13px 16px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    margin-bottom: 7px; text-decoration: none; color: inherit;
+  }
+  a.stage:hover { border-color: #cfc9be; }
+  .stage-no { font-size: 12px; font-weight: 700; color: var(--light); min-width: 22px; font-variant-numeric: tabular-nums; }
+  .stage-name { font-weight: 600; flex: 1; }
+  .stage-pages { font-size: 13px; color: var(--light); }
+  .stage.is-soon { background: none; border-style: dashed; }
+  .stage.is-soon .stage-name { color: var(--light); font-weight: 500; }
+  .tag {
+    font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    padding: 3px 7px; border-radius: 100px; white-space: nowrap;
+  }
+  .tag-done { color: #2d5a3d; background: #e8f0ea; }
+  .tag-part { color: #8a5a0e; background: #fbf0dd; }
+  .tag-next { color: #fff; background: var(--accent); }
+  .tag-soon { color: var(--muted); background: #eae7e0; }
+
+  .note {
+    margin-top: 44px; padding: 18px 20px; border-left: 2px solid var(--border);
+    font-size: 14.5px; color: var(--muted);
+  }
+  .note code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: var(--text); }
+  .note a { color: var(--text); }
+</style>
+</head>
+<body>
+<aside id="sidebar"></aside>
+
+<main class="page">
+  <div class="hero">
+    <div class="hero-tag">Дизайн-процес продукту</div>
+    <h1>Stack</h1>
+    <p class="lead">
+      Магазин спортивного харчування для українського ринку, побудований навколо тренерів,
+      які замовляють для своїх спортсменів. Нижче - маршрут проєкту: дванадцять етапів
+      від дослідження до хендофу.
+    </p>
+  </div>
+
+  <h2>Маршрут</h2>
+  <div id="roadmap"></div>
+
+  <div class="note">
+    Джерела правди - у <code>docs/</code> кожного етапу. Правила проєкту - <a href="CLAUDE.md">CLAUDE.md</a>,
+    записи рішень - <a href="docs/decisions.md">docs/decisions.md</a>, статуси - <a href="README.md">README.md</a>
+    і цей маршрут. Маршрут читається з того самого реєстру <code>/_nav.js</code>, що й бокова панель,
+    тому розійтися з нею він не може.
+  </div>
+</main>
+
+<script>
+window.NAV_BASE = './';
+window.NAV_SECTIONS = [{ "id": "roadmap", "label": "Маршрут" }];
+</script>
+<script src="./_nav.js"></script>
+<script>
+/* The roadmap on this page is rendered from the SAME registry as the sidebar,
+   so a stage can never be listed here with a status the panel does not show. */
+(function () {
+  var box = document.getElementById('roadmap');
+  var pagesOf = function (s) { return s.children ? s.children.filter(function (c) { return c.page; }) : (s.page ? [s] : []); };
+
+  var nextIndex = -1;
+  for (var i = 0; i < NAV.length; i++) {
+    var ps = pagesOf(NAV[i]);
+    if (!ps.length || ps.some(function (p) { return !p.done; })) { nextIndex = i; break; }
+  }
+
+  box.innerHTML = NAV.map(function (stage, i) {
+    var ps = pagesOf(stage);
+    var done = ps.filter(function (p) { return p.done; });
+    var state = !ps.length || !done.length ? 'soon' : done.length === ps.length ? 'done' : 'partial';
+    var tag = state === 'done' ? '<span class="tag tag-done">Готово</span>'
+      : i === nextIndex ? '<span class="tag tag-next">Next</span>'
+      : state === 'partial' ? '<span class="tag tag-part">' + done.length + ' / ' + ps.length + '</span>'
+      : '<span class="tag tag-soon">Soon</span>';
+    var count = ps.length > 1 ? '<span class="stage-pages">' + ps.length + ' сторінки</span>' : '';
+    var no = '<span class="stage-no">' + (i + 1 < 10 ? '0' : '') + (i + 1) + '</span>';
+    var inner = no + '<span class="stage-name">' + stage.label + '</span>' + count + tag;
+    return done.length
+      ? '<a class="stage" href="' + done[0].page + '">' + inner + '</a>'
+      : '<div class="stage is-soon">' + inner + '</div>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

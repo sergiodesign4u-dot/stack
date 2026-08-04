@@ -10,7 +10,6 @@
   .recbanner { border:1px solid var(--hair); background:var(--fill2); border-radius:12px; padding:16px 18px; margin:8px 0 22px; }
   .recbanner .rt { font-size:16px; font-weight:800; color:var(--strong); }
   .recbanner .rs { font-size:13px; color:var(--sec); margin-top:4px; }
-  .reccta { display:flex; gap:10px; flex-wrap:wrap; margin-top:24px; }
 </style>
 </head>
 <body>
@@ -21,7 +20,7 @@
 
 <main class="wf-page">
   <nav class="crumb" aria-label="Хлібні крихти">
-    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="index.html">Головна</a><span class="sep">/</span>
     <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
     <a href="listing.html">Протеїн</a><span class="sep">/</span>
     <a href="product.html">Gold Standard 100% Whey</a><span class="sep">/</span>
@@ -37,6 +36,10 @@
         сертифікат відповідності - перш ніж вирішувати.</div>
     </div>
   </div>
+
+  <!-- proof on the left, the product it is about pinned on the right (locked 2026-07-30) -->
+  <div class="revcols">
+  <div class="revmain">
 
   <!-- certificate (viewable - real content) -->
   <section aria-label="Сертифікація">
@@ -82,14 +85,42 @@
     <div class="pgnav"><button class="loadmore">Показати ще відгуки (з 126)</button><div class="pages"><button class="on" type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">›</button></div></div>
   </section>
 
-  <!-- recovery CTAs: convinced → cart; still not → back to collection -->
-  <div class="reccta">
-    <a class="btn dark" href="cart.html">У кошик</a>
-    <a class="btn" href="listing.html">Повернутись до колекції</a>
-  </div>
+  </div><!-- /revmain -->
+
+  <!-- the product the reviews are about: the CANONICAL card (same component as the listing
+       grid), pinned so it follows the scroll. Both exits stay - convinced → cart, still not →
+       back to the collection (no dead end) -->
+  <aside class="pmini" aria-label="Товар, про який відгуки">
+    <article class="pcard">
+      <a href="product.html" class="ph">фото</a>
+      <button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Optimum Nutrition · США</div>
+        <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2">
+          <div class="pcol">
+            <div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div>
+            <span class="pnew">1 290 ₴</span>
+          </div>
+          <button class="cartbtn" aria-label="У кошик">🛒</button>
+        </div>
+        <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+      </div>
+    </article>
+    <a class="pmback" href="listing.html">← Повернутись до колекції</a>
+  </aside>
+  </div><!-- /revcols -->
 </main>
 
 <footer id="wf-footer"></footer>
+</div>
+
+<!-- sticky mobile buy bar: on mobile the pinned card is context, the bar is the action -->
+<div class="mbuybar">
+  <div class="mbp"><span class="mold">1 520 ₴</span><span class="mcut">−15%</span><b>1 290 ₴</b></div>
+  <a class="mba" href="cart.html">У кошик</a>
 </div>
 <div id="wf-sheet"></div>
 <div id="wf-pdp-modals"></div>

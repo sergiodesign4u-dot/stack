@@ -1,7 +1,7 @@
 /* ============================================================
    Stack - Wireframes navigation (_nav.js)
-   ONE source of truth (mirrors wireframes/_screens.md).
-   Powers: (a) the «Всі екрани» tree on index.html  → wfTree('id')
+   ONE source of truth (mirrors wireframes/docs/screens.md).
+   Powers: (a) the «Всі екрани» tree on overview.html  → wfTree('id')
            (b) the thin prototype bar on each screen → wfBar('file.html')
    Flip built:true / add to builtStates as screens/states are drawn.
    ============================================================ */
@@ -28,7 +28,7 @@ const WF_FLOWS = [
     id: 'f1', name: 'Флоу 1 · Покупець-новачок', status: 'active',
     note: 'Головна → Категорія → Картка товару → Кошик → Оформлення → Замовлення',
     screens: [
-      { file: 'home.html',         name: 'Головна',              node: '0.0', built: true,  states: ['buyer','coach','cart'], builtStates: ['buyer','coach','cart'] },
+      { file: 'index.html',         name: 'Головна',              node: '0.0', built: true,  states: ['buyer','coach','cart'], builtStates: ['buyer','coach','cart'] },
       { file: 'listing.html',      name: 'Категорія (лістинг)',  node: '2.1', built: true,  states: ['filtered','list','sheet','empty','loading','error'], builtStates: ['filtered','list','sheet','empty','loading','error'] },
       { file: 'goal.html',         name: 'Ціль-колекція',        node: '2.2', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'quiz.html',         name: 'Квіз (підбір за ціллю)', node: '4.x', built: true, states: [], builtStates: [] },
@@ -116,12 +116,12 @@ const WF_FLOWS = [
    WF_SITEMAP - the COMPLETE product map by IA cluster (0–8 + system).
    Every product page: `file` = built wireframe (→ links to it, shows view
    count via WF_FLOWS lookup); `ia` = not-yet-built (→ links to its IA spec,
-   dashed). Single source for the «Повна карта сайту» block on index.html.
+   dashed). Single source for the «Повна карта сайту» block on overview.html.
    As screens get built, move an entry from `ia:` to `file:`.
    ============================================================ */
 const WF_SITEMAP = [
   { cluster: '0 · Глобальне', items: [
-    { node: '0.0',  name: 'Головна',                          file: 'home.html' },
+    { node: '0.0',  name: 'Головна',                          file: 'index.html' },
     { node: '0.1',  name: 'Мега-меню «Каталог» (оверлей + стани)', file: 'megamenu.html' },
     { node: '0.0',  name: 'Рейка категорій з головної (flyout)', file: 'home-catalog.html' },
     { node: '0.2',  name: 'Футер',                             ia: 'footer.html' },
@@ -203,7 +203,7 @@ function wfFindScreen(file) {
   return null;
 }
 
-/* (a) full tree for index.html */
+/* (a) full tree for overview.html */
 function wfTree(elId) {
   const root = document.getElementById(elId);
   if (!root) return;
@@ -238,7 +238,7 @@ function wfTree(elId) {
   root.innerHTML = html;
 }
 
-/* (a2) full product sitemap for index.html - every page by cluster; built → wireframe
+/* (a2) full product sitemap for overview.html - every page by cluster; built → wireframe
    (with view count = base + built states), not-built → its IA spec (dashed). */
 function wfFullMap(elId) {
   const root = document.getElementById(elId);
@@ -273,7 +273,7 @@ function wfBar(baseFile, currentState) {
   const found = wfFindScreen(baseFile);
   const bar = document.getElementById('wf-bar');
   if (!bar) return;
-  let html = '<a href="index.html">« Всі екрани</a><span class="sepb">·</span>';
+  let html = '<a href="overview.html">« Всі екрани</a><span class="sepb">·</span>';
   if (found) {
     html += '<span>' + found.flow.name + '</span><span class="sepb">·</span>';
     html += '<span class="cur">' + found.screen.name + ' ' + found.screen.node + '</span>';
@@ -288,6 +288,13 @@ function wfBar(baseFile, currentState) {
     html += '<span class="sepb">·</span><span>Стани:</span> ' + parts.join(' ');
   }
   bar.innerHTML = html;
+  /* The bar paints ABOVE modals (z 80) so the stand stays usable with a dialog open —
+     which clipped the head of any dialog pinned to the top of the viewport (the cart
+     drawer). It wraps, so its height is not a constant: publish the measured value and
+     let the drawer start below it. */
+  const barH = () => document.documentElement.style.setProperty('--wfbar-h', bar.offsetHeight + 'px');
+  barH();
+  window.addEventListener('resize', barH);
 }
 
 /* ============================================================
@@ -299,7 +306,7 @@ function wfBar(baseFile, currentState) {
    brands.html. ============================================================ */
 /* canonical badge counts (wireframe) - cart items + saved favourites */
 const WF_CART_COUNT = 3;
-const WF_FAV_COUNT = 4;
+const WF_FAV_COUNT = 6;   /* = the 6 cards on account-wishlist.html: header badge, tab badge and the page must agree */
 const WF_CAT_MENU = [
   { name: 'Протеїн', href: 'listing.html', ic: '🥛', goals: ['Набір маси', 'Схуднення', 'Відновлення'],
     subs: ['Сироватковий (концентрат)', 'Ізолят', 'Гідролізат', 'Казеїн', 'Комплексний', 'Яловичий', 'Рослинний (соя/горох/рис)', 'Яєчний'],
@@ -410,7 +417,7 @@ function wfMegaCatPanel(c, i) {
     '<div class="mega-groups">' + grp + '</div>' + goalrow + '</div>';
 }
 /* Home category rail with a flyout that opens as an OVERLAY (Comfy-home style).
-   Shared by home.html (hover-to-open, closed by default) and home-catalog.html
+   Shared by index.html (hover-to-open, closed by default) and home-catalog.html
    (opened on «За ціллю» to demo the overlay). Builds rail + flyout from the same
    WF_CAT_MENU/WF_GOAL_MENU as the header mega, so it never drifts.
    opts: { rail, fly, scrim (selectors), open (bool: open «g» by default) } */
@@ -437,6 +444,10 @@ function wfHomeRail(opts) {
   };
   window.hcClose = function () {
     flyEl.classList.remove('open');
+    /* the rail STAYS on the page when the flyout closes, unlike the header mega-menu
+       whose category column is hidden with it — so its .on has to be cleared here or
+       the last-hovered category stays marked for good (fixed 2026-07-30). */
+    railEl.querySelectorAll('[data-k].on').forEach(function (e) { e.classList.remove('on'); });
     var s = document.querySelector(scrimSel); if (s) s.classList.remove('open');
   };
   if (opts.open) hcFly('g');
@@ -788,7 +799,7 @@ function wfAuthShell(vi, vt, vs, bi, bt1, bt2, inner) {
     '<div class="vmid"><div class="vi">' + vi + '</div>спортивне харчування</div>' +
     '<div class="vtag"><b>' + vt + '</b>' + vs + '</div></aside>' +
     '<div class="auth-form"><div class="auth-top"><span class="auth-mlogo">Stack</span>' +
-    '<button class="auth-x" onclick="closeAuth()" aria-label="Закрити">✕ Закрити</button></div>' +
+    '<button class="auth-x" onclick="closeAuth()" aria-label="Закрити" title="Закрити">✕</button></div>' +
     '<div class="auth-banner"><div class="bi">' + bi + '</div><div class="bt"><b>' + bt1 + '</b>' + bt2 + '</div></div>' +
     inner + '</div></div>';
 }
@@ -862,7 +873,32 @@ function wfAuthPanel(state) {
    otherwise closes in place + toast («return to the triggering action»). */
 var wfAuthDest = null;
 function openAuth(state, dest) { wfAuthMount(); wfAuthDest = dest || null; wfAuthGo(state || 'phone'); var ov = document.getElementById('wf-auth'); if (ov) ov.classList.add('open'); }
-function wfAuthGo(state) { wfAuthMount(); var ov = document.getElementById('wf-auth'); if (ov) { ov.dataset.state = state; ov.innerHTML = wfAuthPanel(state); } }
+/* Numeric fields take numbers, full stop: the phone field and the six code boxes drop
+   anything that is not a digit as it is typed (owner's call 2026-07-30). The phone is
+   also grouped 67 123 45 67 while typing, so what a person types looks like the number
+   they know. Re-applied after every render - the panel is rebuilt on each step. */
+function wfAuthDigits(ov) {
+  if (!ov) return;
+  var ph = ov.querySelector('#wfa-phone');
+  if (ph) {
+    ph.addEventListener('input', function () {
+      var d = ph.value.replace(/\D/g, '').slice(0, 9);
+      var out = d.slice(0, 2);
+      if (d.length > 2) out += ' ' + d.slice(2, 5);
+      if (d.length > 5) out += ' ' + d.slice(5, 7);
+      if (d.length > 7) out += ' ' + d.slice(7, 9);
+      ph.value = out;
+    });
+  }
+  ov.querySelectorAll('.otp .box').forEach(function (b) {
+    b.addEventListener('input', function () {
+      b.value = b.value.replace(/\D/g, '').slice(0, 1);
+      b.classList.toggle('on', !!b.value);
+      if (b.value && b.nextElementSibling) b.nextElementSibling.focus();   // auto-advance
+    });
+  });
+}
+function wfAuthGo(state) { wfAuthMount(); var ov = document.getElementById('wf-auth'); if (ov) { ov.dataset.state = state; ov.innerHTML = wfAuthPanel(state); wfAuthDigits(ov); } }
 function closeAuth() { var ov = document.getElementById('wf-auth'); if (ov) ov.classList.remove('open'); }
 function wfAuthDone() {
   if (wfAuthDest) { location.href = wfAuthDest; return; }  // explicit twin (e.g. order-placed → account-end)
@@ -1074,31 +1110,38 @@ const WF_ACC_LINKS = [
   { k: 'overview',  href: 'account.html',           ic: '▦', label: 'Огляд' },
   { k: 'orders',    href: 'account-orders.html',     ic: '📦', label: 'Замовлення', ct: '12' },
   { k: 'loyalty',   href: 'account-loyalty.html',    ic: '★', label: 'Знижки та бонуси' },
-  { k: 'wishlist',  href: 'account-wishlist.html',   ic: '♡', label: 'Обране', ct: '8' },
+  { k: 'wishlist',  href: 'account-wishlist.html',   ic: '♡', label: 'Обране', ct: '6' },
   { k: 'addresses', href: 'account-addresses.html',  ic: '📍', label: 'Адреси', ct: '2' },
   { k: 'profile',   href: 'account-profile.html',    ic: '👤', label: 'Профіль' },
 ];
-function wfAccountNav(active, isCoach) {
+/* opts: { counts: {orders, wishlist, addresses}, tier } — the empty-account state needs
+   zero counters and a starting tier. It used to hand-write the whole nav instead, which
+   is how it drifted: a second buyer persona in the rail while the header dropdown showed
+   the canonical one, and the sections in a different order. */
+function wfAccountNav(active, isCoach, opts) {
   const el = document.getElementById('acc-nav'); if (!el) return;
+  opts = opts || {};
+  const counts = opts.counts;
   el.className = 'acc-nav';
   let links = '';
   WF_ACC_LINKS.forEach(l => {
     const cur = l.k === active ? ' aria-current="page"' : '';
-    const ct = l.ct ? '<span class="ct">' + l.ct + '</span>' : '';
+    const n = counts && (l.k in counts) ? String(counts[l.k]) : l.ct;
+    const ct = (n != null && n !== '') ? '<span class="ct">' + n + '</span>' : '';
     links += '<a class="acc-link" href="' + l.href + '"' + cur + '><span class="ic">' + l.ic + '</span> ' + l.label + ' ' + ct + '<span class="ar">›</span></a>';
   });
   // become-a-coach vs already-a-coach (role active)
   links += isCoach
     ? '<a class="acc-link" href="coach-home.html"><span class="ic">🎓</span> Кабінет тренера <span class="ar">›</span></a>'
     : '<a class="acc-link" href="coach-verify.html"><span class="ic">🎓</span> Стати тренером <span class="ar">›</span></a>';
-  links += '<a class="acc-link logout" href="home.html"><span class="ic">⎋</span> Вийти</a>';
+  links += '<a class="acc-link logout" href="index.html"><span class="ic">⎋</span> Вийти</a>';
   const nm = isCoach ? 'Олена Кравець' : 'Вікторія Коваль';
   const av = isCoach ? 'ОК' : 'ВК';
   const ph = isCoach ? '+380 ** *** 21 09' : '+380 ** *** 45 67';
   el.innerHTML =
     '<div class="acc-prof"><div class="av">' + av + '</div><div class="who">' +
     '<div class="nm">' + nm + '</div><div class="ph">' + ph + '</div>' +
-    '<span class="acc-tier">' + (isCoach ? 'Pro · Тренер' : '🥈 Срібний рівень') + '</span></div></div>' +
+    '<span class="acc-tier">' + (opts.tier || (isCoach ? 'Pro · Тренер' : '🥈 Срібний рівень')) + '</span></div></div>' +
     '<nav class="acc-links" aria-label="Розділи кабінету">' + links + '</nav>';
 }
 
@@ -1127,7 +1170,7 @@ function wfCoachNav(active, opts) {
     link('wishlist', 'coach-wishlist.html', '♡', 'Обране', c.wishlist) +
     link('tariff', 'coach-tariff.html', '◈', 'Тариф', null) +
     '<a class="acc-link buyer" href="account.html?r=coach"><span class="ic">👤</span> Профіль / акаунт покупця <span class="ar">›</span></a>' +
-    '<a class="acc-link logout" href="home.html"><span class="ic">⎋</span> Вийти</a>';
+    '<a class="acc-link logout" href="index.html"><span class="ic">⎋</span> Вийти</a>';
   const chip = (tier === 'Free')
     ? '<span class="acc-tier free">Free · Тренер</span>'
     : '<span class="acc-tier">Pro · Тренер</span>';
@@ -1151,6 +1194,300 @@ function wfToast(type, msg) {
 }
 
 /* ============================================================
+   7.6 ОБРАНЕ — removal. The page lists things that are ALREADY saved, so its card
+   control is «Видалити з обраного», not a heart (a heart there can only mean unsave,
+   which is not what a heart says). Removing has to keep every counter telling the
+   same story - grid, page count, section nav, header badge - or the screen ends up
+   with three answers to «скільки збережено», the drift we keep finding elsewhere.
+   ============================================================ */
+function wfPluralUA(n, one, few, many) {
+  const d = n % 10, h = n % 100;
+  if (d === 1 && h !== 11) return one;
+  if (d >= 2 && d <= 4 && (h < 12 || h > 14)) return few;
+  return many;
+}
+/* how many are SAVED - which on the «many» state is not how many are rendered (that page
+   shows 12 of 42). Read the total the page already states, and only fall back to counting
+   cards when nothing states it. */
+function wfWishlistTotal() {
+  const label = document.querySelector('.wl-count');
+  if (label) { const m = label.textContent.replace(/\s/g, '').match(/\d+/); if (m) return parseInt(m[0], 10); }
+  const ct = document.querySelector('#acc-nav a.acc-link[href*="wishlist"] .ct');
+  if (ct && /^\d+$/.test(ct.textContent.trim())) return parseInt(ct.textContent.trim(), 10);
+  return document.querySelectorAll('.acc-main .pcard').length;
+}
+function wfWishlistCount(n) {
+  const label = document.querySelector('.wl-count');
+  if (label) label.textContent = n + ' ' + wfPluralUA(n, 'товар', 'товари', 'товарів') + ' збережено';
+  document.querySelectorAll('#acc-nav a.acc-link[href*="wishlist"] .ct').forEach(c => { c.textContent = String(n); });
+  /* header badge AND the mobile tab badge - the cart updates the same pair (wfCartBadge) */
+  document.querySelectorAll('a[href*="wishlist"] .hb, a[href*="wishlist"] .tbadge')
+    .forEach(b => { n > 0 ? b.textContent = String(n) : b.remove(); });
+  const more = document.querySelector('.loadmore');
+  if (more) more.textContent = more.textContent.replace(/\(з\s*\d+\)/, '(з ' + n + ')');
+}
+function wfWishlistEmpty(grid) {
+  const box = document.createElement('div');
+  box.className = 'emptybox';
+  box.innerHTML =
+    '<div class="ei">♡</div>' +
+    '<div class="et">В обраному поки порожньо</div>' +
+    '<div class="es">Натискайте ♥ на картці товару - і він збережеться тут. Зручно збирати набір і повертатися до нього пізніше.</div>' +
+    '<div class="eact"><a class="btn dark" href="index.html">Обрати ціль</a>' +
+    '<a class="btn" href="catalog-page.html">До каталогу</a></div>';
+  grid.replaceWith(box);
+  const label = document.querySelector('.wl-count'); if (label) label.remove();
+}
+/* delegated once, so no page has to remember to switch it on */
+document.addEventListener('click', e => {
+  const btn = e.target.closest && e.target.closest('.wlrm');
+  if (!btn) return;
+  e.preventDefault();
+  const card = btn.closest('.pcard'); if (!card) return;
+  const grid = card.parentElement;
+  const left = Math.max(0, wfWishlistTotal() - 1);
+  card.remove();
+  wfWishlistCount(left);
+  if (!document.getElementById('wf-toast')) {
+    const w = document.createElement('div'); w.id = 'wf-toast'; document.body.appendChild(w); wfToasts();
+  }
+  wfToast('info', 'Видалено з обраного');
+  /* the empty state belongs to an empty LIST, not merely an empty page of one */
+  if (!left && !grid.querySelector('.pcard')) wfWishlistEmpty(grid);
+});
+
+/* ============================================================
+   CART DRAWER behaviour (node 6.0) — qty stepper · remove · ♡ В обране.
+   A quick view whose controls do nothing is not a quick view. Every figure is
+   recomputed from ONE source: data-unit on each .ci line. Line total, «Разом»,
+   the item count in the title and the header cart figure therefore cannot drift
+   apart the way five hand-typed numbers would.
+   Runs only where the markup declares prices (.ci[data-unit]) — the coach cart
+   groups by client and prices its lines at the tier rate, so it stays out until
+   it is specced. Removing the last line goes to the empty state, never to a
+   blank drawer (voice.md 5 — states give a way out).
+   ============================================================ */
+function wfMoney(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₴'; }
+function wfPlural(n, one, few, many) {
+  const d = n % 10, h = n % 100;
+  if (d === 1 && h !== 11) return one;
+  if (d >= 2 && d <= 4 && (h < 10 || h >= 20)) return few;
+  return many;
+}
+function wfCartRecalc(drawer) {
+  let sum = 0, lines = 0;
+  drawer.querySelectorAll('.ci').forEach(ci => {
+    const unit = parseFloat(ci.dataset.unit || '0');
+    const qn = ci.querySelector('.qn');
+    const q = Math.max(1, parseInt((qn && qn.textContent) || '1', 10) || 1);
+    lines++;
+    if (ci.classList.contains('oos')) return;      // недоступне не входить у суму
+    sum += unit * q;
+    const price = ci.querySelector('.ci-price');
+    if (!price) return;
+    const line = price.querySelector('.ci-sum');
+    let per = price.querySelector('.ci-per');
+    if (!per) { per = document.createElement('span'); per.className = 'ci-per'; price.appendChild(per); }
+    /* textContent, not a text node patch: the colour layer wraps the ₴ in its own
+       span, and writing over that node would print the sign twice */
+    if (line) line.textContent = wfMoney(unit * q);
+    per.textContent = q > 1 ? wfMoney(unit) + ' / шт' : '';   // per-unit only when it adds something
+    /* an item that carries a discount keeps carrying it at any quantity: the struck
+       figure scales with qty exactly like the live one, or the two would disagree */
+    const old = parseFloat(ci.dataset.old || '0');
+    const oldEl = price.querySelector('.ci-old');
+    if (old && oldEl) oldEl.textContent = wfMoney(old * q);
+  });
+  const total = drawer.querySelector('.cd-total b');
+  if (total) total.textContent = wfMoney(sum);
+  const cnt = drawer.querySelector('.cd-cnt');
+  if (cnt) cnt.textContent = lines + ' ' + wfPlural(lines, 'товар', 'товари', 'товарів');
+  /* the header carries the same basket — one truth, two places */
+  document.querySelectorAll('.wfh-act.numbtn .val').forEach(v => { v.textContent = wfMoney(sum); });
+  document.querySelectorAll('.wfh-act .hb, .wf-tab .tbadge').forEach(b => { b.textContent = lines; });
+}
+function wfCart() {
+  const drawer = document.querySelector('.cart-drawer');
+  if (!drawer || !drawer.querySelector('.ci[data-unit]') || drawer.dataset.wfcart) return;
+  drawer.dataset.wfcart = '1';
+  drawer.addEventListener('click', e => {
+    const step = e.target.closest('.ci-qty button');
+    if (step && !step.disabled) {
+      const ci = step.closest('.ci'), qn = ci.querySelector('.qn');
+      const q = Math.max(1, parseInt(qn.textContent, 10) || 1);
+      const next = /−|-/.test(step.textContent) ? Math.max(1, q - 1) : Math.min(99, q + 1);
+      qn.textContent = next;
+      wfCartRecalc(drawer);
+      return;
+    }
+    const lnk = e.target.closest('button.ci-lnk');     // <a class="ci-lnk"> navigates, leave it
+    if (!lnk) return;
+    if (/Видалити/.test(lnk.textContent)) {
+      lnk.closest('.ci').remove();
+      if (!drawer.querySelector('.ci')) { location.href = 'cart-empty.html'; return; }
+      wfCartRecalc(drawer);
+      if (typeof wfToast === 'function') wfToast('info', 'Товар прибрано з кошика');
+      return;
+    }
+    if (/обран/i.test(lnk.textContent)) {
+      const on = lnk.classList.toggle('on');
+      lnk.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (typeof wfToast === 'function') wfToast('ok', on ? 'Товар в обраному' : 'Прибрано з обраного');
+    }
+  });
+  wfCartRecalc(drawer);
+}
+
+/* ============================================================
+   CHECKOUT behaviour (node 6.1) — qty · remove · ♡ · delivery/payment choice ·
+   bonus spend · upsell add. The money column is DERIVED, never typed: each row is
+   computed from the lines' data-unit, the chosen delivery's data-price, the loyalty
+   rate on the discount row and the bonus balance. This is the one screen where a
+   control that does not move the total would be unforgivable — and where five
+   hand-typed figures would inevitably disagree with each other.
+   ============================================================ */
+function wfCheckoutRecalc(root) {
+  let sum = 0, lines = 0;
+  root.querySelectorAll('.co-line').forEach(l => {
+    const unit = parseFloat(l.dataset.unit || '0');
+    const qn = l.querySelector('.qn');
+    const q = Math.max(1, parseInt((qn && qn.textContent) || '1', 10) || 1);
+    sum += unit * q; lines++;
+    const price = l.querySelector('.li-price');
+    if (!price) return;
+    const s = price.querySelector('.li-sum');
+    if (s) s.textContent = wfMoney(unit * q);
+    /* an item that carries a discount keeps carrying it at any quantity */
+    const old = parseFloat(l.dataset.old || '0');
+    const o = price.querySelector('.li-old');
+    if (old && o) o.textContent = wfMoney(old * q);
+    const per = price.querySelector('.li-per');
+    if (per) per.textContent = q > 1 ? wfMoney(unit) + ' / шт' : '';
+  });
+  const cnt = root.querySelector('.co-sec-h .cnt');
+  if (cnt) cnt.textContent = '· ' + lines + ' ' + wfPlural(lines, 'товар', 'товари', 'товарів');
+
+  const money = root.querySelector('.co-money');
+  if (!money) return;
+  const row = k => money.querySelector('.co-brow[data-row="' + k + '"]');
+
+  const items = row('items');
+  if (items) {
+    const n = items.querySelector('.n');
+    if (n) n.textContent = lines;
+    items.querySelector('b').textContent = wfMoney(sum);
+  }
+
+  let disc = 0;
+  const dr = row('discount');
+  if (dr) { disc = Math.round(sum * parseFloat(dr.dataset.rate || '0')); dr.querySelector('b').textContent = '−' + wfMoney(disc); }
+
+  let ship = 0;
+  const sr = row('delivery');
+  const chosen = root.querySelector('section[aria-label="Доставка"] .co-opt.on');
+  if (sr) {
+    ship = chosen ? parseFloat(chosen.dataset.price || '0') : 0;
+    const dn = sr.querySelector('.dn');
+    if (dn && chosen) dn.textContent = chosen.dataset.label || '';
+    sr.querySelector('b').textContent = ship ? wfMoney(ship) : 'безкоштовно';
+  }
+
+  /* bonuses pay for goods, never for delivery, and never more than the balance */
+  let bonus = 0;
+  const bwrap = money.querySelector('.co-bonus'), sw = money.querySelector('.co-sw');
+  let br = row('bonus');
+  if (bwrap && sw && sw.classList.contains('on')) {
+    bonus = Math.min(parseFloat(bwrap.dataset.balance || '0'), Math.max(0, sum - disc));
+  }
+  if (bonus > 0) {
+    if (!br) {
+      br = document.createElement('div');
+      br.className = 'co-brow'; br.dataset.row = 'bonus';
+      br.innerHTML = '<span class="disc">Списано бонусів</span><b></b>';
+      money.querySelector('.co-total').before(br);
+    }
+    br.querySelector('b').textContent = '−' + wfMoney(bonus);
+  } else if (br) { br.remove(); }
+
+  const total = Math.max(0, sum - disc + ship - bonus);
+  const tv = money.querySelector('.co-total .tv');
+  if (tv) tv.textContent = wfMoney(total);
+  /* accrual follows what is actually PAID — spending bonuses earns fewer of them */
+  const acc = money.querySelector('.co-accrual b');
+  if (acc) acc.textContent = '+' + wfMoney(Math.round(total * 0.01));
+}
+function wfCheckout() {
+  const root = document.querySelector('.co-wrap');
+  if (!root || !root.querySelector('.co-line[data-unit]') || root.dataset.wfco) return;
+  root.dataset.wfco = '1';
+  root.addEventListener('click', e => {
+    /* delivery / payment: one choice per section */
+    const opt = e.target.closest('.co-opt');
+    if (opt) {
+      opt.closest('.co-sec').querySelectorAll('.co-opt').forEach(o => o.classList.remove('on'));
+      opt.classList.add('on');
+      wfCheckoutRecalc(root);
+      return;
+    }
+    /* bonus spend. On the guest page the same row is a LINK to sign in — leave it alone. */
+    const tog = e.target.closest('.co-toggle');
+    if (tog && tog.tagName !== 'A' && tog.querySelector('.co-sw')) {
+      const on = tog.querySelector('.co-sw').classList.toggle('on');
+      tog.setAttribute('aria-pressed', on ? 'true' : 'false');
+      wfCheckoutRecalc(root);
+      return;
+    }
+    const step = e.target.closest('.co-qty button');
+    if (step && !step.disabled) {
+      const qn = step.closest('.co-line').querySelector('.qn');
+      const q = Math.max(1, parseInt(qn.textContent, 10) || 1);
+      qn.textContent = /−|-/.test(step.textContent) ? Math.max(1, q - 1) : Math.min(99, q + 1);
+      wfCheckoutRecalc(root);
+      return;
+    }
+    const act = e.target.closest('.li-acts button');
+    if (act) {
+      if (/Видалити/.test(act.textContent)) {
+        if (root.querySelectorAll('.co-line').length <= 1) { location.href = 'cart-empty.html'; return; }
+        act.closest('.co-line').remove();
+        wfCheckoutRecalc(root);
+        if (typeof wfToast === 'function') wfToast('info', 'Товар прибрано із замовлення');
+      } else if (/обран/i.test(act.textContent)) {
+        const on = act.classList.toggle('on');
+        act.setAttribute('aria-pressed', on ? 'true' : 'false');
+        if (typeof wfToast === 'function') wfToast('ok', on ? 'Товар в обраному' : 'Прибрано з обраного');
+      }
+      return;
+    }
+    /* upsell: adding from the shelf puts a real line into the order, so the total answers */
+    const add = e.target.closest('.co-upsell .cartbtn');
+    if (add) {
+      const card = add.closest('.pcard');
+      if (card.classList.contains('added')) return;
+      card.classList.add('added');
+      add.textContent = '✓';
+      add.classList.add('done');
+      add.setAttribute('aria-label', 'Додано до замовлення');
+      const line = document.createElement('div');
+      line.className = 'co-line';
+      line.dataset.unit = card.dataset.unit || '0';
+      line.innerHTML =
+        '<div class="li-img">фото</div>' +
+        '<div class="li-bd"><div class="li-nm">' + card.querySelector('.nm').textContent + '</div>' +
+        '<div class="li-meta">' + (card.dataset.meta || '') + '</div>' +
+        '<div class="li-acts"><button type="button">♡ В обране</button><button type="button">🗑 Видалити</button></div></div>' +
+        '<div class="li-right"><div class="co-qty"><button type="button" aria-label="Менше">−</button>' +
+        '<span class="qn">1</span><button type="button" aria-label="Більше">+</button></div>' +
+        '<div class="li-price"><span class="li-oldline"></span><span class="li-sum"></span><span class="li-per"></span></div></div>';
+      root.querySelector('section[aria-label="Ваше замовлення"]').appendChild(line);
+      wfCheckoutRecalc(root);
+      if (typeof wfToast === 'function') wfToast('ok', 'Додано до замовлення');
+    }
+  });
+  wfCheckoutRecalc(root);
+}
+
+/* ============================================================
    Inherited components rendered once (conventions §7). Inject into
    #wf-header / #wf-footer / #wf-rail / #wf-sheet placeholders.
    ============================================================ */
@@ -1163,8 +1500,8 @@ function wfToast(type, msg) {
    5 tabs; coach swaps tab 1 (Головна → Кабінет тренера) + routes Обране/Акаунт to coach context.
    Active tab is auto-derived from the current filename. */
 function wfTabbarActive() {
-  var f = (location.pathname.split('/').pop() || 'home.html').toLowerCase().replace(/\?.*$/, '');
-  if (f === '' || f === 'home.html' || f === 'home-buyer.html' || f === 'home-coach.html' || f === 'index.html') return 'home';
+  var f = (location.pathname.split('/').pop() || 'index.html').toLowerCase().replace(/\?.*$/, '');
+  if (f === '' || f === 'index.html' || f === 'home-buyer.html' || f === 'home-coach.html' || f === 'overview.html') return 'home';
   if (f === 'account-wishlist.html' || f === 'coach-wishlist.html') return 'fav';
   if (f === 'cart.html' || f === 'checkout.html') return 'cart';
   if (f.indexOf('coach-') === 0) return 'home';          // coach cabinet workspace = tab 1 (Кабінет тренера)
@@ -1187,7 +1524,7 @@ function wfTabbarHTML(role, opts) {
     { k: 'fav', ic: '♡', l: 'Обране', href: 'coach-wishlist.html', badge: favN },
     { k: 'account', ic: '👤', l: 'Акаунт', href: 'account.html?r=coach' }
   ] : [
-    { k: 'home', ic: '🏠', l: 'Головна', href: 'home.html' },
+    { k: 'home', ic: '🏠', l: 'Головна', href: 'index.html' },
     { k: 'catalog', ic: '▦', l: 'Каталог', href: 'catalog-page.html', cat: true },
     { k: 'cart', ic: '🛒', l: 'Кошик', href: 'cart.html', badge: cartN },
     { k: 'fav', ic: '♡', l: 'Обране', href: 'account-wishlist.html', badge: favN },
@@ -1207,7 +1544,7 @@ function wfHeader(role, opts) {
   const isCoach = role === 'coach';
   const loggedIn = isCoach || role === 'buyer';
   // role-aware home target: logged-in pages link to the logged-in home variant
-  const homeHref = isCoach ? 'home-coach.html' : (role === 'buyer' ? 'home-buyer.html' : 'home.html');
+  const homeHref = isCoach ? 'home-coach.html' : (role === 'buyer' ? 'home-buyer.html' : 'index.html');
   const name = isCoach ? 'Олена Кравець' : 'Вікторія Коваль';
   let acctHTML;
   if (!loggedIn) {
@@ -1223,7 +1560,7 @@ function wfHeader(role, opts) {
       items += `<a href="account.html">Кабінет</a><a href="account.html">Замовлення</a>` +
         `<a href="account.html">Адреси</a><a href="coach-verify.html">Стати тренером</a>`;
     }
-    items += `<div class="cab-sep"></div><a href="home.html">Вийти</a>`;
+    items += `<div class="cab-sep"></div><a href="index.html">Вийти</a>`;
     acctHTML = `<div class="wfh-cab"><button class="wfh-act stack wfh-cabbtn" onclick="toggleCab(event)" aria-haspopup="true" aria-expanded="false">` +
       `<span class="g">👤</span><span class="lbl">Кабінет ▾</span></button>` +
       `<div class="wfh-cabmenu" id="wfh-cabmenu" role="menu">${items}</div></div>`;
@@ -1320,7 +1657,7 @@ function wfFooter() {
       <div class="wff-col"><h4>Stack</h4><a href="content-about.html">Про нас</a><a href="content-contacts.html">Контакти</a><a href="content-blog.html">Блог</a><a href="content-legal.html">Публічна оферта</a><a href="content-legal.html">Політика конфіденційності</a><a href="content-legal.html">Умови використання</a></div>
       <div class="wff-col"><h4>Покупцям</h4><a href="${loyHref}">Знижки та бонуси</a><a href="content-delivery.html">Доставка й оплата</a><a href="content-returns.html">Повернення</a><a href="content-faq.html">FAQ</a></div>
       <div class="wff-col"><h4>Тренерам</h4><a href="coach-landing.html">Для тренерів</a><a href="coach-landing.html">Тарифи Free / Pro</a></div>
-      <div class="wff-col"><h4>Консультація</h4><a class="wff-phone" href="content-contacts.html">0 800 000 000</a><a href="content-contacts.html">Telegram</a><a href="content-contacts.html">Viber</a><a href="content-contacts.html">Пн–Нд 9:00–21:00</a></div>
+      <div class="wff-col"><h4>Консультація</h4><a class="wff-phone" href="content-contacts.html">0 800 000 000</a><a class="wff-msg" href="content-contacts.html"><span class="mi">✈️</span>Telegram</a><a class="wff-msg" href="content-contacts.html"><span class="mi">📲</span>Viber</a><a href="content-contacts.html">Пн–Нд 9:00–21:00</a></div>
     </div>
     <div class="wff-seo">
       <b>Популярні категорії:</b> Протеїн · Гейнери · Креатин · BCAA · Передтренувальні · Вітаміни ·&nbsp;&nbsp;
@@ -1423,3 +1760,38 @@ function closeLang() { const m = document.getElementById('wfh-langmenu'); if (!m
 function pickLang(e, code) { if (e) { e.preventDefault(); e.stopPropagation(); } const m = document.getElementById('wfh-langmenu'); if (!m) return; const w = m.closest('.wfh-lang-wrap'); const codeEl = w ? w.querySelector('.wfh-lang-code') : null; if (codeEl) codeEl.textContent = code; m.querySelectorAll('a').forEach(a => a.classList.toggle('on', a.dataset.code === code)); closeLang(); }
 document.addEventListener('click', e => { const lang = document.getElementById('wfh-langmenu'); if (lang && lang.classList.contains('open') && !e.target.closest('.wfh-lang-wrap')) closeLang(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeCity(); closeBurger(); closeCookieSettings(); closeCab(); closeLang(); closeMega(); closeCatOverlay(); closeAuth(); if (typeof closeClientEdit === 'function') closeClientEdit(); if (typeof closePM === 'function') closePM(); } });
+
+/* ---------- PDP section tabs: the active tab follows the scroll position ----------
+   `ia/docs/pages/product.md` 1a says «Active tab highlights by scroll position», but
+   the tabs only ever carried the `.on` class the markup shipped with, so «Про товар»
+   stayed lit however far you scrolled. The spy lives here (behaviour belongs to the
+   wireframe layer) so the grey prototype and the coloured copy get it from one place.
+   The reading line is the strip's own bottom edge + a small gap: a section counts as
+   current once its top passes under the shelf that is covering it. The function IS the
+   scroll handler, so every call re-reads the position - no stale first tick while the
+   header is still being injected. */
+function wfPdpSpy() {
+  const tabs = document.querySelector('.pdp-tabs');
+  if (!tabs) return;
+  if (!tabs.dataset.spy) {
+    tabs.dataset.spy = '1';
+    window.addEventListener('scroll', wfPdpSpy, { passive: true });
+    window.addEventListener('resize', wfPdpSpy);
+  }
+  const links = [].slice.call(tabs.querySelectorAll('a[href^="#"]'));
+  if (!links.length) return;
+  const line = tabs.getBoundingClientRect().bottom + 12;
+  let idx = 0;
+  links.forEach((a, i) => {
+    const el = document.getElementById(a.getAttribute('href').slice(1));
+    if (el && el.getBoundingClientRect().top <= line) idx = i;
+  });
+  /* at the very bottom the last section may be too short to ever cross the line */
+  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) idx = links.length - 1;
+  links.forEach((a, i) => a.classList.toggle('on', i === idx));
+}
+/* the tabs are in the page markup, so the spy bootstraps itself - no screen has to
+   remember to call it */
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wfPdpSpy);
+else wfPdpSpy();
+window.addEventListener('load', wfPdpSpy);

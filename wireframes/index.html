@@ -4,137 +4,246 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Вайрфрейми Stack - всі екрани</title>
-<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-mark.svg">
+<title>Stack - спортивне харчування (wireframe 0.0, головна)</title>
 <link rel="stylesheet" href="_wf.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  /* ---- shared docs sidebar (research.html chrome) ---- */
-  :root{ --d-bg:#f7f6f3; --d-surface-alt:#f2f0eb; --d-border:#e5e2db; --d-text:#1a1916; --d-text-2:#6b6760; --d-text-3:#9b9790; --d-accent:#2d5a3d; --d-accent-light:#e8f0ea; --d-radius-sm:6px; }
-  body{ background:var(--d-bg); }
-  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:rgba(247,246,243,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--d-border);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:101}
-  .topbar-logo{font-weight:700;font-size:17px;color:var(--d-accent);letter-spacing:-.02em;text-decoration:none}
-  .sidebar-toggle{background:none;border:none;cursor:pointer;padding:8px;color:var(--d-text-2);display:flex;border-radius:var(--d-radius-sm)}
-  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.18);z-index:99}
-  .sidebar-overlay.open{display:block}
-  .sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:rgba(247,246,243,.98);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-right:1px solid var(--d-border);z-index:100;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .22s ease}
-  .sidebar.open{transform:translateX(0)}
-  .sidebar-logo{font-weight:700;font-size:17px;color:var(--d-accent);letter-spacing:-.02em;text-decoration:none;display:block;padding:22px 20px 18px;border-bottom:1px solid var(--d-border);font-family:Inter,system-ui,sans-serif}
-  .sidebar-nav{flex:1;overflow-y:auto;scrollbar-width:none;padding:12px 8px 8px;font-family:Inter,system-ui,sans-serif}
-  .sidebar-nav::-webkit-scrollbar{display:none}
-  .sidebar-nav a{display:block;color:var(--d-text-2);text-decoration:none;font-size:13px;font-weight:500;padding:7px 12px;border-radius:var(--d-radius-sm);transition:color .15s,background .15s;margin-bottom:1px}
-  .sidebar-nav a:hover{color:var(--d-text);background:var(--d-surface-alt)}
-  .sidebar-nav a.active{color:var(--d-accent);background:var(--d-accent-light);font-weight:600}
-  .sidebar-nav .sidebar-sub{font-size:12px;padding:5px 12px 5px 22px;color:var(--d-text-3)}
-  .sidebar-nav a.sidebar-sub.active{color:var(--d-accent);background:var(--d-accent-light)}
-  .sidebar-divider{border:none;border-top:1px solid var(--d-border);margin:10px 8px}
-
-  /* ---- content column ---- */
-  .wfx { max-width: 900px; margin: 0 auto; padding: 68px 18px 60px; }
-  @media(min-width:860px){
-    .topbar{display:none}
-    .sidebar{transform:translateX(0)}
-    .wfx{ margin:0 0 0 220px; max-width:1120px; padding:44px 48px 80px; }
-  }
-  .wfx h1 { font-size: 24px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
-  .wfx .lead { font-size: 14px; color: var(--sec); margin: 8px 0 22px; max-width: 640px; }
-  .wfx .legend { font-size: 12px; color: var(--light); margin: 18px 0 22px; display: flex; gap: 16px; flex-wrap: wrap; }
-  .wfx .legend b { color: var(--strong); }
-  .wfx .flowlinks { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
-  .wfx .flowlink { border: 1.5px solid var(--dark); border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 700; color: var(--strong); }
-  .wfx .flowlink.soon { border-color: var(--hair2); color: var(--light); border-style: dashed; }
-  /* full product sitemap - EVERY page by cluster; built → wireframe, else → IA spec */
-  .fullmap { margin-top: 36px; border-top: 1px solid var(--hair); padding-top: 26px; scroll-margin-top: 64px; }
-  .fullmap h2 { font-size: 20px; font-weight: 800; color: var(--strong); }
-  .fullmap .lead { margin: 8px 0 20px; }
-  .smc { color: var(--light); font-weight: 700; }
-  .sm-legend { font-size: 12px; color: var(--light); margin: 0 0 16px; display: flex; gap: 16px; flex-wrap: wrap; }
-  .sm-cluster { margin-bottom: 15px; }
-  .sm-cluster h3 { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--light); margin-bottom: 9px; }
-  .sm-list { display: flex; flex-wrap: wrap; gap: 8px; }
-  .sm-item { display: inline-flex; align-items: center; gap: 7px; border: 1.5px solid var(--dark); border-radius: 8px; padding: 7px 12px; font-size: 12.5px; font-weight: 600; color: var(--strong); }
-  .sm-item.planned { border-style: dashed; border-color: var(--hair2); color: var(--sec); }
-  .sm-item .node { font-size: 11px; font-weight: 700; color: var(--light); }
-  .sm-item .cnt { font-size: 10.5px; font-weight: 800; color: #fff; background: var(--dark); border-radius: 20px; padding: 1px 7px; }
-  .sm-item.planned .ia { font-size: 10px; font-weight: 800; letter-spacing: .04em; color: var(--light); border: 1px solid var(--hair2); border-radius: 4px; padding: 1px 4px; }
-</style>
 </head>
 <body>
+<!-- ============================================================
+  WIREFRAME · node 0.0 Головна (base = GUEST). Two non-blocking front doors + return path.
+  Job 2 (goal selector) + Job 1 (coach block) + Job 4 (cart shelf / repeat). Flow entry.
+  Role variants: home-buyer.html, home-coach.html.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
 
-<nav class="topbar">
-  <a href="#" class="topbar-logo">Stack</a>
-  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>
-  </button>
-</nav>
-<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
-<aside class="sidebar" id="sidebar">
-  <a href="#" class="sidebar-logo">Stack</a>
-  <nav class="sidebar-nav">
-    <a href="../research/research.html">Дослідження</a>
-    <a href="../research/personas.html">Персони</a>
-    <a href="../research/jtbd.html">JTBD</a>
-    <a href="../research/concept.html">Концептуальна архітектура</a>
-    <a href="../ia/sitemap.html">Інформаційна архітектура</a>
-    <a href="../Voices/voice.html">Голос продукту</a>
-    <hr class="sidebar-divider">
-    <a href="index.html" class="active">Вайрфрейми</a>
-    <a href="home.html" class="sidebar-sub">Флоу 1 · Покупець</a>
-    <a href="coach-landing.html" class="sidebar-sub">Флоу 2 · Тренер</a>
-    <a href="#allpages" class="sidebar-sub">Всі екрани</a>
-    <hr class="sidebar-divider">
-    <a href="../concept/directions.html">Concept</a>
-    <a href="../ui-visual/screens.html">UI Visual</a>
-  </nav>
-</aside>
+<main class="wf-page">
 
-<main class="wfx">
-  <h1>Вайрфрейми Stack - усі екрани</h1>
-  <p class="lead">Прототип у сірому: структура + кліки. Кожен екран - на мобілці (360) і десктопі,
-    з усіма станами. Ходіть по флоу або відкривайте окремий екран нижче.</p>
+  <!-- single H1 (store heading, near top) -->
+  <h1 class="homeh1">Спортивне харчування - інтернет-магазин Stack</h1>
 
-  <div class="flowlinks">
-    <a class="flowlink" id="f1" href="home.html">▶ Флоу 1 · Покупець-новачок</a>
-    <a class="flowlink" id="f2" href="coach-landing.html">▶ Флоу 2 · Тренер (Job 1)</a>
-  </div>
-
-  <div class="legend">
-    <span><b>Базовий</b> - основний вид екрана</span>
-    <span>Порожньо · Завантаження · Помилка · доменні стани - окремі сторінки</span>
-    <span style="color:#bbb">пунктир = ще не намальовано</span>
-  </div>
-
-  <!-- tree rendered from _nav.js (single source of truth, mirrors _screens.md) -->
-  <div id="wf-tree"></div>
-
-  <!-- Повна карта сайту: УВЕСЬ продукт за структурою IA (кластери 0–8 + системні).
-       Будовані екрани → ведуть на вайрфрейм (цифра = екранів зі станами); решта → на IA-спеку.
-       Data-driven із WF_SITEMAP у _nav.js - оновлюється, щойно екран будується. -->
-  <section class="fullmap" id="allpages">
-    <h2>Повна карта сайту</h2>
-    <p class="lead">Увесь продукт за структурою IA - і збудовані екрани (ведуть на вайрфрейм,
-      цифра = екранів зі станами), і решта сторінок (ведуть на IA-спеку). <span id="wf-map-count" class="smc"></span></p>
-    <div class="sm-legend">
-      <span><b style="color:var(--strong)">суцільна рамка</b> - збудовано (вайрфрейм)</span>
-      <span style="color:#bbb">пунктир + IA - лише специфікація</span>
+  <!-- Block 1: HERO - category rail + banners (desktop) / banner + chips (mobile) -->
+  <section aria-label="Каталог і акції">
+    <!-- mobile category chips -->
+    <div class="hero-chips">
+      <a href="listing.html">За ціллю</a><a href="listing.html">Протеїн</a><a href="listing.html">Гейнери</a>
+      <a href="listing.html">Креатин</a><a href="listing.html">BCAA</a><a href="listing.html">Передтрен.</a>
+      <a href="listing.html">Вітаміни</a><a href="listing.html">Жироспалювачі</a>
     </div>
-    <div id="wf-map"></div>
+    <div class="hero-wrap">
+      <!-- category rail → opens a flyout panel as an OVERLAY on hover (wfHomeRail) -->
+      <div class="hrail-wrap" onmouseleave="window.hcClose&&hcClose()">
+        <nav class="hrail" id="home-rail" aria-label="Категорії"><!-- built by wfHomeRail --></nav>
+        <div class="hrail-fly wfh-mega" id="home-fly" role="menu"><!-- built by wfHomeRail --></div>
+      </div>
+      <!-- PROMO: slider of 2–3 vertical banner cards (visible at once, swipe) + 2 stacked side banners -->
+      <div class="hbanners">
+        <div class="hslider" aria-label="Промо-банери" aria-roledescription="карусель">
+          <div class="hstrip">
+            <a class="hpromo" href="listing.html"><span class="hptag">Акція тижня</span><span class="hph">Знижки до −25%</span><span class="hps">на протеїн і креатин - спокійно, без таймерів</span></a>
+            <a class="hpromo" href="listing.html"><span class="hptag">Новий бренд</span><span class="hph">Optimum Nutrition</span><span class="hps">показуємо склад і сертифікат</span></a>
+            <a class="hpromo" href="brands.html"><span class="hptag">Бренди</span><span class="hph">Перевірені марки</span><span class="hps">USA · EU · UA - склад і сертифікат на кожен товар</span></a>
+          </div>
+          <div class="hdots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+        </div>
+        <div class="hside">
+          <a class="hvert" href="listing.html"><span class="hvt">Новинки</span><span class="hvs">щойно завезли</span></a>
+          <a class="hvert" href="listing.html"><span class="hvt">Сезон: імунітет</span><span class="hvs">вітаміни та мінерали</span></a>
+        </div>
+        <a class="hdeal" href="product.html">
+          <span class="hd-tag">Пропозиція дня</span>
+          <span class="hd-ph">фото</span>
+          <span class="hd-brand">Optimum Nutrition · США</span>
+          <span class="hd-nm">Gold Standard 100% Whey 2270 г</span>
+          <span class="hd-av">● В наявності</span>
+          <span class="hd-price"><span class="hd-oldline"><span class="hd-old">1 520 ₴</span><span class="hd-cut">−15%</span></span><span class="hd-new">1 290 ₴</span></span>
+          <span class="hd-meta">18 ₴ / порція · +13 ₴ бонус</span>
+          <span class="hd-cta">У кошик</span>
+        </a>
+      </div>
+    </div>
   </section>
 
-  <p class="lead" style="margin-top:26px">Побудовано: <b>Флоу 1 (покупець-новачок)</b> +
-    <b>Флоу 2 (тренер, Job 1)</b> - обидва повні та відкритиковані (Крок 9). Далі за методом
-    (playbook §How-to-run): решта карти сайту вище - лояльність (Job 6) · контент 8.x ·
-    системні · інстанси лістинга (2.0/2.4/2.5) · квіз.</p>
+  <!-- Block 2: personal strip - GUEST variant (hidden benefits → sign in) -->
+  <div class="pstrip">
+    <span class="pt">Увійдіть, щоб бачити персональні знижки та бонуси</span>
+    <span class="psp"></span>
+    <a class="btn dark" href="auth.html" onclick="openAuth('phone');return false">Увійти</a>
+  </div>
+
+  <!-- Block 3: goal selector (Job 2 front door) -->
+  <section class="goalsec" aria-label="Ціль">
+    <div class="sech"><h2>Спортивне харчування під вашу ціль</h2><a class="all" href="catalog-page.html">Усі категорії →</a></div>
+    <p class="lintro" style="margin:0 0 14px">Не знаєте, з чого почати? Оберіть ціль - підберемо зрозумілий, безпечний набір зі складом і дозуванням.</p>
+    <div class="goaltiles">
+      <a class="gtile" href="goal.html"><span class="gph"></span><span class="gt">Набір маси</span></a>
+      <a class="gtile" href="goal.html"><span class="gph"></span><span class="gt">Схуднення</span></a>
+      <a class="gtile" href="goal.html"><span class="gph"></span><span class="gt">Відновлення</span></a>
+      <a class="gtile" href="goal.html"><span class="gph"></span><span class="gt">Енергія</span></a>
+      <a class="gtile" href="goal.html"><span class="gph"></span><span class="gt">Імунітет</span></a>
+      <a class="gtile" href="goal.html"><span class="gph"></span><span class="gt">Витривалість</span></a>
+    </div>
+    <div class="goalcta">
+      <a class="btn dark" href="quiz.html">Пройти квіз</a>
+      <span class="hint">5 питань - і готовий набір під вашу ціль (без реєстрації)</span>
+    </div>
+  </section>
+
+  <!-- Block 4: trust — five mini banners (short; full strip in footer).
+       Each is a real link into the page that proves the promise. -->
+  <div class="tbanners">
+    <a class="tbn" href="content-guarantee.html"><span class="tbim"></span><span class="tbx"><b>Склад, походження, сертифікат</b><i>на кожен товар</i></span></a>
+    <a class="tbn" href="content-delivery.html"><span class="tbim"></span><span class="tbx"><b>Доставка</b><i>Новою Поштою 1–2 дні</i></span></a>
+    <a class="tbn" href="content-delivery.html"><span class="tbim"></span><span class="tbx"><b>Оплата</b><i>картою · при отриманні</i></span></a>
+    <a class="tbn" href="content-returns.html"><span class="tbim"></span><span class="tbx"><b>Повернення</b><i>14 днів</i></span></a>
+    <a class="tbn" href="content-reviews.html"><span class="tbim"></span><span class="tbx"><b>4.9 ★</b><i>за відгуками покупців</i></span></a>
+  </div>
+
+  <!-- Block 5: products - themed tabs -->
+  <section aria-label="Товари">
+    <div class="sech"><h2>Популярні товари</h2><a class="all" href="listing.html">Усі товари →</a></div>
+    <div class="ptabs">
+      <span class="ptab on">Популярні</span>
+      <span class="ptab">Кращі цінові пропозиції</span>
+      <span class="ptab">Преміум товари</span>
+      <span class="ptab">Новинки</span>
+    </div>
+    <div class="prow">
+      <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Optimum Nutrition · США</div>
+          <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div><span class="pnew">1 290 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+          <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+        </div>
+      </article>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">BioTechUSA · Угорщина</div>
+          <a href="product.html" class="nm">Iso Whey Zero 908 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div>
+          <div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div>
+        </div>
+      </article>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Scitec Nutrition · Угорщина</div>
+          <a href="product.html" class="nm">100% Whey Protein Professional 920 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">940 ₴</span><span class="pcut">−10%</span></div><span class="pnew">845 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div>
+          <div class="pmeta2"><span class="perserv"><b>31 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div>
+        </div>
+      </article>
+      <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Новинка</span></a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Myprotein · Велика Британія</div>
+          <a href="product.html" class="nm">Impact Whey Isolate 1 кг</a>
+          <div class="pavail low">● Залишилось мало</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">990 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ -</span> · новинка</div>
+          <div class="pmeta2"><span class="perserv"><b>33 ₴</b> / порція</span><span class="bonus">+10 ₴ бонус</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Block 6: coach banner (principle #3) -->
+  <div class="coachbn">
+    <div><div class="ct">Тренерам і залам - оптові ціни</div>
+      <div class="cs">Замовляйте для всіх клієнтів в одну сесію: збережені клієнти, історія по кожному, ціна за тарифом. Free - миттєво, Pro - максимальний опт.</div></div>
+    <a class="btn dark" href="coach-landing.html">Для тренерів →</a>
+  </div>
+
+  <!-- Block 8: recently viewed (state) -->
+  <section aria-label="Ви переглядали">
+    <div class="sech"><h2>Ви переглядали</h2><a class="all" href="listing.html">Усі товари →</a></div>
+    <div class="prow">
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">OstroVit · Польща</div>
+          <a href="product.html" class="nm">WPC 80 Standard 2000 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 180 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.5</span> · 52 відгуки</div>
+          <div class="pmeta2"><span class="perserv"><b>20 ₴</b> / порція</span><span class="bonus">+12 ₴ бонус</span></div>
+        </div>
+      </article>
+      <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Optimum Nutrition · США</div>
+          <a href="product.html" class="nm">Casein Pro 1816 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 480 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.8</span> · 73 відгуки</div>
+          <div class="pmeta2"><span class="perserv"><b>29 ₴</b> / порція</span><span class="bonus">+15 ₴ бонус</span></div>
+        </div>
+      </article>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Power Pro · Україна</div>
+          <a href="product.html" class="nm">Protein Power Pro 1000 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">690 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.3</span> · 41 відгук</div>
+          <div class="pmeta2"><span class="perserv"><b>23 ₴</b> / порція</span><span class="bonus">+7 ₴ бонус</span></div>
+        </div>
+      </article>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Dymatize · США</div>
+          <a href="product.html" class="nm">ISO 100 Hydrolyzed 1320 г</a>
+          <div class="pavail pre">● Під замовлення</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 640 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.9</span> · 55 відгуків</div>
+          <div class="pmeta2"><span class="perserv"><b>41 ₴</b> / порція</span><span class="bonus">+16 ₴ бонус</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Block 9: promo · brands · blog -->
+  <div class="promo"><div class="pt">Знижки тижня - до −25% на протеїн і креатин</div><div class="ps">Спокійно, без таймерів. <a href="content-promo.html" style="text-decoration:underline;font-weight:700;color:#111">Усі акції →</a></div></div>
+
+  <div class="sech"><h2>Бренди</h2><a class="all" href="brands.html">Усі бренди →</a></div>
+  <div class="brandrow">
+    <a class="brandbox" href="listing.html"><img src="../design/concept/assets/brands/optimum-nutrition.png" alt="Optimum Nutrition" onerror="this.remove()"><span class="bnm">Optimum</span></a>
+    <a class="brandbox" href="listing.html"><img src="../design/concept/assets/brands/ostrovit.png" alt="OstroVit" onerror="this.remove()"><span class="bnm">OstroVit</span></a>
+    <a class="brandbox" href="listing.html"><img src="../design/concept/assets/brands/power-pro.png" alt="Power Pro" onerror="this.remove()"><span class="bnm">Power Pro</span></a>
+    <a class="brandbox" href="listing.html"><img src="../design/concept/assets/brands/sporter.png" alt="Sporter" onerror="this.remove()"><span class="bnm">Sporter</span></a>
+    <a class="brandbox" href="listing.html"><img src="../design/concept/assets/brands/now-foods.png" alt="NOW Foods" onerror="this.remove()"><span class="bnm">NOW Foods</span></a>
+    <a class="brandbox" href="listing.html"><img src="../design/concept/assets/brands/mutant.png" alt="Mutant" onerror="this.remove()"><span class="bnm">Mutant</span></a>
+  </div>
+
+  <div class="sech"><h2>Корисні поради</h2><a class="all" href="content-blog.html">Усі статті →</a></div>
+  <div class="blogrow">
+    <a class="blogcard" href="content-article.html"><div class="bim"></div><div class="btx"><div class="bt">Протеїн для початківця: з чого почати</div><div class="bdt">Скільки, коли і який обрати - простими словами.</div></div></a>
+    <a class="blogcard" href="content-article.html"><div class="bim"></div><div class="btx"><div class="bt">Креатин: як приймати без «завантаження»</div><div class="bdt">Дозування та поширені міфи.</div></div></a>
+    <a class="blogcard" href="content-article.html"><div class="bim"></div><div class="btx"><div class="bt">Набір маси vs схуднення: базовий набір</div><div class="bdt">Що реально працює для кожної цілі.</div></div></a>
+  </div>
+
+  <!-- Block 10: SEO text (fully expanded) -->
+  <section class="seotext" aria-label="Про магазин">
+    <div class="h">Спортивне харчування в Україні - Stack</div>
+    <p>Stack - інтернет-магазин спортивного харчування з доставкою по всій Україні. У каталозі -
+      протеїн, гейнери, креатин, амінокислоти (BCAA, EAA), передтренувальні комплекси, жироспалювачі,
+      вітаміни та продукти для здоров'я від перевірених брендів. Для кожного товару показуємо склад, походження і сертифікат - щоб ви бачили, що берете.</p>
+    <p>Не знаєте, з чого почати? Оберіть ціль - набір маси, схуднення, відновлення, енергія, імунітет
+      чи витривалість - і отримайте зрозумілий, безпечний набір із вказаним складом і дозуванням.
+      Швидка доставка Новою Поштою за 1–2 дні, зручна оплата та повернення протягом 14 днів.</p>
+  </section>
 </main>
 
+<footer id="wf-footer"></footer>
+</div>
+
+<div id="wf-sheet"></div>
+<div class="hrail-scrim" id="home-scrim" onclick="window.hcClose&&hcClose()"></div>
 <script src="_nav.js"></script>
-<script>
-  wfTree('wf-tree'); wfFullMap('wf-map');
-  function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('open'); }
-  function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.remove('open'); }
-  document.querySelectorAll('.sidebar-nav a').forEach(function(l){ l.addEventListener('click', closeSidebar); });
-</script>
+<script>wfHeader(); wfFooter(); wfBar('index.html'); wfHomeRail();</script>
 </body>
 </html>

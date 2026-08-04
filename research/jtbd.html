@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stack - JTBD</title>
-  <link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+  <link rel="icon" type="image/svg+xml" href="../design/concept/assets/logo-s.svg">
   <style>
     :root {
       --bg: #f7f6f3;
@@ -36,85 +36,12 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
       background: var(--bg); color: var(--text);
       font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
-    }
-
-    /* TOPBAR */
-    .topbar {
-      position: fixed; top: 0; left: 0; right: 0; height: 52px;
-      background: rgba(247,246,243,0.94);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 16px; z-index: 101;
-    }
-    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
-    .sidebar-toggle {
-      background: none; border: none; cursor: pointer; padding: 8px;
-      color: var(--text-secondary); display: flex; align-items: center;
-      justify-content: center; border-radius: var(--radius-sm); transition: background 0.15s;
-    }
-    .sidebar-toggle:hover { background: var(--surface-alt); }
-
-    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
-    .sidebar-overlay.open { display: block; }
-
-    .sidebar {
-      position: fixed; top: 0; left: 0; bottom: 0; width: 220px;
-      background: rgba(247,246,243,0.98);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border-right: 1px solid var(--border); z-index: 100;
-      display: flex; flex-direction: column;
-      transform: translateX(-100%); transition: transform 0.22s ease;
-    }
-    .sidebar.open { transform: translateX(0); }
-
-    .sidebar-logo {
-      font-weight: 700; font-size: 17px; color: var(--accent);
-      letter-spacing: -0.02em; text-decoration: none;
-      display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border);
-    }
-
-    .sidebar-nav {
-      flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px;
-    }
-    .sidebar-nav::-webkit-scrollbar { display: none; }
-
-    .sidebar-nav a {
-      display: block; color: var(--text-secondary); text-decoration: none;
-      font-size: 13px; font-weight: 500; padding: 7px 12px;
-      border-radius: var(--radius-sm); transition: color 0.15s, background 0.15s; margin-bottom: 1px;
-    }
-    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
-    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
-
-    .sidebar-nav .sidebar-sub { display: block;
-      font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light);
-    }
-    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); }
-
-    .sidebar-page-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--accent); padding: 8px 12px 4px;
-    }
-
-    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
-
-    .sidebar-upcoming {
-      padding: 12px 12px 16px; font-size: 11px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-light); line-height: 1.8;
-    }
-
-    /* LAYOUT */
+    }/* LAYOUT */
     .page { max-width: 1160px; margin: 0 auto; padding: 68px 24px 80px; }
 
     @media (min-width: 860px) {
-      .topbar { display: none; }
-      .sidebar { transform: translateX(0); }
       .page { margin-left: 220px; padding: 48px 48px 80px; }
-      section { scroll-margin-top: 24px; }
-    }
-
-    /* HERO */
+      section { scroll-margin-top: 24px; }}/* HERO */
     .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); margin-bottom: 64px; animation: fadeUp 0.5s ease both; }
     .hero-tag {
       display: inline-block; background: var(--accent-light); color: var(--accent);
@@ -125,18 +52,14 @@
     .hero-lead { font-size: 18px; color: var(--text-secondary); max-width: 640px; line-height: 1.6; margin-bottom: 32px; }
     .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
     .hero-meta-item { font-size: 13px; color: var(--text-light); }
-    .hero-meta-item strong { color: var(--text-secondary); font-weight: 600; }
-
-    /* SECTIONS */
+    .hero-meta-item strong { color: var(--text-secondary); font-weight: 600; }/* SECTIONS */
     section { margin-bottom: 72px; scroll-margin-top: 60px; animation: fadeUp 0.4s ease both; }
     .section-number { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
     h2 { font-size: clamp(22px, 3vw, 32px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: var(--text); margin-bottom: 8px; }
     .section-lead { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; max-width: 600px; }
     h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.015em; color: var(--text); margin: 36px 0 12px; }
     h4 { font-size: 15px; font-weight: 650; color: var(--text); margin: 24px 0 8px; }
-    p { color: var(--text-secondary); margin-bottom: 12px; }
-
-    /* BADGES */
+    p { color: var(--text-secondary); margin-bottom: 12px; }/* BADGES */
     .badge-q {
       display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
       padding: 1px 5px; border-radius: 100px; background: var(--score-bg-low);
@@ -160,9 +83,7 @@
       padding: 1px 5px; border-radius: 100px; background: #f0eef7;
       color: #5a3fa0; margin-left: 4px; letter-spacing: 0.04em;
       vertical-align: middle; white-space: nowrap;
-    }
-
-    /* JOB CARDS */
+    }/* JOB CARDS */
     .job-grid { display: grid; gap: 16px; margin-top: 24px; }
 
     .job-card {
@@ -220,10 +141,7 @@
     }
 
     @media (max-width: 600px) {
-      .job-body { grid-template-columns: 1fr; }
-    }
-
-    /* MVP CORE HIGHLIGHT */
+      .job-body { grid-template-columns: 1fr; }}/* MVP CORE HIGHLIGHT */
     .mvp-core {
       background: var(--surface); border: 2px solid var(--accent);
       border-radius: var(--radius); padding: 20px 24px; margin-top: 24px;
@@ -243,9 +161,7 @@
       color: var(--accent); font-weight: 700; font-size: 14px;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .mvp-item-text { font-size: 14px; color: var(--text); line-height: 1.5; }
-
-    /* CUT CANDIDATES */
+    .mvp-item-text { font-size: 14px; color: var(--text); line-height: 1.5; }/* CUT CANDIDATES */
     .cut-grid { display: grid; gap: 12px; margin-top: 16px; }
     .cut-card {
       background: var(--surface); border: 1px solid var(--border);
@@ -258,9 +174,7 @@
     }
     .cut-deferred { background: var(--surface-alt); color: var(--text-secondary); }
     .cut-decided { background: var(--accent-light); color: var(--accent); }
-    .cut-text { font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; }
-
-    /* MATRIX TABLE */
+    .cut-text { font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; }/* MATRIX TABLE */
     .table-wrap {
       overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border);
       box-shadow: var(--shadow-sm); margin: 20px 0;
@@ -287,16 +201,12 @@
 
     .market-open { color: #2d5a3d; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
     .market-partial { color: var(--score-low); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-    .market-closed { color: var(--text-light); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-
-    /* CLAIM STATUS TABLE */
+    .market-closed { color: var(--text-light); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }/* CLAIM STATUS TABLE */
     .claim-status { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
     .claim-confirmed { background: #e8f0ea; color: #2d5a3d; }
     .claim-hyp { background: var(--score-bg-low); color: var(--score-low); }
     .claim-assumed { background: #fce8e8; color: #c0392b; }
-    .claim-closed { background: var(--accent-light); color: var(--accent); }
-
-    /* DANGER LIST */
+    .claim-closed { background: var(--accent-light); color: var(--accent); }/* DANGER LIST */
     .danger-list { display: grid; gap: 16px; margin-top: 20px; }
     .danger-card {
       background: var(--surface); border: 1px solid var(--border);
@@ -314,9 +224,7 @@
     }
     .danger-num.closed { background: var(--accent-light); color: var(--accent); }
     .danger-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.4; }
-    .danger-body { padding: 14px 20px; font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
-
-    /* FOOTER */
+    .danger-body { padding: 14px 20px; font-size: 13px; color: var(--text-secondary); line-height: 1.55; }/* FOOTER */
     footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 40px; }
     .footer-inner {
       max-width: 1160px; margin: 0 auto; padding: 0 24px;
@@ -329,56 +237,17 @@
       .page { padding: 64px 16px 48px; }
       .hero { padding: 40px 0 36px; }
       .job-header, .job-body, .job-status-block { padding-left: 16px; padding-right: 16px; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
-    }
+      .footer-inner { flex-direction: column; align-items: flex-start; }}
 
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     .hero { animation: fadeUp 0.5s ease both; }
-    section { animation: fadeUp 0.4s ease both; }
-  </style>
+    section { animation: fadeUp 0.4s ease both; }</style>
 
-  </head>
+    <link rel="stylesheet" href="../_nav.css">
+</head>
 <body>
 
-<nav class="topbar">
-  <a href="research.html" class="topbar-logo">Stack</a>
-  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
-      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
-      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
-    </svg>
-  </button>
-</nav>
-
-<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
-
-<aside class="sidebar" id="sidebar">
-  <a href="research.html" class="sidebar-logo">Stack</a>
-  <nav class="sidebar-nav">
-    <a href="research.html">Дослідження</a>
-    <a href="personas.html">Персони</a>
-    <hr class="sidebar-divider">
-    <div class="sidebar-page-label">JTBD</div>
-    <a href="#main-job" class="sidebar-sub">Основне завдання</a>
-    <a href="#related-jobs" class="sidebar-sub">Пов'язані завдання</a>
-    <a href="#emotional-jobs" class="sidebar-sub">Емоційні завдання</a>
-    <a href="#matrix" class="sidebar-sub">Матриця JTBD</a>
-    <a href="#critique" class="sidebar-sub">Критика і ризики</a>
-    <hr class="sidebar-divider">
-    <a href="concept.html">Концептуальна архітектура</a>
-    <a href="../ia/sitemap.html">Інформаційна архітектура</a>
-    <a href="../Voices/voice.html">Голос продукту</a>
-    <hr class="sidebar-divider">
-    <a href="../wireframes/index.html">Вайрфрейми</a>
-    <a href="../wireframes/index.html#f1" class="sidebar-sub">Флоу 1 · Покупець</a>
-    <a href="../wireframes/index.html#f2" class="sidebar-sub">Флоу 2 · Тренер</a>
-    <a href="../wireframes/index.html" class="sidebar-sub">Всі екрани</a>
-    <hr class="sidebar-divider">
-    <a href="../concept/directions.html">Concept</a>
-    <a href="../ui-visual/screens.html">UI Visual</a>
-  </nav>
-</aside>
+<aside id="sidebar"></aside>
 
 <div class="page">
 
@@ -947,38 +816,11 @@
   </div>
 </footer>
 
+
 <script>
-  function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-    document.getElementById('sidebar-overlay').classList.toggle('open');
-  }
-  function closeSidebar() {
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('sidebar-overlay').classList.remove('open');
-  }
-
-  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
-    link.addEventListener('click', closeSidebar);
-  });
-
-  var navLinks = document.querySelectorAll('.sidebar-nav a[href^="#"]');
-  var sections = document.querySelectorAll('section[id]');
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var id = entry.target.getAttribute('id');
-        navLinks.forEach(function(link) {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + id) {
-            link.classList.add('active');
-          }
-        });
-      }
-    });
-  }, { rootMargin: '-15% 0px -75% 0px' });
-
-  sections.forEach(function(section) { observer.observe(section); });
+window.NAV_BASE = '../';
+window.NAV_SECTIONS = [{"id": "main-job", "label": "Основне завдання"}, {"id": "related-jobs", "label": "Пов'язані завдання"}, {"id": "emotional-jobs", "label": "Емоційні завдання"}, {"id": "matrix", "label": "Матриця JTBD"}, {"id": "critique", "label": "Критика і ризики"}];
 </script>
+<script src="../_nav.js"></script>
 </body>
 </html>

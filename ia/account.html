@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stack — IA: Акаунт покупця</title>
-  <link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+  <link rel="icon" type="image/svg+xml" href="../design/concept/assets/logo-s.svg">
   <style>
     :root {
       --bg: #f7f6f3; --surface: #ffffff; --surface-alt: #f2f0eb; --border: #e5e2db;
@@ -20,33 +20,9 @@
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
     a { color: var(--accent); }
 
-    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: rgba(247,246,243,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 101; }
-    .topbar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
-    .sidebar-toggle { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); }
-    .sidebar-toggle:hover { background: var(--surface-alt); }
-
-    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.18); z-index: 99; }
-    .sidebar-overlay.open { display: block; }
-    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: rgba(247,246,243,.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-right: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform .22s ease; }
-    .sidebar.open { transform: translateX(0); }
-    .sidebar-logo { font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
-    .sidebar-nav { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 12px 8px 8px; }
-    .sidebar-nav::-webkit-scrollbar { display: none; }
-    .sidebar-nav a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: var(--radius-sm); transition: color .15s, background .15s; margin-bottom: 1px; }
-    .sidebar-nav a:hover { color: var(--text); background: var(--surface-alt); }
-    .sidebar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
-    .sidebar-nav .sidebar-sub { display: block; font-size: 12px; padding: 5px 12px 5px 22px; color: var(--text-light); }
-    .sidebar-nav a.sidebar-sub.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
-    .sidebar-page-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 4px; }
-    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 10px 8px; }
-    .sidebar-upcoming { padding: 12px 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-light); line-height: 1.8; }
-
     .page { max-width: 1100px; margin: 0 auto; padding: 68px 20px 80px; }
     @media (min-width: 860px) {
-      .topbar { display: none; }
-      .sidebar { transform: translateX(0); }
-      .page { margin-left: 220px; padding: 44px 44px 80px; }
-    }
+      .page { margin-left: 220px; padding: 44px 44px 80px; }}
 
     .hero { margin-bottom: 30px; }
     .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
@@ -71,7 +47,7 @@
     .arrow { color: var(--accent-mid); font-weight: 600; white-space: nowrap; }
 
     .cols { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    @media (min-width: 720px) { .cols.two { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 720px) { .cols.two { grid-template-columns: 1fr 1fr; }}
 
     .open { background: var(--warn-bg); border: 1px solid #ecd9b0; border-radius: var(--radius); padding: 18px 20px; }
     .open h2 { font-size: 18px; margin-bottom: 10px; color: var(--warn); }
@@ -80,20 +56,16 @@
     .reco { background: var(--accent-light); border: 1px solid #cfe0d4; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--text); margin: 10px 0 14px; }
     .reco b { color: var(--accent); }
 
-    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }
-
-    /* ===== WIREFRAME (B/W) ===== */
+    .footer-text { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-light); }/* ===== WIREFRAME (B/W) ===== */
     .wf { border: 1px solid #cfcfcf; border-radius: 10px; overflow: hidden; background: #fff; color: #1b1b1b; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
     .wf-cap { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8a8a8a; padding: 7px 12px; background: #f4f4f4; border-bottom: 1px solid #e4e4e4; }
     .wf-pad { padding: 16px; }
     .wf-zone { border: 1.5px dashed #bdbdbd; border-radius: 8px; background: repeating-linear-gradient(45deg,#fafafa,#fafafa 6px,#f3f3f3 6px,#f3f3f3 12px); padding: 9px 12px; font-size: 11px; font-weight: 700; color: #777; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
     .wf-zone.foot { margin: 14px 0 0; }
     .wf-zone .zt { background: #161616; color: #fff; border-radius: 4px; font-size: 9px; padding: 1px 6px; letter-spacing: .04em; }
-    .wf-zone .zd { color: #999; font-weight: 600; }
-
-    /* ===== ACCOUNT SHELL ===== */
+    .wf-zone .zd { color: #999; font-weight: 600; }/* ===== ACCOUNT SHELL ===== */
     .acc { display: grid; grid-template-columns: 216px 1fr; gap: 16px; }
-    @media (max-width: 720px) { .acc { grid-template-columns: 1fr; } }
+    @media (max-width: 720px) { .acc { grid-template-columns: 1fr; }}
     .accnav { border: 1px solid #e2e2e2; border-radius: 12px; overflow: hidden; align-self: start; background: #fff; }
     .accnav .usr { padding: 14px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
     .accnav .av { width: 40px; height: 40px; border-radius: 50%; background: #ececec; border: 1px solid #e0e0e0; display: flex; align-items: center; justify-content: center; font-size: 15px; color: #999; flex: none; }
@@ -108,25 +80,19 @@
 
     .panel { border: 1px solid #e2e2e2; border-radius: 12px; background: #fff; padding: 16px; }
     .panel .ph { font-size: 16px; font-weight: 800; color: #111; margin-bottom: 3px; }
-    .panel .psub { font-size: 12px; color: #888; margin-bottom: 14px; }
-
-    /* snapshot cards */
+    .panel .psub { font-size: 12px; color: #888; margin-bottom: 14px; }/* snapshot cards */
     .snap { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 14px; }
-    @media (max-width: 520px) { .snap { grid-template-columns: 1fr; } }
+    @media (max-width: 520px) { .snap { grid-template-columns: 1fr; }}
     .snapc { border: 1px solid #e6e6e6; border-radius: 10px; padding: 12px; }
     .snapc .sk { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #999; margin-bottom: 6px; }
     .snapc .sv { font-size: 20px; font-weight: 800; color: #111; }
     .snapc .sx { font-size: 11px; color: #777; margin-top: 3px; }
     .snapc .sbtn { display: inline-block; margin-top: 9px; font-size: 11.5px; font-weight: 700; border: 1.5px solid #161616; border-radius: 7px; padding: 5px 10px; color: #111; }
-    .snapc .sbtn.dark { background: #161616; color: #fff; }
-
-    /* loyalty progress */
+    .snapc .sbtn.dark { background: #161616; color: #fff; }/* loyalty progress */
     .lprog { border: 1px solid #e6e6e6; border-radius: 10px; padding: 13px; margin-bottom: 14px; }
     .lbar { height: 9px; border-radius: 20px; background: #eee; overflow: hidden; margin: 9px 0 6px; }
     .lbar i { display: block; height: 100%; background: #161616; border-radius: 20px; }
-    .lrow { display: flex; justify-content: space-between; font-size: 11px; color: #777; }
-
-    /* order rows */
+    .lrow { display: flex; justify-content: space-between; font-size: 11px; color: #777; }/* order rows */
     .ord { border: 1px solid #e6e6e6; border-radius: 10px; padding: 12px; margin-bottom: 10px; }
     .ord .oh { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 9px; }
     .ord .onum { font-size: 13px; font-weight: 800; color: #111; }
@@ -140,36 +106,28 @@
     .oth { width: 40px; height: 44px; border-radius: 7px; background: #f0f0f0; border: 1px solid #e2e2e2; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #bbb; }
     .oacts { display: flex; gap: 8px; flex-wrap: wrap; }
     .obtn { font-size: 11.5px; font-weight: 700; border: 1.5px solid #c4c4c4; border-radius: 7px; padding: 6px 11px; color: #111; }
-    .obtn.dark { background: #161616; color: #fff; border-color: #161616; }
-
-    /* address cards */
+    .obtn.dark { background: #161616; color: #fff; border-color: #161616; }/* address cards */
     .addrs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    @media (max-width: 520px) { .addrs { grid-template-columns: 1fr; } }
+    @media (max-width: 520px) { .addrs { grid-template-columns: 1fr; }}
     .addr { border: 1px solid #e6e6e6; border-radius: 10px; padding: 12px; position: relative; }
     .addr.def { border-color: #161616; }
     .addr .dtag { position: absolute; top: 10px; right: 10px; font-size: 9px; font-weight: 800; background: #161616; color: #fff; border-radius: 5px; padding: 1px 6px; }
     .addr .at { font-size: 12.5px; font-weight: 700; color: #111; margin-bottom: 3px; }
     .addr .al { font-size: 11.5px; color: #777; line-height: 1.4; }
     .addr .aedit { margin-top: 8px; font-size: 11px; font-weight: 700; color: #333; }
-    .addnew { border: 1.5px dashed #cfcfcf; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 12px; font-weight: 700; min-height: 84px; }
-
-    /* profile fields */
+    .addnew { border: 1.5px dashed #cfcfcf; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 12px; font-weight: 700; min-height: 84px; }/* profile fields */
     .fld { border: 1px solid #e6e6e6; border-radius: 9px; padding: 10px 12px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
     .fld .fk { font-size: 11px; color: #999; width: 130px; flex: none; }
     .fld .fv { font-size: 13px; color: #111; font-weight: 600; }
     .fld .fx { margin-left: auto; font-size: 11px; font-weight: 700; color: #333; white-space: nowrap; }
-    .fld .vbadge { font-size: 9.5px; font-weight: 800; color: #2d7d46; background: #e7f2ea; border-radius: 5px; padding: 1px 6px; margin-left: 7px; }
-
-    /* coach banner */
+    .fld .vbadge { font-size: 9.5px; font-weight: 800; color: #2d7d46; background: #e7f2ea; border-radius: 5px; padding: 1px 6px; margin-left: 7px; }/* coach banner */
     .coachb { display: flex; align-items: center; gap: 14px; border: 2px solid #161616; border-radius: 12px; padding: 15px; flex-wrap: wrap; margin-top: 4px; }
     .coachb .ct { font-size: 14px; font-weight: 800; color: #111; }
     .coachb .cd { font-size: 12px; color: #666; margin-top: 2px; }
-    .coachb .cbtn { margin-left: auto; background: #161616; color: #fff; border-radius: 8px; padding: 9px 15px; font-size: 12.5px; font-weight: 700; }
-
-    /* wishlist — canonical product card */
+    .coachb .cbtn { margin-left: auto; background: #161616; color: #fff; border-radius: 8px; padding: 9px 15px; font-size: 12.5px; font-weight: 700; }/* wishlist — canonical product card */
     .prow { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
-    @media (max-width: 900px) { .prow { grid-template-columns: repeat(3,1fr); } }
-    @media (max-width: 680px) { .prow { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 900px) { .prow { grid-template-columns: repeat(3,1fr); }}
+    @media (max-width: 680px) { .prow { grid-template-columns: 1fr 1fr; }}
     .pcard { border: 1px solid #e6e6e6; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; background: #fff; }
     .pcard .ph2 { aspect-ratio: 10/11; background: #f2f2f2; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 11px; position: relative; }
     .pcard .fav { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1px solid #e6e6e6; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #161616; }
@@ -178,16 +136,12 @@
     .pcard .nm { font-size: 12.5px; color: #222; font-weight: 600; line-height: 1.3; margin: 0 0 9px; min-height: 33px; }
     .pcard .prow2 { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; margin-top: auto; }
     .pcard .pnew { font-weight: 800; color: #111; font-size: 17px; }
-    .pcard .cartbtn { width: 40px; height: 40px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; background: #161616; color: #fff; }
-
-    /* empty state */
+    .pcard .cartbtn { width: 40px; height: 40px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; background: #161616; color: #fff; }/* empty state */
     .empty { border: 1.5px dashed #d5d5d5; border-radius: 12px; padding: 26px 16px; text-align: center; }
     .empty .ei { font-size: 26px; margin-bottom: 8px; }
     .empty .et { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 4px; }
     .empty .es { font-size: 11.5px; color: #999; margin-bottom: 12px; }
-    .empty .ebtn { display: inline-block; background: #161616; color: #fff; border-radius: 8px; padding: 8px 16px; font-size: 12px; font-weight: 700; }
-
-    /* mobile phone frame */
+    .empty .ebtn { display: inline-block; background: #161616; color: #fff; border-radius: 8px; padding: 8px 16px; font-size: 12px; font-weight: 700; }/* mobile phone frame */
     .phone { max-width: 300px; border: 1px solid #cfcfcf; border-radius: 16px; overflow: hidden; background: #fff; box-shadow: var(--shadow-sm); }
     .p-top { display: flex; align-items: center; justify-content: space-between; padding: 10px 13px; border-bottom: 1px solid #eee; }
     .p-top .lg { font-weight: 800; color: #161616; font-size: 14px; }
@@ -203,66 +157,13 @@
     .p-tab.active { color: #111; font-weight: 700; }
     .p-tab .ic { font-size: 15px; display: block; }
 
-    @media (max-width: 600px) { .hero h1 { font-size: 24px; } }
-  </style>
+    @media (max-width: 600px) { .hero h1 { font-size: 24px; }}</style>
 
-  </head>
+    <link rel="stylesheet" href="../_nav.css">
+</head>
 <body>
 
-<nav class="topbar">
-  <a href="../research/research.html" class="topbar-logo">Stack</a>
-  <button class="sidebar-toggle" aria-label="Меню" onclick="toggleSidebar()">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
-      <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
-      <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
-    </svg>
-  </button>
-</nav>
-
-<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
-
-<aside class="sidebar" id="sidebar">
-  <a href="../research/research.html" class="sidebar-logo">Stack</a>
-    <nav class="sidebar-nav">
-    <a href="../research/research.html">Дослідження</a>
-    <a href="../research/personas.html">Персони</a>
-    <a href="../research/jtbd.html">JTBD</a>
-    <a href="../research/concept.html">Концептуальна архітектура</a>
-    <hr class="sidebar-divider">
-    <a href="sitemap.html" class="active">Інформаційна архітектура</a>
-    <div class="sidebar-page-label">Структура</div>
-    <a href="sitemap.html" class="sidebar-sub">Карта сайту</a>
-    <a href="navigation.html" class="sidebar-sub">Хедер</a>
-    <a href="footer.html" class="sidebar-sub">Футер</a>
-    <a href="catalog.html" class="sidebar-sub">Каталог</a>
-    <a href="category-matrix.html" class="sidebar-sub">Матриця категорій</a>
-    <a href="seo.html" class="sidebar-sub">SEO-методика</a>
-    <div class="sidebar-page-label">Сторінки</div>
-    <a href="home.html" class="sidebar-sub">Головна</a>
-    <a href="catalog-page.html" class="sidebar-sub">Каталог</a>
-    <a href="category.html" class="sidebar-sub">Категорія</a>
-    <a href="brands.html" class="sidebar-sub">Бренди</a>
-    <a href="search.html" class="sidebar-sub">Пошук</a>
-    <a href="product.html" class="sidebar-sub">Картка товару</a>
-    <a href="quiz.html" class="sidebar-sub">Квіз</a>
-    <a href="auth.html" class="sidebar-sub">Авторизація</a>
-    <a href="account.html" class="sidebar-sub active">Акаунт</a>
-    <a href="coach.html" class="sidebar-sub">Кабінет тренера</a>
-    <a href="cart.html" class="sidebar-sub">Кошик · Оформлення</a>
-    <a href="content.html" class="sidebar-sub">Контент та інфо</a>
-    <a href="system.html" class="sidebar-sub">Системні та глобальні</a>
-    <a href="../Voices/voice.html">Голос продукту</a>
-    <hr class="sidebar-divider">
-    <a href="../wireframes/index.html">Вайрфрейми</a>
-    <a href="../wireframes/index.html#f1" class="sidebar-sub">Флоу 1 · Покупець</a>
-    <a href="../wireframes/index.html#f2" class="sidebar-sub">Флоу 2 · Тренер</a>
-    <a href="../wireframes/index.html" class="sidebar-sub">Всі екрани</a>
-    <hr class="sidebar-divider">
-    <a href="../concept/directions.html">Concept</a>
-    <a href="../ui-visual/screens.html">UI Visual</a>
-  </nav>
-</aside>
+<aside id="sidebar"></aside>
 
 <div class="page">
 
@@ -446,7 +347,7 @@
       </div>
     </div></div>
 
-    <p class="note"><b>Розкритий блок — дві колонки:</b> зліва позиції (+ «✎ Залишити відгук» → 3.1a) і <b>розбивка у фіксованому порядку</b> Товари → Знижка → Використано бонусів → Промокод → Знижка лояльності → <b>Разом</b> → ★ Нараховано → ⭳ квитанція; справа велика <b>«Повторити»</b> (Job 4) + блок доставки з <b>Номером ТТН</b> (тільки Нова Пошта; самовивіз — без ТТН). <b>Мобілка:</b> двоколонкова шапка (№/статус · дата/сума) → мініатюри → кнопка «Детальніше», розкрита картка завершується «Згорнути». <b>Стани:</b> Оформлено / В дорозі (ТТН) / Обробляється / Доставлено / Скасовано · порожньо → «Ще немає замовлень» + «До каталогу». Джоба-джерело: <a href="../research/concept.html">flows Job 4</a>.</p>
+    <p class="note"><b>Розкритий блок — дві колонки:</b> зліва позиції (+ «✎ Залишити відгук» → 3.1a) і <b>розбивка у фіксованому порядку</b> Товари → Знижка → Використано бонусів → Промокод → Знижка лояльності → <b>Разом</b> → ★ Нараховано → ⭳ квитанція; справа велика <b>«Повторити»</b> (Job 4) + блок доставки з <b>Номером ТТН</b> (тільки Нова Пошта; самовивіз — без ТТН). <b>Мобілка:</b> двоколонкова шапка (№/статус · дата/сума) → мініатюри → кнопка «Детальніше», розкрита картка завершується «Згорнути». <b>Стани:</b> Оформлено / В дорозі (ТТН) / Обробляється / Доставлено / Скасовано · порожньо → «Ще немає замовлень» + «До каталогу». Джоба-джерело: <a href="../ia/concept-map.html">flows Job 4</a>.</p>
   </section>
 
   <!-- 04 loyalty -->
@@ -475,14 +376,15 @@
           <div class="lbar"><i style="width:62%"></i></div>
           <div class="lrow" style="margin-bottom:12px"><span>пожиттєво 6 200 ₴ <b>[?]</b></span><span>до Золотого — 1 800 ₴ <b>[?]</b></span></div>
           <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;justify-content:space-between;font-size:11.5px;border:1px solid #e6e6e6;border-radius:8px;padding:7px 10px"><span>🥉 Бронзовий · від 0 ₴</span><span style="font-weight:700">знижка [?] %</span></div>
-            <div style="display:flex;justify-content:space-between;font-size:11.5px;border:1.5px solid #161616;border-radius:8px;padding:7px 10px;background:#fbfbfa"><span><b>🥈 Срібний</b> · від [?] ₴ — ви тут</span><span style="font-weight:800">знижка [?] %</span></div>
-            <div style="display:flex;justify-content:space-between;font-size:11.5px;border:1px solid #e6e6e6;border-radius:8px;padding:7px 10px;color:#777"><span>🥇 Золотий · від [?] ₴</span><span style="font-weight:700">знижка [?] %</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;border:1px solid #d9d9d9;border-radius:8px;padding:7px 10px;background:#fff"><span>🥉 Бронзовий · від 0 ₴ — <b>✓ отримано</b></span><span style="font-weight:700">знижка [?] %</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;border:1.5px solid #161616;border-radius:8px;padding:7px 10px;background:#fff;box-shadow:inset 0 2px 0 #161616"><span><b>🥈 Срібний</b> · від [?] ₴ — <b>ваш рівень</b></span><span style="font-weight:800">знижка [?] %</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;border:1px dashed #d9d9d9;border-radius:8px;padding:7px 10px;background:#fff"><span>🥇 Золотий · від [?] ₴ — <b>наступний</b></span><span style="font-weight:700">знижка [?] %</span></div>
           </div>
           <p style="font-size:10.5px;color:#999;margin-top:10px">Рахунок — <b>пожиттєва</b> сума покупок (не згорає). Знижка рівня застосовується <b>автоматично в кошику</b>. 3 пороги й % — <b>[?]</b>.</p>
         </div></div>
       </div>
     </div>
+    <p class="note"><b>Стани щабля (locked 2026-07-31):</b> кожен щабель несе <b>слово стану</b> — <b>отримано</b> (галочка, біле тло) · <b>ваш рівень</b> (акцентна рамка + мітка згори, той самий «ви тут», що в рейці) · <b>наступний</b> (пунктирний край, біле тло) · <b>ще не відкрито</b> (тон, приглушена назва). Біле тло = «в грі», тоноване = «ще ні». <b>Знак рівня стану не несе</b> — наповненість банки вже кодує, <i>який</i> це рівень, а колір — метал, тож кожен щабель показує свій повний знак незалежно від досягнення; порожня банка лишає одне значення — <b>рівня немає взагалі</b> (новий акаунт).</p>
     <p class="note">Порядок карток — <b>бонуси, потім лояльність</b> (як в «Огляді»). <b>Стани секції:</b> базовий (🥈 Срібний) · <b>порожній</b> (новий покупець: бонуси <b>0 ₴</b>, базовий рівень <b>0 %</b>, «до Бронзи ще [?] ₴», порожній леджер) · <b>максимум</b> (🥇 Золотий −8 %, повний прогрес, «максимальний рівень досягнуто»); пояснення лишаються в обох. Гість бачить у хедері «бонуси / <b>Отримати</b>» → реєстрація. Пороги/відсотки/курс/строк — <b>[?]</b>. Повний лендинг — <a href="content.html">Бонусна програма (8.7)</a>.</p>
   </section>
 
@@ -646,18 +548,12 @@
 
 </div>
 
+
 <script>
-  function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-    document.getElementById('sidebar-overlay').classList.toggle('open');
-  }
-  function closeSidebar() {
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('sidebar-overlay').classList.remove('open');
-  }
-  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
-    link.addEventListener('click', closeSidebar);
-  });
+window.NAV_BASE = '../';
+window.NAV_ACTIVE = 'ia/structure.html';
+window.NAV_ACTIVE_LABEL = '7.x Акаунт';
 </script>
+<script src="../_nav.js"></script>
 </body>
 </html>

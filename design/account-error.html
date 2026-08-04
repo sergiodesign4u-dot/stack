@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет покупця - помилка - Stack (wireframe 7.0 · помилка)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.0 STATE = error. Snapshot failed to load.
+  NEVER a dead end: primary «Спробувати ще» → reload (account.html);
+  section nav still works; secondary exit «На головну».
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Кабінет</span>
+  </nav>
+
+  <div class="acc">
+
+    <!-- section nav still available (shared component) -->
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <!-- error panel -->
+    <div class="acc-main">
+      <h1 class="acc-h1" style="font-size:24px;font-weight:800;color:var(--strong)">Огляд</h1>
+      <div class="errbox">
+        <div class="ei">⚠️</div>
+        <div class="et">Не вдалося завантажити кабінет</div>
+        <div class="es">Не змогли отримати ваші дані. Перевірте зʼєднання та спробуйте ще раз - ваші замовлення й бонуси нікуди не зникли.</div>
+        <div class="eact">
+          <a class="btn dark" href="account.html">Спробувати ще раз</a>
+          <a class="btn" href="index.html">На головну</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>wfHeader('buyer'); wfAccountNav('overview'); wfFooter(); wfBar('account.html', 'error');
+  uivFixLinks(); uivBar(); uivChrome(); uivAccount();
+</script>
+</body>
+</html>

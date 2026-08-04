@@ -63,6 +63,15 @@
      tier (🥉 Bronze / 🥈 Silver / 🥇 Gold) → bigger **auto discount** applied in the cart. Lifetime sum
      **does not expire**. Show current tier, progress to the next, and the 3-tier ladder. Thresholds & %
      are **[?]**.
+   - **Ladder rung states (locked 2026-07-31, owner: «незрозуміло, які рівні я вже отримав, а який
+     наступний»).** Every rung carries **one status word** plus its own visual device, so the ladder is
+     readable at a glance and out loud: **`отримано`** (earned — check mark, white ground) ·
+     **`ваш рівень`** (the tier in force now — accent border + top marker, the same «ви тут» the section
+     nav uses) · **`наступний`** (the immediate target — dashed edge, white ground) · **`ще не відкрито`**
+     (further rungs — tinted ground, dimmed name). **The tier mark never carries state** — its fill
+     level already encodes *which* tier it is (low / mid / high) and its colour the metal, so every
+     rung shows its own full mark whether or not it is reached; the empty jar keeps its single
+     meaning, **no tier at all** (a brand-new account). State is the rung's job, not the mark's.
    - **(2) Bonus account — ~1% accrual, 3-month expiry.** Earn **bonus hryvnia** (~1%: 600 ₴ → 6 ₴ [?])
      on purchases; **bonuses expire after 3 months**, so the **ledger shows accrual AND expiry/burn rows**
      (+ a «X ₴ згорять DD.MM» warning). Spend in the cart. Goal = **retention** (come back to spend).
@@ -102,8 +111,19 @@
      accounting) and **gates the button behind an «Розумію…» checkbox**. Save + each action fire toasts.
    - **States (wireframe):** `base` (e-mail «не додано») · **`withemail`** (e-mail added + «✓ підтверджено»
      → «Змінити») · `phone` (OTP step) · `email` (add dialog) · `lang` · `delete`. noindex.
-6. **Обране (7.6)** — grid of saved products using the **canonical product card**; ♡ active; «У кошик»
+6. **Обране (7.6)** — grid of saved products using the **canonical product card**; «У кошик»
    moves to 6.0; available to **buyer and coach**; ♡ icon in the header. «My staples» is post-launch.
+   - **Card control (locked 2026-07-31, owner).** On this page the corner control is
+     **«Видалити з обраного» (🗑)**, not the heart. Everything listed here is already saved, so a
+     heart could only mean *unsave* — which is not what a heart says, and the wireframe drew it
+     **unfilled**, i.e. it claimed the opposite of the page it lived on. The heart stays the
+     save/unsave toggle everywhere it means a choice (catalog, PDP, and the **overview preview**,
+     where it is rendered **filled**). Removal is immediate and reversible from the catalog, so no
+     confirm dialog; feedback = toast «Видалено з обраного»; emptying the grid falls into the
+     `empty` state in place.
+   - **One number for «скільки збережено».** The saved count appears on four surfaces — header badge,
+     section-nav counter, page count line, grid — and they must always agree; a removal updates all
+     of them at once (`wfWishlistCount` in `_nav.js`). Base = **6** items.
    - **States (wireframe, 2026-07-05):** `base` (small grid) · **`empty`** (dashed emptybox «В обраному
      поки порожньо» → ♥-hint + exits Обрати ціль / До каталогу; sidebar count badge dropped) ·
      **`many`** (large wishlist — saved-count in H1 «42 товари збережено» + **«Показати ще» load-more

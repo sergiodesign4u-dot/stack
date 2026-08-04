@@ -1,0 +1,913 @@
+- generic [active] [ref=f2e1]:
+  - complementary [ref=f2e2]:
+    - link "Stack дизайн-процес" [ref=f2e3] [cursor=pointer]:
+      - /url: ../index.html
+      - text: Stack
+      - generic [ref=f2e4]: дизайн-процес
+    - navigation [ref=f2e5]:
+      - link "Дослідження" [ref=f2e7] [cursor=pointer]:
+        - /url: ../research/research.html
+      - link "Дослідження людей Next" [ref=f2e9] [cursor=pointer]:
+        - /url: ../research/personas.html
+        - text: Дослідження людей
+        - generic [ref=f2e10]: Next
+      - generic [ref=f2e11]:
+        - generic [ref=f2e12]:
+          - text: Інформаційна архітектура
+          - generic [ref=f2e13]: Soon
+        - generic [ref=f2e14]:
+          - generic [ref=f2e15]: Базовий шар
+          - generic [ref=f2e16]: Флоу
+          - link "Концепт-карта" [ref=f2e19] [cursor=pointer]:
+            - /url: ../ia/concept-map.html
+          - generic [ref=f2e20]: Детальний шар
+          - link "Карта сайту" [ref=f2e22] [cursor=pointer]:
+            - /url: ../ia/sitemap.html
+          - link "3.0 Картка товару" [ref=f2e24] [cursor=pointer]:
+            - /url: http://localhost:8899/ia/product.html
+          - generic [ref=f2e25]: Структура
+      - link "Вайрфрейми" [ref=f2e28] [cursor=pointer]:
+        - /url: ../wireframes/overview.html
+      - link "Голос продукту" [ref=f2e30] [cursor=pointer]:
+        - /url: ../voice/voice.html
+      - link "Концепт" [ref=f2e32] [cursor=pointer]:
+        - /url: ../design/concept/directions.html
+      - link "UI + візуал" [ref=f2e34] [cursor=pointer]:
+        - /url: ../design/overview.html
+      - generic [ref=f2e36]:
+        - text: Токени і компоненти
+        - generic [ref=f2e37]: Soon
+      - generic [ref=f2e39]:
+        - text: Дизайн-система
+        - generic [ref=f2e40]: Soon
+      - generic [ref=f2e42]:
+        - text: Адаптив
+        - generic [ref=f2e43]: Soon
+      - generic [ref=f2e45]:
+        - text: Анімація
+        - generic [ref=f2e46]: Soon
+      - generic [ref=f2e48]:
+        - text: Хендоф
+        - generic [ref=f2e49]: Soon
+  - generic [ref=f2e50]:
+    - generic [ref=f2e51]:
+      - generic [ref=f2e52]: Посторінкова IA · картка товару (PDP) · вузол 3.0
+      - heading "Картка товару" [level=1] [ref=f2e53]
+      - paragraph [ref=f2e54]: "Сторінка, заради якої існує довіра в магазині, і ціль конверсії кожної картки товару. Тут користувач перевіряє, що продукт безпечний, сертифікований і правильно дозований (Job 4: склад · дозування · походження · сертифікація), і робить крок «У кошик» (конверсія Job 2 і Job 3). На цій же сторінці живуть 3.1 Відгуки, 3.2 Питання, 3.3 Схожі. Принцип №1 — спершу прибрати сумнів, потім продавати."
+      - generic [ref=f2e55]:
+        - generic [ref=f2e56]:
+          - strong [ref=f2e57]: Вузол
+          - text: 3.0 (+ 3.1 / 3.2 / 3.3 на сторінці)
+        - generic [ref=f2e58]:
+          - strong [ref=f2e59]: Джоба
+          - text: Job 4 (довіра) + конверсія Job 2/3
+        - generic [ref=f2e60]:
+          - strong [ref=f2e61]: Потік
+          - text: "flows.md — «Job 3: перевірка безпеки»"
+        - generic [ref=f2e62]:
+          - strong [ref=f2e63]: Джерело істини
+          - text: ia/docs/pages/product.md
+    - generic [ref=f2e64]: "Ключове рішення: блок довіри (Склад · Дозування · Походження · Сертифікація) — ведучий, одразу під buy-box, а не схований у «Опис» під згином. Один головний CTA «У кошик» (на мобілці — липка нижня смуга). Сертифікат — реальний переглядний контент, а відгуки + сертифікат — це recovery для непереконаного покупця (за потоком Job 3), щоб він не пішов із сумнівом."
+    - generic [ref=f2e65]:
+      - generic [ref=f2e66]: 01 · Десктоп і мобілка
+      - heading "Анатомія сторінки товару" [level=2] [ref=f2e67]
+      - paragraph [ref=f2e68]: "Приклад: Gold Standard 100% Whey 2270 г. Хедер → крихти → таб-навігація по товару (Про товар · Склад · … — прилипає до хедера при скролі й несе увесь ціновий факт: стара ціна + бейдж −% над живою цифрою, поруч «Купити») → дві колонки: галерея + buy-box (H1 · бренд · статус-рядок одним рядком: наявність + артикул ліворуч, рейтинг праворуч · «проста відповідь» · варіанти смак/вага · ціна й дія в один ряд — стара ціна + бейдж −% поруч, під ними нова крупно, праворуч «У кошик» + ♡, без лічильника кількості · ціна за порцію · ціна тренера · блоки Доставка + Оплата з чипом міста) → єдина смуга довіри (оригінал · сертифікат · доставка · повернення) перед складом → блок довіри (склад + етикетка з упаковки · дозування · походження · сертифікація — ведучий, секції відкриті) → опис (повний) + фото → характеристики → відгуки (3.1) → питання (3.2) → схожі (3.3) → статті по темі → футер."
+      - paragraph [ref=f2e69]: Мокап навмисно чорно-білий (вайрфрейм-рівень) — колір додамо на етапі концепту.
+      - generic [ref=f2e70]:
+        - generic [ref=f2e71]: Картка товару — десктоп
+        - generic [ref=f2e72]:
+          - generic [ref=f2e73]:
+            - generic [ref=f2e74]: Хедер
+            - text: "Наслідується — Навігація (0.1): мета-рядок · лого · мега-меню «Каталог» · «✦ Квіз» · пошук · ♡ Обране · Бонуси · Кошик · Увійти/Кабінет"
+            - generic [ref=f2e75]: — той самий компонент на всіх сторінках
+          - generic [ref=f2e76]:
+            - link "Головна" [ref=f2e77] [cursor=pointer]:
+              - /url: ../ia/concept-map.html
+            - text: /
+            - link "Каталог" [ref=f2e78] [cursor=pointer]:
+              - /url: catalog.html
+            - text: /
+            - link "Протеїн" [ref=f2e79] [cursor=pointer]:
+              - /url: category.html
+            - text: /Gold Standard 100% Whey
+          - generic [ref=f2e80]:
+            - link "Про товар" [ref=f2e81] [cursor=pointer]:
+              - /url: "#"
+            - link "Склад" [ref=f2e82] [cursor=pointer]:
+              - /url: "#"
+            - link "Дозування" [ref=f2e83] [cursor=pointer]:
+              - /url: "#"
+            - link "Характеристики" [ref=f2e84] [cursor=pointer]:
+              - /url: "#"
+            - link "Відгуки" [ref=f2e85] [cursor=pointer]:
+              - /url: "#rev"
+            - link "Питання" [ref=f2e86] [cursor=pointer]:
+              - /url: "#"
+          - generic [ref=f2e87]:
+            - generic [ref=f2e88]:
+              - generic [ref=f2e89]:
+                - generic [ref=f2e90]: фото
+                - generic [ref=f2e91]: "2"
+                - generic [ref=f2e92]: "3"
+                - generic [ref=f2e93]: сканскладу
+              - generic [ref=f2e94]:
+                - text: фото товару
+                - generic [ref=f2e95]: Хіт
+                - generic [ref=f2e96]: ⌕ збільшити
+            - generic [ref=f2e97]:
+              - generic [ref=f2e98]: Бренд Optimum Nutrition · виробництво США
+              - heading "Gold Standard 100% Whey, 2270 г" [level=1] [ref=f2e99]
+              - generic [ref=f2e100]:
+                - generic [ref=f2e101]:
+                  - generic [ref=f2e102]: ● В наявності
+                  - generic [ref=f2e103]: "Артикул: ON-GSW-2270"
+                - generic [ref=f2e104]:
+                  - generic [ref=f2e105]: ★★★★★
+                  - text: 4.8 ·
+                  - link "126 відгуків" [ref=f2e106] [cursor=pointer]:
+                    - /url: "#rev"
+              - generic [ref=f2e107]: "Для чого: сироватковий протеїн для росту й відновлення м'язів — 24 г білка на порцію. Базова добавка для набору маси."
+              - generic [ref=f2e108]:
+                - generic [ref=f2e109]:
+                  - generic [ref=f2e110]: 1 520 ₴
+                  - generic [ref=f2e111]: −15%
+                - generic [ref=f2e112]: 1 290 ₴
+              - generic [ref=f2e113]: ≈ 18 ₴ / порція · 72 порції в банці
+              - generic [ref=f2e114]: "Ціна для тренера (Pro): 1 090 ₴ · бачить лише авторизований тренер"
+              - generic [ref=f2e115]:
+                - generic [ref=f2e116]: "Смак: Подвійний шоколад"
+                - generic [ref=f2e117]:
+                  - generic [ref=f2e118]: Подвійний шоколад
+                  - generic [ref=f2e119]: Ваніль
+                  - generic [ref=f2e120]: Полуниця
+                  - generic [ref=f2e121]: Печиво-крем
+              - generic [ref=f2e122]:
+                - generic [ref=f2e123]: "Фасування: 2270 г"
+                - generic [ref=f2e124]:
+                  - generic [ref=f2e125]: 908 г
+                  - generic [ref=f2e126]: 2270 г
+                  - generic [ref=f2e127]: 4540 г
+              - generic [ref=f2e128]:
+                - generic [ref=f2e129]: У кошик · 1 290 ₴
+                - generic [ref=f2e130]: ♡
+              - generic [ref=f2e131]:
+                - generic [ref=f2e132]:
+                  - generic [ref=f2e133]:
+                    - generic [ref=f2e134]: 🚚 Доставка
+                    - generic [ref=f2e135]: Одеса ▾
+                  - generic [ref=f2e136]:
+                    - generic [ref=f2e137]:
+                      - text: Нова Пошта
+                      - generic [ref=f2e138]: Відділення або поштомат
+                    - generic [ref=f2e139]: від 50 ₴
+                  - generic [ref=f2e140]:
+                    - generic [ref=f2e141]:
+                      - text: Кур'єр Нової Пошти
+                      - generic [ref=f2e142]: На адресу, до під'їзду
+                    - generic [ref=f2e143]: від 70 ₴
+                  - generic [ref=f2e144]:
+                    - generic [ref=f2e145]:
+                      - text: Самовивіз
+                      - generic [ref=f2e146]: Одеса, вул. Дерибасівська, 1 [?]
+                    - generic [ref=f2e147]: безкоштовно
+                  - generic [ref=f2e148]: Нова Пошта — 1–2 дні. Самовивіз — лише за наявності на точці.
+                - generic [ref=f2e149]:
+                  - generic [ref=f2e150]:
+                    - generic [ref=f2e151]: 💳
+                    - text: Оплата
+                  - generic [ref=f2e152]: Картка онлайн · Apple / Google Pay
+                  - generic [ref=f2e154]: Накладений платіж (при отриманні)
+                  - generic [ref=f2e156]: Готівка при самовивозі
+          - generic [ref=f2e158]:
+            - generic [ref=f2e159]:
+              - generic [ref=f2e160]: ✓
+              - generic [ref=f2e161]:
+                - generic [ref=f2e162]: Оригінал + гарантія
+                - text: офіційний імпорт
+            - generic [ref=f2e163]:
+              - generic [ref=f2e164]: 📄
+              - generic [ref=f2e165]:
+                - generic [ref=f2e166]: Сертифікат
+                - text: відповідності та лаб. тести
+            - generic [ref=f2e167]:
+              - generic [ref=f2e168]: 🚚
+              - generic [ref=f2e169]:
+                - generic [ref=f2e170]: Доставка
+                - text: Новою Поштою 1–2 дні
+            - generic [ref=f2e171]:
+              - generic [ref=f2e172]: ↩
+              - generic [ref=f2e173]:
+                - generic [ref=f2e174]: Повернення
+                - text: протягом 14 днів
+          - generic [ref=f2e175]: Блок довіри — ведучий (Job 4) · усі секції відкриті, можна згорнути ▴
+          - generic [ref=f2e176]:
+            - generic [ref=f2e177]: Склад · Дозування · Походження · Сертифікація
+            - generic [ref=f2e178]:
+              - generic [ref=f2e179]:
+                - text: Склад (харчова цінність на порцію 30 г)
+                - generic [ref=f2e180]: ▴
+              - generic [ref=f2e181]:
+                - table [ref=f2e182]:
+                  - rowgroup [ref=f2e183]:
+                    - row [ref=f2e184]:
+                      - columnheader "Речовина" [ref=f2e185]
+                      - columnheader "На порцію" [ref=f2e186]
+                      - columnheader "% добової норми" [ref=f2e187]
+                    - row [ref=f2e188]:
+                      - cell "Білок" [ref=f2e189]
+                      - cell "24 г" [ref=f2e190]
+                      - cell "48%" [ref=f2e191]
+                    - row [ref=f2e192]:
+                      - cell "Вуглеводи (з них цукри)" [ref=f2e193]
+                      - cell "3 г (1 г)" [ref=f2e194]
+                      - cell "1%" [ref=f2e195]
+                    - row [ref=f2e196]:
+                      - cell "Жири" [ref=f2e197]
+                      - cell "1.5 г" [ref=f2e198]
+                      - cell "2%" [ref=f2e199]
+                    - row [ref=f2e200]:
+                      - cell "BCAA" [ref=f2e201]
+                      - cell "5.5 г" [ref=f2e202]
+                      - cell "—" [ref=f2e203]
+                    - row [ref=f2e204]:
+                      - cell "Глутамін" [ref=f2e205]
+                      - cell "4 г" [ref=f2e206]
+                      - cell "—" [ref=f2e207]
+                - paragraph [ref=f2e208]: "Інгредієнти: протеїнова суміш (ізолят сироваткового протеїну, концентрат сироваткового протеїну, сироваткові пептиди), натуральні та штучні ароматизатори, соняшниковий або соєвий лецитин, ацесульфам калію, Aminogen."
+                - paragraph [ref=f2e209]: "Містить алергени: МОЛОКО та СОЮ."
+                - generic [ref=f2e210]: Фото складу з упаковки — додаткова довіра
+                - generic [ref=f2e211]:
+                  - generic [ref=f2e212]: фотоетикеткискладу
+                  - generic [ref=f2e213]: фотохарч.цінності
+            - generic [ref=f2e214]:
+              - generic [ref=f2e215]:
+                - text: Дозування та застосування
+                - generic [ref=f2e216]: ▴
+              - generic [ref=f2e217]: Змішайте 1 мірну ложку (~30 г) зі 180–240 мл холодної води чи улюбленого напою. Приймайте 1–2 порції на день — після тренування та/або між прийомами їжі, щоб задовольнити потребу в білку. Також можна використовувати у приготуванні страв.
+            - generic [ref=f2e218]:
+              - generic [ref=f2e219]:
+                - text: Походження
+                - generic [ref=f2e220]: ▴
+              - generic [ref=f2e221]: "Виробник: Optimum Nutrition (Glanbia), США. Імпортер та офіційний дистриб'ютор в Україні зазначені. Гарантія оригінальності продукту — товар не підробка."
+            - generic [ref=f2e222]:
+              - generic [ref=f2e223]:
+                - text: Сертифікація
+                - generic [ref=f2e224]: ▴
+              - generic [ref=f2e225]:
+                - text: Сертифікат відповідності + лабораторні тести.
+                - generic [ref=f2e226]: 📄 Переглянути сертифікат
+                - text: Реальний переглядний документ (зображення / PDF), не лише текст.
+          - generic [ref=f2e227]:
+            - generic [ref=f2e228]: Опис
+            - paragraph [ref=f2e229]: Optimum Nutrition 100% Whey Gold Standard — білок №1 у світі
+            - paragraph [ref=f2e230]: Протеїн популярний серед активних людей, оскільки легко засвоюється і є багатим джерелом амінокислот для відновлення м'язів.
+            - paragraph [ref=f2e231]: Ізолят сироваткового протеїну — одна з найчистіших форм сироватки і основний компонент Gold Standard 100% Whey. Кожна порція містить 24 г сироваткового протеїну, що швидко засвоюється, з мінімальним вмістом жиру та лактози. Це стандарт, на який рівняються інші виробники.
+            - paragraph [ref=f2e232]: "Основні особливості:"
+            - paragraph [ref=f2e233]: • Виготовлений з ізоляту сироваткового протеїну• Ізолят + ультрафільтрований концентрат, мікрофракції сироватки• Понад 4 г глютаміну в кожній порції• Більше 5 г BCAA (лейцин, ізолейцин, валін) у кожній порції
+            - generic [ref=f2e234]: Додаткові фото продукту
+            - generic [ref=f2e235]:
+              - generic [ref=f2e236]: фото 2в руці
+              - generic [ref=f2e237]: фото 3порція
+              - generic [ref=f2e238]: фото 4етикетка
+            - paragraph [ref=f2e239]: "↑ Опис іде після блоку довіри (Принцип №1: спершу факти, потім продаж). Готовий текст на кожен товар — етап копірайту."
+          - generic [ref=f2e240]:
+            - generic [ref=f2e241]: Характеристики
+            - table [ref=f2e242]:
+              - rowgroup [ref=f2e243]:
+                - row [ref=f2e244]:
+                  - cell "Бренд" [ref=f2e245]
+                  - cell "Optimum Nutrition" [ref=f2e246]
+                - row [ref=f2e247]:
+                  - cell "Країна виробництва" [ref=f2e248]
+                  - cell "США" [ref=f2e249]
+                - row [ref=f2e250]:
+                  - cell "Форма" [ref=f2e251]
+                  - cell "Порошок" [ref=f2e252]
+                - row [ref=f2e253]:
+                  - cell "Тип протеїну" [ref=f2e254]
+                  - cell "Сироватковий (ізолят + концентрат)" [ref=f2e255]
+                - row [ref=f2e256]:
+                  - cell "Вага" [ref=f2e257]
+                  - cell "2270 г" [ref=f2e258]
+                - row [ref=f2e259]:
+                  - cell "Порцій в упаковці" [ref=f2e260]
+                  - cell "74" [ref=f2e261]
+                - row [ref=f2e262]:
+                  - cell "Ціль" [ref=f2e263]
+                  - cell "Набір маси · Відновлення" [ref=f2e264]
+                - row [ref=f2e265]:
+                  - cell "Сертифікація" [ref=f2e266]
+                  - cell "Сертифікат відповідності" [ref=f2e267]
+            - paragraph [ref=f2e268]: ↑ Дзеркалить фасети каталогу (catalog.md) — узгоджені атрибути.
+          - generic [ref=f2e269]:
+            - generic [ref=f2e270]:
+              - text: Відгуки
+              - generic [ref=f2e271]: · 3.1 · recovery для непереконаного покупця
+              - generic [ref=f2e272]: "стан: багато відгуків → з пагінацією"
+            - generic [ref=f2e273]:
+              - generic [ref=f2e274]:
+                - generic [ref=f2e275]: "4.8"
+                - generic [ref=f2e276]: ★★★★★
+                - generic [ref=f2e277]: 126 відгуків
+              - generic [ref=f2e278]:
+                - generic [ref=f2e279]:
+                  - generic [ref=f2e280]: 5★
+                  - generic [ref=f2e283]: "104"
+                - generic [ref=f2e284]:
+                  - generic [ref=f2e285]: 4★
+                  - generic [ref=f2e288]: "15"
+                - generic [ref=f2e289]:
+                  - generic [ref=f2e290]: 3★
+                  - generic [ref=f2e293]: "5"
+                - generic [ref=f2e294]:
+                  - generic [ref=f2e295]: 2★
+                  - generic [ref=f2e298]: "1"
+                - generic [ref=f2e299]:
+                  - generic [ref=f2e300]: 1★
+                  - generic [ref=f2e303]: "1"
+              - link "＋ Залишити відгук" [ref=f2e304] [cursor=pointer]:
+                - /url: "#dialogs"
+            - generic [ref=f2e305]:
+              - generic [ref=f2e306]:
+                - generic [ref=f2e307]: Андрій К.
+                - generic [ref=f2e308]: ★★★★★
+                - generic [ref=f2e309]: ✓ Купив товар
+                - generic [ref=f2e310]: 12 червня 2026
+              - generic [ref=f2e311]:
+                - generic [ref=f2e312]:
+                  - generic [ref=f2e313]: "＋ Переваги: добре розмішується, не нудотний смак"
+                  - generic [ref=f2e314]: "− Недоліки: дорогувато"
+                - generic [ref=f2e315]: Беру не перший раз. Сертифікат на місці — довіряю. Банки вистачає надовго.
+                - generic [ref=f2e316]:
+                  - generic [ref=f2e317]: фото
+                  - generic [ref=f2e318]: фото
+                - generic [ref=f2e319]:
+                  - generic [ref=f2e320]: Показати відповіді (2) ▾
+                  - generic [ref=f2e321]:
+                    - generic [ref=f2e322]: ◆ Stack · магазин
+                    - generic [ref=f2e323]: Дякуємо за відгук, Андрію! Тариф знижуємо для постійних покупців у програмі лояльності.
+                    - generic [ref=f2e324]: 13 червня 2026
+                  - generic [ref=f2e325]:
+                    - text: Ігор · 13 червня
+                    - generic [ref=f2e326]: Згоден, смак топ
+                - generic [ref=f2e327]: ↩ Відповісти
+            - generic [ref=f2e328]:
+              - generic [ref=f2e329]:
+                - generic [ref=f2e330]: Олена (тренер)
+                - generic [ref=f2e331]: ★★★★★
+                - generic [ref=f2e332]: ✓ Купила товар
+                - generic [ref=f2e333]: 3 червня 2026
+              - generic [ref=f2e334]:
+                - generic [ref=f2e335]: "＋ Переваги: оригінал, прозорий склад, швидка доставка"
+                - generic [ref=f2e337]: Замовляю клієнтам. Зручно показувати підопічним склад і сертифікат.
+                - generic [ref=f2e338]: ↩ Відповісти
+                - paragraph [ref=f2e339]: ↑ «Недоліки» можуть бути порожні — показуємо лише заповнені.
+            - generic [ref=f2e341]:
+              - link "1" [ref=f2e342] [cursor=pointer]:
+                - /url: "#"
+              - link "2" [ref=f2e343] [cursor=pointer]:
+                - /url: "#"
+              - link "3" [ref=f2e344] [cursor=pointer]:
+                - /url: "#"
+              - link "›" [ref=f2e345] [cursor=pointer]:
+                - /url: "#"
+            - paragraph [ref=f2e346]: "Два стани: багато відгуків → пагінація (як тут); мало → простий список без пагінації. Відповіді магазину — спец-чипс із логотипом замість імені."
+          - generic [ref=f2e347]:
+            - generic [ref=f2e348]: Питання та відповіді · 3.2 · діалог-форма, як відгуки, але без рейтингу
+            - generic [ref=f2e349]:
+              - generic [ref=f2e350]:
+                - generic [ref=f2e351]: Запитання
+                - generic [ref=f2e352]: 8 червня 2026
+              - generic [ref=f2e353]:
+                - generic [ref=f2e354]: Чи підходить для схуднення?
+                - generic [ref=f2e355]:
+                  - generic [ref=f2e356]: ◆ Stack · магазин
+                  - generic [ref=f2e357]: Так, але для сушки краще ізолят із меншою кількістю вуглеводів. Напишіть нам — підкажемо.
+            - link "＋ Поставити запитання" [ref=f2e358] [cursor=pointer]:
+              - /url: "#dialogs"
+            - paragraph [ref=f2e359]: «Поставити запитання» відкриває діалог-форму; питання потрапляє у цю стрічку, відповідає магазин (спец-чипс) або інші покупці. Та сама механіка, що відгуки, але без рейтингу і без переваг/недоліків.
+          - generic [ref=f2e360]:
+            - generic [ref=f2e361]: Схожі товари · З цим купують · 3.3
+            - generic [ref=f2e362]:
+              - generic [ref=f2e363]:
+                - generic [ref=f2e364]:
+                  - text: фото
+                  - generic [ref=f2e365]: ♡
+                - generic [ref=f2e366]:
+                  - generic [ref=f2e367]: Optimum Nutrition · США
+                  - generic [ref=f2e368]: Creatine Monohydrate 300 г
+                  - generic [ref=f2e369]:
+                    - generic [ref=f2e370]: 540 ₴
+                    - generic [ref=f2e373]: 🛒
+                  - generic [ref=f2e374]:
+                    - generic [ref=f2e375]: ★ 4.7
+                    - text: · 54 відгуки
+                  - generic [ref=f2e376]:
+                    - generic [ref=f2e377]: 9 ₴ / порція
+                    - generic [ref=f2e378]: +5 ₴ Бонус
+              - generic [ref=f2e379]:
+                - generic [ref=f2e380]:
+                  - text: фото
+                  - generic [ref=f2e381]: ♡
+                - generic [ref=f2e382]:
+                  - generic [ref=f2e383]: Optimum Nutrition · США
+                  - generic [ref=f2e384]: Serious Mass 2727 г
+                  - generic [ref=f2e385]:
+                    - generic [ref=f2e386]: 1 350 ₴
+                    - generic [ref=f2e389]: 🛒
+                  - generic [ref=f2e390]:
+                    - generic [ref=f2e391]: ★ 4.6
+                    - text: · 72 відгуки
+                  - generic [ref=f2e392]:
+                    - generic [ref=f2e393]: 34 ₴ / порція
+                    - generic [ref=f2e394]: +14 ₴ Бонус
+              - generic [ref=f2e395]:
+                - generic [ref=f2e396]:
+                  - text: фото
+                  - generic [ref=f2e397]: ♡
+                - generic [ref=f2e398]:
+                  - generic [ref=f2e399]: Scitec Nutrition · Угорщина
+                  - generic [ref=f2e400]: BCAA 5000 380 г
+                  - generic [ref=f2e401]:
+                    - generic [ref=f2e402]: 690 ₴
+                    - generic [ref=f2e405]: 🛒
+                  - generic [ref=f2e406]:
+                    - generic [ref=f2e407]: ★ 4.8
+                    - text: · 63 відгуки
+                  - generic [ref=f2e408]:
+                    - generic [ref=f2e409]: 12 ₴ / порція
+                    - generic [ref=f2e410]: +6 ₴ Бонус
+              - generic [ref=f2e411]:
+                - generic [ref=f2e412]:
+                  - text: фото
+                  - generic [ref=f2e413]: ♡
+                - generic [ref=f2e414]:
+                  - generic [ref=f2e415]: Stack · Україна
+                  - generic [ref=f2e416]: Шейкер 700 мл
+                  - generic [ref=f2e417]:
+                    - generic [ref=f2e418]: 180 ₴
+                    - generic [ref=f2e421]: 🛒
+                  - generic [ref=f2e422]:
+                    - generic [ref=f2e423]: ★ 4.9
+                    - text: · 210 відгуків
+                  - generic [ref=f2e424]:
+                    - generic [ref=f2e425]: аксесуар
+                    - generic [ref=f2e426]: +2 ₴ Бонус
+          - generic [ref=f2e427]:
+            - generic [ref=f2e428]: Статті по темі · блог (8.0/8.1)
+            - generic [ref=f2e429]:
+              - generic [ref=f2e430]:
+                - generic [ref=f2e431]: фото
+                - generic [ref=f2e432]: "Як обрати протеїн: ізолят, концентрат чи казеїн"
+                - generic [ref=f2e433]: 7 хв · Гайд
+              - generic [ref=f2e434]:
+                - generic [ref=f2e435]: фото
+                - generic [ref=f2e436]: Скільки білка потрібно на день для набору маси
+                - generic [ref=f2e437]: 5 хв · Поради
+              - generic [ref=f2e438]:
+                - generic [ref=f2e439]: фото
+                - generic [ref=f2e440]: "Коли пити протеїн: до чи після тренування"
+                - generic [ref=f2e441]: 4 хв · Поради
+              - generic [ref=f2e442]:
+                - generic [ref=f2e443]: фото
+                - generic [ref=f2e444]: "Сироватковий протеїн і лактоза: що варто знати"
+                - generic [ref=f2e445]: 6 хв · Здоров'я
+            - paragraph [ref=f2e446]: Перелінковка на блог (8.0) / статтю (8.1) — допомагає новачку (Job 2) і SEO; спокійно, без продажу.
+          - generic [ref=f2e447]:
+            - generic [ref=f2e448]: Футер
+            - text: "Наслідується — Футер (0.2): смуга довіри · колонки · SEO-блок популярних запитів · бренди · міста"
+            - generic [ref=f2e449]: — той самий компонент на всіх сторінках
+      - paragraph [ref=f2e450]: Хедер і футер — наслідувані зони (Навігація 0.1 / Футер 0.2). Картка-джерело — канонічна з home.md, її «У кошик» веде сюди (3.0). Варіанти (смак, вага) — на одній сторінці з одним canonical; зміна варіанта оновлює ціну/наявність/артикул на місці, відсутні варіанти вимкнено (не ховаємо).
+      - heading "Стики-навігація по товару (прилипає до хедера при скролі)" [level=3] [ref=f2e451]
+      - paragraph [ref=f2e452]:
+        - text: Таб-навігація по секціях товару — після брекрамсів. При скролі вона прилипає під стики-хедером (спрощений, без мета-рядка — див.
+        - link "Хедер" [ref=f2e453] [cursor=pointer]:
+          - /url: navigation.html
+        - text: ) і стає його частиною. Справа з'являються ціна (зі знижкою або без) + «Купити» + ♡, щоб дія була доступна на будь-якій глибині сторінки.
+      - generic [ref=f2e454]:
+        - generic [ref=f2e455]:
+          - generic [ref=f2e456]: Stack
+          - generic [ref=f2e457]: ☰ Каталог
+          - generic [ref=f2e458]: ✦ Квіз
+          - generic [ref=f2e459]: Пошук товарів…
+          - generic [ref=f2e460]: 👤
+          - generic [ref=f2e461]: ♡
+          - generic [ref=f2e462]: бонуси 240₴
+          - generic [ref=f2e463]: 🛒
+        - generic [ref=f2e464]:
+          - generic [ref=f2e465]:
+            - link "Про товар" [ref=f2e466] [cursor=pointer]:
+              - /url: "#"
+            - link "Склад" [ref=f2e467] [cursor=pointer]:
+              - /url: "#"
+            - link "Дозування" [ref=f2e468] [cursor=pointer]:
+              - /url: "#"
+            - link "Характеристики" [ref=f2e469] [cursor=pointer]:
+              - /url: "#"
+            - link "Відгуки" [ref=f2e470] [cursor=pointer]:
+              - /url: "#"
+            - link "Питання" [ref=f2e471] [cursor=pointer]:
+              - /url: "#"
+          - generic [ref=f2e472]:
+            - generic [ref=f2e473]:
+              - generic [ref=f2e474]: 1 290 ₴
+              - generic [ref=f2e475]: 1 520 ₴
+              - generic [ref=f2e476]: −15%
+            - generic [ref=f2e477]: Купити
+            - generic [ref=f2e478]: ♡
+      - paragraph [ref=f2e479]: Без знижки — у блоці ціни лише основна ціна (без закресленої та бейджа). Клік по табу — плавний скрол до секції; активний таб підсвічується за позицією скролу.
+      - heading "Мобілка (під десктопом — той самий екран)" [level=3] [ref=f2e480]
+      - paragraph [ref=f2e481]: "База 360px. Один стовпець: галерея → buy-box → блок довіри → опис → характеристики → відгуки → питання → схожі. Проста відповідь + ціна + «У кошик» — завжди над згином; довгі секції — акордеони. Знизу — липка смуга (ціна + «У кошик»), що з'являється після прокрутки buy-box. Таб «Каталог» активний."
+      - generic [ref=f2e482]:
+        - generic [ref=f2e483]:
+          - generic [ref=f2e484]:
+            - generic [ref=f2e485]:
+              - generic [ref=f2e486]: Stack
+              - generic [ref=f2e487]: 🔍
+              - generic [ref=f2e488]: ♡
+              - generic [ref=f2e489]: 🛒
+            - generic [ref=f2e490]:
+              - generic [ref=f2e491]: Головна / Каталог / Протеїн /
+              - generic [ref=f2e492]:
+                - text: фото товару
+                - generic [ref=f2e493]: ХІТ
+              - generic [ref=f2e494]: Optimum Nutrition · США
+              - generic [ref=f2e495]: Gold Standard 100% Whey, 2270 г
+              - generic [ref=f2e496]: ★ 4.8 (126)
+              - generic [ref=f2e497]: ● В наявності
+              - generic [ref=f2e498]: "Для чого: ріст і відновлення м'язів, 24 г білка/порція"
+              - generic [ref=f2e499]:
+                - generic [ref=f2e500]:
+                  - generic [ref=f2e501]: 1 520 ₴
+                  - generic [ref=f2e502]: −15%
+                - generic [ref=f2e503]: 1 290 ₴
+              - generic [ref=f2e504]: ≈ 18 ₴/порція · 72 порції
+            - generic [ref=f2e505]:
+              - generic [ref=f2e506]: Смак
+              - generic [ref=f2e507]:
+                - generic [ref=f2e508]: Шоколад
+                - generic [ref=f2e509]: Ваніль
+                - generic [ref=f2e510]: Полуниця
+            - generic [ref=f2e511]:
+              - generic [ref=f2e512]: Доставка · Оплата
+              - generic [ref=f2e513]: Нова Пошта від 50 ₴ · Кур'єр від 70 ₴ · Самовивіз безкоштовноКартка · накладений платіж · готівка при самовивозі
+            - generic [ref=f2e514]:
+              - generic [ref=f2e515]: Довіра — єдина смуга
+              - generic [ref=f2e516]: ✓ Оригінал · 📄 Сертифікат · 🚚 НП 1–2 дні · ↩ Повернення 14 днів
+            - generic [ref=f2e517]:
+              - generic [ref=f2e518]: Блок довіри (Job 4) — відкритий
+              - generic [ref=f2e519]:
+                - text: Склад + етикетка з упаковки
+                - generic [ref=f2e520]: ▴
+              - generic [ref=f2e521]:
+                - text: Дозування
+                - generic [ref=f2e522]: ▴
+              - generic [ref=f2e523]:
+                - text: Походження
+                - generic [ref=f2e524]: ▴
+              - generic [ref=f2e525]:
+                - text: Сертифікація · 📄 переглянути
+                - generic [ref=f2e526]: ▴
+            - generic [ref=f2e527]: Опис · Характеристики
+            - generic [ref=f2e532]:
+              - generic [ref=f2e533]: Відгуки (3.1) · ім'я+рейтинг ↔ текст
+              - generic [ref=f2e534]: Переваги/недоліки · фото · відповіді (показати/сховати) · відповідь магазину (чипс)
+            - generic [ref=f2e535]: Питання (3.2) · Схожі (3.3) · Статті
+            - generic [ref=f2e539]:
+              - generic [ref=f2e540]: 1 290 ₴
+              - generic [ref=f2e541]: У кошик
+              - generic [ref=f2e542]: ♡
+            - generic [ref=f2e543]:
+              - generic [ref=f2e544]:
+                - generic [ref=f2e545]: ⌂
+                - text: Головна
+              - generic [ref=f2e546]:
+                - generic [ref=f2e547]: ▦
+                - text: Каталог
+              - generic [ref=f2e548]:
+                - generic [ref=f2e549]: 🛒
+                - text: Кошик
+              - generic [ref=f2e550]:
+                - generic [ref=f2e551]: ♡
+                - text: Обране
+              - generic [ref=f2e552]:
+                - generic [ref=f2e553]: 👤
+                - text: Акаунт
+          - paragraph [ref=f2e554]: "Над згином: фото + назва + рейтинг + наявність + проста відповідь + ціна. Липка смуга «У кошик» завжди доступна."
+        - generic [ref=f2e555]:
+          - generic [ref=f2e556]:
+            - generic [ref=f2e557]:
+              - generic [ref=f2e558]: Stack
+              - generic [ref=f2e559]: ✕
+            - generic [ref=f2e560]:
+              - generic [ref=f2e561]: Сертифікат — переглядний документ
+              - generic [ref=f2e562]: 📄 сертифікат відповідності(зображення / PDF)
+            - generic [ref=f2e563]:
+              - generic [ref=f2e564]: Recovery (потік Job 3)
+              - generic [ref=f2e565]: Непереконаний покупець → ведемо на відгуки + сертифікат на цьому ж екрані, перш ніж він піде. Сертифікат і відгуки — реальний контент, не обіцянка.
+            - generic [ref=f2e566]:
+              - generic [ref=f2e567]: Немає в наявності
+              - generic [ref=f2e568]: 🔔 Повідомити про надходження
+              - generic [ref=f2e569]: + лінк «Повернутись до колекції» — щоб обрати альтернативу (не глухий кут).
+          - paragraph [ref=f2e570]: Сертифікат відкривається в діалозі (фокус всередині, ESC закриває). Out-of-stock → «Повідомити» + повернення до колекції.
+    - generic [ref=f2e571]:
+      - generic [ref=f2e572]: 01б · Діалоги — залишити відгук і поставити запитання
+      - heading "Два діалоги картки товару (3.1a · 3.2a)" [level=2] [ref=f2e573]
+      - paragraph [ref=f2e574]: «＋ Залишити відгук» (у блоці Відгуки 3.1) і «＋ Поставити запитання» (у блоці Питання 3.2) відкривають модальні діалоги — на десктопі по центру поверх затемненої сторінки, на мобілці на весь екран. Після відправки запис з'являється у відповідній стрічці (відгук — з рейтингом і перевагами/недоліками; питання — без рейтингу), відповідає магазин (спец-чипс). Гість → спершу авторизація (діалог 1.x), після входу повертається у той самий діалог. Фокус усередині, ESC / ✕ / клік по фону закривають.
+      - generic [ref=f2e575]:
+        - generic [ref=f2e576]: Модальні діалоги (поверх сторінки товару) — десктоп
+        - generic [ref=f2e577]:
+          - generic [ref=f2e578]:
+            - generic [ref=f2e579]:
+              - heading "Залишити відгук" [level=4] [ref=f2e580]
+              - generic [ref=f2e581]: ✕
+            - generic [ref=f2e582]:
+              - generic [ref=f2e583]:
+                - generic [ref=f2e584]: фото
+                - generic [ref=f2e585]: Gold Standard 100% Whey, 2270 г · Optimum Nutrition
+              - generic [ref=f2e586]: Ваша оцінка
+              - generic [ref=f2e587]: ★★★★★
+              - generic [ref=f2e588]: Переваги · необов'язково
+              - generic [ref=f2e589]: Що сподобалось…
+              - generic [ref=f2e590]: Недоліки · необов'язково
+              - generic [ref=f2e591]: Що можна покращити…
+              - generic [ref=f2e592]: Ваш відгук
+              - generic [ref=f2e593]: Розкажіть про досвід використання…
+              - generic [ref=f2e594]: ＋ Додати фото (до 5, необов'язково)
+              - generic [ref=f2e595]: Ім'я
+              - generic [ref=f2e596]: Андрій К.
+              - paragraph [ref=f2e597]: Публікуємо після короткої модерації. У покупців із замовленням цього товару поряд з ім'ям буде позначка «✓ Купив товар».
+              - generic [ref=f2e598]: Опублікувати відгук
+          - generic [ref=f2e599]:
+            - generic [ref=f2e600]:
+              - heading "Поставити запитання" [level=4] [ref=f2e601]
+              - generic [ref=f2e602]: ✕
+            - generic [ref=f2e603]:
+              - generic [ref=f2e604]:
+                - generic [ref=f2e605]: фото
+                - generic [ref=f2e606]: Gold Standard 100% Whey, 2270 г · Optimum Nutrition
+              - generic [ref=f2e607]: Ваше запитання
+              - generic [ref=f2e608]: Напишіть питання про товар — склад, дозування, сумісність, доставку…
+              - generic [ref=f2e609]: Ім'я
+              - generic [ref=f2e610]: Ваше ім'я
+              - generic [ref=f2e611]: Сповістити мене про відповідь
+              - paragraph [ref=f2e614]: Відповідає магазин (спец-чипс з логотипом) або інші покупці. Питання й відповідь з'являться у стрічці «Питання та відповіді». Без рейтингу і без переваг/недоліків.
+              - generic [ref=f2e615]: Надіслати запитання
+      - paragraph [ref=f2e616]: "Спільна механіка: тригер — кнопка «＋ …» у своєму блоці; відкривається модалка (desktop центр / mobile fullscreen); гість → авторизація (1.x) → повернення в діалог; після сабміту — тост-підтвердження + запис у стрічку (відгук може йти на модерацію). Відмінності: відгук = рейтинг + переваги/недоліки + фото; запитання = лише текст + опційне сповіщення про відповідь."
+    - generic [ref=f2e617]:
+      - generic [ref=f2e618]: 02 · Стани
+      - heading "Стани сторінки, варіантів і CTA" [level=2] [ref=f2e619]
+      - paragraph [ref=f2e620]: "За потоком «Job 3»: завантаження деталей довіри, помилка з retry, перевірка наявності → кошик, out-of-stock → назад до колекції. Жодного глухого кута без виходу (Принцип №2)."
+      - table [ref=f2e621]:
+        - rowgroup [ref=f2e622]:
+          - row [ref=f2e623]:
+            - columnheader "Стан" [ref=f2e624]
+            - columnheader "Поведінка" [ref=f2e625]
+          - row [ref=f2e626]:
+            - cell "За замовч. / в наявності" [ref=f2e627]
+            - cell "Ціна + активна «У кошик»; варіанти обираються." [ref=f2e628]
+          - row [ref=f2e629]:
+            - cell "Залишилось мало" [ref=f2e630]
+            - cell "Помітка «Залишилось мало» + активна «У кошик»." [ref=f2e631]
+          - row [ref=f2e632]:
+            - cell "Під замовлення" [ref=f2e633]
+            - cell "«Під замовлення» + «У кошик» (контурна, довша доставка)." [ref=f2e634]
+          - row [ref=f2e635]:
+            - cell "Немає в наявності" [ref=f2e636]
+            - cell "Приглушена ціна + «Повідомити про надходження» (8.x) + лінк «Повернутись до колекції» (recovery потоку). Не глухий кут." [ref=f2e637]
+          - row [ref=f2e638]:
+            - cell "Варіант відсутній" [ref=f2e639]
+            - cell "Конкретний смак/вага вимкнено; інші варіанти лишаються доступні до покупки." [ref=f2e640]
+          - row [ref=f2e641]:
+            - cell "Завантаження деталей" [ref=f2e642]
+            - cell "Скелетони галереї + buy-box + блоку довіри (без зсуву лейауту)." [ref=f2e643]
+          - row [ref=f2e644]:
+            - cell "Помилка деталей" [ref=f2e645]
+            - cell [ref=f2e646]:
+              - text: Вбудована помилка + «Спробувати ще» (retry — гілка
+              - code [ref=f2e647]: se → qr
+              - text: потоку).
+          - row [ref=f2e648]:
+            - cell "Додано в кошик" [ref=f2e649]
+            - cell "Підтвердження (toast / міні-кошик) з «Перейти в кошик» + «Продовжити»." [ref=f2e650]
+          - row [ref=f2e651]:
+            - cell "Тренер у сесії" [ref=f2e652]
+            - cell "CTA = «Додати клієнту»; показано ціну тренера (узгоджено зі станом 2.1)." [ref=f2e653]
+          - row [ref=f2e654]:
+            - cell "Непереконаний покупець" [ref=f2e655]
+            - cell "На цьому ж екрані — відгуки (3.1) + сертифікат перед будь-яким виходом (recovery потоку)." [ref=f2e656]
+          - row [ref=f2e657]:
+            - 'cell "Відгуки: багато" [ref=f2e658]'
+            - cell "Список із пагінацією; рейтинг + розподіл зверху." [ref=f2e659]
+          - row [ref=f2e660]:
+            - 'cell "Відгуки: мало" [ref=f2e661]'
+            - cell "Простий список без пагінації." [ref=f2e662]
+          - row [ref=f2e663]:
+            - cell "Відгук без недоліків" [ref=f2e664]
+            - cell "Блок «Недоліки» порожній → не показуємо (показуємо лише заповнені переваги/недоліки)." [ref=f2e665]
+          - row [ref=f2e666]:
+            - cell "Відповіді на відгук" [ref=f2e667]
+            - cell "«Показати відповіді (N)» → розгортає; відповідь магазину — спец-чипс; можна додати фото." [ref=f2e668]
+          - row [ref=f2e669]:
+            - cell "Залишити відгук (діалог 3.1a)" [ref=f2e670]
+            - 'cell "Модалка: рейтинг (обов''язк.) · переваги/недоліки (опц.) · текст · фото (до 5) · ім''я. Гість → авторизація → повернення в діалог. Сабміт → модерація → запис у стрічку 3.1 (позначка «✓ Купив товар» у покупця)." [ref=f2e671]'
+          - row [ref=f2e672]:
+            - cell "Поставити запитання (діалог 3.2a)" [ref=f2e673]
+            - cell "Відкриває діалог-форму (лише текст + ім'я + опц. сповіщення); після відправки питання з'являється у стрічці Q&A (опц. модерація), магазин відповідає (спец-чипс). Без рейтингу." [ref=f2e674]
+      - generic [ref=f2e675]:
+        - generic [ref=f2e677]:
+          - generic [ref=f2e678]: Немає в наявності — не глухий кут
+          - generic [ref=f2e679]:
+            - generic [ref=f2e680]: 1 690 ₴
+            - generic [ref=f2e682]: ● Немає в наявності
+            - generic [ref=f2e683]: 🔔 Повідомити про надходження
+            - paragraph [ref=f2e685]:
+              - link "← Повернутись до колекції" [ref=f2e686] [cursor=pointer]:
+                - /url: category.html
+              - text: — обрати альтернативу (recovery потоку Job 3).
+        - generic [ref=f2e688]:
+          - generic [ref=f2e689]: Тренер у сесії — CTA змінюється
+          - generic [ref=f2e690]:
+            - generic [ref=f2e691]: "Ціна для тренера (Pro): 1 090 ₴"
+            - generic [ref=f2e692]: Додати клієнту
+            - generic [ref=f2e693]:
+              - generic [ref=f2e694]: Андрій — Набір маси
+              - generic [ref=f2e695]: ▾
+            - generic [ref=f2e696]: Додати клієнту
+            - paragraph [ref=f2e698]: Кількість тут не задається — товар іде в мультиклієнтську сесію (5.5), де тренер виставляє її на рядку клієнта за тарифною ціною.
+    - generic [ref=f2e699]:
+      - generic [ref=f2e700]: 03 · SEO-блок сторінки (A–E)
+      - 'heading "SEO: мета-теги, заголовки, текст, схема, чек-лист" [level=2] [ref=f2e701]'
+      - paragraph [ref=f2e702]:
+        - text: "Шаблон A–E для картки товару. Ключове для PDP: схема"
+        - code [ref=f2e703]: Product
+        - text: +
+        - code [ref=f2e704]: Offers
+        - text: (ціна/наявність) і канонікалізація варіантів, щоб не плодити тонкі дублі.
+      - heading "A · Мета-теги" [level=3] [ref=f2e705]
+      - generic [ref=f2e706]: "<title>Gold Standard 100% Whey 2270 г — купити, ціна | Stack</title> (≤60) <meta name=\"description\" content=\"Сироватковий протеїн Optimum Nutrition: 24 г білка/порція, оригінал із сертифікатом. Доставка Новою Поштою, оплата картою.\"> (≤155) <link rel=\"canonical\" href=\"https://stack.ua/protein/gold-standard-whey/\"> (варіанти смак/вага → canonical на базовий товар) <link rel=\"alternate\" hreflang=\"uk … ru … x-default\"> · robots index,follow <meta property=\"og:type\" content=\"product\"> · og:title · og:image · product:price:amount · product:availability"
+      - heading "B · Структура заголовків" [level=3] [ref=f2e707]
+      - table [ref=f2e708]:
+        - rowgroup [ref=f2e709]:
+          - row [ref=f2e710]:
+            - columnheader "Рівень" [ref=f2e711]
+            - columnheader "Текст" [ref=f2e712]
+          - row [ref=f2e713]:
+            - cell "H1 (єдиний)" [ref=f2e714]
+            - cell "Назва товару з вагою (напр. «Gold Standard 100% Whey, 2270 г»)" [ref=f2e715]
+          - row [ref=f2e716]:
+            - cell "H2" [ref=f2e717]
+            - cell "Склад · Дозування та застосування · Опис · Характеристики · Відгуки · Часті питання · Схожі товари" [ref=f2e718]
+      - heading "C · Готовий SEO-текст" [level=3] [ref=f2e719]
+      - generic [ref=f2e720]:
+        - generic [ref=f2e721]: Опис товару — готовий
+        - paragraph [ref=f2e723]: "Gold Standard 100% Whey — сироватковий протеїн Optimum Nutrition: 24 г білка та 5.5 г BCAA на порцію, основа складу — ізолят. Оригінальний продукт із сертифікатом відповідності та зазначеним складом і дозуванням. Підходить для набору м'язової маси й відновлення. Доставка Новою Поштою по Україні, оплата картою чи готівкою, повернення протягом 14 днів."
+      - paragraph [ref=f2e724]: Текст простою мовою + how-to-use; кореневі ключі без переспаму (Принцип №5). Контент на кожен товар — етап копірайту/даних (реальні дані постачальника, операційний [?]).
+      - heading "D · Структурована розмітка" [level=3] [ref=f2e725]
+      - table [ref=f2e726]:
+        - rowgroup [ref=f2e727]:
+          - row [ref=f2e728]:
+            - columnheader "Схема" [ref=f2e729]
+            - columnheader "Призначення" [ref=f2e730]
+          - row [ref=f2e731]:
+            - cell "Product + Offers" [ref=f2e732]
+            - cell "name · image · brand · sku · price · priceCurrency UAH · availability (InStock / PreOrder / OutOfStock) — синхронні з реальним станом" [ref=f2e733]
+          - row [ref=f2e734]:
+            - cell "AggregateRating + Review" [ref=f2e735]
+            - cell "з блоку відгуків (3.1) — зірки в видачі" [ref=f2e736]
+          - row [ref=f2e737]:
+            - cell "BreadcrumbList" [ref=f2e738]
+            - cell "Головна → Каталог → Категорія → Товар" [ref=f2e739]
+          - row [ref=f2e740]:
+            - cell "FAQPage (опц.)" [ref=f2e741]
+            - cell "з блоку питань (3.2)" [ref=f2e742]
+      - heading "E · Чек-лист оптимізації" [level=3] [ref=f2e743]
+      - list [ref=f2e744]:
+        - listitem [ref=f2e745]: Єдиний H1; кравлені хлібні крихти; лінк бренду → 2.4.
+        - listitem [ref=f2e746]: Ціна й наявність у схемі Product/Offers синхронні з реальним станом (вкл. out-of-stock).
+        - listitem [ref=f2e747]: Сертифікат — реальний контент (переглядне зображення/PDF), не лише текст — довіра + SEO.
+        - listitem [ref=f2e748]: "Галерея: alt (товар + бренд + смак); головне фото не lazy (LCP), мініатюри — lazy."
+        - listitem [ref=f2e749]: Варіанти canonical на базу — без дублів від параметрів смаку/ваги.
+        - listitem [ref=f2e750]: Відгуки рендеряться серверно (кравлений текст), не лише через JS.
+        - listitem [ref=f2e751]: Core Web Vitals; українська мова контенту; таргети ≥ 44px.
+    - generic [ref=f2e752]:
+      - generic [ref=f2e753]: 04 · Анатомія
+      - heading "Блоки й переходи" [level=2] [ref=f2e754]
+      - table [ref=f2e755]:
+        - rowgroup [ref=f2e756]:
+          - row [ref=f2e757]:
+            - columnheader "#" [ref=f2e758]
+            - columnheader "Блок" [ref=f2e759]
+            - columnheader "Вміст" [ref=f2e760]
+            - columnheader "Веде до" [ref=f2e761]
+          - row [ref=f2e762]:
+            - cell "0" [ref=f2e763]
+            - cell "Хедер (наслідується)" [ref=f2e764]
+            - cell "Навігація 0.1" [ref=f2e765]
+            - cell "0.1" [ref=f2e766]
+          - row [ref=f2e767]:
+            - cell "1" [ref=f2e768]
+            - cell "Хлібні крихти" [ref=f2e769]
+            - cell "Головна / Каталог / Категорія / Товар (BreadcrumbList)" [ref=f2e770]
+            - cell "0.0 · 2.0 · 2.1" [ref=f2e771]
+          - row [ref=f2e772]:
+            - cell "1a" [ref=f2e773]
+            - cell "Таб-навігація товару" [ref=f2e774]
+            - 'cell "Про товар · Склад · Дозування · Характеристики · Відгуки · Питання. Стики: прилипає під хедером (без мета-рядка) + справа увесь ціновий факт (стара ціна + бейдж −% над живою цифрою) + «Купити» + ♡" [ref=f2e775]'
+            - 'cell "0.1 · #секції · 6.0" [ref=f2e776]'
+          - row [ref=f2e777]:
+            - cell "2" [ref=f2e778]
+            - cell "Галерея" [ref=f2e779]
+            - cell "Фото + мініатюри + zoom; lazy нижче згину" [ref=f2e780]
+            - cell "—" [ref=f2e781]
+          - row [ref=f2e782]:
+            - cell "3" [ref=f2e783]
+            - cell "Buy-box" [ref=f2e784]
+            - 'cell "H1 · бренд·країна · статус-рядок одним рядком (наявність + артикул ліворуч, рейтинг праворуч) · проста відповідь · варіанти · ціна й дія в один ряд: стара + бейдж −% поруч → нова крупно, праворуч «У кошик» + ♡ (без лічильника) · за порцію + тренера" [ref=f2e785]'
+            - 'cell "2.4 · 6.0 · 7.6 · #rev" [ref=f2e786]'
+          - row [ref=f2e787]:
+            - cell "4" [ref=f2e788]
+            - cell "Доставка + Оплата" [ref=f2e789]
+            - 'cell "Один рядок на спосіб: мітка · спосіб над терміном · ціна праворуч. НП (відділення/поштомат) · кур''єр · самовивіз (за наявності) + ціни (від 50/70/безкоштовно); чип міста в заголовку (діалог 0.1a); оплата — чипами" [ref=f2e790]'
+            - cell "8.x" [ref=f2e791]
+          - row [ref=f2e792]:
+            - cell "5" [ref=f2e793]
+            - cell "Смуга довіри (єдина)" [ref=f2e794]
+            - cell "Оригінал+гарантія · сертифікат · доставка · повернення — одним блоком перед складом" [ref=f2e795]
+            - cell "—" [ref=f2e796]
+          - row [ref=f2e797]:
+            - cell "6" [ref=f2e798]
+            - cell "Блок довіри (ведучий)" [ref=f2e799]
+            - cell "Склад (таблиця + повний склад + алергени окремим блоком + етикетка з упаковки, зібрана в DOM) · Дозування · Походження · Сертифікація (переглядний документ); секції відкриті, можна згорнути" [ref=f2e800]
+            - cell "Job 4" [ref=f2e801]
+          - row [ref=f2e802]:
+            - cell "7" [ref=f2e803]
+            - cell "Опис" [ref=f2e804]
+            - cell "Повний текст простою мовою + додаткові фото (після довіри)" [ref=f2e805]
+            - cell "—" [ref=f2e806]
+          - row [ref=f2e807]:
+            - cell "8" [ref=f2e808]
+            - cell "Характеристики" [ref=f2e809]
+            - cell "Повна таблиця атрибутів — дзеркалить фасети каталогу" [ref=f2e810]
+            - cell "catalog.md" [ref=f2e811]
+          - row [ref=f2e812]:
+            - cell "9" [ref=f2e813]
+            - cell "Відгуки (3.1)" [ref=f2e814]
+            - cell "Рейтинг + розподіл; відгук = ім'я+рейтинг ↔ текст + переваги/недоліки + фото + відповіді + відповідь магазину (чипс); стани багато(пагінація)/мало" [ref=f2e815]
+            - cell "3.1" [ref=f2e816]
+          - row [ref=f2e817]:
+            - cell "10" [ref=f2e818]
+            - cell "Питання (3.2)" [ref=f2e819]
+            - cell "Діалог-форма → стрічка Q&A; відповідає магазин (чипс) / покупці; без рейтингу" [ref=f2e820]
+            - cell "3.2" [ref=f2e821]
+          - row [ref=f2e822]:
+            - cell "11" [ref=f2e823]
+            - cell "Схожі (3.3)" [ref=f2e824]
+            - cell "Схожі · з цим купують · та сама ціль" [ref=f2e825]
+            - cell "3.3 · 3.0 · 2.2" [ref=f2e826]
+          - row [ref=f2e827]:
+            - cell "12" [ref=f2e828]
+            - cell "Статті по темі" [ref=f2e829]
+            - cell "Тизери блогу — допомога новачку + SEO" [ref=f2e830]
+            - cell "8.0 · 8.1" [ref=f2e831]
+          - row [ref=f2e832]:
+            - cell "13" [ref=f2e833]
+            - cell "Липка смуга (мобілка)" [ref=f2e834]
+            - cell "Ціна + «У кошик» після прокрутки buy-box; зі знижкою — стара ціна + бейдж над живою цифрою" [ref=f2e835]
+            - cell "6.0" [ref=f2e836]
+          - row [ref=f2e837]:
+            - cell "14" [ref=f2e838]
+            - cell "Футер (наслідується)" [ref=f2e839]
+            - cell "Футер 0.2" [ref=f2e840]
+            - cell "0.2" [ref=f2e841]
+    - generic [ref=f2e842]:
+      - generic [ref=f2e843]: 05 · Зафіксовано / відкрите
+      - generic [ref=f2e844]:
+        - paragraph [ref=f2e845]: "✓ Зафіксовано (чернетка, 2026-06-30):"
+        - list [ref=f2e846]:
+          - listitem [ref=f2e847]: Таб-навігація по товару після брекрамсів (Про товар · Склад · Дозування · Характеристики · Відгуки · Питання); при скролі прилипає під стики-хедером (без мета-рядка) і стає його частиною, справа — ціна (зі знижкою/без) + «Купити» + ♡.
+          - listitem [ref=f2e848]: "Ціна: стара (закреслена) зверху → нова крупно, бейдж −% поруч зі старою ціною (не під новою). Ціна й дія — в один ряд, лічильника кількості немає: кількість — робота кошика. Колір ціни каже про знижку (правило в DESIGN.md §3)."
+          - listitem [ref=f2e849]: "Блоки Доставка + Оплата під ціною/CTA в buy-box, один рядок на спосіб (мітка · спосіб над терміном · ціна праворуч, «безкоштовно» — словом): НП (відділення/поштомат), кур'єр на адресу, самовивіз (Одеса, адреса [?]); ціни від 50 / 70 / безкоштовно; самовивіз — лише за наявності на точці. У заголовку — чип міста (діалог «Оберіть місто» 0.1a), бо місто змінює всі числа нижче. Оплата: картка, Apple/Google Pay, накладений платіж, готівка при самовивозі — чипами."
+          - listitem [ref=f2e850]: Єдина смуга довіри (оригінал · сертифікат · доставка · повернення) одним блоком перед складом (винесено з buy-box).
+          - listitem [ref=f2e851]: Блок довіри ведучий (Склад + етикетка складу з упаковки, зібрана в DOM · Дозування · Походження · Сертифікація) одразу за смугою; секції відкриті за замовч., можна згорнути; опис — після (Принцип №1).
+          - listitem [ref=f2e852]: Опис — повний продуктовий текст + додаткові фото продукту.
+          - listitem [ref=f2e853]: Один головний CTA «У кошик» + липка нижня смуга на мобілці; ♡ — вторинний. Проста відповідь під H1 (Принцип №5).
+          - listitem [ref=f2e854]: Варіанти на одній PDP, один canonical; відсутні варіанти вимкнено, не сховано.
+          - listitem [ref=f2e855]: Чесна наявність без таймерів; out-of-stock → «Повідомити» + повернення до колекції (не глухий кут).
+          - listitem [ref=f2e856]: "Відгуки (3.1): ім'я + рейтинг + дата зліва, текст справа; категорії Переваги / Недоліки (можуть бути порожні); фото; відповіді (показати/сховати, з датами, можна фото); відповідь магазину — спец-чипс із логотипом замість імені. Два стани: багато → пагінація, мало → без неї. Сертифікат + відгуки = recovery конверсії (потік Job 3)."
+          - listitem [ref=f2e857]: "Діалог «Залишити відгук» (3.1a): модалка — рейтинг (обов'язковий) · переваги/недоліки (опц.) · текст · фото до 5 · ім'я; гість → авторизація (1.x) → повернення в діалог; сабміт → модерація → у стрічку 3.1."
+          - listitem [ref=f2e858]: "Питання (3.2): «Поставити запитання» = діалог-форма (3.2a): лише текст + ім'я + опц. «сповістити про відповідь»; питання → у стрічку Q&A; відповідає магазин (чипс) або покупці; без рейтингу і без переваг/недоліків."
+          - listitem [ref=f2e859]: "Статті по темі (блог 8.0/8.1) — секція перед футером: допомога новачку + SEO."
+          - listitem [ref=f2e860]: Характеристики дзеркалять фасети catalog.md; схожі (3.3) на тій самій сторінці.
+          - listitem [ref=f2e861]: "Coach-aware: CTA «Додати клієнту» + ціна тренера. SEO A–E: Product/Offers + AggregateRating + Review + Breadcrumb; канонікалізація варіантів."
+        - heading "Лишається [?] (операційне / дані, не IA)" [level=2] [ref=f2e862]
+        - list [ref=f2e863]:
+          - listitem [ref=f2e864]: "Контент на товар — склад, дозування, опис, файли сертифікатів: етап даних (реальні дані постачальника — операційний [?] із брифу)."
+          - listitem [ref=f2e865]: Відгуки / рейтинг — потрібні реальні відгуки; агрегований рейтинг залежить від обсягу.
+          - listitem [ref=f2e866]: Логіка «з цим купують» — потрібна аналітика продажів (начально ручне / суміжна категорія).
+          - listitem [ref=f2e867]: Ціна тренера — рішення з ціноутворення [?] (гіпотеза Free vs Pro).
+          - listitem [ref=f2e868]: Правило ціни за порцію коли фасування/порції різняться — підтвердити на етапі даних.
+          - listitem [ref=f2e869]: Адреси самовивозу + ціни доставки (НП від 50 ₴, кур'єр від 70 ₴ — приклади) — реальні значення й точки самовивозу [?] (операційне).
+          - listitem [ref=f2e870]: Наявність на точці самовивозу — облік залишків по точках [?].
+          - listitem [ref=f2e871]: Модерація питань/відгуків перед публікацією — політика [?].
+    - generic [ref=f2e872]: "Stack — Посторінкова IA · Картка товару (вузол 3.0; на сторінці також 3.1 Відгуки · 3.2 Питання · 3.3 Схожі). Джерело істини: ia/docs/pages/product.md. Потік: research/docs/flows.md (Job 3). Картка-джерело: home.md. Кошик: 6.0. Карта сайту: sitemap.html. Червень 2026, чернетка."

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Кошик порожній - Stack (wireframe 6.0 · empty)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 6.0 Кошик - EMPTY. Drawer with no items.
+  Exits (no dead end): «Обрати ціль» → index.html · «До каталогу» → listing.html.
+  Component CSS lives in _wf.css §CART DRAWER.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+
+<div class="wf-canvas">
+  <header id="wf-header"></header>
+  <main class="cart-behind" aria-hidden="true">
+    <h2>Каталог</h2>
+    <p>Сторінка під кошиком - кошик відкрито поверх неї.</p>
+    <div class="ph-grid"><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div></div>
+  </main>
+  <footer id="wf-footer"></footer>
+</div>
+
+<!-- ===== CART DRAWER · EMPTY ===== -->
+<div class="cart-ov" id="cart-ov"><a href="index.html" aria-label="Закрити кошик" style="position:absolute;inset:0;display:block"></a></div>
+<aside class="cart-drawer" role="dialog" aria-modal="true" aria-label="Кошик">
+  <header class="cd-head">
+    <h1>Кошик <span class="cd-cnt">0 товарів</span></h1>
+    <a class="cd-x" href="index.html" aria-label="Закрити">✕</a>
+  </header>
+
+  <div class="cd-body">
+    <div class="cd-empty">
+      <div class="ei">🛒</div>
+      <div class="et">Кошик порожній</div>
+      <div class="es">Оберіть ціль, і ми підкажемо безпечний набір, або перегляньте каталог.</div>
+      <a class="btn dark" href="index.html">Обрати ціль</a>
+      <a class="btn gh" href="listing.html">До каталогу</a>
+    </div>
+  </div>
+</aside>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('cart.html', 'empty');
+        uivFixLinks(); uivBar(); uivChrome(); uivCart();</script>
+</body>
+</html>

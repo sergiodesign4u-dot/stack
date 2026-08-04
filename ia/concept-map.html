@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack — Концептуальна архітектура</title>
+  <link rel="icon" type="image/svg+xml" href="../design/concept/assets/logo-s.svg">
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --surface: #ffffff;
+      --surface-alt: #f2f0eb;
+      --border: #e5e2db;
+      --text: #1a1916;
+      --text-secondary: #6b6760;
+      --text-light: #9b9790;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0ea;
+      --accent-mid: #4a8c62;
+      --score-low: #b5882a;
+      --score-bg-low: #fdf3e3;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+      --panel: #15140f;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }/* LAYOUT */
+    .page { max-width: 1160px; margin: 0 auto; padding: 68px 24px 80px; }
+    @media (min-width: 860px) {
+      .page { margin-left: 220px; padding: 48px 48px 80px; }
+      section { scroll-margin-top: 24px; }}/* HERO */
+    .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); margin-bottom: 64px; animation: fadeUp 0.5s ease both; }
+    .hero-tag { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; color: var(--text); margin-bottom: 20px; max-width: 720px; }
+    .hero-lead { font-size: 18px; color: var(--text-secondary); max-width: 660px; line-height: 1.6; margin-bottom: 32px; }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+    .hero-meta-item { font-size: 13px; color: var(--text-light); }
+    .hero-meta-item strong { color: var(--text-secondary); font-weight: 600; }/* SECTIONS */
+    section { margin-bottom: 72px; scroll-margin-top: 60px; animation: fadeUp 0.4s ease both; }
+    .section-number { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
+    h2 { font-size: clamp(22px, 3vw, 32px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: var(--text); margin-bottom: 8px; }
+    .section-lead { font-size: 16px; color: var(--text-secondary); margin-bottom: 28px; max-width: 640px; }
+    h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.015em; color: var(--text); margin: 32px 0 12px; }
+    h4 { font-size: 15px; font-weight: 650; color: var(--text); margin: 24px 0 8px; }
+    p { color: var(--text-secondary); margin-bottom: 12px; }
+
+    .badge-q { display: inline-flex; align-items: center; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 100px; background: var(--score-bg-low); color: var(--score-low); margin-left: 4px; letter-spacing: 0.04em; vertical-align: middle; white-space: nowrap; }/* DIAGRAM CARDS (dark mermaid panels) */
+    .diagram-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); margin: 18px 0; overflow: hidden; }
+    .diagram-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .diagram-title { font-size: 15px; font-weight: 650; color: var(--text); }
+    .diagram-sub { font-size: 12px; color: var(--text-light); }
+    .mermaid-panel { background: var(--panel); padding: 22px 16px; overflow-x: auto; }
+    .mermaid { display: flex; justify-content: center; min-width: fit-content; }
+    .mermaid svg { max-width: 100%; height: auto; }
+
+    .shape-legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12px; color: var(--text-secondary); margin: 14px 0 0; align-items: center; }
+    .shape-legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .sw { width: 16px; height: 12px; border-radius: 3px; border: 1.5px solid var(--accent-mid); background: #23312a; display: inline-block; }
+    .sw.diamond { transform: rotate(45deg); width: 11px; height: 11px; }
+    .sw.stadium { border-radius: 100px; width: 20px; }/* FLOW META */
+    .flow-meta { padding: 16px 18px; border-top: 1px solid var(--border); display: grid; gap: 12px; background: var(--surface-alt); }
+    .flow-meta-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); display: block; margin-bottom: 3px; }
+    .flow-meta-val { color: var(--text-secondary); font-size: 13px; line-height: 1.55; }
+    .flow-meta-val.dead { color: #b23a2e; }
+    .flow-meta-val code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }/* STATUS BANNER */
+    .status-banner { background: var(--accent-light); border: 1px solid #cfe2d5; border-radius: var(--radius); padding: 20px 22px; margin: 18px 0; }
+    .status-banner h3 { margin: 0 0 12px; color: var(--accent); }
+    .status-checks { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+    .status-check { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text); font-weight: 600; }
+    .status-check .ck { color: var(--accent); font-weight: 800; font-size: 16px; }
+    .status-caveat { font-size: 12.5px; color: var(--text-secondary); margin-top: 14px; line-height: 1.55; background: var(--surface); border-radius: var(--radius-sm); padding: 11px 13px; border: 1px solid var(--border); }
+    .status-caveat strong { color: var(--text); }/* MATRIX */
+    .matrix-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin: 18px 0; }
+    table.matrix { width: 100%; border-collapse: collapse; background: var(--surface); font-size: 12.5px; }
+    table.matrix th, table.matrix td { border: 1px solid var(--border); padding: 6px 5px; text-align: center; }
+    table.matrix thead th { background: var(--surface-alt); font-size: 11px; font-weight: 700; color: var(--text-secondary); }
+    table.matrix tbody th { text-align: left; font-weight: 600; color: var(--text); white-space: nowrap; padding: 6px 12px; background: var(--surface); position: sticky; left: 0; z-index: 1; }
+    table.matrix td.mk { color: var(--accent); font-weight: 800; background: var(--accent-light); }
+    table.matrix tr.substep th { font-weight: 500; color: var(--text-secondary); font-style: italic; }
+    .matrix-legend { font-size: 12px; color: var(--text-light); margin-top: 12px; line-height: 1.8; }
+    .matrix-legend b { color: var(--text-secondary); }/* MUTED OUT-OF-SCOPE */
+    .muted-card { background: var(--surface-alt); border: 1px dashed var(--border); border-radius: var(--radius); padding: 16px 20px; margin-top: 18px; }
+    .muted-card .obs-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 8px; }
+    .muted-card ul { margin: 0; padding-left: 18px; }
+    .muted-card li { color: var(--text-light); font-size: 13px; line-height: 1.55; margin-bottom: 4px; }/* NAV CARDS */
+    .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin: 18px 0; }
+    .nav-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow-sm); }
+    .nav-card .obs-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .nav-card .nav-name { font-size: 15px; font-weight: 650; color: var(--text); margin-bottom: 5px; }
+    .nav-card .nav-job { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+    .nav-card .nav-who { font-size: 11.5px; color: var(--text-light); margin-top: 8px; }/* DEPTH */
+    .depth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+    @media (max-width: 700px) { .depth-grid { grid-template-columns: 1fr; }}
+    .depth-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow-sm); }
+    .depth-card h4 { margin: 0 0 2px; }
+    .depth-card .depth-who { font-size: 12px; color: var(--text-light); margin-bottom: 10px; }
+    .depth-num { font-size: 34px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1; }
+    .depth-num small { font-size: 13px; font-weight: 600; color: var(--text-light); }
+    .depth-chain { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; color: var(--text-secondary); background: var(--surface-alt); border-radius: var(--radius-sm); padding: 12px 14px; margin-top: 12px; line-height: 1.75; white-space: pre; overflow-x: auto; }/* HTML TREE */
+    .ia-tree { margin: 18px 0; }
+    .ia-tree details { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; background: var(--surface); box-shadow: var(--shadow-sm); }
+    .ia-tree details[open] { background: var(--surface); }
+    .ia-tree summary { padding: 11px 16px; font-weight: 650; cursor: pointer; color: var(--text); font-size: 14px; list-style: none; }
+    .ia-tree summary::-webkit-details-marker { display: none; }
+    .ia-tree summary::before { content: "+"; color: var(--accent-mid); font-weight: 700; margin-right: 10px; }
+    .ia-tree details[open] summary::before { content: "-"; }
+    .ia-tree ul { list-style: none; margin: 0; padding: 2px 16px 12px 30px; }
+    .ia-tree li { font-size: 13.5px; color: var(--text-secondary); padding: 5px 0; border-bottom: 1px solid var(--surface-alt); }
+    .ia-tree li:last-child { border-bottom: none; }
+    .ia-tree .jt { font-size: 11px; color: var(--accent-mid); font-weight: 600; margin-left: 6px; }
+
+    .note { font-size: 13px; color: var(--text-secondary); background: var(--surface-alt); border-left: 3px solid var(--accent-mid); border-radius: var(--radius-sm); padding: 12px 16px; margin: 16px 0; line-height: 1.55; }/* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 40px; }
+    .footer-inner { max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-text { font-size: 13px; color: var(--text-light); }
+
+    @media (max-width: 640px) {
+      .page { padding: 64px 16px 48px; }
+      .hero { padding: 40px 0 36px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }}
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }</style>
+
+    <link rel="stylesheet" href="../_nav.css">
+</head>
+<body>
+
+<aside id="sidebar"></aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Концептуальний шар IA</div>
+    <h1>Концептуальна архітектура</h1>
+    <p class="hero-lead">Верхньорівневий шар IA, що виріс із персон і jobs: карта кластерів, матриця трасування jobs→екрани й навігаційна модель — модель «куди може піти користувач». Кожен екран походить із конкретного job, перевірено двома раундами критики. Детальна, посторінкова архітектура (хедер, футер, кожна сторінка з блоками, станами та SEO) — у розділі «Інформаційна архітектура».</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Джерела</strong> sitemap.md v0.6, flows.md v0.3</div>
+      <div class="hero-meta-item"><strong>Екранів</strong> 19 (MVP)</div>
+      <div class="hero-meta-item"><strong>Flows</strong> <a href="flows.html">окрема сторінка</a></div>
+      <div class="hero-meta-item"><strong>Дефектів</strong> 0</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: SITEMAP -->
+  <section id="sitemap">
+    <div class="section-number">01</div>
+    <h2>Карта сайту</h2>
+    <p class="section-lead">19 MVP-екранів, згрупованих у пʼять кластерів за людським наміром (A-E). Стани (loading, empty, error) тут не показані - вони у flows і в матриці. Біля кожного екрана короткий job-тег.</p>
+
+    <div class="diagram-card">
+      <div class="diagram-head">
+        <span class="diagram-title">Екрани за кластерами A-E</span>
+        <span class="diagram-sub">graph TD, тема dark, лише екрани</span>
+      </div>
+      <div class="mermaid-panel">
+        <div class="mermaid">
+graph TD
+  subgraph cA["A. Знайти потрібний товар"]
+    A1["Головна / вибір цілі (J2)"]
+    A2["Колекція за ціллю (J2)"]
+    A3["Каталог і пошук (J3, J4)"]
+    A4["Деталі товару (J3, J5, ESJ3)"]
+  end
+  subgraph cB["B. Купити й оплатити"]
+    B1["Кошик (Main, J2, J4)"]
+    B2["Оформлення (Main, J2, J4)"]
+    B3["Замовлення оформлено (Main, J2, J4)"]
+  end
+  subgraph cC["C. Замовлення для багатьох клієнтів за сесію"]
+    C1["«Для тренерів» + опубліковані ціни (J1, J6, ESJ1)"]
+    C2["Реєстрація тренера + верифікація соц-лінку (J1, ESJ4)"]
+    C3["Кабінет тренера (Main, J6, ESJ4)"]
+    C4["Список клієнтів (Main)"]
+    C5["Профіль клієнта (Main)"]
+    C6["Мультиклієнтська сесія замовлення (Main)"]
+  end
+  subgraph cD["D. Повернутися й повторити замовлення"]
+    D1["Історія замовлень (J4)"]
+    D2["Деталі замовлення + повтор (J4)"]
+  end
+  subgraph cE["E. Акаунт і лояльність"]
+    E1["Вхід / реєстрація (Main, J4)"]
+    E2["Кабінет покупця (J4, J6)"]
+    E3["Статус лояльності (J6)"]
+    E4["Збережені адреси (J4)"]
+  end
+  A1 --> A2 --> A4 --> B1
+  A3 --> A4
+  B1 --> B2 --> B3
+  C1 --> C2 --> C3
+  C3 --> C6 --> B1
+  C3 --> C4 --> C5
+  E1 --> E2 --> D1 --> D2 --> B1
+  E2 --> E3
+  C3 --> E3
+        </div>
+      </div>
+    </div>
+
+    <p class="section-lead" style="margin-top:8px;">Читабельна альтернатива тій самій карті - згорнуте дерево. Обери, що зручніше.</p>
+
+    <div class="ia-tree">
+      <details open>
+        <summary>A. Знайти потрібний товар</summary>
+        <ul>
+          <li>Головна / вибір цілі <span class="jt">J2</span></li>
+          <li>Колекція за ціллю <span class="jt">J2</span></li>
+          <li>Каталог і пошук <span class="jt">J3, J4</span></li>
+          <li>Деталі товару <span class="jt">J3, J5, ESJ3</span></li>
+        </ul>
+      </details>
+      <details>
+        <summary>B. Купити й оплатити</summary>
+        <ul>
+          <li>Кошик <span class="jt">Main, J2, J4</span></li>
+          <li>Оформлення <span class="jt">Main, J2, J4</span></li>
+          <li>Замовлення оформлено <span class="jt">Main, J2, J4</span></li>
+        </ul>
+      </details>
+      <details>
+        <summary>C. Замовлення для багатьох клієнтів за сесію</summary>
+        <ul>
+          <li>«Для тренерів» + опубліковані ціни <span class="jt">J1, J6, ESJ1</span></li>
+          <li>Реєстрація тренера + верифікація соц-лінку <span class="jt">J1, ESJ4</span></li>
+          <li>Кабінет тренера <span class="jt">Main, J6, ESJ4</span></li>
+          <li>Список клієнтів <span class="jt">Main</span></li>
+          <li>Профіль клієнта <span class="jt">Main</span></li>
+          <li>Мультиклієнтська сесія замовлення <span class="jt">Main</span></li>
+        </ul>
+      </details>
+      <details>
+        <summary>D. Повернутися й повторити замовлення</summary>
+        <ul>
+          <li>Історія замовлень <span class="jt">J4</span></li>
+          <li>Деталі замовлення + повтор <span class="jt">J4</span></li>
+        </ul>
+      </details>
+      <details>
+        <summary>E. Акаунт і лояльність</summary>
+        <ul>
+          <li>Вхід / реєстрація <span class="jt">Main, J4</span></li>
+          <li>Кабінет покупця <span class="jt">J4, J6</span></li>
+          <li>Статус лояльності <span class="jt">J6</span></li>
+          <li>Збережені адреси <span class="jt">J4</span></li>
+        </ul>
+      </details>
+    </div>
+
+    <div class="matrix-legend">
+      <b>Job-теги:</b> Main - коуч збирає мультиклієнтське замовлення за сесію · J1 - зміна постачальника · J2 - ціль до продукту · J3 - перевірка безпеки · J4 - повторне замовлення · J5 - рекомендація з доказами · J6 - зростаюча цінова вигода від обсягу · ESJ1-4 - емоційні та соціальні jobs (довіра, впевненість, страх підробок, автономія).
+    </div>
+  </section>
+
+  <!-- SECTION 2: FLOWS -->
+
+  <!-- SECTION 3: TRACEABILITY -->
+  <section id="matrix">
+    <div class="section-number">02</div>
+    <h2>Матриця трасування</h2>
+    <p class="section-lead">Jobs (рядки) на екрани (стовпці), згруповані A-E. Кожна позначка - там, де екран реально закриває job, підкріплена вузлом flow.</p>
+
+    <div class="status-banner">
+      <h3>Стан матриці після двох раундів критики</h3>
+      <div class="status-checks">
+        <div class="status-check"><span class="ck">0</span> екранів-сиріт</div>
+        <div class="status-check"><span class="ck">0</span> джобів-сиріт</div>
+        <div class="status-check"><span class="ck">0</span> позначено-але-без-flow</div>
+        <div class="status-check"><span class="ck">0</span> у-flow-але-без-позначки</div>
+      </div>
+      <div class="status-caveat">
+        <strong>Одна оговорка:</strong> Збережені адреси (E4) працюють через стан вибору адреси на Оформленні, який читає збережені адреси. Це його зареєстрована MVP-форма, а не пробіл у покритті. Кожен інший екран із позначкою має реальний вузол-екран у flow.
+      </div>
+    </div>
+
+    <div class="matrix-wrap">
+      <table class="matrix" id="matrix-table"></table>
+    </div>
+
+    <div class="matrix-legend" id="matrix-colmap"></div>
+
+    <div class="muted-card">
+      <div class="obs-tag">Поза MVP-скоупом - не рядки і не стовпці матриці</div>
+      <ul>
+        <li>HYP-1 (реферальне посилання тренера атлетам) і HYP-2 (трекінг прийому атлетом) - гіпотетичні jobs без підтвердженого джерела, сутності у Under Question (UQ1, UQ2). Екранів у MVP не мають.</li>
+        <li>Post-launch екрани: «Допоможи обрати» / квіз (ітерація J2), список «Мої стейпли» (ітерація J4), email-нагадування про відсутність товару (Рішення 4, сповіщення, не екран). Обслуговують наявні jobs пізнішою ітерацією, не нові jobs.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 4: NAVIGATION -->
+  <section id="navigation">
+    <div class="section-number">03</div>
+    <h2>Навігація</h2>
+    <p class="section-lead">Пʼять глобальних входів, кожен - вхід у job-кластер. Два передні входи: новачок через ціль, коуч через робочий простір.</p>
+
+    <div class="note">
+      На мобілці (базова ширина 360px) первинна навігація — нижні таби (до 5): Головна · Каталог · Кошик · Обране · Акаунт; пошук лишається в топ-барі. Детальна специфікація — у розділі «Інформаційна архітектура → Хедер».
+    </div>
+
+    <div class="nav-grid">
+      <div class="nav-card">
+        <div class="obs-tag">A. Знайти</div>
+        <div class="nav-name">Головна / вибір цілі</div>
+        <div class="nav-job">J2 + Рішення 2: новачок перетворює ціль на безпечний набір продуктів через тайли цілей на головній. Активаційний вхід, не загальна "головна".</div>
+        <div class="nav-who">Передній вхід: Вікторія (P3), новачок</div>
+      </div>
+      <div class="nav-card">
+        <div class="obs-tag">C. Робочий простір тренера</div>
+        <div class="nav-name">«Для тренерів» → Кабінет тренера</div>
+        <div class="nav-job">Main JTBD + Рішення 1 (мультиклієнтське замовлення) і J1 + Рішення 3 (оцінити опублікований тренерський прайс до переходу). Розлогінений - публічна сторінка, верифікований - Кабінет тренера.</div>
+        <div class="nav-who">Передній вхід: Олена (P1), Дмитро (P2), коуч</div>
+      </div>
+      <div class="nav-card">
+        <div class="obs-tag">A. Знайти</div>
+        <div class="nav-name">Пошук</div>
+        <div class="nav-job">Вхід для J3 (покупець шукає відомий товар, щоб перевірити) і відновлення для J4 (постійний шукає товар, що закінчився). Доступний усім, але Main JTBD коуча йде через швидке додавання в сесії, не через Пошук.</div>
+        <div class="nav-who">Передній вхід: Андрій (P4), Вікторія (P3); доступний усім</div>
+      </div>
+      <div class="nav-card">
+        <div class="obs-tag">B. Купити</div>
+        <div class="nav-name">Кошик</div>
+        <div class="nav-job">Завершує покупку для Main, J2 і J4. Несе групування по клієнтах (Рішення 1) у коуч-flow. Постійний - поточне замовлення завжди в один тап.</div>
+        <div class="nav-who">Передній вхід: усі</div>
+      </div>
+      <div class="nav-card">
+        <div class="obs-tag">D + E. Повтор, Акаунт</div>
+        <div class="nav-name">Акаунт</div>
+        <div class="nav-job">J4 + Рішення 4 (історія замовлень і повтор в один тап) і Рішення 3 (накопичувальна лояльність).</div>
+        <div class="nav-who">Передній вхід: Андрій (P4), усі</div>
+      </div>
+    </div>
+
+    <h3>Глибина до main job</h3>
+    <p>Глибина рахується окремо для двох критичних шляхів. Коуч-flow глибокий за природою (bulk) - це не дефект; новачковий шлях має лишатися коротким.</p>
+
+    <div class="depth-grid">
+      <div class="depth-card">
+        <h4>Коуч (Olena)</h4>
+        <div class="depth-who">від входу до зібраного мультиклієнтського замовлення, quick-add у сесії</div>
+        <div class="depth-num">8 <small>тапів на 2 клієнтів</small></div>
+        <div class="depth-chain">Кабінет тренера                тап 0
+ тап Нове замовлення     -> Мультиклієнтська сесія      тап 1
+ тап Клієнт A            -> контекст клієнта задано      тап 2
+ швидке додавання для A  -> привʼязано до A              тап 3
+ тап Клієнт B            -> контекст клієнта задано      тап 4
+ швидке додавання для B  -> привʼязано до B              тап 5
+ тап Переглянути / Кошик -> Кошик                        тап 6
+ тап Оформлення          -> Оформлення                   тап 7
+ тап Оформити замовлення -> Замовлення оформлено         тап 8</div>
+      </div>
+      <div class="depth-card">
+        <h4>Новачок (Viktoriia)</h4>
+        <div class="depth-who">від входу до товару під ціль, тайли цілей на головній</div>
+        <div class="depth-num">2 <small>тапи до товару (6 до покупки)</small></div>
+        <div class="depth-chain">Головна / вибір цілі           тап 0
+ тап тайл цілі           -> Колекція за ціллю            тап 1
+ тап товар               -> Деталі товару               тап 2   товар під ціль
+ тап У кошик             -> кошик оновлено               тап 3
+ тап Кошик               -> Кошик                        тап 4
+ тап Оформлення          -> Оформлення                   тап 5
+ тап Оформити замовлення -> Замовлення оформлено         тап 6</div>
+      </div>
+    </div>
+
+    <div class="note">
+      Карта сайту, flows і навігація узгоджені: Main JTBD коуча йде через швидке додавання усередині Мультиклієнтської сесії замовлення, а Каталог і пошук - глобальна утиліта для покупців, що шукають відомий товар (вхід J3, відновлення J4). Усі факти і числа, що потребують реальних даних, лишаються <span class="badge-q">[?]</span>.
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-text">Stack — Концептуальна архітектура (jobs/персони → кластери, flows, трасування). Джерела: research/docs/sitemap.md v0.6, flows.md v0.3. Червень 2026. 0 дефектів після двох раундів критики. Детальна посторінкова IA — у розділі «Інформаційна архітектура».</div>
+    <div class="footer-text">Наступна фаза: Wireframes</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  
+  
+
+  /* Mermaid - dark diagram panels on the light page */
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, curve: 'basis', nodeSpacing: 38, rankSpacing: 44, useMaxWidth: true },
+    themeVariables: {
+      darkMode: true,
+      fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif',
+      fontSize: '13px',
+      background: '#15140f',
+      mainBkg: '#23312a',
+      primaryColor: '#23312a',
+      primaryTextColor: '#edeae3',
+      primaryBorderColor: '#4a8c62',
+      secondaryColor: '#2a2823',
+      secondaryTextColor: '#edeae3',
+      secondaryBorderColor: '#3a3833',
+      tertiaryColor: '#1b1a16',
+      tertiaryTextColor: '#d8d5cd',
+      tertiaryBorderColor: '#3a3833',
+      lineColor: '#9a958c',
+      textColor: '#d8d5cd',
+      nodeTextColor: '#edeae3',
+      clusterBkg: '#1b1a16',
+      clusterBorder: '#3a3833',
+      titleColor: '#9bbfa8',
+      edgeLabelBackground: '#15140f',
+      nodeBorder: '#4a8c62'
+    }
+  });
+
+  /* Build the traceability matrix from a data map */
+  var COLS = [
+    ['A1','Головна / вибір цілі'],['A2','Колекція за ціллю'],['A3','Каталог і пошук'],['A4','Деталі товару'],
+    ['B1','Кошик'],['B2','Оформлення'],['B3','Замовлення оформлено'],
+    ['C1','«Для тренерів» + опубліковані ціни'],['C2','Реєстрація тренера + верифікація соц-лінку'],['C3','Кабінет тренера'],['C4','Список клієнтів'],['C5','Профіль клієнта'],['C6','Мультиклієнтська сесія замовлення'],
+    ['D1','Історія замовлень'],['D2','Деталі замовлення + повтор'],
+    ['E1','Вхід / реєстрація'],['E2','Кабінет покупця'],['E3','Статус лояльності'],['E4','Збережені адреси']
+  ];
+  var ROWS = [
+    ['Main JTBD', ['B1','B2','B3','C3','C4','C5','C6','E1'], false],
+    ['Main, підкрок: створити клієнта (імʼя + ціль)', ['C4'], true],
+    ['Job 1 зміна постачальника', ['C1','C2'], false],
+    ['Job 2 ціль до продукту', ['A1','A2','B1','B2','B3'], false],
+    ['Job 3 перевірка безпеки', ['A3','A4'], false],
+    ['Job 4 повторне замовлення', ['A3','B1','B2','B3','D1','D2','E1','E2','E4'], false],
+    ['Job 5 рекомендація з доказами', ['A4'], false],
+    ['Job 6 зростаюча цінова вигода', ['C1','C3','E2','E3'], false],
+    ['ESJ-1 авторитет тренера', ['A4','C1'], false],
+    ['ESJ-2 впевненість новачка', ['A1','A2','A4'], false],
+    ['ESJ-3 страх підробок', ['A4'], false],
+    ['ESJ-4 автономія тренера', ['C2','C3'], false]
+  ];
+  (function(){
+    var t = document.getElementById('matrix-table');
+    if (!t) return;
+    var head = '<thead><tr><th>Завдання \\ Екран</th>' + COLS.map(function(c){return '<th>'+c[0]+'</th>';}).join('') + '</tr></thead>';
+    var body = '<tbody>' + ROWS.map(function(r){
+      var marks = r[1];
+      var cells = COLS.map(function(c){
+        return marks.indexOf(c[0]) !== -1 ? '<td class="mk">✓</td>' : '<td></td>';
+      }).join('');
+      return '<tr class="'+(r[2]?'substep':'')+'"><th>'+r[0]+'</th>'+cells+'</tr>';
+    }).join('') + '</tbody>';
+    t.innerHTML = head + body;
+    var legend = document.getElementById('matrix-colmap');
+    if (legend) {
+      legend.innerHTML = '<b>Стовпці:</b> ' + COLS.map(function(c){return c[0]+' '+c[1];}).join(' · ');
+    }
+  })();
+
+  /* Active section highlight */
+  
+  
+  
+  
+</script>
+<script>
+window.NAV_BASE = '../';
+window.NAV_SECTIONS = [{"id": "sitemap", "label": "Концепт-сайтмап"}, {"id": "matrix", "label": "Матриця трасування"}, {"id": "navigation", "label": "Навігаційна модель"}];
+</script>
+<script src="../_nav.js"></script>
+</body>
+</html>

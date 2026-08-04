@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Оформлення - вкажіть адресу - Stack (wireframe 6.1 · no-address)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 6.1 Оформлення - NO-ADDRESS state.
+  Matrix row 6: «no saved address → capture». Logged-in buyer with no saved
+  addresses - Доставка leads with an empty note + capture fields.
+  Basket + money identical to checkout-loggedin (logged-in canonical).
+  Component CSS lives in _wf.css §CHECKOUT; behaviour in _nav.js (wfCheckout).
+  Every figure in the right column is COMPUTED: line data-unit · delivery
+  data-price · discount data-rate · bonus data-balance.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+
+<!-- SIMPLIFIED HEADER (inline - NOT wfHeader: fewer funnel exits) -->
+<header class="co-head" role="banner">
+  <div class="co-head-in">
+    <a class="co-logo" href="index.html">Stack</a>
+    <div class="co-support">
+      <span class="sh">Центр підтримки · Пн–Нд 9:00–21:00</span><br>
+      <b>0 800 000 000</b>
+    </div>
+  </div>
+</header>
+
+<main class="co-wrap">
+  <h1 class="co-h1">Оформлення замовлення</h1>
+
+  <div class="co-grid">
+
+    <!-- LEFT COLUMN -->
+    <div>
+
+      <!-- 1 · КОНТАКТ (logged-in - collapsed, prefilled) -->
+      <section class="co-sec" aria-label="Контакт">
+        <div class="co-sec-h"><span class="num">1</span> Контакт</div>
+        <div class="co-me">
+          <div>
+            <div class="mn">Вікторія Коваль · 🥈 Срібний рівень</div>
+            <div class="md">+380 67 123 45 67 · viktoriia@example.com</div>
+          </div>
+          <a class="co-edit" href="account.html">Змінити</a>
+        </div>
+      </section>
+
+      <!-- ВАШЕ ЗАМОВЛЕННЯ (line items moved here from the right rail) -->
+      <section class="co-sec" aria-label="Ваше замовлення">
+        <div class="co-sec-h">🛒 Ваше замовлення <span class="cnt">· 3 товари</span></div>
+
+        <div class="co-line" data-unit="1290" data-old="1520">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
+            <div class="li-meta">Смак: Подвійний шоколад · США</div>
+            <div class="li-acts">
+              <button type="button">♡ В обране</button>
+              <button type="button">🗑 Видалити</button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></div>
+            <div class="li-price"><span class="li-oldline"><span class="li-old">1 520 ₴</span><span class="li-cut">−15%</span></span><span class="li-sum">1 290 ₴</span><span class="li-per"></span></div>
+          </div>
+        </div>
+
+        <div class="co-line" data-unit="1050">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">BioTechUSA Iso Whey Zero 908 г</div>
+            <div class="li-meta">Смак: Ваніль · Угорщина</div>
+            <div class="li-acts">
+              <button type="button">♡ В обране</button>
+              <button type="button">🗑 Видалити</button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше">−</button><span class="qn">2</span><button type="button" aria-label="Більше">+</button></div>
+            <div class="li-price"><span class="li-oldline"></span><span class="li-sum">2 100 ₴</span><span class="li-per">1 050 ₴ / шт</span></div>
+          </div>
+        </div>
+
+        <div class="co-line" data-unit="549">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">OstroVit Creatine Monohydrate 500 г</div>
+            <div class="li-meta">Без смаку · Польща</div>
+            <div class="li-acts">
+              <button type="button">♡ В обране</button>
+              <button type="button">🗑 Видалити</button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></div>
+            <div class="li-price"><span class="li-oldline"></span><span class="li-sum">549 ₴</span><span class="li-per"></span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 · ДОСТАВКА - no saved address, capture -->
+      <section class="co-sec" aria-label="Доставка">
+        <div class="co-sec-h"><span class="num">2</span> Доставка</div>
+
+        <div class="co-noaddr"><span class="m"><b>У вас ще немає збережених адрес.</b> Вкажіть, куди доставити - ми збережемо адресу у вашому кабінеті для наступних замовлень.</span></div>
+
+        <label class="co-opt on" data-price="60" data-label="Нова Пошта">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Нова Пошта - відділення / поштомат</span><span class="otd">1–2 дні по Україні</span></span>
+          <span class="op">від 50 ₴</span>
+        </label>
+        <div class="co-sub">
+          <button type="button" class="co-city">📍 Оберіть місто <span style="color:var(--sec);font-weight:600">· обов'язково</span></button>
+          <input class="co-input req" type="text" placeholder="Відділення / поштомат - почніть вводити №">
+        </div>
+
+        <label class="co-opt" data-price="80" data-label="Кур'єр НП">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Кур'єр Нова Пошта - на адресу</span><span class="otd">Доставка до дверей, 1–2 дні</span></span>
+          <span class="op">від 70 ₴</span>
+        </label>
+        <div class="co-sub">
+          <button type="button" class="co-city">📍 Одеса <span style="color:var(--light);font-weight:600">· змінити</span></button>
+          <input class="co-input" type="text" placeholder="Вулиця, будинок, квартира">
+        </div>
+
+        <label class="co-opt" data-price="0" data-label="Самовивіз Одеса">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Самовивіз - Одеса</span><span class="otd">вул. Дерибасівська, 1 · за наявності на точці</span></span>
+          <span class="op">безкоштовно</span>
+        </label>
+      </section>
+
+      <!-- 3 · ОПЛАТА -->
+      <section class="co-sec" aria-label="Оплата">
+        <div class="co-sec-h"><span class="num">3</span> Оплата</div>
+
+        <label class="co-opt on">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Картка онлайн - LiqPay / Wayforpay</span><span class="otd">Visa · Mastercard · безпечна оплата на сторінці банку</span></span>
+        </label>
+        <label class="co-opt">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Apple Pay / Google Pay</span><span class="otd">Оплата в один дотик</span></span>
+        </label>
+        <label class="co-opt">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Накладений платіж</span><span class="otd">Оплата при отриманні на Новій Пошті</span></span>
+        </label>
+        <label class="co-opt">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Готівка при самовивозі</span><span class="otd">Оплата на точці в Одесі</span></span>
+        </label>
+
+        <div class="co-cmt-lbl">Коментар до замовлення (необов'язково)</div>
+        <textarea class="co-cmt" placeholder="Наприклад: подзвоніть перед доставкою"></textarea>
+      </section>
+    </div>
+
+    <!-- RIGHT COLUMN - money only, sticky -->
+    <aside class="co-money" aria-label="Разом">
+      <div class="co-money-h">Разом</div>
+
+      <!-- bonus module - state «є бонуси», списання off (toggle it: the whole column recomputes) -->
+      <div class="co-bonus" data-balance="240">
+        <div class="co-bonus-top"><span class="bl">Бонусний рахунок</span><span class="bv">240 ₴</span></div>
+        <div class="bnote">Можна оплатити бонусами частину замовлення (діють 3 місяці)</div>
+        <div class="co-toggle" role="button" tabindex="0" aria-pressed="false"><span class="co-sw"></span> Списати бонуси</div>
+      </div>
+
+      <div class="co-brow" data-row="items"><span>Сума товарів (<span class="n">3</span>)</span><b>3 939 ₴</b></div>
+      <div class="co-brow" data-row="discount" data-rate="0.05"><span class="disc">Знижка лояльності 🥈 Срібло −5%</span><b>−197 ₴</b></div>
+      <div class="co-brow" data-row="delivery"><span>Доставка · <span class="dn">Нова Пошта</span></span><b>60 ₴</b></div>
+      <div class="co-total"><span class="tl">До сплати</span><span class="tv">3 802 ₴</span></div>
+
+      <div class="co-accrual"><span class="star">★</span><span class="m">Нарахуємо <b>+38 ₴</b> бонусів за це замовлення (~1%)</span></div>
+
+      <a class="co-confirm" href="checkout-loading.html">Підтвердити замовлення</a>
+      <div class="co-confirm-note">Спершу вкажіть місто та відділення доставки</div>
+
+      <div class="co-trust">🔒 Безпечна оплата · 14 днів на повернення · Гарантія оригіналу</div>
+    </aside>
+
+  </div>
+
+  <!-- UPSELL (full width, after all sections) - the CANONICAL listing card (.pcard),
+       so the add-ons can never drift from the language of every other product card.
+       No panel behind them and no frame on the photo: the section is a shelf, not a box.
+       .pmeta2 is dropped here on purpose - a shaker has no «порція» and a 1 ₴ bonus is noise. -->
+  <section class="co-upsell" aria-label="Не забудьте додати">
+    <div class="co-upsell-h">Не забудьте додати</div>
+    <div class="co-upsell-s">Дрібниці, які часто беруть із цим замовленням</div>
+    <div class="prow">
+      <article class="pcard" data-unit="49" data-meta="Power Pro · Україна"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Power Pro · Україна</div>
+          <a href="product.html" class="nm">Протеїновий батончик Power Pro 60 г</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">49 ₴</span></div><button class="cartbtn" aria-label="Додати до замовлення">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.6</span> · 78 відгуків</div>
+        </div>
+      </article>
+
+      <article class="pcard" data-unit="39" data-meta="Powerade · Польща"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Powerade · Польща</div>
+          <a href="product.html" class="nm">Ізотонік Powerade 500 мл</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">39 ₴</span></div><button class="cartbtn" aria-label="Додати до замовлення">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.5</span> · 42 відгуки</div>
+        </div>
+      </article>
+
+      <article class="pcard" data-unit="89" data-meta="Olimp · Польща"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Olimp · Польща</div>
+          <a href="product.html" class="nm">BCAA-шот Olimp 60 мл</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">89 ₴</span></div><button class="cartbtn" aria-label="Додати до замовлення">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.7</span> · 56 відгуків</div>
+        </div>
+      </article>
+
+      <article class="pcard" data-unit="129" data-meta="Stack · Україна"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Stack · Україна</div>
+          <a href="product.html" class="nm">Шейкер Stack 700 мл</a>
+          <div class="pavail in">● В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">129 ₴</span></div><button class="cartbtn" aria-label="Додати до замовлення">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.9</span> · 210 відгуків</div>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<!-- SIMPLIFIED FOOTER (inline) -->
+<footer class="co-foot" role="contentinfo">
+  <div class="co-foot-in">
+    <span>© 2026 Stack. Спортивне харчування в Україні.</span>
+    <span class="co-foot-links">
+      <a href="content-legal.html">Публічна оферта</a>
+      <a href="content-legal.html">Конфіденційність</a>
+      <a href="content-delivery.html">Доставка й оплата</a>
+      <a href="content-contacts.html">Підтримка</a>
+    </span>
+    <span>Visa · Mastercard · Apple Pay · Google Pay</span>
+  </div>
+</footer>
+
+<div id="wf-toast"></div>
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>wfToasts(); wfCheckout(); wfBar('checkout.html', 'noaddr');
+        uivFixLinks(); uivBar(); uivChrome(); uivCheckout();</script>
+</body>
+</html>

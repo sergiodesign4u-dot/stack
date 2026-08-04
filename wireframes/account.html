@@ -6,19 +6,6 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Кабінет покупця - Огляд - Stack (wireframe 7.0)</title>
 <link rel="stylesheet" href="_wf.css">
-<style>
-  /* page-local: restock nudge (reorder mechanic, Decision 4 · Job 3-restock) - calm, no anxiety */
-  .restock .rk-lead { font-size: 13px; color: var(--sec); margin: -4px 0 12px; }
-  .rk-item { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--hair); }
-  .rk-item:last-child { border-bottom: none; padding-bottom: 2px; }
-  .rk-item:first-of-type { padding-top: 2px; }
-  .rk-ph { width: 46px; height: 46px; border-radius: 8px; background: var(--fill); border: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 9px; flex: none; }
-  .rk-tx { min-width: 0; }
-  .rk-nm { font-size: 13.5px; font-weight: 700; color: var(--strong); line-height: 1.3; }
-  .rk-cy { font-size: 12px; color: var(--sec); margin-top: 2px; }
-  .rk-cy b { color: var(--strong); font-weight: 700; }
-  .rk-add { margin-left: auto; white-space: nowrap; }
-</style>
 </head>
 <body>
 <!-- ============================================================
@@ -33,7 +20,7 @@
 
 <main class="wf-page">
   <nav class="crumb" aria-label="Хлібні крихти">
-    <a href="home.html">Головна</a><span class="sep">/</span>
+    <a href="index.html">Головна</a><span class="sep">/</span>
     <span class="cur">Кабінет</span>
   </nav>
 
@@ -86,9 +73,9 @@
           <div class="lbar"><i style="width:62%"></i></div>
           <div class="ls">Куплено на <b>18 400 ₴</b> · до 🥇 Золотого ще <b>6 600 ₴</b></div>
           <div class="ladder">
-            <div class="lrung on"><span class="rn">🥉 Бронза</span>−3%</div>
-            <div class="lrung on"><span class="rn">🥈 Срібло</span>−5%</div>
-            <div class="lrung"><span class="rn">🥇 Золото</span>−8%</div>
+            <div class="lrung done"><span class="rn">🥉 Бронза</span>−3%<span class="rs">✓ отримано</span></div>
+            <div class="lrung now"><span class="rn">🥈 Срібло</span>−5%<span class="rs">ваш рівень</span></div>
+            <div class="lrung next"><span class="rn">🥇 Золото</span>−8%<span class="rs">наступний</span></div>
           </div>
         </div>
 
@@ -134,17 +121,17 @@
 
       <!-- Wishlist preview → Обране (7.6). Canonical .pcard -->
       <section aria-label="Обране">
-        <div class="sech"><h2>Обране</h2><a class="all" href="account-wishlist.html">Усі 8 →</a></div>
+        <div class="sech"><h2>Обране</h2><a class="all" href="account-wishlist.html">Усі 6 →</a></div>
         <div class="prow">
-          <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav on" aria-label="В обраному">♥</button>
             <div class="bd"><div class="pbrand">BioTechUSA · Угорщина</div><a href="product.html" class="nm">Iso Whey Zero 908 г</a><div class="pavail in">● В наявності</div>
               <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
               <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div><div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div></div></article>
-          <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav on" aria-label="В обраному">♥</button>
             <div class="bd"><div class="pbrand">Optimum Nutrition · США</div><a href="product.html" class="nm">Micronized Creatine Powder 317 г</a><div class="pavail in">● В наявності</div>
               <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">720 ₴</span><span class="pcut">−11%</span></div><span class="pnew">640 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
               <div class="rate"><span class="st">★ 4.9</span> · 204 відгуки</div><div class="pmeta2"><span class="perserv"><b>10 ₴</b> / порція</span><span class="bonus">+6 ₴ бонус</span></div></div></article>
-          <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♥</button>
+          <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav on" aria-label="В обраному">♥</button>
             <div class="bd"><div class="pbrand">Scitec Nutrition · Угорщина</div><a href="product.html" class="nm">100% Whey Protein Professional 920 г</a><div class="pavail pre">● Під замовлення</div>
               <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">845 ₴</span></div><button class="cartbtn notify" aria-label="Повідомити про надходження">🔔</button></div>
               <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div><div class="pmeta2"><span class="perserv"><b>31 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div></div></article>

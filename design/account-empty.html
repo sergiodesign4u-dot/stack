@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет покупця - новий акаунт - Stack (wireframe 7.0 · порожньо)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.0 STATE = empty (just-registered buyer, no history).
+  No orders / no wishlist / no addresses / bonuses 0. NEVER a dead end:
+  every empty block has an exit to shop (Обрати ціль / До каталогу).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Кабінет</span>
+  </nav>
+
+  <div class="acc">
+
+    <!-- ============ SECTION NAV (shared component; zero counters) ============ -->
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <!-- ============ CONTENT PANEL = ОГЛЯД (new account) ============ -->
+    <div class="acc-main">
+      <h1 class="acc-h1">Вікторіє, ось ваш кабінет</h1>
+      <p class="acc-sub">Акаунт створено. Зробіть перше замовлення - і тут з'явиться історія, бонуси та обране.</p>
+
+      <div class="acc-grid">
+
+        <!-- Bonuses = 0, how to earn -->
+        <div class="acard abonus">
+          <div class="ah"><h3>Бонусний рахунок</h3></div>
+          <div class="big">0 ₴</div>
+          <div class="u">бонусів на рахунку</div>
+          <div class="hint">Отримуйте <b>~1% бонусами</b> з кожного замовлення. Наприклад, 600 ₴ покупки → 6 ₴ бонусів на наступну.</div>
+        </div>
+
+        <!-- Loyalty: start at Bronze -->
+        <div class="acard loy">
+          <div class="ah"><h3>Рівень лояльності</h3><button class="lnk" type="button" style="font-size:12.5px;font-weight:700;color:var(--strong)">Як це працює →</button></div>
+          <div class="lt">🫙 Базовий рівень · знижка 0%</div>
+          <div class="lbar"><i style="width:0%"></i></div>
+          <div class="ls">Куплено на <b>0 ₴</b> за весь час · купуйте на <b>3 000 ₴</b> - і відкриється 🥉 Бронза зі знижкою −3%.</div>
+          <div class="ladder">
+            <div class="lrung next"><span class="rn">🥉 Бронза</span>−3%<span class="rs">наступний</span></div>
+            <div class="lrung locked"><span class="rn">🥈 Срібло</span>−5%<span class="rs">ще не відкрито</span></div>
+            <div class="lrung locked"><span class="rn">🥇 Золото</span>−8%<span class="rs">ще не відкрито</span></div>
+          </div>
+        </div>
+
+        <!-- Orders empty -->
+        <div class="acard span2">
+          <div class="ah"><h3>Замовлення</h3></div>
+          <div class="emptybox mini">
+            <div class="ei">📦</div>
+            <div class="et">Ще немає замовлень</div>
+            <div class="es">Оберіть ціль або перегляньте каталог - почніть із товарів для вашого завдання.</div>
+            <div class="eact">
+              <a class="btn dark" href="index.html">Обрати ціль</a>
+              <a class="btn" href="catalog-page.html">До каталогу</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Addresses empty -->
+        <div class="acard">
+          <div class="ah"><h3>Адреси доставки</h3></div>
+          <div class="emptybox mini" style="padding:20px 14px">
+            <div class="et" style="margin-top:0">Немає збережених адрес</div>
+            <div class="es">Додайте адресу - і оформлення замовлення буде швидшим.</div>
+            <div class="eact"><button class="btn" type="button">＋ Додати адресу</button></div>
+          </div>
+        </div>
+
+        <!-- Become a coach -->
+        <div class="acard" id="coach-banner" style="display:flex;flex-direction:column;justify-content:center">
+          <div class="ah"><h3>Ви тренер?</h3></div>
+          <p style="font-size:13.5px;color:var(--sec);margin-bottom:14px">Активуйте роль тренера: гуртові ціни та замовлення для кількох клієнтів в одну сесію.</p>
+          <a class="btn dark" href="coach-verify.html" style="align-self:flex-start">Стати тренером</a>
+        </div>
+
+      </div>
+
+      <!-- Wishlist empty -->
+      <section aria-label="Обране">
+        <div class="sech"><h2>Обране</h2></div>
+        <div class="emptybox mini">
+          <div class="ei">♡</div>
+          <div class="et">Список обраного порожній</div>
+          <div class="es">Тисніть ♡ на товарах, які сподобались - і вони збережуться тут.</div>
+          <div class="eact"><a class="btn" href="listing.html">Перейти до товарів</a></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>wfHeader('buyer');
+  wfAccountNav('overview', false, { counts: { orders: 0, wishlist: 0, addresses: 0 }, tier: '🫙 Базовий рівень' });
+  wfFooter(); wfBar('account.html', 'empty');
+  uivFixLinks(); uivBar(); uivChrome(); uivAccount();
+</script>
+</body>
+</html>

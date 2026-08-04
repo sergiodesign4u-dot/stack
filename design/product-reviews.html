@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Gold Standard 100% Whey - відгуки та сертифікат (wireframe 3.0)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+<style>
+  /* COLOR LAYER · reviews recovery. The doubt is met by the calm bear + evidence,
+     not by a louder button: the banner is a warm panel, the proof (certificate,
+     reviews) is the content, and the only orange is the way forward. */
+  .recbanner { display: flex; align-items: center; gap: 18px; background: var(--fill2);
+    border: 1px solid var(--hair); border-radius: 14px; padding: 18px 20px; margin: 10px 0 26px; }
+  .recbanner .rbear { width: 92px; height: 92px; flex: none; border-radius: 50%; overflow: hidden; }
+  .recbanner .rbear img { width: 92px; height: 92px; object-fit: cover; object-position: center 12%;
+    mix-blend-mode: multiply; }
+  .recbanner .rt { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 21px;
+    letter-spacing: -.01em; color: var(--ink); }
+  .recbanner .rs { font-size: 14.5px; color: var(--sec); margin-top: 5px; line-height: 1.55; max-width: 62ch; }
+  @media (max-width: 559px) {
+    .recbanner { gap: 14px; padding: 16px; }
+    .recbanner .rbear, .recbanner .rbear img { width: 68px; height: 68px; }
+    .recbanner .rt { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<!-- WIREFRAME · 3.0 STATE = reviews recovery (Job 3). The unsure buyer is routed to the
+     reviews + the real certificate BEFORE leaving. Exits both ways: convinced → cart,
+     still not → back to the collection. Never a dead end. -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <a href="catalog-page.html">Каталог</a><span class="sep">/</span>
+    <a href="listing.html">Протеїн</a><span class="sep">/</span>
+    <a href="product.html">Gold Standard 100% Whey</a><span class="sep">/</span>
+    <span class="cur">Відгуки та сертифікат</span>
+  </nav>
+
+  <div class="recbanner">
+    <div class="rbear" aria-hidden="true"><img src="concept/assets/mascot-face-reassure.png" alt=""></div>
+    <div>
+      <div class="rt">Ще сумніваєтесь?</div>
+      <div class="rs">Подивіться, що кажуть покупці, які вже брали цей товар, і перегляньте реальний
+        сертифікат відповідності - перш ніж вирішувати.</div>
+    </div>
+  </div>
+
+  <!-- proof on the left, the product it is about pinned on the right (locked 2026-07-30) -->
+  <div class="revcols">
+  <div class="revmain">
+
+  <!-- certificate (viewable - real content, not a claim) -->
+  <section aria-label="Сертифікація">
+    <div class="sech"><h2>Сертифікація</h2></div>
+    <div class="certbox">
+      <a class="certthumb" href="content-guarantee.html">переглянути сертифікат (PDF)</a>
+      <div>Сертифікат відповідності на партію + лабораторні тести чистоти. Натисніть, щоб відкрити
+        документ - оригінальний продукт із гарантією виробника (Optimum Nutrition, США).</div>
+    </div>
+  </section>
+
+  <!-- reviews (aggregate + list; many → paginated) -->
+  <section aria-label="Відгуки" style="margin-top:26px">
+    <div class="sech"><h2>Відгуки покупців</h2></div>
+    <div class="rvhead">
+      <div class="rvbig"><div class="n">4.8</div><div class="s">★★★★★<br>126 відгуків</div></div>
+      <div class="rvbars">
+        <div class="rvbar"><span>5</span><div class="track"><div class="fill" style="width:82%"></div></div><span>103</span></div>
+        <div class="rvbar"><span>4</span><div class="track"><div class="fill" style="width:12%"></div></div><span>15</span></div>
+        <div class="rvbar"><span>3</span><div class="track"><div class="fill" style="width:4%"></div></div><span>5</span></div>
+        <div class="rvbar"><span>2</span><div class="track"><div class="fill" style="width:1%"></div></div><span>2</span></div>
+        <div class="rvbar"><span>1</span><div class="track"><div class="fill" style="width:1%"></div></div><span>1</span></div>
+      </div>
+      <button class="btn dark" type="button" onclick="openReview()">＋ Залишити відгук</button>
+    </div>
+
+    <div class="rvitem">
+      <div class="rvmeta">
+        <div class="rname">Олександр К.</div>
+        <div class="rdate">12 червня 2026</div>
+        <div class="rstars">★ 5.0</div>
+        <div class="rbadge">✓ Купив товар</div>
+      </div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> смак не приторний, добре розмішується, є ефект</div>
+        <div class="prc"><b>Недоліки:</b> ціна підросла</div>
+        <div class="rtext">Беру вже третю банку. Оригінал, сертифікат був у наявності. Рекомендую початківцям.</div>
+        <div class="rvreply">
+          <div class="rchip"><span class="lg">Stack</span> Магазин</div>
+          Дякуємо за відгук. Тримаємо ціну максимально доступною.
+        </div>
+      </div>
+    </div>
+    <div class="rvitem">
+      <div class="rvmeta">
+        <div class="rname">Ірина М.</div>
+        <div class="rdate">3 червня 2026</div>
+        <div class="rstars">★ 4.0</div>
+        <div class="rbadge">✓ Купив товар</div>
+      </div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> якісний білок, швидка доставка</div>
+        <div class="rtext">Все сподобалось, ваніль трохи солодка. Загалом задоволена.</div>
+      </div>
+    </div>
+    <div class="rvitem">
+      <div class="rvmeta">
+        <div class="rname">Дмитро П.</div>
+        <div class="rdate">28 травня 2026</div>
+        <div class="rstars">★ 5.0</div>
+        <div class="rbadge">✓ Купив товар</div>
+      </div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> оригінал, є лабораторні тести</div>
+        <div class="rtext">Порівнював склад із сайтом виробника - усе збігається. Беру постійно.</div>
+      </div>
+    </div>
+    <div class="pgnav"><button class="loadmore">Показати ще відгуки (з 126)</button><div class="pages"><button class="on" type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">›</button></div></div>
+  </section>
+
+  </div><!-- /revmain -->
+
+  <!-- the product the reviews are about: the CANONICAL card (same component as the listing
+       grid), pinned so it follows the scroll. Both exits stay - convinced → cart, still not →
+       back to the collection (no dead end) -->
+  <aside class="pmini" aria-label="Товар, про який відгуки">
+    <article class="pcard">
+      <a href="product.html" class="ph">фото</a>
+      <button class="fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Optimum Nutrition · США</div>
+        <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
+        <div class="pavail in">● В наявності</div>
+        <div class="prow2">
+          <div class="pcol">
+            <div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div>
+            <span class="pnew">1 290 ₴</span>
+          </div>
+          <button class="cartbtn" aria-label="У кошик">🛒</button>
+        </div>
+        <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+      </div>
+    </article>
+    <a class="pmback" href="listing.html">← Повернутись до колекції</a>
+  </aside>
+  </div><!-- /revcols -->
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<!-- sticky mobile buy bar: on mobile the pinned card is context, the bar is the action -->
+<div class="mbuybar">
+  <div class="mbp"><span class="mold">1 520 ₴</span><span class="mcut">−15%</span><b>1 290 ₴</b></div>
+  <a class="mba" href="cart.html">У кошик</a>
+</div>
+<div id="wf-sheet"></div>
+<div id="wf-pdp-modals"></div>
+<div id="wf-toast"></div>
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>wfHeader(); wfFooter(); wfToasts(); wfPdpModals(); wfBar('product.html', 'reviews');
+        uivFixLinks(); uivBar(); uivChrome(); uivPdp();</script>
+</body>
+</html>

@@ -1,42 +1,56 @@
 # Stack
 
-A mobile-first sport nutrition store for the Ukrainian market, built around coaches and gyms who order for their athletes. Turns a confusing catalog into a clear, trusted path from a person's goal to the right products.
+A mobile-first sport nutrition store for the Ukrainian market, built around coaches and gyms who
+order for their athletes. Turns a confusing catalog into a clear, trusted path from a person's goal
+to the right products.
 
-## Live pages
+**Entry point:** https://sergiodesign4u-dot.github.io/stack/ - the project route with every stage and
+its status. Every page carries the same left sidebar, rendered from one registry (`/_nav.js`), so
+there is no page list to maintain here.
 
-- **Research** — https://sergiodesign4u-dot.github.io/stack/research/research.html
-- **Conceptual architecture** — https://sergiodesign4u-dot.github.io/stack/research/concept.html
-- **Information architecture** — https://sergiodesign4u-dot.github.io/stack/ia/sitemap.html
-- **Wireframes** (clickable prototype) — https://sergiodesign4u-dot.github.io/stack/wireframes/index.html
-- **Voice / Голос продукту** — https://sergiodesign4u-dot.github.io/stack/Voices/voice.html
+## Status
 
-Each page carries a left-sidebar (docs) or prototype bar (wireframes) that navigates to every sub-page in that area — no need to list them here.
+| # | Stage | Status |
+|---|-------|--------|
+| 01 | Foundation Research | Done |
+| 02 | User Research (personas + JTBD) | Done |
+| 02+ | CJM (As-Is + To-Be) | Not started |
+| 03 | Information architecture | In progress - detail layer done, base layer pages and block bank open |
+| 04 | Wireframes | Done - grey clickable prototype, 142 screens |
+| 05 | Voice | Done - rulebook + microcopy inventory, rolled out to the prototype |
+| 06 | Concept | Done - visual language on two screens |
+| 07 | UI + Visual | In progress - 39 coloured screens, component kit open |
+| 08 | Tokens + Components | Not started |
+| 09 | Design System | Not started |
+| 10 | Responsive | Not started |
+| 11 | Animation | Not started |
+| 12 | Handoff | Not started |
 
-## Project status
+This table and `done:` in `/_nav.js` are the only two places status is written. `CLAUDE.md` holds
+rules and never a status.
 
-| Phase | Status |
-|-------|--------|
-| Research | Done |
-| Information architecture | Done — page-level specs in `ia/docs/` |
-| Wireframes | In progress — greyscale clickable prototype (`wireframes/`) |
-| Voice (product voice) | Done — `voice.md` rulebook + `microcopy.md` inventory (`Voices/`), rolled out to the whole prototype |
-| Concept · Design system · Components · Handoff | Not started |
-
-## Repository structure
+## Repository
 
 ```
-research/    - Research phase: visual HTML + source docs (research/docs/ = source of truth)
-ia/          - Page-level IA: visual HTML + source docs (ia/docs/ = source of truth)
-wireframes/  - Greyscale clickable prototype
-Voices/      - Product voice: visual HTML + source docs (Voices/docs/ = source of truth)
-playbook/    - Reusable design / IA process playbooks
-concept/ tokens/ components/ design-system/ handoff/  - Later phases
+_nav.js  _nav.css  index.html    roadmap registry, its look, and the entry point
+research/     stages 01, 02, 02+   research, competitors, benchmark, AARRR, UX patterns,
+                                   personas, JTBD, CJM
+ia/           stage 03             base layer (flows, concept map) + detail layer
+                                   (sitemap, structure, per-node specs)
+wireframes/   stage 04             grey clickable prototype, frozen after Voice
+voice/        stage 05             voice rulebook + microcopy inventory
+design/       stages 06-09         concept/, colour theme, kit/, system/, product screens
+docs/         decisions.md (why anything is the way it is) + playbook/
 ```
+
+Each stage folder holds md sources of truth in `docs/` and its html visualization flat in the root.
+`index.html` is always the home page of the folder you opened; a hub is always `overview.html`.
 
 ## Key documents
 
-- [CLAUDE.md](CLAUDE.md) — product brief (JTBD, audience, MVP scope, design principles)
-- Research source of truth: [`research/docs/`](research/docs/) — strategy, personas, JTBD, conceptual sitemap & flows
-- IA source of truth: [`ia/docs/`](ia/docs/) — full sitemap + per-page specs in [`ia/docs/pages/`](ia/docs/pages/)
-- Voice source of truth: [`Voices/docs/`](Voices/docs/) — [`voice.md`](Voices/docs/voice.md) (rulebook) + [`microcopy.md`](Voices/docs/microcopy.md) (inventory)
-- Playbooks: [IA](playbook/design-ia-playbook.md) · [Wireframes](playbook/design-wireframes-playbook.md)
+- [CLAUDE.md](CLAUDE.md) - project rules in force (200-line budget)
+- [AGENTS.md](AGENTS.md) - entry point for an external reviewer
+- [docs/decisions.md](docs/decisions.md) - decision records and the build journal
+- [DESIGN-artifacts.md](DESIGN-artifacts.md) - visual language and the origin of every value
+- Sources of truth: [`research/docs/`](research/docs/) · [`ia/docs/`](ia/docs/) ·
+  [`wireframes/docs/`](wireframes/docs/) · [`voice/docs/`](voice/docs/)

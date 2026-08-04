@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет - Адреси - Stack (wireframe 7.5)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.5 Адреси (buyer account, private → noindex).
+  Saved delivery addresses (Nova Poshta / courier / pickup) + one default;
+  edit/delete/make-default; add-address. City via shared dialog 0.1a. Speeds up
+  checkout (6.x). Reuses the shared account shell (acc-nav via wfAccountNav).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <span class="cur">Адреси</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Адреси</h1>
+      <p class="acc-sub">Збережені адреси доставки - щоб оформлювати замовлення швидше.</p>
+
+      <div class="addr-list">
+
+        <!-- default - Nova Poshta відділення -->
+        <div class="addr-card def">
+          <span class="addr-tag">За замовчуванням</span>
+          <div class="addr-type">Нова Пошта · відділення</div>
+          <div class="addr-line">Відділення № 12, Одеса</div>
+          <div class="addr-sub">Вікторія Коваль · +380 ** *** 45 67</div>
+          <div class="addr-acts">
+            <button type="button" class="btn" onclick="openAddrEdit('vidd')">Редагувати</button>
+            <button type="button" class="btn" onclick="openAddrDelete()">Видалити</button>
+          </div>
+        </div>
+
+        <!-- courier -->
+        <div class="addr-card">
+          <span class="addr-tag">Кур'єр</span>
+          <div class="addr-type">Кур'єр Нова Пошта</div>
+          <div class="addr-line">вул. Дерибасівська, 15, кв. 8, Одеса</div>
+          <div class="addr-sub">Вікторія Коваль · +380 ** *** 45 67</div>
+          <div class="addr-acts">
+            <button type="button" class="btn" onclick="wfAddrMakeDefault()">Зробити основною</button>
+            <button type="button" class="btn" onclick="openAddrEdit('cour')">Редагувати</button>
+            <button type="button" class="btn" onclick="openAddrDelete()">Видалити</button>
+          </div>
+        </div>
+
+        <!-- pickup -->
+        <div class="addr-card">
+          <span class="addr-tag">Самовивіз</span>
+          <div class="addr-type">Пункт самовивозу Stack</div>
+          <div class="addr-line">вул. Катерининська, 42, Одеса</div>
+          <div class="addr-sub">Безкоштовно · пн–сб 10:00–20:00</div>
+          <div class="addr-acts">
+            <button type="button" class="btn" onclick="wfAddrMakeDefault()">Зробити основною</button>
+            <button type="button" class="btn" onclick="openAddrDelete()">Видалити</button>
+          </div>
+        </div>
+
+      </div>
+
+      <button type="button" class="btn dark addr-add" onclick="openAddr()">＋ Додати адресу</button>
+
+      <div class="addr-hint"><b>Місто</b> обирається через спільний діалог «Оберіть місто» - один список живить доставку, картку адреси й SEO-сторінки міст.</div>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+<div id="wf-addr"></div>
+<div id="wf-toast"></div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>
+  var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
+  wfHeader(isCoach ? 'coach' : 'buyer');
+  wfAccountNav('addresses', isCoach);
+  wfFooter(); wfToasts(); wfAddrDialog(); wfBar('account-addresses.html');
+
+  uivFixLinks(); uivBar(); uivChrome(); uivAccount();
+</script>
+</body>
+</html>

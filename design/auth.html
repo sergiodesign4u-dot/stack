@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Вхід або реєстрація - Stack (wireframe 1.x)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 1.x Авторизація - REFERENCE render (BASE = phone step).
+  The dialog is the SHARED component wfAuth() (built once in ../wireframes/_nav.js
+  and injected on EVERY page by openAuth()), so this page opens it pinned instead
+  of copying it - the states can never drift. Passwordless, phone-OTP-first.
+  COLOR LAYER: the door is a welcome, not a checkpoint - brand panel with the
+  mascot on the left, ONE filled orange action per step, every typed figure mono,
+  errors in the serious red, never in the brand accent.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<header id="wf-header"></header>
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>wfHeader(); openAuth('phone'); wfBar('auth.html');
+        uivFixLinks(); uivBar(); uivChrome(); uivAuth();</script>
+</body>
+</html>

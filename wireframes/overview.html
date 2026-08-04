@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Вайрфрейми Stack - всі екрани</title>
+<link rel="icon" type="image/svg+xml" href="../design/concept/assets/logo-mark.svg">
+<link rel="stylesheet" href="_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --d-bg:#f7f6f3; --d-surface-alt:#f2f0eb; --d-border:#e5e2db; --d-text:#1a1916; --d-text-2:#6b6760; --d-text-3:#9b9790; --d-accent:#2d5a3d; --d-accent-light:#e8f0ea; --d-radius-sm:6px; }
+  body{ background:var(--d-bg); }/* ---- content column ---- */
+  .wfx { max-width: 900px; margin: 0 auto; padding: 68px 18px 60px; }
+  @media(min-width:860px){
+    .wfx{ margin:0 0 0 220px; max-width:1120px; padding:44px 48px 80px; }}
+  .wfx h1 { font-size: 24px; font-weight: 800; color: var(--strong); letter-spacing: -.01em; }
+  .wfx .lead { font-size: 14px; color: var(--sec); margin: 8px 0 22px; max-width: 640px; }
+  .wfx .legend { font-size: 12px; color: var(--light); margin: 18px 0 22px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .wfx .legend b { color: var(--strong); }
+  .wfx .flowlinks { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
+  .wfx .flowlink { border: 1.5px solid var(--dark); border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 700; color: var(--strong); }
+  .wfx .flowlink.soon { border-color: var(--hair2); color: var(--light); border-style: dashed; }/* full product sitemap - EVERY page by cluster; built → wireframe, else → IA spec */
+  .fullmap { margin-top: 36px; border-top: 1px solid var(--hair); padding-top: 26px; scroll-margin-top: 64px; }
+  .fullmap h2 { font-size: 20px; font-weight: 800; color: var(--strong); }
+  .fullmap .lead { margin: 8px 0 20px; }
+  .smc { color: var(--light); font-weight: 700; }
+  .sm-legend { font-size: 12px; color: var(--light); margin: 0 0 16px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .sm-cluster { margin-bottom: 15px; }
+  .sm-cluster h3 { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--light); margin-bottom: 9px; }
+  .sm-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sm-item { display: inline-flex; align-items: center; gap: 7px; border: 1.5px solid var(--dark); border-radius: 8px; padding: 7px 12px; font-size: 12.5px; font-weight: 600; color: var(--strong); }
+  .sm-item.planned { border-style: dashed; border-color: var(--hair2); color: var(--sec); }
+  .sm-item .node { font-size: 11px; font-weight: 700; color: var(--light); }
+  .sm-item .cnt { font-size: 10.5px; font-weight: 800; color: #fff; background: var(--dark); border-radius: 20px; padding: 1px 7px; }
+  .sm-item.planned .ia { font-size: 10px; font-weight: 800; letter-spacing: .04em; color: var(--light); border: 1px solid var(--hair2); border-radius: 4px; padding: 1px 4px; }</style>
+  <link rel="stylesheet" href="../_nav.css">
+</head>
+<body>
+
+<aside id="sidebar"></aside>
+
+<main class="wfx">
+  <h1>Вайрфрейми Stack - усі екрани</h1>
+  <p class="lead">Прототип у сірому: структура + кліки. Кожен екран - на мобілці (360) і десктопі,
+    з усіма станами. Ходіть по флоу або відкривайте окремий екран нижче.</p>
+
+  <div class="flowlinks">
+    <a class="flowlink" id="f1" href="index.html">▶ Флоу 1 · Покупець-новачок</a>
+    <a class="flowlink" id="f2" href="coach-landing.html">▶ Флоу 2 · Тренер (Job 1)</a>
+  </div>
+
+  <div class="legend">
+    <span><b>Базовий</b> - основний вид екрана</span>
+    <span>Порожньо · Завантаження · Помилка · доменні стани - окремі сторінки</span>
+    <span style="color:#bbb">пунктир = ще не намальовано</span>
+  </div>
+
+  <!-- tree rendered from _nav.js (single source of truth, mirrors docs/screens.md) -->
+  <div id="wf-tree"></div>
+
+  <!-- Повна карта сайту: УВЕСЬ продукт за структурою IA (кластери 0–8 + системні).
+       Будовані екрани → ведуть на вайрфрейм (цифра = екранів зі станами); решта → на IA-спеку.
+       Data-driven із WF_SITEMAP у _nav.js - оновлюється, щойно екран будується. -->
+  <section class="fullmap" id="allpages">
+    <h2>Повна карта сайту</h2>
+    <p class="lead">Увесь продукт за структурою IA - і збудовані екрани (ведуть на вайрфрейм,
+      цифра = екранів зі станами), і решта сторінок (ведуть на IA-спеку). <span id="wf-map-count" class="smc"></span></p>
+    <div class="sm-legend">
+      <span><b style="color:var(--strong)">суцільна рамка</b> - збудовано (вайрфрейм)</span>
+      <span style="color:#bbb">пунктир + IA - лише специфікація</span>
+    </div>
+    <div id="wf-map"></div>
+  </section>
+
+  <p class="lead" style="margin-top:26px">Побудовано: <b>Флоу 1 (покупець-новачок)</b> +
+    <b>Флоу 2 (тренер, Job 1)</b> - обидва повні та відкритиковані (Крок 9). Далі за методом
+    (playbook §How-to-run): решта карти сайту вище - лояльність (Job 6) · контент 8.x ·
+    системні · інстанси лістинга (2.0/2.4/2.5) · квіз.</p>
+</main>
+
+<script src="_nav.js"></script>
+<script>
+  wfTree('wf-tree'); wfFullMap('wf-map');
+  
+  
+  
+</script>
+<script>
+window.NAV_BASE = '../';
+window.NAV_SECTIONS = [{"id": "f1", "label": "Флоу 1 · Покупець"}, {"id": "f2", "label": "Флоу 2 · Тренер"}, {"id": "allpages", "label": "Всі екрани"}, {"id": "wf-map", "label": "Повна карта сайту"}];
+</script>
+<script src="../_nav.js"></script>
+</body>
+</html>

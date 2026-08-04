@@ -9,7 +9,7 @@
 <style>
 /* node 0.0/0.1 · REAL open state of the home category rail (.hrail) with a flyout
    panel that opens as an overlay (Comfy-home style). Rail + flyout + scrim are the
-   SHARED wfHomeRail() mechanism (also on home.html) - this page just opens it on
+   SHARED wfHomeRail() mechanism (also on index.html) - this page just opens it on
    «За ціллю» by default so the overlay is visible immediately. */
 .hc-hero { position: relative; display: grid; grid-template-columns: 1fr; gap: 14px; margin: 14px 0 6px; }
 @media (min-width: 860px) { .hc-hero { grid-template-columns: 250px 1fr; } }
@@ -21,7 +21,7 @@
   WIREFRAME · home category rail (.hrail) OPEN as an overlay flyout (Comfy-home).
   Left = persistent category rail on the homepage; hovering a category opens a
   flyout panel to the right over a dimmed page. Rail/flyout/scrim = the shared
-  wfHomeRail() (same as home.html); data from WF_CAT_MENU, so it never drifts.
+  wfHomeRail() (same as index.html); data from WF_CAT_MENU, so it never drifts.
 ============================================================ -->
 <div class="wf-bar" id="wf-bar"></div>
 <div class="wf-canvas">
@@ -30,7 +30,7 @@
 <main class="wf-page">
   <p class="hc-hint">Рейка категорій на головній - відкритий стан: наведення на категорію відкриває
     flyout-панель оверлеєм над сторінкою (як у Comfy). Наведіть мишею на пункт рейки. Той самий
-    механізм працює на <a href="home.html">home.html</a>.</p>
+    механізм працює на <a href="index.html">index.html</a>.</p>
 
   <section class="hc-hero" aria-label="Каталог з головної">
     <div class="hrail-wrap" onmouseleave="window.hcClose&&hcClose()">

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Оплату не завершено - Stack (wireframe 6.1 · declined)</title>
+<link rel="stylesheet" href="../wireframes/_wf.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_theme.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 6.1 Оформлення - DECLINED state.
+  «Оплату відхилено» - order is PRESERVED, never lost. Two exits:
+  «Спробувати ще» → checkout · «Повернутись до кошика» → cart.
+  flows.md Job 2: ep → qr(retry)→b5 / qaband(back to cart)→b4.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+
+<header class="co-head" role="banner">
+  <div class="co-head-in">
+    <a class="co-logo" href="index.html">Stack</a>
+    <div class="co-support">
+      <span class="sh">Центр підтримки · Пн–Нд 9:00–21:00</span><br>
+      <b>0 800 000 000</b>
+    </div>
+  </div>
+</header>
+
+<main class="co-err">
+  <div class="co-err-box" role="alert">
+    <div class="co-err-mark" aria-hidden="true">✕</div>
+    <div class="co-err-h">Оплату не завершено</div>
+    <p class="co-err-s">Банк не підтвердив платіж. Гроші не списано. Ваше замовлення збережено - можна спробувати ще раз або повернутися до кошика.</p>
+
+    <div class="co-keep">
+      <div class="co-keep-h">Замовлення збережено</div>
+      <div class="kr"><span>Gold Standard 100% Whey 2270 г × 1</span><b>1 290 ₴</b></div>
+      <div class="kr"><span>Iso Whey Zero 908 г × 2</span><b>2 100 ₴</b></div>
+      <div class="kr"><span>Creatine Monohydrate 500 г × 1</span><b>549 ₴</b></div>
+      <div class="kr"><span>Доставка · Нова Пошта</span><b>60 ₴</b></div>
+      <div class="kr"><span>Знижка лояльності 🥈 Срібло</span><b>−197 ₴</b></div>
+      <div class="kr tot"><span><b>До сплати</b></span><span class="kv">3 802 ₴</span></div>
+      <div class="knote">Товари й адреса доставки залишаються у замовленні.</div>
+    </div>
+
+    <div class="co-err-acts">
+      <a class="btn dark" href="checkout.html">Спробувати ще раз</a>
+      <a class="btn" href="cart.html">Повернутись до кошика</a>
+    </div>
+
+    <p class="co-help">Часті причини: недостатньо коштів, ліміт картки або відмова банку. Спробуйте іншу картку чи оберіть <a href="checkout.html">накладений платіж</a>. Потрібна допомога? <a href="content-contacts.html">Напишіть нам</a> або телефонуйте 0 800 000 000.</p>
+  </div>
+</main>
+
+<footer class="co-foot" role="contentinfo">
+  <div class="co-foot-in">
+    <span>© 2026 Stack. Спортивне харчування в Україні.</span>
+    <span class="co-foot-links">
+      <a href="content-legal.html">Публічна оферта</a>
+      <a href="content-legal.html">Конфіденційність</a>
+      <a href="content-contacts.html">Підтримка</a>
+    </span>
+    <span>Visa · Mastercard · Apple Pay · Google Pay</span>
+  </div>
+</footer>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="_uivis.js"></script>
+<script>wfBar('checkout.html', 'declined');
+        uivFixLinks(); uivBar(); uivChrome(); uivCheckout();</script>
+</body>
+</html>

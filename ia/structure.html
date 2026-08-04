@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stack - Структура IA</title>
+<link rel="icon" type="image/svg+xml" href="../design/concept/assets/logo-s.svg">
+<link rel="stylesheet" href="../_nav.css">
+<style>
+  :root {
+    --bg: #f7f6f3; --surface: #fff; --surface-alt: #f2f0eb; --border: #e5e2db;
+    --text: #1a1916; --text-secondary: #6b6760; --text-light: #9b9790;
+    --accent: #2d5a3d; --accent-light: #e8f0ea; --accent-mid: #4a8c62;
+    --score-low: #b5882a; --score-bg-low: #fdf3e3;
+    --radius: 10px; --radius-sm: 6px;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, system-ui, sans-serif;
+    background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 1160px; margin: 0 auto; padding: 68px 24px 80px; }
+  @media (min-width: 860px) { .page { margin-left: 220px; padding: 48px 48px 80px; } }
+
+  .hero { padding: 44px 0 40px; border-bottom: 1px solid var(--border); margin-bottom: 48px; }
+  .hero-tag {
+    display: inline-block; background: var(--accent-light); color: var(--accent);
+    font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 20px;
+  }
+  .hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -.03em; line-height: 1.12; margin-bottom: 18px; }
+  .hero-lead { font-size: 18px; color: var(--text-secondary); max-width: 680px; }
+  .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 26px; }
+  .hero-meta-item { font-size: 13px; color: var(--text-light); }
+  .hero-meta-item strong { color: var(--text-secondary); font-weight: 600; }
+
+  section { margin-bottom: 52px; scroll-margin-top: 24px; }
+  .section-number { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
+  h2 { font-size: 26px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 10px; }
+  .section-lead { font-size: 16px; color: var(--text-secondary); max-width: 720px; margin-bottom: 26px; }
+
+  .grp { margin-bottom: 34px; }
+  .grp-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+  .grp-name { font-size: 13px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--text); }
+  .grp-count { font-size: 12px; color: var(--text-light); font-variant-numeric: tabular-nums; }
+  .grp-note { font-size: 14px; color: var(--text-light); margin-bottom: 14px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: baseline; gap: 9px;
+    padding: 9px 14px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 100px; text-decoration: none; color: var(--text);
+    font-size: 14px; font-weight: 500; box-shadow: var(--shadow);
+  }
+  .chip:hover { border-color: var(--accent-mid); }
+  .chip[data-active] { border-color: var(--accent); background: var(--accent-light); font-weight: 700; }
+  .chip-no { font-size: 11.5px; font-weight: 700; color: var(--text-light); font-variant-numeric: tabular-nums; }
+  .chip-later {
+    font-size: 9.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--score-low); background: var(--score-bg-low); padding: 2px 6px; border-radius: 100px;
+  }
+
+  .box {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 20px 22px; box-shadow: var(--shadow);
+  }
+  .box p + p { margin-top: 10px; }
+  .box .todo { color: var(--score-low); font-weight: 600; }
+  code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; background: var(--surface-alt); padding: 1px 5px; border-radius: 4px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<aside id="sidebar"></aside>
+
+<main class="page">
+  <div class="hero">
+    <div class="hero-tag">Детальний шар IA</div>
+    <h1>Структура</h1>
+    <p class="hero-lead">
+      Хаб посторінкової архітектури: кожен вузол продукту - чипом, клік веде на його специфікацію.
+      Дерево кластерів живе окремо, на <a href="sitemap.html">Карті сайту</a>; тут - плоский вхід
+      у вузли, щоб довгий перелік не ставав стіною лінків у боковій панелі.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Джерело</strong> ia/docs/pages/</div>
+      <div class="hero-meta-item"><strong>Вузлів</strong> <span id="cnt-nodes"></span></div>
+      <div class="hero-meta-item"><strong>Реєстр</strong> ia/_nav.js</div>
+    </div>
+  </div>
+
+  <section id="nodes">
+    <div class="section-number">01</div>
+    <h2>Вузли</h2>
+    <p class="section-lead">
+      Один вузол = один md у <code>ia/docs/pages/</code> + одна чорно-біла сторінка в <code>ia/</code>.
+      Новий вузол реєструється одним рядком у <code>ia/_nav.js</code> і тієї ж миті стає чипом тут.
+    </p>
+    <div id="chips"></div>
+  </section>
+
+  <section id="blocks">
+    <div class="section-number">02</div>
+    <h2>Банк блоків за типом</h2>
+    <p class="section-lead">
+      Джерело складу сторінки: з яких блоків складається сторінка такого типу і в якому порядку.
+      Будується за ТИПОМ сторінки, не за вузлом, з двох джерел - конкуренти (доменна правда) і
+      Refero (реміснича правда), - і кожен блок трасується на job, барʼєр або SEO-вимогу.
+    </p>
+    <div class="box">
+      <p class="todo">Не зроблено.</p>
+      <p>
+        Досі склад блоків кожного вузла виводився без названого джерела. Банк
+        (<code>ia/docs/blocks.md</code>) закриває саме цю дірку і має бути зібраний до наступного
+        раунду вузлів. Поки його немає, це сказано вголос тут, а не приховано.
+      </p>
+    </div>
+  </section>
+</main>
+
+<script>
+window.NAV_BASE = '../';
+window.NAV_SECTIONS = [{ "id": "nodes", "label": "Вузли" }, { "id": "blocks", "label": "Банк блоків" }];
+</script>
+<script src="../_nav.js"></script>
+<script src="_nav.js"></script>
+<script>
+/* Chips are rendered from IA_NAV, so the hub cannot drift from the registry. */
+(function () {
+  var here = location.pathname.split('/').pop() || 'structure.html';
+  var total = 0;
+  document.getElementById('chips').innerHTML = IA_NAV.map(function (g) {
+    total += g.nodes.length;
+    return '<div class="grp">' +
+      '<div class="grp-head"><span class="grp-name">' + g.group + '</span>' +
+      '<span class="grp-count">' + g.nodes.length + '</span></div>' +
+      '<div class="grp-note">' + g.note + '</div>' +
+      '<div class="chips">' + g.nodes.map(function (n) {
+        return '<a class="chip" href="' + n.file + '"' + (n.file === here ? ' data-active' : '') + '>' +
+          '<span class="chip-no">' + n.node + '</span>' + n.name +
+          (n.scope === 'ПОТІМ' ? '<span class="chip-later">потім</span>' : '') + '</a>';
+      }).join('') + '</div></div>';
+  }).join('');
+  document.getElementById('cnt-nodes').textContent = total;
+})();
+</script>
+</body>
+</html>

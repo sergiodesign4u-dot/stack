@@ -1,0 +1,2300 @@
+/* ============================================================
+   ui-visual · _theme.css  (Concept, Step 6)
+   The COLOR LAYER. Loaded AFTER ../wireframes/_wf.css, overrides it.
+   Structure/behaviour stay owned by wireframes/ (grey, untouched);
+   this file adds only the visual language from DESIGN.md / concept.html.
+   Values transcribed from DESIGN.md, not read off pixels.
+   Rule: exactly ONE orange per view, on the action + selected state.
+   No em dash in this file.
+   ============================================================ */
+
+/* ---- brand tokens over the grey wireframe tokens ---- */
+:root{
+  --ink:#1C1C1C;         /* was #1b1b1b */
+  --strong:#1C1C1C;      /* headings / emphasis (was #111) */
+  --sec:#5B5B54;         /* secondary text, AA on white */
+  --light:#6E6A62;       /* meta / tertiary, still AA on white (was #999, failed) */
+  --faint:#6E6A62;       /* brand line, fav (was #8a8a8a) */
+  --hair:#E9E7E2;        /* hairline */
+  --hair2:#D9D9D9;       /* stronger border (Ash) */
+  --fill:#F2F0ED;        /* Warm Neutral surface */
+  --fill2:#FAF9F7;       /* lighter zone */
+  --dark:#1C1C1C;        /* KEPT charcoal for header + dark surfaces, NOT orange */
+  --r:12px; --rs:9px;
+  --sh:0 1px 2px rgba(20,20,15,.05), 0 10px 30px rgba(20,20,15,.05);
+
+  /* new brand roles (not in _wf.css) */
+  --orange:#FF5A00;      /* the single action / selected accent */
+  --ok:#2E7D46;          /* success, calm not celebratory */
+  --warn:#8A5A0E;        /* amber for text, AA on white (C9821E fails small) */
+  --err:#C42B1C;         /* serious red, separated from the brand accent */
+  --info:#4A5568;        /* neutral slate */
+  --gold:#8A5A0E;        /* bonus figure */
+  --star:#F6A800;        /* rating gold - a REVIEW mark only, never an action.
+                            Deliberately yellow, not orange: it must never read as
+                            the buying accent. Decorative next to the figure that
+                            carries the value (4.8), so the 3:1 graphic bar does
+                            not apply to it. */
+}
+
+/* ---- typography: Oswald display · Inter body · IBM Plex Mono numbers ---- */
+body{ font-family:'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+/* ₴ at half size (owner's call 2026-07-27): next to a 36px figure the full-size sign
+   reads as another digit; small, it becomes a unit mark and the price reads as one
+   shape. Applied by JS only where the figure is >=17px - on struck prices and fine
+   print the sign stays as it is, or it would disappear. */
+.uiv-cur{ font-size:.55em; font-weight:inherit; letter-spacing:0; margin-left:.06em; }
+/* the colored header collapses to ~79px on scroll — offset anchor jumps to clear it + a gap */
+html{ scroll-padding-top:100px; }
+/* The header condenses by removing its meta row, i.e. it removes ~34px of page height
+   mid-scroll. Scroll anchoring would "helpfully" compensate by shifting scrollY, which
+   feeds straight back into the collapse threshold and makes the header flicker. The JS
+   has a hysteresis band (uivStickyHeader); this turns off the compensation itself. */
+body{ overflow-anchor:none; }
+.lh1, .seotext .h, .wfh-logo, .empty-h, .estate h2{ font-family:'Oswald', sans-serif; letter-spacing:-.01em; }
+.lh1{ font-weight:700; }
+.wfh-logo{ font-weight:700; letter-spacing:-.02em; }
+/* every dose / serving / price / rating figure is mono, per Attribute 2 (trust proven) */
+.pcard .pnew, .pcard .pold, .pcard .pcut, .pcard .perserv b, .pcard .rate .st,
+.pcard .bonus, .pages a, .pages button, .lh1 .cnt{
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+}
+/* the mono space reads wide - pull the ₴ closer to its number (also mildly tightens
+   the thousands separator, both are plain spaces) */
+.pcard .pnew, .pcard .pold, .pcard .perserv b, .pcard .bonus{ word-spacing:-0.24em; }
+
+/* ============================================================
+   HEADER / chrome branding - so the colored screen reads as Stack,
+   not the grey wireframe. Orange lives on the logo + the action
+   buttons (ink text on orange = 5.2:1 AA); utility icons desaturated.
+   ============================================================ */
+/* align the header main bar to the content column + give it vertical air
+   (the wireframe main bar had 0 padding, so everything was cramped) */
+.wfh-main{ padding:16px; }
+/* brand SVG icons (built by _uivis.js) replacing the wireframe emoji */
+.uiv-ic{ display:inline-flex; align-items:center; justify-content:center; vertical-align:middle; line-height:0; }
+.uiv-ic svg{ width:1.05em; height:1.05em; display:block; }
+/* logo: canonical horizontal lockup (see concept/logo.html «Побудова та канон»).
+   Mark = tight logo-mark.svg, optical height 5x = 1.25 * cap-height, vertically
+   centered on the caps (translateY = half the overshoot); gap = 1x = .2em.
+   Wordmark "Stack" stays at the _wf.css 20px, so x = cap/4 = ~4px. */
+.wfh-logo{ font-family:'Oswald', sans-serif; font-weight:700; color:var(--ink);
+  display:inline-flex; align-items:baseline; gap:.2em; line-height:1; }
+.wfh-logo::before{ content:""; flex:none; height:1.0125em; width:.863em;
+  background:center/contain no-repeat url(concept/assets/logo-mark.svg);
+  transform:translateY(.101em); }
+/* Каталог = the primary browse anchor → orange fill, white label (label rule ~line 600) */
+.wfh-nav .navbtn{ background:var(--orange); border-color:var(--orange); color:#fff; }
+.wfh.mega-open .wfh-cat .navbtn, .wfh.mega-pinned .wfh-cat .navbtn{ background:#E85200; border-color:#E85200; }
+.wfh-mega{ border-top-color:var(--orange); }
+/* search action → orange fill, white label */
+.wfh-search .go{ background:var(--orange); color:#fff; }
+.wfh-search{ border-color:var(--hair2); }
+/* right-side actions stay calm: outlined ink, warm hover */
+.wfh-act{ border-color:var(--hair2); color:var(--ink); }
+.wfh-act .t .val{ color:var(--ink); }
+/* icons are real Solar SVG now (built by _uivis.js) - no emoji to desaturate */
+/* footer newsletter = an action → orange fill, white label */
+.wff-news button{ background:var(--orange); border-color:var(--orange); color:#fff; }
+/* mobile tab bar: orange marker on the active tab (the tab label itself is ink on white) */
+.wf-tab[aria-current="page"], .wf-tab.catov-open{ color:var(--ink); }
+.wf-tab[aria-current="page"]::before{ content:""; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:26px; height:3px; border-radius:0 0 3px 3px; background:var(--orange); }
+.wf-tab .tbadge{ background:var(--orange); color:var(--ink); }
+
+/* ---- product photo on cards (visual layer; grey "фото" glyph hidden) ---- */
+.pcard .ph{ background:#fff center/72% no-repeat; color:transparent; }
+.pcard .ph .tag{ color:var(--ink); }                 /* restore the badge text */
+.pcard:nth-of-type(3n+1) .ph{ background-image:url(concept/assets/product-whey.png); }
+.pcard:nth-of-type(3n+2) .ph{ background-image:url(concept/assets/product-creatine.png); }
+.pcard:nth-of-type(3n)   .ph{ background-image:url(concept/assets/product-preworkout.png); }
+.pcard.dim .ph{ opacity:.5; }
+
+/* ---- the ONE accent: primary action + selected state = Signal Orange ---- */
+/* cart glyph → inline Solar cart icon (built by _uivis.js), perfectly centered */
+.pcard .cartbtn{ background:var(--orange); color:#fff; border-radius:10px; font-size:0; }
+.pcard .cartbtn .uiv-ic svg{ width:20px; height:20px; }
+.pcard .cartbtn.notify{ background:#fff; color:var(--ink); border:1.5px solid var(--hair2); } /* OOS notify stays neutral ink, orange is reserved for buying */
+.vtoggle a.on, .vtoggle span.on{ background:var(--orange); color:#fff; }              /* icon glyph, graphic 3:1 */
+.pages a.on, .pages button.on{ background:var(--orange); color:#fff; border-color:var(--orange); } /* clickable page = a button → white */
+.mtoolbar .mc .b{ background:var(--orange); color:var(--ink); }                         /* a COUNTER, not a button → ink stays */
+
+/* ---- availability: states tell the truth (voice.md 5), semantic colour ---- */
+.pcard .pavail.in{ color:var(--ok); }      /* ● В наявності */
+.pcard .pavail.low{ color:var(--warn); }   /* ● Залишилось мало */
+.pcard .pavail.pre{ color:var(--info); }   /* ● Під замовлення */
+.pcard .pavail.out{ color:var(--sec); }    /* ● Немає в наявності */
+
+/* ---- discount: calm, red-muted, never a brand-accent burst ---- */
+.pcard .pcut{ background:#FBEAE7; color:var(--err); font-weight:700; }
+
+/* ---- badges / prices / bonus ---- */
+.pcard .tag{ border:1.5px solid var(--ink); color:var(--ink); background:#fff; } /* neutral, not orange */
+.pcard .pnew{ color:var(--ink); }
+.pcard .pold{ color:var(--light); }
+.pcard .bonus{ color:var(--gold); font-weight:700; }
+.pcard .rate .st{ color:var(--ink); }
+
+/* ---- PRICE COLOUR = THE DISCOUNT RULE (owner's call 2026-07-29) --------------
+   A REDUCED price is the one figure that earns colour: it goes Signal Orange, so
+   the saving is seen before it is read. A price with NO discount stays ink, so the
+   colour never becomes decoration - across a whole grid, "orange figure" means
+   "this one is cheaper than usual" and nothing else.
+   Data-driven, not hand-tagged: :has() paints the price exactly when a struck old
+   price sits next to it, so the colour and the fact can never drift apart. Add or
+   remove an old price and the accent follows on its own.
+   Contrast: #FF5A00 on white is 3.13:1 - AA for LARGE text only, so every surface
+   that can carry an accent price keeps that figure at 19px+ bold (grid card 22 /
+   mobile 19, list 21, PDP buy box 36, sticky shelf 19, mobile buy bar 19). Struck
+   prices, per-serving lines and other small print never turn orange.
+   The -N% chip keeps its calm muted red: the chip states the SIZE of the cut, the
+   accent marks WHICH price is the live one. Two different jobs, two marks.
+   ------------------------------------------------------------------------- */
+.pcard:has(.pold) .pnew{ color:var(--orange); }        /* grid card */
+.pcard-l:has(.lold) .lprice{ color:var(--orange); }    /* list card */
+.bb:has(.old) .new{ color:var(--orange); }             /* PDP buy box */
+.pdp-tabs:has(.told) .tnew{ color:var(--orange); }     /* PDP sticky shelf */
+.mbuybar:has(.mold) .mbp b{ color:var(--orange); }     /* PDP mobile buy bar */
+/* ONE live price per view. In the coach state (product-coach) the price the user
+   actually pays is the tier price in the coach box, so the retail block above it is
+   marked .retailref and gives its accent up - it keeps the struck 1 520 ₴ and the
+   -15% chip (still honest), it just stops claiming to be the live figure. */
+.bb.retailref:has(.old) .new{ color:var(--ink); }
+/* the cart line (6.0): the item's discount travels with the item, so the same product
+   is the same price story on the shelf and in the cart (owner's call 2026-07-30). The
+   line figure is 19px/700 for exactly this reason. The «Разом» total below it is a
+   plain sum and stays ink - it is not an offer. See §CART DRAWER at the foot. */
+.ci-price:has(.ci-old) .ci-sum{ color:var(--orange); }
+
+/* ---- list view (node 2.1 "Списком"): same language, horizontal card ---- */
+.pcard-l .lnm, .pcard-l .lprice{ color:var(--ink); }
+.pcard-l .lprice, .pcard-l .lold, .pcard-l .lmeta b, .pcard-l .lmeta .st{
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums; }
+.pcard-l .lold{ color:var(--light); }
+.pcard-l .lavail.in{ color:var(--ok); }
+.pcard-l .lavail.low{ color:var(--warn); }
+.pcard-l .lavail.pre{ color:var(--info); }
+.pcard-l .lavail.out{ color:var(--sec); }
+.pcard-l .lcut{ background:#FBEAE7; color:var(--err); font-weight:700; }
+.pcard-l .lph{ background:#fff center/contain no-repeat; color:transparent; }
+.pcard-l .lph .tag{ border-color:var(--ink); color:var(--ink); }
+.pcard-l:nth-of-type(3n+1) .lph{ background-image:url(concept/assets/product-whey.png); }
+.pcard-l:nth-of-type(3n+2) .lph{ background-image:url(concept/assets/product-creatine.png); }
+.pcard-l:nth-of-type(3n)   .lph{ background-image:url(concept/assets/product-preworkout.png); }
+.pcard-l .cartbtn{ background:var(--orange); color:#fff; font-size:0; border-radius:10px; }
+.pcard-l .cartbtn .uiv-ic svg{ width:20px; height:20px; }
+.pcard-l .cartbtn.notify{ background:#fff; color:var(--ink); border:1.5px solid var(--hair2); }
+
+/* secondary actions = ghost charcoal, never orange */
+.loadmore{ border:1.5px solid var(--hair2); color:var(--ink); }
+.loadmore:hover{ border-color:var(--ink); }
+
+/* ---- buttons: primary = orange, secondary = ghost (brand-wide, incl. sheet + states) ---- */
+/* 19px/700 so white-on-orange qualifies as WCAG large text (3:1); matches concept.html */
+.btn{ border-color:var(--hair2); color:var(--ink); font-size:19px; }   /* ghost secondary */
+.btn.dark{ background:var(--orange); border-color:var(--orange); color:#fff; } /* primary action */
+.btn.dark:hover{ opacity:.93; }
+/* mobile filter-sheet footer: compact buttons (the 19px .btn is too tall here) */
+.fsheet-foot .btn{ font-size:15px; padding:11px 14px; }
+/* selected facet = the brand accent */
+input[type="checkbox"], input[type="radio"]{ accent-color:var(--orange); }
+
+/* ---- empty / error states ---- */
+.empty{ border-color:var(--hair2); background:var(--fill2); }
+.empty .et{ color:var(--ink); }
+/* ---- loading skeletons: warm neutral, never a cold grey box on a warm page.
+   The gallery frame has a gradient of its own, so while it is a skeleton it is
+   flattened back to the plain fill - a loading frame must not look like an
+   empty product frame. ---- */
+.skline{ background:var(--fill); }
+.gal .gmain.skpulse{ background:var(--fill); border-color:var(--hair); }
+.gal .gthumb.skpulse{ background:var(--fill); border-color:var(--hair); }
+.loadnote{ color:var(--sec); }
+.afilter{ background:var(--fill); border-color:var(--hair); }
+.afilter .x{ color:var(--light); }
+/* no-results: the mascot is the calm guide here (DESIGN.md §2, empty states).
+   img + multiply drops the white PNG backdrop so the bear sits on the panel — no box. */
+section[aria-label="Результати"] .empty .ei{ width:126px; height:126px; margin:0 auto 6px;
+  border-radius:50%; overflow:hidden; font-size:0; }
+section[aria-label="Результати"] .empty .ei img{ width:126px; height:126px; object-fit:cover;
+  object-position:center 12%; mix-blend-mode:multiply; }
+/* load error: the calm "honest state" bear in a circle, no background fill (voice.md 5) */
+section[aria-label="Помилка"] .empty .ei{ width:118px; height:118px; margin:0 auto 4px;
+  border-radius:50%; overflow:hidden; font-size:0; }
+section[aria-label="Помилка"] .empty .ei img{ width:118px; height:118px; object-fit:cover;
+  object-position:center 12%; mix-blend-mode:multiply; }
+
+/* keep the crisp brand radius/shadow on cards + zones */
+.pcard{ box-shadow:var(--sh); }
+.seotext{ background:var(--fill); }
+
+/* ============================================================
+   ui-visual prototype navigator (built by _uivis.js): a LEFT rail that
+   replaces the two old top strips. Lists the current flow page + every
+   state; top button → усі екрани; foot = back to the language stand +
+   the grey original. Dark chrome keeps the old bar identity (orange
+   UI-VISUAL tag on ink) and reads as tool chrome over the colored store.
+   ============================================================ */
+.wf-bar{ display:none !important; }   /* old #wf-bar top strip is replaced by the rail */
+
+.uiv-side{
+  position:fixed; top:0; left:0; bottom:0; width:216px; z-index:90;
+  background:var(--ink); color:#fff; display:flex; flex-direction:column;
+  font-family:'Inter',system-ui,sans-serif; font-size:13px; line-height:1.4;
+  border-right:1px solid rgba(255,255,255,.08);
+}
+.uiv-side .us-top{ padding:16px 16px 13px; border-bottom:1px solid rgba(255,255,255,.08); }
+.uiv-side .us-all{ display:flex; align-items:center; justify-content:space-between; gap:8px;
+  background:var(--orange); color:var(--ink); font-weight:700; text-decoration:none;
+  border-radius:9px; padding:10px 13px; font-size:13.5px; letter-spacing:.01em;
+  transition:filter .15s ease; }
+.uiv-side .us-all:hover{ filter:brightness(1.06); }
+.uiv-side .us-tagrow{ display:flex; align-items:center; gap:8px; margin-top:12px; }
+.uiv-side .uiv-tag{ background:var(--orange); color:var(--ink); font-weight:700; letter-spacing:.02em;
+  border-radius:5px; padding:2px 8px; text-transform:uppercase; font-size:10px; }
+.uiv-side .us-cap{ font-size:11px; color:rgba(255,255,255,.55); }
+
+.uiv-side .us-nav{ flex:1; overflow-y:auto; padding:14px 10px 10px; }
+.uiv-side .us-nav::-webkit-scrollbar{ width:0; }
+.uiv-side .us-flow{ font-size:10.5px; letter-spacing:.06em; text-transform:uppercase;
+  color:rgba(255,255,255,.4); padding:2px 8px 8px; }
+.uiv-side .us-page{ display:block; font-weight:700; color:#fff; text-decoration:none;
+  padding:7px 10px; border-radius:7px; }
+.uiv-side .us-page:hover{ background:rgba(255,255,255,.07); }
+/* the screen you are on: marked, and the only one that expands into its states */
+.uiv-side .us-page.on{ background:rgba(255,255,255,.08); box-shadow:inset 2px 0 0 var(--orange); }
+.uiv-side .us-page .nd{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:10.5px;
+  color:rgba(255,255,255,.5); }
+.uiv-side .us-states{ margin:3px 0 4px 9px; padding-left:9px; border-left:1px solid rgba(255,255,255,.13); }
+.uiv-side .us-st{ display:block; color:rgba(255,255,255,.66); text-decoration:none;
+  padding:6px 10px; border-radius:7px; font-size:12.5px; margin-bottom:1px; }
+.uiv-side .us-st:hover{ color:#fff; background:rgba(255,255,255,.07); }
+.uiv-side .us-st.on{ color:var(--ink); background:var(--orange); font-weight:700; }
+.uiv-side .us-st.off{ color:rgba(255,255,255,.28); }
+/* built in the grey prototype, not yet colored here - the link opens the grey original */
+.uiv-side .us-st.grey{ color:rgba(255,255,255,.5); }
+.uiv-side .us-st.grey .gr{ font-size:10px; opacity:.55; margin-left:2px; }
+
+.uiv-side .us-foot{ border-top:1px solid rgba(255,255,255,.08); padding:12px 16px 16px;
+  display:flex; flex-direction:column; gap:9px; }
+.uiv-side .us-foot a{ color:rgba(255,255,255,.66); text-decoration:none; font-size:12px; }
+.uiv-side .us-foot a:hover{ color:#fff; }
+
+/* push the colored store canvas right of the rail (desktop) */
+@media(min-width:900px){ .wf-canvas{ margin-left:216px; } }
+/* The auth reference pages (node 1.x) are the dialog itself over a bare header -
+   they have no .wf-canvas to push, so the review chrome would lie over the modal.
+   The overlay steps aside instead: the rail on desktop, the strip on mobile.
+   Scaffold only - the dialog's own geometry (full-screen mobile / centred desktop)
+   is untouched in the grey layer. */
+@media(min-width:900px){ .auth-ov{ left:216px; } }
+@media(max-width:899px){
+  .auth-ov{ top:40px; }
+  body:not(:has(.wf-canvas)) #wf-header{ margin-top:40px; }
+}
+/* Checkout (6.1) is the other page with no .wf-canvas: it ships its own simplified
+   header and footer (fewer funnel exits), so there is no store shell to push. The
+   body is padded instead - which also carries the sticky header, since a sticky box
+   stays inside its container's padding. */
+@media(min-width:900px){ body:has(.co-head){ padding-left:216px; } }
+@media(max-width:899px){ body:has(.co-head){ padding-top:40px; } }
+
+/* narrow (mobile store view): the rail collapses to a THIN FULL-WIDTH STRIP
+   pinned to the very top; a chevron expands it into a dropdown below the strip.
+   The store content is pushed below the strip so the store logo is never covered. */
+.uiv-topbar{ display:none; }
+.uiv-sidescrim{ display:none; }
+@media(max-width:899px){
+  .uiv-topbar{ display:flex; align-items:center; justify-content:space-between; gap:10px;
+    position:fixed; top:0; left:0; right:0; height:40px; z-index:92; padding:0 12px;
+    background:var(--ink); color:#fff; border:none; cursor:pointer;
+    border-bottom:1px solid rgba(255,255,255,.1); font-family:'Inter', system-ui, sans-serif; }
+  .uiv-topbar .ut-l{ display:inline-flex; align-items:center; gap:9px; }
+  .uiv-topbar .ut-label{ font-weight:700; font-size:12.5px; }
+  .uiv-topbar .uiv-tag{ background:var(--orange); color:var(--ink); font-weight:700;
+    border-radius:4px; padding:2px 7px; font-size:9.5px; text-transform:uppercase; letter-spacing:.02em; }
+  .uiv-topbar .ut-chev{ color:rgba(255,255,255,.7); transition:transform .2s ease; }
+  body.uiv-side-open .uiv-topbar .ut-chev{ transform:rotate(180deg); }
+
+  /* store content + its sticky header sit BELOW the 40px strip */
+  .wf-canvas{ margin-left:0; margin-top:40px; transition:margin-top .24s ease; }
+  .wfh{ top:40px; }
+
+  /* the rail unfolds as a PUSH-DOWN panel (оновлено 2026-07-27): it takes real space
+     under the strip and MOVES THE STORE DOWN instead of lying over it. It is absolute
+     (document flow position, not viewport-pinned), so it scrolls away with the page,
+     and it sits BELOW the store header in z-order (20 < .wfh 30) - the tool chrome
+     must never cover the store header. No scrim: nothing is covered any more.
+     --uiv-side-h = the panel's measured height (uivSideMeasure() in _uivis.js). */
+  .uiv-side{ position:absolute; z-index:20; top:40px; left:0; right:0; bottom:auto; width:auto;
+    max-height:0; overflow:hidden; border-right:none; border-bottom:none; box-shadow:none;
+    transform:none; transition:max-height .24s ease; }
+  /* border only while open - a closed panel must not leave a hairline over the store */
+  body.uiv-side-open .uiv-side{ max-height:var(--uiv-side-h, calc(100vh - 40px)); overflow-y:auto;
+    border-bottom:1px solid rgba(255,255,255,.1); }
+  body.uiv-side-open .wf-canvas{ margin-top:calc(40px + var(--uiv-side-h, 0px)); }
+  .uiv-side .us-tagrow{ display:none; }   /* the strip already shows the tag */
+
+  .uiv-sidescrim{ display:none !important; }   /* push-down needs no scrim */
+}
+
+/* ============================================================
+   REAL-UI POLISH - make the colored copy read as designed UI, not a
+   recolored wireframe. Balanced button proportions, one motion language
+   (hover + focus), card lift, coherent icon sizing. Synced to the
+   concept/concept.html component atoms. No em dash in this file.
+   ============================================================ */
+
+/* --- header: Каталог button, balanced (was oversized, tiny label) --- */
+.wfh-nav .navbtn{ font-size:14px; font-weight:700; padding:9px 16px; border-radius:10px; gap:8px;
+  transition:filter .15s ease; }
+.wfh-nav .navbtn:hover{ filter:brightness(.95); }
+.wfh-nav .navbtn .g{ display:inline-flex; align-items:center; }
+.wfh-nav .navbtn .g .uiv-ic svg{ width:17px; height:17px; }
+.wfh-nav .navbtn .cav{ opacity:1; margin-left:1px; display:inline-flex; align-items:center; }
+.wfh-nav .navbtn .cav .uiv-ic svg{ width:12px; height:12px; stroke-width:2.6; }
+/* Квіз link */
+.wfh-nav .navlink{ transition:color .15s ease; }
+.wfh-nav .navlink:hover{ color:var(--orange); }
+
+/* --- search --- */
+.wfh-search{ transition:border-color .15s ease; }
+.wfh-search:focus-within{ border-color:var(--orange); }
+.wfh-search .go{ transition:filter .15s ease; }
+.wfh-search .go:hover{ filter:brightness(.93); }
+
+/* --- right-side actions: one consistent hover, tidy icon-label spacing --- */
+.wfh-act{ transition:border-color .15s ease, background .15s ease; }
+.wfh-act:hover{ border-color:var(--ink); background:var(--fill2); }
+.wfh-act .g{ display:inline-flex; align-items:center; }
+.wfh-act.stack{ gap:2px; padding:5px 10px; border:1.5px solid transparent; border-radius:9px; }
+.wfh-act.stack:hover{ border-color:var(--hair2); background:var(--fill2); }
+.wfh-act.stack .lbl{ font-size:11px; }
+.wfh-mi a{ transition:color .15s ease; }
+.wfh-mi a:hover{ color:var(--orange); }
+.wfh-meta a{ transition:color .15s ease; }
+.wfh-meta a:hover{ color:var(--orange); }
+/* meta-bar city + language chips: icon and label on one baseline, proper icon sizes */
+.wfh-meta .wfh-loc, .wfh-meta .wfh-lang{ display:inline-flex; align-items:center; gap:5px; }
+.wfh-meta .wfh-loc .uiv-ic:first-child svg{ width:14px; height:14px; }
+.wfh-meta .wfh-loc .uiv-ic:last-child svg,
+.wfh-meta .wfh-lang .uiv-ic svg{ width:10px; height:10px; stroke-width:2.4; }
+/* language dropdown: brand-accent header + active row; let it escape the meta bar's clip */
+.wfh-meta.wfh-menuopen{ overflow:visible; }
+.wfh-langmenu{ border-top-color:var(--orange); }
+.wfh-langmenu a.on{ color:var(--orange); }
+.wfh-langmenu a.on::after{ color:var(--orange); }
+
+/* --- product cards: lift + gentle photo zoom on hover --- */
+.pcard{ transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.pcard:hover{ transform:translateY(-3px); box-shadow:0 10px 26px rgba(20,20,15,.10); border-color:var(--hair2); }
+.pcard .ph{ transition:background-size .28s ease; }
+.pcard:hover .ph{ background-size:78%; }
+/* filter-group header = collapse toggle → orange hover affordance (label + chevron) */
+.fgroup .fh{ transition:color .15s ease; }
+.fgroup .fh .ar{ transition:transform .2s ease, color .15s ease; }
+.fgroup .fh:hover, .fgroup .fh:hover .ar{ color:var(--orange); }
+.pcard .fav{ transition:color .15s ease, border-color .15s ease, background .15s ease; }
+.pcard .fav .uiv-ic svg{ width:18px; height:18px; }
+.pcard .fav:hover{ color:var(--orange); border-color:var(--orange); background:#fff; }
+/* added to wishlist → the heart fills with the brand accent (uivFav toggles .on) */
+.pcard .fav.on{ color:var(--orange); border-color:var(--orange); }
+.pcard .fav.on .uiv-ic svg,
+.pcard-l .fav.on .uiv-ic svg, .pcard-l .lfav.on .uiv-ic svg{ fill:var(--orange); stroke:var(--orange); }
+.pcard-l .fav.on, .pcard-l .lfav.on{ color:var(--orange); }
+.pcard .cartbtn{ transition:filter .15s ease, transform .15s ease; }
+.pcard .cartbtn:hover{ filter:brightness(.93); transform:translateY(-1px); }
+/* list view mirror */
+.pcard-l{ transition:box-shadow .18s ease, border-color .18s ease; }
+.pcard-l:hover{ box-shadow:0 8px 22px rgba(20,20,15,.08); border-color:var(--hair2); }
+.pcard-l .fav .uiv-ic svg, .pcard-l .lfav .uiv-ic svg{ width:18px; height:18px; }
+.pcard-l .fav, .pcard-l .lfav{ transition:color .15s ease, border-color .15s ease; }
+.pcard-l .fav:hover, .pcard-l .lfav:hover{ color:var(--orange); border-color:var(--orange); }
+.pcard-l .cartbtn{ transition:filter .15s ease; }
+.pcard-l .cartbtn:hover{ filter:brightness(.93); }
+
+/* --- filter rail --- */
+.flink{ transition:border-color .15s ease, color .15s ease, background .15s ease; }
+.flink:hover{ border-color:var(--ink); }
+.fopt{ transition:color .15s ease; }
+.fopt:hover{ color:var(--ink); }
+.fopt .cb{ transition:border-color .15s ease, background .15s ease; }
+.fopt:hover .cb{ border-color:var(--orange); }
+.fopt .cb.on{ background:var(--orange); border-color:var(--orange); }
+.fmore{ cursor:pointer; transition:color .15s ease; }
+.fmore:hover{ color:var(--orange); }
+.fh .ar{ transition:transform .18s ease; }
+
+/* --- toolbar (sort + view toggle) --- */
+.ctrl{ transition:border-color .15s ease; }
+.ctrl:not(.count):hover{ border-color:var(--ink); }
+.vtoggle a, .vtoggle span{ transition:background .15s ease, color .15s ease; cursor:pointer; align-items:center; }
+.vtoggle a:not(.on):hover{ color:var(--ink); background:var(--fill); }
+.vtoggle .uiv-ic svg{ width:16px; height:16px; }
+
+/* --- pager + load more + related + read-more + breadcrumb --- */
+.pages a, .pages button{ transition:border-color .15s ease, color .15s ease, background .15s ease; }
+.pages a:not(.on):hover, .pages button:not(.on):hover{ border-color:var(--ink); color:var(--ink); }
+.loadmore{ border-color:var(--hair2); color:var(--ink); transition:border-color .15s ease, background .15s ease; }
+.loadmore:hover{ border-color:var(--ink); background:var(--fill2); }
+.relbox{ transition:border-color .15s ease, color .15s ease; }
+.relbox:hover{ border-color:var(--ink); }
+.lintro .more{ color:var(--orange); transition:opacity .15s ease; }
+.lintro .more:hover{ opacity:.75; }
+.crumb a{ transition:color .15s ease; }
+.crumb a:hover{ color:var(--orange); }
+.mtoolbar .mc{ transition:border-color .15s ease; }
+.mtoolbar .mc:hover{ border-color:var(--ink); }
+
+/* --- mega-menu: icon color follows state, row hover already present --- */
+.wfh-mega .mega-cat{ transition:background .12s ease, color .12s ease, box-shadow .12s ease; gap:11px; }
+.wfh-mega .mega-cat .mci{ color:var(--ink); width:24px; font-size:0; }
+.wfh-mega .mega-cat .mci .uiv-ic svg{ width:21px; height:21px; }
+.wfh-mega .mega-cat.on .mci, .wfh-mega .mega-cat:hover .mci{ color:var(--orange); }
+/* the state marker from _wf.css, in the accent (weight stays put — see the note there) */
+.wfh-mega .mega-cat:hover, .wfh-mega .mega-cat.on{ box-shadow:inset 2px 0 0 var(--orange); }
+.wfh-mega .mega-cat .ar .uiv-ic svg{ width:12px; height:12px; }
+.wfh-mega .mega-goalcard{ transition:border-color .15s ease; }
+.wfh-mega .mega-goalcard:hover{ border-color:var(--orange); }
+.wfh-mega .mega-goalcard .gi{ color:var(--orange); display:inline-flex; align-items:center; }
+/* mobile menus (burger drawer + catalog overlay) mirror the desktop mega:
+   goal icons in Signal Orange, category icons in ink - not a flat all-black set. */
+.dr-chip .uiv-ic,
+.wf-catov-goal .ci .uiv-ic,
+.wf-catov-row.lead .ci .uiv-ic{ color:var(--orange); }
+.dr-cat .dc-ic .uiv-ic,
+.wf-catov-row .ci .uiv-ic,
+.wf-catov-all .ci .uiv-ic{ color:var(--ink); }
+.dr-chip .uiv-ic svg, .wf-catov .ci .uiv-ic svg{ width:19px; height:19px; }
+.wfh-mega .mega-sub, .wfh-mega .ms-link, .wfh-mega .mph{ transition:color .12s ease; }
+/* mega links recolor to the brand accent on hover (subcategories · lead · side links) */
+.wfh-mega .mega-sub:hover, .wfh-mega .ms-link:hover, .wfh-mega .mph:hover{ color:var(--orange); }
+.wfh-mega .mgchip{ transition:border-color .15s ease, color .15s ease; }
+.wfh-mega .mgchip:hover{ border-color:var(--orange); color:var(--ink); }
+/* featured "Вибір місяця" card: product photo on WHITE, whole card is one hoverable link */
+.wfh-mega .ms-feat .ms-ph{ background:#fff; padding:0; overflow:hidden; }
+.wfh-mega .ms-feat .ms-ph img{ width:100%; height:100%; object-fit:contain; display:block; }
+.wfh-mega .ms-fb{ transition:color .12s ease; }
+.wfh-mega a.ms-feat:hover{ border-color:var(--orange); box-shadow:0 6px 18px rgba(255,90,0,.10); }
+.wfh-mega a.ms-feat:hover .ms-fb,
+.wfh-mega a.ms-feat:hover .ms-fh{ color:var(--orange); }
+
+/* ============================================================
+   REAL-UI POLISH v2 - depth + hierarchy. Stronger display heading,
+   roomier cards with the product photo as the hero, a lighter and more
+   organized filter rail. Moves it from grey-wireframe flatness toward a
+   calm premium store. No em dash in this file.
+   ============================================================ */
+
+/* --- category heading + intro --- */
+.lh1{ font-size:30px; font-weight:700; letter-spacing:-.02em; }
+.lh1 .cnt{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:15px; font-weight:600; color:var(--light); }
+.lintro{ font-size:14.5px; line-height:1.6; color:var(--sec); max-width:760px; }
+
+/* --- product grid: more air --- */
+/* min-width columns (container-based) instead of fixed counts: the grid fits as many
+   ≥MIN cards as the ACTUAL product area allows, dropping the column COUNT when space is
+   tight - so cards never squeeze below MIN regardless of the rails. auto-fill keeps the
+   last row at normal card width (left-aligned). Mobile min 150px = 2 compact cols; ≥620
+   min 220px = readable cards. */
+.prow{ grid-template-columns:repeat(auto-fill, minmax(min(150px, 100%), 1fr)); gap:12px; }
+@media (min-width:620px){ .prow{ grid-template-columns:repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap:18px; } }
+
+/* --- product card: roomier, hero photo, clearer hierarchy --- */
+.pcard{ border-radius:14px; border-color:var(--hair); }
+.pcard .ph{ background-size:80%; }
+.pcard:hover .ph{ background-size:86%; }
+.pcard .bd{ padding:14px 14px 8px; }   /* 8px from card bottom to the meta row */
+.pcard .tag{ background:#fff; border:1px solid var(--hair2); color:var(--ink);
+  border-radius:100px; font-size:10px; letter-spacing:.03em; padding:4px 10px; top:11px; left:11px; }
+/* typed product badges — calm-but-visual chips (uivChrome adds .tag-pop / .tag-new) */
+.pcard .ph .tag, .pcard-l .lph .tag{ display:inline-flex; align-items:center; gap:5px;
+  border:none; letter-spacing:.05em; box-shadow:0 2px 7px rgba(20,20,15,.16); }
+.pcard .ph .tag.tag-pop, .pcard-l .lph .tag.tag-pop{ background:var(--ink); color:#fff; }
+.pcard .ph .tag.tag-pop::before, .pcard-l .lph .tag.tag-pop::before{ content:'★'; color:var(--orange); font-size:10px; line-height:1; }
+.pcard .ph .tag.tag-new, .pcard-l .lph .tag.tag-new{ background:var(--orange); color:var(--ink); }
+.pcard .ph .tag.tag-new::before, .pcard-l .lph .tag.tag-new::before{ content:'✦'; font-size:10px; line-height:1; }
+.pcard .fav, .pcard .wlrm{ width:34px; height:34px; top:10px; right:10px; border:1px solid var(--hair2);
+  background:rgba(255,255,255,.94); color:var(--sec); }
+.pcard .pbrand{ font-size:12px; color:var(--light); margin-bottom:4px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }  /* brand·country: max 1 line, ellipsis if long */
+.pcard .nm{ font-size:16px; font-weight:600; color:var(--ink); line-height:1.35; margin-bottom:12px; min-height:44px; }
+.pcard .pavail{ font-size:12px; font-weight:700; margin-bottom:8px; }
+.pcard .pnew{ font-size:22px; letter-spacing:-.01em; }
+/* per-serving LEFT · bonus RIGHT on one split line, pinned to the card bottom.
+   margin-top:auto pushes the meta to the bottom edge; align-items:flex-start keeps
+   «18 ₴ / порція» level with the top of the bonus. */
+/* card alignment across the row: the old-price line reserves height even WITHOUT a
+   discount, so the price + cart row lands at the same Y on every card (discount or not);
+   the reviews row absorbs the free space (margin-top:auto) so reviews + meta stay pinned
+   together at the card bottom - reviews first, then the per-serving/bonus meta last. */
+.pcard .poldline{ min-height:20px; gap:6px; }
+/* the price block keeps a constant height (old-price row + price) on every card.
+   When there's NO discount the old-price row collapses and the price is centred in the
+   block (so it lines up with the centred cart button) instead of sticking to the bottom. */
+.pcard .pcol{ min-height:56px; justify-content:center; }
+.pcard .poldline:empty{ display:none; }
+.pcard .prow2{ align-items:center; }   /* cart button vertically centred on the price block (not bottom-stuck) */
+.pcard .rate{ margin-top:auto; font-size:12px; }   /* even 2px grid (base was 11.5) */
+.pcard .pcut{ padding:2px 6px; }                    /* even (base 1px 6px) */
+.pcard .pmeta2{ border-top:1px solid var(--hair); margin-top:4px; padding-top:4px; font-size:12px;
+  gap:8px; align-items:flex-start; }
+/* symmetric wrapping: per-serving wraps its own words on the LEFT («18 ₴ /» over «порція»)
+   and the bonus on the RIGHT («+13 ₴» over «бонус») when the card is narrow - one split
+   flex line, each side stacking instead of clipping or dropping under the other. */
+.pcard .perserv{ text-align:left; }
+.pcard .bonus{ white-space:normal; text-align:right; }   /* keep symmetric wrapping: «+13 ₴» over «бонус» */
+
+/* --- mobile (2-col grid): compact card, price never wraps ---
+   at ≤430px each card body is ~130px wide; the base 22px price + 44px cart button
+   sharing one row squeezed the price onto 2–3 lines and ballooned the card height.
+   Keep the price on ONE line, shrink the cart button + type, tighten the rhythm,
+   and lower the photo so the card reads compact instead of squished. */
+@media (max-width:620px){
+  .pcard .ph{ aspect-ratio:1/1; }
+  .pcard .bd{ padding:12px 12px 8px; }   /* 8px from card bottom to the meta row */
+  .pcard .pbrand{ font-size:10px; margin-bottom:4px; letter-spacing:-.01em; }  /* fit brand·country on 1 line */
+  .pcard .nm{ font-size:14px; line-height:1.3; margin-bottom:8px; min-height:36px; }
+  .pcard .pavail{ font-size:12px; margin-bottom:8px; }
+  .pcard .prow2{ gap:8px; }
+  .pcard .pcol{ flex:1 1 auto; min-width:0; min-height:52px; }
+  .pcard .poldline{ flex-wrap:nowrap; white-space:nowrap; gap:4px; margin-bottom:2px; }
+  .pcard .pold{ font-size:10px; white-space:nowrap; }
+  .pcard .pcut{ font-size:10px; padding:2px 6px; }
+  /* 19px, not 18: a discounted price is orange here too, and the accent is only
+     allowed on text the 3:1 large-text bar covers (>=18.66px bold). Verified at
+     360/390 - «1 290 ₴» still holds one line next to the 40px cart button. */
+  .pcard .pnew{ font-size:19px; white-space:nowrap; }
+  .pcard .cartbtn{ width:40px; height:40px; }
+  .pcard .cartbtn .uiv-ic svg{ width:18px; height:18px; }
+  .pcard .rate{ font-size:12px; }
+  .pcard .pmeta2{ margin-top:4px; padding-top:4px; font-size:10px; gap:6px; }
+}
+
+/* --- filter rail: lighter, organized --- */
+.frail{ border-color:var(--hair); border-radius:14px; top:112px; }
+.fgroup{ border-bottom-color:var(--hair); padding:14px 16px; }
+.fgroup .fh{ font-size:13px; font-weight:700; color:var(--ink); }
+.fgroup .fh .ar{ color:var(--light); }
+.flink{ font-size:12.5px; padding:6px 13px; border-color:var(--hair2); }
+.flink .ct{ color:var(--light); }
+.fopt{ font-size:13px; color:var(--sec); margin-top:11px; }
+/* ONE checkbox for the whole product: the filter rail and the auth opt-in share it
+   (added .optin 2026-07-30 - the dialog had a plain square with no checked state) */
+.fopt .cb, .optin .cb{ width:18px; height:18px; border-radius:5px; border-color:var(--hair2); }
+/* crisp drawn checkmark instead of the thin «✓» glyph */
+.fopt .cb.on, .optin .cb.on{ position:relative; }
+.fopt .cb.on::after, .optin .cb.on::after{ content:''; box-sizing:border-box; position:absolute;
+  left:50%; top:50%; width:5px; height:9px; border:solid #fff; border-width:0 2px 2px 0;
+  transform:translate(-50%,-58%) rotate(45deg); font-size:0; }
+.fopt .ct{ color:var(--light); font-family:'IBM Plex Mono', ui-monospace, monospace; }
+/* price range - upgraded by _uivis.js into a real draggable dual slider
+   (see .uiv-slider below). The static .frange is only a fallback if JS is off. */
+.frange{ background:var(--hair2); }
+.frange::before, .frange::after{ background:var(--orange); }
+.frow .in{ border-color:var(--hair2); }
+.frow .in.uiv-num{ background:#fff; color:var(--ink); font-weight:700; text-align:center;
+  font-family:'IBM Plex Mono', ui-monospace, monospace; -moz-appearance:textfield; width:100%;
+  transition:border-color .14s; }
+.frow .in.uiv-num:focus{ outline:none; border-color:var(--orange); }
+.frow .in.uiv-num::-webkit-outer-spin-button,
+.frow .in.uiv-num::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+
+/* --- draggable dual-thumb price slider (ui-visual only) --- */
+/* once upgraded, drop the static .frange fallback dots (_wf.css ::before/::after)
+   so they don't float above the real draggable thumbs, and drop the element's own
+   grey background so only the thin 4px .uiv-track shows (not a fat grey shelf) */
+.frange.uiv-slider::before, .frange.uiv-slider::after{ content:none; display:none; }
+.frange.uiv-slider{ background:none; border-radius:0; }
+.uiv-slider{ position:relative; height:20px; margin:16px 3px 11px; }
+.uiv-slider .uiv-track{ position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
+  height:4px; border-radius:4px; background:var(--hair2); }
+.uiv-slider .uiv-fill{ position:absolute; top:50%; transform:translateY(-50%);
+  height:4px; border-radius:4px; background:var(--orange); }
+.uiv-slider input[type=range]{ position:absolute; left:0; right:0; top:0; width:100%; height:20px;
+  margin:0; padding:0; background:none; -webkit-appearance:none; appearance:none;
+  pointer-events:none; }
+.uiv-slider input[type=range]:focus{ outline:none; }
+.uiv-slider input[type=range]::-webkit-slider-runnable-track{ background:none; border:none; }
+.uiv-slider input[type=range]::-moz-range-track{ background:none; border:none; }
+.uiv-slider input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none;
+  width:16px; height:16px; border-radius:50%; background:var(--orange); border:2.5px solid #fff;
+  box-shadow:0 1px 4px rgba(20,20,15,.22); cursor:grab; pointer-events:auto;
+  transition:transform .12s ease, box-shadow .12s ease; }
+.uiv-slider input[type=range]::-moz-range-thumb{ width:16px; height:16px; border-radius:50%;
+  background:var(--orange); border:2.5px solid #fff; box-shadow:0 1px 4px rgba(20,20,15,.22);
+  cursor:grab; pointer-events:auto; transition:transform .12s ease, box-shadow .12s ease; }
+.uiv-slider input[type=range]:hover::-webkit-slider-thumb{ transform:scale(1.14); }
+.uiv-slider input[type=range]:hover::-moz-range-thumb{ transform:scale(1.14); }
+.uiv-slider input[type=range]:active::-webkit-slider-thumb{ cursor:grabbing; transform:scale(1.14);
+  box-shadow:0 2px 9px rgba(255,90,0,.45); }
+.uiv-slider input[type=range]:active::-moz-range-thumb{ cursor:grabbing; transform:scale(1.14);
+  box-shadow:0 2px 9px rgba(255,90,0,.45); }
+.fmore{ color:var(--sec); margin-top:11px; }
+
+/* list-view row: match the card refinements */
+.pcard-l{ border-radius:14px; border-color:var(--hair); }
+.pcard-l .lnm{ font-size:15px; color:var(--ink); }
+.pcard-l .lprice{ font-size:21px; letter-spacing:-.01em; }
+
+/* ============================================================
+   REAL-UI POLISH v3 - owner feedback round. White on the orange primary,
+   a simplified header (meta bar removed) with a sticky shadow, equal
+   action heights, a lighter view toggle, a borderless card heart aligned
+   to the tag, orange hovers, footer icons + links, a switchable sort,
+   and the brand mascot on the SEO block. No em dash in this file.
+   ============================================================ */
+
+/* 10-11: header condenses on scroll. At the top: full header with the meta links,
+   NO separator between meta and main, NO shadow. When sticky (scrolled): the meta
+   row collapses away and the header gains a shadow. (uiv-scrolled toggled in JS.) */
+.wfh-meta{ border-bottom:none; overflow:hidden; max-height:52px;
+  transition:max-height .22s ease, opacity .16s ease; }
+.wfh{ border-bottom:1px solid var(--hair); box-shadow:none; transition:box-shadow .2s ease; }
+.wfh.uiv-scrolled .wfh-meta{ max-height:0; opacity:0; }
+.wfh.uiv-scrolled{ box-shadow:0 3px 16px rgba(20,20,15,.07); border-bottom-color:transparent; }
+
+/* 1: white text/icon on the orange primaries (matches concept .btn-primary).
+   LABEL RULE ON SIGNAL ORANGE (locked 2026-07-27): every ORANGE-FILLED BUTTON
+   carries a WHITE label, at any size - one action, one look. Contrast note:
+   white on #FF5A00 = 3.1:1 (clears the 3:1 bar for graphics and 19px/700 text,
+   below the 4.5:1 AA bar for small text); ink would be 5.4:1 but produced two
+   different-looking buttons for the same action, so the owner took white.
+   Small orange labels that are NOT buttons - badges, counters, the «NEW» tag -
+   keep INK: there orange is a label, and ink reads cleanly at 11-12px.
+   (Applied at each button's own rule above; nothing to override here.) */
+
+/* 2: Кошик, Бонуси and the account/Обране actions share one height */
+.wfh-actions .wfh-act{ height:46px; box-sizing:border-box; align-items:center; }
+.wfh-actions .wfh-act.stack{ justify-content:center; }
+
+/* 3: view toggle - white, smaller, bigger icons, accent on the active segment.
+   Active = a clear light-orange wash + orange icon (grey var(--fill) read as an
+   ambiguous white box). The icon colour is forced on .uiv-ic because the base
+   `.vtoggle span` rule also matches the inner icon span and would keep it grey. */
+.vtoggle{ border-color:var(--hair2); border-radius:9px; background:#fff; overflow:hidden; }
+.vtoggle a, .vtoggle span{ padding:6px 11px; color:var(--light); background:#fff; }
+.vtoggle a.on, .vtoggle span.on{ background:rgba(255,90,0,.10); }
+.vtoggle a.on .uiv-ic, .vtoggle span.on .uiv-ic{ color:var(--orange); }
+.vtoggle a + a, .vtoggle span + span{ border-left:1px solid var(--hair2); }
+/* the broad `.vtoggle span` rule also hits the inner icon span → white box + padding; reset it */
+.vtoggle .uiv-ic{ background:none; padding:0; }
+.vtoggle .uiv-ic svg{ width:19px; height:19px; }
+
+/* 8: card heart - no circle, aligned with the ПОПУЛЯРНЕ chip */
+.pcard .fav, .pcard .wlrm{ top:12px; right:12px; width:auto; height:auto; min-width:0; padding:2px;
+  border:none; background:none; color:var(--sec); }
+.pcard .fav .uiv-ic svg, .pcard .wlrm .uiv-ic svg{ width:22px; height:22px; }
+.pcard .fav:hover{ color:var(--orange); background:none; border:none; }
+/* 7.6 remove-from-saved: same slot, no accent - the accent is for the step forward
+   («У кошик» on the very same card), never for taking something away */
+.pcard .wlrm:hover{ color:var(--ink); background:none; border:none; }
+
+/* 6: hovers use the accent colour, not ink */
+.wfh-nav .navlink:hover{ color:var(--orange); }
+.wfh-act:hover{ border-color:var(--orange); background:#fff; }
+/* «Увійти» / «Обране» (the calm .stack text-actions) stay borderless — no orange
+   outline on hover; only a faint warm wash + the icon & label turn orange.
+   Boxed .numbtn (Бонуси/Кошик) keep their outline hover. */
+.wfh-act.stack:hover{ border-color:transparent; background:var(--fill2); color:var(--orange); }
+.wfh-act.stack:hover .g,
+.wfh-act.stack:hover .lbl{ color:var(--orange); }
+.wfh-mi a:hover{ color:var(--orange); }
+.flink:hover{ border-color:var(--orange); color:var(--orange); }
+.fopt:hover{ color:var(--orange); }
+.fopt:hover .cb{ border-color:var(--orange); }
+.fmore:hover{ color:var(--orange); }
+.ctrl:not(.count):hover{ border-color:var(--orange); }
+.vtoggle a:not(.on):hover{ color:var(--orange); background:var(--fill2); }
+.pages a:not(.on):hover, .pages button:not(.on):hover{ border-color:var(--orange); color:var(--orange); }
+.loadmore:hover{ border-color:var(--orange); color:var(--orange); background:#fff; }
+.relbox:hover{ border-color:var(--orange); color:var(--orange); }
+.mtoolbar .mc:hover{ border-color:var(--orange); }
+.crumb a:hover{ color:var(--orange); }
+.pcard:hover{ border-color:var(--orange); }
+
+/* 4: footer trust strip icons - icon left, title over subtitle.
+   align-content:center keeps the two text rows content-sized (tight title→subtitle
+   gap) and centres the pair as a block when the card is stretched to match the
+   tallest card - otherwise the auto rows stretch and drift the title/subtitle apart. */
+.wff-tc{ display:grid; grid-template-columns:auto 1fr; column-gap:14px;
+  align-items:center; align-content:center; }
+.uiv-tc-ic{ grid-row:1 / span 2; align-self:center; color:var(--orange); display:inline-flex; }
+.uiv-tc-ic svg{ width:27px; height:27px; }
+/* narrow phones: same fix as the PDP trust band - two columns leave the text ~120px
+   and «Оплата як зручно / Картка · Apple/Google Pay · при отриманні» shreds into
+   five lines. One column, one proof per row. */
+@media (max-width:479px){
+  .wff-trust{ grid-template-columns:1fr; gap:0; padding:14px 16px; }
+  /* the row treatment only half-landed before: padding and the hairline separator were
+     set, but the card's own border, radius and white fill (from _wf.css) were never
+     taken off — so a narrow screen got four full-width boxes with the icon pinned to
+     one edge and dead space to the other. A row is a row: no box around it. */
+  .wff-tc{ border:none; border-radius:0; background:none; padding:13px 2px; column-gap:12px; }
+  .wff-tc + .wff-tc{ box-shadow:inset 0 1px 0 var(--hair); }
+  .uiv-tc-ic svg{ width:24px; height:24px; }
+}
+
+/* 5: footer links — SEO block + the main footer columns recolor to the accent on hover */
+.seolink{ color:inherit; text-decoration:none; transition:color .15s ease; }
+.seolink:hover{ color:var(--orange); }
+.wff-col a{ transition:color .15s ease; }
+.wff-col a:hover{ color:var(--orange); }
+/* messenger marks ride the link's own colour: grey at rest, accent on hover — one
+   hue per hover, and the footer stays calm instead of gaining Telegram blue + Viber purple */
+.wff-col a.wff-msg .mi .uiv-ic svg{ width:16px; height:16px; }
+
+/* 9: sort control → switchable dropdown */
+.uiv-sort{ position:relative; cursor:pointer; user-select:none; }
+.uiv-sort .uiv-ic{ transition:transform .18s ease; }
+.uiv-sort.open .uiv-ic{ transform:rotate(180deg); }
+.uiv-sortmenu{ display:none; position:absolute; top:calc(100% + 7px); right:0; min-width:212px; z-index:60;
+  background:#fff; border:1px solid var(--hair2); border-radius:12px; box-shadow:0 12px 30px rgba(20,20,15,.13); padding:6px; }
+.uiv-sort.open .uiv-sortmenu{ display:block; }
+.uiv-sopt{ display:block; width:100%; text-align:left; padding:9px 12px; border-radius:8px; font-size:13px; font-weight:600;
+  color:var(--ink); background:none; border:none; cursor:pointer; transition:background .12s ease, color .12s ease; }
+.uiv-sopt:hover{ background:var(--fill); color:var(--orange); }
+.uiv-sopt.on{ color:var(--orange); }
+.uiv-sopt.on::after{ content:"✓"; float:right; font-weight:800; }
+
+/* 7: brand mascot - big, cropped by the block, anchored in the bottom-right corner
+   (the "huge mascot cropped by its container" pattern from DESIGN.md). */
+.seotext{ position:relative; overflow:hidden; }
+.uiv-bear{ position:absolute; right:8px; bottom:-128px; height:362px; width:auto; max-width:none;
+  mix-blend-mode:multiply; pointer-events:none; }
+@media (min-width:760px){ .seotext{ padding-right:310px; min-height:244px; } }
+@media (max-width:759px){ .uiv-bear{ display:none; } }
+
+/* sticky filter rail clears the now-shorter header */
+.frail{ top:82px; }
+
+/* ============================================================
+   PRODUCT DETAIL / картка товару (node 3.0) - Concept, Step 7.
+   The conversion target of every card and the home of Job 4 (verify
+   safe / certified / dosed). Two rules drive the whole page:
+   1) trust is PROVEN, not asserted - every figure (dose, gram, price,
+      rating) is mono, the composition table and the certificate are
+      real objects, not grey filler;
+   2) ONE orange per role - the buying action (У кошик / buy bar / tabs
+      buy) is filled orange, SELECTION (variant, thumb, active tab) is
+      an orange outline or marker, and the store's own voice (reply,
+      answer) is a 2px orange rule. Nothing else competes.
+   ============================================================ */
+
+/* --- section nav tabs ---------------------------------------------------
+   Two states, one element:
+   · IN FLOW (page top) - pure navigation on the page background. No price, no
+     buy button: those live in the buy box a few centimetres away, repeating
+     them here would be noise.
+   · STUCK - the tabs become the bottom shelf of the sticky header: the
+     background bleeds to the full canvas width (labels stay on the content
+     column), the shadow moves from the header onto the tabs so the two read
+     as ONE block, and only then do the price + «У кошик» appear, because the
+     buy box has scrolled away and the action needs a home.
+   `top` is set live in JS (uivPdpTabs) to the header's real bottom edge, so
+   the shelf never leaves a seam - desktop 79/97px, mobile 40+63px.
+   ------------------------------------------------------------------------ */
+/* overflow-x:auto is kept from _wf.css - on a phone the six tabs must scroll
+   sideways. (An earlier version set overflow:visible so an absolutely-positioned
+   ::before could bleed ±1400px: that both froze the tabs' own scrolling AND made
+   the document 1729px wide at 360px, which in a real mobile viewport drags every
+   position:fixed element - the tab bar, the buy bar - off screen.) */
+.pdp-tabs{ top:103px; background:none; gap:2px; padding:8px 0; border-bottom-color:transparent; }
+@media (min-width:860px){ .pdp-tabs{ top:79px; } }
+/* the full-bleed shelf, painted only once the tabs stick. It is FIXED, so it is
+   viewport-wide by definition (no overflow to widen the page) and it is not
+   clipped by the strip's own overflow. JS keeps the two vars on the header's
+   real bottom edge and the strip's height. */
+.pdp-tabs::before{ content:""; position:fixed; left:0; right:0;
+  top:var(--shelf-top, 0px); height:var(--shelf-h, 0px);
+  z-index:-1; background:#fff; opacity:0; transition:opacity .16s ease; pointer-events:none; }
+.pdp-tabs.stuck::before{ opacity:1; box-shadow:0 5px 18px rgba(20,20,15,.10); }
+/* while the shelf carries the shadow, the header drops its own - one block, one edge */
+body.pdp-stuck .wfh.uiv-scrolled{ box-shadow:none; }
+.pdp-tabs a{ position:relative; color:var(--sec); border-radius:8px; padding:8px 12px; }
+.pdp-tabs a:hover{ color:var(--ink); }
+.pdp-tabs a.on{ background:none; color:var(--ink); font-weight:800; }
+.pdp-tabs a.on::after{ content:""; position:absolute; left:12px; right:12px; bottom:1px;
+  height:2.5px; border-radius:3px; background:var(--orange); }
+/* price + action: hidden in flow, revealed only on the stuck shelf (desktop;
+   on mobile that job belongs to the sticky bottom buy bar) */
+.pdp-tabs .tprice, .pdp-tabs .tbuy{ display:none; }
+@media (min-width:860px){
+  .pdp-tabs.stuck .tprice{ display:inline-grid; }
+  .pdp-tabs.stuck .tbuy{ display:inline-flex; }
+}
+/* The shelf carries the WHOLE price fact, not just the live figure: when the product
+   is on sale, the struck old price + the cut sit ABOVE it, exactly as in the buy box,
+   so scrolling past the buy box never quietly drops the discount (owner's call
+   2026-07-29). Two rows, one block, vertically centred on «У кошик» - the price and
+   the action read as one unit, the way they do in the buy box and the mobile bar. */
+.pdp-tabs .tprice{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  word-spacing:-.24em; font-weight:600; color:var(--ink); flex:none;
+  grid-template-columns:auto auto; column-gap:7px; align-items:center; justify-items:start;
+  line-height:1.15; margin-right:6px; }
+.pdp-tabs .tprice .told{ grid-row:1; grid-column:1; font-size:11.5px; color:var(--light);
+  text-decoration:line-through; }
+.pdp-tabs .tprice .tcut{ grid-row:1; grid-column:2; font-size:10.5px; font-weight:700;
+  background:#FBEAE7; color:var(--err); border-radius:4px; padding:1px 5px; }
+/* 19px bold: the live figure has to clear the 3:1 large-text bar to be allowed the
+   accent (see the price-colour rule above), and it matches the mobile buy bar. */
+.pdp-tabs .tprice .tnew{ grid-row:2; grid-column:1 / -1; font-size:19px; font-weight:700; }
+/* no discount on this product → the old-price row is absent and the figure is the
+   whole block, so it sits on one line and stays ink */
+.pdp-tabs .tprice:not(:has(.told)) .tnew{ grid-row:1; }
+/* same buying action as the buy box, so the same white label (see the label rule) */
+.pdp-tabs .tbuy{ background:var(--orange); color:#fff; font-weight:700; font-size:15px;
+  border-radius:9px; padding:9px 17px; }
+.pdp-tabs .tbuy:hover{ opacity:.93; }
+
+/* section headings on the PDP share the display face with the category H1 */
+.sech h2{ font-family:'Oswald', sans-serif; font-weight:600; letter-spacing:-.005em; }
+/* the section's side action («Усі →», «＋ Поставити запитання») is a real control:
+   it answers the pointer with the accent + a warm pad. Negative margins keep the
+   baseline where it was, so nothing shifts when the pad appears. */
+.sech .all{ border-radius:8px; padding:5px 9px; margin:-5px -9px; cursor:pointer;
+  transition:color .15s ease, background .15s ease; }
+.sech .all:hover{ color:var(--orange); background:var(--fill2); }
+/* «Опис» is the one long-read block on the page, so it gets a reading column:
+   centred, 800px, 16px/1.65. Measured at 1440 - 800px lands at ~72 characters per
+   line, inside the 45-75 the typographic rules ask for; the old 900px + 15px ran to
+   ~100 and the eye lost the line. The images inside centre with it. */
+section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
+.pdesc{ max-width:800px; margin-inline:auto; }
+.pdesc .pd-tx{ font-size:16px; line-height:1.65; }
+/* product-card title inside «Схожі товари» / cards everywhere */
+.pcard .nm, .pcard-l .nm{ transition:color .15s ease; }
+.pcard .nm:hover, .pcard-l .nm:hover{ color:var(--orange); }
+
+/* --- gallery: product on white, warm floor, orange = the chosen frame --- */
+/* the renders are PNGs on an opaque white backdrop, so multiply drops the white box
+   and the product sits on the warm floor instead of on a visible white rectangle */
+/* the buy box carries brand · title · rating · variants · price · action · delivery,
+   so it gets real width instead of a 420px sidebar; the gallery keeps its own cap */
+@media (min-width:860px){
+  .pdp{ grid-template-columns:minmax(0,1fr) 540px; gap:40px; }
+  .gal{ max-width:540px; margin-inline:auto; width:100%; }
+}
+@media (min-width:1180px){ .pdp{ grid-template-columns:minmax(0,1fr) 580px; } }
+/* below 860px the page is one column, and a square frame at full width means a
+   700px photo on a tablet - the whole first screen is one jar. Cap it and centre
+   it, so the title and the buy box stay above the fold. */
+@media (max-width:859px){
+  .gal{ max-width:min(100%, 430px); margin-inline:auto; }
+  .gal .gthumbs{ justify-content:center; }
+}
+.gal .gmain img{ mix-blend-mode:multiply; transition:transform .25s ease; }
+.gal .gmain{ background:
+    radial-gradient(120% 78% at 50% 108%, rgba(28,28,28,.07) 0%, rgba(28,28,28,0) 62%),
+    linear-gradient(180deg,#fff 0%, var(--fill2) 100%);
+  border-color:var(--hair); border-radius:16px; font-size:0; overflow:hidden; }
+.gal .gmain img{ width:100%; height:100%; object-fit:contain; padding:9%; }
+.gal .gmain .gtag{ font-size:10px; letter-spacing:.05em; border:none; border-radius:100px; padding:5px 11px;
+  background:var(--ink); color:#fff; box-shadow:0 2px 7px rgba(20,20,15,.16);
+  display:inline-flex; align-items:center; gap:5px; }
+.gal .gmain .gtag::before{ content:'★'; color:var(--orange); font-size:10px; line-height:1; }
+.gal .gthumb{ width:70px; height:70px; border-radius:10px; background:#fff center/74% no-repeat;
+  border:1px solid var(--hair); cursor:pointer; transition:border-color .15s ease, transform .15s ease; }
+.gal .gthumb:hover{ transform:translateY(-2px); }
+.gal .gthumb.on{ border:2px solid var(--orange); }
+
+/* --- buy box --- */
+.bb h1{ font-family:'Oswald', sans-serif; font-weight:700; font-size:27px; letter-spacing:-.01em; }
+@media (min-width:860px){ .bb h1{ font-size:29px; } }
+.bb .eyebrow a{ color:var(--ink); font-weight:600; }
+.bb .eyebrow a:hover{ color:var(--orange); }
+/* one line under H1: state + SKU on the left, rating on the right. Two facts of the
+   same weight, so they share a row instead of stacking two thin lines. */
+.bb .bbline{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  gap:6px 18px; margin:9px 0 4px; }
+.bb .bbline .bbmeta, .bb .bbline .bbrate{ margin:0; }
+.bb .bbmeta{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:11.5px; color:var(--light);
+  display:flex; align-items:center; gap:10px; }
+.bb .bbavail{ color:var(--ok); font-family:'Inter', sans-serif; font-size:12.5px; font-weight:700; }
+/* out of stock is a fact, not an alarm: it steps down to secondary ink, it does not turn
+   red (same scale as the card states .pavail.out) */
+.bb .bbavail.out{ color:var(--sec); }
+/* a hairline dot between the two facts, not a wide gap */
+.bb .bbmeta .art::before{ content:"·"; margin-right:10px; color:var(--hair2); }
+.bb .bbrate{ font-size:13px; color:var(--sec); white-space:nowrap; }
+.bb .bbrate .st{ display:inline-flex; align-items:center; gap:5px; vertical-align:-2px;
+  font-family:'IBM Plex Mono', ui-monospace, monospace; color:var(--ink); }
+.bb .bbrate a:hover{ text-decoration:underline; }
+/* narrow phones: the two facts do not fit on one line, so they stack - and the
+   rating goes back directly under the H1, where it sat before */
+@media (max-width:479px){
+  .bb .bbline{ gap:3px 14px; }
+  .bb .bbline .bbrate{ order:-1; }
+}
+/* price + action on ONE row: the figure left, «У кошик» + ♡ right (no qty stepper -
+   quantity belongs to the cart, here it only delays the one clear action) */
+.bb .priceblk{ border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); padding:16px 0;
+  display:grid; grid-template-columns:auto minmax(220px, 1fr); column-gap:22px; row-gap:9px;
+  align-items:center; }
+.bb .priceblk .pbl{ grid-column:1; }
+.bb .priceblk .buyrow{ grid-column:2; margin:0; }
+.bb .priceblk .perserv{ grid-column:1 / -1; margin-top:0; }   /* full-width line under both */
+.bb .buyrow .addcart{ flex:1; }
+/* the row survives on tablets too - at 768 there is plenty of width, and pushing
+   the button under the price only buys empty space (owner's call 2026-07-27).
+   It stacks only on real phones, where the sticky bottom bar carries the action. */
+@media (max-width:479px){   /* one column: price, then the action, then the small print */
+  .bb .priceblk{ grid-template-columns:1fr; row-gap:14px; }
+  .bb .priceblk .buyrow{ grid-column:1; }
+}
+.bb .new, .bb .old, .bb .perserv{ font-family:'IBM Plex Mono', ui-monospace, monospace;
+  font-variant-numeric:tabular-nums; word-spacing:-.24em; }
+.bb .new{ font-size:36px; font-weight:600; letter-spacing:-.02em; color:var(--ink); line-height:1.1; }
+.bb .old{ color:var(--light); }
+.bb .cut{ background:#FBEAE7; color:var(--err); border-radius:5px; padding:2px 7px; }
+.bb .perserv{ color:var(--sec); margin-top:5px; }
+/* selection = orange OUTLINE, so the only orange FILL on the screen stays the action.
+   The label states the CHOSEN value, so the pick is readable without scanning pills. */
+.bb .vlbl{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--light); }
+.bb .vlbl .vsel{ margin-left:8px; text-transform:none; letter-spacing:0; font-size:13px;
+  font-weight:700; color:var(--ink); }
+.bb .vopt{ border-radius:9px; transition:border-color .15s ease, color .15s ease; }
+.bb .vopt:hover{ border-color:var(--ink); }
+.bb .vopt.on{ background:#fff; color:var(--ink); border-color:var(--orange); box-shadow:inset 0 0 0 1px var(--orange); }
+.bb .vopt.off{ color:var(--light); border-color:var(--hair); }
+/* the action */
+/* white label on the buying action (owner's call, 2026-07-27). Kept at 19px/700 so
+   white on Signal Orange still clears the WCAG 3:1 large-text bar. */
+.bb .addcart{ background:var(--orange); color:#fff; font-size:19px; font-weight:700; border-radius:11px; padding:15px 16px;
+  transition:filter .15s ease; }
+.bb .addcart:hover{ filter:brightness(.95); }
+.bb .qty{ border-radius:11px; }
+.bb .qty .qn{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+.bb .wish{ width:54px; height:54px; border-radius:11px; color:var(--sec);
+  transition:border-color .15s ease, color .15s ease; }
+.bb .wish:hover{ border-color:var(--ink); color:var(--ink); }
+.bb .wish .uiv-ic svg{ width:21px; height:21px; }
+.bb .wish.on{ border-color:var(--orange); color:var(--orange); }
+.bb .wish.on .uiv-ic svg{ fill:var(--orange); }
+/* the plain answer, first (Principle 5: lead with the simple answer) */
+.bb .simple{ background:var(--fill); border-color:transparent; border-radius:11px; font-size:14.5px; line-height:1.55; }
+/* ---- delivery: one row per method - icon · method over term · price on the right
+   (rebuilt 2026-07-27). Term and price were one glued string before («від 50 ₴ ·
+   1–2 дні»), which is two different answers in one line: what it costs and when it
+   arrives. Split, they can be scanned in two columns. ---- */
+.bb .dpblk{ border-color:var(--hair); border-radius:12px; padding:14px 16px; }
+.bb .dphead{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.bb .dph{ color:var(--light); margin:2px 0 6px; }
+/* no border here: the last delivery row already draws the divider, and two lines
+   13px apart read as a mistake */
+.bb .dph2{ margin-top:14px; padding-top:13px; }
+/* the city is the one thing that changes the numbers below, so it is clickable
+   right here and opens the shared «Оберіть місто» dialog (0.1a) */
+.bb .dpcity{ display:inline-flex; align-items:center; gap:5px; background:var(--fill2);
+  border:1px solid var(--hair); border-radius:8px; padding:4px 9px; margin-bottom:6px;
+  font-size:12.5px; font-weight:600; color:var(--ink); cursor:pointer;
+  transition:border-color .15s ease, background .15s ease; }
+.bb .dpcity:hover{ border-color:var(--hair2); background:#fff; }
+.bb .dpcity .dpcar{ font-size:10px; color:var(--light); }
+.bb .dprow{ display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center;
+  column-gap:12px; padding:9px 0; border-bottom:1px solid var(--hair); }
+.bb .dpic{ display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px;
+  border-radius:10px; background:var(--fill2); color:var(--ink); }
+.bb .dpic svg{ width:19px; height:19px; }
+/* Нова Пошта: the carrier's own mark (concept/assets/np-mark.png - cropped from the
+   official 2022 lockup, see the assets README). White tile + hairline, so the red
+   sits on its own surface and does not fight Signal Orange. The «НП» text stays in
+   the DOM at font-size:0 - invisible, still read by a screen reader. */
+.bb .dpic.np{ background:#fff url(concept/assets/np-mark.png) center/72% no-repeat;
+  border:1px solid var(--hair); font-size:0; }
+.bb .dpt b{ display:block; font-weight:600; color:var(--ink); line-height:1.3; }
+.bb .dpt span{ display:block; margin-top:2px; font-size:12px; color:var(--sec); }
+.bb .dpp{ font-family:'IBM Plex Mono', ui-monospace, monospace; word-spacing:-.24em;
+  font-weight:600; color:var(--ink); white-space:nowrap; text-align:right; }
+.bb .dpp.free{ font-family:'Inter', sans-serif; font-weight:700; color:var(--ok); }
+/* payment methods = quiet chips, not a run-on sentence */
+.bb .dppay{ display:flex; flex-wrap:wrap; gap:6px; }
+.bb .paych{ border:1px solid var(--hair); border-radius:7px; padding:4px 9px;
+  font-size:12px; color:var(--sec); background:var(--fill2); }
+
+/* --- trust band: the four proofs as ONE panel, not four grey boxes ------------
+   This is the page's brand moment: a warm panel, each proof on a white medallion
+   with its Solar icon, hairline dividers instead of four separate borders, and
+   the mascot cropped by the panel edge on wide screens (the «huge mascot cropped
+   by its container» pattern from DESIGN.md, same as the category SEO block).
+   Colour stays calm - orange is still reserved for the buying action. */
+.truststrip{ position:relative; overflow:visible; margin:34px 0 26px; gap:0;
+  background:linear-gradient(180deg, var(--fill) 0%, var(--fill2) 100%);
+  border:1px solid var(--hair); border-radius:18px; padding:8px; }
+/* grid, not flex: the markup has no text wrapper, so the icon spans both rows and
+   the title sits above its sub-line instead of next to it */
+.tsx{ display:grid; grid-template-columns:auto minmax(0,1fr); grid-template-rows:auto auto;
+  column-gap:13px; align-content:center; border:none; border-radius:14px;
+  background:none; padding:15px 16px; transition:background .15s ease; }
+.tsx .uiv-ic{ grid-column:1; grid-row:1 / span 2; align-self:center; }
+.tsx b{ grid-column:2; grid-row:1; align-self:end; }
+/* :not(.uiv-ic) - the icon is a <span> too, and must keep its own flex centring */
+.tsx span:not(.uiv-ic){ grid-column:2; grid-row:2; align-self:start; }
+.tsx:hover{ background:rgba(255,255,255,.7); }
+/* dividers between items instead of four boxes (first item of each row is clean) */
+@media (min-width:720px){ .tsx + .tsx{ box-shadow:inset 1px 0 0 var(--hair); } }
+@media (max-width:719px){ .tsx:nth-child(even){ box-shadow:inset 1px 0 0 var(--hair); }
+  .tsx:nth-child(n+3){ box-shadow:inset 0 1px 0 var(--hair); }
+  .tsx:nth-child(4){ box-shadow:inset 1px 0 0 var(--hair), inset 0 1px 0 var(--hair); } }
+/* narrow phones: two columns leave ~120px for the text, so «Оригінал + гарантія»
+   breaks over three lines and the four cells go ragged. Below 480px the band
+   becomes ONE column - a proof list, icon left, text right, each on its own line. */
+@media (max-width:479px){
+  .truststrip{ grid-template-columns:1fr; padding:6px; }
+  .tsx{ padding:12px 13px; column-gap:12px; }
+  .tsx .uiv-ic{ width:38px; height:38px; border-radius:12px; }
+  .tsx .uiv-ic svg{ width:20px; height:20px; }
+  .tsx:nth-child(even), .tsx:nth-child(4){ box-shadow:none; }
+  .tsx + .tsx{ box-shadow:inset 0 1px 0 var(--hair); }
+}
+.tsx .uiv-ic{ flex:none; width:44px; height:44px; border-radius:14px; background:#fff; color:var(--ink);
+  box-shadow:0 1px 2px rgba(20,20,15,.06), 0 6px 16px rgba(20,20,15,.05);
+  transition:transform .15s ease, color .15s ease; }
+.tsx:hover .uiv-ic{ transform:translateY(-2px); color:var(--orange); }
+.tsx .uiv-ic svg{ width:23px; height:23px; }
+.tsx b{ font-size:13.5px; line-height:1.25; }
+.tsx span:not(.uiv-ic){ display:block; margin-top:3px; line-height:1.35; }
+/* the bear leans into the band from the right: the HEAD rises above the panel's top
+   edge and stays whole, the body is cropped by the panel's bottom edge. The crop
+   therefore lives on a wrapper, NOT on .truststrip - clipping the panel itself is
+   what cut the head off before. The wrapper is absolute, so the panel keeps its
+   height; the head simply overlaps the 34px of air above it. */
+.uiv-bearwrap{ display:none; position:absolute; right:6px; top:-34px; bottom:0; width:180px;
+  overflow:hidden; pointer-events:none; border-bottom-right-radius:17px; }
+.uiv-trustbear{ position:absolute; right:0; top:4px; height:196px; width:auto;
+  max-width:none; mix-blend-mode:multiply; }
+@media (min-width:1180px){
+  .truststrip{ padding-right:150px; }
+  .uiv-bearwrap{ display:block; }
+}
+
+/* --- trust sections = the LEAD block, not an afterthought --- */
+.trustsec{ border-color:var(--hair); border-radius:14px; }
+.trustsec > summary{ font-family:'Oswald', sans-serif; font-weight:600; font-size:17px; letter-spacing:.01em;
+  background:var(--fill2); padding:15px 18px; }
+.trustsec[open] > summary{ border-bottom:1px solid var(--hair); }
+/* the whole header is the click target, so the whole header answers the pointer */
+.trustsec > summary{ transition:background .15s ease; }
+.trustsec > summary:hover{ background:var(--fill); }
+.trustsec > summary:hover .chev{ color:var(--orange); }
+.trustsec .tsb{ padding:16px 18px 18px; }
+.ctable th{ color:var(--light); }
+.ctable td:nth-child(2), .ctable td:nth-child(3){ font-family:'IBM Plex Mono', ui-monospace, monospace;
+  font-variant-numeric:tabular-nums; word-spacing:-.24em; color:var(--ink); }
+.ctable tr:first-child th{ border-bottom-color:var(--hair2); }
+.ctable td b{ font-weight:700; }
+/* the wireframe layer draws hairlines around these cards so the greyscale structure
+   reads; in colour the surface itself does that job, so the borders come off */
+.fullcomp{ background:var(--fill2); border:none; border-radius:10px; padding:11px 13px; line-height:1.55; }
+/* allergens pulled OUT of the ingredient paragraph (2026-07-27): whoever needs this
+   line needs to find it in one glance. Amber = the semantic warning colour: clearly
+   visible, clearly not Signal Orange (an action) and not the error red. */
+.allerg{ display:flex; align-items:flex-start; gap:9px; margin-top:9px; line-height:1.5;
+  background:#FDF6E9; border:1px solid #F0E0C2; border-radius:10px; padding:11px 13px; }
+.allerg .algic{ flex:none; color:var(--warn); display:inline-flex; margin-top:1px; }
+.allerg .algic svg{ width:17px; height:17px; }
+.allerg b{ color:var(--warn); font-weight:700; }
+.allerg .algv{ font-weight:700; letter-spacing:.02em; color:var(--ink); }
+/* ---- the label as printed on the pack (was a small pack thumbnail with a caption;
+   rebuilt large on the owner's call 2026-07-27, in the spirit of a real back label).
+   Built in DOM, not generated as an image: this block exists to be READ - the buyer
+   checks the site's numbers against the pack in their hand - and a generated photo
+   would carry mangled Cyrillic. Same figures as .ctable above, on purpose. ---- */
+.packlabel{ margin:16px 0 0; }
+.pl-panel{ position:relative; overflow:hidden; border:none; border-radius:14px; color:#fff;
+  /* the pack's own dark surface: diagonal weave + a soft top light, so it reads as
+     packaging, not as another UI card */
+  background:
+    radial-gradient(120% 70% at 20% -10%, rgba(255,255,255,.10), rgba(255,255,255,0) 60%),
+    repeating-linear-gradient(135deg, #1C1C1C 0 13px, #242424 13px 26px);
+  padding:20px; display:grid; gap:16px; }
+@media (min-width:720px){
+  /* stretch, not start: the right column must be able to fill the panel's height */
+  .pl-panel{ grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:24px; padding:26px; align-items:stretch; }
+  .pl-foot{ grid-column:1 / -1; }
+}
+/* the cream nutrition card - the one thing on a pack that is always legible */
+.pl-facts{ background:#FBF6EC; color:var(--ink); border:none; border-radius:10px; padding:15px 17px 13px; }
+.pl-h{ font-family:'Oswald', sans-serif; font-weight:700; font-size:23px; letter-spacing:-.01em;
+  line-height:1.1; border-bottom:2.5px solid var(--ink); padding-bottom:7px; }
+.pl-serv{ font-size:12.5px; line-height:1.45; padding:7px 0; border-bottom:1px solid rgba(28,28,28,.25); }
+.pl-cal{ display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+  padding:7px 0; border-bottom:2.5px solid var(--ink); }
+.pl-cal span{ font-size:12.5px; font-weight:600; }
+.pl-cal b{ font-family:'Oswald', sans-serif; font-size:26px; font-weight:700; line-height:1; }
+.pl-t{ width:100%; border-collapse:collapse; font-size:12.5px; }
+.pl-t th{ text-align:left; font-size:10.5px; letter-spacing:.04em; text-transform:uppercase;
+  color:rgba(28,28,28,.62); padding:6px 0 5px; border-bottom:1px solid rgba(28,28,28,.25); }
+.pl-t th:last-child, .pl-t td:last-child{ text-align:right; white-space:nowrap; }
+.pl-t td{ padding:6px 0; border-bottom:1px solid rgba(28,28,28,.16); line-height:1.35; }
+.pl-t tr:last-child td{ border-bottom:none; }
+.pl-t td:last-child{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; }
+.pl-note{ font-size:10.5px; line-height:1.4; color:rgba(28,28,28,.6); padding-top:8px;
+  border-top:1px solid rgba(28,28,28,.25); margin-top:2px; }
+/* right column: how to prepare + the ingredient list */
+/* the ingredient card stretches to the bottom of the panel, so the dark surface is
+   a frame around two cream cards instead of a half-empty rectangle */
+.pl-right{ display:grid; gap:16px; grid-template-rows:auto 1fr; align-content:stretch; }
+.pl-how{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; text-align:center;
+  padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,.22); }
+.pl-hw{ display:grid; justify-items:center; gap:2px; }
+.pl-hw .pl-ic{ color:#fff; margin-bottom:4px; }
+.pl-hw .pl-ic svg{ width:26px; height:26px; }
+.pl-hw b{ font-family:'Oswald', sans-serif; font-weight:600; font-size:14.5px; letter-spacing:.01em; }
+.pl-hw span:not(.pl-ic){ font-size:10.5px; line-height:1.35; color:rgba(255,255,255,.68); }
+.pl-ing{ background:#FBF6EC; color:var(--ink); border:none; border-radius:10px; padding:13px 15px;
+  font-size:12.5px; line-height:1.5; }
+.pl-ing b{ font-weight:700; letter-spacing:.02em; }
+.pl-alg{ margin-top:9px; padding-top:9px; border-top:1px solid rgba(28,28,28,.2); }
+/* the small print strip along the bottom of a real pack */
+.pl-foot{ display:flex; flex-wrap:wrap; align-items:center; gap:6px 14px;
+  border-top:1px solid rgba(255,255,255,.18); padding-top:13px;
+  font-size:10.5px; line-height:1.4; color:rgba(255,255,255,.62); }
+.pl-mark{ width:17px; height:17px; flex:none;
+  background:center/contain no-repeat url(concept/assets/logo-mark.svg); }
+.packlabel figcaption{ font-size:12px; color:var(--light); margin-top:9px; }
+/* certificate: reads as an actual document, and the whole tile is the link */
+.certbox{ gap:16px; }
+.certthumb{ width:104px; height:138px; border-radius:10px; border:1px solid var(--hair2); background:#fff;
+  position:relative; font-size:0; overflow:hidden; transition:border-color .15s ease, transform .15s ease; }
+.certthumb::before{ content:""; position:absolute; left:14px; right:14px; top:18px; height:64px;
+  background:repeating-linear-gradient(180deg, var(--hair) 0 2px, transparent 2px 11px); }
+.certthumb::after{ content:"PDF"; position:absolute; left:14px; bottom:14px;
+  font:600 10px/1 'IBM Plex Mono', ui-monospace, monospace; letter-spacing:.06em; color:var(--ink);
+  border:1px solid var(--hair2); border-radius:4px; padding:4px 6px; }
+.certthumb:hover{ border-color:var(--orange); transform:translateY(-2px); }
+.uiv-seal{ position:absolute; right:12px; bottom:12px; width:30px; height:30px; border-radius:50%;
+  border:1.5px solid var(--orange); color:var(--orange); display:flex; align-items:center; justify-content:center; }
+.uiv-seal svg{ width:17px; height:17px; }
+
+/* --- description: real product imagery instead of dashed placeholders --- */
+.pd-tx{ font-size:15px; color:var(--ink); }
+.pd-img{ border:1px solid var(--hair); border-radius:14px; font-size:0; aspect-ratio:16/6;
+  background:#fff center/contain no-repeat; }
+
+/* --- characteristics --- */
+.spectbl td{ border-bottom-color:var(--hair); }
+.spectbl tr:nth-child(odd) td{ background:var(--fill2); }
+.spectbl td:first-child{ color:var(--sec); }
+.spectbl td b{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; color:var(--ink); }
+
+/* --- reviews (3.1) --- */
+/* «Залишити відгук» is compact (it sits next to a heading, not next to buying),
+   but it is still an orange-filled button - white label, per the label rule */
+.rvhead .btn.dark{ font-size:14.5px; font-weight:700; padding:11px 18px; border-radius:10px; }
+.rvbig{ background:var(--fill2); border-radius:14px; padding:18px 12px; }
+.rvbig .n{ font-family:'Oswald', sans-serif; font-weight:700; font-size:50px; color:var(--ink); }
+.rvbig .s{ color:var(--sec); }
+.rvbar{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+.rvbar .track{ background:var(--hair); height:7px; }
+.rvbar .fill{ background:var(--ink); }
+/* the count column is FIXED and left-aligned (owner's call 2026-07-29): with the
+   spans sized by their own text, «103» stole width from its track and that row's bar
+   ended short of the others, so the five bars read as a ragged edge. A 3ch column
+   (mono, so 3ch = 3 digits) ends every track on the same line and starts every figure
+   on the same line - the bars compare, and the numbers read as a column. */
+.rvbar > span{ text-align:left; }
+.rvbar > span:first-child{ min-width:1ch; }
+.rvbar > span:last-child{ min-width:3ch; }
+/* flex, not inline-flex: the rating owns its line and «✓ Купив товар» drops under it
+   (inline-level put the badge next to the stars and the pair read as one label) */
+.rvmeta .rstars{ display:flex; width:fit-content; align-items:center; gap:5px;
+  font-family:'IBM Plex Mono', ui-monospace, monospace; }
+.rvmeta .rbadge{ margin-top:8px; }
+/* --- rating star: a filled gold glyph everywhere a rating appears --- */
+.uiv-star{ color:var(--star); }
+.uiv-star svg{ width:15px; height:15px; }
+.rvbig .starrow{ display:inline-flex; gap:2px; margin-bottom:5px; }
+.rvbig .starrow .uiv-star svg{ width:18px; height:18px; }
+.pcard .rate .uiv-star svg, .pcard-l .lmeta .uiv-star svg{ width:13px; height:13px; }
+.pcard .rate .st, .pcard-l .lmeta .st{ display:inline-flex; align-items:center; gap:4px; }
+.rvmeta .rbadge{ color:var(--ok); border-color:#CDE4D5; background:#F1F8F3; }   /* verified purchase = a calm proof */
+.rvbody .rtext{ line-height:1.6; }
+/* the store speaking = a 2px orange rule (same marker on the Q&A answer) */
+.rvreply{ border-left:2px solid var(--orange); background:var(--fill2); border-radius:0 10px 10px 0; padding:11px 13px; }
+/* the store's badge = an orange OUTLINE with the wordmark inside, not a filled pill:
+   the fill stays the buying action's alone */
+.rvreply .rchip .lg{ background:none; color:var(--ink); border:1.5px solid var(--orange);
+  font-family:'Oswald', sans-serif; font-weight:700; font-size:10.5px; letter-spacing:.02em;
+  border-radius:6px; padding:1px 7px; }
+.qaitem .qq{ font-size:15px; }
+.qaitem .qans{ border-left:2px solid var(--orange); background:var(--fill2); border-radius:0 10px 10px 0;
+  padding:11px 13px; margin-left:0; }
+
+/* --- pinned product card, reviews-recovery state (3.0 · відгуки) ------------
+   The doubt is answered by proof, so the proof gets the page and the product
+   gets the CANONICAL card beside it, following the scroll: the buyer never
+   loses sight of WHAT is being judged, and the decision can be made at any
+   point in the reading - not only at the bottom, where two bare buttons used
+   to sit. Nothing here restyles the card: it IS .pcard, so the price colour,
+   the compact cart button and the rating come from the card language itself.
+   Only the quiet way back to the collection belongs to this state. */
+.pmini .pmback{ color:var(--sec); border-top-color:var(--hair); }
+.pmini .pmback:hover{ color:var(--ink); }
+/* a slightly bigger photo than in a grid of four: the column is one card wide */
+@media (min-width:860px){
+  .pmini{ top:88px; }   /* the header condenses on scroll - clear it like the filter rail */
+  .pmini .pcard .ph{ background-size:80%; }
+}
+
+/* --- related articles ---------------------------------------------------------
+   This used to be a warm tile carrying the logo mark, chosen because there were no
+   photos. There are now (see §HOME), and `.blogcard` is one global class shared by
+   the PDP strip and the home row — so the two rule sets were fighting: the leftover
+   `.blogcard:hover .bim{ background-size:48px }` shrank the home card's photo to
+   48px the moment the pointer touched it. One card, one look: deleted, the §HOME
+   block owns `.blogcard` everywhere (fixed 2026-07-30). */
+
+/* --- review / question dialog (3.1 / 3.2) ---------------------------------
+   The dialog is where a customer gives something back, so it gets the same care
+   as the buy box: a real rating widget (gold, follows the pointer), fields that
+   answer hover / focus / filled / error, and a submit that refuses to close on an
+   incomplete form instead of failing silently. Behaviour: wfPm* in _nav.js. */
+/* the scrim carries the warm ink of the palette, not neutral black, and goes a shade
+   deeper so the dialog clearly owns the screen */
+.wf-ov{ background:rgba(20,20,15,.46); }
+.pm{ border:1px solid var(--hair); border-radius:16px; box-shadow:0 24px 64px rgba(20,20,15,.20); }
+.pm-h{ font-family:'Oswald', sans-serif; font-weight:600; font-size:19px; letter-spacing:.005em;
+  padding:16px 20px; }
+.pm-h .x{ border-radius:8px; width:32px; height:32px; display:inline-flex; align-items:center;
+  justify-content:center; transition:background .15s ease, color .15s ease; }
+.pm-h .x:hover{ background:var(--fill2); color:var(--ink); }
+.pm-b{ padding:18px 20px; }
+.pm-b label{ color:var(--ink); font-weight:700; }
+.pm-b label .opt{ font-weight:500; color:var(--light); }
+.pm-b input, .pm-b textarea{ border-radius:10px; padding:11px 13px; background:#fff; color:var(--ink);
+  transition:border-color .15s ease, box-shadow .15s ease; }
+.pm-b input::placeholder, .pm-b textarea::placeholder{ color:var(--light); }
+.pm-b input:hover, .pm-b textarea:hover{ border-color:var(--light); }
+.pm-b input.has, .pm-b textarea.has{ border-color:var(--sec); }
+.pm-b input:focus, .pm-b textarea:focus{ outline:none; border-color:var(--orange);
+  box-shadow:0 0 0 3px rgba(255,90,0,.15); }
+.pm-b input.err, .pm-b textarea.err{ border-color:var(--err); box-shadow:0 0 0 3px rgba(196,43,28,.10); }
+.pm-e{ color:var(--err); }
+/* the stars: gold like every other rating on the site, and they light up to the
+   pointer - hover paints, click locks, leaving returns to the chosen value */
+.pm-stars .pmst{ color:#E6E2DB; transition:color .12s ease, transform .12s ease; }
+.pm-stars .pmst:hover{ transform:translateY(-1px); }
+.pm-stars .pmst.on{ color:var(--star); }
+.pm-stars .pmst:focus-visible{ outline:2px solid var(--orange); outline-offset:2px; border-radius:6px; }
+/* the readout is the small sibling of the «4.8» in the reviews block: display face,
+   ~30px (a third of the section's 50px - loud enough to read, quiet enough for a
+   form). The verdict word rides on the label's line above it. */
+.pm-rv{ font-family:'Oswald', sans-serif; font-weight:700; font-size:30px; letter-spacing:-.01em;
+  color:var(--ink); }
+.pm-rw{ font-size:10.5px; font-weight:600; letter-spacing:.07em; color:var(--sec); }
+.pm-cnt{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+.pm-note{ background:var(--fill2); border-radius:9px; padding:10px 12px; color:var(--sec); font-size:12px;
+  line-height:1.5; }
+.pm-f{ padding:14px 20px 18px; }
+.pm-f .btn{ font-size:15px; padding:12px 16px; border-radius:10px; }
+/* the quiet way out answers with the brand accent on the border - not a fill, the
+   fill stays the primary action's alone */
+.pm-f .btn:not(.dark){ transition:border-color .15s ease, color .15s ease, background .15s ease; }
+.pm-f .btn:not(.dark):hover{ border-color:var(--orange); color:var(--orange); background:#fff; }
+
+/* ============================================================
+   AUTH DIALOG (node 1.x) - «Вхід або реєстрація».
+   ONE door for every role, passwordless, phone-first. It is the same shared
+   component on every page (wfAuth() in ../wireframes/_nav.js); these rules are
+   the colour layer only - structure, copy and states stay in the grey layer.
+
+   Three decisions carry the whole dialog:
+   1) It is a DOOR, not a form to survive. The brand panel on the left says who
+      you are entering, with the mascot standing there - the same bear that
+      answers doubt on the product pages - so the first passwordless step reads
+      as welcome, not as a security checkpoint.
+   2) ONE orange, one action. «Отримати код» / «Підтвердити» / «Продовжити» are
+      the only filled buttons; every alternative (Google · Apple · E-mail, resend,
+      change number) is an outline or a quiet link. Focus rings are orange too -
+      the accent marks WHERE YOU ARE, the fill marks WHAT COMPLETES THE STEP.
+   3) Every figure a person types or reads is mono: the phone, the code boxes,
+      the countdown. The code is data, and data is set in IBM Plex Mono.
+   Errors keep the serious red (--err), never the brand accent: a wrong code is
+   not a call to action (voice.md 5 - states tell the truth and give a way out).
+   ============================================================ */
+.auth-ov{ background:rgba(20,20,15,.52); }
+@media (min-width:720px){ .auth-ov{ padding:28px; } }
+.auth-modal{ border:1px solid var(--hair); border-radius:18px;
+  box-shadow:0 28px 70px rgba(20,20,15,.24); max-width:920px;
+  --auth-row:42px; }   /* the title line here is Oswald 27px - see _wf.css §auth-row */
+
+/* ---- left brand panel (desktop): ONE full-bleed photograph ----
+   Owner's call 2026-07-30: the panel is a picture, not a slide. The mascot shot in a
+   real gym says «спортивне харчування» better than the words did, so the words go and
+   the frame carries brand + promise only. Two scrims make the overlay legible without
+   dimming the whole image: light at the top under the wordmark, warm ink at the bottom
+   under the promise card. Photo: concept/assets/mascot-gym-a.jpg (b = alternative). */
+/* the canonical horizontal lockup, same construction as the header logo */
+.auth-visual .vlogo{ display:inline-flex; align-items:center; gap:.36em;
+  font-family:'Oswald', sans-serif; font-weight:700; font-size:23px; letter-spacing:-.02em; color:var(--ink); }
+.auth-visual .vlogo::before{ content:""; flex:none; height:1.0125em; width:.863em;
+  background:center/contain no-repeat url(concept/assets/logo-mark.svg); }
+.auth-visual .vmid{ display:flex; flex-direction:column; align-items:center; gap:6px;
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--light); }
+/* the state chip: an orange OUTLINE, never a fill - the fill belongs to the action */
+.auth-visual .vmid .vi{ width:46px; height:46px; border-radius:50%; background:#fff;
+  border:1.5px solid var(--orange); color:var(--orange);
+  display:flex; align-items:center; justify-content:center; margin-bottom:4px; }
+.auth-visual .vmid .vi .uiv-ic svg{ width:22px; height:22px; }
+/* an error is not an action: the chip drops the accent and takes the serious red,
+   the same red the inline message uses (one meaning, one colour) */
+.auth-ov[data-state="error"] .vmid .vi, .auth-ov[data-state="error"] .auth-banner .bi{
+  border-color:var(--err); color:var(--err); }
+/* the confirmed step is a fact, not a celebration - calm green, no fill */
+.auth-ov[data-state="newuser"] .vmid .vi, .auth-ov[data-state="newuser"] .auth-banner .bi{
+  border-color:var(--ok); color:var(--ok); }
+/* the promise sits on its own white card so it reads over the photograph */
+.auth-visual .vtag{ background:#fff; border:1px solid rgba(255,255,255,.6); border-radius:12px;
+  padding:14px 16px; font-size:12.5px; color:var(--sec); line-height:1.5;
+  box-shadow:0 6px 22px rgba(20,20,15,.14); }
+.auth-visual .vtag b{ font-family:'Oswald', sans-serif; font-weight:600; font-size:16px;
+  letter-spacing:-.005em; color:var(--ink); margin-bottom:4px; }
+/* the photograph itself (desktop) - last, so it overrides the panel defaults above */
+@media (min-width:720px){
+  .auth-visual{ width:44%; padding:26px; position:relative; overflow:hidden; border-right:none;
+    background:var(--fill) url(concept/assets/mascot-gym-a.jpg) 52% 34%/cover no-repeat; }
+  .auth-visual::before{ content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 22%,
+      rgba(20,20,15,0) 50%, rgba(20,20,15,.42) 100%); }
+  .auth-visual > *{ position:relative; }
+  /* the state chip becomes a badge in the top corner: on a photograph a centred chip
+     with a caption under it is furniture, and the caption («спортивне харчування») is
+     now said by the picture, so its text is dropped - the chip alone carries the step */
+  /* the chip rides the SAME line as the title and the close: one 42px-tall row that
+     starts at the panel padding, so all three read as one horizontal (2026-07-30) */
+  .auth-visual .vmid{ position:absolute; top:34px; right:24px; height:var(--auth-row);
+    margin:0; gap:0; justify-content:center; font-size:0; letter-spacing:0; }
+  .auth-visual .vmid .vi{ margin:0; box-shadow:0 3px 12px rgba(20,20,15,.16); }
+}
+
+/* ---- right / form panel ---- */
+@media (min-width:720px){ .auth-form{ padding:34px 38px 30px; } }
+/* the small logo belongs to the MOBILE header of the dialog only - on desktop the
+   brand panel already carries the lockup (the grey layer hides it at 720px) */
+@media (max-width:719px){
+  .auth-mlogo{ display:inline-flex; align-items:center; gap:.36em; font-family:'Oswald', sans-serif;
+    font-weight:700; color:var(--ink); }
+  .auth-mlogo::before{ content:""; flex:none; height:1.0125em; width:.863em;
+    background:center/contain no-repeat url(concept/assets/logo-mark.svg); }
+}
+.auth-x{ border-color:var(--hair); border-radius:10px; color:var(--sec);
+  transition:border-color .15s ease, color .15s ease, background .15s ease; }
+.auth-x:hover{ border-color:var(--hair2); background:var(--fill2); color:var(--ink); }
+.auth-banner{ background:var(--fill2); border:1px solid var(--hair); border-radius:12px; }
+.auth-banner .bi{ background:#fff; border:1px solid var(--hair); border-radius:10px; color:var(--orange); }
+.auth-banner .bi .uiv-ic svg{ width:19px; height:19px; }
+.auth-banner .bt b{ color:var(--ink); }
+.auth-h1{ font-family:'Oswald', sans-serif; font-weight:600; font-size:27px; letter-spacing:-.01em; color:var(--ink); }
+.auth-sub{ font-size:14.5px; color:var(--sec); line-height:1.55; margin:7px 0 22px; }
+.auth-sub b{ color:var(--ink); font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; font-size:13.5px; }
+.auth-sub a{ color:var(--ink); font-weight:600; text-decoration-color:var(--hair2); }
+.auth-sub a:hover{ color:var(--orange); text-decoration-color:var(--orange); }
+
+/* fields: the accent appears on FOCUS - it says «you are here», nothing more */
+.fld > label{ color:var(--ink); font-size:12.5px; }
+.ph-field{ border-color:var(--hair2); border-radius:11px;
+  transition:border-color .15s ease, box-shadow .15s ease; }
+.ph-field:hover{ border-color:var(--light); }
+.ph-field:focus-within{ border-color:var(--orange); box-shadow:0 0 0 3px rgba(255,90,0,.15); }
+.ph-field .cc{ background:var(--fill2); color:var(--ink); border-right:1px solid var(--hair);
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; }
+.ph-field input{ font-family:'IBM Plex Mono', ui-monospace, monospace; color:var(--ink); }
+.ph-field input::placeholder{ color:var(--light); }
+.txt-field{ border-color:var(--hair2); border-radius:11px; color:var(--ink);
+  transition:border-color .15s ease, box-shadow .15s ease; }
+.txt-field::placeholder{ color:var(--light); }
+.txt-field:hover{ border-color:var(--light); }
+.txt-field:focus{ outline:none; border-color:var(--orange); box-shadow:0 0 0 3px rgba(255,90,0,.15); }
+
+/* actions */
+.auth-cta{ background:var(--orange); color:#fff; border-radius:11px; font-size:17px; font-weight:700;
+  padding:15px 16px; transition:filter .15s ease; }
+.auth-cta:hover{ filter:brightness(.95); }
+.auth-alt{ border-color:var(--hair2); color:var(--ink); border-radius:11px; font-weight:600;
+  transition:border-color .15s ease, color .15s ease; }
+.auth-alt:hover{ border-color:var(--orange); color:var(--orange); }
+.auth-consent{ color:var(--light); }
+.auth-consent b{ color:var(--sec); }
+.auth-consent a{ color:var(--sec); text-decoration-color:var(--hair2); }
+.auth-consent a:hover{ color:var(--ink); }
+.auth-or{ color:var(--light); font-family:'IBM Plex Mono', ui-monospace, monospace;
+  font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; margin:22px 0; }
+.auth-or::before, .auth-or::after{ background:var(--hair); }
+/* the method buttons are ALTERNATIVES: they stay white and their hover only lifts them
+   a hair (owner's call 2026-07-30 - the old ink border + grey fill read as pressed and
+   competed with the one filled action above them) */
+.sbtn{ border-color:var(--hair); border-radius:11px; color:var(--ink); font-weight:600; font-size:14.5px;
+  background:#fff; transition:border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+.sbtn:hover{ border-color:var(--hair2); box-shadow:0 2px 10px rgba(20,20,15,.07); transform:translateY(-1px); }
+.sbtn:active{ transform:none; box-shadow:none; }
+/* the marks stand on the white, not in a grey box - a chip around a brand mark is what
+   made them read as placeholders */
+.sbtn .ic{ background:none; border:none; border-radius:0; width:20px; height:20px; color:var(--ink); }
+.sbtn .ic .uiv-ic svg{ width:19px; height:19px; }
+.sbtn .ic .uiv-brand{ display:inline-flex; }
+.sbtn .ic .uiv-brand svg{ width:19px; height:19px; }
+.sbtn .ic .uiv-apple{ color:var(--ink); }
+.sbtn .ic .uiv-apple svg{ width:18px; height:18px; }
+/* the buttons never touch the closing note: its rule sits at the panel's foot and the
+   panel is often exactly full (fixed 2026-07-30) */
+.smeths{ margin-bottom:22px; }
+.optin{ color:var(--sec); cursor:pointer; }
+.optin .cb{ transition:border-color .15s ease, background .15s ease; }
+.optin:hover .cb{ border-color:var(--orange); }
+.optin .cb.on{ background:var(--orange); border-color:var(--orange); }
+.auth-foot{ color:var(--light); border-top:1px solid var(--hair); margin-top:auto; padding-top:16px; }
+.auth-foot a{ color:var(--sec); text-decoration-color:var(--hair2); }
+.auth-foot a:hover{ color:var(--ink); }
+
+/* ---- OTP: six boxes of data, so they are mono and they answer typing ---- */
+.otp{ gap:9px; }
+.otp .box{ height:60px; border-color:var(--hair2); border-radius:12px; color:var(--ink);
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:24px; font-weight:600;
+  transition:border-color .15s ease, box-shadow .15s ease, background .15s ease; }
+.otp .box.on{ border-color:var(--ink); background:#fff; }
+.otp .box:focus{ outline:none; border-color:var(--orange); box-shadow:0 0 0 3px rgba(255,90,0,.15); }
+.otp .box.err{ border-color:var(--err); border-width:1.5px; background:#FDF4F2; color:var(--err); }
+.otp-note{ color:var(--sec); }
+.otp-err{ border:1px solid #F0CFC9; background:#FDF4F2; border-radius:11px; color:var(--err);
+  font-weight:600; align-items:flex-start; }
+.otp-err .m{ display:inline-flex; color:var(--err); }
+.otp-err .m .uiv-ic svg{ width:18px; height:18px; }
+.otp-err small{ color:var(--sec); font-weight:500; }
+.resend{ color:var(--light); }
+.resend .cool{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; color:var(--sec); }
+.resend a{ color:var(--ink); text-decoration-color:var(--hair2); }
+.linkrow{ margin-bottom:16px; }   /* never sits on the closing note's rule */
+.linkrow a{ color:var(--sec); font-weight:600; text-decoration-color:var(--hair2); }
+.linkrow a:hover{ color:var(--orange); text-decoration-color:var(--orange); }
+
+/* ---- sending the code: a real spinner (a still one reads as broken) ---- */
+.auth-load .lt{ font-family:'Oswald', sans-serif; font-weight:600; font-size:18px; letter-spacing:-.005em; color:var(--ink); }
+.auth-load .lp{ color:var(--sec); }
+.auth-load .lp b{ color:var(--ink); font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; font-size:13px; }
+.auth-spin{ border-color:var(--hair); border-top-color:var(--orange); animation:uivspin .9s linear infinite; }
+@keyframes uivspin{ to{ transform:rotate(360deg); } }
+@media (prefers-reduced-motion:reduce){ .auth-spin{ animation:none; } }
+.auth-skel .sl{ background:var(--fill); }
+.auth-note{ display:flex; align-items:center; justify-content:center; gap:7px; color:var(--light); }
+.auth-note .uiv-ic svg{ width:15px; height:15px; }
+
+/* --- sticky mobile buy bar --- */
+.mbuybar{ box-shadow:0 -2px 18px rgba(20,20,15,.09); padding:10px 16px; }
+/* the same price story as the buy box: struck price + −% above, the figure below.
+   A discount the page shows must not vanish in the bar that actually sells. */
+.mbuybar .mbp{ display:grid; grid-template-columns:auto auto; column-gap:7px; align-items:center;
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  word-spacing:-.24em; font-weight:600; color:var(--ink); line-height:1.15; }
+.mbuybar .mbp .mold{ grid-row:1; grid-column:1; font-size:12px; color:var(--light); text-decoration:line-through; }
+.mbuybar .mbp .mcut{ grid-row:1; grid-column:2; font-size:11px; font-weight:700; letter-spacing:.01em;
+  background:#FBEAE7; color:var(--err); border-radius:5px; padding:1px 6px; }
+.mbuybar .mbp b{ grid-row:2; grid-column:1 / -1; font-size:19px; font-weight:700; }
+.mbuybar .mba{ background:var(--orange); color:#fff; font-weight:700; border-radius:11px; font-size:17px;
+  transition:filter .15s ease; }
+.mbuybar .mba:hover{ filter:brightness(.95); }
+/* the tab bar already owns the bottom edge on mobile (60px + safe area), so the buy
+   bar stacks directly above it - and ONLY a page that has a buy bar reserves the
+   extra room. Applying it to every page left a white hole above the tab bar on the
+   listing (_wf.css already reserves 60px there). */
+@media (max-width:859px){
+  .mbuybar{ bottom:calc(61px + env(safe-area-inset-bottom, 0px)); }   /* 60px bar + its 1px top hairline */
+  body:has(.mbuybar){ padding-bottom:132px; }
+}
+
+/* ============================================================
+   CART DRAWER (node 6.0) - «Кошик», the right-side quick view.
+   Colour layer only: the drawer, its states and the qty/remove behaviour live in
+   the grey layer (_wf.css §CART DRAWER, _nav.js wfCart).
+
+   Three decisions:
+   1) A discount travels with its item; the TOTAL is just a sum (owner's call
+      2026-07-30). A product that is -15% on the shelf keeps its struck price and its
+      chip on the cart line, and its live figure takes the accent under the normal
+      price rule - one product, one price story, wherever you meet it. The «Разом»
+      below stays ink: it is the arithmetic of what you picked, not an offer, and the
+      order-level breakdown (loyalty, bonuses, delivery) is checkout's job.
+      Line figures are 19px/700 so the accent is allowed at all: #FF5A00 on white is
+      3.13:1, AA for large text only.
+   2) The total is still the loudest thing in the drawer, because it is the one number
+      a person opened the cart to see. Mono, 27px, on its own line above the action.
+   3) The unavailable line is a FACT, not an error (voice.md 5): it dims and states
+      why in a neutral chip, keeps its price honest, and the accent moves onto the
+      one action that unblocks the step - «Видалити недоступний товар». Nothing red,
+      nothing shouting; checkout stays visible and visibly closed.
+   ============================================================ */
+.cart-ov{ background:rgba(20,20,15,.52); }
+.cart-drawer{ border-left:none; box-shadow:-18px 0 60px rgba(20,20,15,.20); }
+/* narrow screens: the ui-visual navigator is a FIXED top bar (on desktop it is a left
+   rail, which a right-anchored drawer never meets), so the drawer starts below it -
+   otherwise its head is clipped exactly the way the grey prototype bar clipped it */
+@media (max-width:899px){ .cart-ov, .cart-drawer{ top:40px; } }
+/* the page under the drawer: a real catalog, dimmed - not four grey boxes */
+.cart-behind h2{ font-family:'Oswald', sans-serif; font-weight:600; letter-spacing:-.01em; color:var(--ink); }
+.cart-behind .ph-card{ background:#fff center/62% no-repeat; border-color:var(--hair); box-shadow:var(--sh); }
+.cart-behind .ph-card:nth-of-type(3n+1){ background-image:url(concept/assets/product-whey.png); }
+.cart-behind .ph-card:nth-of-type(3n+2){ background-image:url(concept/assets/product-creatine.png); }
+.cart-behind .ph-card:nth-of-type(3n){   background-image:url(concept/assets/product-preworkout.png); }
+
+/* ---- head ---- */
+.cd-head{ padding:18px; border-bottom-color:var(--hair); }
+.cd-head h1{ font-family:'Oswald', sans-serif; font-weight:600; font-size:23px; letter-spacing:-.01em; color:var(--ink); }
+.cd-head .cd-cnt{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:500; font-size:11.5px;
+  color:var(--light); word-spacing:-.1em; }
+/* the same close button as the auth dialog - one dismiss, one shape */
+.cd-x{ display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; flex:none;
+  padding:0; font-size:16px; border:1px solid var(--hair); border-radius:10px; color:var(--sec);
+  transition:border-color .15s ease, color .15s ease, background .15s ease; }
+.cd-x:hover{ border-color:var(--hair2); background:var(--fill2); color:var(--ink); }
+
+/* ---- line item ---- */
+.ci{ border-bottom-color:var(--hair); }
+.ci-ph{ background:#fff center/80% no-repeat; border-color:var(--hair); border-radius:11px; color:transparent; }
+.cart-drawer .ci:nth-of-type(3n+1) .ci-ph{ background-image:url(concept/assets/product-whey.png); }
+.cart-drawer .ci:nth-of-type(3n+2) .ci-ph{ background-image:url(concept/assets/product-creatine.png); }
+.cart-drawer .ci:nth-of-type(3n)   .ci-ph{ background-image:url(concept/assets/product-preworkout.png); }
+.ci-brand{ color:var(--light); }
+.ci-nm{ color:var(--ink); transition:color .15s ease; }
+.ci-nm:hover{ color:var(--orange); }
+.ci-var{ color:var(--sec); }
+/* qty: a control, so it answers hover and focus; the figure itself is data → mono */
+.ci-qty{ border-color:var(--hair2); border-radius:10px; overflow:hidden;
+  transition:border-color .15s ease; }
+.ci-qty:hover{ border-color:var(--light); }
+.ci-qty button{ color:var(--ink); transition:background .15s ease, color .15s ease; }
+.ci-qty button:hover:not([disabled]){ background:var(--fill2); color:var(--orange); }
+.ci-qty button[disabled]:hover{ background:none; }
+.ci-qty .qn{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  font-weight:600; font-size:14px; color:var(--ink); }
+/* money: mono, ink by default; orange only where a struck price proves a discount
+   (registry rule above). 19px/700 is what makes that accent legible - see decision 1. */
+.ci-price{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  word-spacing:-.24em; font-weight:700; font-size:19px; color:var(--ink); line-height:1.2; }
+.ci-price .ci-per{ font-weight:500; font-size:11.5px; color:var(--light); margin-top:2px; }
+/* the struck price and the -% chip: same pair as the product card, same meaning.
+   The chip states the SIZE of the cut in a calm muted red; the accent marks WHICH
+   figure is the live one. Two jobs, two marks. */
+.ci-price .ci-oldline{ gap:6px; margin-bottom:1px; }
+.ci-price .ci-old{ color:var(--light); }
+.ci-price .ci-cut{ background:#FBEAE7; color:var(--err); border-radius:5px; font-weight:700;
+  font-size:10.5px; padding:1px 6px; font-family:'Inter', sans-serif; }
+/* the two line links are quiet until you reach for them */
+.ci-lnk{ color:var(--sec); font-size:12.5px; transition:color .15s ease; }
+.ci-lnk:hover{ color:var(--ink); text-decoration:none; }
+.ci-lnk .uiv-ic svg{ width:15px; height:15px; }
+.ci-lnk.on{ color:var(--orange); }
+.ci-lnk.on .uiv-ic svg{ fill:var(--orange); stroke:var(--orange); }
+.ci-lnk.strong{ color:var(--ink); }
+
+/* ---- unavailable line ---- */
+.ci.oos .ci-ph, .ci.oos .ci-nm, .ci.oos .ci-price{ opacity:.45; }
+.ci-oostag{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:10px; font-weight:500;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--sec);
+  background:var(--fill); border-color:var(--hair2); padding:3px 10px; }
+/* icon + ONE text item: the message is wrapped in .m in the markup, or the bare text
+   node beside the <b> would become a second flex item and split into two columns */
+.cd-oosnote{ display:flex; gap:9px; align-items:flex-start; background:#FCF8F1; border-color:#EADFCB;
+  border-radius:11px; color:var(--sec); }
+.cd-oosnote .m{ min-width:0; }
+.cd-oosnote b{ color:var(--ink); }
+.cd-oosnote .uiv-ic{ flex:none; color:var(--warn); margin-top:1px; }
+.cd-oosnote .uiv-ic svg{ width:17px; height:17px; }
+
+/* ---- foot: the total, then the one action ---- */
+.cd-foot{ border-top-color:var(--hair); box-shadow:0 -2px 18px rgba(20,20,15,.06); padding:16px 18px 18px; }
+.cd-total span{ font-size:15px; font-weight:600; color:var(--ink); }
+.cd-total .sub{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:11px; color:var(--light); }
+.cd-total b{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  word-spacing:-.24em; font-weight:700; font-size:27px; color:var(--ink); }
+.cd-hint{ color:var(--light); font-size:12px; }
+/* the drawer's buttons are compact: the brand .btn is 19px, which in a 420px panel
+   makes two heavy slabs and the secondary shouts as loudly as the action */
+.cd-foot .btn{ font-size:16px; border-radius:11px; padding:14px 16px; }
+.cd-foot .btn.dark{ font-weight:700; }
+/* «Продовжити покупки» is the way BACK - it must not weigh as much as the way on.
+   Scoped through .cd-foot so it outranks the button rule above it (a bare .cd-cont
+   loses to .cd-foot .btn on specificity, not on order). */
+.cd-foot .cd-cont{ font-size:14.5px; padding:11px 16px; color:var(--sec); border-color:var(--hair); }
+.cd-foot .cd-cont:hover{ border-color:var(--hair2); color:var(--ink); }
+.cd-blocked{ background:var(--fill); border-color:var(--hair); border-radius:11px; color:var(--light);
+  font-size:14.5px; padding:12px 16px; }
+
+/* ---- empty drawer: the mascot answers, the same way it does on an empty listing ---- */
+.cd-empty .ei{ width:118px; height:118px; margin:0 auto 2px; border-radius:50%; overflow:hidden; font-size:0; }
+.cd-empty .ei img{ width:118px; height:118px; object-fit:cover; object-position:center 12%; mix-blend-mode:multiply; }
+.cd-empty .et{ font-family:'Oswald', sans-serif; font-weight:600; font-size:22px; letter-spacing:-.01em; color:var(--ink); }
+.cd-empty .es{ color:var(--sec); line-height:1.55; }
+.cd-empty .btn{ font-size:16px; border-radius:11px; padding:14px 16px; }
+.cd-empty .btn.gh, .cd-empty .btn.cont{ font-size:14.5px; padding:11px 16px; color:var(--sec); border-color:var(--hair); }
+
+/* ---- coach variant: the client group is the structure, so it gets the weight ---- */
+.cg-head{ background:var(--fill2); border-color:var(--hair); border-radius:11px; }
+.cg-nm{ font-family:'Oswald', sans-serif; font-weight:600; font-size:15px; letter-spacing:-.005em; color:var(--ink); }
+.cg-goal{ color:var(--sec); }
+.cg-sub, .cprice{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  word-spacing:-.24em; font-weight:600; color:var(--ink); }
+.cg-sub small, .cprice .old{ color:var(--light); font-weight:500; }
+.cprice .wtag{ font-family:'Inter', sans-serif; color:var(--sec); border-color:var(--hair2); }
+.cd-note{ background:var(--fill2); border-color:var(--hair); border-radius:11px; color:var(--sec); }
+
+/* ============================================================
+   CHECKOUT (node 6.1) - «Оформлення», one sectioned page.
+   Colour layer only; structure, states and the money arithmetic live in the grey
+   layer (_wf.css §CHECKOUT, _nav.js wfCheckout).
+
+   The rule that organises the whole page is SPATIAL: the left column is where you
+   INPUT, the right column is where you DECIDE. So the left column carries no filled
+   accent at all - a chosen delivery or payment method is marked the way selection is
+   marked everywhere in this product, with an orange OUTLINE - and the single filled
+   orange on the page is «Підтвердити замовлення» in the money column. Signing in is
+   not buying, so «Отримати код» is an ink fill: one accent, one meaning.
+
+   Money keeps the cart's language: the item's own discount travels with the item
+   (struck price + chip + accent figure at 19px/700), while every summary row and the
+   «До сплати» total stay ink. The breakdown rows state facts; at 13px an accent would
+   fail contrast anyway. The one figure that earns its own colour is the accrual, in
+   the same gold the product card uses for bonuses.
+   ============================================================ */
+/* ---- simplified chrome ---- */
+.co-head{ border-bottom-color:var(--hair); }
+.co-logo{ font-family:'Oswald', sans-serif; font-weight:700; color:var(--ink); letter-spacing:-.02em;
+  display:inline-flex; align-items:baseline; gap:.2em; line-height:1; }
+.co-logo::before{ content:""; flex:none; height:1.0125em; width:.863em;
+  background:center/contain no-repeat url(concept/assets/logo-mark.svg); transform:translateY(.101em); }
+.co-support .sh{ color:var(--light); }
+.co-support b{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; font-size:14px;
+  color:var(--ink); word-spacing:-.1em; }
+.co-h1{ font-family:'Oswald', sans-serif; font-weight:600; font-size:30px; letter-spacing:-.01em; color:var(--ink);
+  margin:26px 0 18px; }
+
+/* ---- sections ---- */
+.co-sec{ border-color:var(--hair); border-radius:14px; padding:18px; box-shadow:var(--sh); background:#fff; }
+.co-sec-h{ font-family:'Oswald', sans-serif; font-weight:600; font-size:19px; letter-spacing:-.005em; color:var(--ink); }
+/* a step number is structure, not an action - it stays ink */
+.co-sec-h .num{ background:var(--ink); font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; font-size:12px; }
+.co-sec-h .cnt{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:500; font-size:12.5px; color:var(--light); }
+
+/* ---- 1 · contact ---- */
+.co-signin-note{ color:var(--sec); line-height:1.55; }
+.co-input{ border-color:var(--hair2); border-radius:11px; color:var(--ink);
+  transition:border-color .15s ease, box-shadow .15s ease; }
+.co-input::placeholder{ color:var(--light); }
+.co-input:hover{ border-color:var(--light); }
+.co-input:focus{ outline:none; border-color:var(--orange); box-shadow:0 0 0 3px rgba(255,90,0,.15); }
+.co-input.req{ border-color:var(--warn); }
+/* signing in is not buying: ink fill, so the page keeps exactly one orange action */
+.co-getcode{ background:var(--ink); color:#fff; border-radius:11px; font-size:14px; font-weight:600;
+  transition:filter .15s ease; }
+.co-getcode:hover{ filter:brightness(1.25); }
+.co-or{ color:var(--light); font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:10.5px;
+  letter-spacing:.14em; text-transform:uppercase; }
+.co-or::before, .co-or::after{ background:var(--hair); }
+.co-soc{ border-color:var(--hair); border-radius:11px; color:var(--ink); background:#fff;
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  transition:border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+.co-soc:hover{ border-color:var(--hair2); box-shadow:0 2px 10px rgba(20,20,15,.07); transform:translateY(-1px); }
+.co-soc .uiv-brand{ display:inline-flex; }
+.co-soc .uiv-brand svg, .co-soc .uiv-ic svg{ width:18px; height:18px; }
+.co-soc .uiv-apple{ color:var(--ink); }
+.co-consent{ color:var(--light); }
+.co-consent a, .co-help a, .co-foot-links a{ color:var(--sec); text-decoration-color:var(--hair2); }
+.co-consent a:hover, .co-help a:hover, .co-foot-links a:hover{ color:var(--ink); }
+.co-me .mn{ font-size:15px; color:var(--ink); }
+.co-me .md{ color:var(--sec); font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:12.5px; }
+.co-edit{ border-color:var(--hair2); border-radius:10px; color:var(--ink); transition:border-color .15s ease, color .15s ease; }
+.co-edit:hover{ border-color:var(--orange); color:var(--orange); }
+
+/* ---- order lines: the cart's price language, unchanged ---- */
+.co-line{ border-top-color:var(--hair); }
+.co-line .li-img{ background:#fff center/86% no-repeat; border:1px solid var(--hair); border-radius:10px; color:transparent; }
+.co-line:nth-of-type(3n+1) .li-img{ background-image:url(concept/assets/product-whey.png); }
+.co-line:nth-of-type(3n+2) .li-img{ background-image:url(concept/assets/product-creatine.png); }
+.co-line:nth-of-type(3n)   .li-img{ background-image:url(concept/assets/product-preworkout.png); }
+.co-line .li-nm{ color:var(--ink); }
+.co-line .li-meta{ color:var(--sec); }
+.co-line .li-acts button{ color:var(--sec); font-size:12.5px; transition:color .15s ease; }
+.co-line .li-acts button:hover{ color:var(--ink); }
+.co-line .li-acts button .uiv-ic svg{ width:15px; height:15px; }
+.co-line .li-acts button.on{ color:var(--orange); }
+.co-line .li-acts button.on .uiv-ic svg{ fill:var(--orange); stroke:var(--orange); }
+.co-qty{ border-color:var(--hair2); border-radius:10px; overflow:hidden; transition:border-color .15s ease; }
+.co-qty:hover{ border-color:var(--light); }
+.co-qty button{ color:var(--ink); transition:background .15s ease, color .15s ease; }
+.co-qty button:hover:not([disabled]){ background:var(--fill2); color:var(--orange); }
+.co-qty .qn{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  font-weight:600; font-size:14px; color:var(--ink); }
+.co-line .li-price{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  word-spacing:-.24em; font-weight:700; font-size:19px; color:var(--ink); line-height:1.2; }
+.co-line .li-old{ color:var(--light); }
+.co-line .li-cut{ background:#FBEAE7; color:var(--err); border-radius:5px; font-weight:700; font-size:10.5px;
+  padding:1px 6px; font-family:'Inter', sans-serif; }
+.co-line .li-per{ font-weight:500; font-size:11.5px; color:var(--light); margin-top:2px; }
+/* same registry rule as the cart line: a struck price proves the discount */
+.co-line .li-price:has(.li-old) .li-sum{ color:var(--orange); }
+
+/* ---- choices: outline = selected, never a fill (the fill belongs to the decision) ---- */
+.co-opt{ border-color:var(--hair); border-radius:12px; background:#fff;
+  transition:border-color .15s ease, background .15s ease; }
+.co-opt:hover{ border-color:var(--hair2); }
+.co-opt.on{ border-color:var(--orange); background:#FFF9F5; }
+.co-radio{ border-color:var(--hair2); }
+.co-opt.on .co-radio{ border-color:var(--orange); }
+.co-opt.on .co-radio::after{ background:var(--orange); }
+.co-opt .otn{ color:var(--ink); font-size:14.5px; }
+.co-opt .otd{ color:var(--sec); }
+.co-opt .op{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; color:var(--sec); word-spacing:-.1em; }
+.co-city{ border-color:var(--hair2); border-radius:10px; color:var(--ink);
+  transition:border-color .15s ease, color .15s ease; }
+.co-city:hover{ border-color:var(--orange); color:var(--orange); }
+.co-city .uiv-ic svg{ width:15px; height:15px; }
+.co-saved{ border-color:var(--orange); background:#FFF9F5; border-radius:11px; color:var(--ink); line-height:1.5; }
+.co-saved .ch{ color:var(--sec); text-decoration-color:var(--hair2); }
+/* «no saved address» is a task, not a failure: amber note, never red */
+.co-noaddr{ border-color:#EADFCB; background:#FCF8F1; border-radius:11px; color:var(--sec); border-style:solid;
+  display:flex; gap:9px; align-items:flex-start; }
+.co-noaddr b{ color:var(--ink); }
+.co-noaddr .m{ min-width:0; }
+.co-noaddr .uiv-ic{ flex:none; color:var(--warn); margin-top:1px; }
+.co-noaddr .uiv-ic svg{ width:17px; height:17px; }
+.co-cmt-lbl{ color:var(--ink); }
+.co-cmt{ border-color:var(--hair2); border-radius:11px; color:var(--ink); transition:border-color .15s ease, box-shadow .15s ease; }
+.co-cmt::placeholder{ color:var(--light); }
+.co-cmt:focus{ outline:none; border-color:var(--orange); box-shadow:0 0 0 3px rgba(255,90,0,.15); }
+
+/* ---- right column: money ---- */
+.co-money{ border-color:var(--hair); border-radius:14px; padding:18px; box-shadow:var(--sh); background:#fff; }
+.co-money-h{ font-family:'Oswald', sans-serif; font-weight:600; font-size:19px; letter-spacing:-.005em; color:var(--ink); }
+.co-bonus{ background:var(--fill2); border-color:var(--hair); border-radius:12px; }
+.co-bonus .bl{ color:var(--ink); }
+/* the balance is bonus money - the same gold the product card uses, never the accent */
+.co-bonus .bv{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:700; font-size:15px;
+  color:var(--gold); word-spacing:-.1em; }
+.co-bonus .bnote{ color:var(--light); line-height:1.5; }
+.co-toggle{ color:var(--ink); }
+.co-sw{ background:var(--hair2); transition:background .15s ease; }
+.co-sw::after{ box-shadow:0 1px 3px rgba(20,20,15,.2); transition:left .15s ease; }
+.co-sw.on{ background:var(--orange); }   /* a switch you turned on = selected state */
+.co-brow{ color:var(--sec); }
+.co-brow b{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  font-weight:600; color:var(--ink); word-spacing:-.16em; }
+.co-brow .disc{ color:var(--sec); }
+.co-total{ border-top-color:var(--hair); }
+.co-total .tl{ font-size:15px; color:var(--ink); }
+.co-total .tv{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  font-weight:700; font-size:27px; color:var(--ink); word-spacing:-.24em; }
+/* icon + ONE text item (.m in the markup) — otherwise the figure and the words around
+   it become separate flex items and the line breaks in the middle of «+38 ₴» */
+.co-accrual{ background:#FBF7EF; border-color:#EADFCB; border-radius:11px; color:var(--sec);
+  align-items:flex-start; line-height:1.5; }
+.co-accrual .star{ color:var(--star); font-size:15px; flex:none; }
+.co-accrual .m{ min-width:0; }
+.co-accrual b{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:700; color:var(--gold);
+  white-space:nowrap; }
+/* THE decision - the one filled orange on the page */
+.co-confirm{ background:var(--orange); color:#fff; border-radius:12px; font-size:17px; font-weight:700;
+  padding:16px; transition:filter .15s ease; }
+.co-confirm:hover{ filter:brightness(.95); }
+.co-confirm-note{ color:var(--light); }
+.co-trust{ color:var(--light); }
+.co-trust .uiv-ic svg{ width:14px; height:14px; vertical-align:-2px; }
+
+/* ---- upsell: a shelf of CANONICAL product cards, no panel behind them ----
+   (owner's call 2026-07-30). The cards inherit everything from the listing - photo,
+   price rule, the orange icon button - so an add-on can never look like a different
+   species of product. Added = the button becomes a calm green confirmation, never a
+   second orange; the card itself does not move. */
+.co-upsell{ margin-top:14px; }
+.co-upsell-h{ font-family:'Oswald', sans-serif; font-weight:600; font-size:19px; letter-spacing:-.005em; color:var(--ink); }
+.co-upsell-s{ color:var(--sec); }
+.co-upsell .pcard.added .cartbtn{ background:#fff; border:1.5px solid var(--ok); color:var(--ok); }
+.co-upsell .pcard.added .cartbtn .uiv-ic svg{ width:19px; height:19px; }
+
+/* ---- simplified footer ---- */
+.co-foot{ background:var(--fill2); border-top-color:var(--hair); }
+.co-foot-in{ color:var(--light); }
+
+/* ---- payment declined: a real failure, so the serious red - and the order is kept ---- */
+.co-err-box{ border-color:var(--hair); border-radius:16px; box-shadow:var(--sh); background:#fff; }
+.co-err-mark{ border-color:var(--err); color:var(--err); }
+.co-err-mark .uiv-ic svg{ width:26px; height:26px; }
+.co-err-h{ font-family:'Oswald', sans-serif; font-weight:600; font-size:26px; letter-spacing:-.01em; color:var(--ink); }
+.co-err-s{ color:var(--sec); }
+.co-keep{ background:var(--fill2); border-color:var(--hair); border-radius:12px; }
+.co-keep-h{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:500; letter-spacing:.1em; color:var(--light); }
+.co-keep .kr{ color:var(--sec); }
+.co-keep .kr b{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; color:var(--ink); word-spacing:-.16em; }
+.co-keep .kr.tot{ border-top-color:var(--hair); }
+.co-keep .kr.tot .kv{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:700; font-size:19px;
+  color:var(--ink); word-spacing:-.2em; }
+.co-keep .knote{ color:var(--light); }
+.co-err-acts .btn{ font-size:16px; border-radius:11px; padding:14px 16px; }
+.co-err-acts .btn:not(.dark){ font-size:14.5px; padding:11px 16px; color:var(--sec); border-color:var(--hair); }
+.co-help{ color:var(--light); }
+
+/* ---- processing payment: honest wait, and the spinner actually turns ---- */
+.co-proc-box{ border-color:var(--hair); border-radius:16px; box-shadow:var(--sh); background:#fff; }
+.co-spin{ border-color:var(--hair); border-top-color:var(--orange); animation:uivspin .9s linear infinite; }
+@media (prefers-reduced-motion:reduce){ .co-spin{ animation:none; } }
+.co-proc-h{ font-family:'Oswald', sans-serif; font-weight:600; font-size:24px; letter-spacing:-.01em; color:var(--ink); }
+.co-proc-s{ color:var(--sec); }
+.co-skel .sl{ background:var(--fill); }
+.co-proc-note{ color:var(--light); }
+.co-proc-note .uiv-ic svg{ width:14px; height:14px; vertical-align:-2px; }
+.co-proc-go{ background:var(--orange); color:#fff; border-radius:12px; font-size:16px; font-weight:700;
+  transition:filter .15s ease; }
+.co-proc-go:hover{ filter:brightness(.95); }
+.co-proc-cancel{ color:var(--sec); text-decoration-color:var(--hair2); }
+
+/* ============================================================
+   HOME (node 0.0) - «Головна», the storefront.
+   Colour layer only; structure, copy and the role states stay in the grey layer.
+
+   The page has TWO front doors that must not block each other (principle #3), so
+   they are given two different registers rather than two competing accents:
+   - the BEGINNER's door - the goal selector - is where the page is allowed to sing:
+     six warm tiles with the accent on the icon, and the quiz CTA under them. This is
+     the one clear step for someone who does not know what to buy.
+   - the COACH's door is a charcoal band with a white action. Same weight on the page,
+     a different voice - business, not care - and it never takes the buying accent.
+   Everything else is calm: promos state the offer without a timer, the trust band is
+   a quiet fact strip, and the only other orange is on the cart button of a card.
+   ============================================================ */
+.homeh1{ font-family:'Oswald', sans-serif; font-weight:500; font-size:15px; letter-spacing:.005em; color:var(--sec); }
+
+/* ---- hero: category rail ---- */
+.hrail{ border-color:var(--hair); border-radius:14px; box-shadow:var(--sh); padding:6px 0; }
+.hrail a{ color:var(--ink); font-size:13.5px; transition:background .15s ease, color .15s ease, box-shadow .15s ease; }
+.hrail a:hover, .hrail a.on{ background:var(--fill2); color:var(--orange); box-shadow:inset 2px 0 0 var(--orange); }
+.hrail a.on .ar, .hrail a:hover .ar{ color:var(--orange); }
+.hrail a .ic{ color:var(--sec); }
+.hrail a:hover .ic, .hrail a.on .ic{ color:var(--orange); }
+.hrail a .ic .uiv-ic svg{ width:17px; height:17px; }
+.hrail .rsep{ border-top-color:var(--hair); }
+.hrail-fly.wfh-mega{ border-color:var(--hair); border-top-color:var(--orange); border-radius:0 14px 14px 0;
+  box-shadow:0 18px 44px rgba(20,20,15,.16); }
+.hrail-wrap:has(.hrail-fly.open) .hrail{ border-top-color:var(--orange); box-shadow:var(--sh), inset 0 1px 0 var(--orange); }
+.hrail-scrim{ background:rgba(20,20,15,.5); }
+.hero-chips a{ border-color:var(--hair2); color:var(--ink); background:#fff;
+  transition:border-color .15s ease, color .15s ease; }
+.hero-chips a:hover{ border-color:var(--orange); color:var(--orange); }
+
+/* ---- hero: promo. Three cards, one language: a surface, a render, the words at the
+   foot. The first is charcoal because it carries the actual discount; the other two
+   are warm. No timers, no «встигни» - the offer is stated, not pushed (principle #4). */
+/* The renders ship on their own white backdrop, so a card that puts them on a warm
+   or dark surface shows a white rectangle around the product. Two answers, no
+   compositing tricks: cards that carry a product stay WHITE, and the one card that
+   has to be loud carries no product at all - just the offer, set large on charcoal. */
+.hpromo{ border-color:var(--hair); border-radius:16px; overflow:hidden; position:relative;
+  box-shadow:var(--sh); transition:transform .15s ease, box-shadow .15s ease;
+  background:#fff center 8%/72% no-repeat; }
+.hpromo:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(20,20,15,.10); }
+.hpromo .hptag{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:10.5px; font-weight:500;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--sec); }
+.hpromo .hph{ font-family:'Oswald', sans-serif; font-weight:600; font-size:26px; letter-spacing:-.01em;
+  line-height:1.08; color:var(--ink); }
+.hpromo .hps{ color:var(--sec); line-height:1.45; }
+/* the discount card: charcoal, no product, the figure set large. The offer IS the image. */
+.hstrip > .hpromo:nth-child(1){ background:var(--ink); border-color:var(--ink); }
+.hstrip > .hpromo:nth-child(1) .hptag{ color:var(--orange); }
+.hstrip > .hpromo:nth-child(1) .hph{ color:#fff; font-size:38px; }
+.hstrip > .hpromo:nth-child(1) .hps{ color:rgba(255,255,255,.72); }
+.hstrip > .hpromo:nth-child(2){ background-image:url(concept/assets/product-creatine.png); }
+.hstrip > .hpromo:nth-child(3){ background-image:url(concept/assets/mascot-pose-present.png); background-size:80%; background-position:center 4%; }
+/* ---- offer of the day: the hero's third voice ----
+   A product card given hero room. It obeys the SAME price rule as every other card —
+   a struck price is what earns the live figure its accent — so the loudest product on
+   the page is loud for a reason a person can check, not because it is in the hero. */
+.hdeal{ border-color:var(--hair); border-radius:16px; box-shadow:var(--sh); padding:18px;
+  transition:transform .15s ease, box-shadow .15s ease; }
+.hdeal:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(20,20,15,.10); }
+/* the card's own headline. It was 10.5px orange, which is below the size at which
+   #FF5A00 on white passes contrast at all — bigger is both what the slot wanted and
+   what the accent needs: Oswald 19/700 uppercase clears the large-text threshold. */
+.hdeal .hd-tag{ font-family:'Oswald', sans-serif; font-weight:700; font-size:19px;
+  letter-spacing:.02em; color:var(--orange); }
+.hdeal .hd-ph{ background:#fff center/94% no-repeat url(concept/assets/product-whey.png);
+  color:transparent; border-radius:12px; }
+.hdeal .hd-brand{ color:var(--light); }
+.hdeal .hd-nm{ font-family:'Oswald', sans-serif; font-weight:600; font-size:19px; letter-spacing:-.005em;
+  color:var(--ink); line-height:1.15; }
+.hdeal .hd-av{ color:var(--ok); }
+.hdeal .hd-old{ font-family:'IBM Plex Mono', ui-monospace, monospace; color:var(--light); word-spacing:-.1em; }
+.hdeal .hd-cut{ background:#FBEAE7; color:var(--err); border-radius:5px; font-weight:700; font-size:10.5px; padding:1px 6px; }
+.hdeal .hd-new{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  word-spacing:-.24em; font-weight:700; font-size:30px; color:var(--ink); }
+/* the registry rule, once more: struck price present → the live figure takes the accent */
+.hdeal .hd-price:has(.hd-old) .hd-new{ color:var(--orange); }
+.hdeal .hd-meta{ color:var(--sec); }
+.hdeal .hd-meta b{ font-family:'IBM Plex Mono', ui-monospace, monospace; color:var(--ink); }
+.hdeal .hd-cta{ background:var(--orange); color:#fff; border-radius:11px; font-size:16px; font-weight:700;
+  padding:14px; transition:filter .15s ease; }
+.hdeal:hover .hd-cta{ filter:brightness(.95); }
+
+.hdots i{ background:var(--hair2); }
+.hdots i.on{ background:var(--orange); }
+/* «Новинки» is a real photograph shot for the slot (generated): the pack group sits
+   right, the left third is empty warm beige, and a soft scrim guarantees the text
+   stays legible whatever the crop does at other widths. «Сезон» keeps a product on
+   white, at a size that actually reads (owner's call 2026-07-30). */
+.hvert{ border-color:var(--hair); border-radius:16px; box-shadow:var(--sh); position:relative;
+  transition:transform .15s ease, box-shadow .15s ease; overflow:hidden;
+  background:#fff right -14px bottom -26px/62% no-repeat; }
+.hvert:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(20,20,15,.10); }
+.hside > .hvert:nth-child(1){ background:url(concept/assets/banner-new-a.jpg) center right/cover no-repeat; }
+.hside > .hvert:nth-child(1)::before{ content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(90deg, rgba(247,243,236,.96) 0%, rgba(247,243,236,.72) 42%, rgba(247,243,236,0) 72%); }
+.hside > .hvert:nth-child(1) > *{ position:relative; }
+.hside > .hvert:nth-child(2){ background-image:url(concept/assets/product-whey.png); }
+.hvert .hvt{ font-family:'Oswald', sans-serif; font-weight:600; font-size:17px; letter-spacing:-.005em; color:var(--ink); }
+.hvert .hvs{ color:var(--sec); }
+
+/* ---- personal strip (role state) ---- */
+.pstrip{ background:var(--fill2); border-color:var(--hair); border-radius:14px; }
+.pstrip .pt{ color:var(--ink); }
+.pstrip .btn{ font-size:14.5px; padding:11px 18px; border-radius:11px; }
+.pstrip .btn:not(.dark){ color:var(--sec); border-color:var(--hair2); }
+.pstrip .btn:not(.dark):hover{ border-color:var(--orange); color:var(--orange); }
+/* when a non-empty cart is on the page, the shelf owns the primary action: two filled
+   orange buttons stacked would make the person choose between two «main» steps */
+.cshelf ~ .pstrip .btn.dark{ background:#fff; border-color:var(--hair2); color:var(--ink); }
+.cshelf ~ .pstrip .btn.dark:hover{ border-color:var(--orange); color:var(--orange); opacity:1; }
+
+/* ---- cart shelf (return path, Job 4): a nudge, not an alarm ---- */
+.cshelf{ border-color:var(--orange); border-radius:14px; box-shadow:var(--sh); }
+.cshelf .cs-ico{ color:var(--orange); display:inline-flex; }
+.cshelf .cs-ico .uiv-ic svg{ width:22px; height:22px; }
+.cshelf .cs-h{ font-family:'Oswald', sans-serif; font-weight:600; font-size:16px; letter-spacing:-.005em; color:var(--ink); }
+.cshelf .cs-s{ color:var(--sec); }
+.cshelf .cs-s b{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; color:var(--ink); word-spacing:-.1em; }
+.cshelf .cs-th{ background:#fff center/82% no-repeat; border-color:var(--hair); border-radius:9px; color:transparent; }
+.cshelf .cs-thumbs .cs-th:nth-child(1){ background-image:url(concept/assets/product-whey.png); }
+.cshelf .cs-thumbs .cs-th:nth-child(2){ background-image:url(concept/assets/product-creatine.png); }
+.cshelf .cs-th.more{ background-image:none; color:var(--sec); font-family:'IBM Plex Mono', ui-monospace, monospace; }
+.cshelf .cs-th .q{ background:var(--orange); color:#fff; font-family:'IBM Plex Mono', ui-monospace, monospace; }
+.cshelf .cs-act .btn{ font-size:14.5px; padding:11px 18px; border-radius:11px; }
+.cshelf .cs-act .btn:not(.dark){ color:var(--sec); border-color:var(--hair2); }
+.cshelf .cs-act .btn:not(.dark):hover{ border-color:var(--orange); color:var(--orange); }
+
+/* ---- section headings ---- */
+.sech h2{ font-family:'Oswald', sans-serif; font-weight:600; font-size:26px; letter-spacing:-.01em; color:var(--ink); }
+.sech .all{ color:var(--sec); transition:color .15s ease; }
+.sech .all:hover{ color:var(--orange); }
+.lintro{ color:var(--sec); }
+
+/* ---- goal tiles: the beginner's door, and the one place the page sings ---- */
+.gtile{ border-color:var(--hair); border-radius:16px; background:#fff; box-shadow:var(--sh); padding:18px 12px;
+  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease; }
+.gtile:hover{ border-color:var(--orange); transform:translateY(-2px); box-shadow:0 10px 26px rgba(20,20,15,.10); }
+.gtile .gph{ width:52px; height:52px; border-radius:50%; background:var(--fill); color:var(--orange);
+  display:flex; align-items:center; justify-content:center; transition:background .15s ease; }
+.gtile .gph .uiv-ic svg{ width:26px; height:26px; }
+.gtile:hover .gph{ background:#FFF1E8; }
+.gtile .gt{ font-size:13.5px; color:var(--ink); }
+.goalcta .btn.dark{ font-size:17px; padding:14px 24px; border-radius:11px; }
+.goalcta .hint{ color:var(--sec); }
+
+/* ---- trust: five mini banners ----
+   One promise, one picture, one claim. The four photographs were shot for these slots
+   in the same light and on the same warm seamless as the product renders, so the row
+   reads as one set rather than four stock finds. The fifth is about people's voice,
+   not an object, so it takes the mascot - the same guide who answers doubt elsewhere. */
+.tbanners .tbn{ border-color:var(--hair); border-radius:14px; box-shadow:var(--sh);
+  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease; }
+.tbanners .tbn:hover{ border-color:var(--orange); transform:translateY(-2px); box-shadow:0 10px 26px rgba(20,20,15,.10); }
+.tbanners .tbim{ height:104px; background:var(--fill) center/cover no-repeat; }
+.tbanners .tbn:nth-child(1) .tbim{ background-image:url(concept/assets/trust-cert.jpg); }
+.tbanners .tbn:nth-child(2) .tbim{ background-image:url(concept/assets/trust-delivery.jpg); }
+.tbanners .tbn:nth-child(3) .tbim{ background-image:url(concept/assets/trust-pay.jpg); }
+.tbanners .tbn:nth-child(4) .tbim{ background-image:url(concept/assets/trust-return.jpg); }
+.tbanners .tbn:nth-child(5) .tbim{ background:var(--fill) center 22%/auto 170% no-repeat
+  url(concept/assets/mascot-face-reassure.png); background-blend-mode:multiply; }
+.tbanners .tbx b{ color:var(--ink); font-size:13.5px; }
+.tbanners .tbx i{ color:var(--sec); }
+.tbanners .tbn:nth-child(5) .tbx b .uiv-star svg{ width:14px; height:14px; }
+
+/* ---- product tabs: selection, so outline→fill in the accent ---- */
+.ptab{ border-color:var(--hair2); color:var(--ink); background:#fff; cursor:pointer;
+  transition:border-color .15s ease, color .15s ease; }
+.ptab:hover{ border-color:var(--orange); color:var(--orange); }
+.ptab.on{ background:var(--orange); border-color:var(--orange); color:#fff; }
+.ptab.on:hover{ color:#fff; }
+
+/* ---- coach band: the second front door, in its own register ----
+   Charcoal surface, white action. Same weight as the goal block, a different voice -
+   business, not care - and it never competes for the buying accent. */
+.coachbn{ background:var(--ink); border-color:var(--ink); border-radius:16px; padding:26px; overflow:hidden; position:relative; }
+.coachbn .ct{ font-family:'Oswald', sans-serif; font-weight:600; font-size:24px; letter-spacing:-.01em; color:#fff; }
+.coachbn .cs{ color:rgba(255,255,255,.7); line-height:1.55; }
+.coachbn .btn.dark{ background:#fff; border-color:#fff; color:var(--ink); font-size:16px; padding:14px 22px;
+  border-radius:11px; transition:filter .15s ease; }
+.coachbn .btn.dark:hover{ filter:brightness(.92); opacity:1; }
+
+/* ---- promo / brands / blog ---- */
+/* the weekly promo is a banner now: the picture fills the strip, the claim sits on a
+   warm scrim at the left. Still no timer and no sale sticker - the offer is stated. */
+.promo{ border:1px solid var(--hair); border-radius:16px; position:relative; overflow:hidden;
+  background:url(concept/assets/banner-promo-a.jpg) center right/cover no-repeat;
+  min-height:190px; padding:30px 32px; }
+.promo::before{ content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(90deg, rgba(247,243,236,.97) 0%, rgba(247,243,236,.86) 40%, rgba(247,243,236,0) 78%); }
+.promo > *{ position:relative; }
+.promo .pt{ font-family:'Oswald', sans-serif; font-weight:600; font-size:30px; letter-spacing:-.01em;
+  line-height:1.08; color:var(--ink); }
+.promo .ps{ color:var(--sec); font-size:14px; }
+.promo .ps a{ color:var(--ink) !important; text-decoration-color:var(--hair2); }
+.promo .ps a:hover{ color:var(--orange) !important; text-decoration-color:var(--orange); }
+/* A brand plate shows the BRAND, so it shows its logo when we have the file and the
+   wordmark when we do not. The <img> removes itself on error, so :has(img) is a live
+   test of «is there a logo?» - drop a file into concept/assets/brands/ and the plate
+   switches by itself, with no second place to update. */
+.brandbox{ border-color:var(--hair); border-radius:12px; background:#fff; color:var(--sec);
+  font-size:12.5px; padding:10px 14px; transition:border-color .15s ease, color .15s ease; }
+.brandbox:hover{ border-color:var(--orange); color:var(--ink); }
+/* Real brand assets arrive in six different styles - a black mark, a white one on a
+   coloured slab, a rainbow one. Greyscale by default is what makes them one row on a
+   calm page; the brand's own colour comes back under the pointer, where it belongs. */
+.brandbox img{ max-width:100%; max-height:34px; object-fit:contain; filter:grayscale(1); opacity:.86;
+  transition:filter .15s ease, opacity .15s ease; }
+.brandbox:hover img{ filter:none; opacity:1; }
+.brandbox:has(img) .bnm{ display:none; }
+.blogcard{ border-color:var(--hair); border-radius:14px; background:#fff; box-shadow:var(--sh);
+  transition:transform .15s ease, box-shadow .15s ease; }
+.blogcard:hover{ transform:translateY(-2px); box-shadow:0 10px 26px rgba(20,20,15,.10); }
+/* real article photographs, shot in the same light as the trust banners */
+.blogcard .bim{ background:var(--fill) center/cover no-repeat; height:158px; }
+.blogrow > .blogcard:nth-child(1) .bim{ background-image:url(concept/assets/blog-protein.jpg); }
+.blogrow > .blogcard:nth-child(2) .bim{ background-image:url(concept/assets/blog-creatine.jpg); }
+.blogrow > .blogcard:nth-child(3) .bim{ background-image:url(concept/assets/blog-goals.jpg); }
+.blogcard .bt{ color:var(--ink); font-size:14.5px; }
+.blogcard .bdt{ color:var(--sec); line-height:1.5; }
+
+/* ---- loyalty tier mark (see uivTier in _uivis.js) ----
+   Three metals at the contrast end that survives 15px body copy: the mark carries
+   meaning (which tier you are), so it may not be decorative-only colour. */
+.uiv-tier{ vertical-align:-4px; margin-right:1px; }
+.uiv-tier svg{ width:1.4em; height:1.4em; }
+.uiv-tier.t0{ color:var(--light); }   /* базовий - порожня банка, рівня ще немає */
+.uiv-tier.t1{ color:#9A6A3F; }   /* бронза */
+.uiv-tier.t2{ color:#7E8288; }   /* срібло */
+/* золото. The AA-safe amber (#8A5A0E) is so dark that beside bronze (#9A6A3F) the two
+   read as one brown - the top tier has to be visibly the best, so it takes the brand's
+   own warm end. As a graphic mark (not text) #FF5A00 needs 3:1 and gives 3.13:1. */
+.uiv-tier.t3{ color:var(--orange); }
+
+/* ============================================================
+   ACCOUNT (node 7.x) - the buyer's private work zone, not a shop window.
+   Colour logic here differs from the storefront on purpose:
+   · ORANGE stays what it always is - the ACTION and the current place
+     (repeat an order, add to cart, the section you are standing in).
+   · GOLD (--gold, the bonus figure) carries the LOYALTY story: balance,
+     progress, reached rungs, accruals. It is a status, not an action, so it
+     may not borrow the buying accent - and the account is the one place where
+     that story is the subject of the page.
+   · Order STATE speaks in the state colours (delivered = calm green, on the way
+     = amber, waiting = grey), never in the accent.
+   Every figure - money, balance, phone, order number - is mono, per Attribute 2.
+   ============================================================ */
+
+/* ---- shell: profile card + section nav ---- */
+.acc-prof{ border-color:var(--hair); border-radius:14px; box-shadow:var(--sh); background:#fff; }
+.acc-prof .av{ background:var(--fill); border-color:var(--hair); color:var(--sec);
+  font-family:'Oswald', sans-serif; font-weight:600; letter-spacing:.02em; }
+.acc-prof .nm{ font-family:'Oswald', sans-serif; font-weight:600; font-size:16.5px; letter-spacing:-.005em; }
+.acc-prof .ph{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:11.5px; }
+/* the tier chip is neutral and the JAR carries the metal - it used to be gold-tinted for
+   every tier, so a silver buyer wore a gold badge */
+.acc-tier{ border-color:var(--hair2); background:#fff; color:var(--ink); }
+.acc-tier.free{ border-color:var(--hair2); background:none; color:var(--sec); }
+.acc-links{ border-color:var(--hair); border-radius:14px; box-shadow:var(--sh); }
+.acc-link{ border-color:var(--hair); transition:background .14s ease, color .14s ease, box-shadow .14s ease; }
+.acc-link .ic{ color:var(--sec); font-size:0; }
+.acc-link .ic .uiv-ic svg{ width:18px; height:18px; }
+.acc-link .ct{ font-family:'IBM Plex Mono', ui-monospace, monospace; color:var(--sec); }
+.acc-link .ar .uiv-ic svg{ width:12px; height:12px; }
+/* the state marker never touches the metrics (see the rail lesson, _wf.css) */
+.acc-link:hover{ background:var(--fill2); color:var(--orange); }
+.acc-link:hover .ic{ color:var(--orange); }
+.acc-link[aria-current="page"]{ background:var(--fill2); color:var(--orange); box-shadow:inset 2px 0 0 var(--orange); }
+.acc-link[aria-current="page"] .ic{ color:var(--orange); }
+.acc-link.logout{ color:var(--sec); }
+.acc-link.logout:hover{ color:var(--err); }
+.acc-link.logout:hover .ic{ color:var(--err); }
+@media (max-width: 959px){
+  /* the mobile hub renders the sections as chips; the active one is filled - ink on
+     orange (5.2:1), never white on orange (3.1:1 fails at chip size) */
+  .acc-link[aria-current="page"]{ background:var(--orange); border-color:var(--orange); color:var(--ink); box-shadow:none; }
+  .acc-link[aria-current="page"] .ic{ color:var(--ink); }
+  .acc-link[aria-current="page"] .ct{ border-color:rgba(28,28,28,.35); color:var(--ink); }
+}
+
+/* ---- headings + cards ---- */
+/* The theme's default button is 19px display size - right for a hero CTA, far too loud in
+   a work zone where nearly every card carries two or three actions (owner, 2026-07-31).
+   In the cabinet a button is a ROW action: text size, not headline size. One rule for the
+   whole panel, so no card can drift back to hero weight. */
+.acc-main .btn{ font-size:13.5px; padding:10px 17px; border-radius:10px; }
+.acc-h1{ font-family:'Oswald', sans-serif; font-weight:600; font-size:29px; letter-spacing:-.01em; }
+.acc-sub{ color:var(--sec); }
+.acard{ border-color:var(--hair); border-radius:14px; background:#fff; box-shadow:var(--sh); }
+.acard .ah h3, .mech-kicker{ color:var(--light); letter-spacing:.06em; }
+.acard .ah a, .acard .ah .lnk{ color:var(--ink); transition:color .14s ease; }
+.acard .ah a:hover, .acard .ah .lnk:hover{ color:var(--orange); }
+
+/* ---- 7.0 restock nudge: real renders in the thumbs, one action per row ---- */
+.rk-ph, .aord-thumbs .t, .oh-thumbs i, .ob-line .ph{ background:#fff center/78% no-repeat;
+  border-color:var(--hair); color:transparent; }
+.rk-item:nth-of-type(odd) .rk-ph{ background-image:url(concept/assets/product-whey.png); }
+.rk-item:nth-of-type(even) .rk-ph{ background-image:url(concept/assets/product-creatine.png); }
+.aord-thumbs .t:nth-child(1), .oh-thumbs i:nth-child(1), .ob-line:nth-of-type(3n+1) .ph{ background-image:url(concept/assets/product-whey.png); }
+.aord-thumbs .t:nth-child(2), .oh-thumbs i:nth-child(2), .ob-line:nth-of-type(3n+2) .ph{ background-image:url(concept/assets/product-creatine.png); }
+.aord-thumbs .t:nth-child(3), .oh-thumbs i:nth-child(3), .ob-line:nth-of-type(3n) .ph{ background-image:url(concept/assets/product-preworkout.png); }
+.oh-thumbs i.more{ background:var(--fill2); color:var(--sec);
+  font-family:'IBM Plex Mono', ui-monospace, monospace; }
+.rk-nm{ color:var(--ink); }
+.rk-cy b{ color:var(--ink); font-family:'IBM Plex Mono', ui-monospace, monospace; }
+/* becoming a coach is an invitation, not a purchase - the outline register */
+#coach-banner .btn.dark{ background:#fff; color:var(--ink); border-color:var(--hair2); }
+#coach-banner .btn.dark:hover{ border-color:var(--orange); color:var(--orange); }
+/* the last order's state is a state, not an action: calm green for delivered */
+.aord-status{ color:var(--ok); border-color:rgba(46,125,70,.35); background:rgba(46,125,70,.07); }
+.aord-info .no{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+.aord-info .meta{ color:var(--sec); }
+
+/* ---- bonuses + loyalty ----
+   Correction 2026-07-31 (owner): the first pass painted the whole loyalty story in the
+   AA-safe amber, and a page-wide field of brown is what you got - a progress bar, a
+   38px figure, a tinted warning, tinted rungs and a tinted chip, all in one muddy hue.
+   Now the amber is spent ONLY where something must be watched (bonuses expire); value
+   and progress speak in the brand's own warm end, and the tier metals live in the jar
+   mark, not in the panels behind it. */
+.abonus .big{ font-family:'IBM Plex Mono', ui-monospace, monospace; color:var(--orange);
+  font-size:38px; font-weight:600; word-spacing:-.24em; }
+/* expiry is the one thing here that warns: calm panel, amber only on the fact itself */
+.abonus .warn{ border-style:solid; border-color:var(--hair); background:var(--fill2);
+  color:var(--sec); border-radius:10px; }
+.abonus .warn b{ color:var(--warn); }
+.loy .lt{ font-family:'Oswald', sans-serif; font-weight:600; font-size:17px; }
+.loy .lbar{ background:var(--fill); border-radius:100px; }
+.loy .lbar i, .lbar.maxed i{ background:var(--orange); border-radius:100px; }
+.loy .ls b{ font-family:'IBM Plex Mono', ui-monospace, monospace; color:var(--ink); }
+.loy .lrung{ border-color:var(--hair); border-radius:10px; background:var(--fill2);
+  font-family:'IBM Plex Mono', ui-monospace, monospace; }
+.loy .lrung .rn{ font-family:'Inter', sans-serif; }
+.loy .lrung .rs{ font-family:'Inter', sans-serif; }
+/* Correction 2026-07-31 (owner): «незрозуміло, які рівні я вже отримав, а який наступний».
+   Three roles, three different devices - not three shades of one:
+   отримано = a green check (settled, like a delivered order) · ваш рівень = the accent
+   marker, the same «ви тут» the nav uses · наступний = a dashed edge, a boundary drawn
+   but not crossed · далі = dimmed. The caption text never takes the accent: #FF5A00 is
+   AA only from 19px bold, so the orange lives in the border and the marker (a graphic,
+   3:1) while the words stay ink. */
+.loy .lrung.done{ background:#fff; border-color:var(--hair2); }
+.loy .lrung.done .rs{ color:var(--ok); }
+.loy .lrung.now{ background:#fff; border-color:var(--orange); box-shadow:inset 0 2px 0 var(--orange); }
+.loy .lrung.now .rs{ color:var(--ink); font-weight:700; }
+.loy .lrung.next{ background:#fff; border-style:dashed; border-color:var(--hair2); }
+.loy .lrung.next .rs{ color:var(--ink); }
+.loy .lrung.locked .rn{ color:var(--light); }
+.loy .lrung .rs .uiv-ic svg{ width:12px; height:12px; }
+
+/* ---- 7.4 ledger ---- */
+.led-wrap{ border-color:var(--hair); border-radius:14px; box-shadow:var(--sh); background:#fff; }
+.led-head h2{ font-family:'Oswald', sans-serif; font-weight:600; font-size:18px; }
+.led-head a{ color:var(--ink); transition:color .14s ease; }
+.led-head a:hover{ color:var(--orange); }
+table.led th{ background:var(--fill2); color:var(--light); }
+table.led td{ border-color:var(--hair); }
+table.led td.dt, table.led td.num{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+table.led td.amt.pos{ color:var(--gold); }
+table.led td.amt.neg{ color:var(--sec); }
+/* burn is not a spend: the row is tinted and its figure warns, calmly */
+table.led tr.burn td{ background:rgba(138,90,14,.05); }
+table.led tr.burn td.amt{ color:var(--warn); }
+.led-note, .led-empty{ color:var(--sec); }
+.led-empty b{ color:var(--ink); font-family:'Oswald', sans-serif; font-weight:600; }
+
+/* ---- 7.2/7.3 orders ---- */
+.ord-tab{ border-color:var(--hair2); color:var(--sec); transition:border-color .14s ease, color .14s ease; }
+.ord-tab:hover{ border-color:var(--ink); color:var(--ink); }
+.ord-tab.on{ border-color:var(--orange); color:var(--orange); background:#fff; }
+.ord{ border-color:var(--hair); border-radius:14px; box-shadow:var(--sh); }
+.oh-no, .oh-date, .oh-sum{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+.oh-sum{ font-weight:600; word-spacing:-.24em; }
+.oh-status{ border-color:var(--hair2); color:var(--sec); }
+.oh-status.ok{ color:var(--ok); border-color:rgba(46,125,70,.35); background:rgba(46,125,70,.07); }
+.oh-status.go{ color:var(--warn); border-color:rgba(138,90,14,.35); background:rgba(138,90,14,.06); }
+.oh-status.wait{ color:var(--sec); background:var(--fill2); }
+.oh-drop{ border-color:var(--hair2); color:var(--sec); transition:border-color .14s ease, color .14s ease; }
+.ord-h:hover .oh-drop{ border-color:var(--orange); color:var(--orange); }
+.ord.open .oh-drop{ border-color:var(--orange); color:var(--orange); }
+.ord-body{ border-color:var(--hair); }
+.ln-nm{ color:var(--ink); }
+.ln-calc, .ln-tot{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+.ln-review, .ob-receipt{ color:var(--ink); transition:color .14s ease; }
+.ln-review:hover, .ob-receipt:hover{ color:var(--orange); }
+.sr span:last-child{ font-family:'IBM Plex Mono', ui-monospace, monospace; word-spacing:-.24em; }
+.sr.total{ border-top-color:var(--hair2); }
+.sr.total span:last-child{ font-weight:600; }
+.sr.accrual span:last-child{ color:var(--gold); }
+.ob-del{ border-color:var(--hair); border-radius:12px; background:var(--fill2); }
+.dl .dk{ color:var(--light); }
+.dl .dv{ color:var(--ink); }
+.ord-oos{ border-style:solid; border-color:rgba(138,90,14,.26); background:rgba(138,90,14,.06); border-radius:10px; }
+.ord-oos b{ color:var(--warn); }
+@media (max-width: 640px){
+  .oh-drop{ border-color:var(--hair2); }
+  .ob-collapse{ border-color:var(--hair2); color:var(--ink); border-radius:10px; }
+}
+
+/* ---- 7.5 addresses: the default one is the SELECTED one (checkout language) ---- */
+.addr-card{ border-color:var(--hair); border-radius:14px; box-shadow:var(--sh); background:#fff; }
+.addr-card.def{ border-color:var(--orange); }
+.addr-tag{ border-color:var(--hair2); color:var(--sec); }
+.addr-card.def .addr-tag{ border-color:var(--orange); color:var(--orange); }
+.addr-line{ color:var(--ink); }
+.addr-sub, .addr-type{ color:var(--sec); }
+.addr-hint{ border-style:solid; border-color:var(--hair); background:var(--fill2); border-radius:10px; }
+.addr-hint b{ color:var(--ink); }
+
+/* ---- 7.1 profile (passwordless) ---- */
+.pfcard{ border-color:var(--hair); border-radius:14px; box-shadow:var(--sh); background:#fff; }
+.pfield{ border-color:var(--hair); }
+.pf-lbl{ color:var(--light); letter-spacing:.06em; }
+.pf-val{ color:var(--ink); }
+/* the phone is a figure, so it is mono. The e-mail field is NOT included: when it is
+   empty it reads «не додано», and mono words look like a typo, not a fact. */
+.pfield:nth-child(2) .pf-val{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+.pf-val .ok{ color:var(--ok); }
+.pf-act{ color:var(--ink); transition:color .14s ease; }
+.pf-act:hover{ color:var(--orange); }
+.pf-input{ background:#fff; border-color:var(--hair2); border-radius:10px; color:var(--ink); }
+.pf-input:focus{ outline:2px solid var(--orange); outline-offset:1px; border-color:var(--orange); }
+.sw{ background:var(--orange); transition:background .16s ease; }
+.sw i{ transition:left .16s ease; }
+.sw.off{ background:var(--hair2); }
+.pf-note{ border-style:solid; border-color:var(--hair); background:var(--fill2); border-radius:10px; }
+.pf-note b{ color:var(--ink); }
+.pf-dangerbtn{ color:var(--sec); transition:color .14s ease; }
+.pf-dangerbtn:hover{ color:var(--err); }
+
+/* ---- 7.6 wishlist ---- */
+.wl-count{ font-family:'IBM Plex Mono', ui-monospace, monospace; color:var(--sec); }
+
+/* ---- empty / error inside the shell: a task, not a failure ---- */
+.emptybox{ border-style:solid; border-color:var(--hair); background:var(--fill2); border-radius:14px; }
+.emptybox .et{ font-family:'Oswald', sans-serif; font-weight:600; }
+.emptybox .es{ color:var(--sec); }
+.emptybox .ei{ color:var(--orange); font-size:0; }
+.emptybox .ei .uiv-ic svg{ width:34px; height:34px; }
+.errbox{ border-style:solid; border-color:rgba(196,43,28,.30); background:rgba(196,43,28,.04); border-radius:14px; }
+.errbox .et{ font-family:'Oswald', sans-serif; font-weight:600; }
+.errbox .es{ color:var(--sec); }
+.errbox .ei{ color:var(--err); font-size:0; }
+.errbox .ei .uiv-ic svg{ width:34px; height:34px; }
+/* skeletons keep the warm neutral, not the cold grey of the wireframe */
+.acc-h1sk, .acc-subsk, .skcardbox .skline{ background:var(--fill); }
+.skcardbox{ border-color:var(--hair); border-radius:14px; box-shadow:var(--sh); }
+
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
