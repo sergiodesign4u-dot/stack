@@ -14,12 +14,12 @@ there is no page list to maintain here.
 |---|-------|--------|
 | 01 | Foundation Research | Done |
 | 02 | User Research (personas + JTBD) | Done |
-| 02+ | CJM (As-Is + To-Be) | Done - Olena x main job, emotions sourced live, one open question for the owner |
+| 02+ | CJM (As-Is + To-Be) | Done - Olena x main job, emotions sourced live; added the order status notification to the MVP |
 | 03 | Information architecture | Done - base layer, detail layer, node hub and block bank |
-| 04 | Wireframes | Done - grey clickable prototype, 142 screens |
+| 04 | Wireframes | Done - grey clickable prototype, 141 screens + hub |
 | 05 | Voice | Done - rulebook + microcopy inventory, rolled out to the prototype |
 | 06 | Concept | Done - visual language on two screens |
-| 07 | UI + Visual | Done - 40 coloured screens, component kit and inventory over all 142 wireframes |
+| 07 | UI + Visual | Done - 39 coloured screens + hub, component kit and inventory over all 142 wireframe files |
 | 08 | Tokens + Components | Not started |
 | 09 | Design System | Not started |
 | 10 | Responsive | Not started |

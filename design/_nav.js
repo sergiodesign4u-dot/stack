@@ -113,12 +113,12 @@ var UIV_P = {
   logout:'<path d="M14.6 7.4V5.2a1.2 1.2 0 0 0-1.2-1.2H5.2A1.2 1.2 0 0 0 4 5.2v13.6a1.2 1.2 0 0 0 1.2 1.2h8.2a1.2 1.2 0 0 0 1.2-1.2v-2.2"/><path d="M9.8 12h10.4"/><path d="M17 8.8 20.2 12 17 15.2"/>'
 };
 /* Messenger channels (footer «Консультація», contacts 8.3) are BRAND MARKS, not UI icons,
-   so they break the outline rule on purpose: a badge — filled disc, glyph knocked out —
+   so they break the outline rule on purpose: a badge - filled disc, glyph knocked out -
    is what a channel looks like everywhere, and at 16px a solid silhouette survives where
    an outline turns to mush (the hand-drawn stroke pair that lived here first proved it).
    Both come from ONE Flaticon set (via the Freepik/Magnific catalogue) so the plane and
    the handset are siblings, not two strangers; the paths carry no fill of their own, so
-   the mark takes `currentColor` and rides the link — grey at rest, accent on hover.
+   the mark takes `currentColor` and rides the link - grey at rest, accent on hover.
    Licence: covered by the project's Freepik subscription; attribution/licence file is an
    operational [?] before public launch, same shelf as the brand logos on the home page. */
 var UIV_BRAND = {
@@ -143,7 +143,7 @@ var UIV_RE = new RegExp('(' + Object.keys(UIV_EMOJI)
   .join('|') + ')');
 
 function uivWrap(key){
-  /* brand marks are filled badges with their own viewBox — everything else is our 24px stroke set */
+  /* brand marks are filled badges with their own viewBox - everything else is our 24px stroke set */
   if(UIV_BRAND[key]){
     return '<span class="uiv-ic uiv-brand"><svg viewBox="' + UIV_BRAND[key].vb + '" fill="currentColor" ' +
       'aria-hidden="true">' + UIV_BRAND[key].p + '</svg></span>';

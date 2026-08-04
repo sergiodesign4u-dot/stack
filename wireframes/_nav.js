@@ -288,7 +288,7 @@ function wfBar(baseFile, currentState) {
     html += '<span class="sepb">·</span><span>Стани:</span> ' + parts.join(' ');
   }
   bar.innerHTML = html;
-  /* The bar paints ABOVE modals (z 80) so the stand stays usable with a dialog open —
+  /* The bar paints ABOVE modals (z 80) so the stand stays usable with a dialog open -
      which clipped the head of any dialog pinned to the top of the viewport (the cart
      drawer). It wraps, so its height is not a constant: publish the measured value and
      let the drawer start below it. */
@@ -445,7 +445,7 @@ function wfHomeRail(opts) {
   window.hcClose = function () {
     flyEl.classList.remove('open');
     /* the rail STAYS on the page when the flyout closes, unlike the header mega-menu
-       whose category column is hidden with it — so its .on has to be cleared here or
+       whose category column is hidden with it - so its .on has to be cleared here or
        the last-hovered category stays marked for good (fixed 2026-07-30). */
     railEl.querySelectorAll('[data-k].on').forEach(function (e) { e.classList.remove('on'); });
     var s = document.querySelector(scrimSel); if (s) s.classList.remove('open');
@@ -1114,7 +1114,7 @@ const WF_ACC_LINKS = [
   { k: 'addresses', href: 'account-addresses.html',  ic: '📍', label: 'Адреси', ct: '2' },
   { k: 'profile',   href: 'account-profile.html',    ic: '👤', label: 'Профіль' },
 ];
-/* opts: { counts: {orders, wishlist, addresses}, tier } — the empty-account state needs
+/* opts: { counts: {orders, wishlist, addresses}, tier } - the empty-account state needs
    zero counters and a starting tier. It used to hand-write the whole nav instead, which
    is how it drifted: a second buyer persona in the rail while the header dropdown showed
    the canonical one, and the sections in a different order. */
@@ -1194,7 +1194,7 @@ function wfToast(type, msg) {
 }
 
 /* ============================================================
-   7.6 ОБРАНЕ — removal. The page lists things that are ALREADY saved, so its card
+   7.6 ОБРАНЕ - removal. The page lists things that are ALREADY saved, so its card
    control is «Видалити з обраного», not a heart (a heart there can only mean unsave,
    which is not what a heart says). Removing has to keep every counter telling the
    same story - grid, page count, section nav, header badge - or the screen ends up
@@ -1257,15 +1257,15 @@ document.addEventListener('click', e => {
 });
 
 /* ============================================================
-   CART DRAWER behaviour (node 6.0) — qty stepper · remove · ♡ В обране.
+   CART DRAWER behaviour (node 6.0) - qty stepper · remove · ♡ В обране.
    A quick view whose controls do nothing is not a quick view. Every figure is
    recomputed from ONE source: data-unit on each .ci line. Line total, «Разом»,
    the item count in the title and the header cart figure therefore cannot drift
    apart the way five hand-typed numbers would.
-   Runs only where the markup declares prices (.ci[data-unit]) — the coach cart
+   Runs only where the markup declares prices (.ci[data-unit]) - the coach cart
    groups by client and prices its lines at the tier rate, so it stays out until
    it is specced. Removing the last line goes to the empty state, never to a
-   blank drawer (voice.md 5 — states give a way out).
+   blank drawer (voice.md 5 - states give a way out).
    ============================================================ */
 function wfMoney(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₴'; }
 function wfPlural(n, one, few, many) {
@@ -1302,7 +1302,7 @@ function wfCartRecalc(drawer) {
   if (total) total.textContent = wfMoney(sum);
   const cnt = drawer.querySelector('.cd-cnt');
   if (cnt) cnt.textContent = lines + ' ' + wfPlural(lines, 'товар', 'товари', 'товарів');
-  /* the header carries the same basket — one truth, two places */
+  /* the header carries the same basket - one truth, two places */
   document.querySelectorAll('.wfh-act.numbtn .val').forEach(v => { v.textContent = wfMoney(sum); });
   document.querySelectorAll('.wfh-act .hb, .wf-tab .tbadge').forEach(b => { b.textContent = lines; });
 }
@@ -1339,11 +1339,11 @@ function wfCart() {
 }
 
 /* ============================================================
-   CHECKOUT behaviour (node 6.1) — qty · remove · ♡ · delivery/payment choice ·
+   CHECKOUT behaviour (node 6.1) - qty · remove · ♡ · delivery/payment choice ·
    bonus spend · upsell add. The money column is DERIVED, never typed: each row is
    computed from the lines' data-unit, the chosen delivery's data-price, the loyalty
    rate on the discount row and the bonus balance. This is the one screen where a
-   control that does not move the total would be unforgivable — and where five
+   control that does not move the total would be unforgivable - and where five
    hand-typed figures would inevitably disagree with each other.
    ============================================================ */
 function wfCheckoutRecalc(root) {
@@ -1412,7 +1412,7 @@ function wfCheckoutRecalc(root) {
   const total = Math.max(0, sum - disc + ship - bonus);
   const tv = money.querySelector('.co-total .tv');
   if (tv) tv.textContent = wfMoney(total);
-  /* accrual follows what is actually PAID — spending bonuses earns fewer of them */
+  /* accrual follows what is actually PAID - spending bonuses earns fewer of them */
   const acc = money.querySelector('.co-accrual b');
   if (acc) acc.textContent = '+' + wfMoney(Math.round(total * 0.01));
 }
@@ -1429,7 +1429,7 @@ function wfCheckout() {
       wfCheckoutRecalc(root);
       return;
     }
-    /* bonus spend. On the guest page the same row is a LINK to sign in — leave it alone. */
+    /* bonus spend. On the guest page the same row is a LINK to sign in - leave it alone. */
     const tog = e.target.closest('.co-toggle');
     if (tog && tog.tagName !== 'A' && tog.querySelector('.co-sw')) {
       const on = tog.querySelector('.co-sw').classList.toggle('on');
@@ -1675,7 +1675,7 @@ function wfFooter() {
 
 /* listing filter rail (category «Протеїн»); Тип = subcategory links, rest = facets.
    checked = array of facet labels to render as active (e.g. ['Optimum Nutrition','В наявності']). */
-/* The facet groups — SINGLE SOURCE shared by the desktop rail (wfCatalogRail) and
+/* The facet groups - SINGLE SOURCE shared by the desktop rail (wfCatalogRail) and
    the mobile filter sheet (wfSheet), so mobile always mirrors desktop and they never
    drift. Pass the checked-label list for the pre-selected demo state. */
 function wfFilterGroupsHTML(checked) {
@@ -1754,7 +1754,7 @@ function closeSheet() { const s = document.getElementById('fsheet'), o = documen
 function toggleCab(e) { if (e) e.stopPropagation(); const m = document.getElementById('wfh-cabmenu'); if (!m) return; const open = m.classList.toggle('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
 function closeCab() { const m = document.getElementById('wfh-cabmenu'); if (!m) return; m.classList.remove('open'); const b = m.parentElement.querySelector('.wfh-cabbtn'); if (b) b.setAttribute('aria-expanded', 'false'); }
 document.addEventListener('click', e => { const cab = document.getElementById('wfh-cabmenu'); if (cab && cab.classList.contains('open') && !e.target.closest('.wfh-cab')) closeCab(); });
-/* language switcher dropdown (meta bar) — opens on click, mirrors the cabinet menu */
+/* language switcher dropdown (meta bar) - opens on click, mirrors the cabinet menu */
 function toggleLang(e) { if (e) { e.preventDefault(); e.stopPropagation(); } const m = document.getElementById('wfh-langmenu'); if (!m) return; const open = m.classList.toggle('open'); const w = m.closest('.wfh-lang-wrap'); if (w) { const b = w.querySelector('.wfh-lang'); if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false'); const meta = m.closest('.wfh-meta'); if (meta) meta.classList.toggle('wfh-menuopen', open); } }
 function closeLang() { const m = document.getElementById('wfh-langmenu'); if (!m) return; m.classList.remove('open'); const w = m.closest('.wfh-lang-wrap'); if (w) { const b = w.querySelector('.wfh-lang'); if (b) b.setAttribute('aria-expanded', 'false'); } const meta = m.closest('.wfh-meta'); if (meta) meta.classList.remove('wfh-menuopen'); }
 function pickLang(e, code) { if (e) { e.preventDefault(); e.stopPropagation(); } const m = document.getElementById('wfh-langmenu'); if (!m) return; const w = m.closest('.wfh-lang-wrap'); const codeEl = w ? w.querySelector('.wfh-lang-code') : null; if (codeEl) codeEl.textContent = code; m.querySelectorAll('a').forEach(a => a.classList.toggle('on', a.dataset.code === code)); closeLang(); }

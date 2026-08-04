@@ -1,6 +1,6 @@
-# Page-level IA — Buyer Account (node 7.x)
+# Page-level IA - Buyer Account (node 7.x)
 
-- **Node:** 7.x — Account & loyalty. This spec is the **buyer account shell** and covers the
+- **Node:** 7.x - Account & loyalty. This spec is the **buyer account shell** and covers the
   sub-nodes on it: **7.0 Overview**, **7.1 Profile**, **7.2 Orders**, **7.3 Order detail + repeat**,
   **7.4 Loyalty & bonuses**, **7.5 Addresses**, **7.6 Wishlist**, and the entry to **7.7 Become a
   coach** (which hands off to the coach cluster 5.x). One artifact, like `product.md` covers 3.0+3.1/3.2/3.3.
@@ -10,11 +10,11 @@
   coach-only workspace (5.x) is a separate cluster, not yet at page-level.
 - **Jobs served:** **Job 4** (one-tap repeat from order history) and **Job 6** (loyalty review);
   supports Job 3 (leave a review on a delivered item → dialog 3.1a).
-- **Flow source:** `research/docs/flows.md` — Job 4 (reorder) and Job 6 (loyalty).
+- **Flow source:** `research/docs/flows.md` - Job 4 (reorder) and Job 6 (loyalty).
 
 ## Shell model
 
-- **Desktop:** two-column shell — **left section nav** (profile header + section links with counters
+- **Desktop:** two-column shell - **left section nav** (profile header + section links with counters
   + «Вийти») **+ content panel** for the active section. The section set is **the same as the header
   «Кабінет» dropdown** (Navigation 0.1): Огляд 7.0 · Замовлення 7.2 · Лояльність 7.4 · Обране 7.6 ·
   Адреси 7.5 · Профіль 7.1 · Стати тренером 7.7 · Вийти.
@@ -26,30 +26,30 @@
 
 ## Sections
 
-1. **Огляд / dashboard (7.0)** — greeting + **snapshot cards**: bonus balance · **last order with a
+1. **Огляд / dashboard (7.0)** - greeting + **snapshot cards**: bonus balance · **last order with a
    «↻ Повторити» button** · wishlist count · saved-addresses count; a **loyalty progress** strip; a
    **«Стати тренером» banner**. Each card deep-links into its section. The default section.
-   - **«↻ Час поповнити запаси» restock nudge (wireframe 2026-07-05)** — a calm, top-of-dashboard card
+   - **«↻ Час поповнити запаси» restock nudge (wireframe 2026-07-05)** - a calm, top-of-dashboard card
      surfacing the **reorder mechanic (Decision 4 · Job 3-restock)**: 1–2 staple products the buyer is
      due to rebuy, each with «куплено N днів тому · зазвичай вистачає на ~N днів» + a one-tap **«↻ У кошик»**
      (toast). No countdowns/anxiety (Principle 4). Shown only when there's purchase history; **hidden for
      the coach** role (coach dashboard = order-for-clients, not personal restock). «My staples» stays
      post-launch; this is the MVP dashboard surface of the reminder mechanic. Consumption estimates are
      operational **[?]**.
-2. **Замовлення (7.2) + Деталі (7.3) — one accordion page (redesigned 2026-07-05).** 7.2 list and
+2. **Замовлення (7.2) + Деталі (7.3) - one accordion page (redesigned 2026-07-05).** 7.2 list and
    7.3 detail are **merged into a single accordion** (there is no separate detail page). Each order is a
    **collapsed row**: `№ {number}` (no «Замовлення» word) · date · **status pill** · sum · **2–3 item
    thumbnails (extra → «+N»)** · a **drop button** that expands the row.
    - **Expanded body = two columns.** *Main (left):* line items (photo + name; under the name a
      **«✎ Залишити відгук»** icon-link → 3.1a, on delivered orders) + a **«ціна × N од.» → row total**
-     line; then the **money breakdown in this fixed order** — Товари (к-сть · сума) → Знижка на товари →
+     line; then the **money breakdown in this fixed order** - Товари (к-сть · сума) → Знижка на товари →
      Використано бонусів → Промокод → Знижка лояльності → **Разом (bold)** → **★ Нараховано на бонусний
      рахунок (+N)** → **⭳ Завантажити квитанцію** (bottom). *Side (right):* big **«↻ Повторити
-     замовлення» → cart (6.0)** + a delivery facts block — спосіб доставки · адреса (for Nova Poshta:
+     замовлення» → cart (6.0)** + a delivery facts block - спосіб доставки · адреса (for Nova Poshta:
      address + відділення/поштомат №) · **Номер ТТН** (Nova Poshta only; pickup has none) · отримувач ·
      телефон. **Job 4.**
    - Repeat adds available items to the cart and **honestly flags** anything out of stock (inline
-     «1 товар недоступний — запропонуємо заміну» note — never a silent failure or dead end).
+     «1 товар недоступний - запропонуємо заміну» note - never a silent failure or dead end).
    - Status pills: Оформлено / **В дорозі (ТТН)** / Обробляється / Доставлено / Скасовано.
    - **This list is now also the notification trigger set** (added 2026-08-04 with the MVP decision on
      order status notifications, `cjm-to-be.md` zone Z3). A message fires on the **transition**, not on
@@ -57,28 +57,28 @@
      this list would show on the card and notify nobody. Which of the five transitions are worth a
      message, and the SMS cost per order, stay `[?]` (operational). Wording lives in
      `voice/docs/microcopy.md`, tone from the phase-8 row: honest, dated, no celebration.
-   - **Mobile card (wireframe 2026-07-05):** collapsed row = a **2-col header** — left «№ / статус», right
+   - **Mobile card (wireframe 2026-07-05):** collapsed row = a **2-col header** - left «№ / статус», right
      «дата / сума» (aligned) → **small item thumbnails** → a full-width **«Детальніше ⌄»** button that
      expands. Open card stacks to one column and **ends with a «Згорнути ⌃» button**. (Desktop keeps the
      inline row + corner chevron.)
    - **States (wireframe):** `base` (accordion, first order open) · **`empty`** («Ще немає замовлень» +
      Обрати ціль / До каталогу; sidebar count badge dropped). noindex.
-3. **Лояльність і бонуси (7.4)** — **two independent mechanisms** (Decision 3), separate from the
+3. **Лояльність і бонуси (7.4)** - **two independent mechanisms** (Decision 3), separate from the
    coach's published tier. **Job 6.**
-   - **(1) Personal discount — 3 tiers on lifetime spend.** Cumulative **lifetime** purchase sum →
+   - **(1) Personal discount - 3 tiers on lifetime spend.** Cumulative **lifetime** purchase sum →
      tier (🥉 Bronze / 🥈 Silver / 🥇 Gold) → bigger **auto discount** applied in the cart. Lifetime sum
      **does not expire**. Show current tier, progress to the next, and the 3-tier ladder. Thresholds & %
      are **[?]**.
    - **Ladder rung states (locked 2026-07-31, owner: «незрозуміло, які рівні я вже отримав, а який
      наступний»).** Every rung carries **one status word** plus its own visual device, so the ladder is
-     readable at a glance and out loud: **`отримано`** (earned — check mark, white ground) ·
-     **`ваш рівень`** (the tier in force now — accent border + top marker, the same «ви тут» the section
-     nav uses) · **`наступний`** (the immediate target — dashed edge, white ground) · **`ще не відкрито`**
-     (further rungs — tinted ground, dimmed name). **The tier mark never carries state** — its fill
+     readable at a glance and out loud: **`отримано`** (earned - check mark, white ground) ·
+     **`ваш рівень`** (the tier in force now - accent border + top marker, the same «ви тут» the section
+     nav uses) · **`наступний`** (the immediate target - dashed edge, white ground) · **`ще не відкрито`**
+     (further rungs - tinted ground, dimmed name). **The tier mark never carries state** - its fill
      level already encodes *which* tier it is (low / mid / high) and its colour the metal, so every
      rung shows its own full mark whether or not it is reached; the empty jar keeps its single
      meaning, **no tier at all** (a brand-new account). State is the rung's job, not the mark's.
-   - **(2) Bonus account — ~1% accrual, 3-month expiry.** Earn **bonus hryvnia** (~1%: 600 ₴ → 6 ₴ [?])
+   - **(2) Bonus account - ~1% accrual, 3-month expiry.** Earn **bonus hryvnia** (~1%: 600 ₴ → 6 ₴ [?])
      on purchases; **bonuses expire after 3 months**, so the **ledger shows accrual AND expiry/burn rows**
      (+ a «X ₴ згорять DD.MM» warning). Spend in the cart. Goal = **retention** (come back to spend).
    - The header «Бонуси» element links here; guest sees «бонуси / Отримати» → registration. The full
@@ -86,14 +86,14 @@
    - **Block order (locked, consistent with the 7.0 overview): bonuses first, then loyalty.** The two
      cards are titled **«Бонусний рахунок»** and **«Рівень лояльності»** (not «Механізм 1/2»).
    - **States (wireframe, updated 2026-07-05):** `base` (🥈 Silver, mid-progress) · **`empty`** (new
-     buyer — bonus **0 ₴**, base tier **0%**, «до 🥉 Бронзи ще 3 000 ₴» [example], empty ledger; sidebar
+     buyer - bonus **0 ₴**, base tier **0%**, «до 🥉 Бронзи ще 3 000 ₴» [example], empty ledger; sidebar
      chip «Базовий рівень»; explanations kept) · **`max`** (🥇 Gold −8%, full bar, «максимальний рівень
      досягнуто», no next-tier target; explanations kept). Private → **noindex**.
-4. **Адреси (7.5)** — list + add/edit + one **default**. Address types mirror the delivery options
+4. **Адреси (7.5)** - list + add/edit + one **default**. Address types mirror the delivery options
    (Nova Poshta відділення/поштомат · courier · Odesa pickup). Speeds up checkout (6.x).
    - **Add-address = a method-first dialog (wireframe 2026-07-05).** «＋ Додати адресу» opens a shared
-     dialog (`wfAddrDialog` in `_nav.js`): **step 1 «choose»** picks the method — **📦 Відділення / 🔳
-     Поштомат / 🚚 Кур'єр** (Nova Poshta) — then **step 2 = a method-specific form**: Відділення / Поштомат
+     dialog (`wfAddrDialog` in `_nav.js`): **step 1 «choose»** picks the method - **📦 Відділення / 🔳
+     Поштомат / 🚚 Кур'єр** (Nova Poshta) - then **step 2 = a method-specific form**: Відділення / Поштомат
      ask city + branch/parcel-locker № + recipient + phone; Кур'єр asks city + street + house/flat +
      entrance/floor (opt) + recipient + phone. Each form has a **«‹ Інший спосіб» back** + «Зробити
      основною» + save. **City reuses the global «Оберіть місто» dialog (0.1a).** Pickup is chosen in the
@@ -105,9 +105,9 @@
    - **States (wireframe):** `base` (saved list) · **`empty`** («Ще немає збережених адрес» + add;
      count badge dropped) · `add` (chooser) · `viddilennia` · `postomat` · `courier` (add-form snapshots)
      · **`edit`** (edit form + delete row) · **`delete`** (delete-confirm). noindex.
-5. **Профіль (7.1)** — **passwordless** (consistent with auth 1.x): name · **phone (primary,
+5. **Профіль (7.1)** - **passwordless** (consistent with auth 1.x): name · **phone (primary,
    verified, change via OTP)** · **e-mail (optional, code)** · language · notification consents
-   (SMS status + e-mail reorder reminders — Decision 4) · delete account. **No password** (the old
+   (SMS status + e-mail reorder reminders - Decision 4) · delete account. **No password** (the old
    sitemap «Пароль» is removed).
    - **Actions are working dialogs (wireframe 2026-07-05, shared `wfProfileDialogs` in `_nav.js`):**
      **Change phone / add-or-change e-mail = a 2-step OTP flow** (enter new value → «Отримати код» →
@@ -117,38 +117,38 @@
      accounting) and **gates the button behind an «Розумію…» checkbox**. Save + each action fire toasts.
    - **States (wireframe):** `base` (e-mail «не додано») · **`withemail`** (e-mail added + «✓ підтверджено»
      → «Змінити») · `phone` (OTP step) · `email` (add dialog) · `lang` · `delete`. noindex.
-6. **Обране (7.6)** — grid of saved products using the **canonical product card**; «У кошик»
+6. **Обране (7.6)** - grid of saved products using the **canonical product card**; «У кошик»
    moves to 6.0; available to **buyer and coach**; ♡ icon in the header. «My staples» is post-launch.
    - **Card control (locked 2026-07-31, owner).** On this page the corner control is
      **«Видалити з обраного» (🗑)**, not the heart. Everything listed here is already saved, so a
-     heart could only mean *unsave* — which is not what a heart says, and the wireframe drew it
+     heart could only mean *unsave* - which is not what a heart says, and the wireframe drew it
      **unfilled**, i.e. it claimed the opposite of the page it lived on. The heart stays the
      save/unsave toggle everywhere it means a choice (catalog, PDP, and the **overview preview**,
      where it is rendered **filled**). Removal is immediate and reversible from the catalog, so no
      confirm dialog; feedback = toast «Видалено з обраного»; emptying the grid falls into the
      `empty` state in place.
-   - **One number for «скільки збережено».** The saved count appears on four surfaces — header badge,
-     section-nav counter, page count line, grid — and they must always agree; a removal updates all
+   - **One number for «скільки збережено».** The saved count appears on four surfaces - header badge,
+     section-nav counter, page count line, grid - and they must always agree; a removal updates all
      of them at once (`wfWishlistCount` in `_nav.js`). Base = **6** items.
    - **States (wireframe, 2026-07-05):** `base` (small grid) · **`empty`** (dashed emptybox «В обраному
      поки порожньо» → ♥-hint + exits Обрати ціль / До каталогу; sidebar count badge dropped) ·
-     **`many`** (large wishlist — saved-count in H1 «42 товари збережено» + **«Показати ще» load-more
+     **`many`** (large wishlist - saved-count in H1 «42 товари збережено» + **«Показати ще» load-more
      + crawlable numbered pagination**, mirroring the listing 2.1 pattern; sidebar count = 42). noindex.
-7. **Стати тренером / Я тренер (7.7)** — **same entry point as the For-Coaches landing (5.0)** so a
+7. **Стати тренером / Я тренер (7.7)** - **same entry point as the For-Coaches landing (5.0)** so a
    coach never hunts for «where to activate»: launches verification (social-link) → **5.1**. If the
-   role is already active — shows role status + tier (**Free/Pro [?]**) + a link to Coach workspace
+   role is already active - shows role status + tier (**Free/Pro [?]**) + a link to Coach workspace
    (5.2). The coach cluster (5.x) is separate and not yet at page-level.
 
 ## States
 
 - **Guest** → hitting /account opens the **auth dialog (1.0)**; after sign-in, return to the requested
   section. The private area is never rendered to a guest.
-- **Buyer (default)** — full shell, no coach items in the nav.
-- **Coach** — tier chip (Free/Pro) + «Кабінет тренера» (5.2) / «Клієнти» (5.3) in the nav; «Стати
+- **Buyer (default)** - full shell, no coach items in the nav.
+- **Coach** - tier chip (Free/Pro) + «Кабінет тренера» (5.2) / «Клієнти» (5.3) in the nav; «Стати
   тренером» becomes «Я тренер» (status).
 - **Empty:** orders / wishlist / addresses each have an empty state; bonuses = 0 shows how to earn.
-- **Repeat with OOS** — cart gets the available items; missing ones are flagged + alternative.
-- **Loading** — skeletons; confirmed actions → toast.
+- **Repeat with OOS** - cart gets the available items; missing ones are flagged + alternative.
+- **Loading** - skeletons; confirmed actions → toast.
 
 ## SEO / privacy
 
@@ -168,12 +168,12 @@ block: **`noindex, nofollow`, no schema.** URLs are plain (`/account`, `/account
 5. **Profile is passwordless** (phone/e-mail by code); the stale «Пароль» is removed.
 6. **Wishlist** uses the canonical card; buyer + coach; «My staples» post-launch.
 7. **«Стати тренером»** = the same entry as landing 5.0 → verification 5.1.
-8. **Private zone** — noindex, no schema (A–E exception, like 1.x).
+8. **Private zone** - noindex, no schema (A–E exception, like 1.x).
 
 ## Open questions [?]
 
-- **Loyalty:** levels, thresholds, discount %, counting period — real data / unit economics.
-- **Bonuses:** mechanic (points vs %), rate, expiry, accrual/spend — [?].
-- **Reorder reminders:** channels (SMS/e-mail) + consumption-cycle trigger — Decision 4, data [?].
-- **Coach workspace (5.x)** — separate cluster, not yet page-level (7.7 → 5.1/5.2 link).
-- **Order documents** (invoice / waybill) — format/availability operational [?].
+- **Loyalty:** levels, thresholds, discount %, counting period - real data / unit economics.
+- **Bonuses:** mechanic (points vs %), rate, expiry, accrual/spend - [?].
+- **Reorder reminders:** channels (SMS/e-mail) + consumption-cycle trigger - Decision 4, data [?].
+- **Coach workspace (5.x)** - separate cluster, not yet page-level (7.7 → 5.1/5.2 link).
+- **Order documents** (invoice / waybill) - format/availability operational [?].

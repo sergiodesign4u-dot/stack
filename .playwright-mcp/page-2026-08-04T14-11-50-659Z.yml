@@ -1,0 +1,476 @@
+- generic [active] [ref=f54e1]:
+  - complementary [ref=f54e2]:
+    - link "Stack дизайн-процес" [ref=f54e3] [cursor=pointer]:
+      - /url: ../../index.html
+      - text: Stack
+      - generic [ref=f54e4]: дизайн-процес
+    - navigation [ref=f54e5]:
+      - link "Дослідження" [ref=f54e7] [cursor=pointer]:
+        - /url: ../../research/research.html
+      - link "Дослідження людей" [ref=f54e9] [cursor=pointer]:
+        - /url: ../../research/personas.html
+      - link "Інформаційна архітектура" [ref=f54e11] [cursor=pointer]:
+        - /url: ../../ia/flows.html
+      - link "Вайрфрейми" [ref=f54e13] [cursor=pointer]:
+        - /url: ../../wireframes/overview.html
+      - link "Голос продукту" [ref=f54e15] [cursor=pointer]:
+        - /url: ../../voice/voice.html
+      - link "Концепт" [ref=f54e17] [cursor=pointer]:
+        - /url: ../../design/concept/directions.html
+      - generic [ref=f54e18]:
+        - generic [ref=f54e19]: UI + візуал
+        - generic [ref=f54e20]:
+          - link "Всі екрани" [ref=f54e22] [cursor=pointer]:
+            - /url: ../../design/overview.html
+          - generic [ref=f54e23]:
+            - link "Кіт компонентів" [ref=f54e24] [cursor=pointer]:
+              - /url: ../../design/kit/kit.html
+            - generic [ref=f54e25]:
+              - link "Атоми" [ref=f54e26] [cursor=pointer]:
+                - /url: "#atoms"
+              - link "Молекули" [ref=f54e27] [cursor=pointer]:
+                - /url: "#molecules"
+              - link "Організми" [ref=f54e28] [cursor=pointer]:
+                - /url: "#organisms"
+              - link "Токени" [ref=f54e29] [cursor=pointer]:
+                - /url: "#tokens"
+              - link "Інвентар" [ref=f54e30] [cursor=pointer]:
+                - /url: "#inventory"
+      - generic [ref=f54e32]:
+        - text: Токени і компоненти
+        - generic [ref=f54e33]: Next
+      - generic [ref=f54e35]:
+        - text: Дизайн-система
+        - generic [ref=f54e36]: Soon
+      - generic [ref=f54e38]:
+        - text: Адаптив
+        - generic [ref=f54e39]: Soon
+      - generic [ref=f54e41]:
+        - text: Анімація
+        - generic [ref=f54e42]: Soon
+      - generic [ref=f54e44]:
+        - text: Хендоф
+        - generic [ref=f54e45]: Soon
+  - main [ref=f54e46]:
+    - generic [ref=f54e47]:
+      - generic [ref=f54e48]: Етап 07 · UI + візуал
+      - heading "Кіт компонентів" [level=1] [ref=f54e49]
+      - paragraph [ref=f54e50]:
+        - text: "Екран - це композиція, а не малюнок. Між мовою і сторінками стоїть кіт: спільний"
+        - code [ref=f54e51]: kit.css
+        - text: плюс ця вітрина. Нове зʼявляється спершу тут, потім на екрані; правка живе в змінній або в класі, а не в окремій сторінці.
+      - generic [ref=f54e52]:
+        - generic [ref=f54e53]: Компонентів 51
+        - generic [ref=f54e54]: Рівнів 3
+        - generic [ref=f54e55]: Прочитано з 142 файлів (141 екран + хаб)
+        - generic [ref=f54e56]: Джерело істини design/kit/inventory.md
+    - generic [ref=f54e57]:
+      - text: "Ця сторінка вантажить ті самі два стилі, що й продукт, у тому самому порядку:"
+      - code [ref=f54e58]: wireframes/_wf.css
+      - text: "->"
+      - code [ref=f54e59]: kit/kit.css
+      - text: ". Вітрина з власною розміткою нічого б не доводила: компонент тут має бути тим самим компонентом, що там. Тому організми, які існують лише як рендер-функції (JS), показані рядком із посиланням на сцену, що їх тримає, а не підробленим полотном."
+    - generic [ref=f54e60]:
+      - generic [ref=f54e61]:
+        - generic [ref=f54e62]: рівень 1
+        - heading "Атоми" [level=2] [ref=f54e63]
+      - paragraph [ref=f54e64]: "Не містять нічого з кіта. Форм-контроли входять сюди навіть з одним входженням: це примітиви взаємодії, і система без них неповна."
+      - generic [ref=f54e65]:
+        - generic [ref=f54e66]:
+          - generic [ref=f54e67]: Кнопка
+          - generic [ref=f54e68]: .btn · .btn.dark · .btn.on
+          - generic [ref=f54e69]: 90 екранів
+        - generic [ref=f54e70]:
+          - generic [ref=f54e71]:
+            - generic [ref=f54e72]: Головна
+            - link "У кошик" [ref=f54e73] [cursor=pointer]:
+              - /url: "#atoms"
+          - generic [ref=f54e74]:
+            - generic [ref=f54e75]: Контурна
+            - link "Переглянути колекцію" [ref=f54e76] [cursor=pointer]:
+              - /url: "#atoms"
+          - generic [ref=f54e77]:
+            - generic [ref=f54e78]: Обрана
+            - link "Списком" [ref=f54e79] [cursor=pointer]:
+              - /url: "#atoms"
+        - generic [ref=f54e80]: "Правило: на екрані рівно одна залита оранжева дія. Друга залита кнопка означає, що екран не вирішив, який крок головний."
+      - generic [ref=f54e81]:
+        - generic [ref=f54e82]:
+          - generic [ref=f54e83]: Ціна
+          - generic [ref=f54e84]: .pnew · .pold · .perserv · .pcut
+          - generic [ref=f54e85]: 30 екранів
+        - generic [ref=f54e86]:
+          - generic [ref=f54e87]:
+            - generic [ref=f54e88]: Зі знижкою
+            - generic [ref=f54e89]: 1 520 ₴−15%1 290 ₴
+          - generic [ref=f54e90]:
+            - generic [ref=f54e91]: Без знижки
+            - generic [ref=f54e92]: 1 050 ₴
+          - generic [ref=f54e93]:
+            - generic [ref=f54e94]: За порцію
+            - generic [ref=f54e95]: 18 ₴ / порція
+        - generic [ref=f54e96]:
+          - text: Ціна зі знижкою бере акцент, ціна без знижки лишається чорнильною. Керується даними через
+          - code [ref=f54e97]: :has()
+          - text: "на закресленій ціні, тож колір не може розійтися з фактом. Акцент дозволений від 19px bold: #FF5A00 на білому це 3.13:1."
+      - generic [ref=f54e98]:
+        - generic [ref=f54e99]:
+          - generic [ref=f54e100]: Мітка наявності
+          - generic [ref=f54e101]: .pavail
+          - generic [ref=f54e102]: 30 екранів
+        - generic [ref=f54e103]:
+          - generic [ref=f54e104]:
+            - generic [ref=f54e105]: Є
+            - generic [ref=f54e106]: В наявності
+          - generic [ref=f54e107]:
+            - generic [ref=f54e108]: Мало
+            - generic [ref=f54e109]: Залишилось мало
+          - generic [ref=f54e110]:
+            - generic [ref=f54e111]: Немає
+            - generic [ref=f54e112]: Немає в наявності
+        - generic [ref=f54e113]: "Чесність через текст, а не через колір: стан читається і без кольору."
+      - generic [ref=f54e114]:
+        - generic [ref=f54e115]:
+          - generic [ref=f54e116]: Бейдж і тег
+          - generic [ref=f54e117]: .tag
+          - generic [ref=f54e118]: 36 екранів
+        - generic [ref=f54e119]:
+          - generic [ref=f54e120]:
+            - generic [ref=f54e121]: Хіт
+            - generic [ref=f54e122]: ★ ПОПУЛЯРНЕ
+          - generic [ref=f54e123]:
+            - generic [ref=f54e124]: Новинка
+            - generic [ref=f54e125]: ✦ НОВИНКА
+      - generic [ref=f54e126]:
+        - generic [ref=f54e127]:
+          - generic [ref=f54e128]: Рейтинг
+          - generic [ref=f54e129]: .rate
+          - generic [ref=f54e130]: 30 екранів
+        - generic [ref=f54e131]:
+          - generic [ref=f54e132]:
+            - generic [ref=f54e133]: З відгуками
+            - generic [ref=f54e134]: ★ 4.8 · 126 відгуків
+          - generic [ref=f54e135]:
+            - generic [ref=f54e136]: Без відгуків
+            - generic [ref=f54e137]: Ще немає відгуків
+        - generic [ref=f54e138]: "Зірка навмисно жовта, не оранжева: це знак відгуку, а не дії. Оранжевий на екрані означає рівно одне - куди натиснути."
+      - generic [ref=f54e139]:
+        - generic [ref=f54e140]:
+          - generic [ref=f54e141]: Дія картки і обране
+          - generic [ref=f54e142]: .cartbtn · .fav
+          - generic [ref=f54e143]: 31 / 27 екранів
+        - generic [ref=f54e144]:
+          - generic [ref=f54e145]:
+            - generic [ref=f54e146]: У кошик
+            - button "У кошик"
+          - generic [ref=f54e147]:
+            - generic [ref=f54e148]: Обране
+            - button "В обране" [ref=f54e149] [cursor=pointer]: ♡
+        - generic [ref=f54e150]: На сторінці «Обране» той самий кутовий слот несе іншу дію - видалити. Іконка називає дію в цьому місці, а не сутність узагалі.
+    - generic [ref=f54e151]:
+      - generic [ref=f54e152]:
+        - generic [ref=f54e153]: рівень 2
+        - heading "Молекули" [level=2] [ref=f54e154]
+      - paragraph [ref=f54e155]: Містять атоми. Тут живе канонічна картка товару - найважчий компонент продукту за охопленням.
+      - generic [ref=f54e156]:
+        - generic [ref=f54e157]:
+          - generic [ref=f54e158]: Картка товару
+          - generic [ref=f54e159]: .pcard
+          - generic [ref=f54e160]: 32 екрани + кожна сітка
+        - generic [ref=f54e161]:
+          - article [ref=f54e162]:
+            - generic [ref=f54e163]: ★ ПОПУЛЯРНЕ
+            - button "В обране" [ref=f54e164] [cursor=pointer]: ♡
+            - generic [ref=f54e166]: Optimum Nutrition · США
+            - heading "Gold Standard 100% Whey 2270 г" [level=3] [ref=f54e167]
+            - generic [ref=f54e168]: В наявності
+            - generic [ref=f54e169]:
+              - generic [ref=f54e170]: 1 520 ₴
+              - generic [ref=f54e171]: −15%
+            - generic [ref=f54e172]:
+              - generic [ref=f54e173]: 1 290 ₴
+              - button "У кошик" [ref=f54e175] [cursor=pointer]
+            - generic [ref=f54e176]: ★ 4.8 · 126 відгуків
+            - generic [ref=f54e177]: 18 ₴ / порція
+          - article [ref=f54e179]:
+            - button "В обране" [ref=f54e180] [cursor=pointer]: ♡
+            - generic [ref=f54e182]: BioTechUSA · Угорщина
+            - heading "Iso Whey Zero 908 г" [level=3] [ref=f54e183]
+            - generic [ref=f54e184]: В наявності
+            - generic [ref=f54e185]:
+              - generic [ref=f54e186]: 1 050 ₴
+              - button "У кошик" [ref=f54e188] [cursor=pointer]
+            - generic [ref=f54e189]: ★ 4.7 · 88 відгуків
+            - generic [ref=f54e190]: 35 ₴ / порція
+          - article [ref=f54e192]:
+            - button "В обране" [ref=f54e193] [cursor=pointer]: ♡
+            - generic [ref=f54e195]: OstroVit · Польща
+            - heading "WPC 80 Standard 2000 г" [level=3] [ref=f54e196]
+            - generic [ref=f54e197]: Залишилось мало
+            - generic [ref=f54e198]:
+              - generic [ref=f54e199]: 1 180 ₴
+              - button "У кошик" [ref=f54e201] [cursor=pointer]
+            - generic [ref=f54e202]: ★ 4.5 · 52 відгуки
+            - generic [ref=f54e203]: 20 ₴ / порція
+          - article [ref=f54e205]:
+            - button "В обране" [ref=f54e206] [cursor=pointer]: ♡
+            - generic [ref=f54e208]: Scitec Nutrition · Угорщина
+            - heading "100% Whey Protein Professional 920 г" [level=3] [ref=f54e209]
+            - generic [ref=f54e210]: Немає в наявності
+            - generic [ref=f54e211]:
+              - generic [ref=f54e212]: 845 ₴
+              - button "У кошик" [ref=f54e214] [cursor=pointer]
+            - generic [ref=f54e215]: ★ 4.6 · 64 відгуки
+            - generic [ref=f54e216]: 31 ₴ / порція
+        - generic [ref=f54e218]:
+          - text: Один компонент, чотири стани даних. Варіант
+          - code [ref=f54e219]: .pcard-l
+          - text: (списком) - ті самі зони в іншій розкладці, тож це варіант, а не окремий компонент. Висоти рядків фіксовані, щоб ціна й кнопка ніколи не стрибали між картками.
+      - generic [ref=f54e220]:
+        - generic [ref=f54e221]:
+          - generic [ref=f54e222]: Хлібні крихти
+          - generic [ref=f54e223]: .crumb
+          - generic [ref=f54e224]: 111 екранів
+        - navigation [ref=f54e226]:
+          - link "Головна" [ref=f54e227] [cursor=pointer]:
+            - /url: "#molecules"
+          - text: /
+          - link "Каталог" [ref=f54e228] [cursor=pointer]:
+            - /url: "#molecules"
+          - text: /Протеїн
+      - generic [ref=f54e229]:
+        - generic [ref=f54e230]:
+          - generic [ref=f54e231]: Порожній стан
+          - generic [ref=f54e232]: .emptybox · .emptybox.mini
+          - generic [ref=f54e233]: 27 екранів
+        - generic [ref=f54e235]:
+          - generic: 🫙
+          - generic [ref=f54e236]: Тут поки порожньо
+          - generic [ref=f54e237]: Оберіть ціль - і ми покажемо, з чого почати.
+          - generic [ref=f54e238]:
+            - link "Обрати ціль" [ref=f54e239] [cursor=pointer]:
+              - /url: "#molecules"
+            - link "До каталогу" [ref=f54e240] [cursor=pointer]:
+              - /url: "#molecules"
+        - generic [ref=f54e241]: "Порожньо - це не помилка, і воно ніколи не тупик: у стані завжди є вихід."
+    - generic [ref=f54e242]:
+      - generic [ref=f54e243]:
+        - generic [ref=f54e244]: рівень 3
+        - heading "Організми" [level=2] [ref=f54e245]
+      - paragraph [ref=f54e246]: "Містять молекули або є оболонкою екрана. Три - це стеля: діалог входу містить форму, а форма теж організм, але четвертий щабель це патерни, і критерій там інший - повторюваність, а не вкладеність. Спершу ті, що інших організмів не містять."
+      - table [ref=f54e248]:
+        - rowgroup [ref=f54e249]:
+          - row [ref=f54e250]:
+            - columnheader "Компонент" [ref=f54e251]
+            - columnheader "Клас" [ref=f54e252]
+            - columnheader "Екранів" [ref=f54e253]
+            - columnheader "Де стоїть" [ref=f54e254]
+        - rowgroup [ref=f54e255]:
+          - row [ref=f54e256]:
+            - cell "Сітка товарів" [ref=f54e257]
+            - cell [ref=f54e258]:
+              - code [ref=f54e259]: .prow2
+            - cell "30" [ref=f54e260]
+            - cell [ref=f54e261]:
+              - link "Лістинг 2.1" [ref=f54e262] [cursor=pointer]:
+                - /url: ../listing.html
+          - row [ref=f54e263]:
+            - cell "Рейка фільтрів" [ref=f54e264]
+            - cell [ref=f54e265]:
+              - code [ref=f54e266]: .frail
+            - cell "12" [ref=f54e267]
+            - cell [ref=f54e268]:
+              - link "Лістинг з фільтрами" [ref=f54e269] [cursor=pointer]:
+                - /url: ../listing-filtered.html
+          - row [ref=f54e270]:
+            - cell "Шухляда кошика" [ref=f54e271]
+            - cell [ref=f54e272]:
+              - code [ref=f54e273]: .cdrawer
+            - cell "6" [ref=f54e274]
+            - cell [ref=f54e275]:
+              - link "Кошик 6.0" [ref=f54e276] [cursor=pointer]:
+                - /url: ../cart.html
+          - row [ref=f54e277]:
+            - cell "Липка смуга покупки" [ref=f54e278]
+            - cell [ref=f54e279]:
+              - code [ref=f54e280]: .mbuybar
+            - cell "3" [ref=f54e281]
+            - cell [ref=f54e282]:
+              - link "Картка товару 3.0" [ref=f54e283] [cursor=pointer]:
+                - /url: ../product.html
+              - text: ", мобілка"
+          - row [ref=f54e284]:
+            - cell "Модалка відгуку" [ref=f54e285]
+            - cell [ref=f54e286]:
+              - code [ref=f54e287]: .pm
+            - cell "1" [ref=f54e288]
+            - cell [ref=f54e289]:
+              - link "Відгуки 3.1" [ref=f54e290] [cursor=pointer]:
+                - /url: ../product-reviews.html
+          - row [ref=f54e291]:
+            - cell "Мобільний шит фільтрів" [ref=f54e292]
+            - cell [ref=f54e293]:
+              - code [ref=f54e294]: .mfs
+            - cell "JS" [ref=f54e295]
+            - cell [ref=f54e296]:
+              - link "Шит фільтрів" [ref=f54e297] [cursor=pointer]:
+                - /url: ../listing-sheet.html
+          - row [ref=f54e298]:
+            - cell "Оверлей діалогу" [ref=f54e299]
+            - cell [ref=f54e300]:
+              - code [ref=f54e301]: .wf-ov
+            - cell "JS" [ref=f54e302]
+            - 'cell "спільний: місто, шухляда, модалки" [ref=f54e303]'
+          - row [ref=f54e304]:
+            - cell "Діалог міста" [ref=f54e305]
+            - cell [ref=f54e306]:
+              - code [ref=f54e307]: .wf-city
+            - cell "JS" [ref=f54e308]
+            - cell "чип 📍 у хедері" [ref=f54e309]
+          - row [ref=f54e310]:
+            - cell "Діалог авторизації" [ref=f54e311]
+            - cell [ref=f54e312]:
+              - code [ref=f54e313]: .auth-modal
+            - cell "JS" [ref=f54e314]
+            - cell [ref=f54e315]:
+              - link "Авторизація 1.x" [ref=f54e316] [cursor=pointer]:
+                - /url: ../auth.html
+          - row [ref=f54e317]:
+            - cell "Банер cookie" [ref=f54e318]
+            - cell [ref=f54e319]:
+              - code [ref=f54e320]: .wf-cookie
+            - cell "JS" [ref=f54e321]
+            - cell "вузол S, на всіх сторінках" [ref=f54e322]
+          - row [ref=f54e323]:
+            - cell "Мобільний таб-бар" [ref=f54e324]
+            - cell [ref=f54e325]:
+              - code [ref=f54e326]: .wf-tabbar
+            - cell "JS" [ref=f54e327]
+            - cell "основна мобільна навігація" [ref=f54e328]
+          - row [ref=f54e329]:
+            - cell "Футер" [ref=f54e330]
+            - cell [ref=f54e331]:
+              - code [ref=f54e332]: .wff
+            - cell "JS" [ref=f54e333]
+            - cell "вузол 0.2, 129 екранів із обвязкою" [ref=f54e334]
+          - row [ref=f54e335]:
+            - cell "Оболонка кабінету" [ref=f54e336]
+            - cell [ref=f54e337]:
+              - code [ref=f54e338]: .acc
+            - cell "44" [ref=f54e339]
+            - cell [ref=f54e340]:
+              - link "Кабінет 7.0" [ref=f54e341] [cursor=pointer]:
+                - /url: ../account.html
+          - row [ref=f54e342]:
+            - cell "Хедер" [ref=f54e343]
+            - cell [ref=f54e344]:
+              - code [ref=f54e345]: .wfh
+            - cell "5 + JS" [ref=f54e346]
+            - cell "вузол 0.1, усі екрани" [ref=f54e347]
+          - row [ref=f54e348]:
+            - cell "Мега-меню" [ref=f54e349]
+            - cell [ref=f54e350]:
+              - code [ref=f54e351]: .mega
+            - cell "5 + JS" [ref=f54e352]
+            - cell "усередині хедера" [ref=f54e353]
+      - generic [ref=f54e354]:
+        - text: Девʼять компонентів існують лише як рендер-функції у
+        - code [ref=f54e355]: wireframes/_nav.js
+        - text: ", і ще два (хедер, мега-меню) рендеряться там додатково до розмітки - разом 11. Саме тому кількість екранів - погана міра важливості: футер має нуль у розмітці й рендериться на 129 екранах (діалоги, системні сторінки і хаб продуктової обвязки не несуть) - цього не покаже жоден скан розмітки."
+    - generic [ref=f54e356]:
+      - generic [ref=f54e357]:
+        - generic [ref=f54e358]: основа
+        - heading "Токени" [level=2] [ref=f54e359]
+      - paragraph [ref=f54e360]:
+        - text: Блок
+        - code [ref=f54e361]: :root
+        - text: живцем із
+        - code [ref=f54e362]: kit.css
+        - text: "- зчитується з документа, тож розійтися з файлом не може. Походження кожного значення - у"
+        - code [ref=f54e363]: DESIGN-artifacts.md
+        - text: . На етапі 08 цей блок розколеться на primitive + semantic.
+      - generic [ref=f54e364]:
+        - generic [ref=f54e365]:
+          - generic [ref=f54e367]: "--ink"
+          - generic [ref=f54e368]: "#1C1C1C"
+        - generic [ref=f54e369]:
+          - generic [ref=f54e371]: "--strong"
+          - generic [ref=f54e372]: "#1C1C1C"
+        - generic [ref=f54e373]:
+          - generic [ref=f54e375]: "--sec"
+          - generic [ref=f54e376]: "#5B5B54"
+        - generic [ref=f54e377]:
+          - generic [ref=f54e379]: "--light"
+          - generic [ref=f54e380]: "#6E6A62"
+        - generic [ref=f54e381]:
+          - generic [ref=f54e383]: "--faint"
+          - generic [ref=f54e384]: "#6E6A62"
+        - generic [ref=f54e385]:
+          - generic [ref=f54e387]: "--hair"
+          - generic [ref=f54e388]: "#E9E7E2"
+        - generic [ref=f54e389]:
+          - generic [ref=f54e391]: "--hair2"
+          - generic [ref=f54e392]: "#D9D9D9"
+        - generic [ref=f54e393]:
+          - generic [ref=f54e395]: "--fill"
+          - generic [ref=f54e396]: "#F2F0ED"
+        - generic [ref=f54e397]:
+          - generic [ref=f54e399]: "--fill2"
+          - generic [ref=f54e400]: "#FAF9F7"
+        - generic [ref=f54e401]:
+          - generic [ref=f54e403]: "--dark"
+          - generic [ref=f54e404]: "#1C1C1C"
+        - generic [ref=f54e405]:
+          - generic [ref=f54e407]: "--orange"
+          - generic [ref=f54e408]: "#FF5A00"
+        - generic [ref=f54e409]:
+          - generic [ref=f54e411]: "--ok"
+          - generic [ref=f54e412]: "#2E7D46"
+        - generic [ref=f54e413]:
+          - generic [ref=f54e415]: "--warn"
+          - generic [ref=f54e416]: "#8A5A0E"
+        - generic [ref=f54e417]:
+          - generic [ref=f54e419]: "--err"
+          - generic [ref=f54e420]: "#C42B1C"
+        - generic [ref=f54e421]:
+          - generic [ref=f54e423]: "--info"
+          - generic [ref=f54e424]: "#4A5568"
+        - generic [ref=f54e425]:
+          - generic [ref=f54e427]: "--gold"
+          - generic [ref=f54e428]: "#8A5A0E"
+        - generic [ref=f54e429]:
+          - generic [ref=f54e431]: "--star"
+          - generic [ref=f54e432]: "#F6A800"
+    - generic [ref=f54e433]:
+      - generic [ref=f54e434]:
+        - generic [ref=f54e435]: карта
+        - heading "Інвентар" [level=2] [ref=f54e436]
+      - paragraph [ref=f54e437]:
+        - text: "51 компонент: 18 атомів, 18 молекул, 15 організмів. Прочитано з усіх 142 файлів вайрфреймів, а не з пофарбованої вибірки: система, побудована під 40 екранів, на розкотці недорахувалась би половини. Повна таблиця - у"
+        - code [ref=f54e438]: design/kit/inventory.md
+        - text: .
+      - table [ref=f54e440]:
+        - rowgroup [ref=f54e441]:
+          - row [ref=f54e442]:
+            - columnheader "Рівень" [ref=f54e443]
+            - columnheader "Компонентів" [ref=f54e444]
+            - columnheader "Що це" [ref=f54e445]
+            - columnheader "Що з цього бере етап 08" [ref=f54e446]
+        - rowgroup [ref=f54e447]:
+          - row [ref=f54e448]:
+            - cell "1 · Атоми" [ref=f54e449]
+            - cell "18" [ref=f54e450]
+            - cell "не містять нічого з кіта" [ref=f54e451]
+            - cell [ref=f54e452]:
+              - text: перші файли розколу, перші
+              - code [ref=f54e453]: "@import"
+          - row [ref=f54e454]:
+            - cell "2 · Молекули" [ref=f54e455]
+            - cell "18" [ref=f54e456]
+            - cell "містять атоми" [ref=f54e457]
+            - cell "другий раунд; картка товару - найважча" [ref=f54e458]
+          - row [ref=f54e459]:
+            - cell "3 · Організми" [ref=f54e460]
+            - cell "15" [ref=f54e461]
+            - cell "містять молекули або є оболонкою" [ref=f54e462]
+            - cell "останній раунд; усередині - спершу ті, що організмів не містять" [ref=f54e463]

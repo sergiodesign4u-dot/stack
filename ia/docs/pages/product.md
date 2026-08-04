@@ -1,12 +1,12 @@
-# Page-level IA — Product detail (node 3.0)
+# Page-level IA - Product detail (node 3.0)
 
 - **Node:** 3.0 Product detail. Sub-nodes on the same page: **3.1 Reviews**, **3.2 Questions**,
   **3.3 Related** (rendered as in-page sections, not separate routes).
-- **Type:** product detail page (PDP) — the **conversion target of every product card** and the
+- **Type:** product detail page (PDP) - the **conversion target of every product card** and the
   home of the trust/verify job.
 - **Canonical visual:** `ia/product.html` (Ukrainian, B/W wireframe). This markdown is the source
   of truth (English).
-- **Jobs:** **Job 4 — verify a product is safe, certified, correctly dosed** (the page's reason to
+- **Jobs:** **Job 4 - verify a product is safe, certified, correctly dosed** (the page's reason to
   exist; composition · dosage · origin · certification, per sitemap cluster 3) and the **conversion
   step** of Job 2 (beginner) and Job 3 (regular). In a coach session it is also a quick-add surface.
 - **Flow source:** `research/docs/flows.md` → "Job 3 - verify product safety before buying". The
@@ -23,7 +23,7 @@
 ## Decisions (recommendations, flagged for review)
 
 - **Trust is the lead, not a tab buried below the fold (principle #1).** The four trust facts the
-  flow names — **Склад · Дозування · Походження · Сертифікація** — are a first-class block directly
+  flow names - **Склад · Дозування · Походження · Сертифікація** - are a first-class block directly
   under the buy box, not hidden behind a single «Опис» accordion. The marketing description sits
   *after* the trust facts, not before.
 - **One clear next step (principle #2).** A single primary CTA «У кошик». On mobile it becomes a
@@ -37,7 +37,7 @@
   base product URL** (no thin duplicate pages). Out-of-stock variants are shown disabled, not hidden.
 - **Calm, honest availability (principle #4).** No countdown timers, no fake scarcity. Availability
   states are plain text; out-of-stock offers **«Повідомити про надходження»** (8.x) and a route back
-  to the collection — never a dead end.
+  to the collection - never a dead end.
 - **Reviews + certificate are the conversion recovery.** Per the flow, an unsure buyer is routed to
   **reviews (3.1)** and **certificate content** on the same screen before leaving. Both live on the
   PDP; the certificate is **real viewable content** (image/PDF), not just a claim.
@@ -48,21 +48,21 @@
 
 ## Block order (mobile-first)
 
-0. **Header** — inherited (Navigation 0.1).
-1. **Breadcrumb** — Головна / Каталог / [Категорія] / [Товар] (BreadcrumbList; crawlable `<a>`).
-1a. **Product section-nav tabs** — Про товар · Склад · Дозування · Характеристики · Відгуки · Питання
+0. **Header** - inherited (Navigation 0.1).
+1. **Breadcrumb** - Головна / Каталог / [Категорія] / [Товар] (BreadcrumbList; crawlable `<a>`).
+1a. **Product section-nav tabs** - Про товар · Склад · Дозування · Характеристики · Відгуки · Питання
    (anchor links to the page sections). **On scroll the tab bar sticks under the simplified header
-   (the sticky header variant — main bar only, no meta bar) and becomes part of it**; on the right it
+   (the sticky header variant - main bar only, no meta bar) and becomes part of it**; on the right it
    gains a **compact price (with or without discount) + «Купити» + ♡** so the action is reachable at any
    scroll depth. Active tab highlights by scroll position (scroll-spy: `wfPdpSpy()` in
-   `wireframes/_nav.js`, shared by the grey prototype and the coloured copy since 2026-07-29 —
+   `wireframes/_nav.js`, shared by the grey prototype and the coloured copy since 2026-07-29 -
    before that the tabs kept whatever `.on` the markup shipped with). (Header sticky variant
    spec: `navigation.md`.)
    **The shelf carries the WHOLE price fact, not just the live figure (locked 2026-07-29):** when the
    product is discounted, the struck old price + the −% badge sit ABOVE the figure, exactly as in the
    buy box, and the two-row block is vertically centred on the CTA. A discount the page states must
    not disappear in the bar that actually sells.
-2. **Gallery** — product photos (main + thumbs); zoom; lazy-loaded below the first image.
+2. **Gallery** - product photos (main + thumbs); zoom; lazy-loaded below the first image.
 3. **Buy box** (right column on desktop, under gallery on mobile):
    - **brand · country eyebrow ABOVE the H1** (brand → 2.4), then the **H1** product name (with
      weight/size in the name). Same brand-above-title pattern as the canonical product card.
@@ -71,74 +71,74 @@
      (rating → anchors to Reviews 3.1). Availability = в наявності / залишилось мало / під
      замовлення / немає. Below ~480px the two do not fit on one row: they stack, and the
      **rating goes first** (directly under the H1). The rating star is the gold star from
-     DESIGN.md — evidence, never an action, so it is never orange.
-   - **One-line simple answer** — «для чого це» in plain language.
+     DESIGN.md - evidence, never an action, so it is never orange.
+   - **One-line simple answer** - «для чого це» in plain language.
    - **Price:** **struck (old) price + the −% discount badge BESIDE it on top → new price big below**
-     (the badge sits next to the struck price — the universal rule across PDP and all cards; decided
+     (the badge sits next to the struck price - the universal rule across PDP and all cards; decided
      2026-06-30, refined from "beside the new price"); **per-serving price** («≈ X ₴ / порція»); coach
      sees **tier price**. No discount → just the main price (no struck price / badge).
-   - **Variant selectors** — Смак · Фасування/вага (disabled when a variant is out of stock).
+   - **Variant selectors** - Смак · Фасування/вага (disabled when a variant is out of stock).
    - **Price and action share ONE row (locked 2026-07-29):** the figure on the left, the CTA + ♡ on
      the right, per-serving / bonus small print full-width under both; on phones (≤479px) they stack.
-     **No quantity stepper** — quantity is a cart job, and on a PDP a stepper only delays the one
+     **No quantity stepper** - quantity is a cart job, and on a PDP a stepper only delays the one
      clear action (this supersedes the earlier "Quantity stepper" line).
    - **Primary CTA «У кошик»** (→ Cart 6.0) + **♡ wishlist** (→ 7.6). Coach session → «Додати клієнту».
    - **Delivery + Payment block (under the CTA, decided 2026-06-30; row layout locked 2026-07-27):**
      - **One row per method: icon · method over term · price on the right.** Price and term are two
        different answers (what it costs / when it arrives) and must not be glued into one string.
        Free is stated in words, in the success colour, not as «0 ₴».
-     - **Доставка:** Нова Пошта — **відділення або поштомат** (від 50 ₴ · 1–2 дні); **кур'єр Нової
-       Пошти на адресу / до під'їзду** (від 70 ₴ · **2+ днів**); **самовивіз** (Одеса, адреса [?]) —
+     - **Доставка:** Нова Пошта - **відділення або поштомат** (від 50 ₴ · 1–2 дні); **кур'єр Нової
+       Пошти на адресу / до під'їзду** (від 70 ₴ · **2+ днів**); **самовивіз** (Одеса, адреса [?]) -
        **безкоштовно · завтра**. **самовивіз лише за наявності на точці** (own per-point stock state).
-     - **City chip in the block header** — the one input that changes every number below; opens the
+     - **City chip in the block header** - the one input that changes every number below; opens the
        shared «Оберіть місто» dialog (0.1a).
      - **Оплата:** картка онлайн / Apple·Google Pay · накладений платіж · готівка при самовивозі,
        as separate chips (not a run-on sentence).
-       (Delivery prices, terms and pickup addresses are example values — operational [?].)
-4. **Trust strip (single block, before composition).** The four micro-signals — **оригінал+гарантія ·
-   сертифікат · доставка Новою Поштою · повернення 14 днів** — moved OUT of the buy box into one
+       (Delivery prices, terms and pickup addresses are example values - operational [?].)
+4. **Trust strip (single block, before composition).** The four micro-signals - **оригінал+гарантія ·
+   сертифікат · доставка Новою Поштою · повернення 14 днів** - moved OUT of the buy box into one
    full-width block placed **right before the trust facts** (decided 2026-06-30).
-5. **Trust block — the lead (Job 4).** Four grouped facts, **all sections open by default, collapsible**:
-   - **Склад** — active ingredients **per serving** (table: речовина · на порцію · % добової норми) +
+5. **Trust block - the lead (Job 4).** Four grouped facts, **all sections open by default, collapsible**:
+   - **Склад** - active ingredients **per serving** (table: речовина · на порцію · % добової норми) +
      **full ingredient list text** + **allergens as their OWN block** (locked 2026-07-27: a safety
-     fact, so it leaves the ingredient paragraph and gets the **amber warning colour** + a triangle —
+     fact, so it leaves the ingredient paragraph and gets the **amber warning colour** + a triangle -
      amber, never Signal Orange (an action) and never the error red) + **the on-pack composition
      label, shown LARGE** (locked 2026-07-27): the pack's dark panel with the nutrition card, the
      3-step preparation row (30 г · 250–300 мл · 30 секунд), the ingredient/allergen box and the
-     manufacturer line. **Same figures as the table above** — the whole point is that the buyer can
+     manufacturer line. **Same figures as the table above** - the whole point is that the buyer can
      match the site against the pack in their hand. In the prototype it is built in DOM, not a photo:
      this block exists to be read, and a generated label image carries unreadable text. In production
      it is a real macro photo of the label.
-   - **Дозування та застосування** — how much, when, how to take; plain steps.
-   - **Походження** — manufacturer, country, importer; «оригінальний продукт» guarantee.
-   - **Сертифікація** — certificate of conformity + lab tests; **viewable certificate** (open image/PDF).
-6. **Опис (description)** — full product copy (plain language; what / who / why / key features). After
+   - **Дозування та застосування** - how much, when, how to take; plain steps.
+   - **Походження** - manufacturer, country, importer; «оригінальний продукт» guarantee.
+   - **Сертифікація** - certificate of conformity + lab tests; **viewable certificate** (open image/PDF).
+6. **Опис (description)** - full product copy (plain language; what / who / why / key features). After
    trust. **Additional product photos** row. (Per-product copy = copy stage.)
-7. **Характеристики (specs)** — full attribute table (brand · country · form · weight · servings ·
-   flavour · certification · goal) — mirrors the catalog facets.
-8. **Відгуки (3.1)** — aggregate rating + breakdown + **«Залишити відгук»**; the trust **recovery**
+7. **Характеристики (specs)** - full attribute table (brand · country · form · weight · servings ·
+   flavour · certification · goal) - mirrors the catalog facets.
+8. **Відгуки (3.1)** - aggregate rating + breakdown + **«Залишити відгук»**; the trust **recovery**
    surface. **Review item layout: name + given rating + date on the LEFT, the review text on the RIGHT.**
    Each review: **Переваги / Недоліки** categories (**may be empty → show only filled ones**),
    **photos**, **replies** («Показати відповіді (N)» → expand, with dates, photos allowed on replies),
    and **shop replies marked with a special chip (shop logo instead of a name)**. **Two states:**
    **many reviews → paginated**, **few → simple list, no pagination**.
-   - **«Залишити відгук» dialog (3.1a)** — modal (centered desktop / full-screen mobile): **rating
+   - **«Залишити відгук» dialog (3.1a)** - modal (centered desktop / full-screen mobile): **rating
      (required)** star picker · **Переваги / Недоліки** (optional) · review text · **photo upload (up
      to 5)** · name. Guest → auth dialog (1.x) → **returns to this dialog**. Submit → optional
      moderation → appears in the 3.1 feed (buyers who ordered get a **«✓ Купив товар»** badge).
-9. **Питання (3.2)** — **«Поставити запитання» opens a dialog form (3.2a)** (modal desktop / full-screen
+9. **Питання (3.2)** - **«Поставити запитання» opens a dialog form (3.2a)** (modal desktop / full-screen
    mobile): **question text + name + optional «notify me of the answer»** only; the question is added
    to the **Q&A feed**; the **shop answers (special chip)** or other buyers do; **no rating, no
-   pros/cons** — same mechanic as reviews otherwise. Optional moderation before publish. FAQ schema if
+   pros/cons** - same mechanic as reviews otherwise. Optional moderation before publish. FAQ schema if
    present. Both dialogs share: trigger button «＋ …» → modal → guest auth → return → submit → toast +
    feed insert; drawn in `product.html` §01б.
-10. **Схожі / related (3.3)** — «Схожі товари» · «З цим купують» · same-goal collection (internal
+10. **Схожі / related (3.3)** - «Схожі товари» · «З цим купують» · same-goal collection (internal
    linking + AOV). Canonical product cards.
-11. **Статті по темі (blog 8.0/8.1)** — article teasers related to the product (helps the beginner /
+11. **Статті по темі (blog 8.0/8.1)** - article teasers related to the product (helps the beginner /
    Job 2 + SEO; calm, no selling).
-12. **Sticky buy bar (mobile)** — price + «У кошик», visible after the buy box scrolls off. Same rule
+12. **Sticky buy bar (mobile)** - price + «У кошик», visible after the buy box scrolls off. Same rule
    as the shelf: a discounted product shows the struck price + −% above the live figure.
-13. **Footer** — inherited (0.2).
+13. **Footer** - inherited (0.2).
 
 ## States
 | State | Behaviour |
@@ -152,7 +152,7 @@
 | Error (details failed) | Inline error + **«Спробувати ще»** (retry), per the flow's `se → qr` recovery. |
 | Added to cart | Confirmation (toast / mini-cart drawer) with «Перейти в кошик» + «Продовжити». |
 | Coach in-session | CTA = **«Додати клієнту»**; tier price shown (per category 2.1 coach state). |
-| Unsure buyer | Same-screen route to Reviews (3.1) + certificate content before any leave (flow recovery). **Layout (locked 2026-07-30):** proof (certificate + reviews) in the main column, the product itself in a **pinned card beside it that follows the scroll**. The pinned card **is the canonical product card** (the same component as the listing grid — photo · brand · name · availability · price row with the compact cart button · rating · per-serving/bonus), plus a quiet «← Повернутись до колекції» under it; no bespoke panel, so it can never drift from the card language. The two bare CTAs at the page bottom are gone: the decision can be made at any point in the reading, and both exits live in the card. Mobile: the card moves **above** the proof as compact context (horizontal, photo left) and the **sticky buy bar** carries the persistent action. |
+| Unsure buyer | Same-screen route to Reviews (3.1) + certificate content before any leave (flow recovery). **Layout (locked 2026-07-30):** proof (certificate + reviews) in the main column, the product itself in a **pinned card beside it that follows the scroll**. The pinned card **is the canonical product card** (the same component as the listing grid - photo · brand · name · availability · price row with the compact cart button · rating · per-serving/bonus), plus a quiet «← Повернутись до колекції» under it; no bespoke panel, so it can never drift from the card language. The two bare CTAs at the page bottom are gone: the decision can be made at any point in the reading, and both exits live in the card. Mobile: the card moves **above** the proof as compact context (horizontal, photo left) and the **sticky buy bar** carries the persistent action. |
 | Reviews: many | Paginated list; rating + breakdown on top. |
 | Reviews: few | Simple list, no pagination. |
 | Review without cons | Empty «Недоліки» hidden; show only filled pros/cons. |
@@ -162,10 +162,10 @@
 
 ---
 
-## SEO block (A–E) — product template
+## SEO block (A–E) - product template
 
 **A · Meta tags (example: Gold Standard 100% Whey 2270 г)**
-- **Title (≤60):** Gold Standard 100% Whey 2270 г — купити, ціна | Stack
+- **Title (≤60):** Gold Standard 100% Whey 2270 г - купити, ціна | Stack
 - **Description (≤155):** Сироватковий протеїн Optimum Nutrition: 24 г білка/порція, оригінал
   із сертифікатом. Доставка Новою Поштою, оплата картою. Купити в Stack.
 - `canonical` → clean product URL (e.g. `/protein/gold-standard-whey/`); **variant params
@@ -178,20 +178,20 @@
 - **H2:** Склад · Дозування та застосування · Опис · Характеристики · Відгуки · Часті питання ·
   Схожі товари.
 
-**C · Ready SEO text** — plain-language description + how-to-use (root keywords, no spam,
+**C · Ready SEO text** - plain-language description + how-to-use (root keywords, no spam,
 principle #5). Per-product copy is authored at the copy stage; structure fixed here.
 
 **D · Structured data**
 - **Product** (name, image, brand, sku, description) + **Offers** (price, priceCurrency UAH,
   **availability** InStock/PreOrder/OutOfStock, priceValidUntil).
-- **AggregateRating** + **Review** (from 3.1) — eligible for review stars in SERP.
+- **AggregateRating** + **Review** (from 3.1) - eligible for review stars in SERP.
 - **BreadcrumbList** (Головна → Каталог → Категорія → Товар).
 - **FAQPage** (optional, from 3.2 Questions).
 
 **E · Optimization checklist**
 - Single **H1**; descriptive crawlable breadcrumb; brand link → 2.4.
 - **availability + price in Product/Offers schema** kept in sync with the real state (incl. out-of-stock).
-- **Certificate is real content** (viewable image/PDF), not text-only claim — trust + (indirectly) SEO.
+- **Certificate is real content** (viewable image/PDF), not text-only claim - trust + (indirectly) SEO.
 - Gallery images: `alt` (product + brand + flavour), main image not lazy (LCP), thumbs lazy-loaded.
 - Variant URLs canonical to base; no duplicate-content from flavour/size params.
 - Reviews rendered server-side (crawlable text), not only via JS.
@@ -230,7 +230,7 @@ are always above the fold**. Tab «Каталог» active.
 - Single primary CTA «У кошик» + sticky mobile bar; lead-with-simple-answer + depth. **Price and CTA
   on one row, no quantity stepper** (locked 2026-07-29).
 - **Price colour states the discount (locked 2026-07-29; full rule in `DESIGN.md` §3 Color).** A
-  reduced price is set in the accent, a price with no discount stays ink — on every price surface
+  reduced price is set in the accent, a price with no discount stays ink - on every price surface
   (card, buy box, sticky shelf, mobile bar). Consequences on this page: **out of stock carries no
   accent** (nothing to act on), and in the **coach state the live price is the tier price**, so the
   retail block above it keeps its struck price but gives the accent up (one live price per view).
@@ -238,7 +238,7 @@ are always above the fold**. Tab «Каталог» active.
 - Calm honest availability with «Повідомити» + route back to collection (no dead end).
 - **Reviews (3.1):** name+rating+date LEFT ↔ text RIGHT; **Переваги/Недоліки** (may be empty);
   photos; **replies** (expand/collapse, dates, photos); **shop reply = special chip (logo, not name)**;
-  states **many → paginated / few → no pagination**. Certificate + reviews = conversion recovery —
+  states **many → paginated / few → no pagination**. Certificate + reviews = conversion recovery -
   in that state the product is **pinned beside the proof and follows the scroll** (locked 2026-07-30;
   full description in States), instead of two bare CTAs waiting at the bottom of the page.
 - **Questions (3.2):** «Поставити запитання» = **dialog form** → Q&A feed; shop (chip) / buyers
@@ -248,12 +248,12 @@ are always above the fold**. Tab «Каталог» active.
   tier price; A–E SEO with Product/Offers + AggregateRating + Review + Breadcrumb + variant-canonical.
 
 **Still [?] (operational / data, not IA):**
-- Per-product copy, composition tables/photos, dosage text, certificate files — copy/data stage (real
+- Per-product copy, composition tables/photos, dosage text, certificate files - copy/data stage (real
   supplier data; the operational catalog-population [?] from the brief).
-- Review/rating data — needs real reviews; aggregate rating depends on volume.
-- «З цим купують» recommendation logic — needs sales data (initially manual/related-category).
-- Coach tier price value — pricing decision [?] (Free vs Pro hypothesis).
-- Per-serving price display rule when pack sizes/servings vary — confirm at data stage.
-- **Pickup addresses + delivery prices** (НП від 50 ₴, кур'єр від 70 ₴ — examples) — operational [?].
-- **Per-pickup-point stock** for the самовивіз availability — operational [?].
-- **Moderation policy** for reviews/questions before publish — [?].
+- Review/rating data - needs real reviews; aggregate rating depends on volume.
+- «З цим купують» recommendation logic - needs sales data (initially manual/related-category).
+- Coach tier price value - pricing decision [?] (Free vs Pro hypothesis).
+- Per-serving price display rule when pack sizes/servings vary - confirm at data stage.
+- **Pickup addresses + delivery prices** (НП від 50 ₴, кур'єр від 70 ₴ - examples) - operational [?].
+- **Per-pickup-point stock** for the самовивіз availability - operational [?].
+- **Moderation policy** for reviews/questions before publish - [?].

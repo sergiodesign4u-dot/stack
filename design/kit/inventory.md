@@ -2,7 +2,7 @@
 
 - **Version:** v1.0 (2026-08-04)
 - **Shown on:** `design/overview.html`, section "Інвентар"
-- **Read from:** all **142** screens in `wireframes/*.html` plus the shared render functions in
+- **Read from:** all **142 files** in `wireframes/*.html` (141 screens + the hub) plus the shared render functions in
   `wireframes/_nav.js` - **not** from the coloured subset. The colour stage narrows what we PAINT,
   never what we KNOW about the product: a system built from the 40 painted screens would be missing
   half its components at rollout.
@@ -111,11 +111,14 @@ blocks. If one of them appears a second time it stops being one-off and enters t
 
 ## What the inventory says about the product
 
-- **50 components: 18 atoms, 18 molecules, 14 organisms.**
-- **12 of them exist only as render functions** in `wireframes/_nav.js` - header, footer, tab bar,
-  overlays, dialogs, toast, cookie banner, filter group. That is the shared chrome, and it is the
-  reason the count of screens is a bad measure of importance: the footer scores zero in markup and
-  stands on all 142 screens.
+- **51 components: 18 atoms, 18 molecules, 15 organisms.**
+- **9 of them exist ONLY as render functions** in `wireframes/_nav.js` - toast, filter group,
+  mobile filter sheet, dialog overlay, city dialog, auth dialog, cookie banner, mobile tab bar,
+  footer. Two more (header, mega menu) are rendered there **as well as** appearing in markup on 5
+  screens each, so 11 components in total come out of that file. That is the shared chrome, and it
+  is why a screen count is a bad measure of importance: the footer scores zero in markup and is
+  rendered on **129** screens (dialogs, system pages and the hub carry no page chrome), which no
+  markup scan would ever show.
 - The heaviest single component by reach is the **canonical product card**: 32 screens directly, plus
   every screen that renders a grid. Stage 08 splits `kit.css` starting from the atoms it is made of,
   not from the card itself.

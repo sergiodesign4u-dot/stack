@@ -113,7 +113,7 @@ Coach channel is consistently treated as primary throughout all documents.
 
 Searching all output files for the em dash character (Unicode U+2014: -).
 
-Result: grep -Prn "—" across all research/ files and CLAUDE.md, README.md returned zero matches.
+Result: grep -Prn "-" across all research/ files and CLAUDE.md, README.md returned zero matches.
 
 **No em dashes found in any file.**
 

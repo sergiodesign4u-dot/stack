@@ -50,7 +50,7 @@ body{ font-family:'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-se
    shape. Applied by JS only where the figure is >=17px - on struck prices and fine
    print the sign stays as it is, or it would disappear. */
 .uiv-cur{ font-size:.55em; font-weight:inherit; letter-spacing:0; margin-left:.06em; }
-/* the colored header collapses to ~79px on scroll — offset anchor jumps to clear it + a gap */
+/* the colored header collapses to ~79px on scroll - offset anchor jumps to clear it + a gap */
 html{ scroll-padding-top:100px; }
 /* The header condenses by removing its meta row, i.e. it removes ~34px of page height
    mid-scroll. Scroll anchoring would "helpfully" compensate by shifting scrollY, which
@@ -219,7 +219,7 @@ input[type="checkbox"], input[type="radio"]{ accent-color:var(--orange); }
 .afilter{ background:var(--fill); border-color:var(--hair); }
 .afilter .x{ color:var(--light); }
 /* no-results: the mascot is the calm guide here (DESIGN.md §2, empty states).
-   img + multiply drops the white PNG backdrop so the bear sits on the panel — no box. */
+   img + multiply drops the white PNG backdrop so the bear sits on the panel - no box. */
 section[aria-label="Результати"] .empty .ei{ width:126px; height:126px; margin:0 auto 6px;
   border-radius:50%; overflow:hidden; font-size:0; }
 section[aria-label="Результати"] .empty .ei img{ width:126px; height:126px; object-fit:cover;
@@ -457,7 +457,7 @@ section[aria-label="Помилка"] .empty .ei img{ width:118px; height:118px; 
 .wfh-mega .mega-cat .mci{ color:var(--ink); width:24px; font-size:0; }
 .wfh-mega .mega-cat .mci .uiv-ic svg{ width:21px; height:21px; }
 .wfh-mega .mega-cat.on .mci, .wfh-mega .mega-cat:hover .mci{ color:var(--orange); }
-/* the state marker from _wf.css, in the accent (weight stays put — see the note there) */
+/* the state marker from _wf.css, in the accent (weight stays put - see the note there) */
 .wfh-mega .mega-cat:hover, .wfh-mega .mega-cat.on{ box-shadow:inset 2px 0 0 var(--orange); }
 .wfh-mega .mega-cat .ar .uiv-ic svg{ width:12px; height:12px; }
 .wfh-mega .mega-goalcard{ transition:border-color .15s ease; }
@@ -513,7 +513,7 @@ section[aria-label="Помилка"] .empty .ei img{ width:118px; height:118px; 
 .pcard .bd{ padding:14px 14px 8px; }   /* 8px from card bottom to the meta row */
 .pcard .tag{ background:#fff; border:1px solid var(--hair2); color:var(--ink);
   border-radius:100px; font-size:10px; letter-spacing:.03em; padding:4px 10px; top:11px; left:11px; }
-/* typed product badges — calm-but-visual chips (uivChrome adds .tag-pop / .tag-new) */
+/* typed product badges - calm-but-visual chips (uivChrome adds .tag-pop / .tag-new) */
 .pcard .ph .tag, .pcard-l .lph .tag{ display:inline-flex; align-items:center; gap:5px;
   border:none; letter-spacing:.05em; box-shadow:0 2px 7px rgba(20,20,15,.16); }
 .pcard .ph .tag.tag-pop, .pcard-l .lph .tag.tag-pop{ background:var(--ink); color:#fff; }
@@ -699,7 +699,7 @@ section[aria-label="Помилка"] .empty .ei img{ width:118px; height:118px; 
 /* 6: hovers use the accent colour, not ink */
 .wfh-nav .navlink:hover{ color:var(--orange); }
 .wfh-act:hover{ border-color:var(--orange); background:#fff; }
-/* «Увійти» / «Обране» (the calm .stack text-actions) stay borderless — no orange
+/* «Увійти» / «Обране» (the calm .stack text-actions) stay borderless - no orange
    outline on hover; only a faint warm wash + the icon & label turn orange.
    Boxed .numbtn (Бонуси/Кошик) keep their outline hover. */
 .wfh-act.stack:hover{ border-color:transparent; background:var(--fill2); color:var(--orange); }
@@ -734,19 +734,19 @@ section[aria-label="Помилка"] .empty .ei img{ width:118px; height:118px; 
   .wff-trust{ grid-template-columns:1fr; gap:0; padding:14px 16px; }
   /* the row treatment only half-landed before: padding and the hairline separator were
      set, but the card's own border, radius and white fill (from _wf.css) were never
-     taken off — so a narrow screen got four full-width boxes with the icon pinned to
+     taken off - so a narrow screen got four full-width boxes with the icon pinned to
      one edge and dead space to the other. A row is a row: no box around it. */
   .wff-tc{ border:none; border-radius:0; background:none; padding:13px 2px; column-gap:12px; }
   .wff-tc + .wff-tc{ box-shadow:inset 0 1px 0 var(--hair); }
   .uiv-tc-ic svg{ width:24px; height:24px; }
 }
 
-/* 5: footer links — SEO block + the main footer columns recolor to the accent on hover */
+/* 5: footer links - SEO block + the main footer columns recolor to the accent on hover */
 .seolink{ color:inherit; text-decoration:none; transition:color .15s ease; }
 .seolink:hover{ color:var(--orange); }
 .wff-col a{ transition:color .15s ease; }
 .wff-col a:hover{ color:var(--orange); }
-/* messenger marks ride the link's own colour: grey at rest, accent on hover — one
+/* messenger marks ride the link's own colour: grey at rest, accent on hover - one
    hue per hover, and the footer stays calm instead of gaining Telegram blue + Viber purple */
 .wff-col a.wff-msg .mi .uiv-ic svg{ width:16px; height:16px; }
 
@@ -1246,7 +1246,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 /* --- related articles ---------------------------------------------------------
    This used to be a warm tile carrying the logo mark, chosen because there were no
    photos. There are now (see §HOME), and `.blogcard` is one global class shared by
-   the PDP strip and the home row — so the two rule sets were fighting: the leftover
+   the PDP strip and the home row - so the two rule sets were fighting: the leftover
    `.blogcard:hover .bim{ background-size:48px }` shrank the home card's photo to
    48px the moment the pointer touched it. One card, one look: deleted, the §HOME
    block owns `.blogcard` everywhere (fixed 2026-07-30). */
@@ -1789,7 +1789,7 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 .co-total .tl{ font-size:15px; color:var(--ink); }
 .co-total .tv{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums;
   font-weight:700; font-size:27px; color:var(--ink); word-spacing:-.24em; }
-/* icon + ONE text item (.m in the markup) — otherwise the figure and the words around
+/* icon + ONE text item (.m in the markup) - otherwise the figure and the words around
    it become separate flex items and the line breaks in the middle of «+38 ₴» */
 .co-accrual{ background:#FBF7EF; border-color:#EADFCB; border-radius:11px; color:var(--sec);
   align-items:flex-start; line-height:1.5; }
@@ -1909,14 +1909,14 @@ section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
 .hstrip > .hpromo:nth-child(2){ background-image:url(../visuals/product-creatine.png); }
 .hstrip > .hpromo:nth-child(3){ background-image:url(../concept/assets/mascot-pose-present.png); background-size:80%; background-position:center 4%; }
 /* ---- offer of the day: the hero's third voice ----
-   A product card given hero room. It obeys the SAME price rule as every other card —
-   a struck price is what earns the live figure its accent — so the loudest product on
+   A product card given hero room. It obeys the SAME price rule as every other card -
+   a struck price is what earns the live figure its accent - so the loudest product on
    the page is loud for a reason a person can check, not because it is in the hero. */
 .hdeal{ border-color:var(--hair); border-radius:16px; box-shadow:var(--sh); padding:18px;
   transition:transform .15s ease, box-shadow .15s ease; }
 .hdeal:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(20,20,15,.10); }
 /* the card's own headline. It was 10.5px orange, which is below the size at which
-   #FF5A00 on white passes contrast at all — bigger is both what the slot wanted and
+   #FF5A00 on white passes contrast at all - bigger is both what the slot wanted and
    what the accent needs: Oswald 19/700 uppercase clears the large-text threshold. */
 .hdeal .hd-tag{ font-family:'Oswald', sans-serif; font-weight:700; font-size:19px;
   letter-spacing:.02em; color:var(--orange); }

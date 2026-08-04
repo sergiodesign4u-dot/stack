@@ -1,4 +1,4 @@
-# Page-level IA — Footer (node 0.2)
+# Page-level IA - Footer (node 0.2)
 
 **Type:** global component (appears on every page)
 **Visual:** `ia/footer.html` (Ukrainian, B/W wireframe)
@@ -12,9 +12,9 @@
 
 The footer does three jobs, in this order:
 
-1. **Remove the last doubt** — a trust strip (delivery, guarantee, payment, returns) repeated on every page, per design principle #1 "trust first, then sell".
-2. **Service & legal entry points** — newsletter + reviews, and the link columns (Stack / Customers / Consultation) with real contacts and chat channels.
-3. **Second large internal-linking surface for SEO** — a popular-queries block that passes weight to priority listings and feeds the crawler to key pages.
+1. **Remove the last doubt** - a trust strip (delivery, guarantee, payment, returns) repeated on every page, per design principle #1 "trust first, then sell".
+2. **Service & legal entry points** - newsletter + reviews, and the link columns (Stack / Customers / Consultation) with real contacts and chat channels.
+3. **Second large internal-linking surface for SEO** - a popular-queries block that passes weight to priority listings and feeds the crawler to key pages.
 
 Ends with a legal line, payment badges, and social icons.
 
@@ -22,7 +22,7 @@ Ends with a legal line, payment badges, and social icons.
 
 ## Structure (top → bottom)
 
-### A. Trust strip (above the footer) — 4 cards
+### A. Trust strip (above the footer) - 4 cards
 Icon (side) + heading + short text. Each card is a crawlable `<a>` to the matching info page.
 
 | Card | Heading | Sub-text | → |
@@ -37,25 +37,25 @@ crawler descriptive, keyword-relevant body text. Trust strip is **text, not imag
 (screen-reader + crawler legible). Mobile: 2×2 grid, shortened headings (full text in the
 linked info page).
 
-### B. Main footer — 4 columns (left → right)
+### B. Main footer - 4 columns (left → right)
 
-**Col 1 — Розсилка (Newsletter) + Support**
-- **Hook (benefit-led):** «Підписуйтесь на знижки!» — leads with the user benefit, not the
-  channel. Sub: "Промокоди, акції та новинки — першими на вашу пошту. Знижка на перше
+**Col 1 - Розсилка (Newsletter) + Support**
+- **Hook (benefit-led):** «Підписуйтесь на знижки!» - leads with the user benefit, not the
+  channel. Sub: "Промокоди, акції та новинки - першими на вашу пошту. Знижка на перше
   замовлення після підписки."
 - Email field + «Підписатися» button (real `<form>`).
 - Gentle anti-spam line: "Тільки користь: листи зрідка, без спаму, відписатися можна будь-коли."
 - **Підтримайте нас:** «Оцінити в Google» + «Залишити відгук».
-- Note: the welcome-discount value (e.g. −5% / fixed ₴) is **[?]** — confirm with promo/unit
+- Note: the welcome-discount value (e.g. −5% / fixed ₴) is **[?]** - confirm with promo/unit
   economics before committing the exact number; copy stays qualitative until then.
 
-**Col 2 — Stack**
+**Col 2 - Stack**
 - Про нас · Контакти · Політика конфіденційності · Публічний договір (договір приєднання) · Умови використання · Блог.
 
-**Col 3 — Клієнтам (Customers)**
+**Col 3 - Клієнтам (Customers)**
 - Система знижок · Доставка і оплата · Питання і відповіді (FAQ) · Обмін і повернення · **Для тренерів** (duplicated coach door).
 
-**Col 4 — Консультація (Consultation)** — all items with icons
+**Col 4 - Консультація (Consultation)** - all items with icons
 - Big **free phone number** first (0 800 …) + "Безкоштовно по Україні".
 - 🕐 Working days + hours (Пн–Нд, 9:00–21:00).
 - ✉️ Email (mailto:).
@@ -69,15 +69,15 @@ Modeled on UA stores (Comfy/Rozetka): free number leads, then schedule, email, c
 List of most-popular query-links (the "iPhone 17 / smartphones / laptops" pattern Comfy uses). Second large internal-linking surface. **Structure locked; exact list deferred to keyword research.**
 
 Groups:
-- **Категорії та типи** — Протеїн, Сироватковий протеїн, Ізолят, Гейнер, Креатин моногідрат, BCAA, Амінокислоти, Передтренувальні, Жироспалювачі, L-карнітин, Вітамін D3, Омега-3, Колаген.
-- **За ціллю** — Для набору маси / схуднення / відновлення / енергії / імунітету / витривалості (the 6 locked goals).
-- **Бренди** — Optimum Nutrition, BioTech, Scitec, OstroVit, Kevin Levrone, "Усі бренди →".
-- **Міста (SEO)** — Протеїн Київ, Спортивне харчування Одеса, Спортпіт Львів, Протеїн Харків, Дніпро. Drawn from the **same canonical city list** as the Navigation city-selector dialog (2.1a): 23 controlled oblast centers + large non-center cities (Crimea/occupied excluded). Which cities become SEO landing pages first is a traffic-priority call.
+- **Категорії та типи** - Протеїн, Сироватковий протеїн, Ізолят, Гейнер, Креатин моногідрат, BCAA, Амінокислоти, Передтренувальні, Жироспалювачі, L-карнітин, Вітамін D3, Омега-3, Колаген.
+- **За ціллю** - Для набору маси / схуднення / відновлення / енергії / імунітету / витривалості (the 6 locked goals).
+- **Бренди** - Optimum Nutrition, BioTech, Scitec, OstroVit, Kevin Levrone, "Усі бренди →".
+- **Міста (SEO)** - Протеїн Київ, Спортивне харчування Одеса, Спортпіт Львів, Протеїн Харків, Дніпро. Drawn from the **same canonical city list** as the Navigation city-selector dialog (2.1a): 23 controlled oblast centers + large non-center cities (Crimea/occupied excluded). Which cities become SEO landing pages first is a traffic-priority call.
 
-All items are real crawlable `<a>` with descriptive anchors. Link **only to what users actually want** — avoid diluting weight with hundreds of footer links (SEO anti-pattern).
+All items are real crawlable `<a>` with descriptive anchors. Link **only to what users actually want** - avoid diluting weight with hundreds of footer links (SEO anti-pattern).
 
 ### D. Bottom bar
-© 2026 Stack. Усі права захищені. · payment badges (Visa · Mastercard · Apple/Google Pay — reinforce "convenient payment") · socials · policy/contract links (dup of Stack column, required for UA e-commerce).
+© 2026 Stack. Усі права захищені. · payment badges (Visa · Mastercard · Apple/Google Pay - reinforce "convenient payment") · socials · policy/contract links (dup of Stack column, required for UA e-commerce).
 
 ---
 
@@ -117,16 +117,16 @@ All items are real crawlable `<a>` with descriptive anchors. Link **only to what
 - SEO popular-queries block: **structure locked** (categories/types · goals · brands · cities); exact list via keyword research.
 - Bottom bar: copyright + Visa/Mastercard/Apple-Google Pay badges + socials + policy/contract.
 - B/W wireframe mockups (colour at concept stage). Mobile: trust 2×2, newsletter+consultation expanded, link columns + SEO block as accordions.
-- **Sitemap nodes (registered 2026-06-30):** every footer destination now resolves to a node —
+- **Sitemap nodes (registered 2026-06-30):** every footer destination now resolves to a node -
   Stack column → 8.2–8.6 + Blog 8.0; Customers → Discounts **8.7**, Delivery&payment 8.4, FAQ
   **8.9**, Returns 8.5, For-coaches 5.0; trust strip Guarantee → **8.8**; "support us" → Store
   reviews **8.11**; newsletter → **8.12**; popular-queries → 2.1/2.2/2.4/2.1a. (Meta-bar «Акції»
   → Promotions **8.10**.)
 
 ## Open [?]
-- Exact popular-queries list & order (keyword research: volume, seasonality) — at SEO-copy stage.
+- Exact popular-queries list & order (keyword research: volume, seasonality) - at SEO-copy stage.
 - Real support number, hours, and live channels (operational).
-- City list — **RESOLVED 2026-06-30** (canonical list = Navigation 2.1a: 23 oblast centers +
+- City list - **RESOLVED 2026-06-30** (canonical list = Navigation 2.1a: 23 oblast centers +
   large cities; Crimea/occupied excluded). Only which cities get SEO landing pages first is a
   traffic-priority call.
-- Newsletter welcome-discount value (−5% / fixed ₴) — promo + unit economics.
+- Newsletter welcome-discount value (−5% / fixed ₴) - promo + unit economics.

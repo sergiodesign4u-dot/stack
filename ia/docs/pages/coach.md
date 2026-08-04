@@ -1,6 +1,6 @@
-# Page-level IA — Coach workspace (node 5.x, PRIMARY Job 1)
+# Page-level IA - Coach workspace (node 5.x, PRIMARY Job 1)
 
-- **Node:** 5.x — Coach workspace. One artifact covering the whole cluster: **5.0 For-Coaches landing**
+- **Node:** 5.x - Coach workspace. One artifact covering the whole cluster: **5.0 For-Coaches landing**
   (public), **5.1 Become-a-coach** (verify + tier flow), **5.2 Coach home**, **5.3 Clients**, **5.4
   Client profile** (+ **5.4a Edit client**), **5.5 Multi-client order session** (the core), **5.6 Order
   history**, **5.7 Order detail** (5.4a/5.6/5.7 added 2026-07-02 to close the Step-9 wireframe IA gaps),
@@ -8,48 +8,48 @@
   whole cluster is one spec.
 - **Type:** public landing (5.0) + private work shell (5.2–5.8 + 5.4a) + flow (5.1).
 - **Canonical visual:** `ia/coach.html`. This markdown is the source of truth.
-- **Job:** **Job 1 — PRIMARY** (Decision 1). The deepest flow by design — it is a **work flow**, not
+- **Job:** **Job 1 - PRIMARY** (Decision 1). The deepest flow by design - it is a **work flow**, not
   to be flattened (coach = ~8 taps for a 2-client order).
-- **Flow source:** `research/docs/flows.md` — "Main Job — coach builds a multi-client order in one
+- **Flow source:** `research/docs/flows.md` - "Main Job - coach builds a multi-client order in one
   session" (persona Olena).
-- **Model:** **coach-as-buyer** — a coach is a buyer who orders for clients, **not** a marketplace /
+- **Model:** **coach-as-buyer** - a coach is a buyer who orders for clients, **not** a marketplace /
   directory of coaches (consultation is out of MVP scope).
 
 ## Nodes
 
-1. **«Для тренерів» landing (5.0)** — **public, indexable** front door (from header + footer). Value
+1. **«Для тренерів» landing (5.0)** - **public, indexable** front door (from header + footer). Value
    prop for Olena (**build a multi-client order in one session**, wholesale price, reliable supply) +
    **Free / Pro comparison** + CTA «Стати тренером» (guest → auth 1.x first). Strategy v5: **price is
    the gate**, experience wins on top of it.
-2. **Стати тренером (5.1)** — role **activated on top of an existing account** (not a separate login);
+2. **Стати тренером (5.1)** - role **activated on top of an existing account** (not a separate login);
    entered from landing 5.0 **or** account 7.7. Steps: sign-in if guest → role request (name/brand,
    city, type) → **social-link verification** (Instagram / gym site → «перевіряємо») → **tier choice**
    (Free instant / Pro subscription) → Coach home. Verification states: waiting · failed→resubmit ·
    **deliberate dead end** (link doesn't confirm → no wholesale access, shop stays as a buyer) · verified.
-3. **Кабінет тренера / home (5.2)** — the **account shell (7.x) in coach mode**: tier chip on top,
+3. **Кабінет тренера / home (5.2)** - the **account shell (7.x) in coach mode**: tier chip on top,
    the big **«＋ Нова сесія замовлення»** primary CTA (→ 5.5), clients summary, recent orders, coach
    wishlist (**coach-context 5.8**, not the buyer account). Left nav = the coach «Кабінет» dropdown (Navigation 0.1). Coach loyalty =
    the **published tier** (Decision 3), separate from the buyer's personal loyalty.
    - **Shell reuse (wireframe 2026-07-05):** styling comes from `_wf.css` (same primitives as the buyer
-     account, incl. the **mobile swipeable-chips section nav**), only the coach markup differs — so the
+     account, incl. the **mobile swipeable-chips section nav**), only the coach markup differs - so the
      coach cabinet inherits the mobile nav + width fixes for free (no duplicated shell CSS).
-   - **Pro status strip** carries a **wholesale-savings stat** («зекономлено цього місяця N ₴» [?]) —
+   - **Pro status strip** carries a **wholesale-savings stat** («зекономлено цього місяця N ₴» [?]) -
      reinforces the price/margin value that strategy v5 names the primary switching driver.
-   - **«↻ Час поповнити клієнтам» restock nudge** — the **coach-level reorder mechanic** (Decision 4 ·
+   - **«↻ Час поповнити клієнтам» restock nudge** - the **coach-level reorder mechanic** (Decision 4 ·
      per-client repeat, Job 4): 1–2 clients due to reorder their staples («останнє замовлення N днів тому»)
      + one-tap **«↻ У сесію»** → 5.5. The coach analog of the buyer dashboard restock; consumption
      estimates operational **[?]**.
-4. **Клієнти (5.3) + Профіль клієнта (5.4)** — the core of Decision 1: **saved client list + per-client
+4. **Клієнти (5.3) + Профіль клієнта (5.4)** - the core of Decision 1: **saved client list + per-client
    order tagging + per-client order history**. A client's **goal** drives product selection in the
    session. From a profile: **repeat a client's previous order** (Job 4 in a coach context) or start a
    session for that client. States: loading / empty / error for client history. Free tier caps clients
    at **2–3 [?]** → soft upsell to Pro.
-   **Edit client (5.4a):** from the profile «Редагувати клієнта» — a form (name · **goal** [drives future
+   **Edit client (5.4a):** from the profile «Редагувати клієнта» - a form (name · **goal** [drives future
    selection] · optional phone/e-mail/notes the coach keeps) as a **modal over the profile**, plus a
    **delete-client** action behind a **confirm dialog** (removes the client from the list; past orders
    keep their record). States: base (edit) · confirm (delete). Added 2026-07-02 to close the last Step-9
    IA gap. Private → noindex.
-5. **Мультиклієнтська сесія замовлення (5.5) — ★ the differentiator.** Client tabs on top (each with a
+5. **Мультиклієнтська сесія замовлення (5.5) - ★ the differentiator.** Client tabs on top (each with a
    per-client subtotal) + active-client panel (their goals → **in-session quick-add** → order lines
    with **coach-tier price** vs struck retail + qty + tag-to-client) + **session summary** (per-client
    subtotals + grand total + «Перейти в кошик»). **The coach adds products via in-session quick-add,
@@ -59,36 +59,36 @@
    **checkout blocked** → **more clients?** → Cart → Checkout → address → payment. Recoverable
    problems route back; never a terminal.
    **Client-first model (locked 2026-07-02):** the active tab **IS** the client, so quick-add auto-tags
-   the line to the current client — there is **no «untagged» line** (structurally impossible; the old
+   the line to the current client - there is **no «untagged» line** (structurally impossible; the old
    assign-or-discard recovery was removed as incoherent).
    **«＋ Клієнт» = a PICK dialog (redesigned 2026-07-06).** Tapping the «＋ Клієнт» tab opens a dialog to
    **select from the coach's SAVED clients not yet in this session** (search + multi-select checkboxes;
    here Ігор, since Андрій/Марія are already tabs) → «Додати обраних (N)». It is **not** an inline
    create-form. A distinct **«＋ Новий клієнт» launcher** opens the **full new-client flow** (5.3a
-   `coach-client-new` — name · goal · phone · e-mail · notes) as a separate flow that saves the client
-   for future sessions. **Empty variant** (`addempty` — no saved clients yet) shows «Немає збережених
+   `coach-client-new` - name · goal · phone · e-mail · notes) as a separate flow that saves the client
+   for future sessions. **Empty variant** (`addempty` - no saved clients yet) shows «Немає збережених
    клієнтів» + «Створити першого клієнта» → 5.3a. Both add paths land on `newclient` (the new tab, 0 items).
-   Two real edges: (a) **new client** (`newclient` — a just-added tab with 0 items) → recovery = quick-add
-   for that client; (b) **empty session** (`empty` — 0 clients at all) → «＋ Додати першого клієнта».
+   Two real edges: (a) **new client** (`newclient` - a just-added tab with 0 items) → recovery = quick-add
+   for that client; (b) **empty session** (`empty` - 0 clients at all) → «＋ Додати першого клієнта».
    Clients with no positions simply don't enter the order.
    **States (5.5):** base · **addclient** (pick-from-saved dialog) · **addempty** (pick dialog, no saved
    clients) · loading (quick-add) · oos (line out of stock → substitute/skip) · priceblock (tier price
    unresolved → checkout blocked) · **newclient** (new client, 0 items) · **empty** (session, 0 clients).
    Wireframe files: `coach-session.html` (+ `-addclient`, `-addempty`, `-loading`, `-oos`, `-priceblock`,
    `-newclient`, `-empty`).
-6. **Замовлення тренера / order history (5.6)** — the coach's list of **placed multi-client orders**
+6. **Замовлення тренера / order history (5.6)** - the coach's list of **placed multi-client orders**
    (distinct from the buyer's own order history 7.2, and from a single client's history inside 5.4).
    Each row: order № · date · **clients in the order** (names / count) · item count · **coach total** ·
    status (прийнято / збирається / у дорозі / доставлено) · actions **«Деталі» → 5.7** and **«↻ Повторити»
-   → cart 6.0** (Job 4 in a coach context — reloads the whole multi-client order into the grouped cart).
+   → cart 6.0** (Job 4 in a coach context - reloads the whole multi-client order into the grouped cart).
    Light filters (за клієнтом · за статусом). Reached from Coach home (5.2) «Замовлення / Усі замовлення».
    States: base (has orders) · **empty** (no orders yet → «＋ Нова сесія») · loading · error → retry.
-7. **Деталі замовлення тренера / order detail (5.7)** — one placed order, **grouped by client** (same
+7. **Деталі замовлення тренера / order detail (5.7)** - one placed order, **grouped by client** (same
    grouping as the coach cart 6.0): header (№ · date · status · coach total) → **single delivery to the
    coach** + payment facts → per-client sections (client · goal · lines with **coach-tier price** vs
    struck retail · per-client subtotal) → grand total. Actions: **«↻ Повторити замовлення» → cart 6.0**,
    **«Повторити для клієнта X»** (per-client repeat, Job 4), «Відстежити», back to 5.6. States: base ·
-   loading · error → retry. (No empty — an order always has content.) The bridge that resolves the
+   loading · error → retry. (No empty - an order always has content.) The bridge that resolves the
    Step-9 IA gap: coach-home «Замовлення»/«Усі замовлення» → 5.6; a client's order «Деталі» → 5.7.
 
 ## States
@@ -103,14 +103,14 @@
 - Client history: loading (skeleton) · empty · error → retry.
 - **Edit client (5.4a):** base (edit form) · confirm (delete-client dialog → remove from list, keep past orders).
 - **Order history (5.6):** base · empty (no orders yet) · loading · error → retry.
-- **Order detail (5.7):** base · loading · error → retry (no empty — an order always has lines).
+- **Order detail (5.7):** base · loading · error → retry (no empty - an order always has lines).
 
 ## SEO / privacy (mixed)
 
-- **5.0 landing** — `index, follow`; H1 «Спортивне харчування оптом для тренерів» [?]; Title/Description
+- **5.0 landing** - `index, follow`; H1 «Спортивне харчування оптом для тренерів» [?]; Title/Description
   for «спортпіт оптом / для тренерів / гуртові ціни»; Organization + BreadcrumbList; full A–E block;
   internal links from header/footer.
-- **5.1–5.7 work zone** — `noindex, nofollow`, **no schema** (private data: clients, tier prices, orders).
+- **5.1–5.7 work zone** - `noindex, nofollow`, **no schema** (private data: clients, tier prices, orders).
 - URLs: `/for-coaches` (public) · `/coach`, `/coach/clients`, `/coach/session`, `/coach/orders`,
   `/coach/orders/:id` (private).
 - A11y: client tabs = tablist/tab/tabpanel; session keyboard-operable; tier price + stock announced.
@@ -123,29 +123,29 @@
 4. **In-session quick-add** (not global search); **coach-tier price** on every line.
 5. **Cart groups by client** (6.0). Flow depth is intentional (work flow), not flattened.
 6. **Recovery, not dead ends:** OOS → substitute/skip; tier price unresolved → saved + checkout
-   blocked; new client (0 items) → quick-add · empty session (0 clients) → add first client (no untagged line — active tab auto-tags).
+   blocked; new client (0 items) → quick-add · empty session (0 clients) → add first client (no untagged line - active tab auto-tags).
 7. **Landing indexable**, work zone **noindex**.
 8. **Breadcrumbs (standardized 2026-07-02):** landing 5.0 = `Головна › Для тренерів`; become-a-coach /
    verify 5.1 = `Головна › Кабінет › Стати тренером › [Перевірка|Тариф]` (activation lives under the
    buyer account); the working cabinet 5.2–5.7 = `Головна › Кабінет тренера › …` (e.g. `… › Клієнти ›
    Андрій`, `… › Замовлення › № К-2041`, `… › Сесія замовлення`). The cabinet is a **parallel** personal
-   zone (like buyer `Головна › Кабінет`), not nested under it — avoids a «Кабінет / Кабінет тренера» repeat.
-9. **Coach section-nav — ONE shared renderer (`wfCoachNav`, wireframe 2026-07-05).** After an audit found
+   zone (like buyer `Головна › Кабінет`), not nested under it - avoids a «Кабінет / Кабінет тренера» repeat.
+9. **Coach section-nav - ONE shared renderer (`wfCoachNav`, wireframe 2026-07-05).** After an audit found
    every page hardcoded its own rail (drift: dead «Замовлення»/«Обране» buttons on Клієнти, no rail on
    Замовлення/Тариф, «Нова сесія» icon/order drift, Обране → buyer account), the rail is now rendered
    from **one source** on every cabinet page. Guarantees:
-   - **«＋ Нова сесія» is a DISTINCT highlighted CTA block** (dark, above the section list) — never a
+   - **«＋ Нова сесія» is a DISTINCT highlighted CTA block** (dark, above the section list) - never a
      vanishing list item; present on every cabinet page.
    - **Section list (pinned order):** Огляд · Клієнти(ct) · Замовлення(ct) · Обране(ct) · Тариф ·
-     Профіль / акаунт покупця · Вийти — every item a real link, no dead buttons; correct active per page.
+     Профіль / акаунт покупця · Вийти - every item a real link, no dead buttons; correct active per page.
    - **«Обране» stays in COACH context → `coach-wishlist.html` (5.8)**, NOT the buyer account.
-   - **Where the rail appears:** all cabinet **section** pages — Огляд (5.2), Клієнти (5.3), Замовлення
+   - **Where the rail appears:** all cabinet **section** pages - Огляд (5.2), Клієнти (5.3), Замовлення
      (5.6), Обране (5.8), Тариф (5.2a) + their states. **Intentionally without the rail** (focused /
      drill-down): the multi-client **session (5.5)**, checkout/**cart (6.0)**, **verify/landing (5.0/5.1)**,
-     and the **detail drill-downs** client profile (5.4) & order detail (5.7) — reached by a row click,
+     and the **detail drill-downs** client profile (5.4) & order detail (5.7) - reached by a row click,
      they use a breadcrumb back to the cabinet (like PDP has no listing rail).
    - Styling comes from `_wf.css` (same primitives as the buyer account → **mobile swipeable chips** for free).
-10. **5.8 Обране тренера** — the **shared favorites** (one wishlist for buyer + coach) rendered **in coach
+10. **5.8 Обране тренера** - the **shared favorites** (one wishlist for buyer + coach) rendered **in coach
     context**: coach rail + coach header + **гуртові (Pro) prices** and «add to session». Reached from the
     coach «Обране»; the buyer's personal account is a separate entry («Профіль / акаунт покупця»).
 11. **5.2 dashboard states (wireframe):** `base` (Pro, has data) · **`empty`** (new coach: 0 clients/orders/
@@ -154,10 +154,10 @@
 
 ## Open questions [?]
 
-- **Free/Pro tiers:** Pro price, Free client cap (2–3?), wholesale-discount size — unit economics and
+- **Free/Pro tiers:** Pro price, Free client cap (2–3?), wholesale-discount size - unit economics and
   the coach **price gate**.
-- **Wholesale price at launch volume** — whether it clears the coach's gate at all (strategy v5, the
+- **Wholesale price at launch volume** - whether it clears the coach's gate at all (strategy v5, the
   main risk).
-- **Social-link verification** — manual/automated, who moderates — operational process.
-- **Cart/Checkout (6.x)** with per-client grouping — now page-level in `cart.md` (6.0 grouped by client).
-- **Pro analytics / priority stock alerts** — post-launch, scope [?].
+- **Social-link verification** - manual/automated, who moderates - operational process.
+- **Cart/Checkout (6.x)** with per-client grouping - now page-level in `cart.md` (6.0 grouped by client).
+- **Pro analytics / priority stock alerts** - post-launch, scope [?].

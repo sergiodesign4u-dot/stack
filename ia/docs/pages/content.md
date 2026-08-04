@@ -1,10 +1,10 @@
-# Page-level IA — Content, info & legal (node 8.x)
+# Page-level IA - Content, info & legal (node 8.x)
 
-- **Node:** 8.x — Content, info & legal. **13 nodes (8.0–8.12)** specced as **one template system**
+- **Node:** 8.x - Content, info & legal. **13 nodes (8.0–8.12)** specced as **one template system**
   (7 templates), not 13 bespoke layouts (the same dedup approach as the category matrix).
 - **Type:** SEO-surface + service pages + one footer component.
 - **Canonical visual:** `ia/content.html`. This markdown is the source of truth.
-- **Serves:** **Principle 1 (trust first)** — guarantee, certificates, returns, FAQ are on show; and
+- **Serves:** **Principle 1 (trust first)** - guarantee, certificates, returns, FAQ are on show; and
   the **second internal-linking hub** after the footer SEO block.
 - **Entries:** footer columns · meta-bar «Акції» · product page «Сертифікація» → certificates.
 
@@ -30,40 +30,40 @@ Common to all: inherited header/footer · breadcrumb · H1 · full A–E SEO blo
 
 ## Templates
 
-1. **Info page (A) — covers 8.2–8.6, 8.8.** Breadcrumb → H1 + updated-date → **TOC** (long pages) +
+1. **Info page (A) - covers 8.2–8.6, 8.8.** Breadcrumb → H1 + updated-date → **TOC** (long pages) +
    **prose body** (H3 sections, lists, info cards) → related links. Variants: **contacts block** (8.3
-   — phone/hours/email/messengers/map, single source of truth with the footer), **certificate gallery**
-   (8.8, viewable docs like PDP 3.0), **legal** (8.6 — prose + date, no TOC).
-2. **Loyalty explainer landing (8.7 «Бонусна програма та знижки»)** — a public/indexable **landing**
+   - phone/hours/email/messengers/map, single source of truth with the footer), **certificate gallery**
+   (8.8, viewable docs like PDP 3.0), **legal** (8.6 - prose + date, no TOC).
+2. **Loyalty explainer landing (8.7 «Бонусна програма та знижки»)** - a public/indexable **landing**
    (like the coach 5.0 landing, but for buyers), so the program feels **clear and rewarding** («о, у мене
-   ще й бонуси»). **Two independent mechanisms:** ① **personal discount — 3 tiers** on lifetime spend
-   (grows, doesn't expire, auto in cart); ② **bonus account — ~1%** accrual (600 ₴ → 6 ₴ [?]) with a
-   **3-month expiry**, shown via a movement example (accrual + spend + **burn**) — a retention driver.
+   ще й бонуси»). **Two independent mechanisms:** ① **personal discount - 3 tiers** on lifetime spend
+   (grows, doesn't expire, auto in cart); ② **bonus account - ~1%** accrual (600 ₴ → 6 ₴ [?]) with a
+   **3-month expiry**, shown via a movement example (accrual + spend + **burn**) - a retention driver.
    Hero + 2 mechanism cards + example table + FAQ + CTA. The account (7.4) shows the buyer's **personal**
    status of both; the coach tier is separate (5.x). Numbers **[?]**. Organization + BreadcrumbList (no Product).
    **Logged-in state (нове 2026-07-02):** for an authenticated buyer the same URL swaps the register-hero for
-   a **personal status band** — greeting + current tier + progress bar to the next tier + **real bonus balance**
+   a **personal status band** - greeting + current tier + progress bar to the next tier + **real bonus balance**
    + nearest expiry + CTAs «Кабінет → Лояльність» / «До каталогу»; the tier ladder marks «ваш рівень» and the
    example table shows the buyer's own movement (data mirrors the account 7.4). Page stays indexable (bots see
    the guest version). Wireframe: `content-loyalty.html` (guest) · `content-loyalty-buyer.html` (state `buyer`).
-3. **FAQ (8.9)** — grouped **accordion** Q&A; **global shop FAQ**, separate from product Q&A (3.2);
+3. **FAQ (8.9)** - grouped **accordion** Q&A; **global shop FAQ**, separate from product Q&A (3.2);
    **FAQPage schema** for rich results.
-4. **Blog listing (8.0)** — tags/categories · search · pagination; SEO surface for top-of-funnel
-   informational queries. **Article (8.1)** — H1 · SEO body (simple answer first) · **Article schema** ·
+4. **Blog listing (8.0)** - tags/categories · search · pagination; SEO surface for top-of-funnel
+   informational queries. **Article (8.1)** - H1 · SEO body (simple answer first) · **Article schema** ·
    breadcrumb · **related products** (canonical cards → 3.0, internal linking) · related articles.
-5. **Promo listing (8.10)** — active promos; entry = meta-bar «Акції»; **calm, no timers** (Principle 4
-   — «до …» date, not a countdown); each promo → a collection/listing (2.x) or a product.
-6. **Reviews (8.11)** — reviews about the **shop** (service/delivery), separate from product reviews
+5. **Promo listing (8.10)** - active promos; entry = meta-bar «Акції»; **calm, no timers** (Principle 4
+   - «до …» date, not a countdown); each promo → a collection/listing (2.x) or a product.
+6. **Reviews (8.11)** - reviews about the **shop** (service/delivery), separate from product reviews
    (3.1); same review card; «Залишити відгук» dialog (like 3.1a) + «Оцінити в Google»;
    **AggregateRating on Organization**.
-7. **Newsletter (8.12)** — a **footer component**, not a page: email field + welcome discount [?] +
+7. **Newsletter (8.12)** - a **footer component**, not a page: email field + welcome discount [?] +
    states (empty → loading → success/double-opt-in + promo code / error / unsubscribe). A small
    «subscription confirmed» state page after the email click. **noindex.**
 
 ## Trust guarantee page (8.8) detail
 
 Trust row (original · certificates · 14-day return · manufacturer guarantee) + **certificate gallery**
-(per brand + MOZ declaration), each opening the viewable document — the same certificate the PDP links
+(per brand + MOZ declaration), each opening the viewable document - the same certificate the PDP links
 to. This page is linked from the **footer trust strip** and the PDP «Сертифікація» block.
 
 ## SEO / indexation
@@ -79,7 +79,7 @@ to. This page is linked from the **footer trust strip** and the PDP «Серти
 
 1. **Small template system (6)** instead of 13 layouts; pages = data in a template.
 2. **Info page (A)** covers 8.2–8.8 with variants (contacts · table · certificates · legal).
-3. **Trust serves Principle 1** — guarantee/certs/returns/FAQ on show; linked from the trust strip and PDP.
+3. **Trust serves Principle 1** - guarantee/certs/returns/FAQ on show; linked from the trust strip and PDP.
 4. **Shop FAQ** separate from product Q&A (3.2); **shop reviews** separate from product reviews (3.1).
 5. **Promo calm, no timers** (Principle 4).
 6. **Contacts = single source of truth** with the footer; **newsletter = footer component** with states
@@ -88,8 +88,8 @@ to. This page is linked from the **footer trust strip** and the PDP «Серти
 
 ## Open questions [?]
 
-- **Ready copy** for every page (About, delivery, returns, legal, FAQ Q&A) — copywriting stage.
-- **Real certificate files** and permits — operational.
-- **Discount/loyalty/tier/subscription numbers** — from Decision 3 / unit economics [?].
-- **Legal texts** (privacy, terms, public offer) — lawyer.
-- **Launch blog volume** and content plan — marketing.
+- **Ready copy** for every page (About, delivery, returns, legal, FAQ Q&A) - copywriting stage.
+- **Real certificate files** and permits - operational.
+- **Discount/loyalty/tier/subscription numbers** - from Decision 3 / unit economics [?].
+- **Legal texts** (privacy, terms, public offer) - lawyer.
+- **Launch blog volume** and content plan - marketing.

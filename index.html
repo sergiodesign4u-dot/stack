@@ -59,6 +59,17 @@
   }
   .note code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: var(--text); }
   .note a { color: var(--text); }
+  .lead2 { font-size: 15.5px; color: var(--muted); max-width: 720px; margin-bottom: 18px; }
+  .fixtab { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow-x: auto; margin-bottom: 8px; }
+  .fixtab table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 720px; }
+  .fixtab th, .fixtab td { text-align: left; padding: 10px 13px; border-bottom: 1px solid #f2f0eb; vertical-align: top; }
+  .fixtab th { font-size: 10.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--light); }
+  .fixtab tr:last-child td { border-bottom: 0; }
+  .fixtab td:first-child { font-weight: 600; white-space: nowrap; }
+  .fixtab td:nth-child(4) { white-space: nowrap; color: var(--muted); }
+  .fixtab .ok { color: #2d5a3d; font-weight: 600; white-space: nowrap; }
+  .fixtab .wd { color: #8a5a0e; font-weight: 600; white-space: nowrap; }
+  .fixtab code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; }
 </style>
 </head>
 <body>
@@ -78,6 +89,64 @@
   <h2>Маршрут</h2>
   <div id="roadmap"></div>
 
+  <h2 id="fixed">Було → стало</h2>
+  <p class="lead2">
+    Найдорожча частина роботи - те, що зловили і виправили, - інакше лишається невидимою. Тут
+    зведення <b>класами</b>, а не переліком рядків; повний лог - <a href="docs/critique-alignment.md">docs/critique-alignment.md</a>.
+    Критика йшла в <b>два прилади</b>: Claude із браузером і Codex read-only, набори знімалися
+    незалежно до будь-якого злиття.
+  </p>
+
+  <div class="fixtab">
+    <table>
+      <thead><tr><th>Клас</th><th>Було</th><th>Стало</th><th>Хто знайшов</th><th>Статус</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Дублювання</td>
+          <td>сайдбар інлайновою копією в <b>30</b> сторінках: розмітка, css і власний IntersectionObserver у кожній</td>
+          <td>один реєстр <code>/_nav.js</code> + один <code>/_nav.css</code>; <b>−165 KB</b>, статус сторінки = один прапорець</td>
+          <td>Claude</td><td class="ok">виправлено</td>
+        </tr>
+        <tr>
+          <td>Файл правил</td>
+          <td><code>CLAUDE.md</code> 537 рядків / 94 KB, один рядок на <b>36 691</b> символ; статус усередині</td>
+          <td>184 рядки самих правил; журнал → <code>docs/decisions.md</code>, статус → README + реєстр</td>
+          <td>Claude</td><td class="ok">виправлено</td>
+        </tr>
+        <tr>
+          <td>Правило не діяло</td>
+          <td>«без em dash в output-файлах» ніколи не доїхало до документації: <b>3 681</b> входження в 71 файлі (продукт був чистий)</td>
+          <td>3 621 замінено, 60 лишено за <b>названим винятком</b> (знак «немає значення» в комірці таблиці), і виняток покриває реальні випадки</td>
+          <td>Claude · скрипт</td><td class="ok">виправлено</td>
+        </tr>
+        <tr>
+          <td>Число без джерела</td>
+          <td>інвентар публікував <b>50</b> компонентів / 14 організмів, «<b>12</b> лише рендер-функції», «футер на <b>всіх 142</b> екранах»</td>
+          <td>порахували: <b>51</b> / 15, <b>9</b> лише-JS, футер на <b>129</b> екранах. Три числа, і жодне не виглядало помилковим</td>
+          <td>Claude · лічильник</td><td class="ok">виправлено</td>
+        </tr>
+        <tr>
+          <td>Сирота</td>
+          <td>18 вузлів IA мали по 3-14 секцій і не оголошували жодної - панель не могла їх показати</td>
+          <td>секції під'єднані з власних <code>&lt;h2&gt;</code> сторінок: 218 оголошених, 0 без якоря</td>
+          <td>Claude</td><td class="ok">виправлено</td>
+        </tr>
+        <tr>
+          <td>Шкода від переїзду</td>
+          <td><code>_theme.css</code> → <code>kit/kit.css</code> на рівень глибше тихо зламав <b>43</b> відносні <code>url()</code></td>
+          <td>полагоджено; видно було лише в консолі браузера, у діфі - чистий <code>git mv</code></td>
+          <td>Claude · браузер</td><td class="ok">виправлено</td>
+        </tr>
+        <tr>
+          <td>Хибний сигнал</td>
+          <td>ідл-контроль показав 2 рядки реєстру, що вказують на неіснуючі файли</td>
+          <td>перечитано: рендерер робить лінк лише при <code>done:true</code>. Рядок - це <b>маршрут</b>, а не обіцянка файлу</td>
+          <td>Claude · скрипт</td><td class="wd">знято при верифікації</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="note">
     Джерела правди - у <code>docs/</code> кожного етапу. Правила проєкту - <a href="CLAUDE.md">CLAUDE.md</a>,
     записи рішень - <a href="docs/decisions.md">docs/decisions.md</a>, статуси - <a href="README.md">README.md</a>
@@ -88,7 +157,7 @@
 
 <script>
 window.NAV_BASE = './';
-window.NAV_SECTIONS = [{ "id": "roadmap", "label": "Маршрут" }];
+window.NAV_SECTIONS = [{ "id": "roadmap", "label": "Маршрут" }, { "id": "fixed", "label": "Було → стало" }];
 </script>
 <script src="./_nav.js"></script>
 <script>

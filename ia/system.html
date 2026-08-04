@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stack — IA: Системні сторінки та глобальні компоненти</title>
+  <title>Stack - IA: Системні сторінки та глобальні компоненти</title>
   <link rel="icon" type="image/svg+xml" href="../design/concept/assets/logo-s.svg">
   <style>
     :root {
@@ -109,7 +109,7 @@
   <div class="hero">
     <div class="hero-tag">Посторінкова IA · системне</div>
     <h1>Системні сторінки та глобальні компоненти</h1>
-    <p class="hero-lead">Те, що потрібно <b>перед вайрфреймами</b>, але не належить жодному кластеру: <b>404 / помилки</b>, <b>техроботи</b>, <b>банер згоди на cookie</b> (за законом України) і <b>тости-сповіщення</b>. Усе — у стилі принципів: спокійно, з <b>одним зрозумілим наступним кроком</b>, без глухих кутів.</p>
+    <p class="hero-lead">Те, що потрібно <b>перед вайрфреймами</b>, але не належить жодному кластеру: <b>404 / помилки</b>, <b>техроботи</b>, <b>банер згоди на cookie</b> (за законом України) і <b>тости-сповіщення</b>. Усе - у стилі принципів: спокійно, з <b>одним зрозумілим наступним кроком</b>, без глухих кутів.</p>
     <div class="hero-meta">
       <div><strong>Склад</strong> 404 · 500 · техроботи · cookie-згода · тости</div>
       <div><strong>Cookie</strong> ЗУ «Про захист персональних даних» → попередня згода</div>
@@ -119,11 +119,11 @@
 
   <!-- 01 404 -->
   <section class="section" id="e404">
-    <div class="section-num">01 · 404 — сторінку не знайдено</div>
+    <div class="section-num">01 · 404 - сторінку не знайдено</div>
     <h2>Помилка, що веде далі, а не в глухий кут</h2>
     <p class="section-lead">Наслідує хедер/футер (це повноцінна сторінка, не голий екран). Дає одразу <b>пошук</b> + <b>швидкі лінки</b> (каталог · за ціллю · головна), щоб користувач не пішов із сайту.</p>
-    <div class="wf" style="max-width:620px"><div class="wf-cap">404 — десктоп</div><div class="wf-pad">
-      <div class="wf-zone"><span class="zt">Хедер</span> Наслідується — Навігація (0.1)</div>
+    <div class="wf" style="max-width:620px"><div class="wf-cap">404 - десктоп</div><div class="wf-pad">
+      <div class="wf-zone"><span class="zt">Хедер</span> Наслідується - Навігація (0.1)</div>
       <div class="errp">
         <div class="code">404</div>
         <div class="et">Такої сторінки немає</div>
@@ -131,9 +131,9 @@
         <div class="errsearch"><span class="f">🔎 Пошук товарів, брендів…</span><span class="b">Знайти</span></div>
         <div class="quicklinks"><span class="ql dark">На головну</span><span class="ql">Каталог</span><span class="ql">За ціллю</span><span class="ql">Акції</span><span class="ql">Підтримка</span></div>
       </div>
-      <div class="wf-zone foot"><span class="zt">Футер</span> Наслідується — Футер (0.2)</div>
+      <div class="wf-zone foot"><span class="zt">Футер</span> Наслідується - Футер (0.2)</div>
     </div></div>
-    <p class="note"><b>HTTP 404</b> (не 200!) + <code>noindex</code>. Пошук — той самий компонент (2.5). Якщо 404 на картці товару — додатково показуємо <b>схожі товари / категорію</b>, куди він належав (recovery, як OOS на PDP). Спокійно, без гумору-на-межі — тон бренду.</p>
+    <p class="note"><b>HTTP 404</b> (не 200!) + <code>noindex</code>. Пошук - той самий компонент (2.5). Якщо 404 на картці товару - додатково показуємо <b>схожі товари / категорію</b>, куди він належав (recovery, як OOS на PDP). Спокійно, без гумору-на-межі - тон бренду.</p>
   </section>
 
   <!-- 02 500 / maintenance -->
@@ -142,7 +142,7 @@
     <h2>Рідкісні, але потрібні стани</h2>
     <div class="cols two">
       <div>
-        <div class="wf"><div class="wf-cap">500 — щось пішло не так</div><div class="wf-pad">
+        <div class="wf"><div class="wf-cap">500 - щось пішло не так</div><div class="wf-pad">
           <div class="errp" style="padding-bottom:12px">
             <div class="code" style="font-size:40px">500</div>
             <div class="et" style="font-size:16px">Щось пішло не так</div>
@@ -156,26 +156,26 @@
           <div class="errp" style="padding-bottom:12px">
             <div style="font-size:34px">🛠</div>
             <div class="et" style="font-size:16px;margin-top:8px">Ненадовго на технічних роботах</div>
-            <div class="es">Оновлюємо магазин. Скоро повернемось — зазвичай це кілька хвилин.</div>
+            <div class="es">Оновлюємо магазин. Скоро повернемось - зазвичай це кілька хвилин.</div>
             <div class="quicklinks"><span class="ql">Telegram-підтримка</span><span class="ql">Подзвонити</span></div>
           </div>
         </div></div>
       </div>
     </div>
-    <p class="note"><b>500</b> — статус 500, noindex, без хедера-меню, що теж може падати (мінімальний шаблон). <b>Техроботи</b> — статус <b>503</b> + <code>Retry-After</code> (щоб SEO не сприйняв як зникнення сайту). Контакти підтримки — з футера (0.2). Спланований стан, не аварія.</p>
+    <p class="note"><b>500</b> - статус 500, noindex, без хедера-меню, що теж може падати (мінімальний шаблон). <b>Техроботи</b> - статус <b>503</b> + <code>Retry-After</code> (щоб SEO не сприйняв як зникнення сайту). Контакти підтримки - з футера (0.2). Спланований стан, не аварія.</p>
   </section>
 
   <!-- 03 cookie consent -->
   <section class="section" id="cookie">
     <div class="section-num">03 · Банер згоди на cookie</div>
-    <h2>Попередня згода — за законом України</h2>
+    <h2>Попередня згода - за законом України</h2>
     <p class="section-lead">За <b>ЗУ «Про захист персональних даних»</b> cookie ставлять лише <b>після згоди</b> (не за замовчуванням при заході); користувач має прочитати політику. Законопроєкт <b>№8153</b> (2024) веде до GDPR-моделі (явна згода + винятки для суто необхідних). Тому: банер до постановки необовʼязкових cookie, <b>«Відхилити» так само легко, як «Прийняти»</b>, і налаштування за категоріями.</p>
     <div class="cols two">
       <div>
         <div class="wf"><div class="wf-cap">Банер (перший візит, унизу)</div><div class="wf-pad">
           <div class="cookiewrap">
             <div class="cookiebar">
-              <div class="ct">🍪 <b>Ми використовуємо cookie</b>, щоб магазин працював і ставав зручнішим. Необхідні — завжди; аналітику й маркетинг вмикаємо <b>лише з вашої згоди</b>. Деталі — у <a href="content.html">Політиці конфіденційності</a>.</div>
+              <div class="ct">🍪 <b>Ми використовуємо cookie</b>, щоб магазин працював і ставав зручнішим. Необхідні - завжди; аналітику й маркетинг вмикаємо <b>лише з вашої згоди</b>. Деталі - у <a href="content.html">Політиці конфіденційності</a>.</div>
               <div class="acts">
                 <span class="cbtn ghost">Налаштувати</span>
                 <span class="cbtn out">Тільки необхідні</span>
@@ -183,7 +183,7 @@
               </div>
             </div>
           </div>
-          <p style="font-size:10.5px;color:#999;margin-top:8px">Три однакової ваги дії: «Прийняти всі» / «Тільки необхідні» (= відхилити необовʼязкові) / «Налаштувати». Не блокує перегляд, але до вибору — жодних аналітичних/маркетингових cookie.</p>
+          <p style="font-size:10.5px;color:#999;margin-top:8px">Три однакової ваги дії: «Прийняти всі» / «Тільки необхідні» (= відхилити необовʼязкові) / «Налаштувати». Не блокує перегляд, але до вибору - жодних аналітичних/маркетингових cookie.</p>
         </div></div>
       </div>
       <div>
@@ -197,23 +197,23 @@
               <div style="display:flex;gap:8px;margin-top:12px"><span class="cbtn out" style="flex:1;text-align:center">Зберегти вибір</span><span class="cbtn dark" style="flex:1;text-align:center">Прийняти всі</span></div>
             </div>
           </div>
-          <p style="font-size:10.5px;color:#999;margin-top:8px">Необхідні — завжди увімк (🔒, вимкнути не можна). Аналітика/Маркетинг — <b>вимкнені за замовчуванням</b> (opt-in). Вибір зберігаємо (напр. 6–12 міс) + <b>«Змінити згоду»</b> лінк у футері.</p>
+          <p style="font-size:10.5px;color:#999;margin-top:8px">Необхідні - завжди увімк (🔒, вимкнути не можна). Аналітика/Маркетинг - <b>вимкнені за замовчуванням</b> (opt-in). Вибір зберігаємо (напр. 6–12 міс) + <b>«Змінити згоду»</b> лінк у футері.</p>
         </div></div>
       </div>
     </div>
-    <p class="note">Узгоджено з <b>consent-текстом авторизації</b> (1.x) і <b>Політикою конфіденційності (8.6)</b>. Технічно — до згоди вантажимо лише суто необхідні скрипти; аналітику/пікселі — після opt-in. Точні строки зберігання згоди й перелік провайдерів — <b>[?]</b> (юрист + технічний скоуп).</p>
+    <p class="note">Узгоджено з <b>consent-текстом авторизації</b> (1.x) і <b>Політикою конфіденційності (8.6)</b>. Технічно - до згоди вантажимо лише суто необхідні скрипти; аналітику/пікселі - після opt-in. Точні строки зберігання згоди й перелік провайдерів - <b>[?]</b> (юрист + технічний скоуп).</p>
   </section>
 
   <!-- 04 toast -->
   <section class="section" id="toast">
     <div class="section-num">04 · Тости / сповіщення (глобальний компонент)</div>
     <h2>Легкий зворотний звʼязок на дії</h2>
-    <div class="wf" style="max-width:460px"><div class="wf-cap">Тости — 3 типи</div><div class="wf-pad">
-      <div class="toast ok">✓ Додано в кошик — Gold Standard Whey<span class="x">✕</span></div>
+    <div class="wf" style="max-width:460px"><div class="wf-cap">Тости - 3 типи</div><div class="wf-pad">
+      <div class="toast ok">✓ Додано в кошик - Gold Standard Whey<span class="x">✕</span></div>
       <div class="toast err">✕ Не вдалось застосувати бонуси. Спробуйте ще раз<span class="x">✕</span></div>
       <div class="toast info">🔔 Ми повідомимо, коли товар зʼявиться<span class="x">✕</span></div>
     </div></div>
-    <p class="note">Використовують: додати в кошик/обране, зберегти адресу, підписка, відгук на модерації, повтор замовлення, помилки. <b>Автозникнення</b> (~3–5 с) + закриття; <code>aria-live="polite"</code>. Не для критичних рішень (ті — діалог). Спокійно, без спаму тостами.</p>
+    <p class="note">Використовують: додати в кошик/обране, зберегти адресу, підписка, відгук на модерації, повтор замовлення, помилки. <b>Автозникнення</b> (~3–5 с) + закриття; <code>aria-live="polite"</code>. Не для критичних рішень (ті - діалог). Спокійно, без спаму тостами.</p>
   </section>
 
   <!-- 05 SEO/tech -->
@@ -225,9 +225,9 @@
       <tr><td><b>404</b></td><td><code>404</code></td><td>noindex; повна сторінка з пошуком + лінками; <b>не</b> віддавати 200 (soft-404 шкодить SEO)</td></tr>
       <tr><td><b>500</b></td><td><code>500</code></td><td>Мінімальний шаблон (незалежний від бекенду), noindex</td></tr>
       <tr><td><b>Техроботи</b></td><td><code>503</code> + <code>Retry-After</code></td><td>Щоб пошуковик знав, що це тимчасово</td></tr>
-      <tr><td><b>Cookie-банер</b></td><td>—</td><td>Компонент, не сторінка; до згоди — лише необхідні скрипти; політика — 8.6</td></tr>
+      <tr><td><b>Cookie-банер</b></td><td>—</td><td>Компонент, не сторінка; до згоди - лише необхідні скрипти; політика - 8.6</td></tr>
       <tr><td><b>Тости</b></td><td>—</td><td>Компонент; aria-live; не впливають на SEO</td></tr>
-      <tr><td><b>301/410</b></td><td><code>301/410</code></td><td>Знятий товар: <b>301</b> на категорію (краще за 404) або <b>410</b>, якщо назавжди — операційне правило [?]</td></tr>
+      <tr><td><b>301/410</b></td><td><code>301/410</code></td><td>Знятий товар: <b>301</b> на категорію (краще за 404) або <b>410</b>, якщо назавжди - операційне правило [?]</td></tr>
     </table>
   </section>
 
@@ -238,22 +238,22 @@
       <div>
         <h2 style="font-size:18px;margin-bottom:10px">Зафіксовано</h2>
         <ul style="margin-left:18px">
-          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>404 — повноцінна сторінка</b> (хедер/футер) з пошуком + швидкими лінками; HTTP 404 + noindex; ніколи не глухий кут.</li>
-          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>500 / техроботи</b> — мінімальні шаблони; техроботи = <b>503 + Retry-After</b>.</li>
-          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Cookie — попередня згода</b> (закон UA): банер до необовʼязкових cookie; «Відхилити» так само легко, як «Прийняти»; категорії opt-in (аналітика/маркетинг вимкнені).</li>
-          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Необхідні cookie</b> — завжди; політика (8.6) лінкована; «Змінити згоду» у футері.</li>
-          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Тости</b> — глобальний компонент (ok/err/info), автозникнення, aria-live; критичне — діалог, не тост.</li>
-          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)">Тон — спокійний (Принцип №4), <b>без таймерів і тиску</b>.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>404 - повноцінна сторінка</b> (хедер/футер) з пошуком + швидкими лінками; HTTP 404 + noindex; ніколи не глухий кут.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>500 / техроботи</b> - мінімальні шаблони; техроботи = <b>503 + Retry-After</b>.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Cookie - попередня згода</b> (закон UA): банер до необовʼязкових cookie; «Відхилити» так само легко, як «Прийняти»; категорії opt-in (аналітика/маркетинг вимкнені).</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Необхідні cookie</b> - завжди; політика (8.6) лінкована; «Змінити згоду» у футері.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)"><b>Тости</b> - глобальний компонент (ok/err/info), автозникнення, aria-live; критичне - діалог, не тост.</li>
+          <li style="margin-bottom:7px;font-size:13.5px;color:var(--text-secondary)">Тон - спокійний (Принцип №4), <b>без таймерів і тиску</b>.</li>
         </ul>
       </div>
       <div>
         <div class="open">
           <h2>Відкриті [?]</h2>
           <ul>
-            <li><b>Cookie:</b> точні строки зберігання згоди, перелік провайдерів (аналітика/піксель), фінальні тексти — юрист + технічний скоуп; слідкувати за долею Закону №8153.</li>
-            <li><b>Знятий товар:</b> правило 301 (на категорію) vs 410 — операційне.</li>
-            <li><b>Тривалість тостів</b> і черга (скільки одночасно) — дизайн-деталь.</li>
-            <li><b>Локалізація</b> системних сторінок (укр/рос) — узгодити з i18n.</li>
+            <li><b>Cookie:</b> точні строки зберігання згоди, перелік провайдерів (аналітика/піксель), фінальні тексти - юрист + технічний скоуп; слідкувати за долею Закону №8153.</li>
+            <li><b>Знятий товар:</b> правило 301 (на категорію) vs 410 - операційне.</li>
+            <li><b>Тривалість тостів</b> і черга (скільки одночасно) - дизайн-деталь.</li>
+            <li><b>Локалізація</b> системних сторінок (укр/рос) - узгодити з i18n.</li>
           </ul>
         </div>
       </div>
@@ -261,7 +261,7 @@
   </section>
 
   <div class="footer-text">
-    Stack — Посторінкова IA · Системні сторінки та глобальні компоненти: 404 (HTTP 404, пошук + лінки) · 500 · техроботи (503) · банер згоди на cookie (закон UA, opt-in категорії, політика 8.6) · тости (ok/err/info, aria-live). Джерело істини: ia/docs/pages/system.md. Карта сайту: sitemap.html. Липень 2026, чернетка.
+    Stack - Посторінкова IA · Системні сторінки та глобальні компоненти: 404 (HTTP 404, пошук + лінки) · 500 · техроботи (503) · банер згоди на cookie (закон UA, opt-in категорії, політика 8.6) · тости (ok/err/info, aria-live). Джерело істини: ia/docs/pages/system.md. Карта сайту: sitemap.html. Липень 2026, чернетка.
   </div>
 
 </div>
@@ -269,6 +269,7 @@
 
 <script>
 window.NAV_BASE = '../';
+window.NAV_SECTIONS = [{"id": "e404", "label": "Помилка, що веде далі, а не в глу…"}, {"id": "e500", "label": "Рідкісні, але потрібні стани"}, {"id": "cookie", "label": "Попередня згода - за законом Укра…"}, {"id": "toast", "label": "Легкий зворотний звʼязок на дії"}, {"id": "seo", "label": "Статуси й індексація"}, {"id": "locked", "label": "Зафіксовано"}];
 window.NAV_ACTIVE = 'ia/structure.html';
 window.NAV_ACTIVE_LABEL = 'Системні та глобальні';
 </script>

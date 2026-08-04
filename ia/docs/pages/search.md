@@ -1,20 +1,20 @@
-# Page-level IA — Search (node 2.5)
+# Page-level IA - Search (node 2.5)
 
 - **Node:** 2.5 Search. **Two parts:** the **header autocomplete/suggestions overlay** and the
-  **search results page** (which reuses the shared listing template — same as Category 2.1).
+  **search results page** (which reuses the shared listing template - same as Category 2.1).
 - **Type:** overlay (suggestions) + results page.
 - **Canonical visual:** `ia/search.html`. This markdown is the source of truth.
-- **Job:** the **known-item utility** — the regular buyer who knows what they want (Andriy restocks).
+- **Job:** the **known-item utility** - the regular buyer who knows what they want (Andriy restocks).
   Secondary to catalog navigation (grounded: the reference store **Belok.ua** leads with catalog nav,
   search is a supporting utility).
-- **Grounding:** suggestions draw on **real project data** — categories (`catalog.md`), popular queries
+- **Grounding:** suggestions draw on **real project data** - categories (`catalog.md`), popular queries
   (footer 0.2 SEO block), brands (2.4), goals. Results reuse the listing template (`category.md`).
 
 ## Suggestions overlay (autocomplete)
 
-- **Empty (focus, no input):** recent searches (history — logged-in / local) + **popular queries**
+- **Empty (focus, no input):** recent searches (history - logged-in / local) + **popular queries**
   (from the footer SEO block). Guest without history sees only popular.
-- **Typing ≥ 2 chars:** groups — **query completions** (with result counts) · **categories/brands**
+- **Typing ≥ 2 chars:** groups - **query completions** (with result counts) · **categories/brands**
   (from catalog + brand index 2.4) · **product previews** (3–4, thumb + name + price) · **«Показати
   всі результати»**. Keyboard: ↑↓ select, Enter → results.
 - **< 2 chars:** hold the empty state (don't fire on 1 letter). Debounced; skeleton while loading.
@@ -36,7 +36,7 @@ synonyms live in the **search engine [?]** (operational).
 ## Entry
 
 - **Desktop:** the search field is always visible in the header main bar (Navigation 0.1).
-- **Mobile:** a **🔎 icon** in the top bar opens a **full-screen search** (field + suggestions) — search
+- **Mobile:** a **🔎 icon** in the top bar opens a **full-screen search** (field + suggestions) - search
   is not a bottom-nav tab (consistent with Navigation: «search stays in the top bar»).
 
 ## States
@@ -48,10 +48,10 @@ synonyms live in the **search engine [?]** (operational).
 
 ## SEO / indexation
 
-- **Results = `noindex, follow`** — standard SEO practice (internal search = thin/duplicate, index-bloat
+- **Results = `noindex, follow`** - standard SEO practice (internal search = thin/duplicate, index-bloat
   risk); follow so the crawler still traverses cards. URL `/search?q={query}`, not in sitemap.xml. No
   schema on results; site-level **WebSite + SearchAction** (sitelinks searchbox) lives in Navigation/Home.
-- Real search queries are a **signal for SEO landings** (categories, goals, cities) — those are what gets
+- Real search queries are a **signal for SEO landings** (categories, goals, cities) - those are what gets
   indexed, not the search results.
 - A11y: field = `combobox`, list = `listbox`/`option`, `aria-activedescendant`; result count in `aria-live`.
 
@@ -67,9 +67,9 @@ synonyms live in the **search engine [?]** (operational).
 
 ## Open questions [?]
 
-- **Search engine:** typo-tolerance, synonyms, UA/RU morphology, ranking — tech choice (Meilisearch /
+- **Search engine:** typo-tolerance, synonyms, UA/RU morphology, ranking - tech choice (Meilisearch /
   Typesense / Elastic).
-- **Relevance ranking** weights (name/brand/availability/popularity) — tuning.
-- **Exact SKU/EAN match** → straight to PDP or list — decision.
-- **Popular queries** — from real analytics (currently a hypothesis from the footer list).
-- **Voice / barcode search** — post-launch.
+- **Relevance ranking** weights (name/brand/availability/popularity) - tuning.
+- **Exact SKU/EAN match** → straight to PDP or list - decision.
+- **Popular queries** - from real analytics (currently a hypothesis from the footer list).
+- **Voice / barcode search** - post-launch.

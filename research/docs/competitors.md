@@ -310,16 +310,16 @@ homepage + category + product/promo pages, 2026-07-07. Strings verbatim (Ukraini
 
 ### The shared register (what Stack inverts)
 
-1. **Discount-forward by default** — cards lead with «-40%», «ДО -34%», «Зберегти 12%»; price cut, not fit-for-goal, is the headline.
-2. **Urgency & "hit/top" ranking wallpaper** — «ХІТ», «Топ-50», «Лідер продажу!»; social-proof-by-assertion, never explains *why*.
-3. **Unverifiable trust claims** — «100% оригінал», «офіційний імпортер», «сертифіковано» asserted as slogans, never linked to a viewable certificate (bcaa even misspells it). **Stack's clearest opening: show the actual certificate.**
-4. **Scale-flex instead of substance** — «9000+ продуктів», «6млн+ замовників», «120+ брендів», «40 магазинів» — bigness as a trust proxy.
-5. **Gimmick pricing & one-click pressure** — «за 1 грн» bait, «Купити в 1 клік» nearly everywhere; speed-to-purchase over confidence-to-purchase.
-6. **Cheerful/hype tone** — «!», emoji 🏆💪, ALL-CAPS «НАДІСЛАТИ / ВИГОДА»; contradicts a "calm and confident" voice.
-7. **Loyalty named plainly but generic** — «Бонусні бали», «накопичувальні знижки», «Ваша знижка: N»; everyone has it, nobody makes it a voice differentiator.
-8. **No coach/wholesale voice** — none surfaces a coach/wholesale price; bcaa's «Замовити дзвінок» callback is the closest. B2B pricing hidden behind a phone form → **Stack's coach wording is greenfield.**
+1. **Discount-forward by default** - cards lead with «-40%», «ДО -34%», «Зберегти 12%»; price cut, not fit-for-goal, is the headline.
+2. **Urgency & "hit/top" ranking wallpaper** - «ХІТ», «Топ-50», «Лідер продажу!»; social-proof-by-assertion, never explains *why*.
+3. **Unverifiable trust claims** - «100% оригінал», «офіційний імпортер», «сертифіковано» asserted as slogans, never linked to a viewable certificate (bcaa even misspells it). **Stack's clearest opening: show the actual certificate.**
+4. **Scale-flex instead of substance** - «9000+ продуктів», «6млн+ замовників», «120+ брендів», «40 магазинів» - bigness as a trust proxy.
+5. **Gimmick pricing & one-click pressure** - «за 1 грн» bait, «Купити в 1 клік» nearly everywhere; speed-to-purchase over confidence-to-purchase.
+6. **Cheerful/hype tone** - «!», emoji 🏆💪, ALL-CAPS «НАДІСЛАТИ / ВИГОДА»; contradicts a "calm and confident" voice.
+7. **Loyalty named plainly but generic** - «Бонусні бали», «накопичувальні знижки», «Ваша знижка: N»; everyone has it, nobody makes it a voice differentiator.
+8. **No coach/wholesale voice** - none surfaces a coach/wholesale price; bcaa's «Замовити дзвінок» callback is the closest. B2B pricing hidden behind a phone form → **Stack's coach wording is greenfield.**
 
-**Net:** the category sounds identical — loud, badge-driven, asserting trust it never proves,
+**Net:** the category sounds identical - loud, badge-driven, asserting trust it never proves,
 hurrying the click. Stack's voice wins by inverting each: prove trust (real certificate), lead
 with fit-not-discount, name the coach/wholesale price plainly, and stay calm (no «!», no
 ALL-CAPS badges, no «за 1 грн» bait). Feeds `voice/docs/voice.md` §Принципи.

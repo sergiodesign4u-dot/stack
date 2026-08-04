@@ -1,6 +1,6 @@
-# Page-level IA — SEO methodology & keyword reference (Stack, UA sportpit)
+# Page-level IA - SEO methodology & keyword reference (Stack, UA sportpit)
 
-- **What it is:** the project's SEO engine — principles, keyword model, sportpit keyword clusters,
+- **What it is:** the project's SEO engine - principles, keyword model, sportpit keyword clusters,
   intent modifiers, Title/Description/H1 templates, SEO-text structure, schema and a technical
   checklist. With this, ready, on-brand, optimized Ukrainian copy can be generated for any page
   **at the IA stage**; only search-volume validation waits for real data.
@@ -14,7 +14,7 @@
 
 ## 1 · Principles (Stack-specific)
 1. **Trust-first copy** (Принцип №1): lead with safety/quality (сертифікати, оригінал, склад,
-   дозування), then sell. Reduces doubt — matches the beginner persona.
+   дозування), then sell. Reduces doubt - matches the beginner persona.
 2. **Plain Ukrainian** (Принцип №5): everyday words in nav/labels; depth in body text. Root
    keywords used naturally, **no keyword stuffing**.
 3. **Intent match:** each page targets one dominant intent (commercial / informational) and one
@@ -23,7 +23,7 @@
 5. **Internal linking** with descriptive crawlable anchors (categories ↔ subcategories ↔ goals ↔
    brands ↔ cities). Footer + mega-menu are the two main linking surfaces.
 6. **Faceted-nav indexation control:** only a curated whitelist of facet pages is indexed; the rest
-   canonical-to-base / noindex,follow (avoid index bloat — critical for a store).
+   canonical-to-base / noindex,follow (avoid index bloat - critical for a store).
 7. **Bilingual reality (uk/ru):** UA users search both Ukrainian and Russian. Site is **uk-first**
    (canonical uk), with `ru` hreflang. Don't mix languages on one URL; mirror content per locale.
 8. **Technical hygiene:** mobile-first, Core Web Vitals, alt text, lazy-load, clean URLs,
@@ -37,7 +37,7 @@
 - Map: head → Category H1; body → Category Title/Description + subcategory pages; long-tail →
   subcategory/goal/filter pages, product pages and blog articles.
 
-## 3 · Intent modifiers (UA) — combine with the head term
+## 3 · Intent modifiers (UA) - combine with the head term
 **Commercial:** купити · ціна · вартість · в Україні · [місто] · оригінал · дешево · знижка ·
 акція · замовити · доставка.
 **Choice / quality:** найкращий · рейтинг · відгуки · який обрати · топ.
@@ -58,7 +58,7 @@
 | City (2.1a) | [категорія] + [місто] | протеїн Одеса | local commercial |
 | Blog (8.1) | як/чому/скільки + тема | як приймати креатин | informational |
 
-## 5 · Sportpit keyword clusters (UA) — volumes [?]
+## 5 · Sportpit keyword clusters (UA) - volumes [?]
 Per category: primary + key body/long-tail. Volume/difficulty = `[?]` (fill via tools). uk + ru
 variants noted where the ru form is common.
 
@@ -76,8 +76,8 @@ variants noted where the ru form is common.
 - **Аксесуари:** шейкер · шейкер для спортпиту · атлетичний пояс · кистьові бинти · лямки для тяги.
 
 ## 6 · Title / Description / H1 templates
-- **Title (≤60):** `[Head] — [модифікатор: купити/ціна] [в Україні] | Stack`
-  - e.g. `Креатин — купити креатин моногідрат, ціна | Stack`
+- **Title (≤60):** `[Head] - [модифікатор: купити/ціна] [в Україні] | Stack`
+  - e.g. `Креатин - купити креатин моногідрат, ціна | Stack`
 - **Description (≤155):** `[Що є / типи] від перевірених брендів. [Trust: оригінал/сертифікати].
   [Доставка/оплата]. [CTA/ціль].`
 - **H1 (single):** the bare category/entity name (`Креатин`), no «купити» spam in H1.
@@ -85,10 +85,10 @@ variants noted where the ru form is common.
 - **City page H1:** `[Категорія] [Місто]` + localized delivery line.
 
 ## 7 · SEO-text structure (the body block at page bottom)
-1. **Intro (trust)** — what the category is + quality signal (1–2 sentences).
-2. **How to choose** — types/use-cases in plain language (the value for the beginner), with root
+1. **Intro (trust)** - what the category is + quality signal (1–2 sentences).
+2. **How to choose** - types/use-cases in plain language (the value for the beginner), with root
    keywords woven naturally.
-3. **Close (trust/logistics)** — сертифікація, доставка Новою Поштою, оплата, повернення.
+3. **Close (trust/logistics)** - сертифікація, доставка Новою Поштою, оплата, повернення.
 - Length: ~600–1200 characters; keyword density ~1–2%; use LSI/synonyms, not repetition.
 - Place **below** products+filters; «Читати більше» on top can anchor to it.
 
@@ -124,7 +124,7 @@ variants noted where the ru form is common.
   6. Validate volumes/difficulty later with tools; refine wording, not structure.
 
 ## Open [?]
-- Real search volumes / difficulty / SERP competitors — tool data (Ahrefs/Serpstat/GKP).
-- uk-vs-ru query split per cluster — Search Console / Trends after launch.
-- Final faceted-nav indexation whitelist — keyword research.
-- Blog topic plan (informational long-tail) — content stage.
+- Real search volumes / difficulty / SERP competitors - tool data (Ahrefs/Serpstat/GKP).
+- uk-vs-ru query split per cluster - Search Console / Trends after launch.
+- Final faceted-nav indexation whitelist - keyword research.
+- Blog topic plan (informational long-tail) - content stage.

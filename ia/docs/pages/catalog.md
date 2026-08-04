@@ -1,11 +1,11 @@
-# Page-level IA — Catalog structure (taxonomy)
+# Page-level IA - Catalog structure (taxonomy)
 
-- **Node:** 2.x (Sitemap cluster 2 — Catalog & discovery). This is the **store taxonomy**
+- **Node:** 2.x (Sitemap cluster 2 - Catalog & discovery). This is the **store taxonomy**
   that powers Catalog (2.0), Category (2.1), the «Каталог» mega-menu, and the «За ціллю»
   collections (2.2).
 - **Type:** Information structure (category tree + goal mapping).
 - **Canonical visual:** `ia/catalog.html`. This markdown is the source of truth.
-- **Grounding:** built from real Ukrainian sport-nutrition catalogs — primarily
+- **Grounding:** built from real Ukrainian sport-nutrition catalogs - primarily
   **Belok.ua** (full tree pulled), cross-checked against Sporter / bb.ua / Euro Protein.
 
 ## MVP breadth & rebalancing (decided 2026-06-30)
@@ -31,9 +31,9 @@ with real supplier data). The tree is the target structure.
   certification, availability are **facets/filters** on the listing, not tree levels.
 - **Goals** = curated **collections** that cut across categories ("what outcome"). Not
   categories (JTBD unchanged); they select products from the tree. Goals are Stack's
-  **concern/outcome discovery lens** — the analogue of "browse by symptom" on a pharmacy
+  **concern/outcome discovery lens** - the analogue of "browse by symptom" on a pharmacy
   aggregator (e.g. Liki24). So they are **first-class inside the Catalog**, not only a
-  separate dropdown: **«За ціллю» leads the category list** — it is the **first item** in the
+  separate dropdown: **«За ціллю» leads the category list** - it is the **first item** in the
   home category rail and in the «Каталог» mega-menu category column, the first block on the
   Catalog hub (2.0), and the top block of the mobile Catalog drilldown + goal pages (2.2)
   (consistent goals-first ordering, decided 2026-07-01). This keeps goals reachable everywhere
@@ -41,14 +41,14 @@ with real supplier data). The tree is the target structure.
 - **One canonical category per product.** A product lives in exactly one category;
   multi-discovery is via **goal tags + facets + search**, not dual category listings.
   _(Example: L-карнітин's canonical home is Жироспалювачі; it also surfaces under the
-  «Схуднення» goal and search — no second listing under Амінокислоти.)_
+  «Схуднення» goal and search - no second listing under Амінокислоти.)_
 - **Symptom/concern = goals.** There is no separate "symptom" tree (closes node 2.3):
   goals are the concern lens; health-specific concerns (immunity, sleep, joints…) are the
   «Здоров'я» subcategories + the Імунітет goal. A dedicated symptom landing, if ever needed,
   is just an SEO variant of a goal/Здоров'я page.
 - **Brands** = a parallel index (2.4).
 
-## Category tree — 12 top categories (Ukrainian = product language)
+## Category tree - 12 top categories (Ukrainian = product language)
 
 ### 1. Протеїн
 - За типом: Сироватковий (концентрат) · Ізолят · Гідролізат · Казеїн · Комплексний ·
@@ -88,7 +88,7 @@ with real supplier data). The tree is the target structure.
 - Мінерали: Магній · Цинк · Кальцій · Залізо · Селен
 - Омега / риб'ячий жир: Омега-3 · 3-6-9 · Омега-3 + D3
 
-### 10. Здоров'я (umbrella — condition-based)
+### 10. Здоров'я (umbrella - condition-based)
 - **Суглоби та зв'язки:** Глюкозамін/хондроїтин/MSM · Колаген · Комплекси для суглобів
 - **Імунітет:** Комплекси · Вітамін C/D · Цинк · Ехінацея
 - **Сон і нервова система:** Мелатонін · GABA · L-тріптофан · 5-HTP · Антистрес-комплекси
@@ -100,7 +100,7 @@ with real supplier data). The tree is the target structure.
   Залізо/фолієва
 - **Адаптогени:** Ашваганда · Женьшень · Родіола
 - **Антиоксиданти:** Q10 · Альфа-ліпоєва · Кверцетин · Куркумін
-- _(Дитяче здоров'я — **out of scope**: audience is adult athletes/coaches/beginners; a
+- _(Дитяче здоров'я - **out of scope**: audience is adult athletes/coaches/beginners; a
   pediatric subtree dilutes focus and adds trust/safety surface. Revisit post-launch only if
   demand shows.)_
 
@@ -111,7 +111,7 @@ with real supplier data). The tree is the target structure.
 ### 12. Бренди
 - Індекс брендів → лістинг (parallel entry, 2.4)
 
-## Goals → categories — 6 goals (LOCKED 2026-06-30)
+## Goals → categories - 6 goals (LOCKED 2026-06-30)
 
 All six are backed by the launch catalog (full breadth ships, incl. Ізотоніки → endurance).
 **This table is the canonical source for the «Цілі» mega-menu** in the header (Navigation 0.1):
@@ -141,17 +141,17 @@ inherited Filter panel on Category/Catalog/Search pages.
 
 - **Goals integrated into the Catalog** as the concern lens (mega-menu column + top of the
   mobile Catalog drilldown), so they never disappear on mobile.
-- **Symptom/concern (2.3)** — no separate tree; goals + «Здоров'я» subcategories cover it.
-- **Дитяче здоров'я** — out of scope (not added).
-- **L-карнітин** — canonical category = Жироспалювачі; one-canonical-category rule.
+- **Symptom/concern (2.3)** - no separate tree; goals + «Здоров'я» subcategories cover it.
+- **Дитяче здоров'я** - out of scope (not added).
+- **L-карнітин** - canonical category = Жироспалювачі; one-canonical-category rule.
 
 ## Open questions [?]
 
-- **Catalog population at scale** (sourcing, feeds, stock, out-of-stock handling) — the
+- **Catalog population at scale** (sourcing, feeds, stock, out-of-stock handling) - the
   brief's deferred operational `[?]`; resolved in technical scoping with real supplier data.
   Subcategory depth fills as SKUs land. (The only navigation/structure question left.)
 
 ## Sources
 
-- Belok.ua — full catalog tree (primary reference)
-- Sporter Nutrition, bb.ua, Euro Protein — cross-check of category breadth
+- Belok.ua - full catalog tree (primary reference)
+- Sporter Nutrition, bb.ua, Euro Protein - cross-check of category breadth

@@ -1,4 +1,4 @@
-# Brand plates (Step 3a) — generation prompts
+# Brand plates (Step 3a) - generation prompts
 
 **Product:** Stack, mobile-first sport nutrition e-commerce, Ukraine
 **Stage:** 06 Concept, Step 3a (three brand toolkit plates)
@@ -51,7 +51,7 @@ Mascot creature: your call. To keep each image coherent the prompts seed a **fri
 
 ---
 
-## Plate A — "Trust Lab"
+## Plate A - "Trust Lab"
 
 **Feeling:** calm, scientific, premium trust. Closest to the Thorne benchmark.
 **Answers (concept.md):** attribute 1 (calm, not loud), attribute 2 (trust proven, not asserted), attribute 5 (plain answer first).
@@ -69,7 +69,7 @@ Mascot creature: your call. To keep each image coherent the prompts seed a **fri
 
 ---
 
-## Plate B — "Coach Power"
+## Plate B - "Coach Power"
 
 **Feeling:** confident, athletic, performance forward. Energy on a leash.
 **Answers (concept.md):** attribute 4 (athletic energy, not aggression), attribute 1 (calm frame, single accent), attribute 3 (character via a bold voice and mascot).
@@ -87,7 +87,7 @@ Mascot creature: your call. To keep each image coherent the prompts seed a **fri
 
 ---
 
-## Plate C — "Your Coach" (character led)
+## Plate C - "Your Coach" (character led)
 
 **Feeling:** warm, personable, guided, trustworthy with a face. The monobank lane.
 **Answers (concept.md):** attribute 3 (character and warmth, not sterile), attribute 5 (plain answer first, a guide), attribute 2 (trust still proven under the warmth).
@@ -118,11 +118,11 @@ If you would rather the assistant generate these directly next time, export a Fr
 
 ## Third-party marks
 
-**`np-mark.png`** (534×534, transparent) — the Нова Пошта carrier mark, used in the PDP
+**`np-mark.png`** (534×534, transparent) - the Нова Пошта carrier mark, used in the PDP
 delivery block to identify the delivery option (nominative use, the way any store shows
 its carriers). Cropped from the official 2022 lockup published on Wikimedia Commons
-(`File:Nova Poshta 2022 logo.png`, marked **public domain** — simple geometric shapes,
-below the threshold of originality — with the usual **trademark** notice). Cropping was
+(`File:Nova Poshta 2022 logo.png`, marked **public domain** - simple geometric shapes,
+below the threshold of originality - with the usual **trademark** notice). Cropping was
 mechanical: the mark was split from the wordmark at the 70px empty column between them,
-white paper made transparent. Do not restyle, recolour or stretch it — a carrier's mark is
+white paper made transparent. Do not restyle, recolour or stretch it - a carrier's mark is
 theirs. If a newer official SVG turns up, swap the file and keep the name.
