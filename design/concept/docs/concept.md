@@ -2,7 +2,7 @@
 
 **Product:** Stack, mobile-first sport nutrition e-commerce, Ukraine
 **Stage:** 06 Concept
-**Depends on:** `concept/docs/references.md`, `research/docs/personas.md` v1.2, `research/docs/jtbd.md` v1.2, `voice/docs/voice.md`, `research/docs/benchmark.md`, `research/docs/competitors.md`
+**Depends on:** `design/concept/docs/references.md`, `research/docs/personas.md` v1.2, `research/docs/jtbd.md` v1.2, `voice/docs/voice.md`, `research/docs/benchmark.md`, `research/docs/competitors.md`
 **Language:** English (internal md). Product strings quoted from `voice/docs/voice.md` stay Ukrainian.
 
 This file records the design language as decisions with reasons, not mood. Section "Designer's taste" is the owner's input (captured, not invented). Section "Attributes" derives visual opposites from data and taste, each with a source line and a borrowed technique. Sections "Brand" and "Layout" are filled later (Step 3 brand plates, Step 5 chosen layout).
@@ -97,9 +97,9 @@ Each pair is `attribute, not opposite`, with the data line it comes from and the
 
 **Selected artifacts:**
 
-- Board of record: `concept/assets/brand-plate-d-2.png` - upright wordmark (calmer and more premium than the italic D-1), IBM Plex Mono numerals (matches Attribute 2), clear-space discipline.
+- Board of record: `design/concept/assets/brand-plate-d-2.png` - upright wordmark (calmer and more premium than the italic D-1), IBM Plex Mono numerals (matches Attribute 2), clear-space discipline.
 - Logotype construction canon (added 2026-07-20): the horizontal S + "Stack" lockup is built on a single module **x** (= a quarter of the wordmark cap-height): wordmark H = 4x, the S mark 1x taller (optical height 5x) and vertically centered on the wordmark (overshoots cap-line/baseline by 0.5x each), mark width ~4,3x, gap = 1x, clear space >= 1x, wordmark Oswald 700 title-case (width ~11,2x, font-intrinsic). Measured from the font and the tight-cropped mark (`logo-mark*.svg`), not eyeballed; grid method adapted from the owner-supplied MTS logo-grid guideline. The mark-to-wordmark ratio is the owner-tunable knob (raised 4x -> 5x / +1x on 2026-07-20). Full spec in the root `DESIGN.md` (Identity); construction + clear-space diagrams in `concept/logo.html` (section "Побудова та канон").
-- Mascot of record: `concept/assets/brand-mascot-3d-realistic.png` - the realistic 3D register (grown-up, premium, bear-like), chosen over the plush register.
+- Mascot of record: `design/concept/assets/brand-mascot-3d-realistic.png` - the realistic 3D register (grown-up, premium, bear-like), chosen over the plush register.
 - Mascot pose and expression set (added 2026-07-20): reusable single-asset renders generated from the mascot of record as a character reference (Nano Banana Pro), so the character holds across all frames. Poses `mascot-guide.png`, `mascot-pose-point.png`, `mascot-pose-present.png`, `mascot-pose-product.png`; faces `mascot-face-curious.png`, `mascot-face-reassure.png`, `mascot-face-concern.png`. Context mapping and full canon in `DESIGN.md` section 2; shown in `concept/concept.html` section 06. Fixed here for reproducibility.
 
 **Why D-2 plus realistic:** white canvas fits product-on-white photography (taste addendum 1); soft charcoal plus a single signal orange keeps energy on a leash (A1, A4); the upright wordmark reads trust-first rather than sporty-aggressive (A1); IBM Plex Mono numerals carry the trust-by-proof technique (A2); the 3D bear delivers character and warmth inside the calm frame (A3), which no UA competitor offers.

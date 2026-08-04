@@ -6,7 +6,7 @@ Adapted from the reusable prompt-pack, **grounded in what this project already h
 the existing B/W wireframe vocabulary and the IA text, we do not invent a second system.
 
 > Governs: `wireframes/*.html`. Sources it leans on: `wireframes/docs/screens.md` (the work order),
-> `ia/docs/pages/*.md` (per-screen IA + A–E text), `research/docs/flows.md` (transitions, exits),
+> `ia/docs/pages/*.md` (per-screen IA + A–E text), `ia/docs/flows.md` (transitions, exits),
 > `ia/*.html` (the existing `.wf` B/W vocabulary we reuse).
 
 ---
@@ -64,7 +64,9 @@ the existing B/W wireframe vocabulary and the IA text, we do not invent a second
 Navigation is **flow-first**, not a per-screen rail (a rail would clash with a screen's own
 layout, e.g. the catalog filter rail). Three layers:
 
-1. **`wireframes/index.html` = «Всі екрани»** - a greyscale hub showing the whole tree
+1. **`wireframes/overview.html` = «Всі екрани»** - a greyscale hub showing the whole tree
+   (**renamed 2026-08-04**: `index.html` is the entry point of a folder, so in `wireframes/` it is
+   the HOME PAGE of the product, node 0.0. The hub moved to `overview.html`.)
    **флоу → екран → стани**; the **live coverage index** (built screens/states are links, planned
    ones are dashed/muted). Rendered from **`wireframes/_nav.js`** - the **single source of truth**
    (mirrors `docs/screens.md`); flip `built` / add to `builtStates` as screens are drawn.
@@ -141,7 +143,7 @@ placeholders that may 404.
 - No external libraries, no frameworks, no web fonts, no tracking. Minimal vanilla JS (nav-tree
   render + any state toggle that a real screen genuinely needs, e.g. opening the cart drawer).
 - Keep the repo clean: no stray screenshots committed; wireframe files live only in `wireframes/`.
-- Drift-correction re-prompts live in `playbook/design-wireframes-playbook.md` (§Drift-correction).
+- Drift-correction re-prompts live in `docs/playbook/design-wireframes-playbook.md` (§Drift-correction).
 
 ---
 

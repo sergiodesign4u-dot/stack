@@ -10,7 +10,7 @@
 - **Canonical visual:** `ia/coach.html`. This markdown is the source of truth.
 - **Job:** **Job 1 - PRIMARY** (Decision 1). The deepest flow by design - it is a **work flow**, not
   to be flattened (coach = ~8 taps for a 2-client order).
-- **Flow source:** `research/docs/flows.md` - "Main Job - coach builds a multi-client order in one
+- **Flow source:** `ia/docs/flows.md` - "Main Job - coach builds a multi-client order in one
   session" (persona Olena).
 - **Model:** **coach-as-buyer** - a coach is a buyer who orders for clients, **not** a marketplace /
   directory of coaches (consultation is out of MVP scope).
@@ -149,8 +149,7 @@
     context**: coach rail + coach header + **гуртові (Pro) prices** and «add to session». Reached from the
     coach «Обране»; the buyer's personal account is a separate entry («Профіль / акаунт покупця»).
 11. **5.2 dashboard states (wireframe):** `base` (Pro, has data) · **`empty`** (new coach: 0 clients/orders/
-    wishlist, empty-state cards, «Зібрати першу сесію») · **`free`** (Free tier: Free chip, **«ліміт 2 клієнти
-    в сесії»**, Pro upsell banner) · loading · error.
+    wishlist, empty-state cards, «Зібрати першу сесію») · **`free`** (Free tier: Free chip, **«ліміт 2-3 клієнти `[?]` в сесії»**, Pro upsell banner) · loading · error.
 
 ## Open questions [?]
 

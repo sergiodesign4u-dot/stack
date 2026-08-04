@@ -57,12 +57,66 @@ Full form: class -> found -> **who found** -> fixed -> withdrawn -> deferred.
 
 ### Codex set
 
-Codex was launched read-only over the whole repository with the class list above. Its findings are
-merged below when the run returns; the "who found" column is the point of keeping the sets apart, and
-over a few stages it is the only way to learn whether the second instrument pays for itself instead
-of believing that it does.
+Launched read-only over the whole repository with the class list above (`write: false` in the job
+record). **20 findings, and the second instrument paid for itself on the first run:** 15 were real
+and outside the Claude set, and most of them were **damage this realignment caused** - stale paths,
+roles renamed in code but not in prose, promises the move created and did not keep.
+
+| # | Class | Finding | Who found | Status |
+|---|---|---|---|---|
+| **X1** | orphan | **`ia/flows.html` declared `NAV_SECTIONS` twice.** The split from `concept-map.html` carried over its trailing script block, so the page also declared `sitemap`, `matrix`, `navigation` - none of which exist on it - and the **second declaration wins**. | Codex | **fixed** - and see "the instrument had the same blind spot" below |
+| **X2** | orphan | 17 references to paths this move renamed survived: `research/docs/flows.md`, `research/docs/sitemap.md`, `research/concept.html`, `playbook/`, `concept/docs/`, `concept/assets/`. The first sweep only caught the un-prefixed forms. | Codex | **fixed** in 19 files |
+| **X3** | contradiction | `wireframes/docs/conventions.md` still gave **`index.html` the hub role** - the exact swap this alignment made. Code moved, prose did not. | Codex | **fixed**, with the swap named in place |
+| **X4** | contradiction | Stage pages described **finished work as still ahead**: `wireframes/overview.html` listed built flows under "далі", `design/overview.html` called `index.html` "reserved for a future colour home page" and stage 07 "still to come" while README says Done. | Codex | **fixed** on both |
+| **X5** | orphan | Three documents pointed at `research/sitemap png example/` - a directory **deliberately deleted** in c87b2a6 ("stale Crypto Bets sitemap example"). A pointer outlived its target by months. | Codex | **fixed** in all three |
+| **X6** | contradiction | `design/concept/assets/README.md` still listed `mascot-face-*.png` and `np-mark.png`, which this pass moved to `design/visuals/`. | Codex | **fixed** - listed with "moved, generated here" |
+| **X7** | contradiction | The notification scope was written **both** ways: "a message on **every** status change" and "which transitions are worth a message `[?]`". | Codex | **fixed** - the trigger is a transition, the subset is `[?]` |
+| **X8** | promise without executor | Two documents handed the notification wording to `voice/docs/microcopy.md`; **that set did not exist there**. A promise this pass created and did not keep. | Codex | **fixed** - `microcopy.md` Розділ H, drafted to the phase-8 tone, with the transition set marked `[?]` |
+| **X9** | contradiction | The Free coach cap was stated as **2** in one line of `coach.md` and **2-3 `[?]`** four lines later. | Codex | **fixed** in the spec; the wireframe instance is deferred (frozen zone) |
+| **X10** | number without `[?]` | Delivery tariffs (`від 50 ₴`, `від 70 ₴`, `1-2 дні`) written as exact figures, while `CLAUDE.md` lists delivery tariffs among the numbers that must carry `[?]`. | Codex | **fixed** in `cart.md` and `product.md` |
+| **X11** | number without `[?]` | Consumption cycles shown as "вистачає приблизно на 30 / 100 днів" while the same spec admits the trigger data is `[?]`. | Codex | **deferred** - the bare numbers live in the frozen wireframe; the spec already marks them |
+| **X12** | contradiction | Retention "over 80% at 6 months" carries `[?] Unvalidated` in `personas.md` and is stated as **fact** in `aarrr.md`. | Codex | **fixed** in `aarrr.md` |
+| **X13** | rule violation | Two IA pages described their own `.nav-grid` / `.nav-card` / `.nav-name` / `.nav-desc` - the prefix `/_nav.css` reserves. | Codex | **fixed** - renamed out of the namespace in `concept-map.html`; in `flows.html` the rules were **dead** (0 markup) and were deleted |
+| **X14** | rule violation | `wireframes/docs/critique.md` is partly Ukrainian; internal md is English and `wireframes/docs/` is not one of the two exception zones. | Codex | **deferred** - a 400-line journal; translating it is a task, not a fix, and it is named here rather than excused |
+| **X15** | orphan | Six address state pages and four receipt links carry `href="#…"` fragments with no matching id. The base page does the same actions with real `onclick` handlers. | Codex | **deferred** - pre-existing, inside the zone frozen after Voice |
+| **X16** | screen counts | `142 screens` / `40 coloured screens` count the hub as a screen; the registries hold 141 and 39. | **both** | **already fixed** by D4 before this run returned - Codex read a snapshot taken six minutes earlier |
+| **X17** | rule violation | `wireframes/overview.html` declares `--d-accent:#2d5a3d` - "colour landing in wireframes". | Codex | **withdrawn.** Verified: the variable is **declared and never used** (0 `var(--d-accent)` on the page), so no colour lands anywhere. It is docs chrome for the hub, which carries the roadmap sidebar. The idle declaration was removed anyway - a variable nothing reads is its own small defect. |
+
+### The instrument had the same blind spot as the material
+
+X1 is the finding worth keeping. My section idle-control used `re.search`, which returns the **first**
+match - so it validated the first `NAV_SECTIONS` block and never saw that a second one existed and
+won at runtime. The check reported "218 declared, 0 orphaned" and was **structurally incapable** of
+seeing the defect it was written to catch.
+
+Fixed in the instrument, not just in the page: it now walks **every** declaration, flags duplicate
+`NAV_SECTIONS` / `NAV_BASE`, and flags the same registry file loaded twice. That last rule needed one
+more pass of its own - comparing file **names** called 41 pages defective, because loading
+`../wireframes/_nav.js` **and** `./_nav.js` is the design. Resolving the paths first dropped it to
+zero. An instrument that cries wolf stops being read, which is the same failure as one that stays
+silent.
 
 ---
+
+## Does the second instrument pay for itself
+
+First run, so this is one data point, not a trend - but it is the point of keeping the column.
+
+| | Claude | Codex | Both |
+|---|---|---|---|
+| Findings | 7 | 20 | 1 (screen counts) |
+| Real and fixed | 6 | 15 | - |
+| Withdrawn on verification | 1 | 1 | - |
+| Deferred | 0 | 3 | - |
+
+**The two sets barely overlap, and the reason is structural.** Claude found what a browser and a
+counter show: broken images, wrong totals, sections that never render. Codex found what only a reader
+of the whole source sees: a role renamed in code but not in prose, a pointer outliving its target by
+months, a promise this pass created and did not keep. Neither list is a subset of the other.
+
+**Most of Codex's haul was damage this realignment caused** - which is exactly what it was pointed at,
+and exactly what the instrument that did the moving is worst placed to see. That is the argument for
+the second instrument stated as a fact instead of as a principle.
 
 ## What this log says about the checks themselves
 

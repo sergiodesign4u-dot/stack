@@ -116,7 +116,7 @@ The goal quiz is a required MVP feature, not optional. Ship it before investing 
 ### Key hypotheses
 
 1. For regulars, the single biggest retention lever is never being out of stock on staple products. Stock reliability beats any feature.
-2. Coaches who place a second order within 30 days have a retention rate over 80% at 6 months - the second order is the critical moment.
+2. Coaches who place a second order within 30 days have a retention rate over 80% at 6 months **[?]** - the second order is the critical moment. The figure is **unvalidated**: `personas.md` carries the same number marked `[?]`, and stating it here as a fact was a contradiction between two files (found 2026-08-04).
 3. Consumption-based email reminders have a higher open and conversion rate than promotional emails because they are contextually relevant.
 
 ### What is unknown

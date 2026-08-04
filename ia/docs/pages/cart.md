@@ -6,7 +6,7 @@
 - **Canonical visual:** `ia/cart.html`. This markdown is the source of truth.
 - **Convergence point:** both the **product card** (buyer, 3.0) and the **coach multi-client session**
   (5.5) funnel here. Buyer bonuses/loyalty and the coach tier are applied here.
-- **Flow source:** `research/docs/flows.md` - checkout tail of the Main (coach) and Job 2/4 flows
+- **Flow source:** `ia/docs/flows.md` - checkout tail of the Main (coach) and Job 2/4 flows
   (address selection, payment back-to-cart, empty state, OOS at checkout).
 - **SEO:** transactional/private → **noindex, no schema** (like account & auth).
 
@@ -46,8 +46,8 @@
    «Отримати код» (passwordless, like 1.x → account auto-created), with secondary Google/Apple/E-mail
    (auth 1.x). Logged-in → the section is collapsed with name · phone · email prefilled (editable). No
    password anywhere.
-2. **Доставка** - methods (radio): **Нова Пошта - відділення/поштомат** (1–2 дні, від 50 ₴) · **Кур'єр
-   НП - на адресу** (від 70 ₴) · **Самовивіз Одеса** (безкоштовно, лише за наявності на точці). City +
+2. **Доставка** - methods (radio): **Нова Пошта - відділення/поштомат** (1-2 дні `[?]`, від 50 ₴ `[?]`) · **Кур'єр
+   НП - на адресу** (від 70 ₴ `[?]`) · **Самовивіз Одеса** (безкоштовно, лише за наявності на точці). City +
    warehouse via the **«Оберіть місто» dialog (0.1a)**; **saved addresses (7.5)** prefilled; new can be
    saved. Carrier tariff per the carrier.
 3. **Оплата** - **Карта онлайн (LiqPay / Wayforpay)** · **Apple Pay / Google Pay** · **Накладений

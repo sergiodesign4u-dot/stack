@@ -98,7 +98,7 @@ ready-but-provisional text; production swaps in tool-validated copy.
 
 ## Artifact format - Sitemap + IA
 
-Adopted format (reference example lives in `research/sitemap png example/`):
+Adopted format (reference example lives in a card-and-arrow sitemap (the sample PNGs were deleted in c87b2a6 - they came from another project)):
 
 - **Numbered cards.** `X.Y` where `X` = a flow cluster and `Y` = a step/state within it.
 - Each card = **title** + **type** (page / dialog / state) + **INCLUDES** (the blocks

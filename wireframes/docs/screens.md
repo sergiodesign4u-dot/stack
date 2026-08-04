@@ -8,8 +8,8 @@ step (etalon, states, roll-out, subagents) builds strictly to this table.
   *goal-to-product, guest checkout* + Job 3 *verify product safety*, which lives on the PDP).
   The coach flow (Job 1), reorder (Job 4) and loyalty (Job 6) are **deferred to Step 8** -
   they reuse the same etalon (listing/PDP) and templates.
-- **Sources:** `research/docs/flows.md` (Job 2 + Job 3 - states/dead-ends drawn there
-  verbatim), `research/docs/jtbd.md`, `research/docs/sitemap.md` + `ia/docs/sitemap.md`
+- **Sources:** `ia/docs/flows.md` (Job 2 + Job 3 - states/dead-ends drawn there
+  verbatim), `research/docs/jtbd.md`, `ia/docs/concept-map.md` + `ia/docs/sitemap.md`
   (node names/numbers), and each node's `ia/docs/pages/*.md` "States" section (role/domain states).
 - **States are more than four** (playbook Principle 2): the **system floor** is
   empty · loading · error · success(=base); the **real set** adds role (guest/buyer/coach)
@@ -69,7 +69,7 @@ are **reused**. The one genuinely-new screen is **5.5 Мультиклієнтс
 first as the coach-flow **reference**, then the rest fan out via subagents cloning it.
 
 - **Scope:** JTBD **Job 1** (Decision 1) - coach builds a multi-client order in one session.
-- **Sources:** `ia/docs/pages/coach.md` (cluster spec), `research/docs/flows.md` "Main Job"
+- **Sources:** `ia/docs/pages/coach.md` (cluster spec), `ia/docs/flows.md` "Main Job"
   (states/branches drawn verbatim), `ia/docs/sitemap.md` (5.x nodes).
 - **SEO/privacy:** landing 5.0 = `index,follow`; work zone 5.1–5.5 + coach cart = `noindex,nofollow`.
 

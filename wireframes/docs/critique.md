@@ -2,7 +2,7 @@
 
 **Step 9 of the wireframe method.** Scope: **Флоу 1 (beginner path)** only - the 35+
 `wireframes/*.html` for Job 2 (goal→product→checkout) + Job 3 (verify safety). Audited against
-`docs/conventions.md`, `docs/screens.md`, `research/docs/flows.md` (Job 2/3) and `ia/docs/sitemap.md`.
+`docs/conventions.md`, `docs/screens.md`, `ia/docs/flows.md` (Job 2/3) and `ia/docs/sitemap.md`.
 
 Method: a defect table first (reviewed & prioritised), then fixes applied - dead ends & missing
 states first. Coverage cross-check (`_nav.js` ↔ `docs/screens.md` ↔ disk) came back **clean** (0

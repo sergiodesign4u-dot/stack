@@ -8,7 +8,7 @@ looking borrowed.
 - **Shown on:** the screens themselves; the register below is the source of truth for how a new one
   is made.
 - **Split from `design/concept/assets/` on 2026-08-04.** The two folders answer different questions.
-  `concept/assets/` = **how the language was found** (brand plates, logo files, mascot poses and
+  `design/concept/assets/` = **how the language was found** (brand plates, logo files, mascot poses and
   faces used as generation references). `visuals/` = **what the product shows** (banners, trust
   photos, blog photos, product renders, brand marks, the auth panel photograph). Anything the buyer
   sees belongs here.

@@ -2,20 +2,22 @@
 
 **Product:** Stack, mobile-first sport nutrition e-commerce, Ukraine
 **Stage:** 06 Concept, Step 3a (three brand toolkit plates)
-**Depends on:** `concept/docs/concept.md` (taste + 5 attributes + stance), `concept/docs/references.md`
+**Depends on:** `design/concept/docs/concept.md` (taste + 5 attributes + stance), `design/concept/docs/references.md`
 
 ## Update (2026-07-19): direction chosen, Step 3b done
 
 Magnific MCP became reachable, so the three prompts below were generated directly (GPT 2, 2K, 4:3), two variants each: `brand-plate-a-1/2`, `brand-plate-b-1/2`, `brand-plate-c-1/2`. The owner then added a much denser board `brand-plate-c-3.png` and asked to synthesize: keep that density, move to a white canvas with soft charcoal plus signal orange (the B language), render the bear in 3D. That produced **direction D**: `brand-plate-d-1.png` (italic wordmark), `brand-plate-d-2.png` (upright wordmark), plus two 3D mascot studies `brand-mascot-3d-realistic.png` and `brand-mascot-3d-plush.png`.
 
-**Chosen:** board `brand-plate-d-2.png` + mascot `brand-mascot-3d-realistic.png`. The root `DESIGN.md` was written from these (Step 3b), and the choice plus runners-up are recorded in `concept/docs/concept.md` (section Brand). The prompt library below is kept as history.
+**Chosen:** board `brand-plate-d-2.png` + mascot `brand-mascot-3d-realistic.png`. The root `DESIGN.md` was written from these (Step 3b), and the choice plus runners-up are recorded in `design/concept/docs/concept.md` (section Brand). The prompt library below is kept as history.
 
 ## Update (2026-07-20): mascot pose & expression set
 
 Extended the mascot canon with reusable single-asset renders (Magnific, Nano Banana Pro / `imagen-nano-banana-2`), each generated with `brand-mascot-3d-realistic.png` uploaded as an **image character reference** so the same bear, charcoal hoodie, and single orange stripe hold. All on a white background for clean compositing.
 
 - Poses (2:3): `mascot-pose-point.png` (leads to the next step), `mascot-pose-present.png` (presents a collection), `mascot-pose-product.png` (holds a matte-black tub). Plus the existing `mascot-guide.png`.
-- Faces (1:1): `mascot-face-curious.png` (attentive), `mascot-face-reassure.png` (support), `mascot-face-concern.png` (honest OOS/error, calm).
+- Faces (1:1): `mascot-face-curious.png`, `mascot-face-reassure.png`, `mascot-face-concern.png`.
+  **Moved to `design/visuals/` on 2026-08-04** - they are shown to the buyer (empty states, PDP notes),
+  so they are product imagery. They were generated here, which is why they are still listed.
 
 Context mapping in `DESIGN.md` section 2; displayed in `concept/concept.html` section 06 «Маскот».
 
@@ -31,9 +33,9 @@ Built the horizontal S + "Stack" lockup on a grid + canon (method adapted from t
 
 Magnific is not reachable from the assistant in this session (no MCP, no API key in env), so per the stage dependency rule the assistant does not silently swap in another generator. Instead: below are three ready, model-agnostic image prompts. Generate each in your Magnific (or any GPT image 2+ / Mystic model), one image per plate, and save the files here as:
 
-- `concept/assets/brand-plate-a.png`
-- `concept/assets/brand-plate-b.png`
-- `concept/assets/brand-plate-c.png`
+- `design/concept/assets/brand-plate-a.png`
+- `design/concept/assets/brand-plate-b.png`
+- `design/concept/assets/brand-plate-c.png`
 
 Then say go, and Step 3b writes the root `DESIGN.md` from the plate you pick (identity, palette, typography, icon language, UI direction), transcribing exact values from the "Starting values" blocks below (image models render hex and long text poorly, so this file, not the picture, is the source of truth for the numbers).
 
@@ -109,7 +111,7 @@ Mascot creature: your call. To keep each image coherent the prompts seed a **fri
 
 Drop the three PNGs here with the names above and say go. Step 3b:
 1. writes the root `DESIGN.md` from the chosen plate (values transcribed from the "Starting values" block, not read off the image),
-2. records the choice and the two runners-up in `concept/docs/concept.md` (section "Brand"),
+2. records the choice and the two runners-up in `design/concept/docs/concept.md` (section "Brand"),
 3. keeps the mascot decision explicit (whether it becomes canon, and which creature).
 
 If you would rather the assistant generate these directly next time, export a Freepik or Magnific API key into the environment (or add a Magnific MCP), and it will call the generator itself.
@@ -118,7 +120,7 @@ If you would rather the assistant generate these directly next time, export a Fr
 
 ## Third-party marks
 
-**`np-mark.png`** (534×534, transparent) - the Нова Пошта carrier mark, used in the PDP
+**`np-mark.png`** (534×534, transparent, **now in `design/visuals/`**) - the Нова Пошта carrier mark, used in the PDP
 delivery block to identify the delivery option (nominative use, the way any store shows
 its carriers). Cropped from the official 2022 lockup published on Wikimedia Commons
 (`File:Nova Poshta 2022 logo.png`, marked **public domain** - simple geometric shapes,

@@ -9,7 +9,7 @@
 - **Jobs:** **Job 4 - verify a product is safe, certified, correctly dosed** (the page's reason to
   exist; composition · dosage · origin · certification, per sitemap cluster 3) and the **conversion
   step** of Job 2 (beginner) and Job 3 (regular). In a coach session it is also a quick-add surface.
-- **Flow source:** `research/docs/flows.md` → "Job 3 - verify product safety before buying". The
+- **Flow source:** `ia/docs/flows.md` → "Job 3 - verify product safety before buying". The
   page must deliver: trust details (composition/dosage/origin/certification) clearly; reviews +
   certificate content as the **recovery** for an unconvinced buyer (before any leave); an in-stock
   check → Cart; out-of-stock → back to the collection for an alternative; loading/error states for
@@ -87,8 +87,8 @@
      - **One row per method: icon · method over term · price on the right.** Price and term are two
        different answers (what it costs / when it arrives) and must not be glued into one string.
        Free is stated in words, in the success colour, not as «0 ₴».
-     - **Доставка:** Нова Пошта - **відділення або поштомат** (від 50 ₴ · 1–2 дні); **кур'єр Нової
-       Пошти на адресу / до під'їзду** (від 70 ₴ · **2+ днів**); **самовивіз** (Одеса, адреса [?]) -
+     - **Доставка:** Нова Пошта - **відділення або поштомат** (від 50 ₴ `[?]` · 1–2 дні); **кур'єр Нової
+       Пошти на адресу / до під'їзду** (від 70 ₴ `[?]` · **2+ днів**); **самовивіз** (Одеса, адреса [?]) -
        **безкоштовно · завтра**. **самовивіз лише за наявності на точці** (own per-point stock state).
      - **City chip in the block header** - the one input that changes every number below; opens the
        shared «Оберіть місто» dialog (0.1a).
@@ -254,6 +254,6 @@ are always above the fold**. Tab «Каталог» active.
 - «З цим купують» recommendation logic - needs sales data (initially manual/related-category).
 - Coach tier price value - pricing decision [?] (Free vs Pro hypothesis).
 - Per-serving price display rule when pack sizes/servings vary - confirm at data stage.
-- **Pickup addresses + delivery prices** (НП від 50 ₴, кур'єр від 70 ₴ - examples) - operational [?].
+- **Pickup addresses + delivery prices** (НП від 50 ₴ `[?]`, кур'єр від 70 ₴ `[?]` - examples) - operational [?].
 - **Per-pickup-point stock** for the самовивіз availability - operational [?].
 - **Moderation policy** for reviews/questions before publish - [?].

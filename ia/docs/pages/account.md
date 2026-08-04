@@ -10,7 +10,7 @@
   coach-only workspace (5.x) is a separate cluster, not yet at page-level.
 - **Jobs served:** **Job 4** (one-tap repeat from order history) and **Job 6** (loyalty review);
   supports Job 3 (leave a review on a delivered item → dialog 3.1a).
-- **Flow source:** `research/docs/flows.md` - Job 4 (reorder) and Job 6 (loyalty).
+- **Flow source:** `ia/docs/flows.md` - Job 4 (reorder) and Job 6 (loyalty).
 
 ## Shell model
 

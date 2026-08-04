@@ -27,7 +27,7 @@ Where it disagrees with the locked scope, that is said out loud in "Where To-Be 
 | 5 | Next client | tabs with per-client subtotals; an empty tab is a recovery, not an error | Z4 | +1 |
 | 6 | Session summary -> cart | cart **grouped by client**, per-client subtotals kept into the order | Z4 | +2 the split she used to do twice is done once, by the tool |
 | 7 | Checkout | one page, published tier price, **single delivery to the coach**, no manager call anywhere on the path | **Z5**, Z6 | +2 |
-| 8 | Waiting | honest order status **plus a message on every status change** - the store reaches out, she does not have to go and look | **Z3** | 0 instead of -3: not delight, the removal of silence |
+| 8 | Waiting | honest order status **plus a message when the status moves** - the store reaches out, she does not have to go and look. The trigger is a **transition**; which of the five transitions actually fire is `[?]` | **Z3** | 0 instead of -3: not delight, the removal of silence |
 | 9 | Receive and split | order in history **grouped by client**, so unpacking follows the same split as ordering | Z1, Z4 | +1 |
 | 10 | Face the athlete | **viewable certificate**, composition and origin on the product page; reviews with answers; a claim has an address | **Z1, Z2** | +2 she can answer the question instead of absorbing it |
 

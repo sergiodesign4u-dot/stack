@@ -92,12 +92,12 @@
     .muted-card .obs-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 8px; }
     .muted-card ul { margin: 0; padding-left: 18px; }
     .muted-card li { color: var(--text-light); font-size: 13px; line-height: 1.55; margin-bottom: 4px; }/* NAV CARDS */
-    .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin: 18px 0; }
-    .nav-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow-sm); }
-    .nav-card .obs-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
-    .nav-card .nav-name { font-size: 15px; font-weight: 650; color: var(--text); margin-bottom: 5px; }
-    .nav-card .nav-job { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
-    .nav-card .nav-who { font-size: 11.5px; color: var(--text-light); margin-top: 8px; }/* DEPTH */
+    .navcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin: 18px 0; }
+    .navcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow-sm); }
+    .navcard .obs-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 6px; }
+    .navcard .navcard-name { font-size: 15px; font-weight: 650; color: var(--text); margin-bottom: 5px; }
+    .navcard .nav-job { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+    .navcard .nav-who { font-size: 11.5px; color: var(--text-light); margin-top: 8px; }/* DEPTH */
     .depth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
     @media (max-width: 700px) { .depth-grid { grid-template-columns: 1fr; }}
     .depth-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow-sm); }
@@ -375,34 +375,34 @@ graph TD
       На мобілці (базова ширина 360px) первинна навігація - нижні таби (до 5): Головна · Каталог · Кошик · Обране · Акаунт; пошук лишається в топ-барі. Детальна специфікація - у розділі «Інформаційна архітектура → Хедер».
     </div>
 
-    <div class="nav-grid">
-      <div class="nav-card">
+    <div class="navcards">
+      <div class="navcard">
         <div class="obs-tag">A. Знайти</div>
-        <div class="nav-name">Головна / вибір цілі</div>
+        <div class="navcard-name">Головна / вибір цілі</div>
         <div class="nav-job">J2 + Рішення 2: новачок перетворює ціль на безпечний набір продуктів через тайли цілей на головній. Активаційний вхід, не загальна "головна".</div>
         <div class="nav-who">Передній вхід: Вікторія (P3), новачок</div>
       </div>
-      <div class="nav-card">
+      <div class="navcard">
         <div class="obs-tag">C. Робочий простір тренера</div>
-        <div class="nav-name">«Для тренерів» → Кабінет тренера</div>
+        <div class="navcard-name">«Для тренерів» → Кабінет тренера</div>
         <div class="nav-job">Main JTBD + Рішення 1 (мультиклієнтське замовлення) і J1 + Рішення 3 (оцінити опублікований тренерський прайс до переходу). Розлогінений - публічна сторінка, верифікований - Кабінет тренера.</div>
         <div class="nav-who">Передній вхід: Олена (P1), Дмитро (P2), коуч</div>
       </div>
-      <div class="nav-card">
+      <div class="navcard">
         <div class="obs-tag">A. Знайти</div>
-        <div class="nav-name">Пошук</div>
+        <div class="navcard-name">Пошук</div>
         <div class="nav-job">Вхід для J3 (покупець шукає відомий товар, щоб перевірити) і відновлення для J4 (постійний шукає товар, що закінчився). Доступний усім, але Main JTBD коуча йде через швидке додавання в сесії, не через Пошук.</div>
         <div class="nav-who">Передній вхід: Андрій (P4), Вікторія (P3); доступний усім</div>
       </div>
-      <div class="nav-card">
+      <div class="navcard">
         <div class="obs-tag">B. Купити</div>
-        <div class="nav-name">Кошик</div>
+        <div class="navcard-name">Кошик</div>
         <div class="nav-job">Завершує покупку для Main, J2 і J4. Несе групування по клієнтах (Рішення 1) у коуч-flow. Постійний - поточне замовлення завжди в один тап.</div>
         <div class="nav-who">Передній вхід: усі</div>
       </div>
-      <div class="nav-card">
+      <div class="navcard">
         <div class="obs-tag">D + E. Повтор, Акаунт</div>
-        <div class="nav-name">Акаунт</div>
+        <div class="navcard-name">Акаунт</div>
         <div class="nav-job">J4 + Рішення 4 (історія замовлень і повтор в один тап) і Рішення 3 (накопичувальна лояльність).</div>
         <div class="nav-who">Передній вхід: Андрій (P4), усі</div>
       </div>
@@ -449,7 +449,7 @@ graph TD
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-text">Stack - Концептуальна архітектура (jobs/персони → кластери, flows, трасування). Джерела: research/docs/sitemap.md v0.6, flows.md v0.3. Червень 2026. 0 дефектів після двох раундів критики. Детальна посторінкова IA - у розділі «Інформаційна архітектура».</div>
+    <div class="footer-text">Stack - Концептуальна архітектура (jobs/персони → кластери, flows, трасування). Джерела: ia/docs/concept-map.md v0.6, flows.md v0.3. Червень 2026. 0 дефектів після двох раундів критики. Детальна посторінкова IA - у розділі «Інформаційна архітектура».</div>
     <div class="footer-text">Наступна фаза: Wireframes</div>
   </div>
 </footer>

@@ -6,7 +6,7 @@
   treat it as a second source to keep in lockstep; edit the HTML, then update this list.
 - **Relation to the conceptual layer:** the conceptual / global IA (clusters, navigation
   model, traceability, user flows) stays in `research/` - «Концептуальна архітектура»
-  (`research/concept.html`, `research/docs/sitemap.md` v0.6, `research/docs/flows.md`).
+  (`ia/concept-map.html`, `ia/docs/concept-map.md` v0.6, `ia/docs/flows.md`).
   This `ia/` layer is the *detailed / page-level* IA («Інформаційна архітектура»).
 - **Page-level specs:** one md source of truth per node in `ia/docs/pages/`, each rendered
   as a reviewable HTML visual in `ia/`. Done so far:
@@ -110,7 +110,7 @@
   **All clusters 0–8 + search (2.5) + system pages now have page-level IA.** Next phase: **Wireframes**
   (Phase 2 renders this library).
 - **Format:** numbered cards `X.Y` (X = flow cluster). Dialogs and states are first-class
-  nodes. Reference visual: `research/sitemap png example/`.
+  nodes. Reference visual: a card-and-arrow sitemap. (The sample PNGs that used to sit in `research/sitemap png example/` were deleted on purpose in c87b2a6 - they came from another project.)
 - **Stance:** mobile-first, fully responsive. Coach = buyer (not a marketplace). SEO is
   part of each page's spec.
 
