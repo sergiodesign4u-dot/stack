@@ -3,7 +3,7 @@
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
 **Version:** v0.4 (2026-07-02)
 **Language:** English (markdown research file)
-**Depends on:** research/sitemap.md v0.6 (IA: screens, navigation, registered states), research/jtbd.md v1.2, research/strategy.md v5
+**Depends on:** ia/docs/concept-map.md v0.6 (IA: screens, navigation, registered states), research/docs/jtbd.md v1.2, research/docs/strategy.md v5
 **All screen, state, and in-flow step nodes are registered in sitemap.md Section 3. No node appears that is not registered there. Under Question entities and [post-launch] items do not appear.**
 
 ---
@@ -463,7 +463,7 @@ flowchart TD
 
 ## Sources
 
-- research/sitemap.md v0.6 (IA: entities, screens, navigation, registered states, traceability)
-- research/jtbd.md v1.2
-- research/strategy.md v5
-- research/personas.md v1.2
+- ia/docs/concept-map.md v0.6 (IA: entities, screens, navigation, registered states, traceability)
+- research/docs/jtbd.md v1.2
+- research/docs/strategy.md v5
+- research/docs/personas.md v1.2

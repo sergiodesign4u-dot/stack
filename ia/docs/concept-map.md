@@ -3,7 +3,7 @@
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
 **Version:** v0.6 (2026-06-21)
 **Language:** English (markdown research file)
-**Depends on:** research/jtbd.md v1.2, research/strategy.md v5, research/personas.md v1.2, research/master-research.md v5, research/flows.md v0.3
+**Depends on:** research/docs/jtbd.md v1.2, research/docs/strategy.md v5, research/docs/personas.md v1.2, research/docs/research.md v5, ia/docs/flows.md v0.3
 **All facts cite sources. Unknowns marked [?]. No invented entities or fields.**
 
 ---
@@ -27,7 +27,7 @@
 
 Entities are the objects a person deals with to close their jobs. Screens only display entities; entities grow from jobs. This inventory is the first input to IA work, before any screen or navigation decisions are made.
 
-Sources used: research/jtbd.md v1.1 (confirmed jobs, hypothetical jobs, danger list), research/strategy.md v4 (Decisions 1-4 and what is cut), research/personas.md v1.2 (people observations and persona needs), CLAUDE.md (MVP feature scope).
+Sources used: research/docs/jtbd.md v1.1 (confirmed jobs, hypothetical jobs, danger list), research/docs/strategy.md v4 (Decisions 1-4 and what is cut), research/docs/personas.md v1.2 (people observations and persona needs), CLAUDE.md (MVP feature scope).
 
 Rule: an entity without at least one confirmed job source or a locked Decision goes into Section 2 (Under Question). Objects explicitly excluded by a Decision are listed there with the reason.
 
@@ -61,7 +61,7 @@ The individual sellable item. The central entity of the catalog. Every other con
 **Jobs:**
 - Job 3: verify safety before buying (jtbd.md) - composition, dosage, origin, and certification are the primary signals a buyer checks before adding to cart
 - Job 5: recommend with visible evidence (jtbd.md) - coaches share the product page with athletes to back their recommendation and protect professional credibility
-- ESJ-3: Ukrainian buyer counterfeit skepticism (jtbd.md) - origin, official distributor status, and certification signals address confirmed fear of fake or mislabeled products (NADC case June 2025, hotline.ua review behavior, master-research.md Post-Persona Finding 1)
+- ESJ-3: Ukrainian buyer counterfeit skepticism (jtbd.md) - origin, official distributor status, and certification signals address confirmed fear of fake or mislabeled products (NADC case June 2025, hotline.ua review behavior, research.md Post-Persona Finding 1)
 
 **Connections:**
 - Goal Collection (product is tagged to one or more goals)
@@ -298,9 +298,9 @@ A view inside the coach's account where they can see which athletes are actually
 
 A premium paid membership for buyers or coaches, potentially offering priority stock alerts, deeper analytics for coaches, or exclusive product access.
 
-**Job source:** None confirmed. CLAUDE.md marks this as "Open question for a later phase. Do not hardcode." strategy.md v4 Business Model: "Do not hardcode as a committed product feature." research/benchmark.md and master-research.md UX Patterns confirm subscription billing trust is not established in the Ukrainian market.
+**Job source:** None confirmed. CLAUDE.md marks this as "Open question for a later phase. Do not hardcode." strategy.md v4 Business Model: "Do not hardcode as a committed product feature." research/docs/benchmark.md and research.md UX Patterns confirm subscription billing trust is not established in the Ukrainian market.
 
-**Why deferred:** No confirmed job. Structurally blocked by low recurring billing trust in Ukraine (research/benchmark.md, research/ux-patterns.md "Pattern That Does NOT Fit"). Reorder is solved as a free convenience mechanic in MVP (Decision 4, strategy.md v4).
+**Why deferred:** No confirmed job. Structurally blocked by low recurring billing trust in Ukraine (research/docs/benchmark.md, research/docs/ux-patterns.md "Pattern That Does NOT Fit"). Reorder is solved as a free convenience mechanic in MVP (Decision 4, strategy.md v4).
 
 ---
 
@@ -658,9 +658,43 @@ Columns are split by group (A to E) for width. Every job row appears in every gr
 
 ## Sources
 
-- research/jtbd.md v1.2
-- research/strategy.md v5
-- research/personas.md v1.2
-- research/master-research.md v5
-- research/flows.md v0.3
+- research/docs/jtbd.md v1.2
+- research/docs/strategy.md v5
+- research/docs/personas.md v1.2
+- research/docs/research.md v5
+- ia/docs/flows.md v0.3
 - CLAUDE.md (MVP feature scope, Out of scope for MVP section)
+
+---
+
+## Scope label: MVP or later (added 2026-08-04)
+
+This is the only place where the size of the product narrows. From here on the detail IA, the
+wireframes and the coloured build take the **MVP subset** in the first round; later screens go in a
+separate round on the owner's decision. An MVP that was never cut is not an MVP.
+
+**19 MVP screens, 3 later, 0 unlabelled.**
+
+| Cluster | MVP | Later |
+|---|---|---|
+| A Find | Home / goal selector · Goal collection · Catalog and search · Product detail **(4)** | "Help me choose" quiz - iteration of J2 |
+| B Buy | Cart · Checkout · Order placed **(3)** | - |
+| C Coach workspace | For Coaches · Sign-up and verification · Coach account home · Client list · Client profile · Multi-client session **(6)** | - |
+| D Reorder | Order history · Order detail and repeat **(2)** | "My staples" list - iteration of J4 |
+| E Account and loyalty | Sign in / register · Buyer account home · Loyalty status · Saved addresses **(4)** | Back-in-stock email - a notification, not a screen |
+
+Shown on `ia/concept-map.html`, section `#matrix`.
+
+## Emotional and social jobs: what supports them (added 2026-08-04)
+
+The traceability matrix carries **functional** jobs only, because a functional job has a screen that
+closes it. Emotional and social jobs have no screen and cannot have one: they are held by a mechanism
+spread across pages. This table is their tracing, and it has two readers - the detail IA (where the
+mechanism stands) and Voice (how it sounds). Source: `research/docs/jtbd.md` ESJ-1 to ESJ-4.
+
+| Job | Who | Supported by |
+|---|---|---|
+| **ESJ-1** coach credibility | Olena, Dmytro | the tier price **stated as a number**, not "on request" · per-client history so the coach remembers what each athlete took · composition and dosage on the card so the coach can cite a source · business register in the voice |
+| **ESJ-2** beginner confidence | Viktoriia | the goal as the first step instead of the catalog · the one-line plain answer in the buy-box · the quiz returns a **collection with a rationale**, not one product · no jargon in navigation · a tone without condescension |
+| **ESJ-3** fear of fakes | all, strongest Viktoriia | **the certificate as a viewable document**, not a badge · origin and manufacturer inside the trust block · reviews with a store reply · the certificate gallery (8.8) as the link target · unproven "100% original" **banned** by the voice dictionary |
+| **ESJ-4** coach autonomy | Olena, Dmytro | self-service with no phone call anywhere on the path · in-session quick-add instead of global search · tiers published as a page (5.0) · never "call the manager" as the only exit |

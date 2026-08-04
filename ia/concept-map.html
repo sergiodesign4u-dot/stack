@@ -128,7 +128,21 @@
       .hero { padding: 40px 0 36px; }
       .footer-inner { flex-direction: column; align-items: flex-start; }}
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }</style>
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    /* scope + emotional-jobs blocks (added 2026-08-04) */
+    .scope-box .obs-tag, .esj-box .obs-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 10px; }
+    .scope-box, .esj-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow); margin-bottom: 20px; }
+    .scope-lead { font-size: 15px; color: var(--text-secondary); margin-bottom: 18px; max-width: 760px; }
+    .scope-row { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 18px; }
+    .scope-num { display: flex; flex-direction: column; }
+    .scope-num b { font-size: 30px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+    .scope-num span { font-size: 12px; color: var(--text-light); letter-spacing: .04em; text-transform: uppercase; font-weight: 600; }
+    .scope-tab { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .scope-tab th, .scope-tab td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .scope-tab th { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--text-light); }
+    .scope-tab td:first-child { font-weight: 600; white-space: nowrap; }
+    .scope-tab td:last-child { color: var(--text-secondary); }
+</style>
 
     <link rel="stylesheet" href="../_nav.css">
 </head>
@@ -286,6 +300,61 @@ graph TD
     </div>
 
     <div class="matrix-legend" id="matrix-colmap"></div>
+
+    <div class="scope-box">
+      <div class="obs-tag">Обсяг: скільки MVP, скільки ПОТІМ</div>
+      <p class="scope-lead">
+        Це єдине місце, де обсяг продукту звужується. Далі детальна IA, вайрфрейми і кольорова
+        збірка працюють <b>MVP-підмножиною</b> першим раундом, а ПОТІМ-екрани йдуть окремим раундом
+        за рішенням власника. MVP, який ніколи не відрізали, не MVP.
+      </p>
+      <div class="scope-row">
+        <div class="scope-num"><b>19</b><span>екранів MVP</span></div>
+        <div class="scope-num"><b>3</b><span>ПОТІМ</span></div>
+        <div class="scope-num"><b>0</b><span>без мітки</span></div>
+      </div>
+      <table class="scope-tab">
+        <thead><tr><th>Кластер</th><th>MVP</th><th>ПОТІМ</th></tr></thead>
+        <tbody>
+          <tr><td>A · Знайти</td><td>Головна / вибір цілі · Колекція за ціллю · Каталог і пошук · Картка товару <b>(4)</b></td><td>«Допоможи обрати» / квіз - ітерація J2</td></tr>
+          <tr><td>B · Купити</td><td>Кошик · Оформлення · Замовлення прийнято <b>(3)</b></td><td>-</td></tr>
+          <tr><td>C · Кабінет тренера</td><td>Для тренерів · Реєстрація і верифікація · Кабінет · Клієнти · Профіль клієнта · Мультиклієнтська сесія <b>(6)</b></td><td>-</td></tr>
+          <tr><td>D · Повторити</td><td>Історія замовлень · Замовлення + повтор <b>(2)</b></td><td>Список «Мої стейпли» - ітерація J4</td></tr>
+          <tr><td>E · Акаунт і лояльність</td><td>Вхід / реєстрація · Кабінет покупця · Знижки та бонуси · Збережені адреси <b>(4)</b></td><td>Лист «товар зʼявився» - сповіщення, не екран</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="esj-box">
+      <div class="obs-tag">Емоційні та соціальні jobs - підтримуються механізмом, не екраном</div>
+      <p class="scope-lead">
+        У матриці вище лише <b>функціональні</b> jobs: у них є екран, який їх закриває. Емоційні й
+        соціальні jobs екрана не мають і мати не можуть - їх тримає механізм, розкиданий по
+        сторінках. Ця таблиця і є їхнє трасування; її читають детальна IA (де саме механізм стоїть)
+        і Голос продукту (як він звучить).
+      </p>
+      <table class="scope-tab">
+        <thead><tr><th>Job</th><th>Хто</th><th>Чим підтримується</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>ESJ-1</b><br>надійність тренера</td><td>Олена, Дмитро</td>
+            <td>тарифна ціна <b>названа числом</b>, а не «за запитом» · історія по клієнту, щоб тренер памʼятав, що кому брав · склад і дозування на картці, щоб тренер міг послатися на джерело · голос у діловому регістрі (принцип 4 голосу)</td>
+          </tr>
+          <tr>
+            <td><b>ESJ-2</b><br>впевненість новачка</td><td>Вікторія</td>
+            <td>ціль як перший крок, а не каталог · «проста відповідь» одним рядком у buy-box · квіз віддає <b>колекцію з поясненням</b>, а не один товар · жодного жаргону в навігації · тон без поблажливості</td>
+          </tr>
+          <tr>
+            <td><b>ESJ-3</b><br>скепсис щодо підробок</td><td>усі, найсильніше Вікторія</td>
+            <td><b>сертифікат як переглядний документ</b>, а не бейдж · походження і виробник у блоці довіри · відгуки з відповіддю магазину · галерея сертифікатів (8.8) як ціль посилання · «100% оригінал» без доказу <b>заборонено</b> словником голосу</td>
+          </tr>
+          <tr>
+            <td><b>ESJ-4</b><br>автономія тренера</td><td>Олена, Дмитро</td>
+            <td>самообслуговування без дзвінка на всьому шляху · quick-add у сесії замість глобального пошуку · тарифи опубліковані сторінкою (5.0) · жодного «зателефонуйте менеджеру» як єдиного виходу</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="muted-card">
       <div class="obs-tag">Поза MVP-скоупом - не рядки і не стовпці матриці</div>

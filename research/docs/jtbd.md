@@ -3,7 +3,7 @@
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
 **Version:** v1.2 (2026-06-21)
 **Language:** English (markdown research file)
-**Depends on:** research/personas.md v1.2, research/master-research.md v5, research/strategy.md v5
+**Depends on:** research/docs/personas.md v1.2, research/docs/research.md v5, research/docs/strategy.md v5
 **All facts cite sources. Hypothetical jobs marked [H]. Invented jobs are in the Hypotheses section only.**
 
 ---
@@ -26,7 +26,7 @@
 
 Note on economic model (CONFIRMED by post-persona research): Ukrainian coaches who use wholesale channels act as resellers - they purchase at wholesale price and pass on a marked-up price to clients, keeping the margin as income. This is not just a convenience workflow; it is part of how coaches earn income. The coach's job includes protecting their margin, which makes supplier pricing (accessible wholesale rate) AND reliability (on-time delivery so clients don't ask questions) equally important to the ordering flow.
 - Persona: Olena (Persona 1, PRIMARY)
-- Research source: CLAUDE.md JTBD table (Primary job), research/ux-patterns.md Pattern 3, research/competitive-analysis.md v3 (gap confirmed: no UA competitor has multi-client cart with saved profiles), fitness-shop.ua wholesale page (coach reseller model confirmed 2026-06-14)
+- Research source: CLAUDE.md JTBD table (Primary job), research/docs/ux-patterns.md Pattern 3, research/docs/competitors.md v3 (gap confirmed: no UA competitor has multi-client cart with saved profiles), fitness-shop.ua wholesale page (coach reseller model confirmed 2026-06-14)
 - Status: CONFIRMED by competitive gap, strategy alignment, and reseller model evidence
 
 ---
@@ -37,7 +37,7 @@ Note on economic model (CONFIRMED by post-persona research): Ukrainian coaches w
 When I am a coach with an established supplier whose tools don't support multi-client ordering, I want to evaluate a new supplier's tool before fully committing, so that I can switch without putting my client relationships at risk.
 
 - Persona: Olena (Persona 1, PRIMARY)
-- Research source: research/strategy.md v3 (riskiest assumption - switching bet), research/competitive-analysis.md v3 (existing competitor programs are not coach-specific)
+- Research source: research/docs/strategy.md v3 (riskiest assumption - switching bet), research/docs/competitors.md v3 (existing competitor programs are not coach-specific)
 - Status: CONFIRMED as the core switching dynamic. The specific trigger for switching is [?] - not confirmed by cited source. See Critique section.
 
 ---
@@ -46,7 +46,7 @@ When I am a coach with an established supplier whose tools don't support multi-c
 When I am a beginner with a fitness goal but no supplement knowledge, I want to answer a few plain questions and get a specific, safe product recommendation, so that I can start without becoming a nutrition expert first.
 
 - Persona: Viktoriia (Persona 3, SECONDARY)
-- Research source: CLAUDE.md JTBD table (Secondary job), research/ux-patterns.md Pattern 1, research/competitive-analysis.md v3 (gap: no UA store has interactive goal path)
+- Research source: CLAUDE.md JTBD table (Secondary job), research/docs/ux-patterns.md Pattern 1, research/docs/competitors.md v3 (gap: no UA store has interactive goal path)
 - Status: CONFIRMED as a market gap
 
 ---
@@ -55,7 +55,7 @@ When I am a beginner with a fitness goal but no supplement knowledge, I want to 
 When I am a buyer evaluating a supplement, I want to see the composition, dosage, and origin explained in plain language on the product page, so that I can confirm it is safe and real before adding it to my cart.
 
 - Persona: Viktoriia (Persona 3), partial relevance to Olena (Persona 1) when recommending new products to athletes
-- Research source: research/ux-patterns.md Pattern 2, research/benchmark.md (Thorne 4-rounds-of-testing, Bulk Informed Sport per-product), belok.ua /ua/serteficates/ (empty - confirmed gap)
+- Research source: research/docs/ux-patterns.md Pattern 2, research/docs/benchmark.md (Thorne 4-rounds-of-testing, Bulk Informed Sport per-product), belok.ua /ua/serteficates/ (empty - confirmed gap)
 - Status: CONFIRMED as market gap. Specific fears (fakes vs. side effects) are [?].
 
 ---
@@ -64,7 +64,7 @@ When I am a buyer evaluating a supplement, I want to see the composition, dosage
 When I am a regular buyer running low on my staple products, I want to reorder in 1-2 taps, so that my routine is never interrupted.
 
 - Persona: Andriy (Persona 4, SUPPORTING)
-- Research source: CLAUDE.md JTBD table (Supporting job), research/ux-patterns.md Pattern 4, research/competitive-analysis.md v3 (gap: no UA store has smart reorder)
+- Research source: CLAUDE.md JTBD table (Supporting job), research/docs/ux-patterns.md Pattern 4, research/docs/competitors.md v3 (gap: no UA store has smart reorder)
 - Status: CONFIRMED as market gap
 
 ---
@@ -73,7 +73,7 @@ When I am a regular buyer running low on my staple products, I want to reorder i
 When I am a coach recommending a product to an athlete, I want to show them the composition, dosage guide, and quality signals from the product page, so that the athlete trusts the recommendation and does not question it.
 
 - Persona: Olena (Persona 1, PRIMARY) in the athlete-facing moment
-- Research source: research/ux-patterns.md Pattern 5 (trust through professional credibility), OBS-C8 (coaches translate goals to products for clients)
+- Research source: research/docs/ux-patterns.md Pattern 5 (trust through professional credibility), OBS-C8 (coaches translate goals to products for clients)
 - Status: CONFIRMED as a use case. Specific trust signals that coaches find credible when showing clients are [?].
 
 ---
@@ -82,7 +82,7 @@ When I am a coach recommending a product to an athlete, I want to show them the 
 When I am a coach reselling to my athletes, I want my growing volume to earn a visible, growing price benefit, so that Stack stays the most profitable supplier for me to reorder from.
 
 - Persona: Olena (Persona 1, PRIMARY); weaker relevance to Andriy (Persona 4, SUPPORTING) through individual cumulative loyalty
-- Research source: founder coach interviews, June 2026 (field research, not web-sourced); research/strategy.md v5 Decision 3 (separate coach pricing tier + cumulative loyalty)
+- Research source: founder coach interviews, June 2026 (field research, not web-sourced); research/docs/strategy.md v5 Decision 3 (separate coach pricing tier + cumulative loyalty)
 - Status: CONFIRMED as a switching and retention driver by founder coach interviews. Specific benefit numbers (coach discount %, loyalty thresholds, rates) remain [?] pending real wholesale cost and margin data.
 
 ---
@@ -93,17 +93,17 @@ These are jobs about how the person wants to feel or be perceived, separate from
 
 **ESJ-1 (Coach credibility):** When I am a coach, I want to be seen as the reliable expert who always has the right product for each athlete's specific goal, so that my athletes trust me, continue training with me, and refer others.
 - Persona: Olena (Persona 1), Dmytro (Persona 2)
-- Source: CLAUDE.md (Primary segment profile - "act as trust proxy for clients"), research/ux-patterns.md Pattern 3
+- Source: CLAUDE.md (Primary segment profile - "act as trust proxy for clients"), research/docs/ux-patterns.md Pattern 3
 - Status: CONFIRMED as driver. Magnitude of this need relative to price sensitivity is [?].
 
 **ESJ-2 (Beginner confidence):** When I am a beginner, I want to feel that I am making a smart, safe, informed decision, so that I don't feel foolish or naive in a gym environment where others clearly know more than I do.
 - Persona: Viktoriia (Persona 3)
-- Source: CLAUDE.md (Secondary segment profile - "fear of buying the wrong product"), research/ux-patterns.md Pattern 2
+- Source: CLAUDE.md (Secondary segment profile - "fear of buying the wrong product"), research/docs/ux-patterns.md Pattern 2
 - Status: CONFIRMED as driver. Specific social comparison anxiety [?].
 
 **ESJ-3 (Ukrainian buyer skepticism):** When I am a Ukrainian buyer, I want to feel confident that the product I am buying is not a fake or mislabeled version, so that I am not putting my health or money at risk.
 - Persona: all personas, strongest for Viktoriia (Persona 3)
-- Source: research/ux-patterns.md Pattern 5 (Ukrainian buyers sensitive to "who stands behind this"), belok.ua /ua/serteficates/ (empty certificates - store recognized the need), research/benchmark.md (Thorne, Bulk trust architecture)
+- Source: research/docs/ux-patterns.md Pattern 5 (Ukrainian buyers sensitive to "who stands behind this"), belok.ua /ua/serteficates/ (empty certificates - store recognized the need), research/docs/benchmark.md (Thorne, Bulk trust architecture)
 - Status: CONFIRMED as a real, active market concern by post-persona research (nadc.gov.ua NADC Ukraine June 2025 case + hotline.ua review behavior + editorial coverage). The dominant fear is fakes/steroids disguised as supplements AND ingredient substitution (cheaper analogs), not primarily side effects. Specific fear hierarchy for the beginner segment is still [?].
 
 **ESJ-4 (Coach autonomy):** When I am a coach, I want to manage my athletes' supplement programs without depending on the supplier for support or advice, so that I maintain full control over what I recommend to clients.
@@ -183,7 +183,7 @@ Note: Jobs 1 and 4 are important but less structurally urgent for MVP. Job 1 (sw
 | Claim | Status | Risk |
 |-------|--------|------|
 | Coaches order for 5-30+ athletes per session | CONFIRMED (CLAUDE.md, product brief - but based on owner/designer assumption, not user research) | MEDIUM - may be right order of magnitude but 5-30 is a wide range |
-| No UA competitor has multi-client cart with saved profiles | CONFIRMED (competitive-analysis.md v3, direct site fetches) | LOW - verified by research |
+| No UA competitor has multi-client cart with saved profiles | CONFIRMED (competitors.md v3, direct site fetches) | LOW - verified by research |
 | Coaches maintain personal spreadsheets [?] for client tracking | HYPOTHESIS - no cited source | HIGH - if false, the pain of not having a digital tool is lower |
 | Peer recommendation is the #1 switching trigger for coaches | HYPOTHESIS [?] - no cited source | CRITICAL - this drives the go-to-market approach but has no evidence |
 | belok.ua /opt/, GymBeam B2B, vansiton partner program all have active users | INFERRED - programs exist but usage/satisfaction data is unavailable | HIGH - if coaches are not actively using these tools, the switching framing changes |
@@ -232,13 +232,13 @@ Priority ordered by blast radius - what breaks if the claim is wrong:
 
 ## Sources
 
-- research/personas.md v1.2 (this file's base data)
-- research/master-research.md v5
-- research/strategy.md v4
-- research/competitive-analysis.md v3
-- research/ux-patterns.md
-- research/aarrr.md v2
-- research/benchmark.md
+- research/docs/personas.md v1.2 (this file's base data)
+- research/docs/research.md v5
+- research/docs/strategy.md v4
+- research/docs/competitors.md v3
+- research/docs/ux-patterns.md
+- research/docs/aarrr.md v2
+- research/docs/benchmark.md
 - CLAUDE.md (product brief)
 - https://belok.ua/ua/opt/ (visited 2026-06-14)
 - https://gymbeam.com/content/wholesale (visited 2026-06-12)

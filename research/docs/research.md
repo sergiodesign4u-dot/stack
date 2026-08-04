@@ -13,8 +13,8 @@
 |---------|------|---------|
 | Final | 2026-06-10 | Initial synthesis of all research phases |
 | v_refresh | 2026-06-12 | Updated competitors section (3 groups, new discoveries: GymBeam UA, vansiton Coach Account, MyProtein UA shipping suspended). Renamed Product Model section to Strategy. AARRR updated with new competitor findings. Hypotheses updated to If/Then/Because format; riskiest assumption marked. |
-| v2 | 2026-06-14 | Reflected loyalty hypothesis in Strategy (Business Model) and Conclusions (open questions). Added SEO open question to conclusions. Reflects additions from competitive-analysis.md v2, strategy.md v2, aarrr.md v2. |
-| v3 | 2026-06-14 | Rewrote riskiest assumption: switching framing (experience over price, price as hygiene, volume economics [?]). Updated Hypothesis 2 [RISKIEST] to match. Added price positioning/volume open question. Reflects competitive-analysis.md v3 and strategy.md v3. |
+| v2 | 2026-06-14 | Reflected loyalty hypothesis in Strategy (Business Model) and Conclusions (open questions). Added SEO open question to conclusions. Reflects additions from competitors.md v2, strategy.md v2, aarrr.md v2. |
+| v3 | 2026-06-14 | Rewrote riskiest assumption: switching framing (experience over price, price as hygiene, volume economics [?]). Updated Hypothesis 2 [RISKIEST] to match. Added price positioning/volume open question. Reflects competitors.md v3 and strategy.md v3. |
 | v4 | 2026-06-14 | Added Post-Persona Research section (June 2026): counterfeit supplements confirmed as real market concern (NADC case + buyer reviews), SN-Import as additional wholesale channel for coaches, Instagram/Telegram presence for coach acquisition, buyer trust criteria from review analysis. Switching trigger remains [?]. |
 | v5 | 2026-06-14 | Added Product Decisions section: four founder decisions locked after People and JTBD research phase (strategy.md v4). Open Questions 5 and 6 partially resolved by decisions. Research phase complete. |
 
@@ -86,8 +86,8 @@ Stack is a mobile-first sport nutrition store for the Ukrainian market, built ar
 - Core: margin on product sales
 - Coach channel: slightly better pricing (5-10% discount or rebate) is an acquisition investment, not a margin cost
 - Reorder: FREE convenience feature in MVP; subscription tier is an open question for Phase 2 - do not hardcode
-- Loyalty / bonus (research task, not a settled decision): working hypothesis is a bonus balance earned from purchases plus a cumulative lifetime discount that grows with total spend. Illustrative tiers (owner sketch, UNVALIDATED - needs real margin data [?]): roughly 5K UAH = 5%, 25K = 7%, 50K = 10%. The cumulative structure rewards coaches naturally because their AOV is high. Competitor context: belok.ua (10K/50K UAH, 5%/10% discount), 5lb.ua (three-tier, 3-8% + bonus points balance), GymBeam UA (points, 90-day expiry). See research/competitive-analysis.md v2 and research/strategy.md v2.
-- Sources: research/competitive-analysis.md v2, research/strategy.md v2
+- Loyalty / bonus (research task, not a settled decision): working hypothesis is a bonus balance earned from purchases plus a cumulative lifetime discount that grows with total spend. Illustrative tiers (owner sketch, UNVALIDATED - needs real margin data [?]): roughly 5K UAH = 5%, 25K = 7%, 50K = 10%. The cumulative structure rewards coaches naturally because their AOV is high. Competitor context: belok.ua (10K/50K UAH, 5%/10% discount), 5lb.ua (three-tier, 3-8% + bonus points balance), GymBeam UA (points, 90-day expiry). See research/docs/competitors.md v2 and research/docs/strategy.md v2.
+- Sources: research/docs/competitors.md v2, research/docs/strategy.md v2
 
 ### Riskiest Assumption
 
@@ -99,7 +99,7 @@ If the experience Stack builds is not meaningfully better than what rivals alrea
 
 Smallest test: qualitative interviews with coaches in two groups - those who already use a wholesale program and those without an established supplier - asking what would realistically make them switch.
 
-See research/strategy.md v3 for full reasoning and discarded alternatives.
+See research/docs/strategy.md v3 for full reasoning and discarded alternatives.
 
 ---
 
@@ -153,9 +153,9 @@ All targets marked [?] are hypotheses pending market validation.
 
 | Gap | Evidence |
 |-----|---------|
-| Interactive goal-to-product path | No UA sport nutrition store has one. Source: research/competitive-analysis.md v_refresh |
+| Interactive goal-to-product path | No UA sport nutrition store has one. Source: research/docs/competitors.md v_refresh |
 | Multi-client coach ordering with client profiles | GymBeam B2B is retailer-focused; belok.ua requires callback; vansiton scope unclear. Sources: gymbeam.com/content/wholesale, belok.ua/ua/opt/ |
-| Smart reorder or consumption-based reminders | Absent from all UA hard competitors. Source: research/competitive-analysis.md v_refresh |
+| Smart reorder or consumption-based reminders | Absent from all UA hard competitors. Source: research/docs/competitors.md v_refresh |
 | Third-party quality certification communication | Belok's certificates page is empty. Vansiton mentions ISO 22000 but not on product pages. Source: belok.ua/ua/serteficates/ |
 | Per-serving cost display | Only belok.ua confirmed. Source: belok.ua/ua/sportivnoye-pitaniye/protein/ |
 
@@ -187,7 +187,7 @@ Sources: https://www.myprotein.com/, https://www.thorne.com/, https://huel.com/,
 
 ### 1 Mechanism That Will NOT Work
 
-**Subscription-first purchase model** (AG1/Thorne): Not viable for UA market at MVP stage. Recurring billing trust is not established. Reorder problem solved via email/SMS + one-tap repeat. Source: research/benchmark.md
+**Subscription-first purchase model** (AG1/Thorne): Not viable for UA market at MVP stage. Recurring billing trust is not established. Reorder problem solved via email/SMS + one-tap repeat. Source: research/docs/benchmark.md
 
 ---
 
@@ -218,10 +218,10 @@ Subscription-first purchase model. See Benchmark Section and Strategy Business M
 
 | Gap | Evidence Source | Priority |
 |-----|----------------|----------|
-| No interactive goal-to-product path in UA sport nutrition | research/competitive-analysis.md v_refresh; all UA hard competitors observed | Critical |
+| No interactive goal-to-product path in UA sport nutrition | research/docs/competitors.md v_refresh; all UA hard competitors observed | Critical |
 | No multi-client coach tools in UA (self-service, with client profiles) | gymbeam.com/content/wholesale (retailer-focused); belok.ua/ua/opt/ (form/callback); vansiton.ua (scope unclear) | Critical |
 | Trust signal communication absent on product pages | belok.ua/ua/serteficates/ (empty); vansiton ISO only at store level, not product level | Critical |
-| No smart reorder or consumption reminder in UA | research/competitive-analysis.md v_refresh | Important |
+| No smart reorder or consumption reminder in UA | research/docs/competitors.md v_refresh | Important |
 | Mobile UX underdeveloped in UA sport nutrition | Only belok.ua Android confirmed; Liki24 (soft) best mobile reference | Important |
 | Per-serving cost not shown universally | Only belok.ua observed | Nice to have |
 
@@ -403,7 +403,7 @@ Source: FitnessConnectUA research cited at sportforall.info (2026-06-14)
 
 ## 8. Product Decisions (Locked, 2026-06-14)
 
-Four product scope decisions made by the founder after the People and JTBD research phase (personas.md v1.1, jtbd.md v1). Full reasoning is in research/strategy.md v4. Summaries only here.
+Four product scope decisions made by the founder after the People and JTBD research phase (personas.md v1.1, jtbd.md v1). Full reasoning is in research/docs/strategy.md v4. Summaries only here.
 
 Hard constraint: No specific percentages, discount rates, cumulative thresholds, or conversion rates are committed as facts anywhere. All numbers remain [?] until real wholesale cost and margin data is available.
 
@@ -415,7 +415,7 @@ Research support: OBS-C19 (analog workflow confirmed - Stack replaces Excel+emai
 ### Decision 2: Goal guidance (CLOSED)
 MVP ships: 4-6 goal tiles on homepage, each leading to a curated collection. No account required. Post-launch iteration: short guided quiz (3-5 questions) as a secondary "Help me choose" path.
 
-Research support: OBS-B3 (no UA store has interactive goal path), research/benchmark.md (Myprotein, Huel, Bulk goal selectors), OBS-B7 (Ukrainian buyers understand concern-based navigation from Liki24). The "40% completion / 3x purchase" hypotheses remain [?] and were NOT the basis for this decision.
+Research support: OBS-B3 (no UA store has interactive goal path), research/docs/benchmark.md (Myprotein, Huel, Bulk goal selectors), OBS-B7 (Ukrainian buyers understand concern-based navigation from Liki24). The "40% completion / 3x purchase" hypotheses remain [?] and were NOT the basis for this decision.
 
 ### Decision 3: Pricing structure (CLOSED - structure only; numbers remain [?])
 Separate, published, transparent coach pricing tier + cumulative lifetime loyalty for individual buyers. Coach tier published on public "For Coaches" page, visible before registration. Tier accessible from day one with social media link verification. Individual loyalty tied to lifetime spend - thresholds and rates [?] pending margin data.
@@ -427,7 +427,7 @@ Specific numbers deferred: coach discount % [?], cumulative thresholds [?], rate
 ### Decision 4: Reorder mechanic (CLOSED)
 MVP ships: order history with "Repeat order" button (all items to cart, confirm). Post-launch iteration: "My Staples" saved list + email reminder before estimated stockout. Reminder timing calibrated from real purchase data post-launch, not invented now.
 
-Research support: OBS-R2 (no UA competitor has any reorder mechanic), research/benchmark.md (adjacent pattern from Liki24). Consumption cycle times remain [?].
+Research support: OBS-R2 (no UA competitor has any reorder mechanic), research/docs/benchmark.md (adjacent pattern from Liki24). Consumption cycle times remain [?].
 
 ---
 
@@ -465,8 +465,8 @@ Research support: OBS-R2 (no UA competitor has any reorder mechanic), research/b
 - https://huel.com/
 - https://huel.com/pages/choose-your-goal
 - https://huel.com/pages/huel-is-now-b-corp-certified
-- research/competitive-analysis.md v_refresh
-- research/strategy.md
-- research/aarrr.md v_refresh
-- research/benchmark.md
-- research/ux-patterns.md
+- research/docs/competitors.md v_refresh
+- research/docs/strategy.md
+- research/docs/aarrr.md v_refresh
+- research/docs/benchmark.md
+- research/docs/ux-patterns.md

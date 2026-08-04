@@ -1,0 +1,554 @@
+- generic [active] [ref=f29e1]:
+  - complementary [ref=f29e2]:
+    - link "Stack дизайн-процес" [ref=f29e3] [cursor=pointer]:
+      - /url: ../index.html
+      - text: Stack
+      - generic [ref=f29e4]: дизайн-процес
+    - navigation [ref=f29e5]:
+      - link "Дослідження" [ref=f29e7] [cursor=pointer]:
+        - /url: ../research/research.html
+      - link "Дослідження людей Next" [ref=f29e9] [cursor=pointer]:
+        - /url: ../research/personas.html
+        - text: Дослідження людей
+        - generic [ref=f29e10]: Next
+      - generic [ref=f29e11]:
+        - generic [ref=f29e12]: Інформаційна архітектура
+        - generic [ref=f29e13]:
+          - generic [ref=f29e14]: Базовий шар
+          - link "Флоу" [ref=f29e16] [cursor=pointer]:
+            - /url: ../ia/flows.html
+          - generic [ref=f29e17]:
+            - link "Концепт-карта" [ref=f29e18] [cursor=pointer]:
+              - /url: ../ia/concept-map.html
+            - generic [ref=f29e19]:
+              - link "Концепт-сайтмап" [ref=f29e20] [cursor=pointer]:
+                - /url: "#sitemap"
+              - link "Матриця трасування" [ref=f29e21] [cursor=pointer]:
+                - /url: "#matrix"
+              - link "Навігаційна модель" [ref=f29e22] [cursor=pointer]:
+                - /url: "#navigation"
+          - generic [ref=f29e23]: Детальний шар
+          - link "Карта сайту" [ref=f29e25] [cursor=pointer]:
+            - /url: ../ia/sitemap.html
+          - link "Структура" [ref=f29e27] [cursor=pointer]:
+            - /url: ../ia/structure.html
+      - link "Вайрфрейми" [ref=f29e29] [cursor=pointer]:
+        - /url: ../wireframes/overview.html
+      - link "Голос продукту" [ref=f29e31] [cursor=pointer]:
+        - /url: ../voice/voice.html
+      - link "Концепт" [ref=f29e33] [cursor=pointer]:
+        - /url: ../design/concept/directions.html
+      - link "UI + візуал Soon" [ref=f29e35] [cursor=pointer]:
+        - /url: ../design/overview.html
+        - text: UI + візуал
+        - generic [ref=f29e36]: Soon
+      - generic [ref=f29e38]:
+        - text: Токени і компоненти
+        - generic [ref=f29e39]: Soon
+      - generic [ref=f29e41]:
+        - text: Дизайн-система
+        - generic [ref=f29e42]: Soon
+      - generic [ref=f29e44]:
+        - text: Адаптив
+        - generic [ref=f29e45]: Soon
+      - generic [ref=f29e47]:
+        - text: Анімація
+        - generic [ref=f29e48]: Soon
+      - generic [ref=f29e50]:
+        - text: Хендоф
+        - generic [ref=f29e51]: Soon
+  - generic [ref=f29e52]:
+    - generic [ref=f29e53]:
+      - generic [ref=f29e54]: Концептуальний шар IA
+      - heading "Концептуальна архітектура" [level=1] [ref=f29e55]
+      - paragraph [ref=f29e56]: "Верхньорівневий шар IA, що виріс із персон і jobs: карта кластерів, матриця трасування jobs→екрани й навігаційна модель — модель «куди може піти користувач». Кожен екран походить із конкретного job, перевірено двома раундами критики. Детальна, посторінкова архітектура (хедер, футер, кожна сторінка з блоками, станами та SEO) — у розділі «Інформаційна архітектура»."
+      - generic [ref=f29e57]:
+        - generic [ref=f29e58]:
+          - strong [ref=f29e59]: Джерела
+          - text: sitemap.md v0.6, flows.md v0.3
+        - generic [ref=f29e60]:
+          - strong [ref=f29e61]: Екранів
+          - text: 19 (MVP)
+        - generic [ref=f29e62]:
+          - strong [ref=f29e63]: Flows
+          - link "окрема сторінка" [ref=f29e64] [cursor=pointer]:
+            - /url: flows.html
+        - generic [ref=f29e65]:
+          - strong [ref=f29e66]: Дефектів
+          - text: "0"
+    - generic [ref=f29e67]:
+      - generic [ref=f29e68]: "01"
+      - heading "Карта сайту" [level=2] [ref=f29e69]
+      - paragraph [ref=f29e70]: 19 MVP-екранів, згрупованих у пʼять кластерів за людським наміром (A-E). Стани (loading, empty, error) тут не показані - вони у flows і в матриці. Біля кожного екрана короткий job-тег.
+      - generic [ref=f29e71]:
+        - generic [ref=f29e72]:
+          - generic [ref=f29e73]: Екрани за кластерами A-E
+          - generic [ref=f29e74]: graph TD, тема dark, лише екрани
+        - document [ref=f29e77]:
+          - generic [ref=f29e79]:
+            - generic [ref=f29e80]:
+              - generic [ref=f29e81]: E. Акаунт і лояльність
+              - generic [ref=f29e86]: D. Повернутися й повторити замовлення
+              - generic [ref=f29e91]: C. Замовлення для багатьох клієнтів за сесію
+              - generic [ref=f29e96]: B. Купити й оплатити
+              - generic [ref=f29e101]: A. Знайти потрібний товар
+            - generic [ref=f29e117]:
+              - generic [ref=f29e118]: Вхід / реєстрація (Main, J4)
+              - generic [ref=f29e123]: Кабінет покупця (J4, J6)
+              - generic [ref=f29e128]: Статус лояльності (J6)
+              - generic [ref=f29e133]: Збережені адреси (J4)
+              - generic [ref=f29e138]: Історія замовлень (J4)
+              - generic [ref=f29e143]: Деталі замовлення + повтор (J4)
+              - generic [ref=f29e148]: «Для тренерів» + опубліковані ціни (J1, J6, ESJ1)
+              - generic [ref=f29e153]: Реєстрація тренера + верифікація соц-лінку (J1, ESJ4)
+              - generic [ref=f29e158]: Кабінет тренера (Main, J6, ESJ4)
+              - generic [ref=f29e163]: Список клієнтів (Main)
+              - generic [ref=f29e168]: Профіль клієнта (Main)
+              - generic [ref=f29e173]: Мультиклієнтська сесія замовлення (Main)
+              - generic [ref=f29e178]: Кошик (Main, J2, J4)
+              - generic [ref=f29e183]: Оформлення (Main, J2, J4)
+              - generic [ref=f29e188]: Замовлення оформлено (Main, J2, J4)
+              - generic [ref=f29e193]: Головна / вибір цілі (J2)
+              - generic [ref=f29e198]: Колекція за ціллю (J2)
+              - generic [ref=f29e203]: Каталог і пошук (J3, J4)
+              - generic [ref=f29e208]: Деталі товару (J3, J5, ESJ3)
+      - paragraph [ref=f29e213]: Читабельна альтернатива тій самій карті - згорнуте дерево. Обери, що зручніше.
+      - generic [ref=f29e214]:
+        - group [ref=f29e215]:
+          - generic "-A. Знайти потрібний товар" [ref=f29e216] [cursor=pointer]
+          - list [ref=f29e217]:
+            - listitem [ref=f29e218]: Головна / вибір цілі J2
+            - listitem [ref=f29e219]: Колекція за ціллю J2
+            - listitem [ref=f29e220]: Каталог і пошук J3, J4
+            - listitem [ref=f29e221]: Деталі товару J3, J5, ESJ3
+        - group [ref=f29e222]:
+          - generic "+B. Купити й оплатити" [ref=f29e223] [cursor=pointer]
+        - group [ref=f29e224]:
+          - generic "+C. Замовлення для багатьох клієнтів за сесію" [ref=f29e225] [cursor=pointer]
+        - group [ref=f29e226]:
+          - generic "+D. Повернутися й повторити замовлення" [ref=f29e227] [cursor=pointer]
+        - group [ref=f29e228]:
+          - generic "+E. Акаунт і лояльність" [ref=f29e229] [cursor=pointer]
+      - generic [ref=f29e230]: "Job-теги: Main - коуч збирає мультиклієнтське замовлення за сесію · J1 - зміна постачальника · J2 - ціль до продукту · J3 - перевірка безпеки · J4 - повторне замовлення · J5 - рекомендація з доказами · J6 - зростаюча цінова вигода від обсягу · ESJ1-4 - емоційні та соціальні jobs (довіра, впевненість, страх підробок, автономія)."
+    - generic [ref=f29e231]:
+      - generic [ref=f29e232]: "02"
+      - heading "Матриця трасування" [level=2] [ref=f29e233]
+      - paragraph [ref=f29e234]: Jobs (рядки) на екрани (стовпці), згруповані A-E. Кожна позначка - там, де екран реально закриває job, підкріплена вузлом flow.
+      - generic [ref=f29e235]:
+        - heading "Стан матриці після двох раундів критики" [level=3] [ref=f29e236]
+        - generic [ref=f29e237]:
+          - generic [ref=f29e238]:
+            - generic [ref=f29e239]: "0"
+            - text: екранів-сиріт
+          - generic [ref=f29e240]:
+            - generic [ref=f29e241]: "0"
+            - text: джобів-сиріт
+          - generic [ref=f29e242]:
+            - generic [ref=f29e243]: "0"
+            - text: позначено-але-без-flow
+          - generic [ref=f29e244]:
+            - generic [ref=f29e245]: "0"
+            - text: у-flow-але-без-позначки
+        - generic [ref=f29e246]:
+          - strong [ref=f29e247]: "Одна оговорка:"
+          - text: Збережені адреси (E4) працюють через стан вибору адреси на Оформленні, який читає збережені адреси. Це його зареєстрована MVP-форма, а не пробіл у покритті. Кожен інший екран із позначкою має реальний вузол-екран у flow.
+      - table [ref=f29e249]:
+        - rowgroup [ref=f29e250]:
+          - row [ref=f29e251]:
+            - columnheader "Завдання \\ Екран" [ref=f29e252]
+            - columnheader "A1" [ref=f29e253]
+            - columnheader "A2" [ref=f29e254]
+            - columnheader "A3" [ref=f29e255]
+            - columnheader "A4" [ref=f29e256]
+            - columnheader "B1" [ref=f29e257]
+            - columnheader "B2" [ref=f29e258]
+            - columnheader "B3" [ref=f29e259]
+            - columnheader "C1" [ref=f29e260]
+            - columnheader "C2" [ref=f29e261]
+            - columnheader "C3" [ref=f29e262]
+            - columnheader "C4" [ref=f29e263]
+            - columnheader "C5" [ref=f29e264]
+            - columnheader "C6" [ref=f29e265]
+            - columnheader "D1" [ref=f29e266]
+            - columnheader "D2" [ref=f29e267]
+            - columnheader "E1" [ref=f29e268]
+            - columnheader "E2" [ref=f29e269]
+            - columnheader "E3" [ref=f29e270]
+            - columnheader "E4" [ref=f29e271]
+        - rowgroup [ref=f29e272]:
+          - row [ref=f29e273]:
+            - columnheader "Main JTBD" [ref=f29e274]
+            - cell [ref=f29e275]
+            - cell [ref=f29e276]
+            - cell [ref=f29e277]
+            - cell [ref=f29e278]
+            - cell "✓" [ref=f29e279]
+            - cell "✓" [ref=f29e280]
+            - cell "✓" [ref=f29e281]
+            - cell [ref=f29e282]
+            - cell [ref=f29e283]
+            - cell "✓" [ref=f29e284]
+            - cell "✓" [ref=f29e285]
+            - cell "✓" [ref=f29e286]
+            - cell "✓" [ref=f29e287]
+            - cell [ref=f29e288]
+            - cell [ref=f29e289]
+            - cell "✓" [ref=f29e290]
+            - cell [ref=f29e291]
+            - cell [ref=f29e292]
+            - cell [ref=f29e293]
+          - row [ref=f29e294]:
+            - 'columnheader "Main, підкрок: створити клієнта (імʼя + ціль)" [ref=f29e295]'
+            - cell [ref=f29e296]
+            - cell [ref=f29e297]
+            - cell [ref=f29e298]
+            - cell [ref=f29e299]
+            - cell [ref=f29e300]
+            - cell [ref=f29e301]
+            - cell [ref=f29e302]
+            - cell [ref=f29e303]
+            - cell [ref=f29e304]
+            - cell [ref=f29e305]
+            - cell "✓" [ref=f29e306]
+            - cell [ref=f29e307]
+            - cell [ref=f29e308]
+            - cell [ref=f29e309]
+            - cell [ref=f29e310]
+            - cell [ref=f29e311]
+            - cell [ref=f29e312]
+            - cell [ref=f29e313]
+            - cell [ref=f29e314]
+          - row [ref=f29e315]:
+            - columnheader "Job 1 зміна постачальника" [ref=f29e316]
+            - cell [ref=f29e317]
+            - cell [ref=f29e318]
+            - cell [ref=f29e319]
+            - cell [ref=f29e320]
+            - cell [ref=f29e321]
+            - cell [ref=f29e322]
+            - cell [ref=f29e323]
+            - cell "✓" [ref=f29e324]
+            - cell "✓" [ref=f29e325]
+            - cell [ref=f29e326]
+            - cell [ref=f29e327]
+            - cell [ref=f29e328]
+            - cell [ref=f29e329]
+            - cell [ref=f29e330]
+            - cell [ref=f29e331]
+            - cell [ref=f29e332]
+            - cell [ref=f29e333]
+            - cell [ref=f29e334]
+            - cell [ref=f29e335]
+          - row [ref=f29e336]:
+            - rowheader "Job 2 ціль до продукту" [ref=f29e337]
+            - cell "✓" [ref=f29e338]
+            - cell "✓" [ref=f29e339]
+            - cell [ref=f29e340]
+            - cell [ref=f29e341]
+            - cell "✓" [ref=f29e342]
+            - cell "✓" [ref=f29e343]
+            - cell "✓" [ref=f29e344]
+            - cell [ref=f29e345]
+            - cell [ref=f29e346]
+            - cell [ref=f29e347]
+            - cell [ref=f29e348]
+            - cell [ref=f29e349]
+            - cell [ref=f29e350]
+            - cell [ref=f29e351]
+            - cell [ref=f29e352]
+            - cell [ref=f29e353]
+            - cell [ref=f29e354]
+            - cell [ref=f29e355]
+            - cell [ref=f29e356]
+          - row [ref=f29e357]:
+            - columnheader "Job 3 перевірка безпеки" [ref=f29e358]
+            - cell [ref=f29e359]
+            - cell [ref=f29e360]
+            - cell "✓" [ref=f29e361]
+            - cell "✓" [ref=f29e362]
+            - cell [ref=f29e363]
+            - cell [ref=f29e364]
+            - cell [ref=f29e365]
+            - cell [ref=f29e366]
+            - cell [ref=f29e367]
+            - cell [ref=f29e368]
+            - cell [ref=f29e369]
+            - cell [ref=f29e370]
+            - cell [ref=f29e371]
+            - cell [ref=f29e372]
+            - cell [ref=f29e373]
+            - cell [ref=f29e374]
+            - cell [ref=f29e375]
+            - cell [ref=f29e376]
+            - cell [ref=f29e377]
+          - row [ref=f29e378]:
+            - columnheader "Job 4 повторне замовлення" [ref=f29e379]
+            - cell [ref=f29e380]
+            - cell [ref=f29e381]
+            - cell "✓" [ref=f29e382]
+            - cell [ref=f29e383]
+            - cell "✓" [ref=f29e384]
+            - cell "✓" [ref=f29e385]
+            - cell "✓" [ref=f29e386]
+            - cell [ref=f29e387]
+            - cell [ref=f29e388]
+            - cell [ref=f29e389]
+            - cell [ref=f29e390]
+            - cell [ref=f29e391]
+            - cell [ref=f29e392]
+            - cell "✓" [ref=f29e393]
+            - cell "✓" [ref=f29e394]
+            - cell "✓" [ref=f29e395]
+            - cell "✓" [ref=f29e396]
+            - cell [ref=f29e397]
+            - cell "✓" [ref=f29e398]
+          - row [ref=f29e399]:
+            - columnheader "Job 5 рекомендація з доказами" [ref=f29e400]
+            - cell [ref=f29e401]
+            - cell [ref=f29e402]
+            - cell [ref=f29e403]
+            - cell "✓" [ref=f29e404]
+            - cell [ref=f29e405]
+            - cell [ref=f29e406]
+            - cell [ref=f29e407]
+            - cell [ref=f29e408]
+            - cell [ref=f29e409]
+            - cell [ref=f29e410]
+            - cell [ref=f29e411]
+            - cell [ref=f29e412]
+            - cell [ref=f29e413]
+            - cell [ref=f29e414]
+            - cell [ref=f29e415]
+            - cell [ref=f29e416]
+            - cell [ref=f29e417]
+            - cell [ref=f29e418]
+            - cell [ref=f29e419]
+          - row [ref=f29e420]:
+            - columnheader "Job 6 зростаюча цінова вигода" [ref=f29e421]
+            - cell [ref=f29e422]
+            - cell [ref=f29e423]
+            - cell [ref=f29e424]
+            - cell [ref=f29e425]
+            - cell [ref=f29e426]
+            - cell [ref=f29e427]
+            - cell [ref=f29e428]
+            - cell "✓" [ref=f29e429]
+            - cell [ref=f29e430]
+            - cell "✓" [ref=f29e431]
+            - cell [ref=f29e432]
+            - cell [ref=f29e433]
+            - cell [ref=f29e434]
+            - cell [ref=f29e435]
+            - cell [ref=f29e436]
+            - cell [ref=f29e437]
+            - cell "✓" [ref=f29e438]
+            - cell "✓" [ref=f29e439]
+            - cell [ref=f29e440]
+          - row [ref=f29e441]:
+            - columnheader "ESJ-1 авторитет тренера" [ref=f29e442]
+            - cell [ref=f29e443]
+            - cell [ref=f29e444]
+            - cell [ref=f29e445]
+            - cell "✓" [ref=f29e446]
+            - cell [ref=f29e447]
+            - cell [ref=f29e448]
+            - cell [ref=f29e449]
+            - cell "✓" [ref=f29e450]
+            - cell [ref=f29e451]
+            - cell [ref=f29e452]
+            - cell [ref=f29e453]
+            - cell [ref=f29e454]
+            - cell [ref=f29e455]
+            - cell [ref=f29e456]
+            - cell [ref=f29e457]
+            - cell [ref=f29e458]
+            - cell [ref=f29e459]
+            - cell [ref=f29e460]
+            - cell [ref=f29e461]
+          - row [ref=f29e462]:
+            - rowheader "ESJ-2 впевненість новачка" [ref=f29e463]
+            - cell "✓" [ref=f29e464]
+            - cell "✓" [ref=f29e465]
+            - cell [ref=f29e466]
+            - cell "✓" [ref=f29e467]
+            - cell [ref=f29e468]
+            - cell [ref=f29e469]
+            - cell [ref=f29e470]
+            - cell [ref=f29e471]
+            - cell [ref=f29e472]
+            - cell [ref=f29e473]
+            - cell [ref=f29e474]
+            - cell [ref=f29e475]
+            - cell [ref=f29e476]
+            - cell [ref=f29e477]
+            - cell [ref=f29e478]
+            - cell [ref=f29e479]
+            - cell [ref=f29e480]
+            - cell [ref=f29e481]
+            - cell [ref=f29e482]
+          - row [ref=f29e483]:
+            - columnheader "ESJ-3 страх підробок" [ref=f29e484]
+            - cell [ref=f29e485]
+            - cell [ref=f29e486]
+            - cell [ref=f29e487]
+            - cell "✓" [ref=f29e488]
+            - cell [ref=f29e489]
+            - cell [ref=f29e490]
+            - cell [ref=f29e491]
+            - cell [ref=f29e492]
+            - cell [ref=f29e493]
+            - cell [ref=f29e494]
+            - cell [ref=f29e495]
+            - cell [ref=f29e496]
+            - cell [ref=f29e497]
+            - cell [ref=f29e498]
+            - cell [ref=f29e499]
+            - cell [ref=f29e500]
+            - cell [ref=f29e501]
+            - cell [ref=f29e502]
+            - cell [ref=f29e503]
+          - row [ref=f29e504]:
+            - columnheader "ESJ-4 автономія тренера" [ref=f29e505]
+            - cell [ref=f29e506]
+            - cell [ref=f29e507]
+            - cell [ref=f29e508]
+            - cell [ref=f29e509]
+            - cell [ref=f29e510]
+            - cell [ref=f29e511]
+            - cell [ref=f29e512]
+            - cell [ref=f29e513]
+            - cell "✓" [ref=f29e514]
+            - cell "✓" [ref=f29e515]
+            - cell [ref=f29e516]
+            - cell [ref=f29e517]
+            - cell [ref=f29e518]
+            - cell [ref=f29e519]
+            - cell [ref=f29e520]
+            - cell [ref=f29e521]
+            - cell [ref=f29e522]
+            - cell [ref=f29e523]
+            - cell [ref=f29e524]
+      - generic [ref=f29e525]: "Стовпці: A1 Головна / вибір цілі · A2 Колекція за ціллю · A3 Каталог і пошук · A4 Деталі товару · B1 Кошик · B2 Оформлення · B3 Замовлення оформлено · C1 «Для тренерів» + опубліковані ціни · C2 Реєстрація тренера + верифікація соц-лінку · C3 Кабінет тренера · C4 Список клієнтів · C5 Профіль клієнта · C6 Мультиклієнтська сесія замовлення · D1 Історія замовлень · D2 Деталі замовлення + повтор · E1 Вхід / реєстрація · E2 Кабінет покупця · E3 Статус лояльності · E4 Збережені адреси"
+      - generic [ref=f29e526]:
+        - generic [ref=f29e527]: "Обсяг: скільки MVP, скільки ПОТІМ"
+        - paragraph [ref=f29e528]: Це єдине місце, де обсяг продукту звужується. Далі детальна IA, вайрфрейми і кольорова збірка працюють MVP-підмножиною першим раундом, а ПОТІМ-екрани йдуть окремим раундом за рішенням власника. MVP, який ніколи не відрізали, не MVP.
+        - generic [ref=f29e529]:
+          - generic [ref=f29e530]:
+            - generic [ref=f29e531]: "19"
+            - generic [ref=f29e532]: екранів MVP
+          - generic [ref=f29e533]:
+            - generic [ref=f29e534]: "3"
+            - generic [ref=f29e535]: ПОТІМ
+          - generic [ref=f29e536]:
+            - generic [ref=f29e537]: "0"
+            - generic [ref=f29e538]: без мітки
+        - table [ref=f29e539]:
+          - rowgroup [ref=f29e540]:
+            - row [ref=f29e541]:
+              - columnheader "Кластер" [ref=f29e542]
+              - columnheader "MVP" [ref=f29e543]
+              - columnheader "ПОТІМ" [ref=f29e544]
+          - rowgroup [ref=f29e545]:
+            - row [ref=f29e546]:
+              - cell "A · Знайти" [ref=f29e547]
+              - cell "Головна / вибір цілі · Колекція за ціллю · Каталог і пошук · Картка товару (4)" [ref=f29e548]
+              - cell "«Допоможи обрати» / квіз - ітерація J2" [ref=f29e549]
+            - row [ref=f29e550]:
+              - cell "B · Купити" [ref=f29e551]
+              - cell "Кошик · Оформлення · Замовлення прийнято (3)" [ref=f29e552]
+              - cell "-" [ref=f29e553]
+            - row [ref=f29e554]:
+              - cell "C · Кабінет тренера" [ref=f29e555]
+              - cell "Для тренерів · Реєстрація і верифікація · Кабінет · Клієнти · Профіль клієнта · Мультиклієнтська сесія (6)" [ref=f29e556]
+              - cell "-" [ref=f29e557]
+            - row [ref=f29e558]:
+              - cell "D · Повторити" [ref=f29e559]
+              - cell "Історія замовлень · Замовлення + повтор (2)" [ref=f29e560]
+              - cell "Список «Мої стейпли» - ітерація J4" [ref=f29e561]
+            - row [ref=f29e562]:
+              - cell "E · Акаунт і лояльність" [ref=f29e563]
+              - cell "Вхід / реєстрація · Кабінет покупця · Знижки та бонуси · Збережені адреси (4)" [ref=f29e564]
+              - cell "Лист «товар зʼявився» - сповіщення, не екран" [ref=f29e565]
+      - generic [ref=f29e566]:
+        - generic [ref=f29e567]: Емоційні та соціальні jobs - підтримуються механізмом, не екраном
+        - paragraph [ref=f29e568]: "У матриці вище лише функціональні jobs: у них є екран, який їх закриває. Емоційні й соціальні jobs екрана не мають і мати не можуть - їх тримає механізм, розкиданий по сторінках. Ця таблиця і є їхнє трасування; її читають детальна IA (де саме механізм стоїть) і Голос продукту (як він звучить)."
+        - table [ref=f29e569]:
+          - rowgroup [ref=f29e570]:
+            - row [ref=f29e571]:
+              - columnheader "Job" [ref=f29e572]
+              - columnheader "Хто" [ref=f29e573]
+              - columnheader "Чим підтримується" [ref=f29e574]
+          - rowgroup [ref=f29e575]:
+            - row [ref=f29e576]:
+              - cell "ESJ-1 надійність тренера" [ref=f29e577]: ESJ-1надійність тренера
+              - cell "Олена, Дмитро" [ref=f29e578]
+              - cell "тарифна ціна названа числом, а не «за запитом» · історія по клієнту, щоб тренер памʼятав, що кому брав · склад і дозування на картці, щоб тренер міг послатися на джерело · голос у діловому регістрі (принцип 4 голосу)" [ref=f29e579]
+            - row [ref=f29e580]:
+              - cell "ESJ-2 впевненість новачка" [ref=f29e581]: ESJ-2впевненість новачка
+              - cell "Вікторія" [ref=f29e582]
+              - cell "ціль як перший крок, а не каталог · «проста відповідь» одним рядком у buy-box · квіз віддає колекцію з поясненням, а не один товар · жодного жаргону в навігації · тон без поблажливості" [ref=f29e583]
+            - row [ref=f29e584]:
+              - cell "ESJ-3 скепсис щодо підробок" [ref=f29e585]: ESJ-3скепсис щодо підробок
+              - cell "усі, найсильніше Вікторія" [ref=f29e586]
+              - cell "сертифікат як переглядний документ, а не бейдж · походження і виробник у блоці довіри · відгуки з відповіддю магазину · галерея сертифікатів (8.8) як ціль посилання · «100% оригінал» без доказу заборонено словником голосу" [ref=f29e587]
+            - row [ref=f29e588]:
+              - cell "ESJ-4 автономія тренера" [ref=f29e589]: ESJ-4автономія тренера
+              - cell "Олена, Дмитро" [ref=f29e590]
+              - cell "самообслуговування без дзвінка на всьому шляху · quick-add у сесії замість глобального пошуку · тарифи опубліковані сторінкою (5.0) · жодного «зателефонуйте менеджеру» як єдиного виходу" [ref=f29e591]
+      - generic [ref=f29e592]:
+        - generic [ref=f29e593]: Поза MVP-скоупом - не рядки і не стовпці матриці
+        - list [ref=f29e594]:
+          - listitem [ref=f29e595]: HYP-1 (реферальне посилання тренера атлетам) і HYP-2 (трекінг прийому атлетом) - гіпотетичні jobs без підтвердженого джерела, сутності у Under Question (UQ1, UQ2). Екранів у MVP не мають.
+          - listitem [ref=f29e596]: "Post-launch екрани: «Допоможи обрати» / квіз (ітерація J2), список «Мої стейпли» (ітерація J4), email-нагадування про відсутність товару (Рішення 4, сповіщення, не екран). Обслуговують наявні jobs пізнішою ітерацією, не нові jobs."
+    - generic [ref=f29e597]:
+      - generic [ref=f29e598]: "03"
+      - heading "Навігація" [level=2] [ref=f29e599]
+      - paragraph [ref=f29e600]: "Пʼять глобальних входів, кожен - вхід у job-кластер. Два передні входи: новачок через ціль, коуч через робочий простір."
+      - generic [ref=f29e601]: "На мобілці (базова ширина 360px) первинна навігація — нижні таби (до 5): Головна · Каталог · Кошик · Обране · Акаунт; пошук лишається в топ-барі. Детальна специфікація — у розділі «Інформаційна архітектура → Хедер»."
+      - generic [ref=f29e602]:
+        - generic [ref=f29e603]:
+          - generic [ref=f29e604]: A. Знайти
+          - generic [ref=f29e605]: Головна / вибір цілі
+          - generic [ref=f29e606]: "J2 + Рішення 2: новачок перетворює ціль на безпечний набір продуктів через тайли цілей на головній. Активаційний вхід, не загальна \"головна\"."
+          - generic [ref=f29e607]: "Передній вхід: Вікторія (P3), новачок"
+        - generic [ref=f29e608]:
+          - generic [ref=f29e609]: C. Робочий простір тренера
+          - generic [ref=f29e610]: «Для тренерів» → Кабінет тренера
+          - generic [ref=f29e611]: Main JTBD + Рішення 1 (мультиклієнтське замовлення) і J1 + Рішення 3 (оцінити опублікований тренерський прайс до переходу). Розлогінений - публічна сторінка, верифікований - Кабінет тренера.
+          - generic [ref=f29e612]: "Передній вхід: Олена (P1), Дмитро (P2), коуч"
+        - generic [ref=f29e613]:
+          - generic [ref=f29e614]: A. Знайти
+          - generic [ref=f29e615]: Пошук
+          - generic [ref=f29e616]: Вхід для J3 (покупець шукає відомий товар, щоб перевірити) і відновлення для J4 (постійний шукає товар, що закінчився). Доступний усім, але Main JTBD коуча йде через швидке додавання в сесії, не через Пошук.
+          - generic [ref=f29e617]: "Передній вхід: Андрій (P4), Вікторія (P3); доступний усім"
+        - generic [ref=f29e618]:
+          - generic [ref=f29e619]: B. Купити
+          - generic [ref=f29e620]: Кошик
+          - generic [ref=f29e621]: Завершує покупку для Main, J2 і J4. Несе групування по клієнтах (Рішення 1) у коуч-flow. Постійний - поточне замовлення завжди в один тап.
+          - generic [ref=f29e622]: "Передній вхід: усі"
+        - generic [ref=f29e623]:
+          - generic [ref=f29e624]: D + E. Повтор, Акаунт
+          - generic [ref=f29e625]: Акаунт
+          - generic [ref=f29e626]: J4 + Рішення 4 (історія замовлень і повтор в один тап) і Рішення 3 (накопичувальна лояльність).
+          - generic [ref=f29e627]: "Передній вхід: Андрій (P4), усі"
+      - heading "Глибина до main job" [level=3] [ref=f29e628]
+      - paragraph [ref=f29e629]: Глибина рахується окремо для двох критичних шляхів. Коуч-flow глибокий за природою (bulk) - це не дефект; новачковий шлях має лишатися коротким.
+      - generic [ref=f29e630]:
+        - generic [ref=f29e631]:
+          - heading "Коуч (Olena)" [level=4] [ref=f29e632]
+          - generic [ref=f29e633]: від входу до зібраного мультиклієнтського замовлення, quick-add у сесії
+          - generic [ref=f29e634]: 8 тапів на 2 клієнтів
+          - generic [ref=f29e635]: Кабінет тренера тап 0 тап Нове замовлення -> Мультиклієнтська сесія тап 1 тап Клієнт A -> контекст клієнта задано тап 2 швидке додавання для A -> привʼязано до A тап 3 тап Клієнт B -> контекст клієнта задано тап 4 швидке додавання для B -> привʼязано до B тап 5 тап Переглянути / Кошик -> Кошик тап 6 тап Оформлення -> Оформлення тап 7 тап Оформити замовлення -> Замовлення оформлено тап 8
+        - generic [ref=f29e636]:
+          - heading "Новачок (Viktoriia)" [level=4] [ref=f29e637]
+          - generic [ref=f29e638]: від входу до товару під ціль, тайли цілей на головній
+          - generic [ref=f29e639]: 2 тапи до товару (6 до покупки)
+          - generic [ref=f29e640]: Головна / вибір цілі тап 0 тап тайл цілі -> Колекція за ціллю тап 1 тап товар -> Деталі товару тап 2 товар під ціль тап У кошик -> кошик оновлено тап 3 тап Кошик -> Кошик тап 4 тап Оформлення -> Оформлення тап 5 тап Оформити замовлення -> Замовлення оформлено тап 6
+      - generic [ref=f29e641]:
+        - text: "Карта сайту, flows і навігація узгоджені: Main JTBD коуча йде через швидке додавання усередині Мультиклієнтської сесії замовлення, а Каталог і пошук - глобальна утиліта для покупців, що шукають відомий товар (вхід J3, відновлення J4). Усі факти і числа, що потребують реальних даних, лишаються"
+        - generic [ref=f29e642]: "[?]"
+        - text: .
+  - contentinfo [ref=f29e643]:
+    - generic [ref=f29e644]:
+      - generic [ref=f29e645]: "Stack — Концептуальна архітектура (jobs/персони → кластери, flows, трасування). Джерела: research/docs/sitemap.md v0.6, flows.md v0.3. Червень 2026. 0 дефектів після двох раундів критики. Детальна посторінкова IA — у розділі «Інформаційна архітектура»."
+      - generic [ref=f29e646]: "Наступна фаза: Wireframes"

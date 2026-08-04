@@ -51,7 +51,7 @@ All values below are reference values, cited so the borrowed technique is concre
 1. **A single vivid accent used exclusively for the primary action and active nav**, on a black-on-white canvas with generous whitespace (SAP: Energy Burst Orange `#ff7840`, accent "only in small, high-attention moments such as primary buttons"). This is what keeps Stack reading as sport and performance, not as a probiotic or skincare brand, while staying calm. The accent marks the one obvious action and nothing else.
 
 **Persona anxiety / principle it serves:**
-- This is mainly a **differentiation and clarity** borrow. `research/docs/competitive-analysis.md` (Competitor Voice) records that the UA category is loud, discount-led, and urgency-led. A single disciplined accent is how Stack stays calm yet unmistakably sport, and it directly delivers **Design Principle 2 (one clear next step)** and voice principle 3 (a button names its result).
+- This is mainly a **differentiation and clarity** borrow. `research/docs/competitors.md` (Competitor Voice) records that the UA category is loud, discount-led, and urgency-led. A single disciplined accent is how Stack stays calm yet unmistakably sport, and it directly delivers **Design Principle 2 (one clear next step)** and voice principle 3 (a button names its result).
 - Andriy (Persona 4): a single high-contrast action makes "Повторити замовлення" unmistakable, serving his need for a fast repeat-order flow.
 
 ---
@@ -79,7 +79,7 @@ All values below are reference values, cited so the borrowed technique is concre
 
 ## Reflexes rejected (before showing anything)
 
-- **Sport-nutrition category reflex: "beast mode".** Aggressive near-black plus neon green, red, or acid yellow, explosive gym imagery, urgency stickers and discount bursts. Rejected: it fuels the exact fear Stack must reduce (Viktoriia's "fear of buying the wrong or unsafe product") and it is the loud UA competitor register Stack differentiates from (`competitive-analysis.md`, Competitor Voice). It also breaks Principle 4.
+- **Sport-nutrition category reflex: "beast mode".** Aggressive near-black plus neon green, red, or acid yellow, explosive gym imagery, urgency stickers and discount bursts. Rejected: it fuels the exact fear Stack must reduce (Viktoriia's "fear of buying the wrong or unsafe product") and it is the loud UA competitor register Stack differentiates from (`competitors.md`, Competitor Voice). It also breaks Principle 4.
 - **Wellness reflex: "cozy spa".** Cream plus sage plus terracotta, soft botanical calm. Rejected: it reads as tea, skincare, or a probiotic brand, not performance nutrition for "people who take it seriously" (Principle 4). Stack is sport-serious.
 - **The synthesis takes neither reflex.** Calm scientific base (Seed) plus a disciplined single sport-energy accent (SAP) plus a clinical trust block (Alpine Bio) gives a store that is trust-first but unmistakably sport. The exact hue, whether the accent is warm or cool, and the type pair are decided at Step 3 from the brand plates, not here.
 
@@ -90,6 +90,6 @@ All values below are reference values, cited so the borrowed technique is concre
 - `research/docs/benchmark.md` (strategic dimension = Trust; benchmark = Thorne; mechanisms = goal selector, layered product trust signals)
 - `research/docs/personas.md` v1.2 (OBS-B2, OBS-B4, OBS-B5, OBS-B6; Persona 3 Viktoriia, Persona 1 Olena, Persona 4 Andriy)
 - `research/docs/jtbd.md` v1.2 (Job 2, Job 3, Job 5, ESJ-2, ESJ-3)
-- `research/docs/competitive-analysis.md` (Competitor Voice: UA category is loud, discount-led, urgency-led)
+- `research/docs/competitors.md` (Competitor Voice: UA category is loud, discount-led, urgency-led)
 - Refero styles: Seed `e6800fa6-1c26-40ac-a93b-68bb5de59d12`, Alpine Bio `94031909-a1c1-4c30-9326-91cb64cd9806`, SAPGOODENERGY `45461634-bb44-4093-ad89-cf2ac74dd76a`
 - Refero screens: Seed AM-02 PDP `d0c4cb9b-1043-405b-be62-f222dd49af68`, Instacart facts modal `3998138a-8c20-4f91-92df-b8ab3f8fec1a`, ALO goal selector `2399733e-ee2d-40a2-8d0d-19a9705af7c1`, Hers trust and safety `287311c2-2c2e-4a13-841c-ca592f33d9ef`

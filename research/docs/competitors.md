@@ -322,4 +322,4 @@ homepage + category + product/promo pages, 2026-07-07. Strings verbatim (Ukraini
 **Net:** the category sounds identical — loud, badge-driven, asserting trust it never proves,
 hurrying the click. Stack's voice wins by inverting each: prove trust (real certificate), lead
 with fit-not-discount, name the coach/wholesale price plainly, and stay calm (no «!», no
-ALL-CAPS badges, no «за 1 грн» bait). Feeds `Voices/docs/voice.md` §Принципи.
+ALL-CAPS badges, no «за 1 грн» bait). Feeds `voice/docs/voice.md` §Принципи.

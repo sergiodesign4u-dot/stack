@@ -69,6 +69,20 @@
   }
   .box p + p { margin-top: 10px; }
   .box .todo { color: var(--score-low); font-weight: 600; }
+
+  .srcrow { display: grid; gap: 12px; grid-template-columns: 1fr; margin-bottom: 22px; }
+  @media (min-width: 760px) { .srcrow { grid-template-columns: 1fr 1fr; } }
+  .src { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); }
+  .src-h { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
+  .src p { font-size: 14.5px; color: var(--text-secondary); }
+
+  .btab { width: 100%; border-collapse: collapse; margin-bottom: 22px; font-size: 14px; }
+  .btab th, .btab td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .btab th { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--text-light); }
+  .btab td:first-child { font-weight: 600; white-space: nowrap; }
+  .btab td:nth-child(2), .btab td:nth-child(3) { color: var(--text-light); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .btab td:last-child { color: var(--text-secondary); }
+  .tabwrap { overflow-x: auto; }
   code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; background: var(--surface-alt); padding: 1px 5px; border-radius: 4px; }
   a { color: var(--accent); }
 </style>
@@ -110,13 +124,45 @@
       Будується за ТИПОМ сторінки, не за вузлом, з двох джерел - конкуренти (доменна правда) і
       Refero (реміснича правда), - і кожен блок трасується на job, барʼєр або SEO-вимогу.
     </p>
+    <div class="srcrow">
+      <div class="src">
+        <div class="src-h">Доменна правда</div>
+        <p>Конкуренти з <code>competitors.md</code>, відкриті наживо 2026-08-04:
+          <b>belok.ua</b> - головна, лістинг <code>/protein/</code>, картка
+          <code>/100-whey-gold-standard/</code>. Що вони справді продають у <b>нашій</b> категорії
+          і чим тримають людину.</p>
+      </div>
+      <div class="src">
+        <div class="src-h">Реміснича правда</div>
+        <p>Refero, пошук за <b>типом сторінки і job</b>, не за індустрією: New Balance, shop.app,
+          DoorDash, adidas, ASOS, Xbox, Prose. Як така сторінка влаштована в best-in-class
+          поза категорією.</p>
+      </div>
+    </div>
+
+    <div class="tabwrap">
+    <table class="btab">
+      <thead><tr><th>Тип</th><th>Вузли</th><th>Блоків</th><th>Головна відмінність від категорії</th></tr></thead>
+      <tbody>
+        <tr><td>A · Головна</td><td>0.0</td><td>8</td><td>ціль - це <b>герой</b>, а не рейка в середині сторінки; смуга довіри - п'ять посилань на докази</td></tr>
+        <tr><td>B · Індекс / хаб</td><td>2.0 · 2.4</td><td>5</td><td>хаб окремо від лістингу: у belok «Каталог» веде одразу в лістинг</td></tr>
+        <tr><td>C · Лістинг</td><td>2.1 · 2.2 · 2.4 · 2.5 · 2.1a</td><td>9</td><td>сортування <b>за наявністю</b> за замовчуванням; фасети з реального способу вибору; load-more <b>плюс</b> краулабельна пагінація</td></tr>
+        <tr><td>D · Картка товару</td><td>3.0</td><td>10</td><td>блок довіри <b>одразу під buy-box</b>: у belok склад лежить під довжелезним описом, а сторінка сертифікатів <b>порожня</b></td></tr>
+        <tr><td>E · Кошик і оформлення</td><td>6.0 · 6.1 · 6.2</td><td>8</td><td>кошик групується <b>по клієнтах</b> (J1); ліва колонка - ввід, права - рішення</td></tr>
+        <tr><td>F · Кабінет і тренер</td><td>7.x · 5.x</td><td>8</td><td>самообслуговування по клієнтах: у всіх п'ятьох конкурентів опт - це форма або дзвінок</td></tr>
+        <tr><td>G · Контент та інфо</td><td>8.0-8.12</td><td>8</td><td>галерея сертифікатів як доказ під смугою довіри; акції <b>без таймерів</b></td></tr>
+        <tr><td>H · Діалоги</td><td>1.x · 0.1a · 4.x</td><td>5</td><td>вхід без пароля для будь-якої ролі; квіз віддає <b>колекцію з поясненням</b>, а не один товар</td></tr>
+      </tbody>
+    </table>
+    </div>
+
     <div class="box">
-      <p class="todo">Не зроблено.</p>
-      <p>
-        Досі склад блоків кожного вузла виводився без названого джерела. Банк
-        (<code>ia/docs/blocks.md</code>) закриває саме цю дірку і має бути зібраний до наступного
-        раунду вузлів. Поки його немає, це сказано вголос тут, а не приховано.
-      </p>
+      <p><b>Чого бракує, сказано вголос.</b> Реміснича половина тонка для типів F, G і H - прогін
+        Refero віддав здебільшого нецільові екрани. Оформлення в belok і GymBeam закрите кошиком і
+        логіном, тож тип E має одне джерело. І головне: <b class="todo">немає
+        <code>cjm-as-is.md</code></b> - етап CJM ще не робився, тому колонка «барʼєр» трасується
+        на болі персон і jtbd, а не на фазу CJM. Коли етап 02+ буде зроблений, ця колонка
+        перевіряється першим кроком його закриття.</p>
     </div>
   </section>
 </main>

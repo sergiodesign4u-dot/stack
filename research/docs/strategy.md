@@ -1,7 +1,7 @@
 # Strategy
 
 **Version:** v5 (2026-06-21)
-**Previous file:** research/product-model.md (kept for history)
+**Previous file:** research/docs/product-model.md (kept for history)
 **Date:** 2026-06-21
 
 ---
@@ -13,7 +13,7 @@
 | product-model v1 | 2026-06-10 | Initial pre-research hypotheses |
 | product-model v2 | 2026-06-10 | Updated after competitive analysis + benchmark |
 | strategy v_refresh | 2026-06-12 | Migrated to Strategy format. AIDA tables retired (AARRR is the single funnel). Each section updated with new competitor findings from v_refresh competitive analysis. Riskiest assumption added. Business model clarified (free reorder, no hardcoded subscription tier). |
-| strategy v2 | 2026-06-14 | Added loyalty / bonus sub-section to Business Model. Framed as a research task. Working hypothesis: bonus balance + cumulative lifetime discount. Illustrative tiers (owner sketch, unvalidated). References competitor loyalty data from competitive-analysis.md v2. |
+| strategy v2 | 2026-06-14 | Added loyalty / bonus sub-section to Business Model. Framed as a research task. Working hypothesis: bonus balance + cumulative lifetime discount. Illustrative tiers (owner sketch, unvalidated). References competitor loyalty data from competitors.md v2. |
 | strategy v3 | 2026-06-14 | Rewrote riskiest assumption: now frames the bet as SWITCHING coaches (experience over price, price as hygiene). Updated "Chosen" reasoning in discarded alternatives. Added price/volume open question. Reflects competitive analysis v3 finding that belok.ua, GymBeam UA, mega-mass.ua all have wholesale infrastructure. |
 | strategy v4 | 2026-06-14 | Added Product Decisions section: four founder decisions locked after People and JTBD research phase. Coach ordering = minimal saved client list + per-client tagging + order history. Goal guidance = goal tiles in MVP, quiz post-launch. Coach pricing = separate published transparent tier + cumulative individual loyalty (numbers [?]). Reorder = one-tap repeat in MVP, My Staples post-launch. Open Questions remain open (switching trigger, volume economics). |
 | strategy v5 | 2026-06-21 | Riskiest assumption rewritten after founder coach interviews (June 2026, field research, not web-sourced): price/margin is a primary switching driver and a gate, not only hygiene. Experience is the differentiator among price-acceptable suppliers. Previous v4 redaction preserved as superseded for trace. Updated "What Stack is betting on", the Discarded alternatives "Chosen" trace, Open Question 1, Decision 3 wording (numbers untouched), and the Olena segment Motivation. Price feasibility at launch volume remains [?]. |
@@ -34,8 +34,8 @@
 
 | # | Objective | Metric | Target (hypothesis) | Evidence status |
 |---|-----------|--------|-------------------|-----------------|
-| 1 | Build trust and reduce uncertainty for the safety-sensitive buyer | Product page trust signal engagement rate; return rate; bounce rate on product pages | Less than 5% return rate; trust engagement on more than 60% of sessions | CONFIRMED. Benchmark: all top performers lead with trust before price. No UA store communicates composition depth or testing. Vansiton mentions ISO 22000:2005 - the best UA signal seen, but not on product pages. Sources: research/competitive-analysis.md v_refresh |
-| 2 | Build a trusted path from goal to product for non-expert buyers | Guided quiz completion rate; first-purchase conversion from quiz | 40% quiz completion; 20% quiz-to-purchase | CONFIRMED. Goal navigation is universal; no UA sport nutrition store has an interactive path. GymBeam UA uses static categories. Sources: gymbeam.ua, belok.ua, research/competitive-analysis.md |
+| 1 | Build trust and reduce uncertainty for the safety-sensitive buyer | Product page trust signal engagement rate; return rate; bounce rate on product pages | Less than 5% return rate; trust engagement on more than 60% of sessions | CONFIRMED. Benchmark: all top performers lead with trust before price. No UA store communicates composition depth or testing. Vansiton mentions ISO 22000:2005 - the best UA signal seen, but not on product pages. Sources: research/docs/competitors.md v_refresh |
+| 2 | Build a trusted path from goal to product for non-expert buyers | Guided quiz completion rate; first-purchase conversion from quiz | 40% quiz completion; 20% quiz-to-purchase | CONFIRMED. Goal navigation is universal; no UA sport nutrition store has an interactive path. GymBeam UA uses static categories. Sources: gymbeam.ua, belok.ua, research/docs/competitors.md |
 | 3 | Establish the coach/gym ordering channel as primary revenue driver | Percentage of GMV from coach accounts; average coach order value | 40% of GMV from coach accounts within 6 months [hypothesis] | CONFIRMED WITH NUANCE. GymBeam has a self-service B2B wholesale program. Vansiton has a Coach Account Program. The gap is narrower than v2 suggested - but neither competitor offers multi-client ordering, saved client profiles, or coach-specific landing pages. The structural gap remains. Sources: gymbeam.com/content/wholesale, vansiton.ua |
 | 4 | Drive repeat purchases and reduce catalog abandonment | 30-day repeat purchase rate; cart abandonment rate | 35% repeat rate; less than 60% abandonment [hypothesis] | CONFIRMED. No UA sport nutrition store has smart reorder, consumption-based reminders, or subscription. Liki24 (SOFT) has a cashback loyalty program - the best local reorder reference. Source: liki24.com |
 
@@ -103,7 +103,7 @@
 
 The goal is a loyalty structure that is not worse than the UA market AND does not destroy margin. Both are unknowns until real sales data exists - no margin numbers are available, so no final structure can be calculated now.
 
-Market context (from research/competitive-analysis.md v2, 2026-06-14):
+Market context (from research/docs/competitors.md v2, 2026-06-14):
 - belok.ua: cumulative lifetime discount in a 12-month window - 5% at 10K UAH, 10% at 50K UAH. Simple, spend-based, no points accounting. Source: https://belok.ua/ua/sistema-skidok/
 - 5lb.ua: two-layer system - cumulative tier discount (3% at 1K-5K UAH, 5% at 5K-10K, 8% at 10K+) plus a bonus points balance redeemable up to 7% of order. Source: https://5lb.ua/en/skidki.html
 - GymBeam UA: points system (1 pt per 50 UAH web, 2 pt per 50 UAH app), 4 redemption tiers, 90-day expiry. Source: https://gymbeam.ua/ua/content/prohrama-loialnosti
@@ -193,7 +193,7 @@ If the consistent answer is "price is the only thing that would make me switch,"
 
 ## Product Decisions (Locked, 2026-06-14)
 
-The following four decisions were made by the founder after reviewing the People and JTBD research phase (personas.md v1.1, jtbd.md v1, master-research.md v4). Each closes an open product scope question that was blocking wireframe work.
+The following four decisions were made by the founder after reviewing the People and JTBD research phase (personas.md v1.1, jtbd.md v1, research.md v4). Each closes an open product scope question that was blocking wireframe work.
 
 Hard constraint: No specific percentages, discount rates, cumulative thresholds, or conversion rates are committed as targets anywhere. Any numbers shown are labeled as unvalidated placeholders only.
 
@@ -214,7 +214,7 @@ Does NOT include: full B2B order management, invoice export, client nutrition tr
 Research basis:
 - The current universal B2B ordering workflow in Ukraine is entirely analog: Excel price list + email + manager phone callback. Stack replaces a spreadsheet and a phone call, not a competitor's digital product. This lowers the switching bar significantly. Sources: fitness-shop.ua, sport-factor.ua (OBS-C19, confirmed 2026-06-14)
 - Coaches are resellers who earn the margin between wholesale and retail price. Per-client order tracking protects their margin management workflow. Source: fitness-shop.ua (OBS-C18, confirmed 2026-06-14)
-- No UA competitor has a self-service multi-client cart with saved client profiles. Source: research/competitive-analysis.md v3 (OBS-C2)
+- No UA competitor has a self-service multi-client cart with saved client profiles. Source: research/docs/competitors.md v3 (OBS-C2)
 
 This closes: the MVP scope question for the coach ordering flow.
 
@@ -228,9 +228,9 @@ MVP ships: 4-6 goal tiles on the homepage (examples: Build Muscle, Fat Loss, Ene
 First post-launch iteration: a short guided quiz (3-5 questions: goal, experience level, constraints) as a secondary "Help me choose" path for buyers who cannot map themselves to a tile.
 
 Research basis:
-- No Ukrainian sport nutrition store has any interactive goal-to-product path. belok.ua has 3 static goal buckets. This is a confirmed market gap. Source: research/competitive-analysis.md v3 (OBS-B3)
-- Goal tiles are proven in best-in-class international references: Myprotein 6-goal selector, Huel 4-goal, Bulk 4-goal. Source: research/benchmark.md
-- Ukrainian buyers already understand concern-based discovery from Liki24. Source: research/ux-patterns.md (OBS-B7)
+- No Ukrainian sport nutrition store has any interactive goal-to-product path. belok.ua has 3 static goal buckets. This is a confirmed market gap. Source: research/docs/competitors.md v3 (OBS-B3)
+- Goal tiles are proven in best-in-class international references: Myprotein 6-goal selector, Huel 4-goal, Bulk 4-goal. Source: research/docs/benchmark.md
+- Ukrainian buyers already understand concern-based discovery from Liki24. Source: research/docs/ux-patterns.md (OBS-B7)
 
 Important: The conversion hypotheses from aarrr.md v2 ("40% quiz completion," "3x more likely to buy") are NOT the basis for this decision and remain [?]. The decision rests on coverage logic: tiles for buyers who can self-identify a goal, quiz for those who cannot.
 
@@ -253,8 +253,8 @@ Individual buyer loyalty:
 - Separate from the coach tier
 
 Research basis:
-- None of the 8 identified wholesale suppliers in Ukraine publishes pricing publicly. All pricing is gated behind registration and manager contact. Source: research/master-research.md v4, post-persona research (8 supplier pages visited 2026-06-14, OBS-C21)
-- Publishing a transparent, self-service coach price is an experience differentiator - consistent with the riskiest assumption. The experience win is transparency and pricing predictability for a reseller who needs to plan their margin without a phone call. Source: research/strategy.md v3 (riskiest assumption)
+- None of the 8 identified wholesale suppliers in Ukraine publishes pricing publicly. All pricing is gated behind registration and manager contact. Source: research/docs/research.md v4, post-persona research (8 supplier pages visited 2026-06-14, OBS-C21)
+- Publishing a transparent, self-service coach price is an experience differentiator - consistent with the riskiest assumption. The experience win is transparency and pricing predictability for a reseller who needs to plan their margin without a phone call. Source: research/docs/strategy.md v3 (riskiest assumption)
 - A unified cumulative tier was rejected: a new coach with 5 clients may wait many orders before reaching the first threshold, giving them no immediate reason to switch from a supplier who already has their custom pricing.
 
 Numbers that remain [?] and require real data before commitment:
@@ -277,9 +277,9 @@ MVP ships: Order history in the account page. "Repeat order" button adds all pre
 First post-launch iteration: "My Staples" saved list + email reminder triggered before estimated stockout. Reminder timing to be calibrated from real post-launch purchase data, not invented before launch.
 
 Research basis:
-- No Ukrainian sport nutrition competitor has any reorder mechanic. Source: research/competitive-analysis.md v3 (OBS-R2)
+- No Ukrainian sport nutrition competitor has any reorder mechanic. Source: research/docs/competitors.md v3 (OBS-R2)
 - Consumption-cycle estimation (whey 2kg, creatine 300g) cannot be reasonably calculated before first sales data exists. Source: OBS-R2 (gap)
-- One-tap repeat from order history maps to established behavior in adjacent Ukrainian categories (Liki24 purchase history). Source: research/benchmark.md
+- One-tap repeat from order history maps to established behavior in adjacent Ukrainian categories (Liki24 purchase history). Source: research/docs/benchmark.md
 
 Numbers that remain [?]:
 - Consumption cycle for common products [?]
@@ -305,9 +305,9 @@ This does NOT close: consumption-cycle data, which requires real post-launch pur
 
 ## Sources
 
-- research/competitive-analysis.md v_refresh (2026-06-12)
+- research/docs/competitors.md v_refresh (2026-06-12)
 - https://belok.ua/ua/opt/
 - https://gymbeam.com/content/wholesale
 - https://vansiton.ua/en/
 - https://liki24.com/
-- research/benchmark.md
+- research/docs/benchmark.md

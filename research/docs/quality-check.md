@@ -45,14 +45,14 @@ Reviewing all research files for statements that could not be supported by direc
 
 | Finding | File | Action |
 |---------|------|--------|
-| "Belok.ua Android app confirmed on Google Play" - verified against actual Play Store listing | research/competitive-analysis.md | VERIFIED - https://play.google.com/store/apps/details?id=starter.belok.client |
-| "No iOS app confirmed for belok.ua" - searched App Store, none found | research/competitive-analysis.md | CONFIRMED BY ABSENCE - search performed, no result |
-| "Belok.ua certificates page is empty" - directly observed at https://belok.ua/ua/serteficates/ | research/competitive-analysis.md | VERIFIED - page was empty at time of research |
-| "AG1 is 403 Forbidden" - direct fetch attempt failed | research/competitive-analysis.md | NOTED - all AG1 data sourced from public web search results and accessible sub-pages |
-| "Apteka24.ua returns CAPTCHA" - direct fetch attempt failed | research/competitive-analysis.md | NOTED - all apteka24 data from Promodo case study and Dribbble; clearly attributed |
+| "Belok.ua Android app confirmed on Google Play" - verified against actual Play Store listing | research/docs/competitors.md | VERIFIED - https://play.google.com/store/apps/details?id=starter.belok.client |
+| "No iOS app confirmed for belok.ua" - searched App Store, none found | research/docs/competitors.md | CONFIRMED BY ABSENCE - search performed, no result |
+| "Belok.ua certificates page is empty" - directly observed at https://belok.ua/ua/serteficates/ | research/docs/competitors.md | VERIFIED - page was empty at time of research |
+| "AG1 is 403 Forbidden" - direct fetch attempt failed | research/docs/competitors.md | NOTED - all AG1 data sourced from public web search results and accessible sub-pages |
+| "Apteka24.ua returns CAPTCHA" - direct fetch attempt failed | research/docs/competitors.md | NOTED - all apteka24 data from Promodo case study and Dribbble; clearly attributed |
 | All AOV/revenue targets labeled [?] throughout research | All files | CONFIRMED |
-| "Belok.ua is the market leader" - this is their own claim, not independently verified | research/competitive-analysis.md | NOTED as self-claim in source document; retained because physical presence (40+ stores, 15 years) provides substantive evidence |
-| "One coach = 10-30+ buyers" - directional estimate, not measured | CLAUDE.md, research/product-model.md | HYPOTHESIS - stated as estimate based on coach profession norms, not a measured figure |
+| "Belok.ua is the market leader" - this is their own claim, not independently verified | research/docs/competitors.md | NOTED as self-claim in source document; retained because physical presence (40+ stores, 15 years) provides substantive evidence |
+| "One coach = 10-30+ buyers" - directional estimate, not measured | CLAUDE.md, research/docs/product-model.md | HYPOTHESIS - stated as estimate based on coach profession norms, not a measured figure |
 
 ---
 
@@ -81,7 +81,7 @@ Confirming each competitor finding required direct site access or a cited extern
 
 Confirming that product model v2 updates are reflected consistently across all downstream documents.
 
-| v2 Change | Reflected in master-research.md | Reflected in ux-patterns.md | Reflected in aarrr.md |
+| v2 Change | Reflected in research.md | Reflected in ux-patterns.md | Reflected in aarrr.md |
 |-----------|--------------------------------|-----------------------------|-----------------------|
 | Trust objective elevated to #1 | YES - Section 2, objectives table | YES - Pattern 2 safety verification | YES - Activation section |
 | Coach channel confirmed as primary, gap is larger than hypothesized | YES - Section 7 gaps table | YES - Pattern C coach account pattern | YES - Acquisition section |
@@ -98,12 +98,12 @@ All material v2 changes are reflected downstream.
 Confirming the coach channel is consistently treated as primary throughout all documents.
 
 - CLAUDE.md: coach as primary segment with own JTBD section - CONFIRMED
-- research/product-model.md: Segment 1 labeled PRIMARY, distinct JTBD - CONFIRMED
-- research/aarrr.md: coach channel as distinct funnel path in every stage - CONFIRMED
-- research/competitive-analysis.md: coach/bulk column in all competitor tables, gap explicitly noted - CONFIRMED
-- research/benchmark.md: criterion 8 "Coach/bulk ordering" in evaluation matrix - CONFIRMED
-- research/ux-patterns.md: Pattern C dedicated to coach ordering, Pattern 3 behavioral observation - CONFIRMED
-- research/master-research.md: coach channel in every section, gaps table includes it - CONFIRMED
+- research/docs/product-model.md: Segment 1 labeled PRIMARY, distinct JTBD - CONFIRMED
+- research/docs/aarrr.md: coach channel as distinct funnel path in every stage - CONFIRMED
+- research/docs/competitors.md: coach/bulk column in all competitor tables, gap explicitly noted - CONFIRMED
+- research/docs/benchmark.md: criterion 8 "Coach/bulk ordering" in evaluation matrix - CONFIRMED
+- research/docs/ux-patterns.md: Pattern C dedicated to coach ordering, Pattern 3 behavioral observation - CONFIRMED
+- research/docs/research.md: coach channel in every section, gaps table includes it - CONFIRMED
 
 Coach channel is consistently treated as primary throughout all documents.
 
@@ -123,7 +123,7 @@ Result: grep -Prn "—" across all research/ files and CLAUDE.md, README.md retu
 
 No issues requiring fixes to source files were found. All quantitative claims are either cited or already marked [?]. No invented facts were identified. No em dashes present. The v2 product model is consistently reflected. The coach channel is consistently primary.
 
-One note for the HTML phase: the Bulk Boost price (GBP 9.95) should be presented as a behavioral reference, not a pricing recommendation for Stack. This distinction is already clear in research/benchmark.md but should remain clear in the HTML summary.
+One note for the HTML phase: the Bulk Boost price (GBP 9.95) should be presented as a behavioral reference, not a pricing recommendation for Stack. This distinction is already clear in research/docs/benchmark.md but should remain clear in the HTML summary.
 
 ---
 

@@ -2,8 +2,8 @@
 
 **Product:** Stack, mobile-first sport nutrition e-commerce, Ukraine
 **Stage:** 06 Concept
-**Depends on:** `concept/docs/references.md`, `research/docs/personas.md` v1.2, `research/docs/jtbd.md` v1.2, `Voices/docs/voice.md`, `research/docs/benchmark.md`, `research/docs/competitive-analysis.md`
-**Language:** English (internal md). Product strings quoted from `Voices/docs/voice.md` stay Ukrainian.
+**Depends on:** `concept/docs/references.md`, `research/docs/personas.md` v1.2, `research/docs/jtbd.md` v1.2, `voice/docs/voice.md`, `research/docs/benchmark.md`, `research/docs/competitors.md`
+**Language:** English (internal md). Product strings quoted from `voice/docs/voice.md` stay Ukrainian.
 
 This file records the design language as decisions with reasons, not mood. Section "Designer's taste" is the owner's input (captured, not invented). Section "Attributes" derives visual opposites from data and taste, each with a source line and a borrowed technique. Sections "Brand" and "Layout" are filled later (Step 3 brand plates, Step 5 chosen layout).
 
@@ -33,7 +33,7 @@ Status: **LOCKED as canon (2026-07-19).** The owner approved the bear as a canon
 All four category reflexes are rejected by the owner:
 1. **"Beast mode" gym**: black plus neon, aggression, explosive muscle imagery, urgency stickers. It feeds the exact fear Stack must reduce (Viktoriia's fear of the wrong or unsafe product) and it breaks Design Principle 4.
 2. **"Cozy spa" wellness**: cream plus sage plus terracotta, soft wellness. Reads as tea or skincare, not performance nutrition.
-3. **Loud UA discounter**: red price bursts, banners, countdowns, "-50%" explosions. This is the competitor register Stack differentiates from (`competitive-analysis.md`, Competitor Voice).
+3. **Loud UA discounter**: red price bursts, banners, countdowns, "-50%" explosions. This is the competitor register Stack differentiates from (`competitors.md`, Competitor Voice).
 4. **Sterile pharma**: cold blue, generic, no character. Trust without a soul. Rejecting this is what makes the mascot and the monobank personality necessary, not optional.
 
 ### Taste addendum (owner input, captured 2026-07-19 at Step 3 review)
@@ -63,7 +63,7 @@ This stance is what keeps Stack off all four anti-reference reflexes at the same
 Each pair is `attribute, not opposite`, with the data line it comes from and the borrowed technique from `references.md`. No pair may contradict the taste above; where taste and data pull apart it is named.
 
 ### 1. Calm and confident, not loud or urgent
-- **Source:** `voice.md` principle 1 (спокій замість тиску); Persona 3 Viktoriia pain "anything that feels like she might be buying the wrong thing"; Design Principle 4; `competitive-analysis.md` (UA category is loud, discount-led, urgency-led).
+- **Source:** `voice.md` principle 1 (спокій замість тиску); Persona 3 Viktoriia pain "anything that feels like she might be buying the wrong thing"; Design Principle 4; `competitors.md` (UA category is loud, discount-led, urgency-led).
 - **Technique:** SAPGOODENERGY discipline: a single accent used only on the primary action, generous whitespace, no discount bursts or countdowns.
 - **Taste check:** aligns with Thorne, Seed. Tension with Nike, Peloton energy is resolved by the stance: energy is an accent, not the volume of the page.
 

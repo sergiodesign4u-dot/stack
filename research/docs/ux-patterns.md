@@ -143,7 +143,7 @@ If a buyer cannot map themselves to a fitness goal tile ("I don't want to build 
 
 ### Pattern That Does NOT Fit: Subscription-First Purchase
 
-As established in the benchmark (research/benchmark.md, Section 6), the subscription-first model used by AG1 and Thorne is not viable for the Ukrainian market at MVP stage. Ukrainian e-commerce buyers have low subscription trust due to billing complexity and limited consumer protection expectations around recurring charges. Subscription is a retention mechanic for a later phase - not a first-purchase experience.
+As established in the benchmark (research/docs/benchmark.md, Section 6), the subscription-first model used by AG1 and Thorne is not viable for the Ukrainian market at MVP stage. Ukrainian e-commerce buyers have low subscription trust due to billing complexity and limited consumer protection expectations around recurring charges. Subscription is a retention mechanic for a later phase - not a first-purchase experience.
 
 **Why explicitly called out:** The reorder problem is real and validated. The temptation is to solve it with subscription (a proven mechanism internationally). But applying subscription as the primary reorder path in the UA market would increase bounce rate and abandonment at the purchase decision point. The correct MVP solution is email/SMS reminder + one-tap repeat order from history.
 

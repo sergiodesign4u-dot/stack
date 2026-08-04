@@ -3,7 +3,7 @@
 **Product:** Stack - mobile-first sport nutrition e-commerce, Ukraine
 **Version:** v1.2 (2026-06-14)
 **Language:** English (markdown research file)
-**Depends on:** research/master-research.md v5, research/strategy.md v4, research/competitive-analysis.md v3, research/ux-patterns.md, research/benchmark.md
+**Depends on:** research/docs/research.md v5, research/docs/strategy.md v4, research/docs/competitors.md v3, research/docs/ux-patterns.md, research/docs/benchmark.md
 **All facts cite sources. Unknowns marked [?]. No invented quotes or numbers.**
 
 ---
@@ -26,7 +26,7 @@
 Source: CLAUDE.md (Target Audience, Primary segment)
 
 **OBS-C2:** Four direct Ukrainian competitors now have some form of B2B/wholesale infrastructure for coaches: belok.ua (callback form at /ua/opt/), GymBeam UA (self-service register/activate/shop), mega-mass.ua (informal wholesale program, /uk/optom/ inaccessible [?]), vansiton.ua (manual phone/email partner program + Coach Cabinet PDF). None has a self-service coach account with multi-client ordering or saved client profiles.
-Source: research/competitive-analysis.md v3, direct site fetches 2026-06-14
+Source: research/docs/competitors.md v3, direct site fetches 2026-06-14
 
 **OBS-C3:** belok.ua's wholesale form (/ua/opt/) collects company name, contact, business type, city, and expected monthly volume. It requires a manual callback. Terms and pricing are not published on the page.
 Source: https://belok.ua/ua/opt/ (visited 2026-06-14)
@@ -38,25 +38,25 @@ Source: https://gymbeam.com/content/wholesale (visited 2026-06-12)
 Source: https://vansiton.ua/ua/partneram.html (visited 2026-06-14)
 
 **OBS-C6:** mega-mass.ua has 18+ physical stores across 10 Ukrainian cities, making the store network an effective informal B2B touchpoint for local coaches (especially western Ukraine). Digital wholesale details are not publicly accessible [?].
-Source: https://mega-mass.ua/uk/ (visited 2026-06-14), research/competitive-analysis.md v3
+Source: https://mega-mass.ua/uk/ (visited 2026-06-14), research/docs/competitors.md v3
 
 **OBS-C7:** The core coach UX problem with existing tools: ordering for multiple clients with different goals from a single session is not supported anywhere in the Ukrainian market. A coach managing 10 clients must navigate the catalog multiple times, maintain their own spreadsheet for client needs [?], and either wait for a callback (belok.ua) or work through a retailer-framed self-service flow (GymBeam).
-Source: research/ux-patterns.md (Pattern 3), research/competitive-analysis.md v3
+Source: research/docs/ux-patterns.md (Pattern 3), research/docs/competitors.md v3
 
 **OBS-C8:** Coaches think in client outcomes first, then translate to products. "Client A wants to lose fat" not "Client A needs CLA 1000mg and L-carnitine 3g/day." The translation from goal to product is the coach's job - the store's job is to have the right products available at the right price.
-Source: research/ux-patterns.md (Pattern 1)
+Source: research/docs/ux-patterns.md (Pattern 1)
 
 **OBS-C9:** Coach/bulk ordering benchmark scores: Thorne 4/5 (best), Myprotein 3/5, Huel 1/5, Bulk 1/5, Liki24 1/5. Even the best-in-class aspirational references barely address coach ordering. US-based Fullscript and Wellevate are practitioner-ordering gold standards but are not UA market references.
-Source: research/benchmark.md, Section 3 and 4
+Source: research/docs/benchmark.md, Section 3 and 4
 
 **OBS-C10:** The riskiest assumption in strategy.md v3: coaches with established supplier relationships will SWITCH to Stack for a better ordering experience. Price is hygiene (stay within market range) not the reason to switch. Coaches without an established supplier are a distinct sub-group - for them it is a first-choice decision, not a switch.
-Source: research/strategy.md v3, research/master-research.md v3
+Source: research/docs/strategy.md v3, research/docs/research.md v3
 
 **OBS-C11:** Coach AOV hypothesis: 4,000-12,000 UAH per order [?]. Individual buyer AOV hypothesis: 1,200-2,000 UAH [?]. No real market data exists for either number.
-Source: research/strategy.md v3 (labeled [?] hypothesis)
+Source: research/docs/strategy.md v3 (labeled [?] hypothesis)
 
 **OBS-C12:** Coach acquisition metrics are entirely hypothetical at this stage: 10 new coach accounts per month by month 3 [?], 60% of registered coaches placing first order within 7 days [?].
-Source: research/aarrr.md v2
+Source: research/docs/aarrr.md v2
 
 **OBS-C13 (UPDATED by post-persona research):** Ukrainian coaches are active on Instagram (documented top coaches with workout content, nutrition Q&A in stories). Telegram is used for wholesale supplement ordering - at least one Telegram channel (@sportiv_admin) explicitly offers "wholesale and trainer pricing." Sources: https://mixsport.pro/blog/top-8-instagram-akkauntov-ukrainskih-fitnes-trenerov; tgstat.com health/sport channels search (2026-06-14). However, structured digital ordering for clients (multi-client ordering workflow) remains [?] - no evidence of coaches using digital tools to manage per-client supplement orders was found.
 
@@ -90,25 +90,25 @@ Source: gap - not found. This is the most dangerous missing piece given the swit
 Source: CLAUDE.md (Target Audience, Secondary)
 
 **OBS-B2:** Primary beginner pains: overwhelming catalog, unfamiliar terminology, fear of side effects, uncertainty about dosage, no way to verify product authenticity.
-Source: CLAUDE.md, research/master-research.md v3
+Source: CLAUDE.md, research/docs/research.md v3
 
 **OBS-B3:** No Ukrainian sport nutrition store has an interactive, personalized goal-to-product path. GymBeam uses static categories. belok.ua has 3 static goal buckets. vansiton.ua has sport/goal navigation but no personalized quiz. The market gap is real and confirmed.
-Source: research/competitive-analysis.md v3
+Source: research/docs/competitors.md v3
 
 **OBS-B4:** Beginners do not arrive knowing the product - they arrive knowing the outcome. "I want to lose weight" not "I want thermogenic + CLA." The translation from goal to product is what they need the store to do.
-Source: research/ux-patterns.md (Pattern 1)
+Source: research/docs/ux-patterns.md (Pattern 1)
 
 **OBS-B5:** Non-expert buyers pause before add-to-cart to verify safety. If the store does not answer the safety question on the product page, the buyer leaves and may not return. Counter-evidence: belok.ua's certificates page (/ua/serteficates/) is empty - a store that recognized the need but left it unresolved.
-Source: research/ux-patterns.md (Pattern 2), https://belok.ua/ua/serteficates/ (visited)
+Source: research/docs/ux-patterns.md (Pattern 2), https://belok.ua/ua/serteficates/ (visited)
 
 **OBS-B6:** Ukrainian buyers trust "who stands behind this" more than abstract certifications. Physical store presence, named experts, coach endorsements, and federation partnerships are more culturally legible than NSF or Informed Sport badges.
-Source: research/ux-patterns.md (Pattern 5)
+Source: research/docs/ux-patterns.md (Pattern 5)
 
 **OBS-B7:** Ukrainian buyers already understand concern/symptom-based navigation from Liki24's "Симптоми" category (1M+ customers). This is not a foreign UX pattern for the Ukrainian market.
-Source: research/benchmark.md (Liki24 section), research/ux-patterns.md (Pattern C)
+Source: research/docs/benchmark.md (Liki24 section), research/docs/ux-patterns.md (Pattern C)
 
 **OBS-B8:** Goal quiz hypothesis: 40% completion rate; completers are 3x more likely to purchase than cold browsers [?]. Both are unvalidated.
-Source: research/aarrr.md v2 (labeled [?])
+Source: research/docs/aarrr.md v2 (labeled [?])
 
 **OBS-B9:** No data found on how Ukrainian beginners actually discover supplement stores (TikTok? Instagram coach referral? Google search? In-gym recommendation?). Acquisition channel mix is unknown.
 Source: gap
@@ -123,16 +123,16 @@ Source: gap
 Source: CLAUDE.md (Target Audience, Supporting)
 
 **OBS-R2:** Their primary pain: re-navigating the catalog on every order and out-of-stock surprises. No UA sport nutrition store has smart reorder or consumption-based reminders.
-Source: research/competitive-analysis.md v3
+Source: research/docs/competitors.md v3
 
 **OBS-R3:** belok.ua's cumulative discount system (12-month window, 5% at 10K UAH, 10% at 50K UAH) is the best existing retention mechanic in UA for this segment. Liki24 (SOFT) has the best local reorder reference via search history and cashback.
-Source: https://belok.ua/ua/sistema-skidok/ (visited), research/ux-patterns.md (Pattern 4)
+Source: https://belok.ua/ua/sistema-skidok/ (visited), research/docs/ux-patterns.md (Pattern 4)
 
 **OBS-R4:** Second-purchase hypothesis: regulars who place a second order within 30 days have a retention rate above 80% at 6 months [?]. Unvalidated.
-Source: research/aarrr.md v2 (labeled [?])
+Source: research/docs/aarrr.md v2 (labeled [?])
 
 **OBS-R5:** Subscription model is explicitly ruled out for UA MVP. Low recurring billing trust in Ukrainian e-commerce. The correct MVP approach is email/SMS reminder + one-tap repeat order from history.
-Source: research/benchmark.md (Section 6), research/ux-patterns.md (Pattern That Does NOT Fit)
+Source: research/docs/benchmark.md (Section 6), research/docs/ux-patterns.md (Pattern That Does NOT Fit)
 
 ---
 
@@ -302,11 +302,11 @@ Source: research/benchmark.md (Section 6), research/ux-patterns.md (Pattern That
 ## Sources
 
 - CLAUDE.md (product brief)
-- research/master-research.md v5
-- research/strategy.md v4
-- research/competitive-analysis.md v3
-- research/ux-patterns.md
-- research/benchmark.md
+- research/docs/research.md v5
+- research/docs/strategy.md v4
+- research/docs/competitors.md v3
+- research/docs/ux-patterns.md
+- research/docs/benchmark.md
 - https://belok.ua/ua/opt/ (visited 2026-06-14)
 - https://gymbeam.com/content/wholesale (visited 2026-06-12)
 - https://vansiton.ua/ua/partneram.html (visited 2026-06-14)
