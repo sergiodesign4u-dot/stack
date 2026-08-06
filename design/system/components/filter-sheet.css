@@ -12,8 +12,15 @@
 .fsheet-h{ position: sticky; top: 0; background: var(--bg-page); padding: var(--space-16) var(--space-16); border-bottom: 1px solid var(--line-hair); font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); display: flex; justify-content: space-between; align-items: center; }
 .fsheet-h .x{ font-size: var(--fs-20); }
 .fsheet-foot{ position: sticky; bottom: 0; background: var(--bg-page); display: flex; gap: var(--space-12); padding: var(--space-12) var(--space-16); border-top: 1px solid var(--line-hair); }
-.fsheet-foot .btn{ flex: 1; }
-.fsheet-foot .btn.dark{ flex: 2; }
+/* The footer holds two controls and nothing else, so the split belongs to the
+   footer. Step 7.9: this was `.btn` and `.btn.dark` - the last live use of the
+   grey layer's colour class anywhere in the colour layer, and the reason the
+   stand had to keep saying «33 of the 34 `.dark` are dead, one is not».
+   The double share is the ACCENT finish, not a position and not a leftover
+   name: accent means the one action of the area, which is exactly why it is
+   wider. `--accent` is (0,2,0) and beats `> *` at (0,1,0) on its own. */
+.fsheet-foot > *{ flex: 1; }
+.fsheet-foot .btn--accent{ flex: 2; }
 @media (min-width: 860px){
   .fsheet, .fsheet-ov{ display: none !important; }
 }

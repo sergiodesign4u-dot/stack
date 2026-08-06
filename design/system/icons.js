@@ -40,6 +40,21 @@ var UIV_P = {
      x 3.6..20.4 and y 5.6..18.4, which with the set's 1.9 stroke paints 2.65..21.35
      - inside the safe area, like every other glyph. */
   arrowRight:'<path d="M3.6 12h16.8"/><path d="M14 5.6l6.4 6.4-6.4 6.4"/>',
+  /* step 7.11, and the same head turned a quarter: «Читати більше ↓» goes DOWN
+     the page rather than on to the next one, so the mark is the arrow rotated,
+     not a different drawing. Ink x 5.6..18.4, y 3.6..20.4 - `arrowRight`'s box
+     on its side. */
+  arrowDown:'<path d="M12 3.6v16.8"/><path d="M5.6 14l6.4 6.4 6.4-6.4"/>',
+  /* THE THREE SIGNS THAT WERE STILL CHARACTERS - step 7.11. A close, a plus and
+     a minus were the last places the product drew with the FONT instead of the
+     set: ✕ in every dialog and drawer, ＋ on the drawer's categories, −/+ on the
+     quantity counter. They are geometry, so they take the set's rule and nothing
+     else: one weight, round caps, ink inside 2..22. `minus` is `plus` without
+     the upright, on purpose - the pair has to read as one control changing
+     state, not as two glyphs that happen to sit in the same box. */
+  close:'<path d="M6.4 6.4l11.2 11.2"/><path d="M17.6 6.4L6.4 17.6"/>',
+  plus:'<path d="M12 4.4v15.2"/><path d="M4.4 12h15.2"/>',
+  minus:'<path d="M4.4 12h15.2"/>',
   bell:'<path d="M6.5 10.5a5.5 5.5 0 0 1 11 0c0 4.8 2 6.3 2 6.3H4.5s2-1.5 2-6.3z"/><path d="M9.8 20a2.3 2.3 0 0 0 4.4 0"/>',
   /* categories */
   jar:'<path d="M6.5 9h11v9.3a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M8 9V6.3A1.3 1.3 0 0 1 9.3 5h5.4A1.3 1.3 0 0 1 16 6.3V9"/><path d="M9.5 13h5"/>',

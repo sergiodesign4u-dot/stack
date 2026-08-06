@@ -170,7 +170,35 @@
 .wfh{ border-bottom:1px solid var(--line-hair); box-shadow:none; transition:box-shadow .2s ease; }
 .wfh.uiv-scrolled .wfh-meta{ max-height:0; opacity:0; }
 .wfh.uiv-scrolled{ box-shadow: var(--elevation-bar-bottom); border-bottom-color:transparent; }
-.wfh-actions .wfh-act{ height:var(--size-46); box-sizing:border-box; }
+/* ONE HEIGHT FOR THE WHOLE BAR - step 7.8 ------------------------------------
+   This row used to hold three: the search shell at 40, the actions clamped to
+   46, and the icon buttons at 44. 46 was the odd one - measured across the 34
+   pages that have a header, `--size-46` held no other control anywhere in the
+   product, only spinners and thumbnails.
+
+   THE CLAMP ITSELF IS RIGHT, and that is why it is still here rather than
+   deleted. The four actions do not want the same height on their own: measured
+   with the clamp off, `.numbtn` came out 40 and 43 (one carries a two-line
+   cap/value, one a plain label) and `.stack` came out 60.6 and 63, because it is
+   a COLUMN - mark over label. Four numbers in one row is what a clamp is for.
+
+   So the question was only which number, and the answer was already in the
+   system: 44 is the finger rung - `.btn--icon`, `field.css`, `menu.css` all
+   stand on it, and the cart mark in this very row is 44. At 44 nothing spills:
+   measured on every header page, the deepest content sits flush, 0px past the
+   border box (at 40 it would not fit - the stacked action needs 44).
+
+   The search shell comes up to meet it. It reads `field-grp--s`, whose whole job
+   is 40, so this is an override and not a change of rung - the small field is
+   still 40 everywhere else. The header bar is a touch surface and its controls
+   belong at the finger minimum, not under it. Крок 6 can drop the `--s` from the
+   markup, which lives in the shared `wireframes/_nav.js` and cannot be renamed
+   from this side.
+
+   `box-sizing` left with the 46: base.css sets it on `*`, so the line here was
+   saying a thing that was already true. */
+.wfh-actions .wfh-act{ height:var(--size-44); }
+.wfh-search{ min-height:var(--size-44); }
 
 .wfh-mi a:hover{ color:var(--text-action); }
 

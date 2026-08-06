@@ -55,7 +55,15 @@ html.dr-lock{ overflow: hidden; }
 .cd-empty{ text-align: center; padding: var(--space-40) var(--space-8); }
 .cd-empty .et{ margin: var(--space-16) 0 var(--space-8); }
 .cd-empty .es{ font-size: var(--fs-14); margin-bottom: var(--space-24); }
-.cd-empty .btn{ width: 100%; margin-top: var(--space-8); }
+/* THE ONE CONTAINER WITH MIXED CHILDREN - step 7.9. The empty drawer holds a
+   mark, a heading, a line of copy and only THEN its two actions, so `> *` would
+   space the copy as well. Here the two finishes are named instead.
+   `width: 100%` left with the `.btn`: both actions already carry `btn--full`,
+   and `.btn--full{ width: 100% }`. It was a component repeating what the atom
+   had already said - the same species as `.notifyrow`'s `white-space`, and
+   invisible to the 7.4 sweep because that one only caught duplicates under the
+   SAME selector. */
+.cd-empty > .btn--accent, .cd-empty > .btn--outline{ margin-top: var(--space-8); }
 .cd-group{ border-bottom: 1px solid var(--line-strong); }
 .cd-group:last-child{ border-bottom: 0; }
 .cd-note{ border: 1px solid var(--line-strong); padding: var(--space-12) var(--space-12); font-size: var(--fs-12); margin-bottom: var(--space-12); line-height: var(--lh-airy); }

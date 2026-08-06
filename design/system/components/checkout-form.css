@@ -13,7 +13,8 @@
 /* step 7.3: no colour here. The text finish is `--text-body` already, and the
    colour block below re-declared the SAME value under the name `--text-primary`
    - a line that changed nothing and read as if it did. */
-.pf-act{ font-size: var(--fs-14); font-weight: var(--fw-bold); white-space: nowrap; }
+/* step 7.8: size removed, it is `.btn--text`'s now. */
+.pf-act{ font-weight: var(--fw-bold); white-space: nowrap; }
 .pf-hint{ font-size: var(--fs-12); color: var(--text-secondary); margin-top: var(--space-4); }
 .pf-input{ margin-top: var(--space-8); }
 .pf-note{ font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-16); border: 1px dashed var(--line-strong); padding: var(--space-12) var(--space-12); max-width: 620px; }
@@ -110,7 +111,7 @@
 .co-bonus-top{ display: flex; justify-content: space-between; align-items: baseline; }
 .co-bonus .bl{ font-size: var(--fs-14); font-weight: var(--fw-bold); }
 .co-bonus .bnote{ font-size: var(--fs-12); margin-top: var(--space-4); }
-.co-toggle{ font-size: var(--fs-14); font-weight: var(--fw-bold); margin-top: var(--space-12); }
+.co-toggle{ font-weight: var(--fw-bold); margin-top: var(--space-12); }   /* size: `.btn--text`, step 7.8 */
 .co-sw{ width: var(--size-38); height: 22px; border-radius: var(--radius-pill); position: relative; flex: none; }
 .co-sw::after{ content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: var(--radius-circle); background: var(--bg-page); }
 .co-sw.on::after{ left: 18px; }
@@ -139,7 +140,7 @@
 @media (min-width: 480px){
   .co-err-acts{ flex-direction: row; }
 }
-.co-err-acts .btn{ flex: 1; }
+.co-err-acts > *{ flex: 1; }   /* two controls, nothing else - step 7.9 */
 .co-help{ font-size: var(--fs-12); margin-top: var(--space-16); line-height: var(--lh-airy); }
 .co-help a{ color: var(--text-secondary); text-decoration: underline; }
 .co-proc{ max-width: 520px; margin: 56px auto; padding: 0 var(--space-16); text-align: center; }

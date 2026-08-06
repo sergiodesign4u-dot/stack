@@ -547,3 +547,47 @@ celebration), an opt-out `[?]`, and the SMS cost per order `[?]`.
 **Why this one matters beyond itself.** It is the first MVP item this project added because of
 something found in the field rather than decided at the desk. Every other MVP feature was a founder
 decision that the CJM stage later supplied a reason for; this one ran the other way.
+
+---
+
+## 10. The contrast gate meets the rest of the product (2026-08-07)
+
+**Decision: ship as is.** Owner's call, taken on the rendered screens, not on a table.
+
+**What was asked.** The contrast gate in `DESIGN-artifacts.md` §3 was written for the **price** -
+accent on text only from 19px bold - and every price surface is sized to clear it. It was never asked
+of anything else. Step 7.12 asked it: every element carrying `--text-action` across 146 page-states,
+measured against the ground it actually sits on rather than a notional white.
+
+**What came back.** Five kinds of small accent text in the store sit under AA 4.5:1 and stay:
+
+| element | size | ground | ratio | screens |
+|---|---|---|---|---|
+| `a.on` «Українська» | 14 / 600 | page | 3.13 | 34 |
+| `.menu-val` «Популярні» | 14 / 600 | page | 3.13 | 17 |
+| `.acc-link[aria-current]` «Адреси» | 14 / 600 | surface | 2.97 | 8 (>=960px only) |
+| `.lintro .more` «Читати більше» | 14 / 700 | page | 3.13 | 5 |
+| `.uiv-cur` the `₴` mark | 11-20.9 | page | 3.13 | ~39 |
+
+Accent on the **inverse** ground already passes (`.hptag`, 5.45) and was not touched. Below 960px the
+active account link is an orange fill with an ink label (5.4), so its 2.97 is a desktop-only case.
+Three more failures are on the stand's own chrome (`.kn-back`, the stage arrow, `.lvl-n`) - that is
+the instrument, not the store.
+
+**What was rejected, and why it is not close.** A darker accent `#D24400` clears 4.5 **only on pure
+white** (4.60). On `--bg-surface` it is 4.37 and on `--bg-sunken` 4.04 - still failing on exactly the
+grounds these controls stand on - and on the inverse ground it drops to **3.71** where today's accent
+gives 5.45. Passing everywhere would need two accent tokens under a light/dark condition, which
+contradicts the first colour rule in §3: one orange per view. A second orange to fix a contrast
+number would buy the number and sell the rule.
+
+**What stays open at zero cost.** Ink. Every one of the five already carries a **non-text** accent
+signal - the accent left bar and pin icon on the account link, the accent tick in the sort menu, the
+`btn--inline` underline plus arrow on «Читати більше». Rendered side by side, the ink version loses no
+wayfinding and makes the accent rarer, which is what §3 asks of it. It was shown and not taken.
+
+**Why this is written down.** An accepted shortfall that lives only in a chat is indistinguishable
+next month from a defect nobody noticed. It is now in three places that get read: the rule file
+(`DESIGN-artifacts.md` §3), this journal, and the surface where the roles are actually looked at
+(`design/kit/color.html`). The `₴` mark is deliberately outside the argument: it is a unit of measure
+half the size of the figure beside it, and that figure clears the gate.

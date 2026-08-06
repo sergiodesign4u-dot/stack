@@ -4,12 +4,40 @@
    one that wins, exactly as the two stylesheets stacked before the split.
    Colour reads a semantic role, geometry reads a primitive. */
 
+/* THE SEO TEXT HAS TWO ENDS, and step 7.10 put them in one file. `.lintro` is
+   the lead paragraph directly under the H1 of a listing; `.seotext` is the full
+   block at the foot of the same page, carrying `id="seo"`. The lead ends with
+   «Читати більше», whose href is `#seo` - it is not a neighbour of the block,
+   it is the block's own top end. Until 7.10 the lead lived in
+   `loyalty-rung.css`, which it has nothing to do with.
+
+   AND THE LINK IS A BUTTON. `<a class="more" href="#seo">` is an action written
+   as words INSIDE a sentence, which is the one thing `btn--text btn--inline` is
+   declared for - and step 7.6 wrote on the stand that no such usage exists in
+   the product. That was wrong, and wrong in a way worth naming: 7.6 measured the
+   elements that already CARRIED `btn--inline` and concluded from them, instead
+   of looking for the elements that should. Four of them, on the four listing
+   pages, and this is the only true `--inline` in the shop.
+
+   What is left here after the finish takes over: the weight (the finish inherits
+   it, and the paragraph around is 400) and the ink. `white-space: nowrap` went -
+   `button.css` already forbids a wrap on all four finishes. */
+.lintro{ margin: var(--space-8) 0 0; }
+.lintro .more{ font-weight: var(--fw-bold); }
+
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .seotext{ padding: var(--space-16) var(--space-16); border: 1px solid var(--line-hair); border-radius: var(--radius-12); margin-top: var(--space-24); }
 .seotext .h{ font-size: var(--fs-18); font-weight: var(--fw-black); color: var(--text-primary); margin-bottom: var(--space-12); }
 .seotext p{ font-size: var(--fs-14); color: var(--text-secondary); margin-bottom: var(--space-8); line-height: var(--lh-airy); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
+.lintro{ font-size:var(--fs-14); line-height:var(--lh-airy); max-width:760px; color:var(--text-secondary); }
+/* The accent here is louder than the paragraph it sits in, which is the point -
+   but it is 14px, and `DESIGN-artifacts.md` gates accent TEXT at 19px bold
+   (3.13:1 on white, AA for large text only). The gate was applied to the price
+   and never to anything else. Open, and it is the owner's: step 7.12. */
+.lintro .more{ color:var(--text-action); transition:opacity .15s ease; }
+.lintro .more:hover{ opacity:.75; }
 .seotext{ background:var(--bg-sunken); }
 .seotext{ position:relative; overflow:hidden; }
 @media (min-width:760px){

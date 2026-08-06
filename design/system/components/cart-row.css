@@ -24,9 +24,11 @@
 .ci-price .ci-per{ display: block; text-align: right; }
 .ci-price .ci-per:empty{ display: none; }
 .ci-links{ display: flex; gap: var(--space-16); margin-top: var(--space-12); }
-/* step 7.3: the size lives here and NOWHERE else in this file. It used to say 12
-   here and 14 in the colour block below, and 14 is what the browser drew. */
-.ci-lnk{ font-size: var(--fs-14); font-weight: var(--fw-semibold); }
+/* step 7.3 pulled the size to one line in this file - it used to say 12 here and
+   14 in the colour block below, and 14 is what the browser drew. Step 7.8 found
+   the same 14 written in four OTHER files for the same finish and moved it to
+   `.btn--text`, so the line is gone from here too. */
+.ci-lnk{ font-weight: var(--fw-semibold); }
 .ci-lnk.strong{ font-weight: var(--fw-bold); }
 .ci-oostag{ display: inline-block; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); margin-top: var(--space-4); }
 

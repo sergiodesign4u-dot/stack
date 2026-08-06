@@ -5,8 +5,12 @@
    Colour reads a semantic role, geometry reads a primitive. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
-.lintro{ margin: var(--space-8) 0 0; }
-.lintro .more{ font-weight: var(--fw-bold); white-space: nowrap; }
+/* `.lintro` AND `.lintro .more` LEFT THIS FILE AT STEP 7.10 for `seo-text.css`.
+   They were never the loyalty rung: `.lintro` is the lead paragraph at the top
+   of a listing, it stands on 11 pages (index, three home, seven listing) and on
+   NONE of the loyalty screens. The step-3 split carried them here because that
+   is where they happened to sit in `_wf.css`, and a file name that lies about
+   its contents is worse than a long file. */
 .loy .lt{ color: var(--text-primary); }
 .loy .lbar{ height: 8px; overflow: hidden; margin: var(--space-12) 0 var(--space-8); }
 .loy .lbar i{ display: block; height: 100%; background: var(--bg-inverse); }
@@ -38,10 +42,7 @@ table.led td.bal{ color: var(--text-secondary); }
 .led-empty b{ display: block; margin-bottom: var(--space-4); font-size: var(--fs-16); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.lintro .more{ color:var(--text-action); transition:opacity .15s ease; }
-.lintro .more:hover{ opacity:.75; }
-.lintro{ font-size:var(--fs-14); line-height:var(--lh-airy); max-width:760px; }
-.lintro{ color:var(--text-secondary); }
+/* the four `.lintro` colour lines went with the structure - see above */
 .loy .lt{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); }
 .loy .lbar{ background:var(--bg-sunken); border-radius:var(--radius-pill); }
 .loy .lbar i, .lbar.maxed i{ background:var(--bg-action); border-radius:var(--radius-pill); }

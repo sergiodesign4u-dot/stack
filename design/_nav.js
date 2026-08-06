@@ -158,84 +158,10 @@ function uivIcons(root){
    any button whose label ENDS with a mapped sign, wherever it stands. The same
    correction the numeric-field guard got at step 7 - a rule that only reaches the
    places somebody remembered to name is the defect, not the fix. */
-/* ITS OWN MAP, and that is not tidiness. `UIV_EMOJI` feeds `UIV_RE`, which
-   `uivIcons()` runs over whole REGIONS - the header, the drawer, the footer, the
-   tab bar. Putting `→` in there swapped every arrow in the footer's and drawer's
-   copy as well: measured on cart-empty.html, 27 marks appeared where the page has
-   exactly ZERO trailing arrows on a button. A sign that means «this button leads
-   somewhere» is not the same character doing duty inside a sentence, and only the
-   first one is ours to replace. */
-var UIV_TRAIL_MARK = { '→':'arrowRight', '▾':'chevron', '⌄':'chevron', '›':'caret' };
-var UIV_TRAIL_RE = /\s*([→▾⌄›])\s*$/;
-/* THE ADDRESS IS A CONTROL, NOT A BUTTON - step 7.6. Step 7.5 closed the sign for
-   `[class*="btn--"]` and left 20 of them standing, because a mega-menu head, a
-   «Докладніше про програму →» and the accordion caret are LINKS. The same sign had
-   two drawings again; the seam had just moved one class over. An arrow belongs to
-   the sign, not to the button, so the address widens to everything a person can
-   press. Body copy is still out of reach - a paragraph is not in this list. */
-var UIV_TRAIL_SEL = 'a, button, summary, [role="button"], [class*="btn--"]';
-
-/* THE DEEPEST LAST TEXT, not the last child. The sign turned up in four shapes:
-   bare in the control («Для тренерів →»), alone in a span of its own
-   (`.dpcity > .dpcar`), nested one box deeper (`.ord-h > .oh-drop > .chev`), and
-   at the end of a nested line («…<span class="ms-fb">Дивитися →</span>»). One
-   walk covers all four: go down the last child until the text itself, and put the
-   mark where that text was. */
-function uivTrailLastText(el){
-  var n = el;
-  while(n && n.nodeType === 1){
-    var k = n.lastChild;
-    while(k && k.nodeType === 3 && !k.nodeValue.trim()) k = k.previousSibling;
-    if(!k) return null;
-    n = k;
-  }
-  return n && n.nodeType === 3 ? n : null;
-}
-
-function uivTrailMark(root){
-  var scope = root || document;
-  if(!scope.querySelectorAll) return;
-  [].slice.call(scope.querySelectorAll(UIV_TRAIL_SEL)).forEach(function(c){
-    /* the stand's own bar is not the store - the same line `uivCurrency` draws */
-    if(c.closest && c.closest('.uiv-side, .uiv-topbar')) return;
-    if(c.querySelector('.uiv-trail')) return;                 /* already done */
-    /* A SIGN THAT IS THE WHOLE LABEL IS NOT TRAILING - it is an icon control, and
-       its mark takes the square's size, not a label's. The pager's «›» is exactly
-       that, and without this line it would have been re-sized as punctuation. */
-    if(!c.textContent.replace(UIV_TRAIL_RE, '').trim()) return;
-
-    var t = uivTrailLastText(c);
-    if(!t) return;
-    var m = UIV_TRAIL_RE.exec(t.nodeValue);
-    if(!m || !UIV_TRAIL_MARK[m[1]]) return;
-    var svg = uivIconSvg(UIV_TRAIL_MARK[m[1]]);
-    if(!svg) return;
-
-    /* the space in front of the sign goes with it: a control is a flex row with a
-       `gap`, so a kept space would set the mark twice as far out as the rest of
-       the set */
-    t.nodeValue = t.nodeValue.slice(0, m.index);
-    var host = t.parentElement;
-    if(!host.textContent.trim() && host !== c){
-      /* THE SIGN HAD A BOX OF ITS OWN (`.dpcar`, `.chev`) - keep the box, swap the
-         letter. `.chev` is rotated when its row opens, and replacing the element
-         would have taken the rotation with it. Such a mark is sized by ITS BOX,
-         not by a label, so it is punctuation only when that box is a direct child
-         of the control. */
-      host.innerHTML = svg;
-      host.classList.add('uiv-ic');
-      if(host.parentElement === c) host.classList.add('uiv-trail');
-      return;
-    }
-    /* THE SIGN CLOSED A LINE, so the mark is that line's punctuation wherever the
-       line is - straight in the control («Для тренерів →») or one span deep
-       («…<span class="ms-fb">Дивитися →</span>»). Both are trailing, and asking
-       whether the span happens to be a direct child of the control answered a
-       different question: measured, «Дивитися →» came out at 1.05em with no space
-       while every other arrow was 1.15em with one. */
-    host.insertAdjacentHTML('beforeend', '<span class="uiv-ic uiv-trail">' + svg + '</span>');
-  });
-}
+/* THE TWO MARK PASSES MOVED TO design/system/marks.js at step 7.11 - the stand
+   loads that file too, and until it did, the showcase drew ✕ ♡ −/+ ▦ ☰ with the
+   font while the shop drew them from the set. `uivChrome()` calls `uivMarks()`
+   at its end. */
 
 function uivChrome(){
   /* the JS-injected regions that carry emoji: header (+ mega + city dialog),
@@ -308,9 +234,11 @@ function uivChrome(){
   uivPatchMenus();
   uivTiers();
   uivCurrency();
-  /* LAST, so it sees the buttons every pass above has finished building - the
-     auth dialog's CTA and the menu triggers among them. */
-  uivTrailMark();
+  /* LAST, so they see the buttons every pass above has finished building - the
+     auth dialog's CTA and the menu triggers among them. Trailing first, because
+     a control whose sign is its whole label is what is LEFT after that pass has
+     taken every mark that closes a label. */
+  uivMarks();
 }
 
 /* make the product-card heart interactive: a click toggles the .on (filled) state

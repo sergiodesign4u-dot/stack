@@ -40,7 +40,9 @@
 /* step 7: the `font` shorthand that lived here carried 15px and a hard-coded
    family - 15 is not a rung of the scale, and the family is the field's. */
 .notifyrow input{ flex: 1; min-width: 0; }
-.notifyrow .btn { white-space: nowrap; }
+/* `.notifyrow .btn{ white-space: nowrap }` deleted at step 7.9: `button.css`
+   already forbids a wrap on all four finishes («A BUTTON NEVER WRAPS»), so this
+   line said a thing that was already true. */
 .oosnote { font-size: var(--fs-14); color: var(--text-secondary); margin-top: 12px; line-height: var(--lh-airy); }
 .oosback { margin-top: 14px; }
 /* ---------- colour (from design/kit/kit.css) ---------- */
@@ -58,5 +60,5 @@
    iOS zoom, and not to let the button truncate its verb. */
 @media (max-width: 419px){
   .notifyrow{ flex-wrap: wrap; }
-  .notifyrow input, .notifyrow .btn{ flex: 1 1 100%; }
+  .notifyrow > *{ flex: 1 1 100%; }   /* the field and its button, step 7.9 */
 }

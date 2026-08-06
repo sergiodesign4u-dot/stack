@@ -2328,3 +2328,251 @@ still 1.15em, no JS error.
 Still open and still the owner's: the text finish standing on the minority (14px in 43 of 57,
 secondary ink in 42 of 57), the header row's 46 beside a 40 field, and the 34 dead `.dark` classes
 that go with the Крок 6 markup roll-out.
+
+## Step 7.8 - one number, five owners; and the ladder that had a second ladder
+
+Both of the questions step 7.7 left open were answered by counting, and one of the two answers
+reversed the recommendation I had written down.
+
+### The unit was wrong, and the wrong unit gave the wrong advice
+
+7.7 reported the text finish as «14px in 43 of 57, secondary ink in 42 of 57» and proposed a base of
+14 / secondary. Both halves of that count were **instances**, and the product has 83 identical hearts
+on product cards. They carry `btn--text` for its ink and outvoted everything else.
+
+Recounted by **class combination** over the 39 coloured screens: 163 elements, 12 combinations.
+
+- **7 combinations carry a label. All 7 render 14px.** Not one of them inherits it: `section-head`,
+  `cart-row`, `checkout-form` (twice) and `address-card` each write `var(--fs-14)` by hand. Five
+  files, one value, and `font-size: inherit` in `button.css` deciding nothing in any of them.
+- **6 of those 7 are primary ink.** The single exception is `.sech .all`. So the base ink
+  (`--text-body`) was already right and the 7.7 proposal would have made 12 cart links wrong.
+- The other 5 combinations have no label: `.fav` / `.wlrm` / `.fav.on` are `--icon` (box 44 and glyph
+  20, both absolute - the font size under them is inert), `.lfav` is 18, `.fmore` is 12.
+
+Done: `.btn--text{ font-size: var(--fs-14) }` and the five repeats deleted. Weight stays on `inherit`
+because nobody measured it. **The stand moved and the product did not** - which was the point. The
+`btn--text` specimens on `design/kit/button.html` were drawing at 16 because the demo box around them
+is 16, so the showcase was showing the text button LARGER than the shop does. That is the same
+«18 on the stand, 16 on the product» gap the owner opened step 7 with, in the other direction.
+
+### 46 was the only height of its kind in the system
+
+`.wfh-actions .wfh-act{ height: var(--size-46) }` in `header.css` beat the atom's `min-height: 40` on
+136 controls across all 34 pages that have a header. `--size-46` held no other control anywhere -
+only spinners and thumbnails.
+
+**The clamp itself is right**, and that is why it stayed. With the clamp off: `.numbtn` measured 40
+and 43 (one carries a two-line cap/value, one a plain label) and `.stack` measured 60.6 and 63,
+because it is a COLUMN - mark over label. Four heights in one row is what a clamp is for. Only the
+number was wrong, and the right one was already in the system: **44**, the finger minimum, which
+`btn--icon`, `field.css` and `menu.css` all stand on, and which the cart mark in that very row uses.
+Measured at 44 on every header page: content sits flush, 0px past the border box. At 40 it would not
+fit. The search shell came up to meet it (40 -> 44), so the whole bar is one height now; it reads
+`field-grp--s`, whose only job is 40, so that is an override in `header.css` and not a change of
+rung - the small field is still 40 everywhere else. Dropping `--s` from the markup belongs to Крок 6,
+because the markup is in the shared `wireframes/_nav.js`.
+
+`box-sizing: border-box` left with the 46: `base.css` sets it on `*`.
+
+### The ladder has two ladders, and the stand said only one
+
+Measured, 39 screens: **504** boxed buttons, **233** on the label ladder 40 / 52 / 64. The other 271
+are **eight kinds**, and seven of the eight are two numbers:
+
+| height | × | who | why |
+|---|---|---|---|
+| 44 | 101 | `.cartbtn`, `.cartbtn.notify`, `.co-getcode`, `.menu-trig` | `btn--icon` has its own ladder 40 / 44 / 52 - a square has no label to measure a width from. Already stated in `button.css`; the stand's axis table did not repeat it. |
+| 46 -> 44 | 136 | the three header actions | above |
+| 37 -> 41 | 34 | `.go`, the header search submit | **not a defect**: the button sits INSIDE the field and takes its inner face, 44 minus 1.5 border twice. The same shape of rule as the text finish taking its size from the sentence - it was simply never written down. |
+
+### Proof
+
+Baseline taken before the edits, 73 pages x 2 viewports = 146 page-states, 135 256 elements, 33
+computed properties plus exact geometry. Browser cache cleared over CDP between the passes, because a
+`no-store` server does not evict what is already in the browser's memory cache.
+
+What moved: the header row (search shell 40 -> 44, its input and `.go` 37 -> 41, the three actions
+46 -> 44, the header 114.2 -> 112.2, and each page 2px shorter), the `btn--text` specimens on the
+stand (16 -> 14, deliberately), and 92 icon hearts whose computed font-size went 16 -> 14 **with no
+geometry change at all**, because their box and glyph are absolute. Nothing else. The `skpulse` and
+spinner elements that differ are the instrument's own animation noise, the same set as in 7.4.
+
+Not one text button in the product moved by a pixel.
+
+### Withdrawn on verification
+
+- «`.go` is 37, under the 40 tap minimum» - **withdrawn**. It is the inner face of a 40 (now 44)
+  shell and the shell is the target.
+- «`.dark` should be swept» - **withdrawn as new**. The stand's axis table already recorded, at step
+  7.3, that one of the 34 is a live layout hook (`.fsheet-foot .btn.dark{ flex: 2 }`, on markup that
+  `wireframes/_nav.js` injects) and the other 33 go with the Крок 6 roll-out. Re-verified, unchanged.
+- «`btn` without `--` may be dead» - **withdrawn**. 11 container rules in the colour layer hook on it
+  for layout, and zero controls carry `btn` without a `btn--*` finish.
+
+## Step 7.9 - the two legacy names stop meaning anything
+
+`btn` and `dark` came from the grey layer. In the colour layer neither paints, and step 7.3 already
+recorded that all 34 `.dark` render as ordinary accent. What kept them alive was **twelve CSS rules**
+that still hooked on them - eleven on `.btn`, one on `.btn.dark`. That is what made the pair a trap
+rather than dead weight:
+
+- the stand had to carry a footnote - «33 of the 34 are dead, one is not» - the kind of caveat that
+  is read once and then acted against;
+- and the markup sweep at Крок 6 could not run without breaking layout in twelve places, so it kept
+  being deferred, which is how a leftover becomes permanent.
+
+**All twelve said the same thing: how a control shares a row.** Eight of the nine containers hold
+exactly two controls and nothing else - outline plus accent, a footer whose whole purpose is the
+pair. So the rule moved to the container, where it owes nothing to any class on the child and cannot
+be forgotten by whoever writes the next dialog:
+
+| was | is |
+|---|---|
+| `.co-err-acts .btn` · `.ceact .btn` · `.cedlg .act .btn` · `.wf-ckset-f .btn` · `.pm-f .btn` · `.cshelf .cs-act .btn` · `.fsheet-foot .btn` | `> *{ flex: 1 }` |
+| `.fsheet-foot .btn.dark{ flex: 2 }` | `.fsheet-foot .btn--accent{ flex: 2 }` |
+| `.notifyrow input, .notifyrow .btn{ flex: 1 1 100% }` | `.notifyrow > *{ flex: 1 1 100% }` |
+| `.cd-empty .btn{ margin-top }` | `.cd-empty > .btn--accent, .cd-empty > .btn--outline` - the one container with mixed children (mark, heading, copy, then the two actions), so `> *` would space the copy too |
+
+`> *` was not a new idiom: `auth-dialog`, `banner`, `field` and `hero` already used it. `:is()` would
+have read better in the mixed case and was rejected for the opposite reason - zero uses in the system
+so far, and a selector idiom is not worth introducing for one line.
+
+### Two of the twelve turned out to be dead
+
+- `.cd-empty .btn{ width: 100% }` - both actions already carry `btn--full`, and `.btn--full{ width:
+  100% }`.
+- `.notifyrow .btn{ white-space: nowrap }` - `button.css` already forbids a wrap on all four
+  finishes.
+
+**A second species of dead declaration**, and one the step 7.4 sweep could not see: that sweep caught
+duplicates under the SAME selector, and these are a component repeating what the ATOM already said,
+under a different selector. Two found by accident while doing something else, which is the usual sign
+there are more. Worth its own pass.
+
+### Proof
+
+Both classes stripped off every element in the browser and the computed styles diffed - 73 pages x 2
+viewports = 146 page-states, 262 `btn` and 138 `dark` removed, 37 properties plus x/y/width/height.
+
+**0 elements moved.**
+
+The counterfactual, because a green result proves nothing on its own: the same test run against the
+pre-7.9 stylesheets, cache cleared between passes, moved **117 elements on 30 of the 146 page-states**
+- the flex shares in seven footers, the double share in the filter sheet, and the empty drawer's
+spacing. So the rules were doing real work, and now the container does it.
+
+Крок 6 can now sweep both names out of the markup mechanically: 99 `btn` and 53 `dark` in
+`design/*.html`, plus the ones emitted by the shared `wireframes/_nav.js`, where only ADDING a class
+is safe - the grey layer still paints `.btn.dark` (`_wf.css:583`, 149 occurrences) and stays frozen.
+
+## Step 7.10 - the button that was not in the button system
+
+Found by the owner, from a screenshot: `<a class="more" href="#seo">Читати більше ↓</a>` in the lead
+paragraph of a listing. Measured: `<a>`, **inline**, 14px, **700**, accent. An action written as
+words INSIDE a sentence - which is the one thing `btn--text btn--inline` is declared for, and exactly
+what step 7.6 wrote on the stand does not exist in the product.
+
+**That claim was wrong, and the method is what was wrong, not the arithmetic.** 7.6 measured the
+elements that already CARRIED `btn--inline` and concluded from them, instead of looking for the
+elements that should carry it. A census of a class can only ever confirm the class; it cannot find
+what was never labelled. Four of them, on the four listing pages, and this is the only true
+`--inline` in the shop.
+
+Done: `class="btn--text btn--inline more"` on all four.
+
+### The paragraph moved with it
+
+`.lintro` and `.lintro .more` were in `loyalty-rung.css`. `.lintro` stands on 11 pages - index,
+three home, seven listing - and on **no loyalty screen at all**. The step-3 split put them there
+because that is where they sat in `_wf.css`, and a file name that lies about its contents is worse
+than a long file.
+
+They now live in `seo-text.css`, and that is not «somewhere else», it is the right owner: **the SEO
+text has two ends** - the lead paragraph under the H1 and the full block carrying `id="seo"` at the
+foot of the same page - and `href="#seo"` is the link between them. One feature, one file.
+
+`white-space: nowrap` was dropped on the way: `button.css` already forbids a wrap on all four
+finishes. Third instance of «the component repeats what the atom already said», after `.cd-empty` and
+`.notifyrow` in 7.9. That pass is now clearly worth running.
+
+### Proof
+
+73 pages x 2 viewports, x/y/width/height plus 18 computed properties.
+
+**Exactly four elements moved: the four links themselves.** `display` `inline` -> `inline-flex` (the
+box takes the full line height, 17 -> 22.4; the baseline does not move), `text-decoration` `none` ->
+`underline`. The paragraph did not reflow - still 44.8 tall - and nothing else on any page moved, so
+carrying the rules from one file to another lost no cascade race. Everything else in the diff is the
+usual instrument noise: skeletons and the two spinners.
+
+### Left open, and it is not about this button alone
+
+The ink. 14px bold in accent is **3.13:1** on white, and `DESIGN-artifacts.md` gates accent on TEXT
+at 19px bold. The gate was written for the price and applied only there. Step 7.12.
+
+## Step 7.11 - the signs that were still characters, and how the check was wrong
+
+The owner's screenshot of «Читати більше ↓» ended with a question that was really about the check:
+steps 7.6 and 7.7 had both reported «no typographic signs left». Both had verified with a regular
+expression built from the list I wrote myself - `→ ▾ ⌄ ›` - so the check could only ever confirm the
+list. **A census of a set you defined cannot find what is outside it.**
+
+Asked the opposite way - ANY character closing a control label that is not a letter, a digit or
+ordinary punctuation - six more signs came back:
+
+| sign | x | where |
+|---|---|---|
+| `＋` U+FF0B | 408 on 34 pages | `.dr-cat`, the drawer's category rows - whose LEADING mark was already an svg |
+| `✕` U+2715 | 100 | every close button, and the header burger's open state |
+| `−` `+` | 32 | the quantity counter |
+| `★` U+2605 | 15 on 3 pages | the rating picker in the review form, while `uiv-star` existed |
+| `↓` U+2193 | 4 | the owner's «Читати більше ↓» |
+| `▦` `☰` | 2 | the view toggle's specimen |
+
+Four glyphs added to `icons.js` - `close`, `plus`, `minus`, `arrowDown` - to the set's anatomy
+(viewBox 24, ink inside 2..22, stroke 1.9). `minus` is `plus` without the upright on purpose: the
+pair has to read as one control changing state.
+
+### Three things the pass had to learn
+
+**A sign can be the whole control.** `uivTrailMark` skips those by design and says so - a sign that
+is the entire label is not punctuation, it is the control, and takes the square's size. 7.6 stopped
+at that line and never came back. A second pass, `uivSignMark`, picks them up.
+
+**A control can hold two signs and show one.** The header burger is `<span class="bi-open">☰</span>
+<span class="bi-close">✕</span>` with css showing one box or the other. The first version of the pass
+asked «does this control already contain an svg», saw the ☰ that `uivIcons` had drawn long ago, and
+walked away leaving the ✕ - the state you only see once the drawer is open. 34 pages. The question
+belongs to the BOX that holds the sign, not to the control.
+
+**A toggle writes over the drawing.** `toggleDrCat` sets `a.textContent = open ? '－' : '＋'`, which
+lives in the shared `wireframes/_nav.js`. Wrapped from the colour side instead of edited there, so
+the grey layer keeps its characters. First attempt re-ran `uivTrailMark` and did nothing: writing
+`textContent` removes the drawing but leaves the box's CLASSES, so the pass's own «already done»
+guard turned it away. Measured, then fixed by swapping the sign directly.
+
+### The stand was drawing with the font
+
+Found while checking: `design/kit/*.html` load `kit/_nav.js`, never the shop's runtime, so **no pass
+had ever run on the showcase**. It was still drawing ✕ on `button.html`, ♡ on `kit.html`, −/+ on
+`stepper.html` and ▦/☰ on `view-toggle.html` - with the font, while the shop next door drew all four
+from the set. A design system whose specimen differs from the product is the defect this stage
+exists to remove.
+
+So the two passes moved to **`design/system/marks.js`** - the same move `icons.js` made one step
+earlier, for the same reason: one edition, run by both layers. 72 pages gained the script tag next to
+`icons.js`; `kit.html` gained `icons.js` too, having never loaded it.
+
+### Punctuation is not a sign
+
+Left alone on purpose, and the map is the whole rule: «Creapure®» keeps its trademark (72), «+ Новий
+клієнт…» keeps its ellipsis (2), «Омега-3 + D3» and «Знижки до −25%» keep their arithmetic. The stand
+chrome's own `→` and `↗` stay too - `.uiv-side` and `.uiv-topbar` are the tool, not the store, the
+same line `uivCurrency` draws.
+
+### Proof
+
+73 pages x 2 viewports = 146 page-states: **0 signs left on any control**, 0 sideways scroll, 0 JS
+errors. The drawer toggle walked by hand at 390: plus -> minus -> plus, a drawing every time, and the
+burger's ✕ drawn in its open state.

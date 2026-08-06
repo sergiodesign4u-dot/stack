@@ -34,14 +34,36 @@
    class of the same name would have repainted 191 controls in the frozen grey
    prototype the moment `_nav.js` started emitting it. Measured, not assumed.
 
-   THE OLD NAMES STAY IN THE MARKUP, and they are no longer a look. They are
-   the hook a component uses to say where its button stands - margin, flex,
-   position, min-width - which is the one thing that genuinely belongs to the
-   component and not to the button. Some of them cannot leave at all: the
-   header, footer, drawer and auth dialog are built at runtime by
-   `wireframes/_nav.js`, which the frozen grey prototype shares. Adding a class
-   there is safe in both directions; renaming would break the grey layer, which
-   never loads this file.
+   THE OLD NAMES STAY IN THE MARKUP, and they are no longer a look. Some of them
+   cannot leave at all: the header, footer, drawer and auth dialog are built at
+   runtime by `wireframes/_nav.js`, which the frozen grey prototype shares.
+   Adding a class there is safe in both directions; renaming would break the grey
+   layer, which never loads this file.
+
+   THE TWO OLDEST OF THEM ARE `btn` AND `dark`, and until step 7.9 this file said
+   they were still earning it - the hook a component uses to say where its button
+   stands. Counted: `btn` held 11 rules, `dark` held one. Twelve places in the
+   whole product, and every one of the twelve said the SAME thing - how a control
+   shares a row. That is not a hook, it is a leftover with twelve hostages:
+
+     - the stand had to carry a footnote saying 33 of the 34 `.dark` are dead and
+       one is not, which is precisely the kind of caveat that gets read once;
+     - and the markup could not be swept at Крок 6 without breaking layout in
+       twelve places, so the sweep kept being deferred.
+
+   So 7.9 gave the twelve rules a hook that cannot rot: the CONTAINER. Eight of
+   the nine hold exactly two controls and nothing else - outline plus accent, a
+   footer whose whole purpose is the pair - so `> *` says it, owes nothing to any
+   class on the child, and cannot be forgotten when someone writes the next
+   dialog. The one exception with mixed children names the two finishes instead.
+   `.fsheet-foot .btn.dark{ flex: 2 }` became `.btn--accent`, which is not a
+   rename but the actual rule: the accent finish IS the one action of the area,
+   and that is why it gets the double share.
+
+   After 7.9 neither name means anything in the colour layer. Proved by stripping
+   both classes off every element in the browser and diffing the computed styles:
+   nothing moved. The markup sweep is now a mechanical step for Крок 6, and this
+   file no longer asks anyone to remember an exception.
 
    HEIGHT IS A NUMBER NOW. Until this step no button in the product had a whole
    pixel: 8 + 8 + 14x1.6 + 1.5x2 = 41.4, and `min-height: 34` under it never
@@ -243,11 +265,33 @@
 .btn--ghost:active{ background: var(--bg-action-soft); }
 
 /* ---- finish: text --------------------------------------------------------
-   No box at all, so nothing to size: the type comes from the sentence around
-   it, and that is the rule, not a gap. It is why this finish carried three
-   different weights before - each context was right and none of them was
-   written down. No `:active` either: the only thing left to move would be the
-   type itself, and type that jumps under the finger is worse than no answer.
+   No box at all, so nothing to size. That used to be the whole rule here, and
+   `font-size: inherit` was written to say it out loud: the type comes from the
+   sentence around it. Step 7.8 counted, and the sentence never actually spoke.
+   163 text buttons on the 39 coloured screens, 12 distinct class combinations,
+   and every one of the SEVEN that carries a label rendered 14px - not by
+   inheriting, but because five different component files each wrote the number
+   again by hand:
+
+       .sech .all      section-head.css      .ci-lnk    cart-row.css
+       .pf-act         checkout-form.css     .co-toggle checkout-form.css
+       .addr-back      address-card.css
+
+   One value, five owners, and `inherit` deciding nothing in any of them. That
+   is the shape drift takes before it is drift: nothing is wrong yet, and there
+   is no single place to change when it goes wrong. So the number moves here and
+   the five repeats are gone. Measured after: not one text button moved.
+
+   The other five combinations are not labels and keep their own size, each for
+   a stated reason: `.fav` and `.wlrm` are `--icon` (the box is 44 and the glyph
+   is 20, both absolute - the font size under them is inert), `.lfav` is the
+   list-card heart at 18 because that row has no space for a box, and `.fmore`
+   is 12 because it is the smallest thing on the page and says so.
+
+   This finish carried three different WEIGHTS before, for the same reason and
+   each context was right; the weight still inherits, because unlike the size it
+   was never measured. No `:active` either: the only thing left to move would be
+   the type itself, and type that jumps under the finger is worse than no answer.
    `--inline` is for a button standing INSIDE a sentence, where nothing else
    marks it as a control. In a row of controls the position already says it. */
 .btn--text{
@@ -257,7 +301,7 @@
   border: none;
   background: none;
   color: var(--text-body);
-  font-size: inherit;
+  font-size: var(--fs-14);
   font-weight: inherit;
   line-height: inherit;
 }
