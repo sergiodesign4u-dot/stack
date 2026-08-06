@@ -2296,3 +2296,35 @@ and it wins over the button's size ladder on order, because `icon.css` is import
 at 1280 and **68** at 360, and **every one of them at exactly 1.15em** of its own label - one number,
 one place · **285 / 251** leading marks, ladder untouched (S 18 · M 20 · L 24) · `btn--inline` present
 on the stand only · no JS error.
+
+### Step 7.7 - three defects that are about the control, not the look
+
+Answering «is anything left on the buttons» with a sweep rather than a memory. Nothing was wrong with
+any rendering: 0 labels wrapped, 0 links used as actions. Three controls were broken in a way the eye
+cannot catch.
+
+1. **«+ ще 11» in the filter rail was a `<div>`** - 7 of them, one per listing screen. It looks like a
+   control and cannot be focused or pressed by a keyboard at all. The same defect the sort trigger had
+   at 7.2. It is now a `<button type="button">`, and because it is built by `wireframes/_nav.js`, the
+   SHARED runtime, the fix lands in both layers at once - no divergence to carry back at Крок 6.
+   Measured on both after: colour 12px `#5B5B54` inline-flex 19.2 tall with the system's focus ring;
+   grey 12px `#999` inline-block 18.6 tall with the browser's outline. Neither moved.
+2. **The pager's «next» had no name.** The caret has been a mark with `aria-hidden` since long before
+   this move, and nobody put an `aria-label` on the control, so a screen reader announced NOTHING. 5
+   of them, 4 `<a>` and 1 `<button>`. Named «Наступна сторінка» - a new interface string, so it wants
+   a line in `voice/docs/microcopy.md`.
+3. **The blocked checkout in the cart drawer could not be reached.** `<span role="button"
+   aria-disabled="true">` with no `tabindex`. The whole point of `aria-disabled` rather than
+   `disabled` is that the control STAYS focusable, so the person can arrive at it and hear why it is
+   blocked; without a tabindex they never arrive. `tabindex="0"` added.
+
+**Found while fixing, same control, same one attribute:** the pager marked the page you are standing
+on with a filled square and told a screen reader nothing about it. `aria-current="page"` on all 5.
+
+Measured after, 73 pages at 1280 and 360: **0** icon controls without a name (was 5), **0** controls
+unreachable by keyboard (was 8), 0 sideways scroll, 0 typographic signs left, every trailing mark
+still 1.15em, no JS error.
+
+Still open and still the owner's: the text finish standing on the minority (14px in 43 of 57,
+secondary ink in 42 of 57), the header row's 46 beside a 40 field, and the 34 dead `.dark` classes
+that go with the Крок 6 markup roll-out.

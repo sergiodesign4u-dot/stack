@@ -1705,7 +1705,7 @@ function wfFilterGroupsHTML(checked) {
     </div>
     <div class="fgroup"><div class="fh">Бренд <span class="ar">▾</span></div>
       ${opt('Optimum Nutrition', 12)}${opt('BioTechUSA', 9)}${opt('Myprotein', 7)}${opt('Scitec Nutrition', 6)}${opt('OstroVit', 8)}
-      <div class="btn--text fmore">+ ще 11 ▾ · 🔍 пошук бренду</div>
+      <button type="button" class="btn--text fmore">+ ще 11 ▾ · 🔍 пошук бренду</button>
     </div>
     <div class="fgroup"><div class="fh">Ціль <span class="ar">▾</span></div>
       ${opt('Набір маси', 52)}${opt('Схуднення', 23)}${opt('Відновлення', 18)}
