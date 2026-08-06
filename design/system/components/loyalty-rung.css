@@ -1,0 +1,85 @@
+/* loyalty-rung.css - loyalty rung (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.lintro{ margin: var(--space-8) 0 0; }
+.lintro .more{ font-weight: var(--fw-bold); white-space: nowrap; }
+.loy .lt{ color: var(--text-primary); }
+.loy .lbar{ height: 8px; overflow: hidden; margin: var(--space-12) 0 var(--space-8); }
+.loy .lbar i{ display: block; height: 100%; background: var(--bg-inverse); }
+.loy .ls{ font-size: var(--fs-14); color: var(--text-secondary); }
+.loy .ladder{ display: flex; gap: var(--space-8); margin-top: var(--space-12); }
+.loy .lrung{ flex: 1; border: 1px solid var(--line-hair); padding: var(--space-8) var(--space-8); text-align: center; font-size: var(--fs-12); color: var(--text-secondary); }
+.loy .lrung .rn{ display: block; font-weight: var(--fw-black); color: var(--text-primary); font-size: var(--fs-12); }
+.loy .lrung .rs{ display: block; margin-top: var(--space-4); font-size: var(--fs-12); color: var(--text-muted); }
+.loy-two{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-16); }
+@media (min-width: 760px){
+  .loy-two{ grid-template-columns: 1fr 1fr; }
+}
+.loy-two .acard{ padding: var(--space-16); }
+.lbar.maxed i{ background: var(--bg-inverse); }
+.led-wrap{ border: 1px solid var(--line-hair); overflow: hidden; margin-top: var(--space-24); }
+.led-head{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-12); padding: var(--space-16) var(--space-16) var(--space-12); border-bottom: 1px solid var(--line-hair); }
+.led-head h2{ color: var(--text-primary); }
+.led-head a{ font-size: var(--fs-14); font-weight: var(--fw-bold); }
+table.led{ width: 100%; border-collapse: collapse; font-size: var(--fs-14); }
+table.led th{ text-align: left; font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); padding: var(--space-12) var(--space-16); }
+table.led th.num, table.led td.num{ text-align: right; white-space: nowrap; }
+table.led td{ padding: var(--space-12) var(--space-16); border-top: 1px solid var(--line-hair); color: var(--text-primary); }
+table.led td.dt{ color: var(--text-secondary); white-space: nowrap; }
+table.led td.amt.pos{ font-weight: var(--fw-black); }
+table.led td.amt.neg{ font-weight: var(--fw-bold); }
+table.led td.bal{ color: var(--text-secondary); }
+.led-note{ font-size: var(--fs-12); color: var(--text-secondary); padding: var(--space-12) var(--space-16); border-top: 1px solid var(--line-hair); }
+.led-empty{ padding: var(--space-32) var(--space-24); text-align: center; color: var(--text-secondary); font-size: var(--fs-14); line-height: var(--lh-airy); }
+.led-empty b{ display: block; margin-bottom: var(--space-4); font-size: var(--fs-16); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.lintro .more{ color:var(--text-action); transition:opacity .15s ease; }
+.lintro .more:hover{ opacity:.75; }
+.lintro{ font-size:var(--fs-14); line-height:var(--lh-airy); max-width:760px; }
+.lintro{ color:var(--text-secondary); }
+.loy .lt{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); }
+.loy .lbar{ background:var(--bg-sunken); border-radius:var(--radius-pill); }
+.loy .lbar i, .lbar.maxed i{ background:var(--bg-action); border-radius:var(--radius-pill); }
+.loy .ls b{ font-family:var(--font-mono); color:var(--text-body); }
+.loy .lrung{ border-color:var(--line-hair); border-radius:var(--radius-8); background:var(--bg-surface);
+  font-family:var(--font-mono); }
+.loy .lrung .rn{ font-family:'Inter', sans-serif; }
+.loy .lrung .rs{ font-family:'Inter', sans-serif; }
+.loy .lrung.done{ background:var(--bg-page); border-color:var(--line-strong); }
+.loy .lrung.done .rs{ color:var(--text-success); }
+.loy .lrung.now{ background:var(--bg-page); border-color:var(--line-action); box-shadow:inset 0 2px 0 var(--line-action); }
+.loy .lrung.now .rs{ color:var(--text-body); font-weight:var(--fw-bold); }
+.loy .lrung.next{ background:var(--bg-page); border-style:dashed; border-color:var(--line-strong); }
+.loy .lrung.next .rs{ color:var(--text-body); }
+.loy .lrung.locked .rn{ color:var(--text-muted); }
+.loy .lrung .rs .uiv-ic svg{ width:12px; height:12px; }
+.led-wrap{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.led-head h2{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); }
+.led-head a{ color:var(--text-body); transition:color .14s ease; }
+.led-head a:hover{ color:var(--text-action); }
+table.led th{ background:var(--bg-surface); color:var(--text-muted); }
+table.led td{ border-color:var(--line-hair); }
+table.led td.dt, table.led td.num{ font-family:var(--font-mono); }
+table.led td.amt.pos{ color:var(--text-bonus); }
+table.led td.amt.neg{ color:var(--text-secondary); }
+table.led tr.burn td{ background:var(--bg-bonus-soft); }
+table.led tr.burn td.amt{ color:var(--text-warning); }
+.led-note, .led-empty{ color:var(--text-secondary); }
+.led-empty b{ color:var(--text-body); font-family:var(--font-display); font-weight:var(--fw-semibold); }
+
+/* ---------- moved out of base.css (stage 08 step 5) ----------
+   These rules were parked in base.css by the step-3 split. base.css loads
+   ABOVE every atom, so `.uiv-tc-ic svg` lost a same-specificity tie to
+   `.uiv-ic svg` in icon.css and the footer trust icon shrank from 24px to
+   1.05em. A class rule belongs to its component, never to base. */
+.uiv-tier{ vertical-align:-4px; margin-right:var(--space-2); }
+.uiv-tier svg{ width:1.4em; height:1.4em; }
+.uiv-tier.t0{ color:var(--text-muted); }
+.uiv-tier.t1{ color:var(--brown-600); }
+.uiv-tier.t2{ color:var(--slate-400); }
+.uiv-tier.t3{ color:var(--text-action); }

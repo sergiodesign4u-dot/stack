@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Колір | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
+     a demo that only LOOKS like the component proves nothing about it. -->
+<script src="../system/icons.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Основи</div><h1 class="kp-h1">Колір</h1>
+<p class="kp-lead">Не список, а <b>смуги</b>: кожне сімейство викладене від світлого до темного всередині свого відтінку. Значення й порядок рахує браузер з живого <code>:root</code>, лічильник праворуч каже, скільки разів систему цей токен читає. Нуль означає, що токен нікому не потрібен.</p>
+
+<style>
+.ramp{ display:grid; grid-template-columns:repeat(auto-fill,minmax(168px,1fr)); gap:10px; }
+.sc{ border-radius:var(--radius-12); padding:12px 13px 11px; min-height:104px;
+     display:flex; flex-direction:column; justify-content:space-between;
+     border:1px solid var(--line-hair); }
+.sc .st{ font-size:var(--fs-12); font-weight:var(--fw-black); letter-spacing:.01em; }
+.sc .st u{ text-decoration:none; opacity:.62; font-weight:var(--fw-semibold); }
+.sc .hx{ font-family:var(--font-mono); font-size:var(--fs-12); text-align:right; }
+.sc .rg{ font-family:var(--font-mono); font-size:var(--fs-12); text-align:right; opacity:.72; }
+.sc .use{ font-family:var(--font-mono); font-size:var(--fs-12); opacity:.62; }
+.rampnote{ font-size:var(--fs-14); color:var(--text-secondary); margin:10px 0 4px; }
+.rampnote b{ color:var(--text-primary); }
+</style>
+
+<section class="kp-sec"><div class="kp-sh">Теплі нейтральні</div><p class="kp-p">Єдина справжня шкала продукту: 8 сходинок від поверхні до чорнила. Тепла, бо теплу поверхню обрав етап концепту.</p><div class="ramp" id="r0"></div><div class="rampnote" id="rn0"></div></section>
+<section class="kp-sec"><div class="kp-sh">Акцент</div><p class="kp-p">Один колір дії і його натиск, плюс дві бліді підкладки. Шкали тут немає і поки не потрібна: акцент у продукті один.</p><div class="ramp" id="r1"></div><div class="rampnote" id="rn1"></div></section>
+<section class="kp-sec"><div class="kp-sh">Успіх</div><div class="ramp" id="r2"></div><div class="rampnote" id="rn2"></div></section>
+<section class="kp-sec"><div class="kp-sh">Небезпека</div><div class="ramp" id="r3"></div><div class="rampnote" id="rn3"></div></section>
+<section class="kp-sec"><div class="kp-sh">Увага і бонус</div><p class="kp-p">Сім токенів, з яких чотири - той самий вершковий у діапазоні світлоти 95-97. Це дрейф, зібраний як є, і саме ця смуга робить його видимим.</p><div class="ramp" id="r4"></div><div class="rampnote" id="rn4"></div></section>
+<section class="kp-sec"><div class="kp-sh">Холодні службові</div><p class="kp-p">Прийшли з сірого прототипу разом з розміткою.</p><div class="ramp" id="r5"></div><div class="rampnote" id="rn5"></div></section>
+<section class="kp-sec"><div class="kp-sh">Сірі, названі власним значенням</div><p class="kp-p">Значення, яке ще не стало рішенням, не заслуговує на придумане ім'я. Кожен - кандидат у теплу шкалу; лічильник праворуч каже, за який з них варто братися.</p><div class="ramp" id="r6"></div><div class="rampnote" id="rn6"></div></section>
+<section class="kp-sec"><div class="kp-sh">Альфа: скрими, тіні й тонування</div><p class="kp-p">Не колір, а прозорість поверх нього, тому шкали не мають. Після кроків 5.9 і 6.0 літералів у компонентах не лишилось <b>жодного</b>: усе, що було разовим rgba(), або отримало роль, або злилося з сусідом. Лічильник праворуч рахує і читання з ролі - примітив, який читає лише роль, робить рівно те, для чого існує.</p><div class="ramp" id="ra"></div></section>
+<section class="kp-sec"><div class="kp-sh">Однакові кольори під різними іменами</div>
+<p class="kp-p">Порахувано на льоту: пари в одному сімействі, між якими різниця світлоти не більша за <b>2</b>, а відтінку - за <b>12</b>. Для ока це один колір, для системи - два імені, і кожне з них хтось колись вибере навмання.</p>
+<div id="dupes"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Semantic: ролі за поверхнею</div>
+<p class="kp-p">Роль отримує токен, коли вона <b>повторюється</b>, коли вона може <b>розійтися</b> із сусідньою і коли вона фарбує <b>рівно одну поверхню</b>. Поверхня стоїть в імені, поріг і виміряна цифра - у колонці контрасту. Чорнило перевіряється на 4.5:1 (велике - від 24px або 19px bold - на 3:1), заливка й лінія на 3:1 за WCAG 1.4.11.</p>
+<div class="kp-scroll"><table class="kp-tbl" id="semtbl"><thead><tr><th></th><th>Роль</th><th>Поверхня</th><th>Вказує на</th><th>Контраст на білому</th></tr></thead><tbody></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що зведено (крок 5.9)</div>
+<div class="kp-do"><h4>Ролей стало 69, і компонент більше не називає значення</h4><p class="kp-p">Виміряно перед кроком: компоненти читали <b>роль 2 069 разів</b> і сире <b>значення 211 разів</b> - 145 прямих читань примітиву плюс 66 літералів. Це були не недбалість, а <b>роботи, яких у семантичному шарі не існувало</b>: тиха мітка (стрілка, шеврон, плейсхолдер), закреслена стара ціна, скелетон, скрим, вуаль над фотографією, м'які плашки статусів. Компонент, який називає значення, не перемикається темою - а це рівно те, що робить крок 7.</p><p class="kp-p">Додано <b>20 примітивів</b> і <b>34 ролі</b>, переписано <b>154 місця</b> у <b>45 файлах</b>. Стало: <b>2 199</b> читань через роль і <b>42</b> прямих - усі 42 в <code>box-shadow</code> (це наступний крок) плюс два метали рівня лояльності, де значення і є сенсом.</p></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Робота</th><th>Було</th><th>Стало</th></tr></thead><tbody><tr><td>Скрим під діалогом</td><td><b>сім</b> значень: .25 .36 .44 .46 .50 .52 .52</td><td><code>--scrim-overlay</code>, одне: <b>.52</b></td></tr><tr><td>Тиха мітка</td><td><code>#BBBBBB</code> у 21 місці</td><td><code>--mark-faint</code></td></tr><tr><td>Скелетон</td><td><code>#ECECEC</code> у 13 місцях</td><td><code>--bg-skeleton</code> на <code>--warm-200</code></td></tr><tr><td>Закреслена ціна</td><td><code>#AAAAAA</code> у 10 місцях</td><td><code>--text-price-was</code></td></tr><tr><td>Вуаль над фото</td><td>чотири стопи градієнта літералами</td><td><code>--veil-surface</code>, <code>--veil-page</code>, <code>--veil-inverse</code></td></tr><tr><td>М'які плашки статусів</td><td>9 літералів rgba</td><td><code>--bg/-line-success-soft</code>, <code>-bonus-soft</code>, <code>-danger-soft</code></td></tr></tbody></table></div>
+<p class="kp-p">Пікселі: <b>95 814</b> записів на 78 парах екран&times;ширина, зрушилось <b>547</b> елементів на 34 екранах - і <b>лише колір</b> (заливка 186, лінія 301, чорнило 278, градієнт 6). Верстка, тінь і типографіка не зрушили <b>жодного разу</b>: рухаються тільки ті властивості, про які було рішення.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Темна тема</div>
+<div class="kp-gap"><h4>Немає в коді -&gt; крок 7</h4>Блок <code>[data-theme="dark"]</code> перевизначає <b>лише semantic</b> і з'явиться на кроці 7 цього ж етапу. Саме тому ролі є сьогодні: тема, яку довелося б робити правками сорока файлів компонентів, розсинхронізувалась би з першою ж зміною.<br><br>Смуги вище показують, чого для неї бракує: у теплій шкалі є <b>вісім</b> сходинок і жодної між світлотою 11 і 34, тобто темних поверхонь, на яких тема стоятиме, у палітрі поки немає. Їх додає крок 7, і додає в шкалу, а не поруч із нею.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div><div id="idle"></div></section>
+<script>
+var CS=getComputedStyle(document.documentElement);
+var val=function(n){return CS.getPropertyValue(n).trim()};
+var shown=new Set();
+var el=function(i){return document.getElementById(i)};
+var RAMPS=[["Теплі нейтральні", ["--white", "--warm-50", "--warm-100", "--warm-200", "--warm-300", "--warm-600", "--warm-700", "--warm-900"]], ["Акцент", ["--orange-500", "--orange-600", "--orange-25", "--orange-50"]], ["Успіх", ["--green-600", "--green-50"]], ["Небезпека", ["--red-600", "--red-50"]], ["Увага і бонус", ["--amber-700", "--amber-50", "--amber-200", "--gold-500", "--brown-600"]], ["Холодні службові", ["--slate-600", "--slate-400"]], ["Сірі, названі власним значенням", ["--grey-24", "--grey-aa", "--grey-bb", "--grey-cc"]]];
+var ALPHA=["--scrim-ink-07", "--scrim-ink-10", "--scrim-ink-16", "--scrim-ink-22", "--scrim-black-12", "--scrim-black-22", "--scrim-white-70", "--tint-orange-10", "--tint-orange-15", "--tint-orange-45", "--scrim-ink-52", "--scrim-white-10", "--scrim-white-20", "--scrim-white-66", "--scrim-white-72", "--scrim-white-94", "--fade-white-0", "--fade-warm-0", "--fade-ink-0", "--tint-green-07", "--tint-green-35", "--tint-amber-06", "--tint-amber-30", "--tint-red-04", "--tint-red-10", "--tint-red-30", "--scrim-white-50", "--veil-warm-96", "--veil-warm-86", "--veil-white-90", "--veil-ink-42"];
+var USE={"--bg-page": 139, "--text-body": 198, "--fs-16": 91, "--lh-airy": 50, "--font-body": 1, "--bg-action": 40, "--space-40": 14, "--space-24": 84, "--space-4": 146, "--fs-24": 31, "--fw-black": 174, "--text-primary": 279, "--space-16": 376, "--ls-display": 12, "--lh-flat": 33, "--space-8": 363, "--fs-14": 275, "--text-secondary": 277, "--space-12": 384, "--line-strong": 181, "--radius-8": 145, "--bg-inverse": 69, "--text-oninverse": 79, "--fw-bold": 178, "--line-hair": 244, "--radius-12": 141, "--text-muted": 145, "--fs-12": 206, "--text-success": 13, "--text-warning": 10, "--text-info": 2, "--bg-sunken": 72, "--mark-faint": 21, "--line-inverse": 83, "--fs-10": 45, "--radius-4": 46, "--space-2": 104, "--text-brandline": 7, "--lh-snug": 39, "--fw-semibold": 116, "--text-price-was": 10, "--fs-20": 45, "--fs-18": 36, "--font-mono": 78, "--size-20": 19, "--text-bonus": 5, "--text-action": 108, "--bg-discount": 8, "--text-danger": 20, "--elevation-1": 23, "--elevation-2": 9, "--line-action": 87, "--radius-pill": 34, "--ls-caps": 49, "--elevation-mark": 4, "--size-44": 8, "--ls-lead": 44, "--ring-focus": 6, "--line-danger": 5, "--bg-danger": 3, "--line-danger-soft": 2, "--fw-medium": 19, "--space-32": 23, "--radius-circle": 26, "--line-onphoto": 2, "--fs-34": 7, "--size-24": 9, "--bg-skeleton": 13, "--font-display": 47, "--bg-surface": 81, "--fs-30": 14, "--size-30": 8, "--size-34": 16, "--bg-onphoto": 2, "--bg-track": 8, "--line-onink": 6, "--elevation-knob": 3, "--elevation-knob-active": 2, "--size-40": 10, "--line-success": 3, "--elevation-3": 5, "--bg-rule": 6, "--mark-disabled": 4, "--size-38": 6, "--size-46": 11, "--line-control-hover": 6, "--line-warning": 1, "--ls-eyebrow": 9, "--elevation-control": 3, "--bg-action-soft": 2, "--line-notice": 4, "--bg-warning": 2, "--bg-notice": 4, "--mark-rating": 3, "--radius-16": 16, "--size-26": 11, "--bg-danger-soft": 1, "--text-oninverse-muted": 3, "--bg-action-hover": 1, "--line-success-soft": 3, "--bg-success-soft": 2, "--line-bonus-soft": 2, "--bg-bonus-soft": 3, "--elevation-4": 8, "--fs-13-5": 1, "--brand-ink": 6, "--shadow-floor": 1, "--fade-inverse": 2, "--text-onphoto": 1, "--veil-surface": 2, "--veil-surface-mid": 2, "--fade-surface": 2, "--elevation-bar-top": 4, "--bg-success": 2, "--mark-inactive": 4, "--fs-14-5": 2, "--bg-save": 1, "--scrim-overlay": 11, "--fs-12-5": 2, "--elevation-drawer": 1, "--brown-600": 1, "--slate-400": 1, "--bg-inverse-tint": 1, "--fade-page": 2, "--bg-inverse-soft": 1, "--line-oninverse-soft": 2, "--ring-onink": 1, "--bg-action-pressed": 2, "--elevation-action-hover": 1, "--elevation-bar-bottom": 1, "--line-control-filled": 1, "--ring-danger": 1, "--auth-row": 3, "--fs-11-5": 1, "--veil-page": 1, "--veil-inverse": 1, "--bg-action-selected": 1, "--grey-bb": 1, "--scrim-white-70": 1};
+var ROLE={"--warm-900": 4, "--warm-700": 2, "--warm-600": 3, "--orange-500": 3, "--green-600": 2, "--amber-700": 3, "--red-600": 2, "--slate-600": 1, "--white": 4, "--warm-50": 1, "--warm-100": 1, "--green-50": 1, "--red-50": 3, "--amber-50": 2, "--orange-25": 1, "--warm-200": 3, "--warm-300": 3, "--gold-500": 1, "--shadow-1": 1, "--scrim-ink-10": 1, "--scrim-black-12": 1, "--scrim-black-22": 1, "--scrim-ink-16": 1, "--scrim-ink-07": 4, "--scrim-ink-22": 2, "--tint-orange-45": 1, "--tint-orange-10": 2, "--tint-orange-15": 1, "--tint-red-10": 1, "--grey-bb": 1, "--grey-cc": 1, "--grey-aa": 1, "--amber-200": 1, "--orange-50": 1, "--grey-24": 1, "--scrim-white-10": 1, "--scrim-white-66": 1, "--scrim-white-20": 1, "--scrim-white-72": 1, "--scrim-white-94": 1, "--scrim-ink-52": 1, "--fade-white-0": 1, "--fade-warm-0": 1, "--fade-ink-0": 1, "--tint-green-07": 1, "--tint-green-35": 1, "--tint-amber-06": 1, "--tint-amber-30": 1, "--tint-red-04": 1, "--tint-red-30": 1, "--orange-600": 1, "--veil-warm-96": 1, "--veil-warm-86": 1, "--veil-white-90": 1, "--veil-ink-42": 1, "--scrim-white-50": 1};
+
+function toRGB(v){ v=(v||'').trim();
+  if(v.charAt(0)==='#'){ var h=v.slice(1); if(h.length===3){h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];}
+    return [parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16),1]; }
+  var n=(v.match(/[\d.]+/g)||[]).map(Number); return [n[0]||0,n[1]||0,n[2]||0,(n.length>3?n[3]:1)]; }
+function hsl(c){ var r=c[0]/255,g=c[1]/255,b=c[2]/255,mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2,h=0,s=0;
+  if(mx!==mn){ var d=mx-mn; s=l>0.5?d/(2-mx-mn):d/(mx+mn);
+    h = mx===r ? (g-b)/d+(g<b?6:0) : mx===g ? (b-r)/d+2 : (r-g)/d+4; h*=60; }
+  return [Math.round(h),Math.round(s*100),Math.round(l*100)]; }
+function card(n, alpha){
+  shown.add(n);
+  var v=val(n), c=toRGB(v), H=hsl(c), ink = (H[2]<55 && c[3]>0.5) ? '#fff' : 'var(--text-primary)';
+  var u=USE[n]||0, ro=ROLE[n]||0;
+  var bg = alpha ? 'linear-gradient(90deg,var(--bg-page),var(--bg-page)),'+v : v;
+  var step=n.replace(/^--/,'');
+  return '<div class="sc" style="background:'+v+';color:'+ink+'">'+
+    '<div><div class="st">'+step+'</div>'+
+    '<div class="use">'+(ro? 'роль x'+ro+(u?' · пряме x'+u:'') : (u? 'пряме x'+u : 'не читається'))+'</div></div>'+
+    '<div><div class="hx">'+v+'</div><div class="rg">L'+H[2]+' · S'+H[1]+' · H'+H[0]+'</div></div></div>'; }
+RAMPS.forEach(function(g,i){
+  var rows=g[1].map(function(n){ var c=toRGB(val(n)); return {n:n, L:hsl(c)[2]}; });
+  rows.sort(function(a,b){ return b.L-a.L; });
+  el('r'+i).innerHTML = rows.map(function(r){ return card(r.n); }).join('');
+  var dead=rows.filter(function(r){ return !(USE[r.n]||0) && !(ROLE[r.n]||0); }).length;
+  el('rn'+i).innerHTML = '<b>'+rows.length+'</b> ' + (rows.length===1?'токен':(rows.length<5?'токени':'токенів'))
+    + ' · світлота від <b>'+rows[rows.length-1].L+'</b> до <b>'+rows[0].L+'</b>'
+    + (dead? ' · <b>'+dead+'</b> ніхто не читає' : ' · читаються всі');
+});
+el('ra').innerHTML = ALPHA.map(function(n){ return card(n,true); }).join('');
+(function(){
+  var out=[];
+  RAMPS.forEach(function(g){
+    var rows=g[1].map(function(n){ var c=toRGB(val(n)); var H=hsl(c); return {n:n,v:val(n),L:H[2],H:H[0]}; });
+    rows.sort(function(a,b){ return b.L-a.L; });
+    for(var i=0;i<rows.length-1;i++){
+      var a=rows[i], b=rows[i+1];
+      if(Math.abs(a.L-b.L)<=2 && Math.abs(a.H-b.H)<=12)
+        out.push('<tr><td>'+g[0]+'</td><td><code>'+a.n+'</code> <span style="opacity:.6">'+a.v+'</span></td>'+
+          '<td><code>'+b.n+'</code> <span style="opacity:.6">'+b.v+'</span></td>'+
+          '<td>&Delta;L '+Math.abs(a.L-b.L)+'</td><td>'+((USE[a.n]||0)+(ROLE[a.n]||0))+'x / '+((USE[b.n]||0)+(ROLE[b.n]||0))+'x</td></tr>');
+    }
+  });
+  document.getElementById('dupes').innerHTML = out.length
+    ? '<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Сімейство</th><th>Один</th><th>Другий</th><th>Різниця</th><th>Читань</th></tr></thead><tbody>'+out.join('')+'</tbody></table></div>'
+    : '<div class="kp-do"><h4>Пройдено</h4>Однакових кольорів під різними іменами немає.</div>';
+})();
+var S=[["ink", "--text-primary", "17.0"], ["ink", "--text-body", "17.0"], ["ink", "--text-secondary", "6.8"], ["ink", "--text-muted", "5.4"], ["ink", "--text-brandline", "5.4"], ["ink", "--text-action", "3.13"], ["ink", "--text-success", "5.1"], ["ink", "--text-warning", "5.9"], ["ink", "--text-danger", "5.7"], ["ink", "--text-bonus", "5.9"], ["ink", "--text-info", "7.5"], ["ink", "--text-oninverse", "17.0 / 5.45"], ["fill", "--bg-page", ""], ["fill", "--bg-surface", ""], ["fill", "--bg-sunken", ""], ["fill", "--bg-inverse", ""], ["fill", "--bg-action", ""], ["fill", "--bg-success", ""], ["fill", "--bg-danger", ""], ["fill", "--bg-warning", ""], ["fill", "--bg-action-soft", ""], ["fill", "--bg-rule", ""], ["fill", "--bg-track", ""], ["line", "--line-control-hover", ""], ["line", "--line-control-filled", ""], ["line", "--line-success", ""], ["line", "--line-warning", ""], ["line", "--line-danger", ""], ["line", "--line-hair", ""], ["line", "--line-strong", ""], ["line", "--line-action", ""], ["line", "--line-inverse", ""], ["ink", "--mark-inactive", "1.5"], ["ink", "--mark-rating", "2.00"], ["fill", "--elevation-1", ""], ["ink", "--mark-faint", ""], ["ink", "--mark-disabled", ""], ["ink", "--text-price-was", ""], ["fill", "--bg-skeleton", ""], ["fill", "--bg-discount", ""], ["fill", "--bg-notice", ""], ["line", "--line-notice", ""], ["fill", "--bg-action-hover", ""], ["fill", "--bg-inverse-soft", ""], ["fill", "--bg-inverse-tint", ""], ["ink", "--text-oninverse-muted", ""], ["line", "--line-oninverse-soft", ""], ["ink", "--text-onphoto", ""], ["fill", "--bg-onphoto", ""], ["fill", "--scrim-overlay", ""], ["fill", "--fade-page", ""], ["fill", "--fade-surface", ""], ["fill", "--fade-inverse", ""], ["fill", "--bg-success-soft", ""], ["line", "--line-success-soft", ""], ["fill", "--bg-bonus-soft", ""], ["line", "--line-bonus-soft", ""], ["fill", "--bg-danger-soft", ""], ["line", "--line-danger-soft", ""], ["fill", "--bg-action-pressed", ""], ["line", "--line-onink", ""], ["fill", "--bg-action-selected", ""], ["fill", "--veil-surface", ""], ["fill", "--veil-surface-mid", ""], ["fill", "--veil-page", ""], ["fill", "--veil-inverse", ""], ["fill", "--shadow-floor", ""], ["line", "--line-onphoto", ""], ["fill", "--bg-save", ""]];
+document.querySelector('#semtbl tbody').innerHTML=S.map(function(r){ shown.add(r[1]);
+ var v=val(r[1]), sw = r[0]==='ink' ? '<div style="width:26px;height:26px;border-radius:6px;background:var(--bg-page);border:1px solid var(--line-hair);display:flex;align-items:center;justify-content:center;font-weight:800;color:'+v+'">А</div>'
+   : r[0]==='line' ? '<div style="width:26px;height:26px;border-radius:6px;border:3px solid '+v+'"></div>'
+   : '<div style="width:26px;height:26px;border-radius:6px;background:'+v+';border:1px solid var(--line-hair)"></div>';
+ var lbl={ink:'чорнило',fill:'заливка',line:'лінія'}[r[0]];
+ return '<tr><td>'+sw+'</td><td><code>'+r[1]+'</code></td><td>'+lbl+'</td><td><code>'+v+'</code></td><td>'+(r[2]?'<b>'+r[2]+':1</b>':'-')+'</td></tr>'; }).join('');
+function MINE(p){ /* depth (--elevation-2+, --ring-*) is a distance, not a colour: it is
+     shown on the geometry page, so it is not this page's to account for */
+  if(p !== '--elevation-1' && /^--(elevation|ring|shadow)-/.test(p)) return false;
+  return /^--(white|warm|orange|green|red|amber|slate|gold|brown|black|grey|scrim|tint|fade|veil|text|bg|line|mark|elevation)/.test(p); }
+
+(function(){
+  var declared=[]; try{ for(var i=0;i<CS.length;i++){ var p=CS[i]; if(p.indexOf('--')===0) declared.push(p);} }catch(e){}
+  var mine=declared.filter(function(p){ return MINE(p); });
+  var missing=mine.filter(function(p){ return !shown.has(p); });
+  el('idle').innerHTML = !declared.length
+    ? '<div class="kp-gap">Браузер не перелічує власні властивості - перевірку не проведено.</div>'
+    : missing.length
+      ? '<div class="kp-dont"><h4>Не показано</h4><b>'+missing.length+'</b> токенів цього розділу оголошені у файлі й не показані тут: <code>'+missing.join(', ')+'</code></div>'
+      : '<div class="kp-do"><h4>Пройдено</h4>Усі <b>'+mine.length+'</b> токенів цього розділу показані на сторінці. Непоказаних немає.</div>';
+})();
+</script>
+</main>
+<script>var KIT_ACTIVE = 'color';</script>
+<script src="_nav.js"></script>
+</body>
+</html>

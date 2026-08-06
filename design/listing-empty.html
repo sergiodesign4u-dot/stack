@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Категорія «Протеїн» - порожня видача (wireframe 2.1)</title>
-<link rel="stylesheet" href="../wireframes/_wf.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
 </head>
 <body>
 <!-- WIREFRAME · 2.1 STATE = empty (filters return nothing). Exit: clear filters / pick a goal.
@@ -34,7 +35,7 @@
   <div class="ltool">
     <span class="ctrl count">Знайдено: 0 товарів</span>
     <span class="sp"></span>
-    <span class="ctrl"><span class="cap">Сортування:</span> Популярні ▾</span>
+    <button class="btn--outline btn--s ctrl" type="button"><span class="cap">Сортування:</span> <span class="menu-val">Популярні</span></button>
     <span class="vtoggle"><span class="on">▦</span><span>☰</span></span>
   </div>
   <div class="afilters">
@@ -45,8 +46,8 @@
   </div>
 
   <div class="mtoolbar">
-    <button class="mc" onclick="openSheet()">Фільтри <span class="b">3</span></button>
-    <button class="mc">Популярні ▾</button>
+    <button class="btn--outline mc" onclick="openSheet()">Фільтри <span class="b">3</span></button>
+    <button class="btn--outline mc" type="button"><span class="menu-val">Популярні</span></button>
   </div>
 
   <div class="listing">
@@ -59,10 +60,10 @@
         <div class="et">За вашими фільтрами нічого не знайдено</div>
         <div class="es">Спробуйте прибрати частину фільтрів або оберіть ціль - підберемо безпечний набір.</div>
         <div class="eact">
-          <a class="btn dark" href="listing.html">Очистити фільтри</a>
-          <a class="btn" href="goal.html">Набір маси</a>
-          <a class="btn" href="goal.html">Схуднення</a>
-          <a class="btn" href="goal.html">Відновлення</a>
+          <a class="btn--accent btn dark" href="listing.html">Очистити фільтри</a>
+          <a class="btn--outline btn" href="goal.html">Набір маси</a>
+          <a class="btn--outline btn" href="goal.html">Схуднення</a>
+          <a class="btn--outline btn" href="goal.html">Відновлення</a>
         </div>
       </div>
     </section>
@@ -84,6 +85,9 @@
 
 <div id="wf-sheet"></div>
 <script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
 <script src="_nav.js"></script>
 <script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); wfBar('listing.html', 'empty'); uivFixLinks(); uivBar(); uivChrome();</script>
 </body>

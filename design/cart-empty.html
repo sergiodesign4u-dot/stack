@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Кошик порожній - Stack (wireframe 6.0 · empty)</title>
-<link rel="stylesheet" href="../wireframes/_wf.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
 </head>
 <body>
 <!-- ============================================================
@@ -34,7 +35,7 @@
 <aside class="cart-drawer" role="dialog" aria-modal="true" aria-label="Кошик">
   <header class="cd-head">
     <h1>Кошик <span class="cd-cnt">0 товарів</span></h1>
-    <a class="cd-x" href="index.html" aria-label="Закрити">✕</a>
+    <a class="btn--ghost btn--icon btn--s cd-x" href="index.html" aria-label="Закрити">✕</a>
   </header>
 
   <div class="cd-body">
@@ -42,13 +43,15 @@
       <div class="ei">🛒</div>
       <div class="et">Кошик порожній</div>
       <div class="es">Оберіть ціль, і ми підкажемо безпечний набір, або перегляньте каталог.</div>
-      <a class="btn dark" href="index.html">Обрати ціль</a>
-      <a class="btn gh" href="listing.html">До каталогу</a>
+      <a class="btn--accent btn--l btn--full btn dark" href="index.html">Обрати ціль</a>
+      <a class="btn--outline btn--s btn--full btn gh" href="listing.html">До каталогу</a>
     </div>
   </div>
 </aside>
 
 <script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/fields.js"></script>
 <script src="_nav.js"></script>
 <script>wfHeader(); wfFooter(); wfBar('cart.html', 'empty');
         uivFixLinks(); uivBar(); uivChrome(); uivCart();</script>

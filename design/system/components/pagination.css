@@ -1,0 +1,25 @@
+/* pagination.css - pagination (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.pgnav{ display: flex; flex-direction: column; align-items: center; gap: var(--space-16); margin-top: var(--space-24); }
+.pages{ display: flex; gap: var(--space-8); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.pages a.on, .pages button.on{ background:var(--bg-action); color:var(--text-oninverse); border-color:var(--line-action); }
+/* ---------- step 6.3 ----------------------------------------------------
+   Both controls in this file are outline buttons, so the finish carries their
+   border, their colour and their hover. What was here before: «Показати ще»
+   declared three times over, and the pager's hover written twice - the second
+   copy already identical to the finish's. All of it is gone. The file keeps
+   type, padding, radius, the layout, and the ONE thing that is genuinely its
+   own - `.on`, the page you are standing on.
+
+   Step 6.7 took the rest. The pager items are `btn btn--outline btn--icon
+   btn--s`, so the 34px box, the 1px border, the type and the transition all
+   came from a rule that says them once, and are gone from here. The box is 40
+   now, which also retires the `::after` that used to stretch a 34 square to a
+   44 target: the box itself is the target. */

@@ -1,0 +1,141 @@
+/* design/kit/_page.css - stand chrome ONLY.
+   Nothing in this file describes a product component. Product classes live in
+   design/system/components/; if a rule here starts styling a .pcard or a .btn,
+   that is the defect the stage warns about, in the direction nobody checks.
+   Every value below reads a token, because the stand is the first consumer of
+   the system and a stand that does not eat its own tokens proves nothing.
+   No em dash in this file. */
+
+.kp{ min-height:100vh; }
+
+/* ---------------- side panel (kit registry) ---------------- */
+#kitnav{ position:fixed; inset:0 auto 0 0; width:236px; overflow-y:auto; z-index:40;
+  background:var(--bg-surface); border-right:1px solid var(--line-hair);
+  padding:var(--space-16) var(--space-16) var(--space-32); }
+.kn-back{ display:inline-flex; align-items:center; gap:var(--space-8);
+  font-size:var(--fs-12); font-weight:var(--fw-black); color:var(--text-action);
+  margin-bottom:var(--space-16); }
+.kn-back:hover{ text-decoration:underline; }
+.kn-t{ font-family:var(--font-display); font-size:var(--fs-18); font-weight:var(--fw-bold);
+  color:var(--text-primary); margin-bottom:var(--space-4); }
+.kn-sub{ font-size:var(--fs-12); color:var(--text-muted); margin-bottom:var(--space-16);
+  font-family:var(--font-mono); }
+.kn-g{ margin-top:var(--space-16); }
+.kn-gh{ font-size:var(--fs-10); font-weight:var(--fw-black); letter-spacing:var(--ls-eyebrow);
+  text-transform:uppercase; color:var(--text-muted); margin-bottom:var(--space-8);
+  display:flex; justify-content:space-between; }
+.kn-gh i{ font-style:normal; font-family:var(--font-mono); opacity:.7; }
+/* The layout rule takes .kn-l, not a.kn-l: a not-done row is a <span> and it
+   still has to be a row. Only the interactive part is scoped to the anchor. */
+#kitnav .kn-l{ display:block; font-size:var(--fs-14); color:var(--text-secondary);
+  padding:var(--space-4) var(--space-8); border-radius:var(--radius-4); border-left:2px solid transparent; }
+#kitnav a.kn-l:hover{ background:var(--bg-sunken); color:var(--text-primary); }
+#kitnav a.kn-l.on{ color:var(--text-primary); font-weight:var(--fw-bold);
+  background:var(--bg-sunken); border-left-color:var(--text-action); }
+
+/* ---------------- page frame ---------------- */
+.kp-main{ padding:var(--space-24) var(--space-16) var(--space-40); max-width:1020px; }
+@media(min-width:900px){ .kp-main{ margin-left:236px; padding:var(--space-32) var(--space-32) var(--space-40); } }
+/* BELOW 900 THE PANEL IS NOT A PANEL - step 7.3. `.kp-main` steps aside only
+   above 900, but `#kitnav` was fixed at every width, so under 900 the registry
+   lay ON TOP of the page and covered the first 236px of every line. Measured at
+   360 on every stand page, not just this one: the showcase that has to prove the
+   system works on a phone could not be read on a phone. Under 900 it becomes an
+   ordinary block at the top of the document, bounded so it does not push the
+   page it introduces off the screen. */
+@media(max-width:899px){
+  #kitnav{ position:static; inset:auto; width:auto; max-height:44vh;
+    border-right:none; border-bottom:1px solid var(--line-hair); }
+}
+.kp-eyebrow{ font-size:var(--fs-12); font-weight:var(--fw-black); letter-spacing:var(--ls-eyebrow);
+  text-transform:uppercase; color:var(--text-muted); }
+.kp-h1{ font-family:var(--font-display); font-size:var(--fs-34); font-weight:var(--fw-bold);
+  letter-spacing:var(--ls-lead); color:var(--text-primary); margin:var(--space-4) 0 var(--space-8); }
+.kp-lead{ font-size:var(--fs-14); color:var(--text-secondary); max-width:72ch; }
+.kp-lead b{ color:var(--text-primary); }
+.kp-meta{ display:flex; flex-wrap:wrap; gap:var(--space-8); margin-top:var(--space-16); }
+.kp-tag{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-secondary);
+  background:var(--bg-sunken); border-radius:var(--radius-pill); padding:var(--space-4) var(--space-12); }
+
+.kp-sec{ margin-top:var(--space-32); padding-top:var(--space-16); border-top:2px solid var(--line-hair); }
+.kp-sh{ font-size:var(--fs-12); font-weight:var(--fw-black); letter-spacing:var(--ls-eyebrow);
+  text-transform:uppercase; color:var(--text-muted); margin-bottom:var(--space-12); }
+.kp-sh b{ color:var(--text-action); }
+.kp-p{ font-size:var(--fs-14); color:var(--text-secondary); max-width:76ch; margin-bottom:var(--space-12); }
+.kp-p b{ color:var(--text-primary); }
+/* a heading INSIDE a section - a section that answers three questions needs to
+   say where one answer ends. Not a second `.kp-sh`: that one names the section
+   in the sidebar's language, and two of them in a row would read as two
+   sections. */
+.kp-sh2{ font-size:var(--fs-16); font-weight:var(--fw-bold); color:var(--text-primary);
+  margin:var(--space-24) 0 var(--space-8); }
+.kp-sec > .kp-sh2:first-of-type{ margin-top:var(--space-16); }
+
+/* live specimen */
+.kp-demo{ border:1px solid var(--line-hair); border-radius:var(--radius-12);
+  background:var(--bg-page); padding:var(--space-24); margin-bottom:var(--space-12); }
+.kp-demo.sunk{ background:var(--bg-sunken); }
+.kp-demo.dark{ background:var(--bg-inverse); }
+.kp-row{ display:flex; flex-wrap:wrap; gap:var(--space-16); align-items:flex-start; }
+.kp-cap{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted);
+  margin-top:var(--space-8); }
+
+/* anatomy callouts */
+.kp-anat{ display:grid; gap:var(--space-8); }
+.kp-anat .a{ display:grid; grid-template-columns:22px 1fr; gap:var(--space-12); align-items:baseline;
+  font-size:var(--fs-14); color:var(--text-secondary); }
+.kp-anat .a i{ font-style:normal; width:22px; height:22px; border-radius:var(--radius-circle);
+  background:var(--bg-action); color:var(--text-oninverse); font-size:var(--fs-12);
+  font-weight:var(--fw-black); display:flex; align-items:center; justify-content:center; }
+.kp-anat .a b{ color:var(--text-primary); }
+
+/* tables */
+.kp-tbl{ width:100%; border-collapse:collapse; font-size:var(--fs-14); }
+.kp-tbl th{ text-align:left; font-size:var(--fs-12); font-weight:var(--fw-black);
+  letter-spacing:var(--ls-caps); text-transform:uppercase; color:var(--text-muted);
+  padding:var(--space-8) var(--space-12); border-bottom:1px solid var(--line-strong); }
+.kp-tbl td{ padding:var(--space-8) var(--space-12); border-bottom:1px solid var(--line-hair);
+  color:var(--text-secondary); vertical-align:top; }
+.kp-tbl td b{ color:var(--text-primary); }
+.kp-tbl code{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-primary); }
+.kp-scroll{ overflow-x:auto; }
+
+/* rule / anti-rule */
+.kp-pair{ display:grid; gap:var(--space-12); }
+@media(min-width:760px){ .kp-pair{ grid-template-columns:1fr 1fr; } }
+.kp-do,.kp-dont{ border-radius:var(--radius-12); padding:var(--space-16) var(--space-16);
+  font-size:var(--fs-14); }
+.kp-do{ background:var(--bg-success); border:1px solid var(--line-success); color:var(--text-secondary); }
+.kp-dont{ background:var(--bg-danger); border:1px solid var(--line-danger); color:var(--text-secondary); }
+.kp-do h4,.kp-dont h4{ font-size:var(--fs-12); font-weight:var(--fw-black); letter-spacing:var(--ls-caps);
+  text-transform:uppercase; margin-bottom:var(--space-8); }
+.kp-do h4{ color:var(--text-success); }
+.kp-dont h4{ color:var(--text-danger); }
+.kp-do b,.kp-dont b{ color:var(--text-primary); }
+
+/* code */
+.kp-code{ background:var(--bg-inverse); color:var(--bg-sunken); border-radius:var(--radius-8);
+  padding:var(--space-12) var(--space-16); font-family:var(--font-mono); font-size:var(--fs-12);
+  line-height:var(--lh-snug); overflow-x:auto; white-space:pre; }
+
+/* gap note - what stage 09 has to add */
+.kp-gap{ border:1px dashed var(--line-strong); border-radius:var(--radius-12);
+  background:var(--bg-surface); padding:var(--space-16) var(--space-16); font-size:var(--fs-14);
+  color:var(--text-secondary); }
+.kp-gap h4{ font-size:var(--fs-12); font-weight:var(--fw-black); letter-spacing:var(--ls-caps);
+  text-transform:uppercase; color:var(--text-muted); margin-bottom:var(--space-8); }
+.kp-gap ul{ margin:var(--space-8) 0 0 var(--space-16); }
+.kp-gap li{ margin-bottom:var(--space-4); }
+.kp-gap b{ color:var(--text-primary); }
+
+/* hub cards */
+.kp-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(216px,1fr)); gap:var(--space-12); }
+a.kp-card{ display:block; border:1px solid var(--line-hair); border-radius:var(--radius-12);
+  background:var(--bg-page); padding:var(--space-16) var(--space-16); }
+a.kp-card:hover{ border-color:var(--line-action); }
+.kp-card .n{ font-size:var(--fs-14); font-weight:var(--fw-bold); color:var(--text-primary); }
+.kp-card .f{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted);
+  margin-top:var(--space-2); }
+.kp-card .d{ font-size:var(--fs-12); color:var(--text-secondary); margin-top:var(--space-8); }
+.kp-card .m{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted);
+  margin-top:var(--space-8); display:flex; gap:var(--space-12); }

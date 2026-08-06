@@ -1,0 +1,102 @@
+/* cart-drawer.css - cart drawer (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+/* .cart-ov came from base.css at step 5: it is the cart drawer's own scrim,
+   not a page-level rule. It sits HERE, in file order, because a later media
+   rule below moves both the scrim and the drawer down by the stand bar. */
+.cart-ov{ position: fixed; inset: var(--wfbar-h, 0px) 0 0 0; z-index: 60; }
+html.dr-lock{ overflow: hidden; }
+.dr-b{ padding: var(--space-16) var(--space-16) var(--space-32); }
+.dr-city{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); margin-bottom: var(--space-8); }
+.dr-lbl{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-secondary); margin: var(--space-16) 0 var(--space-8); }
+.dr-catwrap{ border-bottom: 1px solid var(--line-hair); }
+.dr-cat{ display: flex; align-items: center; gap: var(--space-8); width: 100%; text-align: left; font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); padding: var(--space-12) 0; background: none; }
+.dr-cat .dc-ic{ width: var(--size-20); text-align: center; flex: none; }
+.dr-cat .ar{ margin-left: auto; color: var(--text-secondary); font-weight: var(--fw-bold); font-size: var(--fs-16); }
+.dr-subs{ display: none; padding: var(--space-2) 0 var(--space-12) 29px; }
+.dr-subs.open{ display: block; }
+.dr-suball{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); padding: var(--space-8) 0; }
+.dr-sub{ display: block; font-size: var(--fs-14); color: var(--text-secondary); padding: var(--space-8) 0; }
+.dr-link{ display: block; font-size: var(--fs-14); color: var(--text-body); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); }
+.dr-link.strong{ font-weight: var(--fw-black); color: var(--text-primary); }
+.cart-behind{ max-width: 1200px; margin: 0 auto; padding: var(--space-24) var(--space-16) 60px; }
+.cart-behind h2{ font-size: var(--fs-20); margin-bottom: var(--space-4); }
+.cart-behind p{ font-size: var(--fs-14); color: var(--text-secondary); }
+.cart-behind .ph-grid{ display: grid; grid-template-columns: repeat(2,1fr); gap: var(--space-12); margin-top: var(--space-16); }
+@media (min-width: 620px){
+  .cart-behind .ph-grid{ grid-template-columns: repeat(4,1fr); }
+}
+.cart-behind .ph-card{ border: 1px solid var(--line-hair); border-radius: var(--radius-12); height: 150px; }
+.cart-drawer{
+  position: fixed; top: var(--wfbar-h, 0px); right: 0; bottom: 0; z-index: 61;
+  width: 100%; max-width: 420px; background: var(--bg-page); display: flex; flex-direction: column; 
+}
+.cd-head{ display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); border-bottom: 1px solid var(--line-hair); }
+.cd-head h1{ display: flex; align-items: baseline; gap: var(--space-8); }
+.cd-x{ font-size: var(--fs-20); line-height: var(--lh-flat); }
+.cd-body{ flex: 1; overflow-y: auto; padding: var(--space-8) var(--space-16); }
+.cd-body:has(.cd-empty){ display: flex; flex-direction: column; justify-content: center; }
+/* step 6.10: was var(--fs-12-5) - no such token, so the declaration was dropped
+   and this line rendered at the size it inherited. 12 is the nearest real rung. */
+.cd-oosnote{ border: 1px solid var(--line-strong); padding: var(--space-12) var(--space-12); font-size: var(--fs-12); margin: var(--space-16) 0 var(--space-2); line-height: var(--lh-airy); }
+.cd-foot{ border-top: 1px solid var(--line-hair); background: var(--bg-page); }
+.cd-total{ display: flex; align-items: baseline; justify-content: space-between; }
+.cd-total .sub{ font-weight: var(--fw-medium); }
+.cd-hint{ margin: var(--space-4) 0 var(--space-16); }
+.cd-cta, .cd-cont, .cd-fix{ width: 100%; }
+.cd-cont{ margin-top: var(--space-8); }
+/* step 6.5: what OFF looks like is a state, and it lives in button.css. Here
+   stays what is the drawer's own - that this button fills the width of the foot. */
+.cd-blocked{ width: 100%; margin-top: var(--space-8); }
+.cd-empty{ text-align: center; padding: var(--space-40) var(--space-8); }
+.cd-empty .et{ margin: var(--space-16) 0 var(--space-8); }
+.cd-empty .es{ font-size: var(--fs-14); margin-bottom: var(--space-24); }
+.cd-empty .btn{ width: 100%; margin-top: var(--space-8); }
+.cd-group{ border-bottom: 1px solid var(--line-strong); }
+.cd-group:last-child{ border-bottom: 0; }
+.cd-note{ border: 1px solid var(--line-strong); padding: var(--space-12) var(--space-12); font-size: var(--fs-12); margin-bottom: var(--space-12); line-height: var(--lh-airy); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.cart-ov{ background:var(--scrim-overlay); }
+.cart-drawer{ border-left:none; box-shadow: var(--elevation-drawer); }
+@media (max-width:899px){
+  .cart-ov, .cart-drawer{ top:40px; }
+}
+.cart-behind h2{ font-family:var(--font-display); font-weight:var(--fw-semibold); letter-spacing:var(--ls-lead); color:var(--text-body); }
+.cart-behind .ph-card{ background:var(--bg-page) center/62% no-repeat; border-color:var(--line-hair); box-shadow:var(--elevation-1); }
+.cart-behind .ph-card:nth-of-type(3n+1){ background-image:url(../../visuals/product-whey.png); }
+.cart-behind .ph-card:nth-of-type(3n+2){ background-image:url(../../visuals/product-creatine.png); }
+.cart-behind .ph-card:nth-of-type(3n){   background-image:url(../../visuals/product-preworkout.png); }
+.cd-head{ padding:var(--space-16); border-bottom-color:var(--line-hair); }
+.cd-head h1{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-body); }
+.cd-head .cd-cnt{ font-family:var(--font-mono); font-weight:var(--fw-medium); font-size:var(--fs-12);
+  color:var(--text-muted); word-spacing:-.1em; }
+.cd-x{ flex:none; }
+.cart-drawer .ci:nth-of-type(3n+1) .ci-ph{ background-image:url(../../visuals/product-whey.png); }
+.cart-drawer .ci:nth-of-type(3n+2) .ci-ph{ background-image:url(../../visuals/product-creatine.png); }
+.cart-drawer .ci:nth-of-type(3n)   .ci-ph{ background-image:url(../../visuals/product-preworkout.png); }
+.cd-oosnote{ display:flex; gap:var(--space-8); align-items:flex-start; background:var(--bg-warning); border-color:var(--line-notice);
+  border-radius:var(--radius-12); color:var(--text-secondary); }
+.cd-oosnote .m{ min-width:0; }
+.cd-oosnote b{ color:var(--text-body); }
+.cd-oosnote .uiv-ic{ flex:none; color:var(--text-warning); margin-top:var(--space-2); }
+.cd-oosnote .uiv-ic svg{ width:17px; height:17px; }
+.cd-foot{ border-top-color:var(--line-hair); box-shadow: var(--elevation-bar-top); padding:var(--space-16) var(--space-16) var(--space-16); }
+.cd-total span{ font-size:var(--fs-16); font-weight:var(--fw-semibold); color:var(--text-body); }
+.cd-total .sub{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted); }
+.cd-total b{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
+  word-spacing:-.24em; font-weight:var(--fw-bold); font-size:var(--fs-30); color:var(--text-body); }
+.cd-hint{ color:var(--text-muted); font-size:var(--fs-12); }
+/* step 6.6: the drawer's foot is L, and both of its buttons are L. */
+/* step 6.3: local edition of the outline hover deleted - the finish has it. */
+.cd-empty .ei{ width:118px; height:118px; margin:0 auto var(--space-2); border-radius:var(--radius-circle); overflow:hidden; font-size:0; }
+.cd-empty .ei img{ width:118px; height:118px; object-fit:cover; object-position:center 12%; mix-blend-mode:multiply; }
+.cd-empty .et{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-body); }
+.cd-empty .es{ color:var(--text-secondary); line-height:var(--lh-airy); }
+/* step 6.3: colour and border are the outline finish's - one label colour for
+   every outline button. Type and padding stay: this pair sits in an empty state. */
+.cd-note{ background:var(--bg-surface); border-color:var(--line-hair); border-radius:var(--radius-12); color:var(--text-secondary); }

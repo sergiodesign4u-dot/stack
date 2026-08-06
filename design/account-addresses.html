@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Кабінет - Адреси - Stack (wireframe 7.5)</title>
-<link rel="stylesheet" href="../wireframes/_wf.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
 </head>
 <body>
 <!-- ============================================================
@@ -45,8 +46,8 @@
           <div class="addr-line">Відділення № 12, Одеса</div>
           <div class="addr-sub">Вікторія Коваль · +380 ** *** 45 67</div>
           <div class="addr-acts">
-            <button type="button" class="btn" onclick="openAddrEdit('vidd')">Редагувати</button>
-            <button type="button" class="btn" onclick="openAddrDelete()">Видалити</button>
+            <button type="button" class="btn--outline btn--s btn" onclick="openAddrEdit('vidd')">Редагувати</button>
+            <button type="button" class="btn--outline btn--s btn" onclick="openAddrDelete()">Видалити</button>
           </div>
         </div>
 
@@ -57,9 +58,9 @@
           <div class="addr-line">вул. Дерибасівська, 15, кв. 8, Одеса</div>
           <div class="addr-sub">Вікторія Коваль · +380 ** *** 45 67</div>
           <div class="addr-acts">
-            <button type="button" class="btn" onclick="wfAddrMakeDefault()">Зробити основною</button>
-            <button type="button" class="btn" onclick="openAddrEdit('cour')">Редагувати</button>
-            <button type="button" class="btn" onclick="openAddrDelete()">Видалити</button>
+            <button type="button" class="btn--outline btn--s btn" onclick="wfAddrMakeDefault()">Зробити основною</button>
+            <button type="button" class="btn--outline btn--s btn" onclick="openAddrEdit('cour')">Редагувати</button>
+            <button type="button" class="btn--outline btn--s btn" onclick="openAddrDelete()">Видалити</button>
           </div>
         </div>
 
@@ -70,14 +71,14 @@
           <div class="addr-line">вул. Катерининська, 42, Одеса</div>
           <div class="addr-sub">Безкоштовно · пн–сб 10:00–20:00</div>
           <div class="addr-acts">
-            <button type="button" class="btn" onclick="wfAddrMakeDefault()">Зробити основною</button>
-            <button type="button" class="btn" onclick="openAddrDelete()">Видалити</button>
+            <button type="button" class="btn--outline btn--s btn" onclick="wfAddrMakeDefault()">Зробити основною</button>
+            <button type="button" class="btn--outline btn--s btn" onclick="openAddrDelete()">Видалити</button>
           </div>
         </div>
 
       </div>
 
-      <button type="button" class="btn dark addr-add" onclick="openAddr()">＋ Додати адресу</button>
+      <button type="button" class="btn--accent btn--s btn dark addr-add" onclick="openAddr()">＋ Додати адресу</button>
 
       <div class="addr-hint"><b>Місто</b> обирається через спільний діалог «Оберіть місто» - один список живить доставку, картку адреси й SEO-сторінки міст.</div>
 
@@ -91,6 +92,8 @@
 <div id="wf-toast"></div>
 
 <script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/fields.js"></script>
 <script src="_nav.js"></script>
 <script>
   var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);

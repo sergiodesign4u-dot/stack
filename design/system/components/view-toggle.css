@@ -1,0 +1,24 @@
+/* view-toggle.css - view toggle (level 1)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.vtoggle{ display: none; border: 1.5px solid var(--line-strong); }
+.vtoggle a, .vtoggle span{ font-size: var(--fs-14); display: inline-flex; }
+@media (min-width: 860px){
+  .vtoggle{ display: inline-flex; }
+}
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.vtoggle a.on, .vtoggle span.on{ color:var(--text-oninverse); }
+.vtoggle a, .vtoggle span{ transition:background .15s ease, color .15s ease; cursor:pointer; align-items:center; }
+.vtoggle{ border-color:var(--line-strong); border-radius:var(--radius-8); background:var(--bg-page); overflow:hidden; }
+.vtoggle a, .vtoggle span{ padding:var(--space-8) var(--space-12); color:var(--text-muted); background:var(--bg-page); }
+.vtoggle a.on, .vtoggle span.on{ background:var(--bg-action-selected); }
+.vtoggle a.on .uiv-ic, .vtoggle span.on .uiv-ic{ color:var(--text-action); }
+.vtoggle a + a, .vtoggle span + span{ border-left:1px solid var(--line-strong); }
+.vtoggle .uiv-ic{ background:none; padding:0; }
+.vtoggle .uiv-ic svg{ width:19px; height:19px; }
+.vtoggle a:not(.on):hover{ color:var(--text-action); background:var(--bg-surface); }

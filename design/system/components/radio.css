@@ -1,0 +1,28 @@
+/* radio.css - radio (level 1)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.co-opt{ display: flex; gap: var(--space-12); align-items: flex-start; border: 1.5px solid var(--line-strong); padding: var(--space-12) var(--space-16); margin-bottom: var(--space-12); cursor: pointer; }
+.co-opt:last-child{ margin-bottom: 0; }
+.co-radio{ width: 18px; height: 18px; border-radius: var(--radius-circle); border: 2px solid var(--line-strong); flex: none; margin-top: var(--space-2); position: relative; }
+.co-opt.on .co-radio::after{ content: ''; position: absolute; inset: 3px; border-radius: var(--radius-circle); }
+.co-opt .ot{ flex: 1; }
+.co-opt .otn{ display: block; font-weight: var(--fw-bold); }
+.co-opt .otd{ display: block; font-size: var(--fs-12); margin-top: var(--space-2); }
+.co-opt .op{ font-size: var(--fs-14); white-space: nowrap; }
+.co-opt:not(.on) + .co-sub{ display: none; }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.co-opt{ border-color:var(--line-hair); border-radius:var(--radius-12); background:var(--bg-page);
+  transition:border-color .15s ease, background .15s ease; }
+.co-opt:hover{ border-color:var(--line-strong); }
+.co-opt.on{ border-color:var(--line-action); background:var(--bg-action-soft); }
+.co-radio{ border-color:var(--line-strong); }
+.co-opt.on .co-radio{ border-color:var(--line-action); }
+.co-opt.on .co-radio::after{ background:var(--bg-action); }
+.co-opt .otn{ color:var(--text-body); font-size:var(--fs-14); }
+.co-opt .otd{ color:var(--text-secondary); }
+.co-opt .op{ font-family:var(--font-mono); font-weight:var(--fw-semibold); color:var(--text-secondary); word-spacing:-.1em; }

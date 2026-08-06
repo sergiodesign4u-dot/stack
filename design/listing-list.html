@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Категорія «Протеїн» - списком (wireframe 2.1)</title>
-<link rel="stylesheet" href="../wireframes/_wf.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
 </head>
 <body>
 <!-- WIREFRAME · 2.1 STATE = list view (☰ toggle). Same data as base, row layout. -->
@@ -34,13 +35,13 @@
   <div class="ltool">
     <span class="ctrl count">Знайдено: 84 товари</span>
     <span class="sp"></span>
-    <span class="ctrl"><span class="cap">Сортування:</span> Популярні ▾</span>
+    <button class="btn--outline btn--s ctrl" type="button"><span class="cap">Сортування:</span> <span class="menu-val">Популярні</span></button>
     <span class="vtoggle"><a href="listing.html" aria-label="Сіткою">▦</a><a href="listing-list.html" class="on" aria-label="Списком">☰</a></span>
   </div>
 
   <div class="mtoolbar">
-    <button class="mc" onclick="openSheet()">Фільтри</button>
-    <button class="mc">Популярні ▾</button>
+    <button class="btn--outline mc" onclick="openSheet()">Фільтри</button>
+    <button class="btn--outline mc" type="button"><span class="menu-val">Популярні</span></button>
   </div>
 
   <div class="listing">
@@ -62,8 +63,8 @@
             <div class="lprice">1 290 ₴</div>
           </div>
           <div class="lactions">
-            <button class="lfav" aria-label="В обране">♡</button>
-            <button class="cartbtn" aria-label="У кошик">🛒</button>
+            <button class="btn--text lfav" aria-label="В обране">♡</button>
+            <button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button>
           </div>
         </article>
 
@@ -80,8 +81,8 @@
             <div class="lprice">1 050 ₴</div>
           </div>
           <div class="lactions">
-            <button class="lfav" aria-label="В обране">♡</button>
-            <button class="cartbtn" aria-label="У кошик">🛒</button>
+            <button class="btn--text lfav" aria-label="В обране">♡</button>
+            <button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button>
           </div>
         </article>
 
@@ -98,8 +99,8 @@
             <div class="lprice">845 ₴</div>
           </div>
           <div class="lactions">
-            <button class="lfav" aria-label="В обране">♡</button>
-            <button class="cartbtn" aria-label="У кошик">🛒</button>
+            <button class="btn--text lfav" aria-label="В обране">♡</button>
+            <button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button>
           </div>
         </article>
 
@@ -116,8 +117,8 @@
             <div class="lprice">1 180 ₴</div>
           </div>
           <div class="lactions">
-            <button class="lfav" aria-label="В обране">♡</button>
-            <button class="cartbtn" aria-label="У кошик">🛒</button>
+            <button class="btn--text lfav" aria-label="В обране">♡</button>
+            <button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button>
           </div>
         </article>
 
@@ -134,8 +135,8 @@
             <div class="lprice">990 ₴</div>
           </div>
           <div class="lactions">
-            <button class="lfav" aria-label="В обране">♡</button>
-            <button class="cartbtn" aria-label="У кошик">🛒</button>
+            <button class="btn--text lfav" aria-label="В обране">♡</button>
+            <button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button>
           </div>
         </article>
 
@@ -152,8 +153,8 @@
             <div class="lprice">1 640 ₴</div>
           </div>
           <div class="lactions">
-            <button class="lfav" aria-label="В обране">♡</button>
-            <button class="cartbtn" aria-label="У кошик">🛒</button>
+            <button class="btn--text lfav" aria-label="В обране">♡</button>
+            <button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button>
           </div>
         </article>
 
@@ -170,16 +171,16 @@
             <div class="lprice">1 690 ₴</div>
           </div>
           <div class="lactions">
-            <button class="lfav" aria-label="В обране">♡</button>
-            <button class="cartbtn notify" aria-label="Повідомити про надходження">🔔</button>
+            <button class="btn--text lfav" aria-label="В обране">♡</button>
+            <button class="btn--outline btn--icon cartbtn notify" aria-label="Повідомити про надходження">🔔</button>
           </div>
         </article>
 
       </div>
 
       <nav class="pgnav" aria-label="Пагінація">
-        <button class="loadmore">Показати ще 24 (з 84)</button>
-        <div class="pages"><a class="on" href="?page=1">1</a><a href="?page=2">2</a><a href="?page=3">3</a><a href="?page=4">4</a><a href="?page=2">›</a></div>
+        <button class="btn--outline loadmore">Показати ще 24 (з 84)</button>
+        <div class="pages"><a class="btn--outline btn--icon btn--s on" href="?page=1">1</a><a class="btn--outline btn--icon btn--s" href="?page=2">2</a><a class="btn--outline btn--icon btn--s" href="?page=3">3</a><a class="btn--outline btn--icon btn--s" href="?page=4">4</a><a class="btn--outline btn--icon btn--s" href="?page=2">›</a></div>
       </nav>
     </section>
   </div>
@@ -199,6 +200,9 @@
 
 <div id="wf-sheet"></div>
 <script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
 <script src="_nav.js"></script>
 <script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); wfBar('listing.html', 'list'); uivFixLinks(); uivBar(); uivChrome();</script>
 </body>

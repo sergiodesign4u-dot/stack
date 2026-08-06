@@ -1,0 +1,376 @@
+/* button.css - button (level 1)
+
+   ============================================================================
+   ONE CLASS, THEN MODIFIERS - step 6.7, the owner's decision
+
+   Steps 6.1-6.6 consolidated the RULES and left the NAMES alone, and this file
+   even said so out loud: "class names are not renamed here and will not be".
+   That was wrong, and the measurement is what showed it. On the 39 coloured
+   screens, 704 buttons:
+
+       56 different class names  ->  44 different renderings
+
+   A closed set of five finishes and three sizes can produce about ten. Five
+   finishes laid over 56 bespoke names are not a set - they are five ways of
+   being inconsistent, and every new button meant adding a 57th name to five
+   different selector lists in this file.
+
+   So the look now hangs on the class, and the class says what the button IS:
+
+       .btn--accent        the one action of a region
+       .btn--outline       a real action standing next to it
+       .btn--ghost         an action in a dense row - ground on hover only
+       .btn--text          an action written as words, inside running text
+       .btn--s .btn--l     size. M is the finish alone, so only exceptions are named.
+       .btn--icon          no word - a square box, the word is in aria-label
+       .btn--full          the button is alone in its block
+
+       <button class="btn--accent btn--l btn--full">Оплатити карткою</button>
+
+   THE FINISH IS THE BUTTON. There is no base class to write and none to forget:
+   the four finishes carry the box, the type and the focus ring between them, and
+   a size or a width on its own does nothing. That is also what keeps the two
+   layers apart - `wireframes/_wf.css` has a `.btn` rule of its own, and a base
+   class of the same name would have repainted 191 controls in the frozen grey
+   prototype the moment `_nav.js` started emitting it. Measured, not assumed.
+
+   THE OLD NAMES STAY IN THE MARKUP, and they are no longer a look. They are
+   the hook a component uses to say where its button stands - margin, flex,
+   position, min-width - which is the one thing that genuinely belongs to the
+   component and not to the button. Some of them cannot leave at all: the
+   header, footer, drawer and auth dialog are built at runtime by
+   `wireframes/_nav.js`, which the frozen grey prototype shares. Adding a class
+   there is safe in both directions; renaming would break the grey layer, which
+   never loads this file.
+
+   HEIGHT IS A NUMBER NOW. Until this step no button in the product had a whole
+   pixel: 8 + 8 + 14x1.6 + 1.5x2 = 41.4, and `min-height: 34` under it never
+   fired once. The reading line-height was doing the sizing. Now the label runs
+   at `--lh-snug`, the height is `min-height`, and a label that wraps still
+   grows past it because that is what a minimum means.
+
+       S   8/12  · 14px · 40    a dense row: header, toolbar, strip, card actions
+       M  12/16  · 16px · 52    the default
+       L  16/24  · 18px · 64    the one action of a whole screen
+
+   Every boxed finish carries the same 1.5px border - the accent one in its own
+   colour, the ghost one transparent - so the outer box is identical across
+   finishes and swapping one for another moves nothing. Before this the accent
+   family was split between a 1.5px border and none, so the same button was two
+   different sizes depending on which name it happened to have.
+
+   THE ORDER OF THE BLOCKS BELOW IS PART OF THE RULE: size, then finish, then
+   `--icon`. The icon box has to outrank `--text`, which zeroes the padding and
+   the minimum height, or a bare mark on a card would have no box left.
+   ============================================================================ */
+
+/* ---- the button ---------------------------------------------------------- */
+.btn--accent,
+.btn--outline,
+.btn--ghost,
+.btn--text{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-16);
+  min-height: var(--size-52);
+  font-family: inherit;
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-snug);
+  text-align: center;
+  text-decoration: none;
+  /* A BUTTON NEVER WRAPS (owner, step 6.8). Two lines of label is not a long
+     button, it is a button that does not fit where it was put - and the honest
+     answer is to give it the room (full width, or a row that stacks on a phone),
+     not to fold the word. Where no layout can give that room, the label itself is
+     too long for a button, and that is a wording decision, not a css one. */
+  white-space: nowrap;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-8);
+  background: transparent;
+  color: var(--text-body);
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease,
+              box-shadow .15s ease, opacity .15s ease;
+}
+/* `-visible`, not `:focus`: a mouse click must not ring */
+.btn--accent:focus-visible,
+.btn--outline:focus-visible,
+.btn--ghost:focus-visible,
+.btn--text:focus-visible{ outline: none; box-shadow: var(--ring-focus-control); }
+
+/* ---- size ---------------------------------------------------------------- */
+.btn--s{
+  padding: var(--space-8) var(--space-12);
+  min-height: var(--size-40);
+  font-size: var(--fs-14);
+}
+.btn--l{
+  padding: var(--space-16) var(--space-24);
+  min-height: var(--size-64);
+  font-size: var(--fs-18);
+  border-radius: var(--radius-12);
+}
+/* THE PHONE STEP, and it exists because the button may not wrap. A column at
+   360 is 328px wide, and three labels did not fit in it: «Повідомити про
+   надходження» was blowing the buy box out to 404 and scrolling the whole page
+   sideways, «Оплату підтверджено - продовжити» overflowed its card, «Оберіть
+   місто · обов'язково» was three pixels over. So below 480 every size gives back
+   one step of side air, and L also drops to the M type - 18 is a desktop luxury,
+   and a label that has to be read is worth more than the air around it. The
+   height and the padding above and below do not move: the touch target is not
+   negotiable. It sits here, above `--icon`, so an icon button's zero padding
+   still outranks it. */
+@media (max-width: 479px){
+  .btn--accent, .btn--outline, .btn--ghost{
+    padding-left: var(--space-12); padding-right: var(--space-12); }
+  .btn--s{ padding-left: var(--space-8); padding-right: var(--space-8); }
+  .btn--l{ padding-left: var(--space-16); padding-right: var(--space-16);
+    font-size: var(--fs-16); }
+}
+
+/* ---- width --------------------------------------------------------------- */
+/* Width is not a size: it never changes which finish a button has. Measured at
+   step 6.1 - 47 forms are auto and 7 are full, so full is the named exception. */
+.btn--full{ display: flex; width: 100%; }
+
+/* ---- a mark beside a word - step 6.9 -------------------------------------
+   The owner asked why the set has «icon only» and «text only» and nothing in
+   between, when the site is full of buttons that carry both. It is full of them:
+   measured on the 39 coloured screens, **17 forms and 244 instances** put a mark
+   next to a label. So the form is real and it was missing from the page.
+
+   IT NEEDS NO MODIFIER. The button is an `inline-flex` with a `gap`, so a mark
+   before the label is a mark on the left and after it is a mark on the right -
+   the markup already says which, and a `.btn--icon-left` would be a class that
+   declares nothing. This stage's rule is that a class exists when it says
+   something the cascade cannot; that one would not.
+
+   WHAT IT DID NEED is the rule underneath, and there was none. Next to the SAME
+   14px label the mark's ink measured 15, 17, 18, 19 and 21 - five sizes decided
+   by five component files. Now it is decided once, by the button's size, and it
+   is the same ladder the icon-only button already uses:
+
+       S  18   ·   M  20   ·   L  24
+
+   THE TEXT FINISH IS OUT OF THAT LADDER on purpose: it has no box and takes its
+   type from the sentence around it, so its mark takes its size from the same
+   place - 1.15em, a hair above the letters it stands beside.
+
+   THE TWO SIDES ARE NOT THE SAME THING, and that is the part worth writing down:
+
+     a mark BEFORE the label   is a NOUN. It names the thing the button acts on -
+                               the catalogue grid, the honey jar, the heart, the
+                               Google mark. It can be dropped and the button still
+                               reads.
+     a mark AFTER the label    is PUNCTUATION. It says where the press leads: a
+                               caret that opens something, an arrow that goes on.
+                               It follows the LABEL's size, not the ladder, because
+                               it belongs to the sentence and not to the button. */
+.btn--accent .uiv-ic svg, .btn--outline .uiv-ic svg, .btn--ghost .uiv-ic svg{
+  width: var(--size-20); height: var(--size-20);
+}
+.btn--s .uiv-ic svg{ width: 18px; height: 18px; }
+.btn--l .uiv-ic svg{ width: var(--size-24); height: var(--size-24); }
+.btn--text .uiv-ic svg{ width: 1.15em; height: 1.15em; }
+/* THE TRAILING MARK IS THE EXCEPTION to this ladder, and its SIZE rule is not
+   here - it is in icon.css, next to `.uiv-ic`. Step 7.5 wrote it here, scoped to
+   the three boxed finishes; step 7.6 moved it out, because the sign turned out to
+   stand on links too and punctuation cannot be one size on a button and another
+   on a link. What stays true here: a mark BEFORE the label is a noun and takes
+   this ladder; a mark AFTER it is punctuation and takes the label.
+
+   The one thing that IS this file's: the space in front of it. A button is a flex
+   row and its `gap` already sets the mark off, so the mark's own margin - which it
+   carries for the controls that are not flex rows - is given back here.
+
+   Both class names are named on purpose: `.uiv-ic.uiv-trail` in icon.css is two
+   classes, and icon.css loads after this file - so `.btn--accent > .uiv-trail`
+   would tie on specificity and lose on order. */
+.btn--accent > .uiv-ic.uiv-trail,
+.btn--outline > .uiv-ic.uiv-trail,
+.btn--ghost > .uiv-ic.uiv-trail,
+.btn--text > .uiv-ic.uiv-trail{ margin-left: 0; }
+/* a brand mark declares the INK it wants and derives its own box from the share
+   of the viewBox it fills - Apple is a silhouette with air around it, Google a
+   glyph, and an equal box would give them unequal ink. icon.css does that sum;
+   the button only says how big the ink should be. */
+.btn--accent .uiv-brand, .btn--outline .uiv-brand, .btn--ghost .uiv-brand{ --brand-ink: var(--size-20); }
+.btn--s .uiv-brand{ --brand-ink: 18px; }
+.btn--l .uiv-brand{ --brand-ink: var(--size-24); }
+
+/* ---- finish: accent ------------------------------------------------------
+   The one action the region exists for, one per region. Hover stays the
+   `opacity: .93` the product already used: three components repaint the accent
+   button on an inverted ground and each cancels that hover with `opacity: 1`,
+   so changing the axis here would silently break all three. */
+.btn--accent{
+  background: var(--bg-action);
+  border-color: var(--line-action);
+  color: var(--text-oninverse);
+}
+.btn--accent:hover{ opacity: .93; }
+.btn--accent:active{
+  opacity: 1;
+  background: var(--bg-action-pressed);
+  border-color: var(--bg-action-pressed);
+}
+
+/* ---- finish: outline -----------------------------------------------------
+   `--line-strong`, not `--line-hair`: a hairline separates things lying on one
+   plate, and a button is a thing you press - its edge has to hold against the
+   plate rather than blend into it. That question was left open at step 5.5 and
+   is closed here. */
+.btn--outline{
+  border-color: var(--line-strong);
+  color: var(--text-body);
+}
+.btn--outline:hover{ border-color: var(--line-action); color: var(--text-action); }
+.btn--outline:active{ background: var(--bg-action-soft); }
+
+/* ---- finish: ghost -------------------------------------------------------
+   Nothing at rest, a warm ground under the cursor. The reference is the header
+   account button, which already worked this way before the set existed. The
+   border stays, transparent: the box has to match the outline one exactly, or
+   a row of mixed finishes would not line up. */
+.btn--ghost{
+  border-color: transparent;
+  color: var(--text-body);
+}
+.btn--ghost:hover{ background: var(--bg-surface); color: var(--text-action); }
+.btn--ghost:active{ background: var(--bg-action-soft); }
+
+/* ---- finish: text --------------------------------------------------------
+   No box at all, so nothing to size: the type comes from the sentence around
+   it, and that is the rule, not a gap. It is why this finish carried three
+   different weights before - each context was right and none of them was
+   written down. No `:active` either: the only thing left to move would be the
+   type itself, and type that jumps under the finger is worse than no answer.
+   `--inline` is for a button standing INSIDE a sentence, where nothing else
+   marks it as a control. In a row of controls the position already says it. */
+.btn--text{
+  padding: 0;
+  min-height: 0;
+  gap: var(--space-4);
+  border: none;
+  background: none;
+  color: var(--text-body);
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+.btn--text:hover{ color: var(--text-action); }
+.btn--text.btn--inline{ text-decoration: underline; text-underline-offset: 2px; }
+/* a destructive text action is quiet until you go for it */
+.btn--text.btn--danger:hover{ color: var(--text-danger); }
+
+/* ---- and one that lifts instead of colouring -----------------------------
+   «Продовжити з Google / Apple», one in the auth dialog and one in checkout.
+   It is the same control in two places, so it is one decision: it keeps a white
+   ground because it is the only outline button that can end up over a
+   photograph, and it answers the cursor by lifting rather than going accent. */
+.btn--lift{ background: var(--bg-page); }
+.btn--lift:hover{
+  border-color: var(--line-strong);
+  color: var(--text-body);
+  box-shadow: var(--elevation-control);
+  transform: translateY(-1px);
+}
+.btn--lift:active{ transform: none; box-shadow: none; }
+
+/* ---- icon: the label is in aria-label ------------------------------------
+   A square, because there is no word to set the width. The same ladder one rung
+   down each time: 40 in an S row, 44 by default - the finger minimum - and 52
+   beside an L action. It stands after the finishes so that a bare mark
+   (`--text --icon`, the heart on a card) still gets its box.
+
+   THE INK is not the box and never was: what the glyph needs stays with the
+   component, and the ✕ of a dialog is 20px here because that is what a ✕ needs.
+   A component may also override the box where the row physically cannot give
+   40 - `.lfav` in a list card has 12px of gap and nowhere to take it from - and
+   it then owns the touch target too, through `::after`. */
+.btn--icon{
+  width: var(--size-44); min-width: var(--size-44);
+  height: var(--size-44); min-height: var(--size-44);
+  padding: 0;
+  gap: 0;
+  flex: none;
+}
+.btn--icon.btn--s{
+  width: var(--size-40); min-width: var(--size-40);
+  height: var(--size-40); min-height: var(--size-40);
+}
+.btn--icon.btn--l{
+  width: var(--size-52); min-width: var(--size-52);
+  height: var(--size-52); min-height: var(--size-52);
+}
+/* An icon button with no ground of its own is a QUIET mark - the close of a
+   dialog, the heart on a card, the burger. It is not the action of the screen
+   it stands on, and before this step it said so in two different greys
+   (`--text-secondary` on a card, `--text-muted` in a dialog header) that no
+   rule distinguished. One quiet, and the finish carries it. */
+.btn--icon.btn--ghost, .btn--icon.btn--text{ color: var(--text-secondary); }
+.btn--icon.btn--ghost:hover, .btn--icon.btn--text:hover{ color: var(--text-action); }
+.btn--icon .uiv-ic svg{ width: var(--size-20); height: var(--size-20); }
+.btn--icon.btn--s .uiv-ic svg{ width: 18px; height: 18px; }
+.btn--icon.btn--l .uiv-ic svg{ width: var(--size-24); height: var(--size-24); }
+
+/* ---- state: on ------------------------------------------------------------
+   A toggle that is engaged: saved, followed, chosen. It was written THREE
+   times for one meaning - `.pcard .fav.on` (ink only), `.pcard-l .lfav.on`
+   (ink + fill + stroke) and `.bb .wish.on` (ink + fill + border) - in three
+   files, so the same heart said «saved» three different ways depending on
+   which card it stood on. Here it says it once: the mark takes the action ink
+   and FILLS itself, and the outline finish couples its border to that ink
+   exactly as it already does on hover.
+
+   The pager keeps its own `.on` and does not read this rule: there «engaged»
+   means «you are standing on this page», which is a filled square, not a
+   filled mark. One class name, two meanings - a rename that belongs to the
+   grey layer, logged in consolidation.md. */
+.btn--icon.on, .btn--text.on{ color: var(--text-action); }
+.btn--icon.on .uiv-ic svg, .btn--text.on .uiv-ic svg{
+  fill: currentColor; stroke: currentColor; }
+.btn--outline.btn--icon.on{ border-color: var(--line-action); }
+
+/* ---- state: off ----------------------------------------------------------
+   A state, not a variant: the same button, now unavailable. It hangs on the
+   attribute - `[disabled]` where the tag allows it, `[aria-disabled="true"]`
+   where the markup is an `<a>` or a `<span>`, which is also the only version a
+   screen reader can hear. Last in the file on purpose: every finish above
+   declares hover, active and focus at the same specificity, and being last is
+   what lets a control that is off answer nothing at all, with no `!important`. */
+.btn--accent[disabled], .btn--accent[aria-disabled="true"],
+.btn--outline[disabled], .btn--outline[aria-disabled="true"],
+.btn--ghost[disabled], .btn--ghost[aria-disabled="true"],
+.btn--text[disabled], .btn--text[aria-disabled="true"]{
+  background: var(--bg-sunken);
+  border-color: var(--line-hair);
+  color: var(--text-muted);
+  box-shadow: none;
+  filter: none;
+  transform: none;
+  opacity: 1;
+  cursor: not-allowed;
+}
+/* the boxless finishes have no plate to grey out, so only the mark goes pale */
+.btn--text[disabled], .btn--text[aria-disabled="true"],
+.btn--icon[disabled], .btn--icon[aria-disabled="true"]{
+  background: none;
+  border-color: transparent;
+  color: var(--mark-disabled);
+}
+
+/* ---- not a `.btn`: the stepper's minus and plus --------------------------
+   Parked here since step 6.5. They belong to the counter atom and move there
+   the day it gets its own file; they are listed by their own names rather than
+   given a button class, because a stepper key is not a button - it has no
+   label, no finish, and it repeats on hold. */
+.ci-qty button[disabled], .co-qty button[disabled]{
+  background: none;
+  border-color: transparent;
+  color: var(--mark-disabled);
+  cursor: not-allowed;
+}

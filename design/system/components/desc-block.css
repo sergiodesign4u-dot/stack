@@ -1,0 +1,18 @@
+/* desc-block.css - desc block (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.pdesc{ display: flex; flex-direction: column; gap: var(--space-32); margin-top: var(--space-12); }
+.pd-tx{ line-height: var(--lh-airy); }
+.pd-tx b{ color: var(--text-primary); }
+.pd-img{ margin-top: var(--space-12); display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.pdesc{ max-width:800px; margin-inline:auto; }
+.pdesc .pd-tx{ font-size:var(--fs-16); line-height:var(--lh-airy); }
+.pd-tx{ font-size:var(--fs-16); color:var(--text-body); }
+.pd-img{ border:1px solid var(--line-hair); border-radius:var(--radius-12); font-size:0; aspect-ratio:16/6;
+  background:var(--bg-page) center/contain no-repeat; }

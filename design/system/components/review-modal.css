@@ -1,0 +1,54 @@
+/* review-modal.css - review modal (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.pm{ display: none; position: fixed; z-index: 61; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 520px; max-width: 94vw; max-height: 88vh; background: var(--bg-page); overflow: hidden; flex-direction: column; }
+.pm.open{ display: flex; }
+.pm-h{ display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line-hair); color: var(--text-primary); }
+.pm-h .x{ font-size: var(--fs-20); }
+.pm-b{ overflow-y: auto; }
+.pm-b label{ display: block; font-size: var(--fs-14); margin: var(--space-12) 0 var(--space-8); }
+.pm-b label:first-child{ margin-top: 0; }
+.pm-rhead{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-12); }
+.pm-rhead label{ margin: 0; }
+.pm-rw{ text-transform: uppercase; }
+.pm-rate{ display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); min-height: var(--size-40); margin-top: var(--space-8); }
+.pm-stars{ display: flex; gap: var(--space-2); }
+.pm-stars .pmst{ font-size: var(--fs-30); line-height: var(--lh-flat); background: none; border: none; padding: 0 var(--space-2); cursor: pointer; }
+.pm-rv{ line-height: var(--lh-flat); }
+.pm-e{ display: none; font-size: var(--fs-12); font-weight: var(--fw-semibold); margin-top: var(--space-4); }
+.pm-e.on{ display: block; }
+.pm-cnt{ text-align: right; font-size: var(--fs-12); color: var(--text-muted); margin-top: var(--space-4); }
+.pm-f{ display: flex; gap: var(--space-12); border-top: 1px solid var(--line-hair); }
+.pm-f .btn{ flex: 1; }
+.pm-note{ margin-top: var(--space-12); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.pm{ border:1px solid var(--line-hair); border-radius:var(--radius-16); box-shadow: var(--elevation-4); }
+.pm-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-20); letter-spacing:var(--ls-lead);
+  padding:var(--space-16) var(--space-24); }
+.pm-h .x{ width:32px; height:32px; }
+.pm-b{ padding:var(--space-16) var(--space-24); }
+.pm-b label{ color:var(--text-body); font-weight:var(--fw-bold); }
+.pm-b label .opt{ font-weight:var(--fw-medium); color:var(--text-muted); }
+.pm-e{ color:var(--text-danger); }
+.pm-stars .pmst{ color:var(--mark-inactive); transition:color .12s ease, transform .12s ease; }
+.pm-stars .pmst:hover{ transform:translateY(-1px); }
+.pm-stars .pmst.on{ color:var(--mark-rating); }
+.pm-stars .pmst:focus-visible{ outline:2px solid var(--line-action); outline-offset:2px; border-radius:var(--radius-4); }
+.pm-rv{ font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-30); letter-spacing:var(--ls-lead);
+  color:var(--text-body); }
+.pm-rw{ font-size:var(--fs-12); font-weight:var(--fw-semibold); letter-spacing:var(--ls-eyebrow); color:var(--text-secondary); }
+.pm-cnt{ font-family:var(--font-mono); }
+.pm-note{ background:var(--bg-surface); border-radius:var(--radius-8); padding:var(--space-12) var(--space-12); color:var(--text-secondary); font-size:var(--fs-12);
+  line-height:var(--lh-airy); }
+.pm-f{ padding:var(--space-16) var(--space-24) var(--space-16); }
+/* step 6.3: local edition of the outline hover deleted - the finish has it. */
+
+/* The mobile field-size rule that used to sit here lives in base.css, where it
+   covers every input on the page instead of this file's own. Step 7.3 removed
+   the empty @media block it left behind, and this comment with it. */

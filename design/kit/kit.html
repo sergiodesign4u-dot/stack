@@ -6,12 +6,14 @@
 <meta name="robots" content="noindex">
 <title>Stack - Кіт компонентів</title>
 <link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
-<!-- The kit is built from the SAME two stylesheets as the product, in the same order.
-     A showcase with its own markup would prove nothing: a component here has to be the
-     component there. -->
-<link rel="stylesheet" href="../../wireframes/_wf.css">
+<!-- The kit is built from the SAME stylesheet as the product. A showcase with its own
+     markup would prove nothing: a component here has to be the component there.
+     Stage 08 step 3: the two files (wireframes/_wf.css + kit.css) became ONE entry
+     point. This page is the first smoke test of that split - if it looks like it did
+     yesterday, the system is assembled correctly. It is FROZEN from here on: a new
+     component gets its own page in design/kit/, never a row in this file. -->
+<link rel="stylesheet" href="../system/index.css">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit.css">
 <link rel="stylesheet" href="../../_nav.css">
 <style>
   /* stand-only chrome. Nothing here describes a product component. */
@@ -68,14 +70,14 @@
     <h1>Кіт компонентів</h1>
     <p class="kit-lead">
       Екран - це композиція, а не малюнок. Між мовою і сторінками стоїть кіт: спільний
-      <code>kit.css</code> плюс ця вітрина. Нове зʼявляється спершу тут, потім на екрані;
+      <code>kit.css</code> плюс ця вітрина. Нове з'являється спершу тут, потім на екрані;
       правка живе в змінній або в класі, а не в окремій сторінці.
     </p>
     <div class="kit-meta">
       <span><b>Компонентів</b> 51</span>
       <span><b>Рівнів</b> 3</span>
       <span><b>Прочитано з</b> 142 файлів (141 екран + хаб)</span>
-      <span><b>Джерело істини</b> design/kit/inventory.md</span>
+      <span><b>Джерело істини</b> design/kit/docs/inventory.md</span>
     </div>
   </div>
 
@@ -218,7 +220,7 @@
       </table>
     </div>
     <div class="note2" style="margin-top:14px">
-      <b>Девʼять компонентів існують лише як рендер-функції</b> у <code>wireframes/_nav.js</code>, і ще два (хедер, мега-меню) рендеряться там <b>додатково</b> до розмітки - разом 11.
+      <b>Дев'ять компонентів існують лише як рендер-функції</b> у <code>wireframes/_nav.js</code>, і ще два (хедер, мега-меню) рендеряться там <b>додатково</b> до розмітки - разом 11.
       Саме тому кількість екранів - погана міра важливості: футер має нуль у розмітці й рендериться на <b>129</b> екранах (діалоги, системні сторінки і хаб продуктової обвязки не несуть) - цього не покаже жоден скан розмітки.
     </div>
   </section>
@@ -235,7 +237,7 @@
     <div class="lvl-h"><span class="lvl-n">карта</span><h2>Інвентар</h2></div>
     <p class="lvl-note">51 компонент: 18 атомів, 18 молекул, 15 організмів. Прочитано з усіх 142 файлів
       вайрфреймів, а не з пофарбованої вибірки: система, побудована під 40 екранів, на розкотці
-      недорахувалась би половини. Повна таблиця - у <code>design/kit/inventory.md</code>.</p>
+      недорахувалась би половини. Повна таблиця - у <code>design/kit/docs/inventory.md</code>.</p>
     <div class="wrapt">
       <table class="kt">
         <thead><tr><th>Рівень</th><th>Компонентів</th><th>Що це</th><th>Що з цього бере етап 08</th></tr></thead>
@@ -290,9 +292,14 @@ window.NAV_SECTIONS = [
       '</article>';
   }).join('');
 
-  // token swatches, read out of the live :root
-  var NAMES = ['--ink','--strong','--sec','--light','--faint','--hair','--hair2','--fill','--fill2',
-               '--dark','--orange','--ok','--warn','--err','--info','--gold','--star'];
+  // Token swatches, read out of the live :root. Stage 08 step 3 replaced the flat
+  // stage-07 names (--ink, --orange, ...) with semantic ROLES, so this strip now
+  // names the role instead of the value. It stays a smoke test and nothing more:
+  // the full palette lives on design/kit/color.html from step 4.
+  var NAMES = ['--text-primary','--text-secondary','--text-muted','--text-action',
+               '--text-success','--text-warning','--text-danger','--text-info',
+               '--text-bonus','--mark-rating','--bg-page','--bg-surface','--bg-sunken',
+               '--bg-inverse','--bg-action','--line-hair','--line-strong'];
   var cs = getComputedStyle(document.documentElement);
   document.getElementById('tokens-box').innerHTML = NAMES.map(function (n) {
     var v = cs.getPropertyValue(n).trim();

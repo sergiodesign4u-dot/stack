@@ -1,0 +1,23 @@
+/* link-row.css - link row (level 1)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.flinks{ display: flex; flex-wrap: wrap; gap: var(--space-8); margin-top: var(--space-8); }
+.flink{ border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill); font-weight: var(--fw-semibold); color: var(--text-primary); }
+.flink .ct{ margin-left: var(--space-4); font-size: var(--fs-12); }
+.linkrow{ display: flex; gap: var(--space-16); flex-wrap: wrap; font-size: var(--fs-14); margin-top: var(--space-16); }
+.linkrow a{ text-decoration: underline; cursor: pointer; }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.flink{ transition:border-color .15s ease, color .15s ease, background .15s ease; }
+.flink{ font-size:var(--fs-14); padding:var(--space-8) var(--space-12); border-color:var(--line-strong); }
+.flink .ct{ color:var(--text-muted); }
+.flink:hover{ border-color:var(--line-action); color:var(--text-action); }
+.seolink{ color:inherit; text-decoration:none; transition:color .15s ease; }
+.seolink:hover{ color:var(--text-action); }
+.linkrow{ margin-bottom:var(--space-16); }
+.linkrow a{ color:var(--text-secondary); font-weight:var(--fw-semibold); text-decoration-color:var(--line-strong); }
+.linkrow a:hover{ color:var(--text-action); text-decoration-color:var(--line-action); }

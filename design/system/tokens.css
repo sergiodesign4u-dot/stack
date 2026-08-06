@@ -1,0 +1,530 @@
+/* ============================================================================
+   design/system/tokens.css - the two levels
+
+   PRIMITIVE  what the value is.   No opinion about purpose.
+   SEMANTIC   why this colour is here.  Points at a primitive through var().
+
+   There is no third level. A component token (--button-bg) would mean three
+   files to change one button; it is worth its cost only when a component has
+   to differ from the role systematically, and this product is not there.
+   Geometry gets no semantic level at all: a radius has nothing to override,
+   it just repeats. Colour has theme and rebrand behind it, so colour goes
+   through a role and geometry comes straight from primitive.
+
+   ORIGIN. Every value here already existed. It came from
+   design/kit/kit.css (colour, stage 06-07) and wireframes/_wf.css (structure,
+   stage 04), which the coloured product loaded as two files until this stage.
+   Nothing was re-derived and nothing was merged: the drift found by the audit
+   (design/kit/docs/tokens-audit.md sections 2.2 and 3) is collected here AS IT
+   IS, because merging values moves pixels and the pixel proof at step 5 has to
+   mean something first. The merge proposal is step 8.
+
+   The origin word beside each colour (plate pixel / picked / decision /
+   derived / attribute) is the last link of the chain that starts at a
+   generated brand plate and at research/docs/personas.md. Until this file it
+   lived only in DESIGN.md, one delegation away from the value. It ends here.
+
+   No em dash in this file.
+   ============================================================================ */
+
+:root{
+
+/* ==========================================================================
+   PRIMITIVE - colour
+   ========================================================================== */
+
+  /* ---- the brand ramp: warm neutrals -------------------------------------
+     The product's own greys. Warm because the concept stage chose warmth as
+     the surface: see design/concept/docs/concept.md. */
+  --white:      #FFFFFF;   /* 207 uses and it was never a variable until now */
+  --warm-50:    #FAF9F7;   /* derived - the lighter zone above warm-100 */
+  --warm-100:   #F2F0ED;   /* plate pixel - "Warm Neutral", the surface */   /* derived - one review divider */
+  --warm-200:   #E9E7E2;   /* plate pixel - the hairline */
+  --warm-300:   #D9D9D9;   /* plate pixel - "Ash", the stronger border */
+  --warm-600:   #6E6A62;   /* raised from #999, which failed AA on white */
+  --warm-700:   #5B5B54;   /* picked to pass AA on white */
+  --warm-900:   #1C1C1C;   /* plate pixel - Ink. Also the dark surface. */
+
+  /* ---- accent: Signal Orange --------------------------------------------
+     The single action colour. On white it is 3.13:1, which is AA for large
+     text only: allowed on text from 19px bold, never below. The rule lives in
+     DESIGN-artifacts.md and is carried into the semantic level below. */
+  --orange-500: #FF5A00;   /* plate pixel - Signal Orange */
+  --orange-600: #E85200;   /* derived - the pressed state, 2 uses */
+
+  /* ---- status hues ------------------------------------------------------- */
+  --green-600:  #2E7D46;   /* attribute "calm" - success without celebration */
+  --red-600:    #C42B1C;   /* decision - serious red, kept apart from the accent */
+  --amber-700:  #8A5A0E;   /* #C9821E failed small text, so it was darkened */
+  --slate-600:  #4A5568;   /* derived - neutral slate */
+  --gold-500:   #F6A800;   /* decision - the rating mark. Deliberately yellow,
+                              never orange, so it cannot read as an action.
+                              2.00:1 on white: decorative only, never text. */
+  --brown-600:  #9A6A3F;   /* derived - one use */
+  --slate-400:  #7E8288;   /* derived - one use */
+
+  /* ---- tinted surfaces ---------------------------------------------------
+     Each one is a real decision, not a sloppy copy of --warm-100: they are the
+     soft backgrounds of success, danger and the accent. The four pale creams
+     are drift and are collected as they are, see step 8. */
+  --green-50:   #F1F8F3;
+  --red-50:     #FDF4F2;
+  --amber-50:   #FCF8F1;   /* drift, 2 uses */   /* drift, 2 uses */   /* drift, 1 use */
+  --amber-200:  #EADFCB;
+  --orange-25:  #FFF9F5;
+  --orange-50:  #FFF1E8;
+
+  /* ---- cold greys inherited from the grey prototype ----------------------
+     Named by their own value on purpose: a value that has not become a
+     decision does not deserve a designed name. They are live in the coloured
+     product because the colour layer only ever overrode the :root, never these
+     literals inside rules. Every one of them is a candidate for the warm ramp
+     at step 8; consolidating them now would move pixels.
+
+     SEVEN were declared here and then read by nothing: --grey-16, --grey-1b,
+     --grey-77, --grey-8a, --grey-99, --grey-e4, --grey-f4. They were the
+     PRE-COLOUR values of --dark, --ink, --sec, --faint, --light, --hair and
+     --fill, and they only ever appeared inside the :root that this file
+     replaces. Deleted rather than kept "for the record": a token nothing reads
+     is noise in the list where the real ones have to be found. The record is in
+     design/kit/docs/tokens-audit.md and in git. */
+  --grey-24:    #242424;   /*  1 */
+  --grey-aa:    #AAAAAA;   /* 10 */
+  --grey-bb:    #BBBBBB;   /* 21 - the biggest single leftover */
+  --grey-cc:    #CCCCCC;   /*  3 */   /*  2 - the pre-colour --hair2 */
+
+  /* ---- alpha: scrims and shadows ----------------------------------------
+     The repeated ones only. 60 further one-off rgba() alphas stay literal in
+     their component and are listed for step 8: an alpha used once is a value,
+     not a token. */
+  --scrim-ink-07:    rgba(20,20,15,.07);
+  --scrim-ink-10:    rgba(20,20,15,.10);
+  --scrim-ink-16:    rgba(20,20,15,.16);
+  --scrim-ink-22:    rgba(20,20,15,.22);
+  --scrim-black-12:  rgba(0,0,0,.12);
+  --scrim-black-22:  rgba(0,0,0,.22);
+  --scrim-white-70:  rgba(255,255,255,.7);
+  --tint-orange-10:  rgba(255,90,0,.10);
+  --tint-orange-15:  rgba(255,90,0,.15);
+  --tint-orange-45:  rgba(255,90,0,.45);
+
+  /* ---- alpha added at step 5.9, when the role layer was completed -------
+     The scrims, tints and veils the components were carrying as literals.
+     They are primitives, so nothing reads them directly: the role above each
+     of them is what a component names. */
+  --scrim-ink-52:    rgba(20,20,15,.52);   /* the overlay scrim, now the only one */
+  --scrim-white-10:  rgba(255,255,255,.10);
+  --scrim-white-20:  rgba(255,255,255,.20);   /* merged from .18 and .22 */
+  --scrim-white-66:  rgba(255,255,255,.66);   /* merged from .62 and .68 */
+  --scrim-white-72:  rgba(255,255,255,.72);
+  --scrim-white-94:  rgba(255,255,255,.94);
+  --fade-white-0:    rgba(255,255,255,0);   /* gradient endpoints - see --fade-page */
+  --fade-warm-0:     rgba(247,243,236,0);
+  --fade-ink-0:      rgba(20,20,15,0);
+  --tint-green-07:   rgba(46,125,70,.07);   /* the status tints: a hue at low alpha */
+  --tint-green-35:   rgba(46,125,70,.35);
+  --tint-amber-06:   rgba(138,90,14,.06);   /* merged from .05 and .06 */
+  --tint-amber-30:   rgba(138,90,14,.30);   /* merged from .26 and .35 */
+  --tint-red-04:     rgba(196,43,28,.04);
+  --tint-red-10:     rgba(196,43,28,.10);   /* the error ring */
+  --tint-red-30:     rgba(196,43,28,.30);
+  --scrim-white-50:  rgba(255,255,255,.50);   /* merged from .45 and .6 */
+  --veil-warm-96:    rgba(247,243,236,.96);   /* photo veils - see --veil-surface */
+  --veil-warm-86:    rgba(247,243,236,.86);
+  --veil-white-90:   rgba(255,255,255,.9);
+  --veil-ink-42:     rgba(20,20,15,.42);
+
+
+  /* ---- deleted at step 6.0 -----------------------------------------------
+     Fourteen primitives died when the role layer landed: every one of them was
+     a value a component named directly, and the role that replaced it points
+     somewhere else. --black went to --bg-inverse (ink, not black), the cold
+     greys to the text roles, --grey-ec to --warm-200 under --bg-skeleton,
+     --scrim-black-44 to the single --scrim-overlay, --scrim-charcoal to
+     --line-hair. They are deleted rather than deprecated for the same reason
+     the radius steps were at 5.5: a value that cannot be named cannot be used
+     by accident, and that is the only thing that keeps a scale a scale.
+     Gone: --black --grey-11 --grey-44 --grey-55 --grey-66 --grey-dd --grey-ec
+     --grey-fa --green-200 --red-200 --scrim-ink-05 --scrim-black-05
+     --scrim-black-44 --scrim-charcoal */
+
+/* ==========================================================================
+   PRIMITIVE - type
+   ========================================================================== */
+
+  /* Three families, and until this file the body stack was written four
+     different ways across the two stylesheets. One spelling each. */
+  --font-display: 'Oswald', sans-serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, monospace;
+
+  /* NINE sizes, after the owner's call at step 5.6.
+
+     Was twenty-six: six of them half-pixels, and the rest standing so close that the
+     showcase flagged twelve neighbouring pairs as under a 1.08 ratio - a distance the
+     eye does not resolve. Even numbers, and every neighbour now holds at least 1.10,
+     so the scale clears the check its own page runs.
+
+     Ties go UP (13 -> 14, 11 -> 12, 15 -> 16, 17 -> 18, 19 -> 20, 22 -> 24) - the
+     same direction as spacing, the opposite of radius. For text bigger is easier to
+     read, so the product's meta type growing 1px is a gain, not a cost.
+
+     Above 34 nothing is a step: 38, 44, 50 and 60 stand once each, on a marketing
+     block, and a size used once is a measurement, not a rung. */
+  --fs-10: 10px;
+  --fs-12: 12px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-18: 18px;
+  --fs-20: 20px;
+  --fs-24: 24px;
+  --fs-30: 30px;
+  --fs-34: 34px;
+
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-black:    800;
+
+  /* THREE leadings, after the owner's call at step 5.6. Was six tokens plus fifteen
+     literals: leadings 0.05 apart are not two decisions. The base rhythm moved from
+     1.55 to 1.6 - deliberately this time, and said out loud, because air is calmer.
+     1 for a single line that must not grow, 1.3 for a heading or a tight row,
+     1.6 for anything a person reads as text. */
+  --lh-flat:  1;
+  --lh-snug:  1.3;
+  --lh-airy:  1.6;
+
+--ls-display: -.02em;
+  --ls-lead:    -.01em;
+  --ls-caps:     .04em;
+  --ls-eyebrow:  .08em;
+
+/* ==========================================================================
+   PRIMITIVE - geometry
+   ========================================================================== */
+
+  /* EIGHT steps, after the step 5.5 consolidation of spacing.
+
+     Was twenty-seven, standing 1px apart from 1 to 18. Every one of them was read,
+     so this was never about dead tokens - it was about the RUNG. A ladder with 1px
+     rungs forbids nothing: when 11, 12 and 13 all exist, whatever number a hand
+     types is already "in the scale".
+
+     8px grid from 8 up, 4px half-steps below 16, and 2px for the optical nudge.
+     Ties go UP (6 -> 8, 10 -> 12, 14 -> 16, 20 -> 24) - the opposite of the radius
+     rule, and on purpose: for a corner, less rounding is more serious; for spacing,
+     more room is calmer. Principle 4 is served by air BETWEEN things and by tight
+     corners ON them. 937 declarations moved, 19 steps deleted. */
+  --space-2:   2px;
+  --space-4:   4px;
+  --space-8:   8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+
+  /* FOUR radii and two shapes, after the step 5.5 consolidation.
+
+     Was: thirteen radii plus four literals - a list, not a system. The scale is
+     4 / 8 / 12 / 16, an even ladder through the three most used values (8, 12,
+     14) plus the step every small mark sits on (4). Everything else snapped to
+     the nearest step and a tie went DOWN: 10 -> 8, 14 -> 12, 6 -> 4. Down,
+     because principle 4 says calm and serious: less rounding reads as a tool,
+     more rounding reads as a toy. 212 declarations moved.
+
+     The removed steps are DELETED, not deprecated. A step that cannot be named
+     cannot be used by accident, and that is the only thing that keeps a scale a
+     scale. If a design ever needs 10px again, it argues for a fifth step here,
+     out loud, and every 10px in the product moves with it. */
+  --radius-4:   4px;
+  --radius-8:   8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-pill:   100px;
+  --radius-circle: 50%;
+
+  /* Control heights that repeat. Layout widths (the 1200 / 860 / 720 column
+     set and the rest) stay literal in the component that owns the layout. */
+  --size-20: 20px;   --size-24: 24px;   --size-26: 26px;   --size-30: 30px;
+  --size-34: 34px;   --size-38: 38px;   --size-40: 40px;   --size-44: 44px;
+  --size-46: 46px;
+  /* added at step 6.1 from the measured height of every button in the product:
+     the clusters sit at 34, 40-47, 49-54 and 59-64, so the ladder that covers
+     them with no step moving more than 3px is 34 / 44 / 52 / 62. */
+  --size-52: 52px;   --size-62: 62px;
+  /* step 6.7. The button ladder became 40 / 52 / 64 - an equal 12px rung -
+     once the height stopped being an accident of padding plus a reading
+     line-height. 64 and not the 62 above: the measured L was 63.8, and the
+     largest action of a screen should round up rather than lose 2px. */
+  --size-64: 64px;
+
+  /* The only shadow in the product. Depth is a rare signal: if everything
+     floats, nothing does. Origin: [?] - not recorded in kit.css and the
+     geometry table of DESIGN.md has no origin column. */
+  --shadow-1: 0 1px 2px rgba(20,20,15,.05), 0 10px 30px rgba(20,20,15,.05);
+
+
+/* ==========================================================================
+   SEMANTIC - roles
+
+   A role earns a token when it REPEATS, when it can DIVERGE from its
+   neighbour, and when it paints EXACTLY ONE surface. The three surfaces are
+   ink (text and icon glyph, 4.5:1, or 3:1 from 24px / 19px bold), fill
+   (page, card, bar, plate, 3:1 by WCAG 1.4.11) and line (border, divider).
+   The surface is in the name; the threshold and the measured figure are in
+   the comment. A fill role used in `color:` is a defect and step 8 greps for
+   it.
+
+   Counts come from design/kit/docs/tokens-audit.md, measured over both
+   stylesheets and all 40 coloured screens.
+   ========================================================================== */
+
+  /* ---- ink ---------------------------------------------------------------- */
+
+  --text-primary:    var(--warm-900);   /* 261 uses - every heading, .lh1, .sech,
+                                           .bb h1. 17.0:1 on white. plate pixel */
+  --text-body:       var(--warm-900);   /* 211 uses - running text: .rvbody .rtext,
+                                           .qaitem .qans, .pl-ing. Same value as
+                                           primary today, different job: one is
+                                           emphasis, one is the paragraph. They can
+                                           diverge, so they are two tokens */
+  --text-secondary:  var(--warm-700);   /* 265 uses - captions and meta on every
+                                           screen. 6.8:1. picked to pass AA */
+  --text-muted:      var(--warm-600);   /* 139 uses - tertiary meta: .pcard .perserv,
+                                           .oh-date, filter counts. 5.4:1. raised
+                                           from #999, which failed */
+  --text-brandline:  var(--warm-600);   /* 7 uses - .pcard .pbrand, .ci-brand,
+                                           .hdeal .hd-brand. Same value as muted,
+                                           different job: the brand line can go its
+                                           own way without touching meta */
+  --text-action:     var(--orange-500); /* 127 uses - .btn, .loadmore, .flink:hover,
+                                           .pdp-tabs a. 3.13:1 on white, which is AA
+                                           for LARGE TEXT ONLY: allowed from 19px
+                                           bold, never below. The rule is in
+                                           DESIGN-artifacts.md and step 8 counts the
+                                           violations. plate pixel */
+  --text-success:    var(--green-600);  /* 12 uses - .pcard .pavail, .co-ok,
+                                           .led td.amt.pos. 5.1:1. attribute "calm" */
+  --text-warning:    var(--amber-700);  /* 10 uses - .allerg .algv, .co-warn,
+                                           .abonus .warn. 5.9:1. #C9821E was darkened
+                                           because it failed at small sizes */
+  --text-danger:     var(--red-600);    /* 16 uses - .co-err, .auth-err, .ci-oostag.
+                                           5.7:1. decision */
+  --text-bonus:      var(--amber-700);  /* 5 uses - .pcard .bonus, .co-bonus .bv,
+                                           .sr.accrual. Same value as warning,
+                                           different job: a bonus figure is not a
+                                           warning and one day it will not look like
+                                           one */
+  --text-info:       var(--slate-600);  /* 2 uses - .pcard .pavail.pre only. 7.5:1.
+                                           TWO USES IS NOT A ROLE YET: it is kept
+                                           because pre-order is a real state, and it
+                                           goes to step 8 for a verdict. derived */
+  --text-oninverse:  var(--white);      /* the label on every dark and every orange
+                                           fill: .wfh-nav .navbtn, .wf-bar, .btn.dark.
+                                           17.0:1 on ink, 5.4:1 on the accent */
+
+  /* ---- fill --------------------------------------------------------------- */
+
+  --bg-page:      var(--white);        /* 207 uses and it had no token at all until
+                                          now: the page, the card, every dialog */
+  --bg-surface:   var(--warm-50);      /* 71 uses - .acc-prof, .co-sec, .cshelf.
+                                          derived */
+  --bg-sunken:    var(--warm-100);     /* 66 uses - .frail, .seotext, .chip, the
+                                          zones a card sits on. plate pixel */
+  --bg-inverse:   var(--warm-900);     /* 65 uses - .wfh main bar, .btn.dark, the
+                                          dark surfaces. Charcoal was KEPT here
+                                          deliberately and not replaced by the
+                                          accent. decision */
+  --bg-action:    var(--orange-500);   /* 31 uses - the single action fill: .navbtn,
+                                          .wfh-search .go, .wff-news button. Ink on
+                                          it is 5.4:1. plate pixel */
+  --bg-success:   var(--green-50);     /* the calm success plate */
+  --bg-danger:    var(--red-50);       /* the error plate */
+  --bg-warning:   var(--amber-50);     /* the caution plate */
+  --bg-action-soft: var(--orange-25);  /* the accent's own soft plate */
+  --bg-rule:      var(--warm-200);     /* 6 uses - the two "or" dividers drawn as
+                                          pseudo-element bars, .rvbar .track,
+                                          .certthumb::before. A rule that is painted
+                                          as a fill is still a fill: 3:1, not 4.5:1 */
+  --bg-track:     var(--warm-300);     /* 6 uses - the empty half of a control:
+                                          .uiv-slider .uiv-track, .sw.off, .hdots i,
+                                          .co-sw, .frange. Darker than --bg-rule
+                                          because a track has to read as a control */
+
+  /* ---- line: control states that DO exist in the code --------------------
+     These are not invented ahead of stage 09. Each one is in the source today,
+     and each is a border, so each is measured at 3:1. */
+  --line-control-hover:  var(--warm-600);   /* 6 - .co-input:hover, .txt-field:hover,
+                                               .ci-qty:hover, .co-qty:hover */
+  /* The select's caret. It is a BACKGROUND IMAGE and therefore cannot take
+     currentColor, so its ink is frozen here - the same #5B5B54 as
+     --text-secondary, and the same drawing as the `chevron` glyph in icons.js
+     (M6 9.5l6 6 6-6, 1.9 round). The dark theme redefines this one line and the
+     mark follows; nothing else in the file knows what a caret looks like. */
+  --field-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235B5B54' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9.5l6 6 6-6'/%3E%3C/svg%3E");
+
+  --line-control-filled: var(--warm-700);   /* 1 - .pm-b input.has: the border once
+                                               the field has a value. One use, but
+                                               its own surface AND its own state, so
+                                               rule 5 gives it a token */
+  --line-success: var(--green-600);         /* 2 - .co-upsell .pcard.added .cartbtn */
+  --line-warning: var(--amber-700);         /* 1 - .co-input.req, a required field */
+  --line-danger:  var(--red-600);           /* 7 - .otp .box.err, .auth error state,
+                                               .co-err-mark, .pm-b input.err */
+
+  /* ---- line --------------------------------------------------------------- */
+
+  --line-hair:    var(--warm-200);     /* 238 uses - the hairline of the whole
+                                          product, every divider and card edge.
+                                          plate pixel */
+  --line-strong:  var(--warm-300);     /* 159 uses - control borders: .fld, .btn
+                                          outline, .co-opt. "Ash". plate pixel */
+  --line-action:  var(--orange-500);   /* 76 uses - the selected state: .chip.on,
+                                          .co-opt.on, .wfh-mega top border. 3.13:1
+                                          against white, which passes 1.4.11 */
+  --line-inverse: var(--warm-900);     /* 47 uses - borders on and around dark
+                                          surfaces */
+
+  /* ---- decorative --------------------------------------------------------- */
+
+  --mark-inactive: var(--warm-300);    /* 2 uses - the empty star .pm-stars .pmst and
+                                          the meta separator glyph .bb .bbmeta
+                                          .art::before. 1.5:1 on white, which is why
+                                          it is a MARK and not ink: nothing here is
+                                          text, and calling it text would smuggle a
+                                          1.5:1 value into a 4.5:1 role */
+  --mark-rating:  var(--gold-500);     /* 3 uses - .uiv-star, .pm-stars .pmst.on.
+                                          2.00:1 on white, so it is NOT ink and NOT
+                                          a fill that carries meaning: the figure
+                                          next to it (4.8) carries the value, the
+                                          mark only decorates it. Named as a mark so
+                                          nobody puts it on text. decision */
+
+  /* ---- depth -------------------------------------------------------------- */
+
+  --elevation-1:  var(--shadow-1);     /* 22 uses - a card at rest, the first rung */
+
+  /* ---- step 6.0: the depth ladder ------------------------------------------
+     97 box-shadow declarations carried 47 different values and no ladder: the
+     same flyout was 12/30, 14/34, 16/36 and 18/44 in four files. A shadow
+     answers one question - how far off the surface is this - so the answer is
+     a scale. Six levels by JOB, plus the three that are not heights at all:
+     a bar casts from its own edge, a drawer casts sideways, and a ring is a
+     state drawn as a halo. */
+  --elevation-2:           0 10px 28px var(--scrim-ink-10);           /* 9 uses - the raise under the cursor: a card, a banner, a goal tile. Was four
+     values (10/26, 10/28, 8/22, 5/18) doing one thing. */
+  --elevation-3:           0 14px 34px var(--scrim-black-12);         /* 6 uses - a layer that opens over the page and stays attached to it: the mega
+     menu, the language and account menus, the sort menu, the filter flyout. */
+  --elevation-4:           0 24px 64px var(--scrim-black-22);         /* 9 uses - a layer that takes the page away from you: a dialog, the toast, the
+     cookie set-up. It is the only depth allowed above a scrim. */
+  --elevation-mark:        0 2px 7px var(--scrim-ink-16);             /* 4 uses - a small mark sitting ON an image, where the ground is unknown and a
+     softer shadow would vanish into the photograph. */
+  --elevation-control:     0 2px 10px var(--scrim-ink-07);            /* 4 uses - a control lifting under the cursor on a page: the social button, the
+     trust icon. Weaker than --elevation-mark on purpose: the ground here is
+     known and light. */
+  --elevation-knob:        0 1px 4px var(--scrim-ink-22);             /* 3 uses - the knob of a control on its own track: the price thumb, the switch. */
+  --elevation-knob-active: 0 2px 9px var(--tint-orange-45);           /* 2 uses - the same knob while it is being dragged. A tinted halo, not a height:
+     it says «you are holding this». */
+  --elevation-action-hover: 0 6px 18px var(--tint-orange-10);          /* 1 use - the featured item in the mega menu under the cursor. Accent-tinted,
+     because the thing it lifts is the action. */
+  --elevation-bar-top:     0 -2px 18px var(--scrim-ink-07);           /* 4 uses - a bar fixed to the BOTTOM of the screen casts upward: the tab bar, the
+     buy bar, the cart-drawer footer, the cookie banner. Was four values. */
+  --elevation-bar-bottom:  0 3px 16px var(--scrim-ink-07);            /* 1 use - and the sticky header casts downward. Same strength, opposite side:
+     one bar shadow read from two directions. */
+  --elevation-drawer:      -18px 0 60px var(--scrim-ink-22);          /* 1 use - the cart drawer coming in from the right casts sideways. */
+  --ring-focus:            0 0 0 3px var(--tint-orange-15);           /* 6 uses - the focus halo on a field. NOT an elevation: it is a state, and it was
+     the one state the system already had in code while the rest of the set
+     (hover, active, disabled) is still on the stage-09 list. */
+  --ring-danger:           0 0 0 3px var(--tint-red-10);              /* 1 use - the same halo when the field failed. */
+  --ring-onink:            0 0 0 2px var(--white);                    /* 1 use - a white halo that cuts a counter out of the dark header bar. */
+  --ring-focus-control:    0 0 0 2px var(--bg-page),
+                           0 0 0 4px var(--line-action);              /* step 6.2 - the focus ring on a CONTROL, not on a field. --ring-focus is a
+     tint halo laid INSIDE the control's own edge, which works on a white field
+     and disappears on an orange button - the halo and the fill are the same
+     colour. So a control's ring is drawn OUTSIDE it: a gap in the page colour,
+     then the accent line. One ring that reads on an accent fill, on a border
+     and on nothing at all. */
+
+  /* ---- step 5.9: the jobs that had no role ---------------------------------
+     Measured before this step: components read a ROLE 2 069 times and a raw
+     value 145 times, plus 66 literals. Every one of those 211 was a job the
+     role layer did not name - the quiet mark, the struck price, the skeleton,
+     the scrim, the veil over a photograph, the soft status plates. A component
+     that names a value cannot be re-themed, which is exactly what step 7 does.
+     Each role below is named for the JOB, so one primitive can sit under two
+     of them on purpose: --red-50 is the danger plate AND the discount plate,
+     and a dark theme moves them apart. */
+  --mark-faint:            var(--grey-bb);            /* 21 uses - the quiet mark: a chevron on a row, the arrow on an account link, the
+     photo placeholder, a planned rung. Not text and not a line, so neither role
+     fitted; it was #BBBBBB in twenty-one places instead. */
+  --mark-disabled:         var(--grey-cc);            /* 4 uses - a control that is off: the minus at quantity 1, the inactive carousel
+     dot, the breadcrumb separator. Darker than --mark-faint on purpose: this one
+     still has to read as a control. */
+  --text-price-was:        var(--grey-aa);            /* 10 uses - the struck old price, and only that. It is deliberately weaker than
+     --text-muted: the eye must land on the new price first. */
+  --bg-skeleton:           var(--warm-200);           /* 13 uses - the loading placeholder bar. MERGED from #ECECEC, which is the same
+     grey as the hairline token to within one step of lightness. */
+  --bg-discount:           var(--red-50);             /* 8 uses - the plate under a discount figure. Same value as --bg-danger and a
+     different job: a discount is good news. The two part company in a dark theme. */
+  --bg-notice:             var(--amber-50);           /* 4 uses - the allergen block and the bonus-accrual row: a calm caution plate,
+     not an error. */
+  --line-notice:           var(--amber-200);          /* 4 uses - the border of the same block. --line-warning is the amber INK for a
+     required field; this is the soft edge of a plate. */
+  --bg-action-hover:       var(--orange-50);          /* 1 use - the goal tile photo under the cursor. */
+  --bg-inverse-soft:       var(--grey-24);            /* 1 use - the top of the dark PDP panel gradient, one step above --bg-inverse. */
+  --bg-inverse-tint:       var(--scrim-white-10);     /* 1 use - a white veil ON the dark panel, for the block inside a block. */
+  --text-oninverse-muted:  var(--scrim-white-66);     /* 3 uses - the secondary line on a dark surface. --text-oninverse is the full
+     white label; this is the caption under it. */
+  --line-oninverse-soft:   var(--scrim-white-20);     /* 2 uses - a hairline drawn ON a dark surface, where --line-inverse (ink) would
+     disappear. */
+  --text-onphoto:          var(--scrim-white-72);     /* 1 use - the caption over a photograph, where the surface is unknown. */
+  --bg-onphoto:            var(--scrim-white-94);     /* 1 use - the favourite button sitting on a product photograph. */
+  --scrim-overlay:         var(--scrim-ink-52);       /* 7 uses, and it had SEVEN different values: .25 .36 .44 .46 .50 .52 .52. A scrim
+     does one job - hide the layer behind, keep the dialog readable - so it is one
+     value. .52 is what the two dialogs that matter (auth, cart) already used. */
+  --fade-page:             var(--fade-white-0);       /* 2 uses - the transparent end of a gradient over --bg-page. It cannot be
+     `transparent`: that keyword is rgba(0,0,0,0), so the gradient fades THROUGH
+     grey. The endpoint has to be the same colour at zero alpha. */
+  --fade-surface:          var(--fade-warm-0);        /* 4 uses - the same trick over the warm surface (the promo strip, the hero side). */
+  --fade-inverse:          var(--fade-ink-0);         /* 2 uses - and over ink (the auth visual, the gallery floor). */
+  --bg-success-soft:       var(--tint-green-07);      /* 2 uses - the fill of the success pill. */
+  --line-success-soft:     var(--tint-green-35);      /* 2 uses - its border. */
+  --bg-bonus-soft:         var(--tint-amber-06);      /* 3 uses - the fill of the in-transit pill, the out-of-stock order row and the
+     burn line in the bonus ledger. */
+  --line-bonus-soft:       var(--tint-amber-30);      /* 2 uses - their border. MERGED from .26 and .35, which were one border drawn twice. */
+  --bg-danger-soft:        var(--tint-red-04);        /* 1 use - the error box plate. */
+  --line-danger-soft:      var(--tint-red-30);        /* 1 use - its border. */
+  --bg-action-pressed:     var(--orange-600);         /* 2 uses - the catalogue button while the mega menu is open. It was the only
+     pressed state in the product and it had no name. */
+  --line-onink:            var(--white);              /* 5 uses - a white ring that separates a mark from a dark ground: the counter on
+     the dark header, the tick in a filled checkbox, the dot of a chosen radio.
+     --line-inverse is the opposite job (an ink border around a light thing). */
+  --bg-action-selected:    var(--tint-orange-10);     /* 1 use - the chosen half of the grid/list toggle. Not --bg-action-soft: that one
+     is the pale plate under a whole block, this is a selected control and has to
+     hold its own against the unselected half beside it. */
+  --veil-surface:          var(--veil-warm-96);       /* 2 uses - the opaque end of the veil laid over a photographic banner so the text
+     on top stays readable. It is NOT a scrim: a scrim hides a layer, a veil keeps
+     it visible and only takes enough contrast out of it for type to sit there. */
+  --veil-surface-mid:      var(--veil-warm-86);       /* 2 uses - the middle stop of that veil, where the photograph starts to show.
+     MERGED from .86 and .72: two banners had two ramps for one job, and the tie
+     goes to the MORE opaque one - a veil exists so the text can be read. */
+  --veil-page:             var(--veil-white-90);      /* 1 use - the same trick in white, at the top of the auth photograph. */
+  --veil-inverse:          var(--veil-ink-42);        /* 1 use - and in ink, at its bottom, where the mascot is darkest. */
+  --shadow-floor:          var(--scrim-ink-07);       /* 1 use - the soft floor under the product photograph in the gallery, drawn as a
+     radial gradient. It is a SHADOW, not a surface: --bg-sunken would put an
+     opaque plate where a 7% shadow belongs. */
+  --line-onphoto:          var(--scrim-white-50);     /* 2 uses - a white edge on a dark or photographic ground: the chip on the auth
+     photograph and the chevron of the open account link. MERGED from .45 and .6,
+     which are one edge drawn twice; --line-oninverse-soft (.20) is a hairline
+     INSIDE a dark panel and far too faint for this job. */
+  --bg-save:               var(--red-50);             /* 1 use - the «you save» badge in the coach box. MERGED from #FBEAE7. */
+
+  /* ---- NOT IN THE CODE, deliberately absent ------------------------------
+     --color-focus and the full state set (hover exists in places, active and
+     disabled do not) are NOT invented here. Inventing a role nobody reads is
+     how a semantic layer fills up with noise. They are named out loud on every
+     component page under "Not in the code -> stage 09" and collected into
+     design/kit/docs/architecture.md at step 8. */
+}

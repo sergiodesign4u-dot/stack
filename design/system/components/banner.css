@@ -1,0 +1,118 @@
+/* banner.css - banner (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.hbanners{ display: grid; gap: var(--space-12); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 720px){
+  .hbanners{ grid-template-columns: 2fr 1fr; }
+  .hbanners:has(.hdeal) .hslider{ grid-column: 1; grid-row: 1; }
+  .hbanners:has(.hdeal) .hside{ grid-column: 1; grid-row: 2; grid-template-columns: 1fr 1fr; }
+  .hbanners:has(.hdeal) .hdeal{ grid-column: 2; grid-row: 1 / span 2; align-self: stretch; }
+}
+.hdeal{ border: 1px solid var(--line-hair); background: var(--bg-page); display: flex;
+  flex-direction: column; min-height: 300px; }
+.hdeal .hd-tag{ text-transform: uppercase; }
+.hdeal .hd-ph{ flex: 1; min-height: 180px; margin: var(--space-12) 0;
+  display: flex; align-items: center; justify-content: center; font-size: var(--fs-12); }
+.hdeal .hd-brand{ font-size: var(--fs-12); }
+.hdeal .hd-nm{ margin: var(--space-4) 0 var(--space-8); }
+.hdeal .hd-av{ font-size: var(--fs-12); font-weight: var(--fw-bold); }
+.hdeal .hd-price{ display: flex; flex-direction: column; gap: var(--space-2); margin: var(--space-8) 0 var(--space-4); }
+.hdeal .hd-oldline{ display: flex; align-items: center; gap: var(--space-8); }
+.hdeal .hd-old{ font-size: var(--fs-14); text-decoration: line-through; }
+.hdeal .hd-meta{ font-size: var(--fs-12); }
+.hdeal .hd-cta{ margin-top: var(--space-12); text-align: center; }
+.hslider{ min-width: 0; }
+.hpromo{ scroll-snap-align: start; flex: 0 0 62%; min-height: 300px; border: 1px solid var(--line-hair);
+  padding: var(--space-16); display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-4); }
+@media (min-width: 720px){
+  .hpromo{ flex-basis: 46%; min-height: 340px; }
+}
+.hpromo .hps{ font-size: var(--fs-14); }
+.hdots{ display: flex; gap: var(--space-8); justify-content: center; margin-top: var(--space-12); }
+.hdots i{ width: 7px; height: 7px; border-radius: var(--radius-circle); }
+.pstrip{ display: flex; align-items: center; gap: var(--space-12) var(--space-16); flex-wrap: wrap; border: 1px solid var(--line-hair); padding: var(--space-12) var(--space-16); margin: var(--space-12) 0; font-size: var(--fs-14); }
+.pstrip .pt{ font-weight: var(--fw-bold); }
+.pstrip .psp{ flex: 1; }
+.pstrip .thumbs{ display: flex; gap: var(--space-8); }
+.pstrip .thumb{ width: var(--size-34); height: var(--size-34); border-radius: var(--radius-4); background: var(--bg-sunken); border: 1px solid var(--line-hair); }
+.tband{ display: flex; flex-wrap: wrap; gap: var(--space-12) var(--space-24); padding: var(--space-12) var(--space-16); border: 1px solid var(--line-hair); border-radius: var(--radius-12); background: var(--bg-surface); font-size: var(--fs-14); color: var(--text-secondary); margin: var(--space-24) 0; }
+.tband span b{ color: var(--text-primary); }
+.tbanners{ display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-12); margin: var(--space-24) 0; }
+@media (min-width: 700px){
+  .tbanners{ grid-template-columns: repeat(5, 1fr); }
+}
+.tbanners .tbn{ border: 1px solid var(--line-hair); overflow: hidden; display: flex; flex-direction: column; background: var(--bg-page); }
+.tbanners .tbim{ display: block; flex: none; }
+.tbanners .tbx{ padding: var(--space-12) var(--space-12) var(--space-12); display: flex; flex-direction: column; gap: var(--space-4); }
+.tbanners .tbx b{ font-weight: var(--fw-black); line-height: var(--lh-snug); }
+.tbanners .tbx i{ font-style: normal; font-size: var(--fs-12); line-height: var(--lh-snug); }
+.promo{ margin: var(--space-24) 0; display: flex; flex-direction: column; justify-content: center; }
+.promo .pt{ max-width: 22ch; }
+.promo .ps{ margin-top: var(--space-8); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.hpromo{ border-color:var(--line-hair); border-radius:var(--radius-16); overflow:hidden; position:relative;
+  box-shadow:var(--elevation-1); transition:transform .15s ease, box-shadow .15s ease;
+  background:var(--bg-page) center 8%/72% no-repeat; }
+.hpromo:hover{ transform:translateY(-2px); box-shadow: var(--elevation-2); }
+.hpromo .hptag{ font-family:var(--font-mono); font-size:var(--fs-12); font-weight:var(--fw-medium);
+  letter-spacing:var(--ls-eyebrow); text-transform:uppercase; color:var(--text-secondary); }
+.hpromo .hph{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead);
+  line-height:var(--lh-flat); color:var(--text-body); }
+.hpromo .hps{ color:var(--text-secondary); line-height:var(--lh-snug); }
+.hdeal{ border-color:var(--line-hair); border-radius:var(--radius-16); box-shadow:var(--elevation-1); padding:var(--space-16);
+  transition:transform .15s ease, box-shadow .15s ease; }
+.hdeal:hover{ transform:translateY(-2px); box-shadow: var(--elevation-2); }
+.hdeal .hd-tag{ font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-20);
+  letter-spacing:var(--ls-caps); color:var(--text-action); }
+.hdeal .hd-ph{ background:var(--bg-page) center/94% no-repeat url(../../visuals/product-whey.png);
+  color:transparent; border-radius:var(--radius-12); }
+.hdeal .hd-brand{ color:var(--text-muted); }
+.hdeal .hd-nm{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-20); letter-spacing:var(--ls-lead);
+  color:var(--text-body); line-height:var(--lh-flat); }
+.hdeal .hd-av{ color:var(--text-success); }
+.hdeal .hd-old{ font-family:var(--font-mono); color:var(--text-muted); word-spacing:-.1em; }
+.hdeal .hd-cut{ background:var(--bg-discount); color:var(--text-danger); border-radius:var(--radius-4); font-weight:var(--fw-bold); font-size:var(--fs-12); padding:var(--space-2) var(--space-8); }
+.hdeal .hd-new{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
+  word-spacing:-.24em; font-weight:var(--fw-bold); font-size:var(--fs-30); color:var(--text-body); }
+.hdeal .hd-price:has(.hd-old) .hd-new{ color:var(--text-action); }
+.hdeal .hd-meta{ color:var(--text-secondary); }
+.hdeal .hd-meta b{ font-family:var(--font-mono); color:var(--text-body); }
+.hdeal .hd-cta{ background:var(--bg-action); color:var(--text-oninverse); border-radius:var(--radius-12); font-size:var(--fs-16); font-weight:var(--fw-bold);
+  padding:var(--space-16); transition:filter .15s ease; }
+.hdeal:hover .hd-cta{ filter:brightness(.95); }
+.hdots i{ background:var(--bg-track); }
+.hdots i.on{ background:var(--bg-action); }
+.pstrip{ background:var(--bg-surface); border-color:var(--line-hair); border-radius:var(--radius-12); }
+.pstrip .pt{ color:var(--text-body); }
+/* step 6.3: the local copy of the outline finish is gone - colour, border and
+   hover are the finish now. This file keeps what is the strip's own: type and
+   padding for a button standing in a promo row. */
+.tbanners .tbn{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1);
+  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease; }
+.tbanners .tbn:hover{ border-color:var(--line-action); transform:translateY(-2px); box-shadow: var(--elevation-2); }
+.tbanners .tbim{ height:104px; background:var(--bg-sunken) center/cover no-repeat; }
+.tbanners .tbn:nth-child(1) .tbim{ background-image:url(../../visuals/trust-cert.jpg); }
+.tbanners .tbn:nth-child(2) .tbim{ background-image:url(../../visuals/trust-delivery.jpg); }
+.tbanners .tbn:nth-child(3) .tbim{ background-image:url(../../visuals/trust-pay.jpg); }
+.tbanners .tbn:nth-child(4) .tbim{ background-image:url(../../visuals/trust-return.jpg); }
+.tbanners .tbn:nth-child(5) .tbim{ background:var(--bg-sunken) center 22%/auto 170% no-repeat
+  url(../../visuals/mascot-face-reassure.png); background-blend-mode:multiply; }
+.tbanners .tbx b{ color:var(--text-body); font-size:var(--fs-14); }
+.tbanners .tbx i{ color:var(--text-secondary); }
+.tbanners .tbn:nth-child(5) .tbx b .uiv-star svg{ width:14px; height:14px; }
+.promo{ border:1px solid var(--line-hair); border-radius:var(--radius-16); position:relative; overflow:hidden;
+  background:url(../../visuals/banner-promo-a.jpg) center right/cover no-repeat;
+  min-height:190px; padding:var(--space-32) var(--space-32); }
+.promo::before{ content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(90deg, var(--veil-surface) 0%, var(--veil-surface-mid) 40%, var(--fade-surface) 78%); }
+.promo > *{ position:relative; }
+.promo .pt{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-30); letter-spacing:var(--ls-lead);
+  line-height:var(--lh-flat); color:var(--text-body); }
+.promo .ps{ color:var(--text-secondary); font-size:var(--fs-14); }
+.promo .ps a{ color:var(--text-body) !important; text-decoration-color:var(--line-strong); }
+.promo .ps a:hover{ color:var(--text-action) !important; text-decoration-color:var(--line-action); }

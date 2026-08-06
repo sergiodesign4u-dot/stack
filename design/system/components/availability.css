@@ -1,0 +1,18 @@
+/* availability.css - availability (level 1)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.pcard .pavail{ min-height: 15px; }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.pcard .pavail.in{ color:var(--text-success); }
+.pcard .pavail.low{ color:var(--text-warning); }
+.pcard .pavail.pre{ color:var(--text-info); }
+.pcard .pavail.out{ color:var(--text-secondary); }
+.pcard .pavail{ font-size:var(--fs-12); font-weight:var(--fw-bold); margin-bottom:var(--space-8); }
+@media (max-width:620px){
+  .pcard .pavail{ font-size:var(--fs-12); margin-bottom:var(--space-8); }
+}

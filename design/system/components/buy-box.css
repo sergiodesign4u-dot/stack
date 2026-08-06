@@ -1,0 +1,165 @@
+/* buy-box.css - buy box (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.bb .eyebrow{ font-size: var(--fs-14); color: var(--text-secondary); }
+.bb h1{ color: var(--text-primary); line-height: var(--lh-snug); margin: var(--space-4) 0 var(--space-8); }
+.bb .bbmeta{ margin: var(--space-8) 0; flex-wrap: wrap; }
+.bb .bbline .bbmeta{ align-items: center; gap: var(--space-12); }
+@media (max-width: 479px){
+  .bb .bbline{ gap: var(--space-4) var(--space-16); }
+  .bb .bbline .bbrate{ order: -1; }
+}
+.bb .simple{ color: var(--text-body); border: 1px solid var(--line-hair); padding: var(--space-12) var(--space-12); margin: var(--space-12) 0; }
+.bb .priceblk{ margin: var(--space-16) 0; }
+@media (max-width: 479px){
+  .bb .priceblk{ grid-template-columns: 1fr; row-gap: var(--space-16); }
+  .bb .priceblk .buyrow{ grid-column: 1; }
+}
+.bb .oldrow{ display: flex; align-items: center; gap: var(--space-8); min-height: 18px; }
+.bb .old{ font-size: var(--fs-14); text-decoration: line-through; }
+.bb .cut{ font-size: var(--fs-12); font-weight: var(--fw-black); }
+.bb .perserv{ font-size: var(--fs-14); }
+.bb .tier{ font-size: var(--fs-14); color: var(--text-primary); font-weight: var(--fw-bold); border: 1px dashed var(--line-strong); border-radius: var(--radius-8); padding: var(--space-8) var(--space-12); margin-top: var(--space-12); display: inline-block; }
+.bb .vgroup{ margin: var(--space-16) 0; }
+.bb .vlbl{ font-weight: var(--fw-bold); margin-bottom: var(--space-8); }
+.bb .vopts{ display: flex; gap: var(--space-8); flex-wrap: wrap; }
+.bb .vopt{ border: 1.5px solid var(--line-strong); padding: var(--space-8) var(--space-12); font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); }
+.bb .vopt.off{ text-decoration: line-through; border-style: dashed; }
+.bb .buyrow{ display: flex; gap: var(--space-12); align-items: center; margin: var(--space-16) 0; }
+.bb .addcart{ flex: 1; }
+/* the heart declares NO box - step 7.3. It is `btn--icon btn--l`, and that is
+   52. This file used to say 50 here and 54 sixty lines below, so the number the
+   file showed was never the number the browser drew. */
+.bb .dpblk{ border: 1px solid var(--line-hair); margin-top: var(--space-16); font-size: var(--fs-14); }
+.bb .dph{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); }
+.bb .dprow{ color: var(--text-body); }
+.bb .dpic{ font-size: var(--fs-10); font-weight: var(--fw-black); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.bb:has(.old) .new{ color:var(--text-action); }
+.bb.retailref:has(.old) .new{ color:var(--text-body); }
+.bb h1{ font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-30); letter-spacing:var(--ls-lead); }
+@media (min-width:860px){
+  .bb h1{ font-size:var(--fs-30); }
+}
+.bb .eyebrow a{ color:var(--text-body); font-weight:var(--fw-semibold); }
+.bb .eyebrow a:hover{ color:var(--text-action); }
+.bb .bbline{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  gap:var(--space-8) var(--space-16); margin:var(--space-8) 0 var(--space-4); }
+.bb .bbline .bbmeta, .bb .bbline .bbrate{ margin:0; }
+.bb .bbmeta{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted);
+  display:flex; align-items:center; gap:var(--space-12); }
+.bb .bbavail{ color:var(--text-success); font-family:'Inter', sans-serif; font-size:var(--fs-14); font-weight:var(--fw-bold); }
+.bb .bbavail.out{ color:var(--text-secondary); }
+.bb .bbmeta .art::before{ content:"·"; margin-right:var(--space-12); color:var(--mark-inactive); }
+.bb .bbrate{ font-size:var(--fs-14); color:var(--text-secondary); white-space:nowrap; }
+.bb .bbrate a:hover{ text-decoration:underline; }
+@media (max-width:479px){
+  .bb .bbline{ gap:var(--space-4) var(--space-16); }
+  .bb .bbline .bbrate{ order:-1; }
+}
+.bb .priceblk{ border-top:1px solid var(--line-hair); border-bottom:1px solid var(--line-hair); padding:var(--space-16) 0;
+  display:grid; grid-template-columns:auto minmax(220px, 1fr); column-gap:var(--space-24); row-gap:var(--space-8);
+  align-items:center; }
+.bb .priceblk .pbl{ grid-column:1; }
+.bb .priceblk .buyrow{ grid-column:2; margin:0; }
+.bb .priceblk .perserv{ grid-column:1 / -1; margin-top:0; }
+.bb .buyrow .addcart{ flex:1; }
+@media (max-width:479px){
+  .bb .priceblk{ grid-template-columns:1fr; row-gap:var(--space-16); }
+  .bb .priceblk .buyrow{ grid-column:1; }
+}
+.bb .new, .bb .old, .bb .perserv{ font-family:var(--font-mono);
+  font-variant-numeric:tabular-nums; word-spacing:-.24em; }
+.bb .new{ font-size:36px; font-weight:var(--fw-semibold); letter-spacing:var(--ls-display); color:var(--text-body); line-height:var(--lh-flat); }
+.bb .old{ color:var(--text-muted); }
+.bb .cut{ background:var(--bg-discount); color:var(--text-danger); border-radius:var(--radius-4); padding:var(--space-2) var(--space-8); }
+.bb .perserv{ color:var(--text-secondary); margin-top:var(--space-4); }
+.bb .vlbl{ font-size:var(--fs-12); text-transform:uppercase; letter-spacing:var(--ls-caps); color:var(--text-muted); }
+.bb .vlbl .vsel{ margin-left:var(--space-8); text-transform:none; letter-spacing:0; font-size:var(--fs-14);
+  font-weight:var(--fw-bold); color:var(--text-body); }
+.bb .vopt{ border-radius:var(--radius-8); transition:border-color .15s ease, color .15s ease; }
+.bb .vopt:hover{ border-color:var(--line-inverse); }
+.bb .vopt.on{ background:var(--bg-page); color:var(--text-body); border-color:var(--line-action); box-shadow:inset 0 0 0 1px var(--line-action); }
+.bb .vopt.off{ color:var(--text-muted); border-color:var(--line-hair); }
+.bb .qty{ border-radius:var(--radius-12); }
+.bb .qty .qn{ font-family:var(--font-mono); }
+/* step 6.8, the no-wrap rule. In stock the row is «У кошик» + the heart and both
+   fit. Out of stock the action is «Повідомити про надходження», which needs the
+   whole 328px of a phone column - sharing the row with a 52px heart pushed the
+   buy box to 371 and scrolled the page sideways. So below 480 the row wraps and
+   the notify button takes a line of its own. */
+@media (max-width: 479px){
+  .bb .buyrow{ flex-wrap: wrap; }
+  .bb .buyrow .oosbtn{ flex: 1 1 100%; }
+}
+/* step 6.10: saved is a state of the button - ink, fill, and the outline
+   border that follows the ink. Written once in button.css. */
+/* step 6.10: was var(--fs-14-5), a token that does not exist, so the whole
+   declaration was dropped and this block rendered at the 16 it inherited.
+   14 is the nearest rung of the real scale. */
+.bb .simple{ background:var(--bg-sunken); border-color:transparent; border-radius:var(--radius-12); font-size:var(--fs-14); line-height:var(--lh-airy); }
+.bb .dpblk{ border-color:var(--line-hair); border-radius:var(--radius-12); padding:var(--space-16) var(--space-16); }
+.bb .dphead{ display:flex; align-items:center; justify-content:space-between; gap:var(--space-12); }
+.bb .dph{ color:var(--text-muted); margin:var(--space-2) 0 var(--space-8); }
+.bb .dph2{ margin-top:var(--space-16); padding-top:var(--space-12); }
+.bb .dpcity{ margin-bottom:var(--space-8); }
+/* step 6.3: local edition of the outline hover deleted - the finish has it. */
+/* `.dpcar` is gone - step 7.5. It was a span that shrank a `▾` letter to 10px,
+   and the caret is a mark from the set now: the trailing rule in button.css sizes
+   it and the finish gives it its ink. The span is removed with the letter. */
+.bb .dprow{ display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center;
+  column-gap:var(--space-12); padding:var(--space-8) 0; border-bottom:1px solid var(--line-hair); }
+.bb .dpic{ display:inline-flex; align-items:center; justify-content:center; width:var(--size-34); height:var(--size-34);
+  border-radius:var(--radius-8); background:var(--bg-surface); color:var(--text-body); }
+.bb .dpic svg{ width:19px; height:19px; }
+.bb .dpic.np{ background:var(--bg-page) url(../../visuals/np-mark.png) center/72% no-repeat;
+  border:1px solid var(--line-hair); font-size:0; }
+.bb .dpt b{ display:block; font-weight:var(--fw-semibold); color:var(--text-body); line-height:var(--lh-snug); }
+.bb .dpt span{ display:block; margin-top:var(--space-2); font-size:var(--fs-12); color:var(--text-secondary); }
+.bb .dpp{ font-family:var(--font-mono); word-spacing:-.24em;
+  font-weight:var(--fw-semibold); color:var(--text-body); white-space:nowrap; text-align:right; }
+.bb .dpp.free{ font-family:'Inter', sans-serif; font-weight:var(--fw-bold); color:var(--text-success); }
+.bb .dppay{ display:flex; flex-wrap:wrap; gap:var(--space-8); }
+.bb .paych{ border:1px solid var(--line-hair); border-radius:var(--radius-8); padding:var(--space-4) var(--space-8);
+  font-size:var(--fs-12); color:var(--text-secondary); background:var(--bg-surface); }
+
+/* ---------- moved off the screen (stage 08 step 5) ----------
+   These rules lived in a <style> block on design/product-coach.html and used the
+   stage-07 variable names, so deleting kit.css killed them outright. A screen
+   owns no css: each rule goes to the component it belongs to, and the old
+   names are translated to semantic roles BY VALUE, the way step 2 did it. */
+/* COLOR LAYER · PDP coach state (3.0). The coach box is the ONE thing that is not on
+     the buyer's page, so it is drawn as a real panel, not a note: ink frame, warm floor,
+     the tier price in the accent - because for this user THAT is the live price.
+     The retail block above it therefore drops its accent (see .bb.retailref in
+     kit/kit.css): one view, one live price. */
+  .coachbox { border: 1.5px solid var(--line-inverse); background: var(--bg-surface); border-radius: var(--radius-12);
+    padding: 15px 17px; margin: 16px 0 4px; }
+.coachbox .cbh { display: flex; align-items: center; gap: 8px; font: 700 11.5px/1 'Inter', sans-serif;
+    text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-primary); }
+.coachbox .cbh .cbtier { font-size: var(--fs-10); letter-spacing: var(--ls-caps); color: var(--bg-page); background: var(--bg-inverse);
+    border-radius: var(--radius-16); padding: 3px 8px; }
+.coachbox .cbrow { display: flex; align-items: baseline; gap: 10px; margin-top: 10px; flex-wrap: wrap;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums;
+    word-spacing: -.24em; }
+.coachbox .cbnew { font-size: var(--fs-30); font-weight: var(--fw-semibold); letter-spacing: var(--ls-display); color: var(--text-action); }
+.coachbox .cbold { font-size: var(--fs-14); color: var(--text-muted); text-decoration: line-through; }
+.coachbox .cbsave { font: 700 11.5px/1 'IBM Plex Mono', ui-monospace, monospace; color: var(--text-danger);
+    background: var(--bg-save); border-radius: 5px; padding: 3px 7px; }
+.coachbox .cbnote { font: 400 13px/1.55 'Inter', sans-serif; color: var(--text-secondary); margin-top: 8px; }
+.clientpick { margin: 16px 0 2px; }
+/* step 7: was a `font` shorthand with a hard-coded family. Same label, in
+   tokens. It stays uppercase on purpose - it names a person, not a value. */
+.clientpick label { display: block; font-size: var(--fs-12); font-weight: var(--fw-bold);
+  line-height: var(--lh-flat); color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: var(--ls-caps); margin-bottom: 7px; }
+.clientpick select { max-width: 280px; }
+.coachbox .cbh .uiv-ic svg { width: 17px; height: 17px; }
+/* The mobile field-size rule that used to sit here lives in base.css, where it
+   covers every input on the page instead of this file's own. Step 7.3 removed
+   the empty @media block it left behind and this comment with it. */

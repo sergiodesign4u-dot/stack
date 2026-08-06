@@ -1,0 +1,31 @@
+/* rating.css - rating (level 1)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.pcard .rate{ color: var(--text-muted); display: flex; align-items: center; gap: var(--space-8); min-height: 15px; }
+.pcard .rate .st{ font-weight: var(--fw-bold); }
+.pcard-l .lmeta .st{ color: var(--text-primary); font-weight: var(--fw-bold); }
+.bb .bbrate .st{ font-weight: var(--fw-bold); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.pcard .rate .st{ color:var(--text-body); }
+.pcard-l .lprice, .pcard-l .lold, .pcard-l .lmeta b, .pcard-l .lmeta .st{
+  font-family:var(--font-mono); font-variant-numeric:tabular-nums; }
+.pcard .rate{ margin-top:auto; font-size:var(--fs-12); }
+@media (max-width:620px){
+  .pcard .rate{ font-size:var(--fs-12); }
+}
+.bb .bbrate .st{ display:inline-flex; align-items:center; gap:var(--space-4); vertical-align:-2px;
+  font-family:var(--font-mono); color:var(--text-body); }
+.pcard .rate .st, .pcard-l .lmeta .st{ display:inline-flex; align-items:center; gap:var(--space-4); }
+
+/* ---------- moved out of base.css (stage 08 step 5) ----------
+   These rules were parked in base.css by the step-3 split. base.css loads
+   ABOVE every atom, so `.uiv-tc-ic svg` lost a same-specificity tie to
+   `.uiv-ic svg` in icon.css and the footer trust icon shrank from 24px to
+   1.05em. A class rule belongs to its component, never to base. */
+.uiv-star{ color:var(--mark-rating); }
+.uiv-star svg{ width:15px; height:15px; }

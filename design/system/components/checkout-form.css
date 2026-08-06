@@ -1,0 +1,311 @@
+/* checkout-form.css - checkout form (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.pfcard{ border: 1px solid var(--line-hair); padding: var(--space-16); margin-top: var(--space-16); max-width: 620px; }
+.pf-lbl{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; }
+.pf-row{ display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); margin-top: var(--space-8); }
+.pf-val{ font-size: var(--fs-16); font-weight: var(--fw-bold); }
+.pf-val .ok{ font-size: var(--fs-12); font-weight: var(--fw-black); margin-left: var(--space-8); }
+/* step 7.3: no colour here. The text finish is `--text-body` already, and the
+   colour block below re-declared the SAME value under the name `--text-primary`
+   - a line that changed nothing and read as if it did. */
+.pf-act{ font-size: var(--fs-14); font-weight: var(--fw-bold); white-space: nowrap; }
+.pf-hint{ font-size: var(--fs-12); color: var(--text-secondary); margin-top: var(--space-4); }
+.pf-input{ margin-top: var(--space-8); }
+.pf-note{ font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-16); border: 1px dashed var(--line-strong); padding: var(--space-12) var(--space-12); max-width: 620px; }
+.pf-save{ margin-top: var(--space-16); }
+.pf-danger{ margin-top: var(--space-24); }
+/* step 6.4: .pf-actbtn is the text finish, whole. Nothing of it is this file's. */
+.pf-dangerbtn{ font-size: var(--fs-14); font-weight: var(--fw-bold); }
+.smeths{ display: flex; flex-direction: column; gap: var(--space-12); }
+.pf-resend{ font-weight: var(--fw-bold); color: var(--text-primary); text-decoration: underline; cursor: pointer; }
+.pf-langs{ display: flex; flex-direction: column; gap: var(--space-12); margin-top: var(--space-4); }
+.pf-lang{ display: flex; align-items: center; gap: var(--space-12); border: 1.5px solid var(--line-strong); border-radius: var(--radius-12); padding: var(--space-16) var(--space-16); cursor: pointer; font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); }
+.pf-lang input{ position: absolute; opacity: 0; pointer-events: none; }
+.pf-lang .rc{ margin-left: auto; width: var(--size-20); height: var(--size-20); border: 2px solid var(--line-strong); border-radius: var(--radius-circle); flex: none; }
+.pf-lang.on{ border-color: var(--line-inverse); background: var(--bg-sunken); }
+.pf-lang.on .rc{ border-color: var(--line-inverse); background: var(--bg-inverse); box-shadow: inset 0 0 0 3px var(--line-onink); }
+.pf-delcheck{ display: flex; align-items: flex-start; gap: var(--space-8); text-align: left; font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); margin: 0 0 var(--space-16); cursor: pointer; }
+.pf-delcheck input{ width: 18px; height: 18px; flex: none; margin-top: var(--space-2); }
+.co-head{ position: sticky; top: 0; z-index: 30; background: var(--bg-page); border-bottom: 1px solid var(--line-hair); }
+.co-head-in{ max-width: 1200px; margin: 0 auto; padding: var(--space-16) var(--space-16); display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
+.co-logo{ font-size: var(--fs-20); }
+.co-support{ text-align: right; font-size: var(--fs-12); color: var(--text-secondary); line-height: var(--lh-snug); }
+.co-wrap{ max-width: 1200px; margin: 0 auto; padding: 0 var(--space-16) var(--space-40); }
+/* minmax(0,1fr), not 1fr: an `auto` track takes its floor from the min-content
+   of what stands in it, so one unshrinkable row inside was setting the width
+   of the whole page. Above 900 the two-column rule already said minmax(0,1fr);
+   the one-column rule did not, and that is where the 360 scroll came from. */
+.co-grid{ display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-24); }
+@media (min-width: 900px){
+  .co-grid{ grid-template-columns: minmax(0, 1fr) 360px; align-items: start; }
+}
+.co-sec{ border: 1px solid var(--line-hair); margin-bottom: var(--space-16); }
+.co-sec-h{ display: flex; align-items: center; gap: var(--space-12); margin-bottom: var(--space-12); }
+.co-sec-h .num{ width: var(--size-24); height: var(--size-24); border-radius: var(--radius-circle); color: var(--text-oninverse); display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.co-signin-note{ font-size: var(--fs-14); margin-bottom: var(--space-12); }
+.co-field{ display: flex; gap: var(--space-8); }
+/* a flex item will not shrink below its own content unless it is told it may;
+   without this the field + button pair pushes the section past the screen at
+   360, which is where this page's 11px of horizontal scroll came from */
+.co-field .co-input{ flex: 1; min-width: 0; }
+.co-getcode{ white-space: nowrap; }
+.co-or{ display: flex; align-items: center; gap: var(--space-12); margin: var(--space-16) 0; }
+.co-or::before, .co-or::after{ content: ''; flex: 1; height: 1px; }
+/* the pair must be allowed to shrink. A flex item's floor is its own content
+   unless it is told otherwise, so two buttons that cannot shrink were setting
+   the width of the whole checkout column - and through the grid, of the page:
+   347px of min-content inside a 313px column at 360. */
+.co-social{ display: flex; gap: var(--space-12); }
+.co-social .co-soc{ min-width: 0; }
+.co-soc{ flex: 1; }
+.co-consent{ font-size: var(--fs-12); margin-top: var(--space-12); line-height: var(--lh-airy); }
+.co-me{ display: flex; justify-content: space-between; align-items: center; gap: var(--space-12); }
+.co-me .mn{ font-weight: var(--fw-bold); }
+.co-me .md{ margin-top: var(--space-2); }
+.co-edit{ flex: none; }
+.co-line{ display: flex; gap: var(--space-12); padding: var(--space-12) 0; border-top: 1px solid var(--line-hair); }
+.co-line:first-of-type{ border-top: none; padding-top: var(--space-2); }
+.co-line .li-img{ width: 60px; height: 60px; flex: none; display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
+.co-line .li-bd{ flex: 1; min-width: 0; }
+.co-line .li-nm{ font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-snug); }
+.co-line .li-meta{ font-size: var(--fs-12); margin-top: var(--space-4); }
+.co-line .li-acts{ display: flex; gap: var(--space-16); margin-top: var(--space-8); }
+.co-line .li-acts button{ font-weight: var(--fw-semibold); display: inline-flex; gap: var(--space-4); align-items: center; }
+.co-line .li-right{ text-align: right; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-8); }
+.co-qty{ display: inline-flex; align-items: center; border: 1.5px solid var(--line-strong); }
+.co-qty button{ width: var(--size-30); height: 32px; font-size: var(--fs-16); }
+/* step 6.5: OFF is a state and it lives in button.css. */
+.co-qty .qn{ width: 28px; text-align: center; }
+.co-line .li-oldline{ display: flex; align-items: center; justify-content: flex-end; gap: var(--space-8); }
+.co-line .li-oldline:empty{ display: none; }
+.co-line .li-old{ font-size: var(--fs-12); font-weight: var(--fw-medium); text-decoration: line-through; }
+.co-line .li-per{ display: block; }
+.co-line .li-per:empty{ display: none; }
+@media (max-width: 560px){
+  .co-line{ display: grid; grid-template-columns: 60px minmax(0, 1fr); column-gap: var(--space-12); row-gap: var(--space-12); }
+  .co-line .li-right{ grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; }
+  .co-line .li-acts button{ white-space: nowrap; }
+}
+.co-sub{ margin: 0 0 var(--space-12) var(--space-32); display: flex; flex-direction: column; gap: var(--space-8); }
+.co-city{ align-self: flex-start; }
+.co-saved{ border: 1.5px solid var(--line-inverse); padding: var(--space-12) var(--space-12); font-size: var(--fs-14); }
+.co-saved b{ font-weight: var(--fw-bold); }
+.co-saved .ch{ font-size: var(--fs-12); font-weight: var(--fw-semibold); margin-left: var(--space-8); }
+.co-noaddr{ border: 1.5px dashed var(--line-strong); padding: var(--space-12) var(--space-16); font-size: var(--fs-14); margin-bottom: var(--space-12); line-height: var(--lh-airy); }
+.co-cmt{ margin-top: var(--space-8); }
+.co-cmt-lbl{ font-size: var(--fs-12); font-weight: var(--fw-bold); margin-top: var(--space-12); }
+.co-upsell-h{ margin-bottom: var(--space-4); }
+.co-upsell-s{ font-size: var(--fs-14); margin-bottom: var(--space-16); }
+.co-money{ border: 1px solid var(--line-hair); }
+@media (min-width: 900px){
+  .co-money{ position: sticky; top: 78px; }
+}
+.co-money-h{ margin-bottom: var(--space-12); }
+.co-bonus{ border: 1px solid var(--line-hair); padding: var(--space-12); margin-bottom: var(--space-16); }
+.co-bonus-top{ display: flex; justify-content: space-between; align-items: baseline; }
+.co-bonus .bl{ font-size: var(--fs-14); font-weight: var(--fw-bold); }
+.co-bonus .bnote{ font-size: var(--fs-12); margin-top: var(--space-4); }
+.co-toggle{ font-size: var(--fs-14); font-weight: var(--fw-bold); margin-top: var(--space-12); }
+.co-sw{ width: var(--size-38); height: 22px; border-radius: var(--radius-pill); position: relative; flex: none; }
+.co-sw::after{ content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: var(--radius-circle); background: var(--bg-page); }
+.co-sw.on::after{ left: 18px; }
+.co-brow{ display: flex; justify-content: space-between; gap: var(--space-12); font-size: var(--fs-14); padding: var(--space-8) 0; }
+.co-total{ display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-12) 0 var(--space-2); border-top: 1px solid var(--line-hair); margin-top: var(--space-8); }
+.co-total .tl{ font-weight: var(--fw-black); }
+.co-accrual{ font-size: var(--fs-14); margin: var(--space-12) 0; display: flex; gap: var(--space-8); border: 1px solid var(--line-hair); padding: var(--space-8) var(--space-12); }
+.co-accrual .star{ font-weight: var(--fw-black); }
+.co-confirm-note{ font-size: var(--fs-12); text-align: center; margin-top: var(--space-8); }
+.co-trust{ font-size: var(--fs-12); text-align: center; margin-top: var(--space-12); line-height: var(--lh-airy); }
+.co-foot{ border-top: 1px solid var(--line-hair); margin-top: var(--space-32); }
+.co-foot-in{ max-width: 1200px; margin: 0 auto; padding: var(--space-16) var(--space-16); display: flex; flex-wrap: wrap; gap: var(--space-12) var(--space-24); align-items: center; justify-content: space-between; font-size: var(--fs-12); }
+.co-foot-links{ display: flex; gap: var(--space-16); flex-wrap: wrap; }
+.co-foot-links a{ color: var(--text-secondary); }
+.co-err{ max-width: 560px; margin: 48px auto; padding: 0 var(--space-16); }
+.co-err-box{ border: 1px solid var(--line-strong); padding: var(--space-32) var(--space-24); text-align: center; }
+.co-err-mark{ width: 54px; height: 54px; border: 2px solid var(--line-inverse); border-radius: var(--radius-circle); margin: 0 auto var(--space-16); display: flex; align-items: center; justify-content: center; font-size: var(--fs-24); font-weight: var(--fw-black); }
+.co-err-h{ margin-bottom: var(--space-8); }
+.co-err-s{ font-size: var(--fs-14); line-height: var(--lh-airy); }
+.co-keep{ border: 1px solid var(--line-hair); padding: var(--space-16) var(--space-16); margin: var(--space-24) 0; text-align: left; }
+.co-keep-h{ font-size: var(--fs-12); text-transform: uppercase; margin-bottom: var(--space-12); }
+.co-keep .kr{ display: flex; justify-content: space-between; gap: var(--space-12); font-size: var(--fs-14); padding: var(--space-4) 0; }
+.co-keep .kr.tot{ border-top: 1px solid var(--line-hair); margin-top: var(--space-8); padding-top: var(--space-12); }
+.co-keep .knote{ font-size: var(--fs-12); margin-top: var(--space-8); }
+.co-err-acts{ display: flex; flex-direction: column; gap: var(--space-12); margin-top: var(--space-8); }
+@media (min-width: 480px){
+  .co-err-acts{ flex-direction: row; }
+}
+.co-err-acts .btn{ flex: 1; }
+.co-help{ font-size: var(--fs-12); margin-top: var(--space-16); line-height: var(--lh-airy); }
+.co-help a{ color: var(--text-secondary); text-decoration: underline; }
+.co-proc{ max-width: 520px; margin: 56px auto; padding: 0 var(--space-16); text-align: center; }
+.co-proc-box{ border: 1px solid var(--line-hair); padding: var(--space-40) var(--space-24); }
+/* «Оберіть місто · обов'язково» is a whole sentence, not a verb, and below 480
+   it does not fit a 247px column at the M type - the button may not wrap. So at
+   that width this chooser IS the S size. The component picks WHICH size of the
+   set it wears; it does not invent one, and the two numbers below are the set's
+   own S values. */
+@media (max-width: 479px){
+  .co-city{ font-size: var(--fs-14); }
+  .co-city .uiv-ic svg{ width: 18px; height: 18px; }
+}
+/* below 480 the card gives its side padding to the button inside it: the
+   button may not wrap, and «Оплату підтверджено - продовжити» is 11px wider
+   than the 24px version of this card leaves for it. */
+@media (max-width: 479px){
+  .co-proc-box{ padding-left: var(--space-16); padding-right: var(--space-16); }
+}
+.co-spin{ width: var(--size-46); height: var(--size-46); border: 4px solid var(--line-hair); border-radius: var(--radius-circle); margin: 0 auto var(--space-24); }
+.co-proc-h{ margin-bottom: var(--space-8); }
+.co-proc-s{ font-size: var(--fs-14); line-height: var(--lh-airy); }
+.co-skel{ margin: var(--space-24) auto var(--space-8); max-width: 320px; }
+.co-skel .sl{ height: 11px; border-radius: var(--radius-4); margin: var(--space-8) 0; }
+.co-skel .sl.m{ width: 72%; margin-left: auto; margin-right: auto; }
+.co-skel .sl.s{ width: 46%; margin-left: auto; margin-right: auto; }
+.co-proc-note{ font-size: var(--fs-12); margin-top: var(--space-24); line-height: var(--lh-airy); }
+.co-proc-go{ margin-top: var(--space-24); }
+.co-proc-cancel{ display: inline-block; margin-top: var(--space-16); font-size: var(--fs-14); text-decoration: underline; }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+@media(min-width:900px){
+  body:has(.co-head){ padding-left:216px; }
+}
+@media(max-width:899px){
+  body:has(.co-head){ padding-top:var(--space-40); }
+}
+.smeths{ margin-bottom:var(--space-24); }
+.co-head{ border-bottom-color:var(--line-hair); }
+.co-logo{ font-family:var(--font-display); font-weight:var(--fw-bold); color:var(--text-body); letter-spacing:var(--ls-display);
+  display:inline-flex; align-items:baseline; gap:.2em; line-height:var(--lh-flat); }
+.co-logo::before{ content:""; flex:none; height:1.0125em; width:.863em;
+  background:center/contain no-repeat url(../../concept/assets/logo-mark.svg); transform:translateY(.101em); }
+.co-support .sh{ color:var(--text-muted); }
+.co-support b{ font-family:var(--font-mono); font-weight:var(--fw-semibold); font-size:var(--fs-14);
+  color:var(--text-body); word-spacing:-.1em; }
+.co-h1{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-30); letter-spacing:var(--ls-lead); color:var(--text-body);
+  margin:var(--space-24) 0 var(--space-16); }
+.co-sec{ border-color:var(--line-hair); border-radius:var(--radius-12); padding:var(--space-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.co-sec-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-20); letter-spacing:var(--ls-lead); color:var(--text-body); }
+.co-sec-h .num{ background:var(--bg-inverse); font-family:var(--font-mono); font-weight:var(--fw-semibold); font-size:var(--fs-12); }
+.co-sec-h .cnt{ font-family:var(--font-mono); font-weight:var(--fw-medium); font-size:var(--fs-14); color:var(--text-muted); }
+.co-signin-note{ color:var(--text-secondary); line-height:var(--lh-airy); }
+.co-input.req{ border-color:var(--line-warning); }
+.co-or{ color:var(--text-muted); font-family:var(--font-mono); font-size:var(--fs-12);
+  letter-spacing:var(--ls-eyebrow); text-transform:uppercase; }
+.co-or::before, .co-or::after{ background:var(--bg-rule); }
+.co-soc .uiv-apple{ color:var(--text-body); }
+.co-consent{ color:var(--text-muted); }
+.co-consent a, .co-help a, .co-foot-links a{ color:var(--text-secondary); text-decoration-color:var(--line-strong); }
+.co-consent a:hover, .co-help a:hover, .co-foot-links a:hover{ color:var(--text-body); }
+.co-me .mn{ font-size:var(--fs-16); color:var(--text-body); }
+.co-me .md{ color:var(--text-secondary); font-family:var(--font-mono); font-size:var(--fs-14); }
+/* step 6.3: local edition of the outline hover deleted - the finish has it. */
+.co-line{ border-top-color:var(--line-hair); }
+.co-line .li-img{ background:var(--bg-page) center/86% no-repeat; border:1px solid var(--line-hair); border-radius:var(--radius-8); color:transparent; }
+.co-line:nth-of-type(3n+1) .li-img{ background-image:url(../../visuals/product-whey.png); }
+.co-line:nth-of-type(3n+2) .li-img{ background-image:url(../../visuals/product-creatine.png); }
+.co-line:nth-of-type(3n)   .li-img{ background-image:url(../../visuals/product-preworkout.png); }
+.co-line .li-nm{ color:var(--text-body); }
+.co-line .li-meta{ color:var(--text-secondary); }
+.co-line .li-acts button{ color:var(--text-secondary); font-size:var(--fs-14); transition:color .15s ease; }
+.co-line .li-acts button:hover{ color:var(--text-body); }
+.co-line .li-acts button .uiv-ic svg{ width:15px; height:15px; }
+.co-line .li-acts button.on{ color:var(--text-action); }
+.co-line .li-acts button.on .uiv-ic svg{ fill:var(--text-action); stroke:var(--text-action); }
+.co-qty{ border-color:var(--line-strong); border-radius:var(--radius-8); overflow:hidden; transition:border-color .15s ease; }
+.co-qty:hover{ border-color:var(--line-control-hover); }
+.co-qty button{ color:var(--text-body); transition:background .15s ease, color .15s ease; }
+.co-qty button:hover:not([disabled]){ background:var(--bg-surface); color:var(--text-action); }
+.co-qty .qn{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
+  font-weight:var(--fw-semibold); font-size:var(--fs-14); color:var(--text-body); }
+.co-line .li-price{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
+  word-spacing:-.24em; font-weight:var(--fw-bold); font-size:var(--fs-20); color:var(--text-body); line-height:var(--lh-snug); }
+.co-line .li-old{ color:var(--text-muted); }
+.co-line .li-cut{ background:var(--bg-discount); color:var(--text-danger); border-radius:var(--radius-4); font-weight:var(--fw-bold); font-size:var(--fs-12);
+  padding:var(--space-2) var(--space-8); font-family:'Inter', sans-serif; }
+.co-line .li-per{ font-weight:var(--fw-medium); font-size:var(--fs-12); color:var(--text-muted); margin-top:var(--space-2); }
+.co-line .li-price:has(.li-old) .li-sum{ color:var(--text-action); }
+.co-saved{ border-color:var(--line-action); background:var(--bg-action-soft); border-radius:var(--radius-12); color:var(--text-body); line-height:var(--lh-airy); }
+.co-saved .ch{ color:var(--text-secondary); text-decoration-color:var(--line-strong); }
+.co-noaddr{ border-color:var(--line-notice); background:var(--bg-warning); border-radius:var(--radius-12); color:var(--text-secondary); border-style:solid;
+  display:flex; gap:var(--space-8); align-items:flex-start; }
+.co-noaddr b{ color:var(--text-body); }
+.co-noaddr .m{ min-width:0; }
+.co-noaddr .uiv-ic{ flex:none; color:var(--text-warning); margin-top:var(--space-2); }
+.co-noaddr .uiv-ic svg{ width:17px; height:17px; }
+.co-cmt-lbl{ color:var(--text-body); }
+.co-money{ border-color:var(--line-hair); border-radius:var(--radius-12); padding:var(--space-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.co-money-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-20); letter-spacing:var(--ls-lead); color:var(--text-body); }
+.co-bonus{ background:var(--bg-surface); border-color:var(--line-hair); border-radius:var(--radius-12); }
+.co-bonus .bl{ color:var(--text-body); }
+.co-bonus .bv{ font-family:var(--font-mono); font-weight:var(--fw-bold); font-size:var(--fs-16);
+  color:var(--text-bonus); word-spacing:-.1em; }
+.co-bonus .bnote{ color:var(--text-muted); line-height:var(--lh-airy); }
+.co-sw{ background:var(--bg-track); transition:background .15s ease; }
+.co-sw::after{ box-shadow: var(--elevation-knob); transition:left .15s ease; }
+.co-sw.on{ background:var(--bg-action); }
+.co-brow{ color:var(--text-secondary); }
+.co-brow b{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
+  font-weight:var(--fw-semibold); color:var(--text-body); word-spacing:-.16em; }
+.co-brow .disc{ color:var(--text-secondary); }
+.co-total{ border-top-color:var(--line-hair); }
+.co-total .tl{ font-size:var(--fs-16); color:var(--text-body); }
+.co-total .tv{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
+  font-weight:var(--fw-bold); font-size:var(--fs-30); color:var(--text-body); word-spacing:-.24em; }
+.co-accrual{ background:var(--bg-notice); border-color:var(--line-notice); border-radius:var(--radius-12); color:var(--text-secondary);
+  align-items:flex-start; line-height:var(--lh-airy); }
+.co-accrual .star{ color:var(--mark-rating); font-size:var(--fs-16); flex:none; }
+.co-accrual .m{ min-width:0; }
+.co-accrual b{ font-family:var(--font-mono); font-weight:var(--fw-bold); color:var(--text-bonus);
+  white-space:nowrap; }
+.co-confirm-note{ color:var(--text-muted); }
+.co-trust{ color:var(--text-muted); }
+.co-trust .uiv-ic svg{ width:14px; height:14px; vertical-align:-2px; }
+.co-upsell{ margin-top:var(--space-16); }
+.co-upsell-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-20); letter-spacing:var(--ls-lead); color:var(--text-body); }
+.co-upsell-s{ color:var(--text-secondary); }
+.co-upsell .pcard.added .cartbtn .uiv-ic svg{ width:19px; height:19px; }
+.co-foot{ background:var(--bg-surface); border-top-color:var(--line-hair); }
+.co-foot-in{ color:var(--text-muted); }
+.co-err-box{ border-color:var(--line-hair); border-radius:var(--radius-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.co-err-mark{ border-color:var(--line-danger); color:var(--text-danger); }
+.co-err-mark .uiv-ic svg{ width:var(--size-26); height:var(--size-26); }
+.co-err-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-body); }
+.co-err-s{ color:var(--text-secondary); }
+.co-keep{ background:var(--bg-surface); border-color:var(--line-hair); border-radius:var(--radius-12); }
+.co-keep-h{ font-family:var(--font-mono); font-weight:var(--fw-medium); letter-spacing:var(--ls-eyebrow); color:var(--text-muted); }
+.co-keep .kr{ color:var(--text-secondary); }
+.co-keep .kr b{ font-family:var(--font-mono); font-weight:var(--fw-semibold); color:var(--text-body); word-spacing:-.16em; }
+.co-keep .kr.tot{ border-top-color:var(--line-hair); }
+.co-keep .kr.tot .kv{ font-family:var(--font-mono); font-weight:var(--fw-bold); font-size:var(--fs-20);
+  color:var(--text-body); word-spacing:-.2em; }
+.co-keep .knote{ color:var(--text-muted); }
+.co-help{ color:var(--text-muted); }
+.co-proc-box{ border-color:var(--line-hair); border-radius:var(--radius-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.co-spin{ border-color:var(--line-hair); border-top-color:var(--line-action); animation:uivspin .9s linear infinite; }
+@media (prefers-reduced-motion:reduce){
+  .co-spin{ animation:none; }
+}
+.co-proc-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-body); }
+.co-proc-s{ color:var(--text-secondary); }
+.co-skel .sl{ background:var(--bg-sunken); }
+.co-proc-note{ color:var(--text-muted); }
+.co-proc-note .uiv-ic svg{ width:14px; height:14px; vertical-align:-2px; }
+.co-proc-cancel{ color:var(--text-secondary); text-decoration-color:var(--line-strong); }
+.pfcard{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.pf-lbl{ color:var(--text-muted); letter-spacing:var(--ls-caps); }
+.pf-val{ color:var(--text-body); }
+.pf-val .ok{ color:var(--text-success); }
+.pf-act{ transition:color .14s ease; }
+.pf-act:hover{ color:var(--text-action); }
+.pf-note{ border-style:solid; border-color:var(--line-hair); background:var(--bg-surface); border-radius:var(--radius-8); }
+.pf-note b{ color:var(--text-body); }
+/* step 6.4: colour, transition and the danger hover are the text finish's. */
+
+/* The mobile field-size rule that used to sit here lives in base.css, where it
+   covers every input on the page instead of this file's own. Step 7.3 removed
+   the empty @media block it left behind, and this comment with it. */

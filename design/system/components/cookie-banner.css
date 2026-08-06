@@ -1,0 +1,41 @@
+/* cookie-banner.css - cookie banner (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.wf-cookie{ position: fixed; left: 0; right: 0; bottom: 0; z-index: 55; background: var(--bg-page);
+  border-top: 2px solid var(--line-inverse); box-shadow: var(--elevation-bar-top);
+  padding: var(--space-16) var(--space-16); display: flex; gap: var(--space-16); align-items: center; flex-wrap: wrap; }
+.wf-cookie.hidden{ display: none; }
+.wf-cookie .ck-txt{ flex: 1; min-width: 240px; font-size: var(--fs-14); color: var(--text-secondary); line-height: var(--lh-airy); }
+.wf-cookie .ck-txt b{ color: var(--text-primary); }
+.wf-cookie .ck-txt a{ color: var(--text-primary); text-decoration: underline; }
+.wf-cookie .ck-acts{ display: flex; gap: var(--space-8); flex-wrap: wrap; }
+.ck-btn{ border: 1.5px solid var(--line-inverse); border-radius: var(--radius-8); padding: var(--space-12) var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); background: var(--bg-page); white-space: nowrap; }
+.ck-btn.ghost{ border-color: var(--line-strong); color: var(--text-secondary); }
+@media (min-width: 620px){
+  .wf-cookie{ padding: var(--space-16) var(--space-24); }
+}
+.wf-ckset{ display: none; position: fixed; z-index: 61; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 480px; max-width: 94vw; max-height: 88vh; background: var(--bg-page); border-radius: var(--radius-12); overflow: hidden;
+  box-shadow: var(--elevation-4); flex-direction: column; }
+.wf-ckset.open{ display: flex; }
+.wf-ckset-h{ display: flex; justify-content: space-between; align-items: center; padding: var(--space-16) var(--space-16); border-bottom: 1px solid var(--line-hair); font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); }
+.wf-ckset-h .x{ font-size: var(--fs-20); }
+.wf-ckset-b{ padding: var(--space-8) var(--space-16) var(--space-8); overflow-y: auto; }
+.ck-cat{ display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-16); padding: var(--space-16) 0; border-bottom: 1px solid var(--line-hair); }
+.ck-cat:last-of-type{ border-bottom: none; }
+.ck-cat-t{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
+.ck-lock{ font-size: var(--fs-12); }
+.ck-cat-d{ display: block; font-size: var(--fs-12); font-weight: var(--fw-medium); color: var(--text-secondary); margin-top: var(--space-4); max-width: 300px; }
+.ck-tog{ flex: none; width: 42px; height: var(--size-24); border-radius: var(--radius-pill); background: var(--bg-sunken); border: 1.5px solid var(--line-strong); position: relative; cursor: pointer; transition: background .15s; }
+.ck-tog i{ position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: var(--radius-circle); background: var(--bg-page); border: 1px solid var(--line-strong); transition: left .15s; }
+.ck-tog.on{ background: var(--bg-inverse); border-color: var(--line-inverse); }
+.ck-tog.on i{ left: 20px; border-color: var(--line-inverse); }
+.ck-tog.locked{ opacity: .6; cursor: not-allowed; }
+.ck-note{ font-size: var(--fs-12); color: var(--text-muted); line-height: var(--lh-airy); padding: var(--space-12) 0 var(--space-4); }
+.ck-note a{ color: var(--text-primary); text-decoration: underline; }
+.wf-ckset-f{ display: flex; gap: var(--space-12); padding: var(--space-16) var(--space-16); border-top: 1px solid var(--line-hair); }
+.wf-ckset-f .btn{ flex: 1; }

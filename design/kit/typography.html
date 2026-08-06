@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Типографіка | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
+     a demo that only LOOKS like the component proves nothing about it. -->
+<script src="../system/icons.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Основи</div><h1 class="kp-h1">Типографіка</h1>
+<p class="kp-lead">Кожна вісь - <b>драбина</b> з лічильником читань і відношенням між сусідами. Значення прочитані з живого <code>:root</code>.</p>
+
+<style>
+.tlad{ display:grid; gap:4px; }
+.tlad .row{ display:grid; grid-template-columns:104px 1fr 62px 78px; gap:14px; align-items:baseline;
+  padding:6px 8px; border-radius:var(--radius-8); }
+.tlad .row:hover{ background:var(--bg-sunken); }
+.tlad .row.tight{ background:var(--bg-danger); }
+.tlad .nm{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-primary); }
+.tlad .nm u{ text-decoration:none; color:var(--text-muted); }
+.tlad .sp{ color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tlad .rt{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted); text-align:right; }
+.tlad .rd{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted); text-align:right; }
+.tlad .rd b{ color:var(--text-primary); }
+.fam{ display:grid; gap:12px; }
+.fam .f{ border:1px solid var(--line-hair); border-radius:var(--radius-12); padding:var(--space-16); }
+.fam .f .big{ font-size:var(--fs-30); color:var(--text-primary); }
+.fam .f .cap{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted); margin-top:var(--space-8);
+  display:flex; justify-content:space-between; gap:var(--space-12); flex-wrap:wrap; }
+.lhs{ display:grid; gap:12px; }
+@media(min-width:760px){ .lhs{ grid-template-columns:repeat(2,1fr); } }
+.lhs .b{ border:1px solid var(--line-hair); border-radius:var(--radius-12); padding:var(--space-12) var(--space-16); }
+.lhs .b p{ font-size:var(--fs-14); color:var(--text-secondary); }
+.lhs .b .cap{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted); margin-bottom:var(--space-8); }
+.tnote{ font-size:var(--fs-14); color:var(--text-secondary); margin-top:10px; }
+.tnote b{ color:var(--text-primary); }
+</style>
+
+<section class="kp-sec"><div class="kp-sh">Сім'ї</div>
+<p class="kp-p">Три гарнітури і три різні роботи. <code>--font-body</code> читається <b>один раз</b> - у <code>base.css</code> на <code>body</code>; далі його успадковує все, і це правильно: гарнітуру тексту не оголошують сорок разів.</p>
+<div class="fam" id="fam"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмір</div>
+<p class="kp-p">Драбина знизу вгору. Праворуч - скільки разів систему цей крок читає, ліворуч від нього - <b>відношення до сходинки нижче</b>. Саме відношення, а не кількість кроків, каже, чи це шкала: під <b>1.08</b> два розміри читаються як один, і рядок підсвічений.</p>
+<div class="tlad" id="fs"></div><div class="tnote" id="fsn"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Насиченість</div>
+<p class="kp-p">Чотири ваги. <code>700</code> і <code>800</code> обидві навантажені - це не дрейф: у парі Oswald + Inter вони роблять різну роботу, заголовок і акцент у рядку.</p>
+<div class="tlad" id="fw"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Трекінг</div>
+<p class="kp-p">Чотири кроки, названі роботою. Система їх не мала взагалі: компоненти несли <b>117 літералів у 16 значеннях</b>. Розріджувати літери - ніколи не вільне число: воно компенсує <b>розмір</b> і <b>капс</b>, а таких випадків тут рівно чотири.</p>
+<div class="tlad" id="ls"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Міжрядковий</div>
+<p class="kp-p">Шість. <code>1.5</code> і <code>1.55</code> виглядають дублікатом, і я їх був злив - а потім <b>відкотив</b>. Один з дванадцяти читачів <code>1.55</code> це саме <code>body</code>, тому злиття тихо перевело <b>весь</b> продукт на інший ритм читання: 31 193 обчислені міжрядкові зрушили на тексті, який ніхто не просив чіпати. Базовий міжрядковий - це рішення про читання, а рішення не ухвалюють як побічний ефект прибирання. Запис лишається видимим, інакше та сама «оптимізація» повернеться наступного разу.</p>
+<div class="lhs" id="lh"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Типографіка за призначенням</div>
+<p class="kp-p">Шкала каже, <b>які</b> розміри є. Це - <b>де</b> вони стоять. Значення не вигадані: браузер обійшов 15 екранів і зняв обчислений стиль з кожної ролі, а колонка «варіантів» каже, скільки різних наборів під цією роллю знайшлося. <b>Роль, у якої варіантів більше за один, ще не роль</b> - це два рішення під одним іменем.</p>
+<div class="kp-scroll"><table class="kp-tbl" id="rolestbl"><thead><tr><th>Роль</th><th>Зразок</th><th>Гарнітура</th><th>Кегль</th><th>Вага</th><th>Рядок</th><th>Трекінг</th><th>Варіантів</th></tr></thead><tbody></tbody></table></div>
+<p class="kp-p" style="margin-top:12px">Найгірше тут <b>посилання в рядку</b>: 274 входження і <b>5</b> різних наборів. Це та сама знахідка, що на сторінці перепису посилань - найчисленніший компонент продукту і найменш вирішений.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Що зведено <b>на кроці 5.6</b></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Було</th><th>Стало</th><th>Чому</th></tr></thead><tbody><tr><td><b>Кегль</b></td><td><code>26</code></td><td><code>9</code></td><td>Шість були півпіксельні - їх набрала рука, а не дизайн. Решта стояла так близько, що сторінка позначала <b>12 пар</b> як ближчі за 1.08. Тепер парних чисел дев'ять і кожна пара тримає щонайменше <b>1.10</b>: шкала проходить перевірку, яку сама ж і друкує. Нічия йде <b>вгору</b> - для тексту більший кегль легше читати.</td></tr><tr><td><b>Міжрядковий</b></td><td><code>6</code> + 15 літералів</td><td><code>3</code></td><td><code>1</code> · <code>1.3</code> · <code>1.6</code>. Міжрядкові, що стоять за 0.05 один від одного, це не два рішення. Базовий ритм пішов з 1.55 на <b>1.6</b> - цього разу навмисно і вголос.</td></tr><tr><td><b>Трекінг</b></td><td><code>0</code> токенів, 117 літералів</td><td><code>4</code></td><td>Системи не було взагалі. Чотири кроки, названі роботою: заголовок, великий рядок, капсова мітка, дрібний надрядок.</td></tr><tr><td><b>Вага</b></td><td><code>4</code></td><td><code>4</code></td><td>Не чіпали: 700 і 800 роблять різну роботу в парі Oswald + Inter.</td></tr></tbody></table></div>
+<p class="kp-p" style="margin-top:12px">Понад <code>34px</code> сходинок немає навмисно: 38, 44, 50 і 60 стоять по одному разу на маркетинговому блоці, а розмір, ужитий один раз, - це вимір, а не щабель.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div><div id="idle"></div></section>
+<script>
+var CS=getComputedStyle(document.documentElement);
+var val=function(n){return CS.getPropertyValue(n).trim()};
+var shown=new Set();
+var el=function(i){return document.getElementById(i)};
+var FS=["--fs-10", "--fs-12", "--fs-14", "--fs-16", "--fs-18", "--fs-20", "--fs-24", "--fs-30", "--fs-34"];
+var FW=["--fw-medium", "--fw-semibold", "--fw-bold", "--fw-black"];
+var LH=["--lh-flat", "--lh-snug", "--lh-airy"];
+var FF=["--font-display", "--font-body", "--font-mono"];
+var USE={"--bg-page": 139, "--text-body": 198, "--fs-16": 91, "--lh-airy": 50, "--font-body": 1, "--bg-action": 40, "--space-40": 14, "--space-24": 84, "--space-4": 146, "--fs-24": 31, "--fw-black": 174, "--text-primary": 279, "--space-16": 376, "--ls-display": 12, "--lh-flat": 33, "--space-8": 363, "--fs-14": 275, "--text-secondary": 277, "--space-12": 384, "--line-strong": 181, "--radius-8": 145, "--bg-inverse": 69, "--text-oninverse": 79, "--fw-bold": 178, "--line-hair": 244, "--radius-12": 141, "--text-muted": 145, "--fs-12": 206, "--text-success": 13, "--text-warning": 10, "--text-info": 2, "--bg-sunken": 72, "--mark-faint": 21, "--line-inverse": 83, "--fs-10": 45, "--radius-4": 46, "--space-2": 104, "--text-brandline": 7, "--lh-snug": 39, "--fw-semibold": 116, "--text-price-was": 10, "--fs-20": 45, "--fs-18": 36, "--font-mono": 78, "--size-20": 19, "--text-bonus": 5, "--text-action": 108, "--bg-discount": 8, "--text-danger": 20, "--elevation-1": 23, "--elevation-2": 9, "--line-action": 87, "--radius-pill": 34, "--ls-caps": 49, "--elevation-mark": 4, "--size-44": 8, "--ls-lead": 44, "--ring-focus": 6, "--line-danger": 5, "--bg-danger": 3, "--line-danger-soft": 2, "--fw-medium": 19, "--space-32": 23, "--radius-circle": 26, "--line-onphoto": 2, "--fs-34": 7, "--size-24": 9, "--bg-skeleton": 13, "--font-display": 47, "--bg-surface": 81, "--fs-30": 14, "--size-30": 8, "--size-34": 16, "--bg-onphoto": 2, "--bg-track": 8, "--line-onink": 6, "--elevation-knob": 3, "--elevation-knob-active": 2, "--size-40": 10, "--line-success": 3, "--elevation-3": 5, "--bg-rule": 6, "--mark-disabled": 4, "--size-38": 6, "--size-46": 11, "--line-control-hover": 6, "--line-warning": 1, "--ls-eyebrow": 9, "--elevation-control": 3, "--bg-action-soft": 2, "--line-notice": 4, "--bg-warning": 2, "--bg-notice": 4, "--mark-rating": 3, "--radius-16": 16, "--size-26": 11, "--bg-danger-soft": 1, "--text-oninverse-muted": 3, "--bg-action-hover": 1, "--line-success-soft": 3, "--bg-success-soft": 2, "--line-bonus-soft": 2, "--bg-bonus-soft": 3, "--elevation-4": 8, "--fs-13-5": 1, "--brand-ink": 6, "--shadow-floor": 1, "--fade-inverse": 2, "--text-onphoto": 1, "--veil-surface": 2, "--veil-surface-mid": 2, "--fade-surface": 2, "--elevation-bar-top": 4, "--bg-success": 2, "--mark-inactive": 4, "--fs-14-5": 2, "--bg-save": 1, "--scrim-overlay": 11, "--fs-12-5": 2, "--elevation-drawer": 1, "--brown-600": 1, "--slate-400": 1, "--bg-inverse-tint": 1, "--fade-page": 2, "--bg-inverse-soft": 1, "--line-oninverse-soft": 2, "--ring-onink": 1, "--bg-action-pressed": 2, "--elevation-action-hover": 1, "--elevation-bar-bottom": 1, "--line-control-filled": 1, "--ring-danger": 1, "--auth-row": 3, "--fs-11-5": 1, "--veil-page": 1, "--veil-inverse": 1, "--bg-action-selected": 1, "--grey-bb": 1, "--scrim-white-70": 1};
+var LS=["--ls-display", "--ls-lead", "--ls-caps", "--ls-eyebrow"];
+
+var SAMPLE='Протеїн, який можна перевірити';
+FF.forEach(function(n){ shown.add(n); });
+el('fam').innerHTML=FF.map(function(n){
+  var u=USE[n]||0, nm=n.replace('--font-','');
+  return '<div class="f"><div class="big" style="font-family:'+val(n)+'">'+SAMPLE+'</div>'+
+    '<div class="cap"><span>'+n+'</span><span>'+val(n).split(',')[0].replace(/["\']/g,'')+'</span>'+
+    '<span>'+(u?u+'x':'не читається')+'</span></div></div>'; }).join('');
+
+var rows=FS.map(function(n){ shown.add(n); return {n:n, v:val(n), x:parseFloat(val(n)), u:USE[n]||0}; });
+rows.sort(function(a,b){ return a.x-b.x; });
+el('fs').innerHTML=rows.map(function(r,i){
+  var ratio = i ? r.x/rows[i-1].x : 0;
+  var tight = i && ratio<1.08;
+  return '<div class="row'+(tight?' tight':'')+'">'+
+    '<div class="nm">'+r.n.replace('--fs-','')+' <u>'+r.v+'</u></div>'+
+    '<div class="sp" style="font-size:'+r.v+'">'+SAMPLE+'</div>'+
+    '<div class="rt">'+(i? '&times;'+ratio.toFixed(2) : '-')+'</div>'+
+    '<div class="rd">'+(r.u? '<b>'+r.u+'</b>x' : 'не читається')+'</div></div>'; }).join('');
+(function(){
+  var total=rows.reduce(function(s,r){ return s+r.u; },0);
+  var top=rows.slice().sort(function(a,b){ return b.u-a.u; });
+  var tight=rows.filter(function(r,i){ return i && r.x/rows[i-1].x<1.08; }).length;
+  el('fsn').innerHTML='<b>'+rows.length+'</b> сходинок · <b>'+total+'</b> читань · найчастіша <b>'+
+    top[0].v+'</b> ('+top[0].u+'x) · вісім найчастіших тримають <b>'+
+    Math.round(top.slice(0,8).reduce(function(s,r){ return s+r.u; },0)/total*100)+'%</b> · '+
+    '<b>'+tight+'</b> сусідніх пар ближче за 1.08';
+})();
+el('fw').innerHTML=FW.map(function(n){ shown.add(n);
+  return '<div class="row"><div class="nm">'+n.replace('--fw-','')+' <u>'+val(n)+'</u></div>'+
+    '<div class="sp" style="font-size:19px;font-weight:'+val(n)+'">'+SAMPLE+'</div>'+
+    '<div class="rt"></div><div class="rd">'+((USE[n]||0)?'<b>'+USE[n]+'</b>x':'не читається')+'</div></div>'; }).join('');
+el('ls').innerHTML=LS.map(function(n){ shown.add(n);
+  return '<div class="row"><div class="nm">'+n.replace('--ls-','')+' <u>'+val(n)+'</u></div>'+
+    '<div class="sp" style="font-size:19px;letter-spacing:'+val(n)+'">'+SAMPLE+'</div>'+
+    '<div class="rt"></div><div class="rd">'+((USE[n]||0)?'<b>'+USE[n]+'</b>x':'не читається')+'</div></div>'; }).join('');
+var TXT='Склад, дозування, походження і сертифікація - на видноті, а не під катом. Ми показуємо те, що можна перевірити.';
+el('lh').innerHTML=LH.map(function(n){ shown.add(n);
+  return '<div class="b"><div class="cap">'+n.replace('--lh-','')+' · '+val(n)+' · '+
+    ((USE[n]||0)?USE[n]+'x':'не читається')+'</div><p style="line-height:'+val(n)+'">'+TXT+'</p></div>'; }).join('');
+var ROLES=[["Заголовок сторінки", "Oswald", "30px", "600", "1.6", "-0.3px", "none", 5, "Gold Standard 100% Whey"], ["Заголовок секції", "Oswald", "24px", "600", "1.6", "-0.24px", "none", 3, "Популярні товари"], ["Назва товару", "Inter", "16px", "400", "1.6", "normal", "none", 3, "Gold Standard 100% Whey 2270 г"], ["Основний текст", "Inter", "14px", "400", "1.6", "normal", "none", 4, "Склад і дозування на видноті"], ["Кнопка", "Inter", "14px", "700", "1.6", "normal", "none", 4, "У кошик"], ["Мітка поля", "Inter", "14px", "700", "1.6", "normal", "none", 1, "Номер телефону"], ["Поле", "Inter", "14px", "400", "normal", "normal", "none", 1, "+380 __ ___ __ __"], ["Посилання в рядку", "Inter", "14px", "400", "1.6", "normal", "none", 5, "Політика конфіденційності"], ["Дрібний текст / мета", "Inter", "12px", "400", "1.6", "normal", "none", 4, "Артикул ON-GS-2270"], ["Надрядок капсом", "Inter", "12px", "800", "1.6", "0.48px", "uppercase", 2, "Тренерська ціна"]];
+document.querySelector('#rolestbl tbody').innerHTML=ROLES.map(function(r){
+  var st='font-family:'+(r[1]==='Oswald'?'Oswald, sans-serif':"'Inter',system-ui,sans-serif")+
+    ';font-size:'+r[2]+';font-weight:'+r[3]+';line-height:'+r[4]+';letter-spacing:'+r[5]+
+    ';text-transform:'+r[6]+';color:var(--text-primary);white-space:nowrap';
+  return '<tr><td><b>'+r[0]+'</b></td><td><span style="'+st+'">'+r[8]+'</span></td>'+
+    '<td>'+r[1]+'</td><td><code>'+r[2]+'</code></td><td><code>'+r[3]+'</code></td>'+
+    '<td><code>'+r[4]+'</code></td><td><code>'+r[5]+'</code></td>'+
+    '<td>'+(r[7]>1?'<b style="color:var(--text-danger)">'+r[7]+'</b>':'1')+'</td></tr>'; }).join('');
+function MINE(p){ return /^--(fs|fw|lh|font|ls)-/.test(p); }
+
+(function(){
+  var declared=[]; try{ for(var i=0;i<CS.length;i++){ var p=CS[i]; if(p.indexOf('--')===0) declared.push(p);} }catch(e){}
+  var mine=declared.filter(function(p){ return MINE(p); });
+  var missing=mine.filter(function(p){ return !shown.has(p); });
+  el('idle').innerHTML = !declared.length
+    ? '<div class="kp-gap">Браузер не перелічує власні властивості - перевірку не проведено.</div>'
+    : missing.length
+      ? '<div class="kp-dont"><h4>Не показано</h4><b>'+missing.length+'</b> токенів цього розділу оголошені у файлі й не показані тут: <code>'+missing.join(', ')+'</code></div>'
+      : '<div class="kp-do"><h4>Пройдено</h4>Усі <b>'+mine.length+'</b> токенів цього розділу показані на сторінці. Непоказаних немає.</div>';
+})();
+</script>
+</main>
+<script>var KIT_ACTIVE = 'typography';</script>
+<script src="_nav.js"></script>
+</body>
+</html>

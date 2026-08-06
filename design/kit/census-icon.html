@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Перепис: Іконка | Stack</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- the same two behaviour files every other stand page loads: one edition of the
+     glyphs, one edition of the field's rules, on every page of the showcase. -->
+<script src="../system/icons.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<aside id="kitnav"></aside>
+<script>var KIT_ACTIVE='census-icon';</script>
+<main class="kp-main">
+<div class="kp-eyebrow">Етап 08 · перепис перед розкоткою</div>
+<h1 class="kp-h1">Іконка</h1>
+<p class="kp-lead">Один набір, одна сітка: <b>2315</b> з <b>2431</b> іконок мають <code>viewBox 0 0 24 24</code>. Але намальовані вони в <b>30 різних розмірах</b> і <b>6 товщинах лінії</b>. Набір один, система - ні.</p>
+<div class="kp-meta"><span class="kp-tag">2431 входжень</span><span class="kp-tag">30 розмірів</span><span class="kp-tag">6 товщин</span></div>
+<section class="kp-sec"><div class="kp-sh">Після зведення <b>(крок 5.5)</b></div><p class="kp-p">Перепис вище - знімок <b>того, що знайшли</b>, і він лишається як є: з нього виводились рішення. Нижче - той самий продукт, переміряний тим самим обходом <b>після</b> зведення значень. Дві колонки, бо знахідка без «стало» не закривається, а «стало» без знахідки не пояснюється.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Було</th><th>Стало</th><th>Рішення</th></tr></thead><tbody><tr><td><b>товщина лінії</b></td><td><code>6</code></td><td><code>4</code></td><td>1.5 і 1.7 зведені в 1.9; 2.4 і 2.6 лишились як оптична компенсація на 10-12px, і це тепер правило, а не дрейф. <b>1px x124</b> - ще не розібране.</td></tr><tr><td><b>розмір</b></td><td><code>30</code></td><td><code>не рахуємо</code></td><td>свідомо не чіпали, і числа тут навмисно немає: більшість розмірів це <code>1.05em</code> від сусіднього тексту, тобто вони змінюються разом з кеглем поруч. Порівнювати їх до і після зміни кеглів полів - порівнювати різні популяції. Шкала окремих іконок - етап 09</td></tr></tbody></table></div><p class="kp-p" style="margin-top:12px">Повний список рішень зі словами «змінна -> значення -> чому» - <code>design/kit/docs/consolidation.md</code>.</p></section>
+<section class="kp-sec"><div class="kp-sh">Дрейф</div><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Властивість</th><th>Різних</th><th>Значення</th></tr></thead><tbody><tr><td><b>розмір</b></td><td><code>30</code></td><td><code>18px</code>×274, <code>13.6px</code>×214, <code>21px</code>×212, <code>13px</code>×192, <code>22px</code>×191, <code>19.9px</code>×178, <code>24px</code>×116</td></tr><tr><td><b>товщина лінії</b></td><td><code>6</code></td><td><code>1.9px</code>×1931, <code>1.5px</code>×250, <code>1px</code>×124, <code>1.7px</code>×58, <code>2.4px</code>×34, <code>2.6px</code>×34</td></tr><tr><td><b>viewBox</b></td><td><code>2</code></td><td><code>0 0 24 24</code>×2315, <code>0 0 176 176</code>×116</td></tr><tr><td><b>заливка</b></td><td><code>6</code></td><td><code>none</code>×2051, <code>rgb(246, 168, 0)</code>×250, <code>rgb(91, 91, 84)</code>×116, <code>rgb(255, 90, 0)</code>×6, <code>rgb(0, 0, 0)</code>×4, <code>rgb(28, 28, 28)</code>×4</td></tr></tbody></table></div></section>
+<section class="kp-sec"><div class="kp-sh">Що з цим не так</div><div class="kp-dont" style="margin-bottom:12px"><h4>Розмірної шкали немає</h4><p><b>30</b> різних розмірів на екранах. Дробові (<code>13.6</code>, <code>19.9</code>) - це <code>em</code> від кегля тексту поруч, тобто розмір іконки вирішує не система, а випадковий кегль сусіда. Три-чотири сходинки покрили б усе.</p></div><div class="kp-dont"><h4>Товщина лінії пливе</h4><p><b>1.9px</b> - основна, але поруч живуть <code>1.5px</code>, <code>1px</code>, <code>1.7px</code>, <code>2.4px</code>, <code>2.6px</code>. Іконки з різною товщиною в одному рядку читаються як з різних наборів, і це помітно раніше за будь-який відтінок.</p></div><p class="kp-p" style="margin-top:12px">Колір - єдине, що працює правильно: <b>14</b> різних розв'язаних кольорів, і всі приходять з <code>currentColor</code>, тобто від ролі тексту поруч. Іконка ніде не оголошує колір сама.</p></section>
+</main>
+<script src="_nav.js"></script>
+</body>
+</html>

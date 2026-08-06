@@ -1,0 +1,66 @@
+/* order-row.css - order row (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.aorder .orow{ display: flex; align-items: flex-start; gap: var(--space-12); }
+.aord-thumbs{ display: flex; gap: var(--space-8); flex: none; }
+.aord-thumbs .t{ width: var(--size-46); height: var(--size-46); border-radius: var(--radius-8); background: var(--bg-sunken); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; color: var(--mark-faint); font-size: var(--fs-10); }
+.aord-info{ min-width: 0; }
+.aord-info .no{ font-weight: var(--fw-black); color: var(--text-primary); font-size: var(--fs-14); }
+.aord-info .meta{ font-size: var(--fs-14); margin-top: var(--space-4); }
+.aord-actions{ display: flex; gap: var(--space-8); margin-top: var(--space-16); flex-wrap: wrap; }
+.ord-tabs{ display: flex; gap: var(--space-8); flex-wrap: wrap; margin: var(--space-16) 0 var(--space-4); }
+.ord-tab{ font-size: var(--fs-14); font-weight: var(--fw-bold); border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-16); background: var(--bg-page); }
+.ord-list{ display: flex; flex-direction: column; gap: var(--space-12); margin-top: var(--space-16); }
+.ord{ border: 1px solid var(--line-hair); overflow: hidden; background: var(--bg-page); }
+.ord-h{ width: 100%; display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-8) var(--space-16); padding: var(--space-16) var(--space-16); background: var(--bg-page); border: 0; text-align: left; cursor: pointer; font: inherit; }
+.oh-no{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); white-space: nowrap; }
+.oh-date{ font-size: var(--fs-14); color: var(--text-secondary); white-space: nowrap; }
+.oh-thumbs{ display: flex; gap: var(--space-4); margin-left: auto; }
+.oh-thumbs i{ width: var(--size-34); height: var(--size-38); border-radius: var(--radius-8); background: var(--bg-sunken); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: 8px; color: var(--mark-faint); font-style: normal; }
+.oh-thumbs i.more{ font-weight: var(--fw-black); font-size: var(--fs-12); }
+.oh-sum{ font-size: var(--fs-16); color: var(--text-primary); white-space: nowrap; min-width: 72px; text-align: right; }
+.oh-drop{ width: var(--size-30); height: var(--size-30); border-radius: var(--radius-8); border: 1px solid var(--line-strong); display: flex; align-items: center; justify-content: center; font-size: var(--fs-14); flex: none; }
+.ord.open .chev{ transform: rotate(180deg); }
+.ord-body{ display: none; border-top: 1px solid var(--line-hair); padding: var(--space-16); }
+.ord.open .ord-body{ display: block; }
+.ord-oos{ font-size: var(--fs-12); color: var(--text-secondary); margin: var(--space-16) 0 var(--space-2); border: 1px dashed var(--line-strong); padding: var(--space-8) var(--space-12); }
+@media (max-width: 640px){
+  .ord-h{ display: grid; align-items: center; gap: var(--space-4) var(--space-12); grid-template-columns: 1fr auto;
+    grid-template-areas: "no date" "stat sum" "thmb thmb" "more more"; }
+  .oh-no{ grid-area: no; }
+  .oh-date{ grid-area: date; justify-self: end; }
+  .oh-sum{ grid-area: sum; justify-self: end; margin-top: var(--space-4); }
+  .oh-thumbs{ grid-area: thmb; margin-left: 0; margin-top: var(--space-12); }
+  .oh-drop{ grid-area: more; width: 100%; height: auto; margin-top: var(--space-12); padding: var(--space-12);
+    border-radius: var(--radius-8); gap: var(--space-8); font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
+  .oh-drop::before{ content: "Детальніше"; }
+  .ord.open .oh-drop{ display: none; }
+}
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.aord-thumbs .t:nth-child(1), .oh-thumbs i:nth-child(1), .ob-line:nth-of-type(3n+1) .ph{ background-image:url(../../visuals/product-whey.png); }
+.aord-thumbs .t:nth-child(2), .oh-thumbs i:nth-child(2), .ob-line:nth-of-type(3n+2) .ph{ background-image:url(../../visuals/product-creatine.png); }
+.aord-thumbs .t:nth-child(3), .oh-thumbs i:nth-child(3), .ob-line:nth-of-type(3n) .ph{ background-image:url(../../visuals/product-preworkout.png); }
+.oh-thumbs i.more{ background:var(--bg-surface); color:var(--text-secondary);
+  font-family:var(--font-mono); }
+.aord-info .no{ font-family:var(--font-mono); }
+.aord-info .meta{ color:var(--text-secondary); }
+.ord-tab{ border-color:var(--line-strong); color:var(--text-secondary); transition:border-color .14s ease, color .14s ease; }
+.ord-tab:hover{ border-color:var(--line-inverse); color:var(--text-body); }
+.ord-tab.on{ border-color:var(--line-action); color:var(--text-action); background:var(--bg-page); }
+.ord{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
+.oh-no, .oh-date, .oh-sum{ font-family:var(--font-mono); }
+.oh-sum{ font-weight:var(--fw-semibold); word-spacing:-.24em; }
+.oh-drop{ border-color:var(--line-strong); color:var(--text-secondary); transition:border-color .14s ease, color .14s ease; }
+.ord-h:hover .oh-drop{ border-color:var(--line-action); color:var(--text-action); }
+.ord.open .oh-drop{ border-color:var(--line-action); color:var(--text-action); }
+.ord-body{ border-color:var(--line-hair); }
+.ord-oos{ border-style:solid; border-color:var(--line-bonus-soft); background:var(--bg-bonus-soft); border-radius:var(--radius-8); }
+.ord-oos b{ color:var(--text-warning); }
+@media (max-width: 640px){
+  .oh-drop{ border-color:var(--line-strong); }
+}

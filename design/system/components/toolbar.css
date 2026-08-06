@@ -1,0 +1,45 @@
+/* toolbar.css - toolbar (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.ltool{ display: none; align-items: center; gap: var(--space-12); flex-wrap: wrap; margin-top: var(--space-16); padding-top: var(--space-16); border-top: 1px dashed var(--line-strong); }
+@media (min-width: 860px){
+  .ltool{ display: flex; }
+}
+.ltool .sp{ flex: 1; }
+/* «Знайдено: 24 товари» is a LABEL, not a control - it shares the `.ctrl` class
+   with the sort button and nothing else. Step 6.7 gave `.ctrl` to the button and
+   this line had to state its own box: before, it was borrowing one. */
+.ltool .count{ display: inline-flex; align-items: center; min-height: var(--size-40);
+  padding: var(--space-8) var(--space-12); border-radius: var(--radius-8);
+  background: var(--bg-page); font-size: var(--fs-14);
+  color: var(--text-muted); font-weight: var(--fw-semibold); }
+.listing{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-16); }
+@media (min-width: 860px){
+  .listing{ grid-template-columns: 240px 1fr; }
+}
+.mtoolbar{ position: sticky; top: 57px; z-index: 20; background: var(--bg-page); display: flex; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); }
+.mtoolbar .mc{ flex: 1; }
+.mtoolbar .mc .b{ border-radius: var(--radius-pill); font-size: var(--fs-12); font-weight: var(--fw-black); padding: var(--space-2) var(--space-8); }
+@media (min-width: 860px){
+  .mtoolbar{ display: none; }
+}
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+/* step 7.2: the hand-built sort menu that lived here - `.uiv-sortmenu` and
+   `.uiv-sopt`, six rules - is gone. The control is the menu atom now, and
+   the list, the tick and the sheet on a phone are declared once in
+   components/menu.css. */
+
+.mtoolbar .mc .b{ background:var(--bg-action); color:var(--text-body); }
+/* step 6.3: local edition of the outline hover deleted - the finish has it. */
+.uiv-sort.open 
+/* ---------- moved out of base.css (stage 08 step 5) ----------
+   These rules were parked in base.css by the step-3 split. base.css loads
+   ABOVE every atom, so `.uiv-tc-ic svg` lost a same-specificity tie to
+   `.uiv-ic svg` in icon.css and the footer trust icon shrank from 24px to
+   1.05em. A class rule belongs to its component, never to base. */
+.uiv-sort{ position:relative; cursor:pointer; user-select:none; }

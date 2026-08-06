@@ -1,0 +1,49 @@
+/* goal-tile.css - goal tile (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.goaltiles{ display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-12); }
+@media (min-width: 620px){
+  .goaltiles{ grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 960px){
+  .goaltiles{ grid-template-columns: repeat(6, 1fr); }
+}
+.gtile{ border: 1.5px solid var(--line-strong); text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-8); }
+.gtile .gt{ font-weight: var(--fw-bold); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.gtile{ border-color:var(--line-hair); border-radius:var(--radius-16); background:var(--bg-page); box-shadow:var(--elevation-1); padding:var(--space-16) var(--space-12);
+  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease; }
+.gtile:hover{ border-color:var(--line-action); transform:translateY(-2px); box-shadow: var(--elevation-2); }
+.gtile .gph{ width:52px; height:52px; border-radius:var(--radius-circle); background:var(--bg-sunken); color:var(--text-action);
+  display:flex; align-items:center; justify-content:center; transition:background .15s ease; }
+.gtile .gph .uiv-ic svg{ width:var(--size-26); height:var(--size-26); }
+.gtile:hover .gph{ background:var(--bg-action-hover); }
+.gtile .gt{ font-size:var(--fs-14); color:var(--text-body); }
+
+/* ---------- the invitation under the tiles - step 6.11 --------------------
+   `.goalcta` and its `.hint` were styled in wireframes/_wf.css and NEVER
+   carried into the colour layer at the step-3 split, so on a coloured screen
+   the block had `display: block` - the button and the sentence were not a row
+   at all, only two inline boxes with a space character between them - and the
+   sentence rendered at the 16px near-black it inherited, competing with the
+   button instead of supporting it.
+
+   Three decisions, said out loud:
+
+   1. The quiz button steps down from L to M. L is «the single action of the
+      screen»; here that action is the six tiles above, and the quiz is the
+      alternative for someone who cannot pick one. It takes the default size.
+   2. The hint is 14 secondary - the same as `.lintro`, the supporting line 20px
+      above it inside this same block. The grey said 12.5, which is not a rung of
+      the scale; of the two real neighbours, 14 is the one that already has a
+      job here. Two supporting lines of one block at two sizes is noise.
+   3. Grey's gap 10 and margin-top 14 snap to the rungs that exist: 12 and 16. */
+.goalcta{ margin-top: var(--space-16); display: flex; flex-wrap: wrap;
+  align-items: center; gap: var(--space-12); }
+.goalcta .hint{ font-size: var(--fs-14); color: var(--text-secondary);
+  line-height: var(--lh-airy); }

@@ -1,0 +1,32 @@
+/* chip.css - chip (level 1)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.dr-chips{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.dr-chip{ display: inline-flex; align-items: center; gap: var(--space-8); border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-12); font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); }
+.afilters{ display: none; gap: var(--space-8); flex-wrap: wrap; align-items: center; margin-top: var(--space-12); }
+@media (min-width: 860px){
+  .afilters{ display: flex; }
+}
+.afilter{ border: 1px solid var(--line-hair); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-12); font-size: var(--fs-12); color: var(--text-primary); font-weight: var(--fw-semibold); display: inline-flex; gap: var(--space-8); align-items: center; }
+.afilter .x{ font-weight: var(--fw-black); }
+.afilters .clear{ font-size: var(--fs-12); color: var(--text-primary); font-weight: var(--fw-bold); text-decoration: underline; }
+.hero-chips{ display: flex; gap: var(--space-8); overflow-x: auto; padding-bottom: var(--space-4); scrollbar-width: none; }
+.hero-chips::-webkit-scrollbar{ display: none; }
+@media (min-width: 860px){
+  .hero-chips{ display: none; }
+}
+.hero-chips a{ flex: none; border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-12); font-size: var(--fs-14); font-weight: var(--fw-semibold); white-space: nowrap; }
+.cegoals{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.cegoals button{ font-size: var(--fs-14); font-weight: var(--fw-bold); border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-12); color: var(--text-primary); background: var(--bg-page); cursor: pointer; }
+.cegoals button.on{ border-color: var(--line-inverse); background: var(--bg-inverse); color: var(--text-oninverse); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.afilter{ background:var(--bg-sunken); border-color:var(--line-hair); }
+.afilter .x{ color:var(--text-muted); }
+.hero-chips a{ border-color:var(--line-strong); color:var(--text-body); background:var(--bg-page);
+  transition:border-color .15s ease, color .15s ease; }
+.hero-chips a:hover{ border-color:var(--line-action); color:var(--text-action); }

@@ -1,0 +1,133 @@
+/* menu.css - the choice menu (level 2), step 7.2
+
+   WHY THIS FILE EXISTS. The product had two ways to choose one value out of a
+   list, and neither was whole:
+
+     - the sort control: a list built by hand in design/_nav.js. Click only - no
+       keyboard, no Esc, no focus return, no `role`, no `aria-expanded` - and on
+       a phone it did not exist at all: the «Популярні ▾» button of the mobile
+       toolbar opened nothing, so sorting at 360 was impossible.
+     - the coach's client picker: a native `<select>`, which has all of the
+       above for free but whose open list is drawn by the operating system and
+       cannot be made to speak this product's language.
+
+   One atom now serves both, so there is no second implementation to drift.
+
+   THE `<select>` STAYS THE VALUE. The picker's markup is still a select; the
+   menu is built from it and writes back into it, so the form keeps its value
+   and the page still works with no JS at all. What is replaced is the CLOSED
+   trigger and the OPEN list, not the control's meaning.
+
+   ROLES. The list holds values, so it is a `listbox` of `option`s. An ACTION -
+   «+ Новий клієнт…» - is not a value and stands outside the listbox, as a
+   button after it. That distinction is the reason the picker could not stay a
+   native select: choosing an option there would have meant «the value is
+   New client», which is false. */
+
+.menu{ position: relative; display: inline-flex; max-width: 100%; }
+.menu > .menu-trig{ max-width: 100%; }
+/* the caret turns over when the list is open - the same mark, not a second one */
+.menu-trig .uiv-ic{ transition: transform .15s ease; }
+.menu.open .menu-trig .uiv-ic{ transform: rotate(180deg); }
+.menu-val{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---- the popup ---------------------------------------------------------- */
+.menu-pop{
+  display: none;
+  position: absolute; top: calc(100% + var(--space-8)); left: 0; z-index: 60;
+  min-width: 100%; max-width: min(320px, 92vw);
+  background: var(--bg-page);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-12);
+  box-shadow: var(--elevation-3);
+  padding: var(--space-8);
+}
+.menu--right .menu-pop{ left: auto; right: 0; }
+/* A menu built FROM a field keeps the FIELD's rung, not the button's. It
+   replaced a select, and a form row must not change height because the kind of
+   control changed: 44, 16px, and medium - the weight the select carried before
+   (`font: 500 15px/1.2`). A button's bold would shout a value. */
+.menu--field .menu-trig{
+  min-height: var(--size-44);
+  /* the field's padding, not the button's: with 12/16 the box measured 48 and
+     the form row grew by 4 for no reason anybody chose */
+  padding: var(--space-8) var(--space-12);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-medium);
+}
+
+.menu-pop.open{ display: block; }
+.menu-list{ max-height: 46vh; overflow-y: auto; outline: none; }
+
+/* ---- an option ----------------------------------------------------------
+   A row of a menu is a control, so it stands on the touch minimum like every
+   other control in the set. */
+.menu-opt{
+  display: flex; align-items: center; gap: var(--space-8);
+  min-height: var(--size-44);
+  width: 100%;
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-8);
+  font-family: inherit; font-size: var(--fs-14); font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+  color: var(--text-body);
+  background: none; border: none; text-align: left; cursor: pointer;
+  transition: background .12s ease, color .12s ease;
+}
+.menu-opt:hover{ background: var(--bg-sunken); color: var(--text-action); }
+.menu-opt:focus-visible{ outline: none; background: var(--bg-sunken);
+  box-shadow: var(--ring-focus-control); }
+.menu-opt[aria-selected="true"]{ color: var(--text-action); }
+/* the tick sits at the far end and only the chosen row has one */
+.menu-opt .menu-tick{ margin-left: auto; display: none; color: var(--text-action); }
+.menu-opt[aria-selected="true"] .menu-tick{ display: inline-flex; }
+.menu-opt .menu-tick svg{ width: var(--size-20); height: var(--size-20); }
+
+.menu-sep{ height: 1px; background: var(--bg-rule); margin: var(--space-8) var(--space-4); }
+/* an action is not a value: it does not live in the listbox and never carries a
+   tick, and it says what it does rather than what is chosen */
+.menu-act{ color: var(--text-body); }
+.menu-act:hover{ color: var(--text-action); }
+
+/* ---- the phone: a sheet, not a popup -------------------------------------
+   Below 480 a list anchored to its trigger either runs off the screen or sits
+   under the thumb. The product already answers this with a bottom sheet for
+   filters, so the menu uses the same shape rather than inventing a second one. */
+@media (max-width: 479px){
+  .menu-scrim.open{
+    position: fixed; inset: 0; z-index: 70;
+    background: var(--scrim-overlay);
+  }
+  .menu-pop{
+    position: fixed; top: auto; left: 0; right: 0; bottom: 0; z-index: 71;
+    min-width: 0; max-width: none;
+    border: none;
+    border-radius: var(--radius-16) var(--radius-16) 0 0;
+    box-shadow: var(--elevation-4);
+    /* clears the bottom tab bar and the phone's home indicator: the sheet is
+       modal, so it covers the bar rather than stopping above it */
+    padding: var(--space-12) var(--space-12) calc(var(--space-24) + env(safe-area-inset-bottom, 0px));
+  }
+  .menu-list{ max-height: 60vh; }
+  /* a grab bar, so the sheet reads as a sheet and not as a page that jumped */
+  .menu-pop::before{
+    content: ''; display: block; width: 36px; height: 4px; margin: 0 auto var(--space-12);
+    border-radius: var(--radius-pill); background: var(--bg-rule);
+  }
+  .menu-opt{ font-size: var(--fs-16); min-height: var(--size-52); }
+}
+
+
+/* WHY THE SHEET LEAVES ITS TRIGGER. `.mtoolbar` is sticky with `z-index: 20`,
+   which makes it a stacking context - inside it no z-index of ours can ever
+   rise above the bottom tab bar (z 50), and the sheet opened UNDER the bar.
+   So below 480 menu.js moves the popup and its scrim to `document.body` while
+   the menu is open and puts them back when it closes. That is why the open
+   state hangs on the popup itself (`.menu-pop.open`) and not on `.menu.open
+   .menu-pop`: the popup has to keep working after it leaves the menu. */
+
+/* the select the menu was built from stays in the DOM as the value, and stays
+   out of the tab order and out of the accessibility tree - the menu answers
+   for both now */
+.menu-src{ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); border: 0; }

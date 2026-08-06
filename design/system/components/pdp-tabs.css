@@ -1,0 +1,81 @@
+/* pdp-tabs.css - pdp tabs (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.ptabs{ display: flex; gap: var(--space-8); flex-wrap: wrap; margin-bottom: var(--space-16); }
+.ptab{ border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-bold); }
+.pdp-tabs{ position: sticky; z-index: 25; border-bottom: 1px solid var(--line-hair); display: flex; overflow-x: auto; margin-bottom: var(--space-16); align-items: center; scrollbar-width: none; }
+.pdp-tabs::-webkit-scrollbar{ display: none; }
+.pdp-tabs a{ flex: none; font-size: var(--fs-14); font-weight: var(--fw-semibold); white-space: nowrap; }
+.pdp-tabs .tsp{ flex: 1; }
+.pdp-tabs .tprice{ display: none;
+  white-space: nowrap; }
+.pdp-tabs .tbuy{ display: none; }
+@media (min-width: 860px){
+  .pdp-tabs{ top: 87px; }
+  .pdp-tabs .tprice{ display: inline-grid; }
+  .pdp-tabs .tbuy{ display: inline-flex; background: var(--bg-inverse); color: var(--text-oninverse); border-radius: var(--radius-8); padding: var(--space-8) var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-bold); margin-left: var(--space-12); }
+}
+.pdp{ display: grid; grid-template-columns: 1fr; gap: var(--space-24); }
+@media (min-width: 860px){
+  .pdp{ grid-template-columns: minmax(0, 1fr) 420px; align-items: start; }
+}
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.pdp-tabs:has(.told) .tnew{ color:var(--text-action); }
+.pdp-tabs{ top:103px; background:none; gap:var(--space-2); padding:var(--space-8) 0; border-bottom-color:transparent; }
+@media (min-width:860px){
+  .pdp-tabs{ top:79px; }
+}
+.pdp-tabs::before{ content:""; position:fixed; left:0; right:0;
+  top:var(--shelf-top, 0px); height:var(--shelf-h, 0px);
+  z-index:-1; background:var(--bg-page); opacity:0; transition:opacity .16s ease; pointer-events:none; }
+.pdp-tabs.stuck::before{ opacity:1; box-shadow: var(--elevation-2); }
+body.pdp-stuck .wfh.uiv-scrolled{ box-shadow:none; }
+.pdp-tabs a{ position:relative; color:var(--text-secondary); border-radius:var(--radius-8); padding:var(--space-8) var(--space-12); }
+.pdp-tabs a:hover{ color:var(--text-body); }
+.pdp-tabs a.on{ background:none; color:var(--text-body); font-weight:var(--fw-black); }
+.pdp-tabs a.on::after{ content:""; position:absolute; left:12px; right:12px; bottom:1px;
+  height:2.5px; border-radius:var(--radius-4); background:var(--bg-action); }
+.pdp-tabs .tprice, .pdp-tabs .tbuy{ display:none; }
+@media (min-width:860px){
+  .pdp-tabs.stuck .tprice{ display:inline-grid; }
+  .pdp-tabs.stuck .tbuy{ display:inline-flex; }
+}
+.pdp-tabs .tprice{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
+  word-spacing:-.24em; font-weight:var(--fw-semibold); color:var(--text-body); flex:none;
+  grid-template-columns:auto auto; column-gap:var(--space-8); align-items:center; justify-items:start;
+  line-height:var(--lh-flat); margin-right:var(--space-8); }
+.pdp-tabs .tprice .told{ grid-row:1; grid-column:1; font-size:var(--fs-12); color:var(--text-muted);
+  text-decoration:line-through; }
+.pdp-tabs .tprice .tcut{ grid-row:1; grid-column:2; font-size:var(--fs-12); font-weight:var(--fw-bold);
+  background:var(--bg-discount); color:var(--text-danger); border-radius:var(--radius-4); padding:var(--space-2) var(--space-4); }
+.pdp-tabs .tprice .tnew{ grid-row:2; grid-column:1 / -1; font-size:var(--fs-20); font-weight:var(--fw-bold); }
+.pdp-tabs .tprice:not(:has(.told)) .tnew{ grid-row:1; }
+.pdp-tabs .tbuy{ background:var(--bg-action); color:var(--text-oninverse); font-weight:var(--fw-bold); font-size:var(--fs-16);
+  border-radius:var(--radius-8); padding:var(--space-8) var(--space-16); }
+.pdp-tabs .tbuy:hover{ opacity:.93; }
+@media (min-width:860px){
+  .pdp{ grid-template-columns:minmax(0,1fr) 540px; gap:var(--space-40); }
+}
+@media (min-width:1180px){
+  .pdp{ grid-template-columns:minmax(0,1fr) 580px; }
+}
+.ptab{ border-color:var(--line-strong); color:var(--text-body); background:var(--bg-page); cursor:pointer;
+  transition:border-color .15s ease, color .15s ease; }
+.ptab:hover{ border-color:var(--line-action); color:var(--text-action); }
+.ptab.on{ background:var(--bg-action); border-color:var(--line-action); color:var(--text-oninverse); }
+.ptab.on:hover{ color:var(--text-oninverse); }
+
+/* ---------- moved off the screen (stage 08 step 5) ----------
+   These rules lived in a <style> block on design/product-coach.html and used the
+   stage-07 variable names, so deleting kit.css killed them outright. A screen
+   owns no css: each rule goes to the component it belongs to, and the old
+   names are translated to semantic roles BY VALUE, the way step 2 did it. */
+/* the chip says WHICH tier, not how big the cut - so it is a neutral mark, never the
+     red discount chip (shelf + mobile buy bar) */
+  .pdp-tabs .tprice .tcut.ttier,
+  .mbuybar .mbp .mcut.ttier { background: var(--bg-sunken); color: var(--text-secondary); font-weight: var(--fw-semibold); }

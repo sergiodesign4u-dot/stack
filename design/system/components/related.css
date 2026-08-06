@@ -1,0 +1,13 @@
+/* related.css - related (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.relrow{ display: flex; gap: var(--space-8); flex-wrap: wrap; margin-top: var(--space-16); }
+.relbox{ border: 1px solid var(--line-strong); border-radius: var(--radius-8); padding: var(--space-12) var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-secondary); background: var(--bg-page); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.relbox{ transition:border-color .15s ease, color .15s ease; }
+.relbox:hover{ border-color:var(--line-action); color:var(--text-action); }

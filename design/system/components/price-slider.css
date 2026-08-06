@@ -1,0 +1,32 @@
+/* price-slider.css - price slider (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.uiv-slider{ position:relative; height:var(--size-20); margin:var(--space-16) var(--space-4) var(--space-12); }
+.uiv-slider .uiv-track{ position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
+  height:4px; border-radius:var(--radius-4); background:var(--bg-track); }
+.uiv-slider .uiv-fill{ position:absolute; top:50%; transform:translateY(-50%);
+  height:4px; border-radius:var(--radius-4); background:var(--bg-action); }
+.uiv-slider input[type=range]{ position:absolute; left:0; right:0; top:0; width:100%; height:var(--size-20);
+  margin:0; padding:0; background:none; -webkit-appearance:none; appearance:none;
+  pointer-events:none; }
+.uiv-slider input[type=range]:focus{ outline:none; }
+.uiv-slider input[type=range]::-webkit-slider-runnable-track{ background:none; border:none; }
+.uiv-slider input[type=range]::-moz-range-track{ background:none; border:none; }
+.uiv-slider input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none;
+  width:16px; height:16px; border-radius:var(--radius-circle); background:var(--bg-action); border:2.5px solid var(--line-onink);
+  box-shadow: var(--elevation-knob); cursor:grab; pointer-events:auto;
+  transition:transform .12s ease, box-shadow .12s ease; }
+.uiv-slider input[type=range]::-moz-range-thumb{ width:16px; height:16px; border-radius:var(--radius-circle);
+  background:var(--bg-action); border:2.5px solid var(--line-onink); box-shadow: var(--elevation-knob);
+  cursor:grab; pointer-events:auto; transition:transform .12s ease, box-shadow .12s ease; }
+.uiv-slider input[type=range]:hover::-webkit-slider-thumb{ transform:scale(1.14); }
+.uiv-slider input[type=range]:hover::-moz-range-thumb{ transform:scale(1.14); }
+.uiv-slider input[type=range]:active::-webkit-slider-thumb{ cursor:grabbing; transform:scale(1.14);
+  box-shadow: var(--elevation-knob-active); }
+.uiv-slider input[type=range]:active::-moz-range-thumb{ cursor:grabbing; transform:scale(1.14);
+  box-shadow: var(--elevation-knob-active); }

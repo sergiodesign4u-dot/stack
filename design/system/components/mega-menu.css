@@ -1,0 +1,42 @@
+/* mega-menu.css - mega menu (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.wfh-mega .mega-cats{ border-right: 1px solid var(--line-hair); padding: var(--space-8) 0; background: var(--bg-surface); max-height: 74vh; overflow-y: auto; }
+.wfh-mega .mega-cat{ display: flex; align-items: center; padding: var(--space-8) var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); }
+.wfh-mega .mega-cat .mci{ text-align: center; flex: none; }
+.wfh-mega .mega-cat .ar{ margin-left: auto; color: var(--mark-faint); font-weight: var(--fw-bold); }
+.wfh-mega .mega-cat:hover, .wfh-mega .mega-cat.on{ background: var(--bg-page); }
+.wfh-mega .mega-cat.on .ar{ color: var(--text-primary); }
+.wfh-mega .mega-cat-goals{ font-weight: var(--fw-black); border-bottom: 1px solid var(--line-hair); margin-bottom: var(--space-8); padding-bottom: var(--space-12); padding-top: var(--space-12); }
+.wfh-mega .mega-mid{ padding: var(--space-16) var(--space-16); max-height: 74vh; overflow-y: auto; }
+.wfh-mega .mega-panel{ display: none; }
+.wfh-mega .mega-panel.on{ display: block; }
+.wfh-mega .mega-groups{ display: flex; flex-wrap: wrap; gap: var(--space-12) var(--space-24); }
+.wfh-mega .mega-grp{ min-width: 150px; }
+.wfh-mega .mega-sub{ display: block; font-size: var(--fs-14); color: var(--text-secondary); padding: var(--space-4) 0; }
+.wfh-mega .mega-sub:hover{ color: var(--text-primary); text-decoration: underline; }
+.wfh-mega .mega-goalrow{ display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); margin-top: var(--space-16); padding-top: var(--space-12); border-top: 1px solid var(--line-hair); }
+.wfh-mega .mega-goalgrid{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+.wfh-mega .mega-goalcard{ display: flex; gap: var(--space-12); align-items: flex-start; border: 1.5px solid var(--line-strong); border-radius: var(--radius-8); padding: var(--space-12) var(--space-12); }
+.wfh-mega .mega-goalcard .gi{ font-size: var(--fs-18); flex: none; }
+.wfh-mega .mega-goalcard .gtx{ display: flex; flex-direction: column; gap: var(--space-2); }
+.wfh-mega .mega-goalcard b{ font-size: var(--fs-14); color: var(--text-primary); }
+.wfh-mega .mega-goalcard .gc{ font-size: var(--fs-12); color: var(--text-muted); line-height: var(--lh-snug); }
+.wfh-mega .mega-side{ border-left: 1px solid var(--line-hair); background: var(--bg-surface); padding: var(--space-16) var(--space-16); }
+@media (max-width: 859px){
+  .wf-tab[aria-current="page"], .wf-tab.catov-open{ color: var(--text-primary); font-weight: var(--fw-black); }
+}
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.wf-tab[aria-current="page"], .wf-tab.catov-open{ color:var(--text-body); }
+.wfh-mega .mega-cat{ transition:background .12s ease, color .12s ease, box-shadow .12s ease; gap:var(--space-12); }
+.wfh-mega .mega-cat .mci{ color:var(--text-body); width:var(--size-24); font-size:0; }
+.wfh-mega .mega-cat.on .mci, .wfh-mega .mega-cat:hover .mci{ color:var(--text-action); }
+.wfh-mega .mega-cat:hover, .wfh-mega .mega-cat.on{ box-shadow:inset 2px 0 0 var(--line-action); }
+.wfh-mega .mega-goalcard{ transition:border-color .15s ease; }
+.wfh-mega .mega-goalcard:hover{ border-color:var(--line-action); }
+.wfh-mega .mega-goalcard .gi{ color:var(--text-action); display:inline-flex; align-items:center; }

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Бейдж знижки | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
+     a demo that only LOOKS like the component proves nothing about it. -->
+<script src="../system/icons.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 1</div>
+<h1 class="kp-h1">Бейдж знижки</h1>
+<p class="kp-lead">Маленька плашка з розміром знижки. Живе поруч зі старою ціною і не існує без неї.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/discount.css</span><span class="kp-tag">18 рядків</span><span class="kp-tag">34 екранів</span></div>
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<div class="kp-demo"><div class="kp-row" style="align-items:baseline;gap:12px"><span class="pold">1 499 ₴</span><span class="pcut">-20%</span></div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Число</b> - відсоток, завжди зі знаком мінус</span></div><div class="a"><i>2</i><span><b>Плашка</b> - найменший радіус у системі - вона не претендує на увагу</span></div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
+<p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Розмір</b></td><td>базовий · зменшений у списковому вигляді</td><td>Розмір визначає контекст картки, не важливість знижки.</td></tr></tbody></table></div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Тільки поруч зі старою ціною. Знижка без закресленої ціни - це число без бази порівняння, тобто обіцянка, яку нічим не перевірити. Принцип 1: спершу зняти сумнів.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Завжди в парі зі старою ціною.</b> Пара «було - мінус скільки» перевіряється очима за секунду.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з неї банер.</b> Великий відсоток на пів картки - це терміновість, а принцип 4 забороняє терміновість. Гучне повідомлення про вигоду це <b>Банер</b>, і воно не всередині картки.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
+<p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>2</b> власних класів і <b>0</b> станів оголошено в <code>discount.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (<code>.cprice</code> <code>.pcard</code>) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["pcut", "wtag"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>discount.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (7)</th><th>Примітиви (7)</th></tr></thead><tbody><tr><td><code>--bg-discount</code> <code>--bg-inverse</code> <code>--line-strong</code> <code>--text-danger</code> <code>--text-oninverse</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-10</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--radius-4</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;span class="pold"&gt;1 499 ₴&lt;/span&gt; &lt;span class="pcut"&gt;-20%&lt;/span&gt;</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.pcut</code> <code>.wtag</code></p>
+<p class="kp-p"><b>34 екранів</b> у <code>wireframes/</code>: 404.html, account-wishlist-many.html, account-wishlist.html, account.html, cart-coach.html, catalog-page.html, coach-client.html, coach-order.html, coach-session-addclient.html, coach-session-addempty.html, coach-session-loading.html, coach-session-newclient.html, coach-session-oos.html, coach-session-priceblock.html ...</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає правила порогу</b> - система не знає, з якого відсотка знижку взагалі варто показувати</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script>
+/* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
+   screen. A page that pastes the paths carries a second edition of the set, and a
+   second edition is the thing this stage spent two steps deleting. */
+(function(){
+  document.querySelectorAll('[data-brand]').forEach(function(e){
+    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
+  });
+  document.querySelectorAll('[data-glyph]').forEach(function(e){
+    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
+  });
+})();
+</script>
+<script>
+/* The page checks ITSELF against its file. Everything a person can see counts as
+   shown: a rendered demo, a class named in the markup block, a class named inside
+   any <code> on the page. What is left is what the file declares and the showcase
+   never puts in front of anyone. */
+(function(){
+  /* Two levels, because they are not the same thing. RENDERED means the class is
+     on a live element inside a demo - a person sees the component. NAMED means it
+     is only written out in the markup block or in a <code>. A page that names a
+     class it never renders is describing the file, which is exactly the habit
+     this stage set out to break. */
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, усі <b>' + KIT_STS.length +
+      '</b> станів названі.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+</main>
+<script>var KIT_ACTIVE = 'discount';</script>
+<script src="_nav.js"></script>
+</body>
+</html>

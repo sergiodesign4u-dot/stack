@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Поле | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
+     a demo that only LOOKS like the component proves nothing about it. -->
+<script src="../system/icons.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 1</div>
+<h1 class="kp-h1">Поле</h1>
+<p class="kp-lead">Текстове поле форми. Найбільший атом системи, бо саме тут живуть майже всі стани, які в продукті взагалі є. Нижче - <b>усі шість форм поля</b>, які файл уміє, справжніми класами: сторінка, яка малює поле інлайновими стилями, показує не систему, а свій малюнок.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/field.css</span><span class="kp-tag">197 рядків</span><span class="kp-tag">7 екранів</span></div>
+<style>
+.fset{ display:grid; gap:var(--space-24); }
+.fs-row{ display:grid; grid-template-columns:minmax(140px,180px) repeat(2, minmax(0,1fr));
+  gap:var(--space-16); align-items:start; padding-bottom:var(--space-16);
+  border-bottom:1px solid var(--line-hair); }
+.fs-row:last-child{ border-bottom:none; padding-bottom:0; }
+.fs-lbl{ font-weight:var(--fw-black); font-size:var(--fs-14); display:grid; gap:var(--space-2); }
+.fs-lbl span{ font-weight:var(--fw-medium); font-size:var(--fs-12); color:var(--text-secondary); }
+.fs-cell{ display:grid; gap:var(--space-8); min-width:0; }
+.fs-cell i{ font-family:var(--font-mono); font-style:normal; font-size:var(--fs-12); color:var(--text-secondary); }
+@media (max-width:859px){ .fs-row{ grid-template-columns:minmax(0,1fr); } }
+</style>
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<div class="kp-demo"><div style="max-width:360px;display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-16)"><div class="fld"><label for="kf-ph">Номер телефону</label><div class="field-grp ph-field"><span class="cc">+380</span><input class="field field--mono" id="kf-ph" type="tel" inputmode="tel" placeholder="67 123 45 67"></div></div><div class="fld"><label for="kf-em">E-mail <span class="opt">- необов'язково</span></label><input id="kf-em" class="field txt-field" type="email" placeholder="you@email.com"></div><div class="resend">Не отримали код? <span class="cool">Надіслати ще (0:45)</span></div></div><div class="kp-cap">Розмітка з <code>wireframes/_nav.js</code>, рядки з продукту, жодного інлайнового стилю. Клітинка коду країни - частина поля, а не окремий компонент: вона ділить з ним рамку, тому фокус підсвічує їх разом.</div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Рамка</b> - несе стан: спокій, ховер, фокус, заповнене, обов'язкове, помилка</span></div><div class="a"><i>2</i><span><b>Підпис</b> - чорнило, напівжирний; помітка «необов'язково» - приглушена, бо це виняток, а не правило</span></div><div class="a"><i>3</i><span><b>Клітинка коду</b> - <code>.cc</code> - незмінна частина значення, на приглушеній підкладці й моноширинним</span></div><div class="a"><i>4</i><span><b>Значення</b> - моноширинний для номера і коду, звичайний для тексту: цифри мають стояти в колонку</span></div><div class="a"><i>5</i><span><b>Підказка</b> - приглушений - те, чого людина ще не ввела</span></div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Набір: <b>дві висоти</b> й одна коробка</div>
+<p class="kp-p"><b>Крок 7.</b> Обхід 39 кольорових екранів знайшов <b>101 поле, 14 імен, 14 виглядів</b> - і <b>66 зі 101 набраних Arial</b>. Поле не успадковує <code>font-family</code>, це треба сказати вголос, і сказали це три файли з чотирнадцяти. Пошук у шапці й підписка в підвалі - два найчастіші поля продукту - були не Inter, а їхнє чорнило - чистий <code>#000</code>, якого в палітрі немає. Висот було <b>дев'ять</b>: 37 · 40 · 44 · 45 · 46 · 47 · 60 · 61 · 64.</p>
+<div class="kp-demo"><div class="fset">
+  <div class="fs-row"><div class="fs-lbl">поле<span>44 - мінімум пальця</span></div>
+    <div class="fs-cell"><input class="field" type="text" placeholder="Вулиця" aria-label="Вулиця"><i>field</i></div>
+    <div class="fs-cell"><input class="field field--s" type="search" placeholder="Пошук товарів" aria-label="Пошук"><i>field field--s · 40</i></div></div>
+  <div class="fs-row"><div class="fs-lbl">моноширинне<span>значення це число або код</span></div>
+    <div class="fs-cell"><input class="field field--mono" type="tel" value="+380 67 123 45 67" aria-label="Телефон"><i>field field--mono</i></div>
+    <div class="fs-cell"><input class="field field--s field--mono" type="text" inputmode="numeric" value="1500" aria-label="Ціна"><i>field field--s field--mono · спробуйте набрати літеру</i></div></div>
+  <div class="fs-row"><div class="fs-lbl">з приставкою<span>коробка переїжджає на оправу</span></div>
+    <div class="fs-cell"><div class="field-grp ph-field"><span class="cc">+380</span><input class="field field--mono" type="tel" placeholder="67 123 45 67" aria-label="Номер"></div><i>field-grp &gt; field</i></div>
+    <div class="fs-cell"><div class="field-grp field-grp--s"><input class="field field--s" type="search" placeholder="Пошук" aria-label="Пошук"><button class="btn--accent btn--s" type="button">Знайти</button></div><i>field-grp field-grp--s · 40</i></div></div>
+  <div class="fs-row"><div class="fs-lbl">стани<span>рамка несе всі п'ять</span></div>
+    <div class="fs-cell"><input class="field has" type="text" value="Вікторія Коваль" aria-label="Заповнене"><i>has · заповнене</i></div>
+    <div class="fs-cell"><input class="field field--err" type="email" value="viktoriya@" aria-label="Помилка"><i>field--err · текст лишається читним</i></div></div>
+  <div class="fs-row"><div class="fs-lbl">багаторядкове<span>не третій розмір, а мінімум висоти</span></div>
+    <div class="fs-cell"><textarea class="field" placeholder="Коментар до замовлення" aria-label="Коментар"></textarea><i>textarea · 80 = два щаблі по 40</i></div>
+    <div class="fs-cell"><select class="field" aria-label="Клієнт"><option>Андрій Коваль</option><option>Марія Литвин</option></select><i>select · коробка й каретка наші, список - системний</i></div></div>
+  <div class="fs-row"><div class="fs-lbl">вимкнене<span>стан, не варіант</span></div>
+    <div class="fs-cell"><input class="field" type="text" value="Одеса" disabled aria-label="Вимкнене"><i>[disabled] · до кроку 7 такого стану не було ніде</i></div>
+    <div class="fs-cell"><textarea class="field" disabled aria-label="Вимкнене багаторядкове">Замовлення вже оформлене - коментар змінити не можна</textarea><i>[disabled] · те саме на textarea</i></div></div>
+</div>
+<div class="kp-cap"><b>Select - це поле, а не «дропдаун».</b> Його значення йде разом із формою, тому він носить ту саму коробку. Каретку з кроку 7.1 малюємо ми: браузерна відрізнялася на кожній платформі й стояла поза драбиною позначки, а на екрані тренера вона висіла за 150px від <b>нашої</b> каретки на виборі міста - два контроли «оберіть щось» із двома різними знаками. <b>Розкритий список лишається системним навмисно:</b> його не стилізує жоден CSS, і саме він працює колесом на телефоні та відповідає читачеві екрана. Ми володіємо закритим станом, платформа - відкритим. Меню, яке відкриває кнопка - сортування, мова, кабінет, місто - <b>на цій сторінці не показане і не має бути</b>: воно нічого не віддає формі, а міняє вигляд або веде. Це <a href="menu.html">меню вибору</a>, окремий атом - і з кроку 7.2 пікер клієнта побудований саме ним, із самого цього select, який лишився значенням.<br><br>Драбина <b>40 / 44</b> і третього щабля немає, бо в продукті його ніщо не займає. 44 - не нове число: це мінімум пальця й та сама коробка, яку носить іконкова кнопка, тому поле і контрол поруч із ним збігаються. Після кроку 7 усі 101 поле міряють <b>40 · 44 · 60</b> (OTP, свій атом) <b>· 80</b> (textarea), шрифтів два - Inter і моноширинний там, де значення це число, - а чорнило одне.</div></div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
+<p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Стан рамки</b></td><td>спокій · ховер · фокус · заповнене · обов'язкове · помилка · вимкнене</td><td>Сім станів, кожен зі своєю роллю лінії. Помилка й вимкнене прийшли на <b>кроці 7</b>: до нього перше жило в двох чужих файлах, а другого не було ніде.</td></tr><tr><td><b>Тип</b></td><td>один рядок · телефон з кодом · багаторядковий · число · OTP</td><td>Тип диктує не вигляд, а <b>клавіатуру й перевірку</b>: телефон отримує <code>inputmode=tel</code>, число - моноширинний і центрування, бо його порівнюють із сусіднім.</td></tr><tr><td><b>Що можна ввести</b></td><td>будь-що · тільки цифри</td><td>Вирішує <b>значення, а не вигляд</b>: якщо значення поля - це число (код зі SMS, ціна, телефон), поле приймає лише цифри. Поле «Відділення / поштомат - номер або назва» цифру приймає, але його значення числом не є, і обмежувати його не можна.</td></tr><tr><td><b>Форма номера</b></td><td>з коміркою <code>+380</code> · повний номер у полі</td><td>Одне правило, дві оправи: якщо код країни стоїть окремою клітинкою, поле тримає дев'ять цифр і показує «67 123 45 67»; якщо поле тримає весь номер, воно саме друкує «+380». Людина може набрати «67…», «067…», «380 67…» або вставити номер із дужками й тире - усі чотири записи означають один номер, і поле зводить їх до одного.</td></tr><tr><td><b>Оболонка</b></td><td><code>.fld</code> у діалозі · <code>.cef</code> у формі клієнта · <code>.frow</code> у фільтрі · <code>.pfield</code> у профілі</td><td>Одне поле, чотири оправи. Різниця лише в тому, що поруч: підпис зверху, підпис збоку, два поля в рядок або значення тільки для читання з кнопкою «змінити».</td></tr></tbody></table></div>
+<div class="kp-demo"><div style="display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-24);max-width:460px"><div class="cef"><label for="kf-note">Нотатки тренера <span class="opt">- необов'язково</span></label><textarea class="field" id="kf-note" placeholder="Напр., алергія на лактозу"></textarea></div><div><div class="kp-cap" style="margin:0 0 var(--space-8)">Ціна, ₴ - два числових поля в рядок</div><div class="frow"><input class="field field--s field--mono in uiv-num" type="number" value="800" aria-label="від"><input class="field field--s field--mono in uiv-num" type="number" value="1500" aria-label="до"></div></div><div><div class="kp-cap" style="margin:0 0 var(--space-8)">Профіль: значення для читання, зміна - окремою дією</div><div class="pfield"><div class="pf-lbl">Ім'я</div><input class="field pf-input" type="text" value="Вікторія Коваль" aria-label="Ім'я"></div><div class="pfield"><div class="pf-lbl">Телефон</div><div class="pf-row"><div class="pf-val">+380 ** *** 45 67</div></div></div></div><div><div class="kp-cap" style="margin:0 0 var(--space-8)">Тільки цифри, і номер групується сам. Спробуйте набрати літеру, набрати «380 67…» або вставити «тел. +38 (067) 123-45-67» - у поле потрапить те саме.</div><div style="display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-8);max-width:300px"><div class="otp"><input class="box" maxlength="1" inputmode="numeric" aria-label="Цифра 1"><input class="box" maxlength="1" inputmode="numeric" aria-label="Цифра 2"><input class="box" maxlength="1" inputmode="numeric" aria-label="Цифра 3"><input class="box" maxlength="1" inputmode="numeric" aria-label="Цифра 4"></div><input class="field txt-field" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __" aria-label="Телефон"></div></div><div><div class="kp-cap" style="margin:0 0 var(--space-8)">Обов'язкове - єдиний стан-попередження, який поле має</div><input class="field co-input req" value="Одеса" aria-label="Місто"><div class="kp-cap" style="margin-top:var(--space-8)">Обов'язкове - попередження, а не помилка: воно каже «сюди ще треба», а не «тут не так». Помилку поле має з кроку 7 - див. набір вище.</div></div></div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що зведено <b>на кроці 5.5</b></div>
+<p class="kp-p">Рішення живе там, де на нього дивляться. Перепис показав дрейф, крок 5.5 його зняв - і цей блок каже, <b>що саме обрали, що лишили і чому</b>, на сторінці самого компонента, а не тільки в журналі.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Було</th><th>Стало</th><th>Чому</th></tr></thead><tbody><tr><td><b>Радіус</b></td><td><code>7 різних</code></td><td><code>4</code></td><td>Ті самі <code>4/8/12/16</code>: 9, 10 і 11 сіли на 8 і 12.</td></tr><tr><td><b>Кегль на мобільному</b></td><td><code>136 зі 166 під 16px</code></td><td><code>0 з 66</code></td><td>16px - нижня межа, під якою iOS зумить сторінку на фокусі.</td></tr><tr><td><b>Фокус</b></td><td><code>три редакції ореолу</code></td><td><code><code>--ring-focus</code></code></td><td>Крок 6.0: один ореол на всі поля, і він не на драбині висот.</td></tr><tr><td><b>Кегль числового поля</b></td><td><code>13.3px браузерний</code></td><td><code><code>--fs-14</code>, на мобільному 16</code></td><td>Поле без кегля бере дефолт браузера - значення, якого ніхто не вирішував.</td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Скрізь, де людина вводить текст: чекаут, профіль, адреси, вхід, фільтр ціни. Рішення 5 - вхід без пароля, тому поля пароля в системі немає і не буде.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Стан живе на рамці, а обмеження - на значенні.</b> Якщо значення поля це число, поле приймає лише цифри - і не підказкою клавіатури, а насправді: <code>inputmode</code> нічого не забороняє, <code>type=tel</code> взагалі текстовий, а <code>type=number</code> пропускає <code>e</code>, <code>+</code>, <code>-</code> і крапку. Правило виконує <code>design/system/fields.js</code> на двох подіях, якими символ узагалі потрапляє в поле: натиск і вставка.<br><br><b>І номер групується сам.</b> Раніше це вміло одне поле з чотирьох, бо код був прив'язаний до <code>id="wfa-phone"</code> у скрипті екрана. Поведінка була правильна, адреса - ні: правило, прив'язане до одного id, це не правило компонента, а приватна звичка того екрана.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не обмежуй поле за тим, як воно виглядає.</b> «Відділення / поштомат - номер або назва» повне цифр, але його значення не число, і фільтр там відрізав би половину адрес. Обмежує <b>значення</b>, а не сусідство з цифрою.<br><br><b>І не показуй помилку самим лише червоним.</b> Червона рамка без тексту не каже, що саме не так, і не існує для читача екрана. Текст помилки стоїть <b>під полем</b>, а не в тості: тост зникає, а виправляти треба тут.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
+<p class="kp-p">Спокій · ховер (<code>--line-control-hover</code>) · фокус (<code>--line-action</code> плюс <code>--ring-focus</code>, ніколи не браузерний обвід) · заповнене <code>.has</code> (<code>--line-control-filled</code>) · обов'язкове <code>.req</code> (<code>--line-warning</code>) · помилка <code>.field--err</code> (<code>--line-danger</code> плюс <code>--ring-danger</code>) · вимкнене <code>[disabled]</code>. <code>::placeholder</code> має власну роль <code>--text-muted</code>.</p><p class="kp-p"><b>Крок 7 додав два останні.</b> До нього ховер мали <b>6</b> полів зі 101, колір підказки - <b>9</b>, власний фокус - <b>72</b> (решті 29 малював браузер), а вимкненого не було <b>в жодного</b>. Помилка існувала двічі й обидва рази в чужому файлі - <code>.otp .box.err</code> і <code>.pm-b input.err</code>: два компоненти вигадали її окремо, а поле, яким набирають телефон і адресу, показати її не вміло. Тепер це один стан у <code>field.css</code>, і рядок <code>.err</code>, який пише рантайм, читається тим самим правилом.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>13</b> власних класів і <b>4</b> станів оголошено в <code>field.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["cc", "cef", "cool", "field", "field--err", "field--mono", "field--s", "field-grp", "field-grp--s", "fld", "frow", "has", "in", "opt", "pf-val", "pfield", "ph-field", "resend"], KIT_STS=["::placeholder", ":focus", ":focus-within", ":hover", "[disabled]", "[readonly]"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>field.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (13)</th><th>Примітиви (13)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-action</code> <code>--line-control-hover</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--ring-focus</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--ls-caps</code> <code>--radius-12</code> <code>--radius-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;div class="fld"&gt;&lt;label for="ph"&gt;Номер телефону&lt;/label&gt;
+  &lt;div class="ph-field"&gt;&lt;span class="cc"&gt;+380&lt;/span&gt;
+    &lt;input id="ph" type="tel" inputmode="tel" placeholder="67 123 45 67"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="fld"&gt;&lt;label&gt;E-mail &lt;span class="opt"&gt;- необов'язково&lt;/span&gt;&lt;/label&gt;
+  &lt;input class="txt-field" type="email" placeholder="you@email.com"&gt;&lt;/div&gt;</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.fld</code> <code>.cef</code> <code>.txt-field</code> <code>.pfield</code> <code>.ph-field</code> <code>.frow</code> <code>.resend</code></p>
+<p class="kp-p"><b>7 екранів</b> у <code>wireframes/</code>: account-profile-delete.html, account-profile-email.html, account-profile-lang.html, account-profile-phone.html, account-profile-withemail.html, account-profile.html, coach-verify.html</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Форматування телефону дублюється</b> - <code>wfAuthDigits()</code> у сірому прототипі досі форматує своє поле по <code>id</code>. Система тепер робить це раніше й для всіх, тому результат однаковий, але два коди на одну роботу лишаються, поки сірий шар заморожений</li><li><b>Вставка коду не розкладається по комірках</b> - вставили «Ваш код 4821» у першу комірку, лишилась одна цифра. Це робота <b>OTP-комірки</b>, а не поля: поле своє вже зробило, відкинувши все, крім цифр</li><li><b>У поля немає стану помилки</b> - <code>field.css</code> не має жодного правила для невалідного значення. Червона рамка в продукті є двічі, і обидва рази її завів собі чужий компонент: <code>otp.css</code> і <code>review-modal.css</code></li><li><b>Жодне поле не позначене</b> - <code>required</code> 0, <code>aria-invalid</code> 0, <code>disabled</code> 0 на 196 полях. Рамка змінює колір, а читач екрана про це не дізнається</li><li><b>Немає <code>:disabled</code></b> - стану, якого немає в продукті, немає і в коді; щойно з'явиться перше вимкнене поле, його треба буде вирішити, а не домалювати</li><li><b>Підпис і поле пов'язані не скрізь</b> - у чотирьох оправах з шести є <code>for</code>/<code>id</code>, у <code>.frow</code> і <code>.pfield</code> зв'язок тримається на <code>aria-label</code></li><li><b>Немає лічильника символів</b> для багаторядкового поля, хоча відгук має ліміт</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script>
+/* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
+   screen. A page that pastes the paths carries a second edition of the set, and a
+   second edition is the thing this stage spent two steps deleting. */
+(function(){
+  document.querySelectorAll('[data-brand]').forEach(function(e){
+    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
+  });
+  document.querySelectorAll('[data-glyph]').forEach(function(e){
+    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
+  });
+})();
+</script>
+<script>
+/* The page checks ITSELF against its file. Everything a person can see counts as
+   shown: a rendered demo, a class named in the markup block, a class named inside
+   any <code> on the page. What is left is what the file declares and the showcase
+   never puts in front of anyone. */
+(function(){
+  /* Two levels, because they are not the same thing. RENDERED means the class is
+     on a live element inside a demo - a person sees the component. NAMED means it
+     is only written out in the markup block or in a <code>. A page that names a
+     class it never renders is describing the file, which is exactly the habit
+     this stage set out to break. */
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, усі <b>' + KIT_STS.length +
+      '</b> станів названі.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+</main>
+<script>var KIT_ACTIVE = 'field';</script>
+<script src="_nav.js"></script>
+</body>
+</html>

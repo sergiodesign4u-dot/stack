@@ -1,0 +1,35 @@
+/* section-head.css - section head (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.lh1{ color: var(--text-primary); display: flex; align-items: baseline; gap: var(--space-12); flex-wrap: wrap; }
+.relh{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); margin: var(--space-24) 0 0; }
+.homeh1{ margin: var(--space-16) 0 var(--space-4); }
+.sech{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-12); margin: var(--space-32) 0 var(--space-16); }
+/* «Усі товари →» - the text finish (`btn--text`) plus this hook. The finish
+   declares `font-size: inherit`, `font-weight: inherit` and one ink, so a
+   component MUST say the type here; that is the rule, not a leak. What was
+   wrong until step 7.3 is that the ink was said TWICE in this file - primary
+   here, secondary sixty lines below - and only the second one ever drew. One
+   line now, and it is the one the browser uses. */
+.sech .all{ font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-secondary); white-space: nowrap; }
+.rvhead{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); align-items: center; margin-bottom: var(--space-12); }
+@media (min-width: 620px){
+  .rvhead{ grid-template-columns: 190px 1fr auto; }
+}
+.mech-kicker{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.lh1, .seotext .h, .wfh-logo, .empty-h, .estate h2{ font-family:var(--font-display); letter-spacing:var(--ls-lead); }
+.lh1{ font-size:var(--fs-30); font-weight:var(--fw-bold); letter-spacing:var(--ls-display); }
+.lh1 .cnt{ font-family:var(--font-mono); font-size:var(--fs-16); font-weight:var(--fw-semibold); color:var(--text-muted); }
+.sech .all{ border-radius:var(--radius-8); padding:var(--space-4) var(--space-8); margin:calc(-1 * var(--space-4)) calc(-1 * var(--space-8)); cursor:pointer; }
+.sech .all:hover{ background:var(--bg-surface); }
+section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
+.homeh1{ font-family:var(--font-display); font-weight:var(--fw-medium); font-size:var(--fs-16); letter-spacing:var(--ls-lead); color:var(--text-secondary); }
+.sech h2{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-body); }
+.sech .all{ transition:color .15s ease; }
+.sech .all:hover{ color:var(--text-action); }

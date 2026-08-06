@@ -5,29 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Gold Standard 100% Whey - відгуки та сертифікат (wireframe 3.0)</title>
-<link rel="stylesheet" href="../wireframes/_wf.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/kit.css">
-<style>
-  /* COLOR LAYER · reviews recovery. The doubt is met by the calm bear + evidence,
-     not by a louder button: the banner is a warm panel, the proof (certificate,
-     reviews) is the content, and the only orange is the way forward. */
-  .recbanner { display: flex; align-items: center; gap: 18px; background: var(--fill2);
-    border: 1px solid var(--hair); border-radius: 14px; padding: 18px 20px; margin: 10px 0 26px; }
-  .recbanner .rbear { width: 92px; height: 92px; flex: none; border-radius: 50%; overflow: hidden; }
-  .recbanner .rbear img { width: 92px; height: 92px; object-fit: cover; object-position: center 12%;
-    mix-blend-mode: multiply; }
-  .recbanner .rt { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 21px;
-    letter-spacing: -.01em; color: var(--ink); }
-  .recbanner .rs { font-size: 14.5px; color: var(--sec); margin-top: 5px; line-height: 1.55; max-width: 62ch; }
-  @media (max-width: 559px) {
-    .recbanner { gap: 14px; padding: 16px; }
-    .recbanner .rbear, .recbanner .rbear img { width: 68px; height: 68px; }
-    .recbanner .rt { font-size: 18px; }
-  }
-</style>
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
 </head>
 <body>
 <!-- WIREFRAME · 3.0 STATE = reviews recovery (Job 3). The unsure buyer is routed to the
@@ -81,7 +64,7 @@
         <div class="rvbar"><span>2</span><div class="track"><div class="fill" style="width:1%"></div></div><span>2</span></div>
         <div class="rvbar"><span>1</span><div class="track"><div class="fill" style="width:1%"></div></div><span>1</span></div>
       </div>
-      <button class="btn dark" type="button" onclick="openReview()">＋ Залишити відгук</button>
+      <button class="btn--accent btn--s btn dark" type="button" onclick="openReview()">＋ Залишити відгук</button>
     </div>
 
     <div class="rvitem">
@@ -125,7 +108,7 @@
         <div class="rtext">Порівнював склад із сайтом виробника - усе збігається. Беру постійно.</div>
       </div>
     </div>
-    <div class="pgnav"><button class="loadmore">Показати ще відгуки (з 126)</button><div class="pages"><button class="on" type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">›</button></div></div>
+    <div class="pgnav"><button class="btn--outline loadmore">Показати ще відгуки (з 126)</button><div class="pages"><button class="btn--outline btn--icon btn--s on" type="button">1</button><button class="btn--outline btn--icon btn--s" type="button">2</button><button class="btn--outline btn--icon btn--s" type="button">3</button><button class="btn--outline btn--icon btn--s" type="button">›</button></div></div>
   </section>
 
   </div><!-- /revmain -->
@@ -136,7 +119,7 @@
   <aside class="pmini" aria-label="Товар, про який відгуки">
     <article class="pcard">
       <a href="product.html" class="ph">фото</a>
-      <button class="fav" aria-label="В обране">♡</button>
+      <button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
       <div class="bd">
         <div class="pbrand">Optimum Nutrition · США</div>
         <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
@@ -146,7 +129,7 @@
             <div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div>
             <span class="pnew">1 290 ₴</span>
           </div>
-          <button class="cartbtn" aria-label="У кошик">🛒</button>
+          <button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button>
         </div>
         <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
         <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
@@ -163,12 +146,14 @@
 <!-- sticky mobile buy bar: on mobile the pinned card is context, the bar is the action -->
 <div class="mbuybar">
   <div class="mbp"><span class="mold">1 520 ₴</span><span class="mcut">−15%</span><b>1 290 ₴</b></div>
-  <a class="mba" href="cart.html">У кошик</a>
+  <a class="btn--accent btn--l mba" href="cart.html">У кошик</a>
 </div>
 <div id="wf-sheet"></div>
 <div id="wf-pdp-modals"></div>
 <div id="wf-toast"></div>
 <script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/fields.js"></script>
 <script src="_nav.js"></script>
 <script>wfHeader(); wfFooter(); wfToasts(); wfPdpModals(); wfBar('product.html', 'reviews');
         uivFixLinks(); uivBar(); uivChrome(); uivPdp();</script>

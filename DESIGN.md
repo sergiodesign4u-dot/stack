@@ -108,4 +108,4 @@ Kept as a table because the layout is the living truth and each attribute needs 
 
 `DESIGN-artifacts.md` (origin of values) · `design/concept/docs/concept.md` (attributes and taste) ·
 `design/concept/docs/references.md` · `design/kit/kit.css` (the code this file was read from) ·
-`design/kit/inventory.md` (what the language has to dress) · `docs/decisions.md` sections 4-8.
+`design/kit/docs/inventory.md` (what the language has to dress) · `docs/decisions.md` sections 4-8.

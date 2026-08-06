@@ -1,0 +1,57 @@
+/* filter-group.css - filter group (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.fgroup{ border-bottom: 1px solid var(--bg-skeleton); }
+.fgroup:last-child{ border-bottom: none; }
+.fgroup .fh{ display: flex; justify-content: space-between; align-items: center; }
+.fgroup .fh .ar{ font-weight: var(--fw-bold); }
+.fgroup .fh{ cursor: pointer; user-select: none; }
+.fgroup.collapsed .fh .ar{ transform: rotate(180deg); }
+.fgroup.collapsed > *:not(.fh){ display: none; }
+.fopt{ display: flex; align-items: center; gap: var(--space-8); cursor: pointer; }
+.fopt .cb{ width: 15px; height: 15px; border: 1.5px solid var(--mark-faint); border-radius: var(--radius-4); display: inline-block; flex: none; }
+.fopt .cb.on{ position: relative; }
+.fopt .cb.on::after{ content: '✓'; color: var(--text-oninverse); font-size: var(--fs-10); position: absolute; top: -2px; left: 2px; }
+.fopt .ct{ margin-left: auto; font-size: var(--fs-12); }
+.frange{ height: 4px; border-radius: var(--radius-4); margin: var(--space-16) var(--space-2) var(--space-8); position: relative; }
+.frange::before, .frange::after{ content: ''; position: absolute; top: -4px; width: 12px; height: 12px; border-radius: var(--radius-circle); }
+.frange::before{ left: 18%; }
+.frange::after{ right: 26%; }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.fgroup .fh{ transition:color .15s ease; }
+.fgroup .fh .ar{ transition:transform .2s ease, color .15s ease; }
+.fgroup .fh:hover, .fgroup .fh:hover .ar{ color:var(--text-action); }
+.fopt{ transition:color .15s ease; }
+.fopt .cb{ transition:border-color .15s ease, background .15s ease; }
+.fopt .cb.on{ background:var(--bg-action); border-color:var(--line-action); }
+.fgroup{ border-bottom-color:var(--line-hair); padding:var(--space-16) var(--space-16); }
+.fgroup .fh{ font-size:var(--fs-14); font-weight:var(--fw-bold); color:var(--text-body); }
+.fgroup .fh .ar{ color:var(--text-muted); }
+.fopt{ font-size:var(--fs-14); color:var(--text-secondary); margin-top:var(--space-12); }
+.fopt .cb, .optin .cb{ width:18px; height:18px; border-radius:var(--radius-4); border-color:var(--line-strong); }
+.fopt .cb.on, .optin .cb.on{ position:relative; }
+.fopt .cb.on::after, .optin .cb.on::after{ content:''; box-sizing:border-box; position:absolute;
+  left:50%; top:50%; width:5px; height:9px; border:solid var(--line-onink); border-width:0 2px 2px 0;
+  transform:translate(-50%,-58%) rotate(45deg); font-size:0; }
+.fopt .ct{ color:var(--text-muted); font-family:var(--font-mono); }
+.frange{ background:var(--bg-track); }
+.frange::before, .frange::after{ background:var(--bg-action); }
+.frange.uiv-slider::before, .frange.uiv-slider::after{ content:none; display:none; }
+.frange.uiv-slider{ background:none; border-radius:0; }
+.fopt:hover{ color:var(--text-action); }
+.fopt:hover .cb{ border-color:var(--line-action); }
+
+/* ---------- step 6.11 -----------------------------------------------------
+   `.fmore` - «+ ще 11 · пошук бренду» under a long filter list - was styled
+   only in wireframes/_wf.css and never carried into the colour layer at the
+   step-3 split, so it rendered at the 16px near-black it inherited: LOUDER
+   than the 14px options it extends. Grey said 12 / tertiary / margin-top 9.
+   The size and the space come back as they were (9 -> the 8 rung). The ink
+   comes back as SECONDARY, not tertiary: tertiary is `--text-muted`, which is
+   what an OFF control wears in this system, and this control is live. */
+.fmore{ font-size: var(--fs-12); color: var(--text-secondary); margin-top: var(--space-8); }

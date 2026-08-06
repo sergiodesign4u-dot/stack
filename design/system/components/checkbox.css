@@ -1,0 +1,17 @@
+/* checkbox.css - checkbox (level 1)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.optin{ display: flex; align-items: flex-start; gap: var(--space-12); font-size: var(--fs-14); margin: var(--space-16) 0 var(--space-4); }
+.optin .cb{ width: 18px; height: 18px; border: 1.5px solid var(--line-strong); border-radius: var(--radius-4); flex: none; margin-top: var(--space-2); }
+.optin .cb.on{ position: relative; }
+.optin .cb.on::after{ content: '✓'; color: var(--text-oninverse); font-size: var(--fs-12); position: absolute; top: -2px; left: 3px; }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.optin{ color:var(--text-secondary); cursor:pointer; }
+.optin .cb{ transition:border-color .15s ease, background .15s ease; }
+.optin:hover .cb{ border-color:var(--line-action); }
+.optin .cb.on{ background:var(--bg-action); border-color:var(--line-action); }

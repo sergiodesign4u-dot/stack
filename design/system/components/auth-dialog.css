@@ -1,0 +1,158 @@
+/* auth-dialog.css - auth dialog (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.auth-ov{ display: none; position: fixed; inset: 0; z-index: 60;
+  align-items: stretch; justify-content: center; }
+.auth-ov.open{ display: flex; }
+.auth-modal{ background: var(--bg-page); width: 100%; display: flex; overflow-y: auto; }
+@media (min-width: 720px){
+  .auth-ov{ align-items: center; padding: var(--space-24); }
+  .auth-modal{ max-width: 880px; min-height: min(560px, 94vh); max-height: 94vh; border-radius: var(--radius-16);
+    overflow: hidden;  }
+}
+.auth-visual{ display: none; }
+@media (min-width: 720px){
+  .auth-visual{ display: flex; flex-direction: column; justify-content: space-between;
+    width: 42%; flex: none; padding: var(--space-24); color: var(--text-secondary); font-size: var(--fs-12);
+    background: repeating-linear-gradient(45deg,var(--bg-surface),var(--bg-surface) 10px,var(--bg-skeleton) 10px,var(--bg-skeleton) 20px);
+    border-right: 1px solid var(--line-hair); }
+}
+.auth-visual .vmid{ align-self: center; text-align: center; }
+.auth-visual .vmid .vi{ font-size: var(--fs-34); }
+.auth-visual .vtag b{ display: block; }
+.auth-form{ flex: 1; min-width: 0; padding: var(--space-24) var(--space-24) var(--space-32); display: flex; flex-direction: column;
+  overflow-y: auto; }
+@media (min-width: 720px){
+  .auth-form{ padding: var(--space-32) var(--space-40); }
+}
+.auth-top{ display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-8); }
+.auth-mlogo{ font-size: var(--fs-18); font-weight: var(--fw-black); color: var(--text-primary); }
+@media (min-width: 720px){
+  .auth-mlogo{ display: none; }
+  .auth-form{ position: relative; }
+  .auth-modal{ --auth-row: 34px; }
+  .auth-top{ position: absolute; top: 34px; right: 40px; height: var(--auth-row); margin: 0; }
+  .auth-h1{ padding-right: 54px; }
+  .auth-visual .vlogo{ display: flex; align-items: center; height: var(--auth-row);
+    margin-top: var(--space-8); }
+}
+/* the ✕ of a dialog is 20px everywhere in the product: the box is the icon
+   finish's, the ink is this file's, and step 6.7 found this one at 16 while
+   every other close was at 20 */
+.auth-x{ margin-left: auto; flex: none; font-size: var(--fs-20); line-height: var(--lh-flat); }
+.auth-banner{ display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) var(--space-16); margin: var(--space-8) 0 var(--space-16); }
+.auth-banner .bi{ width: var(--size-40); height: var(--size-40);
+  display: flex; align-items: center; justify-content: center; font-size: var(--fs-18); flex: none; }
+.auth-banner .bt{ font-size: var(--fs-14); color: var(--text-secondary); }
+.auth-banner .bt b{ display: block; }
+@media (min-width: 720px){
+  .auth-banner{ display: none; }
+}
+.auth-sub a{ text-decoration: underline; }
+.auth-cta{ width: 100%; }
+.auth-alt{ width: 100%; margin-top: var(--space-12); }
+/* step 6.10: was var(--fs-11-5) - no such token, so the declaration was dropped
+   and this line rendered at the size it inherited. 12 is the nearest real rung. */
+.auth-consent{ font-size: var(--fs-12); line-height: var(--lh-airy); margin: var(--space-16) 0 var(--space-4); }
+.auth-consent a{ text-decoration: underline; }
+.auth-or{ display: flex; align-items: center; gap: var(--space-12); }
+.auth-or::before, .auth-or::after{ content: ''; flex: 1; height: 1px; }
+.auth-foot{ font-size: var(--fs-12); }
+.auth-foot a{ text-decoration: underline; cursor: pointer; }
+.auth-load{ display: flex; flex-direction: column; align-items: center; text-align: center; margin: var(--space-24) 0 var(--space-8); }
+.auth-spin{ width: var(--size-46); height: var(--size-46); border: 4px solid var(--line-hair); border-radius: var(--radius-circle); margin-bottom: var(--space-24); }
+.auth-load .lp{ font-size: var(--fs-14); margin-top: var(--space-8); }
+.auth-skel{ width: 100%; max-width: 300px; margin: var(--space-24) auto 0; }
+.auth-skel .sl{ height: 11px; border-radius: var(--radius-4); margin: var(--space-8) 0; }
+.auth-skel .sl.m{ width: 70%; margin-inline: auto; }
+.auth-note{ font-size: var(--fs-12); text-align: center; margin-top: var(--space-16); line-height: var(--lh-airy); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+@media(min-width:900px){
+  .auth-ov{ left:216px; }
+}
+@media(max-width:899px){
+  .auth-ov{ top:40px; }
+}
+.auth-ov{ background:var(--scrim-overlay); }
+@media (min-width:720px){
+  .auth-ov{ padding:var(--space-32); }
+}
+.auth-modal{ border:1px solid var(--line-hair); border-radius:var(--radius-16);
+  box-shadow: var(--elevation-4); max-width:920px;
+  --auth-row:42px; }
+.auth-visual .vlogo{ display:inline-flex; align-items:center; gap:.36em;
+  font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-24); letter-spacing:var(--ls-display); color:var(--text-body); }
+.auth-visual .vlogo::before{ content:""; flex:none; height:1.0125em; width:.863em;
+  background:center/contain no-repeat url(../../concept/assets/logo-mark.svg); }
+.auth-visual .vmid{ display:flex; flex-direction:column; align-items:center; gap:var(--space-8);
+  font-family:var(--font-mono); font-size:var(--fs-12); letter-spacing:var(--ls-eyebrow);
+  text-transform:uppercase; color:var(--text-muted); }
+.auth-visual .vmid .vi{ width:var(--size-46); height:var(--size-46); border-radius:var(--radius-circle); background:var(--bg-page);
+  border:1.5px solid var(--line-action); color:var(--text-action);
+  display:flex; align-items:center; justify-content:center; margin-bottom:var(--space-4); }
+.auth-visual .vmid .vi .uiv-ic svg{ width:22px; height:22px; }
+.auth-ov[data-state="error"] .vmid .vi, .auth-ov[data-state="error"] .auth-banner .bi{
+  border-color:var(--line-danger); color:var(--text-danger); }
+.auth-ov[data-state="newuser"] .vmid .vi, .auth-ov[data-state="newuser"] .auth-banner .bi{
+  border-color:var(--line-success); color:var(--text-success); }
+.auth-visual .vtag{ background:var(--bg-page); border:1px solid var(--line-onphoto); border-radius:var(--radius-12);
+  padding:var(--space-16) var(--space-16); font-size:var(--fs-14); color:var(--text-secondary); line-height:var(--lh-airy);
+  box-shadow: var(--elevation-mark); }
+.auth-visual .vtag b{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-16);
+  letter-spacing:var(--ls-lead); color:var(--text-body); margin-bottom:var(--space-4); }
+@media (min-width:720px){
+  .auth-visual{ width:44%; padding:var(--space-24); position:relative; overflow:hidden; border-right:none;
+    background:var(--bg-sunken) url(../../visuals/mascot-gym-a.jpg) 52% 34%/cover no-repeat; }
+  .auth-visual::before{ content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg, var(--veil-page) 0%, var(--fade-page) 22%,
+      var(--fade-inverse) 50%, var(--veil-inverse) 100%); }
+  .auth-visual > *{ position:relative; }
+  .auth-visual .vmid{ position:absolute; top:34px; right:24px; height:var(--auth-row);
+    margin:0; gap:0; justify-content:center; font-size:0; letter-spacing:0; }
+  .auth-visual .vmid .vi{ margin:0; box-shadow: var(--elevation-mark); }
+  .auth-form{ padding:var(--space-32) 38px var(--space-32); }
+}
+@media (max-width:719px){
+  .auth-mlogo{ display:inline-flex; align-items:center; gap:.36em; font-family:var(--font-display);
+    font-weight:var(--fw-bold); color:var(--text-body); }
+  .auth-mlogo::before{ content:""; flex:none; height:1.0125em; width:.863em;
+    background:center/contain no-repeat url(../../concept/assets/logo-mark.svg); }
+}
+.auth-banner{ background:var(--bg-surface); border:1px solid var(--line-hair); border-radius:var(--radius-12); }
+.auth-banner .bi{ background:var(--bg-page); border:1px solid var(--line-hair); border-radius:var(--radius-8); color:var(--text-action); }
+.auth-banner .bi .uiv-ic svg{ width:19px; height:19px; }
+.auth-banner .bt b{ color:var(--text-body); }
+.auth-h1{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-30); letter-spacing:var(--ls-lead); color:var(--text-body); }
+/* step 6.10: was var(--fs-14-5) - no such token, so the declaration was dropped
+   and this line rendered at the size it inherited. 14 is the nearest real rung. */
+.auth-sub{ font-size:var(--fs-14); color:var(--text-secondary); line-height:var(--lh-airy); margin:var(--space-8) 0 var(--space-24); }
+.auth-sub b{ color:var(--text-body); font-family:var(--font-mono); font-weight:var(--fw-semibold); font-size:var(--fs-14); }
+.auth-sub a{ color:var(--text-body); font-weight:var(--fw-semibold); text-decoration-color:var(--line-strong); }
+.auth-sub a:hover{ color:var(--text-action); text-decoration-color:var(--line-action); }
+/* step 6.3: local edition of the outline hover deleted - the finish has it. */
+.auth-consent{ color:var(--text-muted); }
+.auth-consent b{ color:var(--text-secondary); }
+.auth-consent a{ color:var(--text-secondary); text-decoration-color:var(--line-strong); }
+.auth-consent a:hover{ color:var(--text-body); }
+.auth-or{ color:var(--text-muted); font-family:var(--font-mono);
+  font-size:var(--fs-12); letter-spacing:var(--ls-eyebrow); text-transform:uppercase; margin:var(--space-24) 0; }
+.auth-or::before, .auth-or::after{ background:var(--bg-rule); }
+.auth-foot{ color:var(--text-muted); border-top:1px solid var(--line-hair); margin-top:auto; padding-top:var(--space-16); }
+.auth-foot a{ color:var(--text-secondary); text-decoration-color:var(--line-strong); }
+.auth-foot a:hover{ color:var(--text-body); }
+.auth-load .lt{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); letter-spacing:var(--ls-lead); color:var(--text-body); }
+.auth-load .lp{ color:var(--text-secondary); }
+.auth-load .lp b{ color:var(--text-body); font-family:var(--font-mono); font-weight:var(--fw-semibold); font-size:var(--fs-14); }
+.auth-spin{ border-color:var(--line-hair); border-top-color:var(--line-action); animation:uivspin .9s linear infinite; }
+@keyframes uivspin{ to{ transform:rotate(360deg); } }
+@media (prefers-reduced-motion:reduce){
+  .auth-spin{ animation:none; }
+}
+.auth-skel .sl{ background:var(--bg-sunken); }
+.auth-note{ display:flex; align-items:center; justify-content:center; gap:var(--space-8); color:var(--text-muted); }
+.auth-note .uiv-ic svg{ width:15px; height:15px; }

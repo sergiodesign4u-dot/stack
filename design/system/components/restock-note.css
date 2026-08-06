@@ -1,0 +1,62 @@
+/* restock-note.css - restock note (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.restock .rk-lead{ font-size: var(--fs-14); color: var(--text-secondary); margin: calc(-1 * var(--space-4)) 0 var(--space-12); }
+.rk-item{ display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); }
+.rk-item:last-child{ border-bottom: none; padding-bottom: var(--space-2); }
+.rk-item:first-of-type{ padding-top: var(--space-2); }
+.rk-ph{ width: var(--size-46); height: var(--size-46); border-radius: var(--radius-8); background: var(--bg-sunken); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; color: var(--mark-faint); font-size: var(--fs-10); flex: none; }
+.rk-tx{ min-width: 0; }
+.rk-nm{ font-size: var(--fs-14); font-weight: var(--fw-bold); line-height: var(--lh-snug); }
+.rk-cy{ font-size: var(--fs-12); color: var(--text-secondary); margin-top: var(--space-2); }
+.rk-cy b{ font-weight: var(--fw-bold); }
+.rk-add{ margin-left: auto; white-space: nowrap; }
+
+.rk-item:nth-of-type(odd) .rk-ph{ background-image:url(../../visuals/product-whey.png); }
+.rk-item:nth-of-type(even) .rk-ph{ background-image:url(../../visuals/product-creatine.png); }
+.rk-nm{ color:var(--text-body); }
+.rk-cy b{ color:var(--text-body); font-family:var(--font-mono); }
+
+/* ---------- moved off the screen (stage 08 step 5) ----------
+   These rules lived in a <style> block on design/product-oos.html and used the
+   stage-07 variable names, so deleting kit.css killed them outright. A screen
+   owns no css: each rule goes to the component it belongs to, and the old
+   names are translated to semantic roles BY VALUE, the way step 2 did it. */
+/* COLOR LAYER · OOS. The photo is not dimmed into a sad grey rectangle - it is
+     desaturated just enough to read as "not available now", while the product stays
+     recognisable (honest, not dramatic - voice.md 5). */
+  .oosgal .gmain img { filter: grayscale(.75); opacity: .85; }
+/* the ONE action on this page is «Повідомити про надходження», so it carries the
+     orange; the submit next to the field is its ghost twin, not a second primary */
+  .oosbtn { flex: 1; }
+/* step 7: align-items:center, because the field is 44 by the ladder and the
+   button beside it is L. Stretch made the field 64 - a height no rung of the
+   set has, borrowed from whatever stood next to it. */
+.notifyrow { display: flex; align-items: center; gap: var(--space-12); margin-top: var(--space-12); }
+/* step 7: the `font` shorthand that lived here carried 15px and a hard-coded
+   family - 15 is not a rung of the scale, and the family is the field's. */
+.notifyrow input{ flex: 1; min-width: 0; }
+.notifyrow .btn { white-space: nowrap; }
+.oosnote { font-size: var(--fs-14); color: var(--text-secondary); margin-top: 12px; line-height: var(--lh-airy); }
+.oosback { margin-top: 14px; }
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.rk-ph, .aord-thumbs .t, .oh-thumbs i{ background:var(--bg-page) center/78% no-repeat;
+  border-color:var(--line-hair); color:transparent; }
+
+/* .notifyrow input got min-width:0 at step 5.5. A flex item defaults to
+   min-width:auto, so once the field grew to 16px it refused to shrink and
+   pushed the page 8px wide at 360. Shrinking the field is the fix; making
+   it narrower by hand is not, because it must stay tappable. */
+
+/* At 360 the field and its button cannot both keep their minimum width, and the
+   grid column they sit in inherits that min-content and pushes the page 8px wide.
+   The answer is to stack, not to shrink the field below the 16px that stops the
+   iOS zoom, and not to let the button truncate its verb. */
+@media (max-width: 419px){
+  .notifyrow{ flex-wrap: wrap; }
+  .notifyrow input, .notifyrow .btn{ flex: 1 1 100%; }
+}

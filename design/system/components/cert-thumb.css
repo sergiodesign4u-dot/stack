@@ -1,0 +1,20 @@
+/* cert-thumb.css - cert thumb (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.certbox{ display: flex; align-items: center; flex-wrap: wrap; }
+.certthumb{ display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-align: center; }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.certbox{ gap:var(--space-16); }
+.certthumb{ width:104px; height:138px; border-radius:var(--radius-8); border:1px solid var(--line-strong); background:var(--bg-page);
+  position:relative; font-size:0; overflow:hidden; transition:border-color .15s ease, transform .15s ease; }
+.certthumb::before{ content:""; position:absolute; left:14px; right:14px; top:18px; height:64px;
+  background:repeating-linear-gradient(180deg, var(--bg-rule) 0 2px, transparent 2px 11px); }
+.certthumb::after{ content:"PDF"; position:absolute; left:14px; bottom:14px;
+  font:600 10px/1 'IBM Plex Mono', ui-monospace, monospace; letter-spacing:var(--ls-caps); color:var(--text-body);
+  border:1px solid var(--line-strong); border-radius:var(--radius-4); padding:var(--space-4) var(--space-8); }
+.certthumb:hover{ border-color:var(--line-action); transform:translateY(-2px); }

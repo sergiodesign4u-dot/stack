@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Меню вибору | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
+     a demo that only LOOKS like the component proves nothing about it. Every
+     menu below is built by the product's own menu.js, not by this page. -->
+<script src="../system/icons.js"></script>
+<script src="../system/menu.js"></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Меню вибору</h1>
+<p class="kp-lead">Одне значення зі списку. <b>Крок 7.2.</b> До нього продукт мав два способи вибрати одне зі списку, і жоден не був цілим: сортування - список, зібраний руками, який відповідав <b>лише миші</b>, а на телефоні не відкривався взагалі; вибір клієнта - нативний <code>&lt;select&gt;</code>, у якого все це є безкоштовно, але розкритий список малює операційна система. Тепер обидва - один атом.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/menu.css</span><span class="kp-tag">design/system/menu.js</span><span class="kp-tag">2 вживання</span></div>
+
+<style>
+.mset{ display:grid; gap:var(--space-24); }
+.ms-row{ display:grid; grid-template-columns:minmax(140px,180px) minmax(0,1fr);
+  gap:var(--space-16); align-items:start; padding-bottom:var(--space-24);
+  border-bottom:1px solid var(--line-hair); }
+.ms-row:last-child{ border-bottom:none; padding-bottom:0; }
+.ms-lbl{ font-weight:var(--fw-black); font-size:var(--fs-14); display:grid; gap:var(--space-2); }
+.ms-lbl span{ font-weight:var(--fw-medium); font-size:var(--fs-12); color:var(--text-secondary); }
+.ms-cell{ display:grid; gap:var(--space-8); justify-items:start; min-width:0; }
+.ms-cell i{ font-family:var(--font-mono); font-style:normal; font-size:var(--fs-12); color:var(--text-secondary); }
+@media (max-width:859px){ .ms-row{ grid-template-columns:minmax(0,1fr); } }
+</style>
+
+<section class="kp-sec"><div class="kp-sh">Два джерела, один атом</div>
+<div class="kp-demo"><div class="mset">
+  <div class="ms-row"><div class="ms-lbl">з поля<span>значення йде у форму</span></div>
+    <div class="ms-cell" style="width:280px;max-width:100%">
+      <select class="field" id="kmsel" aria-label="Оберіть клієнта">
+        <option>Андрій - Набір маси</option>
+        <option>Марія - Схуднення</option>
+        <option>Ігор - Витривалість</option>
+        <option>+ Новий клієнт…</option>
+      </select>
+      <i>uivMenuFromSelect(select) · 44, драбина поля</i></div></div>
+
+  <div class="ms-row"><div class="ms-lbl">з кнопки<span>міняє вигляд, а не значення</span></div>
+    <div class="ms-cell">
+      <button class="btn--outline btn--s" id="kmsort" type="button"><span class="cap">Сортування:</span> <span class="menu-val">Популярні</span></button>
+      <i>uivMenu(trigger, items) · 40, драбина кнопки</i></div></div>
+</div>
+<div class="kp-cap"><b>Select лишається значенням.</b> Розмітка пікера - це й далі <code>&lt;select&gt;</code>: меню будується <b>з нього</b> і пише назад у нього, тому форма різниці не бачить, а сторінка без JS працює. Замінено закритий тригер і розкритий список, а не сенс контрола. <b>Дія - не значення:</b> «+ Новий клієнт…» виходить зі списку значень і стає кнопкою під роздільником. Саме через це пікер не міг лишитись нативним селектом: вибір такої опції означав би «значення = Новий клієнт», що неправда.</div></div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Клавіатура</div>
+<p class="kp-p">Усе, що нативний <code>&lt;select&gt;</code> давав задарма і що тепер винні ми. У списку, зібраному руками до кроку 7.2, не було <b>жодного</b> рядка з цієї таблиці.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клавіша</th><th>На тригері</th><th>У списку</th></tr></thead><tbody>
+<tr><td><code>↓</code> / <code>↑</code></td><td>відкриває - на обраному рядку, або на останньому для <code>↑</code></td><td>рухає на рядок</td></tr>
+<tr><td><code>Enter</code> / <code>Space</code></td><td>відкриває</td><td>обирає й закриває</td></tr>
+<tr><td><code>Home</code> / <code>End</code></td><td>-</td><td>перший / останній</td></tr>
+<tr><td>літери</td><td>-</td><td>стрибок на рядок, що з них починається (вікно 700 мс)</td></tr>
+<tr><td><code>Esc</code></td><td>-</td><td>закриває, фокус повертається на тригер</td></tr>
+<tr><td><code>Tab</code></td><td>далі по сторінці</td><td>закриває і йде далі</td></tr>
+</tbody></table></div>
+<p class="kp-p">Ролі: тригер несе <code>aria-haspopup="listbox"</code> і <code>aria-expanded</code>, список - <code>role="listbox"</code>, рядок - <code>role="option"</code> і <code>aria-selected</code>. Дія стоїть <b>поза</b> списком і тому не має ні ролі опції, ні галочки.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">На телефоні - шторка</div>
+<p class="kp-p">Нижче 480 список, прив'язаний до тригера, або тікає за екран, або лягає під палець. У продукті вже є нижня шторка для фільтрів, тож меню бере ту саму форму, а не вигадує другу: смужка-хват, рядки 52, ґрунт під усім екраном.</p>
+<p class="kp-p"><b>І шторка залишає свій тригер.</b> <code>.mtoolbar</code> - липкий блок із <code>z-index: 20</code>, тобто власний контекст накладання: всередині нього жоден наш <code>z-index</code> не підніметься над нижньою панеллю (z 50), і шторка відкривалась <b>під</b> нею. Тому нижче 480 <code>menu.js</code> переносить список і ґрунт у <code>&lt;body&gt;</code>, поки меню відкрите, і повертає назад, коли закрите. Через це стан відкритості висить на самому списку (<code>.menu-pop.open</code>), а не на <code>.menu.open .menu-pop</code>.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Меню обирає значення, кнопка робить дію.</b> Список - це <code>listbox</code> зі значень; усе, що не є значенням, стоїть під роздільником окремою кнопкою. Обраний рядок несе акцент <b>і</b> галочку: колір сам по собі не працює для того, хто його не бачить.<br><br><b>Одне меню за раз.</b> Відкриття закриває будь-яке інше: два розкриті списки - це дві відповіді на одне питання.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби меню з того, що веде.</b> Мова, кабінет, мега-меню - це навігація: там вибір нічого не обирає, а переносить. Їхній список не <code>listbox</code>, і галочки в ньому бути не може.<br><br><b>Не лишай нативний select там, де в списку є дія.</b> Це єдина причина, з якої пікер клієнта перестав бути селектом - не вигляд.</div></div>
+</section>
+
+</main>
+<script>
+window.addEventListener('load', function(){
+  var sel = document.getElementById('kmsel');
+  if(sel && typeof uivMenuFromSelect === 'function'){
+    uivMenuFromSelect(sel, { actionMatch: /Новий клієнт/, onAction: function(){} });
+  }
+  var t = document.getElementById('kmsort');
+  if(t && typeof uivMenu === 'function'){
+    uivMenu(t, ['Популярні','Спочатку дешевші','Спочатку дорожчі','Новинки','За рейтингом','Зі знижкою']
+      .map(function(v, i){ return { value: v, label: v, selected: i === 0 }; }),
+      { label: 'Сортування' });
+  }
+});
+</script>
+<script>var KIT_ACTIVE = 'menu';</script>
+<script src="_nav.js"></script>
+</body>
+</html>

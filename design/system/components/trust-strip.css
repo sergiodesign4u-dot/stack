@@ -1,0 +1,97 @@
+/* trust-strip.css - trust strip (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.cshelf{ display: flex; align-items: center; gap: var(--space-16); flex-wrap: wrap; border: 1.5px solid var(--line-inverse); padding: var(--space-12) var(--space-16); margin: var(--space-16) 0; background: var(--bg-page); }
+.cshelf .cs-ico{ font-size: var(--fs-20); flex: none; }
+.cshelf .cs-tx{ display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+.cshelf .cs-s{ font-size: var(--fs-14); }
+.cshelf .cs-thumbs{ display: flex; gap: var(--space-8); margin-left: var(--space-4); }
+.cshelf .cs-th{ width: var(--size-40); height: var(--size-40); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: 8px; position: relative; }
+.cshelf .cs-th .q{ position: absolute; top: -6px; right: -6px; min-width: 16px; height: 16px; border-radius: var(--radius-pill); font-size: var(--fs-10); font-weight: var(--fw-black); display: flex; align-items: center; justify-content: center; padding: 0 var(--space-4); }
+.cshelf .cs-th.more{ font-size: var(--fs-12); font-weight: var(--fw-black); }
+.cshelf .cs-sp{ flex: 1; min-width: 12px; }
+.cshelf .cs-act{ display: flex; gap: var(--space-8); flex-wrap: wrap; }
+@media (max-width: 560px){
+  .cshelf .cs-act{ width: 100%; }
+  .cshelf .cs-act .btn{ flex: 1; }
+}
+.truststrip{ display: grid; grid-template-columns: 1fr 1fr; }
+@media (min-width: 720px){
+  .truststrip{ grid-template-columns: repeat(4, 1fr); }
+}
+.tsx{ font-size: var(--fs-14); }
+.tsx b{ display: block; color: var(--text-primary); margin-bottom: var(--space-2); }
+.tsx span{ color: var(--text-secondary); }
+.trustsec{ border: 1px solid var(--line-hair); margin-bottom: var(--space-12); overflow: hidden; }
+.trustsec > summary{ display: flex; justify-content: space-between; align-items: center; color: var(--text-primary); cursor: pointer; list-style: none; }
+.trustsec > summary::-webkit-details-marker{ display: none; }
+.trustsec > summary .chev{ color: var(--text-muted); }
+.trustsec[open] > summary .chev{ transform: rotate(180deg); }
+.trustsec .tsb{ font-size: var(--fs-14); color: var(--text-body); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.truststrip{ position:relative; overflow:visible; margin:var(--space-32) 0 var(--space-24); gap:0;
+  background:linear-gradient(180deg, var(--bg-sunken) 0%, var(--bg-surface) 100%);
+  border:1px solid var(--line-hair); border-radius:var(--radius-16); padding:var(--space-8); }
+.tsx{ display:grid; grid-template-columns:auto minmax(0,1fr); grid-template-rows:auto auto;
+  column-gap:var(--space-12); align-content:center; border:none; border-radius:var(--radius-12);
+  background:none; padding:var(--space-16) var(--space-16); transition:background .15s ease; }
+.tsx .uiv-ic{ grid-column:1; grid-row:1 / span 2; align-self:center; }
+.tsx b{ grid-column:2; grid-row:1; align-self:end; }
+.tsx span:not(.uiv-ic){ grid-column:2; grid-row:2; align-self:start; }
+.tsx:hover{ background:var(--bg-onphoto); }
+@media (min-width:720px){
+  .tsx + .tsx{ box-shadow:inset 1px 0 0 var(--line-hair); }
+}
+@media (max-width:719px){
+  .tsx:nth-child(even){ box-shadow:inset 1px 0 0 var(--line-hair); }
+  .tsx:nth-child(n+3){ box-shadow:inset 0 1px 0 var(--line-hair); }
+  .tsx:nth-child(4){ box-shadow:inset 1px 0 0 var(--line-hair), inset 0 1px 0 var(--line-hair); }
+}
+@media (max-width:479px){
+  .truststrip{ grid-template-columns:1fr; padding:var(--space-8); }
+  .tsx{ padding:var(--space-12) var(--space-12); column-gap:var(--space-12); }
+  .tsx .uiv-ic{ width:var(--size-38); height:var(--size-38); border-radius:var(--radius-12); }
+  .tsx .uiv-ic svg{ width:var(--size-20); height:var(--size-20); }
+  .tsx:nth-child(even), .tsx:nth-child(4){ box-shadow:none; }
+  .tsx + .tsx{ box-shadow:inset 0 1px 0 var(--line-hair); }
+}
+.tsx .uiv-ic{ flex:none; width:var(--size-44); height:var(--size-44); border-radius:var(--radius-12); background:var(--bg-page); color:var(--text-body);
+  box-shadow: var(--elevation-control);
+  transition:transform .15s ease, color .15s ease; }
+.tsx:hover .uiv-ic{ transform:translateY(-2px); color:var(--text-action); }
+.tsx .uiv-ic svg{ width:23px; height:23px; }
+.tsx b{ font-size:var(--fs-14); line-height:var(--lh-snug); }
+.tsx span:not(.uiv-ic){ display:block; margin-top:var(--space-4); line-height:var(--lh-snug); }
+.uiv-trustbear{ position:absolute; right:0; top:4px; height:196px; width:auto;
+  max-width:none; mix-blend-mode:multiply; }
+@media (min-width:1180px){
+  .truststrip{ padding-right:150px; }
+}
+.trustsec{ border-color:var(--line-hair); border-radius:var(--radius-12); }
+.trustsec > summary{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); letter-spacing:var(--ls-lead);
+  background:var(--bg-surface); padding:var(--space-16) var(--space-16); }
+.trustsec[open] > summary{ border-bottom:1px solid var(--line-hair); }
+.trustsec > summary{ transition:background .15s ease; }
+.trustsec > summary:hover{ background:var(--bg-sunken); }
+.trustsec > summary:hover .chev{ color:var(--text-action); }
+.trustsec .tsb{ padding:var(--space-16) var(--space-16) var(--space-16); }
+.uiv-seal{ position:absolute; right:12px; bottom:12px; width:var(--size-30); height:var(--size-30); border-radius:var(--radius-circle);
+  border:1.5px solid var(--line-action); color:var(--text-action); display:flex; align-items:center; justify-content:center; }
+.uiv-seal svg{ width:17px; height:17px; }
+.cshelf{ border-color:var(--line-action); border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
+.cshelf .cs-ico{ color:var(--text-action); display:inline-flex; }
+.cshelf .cs-ico .uiv-ic svg{ width:22px; height:22px; }
+.cshelf .cs-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-16); letter-spacing:var(--ls-lead); color:var(--text-body); }
+.cshelf .cs-s{ color:var(--text-secondary); }
+.cshelf .cs-s b{ font-family:var(--font-mono); font-weight:var(--fw-semibold); color:var(--text-body); word-spacing:-.1em; }
+.cshelf .cs-th{ background:var(--bg-page) center/82% no-repeat; border-color:var(--line-hair); border-radius:var(--radius-8); color:transparent; }
+.cshelf .cs-thumbs .cs-th:nth-child(1){ background-image:url(../../visuals/product-whey.png); }
+.cshelf .cs-thumbs .cs-th:nth-child(2){ background-image:url(../../visuals/product-creatine.png); }
+.cshelf .cs-th.more{ background-image:none; color:var(--text-secondary); font-family:var(--font-mono); }
+.cshelf .cs-th .q{ background:var(--bg-action); color:var(--text-oninverse); font-family:var(--font-mono); }
+/* step 6.3: same local copy of the outline finish, same deletion. */

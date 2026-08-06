@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Іконка | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
+     a demo that only LOOKS like the component proves nothing about it. -->
+<script src="../system/icons.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 1</div>
+<h1 class="kp-h1">Іконка</h1>
+<p class="kp-lead">Обгортка навколо inline-SVG з набору Solar. Сама іконка кольору не має: вона успадковує <code>currentColor</code>, тому колір задає роль тексту поруч.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/icon.css</span><span class="kp-tag">34 рядків</span><span class="kp-tag">4 екранів</span></div>
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<div class="kp-demo"><div class="kp-row" style="align-items:center;gap:18px;font-size:22px"><span class="uiv-ic" style="color:var(--text-primary)">&#9733;</span><span class="uiv-ic" style="color:var(--text-action)">&#9679;</span><span class="uiv-ic" style="color:var(--text-muted)">&#9662;</span></div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Обгортка <code>.uiv-ic</code></b> - inline-flex і <code>line-height:0</code> - інакше гліф зсуває рядок</span></div><div class="a"><i>2</i><span><b>SVG</b> - розмір у <code>em</code>, тому іконка росте разом з текстом</span></div><div class="a"><i>3</i><span><b>Колір</b> - <code>currentColor</code> - іконка не вирішує сама</span></div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
+<p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Розмір</b></td><td><code>1.05em</code> базовий · фіксований у px там, де поруч немає тексту</td><td>В рядку - em, щоб іконка масштабувалась із підписом. Окремо - px, бо успадковувати нема від чого.</td></tr><tr><td><b>Колір</b></td><td>успадкований</td><td>Іконка ніколи не оголошує колір сама. Хочеш іншу - зміни роль тексту, у якому вона стоїть.</td></tr></tbody></table></div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Що зведено <b>на кроці 5.5</b></div>
+<p class="kp-p">Рішення живе там, де на нього дивляться. Перепис показав дрейф, крок 5.5 його зняв - і цей блок каже, <b>що саме обрали, що лишили і чому</b>, на сторінці самого компонента, а не тільки в журналі.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Було</th><th>Стало</th><th>Чому</th></tr></thead><tbody><tr><td><b>Товщина лінії</b></td><td><code>6</code></td><td><code>4</code></td><td>1.5 і 1.7 були трьома гліфами, що відбились від набору - зведені в <b>1.9</b>. 2.4 і 2.6 лишились навмисно: товщина задана в одиницях viewBox, тому іконка 24 у 10px малює свій штрих у 0.79px і зникає. <b>Одна товщина на всіх розмірах шкали; під 14px штрих компенсує.</b> <code>1px</code> у 124 місцях ще не розібрано.</td></tr><tr><td><b>Розмір</b></td><td><code>30 різних</code></td><td><code>не зводили</code></td><td>Свідомо. Більшість це <code>1.05em</code> від сусіднього тексту, тобто іконка робить те, що має - росте з підписом. Шкала для іконок <i>без</i> підпису - етап 09.</td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Іконка стоїть <b>поруч зі словом</b>, а не замість нього, всюди крім місць, де підпис уже є в <code>aria-label</code> і місця фізично немає (кнопка «у кошик» на картці). Принцип 5 - «звичайні слова в підписах»; піктограма без слова це загадка.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Іконка успадковує колір.</b> Один клас на всі 40 гліфів, колір приходить від ролі тексту.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не фарбуй іконку окремо.</b> <code>.uiv-ic{color:...}</code> у файлі компонента розриває зв'язок з підписом: підпис змінить роль, а іконка лишиться старою. Так само не роби іконку-без-підпису там, де підпис влазить - див. <b>Кнопка</b>.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
+<p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>0</b> станів оголошено в <code>icon.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (<code>.open</code> <code>.uiv-sort</code>) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["chev", "uiv-brand", "uiv-ic"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>icon.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (0)</th><th>Примітиви (2)</th></tr></thead><tbody><tr><td><code>-</code></td><td><code>--brand-ink</code> <code>--lh-flat</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;span class="uiv-ic"&gt;&lt;svg viewBox="0 0 24 24"&gt;...&lt;/svg&gt;&lt;/span&gt;</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.uiv-ic</code> <code>.chev</code></p>
+<p class="kp-p"><b>4 екранів</b> у <code>wireframes/</code>: account-orders.html, content-faq.html, product-coach.html, product.html</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Набір не описаний як набір</b> - імена гліфів живуть у <code>wireframes/_nav.js</code>, а не в системі; сторінка <b>Іконки</b> показує їх, але реєстру імен немає</li><li><b>Немає розмірної шкали</b> - <code>1.05em</code> це одне значення, а не сходинки</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script>
+/* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
+   screen. A page that pastes the paths carries a second edition of the set, and a
+   second edition is the thing this stage spent two steps deleting. */
+(function(){
+  document.querySelectorAll('[data-brand]').forEach(function(e){
+    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
+  });
+  document.querySelectorAll('[data-glyph]').forEach(function(e){
+    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
+  });
+})();
+</script>
+<script>
+/* The page checks ITSELF against its file. Everything a person can see counts as
+   shown: a rendered demo, a class named in the markup block, a class named inside
+   any <code> on the page. What is left is what the file declares and the showcase
+   never puts in front of anyone. */
+(function(){
+  /* Two levels, because they are not the same thing. RENDERED means the class is
+     on a live element inside a demo - a person sees the component. NAMED means it
+     is only written out in the markup block or in a <code>. A page that names a
+     class it never renders is describing the file, which is exactly the habit
+     this stage set out to break. */
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, усі <b>' + KIT_STS.length +
+      '</b> станів названі.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+</main>
+<script>var KIT_ACTIVE = 'icon';</script>
+<script src="_nav.js"></script>
+</body>
+</html>

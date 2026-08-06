@@ -1,0 +1,85 @@
+/* review-item.css - review item (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.rvbig{ text-align: center; }
+.rvbig .n{ line-height: var(--lh-flat); }
+.rvbig .s{ font-size: var(--fs-14); margin-top: var(--space-4); }
+.rvbars{ display: flex; flex-direction: column; gap: var(--space-4); }
+.rvbar{ display: flex; align-items: center; gap: var(--space-8); font-size: var(--fs-12); color: var(--text-secondary); }
+.rvbar .track{ flex: 1; border-radius: var(--radius-4); overflow: hidden; }
+.rvbar .fill{ height: 100%; }
+.rvitem{ border-top: 1px solid var(--line-hair); padding: var(--space-16) 0; display: grid; grid-template-columns: 1fr; gap: var(--space-12); }
+@media (min-width: 620px){
+  .rvitem{ grid-template-columns: 180px 1fr; }
+}
+.rvmeta .rname{ font-weight: var(--fw-bold); color: var(--text-primary); font-size: var(--fs-14); }
+.rvmeta .rdate{ font-size: var(--fs-12); color: var(--text-muted); margin-top: var(--space-2); }
+.rvmeta .rstars{ font-size: var(--fs-14); color: var(--text-primary); font-weight: var(--fw-bold); margin-top: var(--space-4); }
+.rvmeta .rbadge{ display: inline-block; font-size: var(--fs-10); font-weight: var(--fw-black); border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); }
+.rvbody .prc{ font-size: var(--fs-14); margin: var(--space-4) 0; }
+.rvbody .prc b{ color: var(--text-primary); }
+.rvbody .rtext{ font-size: var(--fs-14); color: var(--text-body); margin-top: var(--space-4); }
+.rvreply{ margin-top: var(--space-12); font-size: var(--fs-14); }
+.rvreply .rchip{ display: inline-flex; align-items: center; gap: var(--space-8); font-weight: var(--fw-black); color: var(--text-primary); font-size: var(--fs-12); margin-bottom: var(--space-4); }
+.revcols{ display: grid; grid-template-columns: 1fr; gap: var(--space-24); }
+@media (min-width: 860px){
+  .revcols{ grid-template-columns: minmax(0, 1fr) 300px; gap: 36px; align-items: start; }
+}
+.sr{ display: flex; justify-content: space-between; gap: var(--space-12); font-size: var(--fs-14); padding: var(--space-4) 0; }
+.sr span:first-child{ color: var(--text-secondary); }
+.sr span:last-child{ color: var(--text-primary); font-weight: var(--fw-semibold); white-space: nowrap; }
+.sr.total{ border-top: 1.5px solid var(--line-strong); margin-top: var(--space-8); padding-top: var(--space-12); }
+.sr.total span{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); }
+.sr.accrual span:last-child{ font-weight: var(--fw-black); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.rvbig{ background:var(--bg-surface); border-radius:var(--radius-12); padding:var(--space-16) var(--space-12); }
+.rvbig .n{ font-family:var(--font-display); font-weight:var(--fw-bold); font-size:50px; color:var(--text-body); }
+.rvbig .s{ color:var(--text-secondary); }
+.rvbar{ font-family:var(--font-mono); }
+.rvbar .track{ background:var(--bg-rule); height:7px; }
+.rvbar .fill{ background:var(--bg-inverse); }
+.rvbar > span{ text-align:left; }
+.rvbar > span:first-child{ min-width:1ch; }
+.rvbar > span:last-child{ min-width:3ch; }
+.rvmeta .rstars{ display:flex; width:fit-content; align-items:center; gap:var(--space-4);
+  font-family:var(--font-mono); }
+.rvmeta .rbadge{ margin-top:var(--space-8); }
+.rvbig .starrow{ display:inline-flex; gap:var(--space-2); margin-bottom:var(--space-4); }
+.rvbig .starrow .uiv-star svg{ width:18px; height:18px; }
+.rvmeta .rbadge{ color:var(--text-success); border-color:var(--line-success-soft); background:var(--bg-success); }
+.rvbody .rtext{ line-height:var(--lh-airy); }
+.rvreply{ border-left:2px solid var(--line-action); background:var(--bg-surface); border-radius:0 var(--radius-8) var(--radius-8) 0; padding:var(--space-12) var(--space-12); }
+.rvreply .rchip .lg{ background:none; color:var(--text-body); border:1.5px solid var(--line-action);
+  font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-12); letter-spacing:var(--ls-caps);
+  border-radius:var(--radius-4); padding:var(--space-2) var(--space-8); }
+.sr span:last-child{ font-family:var(--font-mono); word-spacing:-.24em; }
+.sr.total{ border-top-color:var(--line-strong); }
+.sr.total span:last-child{ font-weight:var(--fw-semibold); }
+.sr.accrual span:last-child{ color:var(--text-bonus); }
+
+/* ---------- moved off the screen (stage 08 step 5) ----------
+   These rules lived in a <style> block on design/product-reviews.html and used the
+   stage-07 variable names, so deleting kit.css killed them outright. A screen
+   owns no css: each rule goes to the component it belongs to, and the old
+   names are translated to semantic roles BY VALUE, the way step 2 did it. */
+/* COLOR LAYER · reviews recovery. The doubt is met by the calm bear + evidence,
+     not by a louder button: the banner is a warm panel, the proof (certificate,
+     reviews) is the content, and the only orange is the way forward. */
+  .recbanner { display: flex; align-items: center; gap: 18px; background: var(--bg-surface);
+    border: 1px solid var(--line-hair); border-radius: var(--radius-12); padding: 18px 20px; margin: 10px 0 26px; }
+.recbanner .rbear { width: 92px; height: 92px; flex: none; border-radius: var(--radius-circle); overflow: hidden; }
+.recbanner .rbear img { width: 92px; height: 92px; object-fit: cover; object-position: center 12%;
+    mix-blend-mode: multiply; }
+.recbanner .rt { font-family: 'Oswald', sans-serif; font-weight: var(--fw-semibold); font-size: var(--fs-20);
+    letter-spacing: var(--ls-lead); color: var(--text-primary); }
+.recbanner .rs { font-size: var(--fs-14); color: var(--text-secondary); margin-top: 5px; line-height: var(--lh-airy); max-width: 62ch; }
+@media (max-width: 559px) {
+    .recbanner { gap: 14px; padding: 16px; }
+    .recbanner .rbear, .recbanner .rbear img { width: 68px; height: 68px; }
+    .recbanner .rt { font-size: var(--fs-18); }
+  }

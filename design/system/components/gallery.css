@@ -1,0 +1,63 @@
+/* gallery.css - gallery (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.gal .gmain{ aspect-ratio: 1; border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; color: var(--mark-faint); position: relative; }
+.gal .gmain .gtag{ position: absolute; top: 12px; left: 12px; font-weight: var(--fw-black); text-transform: uppercase; }
+.gal .gthumbs{ display: flex; gap: var(--space-8); margin-top: var(--space-12); }
+.pmini .pmback{ display: block; font-size: var(--fs-14); margin: var(--space-12) var(--space-2) 0;
+  padding-top: var(--space-12); border-top: 1px solid var(--line-hair); }
+@media (max-width: 859px){
+  .pmini{ order: -1; }
+  .pmini .pcard{ display: grid; grid-template-columns: 116px minmax(0, 1fr); align-items: start; }
+  .pmini .pcard .ph{ aspect-ratio: 1; }
+  .pmini .pcard .bd{ padding-right: 46px; }
+  .pmini .pcard .nm{ min-height: 0; }
+}
+@media (min-width: 860px){
+  .pmini{ position: sticky; top: 120px; }
+}
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.gal .gmain.skpulse{ background:var(--bg-sunken); border-color:var(--line-hair); }
+.gal .gthumb.skpulse{ background:var(--bg-sunken); border-color:var(--line-hair); }
+@media (min-width:860px){
+  .gal{ max-width:540px; margin-inline:auto; width:100%; }
+}
+@media (max-width:859px){
+  .gal{ max-width:min(100%, 430px); margin-inline:auto; }
+  .gal .gthumbs{ justify-content:center; }
+}
+.gal .gmain img{ mix-blend-mode:multiply; transition:transform .25s ease; }
+.gal .gmain{ background:
+    radial-gradient(120% 78% at 50% 108%, var(--shadow-floor) 0%, var(--fade-inverse) 62%),
+    linear-gradient(180deg,var(--bg-page) 0%, var(--bg-surface) 100%);
+  border-color:var(--line-hair); border-radius:var(--radius-16); font-size:0; overflow:hidden; }
+.gal .gmain img{ width:100%; height:100%; object-fit:contain; padding:9%; }
+.gal .gmain .gtag{ font-size:var(--fs-10); letter-spacing:var(--ls-caps); border:none; border-radius:var(--radius-pill); padding:var(--space-4) var(--space-12);
+  background:var(--bg-inverse); color:var(--text-oninverse); box-shadow: var(--elevation-mark);
+  display:inline-flex; align-items:center; gap:var(--space-4); }
+.gal .gmain .gtag::before{ content:'★'; color:var(--text-action); font-size:var(--fs-10); line-height:var(--lh-flat); }
+.gal .gthumb{ width:70px; height:70px; border-radius:var(--radius-8); background:var(--bg-page) center/74% no-repeat;
+  border:1px solid var(--line-hair); cursor:pointer; transition:border-color .15s ease, transform .15s ease; }
+.gal .gthumb:hover{ transform:translateY(-2px); }
+.gal .gthumb.on{ border:2px solid var(--line-action); }
+.pmini .pmback{ color:var(--text-secondary); border-top-color:var(--line-hair); }
+.pmini .pmback:hover{ color:var(--text-body); }
+@media (min-width:860px){
+  .pmini{ top:88px; }
+  .pmini .pcard .ph{ background-size:80%; }
+}
+
+/* ---------- moved off the screen (stage 08 step 5) ----------
+   These rules lived in a <style> block on design/product-oos.html and used the
+   stage-07 variable names, so deleting kit.css killed them outright. A screen
+   owns no css: each rule goes to the component it belongs to, and the old
+   names are translated to semantic roles BY VALUE, the way step 2 did it. */
+/* the thumbs are background images, so they are muted by BLENDING, not by filter:
+     a filter would drain the orange selection ring too, and «обране» must stay the
+     accent even on a product that is out of stock */
+  .oosgal .gthumb { background-color: var(--bg-sunken); background-blend-mode: luminosity; }

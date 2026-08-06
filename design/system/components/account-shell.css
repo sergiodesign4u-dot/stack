@@ -1,0 +1,172 @@
+/* account-shell.css - account shell (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.only-mobile{ display: block; }
+@media (min-width: 860px){
+  .only-mobile{ display: none; }
+}
+.only-desk{ display: none; }
+@media (min-width: 860px){
+  .only-desk{ display: block; }
+}
+.wt-flow{ border: 1px solid var(--line-hair); border-radius: var(--radius-12); margin-bottom: var(--space-16); overflow: hidden; }
+.wt-fh{ background: var(--bg-sunken); padding: var(--space-12) var(--space-16); font-weight: var(--fw-black); color: var(--text-primary); display: flex; align-items: center; gap: var(--space-12); flex-wrap: wrap; }
+.wt-fh .soon{ background: var(--bg-inverse); color: var(--text-oninverse); font-size: var(--fs-10); font-weight: var(--fw-black); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); text-transform: uppercase; letter-spacing: var(--ls-caps); }
+.wt-fnote{ font-size: var(--fs-12); color: var(--text-secondary); font-weight: var(--fw-medium); }
+.wt-screen{ border-top: 1px solid var(--line-hair); padding: var(--space-12) var(--space-16); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8) var(--space-16); }
+.wt-sname{ font-weight: var(--fw-bold); color: var(--text-primary); font-size: var(--fs-14); min-width: 190px; }
+.wt-sname .node{ color: var(--text-muted); font-weight: var(--fw-semibold); font-size: var(--fs-12); margin-left: var(--space-8); }
+.wt-sname.planned{ color: var(--text-muted); }
+.wt-states{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.wt-st{ border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-4) var(--space-12); font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--text-secondary); }
+.wt-st.base{ border-color: var(--line-inverse); color: var(--text-primary); }
+.wt-st.planned{ color: var(--mark-faint); border-style: dashed; border-color: var(--line-hair); }
+.acc{ display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-24); margin-top: var(--space-16); }
+@media (min-width: 960px){
+  .acc{ grid-template-columns: 268px minmax(0, 1fr); gap: var(--space-32); }
+}
+.acc-nav{ align-self: start; min-width: 0; }
+@media (min-width: 960px){
+  .acc-nav{ position: sticky; top: 120px; }
+}
+.acc-prof{ border: 1px solid var(--line-hair); padding: var(--space-16) var(--space-16); display: flex; gap: var(--space-12); align-items: center; }
+.acc-prof .av{ width: 48px; height: 48px; border-radius: var(--radius-circle); border: 1px solid var(--line-hair); flex: none; display: flex; align-items: center; justify-content: center; font-size: var(--fs-20); }
+.acc-prof .who{ min-width: 0; }
+.acc-prof .nm{ color: var(--text-primary); }
+.acc-prof .ph{ color: var(--text-secondary); margin-top: var(--space-2); }
+.acc-tier{ display: inline-flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); font-size: var(--fs-12); font-weight: var(--fw-black); border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); }
+.acc-links{ margin-top: var(--space-12); border: 1px solid var(--line-hair); overflow: hidden; }
+.acc-link{ display: flex; align-items: center; gap: var(--space-12); width: 100%; text-align: left; padding: var(--space-12) var(--space-16); border-bottom: 1px solid var(--line-hair); font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); background: var(--bg-page); }
+.acc-link:last-child{ border-bottom: none; }
+.acc-link .ic{ width: var(--size-20); text-align: center; }
+.acc-link .ct{ margin-left: auto; font-size: var(--fs-12); font-weight: var(--fw-black); }
+.acc-link .ar{ margin-left: var(--space-8); color: var(--mark-faint); font-weight: var(--fw-bold); }
+@media (min-width: 960px){
+  .acc-link .ar{ display: none; }
+}
+.acc-link.logout{ font-weight: var(--fw-bold); }
+.acc-link.buyer{ color: var(--text-secondary); font-weight: var(--fw-bold); border-top: 1px solid var(--line-hair); }
+@media (max-width: 959px){
+  .acc-link.buyer{ border-top: 0; }
+  .acc-links{
+    margin-top: var(--space-12); min-width: 0; max-width: 100%;
+    border: 0; border-radius: 0;
+    display: flex; gap: var(--space-8); padding-bottom: var(--space-4);
+    overflow-x: auto; overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .acc-links::-webkit-scrollbar{ display: none; }
+  .acc-link{
+    width: auto; flex: none; white-space: nowrap;
+    border: 1px solid var(--line-strong); border-radius: var(--radius-pill);
+    padding: var(--space-8) var(--space-16); gap: var(--space-8); font-weight: var(--fw-bold); background: var(--bg-page);
+  }
+  .acc-link .ar{ display: none; }
+  .acc-link .ic{ font-size: var(--fs-14); }
+  .acc-link .ct{
+    margin-left: var(--space-4); border: 1px solid var(--line-strong);
+    border-radius: var(--radius-pill); padding: 0 var(--space-8); color: var(--text-secondary);
+  }
+}
+.acc-h1{ color: var(--text-primary); }
+.acc-sub{ font-size: var(--fs-14); margin-top: var(--space-4); }
+.acc-grid{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-16); }
+@media (min-width: 640px){
+  .acc-grid{ grid-template-columns: 1fr 1fr; }
+}
+.acard{ border: 1px solid var(--line-hair); padding: var(--space-16); }
+.acard.span2{ grid-column: 1 / -1; }
+.acard .ah{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-12); margin-bottom: var(--space-12); }
+.acard .ah h3{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-secondary); }
+.acard .ah a, .acard .ah .lnk{ font-size: var(--fs-14); font-weight: var(--fw-bold); }
+.abonus .big{ line-height: var(--lh-flat); }
+.abonus .u{ font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-4); }
+.abonus .warn{ font-size: var(--fs-14); margin-top: var(--space-12); border: 1px dashed var(--line-strong); padding: var(--space-8) var(--space-12); }
+.ob-collapse{ display: none; }
+.ob-grid{ display: grid; grid-template-columns: 1fr; gap: var(--space-24); }
+@media (min-width: 820px){
+  .ob-grid{ grid-template-columns: 1fr 292px; }
+}
+.ob-line{ display: grid; grid-template-columns: 52px 1fr auto; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); align-items: start; }
+.ob-line:first-child{ padding-top: var(--space-2); }
+.ob-line .ph{ width: 52px; height: 56px; border-radius: var(--radius-8); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
+.ln-nm{ font-size: var(--fs-14); font-weight: var(--fw-bold); line-height: var(--lh-snug); }
+.ln-review{ display: inline-flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); font-size: var(--fs-12); font-weight: var(--fw-bold); color: var(--text-primary); text-decoration: underline; }
+.ln-right{ text-align: right; white-space: nowrap; }
+.ln-calc{ font-size: var(--fs-12); color: var(--text-secondary); }
+.ln-tot{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); margin-top: var(--space-4); }
+.ob-sum{ margin-top: var(--space-16); }
+.ob-receipt{ display: inline-flex; align-items: center; gap: var(--space-8); margin-top: var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); text-decoration: underline; }
+.ob-repeat{ width: 100%; }
+.ob-del{ border: 1px solid var(--line-hair); padding: var(--space-16); margin-top: var(--space-16); display: flex; flex-direction: column; gap: var(--space-12); }
+@media (max-width: 640px){
+  /* step 6.6: size, border and colour are the set's; here stays only what makes
+     this control appear at all below 640, and that it fills the row. `display`
+     is that "appear at all" - the rule above hides it, so the button class
+     cannot bring it back on its own. */
+  .ob-collapse{ display: flex; width: 100%; margin-top: var(--space-16); font-family: inherit; }
+}
+.wl-top{ display: flex; align-items: baseline; gap: var(--space-12); flex-wrap: wrap; margin-top: var(--space-2); }
+.acc-h1sk{ height: var(--size-24); width: 240px; border-radius: var(--radius-4); background: var(--bg-skeleton); margin-top: var(--space-2); }
+.acc-subsk{ height: 12px; width: 320px; max-width: 80%; border-radius: var(--radius-4); background: var(--bg-skeleton); margin-top: var(--space-12); }
+.acc-cardgrid{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-24); }
+@media (min-width: 640px){
+  .acc-cardgrid{ grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.acc-prof{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.acc-prof .av{ background:var(--bg-sunken); border-color:var(--line-hair); color:var(--text-secondary);
+  font-family:var(--font-display); font-weight:var(--fw-semibold); letter-spacing:var(--ls-caps); }
+.acc-prof .nm{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-16); letter-spacing:var(--ls-lead); }
+.acc-prof .ph{ font-family:var(--font-mono); font-size:var(--fs-12); }
+.acc-tier{ border-color:var(--line-strong); background:var(--bg-page); color:var(--text-body); }
+.acc-tier.free{ border-color:var(--line-strong); background:none; color:var(--text-secondary); }
+.acc-links{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
+.acc-link{ border-color:var(--line-hair); transition:background .14s ease, color .14s ease, box-shadow .14s ease; }
+.acc-link .ic{ color:var(--text-secondary); font-size:0; }
+.acc-link .ic .uiv-ic svg{ width:18px; height:18px; }
+.acc-link .ct{ font-family:var(--font-mono); color:var(--text-secondary); }
+.acc-link .ar .uiv-ic svg{ width:12px; height:12px; }
+.acc-link:hover{ background:var(--bg-surface); color:var(--text-action); }
+.acc-link:hover .ic{ color:var(--text-action); }
+.acc-link[aria-current="page"]{ background:var(--bg-surface); color:var(--text-action); box-shadow:inset 2px 0 0 var(--line-action); }
+.acc-link[aria-current="page"] .ic{ color:var(--text-action); }
+.acc-link.logout{ color:var(--text-secondary); }
+.acc-link.logout:hover{ color:var(--text-danger); }
+.acc-link.logout:hover .ic{ color:var(--text-danger); }
+@media (max-width: 959px){
+  .acc-link[aria-current="page"]{ background:var(--bg-action); border-color:var(--line-action); color:var(--text-body); box-shadow:none; }
+  .acc-link[aria-current="page"] .ic{ color:var(--text-body); }
+  .acc-link[aria-current="page"] .ct{ border-color:var(--line-hair); color:var(--text-body); }
+}
+.acc-h1{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-30); letter-spacing:var(--ls-lead); }
+.acc-sub{ color:var(--text-secondary); }
+.acard{ border-color:var(--line-hair); border-radius:var(--radius-12); background:var(--bg-page); box-shadow:var(--elevation-1); }
+.acard .ah h3, .mech-kicker{ color:var(--text-muted); letter-spacing:var(--ls-caps); }
+.acard .ah a, .acard .ah .lnk{ color:var(--text-body); transition:color .14s ease; }
+.acard .ah a:hover, .acard .ah .lnk:hover{ color:var(--text-action); }
+.abonus .big{ font-family:var(--font-mono); color:var(--text-action);
+  font-size:38px; font-weight:var(--fw-semibold); word-spacing:-.24em; }
+.abonus .warn{ border-style:solid; border-color:var(--line-hair); background:var(--bg-surface);
+  color:var(--text-secondary); border-radius:var(--radius-8); }
+.abonus .warn b{ color:var(--text-warning); }
+.ln-nm{ color:var(--text-body); }
+.ln-calc, .ln-tot{ font-family:var(--font-mono); }
+.ln-review, .ob-receipt{ color:var(--text-body); transition:color .14s ease; }
+.ln-review:hover, .ob-receipt:hover{ color:var(--text-action); }
+.ob-del{ border-color:var(--line-hair); border-radius:var(--radius-12); background:var(--bg-surface); }
+.acc-h1sk, .acc-subsk, .skcardbox .skline{ background:var(--bg-sunken); }
+
+/* ---------- claimed back from a grouped selector (step 5) ----------
+   These lived inside `.rk-ph, .aord-thumbs .t, .oh-thumbs i, .ob-line .ph{...}`
+   in restock-note.css. A group that spans components lands in one file and
+   drags the others above their own rules: here .ob-line .ph lost to the
+   structure rule in this very file. Each fragment belongs to its owner. */
+.ob-line .ph{ background:var(--bg-page) center/78% no-repeat;
+  border-color:var(--line-hair); color:transparent; }
+

@@ -28,7 +28,11 @@ const WF_FLOWS = [
     id: 'f1', name: 'Флоу 1 · Покупець-новачок', status: 'active',
     note: 'Головна → Категорія → Картка товару → Кошик → Оформлення → Замовлення',
     screens: [
-      { file: 'index.html',         name: 'Головна',              node: '0.0', built: true,  states: ['buyer','coach','cart'], builtStates: ['buyer','coach','cart'] },
+      /* the home node is `index.html` because a stage folder's index IS its home page,
+         but its state files were built as `home-*`. `stateFile` is the stem the state
+         names are derived from, so the bar stops pointing at index-buyer.html, which
+         has never existed. */
+      { file: 'index.html',         name: 'Головна',              node: '0.0', built: true,  states: ['buyer','coach','cart'], builtStates: ['buyer','coach','cart'], stateFile: 'home.html' },
       { file: 'listing.html',      name: 'Категорія (лістинг)',  node: '2.1', built: true,  states: ['filtered','list','sheet','empty','loading','error'], builtStates: ['filtered','list','sheet','empty','loading','error'] },
       { file: 'goal.html',         name: 'Ціль-колекція',        node: '2.2', built: true,  states: ['empty','loading','error'], builtStates: ['empty','loading','error'] },
       { file: 'quiz.html',         name: 'Квіз (підбір за ціллю)', node: '4.x', built: true, states: [], builtStates: [] },
@@ -227,7 +231,7 @@ function wfTree(elId) {
       for (const st of s.states) {
         const built = s.builtStates.includes(st);
         html += built
-          ? '<a class="wt-st" href="' + wfStateFile(s.file, st) + '">' + (WF_STATE_LABEL[st] || st) + '</a>'
+          ? '<a class="wt-st" href="' + wfStateFile(s.stateFile || s.file, st) + '">' + (WF_STATE_LABEL[st] || st) + '</a>'
           : '<span class="wt-st planned">' + (WF_STATE_LABEL[st] || st) + '</span>';
       }
       html += '</div></div>';
@@ -282,7 +286,7 @@ function wfBar(baseFile, currentState) {
     for (const st of found.screen.states) {
       const label = WF_STATE_LABEL[st] || st;
       if (st === currentState) parts.push('<span class="cur">' + label + '</span>');
-      else if (found.screen.builtStates.includes(st)) parts.push('<a href="' + wfStateFile(found.screen.file, st) + '">' + label + '</a>');
+      else if (found.screen.builtStates.includes(st)) parts.push('<a href="' + wfStateFile(found.screen.stateFile || found.screen.file, st) + '">' + label + '</a>');
       else parts.push('<span style="opacity:.4">' + label + '</span>');
     }
     html += '<span class="sepb">·</span><span>Стани:</span> ' + parts.join(' ');
@@ -489,9 +493,9 @@ function wfCityHTML() {
   let az = ''; WF_CITIES_ALL.forEach(c => { az += '<button class="city-az" onclick="wfPickCity(\'' + c + '\')">' + c + '</button>'; });
   return '<div class="wf-ov" id="city-ov" onclick="closeCity()"></div>' +
     '<div class="wf-city" id="city-dlg" role="dialog" aria-modal="true" aria-label="Оберіть місто">' +
-    '<div class="wf-city-h">Оберіть місто<button class="x" onclick="closeCity()" aria-label="Закрити">✕</button></div>' +
+    '<div class="wf-city-h">Оберіть місто<button class="btn--ghost btn--icon btn--s x" onclick="closeCity()" aria-label="Закрити">✕</button></div>' +
     '<div class="wf-city-b">' +
-    '<input class="city-search" type="search" placeholder="Пошук міста…" aria-label="Пошук міста">' +
+    '<input class="field field--s city-search" type="search" placeholder="Пошук міста…" aria-label="Пошук міста">' +
     '<div class="city-lbl">Популярні міста</div><div class="city-pop">' + pop + '</div>' +
     '<div class="city-lbl">Усі міста (А–Я)</div><div class="city-list">' + az + '</div>' +
     '<div class="city-note">Доставка Новою Поштою по всій Україні - знайдемо будь-яке місто через пошук.</div>' +
@@ -633,14 +637,14 @@ function wfCookieHTML() {
     '<button class="ck-btn ghost" onclick="openCookieSettings()">Налаштувати</button></div></div>' +
     '<div class="wf-ov" id="ckset-ov" onclick="closeCookieSettings()"></div>' +
     '<div class="wf-ckset" id="ckset" role="dialog" aria-modal="true" aria-label="Налаштування cookie">' +
-    '<div class="wf-ckset-h">Налаштування cookie<button class="x" onclick="closeCookieSettings()" aria-label="Закрити">✕</button></div>' +
+    '<div class="wf-ckset-h">Налаштування cookie<button class="btn--ghost btn--icon btn--s x" onclick="closeCookieSettings()" aria-label="Закрити">✕</button></div>' +
     '<div class="wf-ckset-b">' +
     cat('necessary', 'Необхідні', 'Кошик, авторизація, безпека. Завжди активні.', true) +
     cat('analytics', 'Аналітика', 'Анонімна статистика відвідувань (Mixpanel / PostHog).', false) +
     cat('marketing', 'Маркетинг', 'Персоналізовані пропозиції та ремаркетинг.', false) +
     '<p class="ck-note">Змінити вибір можна будь-коли - посилання «Змінити згоду» у футері. Див. <a href="content-legal.html">Політику конфіденційності</a>.</p>' +
-    '</div><div class="wf-ckset-f"><button class="btn" onclick="saveCookiePrefs(\'necessary\')">Тільки необхідні</button>' +
-    '<button class="btn dark" onclick="saveCookiePrefs(\'custom\')">Зберегти вибір</button></div></div>';
+    '</div><div class="wf-ckset-f"><button class="btn--outline btn" onclick="saveCookiePrefs(\'necessary\')">Тільки необхідні</button>' +
+    '<button class="btn--accent btn dark" onclick="saveCookiePrefs(\'custom\')">Зберегти вибір</button></div></div>';
 }
 function wfCookie() { const el = document.getElementById('wf-cookie'); if (!el) return; el.innerHTML = wfCookieHTML(); }
 function wfCkTog(el) { if (el.classList.contains('locked')) return; const on = el.classList.toggle('on'); el.setAttribute('aria-checked', on ? 'true' : 'false'); }
@@ -657,36 +661,36 @@ function wfPdpModals() {
   el.innerHTML =
     '<div class="wf-ov" id="pm-ov" onclick="closePM()"></div>' +
     '<div class="pm" id="pm-review" role="dialog" aria-modal="true" aria-label="Залишити відгук">' +
-    '<div class="pm-h">Залишити відгук<button class="x" onclick="closePM()" aria-label="Закрити">✕</button></div>' +
+    '<div class="pm-h">Залишити відгук<button class="btn--ghost btn--icon btn--s x" onclick="closePM()" aria-label="Закрити">✕</button></div>' +
     '<div class="pm-b">' +
     '<div class="pm-rhead"><label>Ваша оцінка</label><span class="pm-rw" id="pm-rate-w"></span></div>' +
     '<div class="pm-rate"><div class="pm-stars" id="pm-rate" role="radiogroup" aria-label="Ваша оцінка" ' +
     'onmouseleave="wfPmRateOut()">' + wfPmStars() + '</div><b class="pm-rv" id="pm-rate-v"></b></div>' +
     '<div class="pm-e" id="pm-rate-e"></div>' +
     '<label for="pm-rv-pros">Переваги <span class="opt">необов\'язково</span></label>' +
-    '<input id="pm-rv-pros" type="text" placeholder="Що сподобалось" oninput="wfPmInput(this)">' +
+    '<input class="field" id="pm-rv-pros" type="text" placeholder="Що сподобалось" oninput="wfPmInput(this)">' +
     '<label for="pm-rv-cons">Недоліки <span class="opt">необов\'язково</span></label>' +
-    '<input id="pm-rv-cons" type="text" placeholder="Що можна покращити" oninput="wfPmInput(this)">' +
+    '<input class="field" id="pm-rv-cons" type="text" placeholder="Що можна покращити" oninput="wfPmInput(this)">' +
     '<label for="pm-rv-text">Відгук</label>' +
-    '<textarea id="pm-rv-text" maxlength="600" data-count="pm-rv-cnt" placeholder="Ваші враження про товар…" oninput="wfPmInput(this)"></textarea>' +
+    '<textarea class="field" id="pm-rv-text" maxlength="600" data-count="pm-rv-cnt" placeholder="Ваші враження про товар…" oninput="wfPmInput(this)"></textarea>' +
     '<div class="pm-cnt"><b id="pm-rv-cnt">0</b> / 600</div><div class="pm-e" id="pm-rv-text-e"></div>' +
     '<label for="pm-rv-name">Ім\'я</label>' +
-    '<input id="pm-rv-name" type="text" placeholder="Як вас підписати" oninput="wfPmInput(this)">' +
+    '<input class="field" id="pm-rv-name" type="text" placeholder="Як вас підписати" oninput="wfPmInput(this)">' +
     '<div class="pm-e" id="pm-rv-name-e"></div>' +
     '<div class="pm-note">Відгук пройде модерацію. Публікуємо чесно - і схвальні, і критичні.</div></div>' +
-    '<div class="pm-f"><button class="btn" onclick="closePM()">Скасувати</button>' +
-    '<button class="btn dark" onclick="wfPmSubmitReview()">Надіслати відгук</button></div></div>' +
+    '<div class="pm-f"><button class="btn--outline btn" onclick="closePM()">Скасувати</button>' +
+    '<button class="btn--accent btn dark" onclick="wfPmSubmitReview()">Надіслати відгук</button></div></div>' +
     '<div class="pm" id="pm-question" role="dialog" aria-modal="true" aria-label="Поставити запитання">' +
-    '<div class="pm-h">Поставити запитання<button class="x" onclick="closePM()" aria-label="Закрити">✕</button></div>' +
+    '<div class="pm-h">Поставити запитання<button class="btn--ghost btn--icon btn--s x" onclick="closePM()" aria-label="Закрити">✕</button></div>' +
     '<div class="pm-b"><label for="pm-q-text">Ваше запитання про товар</label>' +
-    '<textarea id="pm-q-text" maxlength="400" data-count="pm-q-cnt" placeholder="Напр., чи підходить для схуднення?" oninput="wfPmInput(this)"></textarea>' +
+    '<textarea class="field" id="pm-q-text" maxlength="400" data-count="pm-q-cnt" placeholder="Напр., чи підходить для схуднення?" oninput="wfPmInput(this)"></textarea>' +
     '<div class="pm-cnt"><b id="pm-q-cnt">0</b> / 400</div><div class="pm-e" id="pm-q-text-e"></div>' +
     '<label for="pm-q-mail">E-mail для відповіді</label>' +
-    '<input id="pm-q-mail" type="email" placeholder="you@email.com" oninput="wfPmInput(this)">' +
+    '<input class="field" id="pm-q-mail" type="email" placeholder="you@email.com" oninput="wfPmInput(this)">' +
     '<div class="pm-e" id="pm-q-mail-e"></div>' +
     '<div class="pm-note">Відповідь надішлемо на пошту й опублікуємо в розділі «Питання».</div></div>' +
-    '<div class="pm-f"><button class="btn" onclick="closePM()">Скасувати</button>' +
-    '<button class="btn dark" onclick="wfPmSubmitQuestion()">Надіслати запитання</button></div></div>';
+    '<div class="pm-f"><button class="btn--outline btn" onclick="closePM()">Скасувати</button>' +
+    '<button class="btn--accent btn dark" onclick="wfPmSubmitQuestion()">Надіслати запитання</button></div></div>';
 }
 /* ---- rating widget + field states (shared behaviour; colour lives in the theme) ----
    The stars are real radio buttons: hover paints the row up to the pointer, click
@@ -799,7 +803,7 @@ function wfAuthShell(vi, vt, vs, bi, bt1, bt2, inner) {
     '<div class="vmid"><div class="vi">' + vi + '</div>спортивне харчування</div>' +
     '<div class="vtag"><b>' + vt + '</b>' + vs + '</div></aside>' +
     '<div class="auth-form"><div class="auth-top"><span class="auth-mlogo">Stack</span>' +
-    '<button class="auth-x" onclick="closeAuth()" aria-label="Закрити" title="Закрити">✕</button></div>' +
+    '<button class="btn--ghost btn--icon btn--s auth-x" onclick="closeAuth()" aria-label="Закрити" title="Закрити">✕</button></div>' +
     '<div class="auth-banner"><div class="bi">' + bi + '</div><div class="bt"><b>' + bt1 + '</b>' + bt2 + '</div></div>' +
     inner + '</div></div>';
 }
@@ -819,7 +823,7 @@ function wfAuthPanel(state) {
       '<div class="auth-load" role="status" aria-live="polite"><div class="auth-spin" aria-hidden="true"></div>' +
       '<div class="lt">Надсилаємо код у SMS…</div><div class="lp">На номер <b>' + WF_AUTH_PHONE + '</b></div>' +
       '<div class="auth-skel" aria-hidden="true"><div class="sl"></div><div class="sl m"></div></div></div>' +
-      '<button class="auth-cta" onclick="wfAuthGo(\'code\')">Код надіслано - ввести →</button>' +
+      '<button class="btn--accent btn--l btn--full auth-cta" onclick="wfAuthGo(\'code\')">Код надіслано - ввести →</button>' +
       '<p class="auth-note">🔒 Код діє 5 хвилин. Нікому не повідомляйте його.</p>' +
       '<div class="linkrow"><a onclick="wfAuthGo(\'phone\')">← Змінити номер</a></div>' +
       wfAuthFoot('Не отримали SMS? За кілька секунд зможете надіслати код повторно.'));
@@ -829,7 +833,7 @@ function wfAuthPanel(state) {
       '<h1 class="auth-h1">Введіть код</h1><p class="auth-sub">Ми надіслали SMS із кодом на номер <b>' + WF_AUTH_PHONE + '</b>. ' + chg + '</p>' +
       '<div class="fld"><label>Код підтвердження</label>' + wfOtp(['4', '9', '2', '', '', ''], false) +
       '<div class="otp-note">Код діє 5 хвилин. Введеться автоматично, якщо телефон його підставить.</div></div>' +
-      '<button class="auth-cta" onclick="wfAuthGo(\'newuser\')">Підтвердити</button>' +
+      '<button class="btn--accent btn--l btn--full auth-cta" onclick="wfAuthGo(\'newuser\')">Підтвердити</button>' +
       '<div class="resend">Не отримали код? <span class="cool">Надіслати ще (0:45)</span></div>' +
       '<div class="linkrow"><a onclick="wfAuthGo(\'phone\')">← Змінити номер</a><a onclick="wfAuthGo(\'error\')">Ввів неправильний код?</a></div>' +
       wfAuthFoot('Якщо номер уже зареєстровано - ви одразу увійдете. Новий номер - попросимо ім\'я.'));
@@ -839,33 +843,33 @@ function wfAuthPanel(state) {
       '<h1 class="auth-h1">Введіть код</h1><p class="auth-sub">Код для номера <b>' + WF_AUTH_PHONE + '</b>. ' + chg + '</p>' +
       '<div class="fld"><label>Код підтвердження</label>' + wfOtp(['1', '2', '3', '4', '5', '6'], true) +
       '<div class="otp-err" role="alert"><span class="m">⚠️</span><span>Невірний код. Перевірте SMS і спробуйте ще раз.<small>Залишилось спроб: 2. Код діє 5 хвилин.</small></span></div></div>' +
-      '<button class="auth-cta" onclick="wfAuthGo(\'code\')">Спробувати ще раз</button>' +
-      '<button class="auth-alt" onclick="wfAuthGo(\'code\')">Надіслати новий код</button>' +
+      '<button class="btn--accent btn--l btn--full auth-cta" onclick="wfAuthGo(\'code\')">Спробувати ще раз</button>' +
+      '<button class="btn--outline btn--full auth-alt" onclick="wfAuthGo(\'code\')">Надіслати новий код</button>' +
       '<div class="linkrow"><a onclick="wfAuthGo(\'phone\')">← Змінити номер</a><a onclick="wfAuthGo(\'phone\')">Увійти іншим способом</a></div>' +
       wfAuthFoot('Забагато спроб? Зачекайте кілька хвилин або скористайтесь Google / Apple / E-mail.'));
   }
   if (state === 'newuser') {
     return wfAuthShell('👤', 'Створюємо ваш акаунт', 'Ім\'я - щоб звертатися до вас і підписувати замовлення.', '✓', 'Номер підтверджено', 'Ще один крок - і готово',
       '<h1 class="auth-h1">Як вас звати?</h1><p class="auth-sub">Створюємо ваш акаунт Stack. Залишилося вказати ім\'я.</p>' +
-      '<div class="fld"><label for="wfa-name">Ім\'я</label><input id="wfa-name" class="txt-field" type="text" placeholder="Напр., Вікторія"></div>' +
-      '<div class="fld"><label>E-mail <span class="opt">- необов\'язково</span></label><input class="txt-field" type="email" placeholder="you@email.com"></div>' +
+      '<div class="fld"><label for="wfa-name">Ім\'я</label><input id="wfa-name" class="field txt-field" type="text" placeholder="Напр., Вікторія"></div>' +
+      '<div class="fld"><label>E-mail <span class="opt">- необов\'язково</span></label><input class="field txt-field" type="email" placeholder="you@email.com"></div>' +
       '<label class="optin"><span class="cb"></span><span>Хочу отримувати листи про акції та новинки. Можна вимкнути будь-коли.</span></label>' +
       '<p class="auth-consent">Натискаючи «Продовжити», ви приймаєте <a href="content-legal.html">публічну оферту</a> та <a href="content-legal.html">політику конфіденційності</a> Stack.</p>' +
-      '<button class="auth-cta" onclick="wfAuthDone()">Продовжити</button>' +
+      '<button class="btn--accent btn--l btn--full auth-cta" onclick="wfAuthDone()">Продовжити</button>' +
       '<div class="linkrow"><a onclick="wfAuthGo(\'code\')">← Назад до коду</a></div>' +
       wfAuthFoot('Після цього кроку ви повернетесь туди, де почали - у кошик, обране чи оформлення.'));
   }
   /* phone (base) */
   return wfAuthShell('🏋️', 'Один акаунт - усе під рукою', 'Замовлення, бонуси, обране та швидке повторне замовлення.', '🏋️', 'Stack', 'Спортивне харчування',
     '<h1 class="auth-h1">Вхід або реєстрація</h1><p class="auth-sub">Введіть номер телефону - надішлемо код у SMS. Пароль не потрібен.</p>' +
-    '<div class="fld"><label for="wfa-phone">Номер телефону</label><div class="ph-field"><span class="cc">+380</span>' +
-    '<input id="wfa-phone" type="tel" inputmode="numeric" placeholder="67 123 45 67" aria-label="Номер телефону"></div></div>' +
-    '<button class="auth-cta" onclick="wfAuthGo(\'loading\')">Отримати код</button>' +
+    '<div class="fld"><label for="wfa-phone">Номер телефону</label><div class="field-grp ph-field"><span class="cc">+380</span>' +
+    '<input class="field field--mono" id="wfa-phone" type="tel" inputmode="numeric" placeholder="67 123 45 67" aria-label="Номер телефону"></div></div>' +
+    '<button class="btn--accent btn--l btn--full auth-cta" onclick="wfAuthGo(\'loading\')">Отримати код</button>' +
     '<p class="auth-consent">Продовжуючи, ви підтверджуєте, що згодні увійти до облікового запису <b>Stack</b> та надаєте згоду на обробку персональних даних згідно з <a href="content-legal.html">публічною офертою</a> та <a href="content-legal.html">політикою конфіденційності</a>.</p>' +
     '<div class="auth-or">або</div>' +
-    '<div class="smeths"><button class="sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic">G</span> Продовжити з Google</button>' +
-    '<button class="sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic"></span> Продовжити з Apple</button>' +
-    '<button class="sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic">@</span> Продовжити з E-mail</button></div>' +
+    '<div class="smeths"><button class="btn--outline btn--lift btn--full sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic">G</span> Продовжити з Google</button>' +
+    '<button class="btn--outline btn--lift btn--full sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic"></span> Продовжити з Apple</button>' +
+    '<button class="btn--outline btn--lift btn--full sbtn" onclick="wfAuthGo(\'loading\')"><span class="ic">@</span> Продовжити з E-mail</button></div>' +
     wfAuthFoot('Уже маєте акаунт чи ні - вхід і реєстрація в одному кроці.'));
 }
 /* optional destination after a completed sign-up/in (e.g. order-placed → its
@@ -923,35 +927,35 @@ function wfClientEdit() {
   let gbtnsNew = ''; goals.forEach(g => { gbtnsNew += '<button type="button">' + g + '</button>'; });
   const ceNew =
     '<div class="ceov" id="ce-new" role="dialog" aria-modal="true" aria-label="Новий клієнт"><div class="cemodal">' +
-    '<div class="ce-top"><h2>Новий клієнт</h2><button class="ce-x" onclick="closeClientEdit()" aria-label="Закрити">✕</button></div>' +
+    '<div class="ce-top"><h2>Новий клієнт</h2><button class="btn--ghost btn--icon btn--s ce-x" onclick="closeClientEdit()" aria-label="Закрити">✕</button></div>' +
     '<p class="sub">Додайте клієнта у ваш список. Ім\'я та ціль - обов\'язкові; ціль формує підбір товарів у сесії.</p>' +
-    '<div class="cef"><label for="cnn">Ім\'я клієнта</label><input id="cnn" type="text" placeholder="Напр., Андрій"></div>' +
+    '<div class="cef"><label for="cnn">Ім\'я клієнта</label><input class="field" id="cnn" type="text" placeholder="Напр., Андрій"></div>' +
     '<div class="cef"><label>Ціль</label><div class="cegoals">' + gbtnsNew + '</div></div>' +
-    '<div class="cef"><label for="cnp">Телефон <span class="opt">- необов\'язково</span></label><input id="cnp" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __"></div>' +
-    '<div class="cef"><label for="cnm">E-mail <span class="opt">- необов\'язково</span></label><input id="cnm" type="email" placeholder="you@email.com"></div>' +
-    '<div class="cef"><label for="cnnote">Нотатки тренера <span class="opt">- необов\'язково</span></label><textarea id="cnnote" placeholder="Напр., алергія на лактозу; ранкові тренування"></textarea></div>' +
-    '<div class="ceact"><button class="btn" onclick="closeClientEdit()">Скасувати</button>' +
-    '<button class="btn dark" onclick="createClient()">Додати клієнта</button></div>' +
+    '<div class="cef"><label for="cnp">Телефон <span class="opt">- необов\'язково</span></label><input class="field" id="cnp" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __"></div>' +
+    '<div class="cef"><label for="cnm">E-mail <span class="opt">- необов\'язково</span></label><input class="field" id="cnm" type="email" placeholder="you@email.com"></div>' +
+    '<div class="cef"><label for="cnnote">Нотатки тренера <span class="opt">- необов\'язково</span></label><textarea class="field" id="cnnote" placeholder="Напр., алергія на лактозу; ранкові тренування"></textarea></div>' +
+    '<div class="ceact"><button class="btn--outline btn" onclick="closeClientEdit()">Скасувати</button>' +
+    '<button class="btn--accent btn dark" onclick="createClient()">Додати клієнта</button></div>' +
     '</div></div>';
   el.innerHTML = ceNew +
     '<div class="ceov" id="ce-edit" role="dialog" aria-modal="true" aria-label="Редагувати клієнта"><div class="cemodal">' +
-    '<div class="ce-top"><h2>Редагувати клієнта</h2><button class="ce-x" onclick="closeClientEdit()" aria-label="Закрити">✕</button></div>' +
+    '<div class="ce-top"><h2>Редагувати клієнта</h2><button class="btn--ghost btn--icon btn--s ce-x" onclick="closeClientEdit()" aria-label="Закрити">✕</button></div>' +
     '<p class="sub">Ім\'я та ціль клієнта. Ціль підбирає товари в сесії й у профілі.</p>' +
-    '<div class="cef"><label for="cen">Ім\'я клієнта</label><input id="cen" type="text" value="Андрій"></div>' +
+    '<div class="cef"><label for="cen">Ім\'я клієнта</label><input class="field" id="cen" type="text" value="Андрій"></div>' +
     '<div class="cef"><label>Ціль</label><div class="cegoals">' + gbtns + '</div></div>' +
-    '<div class="cef"><label for="cep">Телефон</label><input id="cep" type="tel" inputmode="tel" value="+380 67 123 45 67"></div>' +
-    '<div class="cef"><label for="cem">E-mail <span class="opt">- необов\'язково</span></label><input id="cem" type="email" value="andriy.koval@email.com"></div>' +
-    '<div class="cef"><label for="cenote">Нотатки тренера</label><textarea id="cenote">Алергія на лактозу; тренування вранці</textarea></div>' +
-    '<div class="ceact"><button class="btn" onclick="closeClientEdit()">Скасувати</button>' +
-    '<button class="btn dark" onclick="saveClientEdit()">Зберегти зміни</button></div>' +
+    '<div class="cef"><label for="cep">Телефон</label><input class="field" id="cep" type="tel" inputmode="tel" value="+380 67 123 45 67"></div>' +
+    '<div class="cef"><label for="cem">E-mail <span class="opt">- необов\'язково</span></label><input class="field" id="cem" type="email" value="andriy.koval@email.com"></div>' +
+    '<div class="cef"><label for="cenote">Нотатки тренера</label><textarea class="field" id="cenote">Алергія на лактозу; тренування вранці</textarea></div>' +
+    '<div class="ceact"><button class="btn--outline btn" onclick="closeClientEdit()">Скасувати</button>' +
+    '<button class="btn--accent btn dark" onclick="saveClientEdit()">Зберегти зміни</button></div>' +
     '<div class="cedel"><button onclick="openClientDelete()">🗑 Видалити клієнта</button>' +
     '<div class="dn">Клієнта буде вилучено зі списку. Минулі замовлення залишаться в історії.</div></div>' +
     '</div></div>' +
     '<div class="ceov" id="ce-confirm" role="dialog" aria-modal="true" aria-label="Видалити клієнта"><div class="cedlg">' +
     '<div class="ic" aria-hidden="true">🗑</div><h2>Видалити клієнта «Андрій»?</h2>' +
     '<p>Клієнта буде вилучено з вашого списку. Минулі замовлення залишаться в історії замовлень. Цю дію не можна скасувати.</p>' +
-    '<div class="act"><button class="btn" onclick="openClientEdit()">Скасувати</button>' +
-    '<a class="btn dark" href="coach-clients.html">Видалити клієнта</a></div>' +
+    '<div class="act"><button class="btn--outline btn" onclick="openClientEdit()">Скасувати</button>' +
+    '<a class="btn--accent btn dark" href="coach-clients.html">Видалити клієнта</a></div>' +
     '</div></div>';
 }
 function openClientEdit() { wfClientEdit(); closeClientEdit(); var e = document.getElementById('ce-edit'); if (e) e.classList.add('open'); }
@@ -969,16 +973,16 @@ function wfAddrDialog() {
   var el = document.getElementById('wf-addr'); if (!el) return;
   el.className = '';
   var cityFld = '<div class="cef"><label>Місто</label><button type="button" class="addr-cityfld" onclick="openCity()"><span>📍 Одеса</span><span class="chg">Змінити</span></button></div>';
-  var recv = '<div class="addr-2col"><div class="cef"><label>Ім\'я</label><input type="text" value="Вікторія"></div><div class="cef"><label>Прізвище</label><input type="text" value="Коваль"></div></div>' +
-             '<div class="cef"><label>Телефон</label><input type="tel" inputmode="tel" value="+380 67 123 45 67"></div>';
+  var recv = '<div class="addr-2col"><div class="cef"><label>Ім\'я</label><input class="field" type="text" value="Вікторія"></div><div class="cef"><label>Прізвище</label><input class="field" type="text" value="Коваль"></div></div>' +
+             '<div class="cef"><label>Телефон</label><input class="field" type="tel" inputmode="tel" value="+380 67 123 45 67"></div>';
   var def = '<label class="addr-check"><input type="checkbox"> Зробити основною адресою</label>';
   var delRow = '<div class="addr-del-row" hidden><button type="button" onclick="openAddrDelete()">🗑 Видалити адресу</button></div>';
-  function acts() { return '<div class="ceact"><button type="button" class="btn" onclick="closeAddr()">Скасувати</button><button type="button" class="btn dark addr-save" onclick="saveAddr()">Зберегти адресу</button></div>'; }
-  function back() { return '<button type="button" class="addr-back" onclick="addrStep(\'choose\')">‹ Інший спосіб</button>'; }
+  function acts() { return '<div class="ceact"><button type="button" class="btn--outline btn" onclick="closeAddr()">Скасувати</button><button type="button" class="btn--accent btn dark addr-save" onclick="saveAddr()">Зберегти адресу</button></div>'; }
+  function back() { return '<button type="button" class="btn--text addr-back" onclick="addrStep(\'choose\')">‹ Інший спосіб</button>'; }
 
   el.innerHTML =
     '<div class="ceov" id="addr-dlg" role="dialog" aria-modal="true" aria-label="Адреса доставки"><div class="cemodal addr-modal">' +
-    '<div class="ce-top"><h2 id="addr-title">Нова адреса</h2><button class="ce-x" onclick="closeAddr()" aria-label="Закрити">✕</button></div>' +
+    '<div class="ce-top"><h2 id="addr-title">Нова адреса</h2><button class="btn--ghost btn--icon btn--s ce-x" onclick="closeAddr()" aria-label="Закрити">✕</button></div>' +
 
     '<div class="addr-step" data-step="choose">' +
       '<p class="sub">Оберіть спосіб доставки - далі заповнимо лише потрібні поля.</p>' +
@@ -991,17 +995,17 @@ function wfAddrDialog() {
     '</div>' +
 
     '<div class="addr-step" data-step="vidd" hidden>' + back() + cityFld +
-      '<div class="cef"><label>Відділення</label><input type="text" placeholder="Почніть вводити номер або вулицю" value="№ 12 - вул. Катерининська, 27"></div>' +
+      '<div class="cef"><label>Відділення</label><input class="field" type="text" placeholder="Почніть вводити номер або вулицю" value="№ 12 - вул. Катерининська, 27"></div>' +
       recv + def + acts() + delRow + '</div>' +
 
     '<div class="addr-step" data-step="post" hidden>' + back() + cityFld +
-      '<div class="cef"><label>Поштомат</label><input type="text" placeholder="Номер поштомата або адреса" value="№ 24857 - просп. Небесної Сотні, 4"></div>' +
+      '<div class="cef"><label>Поштомат</label><input class="field" type="text" placeholder="Номер поштомата або адреса" value="№ 24857 - просп. Небесної Сотні, 4"></div>' +
       recv + def + acts() + delRow + '</div>' +
 
     '<div class="addr-step" data-step="cour" hidden>' + back() + cityFld +
-      '<div class="cef"><label>Вулиця</label><input type="text" placeholder="Напр., вул. Дерибасівська" value="вул. Дерибасівська"></div>' +
-      '<div class="addr-2col"><div class="cef"><label>Будинок</label><input type="text" value="15"></div><div class="cef"><label>Квартира</label><input type="text" value="8"></div></div>' +
-      '<div class="cef"><label>Під\'їзд / поверх <span class="opt">- необов\'язково</span></label><input type="text" placeholder="Напр., 2 під\'їзд, 4 поверх"></div>' +
+      '<div class="cef"><label>Вулиця</label><input class="field" type="text" placeholder="Напр., вул. Дерибасівська" value="вул. Дерибасівська"></div>' +
+      '<div class="addr-2col"><div class="cef"><label>Будинок</label><input class="field" type="text" value="15"></div><div class="cef"><label>Квартира</label><input class="field" type="text" value="8"></div></div>' +
+      '<div class="cef"><label>Під\'їзд / поверх <span class="opt">- необов\'язково</span></label><input class="field" type="text" placeholder="Напр., 2 під\'їзд, 4 поверх"></div>' +
       recv + def + acts() + delRow + '</div>' +
 
     '</div></div>' +
@@ -1009,8 +1013,8 @@ function wfAddrDialog() {
     '<div class="ceov" id="addr-del" role="dialog" aria-modal="true" aria-label="Видалити адресу"><div class="cedlg">' +
     '<div class="ic" aria-hidden="true">🗑</div><h2>Видалити адресу?</h2>' +
     '<p>Адресу буде вилучено зі збережених. Це не вплине на вже оформлені замовлення.</p>' +
-    '<div class="act"><button type="button" class="btn" onclick="closeAddrDelete()">Скасувати</button>' +
-    '<button type="button" class="btn dark" onclick="confirmAddrDelete()">Видалити</button></div>' +
+    '<div class="act"><button type="button" class="btn--outline btn" onclick="closeAddrDelete()">Скасувати</button>' +
+    '<button type="button" class="btn--accent btn dark" onclick="confirmAddrDelete()">Видалити</button></div>' +
     '</div></div>';
 }
 function addrSetMode(edit) {
@@ -1046,24 +1050,24 @@ function wfProfileDialogs() {
 
   var phone =
     '<div class="ceov" id="pf-phone" role="dialog" aria-modal="true" aria-label="Змінити номер"><div class="cemodal">' +
-    '<div class="ce-top"><h2 id="pf-phone-t">Змінити номер телефону</h2><button class="ce-x" onclick="closeProf()" aria-label="Закрити">✕</button></div>' +
+    '<div class="ce-top"><h2 id="pf-phone-t">Змінити номер телефону</h2><button class="btn--ghost btn--icon btn--s ce-x" onclick="closeProf()" aria-label="Закрити">✕</button></div>' +
     '<div class="pf-dstep" data-s="enter"><p class="sub">Введіть новий номер - надішлемо на нього код у SMS. Пароль не потрібен.</p>' +
-      '<div class="cef"><label>Новий номер телефону</label><input type="tel" inputmode="tel" placeholder="+380 __ ___ __ __" value="+380 "></div>' +
-      '<div class="ceact"><button type="button" class="btn" onclick="closeProf()">Скасувати</button><button type="button" class="btn dark" onclick="profStep(\'pf-phone\',\'code\')">Отримати код</button></div></div>' +
+      '<div class="cef"><label>Новий номер телефону</label><input class="field" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __" value="+380 "></div>' +
+      '<div class="ceact"><button type="button" class="btn--outline btn" onclick="closeProf()">Скасувати</button><button type="button" class="btn--accent btn dark" onclick="profStep(\'pf-phone\',\'code\')">Отримати код</button></div></div>' +
     '<div class="pf-dstep" data-s="code" hidden><p class="sub">Ми надіслали код у SMS на новий номер. Введіть його, щоб підтвердити зміну.</p>' +
       '<div class="cef"><label>Код підтвердження</label>' + otp() + '<div class="otp-note">Код діє 5 хвилин. <a class="pf-resend" onclick="wfToast(\'info\',\'Код надіслано ще раз\')">Надіслати ще раз</a></div></div>' +
-      '<div class="ceact"><button type="button" class="btn" onclick="profStep(\'pf-phone\',\'enter\')">‹ Змінити номер</button><button type="button" class="btn dark" onclick="closeProf();wfToast(\'ok\',\'Номер телефону оновлено\')">Підтвердити</button></div></div>' +
+      '<div class="ceact"><button type="button" class="btn--outline btn" onclick="profStep(\'pf-phone\',\'enter\')">‹ Змінити номер</button><button type="button" class="btn--accent btn dark" onclick="closeProf();wfToast(\'ok\',\'Номер телефону оновлено\')">Підтвердити</button></div></div>' +
     '</div></div>';
 
   var email =
     '<div class="ceov" id="pf-email" role="dialog" aria-modal="true" aria-label="E-mail"><div class="cemodal">' +
-    '<div class="ce-top"><h2 id="pf-email-t">Додати e-mail</h2><button class="ce-x" onclick="closeProf()" aria-label="Закрити">✕</button></div>' +
+    '<div class="ce-top"><h2 id="pf-email-t">Додати e-mail</h2><button class="btn--ghost btn--icon btn--s ce-x" onclick="closeProf()" aria-label="Закрити">✕</button></div>' +
     '<div class="pf-dstep" data-s="enter"><p class="sub">Вкажіть e-mail - надішлемо код для підтвердження. Без пароля.</p>' +
-      '<div class="cef"><label>E-mail</label><input type="email" placeholder="you@email.com"></div>' +
-      '<div class="ceact"><button type="button" class="btn" onclick="closeProf()">Скасувати</button><button type="button" class="btn dark" onclick="profStep(\'pf-email\',\'code\')">Отримати код</button></div></div>' +
+      '<div class="cef"><label>E-mail</label><input class="field" type="email" placeholder="you@email.com"></div>' +
+      '<div class="ceact"><button type="button" class="btn--outline btn" onclick="closeProf()">Скасувати</button><button type="button" class="btn--accent btn dark" onclick="profStep(\'pf-email\',\'code\')">Отримати код</button></div></div>' +
     '<div class="pf-dstep" data-s="code" hidden><p class="sub">Ми надіслали код на вашу пошту. Введіть його, щоб підтвердити e-mail.</p>' +
       '<div class="cef"><label>Код підтвердження</label>' + otp() + '<div class="otp-note">Код діє 5 хвилин. <a class="pf-resend" onclick="wfToast(\'info\',\'Код надіслано ще раз\')">Надіслати ще раз</a></div></div>' +
-      '<div class="ceact"><button type="button" class="btn" onclick="profStep(\'pf-email\',\'enter\')">‹ Змінити e-mail</button><button type="button" class="btn dark" onclick="closeProf();wfToast(\'ok\',\'E-mail підтверджено\')">Підтвердити</button></div></div>' +
+      '<div class="ceact"><button type="button" class="btn--outline btn" onclick="profStep(\'pf-email\',\'enter\')">‹ Змінити e-mail</button><button type="button" class="btn--accent btn dark" onclick="closeProf();wfToast(\'ok\',\'E-mail підтверджено\')">Підтвердити</button></div></div>' +
     '</div></div>';
 
   var langs = ['Українська', 'English'];
@@ -1072,9 +1076,9 @@ function wfProfileDialogs() {
   });
   var lang =
     '<div class="ceov" id="pf-lang" role="dialog" aria-modal="true" aria-label="Мова інтерфейсу"><div class="cemodal">' +
-    '<div class="ce-top"><h2>Мова інтерфейсу</h2><button class="ce-x" onclick="closeProf()" aria-label="Закрити">✕</button></div>' +
+    '<div class="ce-top"><h2>Мова інтерфейсу</h2><button class="btn--ghost btn--icon btn--s ce-x" onclick="closeProf()" aria-label="Закрити">✕</button></div>' +
     '<div class="pf-langs">' + lrows + '</div>' +
-    '<div class="ceact"><button type="button" class="btn" onclick="closeProf()">Скасувати</button><button type="button" class="btn dark" onclick="closeProf();wfToast(\'ok\',\'Мову збережено\')">Зберегти</button></div>' +
+    '<div class="ceact"><button type="button" class="btn--outline btn" onclick="closeProf()">Скасувати</button><button type="button" class="btn--accent btn dark" onclick="closeProf();wfToast(\'ok\',\'Мову збережено\')">Зберегти</button></div>' +
     '</div></div>';
 
   var del =
@@ -1082,8 +1086,8 @@ function wfProfileDialogs() {
     '<div class="ic" aria-hidden="true">⚠️</div><h2>Видалити акаунт?</h2>' +
     '<p>Буде видалено ваш профіль, збережені адреси, обране та <b>бонуси, що згорять безповоротно</b>. Історія замовлень зберігається за вимогами обліку. Цю дію не можна скасувати.</p>' +
     '<label class="pf-delcheck"><input type="checkbox" id="pf-del-ok" onchange="document.getElementById(\'pf-del-btn\').disabled=!this.checked"> Розумію, що акаунт буде видалено назавжди</label>' +
-    '<div class="act"><button type="button" class="btn" onclick="closeProf()">Скасувати</button>' +
-    '<button type="button" class="btn dark" id="pf-del-btn" disabled onclick="closeProf();wfToast(\'ok\',\'Запит на видалення прийнято\')">Видалити акаунт</button></div>' +
+    '<div class="act"><button type="button" class="btn--outline btn" onclick="closeProf()">Скасувати</button>' +
+    '<button type="button" class="btn--accent btn dark" id="pf-del-btn" disabled onclick="closeProf();wfToast(\'ok\',\'Запит на видалення прийнято\')">Видалити акаунт</button></div>' +
     '</div></div>';
 
   el.innerHTML = phone + email + lang + del;
@@ -1177,7 +1181,7 @@ function wfCoachNav(active, opts) {
   el.innerHTML =
     '<div class="acc-prof"><div class="av">О</div><div class="who">' +
     '<div class="nm">Олена</div><div class="ph">+380 ** *** 21 09</div>' + chip + '</div></div>' +
-    '<a class="coach-newcta" href="coach-session.html"><span class="cn-plus">＋</span><span>Нова сесія</span></a>' +
+    '<a class="btn--accent btn--full coach-newcta" href="coach-session.html"><span class="cn-plus">＋</span><span>Нова сесія</span></a>' +
     '<nav class="acc-links" aria-label="Розділи кабінету тренера">' + links + '</nav>';
 }
 
@@ -1233,8 +1237,8 @@ function wfWishlistEmpty(grid) {
     '<div class="ei">♡</div>' +
     '<div class="et">В обраному поки порожньо</div>' +
     '<div class="es">Натискайте ♥ на картці товару - і він збережеться тут. Зручно збирати набір і повертатися до нього пізніше.</div>' +
-    '<div class="eact"><a class="btn dark" href="index.html">Обрати ціль</a>' +
-    '<a class="btn" href="catalog-page.html">До каталогу</a></div>';
+    '<div class="eact"><a class="btn--accent btn dark" href="index.html">Обрати ціль</a>' +
+    '<a class="btn--outline btn" href="catalog-page.html">До каталогу</a></div>';
   grid.replaceWith(box);
   const label = document.querySelector('.wl-count'); if (label) label.remove();
 }
@@ -1320,7 +1324,7 @@ function wfCart() {
       wfCartRecalc(drawer);
       return;
     }
-    const lnk = e.target.closest('button.ci-lnk');     // <a class="ci-lnk"> navigates, leave it
+    const lnk = e.target.closest('button.ci-lnk');     // <a class="btn--text ci-lnk"> navigates, leave it
     if (!lnk) return;
     if (/Видалити/.test(lnk.textContent)) {
       lnk.closest('.ci').remove();
@@ -1548,7 +1552,7 @@ function wfHeader(role, opts) {
   const name = isCoach ? 'Олена Кравець' : 'Вікторія Коваль';
   let acctHTML;
   if (!loggedIn) {
-    acctHTML = `<a class="wfh-act stack" href="auth.html" onclick="openAuth('phone');return false"><span class="g">👤</span><span class="lbl">Увійти</span></a>`;
+    acctHTML = `<a class="btn--ghost btn--s wfh-act stack" href="auth.html" onclick="openAuth('phone');return false"><span class="g">👤</span><span class="lbl">Увійти</span></a>`;
   } else {
     let items = `<div class="cab-head"><span class="cab-nm">${name}</span>` +
       (isCoach ? `<span class="cab-tier">Pro</span>` : `<span class="cab-lvl">🥈 Срібний рівень</span>`) + `</div>`;
@@ -1561,7 +1565,7 @@ function wfHeader(role, opts) {
         `<a href="account.html">Адреси</a><a href="coach-verify.html">Стати тренером</a>`;
     }
     items += `<div class="cab-sep"></div><a href="index.html">Вийти</a>`;
-    acctHTML = `<div class="wfh-cab"><button class="wfh-act stack wfh-cabbtn" onclick="toggleCab(event)" aria-haspopup="true" aria-expanded="false">` +
+    acctHTML = `<div class="wfh-cab"><button class="btn--ghost btn--s wfh-act stack wfh-cabbtn" onclick="toggleCab(event)" aria-haspopup="true" aria-expanded="false">` +
       `<span class="g">👤</span><span class="lbl">Кабінет ▾</span></button>` +
       `<div class="wfh-cabmenu" id="wfh-cabmenu" role="menu">${items}</div></div>`;
   }
@@ -1578,8 +1582,8 @@ function wfHeader(role, opts) {
   const favBadge = favN > 0 ? `<span class="hb">${favN}</span>` : '';
   // Кошик button: with items → two-line «Кошик» + sum (like Бонуси); empty → plain label
   const cartActHTML = cartSum
-    ? `<a class="wfh-act numbtn" href="cart.html"><span class="g">🛒${cartBadge}</span><span class="t"><span class="cap">Кошик</span><span class="val">${cartSum}</span></span></a>`
-    : `<a class="wfh-act numbtn" href="cart.html"><span class="g">🛒${cartBadge}</span><span class="lbl">Кошик</span></a>`;
+    ? `<a class="btn--outline btn--s wfh-act numbtn" href="cart.html"><span class="g">🛒${cartBadge}</span><span class="t"><span class="cap">Кошик</span><span class="val">${cartSum}</span></span></a>`
+    : `<a class="btn--outline btn--s wfh-act numbtn" href="cart.html"><span class="g">🛒${cartBadge}</span><span class="lbl">Кошик</span></a>`;
   const el = document.getElementById('wf-header'); if (!el) return;
   el.className = 'wfh';
   el.innerHTML = `
@@ -1588,18 +1592,18 @@ function wfHeader(role, opts) {
       <span class="wfh-sp"></span><a class="wfh-loc" href="#" onclick="openCity();return false">📍 <span class="wfh-city-lbl">Одеса</span></a><span class="wfh-lang-wrap"><a class="wfh-lang" href="#" onclick="toggleLang(event)" aria-haspopup="true" aria-expanded="false"><span class="wfh-lang-code">Укр</span> ▾</a><div class="wfh-langmenu" id="wfh-langmenu" role="menu"><a class="on" data-code="Укр" href="#" onclick="pickLang(event,'Укр')">Українська</a><a data-code="Eng" href="#" onclick="pickLang(event,'Eng')">English</a></div></span>
     </div></div>
     <div class="wfh-main wfh-in">
-      <button class="wfh-burger" aria-label="Меню" aria-controls="drawer" aria-expanded="false" onclick="toggleBurger()"><span class="bi-open">☰</span><span class="bi-close">✕</span></button>
+      <button class="btn--ghost btn--icon btn--s wfh-burger" aria-label="Меню" aria-controls="drawer" aria-expanded="false" onclick="toggleBurger()"><span class="bi-open">☰</span><span class="bi-close">✕</span></button>
       <a class="wfh-logo" href="${homeHref}">Stack</a>
       <nav class="wfh-nav" aria-label="Головна навігація">
         <div class="wfh-cat" onmouseenter="openMega()" onmouseleave="closeMega()">
-          <a class="navbtn" href="catalog-page.html"><span class="g">▦</span> Каталог <span class="cav">▾</span></a>
+          <a class="btn--accent btn--s navbtn" href="catalog-page.html"><span class="g">▦</span> Каталог <span class="cav">▾</span></a>
           ${wfMegaHTML()}
         </div>
-        <a class="navlink" href="quiz.html">✦ Квіз</a>
+        <a class="btn--ghost btn--s navlink" href="quiz.html">✦ Квіз</a>
       </nav>
-      <form class="wfh-search" role="search" action="search.html">
-        <input type="search" placeholder="Пошук товарів, брендів…" aria-label="Пошук">
-        <button class="go" type="submit">Знайти</button>
+      <form class="field-grp field-grp--s wfh-search" role="search" action="search.html">
+        <input class="field field--s" type="search" placeholder="Пошук товарів, брендів…" aria-label="Пошук">
+        <button class="btn--accent btn--s go" type="submit">Знайти</button>
       </form>
       <div class="wfh-mi">
         <a href="search.html" aria-label="Пошук">🔍</a>
@@ -1608,8 +1612,8 @@ function wfHeader(role, opts) {
       </div>
       <div class="wfh-actions">
         ${acctHTML}
-        <a class="wfh-act stack" href="${favHref}"><span class="g">♡${favBadge}</span><span class="lbl">Обране</span></a>
-        <a class="wfh-act numbtn" href="${bonusHref}"><span class="g">★</span><span class="t"><span class="cap">Бонуси</span><span class="val">${bonusVal}</span></span></a>
+        <a class="btn--ghost btn--s wfh-act stack" href="${favHref}"><span class="g">♡${favBadge}</span><span class="lbl">Обране</span></a>
+        <a class="btn--outline btn--s wfh-act numbtn" href="${bonusHref}"><span class="g">★</span><span class="t"><span class="cap">Бонуси</span><span class="val">${bonusVal}</span></span></a>
         ${cartActHTML}
       </div>
     </div>
@@ -1652,7 +1656,7 @@ function wfFooter() {
     </div>
     <div class="wff-cols">
       <div class="wff-col"><h4>Розсилка</h4>
-        <div class="wff-news"><input type="email" placeholder="E-mail для новин та акцій" aria-label="E-mail"><button type="button">Підписатись</button></div>
+        <div class="wff-news"><input class="field field--s" type="email" placeholder="E-mail для новин та акцій" aria-label="E-mail"><button type="button" class="btn--accent btn--s">Підписатись</button></div>
         <a href="content-reviews.html">★ Оцініть нас у Google</a></div>
       <div class="wff-col"><h4>Stack</h4><a href="content-about.html">Про нас</a><a href="content-contacts.html">Контакти</a><a href="content-blog.html">Блог</a><a href="content-legal.html">Публічна оферта</a><a href="content-legal.html">Політика конфіденційності</a><a href="content-legal.html">Умови використання</a></div>
       <div class="wff-col"><h4>Покупцям</h4><a href="${loyHref}">Знижки та бонуси</a><a href="content-delivery.html">Доставка й оплата</a><a href="content-returns.html">Повернення</a><a href="content-faq.html">FAQ</a></div>
@@ -1701,7 +1705,7 @@ function wfFilterGroupsHTML(checked) {
     </div>
     <div class="fgroup"><div class="fh">Бренд <span class="ar">▾</span></div>
       ${opt('Optimum Nutrition', 12)}${opt('BioTechUSA', 9)}${opt('Myprotein', 7)}${opt('Scitec Nutrition', 6)}${opt('OstroVit', 8)}
-      <div class="fmore">+ ще 11 ▾ · 🔍 пошук бренду</div>
+      <div class="btn--text fmore">+ ще 11 ▾ · 🔍 пошук бренду</div>
     </div>
     <div class="fgroup"><div class="fh">Ціль <span class="ar">▾</span></div>
       ${opt('Набір маси', 52)}${opt('Схуднення', 23)}${opt('Відновлення', 18)}
@@ -1734,11 +1738,11 @@ function wfSheet() {
   el.innerHTML = `
     <div class="fsheet-ov" id="fsheet-ov" onclick="closeSheet()"></div>
     <div class="fsheet" id="fsheet" role="dialog" aria-modal="true" aria-label="Фільтри">
-      <div class="fsheet-h">Фільтри <button class="x" onclick="closeSheet()" aria-label="Закрити">✕</button></div>
+      <div class="fsheet-h">Фільтри <button class="btn--ghost btn--icon btn--s x" onclick="closeSheet()" aria-label="Закрити">✕</button></div>
       <div class="fsheet-body">${wfFilterGroupsHTML(['В наявності', 'Optimum Nutrition'])}</div>
       <div class="fsheet-foot">
-        <a class="btn" href="listing.html">Скинути</a>
-        <button class="btn dark" onclick="closeSheet()">Застосувати (47)</button>
+        <a class="btn--outline btn" href="listing.html">Скинути</a>
+        <button class="btn--accent btn dark" onclick="closeSheet()">Застосувати (47)</button>
       </div>
     </div>`;
 }

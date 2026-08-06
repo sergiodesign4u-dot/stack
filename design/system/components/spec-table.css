@@ -1,0 +1,98 @@
+/* spec-table.css - spec table (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.ctable{ width: 100%; border-collapse: collapse; font-size: var(--fs-14); }
+.ctable th, .ctable td{ text-align: left; padding: var(--space-8) var(--space-12); border-bottom: 1px solid var(--line-hair); }
+.ctable th{ font-size: var(--fs-12); text-transform: uppercase; letter-spacing: var(--ls-caps); }
+.ctable td b{ color: var(--text-primary); }
+/* step 6.10: was var(--fs-12-5) - no such token, so the declaration was dropped
+   and this line rendered at the size it inherited. 12 is the nearest real rung. */
+.fullcomp{ margin-top: var(--space-12); font-size: var(--fs-12); color: var(--text-body); }
+.allerg{ font-size: var(--fs-14); color: var(--text-body); }
+.allerg .algic{ font-weight: var(--fw-black); }
+@media (min-width: 720px){
+  .pl-panel{ grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: var(--space-24); padding: var(--space-24); align-items: stretch; }
+  .pl-foot{ grid-column: 1 / -1; }
+}
+.pl-h{ color: var(--text-primary); }
+.pl-serv{ color: var(--text-body); }
+.pl-cal span{ color: var(--text-secondary); }
+.pl-cal b{ color: var(--text-primary); }
+.pl-t td{ color: var(--text-body); }
+.pl-hw .pl-ic:empty{ width: var(--size-26); height: var(--size-26); border: 1px solid var(--line-strong); border-radius: var(--radius-8); margin-bottom: var(--space-4); }
+.pl-ing b{ color: var(--text-primary); }
+.pl-mark{ border-radius: var(--radius-4); }
+.spectbl{ width: 100%; border-collapse: collapse; font-size: var(--fs-14); }
+.spectbl td{ padding: var(--space-8) var(--space-12); border-bottom: 1px solid var(--line-hair); }
+.spectbl td:first-child{ width: 200px; }
+.dl .dk{ font-size: var(--fs-12); text-transform: uppercase; letter-spacing: var(--ls-caps); font-weight: var(--fw-bold); }
+.dl .dv{ font-size: var(--fs-14); font-weight: var(--fw-semibold); margin-top: var(--space-4); line-height: var(--lh-snug); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.ctable th{ color:var(--text-muted); }
+.ctable td:nth-child(2), .ctable td:nth-child(3){ font-family:var(--font-mono);
+  font-variant-numeric:tabular-nums; word-spacing:-.24em; color:var(--text-body); }
+.ctable tr:first-child th{ border-bottom-color:var(--line-strong); }
+.ctable td b{ font-weight:var(--fw-bold); }
+.fullcomp{ background:var(--bg-surface); border:none; border-radius:var(--radius-8); padding:var(--space-12) var(--space-12); line-height:var(--lh-airy); }
+.allerg{ display:flex; align-items:flex-start; gap:var(--space-8); margin-top:var(--space-8); line-height:var(--lh-airy);
+  background:var(--bg-notice); border:1px solid var(--line-notice); border-radius:var(--radius-8); padding:var(--space-12) var(--space-12); }
+.allerg .algic{ flex:none; color:var(--text-warning); display:inline-flex; margin-top:var(--space-2); }
+.allerg .algic svg{ width:17px; height:17px; }
+.allerg b{ color:var(--text-warning); font-weight:var(--fw-bold); }
+.allerg .algv{ font-weight:var(--fw-bold); letter-spacing:var(--ls-caps); color:var(--text-body); }
+.pl-panel{ position:relative; overflow:hidden; border:none; border-radius:var(--radius-12); color:var(--text-oninverse);
+  /* the pack's own dark surface: diagonal weave + a soft top light, so it reads as
+     packaging, not as another UI card */
+  background:
+    radial-gradient(120% 70% at 20% -10%, var(--bg-inverse-tint), var(--fade-page) 60%),
+    repeating-linear-gradient(135deg, var(--bg-inverse) 0 13px, var(--bg-inverse-soft) 13px 26px);
+  padding:var(--space-24); display:grid; gap:var(--space-16); }
+@media (min-width:720px){
+  .pl-panel{ grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:var(--space-24); padding:var(--space-24); align-items:stretch; }
+  .pl-foot{ grid-column:1 / -1; }
+}
+.pl-facts{ background:var(--bg-notice); color:var(--text-body); border:none; border-radius:var(--radius-8); padding:var(--space-16) var(--space-16) var(--space-12); }
+.pl-h{ font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-24); letter-spacing:var(--ls-lead);
+  line-height:var(--lh-flat); border-bottom:2.5px solid var(--line-inverse); padding-bottom:var(--space-8); }
+.pl-serv{ font-size:var(--fs-14); line-height:var(--lh-snug); padding:var(--space-8) 0; border-bottom:1px solid var(--line-hair); }
+.pl-cal{ display:flex; align-items:baseline; justify-content:space-between; gap:var(--space-12);
+  padding:var(--space-8) 0; border-bottom:2.5px solid var(--line-inverse); }
+.pl-cal span{ font-size:var(--fs-14); font-weight:var(--fw-semibold); }
+.pl-cal b{ font-family:var(--font-display); font-size:var(--fs-24); font-weight:var(--fw-bold); line-height:var(--lh-flat); }
+.pl-t{ width:100%; border-collapse:collapse; font-size:var(--fs-14); }
+.pl-t th{ text-align:left; font-size:var(--fs-12); letter-spacing:var(--ls-caps); text-transform:uppercase;
+  color:var(--text-secondary); padding:var(--space-8) 0 var(--space-4); border-bottom:1px solid var(--line-hair); }
+.pl-t th:last-child, .pl-t td:last-child{ text-align:right; white-space:nowrap; }
+.pl-t td{ padding:var(--space-8) 0; border-bottom:1px solid var(--line-hair); line-height:var(--lh-snug); }
+.pl-t tr:last-child td{ border-bottom:none; }
+.pl-t td:last-child{ font-family:var(--font-mono); font-weight:var(--fw-semibold); }
+.pl-note{ font-size:var(--fs-12); line-height:var(--lh-snug); color:var(--text-secondary); padding-top:var(--space-8);
+  border-top:1px solid var(--line-hair); margin-top:var(--space-2); }
+.pl-right{ display:grid; gap:var(--space-16); grid-template-rows:auto 1fr; align-content:stretch; }
+.pl-how{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:var(--space-12); text-align:center;
+  padding-bottom:var(--space-16); border-bottom:1px solid var(--line-oninverse-soft); }
+.pl-hw{ display:grid; justify-items:center; gap:var(--space-2); }
+.pl-hw .pl-ic{ color:var(--text-oninverse); margin-bottom:var(--space-4); }
+.pl-hw .pl-ic svg{ width:var(--size-26); height:var(--size-26); }
+.pl-hw b{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-14); letter-spacing:var(--ls-lead); }
+.pl-hw span:not(.pl-ic){ font-size:var(--fs-12); line-height:var(--lh-snug); color:var(--text-oninverse-muted); }
+.pl-ing{ background:var(--bg-notice); color:var(--text-body); border:none; border-radius:var(--radius-8); padding:var(--space-12) var(--space-16);
+  font-size:var(--fs-14); line-height:var(--lh-airy); }
+.pl-ing b{ font-weight:var(--fw-bold); letter-spacing:var(--ls-caps); }
+.pl-alg{ margin-top:var(--space-8); padding-top:var(--space-8); border-top:1px solid var(--line-hair); }
+.pl-foot{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-8) var(--space-16);
+  border-top:1px solid var(--line-oninverse-soft); padding-top:var(--space-12);
+  font-size:var(--fs-12); line-height:var(--lh-snug); color:var(--text-oninverse-muted); }
+.pl-mark{ width:17px; height:17px; flex:none;
+  background:center/contain no-repeat url(../../concept/assets/logo-mark.svg); }
+.spectbl td{ border-bottom-color:var(--line-hair); }
+.spectbl tr:nth-child(odd) td{ background:var(--bg-surface); }
+.spectbl td:first-child{ color:var(--text-secondary); }
+.spectbl td b{ font-family:var(--font-mono); font-weight:var(--fw-semibold); color:var(--text-body); }
+.dl .dk{ color:var(--text-muted); }
+.dl .dv{ color:var(--text-body); }

@@ -1,0 +1,75 @@
+/* icon.css - icon (level 1)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.chev{ display: inline-block; transition: transform .15s; line-height: var(--lh-flat); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.uiv-ic{ display:inline-flex; align-items:center; justify-content:center; vertical-align:middle; line-height:0; }
+.uiv-ic svg{ width:1.05em; height:1.05em; display:block; }
+
+/* ---------- a mark at the END of a label - step 7.6 ------------------------
+   PUNCTUATION, NOT A NOUN. A mark before a label names the thing the control
+   acts on, so it takes the button's size ladder (18 / 20 / 24). A mark after it
+   says where the press leads, so it belongs to the sentence and grows with the
+   LABEL - a hair above the letters it stands beside, like the text finish's own
+   mark. One number, and one place: 7.5 wrote this rule inside button.css scoped
+   to the three boxed finishes, and then 7.6 found the same sign on links, where
+   no button selector reaches. Punctuation cannot be one size on a button and
+   another on a link.
+
+   IT NEEDS A CLASS, and this is the one place where step 6.9's «the markup
+   already says which side» does not hold. `:last-child` counts ELEMENT children
+   and a label is a bare text node, so in `<a><span class="uiv-ic">…</span>Квіз</a>`
+   the LEADING mark is also the last element child and a `:last-child` rule fires
+   on it. Measured: 34 header nav links dropped their mark from 18 to 16.1 on the
+   first try. CSS cannot see a text node, so the side is stated by whoever places
+   the mark - `uivTrailMark()` and `menu.js`.
+
+   This file loads AFTER button.css, so at equal specificity this line wins over
+   the size ladder. That ordering is the rule, not an accident. */
+.uiv-ic.uiv-trail svg{ width:1.15em; height:1.15em; }
+/* AND IT BRINGS ITS OWN SPACE. The sign is placed with the space in front of it
+   removed, because a button is a flex row whose `gap` already sets the mark off
+   and a kept space put it twice as far out as the rest of the set. A link is not
+   a flex row and supplies nothing, so the mark landed flush against the last
+   letter - measured on the mega-menu head. The space belongs to the mark
+   wherever nobody else provides one; the button says below that it does. */
+.uiv-ic.uiv-trail{ margin-left:var(--space-4); }
+
+/* ---------- brand marks are sized by their INK, not by their box ------------
+   Measured, because the eye was right and the numbers looked innocent: Apple was
+   18px against Google's 19px - a five percent difference in the box - and read as
+   two thirds the size. The reason is that each mark fills its own viewBox
+   differently, so an equal box gives unequal ink:
+
+     telegram / viber   100% of the viewBox   a badge: the disc IS the mark
+     google              83%                  a glyph with air around it
+     apple               72%                  a silhouette with more air still
+
+   So the component declares the INK it wants and each mark derives its own box
+   from the share it fills. One number to set, four marks that come out the same
+   size next to the same label. The factors are 24/20 and 24/17.3 - measured on
+   the paths, not guessed. */
+/* THE BOX IS FIXED, ONLY THE INK GROWS - step 7.3. Because each mark oversizes
+   its own svg to keep the ink equal, the svg was also the tallest thing inside
+   the button and therefore SET the button's height. Measured on auth.html:
+   «Продовжити з Google» 55.8 and «Продовжити з Apple» 59.6, two identical
+   controls one under the other, 3.8px apart, both over the M rung of 52. A mark
+   may decide how much ink it needs; it may not decide how tall a control is. So
+   the wrapper is pinned to `--brand-ink` and the larger drawing overflows it. */
+.uiv-brand{ --brand-ink: 1.05em; display:inline-flex; align-items:center; justify-content:center;
+  width:var(--brand-ink); height:var(--brand-ink); flex:none; overflow:visible;
+  /* `vertical-align` was the line `.uiv-ic` had and this one did not. Without it
+     the mark sits ON the baseline, so the line box around it is the mark plus a
+     descender the mark does not have - which is where the last two pixels of the
+     difference came from. */
+  vertical-align:middle; line-height:0; }
+.uiv-brand svg{ width:var(--brand-ink); height:var(--brand-ink); display:block; }
+.uiv-brand svg[data-mark="google"]{ width:calc(var(--brand-ink) * 1.2); height:calc(var(--brand-ink) * 1.2); }
+.uiv-brand svg[data-mark="apple"]{ width:calc(var(--brand-ink) * 1.39); height:calc(var(--brand-ink) * 1.39); }
+.uiv-sort .uiv-ic{ transition:transform .18s ease; }
+.uiv-sort.open .uiv-ic{ transform:rotate(180deg); }

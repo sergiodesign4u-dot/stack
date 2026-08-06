@@ -1,0 +1,179 @@
+/* header.css - header (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.wfh{ position: sticky; top: 0; z-index: 30; background: var(--bg-page); }
+.wfh-in{ max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: var(--space-12); padding: var(--space-16) var(--space-16); }
+.wfh-meta{ display: none; font-size: var(--fs-12); color: var(--text-secondary); }
+.wfh-meta .wfh-in{ padding: var(--space-8) var(--space-16); gap: var(--space-16); }
+.wfh-meta a{ color: var(--text-secondary); }
+.wfh-meta .strongl{ color: var(--text-primary); font-weight: var(--fw-bold); }
+.wfh-lang-wrap{ position: relative; }
+.wfh-lang{ cursor: pointer; }
+.wfh-langmenu{ display: none; position: absolute; right: 0; top: 100%; z-index: 46; margin-top: var(--space-8);
+  min-width: 152px; background: var(--bg-page); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);
+  border-radius: 0 0 var(--radius-12) var(--radius-12); box-shadow: var(--elevation-3); padding: var(--space-8) 0; }
+.wfh-langmenu.open{ display: block; }
+.wfh-langmenu a{ display: flex; align-items: center; justify-content: space-between; gap: var(--space-12);
+  padding: var(--space-8) var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); }
+.wfh-langmenu a:hover{ background: var(--bg-sunken); }
+.wfh-langmenu a.on::after{ content: '✓'; font-weight: var(--fw-black); }
+.wfh-burger{ font-size: var(--fs-20); line-height: var(--lh-flat); }
+.wfh-burger .bi-close{ display: none; }
+.wfh.drawer-open .wfh-burger .bi-open{ display: none; }
+.wfh.drawer-open .wfh-burger .bi-close{ display: inline; }
+.wfh-logo{ font-size: var(--fs-20); }
+.wfh-nav{ display: none; gap: var(--space-8); }
+.wfh-cat{ position: relative; }
+.wfh-mega{ display: none; position: absolute; top: 100%; left: 0; z-index: 40;
+  grid-template-columns: 226px minmax(420px, 1fr) 196px; width: 940px; max-width: 94vw;
+  background: var(--bg-page); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);
+  border-radius: 0 0 var(--radius-12) var(--radius-12); box-shadow: var(--elevation-3); margin-top: var(--space-8); overflow: hidden; }
+.wfh.mega-open .wfh-mega, .wfh.mega-pinned .wfh-mega{ display: grid; }
+.wfh-cat::after{ content: ""; display: none; position: absolute; top: 100%; left: 0; width: 100%; height: 12px; }
+.wfh.mega-open .wfh-cat::after, .wfh.mega-pinned .wfh-cat::after{ display: block; }
+.wfh-scrim{ display: none; position: fixed; inset: 0; background: var(--scrim-overlay); z-index: 28; }
+.wfh-scrim.open, .wfh-scrim.pinned{ display: block; }
+@media (max-width: 859px){
+  .wfh-scrim{ display: none !important; }
+}
+.wfh-mega .mph{ display: inline-block; font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); margin-bottom: var(--space-12); text-decoration: underline; text-decoration-color: var(--line-strong); }
+.wfh-mega .mgt{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); margin-bottom: var(--space-8); }
+.wfh-mega .mgl{ font-size: var(--fs-12); font-weight: var(--fw-black); color: var(--text-secondary); }
+.wfh-mega .mgchip{ font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--text-primary); border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-4) var(--space-12); }
+.wfh-mega .ms-lead{ display: block; font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); padding: var(--space-8) 0 var(--space-12); border-bottom: 1px solid var(--line-hair); margin-bottom: var(--space-8); }
+.wfh-mega .ms-link{ display: block; font-size: var(--fs-14); color: var(--text-secondary); padding: var(--space-8) 0; }
+.wfh-mega .ms-link:hover{ color: var(--text-primary); text-decoration: underline; }
+.wfh-mega .ms-feat{ display: block; margin-top: var(--space-12); border: 1px solid var(--line-hair); border-radius: var(--radius-8); background: var(--bg-page); padding: var(--space-12); transition: border-color .15s ease, box-shadow .15s ease; }
+.wfh-mega .ms-ph{ height: 78px; border-radius: var(--radius-8); background: repeating-linear-gradient(45deg, var(--bg-surface), var(--bg-surface) 8px, var(--bg-skeleton) 8px, var(--bg-skeleton) 16px); display: flex; align-items: center; justify-content: center; color: var(--mark-faint); font-size: var(--fs-10); margin-bottom: var(--space-8); }
+.wfh-mega .ms-ftag{ font-size: var(--fs-10); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-secondary); }
+.wfh-mega .ms-fh{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); margin: var(--space-4) 0; line-height: var(--lh-snug); }
+.wfh-mega .ms-fs{ font-size: var(--fs-12); color: var(--text-secondary); }
+.wfh-mega .ms-fb{ display: inline-block; margin-top: var(--space-8); font-size: var(--fs-12); font-weight: var(--fw-black); color: var(--text-primary); text-decoration: underline; }
+.wfh-search{ display: none; flex: 1; }
+.wfh-sp{ flex: 1; }
+.wfh-actions{ display: none; align-items: center; gap: var(--space-8); }
+.wfh-act .lbl{ font-size: var(--fs-14); font-weight: var(--fw-bold); }
+/* the counter's two lines read as a column, so they align to its left edge, not
+   to the centre the button class gives every other label (owner, step 6.8).
+   The cart will carry a sum and a count here too - two values of different
+   lengths that have to start from the same place, or the button flickers as
+   the number changes. */
+.wfh-act .t{ display: flex; flex-direction: column; line-height: var(--lh-flat); text-align: left; }
+.wfh-act .t .cap{ font-size: var(--fs-10); color: var(--text-secondary); font-weight: var(--fw-bold); text-transform: uppercase; letter-spacing: var(--ls-caps); }
+.wfh-act .t .val{ font-size: var(--fs-14); font-weight: var(--fw-black); }
+/* БОНУСИ і КОШИК - the two counters of the header. Step 6.1 folded them into
+   the ghost row with everything else; step 6.3 puts the box back by the owner's
+   decision: these two carry a NUMBER, and a number needs an edge to sit in.
+   The outline finish in button.css gives them the border; the hover below is
+   the one they had before 6.1, restored verbatim - the edge goes to ink and a
+   warm ground comes up, and the label stays ink instead of turning accent. */
+/* Step 6.10, the owner: a counter must not change width when its number
+   arrives. Measured at 1280 with the fonts loaded, the four states were
+   «Бонуси / Отримати» 124, «Бонуси / 124 ₴» 98.6, «Кошик» 100, «Кошик /
+   1 520 ₴» 103 - the header moved by 25px just because a balance appeared.
+   The floor is the widest EMPTY state, 124: empty is the state whose width is
+   fixed by copy, so it is the one that can set a floor. The old 96 was below
+   every one of the four and therefore never bound anything.
+   If «Отримати» is ever re-worded, re-measure this number. */
+.wfh-act.numbtn{ min-width: 124px; justify-content: flex-start; }
+.wfh-act.numbtn:hover .t .val{ color: var(--text-body); }
+.wfh-act.numbtn:hover .t .cap{ color: var(--text-secondary); }
+.wfh-act.stack{ flex-direction: column; }
+.wfh-act.stack .lbl{ font-weight: var(--fw-semibold); color: var(--text-secondary); }
+.wfh-cab{ position: relative; }
+.wfh-cabmenu{ display: none; position: absolute; right: 0; top: 100%; z-index: 45; margin-top: var(--space-8);
+  min-width: 230px; background: var(--bg-page); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);
+  border-radius: 0 0 var(--radius-12) var(--radius-12); box-shadow: var(--elevation-3); padding: var(--space-8) 0; }
+.wfh-cabmenu.open{ display: block; }
+.wfh-cabmenu .cab-head{ padding: var(--space-12) var(--space-16) var(--space-12); border-bottom: 1px solid var(--line-hair); margin-bottom: var(--space-8); display: flex; flex-direction: column; gap: var(--space-4); }
+.wfh-cabmenu .cab-nm{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
+.wfh-cabmenu .cab-tier{ align-self: flex-start; font-size: var(--fs-10); font-weight: var(--fw-black); letter-spacing: var(--ls-caps); background: var(--bg-inverse); color: var(--text-oninverse); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); }
+.wfh-cabmenu .cab-lvl{ font-size: var(--fs-12); color: var(--text-secondary); font-weight: var(--fw-semibold); }
+.wfh-cabmenu a{ display: block; padding: var(--space-8) var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); }
+.wfh-cabmenu a:hover{ background: var(--bg-sunken); }
+.wfh-cabmenu .cab-sep{ border-top: 1px solid var(--line-hair); margin: var(--space-8) 0; }
+.wfh-mi{ display: flex; align-items: center; gap: var(--space-16); font-size: var(--fs-20); margin-left: auto; }
+@media (min-width: 860px){
+  .wfh-meta{ display: block; }
+  .wfh-burger{ display: none; }
+  .wfh-nav{ display: flex; }
+  .wfh-search{ display: flex; }
+  .wfh-actions{ display: flex; }
+  .wfh-mi{ display: none; }
+}
+.wfh-mi{ padding-right: var(--space-8); }
+.wfh-mi a{ position: relative; }
+/* The mobile icon row is 21x32 and cannot widen without pushing its neighbours,
+   so the target is stretched instead of the box - and it is sized from the
+   measured 8px gap, which stops it SHORT of the next control rather than
+   overlapping it. Moved here from button.css at step 6.7: the row owns this,
+   because only the row knows how much space it has to give. */
+.wfh-mi a::after{ content: ''; position: absolute; inset: -6px -8px; }
+.wfh-act{ position: relative; }
+.wfh-mi .hb, .wfh-act .g .hb{ position: absolute; top: -6px; right: -4px; min-width: 15px; height: 15px; padding: 0 var(--space-4);
+  border-radius: var(--radius-pill); background: var(--bg-inverse); color: var(--text-oninverse); font-size: var(--fs-10); font-weight: var(--fw-black); line-height: 15px;
+  text-align: center; box-shadow: var(--ring-onink); }
+.wfh-act .g{ position: relative; }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.wfh-logo{ letter-spacing:var(--ls-display); }
+.wfh-main{ padding:var(--space-16); }
+.wfh-logo{ font-family:var(--font-display); font-weight:var(--fw-bold); color:var(--text-body);
+  display:inline-flex; align-items:baseline; gap:.2em; line-height:var(--lh-flat); }
+.wfh-logo::before{ content:""; flex:none; height:1.0125em; width:.863em;
+  background:center/contain no-repeat url(../../concept/assets/logo-mark.svg);
+  transform:translateY(.101em); }
+/* The catalogue button lost its chevron at step 6.1. The mega menu already
+   announces itself: the button goes to --bg-action-pressed while the panel is
+   open, so the mark repeated a state the fill was already carrying. It stays in
+   the markup because the grey prototype is frozen, and is hidden here - where
+   the header lives - rather than in button.css, which has no business knowing
+   what is inside a header. */
+.wfh-nav .navbtn .cav{ display:none; }
+.wfh-mega{ border-top-color:var(--line-action); }
+.wfh-act .t .val{ color:var(--text-body); }
+@media(max-width:899px){
+  .wfh{ top:40px; }
+}
+.wfh-nav .navbtn .g{ display:inline-flex; align-items:center; }
+.wfh-act .g{ display:inline-flex; align-items:center; }
+.wfh-act.stack .lbl{ font-size:var(--fs-12); }
+.wfh-mi a{ transition:color .15s ease; }
+.wfh-meta a{ transition:color .15s ease; }
+.wfh-meta a:hover{ color:var(--text-action); }
+.wfh-meta .wfh-loc, .wfh-meta .wfh-lang{ display:inline-flex; align-items:center; gap:var(--space-4); }
+.wfh-meta .wfh-loc .uiv-ic:first-child svg{ width:14px; height:14px; }
+.wfh-meta .wfh-loc .uiv-ic:last-child svg,
+.wfh-meta .wfh-lang .uiv-ic svg{ width:10px; height:10px; stroke-width:2.4; }
+.wfh-meta.wfh-menuopen{ overflow:visible; }
+.wfh-langmenu{ border-top-color:var(--line-action); }
+.wfh-langmenu a.on{ color:var(--text-action); }
+.wfh-langmenu a.on::after{ color:var(--text-action); }
+.wfh-mega .mega-cat .mci .uiv-ic svg{ width:21px; height:21px; }
+.wfh-mega .mega-cat .ar .uiv-ic svg{ width:12px; height:12px; }
+.wfh-mega .mega-sub, .wfh-mega .ms-link, .wfh-mega .mph{ transition:color .12s ease; }
+.wfh-mega .mega-sub:hover, .wfh-mega .ms-link:hover, .wfh-mega .mph:hover{ color:var(--text-action); }
+.wfh-mega .mgchip{ transition:border-color .15s ease, color .15s ease; }
+.wfh-mega .mgchip:hover{ border-color:var(--line-action); color:var(--text-body); }
+.wfh-mega .ms-feat .ms-ph{ background:var(--bg-page); padding:0; overflow:hidden; }
+.wfh-mega .ms-feat .ms-ph img{ width:100%; height:100%; object-fit:contain; display:block; }
+.wfh-mega .ms-fb{ transition:color .12s ease; }
+.wfh-mega a.ms-feat:hover{ border-color:var(--line-action); box-shadow: var(--elevation-action-hover); }
+.wfh-mega a.ms-feat:hover .ms-fb,
+.wfh-mega a.ms-feat:hover .ms-fh{ color:var(--text-action); }
+.wfh-meta{ border-bottom:none; overflow:hidden; max-height:52px;
+  transition:max-height .22s ease, opacity .16s ease; }
+.wfh{ border-bottom:1px solid var(--line-hair); box-shadow:none; transition:box-shadow .2s ease; }
+.wfh.uiv-scrolled .wfh-meta{ max-height:0; opacity:0; }
+.wfh.uiv-scrolled{ box-shadow: var(--elevation-bar-bottom); border-bottom-color:transparent; }
+.wfh-actions .wfh-act{ height:var(--size-46); box-sizing:border-box; }
+
+.wfh-mi a:hover{ color:var(--text-action); }
+
+/* The mobile field-size rule that used to sit here lives in base.css, where it
+   covers every input on the page instead of this file's own. Step 7.3 removed
+   the empty @media block it left behind, and this comment with it. */

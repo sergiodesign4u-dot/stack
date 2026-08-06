@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Кабінет покупця - новий акаунт - Stack (wireframe 7.0 · порожньо)</title>
-<link rel="stylesheet" href="../wireframes/_wf.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
 </head>
 <body>
 <!-- ============================================================
@@ -49,7 +50,7 @@
 
         <!-- Loyalty: start at Bronze -->
         <div class="acard loy">
-          <div class="ah"><h3>Рівень лояльності</h3><button class="lnk" type="button" style="font-size:12.5px;font-weight:700;color:var(--strong)">Як це працює →</button></div>
+          <div class="ah"><h3>Рівень лояльності</h3><button class="lnk" type="button" style="font-size:12.5px;font-weight:700;color:var(--text-primary)">Як це працює →</button></div>
           <div class="lt">🫙 Базовий рівень · знижка 0%</div>
           <div class="lbar"><i style="width:0%"></i></div>
           <div class="ls">Куплено на <b>0 ₴</b> за весь час · купуйте на <b>3 000 ₴</b> - і відкриється 🥉 Бронза зі знижкою −3%.</div>
@@ -68,8 +69,8 @@
             <div class="et">Ще немає замовлень</div>
             <div class="es">Оберіть ціль або перегляньте каталог - почніть із товарів для вашого завдання.</div>
             <div class="eact">
-              <a class="btn dark" href="index.html">Обрати ціль</a>
-              <a class="btn" href="catalog-page.html">До каталогу</a>
+              <a class="btn--accent btn--s btn dark" href="index.html">Обрати ціль</a>
+              <a class="btn--outline btn--s btn" href="catalog-page.html">До каталогу</a>
             </div>
           </div>
         </div>
@@ -80,15 +81,15 @@
           <div class="emptybox mini" style="padding:20px 14px">
             <div class="et" style="margin-top:0">Немає збережених адрес</div>
             <div class="es">Додайте адресу - і оформлення замовлення буде швидшим.</div>
-            <div class="eact"><button class="btn" type="button">＋ Додати адресу</button></div>
+            <div class="eact"><button class="btn--outline btn--s btn" type="button">＋ Додати адресу</button></div>
           </div>
         </div>
 
         <!-- Become a coach -->
         <div class="acard" id="coach-banner" style="display:flex;flex-direction:column;justify-content:center">
           <div class="ah"><h3>Ви тренер?</h3></div>
-          <p style="font-size:13.5px;color:var(--sec);margin-bottom:14px">Активуйте роль тренера: гуртові ціни та замовлення для кількох клієнтів в одну сесію.</p>
-          <a class="btn dark" href="coach-verify.html" style="align-self:flex-start">Стати тренером</a>
+          <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:14px">Активуйте роль тренера: гуртові ціни та замовлення для кількох клієнтів в одну сесію.</p>
+          <a class="btn--outline btn--s btn dark" href="coach-verify.html" style="align-self:flex-start">Стати тренером</a>
         </div>
 
       </div>
@@ -100,7 +101,7 @@
           <div class="ei">♡</div>
           <div class="et">Список обраного порожній</div>
           <div class="es">Тисніть ♡ на товарах, які сподобались - і вони збережуться тут.</div>
-          <div class="eact"><a class="btn" href="listing.html">Перейти до товарів</a></div>
+          <div class="eact"><a class="btn--outline btn--s btn" href="listing.html">Перейти до товарів</a></div>
         </div>
       </section>
 
@@ -112,6 +113,8 @@
 </div>
 
 <script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/fields.js"></script>
 <script src="_nav.js"></script>
 <script>wfHeader('buyer');
   wfAccountNav('overview', false, { counts: { orders: 0, wishlist: 0, addresses: 0 }, tier: '🫙 Базовий рівень' });

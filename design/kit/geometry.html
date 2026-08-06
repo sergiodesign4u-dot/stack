@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Геометрія | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
+     a demo that only LOOKS like the component proves nothing about it. -->
+<script src="../system/icons.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Основи</div><h1 class="kp-h1">Геометрія</h1>
+<p class="kp-lead">Кожна шкала - <b>драбина</b> з лічильником читань. Радіус свою вже закрив, відступ ще ні, і на сторінці видно, чим вони відрізняються. Значення прочитані з живого <code>:root</code>.</p>
+
+<style>
+.depthgrid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:22px 18px; }
+.depthgrid .dsw{ height:74px; border-radius:var(--radius-12); background:var(--bg-page); }
+.depthgrid .cap{ margin-top:12px; display:grid; gap:2px; font-size:var(--fs-12); }
+.depthgrid .cap b{ font-family:var(--font-mono); color:var(--text-primary); }
+.depthgrid .cap span{ color:var(--text-secondary); }
+.depthgrid .cap i{ font-family:var(--font-mono); font-style:normal; color:var(--text-muted); font-size:var(--fs-10); word-break:break-all; }
+.lad{ display:grid; gap:6px; }
+.lad .row{ display:grid; grid-template-columns:112px 1fr 92px; gap:12px; align-items:center;
+  padding:5px 8px; border-radius:var(--radius-8); }
+.lad .row:hover{ background:var(--bg-sunken); }
+.lad .row.cold{ opacity:.55; }
+.lad .nm{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-primary); }
+.lad .nm u{ text-decoration:none; color:var(--text-muted); }
+.lad .bar{ height:16px; border-radius:var(--radius-4); background:var(--bg-action); min-width:2px; }
+.lad .rd{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted); text-align:right; }
+.lad .rd b{ color:var(--text-primary); }
+.radgrid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(126px,1fr)); gap:10px; }
+.radgrid .c{ border:1.5px solid var(--line-strong); background:var(--bg-sunken); height:70px;
+  display:flex; align-items:flex-end; justify-content:center; padding-bottom:6px;
+  font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-secondary); }
+.radgrid .cap{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted);
+  margin-top:5px; display:flex; justify-content:space-between; }
+.ladnote{ font-size:var(--fs-14); color:var(--text-secondary); margin-top:10px; }
+.ladnote b{ color:var(--text-primary); }
+</style>
+
+<section class="kp-sec"><div class="kp-sh">Радіус <b>- закрита шкала</b></div>
+<p class="kp-p">Чотири сходинки і дві форми, після зведення на кроці 5.5. Було тринадцять плюс чотири літерали. Прибрані сходинки <b>видалені з файлу</b>, а не позначені застарілими: сходинка, якої не можна назвати, не потрапить у код випадково - тільки це й тримає шкалу шкалою.</p>
+<div class="radgrid" id="rad"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Відступ <b>- сітка 8px</b></div>
+<p class="kp-p"><b>2 · 4 · 8 · 12 · 16 · 24 · 32 · 40.</b> Сітка 8px від вісімки вгору, півкроки по 4 нижче шістнадцяти, і 2 на оптичний зсув. Було <b>27 сходинок</b>, що стояли через 1px від 1 до 18.</p><p class="kp-p">Читалися при цьому <b>всі</b>, мертвих не було - і саме тому справа була не в токенах, а в <b>кроці драбини</b>. Драбина з кроком 1px нічого не забороняє: коли є і 11, і 12, і 13, будь-яке число, яке набрала рука, вже «у шкалі». Тепер між сходинками є відстань, і кожна робить видиму роботу.</p><p class="kp-p">Нічия тут іде <b>вгору</b> (6&nbsp;&rarr;&nbsp;8, 10&nbsp;&rarr;&nbsp;12, 14&nbsp;&rarr;&nbsp;16), протилежно до правила радіуса - і навмисно: для кута менше заокруглення означає серйозніше, для відступу більше простору означає спокійніше. Принцип 4 обслуговується повітрям <b>між</b> речами і тісним кутом <b>на</b> них.</p><p class="kp-p">Ще 13 одноразових компонувальних чисел лишились літералами там, де стоять: відступ, ужитий один раз, це вимір, а не щабель.</p>
+<div class="lad" id="sp"></div><div class="ladnote" id="spn"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Висота контролю</div>
+<p class="kp-p">Дев'ять розмірів для квадратних контролів і аватарів. Компонувальні ширини (1200 / 860 / 720) лишились літералами в тому компоненті, який володіє розкладкою: це не шкала, це конкретна сітка.</p>
+<div class="lad" id="sz"></div><div class="ladnote" id="szn"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Глибина: драбина висоти</div>
+<p class="kp-p">Тінь відповідає на одне питання - <b>наскільки високо це над поверхнею</b>. Тому відповідь - шкала, а не вигадка в кожному компоненті: було <b>47</b> різних значень у 97 оголошеннях, той самий флаєр стояв на 12/30, 14/34, 16/36 і 18/44 у чотирьох файлах.</p>
+<div class="depthgrid" id="depth"></div>
+<p class="kp-p" style="margin-top:14px">Три з них - <b>не висота</b>. Панель, прибита до низу екрана, кидає тінь <b>вгору</b>, шухляда - <b>вбік</b>, а рінг це стан, намальований ореолом. Тримати їх на одній драбині з висотою означало б плутати «високо» з «у фокусі».</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Що зведено (крок 6.0)</div>
+<div class="kp-do"><h4>47 значень - 12 рівнів і 3 рінги</h4><p class="kp-p">До кроку тінь була єдиним місцем системи, де рішення ухвалювалось у кожному компоненті заново: <b>97 оголошень, 47 різних значень</b>, і жодної драбини. Діалоги стояли на 20/50, 24/64, 28/70 і 6/24 - чотири висоти для одного «це замість сторінки».</p><p class="kp-p">Рінги винесені з тіні навмисно: <code>0 0 0 3px</code> - це не відстань, а <b>стан, намальований ореолом</b>. Тримати фокус на драбині висот означало б сказати, що поле у фокусі «вище» за сусіднє.</p><p class="kp-p">Пікселі: зрушилось <b>307</b> елементів на 34 екранах - і <b>лише <code>box-shadow</code></b>. Верстка, колір і типографіка не зрушили жодного разу. Плюс <b>4</b> подвійні оголошення прибрано: те саме правило оголошувало тінь двічі - у структурному блоці й у кольоровому - і після зведення обидва казали одне й те саме.</p></div>
+<div class="kp-row" style="align-items:center;gap:22px;padding:18px 4px"><div style="width:170px;height:88px;background:var(--bg-page);border-radius:var(--radius-12);box-shadow:var(--elevation-1)"></div><div class="kp-cap" id="shv"></div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Каркас сторінки з base.css</div>
+<p class="kp-p">Те, що не належить жодному компоненту: ресет, <code>scroll-padding-top:100px</code> під злиплу шапку, <code>overflow-anchor:none</code> проти мерехтіння при її стисканні, <code>padding-bottom:60px</code> на мобільному під таб-бар і поріг <code>16px</code> на текстових полях, нижче якого iOS зумить сторінку.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div><div id="idle"></div></section>
+<script>
+var CS=getComputedStyle(document.documentElement);
+var val=function(n){return CS.getPropertyValue(n).trim()};
+var shown=new Set();
+var el=function(i){return document.getElementById(i)};
+var SP=["--space-2", "--space-4", "--space-8", "--space-12", "--space-16", "--space-24", "--space-32", "--space-40"];
+var RAD=["--radius-4", "--radius-8", "--radius-12", "--radius-16", "--radius-pill", "--radius-circle"];
+var SZ=["--size-20", "--size-24", "--size-26", "--size-30", "--size-34", "--size-38", "--size-40", "--size-44", "--size-46"];
+var USE={"--bg-page": 139, "--text-body": 198, "--fs-16": 91, "--lh-airy": 50, "--font-body": 1, "--bg-action": 40, "--space-40": 14, "--space-24": 84, "--space-4": 146, "--fs-24": 31, "--fw-black": 174, "--text-primary": 279, "--space-16": 376, "--ls-display": 12, "--lh-flat": 33, "--space-8": 363, "--fs-14": 275, "--text-secondary": 277, "--space-12": 384, "--line-strong": 181, "--radius-8": 145, "--bg-inverse": 69, "--text-oninverse": 79, "--fw-bold": 178, "--line-hair": 244, "--radius-12": 141, "--text-muted": 145, "--fs-12": 206, "--text-success": 13, "--text-warning": 10, "--text-info": 2, "--bg-sunken": 72, "--mark-faint": 21, "--line-inverse": 83, "--fs-10": 45, "--radius-4": 46, "--space-2": 104, "--text-brandline": 7, "--lh-snug": 39, "--fw-semibold": 116, "--text-price-was": 10, "--fs-20": 45, "--fs-18": 36, "--font-mono": 78, "--size-20": 19, "--text-bonus": 5, "--text-action": 108, "--bg-discount": 8, "--text-danger": 20, "--elevation-1": 23, "--elevation-2": 9, "--line-action": 87, "--radius-pill": 34, "--ls-caps": 49, "--elevation-mark": 4, "--size-44": 8, "--ls-lead": 44, "--ring-focus": 6, "--line-danger": 5, "--bg-danger": 3, "--line-danger-soft": 2, "--fw-medium": 19, "--space-32": 23, "--radius-circle": 26, "--line-onphoto": 2, "--fs-34": 7, "--size-24": 9, "--bg-skeleton": 13, "--font-display": 47, "--bg-surface": 81, "--fs-30": 14, "--size-30": 8, "--size-34": 16, "--bg-onphoto": 2, "--bg-track": 8, "--line-onink": 6, "--elevation-knob": 3, "--elevation-knob-active": 2, "--size-40": 10, "--line-success": 3, "--elevation-3": 5, "--bg-rule": 6, "--mark-disabled": 4, "--size-38": 6, "--size-46": 11, "--line-control-hover": 6, "--line-warning": 1, "--ls-eyebrow": 9, "--elevation-control": 3, "--bg-action-soft": 2, "--line-notice": 4, "--bg-warning": 2, "--bg-notice": 4, "--mark-rating": 3, "--radius-16": 16, "--size-26": 11, "--bg-danger-soft": 1, "--text-oninverse-muted": 3, "--bg-action-hover": 1, "--line-success-soft": 3, "--bg-success-soft": 2, "--line-bonus-soft": 2, "--bg-bonus-soft": 3, "--elevation-4": 8, "--fs-13-5": 1, "--brand-ink": 6, "--shadow-floor": 1, "--fade-inverse": 2, "--text-onphoto": 1, "--veil-surface": 2, "--veil-surface-mid": 2, "--fade-surface": 2, "--elevation-bar-top": 4, "--bg-success": 2, "--mark-inactive": 4, "--fs-14-5": 2, "--bg-save": 1, "--scrim-overlay": 11, "--fs-12-5": 2, "--elevation-drawer": 1, "--brown-600": 1, "--slate-400": 1, "--bg-inverse-tint": 1, "--fade-page": 2, "--bg-inverse-soft": 1, "--line-oninverse-soft": 2, "--ring-onink": 1, "--bg-action-pressed": 2, "--elevation-action-hover": 1, "--elevation-bar-bottom": 1, "--line-control-filled": 1, "--ring-danger": 1, "--auth-row": 3, "--fs-11-5": 1, "--veil-page": 1, "--veil-inverse": 1, "--bg-action-selected": 1, "--grey-bb": 1, "--scrim-white-70": 1};
+
+function num(v){ return parseFloat(v)||0; }
+function ladder(id, list, noteId, unitMax){
+  var rows=list.map(function(n){ shown.add(n); return {n:n, v:val(n), x:num(val(n)), u:USE[n]||0}; });
+  rows.sort(function(a,b){ return a.x-b.x; });
+  var mx=Math.max.apply(null, rows.map(function(r){ return r.x; }))||1;
+  var mu=Math.max.apply(null, rows.map(function(r){ return r.u; }))||1;
+  el(id).innerHTML=rows.map(function(r){
+    var w=Math.max(2, Math.round(r.x/mx*100));
+    return '<div class="row'+(r.u<=5?' cold':'')+'">'+
+      '<div class="nm">'+r.n.replace('--','')+' <u>'+r.v+'</u></div>'+
+      '<div class="bar" style="width:'+w+'%;opacity:'+(0.35+0.65*(r.u/mu))+'"></div>'+
+      '<div class="rd">'+(r.u? '<b>'+r.u+'</b>x' : 'не читається')+'</div></div>'; }).join('');
+  var dead=rows.filter(function(r){ return !r.u; });
+  var byUse=rows.slice().sort(function(a,b){ return b.u-a.u; });
+  var total=rows.reduce(function(s,r){ return s+r.u; },0);
+  var top=byUse.slice(0,8).reduce(function(s,r){ return s+r.u; },0);
+  var gaps=rows.map(function(r,i){ return i? r.x-rows[i-1].x : null; }).slice(1);
+  var minGap=Math.min.apply(null,gaps);
+  if(noteId) el(noteId).innerHTML='<b>'+rows.length+'</b> сходинок · <b>'+total+'</b> читань · '+
+    'вісім найчастіших тримають <b>'+Math.round(top/total*100)+'%</b> · найдрібніший крок драбини '+
+    '<b>'+minGap+'px</b>'+(dead.length? ' · <b>'+dead.length+'</b> не читає ніхто' : ' · мертвих немає');
+}
+ladder('sp', SP, 'spn');
+ladder('sz', SZ, 'szn');
+(function(){
+  var rows=RAD.map(function(n){ shown.add(n); return {n:n, v:val(n), u:USE[n]||0}; });
+  el('rad').innerHTML=rows.map(function(r){
+    return '<div><div class="c" style="border-radius:'+r.v+'">'+r.v+'</div>'+
+      '<div class="cap"><span>'+r.n.replace('--radius-','')+'</span><span>'+
+      (r.u? r.u+'x' : 'не читається')+'</span></div></div>'; }).join('');
+})();
+shown.add('--elevation-1'); shown.add('--shadow-1'); el('shv').textContent=val('--shadow-1');
+/* the ladder, read from :root - a level is shown by being cast, not described */
+(function(){
+  var DEPTH = [
+    ['--elevation-1','картка в спокої'], ['--elevation-2','підйом під курсором'],
+    ['--elevation-3','шар над сторінкою: меню, флаєр'], ['--elevation-4','шар замість сторінки: діалог, тост'],
+    ['--elevation-mark','мітка на фотографії'], ['--elevation-control','контрол під курсором'],
+    ['--elevation-knob','ручка на своїй доріжці'], ['--elevation-knob-active','вона ж, коли її тягнуть'],
+    ['--elevation-action-hover','акцентна підсвітка'], ['--elevation-bar-top','панель унизу - тінь угору'],
+    ['--elevation-bar-bottom','шапка - тінь униз'], ['--elevation-drawer','шухляда - тінь убік'],
+    ['--ring-focus','фокус на полі'], ['--ring-danger','поле з помилкою'], ['--ring-onink','ореол на темному']
+  ];
+  el('depth').innerHTML = DEPTH.map(function(d){
+    shown.add(d[0]);
+    var ring = d[0].indexOf('--ring') === 0;
+    return '<div><div class="dsw" style="box-shadow:var('+d[0]+')'+(ring?';border:1px solid var(--line-hair)':'')+'"></div>'+
+      '<div class="cap"><b>'+d[0].replace('--','')+'</b><span>'+d[1]+'</span><i>'+val(d[0])+'</i></div></div>';
+  }).join('');
+})();
+function MINE(p){ return /^--(space|radius|size|elevation|ring)-/.test(p)||p==='--shadow-1'||p==='--elevation-1'; }
+
+(function(){
+  var declared=[]; try{ for(var i=0;i<CS.length;i++){ var p=CS[i]; if(p.indexOf('--')===0) declared.push(p);} }catch(e){}
+  var mine=declared.filter(function(p){ return MINE(p); });
+  var missing=mine.filter(function(p){ return !shown.has(p); });
+  el('idle').innerHTML = !declared.length
+    ? '<div class="kp-gap">Браузер не перелічує власні властивості - перевірку не проведено.</div>'
+    : missing.length
+      ? '<div class="kp-dont"><h4>Не показано</h4><b>'+missing.length+'</b> токенів цього розділу оголошені у файлі й не показані тут: <code>'+missing.join(', ')+'</code></div>'
+      : '<div class="kp-do"><h4>Пройдено</h4>Усі <b>'+mine.length+'</b> токенів цього розділу показані на сторінці. Непоказаних немає.</div>';
+})();
+</script>
+</main>
+<script>var KIT_ACTIVE = 'geometry';</script>
+<script src="_nav.js"></script>
+</body>
+</html>

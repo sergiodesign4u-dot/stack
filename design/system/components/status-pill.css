@@ -1,0 +1,20 @@
+/* status-pill.css - status pill (level 1)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.aord-status{ display: inline-block; font-size: var(--fs-12); font-weight: var(--fw-black); border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); margin-top: var(--space-8); }
+.oh-status{ font-size: var(--fs-12); font-weight: var(--fw-black); border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-4) var(--space-12); white-space: nowrap; }
+.oh-status.ok::before, .oh-status.go::before, .oh-status.wait::before{ content: "● "; }
+@media (max-width: 640px){
+  .oh-status{ grid-area: stat; justify-self: start; margin-top: var(--space-4); }
+}
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.aord-status{ color:var(--text-success); border-color:var(--line-success-soft); background:var(--bg-success-soft); }
+.oh-status{ border-color:var(--line-strong); color:var(--text-secondary); }
+.oh-status.ok{ color:var(--text-success); border-color:var(--line-success-soft); background:var(--bg-success-soft); }
+.oh-status.go{ color:var(--text-warning); border-color:var(--line-bonus-soft); background:var(--bg-bonus-soft); }
+.oh-status.wait{ color:var(--text-secondary); background:var(--bg-surface); }

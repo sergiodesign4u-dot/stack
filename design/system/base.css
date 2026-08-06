@@ -1,0 +1,44 @@
+/* design/system/base.css
+   What belongs to no component: the reset, the page frame, the native
+   control reset and the two keyframes nothing owns. Loaded after tokens.css
+   and before every component. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+*{ box-sizing: border-box; margin: 0; padding: 0; }
+html{ scroll-behavior: smooth; }
+body{
+  background: var(--bg-page); color: var(--text-body); font-size: var(--fs-16); line-height: var(--lh-airy);
+  -webkit-font-smoothing: antialiased;
+}
+a{ color: inherit; text-decoration: none; }
+button{ font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+img{ max-width: 100%; display: block; }
+@media (max-width: 859px){
+  body{ padding-bottom: 60px; }
+}
+html{ overflow-x: hidden; }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+body{ font-family:var(--font-body); }
+html{ scroll-padding-top:100px; }
+body{ overflow-anchor:none; }
+input[type="checkbox"], input[type="radio"]{ accent-color:var(--bg-action); }
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; }
+}
+
+/* iOS Safari zooms the whole page when a focused field is set below 16px. The
+   census found 136 of 166 text inputs under it, so on the primary device that
+   fires on every checkout field. 16px is the threshold, not a taste: it is the
+   only value that stops the zoom. Mobile only - above 860px the designed sizes
+   stand, because there is no zoom to trigger. */
+@media (max-width: 859px){
+  /* the `html` prefix is not decoration: base.css loads ABOVE every component, so
+     a bare element selector loses a same-specificity tie to any component class
+     that sets a field size. One element more in the selector wins the tie without
+     !important, and without moving this rule out of base where it belongs. */
+  html input[type="text"], html input[type="search"], html input[type="email"],
+  html input[type="tel"], html input[type="url"], html input[type="number"],
+  html input[type="password"], html input:not([type]),
+  html textarea, html select{ font-size: var(--fs-16); }
+}

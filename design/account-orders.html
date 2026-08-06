@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Кабінет - Замовлення - Stack (wireframe 7.2)</title>
-<link rel="stylesheet" href="../wireframes/_wf.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
 </head>
 <body>
 <!-- ============================================================
@@ -89,7 +90,7 @@
 
               <!-- repeat + delivery -->
               <aside class="ob-side">
-                <a class="btn dark ob-repeat" href="cart.html">↻ Повторити замовлення</a>
+                <a class="btn--accent btn--s btn dark ob-repeat" href="cart.html">↻ Повторити замовлення</a>
                 <div class="ob-del">
                   <div class="dl"><div class="dk">Спосіб доставки</div><div class="dv">Нова Пошта · відділення</div></div>
                   <div class="dl"><div class="dk">Адреса доставки</div><div class="dv">вул. Катерининська, 27, Одеса<br>відділення №12</div></div>
@@ -99,7 +100,7 @@
                 </div>
               </aside>
             </div>
-            <button class="ob-collapse" type="button" onclick="toggleOrd(this)"><i class="chev">⌄</i> Згорнути</button>
+            <button class="btn--outline btn--s btn--full ob-collapse" type="button" onclick="toggleOrd(this)"><i class="chev">⌄</i> Згорнути</button>
           </div>
         </div>
 
@@ -135,7 +136,7 @@
                 <a class="ob-receipt" href="#receipt-10418">⭳ Завантажити квитанцію</a>
               </div>
               <aside class="ob-side">
-                <a class="btn dark ob-repeat" href="cart.html">↻ Повторити замовлення</a>
+                <a class="btn--accent btn--s btn dark ob-repeat" href="cart.html">↻ Повторити замовлення</a>
                 <div class="ob-del">
                   <div class="dl"><div class="dk">Спосіб доставки</div><div class="dv">Нова Пошта · кур'єр</div></div>
                   <div class="dl"><div class="dk">Адреса доставки</div><div class="dv">вул. Дерибасівська, 12, кв. 5, Одеса</div></div>
@@ -145,7 +146,7 @@
                 </div>
               </aside>
             </div>
-            <button class="ob-collapse" type="button" onclick="toggleOrd(this)"><i class="chev">⌄</i> Згорнути</button>
+            <button class="btn--outline btn--s btn--full ob-collapse" type="button" onclick="toggleOrd(this)"><i class="chev">⌄</i> Згорнути</button>
           </div>
         </div>
 
@@ -193,7 +194,7 @@
                 <a class="ob-receipt" href="#receipt-10390">⭳ Завантажити квитанцію</a>
               </div>
               <aside class="ob-side">
-                <a class="btn dark ob-repeat" href="cart.html">↻ Повторити замовлення</a>
+                <a class="btn--accent btn--s btn dark ob-repeat" href="cart.html">↻ Повторити замовлення</a>
                 <div class="ob-del">
                   <div class="dl"><div class="dk">Спосіб доставки</div><div class="dv">Нова Пошта · поштомат</div></div>
                   <div class="dl"><div class="dk">Адреса доставки</div><div class="dv">просп. Небесної Сотні, 4, Одеса<br>поштомат №24857</div></div>
@@ -203,7 +204,7 @@
                 </div>
               </aside>
             </div>
-            <button class="ob-collapse" type="button" onclick="toggleOrd(this)"><i class="chev">⌄</i> Згорнути</button>
+            <button class="btn--outline btn--s btn--full ob-collapse" type="button" onclick="toggleOrd(this)"><i class="chev">⌄</i> Згорнути</button>
           </div>
         </div>
 
@@ -233,7 +234,7 @@
                 <a class="ob-receipt" href="#receipt-10355">⭳ Завантажити квитанцію</a>
               </div>
               <aside class="ob-side">
-                <a class="btn dark ob-repeat" href="cart.html">↻ Повторити замовлення</a>
+                <a class="btn--accent btn--s btn dark ob-repeat" href="cart.html">↻ Повторити замовлення</a>
                 <div class="ob-del">
                   <div class="dl"><div class="dk">Спосіб доставки</div><div class="dv">Самовивіз · Одеса</div></div>
                   <div class="dl"><div class="dk">Адреса</div><div class="dv">вул. Грецька, 1а, Одеса (магазин Stack)</div></div>
@@ -242,7 +243,7 @@
                 </div>
               </aside>
             </div>
-            <button class="ob-collapse" type="button" onclick="toggleOrd(this)"><i class="chev">⌄</i> Згорнути</button>
+            <button class="btn--outline btn--s btn--full ob-collapse" type="button" onclick="toggleOrd(this)"><i class="chev">⌄</i> Згорнути</button>
           </div>
         </div>
 
@@ -255,6 +256,8 @@
 </div>
 
 <script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/fields.js"></script>
 <script src="_nav.js"></script>
 <script>
   function toggleOrd(el) {

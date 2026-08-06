@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Чип | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
+     a demo that only LOOKS like the component proves nothing about it. -->
+<script src="../system/icons.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 1</div>
+<h1 class="kp-h1">Чип</h1>
+<p class="kp-lead">Кругла мітка, яку можна натиснути: фільтр, ціль, категорія в мега-меню.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/chip.css</span><span class="kp-tag">33 рядків</span><span class="kp-tag">6 екранів</span></div>
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<div class="kp-demo"><div class="kp-row"><a class="dr-chip">Протеїн</a><a class="mgchip">Креатин</a><a class="dr-chip">Вітаміни</a></div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Пілюля</b> - радіус 100px - форма, яку читають як «натисни»</span></div><div class="a"><i>2</i><span><b>Підпис</b> - іменник, не дієслово - чип не дія, а вибір</span></div><div class="a"><i>3</i><span><b>Хрестик</b> - лише на активному фільтрі: скасувати вибір</span></div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
+<p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Робота</b></td><td>фільтр · ціль · категорія</td><td>Фільтр звужує список, ціль веде в підбір, категорія навігує. Три роботи - три класи, бо жити вони будуть по-різному.</td></tr><tr><td><b>Стан</b></td><td>звичайний · обраний · активний фільтр з хрестиком</td><td>Хрестик з'являється лише коли фільтр уже застосований: до вибору скасовувати нічого.</td></tr></tbody></table></div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Що зведено <b>на кроці 5.5</b></div>
+<p class="kp-p">Рішення живе там, де на нього дивляться. Перепис показав дрейф, крок 5.5 його зняв - і цей блок каже, <b>що саме обрали, що лишили і чому</b>, на сторінці самого компонента, а не тільки в журналі.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Було</th><th>Стало</th><th>Чому</th></tr></thead><tbody><tr><td><b>Радіус</b></td><td><code>100 · 9 · 8 · 0</code></td><td><code>100 · 8 · 0</code></td><td>9 сів на 8. Піґулка і прямокутник лишились обидва - і це <b>не</b> дрейф значень, а нерозв'язане питання: фільтр у каталозі круглий, варіант смаку на картці прямокутний, і правила, який де, ще немає.</td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">У <b>Рейка фільтрів</b>, <b>Шит фільтрів</b>, <b>Мега-меню</b> і на головній як плитки цілей. Job 2 - новачок: чип це найдешевший спосіб почати не з каталогу, а з наміру.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Чип - це іменник.</b> «Протеїн», «Набір маси». Дієслово в пілюлі читається як кнопка.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з чипа <b>Бейдж</b>.</b> Мітка, яку не можна натиснути, не має бути схожою на ту, яку можна: людина спробує і нічого не станеться.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
+<p class="kp-p">У коді є <code>:hover</code> і обраний стан.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>9</b> власних класів і <b>1</b> станів оголошено в <code>chip.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["afilter", "afilters", "cegoals", "clear", "dr-chip", "dr-chips", "hero-chips", "on", "x"], KIT_STS=[":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>chip.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (12)</th><th>Примітиви (9)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-oninverse</code> <code>--text-primary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--radius-pill</code> <code>--space-12</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;a class="dr-chip"&gt;Протеїн&lt;/a&gt;
+&lt;a class="mgchip"&gt;Креатин&lt;/a&gt;</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.mgchip</code> <code>.dr-chip</code> <code>.dr-chips</code> <code>.hero-chips</code> <code>.afilter</code> <code>.afilters</code> <code>.cegoals</code></p>
+<p class="kp-p"><b>6 екранів</b> у <code>wireframes/</code>: home-buyer.html, home-cart.html, home-coach.html, index.html, listing-empty.html, listing-filtered.html</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає єдиного класу</b> - три родини (<code>.dr-chip</code>, <code>.mgchip</code>, <code>.hero-chips</code>) роблять одне й те саме різними правилами</li><li><b>Немає стану <code>[disabled]</code></b> для фільтра, який нічого не знайде</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script>
+/* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
+   screen. A page that pastes the paths carries a second edition of the set, and a
+   second edition is the thing this stage spent two steps deleting. */
+(function(){
+  document.querySelectorAll('[data-brand]').forEach(function(e){
+    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
+  });
+  document.querySelectorAll('[data-glyph]').forEach(function(e){
+    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
+  });
+})();
+</script>
+<script>
+/* The page checks ITSELF against its file. Everything a person can see counts as
+   shown: a rendered demo, a class named in the markup block, a class named inside
+   any <code> on the page. What is left is what the file declares and the showcase
+   never puts in front of anyone. */
+(function(){
+  /* Two levels, because they are not the same thing. RENDERED means the class is
+     on a live element inside a demo - a person sees the component. NAMED means it
+     is only written out in the markup block or in a <code>. A page that names a
+     class it never renders is describing the file, which is exactly the habit
+     this stage set out to break. */
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, усі <b>' + KIT_STS.length +
+      '</b> станів названі.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+</main>
+<script>var KIT_ACTIVE = 'chip';</script>
+<script src="_nav.js"></script>
+</body>
+</html>

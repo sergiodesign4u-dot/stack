@@ -1,0 +1,21 @@
+/* filter-sheet.css - filter sheet (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.fsheet-ov{ display: none; position: fixed; inset: 0; background: var(--scrim-overlay); z-index: 50; }
+.fsheet-ov.open{ display: block; }
+.fsheet{ position: fixed; left: 0; right: 0; bottom: 0; max-height: 88vh; overflow-y: auto; background: var(--bg-page); border-radius: var(--radius-16) var(--radius-16) 0 0; z-index: 51; transform: translateY(100%); transition: transform .22s ease; }
+.fsheet.open{ transform: translateY(0); }
+.fsheet-h{ position: sticky; top: 0; background: var(--bg-page); padding: var(--space-16) var(--space-16); border-bottom: 1px solid var(--line-hair); font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); display: flex; justify-content: space-between; align-items: center; }
+.fsheet-h .x{ font-size: var(--fs-20); }
+.fsheet-foot{ position: sticky; bottom: 0; background: var(--bg-page); display: flex; gap: var(--space-12); padding: var(--space-12) var(--space-16); border-top: 1px solid var(--line-hair); }
+.fsheet-foot .btn{ flex: 1; }
+.fsheet-foot .btn.dark{ flex: 2; }
+@media (min-width: 860px){
+  .fsheet, .fsheet-ov{ display: none !important; }
+}
+
+/* ---------- colour (from design/kit/kit.css) ---------- */

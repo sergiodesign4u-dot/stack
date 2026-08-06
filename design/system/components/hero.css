@@ -1,0 +1,40 @@
+/* hero.css - hero (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.hero-wrap{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin: var(--space-8) 0 var(--space-8); }
+@media (min-width: 860px){
+  .hero-wrap{ grid-template-columns: 250px 1fr; }
+}
+.hstrip{ display: flex; gap: var(--space-12); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: var(--space-2); }
+.hstrip::-webkit-scrollbar{ display: none; }
+.hside{ display: grid; gap: var(--space-12); grid-template-columns: 1fr; }
+.hvert{ border: 1px solid var(--line-hair); min-height: 130px;
+  padding: var(--space-16) var(--space-16); display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-4); }
+@media (min-width: 720px){
+  .hvert{ min-height: 164px; }
+}
+.hvert .hvt{ max-width: 60%; }
+.hvert .hvs{ font-size: var(--fs-12); max-width: 60%; }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.hstrip > .hpromo:nth-child(1){ background:var(--bg-inverse); border-color:var(--line-inverse); }
+.hstrip > .hpromo:nth-child(1) .hptag{ color:var(--text-action); }
+.hstrip > .hpromo:nth-child(1) .hph{ color:var(--text-oninverse); font-size:38px; }
+.hstrip > .hpromo:nth-child(1) .hps{ color:var(--text-onphoto); }
+.hstrip > .hpromo:nth-child(2){ background-image:url(../../visuals/product-creatine.png); }
+.hstrip > .hpromo:nth-child(3){ background-image:url(../../concept/assets/mascot-pose-present.png); background-size:80%; background-position:center 4%; }
+.hvert{ border-color:var(--line-hair); border-radius:var(--radius-16); box-shadow:var(--elevation-1); position:relative;
+  transition:transform .15s ease, box-shadow .15s ease; overflow:hidden;
+  background:var(--bg-page) right -14px bottom -26px/62% no-repeat; }
+.hvert:hover{ transform:translateY(-2px); box-shadow: var(--elevation-2); }
+.hside > .hvert:nth-child(1){ background:url(../../visuals/banner-new-a.jpg) center right/cover no-repeat; }
+.hside > .hvert:nth-child(1)::before{ content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(90deg, var(--veil-surface) 0%, var(--veil-surface-mid) 42%, var(--fade-surface) 72%); }
+.hside > .hvert:nth-child(1) > *{ position:relative; }
+.hside > .hvert:nth-child(2){ background-image:url(../../visuals/product-whey.png); }
+.hvert .hvt{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); letter-spacing:var(--ls-lead); color:var(--text-body); }
+.hvert .hvs{ color:var(--text-secondary); }

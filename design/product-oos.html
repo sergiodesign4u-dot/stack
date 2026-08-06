@@ -5,37 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Gold Standard 100% Whey - немає в наявності (wireframe 3.0)</title>
-<link rel="stylesheet" href="../wireframes/_wf.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/kit.css">
-<style>
-  /* COLOR LAYER · OOS. The photo is not dimmed into a sad grey rectangle - it is
-     desaturated just enough to read as "not available now", while the product stays
-     recognisable (honest, not dramatic - voice.md 5). */
-  .oosgal .gmain img { filter: grayscale(.75); opacity: .85; }
-  /* the thumbs are background images, so they are muted by BLENDING, not by filter:
-     a filter would drain the orange selection ring too, and «обране» must stay the
-     accent even on a product that is out of stock */
-  .oosgal .gthumb { background-color: var(--fill); background-blend-mode: luminosity; }
-  /* the ONE action on this page is «Повідомити про надходження», so it carries the
-     orange; the submit next to the field is its ghost twin, not a second primary */
-  .oosbtn { flex: 1; }
-  .notifyrow { display: flex; gap: 10px; margin-top: 12px; }
-  .notifyrow input { flex: 1; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 13px 14px;
-    font: 400 15px/1.2 'Inter', sans-serif; color: var(--ink); background: #fff; }
-  .notifyrow input:focus { outline: none; border-color: var(--orange); }
-  .notifyrow .btn { font-size: 15px; padding: 12px 18px; white-space: nowrap; }
-  .oosnote { font-size: 13px; color: var(--sec); margin-top: 12px; line-height: 1.5; }
-  .oosback { margin-top: 14px; display: inline-block; font-size: 15px; }
-</style>
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
 </head>
 <body>
 <!-- WIREFRAME · 3.0 STATE = out of stock. Honest availability, «Повідомити про надходження»
      + a route back to the collection. Never a dead end (voice.md 5).
      PRICE: no old price here, so the figure stays INK - the accent means "reduced", and
-     a price you cannot pay must not shout (price rule, kit/kit.css). -->
+     a price you cannot pay must not shout (price rule, system/tokens.css). -->
 <div class="wf-bar" id="wf-bar"></div>
 <div class="wf-canvas">
 <header id="wf-header"></header>
@@ -83,18 +64,18 @@
           <div class="new">1 290 ₴</div>
         </div>
         <div class="buyrow">
-          <button class="btn dark oosbtn" type="button" onclick="document.getElementById('oosmail').focus()">🔔 Повідомити про надходження</button>
-          <button class="wish" aria-label="В обране">♡</button>
+          <button class="btn--accent btn--l btn dark oosbtn" type="button" onclick="document.getElementById('oosmail').focus()">🔔 Повідомити про надходження</button>
+          <button class="btn--outline btn--icon btn--l wish" aria-label="В обране">♡</button>
         </div>
         <div class="perserv">≈ 18 ₴ / порція</div>
       </div>
 
       <div class="notifyrow">
-        <input id="oosmail" type="email" placeholder="E-mail або телефон - повідомимо" aria-label="Контакт для сповіщення">
-        <button class="btn" type="button">Повідомити</button>
+        <input class="field" id="oosmail" type="email" placeholder="E-mail або телефон - повідомимо" aria-label="Контакт для сповіщення">
+        <button class="btn--outline btn--l btn--full btn" type="button">Повідомити</button>
       </div>
       <p class="oosnote">Товару немає на складі. Повідомимо, щойно він з'явиться - або оберіть аналог нижче.</p>
-      <a class="btn oosback" href="listing.html">← Повернутись до колекції</a>
+      <a class="btn--outline btn oosback" href="listing.html">← Повернутись до колекції</a>
     </div>
   </div>
 
@@ -108,23 +89,23 @@
 
   <!-- recovery: alternatives that ARE in stock -->
   <section aria-label="Схожі товари в наявності">
-    <div class="sech"><h2>Є в наявності - схожі</h2><a class="all" href="listing.html">Усі →</a></div>
+    <div class="sech"><h2>Є в наявності - схожі</h2><a class="btn--text all" href="listing.html">Усі →</a></div>
     <div class="prow">
-      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
         <div class="bd"><div class="pbrand">BioTechUSA · Угорщина</div><a href="product.html" class="nm">Iso Whey Zero 908 г</a><div class="pavail in">● В наявності</div>
-          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
           <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div><div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div></div></article>
-      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
         <div class="bd"><div class="pbrand">Scitec Nutrition · Угорщина</div><a href="product.html" class="nm">100% Whey Protein Professional 920 г</a><div class="pavail in">● В наявності</div>
-          <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">940 ₴</span><span class="pcut">−10%</span></div><span class="pnew">845 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">940 ₴</span><span class="pcut">−10%</span></div><span class="pnew">845 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
           <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div><div class="pmeta2"><span class="perserv"><b>31 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div></div></article>
-      <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="fav" aria-label="В обране">♡</button>
+      <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
         <div class="bd"><div class="pbrand">Optimum Nutrition · США</div><a href="product.html" class="nm">Casein Pro 1816 г</a><div class="pavail in">● В наявності</div>
-          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 480 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 480 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
           <div class="rate"><span class="st">★ 4.8</span> · 73 відгуки</div><div class="pmeta2"><span class="perserv"><b>29 ₴</b> / порція</span><span class="bonus">+15 ₴ бонус</span></div></div></article>
-      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
         <div class="bd"><div class="pbrand">OstroVit · Польща</div><a href="product.html" class="nm">WPC 80 Standard 2000 г</a><div class="pavail in">● В наявності</div>
-          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 180 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 180 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
           <div class="rate"><span class="st">★ 4.5</span> · 52 відгуки</div><div class="pmeta2"><span class="perserv"><b>20 ₴</b> / порція</span><span class="bonus">+12 ₴ бонус</span></div></div></article>
     </div>
   </section>
@@ -134,6 +115,8 @@
 </div>
 <div id="wf-sheet"></div>
 <script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/fields.js"></script>
 <script src="_nav.js"></script>
 <script>wfHeader(); wfFooter(); wfBar('product.html', 'oos');
         uivFixLinks(); uivBar(); uivChrome(); uivPdp();</script>

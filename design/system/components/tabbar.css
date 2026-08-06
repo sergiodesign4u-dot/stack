@@ -1,0 +1,24 @@
+/* tabbar.css - tabbar (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.wf-tabbar{ display: none; }
+@media (max-width: 859px){
+  .wf-tabbar{ display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+    background: var(--bg-page); border-top: 1px solid var(--line-hair); padding: var(--space-4) var(--space-2) calc(var(--space-4) + env(safe-area-inset-bottom, 0px)); box-shadow: var(--elevation-bar-top); }
+  .wf-tab{ flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
+    padding: var(--space-8) var(--space-2); font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--text-muted); position: relative; }
+  .wf-tab .ti{ font-size: var(--fs-20); line-height: var(--lh-flat); }
+  .wf-tab .tl{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  .wf-tab .tbadge{ position: absolute; top: 2px; left: 50%; margin-left: var(--space-4); min-width: 15px; height: 15px;
+    padding: 0 var(--space-4); border-radius: var(--radius-pill); background: var(--bg-inverse); color: var(--text-oninverse); font-size: var(--fs-10); font-weight: var(--fw-black);
+    display: flex; align-items: center; justify-content: center; }
+}
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.wf-tab[aria-current="page"]::before{ content:""; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:var(--size-26); height:3px; border-radius:0 0 var(--radius-4) var(--radius-4); background:var(--bg-action); }
+.wf-tab .tbadge{ background:var(--bg-action); color:var(--text-body); }

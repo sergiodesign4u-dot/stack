@@ -1,0 +1,214 @@
+/* field.css - field (level 1)
+
+   Rewritten at step 7, the way the button was rewritten at 6.7: the look hangs
+   on the class, and the old name stays in the markup as a hook that says WHERE
+   the field stands, not what it is.
+
+   What the browser census of the 39 coloured screens found before this step -
+   101 fields, 14 names, 14 looks:
+
+     - 66 of 101 were set in ARIAL. A field does not inherit `font-family`; it
+       has to be told, and only three files told it. The two most used fields of
+       the product - the header search (34) and the footer newsletter (29) -
+       were not in Inter, and their ink was pure `#000`, a colour the palette
+       does not contain.
+     - NINE heights for one atom: 37, 40, 44, 45, 46, 47, 60, 61, 64. Four of
+       them (44/45/46/47) are the same intent - a form field - written in four
+       files with four paddings.
+     - Borders in three widths (0 / 1 / 1.5), radii in three (0 / 8 / 12), type
+       in five sizes (12 / 14 / 15 / 16 / 24), and 15 is not a rung of the scale.
+     - States: hover on 6 fields of 101, a placeholder colour on 9, a focus of
+       our own on 72 (the other 29 got whatever the browser draws), and
+       `disabled` on ZERO. The button got its off state at 6.7; the field had
+       none anywhere.
+
+   The ladder is 40 / 44, and no third rung, because nothing in the product
+   needs one. 44 is not a new number: it is the touch minimum and the box the
+   icon button already wears, so a field and the control beside it agree.
+
+   The OTP cell keeps its own file - it is a different atom, 60 tall, one
+   character wide. A textarea is not a third size, it is a `min-height`. */
+
+/* ---- the field -----------------------------------------------------------
+   One box for input, textarea and select. `font-family: inherit` is the line
+   that was missing 66 times. */
+.field{
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: var(--size-44);
+  padding: var(--space-8) var(--space-12);
+  font-family: inherit;
+  font-size: var(--fs-16);
+  line-height: var(--lh-snug);
+  color: var(--text-body);
+  background: var(--bg-page);
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-12);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.field::placeholder{ color: var(--text-muted); }
+
+/* ---- size ----------------------------------------------------------------
+   A dense row: the header search, the footer newsletter, the number in a
+   filter. Below 860 the type steps back up to 16 - not for looks, but because
+   iOS Safari zooms the page when a focused field is under 16px. That rule
+   lives in base.css and covers every input on the page, this one included. */
+.field--s{ min-height: var(--size-40); font-size: var(--fs-14); }
+
+/* ---- a value that is a number or a code ---------------------------------- */
+.field--mono{ font-family: var(--font-mono); font-weight: var(--fw-semibold); }
+
+/* ---- the two tags that are not one line ---------------------------------- */
+textarea.field{ min-height: 80px; resize: vertical; }   /* two rungs of 40 */
+/* A select is a field - its value leaves with the form - so it keeps the box.
+   What it must NOT keep is the browser's own caret: that mark is drawn by the
+   OS, it is off the ink ladder of step 6.9, and it looks different on every
+   platform. On one screen (product-coach) it stood 150px above OUR caret on the
+   city chooser, two «choose something» controls with two different marks.
+   Room for it: 12 padding + 20 mark + 8 gap = 40.
+   The OPEN list stays native on purpose - no CSS can style it, and the OS list
+   is the one that works as a wheel on a phone and answers a screen reader. We
+   own the closed state; the platform owns the open one. */
+select.field{
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: calc(var(--space-12) + var(--size-20) + var(--space-8));
+  background-image: var(--field-caret);
+  background-repeat: no-repeat;
+  background-position: right var(--space-12) center;
+  background-size: var(--size-20) var(--size-20);
+}
+
+/* ---- a field with something attached -------------------------------------
+   The +380 in front of a phone number, the lens and the button around a
+   search. The BOX moves to the wrapper and the field inside gives up its own,
+   which is why the focus ring is drawn once, around the whole thing. Before
+   this step both cases were built by hand in two files, each with a different
+   radius and a different focus. */
+.field-grp{
+  display: flex;
+  /* stretch, not centre: a field inside a group gives up its own box, so if it
+     is not stretched its clickable area shrinks to the height of one line -
+     measured 34 inside a 40 box before this line existed */
+  align-items: stretch;
+  width: 100%;
+  min-height: var(--size-44);
+  background: var(--bg-page);
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-12);
+  overflow: hidden;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.field-grp--s{ min-height: var(--size-40); }
+.field-grp > .field{
+  flex: 1; min-width: 0;
+  min-height: 0;
+  border: none; border-radius: 0; background: none;
+}
+/* nothing inside a group carries its own height: the group is the box, and a
+   child that keeps a min-height of its own pushes the box past its rung -
+   measured 43 and 45 where the ladder says 40 and 44 */
+.field-grp > *{ min-height: 0; }
+.field-grp > .btn--accent, .field-grp > .btn--outline,
+.field-grp > .btn--ghost{ border-radius: 0; border-width: 0; }
+.field-grp > .field:hover, .field-grp > .field:focus{ border: none; box-shadow: none; }
+
+/* ---- states --------------------------------------------------------------
+   hover -> the edge wakes. focus -> the edge takes the action colour and a
+   halo, never the browser's own ring. filled -> the edge stays darker than
+   empty, so a long form shows what is already answered. */
+.field:hover, .field-grp:hover{ border-color: var(--line-control-hover); }
+.field:focus{
+  outline: none;
+  border-color: var(--line-action);
+  box-shadow: var(--ring-focus);
+}
+.field-grp:focus-within{
+  border-color: var(--line-action);
+  box-shadow: var(--ring-focus);
+}
+.field.has{ border-color: var(--line-control-filled); }
+
+/* error: the edge and the halo, never the typed text - a person must be able
+   to read what they wrote in order to fix it. `.err` as well as `.field--err`
+   because the runtime already writes `.err` (wfPmInput in wireframes/_nav.js)
+   and a state the code can reach is worth more than a tidy name. */
+.field--err, .field.err{
+  border-color: var(--line-danger);
+  box-shadow: var(--ring-danger);
+}
+
+/* ---- state: off (LAST in the file) ---------------------------------------
+   Same tokens as the button's off state, for the same reason: a control that
+   is unavailable looks unavailable everywhere, and being last is what lets it
+   answer nothing at all without an `!important`. */
+.field[disabled], .field-grp[aria-disabled="true"]{
+  background: var(--bg-sunken);
+  border-color: var(--line-hair);
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.field[disabled]::placeholder{ color: var(--mark-disabled); }
+.field[readonly]{ background: var(--bg-sunken); cursor: default; }
+
+/* ==========================================================================
+   WHERE a field stands - layout that belongs to the block, not to the atom.
+   Nothing below draws a box, a border, a type or a colour of a field.
+   ========================================================================== */
+
+/* the label above a field, and the «optional» beside the label */
+.fld{ margin-bottom: var(--space-16); }
+.fld > label, .cef label{
+  display: block;
+  font-size: var(--fs-14);
+  font-weight: var(--fw-bold);
+  color: var(--text-body);
+  margin-bottom: var(--space-8);
+}
+.fld > label .opt, .cef label .opt, .opt{
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+}
+
+/* the price range: two numbers in a row */
+.frow{ display: flex; gap: var(--space-8); font-size: var(--fs-12); color: var(--text-muted); }
+.frow .in{ flex: 1; text-align: center; -moz-appearance: textfield; }
+.frow .in::-webkit-outer-spin-button,
+.frow .in::-webkit-inner-spin-button{ -webkit-appearance: none; margin: 0; }
+
+/* a read-only line of the profile: not a field, a value with an action */
+.pfield{ padding: var(--space-16) 0; border-bottom: 1px solid var(--line-hair); }
+.pfield:first-child{ padding-top: var(--space-2); }
+.pfield:last-child{ border-bottom: none; padding-bottom: var(--space-2); }
+.pfield{ border-color: var(--line-hair); }
+.pfield:nth-child(2) .pf-val{ font-family: var(--font-mono); }
+
+/* the country code in front of a phone number */
+.ph-field .cc{
+  padding: var(--space-8) var(--space-12);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  background: var(--bg-surface);
+  color: var(--text-body);
+  border-right: 1px solid var(--line-hair);
+  font-family: var(--font-mono);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-16);
+  /* the same line box as the field beside it: at the body's airy 1.6 the prefix
+     alone pushed the group to 44.6 */
+  line-height: var(--lh-snug);
+}
+
+/* the line under an OTP: how to ask for a new code */
+.resend{ font-size: var(--fs-14); color: var(--text-muted); margin-top: var(--space-16); }
+.resend .cool{ font-family: var(--font-mono); font-weight: var(--fw-semibold); color: var(--text-secondary); }
+.resend a{ color: var(--text-body); font-weight: var(--fw-bold); text-decoration: underline;
+  text-decoration-color: var(--line-strong); cursor: pointer; }
+
+/* the client editor's own margin */
+.cef{ margin-bottom: var(--space-16); }

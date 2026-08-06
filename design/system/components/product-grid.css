@@ -1,0 +1,21 @@
+/* product-grid.css - product grid (level 3)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.prow{ display: grid; }
+@media (min-width: 620px){
+  .prow{ grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1040px){
+  .prow{ grid-template-columns: repeat(4, 1fr); }
+}
+.plist{ display: flex; flex-direction: column; gap: var(--space-12); }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.prow{ grid-template-columns:repeat(auto-fill, minmax(min(150px, 100%), 1fr)); gap:var(--space-12); }
+@media (min-width:620px){
+  .prow{ grid-template-columns:repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap:var(--space-16); }
+}

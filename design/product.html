@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Gold Standard 100% Whey 2270 г - Stack (wireframe 3.0)</title>
-<link rel="stylesheet" href="../wireframes/_wf.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
 </head>
 <body>
 <!-- ============================================================
@@ -97,8 +98,8 @@
                so regular buyers don't hold off waiting for a cheaper coach price. -->
         </div>
         <div class="buyrow">
-          <a class="addcart" href="cart.html">У кошик</a>
-          <button class="wish" aria-label="В обране">♡</button>
+          <a class="btn--accent btn--l addcart" href="cart.html">У кошик</a>
+          <button class="btn--outline btn--icon btn--l wish" aria-label="В обране">♡</button>
         </div>
         <!-- per-serving + bonus sit UNDER both columns, so the figure and the action
              stay on one baseline and the small print never pushes them apart -->
@@ -110,7 +111,7 @@
       <div class="dpblk">
         <div class="dphead">
           <div class="dph">Доставка</div>
-          <button class="dpcity" type="button" onclick="openCity()">Одеса <span class="dpcar">▾</span></button>
+          <button class="btn--outline btn--s dpcity" type="button" onclick="openCity()">Одеса <span class="dpcar">▾</span></button>
         </div>
         <!-- carrier logo instead of a generic icon on the Нова Пошта rows; the brand
              is in the mark, so the titles stay short and dash-free -->
@@ -281,7 +282,7 @@
         <div class="rvbar"><span>2</span><div class="track"><div class="fill" style="width:1%"></div></div><span>2</span></div>
         <div class="rvbar"><span>1</span><div class="track"><div class="fill" style="width:1%"></div></div><span>1</span></div>
       </div>
-      <button class="btn dark" type="button" onclick="openReview()">＋ Залишити відгук</button>
+      <button class="btn--accent btn--s btn dark" type="button" onclick="openReview()">＋ Залишити відгук</button>
     </div>
 
     <!-- review item: name+rating+date LEFT, text RIGHT; pros/cons; shop reply chip -->
@@ -314,12 +315,12 @@
         <div class="rtext">Все сподобалось, ваніль трохи солодка на мій смак. Загалом задоволена.</div>
       </div>
     </div>
-    <div class="pgnav"><button class="loadmore">Показати ще відгуки (з 126)</button></div>
+    <div class="pgnav"><button class="btn--outline loadmore">Показати ще відгуки (з 126)</button></div>
   </section>
 
   <!-- Питання (3.2) -->
   <section aria-label="Питання" id="qa">
-    <div class="sech"><h2>Питання</h2><button class="all" type="button" onclick="openQuestion()">＋ Поставити запитання</button></div>
+    <div class="sech"><h2>Питання</h2><button class="btn--text all" type="button" onclick="openQuestion()">＋ Поставити запитання</button></div>
     <div class="qaitem">
       <div class="qq">Чи підходить для схуднення?</div>
       <div class="qans"><b>Магазин:</b> так, як джерело білка при дефіциті калорій. Для схуднення краще ізолят - підкажемо в чаті.</div>
@@ -332,30 +333,30 @@
 
   <!-- Схожі (3.3) -->
   <section aria-label="Схожі товари">
-    <div class="sech"><h2>Схожі товари</h2><a class="all" href="listing.html">Усі →</a></div>
+    <div class="sech"><h2>Схожі товари</h2><a class="btn--text all" href="listing.html">Усі →</a></div>
     <div class="prow">
-      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
         <div class="bd"><div class="pbrand">BioTechUSA · Угорщина</div><a href="product.html" class="nm">Iso Whey Zero 908 г</a><div class="pavail in">● В наявності</div>
-          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
           <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div><div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div></div></article>
-      <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="fav" aria-label="В обране">♡</button>
+      <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
         <div class="bd"><div class="pbrand">Optimum Nutrition · США</div><a href="product.html" class="nm">Casein Pro 1816 г</a><div class="pavail in">● В наявності</div>
-          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 480 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 480 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
           <div class="rate"><span class="st">★ 4.8</span> · 73 відгуки</div><div class="pmeta2"><span class="perserv"><b>29 ₴</b> / порція</span><span class="bonus">+15 ₴ бонус</span></div></div></article>
-      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
         <div class="bd"><div class="pbrand">Scitec Nutrition · Угорщина</div><a href="product.html" class="nm">100% Whey Protein Professional 920 г</a><div class="pavail in">● В наявності</div>
-          <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">940 ₴</span><span class="pcut">−10%</span></div><span class="pnew">845 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">940 ₴</span><span class="pcut">−10%</span></div><span class="pnew">845 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
           <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div><div class="pmeta2"><span class="perserv"><b>31 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div></div></article>
-      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="fav" aria-label="В обране">♡</button>
+      <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
         <div class="bd"><div class="pbrand">OstroVit · Польща</div><a href="product.html" class="nm">WPC 80 Standard 2000 г</a><div class="pavail in">● В наявності</div>
-          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 180 ₴</span></div><button class="cartbtn" aria-label="У кошик">🛒</button></div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 180 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
           <div class="rate"><span class="st">★ 4.5</span> · 52 відгуки</div><div class="pmeta2"><span class="perserv"><b>20 ₴</b> / порція</span><span class="bonus">+12 ₴ бонус</span></div></div></article>
     </div>
   </section>
 
   <!-- Статті по темі -->
   <section aria-label="Статті по темі">
-    <div class="sech"><h2>Статті по темі</h2><a class="all" href="content-blog.html">Блог →</a></div>
+    <div class="sech"><h2>Статті по темі</h2><a class="btn--text all" href="content-blog.html">Блог →</a></div>
     <div class="blogrow">
       <a class="blogcard" href="content-article.html"><div class="bim"></div><div class="btx"><div class="bt">Скільки протеїну потрібно на день</div><div class="bdt">Проста формула під вашу вагу й ціль.</div></div></a>
       <a class="blogcard" href="content-article.html"><div class="bim"></div><div class="btx"><div class="bt">Концентрат чи ізолят - що обрати</div><div class="bdt">Різниця простими словами.</div></div></a>
@@ -370,13 +371,15 @@
 <!-- sticky mobile buy bar (after buy box scrolls off) -->
 <div class="mbuybar">
   <div class="mbp"><span class="mold">1 520 ₴</span><span class="mcut">−15%</span><b>1 290 ₴</b></div>
-  <a class="mba" href="cart.html">У кошик</a>
+  <a class="btn--accent btn--l mba" href="cart.html">У кошик</a>
 </div>
 
 <div id="wf-sheet"></div>
 <div id="wf-pdp-modals"></div>
 <div id="wf-toast"></div>
 <script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/fields.js"></script>
 <script src="_nav.js"></script>
 <script>wfHeader(); wfFooter(); wfToasts(); wfPdpModals(); wfBar('product.html');
         uivFixLinks(); uivBar(); uivChrome(); uivPdp();</script>

@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Іконки | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
+     a demo that only LOOKS like the component proves nothing about it. -->
+<script src="../system/icons.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Основи</div><h1 class="kp-h1">Іконки</h1>
+<p class="kp-lead">Набір - це <b>сітка з правилами</b>, а не лист картинок. Нижче анатомія клітинки, оптичний баланс і аудит усіх <b><span id="n-lead">…</span></b> гліфів по фарбі: де фарба виходить за поле безпеки і де центр зсунутий.</p>
+
+<style>
+.igrid{ --u: 9px; width:calc(24 * var(--u)); max-width:100%; aspect-ratio:1;
+  position:relative; border-radius:var(--radius-8);
+  background:
+    linear-gradient(var(--line-hair) 1px, transparent 1px) 0 0/100% calc(100%/24),
+    linear-gradient(90deg, var(--line-hair) 1px, transparent 1px) 0 0/calc(100%/24) 100%,
+    var(--bg-page);
+  border:1px solid var(--line-strong);
+  /* colour sits on the CELL, not on the svg: the jar takes its metal from
+     .uiv-tier.tN and the rating star from an inline role - both would lose to a
+     rule written as `.igrid svg{color:...}` */
+  color:var(--text-primary); }
+.igrid .safe{ position:absolute; inset:calc(100%*2/24); border:1px dashed var(--line-action);
+  border-radius:var(--radius-4); }
+.igrid .mid{ position:absolute; inset:0; }
+.igrid .mid::before, .igrid .mid::after{ content:''; position:absolute; background:var(--line-action); opacity:.35; }
+.igrid .mid::before{ left:50%; top:0; bottom:0; width:1px; }
+.igrid .mid::after{ top:50%; left:0; right:0; height:1px; }
+.igrid svg{ position:absolute; inset:0; width:100%; height:100%; }
+.icell{ display:grid; gap:10px; }
+.iflex{ display:flex; gap:18px; flex-wrap:wrap; align-items:flex-start; }
+.ismall{ --u:5px; }
+.itiny{ --u:3.4px; }
+.iaud{ display:grid; grid-template-columns:repeat(auto-fill,minmax(148px,1fr)); gap:12px; }
+.iaud .c{ text-align:center; }
+.iaud .cap{ font-family:var(--font-mono); font-size:var(--fs-10); color:var(--text-muted); margin-top:6px; }
+.iaud .cap b{ color:var(--text-danger); }
+.isheet{ display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:10px; }
+.isheet .c{ text-align:center; }
+.isheet .n{ font-family:var(--font-mono); font-size:var(--fs-10); color:var(--text-muted); margin-top:6px; }
+</style>
+
+<script src="../system/icons.js"></script>
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<div class="iflex"><div class="icell"><div id="anat"></div><div class="kp-cap">клітинка 24 &times; 24, поле безпеки 2, оптичний центр</div></div><div class="kp-anat" style="flex:1;min-width:260px"><div class="a"><i>1</i><span><b>Клітинка 24 &times; 24</b> - <code>viewBox 0 0 24 24</code> на всьому наборі. Не «десь близько до 24»: одна сітка на всі гліфи - єдине, що дозволяє малювати новий і не приміряти його до сусідів.</span></div><div class="a"><i>2</i><span><b>Поле безпеки 2</b> - фарба живе в <code>2..22</code>. Ці два модулі не порожнеча, а запас: іконка стоїть поруч з текстом, у кнопці й у кружку, і без запасу вона в кружку торкається краю.</span></div><div class="a"><i>3</i><span><b>Обведення 1.9 назовні від контуру</b> - тому фарба виходить на <code>0.95</code> за геометрію шляху. Межу перевіряють по <b>фарбі</b>, а не по кривій, інакше поле безпеки з'їдається половиною штриха.</span></div><div class="a"><i>4</i><span><b>Оптичний центр, не геометричний.</b> Гліф із важким низом (кошик, дзвінок) центрують на око: рівність рахує зір, а не координати.</span></div><div class="a"><i>5</i><span><b>Кінці на сітці.</b> Кінець штриха стає на цілий модуль, інакше на 16px він розмивається на півпікселя і гліф читається брудним.</span></div></div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Оптичний баланс</div>
+<p class="kp-p">Однаковий габарит і однакова вага - різні речі. Коло, вписане в те саме поле, що й квадрат, виглядає <b>меншим</b>: око рахує площу, а не описаний прямокутник. Тому набір навмисно не однорозмірний.</p>
+<div class="iflex" id="balance"></div><p class="kp-p" style="margin-top:14px" id="balance-note"></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Аудит: <b><span id="n-safe">…</span></b> гліфів виходять за поле безпеки</div>
+<p class="kp-p">Не претензія до малюнка, а перелік місць, де гліф стоїть щільніше за правило. Пунктир - поле <code>2..22</code>; дивись, де фарба його перетинає. Числа міряє ця сторінка на живому наборі при відкритті, тому вони не можуть застаріти.</p>
+<div class="iaud" id="aud-safe"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Аудит: <b><span id="n-ctr">…</span></b> гліфів зсунуті з центру</div>
+<p class="kp-p">Частина з цього - правильна оптична поправка, частина - недогляд, і відрізнити їх може лише око на сітці. Тому тут не вирок, а <b>список на перегляд</b>: зсув понад пів модуля має бути свідомим.</p>
+<div class="iaud" id="aud-ctr"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмір, товщина, колір</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Правило</th><th>Чому</th></tr></thead><tbody><tr><td><b>Розмір у рядку</b></td><td><code>1.05em</code></td><td>Іконка росте разом з підписом: змінили кегль - іконка пішла за ним, і рядок не розсипався.</td></tr><tr><td><b>Розмір окремо</b></td><td>фіксований px</td><td>Стоїть без тексту - успадковувати нема від чого.</td></tr><tr><td><b>Товщина</b></td><td><code>1.9</code></td><td>Одна на весь набір. Товщина задана в модулях <code>viewBox</code>, тому масштабується разом з гліфом.</td></tr><tr><td><b>Виняток</b></td><td><code>2.4</code> і <code>2.6</code> під 14px</td><td>На 10px штрих 1.9 рендериться в <b>0.79px</b> і зникає. Компенсація на дрібних розмірах - практика, а не дрейф.</td></tr><tr><td><b>Колір</b></td><td><code>currentColor</code></td><td>Жоден гліф не оголошує колір: його задає роль тексту поруч, і зв'язок не рветься.</td></tr></tbody></table></div>
+<div class="kp-row" style="gap:26px;align-items:center;margin-top:14px" id="swatch"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Набір: <b><span id="n-set">…</span></b> гліфів</div>
+<p class="kp-p">Кожен у своїй клітинці, з полем безпеки. Сторінка підключає <code>design/system/icons.js</code> - той самий файл, який малює іконки на екранах продукту. Другої копії набору немає ніде.</p>
+<div class="isheet" id="sheet"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Гліф зі станом: рівень лояльності</div>
+<p class="kp-p">Єдиний гліф набору, який <b>щось показує</b>, а не тільки називає. Банка меду наповнюється: заповнення - це ранг, а колір - метал. Медалей <span class="kp-mono">🥉🥈🥇</span> у сірому прототипі більше немає: медаль каже «ви змагалися», а це не те, чим є рівень лояльності.</p>
+<div class="iflex" id="tiers"></div>
+<div class="kp-dont" style="margin-top:16px"><h4>Знято на перевірці 31.07</h4><p class="kp-p">Був прохід, який спорожняв банку кожного рівня, якого покупець ще не досяг. Це зламало марку: заповнення вже несе ранг, і другим значенням «не ваше» воно перевантажилось - «Золото» перестало виглядати золотим і стало схожим на іконку, що не завантажилась. Правило: <b>заповнення = ранг, колір = метал, а стан - робота сходинки</b> (рамка, підкладка й слово під нею). Рівень 0 - порожня банка - лишається тим, чим і був: рівня ще немає, акаунт новий.</p></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Варіант, а не другий гліф</div>
+<p class="kp-p">Зірка рейтингу - <b>та сама</b> зірка, що й у шапці, лише залита. Один малюнок, дві обробки: контур для навігаційного чипа, заливка для рейтингу. Другий шлях означав би другу зірку, яку треба тримати синхронно.</p>
+<div class="iflex" id="starvar"></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Брендові марки - навмисно не з набору</div>
+<p class="kp-p">Ці чотири порушують правило контуру, і саме так і треба: канал чи спосіб входу впізнають <b>за маркою</b>, а не за нашим малюнком. Значок-диск із вибитим гліфом на 16px виживає там, де контур перетворюється на кашу. Google порушує двічі - він у своїх чотирьох кольорах, оголошених на шляхах, бо одноколірний Google не є маркою Google.</p>
+<div class="iflex" id="brands"></div>
+<p class="kp-p" style="margin-top:14px">Ліцензія: Telegram і Viber - один набір Flaticon через підписку Freepik проєкту; файл атрибуції - операційний <code>[?]</code> до публічного запуску.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Що зведено (кроки 5.7 і 5.8)</div>
+<div class="kp-do"><h4>Набір переїхав у систему</h4><p class="kp-p">Гліфи жили в <code>design/_nav.js</code> - у скрипті стенда. Показати їх вітрина могла тільки копією, і копія розійшлася: <code>trash</code> у джерелі записаний трьома склеєними рядками, збірка взяла перший, і дизайн-система малювала відро без корпусу, поки продукт малював цілий гліф. Полагоджено не парсер, а власність: набір, анатомія й обидва будівники розмітки тепер у <code>design/system/icons.js</code>, стенд і вітрина читають його, і 39 екранів підключають той самий файл.</p><p class="kp-p">Доказ: 80 пар екран&times;ширина, <b>7 336</b> намальованих гліфів - розмітка збіглася один в один, зсувів нема, різниця рівно в <b>+1</b> елемент на екран - той самий новий <code>&lt;script&gt;</code>.</p></div>
+<div class="kp-do" style="margin-top:16px"><h4>Другий захід: те, чого в реєстрі не було</h4><p class="kp-p">Власник знайшов дірку єдиним способом, яким її можна було знайти: <b>не побачив банку в дизайн-системі</b>. Разом з нею в скрипті стенда малювалися ще три сім'ї - залита зірка рейтингу та марки Google і Apple. Тепер у системі всі: банка з чотирма рівнями, зірка як варіант, марки поруч з Telegram і Viber. Стенд лишив собі обгортку зі станом (<code>.uiv-tier.t0..t3</code> несе метал) і обхід DOM.</p><p class="kp-p">Доказ: 78 пар екран&times;ширина, <b>7 334</b> гліфи. Змінилися рівно <b>584</b> - і всі три перемальовані навмисно: <code>flame</code> 296, <code>flask</code> 144, <code>drop</code> 144. Банка (84 входження), зірка й марки збіглися <b>байт у байт</b>, кількість елементів не зрушила на жодному екрані.</p></div>
+<div class="kp-do" style="margin-top:16px"><h4>Три гліфи перемальовано</h4><p class="kp-p"><b>flame</b> - було 9.9&times;13.9 фарби проти медіани набору 18.5, і центр на <b>3 модулі вище</b>: у меню каталогу «Жироспалювачі» читалось як дрібна мітка, що висить над своїм рядком, поки сусідній <code>bolt</code> заповнював клітинку. Той самий малюнок, масштаб 1.42 від оптичного центру: <b>13.3&times;18.9</b>, <code>dy 0.00</code>.<br><b>drop</b> - сусід по тому ж меню з тією ж вадою (11.9&times;15.9, <code>dy -1.00</code>), тому масштабований разом: колонку гліфів судять одне проти одного, а не поодинці.<br><b>flask</b> - закривалися два просвіти: горловина була 3 модулі, з обведенням 1.9 всередині лишалось 1.1 білого, а лінія рівня не доходила до стінок 1.0 - достатньо близько, щоб круглі кінці злилися зі стінкою в грудку замість стику. Горловина 3.6, лінія йде від стінки до стінки.</p></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді -&gt; етап 09</div>
+<div class="kp-gap"><h4>Чого бракує набору</h4><ul><li><b>Немає шкали для іконки без підпису</b> - <code>1.05em</code> покриває лише випадок «поруч із текстом».</li><li><b>Немає правила, коли іконка може стояти без підпису</b>, і 41 кнопка лише з іконкою досі без <code>aria-label</code>.</li><li><b>Поле безпеки перевіряє ця сторінка, а не збірка</b> - новий гліф потрапляє в аудит автоматично, але зупинити його нікому: перевірка спрацьовує, коли сторінку відкрили.</li></ul></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div><div id="idle"></div></section>
+<script>
+var CS=getComputedStyle(document.documentElement);
+var val=function(n){return CS.getPropertyValue(n).trim()};
+var shown=new Set();
+var el=function(i){return document.getElementById(i)};
+
+/* The set comes from design/system/icons.js - the same file the product loads.
+   The page does not own a copy, so it cannot show a glyph the product does not have. */
+var SET = window.UIV_P || {};
+var KEYS = Object.keys(SET).sort();
+
+function isvg(k, extra){
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" ' +
+    'stroke-linecap="round" stroke-linejoin="round"' + (extra || '') + '>' + SET[k] + '</svg>';
+}
+function ibox(k, cls){
+  return '<div class="igrid ' + (cls || '') + '"><div class="mid"></div><div class="safe"></div>' +
+    isvg(k) + '</div>';
+}
+
+/* MEASURED, not declared, and measured BY THE INK. The glyph is rendered at 240px -
+   one module is 10px - and every shape reports its rect, which includes the rotate
+   on `capsule` but NOT the stroke: a client rect of an SVG shape is its fill box.
+   The stroke is what the eye actually sees, so half of it is added back per shape,
+   and a shape drawn with stroke:none (the filled dot in `alert`) gets nothing. */
+var probe = document.createElement('div');
+probe.style.cssText = 'position:absolute;left:-9999px;top:0;width:240px;height:240px';
+document.body.appendChild(probe);
+function ink(name, html){
+  probe.innerHTML = html.replace('<svg ', '<svg width="240" height="240" ');
+  var s = probe.querySelector('svg'), R = s.getBoundingClientRect(), u = R.width / 24;
+  var sh = s.querySelectorAll('path,circle,rect,line,polyline,polygon,ellipse');
+  var x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  for(var i = 0; i < sh.length; i++){
+    var b = sh[i].getBoundingClientRect();
+    if(!b.width && !b.height) continue;
+    var cs = getComputedStyle(sh[i]);
+    /* stroke-width is reported in user units, i.e. already in modules */
+    var half = cs.stroke === 'none' ? 0 : (parseFloat(cs.strokeWidth) || 0) / 2;
+    x0 = Math.min(x0, (b.left - R.left) / u - half);  x1 = Math.max(x1, (b.right - R.left) / u + half);
+    y0 = Math.min(y0, (b.top  - R.top ) / u - half);  y1 = Math.max(y1, (b.bottom - R.top) / u + half);
+  }
+  return { n:name, x0:x0, y0:y0, x1:x1, y1:y1, w:x1 - x0, ht:y1 - y0,
+           dx:(x0 + x1) / 2 - 12, dy:(y0 + y1) / 2 - 12 };
+}
+/* audited: the 48 of the set PLUS the state glyph - the jar is drawn on the same
+   24 grid and obeys the same safe area, so it is measured with the rest. The brand
+   marks are not: they carry their own viewBox and break the outline rule on purpose. */
+var ITEMS = KEYS.map(function(k){ return {n:k, html:isvg(k)}; });
+if(typeof uivTierSvg === 'function') ITEMS.push({n:'tier', html:uivTierSvg(3)});
+var M = ITEMS.map(function(it){ return ink(it.n, it.html); }), BY = {}, HTML = {};
+M.forEach(function(r){ BY[r.n] = r; });
+ITEMS.forEach(function(it){ HTML[it.n] = it.html; });
+probe.remove();
+/* one cell builder for everything measured, keyed by name rather than by registry */
+function nbox(name, cls){
+  return '<div class="igrid ' + (cls || '') + '"><div class="mid"></div><div class="safe"></div>' +
+    (HTML[name] || '') + '</div>';
+}
+
+if(!KEYS.length){
+  el('anat').outerHTML = '<div class="kp-dont"><h4>Набір не завантажився</h4>' +
+    '<code>design/system/icons.js</code> не віддав <code>UIV_P</code> - сторінка не має що ' +
+    'показувати й нічого не міряла. Це не порожній набір, це обрив підключення.</div>';
+} else {
+  el('anat').outerHTML = ibox('cart');
+  el('n-lead').textContent = M.length;
+  el('n-set').textContent = KEYS.length;
+
+  /* optical balance: the span of the ink box, and four glyphs that show why one
+     size for the whole set would read as unequal */
+  var span = function(r){ return Math.max(r.w, r.ht); };
+  var sorted = M.map(span).sort(function(a,b){ return a - b; });
+  var med = sorted[Math.floor(sorted.length / 2)];
+  el('balance').innerHTML = ['target','check','cart','chevron'].filter(function(k){ return BY[k]; })
+    .map(function(k){
+      return '<div class="icell">' + ibox(k, 'ismall') + '<div class="kp-cap">' + k + ' · ' +
+        BY[k].w.toFixed(1) + '&times;' + BY[k].ht.toFixed(1) + '</div></div>'; }).join('');
+  el('balance-note').innerHTML = 'Виміряно по фарбі на всіх <b>' + M.length + '</b> гліфах: ' +
+    'габарит від <b>' + sorted[0].toFixed(1) + '</b> до <b>' + sorted[sorted.length-1].toFixed(1) +
+    '</b>, медіана <b>' + med.toFixed(1) + '</b>. Тобто робоче поле набору - <b>' + med.toFixed(1) +
+    '</b> модуля з 24, а не всі 20 дозволених: різниця в <b>' +
+    (sorted[sorted.length-1] - sorted[0]).toFixed(1) + '</b> модуля між найменшим і найбільшим ' +
+    'гліфом - це і є оптична поправка, а не недбалість.';
+
+  /* audit 1: ink outside the safe area */
+  var out = M.filter(function(r){ return r.x0 < 1.99 || r.y0 < 1.99 || r.x1 > 22.01 || r.y1 > 22.01; })
+             .sort(function(a,b){ return Math.min(a.x0,a.y0,24-a.x1,24-a.y1) - Math.min(b.x0,b.y0,24-b.x1,24-b.y1); });
+  el('n-safe').textContent = out.length;
+  el('aud-safe').innerHTML = out.length ? out.map(function(r){
+    return '<div class="c">' + nbox(r.n, 'ismall') + '<div class="cap">' + r.n +
+      '<br>x <b>' + r.x0.toFixed(2) + '</b>..<b>' + r.x1.toFixed(2) + '</b> · y <b>' +
+      r.y0.toFixed(2) + '</b>..<b>' + r.y1.toFixed(2) + '</b></div></div>'; }).join('')
+    : '<div class="kp-do"><h4>Порушень немає</h4>Уся фарба набору лежить у <code>2..22</code>.</div>';
+
+  /* audit 2: off the optical centre */
+  var off = M.filter(function(r){ return Math.abs(r.dx) > .5 || Math.abs(r.dy) > .5; })
+             .sort(function(a,b){ return Math.max(Math.abs(b.dx),Math.abs(b.dy)) - Math.max(Math.abs(a.dx),Math.abs(a.dy)); });
+  el('n-ctr').textContent = off.length;
+  el('aud-ctr').innerHTML = off.slice(0, 8).map(function(r){
+    return '<div class="c">' + nbox(r.n, 'ismall') + '<div class="cap">' + r.n +
+      '<br>dx <b>' + (r.dx >= 0 ? '+' : '') + r.dx.toFixed(2) + '</b> · dy <b>' +
+      (r.dy >= 0 ? '+' : '') + r.dy.toFixed(2) + '</b></div></div>'; }).join('') +
+    (off.length > 8 ? '<div class="c"><div class="cap">…і ще <b>' + (off.length - 8) + '</b></div></div>' : '');
+
+  /* colour rides the text role, never the glyph */
+  el('swatch').innerHTML = [['cart','text-primary'],['heart','text-action'],
+                            ['clock','text-muted'],['alert','text-danger']]
+    .filter(function(p){ return SET[p[0]]; })
+    .map(function(p){ return '<span style="color:var(--' + p[1] + ')">' +
+      isvg(p[0], ' width="26" height="26"') + '</span>'; }).join('');
+
+  el('sheet').innerHTML = KEYS.map(function(k){
+    return '<div class="c">' + ibox(k, 'itiny') + '<div class="n">' + k + '</div></div>'; }).join('');
+
+  /* the state glyph: four levels of one jar, the metal carried by the wrapper class
+     exactly as the product carries it (.uiv-tier.t0..t3 lives in loyalty-rung.css) */
+  if(typeof uivTierSvg === 'function'){
+    var NAMES = ['рівня ще немає', 'Бронза', 'Срібло', 'Золото'];
+    el('tiers').innerHTML = [0,1,2,3].map(function(lv){
+      return '<div class="icell"><div class="igrid ismall uiv-tier t' + lv + '">' +
+        '<div class="mid"></div><div class="safe"></div>' + uivTierSvg(lv) + '</div>' +
+        '<div class="kp-cap">t' + lv + ' · ' + NAMES[lv] + '</div></div>'; }).join('') +
+      '<div class="icell" style="min-width:200px;flex:1"><div class="kp-cap">' +
+        'Виміряно по фарбі: <b>' + BY.tier.w.toFixed(1) + '&times;' + BY.tier.ht.toFixed(1) +
+        '</b>, dx <b>' + BY.tier.dx.toFixed(2) + '</b> dy <b>' + BY.tier.dy.toFixed(2) + '</b>. ' +
+        'Обведення однакове на всіх рівнях - рухається тільки заливка, тому банка не «стрибає» ' +
+        'при переході на наступний рівень.</div></div>';
+  }
+
+  /* one drawing, two finishes */
+  if(typeof uivStarSvg === 'function'){
+    el('starvar').innerHTML =
+      '<div class="icell">' + ibox('star', 'ismall') + '<div class="kp-cap">контур · чип «Бонуси»</div></div>' +
+      '<div class="icell"><div class="igrid ismall" style="color:var(--mark-rating)">' +
+        '<div class="mid"></div><div class="safe"></div>' + uivStarSvg() + '</div>' +
+        '<div class="kp-cap">заливка · рейтинг</div></div>';
+  }
+
+  /* brand marks: their own viewBox, their own rules */
+  if(window.UIV_BRAND){
+    el('brands').innerHTML = Object.keys(UIV_BRAND).map(function(k){
+      var own = UIV_BRAND[k].root === '';
+      return '<div class="icell"><div style="width:52px;height:52px;display:grid;place-items:center;' +
+        'border:1px solid var(--line-hair);border-radius:var(--radius-12);color:var(--text-primary)">' +
+        uivBrandSvg(k).replace('<svg ', '<svg width="30" height="30" ') + '</div>' +
+        '<div class="kp-cap">' + k + '<br>viewBox ' + UIV_BRAND[k].vb.split(' ')[2] +
+        (own ? ' · свій колір' : ' · currentColor') + '</div></div>'; }).join('');
+  }
+}
+function MINE(p){ return false; }
+
+(function(){
+  var declared=[]; try{ for(var i=0;i<CS.length;i++){ var p=CS[i]; if(p.indexOf('--')===0) declared.push(p);} }catch(e){}
+  var mine=declared.filter(function(p){ return MINE(p); });
+  var missing=mine.filter(function(p){ return !shown.has(p); });
+  el('idle').innerHTML = !declared.length
+    ? '<div class="kp-gap">Браузер не перелічує власні властивості - перевірку не проведено.</div>'
+    : missing.length
+      ? '<div class="kp-dont"><h4>Не показано</h4><b>'+missing.length+'</b> токенів цього розділу оголошені у файлі й не показані тут: <code>'+missing.join(', ')+'</code></div>'
+      : '<div class="kp-do"><h4>Пройдено</h4>Усі <b>'+mine.length+'</b> токенів цього розділу показані на сторінці. Непоказаних немає.</div>';
+})();
+</script>
+</main>
+<script>var KIT_ACTIVE = 'icons';</script>
+<script src="_nav.js"></script>
+</body>
+</html>

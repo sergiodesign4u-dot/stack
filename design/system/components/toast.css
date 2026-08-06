@@ -1,0 +1,20 @@
+/* toast.css - toast (level 2)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.wf-toasts{ position: fixed; z-index: 70; left: 50%; bottom: 22px; transform: translateX(-50%);
+  display: flex; flex-direction: column; gap: var(--space-8); width: 92%; max-width: 380px; }
+.wf-toast{ display: flex; align-items: center; gap: var(--space-12); background: var(--bg-inverse); color: var(--text-oninverse);
+  border-radius: var(--radius-8); padding: var(--space-12) var(--space-16); font-size: var(--fs-14); box-shadow: var(--elevation-4);
+  animation: tt-in .22s ease; }
+.wf-toast.out{ opacity: 0; transform: translateY(8px); transition: all .25s ease; }
+.wf-toast .tt-ic{ flex: none; width: var(--size-20); height: var(--size-20); border-radius: var(--radius-circle); display: flex; align-items: center; justify-content: center; font-size: var(--fs-12); font-weight: var(--fw-black); background: var(--bg-page); color: var(--text-primary); }
+.wf-toast.error .tt-ic{ background: var(--bg-page); color: var(--text-primary); }
+.wf-toast.info .tt-ic{ font-style: normal; }
+.wf-toast .tt-m{ flex: 1; }
+.wf-toast .tt-x{ color: var(--text-oninverse); opacity: .7; font-size: var(--fs-14); }
+.wf-toast.error{ border: 1px solid var(--line-onink); }
+@keyframes tt-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }

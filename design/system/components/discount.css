@@ -1,0 +1,17 @@
+/* discount.css - discount (level 1)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3. Selectors are unchanged; the colour block below is the
+   one that wins, exactly as the two stylesheets stacked before the split.
+   Colour reads a semantic role, geometry reads a primitive. */
+
+/* ---------- structure (from wireframes/_wf.css) ---------- */
+.pcard .pcut{ font-size: var(--fs-10); border-radius: var(--radius-4); }
+.cprice .wtag{ display: inline-block; font-size: var(--fs-10); font-weight: var(--fw-black); border: 1px solid var(--line-strong); border-radius: var(--radius-4); padding: 0 var(--space-4); margin-left: var(--space-4); vertical-align: middle; }
+
+/* ---------- colour (from design/kit/kit.css) ---------- */
+.pcard .pcut{ background:var(--bg-discount); color:var(--text-danger); font-weight:var(--fw-bold); }
+.pcard .pcut{ padding:var(--space-2) var(--space-8); }
+@media (max-width:620px){
+  .pcard .pcut{ font-size:var(--fs-10); padding:var(--space-2) var(--space-8); }
+}
+.cprice .wtag{ font-family:'Inter', sans-serif; color:var(--text-secondary); border-color:var(--line-strong); }

@@ -1,0 +1,29 @@
+/* favourite.css - favourite (level 1)
+   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
+   at stage 08 step 3.
+
+   Rewritten at step 6.2. Before this the same selector was declared THREE times
+   in a row and each declaration undid the one above it:
+
+     1  30px circle, white ground, hairline border
+     2  34px circle, photo-safe ground, strong border
+     3  width:auto, height:auto, border:none, background:none, padding:2px
+
+   Only the third one was ever visible, so the product had a 26×26 bare mark
+   whose stylesheet described a bordered circle. `border-radius: 50%` survived
+   all three and could be seen by nobody: there was nothing left to round.
+
+   What stays here is what is genuinely this component's - WHERE the mark sits on
+   the card and WHAT it says by colour. Its box and its touch target are the icon
+   finish, and that lives in button.css with every other button. */
+
+.pcard .fav, .pcard .wlrm{
+  position: absolute;
+  /* 12 - (44 - 26)/2 = 3. The box grew to the touch minimum and the mark did not
+     move: its optical centre stays 25px in from both edges either way. */
+  top: 3px; right: 3px;
+  width: var(--size-44); height: var(--size-44); }
+/* step 6.10: `saved` moved to button.css. It is a state of the mark, not a
+   property of the card the mark happens to sit on. */
+.pcard .fav:focus-visible, .pcard .wlrm:focus-visible{
+  outline: none; }
