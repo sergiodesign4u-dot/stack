@@ -23,69 +23,121 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Рейтинг</h1>
-<p class="kp-lead">Зірка, цифра і кількість відгуків. Цифру несе моношрифт, бо саме її порівнюють між картками.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/rating.css</span><span class="kp-tag">32 рядків</span><span class="kp-tag">32 екранів</span></div>
-<section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><article class="pcard" style="max-width:240px"><div class="rate"><span class="uiv-star">&#9733;</span> <span class="st">4.8</span> · 126 відгуків</div></article></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Знак зірки</b> - декоративний, 2.00:1 - він не несе значення</span></div><div class="a"><i>2</i><span><b>Цифра <code>.st</code></b> - моношрифт, і саме вона несе факт</span></div><div class="a"><i>3</i><span><b>Кількість</b> - число відгуків - без нього оцінка нічого не варта</span></div></div></section>
+<p class="kp-lead">Зірка, цифра і кількість відгуків. Цифру несе моношрифт, бо саме її порівнюють між картками, а зірку малює набір - вона на пів пікселя більша за цифру, бо інакше читається меншою.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/rating.css</span><span class="kp-tag">115 рядків</span><span class="kp-tag">8 імен</span><span class="kp-tag">17 з 40 екранів</span></div>
 
-<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
-<p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Повнота</b></td><td>зірка + цифра + кількість · тільки цифра</td><td>Кількість зникає лише там, де немає місця - у списковому рядку.</td></tr><tr><td><b>Місце</b></td><td>картка · блок покупки</td><td>У блоці покупки рейтинг клікабельний і веде до відгуків.</td></tr></tbody></table></div>
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут та сама, що в продукті, знак у знак. До кроку 7.27 на цій сторінці стояла інша: <code>&lt;span class="uiv-star"&gt;★&lt;/span&gt;</code> поруч з <code>.st</code>, з зірочкою, намальованою шрифтом. Такої розмітки в продукті немає жодної.</p>
+<div class="kp-demo"><article class="pcard" style="max-width:260px;padding:var(--space-12)"><div class="bd"><div class="rate"><span class="st"><span class="uiv-ic uiv-star"></span><b>4.8</b></span> · 126 відгуків</div></div></article></div>
+<div class="kp-anat">
+<div class="a"><i>1</i><span><b>Знак <code>.uiv-star</code></b> - той самий гліф, що й у наборі, тільки залитий. Декоративний, <code>aria-hidden</code>, 2.00:1 - він не несе значення</span></div>
+<div class="a"><i>2</i><span><b>Цифра <code>.st &gt; b</code></b> - моношрифт, і саме вона несе факт. Обгортка <code>.st</code> це рядок «знак + цифра», а не сама цифра</span></div>
+<div class="a"><i>3</i><span><b>Кількість</b> - текстовий вузол після <code>.st</code>. Без нього оцінка нічого не варта</span></div>
+</div>
+<p class="kp-p"><b>Чому демо стоїть у картці.</b> Три з чотирьох правил цифри прив'язані до контейнера - <code>.pcard .rate .st</code>, <code>.bb .bbrate .st</code>, <code>.rvmeta .rstars</code> - тому поза карткою, блоком покупки чи рядком відгуку рейтинг втрачає моношрифт і осідає на Inter. Перевірено тут: перша редакція цього демо стояла голим <code>&lt;div class="rate"&gt;</code> і цифра вийшла Inter 700 замість IBM Plex Mono. Це рівень 1, який поки не вміє стояти сам; розчепити селектори - пункт Кроку 6, разом з перейменуванням <code>.rstars</code>.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Розмір зірки - одне правило замість чотирьох</div>
+<p class="kp-p">До 7.27 зірку розмічали чотири файли, і виходило чотири числа: 13, 14, 15 і 18. Три з них виявились одним правилом, якого ніхто не записав - <b>розмір рядка плюс один піксель</b>. Два незалежні автори дійшли до нього окремо: <code>product-card.css</code> написав 13 у рядку 12px, а <code>rating.css</code> - 15 у рядку 14px.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Де</th><th>Рядок</th><th>Зірка</th><th>Звідки число</th></tr></thead><tbody>
+<tr><td><code>.pcard .rate</code> · <code>.pcard-l .lmeta</code></td><td>12px</td><td>13</td><td><code>calc(1em + 1px)</code></td></tr>
+<tr><td><code>.bb .bbrate</code> · <code>.rvmeta .rstars</code></td><td>14px</td><td>15</td><td><code>calc(1em + 1px)</code></td></tr>
+<tr><td><code>.tbanners</code>, банер відгуків</td><td>14px</td><td>14 → <b>15</b></td><td>було власне число, стало правило</td></tr>
+<tr><td><code>.rvbig .starrow</code>, п'ять зірок</td><td>14px</td><td>18</td><td>окреме рішення, не промах</td></tr>
+<tr><td><code>.pm-stars .pmst</code>, вибір оцінки</td><td>30px</td><td>31.5</td><td><code>1.05em</code> з <code>icon.css</code></td></tr>
+</tbody></table></div>
+<div class="kp-demo" style="display:flex;flex-wrap:wrap;gap:var(--space-32);align-items:flex-end">
+  <article class="pcard" style="width:200px;padding:var(--space-12)"><div class="bd"><div class="rate"><span class="st"><span class="uiv-ic uiv-star"></span><b>4.8</b></span> · 126 відгуків</div></div></article>
+  <div class="rvitem" style="border:0;padding:0"><div class="rvmeta"><div class="rstars"><span class="uiv-ic uiv-star"></span><b>5.0</b></div></div></div>
+  <div class="rvbig" style="width:180px"><div class="n">4.8</div><div class="s"><span class="starrow"><span class="uiv-ic uiv-star"></span><span class="uiv-ic uiv-star"></span><span class="uiv-ic uiv-star"></span><span class="uiv-ic uiv-star"></span><span class="uiv-ic uiv-star"></span></span><br>126 відгуків</div></div>
+</div>
+<p class="kp-p">Чому «плюс один»: чорнило зірки не заповнює свій квадрат так, як цифра заповнює свій, тому зірка рівно в розмір цифри читається дрібнішою за неї. 18 у рядку 14px - це не промах на чотири пікселі, це дисплейний рядок з п'яти зірок поруч з цифрою в 50px, і його розмір лишається окремим рішенням. Зірка у виборі оцінки не супроводжує цифру - вона <b>і є</b> контрол, тому бере правило знака (<code>1.05em</code>), а не правило рядка.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p">Попередня редакція цієї сторінки казала «у коді немає жодного стану, крім базового». У коді їх три, і всі три знайшлися в браузері.</p>
+<div class="kp-demo" style="display:flex;flex-wrap:wrap;gap:var(--space-16);align-items:flex-start">
+  <article class="pcard" style="width:220px;padding:var(--space-12)"><div class="bd"><div class="rate"><span class="st"><span class="uiv-ic uiv-star"></span><b>4.8</b></span> · 126 відгуків</div></div></article>
+  <article class="pcard" style="width:220px;padding:var(--space-12)"><div class="bd"><div class="rate"><span class="st"><span class="uiv-ic uiv-star"></span><b>-</b></span> · новинка</div></div></article>
+  <article class="pcard" style="width:220px;padding:var(--space-12)"><div class="bd"><div class="rate"></div></div></article>
+</div>
+<div class="kp-anat">
+<div class="a"><i>1</i><span><b>Оцінка є</b> - зірка, цифра, кількість. 132 входження</span></div>
+<div class="a"><i>2</i><span><b>Оцінки ще немає</b> - <code>★ - · новинка</code>. 6 входжень на 6 екранах: товар щойно в каталозі, відгуків нема, і рядок каже це словом, а не порожнечею</span></div>
+<div class="a"><i>3</i><span><b>Рядок ще не приїхав</b> - <code>.rate</code> порожній, і його тримає <code>min-height: 15px</code>, щоб картка під ним не стрибала, коли цифра з'явиться</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Вибір оцінки</div>
+<p class="kp-p">Єдиний рейтинг, який натискають. До 7.27 він цілком жив у <code>review-modal.css</code> - модалка вирішувала не лише де він стоїть, а й який він. Модалка вирішує місце; який вигляд має зірка, коли її натиснули, вирішує рейтинг. З усієї родини тільки в нього є кільце фокуса.</p>
+<div class="kp-demo"><div class="pm-stars" id="pmdemo">
+  <button class="pmst on" type="button" aria-label="1 з 5"></button>
+  <button class="pmst on" type="button" aria-label="2 з 5"></button>
+  <button class="pmst on" type="button" aria-label="3 з 5"></button>
+  <button class="pmst on" type="button" aria-label="4 з 5"></button>
+  <button class="pmst" type="button" aria-label="5 з 5"></button>
+</div></div>
+<p class="kp-p">Три стани, і всі три можна дістати просто тут. Натисніть - обрана зірка й усі до неї беруть <code>.on</code> і золото <code>--mark-rating</code>, решта лишається на <code>--mark-inactive</code>. Наведення <code>:hover</code> піднімає зірку на піксель. Клавіша Tab дає <code>:focus-visible</code> - кільце, якого більше ні в кого в цій родині немає, бо решта рейтингів нічого не робить у відповідь.</p>
+<p class="kp-p"><b>І тут була друга зірка.</b> <code>icons.js</code> каже про це зверху свого <code>uivStarSvg</code>: «той самий гліф, дві обробки - контур для навігаційного чипа, заливка для рейтингу». Але <code>marks.js</code> малює будь-який знак-контрол через <code>uivIconSvg</code>, тобто контуром, тому єдине місце, де зірка є цілим контролом, показувало п'ять контурів поруч зі 140 залитими - і натиснута ставала золотим контуром.</p>
+<p class="kp-p">Перша спроба виправити це в <code>marks.js</code> («будь-яка ★ - залита») залила на одну зірку більше: <b>«Знижки та бонуси»</b> в навігації кабінету - теж ★, і вона за тим самим правилом має лишатись контуром. Гліф не знає, що він означає; це знає контекст. Тому <code>marks.js</code> лишився з контуром за замовчуванням, а вибір оцінки прописаний у <code>design/_nav.js</code> поруч із трьома іншими підмінами рейтингу. Знайдено звіркою до/після на 2148 вимірах, не оком.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Перепис</div>
+<p class="kp-p">Браузер обійшов 40 кольорових екранів на 1280 і 390. Рейтинг є на <b>17</b> з них, і в них <b>142</b> зірки. Дві з них до цього кроку малював шрифт.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Родина</th><th>Файл до 7.27</th><th>Входжень</th><th>Екранів</th></tr></thead><tbody>
+<tr><td><code>.pcard .rate .st</code></td><td>rating.css + product-card.css</td><td>90</td><td>16</td></tr>
+<tr><td><code>.rvbig .starrow</code></td><td>review-item.css</td><td>15</td><td>3</td></tr>
+<tr><td><code>.pm-stars .pmst</code></td><td>review-modal.css</td><td>15</td><td>3</td></tr>
+<tr><td><code>.rvmeta .rstars</code></td><td>review-item.css</td><td>7</td><td>3</td></tr>
+<tr><td><code>.pcard-l .lmeta .st</code></td><td>rating.css + product-card.css</td><td>6</td><td>1</td></tr>
+<tr><td><code>.tbanners</code> банер 5</td><td>banner.css</td><td>4</td><td>4</td></tr>
+<tr><td><code>.bb .bbrate .st</code></td><td>rating.css</td><td>3</td><td>3</td></tr>
+<tr><td><code>.co-accrual .star</code> - не рейтинг</td><td>checkout-form.css</td><td>2</td><td>2</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Остання зірка, яку малював шрифт.</b> Дві на чекауті - знак бонуса, не оцінка. Її пропустили всі попередні проходи, і кожен з них пояснює чому: <code>marks.js</code> ходить по <b>контролах</b>, а це <code>span</code> у <code>div</code>; три виклики <code>uivStarify</code> у <code>_nav.js</code> названі по рейтингах, а бонус не рейтинг. Гліф той самий, отже й малюнок той самий - виправлено правилом у <code>design/_nav.js</code>, не руками в двох файлах.</p>
 </section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
-<p class="kp-p">Скрізь, де є оцінка. Job 4 - робота довіри: оцінка без кількості відгуків це число зі стелі, тому кількість не прибираємо «для краси».</p></section>
+<p class="kp-p">Скрізь, де є оцінка. Job 4 - робота довіри: оцінка без кількості відгуків це число зі стелі, тому кількість не прибираємо «для краси». Кількість зникає лише в списковому рядку, де її місце займає ціна за порцію.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Оцінка завжди з кількістю.</b> 4.8 з двох відгуків і 4.8 зі ста двадцяти - різні факти.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не малюй п'ять зірок замість цифри.</b> П'ять гліфів займають місце ціни й читаються повільніше за одне число. Якщо потрібен розподіл оцінок - це <b>Відгук</b> зі своїми смугами.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Оцінка завжди з кількістю.</b> 4.8 з двох відгуків і 4.8 зі ста двадцяти шести - різні факти. Якщо відгуків ще нема, рядок каже <code>★ - · новинка</code>, а не зникає.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не малюй п'ять зірок замість цифри.</b> П'ять гліфів займають місце ціни й читаються повільніше за одне число. П'ять зірок є рівно в одному місці - у зведенні відгуків, де вони і є заголовком блоку. Якщо потрібен розподіл оцінок - це <b>Відгук</b> зі своїми смугами.</div></div></section>
 
-<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
+<section class="kp-sec"><div class="kp-sh">Контраст</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Пара</th><th>Контраст</th><th>Вирок</th></tr></thead><tbody>
+<tr><td>зірка <code>--mark-rating</code> на <code>--bg-page</code></td><td>2.00:1</td><td>декоративна, <code>aria-hidden</code> - контраст її не стосується</td></tr>
+<tr><td>цифра <code>--text-body</code> на <code>--bg-page</code></td><td>15.9:1</td><td>саме вона несе факт, і вона проходить</td></tr>
+<tr><td>кількість <code>--text-muted</code> на <code>--bg-page</code></td><td>4.62:1</td><td>проходить AA на 12px</td></tr>
+<tr><td>погашена зірка <code>--mark-inactive</code></td><td>1.51:1</td><td>вибір оцінки: стан «не обрано» у контролі 30px, поруч із залитими сусідками</td></tr>
+</tbody></table></div>
+<p class="kp-p">Зірка ніколи не лишається сама: факт несе цифра поруч, і саме тому знак має право бути тихим. Прибрати цифру і лишити зірки означало б повісити сенс на 2.00:1.</p>
+</section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>5</b> власних класів і <b>0</b> станів оголошено в <code>rating.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (<code>.bb</code> <code>.bbrate</code> <code>.lmeta</code> <code>.pcard</code> <code>.pcard-l</code>) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>8</b> власних класів і <b>3</b> стани оголошено в <code>rating.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (<code>.pcard</code> <code>.pcard-l</code> <code>.lmeta</code> <code>.bb</code> <code>.bbrate</code> <code>.rvbig</code> <code>.rvmeta</code>) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["lold", "lprice", "rate", "st", "uiv-star"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["uiv-star", "rate", "st", "rstars", "starrow", "pm-stars", "pmst", "on"], KIT_STS=[":hover", ":focus-visible", ".on"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
-<p class="kp-p">Прочитані з <code>rating.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (6)</th></tr></thead><tbody><tr><td><code>--mark-rating</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code></td><td><code>--font-mono</code> <code>--fs-12</code> <code>--fw-bold</code> <code>--space-12</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<p class="kp-p">Прочитані з <code>rating.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива. Єдине число без токена - 18px п'ятизіркового рядка, і воно назване рішенням у самому файлі.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (10)</th></tr></thead><tbody><tr><td><code>--line-action</code> <code>--mark-inactive</code> <code>--mark-rating</code> <code>--text-body</code> <code>--text-muted</code></td><td><code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-30</code> <code>--fw-bold</code> <code>--lh-flat</code> <code>--radius-4</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;div class="rate"&gt;&lt;span class="uiv-star"&gt;★&lt;/span&gt; &lt;span class="st"&gt;4.8&lt;/span&gt; · 126 відгуків&lt;/div&gt;</div></section>
+<div class="kp-code">&lt;div class="rate"&gt;&lt;span class="st"&gt;&lt;span class="uiv-ic uiv-star"&gt;&lt;svg…&gt;&lt;/span&gt;&lt;b&gt;4.8&lt;/b&gt;&lt;/span&gt; · 126 відгуків&lt;/div&gt;</div>
+<p class="kp-p">Зірку в <code>.st</code> ставить <code>uivStarify()</code> у <code>design/_nav.js</code>: у вихідній розмітці стоїть <code>&lt;span class="st"&gt;★ 4.8&lt;/span&gt;</code>, і одна функція міняє гліф на малюнок та загортає цифру в <code>&lt;b&gt;</code>. Тому в html лежить ★, а на екрані - набір.</p>
+</section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.rate</code> <code>.st</code></p>
-<p class="kp-p"><b>32 екранів</b> у <code>wireframes/</code>: 404.html, account-wishlist-many.html, account-wishlist.html, account.html, catalog-page.html, checkout-loggedin.html, checkout-noaddr.html, checkout.html, coach-home-free.html, coach-home.html, coach-wishlist.html, content-article.html, goal.html, home-buyer.html ...</p></section>
-
-<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає незакладеного правила</b> - у коді рейтинг існує лише як <code>.pcard .rate</code> і <code>.bb .bbrate</code></li><li><b>Немає половинчастої зірки</b></li><li><b><code>--mark-inactive</code> 1.5:1</b> - порожня зірка невидима для слабкого зору, і це в порядку лише поки поруч є цифра</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<p class="kp-p">Якорі: <code>.rate</code> <code>.st</code> <code>.rstars</code> <code>.starrow</code> <code>.pmst</code></p>
+<p class="kp-p"><b>17 з 40 екранів</b> у <code>design/</code>: account.html, account-wishlist.html, checkout.html, checkout-loggedin.html, checkout-noaddr.html, home-buyer.html, home-cart.html, home-coach.html, index.html, listing.html, listing-filtered.html, listing-list.html, listing-sheet.html, product.html, product-coach.html, product-oos.html, product-reviews.html</p>
+</section>
 
 <script>
-/* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
-   screen. A page that pastes the paths carries a second edition of the set, and a
-   second edition is the thing this stage spent two steps deleting. */
 (function(){
-  document.querySelectorAll('[data-brand]').forEach(function(e){
-    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
-  });
-  document.querySelectorAll('[data-glyph]').forEach(function(e){
-    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
-  });
-})();
-</script>
-<script>
-/* The page checks ITSELF against its file. Everything a person can see counts as
-   shown: a rendered demo, a class named in the markup block, a class named inside
-   any <code> on the page. What is left is what the file declares and the showcase
-   never puts in front of anyone. */
-(function(){
-  /* Two levels, because they are not the same thing. RENDERED means the class is
-     on a live element inside a demo - a person sees the component. NAMED means it
-     is only written out in the markup block or in a <code>. A page that names a
-     class it never renders is describing the file, which is exactly the habit
-     this stage set out to break. */
+  /* THE PAGE CHECKS ITSELF AGAINST THE FILE. A class counts as SHOWN only if it
+     is rendered inside a `.kp-demo`; it counts as merely NAMED if it is only
+     written out in the markup block or in a <code>. A page that names a class it
+     never renders is describing the file, which is exactly the habit this stage
+     set out to break. */
   var rendered = new Set(), named = new Set();
   document.querySelectorAll('.kp-demo *').forEach(function(e){
     if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
@@ -119,5 +171,30 @@
 </script>
 </main>
 <script src="_nav.js"></script>
+<script>
+  /* the rating star is a VARIANT of the set's star, filled - icons.js draws it
+     with uivStarSvg(), the same function design/_nav.js calls on the product.
+     The stand fills its own specimens with it rather than pasting an svg, for
+     the same reason it loads the product's stylesheet. */
+  document.querySelectorAll('.uiv-star').forEach(function(el){
+    if(!el.querySelector('svg')) el.innerHTML = uivStarSvg();
+  });
+  /* the picker's own structure, knot for knot with the product's: the mark sits
+     in a `.uiv-ic` INSIDE the button, so it takes the sign's rule (1.05em) and
+     the button keeps its own colour states. */
+  document.querySelectorAll('.pmst').forEach(function(b){
+    if(!b.querySelector('svg')) b.innerHTML = '<span class="uiv-ic">' + uivStarSvg() + '</span>';
+  });
+  /* and the picker is pressable here for the same reason: a state you cannot
+     reach is a claim, not a demo. Five buttons, the pressed one and every one
+     before it turn gold - which is what the modal does. */
+  var pm = document.getElementById('pmdemo');
+  if(pm) pm.addEventListener('click', function(e){
+    var b = e.target.closest('.pmst'); if(!b) return;
+    var all = [].slice.call(pm.querySelectorAll('.pmst'));
+    var i = all.indexOf(b);
+    all.forEach(function(x, j){ x.classList.toggle('on', j <= i); });
+  });
+</script>
 </body>
 </html>

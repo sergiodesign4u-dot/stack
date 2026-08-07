@@ -11,8 +11,6 @@
      stylesheet would prove nothing about the system it claims to show. -->
 <link rel="stylesheet" href="../system/index.css">
 <link rel="stylesheet" href="_page.css">
-<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
-     a demo that only LOOKS like the component proves nothing about it. -->
 <script src="../system/icons.js"></script>
 <script src="../system/marks.js"></script>
 <script src="../system/fields.js" defer></script>
@@ -23,69 +21,106 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Скелетон</h1>
-<p class="kp-lead">Сірі прямокутники на місці контенту, поки він вантажиться. Функційна підказка, а не декорація.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/skeleton.css</span><span class="kp-tag">31 рядків</span><span class="kp-tag">11 екранів</span></div>
-<section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><div class="skgrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px"><div class="skcardbox"><div class="skcard"><div class="skimg"></div><div class="skline"></div><div class="skline s"></div></div></div></div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Форма</b> - повторює форму майбутнього контенту, а не абстрактний блок</span></div><div class="a"><i>2</i><span><b>Пульсація</b> - <code>@keyframes skpulse</code> - каже «триває», а не «зламалось»</span></div></div></section>
+<p class="kp-lead">Сірі фігури на місці контенту, поки він вантажиться. Функційна підказка, а не декорація: форма скелетона це обіцянка того, що приїде.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/skeleton.css</span><span class="kp-tag">109 рядків</span><span class="kp-tag">16 імен</span><span class="kp-tag">5 екранів завантаження</span></div>
 
-<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
-<p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Одиниця</b></td><td>рядок <code>.skline</code> · картка <code>.skcard</code> · сітка <code>.skgrid</code></td><td>Скелетон збирається з тих самих одиниць, що й майбутній екран. Якщо форма не збігається, після завантаження все стрибне.</td></tr></tbody></table></div>
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка та сама, що в продукті. До кроку 7.28 тут стояло <code>&lt;div class="skcardbox"&gt;&lt;div class="skcard"&gt;…</code> - коробка всередині коробки, чого в продукті немає жодного разу, тому демо малювало подвійну рамку. Сітка була придушена інлайновим <code>style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px"</code>, тобто показувала не <code>.skgrid</code>, а інлайн поверх нього. І пульсації в демо не було зовсім, хоча анатомія її називала.</p>
+<div class="kp-demo"><div class="skgrid skpulse"><div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div><div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div><div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div><div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div></div></div>
+<div class="kp-anat">
+<div class="a"><i>1</i><span><b>Форма <code>.skcard</code></b> - повторює форму майбутньої картки: те саме співвідношення знімка 10/11, той самий падінг, ті самі три рядки. Якщо форма не збігається, завантаження виглядає як перебудова</span></div>
+<div class="a"><i>2</i><span><b>Смуга <code>.skline</code></b> - 10px, радіус 4, ґрунт <code>--bg-sunken</code>. Три ширини <code>l m s</code>, щоб стос смуг не читався таблицею</span></div>
+<div class="a"><i>3</i><span><b>Пульсація <code>.skpulse</code></b> - на контейнері, не на смузі. Каже «триває», а не «зламалось»</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Смуга: шість редакцій в чотирьох файлах</div>
+<p class="kp-p">Браузер обійшов 40 кольорових екранів на 1280 і 390: <b>140 елементів скелетона, 22 підписи класів, 5 екранів завантаження</b>. Найчастіша частина - смуга - була написана шість разів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Ім'я</th><th>Файл до 7.28</th><th>Шт</th><th>Висота</th><th>s</th><th>m</th><th>l</th></tr></thead><tbody>
+<tr><td><code>.skline</code></td><td>skeleton.css</td><td>78</td><td>10px</td><td>50%</td><td>72%</td><td>90%</td></tr>
+<tr><td><code>.co-skel .sl</code></td><td>checkout-form.css</td><td>3</td><td><b>11px</b></td><td><b>46%</b></td><td>72%</td><td>-</td></tr>
+<tr><td><code>.auth-skel .sl</code></td><td>auth-dialog.css</td><td>2</td><td><b>11px</b></td><td>-</td><td><b>70%</b></td><td>-</td></tr>
+<tr><td><code>.acc-subsk</code></td><td>account-shell.css</td><td>1</td><td><b>12px</b></td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td><code>.acc-h1sk</code></td><td>account-shell.css</td><td>1</td><td>24px</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td><code>.skcardbox .skline</code></td><td>skeleton.css</td><td>-</td><td>10px</td><td colspan="3">власний ґрунт, який перекривався</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Висоти ні за чим не йдуть.</b> Це перевірено, а не припущено: кожен екран завантажено двічі - як скелетон і як контент.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Смуга</th><th>Стоїть на місці</th><th>Текст</th><th>Відношення</th></tr></thead><tbody>
+<tr><td><code>.skline</code> 10px</td><td><code>.pcard .nm</code></td><td>16 / 20.8</td><td>0.63</td></tr>
+<tr><td><code>.acc-h1sk</code> 24px</td><td><code>.acc-h1</code></td><td>30 / 48</td><td>0.80</td></tr>
+<tr><td><code>.acc-subsk</code> 12px</td><td><code>.acc-sub</code></td><td>14 / 22.4</td><td>0.86</td></tr>
+</tbody></table></div>
+<p class="kp-p">Ні драбини, ні коефіцієнта - просто чотири числа. Скелетонна смуга це не висота тексту, це <b>знак</b>, який каже «тут буде рядок»; знак, що каже те саме, має казати це одним розміром. Тому рядок скрізь 10 - як уже було в 78 смугах з 84 - і власне число лишає тільки та смуга, що стоїть на місці <b>заголовка</b>: інше речення, а не промах.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Три видимі зміни</div>
+<div class="kp-demo" style="display:flex;flex-wrap:wrap;gap:var(--space-32);align-items:flex-start">
+  <div style="width:230px"><div class="co-skel" style="margin-top:0"><div class="sl m"></div><div class="sl s"></div></div></div>
+  <div style="width:230px"><div class="auth-skel" style="margin-top:0"><div class="sl"></div><div class="sl m"></div></div></div>
+  <div style="width:230px"><div class="acc-h1sk"></div><div class="acc-subsk"></div></div>
+</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Було</th><th>Стало</th><th>Скільки</th></tr></thead><tbody>
+<tr><td>висота смуги <code>.sl</code> і <code>.acc-subsk</code></td><td>11px · 12px</td><td>10px</td><td>6 смуг</td></tr>
+<tr><td><code>.co-skel .sl.s</code></td><td>46%</td><td>50%</td><td>1</td></tr>
+<tr><td><code>.auth-skel .sl.m</code></td><td>70%</td><td>72%</td><td>1</td></tr>
+</tbody></table></div>
+<p class="kp-p">Два файли, що розійшлись на два відсотки щодо одного сірого прямокутника, - це не рішення, яке хтось ухвалював. Ширші за них два вузькі стовпчики (чекаут і діалог входу) стали на 2px нижчі, бо в кожному по дві смуги, - це наслідок, а не окрема зміна.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Пульсація - це модифікатор, а не деталь</div>
+<p class="kp-p">Найважливіше, чого не було на попередній редакції сторінки: <code>.skpulse</code> вішають <b>на контейнер</b>, і контейнер здебільшого це справжній компонент. Вісім з 22 підписів перепису - це живий компонент, вбраний в один клас.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Носій</th><th>Що це</th></tr></thead><tbody>
+<tr><td><code>.bb.skpulse</code></td><td>блок покупки на PDP</td></tr>
+<tr><td><code>.gmain.skpulse</code> <code>.gthumb.skpulse</code></td><td>галерея товару, велике фото і 4 мініатюри</td></tr>
+<tr><td><code>.acc-nav.skpulse</code> <code>.acc-cardgrid.skpulse</code></td><td>навігація і сітка кабінету</td></tr>
+<tr><td><code>.skgrid.skpulse</code></td><td>сітка карток каталогу</td></tr>
+</tbody></table></div>
+<p class="kp-p">Прозорість на батькові, тому нічому всередині не треба знати, що воно вантажиться. Саме тому це голий клас, а не щось, прив'язане до фігур цього файлу.</p>
+<p class="kp-p"><b>І тепер вона зупиняється.</b> На кроці 7.28 додано <code>@media (prefers-reduced-motion: reduce)</code>: підказка про завантаження не має права бути тим, від чого людині зле. Форма лишається, дихання зупиняється, прозорість фіксується на 0.78 - посередині циклу, щоб стан читався так само.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Токен, що ніколи не фарбував скелетон</div>
+<p class="kp-p">Був <code>--bg-skeleton</code> = <code>#E9E7E2</code>. Його називали три оголошення - <code>.acc-h1sk</code>, <code>.acc-subsk</code>, <code>.skcardbox .skline</code> - і всі три перекривались одним пізнішим рядком у <code>account-shell.css</code>, який повертав їх на <code>--bg-sunken</code>. Тому всі 140 виміряних елементів дали <code>#F2F0ED</code>, і жоден - <code>#E9E7E2</code>.</p>
+<p class="kp-p">Те, що він справді фарбував: дві штрихові підкладки (<code>.auth-visual</code>, <code>.wfh-mega .ms-ph</code>) і одна волосина (<code>.fgroup</code>). Жодне з трьох не скелетон.</p>
+<p class="kp-p"><b>Перейменовано на слово власника, крок 7.28.</b> Штриховка лишила значення й отримала ім'я того, що малює - <code>--bg-hatch</code>, 4 вживання (два елементи по дві зупинки градієнта). Волосина пішла на <code>--line-hair</code>, і це <b>той самий</b> <code>--warm-200</code>: примітив у себе в нотатці так і зветься - «plate pixel - the hairline». Нуль пікселів змінилось, одне ім'я перестало брехати. Ґрунт скелетонної смуги - <code>--bg-sunken</code>, і тепер він сказаний один раз у <code>skeleton.css</code>.</p>
 </section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
-<p class="kp-p">На кожному екрані, де дані приходять мережею: каталог, PDP, кабінет, чекаут. Принцип 2 - «ніколи порожній погляд».</p></section>
+<p class="kp-p">На кожному екрані, де дані приходять мережею: каталог, PDP, кабінет, чекаут, діалог входу. Принцип 2 - «ніколи порожній погляд». У продукті таких екранів п'ять, і на кожному скелетон повторює форму саме того, що там буде.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Форма скелетона = форма контенту.</b> Тоді завантаження виглядає як проявлення, а не як перебудова.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не став спінер замість нього на списках.</b> Спінер каже «чекай», скелетон каже «ось що буде». Для однієї дії (надсилання форми) спінер доречний - див. <b>Форма чекауту</b>.</div></div></section>
-
-<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Форма скелетона = форма контенту.</b> Тоді завантаження виглядає як проявлення, а не як перебудова. Тому <code>.skcard</code> має те саме співвідношення знімка, що й картка товару.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не став спінер замість нього на списках.</b> Спінер каже «чекай», скелетон каже «ось що буде». Для однієї дії (надсилання форми) спінер доречний - див. <b>Форма чекауту</b>. І не малюй смугу власної висоти «бо тут заголовок» - для заголовка є <code>.acc-h1sk</code>.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>11</b> власних класів і <b>0</b> станів оголошено в <code>skeleton.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>16</b> власних класів і <b>1</b> стан оголошено в <code>skeleton.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["l", "m", "s", "skb", "skcard", "skcardbox", "skgrid", "skimg", "skline", "skpulse", "span2"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["skline", "s", "m", "l", "skgrid", "skcard", "skimg", "skb", "skcardbox", "span2", "skpulse", "sl", "acc-h1sk", "acc-subsk", "co-skel", "auth-skel"], KIT_STS=["prefers-reduced-motion"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
-<p class="kp-p">Прочитані з <code>skeleton.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (5)</th></tr></thead><tbody><tr><td><code>--bg-skeleton</code> <code>--bg-sunken</code> <code>--elevation-1</code> <code>--line-hair</code></td><td><code>--radius-12</code> <code>--radius-4</code> <code>--space-12</code> <code>--space-16</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<p class="kp-p">Прочитані з <code>skeleton.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива. Два числа без токена: 10px смуги і 240/320px двох іменованих смуг кабінету - вони названі рішеннями в самому файлі.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (3)</th><th>Примітиви (8)</th></tr></thead><tbody><tr><td><code>--bg-sunken</code> <code>--elevation-1</code> <code>--line-hair</code></td><td><code>--radius-12</code> <code>--radius-4</code> <code>--size-24</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-8</code></td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;div class="skcard"&gt;&lt;div class="skimg"&gt;&lt;/div&gt;&lt;div class="skline"&gt;&lt;/div&gt;&lt;div class="skline s"&gt;&lt;/div&gt;&lt;/div&gt;</div></section>
+<div class="kp-code">&lt;div class="skgrid skpulse"&gt;
+  &lt;div class="skcard"&gt;&lt;div class="skimg"&gt;&lt;/div&gt;&lt;div class="skb"&gt;&lt;div class="skline l"&gt;&lt;/div&gt;&lt;div class="skline m"&gt;&lt;/div&gt;&lt;div class="skline s"&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;</div>
+<p class="kp-p">Окрема коробка без знімка - <code>.skcardbox</code>, і вона <b>ніколи</b> не стоїть усередині <code>.skcard</code>: це два різні візерунки, сітка кабінету і сітка каталогу. <code>.skcardbox.span2</code> розтягує її на всю ширину сітки.</p>
+<div class="kp-demo"><div class="skpulse" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-16)"><div class="skcardbox"><div class="skline l"></div><div class="skline s"></div></div><div class="skcardbox"><div class="skline l"></div><div class="skline s"></div></div><div class="skcardbox span2"><div class="skline m"></div><div class="skline s"></div></div></div></div>
+<div class="kp-code">&lt;div class="skcardbox"&gt;&lt;div class="skline l"&gt;&lt;/div&gt;&lt;div class="skline s"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="skcardbox span2"&gt;…&lt;/div&gt;</div>
+</section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.sk</code> <code>.skgrid</code> <code>.skcard</code> <code>.skline</code> <code>.skcardbox</code> <code>.skpulse</code> <code>.skimg</code> <code>.skb</code></p>
-<p class="kp-p"><b>11 екранів</b> у <code>wireframes/</code>: account-loading.html, brands-loading.html, catalog-page-loading.html, coach-client-loading.html, coach-clients-loading.html, coach-home-loading.html, coach-session-loading.html, goal-loading.html, listing-loading.html, product-loading.html, search-loading.html</p></section>
-
-<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає межі часу</b> - система не знає, коли скелетон стає помилкою</li><li><b>Немає <code>prefers-reduced-motion</code> для пульсації</b> - глобальне правило вимикає <code>transition</code>, але не <code>animation</code></li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<p class="kp-p">Якорі: <code>.skline</code> <code>.skgrid</code> <code>.skcard</code> <code>.skcardbox</code> <code>.skpulse</code> <code>.sl</code></p>
+<p class="kp-p"><b>5 екранів</b> у <code>design/</code>: account-loading.html, auth-loading.html, checkout-loading.html, listing-loading.html, product-loading.html. Плюс <code>.skpulse</code> на живих компонентах тих самих екранів.</p>
+</section>
 
 <script>
-/* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
-   screen. A page that pastes the paths carries a second edition of the set, and a
-   second edition is the thing this stage spent two steps deleting. */
 (function(){
-  document.querySelectorAll('[data-brand]').forEach(function(e){
-    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
-  });
-  document.querySelectorAll('[data-glyph]').forEach(function(e){
-    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
-  });
-})();
-</script>
-<script>
-/* The page checks ITSELF against its file. Everything a person can see counts as
-   shown: a rendered demo, a class named in the markup block, a class named inside
-   any <code> on the page. What is left is what the file declares and the showcase
-   never puts in front of anyone. */
-(function(){
-  /* Two levels, because they are not the same thing. RENDERED means the class is
-     on a live element inside a demo - a person sees the component. NAMED means it
-     is only written out in the markup block or in a <code>. A page that names a
-     class it never renders is describing the file, which is exactly the habit
-     this stage set out to break. */
+  /* THE PAGE CHECKS ITSELF AGAINST THE FILE. A class counts as SHOWN only if it
+     is rendered inside a `.kp-demo`; it counts as merely NAMED if it is only
+     written out in the markup block or in a <code>. A page that names a class it
+     never renders is describing the file, which is exactly the habit this stage
+     set out to break. */
   var rendered = new Set(), named = new Set();
   document.querySelectorAll('.kp-demo *').forEach(function(e){
     if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });

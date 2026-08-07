@@ -5,7 +5,11 @@
    Colour reads a semantic role, geometry reads a primitive. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
-.fgroup{ border-bottom: 1px solid var(--bg-skeleton); }
+/* step 7.28: this read `var(--bg-skeleton)` - a hairline painted from a
+   background token because the two are the same --warm-200 and nobody noticed.
+   Zero pixels change; one name stops lying. `--line-hair` is what the primitive's
+   own note calls this value, and 217 other lines already say it. */
+.fgroup{ border-bottom: 1px solid var(--line-hair); }
 .fgroup:last-child{ border-bottom: none; }
 .fgroup .fh{ display: flex; justify-content: space-between; align-items: center; }
 .fgroup .fh .ar{ font-weight: var(--fw-bold); }

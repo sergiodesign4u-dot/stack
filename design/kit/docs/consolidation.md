@@ -3317,3 +3317,382 @@ account-shell 172 -> 181, auth-dialog 158 -> 164, cart-drawer 102 -> 112, footer
 tabbar 24 -> 41, filter-sheet 21 -> 28, checkout-form 311 -> 313, buy-box 163 -> 165.
 
 The two stand pages themselves are not written: organisms are 0 of 24, and the tier has not started.
+
+---
+
+## Step 7.27 - the rating: one mark, four sizes, five files, and a stand showing markup the product does not have
+
+The owner opened `design/kit/rating.html` and said it looked frightening. It did, and for a reason
+the page could not have shown by accident: **the specimen was not the product.**
+
+    stand    <div class="rate"><span class="uiv-star">★</span> <span class="st">4.8</span> · 126 відгуків</div>
+    product  <div class="rate"><span class="st"><span class="uiv-ic uiv-star"><svg…></span><b>4.8</b></span> · 126 відгуків</div>
+
+Three differences and every one of them visible: the star stood BESIDE `.st` instead of inside it,
+so no rule ever reached it; it was a ★ typed in a text face, not the icon set's drawing; and the
+figure was `.st` itself rather than `.st > b`, which is where the product's mono 900 lands. The page
+had been describing a control nobody had built.
+
+### The census
+
+40 colour screens at 1280 and 390, in the browser. **142 star marks on 17 of them**, and five files
+shaping them:
+
+| family | file before 7.27 | n | screens | row | star |
+|---|---|---|---|---|---|
+| `.pcard .rate .st` | rating.css + product-card.css | 90 | 16 | 12 | 13 |
+| `.rvbig .starrow` | review-item.css | 15 | 3 | 14 | 18 |
+| `.pm-stars .pmst` | review-modal.css | 15 | 3 | 30 | 31.5 |
+| `.rvmeta .rstars` | review-item.css | 7 | 3 | 14 | 15 |
+| `.pcard-l .lmeta .st` | rating.css + product-card.css | 6 | 1 | 12 | 13 |
+| `.tbanners` banner 5 | banner.css | 4 | 4 | 14 | **14** |
+| `.bb .bbrate .st` | rating.css | 3 | 3 | 14 | 15 |
+| `.co-accrual .star` | checkout-form.css | 2 | 2 | 16 | **typed** |
+
+### Three of the four sizes were one rule nobody had written down
+
+`product-card.css` said 13 in a 12px row. `rating.css` said 15 in a 14px row. Two files, two authors,
+one arithmetic: **the row's size plus one pixel.** The reading is that a star's ink does not fill its
+box the way a digit fills its own, so a star given exactly the digit's size reads smaller than the
+digit beside it - which is what both authors were correcting for.
+
+Written down once as `calc(1em + 1px)` it reproduces 13 and 15 exactly, and it carries to every star
+not yet placed. `.rvbig .starrow` keeps 18 as an explicit override: 18 in a 14px row is not a
+near-miss, it is a five-star display row standing beside a 50px figure. The picker keeps `1.05em`
+from icon.css, because there the star is not a figure's companion - it IS the control, which is the
+distinction marks.js already draws at step 7.11.
+
+### Three visible changes, each declared before it was made
+
+**1. The trust banner's star, 14 -> 15.** Four instances, one banner, a 14px row - the same row size
+at which the buy box and the review row both drew 15. Nothing distinguished it. It now takes the one
+rule instead of its own number.
+
+**2. The checkout's bonus star, typed -> drawn.** The last ★ on the site painted by the font, and
+every earlier pass explains why it survived: `marks.js` walks CONTROLS and this is a span in a div;
+the three `uivStarify` calls in `design/_nav.js` are named after ratings and a bonus is not a rating.
+Same glyph, same drawing. Fixed in `_nav.js` beside the three that were already there, not by hand in
+two html files.
+
+**3. The review modal's picker, outline -> filled.** `icons.js` states the rule at the head of
+`uivStarSvg`: «the rating star is the SAME glyph as the chrome star, filled. One drawing, two
+finishes: outline for a nav chip, filled for a rating.» The one place a star is a whole control came
+out as five outlines among 140 filled stars, and pressing one turned it into a gold outline. The rule
+was already written; that path was not following it.
+
+**And the first attempt at 3 was wrong, which the before/after run caught.** Making `uivSignSwap`
+draw every ★ filled also filled «Знижки та бонуси» in the account nav - a ★ too, and a nav chip,
+which by the same sentence must stay an outline. The glyph does not carry the answer; the context
+does. So `marks.js` keeps the outline default and the picker is wired in `design/_nav.js`, where the
+rest of the rating swaps live. Found on 2148 measured keys, not by eye.
+
+One change was made and then **taken back**: merging `.rvmeta .rstars` into the family's rule turned
+its `display: flex` into `inline-flex` on 6 review rows. The two render the same box in a block
+column, but it was not declared, and a consolidation that changes something it did not declare is not
+one. Put back exactly as found; whether they ever become one line is a Крок 6 question with a
+measurement attached.
+
+### What moved
+
+Into `rating.css` (32 -> 115 lines): the 13px rule from `product-card.css`, the 14px rule from
+`banner.css`, `.rvmeta .rstars` and `.rvbig .starrow` from `review-item.css`, and the whole picker -
+shape and four colour rules - from `review-modal.css`. A control that SETS a rating is the rating's
+own business; the modal decides where it stands.
+
+Out of `rating.css`: `.pcard-l .lprice`, `.pcard-l .lold` and `.pcard-l .lmeta b` went to `price.css`.
+All three had been sitting inside one shared `font-mono` declaration since the step-3 split, and the
+rating's own stand had been reporting two of them in its idle check every time anybody opened it:
+«2 of 5 classes are not on the page at all - lold lprice». Two more lines went without replacement: a
+media query that set the value the rule already had, and the one figure of the family reading
+`--text-primary` where the other three read `--text-body` (both are `var(--warm-900)`, so a token
+change with no pixel behind it).
+
+### Proof
+
+**Before and after, HEAD on one port and the working tree on another. 2148 keys - every svg on every
+screen plus every rating element, at 1280 and 390. Seven differences, and all seven are the three
+changes above.** Zero JS errors. The card star stayed 13 through the rewrite, which is the whole
+point of `calc(1em + 1px)`: 96 instances moved from a hard number to a rule without moving a pixel.
+
+### The stand
+
+Rebuilt from the census. Real markup, knot for knot. The size table with all four rungs and a
+specimen of each. **The three states that are in the code** - the old page said «there is no state
+but the base one», and the browser found `★ - · новинка` (6 instances on 6 screens, a product with no
+reviews yet) and the empty `.rate` the skeleton leaves behind, held open by `min-height: 15px` so the
+card below it does not jump. A pressable picker, because a state you cannot reach is a claim, not a
+demo. A contrast table saying out loud that the gold star is 2.00:1 and is allowed to be, because the
+figure beside it carries the fact.
+
+Idle check: **passed** - all 8 classes of the file rendered in a demo, 3 states named.
+
+One thing the stand now admits about itself: three of the four figure rules are scoped to a container
+(`.pcard`, `.bb`, `.rvmeta`), so a rating outside a card, a buy box or a review row loses its mono
+and falls back to Inter. Measured here - the first draft of the demo stood as a bare `<div class="rate">`
+and its figure came out Inter 700. A level-1 atom that cannot stand on its own; unscoping it is a
+Крок 6 item, with `.rstars` -> `.st` beside it.
+
+The overview's line counts were rebuilt too, and 17 of them were stale: button 358 -> 415, chip
+32 -> 161, icon 46 -> 88, stepper 3 -> 100, cart-row 63 -> 82, seo-text 17 -> 45 and eleven more.
+
+### 7.27, re-check on the owner's word: one more leftover, and it was the dead one
+
+Asked to look again at whether everything had actually landed. Static sweep of every component file
+for a rating selector turned up `product-card.css`:
+
+```
+.pcard .pnew, .pcard .pold, .pcard .pcut, .pcard .perserv b, .pcard .rate .st,
+.pcard .bonus, .pages a, .pages button, .lh1 .cnt{ font-family:var(--font-mono); … }
+```
+
+`.pcard .rate .st` in a shared declaration with the card's prices - and `product-card.css` is level 2
+while `rating.css` is level 1, so at equal specificity **this line won and the identical rule
+rating.css had just been given for the same selector was dead on arrival.** The consolidation had
+moved the fact and left the winning copy behind: exactly the failure the step exists to prevent, one
+file away from where it was being fixed.
+
+Removed. The rating's figure is mono because it is a rating, not because it sits on a card - the same
+sentence that sent `.lprice`, `.lold` and `.lmeta b` the other way. What stays in that list is the
+card's own (prices, bonus, pager numbers); those belong in price.css by the same argument and are a
+Крок 6 item.
+
+**Re-verification after the removal.** 12 named assertions against the product at 1280 and 360 - one
+per family, checking face, star size and fill - plus a sweep of all 40 screens at both widths:
+**80 checks, 0 failures, 0 JS errors.** 142 stars at 1280 and **0 of them typed**. All four rungs
+where they belong: 13 on the card and the list row, 15 in the buy box, the review row and the trust
+banner, 18 in the five-star summary, 32 in the picker, every one `fill="currentColor"`. The account
+nav's star is an outline on all eight links. The list card's three prices are still mono after their
+move to price.css.
+
+**The grey layer is untouched and still has its own editions** - `wireframes/_wf.css` draws the card
+rating at 11.5px, the picker at 27px and no drawn star anywhere. That is the frozen layer working as
+designed, not drift: it owns structure and states, the colour layer owns the look.
+
+---
+
+## Step 7.28 - the skeleton: one bar written six times, and a pulse that could not be stopped
+
+Same method as the rating, same shape of answer. And the same first finding: **the stand was showing
+markup the product does not have.**
+
+The old specimen was `<div class="skcardbox"><div class="skcard">…` - a box inside a card, which
+happens in the product exactly never; they are two different patterns, the account grid and the
+catalogue grid. That nesting is where the double border in the screenshot came from. The grid around
+it carried `style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px"`, so what the page
+demonstrated was an inline style sitting on top of `.skgrid`, not `.skgrid`. And nothing in the demo
+carried `.skpulse`, while the anatomy underneath named the pulse as one of its two parts.
+
+### The census
+
+40 colour screens at 1280 and 390: **140 skeleton elements, 22 class signatures, 5 loading screens.**
+The bar - the most-used piece - was written six times in four files:
+
+| name | file | n | height | s | m | l |
+|---|---|---|---|---|---|---|
+| `.skline` | skeleton.css | 78 | 10px | 50% | 72% | 90% |
+| `.co-skel .sl` | checkout-form.css | 3 | **11px** | **46%** | 72% | - |
+| `.auth-skel .sl` | auth-dialog.css | 2 | **11px** | - | **70%** | - |
+| `.acc-subsk` | account-shell.css | 1 | **12px** | - | - | - |
+| `.acc-h1sk` | account-shell.css | 1 | 24px | - | - | - |
+| `.skcardbox .skline` | skeleton.css | - | 10px | its own ground, overridden | | |
+
+### The heights are four numbers, not a rule
+
+The rating's four star sizes turned out to be one arithmetic nobody had written down. This one is
+not: measured by loading each screen twice, once as the skeleton and once as the content -
+
+    .skline    10px  where `.pcard .nm` goes   16 / 20.8   0.63
+    .acc-h1sk  24px  where `.acc-h1` goes      30 / 48     0.80
+    .acc-subsk 12px  where `.acc-sub` goes     14 / 22.4   0.86
+
+No ladder, no ratio. So the rule is stated instead of discovered: **a skeleton bar is not the height
+of the text, it is a mark saying «a line goes here»**, and a mark that says the same thing three times
+should say it at one size. The line is 10 everywhere - which 78 of the 84 bars already were - and the
+only bar keeping its own number is the one standing for a HEADING, a different sentence.
+
+### Three visible changes
+
+| what | was | now | how many |
+|---|---|---|---|
+| bar height, `.sl` and `.acc-subsk` | 11px, 12px | 10px | 6 bars |
+| `.co-skel .sl.s` | 46% | 50% | 1 |
+| `.auth-skel .sl.m` | 70% | 72% | 1 |
+
+Two files disagreeing by two percent about the same grey rectangle is not a decision anybody made.
+The two narrow columns (checkout, auth dialog) came down 2px each as a consequence of their bars, and
+the auth dialog with them - derived, not separate.
+
+### The pulse stops now
+
+`@media (prefers-reduced-motion: reduce)` was missing, and this is the one component on the site whose
+whole job is to move. A loading hint must not be the thing that makes somebody ill. Added: the shape
+stays, the breathing stops, opacity settles at .78 - mid-cycle, so the state still reads as «not yet».
+Verified in the browser under an emulated reduce preference, on the stand and on the product.
+
+And the stand now says what the old one never did: **`.skpulse` is a MODIFIER, and it goes on a real
+component.** Eight of the 22 census signatures are a live component wearing this one class - `.bb`,
+`.gmain`, `.gthumb`, `.acc-nav`, `.acc-cardgrid`, `.skgrid`. Opacity on the parent, so nothing inside
+needs to know it is loading. That is why it is a bare class and not something scoped to this file's
+own shapes, and it was the single biggest thing the page had been leaving out.
+
+### A token that never painted a skeleton
+
+`--bg-skeleton` = `#E9E7E2`. Three declarations named it - `.acc-h1sk`, `.acc-subsk`,
+`.skcardbox .skline` - and all three were overridden back to `--bg-sunken` by one later line in
+account-shell.css that reached across two other files to do it. Every one of the 140 measured
+elements came out `#F2F0ED`. What the token actually paints: two hatch backgrounds and one hairline,
+none of them a skeleton.
+
+The dead declarations are gone. **The token's NAME is left exactly as it is** - renaming it is a
+decision said out loud by its owner, not a side effect of a refactor.
+
+### Proof
+
+Before and after, HEAD on one port and the working tree on another, 15 screens at 1280 and 390:
+**122 keys, 15 differences, and every one of them is one of the three declared changes or its direct
+consequence.** `.skline`, `.skcard`, `.skimg`, `.skb`, `.skcardbox`, `.skgrid`, `.skpulse`,
+`.acc-h1sk`, `.acc-cardgrid` and the three surviving `--bg-skeleton` users: no diff at all. Zero JS
+errors.
+
+The stand: rebuilt on real markup, `.skgrid` drawing its own four columns at 1440 and two at 390 with
+no inline style over it, all three bar widths, both card patterns side by side, the three changed
+bars shown as specimens, and the reduced-motion branch named. Idle check **passed** - all 16 classes
+of the file rendered in a demo, 1 state named. No sideways scroll at 1440 or 390.
+
+### 7.28b - the rename, on the owner's word
+
+`--bg-skeleton` -> **`--bg-hatch`**, and one of its three users went to `--line-hair` instead.
+
+The name was minted at step 2, when `#ECECEC` in 13 places was merged onto `--warm-200` and called the
+loading placeholder bar. By 7.28 the browser said it painted no bar at all. What it actually drew:
+
+| where | what | now reads |
+|---|---|---|
+| `.auth-visual` | diagonal hatch behind the dialog's visual panel | `--bg-hatch` |
+| `.wfh-mega .ms-ph` | diagonal hatch in the mega menu's photo slot | `--bg-hatch` |
+| `.fgroup` | a hairline under a filter group | `--line-hair` |
+
+The hairline is the part worth pausing on: `--bg-skeleton` and `--line-hair` are **the same
+`--warm-200`**, and the primitive's own note calls that value «plate pixel - the hairline». So a
+hairline had been reading a background token for no reason anybody chose, and 217 other lines already
+said the right name. Zero pixels change; one name stops lying.
+
+The remaining two are a hatch, so the token keeps the value and takes the name of what it draws.
+Deleted rather than aliased, which is the rule this file already follows: «a value that cannot be
+named cannot be used» - the same reason fourteen primitives were deleted when the role layer landed.
+
+**Proof that a rename is only a rename.** The working tree copied, and in the copy the rename alone
+reverted - four edits, nothing else. Both served, 17 screens x 2 viewports, comparing every element's
+background, background-image, four border colours, two border widths and ink, with the origin
+stripped out of image URLs so the port number does not poison the hash: **48 240 elements, 0
+differences, 0 JS errors.** (The first pass showed 24 - every one of them the absolute URL of
+`mascot-gym-a.jpg` carrying a different port. The tool was wrong, not the code.)
+
+Renamed on the stand too, because a token's name is a published string: the swatch and the usage map
+on `color.html`, the same map on `typography.html` and `geometry.html`, and the section on
+`skeleton.html` that told this story. `color.html`'s history row still names the old token - it is
+describing what happened at step 2 and has to. Its idle check reads **passed, all 126 tokens of the
+section shown**.
+
+Found and not fixed, unrelated to this step: `geometry.html`'s idle check reports 5 tokens declared
+in the file and not shown on the page - `--size-62`, `--size-52`, `--ring-focus-control` and two more.
+Pre-existing.
+
+### 7.28c - the skeleton re-checked on the product
+
+12 named assertions against the product at 1280 and 360, one per family, plus a sweep of all 40
+screens at both widths: **106 checks, 0 failures, 0 JS errors, 140 skeleton elements at 1280.**
+
+The card lines measure **exactly 90 / 72 / 50 percent** of their container. The first pass reported
+those three as failures; the probe was dividing by the parent's BORDER box while `width: 90%` is a
+share of its CONTENT box, and `.skb` has 12 of padding on each side. Third time this session a tool
+has been wrong where the code was right - after the port number inside a background-image URL and the
+`.on` class that is always present on the item the arrow just moved to. Worth naming as a pattern:
+**a failing assertion is a claim about the probe as much as about the page.**
+
+Everything else landed: heights 10 and 24, radius 4 and 12, `#F2F0ED`, `--elevation-1` on the box,
+`skpulse` on the buy box and the gallery, and **reduced-motion holding at `none / 0.78` on all three
+loading screens.** Two skeleton rules remain outside skeleton.css - `gallery.css` saying what its own
+photo slots look like while wearing `.skpulse` - and that is the pattern this step documented rather
+than a leftover: the modifier is the skeleton's, what a component looks like wearing it is the
+component's. The grey layer is untouched.
+
+---
+
+## Step 7.29 - the radio: three families in three files, and none of them reachable by keyboard
+
+The line this file draws, and it decides everything else: **a chip filters a VIEW, a radio picks a
+VALUE.** Press a chip and what you see changes; press a radio and what you buy changes. That is why
+`.vopt` - the flavour picker - is a radio and not a ninth chip, decided by the owner at this step.
+
+### The census
+
+40 colour screens at 1280 and 390: **83 elements, 40 controls, 5 screens.** One job, three files, and
+each disagreed with the other two about nearly everything:
+
+| axis | `.co-opt` (21) | `.vopt` (17) | `.pf-lang` (2) |
+|---|---|---|---|
+| file | radio.css | buy-box.css | checkout-form.css |
+| radius | 12 | 8 | 12 |
+| padding | 12/16 | 8/12 | **16/16** |
+| resting edge | `--line-hair` | `--line-strong` | `--line-strong` |
+| hover | `--line-strong` | `--line-inverse` | **none** |
+| chosen edge | `--line-action` | `--line-action` | **`--line-inverse`** |
+| chosen ground | `--bg-action-soft` | `--bg-page` | **`--bg-sunken`** |
+| the circle | 18x18 | none | **20x20** |
+| unavailable | none | `.off` | none |
+| real input | no | no | **yes** |
+
+**Two rungs are real.** A radio standing alone in a column, with a title and a reason under it, is a
+ROW: it carries what people actually choose by - the price, the wait - so it needs the circle, and a
+quiet edge, because it has the page to itself. A radio standing shoulder to shoulder in a set of four
+is COMPACT: no room for a circle, so the edge itself carries the state, which is why it starts one
+step darker. Everything else in that table was three files disagreeing.
+
+### Three visible changes, all on one control
+
+`.pf-lang`, the language picker, two instances in the coach's client dialog: onto the row rung's
+padding and resting edge, and onto the accent for «chosen» - edge, ground and circle. Two families of
+three already said the accent, and the design principle says the same: the accent is the single
+action colour. So the third comes to them.
+
+### The thing that was actually broken
+
+**Not one of the 38 controls could be reached by a keyboard.** `.co-opt` is a `<label>` pointing at no
+input; `.vopt` is a `<span>`. No role, no tabindex, nothing announced. **The checkout could not be
+completed without a mouse** - and the checkout is the screen with 21 of them.
+
+The product already had the answer twice and used it in neither place: the language picker keeps a
+real `input[type=radio]`, and the review modal's star picker is built with `role="radiogroup"` in
+`wireframes/_nav.js`. The second was borrowed, because the first needs new markup and the markup
+belongs to the frozen layer.
+
+`uivRadioGroups()` in `design/_nav.js`: roving tabindex (the SET takes one tab stop, the arrows move
+inside it), `role`, `aria-checked`, `aria-disabled`, arrows in both axes with wraparound, Space and
+Enter, and `.off` skipped. **Selection goes through `.click()`**, so everything the page already does
+on a click still happens - this file adds a way in, it does not take over what happens next.
+
+**The first version of the call sat inside `uivPdp()`**, the product page's own pass, so the checkout
+got nothing. Caught by pressing Tab in the browser. Moved into `uivChrome()`, which runs on every
+page, after `uivMarks()`.
+
+`radio.css` gained the focus ring it never had: `--ring-focus-control`, which has existed since step
+6.2 and no radio read, because until now there was nothing to focus.
+
+### Proof
+
+**Before and after against HEAD**, 12 screens x 2 viewports, every radio element's box, border,
+radius, ground, ink, padding, gap, type, shadow and `::after`: **90 keys, 3 differences, and all three
+are the declared `.pf-lang` changes.** `.co-opt`, `.co-radio`, `.vopt`, `.vopts` - no diff at all.
+
+**In the browser, by keyboard:** two groups on the checkout, one tab stop each, one checked each; ↓
+moves focus and the choice together, ↑ comes back, exactly one tab stop throughout, focus ring on;
+Tab leaves the group entirely (lands on the city button). On the PDP, the group containing the
+out-of-stock size walks 0 → 1 → 2 → 0 → 1 and **never visits index 3**, and Space on it does nothing.
+And the whole point: **an arrow on the checkout changes the delivery and recalculates the total -
+3 999 → 4 019 → 3 939 ₴ - exactly as the mouse does.** 0 JS errors.
+
+**The stand** is rebuilt on real markup and is itself operable: two groups wired by the same rules in
+miniature, because a demo you cannot reach with Tab describes a component instead of showing it. Idle
+check **passed - all 12 classes rendered in a demo, 4 states named.** The old page's numbers are
+corrected on it: the touch target is **599x71**, not «44px», and the circle is 18, not 16.

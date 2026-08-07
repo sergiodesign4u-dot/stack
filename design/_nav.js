@@ -91,6 +91,81 @@ function uivStars(n){
   for(var i = 0; i < (n || 1); i++) out += '<span class="uiv-ic uiv-star">' + uivStarSvg() + '</span>';
   return out;
 }
+/* A RADIO THAT A KEYBOARD CAN REACH - step 7.29.
+   Measured across 40 screens: 21 delivery and payment rows and 17 flavour
+   options, and not one of them was reachable. `.co-opt` is a `<label>` pointing
+   at no input; `.vopt` is a `<span>`. No role, no tabindex, nothing announced.
+   The checkout could not be completed without a mouse.
+
+   The product already had the answer in two places and used it in neither: the
+   language picker keeps a real `input[type=radio]` inside its label, and the
+   review modal's star picker is built with `role="radiogroup"` by
+   `wireframes/_nav.js`. This borrows the second, because the first needs new
+   markup and the markup is the frozen layer's.
+
+   ROVING TABINDEX, which is what a radio group is: the SET takes one tab stop,
+   the arrows move inside it. A group of five options that each took a stop would
+   make the checkout longer to cross by keyboard than by mouse.
+
+   Selection goes through `.click()` rather than through a class, so whatever the
+   page already does on a click - recalculate the total, open the sub-row - still
+   runs. This file adds a way in; it does not take over what happens next. */
+function uivRadioGroups(){
+  var sets = [];
+  [['.co-opt', '.co-opt'], ['.vopts', '.vopt']].forEach(function(pair){
+    var items = [].slice.call(document.querySelectorAll(pair[1]));
+    var byParent = new Map();
+    items.forEach(function(el){
+      var p = el.parentElement; if(!p) return;
+      if(!byParent.has(p)) byParent.set(p, []);
+      byParent.get(p).push(el);
+    });
+    byParent.forEach(function(list, parent){ if(list.length > 1) sets.push({ parent: parent, list: list }); });
+  });
+
+  sets.forEach(function(set){
+    if(set.parent.getAttribute('role') === 'radiogroup') return;   /* already done */
+    set.parent.setAttribute('role', 'radiogroup');
+
+    var enabled = function(el){ return !el.classList.contains('off'); };
+    var mark = function(){
+      var chosen = set.list.filter(function(el){ return el.classList.contains('on'); })[0];
+      var stop = chosen && enabled(chosen) ? chosen : set.list.filter(enabled)[0];
+      set.list.forEach(function(el){
+        el.setAttribute('role', 'radio');
+        el.setAttribute('aria-checked', el.classList.contains('on') ? 'true' : 'false');
+        if(!enabled(el)){ el.setAttribute('aria-disabled', 'true'); el.setAttribute('tabindex', '-1'); }
+        else el.setAttribute('tabindex', el === stop ? '0' : '-1');
+      });
+    };
+    mark();
+
+    var move = function(from, step){
+      var pool = set.list.filter(enabled);
+      var i = pool.indexOf(from);
+      if(i < 0) return;
+      var next = pool[(i + step + pool.length) % pool.length];
+      next.click();
+      mark();
+      next.focus();
+    };
+
+    set.parent.addEventListener('keydown', function(e){
+      var el = e.target.closest ? e.target.closest('.co-opt, .vopt') : null;
+      if(!el || set.list.indexOf(el) < 0) return;
+      if(e.key === 'ArrowRight' || e.key === 'ArrowDown'){ e.preventDefault(); move(el, 1); }
+      else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); move(el, -1); }
+      else if(e.key === ' ' || e.key === 'Enter'){
+        if(!enabled(el)) return;
+        e.preventDefault(); el.click(); mark();
+      }
+    });
+    /* a mouse press moves the group's single tab stop too, or the next Tab would
+       land on whatever was chosen when the page loaded */
+    set.parent.addEventListener('click', function(){ setTimeout(mark, 0); });
+  });
+}
+
 /* swap a leading ★ for the gold star, keep the figure after it */
 function uivStarify(el, n){
   if(!el || el.querySelector('.uiv-star')) return;
@@ -196,6 +271,16 @@ function uivChrome(){
   document.querySelectorAll('.pcard .rate .st, .pcard-l .lmeta .st').forEach(function(el){
     uivStarify(el, 1);
   });
+  /* THE LAST ★ DRAWN BY THE FONT - step 7.27. Counted in the browser across 40
+     screens: 343 stars, 339 from the icon set and 4 from whatever face the
+     machine happens to have - all four the checkout's bonus star. It was missed
+     by every earlier pass for a reason each pass states about itself: marks.js
+     walks CONTROLS, and this is a span inside a div; the three starify calls
+     above and below name ratings, and a bonus is not a rating. It is the same
+     glyph either way, so it takes the same drawing. */
+  document.querySelectorAll('.co-accrual .star').forEach(function(el){
+    if(/[★☆]/.test(el.textContent)) uivStarify(el, 1);
+  });
   /* mega-menu "Вибір місяця" card → a real product photo. ui-visual only:
      greyscale keeps the «фото» placeholder in _nav.js untouched. */
   document.querySelectorAll('.ms-feat .ms-ph').forEach(function(ph){
@@ -239,6 +324,15 @@ function uivChrome(){
      a control whose sign is its whole label is what is LEFT after that pass has
      taken every mark that closes a label. */
   uivMarks();
+  /* AFTER `uivMarks`, and on EVERY page - step 7.29. The first version of this
+     call sat inside `uivPdp()`, which is the product page's own pass, so the
+     checkout - the screen with 21 of the 38 radios and the only one you cannot
+     finish without them - got nothing. Caught by pressing Tab in the browser:
+     `[role=radiogroup] [role=radio][tabindex="0"]` did not exist there.
+     After the marks, because a group's tab stop is decided from what is on the
+     page, and until `uivMarks` has run some of those controls are still being
+     rebuilt underneath. */
+  uivRadioGroups();
 }
 
 /* make the product-card heart interactive: a click toggles the .on (filled) state
@@ -571,6 +665,18 @@ function uivPdp(){
     rvb.innerHTML = rvb.innerHTML.replace(/[★☆]+/, '<span class="starrow">' + uivStars(5) + '</span>');
   }
   document.querySelectorAll('.rvmeta .rstars').forEach(function(el){ uivStarify(el, 1); });
+  /* the five-button picker: the one rating you PRESS, and the only star that was
+     still coming out as an outline - step 7.27. marks.js swaps a sign that is a
+     whole control, and its finish is the outline, correctly: the same ★ is also
+     «Знижки та бонуси» in the account nav, and icons.js says «outline for a nav
+     chip, filled for a rating». Only the context knows which, so the rating says
+     so here, beside the three swaps above.
+     NOT `uivStarify`: that wraps the mark in `.uiv-star`, which paints gold, and
+     four of these five must stay `--mark-inactive` until they are chosen. Only
+     the drawing changes; the colour is the picker's own state. */
+  document.querySelectorAll('.pm-stars .pmst').forEach(function(b){
+    b.innerHTML = '<span class="uiv-ic">' + uivStarSvg() + '</span>';
+  });
 
   /* trust band: one Solar icon per proof + the mascot leaning in from the right */
   var tsIcons = ['shield', 'doc', 'truck', 'ret'];

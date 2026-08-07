@@ -18,7 +18,10 @@
 }
 .rvmeta .rname{ font-weight: var(--fw-bold); color: var(--text-primary); font-size: var(--fs-14); }
 .rvmeta .rdate{ font-size: var(--fs-12); color: var(--text-muted); margin-top: var(--space-2); }
-.rvmeta .rstars{ font-size: var(--fs-14); color: var(--text-primary); font-weight: var(--fw-bold); margin-top: var(--space-4); }
+/* step 7.27: `.rvmeta .rstars` left this file for rating.css. Under a different
+   name it is the same control as `.st` - a star and a figure - and it was
+   carrying its own edition of the family's type: 14/700 mono here, the same
+   14/700 mono three files away. rating.css states it once for all four names. */
 .rvmeta .rbadge{ display: inline-block; font-size: var(--fs-10); font-weight: var(--fw-black); border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); }
 .rvbody .prc{ font-size: var(--fs-14); margin: var(--space-4) 0; }
 .rvbody .prc b{ color: var(--text-primary); }
@@ -46,11 +49,11 @@
 .rvbar > span{ text-align:left; }
 .rvbar > span:first-child{ min-width:1ch; }
 .rvbar > span:last-child{ min-width:3ch; }
-.rvmeta .rstars{ display:flex; width:fit-content; align-items:center; gap:var(--space-4);
-  font-family:var(--font-mono); }
 .rvmeta .rbadge{ margin-top:var(--space-8); }
-.rvbig .starrow{ display:inline-flex; gap:var(--space-2); margin-bottom:var(--space-4); }
-.rvbig .starrow .uiv-star svg{ width:18px; height:18px; }
+/* step 7.27: `.rvmeta .rstars` and `.rvbig .starrow` went to rating.css with the
+   rest of the family. The 18px of the five-star row went with them and stayed an
+   override rather than folding into the `1em + 1` rule - 18 in a 14px row is not
+   a near-miss, it is a display row beside a 50px figure. */
 .rvmeta .rbadge{ color:var(--text-success); border-color:var(--line-success-soft); background:var(--bg-success); }
 .rvbody .rtext{ line-height:var(--lh-airy); }
 .rvreply{ border-left:2px solid var(--line-action); background:var(--bg-surface); border-radius:0 var(--radius-8) var(--radius-8) 0; padding:var(--space-12) var(--space-12); }

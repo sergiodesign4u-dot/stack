@@ -143,6 +143,15 @@ var UIV_SIGN_ONLY = {
   '🗑':'trash', '🗑️':'trash'
 };
 
+/* THE OUTLINE IS THE RIGHT DEFAULT FOR A SIGN, INCLUDING THE STAR - step 7.27.
+   Tried the opposite here first: `name === 'star' ? uivStarSvg() : ...`, so that
+   the review modal's picker would come out filled like every other rating. It
+   filled one more thing than intended - «Знижки та бонуси» in the account nav,
+   which is a ★ too - and icons.js has already written down why that is wrong:
+   «outline for a nav chip, filled for a rating». This function cannot tell the
+   two apart, because the glyph does not carry the answer, the context does. So
+   the default stays outline and the picker is wired where the rest of the
+   rating swaps live, in design/_nav.js. */
 function uivSignSwap(host, name, wrap){
   var svg = uivIconSvg(name);
   if(!svg) return false;

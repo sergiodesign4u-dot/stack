@@ -111,8 +111,12 @@
   .ob-collapse{ display: flex; width: 100%; margin-top: var(--space-16); font-family: inherit; }
 }
 .wl-top{ display: flex; align-items: baseline; gap: var(--space-12); flex-wrap: wrap; margin-top: var(--space-2); }
-.acc-h1sk{ height: var(--size-24); width: 240px; border-radius: var(--radius-4); background: var(--bg-skeleton); margin-top: var(--space-2); }
-.acc-subsk{ height: 12px; width: 320px; max-width: 80%; border-radius: var(--radius-4); background: var(--bg-skeleton); margin-top: var(--space-12); }
+/* step 7.28: `.acc-h1sk` and `.acc-subsk` went to skeleton.css with the other
+   five editions of the same bar. The account shell decides that its loading
+   state has a title and a subtitle; how tall a grey bar standing for a line of
+   text is, is the skeleton's business. `.acc-subsk` came down 12 -> 10 on the
+   way: it was one instance against 78 that already said 10, and nothing about a
+   subtitle asks for its own number. */
 .acc-cardgrid{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-24); }
 @media (min-width: 640px){
   .acc-cardgrid{ grid-template-columns: 1fr 1fr; }
@@ -169,7 +173,12 @@
 .ln-review, .ob-receipt{ color:var(--text-body); transition:color .14s ease; }
 .ln-review:hover, .ob-receipt:hover{ color:var(--text-action); }
 .ob-del{ border-color:var(--line-hair); border-radius:var(--radius-12); background:var(--bg-surface); }
-.acc-h1sk, .acc-subsk, .skcardbox .skline{ background:var(--bg-sunken); }
+/* step 7.28: this line is gone, and it was the one doing the damage. It sat in a
+   level-3 file and repainted three selectors that had just declared
+   `--bg-skeleton` in their own files - so that token was named three times and
+   painted nothing, and every skeleton bar on the site was `--bg-sunken` without
+   any of the three files saying so. skeleton.css states the ground once, and the
+   token itself was renamed `--bg-hatch` at 7.28 after the owner's decision. */
 
 /* ---------- claimed back from a grouped selector (step 5) ----------
    These lived inside `.rk-ph, .aord-thumbs .t, .oh-thumbs i, .ob-line .ph{...}`

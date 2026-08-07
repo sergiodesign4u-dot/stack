@@ -104,7 +104,12 @@
   url(../../visuals/mascot-face-reassure.png); background-blend-mode:multiply; }
 .tbanners .tbx b{ color:var(--text-body); font-size:var(--fs-14); }
 .tbanners .tbx i{ color:var(--text-secondary); }
-.tbanners .tbn:nth-child(5) .tbx b .uiv-star svg{ width:14px; height:14px; }
+/* step 7.27, AND THIS ONE IS A VISIBLE CHANGE: the line here was
+   `.tbanners .tbn:nth-child(5) .tbx b .uiv-star svg{ width:14px; height:14px }`.
+   `.tbanners .tbx b` is a 14px row, and every other 14px row on the site drew
+   its star at 15 - the buy box, the review row. This banner alone said 14, four
+   instances, and nothing distinguishes it from the other two. It now takes
+   rating.css's one rule and comes out at 15. */
 .promo{ border:1px solid var(--line-hair); border-radius:var(--radius-16); position:relative; overflow:hidden;
   background:url(../../visuals/banner-promo-a.jpg) center right/cover no-repeat;
   min-height:190px; padding:var(--space-32) var(--space-32); }

@@ -26,9 +26,12 @@
 .bb .tier{ font-size: var(--fs-14); color: var(--text-primary); font-weight: var(--fw-bold); border: 1px dashed var(--line-strong); border-radius: var(--radius-8); padding: var(--space-8) var(--space-12); margin-top: var(--space-12); display: inline-block; }
 .bb .vgroup{ margin: var(--space-16) 0; }
 .bb .vlbl{ font-weight: var(--fw-bold); margin-bottom: var(--space-8); }
-.bb .vopts{ display: flex; gap: var(--space-8); flex-wrap: wrap; }
-.bb .vopt{ border: 1.5px solid var(--line-strong); padding: var(--space-8) var(--space-12); font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); }
-.bb .vopt.off{ text-decoration: line-through; border-style: dashed; }
+/* step 7.29: `.vopts`, `.vopt` and `.vopt.off` went to radio.css. Choosing a
+   flavour is choosing a VALUE that goes into the order - the same job the
+   delivery rows do two files away, at a different rung. The buy box decides
+   where the set stands and what it is called; what a chosen option looks like is
+   the radio's sentence. `.vopt.off` went with them, and it is the only
+   «unavailable» state the whole family had. */
 .bb .buyrow{ display: flex; gap: var(--space-12); align-items: center; margin: var(--space-16) 0; }
 .bb .addcart{ flex: 1; }
 /* the heart declares NO box - step 7.3. It is `btn--icon btn--l`, and that is
@@ -82,10 +85,7 @@
 .bb .vlbl{ font-size:var(--fs-12); text-transform:uppercase; letter-spacing:var(--ls-caps); color:var(--text-muted); }
 .bb .vlbl .vsel{ margin-left:var(--space-8); text-transform:none; letter-spacing:0; font-size:var(--fs-14);
   font-weight:var(--fw-bold); color:var(--text-body); }
-.bb .vopt{ border-radius:var(--radius-8); transition:border-color .15s ease, color .15s ease; }
-.bb .vopt:hover{ border-color:var(--line-inverse); }
-.bb .vopt.on{ background:var(--bg-page); color:var(--text-body); border-color:var(--line-action); box-shadow:inset 0 0 0 1px var(--line-action); }
-.bb .vopt.off{ color:var(--text-muted); border-color:var(--line-hair); }
+/* step 7.29: the colour half of `.vopt` went to radio.css with the shape. */
 .bb .qty{ border-radius:var(--radius-12); }
 .bb .qty .qn{ font-family:var(--font-mono); }
 /* step 6.8, the no-wrap rule. In stock the row is «У кошик» + the heart and both

@@ -1,31 +1,115 @@
-/* rating.css - rating (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* rating.css - the rating (level 1), rebuilt at step 7.27.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.pcard .rate{ color: var(--text-muted); display: flex; align-items: center; gap: var(--space-8); min-height: 15px; }
-.pcard .rate .st{ font-weight: var(--fw-bold); }
-.pcard-l .lmeta .st{ color: var(--text-primary); font-weight: var(--fw-bold); }
-.bb .bbrate .st{ font-weight: var(--fw-bold); }
+   A STAR, A NUMBER, AND HOW MANY PEOPLE GAVE IT. Counted in the browser across
+   40 colour screens at 1280 and 390 - 343 star instances - and the count is why
+   this file was rewritten: FIVE files were shaping one mark.
 
-/* ---------- colour (from design/kit/kit.css) ---------- */
-.pcard .rate .st{ color:var(--text-body); }
-.pcard-l .lprice, .pcard-l .lold, .pcard-l .lmeta b, .pcard-l .lmeta .st{
-  font-family:var(--font-mono); font-variant-numeric:tabular-nums; }
-.pcard .rate{ margin-top:auto; font-size:var(--fs-12); }
-@media (max-width:620px){
-  .pcard .rate{ font-size:var(--fs-12); }
+     .pcard .rate .st         90   here + product-card.css   card, 12px row
+     .rvbig .starrow          15   review-item.css           five stars, display
+     .rvmeta .rstars           7   review-item.css           review row, 14px
+     .pcard-l .lmeta .st       6   here + product-card.css   list row, 12px
+     .pm-stars .pmst           5   review-modal.css          the picker, 30px
+     .tbanners .tbn:nth(5)     4   banner.css                trust banner, 14px
+     .bb .bbrate .st           3   here                      buy box, 14px
+     .co-accrual .star         2   checkout-form.css         NOT a rating - a bonus
+
+   THE STAR HAD FOUR SIZES - 13, 14, 15, 18 - in four files, and three of them
+   turned out to be one rule nobody had written down:
+
+     row 12px -> star 13     .pcard, .pcard-l          product-card.css
+     row 14px -> star 15     .bb .bbrate, .rvmeta      this file
+     row 14px -> star 14     .tbanners                 banner.css   <- the odd one
+     row 14px -> star 18     .rvbig .starrow           review-item.css
+
+   Two independent files had landed on «the row's size plus one» without saying
+   so. The reading is that a star's ink does not fill its box the way a digit
+   fills its own, so a star given exactly the digit's size reads smaller than the
+   digit beside it - one pixel is what two different authors reached for. Written
+   down once, as `calc(1em + 1px)`, it reproduces 13 and 15 exactly and carries
+   the rule to every star that has not been placed yet.
+
+   That leaves `.tbanners` the single visible change of this step - 14 -> 15 in a
+   14px row, four instances, one banner. And `.rvbig .starrow` stays an override,
+   because 18 in a 14px row is not a near-miss, it is a five-star display row and
+   its size is a decision.
+
+   `.co-accrual .star` is NOT here. It is a bonus mark on the checkout, not an
+   opinion anybody gave, and it keeps its own home in checkout-form.css. What it
+   DID share with this file is the drawing: it was the last ★ on the site still
+   painted by the font. Fixed at 7.27 in design/_nav.js, beside the three star
+   swaps that were already there.
+
+   `.pcard-l .lprice`, `.pcard-l .lold` and `.pcard-l .lmeta b` left this file for
+   price.css. All three had been standing inside one shared `font-mono`
+   declaration since the step-3 split, and the rating's own stand page had been
+   reporting two of them for weeks in its idle check: «2 of 5 classes are not on
+   the page at all - lold lprice». A price is not a rating, and `.lmeta b` is
+   `<b>18 ₴</b>/порція` - the price per serving.
+
+   Two more lines went without replacement:
+     `@media (max-width:620px){ .pcard .rate{ font-size: var(--fs-12) } }` - a
+       media query that set the value the rule already had.
+     `.pcard-l .lmeta .st{ color: var(--text-primary) }` - the one figure of the
+       family reading a different role from the other three. Both tokens are
+       `var(--warm-900)`, so this is a token change with no pixel behind it: the
+       figure is a fact inside running text, which is what `--text-body` names. */
+
+/* ---------- the mark ------------------------------------------------------
+   `icon.css` loads ABOVE this file and says `.uiv-ic svg{ width: 1.05em }`, so
+   at equal specificity this line wins by order - the same ordering rule the
+   trailing mark relies on, and not an accident. */
+.uiv-star{ color: var(--mark-rating); }
+.uiv-star svg{ width: calc(1em + 1px); height: calc(1em + 1px); }
+
+/* ---------- the row: mark, figure, count ----------------------------------
+   `min-height` holds the line open on a card whose rating has not loaded -
+   measured on the skeleton, where `.rate` is empty and the card below it would
+   otherwise jump 15px when the figure arrives. */
+.pcard .rate{ color: var(--text-muted); display: flex; align-items: center; gap: var(--space-8);
+  min-height: 15px; margin-top: auto; font-size: var(--fs-12); }
+
+/* ---------- the figure, and it is the only part that carries a fact --------
+   Mono, because the number is compared between cards and a proportional face
+   moves the decimal point from row to row. Bold, because the count beside it is
+   not. `.rstars` is the same figure under a different name in the review row -
+   `wireframes/_nav.js` writes that markup and the frozen grey layer runs the
+   same script, so the name stays and the rule is shared, exactly as `.dr-chip`
+   at 7.23. */
+.pcard .rate .st,
+.pcard-l .lmeta .st,
+.bb .bbrate .st,
+.rvmeta .rstars{
+  display: inline-flex; align-items: center; gap: var(--space-4);
+  font-family: var(--font-mono); font-weight: var(--fw-bold); color: var(--text-body);
+  /* inert on a monospaced face - every digit is already one width - and kept
+     for the day the face changes. It was on ONE of the four before this step. */
+  font-variant-numeric: tabular-nums;
 }
-.bb .bbrate .st{ display:inline-flex; align-items:center; gap:var(--space-4); vertical-align:-2px;
-  font-family:var(--font-mono); color:var(--text-body); }
-.pcard .rate .st, .pcard-l .lmeta .st{ display:inline-flex; align-items:center; gap:var(--space-4); }
+/* `flex` and not the family's `inline-flex`, with `width: fit-content` doing the
+   shrinking instead. In a block column the two render the same box - measured -
+   and the merge at 7.27 quietly turned this one into `inline-flex` until the
+   before/after run caught it on 6 review rows. Put back exactly as found: a
+   consolidation that changes something it did not declare is not one. Whether
+   the two ever become one line is a question for Крок 6, with a measurement. */
+.rvmeta .rstars{ display: flex; width: fit-content; font-size: var(--fs-14); margin-top: var(--space-4); }
+.bb .bbrate .st{ vertical-align: -2px; }
 
-/* ---------- moved out of base.css (stage 08 step 5) ----------
-   These rules were parked in base.css by the step-3 split. base.css loads
-   ABOVE every atom, so `.uiv-tc-ic svg` lost a same-specificity tie to
-   `.uiv-ic svg` in icon.css and the footer trust icon shrank from 24px to
-   1.05em. A class rule belongs to its component, never to base. */
-.uiv-star{ color:var(--mark-rating); }
-.uiv-star svg{ width:15px; height:15px; }
+/* ---------- the five-star display row --------------------------------------
+   The one place that draws five stars instead of one and a figure, because it
+   IS the summary and the figure beside it is 50px of display face. Its size is
+   a decision, not the `1em + 1` rule, so it says so. */
+.rvbig .starrow{ display: inline-flex; gap: var(--space-2); margin-bottom: var(--space-4); }
+.rvbig .starrow .uiv-star svg{ width: 18px; height: 18px; }
+
+/* ---------- the picker: the one rating you can press ------------------------
+   Moved out of review-modal.css at 7.27. A control that sets a rating is the
+   rating's own business - the modal only decides where it stands, the same
+   split the chip made with its containers at 7.23. It already had the one thing
+   the rest of this file's family still lacks: a focus ring. */
+.pm-stars{ display: flex; gap: var(--space-2); }
+.pm-stars .pmst{ font-size: var(--fs-30); line-height: var(--lh-flat); background: none; border: none;
+  padding: 0 var(--space-2); cursor: pointer;
+  color: var(--mark-inactive); transition: color .12s ease, transform .12s ease; }
+.pm-stars .pmst:hover{ transform: translateY(-1px); }
+.pm-stars .pmst.on{ color: var(--mark-rating); }
+.pm-stars .pmst:focus-visible{ outline: 2px solid var(--line-action); outline-offset: 2px; border-radius: var(--radius-4); }

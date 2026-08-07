@@ -10,3 +10,13 @@
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .uiv-cur{ font-size:.55em; font-weight:inherit; letter-spacing:0; margin-left:.06em; }
+
+/* ---------- the list card's three figures - step 7.27 ----------------------
+   They came from rating.css, where they had been sharing one `font-mono`
+   declaration with the rating figure since the step-3 split. Nothing about them
+   is a rating: `.lprice` is the price, `.lold` the price it was, and
+   `.lmeta b` is `<b>18 ₴</b>/порція` - the price per serving. The rating stand
+   had been naming two of them in its idle check every time it was opened. */
+.pcard-l .lprice, .pcard-l .lold, .pcard-l .lmeta b{
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+}

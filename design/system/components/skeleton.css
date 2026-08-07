@@ -1,10 +1,78 @@
-/* skeleton.css - skeleton (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* skeleton.css - the skeleton (level 1), rebuilt at step 7.28.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
+   GREY SHAPES STANDING WHERE CONTENT WILL BE. Counted in the browser across 40
+   colour screens at 1280 and 390: 140 skeleton elements, 22 class signatures,
+   5 loading screens. The bar - the single most-used piece - was written SIX
+   times in FOUR files:
+
+     .skline            78   skeleton.css        10px   s 50%  m 72%  l 90%
+     .co-skel .sl        3   checkout-form.css   11px   s 46%  m 72%
+     .auth-skel .sl      2   auth-dialog.css     11px          m 70%
+     .acc-subsk          1   account-shell.css   12px
+     .acc-h1sk           1   account-shell.css   24px
+     .skcardbox .skline  -   skeleton.css        + its own background
+
+   THE HEIGHTS DO NOT TRACK THE TEXT THEY REPLACE, so they are not a rule that
+   was never written down - they are four numbers. Measured by loading each
+   screen twice, once as the skeleton and once as the content:
+
+     .skline    10px  stands where `.pcard .nm` will be   16/20.8  ratio 0.63
+     .acc-h1sk  24px  stands where `.acc-h1` will be      30/48    ratio 0.80
+     .acc-subsk 12px  stands where `.acc-sub` will be     14/22.4  ratio 0.86
+
+   No ratio, no ladder. A skeleton bar is not the height of the text - it is a
+   MARK saying «a line goes here», and a mark that says the same thing three
+   times should say it at one size. So the line is 10 everywhere, which is what
+   78 of the 84 bars already were, and the only bar that keeps its own number is
+   the one standing for a HEADING - a different sentence, not a near-miss.
+
+   The names are NOT renamed. `.sl`, `.acc-h1sk`, `.acc-subsk` and the rest are
+   written by markup the frozen grey layer shares, so adding them to a selector
+   list is safe in both directions and renaming is not - the same line 7.23 drew
+   for `.dr-chip` and 7.27 for `.rstars`. Folding `.sl` into `.skline` is a
+   Крок 6 item.
+
+   THE TOKEN CALLED `--bg-skeleton` IS GONE, AND NO SKELETON EVER READ IT. Three
+   declarations named it - `.acc-h1sk`, `.acc-subsk`, `.skcardbox .skline` - and
+   all three were overridden back to `--bg-sunken` by a later line in
+   account-shell.css, so every one of the 140 elements measured `#F2F0ED`, never
+   the token's own `#E9E7E2`. What it actually painted was two hatch patterns and
+   one hairline. On the owner's word it was renamed: the hatch keeps the value as
+   `--bg-hatch`, the hairline reads `--line-hair`, which is the SAME `--warm-200`
+   and is what the primitive's own note calls that value. The ground of a skeleton
+   bar is `--bg-sunken` and is stated once, below. */
+
+/* ---------- the bar ---------------------------------------------------------
+   One height for a line of text, and three widths so a block of them does not
+   read as a table. The widths are fractions of the container on purpose: a bar
+   that is 72% of whatever holds it survives every breakpoint without a media
+   query, which is why none of the six editions ever needed one. */
+.skline,
+.co-skel .sl,
+.auth-skel .sl,
+.acc-subsk,
+.acc-h1sk{
+  height: 10px;
+  border-radius: var(--radius-4);
+  background: var(--bg-sunken);
+  margin: var(--space-8) 0;
+}
+.skline.s, .co-skel .sl.s{ width: 50%; }
+.skline.m, .co-skel .sl.m, .auth-skel .sl.m{ width: 72%; }
+.skline.l{ width: 90%; }
+/* the two narrow boxes centre their bars; the card's are flush left, because a
+   card's text is */
+.co-skel .sl.m, .co-skel .sl.s, .auth-skel .sl.m{ margin-inline: auto; }
+
+/* ---------- the heading bar -------------------------------------------------
+   The one bar that is not a line of running text: it stands where an `h1` will
+   be, so it is taller and it is the width of a real title rather than a
+   fraction. Its subtitle below reads the line rung above - 24 and 10, not
+   24 and 12, because 12 was one instance disagreeing with 78. */
+.acc-h1sk{ height: var(--size-24); width: 240px; margin: var(--space-2) 0 0; }
+.acc-subsk{ width: 320px; max-width: 80%; margin-top: var(--space-12); margin-bottom: 0; }
+
+/* ---------- the boxes those bars live in ---------------------------------- */
 .skgrid{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); }
 @media (min-width: 620px){
   .skgrid{ grid-template-columns: repeat(3, 1fr); }
@@ -14,17 +82,30 @@
 }
 .skcard{ border: 1px solid var(--line-hair); border-radius: var(--radius-12); overflow: hidden; }
 .skcard .skimg{ aspect-ratio: 10/11; background: var(--bg-sunken); }
-.skcard .skb{ padding: var(--space-12) var(--space-12) var(--space-12); }
-.skline{ height: 10px; border-radius: var(--radius-4); margin: var(--space-8) 0; }
-.skline.s{ width: 50%; }
-.skline.m{ width: 72%; }
-.skline.l{ width: 90%; }
+.skcard .skb{ padding: var(--space-12); }
+/* a standalone box, NOT a card with a picture - the account grid uses it where
+   the loaded page will show a panel. It is never nested inside `.skcard`, and
+   the stand used to draw it that way, which is where the double border in the
+   old specimen came from. */
+.skcardbox{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  box-shadow: var(--elevation-1); padding: var(--space-16); }
+.skcardbox.span2{ grid-column: 1 / -1; }
+/* the narrow centred columns of the checkout and the auth dialog */
+.co-skel{ margin: var(--space-24) auto var(--space-8); max-width: 320px; }
+.auth-skel{ width: 100%; max-width: 300px; margin: var(--space-24) auto 0; }
+
+/* ---------- the pulse, and it is a MODIFIER, not a piece --------------------
+   `.skpulse` is put on the CONTAINER, and the container is usually a real
+   component: `.bb`, `.gmain`, `.gthumb`, `.acc-nav`, `.acc-cardgrid`, `.skgrid`.
+   Eight of the 22 signatures in the census are a live component wearing this one
+   class, which is the whole reason it is a bare class and not `.skeleton-pulse`
+   scoped to this file's own shapes. Opacity on the parent, so nothing inside
+   needs to know it is loading.
+   It says «still going», not «broken»: one slow breath, never a spinner. */
 .skpulse{ animation: skpulse 1.1s ease-in-out infinite; }
 @keyframes skpulse { 0%,100% { opacity: 1; } 50% { opacity: .55; } }
-.skcardbox{ border: 1px solid var(--line-hair); padding: var(--space-16); }
-.skcardbox.span2{ grid-column: 1 / -1; }
-.skcardbox .skline{ background: var(--bg-skeleton); }
-
-/* ---------- colour (from design/kit/kit.css) ---------- */
-.skline{ background:var(--bg-sunken); }
-.skcardbox{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
+@media (prefers-reduced-motion: reduce){
+  /* a loading hint must not be the thing that makes somebody ill. The shape
+     stays, the breathing stops - added at 7.28, and it was missing. */
+  .skpulse{ animation: none; opacity: .78; }
+}

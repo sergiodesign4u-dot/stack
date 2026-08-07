@@ -17,8 +17,10 @@
 .pm-rhead label{ margin: 0; }
 .pm-rw{ text-transform: uppercase; }
 .pm-rate{ display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); min-height: var(--size-40); margin-top: var(--space-8); }
-.pm-stars{ display: flex; gap: var(--space-2); }
-.pm-stars .pmst{ font-size: var(--fs-30); line-height: var(--lh-flat); background: none; border: none; padding: 0 var(--space-2); cursor: pointer; }
+/* step 7.27: `.pm-stars` and `.pmst` went to rating.css. A control that SETS a
+   rating is the rating's own business - this file decides where the picker
+   stands (`.pm-rate` above), not what a star looks like when you press it. Same
+   split the chip made with its containers at 7.23. */
 .pm-rv{ line-height: var(--lh-flat); }
 .pm-e{ display: none; font-size: var(--fs-12); font-weight: var(--fw-semibold); margin-top: var(--space-4); }
 .pm-e.on{ display: block; }
@@ -36,10 +38,8 @@
 .pm-b label{ color:var(--text-body); font-weight:var(--fw-bold); }
 .pm-b label .opt{ font-weight:var(--fw-medium); color:var(--text-muted); }
 .pm-e{ color:var(--text-danger); }
-.pm-stars .pmst{ color:var(--mark-inactive); transition:color .12s ease, transform .12s ease; }
-.pm-stars .pmst:hover{ transform:translateY(-1px); }
-.pm-stars .pmst.on{ color:var(--mark-rating); }
-.pm-stars .pmst:focus-visible{ outline:2px solid var(--line-action); outline-offset:2px; border-radius:var(--radius-4); }
+/* the four `.pm-stars .pmst` colour rules that stood here - resting grey, hover
+   lift, `.on` gold, focus ring - are in rating.css with the shape, step 7.27. */
 .pm-rv{ font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-30); letter-spacing:var(--ls-lead);
   color:var(--text-body); }
 .pm-rw{ font-size:var(--fs-12); font-weight:var(--fw-semibold); letter-spacing:var(--ls-eyebrow); color:var(--text-secondary); }

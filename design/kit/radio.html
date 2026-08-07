@@ -7,12 +7,8 @@
 <title>Радіо | Stack - система</title>
 <link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<!-- The stand loads the SAME entry point as the product. A showcase on its own
-     stylesheet would prove nothing about the system it claims to show. -->
 <link rel="stylesheet" href="../system/index.css">
 <link rel="stylesheet" href="_page.css">
-<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
-     a demo that only LOOKS like the component proves nothing about it. -->
 <script src="../system/icons.js"></script>
 <script src="../system/marks.js"></script>
 <script src="../system/fields.js" defer></script>
@@ -23,69 +19,117 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Радіо</h1>
-<p class="kp-lead">Вибір одного з кількох: спосіб доставки, спосіб оплати. Уся строка - зона дотику, не тільки кружечок.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/radio.css</span><span class="kp-tag">31 рядків</span><span class="kp-tag">3 екранів</span></div>
-<section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><label class="co-opt"><span class="co-radio"></span><span><b>Нова Пошта, відділення</b><br><span style="font-size:12.5px;color:var(--text-muted)">1-2 дні · від 70 ₴ <code>[?]</code></span></span></label></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Кружечок</b> - <code>.co-radio</code> - лише індикатор</span></div><div class="a"><i>2</i><span><b>Заголовок</b> - що обираєш</span></div><div class="a"><i>3</i><span><b>Пояснення</b> - строк і ціна - те, чим насправді обирають</span></div><div class="a"><i>4</i><span><b>Уся строка</b> - клікабельна цілком: 44px, а не 16px кружечка</span></div></div></section>
+<p class="kp-lead">Вибір одного з кількох, і вибір іде в замовлення. Саме це відрізняє радіо від чипа: чип фільтрує <b>вигляд</b>, радіо обирає <b>значення</b>. Натиснув чип - змінилось, що ти бачиш; натиснув радіо - змінилось, що ти купуєш.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/radio.css</span><span class="kp-tag">140 рядків</span><span class="kp-tag">12 імен</span><span class="kp-tag">40 контролів · 5 екранів</span></div>
 
-<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
-<p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Вміст</b></td><td>заголовок · заголовок + пояснення</td><td>Пояснення обов'язкове там, де варіанти відрізняються ціною або строком, тобто майже завжди.</td></tr><tr><td><b>Стан</b></td><td>вільний · обраний</td><td>Обраний підсвічує рамку рядка, а не тільки кружечок.</td></tr></tbody></table></div>
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<div class="kp-demo" style="max-width:520px">
+  <div class="radio-demo" style="display:flex;flex-direction:column">
+    <label class="co-opt on"><span class="co-radio"></span><span class="ot"><span class="otn">Нова Пошта - відділення</span><span class="otd">1-2 дні по Україні</span></span><span class="op">від 50 ₴</span></label>
+    <label class="co-opt"><span class="co-radio"></span><span class="ot"><span class="otn">Кур'єр - на адресу</span><span class="otd">доставка до дверей, 1-3 дні</span></span><span class="op">від 80 ₴</span></label>
+    <div class="co-sub" style="font-size:var(--fs-12);color:var(--text-secondary);padding:var(--space-8) var(--space-16) 0">Поле адреси, яке відкриває обрана строка</div>
+  </div>
+</div>
+<p class="kp-p">Третій блок тут - <code>.co-sub</code>: те, що строка відкриває під собою, коли її обрали. Рядок <code>.co-opt:not(.on) + .co-sub</code> ховає його, поки строка над ним не обрана - тому в демо його не видно. Натисніть другу строку, і він з'явиться.</p>
+<div class="kp-anat">
+<div class="a"><i>1</i><span><b>Кружечок <code>.co-radio</code></b> - 18×18, лише індикатор. Крапка всередині - <code>::after</code>, а не другий елемент, бо розмітку пише спільний скрипт і ми її не змінюємо</span></div>
+<div class="a"><i>2</i><span><b>Заголовок <code>.otn</code></b> - що обираєш</span></div>
+<div class="a"><i>3</i><span><b>Пояснення <code>.otd</code></b> і <b>ціна <code>.op</code></b> - строк і гроші, тобто те, чим насправді обирають</span></div>
+<div class="a"><i>4</i><span><b>Уся строка</b> - зона дотику. Виміряно на чекауті: <b>599×71</b>, а не 18px кружечка. Попередня редакція цієї сторінки казала «44px, а не 16px» - обидва числа були мимо</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Три сім'ї, три файли, один контрол</div>
+<p class="kp-p">Браузер обійшов 40 кольорових екранів на 1280 і 390: <b>83 елементи</b>. Одну роботу писали три файли, і кожен розходився з двома іншими майже в усьому.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th><code>.co-opt</code> · 21</th><th><code>.vopt</code> · 17</th><th><code>.pf-lang</code> · 2</th></tr></thead><tbody>
+<tr><td>файл до 7.29</td><td>radio.css</td><td>buy-box.css</td><td>checkout-form.css</td></tr>
+<tr><td>радіус</td><td>12</td><td>8</td><td>12</td></tr>
+<tr><td>падінг</td><td>12/16</td><td>8/12</td><td><b>16/16</b></td></tr>
+<tr><td>край у спокої</td><td><code>--line-hair</code></td><td><code>--line-strong</code></td><td><code>--line-strong</code></td></tr>
+<tr><td>наведення</td><td><code>--line-strong</code></td><td><code>--line-inverse</code></td><td><b>немає</b></td></tr>
+<tr><td>обраний край</td><td><code>--line-action</code></td><td><code>--line-action</code></td><td><b><code>--line-inverse</code></b></td></tr>
+<tr><td>обраний ґрунт</td><td><code>--bg-action-soft</code></td><td><code>--bg-page</code></td><td><b><code>--bg-sunken</code></b></td></tr>
+<tr><td>кружечок</td><td>18×18</td><td>немає</td><td><b>20×20</b></td></tr>
+<tr><td>недоступно</td><td>немає</td><td><code>.off</code></td><td>немає</td></tr>
+<tr><td>справжній input</td><td>ні</td><td>ні</td><td><b>так</b></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Дві сходинки справжні, решта була дрейфом.</b> Радіо, що стоїть саме в стовпчику, із заголовком і причиною під ним - це <b>строка</b>: вона несе те, чим обирають, тому їй потрібен кружечок, і тихий край, бо сторінка в неї своя. Радіо, що стоїть плечем до плеча в наборі з чотирьох, - це <b>компакт</b>: на кружечок місця немає, стан несе сам край, тому він від початку на крок темніший.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Компактна сходинка</div>
+<div class="kp-demo"><div class="vopts">
+  <span class="vopt on">450 г</span><span class="vopt">900 г</span><span class="vopt">2270 г</span><span class="vopt off">4540 г</span>
+</div></div>
+<p class="kp-p">Остання - <code>.vopt.off</code>: смак, якого нема в наявності. Перекреслений, пунктирний край, приглушене чорнило, курсор не міняється. Це <b>єдиний стан «недоступно» в усій родині</b>, і в атома чипа такого досі немає - пункт Кроку 6, і копіювати треба звідси.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Три видимі зміни, усі на одному контролі</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Було</th><th>Стало</th></tr></thead><tbody>
+<tr><td><code>.pf-lang</code> у спокої</td><td><code>--line-strong</code>, падінг 16/16, без фону</td><td><code>--line-hair</code>, 12/16, <code>--bg-page</code></td></tr>
+<tr><td><code>.pf-lang.on</code></td><td>чорнильний край + <code>--bg-sunken</code></td><td>акцентний край + <code>--bg-action-soft</code></td></tr>
+<tr><td><code>.pf-lang.on .rc</code></td><td>20×20, чорнильна заливка з білим кільцем</td><td>18×18, акцентний край + акцентна крапка</td></tr>
+</tbody></table></div>
+<div class="kp-demo" style="max-width:420px"><div class="pf-langs">
+  <label class="pf-lang on">Українська<span class="rc"></span></label>
+  <label class="pf-lang">English<span class="rc"></span></label>
+</div></div>
+<p class="kp-p">Дві сім'ї з трьох казали, що обране - акцентне, і принцип каже те саме: акцент це єдиний колір дії. Отже третя приходить до них, а не навпаки. Два контроли, обидва в діалозі клієнта тренера.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Клавіатура - головне, чого не було</div>
+<p class="kp-p">Виміряно на 40 екранах: <b>жоден із 38 контролів не був досяжний з клавіатури</b>. <code>.co-opt</code> це <code>&lt;label&gt;</code>, який не вказує на жоден input; <code>.vopt</code> це <code>&lt;span&gt;</code>. Ні <code>role</code>, ні <code>tabindex</code>, нічого не оголошується. <b>Чекаут неможливо було пройти без миші.</b></p>
+<p class="kp-p">Продукт уже мав відповідь у двох місцях і не вживав її в жодному: вибір мови тримає справжній <code>input[type=radio]</code> всередині лейбла, а зірковий вибір оцінки будується з <code>role="radiogroup"</code> у <code>wireframes/_nav.js</code>. Узято друге - перше потребує нової розмітки, а розмітка належить замороженому шару.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клавіша</th><th>Що робить</th><th>Перевірено</th></tr></thead><tbody>
+<tr><td>Tab</td><td>заходить у групу і виходить з неї цілком - <b>один</b> стоп на набір, а не по одному на варіант</td><td>Tab з групи веде на кнопку міста</td></tr>
+<tr><td>↓ ↑ → ←</td><td>рухають фокус і разом з ним вибір, по колу</td><td>0→1→2→0, <code>aria-checked</code> іде слідом</td></tr>
+<tr><td>Пробіл, Enter</td><td>обирають те, на чому стоїш</td><td>на <code>.off</code> не роблять нічого</td></tr>
+<tr><td><code>.off</code></td><td>пропускається стрілками, <code>aria-disabled</code>, <code>tabindex="-1"</code></td><td>обхід 0→1→2→0→1, індекс 3 не відвіданий</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Вибір іде через <code>.click()</code>, а не через клас</b> - тому все, що сторінка вже робить на клік, працює й з клавіатури. Доказ у браузері: стрілка вниз на чекауті міняє доставку і <b>перераховує суму</b> - 3 999 → 4 019 → 3 939 ₴, точно як миша.</p>
+<p class="kp-p">Кільце фокуса - <code>--ring-focus-control</code>, який існує з кроку 6.2 і якого жодне радіо не читало, бо читати його не було кому. <code>:focus-visible</code>, а не <code>:focus</code>, щоб миша його не запалювала.</p>
 </section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
-<p class="kp-p">У <b>Форма чекауту</b> - доставка й оплата. Всюди, де варіанти <b>взаємовиключні</b>. Якщо можна обрати кілька, це <b>Чекбокс</b>.</p></section>
+<p class="kp-p">Один із кількох, і вибір іде в замовлення: спосіб доставки, спосіб оплати, смак, розмір, мова листів. Якщо варіантів більше семи або вони не впливають на замовлення - це <b>Меню</b>. Якщо вибір фільтрує вигляд - це <b>Чип</b>.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Клікається весь рядок.</b> Ціль на 44px, а не на 16px.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не став радіо там, де вибір необов'язковий.</b> Радіо не знімається: обравши, людина не може повернутись до «нічого». Для необов'язкового - <b>Чекбокс</b>.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Уся строка натискається.</b> 599×71 проти 18×18 - різниця між «влучив» і «промазав» на телефоні. І <b>пояснення обов'язкове</b> там, де варіанти різняться ціною або строком, тобто майже завжди.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби радіо з того, що не йде в замовлення.</b> Вкладки товару, фільтри каталогу, сортування - там теж «обери одне», але вибір міняє вигляд, а не покупку. Це <b>Чип</b> і <b>Меню</b>, у них свої атоми.</div></div></section>
 
-<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді є обраний стан і <code>:hover</code>.</p></section>
+<section class="kp-sec"><div class="kp-sh">Контраст</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Пара</th><th>Контраст</th><th>Вирок</th></tr></thead><tbody>
+<tr><td>заголовок <code>--text-body</code> на <code>--bg-page</code></td><td>15.9:1</td><td>проходить</td></tr>
+<tr><td>пояснення <code>--text-secondary</code> на <code>--bg-page</code></td><td>6.8:1</td><td>проходить AA на 12px</td></tr>
+<tr><td>обраний край <code>--line-action</code></td><td>3.13:1</td><td>межа, не текст - для нетекстового контрасту поріг 3:1, проходить</td></tr>
+<tr><td>обраний ґрунт <code>--bg-action-soft</code></td><td>-</td><td>підкладка під тим самим чорнилом: заголовок лишається 15.4:1</td></tr>
+</tbody></table></div>
+<p class="kp-p">Обране ніколи не тримається на одному кольорі: край, ґрунт і крапка в кружечку кажуть це втричі. Тому вибір видно і в чорно-білому друку, і людині, яка не розрізняє помаранчевий.</p>
+</section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>8</b> власних класів і <b>1</b> станів оголошено в <code>radio.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>12</b> власних класів і <b>4</b> стани оголошено в <code>radio.css</code>.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["co-opt", "co-radio", "co-sub", "on", "op", "ot", "otd", "otn"], KIT_STS=[":hover"];</script></section>
+<script>var KIT_CLS=["co-opt","co-radio","ot","otn","otd","op","co-sub","vopt","vopts","pf-lang","pf-langs","rc"], KIT_STS=[".on",".off",":hover",":focus-visible"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
-<p class="kp-p">Прочитані з <code>radio.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (11)</th><th>Примітиви (12)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-action-soft</code> <code>--bg-inverse</code> <code>--bg-page</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--text-body</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--radius-12</code> <code>--radius-8</code> <code>--radius-circle</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (11)</th><th>Примітиви (14)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-action-soft</code> <code>--bg-page</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--ring-focus-control</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--radius-8</code> <code>--radius-12</code> <code>--radius-circle</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Одне число без токена - 18px кружечка. Воно назване рішенням у самому файлі: 18 у 21 місці проти 20 у двох.</p>
+</section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;label class="co-opt"&gt;&lt;span class="co-radio"&gt;&lt;/span&gt;&lt;span&gt;Нова Пошта, відділення&lt;/span&gt;&lt;/label&gt;</div></section>
+<div class="kp-code">&lt;label class="co-opt on"&gt;&lt;span class="co-radio"&gt;&lt;/span&gt;
+  &lt;span class="ot"&gt;&lt;span class="otn"&gt;Нова Пошта&lt;/span&gt;&lt;span class="otd"&gt;1-2 дні&lt;/span&gt;&lt;/span&gt;
+  &lt;span class="op"&gt;від 50 ₴&lt;/span&gt;&lt;/label&gt;
+
+&lt;div class="vopts"&gt;&lt;span class="vopt on"&gt;450 г&lt;/span&gt;&lt;span class="vopt off"&gt;4540 г&lt;/span&gt;&lt;/div&gt;</div>
+<p class="kp-p"><code>role</code>, <code>tabindex</code> і <code>aria-checked</code> дописує <code>design/_nav.js</code> на кожній сторінці - у розмітці їх немає і не буде, доки її власником лишається заморожений сірий шар. Рядок <code>.co-opt:not(.on) + .co-sub</code> ховає те, що строка відкрила б, якби її обрали.</p>
+</section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.co-radio</code> <code>.co-opt</code></p>
-<p class="kp-p"><b>3 екранів</b> у <code>wireframes/</code>: checkout-loggedin.html, checkout-noaddr.html, checkout.html</p></section>
-
-<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає стану помилки</b> - «оберіть спосіб доставки» нічим не показати на самій групі</li><li><b>Немає <code>[disabled]</code></b> для недоступного способу</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<p class="kp-p">Якорі: <code>.co-opt</code> <code>.vopt</code> <code>.pf-lang</code></p>
+<p class="kp-p"><b>5 екранів</b>: checkout.html, checkout-loggedin.html, checkout-noaddr.html (по 2 групи, 7 контролів), product.html, product-coach.html (по 3 групи, 12 контролів), product-oos.html (1 група), account-profile.html (вибір мови в діалозі).</p>
+</section>
 
 <script>
-/* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
-   screen. A page that pastes the paths carries a second edition of the set, and a
-   second edition is the thing this stage spent two steps deleting. */
 (function(){
-  document.querySelectorAll('[data-brand]').forEach(function(e){
-    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
-  });
-  document.querySelectorAll('[data-glyph]').forEach(function(e){
-    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
-  });
-})();
-</script>
-<script>
-/* The page checks ITSELF against its file. Everything a person can see counts as
-   shown: a rendered demo, a class named in the markup block, a class named inside
-   any <code> on the page. What is left is what the file declares and the showcase
-   never puts in front of anyone. */
-(function(){
-  /* Two levels, because they are not the same thing. RENDERED means the class is
-     on a live element inside a demo - a person sees the component. NAMED means it
-     is only written out in the markup block or in a <code>. A page that names a
-     class it never renders is describing the file, which is exactly the habit
-     this stage set out to break. */
   var rendered = new Set(), named = new Set();
   document.querySelectorAll('.kp-demo *').forEach(function(e){
     if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
@@ -104,8 +148,7 @@
   var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
   if(!onlyNamed.length && !missing.length && !missSts.length){
     box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
-      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
-      '</b>.</div>';
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
   } else {
     box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
       (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
@@ -119,5 +162,44 @@
 </script>
 </main>
 <script src="_nav.js"></script>
+<script>
+  /* the stand gets the same keyboard the product gets: `design/_nav.js` is not
+     loaded here, so the group semantics are wired by the same rules in miniature.
+     A demo you cannot reach with Tab would be describing the component, not
+     showing it - which is the habit this whole stage set out to break. */
+  document.querySelectorAll('.kp-demo .radio-demo, .kp-demo .vopts').forEach(function(g){
+    var items = [].slice.call(g.querySelectorAll('.co-opt, .vopt'));
+    if(items.length < 2) return;
+    g.setAttribute('role', 'radiogroup');
+    var enabled = function(el){ return !el.classList.contains('off'); };
+    var mark = function(){
+      var chosen = items.filter(function(el){ return el.classList.contains('on'); })[0];
+      var stop = chosen && enabled(chosen) ? chosen : items.filter(enabled)[0];
+      items.forEach(function(el){
+        el.setAttribute('role', 'radio');
+        el.setAttribute('aria-checked', el.classList.contains('on') ? 'true' : 'false');
+        if(!enabled(el)){ el.setAttribute('aria-disabled', 'true'); el.setAttribute('tabindex', '-1'); }
+        else el.setAttribute('tabindex', el === stop ? '0' : '-1');
+      });
+    };
+    var choose = function(el){
+      if(!enabled(el)) return;
+      items.forEach(function(x){ x.classList.toggle('on', x === el); });
+      mark(); el.focus();
+    };
+    mark();
+    g.addEventListener('click', function(e){
+      var el = e.target.closest('.co-opt, .vopt'); if(el) choose(el);
+    });
+    g.addEventListener('keydown', function(e){
+      var el = e.target.closest ? e.target.closest('.co-opt, .vopt') : null;
+      if(!el || items.indexOf(el) < 0) return;
+      var pool = items.filter(enabled), i = pool.indexOf(el);
+      if(e.key === 'ArrowRight' || e.key === 'ArrowDown'){ e.preventDefault(); choose(pool[(i + 1) % pool.length]); }
+      else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); choose(pool[(i - 1 + pool.length) % pool.length]); }
+      else if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); choose(el); }
+    });
+  });
+</script>
 </body>
 </html>

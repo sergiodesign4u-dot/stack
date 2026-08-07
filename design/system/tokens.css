@@ -139,7 +139,7 @@
      Fourteen primitives died when the role layer landed: every one of them was
      a value a component named directly, and the role that replaced it points
      somewhere else. --black went to --bg-inverse (ink, not black), the cold
-     greys to the text roles, --grey-ec to --warm-200 under --bg-skeleton,
+     greys to the text roles, --grey-ec to --warm-200 under --bg-skeleton (renamed --bg-hatch at 7.28),
      --scrim-black-44 to the single --scrim-overlay, --scrim-charcoal to
      --line-hair. They are deleted rather than deprecated for the same reason
      the radius steps were at 5.5: a value that cannot be named cannot be used
@@ -470,8 +470,16 @@
      still has to read as a control. */
   --text-price-was:        var(--grey-aa);            /* 10 uses - the struck old price, and only that. It is deliberately weaker than
      --text-muted: the eye must land on the new price first. */
-  --bg-skeleton:           var(--warm-200);           /* 13 uses - the loading placeholder bar. MERGED from #ECECEC, which is the same
-     grey as the hairline token to within one step of lightness. */
+  --bg-hatch:              var(--warm-200);           /* 4 uses - the diagonal stripe of a HATCHED PLACEHOLDER: the auth dialog's
+     visual panel and the mega menu's «Вибір місяця» photo slot. Two elements, two gradient stops each.
+     RENAMED from --bg-skeleton at step 7.28, because that name had stopped being true. It was minted at
+     step 2 for the loading bar - MERGED from #ECECEC, one step of lightness from the hairline - and by
+     7.28 the browser said it painted no bar at all: the three declarations that named it were each
+     overridden back to --bg-sunken by a later line, so all 140 measured skeleton elements came out
+     #F2F0ED. What survived were two hatch patterns and one hairline. The hairline went to --line-hair,
+     which is the SAME --warm-200 and is what the primitive's own note calls it («plate pixel - the
+     hairline»); the hatch kept the value and took a name that says what it draws. Value untouched: this
+     is a rename, not a decision about colour. */
   --bg-discount:           var(--red-50);             /* 8 uses - the plate under a discount figure. Same value as --bg-danger and a
      different job: a discount is good news. The two part company in a dark theme. */
   --bg-notice:             var(--amber-50);           /* 4 uses - the allergen block and the bonus-accrual row: a calm caution plate,

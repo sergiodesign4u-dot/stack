@@ -24,12 +24,13 @@
 .pf-dangerbtn{ font-size: var(--fs-14); font-weight: var(--fw-bold); }
 .smeths{ display: flex; flex-direction: column; gap: var(--space-12); }
 .pf-resend{ font-weight: var(--fw-bold); color: var(--text-primary); text-decoration: underline; cursor: pointer; }
-.pf-langs{ display: flex; flex-direction: column; gap: var(--space-12); margin-top: var(--space-4); }
-.pf-lang{ display: flex; align-items: center; gap: var(--space-12); border: 1.5px solid var(--line-strong); border-radius: var(--radius-12); padding: var(--space-16) var(--space-16); cursor: pointer; font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); }
-.pf-lang input{ position: absolute; opacity: 0; pointer-events: none; }
-.pf-lang .rc{ margin-left: auto; width: var(--size-20); height: var(--size-20); border: 2px solid var(--line-strong); border-radius: var(--radius-circle); flex: none; }
-.pf-lang.on{ border-color: var(--line-inverse); background: var(--bg-sunken); }
-.pf-lang.on .rc{ border-color: var(--line-inverse); background: var(--bg-inverse); box-shadow: inset 0 0 0 3px var(--line-onink); }
+/* step 7.29: the whole `.pf-lang` block went to radio.css. It is the same
+   control as `.co-opt` - a row you pick one of - and it was the third file
+   writing it, with its own padding (16/16 against 12/16), its own circle
+   (20 against 18), no hover at all, and «chosen» painted in INK where the other
+   two families painted it in the accent. It also had the one thing the other two
+   lacked: a real `input[type=radio]`. That input is what the keyboard work at
+   7.29 copies onto the rest. */
 .pf-delcheck{ display: flex; align-items: flex-start; gap: var(--space-8); text-align: left; font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); margin: 0 0 var(--space-16); cursor: pointer; }
 .pf-delcheck input{ width: 18px; height: 18px; flex: none; margin-top: var(--space-2); }
 .co-head{ position: sticky; top: 0; z-index: 30; background: var(--bg-page); border-bottom: 1px solid var(--line-hair); }
@@ -163,10 +164,10 @@
 .co-spin{ width: var(--size-46); height: var(--size-46); border: 4px solid var(--line-hair); border-radius: var(--radius-circle); margin: 0 auto var(--space-24); }
 .co-proc-h{ margin-bottom: var(--space-8); }
 .co-proc-s{ font-size: var(--fs-14); line-height: var(--lh-airy); }
-.co-skel{ margin: var(--space-24) auto var(--space-8); max-width: 320px; }
-.co-skel .sl{ height: 11px; border-radius: var(--radius-4); margin: var(--space-8) 0; }
-.co-skel .sl.m{ width: 72%; margin-left: auto; margin-right: auto; }
-.co-skel .sl.s{ width: 46%; margin-left: auto; margin-right: auto; }
+/* step 7.28: the whole `.co-skel` block went to skeleton.css. `.sl` is `.skline`
+   under a second name - same grey bar, same radius, same job - and it carried
+   its own edition of every number: 11px against 10, and `s` at 46% against 50%.
+   Two of the four bars on this site that were not the majority value. */
 .co-proc-note{ font-size: var(--fs-12); margin-top: var(--space-24); line-height: var(--lh-airy); }
 .co-proc-go{ margin-top: var(--space-24); }
 .co-proc-cancel{ display: inline-block; margin-top: var(--space-16); font-size: var(--fs-14); text-decoration: underline; }
@@ -294,7 +295,7 @@
 }
 .co-proc-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .co-proc-s{ color:var(--text-secondary); }
-.co-skel .sl{ background:var(--bg-sunken); }
+/* step 7.28: the ground moved with the shape, into skeleton.css. */
 .co-proc-note{ color:var(--text-muted); }
 .co-proc-note .uiv-ic svg{ width:14px; height:14px; vertical-align:-2px; }
 .co-proc-cancel{ color:var(--text-secondary); text-decoration-color:var(--line-strong); }

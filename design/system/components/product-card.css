@@ -58,7 +58,16 @@
 /* the cart button's INK moved to button.css at step 6.2 with the rest of its
    finish: how big the mark inside a button is, is the button's business, and
    pinning it to `.pcard` meant the same button rendered blank anywhere else. */
-.pcard .pnew, .pcard .pold, .pcard .pcut, .pcard .perserv b, .pcard .rate .st,
+/* `.pcard .rate .st` left this list at step 7.27, and it was not a tidy-up: this
+   file is level 2 and rating.css is level 1, so at equal specificity THIS line
+   won and the identical declaration rating.css had just been given for the same
+   selector was dead on arrival. One fact in two files, and the wrong one
+   speaking. The rating's figure is mono because it is a RATING, not because it
+   sits on a card - which is the same sentence that sent `.lprice`, `.lold` and
+   `.lmeta b` from rating.css to price.css in the other direction.
+   What is left below is the card's own: prices, the bonus, pager numbers. They
+   belong in price.css by the same argument and are a Крок 6 item. */
+.pcard .pnew, .pcard .pold, .pcard .pcut, .pcard .perserv b,
 .pcard .bonus, .pages a, .pages button, .lh1 .cnt{
   font-family:var(--font-mono); font-variant-numeric:tabular-nums;
 }
@@ -142,4 +151,9 @@
 .pcard .nm:hover, .pcard-l .nm:hover{ color:var(--text-action); }
 .packlabel{ margin:var(--space-16) 0 0; }
 .packlabel figcaption{ font-size:var(--fs-12); color:var(--text-muted); margin-top:var(--space-8); }
-.pcard .rate .uiv-star svg, .pcard-l .lmeta .uiv-star svg{ width:13px; height:13px; }
+/* step 7.27: `.pcard .rate .uiv-star svg, .pcard-l .lmeta .uiv-star svg{ 13px }`
+   left this file. 13 was not the card's number, it was «the 12px row plus one» -
+   the same arithmetic `.bb .bbrate` and `.rvmeta` had arrived at independently
+   with 14 -> 15. rating.css says it once now, as `calc(1em + 1px)`, and it comes
+   out at exactly 13 here. A card decides where a rating stands, not how big its
+   mark is. */
