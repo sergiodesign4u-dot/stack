@@ -6,16 +6,15 @@
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .flinks{ display: flex; flex-wrap: wrap; gap: var(--space-8); margin-top: var(--space-8); }
-.flink{ border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill); font-weight: var(--fw-semibold); color: var(--text-primary); }
-.flink .ct{ margin-left: var(--space-4); font-size: var(--fs-12); }
+/* step 7.23: `.flink` itself went to chip.css, whole - 60 instances of the same
+   pill as `.dr-chip`, written here a second time. This file keeps the ROW: how
+   the options wrap and how far apart they stand. */
 .linkrow{ display: flex; gap: var(--space-16); flex-wrap: wrap; font-size: var(--fs-14); margin-top: var(--space-16); }
 .linkrow a{ text-decoration: underline; cursor: pointer; }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.flink{ transition:border-color .15s ease, color .15s ease, background .15s ease; }
-.flink{ font-size:var(--fs-14); padding:var(--space-8) var(--space-12); border-color:var(--line-strong); }
-.flink .ct{ color:var(--text-muted); }
-.flink:hover{ border-color:var(--line-action); color:var(--text-action); }
+/* step 7.23: the size, the edge, the count's colour and the hover left with the
+   chip. They said the same thing chip.css now says once. */
 .seolink{ color:inherit; text-decoration:none; transition:color .15s ease; }
 .seolink:hover{ color:var(--text-action); }
 .linkrow{ margin-bottom:var(--space-16); }

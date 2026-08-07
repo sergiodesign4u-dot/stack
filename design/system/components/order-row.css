@@ -13,7 +13,9 @@
 .aord-info .meta{ font-size: var(--fs-14); margin-top: var(--space-4); }
 .aord-actions{ display: flex; gap: var(--space-8); margin-top: var(--space-16); flex-wrap: wrap; }
 .ord-tabs{ display: flex; gap: var(--space-8); flex-wrap: wrap; margin: var(--space-16) 0 var(--space-4); }
-.ord-tab{ font-size: var(--fs-14); font-weight: var(--fw-bold); border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-16); background: var(--bg-page); }
+/* step 7.23: `.ord-tab` went to chip.css as a SEGMENT. Its edge was 1px here
+   while every other chip in the product drew 1.5 - it is 1.5 now, and the
+   control is 41 tall instead of 40. */
 .ord-list{ display: flex; flex-direction: column; gap: var(--space-12); margin-top: var(--space-16); }
 .ord{ border: 1px solid var(--line-hair); overflow: hidden; background: var(--bg-page); }
 .ord-h{ width: 100%; display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-8) var(--space-16); padding: var(--space-16) var(--space-16); background: var(--bg-page); border: 0; text-align: left; cursor: pointer; font: inherit; }
@@ -49,9 +51,12 @@
   font-family:var(--font-mono); }
 .aord-info .no{ font-family:var(--font-mono); }
 .aord-info .meta{ color:var(--text-secondary); }
-.ord-tab{ border-color:var(--line-strong); color:var(--text-secondary); transition:border-color .14s ease, color .14s ease; }
-.ord-tab:hover{ border-color:var(--line-inverse); color:var(--text-body); }
-.ord-tab.on{ border-color:var(--line-action); color:var(--text-action); background:var(--bg-page); }
+/* step 7.23: three more editions gone to chip.css. The resting ink was
+   `--text-secondary` here and `--text-body` in the other seven; the hover went
+   to the ink border where the others went to the accent; and the chosen state
+   was an outline with an accent label, 3.13:1, where the owner's one edition is
+   the accent fill with an ink label. All three are visible changes on
+   account-orders and all three are in the step's log. */
 .ord{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
 .oh-no, .oh-date, .oh-sum{ font-family:var(--font-mono); }
 .oh-sum{ font-weight:var(--fw-semibold); word-spacing:-.24em; }

@@ -1,32 +1,152 @@
-/* chip.css - chip (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* chip.css - the chip (level 1), rebuilt at step 7.23.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.dr-chips{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
-.dr-chip{ display: inline-flex; align-items: center; gap: var(--space-8); border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-12); font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); }
-.afilters{ display: none; gap: var(--space-8); flex-wrap: wrap; align-items: center; margin-top: var(--space-12); }
-@media (min-width: 860px){
-  .afilters{ display: flex; }
+   A PRESSABLE PILL WITH A WORD IN IT. Counted in the browser across 17 colour
+   screens at 1280 and 390, and the count is the reason this file was rewritten:
+   EIGHT class names in SIX files were drawing the same control.
+
+     .dr-chip        96   chip.css          drawer goals
+     .mgchip         42   header.css        mega menu categories
+     .flink          60   link-row.css      filter options, «Концентрат 31»
+     .hero-chips a   32   chip.css          the phone's category rail
+     .ptab           32   pdp-tabs.css      product tabs
+     .acc-link       28   account-shell.css account tabs, pill only from 860
+     .ord-tab         6   order-row.css     order filters
+     .cegoals button  6   chip.css          goal picker in the coach dialog
+
+   Same pill, same job - «press this word to choose» - and every file had grown
+   its own edition of it:
+
+     font weight     600 (filter) / 700 (segment)
+     horizontal pad  12 (filter)  / 16 (segment)
+     border          1.5 everywhere except `.ord-tab`, which had 1
+     resting ink     --text-body everywhere except `.ord-tab`, at --text-secondary
+     hover           accent border + accent ink (.flink .ptab .hero-chips a),
+                     ink border + body ink (.ord-tab),
+                     accent border + BODY ink (.mgchip),
+                     and NONE AT ALL on `.dr-chip`, the most used of the eight
+     selected        four editions, see below
+
+   THE TWO RUNGS ARE REAL, THE REST WAS DRIFT. A chip that filters is one of many
+   and may be pressed in any combination: 600, padding 12. A chip that switches -
+   product tab, order filter, goal - is one of a set where exactly one is on: 700,
+   padding 16, because a switch carries more weight than a filter and the eye must
+   find the current one without reading. That distinction is `--seg`. Everything
+   else in the list above was two files disagreeing, and is now one line.
+
+   BOTH VOCABULARIES, ONE RULE SET, same shape as `btn--stack` at 7.18 and
+   `.ci-qty, .co-qty` at 7.13: the names are NOT renamed, because `.dr-chip`,
+   `.mgchip` and `.cegoals` are written by `wireframes/_nav.js`, which the frozen
+   grey layer runs too. Adding `chip` to the selector list is safe in both
+   directions; renaming is not. The rename is a Крок 6 item.
+
+   `.acc-link` is NOT in the list, and that is deliberate: it is a full-width row
+   with a hairline under it that only BECOMES a pill from 860. Its shape is the
+   account shell's sentence, not this file's. Its selected state is the one this
+   file now uses, so nothing about it changed. */
+
+/* ---------- the shape ---------- */
+.chip,
+.dr-chip, .hero-chips a, .flink,
+.mgchip,
+.ptab, .ord-tab, .cegoals button{
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--bg-page);
+  color: var(--text-body);
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease, background .15s ease;
+  /* rung M is the DEFAULT, declared here rather than in a rung of its own -
+     every member must carry a size, or it silently inherits the page's 16 and
+     grows. Measured that on `.ord-tab` while writing this file: with the size
+     left to the rungs it came out 16/45 instead of 14/41. */
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+  padding: var(--space-8) var(--space-12);
 }
-.afilter{ border: 1px solid var(--line-hair); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-12); font-size: var(--fs-12); color: var(--text-primary); font-weight: var(--fw-semibold); display: inline-flex; gap: var(--space-8); align-items: center; }
-.afilter .x{ font-weight: var(--fw-black); }
-.afilters .clear{ font-size: var(--fs-12); color: var(--text-primary); font-weight: var(--fw-bold); text-decoration: underline; }
+/* the drawer's chip is the only one carrying a mark, so it is the only one that
+   needs a row and a gap */
+.dr-chip{ display: inline-flex; align-items: center; gap: var(--space-8); }
+/* the count that closes a filter option is quieter than the word it counts */
+.flink .ct{ margin-left: var(--space-4); font-size: var(--fs-12); color: var(--text-muted); }
+
+/* ---------- rung S: the mega menu, where a chip is a footnote to a column ----
+   12/600 with 4 of vertical padding, 29 tall against 41. It is the same control
+   at a smaller rung and not a different one: same border, same radius, same
+   hover. Kept because a mega-menu column is a dense place and the chips there
+   sit under a heading rather than standing on their own. */
+.mgchip{ font-size: var(--fs-12); padding: var(--space-4) var(--space-12); }
+
+/* ---------- the segment: exactly one of the set is on ---------- */
+.ptab, .ord-tab, .cegoals button{
+  font-weight: var(--fw-bold);
+  padding: var(--space-8) var(--space-16);
+}
+
+/* ---------- hover: one edition, and the biggest family gains it -------------
+   `.dr-chip` had none - 96 instances of a control that did not answer the
+   cursor while its identical twins did, three different ways. The edge goes to
+   the action colour and the word with it, which is what `.flink`, `.ptab` and
+   `.hero-chips a` already did and is therefore the majority reading, not a new
+   invention. `.mgchip` took the same border and stopped at `--text-body`;
+   `.ord-tab` went to the ink border instead. Both now say what the rest say. */
+.chip:hover,
+.dr-chip:hover, .hero-chips a:hover, .flink:hover,
+.mgchip:hover,
+.ptab:hover, .ord-tab:hover, .cegoals button:hover{
+  border-color: var(--line-action);
+  color: var(--text-action);
+}
+
+/* ---------- selected: ONE edition, and it is the owner's call ---------------
+   Four were in the code, and the choice was made on contrast, not on taste:
+
+     accent fill + ink label     28 instances   5.45:1   PASSES AA
+     accent fill + white label    8             3.13:1   fails
+     accent edge + accent label   2             3.13:1   fails
+     ink fill + white label       6            15.9:1    passes, but then the
+                                                         action colour no longer
+                                                         marks the choice
+
+   The first is what the account tabs already did, it is the largest family, and
+   it is the only one of the three accent editions a 14px label can pass AA on.
+   So it wins, and the other three are brought to it - which moves `.ptab.on`
+   off a white label, `.ord-tab.on` off an outline, and `.cegoals button.on` off
+   an ink fill. Every one of those is a visible change and every one is listed in
+   the step's log rather than slipped in.
+
+   `:hover` must not repaint a chip that is already chosen - there is nowhere
+   further for it to go, and the accent-on-accent would read as a loading state. */
+.chip.on, .ptab.on, .ord-tab.on, .cegoals button.on,
+.chip[aria-current="page"]{
+  background: var(--bg-action);
+  border-color: var(--line-action);
+  color: var(--text-body);
+}
+.chip.on:hover, .ptab.on:hover, .ord-tab.on:hover, .cegoals button.on:hover{
+  background: var(--bg-action);
+  border-color: var(--line-action);
+  color: var(--text-body);
+}
+
+/* ---------- containers, which belong to whoever places the row ---------- */
+.dr-chips{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.cegoals{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
 .hero-chips{ display: flex; gap: var(--space-8); overflow-x: auto; padding-bottom: var(--space-4); scrollbar-width: none; }
 .hero-chips::-webkit-scrollbar{ display: none; }
 @media (min-width: 860px){
   .hero-chips{ display: none; }
 }
-.hero-chips a{ flex: none; border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-12); font-size: var(--fs-14); font-weight: var(--fw-semibold); white-space: nowrap; }
-.cegoals{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
-.cegoals button{ font-size: var(--fs-14); font-weight: var(--fw-bold); border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-12); color: var(--text-primary); background: var(--bg-page); cursor: pointer; }
-.cegoals button.on{ border-color: var(--line-inverse); background: var(--bg-inverse); color: var(--text-oninverse); }
+.hero-chips a{ flex: none; white-space: nowrap; }
 
-/* ---------- colour (from design/kit/kit.css) ---------- */
-.afilter{ background:var(--bg-sunken); border-color:var(--line-hair); }
-.afilter .x{ color:var(--text-muted); }
-.hero-chips a{ border-color:var(--line-strong); color:var(--text-body); background:var(--bg-page);
-  transition:border-color .15s ease, color .15s ease; }
-.hero-chips a:hover{ border-color:var(--line-action); color:var(--text-action); }
+/* ---------- the applied filter - a different job, kept apart -----------------
+   Not a choice but a RECEIPT: it says a filter is already on and offers to take
+   it off. That is why it is quieter than a chip (12/600 on a sunken ground, a
+   hairline instead of the strong edge) and why it is the only one of the family
+   carrying a ✕. Nothing to unify here: it answers a different question. */
+.afilters{ display: none; gap: var(--space-8); flex-wrap: wrap; align-items: center; margin-top: var(--space-12); }
+@media (min-width: 860px){
+  .afilters{ display: flex; }
+}
+.afilter{ border: 1px solid var(--line-hair); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-12); font-size: var(--fs-12); color: var(--text-primary); font-weight: var(--fw-semibold); display: inline-flex; gap: var(--space-8); align-items: center; background: var(--bg-sunken); }
+.afilter .x{ font-weight: var(--fw-black); color: var(--text-muted); }
+.afilters .clear{ font-size: var(--fs-12); color: var(--text-primary); font-weight: var(--fw-bold); text-decoration: underline; }

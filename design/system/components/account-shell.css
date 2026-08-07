@@ -129,7 +129,16 @@
 .acc-links{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
 .acc-link{ border-color:var(--line-hair); transition:background .14s ease, color .14s ease, box-shadow .14s ease; }
 .acc-link .ic{ color:var(--text-secondary); font-size:0; }
-.acc-link .ic .uiv-ic svg{ width:18px; height:18px; }
+/* SIZE THE DRAWING, NOT SOMEBODY ELSE'S WRAPPER - step 7.24. This said
+   `.ic .uiv-ic svg` and therefore only reached marks that arrive WRAPPED.
+   `marks.js` has two output shapes: a sign it swaps in place gets no wrapper -
+   the host itself takes the `uiv-ic` class - and this box zeroes its own
+   font-size to kill the emoji fallback, so `.uiv-ic svg{ width:1.05em }` in
+   icon.css resolved to 1.05 x 0. Measured across the account: 42 svg drawn at
+   0x0, the marks of «Огляд» (▦), «Знижки та бонуси» (★) and «Обране» (♡) on all
+   seven pages, invisible while the other five were fine. The selector now names
+   the svg, which is the one thing both shapes have. */
+.acc-link .ic svg{ width:18px; height:18px; }
 .acc-link .ct{ font-family:var(--font-mono); color:var(--text-secondary); }
 .acc-link .ar .uiv-ic svg{ width:12px; height:12px; }
 .acc-link:hover{ background:var(--bg-surface); color:var(--text-action); }

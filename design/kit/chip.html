@@ -23,49 +23,106 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Чип</h1>
-<p class="kp-lead">Кругла мітка, яку можна натиснути: фільтр, ціль, категорія в мега-меню.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/chip.css</span><span class="kp-tag">33 рядків</span><span class="kp-tag">6 екранів</span></div>
+<p class="kp-lead">Пілюля зі словом, яку натискають, щоб обрати. Фільтр, категорія, вкладка, ціль - одна форма на всі чотири роботи.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/chip.css</span><span class="kp-tag">152 рядки</span><span class="kp-tag">8 імен</span><span class="kp-tag">6 файлів</span></div>
+
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><div class="kp-row"><a class="dr-chip">Протеїн</a><a class="mgchip">Креатин</a><a class="dr-chip">Вітаміни</a></div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Пілюля</b> - радіус 100px - форма, яку читають як «натисни»</span></div><div class="a"><i>2</i><span><b>Підпис</b> - іменник, не дієслово - чип не дія, а вибір</span></div><div class="a"><i>3</i><span><b>Хрестик</b> - лише на активному фільтрі: скасувати вибір</span></div></div></section>
+<div class="kp-demo" style="display:flex;gap:var(--space-12);align-items:center;flex-wrap:wrap">
+  <span class="chip">Протеїн</span>
+  <span class="flink">Концентрат<span class="ct">31</span></span>
+  <span class="dr-chips"><a class="dr-chip"><span class="uiv-ic" data-glyph="target"></span>Набір маси</a></span>
+  <span class="mgchip">Ізолят</span>
+</div>
+<div class="kp-cap">наведіть - край іде в акцент і слово з ним; це один ховер на всі вісім імен, і <code>.dr-chip</code> отримав його щойно</div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Пілюля</b> - <code>--radius-pill</code>, край 1.5 <code>--line-strong</code>. Форма, яку читають як «натисни»</span></div><div class="a"><i>2</i><span><b>Підпис</b> - іменник, не дієслово: чип це вибір, а не дія. 14 / semibold у фільтра, 14 / bold у сегмента</span></div><div class="a"><i>3</i><span><b>Лічильник</b> <code>.ct</code> - скільки товарів дасть цей фільтр. 12 / <code>--text-muted</code>: тихіший за слово, яке рахує</span></div><div class="a"><i>4</i><span><b>Мітка</b> - лише там, де чип веде в ціль. У фільтра її немає: список фільтрів читають стовпчиком, і мітка щоразу відсувала б слово</span></div></div></section>
 
-<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
-<p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Робота</b></td><td>фільтр · ціль · категорія</td><td>Фільтр звужує список, ціль веде в підбір, категорія навігує. Три роботи - три класи, бо жити вони будуть по-різному.</td></tr><tr><td><b>Стан</b></td><td>звичайний · обраний · активний фільтр з хрестиком</td><td>Хрестик з'являється лише коли фільтр уже застосований: до вибору скасовувати нічого.</td></tr></tbody></table></div>
-</section>
+<section class="kp-sec"><div class="kp-sh">Вісім імен у шести файлах малювали ту саму пілюлю</div>
+<p class="kp-p">Це не здогад, а перепис у браузері: 17 кольорових екранів, 1280 і 390, кожен екземпляр зміряний через <code>getComputedStyle</code>.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th class="c">Скільки</th><th>Файл до 7.23</th><th>Де</th></tr></thead><tbody>
+<tr><td><code>.dr-chip</code></td><td class="c"><b>96</b></td><td><code>chip.css</code></td><td>цілі в бічній шухляді</td></tr>
+<tr><td><code>.flink</code></td><td class="c">60</td><td><code>link-row.css</code></td><td>опції фільтра, «Концентрат 31»</td></tr>
+<tr><td><code>.mgchip</code></td><td class="c">42</td><td><code>header.css</code></td><td>категорії в мега-меню</td></tr>
+<tr><td><code>.hero-chips a</code></td><td class="c">32</td><td><code>chip.css</code></td><td>рейка категорій на телефоні</td></tr>
+<tr><td><code>.ptab</code></td><td class="c">32</td><td><code>pdp-tabs.css</code></td><td>вкладки добірок і товару</td></tr>
+<tr><td><code>.acc-link</code></td><td class="c">28</td><td><code>account-shell.css</code></td><td>таби кабінету, пілюля лише від 860</td></tr>
+<tr><td><code>.ord-tab</code></td><td class="c">6</td><td><code>order-row.css</code></td><td>фільтр замовлень</td></tr>
+<tr><td><code>.cegoals button</code></td><td class="c">6</td><td><code>chip.css</code></td><td>ціль у діалозі клієнта тренера</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b><code>.acc-link</code> не переїхав</b>, і це навмисно: це рядок на всю ширину з волосиною під ним, який <b>стає</b> пілюлею лише від 860. Його форма - речення оболонки кабінету, а не цього файлу. Обраний стан у нього вже той, який тепер спільний, тож у ньому не змінилось нічого.</p></section>
 
-<section class="kp-sec"><div class="kp-sh">Що зведено <b>на кроці 5.5</b></div>
-<p class="kp-p">Рішення живе там, де на нього дивляться. Перепис показав дрейф, крок 5.5 його зняв - і цей блок каже, <b>що саме обрали, що лишили і чому</b>, на сторінці самого компонента, а не тільки в журналі.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Було</th><th>Стало</th><th>Чому</th></tr></thead><tbody><tr><td><b>Радіус</b></td><td><code>100 · 9 · 8 · 0</code></td><td><code>100 · 8 · 0</code></td><td>9 сів на 8. Піґулка і прямокутник лишились обидва - і це <b>не</b> дрейф значень, а нерозв'язане питання: фільтр у каталозі круглий, варіант смаку на картці прямокутний, і правила, який де, ще немає.</td></tr></tbody></table></div></section>
+<section class="kp-sec"><div class="kp-sh">Що розійшлось - і що тепер сказано один раз</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Було</th><th>Стало</th></tr></thead><tbody>
+<tr><td><b>Край</b></td><td>1.5 скрізь, крім <code>.ord-tab</code> - там 1</td><td><b>1.5</b>. Фільтр замовлень став 41 заввишки замість 40</td></tr>
+<tr><td><b>Чорнило у спокої</b></td><td><code>--text-body</code>, крім <code>.ord-tab</code> - <code>--text-secondary</code></td><td><b><code>--text-body</code></b>. Вибір, який ще не зроблено, не є приглушеним</td></tr>
+<tr><td><b>Наведення</b></td><td>акцентний край + акцентне слово (<code>.flink</code>, <code>.ptab</code>, <code>.hero-chips a</code>) · чорнильний край + чорнильне слово (<code>.ord-tab</code>) · акцентний край + <b>чорнильне</b> слово (<code>.mgchip</code>) · <b>жодного</b> у <code>.dr-chip</code></td><td><b>Одна редакція</b> - акцентний край і слово. Найбільша родина, 96 екземплярів, отримала ховер уперше</td></tr>
+<tr><td><b>Вага і падінг</b></td><td>600/12 і 700/16 упереміш</td><td><b>Дві сходинки, і вони справжні</b> - див. нижче</td></tr>
+</tbody></table></div>
+<div class="kp-do"><h4>Дві сходинки, а не чотири розміри</h4>
+<p class="kp-p"><b>Фільтр</b> - 14 / semibold / падінг 12. Він один із багатьох, його тиснуть у будь-якій комбінації, і в стовпчику з десяти опцій вага 700 перетворила б список на стіну.</p>
+<p class="kp-p"><b>Сегмент</b> - 14 / <b>bold</b> / падінг <b>16</b>. Це набір, де увімкнено рівно один: вкладка товару, фільтр замовлень, ціль клієнта. Перемикач важить більше за фільтр, і око має знайти поточний, не читаючи.</p>
+<p class="kp-p"><b>Мала сходинка</b> - 12 / semibold / падінг 4, 29 замість 41. Лише мега-меню: колонка там щільна, і чипи стоять під заголовком, а не самі по собі.</p></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Обраний: було чотири редакції, лишилась одна</div>
+<div class="kp-demo" style="display:flex;gap:var(--space-12);align-items:center;flex-wrap:wrap">
+  <span class="ptab on">Популярні</span><span class="ptab">Новинки</span><span class="ptab">Акції</span>
+</div>
+<div class="kp-cap">сегмент: увімкнено рівно один, і наведення на нього нічого не змінює - далі йому нема куди</div>
+<p class="kp-p">Вибір зроблено <b>за контрастом, а не за смаком</b>. Виміряно на <code>#FF5A00</code>:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Редакція</th><th class="c">Скільки</th><th class="c">Контраст</th><th>Присуд</th></tr></thead><tbody>
+<tr><td>акцентна заливка + <b>чорнильний</b> підпис <code>.acc-link</code></td><td class="c"><b>28</b></td><td class="c"><b>5.45:1</b></td><td><b>обрано</b> - найбільша родина і єдина акцентна, що проходить AA</td></tr>
+<tr><td>акцентна заливка + білий підпис <code>.ptab.on</code></td><td class="c">8</td><td class="c">3.13:1</td><td>нижче AA для 14px</td></tr>
+<tr><td>білий фон + акцентний край і підпис <code>.ord-tab.on</code></td><td class="c">2</td><td class="c">3.13:1</td><td>нижче AA для 14px</td></tr>
+<tr><td>чорнильна заливка + білий підпис <code>.cegoals button.on</code></td><td class="c">6</td><td class="c">15.9:1</td><td>проходить, але акцент більше не позначає вибір</td></tr>
+</tbody></table></div>
+<p class="kp-p">Три редакції приведено до першої. Це <b>видима зміна на трьох екранах</b>, не косметика: вкладки товару втратили білий підпис, фільтр замовлень - контурний вигляд, ціль у діалозі тренера - чорну заливку.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Родина в одному ряду</div>
+<div class="kp-demo" style="display:flex;gap:var(--space-16);align-items:flex-start;flex-wrap:wrap;flex-direction:column">
+  <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;align-items:center"><span class="kp-tag" style="min-width:104px">сегмент</span><span class="ord-tab on">Усі</span><span class="ord-tab">Доставлені</span><span class="ord-tab">В дорозі</span></div>
+  <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;align-items:center"><span class="kp-tag" style="min-width:104px">ціль у діалозі</span><span class="cegoals"><button type="button" class="on">Набір маси</button><button type="button">Схуднення</button><button type="button">Енергія</button></span></div>
+  <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;align-items:center"><span class="kp-tag" style="min-width:104px">рейка &le;859</span><span class="hero-chips"><a>За ціллю</a><a>Протеїн</a><a>Гейнери</a></span></div>
+  <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;align-items:center"><span class="kp-tag" style="min-width:104px">застосований</span><span class="afilters"><span class="afilter">Бренд: Optimum Nutrition<button class="x" aria-label="Прибрати фільтр">&#10005;</button></span><a class="clear">Скинути все</a></span></div>
+</div>
+<div class="kp-cap">рейку <code>.hero-chips</code> видно лише до 859 - вище вона <code>display:none</code>, тож звужте вікно, щоб побачити її живою</div>
+<p class="kp-p"><b>Застосований фільтр - інша робота</b>, і тому він єдиний лишився зі своїм виглядом. Це не вибір, а <b>квитанція</b>: він каже, що фільтр уже увімкнено, і пропонує зняти його. Звідси тихіший розмір, підкладка замість білого і хрестик, якого немає більше ні в кого.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
-<p class="kp-p">У <b>Рейка фільтрів</b>, <b>Шит фільтрів</b>, <b>Мега-меню</b> і на головній як плитки цілей. Job 2 - новачок: чип це найдешевший спосіб почати не з каталогу, а з наміру.</p></section>
+<p class="kp-p"><b>Фільтр</b> - у рейці й шиті фільтрів, у мега-меню, на рейці категорій телефона. <b>Сегмент</b> - там, де з набору увімкнено рівно один. Job 2, новачок: чип це найдешевший спосіб почати не з каталогу, а з наміру - одне слово замість форми.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Чип - це іменник.</b> «Протеїн», «Набір маси». Дієслово в пілюлі читається як кнопка.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з чипа <b>Бейдж</b>.</b> Мітка, яку не можна натиснути, не має бути схожою на ту, яку можна: людина спробує і нічого не станеться.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Чип - це іменник.</b> «Протеїн», «Набір маси». Дієслово в пілюлі читається як кнопка, і людина чекає, що після натискання щось станеться, а не що список звузиться.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з чипа Бейдж.</b> Мітка, яку не можна натиснути, не має бути схожою на ту, яку можна. <code>.acc-tier</code> «Срібний рівень» і статус «Доставлено» - пілюлі, але вони нічого не роблять: це <b>Статус-пілюля</b>, і живе вона в іншому файлі.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді є <code>:hover</code> і обраний стан.</p></section>
+<p class="kp-p">Два: <code>:hover</code> і <code>.on</code>. Обидва тепер в одній редакції на всі вісім імен.</p>
+<p class="kp-p"><b>Фокуса немає</b>, і це справжня прогалина, а не пропуск опису: чип не має власного кільця, тож той, хто йде клавіатурою, бачить лише системний контур браузера. Кільце <code>--ring-focus-control</code> у системі вже є - його дала кнопка на кроці 6.2.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>9</b> власних класів і <b>1</b> станів оголошено в <code>chip.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>15</b> власних класів і <b>1</b> псевдостан <code>:hover</code> оголошено в <code>chip.css</code>. Обраний тримається на класі <code>.on</code>, тому він у списку класів, а не станів. Нижче - те, чого на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["afilter", "afilters", "cegoals", "clear", "dr-chip", "dr-chips", "hero-chips", "on", "x"], KIT_STS=[":hover"];</script></section>
-
-<section class="kp-sec"><div class="kp-sh">Токени</div>
-<p class="kp-p">Прочитані з <code>chip.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (12)</th><th>Примітиви (9)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-oninverse</code> <code>--text-primary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--radius-pill</code> <code>--space-12</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<script>var KIT_CLS=["chip", "dr-chip", "dr-chips", "hero-chips", "flink", "ct", "mgchip", "ptab", "ord-tab", "cegoals", "on", "afilters", "afilter", "x", "clear"], KIT_STS=[":hover"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;a class="dr-chip"&gt;Протеїн&lt;/a&gt;
-&lt;a class="mgchip"&gt;Креатин&lt;/a&gt;</div></section>
+<div class="kp-code">&lt;span class="chip"&gt;Протеїн&lt;/span&gt;
+
+&lt;a class="flink"&gt;Концентрат&lt;span class="ct"&gt;31&lt;/span&gt;&lt;/a&gt;
+
+&lt;span class="ptab on"&gt;Популярні&lt;/span&gt;   &lt;!-- сегмент: увімкнено один --&gt;
+
+&lt;span class="afilter"&gt;Бренд: Optimum Nutrition
+  &lt;button class="x" aria-label="Прибрати фільтр"&gt;&#10005;&lt;/button&gt;&lt;/span&gt;</div>
+<p class="kp-p">Імена <b>не перейменовано</b>: <code>.dr-chip</code>, <code>.mgchip</code> і <code>.cegoals</code> пише <code>wireframes/_nav.js</code>, який виконує й заморожений сірий шар. Додати <code>chip</code> у список селекторів безпечно в обидва боки, перейменувати - ні. Перейменування - пункт Кроку 6, як і в <b>Лічильника кількості</b> та <b>Дії стовпчиком</b>.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.mgchip</code> <code>.dr-chip</code> <code>.dr-chips</code> <code>.hero-chips</code> <code>.afilter</code> <code>.afilters</code> <code>.cegoals</code></p>
-<p class="kp-p"><b>6 екранів</b> у <code>wireframes/</code>: home-buyer.html, home-cart.html, home-coach.html, index.html, listing-empty.html, listing-filtered.html</p></section>
+<p class="kp-p">Якорі: <code>.chip</code> <code>.dr-chip</code> <code>.flink</code> <code>.mgchip</code> <code>.hero-chips</code> <code>.ptab</code> <code>.ord-tab</code> <code>.cegoals</code> <code>.afilter</code></p>
+<p class="kp-p">Каталог і лістинг, картка товару, кабінет і замовлення, головна, мега-меню, бічна шухляда, діалог клієнта тренера. <code>.cegoals</code> сьогодні рендериться <b>лише в сірому шарі</b> - тренерських екранів у <code>design/</code> ще немає, тож перевірити його можна тільки тут, на стенді.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає єдиного класу</b> - три родини (<code>.dr-chip</code>, <code>.mgchip</code>, <code>.hero-chips</code>) роблять одне й те саме різними правилами</li><li><b>Немає стану <code>[disabled]</code></b> для фільтра, який нічого не знайде</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>З клавіатури недосяжні</b> - <code>.ptab</code> (16 у розмітці) і <code>.ord-tab</code> (3) це <code>&lt;span&gt;</code> без <code>role</code> і <code>tabindex</code>. Вони виглядають як контроли, змінюють екран, і при цьому не фокусуються й не оголошуються. Це <b>розмітка</b>, а не css, тому чекає проходу Кроку 6</li>
+<li><b>Немає фокуса</b> - кільце в системі є, чип його не читає</li>
+<li><b>Немає стану «вимкнено»</b> - фільтр, який дасть нуль товарів, виглядає так само, як той, що дасть 31</li>
+<li><b>Одне ім&#39;я замість восьми</b> - правило вже одне, імена ще ні</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
 /* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a

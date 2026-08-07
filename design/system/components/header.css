@@ -43,7 +43,8 @@
 .wfh-mega .mph{ display: inline-block; font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); margin-bottom: var(--space-12); text-decoration: underline; text-decoration-color: var(--line-strong); }
 .wfh-mega .mgt{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); margin-bottom: var(--space-8); }
 .wfh-mega .mgl{ font-size: var(--fs-12); font-weight: var(--fw-black); color: var(--text-secondary); }
-.wfh-mega .mgchip{ font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--text-primary); border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-4) var(--space-12); }
+/* step 7.23: `.mgchip` went to chip.css - it is the chip's small rung, not a
+   header invention, and it was the fourth file writing that pill. */
 .wfh-mega .ms-lead{ display: block; font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); padding: var(--space-8) 0 var(--space-12); border-bottom: 1px solid var(--line-hair); margin-bottom: var(--space-8); }
 .wfh-mega .ms-link{ display: block; font-size: var(--fs-14); color: var(--text-secondary); padding: var(--space-8) 0; }
 .wfh-mega .ms-link:hover{ color: var(--text-primary); text-decoration: underline; }
@@ -167,8 +168,9 @@
 .wfh-mega .mega-cat .ar .uiv-ic svg{ width:12px; height:12px; }
 .wfh-mega .mega-sub, .wfh-mega .ms-link, .wfh-mega .mph{ transition:color .12s ease; }
 .wfh-mega .mega-sub:hover, .wfh-mega .ms-link:hover, .wfh-mega .mph:hover{ color:var(--text-action); }
-.wfh-mega .mgchip{ transition:border-color .15s ease, color .15s ease; }
-.wfh-mega .mgchip:hover{ border-color:var(--line-action); color:var(--text-body); }
+/* step 7.23: the mega chip's hover went with it, and changed on the way - it
+   took the accent border and stopped the word at `--text-body`, while every
+   other chip took the word to the accent too. One edition now. */
 .wfh-mega .ms-feat .ms-ph{ background:var(--bg-page); padding:0; overflow:hidden; }
 .wfh-mega .ms-feat .ms-ph img{ width:100%; height:100%; object-fit:contain; display:block; }
 .wfh-mega .ms-fb{ transition:color .12s ease; }

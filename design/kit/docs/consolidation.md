@@ -2933,8 +2933,7 @@ at 7.16 and `.ctrl .cap` at 7.13, in its most literal form: one name, two meanin
 **Older than this file, and said out loud rather than quietly inherited.** `wireframes/_wf.css:1626`
 carries the same bare `.ci`, and the grey prototype shows the same overlap and the same dash -
 verified in the browser at 360. It arrived here at the step-3 split, which copied selectors unchanged
-on purpose. The grey twin is NOT fixed here: structure is the grey layer's own, and it is frozen. One
-identical line closes it whenever its owner says so.
+on purpose. The grey twin was reported here and closed on the owner's word the same day - see below.
 
 ### Proof
 
@@ -2951,3 +2950,200 @@ Restored, and the cart re-measured on both sides:
 Identical before and after, to the pixel, on every row. The cart drawer's rows still read
 `74px 302px` with a 74px thumbnail. All three levels of the overlay walked at 360: marks clear of
 their labels, no stray dashes, `display` back to block, padding 0.
+
+### 7.21b: the grey twin, closed on the owner's word
+
+The colour layer had been fixed and the grey one left with the defect, because structure belongs to
+`wireframes/` and that folder is frozen. The owner said close it, so `_wf.css:1626` got the same
+scope - `article.ci` - and the same reason in the grey file's own idiom, five lines rather than
+twenty-three, because that is how that file talks.
+
+Measured on `wireframes/index.html` at 360, the catalogue overlay:
+
+| | before | after |
+|---|---|---|
+| `.ci` box | 24 x **61** | 24 x 28 |
+| `display` · padding · hairline | grid · 16px 0 · 1px | block · 0 · 0 |
+| mark sits at | 44 → 62 | 19 → 37 |
+| label starts at | 53 | 53 |
+| mark → label | **−9, overlapping** | **+16** |
+| stray dashes | **13** | **0** |
+| row height | 90 | 57 |
+
+The goal level and the «Усі товари: …» row were carrying it too, and both came right with the same
+line: gap +15, no border, row 84.
+
+Nothing else moved. The three grey pages that hold cart rows walked at 360 and 1280 -
+`cart.html` 195 / 177 / 171 and `cart-oos.html` and `cart-coach.html` - every row still a grid,
+columns `74px 206px` at 360 and `74px 296px` at 1280, gap 13, padding 16px 0, hairline 1px,
+thumbnail 74 (66 on the coach page, which is its own layout). `.ci.oos` still dims to .5. The cart
+drawer's rows still read `74px 296px`. 0 sideways scroll, 0 JS errors.
+
+**Both layers now say the same thing about the same class**, which is the point: the design system
+could not be right about `.ci` while the prototype it was split from was wrong about it. A count that
+holds either way - 16 `<article class="ci">` across both layers, 4 `<span class="ci">` in `_nav.js`,
+and no third case.
+
+## Step 7.22: the stand against the product, axis by axis
+
+Asked directly: does «Дія стовпчиком» on the stand show what the product actually draws? Measured
+rather than eyeballed - stand at 1280, header at 1280, tab bar at 390:
+
+| | stand | header | tab bar |
+|---|---|---|---|
+| box | 72x44 · 92x44 | 72x44 · 88x44 | 74x50 |
+| padding | 8px 12px | 8px 12px | 8px 2px |
+| gap · glyph · stroke | 2 · 20 · 1.9 | 2 · 20 · 1.9 | 2 · 20 · 1.9 |
+| caption | 12 / 600 / #5B5B54 | 12 / 600 / #5B5B54 | 12 / 600 / #5B5B54 |
+| air above / below | 5 / 5 | 5 / 5 | 8 / 8 |
+| counter | 15x15 · 10/800 · offset −11,−6 · #FF5A00 on #1C1C1C · white 2px ring | identical | - |
+
+The drawings were compared as PATH DATA, not by eye: the heart, the person and the cart carry the
+same `d`, the same viewBox, the same fill and the same stroke width in all three places. The stand
+is not a picture of the component, it is the component.
+
+### What the stand did NOT show
+
+The one thing the product's tab bar wears on every screen and the stand only described in prose:
+**the active tab.** Four specimens, none of them current, while the phone always has exactly one.
+
+So a fifth was added - `class="btn--stack wf-tab" aria-current="page"`. It works on a 1280 stand page
+because the `[aria-current]` rules live in tabbar.css OUTSIDE the `max-width: 859px` query; only the
+bar's layout is inside it. Measured, stand against product:
+
+| | stand, 5th specimen | product, «Головна» at 390 |
+|---|---|---|
+| box · glyph | 74x50 · 20 | 74x50 · 20 |
+| caption | 12 / **800** / #1C1C1C | 12 / **800** / #1C1C1C |
+| accent bar | 26 x 3, #FF5A00 | 26 x 3, #FF5A00 |
+
+The prose beside it names the owner of each half: the atom gives `position: relative`, which is what
+the bar counts its top from; the bar and the ink are the tab bar's, in tabbar.css. A header action
+has no such state, because it is never «current».
+
+Idle check still «Пройдено», 0 sideways scroll at 1280, 0 JS errors.
+
+## Step 7.23: the chip - eight names, six files, one pill
+
+Asked to fix `design/kit/chip.html` against the real UI. The stand was wrong about the component,
+but only because the component was wrong about itself.
+
+### The census
+
+Counted in the browser across 17 colour screens at 1280 and 390, every instance read through
+`getComputedStyle`:
+
+| class | count | file before | where |
+|---|---|---|---|
+| `.dr-chip` | **96** | chip.css | drawer goals |
+| `.flink` | 60 | link-row.css | filter options, «Концентрат 31» |
+| `.mgchip` | 42 | header.css | mega-menu categories |
+| `.hero-chips a` | 32 | chip.css | the phone's category rail |
+| `.ptab` | 32 | pdp-tabs.css | product and collection tabs |
+| `.acc-link` | 28 | account-shell.css | account tabs, a pill only from 860 |
+| `.ord-tab` | 6 | order-row.css | order filters |
+| `.cegoals button` | 6 | chip.css | goal picker in the coach dialog |
+
+Same control, same job - press a word to choose - and six files each grown their own edition.
+
+### What had drifted
+
+| axis | before | after |
+|---|---|---|
+| edge | 1.5 everywhere except `.ord-tab`, at 1 | **1.5**; the order filter is 41 tall instead of 40 |
+| resting ink | `--text-body` except `.ord-tab`, at `--text-secondary` | **`--text-body`** - a choice not yet made is not muted |
+| hover | accent edge + accent word · ink edge + body word · accent edge + BODY word · **none at all on `.dr-chip`** | **one edition**, and the 96-instance family got a hover for the first time |
+| weight / padding | 600/12 and 700/16 mixed | **two rungs, and they are real** |
+
+The two rungs survived the merge because they answer different questions. A FILTER is one of many,
+pressed in any combination: 600, padding 12 - at 700 a column of ten options reads as a wall. A
+SEGMENT is a set where exactly one is on: 700, padding 16, because the eye has to find the current
+one without reading. The mega menu keeps a small rung, 12/600 and 29 tall, because a mega column is
+dense and its chips sit under a heading rather than on their own.
+
+### Selected: four editions, chosen on contrast
+
+| edition | count | contrast on #FF5A00 | verdict |
+|---|---|---|---|
+| accent fill + **ink** label (`.acc-link`) | 28 | **5.45:1** | **chosen** - largest family, only accent edition that passes AA |
+| accent fill + white label (`.ptab.on`) | 8 | 3.13:1 | below AA at 14px |
+| white ground + accent edge and label (`.ord-tab.on`) | 2 | 3.13:1 | below AA at 14px |
+| ink fill + white label (`.cegoals button.on`) | 6 | 15.9:1 | passes, but then the action colour no longer marks the choice |
+
+Owner's call. Three editions brought to the first, and all three are **visible changes**: the product
+tabs lost their white label, the order filter lost its outline look, the coach dialog's goal lost its
+black fill.
+
+### What did not move
+
+`.acc-link` stayed in `account-shell.css` on purpose: it is a full-width row with a hairline that
+only BECOMES a pill from 860, so its shape is the shell's sentence. Its selected state was already
+the one now shared, so nothing about it changed. `.afilter` also stayed apart - it is not a choice
+but a RECEIPT, saying a filter is already on and offering to take it off, which is why it is quieter
+and why it is the only member carrying a ✕.
+
+### Proof
+
+Measured after, on the product: `.flink` 41 · 14/600 · 1.5 #D9D9D9 (unchanged); `.ord-tab` 41 ·
+14/700 · ink #1C1C1C; `.ord-tab.on` and `.ptab.on` both accent fill · accent edge · #1C1C1C label;
+`.mgchip` 29 · 12/600 · 4px 12px (unchanged); `.dr-chip` and `.hero-chips a` 41 · 14/600 (unchanged),
+and `.dr-chip` now answers the cursor - edge and word to #FF5A00. 0 JS errors.
+
+One bug caught in the browser while writing the file: with the size left to the rungs rather than the
+shape, `.ord-tab` inherited the page's 16px and came out 45 tall instead of 41. Rung M is the default
+now, declared on the shape, so no member can be sizeless.
+
+### The stand
+
+Rebuilt on real product markup: the census table, the drift table, the contrast table, the family in
+one row, and demos for all 15 classes the file declares. Idle check «Пройдено», 0 sideways scroll at
+1280 and 360, 0 em dash, 0 JS errors.
+
+Two things the page now says out loud that it did not before: `.ptab` (16 in markup) and `.ord-tab`
+(3) are `<span>` without `role` or `tabindex` - they look like controls, change the screen, and
+cannot be reached from a keyboard; and the chip has no focus ring at all, though the system has had
+`--ring-focus-control` since step 6.2. Both are markup work and both wait for Крок 6.
+
+## Step 7.24: three marks in the account rail had been drawn at 0x0
+
+Reported from the screen: in the account rail «Огляд», «Знижки та бонуси» and «Обране» had no mark
+at all, while «Замовлення», «Адреси», «Профіль», «Стати тренером» and «Вийти» did.
+
+### Why five worked and three did not
+
+`marks.js` has TWO output shapes, and only one of them makes a wrapper:
+
+    a sign inside a box   ->  <span class="ic"><span class="uiv-ic"><svg></span></span>
+    a sign IS the box     ->  <span class="ic uiv-ic"><svg></span>     the host takes the class
+
+`account-shell.css` sized the drawing as `.acc-link .ic .uiv-ic svg{ width:18px }` - a selector that
+reaches THROUGH a wrapper - so it matched the first shape and missed the second. The second shape
+then fell back to `.uiv-ic svg{ width:1.05em }` in icon.css, and `.ic` zeroes its own font-size to
+kill the emoji fallback, so 1.05 x 0 = **0**.
+
+The three that vanished are the three whose sign is swapped in place: `▦` grid, `★` star, `♡` heart.
+The five that survived arrive wrapped.
+
+Measured with a detector rather than by eye - every `<svg>` on 23 colour screens at 1280 and 390
+whose computed width is under 2px and which is not inside something hidden. It returned **42 hits and
+one owner**: `.acc-link > .ic.uiv-ic`, across all seven account pages. Nowhere else in the product.
+
+**Older than this session.** `git show HEAD` has both halves: `▦ ★ ♡` were already in
+`UIV_SIGN_ONLY`, and the wrapper-dependent rule is unchanged since it was written. `font-size: 0`
+arrived at step 7.3-7.6 (`25ca246`), which is when the marks went dark - they have been invisible
+since, and were noticed now.
+
+### The rule
+
+    .acc-link .ic svg{ width:18px; height:18px; }
+
+Name the svg, which is the one thing both shapes have. A component that fixes an icon's size must
+size the DRAWING, not a wrapper somebody else may or may not create - the same lesson `footer.css`
+learned at 7.16 from the other side, where it reached past `.uiv-brand` to set an svg the wrapper was
+supposed to derive.
+
+### Proof
+
+All seven account pages at 1280 and 390: **0 marks under 2px, 0 zero-width svg anywhere on the page,
+0 sideways scroll.** All eight rows read 18x18 - three unwrapped, five wrapped, and no longer possible
+to tell which is which by looking. The current row keeps its accent mark and its inset bar.

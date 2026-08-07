@@ -6,7 +6,8 @@
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .ptabs{ display: flex; gap: var(--space-8); flex-wrap: wrap; margin-bottom: var(--space-16); }
-.ptab{ border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-bold); }
+/* step 7.23: `.ptab` went to chip.css as the SEGMENT rung - 700 and padding 16,
+   the weight a switch carries over a filter. This file keeps the row. */
 .pdp-tabs{ position: sticky; z-index: 25; border-bottom: 1px solid var(--line-hair); display: flex; overflow-x: auto; margin-bottom: var(--space-16); align-items: center; scrollbar-width: none; }
 .pdp-tabs::-webkit-scrollbar{ display: none; }
 .pdp-tabs a{ flex: none; font-size: var(--fs-14); font-weight: var(--fw-semibold); white-space: nowrap; }
@@ -64,11 +65,10 @@ body.pdp-stuck .wfh.uiv-scrolled{ box-shadow:none; }
 @media (min-width:1180px){
   .pdp{ grid-template-columns:minmax(0,1fr) 580px; }
 }
-.ptab{ border-color:var(--line-strong); color:var(--text-body); background:var(--bg-page); cursor:pointer;
-  transition:border-color .15s ease, color .15s ease; }
-.ptab:hover{ border-color:var(--line-action); color:var(--text-action); }
-.ptab.on{ background:var(--bg-action); border-color:var(--line-action); color:var(--text-oninverse); }
-.ptab.on:hover{ color:var(--text-oninverse); }
+/* step 7.23: colour, hover and the chosen state went to chip.css. The chosen
+   state changed on the way: the label was `--text-oninverse` on the accent fill,
+   which measures 3.13:1 and does not pass AA at 14px. It reads `--text-body` on
+   the same fill now - 5.45:1 - which is what the account tabs already did. */
 
 /* ---------- moved off the screen (stage 08 step 5) ----------
    These rules lived in a <style> block on design/product-coach.html and used the
