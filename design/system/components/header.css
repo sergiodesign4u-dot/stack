@@ -56,7 +56,11 @@
 .wfh-search{ display: none; flex: 1; }
 .wfh-sp{ flex: 1; }
 .wfh-actions{ display: none; align-items: center; gap: var(--space-8); }
-.wfh-act .lbl{ font-size: var(--fs-14); font-weight: var(--fw-bold); }
+/* the ROW action's label, scoped at step 7.18. Unscoped it also reached the
+   stacked caption, and header.css loads after stack-action.css - so at an
+   equal specificity tie the organism would have overridden the atom it is
+   supposed to be reading, and the caption would be 14/bold again. */
+.wfh-act.numbtn .lbl{ font-size: var(--fs-14); font-weight: var(--fw-bold); }
 /* the counter's two lines read as a column, so they align to its left edge, not
    to the centre the button class gives every other label (owner, step 6.8).
    The cart will carry a sum and a count here too - two values of different
@@ -82,8 +86,7 @@
 .wfh-act.numbtn{ min-width: 124px; justify-content: flex-start; }
 .wfh-act.numbtn:hover .t .val{ color: var(--text-body); }
 .wfh-act.numbtn:hover .t .cap{ color: var(--text-secondary); }
-.wfh-act.stack{ flex-direction: column; }
-.wfh-act.stack .lbl{ font-weight: var(--fw-semibold); color: var(--text-secondary); }
+/* step 7.18: `flex-direction`, the caption's weight and its ink went to the atom. */
 .wfh-cab{ position: relative; }
 .wfh-cabmenu{ display: none; position: absolute; right: 0; top: 100%; z-index: 45; margin-top: var(--space-8);
   min-width: 230px; background: var(--bg-page); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);
@@ -114,10 +117,12 @@
    because only the row knows how much space it has to give. */
 .wfh-mi a::after{ content: ''; position: absolute; inset: -6px -8px; }
 .wfh-act{ position: relative; }
-.wfh-mi .hb, .wfh-act .g .hb{ position: absolute; top: -6px; right: -4px; min-width: 15px; height: 15px; padding: 0 var(--space-4);
+/* step 7.18: `.wfh-act .g .hb` left with the atom - a counter on the mark is the
+   stacked action's, and it was declared here and again in tabbar.css. What stays
+   is the MENU item's badge, which is a different placement on a different part. */
+.wfh-mi .hb{ position: absolute; top: -6px; right: -4px; min-width: 15px; height: 15px; padding: 0 var(--space-4);
   border-radius: var(--radius-pill); background: var(--bg-inverse); color: var(--text-oninverse); font-size: var(--fs-10); font-weight: var(--fw-black); line-height: 15px;
   text-align: center; box-shadow: var(--ring-onink); }
-.wfh-act .g{ position: relative; }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .wfh-logo{ letter-spacing:var(--ls-display); }
@@ -140,8 +145,13 @@
   .wfh{ top:40px; }
 }
 .wfh-nav .navbtn .g{ display:inline-flex; align-items:center; }
-.wfh-act .g{ display:inline-flex; align-items:center; }
-.wfh-act.stack .lbl{ font-size:var(--fs-12); }
+/* the ROW action's mark - the stacked one's is the atom's */
+.wfh-act.numbtn .g{ display:inline-flex; align-items:center; }
+/* step 7.18: the stacked action is an ATOM and lives in stack-action.css. What
+   was here - the column, the gap, the mark size, the caption and the caret in it
+   - was written a second time in tabbar.css under different part names, so the
+   header was never its owner. This file keeps only what a HEADER knows: how tall
+   its row is and how much room it has. */
 .wfh-mi a{ transition:color .15s ease; }
 .wfh-meta a{ transition:color .15s ease; }
 .wfh-meta a:hover{ color:var(--text-action); }

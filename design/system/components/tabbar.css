@@ -9,16 +9,33 @@
 @media (max-width: 859px){
   .wf-tabbar{ display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
     background: var(--bg-page); border-top: 1px solid var(--line-hair); padding: var(--space-4) var(--space-2) calc(var(--space-4) + env(safe-area-inset-bottom, 0px)); box-shadow: var(--elevation-bar-top); }
-  .wf-tab{ flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
-    padding: var(--space-8) var(--space-2); font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--text-muted); position: relative; }
-  .wf-tab .ti{ font-size: var(--fs-20); line-height: var(--lh-flat); }
-  .wf-tab .tl{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-  .wf-tab .tbadge{ position: absolute; top: 2px; left: 50%; margin-left: var(--space-4); min-width: 15px; height: 15px;
-    padding: 0 var(--space-4); border-radius: var(--radius-pill); background: var(--bg-inverse); color: var(--text-oninverse); font-size: var(--fs-10); font-weight: var(--fw-black);
-    display: flex; align-items: center; justify-content: center; }
+  /* step 7.18: the column, the gap, the mark, the caption and the counter went
+     to `components/stack-action.css`. Every one of them had a twin in header.css
+     under a different part name - `.ti` there was `.g`, `.tl` was `.lbl` - which
+     is exactly why the two editions had already drifted apart on the glyph (20
+     against 21) and on the caption's ink. What a TAB BAR knows is below: that
+     there are five of them and they share the width equally, and how much room
+     each has. */
+  .wf-tab{ flex: 1 1 0; min-width: 0; padding: var(--space-8) var(--space-2);
+    /* the control's resting ink, which the atom does not set - in the header a
+       finish class gives it, and a tab has no finish. It was `--text-muted`,
+       and it coloured the mark AND the caption; now the atom holds the caption
+       at `--text-secondary`, so leaving the mark at muted would make the
+       drawing quieter than the word under it. A mark that leads cannot be the
+       faintest thing in its own control. */
+    color: var(--text-secondary); position: relative; }
 }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .wf-tab[aria-current="page"]::before{ content:""; position:absolute; top:0; left:50%; transform:translateX(-50%);
   width:var(--size-26); height:3px; border-radius:0 0 var(--radius-4) var(--radius-4); background:var(--bg-action); }
-.wf-tab .tbadge{ background:var(--bg-action); color:var(--text-body); }
+/* THE ACTIVE TAB'S CAPTION, and it has to be said here now - step 7.18. Before
+   the merge the caption took its colour by inheritance from `.wf-tab`, so
+   `[aria-current]` recolouring the control recoloured the word for free. The
+   atom pins the caption at `--text-secondary`, which is right for the eight
+   resting instances and wrong for the one that is current: measured after the
+   merge, all five captions came out identical and the current tab was left with
+   only its accent bar. Where the control IS is the tab bar's sentence, so the
+   tab bar says it - at a specificity that beats the atom, on purpose. */
+.wf-tab[aria-current="page"] .tl{ color:var(--text-body); font-weight:var(--fw-black); }
+/* step 7.18: the counter's colour went to the atom with the counter. */

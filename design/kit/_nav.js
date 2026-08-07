@@ -4,6 +4,11 @@
    kn-* rule. The only manual edit is a row below and `done:true` when its page
    exists; active state, counts and relative links are computed.
 
+   A PAGE OF THE STAND DECLARES NOTHING - not even its own name. It carries an
+   empty `<aside id="kitnav">` and loads this file. Step 7.19 removed the 33
+   `KIT_ACTIVE` lines that said out loud what the file name already said, after
+   one of them was copied wrong. See the derivation at the foot of the file.
+
    A not-done row renders as a <span>, not an <a>. That is deliberate and it is
    the same convention the roadmap uses: a component that has a css file but no
    page yet has to be VISIBLE on the route, because that is what says the stand
@@ -65,7 +70,7 @@ window.KIT_NAV = [
     "done": true
    },
    {
-    "label": "Іконки",
+    "label": "Набір іконок",
     "page": "icons.html",
     "done": true
    }
@@ -97,6 +102,11 @@ window.KIT_NAV = [
    {
     "label": "Іконка",
     "page": "icon.html",
+    "done": true
+   },
+   {
+    "label": "Дія стовпчиком",
+    "page": "stack-action.html",
     "done": true
    },
    {
@@ -461,7 +471,24 @@ window.KIT_NAV = [
 (function () {
   var nav = document.getElementById('kitnav');
   if (!nav) return;
-  var active = window.KIT_ACTIVE || '';
+  /* THE ACTIVE ROW IS COMPUTED, NOT DECLARED - step 7.19.
+     The head of this file has said "active state ... computed" since it was
+     written, and it was not: every page hand-declared `KIT_ACTIVE`, a copy of
+     its own file name. A copied value drifts, and it did - `stack-action.html`
+     was built from `favourite.html` and inherited `KIT_ACTIVE = 'favourite'`,
+     so the stand lit «Обране» while showing «Дія стовпчиком».
+
+     So the file name decides, and it cannot be wrong: it IS the page. The
+     declaration is kept only for a page the registry does not list - the same
+     rule the root `/_nav.js` states for `NAV_ACTIVE` - and it is consulted
+     ONLY when the file name matches no row. A stale copy can no longer beat
+     the truth, because the truth is checked first. */
+  var file = (location.pathname.split('/').pop() || 'overview.html').replace(/\.html$/, '');
+  var known = false;
+  window.KIT_NAV.forEach(function (g) {
+    g.items.forEach(function (i) { if (i.page.replace('.html', '') === file) known = true; });
+  });
+  var active = known ? file : (window.KIT_ACTIVE || '');
   var total = 0, done = 0;
   window.KIT_NAV.forEach(function (g) {
     g.items.forEach(function (i) { total++; if (i.done) done++; });

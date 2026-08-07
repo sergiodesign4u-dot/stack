@@ -2576,3 +2576,378 @@ same line `uivCurrency` draws.
 73 pages x 2 viewports = 146 page-states: **0 signs left on any control**, 0 sideways scroll, 0 JS
 errors. The drawer toggle walked by hand at 390: plus -> minus -> plus, a drawing every time, and the
 burger's ✕ drawn in its open state.
+
+---
+
+## Step 7.16 - the two icon pages stop being one name, and a rule that never worked
+
+**Asked:** why does `design/kit/icon.html` exist when `design/kit/icons.html` already describes the
+icons? **Answered by measuring both:** they are different subjects and the split is right - `icons.html`
+is the SET (which glyphs exist, optical balance, weight, brand marks), `icon.html` is the WRAPPER
+(`icon.css` - the box a glyph stands in). Same split the kit already makes between «Основи -> Колір»
+and the components that wear colour. Deleting the atom page would move the trailing-mark rule and the
+brand-ink arithmetic onto a page whose subject is glyphs.
+
+Three things were broken, and none of them was the split.
+
+**The sidebar could not tell them apart.** Three rows: `Перепис -> Іконки`, `Основи -> Іконки`,
+`Атоми -> Іконка`. Renamed the middle one to «Набір іконок». The census row keeps «Іконки» - its own
+group heading already says Перепис, and a second one inside it is noise.
+
+**Four rules were stated twice.** Size in a line, size on its own, weight, colour - both pages said all
+four in their own words. Split by owner: the SET answers for how a glyph is DRAWN (weight, the 2.4/2.6
+compensation under 14px, optical balance), the WRAPPER for how it STANDS (`1.05em`, `currentColor`, the
+trailing mark, the brand box). Each page now points at the other instead of restating.
+
+**The atom page understated itself tenfold.** It said «34 рядки, 4 екрани» about `icon.css`. Measured
+on live pages: the file is 80 lines and `.uiv-ic` is on **39 screens of 39** - every one - at **5 291**
+instances, the most-used class in the system. Plus `.uiv-ic.uiv-trail` 1 562 and `.uiv-brand` 62 on 31
+screens. The «4 screens» was counted in `wireframes/` and against two anchors out of four. Two of the
+four rules the file declares had no specimen at all - the trailing mark and the brand ink - and both
+are on the page now, live.
+
+### `.uiv-sort` deleted, and one half of it was worse than dead
+
+Step 7.2 replaced the hand-built sort control with the menu atom. The class survived in two files.
+`icon.css` had two ordinary dead rules. `toolbar.css` had something else: 7.2 removed the block and
+left the SELECTOR standing on its own line. A comment is not a rule, so the parser read through it and
+joined the orphan to the next selector:
+
+    .uiv-sort.open .uiv-sort{ position:relative; cursor:pointer; user-select:none; }
+
+a descendant that could never match, which is exactly why nothing broke and nobody noticed. Both files
+are clean; the class is in zero html and zero scripts.
+
+### The brand-ink rule had been inert since it was written
+
+Found while building the specimen: all four brand marks drew at the same size. Measured on `auth.html`
+- `--brand-ink: 20px` and google, apple, telegram, viber all drawn at exactly **20**. The equal box the
+whole rule exists to avoid. Google asked for `calc(20px * 1.2)` = 24 and was handed 20.
+
+One missing word. `.uiv-brand` is an `inline-flex` box pinned to `--brand-ink`, so the svg inside it is
+a FLEX ITEM, and a flex item shrinks by default - 24 does not fit a 20px line. `overflow: visible` gave
+the drawing permission to be PAINTED outside the box; it never gave it permission to BE bigger. That is
+`flex: none`.
+
+| | before | after |
+|---|---|---|
+| auth.html google / apple | 20 / 20 | **24 / 27.8** |
+| auth.html button height | 52 | **52** |
+| checkout.html google / apple | 18 / 18 | **21.6 / 25** |
+| checkout.html button height | 40 | **40** |
+
+The button height is the one thing step 7.3 was defending, and it did not move. Counterfactual: put
+`flex-shrink` back and all four collapse to the box again.
+
+**And the fix exposed a second defect.** The footer's messenger marks wear both classes,
+`uiv-ic uiv-brand`, and `footer.css` set `svg{ width:16px }` - reaching past the component to the
+drawing while the box stayed at 1.05em = 14.7. The same `flex-shrink` had been hiding the
+disagreement. The contract is the one `button.css` states: **the caller says how much INK, `icon.css`
+does the sum.** The footer says `--brand-ink: 16px` now; box and drawing are both 16 and the row did
+not move.
+
+### The idle check was measuring the wrong moment
+
+On `icon.html` only, and it made the page lie about itself: `.uiv-trail` is put on the mark by
+`system/marks.js`, which waits for `DOMContentLoaded`, while the check ran at parse time - so a class
+the page renders was reported as one it only names. The check now runs after the passes. The other 31
+kit pages still check at parse time, where it changes nothing because their demos carry their classes
+in the markup.
+
+---
+
+## Step 7.17 - the stacked header action gets its own rhythm
+
+**Asked:** «Увійти» and «Обране» in the header - are they in the system, and can the icons be bigger
+with some air above and below?
+
+**In the system:** yes, and half-documented. The finish is `btn--ghost btn--s` from `button.css`, the
+stacked layout is `.wfh-act.stack` in `header.css`, and the button census counts 55 of them. What it
+has no specimen for is the Хедер page, which is an organism and not built yet.
+
+**What the eye caught, in numbers.** Measured before the change:
+
+    glyph 18 · gap 8 · label 12      air above 1.2, air below 1.2
+
+The declared padding is 8 and none of it survived: content came to 41.6 in a box pinned to 44 by the
+row rule from step 7.8, so the box kept 2.4px and split it. **The gap inside the control was six times
+the air around it** - proximity said the mark and its caption belong together less than either belongs
+to the button's edge. Grouping read backwards, which is what an eye notices without being able to name.
+
+The 44 is not negotiable - 7.8 unified the whole header row on it and proved it - so the air comes out
+of the gap, where the surplus was. `20 + 2 + 12 = 34` leaves **5 above and 5 below**.
+
+`.wfh-act.stack` is a different control from `.numbtn` and already said so by declaring its own type
+size (12 against the row's 14); it now declares its own mark size too. 20 is the set's M rung, not a
+new number. The row buttons keep 18, because there the mark stands beside a 14px label rather than
+above a caption.
+
+**One more, found in the same pass:** «Кабінет ▾» came out with 1px of air where «Увійти» beside it had
+5. Its caret is a trailing mark at 1.15em - right in a line of text, wrong in a budgeted caption, where
+13.8px in a 12px line grew the box and ate the air. In a stacked caption the caret is the caption's own
+size. Measured after: 4.6 / 5 / 5 across the three, all boxes 44.
+
+Walked at 1280 and 1024 on four coloured screens plus the grey layer: every `.wfh-act` still 44, 0
+sideways scroll, 0 JS errors, and the grey prototype untouched.
+
+---
+
+## Step 7.18 - the stacked action turns out to be an atom, and it was written twice
+
+**The correction that started it.** I had said the specimen for «Увійти» / «Обране» belongs to the
+Хедер page, which is an organism and not built. Wrong, and wrong in a way worth keeping: the kit is
+built from small to large, so a control that is an ATOM cannot be waiting on an organism. Asking what
+this control actually is turned up the real defect.
+
+**It was declared twice, in two organisms, under two vocabularies:**
+
+| | control | mark | caption | counter | file |
+|---|---|---|---|---|---|
+| header | `.wfh-act.stack` | `.g` | `.lbl` | `.hb` | header.css |
+| tab bar | `.wf-tab` | `.ti` | `.tl` | `.tbadge` | tabbar.css |
+
+Neither name says what the thing IS - a mark above a caption - and that is exactly why nobody could
+see it was one control.
+
+**The convincing number is the one that agreed.** Both had `gap: 2px`. Step 7.17 derived that 2 from
+the header's 44px budget without ever looking at the tab bar, where it had been sitting for months.
+Two independent passes over one control landing on the same number is not a coincidence. The caption
+matched too: 12px, semibold, at rest.
+
+**And what had already drifted**, because two editions always do:
+
+| axis | header | tab bar | merged |
+|---|---|---|---|
+| glyph | 20 | **21** | **20**, owner - a rung of the set; 21 was `1.05em` on a 20px emoji |
+| caption ink | `--text-secondary` | **`--text-muted`** | **`--text-secondary`**, owner |
+| caption leading | flat | **19.2px inherited** | flat - a caption under a mark is one line by definition |
+
+`components/stack-action.css` holds the shape, the mark, the caption and the counter. Each organism
+keeps what it alone knows: the header its 44 row, the tab bar its fixed bar, equal fifths, safe area
+and `[aria-current]`. **Both vocabularies, one rule set** - the part names are not renamed because
+`.g` / `.lbl` / `.ti` / `.tl` also live in the frozen grey layer, so the atom answers to both and the
+rename is a Крок 6 item. Same shape as `.ci-qty, .co-qty` at 7.13.
+
+### Three things the browser caught that the file could not
+
+**The caption collapsed to 3px.** The atom took the tab bar's `overflow: hidden` (its ellipsis, for a
+word in a fifth of a phone screen) and carried it into the header, where the control is a fixed 44
+with 8px padding - a 28px padding box against a pair that needs 34. `overflow: hidden` also switches
+a flex item's automatic minimum size to zero, so flex shrank the only item that would let it and the
+word was clipped to a sliver. `flex: none` on both parts; the pair overflows the padding box
+symmetrically instead, which is what it did before the atom existed.
+
+**The header's row label was reaching the stacked caption.** `.wfh-act .lbl` is 14/bold and unscoped,
+and header.css loads after stack-action.css - so at an equal-specificity tie the organism would have
+overridden the atom it is supposed to be reading. Scoped to `.numbtn`.
+
+**The active tab lost its emphasis.** The caption used to take its colour by inheritance, so
+`[aria-current]` recolouring the control recoloured the word for free. The atom pins the caption, which
+is right for the eight resting instances and wrong for the one that is current: measured after the
+merge, all five captions came out identical and the current tab had only its accent bar left. The tab
+bar says it now, at a specificity that beats the atom, on purpose.
+
+One consequence stated rather than slipped in: the tab's resting ink went `--text-muted` ->
+`--text-secondary`, because the atom holds the caption at secondary and a mark that leads cannot be
+the faintest thing in its own control.
+
+### Proof
+
+| | header (>=1024) | tab bar (<=859) | whose |
+|---|---|---|---|
+| direction · gap · glyph | column · 2 · 20 | column · 2 · 20 | atom |
+| caption | 12 / 600 / #5B5B54 | 12 / 600 / #5B5B54 | atom |
+| box height | 44 | 50 | organism |
+| air above / below | 5 / 5 | 8 / 8 | organism |
+| active | none | accent bar + ink 800 caption | organism |
+
+0 sideways scroll at 1280, 1024, 390 and 360; 0 JS errors; the grey layer untouched, since it loads
+neither `button.css` nor this atom. `design/kit/stack-action.html` is registered in АТОМИ and its own
+idle check reports «Пройдено» - all 9 classes of the file rendered.
+
+## Step 7.19: the stand was lighting the wrong row, and the reason was a copied value
+
+Reported from the browser: `design/kit/stack-action.html` open, «Дія стовпчиком» in the heading, and
+the sidebar highlighting **«Обране»**.
+
+### What it actually was
+
+Not a nav bug. `stack-action.html` was built from `favourite.html` at step 7.18, and it inherited the
+line the source page carried:
+
+```html
+<script>var KIT_ACTIVE = 'favourite';</script>
+```
+
+Every page of the stand had one - 33 of them - and every one of them was the page's own file name
+written a second time by hand. The registry's own head has said since it was written that "active
+state, counts and relative links are computed". Two of the three were. The third was declared, and a
+declared value that duplicates a fact the runtime can already see is a value waiting to be copied
+wrong. It took 33 pages and one clone for that to happen.
+
+This is the same defect as `.ctrl .cap` at 7.13 and the two icon rules at 7.16, in a different
+material: **one fact, two editions, and nothing keeping them equal.**
+
+### The rule
+
+The file name decides, and it cannot be wrong - it IS the page. `KIT_ACTIVE` survives for one case
+only, and it is the case the root `/_nav.js` already names for `NAV_ACTIVE`: a satellite page the
+registry does not list, saying which row it belongs under. It is consulted **only when the file name
+matches no row**, so a stale copy can no longer beat the truth - the truth is checked first.
+
+Then the 33 dead declarations were swept, because a dead value left in place is a value the next
+clone will copy.
+
+### Proof
+
+The counterfactual first, since a green result on its own proves nothing. The exact stale line was
+put back into `stack-action.html` and the page reloaded:
+
+| | declared | lit |
+|---|---|---|
+| before 7.19 | `favourite` | **Обране** - the reported defect |
+| after 7.19, same stale line | `favourite` | **Дія стовпчиком** |
+
+The fix heals the defect rather than retyping the string past it. The line was then removed with the
+other 32.
+
+The satellite branch was checked too, on a throwaway page outside the registry declaring
+`KIT_ACTIVE = 'favourite'`: it lights «Обране», as it should, and the page was deleted.
+
+All 33 registered pages walked in the browser: **0 lighting the wrong row, 0 with more or fewer than
+one row lit, 0 still declaring `KIT_ACTIVE`, 0 sideways scroll at 1280, 0 JS errors.** The four demos
+of `stack-action.html` re-measured unchanged - 44 / 44 / 44 / 50, column, gap 2, glyph 20, caption
+12 / 600 / #5B5B54.
+
+## Step 7.20: under the cursor, half the control moved
+
+Reported from the stand: "I would add a hover effect" - looking at the anatomy of «Дія стовпчиком».
+
+### Two findings, and the first one was the stand's own fault
+
+The four specimens in the anatomy carried `pointer-events: none`, so hovering them did nothing at
+all. A stand that shows a control's shape and hides its behaviour is showing half a component. The
+inline style is gone and all four are live.
+
+Which made the second finding visible. Measured in the header at 1280:
+
+| | ground | mark | caption |
+|---|---|---|---|
+| at rest | transparent | #1C1C1C | #5B5B54 |
+| hover, before | #FAF9F7 | **#FF5A00** | #5B5B54 - **did not move** |
+| hover, after | #FAF9F7 | **#FF5A00** | **#FF5A00** |
+
+**Not damage from the merge, and it matters that this is said accurately.** `git show HEAD` on the
+pre-7.18 `header.css` has `.wfh-act.stack .lbl{ … color: var(--text-secondary); }` - the caption was
+pinned before the atom existed. The tab bar's caption did inherit, but the tab bar has no hover at
+all to inherit from (the button census lists `.wf-tab` under «немає»). So nowhere in the product did
+the word ever move with its mark.
+
+### The rule
+
+The pin is right at rest and wrong under the cursor. A caption under a mark is part of the control's
+NAME - that is the whole reason it is held at `--text-secondary` and not at muted - and a name cannot
+stay behind while the thing it names lights up.
+
+```css
+.btn--stack:hover .lbl, .btn--stack:hover .tl{ color: inherit; }
+```
+
+`inherit`, not a named colour: the caption takes whatever ink the finish decided on, and the atom
+never has to know which finish it was given. The caption also gets its own `transition: color .15s`,
+because a pinned colour does not ride the control's transition and the word would otherwise snap
+while the mark above it fades.
+
+**Where nothing happens is also correct.** A tab bar has no finish and declares no hover ink, so
+`inherit` returns the resting colour and the tab does not move - measured on all five. That is the
+phone's bar: a hover state there is a state no phone will ever paint. If the owner wants one, it is
+one line in `tabbar.css`, and it is the tab bar's line to write, not the atom's.
+
+### Proof
+
+| | rest | hover |
+|---|---|---|
+| header «Обране» (index) | ground transparent · mark #1C1C1C · caption #5B5B54 · 72x44 | #FAF9F7 · #FF5A00 · **#FF5A00** · 72x44 |
+| header «Кабінет ▾» (account) | ... · caret #5B5B54 · 88x44 | #FAF9F7 · #FF5A00 · **caret #FF5A00** · 88x44 |
+| tab, resting (390) | #5B5B54 / 600 · 74x50 | **identical** |
+| tab, `[aria-current]` (390) | #1C1C1C / 800 · 74x50 | **identical** |
+
+The caret follows without a word from anyone - it is `currentColor` inside the caption. No box moved
+by a pixel in any state, so nothing reflows on hover. The counter badge is untouched. The two boxed
+`.numbtn` counters are untouched, which matters because step 6.3 decided on purpose that their label
+does NOT turn accent: that decision is about a different finish and still stands, at 124px wide with
+`#1C1C1C` / `#5B5B54` unchanged.
+
+### And one language defect swept on the way
+
+The stands' idle check printed «усі **1** станів названі» - broken Ukrainian on the eight pages that
+declare exactly one state. The template now reads «названо станів: N», which is right for any number,
+and the failure branch with it. Fixed on all 22 pages that carry the script - and the script being
+pasted into 22 pages is itself a Крок 6 item, noted here rather than fixed in passing.
+
+All 33 stands re-walked: 0 wrong nav rows, 0 sideways scroll at 1280, 0 JS errors, and every idle
+check reading grammatically. The grey layer loads `_wf.css` only and never sees this file.
+
+## Step 7.21: two letters, two meanings, and nothing that knew the difference
+
+Reported from the phone: `design/index.html` at 360x852, tab bar → «Каталог» → the catalogue
+overlay, where every mark sat ON the first letter of its label and every row wore a short grey dash
+underneath.
+
+### What it was
+
+`.ci` is used by the product for **two different things**:
+
+| markup | what it is | where |
+|---|---|---|
+| `<article class="ci">` | a row of the cart, 14 in the product | `design/*.html` |
+| `<span class="ci">` | the mark of a row in the mobile catalogue overlay | built by `wireframes/_nav.js` |
+
+`cart-row.css` claimed the bare class, so the cart row's rule - a grid with a 74px column, 16px of
+vertical padding and a bottom hairline - also landed on a 24px icon box. Measured on the overlay at
+360 before the fix:
+
+| | before | after |
+|---|---|---|
+| `.ci` box | 24 wide, **52 tall** | 24 x 29 |
+| its child | stretched to the **74px** column, drawing centred at x=44 | drawing at its own left |
+| label starts at | 52 | 52 |
+| mark → label | **−10px, i.e. overlapping** | **+15px** |
+| stray dash under each row | 13 of them (the rule's `border-bottom`) | **0** |
+| row height | 85 | 62 |
+| rows visible on one screen | 9 | 13 |
+
+The overlay's other two levels had it too - the goal list and «Усі товари: …» both use `.ci`.
+
+### The rule
+
+```css
+article.ci{ … }
+```
+
+Scoped by ELEMENT rather than by a new class, because the markup already says which is which and it
+says it in both layers at once: a cart row is an `<article>` in all 14 places, a mark is a `<span>`.
+Adding a class would mean editing `wireframes/`, frozen since stage 05. Same defect as `.uiv-sort`
+at 7.16 and `.ctrl .cap` at 7.13, in its most literal form: one name, two meanings.
+
+**Older than this file, and said out loud rather than quietly inherited.** `wireframes/_wf.css:1626`
+carries the same bare `.ci`, and the grey prototype shows the same overlap and the same dash -
+verified in the browser at 360. It arrived here at the step-3 split, which copied selectors unchanged
+on purpose. The grey twin is NOT fixed here: structure is the grey layer's own, and it is frozen. One
+identical line closes it whenever its owner says so.
+
+### Proof
+
+The counterfactual first: the scope was rolled back to `.ci`, the cache cleared and the same three
+measurements taken again - overlap returned at −10, `.ci` 52 tall, the dash back on all 13 rows.
+Restored, and the cart re-measured on both sides:
+
+| | 360 | 1280 |
+|---|---|---|
+| first three rows, height | 208 / 186 / 179 | 190 / 186 / 179 |
+| columns | `74px 212px` | `74px 302px` |
+| padding · hairline · thumbnail | 16px 0 · 1px · 74 | 16px 0 · 1px · 74 |
+
+Identical before and after, to the pixel, on every row. The cart drawer's rows still read
+`74px 302px` with a 74px thumbnail. All three levels of the overlay walked at 360: marks clear of
+their labels, no stray dashes, `display` back to block, padding 0.

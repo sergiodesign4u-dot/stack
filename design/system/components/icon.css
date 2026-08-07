@@ -68,8 +68,21 @@
      descender the mark does not have - which is where the last two pixels of the
      difference came from. */
   vertical-align:middle; line-height:0; }
-.uiv-brand svg{ width:var(--brand-ink); height:var(--brand-ink); display:block; }
+/* `flex: none`, and without it everything above this line was inert - step 7.16.
+   `.uiv-brand` is an `inline-flex` box pinned to `--brand-ink`, so the svg inside
+   it is a FLEX ITEM, and a flex item shrinks by default. Google asked for
+   `calc(20px * 1.2)` = 24 and was handed 20, because 24 does not fit in a 20px
+   line. Measured on auth.html: `--brand-ink: 20px` and all four marks drawn at
+   exactly 20 - the equal box the whole rule exists to avoid.
+   `overflow: visible` gave the drawing permission to be painted outside the box;
+   it never gave it permission to BE bigger. That is what this line does. */
+.uiv-brand svg{ width:var(--brand-ink); height:var(--brand-ink); display:block; flex:none; }
 .uiv-brand svg[data-mark="google"]{ width:calc(var(--brand-ink) * 1.2); height:calc(var(--brand-ink) * 1.2); }
 .uiv-brand svg[data-mark="apple"]{ width:calc(var(--brand-ink) * 1.39); height:calc(var(--brand-ink) * 1.39); }
-.uiv-sort .uiv-ic{ transition:transform .18s ease; }
-.uiv-sort.open .uiv-ic{ transform:rotate(180deg); }
+/* step 7.16: the two `.uiv-sort` rules that stood here are gone. The class was
+   the hand-built sort control, and step 7.2 replaced it with the menu atom -
+   `.menu.open .menu-trig .uiv-ic` turns the caret over now, in menu.css, where
+   the control lives. `.uiv-sort` appears in ZERO html files and ZERO scripts;
+   the only place it survived was this file, toolbar.css, and the prose of two
+   stand pages calling it «somebody else's context» in their idle check - which
+   is how a class nobody uses goes on being counted as one that is used. */

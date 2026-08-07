@@ -5,7 +5,30 @@
    Colour reads a semantic role, geometry reads a primitive. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
-.ci{ display: grid; grid-template-columns: 74px 1fr; gap: var(--space-12); padding: var(--space-16) 0; border-bottom: 1px solid var(--line-hair); }
+/* `article.ci`, and the element is doing real work here - step 7.21.
+   `.ci` is two letters and the product uses it for TWO different things:
+   `<article class="ci">` is a row of the cart (14 in the product), and
+   `<span class="ci">` is the mark of a row in the mobile catalogue overlay,
+   which `wireframes/_nav.js` builds. Nothing separated them, so this rule -
+   a grid with a 74px column, 16px of vertical padding and a bottom hairline -
+   also landed on a 24px icon box. Measured on the overlay at 360 before the
+   fix: the box came out 24 WIDE and 52 TALL, its only child stretched to the
+   74px column and centred the drawing at x=44 while the label started at 52,
+   so the mark sat ON the first letter with 11px of overlap; every row wore a
+   stray 24px dash under it, which was this rule's `border-bottom`; and the row
+   grew from 53 to 85 because of the padding.
+
+   Scoped by ELEMENT rather than by a new class because the markup already says
+   which is which, and it says it in both layers at once: a cart row is an
+   `<article>` in all 14 places, a mark is a `<span>`. Adding a class would mean
+   editing `wireframes/`, frozen since stage 05. This is the same defect as
+   `.uiv-sort` at 7.16 and `.ctrl .cap` at 7.13, in its most literal form: one
+   name, two meanings, and nothing in the code that knew the difference.
+
+   The defect is OLDER than this file - `_wf.css:1626` carries the same bare
+   `.ci`, and the grey prototype shows the same overlap and the same dash. It
+   came here at the step-3 split, which copied selectors unchanged on purpose. */
+article.ci{ display: grid; grid-template-columns: 74px 1fr; gap: var(--space-12); padding: var(--space-16) 0; border-bottom: 1px solid var(--line-hair); }
 .ci-ph{ width: 74px; aspect-ratio: 10/11; border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
 .ci-mid{ min-width: 0; }
 .ci-brand{ font-size: var(--fs-12); }
@@ -34,7 +57,7 @@
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .ci-price:has(.ci-old) .ci-sum{ color:var(--text-action); }
-.ci{ border-bottom-color:var(--line-hair); }
+article.ci{ border-bottom-color:var(--line-hair); }   /* scoped with the line above - step 7.21 */
 .ci-ph{ background:var(--bg-page) center/80% no-repeat; border-color:var(--line-hair); border-radius:var(--radius-12); color:transparent; }
 .ci-brand{ color:var(--text-muted); }
 .ci-nm{ color:var(--text-body); transition:color .15s ease; }

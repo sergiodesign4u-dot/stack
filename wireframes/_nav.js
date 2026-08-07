@@ -1631,7 +1631,7 @@ function wfTabbarHTML(role, opts) {
     var cur = (t.k === active) ? ' aria-current="page"' : '';
     var oc = t.cat ? ' onclick="return wfCatTabClick(event)"' : '';
     var badge = (t.badge > 0) ? '<span class="tbadge">' + t.badge + '</span>' : '';
-    return '<a class="wf-tab" href="' + t.href + '"' + cur + oc + '><span class="ti">' + t.ic + badge + '</span><span class="tl">' + t.l + '</span></a>';
+    return '<a class="btn--stack wf-tab" href="' + t.href + '"' + cur + oc + '><span class="ti">' + t.ic + badge + '</span><span class="tl">' + t.l + '</span></a>';
   }).join('');
 }
 function wfHeader(role, opts) {
@@ -1645,7 +1645,7 @@ function wfHeader(role, opts) {
   const name = isCoach ? 'Олена Кравець' : 'Вікторія Коваль';
   let acctHTML;
   if (!loggedIn) {
-    acctHTML = `<a class="btn--ghost btn--s wfh-act stack" href="auth.html" onclick="openAuth('phone');return false"><span class="g">👤</span><span class="lbl">Увійти</span></a>`;
+    acctHTML = `<a class="btn--ghost btn--s btn--stack wfh-act stack" href="auth.html" onclick="openAuth('phone');return false"><span class="g">👤</span><span class="lbl">Увійти</span></a>`;
   } else {
     let items = `<div class="cab-head"><span class="cab-nm">${name}</span>` +
       (isCoach ? `<span class="cab-tier">Pro</span>` : `<span class="cab-lvl">🥈 Срібний рівень</span>`) + `</div>`;
@@ -1658,7 +1658,7 @@ function wfHeader(role, opts) {
         `<a href="account.html">Адреси</a><a href="coach-verify.html">Стати тренером</a>`;
     }
     items += `<div class="cab-sep"></div><a href="index.html">Вийти</a>`;
-    acctHTML = `<div class="wfh-cab"><button class="btn--ghost btn--s wfh-act stack wfh-cabbtn" onclick="toggleCab(event)" aria-haspopup="true" aria-expanded="false">` +
+    acctHTML = `<div class="wfh-cab"><button class="btn--ghost btn--s btn--stack wfh-act stack wfh-cabbtn" onclick="toggleCab(event)" aria-haspopup="true" aria-expanded="false">` +
       `<span class="g">👤</span><span class="lbl">Кабінет ▾</span></button>` +
       `<div class="wfh-cabmenu" id="wfh-cabmenu" role="menu">${items}</div></div>`;
   }
@@ -1705,7 +1705,7 @@ function wfHeader(role, opts) {
       </div>
       <div class="wfh-actions">
         ${acctHTML}
-        <a class="btn--ghost btn--s wfh-act stack" href="${favHref}"><span class="g">♡${favBadge}</span><span class="lbl">Обране</span></a>
+        <a class="btn--ghost btn--s btn--stack wfh-act stack" href="${favHref}"><span class="g">♡${favBadge}</span><span class="lbl">Обране</span></a>
         <a class="btn--outline btn--s wfh-act numbtn" href="${bonusHref}"><span class="g">★</span><span class="t"><span class="cap">Бонуси</span><span class="val">${bonusVal}</span></span></a>
         ${cartActHTML}
       </div>

@@ -36,10 +36,19 @@
 
 .mtoolbar .mc .b{ background:var(--bg-action); color:var(--text-body); }
 /* step 6.3: local edition of the outline hover deleted - the finish has it. */
-.uiv-sort.open 
 /* ---------- moved out of base.css (stage 08 step 5) ----------
    These rules were parked in base.css by the step-3 split. base.css loads
    ABOVE every atom, so `.uiv-tc-ic svg` lost a same-specificity tie to
    `.uiv-ic svg` in icon.css and the footer trust icon shrank from 24px to
    1.05em. A class rule belongs to its component, never to base. */
-.uiv-sort{ position:relative; cursor:pointer; user-select:none; }
+
+/* step 7.16: `.uiv-sort` deleted here too, and it was worse than dead. Step 7.2
+   removed the block that `.uiv-sort.open` opened and left the SELECTOR standing
+   on its own line. A comment is not a rule, so the parser read straight through
+   it and joined that orphan to the next selector:
+
+     .uiv-sort.open .uiv-sort{ position:relative; cursor:pointer; ... }
+
+   a descendant that could never match anything, which is why nothing broke and
+   nobody noticed. Both halves are gone; the class exists in no html and no
+   script. */

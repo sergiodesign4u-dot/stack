@@ -73,7 +73,8 @@
 <div class="iaud" id="aud-ctr"></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмір, товщина, колір</div>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Правило</th><th>Чому</th></tr></thead><tbody><tr><td><b>Розмір у рядку</b></td><td><code>1.05em</code></td><td>Іконка росте разом з підписом: змінили кегль - іконка пішла за ним, і рядок не розсипався.</td></tr><tr><td><b>Розмір окремо</b></td><td>фіксований px</td><td>Стоїть без тексту - успадковувати нема від чого.</td></tr><tr><td><b>Товщина</b></td><td><code>1.9</code></td><td>Одна на весь набір. Товщина задана в модулях <code>viewBox</code>, тому масштабується разом з гліфом.</td></tr><tr><td><b>Виняток</b></td><td><code>2.4</code> і <code>2.6</code> під 14px</td><td>На 10px штрих 1.9 рендериться в <b>0.79px</b> і зникає. Компенсація на дрібних розмірах - практика, а не дрейф.</td></tr><tr><td><b>Колір</b></td><td><code>currentColor</code></td><td>Жоден гліф не оголошує колір: його задає роль тексту поруч, і зв'язок не рветься.</td></tr></tbody></table></div>
+<p class="kp-p"><b>Що тут, а що на сторінці оправи.</b> Набір відповідає за те, як гліф <b>намальовано</b>: товщина штриха, компенсація на дрібних розмірах, оптичний баланс. Оправа - за те, як гліф <b>стоїть</b>: розмір у рядку, колір, мітка в кінці підпису, брендова коробка. До кроку 7.16 обидві сторінки називались «Іконки» і чотири правила стояли на них двічі; тепер у кожного один власник.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Правило</th><th>Чому</th></tr></thead><tbody><tr><td><b>Розмір</b></td><td>оголошує <b>оправа</b></td><td><code>1.05em</code> у рядку, фіксовані px окремо - це правила <code>icon.css</code>, не набору. Див. <b>Атоми &rarr; Іконка</b>.</td></tr><tr><td><b>Товщина</b></td><td><code>1.9</code></td><td>Одна на весь набір. Товщина задана в модулях <code>viewBox</code>, тому масштабується разом з гліфом.</td></tr><tr><td><b>Виняток</b></td><td><code>2.4</code> і <code>2.6</code> під 14px</td><td>На 10px штрих 1.9 рендериться в <b>0.79px</b> і зникає. Компенсація на дрібних розмірах - практика, а не дрейф.</td></tr><tr><td><b>Колір</b></td><td>оголошує <b>оправа</b></td><td>Жоден гліф кольору не має - тут це <b>факт набору</b>. Що з ним робить <code>currentColor</code>, сказано в <b>Атоми &rarr; Іконка</b>.</td></tr></tbody></table></div>
 <div class="kp-row" style="gap:26px;align-items:center;margin-top:14px" id="swatch"></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Набір: <b><span id="n-set">…</span></b> гліфів</div>
@@ -267,7 +268,6 @@ function MINE(p){ return false; }
 })();
 </script>
 </main>
-<script>var KIT_ACTIVE = 'icons';</script>
 <script src="_nav.js"></script>
 </body>
 </html>

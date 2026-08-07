@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Дія стовпчиком | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
+     a demo that only LOOKS like the component proves nothing about it. -->
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент &middot; рівень 1</div>
+<h1 class="kp-h1">Дія стовпчиком</h1>
+<p class="kp-lead">Мітка над підписом. Контрол, названий малюнком зі словом під ним - одне натискання, один напрямок.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/stack-action.css</span><span class="kp-tag">2 організми</span><span class="kp-tag">8 входжень</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Цього атома не існувало, хоча він був написаний двічі</div>
+<div class="kp-gap"><h4>Крок 7.18: два словники на ті самі три частини</h4>
+<p class="kp-p">Форму написали <b>всередині двох організмів</b> і назвали іменами організмів. Жодне з імен не каже, що це таке насправді:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th></th><th>контрол</th><th>мітка</th><th>підпис</th><th>лічильник</th><th>файл</th></tr></thead><tbody>
+<tr><td><b>шапка</b></td><td><code>.wfh-act.stack</code></td><td><code>.g</code></td><td><code>.lbl</code></td><td><code>.hb</code></td><td><code>header.css</code></td></tr>
+<tr><td><b>таб-бар</b></td><td><code>.wf-tab</code></td><td><code>.ti</code></td><td><code>.tl</code></td><td><code>.tbadge</code></td><td><code>tabbar.css</code></td></tr>
+</tbody></table></div>
+<p class="kp-p">Найпереконливіше не те, що розійшлось, а те, що <b>збіглось</b>: <code>gap: 2px</code> в обох. Крок 7.17 вивів цю двійку з бюджету шапки в 44px, жодного разу не заглянувши в таб-бар, де вона стояла давно. Коли два незалежні проходи над одним контролом дають однакове число, це не збіг - це атом, якого ніхто не назвав. Підпис теж збігався: 12px, semibold, у спокої.</p></div>
+<div class="kp-do"><h4>А це вже розійшлось, бо два видання завжди розходяться</h4>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Шапка</th><th>Таб-бар</th><th>Зведено</th></tr></thead><tbody>
+<tr><td>гліф</td><td>20</td><td><b>21</b></td><td><b>20</b> - сходинка набору; 21 було випадковістю <code>1.05em</code> на 20-піксельному емодзі</td></tr>
+<tr><td>чорнило підпису</td><td><code>--text-secondary</code></td><td><b><code>--text-muted</code></b></td><td><b><code>--text-secondary</code></b> - слово під міткою це частина імені контрола, а не приглушений шум поруч</td></tr>
+<tr><td>інтерліньяж підпису</td><td>flat</td><td><b>19.2px</b></td><td><b>flat</b> - підпис під міткою це один рядок за визначенням</td></tr>
+</tbody></table></div>
+<p class="kp-p">Обидва числа - рішення власника, сказані вголос, а не всереднені.</p></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<div class="kp-demo" style="display:flex;gap:var(--space-24);align-items:center;flex-wrap:wrap">
+  <span class="btn--ghost btn--s btn--stack" style="height:44px;padding:var(--space-8) var(--space-12)"><span class="g"><span class="uiv-ic" data-glyph="heart"></span></span><span class="lbl">Обране</span></span>
+  <span class="btn--ghost btn--s btn--stack" style="height:44px;padding:var(--space-8) var(--space-12)"><span class="g"><span class="uiv-ic" data-glyph="heart"></span><span class="hb">6</span></span><span class="lbl">Обране</span></span>
+  <span class="btn--ghost btn--s btn--stack" style="height:44px;padding:var(--space-8) var(--space-12)"><span class="g"><span class="uiv-ic" data-glyph="user"></span></span><span class="lbl">Кабінет <span class="uiv-ic uiv-trail" data-glyph="chevron"></span></span></span>
+  <span class="btn--stack" style="width:74px;padding:var(--space-8) var(--space-2);color:var(--text-secondary)"><span class="ti"><span class="uiv-ic" data-glyph="cart"></span><span class="tbadge">3</span></span><span class="tl">Кошик</span></span>
+</div>
+<div class="kp-cap">наведіть - у перших трьох приходить теплий ґрунт, а мітка <b>і підпис разом</b> ідуть в акцент; четвертий не рухається, бо в таб-бара немає фінішу, і це правильно</div>
+<p class="kp-p">Перші три - як у шапці (<code>.g</code> / <code>.lbl</code> / <code>.hb</code>), четвертий - як у таб-барі (<code>.ti</code> / <code>.tl</code> / <code>.tbadge</code>). Одне правило, два словники, і зовні їх не відрізнити - у цьому й був сенс кроку.</p>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Мітка</b> - <b>20</b>, сходинка M набору. Її читають першою, тому вона більша за підпис під нею</span></div><div class="a"><i>2</i><span><b>Проміжок 2</b> - і він мусить бути <b>меншим</b> за повітря навколо пари, інакше близькість каже, що мітка й підпис належать одне одному менше, ніж кожне - краю кнопки</span></div><div class="a"><i>3</i><span><b>Підпис</b> - 12 / semibold / <code>--text-secondary</code>, інтерліньяж flat</span></div><div class="a"><i>4</i><span><b>Лічильник</b> - висить на <b>мітці</b>, бо рахує те, що мітка позначає, а не те, що підпис називає</span></div></div>
+<p class="kp-p">Це розмітка продукту з <code>wireframes/_nav.js</code>. Клас <code>btn--stack</code> <b>доданий</b> до старих імен, а не замість них: <code>.g</code>, <code>.lbl</code>, <code>.ti</code>, <code>.tl</code> живуть і в <code>wireframes/</code>, замороженому з етапу 05. Додати клас безпечно в обидва боки, перейменувати - ні, тож атом сьогодні відгукується на обидва словники. Перейменування - пункт Кроку 6.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Однакове й різне: два входження поруч</div>
+<p class="kp-p">Виміряно на живих екранах після зведення. Однакове - те, що атом оголошує. Різне - те, що належить організму, який контрол ставить.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th></th><th>Шапка (&ge;1024)</th><th>Таб-бар (&le;859)</th><th>Чиє</th></tr></thead><tbody>
+<tr><td>напрям</td><td>column</td><td>column</td><td class="c">атом</td></tr>
+<tr><td>проміжок</td><td>2</td><td>2</td><td class="c">атом</td></tr>
+<tr><td>гліф</td><td>20</td><td>20</td><td class="c">атом</td></tr>
+<tr><td>підпис</td><td>12 / 600 / #5B5B54</td><td>12 / 600 / #5B5B54</td><td class="c">атом</td></tr>
+<tr><td><b>висота коробки</b></td><td><b>44</b></td><td><b>50</b></td><td class="c">організм</td></tr>
+<tr><td><b>повітря зверху / знизу</b></td><td><b>5 / 5</b></td><td><b>8 / 8</b></td><td class="c">організм</td></tr>
+<tr><td><b>активний стан</b></td><td>немає</td><td><code>[aria-current]</code>: акцентна смуга зверху, підпис чорнильний і black</td><td class="c">організм</td></tr>
+<tr><td><b>місце лічильника</b></td><td>кут мітки</td><td>осьова лінія вкладки</td><td class="c">атом, дві прив\'язки</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Коли контрол має бути <b>вузьким і впізнаваним з відстані</b>: ряд дій у шапці на десктопі й таб-бар на телефоні. Мітка тримає впізнавання, підпис знімає загадку - принцип 5, «звичайні слова в підписах». Якщо місця вистачає на рядок, беріть звичайну <b>Кнопку</b>: стовпчик коштує висоти.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Проміжок усередині менший за повітря навколо.</b> Мітка й підпис це одна річ, і відстань має це казати. До кроку 7.17 у шапці було 8 усередині і 1.2 назовні - групування читалось навиворіт, і око це бачило, не вміючи назвати.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не давай підпису <code>overflow:hidden</code> без <code>flex:none</code>.</b> Приховане переповнення обнуляє автоматичний мінімум flex-елемента, і в коробці зі сталою висотою підпис стискається до нуля. Виміряно на цьому ж кроці: 3px і слово, обрізане до смужки.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
+<p class="kp-p">Атом має <b>один</b> стан, і рівно той, що належить йому: <code>:hover</code> знімає з підпису пришпильку. Усе інше дає той, хто контрол поставив - у шапці ґрунт і чорнило приходять з фінішу <code>btn--ghost</code>, у таб-барі активність каже <code>[aria-current]</code>. Стан «де ти є» знає організм, а не контрол.</p>
+<div class="kp-gap"><h4>Крок 7.20: під курсором рухалась половина контрола</h4>
+<p class="kp-p">Виміряно в шапці на 1280. У спокої ґрунт прозорий, мітка <code>#1C1C1C</code>, підпис <code>#5B5B54</code>. Під курсором <code>btn--ghost</code> підіймає теплий ґрунт і веде чорнило в акцент - а підпис лишався <code>#5B5B54</code>:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th></th><th>ґрунт</th><th>мітка</th><th>підпис</th></tr></thead><tbody>
+<tr><td>спокій</td><td>прозорий</td><td>#1C1C1C</td><td>#5B5B54</td></tr>
+<tr><td>наведення <b>до</b> 7.20</td><td>#FAF9F7</td><td><b>#FF5A00</b></td><td>#5B5B54 - <b>не зрушив</b></td></tr>
+<tr><td>наведення <b>після</b></td><td>#FAF9F7</td><td><b>#FF5A00</b></td><td><b>#FF5A00</b></td></tr>
+</tbody></table></div>
+<p class="kp-p">Це не збиток зведення: <code>.wfh-act.stack .lbl</code> тримала колір і до 7.18, а таб-бар, чий підпис успадковував колір, ховера не має взагалі - тож ніде в продукті слово не рухалось разом зі своєю міткою.</p>
+<p class="kp-p">Пришпилька правильна у спокої й хибна під курсором. Підпис під міткою - <b>частина імені контрола</b>, саме тому він тримається на <code>--text-secondary</code>, а не на muted; ім'я не може лишатись позаду, коли те, що воно називає, засвітилось. Тому <code>inherit</code>, а не названий колір: підпис бере те чорнило, яке вирішив фініш, і атому не треба знати, який фініш йому дали.</p></div>
+<p class="kp-p"><b>Де не відбувається нічого - теж правильно.</b> У таб-бара фінішу немає й ховерного чорнила він не оголошує, тож <code>inherit</code> повертає колір спокою і вкладка не рухається. Це смуга телефона: ховер там - це стан, який жоден телефон не намалює. Активна вкладка під курсором тримає свій чорнильний підпис, бо <code>.wf-tab[aria-current] .tl</code> в'яже це правило за специфічністю і вантажиться пізніше.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>9</b> власних класів і <b>1</b> стан оголошено в <code>stack-action.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["btn--stack", "g", "lbl", "ti", "tl", "hb", "tbadge", "uiv-ic", "uiv-trail"], KIT_STS=[":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;a class="btn--ghost btn--s btn--stack wfh-act stack" href="..."&gt;
+  &lt;span class="g"&gt;&#9825;&lt;span class="hb"&gt;6&lt;/span&gt;&lt;/span&gt;
+  &lt;span class="lbl"&gt;Обране&lt;/span&gt;
+&lt;/a&gt;
+
+&lt;a class="btn--stack wf-tab" href="..." aria-current="page"&gt;
+  &lt;span class="ti"&gt;&#9825;&lt;span class="tbadge"&gt;6&lt;/span&gt;&lt;/span&gt;
+  &lt;span class="tl"&gt;Обране&lt;/span&gt;
+&lt;/a&gt;</div>
+<p class="kp-p">Два словники частин - це борг, а не задум. Одне правило їх обслуговує, як <code>.ci-qty, .co-qty</code> у <b>Лічильнику кількості</b>; звести імена можна буде тоді ж, коли розморозиться сірий шар.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.btn--stack</code></p>
+<p class="kp-p"><b>Шапка</b> - «Увійти» / «Кабінет&nbsp;&#9662;» і «Обране», на кожному екрані від 1024. <b>Таб-бар</b> - п\'ять вкладок, на кожному екрані до 859. Обидва будує <code>wireframes/_nav.js</code>, тож у розмітці сторінок їх немає - рахувати треба в браузері.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Два словники частин</b> - <code>.g</code>/<code>.ti</code>, <code>.lbl</code>/<code>.tl</code>, <code>.hb</code>/<code>.tbadge</code>. Правило вже одне, імена ще ні; перейменування чекає Кроку 6</li>
+<li><b>Немає фокуса</b> - у шапці кільце дає <code>btn--ghost</code>, у таб-барі немає нічого: вкладка, до якої дійшли клавіатурою, не відрізняється від сусідньої. Ховер атом закрив на кроці 7.20, фокус - ні, бо кільце малює фініш, а в таб-бара фініша немає</li>
+<li><b>Дотик 44 не перевірено для вкладки</b> - коробка 50 заввишки, але ширина це п\'ята частина екрана: на 320px це 64, а на вужчих не міряно</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script>
+/* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
+   screen. A page that pastes the paths carries a second edition of the set, and a
+   second edition is the thing this stage spent two steps deleting. */
+(function(){
+  document.querySelectorAll('[data-brand]').forEach(function(e){
+    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
+  });
+  document.querySelectorAll('[data-glyph]').forEach(function(e){
+    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
+  });
+})();
+</script>
+<script>
+/* The page checks ITSELF against its file. Everything a person can see counts as
+   shown: a rendered demo, a class named in the markup block, a class named inside
+   any <code> on the page. What is left is what the file declares and the showcase
+   never puts in front of anyone. */
+(function(){
+  /* Two levels, because they are not the same thing. RENDERED means the class is
+     on a live element inside a demo - a person sees the component. NAMED means it
+     is only written out in the markup block or in a <code>. A page that names a
+     class it never renders is describing the file, which is exactly the habit
+     this stage set out to break. */
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+</main>
+<script src="_nav.js"></script>
+</body>
+</html>

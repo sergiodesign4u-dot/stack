@@ -23,20 +23,35 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Іконка</h1>
-<p class="kp-lead">Обгортка навколо inline-SVG з набору Solar. Сама іконка кольору не має: вона успадковує <code>currentColor</code>, тому колір задає роль тексту поруч.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/icon.css</span><span class="kp-tag">34 рядків</span><span class="kp-tag">4 екранів</span></div>
+<p class="kp-lead">Обгортка навколо inline-SVG. Не гліф, а <b>коробка, у якій гліф стоїть</b>: скільки місця займає, як тримає рядок, звідки бере колір і розмір.</p>
+<p class="kp-p" style="margin-top:var(--space-8)">Які гліфи існують, як вони намальовані, чому штрих саме такий і чому брендові марки навмисно не з набору - це <b>Основи &rarr; Набір іконок</b>. Тут - <code>icon.css</code>, тобто оправа. До кроку 7.16 обидві сторінки називались «Іконки», і чотири правила стояли на них двічі; тепер кожне має одного власника і посилання на другого.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/icon.css</span><span class="kp-tag">80 рядків</span><span class="kp-tag">39 екранів</span><span class="kp-tag">5 291 входження</span></div>
+<div class="kp-gap" style="margin-top:var(--space-16)"><h4>Крок 7.16: сторінка применшувала себе вдесятеро</h4><p class="kp-p">Тут стояло «34 рядки, <b>4 екрани</b>». Виміряно на живих сторінках: <code>.uiv-ic</code> є на <b>39 екранах із 39</b> - на кожному - і це <b>5 291</b> входження, найчастіший клас усієї системи. Плюс <code>.uiv-brand</code> 62 на 31 екрані і <code>.uiv-ic.uiv-trail</code> <b>1 562</b>. «4 екрани» рахувались по <code>wireframes/</code> і по двох якорях із чотирьох.</p><p class="kp-p">І два правила з чотирьох, які файл оголошує, ця сторінка не показувала <b>взагалі</b>: мітка в кінці підпису й математика брендового чорнила. Обидва нижче.</p></div>
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <div class="kp-demo"><div class="kp-row" style="align-items:center;gap:18px;font-size:22px"><span class="uiv-ic" style="color:var(--text-primary)">&#9733;</span><span class="uiv-ic" style="color:var(--text-action)">&#9679;</span><span class="uiv-ic" style="color:var(--text-muted)">&#9662;</span></div></div>
+<p class="kp-p" style="margin-top:var(--space-16)"><b><code>.chev</code></b> - шеврон, який <b>обертається</b>, коли рядок відкривається. Це єдиний клас файлу, що має власну анімацію, і живе він у коробці, а не в гліфі: <code>marks.js</code> міняє знак усередині, а поворот лишається на коробці - інакше заміна забрала б його з собою. 16 входжень.</p>
+<div class="kp-demo" style="display:flex;gap:var(--space-24);align-items:center"><span>закрито <span class="chev">&#9662;</span></span><span>відкрито <span class="chev" style="transform:rotate(180deg)">&#9662;</span></span></div>
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Обгортка <code>.uiv-ic</code></b> - inline-flex і <code>line-height:0</code> - інакше гліф зсуває рядок</span></div><div class="a"><i>2</i><span><b>SVG</b> - розмір у <code>em</code>, тому іконка росте разом з текстом</span></div><div class="a"><i>3</i><span><b>Колір</b> - <code>currentColor</code> - іконка не вирішує сама</span></div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Розмір</b></td><td><code>1.05em</code> базовий · фіксований у px там, де поруч немає тексту</td><td>В рядку - em, щоб іконка масштабувалась із підписом. Окремо - px, бо успадковувати нема від чого.</td></tr><tr><td><b>Колір</b></td><td>успадкований</td><td>Іконка ніколи не оголошує колір сама. Хочеш іншу - зміни роль тексту, у якому вона стоїть.</td></tr></tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Розмір</b></td><td><code>1.05em</code> базовий · фіксований у px там, де поруч немає тексту</td><td>В рядку - em, щоб іконка масштабувалась із підписом. Окремо - px, бо успадковувати нема від чого.</td></tr><tr><td><b>Колір</b></td><td>успадкований</td><td>Іконка ніколи не оголошує колір сама. Хочеш іншу - зміни роль тексту, у якому вона стоїть.</td></tr><tr><td><b>Мітка в кінці</b></td><td><code>.uiv-trail</code> - <code>1.15em</code> плюс <code>--space-4</code> зліва</td><td>Стрілка після підпису це <b>пунктуація речення</b>, а не іменник: вона росте з підписом, а не зі шкалою кнопки. 1 562 входження.</td></tr><tr><td><b>Брендова марка</b></td><td><code>.uiv-brand</code> - коробка <code>--brand-ink</code>, малюнок переростає її</td><td>Кожна марка заповнює свій viewBox по-різному, тож рівна коробка дає нерівне чорнило. 62 входження.</td></tr></tbody></table></div><p class="kp-p"><b>Товщина штриха тут не оголошується.</b> Вона задана в самих шляхах гліфів, тобто належить наборові - див. <b>Основи &rarr; Набір іконок</b>, розділ «Розмір, товщина, колір».</p>
 </section>
 
-<section class="kp-sec"><div class="kp-sh">Що зведено <b>на кроці 5.5</b></div>
-<p class="kp-p">Рішення живе там, де на нього дивляться. Перепис показав дрейф, крок 5.5 його зняв - і цей блок каже, <b>що саме обрали, що лишили і чому</b>, на сторінці самого компонента, а не тільки в журналі.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Було</th><th>Стало</th><th>Чому</th></tr></thead><tbody><tr><td><b>Товщина лінії</b></td><td><code>6</code></td><td><code>4</code></td><td>1.5 і 1.7 були трьома гліфами, що відбились від набору - зведені в <b>1.9</b>. 2.4 і 2.6 лишились навмисно: товщина задана в одиницях viewBox, тому іконка 24 у 10px малює свій штрих у 0.79px і зникає. <b>Одна товщина на всіх розмірах шкали; під 14px штрих компенсує.</b> <code>1px</code> у 124 місцях ще не розібрано.</td></tr><tr><td><b>Розмір</b></td><td><code>30 різних</code></td><td><code>не зводили</code></td><td>Свідомо. Більшість це <code>1.05em</code> від сусіднього тексту, тобто іконка робить те, що має - росте з підписом. Шкала для іконок <i>без</i> підпису - етап 09.</td></tr></tbody></table></div></section>
+<section class="kp-sec"><div class="kp-sh">Мітка в кінці підпису</div>
+<div class="kp-demo" style="display:flex;gap:var(--space-24);align-items:center;flex-wrap:wrap"><a class="btn--text btn--inline" href="#">Для тренерів &rarr;</a><a class="btn--text btn--inline" href="#">Читати більше &darr;</a><button class="btn--outline btn--s" type="button">Сортування &#9662;</button></div>
+<p class="kp-p"><b>Пунктуація, а не іменник.</b> Мітка <b>перед</b> підписом називає те, на що контрол діє, тож бере шкалу кнопки (18 / 20 / 24). Мітка <b>після</b> каже, куди веде натиск - вона належить реченню й росте з <b>підписом</b>: <code>1.15em</code>, на волосину вище за літери поруч.</p>
+<div class="kp-do"><h4>Чому це окремий клас, а не <code>:last-child</code></h4><p class="kp-p">Це єдине місце, де правило кроку 6.9 «розмітка вже каже, з якого боку» не тримає. <code>:last-child</code> рахує <b>елементні</b> діти, а підпис це голий текстовий вузол - тож у <code>&lt;a&gt;&lt;span class="uiv-ic"&gt;…&lt;/span&gt;Квіз&lt;/a&gt;</code> ведуча мітка теж остання елементна дитина, і правило спрацьовує на ній. Виміряно: <b>34</b> посилання навігації втратили свою мітку з 18 до 16.1 з першої спроби. CSS текстового вузла не бачить, тож бік називає той, хто мітку ставить - <code>uivTrailMark()</code> і <code>menu.js</code>.</p>
+<p class="kp-p"><b>І свій пробіл вона приносить сама.</b> Знак ставиться з прибраним пробілом перед ним, бо кнопка це flex-рядок, чий <code>gap</code> уже відсуває мітку, а лишений пробіл відносив її вдвічі далі за решту набору. Посилання flex-рядком не є й не дає нічого, тож мітка ставала впритул до останньої літери - виміряно на голові мега-меню. Пробіл належить мітці там, де його не дає ніхто інший.</p></div>
+<p class="kp-p"><b>Цей файл вантажиться після <code>button.css</code></b>, тож за рівної специфічності саме цей рядок б'є шкалу кнопки. Порядок тут - правило, а не випадковість.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Брендова марка: коробка стала, чорнило росте</div>
+<div class="kp-demo" style="display:flex;gap:var(--space-16);align-items:center;flex-wrap:wrap;font-size:16px"><span class="btn--outline btn--s" style="pointer-events:none"><span class="uiv-brand" data-brand="google"></span> Google</span><span class="btn--outline btn--s" style="pointer-events:none"><span class="uiv-brand" data-brand="apple"></span> Apple</span><span class="btn--outline btn--s" style="pointer-events:none"><span class="uiv-brand" data-brand="telegram"></span> Telegram</span><span class="btn--outline btn--s" style="pointer-events:none"><span class="uiv-brand" data-brand="viber"></span> Viber</span></div>
+<p class="kp-p">Око було праве, а числа виглядали невинно: Apple стояв 18px проти Google 19px - п'ять відсотків різниці в коробці - і читався як дві третини розміру. Причина в тому, що кожна марка заповнює свій viewBox по-своєму, тож <b>рівна коробка дає нерівне чорнило</b>:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Марка</th><th>Заповнює viewBox</th><th>Що це</th></tr></thead><tbody><tr><td>telegram · viber</td><td><b>100%</b></td><td>значок: диск і <b>є</b> марка</td></tr><tr><td>google</td><td><b>83%</b></td><td>гліф із повітрям навколо</td></tr><tr><td>apple</td><td><b>72%</b></td><td>силует, повітря ще більше</td></tr></tbody></table></div>
+<p class="kp-p">Тож компонент оголошує <b>чорнило</b>, якого хоче, а кожна марка виводить свою коробку з частки, яку заповнює. Множники <code>24/20</code> і <code>24/17.3</code> - виміряні на шляхах, а не вгадані.</p>
+<div class="kp-do"><h4>Крок 7.3: коробка фіксована, переростає тільки малюнок</h4><p class="kp-p">Оскільки кожна марка роздуває свій svg заради рівного чорнила, той svg став ще й найвищим усередині кнопки - тобто <b>задавав її висоту</b>. Виміряно на <code>auth.html</code>: «Продовжити з Google» 55.8 і «Продовжити з Apple» 59.6, два однакові контроли один під одним, 3.8px нарізно, обидва вище за сходинку M у 52. Марка може вирішувати, скільки їй чорнила; вона не може вирішувати, якої висоти контрол. Тож обгортка прибита до <code>--brand-ink</code>, а більший малюнок з неї виливається.</p></div>
+<div class="kp-gap"><h4>Крок 7.16: і все це вище було <b>неробочим</b> від самого початку</h4><p class="kp-p">Виміряно на <code>auth.html</code>: <code>--brand-ink: 20px</code>, і всі чотири марки намальовані рівно на <b>20</b> - тобто саме та рівна коробка, задля уникнення якої правило й писалось. Google просив <code>calc(20px &times; 1.2)</code> = 24 і отримував 20.</p><p class="kp-p">Причина в одному слові, якого не було. <code>.uiv-brand</code> це <code>inline-flex</code>, прибитий до <code>--brand-ink</code>, отже svg усередині це <b>flex-елемент</b>, а flex-елемент за замовчуванням <b>стискається</b>. 24 не влазить у рядок 20 - і стискається до 20. <code>overflow:visible</code> давав малюнкові дозвіл бути <i>намальованим</i> поза коробкою; він ніколи не давав дозволу бути <b>більшим</b>. Це робить <code>flex:none</code>.</p><p class="kp-p">Після правки: Google <b>24</b>, Apple <b>27.8</b> при коробці 20, а висота кнопки - те єдине, що крок 7.3 боронив, - лишилась <b>52</b>. На чекауті 21.6 і 25 при коробці 18, висота 40. Контрфактично: повернув <code>flex-shrink</code> назад - усі знову по 20, тобто рухається саме те, про що правило.</p><p class="kp-p"><b>І другий дефект, який ця правка витягла на світло.</b> Месенджери в підвалі носять <b>обидва</b> класи, <code>uiv-ic uiv-brand</code>, і <code>footer.css</code> задавав їм <code>svg{ width:16px }</code> - тобто ліз повз компонент до малюнка. Коробка при цьому лишалась 1.05em = 14.7, і розбіжність ховав рівно той самий <code>flex-shrink</code>. Контракт написаний у <code>button.css</code>: <b>той, хто кличе, каже, скільки чорнила; суму робить <code>icon.css</code></b>. Тепер підвал каже <code>--brand-ink: 16px</code>, коробка й малюнок обидва 16, рядок не зрушив.</p></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
 <p class="kp-p">Іконка стоїть <b>поруч зі словом</b>, а не замість нього, всюди крім місць, де підпис уже є в <code>aria-label</code> і місця фізично немає (кнопка «у кошик» на картці). Принцип 5 - «звичайні слова в підписах»; піктограма без слова це загадка.</p></section>
@@ -48,23 +63,29 @@
 <p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>0</b> станів оголошено в <code>icon.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (<code>.open</code> <code>.uiv-sort</code>) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>4</b> власних класів і <b>0</b> станів оголошено в <code>icon.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужого контексту тут більше немає: <code>.uiv-sort</code>, який цей рядок називав чужим, крок 7.16 видалив - клас не зустрічається в жодному html і в жодному скрипті з кроку 7.2.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["chev", "uiv-brand", "uiv-ic"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["chev", "uiv-brand", "uiv-ic", "uiv-trail"], KIT_STS=[];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>icon.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (0)</th><th>Примітиви (2)</th></tr></thead><tbody><tr><td><code>-</code></td><td><code>--brand-ink</code> <code>--lh-flat</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (0)</th><th>Примітиви (2)</th></tr></thead><tbody><tr><td><code>-</code></td><td><code>--lh-flat</code> <code>--space-4</code></td></tr></tbody></table></div>
+<p class="kp-p"><b>Жодної семантичної ролі, і це не пропуск.</b> Обгортка кольору не оголошує взагалі - вона бере <code>currentColor</code>, тобто роль тексту, у якому стоїть. Компонент без жодної колірної ролі темою перемикається сам собою, бо перемикається текст навколо нього.</p>
+<p class="kp-p"><code>--brand-ink</code> у списку немає навмисно: це не токен, а <b>власна змінна компонента</b>, оголошена тут же в <code>.uiv-brand</code>. Її значення читають чотири правила марок, і жодне з них не читає її ззовні.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;span class="uiv-ic"&gt;&lt;svg viewBox="0 0 24 24"&gt;...&lt;/svg&gt;&lt;/span&gt;</div></section>
+<div class="kp-code">&lt;span class="uiv-ic"&gt;&lt;svg viewBox="0 0 24 24"&gt;...&lt;/svg&gt;&lt;/span&gt;
+&lt;span class="uiv-ic uiv-trail"&gt;…&lt;/span&gt;   мітка в кінці підпису
+&lt;span class="uiv-brand" data-brand="google"&gt;&lt;/span&gt;</div>
+<p class="kp-p">Розмітку майже ніде не пишуть руками: <code>system/marks.js</code> ставить обгортку сам, коли міняє знак на гліф, а <code>data-brand</code> заповнює <code>uivBrandSvg()</code>. Саме тому «де вживається» рахується <b>в браузері</b>, а не пошуком по файлах - у файлах цих 5 291 обгорток немає.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.uiv-ic</code> <code>.chev</code></p>
-<p class="kp-p"><b>4 екранів</b> у <code>wireframes/</code>: account-orders.html, content-faq.html, product-coach.html, product.html</p></section>
+<p class="kp-p">Якорі: <code>.uiv-ic</code> <code>.uiv-trail</code> <code>.uiv-brand</code> <code>.chev</code></p>
+<p class="kp-p">Виміряно на живих сторінках <code>design/</code>, а не порахувано в розмітці - більшість цих обгорток ставить <code>marks.js</code> уже в браузері:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Екранів</th><th>Входжень</th></tr></thead><tbody><tr><td><code>.uiv-ic</code></td><td><b>39 із 39</b></td><td><b>5 291</b></td></tr><tr><td><code>.uiv-ic.uiv-trail</code></td><td>-</td><td>1 562</td></tr><tr><td><code>.uiv-brand</code></td><td>31</td><td>62</td></tr><tr><td><code>.chev</code></td><td>-</td><td>16</td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Набір не описаний як набір</b> - імена гліфів живуть у <code>wireframes/_nav.js</code>, а не в системі; сторінка <b>Іконки</b> показує їх, але реєстру імен немає</li><li><b>Немає розмірної шкали</b> - <code>1.05em</code> це одне значення, а не сходинки</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає розмірної шкали</b> - <code>1.05em</code> це одне значення, а не сходинки. Для іконки <i>без</i> підпису успадковувати нема від чого, і там сьогодні фіксовані px нарізно в кожному компоненті</li><li><b>Стану немає жодного</b> - ані ховера, ані вимкненого. Це не пропуск: обгортка кольору не має, тож усі її стани це стани тексту поруч. Але щойно з'явиться перша іконка-контрол без підпису, стан доведеться вирішувати, а не домальовувати</li><li><b>Знак поза контролом набір не малює</b> - <code>marks.js</code> ходить по контролах, тож &#9888; у банері помилки OTP лишається шрифтовим на стенді, хоча в крамниці його міняє <code>design/_nav.js</code>. Третій випадок того самого шва після серця й кошика</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
 /* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
@@ -84,7 +105,14 @@
    shown: a rendered demo, a class named in the markup block, a class named inside
    any <code> on the page. What is left is what the file declares and the showcase
    never puts in front of anyone. */
-(function(){
+/* AFTER THE PASSES, not at parse time - step 7.16. This block used to run where
+   it stands, and on THIS page that made it lie: `.uiv-trail` is put on the mark
+   by `system/marks.js`, which waits for DOMContentLoaded, so the check counted
+   a class the page renders as one it only names. The check exists to measure
+   what a person SEES, and a person sees the page after the passes have run.
+   The other kit pages still check at parse time; there it changes nothing,
+   because their demos carry their classes in the markup. */
+document.addEventListener('DOMContentLoaded', function(){
   /* Two levels, because they are not the same thing. RENDERED means the class is
      on a live element inside a demo - a person sees the component. NAMED means it
      is only written out in the markup block or in a <code>. A page that names a
@@ -108,8 +136,8 @@
   var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
   if(!onlyNamed.length && !missing.length && !missSts.length){
     box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
-      '</b> класів файлу відрендерені в демо, усі <b>' + KIT_STS.length +
-      '</b> станів названі.</div>';
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
   } else {
     box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
       (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
@@ -117,12 +145,11 @@
       (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
         '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
       (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
-        '</b> станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
   }
-})();
+});
 </script>
 </main>
-<script>var KIT_ACTIVE = 'icon';</script>
 <script src="_nav.js"></script>
 </body>
 </html>

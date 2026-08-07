@@ -149,8 +149,8 @@
   var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
   if(!onlyNamed.length && !missing.length && !missSts.length){
     box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
-      '</b> класів файлу відрендерені в демо, усі <b>' + KIT_STS.length +
-      '</b> станів названі.</div>';
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
   } else {
     box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
       (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
@@ -158,12 +158,11 @@
       (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
         '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
       (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
-        '</b> станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
   }
 })();
 </script>
 </main>
-<script>var KIT_ACTIVE = 'field';</script>
 <script src="_nav.js"></script>
 </body>
 </html>

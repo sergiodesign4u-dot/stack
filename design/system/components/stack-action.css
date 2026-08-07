@@ -1,0 +1,137 @@
+/* stack-action.css - the stacked action (level 1), step 7.18.
+
+   A MARK ABOVE A CAPTION. Not a header thing and not a tab-bar thing: a control
+   named by a drawing with a word under it, pressed for one destination or one
+   action. It was written TWICE, inside two organisms, and named after each of
+   them - which is why nobody could see it was one control:
+
+     header    `.wfh-act.stack`   parts `.g` `.lbl` `.hb`     header.css
+     tab bar   `.wf-tab`          parts `.ti` `.tl` `.tbadge` tabbar.css
+
+   Two vocabularies for the same three parts. Measured before the merge, and the
+   most convincing number is the one that AGREED: `gap: 2px` in both. Step 7.17
+   derived that 2 from the header's 44px budget without ever looking at the tab
+   bar, where it had been sitting for months. Two independent passes over one
+   control landing on the same number is not a coincidence, it is an atom nobody
+   had named. The caption matched too - 12px, semibold, at rest.
+
+   And what had already drifted, because two editions always do:
+
+     glyph            20 in the header, 21 in the tab bar
+     caption ink      --text-secondary (#5B5B54) / --text-muted (#6E6A62)
+     caption leading  flat / inherited 19.2px
+
+   Owner's call: glyph 20 - a rung of the set, where 21 was an accident of
+   `1.05em` on a 20px emoji - and `--text-secondary`, because the word under a
+   mark is part of the control's name, not muted noise beside it.
+
+   BOTH VOCABULARIES, ONE RULE SET. The part names are not renamed to one set
+   because `.g` / `.lbl` / `.ti` / `.tl` also live in `wireframes/`, frozen since
+   stage 05. Adding a class to both layers is safe, renaming is not - so the atom
+   answers to both names today and the rename is a Крок 6 item. Same shape as the
+   quantity counter's `.ci-qty, .co-qty` at step 7.13.
+
+   WHAT IS NOT HERE, because it belongs to whoever places the control: the row
+   height and the horizontal padding (header), the fixed bar, the equal-fifths
+   flex and the safe area (tab bar), and the active state - a header action has
+   none and a tab is `[aria-current]` with an accent bar over it. This file says
+   what the control IS; where it stands is the organism's sentence. */
+
+/* ---------- the shape ---------- */
+.btn--stack{
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  /* 2, and it has to be smaller than the air around the pair or proximity reads
+     backwards - see step 7.17, where the header had 8 inside and 1.2 outside. */
+  gap: var(--space-2);
+  position: relative;   /* the counter is pinned to the mark */
+}
+
+/* ---------- the mark ---------- */
+/* `flex: none` on both parts, and it is not belt-and-braces - the caption below
+   carries `overflow: hidden` for the tab bar's ellipsis, and that ALSO switches
+   its automatic minimum size to zero. In the header the control is a fixed 44
+   with 8px of padding, so the padding box is 28 while the pair needs 34: flex
+   then shrank the only item that would let it, and the caption collapsed to 3px
+   with the word clipped to a sliver. Caught in the browser, not in the file.
+   The pair overflows the padding box instead, symmetrically, because the control
+   centres its content - which is what it did before this atom existed. */
+.btn--stack .g, .btn--stack .ti{
+  display: inline-flex; align-items: center; justify-content: center;
+  position: relative;   /* the counter hangs off THIS, not off the control */
+  line-height: var(--lh-flat);
+  flex: none;
+}
+.btn--stack .g .uiv-ic svg, .btn--stack .ti .uiv-ic svg{
+  width: var(--size-20); height: var(--size-20); }
+
+/* ---------- the caption ----------
+   `--lh-flat` is the atom's, not the header's. A caption under a mark is one
+   line by definition, and inherited leading is dead space that reads as the
+   word drifting away from the drawing it belongs to. It is also what let the
+   header fit 20 + 2 + 12 inside its 44. */
+.btn--stack .lbl, .btn--stack .tl{
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-flat);
+  color: var(--text-secondary);
+  /* the ellipsis is the tab bar's need - a fifth of a phone screen and a word
+     like «Замовлення» - and it costs nothing in the header, where the caption is
+     short. `flex: none` is what keeps it from costing the caption its height. */
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+  flex: none;
+  /* its own, because the caption's colour is pinned and therefore does not ride
+     the control's `transition: color` - without this the word would snap while
+     the mark above it fades. Same .15s as every other control. */
+  transition: color .15s ease;
+}
+/* a caret closing the caption is the CAPTION's size, not a hair above it. The
+   1.15em of a trailing mark is right in a line of running text and wrong here,
+   where the caption's box is budgeted - measured at step 7.17, «Кабінет ▾» came
+   out with 1px of air against 5 on the control beside it. */
+.btn--stack .lbl .uiv-ic svg, .btn--stack .tl .uiv-ic svg{ width: 1em; height: 1em; }
+
+/* ---------- the one state the atom owns - step 7.20 ------------------------
+   THE CAPTION FOLLOWS THE CONTROL. Measured in the header at 1280: at rest the
+   ground is transparent, the mark #1C1C1C and the caption #5B5B54; under the
+   cursor `btn--ghost` brings up a warm ground and takes the ink to the accent -
+   and the caption stayed #5B5B54. Half the control answered. It is not damage
+   from the merge: `.wfh-act.stack .lbl` pinned the caption before 7.18 too, and
+   the tab bar, whose caption did inherit, has no hover at all to inherit from -
+   so nowhere in the product did the word ever move with its mark.
+
+   The pin is right at rest and wrong under the cursor. A caption under a mark
+   is part of the control's NAME, which is the whole reason it is held at
+   `--text-secondary` and not at muted; and a name cannot stay behind while the
+   thing it names lights up. So `inherit`, not a named colour: the caption takes
+   whatever ink the finish decided on, and the atom never has to know which
+   finish it was given.
+
+   WHERE NOTHING HAPPENS, that is also correct. A tab bar has no finish and
+   declares no hover ink, so `inherit` returns the resting colour and the tab
+   does not move. That is the phone's bar: a hover state there is a state no
+   phone will ever paint. The active tab keeps its ink-800 caption under the
+   cursor because `.wf-tab[aria-current] .tl` in tabbar.css ties this rule on
+   specificity and loads later - checked in the browser, not counted on paper. */
+   The caret inside «Кабінет ▾» comes along without a word from anyone: it is
+   `currentColor` inside the caption, so it follows what the caption follows. */
+.btn--stack:hover .lbl, .btn--stack:hover .tl{ color: inherit; }
+
+/* ---------- the counter ----------
+   It sits on the MARK, because it counts what the mark stands for - a basket, a
+   wishlist - and not on the caption, which only names it. */
+.btn--stack .hb, .btn--stack .tbadge{
+  position: absolute;
+  min-width: 15px; height: 15px; padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-10); font-weight: var(--fw-black); line-height: 15px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-action); color: var(--text-body);
+  box-shadow: var(--ring-onink);
+}
+.btn--stack .g .hb{ top: -6px; right: -4px; }
+/* the tab is a fifth of the screen and its mark is centred in it, so a counter
+   pinned to the mark's corner would be lost in the middle of the tab. It hangs
+   off the tab's own centre line instead. */
+.btn--stack .tbadge{ top: 2px; left: 50%; margin-left: var(--space-4); }

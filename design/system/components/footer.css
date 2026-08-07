@@ -45,7 +45,14 @@
 }
 .wff-col a{ transition:color .15s ease; }
 .wff-col a:hover{ color:var(--text-action); }
-.wff-col a.wff-msg .mi .uiv-ic svg{ width:16px; height:16px; }
+/* step 7.16: this said `svg{ width:16px }` and reached past the component it was
+   sizing. The messenger marks wear `uiv-ic uiv-brand`, and `.uiv-brand` derives
+   its BOX from `--brand-ink` - so the footer was setting the drawing to 16 while
+   the box stayed at 1.05em = 14.7, and only `flex-shrink` on the svg hid the
+   disagreement by clamping the drawing back down. The contract is the one
+   button.css states: a caller says how big the INK should be, icon.css does the
+   sum. Measured after: box and drawing both 16, and the footer row does not move. */
+.wff-col a.wff-msg .mi .uiv-brand{ --brand-ink: 16px; }
 
 /* ---------- moved out of base.css (stage 08 step 5) ----------
    These rules were parked in base.css by the step-3 split. base.css loads
