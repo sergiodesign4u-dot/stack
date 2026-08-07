@@ -370,6 +370,11 @@ window.KIT_NAV = [
     "done": false
    },
    {
+    "label": "Шухляда меню",
+    "page": "nav-drawer.html",
+    "done": false
+   },
+   {
     "label": "Вкладки товару",
     "page": "pdp-tabs.html",
     "done": false
@@ -447,6 +452,11 @@ window.KIT_NAV = [
    {
     "label": "Оверлей",
     "page": "overlay.html",
+    "done": false
+   },
+   {
+    "label": "Оверлей каталогу",
+    "page": "cat-overlay.html",
     "done": false
    }
   ]

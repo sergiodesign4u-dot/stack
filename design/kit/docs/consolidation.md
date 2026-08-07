@@ -3147,3 +3147,173 @@ supposed to derive.
 All seven account pages at 1280 and 390: **0 marks under 2px, 0 zero-width svg anywhere on the page,
 0 sideways scroll.** All eight rows read 18x18 - three unwrapped, five wrapped, and no longer possible
 to tell which is which by looking. The current row keeps its accent mark and its inset bar.
+
+## Step 7.25: two defects, one cause - the canvas is narrower than the viewport
+
+Both open items turned out to be the same sentence said twice: **the product switches layouts on
+`@media`, which reads the VIEWPORT, while the product lives in a canvas that may be narrower.**
+
+### The measurement
+
+`design/_stand.css` showed the screen panel from 900 and pushed the canvas with
+`margin-left: 216px`. So from 900 the header drew its `>=860` desktop row inside a canvas of
+viewport-216:
+
+| viewport | canvas | action row past the page | page scrolls sideways |
+|---|---|---|---|
+| 880 | 865 | fits | no |
+| **900** | **669** | **+61** | **yes** |
+| 920 | 689 | +41 | yes |
+| 940 | 709 | +21 | yes |
+| 960 | 729 | +1 | yes |
+
+The mega menu had the same cause and a longer reach: 940 wide, hung off the «Каталог» button, its
+own `max-width: 94vw` measured against the viewport rather than the canvas, and a grid whose columns
+could not shrink below 226 + 420 + 196 = 842. At a 900 window its right edge stood at 1155 against a
+page 885 wide - **255px unreachable, the third column entirely**, and `scrollTo` would not move the
+page to reveal it. It fitted only from about 1264.
+
+### Two rules
+
+**1076, and the number is 216 + 860.** 860 is the width at which the product itself says its desktop
+layout fits, so the panel may not appear until the canvas still has that much. Below it the shell
+already had an answer - the 40px top bar - so nothing new was invented, one threshold moved.
+
+`@media(max-width:899px){ .wfh{ top:40px } }` moved OUT of `header.css` into `_stand.css` on the way.
+That 40 is the stand's top bar, not anything the product has, and it was pinned to the shell's old
+number - when the shell moved, the product's sticky header would have stayed behind.
+
+**The panel belongs to the row, not to one button.** `.wfh-cat` is `position: static` now and
+`.wfh-main` is the containing block, so the mega reads `left: 16 / right: 16 / max-width: 940` and
+measures itself against the header row - which IS the canvas minus its padding, in any shell and in
+none. `minmax(420px, 1fr)` became `minmax(0, 1fr)`, because a floor no max-width can get under is
+what turns "narrow the panel" into "overflow the page".
+
+The hover bridge moved from `.wfh-cat::after` to `.wfh-cat .navbtn::after` - the button is exactly
+the width `.wfh-cat` used to be, so the geometry is unchanged - and grew 12 -> 24, because the panel
+now hangs off the row and the mouse has the row's 16 of bottom padding to cross before the panel's 8
+of gap. Walked with the mouse in 4px steps from the button to the panel: **0 steps where the menu
+closed**, and it still closes when the pointer leaves sideways.
+
+### Proof
+
+11 screens x 7 widths (360, 860, 900, 1024, 1076, 1280, 1440), menu closed and open: **77 checks,
+0 failures, 0 JS errors.** Sideways scroll 0 everywhere. The mega now narrows instead of overflowing -
+813 wide at a 845 canvas, up to its 940 ceiling - and the shell swaps at exactly 1076, with the
+sticky header's top following it, 40 below and 0 above.
+
+**The grey layer still has the mega half of this**, untouched, because it loads `_wf.css` and none of
+these files: at 900 its panel runs 26px past and the page scrolls with it. Reported, not fixed -
+structure is the frozen layer's own, and one line closes it whenever its owner says so.
+
+---
+
+## Step 7.26 - the frame stops drawing the product, and the product stops knowing the frame's numbers
+
+The owner asked one question about 7.25: why is there CSS in `design/_stand.css` at all - everything
+for the UI belongs in `design/system/components/`, and from there onto a stand page and into the
+sidebar. Reading the file to answer it turned up two separate faults, one of them live.
+
+### What `_stand.css` is, and what it was doing
+
+Its own first line, written at 25ca246: «prototype and stand chrome, NOT part of the system». It
+draws the frame around the screenshot - the 216px screen panel, the black top bar, the canvas. A
+product screen still carries exactly one stylesheet of its own, `design/system/index.css`, and this
+is a second `<link>` that only the preview loads.
+
+But 44 of its 147 lines were not chrome:
+
+| lines | what | where it went |
+|---|---|---|
+| 9-17 | `.wf-drawer` - the phone's burger menu | `components/nav-drawer.css` |
+| 18-45 | `.wf-catov*` - the catalogue overlay | `components/cat-overlay.css` |
+| 141-147 | the colour and size of their marks, and the chip's | the three files that own those controls |
+
+The first screen a customer taps on a phone was filed under «chrome», invisible to anybody reading
+`design/system/components/` to find out what the product is made of. And it was split further still:
+the goal chip's shape was declared in `chip.css` and the colour of its mark 150 lines away here;
+`.dr-cat`'s rows were in `cart-drawer.css` and its shell here, two files sharing a `dr-` prefix and
+nothing else - different trigger, different side of the screen, different content.
+
+`nav-drawer.css` and `cat-overlay.css` exist now, `html.dr-lock` and the whole `.dr-*` block left
+`cart-drawer.css` for the first of them (`dr-lock` is added only by `openBurger()`), and the chip's
+mark went home to `chip.css`. Class names are unchanged: `wireframes/_nav.js` builds this markup and
+the frozen grey layer runs the same script, so adding a file is safe and renaming is not - the same
+line 7.23 drew for `.dr-chip`.
+
+### The live fault: four files holding a fifth file's number
+
+`--shell-top` / `--shell-left`, declared once in `_stand.css`, 0 when there is no stand.
+
+Before this step the stand's geometry was copied into four product components as literals - 216, 40,
+899, 900 - each with its own media query:
+
+```
+header.css        @media(max-width:899px){ .wfh{ top:40px } }              (moved out at 7.25)
+auth-dialog.css   @media(min-width:900px){ .auth-ov{ left:216px } }
+                  @media(max-width:899px){ .auth-ov{ top:40px } }
+cart-drawer.css   @media(max-width:899px){ .cart-ov,.cart-drawer{ top:40px } }
+checkout-form.css @media(min-width:900px){ body:has(.co-head){ padding-left:216px } }
+                  @media(max-width:899px){ body:has(.co-head){ padding-top:40px } }
+```
+
+**Step 7.25 moved the shell to 1076 and every one of those copies stayed at 899.** Measured at a 1000
+viewport before the fix:
+
+| screen | expected | measured |
+|---|---|---|
+| `auth.html` `.auth-ov` | left 0, top 40 | **left 216, top 0** - pushed right of a panel that is not there, and started under the bar |
+| `cart.html` `.cart-drawer` | top 40 | **top 0**, bar bottom 40 - the drawer opened under the top bar |
+| `checkout.html` `body` | padding 0 / 40 | **216 / 0** - 216 of empty space on the left, header under the bar |
+
+That is what «all css in the components» is for, and it is also what it is not for: the rule stays in
+the component, the number does not. `header.css` says `top: var(--shell-top, 0px)` and owns the
+sentence; `_stand.css` says what `--shell-top` is and owns the number; off the stand it is 0 and
+every one of those rules is a no-op. `checkout-form.css` lost both blocks outright - they were never
+about the checkout, only about the one flow that has no `.wf-canvas` for the frame to push.
+
+`--wfbar-h` folded into `--shell-top` in `cart-drawer.css`. Both named the same thing, but `--wfbar-h`
+is published by the GREY prototype's bar, which the colour layer hides outright, so in `design/` it
+was permanently 0 and the real compensation was the hard `top:40px` above. The grey layer keeps its
+own name, untouched.
+
+### One visible change, said out loud
+
+`--mark-faint`, `#cbcbcb` -> `#BBBBBB`, on the chevron of the catalogue overlay's rows.
+
+Three rows in that overlay carry the same sign. Two were a raw `#cbcbcb` in a system file and the
+third asked for `var(--grey-bb)` = `#BBBBBB` - the file contradicting itself, not a judgement call.
+The semantic token already exists and is named for exactly this job: `--mark-faint`, «the quiet mark:
+a chevron on a row», 21 uses. All three read it now and two go one step darker.
+
+`.wf-drawer`'s shadow is NOT changed and is logged as drift instead: `0 16px 34px / .13` against
+`--elevation-3`'s `0 14px 34px / .12`, two numbers apart from the token that describes exactly this
+job. Nothing in the file contradicts it, so it waits for a measurement rather than a refactor.
+
+### Proof
+
+**The eviction changed nothing.** HEAD served on one port, the working tree on another, the same
+probe run against both at 360: burger drawer opened and the catalogue overlay walked to its goal
+panel, 60+ computed properties compared - geometry, shadow, transform, visibility, every row's type
+and padding, every mark's colour and svg size. **One difference, and it is the declared one:**
+`.wf-catov-row .car` `rgb(203,203,203)` -> `rgb(187,187,187)`. Everything else byte-identical.
+
+**The seam works.** 4 screens x 8 widths (360, 800, 900, 1000, 1075, 1076, 1200, 1440): **32 checks,
+0 failures, 0 JS errors.** The tokens flip at exactly 1076 - `40px / 0px` below, `0px / 216px` above -
+and the auth dialog, the cart drawer, the checkout body and the sticky header all follow in one move.
+No modal under the bar, no header under the panel, no sideways scroll.
+
+**Nothing else moved.** 10 screens x 7 widths, menu closed and open: 70 checks, the only sideways
+scroll is `product-oos.html`, 12px at 860-1076, **identical at HEAD** - a `btn--outline btn--icon
+btn--l wish` sticking 12 past the page. Pre-existing, found here, not fixed here.
+
+### On the stand
+
+`components/nav-drawer.css` and `components/cat-overlay.css` are rows in `design/kit/_nav.js` -
+«Шухляда меню» and «Оверлей каталогу», both `done: false`. The kit sidebar counter reads **33 / 86**
+and the organism section of `overview.html` reads **0 / 24**. That grid was rebuilt in the same step,
+because its line counts were claims about files that had changed under it: header 179 -> 250,
+account-shell 172 -> 181, auth-dialog 158 -> 164, cart-drawer 102 -> 112, footer 63 -> 70,
+tabbar 24 -> 41, filter-sheet 21 -> 28, checkout-form 311 -> 313, buy-box 163 -> 165.
+
+The two stand pages themselves are not written: organisms are 0 of 24, and the tier has not started.

@@ -1,0 +1,74 @@
+/* cat-overlay.css - the catalogue overlay (level 3), step 7.26.
+
+   WHAT IT IS. The full-screen catalogue a phone opens from the «Каталог» tab of
+   the bottom bar: a header that can go back, a list of top categories, then the
+   subcategories of one, and the six goals. Three levels, one screen, no page
+   load. Above 860 it does not exist - the mega menu does this job there.
+
+   WHY IT MOVED. It lived in `design/_stand.css`, whose own first line says it is
+   «prototype and stand chrome, NOT part of the system». This is not chrome. It
+   is 28 lines of product interface - the one a customer taps first on a phone -
+   sitting in the file that draws the preview panel around the screenshot, and
+   therefore invisible to anyone reading design/system/components/ to find out
+   what the product is made of. Its marks were split off further still: the
+   colour of the sign on each row sat 100 lines below the row itself.
+
+   Selectors are unchanged: `wireframes/_nav.js` builds this markup and the
+   frozen grey layer runs the same script. Only the file changes.
+
+   `.ci` here is a SPAN inside a row, and cart-row.css owns `article.ci` - the
+   two were the collision fixed at 7.21, and the scoping there is what lets this
+   file keep the name. */
+
+.wf-catov{ display: none; }
+@media (max-width: 859px){
+  .wf-catov{ position: fixed; top: 0; left: 0; right: 0; bottom: 57px; z-index: 49; background: var(--bg-page); flex-direction: column; }
+  .wf-catov.open{ display: flex; }
+  .wf-catov-h{ display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) var(--space-16); border-bottom: 1px solid var(--line-hair);
+    position: sticky; top: 0; background: var(--bg-page); min-height: 52px; }
+  .wf-catov-h .ctitle{ font-size: var(--fs-18); font-weight: var(--fw-black); color: var(--text-primary); }
+  .wf-catov-h .ctitle.sub{ font-size: var(--fs-16); font-weight: var(--fw-bold); color: var(--text-secondary); }
+  .wf-catov-h .cback{ font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); display: inline-flex; align-items: center; gap: var(--space-4); }
+  .wf-catov-h .cx{ margin-left: auto; font-size: var(--fs-20); color: var(--text-muted); line-height: var(--lh-flat); padding: var(--space-4); }
+  .wf-catov-body{ flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .wf-catov-row{ display: flex; align-items: center; gap: var(--space-12); width: 100%; padding: var(--space-16) var(--space-16); background: var(--bg-page);
+    font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); border-bottom: 1px solid var(--line-hair); text-align: left; }
+  .wf-catov-row .ci{ width: var(--size-24); text-align: center; font-size: var(--fs-18); flex: none; }
+  .wf-catov-row .cl{ min-width: 0; overflow-wrap: anywhere; }
+  /* VISIBLE CHANGE at 7.26, and it is the file contradicting itself, not taste:
+     three rows in this overlay carry the same chevron, and two of them were
+     `#cbcbcb` while the third asked for `var(--grey-bb)` = #BBBBBB. Same sign,
+     same job, two values, one of them a raw hex in a system file. The semantic
+     token for it already exists and is named for exactly this - `--mark-faint`,
+     «the quiet mark: a chevron on a row», 21 uses. So all three read it now and
+     two of them go one step darker. Said out loud rather than slipped in. */
+  .wf-catov-row .car{ margin-left: auto; color: var(--mark-faint); font-weight: var(--fw-bold); font-size: var(--fs-18); }
+  .wf-catov-row.lead{ font-weight: var(--fw-black); }
+  .wf-catov-all{ display: flex; align-items: center; gap: var(--space-12); padding: var(--space-16) var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-black);
+    color: var(--text-primary); border-bottom: 1px solid var(--line-hair); background: var(--bg-surface); }
+  .wf-catov-all .ci{ font-size: var(--fs-18); }
+  .wf-catov-all .car{ margin-left: auto; color: var(--mark-faint); }
+  .wf-catov-sub{ display: block; padding: var(--space-12) var(--space-16) var(--space-12) var(--space-24); font-size: var(--fs-14); color: var(--text-secondary); border-bottom: 1px solid var(--line-hair); }
+  .wf-catov-goal{ display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) var(--space-16); border-bottom: 1px solid var(--line-hair); }
+  .wf-catov-goal .ci{ width: var(--size-24); text-align: center; font-size: var(--fs-20); flex: none; }
+  .wf-catov-goal .cg{ display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+  .wf-catov-goal .gn{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
+  .wf-catov-goal .gc{ font-size: var(--fs-12); color: var(--text-muted); line-height: var(--lh-snug); overflow-wrap: anywhere; }
+  .wf-catov-goal .car{ margin-left: auto; color: var(--mark-faint); font-weight: var(--fw-bold); }
+}
+
+/* ---------- the marks --------------------------------------------------
+   Moved here from design/_stand.css at 7.26, where they sat 100 lines below the
+   rows they paint. Accent on the two rows that lead somewhere chosen - «За
+   ціллю» and each goal - ink on the plain category list, which is the same
+   sentence nav-drawer.css says about the same list.
+
+   19px and not `1.05em`: these signs stand in a 14px row and the em would put
+   them at 14.7, a size at which a drawn glyph reads thinner than the typed one
+   it replaced. Outside a media query on purpose - the overlay only exists below
+   860, so its own `@media` already scopes them. */
+.wf-catov-goal .ci .uiv-ic,
+.wf-catov-row.lead .ci .uiv-ic{ color: var(--text-action); }
+.wf-catov-row .ci .uiv-ic,
+.wf-catov-all .ci .uiv-ic{ color: var(--text-body); }
+.wf-catov .ci .uiv-ic svg{ width: 19px; height: 19px; }

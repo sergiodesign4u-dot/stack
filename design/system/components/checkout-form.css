@@ -172,12 +172,18 @@
 .co-proc-cancel{ display: inline-block; margin-top: var(--space-16); font-size: var(--fs-14); text-decoration: underline; }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-@media(min-width:900px){
-  body:has(.co-head){ padding-left:216px; }
-}
-@media(max-width:899px){
-  body:has(.co-head){ padding-top:var(--space-40); }
-}
+/* step 7.26: two media blocks left this file -
+     @media(min-width:900px){ body:has(.co-head){ padding-left:216px } }
+     @media(max-width:899px){ body:has(.co-head){ padding-top:var(--space-40) } }
+   They are not about the checkout at all. Checkout is the one flow with no
+   `.wf-canvas` around it - it draws its own bare header - so the stand could not
+   push it with `.wf-canvas{ margin-left }` and the page compensated for the
+   harness itself, in a component file, with the harness's numbers. Pinned to the
+   old 899/900, so after 7.25 moved the stand to 1076 the checkout page at 1000
+   held 216 of empty space on its left and put its header under the top bar -
+   measured: padding-left 216, padding-top 0, head top 0, bar bottom 40.
+   The rule now lives in design/_stand.css, which is the only file that knows
+   whether a harness is there. */
 .smeths{ margin-bottom:var(--space-24); }
 .co-head{ border-bottom-color:var(--line-hair); }
 .co-logo{ font-family:var(--font-display); font-weight:var(--fw-bold); color:var(--text-body); letter-spacing:var(--ls-display);

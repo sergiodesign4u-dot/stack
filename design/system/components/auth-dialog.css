@@ -72,12 +72,18 @@
 .auth-note{ font-size: var(--fs-12); text-align: center; margin-top: var(--space-16); line-height: var(--lh-airy); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-@media(min-width:900px){
-  .auth-ov{ left:216px; }
-}
-@media(max-width:899px){
-  .auth-ov{ top:40px; }
-}
+/* step 7.26: two media blocks left this file -
+     @media(min-width:900px){ .auth-ov{ left:216px } }
+     @media(max-width:899px){ .auth-ov{ top:40px } }
+   216 is the width of the STAND's screen panel, 40 the height of its top bar and
+   899/900 the width at which the stand used to switch between them. Three of the
+   harness's numbers inside a product component, and all three pinned. Step 7.25
+   moved the harness to 1076 and this file stayed at 899, so between 900 and 1075
+   the dialog was pushed 216 to the right of a panel that was no longer there AND
+   started under the bar - measured on auth.html at 1000: left 216, top 0, bar
+   bottom 40. Both offsets are now the harness's own two variables, 0 when there
+   is no harness. */
+.auth-ov{ left: var(--shell-left, 0px); top: var(--shell-top, 0px); }
 .auth-ov{ background:var(--scrim-overlay); }
 @media (min-width:720px){
   .auth-ov{ padding:var(--space-32); }

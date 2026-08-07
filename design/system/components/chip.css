@@ -66,6 +66,15 @@
 /* the drawer's chip is the only one carrying a mark, so it is the only one that
    needs a row and a gap */
 .dr-chip{ display: inline-flex; align-items: center; gap: var(--space-8); }
+/* AND THE MARK IS THE CHIP'S - step 7.26. These two lines were in
+   `design/_stand.css`, the stand-chrome file, so a chip painted its shape here
+   and its sign 150 lines away in a file the product does not conceptually own.
+   Accent, because this chip IS the choice - the goal a customer is picking. 19px
+   and not `1.05em` for the same reason as the catalogue overlay's: the label is
+   14, the em would give 14.7, and a drawn glyph at that size reads thinner than
+   the typed one it replaced. */
+.dr-chip .uiv-ic{ color: var(--text-action); }
+.dr-chip .uiv-ic svg{ width: 19px; height: 19px; }
 /* the count that closes a filter option is quieter than the word it counts */
 .flink .ct{ margin-left: var(--space-4); font-size: var(--fs-12); color: var(--text-muted); }
 

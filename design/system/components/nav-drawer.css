@@ -1,0 +1,73 @@
+/* nav-drawer.css - the phone's menu drawer (level 3), step 7.26.
+
+   WHY THIS FILE EXISTS. One control was written in two places on opposite sides
+   of the system boundary:
+
+     the SHELL  .wf-drawer          design/_stand.css     the panel itself
+     the INSIDE .dr-b .dr-city      cart-drawer.css       everything in it
+                .dr-lbl .dr-catwrap
+                .dr-cat .dr-subs
+                .dr-sub .dr-suball .dr-link
+     the MARKS  .dr-cat .dc-ic      design/_stand.css     the colour of the sign
+
+   Neither address was right. `design/_stand.css` says on its own first line that
+   it is «prototype and stand chrome, NOT part of the system» - and the burger
+   menu is not stand chrome, it is what a customer opens on a phone. And
+   `cart-drawer.css` is the CART drawer: the two share a `dr-` prefix and nothing
+   else - different trigger, different side of the screen, different content.
+   A reader looking for the menu would have found it in neither file.
+
+   The class names are NOT renamed. `wireframes/_nav.js` builds this markup and
+   the frozen grey layer runs the same script, so `.dr-cat` and the rest stay
+   exactly as they are - the same reasoning as `.dr-chip` at 7.23. Only the file
+   they live in changes.
+
+   `.dr-chip` is not here: it is the chip atom and lives in chip.css, with its
+   mark. This file owns the panel and the rows, not the pills inside it. */
+
+/* ---------- the panel ---------------------------------------------------
+   It hangs off the bottom edge of the sticky header, and that edge is measured
+   live by `wfDrawerTop()` and published as `--dr-top` - the prototype bar, the
+   desktop meta row and the scroll position all land in one number. 56 is the
+   fallback for the first frame, not a second opinion. */
+.wf-drawer{ position: fixed; z-index: 29; left: 0; right: 0; top: var(--dr-top, 56px); bottom: 57px;
+  background: var(--bg-page); overflow-y: auto; -webkit-overflow-scrolling: touch;
+  border-top: 1px solid var(--line-hair);
+  /* NOT `--elevation-3` (0 14px 34px / .12), and the near-miss is deliberate
+     until somebody measures it: this is 0 16px 34px / .13. Two numbers apart
+     from the token that describes exactly this job - «a layer that opens over
+     the page and stays attached to it». Left as found and logged as drift at
+     7.26 rather than changed in passing, because a shadow is a visible thing
+     and this step already carries one visible change (see `.car` below). */
+  box-shadow: 0 16px 34px rgba(0,0,0,.13);
+  transform: translateY(-100%); visibility: hidden;
+  transition: transform .22s ease, visibility 0s linear .22s; }
+.wf-drawer.open{ transform: translateY(0); visibility: visible; transition: transform .22s ease; }
+@media (min-width: 860px){
+  .wf-drawer{ display: none !important; }
+}
+/* the page does not scroll behind the open panel. Added and removed by
+   `openBurger()` / `closeBurger()` in wireframes/_nav.js, which is why it moved
+   here from cart-drawer.css at 7.26 - the cart drawer never touches it. */
+html.dr-lock{ overflow: hidden; }
+
+/* ---------- what is inside ---------- */
+.dr-b{ padding: var(--space-16) var(--space-16) var(--space-32); }
+.dr-city{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); margin-bottom: var(--space-8); }
+.dr-lbl{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-secondary); margin: var(--space-16) 0 var(--space-8); }
+.dr-catwrap{ border-bottom: 1px solid var(--line-hair); }
+.dr-cat{ display: flex; align-items: center; gap: var(--space-8); width: 100%; text-align: left; font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); padding: var(--space-12) 0; background: none; }
+.dr-cat .dc-ic{ width: var(--size-20); text-align: center; flex: none; }
+.dr-cat .ar{ margin-left: auto; color: var(--text-secondary); font-weight: var(--fw-bold); font-size: var(--fs-16); }
+.dr-subs{ display: none; padding: var(--space-2) 0 var(--space-12) 29px; }
+.dr-subs.open{ display: block; }
+.dr-suball{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); padding: var(--space-8) 0; }
+.dr-sub{ display: block; font-size: var(--fs-14); color: var(--text-secondary); padding: var(--space-8) 0; }
+.dr-link{ display: block; font-size: var(--fs-14); color: var(--text-body); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); }
+.dr-link.strong{ font-weight: var(--fw-black); color: var(--text-primary); }
+
+/* ---------- the mark on a category row -----------------------------------
+   Ink, not accent: it names the category the row leads to, and the row is one
+   of a plain list. The accent in this panel is spent on the goal chips above
+   it, which is where the choice actually is. Moved from design/_stand.css. */
+.dr-cat .dc-ic .uiv-ic{ color: var(--text-body); }

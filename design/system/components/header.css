@@ -5,7 +5,11 @@
    Colour reads a semantic role, geometry reads a primitive. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
-.wfh{ position: sticky; top: 0; z-index: 30; background: var(--bg-page); }
+/* `--shell-top` is how much of the top of the screen something ABOVE the product
+   has taken - the stand's bar in a preview, nothing at all in the real store,
+   which is why the fallback is 0 and the header needs to know no more than that.
+   The value is published by design/_stand.css. Step 7.26. */
+.wfh{ position: sticky; top: var(--shell-top, 0px); z-index: 30; background: var(--bg-page); }
 .wfh-in{ max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: var(--space-12); padding: var(--space-16) var(--space-16); }
 .wfh-meta{ display: none; font-size: var(--fs-12); color: var(--text-secondary); }
 .wfh-meta .wfh-in{ padding: var(--space-8) var(--space-16); gap: var(--space-16); }
@@ -27,14 +31,36 @@
 .wfh.drawer-open .wfh-burger .bi-close{ display: inline; }
 .wfh-logo{ font-size: var(--fs-20); }
 .wfh-nav{ display: none; gap: var(--space-8); }
-.wfh-cat{ position: relative; }
-.wfh-mega{ display: none; position: absolute; top: 100%; left: 0; z-index: 40;
-  grid-template-columns: 226px minmax(420px, 1fr) 196px; width: 940px; max-width: 94vw;
+/* THE PANEL BELONGS TO THE ROW, NOT TO ONE BUTTON - step 7.25. `.wfh-cat` was
+   `position: relative`, so the 940px mega hung off the «Каталог» button and grew
+   to the right until it ran off the page. It could not do anything else: its own
+   `max-width: 94vw` is measured against the VIEWPORT, while the panel lives in a
+   canvas that may be narrower, and its grid could not shrink below
+   226 + 420 + 196 = 842 whatever the max-width said. Measured before: at a 900
+   window the panel's right edge was 1155 against a page 885 wide - 255px of it
+   simply unreachable, the third column entirely, and `scrollTo` would not move
+   the page to show it. It fitted only from about 1264.
+   Static here, relative on the row below. */
+.wfh-cat{ position: static; }
+.wfh-mega{ display: none; position: absolute; top: 100%; left: var(--space-16); right: var(--space-16); z-index: 40;
+  /* the middle column may now shrink to nothing - `minmax(420px, 1fr)` was a
+     floor that no max-width could get under, which is why the panel overflowed
+     instead of narrowing. 940 stays as the ceiling it always was. */
+  grid-template-columns: 226px minmax(0, 1fr) 196px; width: auto; max-width: 940px;
   background: var(--bg-page); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);
   border-radius: 0 0 var(--radius-12) var(--radius-12); box-shadow: var(--elevation-3); margin-top: var(--space-8); overflow: hidden; }
 .wfh.mega-open .wfh-mega, .wfh.mega-pinned .wfh-mega{ display: grid; }
-.wfh-cat::after{ content: ""; display: none; position: absolute; top: 100%; left: 0; width: 100%; height: 12px; }
-.wfh.mega-open .wfh-cat::after, .wfh.mega-pinned .wfh-cat::after{ display: block; }
+/* the bridge that keeps the hover alive between the button and the panel. It
+   moved from `.wfh-cat` to the BUTTON at 7.25, because `.wfh-cat` is no longer
+   positioned and an `::after` on it would now stretch the whole row. On the
+   button it keeps exactly the geometry it had - the button IS the width
+   `.wfh-cat` used to be. It grew from 12 to 24 because the panel now hangs off
+   the row rather than off the button, so the mouse has the row's own 16 of
+   bottom padding to cross before the panel's 8 of gap. */
+.wfh-cat .navbtn{ position: relative; }
+.wfh-cat .navbtn::after{ content: ""; display: none; position: absolute; top: 100%; left: 0; width: 100%;
+  height: calc(var(--space-16) + var(--space-8)); }
+.wfh.mega-open .wfh-cat .navbtn::after, .wfh.mega-pinned .wfh-cat .navbtn::after{ display: block; }
 .wfh-scrim{ display: none; position: fixed; inset: 0; background: var(--scrim-overlay); z-index: 28; }
 .wfh-scrim.open, .wfh-scrim.pinned{ display: block; }
 @media (max-width: 859px){
@@ -127,7 +153,8 @@
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .wfh-logo{ letter-spacing:var(--ls-display); }
-.wfh-main{ padding:var(--space-16); }
+/* the row is what the mega menu measures itself against - step 7.25 */
+.wfh-main{ padding:var(--space-16); position:relative; }
 .wfh-logo{ font-family:var(--font-display); font-weight:var(--fw-bold); color:var(--text-body);
   display:inline-flex; align-items:baseline; gap:.2em; line-height:var(--lh-flat); }
 .wfh-logo::before{ content:""; flex:none; height:1.0125em; width:.863em;
@@ -142,9 +169,13 @@
 .wfh-nav .navbtn .cav{ display:none; }
 .wfh-mega{ border-top-color:var(--line-action); }
 .wfh-act .t .val{ color:var(--text-body); }
-@media(max-width:899px){
-  .wfh{ top:40px; }
-}
+/* step 7.25 removed `@media(max-width:899px){ .wfh{ top:40px } }` from here, and
+   7.26 finished the job: not by moving a `.wfh` rule into the stand's file - that
+   would only have swapped which file knew somebody else's name - but by leaving
+   the rule here and turning the number into `--shell-top`, declared on `.wfh`
+   above. The system owns the rule, the harness owns the value, and outside the
+   harness the value is 0. Same seam for `.auth-ov`, `.cart-drawer` and the
+   checkout page. */
 .wfh-nav .navbtn .g{ display:inline-flex; align-items:center; }
 /* the ROW action's mark - the stacked one's is the atom's */
 .wfh-act.numbtn .g{ display:inline-flex; align-items:center; }

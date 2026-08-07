@@ -1,49 +1,45 @@
 /* design/_stand.css - prototype and stand chrome, NOT part of the system.
-   The screen shell (.wf-canvas, .wf-bar, .wf-page), the design/ screen panel
-   (.uiv-side, .us-*) and the category overlay live here. They are injected by
-   design/_nav.js, which is what builds them, so a product screen still carries
-   exactly ONE stylesheet link of its own: design/system/index.css. */
 
-.wf-canvas{ min-height: 100vh; }
+   WHAT LIVES HERE. The screen shell (.wf-canvas, .wf-bar, .wf-page), the design/
+   screen panel (.uiv-side, .us-*) and the compact top bar it collapses into.
+   design/_nav.js injects all of it, so a product screen still carries exactly
+   ONE stylesheet of its own: design/system/index.css.
+
+   WHAT LEFT AT STEP 7.26. The phone's burger menu (.wf-drawer, 9 lines) and the
+   catalogue overlay (.wf-catov*, 28 lines) were PRODUCT interface filed under
+   chrome - the first screen a customer taps, sitting in the file that paints the
+   frame around the screenshot, and therefore absent from anyone's reading of
+   design/system/components/. Their marks were split further still, 100 lines
+   below the rows they coloured. They are components/nav-drawer.css and
+   components/cat-overlay.css now, and the goal chip's mark went home to
+   chip.css. This file draws the frame; it does not draw what is inside it.
+
+   HOW THE FRAME TELLS THE PRODUCT IT IS THERE - the two variables below, and
+   they are the only thing this file exports. A product rule may read them; it
+   may not know the numbers. Off the stand they are 0 and every rule that reads
+   them is a no-op, which is the whole point. */
+
+/* ---------- the frame's two numbers -----------------------------------------
+   `--shell-top`  how much of the top of the screen the harness has taken
+   `--shell-left` how much of the left
+
+   Before 7.26 these were four literals - 216, 40, 899, 900 - copied into
+   header.css, auth-dialog.css, cart-drawer.css and checkout-form.css, each with
+   its own media query. Step 7.25 moved the shell's own threshold to 1076 and
+   every one of those copies stayed at 899, so between 900 and 1075 the auth
+   dialog was pushed right of a panel that was not there, the cart drawer opened
+   under the top bar and the checkout page did both. Four files holding a number
+   that belongs to a fifth is not a style question, it is the same fact written
+   five times, and the fifth edition moved. */
+:root{ --shell-top: 0px; --shell-left: 0px; }
+
+.wf-canvas{ min-height: 100vh; margin-left: var(--shell-left); }
 .wf-page{ max-width: 1200px; margin: 0 auto; padding: 0 var(--space-16) var(--space-40); }
-.wf-drawer{ position: fixed; z-index: 29; left: 0; right: 0; top: var(--dr-top, 56px); bottom: 57px;
-  background: var(--bg-page); overflow-y: auto; -webkit-overflow-scrolling: touch;
-  border-top: 1px solid var(--line-hair); box-shadow: 0 16px 34px rgba(0,0,0,.13);
-  transform: translateY(-100%); visibility: hidden;
-  transition: transform .22s ease, visibility 0s linear .22s; }
-.wf-drawer.open{ transform: translateY(0); visibility: visible; transition: transform .22s ease; }
-@media (min-width: 860px){
-  .wf-drawer{ display: none !important; }
-}
-.wf-catov{ display: none; }
-@media (max-width: 859px){
-  .wf-catov{ position: fixed; top: 0; left: 0; right: 0; bottom: 57px; z-index: 49; background: var(--bg-page); flex-direction: column; }
-  .wf-catov.open{ display: flex; }
-  .wf-catov-h{ display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) var(--space-16); border-bottom: 1px solid var(--line-hair);
-    position: sticky; top: 0; background: var(--bg-page); min-height: 52px; }
-  .wf-catov-h .ctitle{ font-size: var(--fs-18); font-weight: var(--fw-black); color: var(--text-primary); }
-  .wf-catov-h .ctitle.sub{ font-size: var(--fs-16); font-weight: var(--fw-bold); color: var(--text-secondary); }
-  .wf-catov-h .cback{ font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); display: inline-flex; align-items: center; gap: var(--space-4); }
-  .wf-catov-h .cx{ margin-left: auto; font-size: var(--fs-20); color: var(--text-muted); line-height: var(--lh-flat); padding: var(--space-4); }
-  .wf-catov-body{ flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-  .wf-catov-row{ display: flex; align-items: center; gap: var(--space-12); width: 100%; padding: var(--space-16) var(--space-16); background: var(--bg-page);
-    font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); border-bottom: 1px solid var(--line-hair); text-align: left; }
-  .wf-catov-row .ci{ width: var(--size-24); text-align: center; font-size: var(--fs-18); flex: none; }
-  .wf-catov-row .cl{ min-width: 0; overflow-wrap: anywhere; }
-  .wf-catov-row .car{ margin-left: auto; color: #cbcbcb; font-weight: var(--fw-bold); font-size: var(--fs-18); }
-  .wf-catov-row.lead{ font-weight: var(--fw-black); }
-  .wf-catov-all{ display: flex; align-items: center; gap: var(--space-12); padding: var(--space-16) var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-black);
-    color: var(--text-primary); border-bottom: 1px solid var(--line-hair); background: var(--bg-surface); }
-  .wf-catov-all .ci{ font-size: var(--fs-18); }
-  .wf-catov-all .car{ margin-left: auto; color: var(--grey-bb); }
-  .wf-catov-sub{ display: block; padding: var(--space-12) var(--space-16) var(--space-12) var(--space-24); font-size: var(--fs-14); color: var(--text-secondary); border-bottom: 1px solid var(--line-hair); }
-  .wf-catov-goal{ display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) var(--space-16); border-bottom: 1px solid var(--line-hair); }
-  .wf-catov-goal .ci{ width: var(--size-24); text-align: center; font-size: var(--fs-20); flex: none; }
-  .wf-catov-goal .cg{ display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
-  .wf-catov-goal .gn{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
-  .wf-catov-goal .gc{ font-size: var(--fs-12); color: var(--text-muted); line-height: var(--lh-snug); overflow-wrap: anywhere; }
-  .wf-catov-goal .car{ margin-left: auto; color: #cbcbcb; font-weight: var(--fw-bold); }
-}
+/* checkout is the one flow with no `.wf-canvas` - it draws its own bare header -
+   so the margin above cannot reach it and the page is offset directly. The rule
+   came out of checkout-form.css at 7.26: whether a harness is there is this
+   file's fact, not the checkout's. */
+body:has(.co-head){ padding-left: var(--shell-left); padding-top: var(--shell-top); }
 .wf-states{ background: var(--bg-sunken); border-bottom: 1px solid var(--line-hair); font-size: var(--fs-12); padding: var(--space-8) var(--space-16); color: var(--text-secondary); display: flex; gap: var(--space-8) var(--space-16); flex-wrap: wrap; align-items: center; }
 .wf-states b{ color: var(--text-primary); text-transform: uppercase; letter-spacing: var(--ls-caps); font-size: var(--fs-12); }
 .wf-states a{ color: var(--text-secondary); text-decoration: underline; }
@@ -94,15 +90,29 @@ body:has(.cart-drawer) .wf-bar{ position: relative; z-index: 80; }
   display:flex; flex-direction:column; gap:var(--space-8); }
 .uiv-side .us-foot a{ color:rgba(255,255,255,.66); text-decoration:none; font-size:var(--fs-12); }
 .uiv-side .us-foot a:hover{ color:var(--text-oninverse); }
-@media(min-width:900px){
-  .wf-canvas{ margin-left:216px; }
+/* 1076, AND THE NUMBER IS 216 + 860 - step 7.25. The panel is 216 wide and it
+   PUSHES the canvas, but the product inside the canvas switches layouts on
+   `@media`, which reads the viewport and knows nothing about the 216 taken from
+   it. So between 900 and 1075 the header drew its >=860 desktop row inside a
+   canvas of only viewport-216: measured on index.html, the action row ran 61px
+   past the page at 900, 41 at 920, 21 at 940, and the whole page scrolled
+   sideways. The mega menu, 940 wide, was cut the same way and much longer.
+   860 is the width at which the product itself says the desktop layout fits, so
+   the panel may not appear until the canvas still has that much: 216 + 860.
+   Below it the shell already has an answer - the 40px top bar.
+
+   This is the ONE place either threshold is written. Everything that has to move
+   with it reads `--shell-top` / `--shell-left` - step 7.26. */
+@media(min-width:1076px){
+  :root{ --shell-left:216px; }
 }
-@media(max-width:899px){
-  body:not(:has(.wf-canvas)) #wf-header{ margin-top:var(--space-40); }
+@media(max-width:1075px){
+  :root{ --shell-top:var(--size-40); }
+  body:not(:has(.wf-canvas)) #wf-header{ margin-top:var(--shell-top); }
 }
 .uiv-topbar{ display:none; }
 .uiv-sidescrim{ display:none; }
-@media(max-width:899px){
+@media(max-width:1075px){
   .uiv-topbar{ display:flex; align-items:center; justify-content:space-between; gap:var(--space-12);
     position:fixed; top:0; left:0; right:0; height:var(--size-40); z-index:92; padding:0 var(--space-12);
     background:var(--bg-inverse); color:var(--text-oninverse); border:none; cursor:pointer;
@@ -113,20 +123,21 @@ body:has(.cart-drawer) .wf-bar{ position: relative; z-index: 80; }
     border-radius:var(--radius-4); padding:var(--space-2) var(--space-8); font-size:var(--fs-10); text-transform:uppercase; letter-spacing:var(--ls-caps); }
   .uiv-topbar .ut-chev{ color:var(--scrim-white-70); transition:transform .2s ease; }
   body.uiv-side-open .uiv-topbar .ut-chev{ transform:rotate(180deg); }
-  .wf-canvas{ margin-left:0; margin-top:var(--space-40); transition:margin-top .24s ease; }
-  .uiv-side{ position:absolute; z-index:20; top:40px; left:0; right:0; bottom:auto; width:auto;
+  /* `margin-left:0` is gone: `--shell-left` is already 0 in this range, and a
+     second answer to the same question is how the four component files got out
+     of step in the first place. */
+  .wf-canvas{ margin-top:var(--shell-top); transition:margin-top .24s ease; }
+  .uiv-side{ position:absolute; z-index:20; top:var(--shell-top); left:0; right:0; bottom:auto; width:auto;
     max-height:0; overflow:hidden; border-right:none; border-bottom:none; box-shadow:none;
     transform:none; transition:max-height .24s ease; }
-  body.uiv-side-open .uiv-side{ max-height:var(--uiv-side-h, calc(100vh - 40px)); overflow-y:auto;
+  body.uiv-side-open .uiv-side{ max-height:var(--uiv-side-h, calc(100vh - var(--shell-top))); overflow-y:auto;
     border-bottom:1px solid rgba(255,255,255,.1); }
-  body.uiv-side-open .wf-canvas{ margin-top:calc(var(--space-40) + var(--uiv-side-h, 0px)); }
+  body.uiv-side-open .wf-canvas{ margin-top:calc(var(--shell-top) + var(--uiv-side-h, 0px)); }
   .uiv-side .us-tagrow{ display:none; }
   .uiv-sidescrim{ display:none !important; }
 }
-.dr-chip .uiv-ic,
-.wf-catov-goal .ci .uiv-ic,
-.wf-catov-row.lead .ci .uiv-ic{ color:var(--text-action); }
-.dr-cat .dc-ic .uiv-ic,
-.wf-catov-row .ci .uiv-ic,
-.wf-catov-all .ci .uiv-ic{ color:var(--text-body); }
-.dr-chip .uiv-ic svg, .wf-catov .ci .uiv-ic svg{ width:19px; height:19px; }
+/* step 7.26: the seven lines that stood here painted the marks of the burger
+   menu, the goal chip and the catalogue overlay - three components, coloured
+   from the chrome file, a hundred lines below the rules that shape them. They
+   are in nav-drawer.css, chip.css and cat-overlay.css now, each beside its own
+   control. Nothing about a mark's colour was the stand's business. */

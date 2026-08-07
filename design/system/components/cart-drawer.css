@@ -6,23 +6,20 @@
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 /* .cart-ov came from base.css at step 5: it is the cart drawer's own scrim,
-   not a page-level rule. It sits HERE, in file order, because a later media
-   rule below moves both the scrim and the drawer down by the stand bar. */
-.cart-ov{ position: fixed; inset: var(--wfbar-h, 0px) 0 0 0; z-index: 60; }
-html.dr-lock{ overflow: hidden; }
-.dr-b{ padding: var(--space-16) var(--space-16) var(--space-32); }
-.dr-city{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); margin-bottom: var(--space-8); }
-.dr-lbl{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-secondary); margin: var(--space-16) 0 var(--space-8); }
-.dr-catwrap{ border-bottom: 1px solid var(--line-hair); }
-.dr-cat{ display: flex; align-items: center; gap: var(--space-8); width: 100%; text-align: left; font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); padding: var(--space-12) 0; background: none; }
-.dr-cat .dc-ic{ width: var(--size-20); text-align: center; flex: none; }
-.dr-cat .ar{ margin-left: auto; color: var(--text-secondary); font-weight: var(--fw-bold); font-size: var(--fs-16); }
-.dr-subs{ display: none; padding: var(--space-2) 0 var(--space-12) 29px; }
-.dr-subs.open{ display: block; }
-.dr-suball{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); padding: var(--space-8) 0; }
-.dr-sub{ display: block; font-size: var(--fs-14); color: var(--text-secondary); padding: var(--space-8) 0; }
-.dr-link{ display: block; font-size: var(--fs-14); color: var(--text-body); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); }
-.dr-link.strong{ font-weight: var(--fw-black); color: var(--text-primary); }
+   not a page-level rule.
+   `--shell-top` replaced `--wfbar-h` at 7.26. Both named the same thing - how
+   much of the top of the screen the harness above the product has taken - but
+   `--wfbar-h` is published by the GREY prototype's bar, which the colour layer
+   hides outright, so in design/ it was permanently 0 and the real compensation
+   was done by a hard `top:40px` in a media query below. One name now, published
+   by design/_stand.css, and it is 0 when there is no harness at all. */
+.cart-ov{ position: fixed; inset: var(--shell-top, 0px) 0 0 0; z-index: 60; }
+/* step 7.26: `html.dr-lock` and the whole `.dr-*` block that stood here - the
+   phone's BURGER MENU - moved to nav-drawer.css. They shared a two-letter
+   prefix with this file and nothing else: different trigger, different side of
+   the screen, different content, and `dr-lock` is added only by `openBurger()`.
+   A reader looking for the menu had to already know it was filed under the
+   cart. */
 .cart-behind{ max-width: 1200px; margin: 0 auto; padding: var(--space-24) var(--space-16) 60px; }
 .cart-behind h2{ font-size: var(--fs-20); margin-bottom: var(--space-4); }
 .cart-behind p{ font-size: var(--fs-14); color: var(--text-secondary); }
@@ -32,7 +29,7 @@ html.dr-lock{ overflow: hidden; }
 }
 .cart-behind .ph-card{ border: 1px solid var(--line-hair); border-radius: var(--radius-12); height: 150px; }
 .cart-drawer{
-  position: fixed; top: var(--wfbar-h, 0px); right: 0; bottom: 0; z-index: 61;
+  position: fixed; top: var(--shell-top, 0px); right: 0; bottom: 0; z-index: 61;
   width: 100%; max-width: 420px; background: var(--bg-page); display: flex; flex-direction: column; 
 }
 .cd-head{ display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); border-bottom: 1px solid var(--line-hair); }
@@ -71,9 +68,14 @@ html.dr-lock{ overflow: hidden; }
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .cart-ov{ background:var(--scrim-overlay); }
 .cart-drawer{ border-left:none; box-shadow: var(--elevation-drawer); }
-@media (max-width:899px){
-  .cart-ov, .cart-drawer{ top:40px; }
-}
+/* step 7.26: `@media (max-width:899px){ .cart-ov, .cart-drawer{ top:40px } }`
+   is gone. 40 was the height of the STAND's top bar and 899 was the width at
+   which the stand used to switch - two of the harness's numbers written into a
+   product component, and pinned. Step 7.25 moved the harness to 1076 and this
+   line stayed at 899, so between 900 and 1075 the drawer opened at top 0 with
+   the 40px bar painted over its head - measured on cart.html at 1000: drawer
+   top 0, bar bottom 40. Both rules read `--shell-top` now, which the harness
+   publishes and moves with. */
 .cart-behind h2{ font-family:var(--font-display); font-weight:var(--fw-semibold); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .cart-behind .ph-card{ background:var(--bg-page) center/62% no-repeat; border-color:var(--line-hair); box-shadow:var(--elevation-1); }
 .cart-behind .ph-card:nth-of-type(3n+1){ background-image:url(../../visuals/product-whey.png); }
