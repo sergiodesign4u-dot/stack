@@ -894,10 +894,23 @@ function wfAuthDigits(ov) {
       ph.value = out;
     });
   }
+  /* THE `.on` MARK IS THIS LAYER'S, THE MOVEMENT IS NOT - step 7.15.
+     Where a filled cell goes next used to be this one line, bound here, to this
+     one overlay - so the auth dialog advanced and the same component on the two
+     showcase pages did not move at all. The rule now lives in
+     `design/system/fields.js`, which the coloured product and the stand both
+     load, and it does more than this line ever did: the next FREE cell, back on
+     Backspace, arrows, and a pasted code spread across the boxes.
+
+     The grey layer does not load that file, so it keeps this line and keeps
+     working. When the system's edition IS present it steps aside, or the two
+     would each advance the focus on one keystroke and land two cells on. */
+  var sys = (typeof UIV_OTP_SEL !== 'undefined');
   ov.querySelectorAll('.otp .box').forEach(function (b) {
     b.addEventListener('input', function () {
       b.value = b.value.replace(/\D/g, '').slice(0, 1);
       b.classList.toggle('on', !!b.value);
+      if (sys) return;
       if (b.value && b.nextElementSibling) b.nextElementSibling.focus();   // auto-advance
     });
   });
