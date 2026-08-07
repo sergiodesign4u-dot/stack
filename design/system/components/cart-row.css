@@ -12,10 +12,10 @@
 .ci-nm{ display: block; font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-snug); margin: var(--space-2) 0 var(--space-4); }
 .ci-var{ font-size: var(--fs-12); }
 .ci-row{ display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); margin-top: var(--space-12); }
-.ci-qty{ display: inline-flex; align-items: center; border: 1.5px solid var(--line-strong); }
-.ci-qty button{ width: 32px; height: var(--size-34); font-size: var(--fs-16); }
-/* step 6.5: OFF is a state and it lives in button.css. */
-.ci-qty .qn{ width: var(--size-30); text-align: center; }
+/* step 7.13: the counter moved to stepper.css, whole. It was declared here AND
+   in checkout-form.css - one control, two editions, 32x34 here and 30x32 there.
+   A row of the cart owns what a row of the cart is; the control inside it is an
+   atom of its own and answers to both class names from one file now. */
 .ci-price{ white-space: nowrap; text-align: right; }
 .ci-price .ci-sum{ display: block; }
 .ci-price .ci-oldline{ display: flex; align-items: center; justify-content: flex-end; }
@@ -40,13 +40,7 @@
 .ci-nm{ color:var(--text-body); transition:color .15s ease; }
 .ci-nm:hover{ color:var(--text-action); }
 .ci-var{ color:var(--text-secondary); }
-.ci-qty{ border-color:var(--line-strong); border-radius:var(--radius-8); overflow:hidden;
-  transition:border-color .15s ease; }
-.ci-qty:hover{ border-color:var(--line-control-hover); }
-.ci-qty button{ color:var(--text-body); transition:background .15s ease, color .15s ease; }
-.ci-qty button:hover:not([disabled]){ background:var(--bg-surface); color:var(--text-action); }
-.ci-qty .qn{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
-  font-weight:var(--fw-semibold); font-size:var(--fs-14); color:var(--text-body); }
+/* the counter's colour went to stepper.css with its structure - see above */
 .ci-price{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
   word-spacing:-.24em; font-weight:var(--fw-bold); font-size:var(--fs-20); color:var(--text-body); line-height:var(--lh-snug); }
 .ci-price .ci-per{ font-weight:var(--fw-medium); font-size:var(--fs-12); color:var(--text-muted); margin-top:var(--space-2); }

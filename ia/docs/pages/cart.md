@@ -15,6 +15,15 @@
 - Opens as a **right-side drawer** (header cart icon / after «У кошик») - doesn't take the user off
   the page. **Quick view only:** items · qty steppers · remove · **just the total («Разом»)** · CTA
   «Перейти до оформлення» · **empty state** (→ catalog / goals).
+- **The quantity is typed as well as stepped (added 2026-08-07, from Job 1).** The stepper's two keys
+  are the fast path for 1 → 2 → 3; the number itself is an editable field, so a coach ordering for
+  30 athletes types 30 instead of pressing plus thirty times. Same control on both 6.0 and 6.1.
+  Rules: digits only (a letter, a sign or a pasted «шт» never reaches the total), floor **1**,
+  ceiling **99** - the same ceiling the plus key already had, so two ways in obey one rule. On a
+  phone the field must raise the **numeric keypad**, not the full keyboard. Empty is allowed while
+  typing and clamps on leaving the field: a person clearing it to type 12 must not see it snap back
+  to 1 under their fingers. **Reason it is written here rather than found in a wireframe:** this is a
+  change of control KIND, and the node owns what the control is.
 - **No breakdown in the drawer.** Loyalty discount, **bonuses spend**, and delivery are **NOT shown
   here** - they belong to checkout (6.1), which has room for states and input fields. The drawer shows
   only the line items and one total sum, with a hint «Знижка й бонуси - на оформленні».

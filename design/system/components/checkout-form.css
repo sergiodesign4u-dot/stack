@@ -78,10 +78,10 @@
 .co-line .li-acts{ display: flex; gap: var(--space-16); margin-top: var(--space-8); }
 .co-line .li-acts button{ font-weight: var(--fw-semibold); display: inline-flex; gap: var(--space-4); align-items: center; }
 .co-line .li-right{ text-align: right; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-8); }
-.co-qty{ display: inline-flex; align-items: center; border: 1.5px solid var(--line-strong); }
-.co-qty button{ width: var(--size-30); height: 32px; font-size: var(--fs-16); }
-/* step 6.5: OFF is a state and it lives in button.css. */
-.co-qty .qn{ width: 28px; text-align: center; }
+/* step 7.13: the counter moved to stepper.css, whole. This file's edition was
+   30x32 with a 28px number against the cart's 32x34 and 30 - the same control,
+   two files, three numbers apart. Merged at 32x34, so this screen's counter
+   grows 2px each way. */
 .co-line .li-oldline{ display: flex; align-items: center; justify-content: flex-end; gap: var(--space-8); }
 .co-line .li-oldline:empty{ display: none; }
 .co-line .li-old{ font-size: var(--fs-12); font-weight: var(--fw-medium); text-decoration: line-through; }
@@ -217,12 +217,7 @@
 .co-line .li-acts button .uiv-ic svg{ width:15px; height:15px; }
 .co-line .li-acts button.on{ color:var(--text-action); }
 .co-line .li-acts button.on .uiv-ic svg{ fill:var(--text-action); stroke:var(--text-action); }
-.co-qty{ border-color:var(--line-strong); border-radius:var(--radius-8); overflow:hidden; transition:border-color .15s ease; }
-.co-qty:hover{ border-color:var(--line-control-hover); }
-.co-qty button{ color:var(--text-body); transition:background .15s ease, color .15s ease; }
-.co-qty button:hover:not([disabled]){ background:var(--bg-surface); color:var(--text-action); }
-.co-qty .qn{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
-  font-weight:var(--fw-semibold); font-size:var(--fs-14); color:var(--text-body); }
+/* the counter's colour went to stepper.css with its structure - see above */
 .co-line .li-price{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
   word-spacing:-.24em; font-weight:var(--fw-bold); font-size:var(--fs-20); color:var(--text-body); line-height:var(--lh-snug); }
 .co-line .li-old{ color:var(--text-muted); }

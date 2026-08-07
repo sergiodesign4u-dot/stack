@@ -76,6 +76,8 @@
     .citem .cr { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
     .qty { display: inline-flex; align-items: center; border: 1px solid #d5d5d5; border-radius: 7px; overflow: hidden; }
     .qty span { padding: 3px 8px; font-size: 12px; color: #555; } .qty b { padding: 3px 9px; font-size: 12px; font-weight: 800; color: #111; border-left: 1px solid #eee; border-right: 1px solid #eee; }
+    /* 2026-08-07: the number is an editable FIELD, not a label - see «кількість вводиться» in the node. */
+    .qty b.qv { background: #fff; box-shadow: inset 0 -1px 0 #c9c9c9; }
     .citem .cp { font-size: 13px; font-weight: 800; color: #111; }
     .citem .cp .retail { font-size: 10.5px; color: #aaa; text-decoration: line-through; font-weight: 500; display: block; text-align: right; }
     .citem .rm { color: #b04a4a; font-size: 14px; }
@@ -207,7 +209,7 @@
   <section class="section" id="cart">
     <div class="section-num">01 · Кошик (6.0) - діалог-drawer</div>
     <h2>Швидкий перегляд: покупець і тренер (per-client)</h2>
-    <p class="section-lead">Кошик відкривається <b>drawer'ом справа</b> (іконка кошика в хедері / після «У кошик»), не забираючи зі сторінки. Це <b>швидкий перегляд</b>: позиції · кількість · <b>лише підсумкова сума</b> · CTA «Перейти до оформлення». <b>Знижка, бонуси й доставка - не тут, а на оформленні (6.1)</b>. Для <b>тренера</b> - позиції <b>згруповані по клієнтах</b> із сабтоталом кожного (з сесії 5.5), тариф тренера на рядках.</p>
+    <p class="section-lead">Кошик відкривається <b>drawer'ом справа</b> (іконка кошика в хедері / після «У кошик»), не забираючи зі сторінки. Це <b>швидкий перегляд</b>: позиції · кількість · <b>лише підсумкова сума</b> · CTA «Перейти до оформлення». <b>Знижка, бонуси й доставка - не тут, а на оформленні (6.1)</b>. <b>Кількість вводиться, а не тільки клікається</b> (2026-08-07, з Job 1): дві клавіші - швидкий шлях 1 → 2 → 3, саме число - поле, тож тренер на 30 спортсменів набирає 30, а не тисне плюс тридцять разів. Тільки цифри, від 1 до 99, на телефоні - цифрова клавіатура. Для <b>тренера</b> - позиції <b>згруповані по клієнтах</b> із сабтоталом кожного (з сесії 5.5), тариф тренера на рядках.</p>
     <div class="cols two">
       <div>
         <div class="wf"><div class="wf-cap">Кошик покупця (6.0)</div><div class="wf-pad">
@@ -215,9 +217,9 @@
             <div class="drawer">
               <div class="dh"><b>Кошик · 3 товари</b><span class="x">✕</span></div>
               <div class="db">
-                <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard 100% Whey 2270 г</div><div class="cb">Optimum Nutrition</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">1 290 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
-                <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Iso Whey Zero 908 г</div><div class="cb">BioTechUSA</div><div class="cr"><span class="qty"><span>−</span><b>2</b><span>+</span></span><span class="cp">2 100 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
-                <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Creatine Monohydrate 500 г</div><div class="cb">OstroVit</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">549 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
+                <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard 100% Whey 2270 г</div><div class="cb">Optimum Nutrition</div><div class="cr"><span class="qty"><span>−</span><b class="qv">1</b><span>+</span></span><span class="cp">1 290 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
+                <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Iso Whey Zero 908 г</div><div class="cb">BioTechUSA</div><div class="cr"><span class="qty"><span>−</span><b class="qv">2</b><span>+</span></span><span class="cp">2 100 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
+                <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Creatine Monohydrate 500 г</div><div class="cb">OstroVit</div><div class="cr"><span class="qty"><span>−</span><b class="qv">1</b><span>+</span></span><span class="cp">549 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
                 <div class="sum">
                   <div class="srow tot"><span>Разом</span><span>3 939 ₴</span></div>
                 </div>
@@ -238,15 +240,15 @@
                 <div class="cgroup">
                   <div class="cghead"><span>👤 Андрій · Набір маси</span><span class="gs">2 320 ₴</span></div>
                   <div class="db2">
-                    <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Hyper Mass 4000 г</div><div class="cb">тариф тренера</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">1 230 ₴</span></div><div class="iacts"><span class="iact del">🗑 Видалити</span></div></div></div>
-                    <div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard Whey 2270 г</div><div class="cb">тариф тренера</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">1 090 ₴</span></div><div class="iacts"><span class="iact del">🗑 Видалити</span></div></div></div>
+                    <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Hyper Mass 4000 г</div><div class="cb">тариф тренера</div><div class="cr"><span class="qty"><span>−</span><b class="qv">1</b><span>+</span></span><span class="cp">1 230 ₴</span></div><div class="iacts"><span class="iact del">🗑 Видалити</span></div></div></div>
+                    <div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard Whey 2270 г</div><div class="cb">тариф тренера</div><div class="cr"><span class="qty"><span>−</span><b class="qv">1</b><span>+</span></span><span class="cp">1 090 ₴</span></div><div class="iacts"><span class="iact del">🗑 Видалити</span></div></div></div>
                   </div>
                 </div>
                 <div class="cgroup">
                   <div class="cghead"><span>👤 Марія · Схуднення</span><span class="gs">1 160 ₴</span></div>
                   <div class="db2">
-                    <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Iso Whey Zero 908 г</div><div class="cb">тариф тренера</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">890 ₴</span></div><div class="iacts"><span class="iact del">🗑 Видалити</span></div></div></div>
-                    <div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">L-Carnitine 1000</div><div class="cb">тариф тренера</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">270 ₴</span></div><div class="iacts"><span class="iact del">🗑 Видалити</span></div></div></div>
+                    <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Iso Whey Zero 908 г</div><div class="cb">тариф тренера</div><div class="cr"><span class="qty"><span>−</span><b class="qv">1</b><span>+</span></span><span class="cp">890 ₴</span></div><div class="iacts"><span class="iact del">🗑 Видалити</span></div></div></div>
+                    <div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">L-Carnitine 1000</div><div class="cb">тариф тренера</div><div class="cr"><span class="qty"><span>−</span><b class="qv">1</b><span>+</span></span><span class="cp">270 ₴</span></div><div class="iacts"><span class="iact del">🗑 Видалити</span></div></div></div>
                   </div>
                 </div>
                 <div class="sum">
@@ -291,9 +293,9 @@
             <!-- order -->
             <div class="fsec">
               <div class="fsh">🛒 Ваше замовлення <span style="margin-left:auto;font-size:11px;font-weight:600;color:#888">3 товари</span></div>
-              <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard Whey 2270 г</div><div class="cb">Optimum Nutrition</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">1 290 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
-              <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Iso Whey Zero 908 г</div><div class="cb">BioTechUSA</div><div class="cr"><span class="qty"><span>−</span><b>2</b><span>+</span></span><span class="cp">2 100 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
-              <div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">Creatine Monohydrate 500 г</div><div class="cb">OstroVit</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">549 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
+              <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard Whey 2270 г</div><div class="cb">Optimum Nutrition</div><div class="cr"><span class="qty"><span>−</span><b class="qv">1</b><span>+</span></span><span class="cp">1 290 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
+              <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Iso Whey Zero 908 г</div><div class="cb">BioTechUSA</div><div class="cr"><span class="qty"><span>−</span><b class="qv">2</b><span>+</span></span><span class="cp">2 100 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
+              <div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">Creatine Monohydrate 500 г</div><div class="cb">OstroVit</div><div class="cr"><span class="qty"><span>−</span><b class="qv">1</b><span>+</span></span><span class="cp">549 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
             </div>
             <!-- delivery -->
             <div class="fsec">
@@ -431,9 +433,9 @@
         <div class="phone">
           <div class="p-top"><span style="color:#888">‹</span><span class="lg" style="font-size:13px">Кошик · 3</span><span></span></div>
           <div class="p-body" style="padding-bottom:6px">
-            <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard Whey 2270 г</div><div class="cb">Optimum Nutrition</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">1 290 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
-            <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Iso Whey Zero 908 г</div><div class="cb">BioTechUSA</div><div class="cr"><span class="qty"><span>−</span><b>2</b><span>+</span></span><span class="cp">2 100 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
-            <div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">Creatine Monohydrate 500 г</div><div class="cb">OstroVit</div><div class="cr"><span class="qty"><span>−</span><b>1</b><span>+</span></span><span class="cp">549 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
+            <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Gold Standard Whey 2270 г</div><div class="cb">Optimum Nutrition</div><div class="cr"><span class="qty"><span>−</span><b class="qv">1</b><span>+</span></span><span class="cp">1 290 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
+            <div class="citem"><span class="th">фото</span><div class="ci"><div class="cn">Iso Whey Zero 908 г</div><div class="cb">BioTechUSA</div><div class="cr"><span class="qty"><span>−</span><b class="qv">2</b><span>+</span></span><span class="cp">2 100 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
+            <div class="citem" style="border-bottom:none"><span class="th">фото</span><div class="ci"><div class="cn">Creatine Monohydrate 500 г</div><div class="cb">OstroVit</div><div class="cr"><span class="qty"><span>−</span><b class="qv">1</b><span>+</span></span><span class="cp">549 ₴</span></div><div class="iacts"><span class="iact">♡ В обране</span><span class="iact del">🗑 Видалити</span></div></div></div>
             <div class="qvhint" style="margin-top:10px">Знижка й <b>бонуси</b> - на оформленні</div>
           </div>
           <div class="p-sticky"><div><div style="font-size:10px;color:#888">Разом</div><b style="font-size:15px">3 939 ₴</b></div><span style="margin-left:auto;background:#161616;color:#fff;border-radius:8px;padding:10px 16px;font-size:12px;font-weight:800">Оформити →</span></div>

@@ -407,14 +407,9 @@
   color: var(--mark-disabled);
 }
 
-/* ---- not a `.btn`: the stepper's minus and plus --------------------------
-   Parked here since step 6.5. They belong to the counter atom and move there
-   the day it gets its own file; they are listed by their own names rather than
-   given a button class, because a stepper key is not a button - it has no
-   label, no finish, and it repeats on hold. */
-.ci-qty button[disabled], .co-qty button[disabled]{
-  background: none;
-  border-color: transparent;
-  color: var(--mark-disabled);
-  cursor: not-allowed;
-}
+/* ---- the stepper's off state left at step 7.13 ---------------------------
+   It was parked here at step 6.5 with the note «they belong to the counter atom
+   and move there the day it gets its own file». That day came: the counter is
+   `components/stepper.css` now, merged out of the two editions that cart-row
+   and checkout-form had each written for themselves, and its off state went
+   with it. Nothing about it was a button finish - a stepper key has no label. */

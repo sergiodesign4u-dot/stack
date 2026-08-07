@@ -30,6 +30,18 @@
 .menu-trig .uiv-ic{ transition: transform .15s ease; }
 .menu.open .menu-trig .uiv-ic{ transform: rotate(180deg); }
 .menu-val{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* THE CAPTION IS QUIETER THAN THE VALUE. «Сортування:» names the axis and
+   «Популярні» is the answer; only the answer is worth ink, so the caption drops
+   to muted and to semibold while the trigger stays bold.
+
+   Step 7.13 moved this rule here from stepper.css and re-addressed it. It was
+   `.ctrl .cap` - `.ctrl` being the listing toolbar's wrapper, not a component -
+   so it reached the sort button in the shop and missed the same control on its
+   own stand page. Measured: the specimen came out 14/700 ink, the product
+   14/600 muted, from one class name and two different answers. A component
+   addressed through somebody else's wrapper is a component that cannot be
+   shown, and a stand that disagrees with the shop is worse than no stand. */
+.menu-trig .cap{ color: var(--text-muted); font-weight: var(--fw-semibold); }
 
 /* ---- the popup ---------------------------------------------------------- */
 .menu-pop{

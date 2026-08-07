@@ -23,44 +23,84 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Лічильник кількості</h1>
-<p class="kp-lead">Мінус, число, плюс. Кількість товару в кошику і в шухляді.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/stepper.css</span><span class="kp-tag">16 рядків</span><span class="kp-tag">13 екранів</span></div>
+<p class="kp-lead">Мінус, число, плюс. Кількість товару в кошику і в рядку оформлення.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/stepper.css</span><span class="kp-tag">77 рядків</span><span class="kp-tag">5 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Ця сторінка показувала не той компонент</div>
+<div class="kp-gap"><h4>Крок 7.13: демо було саморобкою, а файл - порожнім</h4>
+<p class="kp-p">До цього кроку анатомія збиралася руками з <code>.ctrl</code> + <code>.b</code> + <code>.cap</code> - трьох класів, яких <b>жоден</b> лічильник у продукті ніколи не носив. <code>.ctrl</code> це обгортка тулбару лістингу, <code>.cap</code> - підпис тригера сортування, <code>.b</code> - лічильник фільтрів. А сам <code>stepper.css</code> тримав рівно два правила, і обидва існували, щоб <b>ця вигадка виглядала правильно</b>.</p>
+<p class="kp-p">Через хибний якір неправильним був і весь блок «Де вживається»: він перелічував 13 екранів з <code>.ctrl</code>, тобто лістинги й пошук, де лічильника немає взагалі.</p></div>
+<div class="kp-do"><h4>Що знайшлось під сподом</h4>
+<p class="kp-p">Лічильник існує, він на двох екранах, де рахуються гроші, і його було оголошено <b>двічі</b>:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Файл</th><th>Входжень</th><th>Кнопка</th><th>Число</th></tr></thead><tbody>
+<tr><td><code>.ci-qty</code></td><td><code>cart-row.css</code></td><td>16, кошик</td><td>32 &times; 34</td><td>30</td></tr>
+<tr><td><code>.co-qty</code></td><td><code>checkout-form.css</code></td><td>19, оформлення</td><td>30 &times; 32</td><td>28</td></tr>
+</tbody></table></div>
+<p class="kp-p">Розмітка однакова, рамка 1.5px однакова, радіус однаковий, ховер однаковий, моношрифт із tabular-nums однаковий. Три числа врізнобіч - і число <b>32</b> в обох, як <b>ширина</b> в одному й <b>висота</b> в другому. Ніхто такого не обирав; так виглядають два файли, що розійшлись.</p>
+<p class="kp-p"><b>Зведено на 32 &times; 34</b>, рішення власника, редакція кошика. Лічильник оформлення виріс на 2px у кожен бік; більше на цих екранах не змінилось нічого. Виміряно: 22 стани сторінок, <b>17 046</b> елементів - зрушилось <b>144</b>, усі на трьох сторінках чекауту, і в кошику <b>жодного</b>. Сірий прототип не зрушив теж.</p></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><div class="ctrl"><button class="b">−</button><span class="cap">2</span><button class="b">+</button></div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Мінус</b> - на одиниці перетворюється на видалення</span></div><div class="a"><i>2</i><span><b>Число</b> - моношрифт - ширина стала, кнопки не стрибають</span></div><div class="a"><i>3</i><span><b>Плюс</b> - упирається в залишок складу</span></div></div></section>
+<div class="kp-demo" style="display:flex;gap:var(--space-24);align-items:center;flex-wrap:wrap">
+  <div class="ci-qty"><button aria-label="Менше">&minus;</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="2" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+  <div class="co-qty"><button type="button" aria-label="Менше">&minus;</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="7" aria-label="Кількість"><button type="button" aria-label="Більше">+</button></div>
+  <div class="ci-qty"><button aria-label="Менше" disabled>&minus;</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість" disabled><button aria-label="Більше" disabled>+</button></div>
+</div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Мінус</b> - упирається в <b>1</b>. Нижче не йде і на видалення не перетворюється: видалення це окреме посилання в тому ж рядку</span></div><div class="a"><i>2</i><span><b>Число</b> - <b>поле</b>, а не підпис: його можна набрати. Моношрифт із <code>tabular-nums</code>, ширина стала 30 - кнопки не стрибають на переході з 9 на 10</span></div><div class="a"><i>3</i><span><b>Плюс</b> - упирається в <b>99</b>, а не в залишок складу: складу прототип не знає</span></div><div class="a"><i>4</i><span><b>Вимкнений</b> - <code>[disabled]</code> - рамка зникає, чорнило стає <code>--mark-disabled</code>, курсор <code>not-allowed</code></span></div></div>
+<p class="kp-p">Перші два демо <b>живі</b> - натисніть. Третє вимкнене й не рушить. Два перші відрізняються лише класом (<code>.ci-qty</code> і <code>.co-qty</code>) і мають бути неможливо різними: у цьому й полягав крок.</p>
+<p class="kp-p">Це <b>розмітка продукту</b>, взята з <code>cart.html</code> і <code>checkout.html</code> як є. Знак у html, гліф на екрані - той самий обмін, що й у решти набору, і робить його <code>system/marks.js</code>.</p>
+<div class="kp-gap"><h4>А поведінку стенд мусив написати сам, і це знахідка</h4><p class="kp-p">Стилі стенд бере з того самого <code>system/index.css</code>, що й крамниця, знак - з того самого <code>system/marks.js</code>. Поведінки лічильника в системі <b>немає</b>: крок живе у двох обробниках у <code>wireframes/_nav.js</code>, один прив'язаний до <code>.cart-drawer</code>, другий до кореня чекауту. Тому демо вище довелось оживляти окремим кодом на самій сторінці - за тим самим правилом (<code>aria-label</code>), але це друга копія. Компонент, чия поведінка належить сторінці, ніде не показується цілком.</p></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Напрямок кроку читається з підпису, а не з малюнка</div>
+<div class="kp-gap"><h4>Що зламав крок 7.11 і чим це полагоджено</h4>
+<p class="kp-p">Обробник вирішував напрямок так: <code>/&minus;|-/.test(step.textContent)</code> - тобто <b>читав знак усередині кнопки</b>. Крок 7.11 віддав цей знак наборові, а заміна пише <code>&lt;svg&gt;</code> в кнопку, тож <code>textContent</code> став порожній, тест повернув <code>false</code> і кожне натискання падало в гілку плюса.</p>
+<p class="kp-p">Виміряно до правки: у кольоровому кошику <b>1 &rarr; 2 &rarr; 3</b>, у кольоровому чекауті так само. Сірий шар лишив свої символи і працював - саме тому ніхто й не спіймав. Тепер напрямок питається в <code>aria-label</code>, який стоїть на цих кнопках у <b>обох</b> шарах і якого малюнок стерти не може. Після правки всі шість пар екран&times;ширина дають <b>1 &rarr; 2 &rarr; 1 &rarr; 1</b>.</p>
+<p class="kp-p"><b>Правило ширше за цей випадок:</b> контрол, чия поведінка залежить від того, як його <b>намальовано</b>, це контрол, який чекає, коли зламатись.</p></div>
+<div class="kp-do"><h4>Крок 7.14: число набирається, а не тільки клікається</h4><p class="kp-p">Це був найдорожчий рядок у «Чого бракує»: щоб поставити 30, треба було натиснути плюс тридцять разів - а 30 це <b>звичайне</b> замовлення тренера (Job 1: закупівля на 5-30+ спортсменів). Тепер <code>.qn</code> це <code>&lt;input&gt;</code>.</p><p class="kp-p"><b>Тільки цифри</b> - літера, знак чи вставлене «2 шт» до суми не доходять. <b>Від 1 до 99</b>, і 99 це та сама стеля, яку плюс мав завжди: два входи, одне правило. <code>inputmode="numeric"</code> плюс <code>pattern="[0-9]*"</code> піднімають на телефоні <b>цифрову клавіатуру</b>, а не повну. Стрілки вгору й вниз роблять те саме, що дві клавіші обабіч. Enter знімає фокус.</p><p class="kp-p"><b>Порожнє поле дозволене, поки в ньому пишуть</b>, і затискається на виході. Людина, яка стерла 1, щоб набрати 12, не має бачити, як одиниця повертається їй під пальці.</p><p class="kp-p"><code>type="text"</code>, а не <code>type="number"</code>, і це рішення: числове поле малює власні стрілки-спінер - другу пару тих самих клавіш просто поруч, - пускає <code>e</code>, мінус і крапку, і міняє значення від коліщатка миші над ним.</p><p class="kp-p">Порядок правок був згори вниз, як велить <code>wireframes/CLAUDE.md</code> §6: спершу вузол <code>ia/docs/pages/cart.md</code> і його канонічна картинка <code>ia/cart.html</code>, тоді підпис поля в <code>voice/docs/microcopy.md</code>, тоді структура в сірому шарі, і аж тоді кольорова копія. Зміна <b>роду контрола</b> належить вузлу, а не вайрфрейму.</p></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Розмір</b></td><td>базовий · компактний у шухляді</td><td>Компактний - там, де рядок вужчий за 320px.</td></tr></tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Розмір</b></td><td>один: кнопка 32 &times; 34, число 30, рамка 97 &times; 37</td><td>Варіанта немає і після зведення бути не повинно. «Компактний у шухляді», який тут стояв раніше, ніколи не існував у коді.</td></tr>
+<tr><td><b>Клас</b></td><td><code>.ci-qty</code> у кошику · <code>.co-qty</code> в оформленні</td><td>Два імені, одне правило. Перейменувати в одне не можна сьогодні: обидва живуть і в <code>wireframes/</code>, замороженому з етапу 05. Додати клас безпечно в обидва боки, перейменувати - ні, тож це пункт Кроку 6.</td></tr>
+<tr><td><b>Стан</b></td><td>звичайний · <code>[disabled]</code></td><td>Вимкнений приходить із наявності товару, а не з розмітки: див. <code>cart-oos.html</code>.</td></tr>
+</tbody></table></div>
 </section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
-<p class="kp-p">У <b>Рядок кошика</b>, <b>Шухляда кошика</b> і в <b>Форма чекауту</b>. Job 1: коуч міняє кількості десятки разів за сесію, тому крок має бути дешевим.</p></section>
+<p class="kp-p">У <b>Рядок кошика</b> і в <b>Форма чекауту</b>. Виміряно на живих екранах: <b>5 сторінок</b> у <code>design/</code>, <b>15</b> контролів - <code>cart.html</code> і <code>cart-oos.html</code> тримають свої в шухляді кошика, <code>checkout.html</code>, <code>checkout-loggedin.html</code> і <code>checkout-noaddr.html</code> - у рядку замовлення. Job 1: коуч міняє кількості десятки разів за сесію, тому крок має бути дешевим.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Число моноширинне.</b> Інакше кнопки їздять при переході з 9 на 10, і палець промахується.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не заміняй мінус на одиниці іконкою кошика мовчки.</b> Якщо дія міняє зміст, вона мусить сказати про це підписом, а не тільки гліфом - див. <b>Іконка</b>.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Число моноширинне.</b> Інакше кнопки їздять при переході з 9 на 10, і палець промахується.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не заміняй мінус на одиниці іконкою кошика мовчки.</b> Сьогодні мінус просто впирається в 1, і це чесно. Якщо колись дія почне міняти зміст, вона мусить сказати про це підписом, а не тільки гліфом - див. <b>Іконка</b>.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
+<p class="kp-p">У коді є <code>:hover</code> (рамка яскравішає, клавіша бере підкладку й акцентне чорнило) і <code>[disabled]</code>. Ховер навмисне закритий через <code>:not([disabled])</code>, тож вимкнена клавіша не світиться під курсором.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>1</b> станів оголошено в <code>stepper.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>2</b> станів оголошено в <code>stepper.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["b", "cap", "ctrl"], KIT_STS=[":hover"];</script></section>
+<script>var KIT_CLS=["ci-qty", "co-qty", "qn"], KIT_STS=[":hover", "[disabled]"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>stepper.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (6)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-page</code> <code>--line-action</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--text-muted</code> <code>--text-oninverse</code> <code>--text-primary</code></td><td><code>--fs-12</code> <code>--fw-black</code> <code>--fw-semibold</code> <code>--radius-pill</code> <code>--space-2</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (8)</th></tr></thead><tbody><tr><td><code>--bg-surface</code> <code>--line-control-hover</code> <code>--line-strong</code> <code>--mark-disabled</code> <code>--text-action</code> <code>--text-body</code></td><td><code>--font-mono</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fw-semibold</code> <code>--radius-8</code> <code>--size-30</code> <code>--size-32</code> <code>--size-34</code></td></tr></tbody></table></div>
+<p class="kp-p"><code>--size-32</code> додано на цьому ж кроці. 32 вже було в продукті двічі як літерал, у двох файлах, і означало різне: ширину клавіші в кошику й висоту в чекауті. Значення, яке повторюється, отримує ім\'я.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;div class="ctrl"&gt;&lt;button class="b"&gt;−&lt;/button&gt;&lt;span class="cap"&gt;2&lt;/span&gt;&lt;button class="b"&gt;+&lt;/button&gt;&lt;/div&gt;</div></section>
+<div class="kp-code">&lt;div class="ci-qty"&gt;
+  &lt;button aria-label="Менше"&gt;&minus;&lt;/button&gt;
+  &lt;input class="qn" type="text" inputmode="numeric" pattern="[0-9]*"
+         maxlength="2" autocomplete="off" value="2" aria-label="Кількість"&gt;
+  &lt;button aria-label="Більше"&gt;+&lt;/button&gt;
+&lt;/div&gt;</div>
+<p class="kp-p"><code>aria-label</code> тут не оздоба: це <b>єдине</b>, з чого обробник дізнається напрямок кроку, відколи знак малює набір. У рядку оформлення та сама розмітка з <code>class="co-qty"</code> і <code>type="button"</code>.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.ctrl</code></p>
-<p class="kp-p"><b>13 екранів</b> у <code>wireframes/</code>: goal-empty.html, goal-error.html, goal-loading.html, goal.html, listing-empty.html, listing-error.html, listing-filtered.html, listing-list.html, listing-loading.html, listing-sheet.html, listing.html, search-loading.html, search.html</p></section>
+<p class="kp-p">Якорі: <code>.ci-qty</code> <code>.co-qty</code></p>
+<p class="kp-p"><b>5 екранів</b> у <code>design/</code>, 15 контролів: cart.html, cart-oos.html (у шухляді), checkout.html, checkout-loggedin.html, checkout-noaddr.html (у рядку замовлення). У <code>wireframes/</code> ті самі плюс cart-coach.html.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає межі складу</b> в CSS - плюс не має вимкненого стану</li><li><b>Немає введення числа з клавіатури</b> - на 30 одиницях коуч натисне плюс 30 разів</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Клавіша 32 &times; 34 проти мінімуму дотику 44</b>, який решта набору тримає. Число - рішення власника, і розрив реальний. Розширити зону дотику до 44 наосліп не можна: клавіші стоять за 30px одна від одної, тож зони перекрились би і натиск біля середини влучав би не туди. Це рішення, а не правка</li><li><b>Немає межі складу</b> - плюс упирається в 99, бо залишку прототип не знає, а <code>[disabled]</code> ставить лише розмітка недоступного товару</li><li><b>Два імені на один контрол</b> - <code>.ci-qty</code> і <code>.co-qty</code>. Правило вже одне, розмітка ще ні; перейменування чекає Кроку 6, бо обидва класи є і в замороженому сірому шарі</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
 /* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
@@ -120,5 +160,35 @@
 </main>
 <script>var KIT_ACTIVE = 'stepper';</script>
 <script src="_nav.js"></script>
+<script>
+/* The stand writes this itself, and the section above says why: the step lives in
+   two page handlers in wireframes/_nav.js, not in the component. Same rule as the
+   product - the direction comes from `aria-label`, never from the glyph, because
+   here the glyph is an <svg> exactly as it is in the shop. */
+(function(){
+  var read = function(qn){ return Math.max(1, Math.min(99, parseInt(qn.value, 10) || 1)); };
+  document.querySelectorAll('.kp-demo .ci-qty, .kp-demo .co-qty').forEach(function(box){
+    var qn = box.querySelector('.qn');
+    box.addEventListener('click', function(e){
+      var b = e.target.closest('button');
+      if(!b || b.disabled) return;
+      var down = /\u041c\u0435\u043d\u0448\u0435/.test(b.getAttribute('aria-label') || '');
+      qn.value = down ? Math.max(1, read(qn) - 1) : Math.min(99, read(qn) + 1);
+    });
+    qn.addEventListener('input', function(){
+      var d = qn.value.replace(/\D/g, '').slice(0, 2);
+      if(d !== qn.value) qn.value = d;
+    });
+    qn.addEventListener('blur', function(){ qn.value = read(qn); });
+    qn.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); qn.blur(); return; }
+      if(e.key === 'ArrowUp' || e.key === 'ArrowDown'){
+        e.preventDefault();
+        qn.value = Math.max(1, Math.min(99, read(qn) + (e.key === 'ArrowUp' ? 1 : -1)));
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>

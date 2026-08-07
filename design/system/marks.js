@@ -132,7 +132,15 @@ var UIV_SIGN_ONLY = {
   '✕':'close', '×':'close', '✖':'close', '⨯':'close',
   '＋':'plus', '+':'plus', '－':'minus', '−':'minus',
   '★':'star', '☆':'star', '♥':'heart', '♡':'heart',
-  '▦':'grid', '☰':'list'
+  '▦':'grid', '☰':'list',
+  /* step 7.13. `.wlrm` in the wishlist is `<button ...>🗑</button>` - the sign IS
+     the whole label, so it belongs in this map like every other one. It was
+     missing because the SHOP already drew it from a different place: `UIV_EMOJI`
+     in design/_nav.js, which kit pages never load. Measured: 6 trash cans drawn
+     from the set on account-wishlist.html, and the same button left as a raw
+     emoji on the stand. Two editions of one swap, which is the seam this file
+     was created to close - it just had one row missing. */
+  '🗑':'trash', '🗑️':'trash'
 };
 
 function uivSignSwap(host, name, wrap){

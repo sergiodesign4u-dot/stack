@@ -1693,6 +1693,7 @@ Text-collection only, verbatim. Shared header/footer/mega/tabbar text from `_nav
 | Line item | підпис поля | OstroVit · Польща | brand·country [UGC] |
 | Line item | посилання | Creatine Monohydrate 500 г | product name [UGC] |
 | Line item qty | кнопка | − | aria-label «Менше» |
+| Line item qty | поле | {N} | quantity, typed or stepped; aria-label «Кількість» (2026-08-07) |
 | Line item qty | кнопка | + | aria-label «Більше» |
 | Line item price | мікротекст/підказка | {N} ₴ | line price e.g. «1 290 ₴» |
 | Line item price | мікротекст/підказка | {N} ₴ / шт | per-unit sub-price e.g. «1 050 ₴ / шт» |

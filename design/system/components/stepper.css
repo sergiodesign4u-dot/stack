@@ -1,3 +1,100 @@
+/* stepper.css - the quantity counter (level 1). Written at step 7.13, and the
+   file was empty until this step for a reason worth keeping.
 
-.ctrl .cap{ color: var(--text-muted); font-weight: var(--fw-semibold); }
-.ctrl .b{ background: var(--bg-inverse); color: var(--text-oninverse); border-radius: var(--radius-pill); font-size: var(--fs-12); font-weight: var(--fw-black); padding: var(--space-2) var(--space-8); }
+   IT HELD TWO RULES AND NEITHER WAS A COUNTER. `.ctrl .cap` was the CAPTION of
+   the sort trigger («Сортування:») - moved to menu.css and re-addressed at
+   `.menu-trig`, because `.ctrl` is the listing toolbar's wrapper, not a
+   component, so the rule reached the button in the shop and missed the same
+   button on its own stand page. `.ctrl .b` was a count pill that matches ZERO
+   elements anywhere. Both existed to make `design/kit/stepper.html` look right,
+   and that page hand-builds a counter out of `.ctrl` + `.b` + `.cap` - classes
+   the product has never worn.
+
+   AND I READ THE PRODUCT WRONG. The first version of this comment said the
+   counter does not exist, on the strength of `class="qty"` returning nothing. It
+   returns nothing because the counter is not called that. It is on the two
+   screens where money is counted, and it was declared TWICE:
+
+     .ci-qty   cart-row.css       16 in the cart      button 32 x 34,  .qn 30
+     .co-qty   checkout-form.css  19 in the checkout  button 30 x 32,  .qn 28
+
+   Same markup, same 1.5px border, same radius-8, same overflow clip, same hover,
+   same mono tabular-nums, same 14/semibold on the number. Three numbers apart,
+   and the number 32 appearing in both - as a WIDTH in one and a HEIGHT in the
+   other. Nobody chose that; it is what two files drifting look like.
+
+   MERGED AT 32 x 34, owner's call, the cart's edition. The checkout's counter
+   grows 2px in each direction; nothing else about either screen changes.
+
+   BOTH CLASS NAMES, ONE RULE SET. The markup is not renamed to a single class
+   because `.ci-qty` and `.co-qty` also live in `wireframes/`, frozen since stage
+   05. Adding a class to both layers is safe, renaming is not, so the atom
+   answers to both names today and the rename is a Крок 6 item.
+
+   WHAT THIS DOES NOT SOLVE, stated rather than quietly carried: the key is
+   32 x 34 against a touch minimum of 44 that every other control in the set
+   clears. The number is the owner's, the gap is real, and it is logged on
+   design/kit/stepper.html rather than fixed by widening the box behind the
+   owner's back - the two keys are 30px apart, so a 44 hit area would have them
+   overlapping and a press near the middle would hit the wrong one. */
+
+/* ---------- structure ---------- */
+.ci-qty, .co-qty{ display: inline-flex; align-items: center;
+  border: 1.5px solid var(--line-strong); }
+.ci-qty button, .co-qty button{ width: var(--size-32); height: var(--size-34);
+  font-size: var(--fs-16); }
+/* THE NUMBER IS A FIELD, step 7.14. It was a `<span>`, so the only way to reach
+   30 was to press plus thirty times - and 30 is the coach's normal order, which
+   made this the most expensive line in this component's «what is missing» list.
+   It is an `<input>` now and has to stop looking like one: the frame around it
+   is already the control's border, so the field brings no border, no ground and
+   no shadow of its own. Width and centring are unchanged, so the box does not
+   move; the proof at 17 046 elements says it did not. */
+.ci-qty .qn, .co-qty .qn{ width: var(--size-30); text-align: center;
+  /* the browser's own field look, removed. `appearance` alone does not clear
+     iOS's inner shadow on an input, hence the explicit background and border. */
+  appearance: none; -webkit-appearance: none;
+  border: 0; background: none; padding: 0; margin: 0; min-width: 0;
+  /* a field does not inherit type: without this it falls back to the UA's
+     13px system font and the number stops being monospaced mid-control */
+  font: inherit; color: inherit; }
+.ci-qty .qn:focus, .co-qty .qn:focus{ outline: none; }
+.ci-qty .qn[disabled], .co-qty .qn[disabled]{ color: var(--mark-disabled); }
+
+/* ---------- colour ---------- */
+.ci-qty, .co-qty{ border-color: var(--line-strong); border-radius: var(--radius-8);
+  overflow: hidden; transition: border-color .15s ease; }
+.ci-qty:hover, .co-qty:hover{ border-color: var(--line-control-hover); }
+/* FOCUS LANDS ON THE FRAME, not on the field. The field has no border of its
+   own, and the frame clips with `overflow: hidden`, so a ring drawn on the
+   input would be cut off on three sides. The whole control is what the person
+   is in, so the whole control says so - the same accent line and ring every
+   other field in the set uses, just carried by the box that can show it. */
+.ci-qty:focus-within, .co-qty:focus-within{ border-color: var(--line-action);
+  box-shadow: var(--ring-focus); }
+.ci-qty button, .co-qty button{ color: var(--text-body);
+  transition: background .15s ease, color .15s ease; }
+.ci-qty button:hover:not([disabled]), .co-qty button:hover:not([disabled]){
+  background: var(--bg-surface); color: var(--text-action); }
+.ci-qty .qn, .co-qty .qn{ font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums; font-weight: var(--fw-semibold);
+  font-size: var(--fs-14); color: var(--text-body); }
+
+/* ---------- off ----------
+   Moved here from button.css, which had been holding it since step 6.5 and said
+   so out loud: «they belong to the counter atom and move there the day it gets
+   its own file». This is that day. A stepper key is not a `.btn` - it has no
+   label and no finish - so it keeps its own name rather than a button class. */
+.ci-qty button[disabled], .co-qty button[disabled]{
+  background: none;
+  border-color: transparent;
+  color: var(--mark-disabled);
+  cursor: not-allowed;
+}
+
+/* THE DIRECTION OF A STEP IS NOT IN THIS FILE, and that is the point. It used to
+   be readable from the glyph - the handler asked whether the button's text
+   contained a minus - and step 7.11 gave that glyph to the icon set, which
+   emptied the text and turned every press into a plus on the coloured layer.
+   The handler now reads `aria-label`, in wireframes/_nav.js. A control whose
+   behaviour depends on how it is DRAWN is a control waiting to break. */

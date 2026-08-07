@@ -1756,6 +1756,18 @@ body:has(.cart-drawer) .wf-bar { position: relative; z-index: 80; }
 .co-qty button { width: 30px; height: 32px; font-size: 16px; color: var(--strong); }
 .co-qty button[disabled] { color: #ccc; cursor: not-allowed; }
 .co-qty .qn { width: 28px; text-align: center; font-weight: 700; font-size: 13px; }
+/* The quantity is an <input> since 2026-08-07 - see «кількість вводиться» in
+   ia/docs/pages/cart.md. This is not a style choice, it is the reset that keeps
+   a field from drawing a second border inside the control's own one. Size and
+   weight above are untouched: the grey layer's two editions stay as they are,
+   the merge to one size is the design system's decision and lives there. */
+.ci-qty .qn, .co-qty .qn { appearance: none; -webkit-appearance: none;
+  border: 0; background: none; padding: 0; margin: 0; min-width: 0;
+  font-family: inherit; color: inherit; }
+.ci-qty .qn:focus, .co-qty .qn:focus { outline: none; }
+/* focus shows on the frame: the field has no border and the box clips */
+.ci-qty:focus-within, .co-qty:focus-within { border-color: var(--strong); }
+.ci-qty .qn[disabled], .co-qty .qn[disabled] { color: #ccc; }
 .co-line .li-price { font-size: 16px; font-weight: 800; color: var(--strong); }
 .co-line .li-oldline { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
 .co-line .li-oldline:empty { display: none; }

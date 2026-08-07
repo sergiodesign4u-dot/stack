@@ -26,8 +26,13 @@
 <p class="kp-lead">Серце в куті картки. Один дотик - товар у списку бажань, ще один - геть.</p>
 <div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/favourite.css</span><span class="kp-tag">36 рядків</span><span class="kp-tag">30 екранів</span></div>
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><article class="pcard" style="max-width:220px;position:relative;min-height:90px"><button class="fav" aria-label="В обране"></button></article></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Кут картки</b> - верхній правий - той самий слот на всіх екранах</span></div><div class="a"><i>2</i><span><b>Гліф</b> - контур · заповнений у стані <code>.on</code></span></div></div></section>
+<div class="kp-demo" style="display:flex;gap:var(--space-24);flex-wrap:wrap">
+  <article class="pcard" style="flex:0 0 180px;position:relative;min-height:100px"><button class="btn--text btn--icon fav" aria-label="В обране">♡</button></article>
+  <article class="pcard" style="flex:0 0 180px;position:relative;min-height:100px"><button class="btn--text btn--icon fav on" aria-label="Прибрати з обраного">♡</button></article>
+  <article class="pcard" style="flex:0 0 180px;position:relative;min-height:100px"><button class="btn--text btn--icon wlrm" aria-label="Видалити з обраного" title="Видалити з обраного">🗑</button></article>
+</div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Кут картки</b> - верхній правий - той самий слот на всіх екранах</span></div><div class="a"><i>2</i><span><b>Гліф</b> - контур · заповнений і в акценті у стані <code>.on</code></span></div><div class="a"><i>3</i><span><b>Той самий кут, інша робота</b> - <code>.wlrm</code> у списку бажань видаляє, і саме тому має <b>кошик</b>, а не серце</span></div></div>
+<p class="kp-p">Три коробки вище - <b>розмітка продукту</b>, не її зображення: <code>btn--text btn--icon fav</code>, як на картці в каталозі. До кроку 7.13 тут стояла <code>&lt;button class="fav"&gt;</code> без класів фінішу і <b>без гліфа всередині</b>, тож анатомія показувала порожню рамку. Компонент цей сам про це й попереджає: <code>favourite.css</code> тримає <b>де</b> мітка стоїть і <b>що</b> вона каже кольором, а її коробку і зону дотику оголошує <code>button.css</code> - тож без <code>btn--icon</code> показувати нема чого.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
@@ -53,8 +58,10 @@
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (2)</th></tr></thead><tbody><tr><td><code>--ring-focus-control</code> <code>--text-action</code> <code>--text-body</code> <code>--text-secondary</code></td><td><code>--radius-8</code> <code>--size-44</code></td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;button class="fav" aria-label="В обране"&gt;&lt;/button&gt;
-&lt;button class="fav on" aria-label="Прибрати з обраного"&gt;&lt;/button&gt;</div></section>
+<div class="kp-code">&lt;button class="btn--text btn--icon fav" aria-label="В обране"&gt;♡&lt;/button&gt;
+&lt;button class="btn--text btn--icon fav on" aria-label="Прибрати з обраного"&gt;♡&lt;/button&gt;
+&lt;button class="btn--text btn--icon wlrm" aria-label="Видалити з обраного" title="Видалити з обраного"&gt;🗑&lt;/button&gt;</div>
+<p class="kp-p">Розмітка взята з <code>account-wishlist.html</code> як є, усі шість входжень однакові. Знак у html, а гліф на екрані - це не суперечність, а <b>правило кроку 7.11</b>: контрол, чия мітка і є весь його підпис, віддає знак наборові. Серце малює <code>heart</code>, кошик - <code>trash</code>, обидва з <code>icons.js</code>.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
 <p class="kp-p">Якорі: <code>.fav</code> <code>.wlrm</code></p>

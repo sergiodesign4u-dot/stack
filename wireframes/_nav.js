@@ -1282,8 +1282,7 @@ function wfCartRecalc(drawer) {
   let sum = 0, lines = 0;
   drawer.querySelectorAll('.ci').forEach(ci => {
     const unit = parseFloat(ci.dataset.unit || '0');
-    const qn = ci.querySelector('.qn');
-    const q = Math.max(1, parseInt((qn && qn.textContent) || '1', 10) || 1);
+    const q = wfQtyRead(ci.querySelector('.qn'));
     lines++;
     if (ci.classList.contains('oos')) return;      // недоступне не входить у суму
     sum += unit * q;
@@ -1310,17 +1309,97 @@ function wfCartRecalc(drawer) {
   document.querySelectorAll('.wfh-act.numbtn .val').forEach(v => { v.textContent = wfMoney(sum); });
   document.querySelectorAll('.wfh-act .hb, .wf-tab .tbadge').forEach(b => { b.textContent = lines; });
 }
+/* WHICH WAY A QUANTITY STEP GOES is asked of the LABEL, not of the glyph.
+   Both counters - the cart row and the checkout line - used to decide by looking
+   for a minus sign inside `step.textContent`, and that worked only for as long
+   as the sign WAS a character. Step 7.11 gave the counter its mark from the icon
+   set, and the swap writes an <svg> into the button, so on the coloured layer
+   textContent came back empty, the test returned false and every press fell
+   through to the plus branch. Measured on design/cart.html: 1 -> plus -> 2 ->
+   minus -> 3, and the same on design/checkout.html. The two screens where money
+   is counted. The grey layer kept its characters and kept working, which is
+   exactly why nothing caught it.
+   `aria-label` is already on every one of these buttons, it is the same word in
+   both layers, and it is the one thing here that a drawing cannot erase. The
+   old glyph test stays as a fallback so a button that ever loses its label
+   degrades to the previous rule instead of silently becoming a plus. */
+function wfStepIsDown(btn) {
+  return /Менше/.test(btn.getAttribute('aria-label') || '') || /−|-/.test(btn.textContent);
+}
+
+/* ---------- the quantity is TYPED as well as stepped, step 7.14 -------------
+   `.qn` was a `<span>`, so the only way to reach 30 was to press plus 30 times.
+   That is the coach's screen (Job 1: bulk orders for 5-30+ athletes), so the
+   most expensive line in this component's «what is missing» list was this one.
+   It is an `<input>` now, and the two helpers below exist so no reader of the
+   number has to know which it is: `.value` for a field, `.textContent` for a
+   span. Tolerant on purpose - the day one instance is missed somewhere, it
+   keeps working instead of silently reading an empty string and resetting the
+   cart to 1. That is the same mistake the minus button made at step 7.11,
+   and once is enough. */
+function wfQtyRead(qn) {
+  if (!qn) return 1;
+  const raw = (qn.tagName === 'INPUT') ? qn.value : qn.textContent;
+  return Math.max(1, Math.min(99, parseInt(raw, 10) || 1));
+}
+function wfQtyWrite(qn, n) {
+  if (!qn) return;
+  if (qn.tagName === 'INPUT') qn.value = n; else qn.textContent = n;
+}
+
+/* ONE binder for both screens. The cart and the checkout each had their own
+   click handler for the plus and the minus, written twice; the field is not
+   going to be written twice as well. `recalc` is the only thing that differs.
+
+   `focusout` and not `blur`, because blur does not bubble and this is delegated.
+   Empty is allowed WHILE typing - a person clearing the field to type 12 should
+   not see it snap back to 1 under their fingers - and is clamped when they
+   leave. maxlength=2 caps at 99, which is the same ceiling the plus has: two
+   ways in, one rule. */
+function wfQtyField(root, recalc) {
+  if (!root || root.dataset.wfqty) return;
+  root.dataset.wfqty = '1';
+  const field = e => {
+    const qn = e.target.closest ? e.target.closest('.ci-qty .qn, .co-qty .qn') : null;
+    return (qn && qn.tagName === 'INPUT') ? qn : null;
+  };
+  root.addEventListener('input', e => {
+    const qn = field(e); if (!qn) return;
+    /* digits only - a letter, a minus or a pasted «шт» never reaches the total.
+       Written back only when it actually changed: assigning `value` puts the
+       caret at the end, and doing that on every keystroke fights the typist. */
+    const d = qn.value.replace(/\D/g, '').slice(0, 2);
+    if (d !== qn.value) qn.value = d;
+    if (d) recalc(root);
+  });
+  root.addEventListener('focusout', e => {
+    const qn = field(e); if (!qn) return;
+    wfQtyWrite(qn, wfQtyRead(qn));       // '' and '0' become 1, anything over 99 becomes 99
+    recalc(root);
+  });
+  root.addEventListener('keydown', e => {
+    const qn = field(e); if (!qn) return;
+    if (e.key === 'Enter') { e.preventDefault(); qn.blur(); return; }
+    /* the arrows do what the two keys either side of the field do. A number
+       field the keyboard cannot step is half a control. */
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      wfQtyWrite(qn, Math.max(1, Math.min(99, wfQtyRead(qn) + (e.key === 'ArrowUp' ? 1 : -1))));
+      recalc(root);
+    }
+  });
+}
 function wfCart() {
   const drawer = document.querySelector('.cart-drawer');
   if (!drawer || !drawer.querySelector('.ci[data-unit]') || drawer.dataset.wfcart) return;
   drawer.dataset.wfcart = '1';
+  wfQtyField(drawer, wfCartRecalc);
   drawer.addEventListener('click', e => {
     const step = e.target.closest('.ci-qty button');
     if (step && !step.disabled) {
-      const ci = step.closest('.ci'), qn = ci.querySelector('.qn');
-      const q = Math.max(1, parseInt(qn.textContent, 10) || 1);
-      const next = /−|-/.test(step.textContent) ? Math.max(1, q - 1) : Math.min(99, q + 1);
-      qn.textContent = next;
+      const qn = step.closest('.ci').querySelector('.qn');
+      const q = wfQtyRead(qn);
+      wfQtyWrite(qn, wfStepIsDown(step) ? Math.max(1, q - 1) : Math.min(99, q + 1));
       wfCartRecalc(drawer);
       return;
     }
@@ -1354,8 +1433,7 @@ function wfCheckoutRecalc(root) {
   let sum = 0, lines = 0;
   root.querySelectorAll('.co-line').forEach(l => {
     const unit = parseFloat(l.dataset.unit || '0');
-    const qn = l.querySelector('.qn');
-    const q = Math.max(1, parseInt((qn && qn.textContent) || '1', 10) || 1);
+    const q = wfQtyRead(l.querySelector('.qn'));
     sum += unit * q; lines++;
     const price = l.querySelector('.li-price');
     if (!price) return;
@@ -1424,6 +1502,7 @@ function wfCheckout() {
   const root = document.querySelector('.co-wrap');
   if (!root || !root.querySelector('.co-line[data-unit]') || root.dataset.wfco) return;
   root.dataset.wfco = '1';
+  wfQtyField(root, wfCheckoutRecalc);
   root.addEventListener('click', e => {
     /* delivery / payment: one choice per section */
     const opt = e.target.closest('.co-opt');
@@ -1444,8 +1523,8 @@ function wfCheckout() {
     const step = e.target.closest('.co-qty button');
     if (step && !step.disabled) {
       const qn = step.closest('.co-line').querySelector('.qn');
-      const q = Math.max(1, parseInt(qn.textContent, 10) || 1);
-      qn.textContent = /−|-/.test(step.textContent) ? Math.max(1, q - 1) : Math.min(99, q + 1);
+      const q = wfQtyRead(qn);
+      wfQtyWrite(qn, wfStepIsDown(step) ? Math.max(1, q - 1) : Math.min(99, q + 1));
       wfCheckoutRecalc(root);
       return;
     }
@@ -1481,7 +1560,8 @@ function wfCheckout() {
         '<div class="li-meta">' + (card.dataset.meta || '') + '</div>' +
         '<div class="li-acts"><button type="button">♡ В обране</button><button type="button">🗑 Видалити</button></div></div>' +
         '<div class="li-right"><div class="co-qty"><button type="button" aria-label="Менше">−</button>' +
-        '<span class="qn">1</span><button type="button" aria-label="Більше">+</button></div>' +
+        '<input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість">' +
+        '<button type="button" aria-label="Більше">+</button></div>' +
         '<div class="li-price"><span class="li-oldline"></span><span class="li-sum"></span><span class="li-per"></span></div></div>';
       root.querySelector('section[aria-label="Ваше замовлення"]').appendChild(line);
       wfCheckoutRecalc(root);
