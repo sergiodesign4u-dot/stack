@@ -95,12 +95,14 @@
 .ob-line:first-child{ padding-top: var(--space-2); }
 .ob-line .ph{ width: 52px; height: 56px; border-radius: var(--radius-8); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
 .ln-nm{ font-size: var(--fs-14); font-weight: var(--fw-bold); line-height: var(--lh-snug); }
-.ln-review{ display: inline-flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); font-size: var(--fs-12); font-weight: var(--fw-bold); color: var(--text-primary); text-decoration: underline; }
+/* step 7.30: weight, ink and underline left for link-row.css - this rule keeps
+   the component's half: where the link sits in the row and how big it is. */
+.ln-review{ display: inline-flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); font-size: var(--fs-12); }
 .ln-right{ text-align: right; white-space: nowrap; }
 .ln-calc{ font-size: var(--fs-12); color: var(--text-secondary); }
 .ln-tot{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); margin-top: var(--space-4); }
 .ob-sum{ margin-top: var(--space-16); }
-.ob-receipt{ display: inline-flex; align-items: center; gap: var(--space-8); margin-top: var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); text-decoration: underline; }
+.ob-receipt{ display: inline-flex; align-items: center; gap: var(--space-8); margin-top: var(--space-16); font-size: var(--fs-14); }
 .ob-repeat{ width: 100%; }
 .ob-del{ border: 1px solid var(--line-hair); padding: var(--space-16); margin-top: var(--space-16); display: flex; flex-direction: column; gap: var(--space-12); }
 @media (max-width: 640px){
@@ -170,8 +172,6 @@
 .abonus .warn b{ color:var(--text-warning); }
 .ln-nm{ color:var(--text-body); }
 .ln-calc, .ln-tot{ font-family:var(--font-mono); }
-.ln-review, .ob-receipt{ color:var(--text-body); transition:color .14s ease; }
-.ln-review:hover, .ob-receipt:hover{ color:var(--text-action); }
 .ob-del{ border-color:var(--line-hair); border-radius:var(--radius-12); background:var(--bg-surface); }
 /* step 7.28: this line is gone, and it was the one doing the damage. It sat in a
    level-3 file and repainted three selectors that had just declared

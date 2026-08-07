@@ -166,6 +166,42 @@ function uivRadioGroups(){
   });
 }
 
+/* A LINK THAT A KEYBOARD CAN REACH - step 7.30.
+   `<a onclick="...">` with NO href. It looks like a link, it is pressed like a
+   link, and it is invisible to a keyboard: an anchor without href takes no
+   focus. Verified two ways on auth-code.html - .focus() called directly on each
+   was refused, and 120 tab stops landed on the close button and every OTP cell
+   without once reaching a link.
+
+   Four of them are the login dialog's whole navigation: «← Змінити номер»,
+   «Ввів неправильний код?», «Увійти іншим способом» and «Повернутися до
+   магазину». Locked decision 5 sends coach, buyer and beginner through that one
+   dialog, so this was the login flow having no keyboard path at all - the same
+   defect 7.29 found in the checkout, in the screen before it.
+
+   None of the four goes anywhere: three switch the dialog's step, the fourth
+   closes it. So they are BUTTONS, and the fix says so - role="button" and a tab
+   stop. An href="#" would have been the shorter fix and the wrong one: it
+   announces a destination that does not exist and pushes a history entry on
+   every press.
+
+   The rule is written as a shape, not as a list of four, so an `<a onclick>`
+   added later is reached the day it appears. */
+function uivDeadLinks(){
+  var dead = [].slice.call(document.querySelectorAll('a[onclick]:not([href])'));
+  dead.forEach(function(a){
+    if(a.getAttribute('role')) return;                 /* already done */
+    a.setAttribute('role', 'button');
+    a.setAttribute('tabindex', '0');
+    a.addEventListener('keydown', function(e){
+      if(e.key !== ' ' && e.key !== 'Enter') return;
+      e.preventDefault();                              /* Space would scroll the page */
+      a.click();
+    });
+  });
+  return dead.length;
+}
+
 /* swap a leading ★ for the gold star, keep the figure after it */
 function uivStarify(el, n){
   if(!el || el.querySelector('.uiv-star')) return;
@@ -333,6 +369,11 @@ function uivChrome(){
      page, and until `uivMarks` has run some of those controls are still being
      rebuilt underneath. */
   uivRadioGroups();
+  /* step 7.30, and it must run AFTER `uivAuth`: the login dialog rebuilds its
+     whole innerHTML on every step, so the four links this reaches do not exist
+     until that pass has hooked `wfAuthGo`. Same reason it is a shape and not a
+     list - each step draws a new set of them. */
+  uivDeadLinks();
 }
 
 /* make the product-card heart interactive: a click toggles the .on (filled) state
@@ -791,6 +832,10 @@ function uivAuthPaint(state){
     else if(/Apple/i.test(t)) ic.innerHTML = '<span class="uiv-brand uiv-apple">' + UIV_APPLE + '</span>';
     else if(/e-?mail/i.test(t)) ic.innerHTML = uivWrap('mail');
   });
+  /* step 7.30: every step of this dialog replaces its own innerHTML, so the
+     links that carry its navigation are new elements each time and the pass in
+     `uivChrome` only ever saw the first step's. Reached here, on every repaint. */
+  if(typeof uivDeadLinks === 'function') uivDeadLinks();
 }
 function uivAuth(){
   if(!window.__uivAuth && typeof window.wfAuthGo === 'function'){

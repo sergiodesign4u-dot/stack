@@ -1763,7 +1763,7 @@ function wfFooter() {
       <b>Міста:</b> Протеїн Київ · Протеїн Одеса · Протеїн Львів
     </div>
     <div class="wff-bot">
-      <span>© 2026 Stack. Спортивне харчування в Україні. · <a href="content-legal.html" style="color:inherit;text-decoration:underline">Політика</a> · <a href="content-legal.html" style="color:inherit;text-decoration:underline">Умови</a> · <a href="#" onclick="openCookieSettings();return false" style="color:inherit;text-decoration:underline">Змінити згоду</a></span>
+      <span class="wff-legal">© 2026 Stack. Спортивне харчування в Україні. · <a href="content-legal.html">Політика</a> · <a href="content-legal.html">Умови</a> · <a href="#" onclick="openCookieSettings();return false">Змінити згоду</a></span>
       <span class="wff-soc"><a href="content-contacts.html" style="color:inherit">Instagram</a><a href="content-contacts.html" style="color:inherit">Telegram</a><a href="content-contacts.html" style="color:inherit">YouTube</a></span>
       <span>Visa · Mastercard · Apple Pay · Google Pay</span>
     </div>`;

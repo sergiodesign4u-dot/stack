@@ -1,22 +1,159 @@
-/* link-row.css - link row (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* link-row.css - the text link and the row it stands in (level 1), rebuilt at
+   step 7.30.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.flinks{ display: flex; flex-wrap: wrap; gap: var(--space-8); margin-top: var(--space-8); }
-/* step 7.23: `.flink` itself went to chip.css, whole - 60 instances of the same
-   pill as `.dr-chip`, written here a second time. This file keeps the ROW: how
-   the options wrap and how far apart they stand. */
-.linkrow{ display: flex; gap: var(--space-16); flex-wrap: wrap; font-size: var(--fs-14); margin-top: var(--space-16); }
-.linkrow a{ text-decoration: underline; cursor: pointer; }
+   A TEXT LINK IS TEXT THAT GOES SOMEWHERE. That is the line between this file
+   and button.css: a button is a target you aim at, a link is a word inside a
+   sentence you happen to be able to press. `.btn--text` looks like a link and
+   is not one - it is a button that dropped its box, and it keeps its own file.
 
-/* ---------- colour (from design/kit/kit.css) ---------- */
-/* step 7.23: the size, the edge, the count's colour and the hover left with the
-   chip. They said the same thing chip.css now says once. */
-.seolink{ color:inherit; text-decoration:none; transition:color .15s ease; }
-.seolink:hover{ color:var(--text-action); }
-.linkrow{ margin-bottom:var(--space-16); }
-.linkrow a{ color:var(--text-secondary); font-weight:var(--fw-semibold); text-decoration-color:var(--line-strong); }
-.linkrow a:hover{ color:var(--text-action); text-decoration-color:var(--line-action); }
+   Counted in the browser across 40 colour screens at 1280: 124 underlined
+   links, and THIRTEEN editions in six files - plus one drawn by nothing and
+   one drawn by an inline `style` attribute.
+
+     87  no class          INLINE STYLE in wireframes/_nav.js   footer legal row
+      6  .linkrow a        link-row.css                         auth dialog
+      5  .auth-foot a      auth-dialog.css                      «до магазину»
+      4  .auth-consent a   auth-dialog.css                      oferta / policy
+      4  .promo .ps a      banner.css                           «Усі акції»
+      3  .ln-review        account-shell.css                    «Залишити відгук»
+      2  .auth-sub a       auth-dialog.css                      «Змінити номер»
+      2  .co-help a        checkout-form.css                    checkout help
+      2  .afilters .clear  chip.css                             «Очистити все»
+      1  .ob-receipt       account-shell.css                    «Квитанцію»
+      1  .co-proc-cancel   checkout-form.css                    cancel payment
+      4  .more             button.css                           a BUTTON, not a link
+      3  overview.html     NOTHING - browser default blue #0000EE
+
+   TWO VOLUMES ARE REAL, THE REST WAS DRIFT.
+
+   QUIET is the link that has to be there and does not want to be pressed: the
+   legal line, the consent sentence, the help note, «Скасувати». It is set in
+   the running text's own words, so it may not shout - but it must still be
+   findable, which is why it goes one step DARKER than the paragraph around it
+   and takes a hairline underline rather than one in its own ink.
+
+   LOUD is the link that IS the action: «Залишити відгук», «Усі акції»,
+   «Змінити номер», «Очистити все». There is no button here because the action
+   is secondary to the screen, not because it is small. It is bold, it is ink,
+   and its underline is the same ink - so it reads as a thing to press before
+   the cursor ever arrives.
+
+   The two disagreements settled out loud, step 7.30:
+     font-weight of LOUD   -> 700   (10 of 18; 600 was the dialog's own edition)
+     underline of LOUD     -> ink   (10 of 18; --line-strong was the same 8)
+   BOTH SPLITS ARE THE SAME SPLIT: the 8 are `.linkrow a` and `.auth-sub a`, the
+   two families the login dialog draws, and the 10 are everything else. So this
+   is not two disagreements, it is one file disagreeing with the site. Said out
+   loud rather than counted anyway, because 8 against 10 decides nothing on its
+   own: 700-on-ink is what makes the loud rung legible AS a control at 12px,
+   which is where 5 of its 18 instances live.
+
+   The underline figure needed a browser to get right. banner.css declared
+   `text-decoration-color: var(--line-strong)` for `.promo .ps a`, so by the
+   source those 4 belonged with the 8 - but the markup carried an inline
+   `text-decoration: underline`, and the SHORTHAND resets decoration-color to
+   currentColor, which no stylesheet can outrank. Read from the source the
+   split is 12 against 6 and the answer flips. This is what «counted in the
+   browser, never from the CSS text» is for.
+
+   A THIRD CHANGE WAS NOT PLANNED - THE A/B AGAINST HEAD FOUND IT. `.co-consent a`
+   (2) and `.co-foot-links a` (24) carried `text-decoration-color: --line-strong`
+   and NO `text-decoration`, so they were painting the colour of an underline
+   that did not exist - debris, not a decision. Joining the quiet rung gives
+   them the underline. Kept rather than reverted, because both do a job the site
+   already underlines elsewhere: `.co-consent a` is word for word the sentence
+   `.auth-consent a` underlines in the login dialog, and `.co-foot-links` is the
+   checkout's stripped-down copy of the footer legal row. Written down here
+   rather than left in the diff: a consolidation that changes something it did
+   not declare is not one - the same line step 7.27 drew over `.rvmeta .rstars`.
+
+   THE COMPONENT SAYS WHERE THE LINK STANDS AND HOW BIG IT IS. THIS FILE SAYS
+   THAT IT IS A LINK AND HOW LOUD. That split is why `.ln-review` keeps its
+   `display`, `gap`, `margin-top` and `font-size` in account-shell.css and
+   loses only its ink and its underline to here - and why this file sets no
+   font-size on anything except the row itself.
+
+   Names are NOT renamed: every selector below is written by markup the frozen
+   grey layer shares. Same line 7.23 drew for `.dr-chip`, 7.27 for `.rstars`,
+   7.28 for `.sl`, 7.29 for `.vopt`. Крок 6 turns the two lists into two
+   classes; until then the lists are the rule and they live in one place. */
+
+/* ---------- the row ---------------------------------------------------------
+   `.linkrow` is the only STANDALONE row: two or three links under a form, with
+   nothing else on the line. Everything else in the census is a link INSIDE a
+   sentence, which needs no row at all - which is why this file is short and
+   the header above is long. */
+.linkrow{ display: flex; gap: var(--space-16); flex-wrap: wrap;
+  font-size: var(--fs-14); margin-top: var(--space-16); margin-bottom: var(--space-16); }
+
+/* ---------- quiet ------------------------------------------------------------
+   `.wff-legal a` joined this list at 7.30 and it is 87 of the 124: the footer
+   legal row was drawn by `style="color:inherit;text-decoration:underline"`
+   written into wireframes/_nav.js, so the most repeated link on the site was
+   the one link no stylesheet could reach. The grey layer keeps the underline
+   in _wf.css; the colour is here. */
+.wff-legal a, .auth-consent a, .auth-foot a,
+.co-consent a, .co-help a, .co-foot-links a, .co-proc-cancel{
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  cursor: pointer;
+  transition: color .14s ease, text-decoration-color .14s ease;
+}
+.wff-legal a:hover, .auth-consent a:hover, .auth-foot a:hover,
+.co-consent a:hover, .co-help a:hover, .co-foot-links a:hover, .co-proc-cancel:hover{
+  color: var(--text-body);
+}
+
+/* ---------- loud -------------------------------------------------------------
+   Ink, 700, underlined in the same ink. On hover BOTH move to the accent -
+   text and underline together, because a two-tone hover reads as a rendering
+   bug at 12px rather than as a state. */
+.linkrow a, .auth-sub a, .promo .ps a,
+.ln-review, .ob-receipt, .afilters .clear{
+  color: var(--text-body);
+  font-weight: var(--fw-bold);
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  cursor: pointer;
+  transition: color .14s ease;
+}
+.linkrow a:hover, .auth-sub a:hover, .promo .ps a:hover,
+.ln-review:hover, .ob-receipt:hover, .afilters .clear:hover{
+  color: var(--text-action);
+}
+
+/* ---------- focus, and the atom had none -------------------------------------
+   `--ring-focus-control` has existed since step 6.2 and no link read it. Four
+   of them could not be reached at all: «← Змінити номер», «Ввів неправильний
+   код?», «Увійти іншим способом» and «Повернутися до магазину» are
+   `<a onclick>` with NO href, and an anchor without href takes no focus -
+   verified by calling .focus() on each (refused) and by walking 120 tab stops
+   on auth-code.html (not one landed on a link). The login dialog could not be
+   completed without a mouse, and locked decision 5 sends every role through
+   it. `design/_nav.js` gives them role and tabindex; this is what the eye
+   needs once they are reachable.
+   `:focus-visible`, not `:focus`, so a mouse press does not light it up. */
+.wff-legal a:focus-visible, .auth-consent a:focus-visible, .auth-foot a:focus-visible,
+.co-consent a:focus-visible, .co-help a:focus-visible, .co-foot-links a:focus-visible,
+.co-proc-cancel:focus-visible,
+.linkrow a:focus-visible, .auth-sub a:focus-visible, .promo .ps a:focus-visible,
+.ln-review:focus-visible, .ob-receipt:focus-visible, .afilters .clear:focus-visible{
+  outline: none; box-shadow: var(--ring-focus-control); border-radius: var(--radius-4);
+}
+
+/* ---------- the SEO link, and it is neither rung -----------------------------
+   Inside a paragraph of SEO copy a link that announced itself would turn the
+   text into a list of links. So it carries NO underline and NO colour until
+   the cursor is on it. It is the one place on the site where that is right,
+   and it is why it keeps its own name. */
+.seolink{ color: inherit; text-decoration: none; transition: color .15s ease; }
+.seolink:hover{ color: var(--text-action); }
+
+/* step 7.30b: `.flinks` left this file for chip.css, and it should have left at
+   7.23 with `.flink` itself. Keeping «the row» here while the thing standing in
+   it was a chip meant the text link's file drew a row of pills - visible the
+   moment the stand was rebuilt on real markup, which is the whole argument for
+   rebuilding stands on real markup. chip.css already had the same three
+   declarations twice, as `.dr-chips` and `.cegoals`; it is now one line of
+   three names. This file holds text links and nothing else. */

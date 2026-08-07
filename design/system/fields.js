@@ -328,12 +328,34 @@ function uivOtpSpread(cells, from, digits){
 
   /* Clicking anywhere in the group lands where the work is. Only when the cell
      is EMPTY: a click on a digit is somebody correcting that digit on purpose,
-     and moving them off it would be the control arguing with them. */
+     and moving them off it would be the control arguing with them.
+
+     A CLICK. NOT A TAB - fixed at step 7.30, and this was a focus trap.
+     `focusin` cannot tell the two apart, so the rule written for a mouse ran on
+     every forward Tab as well: Tab into the 5th cell, the loop finds the 4th
+     still empty and drags focus back to it, and the next Tab does it again.
+     Measured on auth-code.html - 41 consecutive tab stops on `input.box`, of
+     which there are six. Nothing after the code field could be reached at all,
+     which is why three of the four links step 7.30 had just made focusable were
+     still unreachable: «← Змінити номер», «Ввів неправильний код?» and
+     «Повернутися до магазину» all stand below it in the DOM.
+
+     `pointerdown` fires before `focusin` and only for a real press, so the flag
+     is the one thing that distinguishes them. It is consumed on read: a
+     programmatic `uivOtpFocus` from the auto-advance above must not inherit it,
+     and it does not need the correction anyway - `uivOtpGo` already returns the
+     first empty cell. */
+  var otpByPointer = 0;
+  document.addEventListener('pointerdown', function(e){
+    if(e.target && e.target.closest && e.target.closest('.otp')) otpByPointer = 1;
+  }, true);
   document.addEventListener('focusin', function(e){
     var el = e.target;
     if(!isOtp(el)) return;
+    var byPointer = otpByPointer; otpByPointer = 0;
     var cells = uivOtpGroup(el), i = cells.indexOf(el);
     if(el.value){ try{ el.select(); }catch(err){} return; }
+    if(!byPointer) return;      /* a Tab: leave the person where they asked to be */
     for(var k = 0; k < i; k++){
       if(!cells[k].value){ uivOtpFocus(cells[k]); return; }
     }

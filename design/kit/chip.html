@@ -29,7 +29,7 @@
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <div class="kp-demo" style="display:flex;gap:var(--space-12);align-items:center;flex-wrap:wrap">
   <span class="chip">Протеїн</span>
-  <span class="flink">Концентрат<span class="ct">31</span></span>
+  <span class="flinks"><a class="flink">Концентрат<span class="ct">31</span></a><a class="flink">Ізолят<span class="ct">18</span></a></span>
   <span class="dr-chips"><a class="dr-chip"><span class="uiv-ic" data-glyph="target"></span>Набір маси</a></span>
   <span class="mgchip">Ізолят</span>
 </div>
@@ -40,7 +40,8 @@
 <p class="kp-p">Це не здогад, а перепис у браузері: 17 кольорових екранів, 1280 і 390, кожен екземпляр зміряний через <code>getComputedStyle</code>.</p>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th class="c">Скільки</th><th>Файл до 7.23</th><th>Де</th></tr></thead><tbody>
 <tr><td><code>.dr-chip</code></td><td class="c"><b>96</b></td><td><code>chip.css</code></td><td>цілі в бічній шухляді</td></tr>
-<tr><td><code>.flink</code></td><td class="c">60</td><td><code>link-row.css</code></td><td>опції фільтра, «Концентрат 31»</td></tr>
+<tr><td><code>.flink</code></td><td class="c">60</td><td><code>link-row.css</code> <b>-&gt; сюди на 7.23</b></td><td>опції фільтра, «Концентрат 31»</td></tr>
+<tr><td><code>.flinks</code></td><td class="c">6</td><td><code>link-row.css</code> <b>-&gt; сюди на 7.30b</b></td><td>ряд цих опцій - лишився позаду на 7.23</td></tr>
 <tr><td><code>.mgchip</code></td><td class="c">42</td><td><code>header.css</code></td><td>категорії в мега-меню</td></tr>
 <tr><td><code>.hero-chips a</code></td><td class="c">32</td><td><code>chip.css</code></td><td>рейка категорій на телефоні</td></tr>
 <tr><td><code>.ptab</code></td><td class="c">32</td><td><code>pdp-tabs.css</code></td><td>вкладки добірок і товару</td></tr>
@@ -99,7 +100,7 @@
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>15</b> власних класів і <b>1</b> псевдостан <code>:hover</code> оголошено в <code>chip.css</code>. Обраний тримається на класі <code>.on</code>, тому він у списку класів, а не станів. Нижче - те, чого на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["chip", "dr-chip", "dr-chips", "hero-chips", "flink", "ct", "mgchip", "ptab", "ord-tab", "cegoals", "on", "afilters", "afilter", "x", "clear"], KIT_STS=[":hover"];</script></section>
+<script>var KIT_CLS=["chip", "dr-chip", "dr-chips", "hero-chips", "flink", "flinks", "ct", "mgchip", "ptab", "ord-tab", "cegoals", "on", "afilters", "afilter", "x", "clear"], KIT_STS=[":hover"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
 <div class="kp-code">&lt;span class="chip"&gt;Протеїн&lt;/span&gt;
@@ -113,7 +114,7 @@
 <p class="kp-p">Імена <b>не перейменовано</b>: <code>.dr-chip</code>, <code>.mgchip</code> і <code>.cegoals</code> пише <code>wireframes/_nav.js</code>, який виконує й заморожений сірий шар. Додати <code>chip</code> у список селекторів безпечно в обидва боки, перейменувати - ні. Перейменування - пункт Кроку 6, як і в <b>Лічильника кількості</b> та <b>Дії стовпчиком</b>.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.chip</code> <code>.dr-chip</code> <code>.flink</code> <code>.mgchip</code> <code>.hero-chips</code> <code>.ptab</code> <code>.ord-tab</code> <code>.cegoals</code> <code>.afilter</code></p>
+<p class="kp-p">Якорі: <code>.chip</code> <code>.dr-chip</code> <code>.flink</code> <code>.flinks</code> <code>.mgchip</code> <code>.hero-chips</code> <code>.ptab</code> <code>.ord-tab</code> <code>.cegoals</code> <code>.afilter</code></p>
 <p class="kp-p">Каталог і лістинг, картка товару, кабінет і замовлення, головна, мега-меню, бічна шухляда, діалог клієнта тренера. <code>.cegoals</code> сьогодні рендериться <b>лише в сірому шарі</b> - тренерських екранів у <code>design/</code> ще немає, тож перевірити його можна тільки тут, на стенді.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>

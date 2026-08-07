@@ -119,5 +119,13 @@
 .promo .pt{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-30); letter-spacing:var(--ls-lead);
   line-height:var(--lh-flat); color:var(--text-body); }
 .promo .ps{ color:var(--text-secondary); font-size:var(--fs-14); }
-.promo .ps a{ color:var(--text-body) !important; text-decoration-color:var(--line-strong); }
-.promo .ps a:hover{ color:var(--text-action) !important; text-decoration-color:var(--line-action); }
+/* step 7.30: `.promo .ps a` left this file for link-row.css, and the two
+   `!important` went with it - but not because they were decoration. They were
+   beating `style="...color:#111"` typed inline into four home screens, which is
+   the only thing a stylesheet CANNOT outrank by specificity. The first draft of
+   this step deleted them as dead weight and the A/B caught it immediately: 8
+   links and the 32 icon marks inheriting their colour went #1C1C1C -> #111.
+   The fix was to remove the inline style, not to keep shouting over it - so the
+   markup lost it on all eight files and _wf.css gained the grey rule. An
+   `!important` is a note that something upstream is wrong; deleting the note
+   without reading it puts the bug back. */

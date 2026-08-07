@@ -52,17 +52,18 @@
 @media (min-width: 720px){
   .auth-banner{ display: none; }
 }
-.auth-sub a{ text-decoration: underline; }
+/* step 7.30: `.auth-sub a`, `.auth-consent a` and `.auth-foot a` are gone from
+   this file, structure and colour both - three of the thirteen editions of one
+   underlined link. link-row.css states the two volumes once; this file keeps
+   only where the lines sit and how big they are. */
 .auth-cta{ width: 100%; }
 .auth-alt{ width: 100%; margin-top: var(--space-12); }
 /* step 6.10: was var(--fs-11-5) - no such token, so the declaration was dropped
    and this line rendered at the size it inherited. 12 is the nearest real rung. */
 .auth-consent{ font-size: var(--fs-12); line-height: var(--lh-airy); margin: var(--space-16) 0 var(--space-4); }
-.auth-consent a{ text-decoration: underline; }
 .auth-or{ display: flex; align-items: center; gap: var(--space-12); }
 .auth-or::before, .auth-or::after{ content: ''; flex: 1; height: 1px; }
 .auth-foot{ font-size: var(--fs-12); }
-.auth-foot a{ text-decoration: underline; cursor: pointer; }
 .auth-load{ display: flex; flex-direction: column; align-items: center; text-align: center; margin: var(--space-24) 0 var(--space-8); }
 .auth-spin{ width: var(--size-46); height: var(--size-46); border: 4px solid var(--line-hair); border-radius: var(--radius-circle); margin-bottom: var(--space-24); }
 .auth-load .lp{ font-size: var(--fs-14); margin-top: var(--space-8); }
@@ -139,19 +140,13 @@
    and this line rendered at the size it inherited. 14 is the nearest real rung. */
 .auth-sub{ font-size:var(--fs-14); color:var(--text-secondary); line-height:var(--lh-airy); margin:var(--space-8) 0 var(--space-24); }
 .auth-sub b{ color:var(--text-body); font-family:var(--font-mono); font-weight:var(--fw-semibold); font-size:var(--fs-14); }
-.auth-sub a{ color:var(--text-body); font-weight:var(--fw-semibold); text-decoration-color:var(--line-strong); }
-.auth-sub a:hover{ color:var(--text-action); text-decoration-color:var(--line-action); }
 /* step 6.3: local edition of the outline hover deleted - the finish has it. */
 .auth-consent{ color:var(--text-muted); }
 .auth-consent b{ color:var(--text-secondary); }
-.auth-consent a{ color:var(--text-secondary); text-decoration-color:var(--line-strong); }
-.auth-consent a:hover{ color:var(--text-body); }
 .auth-or{ color:var(--text-muted); font-family:var(--font-mono);
   font-size:var(--fs-12); letter-spacing:var(--ls-eyebrow); text-transform:uppercase; margin:var(--space-24) 0; }
 .auth-or::before, .auth-or::after{ background:var(--bg-rule); }
 .auth-foot{ color:var(--text-muted); border-top:1px solid var(--line-hair); margin-top:auto; padding-top:var(--space-16); }
-.auth-foot a{ color:var(--text-secondary); text-decoration-color:var(--line-strong); }
-.auth-foot a:hover{ color:var(--text-body); }
 .auth-load .lt{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .auth-load .lp{ color:var(--text-secondary); }
 .auth-load .lp b{ color:var(--text-body); font-family:var(--font-mono); font-weight:var(--fw-semibold); font-size:var(--fs-14); }

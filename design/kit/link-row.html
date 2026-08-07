@@ -23,44 +23,121 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Рядок посилань</h1>
-<p class="kp-lead">Рядок текстових посилань: у футері, під формою, у згоді. Підкреслення приглушене, текст - чорнило.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/link-row.css</span><span class="kp-tag">25 рядків</span><span class="kp-tag">рендериться JS</span></div>
-<section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><div class="linkrow"><a>Умови використання</a> · <a>Політика конфіденційності</a></div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Текст</b> - чорнило - посилання читається як текст</span></div><div class="a"><i>2</i><span><b>Підкреслення</b> - <code>--line-strong</code>, не колір тексту: підкреслення видно, але воно не кричить</span></div></div></section>
+<p class="kp-lead">Текст, що веде кудись. Дві гучності: <b>тихе</b> посилання в юридичному рядку, довідці й згоді, і <b>гучне</b> посилання, яке саме і є дією екрана.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/link-row.css</span><span class="kp-tag">159 рядків</span><span class="kp-tag">перебудовано на кроці 7.30</span></div>
 
-<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка нижче взята з продукту, не намальована для стенда: перший блок це юридичний рядок футера, другий - навігація діалогу входу.</p>
+<div class="kp-demo">
+  <div style="margin-bottom:20px"><span class="wff-legal" style="font-size:12px;color:var(--text-muted)">© 2026 Stack. Спортивне харчування в Україні. · <a href="#">Політика</a> · <a href="#">Умови</a> · <a href="#">Змінити згоду</a></span></div>
+  <div class="linkrow"><a href="#">← Змінити номер</a><a href="#">Ввів неправильний код?</a></div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Тихе</b> - <code>--text-secondary</code>, на крок темніше за абзац навколо; підкреслення <code>--line-strong</code>, тонше за текст</span></div>
+  <div class="a"><i>2</i><span><b>Гучне</b> - <code>--text-body</code>, <code>--fw-bold</code>; підкреслення <code>currentColor</code>, тим самим чорнилом</span></div>
+  <div class="a"><i>3</i><span><b>Наведення</b> - тихе йде в <code>--text-body</code>, гучне в <code>--text-action</code> разом із підкресленням</span></div>
+  <div class="a"><i>4</i><span><b>Фокус</b> - <code>--ring-focus-control</code> на <code>:focus-visible</code>, з'явився на цьому кроці</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Перепис: що було до кроку 7.30</div>
+<p class="kp-p">Пораховано в браузері на 40 кольорових екранах при 1280: <b>124</b> підкреслених посилання і <b>тринадцять</b> редакцій у шести файлах. Плюс одне, яке не малював жоден файл, і одне, яке малював атрибут <code>style</code> у розмітці.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>×</th><th>де</th><th>було: хто малював</th><th>стало: селектор</th><th>щабель</th></tr></thead><tbody>
+<tr><td class="n"><b>87</b></td><td>юридичний рядок футера</td><td><b>інлайновий <code>style</code></b> у <code>wireframes/_nav.js</code>, без класу</td><td><code>.wff-legal a</code></td><td>тихе</td></tr>
+<tr><td class="n">24</td><td>підвал чекауту</td><td>checkout-form.css, <b>без підкреслення</b></td><td><code>.co-foot-links a</code></td><td>тихе</td></tr>
+<tr><td class="n">6</td><td>діалог входу</td><td>link-row.css, 600 / <code>--line-strong</code></td><td><code>.linkrow a</code></td><td>гучне</td></tr>
+<tr><td class="n">5</td><td>«Повернутися до магазину»</td><td>auth-dialog.css</td><td><code>.auth-foot a</code></td><td>тихе</td></tr>
+<tr><td class="n">4</td><td>оферта й політика</td><td>auth-dialog.css</td><td><code>.auth-consent a</code></td><td>тихе</td></tr>
+<tr><td class="n">4</td><td>«Усі акції»</td><td>banner.css, з двома <code>!important</code></td><td><code>.promo .ps a</code></td><td>гучне</td></tr>
+<tr><td class="n">3</td><td>«Залишити відгук»</td><td>account-shell.css</td><td><code>.ln-review</code></td><td>гучне</td></tr>
+<tr><td class="n">2</td><td>«Змінити номер»</td><td>auth-dialog.css, 600 / <code>--line-strong</code></td><td><code>.auth-sub a</code></td><td>гучне</td></tr>
+<tr><td class="n">2</td><td>довідка чекауту</td><td>checkout-form.css</td><td><code>.co-help a</code></td><td>тихе</td></tr>
+<tr><td class="n">2</td><td>згода в чекауті</td><td>checkout-form.css, <b>без підкреслення</b></td><td><code>.co-consent a</code></td><td>тихе</td></tr>
+<tr><td class="n">2</td><td>«Очистити все»</td><td>chip.css</td><td><code>.afilters .clear</code></td><td>гучне</td></tr>
+<tr><td class="n">1</td><td>«Завантажити квитанцію»</td><td>account-shell.css</td><td><code>.ob-receipt</code></td><td>гучне</td></tr>
+<tr><td class="n">1</td><td>скасувати оплату</td><td>checkout-form.css</td><td><code>.co-proc-cancel</code></td><td>тихе</td></tr>
+<tr><td class="n">3</td><td><code>overview.html</code></td><td><b>нічого</b>, синє <code>#0000EE</code> браузера</td><td><b>не полагоджено</b></td><td>-</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Про 87 «без класу».</b> Клас отримав не кожен якір, а <b>обгортка</b>: <code>&lt;span class="wff-legal"&gt;</code>. Самі <code>&lt;a&gt;</code> як були без класу, так і лишилися - і це навмисно. Ці 87 малює одна рендер-функція; класу на батькові досить, щоб селектор існував, а 87 атрибутів у розмітці існували б лише для того, щоб їх там було 87. Правило тепер живе в CSS, а не в атрибуті - це і був дефект.</p>
+<p class="kp-p">Найповторюваніше посилання сайту було єдиним, до якого не дотягувався жоден стиль. Правило 3 цієї теки каже: що повторюється на двох і більше екранах - їде в <code>_wf.css</code>. Це повторювалося на 129.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Дві гучності</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Гучність</b></td><td>приглушене · акцентне</td><td>Акцентне - лише там, де посилання і є дією (наприклад «Надіслати код ще раз»).</td></tr></tbody></table></div>
-</section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Тихе</th><th>Гучне</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Питання</b></td><td>мусить бути</td><td>і є дією</td><td>Якщо прибрати посилання і екран далі працює - воно тихе.</td></tr>
+<tr><td><b>Текст</b></td><td><code>--text-secondary</code></td><td><code>--text-body</code></td><td>Тихе темніше за абзац навколо, інакше його не знайти.</td></tr>
+<tr><td><b>Насиченість</b></td><td>400</td><td><code>--fw-bold</code></td><td>700 робить гучне читабельним як контрол на 12px, де живе 5 із 18.</td></tr>
+<tr><td><b>Підкреслення</b></td><td><code>--line-strong</code></td><td><code>currentColor</code></td><td>Тихе не кричить, гучне підкреслене власним чорнилом.</td></tr>
+<tr><td><b>Наведення</b></td><td>→ <code>--text-body</code></td><td>→ <code>--text-action</code></td><td>У гучного текст і підкреслення йдуть разом: двоколірне наведення на 12px читається як збій рендера, а не як стан.</td></tr>
+<tr><td><b>Розмір</b></td><td colspan="2">12 або 14, вирішує контекст</td><td>Файл посилання не ставить <code>font-size</code> нікому, крім самого рядка.</td></tr>
+</tbody></table></div>
+<p class="kp-p">Обидві незгоди - це одна незгода: насиченість <b>600 проти 700</b> стояла 8 до 10, підкреслення <b><code>--line-strong</code> проти чорнила</b> - теж 8 до 10, і ці 8 щоразу ті самі: <code>.linkrow a</code> і <code>.auth-sub a</code>, дві сім'ї, які малює діалог входу. Не два розходження, а один файл, що розходиться з сайтом.</p>
+<p class="kp-p">Цифру підкреслення без браузера дістати не можна було. У <code>banner.css</code> стояло <code>text-decoration-color: var(--line-strong)</code> для <code>.promo .ps a</code>, тобто за джерелом ці 4 йшли до вісімки. Але в розмітці був інлайновий <code>text-decoration: underline</code>, а <b>шорткат скидає decoration-color у <code>currentColor</code></b>, і перебити інлайновий стиль не може жодна таблиця стилів. За джерелом розклад 12 до 6 і відповідь перевертається. Саме для цього правило каже читати з браузера, а не з тексту CSS.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Клавіатура</div>
+<p class="kp-p">Чотири посилання діалогу входу - <code>&lt;a onclick&gt;</code> <b>без <code>href</code></b>, а якір без href не бере фокус. Перевірено двічі: <code>.focus()</code>, викликаний на кожному, відмовлено; 120 кроків Tab на <code>auth-code.html</code> сіли на кнопку закриття і на всі комірки коду, і жодного разу на посилання.</p>
+<div class="kp-pair"><div class="kp-dont"><h4>Було</h4><b>Діалог входу неможливо пройти з клавіатури.</b> Закріплене рішення 5 веде через цей діалог тренера, покупця і новачка - усіх трьох.</div><div class="kp-do"><h4>Стало</h4><code>uivDeadLinks()</code> у <code>design/_nav.js</code> дає їм <code>role="button"</code>, <code>tabindex="0"</code> і Enter / Space. Жодне з чотирьох нікуди не веде: три перемикають крок діалогу, четверте його закриває - тому кнопка, а не <code>href="#"</code>, який оголошує неіснуючу адресу і засмічує історію.</div></div>
+<p class="kp-p">Правило написане формою, а не переліком із чотирьох: <code>a[onclick]:not([href])</code>. Наступне таке посилання буде досяжним у день, коли з'явиться.</p>
+<p class="kp-p"><b>Ролі виявилося замало.</b> Перевірка після правки показала, що Tab доходить лише до першого з чотирьох, а далі 41 крок поспіль сидить на <code>input.box</code>, яких у полі коду шість. Пастка фокуса лежала в іншому файлі: <code>fields.js</code> має правило «клік у порожню комірку садить туди, де робота», написане через <code>focusin</code> - а <code>focusin</code> не відрізняє клік від Tab, тому кожен крок уперед відтягувало назад до першої порожньої комірки. Три посилання з чотирьох стоять у DOM нижче поля коду, тож жодне з них не було досяжним.</p>
+<p class="kp-p">Полагоджено там само: прапорець <code>pointerdown</code>, який <code>focusin</code> зчитує і гасить. Правило миші лишилося (клік у 6-ту комірку садить у 4-ту, перевірено), стрілки й авто-перехід при наборі не змінилися. Порядок Tab у діалозі тепер: закрити → «Змінити номер» → шість комірок коду → «Підтвердити» → «← Змінити номер» → «Ввів неправильний код?» → «Повернутися до магазину».</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Усі входження в продукті</div>
+<p class="kp-p">Кожна сім'я з перепису, живою розміткою. Тихі три ліворуч, гучні - праворуч.</p>
+<div class="kp-demo">
+  <p class="co-consent" style="margin:0 0 14px">Продовжуючи, ви погоджуєтесь з <a href="#">публічною офертою</a> та <a href="#">політикою конфіденційності</a>.</p>
+  <p class="auth-consent" style="margin:0 0 14px">Натискаючи, ви приймаєте <a href="#">публічну оферту</a> та <a href="#">політику конфіденційності</a>.</p>
+  <p class="co-help" style="margin:0 0 14px">Не проходить оплата? Спробуйте <a href="#">накладений платіж</a> або <a href="#">Напишіть нам</a>.</p>
+  <span class="co-foot-links" style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px;margin-bottom:14px"><a href="#">Публічна оферта</a><a href="#">Конфіденційність</a><a href="#">Підтримка</a></span>
+  <div class="auth-foot" style="margin-bottom:14px;border:0;padding:0">Не отримали код? <a href="#">Повернутися до магазину</a></div>
+  <p class="auth-sub" style="margin:0 0 14px">Ми надіслали SMS на номер <b>+380 67 000 00 00</b>. <a href="#">Змінити номер</a></p>
+  <a class="co-proc-cancel" href="#" style="margin:0 0 14px">Скасувати та повернутися до кошика</a>
+  <div style="margin:14px 0"><a class="ln-review" href="#">Залишити відгук</a></div>
+  <div style="margin:0 0 14px"><a class="ob-receipt" href="#">Завантажити квитанцію</a></div>
+  <div class="afilters" style="display:flex;margin:0 0 14px"><span class="afilter">Протеїн <b class="x">✕</b></span><a class="clear" href="#">Очистити все</a></div>
+  <div class="promo" style="padding:16px;margin-bottom:14px"><div class="pt">Акція тижня</div><div class="ps">Знижка на весь Optimum Nutrition. <a href="#">Усі акції</a></div></div>
+  <p style="font-size:12px;color:var(--text-secondary);margin:0 0 6px">У суцільному тексті SEO посилання не оголошує себе, доки на ньому немає курсора:</p>
+  <p style="font-size:12px;color:var(--text-secondary);margin:0 0 14px">Протеїн для набору маси - це <a class="seolink" href="#">сироватковий концентрат</a> із повним амінокислотним профілем.</p>
+</div>
+<p class="kp-p"><b>Тут стояли дві пілюлі, і це був дефект - крок 7.30b.</b> <code>.flinks</code>, ряд опцій фільтра, лишався в цьому файлі відтоді, як на 7.23 сам <code>.flink</code> поїхав у <code>chip.css</code>: переїхав чип, а його ряд забули. Тобто файл текстового посилання малював ряд чипів. У <code>chip.css</code> ті самі три оголошення вже стояли двічі - як <code>.dr-chips</code> і <code>.cegoals</code>; тепер це один рядок на три імені. Побачити це можна було тільки на стенді, зібраному з живої розмітки: на переліку класів такого не видно.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
-<p class="kp-p">Там, де перехід не є дією екрана: юридичні документи, довідка, «повернутись». Дію робить <b>Кнопка</b>.</p></section>
+<p class="kp-p"><b>Тихе</b> - там, де перехід не є дією екрана: юридичні документи, згода, довідка, «повернутись». <b>Гучне</b> - там, де дія є, але вона другорядна для екрана, тому не заслуговує на коробку кнопки. Головну дію екрана робить <b>Кнопка</b>, і принцип 2 каже: така дія на екрані рівно одна.</p>
+<p class="kp-p"><code>.btn--text</code> схожа на посилання і ним не є: це кнопка, яка скинула коробку, і вона лишається у <code>button.css</code>. Чотири «Читати більше» в переписі - саме вона, тому їх немає в жодній із двох гучностей.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Підкреслення тонше за текст.</b> Помітно, що це посилання, і не рябить у списку з п'яти.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби посилання помаранчевим у суцільному тексті.</b> Акцент на 13px тексті - 3.13:1, тобто нижче AA. Правило 19px bold стоїть у DESIGN-artifacts.md і порушується саме тут найчастіше.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>У тихого підкреслення тонше за текст.</b> Помітно, що це посилання, і не рябить у рядку з п'яти.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби посилання помаранчевим у суцільному тексті.</b> Акцент на 13px тексті - 3.13:1, тобто нижче AA. Правило 19px bold стоїть у <code>DESIGN-artifacts.md</code> і порушується саме тут найчастіше.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді є <code>:hover</code>.</p></section>
+<p class="kp-p">У коді є <code>:hover</code> і <code>:focus-visible</code>. Другий з'явився на кроці 7.30: <code>--ring-focus-control</code> існує з кроку 6.2, і жодне посилання його не читало.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>5</b> власних класів і <b>1</b> станів оголошено в <code>link-row.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>14</b> власних класів і <b>2</b> стани оголошено в <code>link-row.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (<code>.clear</code>, <code>.ps</code>) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["ct", "flink", "flinks", "linkrow", "seolink"], KIT_STS=[":hover"];</script></section>
+<script>var KIT_CLS=["afilters","auth-consent","auth-foot","auth-sub","co-consent","co-foot-links","co-help","co-proc-cancel","linkrow","ln-review","ob-receipt","promo","seolink","wff-legal"], KIT_STS=[":hover",":focus-visible"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>link-row.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (9)</th></tr></thead><tbody><tr><td><code>--line-action</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--mark-faint</code> <code>--text-action</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--radius-pill</code> <code>--space-12</code> <code>--space-16</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (4)</th></tr></thead><tbody><tr><td><code>--line-strong</code> <code>--ring-focus-control</code> <code>--text-action</code> <code>--text-body</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fw-bold</code> <code>--radius-4</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Десять токенів на 159 рядків - файл майже не має власної геометрії, і це правильно: посилання не має коробки. Розмір, відступ і місце дає компонент, усередині якого воно стоїть.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;div class="linkrow"&gt;&lt;a&gt;Умови використання&lt;/a&gt; · &lt;a&gt;Політика конфіденційності&lt;/a&gt;&lt;/div&gt;</div></section>
+<div class="kp-code">&lt;!-- тихе: рядок усередині речення --&gt;
+&lt;span class="wff-legal"&gt;© 2026 Stack. · &lt;a href="content-legal.html"&gt;Політика&lt;/a&gt; · &lt;a href="content-legal.html"&gt;Умови&lt;/a&gt;&lt;/span&gt;
+
+&lt;!-- гучне: окремий рядок під формою --&gt;
+&lt;div class="linkrow"&gt;&lt;a onclick="wfAuthGo('phone')"&gt;← Змінити номер&lt;/a&gt;&lt;/div&gt;</div>
+<p class="kp-p">Другий приклад - це саме той <code>&lt;a onclick&gt;</code> без <code>href</code>, якому <code>uivDeadLinks()</code> дає роль і крок табуляції. Розмітка лишається такою, якою її пише заморожений сірий шар.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.linkrow</code> <code>.seolink</code> <code>.flinks</code> <code>.flink</code></p>
-<p class="kp-p">У розмітці екранів не зустрічається: компонент будує рендер-функція в <code>wireframes/_nav.js</code>, тому сканування класів дає нуль, а на екранах він є.</p></section>
+<p class="kp-p">Якорі: <code>.linkrow</code> <code>.wff-legal</code> <code>.auth-sub</code> <code>.auth-foot</code> <code>.auth-consent</code> <code>.co-help</code> <code>.co-consent</code> <code>.co-foot-links</code> <code>.co-proc-cancel</code> <code>.ln-review</code> <code>.ob-receipt</code> <code>.afilters</code> <code>.promo</code> <code>.seolink</code></p>
+<p class="kp-p">Частина не зустрічається у розмітці екранів: футер, діалог входу і підвал чекауту будує рендер-функція у <code>wireframes/_nav.js</code>, тому сканування класів по html дає нуль, а на екранах вони є.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає <code>:visited</code></b></li><li><b>Немає <code>:focus</code></b></li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Немає <code>:visited</code></b> - жодне посилання сайту не показує, що за ним уже ходили</li>
+<li><b>П'ятнадцять селекторів замість двох класів</b> - <code>.ln-review</code>, <code>.ob-receipt</code>, <code>.clear</code> і решта мали б стати <code>.tlink</code> і <code>.tlink--loud</code>. Перейменування ламає сірий шар, тому це <b>Крок 6</b>, після етапу 09.</li>
+<li><b>Три сині посилання на <code>overview.html</code></b> - <code>#0000EE</code> браузера на сторінці дизайн-системи. Знайдено на цьому кроці, не полагоджено: хаб не є продуктовим екраном.</li>
+<li><b>Три інлайнові <code>style="color:inherit"</code></b> у <code>.wff-soc</code> - той самий дефект, що й у юридичного рядка, але це навігація футера, а не рядок посилань. Належить кроку футера.</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
 /* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a

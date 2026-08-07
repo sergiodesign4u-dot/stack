@@ -3696,3 +3696,174 @@ And the whole point: **an arrow on the checkout changes the delivery and recalcu
 miniature, because a demo you cannot reach with Tab describes a component instead of showing it. Idle
 check **passed - all 12 classes rendered in a demo, 4 states named.** The old page's numbers are
 corrected on it: the touch target is **599x71**, not «44px», and the circle is 18, not 16.
+
+---
+
+## Step 7.30 - the link row: thirteen editions, one of them written by an attribute
+
+### The census
+
+Counted in the browser across 40 colour screens at 1280, every element whose computed
+`text-decoration-line` contains `underline`: **124 links, thirteen editions, six files.**
+
+| × | selector | who drew it | where |
+|---|---|---|---|
+| **87** | no class | **inline `style=`** in `wireframes/_nav.js:1766` | footer legal row |
+| 24 | `.co-foot-links a` | checkout-form.css | checkout footer |
+| 6 | `.linkrow a` | link-row.css | login dialog |
+| 5 | `.auth-foot a` | auth-dialog.css | «Повернутися до магазину» |
+| 4 | `.auth-consent a` | auth-dialog.css | oferta / policy |
+| 4 | `.promo .ps a` | banner.css | «Усі акції» |
+| 3 | `.ln-review` | account-shell.css | «Залишити відгук» |
+| 2 | `.auth-sub a` | auth-dialog.css | «Змінити номер» |
+| 2 | `.co-help a` | checkout-form.css | checkout help |
+| 2 | `.co-consent a` | checkout-form.css | checkout consent |
+| 2 | `.afilters .clear` | chip.css | «Очистити все» |
+| 1 | `.ob-receipt` | account-shell.css | «Завантажити квитанцію» |
+| 1 | `.co-proc-cancel` | checkout-form.css | cancel payment |
+| 3 | `overview.html` | **nothing** | browser default `#0000EE` |
+
+**The most repeated link on the site was the one no stylesheet could reach.** 87 of the 124 were
+drawn by `style="color:inherit;text-decoration:underline"` typed into a render function - on 129
+screens. Rule 3 of `wireframes/CLAUDE.md` says anything repeating on two or more screens moves into
+`_wf.css`; this repeated on 129. The span gained `class="wff-legal"`, `_wf.css` gained the grey rule
+byte for byte, and link-row.css gained the colour.
+
+### The rule
+
+**QUIET** is the link that has to be there and does not want to be pressed: legal, consent, help,
+«Скасувати». `--text-secondary`, underline in `--line-strong`, hover to `--text-body`.
+**LOUD** is the link that IS the action: «Залишити відгук», «Усі акції», «Змінити номер»,
+«Очистити все». `--text-body`, `--fw-bold`, underline in `currentColor`, hover to `--text-action`
+with the underline moving too.
+
+The component keeps `display`, `gap`, `margin` and `font-size`; this file sets no `font-size` on
+anything except the row itself. That is why `.ln-review` still lives half in account-shell.css.
+
+### Two values said out loud, and both were the same argument
+
+| | 600 / `--line-strong` | 700 / ink |
+|---|---|---|
+| font-weight | 8 | 10 |
+| underline colour | 8 | 10 |
+
+**The 8 are the same 8 both times** - `.linkrow a` and `.auth-sub a`, the two families the login
+dialog draws. So this was not two disagreements, it was one file disagreeing with the site. Decided
+**700 on ink**, because that is what makes the loud rung legible AS a control at 12px, where 5 of its
+18 instances live.
+
+**The underline figure could not be read from the source.** banner.css declared
+`text-decoration-color: var(--line-strong)` for `.promo .ps a`, which by the CSS text puts those 4
+with the 8 and flips the answer to 12-against-6. In the browser they were ink: the markup carried an
+inline `text-decoration: underline`, and the **shorthand resets `text-decoration-color` to
+`currentColor`** - which no stylesheet can outrank. Read from the source, the wrong rung wins.
+
+### Declared changes
+
+1. `.linkrow a` (6) - 600 → 700, `--text-secondary` → `--text-body`, underline `--line-strong` → ink.
+2. `.auth-sub a` (2) - 600 → 700, underline `--line-strong` → ink, `cursor: auto` → `pointer`.
+3. `.wff-legal a` (87) - `--text-muted` → `--text-secondary`, underline own-colour → `--line-strong`.
+4. **Not planned; the A/B found it.** `.co-consent a` (2) and `.co-foot-links a` (24) carried
+   `text-decoration-color` and **no `text-decoration`** - painting the colour of an underline that
+   did not exist. Joining the quiet rung gives them the underline. Kept rather than reverted: both do
+   a job the site already underlines elsewhere, and `.co-consent a` is word for word the sentence
+   `.auth-consent a` underlines in the dialog. Written down rather than left in the diff - the same
+   line 7.27 drew over `.rvmeta .rstars`.
+
+### The `!important` that was not decoration - a defect I introduced and the A/B caught
+
+The first draft deleted two `!important` from `.promo .ps a` with a comment saying they beat nothing.
+**The comment was wrong.** They were beating `style="...color:#111"` typed into four home screens -
+the one thing specificity cannot outrank. The A/B returned **8 links and the 32 icon marks inheriting
+their colour at `#111` instead of `#1C1C1C`**. Fixed by removing the inline style from all eight
+files and giving `_wf.css` the grey rule (`#111` is `var(--strong)` to the byte), not by putting the
+`!important` back. An `!important` is a note that something upstream is wrong; deleting the note
+without reading it puts the bug back. The comment in banner.css now says so.
+
+### What was actually broken: the login dialog had no keyboard path
+
+Four links carry the dialog's whole navigation - «← Змінити номер», «Ввів неправильний код?»,
+«Увійти іншим способом», «Повернутися до магазину» - and all four are `<a onclick>` **with no
+`href`**. An anchor without href takes no focus. Verified twice: `.focus()` called directly on each
+was refused, and 120 tab stops on `auth-code.html` landed on the close button and every OTP cell
+without once reaching a link. Locked decision 5 sends coach, buyer and beginner through this one
+dialog. Same defect class 7.29 found in the checkout, in the screen before it.
+
+`uivDeadLinks()` in `design/_nav.js` gives every `a[onclick]:not([href])` a `role="button"`,
+`tabindex="0"` and Enter / Space. Written as a shape, not a list of four. Called from `uivChrome()`
+and again from `uivAuthPaint()`, because each dialog step replaces its own innerHTML.
+
+**Roles were not enough, and the second half is in another file.** After the fix Tab reached the
+first of the four and then sat on `input.box` for 41 consecutive stops - of which there are six.
+`fields.js` had a focus trap: the rule «a click on an empty cell lands where the work is» is written
+on `focusin`, and `focusin` cannot tell a click from a Tab, so every forward Tab was dragged back to
+the first empty cell. Three of the four links stand below the code field in the DOM, so none of them
+was reachable. Fixed in `fields.js` with a `pointerdown` flag that `focusin` reads and clears. Out of
+this atom's scope and taken anyway, because without it this step's own deliverable does not exist.
+
+### Proof
+
+**A/B against HEAD**, 39 screens x 2 viewports, 22 computed properties per element:
+**108 310 elements compared, 266 differences in 14 groups, and every group is one of the declared
+changes above** - the rest of each group being `transition`, which appears wherever the hover is new.
+No element changed that was not a link.
+
+`opacity` was in the property list on the first pass and came back with 22 differences, all on
+`.skpulse`, all in the fourth decimal - a running animation read a millisecond apart on the two
+ports. It is not a comparable property and was dropped rather than explained away.
+
+**In the browser, by keyboard:** the login dialog now runs close → «Змінити номер» → six code cells,
+once each → «Підтвердити» → «← Змінити номер» → «Ввів неправильний код?» → «Повернутися до магазину».
+Focus ring `--ring-focus-control` on all four. Enter on «← Змінити номер» changes the dialog step.
+The mouse rule still holds - a click on the 6th cell lands on the 4th, the first empty one - and
+arrows and type-to-advance are unchanged.
+
+**At 360:** the stand and five product screens, 0px of sideways scroll.
+
+**The stand** is rebuilt on real product markup - every one of the thirteen families rendered live,
+not described. Idle check **passed: all 15 classes rendered in a demo, 2 states named.** Its old lead
+(«у футері, під формою, у згоді») and its anatomy demo were both invented: `.linkrow` appears only in
+the login dialog, 6 times, and the demo was a hand-drawn copy of a footer row `link-row.css` did not
+own.
+
+### Found, not fixed
+
+- **3 links on `design/overview.html`** render at the browser's default `#0000EE`. The hub is not a
+  product screen, so it stays on the list rather than in this step.
+- **3 inline `style="color:inherit"`** on `.wff-soc` - the same defect as the legal row, but that is
+  footer navigation, not a link row. Belongs to the footer component's own step.
+- **15 selectors where there should be 2 classes.** `.tlink` / `.tlink--loud` is the Крок 6 shape;
+  renaming breaks the frozen grey layer, so it waits for after stage 09.
+- **No `:visited` anywhere on the site.** Stage 09.
+
+### 7.30b - two questions on the rebuilt stand, and both were defects
+
+Asked on the finished page, not found by a probe. Both are what a stand is for.
+
+**«87 без класу - is that still true?»** The census table showed only the BEFORE state, so a reader
+could not tell whether 87 links were still unreachable by CSS. They are not: the wrapper gained
+`class="wff-legal"` and the selector is `.wff-legal a`. The `<a>` elements themselves are still
+classless **on purpose** - all 87 are drawn by one render function, a class on the parent is enough
+for the selector to exist, and 87 attributes in the markup would exist only in order to be 87. The
+defect was the rule living in an attribute, not the absence of a class on each anchor. The table now
+carries a **стало** column so it says which of the thirteen went where, and to which rung.
+
+**«Why are there chips on the link-row stand?»** Because `link-row.css` was drawing a row of chips.
+`.flink` became a chip at step 7.23 - it moved into chip.css whole, 60 instances of the same pill as
+`.dr-chip` - but its ROW, `.flinks`, was left behind in the text link's file. And chip.css already
+held the same three declarations **twice**, as `.dr-chips` and `.cegoals`. So one row was written
+three times in two files, and the third copy was in the wrong component entirely.
+
+`.dr-chips, .cegoals, .flinks` is now one line in chip.css, with `.flinks`'s own `margin-top` on a
+second. `link-row.css` holds text links and nothing else - 159 lines, 14 classes, 9 tokens.
+
+**This was only visible because the stand had just been rebuilt on real markup.** On a list of class
+names `.flinks` reads like a row of links; rendered, it is two orange pills sitting under a paragraph
+about SEO copy. No census would have caught it - the count of underlined links inside `.flinks` is
+zero, which is exactly why it never appeared in the table above.
+
+**Proof:** 6 listing screens x 2 viewports, **22 848 elements, 36 differences - all 36 are the
+declared `.wff-legal a` colour change**, none from the move. `.flinks` on listing.html renders
+`flex / wrap / gap 8px / margin-top 8px` over 6 children, as it did at HEAD. Idle checks: link-row
+**passed, 14 of 14**; chip **passed, 16 of 16** - `.flinks` added to its stand and to the family
+table there, so the class is shown where it now lives.

@@ -138,8 +138,15 @@
 }
 
 /* ---------- containers, which belong to whoever places the row ---------- */
-.dr-chips{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
-.cegoals{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
+/* THE ROW A CHIP STANDS IN, and it was written three times in two files - step
+   7.30b. `.dr-chips` and `.cegoals` sat here as two identical lines, and
+   `.flinks` sat in link-row.css with the same three declarations plus a margin.
+   That third copy is the one worth naming: `.flink` has been a chip since step
+   7.23, when it moved into this file whole - so its ROW had been left behind in
+   the text link's file, which is how link-row.css came to hold a row of chips.
+   Found by looking at the rebuilt stand and asking why there were pills on it. */
+.dr-chips, .cegoals, .flinks{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.flinks{ margin-top: var(--space-8); }
 .hero-chips{ display: flex; gap: var(--space-8); overflow-x: auto; padding-bottom: var(--space-4); scrollbar-width: none; }
 .hero-chips::-webkit-scrollbar{ display: none; }
 @media (min-width: 860px){
@@ -158,4 +165,7 @@
 }
 .afilter{ border: 1px solid var(--line-hair); border-radius: var(--radius-pill); padding: var(--space-8) var(--space-12); font-size: var(--fs-12); color: var(--text-primary); font-weight: var(--fw-semibold); display: inline-flex; gap: var(--space-8); align-items: center; background: var(--bg-sunken); }
 .afilter .x{ font-weight: var(--fw-black); color: var(--text-muted); }
-.afilters .clear{ font-size: var(--fs-12); color: var(--text-primary); font-weight: var(--fw-bold); text-decoration: underline; }
+/* step 7.30: this is not a chip and never was - it is a LINK standing at the end
+   of the chip row. Its ink, weight and underline went to link-row.css; the size
+   stays here, because how big it is belongs to the row it stands in. */
+.afilters .clear{ font-size: var(--fs-12); }
