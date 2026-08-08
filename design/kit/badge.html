@@ -23,45 +23,77 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Бейдж</h1>
-<p class="kp-lead">Коротка мітка на картці або в рядку: «Новинка», «Хіт». Каже <b>факт</b>, а не заклик.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/badge.css</span><span class="kp-tag">8 рядків</span><span class="kp-tag">36 екранів</span></div>
+<p class="kp-lead">Мітка на фото товару: «Популярне», «Новинка». Вона називає рід речі, на якій стоїть, і цим відрізняється від статус-пілюлі - пілюля повідомляє стан, який змінюється, бейдж називає рід, який ні.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/badge.css</span><span class="kp-tag">70 рядків</span><span class="kp-tag">26 бейджів</span><span class="kp-tag">12 екранів</span></div>
+
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><div class="kp-row"><span class="tag">Новинка</span><span class="tag tag-pop">Хіт</span><span class="tag tag-new">-20%</span></div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Підкладка</b> - заливка або рамка - і вона ж каже, наскільки гучна мітка</span></div><div class="a"><i>2</i><span><b>Слово</b> - одне-два, без крапки</span></div></div></section>
+<div class="kp-demo"><div class="kp-row" style="gap:16px"><span class="tag tag-pop">Популярне</span><span class="tag tag-new">Новинка</span></div></div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Найменше читабельне</b> в системі - 10px великими літерами. Бейдж, який змагається з назвою товару, вже продає, а принцип 1 каже спершу знімати сумнів</span></div>
+  <div class="a"><i>2</i><span><b>Знак</b> - <code>::before</code>, а не символ у розмітці: надрукований ★ читається вголос як «чорна зірка», не має власного розміру і нічим не відрізняється від слова</span></div>
+  <div class="a"><i>3</i><span><b>Тінь</b> <code>--elevation-mark</code> - бейдж лежить на фото, а не в потоці, і йому треба відділитися від будь-якого знімка під ним</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Файл не тримав жодного бейджа</div>
+<p class="kp-p">До цього кроку <code>badge.css</code> оголошував рівно один клас - <code>.gnote</code>, - і це не бейдж, а <b>анотація сірого прототипу</b>. У <code>wireframes/listing.html:173</code> вона каже «↑ Порядок карток (за замовч.): спершу в наявності...» - записка тому, хто читає макет. Кольоровий клон її не взяв, і правильно: вона рендериться на <b>0 з 39</b> кольорових екранів. Стенд повідомляв про це кроками поспіль, і я читав це як проблему стенда.</p>
+<p class="kp-p"><b><code>.tag</code> сам по собі не бейдж</b>, і це заміряно, а не припущено: 27 елементів несуть <code>.tag</code>, 26 з них несуть ще й <code>.tag-pop</code> або <code>.tag-new</code>, а 27-й - це <code>.aaddr .adef .tag</code>, слово «За замовчуванням» усередині картки адреси. Без фону, без рамки, у потоці. Це надзаголовок, а не бейдж - той самий дефект, що <code>.ci</code> на кроці 7.21: одне ім'я, два значення.</p>
+<div class="kp-demo"><div class="kp-row" style="gap:24px;align-items:center">
+  <span class="tag tag-pop">Популярне</span>
+  <span class="aaddr"><span class="adef"><span class="tag">За замовчуванням</span></span></span>
+</div></div>
+<div class="kp-cap">зліва бейдж, справа те, що носить те саме ім'я. Селектор файлу - <code>.tag.tag-pop, .tag.tag-new</code>: він точний сьогодні, бо бейдж завжди каже, <b>якого</b> він роду. Перейменування - Крок 6.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Дві поверхні</div>
+<p class="kp-p">Бейдж стоїть тільки на фото - у сітці й у списку. Розмір і місце належать картці: 10px за 11px від кута великої картки, 8.5px за 5px від кута маленької.</p>
+<div class="kp-demo"><div class="kp-2col">
+  <div><div class="kp-lbl">Картка сітки <code>.pcard .ph .tag</code> · 17</div>
+    <div class="pcard" style="max-width:200px"><div class="ph" style="min-height:120px"><span class="tag tag-pop">Популярне</span></div></div></div>
+  <div><div class="kp-lbl">Картка списку <code>.pcard-l .lph .tag</code> · 9</div>
+    <div class="pcard-l" style="padding:12px"><div class="lph"><span class="tag tag-new">Новинка</span></div><div class="lbd"><div class="lnm">Whey Protein</div></div></div></div>
+</div></div>
+<div class="kp-cap">8.5px у маленької картки - літерал, а не токен: <code>--fs-10</code> на 56px фото займає третину його ширини. Записано в «Немає в коді»</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Гучність</b></td><td>звичайний · <code>.tag-pop</code> темний · <code>.tag-new</code></td><td>Темний - лише коли мітка мусить перебити фото товару. Дві темні на одній картці неможливі.</td></tr><tr><td><b>Місце</b></td><td>на фото · в рядку меты</td><td>На фото - статус товару. В рядку - властивість. Одне і те саме слово в двох місцях означає, що ти не вирішив, що воно таке.</td></tr></tbody></table></div>
-</section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Рід</b></td><td><code>.tag-pop</code> · <code>.tag-new</code></td><td>«Популярне» - факт про інших покупців, тому інверсний фон, нейтральний і серйозний. «Новинка» - магазин говорить про власну полицю, тому акцент.</td></tr>
+<tr><td><b>Колір</b></td><td>інверсний · акцент</td><td><b>Це єдине місце, де колір дії з'являється не будучи дією.</b> Дозволено, бо напис - чорнило на акценті, а не акцент на білому: заміряно 5.45:1, те саме, що читає акцентна кнопка.</td></tr>
+<tr><td><b>Розмір</b></td><td>10 · 8.5</td><td>Належить картці, як і місце. Фото 84px і фото 56px - дві щільності, одна мітка.</td></tr>
+</tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
-<p class="kp-p">Бейдж - це <b>факт про товар</b>: новинка, хіт, знижка. Для стану замовлення є <b>Статус-пілюля</b>, для фільтра - <b>Чип</b>. Три різні компоненти, бо три різні життєві цикли: бейдж ставить контент-менеджер, пілюлю - система, чип - людина.</p></section>
+<p class="kp-p">Не більше однієї на картку. Дві мітки на одному фото - це вже не мітка, а рейтинг з двох пунктів, і жодна з них не читається. Бейдж не каже про ціну: розмір знижки несе <b>Бейдж знижки</b>, наявність - <b>Мітка наявності</b>.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Максимум один бейдж на картку.</b> Мітка працює, поки вона одна: друга перетворює обидві на шум.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби бейдж клікабельним.</b> Мітка, яка веде кудись, це <b>Чип</b> - у нього є стан «обрано» і зона дотику. Бейдж її не має і на дотик не розрахований.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Бейдж завжди каже, якого він роду.</b> <code>.tag</code> без <code>.tag-pop</code> чи <code>.tag-new</code> - це порожня мітка, і в продукті такої немає жодної.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби бейдж з будь-чого маленького й великими літерами.</b> Надзаголовок картки адреси носить те саме ім'я і бейджем не є - і саме тому файл називає рід, а не ім'я.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
+<p class="kp-p">Станів немає: бейдж нічого не робить у відповідь на палець і не має <code>:hover</code>. Рід - це не стан, це те, чим річ є.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>1</b> власних класів і <b>0</b> станів оголошено в <code>badge.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>0</b> станів оголошено в <code>badge.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["gnote"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["tag-pop","tag-new","tag"], KIT_STS=[];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>badge.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (1)</th><th>Примітиви (4)</th></tr></thead><tbody><tr><td><code>--text-muted</code></td><td><code>--fs-12</code> <code>--lh-snug</code> <code>--space-12</code> <code>--space-2</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (6)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-inverse</code> <code>--text-action</code> <code>--text-body</code> <code>--text-oninverse</code></td><td><code>--elevation-mark</code> <code>--fs-10</code> <code>--fw-black</code> <code>--lh-flat</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--radius-pill</code> <code>--space-4</code> <code>--space-12</code></td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;span class="tag"&gt;Новинка&lt;/span&gt;
-&lt;span class="tag tag-pop"&gt;Хіт&lt;/span&gt;</div></section>
+<div class="kp-code">&lt;span class="tag tag-pop"&gt;Популярне&lt;/span&gt;
+&lt;span class="tag tag-new"&gt;Новинка&lt;/span&gt;</div>
+<p class="kp-p">Зірка і ромб у розмітці не пишуться: їх малює <code>::before</code>.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.tag</code> <code>.gnote</code></p>
-<p class="kp-p"><b>36 екранів</b> у <code>wireframes/</code>: 404.html, account-addresses-add.html, account-addresses-courier.html, account-addresses-delete.html, account-addresses-edit.html, account-addresses-postomat.html, account-addresses-viddilennia.html, account-addresses.html, account.html, catalog-page.html, coach-session-addclient.html, coach-session-addempty.html, coach-session-loading.html, coach-session-oos.html ...</p></section>
+<p class="kp-p">Якорі: <code>.tag-pop</code> <code>.tag-new</code></p>
+<p class="kp-p">Заміряно в браузері на 390 і 1280: <b>26 бейджів</b> на 12 кольорових екранах - <code>.tag-pop</code> 18 на 11, <code>.tag-new</code> 8 на 8. Плюс один <code>.tag</code>, який бейджем не є.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає стану <code>:hover</code></b> - і не потрібен, поки бейдж не клікабельний</li><li><b>Немає токена межі гучності</b> - <code>.tag-pop</code> бере <code>--bg-inverse</code> напряму</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>8.5px написано літералом</b> - токена між 8 і 10 немає, і маленька картка єдина, хто його просить</li>
+<li><b>Одне ім'я на дві речі</b> - <code>.tag</code> бейджа і <code>.tag</code> надзаголовка картки адреси. Крок 6</li>
+<li><b>Немає правила, скільки бейджів на картку</b> - код дозволяє два, дизайн ні, і ніде це не записано машинно</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
 /* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a

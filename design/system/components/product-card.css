@@ -7,7 +7,9 @@
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .pcard{ border: 1px solid var(--line-hair); overflow: hidden; display: flex; flex-direction: column; background: var(--bg-page); position: relative; }
 .pcard .ph{ aspect-ratio: 10/11; display: flex; align-items: center; justify-content: center; font-size: var(--fs-12); position: relative; }
-.pcard .tag{ position: absolute; font-weight: var(--fw-black); text-transform: uppercase; }
+/* 7.37: the badge itself went to badge.css. What a card owns is WHERE it sits -
+   pinned to the photo, 11px in from its corner - not what it looks like. */
+.pcard .tag{ position: absolute; }
 .pcard .bd{ display: flex; flex-direction: column; flex: 1; }
 .pcard .pbrand{ margin: 0 0 var(--space-4); }
 .pcard .nm{ margin: 0 0 var(--space-12); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -32,7 +34,16 @@
 .pcard.dim .ph, .pcard.dim .prow2{ opacity: .5; }
 .pcard-l{ display: grid; grid-template-columns: 84px 1fr auto auto; gap: var(--space-16); border: 1px solid var(--line-hair); padding: var(--space-12); align-items: center; }
 .pcard-l .lph{ width: 84px; aspect-ratio: 1; border-radius: var(--radius-8); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); position: relative; }
-.pcard-l .lph .tag{ position: absolute; top: 5px; left: 5px; background: var(--bg-page); border: 1.5px solid var(--line-inverse); font-size: 8.5px; font-weight: var(--fw-black); border-radius: var(--radius-4); padding: var(--space-2) var(--space-4); text-transform: uppercase; }
+/* 7.37: this line kept `background: var(--bg-page)` and a 1.5px border, and the
+   A/B caught what that meant the moment badge.css took over: at (0,3,0) it beats
+   the atom's (0,2,0), so both list-card badges went white-with-a-hairline. At HEAD
+   they were only ever inverse and accent because a SECOND rule, `.pcard-l .lph
+   .tag.tag-pop` at (0,4,0), overrode this one in the colour block below. The white
+   edition was dead there too - the same dead pair the grid card had.
+   What stays is the card's density: where the badge sits and how small it is on a
+   56-84px photo. `--radius-4` went with the look - 4px on a 13px chip against the
+   atom's pill is 2.5px nobody chose, and it was the shape's second edition. */
+.pcard-l .lph .tag{ position: absolute; top: 5px; left: 5px; font-size: 8.5px; padding: var(--space-2) var(--space-4); }
 .pcard-l .lbd{ min-width: 0; }
 .pcard-l .lbrand{ font-size: var(--fs-12); color: var(--text-brandline); }
 .pcard-l .lnm{ font-weight: var(--fw-semibold); margin: var(--space-2) 0 var(--space-8); }
@@ -85,13 +96,14 @@
    rating.css at 7.27 and read wrong then too. What is left here is genuinely not
    a price: the discount chip (discount.css's atom, next step), the per-serving
    figure, the bonus, the pager numbers and the listing count. */
+/* 7.37: `.lh1 .cnt` came off this list for counter.css, and it had no business
+   here in the first place - a listing header's count is not a product card. */
 .pcard .perserv b,
-.pcard .bonus, .pages a, .pages button, .lh1 .cnt{
+.pcard .bonus, .pages a, .pages button{
   font-family:var(--font-mono); font-variant-numeric:tabular-nums;
 }
 .pcard .perserv b, .pcard .bonus{ word-spacing:-0.24em; }
 .pcard .ph{ background:var(--bg-page) center/72% no-repeat; color:transparent; }
-.pcard .ph .tag{ color:var(--text-body); }
 .pcard:nth-of-type(3n+1) .ph{ background-image:url(../../visuals/product-whey.png); }
 .pcard:nth-of-type(3n+2) .ph{ background-image:url(../../visuals/product-creatine.png); }
 .pcard:nth-of-type(3n)   .ph{ background-image:url(../../visuals/product-preworkout.png); }
@@ -105,7 +117,6 @@
    shape that sentence is true in. */
 .pcard-l .lnm{ color:var(--text-body); }
 .pcard-l .lph{ background:var(--bg-page) center/contain no-repeat; color:transparent; }
-.pcard-l .lph .tag{ border-color:var(--line-inverse); color:var(--text-body); }
 .pcard-l:nth-of-type(3n+1) .lph{ background-image:url(../../visuals/product-whey.png); }
 .pcard-l:nth-of-type(3n+2) .lph{ background-image:url(../../visuals/product-creatine.png); }
 .pcard-l:nth-of-type(3n)   .lph{ background-image:url(../../visuals/product-preworkout.png); }
@@ -125,14 +136,13 @@
 .pcard .ph{ background-size:80%; }
 .pcard:hover .ph{ background-size:86%; }
 .pcard .bd{ padding:var(--space-16) var(--space-16) var(--space-8); }
-.pcard .tag{ background:var(--bg-page); border:1px solid var(--line-strong); color:var(--text-body);
-  border-radius:var(--radius-pill); font-size:var(--fs-10); letter-spacing:var(--ls-caps); padding:var(--space-4) var(--space-12); top:11px; left:11px; }
-.pcard .ph .tag, .pcard-l .lph .tag{ display:inline-flex; align-items:center; gap:var(--space-4);
-  border:none; letter-spacing:var(--ls-caps); box-shadow: var(--elevation-mark); }
-.pcard .ph .tag.tag-pop, .pcard-l .lph .tag.tag-pop{ background:var(--bg-inverse); color:var(--text-oninverse); }
-.pcard .ph .tag.tag-pop::before, .pcard-l .lph .tag.tag-pop::before{ content:'★'; color:var(--text-action); font-size:var(--fs-10); line-height:var(--lh-flat); }
-.pcard .ph .tag.tag-new, .pcard-l .lph .tag.tag-new{ background:var(--bg-action); color:var(--text-body); }
-.pcard .ph .tag.tag-new::before, .pcard-l .lph .tag.tag-new::before{ content:'✦'; font-size:var(--fs-10); line-height:var(--lh-flat); }
+/* 7.37: eight lines went to badge.css - the pill, the two grounds, the two marks
+   and the flex row that holds a mark next to a word. The first of them also
+   carried a WHITE ground with a hairline border that nothing ever rendered:
+   every badge in the product is `.tag-pop` or `.tag-new`, and both overrode it
+   two lines down. Dead since before this stage.
+   `top`/`left` stay - they are the card pinning the badge to its photo. */
+.pcard .tag{ top:11px; left:11px; }
 .pcard .pbrand{ font-size:var(--fs-12); color:var(--text-muted); margin-bottom:var(--space-4);
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .pcard .nm{ font-size:var(--fs-16); font-weight:var(--fw-semibold); color:var(--text-body); line-height:var(--lh-snug); margin-bottom:var(--space-12); min-height:var(--size-44); }

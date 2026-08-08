@@ -53,7 +53,10 @@ article.ci{ display: grid; grid-template-columns: 74px 1fr; gap: var(--space-12)
    `.btn--text`, so the line is gone from here too. */
 .ci-lnk{ font-weight: var(--fw-semibold); }
 .ci-lnk.strong{ font-weight: var(--fw-bold); }
-.ci-oostag{ display: inline-block; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); margin-top: var(--space-4); }
+/* 7.37: `.ci-oostag` went to status-pill.css. Step 7.35 refused to merge it with
+   the availability LINE and gave the reason - «it is a different shape: a pill» -
+   so the pill's own step is where it landed. The row keeps its 4px of air. */
+.ci-oostag{ margin-top: var(--space-4); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 /* step 7.36: the owner rule left this file for price.css - it was one of eight
@@ -77,6 +80,3 @@ article.ci{ border-bottom-color:var(--line-hair); }   /* scoped with the line ab
 .ci-lnk.on{ color:var(--text-action); }
 .ci-lnk.on .uiv-ic svg{ fill:var(--text-action); stroke:var(--text-action); }
 .ci.oos .ci-ph, .ci.oos .ci-nm, .ci.oos .ci-price{ opacity:.45; }
-.ci-oostag{ font-family:var(--font-mono); font-size:var(--fs-10); font-weight:var(--fw-medium);
-  letter-spacing:var(--ls-caps); text-transform:uppercase; color:var(--text-secondary);
-  background:var(--bg-sunken); border-color:var(--line-strong); padding:var(--space-4) var(--space-12); }

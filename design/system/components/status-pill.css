@@ -1,19 +1,116 @@
-/* status-pill.css - status pill (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* status-pill.css - the status pill (level 1), rebuilt at step 7.37.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.aord-status{ display: inline-block; font-size: var(--fs-12); font-weight: var(--fw-black); border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); margin-top: var(--space-8); }
-.oh-status{ font-size: var(--fs-12); font-weight: var(--fw-black); border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-4) var(--space-12); white-space: nowrap; }
+   A SMALL PILL THAT SAYS WHAT STATE A THING IS IN. «Доставлено», «В дорозі»,
+   «Обробляється», «✓ Купив товар», «Немає в наявності». It is not a control and
+   not a badge: nobody presses it, and it does not label a thing - it reports
+   the state that thing is in right now.
+
+   ONE SHAPE, FOUR NAMES, TWELVE PILLS, in four files at three levels. Read out of
+   the runtime DOM at 390 and 1280 across 39 coloured screens:
+
+     .oh-status  4  here          12/800  pad 4/12  ok · go · wait
+     .rbadge     7  review-item.css  L2   10/800  pad 2/8   «✓ Купив товар»
+     .aord-status 1 here          12/800  pad 2/8   the account's last order
+     .ci-oostag  1  cart-row.css     L2   10/500  pad 4/12  «Немає в наявності»
+
+   All four: 1px border, `--radius-pill`, a tinted ground, a state colour. They
+   agreed on the geometry that is hard and disagreed on the four values that are
+   easy, which is the signature of four people drawing the same thing separately.
+
+   `.rbadge` IS A STATUS, and the only reason it did not look like one is its
+   name. «✓ Купив товар» reports the state of a review - the purchase behind it is
+   verified - in exactly the green this file already uses for «Доставлено». Same
+   tokens, one file apart, and one of them read a different green (see below).
+
+   `.ci-oostag` ARRIVES FROM 7.35's OPEN LIST. That step refused to merge it with
+   the availability LINE, and the reason it gave was «it is a different shape: a
+   pill». The pill's own step is where that shape gets owned. It keeps its mono
+   uppercase, which is genuinely its own - see the note on it below.
+
+   NOT HERE, AND MEASURED SO THE LINE IS DRAWN SOMEWHERE: `.city-badge`, 272
+   instances on 34 screens, is the same pill geometry and is NOT a status - it is
+   a CONTROL, a city you press to choose. It hovers, it is a `<button>`, and a
+   status pill does none of that. Shape shared with a control is the button's
+   argument, not this file's.
+   ============================================================================ */
+
+/* ---------- the pill ---------------------------------------------------------
+   Two rungs, and they were already in the product - the file just never said so.
+   12px is the pill of a ROW that is mostly about the status (an order line); 10px
+   is the pill that rides along inside something else (a review's meta line, a
+   cart row's name column). Padding follows the rung, which is how three of the
+   four already worked:
+
+     rung   size   padding   who was already right
+     row    12     4 / 12    .oh-status
+     inline 10     2 / 8     .rbadge
+
+   `.aord-status` was 12px with the 10px padding and `.ci-oostag` was 10px with
+   the 12px padding - the two that crossed the ladder, one each way. */
+.oh-status, .rbadge, .aord-status, .ci-oostag{
+  display: inline-block;
+  font-weight: var(--fw-black);
+  line-height: var(--lh-snug);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+.oh-status, .aord-status{ font-size: var(--fs-12); padding: var(--space-4) var(--space-12); }
+.rbadge, .ci-oostag{ font-size: var(--fs-10); padding: var(--space-2) var(--space-8); }
+
+/* ---------- the state ---------------------------------------------------------
+   Three states and a neutral. The neutral IS a state - «Обробляється» is not an
+   absence of news, it is the first thing that happens - so it takes a ground like
+   the others rather than sitting bare.
+
+   ONE GREEN. `--bg-success-soft` is `rgba(46,125,70,.07)` and its comment in
+   tokens.css reads «the fill of the success pill»; `.rbadge` was filling with
+   `--bg-success` (#F1F8F3, the calm success PLATE) while taking its border from
+   `--line-success-soft`, the pill's border. Half of one pill and half of another,
+   and the difference is under a percent of luminance - which is exactly why it
+   survived: nobody could see it, and the system said two things anyway. */
+.oh-status.ok, .aord-status, .rbadge{
+  color: var(--text-success);
+  border-color: var(--line-success-soft);
+  background: var(--bg-success-soft);
+}
+.oh-status.go{
+  color: var(--text-warning);
+  border-color: var(--line-bonus-soft);
+  background: var(--bg-bonus-soft);
+}
+.oh-status, .oh-status.wait{
+  color: var(--text-secondary);
+  border-color: var(--line-strong);
+  background: var(--bg-surface);
+}
+
+/* ---------- the one that is quieter on purpose -------------------------------
+   `.ci-oostag` says «Немає в наявності» on a row a person has already put in
+   their cart, and it is the only pill in the set that is bad news about something
+   they chose. It is set in mono uppercase at 500 rather than 800: the row above
+   it already carries the product name at full weight, and shouting the failure
+   next to it would make the row read as an error rather than as a fact to act on.
+   Principle 4 - calm and confident - written as a weight.
+   The sunken ground rather than a state tint, for the same reason: nothing here
+   is green, amber or red. The shelf is empty and that is all. */
+.ci-oostag{
+  font-family: var(--font-mono);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: var(--bg-sunken);
+  border-color: var(--line-strong);
+}
+
+/* ---------- where a pill stands ----------------------------------------------
+   Placement is the row's, not the pill's - the same split price.css and
+   discount.css make. The order row moves its pill into a grid area under 640, and
+   that rule stays in order-row.css where the grid is declared. What is left here
+   is the top margin the account's pill and the review's pill both take, which is
+   the same 8 and was written twice. */
+.aord-status, .rbadge{ margin-top: var(--space-8); }
 @media (max-width: 640px){
   .oh-status{ grid-area: stat; justify-self: start; margin-top: var(--space-4); }
 }
-
-/* ---------- colour (from design/kit/kit.css) ---------- */
-.aord-status{ color:var(--text-success); border-color:var(--line-success-soft); background:var(--bg-success-soft); }
-.oh-status{ border-color:var(--line-strong); color:var(--text-secondary); }
-.oh-status.ok{ color:var(--text-success); border-color:var(--line-success-soft); background:var(--bg-success-soft); }
-.oh-status.go{ color:var(--text-warning); border-color:var(--line-bonus-soft); background:var(--bg-bonus-soft); }
-.oh-status.wait{ color:var(--text-secondary); background:var(--bg-surface); }

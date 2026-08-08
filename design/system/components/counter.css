@@ -1,11 +1,61 @@
-/* counter.css - counter (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* counter.css - the counter (level 1), rebuilt at step 7.37.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.wl-count{ font-size: var(--fs-14); font-weight: var(--fw-black); }
+   HOW MANY. The figure beside a label that says how much is behind it: «В
+   наявності 71», «Замовлення 12», «84 товари». The most repeated element in the
+   whole product after the price - 470 of them - and this file declared none.
 
-/* ---------- colour (from design/kit/kit.css) ---------- */
-.wl-count{ font-family:var(--font-mono); color:var(--text-secondary); }
+   IT HELD `.wl-count`, WITH 0 INSTANCES IN COLOUR. The wishlist's count, on a
+   screen that exists only in `wireframes/`. So the counter atom described a
+   counter nobody sees, and the 470 a person actually reads were declared in six
+   other files. Read out of the runtime DOM at 390 and 1280, 39 coloured screens:
+
+     .fopt .ct      350   filter-group.css   L2   Mono  12/400  muted
+     .flink .ct      84   chip.css           L1   INTER 12/600  muted
+     .acc-link .ct   21   account-shell.css  L3   Mono  12/800  muted, IN A PILL
+     .lh1 .cnt        5   section-head.css   L2   Mono  16/600  muted
+     .co-sec-h .cnt   3   checkout-form.css  L3   Mono  14/500  muted
+
+   Colour never drifted: `--text-muted` on all five, and that is the whole of the
+   counter's meaning - it is never the point of the row it sits in. Everything
+   else did: two faces, five weights, three sizes.
+
+   `.flink .ct` IS THE ONE REAL DEFECT. It is a count, it stands two pixels from
+   350 identical counts, and it is the only one set in the body face. chip.css
+   declared it with a size and a colour and no family, so it took the page's.
+
+   AND `.hbadge` IS A GHOST. `design/kit/counter.html` rendered it in its demo; it
+   has 0 rules anywhere in the system and 0 instances anywhere in the product. It
+   was never a class, only a word someone wrote in a showcase. Gone from the stand.
+
+   NOT MERGED, AND SAID OUT LOUD: `.coachbn .ct` in client-row.css is `.ct` again
+   and is not a counter at all - it is the coach banner's HEADLINE, 24px display
+   type in white. One name, two meanings, the `.ci` shape from step 7.21 a third
+   time this stage. It renders on 0 coloured screens (the coach flow is grey-only),
+   so the atom cannot collide with it today, and the rename is Крок 6's.
+   ============================================================================ */
+
+/* ---------- the figure -------------------------------------------------------
+   Mono, tabular, muted, and that is all the atom claims. A count is a figure, and
+   DESIGN-artifacts.md:77 gives every figure the mono face - the same sentence
+   price.css and discount.css read.
+
+   SIZE AND WEIGHT STAY WITH THE SURFACE, and unlike the discount chip this is not
+   a near-tie to be broken: 12 beside a filter option, 14 in a checkout section
+   head and 16 inside a listing H1 are three different rungs of type, each set by
+   what the count stands next to. Ranking them would mean redesigning three
+   headings to tidy one atom. The weights ride on the same argument.
+   What the atom does fix is the face, because a count is the same KIND of thing
+   at every rung. */
+.ct, .cnt{
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+/* ---------- the count that became a pill -------------------------------------
+   In the account rail from 960 up, the count sits in a bordered pill rather than
+   loose at the end of the row - because the rail is a column of links and the
+   figure has to read as belonging to its own row rather than to the next one.
+   That is the rail's decision about ITS layout and it stays in account-shell.css
+   with the rest of the rail; what this file says is that the thing inside the
+   pill is still this atom, at the same face and the same colour. */

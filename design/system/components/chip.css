@@ -101,7 +101,10 @@
 .dr-chip .uiv-ic{ color: var(--text-action); }
 .dr-chip .uiv-ic svg{ width: 19px; height: 19px; }
 /* the count that closes a filter option is quieter than the word it counts */
-.flink .ct{ margin-left: var(--space-4); font-size: var(--fs-12); color: var(--text-muted); }
+/* 7.37: the colour and the face are counter.css's. This line had declared a size
+   and a colour and no family, so 84 counts took the page's body face while the 350
+   two pixels away were mono. What a chip row owns is the 4px before the figure. */
+.flink .ct{ margin-left: var(--space-4); font-size: var(--fs-12); }
 
 /* ---------- rung S: the mega menu, where a chip is a footnote to a column ----
    12/600 with 4 of vertical padding, 29 tall against 41. It is the same control

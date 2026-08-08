@@ -4897,3 +4897,156 @@ a name the colour layer never renders.
 - **Eight names.** Крок 6, `.cut` at the front of the queue with `.new` and `.old`.
 - **No threshold rule**: the system does not know from what percentage a discount is
   worth showing at all. Stage 09, and it was already on that list.
+
+---
+
+## Step 7.37 - the last three stands: a badge, a pill and a counter
+
+**Instrument:** Claude, in a browser. 39 coloured screens at 390 and 1280, computed
+styles only, A/B against HEAD over 108 994 elements with the cache cleared between
+passes.
+
+Three stands had been reporting themselves unshown since Крок 3 and all three had the
+same cause, censused at 7.36: **the file declared a name the colour layer never
+renders**. This step closes them, and each turned out to be a different kind of
+mistake underneath.
+
+### badge.css - the file held no badge
+
+`.gnote` is not a badge. It is a **grey-prototype annotation**:
+`wireframes/listing.html:173`, «↑ Порядок карток (за замовч.): спершу в наявності...»,
+a note to whoever reads the prototype. The coloured clone dropped it, correctly, which
+is why it renders on 0 of 39 screens. Scaffolding got swept into the system at the
+step-3 split and sat there wearing the file's name. Deleted - `wireframes/_wf.css`
+still declares it for the grey layer that does use it.
+
+The real badges were in product-card.css, scoped: `.tag-pop` 18, `.tag-new` 8.
+
+**`.tag` alone is not a badge in this product, and that is measured.** 27 elements
+carry `.tag`; 26 also carry a kind; the 27th is `.aaddr .adef .tag`, the word «За
+замовчуванням» in an address card - no ground, no border, static, an eyebrow. The
+`.ci` defect from step 7.21, a fourth time this stage. So the file names
+`.tag.tag-pop, .tag.tag-new`: precise today because a badge always says which kind
+it is, and the rename is Крок 6's.
+
+**A dead pair went with it.** `.pcard .tag` declared a white ground with a hairline
+border, overridden two lines down by both kinds - it had never rendered. The list
+card carried the same dead white edition, and that one **did** render the moment the
+atom took over, because `.pcard-l .lph .tag` at (0,3,0) beats `.tag.tag-pop` at
+(0,2,0): both list badges went white-with-a-hairline. Caught by the A/B, fixed by
+leaving that selector only what is the card's - where the badge sits and how small
+it is on a 56-84px photo.
+
+### status-pill.css - one shape, four names, and a green drawn two ways
+
+| | | size | padding | file |
+|---|---|---|---|---|
+| `.oh-status` | 4 | 12 | 4/12 | here |
+| `.rbadge` | 7 | 10 | 2/8 | review-item.css |
+| `.aord-status` | 1 | **12** | **2/8** | here |
+| `.ci-oostag` | 1 | **10** | **4/12** | cart-row.css |
+
+All four: 1px border, `--radius-pill`, a tinted ground. They agreed on the geometry
+that is hard to guess and disagreed on the four values that are easy - the signature
+of four people drawing one thing separately.
+
+**Two rungs, and they were already in the product.** 12px is the pill of a row that
+is mostly about the status; 10px rides inside something else. Padding follows the
+rung, which is how `.oh-status` and `.rbadge` already worked. `.aord-status` and
+`.ci-oostag` were the two that crossed the ladder, one each way.
+
+**`.rbadge` is a status.** «✓ Купив товар» reports the state of a review - the
+purchase behind it is verified - in the same green `.oh-status.ok` uses, one file
+away. Its name was the only thing making it look like a different component.
+
+**One green.** `--bg-success-soft` is `rgba(46,125,70,.07)` and its own comment reads
+«the fill of the success pill». `.rbadge` filled with `--bg-success` (#F1F8F3, the
+success *plate*) and bordered with `--line-success-soft`, the pill's border - half of
+one and half of the other. The difference is under a percent of luminance, which is
+exactly why it survived: nobody could see it, and the system said two things anyway.
+
+**`.ci-oostag` arrives from 7.35's open list.** That step refused to merge it with the
+availability LINE and gave the reason - «it is a different shape: a pill». The pill's
+own step is where that shape gets owned. Its mono uppercase at 500 stays and is
+argued rather than inherited: it is the only pill in the set carrying bad news about
+something the person already chose, and shouting it would make the row read as an
+error instead of a fact to act on.
+
+**Not merged, and the line is drawn:** `.city-badge`, 272 instances on 34 screens, is
+the same pill geometry and is a CONTROL - a city you press, with a hover. Shape
+shared with a control is the button's argument, not this file's.
+
+### counter.css - 470 of them, and the file declared the one nobody sees
+
+`.wl-count`, the wishlist count, on a screen that exists only in `wireframes/`. The
+470 a person actually reads were in six other files:
+
+| | | | |
+|---|---|---|---|
+| `.fopt .ct` | 350 | filter-group.css | Mono 12/400 |
+| `.flink .ct` | 84 | chip.css | **Inter** 12/600 |
+| `.acc-link .ct` | 21 | account-shell.css | Mono 12/800, in a pill |
+| `.lh1 .cnt` | 5 | section-head.css | Mono 16/600 |
+| `.co-sec-h .cnt` | 3 | checkout-form.css | Mono 14/500 |
+
+Colour never drifted - `--text-muted` on all of them, which is the whole of a
+counter's meaning: it is never the point of the row it sits in. Two faces, five
+weights, three sizes did.
+
+**`.flink .ct` is the one real defect**: a count, two pixels from 350 identical
+counts, and the only one in the body face. chip.css gave it a size and a colour and no
+family, so it took the page's.
+
+**Size and weight stay with the surface, and unlike the discount chip this is not a
+near-tie to be broken:** 12 beside a filter option, 14 in a checkout section head and
+16 inside a listing H1 are three rungs of type, each set by what the count stands next
+to. Ranking them would mean redesigning three headings to tidy one atom. The atom
+fixes the face, because a count is the same KIND of thing at every rung.
+
+**`.hbadge` was a ghost.** The counter stand rendered it in its demo; 0 rules anywhere
+in the system, 0 instances anywhere in the product. It was never a class, only a word
+someone wrote in a showcase.
+
+**Not merged:** `.coachbn .ct` in client-row.css is `.ct` again and is the coach
+banner's HEADLINE - 24px display type in white. One name, two meanings, a fifth time
+this stage. It renders on 0 coloured screens, so the atom cannot collide with it
+today. Крок 6.
+
+### A/B
+
+**108 994 elements, 40 pages x 2 viewports, cache cleared between passes: 1 008
+differences, and every one of them is in one of the three families. Zero outside.**
+
+| change | count |
+|---|---|
+| `.ct` / `.cnt` gain tabular figures | 916 |
+| `.flink .ct` Inter -> Mono | 96 of those |
+| `.tag-pop` / `.tag-new` line-height 16 -> 13 (`--lh-snug`) | 52 |
+| `.rbadge` ground, one green, line-height | 14 |
+| `.oh-status` line-height 19.2 -> 15.6 | 8 |
+| `.aord-status` padding 2/8 -> 4/12, line-height | 2 |
+| `.ci-oostag` padding 4/12 -> 2/8, line-height | 2 |
+| list-card badge radius 4 -> pill, line-height | 4 |
+
+Colour is unchanged on every counter, every badge ground is unchanged, and the three
+pill state colours are unchanged. What moved is height and face.
+
+**40 screens at 360: 0 overflow, 0 JS errors. All 35 stands: idle check passed, 0
+overflow, 0 JS errors** - the first pass of this stage where no stand reports itself
+incomplete.
+
+### Found, not fixed
+
+- **`.rbadge` has a typed `✓` in its markup**, the same defect the availability dot
+  was at 7.35. Unlike the dot it is inside an interface string - «✓ Купив товар» - and
+  strings belong to voice, not to this file. Reported, not rewritten.
+- **8.5px is a literal** on the list card's badge: there is no token between 8 and 10,
+  and a 56px photo is the only thing that asks for one.
+- **No «скасовано» state** - the code has three and an order's path has at least four
+  ends.
+- **No zero rule** for the counter: the system does not know whether to show «0» or
+  hide the row.
+- **Four `'Inter', sans-serif` literals** left: buy-box (3, two inside a `font:`
+  shorthand), loyalty-rung (2).
+- **Five names to rename at Крок 6**, all one-name-two-meanings: `.tag`, `.ct`,
+  `.cut`, `.new`, `.old`.

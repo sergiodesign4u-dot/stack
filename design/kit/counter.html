@@ -23,44 +23,83 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Лічильник</h1>
-<p class="kp-lead">Число в бейджі: скільки в кошику, скільки в обраному, скільки знайдено.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/counter.css</span><span class="kp-tag">11 рядків</span><span class="kp-tag">18 екранів</span></div>
+<p class="kp-lead">Скільки. Цифра поруч із написом, яка каже, скільки за ним стоїть: «В наявності 71», «Замовлення 12», «84 товари». Найчастіший елемент продукту після ціни - 470 штук, - і файл не оголошував жодного.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/counter.css</span><span class="kp-tag">61 рядків</span><span class="kp-tag">470 лічильників</span><span class="kp-tag">19 екранів</span></div>
+
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><div class="kp-row" style="gap:22px;align-items:center"><span class="cnt">3</span><span class="hbadge">12</span></div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Коло або пілюля</b> - росте вшир, коли число двозначне</span></div><div class="a"><i>2</i><span><b>Число</b> - моношрифт - ширина цифри стала, бейдж не стрибає</span></div></div></section>
+<div class="kp-demo"><label class="fopt" style="max-width:280px"><span class="cb"></span> В наявності <span class="ct">71</span></label></div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Моноширинний і табличний</b> - лічильники в колонці фільтра стоять один під одним, і в пропорційному шрифті їхні цифри не збігаються</span></div>
+  <div class="a"><i>2</i><span><b>Приглушений</b> - <code>--text-muted</code> на всіх 470. Це і є весь сенс лічильника: він ніколи не є суттю рядка, у якому стоїть</span></div>
+  <div class="a"><i>3</i><span><b>Без дужок і без «шт»</b> - число поруч із написом уже читається як кількість</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Файл тримав лічильник, якого ніхто не бачить</div>
+<p class="kp-p">До цього кроку <code>counter.css</code> оголошував <code>.wl-count</code> - лічильник вішлиста, на екрані, який існує лише в <code>wireframes/</code>. <b>0 входжень у кольорі.</b> А 470, які людина справді читає, були оголошені в шести інших файлах:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Селектор</th><th>Скільки</th><th>Файл</th><th>Як виглядав</th></tr></thead><tbody>
+<tr><td><code>.fopt .ct</code></td><td>350</td><td>filter-group.css</td><td>Mono 12/400</td></tr>
+<tr><td><code>.flink .ct</code></td><td>84</td><td>chip.css</td><td><b>Inter</b> 12/600</td></tr>
+<tr><td><code>.acc-link .ct</code></td><td>21</td><td>account-shell.css</td><td>Mono 12/800, у пілюлі</td></tr>
+<tr><td><code>.lh1 .cnt</code></td><td>5</td><td>section-head.css</td><td>Mono 16/600</td></tr>
+<tr><td><code>.co-sec-h .cnt</code></td><td>3</td><td>checkout-form.css</td><td>Mono 14/500</td></tr>
+</tbody></table></div>
+<p class="kp-p">Колір не розходився ніколи. Розійшлося все інше: дві гарнітури, п'ять ваг, три кеглі. <b><code>.flink .ct</code> - єдиний справжній дефект набору:</b> це лічильник, він стоїть за два пікселі від 350 однакових лічильників, і він єдиний набраний текстовою гарнітурою. <code>chip.css</code> оголосив йому кегль і колір, а гарнітуру ні - і він узяв сторінчину.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">П'ять місць, одне обличчя</div>
+<p class="kp-p">Кегль і вага належать поверхні, і це не нічия, яку треба розбити: 12 біля опції фільтра, 14 у заголовку секції оформлення і 16 всередині H1 каталогу - три різні сходинки шрифту, кожну задає те, поруч із чим лічильник стоїть. Ранжувати їх означало б перемальовувати три заголовки, щоб причесати один атом.</p>
+<div class="kp-demo"><div class="kp-2col">
+  <div><div class="kp-lbl">Опція фільтра <code>.fopt .ct</code> · 350</div>
+    <label class="fopt"><span class="cb"></span> В наявності <span class="ct">71</span></label></div>
+  <div><div class="kp-lbl">Чіп фільтра <code>.flink .ct</code> · 84</div>
+    <a class="flink" href="#">Протеїн <span class="ct">124</span></a></div>
+  <div><div class="kp-lbl">Рейка акаунта <code>.acc-link .ct</code> · 21</div>
+    <div class="acc-nav"><a class="acc-link" href="#"><span class="ic"></span>Замовлення<span class="ct">12</span></a></div></div>
+  <div><div class="kp-lbl">Заголовок каталогу <code>.lh1 .cnt</code> · 5</div>
+    <h2 class="lh1">Протеїн <span class="cnt">84 товари</span></h2></div>
+</div></div>
+<div class="kp-cap">у рейці акаунта від 960 лічильник сидить у рамці, а не вільно в кінці рядка: рейка це колонка посилань, і цифра має читатися належною своєму рядку, а не наступному. Це рішення рейки про власну розкладку, і воно лишилось у <code>account-shell.css</code></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Місце</b></td><td>на іконці шапки · в заголовку списку</td><td>На іконці - скільки всередині. В заголовку - скільки знайдено. Це різні питання і різні класи.</td></tr></tbody></table></div>
-</section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Кегль</b></td><td>12 · 14 · 16</td><td>Дорівнює сходинці того, поруч із чим стоїть. Лічильник ніколи не задає розмір сам.</td></tr>
+<tr><td><b>Форма</b></td><td>вільна цифра · у рамці</td><td>Рамка з'являється лише там, де рядки стоять колонкою і цифру треба прив'язати до свого рядка.</td></tr>
+<tr><td><b>Колір</b></td><td><code>--text-muted</code></td><td>Одне значення на всі 470, і його не міняють: лічильник, який видно раніше за напис, - це вже не лічильник.</td></tr>
+</tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
-<p class="kp-p">Скрізь, де кількість - це факт, який людина хоче знати не заходячи всередину. Job 1: коуч бачить розмір замовлення, не відкриваючи кошик.</p></section>
+<p class="kp-p">Коли число знімає сумнів <b>до</b> натискання: «В наявності 71» каже, що фільтр не приведе в порожнечу. Лічильник, який людина не може перевірити дією, - просто шум.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Нуль не показуємо.</b> Порожній лічильник це шум: відсутність бейджа вже означає нуль.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з нього <b>Бейдж</b>.</b> Лічильник несе число, бейдж - слово. Якщо в кружечку опинилось слово, це вже мітка, і в неї інші правила.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Лічильник - це цифра, отже моноширинний і табличний.</b> Те саме речення, яке читають ціна і бейдж знижки: <code>DESIGN-artifacts.md</code>:77.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з лічильника акцент.</b> Помаранчева цифра поруч із написом читається як дія, а натиснути на неї не можна.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
+<p class="kp-p">Один: у рейці акаунта поточна сторінка перефарбовує свій лічильник у <code>--text-body</code>, разом з усім рядком. Це стан рядка, не лічильника, і живе він у <code>account-shell.css</code>.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>1</b> власних класів і <b>0</b> станів оголошено в <code>counter.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>2</b> власних класів і <b>0</b> станів оголошено в <code>counter.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["wl-count"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["ct","cnt"], KIT_STS=[];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>counter.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (1)</th><th>Примітиви (3)</th></tr></thead><tbody><tr><td><code>--text-secondary</code></td><td><code>--font-mono</code> <code>--fs-14</code> <code>--fw-black</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (1)</th><th>Примітиви (1)</th></tr></thead><tbody><tr><td><code>--text-muted</code></td><td><code>--font-mono</code></td></tr></tbody></table></div>
+<p class="kp-p">Два токени на 470 елементів - і це не бідність файлу, а те, скільки атом справді вирішує. Решта належить поверхні.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;span class="cnt"&gt;3&lt;/span&gt;</div></section>
+<div class="kp-code">&lt;label class="fopt"&gt;&lt;span class="cb"&gt;&lt;/span&gt; В наявності &lt;span class="ct"&gt;71&lt;/span&gt;&lt;/label&gt;
+&lt;h2 class="lh1"&gt;Протеїн &lt;span class="cnt"&gt;84 товари&lt;/span&gt;&lt;/h2&gt;</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.cnt</code> <code>.hbadge</code> <code>.tbadge</code> <code>.wl-count</code></p>
-<p class="kp-p"><b>18 екранів</b> у <code>wireframes/</code>: account-wishlist-many.html, cart-coach-empty.html, cart-coach.html, cart-empty.html, cart-oos.html, cart.html, checkout-loggedin.html, checkout-noaddr.html, checkout.html, content-contacts.html, goal-empty.html, goal.html, listing-empty.html, listing-filtered.html ...</p></section>
+<p class="kp-p">Якорі: <code>.ct</code> <code>.cnt</code></p>
+<p class="kp-p">Заміряно в браузері на 390 і 1280: <b>462</b> <code>.ct</code> на 19 екранах, <b>8</b> <code>.cnt</code> на 8.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає межі «99+»</b> - тризначне число розсуває шапку</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b><code>.hbadge</code> був привидом.</b> Стенд малював його в демо; у системі <b>0</b> правил, у продукті <b>0</b> входжень. Це ніколи не було класом - лише словом, яке хтось написав у вітрині. Прибрано</li>
+<li><b><code>.coachbn .ct</code> - це не лічильник</b>, а заголовок банера коуча, 24px дисплейним білим. Одне ім'я, два значення, вже втретє за цей етап. Рендериться на 0 кольорових екранів, тож зіткнутися сьогодні не може. Крок 6</li>
+<li><b>Немає правила нуля</b> - система не знає, чи показувати «0» чи ховати рядок</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
 /* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a

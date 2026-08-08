@@ -1,8 +1,70 @@
-/* badge.css - badge (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* badge.css - the badge (level 1), rebuilt at step 7.37.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.gnote{ font-size: var(--fs-12); color: var(--text-muted); margin: var(--space-12) var(--space-2) 0; line-height: var(--lh-snug); }
+   A MARK ON A PRODUCT PHOTO. «Популярне», «Новинка». It labels the thing it sits
+   on - which is what separates it from the status pill one file away: a pill
+   reports a state that changes, a badge states a kind that does not.
+
+   THE FILE HELD NO BADGE. Before this step badge.css declared exactly one class,
+   `.gnote`, and `.gnote` is not a badge - it is a GREY-PROTOTYPE ANNOTATION.
+   `wireframes/listing.html:173` reads «↑ Порядок карток (за замовч.): спершу в
+   наявності...», a note to whoever is reading the prototype. The coloured clone
+   dropped it, correctly, which is why it renders on 0 of 39 coloured screens and
+   why the stand had been reporting the file as unshown for steps. Scaffolding got
+   swept into the system at the step-3 split and sat there wearing the file's name.
+   It is gone: nothing in the colour layer uses it, and `wireframes/_wf.css` still
+   declares it for the grey layer that does.
+
+   THE REAL BADGES were in product-card.css, scoped, 26 of them on 12 screens:
+
+     .tag.tag-pop  18  «Популярне»  inverse ground, ink label, ★ before
+     .tag.tag-new   8  «Новинка»    accent ground, ink label, ✦ before
+
+   `.tag` ALONE IS NOT A BADGE IN THIS PRODUCT, and that is measured rather than
+   assumed: 27 elements carry `.tag`, 26 of them also carry `.tag-pop` or
+   `.tag-new`, and the 27th is `.aaddr .adef .tag` - the word «За замовчуванням»
+   inside an address card. No ground, no border, static, 10px uppercase grey. It
+   is an eyebrow, not a badge, and it is the same defect `.ci` was at step 7.21:
+   one name, two meanings, and nothing in the code that knew the difference.
+   So this file names `.tag.tag-pop, .tag.tag-new`. The selector is precise today
+   because a badge always says WHICH kind it is, and the rename that would make it
+   `.tag` outright is Крок 6's, along with a name for the address label.
+   ============================================================================ */
+
+/* ---------- the badge --------------------------------------------------------
+   Uppercase at 10px with `--ls-caps`, on a pill, sitting on a photo. It is
+   deliberately the smallest legible thing on the card: a badge that competed with
+   the product name would be selling, and principle 1 says the card reduces doubt
+   before it invites action. */
+.tag.tag-pop, .tag.tag-new{
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: var(--fs-10);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: var(--space-4) var(--space-12);
+  box-shadow: var(--elevation-mark);
+}
+
+/* ---------- which kind -------------------------------------------------------
+   TWO GROUNDS, AND THEY ARE NOT INTERCHANGEABLE. «Популярне» is a fact about
+   other buyers, so it takes the inverse ground - the neutral, serious one.
+   «Новинка» is the shop speaking about its own shelf, so it takes the accent, and
+   that is the ONE place the action colour appears without being an action. It is
+   allowed because the label is ink on accent, not accent on white: measured 5.45:1,
+   which is the same reading the accent button gets. */
+.tag.tag-pop{ background: var(--bg-inverse); color: var(--text-oninverse); }
+.tag.tag-new{ background: var(--bg-action); color: var(--text-body); }
+
+/* ---------- the mark before the word -----------------------------------------
+   `content` rather than a character in the markup - the same argument step 7.35
+   made for the availability dot, and the same one steps 7.8-7.12 made for the
+   button's arrow. A typed ★ is read aloud by a screen reader as «black star»,
+   cannot take a size of its own, and cannot be told apart from the word.
+   `--lh-flat` so the glyph does not push the pill taller than its label. */
+.tag.tag-pop::before{ content: '★'; color: var(--text-action); font-size: var(--fs-10); line-height: var(--lh-flat); }
+.tag.tag-new::before{ content: '✦'; font-size: var(--fs-10); line-height: var(--lh-flat); }

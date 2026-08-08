@@ -23,45 +23,89 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Статус-пілюля</h1>
-<p class="kp-lead">Стан замовлення в історії: прийнято, у дорозі, доставлено. Крапка і слово.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/status-pill.css</span><span class="kp-tag">19 рядків</span><span class="kp-tag">3 екранів</span></div>
+<p class="kp-lead">Маленька пілюля, що каже, у якому стані річ зараз. Не контрол і не бейдж: її ніхто не натискає, і вона не називає річ - вона повідомляє стан, у якому річ перебуває.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/status-pill.css</span><span class="kp-tag">116 рядків</span><span class="kp-tag">4 імені</span><span class="kp-tag">13 пілюль</span></div>
+
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><div class="kp-row"><span class="oh-status ok">Доставлено</span><span class="oh-status go">У дорозі</span><span class="oh-status wait">Прийнято</span></div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Крапка</b> - <code>::before</code> - швидкий візуальний якір у списку</span></div><div class="a"><i>2</i><span><b>Слово</b> - повний стан, без скорочень</span></div></div></section>
+<div class="kp-demo"><div class="kp-row" style="gap:12px;align-items:center">
+  <span class="oh-status ok">Доставлено</span><span class="oh-status go">В дорозі</span><span class="oh-status wait">Обробляється</span></div></div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Крапка</b> - <code>::before</code> з <code>availability.css</code>: та сама форма, що в мітки наявності, бо це те саме твердження про стан</span></div>
+  <div class="a"><i>2</i><span><b>Рамка плюс заливка</b> - пілюля читається і на білому, і на втопленому фоні, а тільки заливкою на 7% альфи не читалася б</span></div>
+  <div class="a"><i>3</i><span><b>Нейтральний - це теж стан.</b> «Обробляється» - не відсутність новин, а перше, що відбувається, тому має фон, а не голий текст</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Одна форма, чотири імені</div>
+<p class="kp-p">У чотирьох файлах на трьох рівнях. Вони збіглися в геометрії, яку важко вгадати - рамка, <code>--radius-pill</code>, тонована заливка - і розійшлися в чотирьох значеннях, які легко. Це підпис того, що одну річ малювали четверо окремо.</p>
+<div class="kp-demo"><div class="kp-2col">
+  <div><div class="kp-lbl">Рядок замовлення <code>.oh-status</code> · 4</div>
+    <span class="oh-status ok">Доставлено</span></div>
+  <div><div class="kp-lbl">Останнє замовлення в акаунті <code>.aord-status</code> · 1</div>
+    <span class="aord-status">Доставлено</span></div>
+  <div><div class="kp-lbl">Відгук <code>.rbadge</code> · 7</div>
+    <span class="rbadge">✓ Купив товар</span></div>
+  <div><div class="kp-lbl">Рядок кошика <code>.ci-oostag</code> · 1</div>
+    <span class="ci-oostag">Немає в наявності</span></div>
+</div></div>
+<div class="kp-cap"><code>.rbadge</code> - це статус, і єдине, що робило його схожим на інший компонент, - його ім'я. «✓ Купив товар» повідомляє стан відгуку: покупка за ним підтверджена, - тим самим зеленим, що «Доставлено», через файл</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Дві сходинки, і вони вже були в продукті</div>
+<p class="kp-p">12px - пілюля <b>рядка</b>, який здебільшого про статус. 10px - пілюля, що їде всередині чогось іншого: у мета-рядку відгуку, у колонці назви в кошику. Padding іде за сходинкою, і так уже працювали двоє з чотирьох.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Сходинка</th><th>Кегль</th><th>Padding</th><th>Хто вже був правий</th></tr></thead><tbody>
+<tr><td><b>рядок</b></td><td>12</td><td>4 / 12</td><td><code>.oh-status</code></td></tr>
+<tr><td><b>всередині</b></td><td>10</td><td>2 / 8</td><td><code>.rbadge</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><code>.aord-status</code> була 12px з 10-піксельним padding, а <code>.ci-oostag</code> - 10px з 12-піксельним: дві, що перетнули драбину, кожна в свій бік.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Один зелений</div>
+<p class="kp-p"><code>--bg-success-soft</code> це <code>rgba(46,125,70,.07)</code>, і його коментар у <code>tokens.css</code> читається «the fill of the success pill». <code>.rbadge</code> заливався <code>--bg-success</code> (<code>#F1F8F3</code>, спокійна <b>плита</b> успіху), а рамку брав з <code>--line-success-soft</code> - рамки пілюлі. Половина однієї пілюлі й половина іншої, і різниця менша за відсоток яскравості. Саме тому це й вижило: побачити не міг ніхто, а система казала дві речі.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Та, що тихіша навмисне</div>
+<p class="kp-p"><code>.ci-oostag</code> каже «Немає в наявності» на рядку, який людина вже поклала в кошик, - це єдина пілюля набору з поганою новиною про власний вибір. Вона набрана моноширинним великими літерами на 500, а не на 800: назва товару над нею вже йде повною вагою, і кричати про невдачу поруч означало б зробити рядок помилкою замість факту, з яким треба щось зробити. Принцип 4 - спокійно і впевнено - записаний вагою.</p>
+<div class="kp-demo"><div class="kp-row" style="gap:16px;align-items:center"><span class="ci-oostag">Немає в наявності</span><span class="oh-status wait">Обробляється</span></div></div>
+<div class="kp-cap">втоплений фон, а не тонований, з тієї ж причини: тут нічого не зелене, не бурштинове і не червоне. Полиця порожня, і це все</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Стан</b></td><td>прийнято · у дорозі · доставлено · скасовано</td><td>Це <b>той самий набір переходів</b>, на яких спрацьовує сповіщення (рішення власника 2026-08-04). Змінити набір тут означає змінити його і в сповіщеннях.</td></tr><tr><td><b>Місце</b></td><td>рядок історії · картка замовлення</td><td>В картці пілюля більша, бо вона єдиний статус на екрані.</td></tr></tbody></table></div>
-</section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Стан</b></td><td>ок · у русі · очікує · порожньо</td><td>Зелений - завершено. Бурштиновий - рухається. Сірий - прийнято і чекає. Червоного немає жодного: невдача доставки це не стан пілюлі, а окремий екран.</td></tr>
+<tr><td><b>Сходинка</b></td><td>12 · 10</td><td>Про що рядок. Якщо статус - головне, що в ньому є, - 12. Якщо їде поруч з іншим - 10.</td></tr>
+</tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
-<p class="kp-p">У <b>Рядок замовлення</b> і в кабінеті. Зона Z3 карти As-Is: тиша під час очікування - третій за глибиною провал, і саме ця пілюля разом зі сповіщенням його закриває.</p></section>
+<p class="kp-p">Тільки для стану, який <b>змінюється сам</b>: замовлення проходить шлях, товар з'являється і зникає, відгук підтверджується. Для роду речі - «Популярне», «Новинка» - є <b>Бейдж</b>, і він на фото, а не в рядку.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Набір станів закритий.</b> Чотири стани, і кожен має і пілюлю, і сповіщення.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не додавай стан лише сюди.</b> Стан без сповіщення означає, що людина мусить зайти й подивитись - тобто рівно та тиша, яку етап 02+ визнав провалом.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Форма несе «тут є стан», колір несе - який саме.</b> Тому геометрія одна на всі чотири імені, а різняться лише три токени кольору.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби пілюлю контролом.</b> <code>.city-badge</code> - 272 входження на 34 екранах - має ту саму геометрію і статусом не є: це кнопка, яку натискають, вона має ховер. Спільна форма з контролом - аргумент кнопки, не цього файлу.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
+<p class="kp-p">Чотири: <code>.ok</code>, <code>.go</code>, <code>.wait</code> і нейтральний без класу. Ховера і натискання немає - пілюля не контрол.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>5</b> власних класів і <b>0</b> станів оголошено в <code>status-pill.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>7</b> власних класів і <b>0</b> станів оголошено в <code>status-pill.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["aord-status", "go", "oh-status", "ok", "wait"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["oh-status","ok","go","wait","aord-status","rbadge","ci-oostag"], KIT_STS=[];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>status-pill.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (10)</th><th>Примітиви (7)</th></tr></thead><tbody><tr><td><code>--bg-bonus-soft</code> <code>--bg-success-soft</code> <code>--bg-surface</code> <code>--line-bonus-soft</code> <code>--line-strong</code> <code>--line-success-soft</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-success</code> <code>--text-warning</code></td><td><code>--fs-12</code> <code>--fw-black</code> <code>--radius-pill</code> <code>--space-12</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (7)</th></tr></thead><tbody><tr><td><code>--bg-bonus-soft</code> <code>--bg-success-soft</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-bonus-soft</code> <code>--line-strong</code> <code>--line-success-soft</code> <code>--text-secondary</code> <code>--text-success</code> <code>--text-warning</code></td><td><code>--font-mono</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fw-black</code> <code>--fw-medium</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--radius-pill</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code></td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
 <div class="kp-code">&lt;span class="oh-status ok"&gt;Доставлено&lt;/span&gt;
-&lt;span class="oh-status go"&gt;У дорозі&lt;/span&gt;</div></section>
+&lt;span class="oh-status go"&gt;В дорозі&lt;/span&gt;
+&lt;span class="oh-status wait"&gt;Обробляється&lt;/span&gt;</div>
+<p class="kp-p">Крапка в розмітці не пишеться - її малює <code>availability.css</code> через <code>::before</code>, тією самою формою, що й мітка наявності.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.oh-status</code> <code>.aord-status</code> <code>.pill</code></p>
-<p class="kp-p"><b>3 екранів</b> у <code>wireframes/</code>: account-orders.html, account.html, quiz.html</p></section>
+<p class="kp-p">Якорі: <code>.oh-status</code> <code>.aord-status</code> <code>.rbadge</code> <code>.ci-oostag</code></p>
+<p class="kp-p">Заміряно в браузері на 390 і 1280: <b>13 пілюль</b> - <code>.rbadge</code> 7 на 3 екранах, <code>.oh-status</code> 4 на 1, <code>.aord-status</code> і <code>.ci-oostag</code> по 1.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Стан «скасовано» не має свого кольору</b> - виглядає як «прийнято»</li><li><b>Немає стану «очікує оплати»</b>, хоча оплата при отриманні його передбачає</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Чотири імені на одну форму.</b> Крок 6</li>
+<li><b>Немає стану «скасовано»</b> - у коді є три, а шлях замовлення має щонайменше чотири кінці</li>
+<li><b><code>.city-badge</code> ділить геометрію</b> з пілюлею, будучи контролом: 272 входження. Питання кнопки, не цього файлу, але записане тут, бо знайдено тут</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
 /* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
