@@ -23,44 +23,92 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Бейдж знижки</h1>
-<p class="kp-lead">Маленька плашка з розміром знижки. Живе поруч зі старою ціною і не існує без неї.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/discount.css</span><span class="kp-tag">17 рядків</span><span class="kp-tag">34 екранів</span></div>
+<p class="kp-lead">Маленька плашка з розміром знижки. Живе поруч зі старою ціною і не існує без неї. Вісім імен на вісьмох поверхнях, одна плашка.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/discount.css</span><span class="kp-tag">117 рядків</span><span class="kp-tag">8 поверхонь</span><span class="kp-tag">40 плашок</span></div>
+
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><div class="kp-row" style="align-items:baseline;gap:12px"><span class="pold">1 499 ₴</span><span class="pcut">-20%</span></div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Число</b> - відсоток, завжди зі знаком мінус</span></div><div class="a"><i>2</i><span><b>Плашка</b> - найменший радіус у системі - вона не претендує на увагу</span></div></div></section>
+<div class="kp-demo"><div class="kp-row" style="align-items:center;gap:12px"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div></div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Цифра</b> - відсоток зі знаком мінус, IBM Plex Mono як і решта цифр про гроші</span></div>
+  <div class="a"><i>2</i><span><b>Плашка</b> - найменший радіус у системі: вона не претендує на увагу</span></div>
+  <div class="a"><i>3</i><span><b>Приглушений червоний</b>, а не акцент. Плашка каже <b>наскільки</b> зрізали, помаранчевий на ціні каже <b>яка</b> ціна жива. Дві роботи, дві мітки</span></div>
+  <div class="a"><i>4</i><span><b>Висота</b> - <code>--lh-flat</code> плюс padding, і нічого більше: рядок, який не має рости</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Вісім поверхонь, одна плашка</div>
+<p class="kp-p">Розмітка з продукту, не переписана. Змінюється лише кегль - 10 на картці, 12 всюди інде, - бо картка щільна, а блок покупки ні. Решта однакова, і до цього кроку однаковим був тільки колір.</p>
+<div class="kp-demo"><div class="kp-2col">
+  <div><div class="kp-lbl">Картка сітки <code>.pcut</code> · 22</div>
+    <div class="pcard" style="padding:12px 14px"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div></div></div>
+  <div><div class="kp-lbl">Картка списку <code>.lcut</code> · 2</div>
+    <div class="pcard-l" style="padding:12px 14px"><div class="lprice-col">
+      <div class="lold-row"><span class="lold">1 520 ₴</span><span class="lcut">−15%</span></div></div></div></div>
+  <div><div class="kp-lbl">Пропозиція дня <code>.hd-cut</code> · 4</div>
+    <span class="hd-oldline"><span class="hd-old">1 520 ₴</span><span class="hd-cut">−15%</span></span></div>
+  <div><div class="kp-lbl">Блок покупки PDP <code>.cut</code> · 2</div>
+    <div class="bb"><div class="oldrow"><span class="old">1 520 ₴</span><span class="cut">−15%</span></div></div></div>
+  <div><div class="kp-lbl">Полиця PDP <code>.tcut</code> · 2</div>
+    <span class="told">1 520 ₴</span> <span class="tcut">−15%</span></div>
+  <div><div class="kp-lbl">Смуга покупки <code>.mcut</code> · 3</div>
+    <span class="mold">1 520 ₴</span> <span class="mcut">−15%</span></div>
+  <div><div class="kp-lbl">Рядок кошика <code>.ci-cut</code> · 2</div>
+    <span class="ci-old">1 520 ₴</span> <span class="ci-cut">−15%</span></div>
+  <div><div class="kp-lbl">Рядок замовлення <code>.li-cut</code> · 3</div>
+    <span class="li-old">1 520 ₴</span> <span class="li-cut">−15%</span></div>
+</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Варіант: тариф, а не знижка</div>
+<p class="kp-p">На PDP у режимі коуча той самий слот каже «гурт»: ця ціна - оптовий тариф, і від неї нічого не відрізали. Тому плашка знімає червоне і сідає на втоплений фон. <b>Форма несе «тут є факт про ціну», колір несе - який саме факт.</b></p>
+<div class="kp-demo"><div class="kp-row" style="align-items:center;gap:24px">
+  <span class="mcut">−15%</span>
+  <span class="mcut ttier">гурт</span>
+  <span class="wtag">гурт</span>
+</div></div>
+<div class="kp-cap">третя - <code>.wtag</code>, редакція рядка коуч-сесії: 0 входжень у кольорі, бо тих екранів у кольорі ще немає. Вона єдина з рамкою, і це говорить рядок: <code>.wtag</code> стоїть у кінці клієнтського рядка, а не всередині цінового блоку, і поруч немає закресленої цифри, яка сказала б «ця група про ціну». Край - це те, що дає їй прочитатися плашкою там.</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Розмір</b></td><td>базовий · зменшений у списковому вигляді</td><td>Розмір визначає контекст картки, не важливість знижки.</td></tr></tbody></table></div>
-</section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Розмір</b></td><td>10 на картках · 12 всюди інде</td><td>Розмір визначає щільність поверхні, не важливість знижки. Належить поверхні, як і в ціни.</td></tr>
+<tr><td><b>Роль</b></td><td>знижка · тариф <code>.ttier</code></td><td>Червона плашка = скільки зрізали. Нейтральна = який тариф. Тариф це не знижка, і фарбувати його червоним означало б обіцяти вигоду, якої немає.</td></tr>
+<tr><td><b>Гарнітура</b></td><td>Mono для <code>−15%</code> · Inter для «гурт»</td><td><b>Обличчя йде за тим, що написано в плашці, а не за тим, яка це плашка.</b> Відсоток це цифра про гроші, і <code>DESIGN-artifacts.md</code>:77 дає таким моноширинний. «Гурт» це слово.</td></tr>
+</tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
 <p class="kp-p">Тільки поруч зі старою ціною. Знижка без закресленої ціни - це число без бази порівняння, тобто обіцянка, яку нічим не перевірити. Принцип 1: спершу зняти сумнів.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Завжди в парі зі старою ціною.</b> Пара «було - мінус скільки» перевіряється очима за секунду.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з неї банер.</b> Великий відсоток на пів картки - це терміновість, а принцип 4 забороняє терміновість. Гучне повідомлення про вигоду це <b>Банер</b>, і воно не всередині картки.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Завжди в парі зі старою ціною.</b> Пара «було - мінус скільки» перевіряється очима за секунду. І плашка ніколи не бере колір дії: помаранчевий на ціні вже сказав, яка ціна жива.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з неї банер.</b> Великий відсоток на пів картки - це терміновість, а принцип 4 забороняє терміновість. Гучне повідомлення про вигоду це <b>Банер</b>, і воно не всередині картки.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
+<p class="kp-p">Станів немає: плашка нічого не робить у відповідь на палець. <code>.ttier</code> - це не стан, а інший факт у тому самому слоті, і показаний він вище окремим блоком.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>2</b> власних класів і <b>0</b> станів оголошено в <code>discount.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (<code>.cprice</code> <code>.pcard</code>) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>10</b> власних класів і <b>0</b> станів оголошено в <code>discount.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["pcut", "wtag"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["pcut","lcut","hd-cut","cut","tcut","mcut","ci-cut","li-cut","ttier","wtag"], KIT_STS=[];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>discount.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (7)</th><th>Примітиви (7)</th></tr></thead><tbody><tr><td><code>--bg-discount</code> <code>--bg-inverse</code> <code>--line-strong</code> <code>--text-danger</code> <code>--text-oninverse</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-10</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--radius-4</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (7)</th></tr></thead><tbody><tr><td><code>--bg-discount</code> <code>--bg-sunken</code> <code>--line-strong</code> <code>--text-danger</code> <code>--text-secondary</code></td><td><code>--font-body</code> <code>--font-mono</code> <code>--fs-10</code> <code>--fw-bold</code> <code>--fw-black</code> <code>--fw-semibold</code> <code>--lh-flat</code> <code>--radius-4</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;span class="pold"&gt;1 499 ₴&lt;/span&gt; &lt;span class="pcut"&gt;-20%&lt;/span&gt;</div></section>
+<div class="kp-code">&lt;span class="pold"&gt;1 520 ₴&lt;/span&gt;&lt;span class="pcut"&gt;−15%&lt;/span&gt;
+
+&lt;!-- той самий слот у режимі коуча --&gt;
+&lt;span class="mcut ttier"&gt;гурт&lt;/span&gt;</div>
+<p class="kp-p">Мінус - це <code>−</code> (U+2212), а не дефіс: він однакової ширини з цифрою і сидить на її висоті. Так написано в усіх 40 плашках продукту, заміряно.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.pcut</code> <code>.wtag</code></p>
-<p class="kp-p"><b>34 екранів</b> у <code>wireframes/</code>: 404.html, account-wishlist-many.html, account-wishlist.html, account.html, cart-coach.html, catalog-page.html, coach-client.html, coach-order.html, coach-session-addclient.html, coach-session-addempty.html, coach-session-loading.html, coach-session-newclient.html, coach-session-oos.html, coach-session-priceblock.html ...</p></section>
+<p class="kp-p">Якорі: <code>.pcut</code> <code>.lcut</code> <code>.hd-cut</code> <code>.cut</code> <code>.tcut</code> <code>.mcut</code> <code>.ci-cut</code> <code>.li-cut</code> <code>.ttier</code> <code>.wtag</code></p>
+<p class="kp-p">Заміряно в браузері на 390 і 1280: <b>40 плашок</b> на 39 кольорових екранах. <code>.pcut</code> 22 на 13 екранах · <code>.hd-cut</code> 4 · <code>.li-cut</code> 3 · <code>.mcut</code> 3 · <code>.lcut</code> / <code>.cut</code> / <code>.tcut</code> / <code>.ci-cut</code> по 2. <code>.ttier</code> 2, <code>.wtag</code> 0.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає правила порогу</b> - система не знає, з якого відсотка знижку взагалі варто показувати</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Немає правила порогу</b> - система не знає, з якого відсотка знижку взагалі варто показувати</li>
+<li><b>Вісім імен на одну плашку.</b> Перейменування - Крок 6, бо ці ж імена носить заморожений сірий шар; <code>.cut</code> стоїть у голові тієї черги разом з <code>.new</code> і <code>.old</code></li>
+<li><b>Дві форми тарифної плашки</b> - <code>.ttier</code> на втопленому фоні і <code>.wtag</code> з рамкою. Зводити їх в одну означає вирішувати за двома входженнями; чекає, поки коуч-флоу отримає кольоровий шар</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
 /* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a

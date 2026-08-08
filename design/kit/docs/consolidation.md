@@ -4774,3 +4774,126 @@ Idle check: **22 of 22**. `price` leaves the incomplete list; four remain - `bad
   practice - the stand passes 9/9.
 - **`.hbadge` is a ghost** in the counter stand's demo: 0 rules, 0 instances.
 - **The coach flow has no coloured twin** - 102 of 142 grey screens do not. Крок 6.
+
+---
+
+## Step 7.36b - the discount chip, and a regression the previous step's filter hid
+
+**Instrument:** Claude, in a browser. 39 coloured screens at 390 and 1280, computed
+styles only, A/B against HEAD over 108 994 elements with the cache cleared between
+passes.
+
+### The census
+
+One chip, eight names, 40 instances. Colour was the only thing that had never
+drifted:
+
+| name | | family | size | weight | line-height | padding |
+|---|---|---|---|---|---|---|
+| `.pcut` | 22 | **Mono** | 10 | 700 | 16 | 2/8 |
+| `.lcut` | 2 | Inter | 10 | 700 | 16 | 2/8 |
+| `.hd-cut` | 4 | Inter | 12 | 700 | 19.2 | 2/8 |
+| `.cut` | 2 | Inter | 12 | **800** | 19.2 | 2/8 |
+| `.tcut` | 2 | Inter | 12 | 700 | 12 | **2/4** |
+| `.mcut` | 3 | **Mono** | 12 | 700 | 12 | 2/8, ls **-.01em** |
+| `.ci-cut` | 2 | Inter | 12 | 700 | 15.6 | 2/8 |
+| `.li-cut` | 3 | Inter | 12 | 700 | 15.6 | 2/8 |
+
+`--text-danger` on `--bg-discount` with radius 4 on all eight. Two families, two
+weights, two paddings, and **four line-heights - which for a chip means four
+heights**, because a chip's height is its line-height plus its padding. 16, 19.2,
+15.6 and 12, and nobody chose any of them but the last: 1.6 is the page's body
+leading and 1.3 is a cart row's, inherited by a chip that never asked. Same shape as
+`.told` inheriting 600 from `.tprice` one step ago.
+
+### The regression 7.36 shipped, and why its A/B did not stop it
+
+Step 7.36 took `font-family` off `.pdp-tabs .tprice`, which `.tcut` had been
+inheriting - so the PDP shelf's chip went from IBM Plex Mono to Inter. The A/B **saw
+it**: it is in the 206. It was not read, because `.tcut` was inside the money class
+the sweep was filtering FOR, and «206 differences, every one of them money» was
+reported as a clean result.
+
+The filter was the defect, not the value. A class that is expected to change is still
+a class whose changes have to be read one by one; «expected to change» and «changed
+the way I expected» are different claims. The 7.36 log and commit both say the
+sweep came back clean, and on this one element it did not.
+
+### The rule
+
+`discount.css` (17 -> 117 lines) declares the chip: mono figures, `--fw-bold`,
+`--lh-flat`, the ground, the ink, radius 4, padding 2/8, **and a size**.
+
+The size is where this differs from price.css on purpose. A price has four rungs, 20
+to 36, each a real decision about a surface. The chip has two, and 10 is only the two
+cards being dense - so 12 is the chip's own number and the cards override it. The
+stand is what settled that: rendered on its own, six of the eight came out at 16px,
+because their 12 was written as `.hdeal .hd-cut`, `.mbuybar .mbp .mcut` and so on.
+Six copies of one number, and the chip could not stand up without one of six
+ancestors around it.
+
+**The face follows what is written in the chip, not which chip it is.** The cut
+carries a figure, so it takes the mono face DESIGN-artifacts.md:77 gives every price
+figure. The tier variant carries a word - «гурт» - so it takes `--font-body`.
+`.mcut.ttier` had been setting that word in a typeface chosen for digits.
+
+`.ttier` came here from pdp-tabs.css, where it had been declared inside a
+«moved off the screen» block, alongside the chip it modifies but two files away from
+it. `.wtag` - the coach session's ninth name, 0 rendered instances - is named here
+for the reason `.cprice` is named in price.css.
+
+### Declared, and what the A/B returned
+
+**108 994 elements, 40 pages x 2 viewports, cache cleared between passes: 80
+differences, all 40 chips at both widths, and nothing else at all.**
+
+| change | chips |
+|---|---|
+| Inter -> Mono | `.lcut` `.hd-cut` `.cut` `.ci-cut` `.li-cut` 13, plus `.tcut` 2 put back |
+| line-height -> `--lh-flat` | `.pcut` 22, `.lcut` 2, `.hd-cut` 4, `.cut` 2, `.ci-cut` 2, `.li-cut` 3 |
+| weight 800 -> 700 | `.cut` 2 |
+| padding 2/4 -> 2/8 | `.tcut` 2 |
+| letter-spacing off | `.mcut` 3 |
+| tier variant -> `--font-body` | `.mcut.ttier` 1 |
+
+Measured box: the 12px chip goes 49x23 -> 45x16, the 10px one 43x20 -> 40x14. That
+reflows the rows around it - a cart row is 190 -> 186 - which is the 181 «non-chip»
+rows an earlier pass counted before the box dimensions were split out of the compare.
+With box size excluded, **zero** non-chip style changes.
+
+Colour, ground and radius unchanged on all 40, which is what they always were.
+
+**40 screens at 360: 0 overflow, 0 JS errors. 35 stands at 360: same.**
+
+### Caught by the A/B in this step
+
+`.pcut`'s 10px lived in **discount.css**, not on the card - the atom file knowing how
+dense a product card is. Rewriting the file dropped it and the chip went to 16px on
+19 cards. It is in product-card.css now, next to `.pcard-l .lcut`, which had always
+said the same 10 in the right place.
+
+discount.css also carried `@media (max-width:620px){ .pcard .pcut{ font-size:
+var(--fs-10); padding: 2px 8px } }` - both values identical to the base rule, so the
+query never changed anything. Dropped, not moved.
+
+### The stand
+
+Rebuilt on product markup: all eight surfaces in one grid, so the two sizes and the
+one chip are read side by side; the tier variant with all three of its names,
+including the grey-only `.wtag`. Idle check **10 of 10**.
+
+Three stands still report themselves incomplete - `badge`, `counter`,
+`status-pill` - and the reason is the same one censused at 7.36: their file declares
+a name the colour layer never renders.
+
+### Found, not fixed
+
+- **Four `'Inter', sans-serif` literals left**: buy-box (3, two of them inside a
+  `font:` shorthand), loyalty-rung (2). Was seven; the chip took two and price.css
+  took one.
+- **Two shapes for the tier chip** - `.ttier` on a sunken ground, `.wtag` with a
+  border. Merging is a look decision with 2 rendered instances behind it and waits
+  for the coach flow to have a colour layer.
+- **Eight names.** Крок 6, `.cut` at the front of the queue with `.new` and `.old`.
+- **No threshold rule**: the system does not know from what percentage a discount is
+  worth showing at all. Stage 09, and it was already on that list.

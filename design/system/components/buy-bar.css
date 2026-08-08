@@ -25,8 +25,10 @@
 .mbuybar .mbp{ display:grid; grid-template-columns:auto auto; column-gap:var(--space-8); align-items:center;
   color:var(--text-body); line-height:var(--lh-flat); }
 .mbuybar .mbp .mold{ grid-row:1; grid-column:1; font-size:var(--fs-12); }
-.mbuybar .mbp .mcut{ grid-row:1; grid-column:2; font-size:var(--fs-12); font-weight:var(--fw-bold); letter-spacing:var(--ls-lead);
-  background:var(--bg-discount); color:var(--text-danger); border-radius:var(--radius-4); padding:var(--space-2) var(--space-8); }
+/* 7.36b: the chip is discount.css's, size included. The bar keeps only WHERE it
+   sits. `letter-spacing: var(--ls-lead)` came off too - the only one of eight that
+   had it, worth -0.12px on a four-character chip. */
+.mbuybar .mbp .mcut{ grid-row:1; grid-column:2; }
 /* 20px, and the weight is the atom's: this figure was 700 here while the card's
    20px figure was 800, same size and same job - see price.css section 3. */
 .mbuybar .mbp b{ grid-row:2; grid-column:1 / -1; font-size:var(--fs-20); }

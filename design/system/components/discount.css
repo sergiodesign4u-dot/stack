@@ -1,17 +1,117 @@
-/* discount.css - discount (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* discount.css - the discount chip (level 1), rebuilt at step 7.36b.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.pcard .pcut{ font-size: var(--fs-10); border-radius: var(--radius-4); }
-.cprice .wtag{ display: inline-block; font-size: var(--fs-10); font-weight: var(--fw-black); border: 1px solid var(--line-strong); border-radius: var(--radius-4); padding: 0 var(--space-4); margin-left: var(--space-4); vertical-align: middle; }
+   `−15%`. It states the SIZE of the cut, while the accent on the price states
+   WHICH price is live: two jobs, two marks, and DESIGN-artifacts.md:63 says so in
+   those words. That is why this chip keeps its muted red and never borrows the
+   action colour.
 
-/* ---------- colour (from design/kit/kit.css) ---------- */
-.pcard .pcut{ background:var(--bg-discount); color:var(--text-danger); font-weight:var(--fw-bold); }
-.pcard .pcut{ padding:var(--space-2) var(--space-8); }
-@media (max-width:620px){
-  .pcard .pcut{ font-size:var(--fs-10); padding:var(--space-2) var(--space-8); }
+   ONE CHIP, EIGHT NAMES, and this file held one of them - scoped. Read out of the
+   runtime DOM at 390 and 1280 across 39 coloured screens, 40 chips in all:
+
+     .pcut    22  here, scoped .pcard      Mono 10/700  lh 16    pad 2/8
+     .lcut     2  product-card.css    L2   Inter 10/700 lh 16    pad 2/8
+     .hd-cut   4  banner.css          L2   Inter 12/700 lh 19.2  pad 2/8
+     .cut      2  buy-box.css         L3   Inter 12/800 lh 19.2  pad 2/8
+     .tcut     2  pdp-tabs.css        L3   Inter 12/700 lh 12    pad 2/4
+     .mcut     3  buy-bar.css         L3   Mono  12/700 lh 12    pad 2/8  ls -.01em
+     .ci-cut   2  cart-row.css        L2   Inter 12/700 lh 15.6  pad 2/8
+     .li-cut   3  checkout-form.css   L3   Inter 12/700 lh 15.6  pad 2/8
+
+   Colour never drifted - `--text-danger` on `--bg-discount`, radius 4, on all
+   eight. Everything else did: two families, two weights, two paddings, and FOUR
+   line-heights, which for a chip means four heights, because a chip's height IS
+   its line-height plus its padding. 16, 19.2, 15.6, 12 - and nobody chose any of
+   them except the last: 1.6 is the page's body leading, inherited by a chip that
+   never asked for it. Same shape as `.told` inheriting 600 from `.tprice`.
+
+   A CORRECTION TO STEP 7.36. That step took `font-family` off
+   `.pdp-tabs .tprice`, which `.tcut` had been inheriting - so the shelf's chip
+   went from IBM Plex Mono to Inter. The A/B saw it and I did not: `.tcut` was
+   inside the money class the sweep was filtering FOR, so a real regression sat in
+   the 206 «all of them money» and was never read. It is put back below, and the
+   lesson is the filter, not the value - a class that is expected to change is
+   still a class whose changes have to be looked at one by one.
+
+   THE FACE FOLLOWS WHAT IS WRITTEN IN THE CHIP, NOT WHICH CHIP IT IS. The cut
+   carries a FIGURE, so it takes the mono face DESIGN-artifacts.md:77 gives every
+   price figure. The tier variant carries a WORD - «гурт» - so it takes the body
+   face. Same element, `.mcut`, in two states, and the rule reads the content
+   rather than the container.
+
+   NAMES ARE NOT RENAMED. All nine come from markup the frozen grey layer shares.
+   Крок 6, and `.cut` is already at the front of that queue with `.new`/`.old`.
+   ============================================================================ */
+
+/* ---------- the chip ---------------------------------------------------------
+   Everything that is the same on all eight, INCLUDING a size - and the size is
+   where this differs from price.css on purpose. A price has four rungs, 20 to 36,
+   each a real decision about a surface. The chip has two, 12 and 10, and 10 is
+   only the two cards being dense. So 12 is the chip's own number and the cards
+   override it, rather than eight surfaces each stating one.
+
+   The stand is what settled it: rendered on its own, six of the eight came out at
+   16px, because their 12 was written as `.hdeal .hd-cut`, `.mbuybar .mbp .mcut`
+   and so on - scoped to a container, exactly the shape that made this atom not an
+   atom in the first place. Six copies of one number, and the chip could not stand
+   up without one of six ancestors around it.
+
+   `--lh-flat` is the token's own description of this case: «1 for a single line
+   that must not grow». Two of the eight already said it; the other six inherited
+   1.6 from the page, or 1.3 from a cart row, and were that much taller than the
+   chip beside them for no reason anyone decided. */
+.pcut, .lcut, .hd-cut, .cut, .tcut, .mcut, .ci-cut, .li-cut{
+  font-size: var(--fs-12);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-flat);
+  background: var(--bg-discount);
+  color: var(--text-danger);
+  border-radius: var(--radius-4);
+  padding: var(--space-2) var(--space-8);
 }
-.cprice .wtag{ font-family:'Inter', sans-serif; color:var(--text-secondary); border-color:var(--line-strong); }
+
+/* ---------- the tier variant -------------------------------------------------
+   Not a discount. On the coach's PDP the same slot says «гурт»: this price is the
+   wholesale tier, and nothing has been cut off anything. So it drops the red
+   entirely and sits on a sunken ground - the chip shape carries «there is a fact
+   about this price here», the colour carries which fact.
+
+   `--font-body`, because this one is a word. `.mcut.ttier` rendered it in mono
+   until this step, which set «гурт» in a typeface chosen for digits. */
+.tcut.ttier, .mcut.ttier{
+  font-family: var(--font-body);
+  font-variant-numeric: normal;
+  font-weight: var(--fw-semibold);
+  background: var(--bg-sunken);
+  color: var(--text-secondary);
+}
+
+/* ---------- the ninth name, still grey --------------------------------------
+   `.wtag` is the coach session's edition of the tier chip - «гурт» again, and 0
+   instances in colour, because those screens have no coloured twin yet. Named
+   here for the reason `.cprice` is named in price.css: on Крок 6 the row should
+   arrive holding the atom rather than being re-derived from the grey file.
+
+   IT KEEPS A BORDER AND THE OTHERS DO NOT, and that is the row talking: `.wtag`
+   stands at the end of a client line rather than inside a price block, with no
+   struck figure beside it to say «this group is about the price». An edge is what
+   makes it read as a chip out there. Merging the two shapes is a look decision
+   with 2 rendered instances behind it, and it waits for the coach flow to have a
+   colour layer to be looked at in.
+   `--font-body` replaces the literal `'Inter', sans-serif` this file carried:
+   the token has the system fallbacks after Inter, the literal had only
+   `sans-serif`. Four components still write it. */
+.wtag{
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--fs-10);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-flat);
+  color: var(--text-secondary);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-4);
+  padding: 0 var(--space-4);
+  margin-left: var(--space-4);
+  vertical-align: middle;
+}

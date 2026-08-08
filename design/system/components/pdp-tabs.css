@@ -55,8 +55,9 @@ body.pdp-stuck .wfh.uiv-scrolled{ box-shadow:none; }
   grid-template-columns:auto auto; column-gap:var(--space-8); align-items:center; justify-items:start;
   line-height:var(--lh-flat); margin-right:var(--space-8); }
 .pdp-tabs .tprice .told{ grid-row:1; grid-column:1; font-size:var(--fs-12); }
-.pdp-tabs .tprice .tcut{ grid-row:1; grid-column:2; font-size:var(--fs-12); font-weight:var(--fw-bold);
-  background:var(--bg-discount); color:var(--text-danger); border-radius:var(--radius-4); padding:var(--space-2) var(--space-4); }
+/* 7.36b: the chip is discount.css's - padding included, and this was the only one
+   of eight at 2/4 where the rest are 2/8. The shelf keeps only its grid cell. */
+.pdp-tabs .tprice .tcut{ grid-row:1; grid-column:2; }
 .pdp-tabs .tprice .tnew{ grid-row:2; grid-column:1 / -1; font-size:var(--fs-20); }
 .pdp-tabs .tprice:not(:has(.told)) .tnew{ grid-row:1; }
 .pdp-tabs .tbuy{ background:var(--bg-action); color:var(--text-oninverse); font-weight:var(--fw-bold); font-size:var(--fs-16);
@@ -78,7 +79,6 @@ body.pdp-stuck .wfh.uiv-scrolled{ box-shadow:none; }
    stage-07 variable names, so deleting kit.css killed them outright. A screen
    owns no css: each rule goes to the component it belongs to, and the old
    names are translated to semantic roles BY VALUE, the way step 2 did it. */
-/* the chip says WHICH tier, not how big the cut - so it is a neutral mark, never the
-     red discount chip (shelf + mobile buy bar) */
-  .pdp-tabs .tprice .tcut.ttier,
-  .mbuybar .mbp .mcut.ttier { background: var(--bg-sunken); color: var(--text-secondary); font-weight: var(--fw-semibold); }
+/* 7.36b: the tier variant went to discount.css, where the chip it modifies now
+     lives. The sentence it carried - «the chip says WHICH tier, not how big the
+     cut, so it is a neutral mark and never the red one» - went with it. */
