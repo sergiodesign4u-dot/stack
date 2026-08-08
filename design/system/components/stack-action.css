@@ -113,9 +113,24 @@
    does not move. That is the phone's bar: a hover state there is a state no
    phone will ever paint. The active tab keeps its ink-800 caption under the
    cursor because `.wf-tab[aria-current] .tl` in tabbar.css ties this rule on
-   specificity and loads later - checked in the browser, not counted on paper. */
+   specificity and loads later - checked in the browser, not counted on paper.
+
    The caret inside «Кабінет ▾» comes along without a word from anyone: it is
-   `currentColor` inside the caption, so it follows what the caption follows. */
+   `currentColor` inside the caption, so it follows what the caption follows.
+
+   STEP 7.42: AND NONE OF THIS RAN. The paragraph above used to close itself four
+   lines up, on «not counted on paper», so the two lines about the caret stood
+   outside any comment and the closer below them was a stray. The parser read from
+   the word «The» through the caret sentence, past that closer and on into the
+   selector of the next rule, took the whole run as one invalid selector, and
+   dropped the rule behind it. The file held twelve rule bodies and the browser
+   built eleven; the winning-rule solver for `.wfh-act.stack .lbl` returned an
+   empty list of hover rules. Everything the block above describes was true about
+   a rule that was never in the cascade. One closer deleted, and it is back.
+
+   And the trap is worth naming, because writing this note fell into it: a comment
+   closer typed INSIDE a comment ends it, so a file cannot quote one while
+   explaining it. The comment scanner is a step in every pass for exactly this. */
 .btn--stack:hover .lbl, .btn--stack:hover .tl{ color: inherit; }
 
 /* ---------- the state the atom did NOT own, and had to - step 7.33 -----------
@@ -152,8 +167,36 @@
 
 /* ---------- the counter ----------
    It sits on the MARK, because it counts what the mark stands for - a basket, a
-   wishlist - and not on the caption, which only names it. */
-.btn--stack .hb, .btn--stack .tbadge{
+   wishlist - and not on the caption, which only names it.
+
+   STEP 7.42: ONE COUNT, FOUR PLACES, THREE FACES. `wireframes/_nav.js` writes the
+   same number into four parents and every one of them looked different:
+
+     .wfh-mi a .hb            phone icon row      INK pill, white label     to 859
+     .btn--stack .g .hb       desktop action      accent pill, ink label    from 860
+     .wfh-act.numbtn .g .hb   desktop «Кошик»     NO PILL - bare 14px ink   from 860
+     .wf-tab .tbadge          phone tab bar       accent pill, ink label    to 859
+
+   On a phone a person sees rows one and four AT ONCE - the same «6» in the header
+   as an ink pill and in the tab bar as an accent one. Nothing decided that; the
+   face was written inside a parent's selector three times, so each parent kept
+   whichever edition its file happened to hold.
+
+   THE ACCENT PILL IS THE ONE THAT STAYS, and the ground is why. Measured on
+   `account-addresses.html`: `.wfh` is `#FFFFFF`, not the dark bar the ink edition
+   reads as if it were sitting on. `--ring-onink` is a WHITE halo minted to cut a
+   mark out of a dark ground, and on white it separates nothing - so the ink pill
+   was a dark mark on a light bar with an invisible ring around it. A counter says
+   «there is something here for you», which is the sentence this system has one
+   colour for. Two of the four already said it that way.
+
+   SO THE FACE IS KEYED ON THE CLASS AND THE PLACEMENT STAYS WITH THE PARENT. The
+   same split the checkbox took at 7.38 and the price at 7.36: what a thing looks
+   like is the atom's, where it hangs is the surface's. `position` stays here
+   because it is true of all four; every parent gives its own `top`/`right`, and
+   every parent is already a positioning context except the number button, which
+   header.css now makes one. */
+.hb, .tbadge{
   position: absolute;
   min-width: 15px; height: 15px; padding: 0 var(--space-4);
   border-radius: var(--radius-pill);

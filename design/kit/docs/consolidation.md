@@ -5261,3 +5261,278 @@ The scale runs 10, 12, 14, 16, 18, 20, 24, 30, 34 - nine rungs that cover text a
 stop where display type begins. Five display sizes and six sub-10 marks live outside
 it. Adding rungs is a values decision with an owner, so it is reported to stage 09
 rather than invented here.
+
+---
+
+## Step 7.41: the audit of the foundations and the atoms
+
+Not a component step. The atom list is finished at 21/21, so this walks the whole
+level-1 layer and the two files under it - `tokens.css` and `base.css` - against the
+40 coloured screens, in both directions: is everything the system declares actually
+rendered, and is everything rendered actually declared.
+
+**Two instruments, sets taken independently.** Claude: a source sweep plus a browser
+census (7 512 atom-class instances, 39 screens x 2 viewports). Codex: read-only,
+stated explicitly, given the same scope and told to report only what is falsifiable
+in the source. Merged afterwards. Every finding below carries who found it.
+
+### The measurement lesson, first, because it voided a whole pass
+
+**The first census was measured against a stale browser cache and every conclusion
+from it was wrong.** It reported that `badge.css` parsed 1 rule instead of 5 and that
+`counter.css`'s own `.ct, .cnt` rule was absent from the cascade - which read as a
+catastrophic parse failure and was in fact Chrome serving pre-7.37 copies of two
+files. With `Network.clearBrowserCache` + `setCacheDisabled` the badge renders exactly
+what its atom declares: 10/800, uppercase, `--ls-caps`, pill, ink ground, white label,
+4/12 padding.
+
+The project already has this rule and it is written down for A/B. It is now written
+down for **any** browser census: a measurement taken over a cache is a measurement of
+the cache. Everything below was re-taken clean.
+
+### Found
+
+**1. A rule the parser drops, and the stacked action has no hover.**
+`stack-action.css:116-119`. Found by BOTH instruments independently: Claude by the
+stylesheet balance check (16 `*/` against 15 `/*`), Codex by reading the bytes.
+
+A comment closes at line 116, two lines of prose keep going, and line 118 ends them
+with a second `*/`. The parser takes everything from the prose to the next brace as
+one selector, so the rule after it is discarded:
+
+```
+   ...loads later - checked in the browser, not counted on paper. */   <- closes here
+   The caret inside «Кабінет ▾» comes along without a word from anyone: it is
+   `currentColor` inside the caption, so it follows what the caption follows. */
+.btn--stack:hover .lbl, .btn--stack:hover .tl{ color: inherit; }       <- never parsed
+```
+
+Proved in the browser rather than on paper: the file has **12 rule bodies on disk and
+the CSSOM holds 11**, and the winning-rule solver for `.wfh-act.stack .lbl` returns
+**an empty list of hover rules**. The caption of every stacked action - the header's
+account and cart buttons, and the phone's five tab captions on 34 screens - does not
+answer the cursor. Same defect class as `price.css` at 7.36, and my own balance check
+at 7.40 called this one «harmless». It was not.
+
+**2. The list card's heart has no hover, the grid card's does.**
+Found by Codex, verified by Claude against the parsed CSSOM.
+
+Two things at once, which is why it survived. The grid heart is
+`class="btn--text btn--icon fav"` and reaches `.btn--icon.btn--text:hover` (0,3,0);
+the list heart is `class="btn--text lfav"` with **no `.btn--icon`**, so the only
+hover rule it can reach is `.btn--text:hover` (0,2,0) - and `product-card.css:69`
+sets `.pcard-l .lfav:not(.on){ color: var(--text-secondary) }` at (0,3,0), which
+beats it at rest. Solver output: grid `hoverWins: true`, list `hoverWins: false`.
+One control, two cards, one of them acknowledges the cursor.
+
+**3. One cart counter, three renderings.**
+Claude, in the browser. The same number lives twice in the header markup and takes a
+different face from each parent, plus a third face where neither parent matches:
+
+| where | selector | ground | label | visible |
+|---|---|---|---|---|
+| phone icon row | `.wfh-mi .hb` | `--bg-inverse` | white | to 859 |
+| desktop stacked action | `.btn--stack .g .hb` | `--bg-action` | ink | from 860 |
+| desktop number button | `.wfh-act.numbtn .g .hb` | none | ink, 14px | cart.html |
+
+Both of the first two carry the literal «6» on `account-addresses.html` at the same
+moment; which one a person sees is decided by the width of their screen. The third is
+not a badge at all: `.numbtn` is `.btn--outline`, so `.btn--stack .hb` does not match
+it and `.wfh-mi .hb` does not either, and the count renders as bare text.
+`header.css:147` says the menu badge stays because it is «a different placement» -
+the placement is `top:-6px; right:-4px` in both files. What differs is the colour.
+
+**4. The bonus ledger loses a column at 360, silently.**
+Claude, in the browser. `account-loyalty.html`: `.led-wrap` is 313 wide and carries
+`overflow-x: hidden`; `table.led` measures 411 (116 + 121 + 87 + 87). «Баланс» is
+clipped and there is no way to reach it - `hidden`, not `auto`, so the page does not
+even scroll. The one screen of 39 that overflows at 360. Out of this step's scope
+(the ledger is an organism), reported rather than fixed.
+
+**5. `--size-62` is declared and nothing reads it.**
+Claude. `tokens.css:269`, zero `var()` readers anywhere in the repo. It was minted at
+step 6.1 from the measured button clusters (34 / 44 / 52 / 62) and superseded at 6.7,
+whose own comment says «64 and not the 62 above», and then left standing. The scale's
+own rule, four lines further down the same file: a step that cannot be named cannot
+be used by accident, and that is the only thing that keeps a scale a scale.
+
+**6. `--text-price-was` is declared and nothing reads it.** Both instruments.
+Known since 7.36, deliberate, waiting on stage 09 for a said-out-loud removal.
+
+**7. Ten class names now carry two meanings.** Claude, from the census.
+The six already on the Крок 6 list - `.tag`, `.ct`, `.cur`, `.cut`, `.new`, `.old` -
+plus four the census added, each proved by two fingerprints that share no property:
+
+> Corrected at 7.42. This list first said eleven and opened with `.hb`, on the
+> strength of a 14/700 fingerprint with no pill. Chasing it down for the fix showed
+> that element is the SAME counter in a parent no rule reached, not a second
+> meaning. `.hb` is finding 3, not finding 7, and the rename list is ten.
+
+| name | one meaning | the other |
+|---|---|---|
+| `.x` | the dialog close, 20px ghost button | a 12/800 muted glyph |
+| `.tl` | the stacked caption, 12/600 | the checkout total label, 16/800 |
+| `.s` | the short skeleton bar | 14px secondary text on `product-coach` |
+| `.lbl` | the stacked caption, 12/600 secondary | a 14/700 ink form label |
+
+**8. `.addr-tag` is accent ink at 10px, and it is not in the recorded list.**
+Claude. `DESIGN-artifacts.md:66` records the 2026-08-07 measurement of accent text
+under 19px and names five controls kept knowingly. Measured on its real ground here:
+`#FF5A00` on `#FFFFFF`, 10px/800, **3.13:1** - the smallest accent text in the
+product, and a sixth control the record does not mention.
+
+**9. The chevron has no size of its own.** Claude. `.chev` renders five ways; the
+16 instances of `.chev.uiv-ic.uiv-trail` come out **Oswald 18px** because
+`.uiv-ic svg{ width: 1em }` and the mark is sitting inside display type. An icon
+sized only by inheritance follows whatever face it lands in.
+
+**10. `.pf-val` has four editions on one screen.** Claude. `account-profile.html`:
+mono 16/700 ink, Inter 16/600 secondary, Inter 16/700 ink, Inter 14/700 ink. One
+field value, four looks, one page.
+
+**11. `.chip` has zero instances in the coloured markup.** Claude. The atom file is
+named for a class the product never writes; what it actually dresses are `.flink`,
+`.dr-chip`, `.mgchip` and `.afilter`.
+
+### Withdrawn on verification, with the reason
+
+- **`badge.css` and `counter.css` are not in the cascade** - Claude. The stale cache
+  above. Both parse and both win where they should.
+- **`.skpulse` is declared twice with contradictory values** - Claude. It is the
+  `prefers-reduced-motion` pair; the rule parser used for the sweep stripped `@media`
+  wrappers and flattened them into one scope.
+- **`--fs-11` and `--space-20` are read and never declared** - Claude. Both occur
+  inside prose and an HTML comment in `design/kit/button.html`, not in a live `var()`.
+- **`--dr-top`, `--shelf-h`, `--shelf-top`, `--uiv-side-h` are read and never
+  declared** - Claude. Each is published at runtime by `_nav.js` and each `var()` in
+  the source carries a fallback.
+- **`--scrim-white-70` is dead** - Codex. It has exactly one reader,
+  `design/_stand.css:124`, which is outside `design/system` where Codex searched. Not
+  dead; but its only reader is the stand's own chrome and not the product.
+- **`.afilters .clear` is split across two atom files** - Codex. True and deliberate,
+  argued at `chip.css:261-263`: the ink, the weight and the underline belong to the
+  link atom, the size belongs to the row it stands in. The same shape as the price's
+  size-per-surface rule from 7.36.
+
+### Clean
+
+- **73 files on disk, 73 imported by `index.css`.** No orphan, nothing missing,
+  21 / 27 / 25 by level.
+- **195 tokens declared, none declared twice.** Twelve groups of roles share one
+  primitive and every group is argued in the file as one value doing two jobs.
+- **0 JavaScript errors** across 78 page loads.
+- **39 of 40 screens clean at 360**, the exception being finding 4.
+- **The accent gate holds where it was measured.** 115 instances of `#FF5A00` on text
+  below 19px bold; **79 of them are the `₴` mark**, which is `.55em` of a figure that
+  clears the gate itself. The independent strings are the set already recorded on
+  2026-08-07 as an owner's call, plus finding 8.
+- **The price, the discount chip, the badge, the pill, the counter, the checkbox and
+  the breadcrumb all render what their atom declares**, re-verified after the cache
+  was cleared. Availability keeps its four states, the pill its three, the checkbox
+  its two.
+
+### Nothing was changed
+
+This step measures. Findings 1, 2 and 3 each move pixels on screens a person uses, so
+each is a step of its own with its own declaration and its own A/B, not a side effect
+of an audit.
+
+---
+
+## Step 7.42: three defects the audit found, and the measurement that had to be fixed first
+
+Findings 1, 2 and 3 of step 7.41. Nothing else from that list is touched: the two
+dead tokens and the type scale are values decisions for stage 09, the ten names are
+Крок 6 by rule, and the loyalty ledger's clipped column is an organism.
+
+### The A/B had to be repaired before it could say anything
+
+The first pass came back with **282 differences** and a long tail of one-pixel box
+changes on elements this step never named: an `h2` doubling its height on
+`overview.html`, `.wfh-logo` growing 8px, `.seolink` losing a pixel of line box. The
+second, with `document.fonts.ready` awaited, came back with **260** - a different
+tail on a different page.
+
+That tail is the webfonts. The cache is cleared between passes for correctness, so
+Google Fonts is re-fetched each time, and whether Oswald has swapped in by the time
+the measurement runs is a race. So the pass was run **three times: HEAD, HEAD again,
+then the working tree** - and the first two give the noise floor:
+
+| | differences |
+|---|---|
+| HEAD vs HEAD, identical procedure | **1** (`.co-spin`, the running spinner) |
+| HEAD vs working tree | **176** |
+
+**A number without a null run is not a measurement.** Both are now part of the pass:
+`document.fonts.ready` before reading, and HEAD against itself before HEAD against
+the change. 108 994 elements, 40 pages x 2 viewports.
+
+### The 176, and they are two elements
+
+- **`SPAN.g` x136** - `position: static -> relative` on the number button's glyph,
+  and the `top`/`right`/box readings that follow from it. Nothing visible: it is the
+  corner the badge now hangs on.
+- **`SPAN.hb` x38** - the counter badge taking one face. Ground `#1C1C1C -> #FF5A00`,
+  label `#FFFFFF -> #1C1C1C`, and on the number button a bare `9x18` run of text
+  becoming a `15x15` pill.
+- **2** are `.auth-spin` and `.co-spin`, which are inside the noise floor.
+
+**Zero differences anywhere else.** The header does not move: `.wfh-actions` measures
+433x44 and `.numbtn` 124x44 on both sides, because the glyph was already a fixed
+18x18 box and the count never contributed width to it.
+
+### Hover is not a resting state, so the A/B cannot see findings 1 and 2
+
+`page.hover` does not raise `:hover` in this headless context - `el.matches(':hover')`
+returned false on a control that demonstrably has the state. So both were verified
+the way 7.41 found them: a solver that walks the parsed CSSOM, collects every rule
+matching the element with the state pseudo stripped, and ranks them by specificity
+and order. Run against both ports:
+
+| | HEAD | working tree |
+|---|---|---|
+| `.wfh-act.stack .lbl` | no hover rule exists | `.btn--stack:hover .lbl` (0,3,0) -> `inherit`, **wins** |
+| `.wf-tab .tl` | no hover rule exists | rule exists, resolves to `inherit`, and `.wf-tab` declares no hover ink, so the computed colour does not move |
+| `.wf-tab[aria-current] .tl` | `tabbar.css` (0,3,0) wins | `tabbar.css` still wins on order, ink-800 kept |
+| `.pcard-l .lfav` | `.btn--text:hover` (0,2,0), **loses** to the rest rule (0,3,0) | `.pcard-l .lfav:not(.on):hover` (0,4,0), **wins** |
+
+The tab bar behaving in three different ways there is not three decisions - it is one
+rule, `inherit`, read against three grounds. That is what the block in
+stack-action.css claimed in prose for two steps while the rule it described was not
+in the cascade.
+
+### What each fix was
+
+**1. `stack-action.css`: one comment closer deleted.** The paragraph closed itself
+four lines early, the two lines after it stood in open code, and the closer below
+them was a stray - so the parser swallowed the selector of the next rule. Twelve rule
+bodies on disk, eleven in the browser. Writing the note about it fell into the same
+trap once: a closer typed inside a comment ends the comment, so a file cannot quote
+one while explaining it. **All 78 stylesheets now balance, which they had not done
+since before this stage.**
+
+**2. `product-card.css`: the state that was left behind when the rest was copied.**
+button.css states the quiet ink and its hover on two adjacent lines; this surface
+carried the first and not the second. One line added at (0,4,0), beside the line that
+caused it. **The press is refused and the refusal is written into the file**: 7.33
+gave icon buttons a pressed ground because they have a 40px box, and this heart
+deliberately has none.
+
+**3. The counter badge: the face keyed on the class, the placement left with each
+parent.** Four parents, three faces, and on a phone two of them were on screen at
+once carrying the same number. The accent pill is what stays, and the ground is the
+argument: `.wfh` measures `#FFFFFF`, so the ink edition was a dark mark on a light
+bar wearing a white ring minted to cut marks out of dark ones. `header.css` keeps
+where the badge hangs and gains the two lines the number button needed - a
+positioning context on its glyph, and a corner.
+
+### After
+
+**39 screens at 360: no element escapes the viewport. 0 JavaScript errors** across
+78 page loads and all 23 stands. The `stack-action` stand renders `.hb` and
+`.tbadge` at 15x15 on `--bg-action`, which is now one rule instead of three.
+
+Unchanged and still open from 7.41: the ledger column clipped at 360 (finding 4), the
+two dead tokens (5, 6), the ten names (7), `.addr-tag` at 3.13:1 (8), the chevron
+with no size of its own (9), `.pf-val`'s four editions (10) and `.chip` with no
+instances (11).

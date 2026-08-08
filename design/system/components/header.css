@@ -144,12 +144,26 @@
    because only the row knows how much space it has to give. */
 .wfh-mi a::after{ content: ''; position: absolute; inset: -6px -8px; }
 .wfh-act{ position: relative; }
-/* step 7.18: `.wfh-act .g .hb` left with the atom - a counter on the mark is the
-   stacked action's, and it was declared here and again in tabbar.css. What stays
-   is the MENU item's badge, which is a different placement on a different part. */
-.wfh-mi .hb{ position: absolute; top: -6px; right: -4px; min-width: 15px; height: 15px; padding: 0 var(--space-4);
-  border-radius: var(--radius-pill); background: var(--bg-inverse); color: var(--text-oninverse); font-size: var(--fs-10); font-weight: var(--fw-black); line-height: 15px;
-  text-align: center; box-shadow: var(--ring-onink); }
+/* step 7.18 left `.wfh-act .g .hb` with the atom and kept the icon row's badge
+   here, on the grounds that it is «a different placement on a different part».
+
+   STEP 7.42: THE PLACEMENT WAS THE SAME. Both files said `top:-6px; right:-4px`.
+   What actually differed was the FACE - ink ground and white label here against
+   the atom's accent ground and ink label - so the phone showed one edition in the
+   header and the tab bar showed the other on the same screen, with the same
+   number in both. The face went to stack-action.css keyed on `.hb` itself; this
+   row keeps what it really owns, which is where the badge hangs off its 21x32
+   link. `.wfh-mi a` is already `position: relative`, four lines up. */
+.wfh-mi .hb{ top: -6px; right: -4px; }
+/* AND THE NUMBER BUTTON HAD NO BADGE AT ALL. `_nav.js` writes the same
+   `<span class="hb">` into `.numbtn`'s glyph as into the stacked action's, but
+   `.numbtn` is `btn--outline`, so `.btn--stack .g .hb` never matched it and the
+   count rendered as bare 14px ink inside the flex row - a counter with nothing to
+   say it is one. The atom's face reaches it now; what it needed from this file is
+   a corner to hang on, because `.g` was `static` and an absolute badge would have
+   anchored to the whole 124x44 button instead of the 18px mark. */
+.wfh-act.numbtn .g{ position: relative; }
+.wfh-act.numbtn .g .hb{ top: -6px; right: -4px; }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .wfh-logo{ letter-spacing:var(--ls-display); }

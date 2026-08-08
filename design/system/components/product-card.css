@@ -65,8 +65,26 @@
    said here. Ink, line and target: the three things the row decides. */
 /* the list heart is the one bare mark that cannot afford a 44 box - it stands
    in flow, not on top of a photo - so it keeps its own quiet ink. `:not(.on)`
-   because saved is decided in button.css and must not be out-specified here. */
+   because saved is decided in button.css and must not be out-specified here.
+
+   STEP 7.42: AND IT COPIED THE REST WITHOUT THE STATE. button.css says the quiet
+   ink and its hover in two lines that stand next to each other -
+   `.btn--icon.btn--text{ color: --text-secondary }` and the same pair `:hover{
+   color: --text-action }` - and only the first was carried over here. The list
+   heart has no `--icon` (the note above says why: it cannot take the 40 box), so
+   the only hover rule it could still reach was `.btn--text:hover` at (0,2,0),
+   and the line below out-specifies it at (0,3,0). Solver, on the parsed CSSOM:
+   the grid heart returned `hoverWins: true`, the list heart `false`. Same
+   control, two cards, one of them answered the cursor.
+
+   NO PRESS, and that is a refusal rather than an omission. 7.33 gave
+   `.btn--icon.btn--text` a `--bg-action-soft` ground on `:active` because an icon
+   button has a 40px box to answer with. This heart deliberately has no box - 18x20
+   with the target thrown by `::after` - so a press ground would paint a small
+   tinted rectangle behind a bare glyph, which is the look 7.33 was avoiding, not
+   the one it was after. */
 .pcard-l .lfav:not(.on){ color: var(--text-secondary); }
+.pcard-l .lfav:not(.on):hover{ color: var(--text-action); }
 .pcard-l .lfav{ font-size: var(--fs-18); line-height: var(--lh-flat); position: relative; }
 .pcard-l .lfav::after{ content: ''; position: absolute; inset: -12px -6px -12px -13px; }  /* 18x20 -> 37x44 */
 .pcard-l.dim .lph, .pcard-l.dim .lprice{ opacity: .5; }
