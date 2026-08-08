@@ -4443,3 +4443,127 @@ reading the real files.
   step, which was about behaviour.
 - **Six stands still report themselves incomplete**, all failing identically at
   HEAD: `availability`, `badge`, `counter`, `discount`, `price`, `status-pill`.
+
+## Step 7.35 - availability: the atom that only worked inside a card, and a dot typed 107 times
+
+The stand had been reporting this for steps and it read as a stand problem.
+
+### The atom was not an atom
+
+Every rule in `availability.css` was scoped to `.pcard`. So the component
+existed only inside a product card - and `design/kit/availability.html`, which
+writes `<div class="pavail low">` with no card around it, rendered **black, 16px,
+unstyled**. Its idle check said «2 of 5 classes are not on the page at all: in
+out» and had said it since the check was written. The classes were on the page.
+The scope was the problem.
+
+### Four names for one line, in four files, three of them identical
+
+Counted in the browser across 39 coloured screens:
+
+```
+  .pavail    92 on 16 screens   availability.css (L1, inside .pcard)   12/700
+  .lavail     7 on  1 screen    product-card.css (L2)                  12/700
+  .hd-av      4 on  4 screens   banner.css       (L2)                  12/700
+  .bbavail    3 on  3 screens   buy-box.css      (L3)                  14/700
+```
+
+The first three agree on **every measured value** and differ only by which box
+they stand in. `.bbavail` is a rung up because the PDP is where the decision is
+made - the line is read there rather than scanned - and that is the only real
+difference in the set, so it is the only one kept as a variant.
+
+**And product-card.css held a dead declaration:** `.lavail.pre, .lavail.out
+{ color: --text-secondary }` on line 30, `.lavail.pre { color: --text-info }` on
+line 90. The first never rendered. Same shape 7.4 swept 1 038 times.
+
+Names are not renamed - all four are written by markup the frozen grey layer
+shares. Крок 6, same line as `.ci-qty` / `.co-qty` and `.wf-tab` / `.wfh-act`.
+
+### The dot had three editions and 107 of them were typed
+
+```
+  <div class="pavail in">● В наявності</div>        x107, 17 coloured screens
+  .oh-status.ok::before{ content: "● " }            status-pill.css
+  .hdots i{ width: 7px; border-radius: circle }     the only one that was a shape
+```
+
+Why a typed sign is the same defect steps 7.8-7.12 closed for the button:
+
+| | measured |
+|---|---|
+| it is read aloud | a screen reader says «black circle В наявності» |
+| it has no size of its own | Inter's `●` is **5.16px** of ink at the 12px rung and **6.02px** at 14px - one meaning, two sizes, nobody chose either |
+| nothing can tell it from the word | not a selector, not a style - which is why taking it out of the text IS the fix |
+
+**6px, one value, derived not picked:** 5.16 and 6.02 are what the glyph gave at
+the two rungs and 6 is the whole number between them. The 12px rung gains 0.84px
+of dot, the 14px rung gives up 0.02.
+
+`currentColor`, so the dot follows the state without a second colour rule - four
+states, four selectors, not eight. The gap is `--space-4`, which is what the
+space character was already producing: measured 3.9px ink-to-word.
+
+**The order pills took the same shape** - `.oh-status` (4) and `.aord-status`
+(1). One dot, one declaration, four families.
+
+### The A/B caught a declaration dropped in the move
+
+`.bbavail` carried `font-family: 'Inter', sans-serif` in buy-box.css, and it was
+not decoration: it sits inside `.bbmeta`, which is **monospace**. The line came
+off with the block, and the first A/B pass showed the PDP's availability line in
+mono and **8.5px wider**. The atom declares the family now - the other three
+inherit body type and would never have noticed, which is exactly why the atom
+should say it rather than depend on where it was put.
+
+`--font-body`, not the literal: the token carries the system fallbacks after
+Inter, the literal had only `sans-serif`. **Seven more components still write
+that literal** - counted, not fixed here.
+
+### Not merged, and said out loud
+
+`.ci-oostag` in cart-row.css states the same fact and has a different SHAPE: a
+pill, 10px IBM Plex Mono, sunken ground, hairline. One instance, one screen.
+Merging means deciding whether the shelf label becomes a pill or the cart row
+gives up its tag - a look decision with a single instance behind it.
+
+### Proof
+
+**A/B against HEAD: 108 994 elements, 40 pages x 2 viewports, cache cleared
+between passes. 233 differences in 22 groups:**
+
+| n | what |
+|---|---|
+| 212 | `TXT: ● X -> X` - the typed dot leaving the text on all six families |
+| 8 | `.oh-status` three states, width -4.4px |
+| 6 | `.bbavail` font-family literal -> token, width -1.8px |
+| 6 | `.bbmeta` narrows with the line inside it |
+| 4 | `.oh-thumbs` shifts 4.36px, laid out after the pill |
+| 2 | `.aord-status` width -4.4px |
+| 1 | `.auth-spin` 64x64 -> 59x59 - the spinner sampled mid-rotation, the noise this stage has logged four times |
+
+The width change is the dot's footprint: **14.25px** before the word (glyph
+advance 11.41 + space 2.84) became **10px** (6 + 4). Every group is that one
+change seen from a different element.
+
+**Colour, weight, size, line-height, radius, shadow and padding: unchanged
+everywhere.** 75 pages: 0 overflow at 360, 0 JS errors.
+
+### The stand
+
+Rebuilt on real markup: four states rendered, four names side by side, both
+rungs, the order pills sharing the dot, the cart tag standing next to the atom it
+did not merge with. Idle check **13 of 13**, and `availability` leaves the list
+of six stands that report themselves incomplete - five left, all failing
+identically at HEAD.
+
+### Found, not fixed
+
+- **`wireframes/` keeps all 107 typed dots.** The grey layer is frozen after
+  stage 05, so the character came out of the colour layer only. Same split as
+  7.29, 7.31, 7.32 and 7.34.
+- **Seven components still write `'Inter', sans-serif` as a literal** instead of
+  `--font-body`: buy-box (3), cart-row, checkout-form, discount, loyalty-rung (2).
+- **`--text-info` has exactly 2 uses and both are this component** (`.pavail.pre`,
+  `.lavail.pre`). Whether a role with one reader is a role is a stage 09 question,
+  and it was already on that list.

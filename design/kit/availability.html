@@ -23,46 +23,107 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Мітка наявності</h1>
-<p class="kp-lead">Рядок про наявність. Каже словом, а не тільки кольором: «в наявності», «мало», «під замовлення».</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/availability.css</span><span class="kp-tag">18 рядків</span><span class="kp-tag">30 екранів</span></div>
+<p class="kp-lead">Рядок про наявність. Каже словом, а не тільки кольором: «в наявності», «мало», «під замовлення», «немає». Принцип 1 в одному рядку - це чесність, а не продаж.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/availability.css</span><span class="kp-tag">118 рядків</span><span class="kp-tag">106 екземплярів</span><span class="kp-tag">18 екранів</span></div>
+
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><div class="kp-row" style="flex-direction:column;gap:8px"><div class="pavail">В наявності</div><div class="pavail low">Залишилось мало</div><div class="pavail pre">Під замовлення</div></div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Слово</b> - несе весь зміст - його достатньо без кольору</span></div><div class="a"><i>2</i><span><b>Колір</b> - підсилює, але не замінює слово</span></div></div></section>
+<div class="kp-demo"><div class="kp-row" style="flex-direction:column;gap:10px;align-items:flex-start">
+  <div class="pavail in">В наявності</div>
+  <div class="pavail low">Залишилось мало</div>
+  <div class="pavail pre">Під замовлення</div>
+  <div class="pavail out">Немає в наявності</div>
+</div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Крапка</b> - <b>форма</b>, а не символ: 6px, <code>currentColor</code>, намальована через <code>::before</code>. Тому вона завжди того самого кольору, що й слово, і її не читає вголос скрінрідер</span></div><div class="a"><i>2</i><span><b>Слово</b> - несе весь зміст, його достатньо без кольору</span></div><div class="a"><i>3</i><span><b>Колір</b> - підсилює, але не замінює слово</span></div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Атом не був атомом <b>крок 7.35</b></div>
+<p class="kp-p">Кожне правило цього файлу було прив'язане до <code>.pcard</code> - тобто компонент існував тільки всередині картки товару. Ця сторінка доводила це раніше, ніж хтось узявся б сперечатись: демо вище пише <code>&lt;div class="pavail low"&gt;</code> без картки навколо, і <b>рендерилось чорним, 16px, без жодного стилю</b>. Холостий контроль репортував це кілька кроків поспіль («2 з 5 класів немає взагалі: in out»), і це читалось як проблема стенда. Це була проблема області дії.</p>
+<p class="kp-p"><b>Чотири імені для одного рядка, у чотирьох файлах, три з них однакові до значення.</b> Зміряно в браузері по 39 кольорових екранах:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Ім'я</th><th>Було де</th><th>Рівень</th><th>Розмір</th><th>Скільки</th></tr></thead><tbody>
+<tr><td><code>.pavail</code></td><td><code>availability.css</code>, у <code>.pcard</code></td><td>1</td><td>12/700</td><td><b>92</b> на 16 екранах</td></tr>
+<tr><td><code>.lavail</code></td><td><code>product-card.css</code></td><td>2</td><td>12/700</td><td><b>7</b></td></tr>
+<tr><td><code>.hd-av</code></td><td><code>banner.css</code></td><td>2</td><td>12/700</td><td><b>4</b></td></tr>
+<tr><td><code>.bbavail</code></td><td><code>buy-box.css</code></td><td>3</td><td><b>14</b>/700</td><td><b>3</b></td></tr>
+</tbody></table></div>
+<div class="kp-demo"><div class="kp-row" style="flex-direction:column;gap:10px;align-items:flex-start">
+  <div class="pavail in">В наявності <span style="color:var(--text-muted);font-weight:400">- <code>.pavail</code>, картка в сітці</span></div>
+  <div class="lavail in">В наявності <span style="color:var(--text-muted);font-weight:400">- <code>.lavail</code>, картка-рядок</span></div>
+  <span class="hd-av">В наявності <span style="color:var(--text-muted);font-weight:400">- <code>.hd-av</code>, пропозиція дня</span></span>
+  <span class="bbavail">В наявності <span style="color:var(--text-muted);font-weight:400">- <code>.bbavail</code>, блок покупки, 14px</span></span>
+</div></div>
+<div class="kp-cap">Чотири імені, одне правило. Перші три невідрізненні - і були невідрізненні й до зведення, просто трьома окремими блоками в трьох файлах</div>
+<p class="kp-p">Перші три збігаються в кожному зміряному значенні й різняться лише тим, у якій коробці стоять. <code>.bbavail</code> на сходинку більший, бо PDP - екран, де ухвалюють рішення, і рядок там <b>читають</b>, а не проглядають. Це єдина справжня різниця в наборі, тому вона єдина лишається варіантом.</p>
+<div class="kp-pair"><div class="kp-dont"><h4>І в <code>product-card.css</code> лежало мертве оголошення</h4><code>.lavail.pre, .lavail.out { color: --text-secondary }</code> у рядку 30 і <code>.lavail.pre { color: --text-info }</code> у рядку 90. Перше не рендерилось ніколи. Та сама форма, яку крок 7.4 вимів 1 038 разів.</div>
+<div class="kp-do"><h4>Імена не перейменовані</h4>Усі чотири пише розмітка, яку поділяє заморожений сірий шар. Атом сьогодні відгукується на чотири імені, а перейменування - пункт Кроку 6: та сама лінія, яку <code>stepper.css</code> веде для <code>.ci-qty</code> / <code>.co-qty</code>, а <code>stack-action.css</code> - для <code>.wf-tab</code> / <code>.wfh-act</code>.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Крапку було надруковано 107 разів <b>крок 7.35</b></div>
+<p class="kp-p">Кожен такий рядок починався з символу <code>●</code>, який лежав у розмітці:</p>
+<div class="kp-code">&lt;div class="pavail in"&gt;● В наявності&lt;/div&gt;</div>
+<p class="kp-p"><b>107</b> штук на <b>17</b> кольорових екранах - і 108-ма, написана як CSS у <code>status-pill.css</code> (<code>content: "● "</code>). Тобто одна крапка мала <b>три редакції</b>: надрукована, згенерована і <code>.hdots i</code>, єдина, яка коли-небудь була формою.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що не так із надрукованим знаком</th><th>Зміряно</th></tr></thead><tbody>
+<tr><td>його читають вголос</td><td>скрінрідер каже «чорне коло В наявності»</td></tr>
+<tr><td>він не має власного розміру</td><td><code>●</code> в Inter - <b>5.16px</b> чорнила на сходинці 12px і <b>6.02px</b> на 14px: одне значення двома розмірами, яких ніхто не обирав</td></tr>
+<tr><td>його не відрізнити від слова</td><td>ні стилем, ні селектором - тому прибрати його з тексту і є вся правка</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>6px, одне значення, і воно виведене, а не вибране:</b> 5.16 і 6.02 - те, що дав шрифт на двох сходинках, а 6 - ціле число між ними. Сходинка 12px додає 0.84px крапки, сходинка 14px віддає 0.02. <code>currentColor</code> - щоб крапка йшла за станом без другого правила на колір: чотири стани, чотири селектори, а не вісім. Проміжок <code>--space-4</code> - те, що вже давав пробіл: зміряно 3.9px від чорнила до слова.</p>
+<p class="kp-p"><b>Ту саму форму взяли й статус-пілюлі замовлення</b> - <code>.oh-status</code> і <code>.aord-status</code>, ще 5 екземплярів. Одна крапка, одне оголошення, чотири родини.</p>
+<div class="kp-demo"><div class="kp-row" style="gap:10px;flex-wrap:wrap;align-items:center">
+  <span class="oh-status ok">Доставлено</span><span class="oh-status go">В дорозі</span><span class="oh-status wait">Обробляється</span><span class="aord-status">Доставлено</span>
+</div></div>
+<div class="kp-cap">Пілюлі статусу замовлення. Крапку їм малює цей файл - вона тут не декорація, а те саме твердження «де воно зараз»</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Дві сходинки</div>
+<p class="kp-p">Одна різниця в наборі, і вона названа: полиця проглядається, PDP читається.</p>
+<div class="kp-demo"><div class="kp-row" style="flex-direction:column;gap:10px;align-items:flex-start">
+  <div class="pavail in">В наявності <span style="color:var(--text-muted);font-weight:400">- 12px, полиця й картка</span></div>
+  <span class="bbavail">В наявності <span style="color:var(--text-muted);font-weight:400">- 14px, блок покупки</span></span>
+  <span class="bbavail out">Немає в наявності <span style="color:var(--text-muted);font-weight:400">- той самий рядок, порожній склад</span></span>
+</div></div>
+<div class="kp-cap"><code>.bbavail</code> також єдиний, кому доводиться оголошувати <code>font-family</code>: він стоїть усередині <code>.bbmeta</code>, а той моноширинний. Правило зняли разом із блоком - і A/B упіймав це в тому ж проході: рядок поїхав у моно й став на 8.5px ширшим</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Стан</b></td><td>в наявності · мало · під замовлення · немає</td><td>Стан приходить із даних складу, а не з розмітки.</td></tr><tr><td><b>Колір</b></td><td>успіх · попередження · нейтральний</td><td>«Мало» бере попередження, «під замовлення» - нейтральний сланець: це не проблема, це інший строк.</td></tr></tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Стан</b></td><td><code>.in</code> 78 · <code>.low</code> 9 · <code>.pre</code> 9 · <code>.out</code> 4</td><td>Стан приходить із даних складу, а не з розмітки.</td></tr>
+<tr><td><b>Колір</b></td><td>успіх · попередження · сланець · нейтральний</td><td>«Мало» бере попередження, «під замовлення» - сланець: це не проблема, це інший строк. «Немає» - тихий сірий, а не червоний: порожня полиця це факт, а не помилка.</td></tr>
+<tr><td><b>Сходинка</b></td><td>12 · 14</td><td>14 тільки в блоці покупки.</td></tr>
+</tbody></table></div>
 </section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
 <p class="kp-p">На картці, у сітці та в <b>Блок покупки</b>. Це <b>чесність</b>, а не продаж: принцип 1 вимагає сказати про порожній склад до того, як людина натисне.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Стан читається без кольору.</b> Прочитай сірим - зміст мусить лишитись.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не кажи наявність самим лише кольором.</b> Зелена крапка без слова не працює для 8% чоловіків з дальтонізмом і не працює в чорно-білому друці ТЗ. Для чисто візуального стану є <b>Скелетон</b>, і в нього немає що читати.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Стан читається без кольору.</b> Прочитай сірим - зміст мусить лишитись. Саме тому крапка тепер <code>currentColor</code>: вона не додає інформації, вона повторює те, що вже сказало слово.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не кажи наявність самим лише кольором.</b> Зелена крапка без слова не працює для 8% чоловіків з дальтонізмом і не працює в чорно-білому друці ТЗ. Для чисто візуального стану є <b>Скелетон</b>, і в нього немає що читати.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Не злито, і це сказано вголос</div>
+<p class="kp-p"><code>.ci-oostag</code> у <code>cart-row.css</code> стверджує той самий факт - «Немає в наявності» - і має <b>іншу форму</b>: пілюля, 10px IBM Plex Mono, на запалій землі з волосяним краєм. <b>Один</b> екземпляр, на одному екрані.</p>
+<div class="kp-demo"><div class="kp-row" style="gap:12px;align-items:center">
+  <div class="pavail out" style="margin:0">Немає в наявності</div>
+  <div class="ci-oostag">Немає в наявності</div>
+</div></div>
+<div class="kp-cap">Ліворуч - цей атом, праворуч - тег рядка кошика. Злити означало б вирішити, чи полична мітка стає пілюлею, чи рядок кошика віддає свій тег - а це рішення про вигляд, за яким стоїть один екземпляр. Коли рядок кошика отримає власний крок, це питання прийде з компанією</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
+<p class="kp-p">Чотири, і всі тримаються на класі: <code>.in</code>, <code>.low</code>, <code>.pre</code>, <code>.out</code>. Псевдостанів немає й не має бути - це мітка, а не контрол: її не наводять, не тиснуть і не фокусують.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>5</b> власних класів і <b>0</b> станів оголошено в <code>availability.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (<code>.pcard</code>) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом. Чужий контекст (<code>.pcard</code>) не рахується: у тому селекторі компонент не є підметом, він лише стоїть усередині когось, і <code>min-height</code> там відповідає на питання <b>сітки</b>, а не своє.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["in", "low", "out", "pavail", "pre"], KIT_STS=[];</script></section>
-
-<section class="kp-sec"><div class="kp-sh">Токени</div>
-<p class="kp-p">Прочитані з <code>availability.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (3)</th></tr></thead><tbody><tr><td><code>--text-info</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-success</code> <code>--text-warning</code></td><td><code>--fs-12</code> <code>--fw-bold</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<script>var KIT_CLS=["pavail", "lavail", "hd-av", "bbavail", "in", "low", "pre", "out", "oh-status", "ok", "go", "wait", "aord-status"], KIT_STS=[];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;div class="pavail"&gt;В наявності&lt;/div&gt;
+<div class="kp-code">&lt;div class="pavail in"&gt;В наявності&lt;/div&gt;
 &lt;div class="pavail low"&gt;Залишилось мало&lt;/div&gt;
-&lt;div class="pavail pre"&gt;Під замовлення&lt;/div&gt;</div></section>
+&lt;div class="pavail pre"&gt;Під замовлення&lt;/div&gt;
+&lt;div class="pavail out"&gt;Немає в наявності&lt;/div&gt;
 
-<section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.pavail</code></p>
-<p class="kp-p"><b>30 екранів</b> у <code>wireframes/</code>: 404.html, account-wishlist-many.html, account-wishlist.html, account.html, catalog-page.html, checkout-loggedin.html, checkout-noaddr.html, checkout.html, coach-home-free.html, coach-home.html, coach-wishlist.html, content-article.html, goal.html, home-buyer.html ...</p></section>
+&lt;span class="bbavail"&gt;В наявності&lt;/span&gt;          &lt;!-- блок покупки, 14px --&gt;
+&lt;div class="lavail in"&gt;В наявності&lt;/div&gt;         &lt;!-- картка-рядок --&gt;
+&lt;span class="hd-av"&gt;В наявності&lt;/span&gt;            &lt;!-- пропозиція дня --&gt;</div>
+<div class="kp-cap">Крапки в розмітці більше немає - її малює <code>::before</code></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає стану «немає зовсім»</b> окремим класом - зараз він виводиться через <code>.dim</code> на картці</li><li><b><code>--text-info</code> стоїть рівно в одному місці</b> - на кроці 8 вирішується, чи це справжня роль</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Сірий шар зберігає надруковану крапку.</b> <code>wireframes/</code> заморожений після етапу 05, тож 107 символів прибрано в кольоровому шарі й лишено в прототипі. Той самий поділ, що на 7.29, 7.31, 7.32 і 7.34</li><li><b>Сім компонентів досі пишуть літерал <code>'Inter', sans-serif</code></b> замість <code>--font-body</code> - порахувано на 7.35, не виправлено: це їхні кроки</li><li><b><code>.ci-oostag</code> не злито</b> - див. розділ вище</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
 /* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a

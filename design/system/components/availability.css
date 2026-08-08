@@ -1,18 +1,118 @@
-/* availability.css - availability (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* availability.css - availability (level 1), rebuilt at step 7.35.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.pcard .pavail{ min-height: 15px; }
+   A LINE THAT SAYS WHETHER THE THING IS THERE. «В наявності», «Залишилось
+   мало», «Під замовлення», «Немає в наявності». Principle 1 in one line: it is
+   honesty, not selling, and it has to be said before a person presses anything.
 
-/* ---------- colour (from design/kit/kit.css) ---------- */
-.pcard .pavail.in{ color:var(--text-success); }
-.pcard .pavail.low{ color:var(--text-warning); }
-.pcard .pavail.pre{ color:var(--text-info); }
-.pcard .pavail.out{ color:var(--text-secondary); }
-.pcard .pavail{ font-size:var(--fs-12); font-weight:var(--fw-bold); margin-bottom:var(--space-8); }
-@media (max-width:620px){
-  .pcard .pavail{ font-size:var(--fs-12); margin-bottom:var(--space-8); }
+   THE ATOM WAS NOT AN ATOM. Every rule in this file was scoped to `.pcard`, so
+   the component existed only inside a product card - and the stand proved it
+   before anybody argued about it: `design/kit/availability.html` writes
+   `<div class="pavail low">` with no card around it, and rendered black,
+   16px, unstyled. The idle check had been reporting it for steps («2 of 5
+   classes are not on the page at all: in out») and it read as a stand problem.
+   It was a scope problem.
+
+   FOUR NAMES FOR ONE LINE, IN FOUR FILES, THREE OF THEM IDENTICAL. Counted in
+   the browser across 39 coloured screens at 390 and 1280:
+
+     .pavail    162   here, scoped .pcard        12/700 Inter   the grid card
+     .lavail     14   product-card.css, level 2  12/700 Inter   the list card
+     .hd-av       8   banner.css, level 2        12/700 Inter   the home deal
+     .bbavail     6   buy-box.css, level 3       14/700 Inter   the PDP
+
+   The first three agree on every measured value and differ only by which box
+   they stand in. `.bbavail` is a rung up because the PDP is where the decision
+   is made, and that is the only real difference in the set - so it is the only
+   one this file keeps as a variant.
+
+   AND product-card.css HELD A DEAD DECLARATION: `.lavail.pre, .lavail.out
+   { color: --text-secondary }` on line 30 and `.lavail.pre { color: --text-info }`
+   on line 90. The first never rendered. Same shape step 7.4 swept 1 038 times.
+
+   NAMES ARE NOT RENAMED. All four are written by markup the frozen grey layer
+   shares, so the atom answers to four names today and the rename is a Крок 6
+   item - the same line stepper.css draws for `.ci-qty` / `.co-qty` and
+   stack-action.css for `.wf-tab` / `.wfh-act`.
+
+   NOT MERGED, AND SAID OUT LOUD: `.ci-oostag` in cart-row.css. It states the
+   same fact - «Немає в наявності» - and it is a different SHAPE: a pill, 10px
+   IBM Plex Mono, on a sunken ground with a hairline. One instance, on one
+   screen. Merging would mean deciding whether the shelf label becomes a pill or
+   the cart row gives up its tag, and that is a look decision with a single
+   instance behind it. When the cart row gets its own step it comes with company.
+   ============================================================================ */
+
+/* ---------- the line ---------------------------------------------------------
+   `min-height` is the grid's, not the component's: an empty availability slot on
+   a card must still hold the row below it in line with its neighbours. It stays
+   scoped to `.pcard` for exactly that reason - it answers a question the GRID
+   asks, and a line standing on its own has nothing to keep aligned. */
+.pavail, .lavail, .hd-av, .bbavail{
+  font-size: var(--fs-12);
+  font-weight: var(--fw-bold);
+  /* AND THE FAMILY IS DECLARED, because one member cannot inherit it. `.bbavail`
+     sits inside `.bbmeta`, which is monospace - so buy-box.css had to write
+     `font-family: 'Inter', sans-serif` on it, and that line was the reason. It
+     came off in the move and the A/B caught it in the same pass: the line went
+     to mono and 8.5px wider. The other three inherit body type from the page and
+     would not have noticed either way, and that is exactly why the atom should
+     say it rather than depend on where it was put.
+     `--font-body`, not the literal stack buy-box.css carried: the token has the
+     system fallbacks after Inter, the literal had only `sans-serif`. Seven more
+     components still write that literal - counted, not fixed here. */
+  font-family: var(--font-body);
+}
+.pcard .pavail{ min-height: 15px; margin-bottom: var(--space-8); }
+
+/* the PDP rung: one step up, because this is the screen where the decision is
+   made and the line is being read rather than scanned */
+.bbavail{ font-size: var(--fs-14); }
+
+/* ---------- the state, and the word carries it -------------------------------
+   Colour reinforces, it never replaces: the stand's own anatomy has said so
+   since it was written, and it is why «out» is a quiet grey rather than the
+   danger red - an empty shelf is a fact, not an error.
+   `--text-info` exists for exactly one of these (`.pre`) and nothing else in the
+   product reads it: 2 uses, both this component. */
+.pavail.in,  .lavail.in,  .hd-av,     .bbavail    { color: var(--text-success); }
+.pavail.low, .lavail.low                          { color: var(--text-warning); }
+.pavail.pre, .lavail.pre                          { color: var(--text-info); }
+.pavail.out, .lavail.out, .bbavail.out            { color: var(--text-secondary); }
+
+/* ---------- the dot is a SHAPE, and it had been typed 107 times --------------
+   Every one of these lines started with a `●` character sitting in the markup:
+
+     <div class="pavail in">● В наявності</div>
+
+   107 of them across 17 coloured screens, and a 108th written as CSS in
+   status-pill.css (`content: "● "`). So one dot had three editions - typed,
+   generated, and `.hdots i`, which is the only one that was ever a shape.
+
+   WHY THIS IS THE SAME DEFECT STEPS 7.8-7.12 CLOSED FOR THE BUTTON. A typed
+   sign is read aloud: a screen reader says «black circle В наявності». It
+   cannot take a size of its own - measured, Inter's `●` is 5.16px of ink at the
+   12px rung and 6.02px at the 14px rung, so one meaning was two sizes for no
+   reason anyone chose. And it cannot be told apart from the word by anything,
+   which is why removing it from the text is the whole fix.
+
+   6px, ONE VALUE, and it is derived rather than picked: 5.16 and 6.02 are what
+   the glyph gave at the two rungs, and 6 is the whole number between them. The
+   12px rung gains 0.84px of dot and the 14px rung loses 0.02. Both are listed
+   in the step's log.
+
+   `currentColor`, so the dot follows the state without a second colour rule -
+   four states, four selectors, not eight. `--space-4` is the gap the space
+   character was already producing: measured 3.9px ink-to-word, and the token is
+   4. `vertical-align: middle` puts the dot's centre on the x-height midline,
+   which is within half a pixel of where the glyph's ink sat. */
+.pavail::before, .lavail::before, .hd-av::before, .bbavail::before,
+.oh-status.ok::before, .oh-status.go::before, .oh-status.wait::before,
+.aord-status::before{
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: var(--radius-circle);
+  background: currentColor;
+  margin-right: var(--space-4);
+  vertical-align: middle;
 }
