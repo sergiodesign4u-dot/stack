@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Картка товару | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Картка товару</h1>
+<p class="kp-lead">Найповторюваніша поверхня продукту: 198 штук на 17 кольорових екранах. Два варіанти однієї картки - сіткою і списком, - і до цього кроку вони були двома різними компонентами з однією назвою.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/product-card.css</span><span class="kp-tag">245 рядків</span><span class="kp-tag">53 селектори</span><span class="kp-tag">184 сіткою · 14 списком</span><span class="kp-tag">17 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - та сама, що на <code>listing.html</code> і <code>listing-list.html</code>, скопійована рядок у рядок. Стенд на вигаданій розмітці показує намір, а не компонент.</p>
+<div class="kp-demo" style="background:var(--bg-sunken)">
+  <div class="kp-lbl">сіткою · .pcard</div>
+  <div style="max-width:260px;margin-bottom:24px">
+    <article class="pcard"><a href="#" class="ph">фото<span class="tag">Популярне</span></a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Optimum Nutrition · США</div>
+        <a href="#" class="nm">Gold Standard 100% Whey 2270 г</a>
+        <div class="pavail in">В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div><span class="pnew">1 290 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+      </div>
+    </article>
+  </div>
+  <div class="kp-lbl">списком · .pcard-l</div>
+  <article class="pcard-l" style="margin-bottom:24px">
+    <a href="#" class="lph">фото<span class="tag">Новинка</span></a>
+    <div class="lbd">
+      <div class="lbrand">Optimum Nutrition · США</div>
+      <a href="#" class="lnm">Gold Standard 100% Whey 2270 г</a>
+      <div class="lavail in">В наявності</div>
+      <div class="lmeta"><span class="st">★ 4.8</span> · 126 відгуків · <b>18 ₴</b>/порція · +13 ₴ бонус</div>
+    </div>
+    <div class="lprice-col">
+      <div class="lold-row"><span class="lold">1 520 ₴</span><span class="lcut">−15%</span></div>
+      <div class="lprice">1 290 ₴</div>
+    </div>
+    <div class="lactions">
+      <button class="btn--text lfav" aria-label="В обране">♡</button>
+      <button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button>
+    </div>
+  </article>
+  <div class="kp-lbl">товару немає · .pcard.dim</div>
+  <div style="max-width:260px">
+    <article class="pcard dim"><a href="#" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Power Pro · Україна</div>
+        <a href="#" class="nm">BCAA 2:1:1 Powder 500 г</a>
+        <div class="pavail out">Немає в наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">890 ₴</span></div><button class="btn--outline btn--icon cartbtn notify" aria-label="Повідомити">🔔</button></div>
+        <div class="rate"><span class="st">★ 4.6</span> · 41 відгук</div>
+        <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+9 ₴ бонус</span></div>
+      </div>
+    </article>
+  </div>
+</div>
+<div class="kp-cap">третя картка несе <code>.dim</code> - фото і рядок ціни на <code>opacity: .5</code>. Товар лишається читаним і перестає запрошувати, а дія міняється з кошика на дзвінок</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Фото</b> - <code>.ph</code> / <code>.lph</code>. У сітці плаваючий знімок у боксі 10/11, який під курсором розбухає з 80% до 86%; у списку мініатюра 84px, вписана <code>contain</code>. Різні роботи, тому різні посадки</span></div>
+  <div class="a"><i>2</i><span><b>Мітка</b> - <code>.tag</code>, пришпилена до кута фото. Картка вирішує <b>де</b> вона стоїть, атом <code>badge.css</code> - як виглядає</span></div>
+  <div class="a"><i>3</i><span><b>Бренд</b> - <code>--text-brandline</code>. Роль, відчеканена саме під цей рядок, щоб він міг піти своїм шляхом, не тягнучи за собою всі приглушені підписи</span></div>
+  <div class="a"><i>4</i><span><b>Назва</b> - посилання на товар і найбільше слово в картці. У сітці резервує два рядки (<code>min-height: --size-44</code> плюс клемп), бо картки в сітці мусять вирівнюватись між собою; у списку не резервує нічого</span></div>
+  <div class="a"><i>5</i><span><b>Наявність</b> - атом <code>availability.css</code>, чотири стани</span></div>
+  <div class="a"><i>6</i><span><b>Ціна</b> - атом <code>price.css</code>. Знижена йде в акцент за правилом власника <code>:has()</code>, а не тому що хтось пофарбував її руками</span></div>
+  <div class="a"><i>7</i><span><b>Дія</b> - <code>.cartbtn</code>, кнопка з <code>button.css</code>. У сітці стоїть у рядку з ціною, у списку - у власній колонці разом із серцем</span></div>
+  <div class="a"><i>8</i><span><b>Підвал</b> - ціна за порцію і бонус. Обидві цифри моноширинні, бо це цифри</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Дві картки відповідали курсору по-різному</div>
+<p class="kp-p">Заміряно решателем по розібраному CSSOM, а не наведенням мишею: у headless-браузері <code>:hover</code> не піднімається, і перевіряти стан там, де його не буває, - це перевіряти нічого.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Під курсором</th><th>сіткою</th><th>списком до 7.43</th><th>списком тепер</th></tr></thead><tbody>
+<tr><td><b>Край</b></td><td><code>--line-action</code></td><td><code>--line-strong</code></td><td><b><code>--line-action</code></b></td></tr>
+<tr><td><b>Назва</b></td><td><code>--text-action</code></td><td><b>нічого</b> - мертвий селектор</td><td><b><code>--text-action</code></b></td></tr>
+<tr><td><b>Тінь</b></td><td>1 -&gt; 2</td><td>немає -&gt; 2</td><td>без змін</td></tr>
+<tr><td><b>Підйом</b></td><td><code>translateY(-3px)</code></td><td>немає</td><td>немає, і це відмова</td></tr>
+<tr><td><b>Фото</b></td><td>80% -&gt; 86%</td><td>не рухається</td><td>не рухається</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Край - це власне «ось ця» картки</b>, і в системи на це рівно один колір. Решта трьох відмінностей залишились, і кожна - це поверхня, яка сперечається, а не дрейф: колонка піднятих смуг читається як зламаний список, а не як глибина; чотирнадцять тіней спокою поспіль - шум; мініатюрі 84px нікуди розбухати.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Селектор, який не збігався ні з чим</div>
+<p class="kp-p"><code>.pcard-l .nm</code> - назва списочної картки зветься <code>.lnm</code>. Заміряно на 23 екранах × три ширини: <b>нуль елементів</b>, на обох рядках - і на переході, і на ховері. Тобто акцент на наведення був поведінкою сіткової картки, яку файл вважав, що дав обом.</p>
+<p class="kp-p">Це <b>третій раз за етап</b>: сердце списочної картки на 7.42, лічильник кошика на 7.42, назва тут. Усі три - правило, написане на два імені, з яких існує одне. І всі три знайшлись тим, що браузера спитали, які селектори не збігаються ні з чим, а не читанням файлу.</p>
+<div class="kp-code">/* було */  .pcard .nm, .pcard-l .nm:hover{ color:var(--text-action); }
+/* стало */ .pcard .nm, .pcard-l .lnm:hover{ color:var(--text-action); }</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>край <code>--line-hair</code>, у сітці <code>--elevation-1</code></td><td>картка лежить на сторінці, а не над нею</td></tr>
+<tr><td><b>наведення</b></td><td>край <code>--line-action</code>, тінь <code>--elevation-2</code>, назва в акцент</td><td>одна відповідь на обидва варіанти - з 7.43</td></tr>
+<tr><td><b><code>.dim</code></b></td><td><code>opacity: .5</code> на фото і на рядку ціни</td><td>товар, якого немає: картка залишається читаною, але перестає запрошувати</td></tr>
+<tr><td><b>натискання</b></td><td><b>немає, і це відмова</b></td><td>картка не є контролем - контроли всередині неї (серце, кошик, назва) мають власні стани. Затемнити всю картку означало б сказати, що натиснули на неї, а не на те, у що цілились</td></tr>
+<tr><td><b>фокус</b></td><td><b>немає на самій картці</b></td><td>картка не бере табстоп: його беруть три посилання й дві кнопки всередині, і кожне має власне кільце</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Розкладка</b></td><td><code>.pcard</code> сіткою · <code>.pcard-l</code> списком</td><td>Перемикач вигляду на лістингу. Сітка показує фото, список - рядок порівняння: у ньому ціна стоїть у власній колонці праворуч, щоб чотирнадцять цифр вишикувались одна під одною.</td></tr>
+<tr><td><b>Щільність</b></td><td>620px для сітки · 560px для списку</td><td>Дві різні точки, бо ламаються різні речі: у сітки - кегль назви й ціни на вузькій колонці, у списку - чотириколонковий грид, який під 560 стає двоколонковим.</td></tr>
+<tr><td><b>Мітка</b></td><td>0 або 1</td><td>Правила «скільки міток на картку» немає, і в продукті їх ніколи не більше однієї. Етап 09.</td></tr>
+<tr><td><b>Стан наявності</b></td><td>4 - є · мало · передзамовлення · немає</td><td>Атом <code>availability.css</code>. Картка вирішує тільки, де рядок стоїть.</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Скрізь, де товар треба показати <b>у переліку</b>: лістинг, головна, схожі товари, обране, апсел у кошику й в оформленні. На сторінці самого товару картки немає - там працює <b>Блок покупки</b>, бо там товар один і рішення про нього приймають, а не порівнюють.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Два варіанти однієї картки - один компонент з однією анатомією.</b> Частина, що робить ту саму роботу, бере те саме обличчя й той самий набір станів. Розходитись можуть щільність і розкладка - і тільки там, де за це відповідає поверхня.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не давай варіанту власний стан.</b> Якщо список відповідає на курсор інакше, ніж сітка, людина вчить дві картки замість однієї - а це та сама картка, просто повернута боком.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>32</b> власних класів і <b>3</b> стани оголошено в <code>product-card.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["pcard","pcard-l","ph","lph","tag","bd","lbd","pbrand","lbrand","nm","lnm","pavail","lavail","prow2","pcol","poldline","lold-row","pold","lold","pnew","lprice","lprice-col","pcut","lcut","rate","st","pmeta2","perserv","bonus","lmeta","lactions","dim"], KIT_STS=[":hover", ".dim", "--line-action"];</script>
+<p class="kp-p">Цей контроль щойно себе виправдав: <b><code>.packlabel</code> і його <code>figcaption</code> пішли з файлу</b> - це були єдині два класи, які демо картки не могло відрендерити, бо вони не картка. <code>.packlabel</code> - це <code>&lt;figure&gt;</code> навколо знімка етикетки на сторінці товару; 38 правил для всього, що <b>всередині</b> нього, уже лежали в <code>spec-table.css</code>, а обгортка - ні.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>product-card.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (12)</th><th>Примітиви (22)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--elevation-1</code> <code>--elevation-2</code> <code>--line-action</code> <code>--line-hair</code> <code>--text-action</code> <code>--text-body</code> <code>--text-bonus</code> <code>--text-brandline</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-mono</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fs-20</code> <code>--fs-24</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-flat</code> <code>--lh-snug</code> <code>--ls-lead</code> <code>--radius-8</code> <code>--radius-12</code> <code>--size-20</code> <code>--size-44</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;article class="pcard"&gt;
+  &lt;a href="product.html" class="ph"&gt;фото&lt;span class="tag"&gt;Популярне&lt;/span&gt;&lt;/a&gt;
+  &lt;button class="btn--text btn--icon fav" aria-label="В обране"&gt;♡&lt;/button&gt;
+  &lt;div class="bd"&gt;
+    &lt;div class="pbrand"&gt;Optimum Nutrition · США&lt;/div&gt;
+    &lt;a href="product.html" class="nm"&gt;Gold Standard 100% Whey 2270 г&lt;/a&gt;
+    &lt;div class="pavail in"&gt;В наявності&lt;/div&gt;
+    &lt;div class="prow2"&gt;…ціна…&lt;button class="btn--accent btn--icon cartbtn"&gt;&lt;/button&gt;&lt;/div&gt;
+    &lt;div class="rate"&gt;&lt;span class="st"&gt;★ 4.8&lt;/span&gt; · 126 відгуків&lt;/div&gt;
+    &lt;div class="pmeta2"&gt;&lt;span class="perserv"&gt;…&lt;/span&gt;&lt;span class="bonus"&gt;…&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</div>
+<p class="kp-p">Список несе ті самі частини під іменами з <code>l</code>: <code>.lph</code> <code>.lbd</code> <code>.lbrand</code> <code>.lnm</code> <code>.lavail</code> <code>.lprice</code>. Злиття імен - Крок 6, після етапу 09.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.pcard</code> <code>.pcard-l</code></p>
+<p class="kp-p">Заміряно в браузері на 390, 620 і 1280: <b>184 сіткою</b> і <b>14 списком</b> на 17 кольорових екранах - лістинг і його стани, головна в трьох ролях, обране, кабінет, апсел у кошику й в оформленні, схожі товари на сторінці товару.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Обличчя мітки виводиться з її слова.</b> <code>design/_nav.js:444</code> читає текст мітки і додає <code>tag-pop</code> або <code>tag-new</code> за регуляркою <code>/попул|хіт|хит|бестсел/</code>. У розмітці <b>всі 26 міток голі</b> - <code>&lt;span class="tag"&gt;</code>. Отже без JS усі 26 - неоформлений текст у кутку фото, а нове слово («Вибір покупців») мовчки лишиться без пілюлі. Рядок інтерфейсу вирішує візуальний стан, хоча ці два шари проєкт розвів навмисно</li>
+<li><b>Мітка списочної картки - 8.5px</b>, останній кегль поза шкалою в цьому файлі. Додати ступінь чи підняти до 10 - рішення про значення</li>
+<li><b>Немає правила «скільки міток на картку»</b> - сьогодні їх ніколи не більше однієї, і це збіг, а не правило</li>
+<li><b><code>.nm</code> і <code>.tag</code> носять по два значення</b> в продукті. Крок 6</li>
+<li><b>Немає стану «завантажується» у самої картки</b> - скелет малює <code>skeleton.css</code> окремою розміткою, тож картка й те, що стоїть замість неї, - дві різні речі</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script>
+(function(){
+  document.querySelectorAll('[data-brand]').forEach(function(e){
+    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
+  });
+  document.querySelectorAll('[data-glyph]').forEach(function(e){
+    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
+  });
+})();
+</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+</main>
+<!-- The badge's kind, the cart glyph and the product photograph are all put on by
+     `design/_nav.js` at load, exactly as they are on a screen. A stand that shows
+     the shape and not the behaviour proves half of the component. -->
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivStarify(); uivCurrency(); uivFav();</script>
+<script src="_nav.js"></script>
+</body>
+</html>

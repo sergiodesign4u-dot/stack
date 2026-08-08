@@ -5536,3 +5536,135 @@ Unchanged and still open from 7.41: the ledger column clipped at 360 (finding 4)
 two dead tokens (5, 6), the ten names (7), `.addr-tag` at 3.13:1 (8), the chevron
 with no size of its own (9), `.pf-val`'s four editions (10) and `.chip` with no
 instances (11).
+
+---
+
+## Step 7.43: the card that was two cards
+
+The first molecule after the breadcrumb, and the one every atom step kept walking
+into: 7.36 left the price's owner rule here, 7.36b the discount chip's 10px, 7.37 a
+badge that went white when the atom took over, 7.42 the list heart's hover. Four
+steps patched the line they tripped over. This one looks at the card.
+
+**198 of them on 17 of 39 coloured screens** - 184 grid and 14 list - which makes it
+the most repeated surface in the product after the price itself.
+
+### The rule
+
+**Two variants of one card are one component with one anatomy.** A part that does
+the same job in both takes the same face and the same states. What may differ is
+density and layout, and only where the surface argues for it.
+
+### Found
+
+**1. A selector that matched nothing, and it was a state.**
+`.pcard-l .nm` - a list card's title is `.lnm`. Measured over 23 screens x 3 widths:
+**zero elements**, on both lines, the transition and the hover. So the accent on
+hover was a grid-card behaviour the file believed it had given to both, and the
+largest word in a list row - the thing a finger aims at - did not answer the cursor.
+
+Third instance this stage of one shape: **a rule written for two names where only
+one of them exists.** The list heart at 7.42, the counter's parents at 7.42, the
+title here. All three were found by asking the browser which selectors match
+nothing, and none of them by reading the file.
+
+**2. The two cards answered the cursor with two different sentences.**
+
+| under the cursor | grid | list, before | list, now |
+|---|---|---|---|
+| edge | `--line-action` | `--line-strong` | `--line-action` |
+| title | `--text-action` | nothing (dead selector) | `--text-action` |
+| shadow | 1 -> 2 | none -> 2 | unchanged |
+| lift | `translateY(-3px)` | none | none, and it is a refusal |
+| photograph | 80% -> 86% | does not move | does not move |
+
+The edge is the card's own «this one», and the system has exactly one colour for
+that. **The other three stay**, and each is the surface arguing rather than drift: a
+column of raised strips reads as a broken list rather than as depth, fourteen
+resting shadows in a row is noise, and an 84px thumbnail has nowhere to swell into.
+
+**3. `--text-brandline` existed for this line and the grid card was not taking it.**
+The grid read `--text-muted`, the list read the role - while the token's own comment
+in tokens.css names `.pcard .pbrand` as one of its seven readers, which was not
+true. Same `--warm-600` today, so nothing moves; what changes is that the brand line
+can go its own way later without dragging every tertiary caption with it, which is
+the only reason a second name for one value is worth having.
+
+**4. Two declarations that were dead the day they were written.** `.pcard.dim .ph{
+opacity: .5 }` written twice, and `.pcard-l .lnm{ color: var(--text-body) }` written
+twice - same property, same value, one file. And `.pcard:hover` was two halves in
+two places with the whole colour block between them; it is one rule now.
+
+**5. `.pcard-l .fav .uiv-ic` and its svg matched nothing** - the list heart is
+`.lfav`. Both were in a selector list beside the name that does exist, so the file
+had been describing a control that is not there.
+
+**6. `.packlabel` was not a card, and the stand's idle check is what said so.**
+Two of this file's 33 classes could not be rendered in a card demo because they are
+not a card: `.packlabel` is the `<figure>` around the pack shot on the PDP. It
+renders on `product.html` and `product-coach.html`, **0 times inside a `.pcard`**,
+and the 38 rules for everything INSIDE it were already in spec-table.css. The
+wrapper has gone there too. Values untouched: measured after the move, the figure
+still reads `16px 0 0` and its caption 12px `--text-muted` at `margin-top: 8`.
+
+This is what the idle check was built for and the first time it has moved a class
+between files. Same family as `.gnote` at 7.37 and `.sep` at 7.39.
+
+### A/B
+
+**163 491 elements, 40 pages x THREE viewports (390 / 620 / 1280)** - the third
+width added because the card has two breakpoints of its own, 620 for the grid and
+560 for the list, and a two-width pass never looks between them.
+
+| | differences |
+|---|---|
+| HEAD vs HEAD, identical procedure | **33** - every one `.skpulse` opacity mid-breath, plus the two spinners |
+| HEAD vs working tree | **57** |
+
+The noise floor grew because `opacity` joined the compared properties and the
+skeleton's pulse is a running animation. Subtracting it: **21 real differences, all
+of them `A.lnm` gaining `transition-property: color` where it had the initial
+`all`** - the list title's transition arriving. Seven cards x three widths.
+
+Everything else in the step is a hover state, a same-value role swap or dead code,
+so **the A/B seeing nothing else is the result, not the absence of one.** The hover
+work was verified with the CSSOM solver against both ports instead:
+
+| | HEAD | working tree |
+|---|---|---|
+| `.pcard-l .lnm` colour | hover **NONE** | `--text-action` |
+| `.pcard-l` edge | `--line-strong` | `--line-action` |
+| `.pcard .nm`, `.pcard` | unchanged | unchanged |
+| `.pcard .pbrand` | `--text-muted` | `--text-brandline` |
+| selectors in the file | 58 | **53** |
+
+### The stand
+
+`design/kit/product-card.html`, the showcase's **second molecule**. Built on the
+card markup copied line for line out of `listing.html` and `listing-list.html`, and
+it loads `design/_nav.js` so the badge, the cart glyph and the photograph arrive the
+way they do on a screen rather than being drawn by the page.
+
+Three demos - grid, list, and a `.dim` card that is out of stock - and the idle
+check passes: **all 32 classes rendered, 3 states named.** 360: no overflow, 0 JS
+errors. All 24 stands still pass their own check.
+
+Registry and hub updated: molecules **2 / 27**.
+
+### Found, not fixed
+
+**The badge's face is derived from its Ukrainian wording at runtime.**
+`design/_nav.js:444` reads the text of `.pcard .ph .tag` and adds `tag-pop` or
+`tag-new` by regex - `/нов/` and `/попул|хіт|хит|бестсел/`. In the markup **all 26
+badges are bare**: `<span class="tag">`. Two consequences, both measured: without
+JavaScript all 26 render as unstyled text pinned to the corner of a photograph,
+because the card gives them `position: absolute` and nothing else; and a new word
+that the regex does not know - «Вибір покупців» - silently loses its pill. An
+interface string is deciding a visual state, and this project separates those two
+layers on purpose: strings belong to `voice/docs/microcopy.md`, and what a thing
+looks like belongs to the component. Writing the kind into the markup is a sweep
+across six screens, which is Крок 6's shape rather than this step's.
+
+Still open on this component: the list badge's 8.5px (the last off-scale size in the
+file), no rule for how many badges a card may carry, and `.nm` and `.tag` each
+carrying two meanings in the product.

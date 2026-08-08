@@ -197,7 +197,7 @@ window.KIT_NAV = [
    {
     "label": "Картка товару",
     "page": "product-card.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Банер",

@@ -96,3 +96,14 @@
 .spectbl td b{ font-family:var(--font-mono); font-weight:var(--fw-semibold); color:var(--text-body); }
 .dl .dk{ color:var(--text-muted); }
 .dl .dv{ color:var(--text-body); }
+
+/* ---------- the pack label's own wrapper - arrived at 7.43 --------------------
+   `.packlabel` is the `<figure>` this whole panel sits in, and its caption is the
+   «* Добова норма...» line under it. Both were in product-card.css, which is where
+   the product-card stand's idle check found them: two of that file's 33 classes
+   that a card demo could not render, because they are not a card. Measured before
+   moving: `.packlabel` renders on `product.html` and `product-coach.html` and 0
+   times inside a `.pcard`, while the 38 rules for everything INSIDE it were
+   already here. Values untouched - this is a move, not a decision. */
+.packlabel{ margin: var(--space-16) 0 0; }
+.packlabel figcaption{ font-size: var(--fs-12); color: var(--text-muted); margin-top: var(--space-8); }

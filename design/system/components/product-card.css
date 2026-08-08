@@ -125,7 +125,8 @@
 .pcard:nth-of-type(3n+1) .ph{ background-image:url(../../visuals/product-whey.png); }
 .pcard:nth-of-type(3n+2) .ph{ background-image:url(../../visuals/product-creatine.png); }
 .pcard:nth-of-type(3n)   .ph{ background-image:url(../../visuals/product-preworkout.png); }
-.pcard.dim .ph{ opacity:.5; }
+/* 7.43: `.pcard.dim .ph{ opacity: .5 }` stood here and the structure block above
+   already says it for `.ph` and `.prow2` together. One of the two was always dead. */
 .pcard .bonus{ color:var(--text-bonus); font-weight:var(--fw-bold); }
 /* step 7.36: five colour lines left this block for price.css - the two prices'
    ink, the two struck prices' grey, and BOTH copies of the locked owner rule
@@ -133,23 +134,42 @@
    in total. DESIGN-artifacts.md:65 says that rule is data-driven «so the colour
    cannot drift from the fact»; it is one selector list now, which is the only
    shape that sentence is true in. */
-.pcard-l .lnm{ color:var(--text-body); }
+/* 7.43: `.pcard-l .lnm{ color: var(--text-body) }` stood here AND thirty lines
+   down, same property, same value, in one file. The second one is the survivor
+   because it sits with the size. */
 .pcard-l .lph{ background:var(--bg-page) center/contain no-repeat; color:transparent; }
 .pcard-l:nth-of-type(3n+1) .lph{ background-image:url(../../visuals/product-whey.png); }
 .pcard-l:nth-of-type(3n+2) .lph{ background-image:url(../../visuals/product-creatine.png); }
 .pcard-l:nth-of-type(3n)   .lph{ background-image:url(../../visuals/product-preworkout.png); }
 .pcard{ box-shadow:var(--elevation-1); }
 .pcard{ transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
-.pcard:hover{ transform:translateY(-3px); box-shadow: var(--elevation-2); }
+/* 7.43: the grid card's hover was written as two halves in two places - the lift
+   and the shadow here, the accent edge sixty lines down, with the whole colour
+   block between them. One state, one rule. */
+.pcard:hover{ transform:translateY(-3px); box-shadow: var(--elevation-2); border-color: var(--line-action); }
 .pcard .ph{ transition:background-size .28s ease; }
 /* step 6.10: the saved mark - ink, fill and stroke - is a state of the button
    and lives in button.css. Three files described it; one does now. */
+/* ---------- and the two cards answer the cursor with one sentence - 7.43 ------
+   The list row read `--line-strong` where the grid card reads `--line-action`, so
+   the same gesture on the same object said «this one» in orange on a grid and in
+   grey on a list. The edge is the card's own «you are on this», and this system
+   has exactly one colour for that.
+
+   THE OTHER THREE DIFFERENCES STAY, and each is the surface arguing, not drift:
+   the row does not LIFT (a column of raised strips reads as a broken list, not as
+   depth), it carries no resting shadow (fourteen of them stacked is noise), and
+   its photograph does not swell (an 84px thumbnail has nowhere to swell into).
+   What both do share is the shadow rung under the cursor, which they already did. */
 .pcard-l{ transition:box-shadow .18s ease, border-color .18s ease; }
-.pcard-l:hover{ box-shadow: var(--elevation-2); border-color:var(--line-strong); }
-.pcard-l .fav .uiv-ic svg, .pcard-l .lfav .uiv-ic svg{ width:18px; height:18px; }
+.pcard-l:hover{ box-shadow: var(--elevation-2); border-color:var(--line-action); }
+/* 7.43: `.pcard-l .fav .uiv-ic` and its svg were in both of these lists and matched
+   nothing on any screen at any width - a list card's heart is `.lfav`, and `.fav`
+   never appears inside one. Measured over 23 screens x 3 widths before deleting. */
+.pcard-l .lfav .uiv-ic svg{ width:18px; height:18px; }
 /* the wrapper too, not only the drawing: the mark sits in an 18px box that the
    row measured, and a 24px wrapper around an 18px svg overflows it */
-.pcard-l .fav .uiv-ic, .pcard-l .lfav .uiv-ic{ width:18px; height:18px; }
+.pcard-l .lfav .uiv-ic{ width:18px; height:18px; }
 .pcard{ border-radius:var(--radius-12); border-color:var(--line-hair); }
 .pcard .ph{ background-size:80%; }
 .pcard:hover .ph{ background-size:86%; }
@@ -161,7 +181,14 @@
    two lines down. Dead since before this stage.
    `top`/`left` stay - they are the card pinning the badge to its photo. */
 .pcard .tag{ top:11px; left:11px; }
-.pcard .pbrand{ font-size:var(--fs-12); color:var(--text-muted); margin-bottom:var(--space-4);
+/* 7.43: `--text-brandline`, not `--text-muted`. The role was minted for exactly
+   this line and its comment in tokens.css names `.pcard .pbrand` as one of its
+   seven readers - which was not true: the grid card read muted and only the list
+   card's `.lbrand` took the role. Same `--warm-600` today, so nothing moves; what
+   changes is that a brand line can go its own way later without dragging every
+   tertiary caption in the product with it, which is the whole reason the token
+   exists as a second name for one value. */
+.pcard .pbrand{ font-size:var(--fs-12); color:var(--text-brandline); margin-bottom:var(--space-4);
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .pcard .nm{ font-size:var(--fs-16); font-weight:var(--fw-semibold); color:var(--text-body); line-height:var(--lh-snug); margin-bottom:var(--space-12); min-height:var(--size-44); }
 .pcard .pnew{ font-size:var(--fs-24); letter-spacing:var(--ls-lead); }
@@ -188,11 +215,28 @@
 .pcard-l{ border-radius:var(--radius-12); border-color:var(--line-hair); }
 .pcard-l .lnm{ font-size:var(--fs-16); color:var(--text-body); }
 .pcard-l .lprice{ font-size:var(--fs-20); letter-spacing:var(--ls-lead); }
-.pcard:hover{ border-color:var(--line-action); }
-.pcard .nm, .pcard-l .nm{ transition:color .15s ease; }
-.pcard .nm:hover, .pcard-l .nm:hover{ color:var(--text-action); }
-.packlabel{ margin:var(--space-16) 0 0; }
-.packlabel figcaption{ font-size:var(--fs-12); color:var(--text-muted); margin-top:var(--space-8); }
+/* ---------- the title is a link and both cards say so - 7.43 ------------------
+   `.pcard-l .nm` matched NOTHING. A list card's title is `.lnm`, so for as long as
+   these two lines have existed the accent-on-hover was a grid-card behaviour that
+   the file believed it had given to both. Measured over 23 screens x 3 widths:
+   zero elements, on either line. The list title is the largest word in its row and
+   the thing a finger is aiming at; it now answers like the grid's.
+
+   The same shape as 7.42's list heart and 7.42's counter: a rule written for two
+   names where only one of them exists. Third time this stage, and all three were
+   found by asking the browser which selectors match nothing rather than by
+   reading. Крок 6 folds `.nm` and `.lnm` into one name and this line loses half
+   of itself. */
+.pcard .nm, .pcard-l .lnm{ transition:color .15s ease; }
+.pcard .nm:hover, .pcard-l .lnm:hover{ color:var(--text-action); }
+/* 7.43: `.packlabel` and its `figcaption` went to spec-table.css, and the stand's
+   idle check is what found them: they are the only two classes this file declares
+   that a card demo could not render, because they are not a card. `.packlabel` is
+   the `<figure>` around the pack shot on the PDP - it renders on `product.html`
+   and `product-coach.html`, 0 times inside a `.pcard`, and the 38 `.pl-*` rules
+   for everything INSIDE it were already in spec-table.css. One block, two files,
+   and the wrapper was in the wrong one. Same shape as `.gnote` at 7.37 and `.sep`
+   at 7.39. */
 /* step 7.27: `.pcard .rate .uiv-star svg, .pcard-l .lmeta .uiv-star svg{ 13px }`
    left this file. 13 was not the card's number, it was «the 12px row plus one» -
    the same arithmetic `.bb .bbrate` and `.rvmeta` had arrived at independently
