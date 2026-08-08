@@ -5906,3 +5906,129 @@ in this log.
   mark in the catalogue overlay. 7.21 separated them BY ELEMENT because the markup
   already says which is which in both layers; the second meaning renders 0 times in
   colour (the overlay is opened by JS). The guard stays. Крок 6 renames.
+
+---
+
+## Step 7.46: the spec table, and a correction to two earlier steps
+
+Fifth molecule. 64 selectors, no dead ones, **two screens** - `product` and
+`product-coach` - and it is the most important component in the product by
+principle 1: composition, dosage, origin and allergens are how trust is proved
+rather than claimed.
+
+### It is not one table. It is three, plus a mock of the pack
+
+| `.ctable` | composition: substance, per serving, % DV |
+| `.spectbl` | specs: key and value, zebra |
+| `.pl-t` | nutrition facts INSIDE the pack-label mock |
+| `.pl-*` + `.packlabel` | a dark packaging panel: its own table, a three-up «how to use», the ingredient list and a footer with the batch |
+
+Same shape as the banner at 7.44: an organism filed under a molecule's name.
+Splitting it is Крок 6, for the same reason.
+
+### Three tables, three ways of saying «this cell is a number»
+
+| `.ctable td:nth-child(2), td:nth-child(3)` | **by column index** |
+| `.spectbl td b` | **by markup** |
+| `.pl-t td:last-child` | **by position** |
+
+Three tables in one file and three different ways to say the same thing. **A
+positional selector breaks the moment a column is added**: put «per 100 g» between
+the first and the second and the mono face slides onto the substance name. The
+markup way does not have that failure. Reconciling them means agreeing on how the
+markup is written, so it goes to stage 09 rather than being decided here.
+
+### The correction: tabular-nums does nothing on a monospaced face
+
+**Measured in the browser rather than reasoned.** The string `1111 8888` at 20px:
+
+| IBM Plex Mono | **108px** with `tabular-nums`, **108px** without |
+| Inter | **109.13px** with, **87.66px** without |
+
+Every glyph in a monospaced font is the same width by definition, so the property
+has nothing to change there.
+
+This corrects two earlier steps. **7.36** wrote that `.hd-old` was «the only struck
+price of eight rendering proportional digits» and **7.40** that `.cbsave` «gained
+tabular figures». The inconsistency each found was real - one selector in a set
+saying something its siblings did not - but **the visible consequence they claimed
+was not**. The declarations are harmless; the A/B rows they produced were changes in
+computed style with no rendered effect. Neither step's edit is wrong; the reason
+given for it was.
+
+**What does change a figure's width is `word-spacing`**, and the system has
+**20 selectors in 11 files with four values**: -0.1em, -0.16em, -0.2em, -0.24em.
+Inside this file alone, `.ctable`'s figures are kerned -0.24em while `.spectbl td b`
+and `.pl-t td:last-child` are not kerned at all. A ladder with no rungs, and a
+values decision with an owner in stage 09.
+
+### Two dead pieces, and one class in the wrong file
+
+**An `@media (min-width: 720px)` block was declared twice, byte for byte** - once in
+the structure section and once in the colour section, the same four declarations on
+`.pl-panel` and the same one on `.pl-foot`. Read out of the CSSOM: two identical
+blocks in the style tree.
+
+The surviving one is the LATER one, and not by preference: `.pl-panel`'s base rule
+sits between them and sets `gap: var(--space-16)`, so at equal specificity only the
+block after it still wins the gap at 720. Deleting the wrong one would have moved
+the panel's gutter from 24 to 16. Verified after: gap 24, two columns, `.pl-foot`
+still `1 / -1`.
+
+**`.spectbl td{ border-bottom-color: var(--line-hair) }`** restated what the
+structure block four rules up already says as `border-bottom: 1px solid
+var(--line-hair)`.
+
+**`.dl` / `.dk` / `.dv` went to order-row.css.** They are not a spec table: measured
+across 39 coloured screens, **19 instances, every one on `account-orders.html`**
+inside `.ob-del < .ob-side < .ob-grid < .ord-body`, and **0 on `product.html`**. A
+key over a value - «Спосіб доставки» above «Нова Пошта · відділення» - which takes
+the same 12/caps/`--ls-caps` eyebrow the tables' `th` takes, which is why it looked
+at home there. What it is not is a column header.
+
+**This is the second time the stand's idle check has moved a class between files**:
+7.43 sent `.packlabel` here out of product-card.css, and this step sends the
+definition list out. Values untouched both times; order-row.css loads earlier than
+this file and nothing else declares `.dl`, so the cascade does not move. Verified
+after: 19 rows, key 12px muted uppercase at 0.48px, value 14px ink 600 at
+`margin-top: 4` - identical to before.
+
+### A/B
+
+**119 940 elements, 27 pages x 3 viewports** (390 / **720** / 1280 - 720 because
+that is the pack panel's own breakpoint), run three times.
+
+| | differences |
+|---|---|
+| HEAD vs HEAD | **0** |
+| HEAD vs working tree | **0** |
+
+Pixel-identical, which is the whole outcome of a step whose every change was dead
+code or a move. The loading screens were left out of the page list this time, which
+is why the floor is 0 rather than the skeleton pulse's usual 30-odd.
+
+### The stand
+
+`design/kit/spec-table.html`, the showcase's **fifth molecule**. Five demos on
+markup copied line for line out of `product.html`, including the whole pack label.
+`uivPdp()` cannot run on a stand - its root is `main.wf-page` and a stand is
+`main.kp-main` - so the page repeats the two lines it needs from the same source,
+`uivWrap()` out of `design/system/icons.js`, rather than pasting the paths.
+
+Idle check passes: **all 22 classes rendered, 3 states named.** 360: no overflow, 0
+JS errors. All 27 stands pass. Molecules **5 / 27**.
+
+### Withdrawn on verification
+
+**`.pl-hw .pl-ic:empty` is not dead.** Three icons, zero empty today because
+`_nav.js` fills them - but without JavaScript the rule draws a 26x26 bordered box
+where each icon would be. A fallback, not a leftover.
+
+### Found, not fixed
+
+- **Two greys for two table headers**: `.ctable th` takes `--text-muted`, `.pl-t th`
+  takes `--text-secondary`, at the same 12px, 700, uppercase and `--ls-caps`. One
+  reader each, no majority - so it is a values decision, not a licence to invent.
+- **No «no data» state.** If a product has no composition filled in, the table
+  simply does not render and the page says nothing. For a product whose first
+  principle is trust, an empty composition is not emptiness - it is a signal.

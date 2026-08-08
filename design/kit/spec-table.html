@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Таблиця складу | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Таблиця складу</h1>
+<p class="kp-lead">Найважливіший компонент продукту за принципом 1: склад, дозування, походження й алергени - це те, чим довіра доводиться, а не заявляється. І це не одна таблиця, а три, плюс макет самої етикетки.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/spec-table.css</span><span class="kp-tag">115 рядків</span><span class="kp-tag">64 селектори</span><span class="kp-tag">3 таблиці + етикетка</span><span class="kp-tag">2 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Три таблиці, і кожна каже «тут число» по-своєму</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Таблиця</th><th>Що показує</th><th>Як позначено цифру</th></tr></thead><tbody>
+<tr><td><code>.ctable</code></td><td>склад: речовина, на порцію, % ДН</td><td><b>за номером колонки</b> - <code>td:nth-child(2), td:nth-child(3)</code></td></tr>
+<tr><td><code>.spectbl</code></td><td>характеристики: ключ і значення</td><td><b>за розміткою</b> - <code>td b</code></td></tr>
+<tr><td><code>.pl-t</code></td><td>поживна цінність усередині етикетки</td><td><b>за позицією</b> - <code>td:last-child</code></td></tr>
+</tbody></table></div>
+<p class="kp-p">Три таблиці в одному файлі й три різні способи сказати те саме. <b>Позиційні селектори ламаються тієї миті, коли в таблицю додають колонку</b>: додайте «на 100 г» між першою і другою - і моноширинна гарнітура поїде на назву речовини. Розмітковий спосіб <code>.spectbl</code> цього не має. Звести їх - етап 09, бо це рішення про те, як пишеться розмітка, а не про CSS.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>product.html</code>, скопійована рядок у рядок.</p>
+<div class="kp-demo">
+  <div class="kp-lbl">склад · .ctable</div>
+  <div class="kp-scroll" style="margin-bottom:24px"><table class="ctable">
+    <tr><th>Речовина</th><th>На порцію (30 г)</th><th>% добової норми</th></tr>
+    <tr><td><b>Білок</b></td><td>24 г</td><td>48%</td></tr>
+    <tr><td>BCAA</td><td>5.5 г</td><td>-</td></tr>
+    <tr><td>Вуглеводи</td><td>3 г</td><td>1%</td></tr>
+    <tr><td>Жири</td><td>1.5 г</td><td>2%</td></tr>
+  </table></div>
+  <div class="kp-lbl">повний склад · .fullcomp</div>
+  <p class="fullcomp" style="margin-bottom:24px"><b>Повний склад:</b> суміш сироваткового протеїну (концентрат, ізолят, гідролізат), какао, ароматизатори, лецитин, підсолоджувачі (сукралоза).</p>
+  <div class="kp-lbl">алергени · .allerg</div>
+  <p class="allerg" style="margin-bottom:24px"><span class="algic"></span><b>Алергени:</b> <span class="algv">МОЛОКО, СОЯ</span></p>
+  <div class="kp-lbl">характеристики · .spectbl</div>
+  <div class="kp-scroll" style="margin-bottom:24px"><table class="spectbl">
+    <tr><td>Бренд</td><td><b>Optimum Nutrition</b></td></tr>
+    <tr><td>Країна</td><td><b>США</b></td></tr>
+    <tr><td>Вага</td><td><b>2270 г</b></td></tr>
+    <tr><td>Порцій в упаковці</td><td><b>72</b></td></tr>
+  </table></div>
+  <div class="kp-lbl">етикетка · .packlabel .pl-panel</div>
+  <figure class="packlabel">
+    <div class="pl-panel">
+      <div class="pl-facts">
+        <div class="pl-h">Поживна цінність</div>
+        <div class="pl-serv">75 порцій в упаковці<br><b>Порція 30 г (1 мірна ложка)</b></div>
+        <div class="pl-cal"><span>Калорійність</span><b>120 ккал</b></div>
+        <table class="pl-t">
+          <tr><th>На порцію</th><th>% ДН*</th></tr>
+          <tr><td><b>Білок</b> 24 г</td><td>48%</td></tr>
+          <tr><td>Вуглеводи 3 г</td><td>1%</td></tr>
+          <tr><td>Жири 1.5 г</td><td>2%</td></tr>
+        </table>
+        <div class="pl-note">* Відсоток добової норми за раціоном 2000 ккал.</div>
+      </div>
+      <div class="pl-right">
+        <div class="pl-how">
+          <div class="pl-hw"><span class="pl-ic"></span><b>30 г</b><span>1 мірна ложка</span></div>
+          <div class="pl-hw"><span class="pl-ic"></span><b>250-300 мл</b><span>вода або молоко</span></div>
+          <div class="pl-hw"><span class="pl-ic"></span><b>30 секунд</b><span>розмішати</span></div>
+        </div>
+        <div class="pl-ing">
+          <b>СКЛАД:</b> суміш сироваткового протеїну, какао, ароматизатори, лецитин, підсолоджувачі.
+          <div class="pl-alg"><b>МІСТИТЬ:</b> МОЛОКО, СОЯ.</div>
+        </div>
+      </div>
+      <div class="pl-foot">
+        <span class="pl-mark"></span>
+        <span>Виробник: Optimum Nutrition, США · Імпортер: ТОВ «Стек», Одеса</span>
+        <span>Партія L-2270 · Придатний до 09.2027</span>
+      </div>
+    </div>
+    <figcaption>Так склад надруковано на упаковці - цифри ті самі, що в таблиці вище</figcaption>
+  </figure>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Склад</b> - три колонки, цифри моноширинні й кернені на −0.24em, бо в них є пробіли розрядів</span></div>
+  <div class="a"><i>2</i><span><b>Повний склад</b> - суцільний текст на приглушеній підкладці. Не таблиця: це юридичний рядок з упаковки, і читають його підряд</span></div>
+  <div class="a"><i>3</i><span><b>Алергени</b> - <code>--bg-notice</code> і бурштин. Не червоне: це не помилка, а факт, який мусить бути помітним</span></div>
+  <div class="a"><i>4</i><span><b>Характеристики</b> - ключ ліворуч на 200px, значення праворуч жирним. Зебра по непарних рядках замість лінії між ними</span></div>
+  <div class="a"><i>5</i><span><b>Етикетка</b> - темна панель із діагональним плетінням: вона має читатись як упаковка, а не як ще одна картка інтерфейсу. Усередині - своя таблиця, «як приймати» на три колонки, склад і підвал з партією</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов замір, а не читання</div>
+<div class="kp-gap"><h4>tabular-nums на моноширинній нічого не робить</h4>
+<p class="kp-p">Заміряно в браузері: рядок <code>1111 8888</code> при 20px у <b>IBM Plex Mono</b> має ширину <b>108px і з <code>font-variant-numeric: tabular-nums</code>, і без нього</b>. У Inter та сама строка дає <b>87.66</b> проти <b>109.13</b>.</p>
+<p class="kp-p">Це поправка до двох попередніх кроків. 7.36 писав, що <code>.hd-old</code> був «єдиною з восьми закреслених цін, що малює пропорційні цифри», а 7.40 - що <code>.cbsave</code> «отримав табличні цифри». <b>Неузгодженість була справжня, видимого наслідку в неї не було</b>: у моноширинної гарнітури всі гліфи однакової ширини за визначенням, і властивість нічого не змінює. Оголошення нешкідливе, але рахувати його дефектом не можна.</p></div>
+<div class="kp-do"><h4>А ось що змінює ширину насправді</h4>
+<code>word-spacing</code> - і в системі його <b>20 селекторів у 11 файлах із чотирма значеннями</b>: −0.1em, −0.16em, −0.2em, −0.24em. Усередині цього файлу цифри <code>.ctable</code> кернені на −0.24em, а <code>.spectbl td b</code> і <code>.pl-t td:last-child</code> не кернені взагалі. Драбина без ступенів - етап 09.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>усе, що є</td><td>таблиця складу нічого не робить - вона показує</td></tr>
+<tr><td><b>наведення</b></td><td><b>немає, і це відмова</b></td><td>у таблиці немає цілей: жодна клітинка не клікається. Підсвітити рядок означало б пообіцяти дію, якої немає</td></tr>
+<tr><td><b>зебра</b></td><td><code>.spectbl tr:nth-child(odd)</code> - <code>--bg-surface</code></td><td>дев'ять рядків по два стовпці читаються впоперек, і смуга веде око краще за лінію</td></tr>
+<tr><td><b>без JS</b></td><td><code>.pl-hw .pl-ic:empty</code> малює рамку 26x26</td><td>іконки «як приймати» ставить <code>_nav.js</code>. Сьогодні порожніх нуль - але правило не мертве, це запасний шлях</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Етикетка</b></td><td>720px</td><td>Під 720 панель - один стовпець; від 720 - два, 1.05fr проти 1fr, бо ліворуч таблиця з цифрами, а праворуч блоки, і таблиці треба трохи більше.</td></tr>
+<tr><td><b>Ширина ключа</b></td><td><code>.spectbl td:first-child</code> - 200px</td><td>Фіксована, щоб значення в дев'яти рядках стали в стовпець. Єдина фіксована ширина в цьому файлі.</td></tr>
+<tr><td><b>Прокрутка</b></td><td><code>.kp-scroll</code> навколо таблиці</td><td>Три колонки з довгими назвами речовин не стискаються нижче свого змісту. На 360 таблиця прокручується всередині себе, а сторінка - ні.</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Тільки на сторінці товару, у вкладці «Склад». Це найпряміший інструмент принципу 1 - <b>довіра спершу, потім продаж</b>: людина, яка боїться побічних ефектів, приходить сюди й має піти звідси з відповіддю, а не з рекламою.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Цифра має бути звіряною.</b> Те, що надруковано на упаковці, і те, що написано на сторінці, - одні й ті самі числа в однаковому вигляді. Саме тому макет етикетки стоїть під таблицею, а не замість неї.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не позначай цифру позицією.</b> <code>td:nth-child(2)</code> означає «моноширинна там, де сьогодні число». Додайте колонку - і правило почне фарбувати слова.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>22</b> власних класи і <b>3</b> стани оголошено в <code>spec-table.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["ctable","fullcomp","allerg","algic","algv","spectbl","packlabel","pl-panel","pl-facts","pl-h","pl-serv","pl-cal","pl-t","pl-note","pl-right","pl-how","pl-hw","pl-ic","pl-ing","pl-alg","pl-foot","pl-mark"], KIT_STS=[":empty", "nth-child(odd)", "720px"];</script>
+<p class="kp-p">Цей контроль уже вдруге пересунув клас між файлами: на 7.43 він відправив <code>.packlabel</code> сюди з <code>product-card.css</code>, а на цьому кроці - <code>.dl</code> / <code>.dk</code> / <code>.dv</code> звідси в <code>order-row.css</code>. Заміряно: <b>19 екземплярів, усі на <code>account-orders.html</code></b> у панелі деталей замовлення, і <b>0</b> на сторінці товару.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>spec-table.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (18)</th><th>Примітиви (23)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-inverse-soft</code> <code>--bg-inverse-tint</code> <code>--bg-notice</code> <code>--bg-surface</code> <code>--fade-page</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-notice</code> <code>--line-oninverse-soft</code> <code>--line-strong</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-oninverse</code> <code>--text-oninverse-muted</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-warning</code></td><td><code>--font-display</code> <code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-24</code> <code>--fw-semibold</code> <code>--fw-bold</code> <code>--fw-black</code> <code>--lh-flat</code> <code>--lh-snug</code> <code>--lh-airy</code> <code>--ls-caps</code> <code>--ls-lead</code> <code>--radius-4</code> <code>--radius-8</code> <code>--radius-12</code> <code>--size-26</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;table class="ctable"&gt;
+  &lt;tr&gt;&lt;th&gt;Речовина&lt;/th&gt;&lt;th&gt;На порцію (30 г)&lt;/th&gt;&lt;th&gt;% добової норми&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Білок&lt;/b&gt;&lt;/td&gt;&lt;td&gt;24 г&lt;/td&gt;&lt;td&gt;48%&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;table class="spectbl"&gt;
+  &lt;tr&gt;&lt;td&gt;Бренд&lt;/td&gt;&lt;td&gt;&lt;b&gt;Optimum Nutrition&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</div>
+<p class="kp-p">У <code>.ctable</code> перший рядок - <code>th</code>, і решта рядків без <code>thead</code>: таблиця маленька, а зайвий рівень нічого не додає ані очам, ані скринрідеру, який читає <code>th</code> як заголовок і без нього.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.ctable</code> <code>.spectbl</code> <code>.packlabel</code></p>
+<p class="kp-p">Заміряно в браузері на 390, 720 і 1280: по одній кожної на <b>двох</b> кольорових екранах - <code>product</code> і <code>product-coach</code>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Два сірих у заголовків таблиць</b>: <code>.ctable th</code> бере <code>--text-muted</code>, <code>.pl-t th</code> - <code>--text-secondary</code>, при однакових 12px, 700, капсі й <code>--ls-caps</code>. По одному читачу в кожного, більшості немає - тож це рішення про значення, а не привід його вигадати</li>
+<li><b><code>word-spacing</code>: чотири значення в 11 файлах</b> - див. вище</li>
+<li><b>Три способи позначити цифру</b> - за колонкою, за розміткою, за позицією. Звести їх означає домовитись, як пишеться розмітка</li>
+<li><b>Немає стану «даних немає»</b> - якщо в товару не заповнений склад, таблиця просто не рендериться, і сторінка про це не каже нічого. Для продукту, у якого довіра - принцип 1, порожній склад це не порожнеча, а сигнал</li>
+<li><b>Файл тримає чотири різні речі</b>: три таблиці й макет упаковки на 30+ правил. Той самий вид, що банер. Розбити - Крок 6</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script>
+(function(){
+  document.querySelectorAll('[data-brand]').forEach(function(e){
+    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
+  });
+  document.querySelectorAll('[data-glyph]').forEach(function(e){
+    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
+  });
+})();
+</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+</main>
+<!-- the allergen mark and the three «how to use» icons come from `design/_nav.js`,
+     exactly as they do on a screen: a stand that shows the shape and not the
+     behaviour proves half of the component. -->
+<script src="../_nav.js"></script>
+<script>
+uivChrome();
+/* `uivPdp()` is what fills these two on a screen, and it cannot run here: its root
+   is `main.wf-page` and this page is `main.kp-main`. So the stand repeats the two
+   lines it needs, from the SAME source - `uivWrap()` out of `design/system/icons.js`
+   - rather than pasting the paths. A second edition of the icon set is exactly what
+   this stage spent two steps deleting. */
+(function(){
+  if (typeof uivWrap !== 'function') return;
+  var algic = document.querySelector('.allerg .algic');
+  if (algic && !algic.firstChild) algic.innerHTML = uivWrap('alert');
+  ['jar', 'cup', 'clock'].forEach(function(key, i){
+    var ic = document.querySelectorAll('.pl-hw .pl-ic')[i];
+    if (ic && !ic.firstChild) ic.innerHTML = uivWrap(key);
+  });
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

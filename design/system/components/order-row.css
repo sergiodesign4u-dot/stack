@@ -69,3 +69,19 @@
 @media (max-width: 640px){
   .oh-drop{ border-color:var(--line-strong); }
 }
+
+/* ---------- the order's definition list - arrived at 7.46 ---------------------
+   `.dl` / `.dk` / `.dv` were in spec-table.css, where they had been since the
+   step-3 split. They are not a spec table: measured across 39 coloured screens,
+   **19 instances, every one on `account-orders.html`** inside
+   `.ob-del < .ob-side < .ob-grid < .ord-body` - the panel that opens under an
+   order - and **0 on `product.html`**, which is the only place a spec table lives.
+
+   A key over a value: «Спосіб доставки» above «Нова Пошта · відділення». The key
+   takes the same 12/caps/`--ls-caps` eyebrow the tables' own `th` takes, which is
+   why it looked at home in that file; what it is not is a column header.
+   Values untouched - this is a move, not a decision. Same shape as `.packlabel`
+   at 7.43, and it is the second class this pass has found filed under a component
+   it does not belong to. */
+.dl .dk{ font-size: var(--fs-12); text-transform: uppercase; letter-spacing: var(--ls-caps); font-weight: var(--fw-bold); color: var(--text-muted); }
+.dl .dv{ font-size: var(--fs-14); font-weight: var(--fw-semibold); margin-top: var(--space-4); line-height: var(--lh-snug); color: var(--text-body); }

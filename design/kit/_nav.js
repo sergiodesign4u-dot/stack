@@ -207,7 +207,7 @@ window.KIT_NAV = [
    {
     "label": "Таблиця складу",
     "page": "spec-table.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Смуга довіри",
