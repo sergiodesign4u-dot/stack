@@ -2,7 +2,32 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+
+   TWO THINGS THIS FILE DOES NOT YET OWN, both found at step 7.33 and both left
+   for the checkbox's own step rather than absorbed into a press-state pass:
+
+   1. THE ATOM IS DECLARED TWICE. Here it is scoped to `.optin` - one instance,
+      the marketing opt-in in the sign-up dialog - and the other 175 instances
+      are the filter panel's, declared again in filter-group.css (9 rules, a
+      level-2 file). One 18px box, two owners, and the level-1 file holds the
+      rarer one. Same shape as the chip row that lived in link-row.css until
+      7.30b. The merge is this atom's step, not this one.
+
+   2. THE FILTER PANEL HAS NO KEYBOARD AND NO SCREEN READER. Read out of the
+      runtime DOM, not the source, because the panel is built by script:
+
+        <label class="fopt"><span class="cb"></span> В наявності <span class="ct">71</span></label>
+
+      There is no `<input>`. A `<label>` wrapping nothing labels nothing, so
+      there is no role, no `aria-checked`, and no tab stop: on `listing.html`
+      50 filter options render and 11 tabbable elements exist in the whole
+      filter rail, none of them a checkbox. The control IS live - a click was
+      dispatched at 7.33 and the class went `cb` -> `cb on` - which makes this
+      the same defect `.ord-tab` had at 7.31 and `.sw` at 7.32: fully wired to
+      a mouse, absent from every other way in. It is 50 controls on four
+      screens and it is bigger than the step that found it, so it is named here
+      and queued, not quietly half-fixed. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .optin{ display: flex; align-items: flex-start; gap: var(--space-12); font-size: var(--fs-14); margin: var(--space-16) 0 var(--space-4); }
@@ -15,3 +40,22 @@
 .optin .cb{ transition:border-color .15s ease, background .15s ease; }
 .optin:hover .cb{ border-color:var(--line-action); }
 .optin .cb.on{ background:var(--bg-action); border-color:var(--line-action); }
+
+/* ---------- press - step 7.33 ------------------------------------------------
+   THE LABEL IS PRESSED, THE BOX ANSWERS. `:active` does not reach descendants,
+   so `.cb:active` would only fire on a direct hit of the 18px square - which is
+   most of this control's problem, not its solution: the whole row is the target
+   and the whole row is what a finger lands on. The same shape the hover above
+   already uses, one line down.
+
+   BOTH CONTAINER NAMES, ONE RULE. `.fopt` belongs to filter-group.css and is
+   named here because that is where the 175 instances are, and because the atom
+   answering to two container names is what stepper.css and stack-action.css
+   already do for the same reason - the names also live in `wireframes/`, frozen
+   since stage 05, so adding is safe and renaming is a Крок 6 item.
+
+   The checked box goes one step darker rather than soft: it already rests on
+   `--bg-action`, exactly like the accent button, and takes the accent button's
+   pressed ground. */
+.optin:active .cb, .fopt:active .cb{ background: var(--bg-action-soft); }
+.optin:active .cb.on, .fopt:active .cb.on{ background: var(--bg-action-pressed); border-color: var(--bg-action-pressed); }

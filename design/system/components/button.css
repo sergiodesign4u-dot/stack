@@ -123,6 +123,42 @@
 .btn--ghost:focus-visible,
 .btn--text:focus-visible{ outline: none; box-shadow: var(--ring-focus-control); }
 
+/* ============================================================================
+   THE PRESS ANSWER, AND IT IS THE GROUND - step 7.33
+
+   This rule is written here because this file was the only one in the system
+   that had one. Counted in the browser across the 39 coloured screens: 3 854
+   controls a finger can actually reach, and 503 of them answer a press. Every
+   single one is a button. The other 3 351 do nothing under the finger - and 52
+   of those families DO answer a mouse, so the answer exists, it was just
+   written for the wrong device. On a product whose primary device is a phone,
+   `:hover` is the state that never fires.
+
+   The set already followed a rule. It had simply never been said in one place:
+
+     a control with a ground     the ground goes one step toward the accent -
+                                 --bg-action-soft, or --bg-action-pressed where
+                                 the ground is already the accent
+     a control that is only type nothing. Twelve lines into `--text` below:
+                                 type that jumps under the finger is worse than
+                                 no answer at all
+     a control that lifts        the lift drops (`--lift:active`, further down)
+
+   NO NEW VALUE. Both grounds have been in tokens.css since step 5.5 and were
+   named for exactly this - `--bg-action-pressed` was extracted at 5.5 as «the
+   only pressed state in the product, and it had no name». It has six more now.
+
+   Who took the rule at 7.33: chip, view-toggle, radio, checkbox, stepper,
+   stack-action, switch. Who took the REFUSAL: link-row, and it is written into
+   that file rather than left as an absence somebody fills in later.
+
+   VERIFIED ON A TOUCH DEVICE, not assumed: 390 x 844, `hasTouch`, a real
+   `touchscreen.tap()` on `.btn--accent` put the element in `:active` and the
+   ground read #E85200 against #FF5A00 at rest. iOS Safari has its own history
+   with `:active` and there is no iOS device in this session, so whether it
+   needs the empty `touchstart` listener is `[?]` and logged, not guessed at.
+   ============================================================================ */
+
 /* ---- size ---------------------------------------------------------------- */
 .btn--s{
   padding: var(--space-8) var(--space-12);
@@ -357,6 +393,16 @@
    rule distinguished. One quiet, and the finish carries it. */
 .btn--icon.btn--ghost, .btn--icon.btn--text{ color: var(--text-secondary); }
 .btn--icon.btn--ghost:hover, .btn--icon.btn--text:hover{ color: var(--text-action); }
+/* AND IT ANSWERS A PRESS WITH ITS BOX - step 7.33. `--text` refuses a press
+   state, and the reason it gives is about a WORD: the only thing left to move
+   would be the type. An icon button is not a word, and this file says so
+   itself six lines up, where it hands `--text --icon` a 44px box for the
+   finger. So the refusal written for a label had been quietly governing 92
+   marks that have a box to answer with - the heart on a card (86), the remove
+   from the wishlist (6) - and 86 of those sit on the listing, which is the
+   screen a phone spends the most time on. `--ghost --icon` is not in the
+   selector because `.btn--ghost:active` already gives it this same ground. */
+.btn--icon.btn--text:active{ background: var(--bg-action-soft); }
 .btn--icon .uiv-ic svg{ width: var(--size-20); height: var(--size-20); }
 .btn--icon.btn--s .uiv-ic svg{ width: 18px; height: 18px; }
 .btn--icon.btn--l .uiv-ic svg{ width: var(--size-24); height: var(--size-24); }

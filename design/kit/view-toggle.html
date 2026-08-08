@@ -85,10 +85,15 @@
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
 <p class="kp-p">Три: <code>.on</code>, <code>:hover</code> на неактивній половині і <code>:focus-visible</code>. Останній з'явився на кроці 7.32: прохід по всіх завантажених таблицях стилів у пошуку <code>outline</code> або <code>box-shadow</code> на <code>.vtoggle</code> повертав <b>порожній список</b>, тож вісім досяжних комірок показували типовий синій контур Chrome - те саме, що крок 7.31 знайшов у чипа.</p></section>
 
+<section class="kp-sec"><div class="kp-sh">Натиск <b>крок 7.33</b></div>
+<p class="kp-p">Тільки <b>та половина, що не обрана</b>. Натиск на половину, на яку ви вже дивитесь, ні про що не просить, а стану «нічого не змінилось» не буває. <code>--bg-action-soft</code>, а не <code>--bg-surface</code> наведення: натиск усюди в наборі тепліший за наведення, і на десктопі ці два стани мають розрізнятись, коли лягають на одну клітинку в одну секунду.</p>
+<p class="kp-p"><b>Шість інертних <code>&lt;span&gt;</code> сюди не входять.</b> Стан натиску на контролі, який нікуди не веде, - це обіцянка, яку цей файл сорока рядками вище пояснив, що не може виконати.</p>
+<div class="kp-cap">Зміряно дотиком: необрана клітинка <code>#FFFFFF -> #FFF9F5</code></div></section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>1</b> власний клас і <b>2</b> стани оголошено в <code>view-toggle.css</code>. Чужий контекст (<code>.on</code>, <code>.uiv-ic</code>) не рахується: у цих селекторах компонент не є підметом.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["vtoggle"], KIT_STS=[":hover",":focus-visible"];</script></section>
+<script>var KIT_CLS=["vtoggle"], KIT_STS=[":hover", ":focus-visible", ":active"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>view-toggle.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>

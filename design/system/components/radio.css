@@ -79,6 +79,22 @@
 .vopt:hover{ border-color: var(--line-inverse); }
 .co-opt.on:hover, .pf-lang.on:hover, .vopt.on:hover{ border-color: var(--line-action); }
 
+/* ---------- press: the ground, not the edge - step 7.33 ----------------------
+   Every state this family had moved a BORDER, and a border is a cursor answer:
+   1.5px changing shade is legible under a mouse pointer and invisible under a
+   thumb that is covering it. 38 instances on the phone - the delivery method,
+   the payment method, the flavour - and not one of them acknowledged a press.
+
+   The chosen rung is deliberately absent from the selector. `.co-opt.on` and
+   `.pf-lang.on` already REST on `--bg-action-soft`, so a press could not take
+   them anywhere; and pressing the option you have already picked is a no-op
+   that should not pretend otherwise. `.vopt.off` is out of stock and carries
+   `cursor: default` - it is excluded for the same reason the view toggle's
+   inert cells are. */
+.co-opt:not(.on):active,
+.pf-lang:not(.on):active,
+.vopt:not(.on):not(.off):active{ background: var(--bg-action-soft); }
+
 /* ---------- chosen: ONE edition, and it is the accent ----------------------- */
 .co-opt.on, .pf-lang.on{ border-color: var(--line-action); background: var(--bg-action-soft); }
 .vopt.on{ border-color: var(--line-action); background: var(--bg-page); color: var(--text-body);

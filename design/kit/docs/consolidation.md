@@ -4120,3 +4120,189 @@ overflow at 360 on both, 0 JS errors.
 - **Two editions of the switch**, with the class running opposite ways. Waits on a
   colour twin of `system.html`.
 - **No `:active`** on either component.
+
+## Step 7.33 - the press: 3 351 controls a finger touches and nothing answers
+
+The atom layer was 21 of 21 by the registry, and by one measure it was not finished
+at all. Every state this system had written was a state a MOUSE fires.
+
+### The census
+
+Browser, 39 coloured screens, outermost pressable element only (an icon inside a
+button is not a control), and only what a finger can actually reach - hit-testable
+box, `pointer-events` on, nothing at `opacity: 0` above it:
+
+```
+  11 630   pressable elements in the DOM
+   3 854   of them reachable right now
+     503   answer a press      13%   every one of them a button
+   3 351   answer nothing      87%
+```
+
+Then the same walk with `:hover` and `:active` forced in turn, 400ms after each
+force so the .15s transition has finished - the probe bug that has now bitten this
+stage five times:
+
+```
+  96 families
+  21   answer both   all buttons: --accent, --outline, --ghost
+  52   ANSWER A MOUSE AND NOT A FINGER
+  23   answer neither
+```
+
+**On a mobile-first product the feedback layer had been written for the secondary
+device.** `:hover` appears 131 times across 38 files. `:active` appeared 5 times
+across 2, and one of those five is `.btn--lift:active{ transform: none }`, a reset.
+
+### The rule, and it was already in the file
+
+`button.css` had both halves and had never said them in one place:
+
+| control | press answer |
+|---|---|
+| has a ground | one step toward the accent: `--bg-action-soft`, or `--bg-action-pressed` where the ground is already accent |
+| is only type | nothing. «Type that jumps under the finger is worse than no answer», step 7.8 |
+| lifts | the lift drops |
+
+**No new value.** Both grounds have been in `tokens.css` since 5.5, named for this
+job - `--bg-action-pressed` was extracted then as «the only pressed state in the
+product, and it had no name». It has six more now.
+
+### Who took it
+
+| file | selector | instances |
+|---|---|---|
+| `chip.css` | all eight names, and `.on` separately to `--bg-action-pressed` | 503 |
+| `button.css` | `.btn--icon.btn--text:active` | 92 |
+| `checkbox.css` | `.optin:active .cb`, `.fopt:active .cb` | 176 |
+| `stack-action.css` | `.btn--stack:active` | 238 |
+| `radio.css` | `.vopt` `.co-opt` `.pf-lang`, unchosen only | 38 |
+| `stepper.css` | `.ci-qty button` `.co-qty button` | 15 |
+| `view-toggle.css` | `.vtoggle > a:not(.on)` | 8 |
+
+**`.btn--text` refused a press for a reason about a WORD, and it was governing 92
+icon buttons.** `button.css` itself says `--text --icon` gets a 44px box for the
+finger, six lines above the refusal that then applied to it. 86 hearts on cards and
+6 wishlist crosses had no box state because a rule written for a label reached them.
+
+### Two refusals, written down rather than left as gaps
+
+- **`switch.css`.** The track is 44 x 26 and a fingertip covers it completely, so a
+  pressed ground is a state nobody on a phone can see. The .16s toggle IS the
+  answer, and a tint would fight it for the same 160ms. `--bg-action-pressed` was
+  the obvious value; the control cannot show it.
+- **`link-row.css`.** 601 links, the largest single family, and none get a press.
+  A text link has no ground, and its answer is the underline drawn AT REST. Written
+  into the file so the next pass does not read the gap as an oversight.
+
+### Two more controls still borrowing Chrome's ring
+
+Same sweep, same defect the chip had at 7.31: `.wf-tab` and `.ci-qty button` both
+returned `rgb(0, 95, 204) auto 1px` under `:focus-visible`. The tab bar takes the
+outset ring (the bar sets no `overflow`), the stepper key an inset one (its frame
+clips with `overflow: hidden`).
+
+### The tab bar is the sharpest instance
+
+`.wf-tab` at rest, hovered and pressed returned the identical computed style three
+times. Five tabs on 34 screens - the control touched more than any other in this
+product - acknowledged nothing. The hover was RIGHT to be absent; the press was the
+state a phone paints, and it was missing.
+
+### Verified by tap, not by DevTools
+
+A forced pseudo-state proves the CSS, not the platform. Touch context, 390 x 844,
+`hasTouch`, real `touchscreen.tap()`, polling `matches(':active')` every 8ms:
+
+```
+  .btn--accent    #FF5A00 -> #E85200      .flink       #FFFFFF -> #FFF9F5
+  .ptab <span>    #FFFFFF -> #FFF9F5      .ptab.on     #FF5A00 -> #E85200
+  .ord-tab        #FFFFFF -> #FFF9F5      .wf-tab      transparent -> #FFF9F5
+  .fopt .cb       transparent -> #FFF9F5  .fopt .cb.on #FF5A00 -> #E85200
+  .vopt           transparent -> #FFF9F5  .co-opt      #FFFFFF -> #FFF9F5
+  .vtoggle > a    #FFFFFF -> #FFF9F5      .fav         transparent -> #FFF9F5
+  .ci-qty button  transparent -> #FFF9F5
+  .sw             enters :active, ground unchanged   <- the declared refusal
+```
+
+`.sw` is the useful one: it proves a `<span>` DOES take `:active` on a tap, so the
+switch's silence is the decision and not a platform gap.
+
+**iOS Safari is `[?]`.** No iOS device in this session. Whether it needs an empty
+`touchstart` listener is logged, not guessed.
+
+### The probe bug, and the change it nearly caused
+
+`.ptab` came back never entering `:active` on a tap while `.ord-tab` beside it did.
+An empty `touchstart` listener was written into `design/_nav.js` as the fix. It
+changed nothing, because nothing was broken: `scrollIntoView` had not moved the page,
+the tap landed at `y: 1815` in an 844-tall viewport, and `elementFromPoint` there
+returns `null`. **The listener was removed before commit and `_nav.js` is unchanged
+in this step.** With the scroll driven properly `.ptab` behaves exactly like its
+twin. Fifth probe bug of the stage, first one that nearly shipped as a fix.
+
+### Proof
+
+**A/B against HEAD: 108 994 elements, 39 screens plus the hub, two viewports, cache
+cleared between passes. 414 differences in FOUR groups, every one declared:**
+
+| n | what |
+|---|---|
+| 340 | `.wf-tab` `border-radius: 0 -> 8px` - 5 tabs x 34 screens x 2 viewports |
+| 68 | `.wf-drawer` shadow `0 16px 34px/.13 -> --elevation-3` - the drift 7.26 logged |
+| 4 | `design/overview.html` `.foot-note a` off the browser's `#0000EE` |
+| 2 | `design/overview.html` `.sub a`, same |
+
+Every `:active` and `:focus-visible` rule is invisible at rest, which is what the
+zero elsewhere says. 0 overflow at 360 across all 40 screens. 0 JS errors.
+
+### The stands
+
+A press section on all ten touched stands, `:active` into `KIT_STS` where the file
+now declares it. Idle checks pass on all ten. `checkbox.html` had been failing at
+HEAD - it demoed only the `.fopt` edition and never `.optin`, the very split the
+step then found in the CSS - and now shows both side by side.
+
+**Six other stands report themselves incomplete, and were already failing at HEAD:**
+`availability` (`in`, `out`), `badge` (`gnote`), `counter` (`wl-count`), `discount`
+(`wtag`), `price` (`old`, `cpri`), `status-pill` (`aord-status`). Each belongs to
+its own atom's step. Counted here because nobody had counted them.
+
+### The hub was wrong about its own layer
+
+- **`stack-action.html` existed with no card**, so the atom layer read `21 / 21`
+  when `index.css` imports 22 files at level 1. Card added, header now `22 / 22`.
+- **`menu.css` had no card anywhere**, and `menu.html` was finished. Organisms now
+  `1 / 25`, not `0 / 24`.
+- **Nine line counts on the hub were stale**, `view-toggle` by 28 lines since 7.32.
+  Resynced from the files.
+
+### Also closed
+
+- **`geometry.html`** showed 44 of 49 tokens of its section. `--size-32`, `--size-52`,
+  `--size-62`, `--size-64` joined the size ladder and `--ring-focus-control` the ring
+  list, with their real counts (1, 6, 0, 1, 8) so the page does not report a live
+  token as unread. Idle check now passes.
+- **`.wf-drawer`** takes `--elevation-3`. 7.26 measured the drift and left it because
+  that step already carried a visible change; this one declares it.
+
+### Found, not fixed
+
+- **The filter panel has no keyboard and no screen reader.** `<label class="fopt">`
+  wraps a `<span class="cb">` and NO `<input>`: no role, no `aria-checked`, no tab
+  stop. 50 options on `listing.html`, 11 tabbable elements in the whole rail, none of
+  them a checkbox - and the control is live, a click moves `cb` to `cb on`. Same
+  shape as `.ord-tab` at 7.31 and `.sw` at 7.32, and bigger than the step that found
+  it. `uivCheckboxes()` is the shape of the answer.
+- **The checkbox atom is declared twice** - `checkbox.css` scoped to `.optin` (1
+  instance), `filter-group.css` for `.fopt` (175, 9 rules, level 2). The level-1 file
+  holds the rarer one.
+- **`.lfav` answers nothing**, while `.fav` and `.wlrm` both answer the cursor.
+  `product-card.css` pins its colour with five rules and loads after `button.css`.
+  7 instances, the product card's step.
+- **The pagination current-page chip cannot show a press** - `.pages a.on` at level 2
+  beats `.btn--outline:active` at level 1 on order. It is the page you are already on,
+  so arguably correct; noted rather than changed.
+- **`product-oos.html` still runs 12px sideways at 860-1076** and the grey
+  `wireframes/index.html` 26px at 900. Both verified identical at HEAD, both layout
+  work in an organism, neither is this step's.

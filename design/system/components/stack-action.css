@@ -118,6 +118,38 @@
    `currentColor` inside the caption, so it follows what the caption follows. */
 .btn--stack:hover .lbl, .btn--stack:hover .tl{ color: inherit; }
 
+/* ---------- the state the atom did NOT own, and had to - step 7.33 -----------
+   The block above ends by saying a tab bar declares no hover, and that a hover
+   state there is a state no phone will ever paint. Both true, and between them
+   they left the phone's own navigation with nothing at all: measured on
+   `listing.html`, `.wf-tab` at rest, under `:hover` and under `:active` returned
+   the identical computed style three times. Five tabs on 34 screens, the control
+   a person touches more than any other in this product, and it did not
+   acknowledge being touched.
+
+   The hover was right to be absent. The PRESS is the state a phone does paint,
+   and it is the one the bar was missing.
+
+   `--bg-action-soft`, per the rule in button.css. On the header instances this
+   changes nothing: they already carry `btn--ghost`, whose `:active` sets this
+   same ground - so the atom and the finish agree rather than one overriding the
+   other, and the A/B says so with zero differences there.
+
+   THE RADIUS IS NEW AND IT IS DECLARED. A tab is a fifth of the screen with no
+   corner of its own, so a press ground would land as a full-height rectangle
+   butted against its neighbours. `--radius-8` is the set's control corner and
+   the ghost finish already carries it, so the header is unchanged; on the tab it
+   is invisible until the ground appears underneath a finger.
+
+   AND THE RING WAS CHROME'S. `.wf-tab` reported `rgb(0, 95, 204) auto 1px` under
+   `:focus-visible` - the fourth atom caught borrowing it, after the chip (7.31),
+   the view toggle and the switch (7.32). Outset, not inset: the bar sets no
+   `overflow`, and a 44px tab is wide enough that an inset ring would read as a
+   box drawn around the caption. */
+.btn--stack{ border-radius: var(--radius-8); }
+.btn--stack:active{ background: var(--bg-action-soft); }
+.btn--stack:focus-visible{ outline: none; box-shadow: var(--ring-focus-control); }
+
 /* ---------- the counter ----------
    It sits on the MARK, because it counts what the mark stands for - a basket, a
    wishlist - and not on the caption, which only names it. */

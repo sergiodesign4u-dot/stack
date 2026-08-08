@@ -142,6 +142,31 @@
   outline: none; box-shadow: var(--ring-focus-control); border-radius: var(--radius-4);
 }
 
+/* ---------- press: NOTHING, and it is written here so it stays nothing -------
+   Step 7.33 went through every atom that can be pressed and gave the ones with
+   a ground an answer to a finger. This file is the largest set that gets none,
+   and the count is the reason it is worth a paragraph rather than an absence:
+   601 links matching this file's own selectors are reachable across the 39
+   coloured screens - more than any single control family - so a later pass
+   looking at «what still does not answer a press» will land here first and
+   hard.
+
+   A text link has no ground. The only thing left to move is the type, and
+   button.css settled that for `.btn--text` at step 7.8 in words this file has
+   no reason to improve on: type that jumps under the finger is worse than no
+   answer. Ink that changes is no better - it is the hover state fired twice,
+   and on touch it would flash once and stick until the next tap somewhere else.
+
+   THE UNDERLINE IS THE ANSWER, and it is drawn at rest. That is what the two
+   rungs above are for: a link says it is a link before it is touched, which is
+   the state a finger actually needs. A control that only admits what it is
+   while a cursor is over it is the thing this file fixed at 7.30.
+
+   `.ln-review`, `.ob-receipt` and `.afilters .clear` are links by every rule in
+   this file and are included in the refusal even though each has a box-shaped
+   neighbour that took the press ground. What a thing IS decides, not what it
+   happens to sit beside. */
+
 /* ---------- the SEO link, and it is neither rung -----------------------------
    Inside a paragraph of SEO copy a link that announced itself would turn the
    text into a list of links. So it carries NO underline and NO colour until

@@ -47,6 +47,17 @@ h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing
   font-size:.92rem; color:var(--ink-2); max-width:78ch}
 .foot-note b{color:var(--ink)}
 .foot-note code{font-family:"IBM Plex Mono",monospace; font-size:.82em; color:var(--muted)}
+/* step 7.33. Three links on this page rendered at #0000EE - the browser's own
+   blue, on the hub of a design system whose whole subject is that nobody has to
+   guess a value. This page carries its own style block on purpose: it does not
+   load `system/index.css`, so `link-row.css` never reaches it. That makes THIS
+   the right place for the rule, not an exception to it. The loud rung's shape,
+   in this page's own variables: ink, bold, underlined at rest, accent under the
+   cursor. The 38 screen cards are not touched - each one colours its own two
+   spans, so the anchor's inherited blue was never visible on them. */
+.sub a, .foot-note a{color:var(--ink); font-weight:600; text-decoration:underline;
+  text-underline-offset:2px; transition:color .15s ease}
+.sub a:hover, .foot-note a:hover{color:var(--orange)}
 .backrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:22px}
 .backrow a{font-size:13px; font-weight:600; color:var(--d-accent); text-decoration:none; border:1px solid var(--d-border); border-radius:8px; padding:8px 14px; background:#fff; transition:border-color .15s, color .15s}
 .backrow a:hover{border-color:var(--orange); color:var(--orange)}  .invtab { background:#fff; border:1px solid #E9E7E2; border-radius:12px; overflow:auto; margin:16px 0 18px; }

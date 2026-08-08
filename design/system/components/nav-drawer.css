@@ -33,13 +33,14 @@
 .wf-drawer{ position: fixed; z-index: 29; left: 0; right: 0; top: var(--dr-top, 56px); bottom: 57px;
   background: var(--bg-page); overflow-y: auto; -webkit-overflow-scrolling: touch;
   border-top: 1px solid var(--line-hair);
-  /* NOT `--elevation-3` (0 14px 34px / .12), and the near-miss is deliberate
-     until somebody measures it: this is 0 16px 34px / .13. Two numbers apart
-     from the token that describes exactly this job - «a layer that opens over
-     the page and stays attached to it». Left as found and logged as drift at
-     7.26 rather than changed in passing, because a shadow is a visible thing
-     and this step already carries one visible change (see `.car` below). */
-  box-shadow: 0 16px 34px rgba(0,0,0,.13);
+  /* --elevation-3 SINCE STEP 7.33, and 7.26 is the step that asked for this.
+     It found `0 16px 34px rgba(0,0,0,.13)` here - two numbers away from the
+     token that describes exactly this job, «a layer that opens over the page
+     and stays attached to it» - and left it alone on purpose, because a shadow
+     is a visible thing and that step already carried one visible change.
+     Measured now: 16 -> 14 and .13 -> .12, one element, and only while the
+     burger panel is open on a phone. Declared, not slipped in. */
+  box-shadow: var(--elevation-3);
   transform: translateY(-100%); visibility: hidden;
   transition: transform .22s ease, visibility 0s linear .22s; }
 .wf-drawer.open{ transform: translateY(0); visibility: visible; transition: transform .22s ease; }

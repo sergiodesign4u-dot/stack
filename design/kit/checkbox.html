@@ -41,12 +41,29 @@
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Показуй кількість заздалегідь.</b> Фільтр з нулем поруч нікого не заведе в порожній список.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби чекбокс для взаємовиключних варіантів.</b> Квадрат обіцяє, що можна поставити два. Обіцянку, яку інтерфейс не виконує, людина запам'ятає.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді є <code>.on</code>.</p></section>
+<p class="kp-p">Три: <code>.on</code> тримається на класі, тому він у списку класів; <code>:hover</code> і <code>:active</code> - у списку станів. Обидві редакції квадрата стоять поруч, бо їх дві і в коді.</p>
+<div class="kp-demo" style="display:flex;flex-direction:column;gap:var(--space-16);align-items:flex-start">
+  <label class="fopt" style="max-width:280px"><span class="cb"></span> В наявності <span class="ct">71</span></label>
+  <label class="fopt" style="max-width:280px"><span class="cb on"></span> Протеїн <span class="ct">124</span></label>
+  <label class="optin" style="max-width:420px"><span class="cb"></span><span>Хочу отримувати листи про акції та новинки. Можна вимкнути будь-коли.</span></label>
+</div>
+<div class="kp-cap">Зверху дві опції фільтра (<code>.fopt</code>, 175 екземплярів у продукті), знизу згода на розсилку (<code>.optin</code>, <b>один</b>). Квадрат той самий, оголошений двічі - див. нижче</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Натиск <b>крок 7.33</b></div>
+<p class="kp-p"><b>Тиснуть на підпис, відповідає квадрат.</b> <code>:active</code> не дістає до нащадків, тож <code>.cb:active</code> спрацювало б лише від прямого влучання у 18px - а це радше сама проблема цього контрола, ніж її розв'язок: мішень - увесь рядок, і палець приземляється саме на рядок. Та сама форма, яку <code>:hover</code> уже використовує рядком вище.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>У спокої</th><th>Під пальцем</th></tr></thead><tbody>
+<tr><td>порожній квадрат</td><td>прозорий</td><td><code>#FFF9F5</code></td></tr>
+<tr><td>позначений <code>.cb.on</code></td><td><code>#FF5A00</code></td><td><code>#E85200</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Обидва імені контейнера, одне правило.</b> <code>.fopt</code> належить <code>filter-group.css</code> і названий у <code>checkbox.css</code> тому, що саме там 175 із 176 екземплярів. Так само роблять <code>stepper.css</code> і <code>stack-action.css</code>, і з тієї самої причини: імена живуть і в замороженому сірому шарі, тож <b>додати</b> безпечно, а <b>перейменувати</b> - ні.</p>
+<div class="kp-pair"><div class="kp-dont"><h4>Атом оголошено двічі</h4>Тут він прив'язаний до <code>.optin</code> - <b>один</b> екземпляр, згода на розсилку в діалозі реєстрації. Решта <b>175</b> - панель фільтрів, оголошена ще раз у <code>filter-group.css</code>, 9 правил, файл рівня 2. Один квадрат 18px, два власники, і файл рівня 1 тримає рідкісніший. Та сама форма, що й рядок чипів, який жив у <code>link-row.css</code> до 7.30b.</div>
+<div class="kp-do"><h4>А панель фільтрів не має ні клавіатури, ні скрінрідера</h4>Прочитано з живого DOM, бо панель будує скрипт: <code>&lt;label class="fopt"&gt;&lt;span class="cb"&gt;&lt;/span&gt; В наявності&lt;/label&gt;</code>. Немає <code>&lt;input&gt;</code>. <code>&lt;label&gt;</code>, що обгортає ніщо, нічого не позначає: ні ролі, ні <code>aria-checked</code>, ні кроку табуляції. На <code>listing.html</code> - <b>50</b> опцій фільтра і <b>11</b> досяжних елементів у всій панелі, жоден з них не чекбокс. Контрол при цьому <b>живий</b>: клік переводить клас <code>cb -> cb on</code>. Це той самий дефект, що мав <code>.ord-tab</code> на 7.31 і <code>.sw</code> на 7.32.</div></div>
+<div class="kp-cap">Зміряно дотиком: порожній квадрат прозорий <code>-> #FFF9F5</code>, позначений <code>#FF5A00 -> #E85200</code></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>1</b> станів оголошено в <code>checkbox.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["cb", "on", "optin"], KIT_STS=[":hover"];</script></section>
+<script>var KIT_CLS=["cb", "on", "optin"], KIT_STS=[":hover", ":active"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>checkbox.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>

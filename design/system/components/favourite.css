@@ -27,3 +27,20 @@
    property of the card the mark happens to sit on. */
 .pcard .fav:focus-visible, .pcard .wlrm:focus-visible{
   outline: none; }
+
+/* THE PRESS IS NOT HERE EITHER, and that is the same argument - step 7.33.
+   `.fav` and `.wlrm` are `btn--text btn--icon`, so the ground they now show
+   under a finger is `.btn--icon.btn--text:active` in button.css, one rule for
+   all 92 marks. Nothing about it is this component's: where the mark sits on
+   the card is, what it says by colour is.
+
+   ONE FINDING TO CARRY OUT, and it is a molecule's: `.lfav`, the heart in a
+   list card, is the third edition of this mark and the only one that answers
+   NOTHING - not a cursor, not a finger. Measured on `listing-list.html`: `.fav`
+   and `.wlrm` both take `--text-action` under the cursor from
+   `.btn--text:hover`, and `.lfav` does not move, because product-card.css pins
+   its colour with five rules and loads after button.css. It is also `btn--text`
+   WITHOUT `btn--icon` - it has no box, since a list row has 12px of gap and
+   nowhere to take a 44px target from - so the press ground correctly does not
+   reach it either. Seven instances on one screen. It belongs to the product
+   card's step, not to this file. */

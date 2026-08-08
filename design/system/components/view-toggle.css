@@ -114,6 +114,15 @@
   color: var(--text-action);
 }
 .vtoggle > a:not(.on):hover{ color: var(--text-action); background: var(--bg-surface); }
+/* and the press, step 7.33. Only the cell that is NOT chosen: pressing the half
+   you are already looking at asks for nothing, and there is no state for «this
+   changed nothing». `--bg-action-soft` rather than the hover's `--bg-surface`,
+   because a press is warmer than a hover everywhere else in the set and the two
+   have to be told apart when they land on the same cell in the same second.
+   The six inert `<span>` cells are deliberately not here - a press state on a
+   control that leads nowhere is a promise this file spent forty lines above
+   explaining it cannot keep. */
+.vtoggle > a:not(.on):active{ background: var(--bg-action-soft); }
 
 /* ---------- focus, and the browser was drawing it ---------------------------
    A sweep of every loaded stylesheet for an `outline` or `box-shadow` on

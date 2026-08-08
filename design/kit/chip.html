@@ -114,10 +114,19 @@
 <div class="kp-cap">Tab по цій сторінці показує кільце <code>--ring-focus-control</code> - те саме, що в кнопки, поля, радіо й посилання. Миша його не запалює: правило стоїть на <code>:focus-visible</code>, а не на <code>:focus</code></div>
 <p class="kp-p"><b>Стану «недоступний» немає, і це відповідь, а не прогалина.</b> У продукті <b>нуль</b> чипів із <code>disabled</code>, <code>.off</code> чи <code>.disabled</code> - на жодному з 40 екранів, у жодному в'юпорті. Раніший запис «скопіювати <code>.vopt.off</code>» відкликано: <code>.vopt.off</code> існує тому, що смак справді буває розпроданий, а фільтр, який дасть нуль товарів, - випадок, якого в продукті поки немає. Намалювати його тут означало б вигадати стан. З'явиться випадок - форма для копіювання вже є.</p></section>
 
+<section class="kp-sec"><div class="kp-sh">Натиск <b>крок 7.33</b></div>
+<p class="kp-p">7.31 дав чипу кільце фокуса. Те, чого він не торкався, - відповідь на палець. <code>:hover</code> вище рухає <b>край і слово</b>, і це правильна відповідь курсору й ніяка відповідь пальцю: жоден із двох станів ніколи не спрацює на пристрої, під який цей продукт зроблено першим. Чип - найчисленніший контрол сайту, <b>503 екземпляри</b>, і до цього кроку він був також найчисленнішим контролом, що на натиск не відповідав нічим.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>У спокої</th><th>Під пальцем</th><th>Звідки значення</th></tr></thead><tbody>
+<tr><td>звичайний чип</td><td><code>#FFFFFF</code></td><td><code>#FFF9F5</code></td><td><code>--bg-action-soft</code>, те саме, що в <code>.btn--outline:active</code></td></tr>
+<tr><td>обраний чип <code>.on</code></td><td><code>#FF5A00</code></td><td><code>#E85200</code></td><td><code>--bg-action-pressed</code>, те саме, що в <code>.btn--accent:active</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Натиск - не те саме питання, що наведення.</b> Обраний чип навмисно не перефарбовується під курсором: акценту нема куди йти по акценту, і це читалось би як завантаження. У натиску є куди - на сходинку темніше. Без цього обраний чип був би єдиним мовчазним у сімействі, а це саме той, по якому тиснуть двічі: фільтр, який вимикають.</p>
+<div class="kp-cap">Зміряно справжнім дотиком у touch-контексті 390 x 844: <code>.flink</code> <code>#FFFFFF -> #FFF9F5</code>, <code>.ptab</code> (це <code>&lt;span&gt;</code>) <code>#FFFFFF -> #FFF9F5</code>, <code>.ptab.on</code> <code>#FF5A00 -> #E85200</code>. Не примусовий стан у DevTools, а тап</div></section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>16</b> власних класів і <b>2</b> псевдостани оголошено в <code>chip.css</code>. Обраний тримається на класі <code>.on</code>, тому він у списку класів, а не станів. Нижче - те, чого на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["chip", "dr-chip", "dr-chips", "hero-chips", "flink", "flinks", "ct", "mgchip", "ptab", "ord-tab", "cegoals", "on", "afilters", "afilter", "x", "clear"], KIT_STS=[":hover",":focus-visible"];</script></section>
+<script>var KIT_CLS=["chip", "dr-chip", "dr-chips", "hero-chips", "flink", "flinks", "ct", "mgchip", "ptab", "ord-tab", "cegoals", "on", "afilters", "afilter", "x", "clear"], KIT_STS=[":hover", ":focus-visible", ":active"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
 <div class="kp-code">&lt;span class="chip"&gt;Протеїн&lt;/span&gt;

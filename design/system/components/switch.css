@@ -74,3 +74,25 @@
   outline: none;
   box-shadow: var(--ring-focus-control);
 }
+
+/* ---------- and NO press state, which is a decision - step 7.33 --------------
+   Step 7.33 gave a press ground to every atom that had a ground to give. This
+   one is refused, and the reason is the measurement in the header: the track is
+   44 x 26. A fingertip's contact patch covers it completely, so a ground drawn
+   underneath is a state nobody on a phone can see - and this control exists on
+   `account-profile`, a phone screen.
+
+   The other atoms that took the rule are not in that position: a chip is a whole
+   pill of ground, a filter row is the width of the panel, a tab is a fifth of
+   the screen. The checkbox is 18px and still took it, because the target there
+   is the LABEL and the ground appears across the whole row beside the finger.
+   The switch has no such row - the track is the target.
+
+   What acknowledges the press here is the switch itself: ground and knob both
+   move in .16s the moment it is let go, which is a bigger answer than any
+   pressed tint would be. A tint would have to be drawn UNDER that transition
+   and would fight it for the same 160ms.
+
+   `--bg-action-pressed` was the obvious value and the reason it is not used is
+   not that it is wrong - it is that the control cannot show it. Written down so
+   the next pass does not read the gap as an oversight and fill it. */

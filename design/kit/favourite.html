@@ -48,6 +48,13 @@
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
 <p class="kp-p">У коді є <code>:hover</code> і <code>.on</code>.</p></section>
 
+<section class="kp-sec"><div class="kp-sh">Натиск <b>крок 7.33</b></div>
+<p class="kp-p"><code>.fav</code> і <code>.wlrm</code> - це <code>btn--text btn--icon</code>, тож землю під пальцем їм дає <code>.btn--icon.btn--text:active</code> у <code>button.css</code>: одне правило на всі <b>92</b> позначки.</p>
+<p class="kp-p"><b>А знайшлось воно так.</b> <code>.btn--text</code> відмовляється від стану натиску, і причина, яку він називає, - про <b>слово</b>: рухати лишалось би тільки шрифт. Іконкова кнопка не слово, і <code>button.css</code> сам це каже там, де видає <code>--text --icon</code> короб 44px під палець. Тобто відмова, написана для підпису, тихо керувала 92 позначками, яким є чим відповісти: <b>86</b> сердець на картках і <b>6</b> хрестиків у списку обраного. 86 з них - на лістингу, екрані, де телефон проводить найбільше часу.</p>
+<div class="kp-pair"><div class="kp-dont"><h4>Третя редакція серця мовчить</h4><code>.lfav</code>, серце в картці-рядку, не відповідає <b>нічим</b> - ні курсору, ні пальцю. Зміряно на <code>listing-list.html</code>: <code>.fav</code> і <code>.wlrm</code> обидва беруть <code>--text-action</code> під курсором із <code>.btn--text:hover</code>, а <code>.lfav</code> не рушить, бо <code>product-card.css</code> прив'язує його колір п'ятьма правилами і вантажиться після <code>button.css</code>.</div>
+<div class="kp-do"><h4>І землі йому теж правильно не дісталось</h4>Це <code>btn--text</code> <b>без</b> <code>btn--icon</code>: короба в нього немає, бо в рядку списку 12px проміжку і взяти 44px нізвідки. Тож правило його не дістає - і це правильно. Сім екземплярів на одному екрані, і це крок картки товару, а не цього файлу.</div></div>
+<div class="kp-cap">Зміряно дотиком: серце на картці прозоре <code>-> #FFF9F5</code></div></section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>2</b> станів оголошено в <code>favourite.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (<code>.pcard</code>) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
 <div id="idle"></div>

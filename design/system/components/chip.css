@@ -131,6 +131,29 @@
   color: var(--text-action);
 }
 
+/* ---------- press: the same eight names, and the ground answers - step 7.33 --
+   The hover above moves the EDGE and the WORD, which is the right answer for a
+   cursor and no answer at all for a finger: neither of those two states will
+   ever fire on the device this product is built for first. The chip is the most
+   numerous control on the site - 503 instances at 7.31 - and until this line it
+   was also the most numerous control that did nothing when pressed.
+
+   The ground, per the rule in button.css: `--bg-action-soft`, the same #FFF9F5
+   `.btn--outline:active` and `.btn--ghost:active` have used since step 6.x. The
+   edge and the word stay where the hover put them, so a mouse gets one state
+   layered on the other rather than two states fighting; a finger gets the
+   ground alone, which is the whole point.
+
+   `.afilter .x` is in the list and `.afilter` is not: the receipt is a `<span>`
+   nobody presses, and 7.31 established that in the same words. */
+.chip:active,
+.dr-chip:active, .hero-chips a:active, .flink:active,
+.mgchip:active,
+.ptab:active, .ord-tab:active, .cegoals button:active,
+.afilter .x:active{
+  background: var(--bg-action-soft);
+}
+
 /* ---------- focus, and the browser was drawing it - step 7.31 ---------------
    Counted in the browser across 40 colour screens at 1280 and 390: 503 chip
    instances, the most numerous control on the site, and a sweep of every loaded
@@ -182,6 +205,18 @@
   background: var(--bg-action);
   border-color: var(--line-action);
   color: var(--text-body);
+}
+/* A PRESS IS NOT THE SAME QUESTION AS A HOVER - step 7.33. The pin above exists
+   because there is nowhere for a hover to take a chip that is already accent,
+   and accent-on-accent would read as a loading state. A press has somewhere to
+   go: `--bg-action-pressed`, one step darker, which is the exact answer
+   `.btn--accent:active` has always given on the same ground. Without this the
+   chosen chip would be the only member of the family that stays silent, and it
+   is the member most likely to be pressed twice - a filter being turned off. */
+.chip.on:active, .ptab.on:active, .ord-tab.on:active, .cegoals button.on:active,
+.chip[aria-current="page"]:active{
+  background: var(--bg-action-pressed);
+  border-color: var(--bg-action-pressed);
 }
 
 /* ---------- containers, which belong to whoever places the row ---------- */

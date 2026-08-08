@@ -76,6 +76,27 @@
   transition: background .15s ease, color .15s ease; }
 .ci-qty button:hover:not([disabled]), .co-qty button:hover:not([disabled]){
   background: var(--bg-surface); color: var(--text-action); }
+/* ---------- press, and the coach is the one who feels it - step 7.33 ---------
+   Fifteen keys across five screens, and until this line minus and plus did
+   nothing at all when pressed - the whole answer was a hover, on a control that
+   exists so somebody can tap it repeatedly on a phone. This file already says
+   the coach's normal order is 30 units; thirty taps with no acknowledgement per
+   tap is the version of this control that shipped.
+   `--bg-action-soft`, one notch warmer than the hover's `--bg-surface`, so that
+   on a mouse the two states are still told apart when they land together. */
+.ci-qty button:active:not([disabled]), .co-qty button:active:not([disabled]){
+  background: var(--bg-action-soft); color: var(--text-action); }
+/* ---------- and the ring was Chrome's - step 7.33 ----------------------------
+   Measured, not assumed: a key at rest reported `outline-style: none`, and under
+   `:focus-visible` it came back `rgb(0, 95, 204) auto 1px`. Same default the
+   chip was showing at 7.31 and the view toggle at 7.32 - this sweep found two
+   more, here and on the stacked action.
+   INSET, because the frame clips its children with `overflow: hidden` (four
+   lines up) and an outset ring on a key would be sliced by the box that holds
+   it. The frame's own `:focus-within` ring is a different job and stays: that
+   one says «you are in this control», this one says «you are on this key». */
+.ci-qty button:focus-visible, .co-qty button:focus-visible{
+  outline: none; box-shadow: inset 0 0 0 2px var(--line-action); }
 .ci-qty .qn, .co-qty .qn{ font-family: var(--font-mono);
   font-variant-numeric: tabular-nums; font-weight: var(--fw-semibold);
   font-size: var(--fs-14); color: var(--text-body); }
