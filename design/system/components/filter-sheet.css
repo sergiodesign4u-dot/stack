@@ -7,8 +7,26 @@
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .fsheet-ov{ display: none; position: fixed; inset: 0; background: var(--scrim-overlay); z-index: 50; }
 .fsheet-ov.open{ display: block; }
-.fsheet{ position: fixed; left: 0; right: 0; bottom: 0; max-height: 88vh; overflow-y: auto; background: var(--bg-page); border-radius: var(--radius-16) var(--radius-16) 0 0; z-index: 51; transform: translateY(100%); transition: transform .22s ease; }
-.fsheet.open{ transform: translateY(0); }
+/* THE CLOSED SHEET WAS STILL IN THE TAB ORDER - step 7.34.
+   `transform: translateY(100%)` moves the panel off the bottom of the screen and
+   leaves it VISIBLE to everything that is not an eye. Measured at HEAD, 390 wide,
+   `listing.html` with the sheet shut: 14 focusable elements inside it - the ✕, six
+   chips, four number fields, «+ ще», «Скинути» and «Застосувати» - all reachable
+   by Tab, all off-screen, on every listing screen. Pressing Tab past the last
+   thing on the page walked into a panel nobody had opened.
+
+   Step 7.34 made it worse before it made it better: giving the 25 options and 10
+   headers their tab stops took that 14 to 49. The stops are right; the sheet was
+   wrong, and had been since before this stage.
+
+   `visibility` is what keeps a translated layer out of the tab order, and the
+   product already has this exact edition - `.wf-drawer` in nav-drawer.css writes
+   the same three lines for the same reason. `visibility 0s linear .22s` on the
+   way OUT so the slide is still seen before the panel goes silent; the open rule
+   drops the delay so it appears at once and slides in. Nothing visible changes:
+   a panel below the fold looks identical either way. */
+.fsheet{ position: fixed; left: 0; right: 0; bottom: 0; max-height: 88vh; overflow-y: auto; background: var(--bg-page); border-radius: var(--radius-16) var(--radius-16) 0 0; z-index: 51; transform: translateY(100%); visibility: hidden; transition: transform .22s ease, visibility 0s linear .22s; }
+.fsheet.open{ transform: translateY(0); visibility: visible; transition: transform .22s ease; }
 .fsheet-h{ position: sticky; top: 0; background: var(--bg-page); padding: var(--space-16) var(--space-16); border-bottom: 1px solid var(--line-hair); font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); display: flex; justify-content: space-between; align-items: center; }
 .fsheet-h .x{ font-size: var(--fs-20); }
 .fsheet-foot{ position: sticky; bottom: 0; background: var(--bg-page); display: flex; gap: var(--space-12); padding: var(--space-12) var(--space-16); border-top: 1px solid var(--line-hair); }

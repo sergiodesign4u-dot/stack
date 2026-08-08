@@ -50,6 +50,26 @@
 .fopt:hover{ color:var(--text-action); }
 .fopt:hover .cb{ border-color:var(--line-action); }
 
+/* ---------- focus, and until step 7.34 there was nothing to focus -------------
+   Both of this panel's controls were unreachable, so the question of what a ring
+   looks like here had never come up. `design/_nav.js` gives them the tab stop -
+   `role="checkbox"` on the option, `role="button"` + `aria-expanded` on the
+   header - and this is what the eye needs once they are reachable.
+
+   THE RING GOES ON THE ROW, NOT ON THE 18px SQUARE. The whole label is the
+   control: it is what takes the stop, what Space answers to, and what a finger
+   lands on. A ring drawn around the box alone would say the box is the target
+   and the words beside it are decoration, which is the opposite of true here.
+   `--radius-4` matches the square the row is built around.
+
+   `:focus-visible`, not `:focus`, so a mouse press does not light it up - the
+   same line the chip, the button, the field, the radio and the link all hold. */
+.fopt:focus-visible, .fgroup > .fh:focus-visible{
+  outline: none;
+  box-shadow: var(--ring-focus-control);
+  border-radius: var(--radius-4);
+}
+
 /* ---------- step 6.11 -----------------------------------------------------
    `.fmore` - «+ ще 11 · пошук бренду» under a long filter list - was styled
    only in wireframes/_wf.css and never carried into the colour layer at the

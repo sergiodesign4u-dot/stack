@@ -14,20 +14,25 @@
       rarer one. Same shape as the chip row that lived in link-row.css until
       7.30b. The merge is this atom's step, not this one.
 
-   2. THE FILTER PANEL HAS NO KEYBOARD AND NO SCREEN READER. Read out of the
-      runtime DOM, not the source, because the panel is built by script:
+   2. THE FILTER PANEL HAD NO KEYBOARD AND NO SCREEN READER - CLOSED AT 7.34.
+      What 7.33 found, read out of the runtime DOM because the panel is built
+      by script:
 
         <label class="fopt"><span class="cb"></span> В наявності <span class="ct">71</span></label>
 
-      There is no `<input>`. A `<label>` wrapping nothing labels nothing, so
-      there is no role, no `aria-checked`, and no tab stop: on `listing.html`
-      50 filter options render and 11 tabbable elements exist in the whole
-      filter rail, none of them a checkbox. The control IS live - a click was
-      dispatched at 7.33 and the class went `cb` -> `cb on` - which makes this
-      the same defect `.ord-tab` had at 7.31 and `.sw` at 7.32: fully wired to
-      a mouse, absent from every other way in. It is 50 controls on four
-      screens and it is bigger than the step that found it, so it is named here
-      and queued, not quietly half-fixed. */
+      No `<input>`. A `<label>` wrapping nothing labels nothing, so there was no
+      role and no tab stop - and `design/_nav.js` was already writing
+      `aria-checked` onto it, which without a role the browser drops. Half the
+      contract, which reads worse than none: the file looked like it had been
+      handled. The accessibility tree said `{ role: "LabelText", name: "",
+      checked: undefined }`.
+
+      7.34 gives the shape `role="checkbox"` + `tabindex="0"` + `aria-checked`
+      AT LOAD, and Space. It now says `{ role: "checkbox", name: "В наявності
+      71", checked: false }`. 351 controls across 8 screens. The rest of that
+      step - the group headers, and the closed sheet that was holding 14
+      focusable elements off-screen - is in `filter-group.css` and
+      `filter-sheet.css`, each next to the thing it fixed. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .optin{ display: flex; align-items: flex-start; gap: var(--space-12); font-size: var(--fs-14); margin: var(--space-16) 0 var(--space-4); }
@@ -59,3 +64,18 @@
    pressed ground. */
 .optin:active .cb, .fopt:active .cb{ background: var(--bg-action-soft); }
 .optin:active .cb.on, .fopt:active .cb.on{ background: var(--bg-action-pressed); border-color: var(--bg-action-pressed); }
+
+/* ---------- focus - step 7.34 ------------------------------------------------
+   `.fopt` takes its ring in filter-group.css, next to the panel it belongs to.
+   `.optin` needs its own line here, and the gap was made by this step itself:
+   giving the opt-in a tab stop without a ring would have handed the sign-up
+   dialog Chrome's blue outline where it had nothing before. One instance, and
+   one instance is enough - it is the last thing between a person and an account.
+
+   THE RING GOES ON THE ROW, not on the 18px square: the whole label is the
+   control. `:focus-visible`, so a mouse press does not light it up. */
+.optin:focus-visible{
+  outline: none;
+  box-shadow: var(--ring-focus-control);
+  border-radius: var(--radius-4);
+}

@@ -464,7 +464,6 @@ function uivChrome(){
   uivPriceSlider();
   uivStickyHeader();
   uivAnchorScroll();
-  uivCheckboxes();
   /* the auth dialog is opened from the header of EVERY page, so the colour layer
      hooks it everywhere - not only on the auth reference renders */
   uivAuth();
@@ -501,6 +500,14 @@ function uivChrome(){
      where every page runs, or a switch added to another screen later would be
      silently left out. Same reason 7.29 moved `uivRadioGroups` here. */
   uivSwitches();
+  /* step 7.34, and it moved DOWN here from the presentation block above. It used
+     to be a click behaviour and nothing else, so it could run anywhere; now it
+     also decides who gets a tab stop, and that belongs with the other three
+     passes that decide the same thing - which is the lesson 7.29 wrote down
+     after the checkout got none. Both panels are static markup from the grey
+     layer, so nothing above rebuilds them; the pass is idempotent either way. */
+  uivCheckboxes();
+  uivDisclosures();
 }
 
 /* make the product-card heart interactive: a click toggles the .on (filled) state
@@ -532,8 +539,51 @@ function uivPatchMenus(){
 }
 
 /* make the filter checkboxes interactive: a click on a .fopt row toggles its .cb
-   square (rail + mobile sheet; delegated so it also covers any re-rendered rows). */
+   square (rail + mobile sheet; delegated so it also covers any re-rendered rows).
+
+   STEP 7.34 - AND HALF OF THE CONTRACT WAS MISSING, WHICH IS WORSE THAN NONE.
+   This function already wrote `aria-checked`. It never wrote a ROLE, and
+   `aria-checked` on an element with no role is inert - the browser drops it, and
+   a screen reader is told nothing at all. Read out of the accessibility tree
+   rather than argued about: one filter option came back
+
+       { role: "LabelText", name: "", checked: undefined }
+
+   A piece of label text. Not a checkbox, no name, no state. And it was written
+   only ON A CLICK, so of the 34 options that render already checked, not one
+   announced it until somebody pressed something.
+
+   Counted in the browser across 39 coloured screens at 390 and 1280: 700 `.fopt`
+   plus 2 `.optin`, 0 with a role, 0 with `aria-checked` at load, 0 with a tab
+   stop. The rail on `listing.html` renders 25 options and holds 11 tabbable
+   elements: six chips, four number fields and «+ ще 11». None of the 25.
+
+   THE SHAPE, NOT A LIST: a `<label>` that owns a `.cb` and no real control. The
+   day one of these gets a real `<input>` it needs nothing from here and this
+   pass steps over it.
+
+   SPACE, AND NOT ENTER. A checkbox answers Space; Enter belongs to the primary
+   action, and in the mobile sheet that action is «Застосувати». The switch took
+   both at 7.32 because there is nothing else on that row to take Enter. Same
+   file, two bindings, and the difference is what the control stands next to.
+
+   NO ROVING TABINDEX, and this is where the family parts from the radio next
+   door. `uivRadioGroups` gives a group ONE stop because a radio group is one
+   value. Twenty-five filters are twenty-five independent answers, so each takes
+   its own stop - the rail goes from 11 to 46. That is the cost of the panel
+   being what it is, not a defect to tune away. */
 function uivCheckboxes(){
+  var mark = function(lbl){
+    var cb = lbl.querySelector('.cb');
+    if(cb) lbl.setAttribute('aria-checked', cb.classList.contains('on') ? 'true' : 'false');
+  };
+  [].slice.call(document.querySelectorAll('label.fopt, label.optin')).forEach(function(lbl){
+    if(lbl.querySelector('input, select, textarea')) return;   /* a real control needs none of this */
+    if(!lbl.querySelector('.cb')) return;
+    if(!lbl.getAttribute('role')) lbl.setAttribute('role', 'checkbox');
+    if(!lbl.hasAttribute('tabindex')) lbl.setAttribute('tabindex', '0');
+    mark(lbl);                                                 /* AT LOAD, not on the first click */
+  });
   if(document.body.dataset.uivCb) return;
   document.body.dataset.uivCb = '1';
   document.addEventListener('click', function(e){
@@ -543,8 +593,66 @@ function uivCheckboxes(){
     var cb = lbl.querySelector('.cb');
     if(!cb) return;
     e.preventDefault();
-    var on = cb.classList.toggle('on');
-    lbl.setAttribute('aria-checked', on ? 'true' : 'false');
+    cb.classList.toggle('on');
+    mark(lbl);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key !== ' ' && e.key !== 'Spacebar') return;
+    var lbl = e.target && e.target.closest ? e.target.closest('.fopt, .optin') : null;
+    if(!lbl || !lbl.querySelector('.cb')) return;
+    e.preventDefault();          /* or the page scrolls out from under the panel */
+    lbl.click();
+  });
+}
+
+/* step 7.34 - THE GROUP HEADER IS A DISCLOSURE AND SAID SO TO NOBODY.
+
+   Ten `.fh` per panel, `cursor: pointer`, and a click really does collapse the
+   group: `wireframes/_nav.js` toggles `.collapsed` and `filter-group.css` hides
+   the body with `display: none`. So the behaviour is complete and the promise is
+   missing - a `<div>` with no role, no tab stop and no `aria-expanded`.
+
+   The grey layer already knows this move: `toggleCab()` and `toggleLang()` in the
+   same file both write `aria-expanded` on their triggers. Two of three disclosures
+   in the product were told; the filter header was not.
+
+   THE CLASS IS TOGGLED BY THE GREY LAYER, SO THIS ONLY READS IT BACK. That file
+   loads first, so its listener runs first, and by the time this one fires the
+   class is already what it is going to be. Nothing here toggles anything: two
+   editions of one collapse is exactly the defect this stage keeps removing.
+
+   Enter AND Space, unlike the checkbox above: a disclosure is a button, and a
+   button takes both. `display: none` on the collapsed body is what keeps its
+   options out of the tab order while the group is shut - checked, not assumed. */
+var UIV_FH_SEQ = 0;
+function uivDisclosures(){
+  [].slice.call(document.querySelectorAll('.fgroup > .fh')).forEach(function(fh){
+    var grp = fh.parentElement;
+    if(!fh.getAttribute('role')) fh.setAttribute('role', 'button');
+    if(!fh.hasAttribute('tabindex')) fh.setAttribute('tabindex', '0');
+    fh.setAttribute('aria-expanded', grp.classList.contains('collapsed') ? 'false' : 'true');
+    /* the group takes its name from the words already in the header - no string
+       is invented here, and interface strings belong to voice either way */
+    if(!grp.getAttribute('role')){
+      if(!fh.id) fh.id = 'uiv-fh-' + (++UIV_FH_SEQ);
+      grp.setAttribute('role', 'group');
+      grp.setAttribute('aria-labelledby', fh.id);
+    }
+  });
+  if(document.body.dataset.uivDisc) return;
+  document.body.dataset.uivDisc = '1';
+  document.addEventListener('click', function(e){
+    var fh = e.target.closest ? e.target.closest('.fgroup > .fh') : null;
+    if(!fh) return;
+    fh.setAttribute('aria-expanded',
+      fh.parentElement.classList.contains('collapsed') ? 'false' : 'true');
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key !== ' ' && e.key !== 'Spacebar' && e.key !== 'Enter') return;
+    var fh = e.target && e.target.closest ? e.target.closest('.fgroup > .fh') : null;
+    if(!fh) return;
+    e.preventDefault();
+    fh.click();
   });
 }
 

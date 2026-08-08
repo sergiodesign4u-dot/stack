@@ -4306,3 +4306,140 @@ its own atom's step. Counted here because nobody had counted them.
 - **`product-oos.html` still runs 12px sideways at 860-1076** and the grey
   `wireframes/index.html` 26px at 900. Both verified identical at HEAD, both layout
   work in an organism, neither is this step's.
+
+## Step 7.34 - the filter panel: half a contract, which reads worse than none
+
+Step 7.33 found this and said it was bigger than the step that found it. It was.
+
+### What was there
+
+`design/_nav.js` ALREADY wrote `aria-checked` on every filter option. It never
+wrote a ROLE - and `aria-checked` on an element with no role is inert: the
+browser drops it. So the file looked handled and the control said nothing. Read
+out of the accessibility tree rather than argued about:
+
+```
+  before   { role: "LabelText",  name: "",                       checked: undefined }
+  after    { role: "checkbox",   name: "В наявності 71",          checked: false }
+  after    { role: "checkbox",   name: "Optimum Nutrition 12",    checked: true }
+  header   { role: "button",     name: "Тип протеїну",            expanded: true }
+```
+
+And it was written ONLY ON A CLICK. Of the 34 options that render already
+checked, not one announced it until somebody pressed something.
+
+Counted across 39 coloured screens at 390 and 1280: **700 `.fopt` plus 2
+`.optin`, 0 with a role, 0 with `aria-checked` at load, 0 with a tab stop.** The
+rail on `listing.html` renders 25 options and holds 11 tabbable elements - six
+chips, four number fields, «+ ще 11». None of the 25.
+
+### Three families, and only one of them was the one being looked for
+
+| what | n | had | now |
+|---|---|---|---|
+| `.fopt` + `.optin` | 351 on 8 screens | nothing | `role="checkbox"` · `tabindex="0"` · `aria-checked` at load · Space |
+| `.fgroup > .fh` | 140 | nothing | `role="button"` · `aria-expanded` · Enter and Space |
+| `.fgroup` | 140 | nothing | `role="group"` + the name already in its header |
+
+**The group header was a disclosure that told nobody.** Ten per panel, `cursor:
+pointer`, and a click really does collapse the group - `wireframes/_nav.js`
+toggles `.collapsed`, `filter-group.css` hides the body with `display: none`.
+Complete behaviour, missing promise. The grey layer already knows the move:
+`toggleCab()` and `toggleLang()` in that same file both write `aria-expanded`.
+Two of the product's three disclosures were named; the filter header was not.
+
+The class stays the grey layer's to toggle - this only READS IT BACK. Two
+editions of one collapse is the defect this stage exists to remove.
+
+### Space, not Enter, and no roving tabindex
+
+A checkbox answers **Space**; Enter belongs to the primary action, and in the
+mobile sheet that action is «Застосувати». The switch took both at 7.32 because
+nothing else on its row wanted Enter. Same file, two bindings, and the
+difference is what the control stands next to.
+
+**No roving tabindex, and this is where the family parts from the radio.**
+`uivRadioGroups` gives a group ONE stop because a radio group is one value.
+Twenty-five filters are twenty-five independent answers, so each takes its own:
+the rail goes 11 -> 46. That is the cost of the panel being what it is.
+
+### The step made it worse first, and that is how the older bug surfaced
+
+Giving 25 options and 10 headers their tab stops took the CLOSED mobile sheet
+from 14 focusable elements to 49. `transform: translateY(100%)` moves a panel off
+the bottom of the screen and leaves it visible to everything that is not an eye.
+
+**Measured at HEAD**, 390 wide, `listing.html`, sheet shut: **14 focusable
+elements inside it** - the ✕, six chips, four number fields, «+ ще», «Скинути»,
+«Застосувати». Tab past the last thing on the page and you walked into a panel
+nobody had opened. That predates this stage.
+
+The stops are right; the sheet was wrong. `visibility: hidden` with the exit
+delayed past the slide - `.wf-drawer` in nav-drawer.css has carried this exact
+edition for the same reason all along.
+
+**Then the same instrument over every overlay, drawer and dialog in the product,
+closed, at both viewports:**
+
+```
+  HEAD   #fsheet 42   everything else 0
+  now    nothing
+```
+
+The filter sheet was the single leaky layer, and it is shut.
+
+### Proof
+
+**A/B against HEAD: 108 994 elements, 40 pages x 2 viewports, cache cleared
+between passes, 17 properties per element including `visibility` and
+`outline-style`.**
+
+```
+  2 100 differences
+  2 100 inside #fsheet            0 anywhere else on any page
+  2 100 are `visibility`          12 also carry the sheet's own `transition`
+      0 colour, geometry, type, spacing or shadow
+```
+
+An accessibility fix that moves nothing anyone can see is the whole point, and
+this is what that looks like when it is measured rather than asserted.
+
+**By keyboard, live.** Rail: Tab reaches an option, ring is
+`--ring-focus-control`, Space flips `aria-checked` false -> true -> false with
+`.cb` -> `.cb on` -> `.cb`, focus stays put and **the page does not scroll**.
+Header: Enter collapses (`aria-expanded` true -> false), the rail's stops drop
+46 -> 44 as that group's two options leave the tab order, Space reopens it.
+Sheet: opens, 49 reachable, Space toggles inside it, closes, 0 reachable.
+Click still works. 75 pages: 0 overflow at 360, 0 JS errors.
+
+### Two gaps this step made and then closed
+
+- **The stand rendered checkboxes a keyboard could not reach** - on the page
+  whose subject is that they now can. `checkbox.html` did not load
+  `design/_nav.js`. Caught by reading `role` and `tabindex` off the stand's own
+  demo, not by looking at it. It loads the product's function now, the shape 7.31
+  settled.
+- **`.optin` would have shown Chrome's blue ring.** `.fopt` takes its ring in
+  filter-group.css next to the panel; the opt-in needed its own line in
+  checkbox.css. One instance, and it is the last thing between a person and an
+  account.
+
+### Also resynced
+
+**Twenty stand pages carried a stale line count** in their own `kp-meta` row,
+`button.html` by 195 lines. Four more on the hub. Both from a script, both
+reading the real files.
+
+### Found, not fixed
+
+- **The accessible name carries the count**: «В наявності 71». It reads as one
+  phrase to a screen reader. Splitting it needs an `aria-label`, and interface
+  strings belong to voice, not here.
+- **`wireframes/` keeps the whole defect.** The grey layer builds this panel and
+  is frozen after stage 05; this fix lives in `design/_nav.js`, so the colour
+  layer has it and the prototype does not. Same split as 7.29, 7.31 and 7.32.
+- **The checkbox atom is still declared twice** - `checkbox.css` scoped to
+  `.optin` (1 instance), `filter-group.css` for `.fopt` (175). Unchanged by this
+  step, which was about behaviour.
+- **Six stands still report themselves incomplete**, all failing identically at
+  HEAD: `availability`, `badge`, `counter`, `discount`, `price`, `status-pill`.

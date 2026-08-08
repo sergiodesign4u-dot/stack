@@ -24,7 +24,7 @@
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Чекбокс</h1>
 <p class="kp-lead">Незалежний вибір: фільтр у рейці, згода на умови. Кожен стоїть сам за себе.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/checkbox.css</span><span class="kp-tag">18 рядків</span><span class="kp-tag">2 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/checkbox.css</span><span class="kp-tag">81 рядків</span><span class="kp-tag">2 екранів</span></div>
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <div class="kp-demo"><label class="fopt"><span class="cb on"></span> Протеїн <span style="color:var(--text-muted)">(124)</span></label></div>
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Квадрат <code>.cb</code></b> - квадрат, а не коло - форма одразу каже «можна кілька»</span></div><div class="a"><i>2</i><span><b>Підпис</b> - назва фільтра</span></div><div class="a"><i>3</i><span><b>Лічильник</b> - скільки товарів знайдеться - його бачать до натискання</span></div></div></section>
@@ -57,13 +57,32 @@
 </tbody></table></div>
 <p class="kp-p"><b>Обидва імені контейнера, одне правило.</b> <code>.fopt</code> належить <code>filter-group.css</code> і названий у <code>checkbox.css</code> тому, що саме там 175 із 176 екземплярів. Так само роблять <code>stepper.css</code> і <code>stack-action.css</code>, і з тієї самої причини: імена живуть і в замороженому сірому шарі, тож <b>додати</b> безпечно, а <b>перейменувати</b> - ні.</p>
 <div class="kp-pair"><div class="kp-dont"><h4>Атом оголошено двічі</h4>Тут він прив'язаний до <code>.optin</code> - <b>один</b> екземпляр, згода на розсилку в діалозі реєстрації. Решта <b>175</b> - панель фільтрів, оголошена ще раз у <code>filter-group.css</code>, 9 правил, файл рівня 2. Один квадрат 18px, два власники, і файл рівня 1 тримає рідкісніший. Та сама форма, що й рядок чипів, який жив у <code>link-row.css</code> до 7.30b.</div>
-<div class="kp-do"><h4>А панель фільтрів не має ні клавіатури, ні скрінрідера</h4>Прочитано з живого DOM, бо панель будує скрипт: <code>&lt;label class="fopt"&gt;&lt;span class="cb"&gt;&lt;/span&gt; В наявності&lt;/label&gt;</code>. Немає <code>&lt;input&gt;</code>. <code>&lt;label&gt;</code>, що обгортає ніщо, нічого не позначає: ні ролі, ні <code>aria-checked</code>, ні кроку табуляції. На <code>listing.html</code> - <b>50</b> опцій фільтра і <b>11</b> досяжних елементів у всій панелі, жоден з них не чекбокс. Контрол при цьому <b>живий</b>: клік переводить клас <code>cb -> cb on</code>. Це той самий дефект, що мав <code>.ord-tab</code> на 7.31 і <code>.sw</code> на 7.32.</div></div>
+<div class="kp-do"><h4>А панель фільтрів не мала ні клавіатури, ні скрінрідера <b>закрито на 7.34</b></h4>Прочитано з живого DOM, бо панель будує скрипт: <code>&lt;label class="fopt"&gt;&lt;span class="cb"&gt;&lt;/span&gt; В наявності&lt;/label&gt;</code>. Немає <code>&lt;input&gt;</code>. На <code>listing.html</code> - <b>50</b> опцій фільтра і <b>11</b> досяжних елементів у всій панелі, жоден з них не чекбокс. Контрол при цьому <b>живий</b>: клік переводить клас <code>cb -> cb on</code>. Це той самий дефект, що мав <code>.ord-tab</code> на 7.31 і <code>.sw</code> на 7.32. Розділ нижче - що з цим зробив крок 7.34.</div></div>
 <div class="kp-cap">Зміряно дотиком: порожній квадрат прозорий <code>-> #FFF9F5</code>, позначений <code>#FF5A00 -> #E85200</code></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Панель фільтрів отримала клавіатуру <b>крок 7.34</b></div>
+<p class="kp-p"><b>Половина контракту була написана, і це читається гірше, ніж нічого.</b> <code>uivCheckboxes()</code> уже писав <code>aria-checked</code> - і не писав <b>ролі</b>. <code>aria-checked</code> на елементі без ролі браузер відкидає: скрінрідеру не кажуть узагалі нічого, а файл при цьому має вигляд опрацьованого. Прочитано з дерева доступності, а не з домислу:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th></th><th>Було</th><th>Стало</th></tr></thead><tbody>
+<tr><td>опція фільтра</td><td><code>{ role: "LabelText", name: "", checked: undefined }</code></td><td><code>{ role: "checkbox", name: "В наявності 71", checked: false }</code></td></tr>
+<tr><td>позначена опція</td><td>те саме</td><td><code>{ role: "checkbox", name: "Optimum Nutrition 12", checked: true }</code></td></tr>
+<tr><td>заголовок групи</td><td><code>&lt;div&gt;</code>, ролі немає</td><td><code>{ role: "button", name: "Тип протеїну", expanded: true }</code></td></tr>
+</tbody></table></div>
+<p class="kp-p">І писалось воно <b>тільки на клік</b>. З 34 опцій, які рендеряться вже позначеними, жодна не оголошувала цього, поки на щось не натиснуть. Тепер <code>aria-checked</code> ставиться <b>на завантаженні</b>.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Скільки</th><th>Що отримало</th></tr></thead><tbody>
+<tr><td><code>.fopt</code> + <code>.optin</code></td><td><b>351</b> на 8 екранах</td><td><code>role="checkbox"</code> · <code>tabindex="0"</code> · <code>aria-checked</code> · <b>Space</b></td></tr>
+<tr><td><code>.fgroup > .fh</code></td><td><b>140</b></td><td><code>role="button"</code> · <code>aria-expanded</code> · <b>Enter і Space</b></td></tr>
+<tr><td><code>.fgroup</code></td><td><b>140</b></td><td><code>role="group"</code> + ім'я зі слів заголовка</td></tr>
+</tbody></table></div>
+<div class="kp-pair"><div class="kp-do"><h4>Space, а не Enter</h4>Чекбокс відповідає на <b>Space</b>. Enter належить головній дії, а в мобільному шиті ця дія - «Застосувати». Тумблер на 7.32 узяв обидві клавіші, бо в його рядку більше нікому взяти Enter. Один файл, два прив'язки, і різницю робить те, <b>біля чого стоїть контрол</b>.</div>
+<div class="kp-dont"><h4>Мандрівного tabindex немає, і тут сім'я розходиться з радіо</h4><code>uivRadioGroups()</code> дає групі <b>один</b> крок, бо радіогрупа - це одне значення. Двадцять п'ять фільтрів - це двадцять п'ять незалежних відповідей, тож кожен бере власний крок: рейка йде з <b>11</b> до <b>46</b>. Це ціна того, чим панель є, а не дефект, який треба підкрутити.</div></div>
+<p class="kp-p"><b>Заголовок групи був складанкою, яка нікому про це не сказала.</b> Десять <code>.fh</code> на панель, <code>cursor: pointer</code>, і клік справді згортає групу. Поведінка була повна, обіцянки не було: <code>&lt;div&gt;</code> без ролі, без кроку табуляції і без <code>aria-expanded</code>. Сірий шар цей рух уже знає - <code>toggleCab()</code> і <code>toggleLang()</code> у тому самому файлі пишуть <code>aria-expanded</code> своїм тригерам. Дві складанки з трьох були названі, фільтрова - ні. Клас перемикає сірий шар, тут його тільки <b>перечитують</b>: дві редакції одного згортання - це рівно той дефект, який цей етап прибирає.</p>
+<p class="kp-p"><b>І закритий шит тримав 14 елементів у порядку табуляції.</b> Знайдено тим, що крок 7.34 спочатку зробив гірше: <code>transform: translateY(100%)</code> зсуває панель за нижній край і лишає її видимою для всього, що не є оком. Зміряно на HEAD, 390, <code>listing.html</code> із закритим шитом: <b>14</b> досяжних елементів усередині - хрестик, шість чипів, чотири числові поля, «+ ще», «Скинути» і «Застосувати». Нові кроки табуляції довели це до <b>49</b>. Кроки правильні, а шит був неправильний - і був таким ще до цього етапу. <code>visibility: hidden</code> з відкладеним переходом - та сама редакція, яку <code>.wf-drawer</code> уже носить у <code>nav-drawer.css</code> з тієї самої причини. Тепер закритих шарів із досяжним вмістом у продукті <b>нуль</b>: перевірено по всіх оверлеях, шухлядах і діалогах.</p>
+<div class="kp-cap">Доказ, що нічого не зрушило: A/B проти HEAD, <b>108 994</b> елементи, 40 сторінок × два в'юпорти. <b>2 100</b> розбіжностей, <b>усі 2 100 усередині <code>#fsheet</code></b> і <b>усі - <code>visibility</code></b>. За межами шита - <b>нуль</b>. Кольору, геометрії й типу не торкнулись</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>1</b> станів оголошено в <code>checkbox.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["cb", "on", "optin"], KIT_STS=[":hover", ":active"];</script></section>
+<script>var KIT_CLS=["cb", "on", "optin"], KIT_STS=[":hover", ":active", ":focus-visible"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>checkbox.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
@@ -136,5 +155,13 @@
 </script>
 </main>
 <script src="_nav.js"></script>
+<!-- THE PRODUCT'S OWN FUNCTION, NOT A COPY - the shape step 7.31 settled and
+     7.34 needed again. `design/_nav.js` declares functions and runs nothing at
+     load, so a stand takes the one rule it needs and leaves the chrome alone.
+     Without this the demo above rendered three checkboxes that a keyboard could
+     not reach, on the page whose whole subject is that they now can - caught by
+     reading role/tabindex off the stand's own demo, not by looking at it. -->
+<script src="../_nav.js"></script>
+<script>uivCheckboxes();</script>
 </body>
 </html>
