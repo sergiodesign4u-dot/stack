@@ -165,7 +165,11 @@
 .acc-h1{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-30); letter-spacing:var(--ls-lead); }
 .acc-sub{ color:var(--text-secondary); }
 .acard{ border-color:var(--line-hair); border-radius:var(--radius-12); background:var(--bg-page); box-shadow:var(--elevation-1); }
-.acard .ah h3, .mech-kicker{ color:var(--text-muted); letter-spacing:var(--ls-caps); }
+/* 7.50: `.mech-kicker` left this list. It named the same two properties with the
+   same two tokens that section-head.css already gives it, and won them only
+   because this file loads later - import 71 against 63. The class belongs to the
+   section head; the account card's own eyebrow stays here. */
+.acard .ah h3{ color:var(--text-muted); letter-spacing:var(--ls-caps); }
 .acard .ah a, .acard .ah .lnk{ color:var(--text-body); transition:color .14s ease; }
 .acard .ah a:hover, .acard .ah .lnk:hover{ color:var(--text-action); }
 .abonus .big{ font-family:var(--font-mono); color:var(--text-action);

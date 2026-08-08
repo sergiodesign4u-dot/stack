@@ -267,7 +267,7 @@ window.KIT_NAV = [
    {
     "label": "Заголовок секції",
     "page": "section-head.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Рядок клієнта",

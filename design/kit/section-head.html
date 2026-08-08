@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Заголовок секції | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Заголовок секції</h1>
+<p class="kp-lead">Найменший файл системи з тих, що лишились, і найпростіша робота: сказати, де починається розділ, і дати з нього вихід. Крок, який його розібрав, знайшов не поламану верстку, а рядок, що називав п'ять речей, з яких цьому файлу належала одна.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/section-head.css</span><span class="kp-tag">58 рядків</span><span class="kp-tag">14 селекторів</span><span class="kp-tag">88 оголошень у спокої</span><span class="kp-tag">37 заголовків на 10 екранах</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>home-buyer.html</code> і <code>listing.html</code>.</p>
+<div class="kp-demo">
+  <div class="sech"><h2>Популярні товари</h2><a class="btn--text all" href="#">Усі товари →</a></div>
+  <div class="sech"><h2>Спортивне харчування під вашу ціль</h2><a class="btn--text all" href="#">Усі категорії →</a></div>
+  <div class="sech"><h2>Розділ без виходу</h2></div>
+</div>
+<div class="kp-cap">третій - без посилання: <code>.sech</code> це <code>space-between</code>, тож самотній заголовок просто стоїть ліворуч, і порожньої дірки праворуч не лишається</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Заголовок</b> - <code>h2</code>, дисплейна 24/600 з <code>--ls-lead</code>. Вирівняні по <b>базовій лінії</b>, а не по центру: заголовок 24 і посилання 14 поруч виглядають криво за будь-якого іншого вирівнювання</span></div>
+  <div class="a"><i>2</i><span><b>Вихід</b> - <code>.all</code> на фініші <code>.btn--text</code>. Єдина текстова кнопка продукту, що говорить <b>тихіше</b> за текст навколо: <code>--text-secondary</code> замість основного</span></div>
+  <div class="a"><i>3</i><span><b>Повітря</b> - 32 згори, 16 знизу. Розділ відділяє від попереднього вдвічі більше, ніж від власного вмісту, і цим читається як межа</span></div>
+  <div class="a"><i>4</i><span><b>Наведення</b> - посилання бере <code>--text-action</code> і підкладку <code>--bg-surface</code>. Від'ємні поля тягнуть підкладку за межі рядка, щоб вона не рухала базову лінію</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Один рядок, п'ять імен, і своє в ньому одне</div>
+<p class="kp-p">Файл ніс таке:</p>
+<div class="kp-code">.lh1, .seotext .h, .wfh-logo, .empty-h, .estate h2{ font-family: …; letter-spacing: … }</div>
+<p class="kp-p">Кожне оголошення прогнано через вирішувач по всіх 40 кольорових екранах: для кожного елемента, який селектор бере цю властивість насправді.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Ім'я</th><th>Збігів</th><th>Перемог</th><th>Що це</th></tr></thead><tbody>
+<tr><td><code>.lh1</code></td><td>7</td><td>7</td><td><b>своє</b> - H1 лістингу. Лишилось</td></tr>
+<tr><td><code>.seotext .h</code></td><td>9</td><td>9</td><td>чуже, живе - заголовок SEO-блока. Поїхало в <code>seo-text.css</code></td></tr>
+<tr><td><code>.wfh-logo</code></td><td><b>68</b></td><td><b>0</b></td><td>чуже й мертве: <code>header.css:169</code> і <code>:172</code> кажуть обидві властивості самі, а header вантажиться на 19 імпортів пізніше</td></tr>
+<tr><td><code>.empty-h</code></td><td><b>0</b></td><td>0</td><td><b>такого класу немає ніде в репозиторії</b></td></tr>
+<tr><td><code>.estate h2</code></td><td><b>0</b></td><td>0</td><td><b>такого класу немає ніде в репозиторії</b></td></tr>
+</tbody></table></div>
+<div class="kp-do"><h4>Два останні - не половина, що чекає</h4>Етап уже тричі відмовився видаляти правило, у якого немає кольорового близнюка: <code>.tband</code> на 7.44, <code>.led-empty</code> на 7.48, <code>.emptybox</code> без <code>.mini</code> на 7.49 - усі троє живуть у сірому шарі. Ці двоє шукались у <code>design/</code>, у <code>wireframes/</code> і в <code>_wf.css</code>: єдина згадка в проєкті була цим рядком. Видалено.</div>
+<div class="kp-dont"><h4>І це поправка до того, що я сказав напередодні</h4>Обираючи компонент, я сказав, що цей файл фарбує логотип шапки на 34 екранах, і це було <b>невірно</b>. Він намагається і програє 68 разів із 68. Число «34 екрани» було правдою про розмітку й неправдою про те, хто її малює.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Дві брови, одне обличчя</div>
+<div class="kp-demo">
+  <div class="relh">Схожі категорії та бренди</div>
+  <span class="mech-kicker">Бонусний рахунок</span>
+</div>
+<div class="kp-cap"><code>.relh</code> - над блоком схожих категорій у лістингу (2 екрани), <code>.mech-kicker</code> - над механізмом лояльності в кабінеті (2 екрани)</div>
+<p class="kp-p">Обидва були написані п'ятьма однаковими оголошеннями в одному файлі за двадцять рядків одне від одного: <b>12 / <code>--fw-black</code> / uppercase / <code>--ls-caps</code> / <code>--text-muted</code></b>. Різнився тільки відступ, а відступ - це розташування, а не обличчя, тож він лишився окремим рядком.</p>
+<p class="kp-p"><b>І в <code>.mech-kicker</code> було друге видання в іншому файлі.</b> <code>account-shell.css</code> називав ті самі два властивості тими самими токенами і вигравав їх лише тому, що вантажиться пізніше - імпорт 71 проти 63. Клас належить заголовку секції; власна бровка картки кабінету лишилась там.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Бровка - це сім'я, і вона роз'їхалась</div>
+<p class="kp-p">Прочитано з усіх файлів системи: <b>22 селектори в 14 файлах</b> роблять одне й те саме - великі літери з <code>--ls-caps</code>. І роблять по-різному.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Скільки значень</th><th>Як розподілено</th></tr></thead><tbody>
+<tr><td><b>розмір</b></td><td>2 (+2 без розміру)</td><td><code>--fs-12</code> ×14, <code>--fs-10</code> ×6, і у двох розміру немає взагалі</td></tr>
+<tr><td><b>вага</b></td><td>3 (+3 без ваги)</td><td><code>--fw-black</code> ×14, <code>--fw-bold</code> ×4, <code>--fw-medium</code> ×1</td></tr>
+<tr><td><b>колір</b></td><td>5</td><td><code>--text-muted</code>, <code>--text-secondary</code>, <code>--text-primary</code>, <code>--text-oninverse</code>, і без кольору</td></tr>
+</tbody></table></div>
+<p class="kp-p">Цей крок звів дві з двадцяти двох - ті, що лежали в одному файлі. Решта - рішення про значення на 14 файлів, і воно йде в етап 09 цілим питанням, а не розмінюється по одному файлу. Той самий підхід, що з <code>1.5px</code> на 7.49.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Інші заголовки файлу</div>
+<div class="kp-demo">
+  <h1 class="lh1">Протеїн <span class="cnt">84 товари</span></h1>
+  <h1 class="homeh1">Спортивне харчування - інтернет-магазин Stack</h1>
+  <div class="rvhead">
+    <div class="rvbig"><div class="n">4.8</div><div class="s">★★★★★<br>126 відгуків</div></div>
+    <div class="rvbars">
+      <div class="rvbar"><span>5</span><div class="track"><div class="fill" style="width:82%"></div></div><span>103</span></div>
+      <div class="rvbar"><span>4</span><div class="track"><div class="fill" style="width:12%"></div></div><span>15</span></div>
+      <div class="rvbar"><span>3</span><div class="track"><div class="fill" style="width:4%"></div></div><span>5</span></div>
+    </div>
+    <button class="btn--accent btn--s btn dark" type="button">＋ Залишити відгук</button>
+  </div>
+</div>
+<div class="kp-cap">шапка відгуків - єдине місце файлу з власною сіткою: один стовпчик до 620 і <code>190px 1fr auto</code> вище. Оцінка, розподіл і дія стають в один рядок рівно тоді, коли для трьох є місце</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Екземплярів</th><th>Екранів</th><th>Робота</th></tr></thead><tbody>
+<tr><td><code>.sech</code> + <code>h2</code></td><td>37</td><td>10</td><td>межа розділу. Найчастіший заголовок продукту</td></tr>
+<tr><td><code>.sech .all</code></td><td>28</td><td>8</td><td>вихід із розділу. Є не в кожного: 37 заголовків проти 28 виходів</td></tr>
+<tr><td><code>.lh1</code></td><td>7</td><td>7</td><td>H1 лістингу, 30px, з лічильником товарів поруч</td></tr>
+<tr><td><code>.homeh1</code></td><td>4</td><td>4</td><td>H1 головної: <b>16px і вторинним кольором</b> - SEO-рядок, а не заголовок екрана</td></tr>
+<tr><td><code>.rvhead</code></td><td>3</td><td>3</td><td>шапка відгуків: сітка 190/1fr/auto від 620</td></tr>
+<tr><td><code>.relh</code> · <code>.mech-kicker</code></td><td>2 · 2</td><td>2 · 1</td><td>бровки</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b><code>.homeh1</code> варте окремого слова.</b> Це єдиний H1 у продукті, який навмисно виглядає не як заголовок: 16px, <code>--fw-medium</code>, <code>--text-secondary</code>. Головна починається не з назви магазину, а з роботи людини, і H1 тут потрібен пошуковій системі, а не оку. Принцип 2: одна головна дія на екрані, і це не читання власної назви.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>заголовок ліворуч, вихід праворуч, обидва по базовій лінії</td><td>рядок читається як одна фраза, а не як два блоки</td></tr>
+<tr><td><b>наведення на вихід</b></td><td><code>--text-action</code> + підкладка <code>--bg-surface</code></td><td>підкладка тримається на від'ємних полях, тому базова лінія не зрушує ні на піксель</td></tr>
+<tr><td><b>без виходу</b></td><td>заголовок лишається ліворуч</td><td>дев'ять розділів із тридцяти семи не ведуть нікуди, і це нормально</td></tr>
+<tr><td><b>вузько</b></td><td>заголовок і вихід переносяться, бо <code>gap</code> і <code>flex</code></td><td>на 360 «Спортивне харчування під вашу ціль» не вміщується в один рядок з «Усі категорії»</td></tr>
+<tr><td><b>натискання</b></td><td><b>немає власного</b></td><td>натискають посилання, і воно відповідає фінішем <code>.btn--text</code>, а не цим файлом</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p"><code>.sech</code> - на межі будь-якого розділу, де далі йде список. <code>.lh1</code> - один раз на лістингу. <code>.homeh1</code> - один раз на головній. Бровку - там, де над блоком треба сказати, що це за блок, і слово це службове, а не назва.</p>
+<p class="kp-p"><b>Вихід ставлять тоді, коли є куди йти.</b> «Усі товари →» над списком із трьох товарів - обіцянка без змісту.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Заголовок і вихід стоять на одній базовій лінії.</b> Це рядок, а не два елементи поруч: 24px і 14px, вирівняні по центру, дають криву, яку видно навіть тому, хто не знає, чому.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби вихід гучнішим за заголовок.</b> Він <code>--text-secondary</code> навмисно: людина прийшла читати розділ, а не йти з нього. Це єдина текстова кнопка продукту, що говорить тихіше за оточення.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>7</b> власних класів і <b>3</b> стани оголошено в <code>section-head.css</code>.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["lh1","relh","homeh1","sech","all","rvhead","mech-kicker"], KIT_STS=[":hover", "aria-label=\"Опис\"", "min-width: 620px"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>section-head.css</code>: <b>6</b> семантичних ролей і <b>19</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (19)</th></tr></thead><tbody><tr><td><code>--bg-surface</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-display</code> <code>--fs-12</code> <code>--fs-16</code> <code>--fs-24</code> <code>--fs-30</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-medium</code> <code>--fw-semibold</code> <code>--ls-caps</code> <code>--ls-display</code> <code>--ls-lead</code> <code>--radius-8</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-32</code></td></tr></tbody></table></div>
+<p class="kp-p">Три числа повз шкалу: <code>190px</code> (колонка шапки відгуків), <code>620px</code> і <code>800px</code> (дві точки перелому, обидві не з набору 480 / 720 / 1180, яким користується решта системи).</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;div class="sech"&gt;
+  &lt;h2&gt;Популярні товари&lt;/h2&gt;
+  &lt;a class="btn--text all" href="listing.html"&gt;Усі товари →&lt;/a&gt;
+&lt;/div&gt;</div>
+<p class="kp-p"><code>.all</code> - це гачок, а не оформлення: обличчя дає фініш <code>.btn--text</code>, а цей файл додає до нього одну вагу, один колір і <code>white-space: nowrap</code>. Фініш оголошує <code>font-size: inherit</code> і <code>font-weight: inherit</code> навмисно, тож компонент <b>мусить</b> сказати тип у себе - це правило, а не протікання.</p>
+<div class="kp-gap"><h4>Слабке місце</h4><code>section[aria-label="Опис"] .sech{ max-width: 800px; margin-inline: auto }</code> - оформлення, підвішене на український рядок усередині атрибута доступності. Це <b>п'яте</b> таке правило в системі; інші чотири знайшлись напередодні в <code>empty-state.css</code>. Перейменують ярлик - і опис товару розтягнеться на всю ширину.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.sech</code> <code>.lh1</code> <code>.relh</code></p>
+<p class="kp-p">Заміряно в браузері на 360, 390, 720 і 1280 по всіх 40 кольорових екранах: <b>37</b> заголовків розділу на <b>10</b> екранах і <b>28</b> виходів на восьми. <b>Мертвих селекторів: 0 з 14</b> - двоє мертвих поїхали з файлу цим кроком.</p>
+<p class="kp-p">A/B у три проходи: нульовий прохід <b>0</b>, різниця <b>0</b>. Крок нічого не намалював інакше - він прибрав із файлу те, що ніколи не малювалось, і віддав сусідові те, що малювало не своє.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Одне обличчя для бровки</b> на 22 селектори в 14 файлах - два розміри, три ваги, п'ять кольорів</li>
+<li><b>Дві точки перелому повз набір</b>: 620 і 800 проти 480 / 720 / 1180, якими користується решта</li>
+<li><b>Оформлення на <code>aria-label</code></b> - п'яте правило системи, що тримається за український рядок</li>
+<li><b>Немає стану «розділ порожній»</b> - якщо в розділі нічого немає, заголовок і «Усі товари →» все одно стоять</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

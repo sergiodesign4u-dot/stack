@@ -6,7 +6,12 @@
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .lh1{ color: var(--text-primary); display: flex; align-items: baseline; gap: var(--space-12); flex-wrap: wrap; }
-.relh{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); margin: var(--space-24) 0 0; }
+/* 7.50: `.relh` and `.mech-kicker` were the same five declarations written twice,
+   in one file, twenty lines apart - 12 / black / uppercase / caps / muted. The
+   only thing that differed was the margin, which is placement rather than face,
+   so it stays on its own line below. Two eyebrows, one edition. */
+.relh, .mech-kicker{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); }
+.relh{ margin: var(--space-24) 0 0; }
 .homeh1{ margin: var(--space-16) 0 var(--space-4); }
 .sech{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-12); margin: var(--space-32) 0 var(--space-16); }
 /* «Усі товари →» - the text finish (`btn--text`) plus this hook. The finish
@@ -23,10 +28,25 @@
 @media (min-width: 620px){
   .rvhead{ grid-template-columns: 190px 1fr auto; }
 }
-.mech-kicker{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); }
+/* the second copy of the eyebrow stood here - folded into `.relh` above at 7.50 */
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.lh1, .seotext .h, .wfh-logo, .empty-h, .estate h2{ font-family:var(--font-display); letter-spacing:var(--ls-lead); }
+/* 7.50: THIS LINE NAMED FIVE THINGS AND ONE OF THEM WAS THIS FILE'S.
+   Read out of the browser, every declaration against every element it matches:
+
+     .lh1          7 matches,  7 wins   the listing's own H1 - stays
+     .seotext .h   9 matches,  9 wins   the SEO block's heading -> seo-text.css
+     .wfh-logo    68 matches,  0 wins   header.css:169 and :172 say both of these
+                                        themselves, and header loads 19 imports
+                                        later, so this half of the line has never
+                                        drawn anything on any of the 34 screens
+     .empty-h      0 matches            no such class anywhere in the repository
+     .estate h2    0 matches            no such class anywhere in the repository
+
+   The last two are not a colour half waiting for a grey twin the way `.tband` or
+   `.led-empty` are: searched in design/, in wireframes/ and in _wf.css, and the
+   only mention in the project was this line. */
+.lh1{ font-family:var(--font-display); letter-spacing:var(--ls-lead); }
 .lh1{ font-size:var(--fs-30); font-weight:var(--fw-bold); letter-spacing:var(--ls-display); }
 .lh1 .cnt{ font-size:var(--fs-16); font-weight:var(--fw-semibold); }   /* face + colour -> counter.css, 7.37 */
 .sech .all{ border-radius:var(--radius-8); padding:var(--space-4) var(--space-8); margin:calc(-1 * var(--space-4)) calc(-1 * var(--space-8)); cursor:pointer; }

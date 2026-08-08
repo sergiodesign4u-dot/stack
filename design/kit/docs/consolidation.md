@@ -6416,3 +6416,109 @@ Molecules **8 / 27**.
   back to an emoji. Same class as the badge face derived from Ukrainian wording by
   regex in `design/_nav.js`.
 - **420px and 440px** are the same «longest readable line» written twice, 20px apart.
+
+## Step 7.50: the section head, and one line that named five things
+
+Ninth molecule. The smallest file left - **58 lines, 14 selectors, 88 declarations
+at rest** - and the widest reach by markup: **37 section heads on 10 screens, 28
+exits on eight.** Null pass **0**, difference **0**: the step deleted what never
+drew and handed a neighbour what was not this file's to paint.
+
+### The line
+
+    .lh1, .seotext .h, .wfh-logo, .empty-h, .estate h2{ font-family: …; letter-spacing: … }
+
+Every declaration run against every element it matches, on all 40 coloured screens:
+
+| `.lh1` | 7 matched | 7 won | the listing's own H1 - stays |
+| `.seotext .h` | 9 | 9 | the SEO block's heading -> seo-text.css |
+| `.wfh-logo` | **68** | **0** | header.css:169 and :172 say both properties themselves, and header loads 19 imports later |
+| `.empty-h` | 0 | 0 | no such class anywhere in the repository |
+| `.estate h2` | 0 | 0 | no such class anywhere in the repository |
+
+**The last two are not the case this stage has refused three times.** `.tband` at
+7.44, `.led-empty` at 7.48 and `.emptybox` without `.mini` at 7.49 all live in the
+grey layer with no coloured twin, so all three stayed. These two were searched for in
+`design/`, in `wireframes/` and in `_wf.css`, and the only mention in the project was
+this line. Deleted.
+
+**And this corrects what I said when choosing the component.** I claimed the file
+paints the header logo on 34 screens. It does not - it tries and loses, 68 times out
+of 68. «34 screens» was true about the markup and false about who draws it.
+
+### Two eyebrows, one face
+
+`.relh` and `.mech-kicker` were the same five declarations written twice in one file,
+twenty lines apart: 12 / black / uppercase / caps / muted. Only the margin differed,
+and a margin is placement rather than face, so it stays on its own line. One edition.
+
+`.mech-kicker` also had a **second edition in another file**: `account-shell.css`
+named the same two properties with the same two tokens and won them only because it
+loads later - import 71 against 63. The class belongs to the section head; the
+account card's own eyebrow stays where it was.
+
+### The eyebrow is a family, and it has drifted
+
+Read out of every stylesheet in the system: **22 selectors in 14 files** do uppercase
+with `--ls-caps`, and they do it differently.
+
+| size | `--fs-12` x14, `--fs-10` x6, and two with no size at all |
+| weight | `--fw-black` x14, `--fw-bold` x4, `--fw-medium` x1, three unset |
+| colour | muted, secondary, primary, oninverse, and unset - five |
+
+This step folded the two that shared a file. The rest is a values decision across 14
+files and goes to stage 09 whole, the same way `1.5px` did at 7.49.
+
+### Three bugs in my own solver, all leaning the same way
+
+The winning-rule solver was written for this step and lied three times before it told
+the truth, each time **towards the hypothesis**:
+
+1. It asked `getPropertyValue(longhand)` whether a rule declares a property. A
+   shorthand holding `var()` returns empty there, so every var()-based shorthand fell
+   out of the candidate set and `base.css *` was reported beating `.empty`. First run:
+   **146** never-winning declarations. Real answer at 7.49: 18.
+2. It stripped state pseudos to test matching, which made `:hover` rules look like
+   resting winners. `.sech .all { color }` came back «beaten by itself».
+3. The guard written to fix (2) used `\b` inside a **template literal**, where it is a
+   backspace escape rather than a word boundary, so the guard never fired.
+
+Same family as the comment closer at 7.42 and 7.47: a character that means one thing
+in prose and another to the parser. **A tool that errs towards the hypothesis is worse
+than no tool**, so all three fixes are in the script rather than in a note.
+
+### The stand
+
+`design/kit/section-head.html`, the showcase's **ninth molecule**. Idle check passes:
+**7 of 7 classes, 3 states named.** It failed once first - `.rvhead` was named and not
+rendered - and now carries the reviews head with its own 190/1fr/auto grid. All 42
+stands re-checked at 360 and 1280: no overflow, no idle failure, no exception.
+Molecules **9 / 27**.
+
+### Found, not fixed
+
+- **One face for the eyebrow** across 22 selectors in 14 files.
+- **Two breakpoints beside the set**: 620 and 800, against the 480 / 720 / 1180 the
+  rest of the system uses.
+- **`section[aria-label="Опис"] .sech`** - the **fifth** rule in the system hanging off
+  a Ukrainian string inside an accessibility attribute; the other four were found the
+  day before in empty-state.css.
+- **No «section is empty» state**: 37 heads, 28 exits, and nothing says what a head
+  does when its section has nothing under it.
+
+### A correction to 7.48's apostrophe count
+
+7.48 reported «eleven curly apostrophes» against the one form the rules name. That
+counted U+2019 only. There is a **third** form in the repo, U+02BC, the modifier
+letter, and it is far more common:
+
+| | U+02BC | U+2019 |
+| `design/` | 0 | 0 |
+| `wireframes/` | 14 | 4 |
+| `ia/` | 43 | 1 |
+| `voice/` | 75 | 6 |
+| `research/` | 24 | 0 |
+
+**167, not 11.** `design/` is clean of both, and this step's own stand was written
+with three of them before the check caught it. The rule says one apostrophe form; the
+count of what it is being measured against was wrong, not the rule.
