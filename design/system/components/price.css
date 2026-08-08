@@ -1,22 +1,212 @@
-/* price.css - price (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* price.css - price (level 1), rebuilt at step 7.36.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.cprice{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); white-space: nowrap; text-align: right; }
-.cprice .old{ display: block; font-size: var(--fs-12); font-weight: var(--fw-medium); color: var(--text-price-was); text-decoration: line-through; }
+   THE MOST REPEATED FACT IN THE STORE, AND THE FILE THAT OWNS IT DECLARED NONE
+   OF IT. Before this step price.css held `.cprice`, `.cprice .old` and
+   `.uiv-cur`. `.cprice` has ZERO instances on any coloured screen - it is a
+   grey-prototype name from the coach session, whose screens have no coloured
+   twin yet. So the atom file described a price nobody sees, and every price a
+   person actually reads was declared inside a molecule, scoped to its container.
+   The stand proved it before anyone argued: `design/kit/price.html` rendered its
+   demo at 16px/400 black, unstyled, and the idle check had been saying so for
+   steps.
 
-/* ---------- colour (from design/kit/kit.css) ---------- */
-.uiv-cur{ font-size:.55em; font-weight:inherit; letter-spacing:0; margin-left:.06em; }
+   EIGHT SURFACES, EIGHT SETS OF NAMES, ONE STRUCTURE. Read out of the runtime
+   DOM at 390 and 1280 across 39 coloured screens - every one of them is the same
+   three lines in the same order:
 
-/* ---------- the list card's three figures - step 7.27 ----------------------
-   They came from rating.css, where they had been sharing one `font-mono`
-   declaration with the rating figure since the step-3 split. Nothing about them
-   is a rating: `.lprice` is the price, `.lold` the price it was, and
-   `.lmeta b` is `<b>18 ₴</b>/порція` - the price per serving. The rating stand
-   had been naming two of them in its idle check every time it was opened. */
-.pcard-l .lprice, .pcard-l .lold, .pcard-l .lmeta b{
-  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+     [struck]  1 520 ₴   −15%
+     [live]    1 290 ₴
+
+     surface        live        struck     cut        file that held it
+     grid card      .pnew  92   .pold  22  .pcut  22  product-card.css   L2
+     list card      .lprice 7   .lold   2  .lcut   2  product-card.css   L2
+     home deal      .hd-new 4   .hd-old 4  .hd-cut 4  banner.css         L2
+     PDP buy box    .new    3   .old    2  .cut    2  buy-box.css        L3
+     PDP shelf      .tnew   2   .told   2  .tcut   2  pdp-tabs.css       L3
+     mobile buy bar .mbp b  3   .mold   3  .mcut   3  buy-bar.css        L3
+     cart row       .ci-sum 6   .ci-old 2  .ci-cut 2  cart-row.css       L2
+     checkout line  .li-sum 9   .li-old 3  .li-cut 3  checkout-form.css  L3
+
+   EIGHT NAMES FOR THE LIVE PRICE, EIGHT FOR THE ONE IT REPLACED. Not variants -
+   the same job on the same kind of surface, written eight times by whoever built
+   that screen. Two of the names are `.new` and `.old`, which are not names at all.
+
+   AND THE LOCKED OWNER RULE HAD EIGHT EDITIONS. DESIGN-artifacts.md:61 (locked
+   2026-07-29): «a price that is REDUCED is set in Signal Orange; a price with no
+   discount stays ink», and line 65 says it is «implemented data-driven via
+   `:has()` on the struck old price, SO THE COLOUR CANNOT DRIFT FROM THE FACT».
+   It was one rule in kit.css. The step-3 split turned it into eight, one per
+   file, each naming its own pair. Eight copies of a rule whose entire purpose is
+   that it cannot drift is the drift.
+   It is one selector list below, and the one documented exception - the coach
+   PDP's retail reference price, which is struck but must stay ink because it is
+   not what the coach pays - is named next to it instead of hidden in buy-box.css.
+
+   WHAT THIS FILE OWNS AND WHAT IT LEAVES: everything that is the same on all
+   eight surfaces. Size is NOT the same and stays where it is, because 20px in a
+   cart row and 36px in a buy box are two decisions about the same fact and both
+   are right. Grid position, `:empty` hiding and the surrounding layout stay too.
+
+   NAMES ARE NOT RENAMED. All sixteen come from markup the frozen grey layer
+   shares, so the atom answers to sixteen names today - the same line
+   availability.css draws for its four and stepper.css for `.ci-qty`/`.co-qty`.
+   Крок 6 owns the rename, and `.new`/`.old`/`.cut` go to the front of that queue.
+
+   NOT IN THIS STEP, AND MEASURED SO THE NEXT ONE STARTS WITH IT DONE: the `-N%`
+   chip. It is discount.css's atom and it has eight names too, split three ways -
+   `.pcut` `.tcut` `.mcut` in IBM Plex Mono (27 instances), `.lcut` `.hd-cut`
+   `.cut` `.ci-cut` `.li-cut` in Inter (13), against DESIGN-artifacts.md:77 which
+   puts every price figure in mono. `.cut` is also the only one at 800 where the
+   other seven are 700, and `.tcut` is the only one padded 2/4 where the rest are
+   2/8. Two of the Inter ones are written as the literal `'Inter', sans-serif`
+   rather than the token, which is two of the seven left in the system.
+   ============================================================================ */
+
+/* ---------- 1. the figure is set in mono, and the digits line up -------------
+   DESIGN-artifacts.md:77, locked: «IBM Plex Mono for every dose, serving,
+   nutrition figure, and price. Mono numbers are a trust signal.» Seven surfaces
+   said it themselves; `.hd-old` said half of it. banner.css wrote the family on
+   line 76 and `font-variant-numeric` on line 78 - to its own sibling, one line
+   apart - so the home deal's struck price was the only one of eight rendering
+   proportional digits. Nothing about a struck price makes its digits different.
+
+   `word-spacing` is the ₴ kerning, and it is the same measured -.24em on five of
+   the eight. `.hd-old` had -.1em and the list card had none at all, because
+   product-card.css:72 lists `.pcard` and not `.pcard-l`. It belongs on the figure
+   because the figure is what has a space in it - the `-N%` chips have none, which
+   is why they are not in this list.
+
+   `.cprice` IS IN THESE LISTS ON PURPOSE, with zero instances today. It is the
+   coach session's price row - the ninth surface, and the only one whose screens
+   are still grey-only. It is named here rather than deleted so that when Крок 6
+   colours the coach flow the row arrives already holding the atom, instead of
+   being re-derived from whatever the grey file happened to say. What is genuinely
+   that row's - its 16px, its right edge, its nowrap - went to client-row.css,
+   which is where the row lives. */
+.pnew, .pold,
+.lprice, .lold,
+.hd-new, .hd-old,
+.new, .old,
+.tnew, .told,
+.mbp, .mold,
+.ci-price, .ci-old,
+.li-price, .li-old,
+.cprice{
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  word-spacing: -.24em;
 }
+
+/* ---------- 2. the price it used to be ---------------------------------------
+   Struck, grey, and lighter than the figure that replaced it. Three declarations
+   and nothing else - the size stays with the surface, because a struck price is
+   10px on a phone card and 14px in a buy box for the same reason the live one is.
+
+   ONE WEIGHT, AND IT IS 400. Measured: 400 on `.pold` `.lold` `.hd-old` `.old`
+   (30 elements), 500 on `.ci-old` `.li-old` (5), 600 on `.told` `.mold` (5). One
+   role, three weights, and nobody chose the split - `.told` simply inherited the
+   600 that `.tprice` declares for the block. 400 is what 30 of 40 already are and
+   it is the right end of the range: this line has to be readable and then get out
+   of the way. It is written out rather than left unset because inside `.tprice`
+   «unset» means 600.
+
+   --text-muted, NOT --text-price-was. There is a semantic token minted for
+   exactly this line and the atom does not take it: #AAAAAA is 2.32:1 on white,
+   and what a thing used to cost is a fact a person checks the discount against.
+   All 40 struck prices in the product already render --text-muted (5.2:1). The
+   token's own comment in tokens.css now says so. */
+.pold, .lold, .hd-old, .old, .told, .mold, .ci-old, .li-old{
+  color: var(--text-muted);
+  font-weight: var(--fw-regular);
+  text-decoration: line-through;
+}
+
+/* ---------- 3. the price you pay ---------------------------------------------
+   ONE WEIGHT AT ONE SIZE. Every surface below is 20px and four of them disagreed
+   about the weight: 800 on `.pnew` and `.lprice` (99 elements), 700 on `.ci-sum`
+   `.li-sum` `.tnew` `.mbp b` (20). Same size, same job, two weights. 800, by 99
+   against 20 and because this figure is the one thing on the row the eye is
+   supposed to land on first.
+
+   THE TWO RUNGS ABOVE 20px KEEP THEIR OWN WEIGHT, and that is a refusal, not an
+   omission: the home deal is 30/700 and the buy box is 36/600, one surface each,
+   and a heavy weight at display size is not the same optical decision as a heavy
+   weight at 20. Ranking display weights is a stage 09 typography question, and
+   inventing a ladder here to make a table look tidy would be exactly the kind of
+   side effect this project forbids. Their family, kerning and colour rule are
+   owned above and below; only the weight stays local.
+
+   THE INK IS DECLARED HERE TOO, next to the weight, because it is the OTHER half
+   of the locked rule below: «a price with no discount stays ink». Written apart -
+   the ink in seven molecule files, the orange in eight - the two halves could
+   drift, and one of them already had (`.pcard-l .lprice` carried
+   `color: var(--text-primary)` on product-card.css:34 and `var(--text-body)` on
+   line 84, and only the second one ever rendered). Both halves are on this page
+   now, eleven lines apart, and the orange wins by specificity, not by file order. */
+.pnew, .lprice, .hd-new, .new, .tnew, .mbp b, .ci-sum, .li-sum, .cprice{
+  color: var(--text-body);
+}
+.pnew, .lprice, .ci-sum, .li-sum, .tnew, .mbp b, .cprice{
+  font-weight: var(--fw-black);
+}
+
+/* ---------- 4. the locked owner rule, once ----------------------------------
+   «A price that is reduced is set in Signal Orange; a price with no discount
+   stays ink.» DESIGN-artifacts.md:61-66, locked 2026-07-29, owner's rule. The
+   fact is in the markup - a struck price is present or it is not - and `:has()`
+   reads it, so a screen cannot show an orange figure at full price by mistake.
+
+   The contrast gate from the same lines: #FF5A00 on white is 3.13:1, AA for
+   large text only, so the accent is allowed on a price only at >=19px bold.
+   Measured on the eight surfaces: 20, 20, 24, 30, 36 - all clear it, all bold or
+   heavier. (The gate's own list in DESIGN-artifacts reads «card 22 / mobile 19,
+   list 21, buy box 36, shelf 19, buy bar 19»; the rendered numbers are 24/20, 20,
+   36, 20, 20. The gate holds either way, the doc's figures are stale - reported,
+   not silently corrected here, because that file has an owner.) */
+.pcard:has(.pold) .pnew,
+.pcard-l:has(.lold) .lprice,
+.hd-price:has(.hd-old) .hd-new,
+.bb:has(.old) .new,
+.pdp-tabs:has(.told) .tnew,
+.mbuybar:has(.mold) .mbp b,
+.ci-price:has(.ci-old) .ci-sum,
+.li-price:has(.li-old) .li-sum{
+  color: var(--text-action);
+}
+/* THE ONE EXCEPTION, and it is a product decision, not a style: on the coach PDP
+   the struck figure is the RETAIL price shown for reference. The coach is not
+   being given a discount off it, they are on a different tier - so the live
+   figure stays ink, because orange here would claim a saving that is not the
+   fact. It lived in buy-box.css as an unexplained second line; it belongs next
+   to the rule it excepts.
+
+   `.cprice` IS ABSENT FROM THE LIST ABOVE FOR THE SAME REASON, and that absence
+   is a statement, not an oversight: the coach session row reads «460 ₴ 549 ₴
+   гурт», where the struck figure is retail and 460 is the tier price. Same fact
+   as `.bb.retailref`, so the live figure stays ink there too - it simply needs no
+   exception written, because not being in the list is already the answer. */
+.bb.retailref:has(.old) .new{ color: var(--text-body); }
+
+/* ---------- 5. the ₴ mark ----------------------------------------------------
+   `.55em` of whatever figure it sits in, so it never needs a size of its own:
+   19.8px next to the 36px buy box, 11px next to a 20px cart sum. Full-size ₴ next
+   to a 36px numeral reads as a second glyph competing with the money.
+   `design/_nav.js` builds it - it splits the text node on ₴ and wraps it - and
+   it has to re-run after anything that rewrites a figure, which is why the stepper
+   and the money column call it again. Four call sites for one mark: a JS shape,
+   not a CSS one, recorded here so the count is somewhere. */
+.uiv-cur{ font-size: .55em; font-weight: inherit; letter-spacing: 0; margin-left: .06em; }
+
+/* ---------- 6. the list card's third figure ---------------------------------
+   `.lmeta b` is `<b>18 ₴</b>/порція`, the price per serving. It arrived here at
+   step 7.27 from rating.css, where it had been sharing one `font-mono` line with
+   the rating figure.
+
+   NOT MERGED WITH `.perserv`, AND SAID OUT LOUD: the grid card writes
+   `<span class="perserv"><b>18 ₴</b> / порція</span>` - words in the body face,
+   figure in mono, which is what DESIGN-artifacts.md:77 actually asks for. The PDP
+   writes `<div class="perserv">≈ 18 ₴ / порція · +13 ₴ бонус</div>` with no `<b>`
+   at all and sets the whole string in mono, words included. Making them one needs
+   a `<b>` around two figures in the PDP markup and a decision about whether the
+   bonus belongs on that line - the second is IA's, not this file's. Measured, left. */
+.pcard-l .lmeta b{ font-family: var(--font-mono); font-variant-numeric: tabular-nums; }

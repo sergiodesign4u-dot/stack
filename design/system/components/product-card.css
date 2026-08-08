@@ -14,8 +14,10 @@
 .pcard .prow2{ display: flex; justify-content: space-between; gap: var(--space-12); }
 .pcard .pcol{ display: flex; flex-direction: column; gap: var(--space-2); }
 .pcard .poldline{ display: flex; align-items: center; }
-.pcard .pold{ font-size: var(--fs-12); text-decoration: line-through; }
-.pcard .pnew{ font-weight: var(--fw-black); }
+/* step 7.36: the strike left this line and `.pcard .pnew{ font-weight }` left the
+   next one, both to price.css. The SIZE stays: how big a price is on a phone card
+   is the card's decision, and this file makes it twice (12 here, 10 under 620). */
+.pcard .pold{ font-size: var(--fs-12); }
 .pcard .pmeta2{ display: flex; justify-content: space-between; }
 .pcard .perserv{ color: var(--text-secondary); }
 .pcard .perserv b{ color: var(--text-primary); }
@@ -29,9 +31,13 @@
 .pcard-l .lmeta{ font-size: var(--fs-12); color: var(--text-secondary); margin-top: var(--space-4); }
 .pcard-l .lprice-col{ display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-2); white-space: nowrap; }
 .pcard-l .lold-row{ display: flex; align-items: center; gap: var(--space-8); min-height: 15px; }
-.pcard-l .lold{ font-size: var(--fs-12); text-decoration: line-through; }
+.pcard-l .lold{ font-size: var(--fs-12); }
 .pcard-l .lcut{ font-size: var(--fs-10); border-radius: var(--radius-4); padding: var(--space-2) var(--space-8); }
-.pcard-l .lprice{ font-weight: var(--fw-black); color: var(--text-primary); }
+/* step 7.36: weight and ink went to price.css. The ink was a DEAD declaration
+   before it went - `color: var(--text-primary)` here, `var(--text-body)` on the
+   colour line below, same selector, same file, and only the second one ever
+   rendered. Third of its kind this stage after `.lavail.pre` and the 1 038 the
+   step-7.4 sweep found. */
 .pcard-l .lactions{ display: flex; align-items: center; gap: var(--space-12); }
 /* The exception the icon block of button.css names by hand: a list row gives
    12px of gap, so this heart cannot have the 40 box every other icon button
@@ -65,24 +71,31 @@
    `.lmeta b` from rating.css to price.css in the other direction.
    What is left below is the card's own: prices, the bonus, pager numbers. They
    belong in price.css by the same argument and are a Крок 6 item. */
-.pcard .pnew, .pcard .pold, .pcard .pcut, .pcard .perserv b,
+/* step 7.36: `.pcard .pnew` and `.pcard .pold` left both lines below for
+   price.css. They were the reason the atom did not exist - a price set in mono
+   BECAUSE IT SITS ON A CARD, which is the same sentence that sent `.rate .st` to
+   rating.css at 7.27 and read wrong then too. What is left here is genuinely not
+   a price: the discount chip (discount.css's atom, next step), the per-serving
+   figure, the bonus, the pager numbers and the listing count. */
+.pcard .pcut, .pcard .perserv b,
 .pcard .bonus, .pages a, .pages button, .lh1 .cnt{
   font-family:var(--font-mono); font-variant-numeric:tabular-nums;
 }
-.pcard .pnew, .pcard .pold, .pcard .perserv b, .pcard .bonus{ word-spacing:-0.24em; }
+.pcard .perserv b, .pcard .bonus{ word-spacing:-0.24em; }
 .pcard .ph{ background:var(--bg-page) center/72% no-repeat; color:transparent; }
 .pcard .ph .tag{ color:var(--text-body); }
 .pcard:nth-of-type(3n+1) .ph{ background-image:url(../../visuals/product-whey.png); }
 .pcard:nth-of-type(3n+2) .ph{ background-image:url(../../visuals/product-creatine.png); }
 .pcard:nth-of-type(3n)   .ph{ background-image:url(../../visuals/product-preworkout.png); }
 .pcard.dim .ph{ opacity:.5; }
-.pcard .pnew{ color:var(--text-body); }
-.pcard .pold{ color:var(--text-muted); }
 .pcard .bonus{ color:var(--text-bonus); font-weight:var(--fw-bold); }
-.pcard:has(.pold) .pnew{ color:var(--text-action); }
-.pcard-l:has(.lold) .lprice{ color:var(--text-action); }
-.pcard-l .lnm, .pcard-l .lprice{ color:var(--text-body); }
-.pcard-l .lold{ color:var(--text-muted); }
+/* step 7.36: five colour lines left this block for price.css - the two prices'
+   ink, the two struck prices' grey, and BOTH copies of the locked owner rule
+   («reduced is orange»), which this file held twice of the eight editions it had
+   in total. DESIGN-artifacts.md:65 says that rule is data-driven «so the colour
+   cannot drift from the fact»; it is one selector list now, which is the only
+   shape that sentence is true in. */
+.pcard-l .lnm{ color:var(--text-body); }
 .pcard-l .lcut{ background:var(--bg-discount); color:var(--text-danger); font-weight:var(--fw-bold); }
 .pcard-l .lph{ background:var(--bg-page) center/contain no-repeat; color:transparent; }
 .pcard-l .lph .tag{ border-color:var(--line-inverse); color:var(--text-body); }

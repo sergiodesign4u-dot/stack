@@ -181,6 +181,13 @@
   --fs-30: 30px;
   --fs-34: 34px;
 
+  /* --fw-regular added at step 7.36. The system has always used 400 and never
+     named it, because 400 is what you get by writing nothing. The struck old price
+     is the one place that has to say it OUT LOUD: `.told` sits inside `.tprice`,
+     which declares 600, so «not bold» there is an instruction, not a default.
+     Four named weights and a fifth used everywhere unnamed is how one role ended
+     up with three of them (400 on 30 struck prices, 500 on 5, 600 on 5). */
+  --fw-regular:  400;
   --fw-medium:   500;
   --fw-semibold: 600;
   --fw-bold:     700;
@@ -468,8 +475,16 @@
   --mark-disabled:         var(--grey-cc);            /* 4 uses - a control that is off: the minus at quantity 1, the inactive carousel
      dot, the breadcrumb separator. Darker than --mark-faint on purpose: this one
      still has to read as a control. */
-  --text-price-was:        var(--grey-aa);            /* 10 uses - the struck old price, and only that. It is deliberately weaker than
-     --text-muted: the eye must land on the new price first. */
+  --text-price-was:        var(--grey-aa);            /* 0 RENDERED uses, measured at step 7.36. The comment used to say 10 and it was
+     counted in the old kit.css. Today exactly one selector reads it - `.cprice .old`
+     in price.css - and `.cprice` has zero instances on any coloured screen; it is a
+     grey-prototype name. All 40 struck prices in the product render --text-muted.
+     THE ATOM DOES NOT TAKE THIS TOKEN, and that is a decision, not an oversight:
+     #AAAAAA on white is 2.32:1, and the price something used to cost is real
+     information a person compares against, not decoration. Recession is done by
+     weight and by the strike, both of which the atom now owns. The token stays
+     declared until stage 09 rules on it, so that removing it is a said-out-loud
+     decision rather than a side effect of this step. */
   --bg-hatch:              var(--warm-200);           /* 4 uses - the diagonal stripe of a HATCHED PLACEHOLDER: the auth dialog's
      visual panel and the mega menu's «Вибір місяця» photo slot. Two elements, two gradient stops each.
      RENAMED from --bg-skeleton at step 7.28, because that name had stopped being true. It was minted at

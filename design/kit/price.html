@@ -23,46 +23,136 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Ціна</h1>
-<p class="kp-lead">Цифра, заради якої існує картка. Моноширинний шрифт і табличні цифри, щоб ціни в сітці стояли колонкою.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/price.css</span><span class="kp-tag">22 рядків</span><span class="kp-tag">40 екранів</span></div>
+<p class="kp-lead">Найчастіший факт у магазині: дев'ять поверхонь, шістнадцять імен, одна цифра. Моноширинний шрифт і табличні цифри, щоб ціни в сітці стояли колонкою.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/price.css</span><span class="kp-tag">212 рядків</span><span class="kp-tag">9 поверхонь</span><span class="kp-tag">39 екранів</span></div>
+
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><div class="kp-row" style="align-items:baseline;gap:20px"><span class="pnew">1 199 ₴</span><span class="pold">1 499 ₴</span><span class="perserv">від <b>24 ₴</b> за порцію</span></div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Число</b> - IBM Plex Mono, <code>tabular-nums</code> - ширина цифри стала</span></div><div class="a"><i>2</i><span><b>Знак ₴</b> - у половину розміру: поруч з 36px цифрою повнорозмірний читається як ще одна цифра</span></div><div class="a"><i>3</i><span><b>Стара ціна</b> - закреслена, і лише коли знижка справді є</span></div></div></section>
+<div class="kp-demo"><div class="pcard" style="padding:14px 16px;max-width:260px">
+  <div class="poldline"><span class="pold">1 520 ₴</span></div>
+  <span class="pnew">1 290 <span class="uiv-cur">₴</span></span>
+  <span class="perserv"><b>18 ₴</b> / порція</span>
+</div></div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Цифра</b> - IBM Plex Mono, <code>tabular-nums</code>: ширина цифри стала, тому ціни в сітці стоять колонкою</span></div>
+  <div class="a"><i>2</i><span><b>Знак ₴</b> - <code>.uiv-cur</code>, півкегля батька: повнорозмірний поруч з 36px цифрою читається як ще одна цифра</span></div>
+  <div class="a"><i>3</i><span><b>Стара ціна</b> - закреслена, сірa, 400: її треба прочитати і відпустити</span></div>
+  <div class="a"><i>4</i><span><b>Помаранчевий</b> - і тільки тоді, коли стара ціна справді стоїть поруч. Це читає <code>:has()</code>, не рука</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Дев'ять поверхонь, одна структура</div>
+<p class="kp-p">Кожен блок нижче - розмітка з продукту, не переписана. Ліва колонка зі знижкою, права без неї: <b>помаранчевий з'являється і зникає сам</b>, бо правило читає наявність закресленої ціни, а не клас, який хтось не забув поставити.</p>
+<div class="kp-demo"><div class="kp-2col">
+
+  <div><div class="kp-lbl">Картка сітки <code>.pnew</code> <code>.pold</code></div>
+    <div class="pcard" style="padding:12px 14px">
+      <div class="poldline"><span class="pold">1 520 ₴</span></div>
+      <span class="pnew">1 290 <span class="uiv-cur">₴</span></span></div></div>
+  <div><div class="kp-lbl">та сама, без знижки</div>
+    <div class="pcard" style="padding:12px 14px">
+      <div class="poldline"></div>
+      <span class="pnew">1 290 <span class="uiv-cur">₴</span></span></div></div>
+
+  <div><div class="kp-lbl">Картка списку <code>.lprice</code> <code>.lold</code></div>
+    <div class="pcard-l" style="padding:12px 14px"><div class="lprice-col">
+      <div class="lold-row"><span class="lold">1 520 ₴</span></div>
+      <div class="lprice">1 290 <span class="uiv-cur">₴</span></div></div>
+      <div class="lmeta"><b>18 ₴</b>/порція</div></div></div>
+  <div><div class="kp-lbl">та сама, без знижки</div>
+    <div class="pcard-l" style="padding:12px 14px"><div class="lprice-col">
+      <div class="lold-row"></div>
+      <div class="lprice">1 290 <span class="uiv-cur">₴</span></div></div>
+      <div class="lmeta"><b>18 ₴</b>/порція</div></div></div>
+
+  <div><div class="kp-lbl">Пропозиція дня <code>.hd-new</code> <code>.hd-old</code></div>
+    <div><span class="hd-price"><span class="hd-oldline"><span class="hd-old">1 520 ₴</span></span>
+      <span class="hd-new">1 290 <span class="uiv-cur">₴</span></span></span></div></div>
+  <div><div class="kp-lbl">та сама, без знижки</div>
+    <div><span class="hd-price"><span class="hd-new">1 290 <span class="uiv-cur">₴</span></span></span></div></div>
+
+  <div><div class="kp-lbl">Блок покупки PDP <code>.new</code> <code>.old</code></div>
+    <div class="bb"><div class="oldrow"><span class="old">1 520 ₴</span></div>
+      <div class="new">1 290 <span class="uiv-cur">₴</span></div></div></div>
+  <div><div class="kp-lbl">він же в режимі коуча <code>.retailref</code></div>
+    <div class="bb retailref"><div class="oldrow"><span class="old">1 520 ₴</span></div>
+      <div class="new">1 290 <span class="uiv-cur">₴</span></div></div></div>
+
+  <div><div class="kp-lbl">Полиця PDP <code>.tnew</code> <code>.told</code></div>
+    <div class="pdp-tabs" style="position:static;display:block;padding:0;border:0">
+      <span class="tprice" style="display:inline-grid"><span class="told">1 520 ₴</span>
+      <b class="tnew">1 290 <span class="uiv-cur">₴</span></b></span></div></div>
+  <div><div class="kp-lbl">Смуга покупки <code>.mbp</code> <code>.mold</code></div>
+    <div class="mbuybar" style="position:static;display:block;box-shadow:none;padding:0;border:0">
+      <div class="mbp"><span class="mold">1 520 ₴</span>
+      <b>1 290 <span class="uiv-cur">₴</span></b></div></div></div>
+
+  <div><div class="kp-lbl">Рядок кошика <code>.ci-sum</code> <code>.ci-old</code></div>
+    <div class="ci-price">
+      <span class="ci-oldline"><span class="ci-old">1 520 ₴</span></span>
+      <span class="ci-sum">1 290 <span class="uiv-cur">₴</span></span>
+      <span class="ci-per">1 050 ₴ / шт</span></div></div>
+  <div><div class="kp-lbl">Рядок замовлення <code>.li-sum</code> <code>.li-old</code></div>
+    <div class="co-line"><div class="li-price">
+      <span class="li-oldline"><span class="li-old">1 520 ₴</span></span>
+      <span class="li-sum">1 290 <span class="uiv-cur">₴</span></span></div></div></div>
+
+  <div><div class="kp-lbl">Рядок сесії коуча <code>.cprice</code> - ще сірий</div>
+    <div class="cprice">460 <span class="uiv-cur">₴</span><span class="old">549 ₴</span></div></div>
+  <div><div class="kp-lbl">Дев'ята поверхня</div>
+    <p class="kp-p" style="margin:0">Екрани коуч-сесії існують лише в <code>wireframes/</code>: кольорового близнюка в них ще немає. Ім'я стоїть у файлі наперед, щоб на Кроці 6 рядок прийшов уже з атомом, а не був виведений заново з того, що казав сірий файл.</p></div>
+
+</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Роль</b></td><td><code>.pnew</code> актуальна · <code>.pold</code> стара · <code>.perserv</code> за порцію</td><td>«За порцію» - це не менша ціна, а інша одиниця. Вона стоїть під ціною, ніколи замість неї.</td></tr><tr><td><b>Колір</b></td><td>чорнило · акцент</td><td><b>Акцент бере лише ціна зі знижкою.</b> Звичайна ціна лишається чорнилом. Правило зафіксоване в DESIGN-artifacts.md: помаранчевий тут означає «дешевше, ніж було», і якщо ним пофарбувати всі ціни, він перестане означати будь-що.</td></tr></tbody></table></div>
-</section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Роль</b></td><td>актуальна · стара · за порцію</td><td>«За порцію» - це не менша ціна, а інша одиниця. Вона стоїть під ціною, ніколи замість неї.</td></tr>
+<tr><td><b>Колір</b></td><td>чорнило · акцент</td><td><b>Акцент бере лише ціна зі знижкою.</b> Правило зафіксоване в <code>DESIGN-artifacts.md</code> 2026-07-29: помаранчевий тут означає «дешевше, ніж було». Якщо ним пофарбувати всі ціни, він перестане означати будь-що. Виняток один - коуч-режим PDP, де закреслена цифра це роздрібна ціна для довідки, а не знижка коучу.</td></tr>
+<tr><td><b>Розмір</b></td><td>20 · 24 · 30 · 36</td><td><b>Розмір належить поверхні, не атому.</b> 20 у рядку кошика і 36 у блоці покупки - два рішення про один факт, і обидва правильні. Поріг контрасту з того ж правила: <code>#FF5A00</code> на білому це 3.13:1, тому акцент дозволений ціні лише від 19px жирним - усі чотири рунги його проходять.</td></tr>
+<tr><td><b>Вага</b></td><td>800 на 20-24 · 700 на 30 · 600 на 36</td><td>На 20px вага <b>одна</b>: атом її і тримає. Вище 20 вагу лишено поверхні - жирне на дисплейному кеглі це не те саме оптичне рішення, що жирне на 20, і ранжувати дисплейні ваги це питання етапу 09.</td></tr>
+</tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
 <p class="kp-p">Ціна стоїть <b>перед</b> дією, не після: людина вирішує, а потім натискає. На мобільному повний факт ціни несе <b>Смуга покупки</b>, бо основна ціна на той момент уже прокручена.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Помаранчевий - лише на ціні зі знижкою.</b> Один погляд на сітку відповідає на питання «де тут вигода».</div><div class="kp-dont"><h4>Антиправило</h4><b>Не фарбуй звичайну ціну в акцент.</b> Тоді знижка нічим не відрізняється від не-знижки, і колір дії перестає працювати ще й на <b>Кнопка</b> - на екрані стає дві помаранчеві речі.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Помаранчевий - лише на ціні зі знижкою, і це читає код.</b> Факт лежить у розмітці: закреслена ціна або є, або її немає. <code>:has()</code> дивиться туди, тому екран не може показати помаранчеву цифру за повну ціну помилково.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не пиши це правило вдруге.</b> Воно було написане вісім разів, по одному на файл, і сенс його в тому, що воно не може розійтися з фактом. Вісім копій правила, яке не може розійтися, - це і є розходження.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
+<p class="kp-p">Станів немає: ціна нічого не робить у відповідь на палець і не має <code>:hover</code>. Те, що виглядає як стан - помаранчевий колір - це не стан, а <b>факт розмітки</b>, і показаний він у сітці вище парою «зі знижкою / без».</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>0</b> станів оголошено в <code>price.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>22</b> власних класів і <b>0</b> станів оголошено в <code>price.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст не рахується: у селекторах <code>.pcard</code>, <code>.bb</code>, <code>.pdp-tabs</code>, <code>.mbuybar</code>, <code>.hd-price</code> компонент не є підметом, він лише стоїть усередині когось.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["cprice", "old", "uiv-cur"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["pnew","pold","lprice","lold","hd-new","hd-old","new","old","tnew","told","mbp","mold","ci-price","ci-old","ci-sum","li-price","li-old","li-sum","cprice","uiv-cur","lmeta","retailref"], KIT_STS=[];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>price.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (2)</th><th>Примітиви (4)</th></tr></thead><tbody><tr><td><code>--text-price-was</code> <code>--text-primary</code></td><td><code>--fs-12</code> <code>--fs-16</code> <code>--fw-black</code> <code>--fw-medium</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (3)</th><th>Примітиви (3)</th></tr></thead><tbody><tr><td><code>--text-action</code> <code>--text-body</code> <code>--text-muted</code></td><td><code>--font-mono</code> <code>--fw-black</code> <code>--fw-regular</code></td></tr></tbody></table></div>
+<p class="kp-p"><code>--fw-regular</code> заведено цим кроком. Система завжди вживала 400 і жодного разу його не назвала, бо 400 - це те, що виходить, коли не пишеш нічого. Стара ціна це те єдине місце, де його треба сказати <b>вголос</b>: <code>.told</code> стоїть усередині <code>.tprice</code>, який оголошує 600.</p>
+<p class="kp-p"><b>Токен, який атом не взяв.</b> <code>--text-price-was</code> заведено саме під закреслену ціну, і атом його не читає: <code>#AAAAAA</code> на білому це 2.32:1, а скільки річ коштувала раніше - це факт, з яким людина звіряє знижку, а не оздоблення. Усі 40 закреслених цін у продукті і так малюються <code>--text-muted</code> (5.2:1). Коментар токена тепер це і каже.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;span class="pnew"&gt;1 199 ₴&lt;/span&gt;
-&lt;span class="pold"&gt;1 499 ₴&lt;/span&gt;
-&lt;span class="perserv"&gt;від &lt;b&gt;24 ₴&lt;/b&gt; за порцію&lt;/span&gt;</div></section>
+<div class="kp-code">&lt;!-- структура однакова на всіх дев'яти поверхнях, змінюються лише імена --&gt;
+&lt;div class="poldline"&gt;&lt;span class="pold"&gt;1 520 ₴&lt;/span&gt;&lt;/div&gt;
+&lt;span class="pnew"&gt;1 290 &lt;span class="uiv-cur"&gt;₴&lt;/span&gt;&lt;/span&gt;
+
+&lt;!-- знижки немає: рядок старої ціни лишається порожнім, і цього досить --&gt;
+&lt;div class="poldline"&gt;&lt;/div&gt;
+&lt;span class="pnew"&gt;1 290 &lt;span class="uiv-cur"&gt;₴&lt;/span&gt;&lt;/span&gt;</div>
+<p class="kp-p">Знак <code>₴</code> у розмітці не загорнутий: його загортає <code>design/_nav.js</code>, розрізаючи текстовий вузол. Тут він написаний руками, бо стенд показує результат, а не процес.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.pnew</code> <code>.pold</code> <code>.perserv</code> <code>.uiv-cur</code> <code>.cprice</code> <code>.tprice</code></p>
-<p class="kp-p"><b>40 екранів</b> у <code>wireframes/</code>: 404.html, account-wishlist-many.html, account-wishlist.html, account.html, cart-coach.html, catalog-page.html, checkout-loggedin.html, checkout-noaddr.html, checkout.html, coach-client.html, coach-home-free.html, coach-home.html, coach-order.html, coach-session-addclient.html ...</p></section>
+<p class="kp-p">Якорі: <code>.pnew</code> <code>.pold</code> <code>.lprice</code> <code>.lold</code> <code>.hd-new</code> <code>.hd-old</code> <code>.new</code> <code>.old</code> <code>.tnew</code> <code>.told</code> <code>.mbp</code> <code>.mold</code> <code>.ci-sum</code> <code>.ci-old</code> <code>.li-sum</code> <code>.li-old</code> <code>.cprice</code></p>
+<p class="kp-p">Заміряно в браузері на 390 і 1280: <b>.pnew</b> 92 на 16 екранах · <b>.pold</b> 22 на 13 · <b>.lprice</b> 7 · <b>.lold</b> 2 · <b>.hd-new</b> / <b>.hd-old</b> по 4 на 4 · <b>.new</b> / <b>.old</b> по 2-3 на PDP · <b>.tnew</b> / <b>.told</b> по 2 · <b>.mbp b</b> / <b>.mold</b> по 3 · <b>.ci-sum</b> 6 на 2 · <b>.li-sum</b> 9 на 3. <b>.cprice</b> - 0 у кольорі, лише сірий прототип.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Знак ₴ ставить JS</b>, а не CSS - на екрані без скрипта він лишається повнорозмірним</li><li><b>Немає стану «ціна коуча»</b> як окремого токена - вона зараз просто ще одна <code>.pnew</code></li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Шістнадцять імен на одну цифру.</b> Перейменування - Крок 6, бо ці ж імена носить заморожений сірий шар. <code>.new</code>, <code>.old</code> і <code>.cut</code> у голові тієї черги: це взагалі не імена</li>
+<li><b>36px написано літералом</b> - токена <code>--fs-36</code> немає, і блок покупки єдиний, хто його просить</li>
+<li><b>Знак ₴ ставить JS</b>, а не CSS - на екрані без скрипта він лишається повнорозмірним, і <code>design/_nav.js</code> перезапускає його в чотирьох місцях</li>
+<li><b>Немає стану «ціна коуча»</b> як окремого токена - вона зараз просто ще одна ціна, а <code>.retailref</code> знімає з неї акцент</li>
+<li><b>Чіп <code>-N%</code> не тут</b> - це атом <code>discount.css</code>, у нього теж вісім імен і розкол Mono/Inter 27 проти 13. Заміряно цим кроком, полагоджено буде наступним</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
 /* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a

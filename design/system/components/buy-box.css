@@ -20,7 +20,7 @@
   .bb .priceblk .buyrow{ grid-column: 1; }
 }
 .bb .oldrow{ display: flex; align-items: center; gap: var(--space-8); min-height: 18px; }
-.bb .old{ font-size: var(--fs-14); text-decoration: line-through; }
+.bb .old{ font-size: var(--fs-14); }   /* the strike went to price.css - 7.36 */
 .bb .cut{ font-size: var(--fs-12); font-weight: var(--fw-black); }
 .bb .perserv{ font-size: var(--fs-14); }
 .bb .tier{ font-size: var(--fs-14); color: var(--text-primary); font-weight: var(--fw-bold); border: 1px dashed var(--line-strong); border-radius: var(--radius-8); padding: var(--space-8) var(--space-12); margin-top: var(--space-12); display: inline-block; }
@@ -43,8 +43,12 @@
 .bb .dpic{ font-size: var(--fs-10); font-weight: var(--fw-black); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.bb:has(.old) .new{ color:var(--text-action); }
-.bb.retailref:has(.old) .new{ color:var(--text-body); }
+/* step 7.36: both of these went to price.css, and the second one is the reason
+   they went TOGETHER. `.bb.retailref` is the coach PDP, where the struck figure
+   is the RETAIL price shown for reference and the live one must stay ink - the
+   coach is on a tier, not getting a discount. Written here it read as a local
+   override with no stated reason; written next to the rule it excepts, it reads
+   as what it is. The other seven editions of that rule never knew it existed. */
 .bb h1{ font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-30); letter-spacing:var(--ls-lead); }
 @media (min-width:860px){
   .bb h1{ font-size:var(--fs-30); }
@@ -74,10 +78,18 @@
   .bb .priceblk{ grid-template-columns:1fr; row-gap:var(--space-16); }
   .bb .priceblk .buyrow{ grid-column:1; }
 }
-.bb .new, .bb .old, .bb .perserv{ font-family:var(--font-mono);
+/* step 7.36: `.new` and `.old` came off this line for price.css. `.perserv` did
+   NOT, and that is the open question of the set: here it puts the whole string
+   «≈ 18 ₴ / порція · +13 ₴ бонус» in mono, words included, while the card writes
+   `<b>18 ₴</b> / порція` and monos only the figure - which is what
+   DESIGN-artifacts.md:77 actually asks for. Making them one needs a `<b>` in this
+   markup and a call on whether the bonus belongs on that line at all. IA's, not
+   this file's. Measured and left.
+   36 is a literal, not a token - there is no --fs-36, and the buy box is the only
+   thing in the product that asks for one. Reported to stage 09, not invented here. */
+.bb .perserv{ font-family:var(--font-mono);
   font-variant-numeric:tabular-nums; word-spacing:-.24em; }
-.bb .new{ font-size:36px; font-weight:var(--fw-semibold); letter-spacing:var(--ls-display); color:var(--text-body); line-height:var(--lh-flat); }
-.bb .old{ color:var(--text-muted); }
+.bb .new{ font-size:36px; font-weight:var(--fw-semibold); letter-spacing:var(--ls-display); line-height:var(--lh-flat); }
 .bb .cut{ background:var(--bg-discount); color:var(--text-danger); border-radius:var(--radius-4); padding:var(--space-2) var(--space-8); }
 .bb .perserv{ color:var(--text-secondary); margin-top:var(--space-4); }
 .bb .vlbl{ font-size:var(--fs-12); text-transform:uppercase; letter-spacing:var(--ls-caps); color:var(--text-muted); }

@@ -85,7 +85,7 @@
    grows 2px each way. */
 .co-line .li-oldline{ display: flex; align-items: center; justify-content: flex-end; gap: var(--space-8); }
 .co-line .li-oldline:empty{ display: none; }
-.co-line .li-old{ font-size: var(--fs-12); font-weight: var(--fw-medium); text-decoration: line-through; }
+.co-line .li-old{ font-size: var(--fs-12); }   /* weight and strike -> price.css, 7.36 */
 .co-line .li-per{ display: block; }
 .co-line .li-per:empty{ display: none; }
 @media (max-width: 560px){
@@ -224,13 +224,12 @@
 .co-line .li-acts button.on{ color:var(--text-action); }
 .co-line .li-acts button.on .uiv-ic svg{ fill:var(--text-action); stroke:var(--text-action); }
 /* the counter's colour went to stepper.css with its structure - see above */
-.co-line .li-price{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
-  word-spacing:-.24em; font-weight:var(--fw-bold); font-size:var(--fs-20); color:var(--text-body); line-height:var(--lh-snug); }
-.co-line .li-old{ color:var(--text-muted); }
+/* step 7.36: the checkout line's money type, its struck grey and its copy of the
+   owner rule went to price.css. The line keeps its size and its leading. */
+.co-line .li-price{ font-size:var(--fs-20); color:var(--text-body); line-height:var(--lh-snug); }
 .co-line .li-cut{ background:var(--bg-discount); color:var(--text-danger); border-radius:var(--radius-4); font-weight:var(--fw-bold); font-size:var(--fs-12);
   padding:var(--space-2) var(--space-8); font-family:'Inter', sans-serif; }
 .co-line .li-per{ font-weight:var(--fw-medium); font-size:var(--fs-12); color:var(--text-muted); margin-top:var(--space-2); }
-.co-line .li-price:has(.li-old) .li-sum{ color:var(--text-action); }
 .co-saved{ border-color:var(--line-action); background:var(--bg-action-soft); border-radius:var(--radius-12); color:var(--text-body); line-height:var(--lh-airy); }
 .co-saved .ch{ color:var(--text-secondary); text-decoration-color:var(--line-strong); }
 .co-noaddr{ border-color:var(--line-notice); background:var(--bg-warning); border-radius:var(--radius-12); color:var(--text-secondary); border-style:solid;

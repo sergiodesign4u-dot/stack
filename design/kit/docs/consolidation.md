@@ -4567,3 +4567,210 @@ identically at HEAD.
 - **`--text-info` has exactly 2 uses and both are this component** (`.pavail.pre`,
   `.lavail.pre`). Whether a role with one reader is a role is a stage 09 question,
   and it was already on that list.
+
+---
+
+## Step 7.36 - the price: eight surfaces, sixteen names, and a locked rule written eight times
+
+**Instrument:** Claude, in a browser. 39 coloured screens at 390 and 1280, computed
+styles only, plus a counterfactual A/B against HEAD over 108 994 elements with the
+cache cleared between passes.
+
+### Where the step started
+
+The atom shelf read 22/22, and five stands still reported themselves incomplete.
+Reading them out gave three different diagnoses, not five bugs:
+
+- **`badge.css` holds `.gnote` and `.gnote` is not a badge.** It is a grey-prototype
+  annotation - `wireframes/listing.html:173`, «↑ Порядок карток (за замовч.)...» -
+  and the coloured clone dropped it correctly, which is why no coloured screen
+  renders it. The product's real badges are `.tag`/`.tag-pop`/`.tag-new` in
+  product-card.css and address-card.css, all scoped, none of them in badge.css.
+- **`counter.css` holds `.wl-count`, `discount.css` holds `.wtag`, `price.css` holds
+  `.cprice`** - three names with **0** instances in colour, all of them grey-only
+  because the coach flow and the wishlist have no coloured twin. The colour layer is
+  **40 of 142 screens**.
+- **The demos were right and the files were wrong.** Every one of these stands
+  renders the product's real names - `.pnew`, `.pold`, `.pcut`, `.tag`, `.cnt` - and
+  measured at 16px/400/#1C1C1C/transparent, the inherited body value. `.hbadge` is a
+  ghost: 0 rules anywhere, 0 instances anywhere, present only in the counter demo.
+
+The product itself was intact: swept all 39 screens for a money or badge element
+computing to the body default and found none.
+
+### The census
+
+Eight surfaces, the same three lines in the same order on every one of them:
+
+```
+[struck]  1 520 ₴   −15%
+[live]    1 290 ₴
+```
+
+| surface | live | struck | cut | held by | level |
+|---|---|---|---|---|---|
+| grid card | `.pnew` 92 | `.pold` 22 | `.pcut` 22 | product-card.css | 2 |
+| list card | `.lprice` 7 | `.lold` 2 | `.lcut` 2 | product-card.css | 2 |
+| home deal | `.hd-new` 4 | `.hd-old` 4 | `.hd-cut` 4 | banner.css | 2 |
+| PDP buy box | `.new` 3 | `.old` 2 | `.cut` 2 | buy-box.css | 3 |
+| PDP shelf | `.tnew` 2 | `.told` 2 | `.tcut` 2 | pdp-tabs.css | 3 |
+| mobile buy bar | `.mbp b` 3 | `.mold` 3 | `.mcut` 3 | buy-bar.css | 3 |
+| cart row | `.ci-sum` 6 | `.ci-old` 2 | `.ci-cut` 2 | cart-row.css | 2 |
+| checkout line | `.li-sum` 9 | `.li-old` 3 | `.li-cut` 3 | checkout-form.css | 3 |
+
+**Sixteen names for two facts**, and `price.css` declared none of them. Two of the
+names are `.new` and `.old`, which are not names.
+
+**And the locked owner rule had eight editions.** DESIGN-artifacts.md:61, locked
+2026-07-29: «a price that is REDUCED is set in Signal Orange; a price with no
+discount stays ink», line 65: «implemented data-driven via `:has()` on the struck old
+price, **so the colour cannot drift from the fact**». It was one rule in kit.css. The
+step-3 split turned it into eight, one per file. Eight copies of a rule whose whole
+purpose is that it cannot drift.
+
+Plus a ninth line nobody had connected to it: `.bb.retailref:has(.old) .new{ ink }`,
+the coach PDP, where the struck figure is the retail reference and orange would claim
+a saving that is not the fact. It sat in buy-box.css with no stated reason.
+
+### What was measured to disagree
+
+- **The struck price had three weights.** 400 on `.pold` `.lold` `.hd-old` `.old`
+  (30 elements), 500 on `.ci-old` `.li-old` (5), 600 on `.told` `.mold` (5). Nobody
+  chose the split: `.told` inherited the 600 that `.tprice` declares for its block.
+- **The live price had two weights at one size.** All of 20px, and 800 on `.pnew`
+  `.lprice` (99), 700 on `.ci-sum` `.li-sum` `.tnew` `.mbp b` (20).
+- **`.hd-old` was the only struck price of eight without `tabular-nums`.**
+  banner.css wrote the mono family on line 76 and `font-variant-numeric` on line 78 -
+  to its own sibling, one line apart.
+- **The ₴ kerning was on the container, not the figure.** `-.24em` declared on
+  `.tprice` (16px) resolved to -3.84px and was inherited by a 12px struck price and a
+  20px live one alike. The list card had none at all: product-card.css:72 lists
+  `.pcard` and not `.pcard-l`.
+- **A dead declaration.** `.pcard-l .lprice` carried `color: var(--text-primary)` on
+  product-card.css:34 and `var(--text-body)` on line 84 - same selector, same file,
+  and only the second ever rendered. Third of its kind this stage.
+- **`--text-price-was` is a token with 0 rendered uses.** Its comment claimed 10.
+  Exactly one selector read it - `.cprice .old` - and `.cprice` renders nowhere.
+
+### The rule
+
+`price.css` (22 -> 212 lines) declares what is the same on all nine surfaces and
+nothing that is not: the mono family and tabular digits, the kerning **on the figure**,
+the struck price's grey / 400 / strike, the live price's ink and its 800 at 20px, and
+the owner rule as **one selector list** with its one exception named beside it.
+
+Size stays with the surface, and that is not laziness: 20px in a cart row and 36px in
+a buy box are two decisions about the same fact, and both are right.
+
+`--fw-regular: 400` was added to tokens.css. The system has always used 400 and never
+named it, because 400 is what you get by writing nothing - and the struck price is the
+one place that has to say it out loud, since inside `.tprice` «unset» means 600.
+
+The atom does **not** read `--text-price-was`. `#AAAAAA` is 2.32:1 on white, and what
+a thing used to cost is a fact a person checks the discount against, not decoration.
+All 40 struck prices already render `--text-muted` at 5.2:1. The token's comment now
+states the measured truth and it stays declared until stage 09 rules on it, so that
+removing it is a decision rather than a side effect.
+
+### Refused, and said out loud
+
+- **The live price above 20px keeps its own weight** (home deal 30/700, buy box
+  36/600). One surface each, and a heavy weight at display size is not the same
+  optical decision as a heavy weight at 20. Ranking display weights is a stage 09
+  typography question; inventing a ladder to make a table look tidy is the exact side
+  effect this project forbids.
+- **The `-N%` chip is not in this step.** It is discount.css's atom and it has eight
+  names too, split three ways: `.pcut` `.tcut` `.mcut` in mono (27 instances),
+  `.lcut` `.hd-cut` `.cut` `.ci-cut` `.li-cut` in Inter (13), against
+  DESIGN-artifacts.md:77 which puts every price figure in mono. `.cut` is the only one
+  at 800 where the other seven are 700; `.tcut` the only one padded 2/4 where the rest
+  are 2/8. Two of the Inter ones write the literal `'Inter', sans-serif`. Measured
+  here so the next step starts with it done.
+- **`.perserv` not unified.** The card writes `<b>18 ₴</b> / порція` - words in the
+  body face, figure in mono, which is what the locked line actually asks for. The PDP
+  writes the whole string in mono with no `<b>` at all. Making them one needs a `<b>`
+  in the PDP markup and a call on whether the bonus belongs on that line, and the
+  second is IA's.
+- **Names not renamed.** All sixteen come from markup the frozen grey layer shares.
+  Крок 6, with `.new` / `.old` / `.cut` at the front of the queue.
+
+### The error this step made, and how it was caught
+
+The first A/B came back with **3 092 differences** and the direction was wrong: every
+price on every screen had gone from IBM Plex Mono to Inter, from `tabular-nums` to
+`normal`, from 800 to 400. Cause: two of the explanatory comments in `price.css` were
+appended **after** a `*/` that had already closed the block, so the file carried two
+stray `*/` and the parser threw away everything that followed. The atom was not
+overriding the molecules - it was not being read at all.
+
+Caught by the A/B in the same pass, which is the whole reason the pass exists: the
+sweep before it (stands only, no baseline) reported the stand as fine, because the
+stand was ALSO unstyled and so nothing looked out of place. A balance check now runs
+over every stylesheet as part of the pass. It found one more, pre-existing and
+harmless: `stack-action.css` has 16 `*/` to 15 `/*` at HEAD as well.
+
+### A/B, after the fix
+
+**108 994 elements, 40 pages x 2 viewports, cache cleared between passes: 206
+differences, and every one of them is money.** The six that fell outside the money
+class are unclassed `<b>` elements, which is the mobile buy bar's live price - it has
+no class of its own.
+
+| what changed | where | count |
+|---|---|---|
+| live price 20px 700 -> 800 | `.ci-sum` `.li-sum` `.tnew` `.mbp b` | 20 |
+| struck price 500/600 -> 400 | `.ci-old` `.li-old` `.told` `.mold` | 10 |
+| `.hd-old` gains `tabular-nums` | home deal | 4 |
+| kerning now computed on the figure, not the block | `.told` `.ci-old` `.li-old` `.mold` `.hd-old` | 13 |
+| kerning reaches the list card at all | `.lprice` `.lold` | 9 |
+| `.uiv-cur` follows its parent (`font-weight: inherit`) | everywhere | 54 |
+| `.mbp` container 600 -> 400, inert - no child reads it | buy bar | 6 |
+
+Colour is unchanged on every price on every screen. Family unchanged - all still
+mono. Size, line-height, radius, padding and background unchanged everywhere.
+
+**40 screens at 360: 0 overflow, 0 JS errors. 35 stands at 360: 0 overflow, 0 JS
+errors.**
+
+### The stand
+
+Rebuilt on product markup: all nine surfaces, each as a pair - with a struck price
+and without - so the `:has()` rule is **read rather than described**. Verified in the
+browser: orange where the struck price is present, ink where it is not, ink in the
+coach's `.bb.retailref` even though the struck price is there.
+
+`.kp-2col` and `.kp-lbl` were added to `_page.css` rather than to the page. `.kp-grid`
+auto-fills and would reflow a pair into three columns, which silently breaks the
+comparison the demo exists to make.
+
+**And the stand found one more scope defect on its way up.** `.hdeal .hd-price` and
+`.hdeal .hd-oldline` in banner.css are the price block's internal stacking - struck
+line above, live figure below - scoped to the deal card. Standing on its own the block
+collapsed into one line, which is the availability defect one level down. Both names
+exist only inside a deal, so unscoping costs nothing and buys the block the right to
+exist outside its card. Proved by the A/B: adding `display`, `flex-direction`, `margin`
+and `gap` to the compared properties returned **the same 206 differences** - the
+`.hdeal` qualifier had been doing no work at all.
+
+`.cprice .old{ display:block }` went to client-row.css with the rest of that row's
+layout: the coach row is a right-hand column with room for one line, so its struck
+price stacks under the live one where every other surface puts it above.
+
+Idle check: **22 of 22**. `price` leaves the incomplete list; four remain - `badge`,
+`counter`, `discount`, `status-pill`, all failing for the reasons censused above.
+
+### Found, not fixed
+
+- **`36px` is a literal in buy-box.css.** There is no `--fs-36` and the buy box is the
+  only thing in the product that asks for one. Stage 09.
+- **The gate's own figures in DESIGN-artifacts.md are stale.** It lists «card 22 /
+  mobile 19, list 21, buy box 36, shelf 19, buy bar 19»; the browser renders 24/20,
+  20, 36, 20, 20. The gate itself holds - every rung clears 19px bold - but the
+  numbers drifted. That file has an owner and is not edited here.
+- **Five components still write `'Inter', sans-serif` as a literal**: buy-box (3),
+  cart-row, checkout-form, discount, loyalty-rung (2). Two of them are the `-N%` chip
+  and come off in the discount step.
+- **`stack-action.css` has one unbalanced `*/`**, pre-existing at HEAD and harmless in
+  practice - the stand passes 9/9.
+- **`.hbadge` is a ghost** in the counter stand's demo: 0 rules, 0 instances.
+- **The coach flow has no coloured twin** - 102 of 142 grey screens do not. Крок 6.

@@ -26,7 +26,7 @@
 }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.pdp-tabs:has(.told) .tnew{ color:var(--text-action); }
+/* step 7.36: the shelf's copy of the owner rule went to price.css - one of eight. */
 .pdp-tabs{ top:103px; background:none; gap:var(--space-2); padding:var(--space-8) 0; border-bottom-color:transparent; }
 @media (min-width:860px){
   .pdp-tabs{ top:79px; }
@@ -46,15 +46,18 @@ body.pdp-stuck .wfh.uiv-scrolled{ box-shadow:none; }
   .pdp-tabs.stuck .tprice{ display:inline-grid; }
   .pdp-tabs.stuck .tbuy{ display:inline-flex; }
 }
-.pdp-tabs .tprice{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
-  word-spacing:-.24em; font-weight:var(--fw-semibold); color:var(--text-body); flex:none;
+/* step 7.36: the money type left this block. `font-weight: var(--fw-semibold)` on
+   the CONTAINER is what made `.told` a 600 struck price - it never chose 600, it
+   inherited it from the block, and that is how one role ended up with three
+   weights across eight surfaces. The weights are the atom's now, so the container
+   states none. */
+.pdp-tabs .tprice{ color:var(--text-body); flex:none;
   grid-template-columns:auto auto; column-gap:var(--space-8); align-items:center; justify-items:start;
   line-height:var(--lh-flat); margin-right:var(--space-8); }
-.pdp-tabs .tprice .told{ grid-row:1; grid-column:1; font-size:var(--fs-12); color:var(--text-muted);
-  text-decoration:line-through; }
+.pdp-tabs .tprice .told{ grid-row:1; grid-column:1; font-size:var(--fs-12); }
 .pdp-tabs .tprice .tcut{ grid-row:1; grid-column:2; font-size:var(--fs-12); font-weight:var(--fw-bold);
   background:var(--bg-discount); color:var(--text-danger); border-radius:var(--radius-4); padding:var(--space-2) var(--space-4); }
-.pdp-tabs .tprice .tnew{ grid-row:2; grid-column:1 / -1; font-size:var(--fs-20); font-weight:var(--fw-bold); }
+.pdp-tabs .tprice .tnew{ grid-row:2; grid-column:1 / -1; font-size:var(--fs-20); }
 .pdp-tabs .tprice:not(:has(.told)) .tnew{ grid-row:1; }
 .pdp-tabs .tbuy{ background:var(--bg-action); color:var(--text-oninverse); font-weight:var(--fw-bold); font-size:var(--fs-16);
   border-radius:var(--radius-8); padding:var(--space-8) var(--space-16); }

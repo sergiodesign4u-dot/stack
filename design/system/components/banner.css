@@ -19,9 +19,15 @@
   display: flex; align-items: center; justify-content: center; font-size: var(--fs-12); }
 .hdeal .hd-brand{ font-size: var(--fs-12); }
 .hdeal .hd-nm{ margin: var(--space-4) 0 var(--space-8); }
-.hdeal .hd-price{ display: flex; flex-direction: column; gap: var(--space-2); margin: var(--space-8) 0 var(--space-4); }
-.hdeal .hd-oldline{ display: flex; align-items: center; gap: var(--space-8); }
-.hdeal .hd-old{ font-size: var(--fs-14); text-decoration: line-through; }
+/* UNSCOPED AT 7.36, and the price stand is what asked for it. These two lines are
+   the price BLOCK's internal stacking - struck line above, live figure below -
+   not the deal card's. Scoped to `.hdeal` they made the block collapse into one
+   line anywhere else, which is the same defect the availability atom had and the
+   same one this step took out of price.css. Both names exist only inside a deal,
+   so unscoping costs nothing and buys the block the right to exist on its own. */
+.hd-price{ display: flex; flex-direction: column; gap: var(--space-2); margin: var(--space-8) 0 var(--space-4); }
+.hd-oldline{ display: flex; align-items: center; gap: var(--space-8); }
+.hdeal .hd-old{ font-size: var(--fs-14); }   /* the strike went to price.css - 7.36 */
 .hdeal .hd-meta{ font-size: var(--fs-12); }
 .hdeal .hd-cta{ margin-top: var(--space-12); text-align: center; }
 .hslider{ min-width: 0; }
@@ -73,11 +79,17 @@
 .hdeal .hd-brand{ color:var(--text-muted); }
 .hdeal .hd-nm{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-20); letter-spacing:var(--ls-lead);
   color:var(--text-body); line-height:var(--lh-flat); }
-.hdeal .hd-old{ font-family:var(--font-mono); color:var(--text-muted); word-spacing:-.1em; }
+/* step 7.36: the home deal's two figures went to price.css - family, tabular
+   digits, kerning, the struck grey, the ink and the owner rule. THIS FILE HELD
+   THE ONE MEASURABLE DEFECT OF THE SET: `.hd-old` above had the mono family and
+   not `font-variant-numeric`, while `.hd-new` one line below had both. Same
+   block, one line apart, and the home deal was the only struck price of eight
+   rendering proportional digits. Its kerning was -.1em where the other seven are
+   -.24em, for no reason either.
+   `.hd-cut` stays until the discount step, and 30px stays here for good: the deal
+   is the one place on the home page that gets a display-size figure. */
 .hdeal .hd-cut{ background:var(--bg-discount); color:var(--text-danger); border-radius:var(--radius-4); font-weight:var(--fw-bold); font-size:var(--fs-12); padding:var(--space-2) var(--space-8); }
-.hdeal .hd-new{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
-  word-spacing:-.24em; font-weight:var(--fw-bold); font-size:var(--fs-30); color:var(--text-body); }
-.hdeal .hd-price:has(.hd-old) .hd-new{ color:var(--text-action); }
+.hdeal .hd-new{ font-weight:var(--fw-bold); font-size:var(--fs-30); }
 .hdeal .hd-meta{ color:var(--text-secondary); }
 .hdeal .hd-meta b{ font-family:var(--font-mono); color:var(--text-body); }
 .hdeal .hd-cta{ background:var(--bg-action); color:var(--text-oninverse); border-radius:var(--radius-12); font-size:var(--fs-16); font-weight:var(--fw-bold);

@@ -43,7 +43,7 @@ article.ci{ display: grid; grid-template-columns: 74px 1fr; gap: var(--space-12)
 .ci-price .ci-sum{ display: block; }
 .ci-price .ci-oldline{ display: flex; align-items: center; justify-content: flex-end; }
 .ci-price .ci-oldline:empty{ display: none; }
-.ci-price .ci-old{ font-size: var(--fs-12); font-weight: var(--fw-medium); text-decoration: line-through; }
+.ci-price .ci-old{ font-size: var(--fs-12); }   /* weight and strike -> price.css, 7.36 */
 .ci-price .ci-per{ display: block; text-align: right; }
 .ci-price .ci-per:empty{ display: none; }
 .ci-links{ display: flex; gap: var(--space-16); margin-top: var(--space-12); }
@@ -56,7 +56,9 @@ article.ci{ display: grid; grid-template-columns: 74px 1fr; gap: var(--space-12)
 .ci-oostag{ display: inline-block; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); margin-top: var(--space-4); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.ci-price:has(.ci-old) .ci-sum{ color:var(--text-action); }
+/* step 7.36: the owner rule left this file for price.css - it was one of eight
+   copies of a rule DESIGN-artifacts.md:65 wrote once precisely so it could not
+   drift. The row's own money type left with it. */
 article.ci{ border-bottom-color:var(--line-hair); }   /* scoped with the line above - step 7.21 */
 .ci-ph{ background:var(--bg-page) center/80% no-repeat; border-color:var(--line-hair); border-radius:var(--radius-12); color:transparent; }
 .ci-brand{ color:var(--text-muted); }
@@ -64,11 +66,9 @@ article.ci{ border-bottom-color:var(--line-hair); }   /* scoped with the line ab
 .ci-nm:hover{ color:var(--text-action); }
 .ci-var{ color:var(--text-secondary); }
 /* the counter's colour went to stepper.css with its structure - see above */
-.ci-price{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
-  word-spacing:-.24em; font-weight:var(--fw-bold); font-size:var(--fs-20); color:var(--text-body); line-height:var(--lh-snug); }
+.ci-price{ font-size:var(--fs-20); color:var(--text-body); line-height:var(--lh-snug); }
 .ci-price .ci-per{ font-weight:var(--fw-medium); font-size:var(--fs-12); color:var(--text-muted); margin-top:var(--space-2); }
 .ci-price .ci-oldline{ gap:var(--space-8); margin-bottom:var(--space-2); }
-.ci-price .ci-old{ color:var(--text-muted); }
 .ci-price .ci-cut{ background:var(--bg-discount); color:var(--text-danger); border-radius:var(--radius-4); font-weight:var(--fw-bold);
   font-size:var(--fs-12); padding:var(--space-2) var(--space-8); font-family:'Inter', sans-serif; }
 /* step 6.4: the row keeps the type, the finish keeps the colour and the hover.
