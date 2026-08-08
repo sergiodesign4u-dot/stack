@@ -1,15 +1,76 @@
-/* switch.css - switch (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* switch.css - the switch (level 1), rebuilt at step 7.32.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.sw{ position: relative; width: var(--size-44); height: var(--size-26); border-radius: var(--radius-pill); flex: none; }
-.sw i{ position: absolute; top: 3px; left: 21px; width: var(--size-20); height: var(--size-20); border-radius: var(--radius-circle); background: var(--bg-page); }
+   ONE SETTING, ON OR OFF, AND IT TAKES EFFECT IMMEDIATELY. That is the line
+   between this file and checkbox.css: a checkbox is a value you are about to
+   submit with a form, a switch is a preference that applies the moment you let
+   go. «Отримувати листи й нагадування про поповнення» does not wait for a Save.
+
+   Counted in the browser: `.sw` has TWO instances in the colour layer, both on
+   `account-profile`, and three more on the grey twins of that screen. Its markup
+   is already right - `<span class="sw" role="switch" aria-checked="true"
+   aria-label="Згода на розсилку">` - and the click is wired, and the track and
+   the knob both animate to the other state. Verified after the .16s transition
+   had finished: ground #FF5A00 -> #D9D9D9, knob 21px -> 3px, `aria-checked`
+   true -> false. (Read immediately after the click it looks broken; that is the
+   transition, not the control. The first pass of this step reported it as a bug
+   and was wrong.)
+
+   THE ONE THING MISSING WAS THE TAB STOP. `role="switch"` with `aria-checked` and
+   a name, on a `<span>` with no `tabindex` - a control fully described to a
+   screen reader and reachable by nothing but a mouse. 250 Tab presses on
+   `account-profile` never landed on it. Same shape as the `.ord-tabs` that step
+   7.31 found: the markup declares a control and the tab order does not know it
+   exists. `design/_nav.js` gives it the stop and Space / Enter; this file gives
+   it the ring.
+
+   THERE IS A SECOND SWITCH IN THE PRODUCT AND IT IS NOT MERGED HERE - `.ck-tog`,
+   the cookie dialog's category toggles, in cookie-banner.css. Measured, the two
+   disagree about everything:
+
+                    .sw                    .ck-tog
+     track          44 x 26                42 x 24
+     knob           20, at 3 / 21          18, at 2 / 20, with a 1px edge
+     edge           none                   1.5px
+     ON ground      --bg-action            --bg-inverse
+     OFF ground     --bg-track             --bg-sunken
+     the class      `.off` marks OFF       `.on` marks ON
+     disabled       none                   `.locked`, opacity .6, not-allowed
+
+   The classes run in OPPOSITE directions, which is the part that would bite
+   whoever merges them. NOT MERGED, and the reason is a count: `.ck-tog` renders
+   ZERO times in the colour layer - the cookie dialog is demoed on
+   `wireframes/system.html`, which has no colour twin. Choosing between 44x26 and
+   42x24 with only one of them visible would be picking a number off a page
+   nobody can open. When that screen gets a colour twin the merge is one line,
+   and `.ck-tog`'s `.locked` is the disabled state this file should copy - the
+   product genuinely has that case here, unlike the chip. */
+
+/* ---------- the track ------------------------------------------------------- */
+.sw{
+  position: relative; flex: none;
+  width: var(--size-44); height: var(--size-26);
+  border-radius: var(--radius-pill);
+  background: var(--bg-action);
+  cursor: pointer;
+  transition: background .16s ease;
+}
+.sw.off{ background: var(--bg-track); }
+
+/* ---------- the knob -------------------------------------------------------- */
+.sw i{
+  position: absolute; top: 3px; left: 21px;
+  width: var(--size-20); height: var(--size-20);
+  border-radius: var(--radius-circle);
+  background: var(--bg-page);
+  transition: left .16s ease;
+}
 .sw.off i{ left: 3px; }
 
-/* ---------- colour (from design/kit/kit.css) ---------- */
-.sw{ background:var(--bg-action); transition:background .16s ease; }
-.sw i{ transition:left .16s ease; }
-.sw.off{ background:var(--bg-track); }
+/* ---------- focus, and it had none ------------------------------------------
+   `:focus-visible`, so a mouse press does not light it up. The ring goes outside
+   the track: unlike the view toggle this control does not clip its children, and
+   a switch is small enough that an inset ring would eat the knob. */
+.sw:focus-visible{
+  outline: none;
+  box-shadow: var(--ring-focus-control);
+}

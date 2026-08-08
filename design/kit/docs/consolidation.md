@@ -3867,3 +3867,256 @@ declared `.wff-legal a` colour change**, none from the move. `.flinks` on listin
 `flex / wrap / gap 8px / margin-top 8px` over 6 children, as it did at HEAD. Idle checks: link-row
 **passed, 14 of 14**; chip **passed, 16 of 16** - `.flinks` added to its stand and to the family
 table there, so the class is shown where it now lives.
+
+---
+
+## Step 7.31 - the chip: 503 instances, and the browser was drawing their focus
+
+### The census
+
+Step 7.23 settled the LOOK. Re-counted in the browser at 7.31 - 40 colour screens
+x 2 viewports, every instance through `getComputedStyle`: **503 chips, and both rungs
+are holding without a single deviation.** 41 / 14 / 600 / 8-12 / 1.5 / pill for a
+filter, 41 / 14 / 700 / 8-16 / 1.5 / pill for a segment, 12 / 600 / 4-12 for the mega
+menu's smaller rung. Nothing about the look had drifted back. What had never been
+done at all was the interaction layer.
+
+| class | tag | keyboard | focus ring |
+|---|---|---|---|
+| `.dr-chip` `.flink` `.mgchip` `.hero-chips a` | `<a href>` | reachable | **the browser's blue** |
+| `.afilter .x` | `<button>` | reachable, and already named | **the browser's blue** |
+| `.ptab` (32) | `<span>` | **unreachable** - and it answered a click | - |
+| `.ord-tab` (3) | `<span>` | **unreachable** - and it answered nothing at all | - |
+
+**A sweep of every loaded stylesheet for an `outline` or `box-shadow` on any of the
+eight names returned an EMPTY LIST.** So every chip a keyboard could reach was
+showing `outline: rgb(0, 95, 204) auto 1px` - Chrome's default - on a site that has
+had `--ring-focus-control` since step 6.2 and now uses it on the button, the field,
+the radio and the link. The chip, the most numerous control on the site, was the
+last one still borrowing the browser's.
+
+### What was done
+
+**One focus rule** for the eight names plus the applied filter's ✕, on
+`:focus-visible` so a mouse press does not light it up.
+
+**`uivSegments()`** in `design/_nav.js` for the segment rung: `role="tablist"` /
+`role="tab"` / `aria-selected` and a roving tabindex, the same shape
+`uivRadioGroups` uses. The set takes ONE tab stop, arrows move inside it with
+wraparound, Home and End jump to the ends. `tablist` and not `radiogroup` on
+purpose: a radio picks a value that goes into the order, a tab switches which
+slice of the same list you are looking at - the same line chip.css draws between a
+filter and a segment.
+
+**A behaviour change, declared:** `.ord-tab` now answers a press. It did not
+before, with a mouse either - measured, not assumed: clicking index 2 left `.on`
+exactly where it was. Three filters over the order list that did nothing. The five
+lines in `uivPdp` that used to move `.on` for `.ptab` are gone; both families now
+go through the one rule, which is how the twin stopped being dead.
+
+**No disabled state, and that is the answer rather than a gap.** Zero chips in the
+product carry `disabled`, `.off` or `.disabled`, at either width, on any of the 40
+screens. The note left after 7.29 saying the chip should copy `.vopt.off` is
+**withdrawn**: `.vopt.off` exists because a flavour can genuinely be out of stock.
+A filter that would return nothing is a case the product does not have, and drawing
+a state for it here would be inventing one.
+
+### The guard that skipped a whole family
+
+The first draft used `role === 'tablist'` on the parent as its «already done»
+flag. The browser then showed `.ord-tabs` with a marked parent and three unmarked
+children: **`account-orders.html` already writes `role="tablist"
+aria-label="Фільтр замовлень"` into the markup**, so the guard fired on the
+author's own attribute and skipped the group. Fixed with a `data-uiv-seg` flag,
+which is ours.
+
+It is also the sharpest thing this step found. The grey layer had **declared** a
+tablist and never wired one - a role announcing a control that did not exist. So
+wiring it is not invented behaviour; it is the markup's own promise, kept.
+
+### The stand stops carrying a second edition of the rule
+
+`design/_nav.js` declares functions and runs nothing at load, so a stand can load
+it and take the one rule it needs. `chip.html` does that and calls
+`uivSegments()`; the `.ptab` and `.ord-tab` demos on the page are operable, with
+the product's code and not a description of it.
+
+The same fix went back into `radio.html`, which since 7.29 had carried a **35-line
+miniature re-write of `uivRadioGroups`** - a second edition of a rule, written into
+the page that demonstrates the rule. It now loads the real function and supplies
+only the one thing a stand genuinely lacks: a click that moves `.on`, because
+`uivRadioGroups` selects through `el.click()` precisely so the PRODUCT's own click
+handling still runs, and behind a demo there is no product.
+
+### Proof
+
+**A/B against HEAD**, 39 screens x 2 viewports, 21 computed properties per element:
+**108 310 elements compared, ZERO differences.** A keyboard and a focus ring are
+what this step added, and neither shows at rest - which is exactly what the run had
+to demonstrate.
+
+**By keyboard, in the browser.** `.ptab`: one tab stop for four tabs, → 1, → 2,
+← 1, End 3, Home 0, click still selects, Tab leaves the group. `.ord-tab`: one tab
+stop for three, click now selects (index 2), ← wraps 1 → 0 → 2, Home 0, End 2,
+reached by real Tab and showing `rgb(255,255,255) 0 0 0 2px, rgb(255,90,0) 0 0 0
+4px` - the system ring, `outline-style: none`. `.flink` reached by 200 real Tab
+presses on the listing: same ring, browser blue gone.
+
+**Both stands.** chip: idle **passed, 16 of 16 classes, 2 states**, demos operable,
+0 overflow at 360, 0 JS errors. radio: idle **passed, 12 of 12, 4 states**, arrows
+run 1 → 2 → 0 and **never visit index 3**, which is the `.off` one, now carrying
+`aria-disabled="true"` from the product's own function.
+
+### Found, not fixed
+
+- **`.acc-link` keeps a 1px edge** where the family keeps 1.5, and above 860 it is
+  the same segment pill with the same 14 / 700 / 8-16. One pixel of border gives 40
+  instead of 41. 7.23 took `.acc-link` out of the family deliberately, so this is
+  not corrected silently - the call is the owner's.
+- **No `:active`** anywhere in the family: no chip shows the moment of the press.
+- **One name instead of eight** - Крок 6, after stage 09.
+
+---
+
+## Step 7.32 - the view toggle and the switch: two selectors that unwrote themselves
+
+Taken together because the registry names them almost the same - «Перемикач вигляду»
+and «Перемикач» - and because both were still the raw step-3 split, 24 and 15 lines,
+never rebuilt.
+
+### The view toggle: the same control written twice
+
+Counted in the browser across 40 colour screens at 1280 and 390: **7 groups, 14 cells.**
+
+| screens | cell | href | name | keyboard |
+|---|---|---|---|---|
+| `listing` · `listing-list` · `listing-filtered` · `listing-sheet` | `<a>` | yes, a real navigation | «Сіткою» / «Списком» | native |
+| `listing-empty` · `listing-error` · `listing-loading` | `<span>` | none | **none** | **none** |
+
+**AND THE FIRST READING OF IT WAS WRONG.** It looked like the state screens had been
+built by copying, and the fix looked like turning six spans into links - which is what
+was proposed and approved. Counting the grey layer's thirteen toggle-bearing screens
+against how many product cards each holds says something else:
+
+| cards | cell | screens |
+|---|---|---|
+| > 0 | `<a>`, live | listing 10 · listing-list 7 · listing-filtered 6 · listing-sheet 10 · search 9 |
+| 0 | `<span>`, dead | listing-empty · listing-error · listing-loading · goal-empty · goal-error · goal-loading · search-loading |
+| **11** | **`<span>`, dead** | **goal** - the only exception |
+
+**A toggle is live exactly when the screen has a list to reorder.** On the seven empty
+screens the pair is inert because there is nothing to switch, and that is correct
+behaviour rather than carelessness.
+
+**The proposed link would have been a lie with a href on it.** `listing-list.html` is
+the ONLY list view in the entire product - no `goal-list`, no `search-list`, no list
+twin of any empty, error or loading state. So the «Списком» cell on `listing-empty`
+has nowhere honest to point: the one destination available holds **seven products**,
+and that screen found none. The change was authorised on my description of it; the
+description was wrong, so the change was not made and this is the correction.
+
+**So the spans stay.** What is wrong is not that they are spans, it is that they look
+pressable - `cursor: pointer`, full ink, no sign that this half leads nowhere. Drawing
+that sign means a disabled state, and step 7.31 refused to invent one for the chip on
+the same grounds.
+
+**`goal.html` is the real defect, and the only one:** 11 products, a toggle already
+carrying `aria-label="Сіткою"` and `aria-label="Списком"`, and nothing to press -
+because `goal-list.html` does not exist. That is a missing screen, IA's to decide.
+
+### A selector that wrote, and two patches that unwrote it
+
+The old file said `.vtoggle span`, which matches **every** span inside the box -
+including `.uiv-ic`, the icon's own wrapper. So the wrapper was handed the cell's
+padding, the cell's background and the cell's muted ink, and two further rules
+existed to take all three back off it:
+
+    .vtoggle .uiv-ic{ background: none; padding: 0 }
+    .vtoggle a.on .uiv-ic{ color: var(--text-action) }
+
+`>` says what was meant all along - a cell is a DIRECT CHILD of the box - and both
+patches go with it. **Found by deleting the icon rule first and watching the chosen
+glyph go grey in the browser.** Inheritance was never what coloured it; the patch was.
+
+### Three visible changes, listed rather than slipped in
+
+1. **The chosen cell's ink, white -> `--text-action`** (14). `--text-oninverse` is
+   white and the chosen ground is `--bg-action-selected`, a 10% tint. Nothing was
+   invisible today because the cell holds an icon and no words - measured, zero text
+   nodes - but a word added there would have been white on near-white.
+2. **The hovered cell's glyph, grey -> `--text-action`** (8 reachable cells). The
+   hover rule moved the CELL's ink, and the only thing in the cell was an icon being
+   painted muted directly by the over-broad selector. Measured at HEAD: on hover the
+   ground went to `#FAF9F7` and the glyph stayed grey. **A hover state on 13 screens
+   that changed nothing you could see.**
+3. **A focus ring** where Chrome's blue outline used to be. The stylesheet sweep for
+   an `outline` or `box-shadow` on `.vtoggle` returned empty, exactly as it had for
+   the chip at 7.31. Drawn INSIDE, because the box clips its children with
+   `overflow: hidden` and an outset ring on a cell would be cut in half by the edge.
+
+### The switch: right in the markup, absent from the tab order
+
+`.sw` has two instances in the colour layer, both on `account-profile`, and its
+markup is already correct - `<span class="sw" role="switch" aria-checked="true"
+aria-label="Згода на розсилку">`, click wired, track and knob both animating. **The
+one thing missing was the tab stop.** 250 Tab presses never landed on it. Third time
+this stage has met the shape: `.ord-tabs` at 7.31, the login dialog's links at 7.30.
+
+`uivSwitches()` keys on `[role="switch"]:not([tabindex])`, not on `.sw`. It is the
+ROLE that promises a keyboard, so the role carries the fix - and it reaches `.ck-tog`
+the day the cookie dialog gets a colour twin, without anyone having to remember this
+function exists.
+
+### A probe bug of mine, caught before it became a finding
+
+The first measurement of `.sw` said the class and `aria-checked` flipped while the
+track and knob stayed put, and I nearly logged it as a dead control. It was the
+**transition**: the read happened immediately after the click and the animation runs
+.16s. After 400ms: ground `#FF5A00` -> `#D9D9D9`, knob 21px -> 3px. Fourth probe bug
+of this stage and the same lesson each time - the instrument is a suspect too.
+
+### The second switch, and why it is not merged
+
+`.ck-tog`, the cookie dialog's category toggles in cookie-banner.css, is the same
+control with every value different: track 42x24 against 44x26, knob 18 against 20,
+a 1.5px edge against none, `--bg-inverse` against `--bg-action`, `--bg-sunken`
+against `--bg-track`, a `.locked` disabled state against none - **and the classes run
+in OPPOSITE directions**, `.sw.off` marking off against `.ck-tog.on` marking on.
+
+**Not merged, and the reason is a count: `.ck-tog` renders ZERO times in the colour
+layer.** The cookie dialog is demoed on `wireframes/system.html`, which has no colour
+twin. Choosing between 44x26 and 42x24 with only one of them visible would be taking
+a number off a page nobody can open. When that screen gets a colour twin the merge is
+one line - and `.ck-tog.locked` is the disabled state switch.css should copy, because
+here the product genuinely has the case, unlike the chip.
+
+### Proof
+
+**A/B against HEAD**, 39 screens x 2 viewports, 23 computed properties per element.
+Every difference is one of the three declared changes, plus `cursor: auto -> pointer`
+on `.sw` and its knob (a control that answers a click now says so), plus the icon
+wrapper's `transition` shorthand losing a declaration it inherited from a selector
+that should never have matched it.
+
+**By keyboard.** The switch: reached by Tab, ring `rgb(255,255,255) 0 0 0 2px,
+rgb(255,90,0) 0 0 0 4px`, Space flips it to `aria-checked="false"` with ground
+`#D9D9D9` and knob at 3px, Enter flips it back, and the page does not scroll under
+it. The view toggle: reached, labelled «Сіткою», inset accent ring, `outline-style:
+none`.
+
+**Both stands** rebuilt on real product markup - the toggle's demo takes its glyphs
+from `icons.js` instead of typing `▦` and `☰`, and the switch's demo is operable,
+loading `design/_nav.js` for `uivSwitches()` rather than copying it. Idle checks
+**passed: view-toggle 1 of 1 class and 2 states, switch 2 of 2 and 1 state**. 0
+overflow at 360 on both, 0 JS errors.
+
+### Found, not fixed
+
+- **`goal.html` has 11 products and a dead toggle** - because `goal-list.html` does
+  not exist. A missing screen, IA's call, not this stage's to draw.
+- **Seven inert toggles look pressable.** On an empty screen there is nowhere to go,
+  but `cursor: pointer` and full ink do not say so. Saying it needs a disabled state
+  the product does not have.
+- **Two editions of the switch**, with the class running opposite ways. Waits on a
+  colour twin of `system.html`.
+- **No `:active`** on either component.

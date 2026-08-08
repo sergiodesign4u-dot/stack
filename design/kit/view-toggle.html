@@ -23,44 +23,96 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Перемикач вигляду</h1>
-<p class="kp-lead">Перемикач сітки і списку в каталозі. Дві іконки, одна активна.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/view-toggle.css</span><span class="kp-tag">28 рядків</span><span class="kp-tag">13 екранів</span></div>
+<p class="kp-lead">Два вигляди одного списку, і увімкнено рівно один. Сітка або список, тільки на десктопі: на 360 список - єдиний розумний вигляд, тому питання там не виникає.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/view-toggle.css</span><span class="kp-tag">110 рядків</span><span class="kp-tag">перебудовано на кроці 7.32</span></div>
+
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><div class="vtoggle"><a class="on">▦</a><a>☰</a></div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Група</b> - обидва варіанти видно завжди - інакше незрозуміло, що є вибір</span></div><div class="a"><i>2</i><span><b>Активний <code>.on</code></b> - заливка, а не тільки колір гліфа</span></div></div></section>
+<p class="kp-p">Розмітка взята з <code>listing.html</code>, не намальована для стенда: іконки приходять із набору через <code>icons.js</code>, як на екрані.</p>
+<div class="kp-demo"><span class="vtoggle"><a href="#" class="on" aria-label="Сіткою"><span class="uiv-ic" data-glyph="grid"></span></a><a href="#" aria-label="Списком"><span class="uiv-ic" data-glyph="list"></span></a></span></div>
+<div class="kp-cap">наведіть на неактивну половину - і гліф, і край ідуть в акцент; пройдіть Tab - кільце фокуса всередині, бо коробка ріже вміст</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Група</b> - обидва варіанти видно завжди. Перемикач, що показує лише поточний стан, читається як кнопка дії</span></div>
+  <div class="a"><i>2</i><span><b>Обраний</b> - заливка <code>--bg-action-selected</code>, 10% акценту, і гліф <code>--text-action</code>. Заливка, а не тільки колір гліфа</span></div>
+  <div class="a"><i>3</i><span><b>Волосина між ними</b> - 1px <code>--line-strong</code>, щоб коробка читалась як один контрол, а не два</span></div>
+  <div class="a"><i>4</i><span><b>Фокус</b> - кільце <b>всередині</b>: коробка має <code>overflow: hidden</code>, і зовнішнє кільце на комірці зрізало б краєм</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Перепис: той самий контрол, написаний двічі</div>
+<p class="kp-p">Пораховано в браузері на 40 кольорових екранах при 1280 і 390: <b>7 груп, 14 комірок</b>.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Екрани</th><th>Комірка</th><th><code>href</code></th><th>Ім'я</th><th>Клавіатура</th></tr></thead><tbody>
+<tr><td><code>listing</code> · <code>listing-list</code> · <code>listing-filtered</code> · <code>listing-sheet</code></td><td><code>&lt;a&gt;</code></td><td>так, це навігація</td><td>«Сіткою» / «Списком»</td><td>нативно</td></tr>
+<tr><td><code>listing-empty</code> · <code>listing-error</code> · <code>listing-loading</code></td><td><code>&lt;span&gt;</code></td><td>немає</td><td><b>немає</b></td><td><b>немає</b></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Перше прочитання цього розколу було хибним, і воно виправлене тут.</b> Виглядало, ніби екрани станів зібрані копіюванням, а виправлення - перетворити шість <code>&lt;span&gt;</code> на посилання. Перелік усіх <b>тринадцяти</b> екранів сірого шару з перемикачем, звірений із тим, скільки карток товару кожен тримає, каже інше.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Карток</th><th>Комірка</th><th>Екрани</th></tr></thead><tbody>
+<tr><td class="n">&gt; 0</td><td><code>&lt;a&gt;</code> живий</td><td>listing 10 · listing-list 7 · listing-filtered 6 · listing-sheet 10 · search 9</td></tr>
+<tr><td class="n">0</td><td><code>&lt;span&gt;</code> мертвий</td><td>listing-empty · listing-error · listing-loading · goal-empty · goal-error · goal-loading · search-loading</td></tr>
+<tr><td class="n"><b>11</b></td><td><b><code>&lt;span&gt;</code> мертвий</b></td><td><b>goal</b> - єдиний виняток</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Перемикач живий рівно тоді, коли на екрані є список, який можна перебудувати.</b> На семи порожніх екранах пара інертна, бо перемикати нічого, - і це правильна поведінка, а не недбалість.</p>
+<div class="kp-dont"><h4>Посилання там було б брехнею з <code>href</code></h4><code>listing-list.html</code> - <b>єдиний</b> списковий вигляд у всьому продукті. Немає ні <code>goal-list</code>, ні <code>search-list</code>, ні спискового двійника жодного стану порожньо / помилка / завантаження. Тож комірці «Списком» на <code>listing-empty</code> нікуди чесно вести: єдиний доступний пункт призначення тримає <b>сім товарів</b>, а цей екран не знайшов жодного.</div>
+<div class="kp-do"><h4>Тому <code>&lt;span&gt;</code> лишаються</h4>Погано не те, що це <code>&lt;span&gt;</code>, а те, що вони <b>виглядають натискними</b>: <code>cursor: pointer</code>, повне чорнило, жодного знаку, що ця половина нікуди не веде. Намалювати цей знак означає стан «недоступно», а крок 7.31 відмовився вигадувати його для чипа з тих самих підстав. Записано, а не домальовано.</div>
+<p class="kp-p"><b><code>goal.html</code> - це справжній дефект, і єдиний.</b> 11 товарів, перемикач із готовими <code>aria-label="Сіткою"</code> і <code>aria-label="Списком"</code>, і натиснути не можна ні на що, бо <code>goal-list.html</code> не існує. Це <b>відсутній екран</b>, і вирішувати це IA, а не цьому етапу.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшлось у самому файлі</div>
+<div class="kp-pair">
+<div class="kp-dont"><h4>Селектор писав, а латка стирала</h4>Старий файл казав <code>.vtoggle span</code> - а це кожен <code>span</code> усередині коробки, включно з <code>.uiv-ic</code>, власною обгорткою іконки. Тобто обгортці видавали падінг комірки, фон комірки й приглушене чорнило комірки, а нижче стояли <b>дві</b> правки, які все три знімали назад: <code>.uiv-ic{ background:none; padding:0 }</code> і <code>.on .uiv-ic{ color:--text-action }</code>.</div>
+<div class="kp-do"><h4><code>&gt;</code> каже те, що малось на увазі</h4>Комірка - це <b>прямий нащадок</b> коробки. Обидві латки пішли разом із селектором. Знайдено не читанням: я спершу видалив правило іконки, очікуючи спадкування, і в браузері обраний гліф став сірим. Спадкування ніколи його не фарбувало.</div></div>
+<p class="kp-p"><b>Обрана комірка малювала біле чорнило на 10% помаранчевого.</b> <code>--text-oninverse</code> - це білий, а земля обраної комірки - <code>--bg-action-selected</code>, тобто тінт. Сьогодні невидимого немає нічого, бо в комірці іконка й жодного слова (зміряно: нуль текстових вузлів), а іконку рятувала друга правка. Файл казав одне, латка під ним - інше.</p>
+<p class="kp-p"><b>А ховер не мав чого фарбувати.</b> <code>.vtoggle a:not(.on):hover</code> вів чорнило комірки в акцент - але в комірці іконка, а іконку фарбував напряму той самий надто широкий селектор. Зміряно на HEAD: при наведенні земля йшла в <code>#FAF9F7</code>, а гліф лишався сірим. <b>Стан наведення на 13 екранах, який не змінював нічого видимого.</b></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Три видимі зміни, перелічені, а не пропхнуті</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>#</th><th>Що</th><th>Було</th><th>Стало</th><th>Скільки</th></tr></thead><tbody>
+<tr><td class="n">1</td><td>чорнило обраної комірки</td><td>білий <code>--text-oninverse</code></td><td><code>--text-action</code></td><td>14</td></tr>
+<tr><td class="n">2</td><td>гліф при наведенні</td><td>сірий - ховер був невидимий</td><td><code>--text-action</code></td><td>8 досяжних комірок</td></tr>
+<tr><td class="n">3</td><td>кільце фокуса</td><td>синій контур браузера</td><td>внутрішнє кільце <code>--line-action</code></td><td>8</td></tr>
+</tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody><tr><td><b>Варіанти</b></td><td>сітка · список</td><td>Рівно два. Третій вигляд означає, що каталог не визначився, що показує.</td></tr></tbody></table></div>
-</section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Варіанти</b></td><td>сітка · список</td><td>Рівно два. Третій вигляд означає, що каталог не визначився, що показує.</td></tr>
+<tr><td><b>Ширина</b></td><td>прихований до 860</td><td>На телефоні список - єдиний розумний вигляд, тому вибору там немає.</td></tr>
+<tr><td><b>Комірка</b></td><td>44×35, падінг 8/12, гліф 19</td><td>Одна редакція на обидві половини; різниця в 1px між ними - це волосина-роздільник, а не правило.</td></tr>
+</tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
-<p class="kp-p">Тільки в <b>Тулбар</b> каталогу і тільки на десктопі: на 360px список - єдиний розумний вигляд, тому перемикач там прихований.</p></section>
+<p class="kp-p">Тільки в <b>Тулбар</b> каталогу і тільки на десктопі. Це не <b>Чип</b>: чип фільтрує <i>що</i> в списку, перемикач вигляду міняє <i>як</i> той самий список показано. І не <b>Перемикач</b> (<code>.sw</code>): той вмикає одну настройку, а тут два рівноправні варіанти, обидва видно завжди.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Обидва варіанти видно завжди.</b> Перемикач, який показує лише поточний стан, читається як кнопка дії.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не ховай неактивний варіант.</b> Тоді це вже <b>Кнопка</b> з незрозумілим підписом, і людина натискає навмання.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Обидва варіанти видно завжди.</b> Перемикач, який показує лише поточний стан, читається як кнопка дії.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не ховай неактивний варіант.</b> Тоді це вже <b>Кнопка</b> з незрозумілим підписом, і людина не знає, що станеться після натискання.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді є <code>.on</code> і <code>:hover</code> на неактивному.</p></section>
+<p class="kp-p">Три: <code>.on</code>, <code>:hover</code> на неактивній половині і <code>:focus-visible</code>. Останній з'явився на кроці 7.32: прохід по всіх завантажених таблицях стилів у пошуку <code>outline</code> або <code>box-shadow</code> на <code>.vtoggle</code> повертав <b>порожній список</b>, тож вісім досяжних комірок показували типовий синій контур Chrome - те саме, що крок 7.31 знайшов у чипа.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>1</b> станів оголошено в <code>view-toggle.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>1</b> власний клас і <b>2</b> стани оголошено в <code>view-toggle.css</code>. Чужий контекст (<code>.on</code>, <code>.uiv-ic</code>) не рахується: у цих селекторах компонент не є підметом.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["on", "uiv-ic", "vtoggle"], KIT_STS=[":hover"];</script></section>
+<script>var KIT_CLS=["vtoggle"], KIT_STS=[":hover",":focus-visible"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>view-toggle.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (11)</th><th>Примітиви (4)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-action-selected</code> <code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-oninverse</code></td><td><code>--fs-14</code> <code>--radius-8</code> <code>--space-12</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (7)</th><th>Примітиви (4)</th></tr></thead><tbody><tr><td><code>--bg-action-selected</code> <code>--bg-page</code> <code>--bg-surface</code> <code>--line-action</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-muted</code></td><td><code>--fs-14</code> <code>--radius-8</code> <code>--space-8</code> <code>--space-12</code></td></tr></tbody></table></div>
+<p class="kp-p"><code>--bg-action-selected</code> має рівно <b>одне</b> вживання на весь продукт - оцю обрану половину. Це навмисно: заливка суцільним акцентом зробила б перемикач гучнішим за головну дію екрана, а принцип 2 каже, що така дія рівно одна.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
-<div class="kp-code">&lt;div class="vtoggle"&gt;&lt;a class="on"&gt;▦&lt;/a&gt;&lt;a&gt;☰&lt;/a&gt;&lt;/div&gt;</div></section>
+<div class="kp-code">&lt;span class="vtoggle"&gt;
+  &lt;a href="listing.html" class="on" aria-label="Сіткою"&gt;&lt;span class="uiv-ic"&gt;…&lt;/span&gt;&lt;/a&gt;
+  &lt;a href="listing-list.html" aria-label="Списком"&gt;&lt;span class="uiv-ic"&gt;…&lt;/span&gt;&lt;/a&gt;
+&lt;/span&gt;</div>
+<p class="kp-p">Ім'я комірки живе в <code>aria-label</code>, бо підпису немає: у комірці лише гліф. Це вже було в розмітці чотирьох робочих каталогів і чого немає на трьох екранах станів.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
 <p class="kp-p">Якорі: <code>.vtoggle</code></p>
-<p class="kp-p"><b>13 екранів</b> у <code>wireframes/</code>: goal-empty.html, goal-error.html, goal-loading.html, goal.html, listing-empty.html, listing-error.html, listing-filtered.html, listing-list.html, listing-loading.html, listing-sheet.html, listing.html, search-loading.html, search.html</p></section>
+<p class="kp-p"><b>13 екранів</b> у <code>wireframes/</code>: goal-empty, goal-error, goal-loading, goal, listing-empty, listing-error, listing-filtered, listing-list, listing-loading, listing-sheet, listing, search-loading, search. У кольорі з них зібрано 7.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає збереження вибору</b> між екранами - це не CSS, але наслідок видно тут</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b><code>goal.html</code>: 11 товарів і мертвий перемикач</b> - бо <code>goal-list.html</code> не існує. Відсутній екран, рішення IA</li>
+<li><b>Сім інертних перемикачів виглядають натискними</b> - на порожніх екранах вести їх нікуди, але <code>cursor: pointer</code> і повне чорнило цього не кажуть. Потрібен стан «недоступно», якого в продукті немає</li>
+<li><b>Немає збереження вибору</b> між екранами - не CSS, але наслідок видно тут</li>
+<li><b>Немає <code>:active</code></b> - момент натискання не показано</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
 /* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
@@ -81,11 +133,6 @@
    any <code> on the page. What is left is what the file declares and the showcase
    never puts in front of anyone. */
 (function(){
-  /* Two levels, because they are not the same thing. RENDERED means the class is
-     on a live element inside a demo - a person sees the component. NAMED means it
-     is only written out in the markup block or in a <code>. A page that names a
-     class it never renders is describing the file, which is exactly the habit
-     this stage set out to break. */
   var rendered = new Set(), named = new Set();
   document.querySelectorAll('.kp-demo *').forEach(function(e){
     if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });

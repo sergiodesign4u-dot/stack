@@ -24,7 +24,7 @@
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Чип</h1>
 <p class="kp-lead">Пілюля зі словом, яку натискають, щоб обрати. Фільтр, категорія, вкладка, ціль - одна форма на всі чотири роботи.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/chip.css</span><span class="kp-tag">152 рядки</span><span class="kp-tag">8 імен</span><span class="kp-tag">6 файлів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/chip.css</span><span class="kp-tag">226 рядків</span><span class="kp-tag">8 імен</span><span class="kp-tag">6 файлів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <div class="kp-demo" style="display:flex;gap:var(--space-12);align-items:center;flex-wrap:wrap">
@@ -93,14 +93,31 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Чип - це іменник.</b> «Протеїн», «Набір маси». Дієслово в пілюлі читається як кнопка, і людина чекає, що після натискання щось станеться, а не що список звузиться.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з чипа Бейдж.</b> Мітка, яку не можна натиснути, не має бути схожою на ту, яку можна. <code>.acc-tier</code> «Срібний рівень» і статус «Доставлено» - пілюлі, але вони нічого не роблять: це <b>Статус-пілюля</b>, і живе вона в іншому файлі.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Шар взаємодії <b>крок 7.31</b></div>
+<p class="kp-p">7.23 звів вигляд. Те, чого він не торкався, - чи можна цим користуватися. Переписано наново в браузері, 40 кольорових екранів × два в'юпорти: <b>503 екземпляри</b>, і обидві сходинки тримаються без жодного відхилення. Розійшлось інше.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Тег</th><th>Клавіатура до 7.31</th><th>Кільце фокуса до 7.31</th></tr></thead><tbody>
+<tr><td><code>.dr-chip</code> <code>.flink</code> <code>.mgchip</code> <code>.hero-chips a</code></td><td><code>&lt;a href&gt;</code></td><td>досяжні нативно</td><td><b>синє кільце браузера</b></td></tr>
+<tr><td><code>.afilter .x</code></td><td><code>&lt;button&gt;</code></td><td>досяжна, і вже названа</td><td><b>синє кільце браузера</b></td></tr>
+<tr><td><code>.ptab</code></td><td><code>&lt;span&gt;</code></td><td><b>недосяжні</b> - а на клік відповідали</td><td>-</td></tr>
+<tr><td><code>.ord-tab</code></td><td><code>&lt;span&gt;</code></td><td><b>недосяжні</b> - і на клік теж не відповідали</td><td>-</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Кільце малював браузер.</b> Прохід по всіх завантажених таблицях стилів у пошуку <code>outline</code> або <code>box-shadow</code> на будь-якому з восьми імен повернув <b>порожній список</b>. Тобто кожен чип, до якого клавіатура доходила, показував <code>outline: rgb(0, 95, 204) auto 1px</code> - типовий контур Chrome, на сайті, де <code>--ring-focus-control</code> є з кроку 6.2 і його вже читають кнопка, поле, радіо і посилання. Чип був останнім контролом, що позичав кільце в браузера.</p>
+<p class="kp-p"><b>Сегмент отримав клавіатуру</b> - <code>uivSegments()</code> у <code>design/_nav.js</code>: <code>role="tablist"</code> / <code>role="tab"</code> / <code>aria-selected</code> і <b>мандрівний tabindex</b>, точно як у радіо. Набір бере <b>один</b> крок табуляції, стрілки ходять усередині з перекотом, Home і End стрибають у краї. Три фільтри, кожен зі своїм кроком, коштували б більше, ніж дають.</p>
+<div class="kp-pair"><div class="kp-dont"><h4>Що знайшлось попутно</h4><b><code>.ord-tab</code> не відповідав і на мишу.</b> Три фільтри над списком замовлень - «Усі · Доставлені · В дорозі» - нічого не робили при кліку. Зміряно, не припущено: клік по індексу 2 лишав <code>.on</code> там, де він був. Тобто це був не дефект клавіатури, а мертвий контрол.</div><div class="kp-do"><h4>І розмітка це вже обіцяла</h4><code>account-orders.html</code> уже писав <code>role="tablist" aria-label="Фільтр замовлень"</code>. Сірий шар <b>оголосив</b> набір вкладок і не з'єднав жодної. Тому це не вигадана поведінка, а виконання того, що розмітка обіцяла роками.</div></div>
+<p class="kp-p"><code>role="tablist"</code>, а не <code>radiogroup</code>: радіо обирає значення, яке піде в замовлення, вкладка перемикає, який зріз того самого списку ви бачите. Механіка та сама, обіцянка різна - і межа між ними та сама, яку <code>chip.css</code> проводить між фільтром і сегментом.</p></section>
+
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">Два: <code>:hover</code> і <code>.on</code>. Обидва тепер в одній редакції на всі вісім імен.</p>
-<p class="kp-p"><b>Фокуса немає</b>, і це справжня прогалина, а не пропуск опису: чип не має власного кільця, тож той, хто йде клавіатурою, бачить лише системний контур браузера. Кільце <code>--ring-focus-control</code> у системі вже є - його дала кнопка на кроці 6.2.</p></section>
+<p class="kp-p">Три: <code>:hover</code>, <code>:focus-visible</code> і <code>.on</code>. Перші два в одній редакції на всі вісім імен; третій тримається на класі, тому він у списку класів, а не станів.</p>
+<div class="kp-demo" style="display:flex;gap:var(--space-12);align-items:center;flex-wrap:wrap">
+  <span class="chip">Наведіть</span><span class="chip">Пройдіть Tab</span><span class="chip on">Обраний</span>
+</div>
+<div class="kp-cap">Tab по цій сторінці показує кільце <code>--ring-focus-control</code> - те саме, що в кнопки, поля, радіо й посилання. Миша його не запалює: правило стоїть на <code>:focus-visible</code>, а не на <code>:focus</code></div>
+<p class="kp-p"><b>Стану «недоступний» немає, і це відповідь, а не прогалина.</b> У продукті <b>нуль</b> чипів із <code>disabled</code>, <code>.off</code> чи <code>.disabled</code> - на жодному з 40 екранів, у жодному в'юпорті. Раніший запис «скопіювати <code>.vopt.off</code>» відкликано: <code>.vopt.off</code> існує тому, що смак справді буває розпроданий, а фільтр, який дасть нуль товарів, - випадок, якого в продукті поки немає. Намалювати його тут означало б вигадати стан. З'явиться випадок - форма для копіювання вже є.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>15</b> власних класів і <b>1</b> псевдостан <code>:hover</code> оголошено в <code>chip.css</code>. Обраний тримається на класі <code>.on</code>, тому він у списку класів, а не станів. Нижче - те, чого на цій сторінці немає ні в демо, ні в розмітці.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>16</b> власних класів і <b>2</b> псевдостани оголошено в <code>chip.css</code>. Обраний тримається на класі <code>.on</code>, тому він у списку класів, а не станів. Нижче - те, чого на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["chip", "dr-chip", "dr-chips", "hero-chips", "flink", "flinks", "ct", "mgchip", "ptab", "ord-tab", "cegoals", "on", "afilters", "afilter", "x", "clear"], KIT_STS=[":hover"];</script></section>
+<script>var KIT_CLS=["chip", "dr-chip", "dr-chips", "hero-chips", "flink", "flinks", "ct", "mgchip", "ptab", "ord-tab", "cegoals", "on", "afilters", "afilter", "x", "clear"], KIT_STS=[":hover",":focus-visible"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
 <div class="kp-code">&lt;span class="chip"&gt;Протеїн&lt;/span&gt;
@@ -118,11 +135,15 @@
 <p class="kp-p">Каталог і лістинг, картка товару, кабінет і замовлення, головна, мега-меню, бічна шухляда, діалог клієнта тренера. <code>.cegoals</code> сьогодні рендериться <b>лише в сірому шарі</b> - тренерських екранів у <code>design/</code> ще немає, тож перевірити його можна тільки тут, на стенді.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-do"><h4>Три з чотирьох пунктів цього списку закрито на 7.31</h4><ul>
+<li><s>З клавіатури недосяжні</s> - <code>.ptab</code> і <code>.ord-tab</code> ходять стрілками, беруть один крок табуляції на набір і оголошуються як вкладки. Виявилось не потрібним переписувати розмітку: <code>role</code> і <code>tabindex</code> ставить <code>uivSegments()</code> на рендері, як 7.29 зробив для радіо</li>
+<li><s>Немає фокуса</s> - <code>--ring-focus-control</code> на <code>:focus-visible</code>, на всі вісім імен і на хрестик застосованого фільтра</li>
+<li><s>Немає стану «вимкнено»</s> - <b>відкликано</b>. У продукті нуль недоступних чипів; малювати стан під випадок, якого немає, означало б вигадати його</li>
+</ul></div>
 <div class="kp-gap"><h4>Чого бракує</h4><ul>
-<li><b>З клавіатури недосяжні</b> - <code>.ptab</code> (16 у розмітці) і <code>.ord-tab</code> (3) це <code>&lt;span&gt;</code> без <code>role</code> і <code>tabindex</code>. Вони виглядають як контроли, змінюють екран, і при цьому не фокусуються й не оголошуються. Це <b>розмітка</b>, а не css, тому чекає проходу Кроку 6</li>
-<li><b>Немає фокуса</b> - кільце в системі є, чип його не читає</li>
-<li><b>Немає стану «вимкнено»</b> - фільтр, який дасть нуль товарів, виглядає так само, як той, що дасть 31</li>
-<li><b>Одне ім&#39;я замість восьми</b> - правило вже одне, імена ще ні</li>
+<li><b>Одне ім&#39;я замість восьми</b> - правило вже одне, імена ще ні. Перейменування ламає заморожений сірий шар, тому це <b>Крок 6</b>, після етапу 09</li>
+<li><b><code>.acc-link</code> тримає край 1px</b>, коли вся родина тримає 1.5 - і вище 860 це та сама пілюля сегмента з тими самими 14/700/8-16. Різниця в один піксель дає 40 замість 41. 7.23 вивів <code>.acc-link</code> із родини свідомо, тому це не правиться мовчки: рішення чиєсь, не моє</li>
+<li><b>Немає <code>:active</code></b> - жоден чип не показує момент натискання</li>
 </ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
@@ -182,5 +203,14 @@
 </script>
 </main>
 <script src="_nav.js"></script>
+<!-- THE STAND GETS THE PRODUCT'S OWN KEYBOARD, NOT A COPY OF IT - step 7.31.
+     `design/_nav.js` declares functions and runs nothing on load, so a stand can
+     take the one it needs and leave the rest of the product chrome alone. That
+     is one edition of the rule, shown live, rather than the miniature re-write
+     `radio.html` carried after 7.29 - which was a second edition of exactly the
+     kind this stage exists to delete. A demo you cannot reach with Tab describes
+     a component instead of showing it. -->
+<script src="../_nav.js"></script>
+<script>uivSegments();</script>
 </body>
 </html>

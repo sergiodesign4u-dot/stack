@@ -1,24 +1,129 @@
-/* view-toggle.css - view toggle (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* view-toggle.css - the view toggle (level 1), rebuilt at step 7.32.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.vtoggle{ display: none; border: 1.5px solid var(--line-strong); }
-.vtoggle a, .vtoggle span{ font-size: var(--fs-14); display: inline-flex; }
+   TWO VIEWS OF THE SAME LIST, AND EXACTLY ONE OF THEM IS ON. That is the whole
+   component: a pair of cells in one box, grid or list, desktop only - at 360 a
+   list is the only sensible view, so the control is `display: none` there and
+   the question never comes up.
+
+   Counted in the browser across 40 colour screens at 1280 and 390: 7 groups,
+   14 cells, and THE SAME CONTROL WRITTEN TWO WAYS.
+
+     screens                                          cell     href  name
+     listing · listing-list · listing-filtered ·      <a>      yes   «Сіткою» /
+     listing-sheet                                                   «Списком»
+     listing-empty · listing-error · listing-loading  <span>   no    NONE
+
+   THE FIRST READING OF THAT SPLIT WAS WRONG AND IS CORRECTED HERE. It looked
+   like the state screens had been built by copying, and the fix looked like
+   turning six spans into links. Counting the grey layer's thirteen
+   toggle-bearing screens against how many product cards each one holds says
+   something else:
+
+     cards > 0, cell is <a>     listing 10 · listing-list 7 · listing-filtered 6
+                                listing-sheet 10 · search 9
+     cards = 0, cell is <span>  listing-empty · listing-error · listing-loading
+                                goal-empty · goal-error · goal-loading
+                                search-loading
+     cards = 11, cell is <span> goal   <- THE ONLY EXCEPTION
+
+   A TOGGLE IS LIVE EXACTLY WHEN THE SCREEN HAS A LIST TO REORDER. On the seven
+   empty screens the pair is inert because there is nothing to switch, and that
+   is correct behaviour, not carelessness. `listing-list.html` is the ONLY list
+   view in the whole product - there is no `goal-list`, no `search-list`, no
+   list twin of any empty, error or loading state - so the list cell on
+   `listing-empty` has nowhere honest to point: the only destination available
+   holds seven products, and this screen found none. A link there would be a lie
+   with a href on it.
+
+   SO THE SPANS STAY. What is wrong is not that they are spans; it is that they
+   look pressable - `cursor: pointer`, full ink, no sign at all that this half
+   leads nowhere. Drawing that sign means a disabled state, and step 7.31 refused
+   to invent one for the chip on the same grounds. Written down instead.
+
+   `goal.html` IS a defect, and it is the only one: 11 products, a toggle carrying
+   `aria-label="Сіткою"` and `aria-label="Списком"`, and no way to press either -
+   because `goal-list.html` does not exist. That is a missing screen, which is
+   IA's to decide and not this stage's to draw.
+
+   THE «ON» CELL WAS PAINTING WHITE TEXT ON A 10% ORANGE GROUND. `--text-oninverse`
+   is white and the chosen cell's ground is `--bg-action-selected`, a tint. Nothing
+   is invisible today because the cell holds an icon and no words - measured, zero
+   text nodes - and the icon was rescued by a SECOND rule setting `--text-action`
+   on the wrapper. So the file said one thing and a patch below it said another.
+   One line now: the chosen cell is `--text-action`, the icon inherits it through
+   `currentColor`, and a word added there would be legible instead of white.
+
+   AND THE HOVER HAD NOTHING TO COLOUR. `.vtoggle a:not(.on):hover` moved the
+   CELL's ink to the accent - but the cell holds an icon and no words, and the
+   icon was being painted `--text-muted` directly by the over-broad selector
+   above rather than inheriting. Measured at HEAD: on hover the ground went to
+   #FAF9F7 and the glyph stayed grey. A hover state on 13 screens that changed
+   nothing you could see. With the cells scoped to `>` the icon follows the cell,
+   and the state is finally visible.
+
+   THREE VISIBLE CHANGES, ALL LISTED RATHER THAN SLIPPED IN:
+     1. the chosen cell's ink   white -> --text-action  (14 instances)
+     2. the hovered cell's icon grey  -> --text-action  (8 reachable cells)
+     3. a focus ring where the browser's blue outline used to be
+
+   Names are NOT renamed: `.vtoggle` is written by markup the frozen grey layer
+   shares. Same line 7.23 drew for `.dr-chip`, 7.27 for `.rstars`, 7.28 for `.sl`,
+   7.29 for `.vopt`, 7.30 for `.linkrow`. */
+
+/* ---------- the box: desktop only ------------------------------------------- */
+.vtoggle{
+  display: none;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-8);
+  background: var(--bg-page);
+  overflow: hidden;
+}
 @media (min-width: 860px){
   .vtoggle{ display: inline-flex; }
 }
 
-/* ---------- colour (from design/kit/kit.css) ---------- */
-.vtoggle a.on, .vtoggle span.on{ color:var(--text-oninverse); }
-.vtoggle a, .vtoggle span{ transition:background .15s ease, color .15s ease; cursor:pointer; align-items:center; }
-.vtoggle{ border-color:var(--line-strong); border-radius:var(--radius-8); background:var(--bg-page); overflow:hidden; }
-.vtoggle a, .vtoggle span{ padding:var(--space-8) var(--space-12); color:var(--text-muted); background:var(--bg-page); }
-.vtoggle a.on, .vtoggle span.on{ background:var(--bg-action-selected); }
-.vtoggle a.on .uiv-ic, .vtoggle span.on .uiv-ic{ color:var(--text-action); }
-.vtoggle a + a, .vtoggle span + span{ border-left:1px solid var(--line-strong); }
-.vtoggle .uiv-ic{ background:none; padding:0; }
-.vtoggle .uiv-ic svg{ width:19px; height:19px; }
-.vtoggle a:not(.on):hover{ color:var(--text-action); background:var(--bg-surface); }
+/* ---------- the cells, AND THE `>` IS THE POINT ------------------------------
+   The old file said `.vtoggle span`, which matches every span inside the box -
+   including `.uiv-ic`, the icon's own wrapper. So the wrapper was being handed
+   the cell's padding, the cell's background and the cell's muted ink, and two
+   more rules existed further down to take all three back off it again:
+   `.vtoggle .uiv-ic{ background: none; padding: 0 }` and
+   `.vtoggle a.on .uiv-ic{ color: var(--text-action) }`. A selector wrote
+   something, and a patch under it unwrote it.
+
+   `>` says what was meant all along - a CELL is a direct child of the box - and
+   both patches go with it. Found by deleting the icon rule first and watching
+   the chosen icon go grey in the browser: inheritance was never what was
+   colouring it. */
+.vtoggle > a, .vtoggle > span{
+  display: inline-flex; align-items: center;
+  font-size: var(--fs-14);
+  padding: var(--space-8) var(--space-12);
+  color: var(--text-muted);
+  background: var(--bg-page);
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease;
+}
+/* the hairline between them, so the box reads as one control and not two */
+.vtoggle > a + a, .vtoggle > span + span{ border-left: 1px solid var(--line-strong); }
+.vtoggle .uiv-ic svg{ width: 19px; height: 19px; }
+
+/* ---------- chosen: the ground says it, and the ink agrees with the ground --- */
+.vtoggle > a.on, .vtoggle > span.on{
+  background: var(--bg-action-selected);
+  color: var(--text-action);
+}
+.vtoggle > a:not(.on):hover{ color: var(--text-action); background: var(--bg-surface); }
+
+/* ---------- focus, and the browser was drawing it ---------------------------
+   A sweep of every loaded stylesheet for an `outline` or `box-shadow` on
+   `.vtoggle` returned an empty list, so the eight reachable cells were showing
+   Chrome's `outline: rgb(0, 95, 204) auto 1px` - the same thing step 7.31 found
+   on the chip, in the last atom still borrowing it.
+   `:focus-visible`, not `:focus`, so a mouse press does not light it up. The
+   ring is drawn INSIDE, because the box clips its children with `overflow:
+   hidden` and an outset ring on a cell would be cut in half by the edge. */
+.vtoggle > a:focus-visible, .vtoggle > span:focus-visible{
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--line-action);
+}

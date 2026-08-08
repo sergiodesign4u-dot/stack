@@ -42,7 +42,32 @@
    `.acc-link` is NOT in the list, and that is deliberate: it is a full-width row
    with a hairline under it that only BECOMES a pill from 860. Its shape is the
    account shell's sentence, not this file's. Its selected state is the one this
-   file now uses, so nothing about it changed. */
+   file now uses, so nothing about it changed.
+
+   ---------------------------------------------------------------------------
+   STEP 7.31 - the interaction layer, which 7.23 did not touch.
+
+   Re-counted in the browser, 40 colour screens x 2 viewports: 503 instances.
+   The two rungs 7.23 set are holding, in every family and at both widths -
+   41 / 14 / 600 / 8-12 / 1.5 / pill for a filter, 41 / 14 / 700 / 8-16 / 1.5 /
+   pill for a segment, 12 / 600 / 4-12 for the mega menu's smaller rung. Nothing
+   about the LOOK had drifted back. What had never been done at all was this:
+
+     .dr-chip        <a href>    reachable, browser's blue ring
+     .flink          <a href>    reachable, browser's blue ring
+     .mgchip         <a href>    reachable, browser's blue ring
+     .hero-chips a   <a href>    reachable, browser's blue ring
+     .afilter .x     <button>    reachable, browser's blue ring, and NAMED
+     .ptab           <span>      NOT REACHABLE - and it answers a click
+     .ord-tab        <span>      NOT REACHABLE - and it answers nothing at all
+
+   THERE IS NO DISABLED CHIP IN THE PRODUCT. Zero instances carry `disabled`,
+   `.off` or `.disabled`, at either width, on any of the 40 screens. So this file
+   does not get an unavailable state, and the note left after 7.29 saying it
+   should copy `.vopt.off` is withdrawn: `.vopt.off` exists because a flavour can
+   genuinely be out of stock. A filter that would return nothing is a case the
+   product does not have yet, and drawing a state for it here would be inventing
+   one. When the case appears, `.vopt.off` is still the shape to copy. */
 
 /* ---------- the shape ---------- */
 .chip,
@@ -106,6 +131,28 @@
   color: var(--text-action);
 }
 
+/* ---------- focus, and the browser was drawing it - step 7.31 ---------------
+   Counted in the browser across 40 colour screens at 1280 and 390: 503 chip
+   instances, the most numerous control on the site, and a sweep of every loaded
+   stylesheet for an `outline` or `box-shadow` on any of these eight names
+   returned AN EMPTY LIST. So every chip a keyboard could reach was showing
+   `outline: rgb(0, 95, 204) auto 1px` - Chrome's default, on a site that has had
+   `--ring-focus-control` since step 6.2 and now uses it on the button, the field,
+   the radio and the link. The chip was the last control still borrowing the
+   browser's.
+
+   `:focus-visible`, not `:focus`, so a mouse press does not light it up. The ✕
+   inside an applied filter is included: it is a real `<button>` and it was
+   showing the same blue. */
+.chip:focus-visible,
+.dr-chip:focus-visible, .hero-chips a:focus-visible, .flink:focus-visible,
+.mgchip:focus-visible,
+.ptab:focus-visible, .ord-tab:focus-visible, .cegoals button:focus-visible,
+.afilter .x:focus-visible{
+  outline: none;
+  box-shadow: var(--ring-focus-control);
+}
+
 /* ---------- selected: ONE edition, and it is the owner's call ---------------
    Four were in the code, and the choice was made on contrast, not on taste:
 
@@ -158,7 +205,15 @@
    Not a choice but a RECEIPT: it says a filter is already on and offers to take
    it off. That is why it is quieter than a chip (12/600 on a sunken ground, a
    hairline instead of the strong edge) and why it is the only one of the family
-   carrying a ✕. Nothing to unify here: it answers a different question. */
+   carrying a ✕. Nothing to unify here: it answers a different question.
+
+   AND IT NEEDS NO TAB STOP OF ITS OWN - checked at 7.31 rather than assumed. The
+   pill is a `<span>`, which looks like the same defect `.ptab` and `.ord-tab`
+   have, and is not: the part that DOES something is the ✕, which is already a
+   real `<button aria-label="Прибрати фільтр">` and already reachable. Giving the
+   label a stop as well would put two stops on one receipt, the first of which
+   does nothing. The step's earlier note said this family needed a tab stop; the
+   census said otherwise, and the census is what counts. */
 .afilters{ display: none; gap: var(--space-8); flex-wrap: wrap; align-items: center; margin-top: var(--space-12); }
 @media (min-width: 860px){
   .afilters{ display: flex; }

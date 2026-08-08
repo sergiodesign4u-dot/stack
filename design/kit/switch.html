@@ -23,11 +23,11 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Перемикач</h1>
-<p class="kp-lead">Тумблер: увімкнено або вимкнено, зміна діє одразу.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/switch.css</span><span class="kp-tag">17 рядків</span><span class="kp-tag">9 екранів</span></div>
+<p class="kp-lead">Одна настройка, увімкнено або вимкнено, і зміна діє в момент відпускання. Саме це відрізняє його від <b>Чекбокса</b>: чекбокс - значення, яке ви ще тільки зберете формою.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/switch.css</span><span class="kp-tag">76 рядків</span><span class="kp-tag">перебудовано на кроці 7.32</span></div>
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><div class="kp-row" style="gap:20px;align-items:center"><span class="sw"><i></i></span><span class="sw off"><i></i></span></div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Доріжка</b> - <code>--bg-track</code> у вимкненому, акцент в увімкненому</span></div><div class="a"><i>2</i><span><b>Ручка</b> - біле коло, яке їде</span></div></div></section>
+<div class="kp-demo"><div class="kp-row" style="gap:20px;align-items:center"><span class="sw" role="switch" aria-checked="true" aria-label="Увімкнено"><i></i></span><span class="sw off" role="switch" aria-checked="false" aria-label="Вимкнено"><i></i></span></div></div><div class="kp-cap">пройдіть Tab - обидва беруть фокус і показують кільце; Space або Enter перемикає, і сторінка під ним не прокручується</div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Доріжка</b> - <code>--bg-track</code> у вимкненому, акцент в увімкненому</span></div><div class="a"><i>2</i><span><b>Ручка</b> - біле коло 20, яке їде з 3px на 21px за <code>.16s</code></span></div><div class="a"><i>3</i><span><b>Роль</b> - <code>role="switch"</code> і <code>aria-checked</code> стоять у розмітці й синхронні зі станом; ім'я дає <code>aria-label</code></span></div><div class="a"><i>4</i><span><b>Фокус</b> - <code>--ring-focus-control</code> <b>ззовні</b> доріжки: контрол маленький, внутрішнє кільце з'їло б ручку</span></div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
@@ -41,12 +41,31 @@
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Перемикач діє миттєво.</b> Якщо потрібне «Зберегти», це <b>Чекбокс</b> у формі.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не став перемикач у форму з кнопкою.</b> Тоді незрозуміло, чи зміна вже сталася, і людина натискає двічі.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
-<p class="kp-p">У коді немає жодного стану, крім базового.</p></section>
+<p class="kp-p">Два: <code>.off</code> і <code>:focus-visible</code>. Другий з'явився на кроці 7.32.</p><p class="kp-p"><b>І контрол працює - це перевірено, а не припущено.</b> Перший замір цього кроку показав, що при кліку клас і <code>aria-checked</code> міняються, а доріжка й ручка стоять на місці, і я мало не записав це як дефект. Це був <b>перехід</b>: замір зроблено одразу після кліку, а <code>transition</code> триває .16s. Через 400ms земля #FF5A00 → #D9D9D9, ручка 21px → 3px. Зонд помилявся, не контрол.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Клавіатура <b>крок 7.32</b></div>
+<p class="kp-p">Розмітка в продукті вже правильна: <code>&lt;span class="sw" role="switch" aria-checked="true" aria-label="Згода на розсилку"&gt;</code>. Клік з'єднано, стан синхронний, анімація йде. <b>Не було одного - кроку табуляції.</b> Контрол, повністю описаний для скрінрідера й доступний лише мишею: 250 натискань Tab на <code>account-profile</code> жодного разу на нього не сіли.</p>
+<p class="kp-p">Третій раз за цей етап та сама форма - контрол оголошено в розмітці й відсутній у порядку табуляції: <code>.ord-tabs</code> на 7.31, посилання діалогу входу на 7.30. <code>uivSwitches()</code> у <code>design/_nav.js</code> дає крок табуляції й Space / Enter.</p>
+<div class="kp-do"><h4>Ключ на роль, а не на клас</h4>Селектор - <code>[role="switch"]:not([tabindex])</code>. Обіцянку клавіатури дає <b>роль</b>, тож роль і має нести правку. Заразом це дотягнеться до <code>.ck-tog</code> у день, коли діалог cookie отримає кольоровий двійник, і нікому не доведеться згадувати, що ця функція існує.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Друга редакція перемикача, і вона не злита</div>
+<p class="kp-p">У продукті є ще один тумблер - <code>.ck-tog</code>, категорії в діалозі cookie, у <code>cookie-banner.css</code>. Зміряно: вони розходяться в усьому.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th><code>.sw</code></th><th><code>.ck-tog</code></th></tr></thead><tbody>
+<tr><td><b>Доріжка</b></td><td>44 × 26</td><td>42 × 24</td></tr>
+<tr><td><b>Ручка</b></td><td>20, на 3 / 21</td><td>18, на 2 / 20, з краєм 1px</td></tr>
+<tr><td><b>Край</b></td><td>немає</td><td>1.5px</td></tr>
+<tr><td><b>Земля ON</b></td><td><code>--bg-action</code></td><td><code>--bg-inverse</code></td></tr>
+<tr><td><b>Земля OFF</b></td><td><code>--bg-track</code></td><td><code>--bg-sunken</code></td></tr>
+<tr><td><b>Клас</b></td><td><code>.off</code> позначає ВИМКНЕНО</td><td><code>.on</code> позначає УВІМКНЕНО</td></tr>
+<tr><td><b>Недоступний</b></td><td>немає</td><td><code>.locked</code>, opacity .6, not-allowed</td></tr>
+</tbody></table></div>
+<div class="kp-dont"><h4>Класи йдуть у ПРОТИЛЕЖНІ боки</h4>Це те, що вкусить того, хто зливатиме їх наосліп: у <code>.sw</code> базовий стан увімкнений і клас додає вимкнення, у <code>.ck-tog</code> - навпаки.</div>
+<p class="kp-p"><b>Не злито, і причина - лічильник.</b> <code>.ck-tog</code> рендериться в кольоровому шарі <b>нуль</b> разів: діалог cookie демонструє <code>wireframes/system.html</code>, у якого немає кольорового двійника. Обирати між 44×26 і 42×24, бачачи лише один із двох, означало б брати число зі сторінки, яку ніхто не може відкрити. Коли той екран отримає кольоровий двійник, злиття - це один рядок, а <code>.locked</code> у <code>.ck-tog</code> - саме той стан «недоступний», який цей файл має скопіювати: тут продукт такий випадок справді має, на відміну від чипа.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>2</b> власних класів і <b>0</b> станів оголошено в <code>switch.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>2</b> власних класи і <b>1</b> стан оголошено в <code>switch.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["off", "sw"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["off", "sw"], KIT_STS=[":focus-visible"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>switch.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
@@ -61,7 +80,11 @@
 <p class="kp-p"><b>9 екранів</b> у <code>wireframes/</code>: account-profile-delete.html, account-profile-email.html, account-profile-lang.html, account-profile-phone.html, account-profile-withemail.html, account-profile.html, checkout-loggedin.html, checkout-noaddr.html, checkout.html</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
-<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає стану очікування</b> - миттєва дія мережева, а відповіді немає</li><li><b>Немає підпису стану</b> - «увімкнено/вимкнено» читається лише кольором</li></ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Дві редакції тумблера</b> - <code>.sw</code> і <code>.ck-tog</code>, з протилежним напрямком класу. Злиття чекає на кольоровий двійник <code>system.html</code></li>
+<li><b>Немає стану «недоступний»</b> - у <code>.sw</code>. Форма для копіювання вже є: <code>.ck-tog.locked</code></li>
+<li><b>Немає <code>:active</code></b> - момент натискання не показано</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 <script>
 /* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
@@ -120,5 +143,21 @@
 </script>
 </main>
 <script src="_nav.js"></script>
+<!-- THE PRODUCT'S OWN FUNCTION, NOT A COPY - the shape step 7.31 settled.
+     `design/_nav.js` declares functions and runs nothing at load, so a stand can
+     take the one rule it needs and leave the product chrome alone. -->
+<script src="../_nav.js"></script>
+<script>
+  /* the one thing a stand has to supply: behind this demo there is no product,
+     so the switch gets the click that flips its class and syncs `aria-checked`.
+     Everything else - the tab stop, Space, Enter - is uivSwitches(). */
+  document.querySelectorAll('.kp-demo .sw').forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var on = !sw.classList.toggle('off');
+      sw.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+  });
+  uivSwitches();
+</script>
 </body>
 </html>

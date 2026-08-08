@@ -166,6 +166,123 @@ function uivRadioGroups(){
   });
 }
 
+/* A SWITCH THAT A KEYBOARD CAN REACH - step 7.32.
+   `.sw` on the profile screen is `<span class="sw" role="switch"
+   aria-checked="true" aria-label="Згода на розсилку">`. Everything a screen
+   reader needs is there, the click is wired, and both the track and the knob
+   animate. The one thing missing is a tab stop, so the whole thing is reachable
+   by nothing but a mouse: 250 Tab presses on `account-profile` never landed on
+   it. Third time this stage has met the same shape - a control fully declared in
+   the markup and absent from the tab order, after `.ord-tabs` at 7.31 and the
+   login dialog's links at 7.30.
+
+   Keyed on `[role="switch"]`, not on `.sw`, and that is deliberate. It is the
+   ROLE that promises a keyboard, so the role is what should carry the fix -
+   which also reaches `.ck-tog`, the cookie dialog's toggles, the day that dialog
+   gets a colour twin, without anyone having to remember this function exists.
+
+   Space and Enter go through `.click()` so that whatever the page does on a
+   click - flip the class, sync `aria-checked` - is the one edition that runs.
+   `preventDefault` on Space, or the page scrolls under the switch. */
+function uivSwitches(root){
+  var page = root || document;
+  [].slice.call(page.querySelectorAll('[role="switch"]:not([tabindex])')).forEach(function(el){
+    el.setAttribute('tabindex', '0');
+    el.addEventListener('keydown', function(e){
+      if(e.key !== ' ' && e.key !== 'Enter') return;
+      e.preventDefault();
+      el.click();
+    });
+  });
+}
+
+/* A SEGMENT THAT A KEYBOARD CAN REACH - step 7.31.
+   The segment rung of the chip: `.ptab` on the four home screens, `.ord-tab` in
+   the order history. Both are `<span>`, both look pressable, and neither had a
+   role, a tab stop or a key binding. 35 instances.
+
+   They were not equally broken, and the difference is the finding. `.ptab`
+   answered a click, because five lines further down this file used to move `.on`
+   for it - «a tab that never moves reads as broken» was the comment. `.ord-tab`
+   is the same control one rung along and had nothing at all: three filters over
+   an order list, «Усі · Доставлені · В дорозі», and pressing them with a mouse
+   did nothing either. Measured, not assumed: clicking index 2 left `.on` exactly
+   where it was.
+
+   So this pass does two things and both are declared. It moves the click
+   handling out of `uivPdp` into one rule for the rung, which is why `.ord-tab`
+   now answers a press at all - a behaviour change, not a consolidation. And it
+   adds the keyboard: ROVING TABINDEX, exactly as `uivRadioGroups` does, because
+   a segment is the same promise as a radio - exactly one of the set is on. Three
+   filters that each took a tab stop would cost more to cross than they save.
+
+   `role="tablist"` / `role="tab"` / `aria-selected` rather than radiogroup: a
+   radio picks a value that goes into the order, a tab switches which slice of
+   the same list you are looking at. Same mechanics, different promise, and the
+   line between them is the one chip.css draws between a filter and a segment. */
+function uivSegments(root){
+  var page = root || document;
+  ['.ptab', '.ord-tab'].forEach(function(sel){
+    var items = [].slice.call(page.querySelectorAll(sel));
+    var byParent = new Map();
+    items.forEach(function(el){
+      var p = el.parentElement; if(!p) return;
+      if(!byParent.has(p)) byParent.set(p, []);
+      byParent.get(p).push(el);
+    });
+    byParent.forEach(function(list, parent){
+      if(list.length < 2) return;
+      /* The «already done» flag is OURS, not the role - and that distinction cost
+         a pass. The first draft guarded on `role === 'tablist'`, which read as
+         safe until the browser showed `.ord-tabs` with a marked parent and three
+         unmarked children: `account-orders.html` ALREADY writes
+         `role="tablist" aria-label="Фільтр замовлень"` into the markup, so the
+         guard fired on the author's own attribute and skipped the whole group.
+         Which is also the sharpest thing found here - the grey layer had declared
+         a tablist and never wired one, so the role was announcing a control that
+         did not exist. Wiring it completes what the markup already promises. */
+      if(parent.dataset.uivSeg) return;
+      parent.dataset.uivSeg = '1';
+      parent.setAttribute('role', 'tablist');
+
+      var mark = function(){
+        var chosen = list.filter(function(el){ return el.classList.contains('on'); })[0] || list[0];
+        list.forEach(function(el){
+          el.setAttribute('role', 'tab');
+          el.setAttribute('aria-selected', el.classList.contains('on') ? 'true' : 'false');
+          el.setAttribute('tabindex', el === chosen ? '0' : '-1');
+        });
+      };
+      var choose = function(el){
+        list.forEach(function(x){ x.classList.remove('on'); });
+        el.classList.add('on');
+        mark();
+      };
+      mark();
+
+      parent.addEventListener('click', function(e){
+        var el = e.target.closest ? e.target.closest(sel) : null;
+        if(!el || list.indexOf(el) < 0) return;
+        choose(el);
+      });
+      parent.addEventListener('keydown', function(e){
+        var el = e.target.closest ? e.target.closest(sel) : null;
+        if(!el || list.indexOf(el) < 0) return;
+        var i = list.indexOf(el), next = null;
+        if(e.key === 'ArrowRight' || e.key === 'ArrowDown') next = list[(i + 1) % list.length];
+        else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = list[(i - 1 + list.length) % list.length];
+        else if(e.key === 'Home') next = list[0];
+        else if(e.key === 'End') next = list[list.length - 1];
+        else if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); choose(el); return; }
+        if(!next) return;
+        e.preventDefault();
+        choose(next);      /* a tab follows the arrow, the way a radio does */
+        next.focus();
+      });
+    });
+  });
+}
+
 /* A LINK THAT A KEYBOARD CAN REACH - step 7.30.
    `<a onclick="...">` with NO href. It looks like a link, it is pressed like a
    link, and it is invisible to a keyboard: an anchor without href takes no
@@ -374,6 +491,16 @@ function uivChrome(){
      until that pass has hooked `wfAuthGo`. Same reason it is a shape and not a
      list - each step draws a new set of them. */
   uivDeadLinks();
+  /* step 7.31, and on EVERY page for the same reason 7.29 learned the hard way:
+     the shelf tabs are on the four home screens and the order filters are in the
+     account, so a call sitting inside either screen's own pass would miss the
+     other. `.ord-tabs` is injected by `wfAccountNav`, which runs before this. */
+  uivSegments();
+  /* step 7.32. The profile screen's switch is written into the page, not injected,
+     so any pass would find it - but keying on the role means the call has to sit
+     where every page runs, or a switch added to another screen later would be
+     silently left out. Same reason 7.29 moved `uivRadioGroups` here. */
+  uivSwitches();
 }
 
 /* make the product-card heart interactive: a click toggles the .on (filled) state
@@ -983,15 +1110,10 @@ function uivHome(){
   var ci = page.querySelector('.cshelf .cs-ico');
   if(ci && /🛒/.test(ci.textContent)) ci.innerHTML = uivWrap('cart');
 
-  /* product tabs answer a click (like the listing's sort control): the data behind
-     them is fixed in a wireframe, but a tab that never moves reads as broken */
-  var tabs = [].slice.call(page.querySelectorAll('.ptab'));
-  tabs.forEach(function(t){
-    t.addEventListener('click', function(){
-      tabs.forEach(function(x){ x.classList.remove('on'); });
-      t.classList.add('on');
-    });
-  });
+  /* step 7.31: the shelf tabs used to be wired here, five lines that moved `.on`
+     on a click. They now go through `uivSegments()`, which does the same and adds
+     the keyboard - and, more to the point, reaches `.ord-tab` as well, which is
+     the same rung of the same control and had neither. */
 
   uivCurrency(page);
 }

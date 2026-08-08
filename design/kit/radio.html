@@ -162,44 +162,28 @@
 </script>
 </main>
 <script src="_nav.js"></script>
+<!-- THE PRODUCT'S OWN FUNCTION, NOT A COPY OF IT - rewritten at step 7.31.
+     After 7.29 this block was a 35-line miniature re-write of `uivRadioGroups`,
+     on the reasoning that `design/_nav.js` is not loaded on a stand. It is
+     loadable: that file declares functions and runs nothing at load, so a stand
+     can take the one rule it needs and leave the product chrome alone. A second
+     edition of a rule is exactly what this stage exists to delete, and writing
+     one into the page that demonstrates the rule was the worst place for it. -->
+<script src="../_nav.js"></script>
 <script>
-  /* the stand gets the same keyboard the product gets: `design/_nav.js` is not
-     loaded here, so the group semantics are wired by the same rules in miniature.
-     A demo you cannot reach with Tab would be describing the component, not
-     showing it - which is the habit this whole stage set out to break. */
+  /* One thing the stand does have to supply. `uivRadioGroups` selects through
+     `el.click()` on purpose - so that whatever the PRODUCT does on a click still
+     runs - and behind this demo there is no product. So the group gets a click
+     that moves `.on`, and nothing else: the roles, the single tab stop, the
+     arrows and the skipping of `.off` are all the product's own code. */
   document.querySelectorAll('.kp-demo .radio-demo, .kp-demo .vopts').forEach(function(g){
-    var items = [].slice.call(g.querySelectorAll('.co-opt, .vopt'));
-    if(items.length < 2) return;
-    g.setAttribute('role', 'radiogroup');
-    var enabled = function(el){ return !el.classList.contains('off'); };
-    var mark = function(){
-      var chosen = items.filter(function(el){ return el.classList.contains('on'); })[0];
-      var stop = chosen && enabled(chosen) ? chosen : items.filter(enabled)[0];
-      items.forEach(function(el){
-        el.setAttribute('role', 'radio');
-        el.setAttribute('aria-checked', el.classList.contains('on') ? 'true' : 'false');
-        if(!enabled(el)){ el.setAttribute('aria-disabled', 'true'); el.setAttribute('tabindex', '-1'); }
-        else el.setAttribute('tabindex', el === stop ? '0' : '-1');
-      });
-    };
-    var choose = function(el){
-      if(!enabled(el)) return;
-      items.forEach(function(x){ x.classList.toggle('on', x === el); });
-      mark(); el.focus();
-    };
-    mark();
     g.addEventListener('click', function(e){
-      var el = e.target.closest('.co-opt, .vopt'); if(el) choose(el);
-    });
-    g.addEventListener('keydown', function(e){
       var el = e.target.closest ? e.target.closest('.co-opt, .vopt') : null;
-      if(!el || items.indexOf(el) < 0) return;
-      var pool = items.filter(enabled), i = pool.indexOf(el);
-      if(e.key === 'ArrowRight' || e.key === 'ArrowDown'){ e.preventDefault(); choose(pool[(i + 1) % pool.length]); }
-      else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); choose(pool[(i - 1 + pool.length) % pool.length]); }
-      else if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); choose(el); }
+      if(!el || el.classList.contains('off')) return;
+      [].forEach.call(g.querySelectorAll('.co-opt, .vopt'), function(x){ x.classList.toggle('on', x === el); });
     });
   });
+  uivRadioGroups();
 </script>
 </body>
 </html>
