@@ -6175,3 +6175,135 @@ in the next audit round rather than being claimed as a two-instrument result.
   rest of the file uses.
 - **No «signal not confirmed» state.** With no certificate on the batch the strip
   still says «Сертифікат». A question for IA and microcopy, not for CSS.
+
+## Step 7.48: the loyalty rung, and a column the phone could not reach
+
+Seventh molecule. **49 selectors, 61 rules**, three coloured screens for the ladder
+(`account`, `account-loyalty`, `account-empty`), one for the ledger, and the tier
+mark on **14 screens** of the account and the checkout.
+
+### The component was picked by the browser, not by feel
+
+Before choosing, every remaining component file was swept: **73 files, 1554
+selectors**, each run against all 40 coloured screens at two widths.
+
+Three files answer nothing at rest - `cookie-banner` (27 of 27), `cat-overlay`
+(26 of 26), `toast` (8 of 9) - and that is correct rather than broken: all three are
+opened by JavaScript. `client-row` looked like the richest target at 8 of 11, but the
+file itself already records why at 7.36: the coach's screens exist only in grey, so
+a stand for it would be an invention.
+
+### The defect: overflow hidden on a table wider than the phone
+
+`.led-wrap` carried `overflow: hidden`, and the ledger's table does not fit a phone.
+
+| width | wrapper | table | of the 87px «Баланс» column |
+| 360 | 328 | 411 | **3px visible** |
+| 390 | 358 | 411 | 33 visible |
+| 430 | 398 | 411 | 72 visible |
+| 720+ | 688 | 686 | fits |
+
+**And it could not be scrolled to** - that is what `hidden` does. Proved with a real
+touch swipe through `Input.synthesizeScrollGesture`, because the obvious test lies:
+**assigning `scrollLeft` works even under `overflow: hidden`**, so the first
+measurement showed HEAD and the working tree behaving identically and proved nothing.
+Under a real gesture at 360: HEAD stays at `scrollLeft` 0 with 3px of the column
+visible; the working tree reaches 85 and shows all 87.
+
+Variable: how a table wider than its wrapper behaves. Value: **it scrolls**. Why: the
+alternative is that the buyer cannot see their own bonus balance on the device the
+store is built for first. Not an invented pattern - `overflow-x: auto` with the
+scrollbar suppressed is what account-shell.css, chip.css, hero.css and pdp-tabs.css
+already do. `overflow-y` is pinned to `hidden` on purpose: `auto` on one axis forces
+the other off `visible`.
+
+**The correction to the backlog**: the finding was recorded as «313px holding a
+411px table». It is **328**; the old number was measured another way.
+
+### The second half was found in acceptance, not declared
+
+The head and the footnote are children of the wrapper, so the moment the wrapper
+scrolled they travelled with the table: measured at 360 after a swipe, the panel's
+own title «Рух бонусів» sat at **-68** and was off the screen exactly when the
+balance arrived. `position: sticky; left: 0` on `.led-head` and `.led-note` pins them
+at **+1** while the table moves underneath. Only the table was ever meant to move.
+
+This was not in the declaration. It is in the step because shipping the first half
+alone would have traded one defect for another.
+
+### The third thing, and it is not CSS
+
+The sweep listed `.uiv-tier.t0` among the selectors that match nothing, and the
+declaration called it a state no screen shows. **That was wrong, and acceptance
+caught it.** The screen exists - `account-empty.html` carries the base tier three
+times. What hid it is one line in `design/_nav.js`:
+
+    if(UIV_TIER_EMOJI[part]){
+
+`UIV_TIER_EMOJI` maps the base tier to **0**, which is falsy in JavaScript. So three
+metals out of four became the system glyph and the fourth stayed a raw colour emoji -
+on the screen a buyer sees **before their first order**. Measured before: 3 raw emoji
+on the page, 0 instances of `.uiv-tier.t0`. After `if(part in UIV_TIER_EMOJI)`: 0 raw,
+3 marks.
+
+The other three unmatched selectors ARE colour halves waiting for a grey twin:
+`.lbar.maxed i` has `wireframes/account-loyalty-max.html` and `_wf.css:1307`,
+`.led-empty` has `wireframes/account-loyalty-empty.html` and `_wf.css:1325-1326`. The
+same shape as `.tband` at 7.44. Nothing was deleted.
+
+### The A/B, and a limit of the instrument
+
+Null pass **0** across 40 pages x 4 widths (360, 390, 720, 1280 - 390 joined because
+the defect lives there).
+
+`account-loyalty`: **3 rows per width**, `overflow-x` on `.led-wrap` and `position` on
+`.led-head` and `.led-note`. No geometry moved.
+
+`account-empty` first reported **1397 rows per width**, and that number is an artifact
+of the census, not of the page. Rows are keyed `TAG.classes#seq`, so inserting three
+icons renumbers every `svg` and `path` after them. Re-compared as a **multiset of
+digests per tag+class**, which insertion cannot disturb: at 1280 **nothing was
+restyled at all** - 0 digests gone, 12 new, exactly span + svg + 2 paths x 3 - and the
+page height is identical to the pixel. At 390 the page grew **3.39px**, the mark being
+slightly taller than the emoji it replaced.
+
+**The rule this adds: when a step changes the DOM, a sequence-keyed diff overstates
+it. Compare multisets.**
+
+### The stand
+
+`design/kit/loyalty-rung.html`, the showcase's **seventh molecule**. Idle check
+passes: **19 of 19 classes, 9 states named.** Both grey-only states are shown with
+the markup taken from `wireframes/`, and labelled as grey-only rather than presented
+as if they shipped.
+
+The stand failed its own check twice before it passed, and both were the stand's
+fault, not the component's: `.loy-two` was never rendered, and a four-rung ladder
+overflowed 360 by 5px. The second one was the better lesson - **the ladder always has
+exactly three rungs**, because the programme has three tiers, so a four-state row was
+not a smaller version of the product, it was a thing the product cannot produce. It
+is now two real ladders from two real screens.
+
+All 40 stands re-checked at 360 and 1280: no overflow, no idle failure, no exception.
+Molecules **7 / 27**.
+
+### Who found it
+
+All three are Claude's, in a browser. The tier-0 bug is exactly Codex's kind - a
+falsifiable contradiction in the source - and it was found by measuring instead, so
+it is logged as one instrument, not two.
+
+### Found, not fixed
+
+- **Two coloured screens are missing.** «Maximum tier» and «empty ledger» exist in
+  grey with no coloured twin. Not a values decision - work that has not been done.
+- **The ledger gives no sign that it scrolls.** The scrollbar is suppressed, as in the
+  other four scrollers, so the only cue is three visible pixels of a column. Whether
+  that needs an edge fade is a stage-09 question and not one to answer with an
+  invented shadow.
+- **Eleven curly apostrophes** are left in the repo against the one form the rules
+  name: 4 in `wireframes/` (frozen), 1 in `ia/`, 6 in `voice/`. `design/` is clean.
+  It belongs to voice and IA, not to a component step.
+- **Every number here is `[?]`** - tier thresholds, discount percentages, the accrual
+  rate, the three months to expiry. Correct until there is real data, and the stand
+  says so out loud rather than drawing something plausible.

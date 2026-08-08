@@ -217,7 +217,7 @@ window.KIT_NAV = [
    {
     "label": "Щабель лояльності",
     "page": "loyalty-rung.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Відгук",

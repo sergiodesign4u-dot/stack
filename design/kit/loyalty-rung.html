@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Щабель лояльності | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Щабель лояльності</h1>
+<p class="kp-lead">Два незалежні механізми на одному екрані: драбина персональної знижки за суму покупок за весь час і журнал руху бонусів. Плюс значок рівня, який ходить по всьому кабінету. Найдорожча помилка етапу знайшлась саме тут: колонку залишку бонусів на телефоні неможливо було побачити.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/loyalty-rung.css</span><span class="kp-tag">113 рядків</span><span class="kp-tag">49 селекторів</span><span class="kp-tag">61 правило</span><span class="kp-tag">3 екрани + значок на 14</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія: драбина</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>account-loyalty.html</code>, скопійована рядок у рядок. Значок рівня ставить <code>uivTiers()</code> з <code>design/_nav.js</code>, як і на екрані.</p>
+<div class="kp-demo">
+  <div class="loy-two">
+    <div class="acard abonus">
+      <div class="ah"><span class="mech-kicker">Бонусний рахунок</span></div>
+      <div class="big">124 ₴</div>
+      <div class="u">бонусів на рахунку · 1 бонус = 1 ₴ · нараховуємо ~1% з покупки</div>
+    </div>
+    <div class="acard loy">
+      <div class="ah"><span class="mech-kicker">Рівень лояльності</span></div>
+      <div class="lt">🥈 Срібло · персональна знижка −5%</div>
+      <div class="lbar"><i style="width:62%"></i></div>
+      <div class="ls">Куплено на <b>18 400 ₴</b> за весь час · до 🥇 Золота ще <b>6 600 ₴</b></div>
+      <div class="ladder">
+        <div class="lrung done"><span class="rn">🥉 Бронза</span>−3%<span class="rs">✓ отримано</span></div>
+        <div class="lrung now"><span class="rn">🥈 Срібло</span>−5%<span class="rs">ваш рівень</span></div>
+        <div class="lrung next"><span class="rn">🥇 Золото</span>−8%<span class="rs">наступний</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="kp-cap"><code>.loy-two</code> ставить два механізми поруч від 760 і одне під одним нижче. Вони не зливаються в одну картку навмисно: у них різні правила, і головне - сума покупок не згорає, а бонуси згорають через 3 місяці</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Рядок рівня</b> - <code>.lt</code>, 18px дисплейною. Значок метала попереду ставить не розмітка, а обхід тексту</span></div>
+  <div class="a"><i>2</i><span><b>Смуга</b> - <code>.lbar</code> 8px, заливка <code>--bg-action</code> у капсулі. Єдине місце в компоненті, де з'являється помаранчевий</span></div>
+  <div class="a"><i>3</i><span><b>Підпис</b> - <code>.ls</code>, і числа в ньому моноширинні: суму порівнюють з сумою, а не читають як текст</span></div>
+  <div class="a"><i>4</i><span><b>Драбина</b> - <code>.ladder</code>, три щаблі в ряд. Показані ВСІ, а не тільки наступний: людина має бачити, куди веде дорога</span></div>
+  <div class="a"><i>5</i><span><b>Щабель</b> - <code>.lrung</code> у чотирьох станах, нижче</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Чотири стани щабля</div>
+<div class="kp-demo">
+  <div class="acard loy">
+    <div class="ls">покупець, який уже купував - <code>account-loyalty</code></div>
+    <div class="ladder">
+      <div class="lrung done"><span class="rn">🥉 Бронза</span>−3%<span class="rs">✓ отримано</span></div>
+      <div class="lrung now"><span class="rn">🥈 Срібло</span>−5%<span class="rs">ваш рівень</span></div>
+      <div class="lrung next"><span class="rn">🥇 Золото</span>−8%<span class="rs">наступний</span></div>
+    </div>
+  </div>
+  <div class="acard loy">
+    <div class="ls">покупець до першого замовлення - <code>account-empty</code></div>
+    <div class="ladder">
+      <div class="lrung next"><span class="rn">🥉 Бронза</span>−3%<span class="rs">наступний</span></div>
+      <div class="lrung locked"><span class="rn">🥈 Срібло</span>−5%<span class="rs">ще не відкрито</span></div>
+      <div class="lrung locked"><span class="rn">🥇 Золото</span>−8%<span class="rs">ще не відкрито</span></div>
+    </div>
+  </div>
+</div>
+<div class="kp-cap">драбина завжди має рівно три щаблі - стільки рівнів у програмі. Чотирьох станів на одній драбині не буває: <code>.done</code>, <code>.now</code> і <code>.next</code> - це людина, яка вже купувала, <code>.next</code> + два <code>.locked</code> - та, яка ще ні</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b><code>.done</code></b></td><td>світле тло, щільна рамка, підпис <code>--text-success</code></td><td>пройдене не святкують: воно просто перестає бути питанням</td></tr>
+<tr><td><b><code>.now</code></b></td><td>рамка <code>--line-action</code> + смужка 2px згори всередині</td><td>єдиний акцент на драбині. Помаранчевий тут маркер поточного місця, а не дія</td></tr>
+<tr><td><b><code>.next</code></b></td><td>пунктирна рамка</td><td>пунктир каже «ще не ваше» без жодного слова і без жодного кольору</td></tr>
+<tr><td><b><code>.locked</code></b></td><td>назва щабля йде в <code>--text-muted</code></td><td>для нового покупця відкритих щаблів немає, і драбина не має виглядати як помилка</td></tr>
+</tbody></table></div>
+<p class="kp-p"><code>.done</code>, <code>.now</code> і <code>.next</code> стоять на <code>account-loyalty</code> та <code>account</code>; <code>.locked</code> - на <code>account-empty</code>, де покупець ще не зробив жодного замовлення.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Журнал, і колонка, до якої не можна було дотягнутись</div>
+<p class="kp-p">Головна знахідка кроку. <code>.led-wrap</code> ніс <code>overflow: hidden</code>, а таблиця журналу на телефоні ширша за обгортку.</p>
+<div class="kp-demo">
+  <div class="led-wrap">
+    <div class="led-head">
+      <h2>Рух бонусів</h2>
+      <a href="#">Як нараховуються →</a>
+    </div>
+    <table class="led">
+      <thead>
+        <tr><th>Дата</th><th>Операція</th><th class="num">Бонуси</th><th class="num">Баланс</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="dt">12.06.2026</td><td>Нараховано за замовлення № 10432</td><td class="num amt pos">+23</td><td class="num bal">124 ₴</td></tr>
+        <tr><td class="dt">03.06.2026</td><td>Використано в кошику (№ 10418)</td><td class="num amt neg">−40</td><td class="num bal">101 ₴</td></tr>
+        <tr class="burn"><td class="dt">21.05.2026</td><td>Згоріли бонуси (термін дії 3 міс.)</td><td class="num amt neg">−12</td><td class="num bal">129 ₴</td></tr>
+        <tr><td class="dt">02.05.2026</td><td>Нараховано за замовлення № 10355</td><td class="num amt pos">+6</td><td class="num bal">110 ₴</td></tr>
+      </tbody>
+    </table>
+    <div class="led-note">Показано і нарахування, і списання. Ставка нарахування й термін дії - попередні [?].</div>
+  </div>
+</div>
+<div class="kp-cap">звузьте вікно нижче 480 і потягніть таблицю вбік: колонка «Баланс» доїжджає, а шапка і виноска лишаються на місці</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Ширина</th><th>Обгортка</th><th>Таблиця</th><th>Зрізано від колонки «Баланс» (87px)</th></tr></thead><tbody>
+<tr><td><b>360</b></td><td>328</td><td>411</td><td><b>видно 3px із 87</b></td></tr>
+<tr><td><b>390</b></td><td>358</td><td>411</td><td>видно 33 із 87</td></tr>
+<tr><td><b>430</b></td><td>398</td><td>411</td><td>видно 72 із 87</td></tr>
+<tr><td><b>720+</b></td><td>688</td><td>686</td><td>вміщується цілком</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>І доскролити було неможливо</b> - саме це робить <code>hidden</code>. Перевірено справжнім жестом, а не присвоєнням <code>scrollLeft</code>: програмна прокрутка працює і при <code>hidden</code>, тому та перевірка нічого не доводила. Свайп на 360 до правки: <code>scrollLeft</code> лишається 0, від колонки видно 3px. Після: <code>scrollLeft</code> 85, видно всі 87.</p>
+<p class="kp-p">Змінна: як поводиться таблиця, ширша за свою обгортку. Значення: <b>вона прокручується</b>. Чому: інакше покупець не бачить власного залишку бонусів на пристрої, під який магазин будують у першу чергу. Візерунок не вигаданий - <code>overflow-x: auto</code> з прихованою смугою вже стоїть у <code>account-shell.css</code>, <code>chip.css</code>, <code>hero.css</code> і <code>pdp-tabs.css</code>.</p>
+<div class="kp-do"><h4>Друга половина правки знайшлась у прийманні, а не в декларації</h4>Шапка й виноска - діти обгортки, тож щойно обгортка поїхала, вони поїхали з нею: заголовок «Рух бонусів» опинявся на <b>-68</b> і зникав з екрана рівно тоді, коли приїжджала колонка балансу. Пришпилені до лівого краю через <code>position: sticky; left: 0</code> - лишаються на <b>+1</b>, а таблиця йде під ними. Рухатись мала тільки таблиця.</div>
+<div class="kp-gap"><h4>Чого тут навмисно немає</h4>Смуга прокрутки прихована (<code>scrollbar-width: none</code>), як у чотирьох інших прокрутках системи. Це означає, що єдина підказка «далі є ще» - три видимі пікселі колонки. Достатньо цього чи потрібен градієнт біля краю - питання етапу 09, і я його не вирішую вигаданою тінню.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Журнал: три види рядка</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Рядок</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b><code>.amt.pos</code></b></td><td><code>--text-bonus</code>, найважча вага</td><td>нарахування - це те, за чим приходять у журнал</td></tr>
+<tr><td><b><code>.amt.neg</code></b></td><td><code>--text-secondary</code></td><td>списання не помилка: людина сама витратила бонуси в кошику</td></tr>
+<tr><td><b><code>tr.burn</code></b></td><td>тло <code>--bg-bonus-soft</code>, сума <code>--text-warning</code></td><td>згоряння - єдине, що сталось без участі покупця, і єдине, що варте окремого кольору. Бонуси діють 3 місяці, і журнал це показує, а не ховає</td></tr>
+</tbody></table></div>
+<p class="kp-p">Дата й обидві числові колонки моноширинні: у журналі колонку читають згори вниз, порівнюючи, а не зліва направо.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Два стани, що є в сірому шарі й немає в кольорі</div>
+<p class="kp-p">Перепись каже, що чотири селектори файлу не знаходять нічого на 40 кольорових екранах. Перевірив кожен - <b>жоден не мертвий код</b>.</p>
+<div class="kp-demo">
+  <div class="acard loy">
+    <div class="lt">🥇 Золото · персональна знижка −8% · максимальний рівень</div>
+    <div class="lbar maxed"><i style="width:100%"></i></div>
+    <div class="ls">Куплено на <b>24 800 ₴</b> за весь час · максимальний рівень досягнуто</div>
+  </div>
+  <div class="led-wrap">
+    <div class="led-head"><h2>Рух бонусів</h2><a href="#">Як нараховуються →</a></div>
+    <div class="led-empty">
+      <b>Ще немає руху бонусів</b>
+      Зробіть перше замовлення - і тут з'являться нарахування та списання.
+    </div>
+  </div>
+</div>
+<div class="kp-cap">розмітка обох узята з <code>wireframes/account-loyalty-max.html</code> і <code>wireframes/account-loyalty-empty.html</code> - вони існують, але лише в сірому шарі</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Селектор</th><th>Кольорових екранів</th><th>Що це насправді</th></tr></thead><tbody>
+<tr><td><code>.lbar.maxed i</code></td><td>0</td><td>сірий близнюк є: <code>wireframes/account-loyalty-max.html</code>, і <code>_wf.css:1307</code> це правило має. Той самий випадок, що <code>.tband</code> на 7.44</td></tr>
+<tr><td><code>.led-empty</code>, <code>.led-empty b</code></td><td>0</td><td>сірий близнюк є: <code>wireframes/account-loyalty-empty.html</code>, <code>_wf.css:1325-1326</code></td></tr>
+<tr><td><code>.uiv-tier.t0</code></td><td><b>було 0, стало 3</b></td><td><b>не стан, якого немає - помилка, яка його ховала</b>. Нижче</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Значок рівня, і нуль, який виявився хибним</div>
+<div class="kp-demo" id="tierdemo">
+  <div class="kp-pair" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
+    <div><span data-tier="0"></span> <b>t0</b> базовий</div>
+    <div><span data-tier="1"></span> <b>t1</b> бронза</div>
+    <div><span data-tier="2"></span> <b>t2</b> срібло</div>
+    <div><span data-tier="3"></span> <b>t3</b> золото</div>
+  </div>
+</div>
+<div class="kp-cap">одне креслення, чотири класи: метал несе клас, а не окремий файл. t0 приглушений, t1 бронзовий, t2 сталевий, t3 акцентний</div>
+<p class="kp-p">Значок ставить не розмітка: <code>uivTiers()</code> обходить текст сторінки і міняє емодзі металу на знак системи - так само, як <code>uivCurrency()</code> робить з гривнею. Тому значок стоїть на <b>14 екранах</b> кабінету, а не тільки на трьох екранах лояльності.</p>
+<div class="kp-dont"><h4>Помилка, яку знайшло приймання</h4>Обхід питав <code>if(UIV_TIER_EMOJI[part])</code>, а базовий рівень у таблиці має номер <b>0</b>, який у JavaScript хибний. Три метали з чотирьох ставали знаком системи, а четвертий лишався сирим кольоровим емодзі - на <code>account-empty.html</code>, екрані, який бачить покупець <b>до першого замовлення</b>. Заміряно до правки: <b>3</b> сирі емодзі на сторінці, <b>0</b> значків <code>.uiv-tier.t0</code>. Питання виправлено на те, яке код мав ставити: <code>if(part in UIV_TIER_EMOJI)</code> - чи є цей емодзі в таблиці, а не чи ненульовий його рівень. Після: <b>0</b> сирих, <b>3</b> значки.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Драбина - в кабінеті: на огляді й на сторінці лояльності. Журнал - тільки там, де є бонуси, тобто на сторінці лояльності. Значок рівня - будь-де, де названо метал, і ставить його обхід, а не автор сторінки.</p>
+<p class="kp-p"><b>Два механізми не змішуються.</b> Знижка за суму покупок за весь час не згорає ніколи; бонуси згорають через 3 місяці. Це різні речі з різними правилами, тому в них дві картки, а не одна з двома числами.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Показуй усю драбину, включно з тим, що вже пройдено.</b> Щабель має сенс лише в ряду інших: «−5%» саме по собі не число, а «−3% · −5% · −8%» це дорога.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з лояльності гру.</b> Ні відліку до згоряння, ні святкування переходу, ні бейджів. Принцип 4: серйозно для тих, хто ставиться серйозно. Згоряння бонусів названо прямо і один раз.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>19</b> власних класів і <b>9</b> станів оголошено в <code>loyalty-rung.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["loy","lt","lbar","ls","ladder","lrung","rn","rs","loy-two","led-wrap","led-head","led","led-note","led-empty","num","dt","amt","bal","uiv-tier"], KIT_STS=[".done", ".now", ".next", ".locked", ".maxed", ".pos", ".neg", ".burn", ":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>loyalty-rung.css</code>, не переписані руками: <b>18</b> семантичних ролей і <b>24</b> примітиви.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (18)</th><th>Примітиви (24)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-bonus-soft</code> <code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--elevation-1</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-body</code> <code>--text-bonus</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-success</code> <code>--text-warning</code></td><td><code>--brown-600</code> <code>--font-body</code> <code>--font-display</code> <code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--ls-caps</code> <code>--radius-8</code> <code>--radius-12</code> <code>--radius-pill</code> <code>--slate-400</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-32</code></td></tr></tbody></table></div>
+<p class="kp-p"><code>--brown-600</code> і <code>--slate-400</code> - примітиви кольору, узяті напряму, і це єдине таке місце в компоненті. Причина названа в коді: це метал бронзи й срібла, а не роль інтерфейсу; ролі «бронзовий» у системі немає й не має бути.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;div class="acard loy"&gt;
+  &lt;div class="lt"&gt;🥈 Срібло · персональна знижка −5%&lt;/div&gt;
+  &lt;div class="lbar"&gt;&lt;i style="width:62%"&gt;&lt;/i&gt;&lt;/div&gt;
+  &lt;div class="ls"&gt;Куплено на &lt;b&gt;18 400 ₴&lt;/b&gt; за весь час…&lt;/div&gt;
+  &lt;div class="ladder"&gt;
+    &lt;div class="lrung done"&gt;&lt;span class="rn"&gt;🥉 Бронза&lt;/span&gt;−3%&lt;span class="rs"&gt;✓ отримано&lt;/span&gt;&lt;/div&gt;
+    …
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+<p class="kp-p">Ширина смуги стоїть у <code>style</code> прямо в розмітці, бо це дані, а не оформлення: 62% це стан рахунку, і в CSS йому місця немає. Так само працює прогрес у кошику.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.loy</code> <code>.led-wrap</code> <code>.uiv-tier</code></p>
+<p class="kp-p">Заміряно в браузері на 360, 390, 720 і 1280 по всіх 40 кольорових екранах: драбина <b>3</b> рази (<code>account</code>, <code>account-loyalty</code>, <code>account-empty</code>), журнал <b>1</b> раз (<code>account-loyalty</code>, 6 рядків, з них один <code>.burn</code>), значок рівня - на <b>14</b> екранах кабінету й чекауту.</p>
+<p class="kp-p"><b>Мертвих селекторів: 0 з 49.</b> Чотири не знаходять розмітки, і жоден з них не є зайвим кодом - три чекають кольорового близнюка, четвертий чекав виправлення помилки.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Двох кольорових екранів.</b> «Максимальний рівень» і «порожній журнал» існують у сірому шарі й не мають кольорових двійників. Це не рішення про значення, це робота, яку видно й досі не зроблено</li>
+<li><b>Підказки, що таблиця прокручується.</b> Смуга прихована, і єдиний сигнал - три видимі пікселі колонки</li>
+<li><b>Усі числа тут <code>[?]</code></b>: пороги драбини, відсотки знижки, ставка нарахування, 3 місяці до згоряння. Так і має бути до реальних даних, і стенд називає це вголос, а не малює правдоподібне</li>
+<li><b>Немає стану «бонуси згорять днями»</b> у самій драбині - попередження живе в сусідній картці <code>.abonus</code>, а щабель про це не знає</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<!-- the tier marks come from `design/_nav.js`, exactly as they do on a screen:
+     `uivTiers()` walks the text and swaps the metal emoji for the system glyph.
+     It runs AFTER that file is loaded, which is where it is declared. -->
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  /* the four-up demo asks for one of each level by number, which is the same
+     entry point `uivTiers()` uses once it has resolved the emoji */
+  document.querySelectorAll('#tierdemo [data-tier]').forEach(function(e){
+    if(typeof uivTier === 'function') e.innerHTML = uivTier(+e.dataset.tier);
+  });
+  if(typeof uivTiers === 'function') uivTiers(document.querySelector('.kp-main'));
+})();
+</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -1304,7 +1304,12 @@ function uivTiers(root){
     var frag = document.createDocumentFragment();
     tn.nodeValue.split(UIV_TIER_RE).forEach(function(part){
       if(!part) return;
-      if(UIV_TIER_EMOJI[part]){
+      /* 7.48: this was `if(UIV_TIER_EMOJI[part])`, and the base tier maps to 0,
+         which is falsy. So three tiers out of four became the system icon and the
+         fourth stayed a raw emoji - on `account-empty.html`, the screen a buyer
+         sees before their first order. `in` asks the question the code meant to
+         ask: is this emoji in the table, not is its level non-zero. */
+      if(part in UIV_TIER_EMOJI){
         var w = document.createElement('span');
         w.innerHTML = uivTier(UIV_TIER_EMOJI[part]);
         if(w.firstChild) frag.appendChild(w.firstChild);

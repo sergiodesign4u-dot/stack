@@ -25,7 +25,25 @@
 }
 .loy-two .acard{ padding: var(--space-16); }
 .lbar.maxed i{ background: var(--bg-inverse); }
-.led-wrap{ border: 1px solid var(--line-hair); overflow: hidden; margin-top: var(--space-24); }
+/* ---------- the column the phone could not reach - 7.48 ----------------------
+   This said `overflow: hidden`, and the ledger's table is wider than the wrapper
+   on a phone. Measured on `account-loyalty.html`: the wrapper is 328 wide at 360
+   and the table 411, and the «Баланс» column - the running bonus balance - runs
+   from x=341 to x=428 against a right edge of 344. Three pixels of it are on
+   screen, and `hidden` means the other 84 cannot be scrolled to at all. At 390 it
+   loses 54 of 87. From 480 up the table fits and nothing here applies.
+
+   A bonus ledger exists for that column. Variable: how a table wider than its
+   wrapper behaves. Value: it scrolls. Why: the alternative is that the buyer
+   cannot see their own balance on the device the store is built for first.
+
+   Not an invented pattern - `overflow-x: auto` with the scrollbar suppressed is
+   what account-shell.css, chip.css, hero.css and pdp-tabs.css already do for the
+   same problem. `overflow-y` is pinned to hidden on purpose: `auto` on one axis
+   forces the other off `visible`, so leaving it unsaid would silently arm a
+   vertical scrollbar as well. */
+.led-wrap{ border: 1px solid var(--line-hair); overflow-x: auto; overflow-y: hidden;
+  scrollbar-width: none; margin-top: var(--space-24); }
 .led-head{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-12); padding: var(--space-16) var(--space-16) var(--space-12); border-bottom: 1px solid var(--line-hair); }
 .led-head h2{ color: var(--text-primary); }
 .led-head a{ font-size: var(--fs-14); font-weight: var(--fw-bold); }
@@ -38,6 +56,13 @@ table.led td.amt.pos{ font-weight: var(--fw-black); }
 table.led td.amt.neg{ font-weight: var(--fw-bold); }
 table.led td.bal{ color: var(--text-secondary); }
 .led-note{ font-size: var(--fs-12); color: var(--text-secondary); padding: var(--space-12) var(--space-16); border-top: 1px solid var(--line-hair); }
+/* 7.48, and this half was found in acceptance rather than declared: the head and
+   the footnote are children of the wrapper, so the moment the wrapper scrolls they
+   travel with the table. Measured at 360 after a real swipe - the panel's own title
+   «Рух бонусів» sat at -68 and was off the screen while the balance column arrived.
+   Pinned to the left edge of the scrollport, they stay at +1 and the table moves
+   under them. Only the table was ever meant to move. */
+.led-head, .led-note{ position: sticky; left: 0; }
 .led-empty{ padding: var(--space-32) var(--space-24); text-align: center; color: var(--text-secondary); font-size: var(--fs-14); line-height: var(--lh-airy); }
 .led-empty b{ display: block; margin-bottom: var(--space-4); font-size: var(--fs-16); }
 
