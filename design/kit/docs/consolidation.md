@@ -5805,3 +5805,104 @@ JS errors. All 25 stands pass. Molecules **3 / 27**.
 - **The two figures in `.hd-meta` are unmarked** - «18 ₴ / порція · +13 ₴ бонус»
   runs as plain text, where the card gives the same two values a `<b>` and the mono
   face. A question for the markup and the IA, not a line of CSS.
+
+---
+
+## Step 7.45: the cart row, and the set of five closes
+
+Fourth molecule, and the smallest taken so far: 30 selectors, **six rows on two
+screens** (`cart`, `cart-oos`). Its value is not its size - it is that the row is
+where «one product under several names» finally becomes countable.
+
+### One product, five sets of names
+
+| role | grid | list | deal | cart | checkout |
+|---|---|---|---|---|---|
+| photograph | `.ph` | `.lph` | `.hd-ph` | `.ci-ph` | `.li-img` |
+| brand | `.pbrand` | `.lbrand` | `.hd-brand` | `.ci-brand` | - |
+| name | `.nm` | `.lnm` | `.hd-nm` | `.ci-nm` | `.li-nm` |
+| price | `.pnew` | `.lprice` | `.hd-new` | `.ci-sum` | `.li-sum` |
+| struck price | `.pold` | `.lold` | `.hd-old` | `.ci-old` | `.li-old` |
+
+**The atoms already merged this.** One selector list in price.css names all sixteen
+price names, discount.css all eight chip names, availability.css all four. What
+diverges is the molecules, each in its own file.
+
+**And the cart and the checkout already agree on the numbers**: the name is 14/600
+`--text-body` in both, the price 20px `--text-body` `--lh-snug` in both. Two files,
+two name sets, the same values. Folding them into one product row is Крок 6.
+
+**Checked and NOT a defect:** the checkout name has no hover where the cart name
+does - because `.li-nm` is a `<div>`, not a link. On the checkout the product is not
+clicked. That is not a fifth instance of «a rule written for two names», of which
+this stage has now found four.
+
+### The brand line, third of three, and the set closes
+
+tokens.css names three readers for `--text-brandline`: `.pcard .pbrand`,
+`.ci-brand`, `.hdeal .hd-brand`. Until three steps ago **not one of them took it** -
+all three read `--text-muted`, and the only line in the product actually reading the
+role was `.pcard-l .lbrand`, which the comment does not mention. 7.43 fixed the
+first, 7.44 the second, this is the third. Same `--warm-600`, no pixels; a brand
+line is now one decision in four places instead of four.
+
+### The product that is not there: two values became one
+
+| | before | after |
+|---|---|---|
+| `.ci.oos` photograph + name + price | **.45** | **.5** |
+| `.pcard.dim` photograph + price row | .5 | .5 |
+| `.pcard-l.dim` photograph + price | .5 | .5 |
+
+One meaning on one kind of surface, two values in two files. Variable: how far a
+product that cannot be bought is faded. Value: **.5**. Why: two readers against one,
+and nothing distinguishes a dimmed row from a dimmed card. `.oosgal .gmain img`
+keeps its .85 and is not in the set - one large photograph on the product page,
+muted by blending rather than by fading.
+
+### Two dead selectors
+
+`.ci-lnk.on` and its svg rule: an «on» state for the row's own links with no markup
+in **either** layer - not one in `design/`, not one in `wireframes/`, and `_wf.css`
+never carried the rule at all. A colour-layer invention that arrived with the split
+and never had anything to paint. Unlike `.tband` at 7.44, which is a colour half
+waiting for its grey twin, this one has no twin to wait for.
+
+### A/B
+
+**163 491 elements, 40 pages x 3 viewports** (390 / 860 / 1280), run three times.
+
+| | differences |
+|---|---|
+| HEAD vs HEAD | **36** - every one `.skpulse` opacity mid-breath |
+| HEAD vs working tree | **45** |
+
+Subtracting the floor: **9 real differences, all of them `.ci.oos` going .45 -> .5**
+- `.ci-ph`, `.ci-nm` and `.ci-price`, three rows on one screen, three viewports.
+Exactly what was declared before the edits; the brand role is a same-value swap and
+the deleted rules were dead.
+
+### The stand
+
+`design/kit/cart-row.html`, the showcase's **fourth molecule**. Two demos on markup
+copied line for line out of `cart.html`: a live row and an `.oos` one. Idle check
+passes: **all 17 classes rendered, 3 states named.** 360: no overflow, 0 JS errors.
+All 26 stands pass. Molecules **4 / 27**.
+
+The stand also carries the five-name table above, because that is now the through
+line of the molecule pass and it belongs where a person can see it rather than only
+in this log.
+
+### Found, not fixed
+
+- **The per-serving price in two names and two faces**: `.ci-per` is 12/500 muted
+  here, `.perserv` on the card is `--text-secondary` with a `<b>` in the mono face.
+  One figure, two typographies - the same class of question as `.hd-meta` at 7.44.
+- **No state for «quantity above what is left»** - the counter accepts any number
+  and the row says nothing.
+- **No rule for what happens to a row after «remove»** - vanish, fade, or stay with
+  an undo. A question for the IA and the microcopy, not for CSS.
+- **`.ci` still carries two meanings** - an `<article>` in the cart and a `<span>`
+  mark in the catalogue overlay. 7.21 separated them BY ELEMENT because the markup
+  already says which is which in both layers; the second meaning renders 0 times in
+  colour (the overlay is opened by JS). The guard stays. Крок 6 renames.

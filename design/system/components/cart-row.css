@@ -64,7 +64,15 @@ article.ci{ display: grid; grid-template-columns: 74px 1fr; gap: var(--space-12)
    drift. The row's own money type left with it. */
 article.ci{ border-bottom-color:var(--line-hair); }   /* scoped with the line above - step 7.21 */
 .ci-ph{ background:var(--bg-page) center/80% no-repeat; border-color:var(--line-hair); border-radius:var(--radius-12); color:transparent; }
-.ci-brand{ color:var(--text-muted); }
+/* 7.45: `--text-brandline`, AND THIS CLOSES THE SET. tokens.css names three
+   readers for that role - `.pcard .pbrand`, `.ci-brand`, `.hdeal .hd-brand` - and
+   until three steps ago not one of them took it: the grid card read muted, the
+   deal read muted, this row read muted, and the only line in the product actually
+   reading the role was `.pcard-l .lbrand`, which the comment does not mention.
+   7.43 fixed the first, 7.44 the second, and this is the third. Same
+   `--warm-600`, so nothing moves; what moves is that a brand line is now one
+   decision in four places instead of four. */
+.ci-brand{ color:var(--text-brandline); }
 .ci-nm{ color:var(--text-body); transition:color .15s ease; }
 .ci-nm:hover{ color:var(--text-action); }
 .ci-var{ color:var(--text-secondary); }
@@ -77,6 +85,24 @@ article.ci{ border-bottom-color:var(--line-hair); }   /* scoped with the line ab
 /* step 6.4: the row keeps the type, the finish keeps the colour and the hover.
    Before this the hover was written twice and the second cancelled the first:
    one added an underline, the next removed it. */
-.ci-lnk.on{ color:var(--text-action); }
-.ci-lnk.on .uiv-ic svg{ fill:var(--text-action); stroke:var(--text-action); }
-.ci.oos .ci-ph, .ci.oos .ci-nm, .ci.oos .ci-price{ opacity:.45; }
+/* 7.45: `.ci-lnk.on` and its svg rule are gone. An «on» state for the row's own
+   links - saved, followed - and there is no markup for it in EITHER layer: not one
+   `.ci-lnk.on` in `design/`, not one in `wireframes/`, and `_wf.css` never had the
+   rule at all. It is a colour-layer invention that arrived with the kit.css split
+   and never had anything to paint. Unlike `.tband` at 7.44, which is a colour half
+   waiting for its grey twin, this one has no twin to wait for. */
+
+/* ---------- the product that is not there - 7.45 ----------------------------
+   THIS WAS .45 AND THE TWO CARDS SAY .5. One meaning - «this product is not
+   available» - on one kind of surface, and two values in two files:
+
+     .ci.oos        .45   the cart row, photograph + name + price
+     .pcard.dim     .5    the grid card, photograph + price row
+     .pcard-l.dim   .5    the list card, photograph + price
+
+   Variable: how far a product that cannot be bought is faded. Value: .5. Why: two
+   readers against one, and nothing distinguishes a dimmed row from a dimmed card.
+   `.oosgal .gmain img` keeps its .85 and is not in this set - that is one large
+   photograph on the product page rather than a row, and it is muted by blending
+   rather than by fading. */
+.ci.oos .ci-ph, .ci.oos .ci-nm, .ci.oos .ci-price{ opacity:.5; }

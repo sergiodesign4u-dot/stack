@@ -232,7 +232,7 @@ window.KIT_NAV = [
    {
     "label": "Рядок кошика",
     "page": "cart-row.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Галерея",

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Рядок кошика | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Рядок кошика</h1>
+<p class="kp-lead">Товар, який людина вже вибрала: фото, назва, варіант, лічильник і сума. Шість рядків на двох екранах - найменша молекула з узятих, і саме на ній набір «одного товару під різними іменами» нарешті стало видно цілком.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/cart-row.css</span><span class="kp-tag">108 рядків</span><span class="kp-tag">30 селекторів</span><span class="kp-tag">6 рядків</span><span class="kp-tag">2 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>cart.html</code>, скопійована рядок у рядок.</p>
+<div class="kp-demo">
+  <article class="ci" data-unit="1290" data-old="1520">
+    <a href="#" class="ci-ph">фото</a>
+    <div class="ci-mid">
+      <div class="ci-brand">Optimum Nutrition · США</div>
+      <a href="#" class="ci-nm">Gold Standard 100% Whey 2270 г</a>
+      <div class="ci-var">Смак: Подвійний шоколад</div>
+      <div class="ci-row">
+        <div class="ci-qty"><button aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" maxlength="2" value="1" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+        <div class="ci-price"><span class="ci-oldline"><span class="ci-old">1 520 ₴</span><span class="ci-cut">−15%</span></span><span class="ci-sum">1 290 ₴</span><span class="ci-per">18 ₴ / порція</span></div>
+      </div>
+      <div class="ci-links">
+        <button class="btn--text ci-lnk">♡ В обране</button>
+        <button class="btn--text ci-lnk strong">🗑 Видалити</button>
+      </div>
+    </div>
+  </article>
+  <article class="ci oos" data-unit="890">
+    <a href="#" class="ci-ph">фото</a>
+    <div class="ci-mid">
+      <div class="ci-brand">Power Pro · Україна</div>
+      <a href="#" class="ci-nm">BCAA 2:1:1 Powder 500 г</a>
+      <div class="ci-var">Смак: Лимон</div>
+      <span class="ci-oostag">Немає в наявності</span>
+      <div class="ci-row">
+        <div class="ci-qty"><button aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" maxlength="2" value="1" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+        <div class="ci-price"><span class="ci-oldline"></span><span class="ci-sum">890 ₴</span><span class="ci-per"></span></div>
+      </div>
+      <div class="ci-links">
+        <button class="btn--text ci-lnk">♡ В обране</button>
+        <button class="btn--text ci-lnk strong">🗑 Видалити</button>
+      </div>
+    </div>
+  </article>
+</div>
+<div class="kp-cap">другий рядок несе <code>.oos</code>: фото, назва і ціна гаснуть до <code>opacity: .5</code>, а над лічильником стає пілюля <code>.ci-oostag</code>. Лічильник і посилання лишаються при повній силі - товар прибирають саме ними</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Фото</b> - 74px, співвідношення 10/11, те саме, що в картці. Посилання на товар</span></div>
+  <div class="a"><i>2</i><span><b>Бренд</b> - <code>--text-brandline</code>. Третій і останній читач цієї ролі, який до 7.45 брав <code>--text-muted</code></span></div>
+  <div class="a"><i>3</i><span><b>Назва</b> - 14/600, посилання, під курсором іде в акцент. Менша за назву в картці (16), бо тут товар уже вибрано і читають не її, а суму</span></div>
+  <div class="a"><i>4</i><span><b>Варіант</b> - смак, розмір, те, чим цей рядок відрізняється від сусіднього з тим самим товаром</span></div>
+  <div class="a"><i>5</i><span><b>Лічильник</b> - атом <code>stepper.css</code> з 7.13. До нього він був оголошений тут і ще раз у чекауті, 32x34 проти 30x32</span></div>
+  <div class="a"><i>6</i><span><b>Ціна</b> - блок з трьох поверхів: закреслена з чипом, сума, ціна за порцію. Порожні поверхи ховає <code>:empty</code>, а не JS</span></div>
+  <div class="a"><i>7</i><span><b>Посилання</b> - «в обране» і «видалити». Друге носить <code>.strong</code>: це дія, яку не хочеться зробити випадково, тож вона важча, а не червона</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Один товар, п'ять наборів імен</div>
+<p class="kp-p">До цього кроку молекули показали товар у чотирьох виглядах; чекаут дає п'ятий. Це не п'ять компонентів - це один, у якого п'ять разів забули спитати, як він зветься.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Роль</th><th>сіткою</th><th>списком</th><th>угода</th><th>кошик</th><th>чекаут</th></tr></thead><tbody>
+<tr><td>фото</td><td><code>.ph</code></td><td><code>.lph</code></td><td><code>.hd-ph</code></td><td><code>.ci-ph</code></td><td><code>.li-img</code></td></tr>
+<tr><td>бренд</td><td><code>.pbrand</code></td><td><code>.lbrand</code></td><td><code>.hd-brand</code></td><td><code>.ci-brand</code></td><td>-</td></tr>
+<tr><td>назва</td><td><code>.nm</code></td><td><code>.lnm</code></td><td><code>.hd-nm</code></td><td><code>.ci-nm</code></td><td><code>.li-nm</code></td></tr>
+<tr><td>ціна</td><td><code>.pnew</code></td><td><code>.lprice</code></td><td><code>.hd-new</code></td><td><code>.ci-sum</code></td><td><code>.li-sum</code></td></tr>
+<tr><td>стара ціна</td><td><code>.pold</code></td><td><code>.lold</code></td><td><code>.hd-old</code></td><td><code>.ci-old</code></td><td><code>.li-old</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Атоми це вже звели.</b> Один рядок у <code>price.css</code> називає всі шістнадцять імен ціни; <code>discount.css</code> - усі вісім імен чипа; <code>availability.css</code> - усі чотири. Розходяться саме молекули, кожна у своєму файлі.</p>
+<p class="kp-p"><b>І значення в кошика з чекаутом уже однакові</b>: назва 14/600 <code>--text-body</code> в обох, ціна 20px <code>--text-body</code> <code>--lh-snug</code> в обох. Два файли, два набори імен, ті самі числа. Звести їх в один рядок товару - Крок 6, після етапу 09.</p>
+<div class="kp-do"><h4>Що перевірено і виявилось не дефектом</h4>У назви в чекауті немає ховера, а в кошика є - і це правильно: <code>.li-nm</code> в розмітці це <code>&lt;div&gt;</code>, а не посилання. На чекауті товар не клікають. Це не п'ятий екземпляр «правила на два імені», яких етап уже знайшов чотири.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Товару немає - одне значення замість двох</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Було</th><th>Стало</th><th>Файл</th></tr></thead><tbody>
+<tr><td><code>.ci.oos</code> фото + назва + ціна</td><td><b>.45</b></td><td><b>.5</b></td><td>cart-row.css</td></tr>
+<tr><td><code>.pcard.dim</code> фото + рядок ціни</td><td>.5</td><td>.5</td><td>product-card.css</td></tr>
+<tr><td><code>.pcard-l.dim</code> фото + ціна</td><td>.5</td><td>.5</td><td>product-card.css</td></tr>
+</tbody></table></div>
+<p class="kp-p">Один сенс - «цього товару немає» - на одному виді поверхні, і два значення в двох файлах. Змінна: наскільки гасне товар, який не можна купити. Значення: <b>.5</b>. Чому: два читачі проти одного, і нічого не відрізняє пригашений рядок від пригашеної картки.</p>
+<p class="kp-p"><code>.oosgal .gmain img</code> лишає свої <b>.85</b> і в цей набір не входить: то одна велика фотографія на сторінці товару, а не рядок, і гаситься вона змішуванням, а не прозорістю.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>волосяна лінія знизу, 16px повітря згори й знизу</td><td>рядки в списку розділяє лінія, а не картка: чотирнадцять карток у стовпчик - це чотирнадцять рамок</td></tr>
+<tr><td><b>наведення на назву</b></td><td><code>--text-action</code></td><td>назва - посилання на товар, і поводиться як усі посилання системи</td></tr>
+<tr><td><b><code>.oos</code></b></td><td>фото, назва і ціна на <code>opacity: .5</code> + пілюля</td><td>товар лишається читаним і перестає бути купівлею. Лічильник і «видалити» при повній силі - саме ними його прибирають</td></tr>
+<tr><td><b>наведення на рядок</b></td><td><b>немає, і це відмова</b></td><td>рядок не є ціллю: цілі всередині нього - фото, назва, лічильник і два посилання, у кожного свій стан. Підсвітити весь рядок означало б пообіцяти клік, якого немає</td></tr>
+<tr><td><b>натискання</b></td><td><b>немає в рядка</b></td><td>те саме: натискають контроли всередині</td></tr>
+<tr><td><b><code>.on</code> у посилань</b></td><td><b>було оголошено і видалено</b></td><td>розмітки під нього немає в жодному з двох шарів, і <code>_wf.css</code> такого правила ніколи не мав</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Наявність</b></td><td>звичайний · <code>.oos</code></td><td>Товар, який був у кошику й закінчився. Рядок не зникає сам - людина мала його там і має вирішити, що з ним робити.</td></tr>
+<tr><td><b>Поверхи ціни</b></td><td>1, 2 або 3</td><td>Сума завжди; закреслена з чипом - тільки якщо є знижка; ціна за порцію - тільки якщо вона відома. Порожні ховає <code>:empty</code>, тож у розмітці вони стоять завжди й нічого не рахує JS.</td></tr>
+<tr><td><b>Вага посилання</b></td><td>звичайне · <code>.strong</code></td><td>«Видалити» важче за «в обране». Не червоне: видалити рядок кошика не є небезпечним - його повертають одним дотиком.</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">У кошику й у його шухляді. Не на лістингу - там товар ще обирають, і це <b>Картка товару</b>. Не на чекауті - там свій рядок, <code>.co-line</code>, у якого товар уже не клікають.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Рядок кошика показує рішення, а не пропозицію.</b> Товар уже вибрано, тому головне тут - сума й кількість, а не фото й назва: вони менші, ніж у картці, і це навмисно.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби рядок клікабельним цілком.</b> У ньому п'ять окремих цілей, і рядок-посилання поверх них означає, що палець ніколи не знає, у що влучив.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>17</b> власних класів і <b>3</b> стани оголошено в <code>cart-row.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["ci","ci-ph","ci-mid","ci-brand","ci-nm","ci-var","ci-row","ci-price","ci-oldline","ci-old","ci-sum","ci-per","ci-links","ci-lnk","ci-oostag","oos","strong"], KIT_STS=[":hover", ".oos", ".strong"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>cart-row.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (7)</th><th>Примітиви (14)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--line-hair</code> <code>--text-action</code> <code>--text-body</code> <code>--text-brandline</code> <code>--text-muted</code> <code>--text-secondary</code></td><td><code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-20</code> <code>--fw-medium</code> <code>--fw-semibold</code> <code>--fw-bold</code> <code>--lh-snug</code> <code>--radius-12</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;article class="ci" data-unit="1290" data-old="1520"&gt;
+  &lt;a href="product.html" class="ci-ph"&gt;фото&lt;/a&gt;
+  &lt;div class="ci-mid"&gt;
+    &lt;div class="ci-brand"&gt;Optimum Nutrition · США&lt;/div&gt;
+    &lt;a href="product.html" class="ci-nm"&gt;Gold Standard 100% Whey&lt;/a&gt;
+    &lt;div class="ci-var"&gt;Смак: Подвійний шоколад&lt;/div&gt;
+    &lt;div class="ci-row"&gt;…лічильник…ціна…&lt;/div&gt;
+    &lt;div class="ci-links"&gt;…два посилання…&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</div>
+<p class="kp-p"><b><code>article</code> у селекторі - не прикраса.</b> Крок 7.21: продукт вживає <code>.ci</code> для двох різних речей - рядок кошика це <code>&lt;article&gt;</code> у всіх 14 місцях, а мітка рядка в каталожному оверлеї це <code>&lt;span&gt;</code>. Без елемента в селекторі сітка з колонкою 74px і нижня лінія лягали й на іконку 24px: на 360 мітка сиділа НА першій літері з перекриттям 11px, а під кожним рядком стояла зайва риска. Розділено елементом, бо розмітка вже каже, що є що, і каже це в обох шарах одразу - додавати клас означало б правити <code>wireframes/</code>, заморожений з етапу 05.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.ci</code> <code>.ci-mid</code> <code>.ci-price</code></p>
+<p class="kp-p">Заміряно в браузері на 390, 860 і 1280: <b>6 рядків</b> на двох кольорових екранах - <code>cart</code> і <code>cart-oos</code>. Другий сенс <code>.ci</code> - мітка в каталожному оверлеї - рендериться <b>0</b> разів у кольорі: оверлей відкриває JS, і в спокої його немає. Захист із 7.21 стереже випадок, який сьогодні живий тільки в сірому шарі, і лишається на місці.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Ціна за порцію в двох іменах і з двома обличчями</b>: <code>.ci-per</code> тут - 12/500 приглушена, <code>.perserv</code> у картці - <code>--text-secondary</code> з <code>&lt;b&gt;</code> у моноширинній. Одна величина, дві типографіки. Той самий клас питання, що <code>.hd-meta</code> на 7.44</li>
+<li><b>Немає стану «кількість більша за залишок»</b> - лічильник дозволяє набрати будь-що, а рядок про це не каже нічого</li>
+<li><b>Немає правила, що робити з рядком після «видалити»</b> - зникає, гасне чи лишається з «повернути». Це питання до IA й до мікрокопії, а не до CSS</li>
+<li><b>Звести <code>.ci</code> і <code>.co-line</code> в один рядок товару</b> - значення вже однакові, розходяться тільки імена. Крок 6</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script>
+(function(){
+  document.querySelectorAll('[data-brand]').forEach(function(e){
+    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
+  });
+  document.querySelectorAll('[data-glyph]').forEach(function(e){
+    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
+  });
+})();
+</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+</main>
+<!-- the counter's glyphs and the row's links come from `design/_nav.js`, exactly
+     as they do on a screen: a stand that shows the shape and not the behaviour
+     proves half of the component. -->
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_nav.js"></script>
+</body>
+</html>
