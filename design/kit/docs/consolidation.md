@@ -5668,3 +5668,140 @@ across six screens, which is Крок 6's shape rather than this step's.
 Still open on this component: the list badge's 8.5px (the last off-scale size in the
 file), no rule for how many badges a card may carry, and `.nm` and `.tag` each
 carrying two meanings in the product.
+
+---
+
+## Step 7.44: the banner, which is the home page's stylesheet
+
+Third molecule. The card gave it a yardstick for «grid against list»; what the
+banner gave back is that the card is the odd one out on something else entirely.
+
+### The census
+
+**banner.css holds SIX unrelated blocks and every one of them renders on exactly
+four screens** - `home-buyer`, `home-cart`, `home-coach`, `index` - which are one
+screen in four states. Measured at 390, 720 and 1280 across all 39 coloured
+screens; nothing here appears anywhere else.
+
+| block | per screen | what it is |
+|---|---|---|
+| `.hbanners` `.hslider` `.hpromo` `.hdots` | 1 · 1 · **3** · 1 | the promo slider |
+| `.hdeal` | 1 | a deal card |
+| `.pstrip` | 1 | the «sign in» strip |
+| `.tbanners` `.tbn` | 1 · **5** | five trust banners |
+| `.promo` | 1 | a wide block under a photo veil |
+| `.tband` | **0** in colour | live in the grey layer, see below |
+
+This is not a component, it is the home page's stylesheet. **Splitting it into six
+is not this step's**: the registry, the showcase and the molecule count all key off
+the file name, and folding the deal's names into the card's is a markup sweep. Both
+are Крок 6. What this step does is stop the file lying about what it holds, and take
+the facts that are wrong rather than merely crowded.
+
+### The deal is a third product card
+
+Its parts map onto `.pcard` one for one - badge, photograph, brand, name,
+availability, price, meta, action - and **the atoms already know**: 7.35 took its
+availability, 7.36 its price and 7.36b its chip, each by adding an `hd-` name to an
+atom's selector list.
+
+**The molecule did not know.** Its brand line was still reading `--text-muted` a day
+after 7.43 gave the grid card `--text-brandline` for the same line, while the
+token's own comment names three readers and only the list card was taking it. All
+three take it now. Same value, no pixels.
+
+Said out loud and not done: the product's name here is set in the display face,
+Oswald 20/600, where both cards set it in the body face at Inter 16/600. One string,
+one job, three faces. That is a typography decision with an owner in stage 09.
+
+### The lift was -2 everywhere and -3 on the card alone
+
+Read out of the parsed CSSOM across the whole system:
+
+| lift | who |
+|---|---|
+| -1px | `.btn--lift`, `.pm-stars .pmst` |
+| **-2px** | `.hpromo`, `.hdeal`, `.tbanners .tbn`, `.blogcard`, `.certthumb`, `.gal .gthumb`, `.gtile`, `.hvert`, `.tsx .uiv-ic` - **nine surfaces in eight files** |
+| **-3px** | `.pcard` - **one** |
+
+Step 6.0 turned the DEPTH under the cursor into a scale for exactly this reason. The
+lift answers the same question - «this is the one you are on» - and stayed one value
+plus one exception. Variable: how far a surface rises under the cursor. Value:
+**-2px**. Why: nine against one is not a decision about cards, it is the sweep that
+never happened. `.pcard` is -2 now.
+
+### Three dead selectors gone, and two findings withdrawn
+
+`.pstrip .thumbs` and `.pstrip .thumb`: counted every `.pstrip` in the repository -
+eight, four coloured and four grey - and **not one contains a thumbnail**. The strip
+is a sentence, a spacer and a button. `_wf.css` carries the same two dead rules and
+keeps them: it is frozen.
+
+`.hdeal .hd-meta b`: `.hd-meta` is a span carrying «18 ₴ / порція · +13 ₴ бонус» as
+plain text in both layers. There is no `<b>` in it and never was.
+
+**Withdrawn: `.tband` is not dead.** The census said 0 instances and that is true of
+the coloured layer only - it is live in `wireframes/coach-landing.html` with its
+structure in `_wf.css`, and what is here is the colour half waiting for a coloured
+twin. The coach flow is 102 of the 142 grey screens that do not have one yet.
+Deleting it now would mean re-deriving it from the grey layer at Крок 6. Kept, with
+the reason in the file. **The stand renders the first coloured `.tband` there is.**
+
+**Withdrawn: the 38px is not this file's.** The declaration for this step listed
+`.hpromo .hph` at 38 as the banner's off-scale size. Building the stand showed
+otherwise: `banner.css` gives the slide's heading `--fs-24`, and the literal `38px`
+comes from `hero.css:26`. Which leads to the real finding.
+
+### An organism paints a molecule by position
+
+```
+/* hero.css - level 3 */
+.hstrip > .hpromo:nth-child(1){ background:var(--bg-inverse); border-color:var(--line-inverse); }
+.hstrip > .hpromo:nth-child(1) .hph{ color:var(--text-oninverse); font-size:38px; }
+```
+
+Measured on `index.html`: slide 1 is ink-ground with a **38px white** heading and an
+accent eyebrow; slides 2 and 3 are white with a photograph and a **24px ink**
+heading. **The face of a slide is decided by its place in the strip, not by its
+markup.** Swap the slides and a different one goes dark.
+
+Same shape as the checkbox at 7.38, one level up: there a molecule restyled an
+atom's class by name, here an organism restyles a molecule's parts by position. Not
+fixed here - whether this is a `.hpromo--lead` variant or two different components
+is stage 09's call, and the stand shows both faces side by side so the question is
+in front of whoever makes it.
+
+### A/B
+
+**163 491 elements, 40 pages x 3 viewports**, run three times.
+
+| | differences |
+|---|---|
+| HEAD vs HEAD | **1** (`.auth-spin`) |
+| HEAD vs working tree | **3** - and all three are `.co-spin` and `.auth-spin` |
+
+**Zero real differences.** Every change in the step is a hover state, a same-value
+role swap or dead code, which is what was declared before the edits were made.
+
+### The stand
+
+`design/kit/banner.html`, the showcase's **third molecule**. Built on markup copied
+line for line out of `index.html`, and it shows the slide **twice**: alone, which is
+the face `banner.css` declares, and inside `.hstrip`, which is the face `hero.css`
+gives it. Seven demos in all, including the first coloured `.tband` in the product.
+
+Idle check passes: **all 30 classes rendered, 3 states named.** 360: no overflow, 0
+JS errors. All 25 stands pass. Molecules **3 / 27**.
+
+### Found, not fixed
+
+- **Three eyebrow / heading / subline stacks with nothing in common but the display
+  face.** Eyebrows: Mono 12/500 on the slide against Oswald 20/700 on the deal.
+  Headings: 38 / 30 / 24 / 20. Sublines: two at 14/400 with **different leadings**,
+  one of which declares none and inherits 1.6 from `body`.
+- **Five surfaces, two radii, three shadows, no rule**: `.hpromo` 16/shadow,
+  `.hdeal` 16/shadow, `.tbn` **12**/shadow, `.promo` 16/**none**, `.pstrip`
+  **12**/**none**.
+- **The two figures in `.hd-meta` are unmarked** - «18 ₴ / порція · +13 ₴ бонус»
+  runs as plain text, where the card gives the same two values a `<b>` and the mono
+  face. A question for the markup and the IA, not a line of CSS.

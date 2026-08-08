@@ -1,8 +1,34 @@
-/* banner.css - banner (level 2)
+/* banner.css - banner (level 2), read out at step 7.44.
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   at stage 08 step 3. Colour reads a semantic role, geometry reads a primitive.
+
+   THIS FILE IS THE HOME PAGE'S STYLESHEET AND NOT A COMPONENT, and the census is
+   what says so. 51 selectors, SIX unrelated blocks, and every one of them renders
+   on exactly four screens - `home-buyer`, `home-cart`, `home-coach`, `index` -
+   which are one screen in four states. Nothing here appears anywhere else:
+
+     .hbanners .hslider .hpromo x3 .hdots   the promo slider
+     .hdeal                                 a deal card
+     .pstrip                                the «sign in» strip
+     .tbanners .tbn x5                      five trust banners
+     .promo                                 a wide block under a photo veil
+     .tband                                 0 instances in colour, see below
+
+   THE DEAL IS A THIRD PRODUCT CARD. Its parts map one for one onto `.pcard`:
+   `.hd-tag` a badge, `.hd-ph` a photograph, `.hd-brand`, `.hd-nm`, `.hd-av`
+   availability, `.hd-price`/`.hd-old`/`.hd-cut`/`.hd-new` a price, `.hd-meta`,
+   `.hd-cta`. THE ATOMS ALREADY KNOW: 7.35 took its availability, 7.36 its price
+   and 7.36b its chip, all by adding `hd-` names to an atom's selector list. The
+   molecule did not know - which is why its brand line was still reading
+   `--text-muted` a day after 7.43 gave the grid card `--text-brandline` for
+   exactly the same line, and why the product's name here is set in the display
+   face where both cards set it in the body face.
+
+   SPLITTING THE FILE INTO SIX IS NOT THIS STEP'S. The registry, the showcase and
+   the molecule count all key off the file name, and folding the deal's names into
+   the card's is a markup sweep. Both are Крок 6, after stage 09. What this step
+   does is stop the file from lying about what it holds, and take the two facts
+   that are wrong rather than merely crowded. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .hbanners{ display: grid; gap: var(--space-12); grid-template-columns: 1fr; align-items: start; }
@@ -42,8 +68,17 @@
 .pstrip{ display: flex; align-items: center; gap: var(--space-12) var(--space-16); flex-wrap: wrap; border: 1px solid var(--line-hair); padding: var(--space-12) var(--space-16); margin: var(--space-12) 0; font-size: var(--fs-14); }
 .pstrip .pt{ font-weight: var(--fw-bold); }
 .pstrip .psp{ flex: 1; }
-.pstrip .thumbs{ display: flex; gap: var(--space-8); }
-.pstrip .thumb{ width: var(--size-34); height: var(--size-34); border-radius: var(--radius-4); background: var(--bg-sunken); border: 1px solid var(--line-hair); }
+/* 7.44: `.pstrip .thumbs` and `.pstrip .thumb` are gone. Counted every `.pstrip`
+   in the repository - eight of them, four coloured and four grey - and NOT ONE
+   contains a thumbnail: the strip is a sentence, a spacer and a button. The two
+   rules describe a variant of it that has no markup in either layer. The grey
+   `_wf.css` carries the same two dead rules and keeps them: it is frozen. */
+/* `.tband` STAYS AND THE FINDING IS WITHDRAWN. The census said 0 instances and
+   that is true of the COLOURED layer only: it is live in
+   `wireframes/coach-landing.html`, with its structure in `_wf.css`, and this is
+   the colour half of it waiting for a coloured twin. The coach flow is 102 of the
+   142 grey screens that do not have one yet - Крок 6 - and deleting the colour now
+   would mean re-deriving it from the grey layer then. Not dead. Waiting. */
 .tband{ display: flex; flex-wrap: wrap; gap: var(--space-12) var(--space-24); padding: var(--space-12) var(--space-16); border: 1px solid var(--line-hair); border-radius: var(--radius-12); background: var(--bg-surface); font-size: var(--fs-14); color: var(--text-secondary); margin: var(--space-24) 0; }
 .tband span b{ color: var(--text-primary); }
 .tbanners{ display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-12); margin: var(--space-24) 0; }
@@ -76,7 +111,13 @@
   letter-spacing:var(--ls-caps); color:var(--text-action); }
 .hdeal .hd-ph{ background:var(--bg-page) center/94% no-repeat url(../../visuals/product-whey.png);
   color:transparent; border-radius:var(--radius-12); }
-.hdeal .hd-brand{ color:var(--text-muted); }
+/* 7.44: `--text-brandline`, and this is the same line 7.43 fixed on the grid card
+   one step ago. The role was minted for a brand line and names three readers in
+   tokens.css - `.pcard .pbrand`, `.ci-brand`, `.hdeal .hd-brand` - and until now
+   the only one that actually took it was the list card. Same `--warm-600`, so
+   nothing moves; what moves is that all three brand lines can now go their own way
+   together instead of one at a time. */
+.hdeal .hd-brand{ color:var(--text-brandline); }
 .hdeal .hd-nm{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-20); letter-spacing:var(--ls-lead);
   color:var(--text-body); line-height:var(--lh-flat); }
 /* step 7.36: the home deal's two figures went to price.css - family, tabular
@@ -91,7 +132,11 @@
    here for good: the deal is the one place on the home page with a display figure. */
 .hdeal .hd-new{ font-weight:var(--fw-bold); font-size:var(--fs-30); }
 .hdeal .hd-meta{ color:var(--text-secondary); }
-.hdeal .hd-meta b{ font-family:var(--font-mono); color:var(--text-body); }
+/* 7.44: `.hdeal .hd-meta b` is gone. `.hd-meta` is a span carrying «18 ₴ / порція
+   · +13 ₴ бонус» as plain text, in both layers - there is no `<b>` in it and never
+   was. The rule was the deal's copy of the card's `.perserv b`, written for markup
+   that the deal does not have. The two figures inside it are real and unmarked,
+   which is a question for the IA rather than a line of CSS: see below. */
 .hdeal .hd-cta{ background:var(--bg-action); color:var(--text-oninverse); border-radius:var(--radius-12); font-size:var(--fs-16); font-weight:var(--fw-bold);
   padding:var(--space-16); transition:filter .15s ease; }
 .hdeal:hover .hd-cta{ filter:brightness(.95); }

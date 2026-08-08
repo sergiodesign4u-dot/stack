@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Банер | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Банер</h1>
+<p class="kp-lead">Шість непов'язаних блоків під одним ім'ям файлу, і всі шість живуть рівно на чотирьох екранах - головній у чотирьох станах. Це не компонент, це стилевий лист головної сторінки.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/banner.css</span><span class="kp-tag">186 рядків</span><span class="kp-tag">70 селекторів</span><span class="kp-tag">6 блоків</span><span class="kp-tag">4 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Шість блоків, чотири екрани</div>
+<p class="kp-p">Заміряно в браузері на 390, 720 і 1280 по всіх 39 кольорових екранах. Кожен блок цього файлу рендериться на <code>home-buyer</code>, <code>home-cart</code>, <code>home-coach</code> і <code>index</code> - і більше ніде.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Блок</th><th>На екран</th><th>Що це</th></tr></thead><tbody>
+<tr><td><code>.hbanners</code> <code>.hslider</code> <code>.hpromo</code> <code>.hdots</code></td><td>1 · 1 · <b>3</b> · 1</td><td>слайдер промо з крапками</td></tr>
+<tr><td><code>.hdeal</code></td><td>1</td><td>картка пропозиції дня</td></tr>
+<tr><td><code>.pstrip</code></td><td>1</td><td>смуга «увійдіть» з кнопкою</td></tr>
+<tr><td><code>.tbanners</code> <code>.tbn</code></td><td>1 · <b>5</b></td><td>п'ять банерів довіри</td></tr>
+<tr><td><code>.promo</code></td><td>1</td><td>широкий блок під фотовуаллю</td></tr>
+<tr><td><code>.tband</code></td><td><b>0</b></td><td>смуга довіри - жива в сірому шарі, чекає кольорового двійника</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Розбити файл на шість - не робота цього кроку.</b> Від імені файлу залежать реєстр, вітрина і рахунок молекул, а звести імена угоди до імен картки - це підмітання розмітки. І те, і те - Крок 6, після етапу 09. Цей крок робить інше: перестає давати файлу брехати про свій вміст і бере два факти, які не просто тісні, а неправильні.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>index.html</code>, скопійована рядок у рядок.</p>
+<div class="kp-demo" style="background:var(--bg-sunken)">
+  <div class="kp-lbl">слайд промо сам по собі · .hpromo - обличчя, яке дає banner.css</div>
+  <div style="max-width:300px;margin-bottom:24px">
+    <a class="hpromo" href="#"><span class="hptag">Акція тижня</span><span class="hph">Знижки до −25%</span><span class="hps">на протеїн і креатин - спокійно, без таймерів</span></a>
+    <div class="hdots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+  </div>
+  <div class="kp-lbl">і той самий слайд у стрічці · .hbanners .hslider .hstrip - обличчя, яке дає hero.css</div>
+  <div class="hbanners" style="margin-bottom:24px">
+    <div class="hslider" aria-label="Промо-банери" aria-roledescription="карусель">
+      <div class="hstrip" style="display:flex;gap:12px;overflow-x:auto">
+        <a class="hpromo" href="#"><span class="hptag">Акція тижня</span><span class="hph">Знижки до −25%</span><span class="hps">на протеїн і креатин</span></a>
+        <a class="hpromo" href="#"><span class="hptag">Новий бренд</span><span class="hph">Optimum Nutrition</span><span class="hps">показуємо склад і сертифікат</span></a>
+        <a class="hpromo" href="#"><span class="hptag">Бренди</span><span class="hph">Перевірені марки</span><span class="hps">USA · EU · UA</span></a>
+      </div>
+      <div class="hdots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+    </div>
+    <div class="hside"></div>
+  </div>
+  <div class="kp-lbl">пропозиція дня · .hdeal</div>
+  <div style="max-width:280px;margin-bottom:24px">
+    <a class="hdeal" href="#">
+      <span class="hd-tag">Пропозиція дня</span>
+      <span class="hd-ph">фото</span>
+      <span class="hd-brand">Optimum Nutrition · США</span>
+      <span class="hd-nm">Gold Standard 100% Whey 2270 г</span>
+      <span class="hd-av">В наявності</span>
+      <span class="hd-price"><span class="hd-oldline"><span class="hd-old">1 520 ₴</span><span class="hd-cut">−15%</span></span><span class="hd-new">1 290 ₴</span></span>
+      <span class="hd-meta">18 ₴ / порція · +13 ₴ бонус</span>
+      <span class="hd-cta">У кошик</span>
+    </a>
+  </div>
+  <div class="kp-lbl">смуга входу · .pstrip</div>
+  <div class="pstrip">
+    <span class="pt">Увійдіть, щоб бачити персональні знижки та бонуси</span>
+    <span class="psp"></span>
+    <a class="btn--accent btn--s btn dark" href="#">Увійти</a>
+  </div>
+  <div class="kp-lbl">банери довіри · .tbanners .tbn</div>
+  <div class="tbanners">
+    <a class="tbn" href="#"><span class="tbim"></span><span class="tbx"><b>Склад, походження, сертифікат</b><i>на кожен товар</i></span></a>
+    <a class="tbn" href="#"><span class="tbim"></span><span class="tbx"><b>Доставка</b><i>Новою Поштою 1-2 дні</i></span></a>
+    <a class="tbn" href="#"><span class="tbim"></span><span class="tbx"><b>Оплата</b><i>картою · при отриманні</i></span></a>
+    <a class="tbn" href="#"><span class="tbim"></span><span class="tbx"><b>Повернення</b><i>14 днів</i></span></a>
+    <a class="tbn" href="#"><span class="tbim"></span><span class="tbx"><b>4.9 ★</b><i>за відгуками покупців</i></span></a>
+  </div>
+  <div class="kp-lbl">широкий промо · .promo</div>
+  <div class="promo"><div class="pt">Знижки тижня - до −25% на протеїн і креатин</div><div class="ps">Спокійно, без таймерів. <a href="#">Усі акції →</a></div></div>
+  <div class="kp-lbl">смуга довіри · .tband - перший кольоровий екземпляр</div>
+  <div class="tband"><span>Сертифікат на <b>кожну</b> партію</span><span>Доставка <b>1-2 дні</b></span><span>Повернення <b>14 днів</b></span></div>
+</div>
+<div class="kp-cap">останній блок - <code>.tband</code> - у продукті поки не рендериться ніде: він живий у <code>wireframes/coach-landing.html</code>, а кольорового двійника коучівський потік ще не має. Тут видно, як він виглядатиме, коли з'явиться</div>
+<div class="kp-gap" style="margin-top:16px"><h4>Перший слайд - інший компонент, і вирішує це його позиція</h4>
+<p class="kp-p">Порівняйте два демо вгорі. Сам по собі слайд білий, заголовок 24, надзаголовок і підпис приглушені - це те, що оголошує <code>banner.css</code>. У стрічці <b>перший</b> стає чорнильним, заголовок росте до <b>38px</b>, напис іде в акцент, підпис - у <code>--text-onphoto</code>. Дає це не банер:</p>
+<div class="kp-code">/* hero.css - організм, рівень 3 */
+.hstrip &gt; .hpromo:nth-child(1){ background:var(--bg-inverse); border-color:var(--line-inverse); }
+.hstrip &gt; .hpromo:nth-child(1) .hph{ color:var(--text-oninverse); font-size:38px; }</div>
+<p class="kp-p">Обличчя слайда вирішує <b>його місце в стрічці</b>, а не його розмітка. Переставте слайди місцями - і темним стане інший. Це та сама форма, що чекбокс на 7.38, тільки на рівень вище: організм перефарбовує частини молекули по імені. Не виправлено тут: розібратись, чи це варіант <code>.hpromo--lead</code>, чи два різні компоненти, - робота етапу 09.</p></div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Слайд</b> - надзаголовок, заголовок і підпис на фотографії під вуаллю. Три на екран, гортаються, крапки під ними показують який</span></div>
+  <div class="a"><i>2</i><span><b>Угода</b> - те саме, що картка товару, під третім набором імен. Ціна, знижка й наявність у ній - уже атоми</span></div>
+  <div class="a"><i>3</i><span><b>Смуга</b> - речення, розпірка й кнопка. Три елементи, більше в ній немає нічого</span></div>
+  <div class="a"><i>4</i><span><b>Банер довіри</b> - фото зверху, жирний рядок і курсив під ним. П'ять поспіль, на 700px стають рядом з п'яти замість двох</span></div>
+  <div class="a"><i>5</i><span><b>Промо</b> - фотографія на всю ширину з градієнтною вуаллю зліва направо, щоб текст на ній читався</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Угода - це третя картка товару</div>
+<p class="kp-p">Її частини лягають на <code>.pcard</code> одна в одну, і <b>атоми це вже знають</b>: 7.35 забрав наявність, 7.36 ціну, 7.36b чип знижки - усі три просто додавши <code>hd-</code>-імена до списку селекторів атома.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Роль</th><th>сіткою</th><th>списком</th><th>угода</th></tr></thead><tbody>
+<tr><td>мітка</td><td><code>.tag</code></td><td><code>.tag</code></td><td><code>.hd-tag</code></td></tr>
+<tr><td>фото</td><td><code>.ph</code></td><td><code>.lph</code></td><td><code>.hd-ph</code></td></tr>
+<tr><td>бренд</td><td><code>.pbrand</code></td><td><code>.lbrand</code></td><td><code>.hd-brand</code></td></tr>
+<tr><td>назва</td><td><code>.nm</code></td><td><code>.lnm</code></td><td><code>.hd-nm</code></td></tr>
+<tr><td>наявність</td><td><code>.pavail</code></td><td><code>.lavail</code></td><td><code>.hd-av</code></td></tr>
+<tr><td>ціна</td><td><code>.pnew</code> <code>.pold</code></td><td><code>.lprice</code> <code>.lold</code></td><td><code>.hd-new</code> <code>.hd-old</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Молекула цього не знала.</b> Її рядок бренда читав <code>--text-muted</code> ще через день після того, як 7.43 віддав сітковій картці <code>--text-brandline</code> за той самий рядок - і токен у <code>tokens.css</code> перелічує <b>три</b> читачі, з яких брав роль лише один. Тепер беруть усі три.</p>
+<p class="kp-p">Що не зроблено і сказано вголос: <b>ім'я товару тут набране дисплейною гарнітурою</b> (Oswald 20/600), тоді як обидві картки називають його Inter 16/600. Один і той самий рядок у трьох гарнітурах. Це рішення про типографіку, у нього власник в етапі 09.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Підйом - дев'ять проти одного</div>
+<p class="kp-p">Зібрано з розібраного CSSOM по всій системі: скільки піднімається поверхня під курсором.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Підйом</th><th>Хто</th></tr></thead><tbody>
+<tr><td><b>−1px</b></td><td><code>.btn--lift</code> <code>.pm-stars .pmst</code></td></tr>
+<tr><td><b>−2px</b></td><td><code>.hpromo</code> <code>.hdeal</code> <code>.tbn</code> <code>.blogcard</code> <code>.certthumb</code> <code>.gthumb</code> <code>.gtile</code> <code>.hvert</code> <code>.tsx .uiv-ic</code> - <b>дев'ять у восьми файлах</b></td></tr>
+<tr><td><b>−3px</b></td><td><code>.pcard</code> - <b>один</b>, і на цьому кроці став −2</td></tr>
+</tbody></table></div>
+<p class="kp-p">Глибину система звела в шкалу на 6.0. Підйом відповідає на те саме питання - «ось ця, під курсором» - і лишався одним значенням плюс одним винятком. Змінна: наскільки поверхня піднімається під курсором. Значення: <b>−2px</b>. Чому: дев'ять проти одного - це не рішення про картки, це те, що не потрапило під зачистку.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td><code>--elevation-1</code> у слайда, угоди й банера довіри; <code>.promo</code> і <code>.pstrip</code> без тіні</td><td>правила, яке поверхня бере тінь, а яка ні, <b>немає</b> - етап 09</td></tr>
+<tr><td><b>наведення</b></td><td>підйом −2px і <code>--elevation-2</code>; у банера довіри ще й край в акцент</td><td>одна відповідь на всі поверхні, що піднімаються</td></tr>
+<tr><td><b>наведення на угоду</b></td><td>її кнопка бере <code>filter: brightness(.95)</code></td><td>кнопка всередині картки-посилання: вона не власний контроль, а частина однієї цілі</td></tr>
+<tr><td><b>крапка слайдера</b></td><td><code>.on</code> - <code>--bg-action</code>, решта <code>--bg-track</code></td><td>той самий поділ, що в усіх контролів: увімкнене - акцент, порожнє - доріжка</td></tr>
+<tr><td><b>натискання</b></td><td><b>немає</b></td><td>усі шість блоків - посилання цілком, і затемнювати банер на весь екран під пальцем немає чим</td></tr>
+<tr><td><b>фокус</b></td><td><b>немає власного</b></td><td>кожен блок - <code>&lt;a&gt;</code>, і кільце йому дає <code>link-row.css</code>. Етап 09 звірить, чи цього досить на фото</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Тільки на головній. Жоден із шести блоків не з'являється на лістингу, товарі, у кошику чи в кабінеті - і це не обмеження системи, а факт продукту: банер це те, чим головна сторінка відрізняється від решти.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Банер продає ідею, картка продає товар.</b> Якщо в блоці з'явились ціна, наявність і кнопка «у кошик» - це вже картка, і вона має брати анатомію картки, а не власну.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не заводь нове ім'я для тієї самої частини.</b> Три набори імен для одного бренда, однієї назви й однієї ціни - це не три компоненти, це один, у якого тричі забули спитати, як він зветься.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>30</b> власних класів і <b>3</b> стани оголошено в <code>banner.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["hbanners","hslider","hside","hpromo","hptag","hph","hps","hdots","on","hdeal","hd-tag","hd-ph","hd-brand","hd-nm","hd-price","hd-oldline","hd-old","hd-new","hd-meta","hd-cta","pstrip","pt","psp","tband","tbanners","tbn","tbim","tbx","promo","ps"], KIT_STS=[":hover", ".on", "--elevation-2"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>banner.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (18)</th><th>Примітиви (27)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--bg-track</code> <code>--elevation-1</code> <code>--elevation-2</code> <code>--fade-surface</code> <code>--line-action</code> <code>--line-hair</code> <code>--text-action</code> <code>--text-body</code> <code>--text-brandline</code> <code>--text-oninverse</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--veil-surface</code> <code>--veil-surface-mid</code></td><td><code>--font-display</code> <code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-20</code> <code>--fs-24</code> <code>--fs-30</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-medium</code> <code>--fw-semibold</code> <code>--lh-flat</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--ls-eyebrow</code> <code>--ls-lead</code> <code>--radius-12</code> <code>--radius-16</code> <code>--radius-circle</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-32</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;a class="hpromo" href="listing.html"&gt;
+  &lt;span class="hptag"&gt;Акція тижня&lt;/span&gt;
+  &lt;span class="hph"&gt;Знижки до −25%&lt;/span&gt;
+  &lt;span class="hps"&gt;на протеїн і креатин&lt;/span&gt;
+&lt;/a&gt;
+&lt;div class="hdots"&gt;&lt;i class="on"&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;</div>
+<p class="kp-p">Кожен із шести блоків - одне посилання цілком, а не картка з кнопкою всередині. Тому <code>.hd-cta</code> це <code>&lt;span&gt;</code>, а не <code>&lt;button&gt;</code>: вкладена кнопка в посиланні дала б дві цілі там, де дія одна.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.hbanners</code> <code>.hdeal</code> <code>.pstrip</code> <code>.tbanners</code> <code>.promo</code> <code>.tband</code></p>
+<p class="kp-p">Заміряно в браузері на 390, 720 і 1280: усі шість блоків на <b>чотирьох</b> кольорових екранах з 39, і на жодному іншому.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Три стопки «надзаголовок - заголовок - підпис» без нічого спільного, крім дисплейної гарнітури.</b> Надзаголовки: Mono 12/500 в слайда проти Oswald 20/700 в угоди. Заголовки: 38 / 30 / 24 / 20. Підписи: два по 14/400 з <b>різними інтерлиньяжами</b>, причому один свій не оголошує взагалі й успадковує 1.6 від <code>body</code></li>
+<li><b>38px - НЕ цього файлу, і це знайшлось при складанні стенда.</b> <code>banner.css</code> дає заголовку слайда <code>--fs-24</code>; літеральні <code>38px</code> приходять з <code>hero.css:26</code> - організм, який перефарбовує частини молекули за <b>позицією в стрічці</b>. Це та сама форма, що 7.38, на рівень вище</li>
+<li><b>П'ять поверхонь, два радіуси, три тіні і жодного правила</b>: <code>.hpromo</code> 16/тінь, <code>.hdeal</code> 16/тінь, <code>.tbn</code> <b>12</b>/тінь, <code>.promo</code> 16/<b>без</b>, <code>.pstrip</code> <b>12</b>/<b>без</b></li>
+<li><b>Дві цифри в <code>.hd-meta</code> не розмічені</b> - «18 ₴ / порція · +13 ₴ бонус» іде суцільним текстом, тоді як у картці ті самі дві величини несуть <code>&lt;b&gt;</code> і моноширинну гарнітуру. Це питання до розмітки й до IA, а не рядок CSS</li>
+<li><b>Розбити файл на шість і звести імена угоди до імен картки</b> - Крок 6</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script>
+(function(){
+  document.querySelectorAll('[data-brand]').forEach(function(e){
+    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
+  });
+  document.querySelectorAll('[data-glyph]').forEach(function(e){
+    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
+  });
+})();
+</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivStarify(); uivCurrency();</script>
+<script src="_nav.js"></script>
+</body>
+</html>

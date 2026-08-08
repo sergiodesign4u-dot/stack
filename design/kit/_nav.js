@@ -202,7 +202,7 @@ window.KIT_NAV = [
    {
     "label": "Банер",
     "page": "banner.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Таблиця складу",

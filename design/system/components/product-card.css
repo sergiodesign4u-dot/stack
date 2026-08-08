@@ -146,7 +146,15 @@
 /* 7.43: the grid card's hover was written as two halves in two places - the lift
    and the shadow here, the accent edge sixty lines down, with the whole colour
    block between them. One state, one rule. */
-.pcard:hover{ transform:translateY(-3px); box-shadow: var(--elevation-2); border-color: var(--line-action); }
+/* 7.44: THE LIFT IS -2, AND IT WAS -3 HERE ALONE. Read out of the parsed CSSOM
+   across the whole system: nine surfaces in eight files rise 2px under the cursor
+   - `.hpromo`, `.hdeal`, `.tbanners .tbn`, `.blogcard`, `.certthumb`,
+   `.gal .gthumb`, `.gtile`, `.hvert`, `.tsx .uiv-ic` - and this one rose 3.
+   Variable: how far a surface rises under the cursor. Value: -2px. Why: a lift
+   answers exactly one question, «this is the one you are on», and step 6.0 already
+   made the DEPTH under it a scale for the same reason. Nine against one is not a
+   design decision about cards, it is the one that never got the sweep. */
+.pcard:hover{ transform:translateY(-2px); box-shadow: var(--elevation-2); border-color: var(--line-action); }
 .pcard .ph{ transition:background-size .28s ease; }
 /* step 6.10: the saved mark - ink, fill and stroke - is a state of the button
    and lives in button.css. Three files described it; one does now. */
