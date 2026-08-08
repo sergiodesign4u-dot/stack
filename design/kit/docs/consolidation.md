@@ -5177,3 +5177,87 @@ make it the only link in the system that flashes.
   `.crumb` - but the name is shared. Крок 6.
 - **No schema.org BreadcrumbList.** Breadcrumbs are the most direct hierarchy signal
   a search engine gets, and there is no markup for it yet.
+
+---
+
+## Step 7.40 - the literal font stacks, and two things a shorthand was hiding
+
+The open item said «four `'Inter', sans-serif` literals left». **The real count was
+nine, in four files**, and I had counted only the ones that said Inter - the mono and
+Oswald stacks were written the same way and never got counted. Corrected here.
+
+| file | what was written |
+|---|---|
+| buy-box.css | `'Inter', sans-serif` · `font: 700 11.5px/1 'Inter', sans-serif` · `'IBM Plex Mono', ui-monospace, monospace` · `font: 700 11.5px/1 'IBM Plex Mono', …` · `font: 400 13px/1.55 'Inter', sans-serif` |
+| loyalty-rung.css | `'Inter', sans-serif` x2 |
+| review-item.css | `'Oswald', sans-serif` |
+| cert-thumb.css | `font: 600 10px/1 'IBM Plex Mono', …` |
+
+**The literal is not the token.** `'Inter', sans-serif` is Inter and then nothing;
+`--font-body` is Inter plus `-apple-system`, `BlinkMacSystemFont`, `system-ui`. The
+difference only shows when Inter has not loaded - which is exactly the moment a
+loyalty rung or a price note has to stay legible - and until then the two look
+identical, which is why five of these survived four consolidation steps.
+
+### The `font:` shorthand is what hid them, and it hid two more things
+
+Five of the nine were inside `font: <weight> <size>/<leading> <stack>`. A shorthand
+names four properties at once and **resets every font property it does not name**, so
+a stack written inside it does not look like a stack to anything scanning for one.
+Split into longhand, and each one gave something up:
+
+**1. A leading step 5.6 had deleted.** `.coachbox .cbnote` carried `/1.55`. 1.55 is
+the base rhythm this system HAD before step 5.6 moved it to 1.6 and said so out loud
+- «three leadings, and 1.55 to 1.6 deliberately this time, because air is calmer».
+That sweep replaced every `line-height` it could see. It could not see this one:
+inside `font:` a leading is a slash and a number, not a property. Measured: 20.15px ->
+20.8px on one note.
+
+**Checked afterwards: there is no leading left in the component layer outside the
+three tokens** - the only two other values are `line-height: 0` on the icon wrapper,
+which is correct, because an icon box must not carry a text line box.
+
+**2. `font-variant-numeric` switched off on a figure.** `.coachbox .cbsave` is the
+coach's saving, set in `--font-mono` inside a block that asks for tabular figures -
+and the shorthand was resetting it to `normal` on every render. Splitting it restored
+what its own family is there for. Measured: `tab=normal -> tabular-nums`.
+
+### A/B
+
+**108 994 elements, 40 pages x 2 viewports, cache cleared between passes: 174
+differences, and nothing unexpected.**
+
+- **156** are the fallback stack gaining its system faces, every one of them an
+  inherited consequence - `.rn` `.rs` and their svg children, `.dpp.free`, `.cbh`,
+  `.cbtier`, `.cbnote`. **The rendered face does not change**: Inter is loaded and is
+  still first. What changed is where the browser lands if it is not.
+- **2** are `.cbsave` gaining tabular figures.
+- **16** are the 1.55 -> 1.6 leading and its knock-on: `.coachbox` grows 1.95px at
+  390 and 1.3px at 1280, which propagates to the page height. One element, one
+  screen.
+
+**40 screens at 360: 0 overflow, 0 JS errors. All 35 stands: idle check passed.**
+
+### NOT done, and this is the important part of the step
+
+The sweep also matched **every literal `px` in the component layer against every
+token value**, and reported 120-odd "matches". Almost all of them are **coincidences
+of value, not semantic matches**: `width: 18px` on an svg matching `--fs-18`, a 4px
+bar height matching `--space-4`, a 12px offset matching `--fs-12`. Replacing those
+would give an icon its width from a font-size token, which is worse than a literal -
+it reads as a decision nobody made. The project's own rule says a value changes only
+by a decision said out loud as «variable -> value -> why», never as a side effect of
+a refactor. So: measured, not replaced.
+
+### Found, not fixed
+
+**The type scale is missing both of its ends.** Eleven font sizes in the component
+layer are not a rung of it, and they are not scattered noise - they are two clusters:
+
+| above the top rung (34) | 38 x2 (`.acc-h1`, `.hpromo .hph`) · 50 (`.rvbig .n`) · 60 (`.sys-code`) · 36 (`.bb .new`) |
+| below or between the bottom rungs | 8 x2 (`.oh-thumbs i`, `.cshelf .cs-th`) · 8.5 (list-card badge) · 11.5 x2 (coachbox) · 13 (coach note) |
+
+The scale runs 10, 12, 14, 16, 18, 20, 24, 30, 34 - nine rungs that cover text and
+stop where display type begins. Five display sizes and six sub-10 marks live outside
+it. Adding rungs is a values decision with an owner, so it is reported to stage 09
+rather than invented here.

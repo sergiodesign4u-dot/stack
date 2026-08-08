@@ -133,7 +133,7 @@
 .bb .dpt span{ display:block; margin-top:var(--space-2); font-size:var(--fs-12); color:var(--text-secondary); }
 .bb .dpp{ font-family:var(--font-mono); word-spacing:-.24em;
   font-weight:var(--fw-semibold); color:var(--text-body); white-space:nowrap; text-align:right; }
-.bb .dpp.free{ font-family:'Inter', sans-serif; font-weight:var(--fw-bold); color:var(--text-success); }
+.bb .dpp.free{ font-family:var(--font-body); font-weight:var(--fw-bold); color:var(--text-success); }
 .bb .dppay{ display:flex; flex-wrap:wrap; gap:var(--space-8); }
 .bb .paych{ border:1px solid var(--line-hair); border-radius:var(--radius-8); padding:var(--space-4) var(--space-8);
   font-size:var(--fs-12); color:var(--text-secondary); background:var(--bg-surface); }
@@ -150,18 +150,33 @@
      kit/kit.css): one view, one live price. */
   .coachbox { border: 1.5px solid var(--line-inverse); background: var(--bg-surface); border-radius: var(--radius-12);
     padding: 15px 17px; margin: 16px 0 4px; }
-.coachbox .cbh { display: flex; align-items: center; gap: 8px; font: 700 11.5px/1 'Inter', sans-serif;
+/* 7.40: `font: 700 11.5px/1 'Inter', sans-serif` split into longhand. The
+   shorthand is what hid the literal - it names four things at once and RESETS
+   every font property it does not name, so a stack written inside it never looked
+   like a stack to anything scanning for one. 11.5 is not a rung of the scale and
+   stays a literal knowingly: this eyebrow sits between --fs-10 and --fs-12 and
+   was drawn at 11.5 before the scale existed. Reported, not invented over. */
+.coachbox .cbh { display: flex; align-items: center; gap: var(--space-8);
+    font-family: var(--font-body); font-weight: var(--fw-bold); font-size: 11.5px; line-height: var(--lh-flat);
     text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-primary); }
 .coachbox .cbh .cbtier { font-size: var(--fs-10); letter-spacing: var(--ls-caps); color: var(--bg-page); background: var(--bg-inverse);
     border-radius: var(--radius-16); padding: 3px 8px; }
 .coachbox .cbrow { display: flex; align-items: baseline; gap: 10px; margin-top: 10px; flex-wrap: wrap;
-    font-family: 'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums;
+    font-family: var(--font-mono); font-variant-numeric: tabular-nums;
     word-spacing: -.24em; }
 .coachbox .cbnew { font-size: var(--fs-30); font-weight: var(--fw-semibold); letter-spacing: var(--ls-display); color: var(--text-action); }
 .coachbox .cbold { font-size: var(--fs-14); color: var(--text-muted); text-decoration: line-through; }
-.coachbox .cbsave { font: 700 11.5px/1 'IBM Plex Mono', ui-monospace, monospace; color: var(--text-danger);
+.coachbox .cbsave { font-family: var(--font-mono); font-weight: var(--fw-bold); font-size: 11.5px; line-height: var(--lh-flat); color: var(--text-danger);
     background: var(--bg-save); border-radius: 5px; padding: 3px 7px; }
-.coachbox .cbnote { font: 400 13px/1.55 'Inter', sans-serif; color: var(--text-secondary); margin-top: 8px; }
+/* AND THE SHORTHAND WAS HIDING A DELETED LEADING. `1.55` is the base rhythm the
+   system HAD before step 5.6, which moved it to 1.6 and said so out loud: «three
+   leadings, and 1.55 to 1.6 deliberately this time, because air is calmer». That
+   sweep replaced every `line-height` it could see. It could not see this one -
+   inside `font:` a leading is a slash and a number, not a property. `--lh-airy`
+   now, which is the value that decision landed on. 13px is between --fs-12 and
+   --fs-14 and stays a literal, reported below. */
+.coachbox .cbnote { font-family: var(--font-body); font-weight: var(--fw-regular); font-size: 13px; line-height: var(--lh-airy);
+    color: var(--text-secondary); margin-top: var(--space-8); }
 .clientpick { margin: 16px 0 2px; }
 /* step 7: was a `font` shorthand with a hard-coded family. Same label, in
    tokens. It stays uppercase on purpose - it names a person, not a value. */
