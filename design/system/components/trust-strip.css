@@ -52,6 +52,34 @@
   .tsx:nth-child(n+3){ box-shadow:inset 0 1px 0 var(--line-hair); }
   .tsx:nth-child(4){ box-shadow:inset 1px 0 0 var(--line-hair), inset 0 1px 0 var(--line-hair); }
 }
+.tsx .uiv-ic{ flex:none; width:var(--size-44); height:var(--size-44); border-radius:var(--radius-12); background:var(--bg-page); color:var(--text-body);
+  box-shadow: var(--elevation-control);
+  transition:transform .15s ease, color .15s ease; }
+.tsx:hover .uiv-ic{ transform:translateY(-2px); color:var(--text-action); }
+.tsx .uiv-ic svg{ width:23px; height:23px; }
+.tsx b{ font-size:var(--fs-14); line-height:var(--lh-snug); }
+.tsx span:not(.uiv-ic){ display:block; margin-top:var(--space-4); line-height:var(--lh-snug); }
+
+/* ---------- the phone, and TWO of its five lines never arrived - 7.47 ---------
+   This block stood ABOVE the four `.tsx` rules just above, and three of its five
+   declarations happened to win anyway because their own base rule sits earlier
+   still. The two about the icon did not: `.tsx .uiv-ic` here and `.tsx .uiv-ic`
+   there are both (0,2,0), so the later one takes it, and the later one was the
+   44px desktop box.
+
+   Measured on `product.html` at 360 and at 390 before the move: the icon rendered
+   **44 x 44 with a 23px glyph**, where this block asks for 38 and 20. The
+   winning-rule solver returned the two in order, the 38 first and the 44 second.
+
+   Nothing here is a new value. The block is where it can act now, which is what
+   its author wrote it to do - the same shape as the rule an early comment closer
+   swallowed at 7.42 and the media block declared twice at 7.46. Three steps, three
+   declarations that existed and never reached the browser, and none of the three
+   was findable by reading the file.
+
+   (And writing this note walked into 7.42's own trap a second time: a comment
+   closer typed inside a comment ends it, so the sentence above cannot quote one.
+   The scanner catches it in the same pass that finds the defect.) */
 @media (max-width:479px){
   .truststrip{ grid-template-columns:1fr; padding:var(--space-8); }
   .tsx{ padding:var(--space-12) var(--space-12); column-gap:var(--space-12); }
@@ -60,13 +88,6 @@
   .tsx:nth-child(even), .tsx:nth-child(4){ box-shadow:none; }
   .tsx + .tsx{ box-shadow:inset 0 1px 0 var(--line-hair); }
 }
-.tsx .uiv-ic{ flex:none; width:var(--size-44); height:var(--size-44); border-radius:var(--radius-12); background:var(--bg-page); color:var(--text-body);
-  box-shadow: var(--elevation-control);
-  transition:transform .15s ease, color .15s ease; }
-.tsx:hover .uiv-ic{ transform:translateY(-2px); color:var(--text-action); }
-.tsx .uiv-ic svg{ width:23px; height:23px; }
-.tsx b{ font-size:var(--fs-14); line-height:var(--lh-snug); }
-.tsx span:not(.uiv-ic){ display:block; margin-top:var(--space-4); line-height:var(--lh-snug); }
 .uiv-trustbear{ position:absolute; right:0; top:4px; height:196px; width:auto;
   max-width:none; mix-blend-mode:multiply; }
 @media (min-width:1180px){
@@ -93,5 +114,26 @@
 .cshelf .cs-thumbs .cs-th:nth-child(1){ background-image:url(../../visuals/product-whey.png); }
 .cshelf .cs-thumbs .cs-th:nth-child(2){ background-image:url(../../visuals/product-creatine.png); }
 .cshelf .cs-th.more{ background-image:none; color:var(--text-secondary); font-family:var(--font-mono); }
-.cshelf .cs-th .q{ background:var(--bg-action); color:var(--text-oninverse); font-family:var(--font-mono); }
+/* ---------- the count on a thumbnail, and the rule for it is written down ------
+   7.47: this was `--text-oninverse`. DESIGN-artifacts.md carries the locked rule
+   «Label on an orange fill = white, at every size» AND the line directly under it:
+
+     «Small orange things that are NOT buttons - badges, counters, the «Новинка»
+      tag - keep the INK label. There orange is a marker, not an action, and ink
+      stays crisp at 10-12px.»
+
+   This is a counter on a marker at 10px, so it is the second sentence and not the
+   first. Measured on its own ground: white on `#FF5A00` is **3.13:1**, ink is
+   **5.45:1**.
+
+   AND IT IS THE ONLY ONE. Read out of the parsed CSSOM: 18 selectors in 11 files
+   paint `--bg-action` and name a label colour, and the split follows the written
+   rule exactly - buttons take white (`.btn--accent`, `.hd-cta`, `.tbuy`,
+   `.pages a.on`), marks take ink (`.tag-new`, `.chip.on`, `.ptab.on`, `.hb`,
+   `.tbadge`, `.acc-link[aria-current]`, `.mtoolbar .mc .b`). One exception, here.
+
+   NOT merged into the counter atom, and said out loud: `.hb`/`.tbadge` is 15x15 in
+   the body face with a white ring, this is 16x16 in mono with none. Two counters,
+   close but not the same shape, and folding the geometry is Крок 6's. */
+.cshelf .cs-th .q{ background:var(--bg-action); color:var(--text-body); font-family:var(--font-mono); }
 /* step 6.3: same local copy of the outline finish, same deletion. */

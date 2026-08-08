@@ -212,7 +212,7 @@ window.KIT_NAV = [
    {
     "label": "Смуга довіри",
     "page": "trust-strip.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Щабель лояльності",

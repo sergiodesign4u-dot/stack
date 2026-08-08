@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Смуга довіри | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Смуга довіри</h1>
+<p class="kp-lead">Чотири мікросигнали під ціною: оригінал, сертифікат, доставка, повернення. Принцип 1 у найкоротшій формі - зняти сумнів раніше, ніж запропонувати дію. Файл тримає ще дві речі: акордеон блоку довіри і полицю кошика, і третя тут зайва.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/trust-strip.css</span><span class="kp-tag">139 рядків</span><span class="kp-tag">42 селектори</span><span class="kp-tag">66 правил</span><span class="kp-tag">3 смуги · 8 секцій · 1 полиця</span><span class="kp-tag">4 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>product.html</code>, скопійована рядок у рядок. Іконки й ведмедя ставить не сторінка: їх додає <code>uivPdp()</code> з <code>design/_nav.js</code>, і тут повторено ті самі два виклики <code>uivWrap()</code>, бо <code>uivPdp()</code> шукає коренем <code>main.wf-page</code>, якого в стенда немає.</p>
+<div class="kp-demo">
+  <div class="truststrip" id="demo-strip">
+    <div class="tsx"><b>Оригінал + гарантія</b><span>офіційний імпорт</span></div>
+    <div class="tsx"><b>Сертифікат</b><span>відповідності - переглянути</span></div>
+    <div class="tsx"><b>Доставка НП</b><span>1-2 дні по Україні</span></div>
+    <div class="tsx"><b>Повернення</b><span>14 днів</span></div>
+  </div>
+</div>
+<div class="kp-cap">звузьте вікно: на 720 і ширше це чотири колонки з вертикальними швами, на 480-719 сітка 2x2, на 479 і вужче один стовпчик з горизонтальними лініями. Ведмідь виходить з-за краю лише від 1180</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Іконка</b> - <code>.uiv-ic</code>, атом. Займає першу колонку і обидва рядки сітки: <code>grid-row: 1 / span 2</code>, тому підпис і опис стоять праворуч від неї одним блоком, а не обтікають</span></div>
+  <div class="a"><i>2</i><span><b>Підпис</b> - <code>&lt;b&gt;</code>, 14/600 <code>--text-primary</code>. Обіцянка одним рядком</span></div>
+  <div class="a"><i>3</i><span><b>Пояснення</b> - <code>&lt;span&gt;</code>, <code>--text-secondary</code>. Селектор <code>.tsx span:not(.uiv-ic)</code>, бо іконка теж <code>&lt;span&gt;</code>: без <code>:not()</code> правило другого рядка лягало б і на неї</span></div>
+  <div class="a"><i>4</i><span><b>Шви</b> - не рамки, а <code>box-shadow: inset</code>. Рамка додала б 1px до розміру плитки, тінь ні, і сітка лишається рівною</span></div>
+  <div class="a"><i>5</i><span><b>Ведмідь</b> - <code>.uiv-trustbear</code> у <code>.uiv-bearwrap</code>, що обрізає тулуб по нижньому краю панелі, а голову лишає цілою над нею</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Телефон, і два з п'яти рядків до нього не доїжджали</div>
+<p class="kp-p">Блок <code>@media (max-width: 479px)</code> стояв <b>вище</b> базових правил <code>.tsx</code>. Три його оголошення все одно вигравали - бо їхні власні бази стоять ще вище. Два про іконку не вигравали: <code>.tsx .uiv-ic</code> тут і <code>.tsx .uiv-ic</code> там мають однакову вагу (0,2,0), і бере пізніший, а пізніший був десктопною коробкою 44px.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Оголошення в блоці</th><th>Його база стоїть</th><th>До 7.47</th><th>Після</th></tr></thead><tbody>
+<tr><td><code>.truststrip{ grid-template-columns: 1fr }</code></td><td>вище блоку</td><td>діяло</td><td>діє</td></tr>
+<tr><td><code>.tsx{ padding: 12px }</code></td><td>вище блоку</td><td>діяло</td><td>діє</td></tr>
+<tr><td><code>.tsx:nth-child(even), .tsx:nth-child(4){ box-shadow: none }</code></td><td>вище блоку</td><td>діяло</td><td>діє</td></tr>
+<tr><td><code>.tsx .uiv-ic{ width/height: --size-38 }</code></td><td><b>нижче блоку</b></td><td><b>мовчало, малювалось 44</b></td><td><b>38</b></td></tr>
+<tr><td><code>.tsx .uiv-ic svg{ width/height: --size-20 }</code></td><td><b>нижче блоку</b></td><td><b>мовчало, малювалось 23</b></td><td><b>20</b></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Заміряно в браузері, не виведено з файлу.</b> На <code>product.html</code> при 360 і 390 коробка виходила 44x44 з гліфом 23px там, де блок просить 38 і 20. Межу перевірено окремо: на <b>479</b> коробка 38, на <b>480</b> вона 44, на 720 сітка стає чотириколонковою. Нічого нового не з'явилось - блок просто став туди, звідки може діяти.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>На 360</th><th>Було</th><th>Стало</th></tr></thead><tbody>
+<tr><td>коробка іконки</td><td>44x44</td><td><b>38x38</b></td></tr>
+<tr><td>гліф</td><td>23x23</td><td><b>20x20</b></td></tr>
+<tr><td>колонка тексту</td><td>230px</td><td><b>236px</b></td></tr>
+<tr><td>висота плитки</td><td>68px</td><td><b>66.38px</b></td></tr>
+<tr><td>висота смуги</td><td>290px</td><td><b>283.5px</b></td></tr>
+</tbody></table></div>
+<p class="kp-p">Шість пікселів, які іконка віддала, дістались підпису: колонка тексту не звузилась, а розширилась. Це і був сенс правила, якого ніхто не бачив три етапи.</p>
+<div class="kp-gap"><h4>Третій випадок поспіль</h4>Оголошення, яке існує і не доходить до браузера: <b>7.42</b> - зайвий закривач коментаря зжер правило під собою; <b>7.46</b> - той самий <code>@media</code> блок оголошено двічі; <b>7.47</b> - блок стоїть не там. Жодного з трьох не можна знайти читанням файлу, усі три знайдено питанням до браузера.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Шви: одна сітка, три розкладки</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Ширина</th><th>Колонок</th><th>Що малює лінії</th></tr></thead><tbody>
+<tr><td><b>720+</b></td><td>4</td><td><code>.tsx + .tsx</code> - вертикальний шов зліва в кожної, крім першої</td></tr>
+<tr><td><b>480-719</b></td><td>2</td><td><code>:nth-child(even)</code> - шов зліва, <code>:nth-child(n+3)</code> - шов згори, <code>:nth-child(4)</code> - обидва</td></tr>
+<tr><td><b>479 і вужче</b></td><td>1</td><td>вертикальні гасяться, <code>.tsx + .tsx</code> дає горизонтальну лінію</td></tr>
+</tbody></table></div>
+<p class="kp-p">Тінь замість рамки навмисно: <code>inset</code> не входить у розмір коробки, тож плитки лишаються однаковими на будь-якій ширині, а лінія завжди рівно одна на стик.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Акордеон довіри</div>
+<p class="kp-p">Той самий файл тримає <code>.trustsec</code> - секції блоку довіри під смугою. Вісім штук на двох екранах товару, усі відкриті за замовчуванням: принцип 1 не ховає склад під клік.</p>
+<div class="kp-demo">
+  <details class="trustsec" open>
+    <summary>Дозування <span class="chev">▾</span></summary>
+    <div class="tsb">1 порція = 1 мірна ложка (~30 г) на 250-300 мл води чи молока. Приймати 1-2 порції на день: одразу після тренування та/або між прийомами їжі.</div>
+  </details>
+  <details class="trustsec">
+    <summary>Походження <span class="chev">▾</span></summary>
+    <div class="tsb">Виробник: Optimum Nutrition (Glanbia), США. Офіційний імпортер в Україну.</div>
+  </details>
+  <details class="trustsec" open>
+    <summary>Сертифікація <span class="chev">▾</span></summary>
+    <div class="tsb">
+      <div class="certbox">
+        <a class="certthumb" href="#">переглянути сертифікат (PDF)</a>
+        <div>Сертифікат відповідності на партію + лабораторні тести чистоти.</div>
+      </div>
+    </div>
+  </details>
+</div>
+<div class="kp-cap">друга секція закрита навмисно: стрілка <code>.chev</code> у відкритої повернута на 180°, у закритої ні. Під курсором заголовок сідає на <code>--bg-sunken</code>, а стрілка йде в акцент - клікабельний увесь рядок, а не значок</div>
+<p class="kp-p">Рідну стрілку <code>&lt;details&gt;</code> знято через <code>::-webkit-details-marker</code>: інакше поруч стояли б дві. Печатка на сертифікаті - <code>.uiv-seal</code>, її теж ставить <code>uivPdp()</code>, і в кольорі вона рендериться <b>3</b> рази.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Полиця кошика, і лічильник на ній</div>
+<p class="kp-p">Третій блок файлу. Показано з реальною розміткою <code>home-cart.html</code>.</p>
+<div class="kp-demo">
+  <div class="cshelf" role="region" aria-label="Ваш кошик">
+    <span class="cs-ico">🛒</span>
+    <div class="cs-tx">
+      <span class="cs-h">У вашому кошику 3 товари</span>
+      <span class="cs-s">на суму <b>3 129 ₴</b> · продовжуйте покупку, коли зручно</span>
+    </div>
+    <div class="cs-thumbs" aria-hidden="true">
+      <span class="cs-th">фото<span class="q">1</span></span>
+      <span class="cs-th">фото<span class="q">1</span></span>
+      <span class="cs-th more">+1</span>
+    </div>
+    <span class="cs-sp"></span>
+    <div class="cs-act">
+      <a class="btn--outline btn--s btn" href="#">Переглянути кошик</a>
+      <a class="btn--accent btn--s btn dark" href="#">Оформити замовлення →</a>
+    </div>
+  </div>
+</div>
+<div class="kp-cap">лічильник <code>.q</code> на мініатюрі: помаранчевий кружок 16x16, цифра моноширинна, <b>чорнильна</b></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Було</th><th>Стало</th><th>Контраст на <code>#FF5A00</code></th></tr></thead><tbody>
+<tr><td><code>.cshelf .cs-th .q</code></td><td><code>--text-oninverse</code></td><td><b><code>--text-body</code></b></td><td>3.13:1 -&gt; <b>5.45:1</b> при 10px</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Джерело названо.</b> <code>DESIGN-artifacts.md</code> тримає запертe правило «мітка на помаранчевій заливці = біла, на будь-якому розмірі» і рядок одразу під ним: маленькі помаранчеві речі, які <b>не</b> кнопки - бейджі, лічильники, тег «Новинка» - лишають <b>чорнильну</b> мітку, бо там помаранчевий є маркером, а не дією.</p>
+<p class="kp-p"><b>І це був єдиний виняток.</b> Прочитано з розібраного CSSOM: <b>18</b> селекторів в <b>11</b> файлах заливають <code>--bg-action</code> і називають колір мітки. Розкол іде рівно за писаним правилом - кнопки беруть біле (<code>.btn--accent</code>, <code>.hd-cta</code>, <code>.tbuy</code>, <code>.pages a.on</code>), маркери чорнило (<code>.tag-new</code>, <code>.chip.on</code>, <code>.ptab.on</code>, <code>.hb</code>, <code>.tbadge</code>, <code>.acc-link[aria-current]</code>, <code>.mtoolbar .mc .b</code>). Виняток був один, тут.</p>
+<div class="kp-do"><h4>Що перевірено і зроблено не було</h4>Лічильник полиці <b>не</b> злито з атомом лічильника. <code>.hb</code>/<code>.tbadge</code> це 15x15 текстовою гарнітурою з білим кільцем, а це 16x16 моноширинною і без кільця. Два лічильники, схожі, але не однакові за формою; зводити геометрію - Крок 6, після етапу 09.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>градієнт від <code>--bg-sunken</code> до <code>--bg-surface</code>, волосяна рамка, радіус 16</td><td>смуга не картка товару: вона тло під обіцянками, тому світлішає догори й не має тіні</td></tr>
+<tr><td><b>наведення на плитку</b></td><td>тло <code>--bg-onphoto</code>, іконка піднімається на 2px і йде в акцент</td><td>«сертифікат» і «повернення» ведуть у документ; плитка показує, що на неї можна натиснути, ще до того, як палець дійде</td></tr>
+<tr><td><b>наведення на заголовок секції</b></td><td><code>--bg-sunken</code> + стрілка в акцент</td><td>ціль - увесь рядок, а не значок 12px</td></tr>
+<tr><td><b><code>[open]</code></b></td><td>стрілка на 180°, під заголовком волосяна лінія</td><td>лінія з'являється тільки коли є що відділяти</td></tr>
+<tr><td><b><code>.more</code></b></td><td>мініатюра без фото, «+N» моноширинним</td><td>третя і далі позиції кошика не показуються поштучно: полиця нагадує, а не перелічує</td></tr>
+<tr><td><b>натискання</b></td><td><b>немає власного</b></td><td>плитка й заголовок віддають натиск атомам усередині; окремий стан тут дублював би посилання</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Смуга - на сторінці товару, під ціною і перед складом. Рівно чотири сигнали: п'ятий на 360 дає п'ятий екран прокрутки, а сумнів знімає перший, не останній. Не на лістингу - там довіру несе картка. Не в кошику - там людина вже вирішила.</p>
+<p class="kp-p">Акордеон - тільки в блоці довіри товару. Полиця - тільки на головній, і тільки коли кошик не порожній.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Кожен сигнал перевіряється.</b> «Сертифікат» веде в документ, «доставка» називає строк, «повернення» - кількість днів. Смуга з чотирьох слів без наслідків - це декор, а не довіра.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не додавайте п'яту плитку і не робіть її яскравою.</b> Помаранчевий тут заборонений: смуга знімає сумнів, а не продає, і принцип 4 не дозволяє їй кричати.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>18</b> власних класів і <b>3</b> стани оголошено в <code>trust-strip.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. <code>.uiv-bearwrap</code> у списку немає навмисно: він у демо рендериться, але оголошений не тут, і саме тому стоїть нижче в переліку прогалин.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["truststrip","tsx","trustsec","tsb","chev","uiv-trustbear","uiv-seal","cshelf","cs-ico","cs-tx","cs-h","cs-s","cs-thumbs","cs-th","q","more","cs-sp","cs-act"], KIT_STS=[":hover", "[open]", ".more"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>trust-strip.css</code>, не переписані руками: <b>15</b> семантичних ролей і <b>29</b> примітивів. Колір іде лише через роль, геометрія - напряму з примітива.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (15)</th><th>Примітиви (29)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-onphoto</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--elevation-1</code> <code>--elevation-control</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-display</code> <code>--font-mono</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fs-20</code> <code>--fw-black</code> <code>--fw-semibold</code> <code>--lh-snug</code> <code>--ls-lead</code> <code>--radius-8</code> <code>--radius-12</code> <code>--radius-16</code> <code>--radius-circle</code> <code>--radius-pill</code> <code>--size-20</code> <code>--size-30</code> <code>--size-38</code> <code>--size-40</code> <code>--size-44</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-32</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;div class="truststrip"&gt;
+  &lt;div class="tsx"&gt;&lt;b&gt;Оригінал + гарантія&lt;/b&gt;&lt;span&gt;офіційний імпорт&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="tsx"&gt;&lt;b&gt;Сертифікат&lt;/b&gt;&lt;span&gt;відповідності - переглянути&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="tsx"&gt;&lt;b&gt;Доставка НП&lt;/b&gt;&lt;span&gt;1-2 дні по Україні&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="tsx"&gt;&lt;b&gt;Повернення&lt;/b&gt;&lt;span&gt;14 днів&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;</div>
+<p class="kp-p">Іконки в розмітці немає: сторінка називає обіцянки, а <code>uivPdp()</code> ставить чотири знаки в порядку <code>shield · doc · truck · ret</code> і додає ведмедя. Тому <b>порядок плиток у розмітці задає, який знак стане на яку</b>, і переставити їх місцями означає переставити іконки.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.truststrip</code> <code>.trustsec</code> <code>.cshelf</code></p>
+<p class="kp-p">Заміряно в браузері на 360 і 1280 по всіх 40 кольорових екранах: смуга <b>3</b> рази (<code>product</code>, <code>product-oos</code>, <code>product-coach</code>) і <b>12</b> плиток; акордеон <b>8</b> секцій на двох (<code>product</code>, <code>product-coach</code>); печатка <b>3</b> (додається <code>product-reviews</code>, де смуги немає); полиця <b>1</b> на <code>home-cart</code> з трьома мініатюрами й двома лічильниками.</p>
+<p class="kp-p"><b>Мертвих селекторів: 0 з 42.</b> Кожен селектор файлу знаходить розмітку хоч на одному екрані. <code>.chev</code> живе ще й поза цим файлом (8 разів на <code>account-orders</code>), але правило тут прив'язане до <code>.trustsec &gt; summary</code> і туди не тече.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Полиця кошика лежить не у своєму файлі.</b> <code>.cshelf</code> це блок головної, а не сигнал довіри: 11 селекторів, один екран, <code>home-cart</code>. За логікою 7.44 його місце в <code>banner.css</code>, який уже названо таблицею стилів головної. Знайдено, не рухано: це рішення, а не наслідок цього кроку</li>
+<li><b>Обгортка ведмедя оголошена в чужому файлі.</b> <code>.uiv-bearwrap</code> має рівно одного виробника - <code>design/_nav.js:997</code>, який чіпляє його до <code>.truststrip</code>, а два його правила стоять у <code>empty-state.css</code>. Той самий клас питання, що <code>.packlabel</code> на 7.43 і <code>.dl/.dk/.dv</code> на 7.46</li>
+<li><b>Розміри гліфів літералами.</b> 23px в іконки смуги вище 480, 22px у візка полиці, 17px у печатки - три числа повз шкалу <code>--size-*</code>, якою користується решта файлу</li>
+<li><b>Немає стану «сигнал не підтверджено»</b> - якщо сертифіката на партію немає, смуга однаково скаже «Сертифікат». Це питання до IA й до мікрокопії, не до CSS</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<!-- the chrome and the ₴ come from `design/_nav.js`, exactly as they do on a
+     screen: a stand that shows the shape and not the behaviour proves half of
+     the component. -->
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<!-- the trust marks, the mascot and the seal come from `uivPdp()`, which cannot run
+     here: its root is `main.wf-page` and a stand is `main.kp-main`. The lines below
+     are repeated from that same source rather than re-drawn, so the stand shows the
+     product's own icons. They sit AFTER `../_nav.js` because that file is where
+     `uivWrap()` is declared (line 81) - run any earlier and the page throws. -->
+<script>
+(function(){
+  var tsIcons = ['shield', 'doc', 'truck', 'ret'];
+  document.querySelectorAll('#demo-strip .tsx').forEach(function(tc, i){
+    if(tc.querySelector('.uiv-ic')) return;
+    var s = document.createElement('span');
+    s.innerHTML = uivWrap(tsIcons[i] || 'shield');
+    if(s.firstChild) tc.insertBefore(s.firstChild, tc.firstChild);
+  });
+  var band = document.getElementById('demo-strip');
+  if(band && !band.querySelector('.uiv-trustbear')){
+    var bwrap = document.createElement('div');
+    bwrap.className = 'uiv-bearwrap';
+    bwrap.setAttribute('aria-hidden', 'true');
+    var bear = document.createElement('img');
+    bear.className = 'uiv-trustbear';
+    bear.src = '../concept/assets/mascot-pose-present.png';
+    bear.alt = '';
+    bwrap.appendChild(bear);
+    band.appendChild(bwrap);
+  }
+  var cert = document.querySelector('.certthumb');
+  if(cert && !cert.querySelector('.uiv-seal')){
+    var seal = document.createElement('span');
+    seal.className = 'uiv-seal';
+    seal.innerHTML = uivIconSvg('shield');
+    cert.appendChild(seal);
+  }
+  var ci = document.querySelector('.cshelf .cs-ico');
+  if(ci && /🛒/.test(ci.textContent)) ci.innerHTML = uivWrap('cart');
+})();
+</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+
+<script src="_nav.js"></script>
+</body>
+</html>

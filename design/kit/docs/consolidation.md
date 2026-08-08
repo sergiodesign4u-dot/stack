@@ -6013,7 +6013,8 @@ is why the floor is 0 rather than the skeleton pulse's usual 30-odd.
 markup copied line for line out of `product.html`, including the whole pack label.
 `uivPdp()` cannot run on a stand - its root is `main.wf-page` and a stand is
 `main.kp-main` - so the page repeats the two lines it needs from the same source,
-`uivWrap()` out of `design/system/icons.js`, rather than pasting the paths.
+`uivWrap()`, declared at `design/_nav.js:81`, rather than pasting the paths.
+[corrected at 7.47: this line said `design/system/icons.js`, which does not declare it]
 
 Idle check passes: **all 22 classes rendered, 3 states named.** 360: no overflow, 0
 JS errors. All 27 stands pass. Molecules **5 / 27**.
@@ -6032,3 +6033,145 @@ where each icon would be. A fallback, not a leftover.
 - **No «no data» state.** If a product has no composition filled in, the table
   simply does not render and the page says nothing. For a product whose first
   principle is trust, an empty composition is not emptiness - it is a signal.
+
+## Step 7.47: the trust strip, and a rule that could not reach the phone
+
+Sixth molecule. **42 selectors, 66 rules, 463 declarations, no dead ones**, and
+three blocks that do not belong together: the strip of four micro-signals under the
+price, the accordion of the trust block below it, and the cart shelf on the home
+page. Four coloured screens.
+
+Measured across all 40 coloured screens at 360 and 1280: the strip renders **3
+times** (`product`, `product-oos`, `product-coach`) with **12 tiles**, the accordion
+**8 sections** on two screens, the seal **3 times** (`product-reviews` joins - it
+has the certificate without the strip), the shelf **once**, on `home-cart`.
+
+### The instrument changed, and the floor got better
+
+The Playwright MCP server disappeared mid-step and did not come back after a
+restart. The census now runs on a **CDP driver over the system Chrome**, written for
+this step: launch headless with a throwaway profile, attach a session, and per load
+set device metrics, clear the cache, disable it, navigate, await `document.fonts.ready`,
+await two animation frames, then read.
+
+**The null pass is now 0 diffs**, HEAD against HEAD, across 40 pages x 3 widths x
+every element x 51 computed properties plus rect. The old floor was 30-odd rows of
+skeleton pulse. Every row in the A/B below is therefore real, with nothing to argue
+about.
+
+One artifact had to be named rather than ignored: the two servers differ by port, so
+every computed `background-image` differs as a string - **730 rows that are the
+number 8992 against 8993**. Normalised, not filtered by hand.
+
+### The defect: a media block that stood above the rules it had to beat
+
+`@media (max-width: 479px)` sat **above** the four base `.tsx` rules. Three of its
+five declarations won anyway, because their own bases sit higher still. The two
+about the icon did not: `.tsx .uiv-ic` here and `.tsx .uiv-ic` there are both
+(0,2,0), the later one takes it, and the later one was the 44px desktop box.
+
+| declaration | its base sits | before | after |
+| `.truststrip{ grid-template-columns: 1fr }` | above the block | worked | works |
+| `.tsx{ padding: 12px }` | above the block | worked | works |
+| `.tsx:nth-child(even), :nth-child(4){ box-shadow: none }` | above the block | worked | works |
+| `.tsx .uiv-ic{ --size-38 }` | **below the block** | **silent, drew 44** | **38** |
+| `.tsx .uiv-ic svg{ --size-20 }` | **below the block** | **silent, drew 23** | **20** |
+
+Measured on `product.html` at 360 and 390 before the move: 44x44 box, 23px glyph,
+where the block asks for 38 and 20. The boundary was checked on its own: **479 gives
+38, 480 gives 44**, 720 turns the grid into four columns. Nothing new was written.
+The block is where it can act.
+
+| on 360 | before | after |
+| icon box | 44x44 | **38x38** |
+| glyph | 23x23 | **20x20** |
+| text column | 230px | **236px** |
+| tile height | 68px | **66.38px** |
+| strip height | 290px | **283.5px** |
+
+**The six pixels the icon gave up went to the label**: the text column did not
+narrow, it widened. That was the rule's point, and nobody had seen it for three
+stages.
+
+**Third in three steps.** A declaration that exists and never reaches the browser:
+7.42 a stray comment closer swallowing the rule under it, 7.46 the same `@media`
+block declared twice, 7.47 the block in the wrong place. None of the three is
+findable by reading the file; all three were found by asking the browser.
+
+### The counter on the shelf, and the rule for it is written down
+
+`.cshelf .cs-th .q` wore `--text-oninverse`. `DESIGN-artifacts.md` carries the
+locked rule «Label on an orange fill = white, at every size» AND the line directly
+under it: small orange things that are **not** buttons - badges, counters, the
+«Новинка» tag - keep the **ink** label, because there orange is a marker, not an
+action, and ink stays crisp at 10-12px.
+
+This is a counter on a marker at 10px, so it is the second sentence. Measured:
+white on `#FF5A00` is **3.13:1**, ink is **5.45:1**.
+
+**And it is the only one.** Read out of the parsed CSSOM: **18 selectors in 11
+files** paint `--bg-action` and name a label colour, and the split follows the
+written rule exactly - buttons take white (`.btn--accent`, `.hd-cta`, `.tbuy`,
+`.pages a.on`), marks take ink (`.tag-new`, `.chip.on`, `.ptab.on`, `.hb`,
+`.tbadge`, `.acc-link[aria-current]`, `.mtoolbar .mc .b`). One exception, here.
+
+**Not merged into the counter atom, and said out loud**: `.hb`/`.tbadge` is 15x15 in
+the body face with a white ring, this is 16x16 in mono with none. Two counters,
+close but not the same shape; folding the geometry is Крок 6's.
+
+### The A/B
+
+Three passes: HEAD, HEAD again, working tree. **Null: 0.** A/B after normalising the
+port: **1645 declaration-level diffs on exactly 6 scopes.**
+
+| `product@360`, `product-coach@360`, `product-oos@360` | 645 + 645 + 325 |
+| `home-cart@360`, `@720`, `@1280` | 10 each |
+
+Nothing at 720 or 1280 on any product screen - the block stayed inside its own
+`max-width: 479px`. On the product screens the rows are four icons, their SVG
+internals, and **570 elements below the strip moving up by exactly 6.5px**: one
+reflow, not many. On `home-cart`, two badges x 5 rows each: `color` plus the four
+`border-*-color` shadows it casts, because the badge sets no border colour and
+those computed values follow `color`. One declaration, five rows.
+
+### The stand
+
+`design/kit/trust-strip.html`, the showcase's **sixth molecule**. Markup copied line
+for line out of `product.html` and `home-cart.html`. `uivPdp()` cannot run here
+either, so the page repeats the four lines it needs from that same source and puts
+them **after `../_nav.js`**, which is where `uivWrap()` is declared - run any
+earlier and the page throws, which is how the placement was found.
+
+Idle check passes: **all 18 classes rendered, 3 states named.** 360: no overflow, 0
+JS errors, and the stand's own icon renders at 38 because the stand loads the same
+`index.css` the product does. All 39 stands re-checked at 360 and 1280: no overflow,
+no idle failure, no exception. Molecules **6 / 27**.
+
+### A correction to 7.46
+
+The 7.46 entry and the spec-table stand both said the stand takes `uivWrap()` «out
+of `design/system/icons.js`». It is declared at **`design/_nav.js:81`**; `icons.js`
+does not declare it. The code was right, the citation was not. Both are fixed.
+
+### Who found it
+
+Both defects are Claude's, in a browser, and both are of the falsifiable kind Codex
+owns - a value drifted from its written rule, and a declaration the source contains
+but the style tree does not honour. Codex was not run on this step; the pair belongs
+in the next audit round rather than being claimed as a two-instrument result.
+
+### Found, not fixed
+
+- **The cart shelf is filed under the wrong component.** `.cshelf` is a block of the
+  home page, not a trust signal: 11 selectors, one screen, `home-cart`. By 7.44's own
+  logic its place is `banner.css`, which that step named the home page's stylesheet.
+  A decision, so it is declared rather than done as a side effect of this one.
+- **The mascot's wrapper is declared in another component's file.** `.uiv-bearwrap`
+  has exactly one producer - `design/_nav.js:997`, which appends it to `.truststrip`
+  - and its two rules sit in `empty-state.css`. Same class of question as
+  `.packlabel` at 7.43 and `.dl`/`.dk`/`.dv` at 7.46.
+- **Glyph sizes as literals.** 23px for the strip's icon above 480, 22px for the
+  shelf's trolley, 17px for the seal - three numbers beside the `--size-*` scale the
+  rest of the file uses.
+- **No «signal not confirmed» state.** With no certificate on the batch the strip
+  still says «Сертифікат». A question for IA and microcopy, not for CSS.
