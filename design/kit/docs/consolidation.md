@@ -5050,3 +5050,130 @@ incomplete.
   shorthand), loyalty-rung (2).
 - **Five names to rename at Крок 6**, all one-name-two-meanings: `.tag`, `.ct`,
   `.cut`, `.new`, `.old`.
+
+---
+
+## Step 7.38 - the checkbox: an atom a molecule was overwriting
+
+Both of this step's findings came from the owner looking at the counter stand and
+saying two things: that its anatomy demo is a checkbox carrying a counter rather
+than a counter, and that the checkbox in it does not work. Both were right, and the
+second one had a bigger cause behind it.
+
+**Measured:** 201 checkboxes - `.fopt` 200 in the filter panel, `.optin` 1 in the
+sign-up dialog. There is no `<input>` behind either; the markup is built by
+`wireframes/_nav.js:1780` and `design/_nav.js` gives it role, tab stop,
+`aria-checked` and Space (7.34).
+
+### The atom was being overwritten by a molecule
+
+filter-group.css - level 2 - wrote `.fopt .cb, .optin .cb` and
+`.fopt .cb.on::after, .optin .cb.on::after`. **It reached past its own component
+and restyled the atom's class by name.** So every declaration checkbox.css made
+about the square was dead: its 18px, its `--line-strong` border and its tick
+rendered nowhere, on either name.
+
+### And the tick had two editions, of which one ever drew
+
+| | tick | colour | placement | rendered |
+|---|---|---|---|---|
+| checkbox.css | a typed `✓`, 12px | `--text-oninverse` | `top:-2 left:3`, by eye | **never** |
+| filter-group.css | drawn: 5x9, borders 0/2/2/0, turned 45° | `--line-onink` | `translate(-50%,-58%)` | always |
+
+Same family as the availability dot at 7.35 and the badge's star at 7.37, and here
+both existed at once. The drawn one wins **by file order**, which is not a decision -
+though it is the right one on the merits: a typed `✓` is read aloud, cannot take a
+stroke weight, and lands where the font puts it rather than where the box wants it.
+
+filter-group.css also carried a **third** dead edition in its structure block: a 15px
+box with a `--mark-faint` border and its own typed `✓`, all three overridden by the
+same file's colour block twelve lines down.
+
+### The rule
+
+checkbox.css (81 -> 125 lines) owns the control: two row rungs, the box, the drawn
+tick, hover, press and the focus ring. filter-group.css keeps the option's place in
+the group (`margin-top: 12`) and the counter's place in the option
+(`margin-left: auto`). `.optin`'s margins went to auth-dialog.css, where the dialog
+that spaces it lives.
+
+**Two rungs, and they are a real difference rather than drift.** A filter option is
+one line, so its box sits on the centre line with 8px of gap; a consent is a
+paragraph that wraps, so its box sits on the FIRST line with 12. Hover now reaches
+the label on both - `.fopt` had it, `.optin` never did, 200 against 1.
+
+### A/B
+
+**108 994 elements, 40 pages x 2 viewports, cache cleared between passes: 0 changes
+on all 201 checkboxes.** The only four differences in the whole sweep are the auth
+and checkout spinners' rotation angle, sampled a frame apart.
+
+Pixel-for-pixel identical is the right outcome here: the defect was never that
+something looked wrong, it was that the system said three things and drew one.
+
+### The counter stand
+
+Its anatomy showed a `.fopt` row - a checkbox that happens to carry a counter - and
+showed it dead, because the page never loaded `design/_nav.js`. The anatomy is a
+counter now (`.lh1 .cnt`), the filter option kept its place in the five-places grid
+where it is labelled as what it is, and the page loads the product's own behaviour so
+that control is live: measured `role=checkbox tabindex=0 aria-checked=false`.
+
+---
+
+## Step 7.39 - breadcrumbs, and a separator that was never an atom
+
+### separator.css is deleted
+
+One rule - `.crumb .sep{ color; margin }` - a **level-1 component scoped to a
+level-2 one**. The same shape availability.css had before 7.35 and price.css before
+7.36, in its smallest possible form.
+
+Measured before deleting: **47 separators in the coloured markup, 0 of them outside a
+`.crumb`.** A mark that cannot exist without its parent is part of its parent.
+
+The kit registry loses an atom and gains its first molecule, which is the honest
+count: **atoms 22/22 -> 21/21, molecules 0/27 -> 1/27.** `separator.html` is gone and
+`breadcrumb.html` is built - the registry had been carrying a `done: false` row for
+it since Крок 4.
+
+### The slash was typed 47 times
+
+`<span class="sep">/</span>`, once per gap, across 22 coloured screens - the same
+defect as the 107 `●` at 7.35. Drawn from CSS now, one place, one value. The grey
+layer keeps its 211: frozen since stage 05.
+
+### The states
+
+The owner asked for hover and an inactive state. **Hover already existed and was
+right** - the word goes accent over .15s, the same line every link in the system
+takes. **There is no inactive crumb**, confirmed against all 14: every crumb but the
+last is a link, and a level that cannot be reached would not be in the trail. What
+was actually missing:
+
+- **A focus ring.** 14 crumbs, every one a live link, and not one showed anything to
+  a keyboard - Chrome's own outline does not appear either, because base.css sets
+  `outline: none` on links. `--ring-focus-control`, `:focus-visible`, the same ring
+  the button, field, chip, radio and checkbox take.
+- **`aria-current="page"` on the last crumb.** It is a `<span>`, so nothing told a
+  screen reader which of the three is the page the person is standing on.
+- **`aria-hidden` on the separator.** A reader was saying «Головна слеш Протеїн слеш
+  Whey».
+
+Both attributes are set by `uivCrumbs()` in `design/_nav.js`, because the markup is
+built by the frozen grey layer - the same mechanism `uivCheckboxes()` and
+`uivDisclosures()` use.
+
+**No press state, and that is 7.33's refusal repeated rather than forgotten:** 601
+text links in this product have no ground to darken, and giving this one a tint would
+make it the only link in the system that flashes.
+
+### Found, not fixed
+
+- **No behaviour for a long name at 360** - «Whey Gold Standard 100% Protein» wraps
+  the crumb to two lines and there is no rule about it.
+- **`.cur` shares its name** with the current page marker in the prototype's own
+  state bar (`.wf-bar .cur`). No live collision - the selector is scoped to
+  `.crumb` - but the name is shared. Крок 6.
+- **No schema.org BreadcrumbList.** Breadcrumbs are the most direct hierarchy signal
+  a search engine gets, and there is no markup for it yet.

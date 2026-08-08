@@ -1,80 +1,124 @@
-/* checkbox.css - checkbox (level 1)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive.
+/* checkbox.css - the checkbox (level 1), rebuilt at step 7.38.
 
-   TWO THINGS THIS FILE DOES NOT YET OWN, both found at step 7.33 and both left
-   for the checkbox's own step rather than absorbed into a press-state pass:
+   A BOX AND THE WORDS BESIDE IT, and the whole row is the control. 201 of them:
+   `.fopt` 200 in the filter panel, `.optin` 1 in the sign-up dialog. There is no
+   `<input>` behind either - the markup is built by `wireframes/_nav.js:1780` and
+   `design/_nav.js` gives it a role, a tab stop, `aria-checked` and Space (7.34).
 
-   1. THE ATOM IS DECLARED TWICE. Here it is scoped to `.optin` - one instance,
-      the marketing opt-in in the sign-up dialog - and the other 175 instances
-      are the filter panel's, declared again in filter-group.css (9 rules, a
-      level-2 file). One 18px box, two owners, and the level-1 file holds the
-      rarer one. Same shape as the chip row that lived in link-row.css until
-      7.30b. The merge is this atom's step, not this one.
+   THE ATOM WAS BEING OVERWRITTEN BY A MOLECULE. filter-group.css - level 2 -
+   wrote `.fopt .cb, .optin .cb` and `.fopt .cb.on::after, .optin .cb.on::after`:
+   it reached past its own component and restyled the atom's class by name. So
+   every declaration this file made about the square was dead. Measured at HEAD on
+   39 coloured screens: the 18px, the `--line-strong` border and the tick a person
+   actually sees were all filter-group's; checkbox.css's own 18px, border and tick
+   rendered nowhere, on either of the two names.
 
-   2. THE FILTER PANEL HAD NO KEYBOARD AND NO SCREEN READER - CLOSED AT 7.34.
-      What 7.33 found, read out of the runtime DOM because the panel is built
-      by script:
+   AND THE TICK HAD TWO EDITIONS, of which only one ever drew:
 
-        <label class="fopt"><span class="cb"></span> В наявності <span class="ct">71</span></label>
+     here                        a TYPED `✓` glyph, --text-oninverse, 12px,
+                                 placed by eye at top:-2 left:3
+     filter-group.css            a DRAWN check: a 5x9 box with 2px on its right
+                                 and bottom edge, turned 45 degrees, centred with
+                                 translate(-50%,-58%), --line-onink
 
-      No `<input>`. A `<label>` wrapping nothing labels nothing, so there was no
-      role and no tab stop - and `design/_nav.js` was already writing
-      `aria-checked` onto it, which without a role the browser drops. Half the
-      contract, which reads worse than none: the file looked like it had been
-      handled. The accessibility tree said `{ role: "LabelText", name: "",
-      checked: undefined }`.
+   Same family as the availability dot at 7.35 and the badge's star at 7.37, and
+   here both existed at once. The drawn one wins - and it wins by file order,
+   which is not a decision. It is the right one on the merits: a typed `✓` is read
+   aloud by a screen reader, cannot take a stroke weight, and lands where the font
+   puts it rather than where the box wants it. The typed edition is gone.
 
-      7.34 gives the shape `role="checkbox"` + `tabindex="0"` + `aria-checked`
-      AT LOAD, and Space. It now says `{ role: "checkbox", name: "В наявності
-      71", checked: false }`. 351 controls across 8 screens. The rest of that
-      step - the group headers, and the closed sheet that was holding 14
-      focusable elements off-screen - is in `filter-group.css` and
-      `filter-sheet.css`, each next to the thing it fixed. */
+   NAMES ARE NOT RENAMED. `.fopt` and `.optin` come from markup the frozen grey
+   layer builds, so the atom answers to both - the same line availability.css
+   draws for its four names and price.css for its sixteen. Крок 6.
+   ============================================================================ */
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.optin{ display: flex; align-items: flex-start; gap: var(--space-12); font-size: var(--fs-14); margin: var(--space-16) 0 var(--space-4); }
-.optin .cb{ width: 18px; height: 18px; border: 1.5px solid var(--line-strong); border-radius: var(--radius-4); flex: none; margin-top: var(--space-2); }
-.optin .cb.on{ position: relative; }
-.optin .cb.on::after{ content: '✓'; color: var(--text-oninverse); font-size: var(--fs-12); position: absolute; top: -2px; left: 3px; }
+/* ---------- the row ----------------------------------------------------------
+   TWO RUNGS, and they are a real difference rather than drift. A filter option is
+   one line, so its box sits on the centre line and 8px of gap is enough to bind
+   them. A consent is a paragraph - «Хочу отримувати листи про акції...» wraps -
+   so its box has to sit on the FIRST line, not float to the middle of a block,
+   and it takes 12px because a wider gap reads calmer against multi-line text.
 
-/* ---------- colour (from design/kit/kit.css) ---------- */
-.optin{ color:var(--text-secondary); cursor:pointer; }
-.optin .cb{ transition:border-color .15s ease, background .15s ease; }
-.optin:hover .cb{ border-color:var(--line-action); }
-.optin .cb.on{ background:var(--bg-action); border-color:var(--line-action); }
+   `cursor: pointer` on the row, not on the box: the words are the target too. */
+.fopt, .optin{
+  display: flex;
+  cursor: pointer;
+  font-size: var(--fs-14);
+  color: var(--text-secondary);
+  transition: color .15s ease;
+}
+.fopt{ align-items: center; gap: var(--space-8); }
+.optin{ align-items: flex-start; gap: var(--space-12); }
+
+/* ---------- the box ----------------------------------------------------------
+   18 square, and `flex: none` so a long label cannot squeeze it. 1.5px rather
+   than 1: at 18px an unchecked box is nothing but its outline, and a hairline
+   there reads as a rounded rectangle of nothing. */
+.cb{
+  width: 18px; height: 18px;
+  flex: none;
+  display: inline-block;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-4);
+  transition: border-color .15s ease, background .15s ease;
+}
+/* the consent's box drops to the first line's optical centre - `align-items:
+   flex-start` puts it at the very top otherwise, half a step above the cap line */
+.optin .cb{ margin-top: var(--space-2); }
+
+/* ---------- the tick is a SHAPE ----------------------------------------------
+   Two edges of a 5x9 box, turned 45 degrees: the corner that is left is a check.
+   It is drawn rather than typed for the reason every other mark in this system
+   is - it can take a stroke weight (2px, which is the same weight the box's own
+   1.5 reads next to), it centres on the box rather than on a font's baseline, and
+   a screen reader says nothing about it, because the control already announces
+   `aria-checked`.
+   `-58%` and not `-50%`: a check is not symmetric about its own box, and half a
+   pixel of lift is what puts its inner corner on the square's centre. */
+.cb.on{ position: relative; background: var(--bg-action); border-color: var(--line-action); }
+.cb.on::after{
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 5px; height: 9px;
+  border: solid var(--line-onink);
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%,-58%) rotate(45deg);
+  font-size: 0;
+}
+
+/* ---------- hover, and the whole row answers --------------------------------
+   The label goes accent with the box's edge, because the label is the control.
+   `.fopt` did this and `.optin` did not - 200 against 1, and the one was simply
+   never given it. */
+.fopt:hover, .optin:hover{ color: var(--text-action); }
+.fopt:hover .cb, .optin:hover .cb{ border-color: var(--line-action); }
 
 /* ---------- press - step 7.33 ------------------------------------------------
-   THE LABEL IS PRESSED, THE BOX ANSWERS. `:active` does not reach descendants,
-   so `.cb:active` would only fire on a direct hit of the 18px square - which is
-   most of this control's problem, not its solution: the whole row is the target
-   and the whole row is what a finger lands on. The same shape the hover above
-   already uses, one line down.
-
-   BOTH CONTAINER NAMES, ONE RULE. `.fopt` belongs to filter-group.css and is
-   named here because that is where the 175 instances are, and because the atom
-   answering to two container names is what stepper.css and stack-action.css
-   already do for the same reason - the names also live in `wireframes/`, frozen
-   since stage 05, so adding is safe and renaming is a Крок 6 item.
-
+   THE LABEL IS PRESSED, THE BOX ANSWERS. `:active` does not reach descendants, so
+   `.cb:active` would only fire on a direct hit of the 18px square - which is most
+   of this control's problem, not its solution: the whole row is the target and
+   the whole row is what a finger lands on.
    The checked box goes one step darker rather than soft: it already rests on
-   `--bg-action`, exactly like the accent button, and takes the accent button's
-   pressed ground. */
-.optin:active .cb, .fopt:active .cb{ background: var(--bg-action-soft); }
-.optin:active .cb.on, .fopt:active .cb.on{ background: var(--bg-action-pressed); border-color: var(--bg-action-pressed); }
+   `--bg-action`, exactly like the accent button, and takes that button's pressed
+   ground. */
+.fopt:active .cb, .optin:active .cb{ background: var(--bg-action-soft); }
+.fopt:active .cb.on, .optin:active .cb.on{ background: var(--bg-action-pressed); border-color: var(--bg-action-pressed); }
 
-/* ---------- focus - step 7.34 ------------------------------------------------
-   `.fopt` takes its ring in filter-group.css, next to the panel it belongs to.
-   `.optin` needs its own line here, and the gap was made by this step itself:
-   giving the opt-in a tab stop without a ring would have handed the sign-up
-   dialog Chrome's blue outline where it had nothing before. One instance, and
-   one instance is enough - it is the last thing between a person and an account.
+/* ---------- focus - step 7.34, and until then there was nothing to focus ------
+   Both names were unreachable, so what a ring looks like here had never come up.
+   `design/_nav.js` gives them the tab stop - `role="checkbox"` + `tabindex` +
+   `aria-checked` at load - and this is what the eye needs once they are.
 
-   THE RING GOES ON THE ROW, not on the 18px square: the whole label is the
-   control. `:focus-visible`, so a mouse press does not light it up. */
-.optin:focus-visible{
+   THE RING GOES ON THE ROW, NOT ON THE 18px SQUARE. The whole label is the
+   control: it is what takes the stop, what Space answers to, and what a finger
+   lands on. A ring around the box alone would say the box is the target and the
+   words beside it are decoration, which is the opposite of true here.
+   `:focus-visible`, not `:focus`, so a mouse press does not light it up - the
+   same line the chip, the button, the field, the radio and the link all hold.
+   It was written twice, once per name, in two files. Once now. */
+.fopt:focus-visible, .optin:focus-visible{
   outline: none;
   box-shadow: var(--ring-focus-control);
   border-radius: var(--radius-4);

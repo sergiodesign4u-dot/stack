@@ -188,11 +188,6 @@ window.KIT_NAV = [
     "label": "Бейдж",
     "page": "badge.html",
     "done": true
-   },
-   {
-    "label": "Роздільник",
-    "page": "separator.html",
-    "done": true
    }
   ]
  },
@@ -322,7 +317,7 @@ window.KIT_NAV = [
    {
     "label": "Хлібні крихти",
     "page": "breadcrumb.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Запитання",

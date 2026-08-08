@@ -23,11 +23,21 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Чекбокс</h1>
-<p class="kp-lead">Незалежний вибір: фільтр у рейці, згода на умови. Кожен стоїть сам за себе.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/checkbox.css</span><span class="kp-tag">81 рядків</span><span class="kp-tag">2 екранів</span></div>
+<p class="kp-lead">Незалежний вибір: фільтр у рейці, згода на умови. Кожен стоїть сам за себе. 201 штука - і до кроку 7.38 їх малював не цей файл.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/checkbox.css</span><span class="kp-tag">125 рядків</span><span class="kp-tag">201 чекбокс</span><span class="kp-tag">9 екранів</span></div>
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <div class="kp-demo"><label class="fopt"><span class="cb on"></span> Протеїн <span style="color:var(--text-muted)">(124)</span></label></div>
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Квадрат <code>.cb</code></b> - квадрат, а не коло - форма одразу каже «можна кілька»</span></div><div class="a"><i>2</i><span><b>Підпис</b> - назва фільтра</span></div><div class="a"><i>3</i><span><b>Лічильник</b> - скільки товарів знайдеться - його бачать до натискання</span></div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Атом перемальовувала молекула</div>
+<p class="kp-p">201 чекбокс: <code>.fopt</code> 200 у панелі фільтрів, <code>.optin</code> 1 у діалозі реєстрації. <code>filter-group.css</code> - рівень 2 - писав <code>.fopt .cb, .optin .cb</code>: <b>тягнувся повз власний компонент і перефарбовував клас атома на ім'я</b>. Тому все, що цей файл казав про квадрат, було мертве. Заміряно на HEAD по 39 кольорових екранах: 18px, рамка <code>--line-strong</code> і галочка, які людина бачить, належали filter-group; власні 18px, рамка й галочка <code>checkbox.css</code> не рендерилися ніде, на жодному з двох імен.</p>
+<p class="kp-p"><b>А галочок було дві редакції, і малювалася одна:</b></p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Де</th><th>Галочка</th><th>Колір</th><th>Посадка</th><th>Рендерилась</th></tr></thead><tbody>
+<tr><td><code>checkbox.css</code></td><td>надрукований <code>✓</code>, 12px</td><td><code>--text-oninverse</code></td><td><code>top:-2 left:3</code>, на око</td><td><b>ніколи</b></td></tr>
+<tr><td><code>filter-group.css</code></td><td>намальована: 5×9, борти 0/2/2/0, поворот 45°</td><td><code>--line-onink</code></td><td><code>translate(-50%,-58%)</code></td><td>завжди</td></tr>
+</tbody></table></div>
+<p class="kp-p">Те саме сімейство, що крапка наявності на 7.35 і зірка бейджа на 7.37 - надрукований знак проти намальованої форми. Тут вони існували <b>одночасно</b>, і намальована перемагала <b>за порядком файлів</b>, а це не рішення. По суті вона й правильна: надрукований <code>✓</code> читається вголос, не має товщини штриха і сідає туди, куди його поставить шрифт, а не туди, де його хоче квадрат.</p>
+<p class="kp-p"><b>Злиття вийшло піксель у піксель.</b> A/B проти HEAD: 108 994 елементи, 40 сторінок × 2 ширини - <b>нуль</b> змін на всіх 201 чекбоксі. Дефект був не в тому, що щось виглядало не так, а в тому, що система казала три речі й малювала одну.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
@@ -82,7 +92,7 @@
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>1</b> станів оголошено в <code>checkbox.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["cb", "on", "optin"], KIT_STS=[":hover", ":active", ":focus-visible"];</script></section>
+<script>var KIT_CLS=["cb","on","fopt","optin"], KIT_STS=[":hover", ":active", ":focus-visible"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>checkbox.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>

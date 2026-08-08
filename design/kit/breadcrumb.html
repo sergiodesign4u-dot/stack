@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Хлібні крихти | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- the system's own behaviour, loaded for the same reason the stylesheet is:
+     a demo that only LOOKS like the component proves nothing about it. -->
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Хлібні крихти</h1>
+<p class="kp-lead">Де людина зараз і один дотик на рівень вище. 14 на кольоровому шарі: на кожному лістингу, кожному товарі й кожній сторінці кабінету.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/breadcrumb.css</span><span class="kp-tag">77 рядків</span><span class="kp-tag">14 крихт</span><span class="kp-tag">22 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<div class="kp-demo"><nav class="crumb" aria-label="Хлібні крихти" style="padding:0">
+  <a href="#">Головна</a><span class="sep"></span>
+  <a href="#">Протеїн</a><span class="sep"></span>
+  <span class="cur">Whey Gold Standard</span>
+</nav></div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Ланка</b> - рівень, на який можна повернутися. Приглушена, бо це орієнтир, а не зміст: людина читає крихти, коли загубилась, і пропускає, коли ні</span></div>
+  <div class="a"><i>2</i><span><b>Поточна</b> - чорнилом і жирним. Єдина, що не є посиланням, і має виглядати кінцем рядка, а не ще одним кроком</span></div>
+  <div class="a"><i>3</i><span><b>Розділювач</b> - <code>--mark-disabled</code>, не сірий ланки: це пунктуація, і читатися посиланням вона не повинна</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Роздільник не був атомом</div>
+<p class="kp-p">До цього кроку <code>separator.css</code> був окремим файлом <b>рівня 1</b> з одним правилом - <code>.crumb .sep{ color; margin }</code>, - тобто компонент рівня 1, привязаний до рівня 2. Той самий дефект, що мала <code>availability.css</code> до 7.35 і <code>price.css</code> до 7.36, у найменшому можливому вигляді.</p>
+<p class="kp-p">Заміряно перед видаленням: <b>47 роздільників у кольоровій розмітці, 0 з них поза <code>.crumb</code></b>. Знак, який не може існувати без свого батька, є частиною батька. Вітрина втратила атом і отримала першу молекулу - і це чесний рахунок.</p>
+<p class="kp-p"><b>А коса риска була надрукована 47 разів</b> - <code>&lt;span class="sep"&gt;/&lt;/span&gt;</code>, по одній на проміжок. Той самий дефект, що 107 крапок на 7.35. Тепер її малює CSS в одному місці, а <code>design/_nav.js</code> ставить їй <code>aria-hidden</code>, бо скринрідер читав «Головна слеш Протеїн слеш Whey». Сірий шар зберігає свої 211: заморожений з етапу 05.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p">Наведіть на «Головна» і пройдіть <b>Tab</b> по цій крихті - кільце фокуса зявилось на цьому кроці, і до нього 14 крихт продукту були досяжні клавіатурою й не показували нічого.</p>
+<div class="kp-demo"><nav class="crumb" aria-label="Приклад станів" style="padding:0">
+  <a href="#">Головна</a><span class="sep"></span>
+  <a href="#">Кабінет</a><span class="sep"></span>
+  <span class="cur">Адреси</span>
+</nav></div>
+<div class="kp-cap">ховер уже був і був правильний - слово йде в акцент за ті самі .15s, що бере кожне посилання системи. Бракувало того, що бачить <b>клавіатура</b>: <code>outline: none</code> у <code>base.css</code> знімає й власне кільце Chrome, тож не було нічого</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td><code>--text-muted</code></td><td>орієнтир, не зміст</td></tr>
+<tr><td><b>наведення</b></td><td><code>--text-action</code></td><td>те саме, що всі посилання системи</td></tr>
+<tr><td><b>фокус</b></td><td><code>--ring-focus-control</code></td><td>те саме кільце, що в кнопки, поля, чіпа, радіо й чекбокса. <code>:focus-visible</code>, щоб миша його не запалювала</td></tr>
+<tr><td><b>натискання</b></td><td><b>немає, і це відмова</b></td><td>крок 7.33: у 601 текстового посилання продукту немає землі, яку можна затемнити, і дати її одному означало б зробити його єдиним, що спалахує. Відповідь у спокої - те, у що палець цілиться</td></tr>
+<tr><td><b>неактивна</b></td><td><b>немає, і її не буває</b></td><td>перевірено на всіх 14: кожна крихта крім останньої - посилання. Рівень, на який не можна перейти, у стежці не стояв би</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
+<p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
+<tr><td><b>Глибина</b></td><td>2 · 3 · 4 ланки</td><td>Стільки, скільки рівнів між головною і поточним. Крихти не скорочують і не згортають у «...» - на 360 вони переносяться рядком, і це дешевше, ніж ховати шлях.</td></tr>
+<tr><td><b>Остання ланка</b></td><td>завжди не посилання</td><td>Сторінка, на якій людина стоїть, не є переходом. <code>aria-current="page"</code> ставить <code>design/_nav.js</code>: у розмітці це <code>&lt;span&gt;</code>, і сама вона нічого не каже.</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Скрізь, де є рівень вище. Немає на головній, у кошику й в оформленні - там шлях назад це не ієрархія, а крок процесу, і його несе <b>Кнопка</b>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Крихти показують ієрархію, а не історію.</b> «Головна / Протеїн / Whey» - це де товар лежить, незалежно від того, звідки людина прийшла.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби останню ланку посиланням на себе.</b> Клік, який нічого не змінює, - це обіцянка переходу, якого немає.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>3</b> станів оголошено в <code>breadcrumb.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["crumb","sep","cur"], KIT_STS=[":hover", ":focus-visible", "aria-current"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>breadcrumb.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (4)</th></tr></thead><tbody><tr><td><code>--mark-disabled</code> <code>--text-action</code> <code>--text-muted</code> <code>--text-primary</code></td><td><code>--fs-12</code> <code>--fw-bold</code> <code>--radius-4</code> <code>--ring-focus-control</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;nav class="crumb" aria-label="Хлібні крихти"&gt;
+  &lt;a href="index.html"&gt;Головна&lt;/a&gt;&lt;span class="sep"&gt;&lt;/span&gt;
+  &lt;a href="listing.html"&gt;Протеїн&lt;/a&gt;&lt;span class="sep"&gt;&lt;/span&gt;
+  &lt;span class="cur"&gt;Whey Gold Standard&lt;/span&gt;
+&lt;/nav&gt;</div>
+<p class="kp-p">Коса риска в розмітці не пишеться - її малює CSS. <code>aria-current</code> і <code>aria-hidden</code> ставить <code>design/_nav.js</code>, бо розмітку будує заморожений сірий шар.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.crumb</code> <code>.sep</code> <code>.cur</code></p>
+<p class="kp-p">Заміряно в браузері на 390 і 1280: <b>14 крихт</b> на 22 кольорових екранах, <b>47</b> роздільників, <b>14</b> поточних ланок.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Немає поведінки на 360 при довгій назві</b> - «Whey Gold Standard 100% Protein» переносить крихту в два рядки, і правила про це немає</li>
+<li><b><code>.cur</code> носить те саме ім'я</b>, що поточна сторінка в панелі станів прототипу (<code>.wf-bar .cur</code>). Зіткнення сьогодні немає - селектор привязаний до <code>.crumb</code>, - але ім'я спільне. Крок 6</li>
+<li><b>Немає schema.org BreadcrumbList</b> - крихти це найпряміший сигнал ієрархії для пошуку, і розмітки під нього поки немає</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script>
+/* Brand marks and glyphs come from design/system/icons.js, exactly as they do on a
+   screen. A page that pastes the paths carries a second edition of the set, and a
+   second edition is the thing this stage spent two steps deleting. */
+(function(){
+  document.querySelectorAll('[data-brand]').forEach(function(e){
+    if(typeof uivBrandSvg === 'function') e.innerHTML = uivBrandSvg(e.dataset.brand);
+  });
+  document.querySelectorAll('[data-glyph]').forEach(function(e){
+    if(typeof uivIconSvg === 'function') e.innerHTML = uivIconSvg(e.dataset.glyph);
+  });
+})();
+</script>
+<script>
+/* The page checks ITSELF against its file. Everything a person can see counts as
+   shown: a rendered demo, a class named in the markup block, a class named inside
+   any <code> on the page. What is left is what the file declares and the showcase
+   never puts in front of anyone. */
+(function(){
+  /* Two levels, because they are not the same thing. RENDERED means the class is
+     on a live element inside a demo - a person sees the component. NAMED means it
+     is only written out in the markup block or in a <code>. A page that names a
+     class it never renders is describing the file, which is exactly the habit
+     this stage set out to break. */
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+</main>
+<!-- `aria-current` and `aria-hidden` are not in the markup - they cannot be, the
+     trail is built by the frozen grey layer - so the product sets them from
+     `design/_nav.js`. A stand that shows the shape and not the behaviour proves
+     half of the component, which is the gap the checkbox stand closed at 7.34. -->
+<script src="../_nav.js"></script>
+<script>uivCrumbs();</script>
+<script src="_nav.js"></script>
+</body>
+</html>

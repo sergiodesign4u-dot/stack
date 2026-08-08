@@ -508,6 +508,7 @@ function uivChrome(){
      layer, so nothing above rebuilds them; the pass is idempotent either way. */
   uivCheckboxes();
   uivDisclosures();
+  uivCrumbs();
 }
 
 /* make the product-card heart interactive: a click toggles the .on (filled) state
@@ -653,6 +654,32 @@ function uivDisclosures(){
     if(!fh) return;
     e.preventDefault();
     fh.click();
+  });
+}
+
+/* BREADCRUMBS: two things the markup cannot say - step 7.39.
+   The trail is `<nav class="crumb"><a>Головна</a><span class="sep"></span>
+   <a>Кабінет</a><span class="sep"></span><span class="cur">Адреси</span></nav>`,
+   built by the frozen grey layer, so neither can be added by hand.
+
+   1. THE LAST CRUMB IS A `<span>`. It looks like the end of the line and reads
+      like one more word: nothing told a screen reader which of the three is the
+      page a person is standing on. `aria-current="page"` is the one attribute
+      that says it, and it is what the account rail already uses on its own
+      current link.
+
+   2. THE SEPARATOR WAS BEING READ ALOUD. «Головна слеш Кабінет слеш Адреси».
+      The slash is punctuation drawn by CSS now (breadcrumb.css), and
+      `aria-hidden` is what keeps a decoration out of the reading.
+
+   Idempotent, and it runs after any pass that rebuilds a page's chrome. */
+function uivCrumbs(){
+  [].slice.call(document.querySelectorAll('.crumb')).forEach(function(nav){
+    var cur = nav.querySelector('.cur');
+    if(cur && !cur.hasAttribute('aria-current')) cur.setAttribute('aria-current', 'page');
+    [].slice.call(nav.querySelectorAll('.sep')).forEach(function(sep){
+      if(!sep.hasAttribute('aria-hidden')) sep.setAttribute('aria-hidden', 'true');
+    });
   });
 }
 

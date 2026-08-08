@@ -27,9 +27,10 @@
 <div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/counter.css</span><span class="kp-tag">61 рядків</span><span class="kp-tag">470 лічильників</span><span class="kp-tag">19 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<div class="kp-demo"><label class="fopt" style="max-width:280px"><span class="cb"></span> В наявності <span class="ct">71</span></label></div>
+<div class="kp-demo"><h2 class="lh1" style="margin:0">Протеїн <span class="cnt">84 товари</span></h2></div>
 <div class="kp-anat">
   <div class="a"><i>1</i><span><b>Моноширинний і табличний</b> - лічильники в колонці фільтра стоять один під одним, і в пропорційному шрифті їхні цифри не збігаються</span></div>
+  <div class="a"><i>0</i><span><b>Лічильник - це не контрол.</b> До кроку 7.38 анатомія тут показувала рядок фільтра, тобто <b>Чекбокс</b>, який несе лічильник, - і показувала його мертвим, бо сторінка не вантажила поведінку. Тепер анатомія показує сам лічильник, а живий чекбокс стоїть нижче, у сітці місць</span></div>
   <div class="a"><i>2</i><span><b>Приглушений</b> - <code>--text-muted</code> на всіх 470. Це і є весь сенс лічильника: він ніколи не є суттю рядка, у якому стоїть</span></div>
   <div class="a"><i>3</i><span><b>Без дужок і без «шт»</b> - число поруч із написом уже читається як кількість</span></div>
 </div></section>
@@ -48,7 +49,7 @@
 <section class="kp-sec"><div class="kp-sh">П'ять місць, одне обличчя</div>
 <p class="kp-p">Кегль і вага належать поверхні, і це не нічия, яку треба розбити: 12 біля опції фільтра, 14 у заголовку секції оформлення і 16 всередині H1 каталогу - три різні сходинки шрифту, кожну задає те, поруч із чим лічильник стоїть. Ранжувати їх означало б перемальовувати три заголовки, щоб причесати один атом.</p>
 <div class="kp-demo"><div class="kp-2col">
-  <div><div class="kp-lbl">Опція фільтра <code>.fopt .ct</code> · 350</div>
+  <div><div class="kp-lbl">Опція фільтра <code>.fopt .ct</code> · 350 - <b>Чекбокс</b> несе лічильник</div>
     <label class="fopt"><span class="cb"></span> В наявності <span class="ct">71</span></label></div>
   <div><div class="kp-lbl">Чіп фільтра <code>.flink .ct</code> · 84</div>
     <a class="flink" href="#">Протеїн <span class="ct">124</span></a></div>
@@ -157,6 +158,11 @@
 })();
 </script>
 </main>
+<!-- the filter option in the grid below is a CHECKBOX carrying a counter, and a
+     dead checkbox in a showcase proves nothing about the live one. The product's
+     own behaviour, same file, same call the screens make. -->
+<script src="../_nav.js"></script>
+<script>uivCheckboxes();</script>
 <script src="_nav.js"></script>
 </body>
 </html>

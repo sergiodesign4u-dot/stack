@@ -1,14 +1,77 @@
-/* breadcrumb.css - breadcrumb (level 2)
-   Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
-   at stage 08 step 3. Selectors are unchanged; the colour block below is the
-   one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+/* breadcrumb.css - breadcrumbs (level 2), rebuilt at step 7.39.
 
-/* ---------- structure (from wireframes/_wf.css) ---------- */
-.crumb{ font-size: var(--fs-12); color: var(--text-muted); padding: var(--space-16) 0 var(--space-12); }
-.crumb a{ color: var(--text-muted); }
+   WHERE THE PERSON IS, AND ONE TAP BACK UP. 14 of them across the coloured
+   layer, on every listing, every product and every account page.
+
+   THE SEPARATOR WAS NOT AN ATOM, AND separator.css IS GONE. That file was one
+   rule - `.crumb .sep{ color; margin }` - a level-1 component scoped to a
+   level-2 one, which is the same shape availability.css had before 7.35 and
+   price.css before 7.36, in its smallest possible form. Measured before deleting
+   it: **47 separators in the coloured markup, 0 of them outside a `.crumb`**. A
+   mark that cannot exist without its parent is part of its parent. The kit
+   registry loses an atom and gains its first molecule, which is the honest count.
+
+   AND THE SLASH WAS TYPED 47 TIMES. `<span class="sep">/</span>`, once per gap,
+   the same defect as the 107 `●` at 7.35. It is drawn from CSS now - one place,
+   one value - and `design/_nav.js` marks it `aria-hidden`, because a screen
+   reader was reading «Головна слеш Кабінет слеш Адреси». The grey layer keeps
+   its 211: frozen since stage 05.
+   ============================================================================ */
+
+/* ---------- the trail --------------------------------------------------------
+   12px and muted: it is orientation, not content. A person reads it when they
+   are lost and skips it when they are not, and it must not compete with the H1
+   underneath. */
+.crumb{
+  font-size: var(--fs-12);
+  color: var(--text-muted);
+  padding: var(--space-16) 0 var(--space-12);
+}
+
+/* ---------- the separator ----------------------------------------------------
+   `--mark-disabled` and not the link's grey, because it is not a link and must
+   not read as one - it is punctuation. 8px each side is what separates two words
+   without letting either lean on it. */
+.sep{ color: var(--mark-disabled); margin: 0 var(--space-8); }
+.sep::before{ content: '/'; }
+
+/* ---------- a level you can go back to ---------------------------------------
+   Every crumb but the last is a link, and there is no inactive crumb in this
+   product - checked against all 14. A level that cannot be reached would not be
+   in the trail.
+
+   HOVER IS THE WHOLE ANSWER, and it was already right: the word goes accent, the
+   same .15s every link in the system takes. What was missing is what happens to
+   a KEYBOARD.
+
+   NO PRESS STATE, and that is step 7.33's refusal repeated rather than
+   forgotten: 601 text links in this product have no ground to darken, and giving
+   this one a tint would make it the only link in the system that flashes. The
+   underline a finger is aiming at is the answer at rest. */
+.crumb a{
+  color: var(--text-muted);
+  transition: color .15s ease;
+}
+.crumb a:hover{ color: var(--text-action); }
+
+/* ---------- and it can be reached by Tab ------------------------------------
+   14 crumbs, every one of them a live link, and not one had a ring before this
+   step - so tabbing through a product page walked over «Головна» and «Протеїн»
+   with nothing to show for it. Chrome's own outline did not appear either: the
+   page sets `outline: none` on links in base.css.
+   The same `--ring-focus-control` the button, the field, the chip, the radio and
+   the checkbox all take, `:focus-visible` so a mouse click does not light it. */
+.crumb a:focus-visible{
+  outline: none;
+  box-shadow: var(--ring-focus-control);
+  border-radius: var(--radius-4);
+}
+
+/* ---------- the level you are on ---------------------------------------------
+   Ink and bold against the trail's muted 12 - it is the only crumb that is not a
+   link, and it has to look like the end of the line rather than one more step.
+   `design/_nav.js` gives it `aria-current="page"` at load: it is a `<span>`, so
+   nothing in the markup told a screen reader which of the three was the page a
+   person is standing on. The CSS still keys off the class, because the class is
+   what the frozen grey layer writes. */
 .crumb .cur{ color: var(--text-primary); font-weight: var(--fw-bold); }
-
-/* ---------- colour (from design/kit/kit.css) ---------- */
-.crumb a{ transition:color .15s ease; }
-.crumb a:hover{ color:var(--text-action); }

@@ -16,10 +16,16 @@
 .fgroup .fh{ cursor: pointer; user-select: none; }
 .fgroup.collapsed .fh .ar{ transform: rotate(180deg); }
 .fgroup.collapsed > *:not(.fh){ display: none; }
-.fopt{ display: flex; align-items: center; gap: var(--space-8); cursor: pointer; }
-.fopt .cb{ width: 15px; height: 15px; border: 1.5px solid var(--mark-faint); border-radius: var(--radius-4); display: inline-block; flex: none; }
-.fopt .cb.on{ position: relative; }
-.fopt .cb.on::after{ content: '✓'; color: var(--text-oninverse); font-size: var(--fs-10); position: absolute; top: -2px; left: 2px; }
+/* 7.38: the checkbox went to checkbox.css - the row, the box, the tick, hover,
+   press and the ring. This file had been reaching past its own component and
+   restyling the atom's class by name (`.fopt .cb, .optin .cb`), which is why
+   every declaration checkbox.css made about the square was dead.
+   The four lines that were here in the structure block were a SECOND dead
+   edition on top of that: a 15px box with a `--mark-faint` border and a typed
+   `✓`, all three overridden by this file's own colour block twelve lines down.
+   What stays is the option's place in the group and the counter's place in the
+   option - `margin-left: auto` is what pushes the figure to the right edge, and
+   that is the row's layout, not the counter's. */
 .fopt .ct{ margin-left: auto; font-size: var(--fs-12); }
 .frange{ height: 4px; border-radius: var(--radius-4); margin: var(--space-16) var(--space-2) var(--space-8); position: relative; }
 .frange::before, .frange::after{ content: ''; position: absolute; top: -4px; width: 12px; height: 12px; border-radius: var(--radius-circle); }
@@ -30,25 +36,16 @@
 .fgroup .fh{ transition:color .15s ease; }
 .fgroup .fh .ar{ transition:transform .2s ease, color .15s ease; }
 .fgroup .fh:hover, .fgroup .fh:hover .ar{ color:var(--text-action); }
-.fopt{ transition:color .15s ease; }
-.fopt .cb{ transition:border-color .15s ease, background .15s ease; }
-.fopt .cb.on{ background:var(--bg-action); border-color:var(--line-action); }
 .fgroup{ border-bottom-color:var(--line-hair); padding:var(--space-16) var(--space-16); }
 .fgroup .fh{ font-size:var(--fs-14); font-weight:var(--fw-bold); color:var(--text-body); }
 .fgroup .fh .ar{ color:var(--text-muted); }
-.fopt{ font-size:var(--fs-14); color:var(--text-secondary); margin-top:var(--space-12); }
-.fopt .cb, .optin .cb{ width:18px; height:18px; border-radius:var(--radius-4); border-color:var(--line-strong); }
-.fopt .cb.on, .optin .cb.on{ position:relative; }
-.fopt .cb.on::after, .optin .cb.on::after{ content:''; box-sizing:border-box; position:absolute;
-  left:50%; top:50%; width:5px; height:9px; border:solid var(--line-onink); border-width:0 2px 2px 0;
-  transform:translate(-50%,-58%) rotate(45deg); font-size:0; }
+/* the 12 between options is the GROUP's rhythm, and the only thing about `.fopt`
+   this file still says */
+.fopt{ margin-top:var(--space-12); }
 .frange{ background:var(--bg-track); }
 .frange::before, .frange::after{ background:var(--bg-action); }
 .frange.uiv-slider::before, .frange.uiv-slider::after{ content:none; display:none; }
 .frange.uiv-slider{ background:none; border-radius:0; }
-.fopt:hover{ color:var(--text-action); }
-.fopt:hover .cb{ border-color:var(--line-action); }
-
 /* ---------- focus, and until step 7.34 there was nothing to focus -------------
    Both of this panel's controls were unreachable, so the question of what a ring
    looks like here had never come up. `design/_nav.js` gives them the tab stop -
@@ -62,8 +59,10 @@
    `--radius-4` matches the square the row is built around.
 
    `:focus-visible`, not `:focus`, so a mouse press does not light it up - the
-   same line the chip, the button, the field, the radio and the link all hold. */
-.fopt:focus-visible, .fgroup > .fh:focus-visible{
+   same line the chip, the button, the field, the radio and the link all hold.
+   7.38: `.fopt`'s half of this went to checkbox.css, where the control is. The
+   header keeps its own - a disclosure is this file's component, not an atom. */
+.fgroup > .fh:focus-visible{
   outline: none;
   box-shadow: var(--ring-focus-control);
   border-radius: var(--radius-4);
