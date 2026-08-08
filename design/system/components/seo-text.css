@@ -43,3 +43,17 @@
 @media (min-width:760px){
   .seotext{ padding-right:310px; min-height:244px; }
 }
+
+/* ---------- the mascot leaning out of the SEO block - arrived at 7.49 ----------
+   `.uiv-bear` was declared in empty-state.css, and it is not an empty state: it
+   is this block's own illustration. `design/_nav.js:823` appends it to
+   `SECTION.seotext` and nowhere else, and measured across 40 coloured screens it
+   renders 9 times, every one of them inside `.seotext`. The rule above already
+   makes this block `position: relative` with 310px of right padding from 760 up
+   - that padding is the hole the bear stands in, and the two lines lived in
+   different files. Values untouched: this is a move. */
+.uiv-bear{ position:absolute; right:8px; bottom:-128px; height:362px; width:auto; max-width:none;
+  mix-blend-mode:multiply; pointer-events:none; }
+@media (max-width:759px){
+  .uiv-bear{ display:none; }
+}

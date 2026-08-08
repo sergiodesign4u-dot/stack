@@ -6307,3 +6307,112 @@ it is logged as one instrument, not two.
 - **Every number here is `[?]`** - tier thresholds, discount percentages, the accrual
   rate, the three months to expiry. Correct until there is real data, and the stand
   says so out loud rather than drawing something plausible.
+
+## Step 7.49: the empty state, two mascots, and a border width that does not exist
+
+Eighth molecule. **26 selectors, 35 rules, 247 declarations**, no dead selectors,
+seven coloured screens. The step moved two rule sets and changed nothing else, and
+the A/B says so: **null pass 0, difference 0.**
+
+### The file was named after one of the seven things in it
+
+| `.empty` | 3 | listing-empty, listing-error, product-error |
+| `.emptybox` | 3, **every one `.mini`** | account-empty |
+| `.errbox` | 1 | account-error |
+| `.loadnote` | 3 | the three loading screens |
+| `.uiv-bear` | **9** | inside `SECTION.seotext` |
+| `.uiv-bearwrap` | **3** | inside `.truststrip` |
+
+**Two mascots, and neither is an empty state.** `.uiv-bear` is the SEO block's own
+illustration - `design/_nav.js:823` appends it to `SECTION.seotext` and nowhere
+else, and the hole it stands in is cut by that block's own rule, `padding-right:
+310px` from 760 up. The hole was in one file and the bear in another. `.uiv-bearwrap`
+is the trust strip's, which 7.47 measured and deliberately left, because it was that
+step's finding and not its scope.
+
+Neither class is declared anywhere else in the system, so the move cannot shift the
+cascade, and the three-pass A/B across 40 screens at four widths confirms it: **0
+rows.** A move, not a decision.
+
+### 18 declarations that match and never win, and none of them deleted
+
+Every one of the file's 247 declarations was run through a winning-rule solver: for
+each element a rule matches, which selector actually takes that property. **18 match
+elements and win nothing** - the base `.emptybox` padding, margin, radius and the
+`.et`/`.es`/`.ei` sizes, all beaten by `.emptybox.mini`, because every instance in
+colour carries `.mini`. `padding: 46px` has never been drawn.
+
+**The solver had to be fixed first, and the bug was instructive.** It asked
+`rule.style.getPropertyValue(longhand)` to decide whether a rule declares a property.
+For a shorthand holding `var()` - `padding: var(--space-40) var(--space-24)` - Chrome
+stores a pending-substitution value and that call returns **empty**, so every
+var()-based shorthand dropped out of the candidate set and `base.css *` was reported
+as the winner over `.empty`. The first run claimed 146 never-winning declarations;
+after asking the rule which longhands it *enumerates* instead, the honest number is
+18. A tool that is wrong in the same direction as the hypothesis is worse than no tool.
+
+**And nothing was deleted, twice over.** `.emptybox` without `.mini` stands in
+`wireframes/coach-home-empty.html` (three times) and
+`wireframes/account-addresses-empty.html`: a colour half waiting for a coloured twin,
+like `.tband` at 7.44 and `.led-empty` at 7.48. And `.empty .ei{ font-size:
+var(--fs-30) }` is a fallback rather than a leftover: in colour all three `.empty`
+boxes sit inside the two `section[aria-label]` rules that make the mark a circle at
+`font-size: 0`, but in grey **seven** `.empty` boxes stand outside both sections with
+an emoji as the mark, which is exactly what that declaration sizes. Same shape as
+`.pl-hw .pl-ic:empty`, withdrawn at 7.46.
+
+### The finding that is bigger than the component: 1.5px is 1px
+
+All three boxes ask for `border: 1.5px`. Measured at **device pixel ratio 1, 2 and
+3**: the used value is **1px** every time, while `2px` stays `2px`. Chrome floors
+border width to a whole CSS pixel.
+
+**24 files in the system write `1.5px`**, and two of them carry a comment explaining
+the choice: `checkbox.css` says «1.5px rather than 1px», `radio.css` says «1.5px
+changing shade is legible under a mouse pointer». The distinction the code believes
+it is making does not exist in Chrome.
+
+Not fixed here, and the reason is that the right answer is not «write 1px». The
+authors wanted more than one pixel and one pixel is what they got; the decision is
+**1 or 2**, across 24 files, and it goes to stage 09 whole rather than being spent one
+file at a time. Measured in Chrome only - Safari and Firefox need their own check.
+
+### The null pass earned its keep again
+
+The first run of this step's A/B came back with a null pass of **159 rows on one
+scope**, `account-wishlist@1280`: sub-pixel text widths and three fractional
+`margin-left: auto` values. Six reloads inside one browser were identical, so it was
+not the page - it was the process. `document.fonts.ready` resolves for the faces that
+were loading **at that moment**, and a face that begins loading a tick later slips
+through, leaving the census to measure text in a fallback. One load in 160.
+
+The harness now waits until the count of loaded faces stops moving across three
+consecutive frames before reading. Re-run: **null 0**. Without the null pass this
+would have been reported as a change the step caused.
+
+### The stand
+
+`design/kit/empty-state.html`, the showcase's **eighth molecule**. Idle check passes:
+**9 of 9 classes, 4 states named.** The two boxes carry raw emoji in the markup and
+get their marks from `uivIcons()`, the same pass `uivAccount()` runs on a screen. All
+41 stands re-checked at 360 and 1280: no overflow, no idle failure, no exception.
+Molecules **8 / 27**.
+
+### Found, not fixed
+
+- **Three paddings for one idea**: `.empty` 40, `.emptybox` 46 (never drawn),
+  `.errbox` 48. One reader each, no majority, so it is a values decision.
+- **The dashed border survives only on `.empty`.** Structure gives all three
+  `1.5px dashed var(--line-strong)`; the colour block repaints two of them solid. Not
+  wrong - an error box may want its own frame - but it is said in two places, and
+  reading the structure gives an answer the browser does not use.
+- **Inline styles in the colour layer**: `design/account-empty.html` carries
+  `style="padding:20px 14px"` on a box and `margin-top:0` on a heading. They came
+  from the grey layer, which is frozen, so removing them on one side only would split
+  the two layers' markup.
+- **Styling hangs off `aria-label`**: two rules key on
+  `section[aria-label="Результати"]` and `section[aria-label="Помилка"]` - Ukrainian
+  strings inside an accessibility attribute. Rename the label and the portrait falls
+  back to an emoji. Same class as the badge face derived from Ukrainian wording by
+  regex in `design/_nav.js`.
+- **420px and 440px** are the same «longest readable line» written twice, 20px apart.

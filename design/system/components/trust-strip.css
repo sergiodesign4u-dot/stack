@@ -137,3 +137,16 @@
    close but not the same shape, and folding the geometry is Крок 6's. */
 .cshelf .cs-th .q{ background:var(--bg-action); color:var(--text-body); font-family:var(--font-mono); }
 /* step 6.3: same local copy of the outline finish, same deletion. */
+
+/* ---------- the mascot's clipping wrapper - arrived at 7.49 --------------------
+   7.47 measured this and left it: `.uiv-bearwrap` has exactly one producer,
+   `design/_nav.js:997`, which appends it to `.truststrip`, and its two rules sat
+   in empty-state.css. It renders 3 times, on the three screens that carry the
+   strip. It is the box that crops the bear at the panel's bottom edge while the
+   head stays whole above it - the other half of `.uiv-trustbear` above, which
+   was already here. Values untouched: this is a move. */
+.uiv-bearwrap{ display:none; position:absolute; right:6px; top:-34px; bottom:0; width:180px;
+  overflow:hidden; pointer-events:none; border-bottom-right-radius:17px; }
+@media (min-width:1180px){
+  .uiv-bearwrap{ display:block; }
+}

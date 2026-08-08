@@ -242,7 +242,7 @@ window.KIT_NAV = [
    {
     "label": "Порожній стан",
     "page": "empty-state.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Нотатка про поповнення",

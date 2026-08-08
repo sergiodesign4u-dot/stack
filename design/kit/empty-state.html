@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Порожній стан | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Порожній стан</h1>
+<p class="kp-lead">Екран, на якому нічого немає, і екран, на якому щось зламалось. Принцип 2 у найчистішому вигляді: у порожнечі мусить бути рівно один очевидний наступний крок. Три коробки під трьома іменами, і цей крок нарешті виміряв, чим вони відрізняються насправді.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/empty-state.css</span><span class="kp-tag">56 рядків</span><span class="kp-tag">26 селекторів</span><span class="kp-tag">35 правил</span><span class="kp-tag">247 оголошень</span><span class="kp-tag">7 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>listing-empty.html</code>. Секція навколо не оформлення: саме <code>section[aria-label]</code> перетворює значок на круглий портрет ведмедя, і без неї коробка виглядає інакше.</p>
+<div class="kp-demo">
+  <section aria-label="Результати">
+    <div class="empty">
+      <div class="ei"><img src="../visuals/mascot-face-reassure.png" alt=""></div>
+      <div class="et">За вашими фільтрами нічого не знайдено</div>
+      <div class="es">Спробуйте прибрати частину фільтрів або оберіть ціль - підберемо безпечний набір.</div>
+      <div class="eact">
+        <a class="btn--accent btn dark" href="#">Очистити фільтри</a>
+        <a class="btn--outline btn" href="#">Набір маси</a>
+        <a class="btn--outline btn" href="#">Схуднення</a>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Значок</b> - <code>.ei</code>. У <code>Результати</code> це коло <b>126px</b>, у <code>Помилка</code> - <b>118</b>; портрет обрізаний по обличчю (<code>object-position: center 12%</code>) і змішаний з тлом множенням, щоб не було білого квадрата</span></div>
+  <div class="a"><i>2</i><span><b>Заголовок</b> - <code>.et</code>, 18/900. Каже, ЩО сталось, і не вибачається</span></div>
+  <div class="a"><i>3</i><span><b>Пояснення</b> - <code>.es</code>, 14, вторинний колір. Каже, що робити</span></div>
+  <div class="a"><i>4</i><span><b>Виходи</b> - <code>.eact</code>. Перший акцентний, решта контурні. Порожнеча без виходу це глухий кут, а принцип 2 вимагає рівно однієї головної дії</span></div>
+  <div class="a"><i>5</i><span><b>Рамка</b> - пунктир <code>--line-strong</code>. Пунктир каже «тут МАЄ бути вміст», суцільна казала б «це блок»</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Три імені, одна ідея</div>
+<div class="kp-demo">
+  <div class="emptybox mini">
+    <div class="ei">📦</div>
+    <div class="et">Ще немає замовлень</div>
+    <div class="es">Оберіть ціль або перегляньте каталог - почніть із товарів для вашого завдання.</div>
+    <div class="eact">
+      <a class="btn--accent btn--s btn dark" href="#">Обрати ціль</a>
+      <a class="btn--outline btn--s btn" href="#">До каталогу</a>
+    </div>
+  </div>
+  <div class="errbox">
+    <div class="ei">⚠️</div>
+    <div class="et">Не вдалося завантажити кабінет</div>
+    <div class="es">Не змогли отримати ваші дані. Перевірте з'єднання та спробуйте ще раз - ваші замовлення й бонуси нікуди не зникли.</div>
+    <div class="eact">
+      <a class="btn--accent btn dark" href="#">Спробувати ще раз</a>
+      <a class="btn--outline btn" href="#">На головну</a>
+    </div>
+  </div>
+  <p class="loadnote">Завантажуємо товари…</p>
+</div>
+<div class="kp-cap">емодзі в розмітці - сирі: <code>.ei</code> тут має <code>font-size: 0</code>, а знак ставить <code>uivIcons()</code>, той самий, що на екрані</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th></th><th><code>.empty</code></th><th><code>.emptybox</code></th><th><code>.errbox</code></th></tr></thead><tbody>
+<tr><td><b>екземплярів</b></td><td>3</td><td>3, <b>усі <code>.mini</code></b></td><td>1</td></tr>
+<tr><td><b>де</b></td><td>listing-empty, listing-error, product-error</td><td>account-empty</td><td>account-error</td></tr>
+<tr><td><b>відступ у файлі</b></td><td>40 / 24</td><td><b>46 / 24, не малюється</b></td><td>48 / 24</td></tr>
+<tr><td><b>рамка у структурі</b></td><td>1.5px dashed <code>--line-strong</code></td><td>те саме</td><td>те саме</td></tr>
+<tr><td><b>рамка на екрані</b></td><td>пунктир <code>--line-strong</code></td><td><b>суцільна <code>--line-hair</code></b></td><td><b>суцільна <code>--line-danger-soft</code></b></td></tr>
+<tr><td><b>значок</b></td><td>портрет 126/118</td><td>іконка 34, акцент</td><td>іконка 34, небезпека</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Пунктир виживає тільки в першої.</b> Структура дає всім трьом однакову рамку, а кольоровий блок дві з них перефарбовує в суцільні. Це не помилка сама по собі - у коробки помилки й має бути своя рамка, - але сказано це в двох місцях, і читання структури дає відповідь, якої браузер не вживає.</p>
+<p class="kp-p"><b>Три відступи на одну ідею: 40, 46, 48.</b> По одному читачеві в кожного, більшості немає, тож це рішення про значення, а не право вигадати. Так само, як два сірих для заголовків таблиць на 7.46.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">18 оголошень, які не виграють ніде</div>
+<p class="kp-p">Кожне з <b>247</b> оголошень файлу прогнано через вирішувач: для кожного елемента, який селектор бере цю властивість насправді. <b>18</b> знаходять елементи й не виграють жодного разу.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Оголошення</th><th>Збігів</th><th>Хто бере</th></tr></thead><tbody>
+<tr><td><code>.emptybox</code> padding x4</td><td>6</td><td><code>.emptybox.mini</code> (4) + інлайн у розмітці (2)</td></tr>
+<tr><td><code>.emptybox</code> margin-top, border-radius x4</td><td>6</td><td><code>.emptybox.mini</code></td></tr>
+<tr><td><code>.emptybox .et</code> font-size + margin x4</td><td>6</td><td><code>.emptybox.mini .et</code></td></tr>
+<tr><td><code>.emptybox .es</code> font-size, margin-bottom</td><td>6</td><td><code>.emptybox.mini .es</code></td></tr>
+<tr><td><code>.emptybox .ei</code> font-size</td><td>4</td><td><code>.emptybox.mini .ei</code></td></tr>
+<tr><td><code>.empty .ei</code> font-size</td><td>6</td><td>обидва <code>section[aria-label=…] .empty .ei</code></td></tr>
+</tbody></table></div>
+<div class="kp-do"><h4>І жодне не видалено. Двічі перевірено, двічі відмовлено</h4>
+<p><b><code>.emptybox</code> без <code>.mini</code> існує в сірому шарі</b>: <code>wireframes/coach-home-empty.html</code> (тричі) і <code>wireframes/account-addresses-empty.html</code>. Кольорового близнюка немає - це та сама половина, що чекає, як <code>.tband</code> на 7.44 і <code>.led-empty</code> на 7.48.</p>
+<p style="margin-top:8px"><b><code>.empty .ei{ font-size: --fs-30 }</code> це запасний шлях, а не залишок.</b> У кольорі всі три <code>.empty</code> стоять усередині двох секцій, які роблять зі значка коло з <code>font-size: 0</code>. Але в сірому шарі <b>сім</b> коробок <code>.empty</code> стоять ПОЗА цими секціями, і значок у них - емодзі, який це правило й розміряє. Той самий клас, що <code>.pl-hw .pl-ic:empty</code>, відкликаний на 7.46.</p></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Два ведмеді, які поїхали з файлу</div>
+<p class="kp-p">Файл звався «порожній стан» і тримав дві речі, які порожнім станом не є.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Екземплярів</th><th>Батько</th><th>Хто ставить</th><th>Поїхав у</th></tr></thead><tbody>
+<tr><td><code>.uiv-bear</code></td><td><b>9</b></td><td><code>SECTION.seotext</code></td><td><code>design/_nav.js:823</code></td><td><code>seo-text.css</code></td></tr>
+<tr><td><code>.uiv-bearwrap</code></td><td><b>3</b></td><td><code>.truststrip</code></td><td><code>design/_nav.js:997</code></td><td><code>trust-strip.css</code></td></tr>
+</tbody></table></div>
+<p class="kp-p">Перший стоїть у дірці, яку йому лишає власне правило SEO-блока: <code>padding-right: 310px</code> від 760 і вище. Дірка була в одному файлі, а ведмідь - в іншому. Другий - обгортка, що обрізає ведмедя по нижньому краю панелі довіри; її другу половину, <code>.uiv-trustbear</code>, <code>trust-strip.css</code> тримав від самого початку.</p>
+<p class="kp-p"><b>Жоден з двох класів не оголошено більше ніде в системі</b>, тож переїзд не може зрушити каскад. Перевірено A/B у три проходи на 40 екранах і чотирьох ширинах: нульовий прохід <b>0</b>, різниця <b>0</b>. Це переїзд, а не рішення.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>порожньо</b></td><td>пунктирна рамка, портрет, заголовок, пояснення, виходи</td><td>порожнеча не є помилкою людини, тому тон рівний і ведмідь заспокоює, а не докоряє</td></tr>
+<tr><td><b>помилка</b></td><td>та сама будова, рамка й тло <code>--line-danger-soft</code> / <code>--bg-danger-soft</code></td><td>єдина відмінність - колір і слова. Будова та сама навмисно: людині не треба вчити другий макет у гірший момент</td></tr>
+<tr><td><b><code>.mini</code></b></td><td>менші відступи, 16px заголовок, 24px значок</td><td>коробка всередині картки кабінету, а не на цілий екран</td></tr>
+<tr><td><b>завантаження</b></td><td><code>.loadnote</code> - рядок під скелетоном</td><td>скелетон показує форму, рядок називає, чого чекають. Три екрани</td></tr>
+<tr><td><b>наведення</b></td><td><b>немає в коробки</b></td><td>ціль - кнопки всередині, у них свої стани. Підсвітити коробку означало б пообіцяти клік, якого немає</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p"><code>.empty</code> - на цілий екран результатів: лістинг, пошук, ціль. <code>.emptybox.mini</code> - усередині картки кабінету. <code>.errbox</code> - коли дані не прийшли, а не коли їх немає.</p>
+<p class="kp-p"><b>Порожньо і зламалось - різні речі, і плутати їх не можна.</b> «Нічого не знайдено» це результат вибору людини, і виходи звідти ведуть уперед (зняти фільтр, обрати ціль). «Не вдалося завантажити» це наша поломка, і вихід звідти один - спробувати ще раз.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Порожній екран мусить мати вихід, і бажано названий.</b> Не «спробуйте змінити фільтри», а кнопка «Очистити фільтри» поруч із двома цілями. Порожнеча - це місце, де людина найближча до того, щоб піти.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не вибачайся і не жартуй.</b> Ведмідь тут заспокоює, а не розважає; текст називає стан і наступний крок. Принцип 4 діє і тоді, коли показувати нічого.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>9</b> власних класів і <b>4</b> стани оголошено в <code>empty-state.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["empty","emptybox","errbox","loadnote","ei","et","es","eact","mini"], KIT_STS=[".mini", "aria-label=\"Результати\"", "aria-label=\"Помилка\"", ":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>empty-state.css</code>: <b>10</b> семантичних ролей і <b>19</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (10)</th><th>Примітиви (19)</th></tr></thead><tbody><tr><td><code>--bg-danger-soft</code> <code>--bg-surface</code> <code>--line-danger-soft</code> <code>--line-hair</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-body</code> <code>--text-danger</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-display</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fs-20</code> <code>--fs-24</code> <code>--fs-30</code> <code>--fw-black</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--radius-12</code> <code>--radius-circle</code> <code>--size-34</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-40</code></td></tr></tbody></table></div>
+<p class="kp-p"><b>Сім чисел стоять повз шкалу:</b> <code>1.5px</code> (рамка, тричі), <code>46px</code> і <code>48px</code> (відступи), <code>118px</code> і <code>126px</code> (кола), <code>420px</code> і <code>440px</code> (ширина пояснення). Два останні - одна й та сама межа читабельного рядка, написана двічі з різницею у 20 пікселів.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Знахідка більша за компонент: <code>1.5px</code> не існує</div>
+<p class="kp-p">Усі три коробки просять <code>border: 1.5px</code>. Заміряно при <b>DPR 1, 2 і 3</b>: використане значення скрізь <b>1px</b>, тоді як <code>2px</code> лишається <code>2px</code>. Chrome округлює товщину рамки вниз до цілого CSS-пікселя.</p>
+<p class="kp-p"><b>У системі 24 файли пишуть <code>1.5px</code></b>, і два з них носять коментар, який пояснює вибір: <code>checkbox.css</code> - «1.5px rather than 1px», <code>radio.css</code> - «1.5px changing shade is legible under a mouse pointer». Різниці, яку код вважає, що робить, у Chrome немає.</p>
+<div class="kp-gap"><h4>Чому це не виправлено тут</h4>Правильна відповідь не «написати 1px», а вирішити: <b>1 чи 2</b>. Автори хотіли більше за одиницю, і одиниця - це те, що вони й отримали. Це рішення про значення на 24 файли, тож воно йде в етап 09 цілим питанням, а не розмінюється по одному файлу. Заміряно тільки в Chrome; Safari і Firefox треба перевірити окремо.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;section aria-label="Результати"&gt;
+  &lt;div class="empty"&gt;
+    &lt;div class="ei"&gt;&lt;img src="visuals/mascot-face-reassure.png" alt=""&gt;&lt;/div&gt;
+    &lt;div class="et"&gt;За вашими фільтрами нічого не знайдено&lt;/div&gt;
+    &lt;div class="es"&gt;Спробуйте прибрати частину фільтрів…&lt;/div&gt;
+    &lt;div class="eact"&gt;…акцентна кнопка + контурні…&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</div>
+<p class="kp-p"><b><code>aria-label</code> секції несе оформлення, і це слабке місце.</b> Два правила файлу чіпляються за <code>section[aria-label="Результати"]</code> і <code>section[aria-label="Помилка"]</code>, тобто за український текст усередині атрибута доступності. Перейменують ярлик - і портрет розсиплеться на емодзі. Той самий клас питання, що обличчя бейджа, яке <code>design/_nav.js</code> виводить з української назви регуляркою.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.empty</code> <code>.emptybox</code> <code>.errbox</code> <code>.loadnote</code></p>
+<p class="kp-p">Заміряно в браузері на 360, 390, 720 і 1280 по всіх 40 кольорових екранах: <b>3 + 3 + 1</b> коробки на п'яти екранах, плюс <code>.loadnote</code> на трьох екранах завантаження. <b>Мертвих селекторів: 0 з 26.</b></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Рішення про відступ.</b> 40, 46 і 48 на одну ідею; 46 не малюється взагалі. Одне число, сказане вголос як «змінна -&gt; значення -&gt; чому»</li>
+<li><b>Рішення про <code>1.5px</code></b> на 24 файли системи - вище</li>
+<li><b>Інлайн-стилі в кольоровому шарі</b>: <code>design/account-empty.html</code> несе <code>style="padding:20px 14px"</code> на коробці й <code>margin-top:0</code> на заголовку. Прийшли з сірого шару, який заморожений, тож знімати їх односторонньо не можна - інакше два шари розійдуться розміткою</li>
+<li><b>Оформлення на <code>aria-label</code></b> - два правила тримаються за український рядок в атрибуті доступності</li>
+<li><b>Немає порожнього стану для кошика й для обраного в кольорі</b> - у сірому шарі вони є</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<!-- the marks in the two boxes come from `uivIcons()` in `design/_nav.js`, the same
+     pass `uivAccount()` runs on a screen: the emoji in the markup is raw, `.ei` is
+     `font-size: 0`, and the icon is injected. -->
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  if (typeof uivIcons !== 'function') return;
+  document.querySelectorAll('.kp-demo .emptybox, .kp-demo .errbox').forEach(uivIcons);
+})();
+</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

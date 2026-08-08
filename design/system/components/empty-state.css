@@ -36,16 +36,14 @@ section[aria-label="Помилка"] .empty .ei{ width:118px; height:118px; marg
   border-radius:var(--radius-circle); overflow:hidden; font-size:0; }
 section[aria-label="Помилка"] .empty .ei img{ width:118px; height:118px; object-fit:cover;
   object-position:center 12%; mix-blend-mode:multiply; }
-.uiv-bear{ position:absolute; right:8px; bottom:-128px; height:362px; width:auto; max-width:none;
-  mix-blend-mode:multiply; pointer-events:none; }
-@media (max-width:759px){
-  .uiv-bear{ display:none; }
-}
-.uiv-bearwrap{ display:none; position:absolute; right:6px; top:-34px; bottom:0; width:180px;
-  overflow:hidden; pointer-events:none; border-bottom-right-radius:17px; }
-@media (min-width:1180px){
-  .uiv-bearwrap{ display:block; }
-}
+/* 7.49: TWO MASCOTS LEFT THIS FILE, and neither of them was an empty state.
+   `.uiv-bear` went to seo-text.css: measured on 9 coloured screens, every one of
+   them inside `SECTION.seotext`, which is where `design/_nav.js:823` puts it.
+   `.uiv-bearwrap` went to trust-strip.css: 3 screens, every one inside
+   `.truststrip`, appended by `design/_nav.js:997` - the finding 7.47 wrote down
+   and did not act on, because it was that step's declaration, not its scope.
+   Neither class is declared anywhere else in the system, so the cascade cannot
+   move; both files load after this one and nothing contends for the names. */
 .emptybox{ border-style:solid; border-color:var(--line-hair); background:var(--bg-surface); border-radius:var(--radius-12); }
 .emptybox .et{ font-family:var(--font-display); font-weight:var(--fw-semibold); }
 .emptybox .es{ color:var(--text-secondary); }
