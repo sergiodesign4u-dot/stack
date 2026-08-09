@@ -222,7 +222,7 @@ window.KIT_NAV = [
    {
     "label": "Відгук",
     "page": "review-item.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Рядок замовлення",

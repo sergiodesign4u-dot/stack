@@ -85,3 +85,24 @@
    it does not belong to. */
 .dl .dk{ font-size: var(--fs-12); text-transform: uppercase; letter-spacing: var(--ls-caps); font-weight: var(--fw-bold); color: var(--text-muted); }
 .dl .dv{ font-size: var(--fs-14); font-weight: var(--fw-semibold); margin-top: var(--space-4); line-height: var(--lh-snug); color: var(--text-body); }
+
+/* ---------- the order's summary row - arrived at 7.51 ------------------------
+   `.sr` was in review-item.css since the step-3 split. It is not a review:
+   19 instances, every one on `account-orders.html`, every one inside `.ob-sum`
+   inside `.ord-body` - 11 plain lines, 4 totals, 4 accruals - and 0 on the
+   three screens that carry a review. `.sr.accrual` paints `--text-bonus`, the
+   loyalty ink of 7.48. It is the third class this pass has found filed under a
+   component it does not belong to, after `.packlabel` and `.dl`.
+
+   The move is byte for byte and the order inside the block is kept, because
+   `.sr span:last-child` (0,2,1) and `.sr.total span` (0,2,1) are a specificity
+   TIE and only source order separates them. One declaration did not travel -
+   see the note left in review-item.css. */
+.sr{ display: flex; justify-content: space-between; gap: var(--space-12); font-size: var(--fs-14); padding: var(--space-4) 0; }
+.sr span:first-child{ color: var(--text-secondary); }
+.sr span:last-child{ color: var(--text-primary); font-weight: var(--fw-semibold); white-space: nowrap; }
+.sr.total{ border-top: 1.5px solid var(--line-strong); margin-top: var(--space-8); padding-top: var(--space-12); }
+.sr.total span{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); }
+.sr.accrual span:last-child{ font-weight: var(--fw-black); }
+.sr span:last-child{ font-family:var(--font-mono); word-spacing:-.24em; }
+.sr.accrual span:last-child{ color:var(--text-bonus); }

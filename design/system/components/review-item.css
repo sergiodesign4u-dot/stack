@@ -35,12 +35,11 @@
 @media (min-width: 860px){
   .revcols{ grid-template-columns: minmax(0, 1fr) 300px; gap: 36px; align-items: start; }
 }
-.sr{ display: flex; justify-content: space-between; gap: var(--space-12); font-size: var(--fs-14); padding: var(--space-4) 0; }
-.sr span:first-child{ color: var(--text-secondary); }
-.sr span:last-child{ color: var(--text-primary); font-weight: var(--fw-semibold); white-space: nowrap; }
-.sr.total{ border-top: 1.5px solid var(--line-strong); margin-top: var(--space-8); padding-top: var(--space-12); }
-.sr.total span{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); }
-.sr.accrual span:last-child{ font-weight: var(--fw-black); }
+/* 7.51: `.sr` left for order-row.css, both halves. It is the summary row of an
+   order - 19 of them on account-orders.html, every one inside `.ob-sum` inside
+   `.ord-body`, and `.sr.accrual` paints `--text-bonus`. It has never stood
+   beside a review on any screen. Same shape as `.dl` at 7.43 and `.packlabel`
+   before it: filed under the component whose page it happened to be on. */
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .rvbig{ background:var(--bg-surface); border-radius:var(--radius-12); padding:var(--space-16) var(--space-12); }
@@ -61,29 +60,23 @@
 .rvreply .rchip .lg{ background:none; color:var(--text-body); border:1.5px solid var(--line-action);
   font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-12); letter-spacing:var(--ls-caps);
   border-radius:var(--radius-4); padding:var(--space-2) var(--space-8); }
-.sr span:last-child{ font-family:var(--font-mono); word-spacing:-.24em; }
-.sr.total{ border-top-color:var(--line-strong); }
-.sr.total span:last-child{ font-weight:var(--fw-semibold); }
-.sr.accrual span:last-child{ color:var(--text-bonus); }
+/* 7.51: the colour half of `.sr` went to order-row.css with the structure half,
+   two of its four declarations short. `.sr.total{ border-top-color }` restated
+   the colour the shorthand two blocks above had already set from the same
+   token, so it never drew anything - the dead-declaration family of 7.3.
+   `.sr.total span:last-child{ font-weight:semibold }` DID draw, and that is
+   why it is gone: at 0,3,1 it beat `.sr.total span` at 0,2,1 and left the total
+   row with its word heavier than its figure. That one is a visible change on
+   account-orders.html, four rows, and it is declared in the step's log. */
 
-/* ---------- moved off the screen (stage 08 step 5) ----------
-   These rules lived in a <style> block on design/product-reviews.html and used the
-   stage-07 variable names, so deleting kit.css killed them outright. A screen
-   owns no css: each rule goes to the component it belongs to, and the old
-   names are translated to semantic roles BY VALUE, the way step 2 did it. */
-/* COLOR LAYER · reviews recovery. The doubt is met by the calm bear + evidence,
-     not by a louder button: the banner is a warm panel, the proof (certificate,
-     reviews) is the content, and the only orange is the way forward. */
-  .recbanner { display: flex; align-items: center; gap: 18px; background: var(--bg-surface);
-    border: 1px solid var(--line-hair); border-radius: var(--radius-12); padding: 18px 20px; margin: 10px 0 26px; }
-.recbanner .rbear { width: 92px; height: 92px; flex: none; border-radius: var(--radius-circle); overflow: hidden; }
-.recbanner .rbear img { width: 92px; height: 92px; object-fit: cover; object-position: center 12%;
-    mix-blend-mode: multiply; }
-.recbanner .rt { font-family: var(--font-display); font-weight: var(--fw-semibold); font-size: var(--fs-20);
-    letter-spacing: var(--ls-lead); color: var(--text-primary); }
-.recbanner .rs { font-size: var(--fs-14); color: var(--text-secondary); margin-top: 5px; line-height: var(--lh-airy); max-width: 62ch; }
-@media (max-width: 559px) {
-    .recbanner { gap: 14px; padding: 16px; }
-    .recbanner .rbear, .recbanner .rbear img { width: 68px; height: 68px; }
-    .recbanner .rt { font-size: var(--fs-18); }
-  }
+/* 7.51: THE THIRD MASCOT LEFT THIS FILE. `.recbanner` and its `.rbear` went to
+   banner.css, whole, with the 559px media block. It is a reassurance panel -
+   image beside a heading and a line of text - which is structurally the
+   `.tbanners .tbn / .tbim / .tbx` that banner.css already draws, and it landed
+   here at stage 08 step 5 only because its <style> block sat on the reviews
+   screen. A screen owns no css, which is what that block's own header said.
+   It is the same move as `.uiv-bear` and `.uiv-bearwrap` at 7.49, and the same
+   reading as `.wfh-logo` at 7.50: the page it is on is not the component it is.
+   The raw pixels travelled with it untouched - 18, 20, 10, 26, 92, 5, 68 are
+   not on the 2/4/8/12/16/24/32/40 scale, and a value moves, it is not
+   re-derived. That, and the 559px breakpoint, are stage 09. */

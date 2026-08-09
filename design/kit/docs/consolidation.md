@@ -6522,3 +6522,111 @@ letter, and it is far more common:
 **167, not 11.** `design/` is clean of both, and this step's own stand was written
 with three of them before the check caught it. The rule says one apostrophe form; the
 count of what it is being measured against was wrong, not the rule.
+
+---
+
+## Step 7.51: the review, a summary row that was never a review, and a third bear
+
+**Who found it:** Claude, in a browser, on 40 coloured screens at four widths.
+
+`review-item.css` was 89 lines and 51 rule blocks. Read out class by class, it held
+**three families, and the review was one of them.**
+
+| family | what it is | where it stands | went to |
+|---|---|---|---|
+| `.rvbig` `.rvbars` `.rvitem` `.rvmeta` `.rvbody` `.rvreply` `.revcols` | the review | 3 product screens | stayed |
+| `.sr` `.sr.total` `.sr.accrual` | **an order's summary row** | 19 of them, every one on `account-orders.html`, every one inside `.ob-sum` in `.ord-body` | `order-row.css` |
+| `.recbanner` `.rbear` | **a reassurance panel with a mascot** | 1, on `product-reviews.html` | `banner.css` |
+
+`.sr.accrual` paints `--text-bonus`, the bonus-account ink of 7.48. It has never stood
+beside a review on any screen. It is the **third** class this pass has found filed under
+a component it does not belong to, after `.packlabel` at 7.43 and `.dl` at 7.46.
+
+`.recbanner` landed here at stage 08 step 5, when a `<style>` block was lifted off
+`design/product-reviews.html`. The header of that block said it itself: a screen owns no
+css. The page something sits on is not the component it is - the same reading as
+`.wfh-logo` at 7.50, and the third mascot to be re-filed after `.uiv-bear` and
+`.uiv-bearwrap` at 7.49.
+
+### One declaration was dead and one was drawing the wrong thing
+
+The colour half of `.sr` had four declarations. Two travelled.
+
+| declaration | specificity | what it did | fate |
+|---|---|---|---|
+| `.sr span:last-child{ font-family: mono }` | 0,2,1 | the figures column in mono | moved |
+| `.sr.accrual span:last-child{ color: bonus }` | 0,3,1 | accrual in amber | moved |
+| `.sr.total{ border-top-color: --line-strong }` | 0,2,0 | **nothing** - the shorthand two blocks above already set that colour from that token | **deleted** |
+| `.sr.total span:last-child{ font-weight: semibold }` | 0,3,1 | it drew, and that is the point | **deleted** |
+
+On the «Разом» row, `.sr.total span` at 0,2,1 gave both halves `--fw-black`, and
+`.sr.total span:last-child` at 0,3,1 pulled the right half back to `--fw-semibold`. The
+**label was heavier than the sum** the row exists to state. Declared out loud before the
+edit, approved, and it is the only thing in the A/B.
+
+With it gone, `.sr span:last-child` (0,2,1) and `.sr.total span` (0,2,1) are a
+**specificity tie** and only source order separates them, so the move is byte for byte
+with the line order kept. Shuffle those two and the total silently returns to 600.
+
+### A/B against HEAD
+
+**Null pass 0 rows. Difference 16 rows** - one property, one screen: `font-weight:
+600 -> 800` on four total figures on `account-orders.html`, at each of four widths.
+Moving `.sr` into a file that loads 6 imports earlier and `.recbanner` into one that
+loads 19 imports earlier **moved no pixel at all**.
+
+### The instrument was broken three times, and all three broke the null pass
+
+This is the part worth keeping. The step's finding is 16 rows; the noise floor started
+at 56 and twice went to hundreds. A finding smaller than the floor is not a finding.
+
+1. **56 rows of animation.** The skeleton pulse on three `*-loading` screens (opacity)
+   and the auth spinner (transform, and the rect it rounds to) never stop, so the census
+   caught them at different phases. Waiting longer cannot fix a thing that never settles.
+   Every page now gets `animation-play-state: paused` injected before the document has
+   any nodes - both passes equally, held at frame zero, which is deterministic in a way
+   that pausing later is not.
+2. **563 rows on one screen out of forty.** `index.html@360` came back 37.6px taller in
+   one pass than in five repeats of the same load. The settle loop waited for the count
+   of loaded font faces to stop moving, and that is a **proxy**: what we care about is
+   that layout stopped moving. Now it waits on the document height as well, five
+   consecutive frames each, with a budget wide enough to survive three passes at once.
+3. **231 rows on a different screen.** Same signature, after the fix. The cause was one
+   line written months ago: the cache was cleared before **every one** of the 160 loads.
+   Within a pass the stylesheets never change - one Chrome, one server, one tree - so all
+   that bought was refetching the webfonts 160 times over the wire, which is the race
+   itself. Cleared once at the top of the pass now, plus a gate that waits for the
+   network to go **quiet** rather than for the in-flight set to reach zero. The first
+   draft of that gate waited on zero and got through 14 pages in ten minutes, because a
+   cancelled request leaves its id in the set forever.
+
+The 16 rows were identical in all four runs, under three different noise floors. That is
+what the null pass is for.
+
+### Found, not fixed
+
+- **The raw pixels travelled untouched.** `18`, `20`, `10`, `26`, `92`, `5`, `68` in the
+  reassurance panel are not on the 2/4/8/12/16/24/32/40 scale. A value moves, it is not
+  re-derived, so `banner.css` received them as they were. Stage 09.
+- **Three breakpoints past the set**: 559 in the panel, 620 and 860 in the review, against
+  the 480/720/1180 the rest of the system uses. Joins 620/800 from 7.47.
+- **Three line widths in one file**: `1px` between reviews, `1.5px` in the «Stack» chip,
+  `2px` in the shop reply. The `1.5px` is part of the 24-file decision and Chrome draws
+  it as 1px anyway.
+- **`50px`** on the rating figure - the type scale is missing this end and the other.
+- **`.rvhead` is declared in `section-head.css`** while `.rvbig` inside it is declared
+  here. Not wrong - it really is a section head - but two files hold one block.
+- **`.sr` and `.sr-live` collide by prefix.** The second is the screen-reader live region
+  on `wireframes/quiz.html:181`. Krok 6.
+
+### Also fixed on the way past
+
+`design/kit/overview.html` carried a greyed «css є, сторінка ще ні» card for
+**Хлібні крихти**, which has had a live card and a page since 7.36. Two cards for one
+component, one of them saying it does not exist. Removed.
+
+### Stand
+
+`design/kit/review-item.html`. Idle check: 17 of 17 classes rendered, 4 states named.
+All 43 stands re-checked at 360 and 1280 - no overflow, no failed idle check, no
+exception. Molecules **10 / 27**.

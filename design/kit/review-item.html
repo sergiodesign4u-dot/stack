@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Відгук | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Відгук</h1>
+<p class="kp-lead">Чужий голос на сторінці товару: хто, коли, скільки зірок, що сподобалось і що ні, і відповідь магазину під ним. Файл, у якому він жив, ніс три сім'ї, і відгуком була одна з трьох.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/review-item.css</span><span class="kp-tag">82 рядки</span><span class="kp-tag">20 селекторів</span><span class="kp-tag">78 оголошень</span><span class="kp-tag">3 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Три сім'ї в одному файлі</div>
+<p class="kp-p">Заміряно в браузері на 40 кольорових екранах, на 360, 390, 720 і 1280.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Сім'я</th><th>Що це</th><th>Де стоїть</th><th>Куди поїхала</th></tr></thead><tbody>
+<tr><td><code>.rvbig</code> <code>.rvbars</code> <code>.rvitem</code> <code>.rvmeta</code> <code>.rvbody</code> <code>.rvreply</code> <code>.revcols</code></td><td>сам відгук</td><td>3 екрани товару</td><td><b>своє</b>. Лишилось</td></tr>
+<tr><td><code>.sr</code> <code>.sr.total</code> <code>.sr.accrual</code></td><td><b>рядок підсумку замовлення</b></td><td><b>19 штук</b>, усі на <code>account-orders.html</code>, усі всередині <code>.ob-sum</code> у <code>.ord-body</code></td><td><code>order-row.css</code></td></tr>
+<tr><td><code>.recbanner</code> <code>.rbear</code></td><td><b>панель заспокоєння з ведмедем</b></td><td>1 штука, <code>product-reviews.html</code></td><td><code>banner.css</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><code>.sr.accrual</code> фарбує <code>--text-bonus</code> - це бонусний рахунок, сім'я щабля лояльності. Поруч із відгуком вона не стояла ніколи. <code>.recbanner</code> потрапив сюди на етапі 08 кроці 5 просто тому, що його <code>&lt;style&gt;</code> лежав на сторінці відгуків: заголовок того блока сам це й казав - «екран не володіє css».</p>
+<div class="kp-do"><h4>Третій ведмідь</h4>Напередодні з <code>empty-state.css</code> виїхали двоє: <code>.uiv-bear</code> у <code>seo-text.css</code> і <code>.uiv-bearwrap</code> у <code>trust-strip.css</code>. Цей - третій, і читається так само, як <code>.wfh-logo</code> на 7.50: <b>сторінка, на якій щось лежить, не є компонентом, яким воно є</b>.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>product-reviews.html</code>.</p>
+<div class="kp-demo">
+  <div class="rvitem">
+    <div class="rvmeta">
+      <div class="rname">Олександр К.</div>
+      <div class="rdate">12 червня 2026</div>
+      <div class="rstars">★ 5.0</div>
+      <div class="rbadge">✓ Купив товар</div>
+    </div>
+    <div class="rvbody">
+      <div class="prc"><b>Переваги:</b> смак не приторний, добре розмішується, є ефект</div>
+      <div class="prc"><b>Недоліки:</b> ціна підросла</div>
+      <div class="rtext">Беру вже третю банку. Оригінал, сертифікат був у наявності. Рекомендую початківцям.</div>
+      <div class="rvreply">
+        <div class="rchip"><span class="lg">Stack</span> Магазин</div>
+        Дякуємо за відгук. Тримаємо ціну максимально доступною.
+      </div>
+    </div>
+  </div>
+  <div class="rvitem">
+    <div class="rvmeta">
+      <div class="rname">Ірина М.</div>
+      <div class="rdate">3 червня 2026</div>
+      <div class="rstars">★ 4.0</div>
+    </div>
+    <div class="rvbody">
+      <div class="rtext">Смак нормальний, але розмішується довше, ніж очікувала. Ефект є.</div>
+    </div>
+  </div>
+</div>
+<div class="kp-cap">другий - без плашки покупки, без переваг і без відповіді: усе це необов'язкове, і рядок від цього не ламається</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Сітка</b> - один стовпчик до 620, <code>180px 1fr</code> вище. Автор ліворуч, текст праворуч: до 620 вони стоять один під одним, бо 180 підпису й решта тексту в 360 не вміщуються</span></div>
+  <div class="a"><i>2</i><span><b>Автор</b> - ім'я 14/700, дата 12 приглушеним. Зірки й плашка «✓ Купив товар» тут <b>не свої</b>: пішли в <code>rating.css</code> і <code>status-pill.css</code> на 7.27 і 7.37</span></div>
+  <div class="a"><i>3</i><span><b>Переваги й недоліки</b> - <code>.prc</code>, окремими рядками зі своїм <code>b</code>. Їх 10 на 7 відгуків: більшість людей пише або одне, або нічого</span></div>
+  <div class="a"><i>4</i><span><b>Відповідь магазину</b> - <code>.rvreply</code>, накладка з лінією <code>--line-action</code> ліворуч. Єдине помаранчеве в блоці, і воно означає «тут говорить магазин»</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Оцінка й розподіл</div>
+<div class="kp-demo">
+  <div class="rvbig"><div class="n">4.8</div><div class="s">126 відгуків</div></div>
+  <div class="rvbars">
+    <div class="rvbar"><span>5</span><div class="track"><div class="fill" style="width:82%"></div></div><span>103</span></div>
+    <div class="rvbar"><span>4</span><div class="track"><div class="fill" style="width:12%"></div></div><span>15</span></div>
+    <div class="rvbar"><span>3</span><div class="track"><div class="fill" style="width:4%"></div></div><span>5</span></div>
+    <div class="rvbar"><span>2</span><div class="track"><div class="fill" style="width:2%"></div></div><span>2</span></div>
+    <div class="rvbar"><span>1</span><div class="track"><div class="fill" style="width:1%"></div></div><span>1</span></div>
+  </div>
+</div>
+<div class="kp-cap">цифра 50px - єдиний кегль файлу поза шкалою 10-30. Смужки моношрифтом, бо колонка чисел праворуч мусить стояти рівно</div>
+<p class="kp-p"><b>Смужка тримається на трьох мінімальних ширинах.</b> Ліва цифра <code>1ch</code>, права <code>3ch</code>, доріжка <code>flex: 1</code>. Тому «103» і «1» не зрушують доріжку одне відносно одного, а доріжка з'їдає весь залишок - п'ять рядків читаються як одна шкала, а не як п'ять різних.</p>
+<p class="kp-p">Заливка - <code>--bg-inverse</code> на <code>--bg-rule</code>. <b>Помаранчевого тут немає навмисно:</b> розподіл оцінок це факт, а не дія, а акцент у системі означає «сюди натискати».</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Дві колонки</div>
+<div class="kp-demo">
+  <div class="revcols">
+    <div><div class="rvitem"><div class="rvmeta"><div class="rname">Дмитро П.</div><div class="rdate">28 травня 2026</div></div><div class="rvbody"><div class="rtext">Друге замовлення. Прийшло за день, банка запечатана.</div></div></div></div>
+    <div class="rvbig"><div class="n">4.8</div><div class="s">126 відгуків</div></div>
+  </div>
+</div>
+<div class="kp-cap"><code>.revcols</code> - один стовпчик до 860, <code>minmax(0, 1fr) 300px</code> вище. Єдиний екземпляр у продукті: тільки <code>product-reviews.html</code>, де відгуків достатньо, щоб зведення поїхало вбік</div>
+<p class="kp-p"><code>minmax(0, 1fr)</code>, а не <code>1fr</code>: без нуля довге слово у відгуку роздуває колонку й вивалює сітку за екран. Це та сама пастка, що й у <code>.led-wrap</code> на 7.48.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Що поїхало, і що при цьому померло</div>
+<p class="kp-p">Кольорова половина <code>.sr</code> мала чотири оголошення. У <code>order-row.css</code> поїхали два.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Оголошення</th><th>Спец.</th><th>Що робило</th><th>Доля</th></tr></thead><tbody>
+<tr><td><code>.sr span:last-child{ font-family: mono }</code></td><td>0,2,1</td><td>колонка сум моношрифтом</td><td>переїхало</td></tr>
+<tr><td><code>.sr.accrual span:last-child{ color: bonus }</code></td><td>0,3,1</td><td>нарахування бурштиновим</td><td>переїхало</td></tr>
+<tr><td><code>.sr.total{ border-top-color: --line-strong }</code></td><td>0,2,0</td><td><b>нічого</b>: скорочення двома блоками вище вже ставило цей самий колір із цього самого токена</td><td><b>видалено</b></td></tr>
+<tr><td><code>.sr.total span:last-child{ font-weight: semibold }</code></td><td><b>0,3,1</b></td><td>малювало - і в цьому річ</td><td><b>видалено, і це видно</b></td></tr>
+</tbody></table></div>
+<div class="kp-dont"><h4>Слово було жирніше за число</h4>У рядку «Разом» <code>.sr.total span</code> (0,2,1) давав обом половинам <code>--fw-black</code>, а <code>.sr.total span:last-child</code> (0,3,1) перебивав праву назад на <code>--fw-semibold</code>. Виходило, що <b>підпис «Разом» важчий за суму</b>, заради якої рядок і читають. Друге оголошення знято, підсумок став 800 обома половинами.</div>
+<p class="kp-p">Після зняття <code>.sr span:last-child</code> (0,2,1) і <code>.sr.total span</code> (0,2,1) <b>рівні за специфічністю</b>, і розводить їх лише порядок у файлі. Тому переїзд зроблено байт у байт, зі збереженням порядку рядків: перемішай їх - і підсумок мовчки повернеться до 600.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Екземплярів</th><th>Екранів</th><th>Робота</th></tr></thead><tbody>
+<tr><td><code>.rvitem</code></td><td>7</td><td>3</td><td>один відгук</td></tr>
+<tr><td><code>.rvbar</code></td><td>15</td><td>3</td><td>п'ять смужок розподілу на трьох екранах</td></tr>
+<tr><td><code>.prc</code></td><td>10</td><td>3</td><td>переваги й недоліки: 10 рядків на 7 відгуків</td></tr>
+<tr><td><code>.rvbig</code> · <code>.rvbars</code></td><td>3 · 3</td><td>3</td><td>зведення оцінки</td></tr>
+<tr><td><code>.rvreply</code></td><td>3</td><td>3</td><td>відповідь магазину. Є під трьома відгуками з семи</td></tr>
+<tr><td><code>.revcols</code></td><td><b>1</b></td><td><b>1</b></td><td>дві колонки, тільки на сторінці відгуків</td></tr>
+</tbody></table></div>
+<p class="kp-p">Екрани: <code>product.html</code>, <code>product-coach.html</code>, <code>product-reviews.html</code>. <b>Мертвих селекторів: 0 з 20.</b></p>
+<p class="kp-p"><b>Шапка відгуків живе не тут.</b> <code>.rvhead</code> зі своєю сіткою <code>190px 1fr auto</code> оголошена в <code>section-head.css</code>, а <code>.rvbig</code> усередині неї - у цьому файлі. Це не помилка: <code>.rvhead</code> справді заголовок розділу. Але два файли тримають один блок, і про це треба знати, змінюючи будь-який із них.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>автор над текстом, лінія-волосина згори</td><td>відгуки читають стрічкою, і розділяє їх найтонше, що є в системі</td></tr>
+<tr><td><b>без відповіді</b></td><td><code>.rvreply</code> просто немає</td><td>4 відгуки з 7 без відповіді, і це нормальний вигляд, а не порожнє місце</td></tr>
+<tr><td><b>без переваг</b></td><td><code>.prc</code> немає, текст іде першим</td><td>поля необов'язкові у формі відгуку</td></tr>
+<tr><td><b>від 620</b></td><td><code>min-width: 620px</code>: автор стає окремою колонкою 180px</td><td>нижче 620 колонка 180 лишає тексту менше половини рядка</td></tr>
+<tr><td><b>від 860</b></td><td><code>min-width: 860px</code>: <code>.revcols</code> розкладається на дві колонки</td><td>зведення вбік має сенс тільки тоді, коли основній колонці лишається не менш ніж 500</td></tr>
+<tr><td><b>наведення</b></td><td><b>немає власного</b></td><td>відгук не натискають. Натискають кнопку в шапці, і вона відповідає своїм фінішем</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Відповідь магазину має рівно одну лінію акценту і жодного заповнення.</b> Голос продавця під чужим відгуком мусить бути видимим і не мусить бути гучнішим за сам відгук. Принцип 1: спершу довіра, потім продаж.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не фарбуй розподіл оцінок акцентом.</b> П'ять помаранчевих смужок читаються як п'ять кнопок. Це факт про товар, а не дія, тому заливка - <code>--bg-inverse</code>.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>17</b> власних класів і <b>4</b> стани оголошено в <code>review-item.css</code>.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["rvbig","n","s","rvbars","rvbar","track","fill","rvitem","rvmeta","rname","rdate","rvbody","prc","rtext","rvreply","rchip","revcols"], KIT_STS=["min-width: 620px","min-width: 860px",":first-child",":last-child"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>review-item.css</code>: <b>9</b> семантичних ролей і <b>18</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (9)</th><th>Примітиви (18)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-rule</code> <code>--bg-surface</code> <code>--line-action</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-display</code> <code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--ls-caps</code> <code>--radius-4</code> <code>--radius-8</code> <code>--radius-12</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу: <code>50px</code> (цифра оцінки), <code>7px</code> (висота доріжки), <code>180px</code> і <code>300px</code> і <code>36px</code> (колонки й проміжок сіток), <code>1.5px</code> і <code>2px</code> (дві товщини ліній), <code>620px</code> і <code>860px</code> (дві точки перелому).</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;div class="rvitem"&gt;
+  &lt;div class="rvmeta"&gt;
+    &lt;div class="rname"&gt;Олександр К.&lt;/div&gt;
+    &lt;div class="rdate"&gt;12 червня 2026&lt;/div&gt;
+    &lt;div class="rstars"&gt;★ 5.0&lt;/div&gt;        &lt;!-- rating.css --&gt;
+    &lt;div class="rbadge"&gt;✓ Купив товар&lt;/div&gt;  &lt;!-- status-pill.css --&gt;
+  &lt;/div&gt;
+  &lt;div class="rvbody"&gt;
+    &lt;div class="prc"&gt;&lt;b&gt;Переваги:&lt;/b&gt; …&lt;/div&gt;
+    &lt;div class="rtext"&gt;…&lt;/div&gt;
+    &lt;div class="rvreply"&gt;&lt;div class="rchip"&gt;&lt;span class="lg"&gt;Stack&lt;/span&gt; Магазин&lt;/div&gt; …&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+<p class="kp-p">Два класи всередині розмітки відгуку належать іншим файлам, і це видно з коментарів. Зірки й плашка покупки виїхали двома окремими кроками, бо під іншими іменами робили те саме, що вже вміли сусіди.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Три проходи по 40 екранах на чотирьох ширинах, 160 завантажень кожен: HEAD, HEAD ще раз і робоче дерево.</p>
+<p class="kp-p"><b>Різниця: 16 рядків</b>, одна властивість, один екран - <code>font-weight: 600 -&gt; 800</code> на чотирьох підсумкових сумах <code>account-orders.html</code>, на кожній із чотирьох ширин. Рівно те, що оголошено вище, і нічого більше. Переїзд <code>.sr</code> у файл, який вантажиться на 6 імпортів раніше, і переїзд <code>.recbanner</code> у файл на 19 імпортів раніше <b>не зрушили жодного пікселя</b>.</p>
+<div class="kp-gap"><h4>Інструмент довелось лагодити тричі, і всі три поламки були в нульовому проході</h4><ul>
+<li><b>56 рядків анімації.</b> Пульс скелетів і спінер входу не зупиняються ніколи, тож перепис ловив їх у різних фазах. Тепер сторінка отримує <code>animation-play-state: paused</code> ще до першого вузла - обидва проходи однаково, від нульового кадру</li>
+<li><b>563 рядки на одному екрані з сорока.</b> Один шрифт не встиг, сторінка злічилась у запасній гарнітурі й стала на 37.6px вища. Осідання чекало кількість завантажених накреслень, а це <b>підміна</b>: чекати треба, щоб перестала рухатись висота</li>
+<li><b>231 рядок на іншому екрані.</b> Те саме, вже після поправки: кеш чистився перед <b>кожним</b> із 160 завантажень, тож шрифти щоразу тягнулись мережею наново. У межах одного проходу стилі не змінюються - кеш чиститься один раз на початку, і додано очікування, поки мережа стихне</li>
+</ul><p style="margin-top:8px">Різниця в 16 рядків не зрушила ані на рядок у жодному з чотирьох прогонів. Це і є те, заради чого нульовий прохід існує: він міряє шум, і поки шум більший за знахідку, знахідки немає.</p></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Сирі пікселі панелі заспокоєння</b> - 18, 20, 10, 26, 92, 5, 68. Жодного немає на шкалі 2/4/8/12/16/24/32/40, тож вони переїхали в <code>banner.css</code> недоторканими: значення переносять, а не виводять заново</li>
+<li><b>Три точки перелому повз набір</b>: 559 у панелі, 620 і 860 тут - проти 480 / 720 / 1180, якими користується решта</li>
+<li><b>Дві товщини ліній у одному файлі</b>: <code>1px</code> між відгуками, <code>1.5px</code> у плашці «Stack», <code>2px</code> у відповіді. <code>1.5px</code> - частина рішення на 24 файли, і браузер усе одно малює його одним пікселем</li>
+<li><b>Кегль 50px</b> - шкала не має ні цього кінця, ні протилежного</li>
+<li><b>Немає стану «відгуків ще немає»</b> - порожній стан сторінки відгуків малює <code>empty-state.css</code>, і зведення оцінки при цьому не має що показати</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

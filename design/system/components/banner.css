@@ -184,3 +184,36 @@
    markup lost it on all eight files and _wf.css gained the grey rule. An
    `!important` is a note that something upstream is wrong; deleting the note
    without reading it puts the bug back. */
+
+/* ---------- the reassurance panel - arrived at 7.51 --------------------------
+   `.recbanner` was in review-item.css, in a block headed «moved off the screen»
+   because its <style> lived on design/product-reviews.html at stage 08 step 5.
+   The page it is on is not the component it is: an image beside a heading and a
+   line of text is the `.tbanners .tbn / .tbim / .tbx` shape this file already
+   draws, and there is exactly one of these in the product, on the reviews
+   screen. Third mascot to be re-filed after `.uiv-bear` and `.uiv-bearwrap` at
+   7.49; nothing else in the system declares either name, so the cascade does
+   not move even though this file loads 19 imports earlier.
+
+   The values are carried over untouched, raw pixels included: 18, 20, 10, 26,
+   92, 5 and 68 are not on the 2/4/8/12/16/24/32/40 space scale, and 559px is
+   not on the 480/720/1180 breakpoint set. A value moves, it is not re-derived -
+   both belong to the stage-09 pass with the 1.5px border and the eyebrow.
+
+   The intent, written when it was drawn: the doubt is met by the calm bear plus
+   evidence, not by a louder button. The banner is a warm panel, the proof
+   (certificate, reviews) is the content, and the only orange is the way
+   forward. */
+.recbanner { display: flex; align-items: center; gap: 18px; background: var(--bg-surface);
+  border: 1px solid var(--line-hair); border-radius: var(--radius-12); padding: 18px 20px; margin: 10px 0 26px; }
+.recbanner .rbear { width: 92px; height: 92px; flex: none; border-radius: var(--radius-circle); overflow: hidden; }
+.recbanner .rbear img { width: 92px; height: 92px; object-fit: cover; object-position: center 12%;
+  mix-blend-mode: multiply; }
+.recbanner .rt { font-family: var(--font-display); font-weight: var(--fw-semibold); font-size: var(--fs-20);
+  letter-spacing: var(--ls-lead); color: var(--text-primary); }
+.recbanner .rs { font-size: var(--fs-14); color: var(--text-secondary); margin-top: 5px; line-height: var(--lh-airy); max-width: 62ch; }
+@media (max-width: 559px) {
+  .recbanner { gap: 14px; padding: 16px; }
+  .recbanner .rbear, .recbanner .rbear img { width: 68px; height: 68px; }
+  .recbanner .rt { font-size: var(--fs-18); }
+}
