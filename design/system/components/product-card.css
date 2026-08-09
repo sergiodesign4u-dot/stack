@@ -258,13 +258,22 @@
    gallery.css because it stands beside the gallery on that screen, and five of
    its nine rules do nothing but re-lay a `.pcard` - which is this file's.
 
-   THE TWO MEDIA BLOCKS ARE ONE NOW. gallery.css carried `@media (min-width:860px)`
-   twice, thirty lines apart, and both set `.pmini{ top }`: 120px in the first,
-   88px in the second. The later one won every time, so `top: 120px` had never
-   drawn a pixel - measured on product-reviews.html at 1280, matched once, won
-   nothing. Same defect as the doubled media block of 7.46, and it only became
-   visible after the solver stopped merging two rules that share a selector and a
-   property into one verdict. 88 is what the panel does, so 88 is what is left. */
+   7.57 CORRECTS 7.55 ON THE TWO MEDIA BLOCKS. That step read the two
+   `@media (min-width:860px)` blocks in gallery.css as a DOUBLED BLOCK, the defect
+   of 7.46, folded them into one and deleted `top: 120px` because 88px won. The
+   reading was wrong. The two blocks were not a duplicate: the first stood in the
+   file's STRUCTURE section and the second in its COLOUR section, which is the
+   stage-08 split every component file in this system carries, and which the file
+   headers describe out loud - «the colour block below is the one that wins,
+   exactly as the two stylesheets stacked before the split». The duplication is
+   the record of that split, not an accident.
+
+   Both editions are restored below, in their original order. It costs nothing:
+   88 still wins, the way it did before 7.55 and after it. What it buys is that
+   this pass keeps refusing to delete a grey half by accident - the same refusal
+   it made for `.tband` at 7.44, `.led-empty` at 7.48 and `.emptybox` at 7.49.
+   Whether the system keeps stating a value twice at all is one decision about
+   all 73 such pairs, and it belongs to stage 09, not to one file. */
 .pmini .pmback{ display: block; font-size: var(--fs-14); margin: var(--space-12) var(--space-2) 0;
   padding-top: var(--space-12); border-top: 1px solid var(--line-hair); }
 .pmini .pmback{ color:var(--text-secondary); border-top-color:var(--line-hair); }
@@ -276,7 +285,10 @@
   .pmini .pcard .bd{ padding-right: 46px; }
   .pmini .pcard .nm{ min-height: 0; }
 }
-@media (min-width: 860px){
-  .pmini{ position: sticky; top: 88px; }
+@media (min-width: 860px){          /* the structure half, from wireframes/_wf.css */
+  .pmini{ position: sticky; top: 120px; }
+}
+@media (min-width: 860px){          /* the colour half, from design/kit/kit.css - this is the one that draws */
+  .pmini{ top: 88px; }
   .pmini .pcard .ph{ background-size:80%; }
 }

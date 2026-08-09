@@ -7070,3 +7070,83 @@ was answering a question the cheap one answers better.** The browser is needed f
 this actually look like at 360» and for cross-file cascade. It is not needed to know that a
 file says the same thing twice. Reach for the source first; reach for the browser when the
 question is about the browser.
+
+---
+
+## Step 7.57: the doubled media block that was never doubled
+
+**Who found it:** Claude, by opening the three files the previous step had only scanned.
+
+7.56 reported eight dead declarations in three files - `auth-dialog.css`, `pdp-tabs.css`,
+`product-grid.css` - each an `@media` condition written twice with different values, «the 7.46
+and 7.55 defect». This step went to fix them and found there is nothing to fix.
+
+**Every one of those pairs is the stage-08 split.** The first edition stands in the file's
+STRUCTURE section, the second in its COLOUR section, and every component file in the system
+carries exactly that shape. The header of every one of them says so out loud:
+
+> Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour) at stage 08 step
+> 3. Selectors are unchanged; **the colour block below is the one that wins, exactly as the two
+> stylesheets stacked before the split.**
+
+The duplication is the record of that split. It is the file's contract, not an accident.
+
+### And that means 7.55 was wrong too
+
+`gallery.css` carried `@media (min-width:860px)` twice, `.pmini{ top: 120px }` and
+`.pmini{ top: 88px }`, thirty lines apart. 7.55 read them as a doubled block, folded them into
+one and deleted the 120. The first was in the structure section (line 21, section starts at 7)
+and the second in the colour section (line 51, section starts at 24). Same convention. The
+deletion removed a grey half - which is exactly what this pass refused to do for `.tband` at
+7.44, `.led-empty` at 7.48 and `.emptybox` at 7.49, on principle, three times.
+
+**Both editions are restored in `product-card.css`, in their original order, each labelled
+with the section it came from.** It costs nothing: 88 wins, as it did before 7.55 and after.
+What it buys is that a grey half is not deleted by accident, and that whether the system keeps
+stating a value twice at all stays **one decision about all of them**, taken at stage 09,
+rather than one file at a time by mistake.
+
+**A/B: null pass 0 rows, difference 0 rows.**
+
+### The count, done properly this time
+
+The scan of 7.56 split comma groups into individual selectors, so «a grouped rule, then a rule
+for one of its names» - a base and an override, the most ordinary thing in CSS - came out
+looking like a repeat. With that discounted and the section boundary read:
+
+| what the pair actually is | count | a defect? |
+|---|---|---|
+| a grouped rule, then a rule for one of its names | **32** | no - base and override |
+| the structure section, then the colour section | **22** | no - the stage-08 split, on purpose |
+| the same value written twice | **19** | dead, but nothing is lost by it |
+| none of the above | **1** | `.pmini{top}`, and it is mine: both editions now sit in one section of another file |
+
+**There is not one doubled media block in the system.** Three reports in a row - 7.55's find,
+7.56's inventory of eight, and this step's plan to fix them - all rested on a shape that looks
+like a duplicate and is not.
+
+### What survives from 7.55 and 7.56
+
+Both steps still hold up apart from this:
+
+- `.pmini` really is not a gallery and really did belong in `product-card.css` - one instance,
+  nine rules, five of them re-laying a `.pcard`. That move stands.
+- The solver's key really was collapsing two rules that share a selector and a property into
+  one verdict, and the pseudo-element bug was real. Both corrections stand and both were
+  needed.
+- The `.lh1{ letter-spacing: var(--ls-lead) }` removal at 7.56 stands, and it is the one case
+  the scan found that is neither the split nor a group: **both editions were in the colour
+  section of `section-head.css`**, same selector, adjacent lines.
+- `design/account-empty.html:81` still carries `style="padding:20px 14px"`.
+
+### The lesson, and it is the opposite of yesterday's
+
+7.56 ended with «reach for the source first; reach for the browser when the question is about
+the browser». That is still true and it is not enough. The static scan answered **what shape
+is this** in 200ms and was right about all 74. It could not answer **why is it that shape**,
+and that answer was in the file, four lines above, in a comment written at step 3.
+
+A scan finds candidates. Only reading decides. Three steps were spent on a shape because the
+shape was measured and the reason was assumed.
+
+`design/kit/gallery.html` carries the correction in its own words.
