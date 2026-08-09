@@ -191,7 +191,46 @@
   --fw-medium:   500;
   --fw-semibold: 600;
   --fw-bold:     700;
-  --fw-black:    800;
+  --fw-black:    700;   /* WAS 800 - see below. It never drew as 800 */
+
+  /* `--fw-black` RENDERS AS `--fw-bold`, ON EVERY PRODUCT SCREEN - found at
+     step 7.63 while measuring something else, and it is the same shape as the
+     `1.5px` border that step 7.62 closed: a value the code believes in and the
+     browser never draws.
+
+     Every page requests `family=Inter:wght@400;500;600;700`. There is no 800
+     face to use, so Chrome falls back to the nearest loaded weight and does not
+     synthesise. Measured: the same 12px uppercase string set at 400 / 500 / 600
+     / 700 / 800 / 900 is 221.094 / 223.281 / 225.469 / 227.656 / 227.656 /
+     227.656 px wide. From 700 upward the number stops moving.
+
+     87 declarations in 38 component files ride on it - the second most used
+     weight token in the system. Oswald is requested at 500;600;700 and clamps
+     the same way.
+
+     ONE PAGE OUT OF EIGHTY-NINE asks for 800: `design/overview.html`, the
+     showcase hub. So the only screen where this token does what it says is the
+     page that exists to present the system.
+
+     THE OWNER ANSWERED AT STEP 7.65: `--fw-black: 700`. The system has FOUR
+     weights, not five, and the code now says the number the screen draws. Zero
+     visible change - the A/B is the proof, and the only rows it returns are the
+     computed `font-weight` itself.
+
+     THE NAME STAYS, and that is a decision too. Two semantic names holding one
+     value is normally this file's own defect - «one idea, two names» - and this
+     file already carries the exception that governs it: `--bg-discount` and
+     `--bg-danger` are both `--red-50` «on purpose», because a discount is not
+     an error. Same here. `--fw-bold` means «this is emphasis»; `--fw-black`
+     means «this is the heaviest thing in its block», and 87 declarations were
+     written with that second meaning. Collapsing the name would throw the
+     intent away and make the other branch of A8 - loading 800 - a decision
+     about 87 declarations again instead of about one line.
+
+     SO THE OTHER BRANCH IS STILL ONE LINE. Add 800 to the font request in the
+     89 pages, set this token back to 800, and the register the type was written
+     for arrives everywhere at once. That is a look, not a repair, and it waits
+     for stage 09 with the type stand open. */
 
   /* THREE leadings, after the owner's call at step 5.6. Was six tokens plus fifteen
      literals: leadings 0.05 apart are not two decisions. The base rhythm moved from
@@ -202,10 +241,84 @@
   --lh-snug:  1.3;
   --lh-airy:  1.6;
 
---ls-display: -.02em;
+  --ls-display: -.02em;
   --ls-lead:    -.01em;
   --ls-caps:     .04em;
   --ls-eyebrow:  .08em;
+
+  /* THE TWO TRACKINGS ARE TWO VOICES, NOT TWO DIALECTS OF ONE - step 7.63.
+     `architecture.md` A3 read `--ls-caps` as «one idea written 32 ways» and
+     recommended one face for all of it. Measured in the browser instead of in
+     the source, that is two errors at once: the token carries FOUR jobs, and A3
+     never counted the second token at all, the one actually named «eyebrow».
+
+         --ls-caps .04em   THE EYEBROW. Inter, 12, black, uppercase, muted.
+                           Small service text that NAMES the block under it, and
+                           it is always quieter than what it names - measured on
+                           every instance: each one labels something at 14px in
+                           a darker ink. 14 forms.
+
+         --ls-eyebrow .08em  THE SYSTEM CAPTION. Monospace, 12, uppercase,
+                           muted. The neutral technical register: the «або»
+                           divider in checkout and in auth, the auth visual's
+                           line, the promo card's tag. 5 forms, and after 7.63
+                           every one of them is monospace.
+
+     The same token also sits on three things that are NOT either voice, and
+     they keep it because the tracking is right for caps in general:
+
+         the tag on a plate   10px, .tag-pop .tag-new .addr-tag .gtag .cbtier
+                              .ci-oostag .ms-ftag .cap - a label on a ground,
+                              not a heading over a block
+         display caps         Oswald, .hd-tag .av .lg - 20px is not service text
+         emphasis in prose    .allerg .algv, .pl-ing b - the caps are in the
+                              WORDS, not in a text-transform
+
+     A component that needs an eyebrow copies the five properties of the first
+     block. A shared class would be better and it is a Крок 6 markup sweep,
+     because 14 forms live in 9 files and none of them share a name today. */
+
+/* ==========================================================================
+   THE BREAKPOINTS - step 7.64. They cannot be tokens: a custom property is not
+   allowed inside a @media condition, so this is the only place the set can be
+   written down, and it is written as a convention rather than a value.
+
+   HOW TO SPELL ONE. A boundary at N is `(min-width: Npx)` on the wide side and
+   `(max-width: N-1px)` on the narrow side. Written any other way the two sides
+   overlap by a pixel and both rules fire at exactly N. Three of them were
+   spelled wrong until 7.64 and two of those overlapped for real: `city-dialog`
+   closed at `max-width: 480` while `checkout-form` opened at `min-width: 480`,
+   and three files closed at `max-width: 640` while `account-shell` opened at
+   `min-width: 640`.
+
+   THE SET, MEASURED - 18 boundaries, 112 declarations in 76 stylesheets.
+   `DESIGN-artifacts.md` names three of them. What the code actually leans on:
+
+       860   39 decls, 15 files   THE MOST USED BOUNDARY IN THE SYSTEM, and it
+                                  is not in the named set. Three product cards
+                                  across, and the point where the page stops
+                                  being one column
+       720   20 decls,  9 files   named
+       480   13 decls,  7 files   named
+       620   10 decls,  9 files   the second unnamed workhorse
+       640    6 decls,  4 files
+       960    6 decls,  3 files
+       560    4 decls,  4 files
+       1180   3 decls,  2 files   named
+       760    3 decls,  2 files
+       420 · 900 · 1040 · 700 · 820   1 to 2 each
+
+   WHAT 7.64 DID AND DID NOT DO. It fixed the spelling (8 declarations) and
+   folded the two true singletons that had a set member within 40px - 700 to
+   720 and 820 to 860. It did NOT fold 560, 620, 640, 760, 960 or 1040: each is
+   used by two or more files, each marks a content limit rather than a grid
+   step, and folding them is a layout redesign and not a value decision. 419 in
+   `restock-note.css` stays for a reason written next to it.
+
+   THE HONEST STATE: the named set is not the used set. Either 860 and 620 join
+   the set on the page that names it, or the components that use them get a
+   written reason each. That is A2's remainder and it belongs to the owner.
+   ========================================================================== */
 
 /* ==========================================================================
    PRIMITIVE - geometry
@@ -323,8 +436,12 @@
   --text-warning:    var(--amber-700);  /* 10 uses - .allerg .algv, .co-warn,
                                            .abonus .warn. 5.9:1. #C9821E was darkened
                                            because it failed at small sizes */
-  --text-danger:     var(--red-600);    /* 16 uses - .co-err, .auth-err, .ci-oostag.
-                                           5.7:1. decision */
+  --text-danger:     var(--red-600);    /* 13 uses in 9 files - .co-err, .auth-err,
+                                           .ci-oostag, and since 7.61 the ink of a
+                                           destructive button (.btn--danger, two
+                                           declarations). 5.7:1. decision.
+                                           The count said 16 and was measured at 11
+                                           on 2026-08-09: stale, not shrunk */
   --text-bonus:      var(--amber-700);  /* 5 uses - .pcard .bonus, .co-bonus .bv,
                                            .sr.accrual. Same value as warning,
                                            different job: a bonus figure is not a
@@ -354,7 +471,9 @@
                                           .wfh-search .go, .wff-news button. Ink on
                                           it is 5.4:1. plate pixel */
   --bg-success:   var(--green-50);     /* the calm success plate */
-  --bg-danger:    var(--red-50);       /* the error plate */
+  --bg-danger:    var(--red-50);       /* 3 uses - the error plate, and since 7.61
+                                          the ground a destructive button takes
+                                          under the finger */
   --bg-warning:   var(--amber-50);     /* the caution plate */
   --bg-action-soft: var(--orange-25);  /* the accent's own soft plate */
   --bg-rule:      var(--warm-200);     /* 6 uses - the two "or" dividers drawn as
@@ -384,10 +503,36 @@
                                                rule 5 gives it a token */
   --line-success: var(--green-600);         /* 2 - .co-upsell .pcard.added .cartbtn */
   --line-warning: var(--amber-700);         /* 1 - .co-input.req, a required field */
-  --line-danger:  var(--red-600);           /* 7 - .otp .box.err, .auth error state,
-                                               .co-err-mark, .pm-b input.err */
+  --line-danger:  var(--red-600);           /* 5 - .otp .box.err, .auth error state,
+                                               .co-err-mark, .pm-b input.err, and
+                                               since 7.61 the edge of a destructive
+                                               button. The count said 7 and was 4
+                                               before that step: stale, not shrunk */
 
-  /* ---- line --------------------------------------------------------------- */
+  /* ---- line ---------------------------------------------------------------
+
+     THE SYSTEM HAS TWO LINE WEIGHTS, AND UNTIL STEP 7.62 IT BELIEVED IT HAD
+     THREE. 33 declarations in 23 of the 78 stylesheets wrote `1.5px` for a
+     border. Chrome resolves `border-width: 1.5px` to a used value of **1px**
+     before layout - measured three ways at 7.62: `getComputedStyle` returns
+     1px, the layout rect of a 1.5px box is identical to a 1px one at device
+     pixel ratio 1, 2 and 3, and a census of every non-zero border on the 40
+     coloured screens at two widths returns 1px (34 262), 2px (440) and 4px
+     (16), with no 1.5 anywhere. So the middle weight was never drawn, on any
+     screen, at any ratio, and every reader of this code believed in a line the
+     product does not have.
+
+         hairline   1px    every divider, card edge and control border
+         heavy      2px    the deliberate exception, named where it is used
+
+     The 4px is not a third weight: it is the ring of the two loading spinners,
+     `.co-spin` and `.auth-spin`, where a border draws a shape rather than an
+     edge. Written down so it is not «found» again.
+
+     A CONTROL THAT WANTS A HEAVIER EDGE ASKS FOR 2px, out loud. The one place
+     the old 1.5 was an argument rather than a habit is the 18px checkbox, and
+     that argument is preserved in `checkbox.css` and parked as a decision, not
+     resolved by this sweep. */
 
   --line-hair:    var(--warm-200);     /* 238 uses - the hairline of the whole
                                           product, every divider and card edge.
@@ -523,7 +668,8 @@
   --bg-bonus-soft:         var(--tint-amber-06);      /* 3 uses - the fill of the in-transit pill, the out-of-stock order row and the
      burn line in the bonus ledger. */
   --line-bonus-soft:       var(--tint-amber-30);      /* 2 uses - their border. MERGED from .26 and .35, which were one border drawn twice. */
-  --bg-danger-soft:        var(--tint-red-04);        /* 1 use - the error box plate. */
+  --bg-danger-soft:        var(--tint-red-04);        /* 2 uses - the error box plate, and the ground a destructive button takes under
+     the cursor. One step paler than --bg-danger, which is the press: the same two-rung ladder the outline finish already had. */
   --line-danger-soft:      var(--tint-red-30);        /* 1 use - its border. */
   --bg-action-pressed:     var(--orange-600);         /* 2 uses - the catalogue button while the mega menu is open. It was the only
      pressed state in the product and it had no name. */

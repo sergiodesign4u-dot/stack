@@ -462,7 +462,7 @@ window.KIT_NAV = [
    {
     "label": "Архітектура",
     "page": "architecture.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Піксельний доказ",

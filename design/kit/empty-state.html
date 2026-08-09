@@ -75,7 +75,7 @@
 <tr><td><b>екземплярів</b></td><td>3</td><td>3, <b>усі <code>.mini</code></b></td><td>1</td></tr>
 <tr><td><b>де</b></td><td>listing-empty, listing-error, product-error</td><td>account-empty</td><td>account-error</td></tr>
 <tr><td><b>відступ у файлі</b></td><td>40 / 24</td><td><b>46 / 24, не малюється</b></td><td>48 / 24</td></tr>
-<tr><td><b>рамка у структурі</b></td><td>1.5px dashed <code>--line-strong</code></td><td>те саме</td><td>те саме</td></tr>
+<tr><td><b>рамка у структурі</b></td><td><code>1px</code> dashed <code>--line-strong</code> <span class="kp-tag">7.62</span> було написано 1.5</td><td>те саме</td><td>те саме</td></tr>
 <tr><td><b>рамка на екрані</b></td><td>пунктир <code>--line-strong</code></td><td><b>суцільна <code>--line-hair</code></b></td><td><b>суцільна <code>--line-danger-soft</code></b></td></tr>
 <tr><td><b>значок</b></td><td>портрет 126/118</td><td>іконка 34, акцент</td><td>іконка 34, небезпека</td></tr>
 </tbody></table></div>
@@ -131,7 +131,7 @@
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (10)</th><th>Примітиви (19)</th></tr></thead><tbody><tr><td><code>--bg-danger-soft</code> <code>--bg-surface</code> <code>--line-danger-soft</code> <code>--line-hair</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-body</code> <code>--text-danger</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-display</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fs-20</code> <code>--fs-24</code> <code>--fs-30</code> <code>--fw-black</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--radius-12</code> <code>--radius-circle</code> <code>--size-34</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-40</code></td></tr></tbody></table></div>
 <p class="kp-p"><b>Сім чисел стоять повз шкалу:</b> <code>1.5px</code> (рамка, тричі), <code>46px</code> і <code>48px</code> (відступи), <code>118px</code> і <code>126px</code> (кола), <code>420px</code> і <code>440px</code> (ширина пояснення). Два останні - одна й та сама межа читабельного рядка, написана двічі з різницею у 20 пікселів.</p></section>
 
-<section class="kp-sec"><div class="kp-sh">Знахідка більша за компонент: <code>1.5px</code> не існує</div>
+<section class="kp-sec"><div class="kp-sh">Знахідка більша за компонент: <code>1.5px</code> не існує <b>закрито 7.62</b></div>
 <p class="kp-p">Усі три коробки просять <code>border: 1.5px</code>. Заміряно при <b>DPR 1, 2 і 3</b>: використане значення скрізь <b>1px</b>, тоді як <code>2px</code> лишається <code>2px</code>. Chrome округлює товщину рамки вниз до цілого CSS-пікселя.</p>
 <p class="kp-p"><b>У системі 24 файли пишуть <code>1.5px</code></b>, і два з них носять коментар, який пояснює вибір: <code>checkbox.css</code> - «1.5px rather than 1px», <code>radio.css</code> - «1.5px changing shade is legible under a mouse pointer». Різниці, яку код вважає, що робить, у Chrome немає.</p>
 <div class="kp-gap"><h4>Чому це не виправлено тут</h4>Правильна відповідь не «написати 1px», а вирішити: <b>1 чи 2</b>. Автори хотіли більше за одиницю, і одиниця - це те, що вони й отримали. Це рішення про значення на 24 файли, тож воно йде в етап 09 цілим питанням, а не розмінюється по одному файлу. Заміряно тільки в Chrome; Safari і Firefox треба перевірити окремо.</div></section>
@@ -154,7 +154,7 @@
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
 <div class="kp-gap"><h4>Чого бракує</h4><ul>
 <li><b>Рішення про відступ.</b> 40, 46 і 48 на одну ідею; 46 не малюється взагалі. Одне число, сказане вголос як «змінна -&gt; значення -&gt; чому»</li>
-<li><b>Рішення про <code>1.5px</code></b> на 24 файли системи - вище</li>
+<li><s><b>Рішення про <code>1.5px</code></b> на 24 файли системи</s> <b>закрито на 7.62</b>: файлів було 23, оголошень 33, і код каже <code>1px</code></li>
 <li><b>Інлайн-стилі в кольоровому шарі</b>: <code>design/account-empty.html</code> несе <code>style="padding:20px 14px"</code> на коробці й <code>margin-top:0</code> на заголовку. Прийшли з сірого шару, який заморожений, тож знімати їх односторонньо не можна - інакше два шари розійдуться розміткою</li>
 <li><b>Оформлення на <code>aria-label</code></b> - два правила тримаються за український рядок в атрибуті доступності</li>
 <li><b>Немає порожнього стану для кошика й для обраного в кольорі</b> - у сірому шарі вони є</li>

@@ -108,7 +108,7 @@
   <div class="bs-anat"><p style="font-size:var(--fs-14);color:var(--text-secondary);margin:0">Номер підтверджено. <button class="btn--text btn--inline" type="button">Змінити</button> у будь-який момент.</p>
     <i>дія всередині речення - <code>btn--text btn--inline</code>, тип успадковується від речення</i></div>
 </div>
-<div class="kp-cap">Одна коробка на всі обробки: рамка 1.5px є в кожної, у контурної своя, у акцентної власного кольору, у підкладки прозора. Тому заміна обробки не рухає нічого поруч - до кроку 6.7 акцентна сім'я була розділена між рамкою 1.5 і жодною, і та сама кнопка мала два різні розміри залежно від того, яке ім'я їй дісталось.</div></div>
+<div class="kp-cap">Одна коробка на всі обробки: рамка 1px є в кожної, у контурної своя, у акцентної власного кольору, у підкладки прозора. Тому заміна обробки не рухає нічого поруч - до кроку 6.7 акцентна сім'я була розділена між рамкою 1.5 і жодною, і та сама кнопка мала два різні розміри залежно від того, яке ім'я їй дісталось.</div></div>
 </section>
 <section class="kp-sec"><div class="kp-sh">Набір: чотири обробки × три розміри + іконкова</div>
 <p class="kp-p"><b>Крок 6.7.</b> Кроки 6.1-6.6 звели <b>правила</b> й лишили <b>імена</b>: 704 кнопки на 39 екранах носили <b>56 різних класів</b> і давали <b>44 різні вигляди</b>. Тепер вигляд висить на класі, а старе ім'я лишається в розмітці як гачок компонента - <b>де</b> кнопка стоїть, а не яка вона.</p>
@@ -131,7 +131,12 @@
   <div class="bs-row"><div class="bs-lbl">текстова<span>тип від речення довкола</span></div>
     <div class="bs-cell"><button class="btn--text" type="button">Списати бонуси</button><i>btn--text</i></div>
     <div class="bs-cell"><button class="btn--text btn--inline" type="button">Змінити - код у SMS</button><i>btn--inline · 0 вживань після 7.6</i></div>
-    <div class="bs-cell"><button class="btn--text btn--danger" type="button">Видалити акаунт</button><i>btn--danger · 1 шт · account-profile, низ картки</i></div></div>
+    <div class="bs-cell"><button class="btn--text btn--danger" type="button">Видалити акаунт</button><i>btn--danger · тихий відкривач у підвалі картки</i></div></div>
+
+  <div class="bs-row"><div class="bs-lbl">небезпечна<span>натиск, який не відкотити</span></div>
+    <div class="bs-cell"><button class="btn--outline btn--danger btn--s" type="button">Видалити</button><i>btn--outline btn--danger btn--s</i></div>
+    <div class="bs-cell"><button class="btn--outline btn--danger" type="button">Видалити</button><i>підтвердження в діалозі</i></div>
+    <div class="bs-cell"><button class="btn--outline btn--danger" type="button" disabled>Видалити акаунт</button><i>вимкнено виграє в модифікатора</i></div></div>
 
   <div class="bs-row"><div class="bs-lbl">іконкова<span>слово в aria-label</span></div>
     <div class="bs-cell"><button class="btn--ghost btn--icon btn--s" type="button" aria-label="Закрити">✕</button><i>btn--icon btn--s · 40</i></div>
@@ -284,6 +289,32 @@ document.querySelectorAll('.uiv-jar').forEach(function(e){ e.innerHTML = uivTier
 <p class="kp-p"><b>Жодного нового значення.</b> Обидві землі лежать у <code>tokens.css</code> з кроку 5.5 і названі саме під цю роботу: <code>--bg-action-pressed</code> витягли тоді як «єдиний стан натиску в продукті, і в нього не було імені». Тепер у нього ще шість.</p>
 <p class="kp-p"><b>Іконкова кнопка теж відповідає, і це нове.</b> <code>--text</code> відмовляється від натиску, і причина - про <b>слово</b>. Іконкова кнопка не слово, і цей файл сам це каже там, де видає <code>--text --icon</code> короб 44px. Відмова, написана для підпису, керувала <b>92</b> позначками, яким є чим відповісти. <code>--ghost --icon</code> у селектор не входить: <code>.btn--ghost:active</code> уже дає ту саму землю.</p>
 <div class="kp-cap">Перевірено на дотику, а не припущено: 390 x 844, справжній тап по <code>.btn--accent</code> вводить елемент у <code>:active</code>, земля читається <code>#E85200</code> проти <code>#FF5A00</code> у спокої. Чи потрібен iOS Safari порожній слухач <code>touchstart</code> - <code>[?]</code>: пристрою iOS у цій сесії немає, тож це записано, а не вгадано</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Дія, яку не відкотити <b>крок 7.61</b></div>
+<p class="kp-p">Перепис у браузері по 40 кольорових екранах: <b>десять</b> руйнівних контролів, розкиданих по <b>чотирьох</b> обробках цього файлу плюс одна, що не має обробки взагалі, і <b>чотири з десяти</b> залиті акцентом. Три з тих чотирьох це <b>підтвердження</b> - та сама кнопка, яку тиснуть у мить, коли дані вже йдуть.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Контрол</th><th>Було</th><th>Стало</th></tr></thead><tbody>
+<tr><td>«Видалити клієнта» · діалог тренера</td><td><code>btn--accent btn dark</code></td><td><code>btn--outline btn--danger</code></td></tr>
+<tr><td>«Видалити» · діалог адреси</td><td><code>btn--accent btn dark</code></td><td><code>btn--outline btn--danger</code></td></tr>
+<tr><td>«Видалити акаунт» · діалог профілю</td><td><code>btn--accent btn dark</code>, віддається <code>disabled</code></td><td><code>btn--outline btn--danger</code>, так само <code>disabled</code></td></tr>
+<tr><td>«Видалити» · картка адреси, 3 шт</td><td><code>btn--outline btn--s</code>, тобто те саме, що «Редагувати» поруч</td><td>плюс <code>btn--danger</code></td></tr>
+<tr><td>«🗑 Видалити адресу» · діалог редагування</td><td><code>btn--outline btn--s</code></td><td>плюс <code>btn--danger</code></td></tr>
+<tr><td>«Видалити акаунт» · відкривач у профілі</td><td><code>btn--text btn--danger</code>, червоний <b>лише на ховері</b></td><td>червоний у спокої</td></tr>
+<tr><td>«Видалити недоступний товар» · <code>cart-oos</code></td><td><code>btn--accent btn--l btn--full</code></td><td><b>лишається акцентом</b>: це не видалення в неправильній фарбі, це єдиний шлях уперед. Кошик заблоковано товаром, якого не купити, і саме це його розблоковує</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Найгучніший і найзвабливіший об'єкт системи був той, що щось завершує</b>, і він не відрізнявся від того, що щось купує. Цей файл сам каже: «акцент - це єдина дія ділянки». Видалення не є тією дією; це дія, якої намагаються <b>не</b> зробити випадково.</p>
+<p class="kp-p"><b>Жодного нового значення, і форму прочитано, а не обрано.</b> Родина небезпеки лежить у <code>tokens.css</code> з кроку 5.5, і <b>дев'ять файлів</b> уже нею малюють - otp, field, empty-state, checkout-form, auth-dialog, discount, review-modal, buy-box, account-shell - як чорнило, як край або як бліду плиту. Пораховано: <b>жоден із дев'яти не заливає</b> <code>--red-600</code>, ніде і нічим. <code>DESIGN-artifacts.md</code> каже чому: червоне це «серйозний глибокий червоний, свідомо відділений від Signal Orange», і та сама сторінка забороняє «червоні бризки». Залита червона кнопка і є та бризка. Тому руйнівний контрол це <b>контур із небезпечним чорнилом</b>, а плита приходить під пальцем.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Виміряно в браузері, з витриманим переходом</th></tr></thead><tbody>
+<tr><td>спокій</td><td>чорнило <code>#C42B1C</code> · край <code>#C42B1C</code> · земля прозора</td></tr>
+<tr><td>ховер</td><td>земля <code>--bg-danger-soft</code> <code>rgba(196,43,28,.04)</code>, <b>і чорнило лишається червоним</b></td></tr>
+<tr><td>натиск</td><td>земля <code>--bg-danger</code> <code>#FDF4F2</code></td></tr>
+<tr><td>фокус</td><td>те саме кільце, що в усіх: біла щілина 2px, далі акцентна лінія. Кільце каже «ви тут з клавіатури», а не «це небезпечно», і двох значень воно не носить</td></tr>
+<tr><td>вимкнено</td><td>не рухається в жодному з чотирьох станів</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Правило спокою гасить помаранчевий ховер без вищого селектора.</b> <code>.btn--outline:hover</code> це (0,2,0) і ставить <code>--line-action</code>; два класи це теж (0,2,0), тож нічия йде до порядку у файлі, а цей блок нижчий. Земля - єдине, що оголошують правила зі станами, і саме тому «вимкнено» мусило дорости на два селектори: земля на (0,3,0) інакше підсвітила б мертву кнопку. А мертва там справжня.</p>
+<p class="kp-p"><b>Коробка не зрушила.</b> Підтвердження адреси було біле на помаранчевому 140x52 і стало червоне на прозорому 140x52. Це не збіг: кожна коробкова обробка в цьому файлі несе однаковий край 1px, тому заміна обробки на обробку не рухає нічого - саме те, що файл обіцяє вище і що тут нарешті перевірено на живій кнопці.</p>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Червоне там, де натиск не відкотити.</b> Три підтвердження, кнопки адреси і відкривач видалення акаунта. Дев'ять екземплярів на двох екранах із сорока: колір рідкісний, і саме тому він щось означає.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не фарбуй те, що повертається одним натиском.</b> «Видалити» в рядку кошика і ✕ на картці обраного лишаються тихими. Червоне на трьох рядках кошика витратило б колір на несерйозне, і тоді воно перестає означати серйозне будь-де.</div></div>
+<div class="kp-cap">Сірий шар не зрушив, і це переміряно, а не припущено: <code>_wf.css</code> не має <b>жодного</b> селектора, що починається на <code>btn--</code>, а два імені, які він читає - <code>.btn</code> і <code>.dark</code> - лишились на місці. Підтвердження в сірому прототипі як було біле на <code>#161616</code> 145x44, так і лишилось</div>
+<div class="kp-cap">Не полагоджено й не замовчано: той самий перепис каже, що <b>17</b> контролів зі словом-вилученням не носять із цього файлу <b>жодного класу</b> - вилучення рядка в <code>.co-line .li-acts</code>, яке <code>checkout-form.css</code> малює руками, і ✕ на чипі фільтра. Вони не руйнівні, але вони кнопки поза набором кнопок, тобто рівно та форма, яку мав закінчити крок 6.7. Записано на крок 6</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>50</b> власних класів і <b>5</b> станів оголошено в <code>button.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (<code>.acc-main</code> <code>.addr-acts</code> <code>.aord-actions</code> <code>.bb</code> <code>.cd-empty</code> <code>.cd-foot</code> <code>.ci-qty</code> <code>.co-err-acts</code> <code>.co-qty</code> <code>.co-social</code> <code>.coachbn</code> <code>.cs-act</code> <code>.cshelf</code> <code>.fsheet-foot</code> <code>.notifyrow</code> <code>.pages</code> <code>.pcard</code> <code>.pcard-l</code> <code>.pm-f</code> <code>.pstrip</code> <code>.rvhead</code> <code>.sys-search</code> <code>.uiv-ic</code> <code>.wff-news</code> <code>.wfh-mi</code> <code>.wfh-nav</code> <code>.wfh-search</code>) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>

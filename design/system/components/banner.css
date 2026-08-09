@@ -82,7 +82,7 @@
 .tband{ display: flex; flex-wrap: wrap; gap: var(--space-12) var(--space-24); padding: var(--space-12) var(--space-16); border: 1px solid var(--line-hair); border-radius: var(--radius-12); background: var(--bg-surface); font-size: var(--fs-14); color: var(--text-secondary); margin: var(--space-24) 0; }
 .tband span b{ color: var(--text-primary); }
 .tbanners{ display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-12); margin: var(--space-24) 0; }
-@media (min-width: 700px){
+@media (min-width: 720px){
   .tbanners{ grid-template-columns: repeat(5, 1fr); }
 }
 .tbanners .tbn{ border: 1px solid var(--line-hair); overflow: hidden; display: flex; flex-direction: column; background: var(--bg-page); }
@@ -198,7 +198,8 @@
    The values are carried over untouched, raw pixels included: 18, 20, 10, 26,
    92, 5 and 68 are not on the 2/4/8/12/16/24/32/40 space scale, and 559px is
    not on the 480/720/1180 breakpoint set. A value moves, it is not re-derived -
-   both belong to the stage-09 pass with the 1.5px border and the eyebrow.
+   both belong to the stage-09 pass with the eyebrow. (The border half of that
+   pass closed at 7.62: 1.5px was never drawn and the code says 1 now.)
 
    The intent, written when it was drawn: the doubt is met by the calm bear plus
    evidence, not by a louder button. The banner is a warm panel, the proof

@@ -968,7 +968,7 @@ function wfClientEdit() {
     '<div class="ic" aria-hidden="true">🗑</div><h2>Видалити клієнта «Андрій»?</h2>' +
     '<p>Клієнта буде вилучено з вашого списку. Минулі замовлення залишаться в історії замовлень. Цю дію не можна скасувати.</p>' +
     '<div class="act"><button class="btn--outline btn" onclick="openClientEdit()">Скасувати</button>' +
-    '<a class="btn--accent btn dark" href="coach-clients.html">Видалити клієнта</a></div>' +
+    '<a class="btn--outline btn--danger btn dark" href="coach-clients.html">Видалити клієнта</a></div>' +
     '</div></div>';
 }
 function openClientEdit() { wfClientEdit(); closeClientEdit(); var e = document.getElementById('ce-edit'); if (e) e.classList.add('open'); }
@@ -989,7 +989,18 @@ function wfAddrDialog() {
   var recv = '<div class="addr-2col"><div class="cef"><label>Ім\'я</label><input class="field" type="text" value="Вікторія"></div><div class="cef"><label>Прізвище</label><input class="field" type="text" value="Коваль"></div></div>' +
              '<div class="cef"><label>Телефон</label><input class="field" type="tel" inputmode="tel" value="+380 67 123 45 67"></div>';
   var def = '<label class="addr-check"><input type="checkbox"> Зробити основною адресою</label>';
-  var delRow = '<div class="addr-del-row" hidden><button type="button" onclick="openAddrDelete()">🗑 Видалити адресу</button></div>';
+  /* 7.59: the delete button used to carry no class at all, and both stylesheets
+     drew the outline finish onto a bare <button> by hand - nine declarations in
+     design/system/components/address-card.css, eleven here. It takes the finish
+     now, the way the Скасувати button beside it already did. The grey layer does
+     not know btn--outline or btn--s and ignores them; what it does know, .btn, is
+     outranked property by property by the rule below, so nothing moves here.
+     7.61 added btn--danger to it and to the three confirmations, and swapped the
+     btn--accent on those three for btn--outline. Same reasoning, measured again:
+     _wf.css carries ZERO selectors beginning btn--, and the two classes the grey
+     layer does read, .btn and .dark, are untouched. The grey prototype is byte
+     for byte what it was; only design/ can see the difference. */
+  var delRow = '<div class="addr-del-row" hidden><button type="button" class="btn--outline btn--danger btn--s btn" onclick="openAddrDelete()">🗑 Видалити адресу</button></div>';
   function acts() { return '<div class="ceact"><button type="button" class="btn--outline btn" onclick="closeAddr()">Скасувати</button><button type="button" class="btn--accent btn dark addr-save" onclick="saveAddr()">Зберегти адресу</button></div>'; }
   function back() { return '<button type="button" class="btn--text addr-back" onclick="addrStep(\'choose\')">‹ Інший спосіб</button>'; }
 
@@ -1027,7 +1038,7 @@ function wfAddrDialog() {
     '<div class="ic" aria-hidden="true">🗑</div><h2>Видалити адресу?</h2>' +
     '<p>Адресу буде вилучено зі збережених. Це не вплине на вже оформлені замовлення.</p>' +
     '<div class="act"><button type="button" class="btn--outline btn" onclick="closeAddrDelete()">Скасувати</button>' +
-    '<button type="button" class="btn--accent btn dark" onclick="confirmAddrDelete()">Видалити</button></div>' +
+    '<button type="button" class="btn--outline btn--danger btn dark" onclick="confirmAddrDelete()">Видалити</button></div>' +
     '</div></div>';
 }
 function addrSetMode(edit) {
@@ -1100,7 +1111,7 @@ function wfProfileDialogs() {
     '<p>Буде видалено ваш профіль, збережені адреси, обране та <b>бонуси, що згорять безповоротно</b>. Історія замовлень зберігається за вимогами обліку. Цю дію не можна скасувати.</p>' +
     '<label class="pf-delcheck"><input type="checkbox" id="pf-del-ok" onchange="document.getElementById(\'pf-del-btn\').disabled=!this.checked"> Розумію, що акаунт буде видалено назавжди</label>' +
     '<div class="act"><button type="button" class="btn--outline btn" onclick="closeProf()">Скасувати</button>' +
-    '<button type="button" class="btn--accent btn dark" id="pf-del-btn" disabled onclick="closeProf();wfToast(\'ok\',\'Запит на видалення прийнято\')">Видалити акаунт</button></div>' +
+    '<button type="button" class="btn--outline btn--danger btn dark" id="pf-del-btn" disabled onclick="closeProf();wfToast(\'ok\',\'Запит на видалення прийнято\')">Видалити акаунт</button></div>' +
     '</div></div>';
 
   el.innerHTML = phone + email + lang + del;

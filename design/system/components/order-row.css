@@ -14,8 +14,11 @@
 .aord-actions{ display: flex; gap: var(--space-8); margin-top: var(--space-16); flex-wrap: wrap; }
 .ord-tabs{ display: flex; gap: var(--space-8); flex-wrap: wrap; margin: var(--space-16) 0 var(--space-4); }
 /* step 7.23: `.ord-tab` went to chip.css as a SEGMENT. Its edge was 1px here
-   while every other chip in the product drew 1.5 - it is 1.5 now, and the
-   control is 41 tall instead of 40. */
+   while every other chip in the product WROTE 1.5, so 7.23 wrote 1.5 too and
+   said the control went from 40 to 41 tall. Both halves of that were wrong,
+   and 7.62 measured it: Chrome resolves 1.5px to 1px before layout, so no
+   chip ever drew 1.5 and this one never grew. `.ord-tab` measures 40.39 at
+   390, in the edition that writes 1.5 and in the edition that writes 1. */
 .ord-list{ display: flex; flex-direction: column; gap: var(--space-12); margin-top: var(--space-16); }
 .ord{ border: 1px solid var(--line-hair); overflow: hidden; background: var(--bg-page); }
 .ord-h{ width: 100%; display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-8) var(--space-16); padding: var(--space-16) var(--space-16); background: var(--bg-page); border: 0; text-align: left; cursor: pointer; font: inherit; }
@@ -49,7 +52,7 @@
    loud, exactly as it did when they lived one file further down. */
 .ob-collapse{ display: none; }
 .ob-grid{ display: grid; grid-template-columns: 1fr; gap: var(--space-24); }
-@media (min-width: 820px){
+@media (min-width: 860px){
   .ob-grid{ grid-template-columns: 1fr 292px; }
 }
 .ob-line{ display: grid; grid-template-columns: 52px 1fr auto; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); align-items: start; }
@@ -66,14 +69,14 @@
 .ob-receipt{ display: inline-flex; align-items: center; gap: var(--space-8); margin-top: var(--space-16); font-size: var(--fs-14); }
 .ob-repeat{ width: 100%; }
 .ob-del{ border: 1px solid var(--line-hair); padding: var(--space-16); margin-top: var(--space-16); display: flex; flex-direction: column; gap: var(--space-12); }
-@media (max-width: 640px){
+@media (max-width: 639px){
   /* step 6.6: size, border and colour are the set's; here stays only what makes
      this control appear at all below 640, and that it fills the row. `display`
      is that "appear at all" - the rule above hides it, so the button class
      cannot bring it back on its own. */
   .ob-collapse{ display: flex; width: 100%; margin-top: var(--space-16); font-family: inherit; }
 }
-@media (max-width: 640px){
+@media (max-width: 639px){
   .ord-h{ display: grid; align-items: center; gap: var(--space-4) var(--space-12); grid-template-columns: 1fr auto;
     grid-template-areas: "no date" "stat sum" "thmb thmb" "more more"; }
   .oh-no{ grid-area: no; }
@@ -124,7 +127,7 @@
 .ord-body{ border-color:var(--line-hair); }
 .ord-oos{ border-style:solid; border-color:var(--line-bonus-soft); background:var(--bg-bonus-soft); border-radius:var(--radius-8); }
 .ord-oos b{ color:var(--text-warning); }
-@media (max-width: 640px){
+@media (max-width: 639px){
   .oh-drop{ border-color:var(--line-strong); }
 }
 
@@ -141,7 +144,7 @@
    Values untouched - this is a move, not a decision. Same shape as `.packlabel`
    at 7.43, and it is the second class this pass has found filed under a component
    it does not belong to. */
-.dl .dk{ font-size: var(--fs-12); text-transform: uppercase; letter-spacing: var(--ls-caps); font-weight: var(--fw-bold); color: var(--text-muted); }
+.dl .dk{ font-size: var(--fs-12); text-transform: uppercase; letter-spacing: var(--ls-caps); font-weight: var(--fw-black); color: var(--text-muted); }
 .dl .dv{ font-size: var(--fs-14); font-weight: var(--fw-semibold); margin-top: var(--space-4); line-height: var(--lh-snug); color: var(--text-body); }
 
 /* ---------- the order's summary row - arrived at 7.51 ------------------------
@@ -159,7 +162,7 @@
 .sr{ display: flex; justify-content: space-between; gap: var(--space-12); font-size: var(--fs-14); padding: var(--space-4) 0; }
 .sr span:first-child{ color: var(--text-secondary); }
 .sr span:last-child{ color: var(--text-primary); font-weight: var(--fw-semibold); white-space: nowrap; }
-.sr.total{ border-top: 1.5px solid var(--line-strong); margin-top: var(--space-8); padding-top: var(--space-12); }
+.sr.total{ border-top: 1px solid var(--line-strong); margin-top: var(--space-8); padding-top: var(--space-12); }
 .sr.total span{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); }
 .sr.accrual span:last-child{ font-weight: var(--fw-black); }
 .sr span:last-child{ font-family:var(--font-mono); word-spacing:-.24em; }

@@ -51,14 +51,27 @@
 .optin{ align-items: flex-start; gap: var(--space-12); }
 
 /* ---------- the box ----------------------------------------------------------
-   18 square, and `flex: none` so a long label cannot squeeze it. 1.5px rather
-   than 1: at 18px an unchecked box is nothing but its outline, and a hairline
-   there reads as a rounded rectangle of nothing. */
+   18 square, and `flex: none` so a long label cannot squeeze it.
+
+   THE EDGE HERE IS THE ONE PLACE `1.5px` WAS AN ARGUMENT AND NOT A HABIT, so
+   step 7.62 is not allowed to fold it silently. What this comment used to say:
+   «1.5px rather than 1: at 18px an unchecked box is nothing but its outline,
+   and a hairline there reads as a rounded rectangle of nothing.» The reasoning
+   is sound and the value never did it. Chrome resolves `border-width: 1.5px`
+   to 1px before layout, at device pixel ratio 1, 2 and 3 - measured three ways
+   at 7.62 - so this box has been drawing the hairline the comment argued
+   against, on every screen, since it was written.
+
+   So the line now says 1, because that is what it always was. If the argument
+   still holds - and it may, an 18px box IS mostly outline - the answer is
+   `2px`, which is a real second weight the system already owns, and it is a
+   decision for the owner, not a side effect of telling the truth about a
+   number. Logged in architecture.md as the one open question A1 leaves. */
 .cb{
   width: 18px; height: 18px;
   flex: none;
   display: inline-block;
-  border: 1.5px solid var(--line-strong);
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius-4);
   transition: border-color .15s ease, background .15s ease;
 }
@@ -69,8 +82,9 @@
 /* ---------- the tick is a SHAPE ----------------------------------------------
    Two edges of a 5x9 box, turned 45 degrees: the corner that is left is a check.
    It is drawn rather than typed for the reason every other mark in this system
-   is - it can take a stroke weight (2px, which is the same weight the box's own
-   1.5 reads next to), it centres on the box rather than on a font's baseline, and
+   is - it can take a stroke weight (2px, which is twice the 1px the box's own
+   edge draws - it was written as «the same weight» against a declared 1.5 that
+   never rendered), it centres on the box rather than on a font's baseline, and
    a screen reader says nothing about it, because the control already announces
    `aria-checked`.
    `-58%` and not `-50%`: a check is not symmetric about its own box, and half a

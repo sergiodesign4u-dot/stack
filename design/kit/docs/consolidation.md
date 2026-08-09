@@ -7247,3 +7247,720 @@ Wider than this file, since the fourth one is on another screen entirely.
 `design/kit/address-card.html`. Idle check: 28 of 28 classes rendered, 5 states named,
 including both steps of the dialog. All 47 stands re-checked at 360 and 1280 - no overflow, no
 failed idle check, no exception. Molecules **14 / 27**.
+
+---
+
+## Step 7.59: the delete button takes the finish, and the defect it had was not the one I named
+
+**Who asked for it:** the owner, on the two open questions of 7.58 - and the answer was to
+edit `wireframes/` and give the button its class.
+
+`wireframes/_nav.js:992` built the delete button with **no class at all**, and both stylesheets
+drew the outline finish onto that bare `<button>` by hand: nine declarations in
+`address-card.css`, eleven in `wireframes/_wf.css`. It carries
+`class="btn--outline btn--s btn"` now, the way the «Скасувати» button one line above already
+did, and the nine declarations in `address-card.css` are gone.
+
+### First, the correction
+
+7.58 reported this button as **«40 tall where the ladder says 44, the only control on the
+screen off the ladder»**. That was wrong on both counts.
+
+`--size-40` **is** a rung - the ladder is 34 / 38 / 40 / 44 / 52 / 62 - and `.btn--s` sets
+`min-height: var(--size-40)`. The 44 came from measuring against a header button that carried
+`wfh-act numbtn` on top of the finish, so it was not a clean comparison at all. **The
+duplication was real; the defect described was not.**
+
+Fourth misreading in three days, and the same root as the other three: something was measured
+and its reason was assumed. This one at least was caught before the edit rather than after.
+
+### What actually changed
+
+| | bare `<button>` | `.btn--outline .btn--s .btn` |
+|---|---|---|
+| border · radius · size · weight · ink · gap | identical | identical |
+| min-height | 0, and it came out 40 by accident | **40**, because `--size-40` |
+| side padding | **16** | **12** |
+| side padding below 480 | still 16 | **8**, from `button.css:187` |
+| measured at 1280 | 178x40 | **170x40** |
+
+So the visible change is width: 8px narrower at 1280, 16px narrower at 360. And the button now
+**shrinks on a phone with every other button**, which the hand-made edition could not do at
+all - it had no media query.
+
+### The grey prototype did not move a pixel
+
+166x40 before, 166x40 after, measured in both layers rather than reasoned. `wireframes/_wf.css`
+does not know `btn--outline` or `btn--s` and ignores them; the one class it does know, `.btn`,
+loses property by property to its own `.addr-del-row button` rule, which is more specific. The
+grey layer keeps its own edition, as it should - that is what the split is for.
+
+This is the first step to edit `wireframes/` since stage 05, and it was the owner's call. Worth
+recording why it is not a breach of the freeze: `wireframes/` owns structure and states, a
+class name **is** structure, and all 40 coloured screens load `wireframes/_nav.js` for their
+behaviour. The file was never an archive.
+
+### A/B against HEAD
+
+**Null pass 0 rows. The raw diff said 24 rows, and all 24 were false.**
+
+The census key is `TAG.classes#seq`. The button gained classes, so it - and every later
+`BUTTON` on the page - was renamed, and a key-by-key comparison reported 24 «element appeared
+/ disappeared» rows. Compared as **multisets of digests**, where the name does not matter, the
+answer is two entries on one screen: one digest with `padding 8px/16px` count 3 -> 0, one with
+`8px/12px` (`8px/8px` below 480) count 0 -> 3.
+
+Exactly the three delete buttons of the three dialogs, and nothing else on 40 screens at four
+widths. Same lesson as 7.48: **when a step changes the DOM, compare multisets, not
+sequence-keyed rows.**
+
+### Still open
+
+The four bare `<input type="checkbox">` - three in this dialog, one on
+`account-profile.html` - against 351 `.cb` boxes elsewhere. Not touched this step.
+
+`design/kit/address-card.html` carries all of this, including the correction to its own
+previous claim.
+
+---
+
+## Step 7.60: the file thirty-two stands had been promising
+
+**Who asked for it:** the owner - «let us start closing the open items».
+
+The first thing that had to be said is that most of them are not open work. Ninety-eight
+findings were extracted from 28 «found, not fixed» blocks across 66 logged steps, and **two of
+them close with code.** The other ninety-six are decisions parked on purpose, and each one the
+log already routes to stage 09 or to Krok 6. They cannot be fixed; they can only be **taken** -
+and for that they have to be visible in one place.
+
+They were not. **Thirty-two stands end with «stage 09 starts from this list, collected in
+`design/kit/docs/architecture.md`», and that file did not exist.** A promise repeated
+thirty-two times with nothing behind it.
+
+### `design/kit/docs/architecture.md` + `design/kit/architecture.html`
+
+Ninety-eight findings folded into the smallest number of decisions that resolve them, each with
+a measurement, the cost of leaving it, the cost of changing it, and a recommendation. Eight
+sections: values and rules for stage 09 (A), names for Krok 6 (B), states that do not exist
+(C), the numbers that are `[?]` (D), accessibility (E), what closes in code today (F), **what
+is measured and sound and must not be re-opened (G)**, and housekeeping (H).
+
+`1.5px` is not 44 findings, it is one decision: the browser draws it as 1px at every ratio, so
+either the system says 1px or it keeps writing a width no screen renders. Seven breakpoints
+past the set are not seven findings, they are one set. Twenty-two eyebrow selectors are one
+face.
+
+**Every number was re-taken rather than copied out of the log, and five had drifted:**
+
+| | the log said | measured 2026-08-09 |
+|---|---|---|
+| `1.5px` | 24 files | **26 files, 44 declarations** |
+| breakpoints off the set | 7 | **11 distinct, of 21 in use** |
+| the eyebrow | 22 selectors, 14 files | **32 declarations, 18 files** |
+| `'Inter', sans-serif` literals | «four left» at 7.37 | **9, in 7 files** |
+| rules keyed on a Ukrainian `aria-label` | 5 | 5, confirmed |
+
+Section G exists because this pass twice spent steps on a shape that was the system working as
+designed - the stage-08 split read as a doubled media block at 7.55 and 7.56, undone at 7.57.
+It names the six shapes that look like defects and are not, so a fourth step is not spent on
+them.
+
+### And the two that do close with code
+
+**F1. `design/account-empty.html:81`** carried `style="padding:20px 14px"` on an
+`.emptybox mini`. An inline style outranks every stylesheet and neither 20 nor 14 is on any
+scale in the system. Removed; the box takes its own `--space-24 / --space-16`.
+
+**F2. `.rk-item:first-of-type`** in `restock-note.css` matched nothing - `:first-of-type` means
+«first among siblings of its TAG» and the first `DIV` in the card is `.ah`, the header. Found
+at 7.53, deferred there because the fix moves pixels. It is `.rk-lead + .rk-item` now, which
+names the first item exactly, and the pair the author wrote - tighten the first row at the top,
+the last at the bottom - finally works as a pair.
+
+The same off-by-one still drives the photo alternation: `:nth-of-type(odd)` and `(even)` count
+`.ah` too, so the first item is the EVEN one. It works, it works **by accident**, and changing
+it would only move which photograph sits on which row. Left, and written down.
+
+### A/B against HEAD
+
+**Null pass 0 rows. Difference 2008 rows, on three pages, and every one of them is geometry
+moving because two paddings changed.**
+
+| page | rows | properties that changed | page height |
+|---|---|---|---|
+| `account-empty.html` | 149 x 4 | `padding-top/right/bottom/left`, then rect and grid rows | 2022.02 -> **2030.02**, exactly +8 |
+| `account.html` | 347 x 4 | `padding-top`, then rect | 2389.25 -> **2379.25**, exactly -10 |
+| `account-addresses.html` | 6 x 4 | `__present` - step 7.59's class change, already reported |
+
+Two thousand rows and two properties. The census keys by position, so one box growing 8px taller
+moves every element under it - and that is the honest picture of what a padding change costs.
+Nothing else on 40 screens at four widths: no colour, no type, no border, no other page.
+
+### The registry
+
+`architecture.html` was a row in the «Перевірка» group, not done, since the group was written.
+It is done now. Forty-eight pages in the stand, all re-checked at 360 and 1280 - no overflow, no
+failed idle check, no exception.
+
+**What is left in the kit: 13 molecules and 24 organisms, and one check page - the pixel
+proof.**
+
+---
+
+## Step 7.61: the button that ends a thing wore the paint of the button that buys one
+
+**Who asked for it:** the owner - «go with what you recommend». The recommendation was
+`architecture.md` section C, the irreversible action, first, because it is the only entry in
+that table that can cost a person something.
+
+**Who found it:** Claude, in a browser, across the 40 coloured screens.
+
+### The census
+
+Ten destructive controls, spread over four of this file's finishes plus one control that is in
+no finish at all, and **four of the ten painted with the accent.** Three of those four are the
+CONFIRMATIONS - the button a person presses at the moment the data actually goes.
+
+| control | wore | takes |
+|---|---|---|
+| «Видалити клієнта», the coach dialog | `btn--accent btn dark` | `btn--outline btn--danger` |
+| «Видалити», the address dialog | `btn--accent btn dark` | `btn--outline btn--danger` |
+| «Видалити акаунт», the profile dialog | `btn--accent btn dark`, ships `disabled` | `btn--outline btn--danger`, still `disabled` |
+| «Видалити» on an address card, 3 of them | `btn--outline btn--s` - **the same string as «Редагувати» beside it** | plus `btn--danger` |
+| «🗑 Видалити адресу» in the edit dialog | `btn--outline btn--s` | plus `btn--danger` |
+| «Видалити акаунт», the opener | `btn--text btn--danger`, red **on hover only** | red at rest |
+
+So the loudest, most inviting object the system owns was the one that ENDS a thing, and it was
+indistinguishable from the one that buys a thing. `button.css` says it in its own words: «the
+accent is the one action of a region». A delete is not that action.
+
+**The fourth accent stays.** «Видалити недоступний товар» on `cart-oos.html` is not a delete in
+the wrong paint - it is the screen's one way forward. The cart is blocked by an item that
+cannot be bought and dropping it is what unblocks the order. Its word begins with «Видалити»
+and its work does not. Written into the file so it is not «fixed» later by someone reading the
+label.
+
+### The decision, and why it is not a red button
+
+**No new value, and the shape was read out rather than picked.** The danger family has been in
+`tokens.css` since 5.5 and **nine files already paint with it** - otp, field, empty-state,
+checkout-form, auth-dialog, discount, review-modal, buy-box, account-shell - as ink, as an edge
+or as a pale plate. Counted: **not one of the nine fills with `--red-600`, anywhere.**
+`DESIGN-artifacts.md` says why - the red is «a serious deep red, deliberately separated from
+Signal Orange», and the same page bans «red splashes». A solid red button is that splash.
+
+So `.btn--danger` is a **modifier, not a fifth finish**: the finish says how loud a control is,
+the modifier says what it does. On `--outline` it is the confirmation, on `--text` the quiet
+opener at the foot of a card.
+
+**The rest rule cancels the orange hover without a taller selector.** `.btn--outline:hover` is
+(0,2,0) and sets `--line-action`; two classes are (0,2,0) as well, so the tie goes to source
+order and the later block holds the red through the hover. Same for `.btn--text:hover`, which
+is why the text edition needs one line and not two.
+
+**The off state had to grow two selectors, and this is the one invariant the step broke.** The
+file's disabled block relies on being last at EQUAL specificity - no `!important` anywhere.
+`--danger` is a modifier, so its ground rules carry a second class and stand at (0,3,0), one
+step above everything else in the file. Source order alone would no longer hold them off a dead
+button, and there is a real dead button: `#pf-del-btn` ships `disabled` and wakes only when the
+checkbox is ticked. So the off state names the modifier and matches its height. The text
+edition needs no such line - it declares no ground.
+
+**The overturned decision, said out loud.** This file used to read «a destructive text action is
+quiet until you go for it». Written for a mouse. Step 7.33 measured the consequence on this
+product: the primary device is a phone, `:hover` is the state that never fires, so on a phone
+the account-deletion button was the same ink as every other text button on the page and the
+modifier decided nothing. The ink is at rest now.
+
+### The states, forced through CDP and read with the transition settled
+
+| state | measured |
+|---|---|
+| rest | ink `#C42B1C` · edge `#C42B1C` · ground transparent |
+| hover | ground `--bg-danger-soft` `rgba(196,43,28,.04)`, **and the ink stays red** |
+| active | ground `--bg-danger` `#FDF4F2` |
+| focus | the same `--ring-focus-control` as everything else: a 2px white gap, then the accent line. The ring says «you are here from a keyboard», not «this is dangerous», and it does not carry two meanings |
+| disabled | does not move in any of the four |
+
+The first draft of that probe read the computed style the instant it forced the state and
+reported the PLAIN outline button as having no hover at all. The file transitions colour,
+border, background and shadow over .15s, so a read taken at once returns the state you just
+left. 320ms, then read. **The instrument lied first, again, and the control row is what caught
+it.**
+
+### The box did not move
+
+The address confirmation was white on orange at **140x52** and is red on transparent at
+**140x52**. Not a coincidence: every boxed finish in this file carries the same 1.5px edge, so
+swapping one finish for another moves nothing - which the file has promised since 6.7 and which
+is now checked on a live button. The account confirmation, ticked live, goes grey 163x52 to red
+163x52.
+
+### The grey prototype did not move
+
+Measured, not assumed: `wireframes/_wf.css` carries **zero** selectors beginning `btn--`, and
+the two names the grey layer does read, `.btn` and `.dark`, were left in place. The grey
+confirmation is white on `#161616` at 145x44 before and after.
+
+### A/B
+
+**Null pass 0 rows.** Difference **80 rows on two pages of forty**, at all four widths, and
+nowhere else. Most of those 80 are the census key artefact - the key is `TAG.classes#seq`, so
+adding a class renames the element and renumbers its siblings. Compared as a multiset of
+digests, which is the honest comparison:
+
+| page | elements that changed | properties that changed |
+|---|---|---|
+| `account-addresses.html` | 7 | `color` and the four `border-*-color`, plus `background-color` on the one that lost its orange fill |
+| `account-profile.html` | 1 | `color` and the four `border-*-color` |
+
+**Eight elements, six properties, zero geometry.** No `RECT` and no `POS` row anywhere in the
+census, at any width: nothing on any screen moved by a pixel. The ninth `.btn--danger` - the
+disabled confirmation - produced no row at all, because its computed style is identical before
+and after. The census proved the disabled invariant by itself.
+
+### The winning-rule solver, over the file it changed
+
+648 declarations, run against every coloured screen at 360 and 1280.
+
+- `.btn--outline.btn--danger` **wins 14 times** over `.btn--outline` - 7 elements at two widths.
+- `.btn--outline.btn--danger[disabled]` **wins twice** over both of them, which is the account
+  confirmation at two widths, and is the invariant the step had to protect written as a count.
+- `.btn--text.btn--danger` **wins twice** over `.btn--text` - the profile opener.
+- **One new declaration matches nothing:** `.btn--outline.btn--danger[aria-disabled="true"]`.
+  That is not a defect and not an oversight - `[disabled]` and `[aria-disabled]` are declared as
+  a pair for every finish in this file, because the first is for a `<button>` and the second is
+  the only form a screen reader can hear on an `<a>`. `.btn--accent`'s whole pair matches
+  nothing today for the same reason. A state is declared once, not once per tag that happens to
+  exist right now.
+
+Nothing else in the file changed hands.
+
+### Found, not fixed
+
+- **17 controls whose word is a removal carry no class from `button.css` at all.** Two forms
+  hold all seventeen: the line remove inside `.co-line .li-acts`, which `checkout-form.css`
+  paints by hand in six declarations, and the ✕ on a filter chip. Neither is destructive in the
+  sense of section C, so no one will see a defect - but they are buttons outside the button
+  set, which is the exact shape step 6.7 existed to end. Filed as **architecture.md B4**, and
+  recommended as the first item inside the Krok 6 pass.
+- **The stale counts in `tokens.css`.** `--text-danger` said «16 uses» and measured 11 before
+  this step; `--line-danger` said 7 and was 4. Corrected to 13 and 5 with the drift named in
+  the comment. The others were right: `--bg-danger-soft` was 1 use and is 2 now.
+- **«Видалити клієнта» has no coloured screen to render on.** 102 of the 142 grey screens have
+  no coloured twin, and the coach flow is among them. The class is on the control in the shared
+  `_nav.js` and will draw the day the screen exists.
+
+### The stand and the sheet
+
+`design/kit/button.html` takes a sixth row in the finish matrix - небезпечна - and a new
+section, «Дія, яку не відкотити», carrying the census, the decision, the four measured states
+and both the grey-layer and the box-did-not-move checks. The idle check still passes: all 12
+classes of the file rendered, 5 states named.
+
+`architecture.md` and `architecture.html`: section C's last row is struck through and the
+recommendation box now records what was done; section F says both its items closed at 7.60 with
+the two measured moves; B4 is new. **Three of the ninety-eight are closed. Ninety-five remain,
+and not one of them is code without a decision first.**
+
+---
+
+## Step 7.62: a line weight the system believed in and never drew
+
+**Who asked for it:** the owner - «go, do it». The item is `architecture.md` **A1**, next in the
+order this pass recommended.
+
+**Who found it:** Claude at 7.49, in a browser. Re-measured and corrected at 7.62.
+
+### The count in `architecture.md` was wrong, and the instrument is why
+
+A1 said **44 declarations in 26 files**. It is **33 in 23**. A plain `grep 1.5px` counts prose
+inside `/* */` as code, and matches `11.5px` on the substring - `buy-box.css` has two of those,
+a font size. Eight of the missing eleven were comments ABOUT the value, written by the steps
+that found it. Re-counted with a boundary and with comments stripped first.
+
+**A count is a measurement, and a measurement taken with the wrong instrument is a guess with a
+number on it.** Second time this pass: 7.58 counted classes by grepping static markup when the
+markup is built by JavaScript.
+
+### The claim that mattered had never been checked
+
+A1 said «Chrome draws it as 1px at DPR 1, 2 and 3 - measured at 7.49 by screenshot». That is a
+claim about **paint**. The recommendation that followed - «change it to 1px, zero visible change
+anywhere» - is a claim about **layout**, and nobody had measured that one. `button.css` said the
+opposite in passing: `8 + 8 + 14x1.6 + 1.5x2 = 41.4`, arithmetic that only works if layout uses
+1.5. If layout used 1.5, then 23 components each lose a pixel in both axes and this is not a
+free change at all.
+
+**Measured three ways before a single character was edited:**
+
+1. `getComputedStyle().borderTopWidth` returns **`1px`** for a declared `1.5px`, at device pixel
+   ratio 1, 2 and 3. Chrome resolves it to a used value of 1 before layout ever runs, so paint
+   and layout agree and always did.
+2. The layout rect of a `1.5px` box is byte-identical to a `1px` one - `95.156 x 41.594` at all
+   three ratios - while `2px` gives `97.156 x 43.594`. Same on a real control: forcing
+   `border-width: 1px` onto a live `.addr-acts button` moved its rect by nothing.
+3. A census of **every non-zero border on the 40 coloured screens at two widths**: `1px`
+   **34 262**, `2px` **440**, `4px` **16**. `1.5px` appears **zero** times.
+
+The 4px is not a third weight - it is the ring of `.co-spin` and `.auth-spin`, where a border
+draws a shape and not an edge. Written into `tokens.css` so it is not «found» again.
+
+### What changed
+
+**33 declarations in 23 stylesheets, swept by script** on the code only, with comments stashed
+out and restored - a hand pass over 23 files is exactly the thing that does not survive the next
+clone. Plus the rule itself, in `tokens.css`: the system has **two** line weights, hairline 1px
+and heavy 2px, and a control that wants a heavier edge asks for 2px out loud.
+
+### The one place `1.5px` was an argument, not a habit
+
+`checkbox.css` chose it over 1 and wrote down why: «at 18px an unchecked box is nothing but its
+outline, and a hairline there reads as a rounded rectangle of nothing». **The reasoning is sound
+and the value never did it** - that box has been drawing the hairline the comment argues against
+since the day it was written. So the sweep did not get to quietly win the argument: the comment
+is preserved in the file, and the real question is now open and named - **does the 18px checkbox
+want a 2px edge?** That is a decision for the owner, not a side effect of telling the truth
+about a number. It is the one item A1 **adds** while closing.
+
+### Three claims elsewhere were wrong because of this
+
+- **`button.css`** computed a button height as `8 + 8 + 14x1.6 + 1.5x2 = 41.4`. The used border
+  is 1, so the sum is **40.4**. The point it was making - that no button had a whole pixel -
+  survives.
+- **`order-row.css`** said 7.23's change of `.ord-tab` to 1.5 made it «41 tall instead of 40».
+  Measured in both editions at 390: **40.39**, identical. No chip ever drew 1.5, and this one
+  never grew.
+- **`checkbox.css`** called its 2px tick «the same weight the box's own 1.5 reads next to». The
+  box reads 1, so the tick is twice it.
+
+### A/B
+
+**Null pass 0 rows. Difference 0 rows.** Forty screens, four widths, fifty computed properties
+plus the rect and the position of every element - and the browser cannot tell the two editions
+apart. Positive control, because a zero is also what a broken harness returns: `curl` on both
+servers, one answering `border: 1.5px solid var(--line-strong)` and the other
+`border: 1px solid var(--line-strong)`.
+
+**This is the shape of a good value decision.** Thirty-three declarations across twenty-three
+files now say what the product does, and not one pixel moved, because not one pixel had ever
+been drawn that way.
+
+### The stands
+
+Nine of them quoted `1.5px` as a live value and now say `1px`: button (twice), stepper, radio,
+switch, empty-state, geometry (its own demo CSS carried a real `1.5px` border), and overview's
+card blurb. Five more pointed at A1 as a pending stage-09 decision and now record it closed with
+the corrected count. All 48 pages re-checked at 360 and 1280 - no overflow, no failed idle
+check, no exception.
+
+**The census tables in `census-*.html` were left alone on purpose.** They are dated records of
+what the pre-consolidation UI measured, including SVG stroke widths that have nothing to do with
+a border. A record of a measurement is not a claim about today. The same applies to
+`design/concept/*.html`, which carry their own stage-06 stylesheet and are the record of how the
+language was found.
+
+### Where A1 leaves the sheet
+
+Four of the ninety-eight closed - F1, F2, C's irreversible action, and A1. **Ninety-four
+remain, and one question was added:** the checkbox edge. Next in the recommended order is
+**A3**, the eyebrow - 32 declarations in 18 files, one face.
+
+---
+
+## Step 7.63: two tokens, two voices, and a weight that does not exist
+
+**Who asked for it:** the owner - «go». The item is `architecture.md` **A3**, the eyebrow.
+
+**Who found it:** Claude, in a browser.
+
+### The count was right. The reading was not.
+
+A3 said `--ls-caps` is 32 declarations in 18 component files, and **it is** - a repo-wide grep
+returns 39 in 20, and the extra seven are `design/_stand.css` and `design/kit/_page.css`, the
+showcase's own chrome. After 7.62's correction it was worth checking, and this one held.
+
+**What did not hold was everything the entry concluded from it.**
+
+**«The family is one idea» - it is four.** Counted by instance on the 40 coloured screens: 355
+elements carry the caps tracking, in 27 forms.
+
+| idea | forms | what it is |
+|---|---|---|
+| the eyebrow | 14 | Inter 12 uppercase, service text naming the block under it |
+| the tag on a plate | 8 | 10px, `.tag-pop` `.tag-new` `.addr-tag` `.gtag` `.cbtier` `.ci-oostag` `.ms-ftag` `.cap` |
+| display caps | 3 | Oswald 20, `.hd-tag` `.av` `.lg` - `.av` is a pair of avatar initials |
+| emphasis in prose | 2 | `.allerg .algv`, `.pl-ing b` - «СКЛАД:», and the capitals are in the WORDS |
+
+One face over all 32 would have turned the avatar initials, the «Новинка» tag and the allergen
+line into section headings.
+
+**«14 of the 32 use exactly it» - no.** By instance, 12 / black / muted / uppercase was **32 of
+355**, about 9%. The two loudest renderings were the footer heading (145 instances,
+`--text-primary`) and the drawer label (102, `--text-secondary`), both global chrome repeating
+on every screen. A3 appears to have counted rules that mention `--fw-black` and `--fs-12`
+without checking what ink actually arrived.
+
+**And A3 counted half the family.** There is a second tracking token - `--ls-eyebrow` (.08em),
+the one literally named «eyebrow» - carrying six more declarations in five component files.
+A3 does not mention it.
+
+### The rule that decided the ink was measured, not chosen
+
+For every eyebrow, what does it label? Measured across six screens: **each one names something
+set at 14px or more, in a darker ink.** The footer column heading was the only one as dark as
+the content beneath it - `--text-primary`, the same ink as the 16px field it sits over.
+
+So the face is **12 / black / uppercase / `--ls-caps` / `--text-muted`**, which is what A3
+recommended. The recommendation was right; its evidence was not.
+
+### The two tokens are now two voices, and each is used by one
+
+- **`--ls-caps` .04em - THE EYEBROW.** Inter, 12, black, uppercase, muted. Nine declarations
+  moved: `.wff-col h4` (primary to muted), `.dr-lbl` `.city-lbl` `.acard .ah h3` (secondary to
+  muted), `.ctable th` `.pl-t th` `.dl .dk` `.bb .vlbl` `.clientpick label` (bold to black,
+  and `.pl-t th` also secondary to muted).
+- **`--ls-eyebrow` .08em - THE SYSTEM CAPTION.** Monospace, 12, uppercase, muted: the «або»
+  divider in checkout and in auth, the auth visual's line, the promo card's tag, the kept-card
+  header. **One crossing was fixed:** `.pm-rw` in the review modal is Inter and uppercase at 12,
+  which is the eyebrow's job, and it was taking the mono voice's tracking. Every user of .08em
+  is monospace now.
+
+### A/B
+
+**Null pass 0 rows. Difference 1412 rows on 34 of the 40 screens** - and every one of them is
+ink or weight. Zero rows exist in one edition only, so nothing appeared or vanished.
+
+| property | rows | what |
+|---|---|---|
+| `color` and the four `border-*-color` | 1288 | the border colours follow `color`; no border changed |
+| `font-weight` | 152 | 700 to 800 on 140, 600 to 800 on 12 |
+| `letter-spacing` | 12 | `.pm-rw` crossing from .08em to .04em |
+
+**No `RECT`. No `POS`.** Not one element moved or resized on any screen at any width.
+
+Two ink moves account for all 1288: **`rgb(91,91,84)` to `rgb(110,106,98)` 708 times** (the
+drawer, city and table labels) and **`rgb(28,28,28)` to `rgb(110,106,98)` 580 times** (the
+footer heading).
+
+### And then the geometry that did not move said something else
+
+**152 elements changed font-weight and not one changed width.** Most of them are block or table
+cells, whose box is set by layout rather than by the text - so the census could not settle it.
+Measured directly instead: the same 12px uppercase string, weight by weight, in the product's
+own font on a real page.
+
+    400  221.094px    600  225.469px    800  227.656px  <- identical to 700
+    500  223.281px    700  227.656px    900  227.656px  <- identical to 700
+
+**`--fw-black: 800` renders as `--fw-bold: 700`, on every product screen.** Every page requests
+`family=Inter:wght@400;500;600;700`; there is no 800 face, so Chrome falls back to the nearest
+loaded weight and does not synthesise. `document.fonts` confirms it: four weights loaded.
+
+**87 declarations in 38 component files** ride on that token - second only to `--fw-bold` at 99.
+Oswald is requested at 500;600;700 and clamps the same way. **One page of eighty-nine asks for
+800: `design/overview.html`**, the showcase hub. The only screen where the token does what it
+says is the page that exists to present the system.
+
+**This is the same shape as `1.5px` and it is NOT the same decision.** A1 was safe to close
+because 1px was already what the screen drew, so the sweep only made the code honest. Here one
+branch (`--fw-black: 700`) changes nothing and the other (add 800 to the font request) changes
+the weight of most of the product's type on the same day, across 87 declarations. **Logged as
+A8 in `architecture.md` with no recommendation from me.** Measured and stopped.
+
+It also means the weight half of this step's own unification - the five rules that went from
+bold to black - is invisible today and becomes visible the moment A8 is answered one way. Said
+here rather than left for someone to discover in the A/B.
+
+### The stands and the sheet
+
+`architecture.md` and `architecture.html`: A3 struck through with what was actually measured,
+A8 added as a new open decision. `tokens.css` carries both rules now - the two voices next to
+the two tracking tokens, and the weight finding next to `--fw-black`.
+
+### Where the sheet stands
+
+Five of the ninety-eight closed - F1, F2, C's irreversible action, A1, A3. **Ninety-three
+remain, plus two questions this pass added:** the 18px checkbox edge (A1) and `--fw-black` (A8).
+
+**Both A1 and A3 turned out to be misread in the very file that was written to be the source of
+truth.** A1's number was wrong; A3's frame was wrong. Both mistakes were made by a static grep
+and both were caught by the browser. That is not a reason to distrust the sheet - it is the
+reason to **measure every line again before executing it**, rather than executing the record.
+
+---
+
+## Step 7.64: eighteen boundaries, two of them overlapping, and the last sideways scroll
+
+**Who asked for it:** the owner - «let us do A2».
+
+**Who found it:** Claude, in the source and then in a browser.
+
+### The list was 21 values. It is 18 boundaries.
+
+A boundary at N is `(min-width: Npx)` on the wide side and `(max-width: N-1px)` on the narrow
+side. **Counting 479 and 480 as two values counts one boundary twice**, and A2's list did that
+five times over. Parsed properly from the 76 component stylesheets with comments stripped: 116
+`@media` blocks, 112 width features, **18 distinct boundaries**.
+
+| boundary | decls | files | |
+|---|---|---|---|
+| **860** | 39 | 15 | the most used boundary in the system, and not in the named set |
+| 720 | 20 | 9 | named |
+| 480 | 13 | 7 | named |
+| **620** | 10 | 9 | the second unnamed workhorse |
+| 640 · 960 | 6 each | 4 · 3 | |
+| 560 | 4 | 4 | |
+| 1180 · 760 | 3 each | 2 | 1180 named |
+| 420 · 900 · 1040 · 700 · 820 | 1-2 | | |
+
+### Two of them overlapped for real
+
+Not a tidiness point - at exactly one pixel width, both the narrow rule and the wide rule fired:
+
+- **`city-dialog.css` closed at `max-width: 480`** while `checkout-form.css` opens at
+  `min-width: 480`. Twelve other declarations write that narrow side as 479.
+- **Three files closed at `max-width: 640`** while `account-shell.css` opens at
+  `min-width: 640`.
+- **`product-card.css` closed at `max-width: 620` while nine declarations open at
+  `min-width: 620`** - and this is the one that shows. Measured at exactly 620 on
+  `listing.html`, the product card came out **286 x 498**; one pixel wider it is 286 x 553.
+  At 620 the card was drawing a mixture of the narrow rule and the wide one. After the fix it
+  matches its neighbour, and 600, 619, 621 and 640 are byte-identical.
+- The 560 boundary was written `max-width: 559` once and `max-width: 560` three times. No
+  overlap, but two spellings.
+
+Nine declarations re-spelled to the convention. **Each one changes exactly one pixel width**,
+which is the whole point of the fix - and afterwards, checked by parsing every `@media` block
+again, **no value in the system is used as both a `min-width` and a `max-width`.**
+
+The 620 case is why this is worth doing rather than tidy: an overlap is not a style question,
+it is two mutually exclusive layouts both applying, and the only way to see it is to stand on
+that exact pixel.
+
+### Two singletons folded, one kept
+
+`banner.css` 700 to 720 and `order-row.css` 820 to 860 - both had a set member within 40px and
+neither has a content reason. **`restock-note.css`'s 419 stays**, and the reason is written next
+to it now: measured at 420, 440, 460 and 479, that row does NOT wrap and does not overflow, so
+folding it to 479 would stack a row that fits. A boundary a component earned is not drift.
+
+**A2's own list was wrong in the same way as A1's and A3's.** It named 559 and 759 as singletons
+to fold. 559 is the convention-correct narrow side of the 560 boundary; 759 is the correct
+partner of `min-width: 760` in the same file. Neither is drift.
+
+### A/B, and it needed different widths
+
+The standard census runs 360 / 390 / 720 / 1280 and **could not have seen any of this** - every
+band this step touches lies between those. Re-run at 480 / 560 / 640 / 700 / 840.
+
+**Null pass 0 rows. Difference 3834 rows, 0 of them present in one edition only.**
+
+| width | rows | what |
+|---|---|---|
+| 700 | 1947 | the `.tbanners` fold - 2 columns instead of 5 in the 700-719 band, four home screens |
+| 560 | 1309 | the three files that closed at 560 and now close at 559, at exactly 560 |
+| 640 | 286 | the same, at exactly 640 |
+| 840 | 258 | the `.ob-grid` fold - one column instead of two in the 820-859 band |
+| 480 | 34 | the city list, at exactly 480 |
+
+Properties: **position 3692, rect 342, `white-space` 117, `grid-template-columns` 65,
+`grid-template-rows` 33, display 23, gaps.** No colour, no border, no type.
+
+### And then the sweep that should have been run sixty steps ago
+
+Acceptance in this project has always been «open it, walk every state, narrow to 360». Nobody
+ever walked the WIDTHS. **40 screens at 21 widths from 360 to 1440, 840 loads.**
+
+**Exactly one screen scrolls sideways** - `product-oos.html`, in two bands, always the same row:
+the buy box's «Повідомити про надходження» plus the wishlist heart.
+
+    480  +103px      860  +11px
+    520   +63px      900  +11px
+    560   +23px      960  +11px
+                    1040  +11px
+
+The mechanism: `.bb .buyrow` carried `flex-wrap: wrap` **inside the phone block only**, so above
+479 the row could not break at all. Its two children need 358 + 52 + 12 = 422, and the buy box
+column is 303 wide at 480 and 395 at 860.
+
+**One declaration moved: wrap belongs to the row, not to a width.** A row that is allowed to
+break costs nothing at the widths where it fits. Measured after:
+
+    360 ok   420 ok   479 ok   480 +39px   500 +19px   560 ok   620 ok   640 ok
+    700 ok   720 ok   820 ok   860 ok      960 ok     1180 ok  1280 ok
+
+**Six of the seven bands are gone.** Verified across all six product screens at seven widths:
+the only rows that moved are `product-oos` at 480, 560 and 860, where the heart drops to a
+second line and the row goes 64 tall to 128. Everything else is byte-identical.
+
+**What is left is not CSS, and the system already said so.** At 480 the label's own min-content
+is 358 inside a 303px column. `button.css`: «where no layout can give that room, the label
+itself is too long for a button, and that is a wording decision, not a css one». So the
+remainder is a shorter label or a wider buy-box column between 480 and 620. Logged as **A9**.
+
+### Where the sheet stands
+
+**F1, F2, C's irreversible action, A1, A3 closed; A2 half closed.** Ninety-two remain, plus
+three questions this pass added: the 18px checkbox edge (A1), `--fw-black` (A8), and the
+out-of-stock label (A9).
+
+**Three entries in a row - A1, A3, A2 - turned out to be misread in the sheet itself**, and all
+three misreadings came from counting text instead of measuring behaviour. The sheet is still the
+right list of what is owed. It is not a set of instructions to execute.
+
+---
+
+## Step 7.65: the fifth weight was four all along
+
+**Who asked for it:** the owner, answering **A8** - «set it to 700».
+
+A8 was found at 7.63 while measuring the eyebrow: every page requests
+`family=Inter:wght@400;500;600;700`, there is no 800 face, and Chrome falls back to the nearest
+loaded weight without synthesising. The same 12px uppercase string, weight by weight:
+**400 = 221.094 · 500 = 223.281 · 600 = 225.469 · 700 = 227.656 · 800 = 227.656 ·
+900 = 227.656.** From 700 upward the number stops moving. 87 declarations in 38 component files
+rode on that token.
+
+### What changed: one line
+
+`--fw-black: 800` becomes `700`. The system has four weights and the code now says the number
+the screen draws. Same shape as A1's `1.5px` and the same reason.
+
+### The name stays, and that is part of the answer
+
+Two semantic names holding one value is normally this project's own defect - «one idea, two
+names», section B1 of `architecture.md`. But `tokens.css` already carries the exception that
+governs it, written at 5.9: `--bg-discount` and `--bg-danger` are both `--red-50` **on purpose**,
+because a discount is not an error.
+
+Same shape here. `--fw-bold` means «this is emphasis»; `--fw-black` means «this is the heaviest
+thing in its block», and 87 declarations were written with the second meaning. Collapsing the
+name would throw the intent away **and** turn the other branch of A8 back into a decision about
+87 declarations instead of about one line. So the branch stays cheap: add 800 to the font
+request across the 89 pages, set the token back, and the register the type was written for
+arrives everywhere at once.
+
+### A/B
+
+**Null pass 0 rows. Difference 22 836 rows on 39 of the 40 screens - and 22 836 of them are the
+computed `font-weight`, every single one `800 -> 700`.** Zero rows exist in one edition only. No
+colour, no border, no position, no padding, no gap.
+
+**108 rows also carry a rect**, and they are worth naming rather than rounding away. They are
+the small caps tags - `.tag-pop`, `.tag-new` - and the change is **106.34 to 106.25: nine
+hundredths of a pixel.** Measured in isolation, in the tag's own font and size (Inter 10px,
+`letter-spacing: .4px`, uppercase), the text run is byte-identical at every weight from 700 up:
+**700 = 750 = 800 = 900 = 67.2813px.** So the face never changed; the 0.09 is how Chrome rounds
+the element's own box, and it is one eleventh of a device pixel at ratio 3. Reported because a
+number that is not zero should be explained, not hidden.
+
+### Where the sheet stands
+
+**Six closed** - F1, F2, C's irreversible action, A1, A3, A8 - **and half of A2.** Ninety-one
+remain, plus the two questions this pass raised and the owner has not answered: the 18px
+checkbox edge (A1) and the out-of-stock label (A9).
+
+Next by the owner's word: **A4 through A7** - the ends of the type scale, the five numbers in the
+reassurance panel, the four sizes of the product tile, and the two ways to say «square».

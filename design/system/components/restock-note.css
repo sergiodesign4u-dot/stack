@@ -8,7 +8,18 @@
 .restock .rk-lead{ font-size: var(--fs-14); color: var(--text-secondary); margin: calc(-1 * var(--space-4)) 0 var(--space-12); }
 .rk-item{ display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); }
 .rk-item:last-child{ border-bottom: none; padding-bottom: var(--space-2); }
-.rk-item:first-of-type{ padding-top: var(--space-2); }
+/* 7.60: this was `.rk-item:first-of-type` and it matched NOTHING. `:first-of-type`
+   means «first among siblings of its TAG», and the first DIV in the card is `.ah`,
+   the header - so the rule asked for an element that is both `.rk-item` and the
+   first div, and there is none. Measured in the browser at 7.53: 0 matches, while
+   the `:last-child` line above it matched 1 and drew.
+   The pair was written as a pair - tighten the first row at the top, the last at
+   the bottom - and only half of it fired. `.rk-lead + .rk-item` names the first
+   item exactly. Visible: the first row loses 10px of top padding, 12 -> 2.
+   The same off-by-one still drives the photo alternation: `:nth-of-type(odd)` and
+   `(even)` count `.ah` too, so the first item is the EVEN one. It works, it works
+   by accident, and swapping it would only move which photo sits on which row. */
+.rk-lead + .rk-item{ padding-top: var(--space-2); }
 .rk-ph{ width: var(--size-46); height: var(--size-46); border-radius: var(--radius-8); background: var(--bg-sunken); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; color: var(--mark-faint); font-size: var(--fs-10); flex: none; }
 .rk-tx{ min-width: 0; }
 .rk-nm{ font-size: var(--fs-14); font-weight: var(--fw-bold); line-height: var(--lh-snug); }
@@ -72,6 +83,13 @@
    grid column they sit in inherits that min-content and pushes the page 8px wide.
    The answer is to stack, not to shrink the field below the 16px that stops the
    iOS zoom, and not to let the button truncate its verb. */
+/* 419 IS A CONTENT LIMIT AND IT STAYS - step 7.64. `architecture.md` A2 listed
+   it among the singletons to fold into the nearest set member, 480. Measured
+   before folding: at 420, 440, 460 and 479 this row does NOT wrap, its two
+   children come out 26 + 350 and the page does not scroll sideways. Folding to
+   479 would stack a row that fits, on every width from 420 up. The number was
+   found by measurement at 7.9 and it answers to the field's 16px minimum and
+   the button's verb, not to a grid. A boundary a component earned is not drift. */
 @media (max-width: 419px){
   .notifyrow{ flex-wrap: wrap; }
   .notifyrow > *{ flex: 1 1 100%; }   /* the field and its button, step 7.9 */

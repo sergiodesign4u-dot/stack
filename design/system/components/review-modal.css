@@ -42,7 +42,11 @@
    lift, `.on` gold, focus ring - are in rating.css with the shape, step 7.27. */
 .pm-rv{ font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-30); letter-spacing:var(--ls-lead);
   color:var(--text-body); }
-.pm-rw{ font-size:var(--fs-12); font-weight:var(--fw-semibold); letter-spacing:var(--ls-eyebrow); color:var(--text-secondary); }
+/* 7.63: this was the one crossing between the two eyebrow voices. It is Inter
+   and uppercase at 12, which is the CONTENT eyebrow - and it took `--ls-eyebrow`
+   (.08em), the tracking of the MONO system caption, plus a weight of its own.
+   Every other user of .08em is monospace. It joins the voice it belongs to. */
+.pm-rw{ font-size:var(--fs-12); font-weight:var(--fw-black); letter-spacing:var(--ls-caps); color:var(--text-muted); }
 .pm-cnt{ font-family:var(--font-mono); }
 .pm-note{ background:var(--bg-surface); border-radius:var(--radius-8); padding:var(--space-12) var(--space-12); color:var(--text-secondary); font-size:var(--fs-12);
   line-height:var(--lh-airy); }

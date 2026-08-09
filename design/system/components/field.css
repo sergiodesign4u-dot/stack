@@ -15,7 +15,9 @@
      - NINE heights for one atom: 37, 40, 44, 45, 46, 47, 60, 61, 64. Four of
        them (44/45/46/47) are the same intent - a form field - written in four
        files with four paddings.
-     - Borders in three widths (0 / 1 / 1.5), radii in three (0 / 8 / 12), type
+     - Borders in three widths as WRITTEN (0 / 1 / 1.5) and two as DRAWN
+       (0 / 1) - 7.62 measured that 1.5 never reached a screen; radii in
+       three (0 / 8 / 12), type
        in five sizes (12 / 14 / 15 / 16 / 24), and 15 is not a rung of the scale.
      - States: hover on 6 fields of 101, a placeholder colour on 9, a focus of
        our own on 72 (the other 29 got whatever the browser draws), and
@@ -43,7 +45,7 @@
   line-height: var(--lh-snug);
   color: var(--text-body);
   background: var(--bg-page);
-  border: 1.5px solid var(--line-strong);
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius-12);
   transition: border-color .15s ease, box-shadow .15s ease;
 }
@@ -96,7 +98,7 @@ select.field{
   width: 100%;
   min-height: var(--size-44);
   background: var(--bg-page);
-  border: 1.5px solid var(--line-strong);
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius-12);
   overflow: hidden;
   transition: border-color .15s ease, box-shadow .15s ease;

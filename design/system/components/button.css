@@ -66,8 +66,12 @@
    file no longer asks anyone to remember an exception.
 
    HEIGHT IS A NUMBER NOW. Until this step no button in the product had a whole
-   pixel: 8 + 8 + 14x1.6 + 1.5x2 = 41.4, and `min-height: 34` under it never
-   fired once. The reading line-height was doing the sizing. Now the label runs
+   pixel: 8 + 8 + 14x1.6 + 1x2 = 40.4, and `min-height: 34` under it never
+   fired once. The reading line-height was doing the sizing. (That sum read
+   `1.5x2 = 41.4` until step 7.62, which is the declared border rather than the
+   one Chrome used - it resolves `1.5px` to 1px before layout ever sees it. The
+   point the sum was making does not change: the number was never whole.) Now
+   the label runs
    at `--lh-snug`, the height is `min-height`, and a label that wraps still
    grows past it because that is what a minimum means.
 
@@ -75,11 +79,12 @@
        M  12/16  · 16px · 52    the default
        L  16/24  · 18px · 64    the one action of a whole screen
 
-   Every boxed finish carries the same 1.5px border - the accent one in its own
+   Every boxed finish carries the same 1px border - the accent one in its own
    colour, the ghost one transparent - so the outer box is identical across
-   finishes and swapping one for another moves nothing. Before this the accent
-   family was split between a 1.5px border and none, so the same button was two
-   different sizes depending on which name it happened to have.
+   finishes and swapping one for another moves nothing. Before 6.7 the accent
+   family was split between a border and none, so the same button was two
+   different sizes depending on which name it happened to have. (The number was
+   written `1.5px` until 7.62, and Chrome had been drawing 1 all along.)
 
    THE ORDER OF THE BLOCKS BELOW IS PART OF THE RULE: size, then finish, then
    `--icon`. The icon box has to outrank `--text`, which zeroes the padding and
@@ -109,7 +114,7 @@
      not to fold the word. Where no layout can give that room, the label itself is
      too long for a button, and that is a wording decision, not a css one. */
   white-space: nowrap;
-  border: 1.5px solid transparent;
+  border: 1px solid transparent;
   border-radius: var(--radius-8);
   background: transparent;
   color: var(--text-body);
@@ -343,8 +348,80 @@
 }
 .btn--text:hover{ color: var(--text-action); }
 .btn--text.btn--inline{ text-decoration: underline; text-underline-offset: 2px; }
-/* a destructive text action is quiet until you go for it */
-.btn--text.btn--danger:hover{ color: var(--text-danger); }
+
+/* ---- what a press cannot undo - step 7.61 --------------------------------
+   Counted in the browser across the 40 coloured screens: TEN destructive
+   controls, spread over FOUR of this file's finishes plus one that is in no
+   finish at all, and FOUR of the ten painted `--accent`. Three of those four
+   are the CONFIRMATIONS - the button pressed at the moment the data goes:
+
+       «Видалити клієнта»    btn--accent btn dark    the client dialog
+       «Видалити»            btn--accent btn dark    the address dialog
+       «Видалити акаунт»     btn--accent btn dark    the profile dialog
+
+   So the loudest and most inviting object the system owns was the one that
+   ENDS a thing, and it was indistinguishable from the one that buys a thing.
+   The file above says it in its own words: «the accent is the one action of a
+   region». A delete is not that action; it is the action you are trying not to
+   take by accident.
+
+   THE FOURTH ACCENT STAYS. «Видалити недоступний товар» on `cart-oos.html` is
+   `btn--accent btn--l btn--full`, and it is not a destructive action wearing
+   the wrong paint - it is the screen's one way FORWARD. The cart is blocked,
+   the block is an item that cannot be bought, and dropping it is what unblocks
+   the order. Its word begins with «Видалити» and its work does not.
+
+   NO NEW VALUE, AND THE SHAPE WAS READ OUT, NOT PICKED. The danger family has
+   been in tokens.css since step 5.5 and NINE files already paint with it - otp,
+   field, empty-state, checkout-form, auth-dialog, discount, review-modal,
+   buy-box, account-shell - as ink (`--text-danger`), as an edge
+   (`--line-danger`) or as a pale plate (`--bg-danger`, `--bg-danger-soft`).
+   Counted: not one of the nine FILLS with `--red-600`, on anything, anywhere.
+   DESIGN-artifacts.md says why: the red is «a serious
+   deep red, deliberately separated from Signal Orange», and the same page bans
+   «red splashes». A solid red button is the splash. So the destructive control
+   is the OUTLINE carrying the danger ink, and the plate arrives under the
+   finger - which is also the outline's own shape, one rung over.
+
+   A MODIFIER, NOT A FIFTH FINISH. The finish says how loud a control is; the
+   modifier says what it does. On the outline it is the confirmation; on the
+   text finish it is the quiet opener at the foot of a card.
+
+   THE REST RULE ALSO CANCELS THE ORANGE HOVER, and it does it without a taller
+   selector. `.btn--outline:hover` is (0,2,0) and sets `--line-action` and
+   `--text-action`; two classes are (0,2,0) as well, so the tie goes to source
+   order and this block, being later, holds the red through the hover. Same for
+   `.btn--text:hover`, which is why the text edition needs one line and not two.
+   Only the GROUND needs `:hover` and `:active`, and it is the only thing those
+   two rules declare - which is also why the off state below had to grow two
+   selectors: a ground at (0,3,0) would otherwise light up a dead button.
+
+   THE TEXT EDITION MOVES FROM HOVER TO REST, which overturns what this file
+   used to say here: «a destructive text action is quiet until you go for it».
+   That was written for a mouse. Step 7.33 measured what follows on this
+   product - the primary device is a phone, `:hover` is the state that never
+   fires - so on a phone the account-deletion button was the same ink as every
+   other text button on the page, and the modifier decided nothing.
+
+   WHERE IT LANDS IS A RULE, NOT A SWEEP: only where a press cannot be undone.
+   «Видалити» on a cart row and the ✕ on a wishlist card keep their quiet
+   finish, because one press puts the product back. Red on three cart rows
+   would spend the colour on something that is not serious, and then it stops
+   meaning serious anywhere.
+
+   WHAT THIS STEP FOUND AND DID NOT FIX, so it is not mistaken for finished:
+   the same census says SEVENTEEN controls whose word is a removal carry NO
+   class from this file at all - the line remove inside `.co-line .li-acts`,
+   which checkout-form.css paints by hand, and the ✕ on a filter chip. They are
+   not destructive in the sense above, but they are buttons outside the button
+   set, which is the shape 6.7 was meant to end. Logged for Крок 6. */
+.btn--outline.btn--danger{
+  border-color: var(--line-danger);
+  color: var(--text-danger);
+}
+.btn--outline.btn--danger:hover{ background: var(--bg-danger-soft); }
+.btn--outline.btn--danger:active{ background: var(--bg-danger); }
+.btn--text.btn--danger{ color: var(--text-danger); }
 
 /* ---- and one that lifts instead of colouring -----------------------------
    «Продовжити з Google / Apple», one in the auth dialog and one in checkout.
@@ -431,9 +508,19 @@
    where the markup is an `<a>` or a `<span>`, which is also the only version a
    screen reader can hear. Last in the file on purpose: every finish above
    declares hover, active and focus at the same specificity, and being last is
-   what lets a control that is off answer nothing at all, with no `!important`. */
+   what lets a control that is off answer nothing at all, with no `!important`.
+
+   THAT INVARIANT HAS ONE EXCEPTION SINCE STEP 7.61, and it is written here
+   rather than left to be discovered. `--danger` is a MODIFIER, so its ground
+   rules carry a second class and stand at (0,3,0) - one step above everything
+   else in this file. Source order alone would no longer hold them off a dead
+   button, and there is a real one: the account confirmation ships `disabled`
+   (`#pf-del-btn` in `wireframes/_nav.js`) and only wakes when the word is
+   typed. So the off state names the modifier too, and matches its height.
+   The text edition needs no such line: it declares no ground. */
 .btn--accent[disabled], .btn--accent[aria-disabled="true"],
 .btn--outline[disabled], .btn--outline[aria-disabled="true"],
+.btn--outline.btn--danger[disabled], .btn--outline.btn--danger[aria-disabled="true"],
 .btn--ghost[disabled], .btn--ghost[aria-disabled="true"],
 .btn--text[disabled], .btn--text[aria-disabled="true"]{
   background: var(--bg-sunken);

@@ -33,7 +33,14 @@
    where the set stands and what it is called; what a chosen option looks like is
    the radio's sentence. `.vopt.off` went with them, and it is the only
    «unavailable» state the whole family had. */
-.bb .buyrow{ display: flex; gap: var(--space-12); align-items: center; margin: var(--space-16) 0; }
+/* WRAP IS ON THE ROW, NOT ON A WIDTH - step 7.64. It used to live only inside
+   the phone block, so above 479 this row could not break at all: two children
+   whose min-content is 358 + 52 + 12 = 422 were held on one line inside a
+   column that is 303 wide at 480 and 395 at 860. Measured across 40 screens at
+   21 widths, this was the ONLY sideways scroll left in the product, in two
+   bands - 480 to about 600 and 860 to about 1100. A row that is allowed to
+   wrap costs nothing on the widths where it fits. */
+.bb .buyrow{ display: flex; flex-wrap: wrap; gap: var(--space-12); align-items: center; margin: var(--space-16) 0; }
 .bb .addcart{ flex: 1; }
 /* the heart declares NO box - step 7.3. It is `btn--icon btn--l`, and that is
    52. This file used to say 50 here and 54 sixty lines below, so the number the
@@ -92,7 +99,7 @@
   font-variant-numeric:tabular-nums; word-spacing:-.24em; }
 .bb .new{ font-size:36px; font-weight:var(--fw-semibold); letter-spacing:var(--ls-display); line-height:var(--lh-flat); }
 .bb .perserv{ color:var(--text-secondary); margin-top:var(--space-4); }
-.bb .vlbl{ font-size:var(--fs-12); text-transform:uppercase; letter-spacing:var(--ls-caps); color:var(--text-muted); }
+.bb .vlbl{ font-size:var(--fs-12); font-weight:var(--fw-black); text-transform:uppercase; letter-spacing:var(--ls-caps); color:var(--text-muted); }
 .bb .vlbl .vsel{ margin-left:var(--space-8); text-transform:none; letter-spacing:0; font-size:var(--fs-14);
   font-weight:var(--fw-bold); color:var(--text-body); }
 /* step 7.29: the colour half of `.vopt` went to radio.css with the shape. */
@@ -104,7 +111,6 @@
    buy box to 371 and scrolled the page sideways. So below 480 the row wraps and
    the notify button takes a line of its own. */
 @media (max-width: 479px){
-  .bb .buyrow{ flex-wrap: wrap; }
   .bb .buyrow .oosbtn{ flex: 1 1 100%; }
 }
 /* step 6.10: saved is a state of the button - ink, fill, and the outline
@@ -148,7 +154,7 @@
      the tier price in the accent - because for this user THAT is the live price.
      The retail block above it therefore drops its accent (see .bb.retailref in
      kit/kit.css): one view, one live price. */
-  .coachbox { border: 1.5px solid var(--line-inverse); background: var(--bg-surface); border-radius: var(--radius-12);
+  .coachbox { border: 1px solid var(--line-inverse); background: var(--bg-surface); border-radius: var(--radius-12);
     padding: 15px 17px; margin: 16px 0 4px; }
 /* 7.40: `font: 700 11.5px/1 'Inter', sans-serif` split into longhand. The
    shorthand is what hid the literal - it names four things at once and RESETS
@@ -180,7 +186,7 @@
 .clientpick { margin: 16px 0 2px; }
 /* step 7: was a `font` shorthand with a hard-coded family. Same label, in
    tokens. It stays uppercase on purpose - it names a person, not a value. */
-.clientpick label { display: block; font-size: var(--fs-12); font-weight: var(--fw-bold);
+.clientpick label { display: block; font-size: var(--fs-12); font-weight: var(--fw-black);
   line-height: var(--lh-flat); color: var(--text-muted);
     text-transform: uppercase; letter-spacing: var(--ls-caps); margin-bottom: 7px; }
 .clientpick select { max-width: 280px; }
