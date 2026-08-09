@@ -6886,3 +6886,187 @@ so the census recorded it. Written the right way round on the stand now.
 The stand for this component was published one step earlier and the component changed after
 it. `design/kit/order-row.html` carries the correction in its own words rather than being left
 to describe a file that no longer exists that way - md is alive, html does not freeze.
+
+---
+
+## Step 7.55: a dead media block that my own solver had been hiding
+
+**Who found it:** Claude - but only after the fifth and sixth corrections to the instrument.
+
+`gallery.css` was 70 lines with **five media blocks**, and half of it was not a gallery.
+
+### `.pmini` left for product-card.css
+
+`.pmini` is the sticky panel on `product-reviews.html` that keeps the product in view while
+you read the reviews. **One instance in the whole product**, nine rules, and **five of the
+nine do nothing but re-lay a `.pcard`** - a class with 99 instances on 17 screens and a file
+of its own. A wrapper that exists to place a card is the card's business. Same shape as
+`.packlabel` at 7.43 and `.wfh-logo` at 7.50.
+
+### The dead declaration
+
+```
+@media (min-width: 860px){ .pmini{ position: sticky; top: 120px; } }   /* line 20 */
+...
+@media (min-width:860px){ .pmini{ top: 88px; } }                       /* line 50 */
+```
+
+Two blocks, one condition, thirty lines apart, both setting `.pmini{ top }`. The later one
+wins every time, so **`top: 120px` had never drawn a pixel** - measured on
+`product-reviews.html` at 1280: matched once, won nothing. Same defect as 7.46, except there
+the two blocks stood next to each other and the eye could catch them.
+
+One breakpoint was spelled **four ways** in this file - `(min-width: 860px)`,
+`(min-width:860px)`, `(max-width: 859px)`, `(max-width:859px)`. Five media blocks are two now,
+and both are spelled the same.
+
+### Two more lies in the solver, and the second is the reason this was invisible
+
+**Fifth: it let pseudo-ELEMENT rules compete for the element's own properties.** Stripping
+`::before` is what makes a selector queryable, but the stripped rule must then be kept OUT of
+the competition - `.gtag::before` styles a generated box, not `.gtag`. Left in, it matched the
+element, tied on specificity with the real rule and won on source order, and the solver
+reported `.gal .gmain .gtag{ font-size, color }` as beaten **by itself**. Exact mirror of the
+pseudo-CLASS bug of 7.52: one of the two must be kept, the other must be dropped.
+
+**Sixth: verdicts were keyed by selector + property alone.** Two rules writing the same
+property under the same selector - which is precisely what a duplicated media block is -
+collapsed into one entry: one matched-and-lost plus one matched-and-won came out as «wins
+sometimes», and the dead half was invisible. **A rule's position is part of its identity.**
+With the key fixed, the same run over the same file returned **10 verdicts instead of 4**, and
+the dead `top` was one of the six new ones. The other five are not defects but the stage-08
+convention: the border colour is named in the structure rule and again in the colour rule,
+from the same token.
+
+That bug was present for 7.49, 7.50, 7.51, 7.52 and 7.53. It can only ever have **hidden**
+findings, never invented them - a collapsed entry reads as «wins sometimes», which is the
+safe direction - but those five files deserve a re-run before stage 09 closes, and that is
+now on the list.
+
+And for the fourth time this session: a backtick inside a comment inside a template literal
+closes the literal. Fourth.
+
+### The thumbnails are not painted by css
+
+Four declarations never win anywhere: `.gal .gthumb{ background-image, -position-x,
+-position-y, -size }`, beaten by an **inline** style 24 times out of 32 and by
+`.gthumb.skpulse` the other 8. `design/_nav.js:918` gives every thumbnail its own
+`backgroundImage`, `backgroundSize` and `backgroundPosition` - four different crops of one
+shot, each with its own scale and offset. CSS cannot know that.
+
+Not deleted. The shorthand hands over five values and the script overrides three; the two that
+remain - the ground colour and `no-repeat` - win always, and `center/74%` is the **fallback**
+for a thumbnail the script never reached. Same reasoning that kept `.emptybox` without `.mini`
+at 7.49 and `.led-empty` at 7.48.
+
+### A/B against HEAD
+
+**Null pass 0 rows. Difference 0 rows.** Nine rules moved 5 imports later, a doubled media
+block folded into one, a dead declaration deleted, and no screen drew differently. Measured
+directly as well: `.pmini` before and after has the same `position: sticky`, the same
+`top: 88px`, the same `116px 210px` grid at 360 and the same link colour.
+
+### Found, not fixed
+
+- **Breakpoint 860** past the 480/720/1180 set. Seventh, with 419, 559, 620, 640, 820, 859.
+- **Two ways to say «square»** in one file: `aspect-ratio: 1` on the frame, `70px` x `70px` on
+  the thumbnail.
+- **The border colour is named twice** with the same token, once in structure and once in
+  colour. That is how the whole stage-08 split is built, so it is a decision about the
+  convention, not about this file.
+- **No «there is no photo» state.** A product with no shot shows the words «фото товару» in
+  faint ink, and nowhere is it said that this is deliberate.
+- **The thumbnails cannot be focused from a keyboard.** `_nav.js` gives them `role="button"`
+  and an `aria-label` but no `tabindex`, so the crop can only be changed with a mouse.
+- **Re-run the solver over 7.49-7.53** now that verdicts are keyed by position.
+
+### Stand
+
+`design/kit/gallery.html`. Idle check: 8 of 8 classes rendered, 5 states named. All 46 stands
+re-checked at 360 and 1280 - no overflow, no failed idle check, no exception.
+Molecules **13 / 27**.
+
+---
+
+## Step 7.56: clearing the instrument debt, and the cheap tool that beat the expensive one
+
+**Who found it:** Claude - with a static scan, not a browser.
+
+7.55 left a debt: the browser solver had been keying verdicts by selector + property alone
+for five closed steps, so two rules writing the same property under the same selector
+collapsed into one verdict and the dead half was invisible. The five files - 7.49 empty-state,
+7.50 section-head, 7.51 review-item, 7.52 order-row, 7.53 restock-note - were re-run with the
+key fixed, all five in **one** browser pass rather than five.
+
+### But the browser was the wrong instrument for this
+
+The shape being hunted is: **the same property, under the same selector, inside the same media
+condition, written twice in one file.** That is answerable from the source alone - identical
+selector and identical condition means identical specificity, so the later one always wins,
+and the only escape is `!important`, which none of these have. A static scan does it in
+**200ms across 74 stylesheets**. The solver takes eight minutes for one file.
+
+Written, run, and it reaches the whole system rather than five files.
+
+| | count |
+|---|---|
+| duplicate (media, selector, property) triples | **73** |
+| of them, the same value written twice - dead restatement | 19 |
+| of them, a different value, so the first edition never draws | 54 |
+| **of those, inside a media block - a doubled media block** | **8** |
+
+Most of the 54 are not a defect: the stage-08 split states a value in the structure rule and
+restates it in the colour rule, by design, and the file headers say so. The 8 inside media
+blocks are a different animal - the 7.46 and 7.55 defect, and they are in three files:
+
+| file | condition | dead | live |
+|---|---|---|---|
+| `auth-dialog.css` | `(min-width:720px)` | `.auth-ov{padding: --space-24}`, `.auth-visual{width:42%}`, `{border-right:1px solid}`, `{background: hatch gradient}`, `.auth-form{padding: 32 40}` | 32 · 44% · none · the gym photo · 32 38 32 |
+| `pdp-tabs.css` | `(min-width:860px)` | `.pdp-tabs{top:87px}`, `.pdp{grid-template-columns: minmax(0,1fr) 420px}` | 79px · 540px |
+| `product-grid.css` | `(min-width:620px)` | `.prow{grid-template-columns: repeat(3, 1fr)}` | `repeat(auto-fill, minmax(min(200px,100%), 1fr))` |
+
+`auth-dialog.css` is the loudest: an entire `@media (min-width: 720px)` block written twice,
+and the dead edition still holds the **hatch placeholder** the visual had before the gym photo
+arrived. Five declarations describing a design that was replaced.
+
+**Not fixed here.** All three are files this pass has not opened yet, and each is a step of its
+own with its own A/B. Written down so their steps start from it rather than rediscover it.
+
+### The five files came back almost clean
+
+95 verdicts, of which 56 are the same selector in the same file winning - the structure/colour
+convention. Of the other 40, every one is an intended modifier winning: `.emptybox.mini` over
+`.emptybox`, `:nth-child` over the base tile, `.oh-thumbs i.more` over `.oh-thumbs i`,
+`.ord.open .oh-drop` over `.oh-drop`. Two known items reappeared and stay known:
+`.rk-item:first-of-type` matching nothing (7.53) and the JS-painted thumbnails (7.52, 7.55).
+
+**One real find, and it is a correction to 7.50.**
+
+```
+.lh1{ font-family:var(--font-display); letter-spacing:var(--ls-lead); }
+.lh1{ font-size:var(--fs-30); font-weight:var(--fw-bold); letter-spacing:var(--ls-display); }
+```
+
+Same selector, same specificity, next line. `--ls-lead` is `-.01em`, `--ls-display` is
+`-.02em`, and the second is what reached the screen. 7.50 took that five-name line apart and
+kept `.lh1` - correctly - but read the line as five NAMES and never asked whether the property
+survived for the name that stayed. The name was right; the declaration was already dead.
+Removed. **A/B: null pass 0, difference 0.**
+
+`design/kit/section-head.html` carries the correction in its own words.
+
+### Also found, not fixed
+
+**`design/account-empty.html:81` carries `style="padding:20px 14px"`** on an
+`.emptybox mini`. An inline style in markup outranks every stylesheet by specificity, 20 and
+14 are on no scale in the system, and the solver sees it as `INLINE` beating `.emptybox`.
+Same family as the four inline `color:#111` that 7.30 removed from the home screens. It
+belongs to empty-state's file and empty-state's stand, both already published.
+
+### The lesson worth keeping
+
+Two instrument corrections in two steps came from the same root: **the expensive instrument
+was answering a question the cheap one answers better.** The browser is needed for «what does
+this actually look like at 360» and for cross-file cascade. It is not needed to know that a
+file says the same thing twice. Reach for the source first; reach for the browser when the
+question is about the browser.

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Галерея | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Галерея</h1>
+<p class="kp-lead">Головне фото товару й чотири мініатюри під ним. Найвізуальніший компонент продукту й водночас найтихіший: банка стоїть у світлі, а не на білому, і нічого більше на цьому місці не відбувається.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/gallery.css</span><span class="kp-tag">59 рядків</span><span class="kp-tag">13 селекторів</span><span class="kp-tag">64 оголошення</span><span class="kp-tag">4 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>product.html</code>.</p>
+<div class="kp-demo">
+  <div class="gal">
+    <div class="gmain">фото товару<span class="gtag">Популярне</span></div>
+    <div class="gthumbs">
+      <div class="gthumb on"></div><div class="gthumb"></div><div class="gthumb"></div><div class="gthumb"></div>
+    </div>
+  </div>
+</div>
+<div class="kp-cap">на стенді фото не підставляється: його малює <code>_nav.js</code> лише всередині <code>.pdp</code>, і це саме та межа, яку цей крок знайшов</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Рамка</b> - квадрат через <code>aspect-ratio: 1</code>, радіус 16, найбільший у системі. Всередині два градієнти: тінь під банкою знизу й дуже світлий вертикальний схил</span></div>
+  <div class="a"><i>2</i><span><b>Фото</b> - <code>object-fit: contain</code> і <code>padding: 9%</code>, тож банка не торкається країв. <code>mix-blend-mode: multiply</code> садить її на підкладку без білого прямокутника довкола</span></div>
+  <div class="a"><i>3</i><span><b>Мітка</b> - <code>.gtag</code>, чорна пігулка з зіркою через <code>::before</code>. Абсолютна, 12 від лівого верхнього кута. <b>Дві на весь продукт</b></span></div>
+  <div class="a"><i>4</i><span><b>Мініатюри</b> - 70×70, обрана бере рамку 2px <code>--line-action</code>, наведення піднімає на 2px. Це єдиний рух у компоненті</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що поїхало: <code>.pmini</code></div>
+<p class="kp-p">Половина файлу була не галереєю. <code>.pmini</code> - це липка панель на сторінці відгуків, яка тримає товар перед очима, поки ви читаєте чужі думки.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Скільки</th><th>Де</th></tr></thead><tbody>
+<tr><td><code>.pmini</code> та її правила</td><td>9 правил, <b>1 екземпляр</b></td><td><code>product-reviews.html</code></td></tr>
+<tr><td>з них перекладають <code>.pcard</code></td><td><b>5 із 9</b></td><td><code>.pcard</code> - 99 екземплярів на 17 екранах</td></tr>
+</tbody></table></div>
+<p class="kp-p">Обгортка, яка існує щоб <b>розмістити картку</b>, це справа картки. Поїхало в <code>product-card.css</code> цілком - та сама форма, що <code>.packlabel</code> на 7.43 і <code>.wfh-logo</code> на 7.50: файл, у якому щось лежить, не є компонентом, яким воно є.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Мертве оголошення, яке ховав мій власний вирішувач</div>
+<div class="kp-code">@media (min-width: 860px){ .pmini{ position: sticky; top: 120px; } }   /* рядок 20 */
+…
+@media (min-width:860px){ .pmini{ top: 88px; } }                        /* рядок 50 */</div>
+<p class="kp-p">Два блоки з однією умовою, за тридцять рядків один від одного, обидва задають <code>.pmini{ top }</code>. Пізніший виграє завжди, тож <b><code>top: 120px</code> не намалював жодного пікселя</b>. Заміряно на <code>product-reviews.html</code> при 1280: збігів 1, перемог 0.</p>
+<div class="kp-dont"><h4>І три кроки поспіль вирішувач цього не бачив</h4>Він складав вердикти під ключем «селектор + властивість». Два правила, що пишуть одну властивість під одним селектором - а здвоєний медіа-блок це рівно вони - зливались в один запис: одне збіглося й програло, друге збіглося й виграло, разом виходило «іноді виграє», і мертва половина ставала невидимою. <b>Позиція правила - частина його імені.</b> Виправлено - і той самий прогін по тому самому файлу видав <b>10 вердиктів замість 4</b>. Мертвий <code>top</code> був серед шести нових; решта п'ять - не поламка, а угода етапу 08: колір рамки названо і в структурному правилі, і в кольоровому, тим самим токеном.</div>
+<p class="kp-p">Та сама поламка, що на 7.46, тільки там два однакові блоки стояли поруч і їх було видно оком. Тут між ними тридцять рядків.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стан завантаження</div>
+<div class="kp-demo">
+  <div class="gal">
+    <div class="gmain skpulse"></div>
+    <div class="gthumbs"><div class="gthumb skpulse"></div><div class="gthumb skpulse"></div><div class="gthumb skpulse"></div><div class="gthumb skpulse"></div></div>
+  </div>
+</div>
+<div class="kp-cap"><code>.skpulse</code> - клас скелета зі <code>skeleton.css</code>; цей файл дає йому лише ґрунт: <code>--bg-sunken</code> замість градієнтів, бо порожня рамка не має вдавати, що в ній щось стоїть</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Товару немає в наявності</div>
+<div class="kp-demo">
+  <div class="oosgal">
+    <div class="gal">
+      <div class="gmain">фото товару</div>
+      <div class="gthumbs"><div class="gthumb on"></div><div class="gthumb"></div><div class="gthumb"></div></div>
+    </div>
+  </div>
+</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Як приглушено</th><th>Чому не однаково</th></tr></thead><tbody>
+<tr><td>велике фото</td><td><code>filter: grayscale(.75)</code> + <code>opacity: .85</code></td><td>це справжній <code>img</code>, фільтр на ньому нічого більше не зачіпає</td></tr>
+<tr><td>мініатюри</td><td><code>background-blend-mode: luminosity</code></td><td>фото тут фон, і фільтр висушив би разом із ним помаранчеве кільце обраної</td></tr>
+</tbody></table></div>
+<p class="kp-p">Обидві половини приїхали в цей файл: друга стоїть тут із кроку 3, першу <b>7.53</b> забрав із <code>restock-note.css</code>. Одне рішення - товар знебарвлюють, а не гасять - було написане у двох файлах, і той, хто змінив би одну половину, не побачив би другої.</p>
+<div class="kp-do"><h4>Чому не сірий прямокутник</h4>Знебарвлення на 75%, а не на 100, і прозорість 85, а не 50. Товар має лишитись <b>упізнаваним</b>: людина прийшла по конкретну банку і мусить бачити, що це вона. Чесно, а не драматично - <code>voice.md</code> 5.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Мініатюри малює не css</div>
+<p class="kp-p">Вирішувач каже: чотири оголошення файлу не виграють ніде.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Оголошення</th><th>Збігів</th><th>Хто виграє</th></tr></thead><tbody>
+<tr><td><code>.gal .gthumb{ background-image }</code></td><td>32</td><td><b>inline</b> ×24 · <code>.gthumb.skpulse</code> ×8</td></tr>
+<tr><td><code>{ background-position-x }</code> · <code>-y</code></td><td>32</td><td>те саме</td></tr>
+<tr><td><code>{ background-size }</code></td><td>32</td><td>те саме</td></tr>
+</tbody></table></div>
+<p class="kp-p"><code>design/_nav.js:918</code> ставить кожній мініатюрі <code>style.backgroundImage</code>, <code>backgroundSize</code> і <code>backgroundPosition</code> - чотири різні кадри одного знімка, кожен зі своїм масштабом і зсувом. Css такого знати не може.</p>
+<div class="kp-do"><h4>Не видаляю</h4><code>background: var(--bg-page) center/74% no-repeat</code> віддає п'ять значень, і js перебиває три. Два, що лишаються - колір ґрунту й <code>no-repeat</code> - виграють завжди. А <code>center/74%</code> це <b>запас</b>: те, як мініатюра виглядає, якщо скрипт не відпрацював. Та сама причина, з якої 7.49 лишив <code>.emptybox</code> без <code>.mini</code>, а 7.48 - <code>.led-empty</code>.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>банка в рамці, чотири мініатюри під нею</td><td>жодного руху: фото товару це факт, а не запрошення</td></tr>
+<tr><td><b>обрана мініатюра</b></td><td><code>.on</code>: рамка 2px <code>--line-action</code> замість 1px волосини</td><td>єдине помаранчеве в компоненті, і воно означає «ви дивитесь на це»</td></tr>
+<tr><td><b>наведення на мініатюру</b></td><td>підйом на 2px, перехід 150ms</td><td>найменший рух, який видно. Курсор є тільки на десктопі, тож на телефоні стану немає взагалі</td></tr>
+<tr><td><b>завантаження</b></td><td><code>.skpulse</code>: рамка й мініатюри стають <code>--bg-sunken</code></td><td>градієнти зняті: порожня рамка не вдає, що в ній щось стоїть</td></tr>
+<tr><td><b>немає в наявності</b></td><td><code>.oosgal</code>: фото знебарвлене, мініатюри злиті по яскравості</td><td>дві техніки, бо одна з них висушила б помаранчеве кільце</td></tr>
+<tr><td><b>до 859 / від 860</b></td><td>ширина <code>min(100%, 430px)</code> / <code>540px</code>, мініатюри по центру на вузькому</td><td>на телефоні галерея - весь екран, на десктопі вона половина сітки й не має розповзатись</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Банка стоїть у світлі, а не на білому.</b> Два градієнти й <code>multiply</code> дають тінь під дном і теплий схил згори. Товар за 2 000 грн на голому білому виглядає як картинка з прайсу, а не як річ, яку можна взяти в руки.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не став на галерею більше однієї мітки.</b> <code>.gtag</code> - дві на весь продукт. Три значки в кутку фото перетворюють товар на вітрину розпродажу, а принцип 4 каже: спокійно й упевнено, без терміновості.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>8</b> власних класів і <b>5</b> станів оголошено в <code>gallery.css</code>.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["gal","gmain","gtag","gthumb","gthumbs","on","oosgal","skpulse"], KIT_STS=[".on",":hover","max-width:859px","min-width:860px",".skpulse"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>gallery.css</code>: <b>11</b> семантичних ролей і <b>11</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (11)</th><th>Примітиви (11)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--fade-inverse</code> <code>--line-action</code> <code>--line-hair</code> <code>--mark-faint</code> <code>--shadow-floor</code> <code>--text-action</code> <code>--text-oninverse</code></td><td><code>--elevation-mark</code> <code>--fs-10</code> <code>--fw-black</code> <code>--lh-flat</code> <code>--ls-caps</code> <code>--radius-8</code> <code>--radius-16</code> <code>--radius-pill</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу: <code>70px</code> (мініатюра - не щабель драбини розмірів), <code>12px</code> двічі на позицію мітки, <code>9%</code> і <code>74%</code> (поля фото й масштаб кадру), <code>540px</code> і <code>430px</code> (дві максимальні ширини), <code>2px</code> підйому, і п'ять відсотків усередині радіального градієнта. <b>Це найбільш «відсотковий» файл системи</b>, і по-іншому фото в рамці не поставити.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Три проходи по 40 екранах на чотирьох ширинах: HEAD, HEAD ще раз і робоче дерево. <b>Нульовий прохід 0, різниця 0.</b></p>
+<p class="kp-p">Дев'ять правил переїхали на 5 імпортів пізніше, здвоєний медіа-блок звівся в один, мертве <code>top: 120px</code> видалено - і жоден екран не намалювався інакше. Заміряно й напряму: <code>.pmini</code> до і після має ті самі <code>position: sticky</code>, <code>top: 88px</code>, ту саму сітку <code>116px 210px</code> на 360 і той самий колір посилання.</p>
+<p class="kp-p"><b>Файл був п'ять медіа-блоків, став два.</b> Одна точка перелому 860 була написана чотирма способами - з пробілом і без, у чотирьох місцях. Тепер її дві, і обидві однакові.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Точка перелому 860</b> повз набір 480 / 720 / 1180. Сьома в списку, разом із 419, 559, 620, 640, 820 і 859</li>
+<li><b>Два способи сказати «квадрат»</b> в одному файлі: <code>aspect-ratio: 1</code> у рамці й <code>70px</code> × <code>70px</code> у мініатюрі</li>
+<li><b>Колір рамки названо двічі</b> тим самим токеном - <code>border: 1px solid --line-hair</code> у структурі й <code>border-color: --line-hair</code> у кольорі. Так побудовано весь поділ етапу 08, тож це рішення про угоду, а не про цей файл</li>
+<li><b>Немає стану «фото немає»</b> - якщо у товару взагалі немає знімка, рамка покаже слова «фото товару» блідим, і ніде не сказано, що так задумано</li>
+<li><b>Мініатюри не мають фокуса з клавіатури</b> - <code>_nav.js</code> дає їм <code>role="button"</code> і <code>aria-label</code>, але не <code>tabindex</code>, тож перемкнути кадр можна лише мишею</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

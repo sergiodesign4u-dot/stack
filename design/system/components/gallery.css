@@ -8,18 +8,12 @@
 .gal .gmain{ aspect-ratio: 1; border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; color: var(--mark-faint); position: relative; }
 .gal .gmain .gtag{ position: absolute; top: 12px; left: 12px; font-weight: var(--fw-black); text-transform: uppercase; }
 .gal .gthumbs{ display: flex; gap: var(--space-8); margin-top: var(--space-12); }
-.pmini .pmback{ display: block; font-size: var(--fs-14); margin: var(--space-12) var(--space-2) 0;
-  padding-top: var(--space-12); border-top: 1px solid var(--line-hair); }
-@media (max-width: 859px){
-  .pmini{ order: -1; }
-  .pmini .pcard{ display: grid; grid-template-columns: 116px minmax(0, 1fr); align-items: start; }
-  .pmini .pcard .ph{ aspect-ratio: 1; }
-  .pmini .pcard .bd{ padding-right: 46px; }
-  .pmini .pcard .nm{ min-height: 0; }
-}
-@media (min-width: 860px){
-  .pmini{ position: sticky; top: 120px; }
-}
+/* 7.55: `.pmini` left for product-card.css, all nine rules of it. It is not a
+   gallery: it is the sticky mini panel on product-reviews.html, one instance in
+   the whole product, and five of its nine rules do nothing but re-lay a `.pcard`
+   - a class with 99 instances on 17 screens and a file of its own. A wrapper
+   that exists to place a card is the card's business, the way `.packlabel` was
+   at 7.43. */
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .gal .gmain.skpulse{ background:var(--bg-sunken); border-color:var(--line-hair); }
@@ -45,12 +39,7 @@
   border:1px solid var(--line-hair); cursor:pointer; transition:border-color .15s ease, transform .15s ease; }
 .gal .gthumb:hover{ transform:translateY(-2px); }
 .gal .gthumb.on{ border:2px solid var(--line-action); }
-.pmini .pmback{ color:var(--text-secondary); border-top-color:var(--line-hair); }
-.pmini .pmback:hover{ color:var(--text-body); }
-@media (min-width:860px){
-  .pmini{ top:88px; }
-  .pmini .pcard .ph{ background-size:80%; }
-}
+/* 7.55: the colour half of `.pmini` went with the structure half. */
 
 /* ---------- moved off the screen (stage 08 step 5) ----------
    These rules lived in a <style> block on design/product-oos.html and used the

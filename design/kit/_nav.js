@@ -237,7 +237,7 @@ window.KIT_NAV = [
    {
     "label": "Галерея",
     "page": "gallery.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Порожній стан",

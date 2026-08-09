@@ -46,7 +46,17 @@
    The last two are not a colour half waiting for a grey twin the way `.tband` or
    `.led-empty` are: searched in design/, in wireframes/ and in _wf.css, and the
    only mention in the project was this line. */
-.lh1{ font-family:var(--font-display); letter-spacing:var(--ls-lead); }
+/* 7.56: `letter-spacing: var(--ls-lead)` used to stand on the line below and it
+   was dead - the very next rule, same selector, same specificity, sets
+   `--ls-display` and wins on order. -.01em never reached a screen; -.02em is what
+   the listing H1 has always been. It came in with the five-name line 7.50 took
+   apart, and 7.50 kept it: the step read that line as five NAMES and did not ask
+   whether the property survived for the one name that stayed. The name was right
+   and the declaration was already dead.
+   Found by a static scan for (media, selector, property) written twice in one
+   file - 200ms across 74 stylesheets, where the browser solver takes eight
+   minutes for one. The cheap instrument was the one that could see it. */
+.lh1{ font-family:var(--font-display); }
 .lh1{ font-size:var(--fs-30); font-weight:var(--fw-bold); letter-spacing:var(--ls-display); }
 .lh1 .cnt{ font-size:var(--fs-16); font-weight:var(--fw-semibold); }   /* face + colour -> counter.css, 7.37 */
 .sech .all{ border-radius:var(--radius-8); padding:var(--space-4) var(--space-8); margin:calc(-1 * var(--space-4)) calc(-1 * var(--space-8)); cursor:pointer; }

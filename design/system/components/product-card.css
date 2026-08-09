@@ -251,3 +251,32 @@
    with 14 -> 15. rating.css says it once now, as `calc(1em + 1px)`, and it comes
    out at exactly 13 here. A card decides where a rating stands, not how big its
    mark is. */
+
+/* ---------- the sticky mini panel - arrived at 7.55 from gallery.css ----------
+   `.pmini` is the panel that keeps the product in view while you read its
+   reviews: one instance in the whole product, on product-reviews.html. It sat in
+   gallery.css because it stands beside the gallery on that screen, and five of
+   its nine rules do nothing but re-lay a `.pcard` - which is this file's.
+
+   THE TWO MEDIA BLOCKS ARE ONE NOW. gallery.css carried `@media (min-width:860px)`
+   twice, thirty lines apart, and both set `.pmini{ top }`: 120px in the first,
+   88px in the second. The later one won every time, so `top: 120px` had never
+   drawn a pixel - measured on product-reviews.html at 1280, matched once, won
+   nothing. Same defect as the doubled media block of 7.46, and it only became
+   visible after the solver stopped merging two rules that share a selector and a
+   property into one verdict. 88 is what the panel does, so 88 is what is left. */
+.pmini .pmback{ display: block; font-size: var(--fs-14); margin: var(--space-12) var(--space-2) 0;
+  padding-top: var(--space-12); border-top: 1px solid var(--line-hair); }
+.pmini .pmback{ color:var(--text-secondary); border-top-color:var(--line-hair); }
+.pmini .pmback:hover{ color:var(--text-body); }
+@media (max-width: 859px){
+  .pmini{ order: -1; }
+  .pmini .pcard{ display: grid; grid-template-columns: 116px minmax(0, 1fr); align-items: start; }
+  .pmini .pcard .ph{ aspect-ratio: 1; }
+  .pmini .pcard .bd{ padding-right: 46px; }
+  .pmini .pcard .nm{ min-height: 0; }
+}
+@media (min-width: 860px){
+  .pmini{ position: sticky; top: 88px; }
+  .pmini .pcard .ph{ background-size:80%; }
+}
