@@ -29,7 +29,16 @@
 .ord.open .chev{ transform: rotate(180deg); }
 .ord-body{ display: none; border-top: 1px solid var(--line-hair); padding: var(--space-16); }
 .ord.open .ord-body{ display: block; }
-.ord-oos{ font-size: var(--fs-12); color: var(--text-secondary); margin: var(--space-16) 0 var(--space-2); border: 1px dashed var(--line-strong); padding: var(--space-8) var(--space-12); }
+/* 7.54: margin was `--space-16 0 --space-2` and it was upside down. Measured in
+   the browser with the order forced open: 33px of air above the note and 2px
+   below it. The note is the FIRST child of `.ord-body`, and that body already
+   pays 16 on every side, so the top margin was a second helping of the same air;
+   while 2px below glued the note to the first product line, which is not what it
+   is about - it is about the whole order and the repeat button beside it.
+     margin-top    16 -> 0   the body's own padding is the air above
+     margin-bottom  2 -> 16  the note is separated from the goods it precedes
+   Visible on account-orders.html, order 3, in its open state. */
+.ord-oos{ font-size: var(--fs-12); color: var(--text-secondary); margin: 0 0 var(--space-16); border: 1px dashed var(--line-strong); padding: var(--space-8) var(--space-12); }
 
 /* ---------- the order body - arrived at 7.52 from account-shell.css ----------
    What opens under a row when it is expanded: the goods grid, one product line,

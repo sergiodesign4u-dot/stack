@@ -247,7 +247,7 @@ window.KIT_NAV = [
    {
     "label": "Нотатка про поповнення",
     "page": "restock-note.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Картка адреси",

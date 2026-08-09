@@ -26,10 +26,14 @@
    stage-07 variable names, so deleting kit.css killed them outright. A screen
    owns no css: each rule goes to the component it belongs to, and the old
    names are translated to semantic roles BY VALUE, the way step 2 did it. */
-/* COLOR LAYER · OOS. The photo is not dimmed into a sad grey rectangle - it is
-     desaturated just enough to read as "not available now", while the product stays
-     recognisable (honest, not dramatic - voice.md 5). */
-  .oosgal .gmain img { filter: grayscale(.75); opacity: .85; }
+/* 7.53: `.oosgal .gmain img` went to gallery.css, where the other half of the
+   same treatment already stood - `.oosgal .gthumb` has been in that file since
+   the step-3 split. One decision (an unavailable product is desaturated, not
+   greyed out) was written in two files, and `.gmain` and `.gthumb` are both
+   gallery's own names. The intent, kept with the rule: the photo is not dimmed
+   into a sad grey rectangle, it is desaturated just enough to read as "not
+   available now" while the product stays recognisable - honest, not dramatic,
+   voice.md 5. */
 /* the ONE action on this page is «Повідомити про надходження», so it carries the
      orange; the submit next to the field is its ghost twin, not a second primary */
   .oosbtn { flex: 1; }

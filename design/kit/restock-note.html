@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Нотатка про поповнення | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Нотатка про поповнення</h1>
+<p class="kp-lead">«За вашим ритмом купівлі ці товари скоро закінчаться». Робота 3 цілком: постійний покупець не має перевідкривати каталог, щоб купити те саме вчетверте. Файл маленький і чистий - і всередині нього знайшовся селектор, який не збігається <b>ні з чим</b>.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/restock-note.css</span><span class="kp-tag">79 рядків</span><span class="kp-tag">18 селекторів</span><span class="kp-tag">53 оголошення</span><span class="kp-tag">2 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>account.html</code>.</p>
+<div class="kp-demo">
+  <div class="acard restock">
+    <div class="ah"><h3>↻ Час поповнити запаси</h3><a class="lnk" href="#">Усі покупки →</a></div>
+    <p class="rk-lead">За вашим ритмом купівлі ці товари скоро закінчаться. Додайте в кошик в один дотик.</p>
+    <div class="rk-item">
+      <div class="rk-ph">фото</div>
+      <div class="rk-tx">
+        <div class="rk-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
+        <div class="rk-cy">Купували 34 дні тому · зазвичай вистачає на <b>~30 днів</b></div>
+      </div>
+      <button class="btn--accent btn--s btn dark rk-add" type="button">У кошик</button>
+    </div>
+    <div class="rk-item">
+      <div class="rk-ph">фото</div>
+      <div class="rk-tx">
+        <div class="rk-nm">Optimum Nutrition Micronized Creatine 317 г</div>
+        <div class="rk-cy">Купували 58 днів тому · зазвичай вистачає на <b>~60 днів</b></div>
+      </div>
+      <button class="btn--accent btn--s btn dark rk-add" type="button">У кошик</button>
+    </div>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Плитка</b> 46×46 з фото товару. Малюється тим самим правилом, що плитки замовлення - до 7.52 воно жило тут одним рядком на три імені, а тепер кожен має своє</span></div>
+  <div class="a"><i>2</i><span><b>Назва</b> 14/700 і <code>--lh-snug</code>: у два рядки поміщається повна назва з вагою, і скорочувати нічого не треба</span></div>
+  <div class="a"><i>3</i><span><b>Цикл</b> - єдине число на екрані, яке <code>[?]</code>. «Зазвичай вистачає на ~30 днів» рахується з історії покупок, якої ще немає, тож моношрифтом виділено саме його</span></div>
+  <div class="a"><i>4</i><span><b>Дія</b> - <code>margin-left: auto</code>, кнопка притиснута до правого краю. Одна на рядок, і вона акцентна: тут немає вибору «переглянути чи купити», є тільки «купити»</span></div>
+</div>
+<p class="kp-p"><b>Це не рекомендація, а нагадування.</b> Товар уже купували, склад і дозування вже перевірені, тож блок не пояснює товар - він називає ритм: скільки днів минуло і на скільки зазвичай вистачає. Принцип 5: звичайні слова згори, глибина знизу.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Селектор, що не збігається ні з чим</div>
+<div class="kp-code">.rk-item:last-child { border-bottom: none; padding-bottom: var(--space-2) }
+.rk-item:first-of-type { padding-top: var(--space-2) }</div>
+<p class="kp-p">Два сусідні рядки, написані як пара: перший елемент притиснути згори, останній знизу. Працює <b>один</b>.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що заміряно в браузері</th><th>Значення</th></tr></thead><tbody>
+<tr><td>діти картки, по порядку</td><td><code>DIV.ah</code> · <code>P.rk-lead</code> · <code>DIV.rk-item</code> · <code>DIV.rk-item</code></td></tr>
+<tr><td><code>.rk-item:last-child</code> збігів</td><td><b>1</b></td></tr>
+<tr><td><code>.rk-item:first-of-type</code> збігів</td><td><b>0</b></td></tr>
+<tr><td>відступи позицій, згори / знизу</td><td>12 / 12 і 12 / <b>2</b></td></tr>
+</tbody></table></div>
+<p class="kp-p"><code>:first-of-type</code> означає «перший серед братів <b>свого тега</b>», а не «перший із таких». Перший <code>DIV</code> у картці - це <code>.ah</code>, шапка. Тому правило шукає елемент, який одночасно <code>.rk-item</code> і перший div, а такого немає.</p>
+<div class="kp-dont"><h4>І та сама помилка тримає чергування фото</h4><code>.rk-item:nth-of-type(odd)</code> і <code>(even)</code> теж рахують <code>.ah</code>. Перша позиція виходить <b>парною</b>, друга непарною: перша показує креатин, друга протеїн. Візуально байдуже, яке фото на якому рядку - але порядок тримається <b>випадково</b>, і третій елемент, доданий у шапку, зсуне все.</div>
+<p class="kp-p"><b>Не виправляю цим кроком.</b> Оживити <code>padding-top: 2px</code> означає стиснути першу позицію на 10px - це видима зміна, і вона не була оголошена перед кроком. Видалити мертвий рядок теж не рішення: сусідній <code>:last-child</code> доводить, що симетрія була задумана. Записано з трьома варіантами, рішення про значення - етап 09, як <code>1.5px</code> і сім'я бровки.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Дві роботи в одному файлі</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Сім'я</th><th>Що каже</th><th>Екран</th><th>Екземплярів</th></tr></thead><tbody>
+<tr><td><code>.restock</code> <code>.rk-lead</code> <code>.rk-item</code> <code>.rk-ph</code> <code>.rk-tx</code> <code>.rk-nm</code> <code>.rk-cy</code> <code>.rk-add</code></td><td>ваш протеїн закінчується, повторіть</td><td><code>account.html</code></td><td>1 картка, 2 позиції</td></tr>
+<tr><td><code>.notifyrow</code> <code>.oosbtn</code> <code>.oosnote</code> <code>.oosback</code></td><td>товару немає, повідомимо коли з'явиться</td><td><code>product-oos.html</code></td><td>по 1</td></tr>
+</tbody></table></div>
+<p class="kp-p">Обидві про поповнення, і це різні поповнення: перше - <b>ваш запас</b>, друге - <b>наш склад</b>. Друга сім'я приїхала на етапі 08 кроці 5 з блока <code>&lt;style&gt;</code> на сторінці товару, під тим самим заголовком «moved off the screen», під яким на 7.51 знайшовся третій ведмідь.</p>
+<div class="kp-demo">
+  <div class="notifyrow">
+    <input class="field" id="oosmail" type="email" placeholder="E-mail або телефон - повідомимо" aria-label="Контакт для сповіщення">
+    <button class="btn--outline btn--l btn--full btn oosbtn" type="button">Повідомити</button>
+  </div>
+  <p class="oosnote">Товару немає на складі. Повідомимо, щойно він з'явиться - або оберіть аналог нижче.</p>
+  <a class="btn--outline btn oosback" href="#">← Повернутись до колекції</a>
+</div>
+<div class="kp-cap">до 419 поле й кнопка стають одне під одним: разом їхні мінімальні ширини не влазять, а звужувати поле не можна - нижче 16px iOS зумить сторінку на фокусі</div>
+<div class="kp-gap"><h4>Що з ними робити - записано, не зроблено</h4>Ці чотири класи не мають компонента-власника: у реєстрі 27 молекул і рядка «немає в наличии» серед них немає. Три виходи: лишити й записати (обрано), рознести по власниках (<code>field.css</code>, <code>button.css</code>, <code>empty-state.css</code>) або завести 28-му молекулу. Перше обрано тому, що число «27» опубліковане на обзорі, і міняти його посеред проходу означає переписувати те, на що дивляться. Рішення - етап 09.</div>
+<p class="kp-p"><b>Одну частину цієї сім'ї цей крок усе ж віддав.</b> <code>.oosgal .gmain img</code> поїхало в <code>gallery.css</code>, де половина того самого рішення вже стояла з кроку 3: <code>.oosgal .gthumb</code>. Знебарвлення недоступного товару було написане <b>у двох файлах</b>, а <code>.gmain</code> і <code>.gthumb</code> - обидва власні імена галереї.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Знебарвлення, і чому воно двома різними способами</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Як приглушено</th><th>Чому не однаково</th></tr></thead><tbody>
+<tr><td>велике фото <code>.gmain img</code></td><td><code>filter: grayscale(.75)</code> + <code>opacity: .85</code></td><td>це справжній <code>img</code>, фільтр на ньому нічого більше не зачіпає</td></tr>
+<tr><td>мініатюри <code>.gthumb</code></td><td><code>background-blend-mode: luminosity</code></td><td>фото тут - фон, і фільтр висушив би разом із ним помаранчеве кільце «обране», яке мусить лишитись акцентом навіть у недоступного товару</td></tr>
+</tbody></table></div>
+<p class="kp-p">Дві техніки для одного рішення - і саме тому вони мусять лежати в одному файлі: інакше наступний, хто змінить одну, не побачить другої.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>позиції розділені лінією-волосиною</td><td>це список, а не картки: між ними найтонше, що є в системі</td></tr>
+<tr><td><b>остання позиція</b></td><td><code>:last-child</code>: лінія знята, відступ знизу 2</td><td>лінія в кінці списку відрізала б його від краю картки</td></tr>
+<tr><td><b>перша позиція</b></td><td><b>нічого</b>: <code>:first-of-type</code> не збігається ні з чим</td><td>задумана симетрія, яка не спрацювала. Розібрано вище</td></tr>
+<tr><td><b>чергування фото</b></td><td><code>:nth-of-type(odd/even)</code> дають два різні фото</td><td>працює, але зі зсувом на одиницю, бо рахує й шапку</td></tr>
+<tr><td><b>до 419</b></td><td>поле й кнопка сповіщення стають одне під одним</td><td>разом їхні мінімальні ширини штовхають сторінку на 8px ширше за екран</td></tr>
+<tr><td><b>наведення</b></td><td><b>немає власного</b></td><td>натискають кнопку, і вона відповідає своїм фінішем</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Нагадування називає ритм, а не властивості товару.</b> «Купували 34 дні тому · зазвичай вистачає на ~30» - це все, що потрібно тому, хто вже купував. Склад, дозування й сертифікат він читав минулого разу.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з цього терміновість.</b> Ні «залишилось 2 дні», ні лічильника, ні червоного. Принцип 4: спокійно й упевнено. Людина сама вирішує, коли купувати, а блок лише не дає забути.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>12</b> власних класів і <b>4</b> стани оголошено в <code>restock-note.css</code>.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["notifyrow","oosback","oosbtn","oosnote","restock","rk-add","rk-cy","rk-item","rk-lead","rk-nm","rk-ph","rk-tx"], KIT_STS=[":last-child",":first-of-type",":nth-of-type","max-width: 419px"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>restock-note.css</code>: <b>6</b> семантичних ролей і <b>12</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (12)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--line-hair</code> <code>--mark-faint</code> <code>--text-body</code> <code>--text-secondary</code></td><td><code>--font-mono</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--lh-snug</code> <code>--radius-8</code> <code>--size-46</code> <code>--space-2</code> <code>--space-4</code> <code>--space-12</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу тут майже нічого: <code>1px</code> лінія, <code>78%</code> розмір фото в плитці, <code>12px</code> і <code>14px</code> двома відступами, які мали б бути <code>--space-12</code> і <code>--space-16</code>, та <code>419px</code> - точка перелому не з набору 480 / 720 / 1180. <b>Найчистіший файл із розібраних досі.</b></p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Три проходи по 40 екранах на чотирьох ширинах: HEAD, HEAD ще раз і робоче дерево. <b>Нульовий прохід 0, різниця 0.</b></p>
+<p class="kp-p">Знебарвлення переїхало на 8 імпортів раніше по каскаду й намалювалось так само: нічого між <code>gallery.css</code> і <code>restock-note.css</code> не змагається за <code>.oosgal .gmain img</code>.</p>
+<p class="kp-p">Вирішувач по всіх 18 селекторах: <b>одне оголошення не виграє ніде</b> - <code>.rk-ph{ background-image }</code>, і воно так і задумане (скорочення ставить <code>none</code>, чергування ставить фото). <b>Один селектор не збігається ні з чим</b>, і це знахідка кроку.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b><code>:first-of-type</code> замість «першої позиції»</b> - мертвий селектор і зсув чергування на одиницю. Три варіанти, рішення про значення</li>
+<li><b>Чотири класи без власника</b> - блок «немає в наличии» на <code>product-oos.html</code></li>
+<li><b>Точка перелому 419</b> повз набір 480 / 720 / 1180. Приєднується до 559, 620, 640, 820 і 860 з трьох попередніх кроків</li>
+<li><b>Два відступи повз шкалу</b>: <code>12px</code> і <code>14px</code> написані числом там, де решта файлу бере токен</li>
+<li><b>Немає стану «історії покупок ще немає»</b> - у нового покупця блок не має що показати, і хто його ховає, у коді не сказано</li>
+<li><b>Цикл споживання це <code>[?]</code></b> - «~30 днів» вигадане число, і воно єдине на екрані, яке треба буде замінити реальними даними</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -6746,3 +6746,143 @@ Molecules **11 / 27**.
 
 **57 selectors, 240 declarations, two screens.** The densest file in the system, and that is
 fine: an order is shown in two places, and in both of them completely.
+
+---
+
+## Step 7.53: a selector that matches nothing, and an alternation that holds by accident
+
+**Who found it:** Claude - the solver named the selector, the browser proved why.
+
+`restock-note.css` is the cleanest file taken apart so far: 79 lines, 18 selectors, 53
+declarations, almost nothing off the token scale. The solver came back with one declaration
+that never wins (`.rk-ph{ background-image }`, and that one is the intended layering) and
+**one selector that matches no element anywhere in the product.**
+
+```
+.rk-item:last-child   { border-bottom: none; padding-bottom: var(--space-2) }
+.rk-item:first-of-type{ padding-top: var(--space-2) }
+```
+
+Two adjacent lines written as a pair - tighten the first item at the top, the last at the
+bottom. One of them fires.
+
+| measured in the browser on `account.html` | value |
+|---|---|
+| the card's children, in order | `DIV.ah` · `P.rk-lead` · `DIV.rk-item` · `DIV.rk-item` |
+| `.rk-item:last-child` matches | **1** |
+| `.rk-item:first-of-type` matches | **0** |
+| item padding, top / bottom | 12 / 12 and 12 / **2** |
+
+`:first-of-type` means «first among siblings **of its tag**», not «first of these». The first
+`DIV` in the card is `.ah`, the header. So the rule asks for an element that is both
+`.rk-item` and the first div, and there is none.
+
+**The same mistake holds the photo alternation.** `.rk-item:nth-of-type(odd)` and `(even)`
+count `.ah` too, so the first item is the EVEN one: it shows creatine, the second shows whey.
+Visually it does not matter which photo sits on which row - but the order holds **by
+accident**, and one more element added to the header shifts all of it.
+
+Not fixed this step. Reviving `padding-top: 2px` tightens the first item by 10px, which is a
+visible change and was not declared before the step. Deleting the dead line is not the answer
+either: the neighbouring `:last-child` proves the symmetry was intended. Three options,
+recorded; the value decision is stage 09, like `1.5px` and the eyebrow family.
+
+### Half of one decision was in another file
+
+`.oosgal .gmain img{ filter: grayscale(.75); opacity: .85 }` went to `gallery.css`, where the
+other half has stood since the step-3 split: `.oosgal .gthumb{ background-color: var(--bg-sunken);
+background-blend-mode: luminosity }`. Both `.gmain` and `.gthumb` are gallery's own names.
+
+The two halves use different techniques on purpose - a filter on a real `img`, blending on a
+background image, because a filter would drain the orange «обране» ring along with the photo.
+That is exactly why they must sit in one file: otherwise whoever changes one will not see the
+other.
+
+### Two jobs in one file, and neither is named after it
+
+| family | what it says | screen | instances |
+|---|---|---|---|
+| `.restock` `.rk-*` | your protein is running out, buy it again | `account.html` | 1 card, 2 items |
+| `.notifyrow` `.oosbtn` `.oosnote` `.oosback` | the product is gone, we will tell you when it is back | `product-oos.html` | 1 each |
+
+Both are about restocking, and they are different restockings: **your supply** and **our
+warehouse**. The second family arrived at stage 08 step 5 from a `<style>` block on the
+product page, under the same «moved off the screen» header that hid the third bear at 7.51.
+
+Those four classes have no owning component: the registry holds 27 molecules and there is no
+out-of-stock row among them. Three ways out - leave and record, scatter to the owners
+(`field.css`, `button.css`, `empty-state.css`), or open a 28th molecule. The first was chosen
+and the owner agreed: the number «27» is published on the overview, and changing it mid-pass
+rewrites the thing people are looking at. Stage 09.
+
+### A/B against HEAD
+
+**Null pass 0 rows. Difference 0 rows.** The desaturation moved 8 imports earlier in the
+cascade and drew identically: nothing between `gallery.css` and `restock-note.css` competes
+for `.oosgal .gmain img`.
+
+### Found, not fixed
+
+- **`:first-of-type` where «the first item» was meant** - one dead selector and an alternation
+  off by one.
+- **Four classes with no owner** - the out-of-stock block.
+- **Breakpoint 419** past the 480/720/1180 set, joining 559, 620, 640, 820 and 860 from the
+  three steps before it. Six now, from five files.
+- **Two paddings written as numbers** - `12px` and `14px` where the rest of the file takes a
+  token.
+- **No «no purchase history yet» state.** A new buyer has nothing for this block to show, and
+  nothing in the code says who hides it.
+- **The consumption cycle is `[?]`** - «~30 днів» is invented, and it is the one number on
+  that screen that real data will have to replace.
+
+### Stand
+
+`design/kit/restock-note.html`. Idle check: 12 of 12 classes rendered, 4 states named. All 45
+stands re-checked at 360 and 1280 - no overflow, no failed idle check, no exception.
+Molecules **12 / 27**.
+
+---
+
+## Step 7.54: a margin that was upside down
+
+**Who found it:** the owner, looking at the 7.52 stand in a browser - too much air above
+`.ord-oos` and almost none between it and the goods it precedes.
+
+Measured with the order forced open, because in the product that note sits inside a
+**collapsed** order and a rect inside `display: none` is all zeroes:
+
+| | HEAD | after |
+|---|---|---|
+| air above the note | **33px** | 17px |
+| air below the note | **2px** | 16px |
+
+```
+.ord-oos{ margin: var(--space-16) 0 var(--space-2) }   ->   margin: 0 0 var(--space-16)
+```
+
+- **margin-top 16 -> 0.** The note is the FIRST child of `.ord-body`, and that body already
+  pays `var(--space-16)` on every side. The top margin was a second helping of the same air.
+- **margin-bottom 2 -> 16.** Two pixels glued the note to the first product line, which is not
+  what it is about: it warns about the whole order and the repeat button beside it, not about
+  the whey.
+
+The 17 above is 16 of body padding plus the 1px border that separates the body from the
+header, so the note now sits in a balanced box.
+
+### A/B against HEAD
+
+**Null pass 0 rows. Difference 4 rows** - one element, two properties, four widths:
+`margin-top: 16px -> 0px; margin-bottom: 2px -> 16px` on `DIV.ord-oos` on
+`account-orders.html`. Nothing else on 40 screens moved.
+
+**And that corrects something I wrote into the stand before checking it.** I claimed the
+census could not see this change because the note lives inside a collapsed order. The rect is
+indeed zero there - which is why the air had to be measured with the state switched on by
+hand - but `getComputedStyle` reports margins for a `display: none` element perfectly well,
+so the census recorded it. Written the right way round on the stand now.
+
+### Note
+
+The stand for this component was published one step earlier and the component changed after
+it. `design/kit/order-row.html` carries the correction in its own words rather than being left
+to describe a file that no longer exists that way - md is alive, html does not freeze.
