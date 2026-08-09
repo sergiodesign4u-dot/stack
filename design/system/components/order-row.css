@@ -30,6 +30,40 @@
 .ord-body{ display: none; border-top: 1px solid var(--line-hair); padding: var(--space-16); }
 .ord.open .ord-body{ display: block; }
 .ord-oos{ font-size: var(--fs-12); color: var(--text-secondary); margin: var(--space-16) 0 var(--space-2); border: 1px dashed var(--line-strong); padding: var(--space-8) var(--space-12); }
+
+/* ---------- the order body - arrived at 7.52 from account-shell.css ----------
+   What opens under a row when it is expanded: the goods grid, one product line,
+   the totals, the delivery panel and the two buttons. 10 instances of each,
+   every one on account-orders.html, every one inside `.ord-body` above.
+   `.ln-review` and `.ob-receipt` keep only their placement here; link-row.css
+   (import 26, so still earlier than this file) says they are links and how
+   loud, exactly as it did when they lived one file further down. */
+.ob-collapse{ display: none; }
+.ob-grid{ display: grid; grid-template-columns: 1fr; gap: var(--space-24); }
+@media (min-width: 820px){
+  .ob-grid{ grid-template-columns: 1fr 292px; }
+}
+.ob-line{ display: grid; grid-template-columns: 52px 1fr auto; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); align-items: start; }
+.ob-line:first-child{ padding-top: var(--space-2); }
+.ob-line .ph{ width: 52px; height: 56px; border-radius: var(--radius-8); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
+.ln-nm{ font-size: var(--fs-14); font-weight: var(--fw-bold); line-height: var(--lh-snug); }
+/* step 7.30: weight, ink and underline left for link-row.css - this rule keeps
+   the component's half: where the link sits in the row and how big it is. */
+.ln-review{ display: inline-flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); font-size: var(--fs-12); }
+.ln-right{ text-align: right; white-space: nowrap; }
+.ln-calc{ font-size: var(--fs-12); color: var(--text-secondary); }
+.ln-tot{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); margin-top: var(--space-4); }
+.ob-sum{ margin-top: var(--space-16); }
+.ob-receipt{ display: inline-flex; align-items: center; gap: var(--space-8); margin-top: var(--space-16); font-size: var(--fs-14); }
+.ob-repeat{ width: 100%; }
+.ob-del{ border: 1px solid var(--line-hair); padding: var(--space-16); margin-top: var(--space-16); display: flex; flex-direction: column; gap: var(--space-12); }
+@media (max-width: 640px){
+  /* step 6.6: size, border and colour are the set's; here stays only what makes
+     this control appear at all below 640, and that it fills the row. `display`
+     is that "appear at all" - the rule above hides it, so the button class
+     cannot bring it back on its own. */
+  .ob-collapse{ display: flex; width: 100%; margin-top: var(--space-16); font-family: inherit; }
+}
 @media (max-width: 640px){
   .ord-h{ display: grid; align-items: center; gap: var(--space-4) var(--space-12); grid-template-columns: 1fr auto;
     grid-template-areas: "no date" "stat sum" "thmb thmb" "more more"; }
@@ -49,6 +83,21 @@
 .aord-thumbs .t:nth-child(3), .oh-thumbs i:nth-child(3), .ob-line:nth-of-type(3n) .ph{ background-image:url(../../visuals/product-preworkout.png); }
 .oh-thumbs i.more{ background:var(--bg-surface); color:var(--text-secondary);
   font-family:var(--font-mono); }
+/* 7.52: reclaimed from a grouped selector in restock-note.css, which loads 5
+   imports later and was therefore beating this file's own structure rules on its
+   own tiles - 26 declarations of it. These two lines are the colour half those
+   structure rules were written to be overridden by: the tile stops being a
+   sunken placeholder box with a faint mark and becomes a photo tile, page
+   colour under the image, label hidden. The image itself is set per position by
+   the three nth-child lines below, which outrank these on specificity, not on
+   order. `.rk-ph` keeps its own copy in restock-note.css, and the third
+   declaration of that group, `border-color: var(--line-hair)`, was dead for all
+   three names and did not travel. */
+.aord-thumbs .t, .oh-thumbs i{ background:var(--bg-page) center/78% no-repeat; color:transparent; }
+.ob-line .ph{ background:var(--bg-page) center/78% no-repeat; color:transparent; }
+.ln-nm{ color:var(--text-body); }
+.ln-calc, .ln-tot{ font-family:var(--font-mono); }
+.ob-del{ border-color:var(--line-hair); border-radius:var(--radius-12); background:var(--bg-surface); }
 .aord-info .no{ font-family:var(--font-mono); }
 .aord-info .meta{ color:var(--text-secondary); }
 /* step 7.23: three more editions gone to chip.css. The resting ink was

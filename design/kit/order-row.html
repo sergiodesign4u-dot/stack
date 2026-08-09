@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Рядок замовлення | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Рядок замовлення</h1>
+<p class="kp-lead">Замовлення, яке вже зроблено: номер, дата, стан, мініатюри, сума. Натиснули - і під ним відкривається все інше. Найбільший файл системи на кількість оголошень до кількості екранів: <b>240 оголошень на два екрани</b>.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/order-row.css</span><span class="kp-tag">157 рядків</span><span class="kp-tag">57 селекторів</span><span class="kp-tag">240 оголошень</span><span class="kp-tag">2 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Файл, який збирали чотири кроки</div>
+<p class="kp-p">Замовлення було розкидано по чотирьох файлах. Кожен шматок лежав там, куди його занесла історія, а не там, де він працює.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Крок</th><th>Що приїхало</th><th>Звідки</th><th>Чому там лежало</th></tr></thead><tbody>
+<tr><td>7.46</td><td><code>.dl</code> <code>.dk</code> <code>.dv</code> · 19 шт.</td><td><code>spec-table.css</code></td><td>ключ над значенням бере ту саму бровку, що <code>th</code> таблиці. Схоже на заголовок колонки, але це не він</td></tr>
+<tr><td>7.51</td><td><code>.sr</code> · 19 шт.</td><td><code>review-item.css</code></td><td>рядок підсумку лежав у файлі відгуків, бо колись стояв поруч на сторінці</td></tr>
+<tr><td><b>7.52</b></td><td><b>мініатюри</b> · 26 оголошень</td><td><code>restock-note.css</code></td><td>групований селектор із трьох імен, з яких файлу належало одне</td></tr>
+<tr><td><b>7.52</b></td><td><b>тіло замовлення</b> · 14 класів</td><td><code>account-shell.css</code></td><td>оболонка кабінету тримала те, що відкривається всередині рядка</td></tr>
+</tbody></table></div>
+<p class="kp-p">Після четвертого переїзду файл нарешті описує одну річ цілком. <b>Жоден із чотирьох не зрушив пікселя.</b></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Два видання під двома префіксами</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Видання</th><th>Класи</th><th>Екземплярів</th><th>Екран</th></tr></thead><tbody>
+<tr><td>прев'ю на дашборді</td><td><code>.aorder .orow</code> <code>.aord-thumbs</code> <code>.aord-info</code> <code>.aord-actions</code></td><td><b>1</b></td><td><code>account.html</code></td></tr>
+<tr><td>рядок списку</td><td><code>.ord</code> <code>.ord-h</code> <code>.oh-no</code> <code>.oh-date</code> <code>.oh-thumbs</code> <code>.oh-sum</code> <code>.oh-drop</code></td><td><b>4</b></td><td><code>account-orders.html</code></td></tr>
+</tbody></table></div>
+<p class="kp-p">Обидва кажуть одне: номер, дата, мініатюри, сума, дія. Обидва малюють мініатюри однаковими правилами - файл сам це визнав, перерахувавши <code>.aord-thumbs .t</code> і <code>.oh-thumbs i</code> в одному рядку. Різні в них тільки розміри плиток і те, що прев'ю не розкривається.</p>
+<div class="kp-dont"><h4>Не зводжу їх цим кроком</h4>Звести два префікси в один - це перейменування, а перейменування двох сімей на двох екранах рухає пікселі заради імені. Іде в <b>Крок 6</b>, разом з іншими дев'ятьма іменами, що несуть по два значення. Тут воно тільки заміряне й записане.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія: згорнутий рядок</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>account-orders.html</code>.</p>
+<div class="kp-demo">
+  <div class="ord-tabs"><span class="chip is-on">Усі</span><span class="chip">В дорозі</span><span class="chip">Доставлені</span></div>
+  <div class="ord-list">
+    <div class="ord">
+      <button class="ord-h" type="button" aria-expanded="false">
+        <span class="oh-no">№ 10418</span>
+        <span class="oh-date">3 червня 2026</span>
+        <span class="oh-status go">В дорозі</span>
+        <span class="oh-thumbs"><i>фото</i><i>фото</i></span>
+        <span class="oh-sum">1 180 ₴</span>
+        <span class="oh-drop" aria-hidden="true"><i class="chev">⌄</i></span>
+      </button>
+      <div class="ord-body"></div>
+    </div>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Номер і дата</b> - 16/800 і 14 вторинним. Номер моношрифтом, бо його диктують по телефону, і цифри мають стояти рівно</span></div>
+  <div class="a"><i>2</i><span><b>Стан</b> - <code>.oh-status</code> тут <b>не свій</b>: плашка живе в <code>status-pill.css</code>, бо «Доставлено» і «В дорозі» це та сама плашка, що й скрізь</span></div>
+  <div class="a"><i>3</i><span><b>Мініатюри</b> - <code>margin-left: auto</code> відтискає їх і суму праворуч. Три перші плитки беруть три різні фото за позицією, четверта й далі стає «+N»</span></div>
+  <div class="a"><i>4</i><span><b>Розкривач</b> - квадрат 30 із шевроном. Увесь рядок це <code>button</code>, тож натискання ловить не стрілка, а вся смуга</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розкритий: тіло замовлення</div>
+<div class="kp-demo">
+  <div class="ord open">
+    <button class="ord-h" type="button" aria-expanded="true">
+      <span class="oh-no">№ 10432</span>
+      <span class="oh-date">12 червня 2026</span>
+      <span class="oh-status ok">Доставлено</span>
+      <span class="oh-thumbs"><i>фото</i><i>фото</i><i>фото</i><i class="more">+2</i></span>
+      <span class="oh-sum">2 340 ₴</span>
+      <span class="oh-drop" aria-hidden="true"><i class="chev">⌄</i></span>
+    </button>
+    <div class="ord-body">
+      <div class="ord-oos">При повторі <b>1 товар зараз недоступний</b> - ми позначимо його й запропонуємо заміну. Решту одразу додамо в кошик.</div>
+      <div class="ob-grid">
+        <div class="ob-main">
+          <div class="ob-line">
+            <div class="ph">фото</div>
+            <div><div class="ln-nm">BioTechUSA Iso Whey Zero 908 г</div><a class="ln-review" href="#">✎ Залишити відгук</a></div>
+            <div class="ln-right"><div class="ln-calc">1 190 ₴ × 1 од.</div><div class="ln-tot">1 190 ₴</div></div>
+          </div>
+          <div class="ob-line">
+            <div class="ph">фото</div>
+            <div><div class="ln-nm">Optimum Nutrition Micronized Creatine 317 г</div><a class="ln-review" href="#">✎ Залишити відгук</a></div>
+            <div class="ln-right"><div class="ln-calc">640 ₴ × 1 од.</div><div class="ln-tot">640 ₴</div></div>
+          </div>
+          <div class="ob-sum">
+            <div class="sr"><span>Товари · 3 товари (4 од.)</span><span>2 730 ₴</span></div>
+            <div class="sr"><span>Знижка лояльності · 🥈 Срібло −5%</span><span>−100 ₴</span></div>
+            <div class="sr total"><span>Разом</span><span>2 340 ₴</span></div>
+            <div class="sr accrual"><span>★ Нараховано на бонусний рахунок</span><span>+23 ₴</span></div>
+          </div>
+          <a class="ob-receipt" href="#">⭳ Завантажити квитанцію</a>
+        </div>
+        <aside class="ob-side">
+          <a class="btn--accent btn--s btn dark ob-repeat" href="#">↻ Повторити замовлення</a>
+          <div class="ob-del">
+            <div class="dl"><div class="dk">Спосіб доставки</div><div class="dv">Нова Пошта · відділення</div></div>
+            <div class="dl"><div class="dk">Номер ТТН</div><div class="dv">2045 1298 7643</div></div>
+            <div class="dl"><div class="dk">Отримувач</div><div class="dv">Вікторія Коваль</div></div>
+          </div>
+        </aside>
+      </div>
+      <button class="btn--outline btn--s btn--full ob-collapse" type="button"><i class="chev">⌄</i> Згорнути</button>
+    </div>
+  </div>
+</div>
+<div class="kp-cap">кнопка «Згорнути» внизу показана <b>тільки до 640</b>: на телефоні шапка замовлення стає сіткою і розкривач із неї зникає, тож єдиний шлях назад мусить бути в кінці</div>
+<p class="kp-p"><b>Дві колонки від 820:</b> <code>1fr 292px</code>. Ліворуч товари й підсумок, праворуч повтор і доставка. Нижче 820 вони стають одна під одною, і «Повторити замовлення» опиняється <b>під</b> підсумком, а не над ним - людина спершу бачить, що і за скільки, і лише тоді кнопку.</p>
+<div class="kp-gap"><h4><code>.ob-main</code> і <code>.ob-side</code> не оголошені ніде</h4>Обидва є в розмітці по 4 рази й не мають жодного правила в жодному файлі проєкту. Це не поламка: вони - клітинки <code>.ob-grid</code>, і сітка розставляє їх сама. Але той, хто шукатиме, чому ліва колонка поводиться так, а не інакше, шукатиме правило, якого немає.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Прев'ю на дашборді</div>
+<div class="kp-demo">
+  <div class="acard aorder span2">
+    <div class="ah"><h3>Останнє замовлення</h3><a class="lnk" href="#">Усі замовлення →</a></div>
+    <div class="orow">
+      <div class="aord-thumbs"><span class="t">фото</span><span class="t">фото</span><span class="t">фото</span></div>
+      <div class="aord-info">
+        <div class="no">Замовлення № 10432</div>
+        <div class="meta">12 червня 2026 · 3 товари · 2 340 ₴</div>
+        <span class="aord-status">Доставлено</span>
+      </div>
+    </div>
+    <div class="aord-actions">
+      <a class="btn--accent btn--s btn dark" href="#">↻ Повторити замовлення</a>
+      <a class="btn--outline btn--s btn" href="#">Деталі та ТТН</a>
+    </div>
+  </div>
+</div>
+<div class="kp-cap">плитки тут 46, у списку 34×38. Один і той самий елемент, два розміри, два префікси</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Рядок із трьох імен, і своє в ньому одне</div>
+<p class="kp-p"><code>restock-note.css</code> ніс таке:</p>
+<div class="kp-code">.rk-ph, .aord-thumbs .t, .oh-thumbs i{ background: …; border-color: …; color: transparent }</div>
+<p class="kp-p">Він вантажиться на <b>5 імпортів пізніше</b> за цей файл, тому одним рядком перебивав <b>26 власних оголошень</b> цього файлу про його власні плитки. Прогнано вирішувачем по всіх 40 екранах:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Ім'я</th><th>Побито оголошень</th><th>Що це</th></tr></thead><tbody>
+<tr><td><code>.rk-ph</code></td><td>-</td><td><b>своє</b> - плитка нотатки про поповнення. Лишилось</td></tr>
+<tr><td><code>.aord-thumbs .t</code></td><td><b>13</b></td><td>плитка прев'ю замовлення. Повернуто</td></tr>
+<tr><td><code>.oh-thumbs i</code></td><td><b>13</b></td><td>плитка рядка замовлення. Повернуто</td></tr>
+<tr><td><code>.ob-line .ph</code></td><td>-</td><td><b>уже відчеплено на кроці 5</b> і відправлено в <code>account-shell.css</code></td></tr>
+</tbody></table></div>
+<p class="kp-p">Рядок починався з <b>чотирьох</b> імен. Крок 5 зняв з нього одне, лишивши записку «кожен уламок належить своєму власнику», і саме ця записка чекала тут дві доби. Той самий рядок із п'яти імен був на 7.50 у <code>section-head.css</code>: <b>групований селектор через компоненти - це не стиль запису, це спосіб втратити правило</b>.</p>
+<div class="kp-do"><h4>Ці 26 не були поламкою</h4>Структурне правило дає плитці вигляд заглушки: втоплений квадрат із блідим написом «фото». Кольорове правило перетворює її на фотоплитку: колір сторінки під зображенням, напис прихований. Так побудована вся система - шар над шаром. Поламка була в тому, що <b>другий шар писався в чужому файлі</b>, і тому переїзд не зрушив нічого.</div>
+<p class="kp-p">Третє оголошення групи, <code>border-color: var(--line-hair)</code>, <b>не поїхало нікуди</b>: усі три імені вже мали <code>border: 1px solid var(--line-hair)</code> у своєму структурному правилі. Колір, названий удруге тим самим токеном, не малює нічого - сім'я мертвих оголошень 7.3 і 7.51.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Екземплярів</th><th>Екран</th></tr></thead><tbody>
+<tr><td><code>.ord</code> · <code>.ord-h</code> · <code>.ord-body</code></td><td>4 · 4 · 4</td><td><code>account-orders.html</code></td></tr>
+<tr><td><code>.ob-line</code> · <code>.ln-nm</code> · <code>.ln-tot</code></td><td>10 · 10 · 10</td><td><code>account-orders.html</code></td></tr>
+<tr><td><code>.dl</code> · <code>.sr</code></td><td>19 · 19</td><td><code>account-orders.html</code></td></tr>
+<tr><td><code>.ln-review</code></td><td>4 з 10</td><td>відгук пропонують не на кожен рядок</td></tr>
+<tr><td><code>.ord-oos</code></td><td><b>1</b></td><td>одне замовлення з чотирьох має недоступний товар</td></tr>
+<tr><td>уся сім'я <code>.aord-*</code></td><td>по 1</td><td><code>account.html</code></td></tr>
+</tbody></table></div>
+<p class="kp-p">Заміряно в браузері по всіх 40 кольорових екранах. <b>Мертвих селекторів: 0 з 57.</b> Усі 57 працюють, і всі 57 працюють <b>на двох екранах</b> - це найщільніший файл системи, і це нормально: замовлення показують у двох місцях, зате повністю.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>згорнуто</b></td><td><code>.ord-body</code> прихований</td><td>список замовлень читають очима по номерах і сумах, а не по вмісту</td></tr>
+<tr><td><b>розкрито</b></td><td><code>.ord.open</code>: тіло видно, шеврон повертається на 180°</td><td>стан несе контейнер, а не кнопка: одне джерело правди на весь рядок</td></tr>
+<tr><td><b>наведення на шапку</b></td><td>розкривач бере <code>--line-action</code> і <code>--text-action</code></td><td>ціль натискання - уся смуга, тож відгукується та її частина, яка каже «тут відкриється»</td></tr>
+<tr><td><b>товар недоступний</b></td><td><code>.ord-oos</code>: пунктир, бурштиновий акцент у слові</td><td>сказати про перешкоду <b>до</b> кнопки повтору, а не після натискання. Принцип 1</td></tr>
+<tr><td><b>до 640</b></td><td>шапка стає сіткою <code>grid-template-areas</code>, розкривач перетворюється на смугу «Детальніше» на всю ширину</td><td>шість елементів в один рядок на 360 не стають, а квадрат 30 - це нижче за поріг дотику</td></tr>
+<tr><td><b>до 640, розкрито</b></td><td>розкривач зникає, знизу з'являється «Згорнути»</td><td>інакше на телефоні кнопка згортання лишилась би за екраном угорі</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Стан несе контейнер, а не кнопка.</b> <code>.ord.open</code> вмикає і тіло, і поворот шеврона, і зникнення розкривача на телефоні. Один клас на <code>.ord</code> - і весь рядок узгоджений; поставте його на кнопку, і три правила почнуть розходитись.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не ховай перешкоду під кнопку повтору.</b> «1 товар зараз недоступний» стоїть <b>над</b> «Повторити замовлення», а не в тості після натискання. Дізнатись про заміну після того, як кошик уже зібрано, це не інформація, а сюрприз.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>41</b> власний клас і <b>5</b> станів оголошено в <code>order-row.css</code>.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["accrual","aord-actions","aord-info","aord-thumbs","aorder","chev","dk","dl","dv","ln-calc","ln-nm","ln-review","ln-right","ln-tot","meta","more","no","ob-collapse","ob-del","ob-grid","ob-line","ob-receipt","ob-repeat","ob-sum","oh-date","oh-drop","oh-no","oh-sum","oh-thumbs","open","ord","ord-body","ord-h","ord-list","ord-oos","ord-tabs","orow","ph","sr","t","total"], KIT_STS=[".ord.open","max-width: 640px","min-width: 820px",":hover",":first-child"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>order-row.css</code>: <b>14</b> семантичних ролей і <b>25</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (14)</th><th>Примітиви (25)</th></tr></thead><tbody><tr><td><code>--bg-bonus-soft</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-action</code> <code>--line-bonus-soft</code> <code>--line-hair</code> <code>--line-strong</code> <code>--mark-faint</code> <code>--text-action</code> <code>--text-body</code> <code>--text-bonus</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-warning</code></td><td><code>--elevation-1</code> <code>--font-mono</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--radius-8</code> <code>--radius-12</code> <code>--size-30</code> <code>--size-34</code> <code>--size-38</code> <code>--size-46</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу: <code>52px</code> і <code>56px</code> (плитка товару в рядку), <code>292px</code> (права колонка), <code>72px</code> (мінімальна ширина суми), <code>8px</code> (напис усередині мініатюри), <code>1.5px</code> у сегменті вкладок, <code>640px</code> і <code>820px</code> (дві точки перелому, обидві не з набору 480 / 720 / 1180).</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;div class="ord open"&gt;
+  &lt;button class="ord-h"&gt;… &lt;span class="oh-drop"&gt;&lt;i class="chev"&gt;⌄&lt;/i&gt;&lt;/span&gt;&lt;/button&gt;
+  &lt;div class="ord-body"&gt;
+    &lt;div class="ob-grid"&gt;
+      &lt;div class="ob-main"&gt;   &lt;!-- жодного правила: клітинка сітки --&gt;
+        &lt;div class="ob-line"&gt;…&lt;/div&gt;
+        &lt;div class="ob-sum"&gt;&lt;div class="sr total"&gt;…&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;aside class="ob-side"&gt;&lt;div class="ob-del"&gt;&lt;div class="dl"&gt;…&lt;/div&gt;&lt;/div&gt;&lt;/aside&gt;
+    &lt;/div&gt;
+    &lt;button class="ob-collapse"&gt;Згорнути&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+<p class="kp-p">Клас <code>open</code> - на <code>.ord</code>, не на кнопці. Кнопка несе <code>aria-expanded</code>, і це не дублювання: один атрибут для того, хто слухає, один клас для того, хто дивиться.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Три проходи по 40 екранах на чотирьох ширинах: HEAD, HEAD ще раз і робоче дерево. <b>Нульовий прохід 0, різниця 0.</b></p>
+<p class="kp-p">Чотирнадцять класів переїхали на 15 імпортів раніше, два імені повернулись із файлу, що вантажиться на 5 імпортів пізніше, одне мертве оголошення видалено - і жоден із 40 екранів не намалювався інакше <b>на жодному з чотирьох розмірів</b>. Так і має виглядати переїзд.</p>
+<div class="kp-gap"><h4>Вирішувач брехав, і брехня була в бік гіпотези</h4><ul>
+<li><b>Псевдоклас стирався разом із псевдоелементом.</b> <code>.oh-thumbs i:nth-child(1)</code> (0,2,1) перетворювався на <code>.oh-thumbs i</code> (0,1,1), ставав рівним чужому правилу й програвав за порядком. Перший прогін оголосив мертвими правила, які виграють <b>скрізь</b></li>
+<li><b>Інструмент бачив сам себе.</b> Заморозка анімацій, додана напередодні, ставила <code>transition: none !important</code> на <code>*</code> - і це правило перемагало кожен <code>transition</code> у продукті. П'ять живих оголошень звітувались мертвими. Перехід виникає лише коли значення <b>змінюється</b>, а на свіжому завантаженні воно не змінюється, тож цей рядок не купував нічого</li>
+<li><b>Chrome без вікна відповідає <code>prefers-reduced-motion: reduce</code>.</b> Тобто <code>base.css:26</code> вимикав переходи на кожному завантаженні, і перепис увесь час читав виняток замість типового випадку. Тепер вимога вказана явно</li>
+</ul><p style="margin-top:8px">І втретє за сесію - зворотна лапка в коментарі всередині шаблонного рядка закриває цей рядок. Записано в сам файл інструмента, бо тричі це вже не випадковість.</p></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Два префікси на одне поняття</b> - <code>.aord-*</code> і <code>.oh-*</code>. Крок 6, після етапу 09</li>
+<li><b>Дві точки перелому повз набір</b>: 640 і 820 проти 480 / 720 / 1180</li>
+<li><b>Чотири розміри плитки товару</b> в одній сім'ї: 46 у прев'ю, 34×38 у рядку, 52×56 у товарній лінії. Три з них не квадратні й жоден не з драбини розмірів</li>
+<li><b>Поворот шеврона написано двічі</b>: <code>.ord.open .chev</code> тут і <code>.trustsec[open] &gt; summary .chev</code> у <code>trust-strip.css</code>. Одне значення для одного атома в двох компонентах - це стан атома, і жити він має в <code>icon.css</code></li>
+<li><b>Немає стану «замовлень ще немає»</b> - порожній список малює <code>empty-state.css</code>, а вкладки <code>.ord-tabs</code> при цьому лишаються</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

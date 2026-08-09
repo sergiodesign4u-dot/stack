@@ -46,8 +46,18 @@
 .oosnote { font-size: var(--fs-14); color: var(--text-secondary); margin-top: 12px; line-height: var(--lh-airy); }
 .oosback { margin-top: 14px; }
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.rk-ph, .aord-thumbs .t, .oh-thumbs i{ background:var(--bg-page) center/78% no-repeat;
-  border-color:var(--line-hair); color:transparent; }
+/* 7.52: THIS LINE NAMED THREE THINGS AND ONE OF THEM WAS THIS FILE'S. It began
+   life naming four - step 5 already peeled `.ob-line .ph` off it and sent it to
+   account-shell.css with the note «each fragment belongs to its owner». The
+   other two, `.aord-thumbs .t` and `.oh-thumbs i`, are the order's thumbnails,
+   and this file loads 5 imports after order-row.css, so this one line was
+   beating 26 of that file's own declarations about its own tiles. Same shape as
+   the five-name line of 7.50, one step later, in another file.
+   `border-color: var(--line-hair)` did not travel with them: all three names had
+   already set `border: 1px solid var(--line-hair)` in their structure rule, so
+   that third declaration restated a colour that was already there and drew
+   nothing - the dead-declaration family of 7.3 and 7.51. */
+.rk-ph{ background:var(--bg-page) center/78% no-repeat; color:transparent; }
 
 /* .notifyrow input got min-width:0 at step 5.5. A flex item defaults to
    min-width:auto, so once the field grew to 16px it refused to shrink and

@@ -6630,3 +6630,119 @@ component, one of them saying it does not exist. Removed.
 `design/kit/review-item.html`. Idle check: 17 of 17 classes rendered, 4 states named.
 All 43 stands re-checked at 360 and 1280 - no overflow, no failed idle check, no
 exception. Molecules **10 / 27**.
+
+---
+
+## Step 7.52: an order that lived in four files
+
+**Who found it:** Claude, in a browser, with the winning-rule solver over all 40 coloured
+screens - after fixing three lies in the solver, all of which leaned toward the hypothesis.
+
+`order-row.css` describes one thing: an order that has already been placed. It was spread
+across four files, each fragment sitting where history had left it rather than where it works.
+
+| step | what arrived | from | why it was there |
+|---|---|---|---|
+| 7.46 | `.dl` `.dk` `.dv`, 19 instances | `spec-table.css` | a key over a value takes the same eyebrow a table's `th` takes |
+| 7.51 | `.sr`, 19 instances | `review-item.css` | the summary row sat in the reviews file because it once stood beside one on a page |
+| **7.52** | **the thumbnails**, 26 declarations | `restock-note.css` | a grouped selector of three names, one of which was that file's |
+| **7.52** | **the order body**, 14 classes | `account-shell.css` | the account shell held what opens inside an order row |
+
+After the fourth move the file describes the component whole. **None of the four moved a pixel.**
+
+### The three-name line, and the note that had been waiting since step 5
+
+`restock-note.css` carried:
+
+```
+.rk-ph, .aord-thumbs .t, .oh-thumbs i{ background: …; border-color: …; color: transparent }
+```
+
+It loads 5 imports after `order-row.css`, so that one line was beating **26 of order-row's own
+declarations about its own tiles** - 13 on `.aord-thumbs .t` and 13 on `.oh-thumbs i`.
+
+The line began with **four** names. Step 5 already peeled `.ob-line .ph` off it and sent it to
+`account-shell.css`, leaving the note «each fragment belongs to its owner». That note was
+right and it stopped one file short. Same shape as the five-name line of 7.50 in
+`section-head.css`: **a grouped selector spanning components is not a writing style, it is a
+way to lose a rule.**
+
+Those 26 were not a bug in themselves. The structure rule makes the tile a placeholder - a
+sunken square with a faint «фото» - and the colour rule turns it into a photo tile: page
+colour under the image, label hidden. That is how the whole system is layered. The bug was
+that **the second layer was being written in someone else's file**, which is why moving it
+back changed nothing on screen.
+
+The group's third declaration, `border-color: var(--line-hair)`, travelled nowhere: all three
+names already set `border: 1px solid var(--line-hair)` in their structure rule. A colour named
+a second time from the same token draws nothing - the dead-declaration family of 7.3 and 7.51.
+
+### The order body
+
+14 classes left `account-shell.css`: `.ob-collapse` `.ob-grid` `.ob-line` `.ob-line .ph`
+`.ob-sum` `.ob-receipt` `.ob-repeat` `.ob-del` and the product line inside it, `.ln-nm`
+`.ln-review` `.ln-right` `.ln-calc` `.ln-tot`. Ten instances of each, every one on
+`account-orders.html`, every one inside `.ord-body`, which order-row declares. The shell is
+the sidebar and the page frame around them.
+
+**This is wider than the step declared.** The declaration named `.ob-*`, seven classes. The
+`.ln-*` five are the cells of `.ob-line` and live nowhere else; moving the row without its
+cells would have split exactly the thing this step exists to join. Said here rather than
+quietly.
+
+`.ln-review` and `.ob-receipt` keep only their placement - `link-row.css` (import 26, still
+earlier than 56) says they are links and how loud, as it has since 7.30.
+
+### A/B against HEAD
+
+**Null pass 0 rows. Difference 0 rows.** Fourteen classes moved 15 imports earlier, two names
+came back from a file 5 imports later, one dead declaration deleted, and not one of the 40
+screens drew differently at any of the four widths.
+
+### The solver lied three times, all toward the hypothesis
+
+1. **It stripped pseudo-CLASSES along with pseudo-ELEMENTS.** One regex removed every `:x` and
+   `::x` before both matching and specificity, so `.oh-thumbs i:nth-child(1)` (0,2,1) became
+   `.oh-thumbs i` (0,1,1), tied with a foreign plain `.oh-thumbs i`, and lost on source order.
+   The first run reported as dead the rules that win **everywhere**. A pseudo-element cannot
+   be matched and carries no class-level weight; a pseudo-class can and does. Two different
+   things treated as one.
+2. **The instrument was visible in its own measurement.** Yesterday's animation freeze also
+   set `transition: none !important` on `*`, from an inline sheet - which beat every
+   component's transition and reported five live declarations dead. A transition only runs
+   when a computed value **changes**, and nothing changes on a fresh load, so that line bought
+   no determinism at all. Removed.
+3. **Headless Chrome answers `prefers-reduced-motion: reduce`.** So `base.css:26` fired its
+   `*{ transition:none !important }` on every load, and the census has been reading the
+   exception rather than the default the whole time. `Emulation.setEmulatedMedia` now asks for
+   `no-preference` explicitly.
+
+And for the third time this session: **a backtick inside a comment inside a template literal
+closes the literal.** Written into the instrument file itself, because three times is not an
+accident.
+
+### Found, not fixed
+
+- **Two prefixes for one idea.** `.aord-*` (1 instance, `account.html`) and `.oh-*` / `.ord-*`
+  (4 instances, `account-orders.html`) are both «an order as a row»: number, date, thumbnails,
+  sum, action. The file already admits it - one line names `.aord-thumbs .t` and `.oh-thumbs i`
+  together. Folding them is a rename of two families on two screens, which moves pixels for a
+  name. Krok 6.
+- **Four sizes of one product tile**: 46 in the preview, 34x38 in the row, 52x56 in the
+  product line. Three are not square and none is a rung of the size ladder.
+- **The chevron rotation is written twice**: `.ord.open .chev` here and
+  `.trustsec[open] > summary .chev` in `trust-strip.css`. One value, one atom (`icon.css`),
+  two components. It is a state of the atom and belongs with the atom.
+- **`.ob-main` and `.ob-side` are declared nowhere** - 4 instances each in markup, no rule in
+  any file. Not broken: they are cells of `.ob-grid` and the grid places them. But someone
+  looking for why the left column behaves as it does will look for a rule that does not exist.
+- **Breakpoints 640 and 820** past the 480/720/1180 set, joining 559/620/860 from 7.51.
+
+### Stand
+
+`design/kit/order-row.html`. Idle check: 41 of 41 classes rendered, 5 states named. All 44
+stands re-checked at 360 and 1280 - no overflow, no failed idle check, no exception.
+Molecules **11 / 27**.
+
+**57 selectors, 240 declarations, two screens.** The densest file in the system, and that is
+fine: an order is shown in two places, and in both of them completely.

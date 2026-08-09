@@ -227,7 +227,7 @@ window.KIT_NAV = [
    {
     "label": "Рядок замовлення",
     "page": "order-row.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Рядок кошика",

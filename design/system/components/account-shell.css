@@ -86,32 +86,14 @@
 .abonus .big{ line-height: var(--lh-flat); }
 .abonus .u{ font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-4); }
 .abonus .warn{ font-size: var(--fs-14); margin-top: var(--space-12); border: 1px dashed var(--line-strong); padding: var(--space-8) var(--space-12); }
-.ob-collapse{ display: none; }
-.ob-grid{ display: grid; grid-template-columns: 1fr; gap: var(--space-24); }
-@media (min-width: 820px){
-  .ob-grid{ grid-template-columns: 1fr 292px; }
-}
-.ob-line{ display: grid; grid-template-columns: 52px 1fr auto; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); align-items: start; }
-.ob-line:first-child{ padding-top: var(--space-2); }
-.ob-line .ph{ width: 52px; height: 56px; border-radius: var(--radius-8); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
-.ln-nm{ font-size: var(--fs-14); font-weight: var(--fw-bold); line-height: var(--lh-snug); }
-/* step 7.30: weight, ink and underline left for link-row.css - this rule keeps
-   the component's half: where the link sits in the row and how big it is. */
-.ln-review{ display: inline-flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); font-size: var(--fs-12); }
-.ln-right{ text-align: right; white-space: nowrap; }
-.ln-calc{ font-size: var(--fs-12); color: var(--text-secondary); }
-.ln-tot{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); margin-top: var(--space-4); }
-.ob-sum{ margin-top: var(--space-16); }
-.ob-receipt{ display: inline-flex; align-items: center; gap: var(--space-8); margin-top: var(--space-16); font-size: var(--fs-14); }
-.ob-repeat{ width: 100%; }
-.ob-del{ border: 1px solid var(--line-hair); padding: var(--space-16); margin-top: var(--space-16); display: flex; flex-direction: column; gap: var(--space-12); }
-@media (max-width: 640px){
-  /* step 6.6: size, border and colour are the set's; here stays only what makes
-     this control appear at all below 640, and that it fills the row. `display`
-     is that "appear at all" - the rule above hides it, so the button class
-     cannot bring it back on its own. */
-  .ob-collapse{ display: flex; width: 100%; margin-top: var(--space-16); font-family: inherit; }
-}
+/* 7.52: THE ORDER BODY LEFT THIS FILE, 14 classes of it. `.ob-*` and `.ln-*`
+   are what opens under an order row: the goods grid, one product line, the
+   totals, the delivery panel and the two buttons. All 10 instances of each are
+   on account-orders.html, all of them inside `.ord-body`, which order-row.css
+   declares. The shell is the sidebar and the page frame around them.
+   Step 5 already sent `.ob-line .ph` here out of a grouped selector in
+   restock-note.css, and it was right that a fragment belongs with its family -
+   it just kept it one file short of the family. */
 .wl-top{ display: flex; align-items: baseline; gap: var(--space-12); flex-wrap: wrap; margin-top: var(--space-2); }
 /* step 7.28: `.acc-h1sk` and `.acc-subsk` went to skeleton.css with the other
    five editions of the same bar. The account shell decides that its loading
@@ -177,9 +159,7 @@
 .abonus .warn{ border-style:solid; border-color:var(--line-hair); background:var(--bg-surface);
   color:var(--text-secondary); border-radius:var(--radius-8); }
 .abonus .warn b{ color:var(--text-warning); }
-.ln-nm{ color:var(--text-body); }
-.ln-calc, .ln-tot{ font-family:var(--font-mono); }
-.ob-del{ border-color:var(--line-hair); border-radius:var(--radius-12); background:var(--bg-surface); }
+/* 7.52: the colour half of the order body went with the structure half. */
 /* step 7.28: this line is gone, and it was the one doing the damage. It sat in a
    level-3 file and repainted three selectors that had just declared
    `--bg-skeleton` in their own files - so that token was named three times and
@@ -187,11 +167,7 @@
    any of the three files saying so. skeleton.css states the ground once, and the
    token itself was renamed `--bg-hatch` at 7.28 after the owner's decision. */
 
-/* ---------- claimed back from a grouped selector (step 5) ----------
-   These lived inside `.rk-ph, .aord-thumbs .t, .oh-thumbs i, .ob-line .ph{...}`
-   in restock-note.css. A group that spans components lands in one file and
-   drags the others above their own rules: here .ob-line .ph lost to the
-   structure rule in this very file. Each fragment belongs to its owner. */
-.ob-line .ph{ background:var(--bg-page) center/78% no-repeat;
-  border-color:var(--line-hair); color:transparent; }
+/* 7.52: `.ob-line .ph` was claimed back from restock-note.css at step 5 and
+   parked here. It has now gone on to order-row.css with the rest of the order
+   body, and the two names still in that grouped selector went with it. */
 
