@@ -171,6 +171,7 @@
 
      Above 34 nothing is a step: 38, 44, 50 and 60 stand once each, on a marketing
      block, and a size used once is a measurement, not a rung. */
+  --fs-8:   8px;
   --fs-10: 10px;
   --fs-12: 12px;
   --fs-14: 14px;
@@ -180,6 +181,34 @@
   --fs-24: 24px;
   --fs-30: 30px;
   --fs-34: 34px;
+
+  /* THE SCALE HAS A FLOOR AND NO CEILING - step 7.66.
+     `--fs-8` is new and it is a real rung: three declarations sit on it - the
+     label inside an order thumbnail, the one inside a certificate thumbnail,
+     and the «Новинка» tag on a list card, which was written 8.5px. Half a pixel
+     is not a step, and a scale cannot hold one.
+
+     ABOVE 34 THERE IS NO SCALE, AND THAT IS THE ANSWER, NOT AN OMISSION.
+     Five literals live up there and they are five different jobs, one use each
+     except one:
+
+         36px   .bb .new          the live price in the buy box
+         38px   .acc .big         the bonus figure in the account
+         38px   .hpromo .hph      the first promo headline in the hero strip
+         50px   .rvbig .n         the rating figure over the reviews
+         60px   .sys-code         the 404 numeral
+
+     This file already states the rule that governs them, written at 5.9 about
+     alphas: «a value used once is a value, not a token». A display figure is
+     sized to the block it heads, not to a rung shared with body copy, and the
+     two 38s are a coincidence between an account and a hero, not a step. Adding
+     --fs-36 and --fs-50 would mint tokens with one use each and still leave 38
+     and 60 outside. So they stay literal, on purpose, and this comment is where
+     that purpose is written down.
+
+     `--fs-34` has ONE use - the glyph in the auth dialog's visual half, which
+     only exists above 860. Kept: it is the top of the reading scale even if
+     only one thing currently stands there. */
 
   /* --fw-regular added at step 7.36. The system has always used 400 and never
      named it, because 400 is what you get by writing nothing. The struck old price
@@ -344,6 +373,44 @@
   --space-24: 24px;
   --space-32: 32px;
   --space-40: 40px;
+
+  /* WHAT IS A RUNG AND WHAT IS NOT - step 7.67.
+     948 spacing declarations in the component layer, 1092 of their value parts
+     read a token. What was left raw came out as 33 declarations, and they are
+     three different things, not one backlog.
+
+     ONE - A LITERAL WHERE THE EXACT TOKEN EXISTS. Five of them, and they were
+     the pure case: `padding: 16px` next to `--space-16`, `margin: 16px 0 4px`,
+     `margin: 16px 0 2px`, `padding: 3px 8px`, `margin-top: 12px`. Substituted;
+     the A/B cannot see them, which is the point. `architecture.md` A5 did not
+     mention this group at all, and it is the only one that costs nothing.
+
+     TWO - AIR THAT REFUSED TO SAY SO. Six declarations in the reassurance
+     banner and one on the out-of-stock back link: 5, 10, 14, 18, 20, 26. Every
+     one of them stands ONE TO FOUR PIXELS ABOVE A RUNG, so the rule is round
+     DOWN to the rung - one rule rather than six taste calls, and the panel gets
+     calmer rather than louder, which is design principle 4. 18 -> 16, 20 -> 16,
+     14 -> 12, 10 -> 8, 26 -> 24, 5 -> 4.
+
+     THREE - CLEARANCE, WHICH IS NOT SPACING AT ALL, and this is why the rest
+     stays raw. A clearance is the height or width of another element, written
+     as padding so content can slide under it:
+
+         132px   buy-bar.css        room for the fixed buy bar
+         100px   base.css           room for the fixed header
+          60px   base.css, cart-drawer.css   room for the tab bar, for the footer
+         310px   seo-text.css       room for the bear
+         150px   trust-strip.css    room for the shelf mark
+          54px   auth-dialog.css    room for the close
+          46px   product-card.css   room for the heart
+
+     A rung would make these WRONG, not tidy: they answer to another element's
+     size and they change when it does. They are values, not steps, and they are
+     listed here so the next pass does not read them as drift.
+
+     What is left after all three: the coach box's own 15/17, 3/7, 7, 10 - one
+     component that was drawn before the scale existed and whose type moved at
+     7.66. It is a look, taken with that box open, not a sweep. */
 
   /* FOUR radii and two shapes, after the step 5.5 consolidation.
 

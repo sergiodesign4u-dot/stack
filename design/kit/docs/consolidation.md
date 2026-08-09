@@ -7964,3 +7964,147 @@ checkbox edge (A1) and the out-of-stock label (A9).
 
 Next by the owner's word: **A4 through A7** - the ends of the type scale, the five numbers in the
 reassurance panel, the four sizes of the product tile, and the two ways to say «square».
+
+---
+
+## Step 7.66: the scale was missing a floor, not both ends
+
+**Who asked for it:** the owner - A4, next in the order taken at 7.65.
+
+### The entry was wrong three ways
+
+1. **«The scale runs `--fs-10` to `--fs-30`.»** It runs to **`--fs-34`**, and all nine rungs are
+   in use: 10 (30 declarations), 12 (134), 14 (177), 16 (44), 18 (20), 20 (34), 24 (19), 30 (14),
+   34 (1).
+2. **«Six literals.»** There were **twelve raw `font-size` declarations across eight distinct
+   values**, plus thirteen `font-size: 0`, which is not a size at all but the trick that removes
+   a text node. A4 missed `13px`, `11.5px` twice and `60px` - and listed `13.3px`, which **exists
+   nowhere in the code**. It is a browser default rendered on a bare input: a measurement of the
+   page, filed as a declaration.
+3. **«Add the two ends.»** Only one end is a rung.
+
+Third entry in a row where the count was taken from text. The fix each time is the same: parse
+the stylesheets with comments stripped, then ask the browser what renders.
+
+### The floor is real
+
+`--fs-8` is new and carries three declarations: the label inside an order thumbnail, the one
+inside a certificate thumbnail, and the «Новинка» tag on a list card, which was written `8.5px`.
+**Half a pixel is not a step and a scale cannot hold one.**
+
+### The ceiling is not a rung, and that is the answer
+
+Five literals live above 34, and they are five different jobs:
+
+| | | |
+|---|---|---|
+| 36px | `.bb .new` | the live price in the buy box |
+| 38px | `.acc .big` | the bonus figure in the account |
+| 38px | `.hpromo .hph` | the first promo headline in the hero strip |
+| 50px | `.rvbig .n` | the rating figure over the reviews |
+| 60px | `.sys-code` | the 404 numeral |
+
+`tokens.css` already carries the rule that governs them, written at 5.9 about alphas: **«a value
+used once is a value, not a token»**. A display figure is sized to the block it heads, not to a
+rung it would share with body copy, and the two 38s are a coincidence between an account screen
+and a hero strip. Minting `--fs-36` and `--fs-50` would create tokens with one use each and
+still leave 38 and 60 outside. They stay literal on purpose, and `tokens.css` is now where that
+purpose is written rather than an absence someone fills in later.
+
+### Three more literals went into rungs that already existed
+
+`.coachbox .cbh` and `.cbsave` from `11.5px` to `--fs-12`; `.cbnote` from `13px` to `--fs-14`,
+which is what every other note in the product is set at. **Twelve raw declarations became six**,
+and the six are the five display figures plus `price.css`'s `.55em` - deliberately relative,
+because the currency mark is a fraction of the price beside it. Measured, it renders at 11,
+13.2, 16.5, 19.8 and 20.9 on five different prices, which is the rule working.
+
+### A/B
+
+**Null pass 0 rows. Difference 2666 rows on two screens of forty**, zero present in one edition
+only.
+
+| property | rows | |
+|---|---|---|
+| position | 2598 | everything below the coach box, which grew |
+| rect | 44 | |
+| **font-size** | **40** | `8.5 -> 8` x8, `11.5 -> 12` x28, `13 -> 14` x4 |
+| letter-spacing | 32 | `--ls-caps` is `.04em`, so the used tracking follows the size |
+| line-height | 20 | `--lh-airy` is relative, same reason |
+
+`product-coach.html` is **11159.98 -> 11185.56 tall, +25.58px** - the honest cost of putting the
+coach box on the scale. `listing-list.html` did not change height at all: the 8.5px tag is
+absolutely positioned, so shrinking it moves nothing.
+
+### What this opens
+
+`.cbh` is now 12, uppercase, Inter, `--ls-caps` - **which is the eyebrow face 7.63 defined**, and
+it could not qualify while its size was off the scale. It does not take the family's ink: the
+eyebrow is `--text-muted`, this one is `--text-primary` on a surface plate inside a bordered box.
+Whether the coach box is quiet enough for muted is a look and not a size, so it is written down
+rather than decided here.
+
+### Where the sheet stands
+
+**Seven closed** - F1, F2, C's irreversible action, A1, A3, A4, A8 - **and half of A2.** Ninety
+remain, plus the three questions the owner has not answered: the 18px checkbox edge, the
+out-of-stock label, and now the coach box's ink.
+
+Next: **A5** - the five numbers in the reassurance panel that mean «air» and do not say it in the
+system's words.
+
+---
+
+## Step 7.67: three kinds of raw number, and only one of them was a backlog
+
+**Who asked for it:** the owner - A5.
+
+### The measurement
+
+948 spacing declarations in the component layer, and **1092 of their value parts already read a
+token**. What was left raw came to **33 declarations**, and parsing them properly they are three
+different things.
+
+**One - a literal where the EXACT token already exists.** Five: `padding: 16px` standing right
+next to `--space-16`, `margin: 16px 0 4px`, `margin: 16px 0 2px`, `padding: 3px 8px`,
+`margin-top: 12px`. **A5 does not mention this group at all**, and it is the only one that costs
+nothing. Substituted; the A/B returns zero rows for them, which is the whole point.
+
+**Two - air that refused to say so.** Six declarations in the reassurance banner and one on the
+out-of-stock back link: 5, 10, 14, 18, 20, 26. **Every one stands one to four pixels above a
+rung.** So the rule is **round down**, one rule instead of six taste calls, and the panel gets
+calmer rather than louder - design principle 4. `18 -> 16`, `20 -> 16`, `14 -> 12`, `10 -> 8`,
+`26 -> 24`, `5 -> 4`.
+
+**Three - clearance, which is not spacing at all**, and this is why the rest stays raw. A
+clearance is another element's height or width, written as padding so content can slide under
+it: 132 for the fixed buy bar, 100 for the header, 60 for the tab bar and for the drawer footer,
+310 for the bear, 150 for the shelf mark, 54 for the close, 46 for the heart. **A rung would
+make these wrong, not tidy** - they answer to another element's size and change when it does.
+Listed in `tokens.css` now so the next pass does not read them as drift.
+
+### A/B
+
+**Null pass 0 rows. Difference 2290 rows on two screens of forty**, zero present in one edition
+only, no colour and no type.
+
+| property | rows |
+|---|---|
+| position | 2250 |
+| rect | 54 |
+| margin / padding / gap | **34** |
+
+And the 34 are exactly the declared list: `margin-top 14->12` x4, `10->8` x4,
+`margin-bottom 26->24` x4, `margin-top 5->4` x4, `padding 18->16 / 20->16` x8, the banner's two
+gaps `18->16` and `14->12` x8.
+
+**`product-oos.html` 4084.77 -> 4082.77, exactly -2.00. `product-reviews.html`
+3927.48 -> 3922.48, exactly -5.00.** Both shorter, which is what rounding down means.
+
+### Where the sheet stands
+
+**Eight closed** - F1, F2, C's irreversible action, A1, A3, A4, A5, A8 - **and half of A2.**
+Eighty-nine remain, plus three questions the owner has not answered: the 18px checkbox edge, the
+out-of-stock label, and the coach box's ink.
+
+Next: **A6** - one product tile in four sizes.

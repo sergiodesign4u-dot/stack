@@ -198,31 +198,90 @@ branch back into a decision about 87 declarations.
 token back to 800, and the register the type was written for arrives everywhere at once. That is
 a look and not a repair, and it belongs to stage 09 with the type stand open.
 
-### A4. The type scale is missing both ends
+### A4. The type scale - **CLOSED at step 7.66.** It was missing a floor, not both ends
 
-**Measured.** The scale runs `--fs-10` to `--fs-30`. Written as literals outside it: `50px`
-(the rating figure), `36px` and `38px` (buy box, loyalty), `8.5px` and `8px` (badge, thumbnail
-label), `13.3px` (the browser default on a bare input).
+**The entry was wrong three ways, and the browser said so.**
 
-- **Leave it.** Six literals, each meaning «bigger than the scale goes» or «smaller».
-- **Change it.** Add `--fs-8` and `--fs-36` / `--fs-50`, or round the literals into the scale.
+1. **«The scale runs `--fs-10` to `--fs-30`»** - it runs to **`--fs-34`**. Nine rungs, all nine
+   in use: 10 (30 declarations), 12 (134), 14 (177), 16 (44), 18 (20), 20 (34), 24 (19), 30 (14),
+   34 (1).
+2. **«Six literals»** - there were **twelve raw `font-size` declarations, eight distinct values**,
+   plus thirteen `font-size: 0`, which is not a size but the trick that kills a text node. The
+   entry missed `13px`, `11.5px` twice and `60px`, and listed `13.3px`, which **exists nowhere in
+   the code** - it is a browser default rendered on a bare input, not a declaration.
+3. **«Add the two ends»** - only one end is a rung.
 
-**Recommendation: add the two ends and round `8.5` to `8` and `38` to `36`.** The 50 is a
-display figure and deserves its own token rather than a rounding.
+**The floor is real, so it was added.** `--fs-8` now carries three declarations: the label in an
+order thumbnail, the one in a certificate thumbnail, and the «Новинка» tag on a list card, which
+was written `8.5px`. **Half a pixel is not a step and a scale cannot hold one.**
 
-### A5. Values written as numbers where the file next to them uses a token
+**The ceiling is not a rung and that is the answer.** Five literals live above 34 and they are
+five different jobs, one use each except a coincidence:
 
-**Measured.** `18 / 20 / 10 / 26 / 92 / 5 / 68` in the reassurance banner, `12px` and `14px` in
-the restock note, `9%` and `74%` in the gallery, `46px` in `.recbanner .rbear`, `116px` and
-`292px` and `420px` and `440px` and `540px` and `580px` in four grids, `70px` on a gallery
-thumbnail, `52 x 56` on an order line tile.
+| | | |
+|---|---|---|
+| 36px | `.bb .new` | the live price in the buy box |
+| 38px | `.acc .big` | the bonus figure in the account |
+| 38px | `.hpromo .hph` | the first promo headline in the hero strip |
+| 50px | `.rvbig .n` | the rating figure over the reviews |
+| 60px | `.sys-code` | the 404 numeral |
 
-The space scale is 2 / 4 / 8 / 12 / 16 / 24 / 32 / 40. **Eighteen, twenty, ten, twenty-six and
-five are not on it and cannot be tokenised without moving pixels.**
+`tokens.css` already states the rule that governs them, written at 5.9 about alphas: **«a value
+used once is a value, not a token»**. A display figure is sized to the block it heads, not to a
+rung it would share with body copy, and the two 38s are a coincidence between an account and a
+hero. Adding `--fs-36` and `--fs-50` would mint tokens with one use each and still leave 38 and
+60 outside. They stay literal on purpose, and `tokens.css` is where that purpose is now written.
 
-**Recommendation: leave the grid widths as numbers** - a column width is not a spacing rung -
-**and decide the five in the banner**, which are the only ones that mean «space» while refusing
-to say it in the system's words.
+**Three more literals folded into rungs that already existed:** `.coachbox .cbh` and `.cbsave`
+from `11.5px` to `--fs-12`, and `.cbnote` from `13px` to `--fs-14`, which is what every other
+note in the product is set at. **Twelve raw declarations became six**, and the six are the five
+display figures plus `price.css`'s `.55em`, which is deliberately relative - the currency mark
+is a fraction of the price it stands beside, and it measures 11, 13.2, 16.5, 19.8 and 20.9 on
+five different prices, correctly.
+
+**One thing this opens.** `.cbh` is now 12, uppercase, Inter, `--ls-caps` - which is the eyebrow
+face 7.63 defined, and it could not qualify while its size was off the scale. It does not take
+the family's ink: the eyebrow is `--text-muted` and this one is `--text-primary` on a surface
+plate inside a bordered box. Whether the coach box is quiet enough for muted is a look, not a
+size.
+
+### A5. Numbers where a token exists - **CLOSED at step 7.67.** There were three groups, not one
+
+**Measured.** 948 spacing declarations in the component layer; **1092 of their value parts read
+a token.** What was left raw came to **33 declarations**, and they are three different things.
+
+**Group one - a literal where the EXACT token already exists.** Five declarations:
+`padding: 16px` standing next to `--space-16`, `margin: 16px 0 4px`, `margin: 16px 0 2px`,
+`padding: 3px 8px`, `margin-top: 12px`. **A5 did not mention this group at all**, and it is the
+only one that costs nothing: substituted, and the A/B cannot see it.
+
+**Group two - air that refused to say so.** Six declarations in the reassurance banner and one
+on the out-of-stock back link: 5, 10, 14, 18, 20, 26. **Every one of them stands one to four
+pixels above a rung**, so the rule is **round down to the rung** - one rule instead of six taste
+calls, and the panel gets calmer rather than louder, which is design principle 4.
+18 to 16, 20 to 16, 14 to 12, 10 to 8, 26 to 24, 5 to 4.
+
+**Group three - clearance, which is not spacing at all.** This is why the rest stays raw, and
+it is the part A5 got closest to with «a column width is not a spacing rung». A clearance is
+another element's height or width, written as padding so content can slide under it:
+
+| | | |
+|---|---|---|
+| 132px | `buy-bar.css` | room for the fixed buy bar |
+| 100px | `base.css` | room for the fixed header |
+| 60px | `base.css`, `cart-drawer.css` | room for the tab bar, and for the drawer footer |
+| 310px | `seo-text.css` | room for the bear |
+| 150px | `trust-strip.css` | room for the shelf mark |
+| 54px | `auth-dialog.css` | room for the close |
+| 46px | `product-card.css` | room for the heart |
+
+**A rung would make these wrong, not tidy.** They answer to another element's size and they
+change when it does. They are values, not steps, and `tokens.css` now lists them so the next
+pass does not read them as drift.
+
+**What is left after all three:** the coach box's own 15/17, 3/7, 7 and 10 - one component drawn
+before the scale existed, whose type already moved at 7.66. That is a look, taken with the box
+open, not a sweep.
 
 ### A6. Four sizes of one product tile
 
