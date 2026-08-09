@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Картка адреси | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Картка адреси</h1>
+<p class="kp-lead">Куди везти. Три збережені адреси в кабінеті - і діалог, у якому їх заводять. Найщільніший із дрібних файлів системи: <b>34 селектори на 52 рядки</b>, і половина з них - не картка.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/address-card.css</span><span class="kp-tag">52 рядки</span><span class="kp-tag">34 селектори</span><span class="kp-tag">151 оголошення</span><span class="kp-tag">2 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія картки</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>account-addresses.html</code>.</p>
+<div class="kp-demo">
+  <div class="addr-list">
+    <div class="addr-card def">
+      <span class="addr-tag">Основна</span>
+      <div class="addr-type">Відділення Нової Пошти</div>
+      <div class="addr-line">Одеса, відділення №12</div>
+      <div class="addr-sub">вул. Катерининська, 27 · Вікторія Коваль · +380 ** *** 45 67</div>
+      <div class="addr-acts">
+        <button type="button" class="btn--outline btn--s btn">Редагувати</button>
+        <button type="button" class="btn--outline btn--s btn">Видалити</button>
+      </div>
+    </div>
+    <div class="addr-card">
+      <div class="addr-type">Кур'єр Нової Пошти</div>
+      <div class="addr-line">Київ, вул. Лесі Українки, 7, кв. 42</div>
+      <div class="addr-sub">Вікторія Коваль · +380 ** *** 45 67</div>
+      <div class="addr-acts">
+        <button type="button" class="btn--outline btn--s btn">Зробити основною</button>
+        <button type="button" class="btn--outline btn--s btn">Редагувати</button>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn--accent btn--s btn dark addr-add">＋ Додати адресу</button>
+  <div class="addr-hint">Адреси зберігаються тільки для вашого облікового запису. Під час оформлення можна вибрати будь-яку з них або ввести нову.</div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Основна</b> - <code>.def</code> фарбує рамку картки й рамку плашки в <code>--line-action</code>. Це <b>єдине</b> помаранчеве в компоненті, і воно означає «сюди поїде за замовчуванням»</span></div>
+  <div class="a"><i>2</i><span><b>Спосіб</b> над адресою, 12 вторинним: спершу «як везуть», потім «куди». Відділення й кур'єр це різні речі за тією самою адресою</span></div>
+  <div class="a"><i>3</i><span><b>Адреса</b> 16/700 - найбільший кегль картки. Її шукають очима серед трьох</span></div>
+  <div class="a"><i>4</i><span><b>Дії</b> внизу, <code>flex-wrap</code>. На 360 вони переносяться, і це навмисне: три кнопки в рядок на телефоні дали б по 90px кожній</span></div>
+</div>
+<p class="kp-p">Сітка <code>.addr-list</code>: один стовпчик до 720, два вище. <b>Не три</b> - адреса це рядок тексту, який не можна скорочувати, і в третину екрана він не вміщується.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Половина файлу - це діалог</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Частина</th><th>Селекторів</th><th>Що це</th></tr></thead><tbody>
+<tr><td>картка</td><td><b>13</b></td><td><code>.addr-list</code> <code>.addr-card</code> <code>.addr-tag</code> <code>.addr-type</code> <code>.addr-line</code> <code>.addr-sub</code> <code>.addr-acts</code> <code>.addr-add</code> <code>.addr-hint</code> і прев'ю <code>.aaddr .adef</code></td></tr>
+<tr><td><b>діалог</b></td><td><b>17</b></td><td><code>.addr-modal</code> <code>.addr-methods</code> <code>.addr-method</code> з трьома дітьми, <code>.addr-back</code> <code>.addr-2col</code> <code>.addr-cityfld</code> <code>.addr-check</code> <code>.addr-note</code> <code>.addr-del-row</code></td></tr>
+</tbody></table></div>
+<p class="kp-p">У реєстрі організма для нього немає, а молекула на 34 селектори - це вже не молекула. Записано; заводити 28-му рядок посеред проходу - це рішення про число, яке опубліковане на обзорі.</p>
+<div class="kp-do"><h4>Діалог будує сірий прототип, і це не помилка</h4>Розмітку діалогу збирає <code>wireframes/_nav.js</code>, і <b>всі 40 кольорових екранів вантажать цей файл</b>. Поведінка живе в сірому шарі, <code>design/_nav.js</code> додає лише візуальне збагачення. Це рівно правило «<code>design/</code> володіє візуальним шаром».
+<p style="margin-top:8px">Спершу я прочитав це навпаки. <code>grep</code> по розмітці сказав, що сім класів файлу мають <b>0 екземплярів</b>, і виглядало це як мертва половина. У DOM їх 3, 3, 3, 3, 4 і 1: скрипт будує діалог при завантаженні, а <code>grep</code> шукав статичну розмітку.</p></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Діалог, крок 1: спосіб доставки</div>
+<div class="kp-demo">
+  <div class="cemodal addr-modal">
+    <div class="ce-top"><h2>Нова адреса</h2><button class="btn--ghost btn--icon btn--s ce-x" type="button" aria-label="Закрити">✕</button></div>
+    <p class="sub">Оберіть спосіб доставки - далі заповнимо лише потрібні поля.</p>
+    <div class="addr-methods">
+      <button type="button" class="addr-method"><span class="am-ic">📦</span><span class="am-tx"><b>Відділення Нової Пошти</b><i>Забрати у відділенні - за номером або адресою</i></span><span class="am-ar">›</span></button>
+      <button type="button" class="addr-method"><span class="am-ic">🔳</span><span class="am-tx"><b>Поштомат Нової Пошти</b><i>Самостійно, цілодобово - за номером поштомата</i></span><span class="am-ar">›</span></button>
+      <button type="button" class="addr-method"><span class="am-ic">🚚</span><span class="am-tx"><b>Кур'єр Нової Пошти</b><i>Доставка за вашою адресою</i></span><span class="am-ar">›</span></button>
+    </div>
+    <div class="addr-note">Самовивіз із магазину Stack обирається безпосередньо в кошику під час оформлення - його не треба зберігати тут.</div>
+  </div>
+</div>
+<div class="kp-cap">заміряно: рядок способу <b>262×97</b> на 360 і <b>410×78</b> на 1280 - удвічі вище за поріг дотику, бо в ньому два рядки тексту</div>
+<p class="kp-p"><b>Спершу питають «як», а не «куди».</b> Три способи доставки вимагають різних полів: відділення - номер, поштомат - номер поштомата, кур'єр - вулицю з будинком і квартирою. Питати все одразу означало б показати форму, де половина полів зайва.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Діалог, крок 2: форма</div>
+<div class="kp-demo">
+  <div class="cemodal addr-modal">
+    <div class="ce-top"><h2>Нова адреса · Відділення</h2><button class="btn--ghost btn--icon btn--s ce-x" type="button" aria-label="Закрити">✕</button></div>
+    <button type="button" class="btn--text addr-back">‹ Інший спосіб</button>
+    <div class="cef"><label>Місто</label><button type="button" class="addr-cityfld"><span>📍 Одеса</span><span class="chg">Змінити</span></button></div>
+    <div class="cef"><label>Відділення</label><input class="field" type="text" value="№12 - вул. Катерининська, 27"></div>
+    <div class="addr-2col">
+      <div class="cef"><label>Ім'я</label><input class="field" type="text" value="Вікторія"></div>
+      <div class="cef"><label>Прізвище</label><input class="field" type="text" value="Коваль"></div>
+    </div>
+    <div class="cef"><label>Телефон</label><input class="field" type="tel" value="+380 67 123 45 67"></div>
+    <label class="addr-check"><input type="checkbox"> Зробити основною адресою</label>
+    <div class="addr-del-row"><button type="button">🗑 Видалити адресу</button></div>
+  </div>
+</div>
+<div class="kp-cap">рядок видалення показують лише при редагуванні наявної адреси - у новій його немає</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що заміряно, і що з цього треба вирішити</div>
+<p class="kp-p">Вирішувач по всіх 34 селекторах: <b>18 оголошень не виграють ніде, і всі 18 - це поділ етапу 08</b>, структура проти кольору на <code>.addr-card</code>, <code>.addr-tag</code>, <code>.addr-type</code>, <code>.addr-sub</code>, <code>.addr-hint</code>. <b>Мертвих оголошень у файлі немає.</b> Нічого не переїжджає, нічого не видаляється.</p>
+<p class="kp-p">Але два заміри вимагають рішення, і воно не моє.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th></th><th><code>.addr-del-row button</code></th><th><code>.btn--outline btn--s</code></th></tr></thead><tbody>
+<tr><td>рамка</td><td>1px #D9D9D9</td><td>1px #D9D9D9</td></tr>
+<tr><td>радіус</td><td>8px</td><td>8px</td></tr>
+<tr><td>кегль / вага</td><td>14 / 700</td><td>14 / 700</td></tr>
+<tr><td>колір</td><td>#1C1C1C</td><td>#1C1C1C</td></tr>
+<tr><td>поля</td><td>8 / <b>16</b></td><td>8 / <b>12</b></td></tr>
+<tr><td><b>висота</b></td><td><b>40</b></td><td><b>44</b></td></tr>
+</tbody></table></div>
+<div class="kp-dont"><h4>1. Кнопка видалення - тринадцяте видання контурної кнопки, і вона нижча за драбину</h4>Це <b>голий <code>&lt;button&gt;</code> без жодного класу</b>, якому цей файл малює контурний фініш дев'ятьма оголошеннями. Виходить те саме, крім двох речей: 4px зайвих полів з боків і <b>висота 40 замість 44</b>. Драбина розмірів системи - 38 / 44 / 52, і сорока в ній немає. Це найнебезпечніша кнопка екрана, і вона єдина не на щаблі.
+<p style="margin-top:8px"><b>Правильна правка - у розмітці:</b> дати кнопці <code>class="btn--outline btn--s btn"</code> і зняти дев'ять оголошень звідси. Розмітка лежить у <code>wireframes/_nav.js:992</code>, а <code>wireframes/</code> заморожено після етапу 05. Дешевша правка - дописати сюди <code>min-height: var(--size-44)</code>, але тоді дублювання лишається. <b>Обидві рухають пікселі, тож жодної не зробив: крок оголошував нуль.</b></p></div>
+<div class="kp-dont"><h4>2. Чотири прапорці в продукті - не системні</h4>Заміряно на всіх 40 кольорових екранах: <b>351 системна коробка <code>.cb</code></b> на восьми екранах, і <b>4 голі <code>&lt;input type="checkbox"&gt;</code></b> на двох - три тут і один на <code>account-profile.html</code>. Голий прапорець малює операційна система: 18×18 без рамки, без радіуса, без галочки системи. <code>base.css</code> фарбує його <code>accent-color</code>, тож він помаранчевий - але це не той самий контрол.
+<p style="margin-top:8px">Це не дефект цього файлу: <code>.addr-check input{ 18px }</code> лише задає розмір. Дефект у розмітці, і він <b>ширший за цей компонент</b> - четвертий прапорець узагалі на іншому екрані.</p></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Прев'ю на дашборді</div>
+<div class="kp-demo">
+  <div class="acard aaddr">
+    <div class="ah"><h3>Адреси</h3><a class="lnk" href="#">Усі адреси →</a></div>
+    <div class="adef">
+      <div class="tag">Основна</div>
+      <div class="line">Одеса, відділення №12</div>
+    </div>
+    <div class="amore">Ще 2 збережені адреси</div>
+  </div>
+</div>
+<div class="kp-cap">та сама пара «плашка + адреса», але під іншими іменами: <code>.adef .tag</code> проти <code>.addr-tag</code>, <code>.adef .line</code> проти <code>.addr-line</code></div>
+<p class="kp-p"><b>Це вже третя пара видань одного поняття</b> після <code>.aord-*</code> проти <code>.oh-*</code> на 7.52 і двох бровок на 7.50. Тут прев'ю справді простіше за картку - без способу доставки, без дій - але плашка «Основна» в них однакова по суті й різна в коді: 10/black/caps тут, 10/black/caps там, рамка тільки у другої. Зведення - <b>Крок 6</b>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>звичайна</b></td><td>рамка-волосина, тінь <code>--elevation-1</code></td><td>картка, а не рядок списку: адреси переглядають, а не читають підряд</td></tr>
+<tr><td><b>основна</b></td><td><code>.def</code>: рамка й плашка беруть <code>--line-action</code></td><td>одна з трьох, і її треба впізнати не читаючи</td></tr>
+<tr><td><b>наведення на спосіб</b></td><td><code>.addr-method:hover</code>: рамка <code>--line-inverse</code>, фон <code>--bg-sunken</code></td><td>рядок вибору відповідає всім тілом, бо натискають усе тіло</td></tr>
+<tr><td><b>крок «інший спосіб»</b></td><td><code>.addr-back</code> - текстова кнопка згори форми</td><td>вибір способу не тупик: помилились - повертаєтесь, не закриваючи діалог</td></tr>
+<tr><td><b>редагування</b></td><td><code>.addr-del-row</code> з'являється, у новій адресі його немає</td><td>видалити можна лише те, що вже існує</td></tr>
+<tr><td><b>до 720</b></td><td>сітка стає одноколонковою</td><td>адресу не можна скорочувати, а в півекрана на 360 вона не влазить</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Спершу «як», потім «куди».</b> Три способи доставки вимагають різних полів. Питати все одразу означає показати форму, де половина полів зайва, а людина не знає, які саме.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби видалення схожим на решту дій.</b> Зараз кнопка «Видалити адресу» відрізняється від сусідів лише піктограмою й тим, що стоїть за лінією. Це найменше, що можна зробити - і цього мало. Стан для незворотної дії в системі ще не описаний.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>28</b> власних класів і <b>5</b> станів оголошено в <code>address-card.css</code>.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["aaddr","addr-2col","addr-acts","addr-add","addr-back","addr-card","addr-check","addr-cityfld","addr-del-row","addr-hint","addr-line","addr-list","addr-method","addr-methods","addr-modal","addr-note","addr-sub","addr-tag","addr-type","adef","am-ar","am-ic","am-tx","amore","chg","def","line","tag"], KIT_STS=[".def",":hover","min-width: 720px","addr-del-row","addr-back"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>address-card.css</code>: <b>13</b> семантичних ролей і <b>19</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (13)</th><th>Примітиви (19)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--mark-faint</code> <code>--text-action</code> <code>--text-body</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--elevation-1</code></td><td><code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fs-24</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--ls-caps</code> <code>--radius-8</code> <code>--radius-12</code> <code>--radius-pill</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу тільки чотири числа: <code>1px</code> і <code>1.5px</code> (дві товщини ліній, і <b>браузер малює обидві однаково</b> - 7.49), <code>18px</code> прапорця, <code>90vh</code> висоти діалогу, <code>720px</code> точки перелому. <b>Найчистіший файл після нотатки про поповнення.</b></p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p"><b>A/B не ганявся, і ось чому.</b> Крок не змінив жодного байта в <code>design/system/</code>: змінились тільки ця сторінка, рядок реєстру й лічильник на обзорі, а їх не вантажить жоден із 40 кольорових екранів. Порівнювати нічого з нічим - це не доказ, а витрачені двадцять п'ять хвилин. Сказати «нуль рядків» про прогін, якого не було, гірше, ніж не робити прогін.</p>
+<p class="kp-p">Замість нього працювали два інструменти, які тут доречні: <b>вирішувач</b> по 34 селекторах на 40 екранах і <b>прямі заміри</b> з відкритим діалогом, бо в спокої він закритий і перепис його не бачить - той самий випадок, що <code>.ord-oos</code> на 7.54.</p>
+<p class="kp-p">Це і є результат кроку: <b>файл виявився чистим</b>. Вирішувач не знайшов мертвих оголошень, чужих сімей не виявилось, переїжджати нічому. Дві знахідки - висота кнопки видалення й чотири голі прапорці - лежать <b>у розмітці</b>, а не тут, і обидві рухають пікселі, тож обидві оголошені й не зроблені.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Кнопка видалення 40 замість 44</b> - і дев'ять оголошень, що переписують контурний фініш. Правка в розмітці <code>wireframes/_nav.js:992</code>, а сіру теку заморожено після етапу 05: <b>потрібне слово власника</b></li>
+<li><b>Чотири голі прапорці</b> проти 351 системної коробки. Ширше за цей файл</li>
+<li><b>Немає стану для незворотної дії.</b> «Видалити адресу» виглядає як звичайна контурна кнопка. У системі немає ні небезпечного фінішу, ні підтвердження як компонента</li>
+<li><b>Третя пара видань одного поняття</b>: <code>.adef .tag</code> проти <code>.addr-tag</code>. Крок 6</li>
+<li><b>Діалог на 17 селекторів усередині молекули</b> - або він організм, або молекула завелика</li>
+<li><b>Немає стану «жодної адреси»</b> - у нового покупця список порожній, і хто його малює, у цьому файлі не сказано</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

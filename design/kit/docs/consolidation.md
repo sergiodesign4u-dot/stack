@@ -7150,3 +7150,100 @@ A scan finds candidates. Only reading decides. Three steps were spent on a shape
 shape was measured and the reason was assumed.
 
 `design/kit/gallery.html` carries the correction in its own words.
+
+---
+
+## Step 7.58: a file that turned out clean, and two findings that live in the markup
+
+**Who found it:** Claude - and the browser corrected two of my readings before anything was
+written.
+
+`address-card.css`: 52 lines, **34 selectors, 151 declarations** - the densest of the small
+files. Two screens: the preview on `account.html` and the list on `account-addresses.html`.
+
+### Two wrong readings, caught before they became a step
+
+1. **`grep` said seven classes have 0 instances** - `.addr-modal`, `.addr-method`,
+   `.addr-cityfld`, `.addr-check`, `.addr-del-row`, `.addr-2col`, `.addr-note`. It looked like
+   half a dead file. In the DOM they are 1, 3, 3, 3, 3, 4 and 1: the dialog is built by a
+   script at load, and `grep` was reading static markup.
+2. **A regex over inline handlers said 19 of 20 functions do not exist** on the coloured
+   screens. Asked the pages themselves - `typeof window[name] === 'function'` after every
+   script has run - and **none is missing**. The two it named, `getElementById` and `remove`,
+   are method calls that my own name-extractor took for globals.
+
+Both were the same mistake as the three steps before them: a scan that measures shape and a
+reason that gets assumed. The rule now has a name in this log - **a scan finds candidates,
+only reading decides** - and this is the first step where it caught the error before the work
+rather than after.
+
+Worth recording from the second check: **all 40 coloured screens load
+`../wireframes/_nav.js`.** Behaviour lives in the grey layer and `design/_nav.js` adds only
+the visual enrichment. That is exactly the rule «design/ owns the visual layer only», and it
+means the grey prototype is not a frozen archive - it is the running behaviour of the
+coloured product.
+
+### The file is clean
+
+The solver over all 34 selectors: **18 declarations never win, and all 18 are the stage-08
+split** - structure against colour on `.addr-card`, `.addr-tag`, `.addr-type`, `.addr-sub`,
+`.addr-hint`, plus the `.def` modifier winning over its base. **No dead declarations, no
+foreign families, nothing to move.** Not one byte of `design/system/` changed this step.
+
+No A/B was run, and that is deliberate: the step changed the stand, one registry row and one
+counter, none of which any of the 40 coloured screens loads. Comparing nothing against
+nothing is not proof, it is twenty-five minutes. Saying «zero rows» about a run that did not
+happen is worse than not running it.
+
+### Half the file is a dialog
+
+17 of the 34 selectors are the add/edit-address dialog: `.addr-modal`, `.addr-methods`,
+`.addr-method` and its three children, `.addr-back`, `.addr-2col`, `.addr-cityfld`,
+`.addr-check`, `.addr-note`, `.addr-del-row`. The registry has no organism for it and a
+molecule with 34 selectors is not a molecule. Recorded rather than acted on: opening a 28th
+row mid-pass rewrites a number the overview publishes.
+
+### Two findings, both in the markup, both declared and not done
+
+**1. The delete button is a thirteenth edition of the outline finish, and it is off the
+ladder.** Measured with the dialog open, side by side with a real `.btn--outline btn--s`:
+
+| | `.addr-del-row button` | `.btn--outline btn--s` |
+|---|---|---|
+| border · radius | 1px #D9D9D9 · 8px | 1px #D9D9D9 · 8px |
+| size · weight | 14 / 700 | 14 / 700 |
+| ink | #1C1C1C | #1C1C1C |
+| padding | 8 / **16** | 8 / **12** |
+| **height** | **40** | **44** |
+
+It is a bare `<button>` with no class at all, and this file draws the outline finish onto it
+with nine declarations. The size ladder is 38 / 44 / 52 and there is no 40 in it. This is the
+most destructive control on the screen and it is the only one off the ladder.
+
+The right fix is in the markup - `class="btn--outline btn--s btn"` at
+`wireframes/_nav.js:992`, and nine declarations deleted here. The cheap fix is
+`min-height: var(--size-44)` in this file, which keeps the duplication. **Both move pixels,
+so neither was done: the step declared zero.** And the right one edits `wireframes/`, which is
+frozen after stage 05 - that needs the owner's word, not mine.
+
+**2. Four checkboxes in the product are not the system's.** Counted in the browser across all
+40 screens: **351 `.cb` boxes on eight screens**, and **4 bare `<input type="checkbox">` on
+two** - three in this dialog and one on `account-profile.html`. A bare input draws the
+operating system's box: 18x18 with no border, no radius and none of the system's check.
+`base.css` tints it with `accent-color`, so it is orange - but it is not the same control.
+Wider than this file, since the fourth one is on another screen entirely.
+
+### Found, not fixed
+
+- **No state for an irreversible action.** «Видалити адресу» looks like any other outline
+  button. The system has neither a danger finish nor a confirmation component.
+- **A third pair of editions for one idea**: `.adef .tag` against `.addr-tag`, after
+  `.aord-*` / `.oh-*` at 7.52 and the two eyebrows at 7.50. Krok 6.
+- **No «no addresses yet» state.**
+- `1.5px` declared in three places here, 1px drawn - the 24-file decision of 7.49.
+
+### Stand
+
+`design/kit/address-card.html`. Idle check: 28 of 28 classes rendered, 5 states named,
+including both steps of the dialog. All 47 stands re-checked at 360 and 1280 - no overflow, no
+failed idle check, no exception. Molecules **14 / 27**.

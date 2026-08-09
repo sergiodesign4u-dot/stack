@@ -252,7 +252,7 @@ window.KIT_NAV = [
    {
     "label": "Картка адреси",
     "page": "address-card.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Група фільтра",
