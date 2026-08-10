@@ -152,3 +152,43 @@ a.kp-card:hover{ border-color:var(--line-action); }
 .kp-card .d{ font-size:var(--fs-12); color:var(--text-secondary); margin-top:var(--space-8); }
 .kp-card .m{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted);
   margin-top:var(--space-8); display:flex; gap:var(--space-12); }
+
+/* Panels on a stand - step 7.86.
+   Sixteen organisms do not exist at rest: they are `display: none` until something
+   adds `.open`, and most of them are `position: fixed`. The first draft of this rule
+   laid them out in flow - `position: static; inset: auto` - and measurement killed
+   it: eleven of them collapsed to zero height, because a panel that is positioned by
+   `inset: 0` or by `top/bottom` has no height of its own once you take the position
+   away. The frame must not redraw the thing it frames.
+   So both names below resolve to ONE mechanism, the stage: a transformed ancestor
+   becomes the containing block for a fixed descendant, and the panel keeps every
+   declaration it has, including where it stands. */
+.kp-demo--panel{ }
+
+/* A stage for a panel that is `position: fixed` - step 7.86.
+   Four organisms (auth dialog, city dialog, review modal, scrim) are fixed and
+   `inset: 0`. Opened inside a plain demo box they leave it and cover the whole
+   stand: measured at 390 and 1280, the scrim painted 52% ink over the page at
+   z 60, above the panel of the showcase itself. A TRANSFORMED ancestor becomes
+   the containing block for a fixed descendant, so the stage below catches them:
+   `.auth-ov` and `.wf-ov` land exactly inside it at both widths.
+   It does NOT catch everything, and that is worth saying out loud: `.wf-city` and
+   `.pm` size themselves in 94vw / 86vh / 88vh, and vw/vh stay relative to the
+   VIEWPORT inside a transformed ancestor. Those two are shown at their real size
+   and the stage scrolls; a 94vw dialog cannot fit a 358px column at 390 and no
+   frame rule can change that. */
+.kp-demo.kp-stage, .kp-demo.kp-demo--panel, .kp-demo.panel{ position:relative; transform:translateZ(0); overflow:auto;
+  height:min(92vh, 720px); padding:0; background:var(--bg-sunken); }
+
+/* The demo frame - step 7.86, and the owner found the defect that made it necessary.
+   `.wf-tabbar` and `.fsheet` are `display: none` from 860. Shown inside a stand whose
+   own viewport is 1280 they correctly drew NOTHING, and the page said nothing about it:
+   a blank box that reads as a broken stand and is in fact the component behaving exactly
+   as written. A media query reads the viewport, never the container, so no rule of the
+   showcase can answer it. An iframe has a viewport of its own, so the frame below is
+   the answer: each demo declares the width it is shown at, and that width is the one
+   the component lives at in the product. */
+.kp-frame-wrap{ border:1px solid var(--line-hair); border-radius:var(--radius-12);
+  background:var(--bg-sunken); padding:var(--space-12); overflow:hidden; position:relative; }
+.kp-frame{ display:block; border:0; background:var(--bg-page);
+  border-radius:var(--radius-8); height:640px; }

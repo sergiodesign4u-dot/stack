@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Вкладки товару | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Організм · рівень 3</div>
+<h1 class="kp-h1">Вкладки товару</h1>
+<p class="kp-lead">У файлі про вкладки лежать <b>три різні фігури</b>: липка полиця <code>.pdp-tabs</code> (два кольорові екрани), рядок чипів <code>.ptabs</code> на головній (чотири екрани) і двоколонкова сітка сторінки товару <code>.pdp</code> (три екрани). Вирішувач знайшов тут <b>30 мертвих оголошень</b> - третій показник шару зі 193. Три з них це <code>top</code>, і жодне з трьох ніколи не діє.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/pdp-tabs.css</span><span class="kp-tag">85 рядків</span><span class="kp-tag">21 селектор</span><span class="kp-tag">102 оголошення</span><span class="kp-tag">8 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">З чого складається</div>
+<p class="kp-p">Полиця складає рівно одне - ціну: <code>price.css</code> дає <code>.told</code>, <code>.tnew</code> і <code>.uiv-cur</code>, <code>discount.css</code> - <code>.tcut</code> і <code>.ttier</code>. Усередині кореня немає жодного класу з двома власниками, а таких імен у шарі 126.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Файл</th><th>Класів</th><th>Які саме</th></tr></thead><tbody><tr><td><code>price.css</code></td><td>1</td><td><code>.uiv-cur</code></td></tr><tr><td><code>discount.css</code></td><td>1</td><td><code>.ttier</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/product.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень. Корінь тут <code>fixed</code> або <code>sticky</code> і в продукті видимий, тож <code>open</code> йому не додавали. Сцена потрібна тільки щоб він лишався всередині свого демо.</p><p class="kp-p">Показано <b>в рамці шириною 1180</b>, і ширина названа не для краси: це ширина, на якій цей організм у продукті стоїть. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/pdp-tabs.html" style="width:1180px" data-w="1180" title="Вкладки товару"></iframe></div><div class="kp-demo kp-demo--panel" hidden><nav class="pdp-tabs" aria-label="Розділи товару" data-uiv-stick="1" style="top: 112px; --shelf-top: 112px; --shelf-h: 55px;" data-spy="1">
+    <a class="on" href="#pro">Про товар</a>
+    <a href="#sklad">Склад</a>
+    <a href="#doz">Дозування</a>
+    <a href="#spec">Характеристики</a>
+    <a href="#rev">Відгуки</a>
+    <a href="#qa">Питання</a>
+    <span class="tsp"></span>
+    <!-- the shelf repeats the price the way the buy box states it: struck old price +
+         cut above, the live (accent, because reduced) figure under them -->
+    <span class="tprice">
+      <span class="told">1 520 ₴</span><span class="tcut">−15%</span>
+      <b class="tnew">1 290 <span class="uiv-cur">₴</span></b>
+    </span>
+    <a class="tbuy" href="../../cart.html">У кошик</a>
+  </nav></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Полиця</b> <code>.pdp-tabs</code> - <code>sticky</code>, z-index 25, горизонтальне прокручування зі схованою смугою (<code>scrollbar-width:none</code> плюс <code>::-webkit-scrollbar</code>). Заміряно <b>358x55</b> при 390 і <b>1032x59</b> при 1280, усередині 13 елементів</span></div><div class="a"><i>2</i><span><b>Фон полиці</b> <code>.pdp-tabs::before</code> - <code>fixed</code> на всю ширину вікна, <code>top: var(--shelf-top, 0px)</code>, <code>height: var(--shelf-h, 0px)</code>, <code>z-index:-1</code>, <code>opacity:0</code>. Обидві змінні пише JavaScript: у знятій розмітці видно <code>--shelf-top:112px</code> і <code>--shelf-h:55px</code></span></div><div class="a"><i>3</i><span><b>Активний розділ</b> <code>.pdp-tabs a.on</code> - <code>--text-body</code> і <code>--fw-black</code>, під словом <code>::after</code> на 2.5px у <code>--bg-action</code>, підтягнутий по 12px з боків - рівно на падінг посилання</span></div><div class="a"><i>4</i><span><b>Ціна на полиці</b> <code>.tprice</code> - <code>inline-grid</code> на дві колонки: стара ціна й чип знижки в перший ряд, нова на весь другий. <code>:not(:has(.told))</code> піднімає нову в перший ряд, коли старої немає</span></div><div class="a"><i>5</i><span><b>Рядок чипів</b> <code>.ptabs</code> - зовсім інша фігура: flex із переносом і проміжком 8, над сіткою товарів на головній. Від <code>.pdp-tabs</code> її відрізняє одна літера в імені</span></div><div class="a"><i>6</i><span><b>Сітка сторінки</b> <code>.pdp</code> - одна колонка до 859, далі права колонка <b>420px</b> у структурі, <b>540px</b> у кольорі й <b>580px</b> від 1180. Три числа на дві межі</span></div></div>
+<div class="kp-gap"><h4><code>top</code> оголошено тричі, і не діє жодного разу</h4>У файлі три різні <code>top</code> для полиці: <b>103px</b> у колірному блоці, <b>87px</b> у структурному від 860 і <b>79px</b> у колірному від 860. Вирішувач по кожному з трьох каже одне: <b>beaten by INLINE</b>. <code>uivPdpTabs()</code> у <code>design/_nav.js</code> щоразу пише <code>tabs.style.top</code> з живого нижнього краю хедера, а інлайн б'є будь-яке правило таблиці. У знятій розмітці це <b>112px</b> при 1280.<br><br>Мало того, <b>87px мертвий і без JavaScript</b>: у тій самій умові <code>@media (min-width: 860px)</code> нижче у файлі стоїть 79px, і він виграє. Тобто запасних значень насправді два, а не три, і обидва розходяться з тим, що робить продукт.<br><br>І саме число варто дочитати до кінця. 112 при 1280 - це висота хедера. 113 при 390 - це 40px верхньої смуги стенда (<code>--shell-top</code> у <code>design/_stand.css</code> нижче 1076) плюс 73 хедера. <b>Поза стендом там було б 73.</b> Тобто запасне число не просто розходиться з продуктом - воно розходиться з числом, у якому сидить стенд.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>фон знято, нижня рамка прозора, посилання <code>--text-secondary</code></td><td>поки полиця в потоці сторінки, вона просто рядок посилань і нічого не перекриває</td></tr>
+<tr><td><b>наведення <code>:hover</code></b></td><td>посилання йде в <code>--text-body</code>; кнопка <code>.tbuy</code> бере <code>opacity:.93</code></td><td>єдиний псевдоклас файлу</td></tr>
+<tr><td><b>активний розділ <code>.on</code></b></td><td><code>--text-body</code>, <code>--fw-black</code> і помаранчева риска 2.5px під словом</td><td>фон не змінюється: полиця тонка, і заливка на ній читалась би як друга панель</td></tr>
+<tr><td><b>приклеєно <code>.stuck</code></b></td><td>фон-псевдоелемент виходить в <code>opacity:1</code> з тінню <code>--elevation-2</code>; від 860 з'являються ціна й кнопка. <code>body.pdp-stuck</code> знімає тінь із хедера</td><td>дві приклеєні смуги одна під одною дали б подвійну лінію, тож нижня бере тінь, а верхня її віддає. Класи ставить <code>uivPdpTabs()</code></td></tr>
+<tr><td><b>до 859</b></td><td>ціна й кнопка не показуються ніколи</td><td>на телефоні їх несе окрема нижня смуга <code>buy-bar.css</code>, і дублювати дію в двох приклеєних смугах не можна</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>3</b> медіа-умови, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (min-width: 860px)</code></li><li><code>@media (min-width:1180px)</code></li><li><code>@media (min-width:860px)</code></li></ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>7</b> власних класів і <b>1</b> стан.</p><div id="idle"></div><script>var KIT_CLS=["pdp", "pdp-stuck", "ptabs", "stuck", "tbuy", "tprice", "tsp"], KIT_STS=[":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>pdp-tabs.css</code>: <b>8</b> семантичних ролей і <b>18</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (18)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-inverse</code> <code>--bg-page</code> <code>--elevation-2</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-oninverse</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-20</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-flat</code> <code>--radius-4</code> <code>--radius-8</code> <code>--shelf-h</code> <code>--shelf-top</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-40</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
+<p class="kp-p">По всіх 21 селекторі: <b>30 оголошень збігаються з елементами й ніде не виграють</b>, ще <b>5</b> не збіглися ні з чим. Тридцять розкладаються на три купки. Перша - три <code>top</code>, розібрані вище: їх б'є інлайн. Друга, найбільша - <b>17 оголошень</b> <code>.pdp-tabs .tbuy</code> зі структурного блоку, які б'є той самий селектор у колірному блоці нижче: це навмисний розділ етапу 08.</p><div class="kp-gap"><h4>Третя купка - права колонка, і вона про незаміряну смугу</h4><code>.pdp{ grid-template-columns }</code> мертве двічі: і <b>420px</b> зі структури, і <b>540px</b> із кольору. 420 не виграє <b>ніде взагалі</b> - його б'є 540 у тій самій медіа-умові в цьому ж файлі. А 540 не виграв на жодній заміряній ширині, бо єдина смуга, де він міг би виграти, це <b>860-1179</b>, і в неї не заходить жодна ширина перепису: 720 нижче, 1280 вище. <b>Редакція правої колонки на 540px не малювалась ніколи ні на чому.</b><br><br>П'ять незбіглих - це стани: <code>.pdp-tabs.stuck .tprice</code>, <code>.pdp-tabs.stuck .tbuy</code>, <code>body.pdp-stuck .wfh.uiv-scrolled</code> (їх ставить прокрутка) і <code>.tprice:not(:has(.told))</code> - на обох заміряних екранах стара ціна є завжди, тож ціна без знижки на полиці не малювалась.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b><code>top</code> тричі й жодного разу.</b> Рішення про значення, вголос: або зняти запасні числа й лишити рахунок за JavaScript, або вирахувати їх з висоти хедера - пам'ятаючи, що заміряні 112 і 113 містять смугу стенда, а продуктове число це 73</li><li><b>Смуга 860-1179 незаміряна.</b> Права колонка 540px не намалювалась на жодній ширині перепису; поки її не заміряють, це намір, а не значення</li><li><b>Три фігури в одному файлі.</b> <code>.ptabs</code> - це чипи головної, <code>.pdp</code> - сітка всієї сторінки товару. Ні те, ні те не вкладки</li><li><b>Корінь має двох власників.</b> <code>.pdp-tabs</code> описує ще й <code>price.css</code> (<code>.pdp-tabs:has(.told) .tnew</code>), хоч усередині кореня неоднозначних імен немає</li><li><b>Полиця є на 2 з 40 кольорових екранів.</b> На <code>product-oos</code>, <code>product-loading</code> і <code>product-error</code> її немає, і чи має вона там бути - ніде не сказано</li></ul>
+<p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script>
+/* The frame is a viewport, so it has to be sized like one and not like a box.
+   Two numbers are read from the frame itself rather than typed here: its content
+   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
+   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
+   the media query inside sees - the frame is still 1180 wide to itself, which is
+   the whole reason the frame exists. */
+(function(){
+  var f = document.querySelector('.kp-frame'); if (!f) return;
+  var wrap = f.parentNode;
+  function fit(){
+    try{
+      var d = f.contentDocument; if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
+      h = Math.min(h, 900);
+      f.style.height = h + 'px';
+      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
+      var avail = wrap.clientWidth - 24;
+      var k = Math.min(1, avail / declared);
+      f.style.transformOrigin = 'top left';
+      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
+      wrap.style.height = Math.round(h * k) + 'px';
+    }catch(e){}
+  }
+  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
+  addEventListener('resize', fit);
+  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

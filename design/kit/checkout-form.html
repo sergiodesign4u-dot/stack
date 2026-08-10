@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Форма чекауту | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Організм · рівень 3</div>
+<h1 class="kp-h1">Форма чекауту</h1>
+<p class="kp-lead">Найбільший файл системи, і під одним іменем у ньому <b>дві адреси</b>: чекаут <code>.co-*</code> на п'яти екранах <code>design/checkout*.html</code> і картка профілю <code>.pfcard</code>, яка є рівно на одному - <code>design/account-profile.html</code>. Перевірено в обидва боки: на <code>design/account-profile.html</code> немає жодного класу <code>.co-*</code>, на <code>design/checkout.html</code> - жодного <code>.pf*</code>. Збирач складу взяв за корінь саме <code>.pfcard</code>, тож таблиця нижче описує картку профілю, а демо під нею знято з чекауту.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/checkout-form.css</span><span class="kp-tag">322 рядки</span><span class="kp-tag">142 селектори</span><span class="kp-tag">573 оголошення</span><span class="kp-tag">24 екрани, з них чекаут 5</span></div>
+
+<section class="kp-sec"><div class="kp-sh">З чого складається</div>
+<p class="kp-p">Виміряний корінь - <code>.pfcard</code> на <code>design/account-profile.html</code>, тому нижче склад картки профілю, а не форми замовлення.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Файл</th><th>Класів</th><th>Які саме</th></tr></thead><tbody><tr><td><code>field.css</code></td><td>2</td><td><code>.field</code> <code>.pfield</code></td></tr><tr><td><code>button.css</code></td><td>1</td><td><code>.btn--text</code></td></tr><tr><td><code>switch.css</code></td><td>1</td><td><code>.sw</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/checkout.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень.</p><p class="kp-p">Показано <b>в рамці шириною 1180</b>, і ширина названа не для краси: це ширина, на якій цей організм у продукті стоїть. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки. Сам організм у рамці обмежено до <b>620px</b> - це ширина, яку він займає в продукті на 1280. Витягнутий зі своєї колонки, він розтягнувся б на всю рамку, і кнопка на 294 стала б кнопкою на 1490.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/checkout-form.html" style="width:1180px" data-w="1180" title="Форма чекауту"></iframe></div><div class="kp-demo " hidden><div class="co-grid">
+
+    <!-- LEFT COLUMN -->
+    <div>
+
+      <!-- 1 · КОНТАКТ (guest - passwordless sign-in prompt) -->
+      <section class="co-sec" aria-label="Контакт">
+        <div class="co-sec-h"><span class="num">1</span> Контакт</div>
+        <p class="co-signin-note">Увійдіть для оформлення замовлення - код підтвердження надійде у SMS, акаунт створиться автоматично. Пароль не потрібен.</p>
+        <form class="co-field" action="checkout-loggedin.html">
+          <label for="co-phone" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Номер телефону</label>
+          <input class="field co-input" id="co-phone" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __" autocomplete="tel">
+          <button class="btn--accent btn--s co-getcode" type="submit">Отримати код</button>
+        </form>
+        <div class="co-or">або</div>
+        <div class="co-social">
+          <a class="btn--outline btn--lift btn--s co-soc" href="../../checkout-loggedin.html" data-uiv="1"><span class="uiv-brand"><svg viewBox="0 0 24 24" data-mark="google" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.23c0-.68-.06-1.34-.18-1.96H12v3.7h5.38a4.6 4.6 0 0 1-2 3.02v2.5h3.24c1.9-1.74 2.98-4.3 2.98-7.26z"></path><path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.62-2.43l-3.24-2.5c-.9.6-2.05.96-3.38.96-2.6 0-4.8-1.75-5.6-4.1H3.06v2.58A10 10 0 0 0 12 22z"></path><path fill="#FBBC05" d="M6.4 13.93a6 6 0 0 1 0-3.84V7.5H3.06a10 10 0 0 0 0 9l3.34-2.57z"></path><path fill="#EA4335" d="M12 5.98c1.47 0 2.79.5 3.83 1.5l2.87-2.87C16.95 2.98 14.7 2 12 2a10 10 0 0 0-8.94 5.5L6.4 10.1c.8-2.36 3-4.11 5.6-4.11z"></path></svg></span><span>Google</span></a>
+          <a class="btn--outline btn--lift btn--s co-soc" href="../../checkout-loggedin.html" data-uiv="1"><span class="uiv-brand uiv-apple"><svg viewBox="0 0 24 24" data-mark="apple" fill="currentColor" aria-hidden="true"><path d="M16.6 12.6c0-2.2 1.8-3.2 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.2-2.7.8-3.3.8-.7 0-1.7-.8-2.8-.8-1.5 0-2.8.9-3.6 2.2-1.5 2.7-.4 6.6 1.1 8.8.7 1.1 1.6 2.2 2.7 2.2 1.1 0 1.5-.7 2.8-.7s1.7.7 2.8.7 1.9-1 2.6-2.1c.8-1.2 1.2-2.3 1.2-2.4-.1 0-2.2-.9-2.2-3.7z"></path><path d="M14.5 6.2c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.6 1.3-.6.6-1.1 1.6-.9 2.5 1 .1 2-.4 2.6-1.1z"></path></svg></span><span>Apple</span></a>
+          <a class="btn--outline btn--lift btn--s co-soc" href="../../checkout-loggedin.html" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.4" width="18" height="13.2" rx="2.4"></rect><path d="M3.7 7.1 12 13l8.3-5.9"></path></svg></span><span>E-mail</span></a>
+        </div>
+        <p class="co-consent">Продовжуючи, ви погоджуєтесь з <a href="../../wireframes/content-legal.html">публічною офертою</a> та <a href="../../wireframes/content-legal.html">політикою конфіденційності</a>.</p>
+      </section>
+
+      <!-- ВАШЕ ЗАМОВЛЕННЯ (line items moved here from the right rail) -->
+      <section class="co-sec" aria-label="Ваше замовлення">
+        <div class="co-sec-h"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 4h2.1l1.9 10.2a1.7 1.7 0 0 0 1.7 1.4h8.1a1.7 1.7 0 0 0 1.7-1.3L19.9 7.2H6.1"></path><circle cx="9" cy="19.6" r="1.5"></circle><circle cx="17.2" cy="19.6" r="1.5"></circle></svg></span> Ваше замовлення <span class="cnt">· 3 товари</span></div>
+
+        <div class="co-line" data-unit="1290" data-old="1520">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
+            <div class="li-meta">Смак: Подвійний шоколад · США</div>
+            <div class="li-acts">
+              <button type="button" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span><span>В обране</span></button>
+              <button type="button" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 6.8h14.8"></path><path d="M9.4 6.8V5.2a1.2 1.2 0 0 1 1.2-1.2h2.8a1.2 1.2 0 0 1 1.2 1.2v1.6"></path><path d="M6.4 6.8 7.3 19a1.3 1.3 0 0 0 1.3 1.2h6.8a1.3 1.3 0 0 0 1.3-1.2l.9-12.2"></path><path d="M10.4 10.2v6M13.6 10.2v6"></path></svg></span><span>Видалити</span></button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.4 12h15.2"></path></svg></span></button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button type="button" aria-label="Більше"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.4v15.2"></path><path d="M4.4 12h15.2"></path></svg></span></button></div>
+            <div class="li-price"><span class="li-oldline"><span class="li-old">1 520 ₴</span><span class="li-cut">−15%</span></span><span class="li-sum">1 290 <span class="uiv-cur">₴</span></span><span class="li-per"></span></div>
+          </div>
+        </div>
+
+        <div class="co-line" data-unit="1050">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">BioTechUSA Iso Whey Zero 908 г</div>
+            <div class="li-meta">Смак: Ваніль · Угорщина</div>
+            <div class="li-acts">
+              <button type="button" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span><span>В обране</span></button>
+              <button type="button" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 6.8h14.8"></path><path d="M9.4 6.8V5.2a1.2 1.2 0 0 1 1.2-1.2h2.8a1.2 1.2 0 0 1 1.2 1.2v1.6"></path><path d="M6.4 6.8 7.3 19a1.3 1.3 0 0 0 1.3 1.2h6.8a1.3 1.3 0 0 0 1.3-1.2l.9-12.2"></path><path d="M10.4 10.2v6M13.6 10.2v6"></path></svg></span><span>Видалити</span></button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.4 12h15.2"></path></svg></span></button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="2" aria-label="Кількість"><button type="button" aria-label="Більше"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.4v15.2"></path><path d="M4.4 12h15.2"></path></svg></span></button></div>
+            <div class="li-price"><span class="li-oldline"></span><span class="li-sum">2 100 <span class="uiv-cur">₴</span></span><span class="li-per">1 050 ₴ / шт</span></div>
+          </div>
+        </div>
+
+        <div class="co-line" data-unit="549">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">OstroVit Creatine Monohydrate 500 г</div>
+            <div class="li-meta">Без смаку · Польща</div>
+            <div class="li-acts">
+              <button type="button" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span><span>В обране</span></button>
+              <button type="button" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 6.8h14.8"></path><path d="M9.4 6.8V5.2a1.2 1.2 0 0 1 1.2-1.2h2.8a1.2 1.2 0 0 1 1.2 1.2v1.6"></path><path d="M6.4 6.8 7.3 19a1.3 1.3 0 0 0 1.3 1.2h6.8a1.3 1.3 0 0 0 1.3-1.2l.9-12.2"></path><path d="M10.4 10.2v6M13.6 10.2v6"></path></svg></span><span>Видалити</span></button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.4 12h15.2"></path></svg></span></button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button type="button" aria-label="Більше"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.4v15.2"></path><path d="M4.4 12h15.2"></path></svg></span></button></div>
+            <div class="li-price"><span class="li-oldline"></span><span class="li-sum">549 <span class="uiv-cur">₴</span></span><span class="li-per"></span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 · ДОСТАВКА -->
+      <section class="co-sec" aria-label="Доставка" role="radiogroup">
+        <div class="co-sec-h"><span class="num">2</span> Доставка</div>
+
+        <label class="co-opt on" data-price="60" data-label="Нова Пошта" role="radio" aria-checked="true" tabindex="0">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Нова Пошта - відділення / поштомат</span><span class="otd">1–2 дні по Україні</span></span>
+          <span class="op">від 50 ₴</span>
+        </label>
+        <div class="co-sub">
+          <button type="button" class="btn--outline btn--full co-city"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c4.5-4.2 6.8-7.3 6.8-10.5A6.8 6.8 0 0 0 5.2 10.5C5.2 13.7 7.5 16.8 12 21z"></path><circle cx="12" cy="10.4" r="2.5"></circle></svg></span> Одеса <span style="color:var(--text-muted);font-weight:600">· змінити</span></button>
+          <input class="field co-input" type="text" placeholder="Відділення / поштомат - почніть вводити №">
+        </div>
+
+        <label class="co-opt" data-price="80" data-label="Кур'єр НП" role="radio" aria-checked="false" tabindex="-1">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Кур'єр Нова Пошта - на адресу</span><span class="otd">Доставка до дверей, 1–2 дні</span></span>
+          <span class="op">від 70 ₴</span>
+        </label>
+        <div class="co-sub">
+          <button type="button" class="btn--outline btn--full co-city"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c4.5-4.2 6.8-7.3 6.8-10.5A6.8 6.8 0 0 0 5.2 10.5C5.2 13.7 7.5 16.8 12 21z"></path><circle cx="12" cy="10.4" r="2.5"></circle></svg></span> Одеса <span style="color:var(--text-muted);font-weight:600">· змінити</span></button>
+          <input class="field co-input" type="text" placeholder="Вулиця, будинок, квартира">
+        </div>
+
+        <label class="co-opt" data-price="0" data-label="Самовивіз Одеса" role="radio" aria-checked="false" tabindex="-1">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Самовивіз - Одеса</span><span class="otd">вул. Дерибасівська, 1 · за наявності на точці</span></span>
+          <span class="op">безкоштовно</span>
+        </label>
+      </section>
+
+      <!-- 3 · ОПЛАТА -->
+      <section class="co-sec" aria-label="Оплата" role="radiogroup">
+        <div class="co-sec-h"><span class="num">3</span> Оплата</div>
+
+        <label class="co-opt on" role="radio" aria-checked="true" tabindex="0">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Картка онлайн - LiqPay / Wayforpay</span><span class="otd">Visa · Mastercard · безпечна оплата на сторінці банку</span></span>
+        </label>
+        <label class="co-opt" role="radio" aria-checked="false" tabindex="-1">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Apple Pay / Google Pay</span><span class="otd">Оплата в один дотик</span></span>
+        </label>
+        <label class="co-opt" role="radio" aria-checked="false" tabindex="-1">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Накладений платіж</span><span class="otd">Оплата при отриманні на Новій Пошті</span></span>
+        </label>
+        <label class="co-opt" role="radio" aria-checked="false" tabindex="-1">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Готівка при самовивозі</span><span class="otd">Оплата на точці в Одесі</span></span>
+        </label>
+
+        <div class="co-cmt-lbl">Коментар до замовлення (необов'язково)</div>
+        <textarea class="field co-cmt" placeholder="Наприклад: подзвоніть перед доставкою"></textarea>
+      </section>
+    </div>
+
+    <!-- RIGHT COLUMN - money only, sticky -->
+    <aside class="co-money" aria-label="Разом">
+      <div class="co-money-h">Разом</div>
+
+      <!-- guest: no bonus account yet - sign-in incentive (bonuses/discount live only for accounts) -->
+      <div class="co-bonus">
+        <div class="co-bonus-top"><span class="bl">Знижка та бонуси</span></div>
+        <div class="bnote">Увійдіть або створіть акаунт - застосуємо знижку за вашим рівнем і нарахуємо ~1% бонусами. Реєстрація за номером, без пароля.</div>
+        <a class="btn--text co-toggle" href="../../checkout-loggedin.html" style="text-decoration:none"><span class="co-sw"></span> Увійти й застосувати знижку</a>
+      </div>
+
+      <div class="co-brow" data-row="items"><span>Сума товарів (<span class="n">3</span>)</span><b>3 939 ₴</b></div>
+      <div class="co-brow" data-row="delivery"><span>Доставка · <span class="dn">Нова Пошта</span></span><b>60 ₴</b></div>
+      <div class="co-total"><span class="tl">До сплати</span><span class="tv">3 999 <span class="uiv-cur">₴</span></span></div>
+
+      <a class="btn--accent btn--l btn--full co-confirm" href="../../checkout-loading.html">Підтвердити замовлення</a>
+
+      <div class="co-trust"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.6" y="10.3" width="14.8" height="9.7" rx="2.4"></rect><path d="M8.3 10.3V7.9a3.7 3.7 0 0 1 7.4 0v2.4"></path><path d="M12 14.2v2.2"></path></svg></span> Безпечна оплата · 14 днів на повернення · Гарантія оригіналу</div>
+    </aside>
+
+  </div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Сітка</b> <code>.co-grid</code> - одна колонка, від 860 <code>minmax(0, 1fr) 360px</code>. Не <code>1fr</code>: у авто-доріжки підлога береться з min-content того, що в ній стоїть, і один нестисливий рядок задавав ширину всієї сторінки. Межу перенесли з 900 на 860 кроком 7.70, замір записаний просто у файлі</span></div><div class="a"><i>2</i><span><b>Коробка грошей</b> <code>.co-money</code> - від 860 <code>position: sticky</code> з <code>top: 78px</code>. 78 - сире число, воно є в переліку значень поза шкалою</span></div><div class="a"><i>3</i><span><b>Рядок замовлення</b> <code>.co-line</code> - flex, а до 559 grid <code>60px minmax(0, 1fr)</code>, у якому <code>.li-right</code> стає на власний рядок. З п'яти меж файлу це єдина, що змінює тип розкладки, а не розмір</span></div><div class="a"><i>4</i><span><b>Перемикач бонусів</b> <code>.co-sw</code> - <code>--size-38</code> на 22px, кулька 18x18 їде зліва з 2px на 18px: розмір коробки з токена, решта чисел сирі</span></div><div class="a"><i>5</i><span><b>Вибір міста</b> <code>.co-city</code> - до 479 бере розмір S з набору (<code>--fs-14</code>, знак 18px), бо «Оберіть місто · обов'язково» це ціле речення, а кнопці не можна переносити. Компонент обирає, ЯКИЙ розмір носити, і не вигадує свого</span></div><div class="a"><i>6</i><span><b>Картка профілю</b> <code>.pfcard</code> - друга половина файлу: <code>.pf-lbl</code>, <code>.pf-row</code>, <code>.pf-val</code>, <code>.pf-note</code>, <code>.pf-delcheck</code>, <code>.pf-danger</code>. Усередині неї в розмітці є ще <code>.pf-actbtn</code>, у якого власного правила немає в жодному файлі: крок 6.4 віддав його цілком <code>.btn--text</code></span></div></div>
+<div class="kp-gap"><h4>Рахунок за типом збився на одиницю, і це видно вирішувачем</h4>У <code>&lt;section class="co-sec"&gt;</code> перед трьома <code>div.co-line</code> стоїть ще один DIV - заголовок секції <code>.co-sec-h</code>. <code>:nth-of-type</code> і <code>:first-of-type</code> рахують за ТЕГОМ серед сусідів, тому перший рядок замовлення має по-типу номер 2, а не 1. Обидва наслідки заміряні на сорока кольорових екранах у дві ширини. <b>Перший:</b> <code>.co-line:first-of-type{ border-top: none; padding-top }</code> - чотири оголошення, які не збігаються з жодним елементом, тож перший рядок малює верхню рамку, якої йому написали не мати. <b>Другий:</b> <code>.co-line .li-img{ background-image }</code> з короткого запису збігається 18 разів і не виграє жодного - його б'ють три правила <code>:nth-of-type(3n+1)</code>, <code>(3n+2)</code> і <code>(3n)</code> у цьому ж файлі, по шість перемог кожне, тож на <code>design/checkout.html</code> перший рядок отримує креатин, другий передтрен, третій протеїн. Порівняйте з <code>restock-note.css</code>: там той самий прийом з <code>:nth-of-type</code> у картці, яка теж тримає заголовок, чергування так само зсунуте - і тримається випадково, бо картинок там дві і зсув просто міняє їх місцями. Один прийом, два результати, і жоден з них не був рішенням.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>секція <code>.co-sec</code> і коробка <code>.co-money</code> - <code>--bg-page</code>, <code>--elevation-1</code>, <code>--radius-12</code></td><td>дві однакові картки: ліва веде, права рахує</td></tr>
+<tr><td><b>наведення</b></td><td><code>.co-line .li-acts button</code> йде з <code>--text-secondary</code> у <code>--text-body</code>, <code>.pf-act</code> - у <code>--text-action</code></td><td>єдині два <code>:hover</code> у всьому файлі</td></tr>
+<tr><td><b>обов'язкове поле</b></td><td><code>.co-input.req</code> - рамка <code>--line-warning</code></td><td>попередження, а не небезпека: <code>--line-danger</code> у файлі теж є, і його носить знак на екрані відмови, а не поле</td></tr>
+<tr><td><b>увімкнено</b></td><td><code>.co-sw.on</code> - <code>--bg-action</code> і кулька вправо; <code>.li-acts button.on</code> - <code>--text-action</code> зі знаком у заливці</td><td><b>жоден з цих двох станів не намальовано на жодному кольоровому екрані</b>: 12 із 18 оголошень файлу, які не збігаються ні з чим, - це вони</td></tr>
+<tr><td><b>відмова</b></td><td><code>.co-err-box</code> зі знаком у рамці <code>--line-danger</code>, під ним <code>.co-keep</code> з підсумком кошика</td><td>оплата впала, замовлення лишилось: сторінка відмови показує, що саме збережено</td></tr>
+<tr><td><b>обробка</b></td><td><code>.co-proc-box</code> зі спінером <code>.co-spin</code>; при <code>prefers-reduced-motion: reduce</code> обертання вимкнене</td><td><b>саме обертання не заміряне</b>: драйвер вимірювання зупиняє анімації в усьому документі, тож про рух цієї сторінки сказано нічого</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>5</b> медіа-умов, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width: 479px)</code></li><li><code>@media (max-width: 559px)</code></li><li><code>@media (min-width: 480px)</code></li><li><code>@media (min-width: 860px)</code></li><li><code>@media (prefers-reduced-motion:reduce)</code></li></ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>94</b> власні класи і <b>1</b> стан.</p><div id="idle"></div><script>var KIT_CLS=["added", "bl", "bnote", "bv", "cartbtn", "ch", "co-accrual", "co-bonus", "co-bonus-top", "co-brow", "co-city", "co-cmt", "co-cmt-lbl", "co-confirm-note", "co-edit", "co-err", "co-err-acts", "co-err-box", "co-err-h", "co-err-mark", "co-err-s", "co-field", "co-foot", "co-foot-in", "co-getcode", "co-grid", "co-h1", "co-head", "co-head-in", "co-input", "co-keep", "co-keep-h", "co-line", "co-logo", "co-me", "co-money", "co-money-h", "co-noaddr", "co-or", "co-proc", "co-proc-box", "co-proc-go", "co-proc-h", "co-proc-note", "co-proc-s", "co-saved", "co-sec", "co-sec-h", "co-signin-note", "co-soc", "co-social", "co-spin", "co-support", "co-sw", "co-toggle", "co-total", "co-trust", "co-upsell", "co-upsell-h", "co-upsell-s", "co-wrap", "disc", "knote", "kr", "kv", "li-acts", "li-bd", "li-img", "li-meta", "li-nm", "li-oldline", "li-per", "li-right", "md", "mn", "pf-act", "pf-danger", "pf-dangerbtn", "pf-delcheck", "pf-hint", "pf-input", "pf-lbl", "pf-note", "pf-resend", "pf-row", "pf-save", "pfcard", "req", "sh", "smeths", "star", "tot", "tv", "uiv-apple"], KIT_STS=[":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>checkout-form.css</code>: <b>29</b> семантичних ролей і <b>37</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (29)</th><th>Примітиви (37)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-action-soft</code> <code>--bg-inverse</code> <code>--bg-notice</code> <code>--bg-page</code> <code>--bg-rule</code> <code>--bg-surface</code> <code>--bg-track</code> <code>--bg-warning</code> <code>--elevation-1</code> <code>--elevation-knob</code> <code>--line-action</code> <code>--line-danger</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-notice</code> <code>--line-strong</code> <code>--line-warning</code> <code>--mark-rating</code> <code>--text-action</code> <code>--text-body</code> <code>--text-bonus</code> <code>--text-danger</code> <code>--text-muted</code> <code>--text-oninverse</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-success</code> <code>--text-warning</code></td><td><code>--font-display</code> <code>--font-mono</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-20</code> <code>--fs-24</code> <code>--fs-30</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-medium</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--ls-display</code> <code>--ls-eyebrow</code> <code>--ls-lead</code> <code>--radius-12</code> <code>--radius-16</code> <code>--radius-8</code> <code>--radius-circle</code> <code>--radius-pill</code> <code>--size-24</code> <code>--size-26</code> <code>--size-38</code> <code>--size-46</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-32</code> <code>--space-4</code> <code>--space-40</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
+<p class="kp-p"><b>36 оголошень збігаються з елементами й не виграють жодного разу</b>, і вони діляться на три купи. <b>33</b> - це один і той самий шов етапу 08: структурний блок пише короткий <code>border</code>, а колірний нижче перезаписує його <code>border-color</code> або <code>border-style</code> тим самим селектором. Так поводяться <code>.pf-note</code>, <code>.co-saved</code>, <code>.co-noaddr</code>, <code>.co-accrual</code>, <code>.co-err-box</code>, <code>.co-err-mark</code> і <code>.co-spin</code>. Це не дефект, це той самий розділ, у якому колір іде другим і виграє навмисне. <b>1</b> - <code>.co-line .li-img{ background-image }</code>, розібраний вище, і це єдина справжня знахідка серед 36. <b>2</b> - <code>animation-delay</code> і <code>animation-play-state</code> спінера, і б'є їх не файл системи, а сам прилад: драйвер вставляє в документ <code>*, *::before, *::after{ animation-play-state: paused !important }</code>, щоб зняти перший кадр. <b>Це артефакт заміру, а не знахідка</b>, і без цього рядка про анімацію не можна було б сказати навіть того, що вона є.</p><p class="kp-p">Окремо вирішувач знайшов <b>18 оголошень, які не збігаються з жодним елементом</b> на сорока кольорових екранах. 12 з них - два стани <code>.on</code> з таблиці вище, 4 - <code>:first-of-type</code>, збитий заголовком секції, і 2 - <code>.co-upsell .pcard.added .cartbtn .uiv-ic svg</code>, тобто <code>.added</code>, єдиний власний клас файлу, якого немає на жодному кольоровому екрані.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Один файл, дві адреси</b> - <code>.co-*</code> на п'яти екранах чекауту і <code>.pfcard</code> на одному екрані профілю. Ділити на <code>checkout.css</code> і <code>profile-card.css</code> чи лишити як є - рішення власника, і воно про найбільший файл системи</li><li><b>Рахунок за типом</b> - заголовок секції зсуває <code>:nth-of-type</code> і зовсім вимикає <code>:first-of-type</code>. Три виходи: власний клас першому рядку, заголовок за межі секції, або <code>:nth-child</code> замість <code>:nth-of-type</code>. Це рішення про розмітку</li><li><b>Два стани <code>.on</code> ніде не намальовані</b> - перемикач бонусів і «в обраному» в рядку замовлення. Або екран, який їх показує, або зняття правил</li><li><b><code>.cartbtn</code> без свого файлу</b> - карта власності приписує його цьому файлу через єдиний селектор <code>.co-upsell .pcard.added .cartbtn .uiv-ic svg</code>, який не збігається ні з чим. У розмітці клас стоїть на 17 кольорових екранах, правила про нього немає ніде</li></ul>
+<p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script>
+/* The frame is a viewport, so it has to be sized like one and not like a box.
+   Two numbers are read from the frame itself rather than typed here: its content
+   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
+   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
+   the media query inside sees - the frame is still 1180 wide to itself, which is
+   the whole reason the frame exists. */
+(function(){
+  var f = document.querySelector('.kp-frame'); if (!f) return;
+  var wrap = f.parentNode;
+  function fit(){
+    try{
+      var d = f.contentDocument; if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
+      h = Math.min(h, 900);
+      f.style.height = h + 'px';
+      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
+      var avail = wrap.clientWidth - 24;
+      var k = Math.min(1, avail / declared);
+      f.style.transformOrigin = 'top left';
+      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
+      wrap.style.height = Math.round(h * k) + 'px';
+    }catch(e){}
+  }
+  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
+  addEventListener('resize', fit);
+  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

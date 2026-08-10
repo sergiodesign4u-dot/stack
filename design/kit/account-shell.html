@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Оболонка кабінету | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Організм · рівень 3</div>
+<h1 class="kp-h1">Оболонка кабінету</h1>
+<p class="kp-lead">Оболонка кабінету - це рейка розділів <code>.acc-links</code> на дев'яти екранах кабінету і рама сторінки навколо карток. Головна її знахідка не про колір: <b>цілий <code>@media (max-width: 959px)</code> у цьому файлі програє власному колірному блоку</b>, який не має жодної умови ширини і просто стоїть нижче. 14 із 27 оголошень, що ніде не виграють, лежать усередині тієї однієї межі.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/account-shell.css</span><span class="kp-tag">180 рядків</span><span class="kp-tag">58 селекторів</span><span class="kp-tag">260 оголошень</span><span class="kp-tag">27 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">З чого складається</div>
+<p class="kp-p">Усередині рейки майже нічого чужого: один клас скелета і два імені, у яких більш ніж один власник.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Файл</th><th>Класів</th><th>Які саме</th></tr></thead><tbody><tr><td><code>skeleton.css</code></td><td>1</td><td><code>.skline</code></td></tr></tbody></table></div><p class="kp-p"><b>2</b> класи всередині кореня мають більш ніж одного власника, тож із коду не видно, чий вони: <code>.m</code> <code>.uiv-trail</code></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/account.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень.</p><p class="kp-p">Показано <b>в рамці шириною 1180</b>, і ширина названа не для краси: це ширина, на якій цей організм у продукті стоїть. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки. Сам організм у рамці обмежено до <b>268px</b> - це ширина, яку він займає в продукті на 1280. Витягнутий зі своєї колонки, він розтягнувся б на всю рамку, і кнопка на 294 стала б кнопкою на 1490.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/account-shell.html" style="width:1180px" data-w="1180" title="Оболонка кабінету"></iframe></div><div class="kp-demo " hidden><nav class="acc-links" aria-label="Розділи кабінету"><a class="acc-link" href="../../account.html" aria-current="page"><span class="ic uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.6" y="3.6" width="6.8" height="6.8" rx="1.8"></rect><rect x="13.6" y="3.6" width="6.8" height="6.8" rx="1.8"></rect><rect x="3.6" y="13.6" width="6.8" height="6.8" rx="1.8"></rect><rect x="13.6" y="13.6" width="6.8" height="6.8" rx="1.8"></rect></svg></span> Огляд <span class="ar uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 6l6 6-6 6"></path></svg></span></a><a class="acc-link" href="../../account-orders.html"><span class="ic"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.4 20.3 7.6v8.8L12 20.6 3.7 16.4V7.6z"></path><path d="M3.7 7.6 12 11.8l8.3-4.2"></path><path d="M12 11.8v8.8"></path></svg></span></span> Замовлення <span class="ct">12</span><span class="ar uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 6l6 6-6 6"></path></svg></span></a><a class="acc-link" href="../../account-loyalty.html"><span class="ic uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span> Знижки та бонуси <span class="ar uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 6l6 6-6 6"></path></svg></span></a><a class="acc-link" href="../../account-wishlist.html"><span class="ic uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span> Обране <span class="ct">6</span><span class="ar uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 6l6 6-6 6"></path></svg></span></a><a class="acc-link" href="../../account-addresses.html"><span class="ic"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c4.5-4.2 6.8-7.3 6.8-10.5A6.8 6.8 0 0 0 5.2 10.5C5.2 13.7 7.5 16.8 12 21z"></path><circle cx="12" cy="10.4" r="2.5"></circle></svg></span></span> Адреси <span class="ct">2</span><span class="ar uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 6l6 6-6 6"></path></svg></span></a><a class="acc-link" href="../../account-profile.html"><span class="ic"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.6" r="3.4"></circle><path d="M5.2 20c.4-3.7 3.3-5.9 6.8-5.9s6.4 2.2 6.8 5.9"></path></svg></span></span> Профіль <span class="ar uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 6l6 6-6 6"></path></svg></span></a><a class="acc-link" href="../../wireframes/coach-verify.html"><span class="ic"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.8 9.2 12 5l9.2 4.2-9.2 4.2z"></path><path d="M6.8 11.5v4.1c0 1.5 2.3 2.6 5.2 2.6s5.2-1.1 5.2-2.6v-4.1"></path><path d="M20.6 9.9v4.4"></path></svg></span></span> Стати тренером <span class="ar uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 6l6 6-6 6"></path></svg></span></a><a class="acc-link logout" href="../../index.html"><span class="ic"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.6 7.4V5.2a1.2 1.2 0 0 0-1.2-1.2H5.2A1.2 1.2 0 0 0 4 5.2v13.6a1.2 1.2 0 0 0 1.2 1.2h8.2a1.2 1.2 0 0 0 1.2-1.2v-2.2"></path><path d="M9.8 12h10.4"></path><path d="M17 8.8 20.2 12 17 15.2"></path></svg></span></span> Вийти</a></nav></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Рама</b> <code>.acc</code> - одна колонка, від 960 <code>268px minmax(0, 1fr)</code>; <code>.acc-nav</code> від 960 липка з <code>top: 120px</code>. 268 і 120 - сирі числа</span></div><div class="a"><i>2</i><span><b>Рейка</b> <code>.acc-links</code> / <code>.acc-link</code> - на десктопі список у рамці з розділювачами, до 959 горизонтальний скролер з пігулок зі схованими смугами прокрутки (<code>scrollbar-width: none</code> і <code>::-webkit-scrollbar</code>)</span></div><div class="a"><i>3</i><span><b>Знак розділу</b> <code>.acc-link .ic svg</code> - 18x18. Крок 7.24 переписав селектор з <code>.ic .uiv-ic svg</code> на <code>.ic svg</code>, бо <code>marks.js</code> має дві форми виводу, і в одній клас <code>uiv-ic</code> бере на себе сам господар. У демо вище видно обидві: <code>&lt;span class="ic uiv-ic"&gt;</code> і <code>&lt;span class="ic"&gt;&lt;span class="uiv-ic"&gt;</code></span></div><div class="a"><i>4</i><span><b>Стрілка</b> <code>.acc-link .ar .uiv-ic svg{ width: 12px }</code> - <b>той самий дефект, який 7.24 полагодив для знака й не полагодив для стрілки</b>. У розмітці стрілка це <code>&lt;span class="ar uiv-ic uiv-trail"&gt;</code>, тобто <code>uiv-ic</code> на самому <code>.ar</code>, а не всередині нього, тож селектор не збігається ні з чим. Стрілка малюється тим, що дає <code>icon.css</code>: <code>.uiv-ic.uiv-trail svg{ width: 1.15em }</code></span></div><div class="a"><i>5</i><span><b>Картки</b> <code>.acc-grid</code> і <code>.acc-cardgrid</code> - одна колонка, від 640 дві. Число бонусів <code>.abonus .big</code> - <code>38px</code>, сире, і воно в колірному блоці</span></div><div class="a"><i>6</i><span><b>Три різні межі для однієї думки «телефон чи десктоп»</b>: 860 для <code>.only-mobile</code> і <code>.only-desk</code>, 959 для мобільної редакції рейки, 960 для рами й липкості. Дві з них пара, третя ні</span></div></div>
+<div class="kp-gap"><h4>15 власних класів не малюються на жодному кольоровому екрані, і вони чотирьох різних порід</h4><b>Одинадцять - це взагалі не кабінет.</b> <code>.wt-flow</code>, <code>.wt-fh</code>, <code>.wt-fnote</code>, <code>.wt-screen</code>, <code>.wt-sname</code>, <code>.wt-states</code>, <code>.wt-st</code> і чотири їхні модифікатори <code>.base</code>, <code>.node</code>, <code>.planned</code>, <code>.soon</code> будує <code>wfTree()</code> у <code>wireframes/_nav.js</code>, а викликає його <code>wireframes/overview.html</code> - хаб прототипу зі списком усіх екранів. Це таблиця реєстру, а не екран продукту, і в кольорову систему вона потрапила разом з рештою при розколі <code>_wf.css</code>. Вона ж дає <b>136 із 169</b> оголошень файлу, які не збігаються з жодним елементом продукту.<br><b>Два - порожні утиліти.</b> <code>.only-mobile</code> і <code>.only-desk</code> не мають розмітки НІДЕ: у всьому репозиторії ці два імені є тільки у двох css-файлах - <code>wireframes/_wf.css</code> і цьому. Це не клас кабінету і не клас, який десь чекає.<br><b>Один - сірий прототип.</b> <code>.wl-top</code> є рівно на одному екрані, <code>wireframes/account-wishlist-many.html</code>, і кольорового двійника в нього немає.<br><b>Один - тренер.</b> <code>.acc-link.buyer</code> будує <code>wfCoachNav()</code> у <code>wireframes/_nav.js</code>: це рядок «Профіль / акаунт покупця» в рейці ТРЕНЕРА. Кольору в нього немає, бо кольору немає в жодного з 42 екранів тренера, а тренер - первинна аудиторія продукту.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>пункт рейки - <code>--text-primary</code> на <code>--bg-page</code>, розділювач <code>--line-hair</code></td><td>рейка тихіша за вміст: вона показує, де ви, а не кличе</td></tr>
+<tr><td><b>наведення</b></td><td><code>--bg-surface</code> плюс <code>--text-action</code>, знак іде в дію разом з підписом, перехід 140ms</td><td>рядок фарбується цілком, бо натискають рядок, а не слово в ньому</td></tr>
+<tr><td><b>поточний розділ</b></td><td><code>[aria-current="page"]</code> - <code>--bg-surface</code>, <code>--text-action</code> і <code>box-shadow: inset 2px 0 0 var(--line-action)</code>; до 959 замість смужки суцільна заливка <code>--bg-action</code></td><td>стан бере атрибут, а не клас: атрибут уже потрібен читалці екрана і не може розійтися з виглядом</td></tr>
+<tr><td><b>вихід</b></td><td><code>.acc-link.logout</code> - <code>--text-secondary</code>, при наведенні <code>--text-danger</code> разом зі знаком</td><td>єдина небезпечна дія в рейці і єдина <code>--text-danger</code> у файлі</td></tr>
+<tr><td><b>фокус</b></td><td><b>кільце браузера</b></td><td><code>link-row.css</code> тримає список селекторів, яким увімкнено <code>:focus-visible</code>, і <code>.acc-link</code> у ньому немає. Питання власника</td></tr>
+<tr><td><b>до 959</b></td><td>рейка стає скролером з пігулок: рамка й радіус списку зняті, кожен пункт у рамці <code>--line-strong</code> і радіусі <code>--radius-pill</code></td><td><b>і саме тут 14 оголошень не спрацьовують</b>: див. нижче</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>4</b> медіа-умови, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width: 959px)</code></li><li><code>@media (min-width: 640px)</code></li><li><code>@media (min-width: 860px)</code></li><li><code>@media (min-width: 960px)</code></li></ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>34</b> власні класи і <b>1</b> стан.</p><div id="idle"></div><script>var KIT_CLS=["abonus", "acc", "acc-cardgrid", "acc-grid", "acc-h1", "acc-link", "acc-links", "acc-nav", "acc-prof", "acc-sub", "acc-tier", "ah", "av", "base", "big", "buyer", "lnk", "logout", "node", "only-desk", "only-mobile", "planned", "soon", "u", "warn", "who", "wl-top", "wt-fh", "wt-flow", "wt-fnote", "wt-screen", "wt-sname", "wt-st", "wt-states"], KIT_STS=[":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>account-shell.css</code>: <b>19</b> семантичних ролей і <b>27</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (19)</th><th>Примітиви (27)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--elevation-1</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--mark-faint</code> <code>--text-action</code> <code>--text-body</code> <code>--text-danger</code> <code>--text-muted</code> <code>--text-oninverse</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-warning</code></td><td><code>--font-display</code> <code>--font-mono</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-20</code> <code>--fs-30</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-medium</code> <code>--fw-semibold</code> <code>--lh-flat</code> <code>--ls-caps</code> <code>--ls-lead</code> <code>--radius-12</code> <code>--radius-8</code> <code>--radius-circle</code> <code>--radius-pill</code> <code>--size-20</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-32</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
+<p class="kp-p"><b>27 оголошень збігаються з елементами й не виграють жодного разу, і 14 з них лежать усередині одного <code>@media (max-width: 959px)</code>.</b> Причина одна на всіх: медіа-умова не додає селектору ваги, а колірний блок цього ж файлу стоїть НИЖЧЕ і не має жодної умови ширини. Тому <code>.acc-links{ border-radius: 0 }</code> з мобільної редакції програє <code>.acc-links{ border-radius: var(--radius-12) }</code> з колірного, а <code>.acc-link{ border: 1px solid var(--line-strong) }</code> програє <code>.acc-link{ border-color: var(--line-hair) }</code>. Заміряно: 70 збігів, з них 62 забирає базове правило і 8 - правило поточного розділу. <b>Пігулки мобільної рейки намальовані не тим токеном рамки, який їм написали</b>, а сама рейка тримає радіус картки, який мобільне правило знімало.</p><p class="kp-p">Два з тих 14 - навпаки. <code>.acc-link .ic{ font-size: var(--fs-14) }</code> НЕ повинно вигравати: колірний блок ставить <code>font-size: 0</code> навмисне, щоб убити емодзі-запасний знак (крок 7.24), тож у мобільному блоці це залишок. <code>.acc-link .ct{ color }</code> називає рівно той токен, що й правило вище. З решти 13: <b>8</b> - <code>.abonus .warn</code>, де сіра пунктирна рамка навмисне стає суцільною волосяною в кольорі, і це знову той самий розділ структура-колір; <b>5</b> - <code>border-color</code> у колірному блоці, який називає рівно той самий <code>--line-hair</code>, що вже поставив короткий запис у структурному. Це та сама родина, яку кроки 7.69 і 7.71 вимітали з цього файлу, і вона виметена не до кінця.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Медіа-умова, яку перемагає порядок</b> - мобільна редакція рейки написана в <code>@media (max-width: 959px)</code> і програє колірному блоку без умови. Виходи: підняти колірний блок вище, повторити його всередині умови, або перевести мобільну редакцію на власний клас. Рішення про будову файлу, не про значення</li><li><b>Одинадцять класів реєстру прототипу в продуктовому файлі</b> - <code>.wt-*</code> малює хаб <code>wireframes/overview.html</code>, а не кабінет. Або окремий файл шару інструментів, або зняти їх з кольорової системи</li><li><b><code>.only-mobile</code> і <code>.only-desk</code> без розмітки</b> - два імені є тільки в css і в жодному html. Або утилітний файл, або видалення</li><li><b>Стрілка не отримує свого розміру</b> - <code>.acc-link .ar .uiv-ic svg</code> написана в старій формі, яку крок 7.24 виправив для знака. Одна правка, той самий рецепт</li><li><b>Своє кільце фокуса</b> - <code>.acc-link</code> немає в списку <code>link-row.css</code>, тож рейка кабінету ходить під кільцем браузера</li></ul>
+<p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script>
+/* The frame is a viewport, so it has to be sized like one and not like a box.
+   Two numbers are read from the frame itself rather than typed here: its content
+   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
+   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
+   the media query inside sees - the frame is still 1180 wide to itself, which is
+   the whole reason the frame exists. */
+(function(){
+  var f = document.querySelector('.kp-frame'); if (!f) return;
+  var wrap = f.parentNode;
+  function fit(){
+    try{
+      var d = f.contentDocument; if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
+      h = Math.min(h, 900);
+      f.style.height = h + 'px';
+      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
+      var avail = wrap.clientWidth - 24;
+      var k = Math.min(1, avail / declared);
+      f.style.transformOrigin = 'top left';
+      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
+      wrap.style.height = Math.round(h * k) + 'px';
+    }catch(e){}
+  }
+  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
+  addEventListener('resize', fit);
+  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

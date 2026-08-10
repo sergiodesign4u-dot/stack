@@ -461,27 +461,93 @@ with a written exception. Not taken by a showcase step - the rule is locked in
 
 ---
 
-### A11. The grey prototype scrolls sideways at 720 - **found at step 7.84, and it is one rule**
+### A11. The grey prototype scrolls sideways at 720 - **found at 7.84, and the cause named at 7.84 was the wrong one**
 
-**137 overflows on 976 page x width pairs**, across nearly every screen in `wireframes/`. All
-pre-existing; none of them belong to this pass. They were invisible because the acceptance sweep
-had never opened the grey folder - it grew from 356 to 408 pairs over nine steps and every one of
-them was colour, while `wireframes/` is what all forty coloured screens load for their behaviour.
-Both sweeps walk it now.
+**The question was wrong first.** "Is any element wider than the viewport" is not the question:
+inside a horizontal scroller that is normal and intended, and the 7.84 sweep counted those. The
+question is whether the PAGE scrolls, `documentElement.scrollWidth > innerWidth`. Re-measured that
+way at 7.86 across both layers, 182 pages x 5 widths: **137 of 910 pairs scroll, and 129 of them
+are exactly the width 720.**
 
-**The cause, measured rather than guessed.** The outermost offending element is `DIV.wff-col` -
-the footer column - with its right edge at **759** on a 720 viewport. `_wf.css:593` turns the
-footer into five columns from `min-width: 720px` (`1.5fr repeat(4, 1fr)`), and
-`.wff-col a.wff-phone` is 23px bold with `white-space: nowrap`, so that column's min-content is
-larger than its share and the grid walks 39px past the edge. At 760 and above it is clean.
+**And the causal test is clean.** Of the 53 pages that pass at 720, **24 have no footer grid at
+all** and the other 29 are coloured. No grey page with a footer survives 720; no coloured page
+with a footer fails it. The footer is the whole of it.
 
-**Three ways out, and each is a value said out loud:** move the footer's boundary from 720 to
-760, let the phone number wrap, or take it down a size in the band. The colour layer carries the
-same five-column rule in `footer.css:18` and does NOT overflow at 720 - so whatever absorbs it
-there is worth reading before choosing here.
+**The cause, third attempt, measured to the number.** At 720 the same markup lays out as
+`254.1 105.6 80.7 74.3 164.2` in grey and `149.8 116.4 92.9 92.9 172.1` in colour. The entire
+difference is the FIRST column - 254 against 150 - which is the newsletter column, and its
+`min-content` really is 254 in grey and 150 in colour, the input contributing 149 against 26.
 
-**Not taken at 7.84**, which was a step about a sidebar and 24 stray images. It is one rule in
-the frozen folder and it touches every grey screen.
+**7.84 named `.wff-phone` and that was wrong.** 23px bold with `nowrap` is the outermost element
+that *overflows*, not the thing that *causes* it: the phone column measures 164 in grey and
+**172 in colour**, so it is wider in the layer that does not break. Naming the outermost
+overflowing box as the cause is the same mistake in a different coat as counting scroller
+children as overflows: both read the symptom off the screen and stop.
+
+**Still not taken, and now for a better reason.** Both inputs compute `flex: 1 1 0%` and
+`min-width: 0px`, so the difference is not in those two declarations and the next measurement has
+to be of the input's intrinsic contribution rather than of what it declares. When that is known,
+the fix is a **transfer** from the layer that already works, not a value invented here - and
+"values move, they are never re-derived" is exactly the rule that says to go and read it.
+
+---
+
+### A12. The organism layer's real defect is that a class name does not say which file owns it
+
+**126 of the system's 913 class names are declared in more than one component file.** Measured at
+7.86 by reading all 73 component stylesheets. Some of that is legitimate reuse and says so:
+`.uiv-ic` in 21 files is the icon primitive, `.on` in 18 and `.open` in 12 are shared state words,
+`.btn--accent` in 4 is the button appearing inside other components. The rest is collision, and
+the collisions are all **short generic names**: `.ar` in 7 files, `.x` in 5, `.ct` in 5, `.m` in 4,
+then `.ok`, `.ph`, `.ic`, `.sub`, `.ci`, `.tl`, `.cnt`, `.nm`, `.old`, `.bb`, `.lt`.
+
+**What it costs, measured.** Across the 22 organisms that render, **78 child classes inside an
+organism's root have more than one owner**, so the composition table of every organism stand is
+partly unreadable: from the code you cannot say whether a `.ct` inside the account rail belongs to
+`account-shell`, `chip`, `client-row`, `counter` or `filter-group`. Worst cases: `hero` 13
+ambiguous children, `product-grid` 14, `auth-dialog` 10.
+
+**And it is a floor, not a total.** The census compares stylesheet against stylesheet, never
+stylesheet against markup. `.dn` is one owner in the map and two meanings in the product - the
+danger note under "Видалити клієнта" in `client-dialog.css`, and `<span class="dn">Нова Пошта</span>`
+on three checkout screens with no rule anywhere. A name used in markup by a second component and
+never styled there is invisible to this measurement.
+
+**One live consequence, and it was fixed at 7.86:** `footer.css:38` declared
+`.fh .ar{ transition:transform .18s ease }`. It matched **280 elements and won on none of them**,
+because every one of the 280 sits inside `.fgroup`, where `filter-group.css` says the same thing
+20ms longer with one more class. The footer draws no arrow at all. The declaration was in the
+wrong file, changed nothing on screen, and only the solver could see it. Removed.
+
+**Not a rename step.** Renaming is Крок 6, after stage 09. What belongs here is the measurement
+and the rule it implies: **a component may only declare a name it owns, and a name it does not
+own it may only compose.**
+
+---
+
+### A13. Ten of the 24 organisms are not fully in the coloured product, and one is not in it at all
+
+Measured at 7.86, per file, three different facts that had been living as one:
+
+| organism | what is true |
+|---|---|
+| `system-page` | **16 classes, 0 coloured screens, 0 runtime builders.** Its markup exists on `wireframes/404.html`, `500.html`, `maintenance.html`, `system.html` - four grey screens with no `design/` twin. `index.css` imports the file on all 40 coloured screens and it draws nothing. It also has **no colour block at all**, though its own header promises one |
+| `cookie-banner` | 20 classes, 0 coloured screens. The placeholder `id="wf-cookie"` exists on exactly ONE file in the repo, `wireframes/system.html`. The footer still offers «Змінити згоду» on 31 coloured screens, and its handler falls back to `location.href='system.html'`, which `design/` does not have |
+| `cat-overlay` | 14 classes, 0 coloured screens, and its markup is in **no html file in either layer**: `wfCatOverlayEnsure()` creates it on the first tap |
+| `client-dialog` | `.cedel` cannot reach colour: `wfClientEdit()` is called only from five `wireframes/coach-*.html` |
+| `account-shell` | 15 own classes off the coloured layer, and they are **four different kinds**, not one: 11 are the prototype's own screen-registry table (`.wt-*`, built by `wfTree`), 2 exist in no HTML anywhere, 1 is on a single grey screen, 1 is the coach's rail |
+| `buy-box` | `.qty` and `.tier` are product decisions left in the file - the stepper the markup's own comment says was dropped, and a tier block superseded by `.coachbox .cbtier` |
+
+**And the fact under all of them.** The coloured layer is **40 screens; the grey prototype is
+142**. The 42 coach screens have **no colour at all** - and the coach is this product's primary
+audience, the channel CLAUDE.md says decides when two decisions conflict. Six of the 24 organism
+files have no colour block whatsoever (`cat-overlay`, `city-dialog`, `client-dialog`,
+`cookie-banner`, `nav-drawer`, `system-page`).
+
+**This is a scope decision and it is the owner's**, not a defect to sweep: either the coloured
+layer grows to the flows that matter, or the files that serve only grey screens are held until it
+does. What must not continue is polishing a component to the pixel on 40 screens while the
+primary audience's whole flow has no colour to polish.
 
 ---
 
@@ -810,6 +876,29 @@ Recorded here so it does not happen a third time.
   `.blogcard`, so position and count agree. `restock-note.css` counts with `:nth-of-type` and
   its card also holds a header `div`, so the alternation is off by one and holds by accident
   (item F2). Same technique, opposite outcome - a reason not to sweep either one.
+- **The census driver stops every animation, and it stops the solver too - 7.86.** `cdp.mjs`
+  injects `*, *::before, *::after { animation-play-state: paused !important; animation-delay: 0s
+  !important }` at document-start; step 7.51 put it there so the null pass would stop coming back
+  56 rows of moving frames. The cost was never written down: **no claim about motion can be made
+  with this instrument**, and the never-win solver, which runs through the same driver, reports
+  the harness's own rule as the winner over every `animation-*` declaration in the product. Four
+  of the 193 never-win entries were that and nothing else. A control animation created in the page
+  at measurement time reads `paused` as well - which is how it was caught.
+- **"Is an element wider than the viewport" is the wrong question - 7.86.** Inside a horizontal
+  scroller it is supposed to be. The question that matches what a person experiences is
+  `documentElement.scrollWidth > innerWidth`. Asking the wrong one inflated A11 and, worse, pointed
+  at the wrong element for two steps.
+- **A census that groups by prefix must be told every prefix - 7.86.** The token families in the
+  harvest were written from memory and missed six of them, so `--scrim-*`, `--veil-*`, `--fade-*`,
+  `--tint-*`, `--ring-*` and `--fill-*` fell into NEITHER column of every generated tokens table:
+  `overlay.css`, whose whole existence rests on `--scrim-overlay`, read as "0 semantic roles".
+  Prefixes were counted out of `tokens.css` afterwards, not recalled.
+- **A frame must not redraw the thing it frames - 7.86.** The first stand rule for panels laid
+  them out in flow (`position: static; inset: auto`) so they could not cover the page. Eleven of
+  them collapsed to zero height, because a panel positioned by `inset: 0` has no height of its own
+  once the position is taken away. The mechanism that works leaves every declaration alone: a
+  transformed ancestor becomes the containing block for a fixed descendant. It does not catch
+  `94vw` / `86vh`, and the stand says so rather than pretending.
 - **The standard census widths cannot see a breakpoint band.** 360 and 1280 make a rule inside
   `(min-width: 620px)` look dead whenever a `(min-width: 960px)` rule for the same selector
   exists: at 1280 the second one wins, at 360 neither applies, and nothing measures the band

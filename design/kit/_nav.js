@@ -337,122 +337,122 @@ window.KIT_NAV = [
    {
     "label": "Форма чекауту",
     "page": "checkout-form.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Хедер",
     "page": "header.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Блок покупки",
     "page": "buy-box.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Оболонка кабінету",
     "page": "account-shell.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Діалог входу",
     "page": "auth-dialog.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Шухляда кошика",
     "page": "cart-drawer.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Шухляда меню",
     "page": "nav-drawer.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Вкладки товару",
     "page": "pdp-tabs.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Модалка відгуку",
     "page": "review-modal.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Футер",
     "page": "footer.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Рейка фільтрів",
     "page": "filter-rail.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Мега-меню",
     "page": "mega-menu.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Банер cookie",
     "page": "cookie-banner.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Смуга покупки",
     "page": "buy-bar.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Головний блок",
     "page": "hero.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Системна сторінка",
     "page": "system-page.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Повзунок ціни",
     "page": "price-slider.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Діалог міста",
     "page": "city-dialog.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Діалог клієнта",
     "page": "client-dialog.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Таб-бар",
     "page": "tabbar.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Сітка товарів",
     "page": "product-grid.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Шит фільтрів",
     "page": "filter-sheet.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Оверлей",
     "page": "overlay.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Оверлей каталогу",
     "page": "cat-overlay.html",
-    "done": false
+    "done": true
    }
   ]
  },

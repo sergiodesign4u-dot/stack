@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Вкладки товару</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<nav class="pdp-tabs" aria-label="Розділи товару" data-uiv-stick="1" style="top: 112px; --shelf-top: 112px; --shelf-h: 55px;" data-spy="1">
+    <a class="on" href="#pro">Про товар</a>
+    <a href="#sklad">Склад</a>
+    <a href="#doz">Дозування</a>
+    <a href="#spec">Характеристики</a>
+    <a href="#rev">Відгуки</a>
+    <a href="#qa">Питання</a>
+    <span class="tsp"></span>
+    <!-- the shelf repeats the price the way the buy box states it: struck old price +
+         cut above, the live (accent, because reduced) figure under them -->
+    <span class="tprice">
+      <span class="told">1 520 ₴</span><span class="tcut">−15%</span>
+      <b class="tnew">1 290 <span class="uiv-cur">₴</span></b>
+    </span>
+    <a class="tbuy" href="../../cart.html">У кошик</a>
+  </nav>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script>
+(function(){
+  var init = ['uivFixLinks','uivChrome','uivCurrency','uivPriceSlider','uivCheckboxes',
+              'uivSwitches','uivSegments','uivRadioGroups','uivDisclosures','uivFav','uivCrumbs'];
+  init.forEach(function(n){ try{ if (typeof window[n] === 'function') window[n](); }catch(e){} });
+})();
+</script>
+</body>
+</html>

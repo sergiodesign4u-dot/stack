@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Модалка відгуку</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<div style="max-width:520px;margin:0 auto"><div class="pm open" id="pm-review" role="dialog" aria-modal="true" aria-label="Залишити відгук"><div class="pm-h">Залишити відгук<button class="btn--ghost btn--icon btn--s x" onclick="closePM()" aria-label="Закрити"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.4 6.4l11.2 11.2"></path><path d="M17.6 6.4L6.4 17.6"></path></svg></span></button></div><div class="pm-b"><div class="pm-rhead"><label>Ваша оцінка</label><span class="pm-rw" id="pm-rate-w"></span></div><div class="pm-rate"><div class="pm-stars" id="pm-rate" role="radiogroup" aria-label="Ваша оцінка" onmouseleave="wfPmRateOut()"><button type="button" class="pmst" data-v="1" role="radio" aria-checked="false" aria-label="1 з 5" onclick="wfPmRate(1)" onmouseenter="wfPmRateHover(1)" onfocus="wfPmRateHover(1)"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span></button><button type="button" class="pmst" data-v="2" role="radio" aria-checked="false" aria-label="2 з 5" onclick="wfPmRate(2)" onmouseenter="wfPmRateHover(2)" onfocus="wfPmRateHover(2)"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span></button><button type="button" class="pmst" data-v="3" role="radio" aria-checked="false" aria-label="3 з 5" onclick="wfPmRate(3)" onmouseenter="wfPmRateHover(3)" onfocus="wfPmRateHover(3)"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span></button><button type="button" class="pmst" data-v="4" role="radio" aria-checked="false" aria-label="4 з 5" onclick="wfPmRate(4)" onmouseenter="wfPmRateHover(4)" onfocus="wfPmRateHover(4)"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span></button><button type="button" class="pmst" data-v="5" role="radio" aria-checked="false" aria-label="5 з 5" onclick="wfPmRate(5)" onmouseenter="wfPmRateHover(5)" onfocus="wfPmRateHover(5)"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span></button></div><b class="pm-rv" id="pm-rate-v"></b></div><div class="pm-e" id="pm-rate-e"></div><label for="pm-rv-pros">Переваги <span class="opt">необов'язково</span></label><input class="field" id="pm-rv-pros" type="text" placeholder="Що сподобалось" oninput="wfPmInput(this)"><label for="pm-rv-cons">Недоліки <span class="opt">необов'язково</span></label><input class="field" id="pm-rv-cons" type="text" placeholder="Що можна покращити" oninput="wfPmInput(this)"><label for="pm-rv-text">Відгук</label><textarea class="field" id="pm-rv-text" maxlength="600" data-count="pm-rv-cnt" placeholder="Ваші враження про товар…" oninput="wfPmInput(this)"></textarea><div class="pm-cnt"><b id="pm-rv-cnt">0</b> / 600</div><div class="pm-e" id="pm-rv-text-e"></div><label for="pm-rv-name">Ім'я</label><input class="field" id="pm-rv-name" type="text" placeholder="Як вас підписати" oninput="wfPmInput(this)"><div class="pm-e" id="pm-rv-name-e"></div><div class="pm-note">Відгук пройде модерацію. Публікуємо чесно - і схвальні, і критичні.</div></div><div class="pm-f"><button class="btn--outline btn" onclick="closePM()">Скасувати</button><button class="btn--accent btn dark" onclick="wfPmSubmitReview()">Надіслати відгук</button></div></div></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script>
+(function(){
+  var init = ['uivFixLinks','uivChrome','uivCurrency','uivPriceSlider','uivCheckboxes',
+              'uivSwitches','uivSegments','uivRadioGroups','uivDisclosures','uivFav','uivCrumbs'];
+  init.forEach(function(n){ try{ if (typeof window[n] === 'function') window[n](); }catch(e){} });
+})();
+</script>
+</body>
+</html>

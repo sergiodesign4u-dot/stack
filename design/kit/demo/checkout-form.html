@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Форма чекауту</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<div style="max-width:620px;margin:0 auto"><div class="co-grid">
+
+    <!-- LEFT COLUMN -->
+    <div>
+
+      <!-- 1 · КОНТАКТ (guest - passwordless sign-in prompt) -->
+      <section class="co-sec" aria-label="Контакт">
+        <div class="co-sec-h"><span class="num">1</span> Контакт</div>
+        <p class="co-signin-note">Увійдіть для оформлення замовлення - код підтвердження надійде у SMS, акаунт створиться автоматично. Пароль не потрібен.</p>
+        <form class="co-field" action="checkout-loggedin.html">
+          <label for="co-phone" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Номер телефону</label>
+          <input class="field co-input" id="co-phone" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __" autocomplete="tel">
+          <button class="btn--accent btn--s co-getcode" type="submit">Отримати код</button>
+        </form>
+        <div class="co-or">або</div>
+        <div class="co-social">
+          <a class="btn--outline btn--lift btn--s co-soc" href="../../checkout-loggedin.html" data-uiv="1"><span class="uiv-brand"><svg viewBox="0 0 24 24" data-mark="google" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.23c0-.68-.06-1.34-.18-1.96H12v3.7h5.38a4.6 4.6 0 0 1-2 3.02v2.5h3.24c1.9-1.74 2.98-4.3 2.98-7.26z"></path><path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.62-2.43l-3.24-2.5c-.9.6-2.05.96-3.38.96-2.6 0-4.8-1.75-5.6-4.1H3.06v2.58A10 10 0 0 0 12 22z"></path><path fill="#FBBC05" d="M6.4 13.93a6 6 0 0 1 0-3.84V7.5H3.06a10 10 0 0 0 0 9l3.34-2.57z"></path><path fill="#EA4335" d="M12 5.98c1.47 0 2.79.5 3.83 1.5l2.87-2.87C16.95 2.98 14.7 2 12 2a10 10 0 0 0-8.94 5.5L6.4 10.1c.8-2.36 3-4.11 5.6-4.11z"></path></svg></span><span>Google</span></a>
+          <a class="btn--outline btn--lift btn--s co-soc" href="../../checkout-loggedin.html" data-uiv="1"><span class="uiv-brand uiv-apple"><svg viewBox="0 0 24 24" data-mark="apple" fill="currentColor" aria-hidden="true"><path d="M16.6 12.6c0-2.2 1.8-3.2 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.2-2.7.8-3.3.8-.7 0-1.7-.8-2.8-.8-1.5 0-2.8.9-3.6 2.2-1.5 2.7-.4 6.6 1.1 8.8.7 1.1 1.6 2.2 2.7 2.2 1.1 0 1.5-.7 2.8-.7s1.7.7 2.8.7 1.9-1 2.6-2.1c.8-1.2 1.2-2.3 1.2-2.4-.1 0-2.2-.9-2.2-3.7z"></path><path d="M14.5 6.2c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.6 1.3-.6.6-1.1 1.6-.9 2.5 1 .1 2-.4 2.6-1.1z"></path></svg></span><span>Apple</span></a>
+          <a class="btn--outline btn--lift btn--s co-soc" href="../../checkout-loggedin.html" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.4" width="18" height="13.2" rx="2.4"></rect><path d="M3.7 7.1 12 13l8.3-5.9"></path></svg></span><span>E-mail</span></a>
+        </div>
+        <p class="co-consent">Продовжуючи, ви погоджуєтесь з <a href="../../wireframes/content-legal.html">публічною офертою</a> та <a href="../../wireframes/content-legal.html">політикою конфіденційності</a>.</p>
+      </section>
+
+      <!-- ВАШЕ ЗАМОВЛЕННЯ (line items moved here from the right rail) -->
+      <section class="co-sec" aria-label="Ваше замовлення">
+        <div class="co-sec-h"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 4h2.1l1.9 10.2a1.7 1.7 0 0 0 1.7 1.4h8.1a1.7 1.7 0 0 0 1.7-1.3L19.9 7.2H6.1"></path><circle cx="9" cy="19.6" r="1.5"></circle><circle cx="17.2" cy="19.6" r="1.5"></circle></svg></span> Ваше замовлення <span class="cnt">· 3 товари</span></div>
+
+        <div class="co-line" data-unit="1290" data-old="1520">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
+            <div class="li-meta">Смак: Подвійний шоколад · США</div>
+            <div class="li-acts">
+              <button type="button" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span><span>В обране</span></button>
+              <button type="button" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 6.8h14.8"></path><path d="M9.4 6.8V5.2a1.2 1.2 0 0 1 1.2-1.2h2.8a1.2 1.2 0 0 1 1.2 1.2v1.6"></path><path d="M6.4 6.8 7.3 19a1.3 1.3 0 0 0 1.3 1.2h6.8a1.3 1.3 0 0 0 1.3-1.2l.9-12.2"></path><path d="M10.4 10.2v6M13.6 10.2v6"></path></svg></span><span>Видалити</span></button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.4 12h15.2"></path></svg></span></button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button type="button" aria-label="Більше"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.4v15.2"></path><path d="M4.4 12h15.2"></path></svg></span></button></div>
+            <div class="li-price"><span class="li-oldline"><span class="li-old">1 520 ₴</span><span class="li-cut">−15%</span></span><span class="li-sum">1 290 <span class="uiv-cur">₴</span></span><span class="li-per"></span></div>
+          </div>
+        </div>
+
+        <div class="co-line" data-unit="1050">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">BioTechUSA Iso Whey Zero 908 г</div>
+            <div class="li-meta">Смак: Ваніль · Угорщина</div>
+            <div class="li-acts">
+              <button type="button" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span><span>В обране</span></button>
+              <button type="button" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 6.8h14.8"></path><path d="M9.4 6.8V5.2a1.2 1.2 0 0 1 1.2-1.2h2.8a1.2 1.2 0 0 1 1.2 1.2v1.6"></path><path d="M6.4 6.8 7.3 19a1.3 1.3 0 0 0 1.3 1.2h6.8a1.3 1.3 0 0 0 1.3-1.2l.9-12.2"></path><path d="M10.4 10.2v6M13.6 10.2v6"></path></svg></span><span>Видалити</span></button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.4 12h15.2"></path></svg></span></button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="2" aria-label="Кількість"><button type="button" aria-label="Більше"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.4v15.2"></path><path d="M4.4 12h15.2"></path></svg></span></button></div>
+            <div class="li-price"><span class="li-oldline"></span><span class="li-sum">2 100 <span class="uiv-cur">₴</span></span><span class="li-per">1 050 ₴ / шт</span></div>
+          </div>
+        </div>
+
+        <div class="co-line" data-unit="549">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">OstroVit Creatine Monohydrate 500 г</div>
+            <div class="li-meta">Без смаку · Польща</div>
+            <div class="li-acts">
+              <button type="button" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span><span>В обране</span></button>
+              <button type="button" data-uiv="1"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 6.8h14.8"></path><path d="M9.4 6.8V5.2a1.2 1.2 0 0 1 1.2-1.2h2.8a1.2 1.2 0 0 1 1.2 1.2v1.6"></path><path d="M6.4 6.8 7.3 19a1.3 1.3 0 0 0 1.3 1.2h6.8a1.3 1.3 0 0 0 1.3-1.2l.9-12.2"></path><path d="M10.4 10.2v6M13.6 10.2v6"></path></svg></span><span>Видалити</span></button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.4 12h15.2"></path></svg></span></button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button type="button" aria-label="Більше"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.4v15.2"></path><path d="M4.4 12h15.2"></path></svg></span></button></div>
+            <div class="li-price"><span class="li-oldline"></span><span class="li-sum">549 <span class="uiv-cur">₴</span></span><span class="li-per"></span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 · ДОСТАВКА -->
+      <section class="co-sec" aria-label="Доставка" role="radiogroup">
+        <div class="co-sec-h"><span class="num">2</span> Доставка</div>
+
+        <label class="co-opt on" data-price="60" data-label="Нова Пошта" role="radio" aria-checked="true" tabindex="0">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Нова Пошта - відділення / поштомат</span><span class="otd">1–2 дні по Україні</span></span>
+          <span class="op">від 50 ₴</span>
+        </label>
+        <div class="co-sub">
+          <button type="button" class="btn--outline btn--full co-city"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c4.5-4.2 6.8-7.3 6.8-10.5A6.8 6.8 0 0 0 5.2 10.5C5.2 13.7 7.5 16.8 12 21z"></path><circle cx="12" cy="10.4" r="2.5"></circle></svg></span> Одеса <span style="color:var(--text-muted);font-weight:600">· змінити</span></button>
+          <input class="field co-input" type="text" placeholder="Відділення / поштомат - почніть вводити №">
+        </div>
+
+        <label class="co-opt" data-price="80" data-label="Кур'єр НП" role="radio" aria-checked="false" tabindex="-1">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Кур'єр Нова Пошта - на адресу</span><span class="otd">Доставка до дверей, 1–2 дні</span></span>
+          <span class="op">від 70 ₴</span>
+        </label>
+        <div class="co-sub">
+          <button type="button" class="btn--outline btn--full co-city"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c4.5-4.2 6.8-7.3 6.8-10.5A6.8 6.8 0 0 0 5.2 10.5C5.2 13.7 7.5 16.8 12 21z"></path><circle cx="12" cy="10.4" r="2.5"></circle></svg></span> Одеса <span style="color:var(--text-muted);font-weight:600">· змінити</span></button>
+          <input class="field co-input" type="text" placeholder="Вулиця, будинок, квартира">
+        </div>
+
+        <label class="co-opt" data-price="0" data-label="Самовивіз Одеса" role="radio" aria-checked="false" tabindex="-1">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Самовивіз - Одеса</span><span class="otd">вул. Дерибасівська, 1 · за наявності на точці</span></span>
+          <span class="op">безкоштовно</span>
+        </label>
+      </section>
+
+      <!-- 3 · ОПЛАТА -->
+      <section class="co-sec" aria-label="Оплата" role="radiogroup">
+        <div class="co-sec-h"><span class="num">3</span> Оплата</div>
+
+        <label class="co-opt on" role="radio" aria-checked="true" tabindex="0">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Картка онлайн - LiqPay / Wayforpay</span><span class="otd">Visa · Mastercard · безпечна оплата на сторінці банку</span></span>
+        </label>
+        <label class="co-opt" role="radio" aria-checked="false" tabindex="-1">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Apple Pay / Google Pay</span><span class="otd">Оплата в один дотик</span></span>
+        </label>
+        <label class="co-opt" role="radio" aria-checked="false" tabindex="-1">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Накладений платіж</span><span class="otd">Оплата при отриманні на Новій Пошті</span></span>
+        </label>
+        <label class="co-opt" role="radio" aria-checked="false" tabindex="-1">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Готівка при самовивозі</span><span class="otd">Оплата на точці в Одесі</span></span>
+        </label>
+
+        <div class="co-cmt-lbl">Коментар до замовлення (необов'язково)</div>
+        <textarea class="field co-cmt" placeholder="Наприклад: подзвоніть перед доставкою"></textarea>
+      </section>
+    </div>
+
+    <!-- RIGHT COLUMN - money only, sticky -->
+    <aside class="co-money" aria-label="Разом">
+      <div class="co-money-h">Разом</div>
+
+      <!-- guest: no bonus account yet - sign-in incentive (bonuses/discount live only for accounts) -->
+      <div class="co-bonus">
+        <div class="co-bonus-top"><span class="bl">Знижка та бонуси</span></div>
+        <div class="bnote">Увійдіть або створіть акаунт - застосуємо знижку за вашим рівнем і нарахуємо ~1% бонусами. Реєстрація за номером, без пароля.</div>
+        <a class="btn--text co-toggle" href="../../checkout-loggedin.html" style="text-decoration:none"><span class="co-sw"></span> Увійти й застосувати знижку</a>
+      </div>
+
+      <div class="co-brow" data-row="items"><span>Сума товарів (<span class="n">3</span>)</span><b>3 939 ₴</b></div>
+      <div class="co-brow" data-row="delivery"><span>Доставка · <span class="dn">Нова Пошта</span></span><b>60 ₴</b></div>
+      <div class="co-total"><span class="tl">До сплати</span><span class="tv">3 999 <span class="uiv-cur">₴</span></span></div>
+
+      <a class="btn--accent btn--l btn--full co-confirm" href="../../checkout-loading.html">Підтвердити замовлення</a>
+
+      <div class="co-trust"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.6" y="10.3" width="14.8" height="9.7" rx="2.4"></rect><path d="M8.3 10.3V7.9a3.7 3.7 0 0 1 7.4 0v2.4"></path><path d="M12 14.2v2.2"></path></svg></span> Безпечна оплата · 14 днів на повернення · Гарантія оригіналу</div>
+    </aside>
+
+  </div></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script>
+(function(){
+  var init = ['uivFixLinks','uivChrome','uivCurrency','uivPriceSlider','uivCheckboxes',
+              'uivSwitches','uivSegments','uivRadioGroups','uivDisclosures','uivFav','uivCrumbs'];
+  init.forEach(function(n){ try{ if (typeof window[n] === 'function') window[n](); }catch(e){} });
+})();
+</script>
+</body>
+</html>

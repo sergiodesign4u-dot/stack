@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Блок покупки | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Організм · рівень 3</div>
+<h1 class="kp-h1">Блок покупки</h1>
+<p class="kp-lead">Блок покупки стоїть на <b>чотирьох</b> екранах товару, по одному на екран: 125 елементів усередині кореня <code>.bb</code>, 358x1422 на 390 і 580x1103 на 1280. Мітка нижче каже про двадцять екранів - це екрани, де трапляється хоч один клас файлу, бо сім своїх імен він ділить із <code>price.css</code>, <code>rating.css</code>, <code>product-card.css</code>, <code>stepper.css</code>, <code>restock-note.css</code> і <code>client-row.css</code>. Файл описує <b>два різні блоки покупки</b> - покупця і тренера, - і жоден екран не показує обидва.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/buy-box.css</span><span class="kp-tag">216 рядків</span><span class="kp-tag">57 селекторів</span><span class="kp-tag">244 оголошення</span><span class="kp-tag">20 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">З чого складається</div>
+<p class="kp-p">Найскладніший склад у наборі: десять чужих файлів усередині кореня. Найбільший внесок дає меню, якого в розмітці немає - <code>uivPatchMenus()</code> будує всі дванадцять його класів на завантаженні з одного &lt;select&gt; у виборі клієнта.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Файл</th><th>Класів</th><th>Які саме</th></tr></thead><tbody><tr><td><code>menu.css</code></td><td>12</td><td><code>.menu</code> <code>.menu--field</code> <code>.menu-act</code> <code>.menu-list</code> <code>.menu-opt</code> <code>.menu-pop</code> <code>.menu-scrim</code> <code>.menu-sep</code> ...</td></tr><tr><td><code>button.css</code></td><td>4</td><td><code>.btn--full</code> <code>.btn--icon</code> <code>.btn--l</code> <code>.btn--s</code></td></tr><tr><td><code>restock-note.css</code></td><td>3</td><td><code>.notifyrow</code> <code>.oosback</code> <code>.oosnote</code></td></tr><tr><td><code>radio.css</code></td><td>2</td><td><code>.vopt</code> <code>.vopts</code></td></tr><tr><td><code>rating.css</code></td><td>2</td><td><code>.st</code> <code>.uiv-star</code></td></tr><tr><td><code>skeleton.css</code></td><td>2</td><td><code>.l</code> <code>.skline</code></td></tr><tr><td><code>field.css</code></td><td>1</td><td><code>.field</code></td></tr><tr><td><code>price.css</code></td><td>1</td><td><code>.uiv-cur</code></td></tr><tr><td><code>discount.css</code></td><td>1</td><td><code>.cut</code></td></tr><tr><td><code>availability.css</code></td><td>1</td><td><code>.bbavail</code></td></tr></tbody></table></div><p class="kp-p"><b>8</b> класів усередині кореня мають більш ніж одного власника, тож із коду не видно, чий вони: <code>.btn--accent</code> <code>.btn--outline</code> <code>.m</code> <code>.off</code> <code>.on</code> <code>.out</code> <code>.s</code> <code>.uiv-trail</code></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/product.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень.</p><p class="kp-p">Показано <b>в рамці шириною 1180</b>, і ширина названа не для краси: це ширина, на якій цей організм у продукті стоїть. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки. Сам організм у рамці обмежено до <b>580px</b> - це ширина, яку він займає в продукті на 1280. Витягнутий зі своєї колонки, він розтягнувся б на всю рамку, і кнопка на 294 стала б кнопкою на 1490.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/buy-box.html" style="width:1180px" data-w="1180" title="Блок покупки"></iframe></div><div class="kp-demo " hidden><div class="bb">
+      <div class="eyebrow"><a href="../../listing.html">Optimum Nutrition</a> · США</div>
+      <h1>Gold Standard 100% Whey 2270 г</h1>
+      <!-- one line: availability + SKU left, rating right (owner's call 2026-07-27) -->
+      <div class="bbline">
+        <div class="bbmeta"><span class="bbavail">В наявності</span><span class="art">Артикул: ON-GS-2270</span></div>
+        <div class="bbrate"><a href="#rev"><span class="st"><span class="uiv-ic uiv-star"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span><b>4.8</b></span> · 126 відгуків</a></div>
+      </div>
+
+      <div class="vgroup">
+        <div class="vlbl">Фасування<span class="vsel">2270 г</span></div>
+        <div class="vopts" role="radiogroup">
+          <span class="vopt" role="radio" aria-checked="false" tabindex="-1" style="cursor: pointer;">908 г</span>
+          <span class="vopt on" role="radio" aria-checked="true" tabindex="0" style="cursor: pointer;">2270 г</span>
+          <span class="vopt" role="radio" aria-checked="false" tabindex="-1" style="cursor: pointer;">4540 г</span>
+        </div>
+      </div>
+      <div class="vgroup">
+        <div class="vlbl">Смак<span class="vsel">Подвійний шоколад</span></div>
+        <div class="vopts" role="radiogroup">
+          <span class="vopt on" role="radio" aria-checked="true" tabindex="0" style="cursor: pointer;">Подвійний шоколад</span>
+          <span class="vopt" role="radio" aria-checked="false" tabindex="-1" style="cursor: pointer;">Ваніль</span>
+          <span class="vopt" role="radio" aria-checked="false" tabindex="-1" style="cursor: pointer;">Полуниця</span>
+          <span class="vopt off" role="radio" aria-checked="false" aria-disabled="true" tabindex="-1">Печиво-крем</span>
+        </div>
+      </div>
+
+      <!-- Price and action share ONE row (visual layer decision, Concept step 7):
+           the figure on the left, «У кошик» + ♡ on the right. The qty stepper is
+           dropped - quantity is a cart job, and on a PDP it only delays the one
+           clear action. -->
+      <div class="priceblk">
+        <div class="pbl">
+          <div class="oldrow"><span class="old">1 520 ₴</span><span class="cut">−15%</span></div>
+          <div class="new">1 290 <span class="uiv-cur">₴</span></div>
+          <!-- Coach-tier price shown ONLY in coach mode (product-coach state), not to buyers -
+               so regular buyers don't hold off waiting for a cheaper coach price. -->
+        </div>
+        <div class="buyrow">
+          <a class="btn--accent btn--l addcart" href="../../cart.html">У кошик</a>
+          <button class="btn--outline btn--icon btn--l wish" aria-label="В обране"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span></button>
+        </div>
+        <!-- per-serving + bonus sit UNDER both columns, so the figure and the action
+             stay on one baseline and the small print never pushes them apart -->
+        <div class="perserv">≈ 18 ₴ / порція · +13 ₴ бонус на рахунок</div>
+      </div>
+
+      <div class="simple">Сироватковий протеїн для росту та відновлення м'язів. 24 г білка на порцію - базова добавка для набору маси й підтримки форми.</div>
+
+      <div class="dpblk">
+        <div class="dphead">
+          <div class="dph">Доставка</div>
+          <button class="btn--outline btn--s dpcity" type="button">Одеса <span class="dpcar uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></button>
+        </div>
+        <!-- carrier logo instead of a generic icon on the Нова Пошта rows; the brand
+             is in the mark, so the titles stay short and dash-free -->
+        <div class="dprow">
+          <span class="dpic np">НП</span>
+          <div class="dpt"><b>До відділення або поштомату</b><span>1–2 дні</span></div>
+          <div class="dpp">від 50 ₴</div>
+        </div>
+        <div class="dprow">
+          <span class="dpic np">НП</span>
+          <div class="dpt"><b>Кур'єр на адресу</b><span>2+ днів</span></div>
+          <div class="dpp">від 70 ₴</div>
+        </div>
+        <div class="dprow">
+          <span class="dpic"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c4.5-4.2 6.8-7.3 6.8-10.5A6.8 6.8 0 0 0 5.2 10.5C5.2 13.7 7.5 16.8 12 21z"></path><circle cx="12" cy="10.4" r="2.5"></circle></svg></span></span>
+          <div class="dpt"><b>Самовивіз в Одесі</b><span>завтра</span></div>
+          <div class="dpp free">безкоштовно</div>
+        </div>
+        <div class="dph dph2">Оплата</div>
+        <div class="dppay">
+          <span class="paych">Картка</span>
+          <span class="paych">Apple / Google Pay</span>
+          <span class="paych">Накладений платіж</span>
+          <span class="paych">Готівка при самовивозі</span>
+        </div>
+      </div>
+    </div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Шапка</b> <code>.bbline</code> - flex зі <code>space-between</code>, у ньому <code>.bbmeta</code> (наявність і артикул) ліворуч і <code>.bbrate</code> праворуч. <code>.art</code> відбивається крапкою через <code>::before</code>, а не символом у тексті</span></div><div class="a"><i>2</i><span><b>Ціновий блок</b> <code>.priceblk</code> - grid <code>auto minmax(220px, 1fr)</code>: <code>.pbl</code> з <code>.oldrow</code> у першій колонці, <code>.buyrow</code> у другій, <code>.perserv</code> через обидві. До 479 колонка одна. 220 і 36 - літерали</span></div><div class="a"><i>3</i><span><b>Рядок дії</b> <code>.buyrow</code> - <code>flex-wrap</code> стоїть на рядку, а не всередині ширини (крок 7.64): доти він жив тільки у телефонному блоці, і в двох смугах - 480 до ~600 та 860 до ~1100 - це був єдиний бічний скрол, що лишався в продукті. <code>.addcart</code> тягне решту ширини, серце коробки не оголошує зовсім</span></div><div class="a"><i>4</i><span><b>Доставка</b> <code>.dpblk</code> - <code>.dphead</code> з кнопкою міста <code>.dpcity</code>, три рядки <code>.dprow</code> у сітці <code>auto minmax(0,1fr) auto</code>, потім <code>.dph2</code> і чипи оплати <code>.dppay</code> / <code>.paych</code>. <code>.dpic.np</code> - логотип перевізника картинкою з <code>font-size:0</code>, тож літери «НП» у розмітці лишаються для тих, хто читає код, і зникають з екрана. <code>.dpp.free</code> - єдине місце, де ціна йде не моно, а <code>--font-body</code></span></div><div class="a"><i>5</i><span><b>Коробка тренера</b> <code>.coachbox</code> - у демо її немає, бо демо знято з екрана покупця. <code>.cbh</code> із чипом <code>.cbtier</code>, рядок <code>.cbrow</code> з <code>.cbnew</code>, <code>.cbold</code> і <code>.cbsave</code>, під ним <code>.cbnote</code>. Знак у заголовку набраний символом у розмітці, а <code>marks.js</code> робить із нього мітку, якій файл дає 17px</span></div><div class="a"><i>6</i><span><b>Вибір клієнта</b> <code>.clientpick</code> - підпис і один &lt;select&gt;. Обидва класи є рівно на одному кольоровому екрані, <code>design/product-coach.html</code></span></div></div>
+<div class="kp-gap"><h4><code>.perserv</code> - одна назва, дві редакції, і файл це знає</h4>Клас належить і цьому файлу, і <code>product-card.css</code>. Тут увесь рядок «≈ 18 ₴ / порція · +13 ₴ бонус» іде моно, слова разом із цифрами; картка пише <code>&lt;b&gt;18 ₴&lt;/b&gt; / порція</code> і моноспейсить <b>лише число</b> - те, чого просить <code>DESIGN-artifacts.md:77</code>. Звести їх - це <code>&lt;b&gt;</code> у цій розмітці плюс рішення, чи бонусу взагалі місце на цьому рядку. Рішення IA, і файл каже це вголос у коментарі, а не мовчить. Одна з 126 неоднозначних назв шару, і єдина в наборі, де обидва власники малюють по-різному <b>навмисно</b>.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>заголовок 30 <code>--font-display</code>, метарядок 12 моно <code>--text-muted</code>, ціна 36 <code>--fw-semibold</code></td><td>ціна - найбільша річ на екрані, і вона одна така</td></tr>
+<tr><td><b><code>:hover</code></b></td><td>бренд у <code>.eyebrow a</code> йде в <code>--text-action</code>, посилання на відгуки в <code>.bbrate a</code> - у підкреслення</td><td>два ховери на весь файл, обидва на посиланнях; кнопки свої стани беруть у <code>button.css</code></td></tr>
+<tr><td><b>фокус</b></td><td><b>жодного оголошення</b></td><td>у файлі два стани всього - <code>:hover</code> і <code>::before</code>. Кільце тут чуже, і чиє саме - питання власника</td></tr>
+<tr><td><b>немає в наявності</b></td><td><code>.oosbtn</code> з <code>restock-note.css</code>; до 479 він займає весь рядок <code>flex: 1 1 100%</code></td><td>крок 6.8: «Повідомити про надходження» просить усі 328px телефонної колонки, і поділити рядок із 52px серцем означало розігнати блок до 371 і поїхати вбік</td></tr>
+<tr><td><b>режим тренера</b></td><td>з'являються <code>.coachbox</code> і <code>.clientpick</code>, <code>.perserv</code> починається з «Роздрібна ціна», дія стає «Додати клієнту»</td><td>одна ціна жива на одному екрані: роздрібна вгорі втрачає акцент, тарифна в коробці його бере</td></tr>
+<tr><td><b>до 479</b></td><td>ціновий блок в одну колонку, <code>.bbrate</code> отримує <code>order:-1</code> і йде над метарядком</td><td>на телефоні оцінка читається раніше за артикул</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>2</b> медіа-умови, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width: 479px)</code></li><li><code>@media (max-width:479px)</code></li></ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>36</b> власних класів і <b>1</b> стан.</p><div id="idle"></div><script>var KIT_CLS=["addcart", "art", "bbline", "bbmeta", "buyrow", "cbh", "cbnew", "cbnote", "cbold", "cbrow", "cbsave", "cbtier", "clientpick", "coachbox", "dpblk", "dpcity", "dph", "dph2", "dphead", "dpic", "dpp", "dppay", "dprow", "dpt", "eyebrow", "np", "oldrow", "paych", "pbl", "priceblk", "qty", "simple", "tier", "vgroup", "vlbl", "vsel"], KIT_STS=[":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>buy-box.css</code>: <b>16</b> семантичних ролей і <b>27</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (16)</th><th>Примітиви (27)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-save</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--mark-inactive</code> <code>--text-action</code> <code>--text-body</code> <code>--text-danger</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-success</code></td><td><code>--font-body</code> <code>--font-display</code> <code>--font-mono</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-30</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-regular</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--ls-display</code> <code>--ls-lead</code> <code>--radius-12</code> <code>--radius-16</code> <code>--radius-8</code> <code>--size-34</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
+<p class="kp-p">Вирішувач по всіх 57 селекторах: <b>27 оголошень збігаються з елементами й ніде не виграють</b>, і це три різні форми. <b>П'ятнадцять</b> - базове правило, яке б'є власна ж уточнена версія з того самого файлу: <code>.bb .bbmeta</code> проти <code>.bb .bbline .bbmeta</code> (7 оголошень), <code>.bb .buyrow</code> проти <code>.bb .priceblk .buyrow</code> (4), <code>.bb .addcart</code> проти <code>.bb .buyrow .addcart</code> (3), <code>.bb .perserv</code> проти <code>.bb .priceblk .perserv</code> (1). Жоден екземпляр у продукті не стоїть поза уточнювачем, тож <b>файл описує вільніше розміщення, ніж продукт колись уживає</b>. <b>П'ять</b> - той самий селектор, написаний двічі: <code>.bb .simple</code> віддає рамці колір угорі й гасить його <code>transparent</code> унизу (4), <code>.bb .vlbl</code> двічі каже про накреслення (1). <b>Сім</b> - обидва блоки <code>@media (max-width: 479px)</code> структурної половини, повторені слово в слово в колірній.</p><div class="kp-gap"><h4>І ще 35 оголошень не збігаються ні з чим</h4><code>.bb .tier</code> - 30 оголошень, <code>.bb .qty</code> - 4, <code>.bb .qty .qn</code> - 1. Це не стан, який вмикає JavaScript, і не залишок сірого прототипу: <b>такої розмітки немає ніде</b>. Крамниця пише <code>.ci-qty</code>, оформлення - <code>.co-qty</code>, голого класу <code>qty</code> немає в жодному з двох шарів; <code>tier</code> голим є рівно на одному сірому екрані, <code>wireframes/coach-verify-tier.html</code>, і ніколи всередині <code>.bb</code>. Лічильник кількості <b>прибрано навмисно</b> - розмітка продукту каже це коментарем: кількість це робота кошика, а на сторінці товару вона лише відкладає одну ясну дію. А тарифну ціну тренера тепер малює <code>.coachbox</code> з <code>.cbtier</code>. Тобто 35 оголошень - це два рішення про товар, ухвалені й не прибрані з файлу.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Коментар у файлі відстав від відповіді.</b> Рядок 106 каже про 36px: «немає <code>--fs-36</code>, повідомлено на етап 09». <code>tokens.css:190-200</code> уже відповів: вище 34 шкали немає навмисно, 36 у <code>.bb .new</code> лишається літералом, бо значення з одним ужитком - це значення, а не токен. Прибрати треба питання, а не число</li><li><b>35 мертвих оголошень</b> - <code>.bb .tier</code> і <code>.bb .qty</code> прибрати або дати їм розмітку; це рішення про товар, і воно не з css</li><li><b><code>.clientpick select{ max-width:280px }</code> виграє і не малює нічого:</b> після <code>uivPatchMenus()</code> цей &lt;select&gt; це <code>.menu-src</code> розміром 1x1. Вирішувач такого не бачить - правило чесно перемагає на невидимому елементі</li><li><b>Немає стану фокуса</b> на жодному з власних елементів</li><li><b>Межа 479 не заміряна зсередини</b>: стандартні ширини перепису 360 / 390 / 720 / 1280 не стають по обидва боки від неї</li></ul>
+<p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script>
+/* The frame is a viewport, so it has to be sized like one and not like a box.
+   Two numbers are read from the frame itself rather than typed here: its content
+   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
+   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
+   the media query inside sees - the frame is still 1180 wide to itself, which is
+   the whole reason the frame exists. */
+(function(){
+  var f = document.querySelector('.kp-frame'); if (!f) return;
+  var wrap = f.parentNode;
+  function fit(){
+    try{
+      var d = f.contentDocument; if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
+      h = Math.min(h, 900);
+      f.style.height = h + 'px';
+      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
+      var avail = wrap.clientWidth - 24;
+      var k = Math.min(1, avail / declared);
+      f.style.transformOrigin = 'top left';
+      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
+      wrap.style.height = Math.round(h * k) + 'px';
+    }catch(e){}
+  }
+  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
+  addEventListener('resize', fit);
+  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

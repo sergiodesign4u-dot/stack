@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Футер | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Організм · рівень 3</div>
+<h1 class="kp-h1">Футер</h1>
+<p class="kp-lead">Тридцять один екран закінчується цим блоком, і він єдиний організм, який людина бачить на кожному з них. Сімдесят один рядок, і в них <b>дві межі, два оголошення з чужого компонента й одна причина, чому сірий прототип їде вбік на 720</b>.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/footer.css</span><span class="kp-tag">79 рядків</span><span class="kp-tag">22 селектори</span><span class="kp-tag">102 оголошення</span><span class="kp-tag">31 екран</span></div>
+
+<section class="kp-sec"><div class="kp-sh">З чого складається</div>
+<p class="kp-p">Футер майже нічого не складає: він тримає власну сітку, а всередині неї - рядок посилань, поле розсилки й кнопку, які належать своїм файлам.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Файл</th><th>Класів</th><th>Які саме</th></tr></thead><tbody><tr><td><code>link-row.css</code></td><td>2</td><td><code>.seolink</code> <code>.wff-legal</code></td></tr><tr><td><code>field.css</code></td><td>2</td><td><code>.field</code> <code>.field--s</code></td></tr><tr><td><code>button.css</code></td><td>1</td><td><code>.btn--s</code></td></tr></tbody></table></div><p class="kp-p"><b>2</b> класи всередині кореня мають більш ніж одного власника, тож із коду не видно, чий вони: <code>.btn--accent</code> <code>.uiv-ic</code></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/index.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень.</p><p class="kp-p">Показано <b>в рамці шириною 1180</b>, і ширина названа не для краси: це ширина, на якій цей організм у продукті стоїть. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/footer.html" style="width:1180px" data-w="1180" title="Футер"></iframe></div><div class="kp-demo " hidden><footer id="wf-footer" class="wff" role="contentinfo">
+    <div class="wff-trust">
+      <div class="wff-tc"><span class="uiv-tc-ic"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5h11v8.5H3z"></path><path d="M14 9h3.6l2.9 3v3H14"></path><circle cx="7" cy="17.5" r="1.9"></circle><circle cx="17" cy="17.5" r="1.9"></circle></svg></span></span><div class="th">Доставка 1–2 дні</div><div class="ts">Нова Пошта по всій Україні</div></div>
+      <div class="wff-tc"><span class="uiv-tc-ic"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 2.5v5.4c0 4.5-3 7.4-7 9.6-4-2.2-7-5.1-7-9.6V5.5L12 3z"></path><path d="M8.9 11.7l2.1 2.1 4.1-4.3"></path></svg></span></span><div class="th">Гарантія оригіналу</div><div class="ts">Сертифікати на кожен товар</div></div>
+      <div class="wff-tc"><span class="uiv-tc-ic"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"></rect><path d="M2.5 10h19"></path><path d="M6 14.5h4"></path></svg></span></span><div class="th">Оплата як зручно</div><div class="ts">Картка · Apple/Google Pay · при отриманні</div></div>
+      <div class="wff-tc"><span class="uiv-tc-ic"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 5L5 9.5 9.5 14"></path><path d="M5 9.5h9.2a5.3 5.3 0 0 1 0 10.6H8"></path></svg></span></span><div class="th">Повернення 14 днів</div><div class="ts">Без зайвих питань</div></div>
+    </div>
+    <div class="wff-cols">
+      <div class="wff-col"><h4>Розсилка</h4>
+        <div class="wff-news"><input class="field field--s" type="email" placeholder="E-mail для новин та акцій" aria-label="E-mail"><button type="button" class="btn--accent btn--s">Підписатись</button></div>
+        <a href="../../wireframes/content-reviews.html"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span> Оцініть нас у Google</a></div>
+      <div class="wff-col"><h4>Stack</h4><a href="../../wireframes/content-about.html">Про нас</a><a href="../../wireframes/content-contacts.html">Контакти</a><a href="../../wireframes/content-blog.html">Блог</a><a href="../../wireframes/content-legal.html">Публічна оферта</a><a href="../../wireframes/content-legal.html">Політика конфіденційності</a><a href="../../wireframes/content-legal.html">Умови використання</a></div>
+      <div class="wff-col"><h4>Покупцям</h4><a href="../../wireframes/content-loyalty.html">Знижки та бонуси</a><a href="../../wireframes/content-delivery.html">Доставка й оплата</a><a href="../../wireframes/content-returns.html">Повернення</a><a href="../../wireframes/content-faq.html">FAQ</a></div>
+      <div class="wff-col"><h4>Тренерам</h4><a href="../../wireframes/coach-landing.html">Для тренерів</a><a href="../../wireframes/coach-landing.html">Тарифи Free / Pro</a></div>
+      <div class="wff-col"><h4>Консультація</h4><a class="wff-phone" href="../../wireframes/content-contacts.html">0 800 000 000</a><a class="wff-msg" href="../../wireframes/content-contacts.html"><span class="mi"><span class="uiv-ic uiv-brand"><svg viewBox="0 0 176 176" data-mark="telegram" fill="currentColor" aria-hidden="true"><path d="m123.33 62.35-44.63 36.48-2.1 1.72a2.27 2.27 0 0 0 -.84 1.48l-.47 3.88-1.29 10.9a.5.5 0 0 1 -1 .09l-3.63-10.9-3.75-11.15a2.24 2.24 0 0 1 1.08-2.66l46.44-26.62 8.74-5c1.27-.74 2.57.86 1.45 1.78z"></path><path d="m88 0a88 88 0 1 0 88 88 88 88 0 0 0 -88-88zm54.89 50.94-17.18 75.91c-.81 3.56-5.33 5.17-8.5 3l-25.94-17.6-13.21 12.49a4.54 4.54 0 0 1 -7.32-1.62l-4.77-14-4.77-14-25.57-7a3.32 3.32 0 0 1 -.29-6.41l98.78-35.59 1.82-.65c3.83-1.34 7.79 1.76 6.95 5.47z"></path></svg></span></span>Telegram</a><a class="wff-msg" href="../../wireframes/content-contacts.html"><span class="mi"><span class="uiv-ic uiv-brand"><svg viewBox="0 0 176 176" data-mark="viber" fill="currentColor" aria-hidden="true"><path d="m129.54 61.54c-.77-3-3-6.42-5.8-9.35-3.44-3.6-7.84-6.53-11.69-7.39a128 128 0 0 0 -48.11 0c-7 1.56-15.77 10-17.48 16.74a92 92 0 0 0 0 39.49c1.38 5.46 7.37 12 13.3 15.14a16.6 16.6 0 0 0 4.18 1.61.65.65 0 0 1 .54.64v19.2a1.06 1.06 0 0 0 1.83.73l9.13-9.35 8.56-8.8a.62.62 0 0 1 .48-.2 129.12 129.12 0 0 0 27.56-2.22c7-1.56 15.77-10 17.49-16.75a92 92 0 0 0 .01-39.49zm-17.24 40.46a14.81 14.81 0 0 1 -6.36 7 14.48 14.48 0 0 1 -2.75.88c-1.07-.33-2.09-.54-3-.94a75.6 75.6 0 0 1 -20.85-12.3 55 55 0 0 1 -5.23-5.13 67.64 67.64 0 0 1 -10-15.27c-1.28-2.6-2.36-5.31-3.46-8-1-2.45.48-5 2-6.82a15.83 15.83 0 0 1 5.37-4 3.44 3.44 0 0 1 4.31 1 56.27 56.27 0 0 1 6.67 9.33 4.45 4.45 0 0 1 -1.25 6c-.5.34-1 .75-1.43 1.13a4.55 4.55 0 0 0 -1.08 1.15 3.13 3.13 0 0 0 -.24 2.78c1.93 5.31 4.86 9.73 9.24 12.84a23.91 23.91 0 0 0 4.76 2.62 7.14 7.14 0 0 0 3.58.87c2.18-.26 2.9-2.66 4.42-3.91a4.19 4.19 0 0 1 5-.22c1.62 1 3.18 2.12 4.74 3.23a52.2 52.2 0 0 1 4.45 3.39 3.54 3.54 0 0 1 1.11 4.37zm-14.36-24a2.11 2.11 0 0 1 -.12-.51 14.07 14.07 0 0 0 -.3-2 5.8 5.8 0 0 0 -2.14-3.36 5.9 5.9 0 0 0 -1.73-.84c-.79-.22-1.62-.16-2.4-.35a1.48 1.48 0 0 1 -1.2-1.71 1.55 1.55 0 0 1 1.63-1.25c4.58.34 8 2.54 8.88 7.45a11.48 11.48 0 0 1 .19 1.38 4 4 0 0 1 0 1.25 1.29 1.29 0 0 1 -1.06 1h-.22a1.5 1.5 0 0 1 -1.53-1.06zm-1.46-12.39a18 18 0 0 0 -4.86-1.49c-.74-.12-1.48-.19-2.22-.29a1.41 1.41 0 0 1 -1.33-1.58 1.39 1.39 0 0 1 1.55-1.37 20.26 20.26 0 0 1 8.43 2.2 17 17 0 0 1 7.45 7.35 19.28 19.28 0 0 1 1.84 5.91 7.54 7.54 0 0 1 .12.81c.05.6.07 1.19.12 1.94v.28a4 4 0 0 1 -.12.88 1.47 1.47 0 0 1 -2.76.14 4.22 4.22 0 0 1 -.15-1.24 16.1 16.1 0 0 0 -1.3-6.5 13.63 13.63 0 0 0 -.67-1.32 14.64 14.64 0 0 0 -6.1-5.72zm16.52 18.44c-1 0-1.49-.85-1.56-1.78-.13-1.83-.23-3.67-.48-5.49a22.34 22.34 0 0 0 -3.14-8.66 23 23 0 0 0 -15.4-10.58c-1.44-.25-2.91-.31-4.36-.47-.92-.09-2.13-.15-2.33-1.3a1.58 1.58 0 0 1 1.55-1.77h1.07a26.54 26.54 0 0 1 21.65 12 26.24 26.24 0 0 1 3.78 9.68c.38 2.17.52 4.39.69 6.59a1.55 1.55 0 0 1 -1.47 1.78z"></path><path d="m88 0a88 88 0 1 0 88 88 88 88 0 0 0 -88-88zm50.83 103.13v.12c-2.56 10.39-14.14 21.52-24.77 23.84h-.12a138.13 138.13 0 0 1 -25.94 2.49c-2.54 0-5.1-.08-7.64-.23l-11.74 12.21a4.66 4.66 0 0 1 -8-3.23v-11.59a29.69 29.69 0 0 1 -7.79-3.61c-7.38-4.69-13.78-12.48-15.62-19.88v-.12a101.55 101.55 0 0 1 0-43.69v-.13c2.56-10.38 14.13-21.51 24.79-23.83h.12a137.68 137.68 0 0 1 51.82 0h.12c5.74 1.25 11.75 5.07 16.47 10 4 4.15 7.12 9.1 8.3 13.87v.13a101.55 101.55 0 0 1 0 43.65z"></path></svg></span></span>Viber</a><a href="../../wireframes/content-contacts.html">Пн–Нд 9:00–21:00</a></div>
+    </div>
+    <div class="wff-seo" data-uiv="1">
+      <b>Популярні категорії:</b><span> <a class="seolink" href="../../wireframes/listing.html">Протеїн</a> · <a class="seolink" href="../../wireframes/listing.html">Гейнери</a> · <a class="seolink" href="../../wireframes/listing.html">Креатин</a> · <a class="seolink" href="../../wireframes/listing.html">BCAA</a> · <a class="seolink" href="../../wireframes/listing.html">Передтренувальні</a> · <a class="seolink" href="../../wireframes/listing.html">Вітаміни</a> ·&nbsp;&nbsp;
+      </span><b>За ціллю:</b><span> <a class="seolink" href="../../wireframes/listing.html">Набір маси</a> · <a class="seolink" href="../../wireframes/listing.html">Схуднення</a> · <a class="seolink" href="../../wireframes/listing.html">Відновлення</a> · <a class="seolink" href="../../wireframes/listing.html">Енергія</a> ·&nbsp;&nbsp;
+      </span><b>Бренди:</b><span> <a class="seolink" href="../../wireframes/listing.html">Optimum Nutrition</a> · <a class="seolink" href="../../wireframes/listing.html">BioTechUSA</a> · <a class="seolink" href="../../wireframes/listing.html">Myprotein</a> ·&nbsp;&nbsp;
+      </span><b>Міста:</b><span> <a class="seolink" href="../../wireframes/listing.html">Протеїн Київ</a> · <a class="seolink" href="../../wireframes/listing.html">Протеїн Одеса</a> · <a class="seolink" href="../../wireframes/listing.html">Протеїн Львів</a>
+    </span></div>
+    <div class="wff-bot">
+      <span class="wff-legal">© 2026 Stack. Спортивне харчування в Україні. · <a href="../../wireframes/content-legal.html">Політика</a> · <a href="../../wireframes/content-legal.html">Умови</a> · <a href="#">Змінити згоду</a></span>
+      <span class="wff-soc"><a href="../../wireframes/content-contacts.html" style="color:inherit">Instagram</a><a href="../../wireframes/content-contacts.html" style="color:inherit">Telegram</a><a href="../../wireframes/content-contacts.html" style="color:inherit">YouTube</a></span>
+      <span>Visa · Mastercard · Apple Pay · Google Pay</span>
+    </div></footer></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Смуга довіри</b> <code>.wff-trust</code> - 2 колонки, від 720 чотири, до 479 одна без рамок і фону. Три редакції однієї сітки, і кожна написана окремо</span></div><div class="a"><i>2</i><span><b>Колонки</b> <code>.wff-cols</code> - одна колонка, від 720 <code>1.5fr repeat(4, 1fr)</code>. Саме ця межа тримає A11</span></div><div class="a"><i>3</i><span><b>Телефон</b> <code>.wff-phone</code> - 24 / 700 / <code>nowrap</code>. Єдиний елемент футера, який не вміє стискатись. Його колонка на 720 займає 172 у кольорі й 164 у сірому, тобто у кольорі вона ширша - і саме тому він <b>не</b> причина A11</span></div><div class="a"><i>4</i><span><b>Знаки месенджерів</b> - <code>--brand-ink: 16px</code>. Крок 7.16 переписав тут <code>svg{width:16px}</code> на замовлення чорнила: викликач каже, якою має бути фарба, а розмір коробки рахує <code>icon.css</code></span></div><div class="a"><i>5</i><span><b>Іконка довіри</b> <code>.uiv-tc-ic</code> - 27px, до 479 <code>--size-24</code>. Приїхала сюди з <code>base.css</code> на кроці 5: у базі вона програвала однакову специфічність <code>icon.css</code> і стискалась до 1.05em</span></div></div>
+<div class="kp-gap"><h4>Два оголошення тут не про футер</h4><code>.fh .ar{ transition:transform .18s ease }</code> у колірному блоці <b>жодного разу не виграє</b>. Заміряно: воно збігається з <b>280</b> елементами на сорока екранах, і всі 280 лежать усередині <code>.fgroup</code> - групи фільтра, - де його б'є <code>filter-group.css</code> тим самим селектором на 20 мілісекунд довшим. Футер не малює жодної стрілки: <code>.fh</code> у цьому файлі більше ніде не згадано. <b>Оголошення живе не у своєму файлі</b>, і це видно тільки вирішувачем, бо на екрані воно нічого не змінює.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>посилання <code>--text-secondary</code>, фон <code>--bg-surface</code></td><td>футер тихіший за сторінку: він завершує, а не кличе</td></tr>
+<tr><td><b>наведення</b></td><td>посилання йде в <code>--text-action</code>, перехід 150ms</td><td>єдиний власний стан у файлі</td></tr>
+<tr><td><b>фокус</b></td><td><b>кільце браузера</b></td><td>футер не входить у список тринадцяти селекторів <code>link-row.css</code>, які вмикають системне кільце. Питання власника, родина E</td></tr>
+<tr><td><b>до 479</b></td><td>смуга довіри розбирається: рамки, фон і радіус зникають, лишається <code>inset 0 1px 0</code> між сусідами</td><td>на телефоні чотири картки в рамках з'їдають ширину</td></tr>
+<tr><td><b>720 і вище</b></td><td>смуга довіри в 4 колонки, колонки футера в 5</td><td><b>і саме тут прототип ламається</b>: див. нижче</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>2</b> медіа-умови, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width:479px)</code></li><li><code>@media (min-width: 720px)</code></li></ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>15</b> власних класів і <b>1</b> стан.</p><div id="idle"></div><script>var KIT_CLS=["mi", "th", "ts", "uiv-tc-ic", "wff", "wff-bot", "wff-col", "wff-cols", "wff-msg", "wff-news", "wff-phone", "wff-seo", "wff-soc", "wff-tc", "wff-trust"], KIT_STS=[":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>footer.css</code>: <b>8</b> семантичних ролей і <b>17</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (17)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-surface</code> <code>--brand-ink</code> <code>--line-hair</code> <code>--text-action</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-24</code> <code>--fw-black</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--ls-caps</code> <code>--ls-display</code> <code>--radius-12</code> <code>--size-24</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-32</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
+<p class="kp-p">Вирішувач по всіх 23 селекторах: <b>6 оголошень збігаються з елементами й ніде не виграють</b>. П'ять із них - це <code>transition</code> у чужому файлі, розібраний вище (одне скорочення, п'ять довгих властивостей). Шосте - <code>.wff-tc{ display }</code> зі структурного блоку, яке б'є той самий селектор у колірному: це і є розділ етапу 08, де колір іде другим і виграє навмисне.</p><div class="kp-gap"><h4>A11 · сторінка їде вбік на 720, і винен цей блок</h4>Питання поставлено правильно тільки з другого разу. «Чи є елемент ширший за вікно» - питання неправильне: усередині горизонтального скролера так і має бути. Правильне - <b>чи їде вбік сама сторінка</b>, тобто <code>documentElement.scrollWidth &gt; innerWidth</code>. Заміряно так на 910 парах екран x ширина у двох шарах: <b>137 пар їдуть, і 129 з них - це рівно ширина 720</b>. Чистих сторінок на 720 п'ятдесят три, і в <b>двадцяти чотирьох із них футерної сітки просто немає</b>, а решта двадцять дев'ять - кольорові. <b>Жоден сірий екран із футером не проходить 720, і жоден кольоровий не падає.</b><p style="margin-top:8px">Причина заміряна до числа. На 720 та сама розмітка розкладається в <code>254.1 105.6 80.7 74.3 164.2</code> у сірому й у <code>149.8 116.4 92.9 92.9 172.1</code> у кольорі: <b>уся різниця в першій колонці, 254 проти 150</b>. Це колонка розсилки, і її <code>min-content</code> справді 254 у сірому й 150 у кольорі - поле дає туди 149 проти 26. При цьому обидва поля рахують однаково: <code>flex: 1 1 0%</code> і <code>min-width: 0px</code>. <b>Отже справа не в цих двох оголошеннях</b>, і наступний замір має бути про внесок поля, а не про його декларації.</p><p style="margin-top:8px">Крок 7.84 назвав винним <code>.wff-phone</code> - 23px жирного з <code>nowrap</code>. Це був <b>зовнішній елемент, що переповнює, а не причина</b>: колонка телефону в сірому 164, у кольорі 172, тобто в кольорі вона <b>ширша</b> й нічого не ламає. Виправлено тут.</p></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Межа 720 у сірому шарі</b> - A11: 129 сірих екранів їдуть вбік, причина звужена до колонки розсилки, наступний замір названо</li><li><b><code>.fh .ar</code> не з цього файлу</b> - переїзд у <code>filter-group.css</code> нічого не змінить на екрані, тому це крок 6, а не цей</li><li><b>Своє кільце фокуса</b> - футер поза списком тринадцяти селекторів</li><li><b>Стану «підписка вже оформлена»</b> немає: поле розсилки виглядає однаково до і після</li></ul>
+<p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script>
+/* The frame is a viewport, so it has to be sized like one and not like a box.
+   Two numbers are read from the frame itself rather than typed here: its content
+   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
+   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
+   the media query inside sees - the frame is still 1180 wide to itself, which is
+   the whole reason the frame exists. */
+(function(){
+  var f = document.querySelector('.kp-frame'); if (!f) return;
+  var wrap = f.parentNode;
+  function fit(){
+    try{
+      var d = f.contentDocument; if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
+      h = Math.min(h, 900);
+      f.style.height = h + 'px';
+      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
+      var avail = wrap.clientWidth - 24;
+      var k = Math.min(1, avail / declared);
+      f.style.transformOrigin = 'top left';
+      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
+      wrap.style.height = Math.round(h * k) + 'px';
+    }catch(e){}
+  }
+  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
+  addEventListener('resize', fit);
+  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

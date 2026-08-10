@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Банер cookie | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Організм · рівень 3</div>
+<h1 class="kp-h1">Банер cookie</h1>
+<p class="kp-lead"><b>Жоден кольоровий екран цього не малює, і жоден не може</b>: місце для банера - <code>id="wf-cookie"</code> - існує рівно в <b>одному</b> файлі всього репозиторію, <code>wireframes/system.html</code>, а <code>wfCookie()</code> пише розмітку тільки в нього. Тому вирішувач не знаходить для цього файлу жодного елемента: <b>291</b> оголошення не збігаються ні з чим - <b>найбільший</b> такий блок серед 24 організмів (для порівняння: <code>system-page</code> 210, <code>cat-overlay</code> 178). Демо нижче отримане штучно: у <code>design/index.html</code> вставили порожній <code>div#wf-cookie</code> і викликали будівника.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/cookie-banner.css</span><span class="kp-tag">42 рядки</span><span class="kp-tag">27 селекторів</span><span class="kp-tag">114 оголошень</span><span class="kp-tag">жодного кольорового екрана</span><span class="kp-tag">291 оголошення без елемента</span></div>
+
+<section class="kp-sec"><div class="kp-sh">З чого складається</div>
+<p class="kp-p">Таблиці складу немає: кореня <code>.wf-cookie</code> зонд не знайшов на жодній сторінці. Будівник пише три речі одразу - смугу згоди, підкладку <code>.wf-ov</code> з <code>overlay.css</code> і діалог налаштувань <code>.wf-ckset</code>; у демо нижче лише перша з трьох, бо діалог з'являється після натискання «Налаштувати». У смузі 8 елементів, і всі вісім - свої.</p>
+<p class="kp-p"><b>Замір не відбувся.</b> Кореня цього організму немає в спокої на жодному кольоровому екрані, тож обхід сорока екранів не мав що обійти. Склад читається з файлу й з розмітки, знятої після виклику будівника, а не з цієї таблиці.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/index.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень. Цей організм у спокої не існує - він <code>display: none</code>, доки щось не додасть <code>open</code>, - тож стенд додає цей клас сам. Показано на сцені: трансформований предок стає для <code>position: fixed</code> тим блоком, від якого рахується його <code>inset</code>, тож панель не накриває сторінку й не втрачає жодного свого оголошення.</p><p class="kp-p">Показано <b>в рамці шириною 390</b>, і ширина названа не для краси: це ширина, на якій цей організм у продукті стоїть. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/cookie-banner.html" style="width:390px" data-w="390" title="Банер cookie"></iframe></div><div class="kp-demo panel" hidden><div class="wf-cookie open" id="cookie-bar" role="region" aria-label="Згода на використання cookie"><div class="ck-txt"><b>Ми використовуємо файли cookie.</b> Необхідні - щоб сайт працював (кошик, вхід, безпека). Аналітику й маркетинг вмикаємо <b>лише за вашою згодою</b>. Докладніше - у <a href="../../content-legal.html">Політиці конфіденційності</a>.</div><div class="ck-acts"><button class="ck-btn">Прийняти всі</button><button class="ck-btn">Тільки необхідні</button><button class="ck-btn ghost">Налаштувати</button></div></div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Смуга</b> <code>.wf-cookie</code> - fixed знизу, z-index 55, рамка зверху <code>2px</code> <code>--line-inverse</code>, <code>--elevation-bar-top</code>, <code>flex-wrap</code>. Від 620 падінги 16 -> 24, і це єдина медіа-умова файлу</span></div><div class="a"><i>2</i><span><b>Текст</b> <code>.ck-txt</code> - <code>flex: 1</code> і <code>min-width: 240px</code>. Саме це число вирішує, коли три кнопки падають під текст, і воно поза шкалою</span></div><div class="a"><i>3</i><span><b>Три дії</b> <code>.ck-btn</code> - <b>власна кнопка, а не фініш з <code>button.css</code></b>: своя рамка, свій радіус <code>--radius-8</code>, свій падінг, свій кегль, а <code>.ck-btn.ghost</code> робить третю тихішою. У підвалі діалогу поруч стоять уже <code>.btn--outline</code> і <code>.btn--accent</code> - дві системи кнопок в одному компоненті</span></div><div class="a"><i>4</i><span><b>Діалог</b> <code>.wf-ckset</code> - fixed по центру, 480 / 94vw / 88vh, <code>--elevation-4</code>, z-index <b>61</b>: той самий поверх, що в <code>.cart-drawer</code>, <code>.wf-city</code> і <code>.pm</code>. Чотири панелі на одному числі, і жодного токена порядку в шарі немає</span></div><div class="a"><i>5</i><span><b>Перемикач</b> <code>.ck-tog</code> - 42x24 з кулькою <code>i</code> 18px, зсув на 20px, три сирі числа. Класи <code>.on</code> і <code>.locked</code> ставить <code>wfCkTog()</code>; <code>.locked</code> це <code>opacity: .6</code> і <code>cursor: not-allowed</code></span></div><div class="a"><i>6</i><span><b>Категорії</b> <code>.ck-cat</code> з назвою <code>.ck-cat-t</code>, поясненням <code>.ck-cat-d</code> (шириною до 300) і замком <code>.ck-lock</code>, під ними примітка <code>.ck-note</code>, а внизу <code>.wf-ckset-h</code> / <code>.wf-ckset-b</code> / <code>.wf-ckset-f</code>: три рядки - необхідні (замкнені), аналітика, маркетинг</span></div></div>
+<div class="kp-gap"><h4>Посилання у футері, яке нікуди не веде</h4>Футер малюється на <b>31</b> кольоровому екрані, і в ньому є «Змінити згоду»: <code>&lt;a href="#" onclick="openCookieSettings()"&gt;</code>, <code>wireframes/_nav.js:1777</code>. Далі за кодом: <code>openCookieSettings()</code> шукає <code>#ckset</code>, а не знайшовши - робить <code>location.href = 'system.html'</code>. <code>#ckset</code> пише тільки <code>wfCookie()</code>, тобто тільки там, де є <code>id="wf-cookie"</code>. У теці <code>design/</code> файлу <code>system.html</code> немає. Це прочитано по коду, а не натиснуто в браузері, і кожна ланка перевіряється одним грепом.</div><div class="kp-gap"><h4>Інвентар каже інше</h4><code>design/kit/kit.html:213</code> у таблиці компонентів пише про цей файл «вузол S, на всіх сторінках». У репозиторії - одна сіра сторінка й нуль кольорових. Одне з двох тверджень треба зняти, і це рішення власника, а не правка вітрини.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>смуга у спокої</b></td><td>три дії однакової ваги: «Прийняти всі», «Тільки необхідні», «Налаштувати»</td><td>згода за українським правилом дається до, а не після, і відмова не має бути важчою за згоду</td></tr>
+<tr><td><b>згоду збережено</b></td><td><code>.wf-cookie.hidden</code> -> <code>display: none</code></td><td>клас додає <code>saveCookiePrefs()</code>; це єдиний стан файлу, який вмикається в рантаймі</td></tr>
+<tr><td><b>діалог відкрито</b></td><td><code>.wf-ckset.open</code> -> <code>display: flex</code>, під ним <code>.wf-ov.open</code></td><td>підкладка чужа - з <code>overlay.css</code>, - і саме тому цей файл не має власного затемнювача</td></tr>
+<tr><td><b>перемикач увімкнено</b></td><td><code>.ck-tog.on</code> -> фон <code>--bg-inverse</code>, кулька їде на 20px</td><td>єдиний рух у файлі: <code>transition</code> на фоні й на <code>left</code></td></tr>
+<tr><td><b>перемикач замкнено</b></td><td><code>.ck-tog.locked</code> -> <code>opacity: .6</code>, <code>cursor: not-allowed</code>, і <code>wfCkTog()</code> виходить першим рядком</td><td>необхідні cookie не вимикаються, і це сказано двічі: виглядом і кодом</td></tr>
+<tr><td><b>фокус</b></td><td>перемикач це <code>&lt;span role="switch"&gt;</code> без <code>tabindex</code></td><td>з клавіатури до нього не дійти; у файлі немає жодного псевдокласу стану, тож і кільця фокуса він не описує</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>1</b> медіа-умова, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (min-width: 620px)</code></li></ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>16</b> власних класів і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["ck-acts", "ck-btn", "ck-cat", "ck-cat-d", "ck-cat-t", "ck-lock", "ck-note", "ck-tog", "ck-txt", "ghost", "hidden", "wf-ckset", "wf-ckset-b", "wf-ckset-f", "wf-ckset-h", "wf-cookie"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>cookie-banner.css</code>: <b>11</b> семантичних ролей і <b>18</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (11)</th><th>Примітиви (18)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--elevation-4</code> <code>--elevation-bar-top</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-20</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-medium</code> <code>--lh-airy</code> <code>--radius-12</code> <code>--radius-8</code> <code>--radius-circle</code> <code>--radius-pill</code> <code>--size-24</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
+<p class="kp-p">Усі <b>28</b> правил файлу лежать у списку «не збігається ні з чим», разом <b>291</b> оголошення - найбільший такий блок серед 24 файлів організмів. Списку «збігається й не виграє» тут бути не може: щоб програти, треба спершу зустріти елемент.</p><div class="kp-gap"><h4>І одна цифра з того ж перепису, якій не можна вірити</h4>Перепис приписав цьому файлу «1 кольоровий екран». Це <code>.locked</code>: серед 24 організмів його називає лише <code>cookie-banner.css</code>, тож зонд узяв його за корінь файлу. Два елементи, які він знайшов на <code>account-empty.html</code>, - це <code>.lrung.locked</code>, сходинки лояльності з <code>loyalty-rung.css</code>. Банера там немає. Через це в шапці цієї сторінки написано «жодного кольорового екрана», а не «1».</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Четвертий розмір кнопки, якого в наборі немає.</b> Заміряно на 390: <code>.ck-btn</code> це <b>48px</b> заввишки, 14/700, поля 12/16, радіус 8, край 1. У <code>button.css</code> розмірів три - S це 40 при 14, M це 52 при 16, L це 64 при 16. Банер узяв кегль від S, поля від M і висоту, якої немає ні в кого, тобто намалював свою кнопку замість набору. Три штуки, і всі три на екрані, якого в кольорі не існує - тому це й не спливло раніше</li><li><b>Рішення про місце</b> - або <code>id="wf-cookie"</code> лягає в оболонку кольорового шару (і тоді 42 рядки нарешті мають де існувати), або файл чекає далі; третього немає, а мовчати про це не можна, бо згода на cookie це вимога закону, а не оздоблення</li><li><b>«Змінити згоду» на 31 екрані</b> веде в <code>system.html</code>, якого в <code>design/</code> немає</li><li><b><code>.ck-btn</code> - кнопка поза <code>button.css</code></b>: у тому самому компоненті нижче стоять справжні фініші, тож або смуга переходить на них, або в системи два визначення кнопки</li><li><b>Перемикач недосяжний з клавіатури</b> - <code>role="switch"</code> без <code>tabindex</code> і без стану фокуса</li><li><b>Інвентар суперечить репозиторію</b> - <code>kit.html:213</code> каже «на всіх сторінках»</li></ul>
+<p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script>
+/* The frame is a viewport, so it has to be sized like one and not like a box.
+   Two numbers are read from the frame itself rather than typed here: its content
+   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
+   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
+   the media query inside sees - the frame is still 1180 wide to itself, which is
+   the whole reason the frame exists. */
+(function(){
+  var f = document.querySelector('.kp-frame'); if (!f) return;
+  var wrap = f.parentNode;
+  function fit(){
+    try{
+      var d = f.contentDocument; if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
+      h = Math.min(h, 900);
+      f.style.height = h + 'px';
+      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
+      var avail = wrap.clientWidth - 24;
+      var k = Math.min(1, avail / declared);
+      f.style.transformOrigin = 'top left';
+      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
+      wrap.style.height = Math.round(h * k) + 'px';
+    }catch(e){}
+  }
+  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
+  addEventListener('resize', fit);
+  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

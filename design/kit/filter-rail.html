@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Рейка фільтрів | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Організм · рівень 3</div>
+<h1 class="kp-h1">Рейка фільтрів</h1>
+<p class="kp-lead">У цьому файлі <b>дві різні речі</b>. <code>.frail</code> - колонка фільтрів на семи екранах лістингу: заміряно <b>240x1871</b> при 1280, <b>164 елементи</b> всередині, і <b>0x0</b> при 390. <code>.hrail</code> з флайаутом - рейка категорій на чотирьох екранах головної. Спільного екрана в них немає жодного. Плюс два <code>!important</code>, і обидва про ту саму межу.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/filter-rail.css</span><span class="kp-tag">57 рядків</span><span class="kp-tag">20 селекторів</span><span class="kp-tag">78 оголошень</span><span class="kp-tag">11 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">З чого складається</div>
+<p class="kp-p">Рейка сама майже нічого не малює: групи фільтрів, чипи, поля, чекбокси й повзунок ціни належать своїм файлам. Вона дає їм рамку, радіус, липку позицію - і ширину.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Файл</th><th>Класів</th><th>Які саме</th></tr></thead><tbody><tr><td><code>field.css</code></td><td>4</td><td><code>.field</code> <code>.field--mono</code> <code>.field--s</code> <code>.frow</code></td></tr><tr><td><code>price-slider.css</code></td><td>3</td><td><code>.uiv-fill</code> <code>.uiv-slider</code> <code>.uiv-track</code></td></tr><tr><td><code>filter-group.css</code></td><td>2</td><td><code>.fgroup</code> <code>.fmore</code></td></tr><tr><td><code>chip.css</code></td><td>2</td><td><code>.flink</code> <code>.flinks</code></td></tr><tr><td><code>checkbox.css</code></td><td>1</td><td><code>.cb</code></td></tr><tr><td><code>button.css</code></td><td>1</td><td><code>.btn--text</code></td></tr></tbody></table></div><p class="kp-p"><b>4</b> класи всередині кореня мають більш ніж одного власника, тож із коду не видно, чий вони: <code>.ct</code> <code>.fh</code> <code>.fopt</code> <code>.in</code></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/listing.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень. Корінь тут <code>fixed</code> або <code>sticky</code> і в продукті видимий, тож <code>open</code> йому не додавали. Сцена потрібна тільки щоб він лишався всередині свого демо.</p><p class="kp-p">Показано <b>в рамці шириною 1180</b>, і ширина названа не для краси: вона з'являється тільки від 860. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки. Сам організм у рамці обмежено до <b>240px</b> - це ширина, яку він займає в продукті на 1280. Витягнутий зі своєї колонки, він розтягнувся б на всю рамку, і кнопка на 294 стала б кнопкою на 1490.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/filter-rail.html" style="width:1180px" data-w="1180" title="Рейка фільтрів"></iframe></div><div class="kp-demo kp-demo--panel" hidden><aside class="frail" id="wf-rail" aria-label="Фільтри">
+    <div class="fgroup" role="group" aria-labelledby="uiv-fh-1"><div class="fh" role="button" tabindex="0" aria-expanded="true" id="uiv-fh-1">Тип протеїну <span class="ar"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></span></div>
+      <div class="flinks">
+        <a class="flink" href="../../listing.html">Концентрат <span class="ct">31</span></a>
+        <a class="flink" href="../../listing.html">Ізолят <span class="ct">18</span></a>
+        <a class="flink" href="../../listing.html">Гідролізат <span class="ct">5</span></a>
+        <a class="flink" href="../../listing.html">Казеїн <span class="ct">9</span></a>
+        <a class="flink" href="../../listing.html">Комплексний <span class="ct">14</span></a>
+        <a class="flink" href="../../listing.html">Рослинний <span class="ct">6</span></a>
+      </div>
+    </div>
+    <div class="fgroup" role="group" aria-labelledby="uiv-fh-2"><div class="fh" role="button" tabindex="0" aria-expanded="true" id="uiv-fh-2">Наявність <span class="ar"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></span></div>
+      <label class="fopt" role="checkbox" tabindex="0" aria-label="В наявності, 71" aria-checked="false"><span class="cb"></span> В наявності <span class="ct" aria-hidden="true">71</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Під замовлення, 13" aria-checked="false"><span class="cb"></span> Під замовлення <span class="ct" aria-hidden="true">13</span></label>
+    </div>
+    <div class="fgroup" role="group" aria-labelledby="uiv-fh-3"><div class="fh" role="button" tabindex="0" aria-expanded="true" id="uiv-fh-3">Ціна, ₴ <span class="ar"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></span></div>
+      <div class="frange uiv-slider" data-uiv="1"><div class="uiv-track"></div><div class="uiv-fill" style="left: 26.6667%; width: 23.3333%;"></div><input type="range" class="uiv-rmin" min="0" max="3000" step="10" value="800" aria-label="Ціна від" style="z-index: 3;"><input type="range" class="uiv-rmax" min="0" max="3000" step="10" value="1500" aria-label="Ціна до" style="z-index: 4;"></div>
+      <div class="frow"><input type="number" class="field field--s field--mono in uiv-num" min="0" max="3000" step="10"><input type="number" class="field field--s field--mono in uiv-num" min="0" max="3000" step="10"></div>
+    </div>
+    <div class="fgroup" role="group" aria-labelledby="uiv-fh-4"><div class="fh" role="button" tabindex="0" aria-expanded="true" id="uiv-fh-4">Бренд <span class="ar"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></span></div>
+      <label class="fopt" role="checkbox" tabindex="0" aria-label="Optimum Nutrition, 12" aria-checked="true"><span class="cb on"></span> Optimum Nutrition <span class="ct" aria-hidden="true">12</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="BioTechUSA, 9" aria-checked="false"><span class="cb"></span> BioTechUSA <span class="ct" aria-hidden="true">9</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Myprotein, 7" aria-checked="false"><span class="cb"></span> Myprotein <span class="ct" aria-hidden="true">7</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Scitec Nutrition, 6" aria-checked="false"><span class="cb"></span> Scitec Nutrition <span class="ct" aria-hidden="true">6</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="OstroVit, 8" aria-checked="false"><span class="cb"></span> OstroVit <span class="ct" aria-hidden="true">8</span></label>
+      <button type="button" class="btn--text fmore">+ ще 11 <span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span> · <span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.8"></circle><path d="M20.5 20.5l-4.4-4.4"></path></svg></span> пошук бренду</button>
+    </div>
+    <div class="fgroup" role="group" aria-labelledby="uiv-fh-5"><div class="fh" role="button" tabindex="0" aria-expanded="true" id="uiv-fh-5">Ціль <span class="ar"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></span></div>
+      <label class="fopt" role="checkbox" tabindex="0" aria-label="Набір маси, 52" aria-checked="false"><span class="cb"></span> Набір маси <span class="ct" aria-hidden="true">52</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Схуднення, 23" aria-checked="false"><span class="cb"></span> Схуднення <span class="ct" aria-hidden="true">23</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Відновлення, 18" aria-checked="false"><span class="cb"></span> Відновлення <span class="ct" aria-hidden="true">18</span></label>
+    </div>
+    <div class="fgroup" role="group" aria-labelledby="uiv-fh-6"><div class="fh" role="button" tabindex="0" aria-expanded="true" id="uiv-fh-6">Смак <span class="ar"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></span></div>
+      <label class="fopt" role="checkbox" tabindex="0" aria-label="Шоколад, 58" aria-checked="false"><span class="cb"></span> Шоколад <span class="ct" aria-hidden="true">58</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Ваніль, 44" aria-checked="false"><span class="cb"></span> Ваніль <span class="ct" aria-hidden="true">44</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Полуниця, 31" aria-checked="false"><span class="cb"></span> Полуниця <span class="ct" aria-hidden="true">31</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Без смаку, 9" aria-checked="false"><span class="cb"></span> Без смаку <span class="ct" aria-hidden="true">9</span></label>
+    </div>
+    <div class="fgroup" role="group" aria-labelledby="uiv-fh-7"><div class="fh" role="button" tabindex="0" aria-expanded="true" id="uiv-fh-7">Країна <span class="ar"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></span></div>
+      <label class="fopt" role="checkbox" tabindex="0" aria-label="США, 28" aria-checked="false"><span class="cb"></span> США <span class="ct" aria-hidden="true">28</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Німеччина, 9" aria-checked="false"><span class="cb"></span> Німеччина <span class="ct" aria-hidden="true">9</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Україна, 16" aria-checked="false"><span class="cb"></span> Україна <span class="ct" aria-hidden="true">16</span></label>
+    </div>
+    <div class="fgroup" role="group" aria-labelledby="uiv-fh-8"><div class="fh" role="button" tabindex="0" aria-expanded="true" id="uiv-fh-8">Форма випуску <span class="ar"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></span></div>
+      <label class="fopt" role="checkbox" tabindex="0" aria-label="Порошок, 68" aria-checked="false"><span class="cb"></span> Порошок <span class="ct" aria-hidden="true">68</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Готовий напій (RTD), 6" aria-checked="false"><span class="cb"></span> Готовий напій (RTD) <span class="ct" aria-hidden="true">6</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Капсули / таблетки, 4" aria-checked="false"><span class="cb"></span> Капсули / таблетки <span class="ct" aria-hidden="true">4</span></label>
+    </div>
+    <div class="fgroup" role="group" aria-labelledby="uiv-fh-9"><div class="fh" role="button" tabindex="0" aria-expanded="true" id="uiv-fh-9">Фасування, вага <span class="ar"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></span></div>
+      <label class="fopt" role="checkbox" tabindex="0" aria-label="до 1 кг, 22" aria-checked="false"><span class="cb"></span> до 1 кг <span class="ct" aria-hidden="true">22</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="1–2 кг, 39" aria-checked="false"><span class="cb"></span> 1–2 кг <span class="ct" aria-hidden="true">39</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="2 кг і більше, 17" aria-checked="false"><span class="cb"></span> 2 кг і більше <span class="ct" aria-hidden="true">17</span></label>
+    </div>
+    <div class="fgroup" role="group" aria-labelledby="uiv-fh-10"><div class="fh" role="button" tabindex="0" aria-expanded="true" id="uiv-fh-10">Сертифікація <span class="ar"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></span></div>
+      <label class="fopt" role="checkbox" tabindex="0" aria-label="Сертифікат відповідності, 84" aria-checked="false"><span class="cb"></span> Сертифікат відповідності <span class="ct" aria-hidden="true">84</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Лаб. тести (Informed Sport), 7" aria-checked="false"><span class="cb"></span> Лаб. тести (Informed Sport) <span class="ct" aria-hidden="true">7</span></label>
+    </div></aside></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Колонка фільтрів</b> <code>.frail</code> - <code>display:none</code>, від 860 <code>block</code>; <code>position:sticky</code> з <code>top:82px</code>, рамка волосиною, радіус 12. На телефоні її роль бере нижній лист <code>filter-sheet.css</code></span></div><div class="a"><i>2</i><span><b>Рейка категорій</b> <code>.hrail</code> - той самий вимикач на 860, але тінь <code>--elevation-1</code> і падінг 8 зверху й знизу. Перший рядок <code>a.lead</code> - «За ціллю» у <code>--fw-black</code>, під ним роздільник <code>.rsep</code></span></div><div class="a"><i>3</i><span><b>Флайаут</b> <code>.hrail-fly.wfh-mega</code> - бере клас панелі хедера й одразу його переписує: <code>absolute</code> від <code>top:0</code> до <code>bottom:0</code>, <code>left: calc(100% - 1px)</code>, 600px завширшки зі стелею <code>calc(100vw - 249px)</code>, сітка з трьох колонок скасована на <code>grid-template-columns:none</code>. <b>Це навмисне повторне вживання, а не збіг</b></span></div><div class="a"><i>4</i><span><b>Шов</b> <code>.hrail-wrap:has(.hrail-fly.open) .hrail</code> - поки флайаут відкритий, права пара кутів рейки випрямляється, а зверху лягає <code>inset 0 1px 0 var(--line-action)</code>. Два прямокутники читаються як один</span></div><div class="a"><i>5</i><span><b>Знак</b> <code>.hrail a .ic</code> - коробка 18px у структурі, а всередині svg 17px. Емодзі сірого прототипу міняє на набір іконок <code>uivIcons()</code> у <code>design/_nav.js</code>: сірий шар володіє блоками, колірний - тільки заповнювачами</span></div><div class="a"><i>6</i><span><b>Скрим флайаута</b> <code>.hrail-scrim</code> - <code>fixed inset:0</code>, z-index 20, <code>--scrim-overlay</code>. Він нижчий за <code>.hrail-wrap</code> (25) і за сам флайаут (38), тож затемнює сторінку, не чіпаючи рейку</span></div></div>
+<div class="kp-gap"><h4>Обидва <code>!important</code> кажуть одне речення</h4><code>@media (max-width: 859px){ .hrail-fly.wfh-mega{ display:none !important } }</code> б'є <code>.hrail-fly.wfh-mega.open{ display:block }</code> - три класи проти двох. <code>.hrail-scrim{ display:none !important }</code> б'є <code>.hrail-scrim.open</code> - два проти одного. В обох випадках перебивають НЕ чужий файл, а власний стан: нижче 860 флайаута не існує, хоч би що JavaScript лишив на елементі.<br><br>У всьому шарі <code>!important</code> рівно <b>п'ять</b>, у чотирьох файлах, і всі п'ять однакові за змістом: <code>display:none</code> на межі 860. Два тут, одне в <code>header.css</code> (скрим мегапанелі), і ще два з протилежного боку - <code>filter-sheet.css</code> і <code>nav-drawer.css</code> вимикають мобільне вище 860. <b>Це не п'ять недбалостей, а один брак механізму</b>: системі нічим сказати «цього компонента на цій ширині не існує».<br><br><b>Демо порожнє, поки вікно вужче за 860.</b> Це не помилка сторінки: <code>.frail</code> у продукті так само <code>display:none</code> нижче межі, і заміряно там 0x0. Розширте вікно - або подивіться <code>filter-sheet.css</code>, який робить цю роботу на телефоні.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>рядок рейки <code>--text-body</code> / 14, стрілка <code>.ar</code> у <code>--mark-faint</code></td><td>рейка тихіша за товари поруч: вона орієнтир, а не заклик</td></tr>
+<tr><td><b>наведення <code>:hover</code> і обрано <code>.on</code></b></td><td>фон <code>--bg-surface</code>, слово <code>--text-action</code>, зліва <code>inset 2px 0 0 var(--line-action)</code>; знак і стрілка теж у колір дії</td><td>один малюнок на два стани, як у мегапанелі хедера: рейка відкривається наведенням, тож «під курсором» і «показано» - це те саме</td></tr>
+<tr><td><b>флайаут відкрито</b></td><td><code>.hrail-fly.open</code> і <code>.hrail-scrim.open</code> в <code>display:block</code>, кути рейки випрямляються, її верхня рамка йде в колір дії</td><td><code>.on</code> ставить <code>hcFly()</code> на <code>mouseenter</code>; знімає його <code>hcClose()</code> - інакше остання наведена категорія лишалась би позначеною назавжди, бо рейка, на відміну від колонки мегапанелі, зі сторінки не зникає</td></tr>
+<tr><td><b>до 859</b></td><td>колонка, рейка, флайаут і скрим - усі чотири <code>display:none</code></td><td>фільтри на телефоні це нижній лист, категорії - накладка каталогу</td></tr>
+<tr><td><b>фокус</b></td><td><b>немає</b></td><td>файл не оголошує жодного стану фокуса, хоча заголовки груп у розмітці мають <code>tabindex="0"</code> і <code>role="button"</code></td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>2</b> медіа-умови, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width: 859px)</code></li><li><code>@media (min-width: 860px)</code></li></ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>6</b> власних класів і <b>1</b> стан.</p><div id="idle"></div><script>var KIT_CLS=["frail", "hrail", "hrail-fly", "hrail-scrim", "hrail-wrap", "rsep"], KIT_STS=[":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>filter-rail.css</code>: <b>13</b> семантичних ролей і <b>11</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (13)</th><th>Примітиви (11)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-surface</code> <code>--elevation-1</code> <code>--elevation-3</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--mark-faint</code> <code>--scrim-overlay</code> <code>--text-action</code> <code>--text-body</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--radius-12</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
+<p class="kp-p">По всіх 20 селекторах: <b>одне</b> мертве оголошення і <b>двадцять</b> незбіглих. Мертве очікуване - <code>.hrail-fly.wfh-mega{ border-top-color }</code> зі структурного блоку б'є колірний нижче в цьому ж файлі, і це саме той розділ етапу 08, де колір іде другим і виграє навмисне.</p><div class="kp-gap"><h4>Двадцять з сімдесяти восьми оголошень не бачили нічого</h4>І всі двадцять належать двом станам: <code>.hrail a.on</code> (одинадцять оголошень плюс стрілка й знак) і <code>.hrail-fly.open</code> / <code>.hrail-scrim.open</code> разом із швом <code>:has()</code>. Обидва стани ставить миша, а вирішувач читає сторінку в спокої. Отже <b>заміряно рівно половину файлу</b>: рейку в спокої. Флайаут - ні, і саме він тут найскладніша фігура.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Флайаут не заміряний.</b> Двадцять оголошень із сімдесяти восьми не бачило жодного елемента, бо їх вмикає наведення. Ширина 600px, стеля <code>calc(100vw - 249px)</code> і поведінка на вузькому десктопі - усе це поки не число, а намір</li><li><b>Дві фігури під одним іменем.</b> <code>.frail</code> і <code>.hrail</code> не зустрічаються на жодному спільному екрані; чи це один компонент, файл не відповідає</li><li><b><code>top: 82px</code> - сире число.</b> Хедер заміряно 112 при 1280 і 73 при 390, і 82 не виводиться з жодного з них. Це рішення про значення: «змінна -> значення -> чому»</li><li><b>Немає стану фокуса</b>, хоча рейка це список посилань, а групи фільтрів мають <code>tabindex</code></li><li><b>Межа 859 / 860 незаміряна власними ширинами</b>, а на ній компонент з'являється і зникає цілком</li></ul>
+<p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script>
+/* The frame is a viewport, so it has to be sized like one and not like a box.
+   Two numbers are read from the frame itself rather than typed here: its content
+   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
+   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
+   the media query inside sees - the frame is still 1180 wide to itself, which is
+   the whole reason the frame exists. */
+(function(){
+  var f = document.querySelector('.kp-frame'); if (!f) return;
+  var wrap = f.parentNode;
+  function fit(){
+    try{
+      var d = f.contentDocument; if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
+      h = Math.min(h, 900);
+      f.style.height = h + 'px';
+      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
+      var avail = wrap.clientWidth - 24;
+      var k = Math.min(1, avail / declared);
+      f.style.transformOrigin = 'top left';
+      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
+      wrap.style.height = Math.round(h * k) + 'px';
+    }catch(e){}
+  }
+  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
+  addEventListener('resize', fit);
+  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

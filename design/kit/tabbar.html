@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Таб-бар | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Організм · рівень 3</div>
+<h1 class="kp-h1">Таб-бар</h1>
+<p class="kp-lead">Сорок два рядки і рівно <b>один власний клас</b>, <code>.wf-tabbar</code>. Усе інше, що тут видно, належить сусідам: <code>.wf-tab</code> ділять із <code>mega-menu.css</code>, а <code>.btn--stack</code>, <code>.ti</code>, <code>.tl</code> і <code>.tbadge</code> - це <code>stack-action.css</code>. Він є на 34 екранах, і всередині нього не більше <b>39 елементів</b>.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/tabbar.css</span><span class="kp-tag">42 рядки</span><span class="kp-tag">4 селектори</span><span class="kp-tag">27 оголошень</span><span class="kp-tag">34 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">З чого складається</div>
+<p class="kp-p">Таб-бар майже нічого не складає, бо майже нічого не малює: п'ять вкладок - це п'ять складених дій з атома, а таб-бар каже тільки, що їх п'ять, що вони ділять ширину порівну і скільки місця в кожної.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Файл</th><th>Класів</th><th>Які саме</th></tr></thead><tbody><tr><td><code>stack-action.css</code></td><td>3</td><td><code>.btn--stack</code> <code>.tbadge</code> <code>.ti</code></td></tr></tbody></table></div><p class="kp-p"><b>1</b> клас усередині кореня має більш ніж одного власника, тож із коду не видно, чий вони: <code>.uiv-ic</code></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/index.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень. Корінь тут <code>fixed</code> або <code>sticky</code> і в продукті видимий, тож <code>open</code> йому не додавали. Сцена потрібна тільки щоб він лишався всередині свого демо.</p><p class="kp-p">Показано <b>в рамці шириною 390</b>, і ширина названа не для краси: вона в продукті ховається від 860, тож на широкому стенді малювала б порожнечу. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/tabbar.html" style="width:390px" data-w="390" title="Таб-бар"></iframe></div><div class="kp-demo kp-demo--panel" hidden><nav id="wf-tabbar" class="wf-tabbar" aria-label="Основна навігація"><a class="btn--stack wf-tab" href="../../index.html" aria-current="page"><span class="ti"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11.4 12 4l8 7.4"></path><path d="M6 10.2V20h12v-9.8"></path></svg></span></span><span class="tl">Головна</span></a><a class="btn--stack wf-tab" href="../../wireframes/catalog-page.html"><span class="ti"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.6" y="3.6" width="6.8" height="6.8" rx="1.8"></rect><rect x="13.6" y="3.6" width="6.8" height="6.8" rx="1.8"></rect><rect x="3.6" y="13.6" width="6.8" height="6.8" rx="1.8"></rect><rect x="13.6" y="13.6" width="6.8" height="6.8" rx="1.8"></rect></svg></span></span><span class="tl">Каталог</span></a><a class="btn--stack wf-tab" href="../../cart.html"><span class="ti"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 4h2.1l1.9 10.2a1.7 1.7 0 0 0 1.7 1.4h8.1a1.7 1.7 0 0 0 1.7-1.3L19.9 7.2H6.1"></path><circle cx="9" cy="19.6" r="1.5"></circle><circle cx="17.2" cy="19.6" r="1.5"></circle></svg></span></span><span class="tl">Кошик</span></a><a class="btn--stack wf-tab" href="../../account-wishlist.html"><span class="ti"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span></span><span class="tl">Обране</span></a><a class="btn--stack wf-tab" href="../../account.html"><span class="ti"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.6" r="3.4"></circle><path d="M5.2 20c.4-3.7 3.3-5.9 6.8-5.9s6.4 2.2 6.8 5.9"></path></svg></span></span><span class="tl">Акаунт</span></a></nav></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Смуга</b> <code>.wf-tabbar</code> - <code>display:none</code>, і ТІЛЬКИ всередині <code>@media (max-width: 859px)</code> вона стає <code>fixed</code> по низу з z-index 50 і тінню <code>--elevation-bar-top</code>. Заміряно: 59 у висоту при 390 і <b>0x0</b> при 1280</span></div><div class="a"><i>2</i><span><b>Безпечна зона</b> - нижній падінг це <code>calc(var(--space-4) + env(safe-area-inset-bottom, 0px))</code>. Смуга приклеєна до краю екрана, а не до краю сторінки, тож вона мусить знати про домашню лінію iPhone</span></div><div class="a"><i>3</i><span><b>Вкладка</b> <code>.wf-tab</code> - <code>flex: 1 1 0</code> і <code>min-width: 0</code>: п'ять рівних часток, і жодна не розсуває сусідів довгим словом. Спокійний колір <code>--text-secondary</code> задає теж таб-бар, бо в атома фінішу немає</span></div><div class="a"><i>4</i><span><b>Позначка поточної</b> <code>[aria-current="page"]::before</code> - смужка <code>--size-26</code> на 3px зверху по центру, заокруглена знизу, у <code>--bg-action</code>. Єдиний псевдоселектор файлу</span></div><div class="a"><i>5</i><span><b>Підпис поточної</b> <code>.tl</code> - <code>--text-body</code> і <code>--fw-black</code>. Це сказано тут навмисно й на вищій специфічності, ніж в атома: атом тримає підпис на <code>--text-secondary</code>, і після зведення всі п'ять підписів вийшли однакові, а поточна вкладка лишилась з самою смужкою</span></div></div>
+<div class="kp-gap"><h4>Демо порожнє, поки вікно ширше за 859</h4>Це не помилка сторінки. Увесь компонент лежить в одній медіа-умові <code>@media (max-width: 859px)</code>, і від 860 <code>.wf-tabbar</code> це <code>display:none</code> - так заміряно й у продукті. Щоб побачити демо, звузьте вікно.<br><br>Те саме пояснює й склад: <code>.tbadge</code> є в складі кореня за замірами, але в цьому файлі про нього <b>немає жодного правила</b> - лічильник цілком малює атом, і таб-бар ніде не каже, коли той лічильник з'являється.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>до 859</b></td><td>flex, fixed по низу, z-index 50, тінь угору</td><td>на телефоні це головна навігація продукту</td></tr>
+<tr><td><b>від 860</b></td><td><code>display:none</code>; заміряно 0x0 при 1280</td><td>на десктопі ту саму роботу робить хедер, і дві навігації одночасно не потрібні</td></tr>
+<tr><td><b>спокій</b></td><td>знак і підпис у <code>--text-secondary</code></td><td>колір задає таб-бар, бо в складеної дії немає класу фінішу, як у кнопок хедера</td></tr>
+<tr><td><b>поточна вкладка</b></td><td>смужка 26x3 у колір дії зверху плюс підпис <code>--text-body</code> / <code>--fw-black</code></td><td>де ти є - це речення таб-бару, тому він каже його сам</td></tr>
+<tr><td><b>наведення</b></td><td><b>немає</b></td><td>файл не оголошує жодного псевдокласу: єдиний псевдоселектор тут - <code>::before</code>. Це палець, а не курсор</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>1</b> медіа-умова, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width: 859px)</code></li></ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>1</b> власний клас і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["wf-tabbar"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>tabbar.css</code>: <b>6</b> семантичних ролей і <b>6</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (6)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-page</code> <code>--elevation-bar-top</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-secondary</code></td><td><code>--fw-black</code> <code>--radius-4</code> <code>--size-26</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
+<p class="kp-p">По всіх 4 селекторах: <b>жодного мертвого оголошення і жодного селектора без елемента</b>. З двадцяти чотирьох файлів шару таких лише три - <code>tabbar.css</code>, <code>filter-sheet.css</code> і <code>price-slider.css</code>. Малий розмір це не пояснює: у <code>buy-bar.css</code> оголошень більше всього на шість, і два з них мертві.</p><p class="kp-p">Ціна цієї чистоти видна в таблиці складу: файл чистий тому, що майже нічого не описує. Із п'яти імен, які він згадує, власне йому належить одне. Крок 7.18 забрав звідси колонку, проміжок, знак, підпис і лічильник - <b>у кожного з них був двійник у <code>header.css</code> під іншим іменем частини</b> (<code>.ti</code> там <code>.g</code>, <code>.tl</code> там <code>.lbl</code>), і саме тому дві редакції встигли розійтися на розмірі знака, 20 проти 21, і на кольорі підпису.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Немає стану фокуса.</b> Вкладка це посилання, а файл не оголошує <code>:focus-visible</code>: з клавіатури поточна позиція в головній навігації не видна</li><li><b><code>.wf-tab</code> має двох власників</b> - <code>mega-menu.css</code> каже про колір вкладки, <code>tabbar.css</code> про її підпис. Один контрол, два файли</li><li><b>Про <code>.tbadge</code> тут не сказано нічого</b>, хоча лічильник рендериться всередині смуги: коли він з'являється і що буває при трьох цифрах - незаписано</li><li><b>Немає станів «недоступна» і «завантаження»</b>: кошик під час перерахунку виглядає так само, як кошик у спокої</li><li><b>Межа 859 незаміряна власними ширинами</b>, а тут вона вирішує, чи компонент існує взагалі</li></ul>
+<p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script>
+/* The frame is a viewport, so it has to be sized like one and not like a box.
+   Two numbers are read from the frame itself rather than typed here: its content
+   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
+   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
+   the media query inside sees - the frame is still 1180 wide to itself, which is
+   the whole reason the frame exists. */
+(function(){
+  var f = document.querySelector('.kp-frame'); if (!f) return;
+  var wrap = f.parentNode;
+  function fit(){
+    try{
+      var d = f.contentDocument; if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
+      h = Math.min(h, 900);
+      f.style.height = h + 'px';
+      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
+      var avail = wrap.clientWidth - 24;
+      var k = Math.min(1, avail / declared);
+      f.style.transformOrigin = 'top left';
+      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
+      wrap.style.height = Math.round(h * k) + 'px';
+    }catch(e){}
+  }
+  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
+  addEventListener('resize', fit);
+  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

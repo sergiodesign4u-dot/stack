@@ -19,8 +19,8 @@ there is no page list to maintain here.
 | 04 | Wireframes | Done - grey clickable prototype, 141 screens + hub |
 | 05 | Voice | Done - rulebook + microcopy inventory, rolled out to the prototype |
 | 06 | Concept | Done - visual language on two screens |
-| 07 | UI + Visual | Done - 39 coloured screens + hub, component kit and inventory over all 142 wireframe files |
-| 08 | Tokens + Components | Not started |
+| 07 | UI + Visual | Done - 40 coloured screens (of 142 grey; the 42 coach screens are not coloured), component kit and inventory |
+| 08 | Tokens + Components | In progress - 73 component files, 71 stands in `design/kit/`: 22 atoms, 27 molecules, 24 organisms, all built. Next: `pixel-proof.html`, then Крок 6 (rename) after stage 09 |
 | 09 | Design System | Not started |
 | 10 | Responsive | Not started |
 | 11 | Animation | Not started |

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Модалка відгуку | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Організм · рівень 3</div>
+<h1 class="kp-h1">Модалка відгуку</h1>
+<p class="kp-lead"><code>.pm</code> - це не одна модалка, а <b>дві</b>: «Залишити відгук» і «Поставити запитання» це та сама оболонка, яку <code>wfPdpModals()</code> будує однією функцією. Тому три екрани товару несуть <b>шість</b> екземплярів. Зірку, якою її знають, файл не малює: <code>.pm-stars</code> і <code>.pmst</code> поїхали в <code>rating.css</code> на кроці 7.27, і тут лишилося тільки те, <b>де</b> стоїть вибиралка.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/review-modal.css</span><span class="kp-tag">59 рядків</span><span class="kp-tag">19 селекторів</span><span class="kp-tag">84 оголошення</span><span class="kp-tag">5 екранів, модалка на 3</span></div>
+
+<section class="kp-sec"><div class="kp-sh">З чого складається</div>
+<p class="kp-p">Складає три файли, і поділ між ними - це поділ між місцем і виглядом: рейтинг каже, яка зірка, поле каже, який інпут, а цей файл каже, де вони стоять.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Файл</th><th>Класів</th><th>Які саме</th></tr></thead><tbody><tr><td><code>rating.css</code></td><td>2</td><td><code>.pm-stars</code> <code>.pmst</code></td></tr><tr><td><code>button.css</code></td><td>2</td><td><code>.btn--icon</code> <code>.btn--s</code></td></tr><tr><td><code>field.css</code></td><td>1</td><td><code>.field</code></td></tr></tbody></table></div><p class="kp-p"><b>4</b> класи всередині кореня мають більш ніж одного власника, тож із коду не видно, чий вони: <code>.btn--accent</code> <code>.btn--ghost</code> <code>.btn--outline</code> <code>.uiv-ic</code></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/product-reviews.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень. Цей організм у спокої не існує - він <code>display: none</code>, доки щось не додасть <code>open</code>, - тож стенд додає цей клас сам. Показано на сцені: трансформований предок стає для <code>position: fixed</code> тим блоком, від якого рахується його <code>inset</code>, тож панель не накриває сторінку й не втрачає жодного свого оголошення.</p><p class="kp-p">Показано <b>в рамці шириною 390</b>, і ширина названа не для краси: це ширина, на якій цей організм у продукті стоїть. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки. Сам організм у рамці обмежено до <b>520px</b> - це ширина, яку він займає в продукті на 1280. Витягнутий зі своєї колонки, він розтягнувся б на всю рамку, і кнопка на 294 стала б кнопкою на 1490.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/review-modal.html" style="width:390px" data-w="390" title="Модалка відгуку"></iframe></div><div class="kp-demo kp-stage" hidden><div class="pm open" id="pm-review" role="dialog" aria-modal="true" aria-label="Залишити відгук"><div class="pm-h">Залишити відгук<button class="btn--ghost btn--icon btn--s x" aria-label="Закрити"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.4 6.4l11.2 11.2"></path><path d="M17.6 6.4L6.4 17.6"></path></svg></span></button></div><div class="pm-b"><div class="pm-rhead"><label>Ваша оцінка</label><span class="pm-rw" id="pm-rate-w"></span></div><div class="pm-rate"><div class="pm-stars" id="pm-rate" role="radiogroup" aria-label="Ваша оцінка"><button type="button" class="pmst" data-v="1" role="radio" aria-checked="false" aria-label="1 з 5"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span></button><button type="button" class="pmst" data-v="2" role="radio" aria-checked="false" aria-label="2 з 5"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span></button><button type="button" class="pmst" data-v="3" role="radio" aria-checked="false" aria-label="3 з 5"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span></button><button type="button" class="pmst" data-v="4" role="radio" aria-checked="false" aria-label="4 з 5"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span></button><button type="button" class="pmst" data-v="5" role="radio" aria-checked="false" aria-label="5 з 5"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span></button></div><b class="pm-rv" id="pm-rate-v"></b></div><div class="pm-e" id="pm-rate-e"></div><label for="pm-rv-pros">Переваги <span class="opt">необов'язково</span></label><input class="field" id="pm-rv-pros" type="text" placeholder="Що сподобалось"><label for="pm-rv-cons">Недоліки <span class="opt">необов'язково</span></label><input class="field" id="pm-rv-cons" type="text" placeholder="Що можна покращити"><label for="pm-rv-text">Відгук</label><textarea class="field" id="pm-rv-text" maxlength="600" data-count="pm-rv-cnt" placeholder="Ваші враження про товар…"></textarea><div class="pm-cnt"><b id="pm-rv-cnt">0</b> / 600</div><div class="pm-e" id="pm-rv-text-e"></div><label for="pm-rv-name">Ім'я</label><input class="field" id="pm-rv-name" type="text" placeholder="Як вас підписати"><div class="pm-e" id="pm-rv-name-e"></div><div class="pm-note">Відгук пройде модерацію. Публікуємо чесно - і схвальні, і критичні.</div></div><div class="pm-f"><button class="btn--outline btn">Скасувати</button><button class="btn--accent btn dark">Надіслати відгук</button></div></div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Корпус</b> <code>.pm</code> - <code>position:fixed</code>, 520 завширшки, не більше 94vw і 88vh, <code>z-index:61</code>, <code>--radius-16</code>, <code>--elevation-4</code>. Затемнення в нього чуже: <code>#pm-ov</code> це <code>.wf-ov</code> з <code>overlay.css</code></span></div><div class="a"><i>2</i><span><b>Шапка</b> <code>.pm-h</code> і закриття <code>.x</code> 32x32 - дисплейний шрифт 20 з <code>--ls-lead</code>. <code>.x</code> - те саме ім'я, яке називають п'ять файлів</span></div><div class="a"><i>3</i><span><b>Оцінка</b> <code>.pm-rhead</code> <code>.pm-rate</code> <code>.pm-rv</code> <code>.pm-rw</code> - ряд не нижчий за <code>--size-40</code>, цифра дисплейна на 30, слово-вирок мале. Крок 7.63 зняв із <code>.pm-rw</code> розрядку <code>--ls-eyebrow</code> (це .08em, відстані моноширинної підписи) і дав <code>--ls-caps</code>: напис Inter не мав носити розрядку моно, а всі інші користувачі .08em - моноширинні</span></div><div class="a"><i>4</i><span><b>Помилка поля</b> <code>.pm-e</code> - <code>display:none</code>, вмикається класом <code>.on</code>. <code>.on</code> називають <b>18</b> файлів компонентів, і це найгірше ім'я шару; ця коробка тримає <b>два його значення одночасно</b>: тут воно означає «помилку видно», а на <code>.pmst</code> поруч - «зірка горить»</span></div><div class="a"><i>5</i><span><b>Лічильник</b> <code>.pm-cnt</code> - моноширинний, праворуч. Ліміти 600 і 400 написані в розмітці атрибутом <code>maxlength</code>, у файлі про них немає нічого</span></div><div class="a"><i>6</i><span><b>Підвал</b> <code>.pm-f</code> - <code>> * { flex:1 }</code>, те саме «два контроли й нічого більше», що й <code>.ceact</code> та <code>.cedlg .act</code>. Одне речення, три місця</span></div></div>
+<div class="kp-gap"><h4>Чим цей файл перестав бути</h4>Чотири колірні правила вибиралки зірок - спокій, наведення, <code>.on</code> і кільце фокуса - поїхали в <code>rating.css</code> разом із формою (7.27). Правило розміру полів на телефоні поїхало в <code>base.css</code>, де воно накриває всі інпути сторінки, а не тільки свої, і крок 7.3 прибрав порожній <code>@media</code>, що по собі лишився. Тепер у файлі <b>жодної медіа-умови</b> і 59 рядків замість того, чим він був. Організм, який віддав вигляд і лишив собі композицію, - це і є те, чим організм має бути.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>закрито</b></td><td><code>.pm{display:none}</code></td><td>стан спокою на всіх трьох екранах товару</td></tr>
+<tr><td><b>відкрито</b></td><td><code>.pm.open</code> - <code>display:flex</code></td><td>вирішувач: <b>не збіглося з жодним елементом</b></td></tr>
+<tr><td><b>помилка</b></td><td><code>.pm-e.on</code> - <code>display:block</code>, <code>--text-danger</code></td><td>теж жодного збігу: обидва стани файлу існують лише в русі</td></tr>
+<tr><td><b>перший лейбл</b></td><td><code>.pm-b label:first-child{margin-top:0}</code></td><td>єдине оголошення файлу, яке збігається й не виграє: <code>.pm-rhead label{margin:0}</code> збіглося з 6 елементами й віддало <code>margin-top</code>. Два правила обнуляють один відступ і згодні між собою - тим гірше, бо змінять їх колись поодинці</td></tr>
+<tr><td><b>надіслано</b></td><td><b>немає</b></td><td><code>wfPmSubmitReview()</code> закриває модалку й кидає тост; редакції «відгук відправлено» в самій модалці не існує</td></tr>
+<tr><td><b>фокус</b></td><td>кільце браузера</td><td>файл не називає жодного фокусного стану; з псевдокласів у ньому тільки <code>:first-child</code></td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>жодної медіа-умови</b>: одна редакція на всі ширини.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>11</b> власних класів і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["pm", "pm-b", "pm-cnt", "pm-e", "pm-f", "pm-h", "pm-note", "pm-rate", "pm-rhead", "pm-rv", "pm-rw"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>review-modal.css</code>: <b>9</b> семантичних ролей і <b>22</b> примітиви.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (9)</th><th>Примітиви (22)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-surface</code> <code>--elevation-4</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-danger</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-display</code> <code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-20</code> <code>--fs-30</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-medium</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--ls-caps</code> <code>--ls-lead</code> <code>--radius-16</code> <code>--radius-8</code> <code>--size-40</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
+<p class="kp-p">19 селекторів, 84 оголошення. <b>Одне</b> збігається й не виграє - подвійне обнулення верхнього відступу лейбла, розібране вище. <b>Два</b> не збігаються ні з чим: <code>.pm.open</code> і <code>.pm-e.on</code>. Тобто <b>обидва стани, які файл узагалі оголошує, невидимі для перепису в спокої</b> - продукт малює їх лише тоді, коли людина щось зробила. Це не дефект файлу, це межа приладу: перепис ходить по екранах, а не по діях, і кожен «стан не знайдено» тут треба читати як «замір не туди дивився».</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b><code>.on</code> у 18 файлах</b>, і два його значення в одній коробці. Найдорожче ім'я шару, і починати треба з нього</li><li><b>Немає стану «відгук надіслано»</b> - модалка виглядає однаково до і після</li><li><b>Ліміт 600/400 живе в розмітці</b>: файл малює лічильник і не знає, що робити на межі</li><li><b>520 сирим числом</b> - ширина модалки не читає жодного токена</li><li><b>Свого кільця фокуса немає</b></li></ul>
+<p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script>
+/* The frame is a viewport, so it has to be sized like one and not like a box.
+   Two numbers are read from the frame itself rather than typed here: its content
+   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
+   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
+   the media query inside sees - the frame is still 1180 wide to itself, which is
+   the whole reason the frame exists. */
+(function(){
+  var f = document.querySelector('.kp-frame'); if (!f) return;
+  var wrap = f.parentNode;
+  function fit(){
+    try{
+      var d = f.contentDocument; if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
+      h = Math.min(h, 900);
+      f.style.height = h + 'px';
+      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
+      var avail = wrap.clientWidth - 24;
+      var k = Math.min(1, avail / declared);
+      f.style.transformOrigin = 'top left';
+      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
+      wrap.style.height = Math.round(h * k) + 'px';
+    }catch(e){}
+  }
+  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
+  addEventListener('resize', fit);
+  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

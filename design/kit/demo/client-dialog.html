@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Діалог клієнта</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<div style="max-width:460px;margin:0 auto"><div class="cemodal addr-modal open"><div class="ce-top"><h2 id="addr-title">Нова адреса</h2><button class="btn--ghost btn--icon btn--s ce-x" onclick="closeAddr()" aria-label="Закрити">✕</button></div><div class="addr-step" data-step="choose"><p class="sub">Оберіть спосіб доставки - далі заповнимо лише потрібні поля.</p><div class="addr-methods"><button type="button" class="addr-method" onclick="addrStep('vidd')"><span class="am-ic">📦</span><span class="am-tx"><b>Відділення Нової Пошти</b><i>Забрати у відділенні - за номером або адресою</i></span><span class="am-ar">›</span></button><button type="button" class="addr-method" onclick="addrStep('post')"><span class="am-ic">🔳</span><span class="am-tx"><b>Поштомат Нової Пошти</b><i>Самостійно, цілодобово - за номером поштомата</i></span><span class="am-ar">›</span></button><button type="button" class="addr-method" onclick="addrStep('cour')"><span class="am-ic">🚚</span><span class="am-tx"><b>Кур'єр Нової Пошти</b><i>Доставка за вашою адресою</i></span><span class="am-ar">›</span></button></div><div class="addr-note">Самовивіз із магазину Stack обирається безпосередньо в кошику під час оформлення - його не треба зберігати тут.</div></div><div class="addr-step" data-step="vidd" hidden=""><button type="button" class="btn--text addr-back" onclick="addrStep('choose')">‹ Інший спосіб</button><div class="cef"><label>Місто</label><button type="button" class="addr-cityfld" onclick="openCity()"><span>📍 Одеса</span><span class="chg">Змінити</span></button></div><div class="cef"><label>Відділення</label><input class="field" type="text" placeholder="Почніть вводити номер або вулицю" value="№ 12 - вул. Катерининська, 27"></div><div class="addr-2col"><div class="cef"><label>Ім'я</label><input class="field" type="text" value="Вікторія"></div><div class="cef"><label>Прізвище</label><input class="field" type="text" value="Коваль"></div></div><div class="cef"><label>Телефон</label><input class="field" type="tel" inputmode="tel" value="+380 67 123 45 67"></div><label class="addr-check"><input type="checkbox"> Зробити основною адресою</label><div class="ceact"><button type="button" class="btn--outline btn" onclick="closeAddr()">Скасувати</button><button type="button" class="btn--accent btn dark addr-save" onclick="saveAddr()">Зберегти адресу</button></div><div class="addr-del-row" hidden=""><button type="button" class="btn--outline btn--danger btn--s btn" onclick="openAddrDelete()">🗑 Видалити адресу</button></div></div><div class="addr-step" data-step="post" hidden=""><button type="button" class="btn--text addr-back" onclick="addrStep('choose')">‹ Інший спосіб</button><div class="cef"><label>Місто</label><button type="button" class="addr-cityfld" onclick="openCity()"><span>📍 Одеса</span><span class="chg">Змінити</span></button></div><div class="cef"><label>Поштомат</label><input class="field" type="text" placeholder="Номер поштомата або адреса" value="№ 24857 - просп. Небесної Сотні, 4"></div><div class="addr-2col"><div class="cef"><label>Ім'я</label><input class="field" type="text" value="Вікторія"></div><div class="cef"><label>Прізвище</label><input class="field" type="text" value="Коваль"></div></div><div class="cef"><label>Телефон</label><input class="field" type="tel" inputmode="tel" value="+380 67 123 45 67"></div><label class="addr-check"><input type="checkbox"> Зробити основною адресою</label><div class="ceact"><button type="button" class="btn--outline btn" onclick="closeAddr()">Скасувати</button><button type="button" class="btn--accent btn dark addr-save" onclick="saveAddr()">Зберегти адресу</button></div><div class="addr-del-row" hidden=""><button type="button" class="btn--outline btn--danger btn--s btn" onclick="openAddrDelete()">🗑 Видалити адресу</button></div></div><div class="addr-step" data-step="cour" hidden=""><button type="button" class="btn--text addr-back" onclick="addrStep('choose')">‹ Інший спосіб</button><div class="cef"><label>Місто</label><button type="button" class="addr-cityfld" onclick="openCity()"><span>📍 Одеса</span><span class="chg">Змінити</span></button></div><div class="cef"><label>Вулиця</label><input class="field" type="text" placeholder="Напр., вул. Дерибасівська" value="вул. Дерибасівська"></div><div class="addr-2col"><div class="cef"><label>Будинок</label><input class="field" type="text" value="15"></div><div class="cef"><label>Квартира</label><input class="field" type="text" value="8"></div></div><div class="cef"><label>Під'їзд / поверх <span class="opt">- необов'язково</span></label><input class="field" type="text" placeholder="Напр., 2 під'їзд, 4 поверх"></div><div class="addr-2col"><div class="cef"><label>Ім'я</label><input class="field" type="text" value="Вікторія"></div><div class="cef"><label>Прізвище</label><input class="field" type="text" value="Коваль"></div></div><div class="cef"><label>Телефон</label><input class="field" type="tel" inputmode="tel" value="+380 67 123 45 67"></div><label class="addr-check"><input type="checkbox"> Зробити основною адресою</label><div class="ceact"><button type="button" class="btn--outline btn" onclick="closeAddr()">Скасувати</button><button type="button" class="btn--accent btn dark addr-save" onclick="saveAddr()">Зберегти адресу</button></div><div class="addr-del-row" hidden=""><button type="button" class="btn--outline btn--danger btn--s btn" onclick="openAddrDelete()">🗑 Видалити адресу</button></div></div></div></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script>
+(function(){
+  var init = ['uivFixLinks','uivChrome','uivCurrency','uivPriceSlider','uivCheckboxes',
+              'uivSwitches','uivSegments','uivRadioGroups','uivDisclosures','uivFav','uivCrumbs'];
+  init.forEach(function(n){ try{ if (typeof window[n] === 'function') window[n](); }catch(e){} });
+})();
+</script>
+</body>
+</html>

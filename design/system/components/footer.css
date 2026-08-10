@@ -35,7 +35,15 @@
 .wff-bot{ max-width: 1200px; margin: 0 auto; padding: var(--space-12) var(--space-16) var(--space-24); font-size: var(--fs-12); color: var(--text-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-8); border-top: 1px solid var(--line-hair); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.fh .ar{ transition:transform .18s ease; }
+/* step 7.86: `.fh .ar{ transition:transform .18s ease }` stood here and was removed.
+   The solver measured it against the whole product: it matched 280 elements on the
+   forty coloured screens and won on NONE of them, because every one of those 280
+   sits inside `.fgroup`, where `filter-group.css` declares the same transition 20ms
+   longer with one more class of specificity. The footer draws no arrow at all -
+   `.fh` is named nowhere else in this file, and the only `.fh` outside a filter
+   group in the product is a form heading on content-contacts.html with no `.ar`
+   inside it. A declaration in the wrong file, invisible on screen, visible only to
+   the solver. */
 .wff-tc{ display:grid; grid-template-columns:auto 1fr; column-gap:var(--space-16);
   align-items:center; align-content:center; }
 @media (max-width:479px){

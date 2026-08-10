@@ -9409,3 +9409,124 @@ to expect the benign shapes (structure beaten by colour, a base beaten by its ow
 modifier, a media rule beaten by a later one at a width the census cannot see) among
 them, and the point of the list is to know where to look rather than what to fix.
 
+---
+
+## Step 7.86 - the organism layer, all 24 at once, and the four instruments that were clearing what they never looked at
+
+**Why this step is shaped differently from the eighty-five before it.** The owner asked why the
+work was so slow and told me to make it faster. The honest answer had two halves and only one of
+them was about tooling.
+
+**The tooling half, measured.** The scratch directory held **11 GB**: 130 MB of census JSON per
+pass, three passes a step, and a fresh 150 MB Chrome profile for every probe, none of them ever
+removed. Roughly forty single-use `.mjs` probes had been written, run once and abandoned; three of
+them had produced clean-looking results from broken measurements. What replaced it:
+
+- the census stores a **hash per element** instead of fifty properties of text - same fifty
+  properties, same widths, same pages, 130 MB became about 1 MB;
+- the three passes run **in parallel** on three ports instead of one after another;
+- one **harvest** answers every question about all 24 organisms in one browser run, instead of one
+  probe per component: file statistics, where each renders, what it composes, its real markup;
+- the 193 never-win declarations were **triaged by a classifier** in two minutes rather than read
+  one at a time;
+- the stands are **generated** from that harvest, so no number is typed twice.
+
+**The other half, which is the real one.** A stand is not a component demo, it is a measured essay,
+and twenty-seven of them had been written one at a time. Twenty-four more at that cadence is weeks.
+The fix was not to write them faster but to **measure once for all twenty-four and author from the
+harvest** - and to let five agents author in parallel against one written brief, with every figure
+sourced from the harvest or from the file, and `[?]` where it could not be.
+
+**What came out: 24 of 24 organism stands, the showcase at 71 stands, and the registry closed.**
+
+### The findings, in the order they matter
+
+**1. The coloured layer is 40 screens; the grey prototype is 142. The 42 coach screens have no
+colour at all.** The coach is the primary audience of this product - the channel `CLAUDE.md` says
+wins when two decisions conflict - and the entire flow is grey. Six of the 24 organism files carry
+no colour block whatsoever. This is a scope decision and it is the owner's, but it must stop being
+invisible: a component polished to the pixel on 40 screens while the primary flow has nothing to
+polish is effort spent in the wrong place. Recorded as **A13**.
+
+**2. `system-page.css` has never been drawn anywhere.** 38 lines, 93 declarations, 16 classes,
+imported by `index.css` on all 40 coloured screens. Its markup exists on four grey screens -
+`404`, `500`, `maintenance`, `system` - and none of the four has a coloured twin. Nothing builds it
+at runtime, unlike the cookie banner and the catalog overlay, which at least exist when something
+opens them. `cookie-banner.css` is next to it: its placeholder `id="wf-cookie"` exists in exactly
+one file in the whole repository, and the footer offers «Змінити згоду» on 31 coloured screens
+whose handler falls back to a screen `design/` does not have.
+
+**3. 126 of 913 class names are declared in more than one component file.** `.ar` in seven,
+`.x` in five, `.ct` in five, `.m` in four. The cost is measurable: **78 child classes inside the
+organisms' roots have more than one owner**, so the composition of an organism cannot be read out
+of the code. And 126 is a floor - the census compares stylesheet to stylesheet and never to
+markup, so `.dn`, which is a danger note in one component and a delivery name in another's markup,
+does not appear in it at all. Recorded as **A12**; the rename itself is Крок 6.
+
+**4. One live defect, fixed here.** `footer.css:38` declared `.fh .ar{ transition:transform .18s
+ease }`. It matched **280 elements and won on none of them**: all 280 sit inside `.fgroup`, where
+`filter-group.css` says the same thing 20ms longer with one class more. The footer draws no arrow
+at all, and the only `.fh` outside a filter group in the product is a form heading with no `.ar`
+inside it. Removed - a declaration in the wrong file, invisible on screen, visible only to the
+solver.
+
+**5. `.pdp-tabs` declares its sticky offset three times and none of them takes effect.** 79, 87 and
+103 in the CSS; JavaScript writes an inline `top` measured from the header - 113 at 390 and 112 at
+1280 inside the stand harness. The three numbers are a no-JavaScript fallback that disagrees with
+the running product, and 87 is dead even without JavaScript because 79 sits lower in the same
+media query. Correcting them is a value decision and it is stated as one.
+
+**6. A11 was re-measured and the cause named at 7.84 was wrong.** «Is any element wider than the
+viewport» is the wrong question - inside a horizontal scroller it is supposed to be. The right one
+is whether the page scrolls: **137 of 910 pairs, 129 of them at exactly 720**. Of the 53 pages that
+pass at 720, 24 have no footer grid and the other 29 are coloured: no grey page with a footer
+survives, no coloured page with a footer fails. And the cause is the newsletter column, whose
+min-content is 254 in grey and 150 in colour - not `.wff-phone`, whose column is 164 in grey and
+**172 in colour**, wider in the layer that does not break. Named as the outermost overflowing box
+rather than the cause, twice, until the third measurement.
+
+### The instruments, which is where the pattern is
+
+Four separate ways the harness cleared what it had never looked at, all found in this one step:
+
+- **The driver stops every animation.** `cdp.mjs` injects `animation-play-state: paused
+  !important` at document-start - step 7.51 put it there so the null pass would stop returning
+  moving frames. Nobody wrote down the cost: **no claim about motion can be made with this
+  instrument**, and the never-win solver, running through the same driver, reports the harness's
+  own rule as the winner over every `animation-*` declaration in the product. Four of the 193
+  never-win entries were exactly that. Caught by a control animation created at measurement time,
+  which also read `paused`.
+- **The overflow sweep asked the wrong question**, above.
+- **The token census was told its prefixes from memory** and missed six families, so `--scrim-*`,
+  `--veil-*`, `--fade-*`, `--tint-*`, `--ring-*` and `--fill-*` fell into neither column of every
+  generated tokens table. `overlay.css`, which rests entirely on `--scrim-overlay`, read as «0
+  semantic roles». Prefixes were counted out of `tokens.css` afterwards.
+- **The composition probe printed «this organism composes nothing» when it had simply not found
+  the root.** Three different facts under one sentence - a probe that found nothing, a root that
+  contains nothing, and a component that really does compose nothing - and only the third was true
+  of any of them.
+
+And one lesson about the stand rather than the instrument: **a frame must not redraw the thing it
+frames.** The first rule for showing panels laid them out in flow so they could not cover the page;
+eleven of them collapsed to zero height, because a panel positioned by `inset: 0` has no height of
+its own once you take its position away. The mechanism that works changes nothing the component
+declares: a transformed ancestor becomes the containing block for a fixed descendant. It does not
+catch `94vw` / `86vh` - vw and vh stay viewport-relative - and the stand says so instead of
+pretending otherwise.
+
+### Verification
+
+- **Three-pass A/B**, baseline `git archive HEAD`, null pass, working tree, over 182 pages x 4
+  widths in both layers. Positive control taken first: the two servers were diffed and do differ.
+- **Every stand opened in a browser at 390 and 1280**: 48 rows, 2 of them flagged, and both are the
+  documented `94vw` dialogs that no frame rule can hold inside a 358px column at 390.
+- Horizontal page scroll re-measured across both layers with the corrected question.
+- `_nav.js` and `architecture.md` / `architecture.html` kept in step; zero em dashes, zero
+  U+2019 / U+02BC in everything written.
+
+### What is still open after this step
+
+The eight owner questions stand, and **A13 joins them as the largest**: the coloured layer covers
+40 of 142 screens and none of the coach flow. **A10** (the accent gate, both too strict and too
+lenient) and **A11** (one more measurement, then a transfer rather than an invention) are
+unchanged. Sections B, C and D remain blocked on Крок 6, on a scope decision and on real data.

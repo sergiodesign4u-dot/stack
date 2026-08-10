@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Оверлей | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Організм · рівень 3</div>
+<h1 class="kp-h1">Оверлей</h1>
+<p class="kp-lead">16 рядків, 4 селектори, 16 оголошень, <b>жодної семантичної ролі</b> й один примітив. Це не компонент - це <b>два затемнення, яким не знайшлося іншого файлу</b>. <code>.wf-ov</code> лежить на 34 з 40 кольорових екранів, 37 екземплярів, і в нього <b>нуль дітей</b>: те, що він затемнює, ніколи не всередині нього. <code>.ceov</code> у тому ж файлі - протилежне: він затемнює <b>і</b> тримає діалог, і саме він несе <code>role="dialog"</code>.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/overlay.css</span><span class="kp-tag">16 рядків</span><span class="kp-tag">4 селектори</span><span class="kp-tag">16 оголошень</span><span class="kp-tag">34 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">З чого складається</div>
+<p class="kp-p">Таблиця складу порожня, і це і є знахідка: всередині кореня немає класів чужих файлів, бо всередині кореня немає нічого.</p>
+<p class="kp-p">Усередині кореня <b>жодного класу іншого компонента</b>, і дітей у нього <b>0</b>. Це не «організм ні з чого не складений» - це корінь, який нічого не містить: затемнення або підкладка, а те, що вона затемнює, лежить не в ній.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/index.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень. Цей організм у спокої не існує - він <code>display: none</code>, доки щось не додасть <code>open</code>, - тож стенд додає цей клас сам. Показано на сцені: трансформований предок стає для <code>position: fixed</code> тим блоком, від якого рахується його <code>inset</code>, тож панель не накриває сторінку й не втрачає жодного свого оголошення.</p><p class="kp-p">Показано <b>в рамці шириною 390</b>, і ширина названа не для краси: це ширина, на якій цей організм у продукті стоїть. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/overlay.html" style="width:390px" data-w="390" title="Оверлей"></iframe></div><div class="kp-demo kp-stage" hidden><div class="wf-ov open" id="city-ov"></div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Затемнення</b> <code>.wf-ov</code> - <code>position:fixed</code>, <code>inset:0</code>, <code>z-index:60</code>, фон <code>--scrim-overlay</code>. Порожній <code>&lt;div&gt;</code>: 37 екземплярів на 34 екранах і <b>0 дітей</b></span></div><div class="a"><i>2</i><span><b>Три різні панелі під одним класом</b> - <code>#city-ov</code> закриває діалог міста, <code>#pm-ov</code> закриває модалки товару, <code>#ckset-ov</code> закриває налаштування cookie. Три екрани товару несуть <b>по два</b> <code>.wf-ov</code> одразу - через це 37, а не 34</span></div><div class="a"><i>3</i><span><b>Контейнер</b> <code>.ceov</code> - теж fixed і теж <code>inset:0</code>, але <code>display:flex</code> по центру, <code>padding: var(--space-24)</code>, <code>overflow-y:auto</code>, <code>z-index:55</code>. Його дитина - <code>.cemodal</code> або <code>.cedlg</code>. 6 екземплярів на 2 екранах</span></div><div class="a"><i>4</i><span><b>Сходинка 55 і 60</b> - діалог адреси (<code>.ceov</code>, 55) відкриває діалог міста (<code>.wf-ov</code> 60 плюс <code>.wf-city</code> 61) прямо зі свого поля міста. Порядок тримається саме тому, що ці числа різні</span></div><div class="a"><i>5</i><span><b>Один токен на вісім затемнень</b> - <code>--scrim-overlay</code> читають <code>.ceov</code> <code>.wf-ov</code> <code>.auth-ov</code> <code>.cart-ov</code> <code>.fsheet-ov</code> <code>.wfh-scrim</code> <code>.hrail-scrim</code> <code>.menu-scrim</code> - вісім класів у сімох файлах. Коментар біля токена в <code>tokens.css</code> пам'ятає сім колишніх значень (.25 .36 .44 .46 .50 .52 .52) і рахує <b>сім</b> ужитків. Їх вісім</span></div><div class="a"><i>6</i><span><b>Єдиний примітив</b> <code>--space-24</code> - відступ <code>.ceov</code>. Семантичних ролей у файлі нуль, а токен, на якому він увесь стоїть, не належить до жодного з двох списків перепису: родина <code>--scrim-*</code> полиці не має</span></div></div>
+<div class="kp-gap"><h4>Що це таке і чим воно не є</h4><code>.wf-ov</code> <b>не є</b> компонентом, оболонкою чи предком чогось: він не має дітей ні на одному з 34 екранів. Він <b>є</b> одним прямокутником фарби, який ловить клік, - і навіть цей клік не в цьому файлі, а в атрибуті <code>onclick</code> розмітки. Файл затемнює, не знаючи, що саме, і закриває, не знаючи, що саме.<br><br>Решта шару так не робить: шість інших затемнень живуть у файлі того компонента, який вони гасять (<code>header.css</code>, <code>cart-drawer.css</code>, <code>filter-sheet.css</code>, <code>filter-rail.css</code>, <code>menu.css</code>, <code>auth-dialog.css</code>). Два лишилися тут, і причина в них різна: <code>.wf-ov</code> служить трьом панелям одразу, тож не належить жодній, а <code>.ceov</code> служить дев'ятьом діалогам, побудованим на льоту.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>закрито</b></td><td><code>.wf-ov{display:none}</code> і <code>.ceov{display:none}</code></td><td>стан спокою на кожному екрані, де вони лежать</td></tr>
+<tr><td><b>відкрито</b></td><td><code>.wf-ov.open</code> - <code>block</code>, <code>.ceov.open</code> - <code>flex</code></td><td>вирішувач: <b>жоден із двох не збігся з елементом</b>. Половина селекторів файлу існує лише в русі</td></tr>
+<tr><td><b>клік</b></td><td>закриває те, що затемнює</td><td>через <code>onclick</code> у розмітці, а не через цей файл: <code>closeCity()</code>, <code>closePM()</code>, <code>closeCookieSettings()</code></td></tr>
+<tr><td><b>фокус</b></td><td>нічого</td><td>у затемнення немає фокусованих дітей, і пастка 7.85 <b>навмисно</b> лишає всі три скрими осторонь: fixed, але нуль фокусованих - це не панель</td></tr>
+<tr><td><b>поява</b></td><td><b>без переходу</b></td><td><code>display:none</code> на <code>display:block</code> перехід не бере, і файл цього не пробує. Чи читається це різко - <b>не заміряно</b></td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>жодної медіа-умови</b>: одна редакція на всі ширини.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>2</b> власні класи і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["ceov", "wf-ov"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>overlay.css</code>: <b>1</b> семантична роль і <b>1</b> примітив.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (1)</th><th>Примітиви (1)</th></tr></thead><tbody><tr><td><code>--scrim-overlay</code></td><td><code>--space-24</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
+<p class="kp-p">Чотири селектори. <b>Жодного оголошення, яке б збігалося з елементом і не вигравало</b>, і це не заслуга: у файлі просто нема чому з чим сперечатися. Зате <b>два з чотирьох селекторів не збіглися ні з чим</b> - обидва <code>.open</code>. За сорока кольоровими екранами в спокої жодне з двох затемнень не намальовано ввімкненим жодного разу.</p><p class="kp-p">З цього виходить головне питання файлу, і воно не про css. <code>overlay.css</code> - <b>єдиний з 24 організмів, у якого немає ані власної розмітки, ані власного стану, ані ролі</b>. Він тримає значення, яке належить восьми іншим файлам, і два імені, які належать різним речам. Питання етапу 09 звучить так: це компонент, чи це шар?</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b><code>.wf-ov</code> і <code>.ceov</code> це різні речі під одним іменем файлу</b> - одне гасить, друге тримає. Або два файли, або одне ім'я на обох</li><li><b>Затемнення шару розкидані по семи файлах</b>, а тут лежать два «нічиї». Правило про те, де живе скрим, - рішення етапу 09</li><li><b>Коментар токена рахує сім ужитків, їх вісім</b> - лічильник у коментарі відв'язаний від коду й дрейфує мовчки</li><li><b><code>--scrim-*</code> не потрапляє в жоден із двох списків</b> перепису: ані семантична роль, ані примітив. Третя родина без полиці</li><li><b>Немає переходу появи</b>, і жодного заміру про те, чи він потрібен</li></ul>
+<p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script>
+/* The frame is a viewport, so it has to be sized like one and not like a box.
+   Two numbers are read from the frame itself rather than typed here: its content
+   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
+   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
+   the media query inside sees - the frame is still 1180 wide to itself, which is
+   the whole reason the frame exists. */
+(function(){
+  var f = document.querySelector('.kp-frame'); if (!f) return;
+  var wrap = f.parentNode;
+  function fit(){
+    try{
+      var d = f.contentDocument; if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
+      h = Math.min(h, 900);
+      f.style.height = h + 'px';
+      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
+      var avail = wrap.clientWidth - 24;
+      var k = Math.min(1, avail / declared);
+      f.style.transformOrigin = 'top left';
+      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
+      wrap.style.height = Math.round(h * k) + 'px';
+    }catch(e){}
+  }
+  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
+  addEventListener('resize', fit);
+  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

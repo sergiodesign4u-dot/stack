@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Системна сторінка | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Організм · рівень 3</div>
+<h1 class="kp-h1">Системна сторінка</h1>
+<p class="kp-lead">Файл є, класи є, і <b>кольору в ньому немає жодного рядка</b>: шапка обіцяє колірний блок нижче, а колірного блоку у файлі нема - тільки структурний. Усі 16 класів зустрічаються рівно на чотирьох сірих екранах - <code>wireframes/404.html</code>, <code>wireframes/500.html</code>, <code>wireframes/maintenance.html</code> і <code>wireframes/system.html</code>, - і в жодного з них немає кольорового двійника: <code>design/404.html</code>, <code>design/500.html</code>, <code>design/maintenance.html</code> і <code>design/system.html</code> не існують. Файл виділили при розколі на кроці 3 етапу 08, він поїхав у кольорову систему разом з рештою, і <b>колір цього організму не намальовано ніде</b>.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/system-page.css</span><span class="kp-tag">38 рядків</span><span class="kp-tag">20 селекторів</span><span class="kp-tag">93 оголошення</span><span class="kp-tag">жодного екрана</span></div>
+
+<section class="kp-sec"><div class="kp-sh">З чого складається</div>
+<p class="kp-p">Складу немає з чого міряти: корінь <code>.sys-min</code> шукали на всіх сорока кольорових екранах і не знайшли, тож речення нижче означає не «організм простий», а «організму в кольорі не існує».</p>
+<p class="kp-p"><b>Замір не відбувся.</b> Кореня цього організму немає в спокої на жодному кольоровому екрані, тож обхід сорока екранів не мав що обійти. Склад читається з файлу й з розмітки, знятої після виклику будівника, а не з цієї таблиці.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/index.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень.</p><p class="kp-p">Показано <b>в рамці шириною 1180</b>, і ширина названа не для краси: це ширина, на якій цей організм у продукті стоїть. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/system-page.html" style="width:1180px" data-w="1180" title="Системна сторінка"></iframe></div><div class="kp-demo " hidden><main class="sys-min" aria-label="Помилка сервера">
+  <a class="sys-logo" href="../../index.html">Stack</a>
+  <div class="sys-code">500</div>
+  <h1 class="sys-h">Помилка на сервері</h1>
+  <p class="sys-s">На нашому боці сталася помилка. Ми вже розбираємось. Спробуйте оновити
+    сторінку за хвилину або поверніться на головну.</p>
+  <div class="sys-acts">
+    <a class="btn dark" href="../../500.html">Оновити сторінку</a>
+    <a class="btn" href="../../index.html">На головну</a>
+    <a class="btn" href="../../content-contacts.html">Підтримка</a>
+  </div>
+  <p class="sys-s" style="margin-top:18px;font-size:12.5px">Потрібна допомога? 0 800 000 000 · Telegram · Viber</p>
+</main></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Дві половини, які не зустрічаються.</b> Вісім класів - екран повідомлення: <code>.sys-min</code>, <code>.sys-logo</code>, <code>.sys-code</code>, <code>.sys-h</code>, <code>.sys-s</code>, <code>.sys-acts</code>, <code>.sys-search</code>, <code>.sys-links</code>. Вісім - каталог станів: <code>.sysgrid</code>, <code>.syscard</code>, <code>.sc-code</code>, <code>.sc-t</code>, <code>.sc-d</code>, <code>.sc-open</code>, <code>.sysdemo</code>, <code>.demo-btns</code>. Друга вісімка є тільки на <code>wireframes/system.html</code> і з першою на одному екрані не перетинається жодного разу</span></div><div class="a"><i>2</i><span><b>І чотири екрани теж не однакові.</b> <code>wireframes/404.html</code> носить <code>.sys-code</code>, <code>.sys-h</code>, <code>.sys-s</code>, <code>.sys-search</code> і <code>.sys-links</code> - і <b>не має обгортки <code>.sys-min</code></b>; <code>500.html</code> та <code>maintenance.html</code> носять однаковий набір із шести, з <code>.sys-min</code> і <code>.sys-logo</code>. Жоден екран не бере більше половини файлу</span></div><div class="a"><i>3</i><span><b>Стовп</b> <code>.sys-min</code> - <code>min-height: 78vh</code>, колонка по центру за обома осями. Єдина міра висоти у файлі і єдиний <code>vh</code> у ньому. Код повідомлення <code>.sys-code</code> - <code>font-size: 60px</code>, і це єдиний кегль у файлі не з <code>--fs-*</code></span></div><div class="a"><i>4</i><span><b>Каталог</b> <code>.sysgrid</code> - одна колонка, від 720 три; картка <code>.syscard</code> з чотирма частинами (<code>.sc-code</code>, <code>.sc-t</code>, <code>.sc-d</code> з <code>flex: 1</code>, <code>.sc-open</code>) і смуга <code>.sysdemo</code> з <code>.demo-btns</code> під нею</span></div><div class="a"><i>5</i><span><b>Поле пошуку</b> <code>.sys-search input</code> - до 859 кегль підіймається до <code>--fs-16</code>. <b>Це правило зайве, і файл сам про це написав</b>: рівно над ним стоїть коментар, що правило про кегль поля на телефоні переїхало в <code>base.css</code>, «і цей коментар разом з ним». У <code>404.html</code> поле це <code>input type="search"</code>, а <code>base.css</code> накриває його селектором на один елемент довшим, тож виграє саме <code>base.css</code>. Коментар і код під ним суперечать одне одному</span></div><div class="a"><i>6</i><span><b>Фарба говорить іменами прототипу.</b> П'ять семантичних ролей файлу - <code>--text-primary</code>, <code>--text-secondary</code>, <code>--text-muted</code>, <code>--line-hair</code>, <code>--line-strong</code>. Продуктового <code>--text-body</code> тут немає жодного разу, хоч <code>tokens.css</code> дає обом іменам одне значення <code>--warm-900</code>. Це не помилка кольору, це слід того, що колірного блоку не було кому написати</span></div></div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>404 · не знайдено</b></td><td><code>.sys-code</code> з номером, <code>.sys-h</code>, <code>.sys-s</code>, поле <code>.sys-search</code> і рядок <code>.sys-links</code></td><td>єдиний з чотирьох, що дає вихід пошуком, і єдиний без обгортки <code>.sys-min</code></td></tr>
+<tr><td><b>500 · збій</b></td><td>той самий каркас, але з <code>.sys-min</code>, <code>.sys-logo</code> і <code>.sys-acts</code> замість пошуку</td><td>шукати немає чого: зламався не запит, а відповідь, тож замість поля дві дії</td></tr>
+<tr><td><b>обслуговування</b></td><td>набір класів <b>рівно той самий</b>, що й у 500</td><td>дві сторінки з однаковою розміткою і різним текстом; файл про цю різницю не знає нічого</td></tr>
+<tr><td><b>каталог станів</b></td><td><code>.sysgrid</code> з картками <code>.syscard</code> і смуга <code>.sysdemo</code> з <code>.demo-btns</code></td><td>це не екран продукту, а вітрина прототипу: <code>wireframes/system.html</code></td></tr>
+<tr><td><b>наведення, фокус, натиск</b></td><td><b>нічого</b></td><td>у файлі немає жодного псевдо-класу стану. Посилання <code>.sys-links a</code> і <code>.sc-open</code> підкреслені й нерухомі</td></tr>
+<tr><td><b>темна тема</b></td><td><b>не бачена</b></td><td>ролі у файлі семантичні, тож тема мала б застосуватись сама; перевірити це немає на чому - кольорового екрана з цими класами не існує</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>2</b> медіа-умови, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width: 859px)</code></li><li><code>@media (min-width: 720px)</code></li></ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>16</b> власних класів і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["demo-btns", "sc-code", "sc-d", "sc-open", "sc-t", "sys-acts", "sys-code", "sys-h", "sys-links", "sys-logo", "sys-min", "sys-s", "sys-search", "syscard", "sysdemo", "sysgrid"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>system-page.css</code>: <b>5</b> семантичних ролей і <b>16</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (16)</th></tr></thead><tbody><tr><td><code>--line-hair</code> <code>--line-strong</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fs-16</code> <code>--fs-24</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--ls-display</code> <code>--radius-12</code> <code>--radius-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-4</code> <code>--space-40</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
+<p class="kp-p"><b>Жодного оголошення, яке збігається й програє - бо жодне не збігається взагалі.</b> Вирішувач пройшов усі сорок кольорових екранів у дві ширини і поклав <b>усі 210 розгорнутих оголошень цього файлу</b> в один список: «не збігається з жодним елементом». Це не вирок правилам - їх просто ніхто не міг перевірити. Файл при цьому підключений: <code>design/system/index.css</code> імпортує його рядком 90, тож він вантажиться на кожному кольоровому екрані й не малює нічого.</p><p class="kp-p">Порівняйте з <code>cookie-banner.css</code>, чиї класи теж не малюються в кольорі: банер хоча б існує в рантаймі, його ставить скрипт. Тут не так - <b>жоден із 16 класів не будується жодним JavaScript</b>, у всьому репозиторії ці імена не зустрічаються в жодному <code>.js</code>. Отже це не стан, який чекає на подію, і не розмітка, яку хтось створить: розмітки немає ніде, крім чотирьох сірих екранів. Рішення - малювати ті чотири екрани в кольорі або тримати файл поза системою, доки їх немає - належить власникові, і цей стенд його не приймає.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Чотирьох екранів у кольорі немає</b> - <code>design/404.html</code>, <code>design/500.html</code>, <code>design/maintenance.html</code>, <code>design/system.html</code>. Або малювати їх, або тримати файл поза системою, доки їх немає</li><li><b>Колірного блоку у файлі немає</b>, хоч шапка його обіцяє. Поки екранів немає, писати його нема з чого: не видно, де кольоровий продукт відрізняється від сірого прототипу</li><li><b>500 і «обслуговування» - однакова розмітка</b>. Або один екран з двома текстами, або дві справді різні розмітки. Зараз ні того, ні того</li><li><b>Дві половини під одним іменем</b> - екран повідомлення і каталог станів прототипу. Друга половина це інструмент, а не продукт, і в продуктовій системі їй місця може не бути</li><li><b>Зайве правило під коментарем, що його зняли</b> - <code>@media (max-width: 859px)</code> для <code>.sys-search input</code> дублює <code>base.css</code> і програє йому. Помітити це на екрані неможливо: екрана немає</li></ul>
+<p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script>
+/* The frame is a viewport, so it has to be sized like one and not like a box.
+   Two numbers are read from the frame itself rather than typed here: its content
+   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
+   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
+   the media query inside sees - the frame is still 1180 wide to itself, which is
+   the whole reason the frame exists. */
+(function(){
+  var f = document.querySelector('.kp-frame'); if (!f) return;
+  var wrap = f.parentNode;
+  function fit(){
+    try{
+      var d = f.contentDocument; if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
+      h = Math.min(h, 900);
+      f.style.height = h + 'px';
+      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
+      var avail = wrap.clientWidth - 24;
+      var k = Math.min(1, avail / declared);
+      f.style.transformOrigin = 'top left';
+      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
+      wrap.style.height = Math.round(h * k) + 'px';
+    }catch(e){}
+  }
+  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
+  addEventListener('resize', fit);
+  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

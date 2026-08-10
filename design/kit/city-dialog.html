@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Діалог міста | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Організм · рівень 3</div>
+<h1 class="kp-h1">Діалог міста</h1>
+<p class="kp-lead">Найтиражніший діалог шару: він лежить на <b>34 з 40</b> кольорових екранів, і в ньому <b>816 кнопок міст</b> плюс 272 бейджі популярних. При цьому вирішувач каже, що <code>.wf-city.open</code> <b>не збігся з жодним елементом</b>: у спокої його не намальовано розкритим ніде. 29 рядків, і <b>колірного блоку немає взагалі</b> - один із шести файлів організмів, де розділ етапу 08 лишив другу половину порожньою.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/city-dialog.css</span><span class="kp-tag">29 рядків</span><span class="kp-tag">15 селекторів</span><span class="kp-tag">65 оголошень</span><span class="kp-tag">34 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">З чого складається</div>
+<p class="kp-p">Складає всього два файли - поле й кнопку. Решту, включно з сіткою міст і бейджами, малює сам.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Файл</th><th>Класів</th><th>Які саме</th></tr></thead><tbody><tr><td><code>field.css</code></td><td>2</td><td><code>.field</code> <code>.field--s</code></td></tr><tr><td><code>button.css</code></td><td>2</td><td><code>.btn--icon</code> <code>.btn--s</code></td></tr></tbody></table></div><p class="kp-p"><b>2</b> класи всередині кореня мають більш ніж одного власника, тож із коду не видно, чий вони: <code>.btn--ghost</code> <code>.uiv-ic</code></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/index.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень. Цей організм у спокої не існує - він <code>display: none</code>, доки щось не додасть <code>open</code>, - тож стенд додає цей клас сам. Показано на сцені: трансформований предок стає для <code>position: fixed</code> тим блоком, від якого рахується його <code>inset</code>, тож панель не накриває сторінку й не втрачає жодного свого оголошення.</p><p class="kp-p">Показано <b>в рамці шириною 390</b>, і ширина названа не для краси: це ширина, на якій цей організм у продукті стоїть. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки. Сам організм у рамці обмежено до <b>560px</b> - це ширина, яку він займає в продукті на 1280. Витягнутий зі своєї колонки, він розтягнувся б на всю рамку, і кнопка на 294 стала б кнопкою на 1490.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/city-dialog.html" style="width:390px" data-w="390" title="Діалог міста"></iframe></div><div class="kp-demo kp-stage" hidden><div class="wf-city open" id="city-dlg" role="dialog" aria-modal="true" aria-label="Оберіть місто"><div class="wf-city-h">Оберіть місто<button class="btn--ghost btn--icon btn--s x" aria-label="Закрити"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.4 6.4l11.2 11.2"></path><path d="M17.6 6.4L6.4 17.6"></path></svg></span></button></div><div class="wf-city-b"><input class="field field--s city-search" type="search" placeholder="Пошук міста…" aria-label="Пошук міста"><div class="city-lbl">Популярні міста</div><div class="city-pop"><button class="city-badge">Київ</button><button class="city-badge">Харків</button><button class="city-badge">Дніпро</button><button class="city-badge">Одеса</button><button class="city-badge">Львів</button><button class="city-badge">Запоріжжя</button><button class="city-badge">Кривий Ріг</button><button class="city-badge">Миколаїв</button></div><div class="city-lbl">Усі міста (А–Я)</div><div class="city-list"><button class="city-az">Вінниця</button><button class="city-az">Дніпро</button><button class="city-az">Житомир</button><button class="city-az">Запоріжжя</button><button class="city-az">Івано-Франківськ</button><button class="city-az">Кам'янець</button><button class="city-az">Київ</button><button class="city-az">Кременчук</button><button class="city-az">Кривий Ріг</button><button class="city-az">Луцьк</button><button class="city-az">Львів</button><button class="city-az">Миколаїв</button><button class="city-az">Одеса</button><button class="city-az">Полтава</button><button class="city-az">Рівне</button><button class="city-az">Суми</button><button class="city-az">Тернопіль</button><button class="city-az">Ужгород</button><button class="city-az">Харків</button><button class="city-az">Херсон</button><button class="city-az">Хмельницький</button><button class="city-az">Черкаси</button><button class="city-az">Чернівці</button><button class="city-az">Чернігів</button></div><div class="city-note">Доставка Новою Поштою по всій Україні - знайдемо будь-яке місто через пошук.</div></div></div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Корпус</b> <code>.wf-city</code> - <code>position:fixed</code>, 560 завширшки, не більше 94vw і 86vh, <code>z-index:61</code>, <code>--elevation-4</code>, по центру через <code>translate(-50%,-50%)</code>. Рівно один на екран, 34 на весь шар</span></div><div class="a"><i>2</i><span><b>Шапка</b> <code>.wf-city-h</code> і закриття <code>.x</code> - <code>--fs-20</code>. <code>.x</code> це один зі 126 неоднозначних імен: його називають <b>п'ять</b> файлів - chip, city-dialog, cookie-banner, filter-sheet, review-modal</span></div><div class="a"><i>3</i><span><b>Пошук</b> <code>.city-search</code> - розмітка бере <code>.field .field--s</code>, а цей файл поверх них удруге каже рамку, радіус, відступи й кегль. Організми в <code>index.css</code> підключені після атомів, тож виграє тут завжди він</span></div><div class="a"><i>4</i><span><b>Популярні</b> <code>.city-pop</code> <code>.city-badge</code> - гнучкий ряд пігулок, 8 на екран, 272 на шар. <code>:hover</code> міняє тільки рамку на <code>--line-inverse</code></span></div><div class="a"><i>5</i><span><b>Абетка</b> <code>.city-list</code> <code>.city-az</code> - сітка в 3 колонки, до 479 у 2. 24 кнопки на екран, 816 на шар. <code>:hover</code> дає <code>--text-primary</code> і підкреслення</span></div><div class="a"><i>6</i><span><b>Примітка</b> <code>.city-note</code> - <code>--fs-12</code>, волосина зверху, <code>--text-muted</code>. Каже, що пошук знайде будь-яке місто, і це єдина відповідь файлу на «мого міста тут немає»</span></div></div>
+<div class="kp-gap"><h4>34 контроли, до яких не було як дійти</h4>Крок 7.85 заміряв усі вісім панелей, що рендеряться на 390. Цей діалог має <b>34 фокусовані контроли, і жоден не досягався без миші</b>: п'ять натискань Tab клали фокус на сторінку позаду. Він при цьому оголошує <code>role="dialog" aria-modal="true"</code> - тобто каже читачеві екрана, що решта сторінки інертна, поки клавіатура крізь неї спокійно ходить. Пастка, дописана в <code>wireframes/_nav.js</code>, тримається не на списку імен, а на <b>формі</b>: <code>.open</code> плюс <code>position:fixed</code> плюс ненульова висота плюс хоча б один видимий фокусований. Після неї 40 зупинок з 40 усередині, Escape закриває 8 з 8, фокус повертається на той самий контроль, що відкривав.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>закрито</b></td><td><code>.wf-city{display:none}</code></td><td>стан спокою на всіх 34 екранах, і єдиний, який бачив перепис</td></tr>
+<tr><td><b>відкрито</b></td><td><code>.wf-city.open</code> - <code>display:flex</code></td><td>вирішувач: цей селектор <b>не збігся з жодним елементом</b> на 40 екранах</td></tr>
+<tr><td><b>наведення на пігулку</b></td><td><code>.city-badge:hover</code> - рамка в <code>--line-inverse</code></td><td>єдина зміна, і вона не чіпає ні фон, ні текст</td></tr>
+<tr><td><b>наведення на місто</b></td><td><code>.city-az:hover</code> - <code>--text-primary</code> плюс <code>text-decoration:underline</code></td><td>кнопка поводиться як посилання, бо в списку з 24 позицій рамка на кожній була б шумом</td></tr>
+<tr><td><b>до 479</b></td><td>сітка міст із 3 колонок у 2</td><td>єдина медіа-умова файлу</td></tr>
+<tr><td><b>вибране місто</b></td><td><b>немає</b></td><td><code>wfPickCity()</code> переписує підпис у шапці й закриває діалог; ні бейдж, ні рядок списку не отримують нічого - відкривши діалог удруге, ви не побачите, де ви</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>1</b> медіа-умова, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width: 479px)</code></li></ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>10</b> власних класів і <b>1</b> стан.</p><div id="idle"></div><script>var KIT_CLS=["city-az", "city-badge", "city-lbl", "city-list", "city-note", "city-pop", "city-search", "wf-city", "wf-city-b", "wf-city-h"], KIT_STS=[":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>city-dialog.css</code>: <b>8</b> семантичних ролей і <b>16</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (16)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--elevation-4</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-18</code> <code>--fs-20</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--ls-caps</code> <code>--radius-12</code> <code>--radius-8</code> <code>--radius-pill</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
+<p class="kp-p">15 селекторів, 65 оголошень, <b>жодного, яке б збігалося з елементом і не вигравало</b>. Не збігся з нічим рівно один - <code>.wf-city.open { display }</code>. Чисто, і причина проста: <b>у файлі немає другої редакції</b>. Там, де в auth-dialog колірний блок переписує структурний і б'є його 33 рази, тут колірного блоку немає, тож битися нема чому. Це найдешевший спосіб не мати конфлікту - і водночас означає, що кольоровий продукт малює цей діалог правилами сірого прототипу, у яких лише підмінено значення на токени.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul><li><b>Нічим не позначено поточне місто</b> - ні в популярних, ні в абетці. Стан вибору потрібен там, де вибір зберігається</li><li><b>Немає стану порожнього пошуку</b> - поле <code>type="search"</code> є, відповіді «нічого не знайдено» немає</li><li><b>Свого кільця фокуса немає</b> на 816 кнопках: файл не називає жодного фокусного стану</li><li><b>Межу 479 не заміряно власними ширинами</b> - потрібні 479 і 480</li></ul>
+<p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script>
+/* The frame is a viewport, so it has to be sized like one and not like a box.
+   Two numbers are read from the frame itself rather than typed here: its content
+   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
+   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
+   the media query inside sees - the frame is still 1180 wide to itself, which is
+   the whole reason the frame exists. */
+(function(){
+  var f = document.querySelector('.kp-frame'); if (!f) return;
+  var wrap = f.parentNode;
+  function fit(){
+    try{
+      var d = f.contentDocument; if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
+      h = Math.min(h, 900);
+      f.style.height = h + 'px';
+      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
+      var avail = wrap.clientWidth - 24;
+      var k = Math.min(1, avail / declared);
+      f.style.transformOrigin = 'top left';
+      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
+      wrap.style.height = Math.round(h * k) + 'px';
+    }catch(e){}
+  }
+  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
+  addEventListener('resize', fit);
+  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

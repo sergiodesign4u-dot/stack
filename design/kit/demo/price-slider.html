@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Повзунок ціни</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<div style="max-width:198px;margin:0 auto"><div class="frange uiv-slider" data-uiv="1"><div class="uiv-track"></div><div class="uiv-fill" style="left: 26.6667%; width: 23.3333%;"></div><input type="range" class="uiv-rmin" min="0" max="3000" step="10" value="800" aria-label="Ціна від" style="z-index: 3;"><input type="range" class="uiv-rmax" min="0" max="3000" step="10" value="1500" aria-label="Ціна до" style="z-index: 4;"></div></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script>
+(function(){
+  var init = ['uivFixLinks','uivChrome','uivCurrency','uivPriceSlider','uivCheckboxes',
+              'uivSwitches','uivSegments','uivRadioGroups','uivDisclosures','uivFav','uivCrumbs'];
+  init.forEach(function(n){ try{ if (typeof window[n] === 'function') window[n](); }catch(e){} });
+})();
+</script>
+</body>
+</html>
