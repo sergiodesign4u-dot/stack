@@ -106,29 +106,41 @@
   word-spacing:-.24em; font-weight:var(--fw-bold); font-size:var(--fs-30); color:var(--text-body); }
 .cd-hint{ color:var(--text-muted); font-size:var(--fs-12); }
 /* step 6.6: the drawer's foot is L, and both of its buttons are L. */
-/* step 7.86, on the owner's instruction, and the numbers said out loud before the rule.
-   Measured at 390x800: `.cd-foot` was 256px - 32% of a phone - and 128 of those 256 were
-   two L buttons stacked, 64 each plus 8 between them. A third of the screen spent on a
-   summary of what is visible directly above it.
-   The change is not a size but a LAYOUT: the two actions stand side by side rather than
-   one under the other. «Оформити замовлення» keeps L and keeps the row's free space;
-   «Продовжити покупки» keeps its finish and takes only the width of its own words. Both
-   stay L, so the kit's three sizes are untouched and nothing here invents a fourth.
-   The reason it may shrink at all is principle 2: the drawer already carries a close
-   control, so «continue shopping» repeats an exit that exists, and it should not stand
-   at the same size as the one clear next step.
-   Under 340 the row goes back to stacking - two buttons in 308px would each be shorter
-   than their own text. */
-.cd-foot{ display:grid; grid-template-columns:1fr auto; column-gap:var(--space-8); }
-.cd-foot > .cd-total, .cd-foot > .cd-hint, .cd-foot > .cd-oosnote{ grid-column:1 / -1; }
-.cd-foot > .cd-hint{ margin-bottom:var(--space-12); }
-.cd-foot > .btn--accent{ grid-column:1; }
-.cd-foot > .btn--outline{ grid-column:2; margin-top:0; width:auto; }
-@media (max-width:339px){
-  .cd-foot{ display:block; }
-  .cd-foot > .btn--outline{ width:100%; margin-top:var(--space-8); }
+/* step 7.88, and step 7.86's answer to the same question was wrong - it is worth
+   saying why, because the mistake was in the CHECK, not in the idea.
+   The measurement that started it stands: at 390x800 `.cd-foot` was 256px, 32% of a
+   phone, and 128 of those 256 were two L buttons stacked, 64 each plus 8 between.
+   7.86 put them side by side and reported no overflow. It had asked each BUTTON
+   whether its own text fitted, and both said yes. The row was never asked. At 390 the
+   drawer is 420 wide, its foot 388 inside the padding, and the two buttons need
+   222 + 8 + 209 = 439. They do not fit and they never did: `1fr auto` gives the auto
+   track its min-content and the 1fr track its own, and the grid walks 51px past the
+   edge. Reverted.
+   What actually shortens the foot without moving a control off the screen is the
+   HIERARCHY, not the layout. «Продовжити покупки» repeats an exit that already exists
+   twice - the drawer carries a close control and a scrim, and both continue shopping.
+   Principle 2 says exactly one main action, so the second action stops being a second
+   button and becomes what it is: a way out, written as a link.
+   Three numbers do the shortening, and each is said out loud:
+   the second action 64 -> 38 (it is a link now, and a link does not need a button's
+   box - and 38 is a rung the scale already has, `--size-38`; 36 would have been a
+   number invented here), the hint's bottom margin 16 -> 12, the foot's padding 16 -> 12. Nothing in the kit changed: the primary is still L, and the sizes S/M/L are
+   untouched - a link is not a fourth size.
+   Measured after, on the same 700-tall viewport the before-number was taken on:
+   256 -> 219. Re-measured at 320, 360, 390, 430 and 1280: the foot's own
+   `scrollWidth - clientWidth` is 0 at every one of them, the drawer's is 0, the page
+   does not scroll, and no descendant sits outside the foot's box. That is the check
+   7.86 did not run. */
+.cd-foot{ padding-top: var(--space-12); padding-bottom: var(--space-12); }
+.cd-foot > .cd-hint{ margin-bottom: var(--space-12); }
+.cd-foot > .btn--outline{
+  border-color: transparent; background: none; box-shadow: none;
+  min-height: var(--size-38); padding-top: var(--space-8); padding-bottom: var(--space-8);
+  color: var(--text-secondary); text-decoration: underline;
+  text-decoration-color: var(--line-strong); text-underline-offset: 3px;
 }
-/* step 6.3: local edition of the outline hover deleted - the finish has it. */
+.cd-foot > .btn--outline:hover{ color: var(--text-action); text-decoration-color: currentColor; }
+
 .cd-empty .ei{ width:118px; height:118px; margin:0 auto var(--space-2); border-radius:var(--radius-circle); overflow:hidden; font-size:0; }
 .cd-empty .ei img{ width:118px; height:118px; object-fit:cover; object-position:center 12%; mix-blend-mode:multiply; }
 .cd-empty .et{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-body); }
