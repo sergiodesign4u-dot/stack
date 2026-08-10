@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Тост | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Тост</h1>
+<p class="kp-lead">Смужка внизу екрана, яка каже, що дія вдалась. <b>Єдиний компонент системи, якого в стані спокою не існує</b> - і саме тому це виявилась єдина область продукту, куди жоден прохід ніколи не дійшов.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/toast.css</span><span class="kp-tag">42 рядки</span><span class="kp-tag">9 селекторів</span><span class="kp-tag">43 оголошення</span><span class="kp-tag">11 екранів</span><span class="kp-tag">JS</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Натисніть - тости справжні, їх будує та сама <code>wfToast()</code>, що й у крамниці, і зникають вони так само через 4.2 секунди.</p>
+<div class="kp-demo">
+  <div class="eact" style="display:flex;gap:12px;flex-wrap:wrap">
+    <button class="btn--accent btn dark" type="button" onclick="wfToast('ok','Адресу збережено')">Успіх</button>
+    <button class="btn--outline btn" type="button" onclick="wfToast('error','Заповніть виділені поля')">Помилка</button>
+    <button class="btn--outline btn" type="button" onclick="wfToast('info','Код надіслано ще раз')">Повідомлення</button>
+    <button class="btn--outline btn" type="button" onclick="kpFade()">Зникання</button>
+  </div>
+</div>
+<div class="kp-cap">«Зникання» показує стан <code>.out</code> одразу: у крамниці він настає сам через 4.2 секунди, і чекати його на стенді - не показувати його</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Стос</b> <code>.wf-toasts</code> - <code>position: fixed</code>, знизу 22, по центру, 92% ширини й не ширше 380. <code>z-index: 70</code> - вище за все, крім модалок</span></div>
+  <div class="a"><i>2</i><span><b>Смужка</b> <code>.wf-toast</code> - <code>--bg-inverse</code> з <code>--elevation-4</code>, найважча тінь системи. Це єдина поверхня, яка лягає поверх усього, тож вона мусить читатись відірваною від сторінки</span></div>
+  <div class="a"><i>3</i><span><b>Значок</b> <code>.tt-ic</code> - біле коло 20 з чорним знаком. Знак <b>набраний шрифтом</b>, і це відкрите питання нижче</span></div>
+  <div class="a"><i>4</i><span><b>Текст</b> <code>.tt-m</code> - <code>flex: 1</code>, забирає все, що лишилось. Один рядок або два, обмеження немає</span></div>
+  <div class="a"><i>5</i><span><b>Закрити</b> <code>.tt-x</code> - <code>aria-label="Закрити"</code>, і з 7.78 знак малюється з набору, як усі інші хрестики магазину</span></div>
+</div>
+<p class="kp-p"><b>Стос має <code>aria-live="polite"</code>.</b> Тому тост чують, а не тільки бачать: читач з екрана отримує текст тоді ж, коли він з'являється, і не мусить його шукати. Це єдине місце продукту, де оголошення робиться саме так.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Область, куди не дійшов жоден прохід</div>
+<p class="kp-p"><code>marks.js</code> існує заради одного правила: знак малює <b>набір</b>, а не шрифт машини. Проходи запускає <code>uivChrome()</code> останнім рядком - «щоб вони побачили кнопки, які всі проходи вище закінчили будувати». Тост будується не тоді. Він будується тоді, коли хтось зберіг адресу.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Заміряно на <code>cart.html</code></th><th>Чим намальовано</th></tr></thead><tbody>
+<tr><td>хрестик шухляди кошика <code>.x</code></td><td>набір, <code>.uiv-ic svg</code></td></tr>
+<tr><td>хрестик діалогу <code>.cd-x</code></td><td>набір, <code>.uiv-ic svg</code></td></tr>
+<tr><td>хрестик тоста <code>.tt-x</code></td><td><b>шрифт</b>, символ <code>✕</code></td></tr>
+</tbody></table></div>
+<p class="kp-p">Доказом, що нічого не бракувало, крім виклику, став ручний запуск: <code>uivMarks()</code> по контейнеру тоста перетворив символ на знак із набору одразу. Тож 7.78 не додав нового проходу - він <b>обгорнув будівника</b>, як <code>uivPatchMenus()</code> уже обгортає три будівники каталожного оверлея з тієї самої причини.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Заміряно на чотирьох ширинах, обидва сервери</th><th>До</th><th>Після</th></tr></thead><tbody>
+<tr><td>чим намальовано <code>.tt-x</code></td><td>символ <code>✕</code></td><td><b>набір</b></td></tr>
+<tr><td>коробка <code>.tt-x</code></td><td>11 x 22</td><td><b>15 x 22</b></td></tr>
+<tr><td>коробка <code>.tt-m</code></td><td>272 x 22</td><td>268 x 22</td></tr>
+<tr><td>сам тост, фон, межа, радіус, тінь, значок</td><td colspan="2"><b>однаково</b></td></tr>
+</tbody></table></div>
+<div class="kp-do"><h4>Правило</h4><b>Прохід, який діє один раз при завантаженні, не покриває те, що з'являється пізніше.</b> Двічі за цей етап: спершу каталожний оверлей, тепер тост. Обидва полагоджені однаково - обгортанням будівника, а не другим проходом.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Два оголошення, які не робили нічого, і по-різному</div>
+<div class="kp-code">.wf-toast.error .tt-ic { background: var(--bg-page); color: var(--text-primary) }
+.wf-toast.info  .tt-ic { font-style: normal }</div>
+<p class="kp-p">Перше було <b>побайтно тим самим</b>, що правило на рядок вище. Запущено всі три типи й прочитано обчислений стиль з кожного: коло біле <code>rgb(255,255,255)</code> на чорному <code>rgb(28,28,28)</code> в <code>ok</code>, в <code>error</code> і в <code>info</code> однаково. Значок помилки ніколи не виглядав інакше за значок успіху.</p>
+<p class="kp-p">Друге повторювало <b>початкове значення</b> - і воно потрапило сюди звичкою. <code>font-style: normal</code> у системі є ще чотири рази: <code>.tbanners .tbx i</code>, <code>.addr-method .am-tx i</code>, <code>.oh-thumbs i</code>. У кожному з них елемент це <code>&lt;i&gt;</code>, який браузер нахиляє за замовчуванням. А <code>.tt-ic</code> це <code>&lt;span&gt;</code>. <b>Звичка переїхала, тег - ні.</b></p>
+<p class="kp-p">Після видалення в файлі не лишилось <b>жодного правила для <code>.info</code></b>. Це чесно: інформаційний тост і є базовий тост, і тепер це видно з коду.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Помилка й успіх - це та сама коробка</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Тип</th><th>Фон</th><th>Межа</th><th>Значок</th><th>Висота</th></tr></thead><tbody>
+<tr><td><code>ok</code></td><td><code>rgb(28,28,28)</code></td><td>0</td><td>біле коло, <code>✓</code></td><td>46</td></tr>
+<tr><td><code>error</code></td><td><code>rgb(28,28,28)</code></td><td><b>1px білого</b></td><td>біле коло, <code>!</code></td><td>48</td></tr>
+<tr><td><code>info</code></td><td><code>rgb(28,28,28)</code></td><td>0</td><td>біле коло, <code>i</code></td><td>46</td></tr>
+</tbody></table></div>
+<p class="kp-p">Уся різниця між «збережено» і «заповніть виділені поля» - це <b>волосина 1px білого на майже чорному</b> і інший набраний символ. У системі є ціла родина небезпеки - <code>--bg-danger-soft</code>, <code>--line-danger-soft</code>, <code>--text-danger</code>, - якою вже малюються <code>.errbox</code>, поле з помилкою і <code>.btn--danger</code>. Тост не бере з неї нічого.</p>
+<div class="kp-gap"><h4>Не змінено цим кроком, і це рішення власника</h4>«Як має виглядати помилка на інверсній поверхні» - питання вигляду, а не заміру. Тепла червона заливка на чорному не працює, а червоне коло значка працює, але це вибір, а не виправлення. Записано в <code>architecture.md</code> з цим замірoм.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Знак статусу лишився набраним, і чому</div>
+<p class="kp-p"><code>✓</code>, <code>!</code> та <code>i</code> немає в <code>UIV_SIGN_ONLY</code> - карті, яка перетворює символ на знак. Додати їх не однорядкова зміна: у наборі є <code>check</code> і <code>alert</code>, а знака <b>info немає взагалі</b>. Два з трьох лишили б інформаційний тост єдиним досі набраним, що гірше за три з трьох.</p>
+<p class="kp-p"><code>marks.js</code> сам пише це правило про свої карти: «поза нею нічого не чіпається, і жодна з двох карт не має права рости здогадкою». Тож знак статусу - записаний, а не заметений.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>поява</b></td><td><code>@keyframes tt-in</code>: 220ms, знизу вгору на 10px</td><td>рух знизу каже, звідки річ прийшла; це не спалах уваги, а поява</td></tr>
+<tr><td><b>спокій</b></td><td>чорна смужка з тінню, до 4.2 секунди</td><td>достатньо, щоб прочитати два рядки, і замало, щоб заважати</td></tr>
+<tr><td><code>.out</code></td><td>прозорість 0 і вниз на 8px, 250ms</td><td>зникає туди ж, звідки прийшов</td></tr>
+<tr><td><b><code>.error</code></b></td><td>додає межу 1px <code>--line-onink</code></td><td>єдина відмінність від успіху, розібрано вище</td></tr>
+<tr><td><b><code>.info</code></b></td><td><b>нічого</b></td><td>після 7.78 у файлі немає жодного правила для цього класу</td></tr>
+<tr><td><b>кілька одразу</b></td><td>стос колонкою, крок 8</td><td><code>wfToast</code> дописує в кінець, старі не витісняються</td></tr>
+<tr><td><b>наведення</b></td><td><b>немає</b>, і таймер не спиняється</td><td>записано нижче: тост, що зник під курсором, - це втрачене повідомлення</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Тост підтверджує те, що вже сталось.</b> «Адресу збережено» - дія завершена, її не треба підтверджувати ще раз. Тому тут немає кнопок, крім «закрити»: якщо повідомлення потребує рішення, це діалог, а не тост.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не клади сюди те, що не можна пропустити.</b> 4.2 секунди й <code>aria-live="polite"</code> означають, що повідомлення можна не побачити й не почути. Помилка, яка блокує оформлення, мусить стояти на самому полі, а не пролітати внизу екрана.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>7</b> власних класів і <b>2</b> стани оголошено в <code>toast.css</code>.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["error","out","tt-ic","tt-m","tt-x","wf-toast","wf-toasts"], KIT_STS=[".out",".error"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>toast.css</code>: <b>6</b> семантичних ролей і <b>9</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (9)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-page</code> <code>--elevation-4</code> <code>--line-onink</code> <code>--text-oninverse</code> <code>--text-primary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fw-black</code> <code>--radius-8</code> <code>--radius-circle</code> <code>--size-20</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу п'ять чисел, і всі п'ять про <b>розміщення й рух</b>: <code>22px</code> знизу, <code>92%</code> і <code>380px</code> ширини, <code>10px</code> появи й <code>8px</code> зникання. Жодне з них не про вигляд самої смужки - фон, радіус, тінь, кегль і кроки всередині взяті з системи повністю.</p>
+<p class="kp-p"><b>У цього файлу немає блока кольору взагалі</b> - усі 43 оголошення в секції структури. І це правда, а не пропуск: тост від початку намальований інверсною поверхнею й ролями <code>--bg-inverse</code> / <code>--text-oninverse</code>, тож кольоровому продукту нема чого тут перебивати.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p"><b>Перепис цей компонент не бачить.</b> Він обходить 40 екранів у спокої, а тоста в спокої не існує - у переписі 7.75 <b>кожне</b> оголошення цього файлу впало в графу «не збігається з жодним елементом», усі до одного.</p>
+<p class="kp-p">Тому A/B цього кроку інший: <b>ті самі три тости на обох серверах, на чотирьох ширинах</b>, і чотирнадцять обчислених значень з кожного - коробка, фон, межа, радіус, відступ, тінь, значок, текст, хрестик і ярлик. Різниця рівно там, де її замовляли: спосіб малювання хрестика і його коробка. <b>Решта - однаково.</b></p>
+<p class="kp-p">Плюс звичайні три проходи по 40 екранах: <b>нульовий прохід 0, різниця 0</b> - бо в спокої обгортка <code>wfToast</code> нічого не робить, і це саме те, що треба було довести.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Помилка невідрізненна від успіху</b> - волосина 1px і набраний символ. Родина небезпеки в системі є й не використана</li>
+<li><b>Знака <code>info</code> немає в наборі</b> - тому знак статусу лишається набраним шрифтом у всіх трьох типах</li>
+<li><b>Ціль «закрити» 15 x 22</b> при мінімумі 44, і це єдиний спосіб прибрати тост раніше</li>
+<li><b>Таймер не спиняється</b> ні на наведенні, ні на фокусі: повідомлення може зникнути з-під курсора того, хто його читає</li>
+<li><b>4.2 секунди</b> - число, написане в <code>wireframes/_nav.js</code> і ніде не пояснене</li>
+<li><b>Скільки тостів одночасно</b> - обмеження немає, десять дій дадуть десять смужок</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<div id="wf-toast"></div>
+<!-- the toast BUILDER lives in the grey layer - `wireframes/_nav.js:1213 wfToast()` -
+     so the stand loads it, exactly as eight other stands already do, rather than
+     writing a second edition of a function the product already has. `uivChrome()`
+     then wraps it (step 7.78) and the mark pass reaches the toast here too. -->
+<script src="../../wireframes/_nav.js"></script>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency(); wfToasts();
+/* `.out` lasts 250ms in the shop and arrives 4.2 seconds after the toast does. A
+   stand that makes a person wait for a state is a stand that does not show it. */
+function kpFade(){
+  wfToast('ok', 'Зараз зникне');
+  var t = document.querySelector('#wf-toast .wf-toast:last-child');
+  setTimeout(function(){ if(t) t.classList.add('out'); }, 700);
+}</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  /* the toast classes only exist once a toast has been fired, and the stand must
+     not claim otherwise: fire one of each, put the last one into its exit state -
+     which is what the shop does by itself after 4.2 seconds - read the classes,
+     then clear the stack. The first run of this check failed honestly: `.out` was
+     named in words and rendered by nothing. */
+  ['ok','error','info'].forEach(function(t){ wfToast(t, 'перевірка'); });
+  var last = document.querySelector('#wf-toast .wf-toast:last-child');
+  if(last) last.classList.add('out');
+  document.querySelectorAll('#wf-toast, #wf-toast *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.getElementById('wf-toast').innerHTML = '';
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Схожі товари | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Схожі товари</h1>
+<p class="kp-lead">П'ять слів у рамках під каталогом: куди ще піти, коли тут не знайшлось. <b>Найменший файл системи</b> - 14 рядків, 4 селектори, жодного мертвого оголошення. І він малює те саме, що вже малює сусідній компонент, тільки інакше.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/related.css</span><span class="kp-tag">14 рядків</span><span class="kp-tag">4 селектори</span><span class="kp-tag">14 оголошень</span><span class="kp-tag">2 екрани</span><span class="kp-tag">10 посилань</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>listing.html</code>, під SEO-блоком.</p>
+<div class="kp-demo">
+  <div class="relh">Схожі запити</div>
+  <div class="relrow">
+    <a class="relbox" href="#">Гейнери</a>
+    <a class="relbox" href="#">Амінокислоти BCAA</a>
+    <a class="relbox" href="#">Креатин</a>
+    <a class="relbox" href="#">Протеїн для схуднення</a>
+    <a class="relbox" href="#">Ізолят сироватки</a>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Ряд</b> <code>.relrow</code> - флекс із переносом, крок 8. Слів може бути три або дванадцять, і ряд не мусить про це знати</span></div>
+  <div class="a"><i>2</i><span><b>Рамка</b> <code>.relbox</code> - 14/700, <code>--text-secondary</code>, радіус 8. Тихіше за основний текст: це не дія екрана, це вихід із нього</span></div>
+  <div class="a"><i>3</i><span><b>Бровка</b> «Схожі запити» - <code>.relh</code>, і вона не з цього файлу: 12 / чорний / великими живуть у <code>section-head.css</code>, де 7.50 звело дві бровки в одну редакцію</span></div>
+  <div class="a"><i>4</i><span><b>Наведення</b> - край і текст беруть акцент одночасно. Два переходи по 150ms, більше в файлі немає нічого</span></div>
+</div>
+<p class="kp-p"><b>Це SEO-компонент, і він при цьому чесний.</b> Такий блок часто роблять складом ключових слів; тут п'ять справжніх розділів каталогу, і кожен веде туди, куди обіцяє. Принцип 5: звичайні слова, і за ними справжня глибина.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Одна ідея, дві редакції</div>
+<p class="kp-p">«Слово в рамці, яке натискають і потрапляють у відфільтрований каталог» на <code>listing.html</code> намальоване <b>двічі</b>: <code>.flink</code> у рейці фільтрів і <code>.relbox</code> тут. Заміряно поруч, на одному екрані:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th></th><th><code>.flink</code> · рейка</th><th><code>.relbox</code> · підвал</th></tr></thead><tbody>
+<tr><td>коробка</td><td>131 x <b>40</b></td><td>93 x <b>48</b></td></tr>
+<tr><td>відступ</td><td>8 / 12</td><td>12 / 16</td></tr>
+<tr><td>радіус</td><td><b>100</b> - пігулка</td><td><b>8</b> - прямокутник</td></tr>
+<tr><td>вага</td><td>600</td><td><b>700</b></td></tr>
+<tr><td>чорнило</td><td><code>rgb(28,28,28)</code></td><td><code>rgb(91,91,84)</code></td></tr>
+<tr><td>край · фон · кегль · гарнітура</td><td colspan="2"><b>однакові</b>: <code>rgb(217,217,217)</code> · біле · 14 · Inter</td></tr>
+<tr><td>куди веде</td><td colspan="2"><code>listing.html</code>, обидва</td></tr>
+</tbody></table></div>
+<p class="kp-p">Чотири властивості збігаються, п'ять розходяться, і <b>в коді ніде не сказано, що вони мусять розходитись</b>. Аргумент на користь різниці є: <code>.flink</code> звужує <b>цей</b> список, <code>.relbox</code> веде в <b>інший</b>. Але цей аргумент ніде не записаний, тож із файлів його не видно, а з екрана видно дві пігулки різної форми поруч.</p>
+<div class="kp-gap"><h4>Не зведено цим кроком</h4>Обрати одну форму - <b>рішення про вигляд</b>, і воно зачіпає 12 посилань рейки на семи екранах плюс ці десять. Записано в <code>architecture.md</code>, родина B1 - «одна ідея під двома іменами». Це та сама форма, що вже закривали для щабля лояльності, статус-пілюлі й бейджа знижки; різниця в тому, що там значення збігалися й розходились імена, а тут ім'я одне на дві геометрії.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>рамка <code>--line-strong</code>, текст <code>--text-secondary</code></td><td>тихіше за основний текст сторінки: блок пропонує, а не кличе</td></tr>
+<tr><td><b>наведення</b></td><td>край і текст ідуть в акцент</td><td>обидва разом, бо натискається вся коробка, а не слово в ній</td></tr>
+<tr><td><b>фокус</b></td><td><b>кільце браузера</b>, синє <code>rgb(0, 95, 204)</code></td><td>заміряно натисканням Tab, <code>:focus-visible</code> справді збігся. Своє кільце система оголошує і тут не використовує</td></tr>
+<tr><td><b>натиск</b></td><td><b>немає</b> власного</td><td>звичайне посилання, браузер відповідає сам</td></tr>
+<tr><td><b>відвідане</b></td><td><b>немає</b></td><td>у системі немає <code>:visited</code> взагалі, і для блока «куди ще піти» це найпомітніший пропуск</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Кожне слово веде туди, де справді є товари.</b> «Гейнери» відкривають гейнери, а не пошук за словом. Блок під каталогом - останнє, що бачить той, хто не знайшов; він або допоможе, або підтвердить, що шукати нема де.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з нього хмару ключових слів.</b> Двадцять фраз у рамках - це склад для пошукача, а не допомога людині. П'ять справжніх розділів корисніші за двадцять формулювань одного.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>2</b> власні класи і <b>1</b> стан.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["relbox","relrow"], KIT_STS=[":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>related.css</code>: <b>5</b> семантичних ролей і <b>6</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (6)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--line-action</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fw-bold</code> <code>--radius-8</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу <b>одне</b> число - <code>1px</code> рамки. Разом із <code>badge.css</code>, <code>counter.css</code>, <code>overlay.css</code> і <code>pagination.css</code> це найчистіший кінець системи: усе, що можна взяти з набору, взято з набору.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Цей файл крок 7.80 не змінював: у ньому нема чого виправляти. Три проходи по 40 екранах підтверджують і це - <b>нульовий прохід 0, різниця 0</b>.</p>
+<p class="kp-p">Вирішувач по всіх 4 селекторах: <b>жодного мертвого оголошення і жодного селектора без збігів</b>. Із тринадцяти молекул, які перепис 7.75 пройшов разом, таких файлів три.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Дві форми однієї ідеї</b> - <code>.flink</code> і <code>.relbox</code>. Розібрано вище, рішення про вигляд</li>
+<li><b>Немає <code>:visited</code></b> - ні тут, ні деінде в системі. Для блока «куди ще піти» це означає, що людина не бачить, куди вже ходила</li>
+<li><b>Своє кільце фокуса</b> - питання відкрите разом із <code>.brandbox</code> і <code>.certthumb</code></li>
+<li><b>Звідки беруться п'ять слів</b> - у коді вони написані вручну, і правила «які запити схожі» немає ніде</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

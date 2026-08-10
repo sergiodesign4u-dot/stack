@@ -12,8 +12,29 @@
   animation: tt-in .22s ease; }
 .wf-toast.out{ opacity: 0; transform: translateY(8px); transition: all .25s ease; }
 .wf-toast .tt-ic{ flex: none; width: var(--size-20); height: var(--size-20); border-radius: var(--radius-circle); display: flex; align-items: center; justify-content: center; font-size: var(--fs-12); font-weight: var(--fw-black); background: var(--bg-page); color: var(--text-primary); }
-.wf-toast.error .tt-ic{ background: var(--bg-page); color: var(--text-primary); }
-.wf-toast.info .tt-ic{ font-style: normal; }
+/* 7.78: TWO RULES STOOD HERE AND NEITHER CHANGED ANYTHING, and they failed in two
+   different ways worth telling apart.
+
+   `.wf-toast.error .tt-ic{ background: var(--bg-page); color: var(--text-primary) }`
+   was BYTE-IDENTICAL to the rule above it. Fired all three toast types in the
+   browser and read the computed style off each: the chip is `rgb(255,255,255)` on
+   `rgb(28,28,28)` in ok, in error and in info alike. An error's mark has never
+   looked different from a success's.
+
+   `.wf-toast.info .tt-ic{ font-style: normal }` restated the initial value. That
+   declaration is a real one FOUR other times in this system - `.tbanners .tbx i`,
+   `.addr-method .am-tx i`, `.oh-thumbs i` - and in every one of those the element
+   is an `<i>`, which the browser italicises by default. `.tt-ic` is a `<span>`
+   (`wireframes/_nav.js:1216`), so there is nothing to undo. The habit travelled and
+   the tag did not. Measured: `font-style: normal` on all three types, before and
+   after.
+
+   WHAT IS LEFT OF THE DIFFERENCE BETWEEN A SUCCESS AND AN ERROR, measured: a 1px
+   white hairline on a near-black box, and a typed `!` instead of a typed `✓`. The
+   system has a whole danger family - `--bg-danger-soft`, `--line-danger-soft`,
+   `--text-danger` - and the toast uses none of it. Not changed here, because
+   «what an error toast should look like on an inverse surface» is a look decision
+   and it is the owner's. Recorded in `architecture.md`. */
 .wf-toast .tt-m{ flex: 1; }
 .wf-toast .tt-x{ color: var(--text-oninverse); opacity: .7; font-size: var(--fs-14); }
 .wf-toast.error{ border: 1px solid var(--line-onink); }

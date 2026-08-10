@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Тулбар | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Тулбар</h1>
+<p class="kp-lead">Смуга над каталогом: скільки знайдено, як сортувати, як показувати. <b>Їх два, і вони ніколи не бачать одне одного</b> - до 860 працює мобільна, від 860 десктопна, і на жодній ширині немає обох.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/toolbar.css</span><span class="kp-tag">55 рядків</span><span class="kp-tag">11 селекторів</span><span class="kp-tag">39 оголошень</span><span class="kp-tag">7 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Обидві смуги показані поруч навмисно: у продукті так не буває, а на стенді інакше видно тільки одну.</p>
+<div class="kp-demo">
+  <div class="ltool" style="display:flex">
+    <span class="count">Знайдено: 24 товари</span>
+    <span class="sp"></span>
+    <button class="btn--outline btn--s btn" type="button">Спочатку популярні ▾</button>
+    <div class="vtoggle"><a href="#" class="on" aria-current="true">▦</a><a href="#">☰</a></div>
+  </div>
+</div>
+<div class="kp-cap">десктопна <code>.ltool</code>, висота 57. Ліворуч підпис, праворуч контроли, між ними <code>.sp</code> - порожній <code>flex: 1</code></div>
+<div class="kp-demo">
+  <div class="mtoolbar" style="position:static">
+    <button class="btn--outline btn--s btn mc" type="button">Фільтри <span class="b">3</span></button>
+    <button class="btn--outline btn--s btn" type="button">Сортування ▾</button>
+  </div>
+</div>
+<div class="kp-cap">мобільна <code>.mtoolbar</code>, висота 77, <code>position: sticky</code> на 57 згори - рівно під шапкою</div>
+<div class="kp-demo">
+  <div class="listing">
+    <div class="emptybox mini" style="margin:0">рейка фільтрів · 240</div>
+    <div class="emptybox mini" style="margin:0">каталог · решта ширини</div>
+  </div>
+</div>
+<div class="kp-cap"><code>.listing</code> - одна колонка до 860, від 860 <code>240px 1fr</code>. Звузьте вікно: другий блок стає під першим</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Підпис</b> <code>.count</code> - <b>не контрол</b>. Він ділив клас <code>.ctrl</code> із кнопкою сортування й позичав у неї коробку; крок 6.7 віддав <code>.ctrl</code> кнопці, і підпис мусив оголосити свою</span></div>
+  <div class="a"><i>2</i><span><b>Розпірка</b> <code>.sp</code> - <code>flex: 1</code> і більше нічого. Один рядок замість вирівнювання через <code>justify-content</code>, бо контролів праворуч може бути один або три</span></div>
+  <div class="a"><i>3</i><span><b>Сітка</b> <code>.listing</code> - одна колонка до 860, від 860 <b>240 і решта</b>. Рейка фільтрів фіксована: вона не мусить рости разом із каталогом</span></div>
+  <div class="a"><i>4</i><span><b>Лічильник на кнопці</b> <code>.mc .b</code> - пігулка <code>--bg-action</code> з чорнилом <code>--text-body</code>. Скільки фільтрів увімкнено; рендериться лише там, де вони є</span></div>
+</div>
+<p class="kp-p"><b>Дві смуги, а не одна адаптивна.</b> На телефоні фільтри - це аркуш знизу, на десктопі - рейка збоку; кнопка, яка відкриває аркуш, на десктопі не потрібна взагалі. Одна смуга з прихованими частинами тримала б розмітку неіснуючого контрола на кожному екрані.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Межа 860, заміряна власними ширинами</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Ширина</th><th><code>.ltool</code></th><th><code>.mtoolbar</code></th><th><code>.listing</code></th></tr></thead><tbody>
+<tr><td>360 · 620 · 720 · 760</td><td><code>none</code></td><td><code>flex</code>, 77</td><td>1 колонка</td></tr>
+<tr><td><b>859</b></td><td><code>none</code></td><td><code>flex</code>, 77</td><td>1 колонка, 827</td></tr>
+<tr><td><b>860</b></td><td><b><code>flex</code>, 57</b></td><td><b><code>none</code></b></td><td><b>2 колонки, 240 / 572</b></td></tr>
+<tr><td>1280</td><td><code>flex</code>, 57</td><td><code>none</code></td><td>2 колонки, 240 / 776</td></tr>
+</tbody></table></div>
+<p class="kp-p">Три правила перемикаються <b>на одному пікселі</b> й жодне не запізнюється: на 859 немає десктопної смуги й немає рейки, на 860 є обидві. Це саме те, що 7.64 виправляв у картки товару, де на 620 малювалась суміш вузького й широкого правила.</p>
+<p class="kp-p"><b>860 - найуживаніша межа системи</b>: 39 оголошень у 15 файлах, і в наборі, який <code>DESIGN-artifacts.md</code> нібито називає, її не було ніколи. Крок 7.70 з'ясував, що набору не існувало, і виписав усі одинадцять меж у <code>tokens.css</code> разом із файлами, що на них спираються.</p>
+<div class="kp-gap"><h4>Мобільна смуга на 20px вища за десктопну</h4>77 проти 57, і в коді не сказано чому. Обидві тримають кнопки <code>btn--s</code> - тобто коробку 40, - тож різниця це відступи: <code>12px</code> згори й знизу проти <code>16px</code> згори. Ні дефект, ні рішення: просто ніде не записано.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що звідси вже поїхало</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Крок</th><th>Що</th><th>Куди і чому</th></tr></thead><tbody>
+<tr><td>6.3</td><td>локальна редакція ховера контурної кнопки</td><td>у фініш, який його вже мав</td></tr>
+<tr><td>6.7</td><td><code>.ctrl</code></td><td>кнопці. Підпис «Знайдено: 24 товари» після цього мусив оголосити власну коробку - до того він її позичав</td></tr>
+<tr><td>7.2</td><td><code>.uiv-sortmenu</code> і <code>.uiv-sopt</code>, шість правил</td><td>у <code>menu.css</code>: список, галочка й аркуш на телефоні оголошені один раз</td></tr>
+<tr><td>7.16</td><td><code>.uiv-sort</code></td><td>і це було <b>гірше за мертве</b>: 7.2 зняв блок і лишив селектор самотнім рядком. Коментар не є правилом, тож парсер прочитав крізь нього й приклеїв сироту до наступного селектора - <code>.uiv-sort.open .uiv-sort</code>, нащадок, який не міг збігтися ні з чим</td></tr>
+</tbody></table></div>
+<p class="kp-p">Файл почав із власного меню сортування всередині й закінчив розкладкою двох смуг. <b>Те, що лишилось, справді його</b>: де що стоїть, і на якій ширині яка смуга.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>до 860</b></td><td>мобільна смуга, липка на 57 згори</td><td>рівно під шапкою: фільтри мусять лишатись під рукою при гортанні</td></tr>
+<tr><td><b>від 860</b></td><td>десктопна смуга, рейка 240 збоку</td><td>рейка експерта видна вся, а не за кнопкою</td></tr>
+<tr><td><b>фільтри ввімкнені</b></td><td>пігулка з цифрою на кнопці</td><td>рендериться на 2 екранах із 7 - там, де фільтр справді стоїть</td></tr>
+<tr><td><b>нічого не знайдено</b></td><td>смуга виглядає так само</td><td>записано нижче: «Знайдено: 0» не відрізняється від «Знайдено: 24» нічим, крім цифри</td></tr>
+<tr><td><b>наведення й фокус</b></td><td><b>немає власних</b></td><td>усі контроли смуги - кнопки з фінішем, і відповідає фініш</td></tr>
+</tbody></table></div>
+<p class="kp-p">Контраст підпису заміряно: <code>rgb(110, 106, 98)</code> на білому - <b>5.38:1</b> при 14/600, потрібно 4.5. Пігулка лічильника - <code>rgb(28, 28, 28)</code> на <code>rgb(255, 90, 0)</code>, <b>5.45:1</b> при 12/700. Обидві проходять.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Смуга каже, скільки залишилось після фільтра.</b> «Знайдено: 24 товари» - це відповідь на щойно натиснуте, а не заголовок. Разом із лічильниками в рейці це те, що дає тренеру звужувати впевнено.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби одну смугу з прихованими частинами.</b> Кнопка «Фільтри» на десктопі не потрібна, а смуга з <code>display: none</code> тримає в розмітці контрол, якого на цій ширині не існує, і рано чи пізно хтось його сфокусує табуляцією.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>7</b> власних класів і <b>1</b> стан.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["b","count","listing","ltool","mc","mtoolbar","sp"], KIT_STS=["min-width: 860px"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>toolbar.css</code>: <b>6</b> семантичних ролей і <b>11</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (11)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-page</code> <code>--line-hair</code> <code>--line-strong</code> <code>--text-body</code> <code>--text-muted</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fw-black</code> <code>--fw-semibold</code> <code>--radius-8</code> <code>--radius-pill</code> <code>--size-40</code> <code>--space-2</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу три числа: <code>1px</code> лінії, <code>240px</code> рейки й <code>57px</code> липкої відстані. <b>57 - це висота шапки</b>, тобто число з іншого компонента, переписане сюди рукою: змінити висоту хедера означає зламати липкість цієї смуги, і жоден із двох файлів про це не знає. Кандидат на токен каркаса, етап 09.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Цей файл не змінювався. Вирішувач по всіх 11 селекторах: <b>жодного мертвого оголошення і жодного селектора без збігів</b>. Три проходи по 40 екранах: <b>нульовий прохід 0, різниця 0.</b></p>
+<p class="kp-p">Межа 860 заміряна окремо, на 859 і 860, бо стандартні ширини перепису її не бачать - і саме такою перевіркою 7.75 ледь не завів хибну знахідку в іншому файлі.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>«Знайдено: 0»</b> - смуга над порожньою видачею виглядає як над повною</li>
+<li><b>57px переписані з хедера</b> - висота шапки числом у чужому файлі</li>
+<li><b>77 проти 57</b> - мобільна смуга вища за десктопну, і причини ніде немає</li>
+<li><b>Скидання фільтрів</b> - пігулка каже «3», і зняти всі три одним дотиком нізвідки</li>
+<li><b>Сортування у мобільній смузі</b> дублює сортування в аркуші фільтрів; який із двох головний, не сказано</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

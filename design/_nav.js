@@ -476,6 +476,10 @@ function uivChrome(){
      a control whose sign is its whole label is what is LEFT after that pass has
      taken every mark that closes a label. */
   uivMarks();
+  /* step 7.78, and it has to be here rather than in the presentation block: it
+     wraps `wfToast`, and it wraps it so that a toast fired ten minutes from now
+     gets the pass that has already run. See the note above the function. */
+  uivToastMarks();
   /* AFTER `uivMarks`, and on EVERY page - step 7.29. The first version of this
      call sat inside `uivPdp()`, which is the product page's own pass, so the
      checkout - the screen with 21 of the 38 radios and the only one you cannot
@@ -537,6 +541,43 @@ function uivPatchMenus(){
     window[name] = function(){ var r = fn.apply(this, arguments); bodyIcons(); return r; };
     window[name].__uiv = 1;
   });
+}
+
+/* STEP 7.78 - THE TOAST IS THE ONE REGION NO PASS HAS EVER REACHED, and it is the
+   same shape as `uivPatchMenus` above: a piece of interface built on demand, long
+   after `uivMarks()` finished. The difference is that the overlay at least gets
+   rebuilt by a named builder this file can see, while a toast is created by
+   `wireframes/_nav.js:1213 wfToast()` at the moment somebody saves an address or
+   fails a form.
+
+   Measured on `cart.html`: every other close control on that screen - the drawer's
+   ✕ and the dialog's - carries `.uiv-ic svg` from the set. The toast's carried the
+   CHARACTER, from whatever face the machine happens to have. Running `uivMarks()`
+   over the container by hand turned it into the set's mark, which is the whole
+   proof that nothing was missing except the call.
+
+   Wrapped rather than observed, for the same reason `uivPatchMenus` wraps: the
+   builder is one named function, and a wrapper says «after this, mark it» in one
+   line, where a MutationObserver would say it for anything that ever lands in that
+   container. `uivMarks` is idempotent - it steps over a control that already holds
+   a drawing - so a toast marked twice is a toast marked once.
+
+   THE STATUS GLYPH IS NOT TOUCHED and that is deliberate. `✓ ! i` are not in
+   `UIV_SIGN_ONLY`, and adding them is not a one-line change: the set has `check`
+   and `alert`, and it has NO info mark. Two of three would leave the info toast
+   the only one still typed, which is a worse state than three of three. Written
+   down as a question, not answered by a sweep - the same discipline `marks.js`
+   states for its own maps. */
+function uivToastMarks(){
+  var fn = window.wfToast;
+  if(typeof fn !== 'function' || fn.__uiv) return;
+  window.wfToast = function(){
+    var r = fn.apply(this, arguments);
+    var wrap = document.getElementById('wf-toast');
+    if(wrap && wrap.lastElementChild && typeof uivMarks === 'function') uivMarks(wrap.lastElementChild);
+    return r;
+  };
+  window.wfToast.__uiv = 1;
 }
 
 /* make the filter checkboxes interactive: a click on a .fopt row toggles its .cb

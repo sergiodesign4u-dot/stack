@@ -8974,3 +8974,270 @@ SAME server. **The sweep now re-reads every moved row at 1200ms before reporting
 certainty about the dozen rows that need it without paying ten minutes for the seven hundred that
 do not.
 
+---
+
+## Step 7.78: the one region no pass has ever reached
+
+**Who asked for it:** the 7.75 census, by returning nothing. Every declaration in
+`toast.css` fell into «matches no element at all», because the census walks 40 screens at
+rest and a toast does not exist at rest. A component the instrument cannot see is not a
+clean component - it is an unmeasured one.
+
+### Fired, then measured
+
+Three toasts on `cart.html`, all four widths, both servers. What came back:
+
+- **`.wf-toast.error .tt-ic` is byte-identical to `.wf-toast .tt-ic`.** The chip is
+  `rgb(255,255,255)` on `rgb(28,28,28)` in ok, error and info alike. An error's mark has never
+  looked different from a success's.
+- **`.wf-toast.info .tt-ic{ font-style: normal }` restates the initial value** - and it arrived
+  by habit. That declaration is real four other times in the system (`.tbanners .tbx i`,
+  `.addr-method .am-tx i`, `.oh-thumbs i`) and in every one the element is an `<i>`, which the
+  browser italicises. `.tt-ic` is a `<span>`. **The habit travelled and the tag did not.**
+- After both went, **the file has no rule for `.info` at all**, which is honest: an info toast
+  is the base toast.
+
+### The close sign was drawn by the font
+
+`marks.js` exists for one rule - a sign is drawn by the SET, not by whatever face the machine
+has - and `uivChrome()` runs its passes last, «so they see the buttons every pass above has
+finished building». A toast is not built then. It is built when somebody saves an address.
+
+Measured on `cart.html`: the drawer's `.x` and the dialog's `.cd-x` both carry `.uiv-ic svg`.
+The toast's `.tt-x` carried the character. Running `uivMarks()` over the container by hand
+turned it into the set's mark immediately, which is the proof that nothing was missing except
+the call.
+
+Fixed by **wrapping the builder**, exactly as `uivPatchMenus()` already wraps the three catalog
+overlay builders for the same reason. A/B on the fired toasts: `.tt-x` goes from the character
+to the set, its box from **11x22 to 15x22**, the message 4px narrower to match, and the toast
+box, background, border, radius, padding, shadow, chip and label identical at 360, 390, 720
+and 1280.
+
+**A pass that runs once at load does not cover what appears later.** Twice this stage now: the
+catalog overlay, then the toast. Both fixed by wrapping a builder rather than by adding a
+second pass.
+
+### What was measured and NOT changed
+
+An error toast differs from a success toast by **a 1px white hairline on a near-black box** and
+a typed `!` instead of a typed `✓`. The system has a whole danger family and the toast uses
+none of it. What an error should look like on an inverse surface is a look decision - the
+owner's, recorded in `architecture.md`.
+
+The status glyph stays typed. `✓ ! i` are not in `UIV_SIGN_ONLY`, and the set has `check` and
+`alert` and **no info mark**. Two of three would leave the info toast the only typed one, which
+is worse than three of three. `marks.js` states the discipline for its own maps: neither map
+grows by guesswork.
+
+---
+
+## Step 7.79: two stylesheets were writing words somebody hears
+
+**Who asked for it:** `cert-thumb.css`, read while building its stand. The markup says
+«переглянути сертифікат (PDF)» at `font-size: 0` and the stylesheet draws «PDF» in an
+`::after`. Two editions of one label, and the visible one lives where voice cannot see it.
+
+**The test that decides it is not «is this a string» - it is «is it read out».** Generated
+content goes into the accessibility tree. Asked of the tree:
+
+```
+link: "переглянути сертифікат (PDF) PDF"
+```
+
+### The sweep, and it is the point of the step
+
+Eight stylesheets in the system draw a string with `content`. **Exactly two of the eight are
+spoken:** this one and `badge.css:69`, whose `★` made the product card announce «фото ★
+ПОПУЛЯРНЕ» on both instances of `listing.html`. Six are silent - including the same `★` in
+`gallery.css` and a whole Ukrainian word, «Детальніше», in `order-row.css`.
+
+**The rule that separates the two columns is not in the source.** Both spoken ones sit inside a
+link, but so does the `✦` one line below the star, and that is silent. `[?]` - measured per
+instance, not deduced.
+
+Both fixed with the alternative-text form, `content: "PDF" / ""`, verified BEFORE it was
+written into a file: every computed property identical, and the names back to «переглянути
+сертифікат (PDF)» and «фото ПОПУЛЯРНЕ».
+
+**«Детальніше» is silent and that does not make it right** - a whole interface word in a
+stylesheet, appearing only below 639px. Moving it is a structure change in two layers; filed
+under B, Крок 6.
+
+### Two instrument failures, both mine, both in this step
+
+**The first probe asked the wrong node.** A `<span>` with no role is not a named node in the
+tree - its text folds into whatever labelled ancestor owns it - so «none:""» proved nothing and
+I nearly recorded six silent strings that had never been tested.
+
+**The second took the owner by `document.querySelector`.** For `.tag-new` that returned the
+FIRST `.pcard` on the page, a card that carries `tag-pop` and no `tag-new` at all, and reported
+SILENT for an element it never looked at. Rewritten to walk from each instance to its own
+labelled ancestor. The corrected run says `✦` really is silent - but the first run said it for
+the wrong reason, and a right answer from a wrong measurement is still a wrong measurement.
+
+### And the ring, driven by a keyboard
+
+7.72 left an entry saying the 63 elements with no ring needed a Tab-driven pass, because a
+programmatic `.focus()` does not match `:focus-visible`. Done here on three components:
+`.relbox`, `.brandbox` and `.certthumb` focused by pressing Tab, `:focus-visible` genuinely
+matching on all three, and all three wearing Chrome's `rgb(0, 95, 204)` with no `box-shadow`.
+The 66% made concrete.
+
+---
+
+## Step 7.80: four stands, and three files with nothing to fix
+
+`toast.html`, `cert-thumb.html`, `brand-logo.html`, `related.html`. **18 -> 22 of 27
+molecules.**
+
+**Three of the four files had no dead declaration and no orphan selector** - `related.css` (14
+lines, the smallest in the system), `brand-logo.css` and `cert-thumb.css`. Their findings are
+all outside CSS: a string that is heard, a ring that is the browser's, an accessible name that
+depends on an `onerror` attribute. The resting solver is exhausted for files this size, and
+what is left needs the browser in motion.
+
+### One idea, two editions - measured side by side
+
+`.flink` in the filter rail and `.relbox` in the footer are both «a bordered word you press
+that opens a filtered listing», both `<a href="listing.html">`, on the same screen. Border
+colour, background, size and family identical; **131x40 against 93x48, padding 8/12 against
+12/16, radius 100 against 8, weight 600 against 700, and two different inks.** There is a case
+for the difference and nothing in the source makes it. Filed under B1.
+
+### The brand box, and why it is worth a stand
+
+`onerror="this.remove()"` plus `.brandbox:has(img) .bnm{ display:none }`. The image fails, the
+markup deletes it, `:has(img)` stops matching and the word appears. **No state class, no
+flag** - the box does not ask whether the image succeeded, it asks whether the image is there.
+And the accessible name survives either way: the `alt` while there is an image, the `.bnm` word
+when there is not.
+
+### The stand that failed its own check, honestly
+
+`toast.html` came back «`.out` named in words, rendered by nothing» - true: `.out` lasts 250ms
+and arrives 4.2 seconds after the toast. A stand that makes a person wait for a state does not
+show it. Added a fourth control that fires a toast and puts it into its exit state after 700ms,
+and the idle check now walks that state too.
+
+### Acceptance
+
+Three census passes: **null 0, difference 0**, twice - once mid-edit and once after every file
+was final, because two stylesheets were changed while the first tree pass was running. 372 page
+x width pairs: **no sideways scroll, 0 heights moved.** All four stands walk clean at 360, 390,
+720 and 1280 with no exceptions.
+
+The census digests neither `content` nor the accessibility tree, so the zero proves nothing
+about this step's actual subject. That was measured separately, on both servers, name by name
+and property by property.
+
+---
+
+## Step 7.81: the accent gate had never been applied to anything but the price
+
+**Who asked for it:** `seo-text.css`, read while building its stand. A comment left open at
+7.12 says «Читати більше» is accent at 14px and the gate is 19px bold, «open, and it is the
+owner's». Before handing it over again, the honest move was to find out how many others there
+are.
+
+**Sixteen shapes carry accent text.** Read out of the browser: every element the engine paints
+`rgb(255, 90, 0)` that owns visible words of its own, on the 40 coloured screens at two widths,
+each measured against the surface it actually sits on with alpha composited - the first pass
+did not composite and reported 17:1 for white-at-66%-on-black.
+
+**Five fail AA. Forty-eight instances.** `.badge` «еталон» at 10/600 on `rgb(255,245,240)` is
+**2.91:1** and there are 28 of them. `.acc-link` is 2.97, `.more` 3.13, `.addr-tag` 3.13,
+`.cbnew` 2.97.
+
+**And the rule is wrong in both directions**, which is the part worth having.
+
+- **Too strict.** `.hptag` «Акція тижня» is 12/500 and reads at **5.45:1** - because it sits on
+  near-black. The same orange on an inverse surface is easier than most text on white, and the
+  rule forbids it along with everything else. **The rule talks about SIZE where the thing that
+  decides is the SURFACE.**
+- **Too lenient.** `.cbnew` is 30/600 - large text by WCAG, which needs 3.0 - and still fails at
+  **2.97**, because it is on `--bg-surface` and not on white. The rule says nothing about the
+  warm surfaces, and they cost 0.16.
+
+Not changed. Three ways out and all three are a value decision on a locked rule.
+
+### And the five boundaries, measured at their own widths
+
+620, 720, 760, 860, 960 - one width either side of each. **Every rule flips exactly on its own
+pixel; no width draws a mixture of the narrow and the wide rule.** That is what 7.64 had to fix
+in the product card at 620, where it came out 286x498 instead of 286x553. Filed under G with the
+instruction to re-measure rather than re-suspect.
+
+---
+
+## Step 7.82: the ring is opt-in by name, and that is the whole of the 66%
+
+7.72 measured that two thirds of focusable elements take Chrome's ring and left it as a
+preference question. It is not a preference. Read out of the stylesheets: **24 rules declare a
+focus ring**, covering every button finish, chips, checkboxes, radios, the switch, the stepper,
+the field, OTP, breadcrumb links, menu options, the view toggle, favourite, rating,
+stack-action, the filter-group header and the price slider - and links through **a hand-written
+list of thirteen selectors in `link-row.css`**.
+
+**A component that carries no `btn--*` finish and is not on that list gets the browser's ring by
+default.** Nobody chose that; it is what an enumerated list does to everything added after it
+was written. Outside it today: `.gtile` (48 instances), `.blogcard` (36), `.brandbox` (24),
+`.relbox` (10), `.certthumb` (3). On `index.html` a goal tile and the button forty pixels below
+it draw two different rings.
+
+Still the owner's, because replacing a ring is visible - but the question is now **«does the
+ring belong to a shape or to a list»**, which is answerable.
+
+---
+
+## Step 7.83: the last five molecules - 27 of 27
+
+`toolbar.html`, `client-row.html`, `goal-tile.html`, `blog-card.html`, `seo-text.html`. **The
+molecule layer of the showcase is complete.**
+
+**No file changed.** All five came back with no dead declaration; every solver row was either
+the stage-08 split working as designed, a media rule losing to a later media rule at a width the
+census does not measure, or a fallback. The resting solver is exhausted for files this size.
+
+What the stands record instead:
+
+- **`client-row.css` holds two components and one of them renders on ZERO coloured screens.**
+  Eight of seventeen selectors - the client-group header, its subtotal, the coach session price
+  - have no instance on any of the 40 screens, because those screens exist only in grey. The
+  coach is the PRIMARY audience, and what colour has of the coach flow is the invitation banner.
+  That is a scope decision and it is now written where it can be seen.
+- **`toolbar.css` is two toolbars that never meet** - `.ltool` from 860, `.mtoolbar` below it,
+  and three rules flipping on one pixel. Its `57px` sticky offset is the header's height, copied
+  by hand into another file: change the header and this breaks, and neither file knows.
+- **`blog-card.css` counts with `:nth-child` and `restock-note.css` counts with
+  `:nth-of-type`** - the same technique, and only one of them is right, because the restock card
+  also holds a header `div`. Both filed under G so neither gets swept.
+- **`goal-tile.css`'s tile is 116 tall at every width from 360 to 1280** and only ever grows
+  wider - 288x116 at 619, its longest shape, on a portrait tablet. Nothing says that is intended.
+- **`seo-text.css`'s mascot is taller than the box it stands in** - 362 against a 244 min-height,
+  `bottom: -128`, held by the block's own `overflow: hidden`. Two thirds of the figure show, and
+  that is the design.
+
+### Acceptance
+
+Three census passes: **null 0, difference 0.** 393 page x width pairs: **no sideways scroll.**
+All five stands walk clean at 360, 390, 720 and 1280 with no exceptions.
+
+**One stand failed its own check and was right to.** `toolbar.html` named `.listing` in words
+and rendered it nowhere; the page grid is the component's third rule and it was missing from the
+demo. Added.
+
+
+### And the overview was publishing a count its own registry contradicted
+
+Caught while checking the totals after the last five stands. `menu.html` is filed under **Атоми**
+in `design/kit/_nav.js` and was drawn under **Організми** on `overview.html`, so the page said
+«Атоми 21 / 21 · Організми 1 / 25» while the registry said «22 / 22 · 0 / 24». Both internally
+consistent, and they disagree with each other - the same one-fact-two-editions shape this whole
+pass keeps finding, this time in the record rather than in the code.
+
+The registry decides: its own header calls it «the ONE registry of the stand», and `CLAUDE.md`
+says structure comes from the registry and a page never restates it. The card moved to Атоми and
+both counts now follow. **Whether a select menu is an atom is a separate question and not this
+step's** - what mattered is that two published numbers cannot both be the answer.
+

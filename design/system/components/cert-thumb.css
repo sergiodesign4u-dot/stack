@@ -14,7 +14,29 @@
   position:relative; font-size:0; overflow:hidden; transition:border-color .15s ease, transform .15s ease; }
 .certthumb::before{ content:""; position:absolute; left:14px; right:14px; top:18px; height:64px;
   background:repeating-linear-gradient(180deg, var(--bg-rule) 0 2px, transparent 2px 11px); }
-.certthumb::after{ content:"PDF"; position:absolute; left:14px; bottom:14px;
+/* 7.79: THE STYLESHEET WAS WRITING A WORD SOMEBODY HEARS. Generated content goes
+   into the accessibility tree, so this tile's link came out named
+
+       «переглянути сертифікат (PDF) PDF»
+
+   - read out of Chrome's tree, not argued from the CSS. The markup already says
+   «(PDF)» in the sentence voice wrote; the tag below it is part of the DRAWING, a
+   picture of a document, in the same way the paper lines above are.
+
+   `content: "PDF" / ""` is the alternative-text form: the second half is what the
+   tree gets, and an empty string keeps the box out of it. Verified before it was
+   written here - with it, every computed property of the box is identical (10px,
+   IBM Plex Mono, left 14, bottom 14, 1px edge, padding 4/8, `--text-body`) and the
+   link is named «переглянути сертифікат (PDF)» again.
+
+   Swept the whole system for the same shape: EIGHT stylesheets draw a string with
+   `content`, and exactly TWO of the eight are heard - this one and `badge.css:69`.
+   The other six are silent, including the same `★` in `gallery.css` and a whole
+   Ukrainian word, «Детальніше», in `order-row.css`. What separates them is not one
+   rule the source can state: both spoken ones sit inside a link, but so does the
+   `✦` next door, and that one is silent. `[?]` - measured per instance rather than
+   reasoned, and re-measurable the same way. */
+.certthumb::after{ content:"PDF" / ""; position:absolute; left:14px; bottom:14px;
   font-family:var(--font-mono); font-weight:var(--fw-semibold); font-size:var(--fs-10); line-height:var(--lh-flat);
   letter-spacing:var(--ls-caps); color:var(--text-body);
   border:1px solid var(--line-strong); border-radius:var(--radius-4); padding:var(--space-4) var(--space-8); }

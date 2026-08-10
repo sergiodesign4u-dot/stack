@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Мініатюра сертифіката | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Мініатюра сертифіката</h1>
+<p class="kp-lead">Аркуш паперу завбільшки з візитку, за яким лежить сертифікат відповідності на партію. Робота 4 в одному елементі: показати, що документ <b>існує</b>, ще до того, як його відкрили. І тут знайшлось те, чого перепис у спокої знайти не міг - <b>таблиця стилів писала слово, яке хтось чує</b>.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/cert-thumb.css</span><span class="kp-tag">44 рядки</span><span class="kp-tag">7 селекторів</span><span class="kp-tag">40 оголошень</span><span class="kp-tag">3 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>product.html</code>, усередині розкритого блока довіри.</p>
+<div class="kp-demo">
+  <div class="certbox">
+    <a class="certthumb" href="#">переглянути сертифікат (PDF)</a>
+    <div>Сертифікат відповідності на партію + лабораторні тести чистоти. Натисніть, щоб відкрити документ.</div>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Аркуш</b> 104 x 138 - пропорція A4 з точністю до пікселя (104 x 1.414 = 147, узято 138: трохи присадкуватіше, щоб стояти в один ряд із текстом). Один із небагатьох компонентів, де числа це <b>малюнок</b>, а не шкала</span></div>
+  <div class="a"><i>2</i><span><b>Рядки тексту</b> <code>::before</code> - <code>repeating-linear-gradient</code>, смуга <code>--bg-rule</code> кожні 11px. Не картинка й не шрифт: сім рядків, намальованих одним градієнтом</span></div>
+  <div class="a"><i>3</i><span><b>Мітка типу</b> <code>::after</code> - «PDF» моноширинним 10, у рамці, унизу зліва. З 7.79 вона намальована й <b>не озвучена</b></span></div>
+  <div class="a"><i>4</i><span><b>Печатка</b> <code>.uiv-seal</code> - щит із набору, який ставить <code>uivPdp()</code>. Живе не тут, а в <code>trust-strip.css</code>: це знак довіри, а не частина аркуша</span></div>
+  <div class="a"><i>5</i><span><b>Текст поруч</b> - звичайний абзац у <code>.certbox</code>, крок 16. Мініатюра каже «документ є», абзац каже, який саме</span></div>
+</div>
+<p class="kp-p"><b>Принцип 1 у чистому вигляді.</b> Початківець боїться підробки й не знає, що таке «сертифікат відповідності». Побачити аркуш і печатку - швидше, ніж прочитати про них: спершу зняти сумнів, потім продавати.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Таблиця стилів писала слово, яке чують</div>
+<p class="kp-p">Згенерований вміст потрапляє в дерево доступності. Тому посилання мініатюри називалось так:</p>
+<div class="kp-code">link: "переглянути сертифікат (PDF) PDF"</div>
+<p class="kp-p">Прочитано з дерева Chrome, а не виведено з css. Розмітка вже каже «(PDF)» у реченні, яке написав voice; мітка внизу аркуша - частина <b>малюнка</b>, така сама, як сім рядків над нею. Слово прозвучало двічі, і друге - з файлу, куди voice не заглядає.</p>
+<div class="kp-code">.certthumb::after { content: "PDF" / "" }</div>
+<p class="kp-p">Друга половина - це те, що дістається дереву, і порожній рядок тримає коробку поза ним. Перевірено <b>до</b> того, як це потрапило у файл: кожна обчислена властивість збігається (10px, IBM Plex Mono, зліва 14, знизу 14, край 1px, відступ 4/8, <code>--text-body</code>), а посилання знову зветься «переглянути сертифікат (PDF)».</p></section>
+
+<section class="kp-sec"><div class="kp-sh">І та сама перевірка по всій системі</div>
+<p class="kp-p"><b>Вісім таблиць стилів малюють рядок через <code>content</code>. Двоє з восьми чути.</b> Спосіб перевірки один на всіх: узяти найближчого предка з іменем, прочитати ім'я, вимкнути згенеровану коробку, прочитати ще раз.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Файл</th><th>Рядок</th><th>Що виходило</th><th></th></tr></thead><tbody>
+<tr><td><code>cert-thumb.css</code></td><td>«PDF»</td><td>«переглянути сертифікат (PDF) <b>PDF</b>»</td><td><b>чути</b></td></tr>
+<tr><td><code>badge.css:69</code></td><td><code>★</code></td><td>«фото <b>★</b> ПОПУЛЯРНЕ», двічі на екрані</td><td><b>чути</b></td></tr>
+<tr><td><code>badge.css:70</code></td><td><code>✦</code></td><td>-</td><td>мовчить</td></tr>
+<tr><td><code>order-row.css:108</code></td><td>«Детальніше»</td><td>-</td><td>мовчить</td></tr>
+<tr><td><code>breadcrumb.css:36</code></td><td><code>/</code></td><td>-</td><td>мовчить</td></tr>
+<tr><td><code>buy-box.css:80</code></td><td><code>·</code></td><td>-</td><td>мовчить</td></tr>
+<tr><td><code>gallery.css:40</code></td><td><code>★</code></td><td>-</td><td>мовчить</td></tr>
+<tr><td><code>header.css:27</code></td><td><code>✓</code></td><td>-</td><td>мовчить</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Правила, яке розділяє ці два стовпці, з коду не видно.</b> Обидва почуті сидять усередині посилання - але <code>✦</code> сидить у тому самому посиланні, що й <code>★</code>, і мовчить. А <code>★</code> у галереї мовчить, бо там над ним не посилання. Позначено <code>[?]</code>: заміряно поекземплярно, не виведено, і перезаміряти можна тим самим способом.</p>
+<div class="kp-do"><h4>Правило</h4><b>Малюнок мовчить, слово говорить розмітка.</b> Якщо <code>content</code> малює фігуру - у неї порожній альтернативний текст. Якщо <code>content</code> малює слово, якого людина мусить дізнатись, воно взагалі не має бути в таблиці стилів.</div>
+<div class="kp-gap"><h4>Не виправлено, і чому саме так</h4><b>«Детальніше» в <code>order-row.css</code> мовчить, і це не робить його правильним.</b> Це повне українське слово інтерфейсу, яке живе в css і з'являється тільки до 639px. За правилом проєкту рядки інтерфейсу належать <code>voice/docs/microcopy.md</code>, і жодна редакція рядка не існує у двох місцях. Перенести його в розмітку - зміна структури в двох шарах; записано в перейменування, крок 6.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Числа тут - це малюнок</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Число</th><th>Що це</th></tr></thead><tbody>
+<tr><td><code>104 x 138</code></td><td>аркуш. Не зі шкали розмірів і не мусить бути: це пропорція паперу</td></tr>
+<tr><td><code>14 / 18 / 64</code></td><td>де починаються рядки тексту і скільки їх заввишки</td></tr>
+<tr><td><code>2px / 11px</code></td><td>смуга й крок градієнта - товщина рядка й міжрядковий інтервал намальованого тексту</td></tr>
+<tr><td><code>1px</code></td><td>край аркуша і край мітки</td></tr>
+</tbody></table></div>
+<p class="kp-p">Вісім чисел, написаних рукою, - найбільше серед малих файлів системи. <b>І це не борг.</b> Шкала відступів каже, як розставляти елементи; вона не каже, як намалювати аркуш паперу. Той самий довід уже записаний у <code>tokens.css</code> для інших разових значень: значення, вжите один раз, є значення, а не токен.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>аркуш із рядками, міткою й печаткою</td><td>документ видно раніше, ніж прочитано підпис</td></tr>
+<tr><td><b>наведення</b></td><td>край бере акцент, аркуш підіймається на 2px</td><td>той самий підйом, що в картки товару й плитки цілі: це те, що можна відкрити</td></tr>
+<tr><td><b>фокус</b></td><td><b>кільце браузера</b>, синє <code>rgb(0, 95, 204)</code></td><td>заміряно натисканням Tab, <code>:focus-visible</code> справді збігся. Своє кільце система оголошує й тут не використовує - відкрите питання</td></tr>
+<tr><td><b>сертифіката немає</b></td><td><b>немає стану</b></td><td>у товару без документа блок довіри все одно обіцяє його. Записано нижче</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Документ показують, а не описують.</b> Аркуш із печаткою каже «є що відкрити» за півсекунди; речення поруч уточнює, що саме. Порядок такий, а не навпаки.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не малюй печатку там, де документа немає.</b> Знак довіри без файлу за ним - це рівно та підробка, від якої початківець і боронився. Стан «сертифіката на партію немає» мусить існувати раніше, ніж цей блок піде в продакшн.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>2</b> власні класи і <b>1</b> стан.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["certbox","certthumb"], KIT_STS=[":hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>cert-thumb.css</code>: <b>6</b> семантичних ролей і <b>10</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (10)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-rule</code> <code>--line-action</code> <code>--line-strong</code> <code>--text-body</code> <code>--text-muted</code></td><td><code>--font-mono</code> <code>--fs-10</code> <code>--fw-semibold</code> <code>--lh-flat</code> <code>--ls-caps</code> <code>--radius-4</code> <code>--radius-8</code> <code>--space-4</code> <code>--space-8</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Мітка «PDF» бере <b>ту саму гарнітуру, що й ціна</b> - <code>--font-mono</code>. Це не збіг: моноширинний у цій системі носить те, що є <b>даними</b>, а не мовою - сума, артикул, номер замовлення, тип файлу.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Три проходи по 40 екранах на чотирьох ширинах: HEAD, HEAD ще раз і робоче дерево. <b>Нульовий прохід 0, різниця 0.</b></p>
+<p class="kp-p">Перепис не дигестить <code>content</code>, тож нуль тут нічого не доводить сам по собі - і найголовніше, чого він не бачить, це <b>ім'я</b>. Тому замір окремий, з обох серверів: ім'я посилання «переглянути сертифікат (PDF) PDF» -&gt; «переглянути сертифікат (PDF)», коробка <code>104x138</code> обабіч, кожна властивість мітки збігається. Те саме для зірки бейджа: «фото ★ ПОПУЛЯРНЕ» -&gt; «фото ПОПУЛЯРНЕ», коробка <code>106x21</code>, колір <code>rgb(255, 90, 0)</code>, кегль 10 - однаково.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Стан «сертифіката немає»</b> - блок довіри обіцяє документ незалежно від того, чи він є</li>
+<li><b>Кілька документів</b> - <code>.certbox</code> це флекс із переносом, тобто на кілька аркушів розраховували, але другого в коді немає жодного разу</li>
+<li><b>Своє кільце фокуса</b> - мініатюра бере браузерне, як і <code>.relbox</code> та <code>.brandbox</code>. Питання відкрите</li>
+<li><b>«Детальніше» в <code>order-row.css</code></b> - слово інтерфейсу в таблиці стилів. Крок 6</li>
+<li><b>Дата й номер документа</b> - аркуш намальований, але жодного реального реквізиту на ньому немає, і що там має стояти, не сказано</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+/* the shield seal is put on by `uivPdp()`, whose root is `main.wf-page` while a stand
+   is `main.kp-main` - the wall `spec-table.html`, `trust-strip.html` and
+   `desc-block.html` all describe. One line repeated, from the same `uivIconSvg()`
+   the product calls, so the stand shows the component and not a picture of it. */
+(function(){
+  var cert = document.querySelector('.certthumb');
+  if(cert && !cert.querySelector('.uiv-seal') && typeof uivIconSvg === 'function'){
+    var seal = document.createElement('span');
+    seal.className = 'uiv-seal';
+    seal.innerHTML = uivIconSvg('shield');
+    cert.appendChild(seal);
+  }
+})();
+</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

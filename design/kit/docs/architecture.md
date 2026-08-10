@@ -1,6 +1,6 @@
 # Architecture: the decision sheet for stage 09
 
-Thirty-eight stands in `design/kit/` end with the same sentence: «stage 09 starts from this
+Forty-seven stands in `design/kit/` end with the same sentence: «stage 09 starts from this
 list, collected in `design/kit/docs/architecture.md`». This is that file, and until step 7.60
 it did not exist. Ninety-eight findings were living in 7300 lines of `consolidation.md`, which
 is a log and is not read.
@@ -427,6 +427,40 @@ both halves: **17 in 8 files** - `product-card` 5, `order-row` 3, `trust-strip` 
 
 ---
 
+### A10. The accent-on-text gate - **enforced for the first time at step 7.81, and the rule is wrong in both directions**
+
+`DESIGN-artifacts.md` locks it: accent on TEXT only from **19px bold**, because `#FF5A00` on
+white is 3.13:1, which is AA for large text only. Step 7.74 applied it to the price. **Nothing
+else had ever been checked against it.** Measured now on every element the browser paints
+`--text-action` that owns visible words - 16 shapes across the 40 coloured screens, each read
+against the surface it actually sits on, with alpha composited:
+
+| shape | n | size/weight | surface | ratio | WCAG | the gate |
+|---|---|---|---|---|---|---|
+| `.badge` «еталон» | 28 | 10/600 | `rgb(255,245,240)` | **2.91** | **fails** | below |
+| `.acc-link` «Адреси» | 8 | 14/600 | `rgb(250,249,247)` | **2.97** | **fails** | below |
+| `.more` «Читати більше» | 8 | 14/700 | white | **3.13** | **fails** | below |
+| `.addr-tag` | 2 | 10/700 | white | **3.13** | **fails** | below |
+| `.cbnew` | 2 | 30/600 | `rgb(250,249,247)` | **2.97** | **fails** | below |
+| `.hptag` «Акція тижня» | 8 | 12/500 | `rgb(28,28,28)` | 5.45 | passes | below |
+| `.big` · `.new` | 8 | 38/600 · 36/600 | white | 3.13 | passes (large) | below |
+| eight money shapes | 72 | 20-30 / 700 | white | 3.13 | passes | clears |
+
+**Five shapes fail AA - 48 instances.** The biggest is `.badge`, 28 of them at 10px on a warm
+surface.
+
+**And the gate as written is both too strict and too lenient.** `.hptag` is 12/500 and reads at
+**5.45:1** because it sits on near-black; the rule forbids it along with everything else, because
+the rule talks about SIZE when the thing that decides is the SURFACE. In the other direction,
+`.cbnew` is large text by WCAG and still fails, at **2.97**, because it sits on `--bg-surface`
+rather than on white - and the rule says nothing about the warm surfaces, which cost 0.16.
+
+**Three ways out, all of them a value decision:** raise the size, drop the accent, or keep it
+with a written exception. Not taken by a showcase step - the rule is locked in
+`DESIGN-artifacts.md` and it changes out loud, «variable -> value -> why».
+
+---
+
 ## B. Names - Крок 6, after stage 09
 
 Renaming is not a value decision and it moves pixels only by accident. It waits until the
@@ -440,6 +474,15 @@ visual language is settled.
 | the «default» tag on an address | `.adef .tag` (1) | `.addr-tag` (3) | same two screens |
 | the eyebrow | 22 selectors | - | 18 files, see A3 |
 | the product tile | `.t` · `i` · `.ph` · `.gthumb` | - | four files |
+| a bordered word you press that opens a filtered listing | `.flink` (12) | `.relbox` (10) | `listing.html`, both on the same screen |
+
+**The last row, measured side by side at 7.80.** Border colour, background, font size and family
+are identical - `rgb(217,217,217)`, white, 14, Inter - and five things are not: 131x40 against
+93x48, padding 8/12 against 12/16, radius **100** (a pill) against **8** (a rectangle), weight 600
+against 700, ink `rgb(28,28,28)` against `rgb(91,91,84)`. Both are `<a href="listing.html">`.
+There is a case for the difference - the rail narrows THIS list, the footer sends you to another -
+and **nothing in the source makes it**, so from the files it reads as drift and from the screen it
+reads as two shapes of one thing on one page.
 
 ### B2. One name under two ideas
 
@@ -484,8 +527,9 @@ finish handed to a control that already has one written by hand, not a rename.
 
 ## C. States that do not exist
 
-Eighteen findings across the pass name a state that no screen draws - twelve up to step 7.74,
-six more from the four stands built at 7.75 - 7.77. They are not CSS work: they are screens, and
+Twenty-five findings across the pass name a state that no screen draws - twelve up to step 7.74,
+six from the stands built at 7.75 - 7.77, three from 7.78 - 7.80 and four from the last five
+molecules at 7.81 - 7.83. They are not CSS work: they are screens, and
 they belong to whoever decides scope.
 
 | state | where it would go | what happens now |
@@ -507,6 +551,13 @@ they belong to whoever decides scope.
 | last page reached | the pager | the «next» arrow on page 4 of 4 looks and presses exactly like page 1's |
 | «Показати ще» after the press | the pager | neither a loading state nor an «that is all» state exists |
 | nothing matched the filter | the filter rail, `listing-empty` | the rail looks identical and no facet is marked as the one that emptied the result |
+| no certificate on this batch | the trust strip and its thumbnail | the sheet with its seal is drawn whether or not a document exists behind it |
+| no brand logo loaded | the brand row | six words in boxes read as a broken block and nothing notices |
+| a toast that must not be missed | the toast | 4.2 seconds and `aria-live="polite"`; an error that blocks checkout can be neither seen nor heard |
+| «Знайдено: 0» | the catalog toolbar | the bar over an empty result looks exactly like the bar over a full one |
+| this goal is the one you chose | the goal tiles | the tile leaves no trace; coming back, a person starts again |
+| you are already a coach | the coach banner | «Ви тренер?» is shown to everyone, including a coach |
+| no category description | the SEO block | the block stays, with its heading and nothing under it |
 | ~~irreversible action~~ | ~~«Видалити адресу» and any delete~~ | **CLOSED at step 7.61** |
 
 **Recommendation was: the last one first**, because a destructive action that looks like every
@@ -519,7 +570,7 @@ unmoved (140x52 before and after), the grey prototype unmoved, and the confirmat
 
 The confirmation DIALOG the recommendation also asked for turned out to exist already, in three
 places, built by `wireframes/_nav.js` - `#addr-del`, `#ce-confirm` and the profile one. What was
-missing was only the finish. **Seventeen remaining rows above stay open.**
+missing was only the finish. **Twenty-four remaining rows above stay open.**
 
 The six added at 7.75 - 7.77 have a pattern the first twelve did not: **five of the six are the
 FAR end of a list.** No description, no questions, no answer yet, the last page, «that is all».
@@ -607,6 +658,62 @@ They are drawn as real text on real screens. Before launch each needs a source o
   `.focus()` legitimately suppresses `:focus-visible` on some elements, so they need a
   Tab-driven pass, which is a different instrument.
 
+- **Two stylesheets were writing words somebody hears - NEW, found and CLOSED at step 7.79.**
+  Generated content goes into the accessibility tree, so a `content:` string is not only a
+  drawing. Swept the whole system: **eight stylesheets draw a string with `content`, and exactly
+  two of the eight are spoken.**
+
+  | file | string | the control came out named | |
+  |---|---|---|---|
+  | `cert-thumb.css:17` | «PDF» | «переглянути сертифікат (PDF) **PDF**» | **spoken** |
+  | `badge.css:69` | `★` | «фото **★** ПОПУЛЯРНЕ», twice on `listing.html` | **spoken** |
+  | `badge.css:70` | `✦` | - | silent |
+  | `order-row.css:108` | «Детальніше» | - | silent |
+  | `breadcrumb.css:36` | `/` | - | silent |
+  | `buy-box.css:80` | `·` | - | silent |
+  | `gallery.css:40` | `★` | - | silent |
+  | `header.css:27` | `✓` | - | silent |
+
+  Both fixed with the alternative-text form - `content: "PDF" / ""` - which empties what the
+  tree gets and touches no pixel: verified property by property on both servers (10px, IBM Plex
+  Mono, left 14, bottom 14, 1px edge, padding 4/8 for one; 106x21 box, `rgb(255,90,0)`, 10px for
+  the other), and the names are «переглянути сертифікат (PDF)» and «фото ПОПУЛЯРНЕ» again.
+
+  **The rule that separates the two columns is NOT in the source.** Both spoken ones sit inside
+  a link - but so does the `✦` one line below the star, and that is silent; and the same `★` in
+  `gallery.css` is silent because nothing above it is a link. `[?]`, measured per instance rather
+  than reasoned, and re-measurable the same way: read the owning control's name, switch `content`
+  off, read it again.
+
+  **«Детальніше» is silent and that does not make it right.** A whole Ukrainian interface word
+  lives in `order-row.css`, appears only below 639px, and by the project's own rule interface
+  strings belong to `voice/docs/microcopy.md` with no second edition anywhere. Moving it is a
+  structure change in two layers - filed under B, Крок 6.
+
+- **The tab-driven pass the entry above asked for, run at 7.79 on three components.**
+  `.relbox`, `.brandbox` and `.certthumb` were focused by pressing Tab rather than by script, and
+  `:focus-visible` genuinely matched on all three. All three take Chrome's default
+  `rgb(0, 95, 204)` and carry no `box-shadow`. That is the 66% made concrete: three link
+  components, three browser rings, and the system's own ring declared and unused.
+
+- **The mechanism behind the 66%, found at 7.82 - the ring is opt-in BY NAME.** Read out of the
+  stylesheets: **24 rules declare a focus ring**, and they cover every button finish, chips,
+  checkboxes, radios, the switch, the stepper, the field, OTP, breadcrumb links, menu options,
+  the view toggle, favourite, rating, stack-action, the filter-group header and the price slider.
+  Links are covered by `link-row.css` through **a hand-written list of thirteen selectors**.
+
+  So a component that carries no `btn--*` finish and is not on that list gets the browser's ring
+  by default. That is not a preference anyone expressed - it is what an enumerated list does to
+  everything added after it was written. **Five components are outside it today:** `.gtile` (48
+  instances), `.blogcard` (36), `.relbox` (10), `.brandbox` (24), `.certthumb` (3). On
+  `index.html` a goal tile and the button forty pixels below it draw two different rings, and
+  only one of them is the system's.
+
+  **Still the owner's**, because replacing a ring is visible. But the question is now sharper
+  than «does the product draw its own ring»: it is **«does the ring belong to a shape or to a
+  list»** - and if to a shape, the shape is «anything focusable that is not a plain paragraph
+  link».
+
 ---
 
 ## F. Closable in code, today
@@ -651,6 +758,17 @@ Recorded here so it does not happen a third time.
   not a dead line.** `blog-card.css .blogcard .bim` matches 36 times and wins the image never,
   because all three blog cards have their own `:nth-child` photograph. It is what a fourth card
   would get. Measured at 7.75 and deliberately left alone.
+- **Five boundaries measured at their own widths and found SOUND - 7.81.** 620 and 960 for the
+  goal tiles, 720 for the blog row, 860 for the two toolbars and the catalog rail, 760 for the
+  SEO block and its mascot. One width either side of every one of them: **every rule flips
+  exactly on its own pixel and no width draws a mixture of the narrow and the wide rule.** This
+  is what 7.64 had to fix in the product card at 620, where the card came out 286x498 instead of
+  286x553. Do not re-open on suspicion; re-measure with band widths if at all.
+- **`:nth-child` and `:nth-of-type` are not interchangeable, and the system uses both correctly
+  once each.** `blog-card.css` counts with `:nth-child` and its direct children are all
+  `.blogcard`, so position and count agree. `restock-note.css` counts with `:nth-of-type` and
+  its card also holds a header `div`, so the alternation is off by one and holds by accident
+  (item F2). Same technique, opposite outcome - a reason not to sweep either one.
 - **The standard census widths cannot see a breakpoint band.** 360 and 1280 make a rule inside
   `(min-width: 620px)` look dead whenever a `(min-width: 960px)` rule for the same selector
   exists: at 1280 the second one wins, at 360 neither applies, and nothing measures the band

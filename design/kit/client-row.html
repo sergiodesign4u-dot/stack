@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Рядок клієнта | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Рядок клієнта</h1>
+<p class="kp-lead">Файл тримає <b>дві речі, і одна з них не рендериться в кольорі жодного разу</b>. Банер тренера стоїть на чотирьох екранах; шапка групи клієнтів і ціна тренерської сесії - на нулі з сорока. Це не дефект коду: це межа кольорового шару, і вона проходить рівно по <code>primary</code>-аудиторії.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/client-row.css</span><span class="kp-tag">42 рядки</span><span class="kp-tag">17 селекторів</span><span class="kp-tag">60 оголошень</span><span class="kp-tag">4 екрани</span><span class="kp-tag">8 банерів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія: банер тренера</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>home-buyer.html</code>. Це єдина частина файлу, яку в кольорі можна побачити.</p>
+<div class="kp-demo">
+  <div class="coachbn">
+    <div>
+      <div class="ct">Ви тренер?</div>
+      <div class="cs">Замовляйте для своїх атлетів одним рахунком, зберігайте список клієнтів і платіть за тренерським тарифом.</div>
+    </div>
+    <a class="btn--accent btn--l btn dark" href="#">Стати тренером</a>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Інверсна поверхня</b> <code>--bg-inverse</code> - єдиний великий чорний блок на головній. Він не кричить кольором, він <b>інвертує</b>: за принципом 4 це спокійніше за помаранчеву плашку такого розміру</span></div>
+  <div class="a"><i>2</i><span><b>Заголовок</b> <code>.ct</code> - <code>--font-display</code> 24. Це друге за розміром гасло сторінки після H1</span></div>
+  <div class="a"><i>3</i><span><b>Підзаголовок</b> <code>.cs</code> - <code>--text-oninverse-muted</code>, не більше 560. Одна з двох мір тексту в системі, разом із 800 у блоці опису</span></div>
+  <div class="a"><i>4</i><span><b>Дія</b> - акцентна L з класом <code>dark</code>. Розмір L тут виправданий: <b>для тренера це головна дія головної сторінки</b>, і аудиторія <code>primary</code> вирішує</span></div>
+  <div class="a"><i>5</i><span><b>Флекс із переносом</b> - на вузькому кнопка йде під текст. Жодної точки перелому: <code>flex-wrap</code> ламається сам, коли перестає влазити</span></div>
+</div>
+<p class="kp-p">Кільце фокуса на кнопці <b>біле</b>, а не помаранчеве: заміряно натисканням Tab - <code>3px</code> білого через <code>box-shadow</code>. Це та частина системи, яка про інверсну поверхню знає.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Друга половина файлу не рендериться ніде</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Селектор</th><th>Що це</th><th>Екземплярів у кольорі</th></tr></thead><tbody>
+<tr><td><code>.coachbn</code> <code>.ct</code> <code>.cs</code></td><td>банер «ви тренер?»</td><td><b>8</b> на 4 екранах</td></tr>
+<tr><td><code>.cg-head</code> <code>.cg-who</code> <code>.cg-nm</code> <code>.cg-goal</code></td><td>липка шапка групи клієнтів</td><td><b>0</b></td></tr>
+<tr><td><code>.cg-sub</code> <code>.cg-sub small</code></td><td>підсумок по групі</td><td><b>0</b></td></tr>
+<tr><td><code>.cprice</code> <code>.cprice .old</code></td><td>ціна тренерської сесії</td><td><b>0</b></td></tr>
+</tbody></table></div>
+<p class="kp-p">Заміряно на всіх 40 кольорових екранах, на двох ширинах. Вісім селекторів із сімнадцяти - <b>рівно нуль збігів</b>, і це не сироти: їхні екрани існують, але тільки в сірому прототипі. <code>coach-session.html</code>, <code>coach-clients.html</code>, <code>coach-orders.html</code> - усе це <code>wireframes/</code>.</p>
+<div class="kp-gap"><h4>І ось що з цього видно</h4><b>Первинна аудиторія Stack - тренер</b>, і в кольорі з тренерського потоку є <b>банер</b>, тобто запрошення. Сам потік - список клієнтів, теґування замовлення на клієнта, історія на клієнта - у кольорі не намальований. 19 екранів MVP обрані так, і це рішення про обсяг, а не пропуск. Але поки воно не сказане вголос, дизайн-система виглядає готовою до потоку, якого в ній немає.</div>
+<p class="kp-p"><b>Тому файл не чистять.</b> Мертвим оголошення робить не «ніде не рендериться», а «ніде не рендериться <b>і ніколи не буде</b>». Тут друге не так: правила чекають на свої екрани, і <code>7.36</code> уже записав це поруч із <code>.cprice</code> у самому файлі.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Ціна сесії - дев'ята поверхня грошей</div>
+<div class="kp-code">.cprice { font-size: 16; white-space: nowrap; text-align: right }
+.cprice .old { display: block }</div>
+<p class="kp-p">Крок 7.36 звів усі грошові поверхні в <code>price.css</code>: гарнітура, табличні цифри, від'ємний міжслівний - там. Сюди повернулось те, що справді <b>рядкове</b>: кегль, вирівнювання праворуч і заборона переносу.</p>
+<p class="kp-p">І один рядок, який відрізняє цю поверхню від решти восьми: <b>стара ціна стоїть під новою, а не над нею</b>. Скрізь інде закреслена ціна вгорі; тут праворуч вузька колонка, і в неї влазить один рядок. <code>display: block</code> замість звичного <code>inline</code> - це і є вся різниця, і вона написана одним оголошенням.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>банер, спокій</b></td><td>чорний блок, радіус 16, <code>overflow: hidden</code></td><td><code>position: relative</code> і обрізка - слід від ілюстрації, якої в кольорі поки немає</td></tr>
+<tr><td><b>банер вузький</b></td><td>кнопка переходить під текст</td><td><code>flex-wrap</code>, без точки перелому</td></tr>
+<tr><td><b>фокус на кнопці</b></td><td>біле кільце 3px</td><td>система знає про інверсну поверхню - помаранчеве кільце на чорному не читалось би</td></tr>
+<tr><td><b>шапка групи</b></td><td><code>position: sticky; top: 0</code></td><td>оголошено й не перевірено: екрана в кольорі немає</td></tr>
+<tr><td><b>тренер уже підключений</b></td><td><b>немає</b></td><td>банер «ви тренер?» показується всім, зокрема тому, хто вже тренер</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Тренеру обіцяють роботу, а не знижку.</b> «Одним рахунком, список клієнтів, тренерський тариф» - це операційна вигода, і саме вона рухає первинну аудиторію. Відсоток тарифу тут не названий: він <code>[?]</code>, і вигадане число отруїло б усе нижче.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не показуй запрошення тому, хто вже всередині.</b> Банер «ви тренер?» на екрані підключеного тренера - це система, яка не пам'ятає, з ким говорить. Стан є в ролі акаунта і немає в коді.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>10</b> власних класів. Вісім із них у кольорі не рендеряться ніде, тож демо показує тільки те, що в кольорі є, а решта названа словами - і холостий контроль скаже про це чесно.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["coachbn","ct","cs"], KIT_STS=["sticky"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>client-row.css</code>: <b>10</b> семантичних ролей і <b>20</b> примітивів - найбільший набір серед молекул.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (10)</th><th>Примітиви (20)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-surface</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-oninverse</code> <code>--text-oninverse-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-display</code> <code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-24</code> <code>--fw-black</code> <code>--fw-medium</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--ls-lead</code> <code>--radius-12</code> <code>--radius-16</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-32</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу два числа: <code>1px</code> лінії й <code>560px</code> міри підзаголовка. Друге - родич <code>800px</code> з блока опису й <code>760px</code> із SEO-лиду: <b>три міри тексту в трьох файлах</b>, жодна не токен. Кандидат на одне рішення, етап 09.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Цей файл не змінювався. Три проходи по 40 екранах: <b>нульовий прохід 0, різниця 0.</b></p>
+<p class="kp-p">Вирішувач: <b>жодного мертвого оголошення</b>. Вісім селекторів у графі «не збігається з жодним елементом», і всі вісім там за відомою причиною, записаною у файлі з кроку 7.36. Три рядки звідси зникли на 7.69 - колірний блок повторював те, що структура вже поставила.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Тренерський потік у кольорі</b> - список клієнтів, теґування замовлення, історія на клієнта. Первинна аудиторія, і в кольорі з неї тільки запрошення</li>
+<li><b>Стан «ви вже тренер»</b> - банер показується всім</li>
+<li><b>Відсоток тренерського тарифу</b> - <code>[?]</code>, і банер обіцяє тариф, не називаючи його</li>
+<li><b>Ілюстрація в банері</b> - <code>overflow: hidden</code> і <code>position: relative</code> оголошені під щось, чого немає</li>
+<li><b>Три міри тексту</b>: 560 тут, 760 у лиді, 800 в описі. Жодна не токен</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Плитка цілі | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Плитка цілі</h1>
+<p class="kp-lead">Шість плиток на головній - <b>увесь механізм наведення для початківця в MVP</b>. Рішення 2 сказане вголос: шість цілей зараз, діалог-квіз - після запуску. Найбільш «продуктовий» компонент системи: він не малює дані, він ставить питання.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/goal-tile.css</span><span class="kp-tag">50 рядків</span><span class="kp-tag">13 селекторів</span><span class="kp-tag">43 оголошення</span><span class="kp-tag">4 екрани</span><span class="kp-tag">48 плиток</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>index.html</code>. Знак у кружку ставить <code>uivChrome()</code>, як і в крамниці.</p>
+<div class="kp-demo">
+  <div class="goaltiles">
+    <a class="gtile" href="#"><span class="gph">🏋️</span><span class="gt">Набір маси</span></a>
+    <a class="gtile" href="#"><span class="gph">🔥</span><span class="gt">Схуднення</span></a>
+    <a class="gtile" href="#"><span class="gph">💤</span><span class="gt">Відновлення</span></a>
+    <a class="gtile" href="#"><span class="gph">⚡</span><span class="gt">Енергія</span></a>
+    <a class="gtile" href="#"><span class="gph">🛡️</span><span class="gt">Імунітет</span></a>
+    <a class="gtile" href="#"><span class="gph">🏃</span><span class="gt">Витривалість</span></a>
+  </div>
+  <div class="goalcta">
+    <a class="btn--outline btn" href="#">Пройти підбір</a>
+    <span class="hint">Відповісте на кілька питань - зберемо набір під вашу ціль</span>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Сітка</b> <code>.goaltiles</code> - <b>2 колонки, 3 від 620, 6 від 960</b>. Три стани однієї сітки, і жоден із них не «плитки в ряд, скільки влізе»: шість цілей мусять читатись як закритий набір</span></div>
+  <div class="a"><i>2</i><span><b>Плитка</b> - колонка по центру: кружок, під ним слово. Не картка з фото: ціль це не товар, і зображати її знімком банки означало б підказати відповідь</span></div>
+  <div class="a"><i>3</i><span><b>Кружок</b> <code>.gph</code> - 52, фон <code>--bg-sunken</code>, знак 26 у акцентному кольорі. Єдиний акцент у плитці</span></div>
+  <div class="a"><i>4</i><span><b>Наведення</b> - три речі разом: край в акцент, плитка вгору на 2px, тінь із <code>--elevation-1</code> у <code>--elevation-2</code>. Плюс кружок теплішає</span></div>
+  <div class="a"><i>5</i><span><b>Запрошення</b> <code>.goalcta</code> - кнопка M і підказка 14. Кнопка не L: <b>головна дія екрана - це шість плиток вище</b>, а квіз - вихід для того, хто не може обрати жодну</span></div>
+</div>
+<p class="kp-p"><b>Аудиторія тут - вторинна, і це видно з розміру.</b> Тренер знає, що йому треба, і йде в каталог; плитки для того, кого каталог лякає. Тому вони великі, їх шість, і кожна називає результат, а не категорію товару.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Три сітки, і жодна з них не видна стандартному перепису</div>
+<p class="kp-p">Перепис ходить на 360, 390, 720 і 1280. Точок перелому в цього файлу дві - <b>620 і 960</b>, - і з чотирьох ширин жодна не стоїть біля них. Кроки 7.70 і 7.75 обидва на цьому спіймались; тут заміряно по власних ширинах, по одній з кожного боку кожної межі.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Ширина</th><th>Сітка</th><th>Плитка</th></tr></thead><tbody>
+<tr><td>360</td><td>2 колонки</td><td>158 x 116</td></tr>
+<tr><td>559 · 560</td><td>2 колонки</td><td>258 x 116</td></tr>
+<tr><td><b>619</b></td><td>2 колонки</td><td><b>288</b> x 116</td></tr>
+<tr><td><b>620</b></td><td><b>3 колонки</b></td><td><b>188</b> x 116</td></tr>
+<tr><td>719 · 720 · 759 · 760 · 859 · 860</td><td>3 колонки</td><td>221 -&gt; 268 x 116</td></tr>
+<tr><td><b>959</b></td><td>3 колонки</td><td><b>301</b> x 116</td></tr>
+<tr><td><b>960</b></td><td><b>6 колонок</b></td><td><b>145</b> x 116</td></tr>
+<tr><td>1280</td><td>6 колонок</td><td>162 x 116</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Обидві межі спрацьовують рівно на своєму пікселі</b> - ні на 619, ні на 959 сітка не малює суміш вузького й широкого правила. Це не дрібниця: 7.64 знайшов саме таку суміш на 620 у картки товару, де картка виходила 286x498 замість 286x553. Тут - чисто.</p>
+<div class="kp-do"><h4>Що з цього видно</h4><b>Висота плитки - 116 на кожній ширині від 360 до 1280.</b> Плитка росте тільки вшир: 158, 258, 288, потім 188, 301, потім 145. На 619 вона <b>288 на 116</b>, майже 2.5:1 - найдовший її вигляд у продукті, і саме на планшеті в портреті. Ніде не сказано, що так задумано.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Кільце фокуса тут браузерне, а за 40 пікселів - системне</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Контрол на <code>index.html</code></th><th>Що малює фокус</th></tr></thead><tbody>
+<tr><td><code>.gtile</code>, 6 штук</td><td><b>браузерне синє</b> <code>1px auto rgb(0, 95, 204)</code></td></tr>
+<tr><td><code>.goalcta .btn--outline</code>, поруч</td><td>системне: <code>3px</code> помаранчевого через <code>box-shadow</code></td></tr>
+</tbody></table></div>
+<p class="kp-p">Заміряно натисканням Tab, а не <code>.focus()</code> зі скрипта - <code>:focus-visible</code> справді збігся на обох. Тобто на одному екрані, за сорок пікселів одне від одного, два контроли обводяться по-різному, і другий - не системою.</p>
+<p class="kp-p"><b>Механізм знайдено на 7.82.</b> Кільце в системі оголошують 24 правила, і посилання в них потрапляють <b>поіменним списком</b> у <code>link-row.css</code> - тринадцять селекторів, перелічених рукою. Компонент, який не носить фінішу кнопки й не потрапив до того списку, лишається з браузерним кільцем за замовчуванням. <code>.gtile</code> і <code>.blogcard</code> - саме такі.</p>
+<div class="kp-gap"><h4>Не змінено: це питання власника</h4>Замінити браузерне кільце на системне - зміна видима, і вона стосується щонайменше п'яти компонентів (<code>.gtile</code>, <code>.blogcard</code>, <code>.relbox</code>, <code>.brandbox</code>, <code>.certthumb</code>). Питання поставлене з заміром, а не з відчуттям.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>біла плитка, край-волосина, <code>--elevation-1</code></td><td>лежить на сторінці, а не на ній стоїть</td></tr>
+<tr><td><b>наведення</b></td><td>край в акцент, вгору 2px, тінь важчає, кружок теплішає</td><td>той самий підйом, що в картки товару: це те, що можна відкрити</td></tr>
+<tr><td><b>фокус</b></td><td>браузерне кільце</td><td>розібрано вище, питання відкрите</td></tr>
+<tr><td><b>обрана ціль</b></td><td><b>немає</b></td><td>плитка веде на сторінку цілі й не лишає сліду. Для повернення назад це втрачений контекст</td></tr>
+<tr><td><b>620 · 960</b></td><td>2 -&gt; 3 -&gt; 6 колонок</td><td>шість плиток мусять читатись як набір: 6 в один ряд або 3 у два</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Ціль називають результатом, а не товаром.</b> «Набір маси», а не «гейнери»: людина знає, чого хоче досягти, і не знає, як це називається на полиці. Це вся суть механізму наведення.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не додавай сьому плитку.</b> Шість - рішення, а не місткість ряду: на 960 вони стають одним рядом, і сьома ламає і сітку, і обіцянку «ось усі цілі». Нова ціль замінює стару, а не дописується.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>6</b> власних класів і <b>3</b> стани.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["goalcta","goaltiles","gph","gt","gtile","hint"], KIT_STS=[":hover","min-width: 620px","min-width: 960px"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>goal-tile.css</code>: <b>11</b> семантичних ролей і <b>9</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (11)</th><th>Примітиви (9)</th></tr></thead><tbody><tr><td><code>--bg-action-hover</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--elevation-1</code> <code>--elevation-2</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-body</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--radius-16</code> <code>--radius-circle</code> <code>--size-26</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу три числа: <code>1px</code> краю, <code>52px</code> кружка й дві точки перелому. <code>52</code> - один із восьми розмірів плитки з відкритого питання A6; тут це кружок, а не кадр товару, тож у ту сім'ю він не входить.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Цей файл не змінювався: у ньому нема чого виправляти. Вирішувач по всіх 13 селекторах дає <b>дві</b> позиції, і обидві не дефекти - структурний <code>border-color</code>, побитий колірним блоком (це і є поділ етапу 08), і правило <code>@620</code>, яке на 1280 програє правилу <code>@960</code>. <b>Друге ледь не стало хибною знахідкою</b> і замість цього стало рядком у розділі «не відкривати».</p>
+<p class="kp-p">Три проходи по 40 екранах: <b>нульовий прохід 0, різниця 0.</b></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Стан «ця ціль обрана»</b> - плитка нікуди не запам'ятовується, і повернувшись, людина починає спочатку</li>
+<li><b>Квіз</b> - кнопка «Пройти підбір» веде на <code>wireframes/quiz.html</code>, у кольорі того екрана немає (рішення 2: квіз після запуску)</li>
+<li><b>Своє кільце фокуса</b> - разом із <code>.blogcard</code>, <code>.relbox</code>, <code>.brandbox</code>, <code>.certthumb</code></li>
+<li><b>Пропорція 288 x 116</b> на 619 - найдовший вигляд плитки, і ніде не сказано, що так задумано</li>
+<li><b>Знаки в кружках</b> - емодзі в розмітці, які <code>uivChrome()</code> замінює на набір. Що станеться з сьомою ціллю, для якої знака в наборі немає, не сказано</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

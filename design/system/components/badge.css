@@ -66,5 +66,19 @@
    button's arrow. A typed ★ is read aloud by a screen reader as «black star»,
    cannot take a size of its own, and cannot be told apart from the word.
    `--lh-flat` so the glyph does not push the pill taller than its label. */
-.tag.tag-pop::before{ content: '★'; color: var(--text-action); font-size: var(--fs-10); line-height: var(--lh-flat); }
+/* 7.79: the star was being READ. `.tag-pop` sits inside the card's photo link, and
+   generated content joins that link's accessible name, so the card announced
+
+       «фото ★ ПОПУЛЯРНЕ»
+
+   on both instances of `listing.html` - read out of Chrome's tree. The mark is
+   decoration: the word «Популярне» beside it already carries the whole meaning, and
+   a star that is spoken says a character, not a fact.
+
+   `content: '★' / ''` keeps the drawing and empties what the tree gets. Its
+   neighbour one line down is left exactly as it is: the same test says `✦` is
+   ALREADY silent inside the same link, and adding an empty alt to something that
+   is not spoken would be a change with nothing behind it. Why the two differ is
+   `[?]`; it was measured, not deduced. See `cert-thumb.css` for the sweep. */
+.tag.tag-pop::before{ content: '★' / ''; color: var(--text-action); font-size: var(--fs-10); line-height: var(--lh-flat); }
 .tag.tag-new::before{ content: '✦'; font-size: var(--fs-10); line-height: var(--lh-flat); }

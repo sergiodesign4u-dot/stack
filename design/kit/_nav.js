@@ -262,7 +262,7 @@ window.KIT_NAV = [
    {
     "label": "Тулбар",
     "page": "toolbar.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Заголовок секції",
@@ -272,17 +272,17 @@ window.KIT_NAV = [
    {
     "label": "Рядок клієнта",
     "page": "client-row.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Плитка цілі",
     "page": "goal-tile.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Картка блогу",
     "page": "blog-card.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Пагінація",
@@ -292,17 +292,17 @@ window.KIT_NAV = [
    {
     "label": "Логотип бренду",
     "page": "brand-logo.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Тост",
     "page": "toast.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Мініатюра сертифіката",
     "page": "cert-thumb.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Блок опису",
@@ -312,7 +312,7 @@ window.KIT_NAV = [
    {
     "label": "SEO-текст",
     "page": "seo-text.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Хлібні крихти",
@@ -327,7 +327,7 @@ window.KIT_NAV = [
    {
     "label": "Схожі товари",
     "page": "related.html",
-    "done": false
+    "done": true
    }
   ]
  },

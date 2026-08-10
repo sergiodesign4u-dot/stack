@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SEO-текст | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">SEO-текст</h1>
+<p class="kp-lead">У блока два кінці, і вони на різних краях сторінки: <b>лід</b> під заголовком каталогу і <b>сам блок</b> у підвалі. Між ними одне посилання, «Читати більше», - і саме воно виявилось єдиним місцем продукту, де акцент на тексті не проходить контраст.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/seo-text.css</span><span class="kp-tag">66 рядків</span><span class="kp-tag">14 селекторів</span><span class="kp-tag">37 оголошень</span><span class="kp-tag">9 екранів</span><span class="kp-tag">22 ліди</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>listing.html</code>: спершу лід, потім, через увесь каталог, блок.</p>
+<div class="kp-demo">
+  <p class="lintro">Протеїн - базова добавка для росту й відновлення м'язів. У каталозі концентрат, ізолят, гідролізат і рослинний протеїн від перевірених брендів. <a class="btn--text btn--inline more" href="#seo">Читати більше</a></p>
+</div>
+<div class="kp-demo">
+  <section class="seotext" id="seo" aria-label="Опис категорії">
+    <div class="h">Протеїн в Україні - купити в магазині Stack</div>
+    <p>Протеїн - базова спортивна добавка для росту й відновлення м'язів. У каталозі Stack - сироватковий концентрат, ізолят, гідролізат, казеїн, комплексний і рослинний протеїн від перевірених брендів.</p>
+    <p>Для кожного товару показуємо склад, походження і сертифікат - щоб ви бачили, що берете. Доставка по Україні, оплата при отриманні.</p>
+  </section>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Лід</b> <code>.lintro</code> - 14, вторинний, не ширше 760. Стоїть під H1 каталогу і не сперечається з ним: це підпис, а не вступ</span></div>
+  <div class="a"><i>2</i><span><b>Посилання</b> <code>.more</code> - <code>href="#seo"</code>, тобто <b>не сусід блока, а його верхній кінець</b>. До 7.10 лід жив у <code>loyalty-rung.css</code>, з яким не має нічого спільного</span></div>
+  <div class="a"><i>3</i><span><b>Блок</b> <code>.seotext</code> - <code>--bg-sunken</code>, край-волосина, радіус 12. Найтихіша поверхня системи: текст для пошукача не мусить конкурувати з товарами</span></div>
+  <div class="a"><i>4</i><span><b>Заголовок</b> <code>.h</code> - 18/900 <code>--font-display</code>. Приїхав із <code>section-head.css</code> на 7.50, де був одним із п'яти імен в одному рядку</span></div>
+  <div class="a"><i>5</i><span><b>Ведмідь</b> <code>.uiv-bear</code> - від 760 стоїть у правому полі блока. Приїхав із <code>empty-state.css</code> на 7.49: він не порожній стан, він ілюстрація <b>цього</b> блока</span></div>
+</div>
+<p class="kp-p"><b>Блок розгорнутий завжди.</b> Ні «показати ще», ні акордеона: текст, який ховають від людини й показують пошукачу, - це саме те, за що пошукачі карають. Лід дає коротку версію нагорі, повна лежить унизу, і посилання між ними чесне.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Єдиний акцент на тексті, який не проходить контраст</div>
+<p class="kp-p"><code>DESIGN-artifacts.md</code> тримає замкнене правило: <b>акцент на тексті - тільки від 19px жирного</b>, бо <code>#FF5A00</code> на білому це 3.13:1, а це AA лише для великого тексту. Правило застосували до ціни на 7.74 і <b>більше ні до чого</b>. Крок 7.81 застосував його до всього.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Форма</th><th>Екз.</th><th>Кегль / вага</th><th>Поверхня</th><th>Контраст</th><th>WCAG</th></tr></thead><tbody>
+<tr><td><code>.badge</code> «еталон»</td><td>28</td><td>10/600</td><td><code>rgb(255,245,240)</code></td><td><b>2.91</b></td><td>не проходить</td></tr>
+<tr><td><code>.acc-link</code> «Адреси»</td><td>8</td><td>14/600</td><td><code>rgb(250,249,247)</code></td><td><b>2.97</b></td><td>не проходить</td></tr>
+<tr><td><b><code>.more</code> «Читати більше»</b></td><td>8</td><td>14/700</td><td>біле</td><td><b>3.13</b></td><td><b>не проходить</b></td></tr>
+<tr><td><code>.addr-tag</code></td><td>2</td><td>10/700</td><td>біле</td><td>3.13</td><td>не проходить</td></tr>
+<tr><td><code>.cbnew</code></td><td>2</td><td>30/600</td><td><code>rgb(250,249,247)</code></td><td><b>2.97</b></td><td>не проходить</td></tr>
+<tr><td><code>.hptag</code> «Акція тижня»</td><td>8</td><td>12/500</td><td><code>rgb(28,28,28)</code></td><td><b>5.45</b></td><td>проходить</td></tr>
+<tr><td><code>.big</code> · <code>.new</code></td><td>8</td><td>38/600 · 36/600</td><td>біле</td><td>3.13</td><td>проходить, великий текст</td></tr>
+<tr><td>вісім грошових форм</td><td>72</td><td>20-30 / 700</td><td>біле</td><td>3.13</td><td>проходить</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Шістнадцять форм несуть акцентний текст. П'ять не проходять AA - 48 екземплярів.</b> І замір показує ще дещо: правило, як воно написане, <b>і надто суворе, і надто м'яке</b> одночасно.</p>
+<div class="kp-gap"><h4>Надто суворе</h4><code>.hptag</code> це 12/500 і <b>5.45:1</b> - бо він на майже чорному. Той самий помаранчевий на інверсній поверхні читається краще за будь-який текст на білому, а правило «від 19 жирного» забороняє його разом з усім іншим. <b>Вирішує поверхня, а правило говорить про кегль.</b></div>
+<div class="kp-gap"><h4>Надто м'яке</h4><code>.cbnew</code> це 30/600 - за WCAG великий текст, потрібно 3.0. Він стоїть не на білому, а на <code>rgb(250,249,247)</code>, і там <b>2.97</b>. Правило про теплі поверхні не каже нічого, а вони знімають 0.16 і цього досить.</div>
+<p class="kp-p"><b>Не змінено цим кроком.</b> Три виходи - підняти кегль, зняти акцент, лишити з винятком - і всі три є рішенням про значення. Правило замкнене в <code>DESIGN-artifacts.md</code>, і міняється воно вголос: «змінна -&gt; значення -&gt; чому», а не побічним ефектом кроку витрини.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Єдиний справжній <code>btn--inline</code> у крамниці</div>
+<p class="kp-p">«Читати більше» - дія, написана словами <b>всередині речення</b>, а це рівно те, для чого оголошений фініш <code>btn--text btn--inline</code>. Крок 7.6 написав на стенді кнопки, що такого вжитку в продукті немає - і це було хибно у спосіб, який варто назвати: <b>7.6 заміряв елементи, які вже НОСИЛИ <code>btn--inline</code>, і зробив висновок із них</b>, замість шукати ті, що мали б носити. Їх чотири, по одному на кожен екран каталогу.</p>
+<p class="kp-p">Що лишилось у файлі після фінішу: вага (фініш успадковує її, а абзац навколо - 400) і чорнило. <code>white-space: nowrap</code> пішло - <code>button.css</code> уже забороняє перенос усім чотирьом фінішам.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Ведмідь стоїть у ямі, і яму вирито за один крок до нього</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Ширина</th><th><code>padding-right</code></th><th><code>min-height</code></th><th>ведмідь</th></tr></thead><tbody>
+<tr><td>360 - <b>759</b></td><td>16</td><td>0</td><td><code>display: none</code></td></tr>
+<tr><td><b>760</b> - 1280</td><td><b>310</b></td><td><b>244</b></td><td><b>362 заввишки</b>, знизу -128</td></tr>
+</tbody></table></div>
+<p class="kp-p">310 праворуч - це і є яма, у якій він стоїть, і до 7.49 два ці рядки лежали в різних файлах: правило блока тут, ведмідь у <code>empty-state.css</code>, який його порожнім станом не вважає. Заміряно: на 40 кольорових екранах <code>.uiv-bear</code> рендериться <b>18 разів, і кожен - усередині <code>.seotext</code></b>.</p>
+<p class="kp-p">Ведмідь <b>вищий за блок</b>: 362 при <code>min-height: 244</code>, і <code>bottom: -128</code> опускає його нижче краю. Тримає це <code>overflow: hidden</code> на блоці - тобто видно приблизно дві третини фігури, і так задумано: він визирає, а не стоїть у повний зріст.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>лід нагорі, блок у підвалі, обидва завжди видимі</td><td>текст не ховають від людини й не показують пошукачу окремо</td></tr>
+<tr><td><b>наведення на «Читати більше»</b></td><td>прозорість .75</td><td>власний ховер, бо колір тут уже акцентний і темнішати нікуди</td></tr>
+<tr><td><b>фокус на «Читати більше»</b></td><td><b>системне кільце</b>, 3px помаранчевого</td><td>носить фініш <code>btn--text</code>, тому кільце є - на відміну від п'яти посилальних компонентів без фінішу</td></tr>
+<tr><td><b>до 760</b></td><td>ведмідь схований, поле праворуч 16</td><td>на телефоні 310px ями не лишилось би нічого для тексту</td></tr>
+<tr><td><b>тексту немає</b></td><td><b>немає стану</b></td><td>у категорії без опису блок порожній із заголовком</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Текст для пошукача пишуть для людини.</b> Лід каже коротко те саме, що блок каже повно, і обидва - звичайними словами. Принцип 5: інакше це два різні тексти, і один із них брехня.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не ховай блок під «показати ще».</b> Текст, який видно роботу й не видно людині, - те, за що пошукачі карають, і те, що перетворює чесний опис на трюк.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>5</b> власних класів і <b>3</b> стани.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["h","lintro","more","seotext","uiv-bear"], KIT_STS=[":hover","min-width:760px","max-width:759px"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>seo-text.css</code>: <b>5</b> семантичних ролей і <b>11</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (11)</th></tr></thead><tbody><tr><td><code>--bg-sunken</code> <code>--line-hair</code> <code>--text-action</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-display</code> <code>--fs-14</code> <code>--fs-18</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--ls-lead</code> <code>--radius-12</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу сім чисел, і шість із них - <b>розміри ведмедя та його ями</b>: 310 поля, 244 мінімальної висоти, 362 зросту, -128 зсуву й межа 760/759. Сьоме - <code>760px</code> міри ліда, третя міра тексту в системі поряд із 560 у банері тренера і 800 у блоці опису.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Цей файл не змінювався. Вирішувач по всіх 14 селекторах: <b>жодного мертвого оголошення</b>. Три проходи по 40 екранах: <b>нульовий прохід 0, різниця 0.</b></p>
+<p class="kp-p">Межа 760 заміряна власними ширинами - на 759 і 760, - бо стандартні ширини перепису її не бачать.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Акцент на тексті нижче гейта</b> - п'ять форм, 48 екземплярів, не проходять AA. Розібрано вище, рішення про значення</li>
+<li><b>Правило гейта говорить про кегль, а вирішує поверхня</b> - і про теплі поверхні не каже нічого</li>
+<li><b>Стан «опису категорії немає»</b> - блок лишається із заголовком і без тексту</li>
+<li><b>Три міри тексту</b>: 560, 760, 800 у трьох файлах, жодна не токен</li>
+<li><b>Ведмідь один на дев'ять екранів</b> - одна фігура на всі категорії, і правила «яка ілюстрація до якої категорії» немає</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+/* the mascot is appended by `uivMascot()` inside the shop's own pass, whose root is
+   `main.wf-page`; a stand is `main.kp-main`. One line repeated here, reading the same
+   asset the product reads, so the block is shown with the hole filled rather than
+   with an empty 310px of padding. */
+(function(){
+  var box = document.querySelector('.kp-demo .seotext');
+  if(box && !box.querySelector('.uiv-bear')){
+    var img = document.createElement('img');
+    img.className = 'uiv-bear';
+    img.src = '../concept/assets/mascot-pose-present.png';
+    img.alt = '';
+    img.onerror = function(){ this.remove(); };
+    box.appendChild(img);
+  }
+})();
+</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

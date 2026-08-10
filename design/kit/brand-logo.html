@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Логотип бренду | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Логотип бренду</h1>
+<p class="kp-lead">Шість чужих логотипів у ряд на головній: Optimum Nutrition, OstroVit, Power Pro. Робота 4 без жодного слова - <b>ми возимо те, що ви вже знаєте</b>. І всередині - найакуратніший запасний варіант у продукті: коробка сама помічає, що картинка не прийшла.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/brand-logo.css</span><span class="kp-tag">26 рядків</span><span class="kp-tag">8 селекторів</span><span class="kp-tag">27 оголошень</span><span class="kp-tag">4 екрани</span><span class="kp-tag">24 логотипи</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>home-buyer.html</code>. Наведіть: сірий логотип бере свій колір.</p>
+<div class="kp-demo">
+  <div class="brandrow">
+    <a class="brandbox" href="#"><img src="../visuals/brands/optimum-nutrition.png" alt="Optimum Nutrition" onerror="this.remove()"><span class="bnm">Optimum</span></a>
+    <a class="brandbox" href="#"><img src="../visuals/brands/ostrovit.png" alt="OstroVit" onerror="this.remove()"><span class="bnm">OstroVit</span></a>
+    <a class="brandbox" href="#"><img src="../visuals/brands/power-pro.png" alt="Power Pro" onerror="this.remove()"><span class="bnm">Power Pro</span></a>
+    <a class="brandbox" href="#"><img src="../visuals/brands/sporter.png" alt="Sporter" onerror="this.remove()"><span class="bnm">Sporter</span></a>
+    <a class="brandbox" href="#"><img src="../visuals/brands/biotech-usa.png" alt="BioTechUSA" onerror="this.remove()"><span class="bnm">BioTechUSA</span></a>
+    <a class="brandbox" href="#"><img src="../visuals/brands/myprotein.png" alt="Myprotein" onerror="this.remove()"><span class="bnm">Myprotein</span></a>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Сітка</b> <code>.brandrow</code> - <b>3 колонки</b> до 620 і <b>6</b> від 620. Не флекс: шість логотипів різної ширини мусять стояти в рівних коробках, інакше ряд читається як список важливості</span></div>
+  <div class="a"><i>2</i><span><b>Коробка</b> 62 заввишки, край-волосина. Висота фіксована, щоб широкий логотип не робив свою клітинку вищою за сусідні</span></div>
+  <div class="a"><i>3</i><span><b>Логотип</b> - не більше 34 заввишки, <code>object-fit: contain</code>, <code>grayscale(1)</code> при непрозорості .86</span></div>
+  <div class="a"><i>4</i><span><b>Наведення</b> - три речі одночасно: край в акцент, підпис темніє, з логотипа сходить сірість. Бренд «оживає» тільки під курсором</span></div>
+  <div class="a"><i>5</i><span><b>Підпис</b> <code>.bnm</code> - слово замість картинки, і його не видно, доки картинка є</span></div>
+</div>
+<p class="kp-p"><b>Чому сіре.</b> Шість чужих палітр поруч із єдиним помаранчевим системи - це шість конкурентів за увагу на головній. Знебарвлення робить із них <b>фактуру</b>, а не рекламу: ряд каже «ці бренди тут є», і жоден із них не голосніший за кнопку.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Запасний варіант, який працює видаленням</div>
+<div class="kp-code">&lt;img src="..." alt="Optimum Nutrition" onerror="this.remove()"&gt;&lt;span class="bnm"&gt;Optimum&lt;/span&gt;
+.brandbox:has(img) .bnm { display: none }</div>
+<p class="kp-p">Картинка не завантажилась - розмітка <b>прибирає її з дерева</b>, після чого <code>:has(img)</code> перестає збігатись, і слово з'являється саме собою. Жодного класу-стану, жодного «якщо»: коробка не питає, чи картинка вдалась, вона питає, чи картинка <b>є</b>.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Заміряно на <code>home-buyer.html</code></th><th>Значення</th></tr></thead><tbody>
+<tr><td>коробок / з картинкою</td><td>6 / <b>6</b></td></tr>
+<tr><td><code>.bnm</code> у першої</td><td><code>display: none</code></td></tr>
+<tr><td>картинка</td><td>34 x 34, <code>grayscale(1)</code>, непрозорість <code>.86</code></td></tr>
+<tr><td>сітка на 1280</td><td>шість колонок по 162, крок 12</td></tr>
+<tr><td>висота коробки</td><td>62</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Ім'я бренду при цьому не зникає ніколи.</b> Поки картинка є, посилання зветься її <code>alt</code>; коли її немає - словом у <code>.bnm</code>. Читач з екрана чує «Optimum Nutrition» в обох випадках, і саме тому підпис можна ховати через <code>display: none</code>, а не тримати прихованим текстом.</p>
+<div class="kp-do"><h4>Правило</h4><b>Запасний варіант краще виводити з наявності, а не з прапорця.</b> Прапорець хтось мусить поставити й не забути зняти; <code>:has()</code> над реальним деревом не має чого забувати.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>сірий логотип, .86, край-волосина</td><td>фактура, а не реклама</td></tr>
+<tr><td><b>наведення</b></td><td>колір повертається, край в акцент, підпис темніє</td><td>бренд оживає тільки тоді, коли ним цікавляться</td></tr>
+<tr><td><b>картинки немає</b></td><td>з'являється слово <code>.bnm</code>, 14/700</td><td>розібрано вище, і воно не потребує жодного класу</td></tr>
+<tr><td><b>до 620</b></td><td>три колонки замість шести</td><td>шість логотипів по 52px на телефоні не читаються</td></tr>
+<tr><td><b>фокус</b></td><td><b>кільце браузера</b>, синє <code>rgb(0, 95, 204)</code></td><td>заміряно натисканням Tab, <code>:focus-visible</code> справді збігся. Те саме, що в <code>.relbox</code> і <code>.certthumb</code></td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Чужий знак працює на довіру мовчки.</b> Ряд логотипів не потребує заголовка «нам довіряють»: людина впізнає банку, яку бачила в залі, і це переконливіше за будь-яке речення про це.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не став логотип бренду, якого не возиш.</b> Знак у цьому ряду - обіцянка, що товар цієї марки в каталозі є. Порожня видача за натиском коштує дорожче, ніж коротший ряд.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власні класи і <b>2</b> стани.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["bnm","brandbox","brandrow"], KIT_STS=[":hover",":has"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>brand-logo.css</code>: <b>5</b> семантичних ролей і <b>5</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (5)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--line-action</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fw-bold</code> <code>--radius-12</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу чотири числа: <code>1px</code> волосини, <code>62px</code> висоти коробки, <code>34px</code> стелі логотипа і <code>620px</code> точки перелому. Перші три - розміри цього малюнка й нікого більше; <code>620</code> - друга за вжитком точка перелому системи, вона стоїть у дев'яти файлах і має свій рядок у <code>tokens.css</code> з кроку 7.70.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Цей файл крок 7.80 не змінював. Три проходи по 40 екранах: <b>нульовий прохід 0, різниця 0.</b></p>
+<p class="kp-p">Вирішувач по всіх 8 селекторах: <b>жодного мертвого оголошення</b>. Одна лінія тут уже зникала - на 7.69, коли колірний блок повторював значення, яке структура вже поставила.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Стан «жодного логотипа не завантажилось»</b> - шість слів у рамках виглядають як зламаний блок, і нічого цього не помічає</li>
+<li><b>Скільки брендів у ряду</b> - шість написані вручну; правила «які шість» немає</li>
+<li><b>Своє кільце фокуса</b> - разом із <code>.relbox</code> і <code>.certthumb</code>. Питання відкрите</li>
+<li><b><code>.bnm</code> обрізається</b> - «BioTechUSA» у 162px коробці на 1280 влазить, у 3-колонковій на 360 - <code>[?]</code>, довших назв у коді немає, щоб перевірити</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

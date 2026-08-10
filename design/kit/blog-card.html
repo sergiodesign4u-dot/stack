@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Картка блогу | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Картка блогу</h1>
+<p class="kp-lead">Три статті внизу головної й сторінки товару. Єдине місце, де Stack говорить, нічого не продаючи, - і тому єдина картка системи <b>без ціни, без кнопки й без наявності</b>.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/blog-card.css</span><span class="kp-tag">31 рядок</span><span class="kp-tag">14 селекторів</span><span class="kp-tag">26 оголошень</span><span class="kp-tag">6 екранів</span><span class="kp-tag">36 карток</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>index.html</code>. Фото приходять із того самого правила, що в крамниці: <b>по позиції в ряду</b>.</p>
+<div class="kp-demo">
+  <div class="blogrow">
+    <a class="blogcard" href="#"><div class="bim"></div><div class="btx"><div class="bt">Протеїн для початківця: з чого почати і скільки треба</div><div class="bdt">12 хв читання</div></div></a>
+    <a class="blogcard" href="#"><div class="bim"></div><div class="btx"><div class="bt">Креатин: як приймати, коли і чи потрібне завантаження</div><div class="bdt">8 хв читання</div></div></a>
+    <a class="blogcard" href="#"><div class="bim"></div><div class="btx"><div class="bt">Як обрати добавки під ціль, а не під рекламу</div><div class="bdt">6 хв читання</div></div></a>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Ряд</b> <code>.blogrow</code> - <b>1 колонка до 720, 3 від 720</b>. Не два і не «скільки влізе»: статей завжди три</span></div>
+  <div class="a"><i>2</i><span><b>Кадр</b> <code>.bim</code> - 158 заввишки, <code>background: center/cover</code>. Висота фіксована, а не пропорція: три кадри в ряду мусять зрізатись однаково, інакше ряд «стрибає»</span></div>
+  <div class="a"><i>3</i><span><b>Заголовок</b> <code>.bt</code> - 14/700 з <code>--lh-snug</code>. Щільний міжрядковий, бо заголовок статті це три рядки, а не один</span></div>
+  <div class="a"><i>4</i><span><b>Підпис</b> <code>.bdt</code> - 12, вторинний. Час читання, а не дата: дата статті про креатин нічого не додає, а «8 хв» - додає</span></div>
+  <div class="a"><i>5</i><span><b>Наведення</b> - вгору 2px і важча тінь. Без зміни краю: у картки блогу краю немає, її тримає тільки тінь</span></div>
+</div>
+<p class="kp-p"><b>Принцип 1 у найтихішій формі.</b> Статті не продають - вони знімають сумнів до того, як людина взагалі дійшла до каталогу. Тому блок стоїть <b>унизу</b> головної й унизу сторінки товару: він для того, хто ще не готовий класти в кошик.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Фото - за позицією, і базовий рядок це запасний варіант</div>
+<div class="kp-code">.blogcard .bim { background: var(--bg-sunken) center/cover no-repeat; height: 158px }
+.blogrow > .blogcard:nth-child(1) .bim { background-image: url(blog-protein.jpg) }
+.blogrow > .blogcard:nth-child(2) .bim { background-image: url(blog-creatine.jpg) }
+.blogrow > .blogcard:nth-child(3) .bim { background-image: url(blog-goals.jpg) }</div>
+<p class="kp-p">Вирішувач кроку 7.75 доповів перший рядок як «36 збігів, 0 перемог» за <code>background-image</code> - і <b>це не дефект</b>. Скорочення ставить <code>none</code>, три правила нижче ставлять фото, і всі три позиції зайняті. Те, що не виграє, - це запасний варіант для <b>четвертої</b> картки, якої поки немає: вона дістане теплий <code>--bg-sunken</code> замість порожнечі.</p>
+<div class="kp-do"><h4>Правило</h4><b>Оголошення, побите пофотографійним правилом, не мертве - воно запасне.</b> Різниця перевіряється одним питанням: що станеться з елементом, якого ще немає. Записано в розділ «не відкривати», щоб наступний прохід не зняв цей рядок як зайвий.</div>
+<div class="kp-gap"><h4>І та сама помилка, що в нотатці про поповнення, тут <b>не</b> повторюється</h4><code>:nth-child</code>, а не <code>:nth-of-type</code>. У <code>restock-note.css</code> чергування фото рахує ще й шапку картки й тримається випадково; тут прямий нащадок ряду - завжди <code>.blogcard</code>, і рахунок збігається з позицією. Один і той самий прийом, і в одному місці він працює, а в іншому ні.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межа 720, заміряна власними ширинами</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Ширина</th><th>Ряд статей</th><th>Плитки цілей поруч</th></tr></thead><tbody>
+<tr><td>360 · 559 · 619</td><td>1 колонка</td><td>2 колонки</td></tr>
+<tr><td><b>620</b></td><td><b>1 колонка</b>, 588</td><td><b>3 колонки</b></td></tr>
+<tr><td><b>719</b></td><td>1 колонка, 687</td><td>3 колонки</td></tr>
+<tr><td><b>720</b></td><td><b>3 колонки</b> по 221</td><td>3 колонки</td></tr>
+<tr><td>960</td><td>3 колонки</td><td><b>6 колонок</b></td></tr>
+</tbody></table></div>
+<p class="kp-p">Межа спрацьовує рівно на 720, суміші правил немає. Але видно й інше: <b>на одній сторінці дві сітки перебудовуються на різних межах</b> - плитки цілей на 620, статті на 720. Між 620 і 719 головна показує три плитки в ряд і одну статтю на всю ширину. Довід на користь цього є (стаття потребує ширини під три рядки заголовка), і <b>в коді його ніде не сказано</b>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>біла картка, край-волосина, <code>--elevation-1</code></td><td>та сама поверхня, що в плитки цілі: обидві - «щось, що можна відкрити»</td></tr>
+<tr><td><b>наведення</b></td><td>вгору 2px, тінь важчає. <b>Край не змінюється</b></td><td>у картки блогу нема акцентного стану: вона нікуди не веде в магазин</td></tr>
+<tr><td><b>фокус</b></td><td><b>браузерне синє</b>, заміряно натисканням Tab</td><td>те саме, що в <code>.gtile</code>: компонент не носить фінішу кнопки й не в поіменному списку <code>link-row.css</code></td></tr>
+<tr><td><b>четверта картка</b></td><td>теплий <code>--bg-sunken</code> замість фото</td><td>запасний варіант, розібраний вище. У продукті поки не рендериться</td></tr>
+<tr><td><b>до 720</b></td><td>одна колонка на всю ширину</td><td>заголовок у три рядки при 158px кадрі - це вже картка, а не плитка</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Стаття обіцяє час, а не новизну.</b> «8 хв читання» - те, що вирішує, читати зараз чи ні. Дата статті про дозування креатину не змінює нічого і тільки старить блок.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не став у блог рекламу власного товару.</b> Це єдине місце, де магазин говорить, нічого не продаючи, і воно працює рівно доти, доки це правда. Картка без ціни й без кнопки - не недогляд, а умова.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>6</b> власних класів і <b>3</b> стани.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["bdt","bim","blogcard","blogrow","bt","btx"], KIT_STS=[":hover",":nth-child","min-width: 720px"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>blog-card.css</code>: <b>7</b> семантичних ролей і <b>8</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (7)</th><th>Примітиви (8)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--elevation-1</code> <code>--elevation-2</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--lh-snug</code> <code>--radius-12</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу три числа: <code>1px</code> краю, <code>158px</code> висоти кадру й межа <code>720</code>. <b>158 - не з драбини розмірів</b> і мало б туди потрапити: сусідній кадр опису бере <code>aspect-ratio</code>, кадр картки товару - квадрат (7.68), а цей стоїть окремим числом. Кандидат на рішення етапу 09 разом із розміром плитки товару.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Цей файл не змінювався. Три проходи по 40 екранах: <b>нульовий прохід 0, різниця 0.</b></p>
+<p class="kp-p">Вирішувач по всіх 14 селекторах: <b>одне оголошення не виграє ніде</b>, і воно запасне за задумом. Один рядок звідси вже зникав на 7.69 - колірний блок повторював значення, яке структура вже поставила.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Четверта картка</b> - три фото прибиті до трьох позицій. Четверта стаття дістане порожній теплий кадр, і правила «звідки береться фото» немає</li>
+<li><b>Стаття у кольорі не існує</b> - усі три ведуть на <code>wireframes/content-article.html</code></li>
+<li><b>158px висоти кадру</b> повз драбину розмірів</li>
+<li><b>Дві сітки, дві межі</b> на одній сторінці: 620 у плиток, 720 у статей. Довід не записаний</li>
+<li><b>Своє кільце фокуса</b> - разом із чотирма іншими посилальними компонентами</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+/* the three photographs are `nth-child` rules keyed on a path relative to
+   `design/system/components/`, and a stand sits one folder deeper than a screen. The
+   demo therefore paints them here from the SAME three files, by position, so the stand
+   shows what the shop shows and not an empty frame. */
+(function(){
+  var SRC = ['blog-protein.jpg', 'blog-creatine.jpg', 'blog-goals.jpg'];
+  document.querySelectorAll('.kp-demo .blogrow > .blogcard .bim').forEach(function(b, i){
+    if(i < SRC.length) b.style.backgroundImage = 'url(../visuals/' + SRC[i] + ')';
+  });
+})();
+</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>
