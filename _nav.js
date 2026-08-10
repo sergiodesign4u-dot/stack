@@ -41,9 +41,22 @@ window.NAV = [
       { label: 'Кіт компонентів',        page: 'design/kit/kit.html',   done: true  }
   ]},
 
-  { label: 'Токени і компоненти',        page: 'design/kit/overview.html', done: false },
+  /* Step 7.84, and it was a defect in this file rather than a preference.
+     `done` means ONE thing everywhere else here: the page exists. These two rows used
+     it for a second meaning - «the stage is finished» - and the cost was that
+     `design/kit/overview.html`, which has existed and been complete for weeks, rendered
+     as a <span>: the whole showcase was unreachable from the sidebar of the project it
+     documents. How far a stage has got is shown ON its page (27 / 27 molecules, 0 / 24
+     organisms), which is where it can be true; a route is either walkable or it is not.
 
-  { label: 'Дизайн-система',             page: 'design/kit/why.html',   done: false },
+     Merged under one heading because the tokens are the design system's ground floor and
+     not a stage beside it - and split into children so that the half which is built and
+     the half which is not stay visible as separate rows, the same shape «Концепт» and
+     «UI + візуал» already use. */
+  { label: 'Дизайн-система', children: [
+      { label: 'Токени і компоненти',    page: 'design/kit/overview.html', done: true  },
+      { label: 'Чому саме так',          page: 'design/kit/why.html',      done: false }
+  ]},
 
   { label: 'Адаптив',                    page: null },
   { label: 'Анімація',                   page: null },

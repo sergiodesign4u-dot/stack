@@ -22,8 +22,13 @@
      ia/: the hub answers "where am I in the project", a page answers "where am I
      in the system". -->
 <aside id="sidebar"></aside>
-<script>var NAV_BASE='../../';var NAV_ACTIVE='design/kit/overview.html';
-        var NAV_ACTIVE_LABEL='Токени і компоненти';</script>
+<!-- 7.84: `NAV_ACTIVE` + `NAV_ACTIVE_LABEL` stood here and had to go. The rule is
+     that a page declares them ONLY when it is not in the registry - and this page
+     is in it. The two mechanisms had been compensating for each other: the registry
+     row said `done: false`, so it drew as a <span>, and the page declared itself a
+     satellite of itself to get a walkable link back. With the row corrected, both
+     fired and the sidebar showed «Токени і компоненти» twice. One source. -->
+<script>var NAV_BASE='../../';</script>
 <!-- The hub stands aside for the ROADMAP panel (220 from 860 up), not for the
      stand panel (236 from 900 up) that `_page.css` gives every other page here.
      Until step 7.4 this was an inline `margin-left:0`, which cancelled the stand

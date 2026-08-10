@@ -461,6 +461,30 @@ with a written exception. Not taken by a showcase step - the rule is locked in
 
 ---
 
+### A11. The grey prototype scrolls sideways at 720 - **found at step 7.84, and it is one rule**
+
+**137 overflows on 976 page x width pairs**, across nearly every screen in `wireframes/`. All
+pre-existing; none of them belong to this pass. They were invisible because the acceptance sweep
+had never opened the grey folder - it grew from 356 to 408 pairs over nine steps and every one of
+them was colour, while `wireframes/` is what all forty coloured screens load for their behaviour.
+Both sweeps walk it now.
+
+**The cause, measured rather than guessed.** The outermost offending element is `DIV.wff-col` -
+the footer column - with its right edge at **759** on a 720 viewport. `_wf.css:593` turns the
+footer into five columns from `min-width: 720px` (`1.5fr repeat(4, 1fr)`), and
+`.wff-col a.wff-phone` is 23px bold with `white-space: nowrap`, so that column's min-content is
+larger than its share and the grid walks 39px past the edge. At 760 and above it is clean.
+
+**Three ways out, and each is a value said out loud:** move the footer's boundary from 720 to
+760, let the phone number wrap, or take it down a size in the band. The colour layer carries the
+same five-column rule in `footer.css:18` and does NOT overflow at 720 - so whatever absorbs it
+there is worth reading before choosing here.
+
+**Not taken at 7.84**, which was a step about a sidebar and 24 stray images. It is one rule in
+the frozen folder and it touches every grey screen.
+
+---
+
 ## B. Names - Крок 6, after stage 09
 
 Renaming is not a value decision and it moves pixels only by accident. It waits until the
@@ -781,6 +805,18 @@ Recorded here so it does not happen a third time.
 - **The grey prototype is not a frozen archive.** All 40 coloured screens load
   `wireframes/_nav.js` for their behaviour. Editing it is a structure change, which is what
   `wireframes/` owns.
+- **And it is not outside acceptance either - 7.84.** For nine steps the sweep reported «no
+  sideways scroll» on 356, then 372, then 408 pairs, and not one of them was a grey screen. A
+  360-wide overflow sat in `wireframes/` the whole time. **A check that does not open a folder
+  cannot clear it**, and saying «no overflow» while meaning «no overflow in the half I looked at»
+  is the kind of true sentence that does the work of a false one.
+- **`done` in a registry means «the page exists», not «the stage is finished».** Using it for the
+  second meaning made `design/kit/overview.html` - complete, and edited daily - render as a
+  `<span>`, so the showcase was unreachable from the sidebar of the project it documents. How far
+  a stage has got belongs ON its page. Fixed at 7.84.
+- **`NAV_ACTIVE` is for pages OUTSIDE the registry.** A page that is in the registry and also
+  declares itself a satellite draws its own row twice. The two had been cancelling each other out
+  under the wrong `done` flag; correcting one exposed the other.
 
 ---
 

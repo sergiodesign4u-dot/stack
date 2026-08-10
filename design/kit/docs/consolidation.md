@@ -9241,3 +9241,78 @@ says structure comes from the registry and a page never restates it. The card mo
 both counts now follow. **Whether a select menu is an atom is a separate question and not this
 step's** - what mattered is that two published numbers cannot both be the answer.
 
+---
+
+## Step 7.84: the sidebar could not reach the showcase, and the grey prototype had colour in it
+
+**Who asked for it:** the owner, with a screenshot and two sentences. Both were right, and
+checking the second one properly turned up a third thing that neither of us was looking for.
+
+### 1. Two rows using `done` for two different meanings
+
+`_nav.js` carried «Токени і компоненти» -> `design/kit/overview.html` and «Дизайн-система» ->
+`design/kit/why.html`, both `done: false`. Everywhere else in that file `done` means **the page
+exists**; here it was being used for **the stage is finished**, and the cost was that the
+showcase - complete, 27 of 27 molecules, edited every day for weeks - rendered as a `<span>`.
+**The project's own documentation was unreachable from the project's own sidebar.**
+
+How far a stage has got is shown ON its page, where it can be true and stay true. A route is
+either walkable or it is not.
+
+Merged into one heading with two children, the same shape «Концепт» and «UI + візуал» use: the
+half that is built is a link, the half that is not (`why.html`, stage 09) stays a visible span.
+
+**And the fix immediately showed a second edition of the same fact.** With the row corrected the
+sidebar drew «Токени і компоненти» **twice** - because `overview.html` also declared
+`NAV_ACTIVE` + `NAV_ACTIVE_LABEL`, the satellite mechanism for a page that is NOT in the
+registry. The two had been compensating for each other: the registry said «no page», the page
+said «I am a satellite of myself». Removed; the rule in `CLAUDE.md` says those two variables are
+for pages outside the registry, and this one is in it.
+
+### 2. Colour in `wireframes/`, and it was breaking 360
+
+**24 real brand logotypes** in four grey screens - `index`, `home-buyer`, `home-cart`,
+`home-coach` - each `<img src="../design/visuals/brands/*.png">`. The grey prototype was loading
+its pictures out of the colour folder, against the most explicit rule the project has.
+
+`_wf.css` has no rule for them, so they rendered at natural size: **184 x 184 inside a 186 x 62
+box**, three of six overflowing at 1280 - and at 360 they pushed the page to **364 wide against a
+360 viewport**. Measured before and after:
+
+| | before | after |
+|---|---|---|
+| images in the row | 6 | **0** |
+| overflowing their box @1280 | 3 | 0 |
+| page scrollWidth @360 | **364 > 360** | **no overflow** |
+| box, text, row height | 103x62 · «Optimum» · 134 | unchanged |
+
+Removed. What is left is the place and the name in 12/700, which is exactly what a wireframe is
+for. `_wf.css` itself was clean - zero `url(` - so the leak was entirely in markup. One
+reference into `design/` remains and it stays: a **favicon** on `wireframes/overview.html`, which
+is browser chrome, not prototype content.
+
+### 3. The sweep had never opened the grey prototype
+
+This is the part worth keeping. My acceptance sweep grew from 356 to 408 page x width pairs over
+nine steps, **and every one of them was colour.** `wireframes/` is what all 40 coloured screens
+load for their behaviour and what the whole colour layer is a copy of, and no check I have ever
+run has looked at it. That is how a sideways scroll at 360 sat there unseen while I reported «no
+sideways scroll» eleven times.
+
+Both sweeps now walk it. The first run: **976 pairs, and 137 overflows** - all pre-existing, none
+of them mine.
+
+**Cause found rather than guessed.** The outermost offender is `DIV.wff-col`, right edge **759**
+on a 720 viewport, on nearly every grey screen. `_wf.css:593` turns the footer into five columns
+from `min-width: 720px` - `1.5fr repeat(4, 1fr)` - and `.wff-col a.wff-phone` is 23px bold with
+`white-space: nowrap`, so its column cannot shrink to its share and the grid walks 39px past the
+edge. It clears at 760. **One rule, one component, and it is a decision** - move the breakpoint,
+let the phone wrap, or shrink it - so it is written down rather than taken here.
+
+### Acceptance
+
+Census over the coloured product: **68 rows, all of them on `design/overview.html`, all of them
+sidebar** - `nav-item`, `nav-top`, `nav-badge` - which is the roadmap panel redrawing with one
+group where two dead rows used to be. **Zero product screens moved.** Kit check: no exceptions,
+27 molecules, 60 live cards.
+
