@@ -25,11 +25,11 @@
 <div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/empty-state.css</span><span class="kp-tag">56 рядків</span><span class="kp-tag">26 селекторів</span><span class="kp-tag">35 правил</span><span class="kp-tag">247 оголошень</span><span class="kp-tag">7 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<p class="kp-p">Розмітка звідси - та сама, що на <code>listing-empty.html</code>. Секція навколо не оформлення: саме <code>section[aria-label]</code> перетворює значок на круглий портрет ведмедя, і без неї коробка виглядає інакше.</p>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>listing-empty.html</code>. <b>До 7.73 круглий портрет робила саме секція навколо</b> - правило читало <code>section[aria-label="Результати"]</code>, тобто речення інтерфейсу, вжите як селектор. Тепер це каже <code>.empty .ei:has(img)</code>: <b>ілюстрація, у якій є зображення</b>. Секція лишається в демо, бо вона є в справжній розмітці, але оформлення вона більше не тримає - перейменуйте ярлик, і нічого не станеться.</p>
 <div class="kp-demo">
   <section aria-label="Результати">
     <div class="empty">
-      <div class="ei"><img src="../visuals/mascot-face-reassure.png" alt=""></div>
+      <div class="ei ei--wide"><img src="../visuals/mascot-face-reassure.png" alt=""></div>
       <div class="et">За вашими фільтрами нічого не знайдено</div>
       <div class="es">Спробуйте прибрати частину фільтрів або оберіть ціль - підберемо безпечний набір.</div>
       <div class="eact">
@@ -139,7 +139,7 @@
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
 <div class="kp-code">&lt;section aria-label="Результати"&gt;
   &lt;div class="empty"&gt;
-    &lt;div class="ei"&gt;&lt;img src="visuals/mascot-face-reassure.png" alt=""&gt;&lt;/div&gt;
+    &lt;div class="ei ei--wide"&gt;&lt;img src="visuals/mascot-face-reassure.png" alt=""&gt;&lt;/div&gt;
     &lt;div class="et"&gt;За вашими фільтрами нічого не знайдено&lt;/div&gt;
     &lt;div class="es"&gt;Спробуйте прибрати частину фільтрів…&lt;/div&gt;
     &lt;div class="eact"&gt;…акцентна кнопка + контурні…&lt;/div&gt;

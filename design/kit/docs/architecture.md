@@ -529,13 +529,59 @@ They are drawn as real text on real screens. Before launch each needs a source o
   behind it, scripted into a control. Two places use a real `<input type="checkbox">` instead -
   the address dialog and the profile delete confirmation - and they draw the operating system's
   box. Neither file says which is canonical. **This is a decision, not a defect.**
-- **Gallery thumbnails cannot be reached from a keyboard.** `_nav.js` gives them
-  `role="button"` and an `aria-label` and no `tabindex`.
-- **Five rules key on a Ukrainian `aria-label` string**: four in `empty-state.css`
-  (`section[aria-label="Результати"]`, `section[aria-label="Помилка"]`) and one in
-  `section-head.css` (`section[aria-label="Опис"]`). Rename the label and the layout changes.
-- **No `:visited` anywhere**, and **no `:active` on chips, switches or the pagination chip**.
-- **The accessible name carries a count**: «В наявності 71» reads as one string.
+- **Gallery thumbnails cannot be reached from a keyboard** - **CLOSED at step 7.72.** Measured
+  before the fix on the three product screens: **12 thumbnails, 12 with `role="button"`, 12 with
+  an `aria-label`, 0 with a tab stop and 0 with a key handler.** A role is a promise about what
+  a control does, and this one announced a button nobody could press. The four on
+  `product-loading.html` are `.skpulse` skeletons with no role and no focus **on purpose** - a
+  placeholder must not be focusable. Given `tabindex="0"` and Enter/Space. Verified by keyboard:
+  before, `.focus()` returned index **-1** and Enter did nothing; after, focus lands on the
+  third thumbnail and Enter moves `on` from 0 to 2 while the main photo's `transform` goes from
+  `none` to `1.75`. **Not converted to `role="tab"`**, which would read more accurately - that
+  is a behaviour decision, not a repair.
+- **Five rules key on a Ukrainian `aria-label` string** - **CLOSED at step 7.73, and they were
+  asking the wrong question.** An interface sentence used as a selector, and voice owns that
+  sentence. What they were reaching for, measured: `.ei` appears **seven** times in the product
+  and four of them are an emoji glyph - a box, a heart, a warning, a trolley. The other three
+  hold a **photograph**, every one of those three is inside one of the two labelled sections,
+  and no `.empty .ei` anywhere else is. The label was standing in for one plain fact - **this
+  illustration contains an image** - and `:has(img)` says it, cannot be broken by a rename and
+  needs no class. The `.sech` rule was the same shape: `desc-block.css:14` already gives
+  `.pdesc` the identical `max-width:800px; margin-inline:auto`, so the rule means «the head of
+  the description column takes the column's measure», and `.sech:has(+ .pdesc)` says that.
+  **A/B: null 0, difference 0.**
+
+  **What the two label rules were hiding.** They were byte-identical apart from two numbers -
+  126/118 and `--space-8`/`--space-4` - for the same round face, in the same box, doing the same
+  job, from two assets that are both **1024 x 1024 with the same framing**. The shared rule takes
+  118 and `--space-4`, which two of the three already draw; the third keeps its own in one line
+  and one class, so nothing moved. **Whether that line should exist is the owner's** - it is A6's
+  shape at a smaller scale: one idea, two numbers, no stated reason.
+- **No `:visited` anywhere** - still true. **«No `:active` on chips» is FALSE**: `chip.css:153`
+  carries `.chip:active, .dr-chip:active, .hero-chips a:active, .flink:active, .mgchip:active,
+  .ptab:active, .ord-tab:active, .cegoals button:active, .afilter .x:active`, and `:220` the
+  same set in `.on`. A later step closed it and did not update this line. It stays true for the
+  **switch** (`switch.css` has no `:active` at all) and for pagination.
+- **The accessible name carries a count** - **CLOSED at step 7.72.** Confirmed to the letter:
+  `wireframes/_nav.js:1791` builds `<label class="fopt"><span class="cb"></span> LABEL <span
+  class="ct">N</span></label>` and a label's accessible name is its whole text. Announced, that
+  is «в наявності сімдесят один» - a value, not a tally. **Fixed with a comma and nothing else:**
+  the count is hidden from the name and put back into an explicit `aria-label` assembled from
+  the same two visible strings. **No word is invented here** - interface wording belongs to
+  `voice/docs/microcopy.md`, not to a behaviour file; the edition that says «71 товар» reads
+  better, needs a plural rule (71 товар, 13 товарів) and therefore waits on voice. Measured
+  after: **50 filter rows, all 50 named, «В наявності, 71»**, visible text unchanged.
+
+- **How focus is painted - NEW, found at 7.72.** The new tab stops made it worth asking what
+  draws focus anywhere. Census over the 40 screens, **visible elements only: 3898 focusable.**
+  The system's own ring on **1244 (32%)**, Chrome's default blue on **2591 (66%)**, nothing on
+  63. **The first run of this census returned 14 989 elements and «74% with no ring»** - almost
+  all of it the closed mega menu and the closed drawer, because a hidden element cannot be
+  focused and its computed style is a default. Corrected in the instrument. **The real finding
+  is the 66%:** the system declares `--ring-focus` and `--ring-focus-control` and two thirds of
+  its focusable elements take the browser's. The 63 are NOT claimed as a defect: a programmatic
+  `.focus()` legitimately suppresses `:focus-visible` on some elements, so they need a
+  Tab-driven pass, which is a different instrument.
 
 ---
 
@@ -581,13 +627,54 @@ Recorded here so it does not happen a third time.
 
 ## H. Housekeeping
 
-- **167 non-standard apostrophes** outside `design/`: `voice` 81, `ia` 44, `research` 24,
-  `wireframes` 18. `design/` is clean of both U+2019 and U+02BC.
-- **Nine `'Inter', sans-serif` literals** in seven files where `--font-body` exists.
-- **75 inline `style=` attributes** in `design/*.html`. Most are data - a rating bar's width, a
-  skeleton's height - and belong in markup. The one that is not is item F1.
-- **`stack-action.css` has one unbalanced `*/`**, pre-existing at HEAD and harmless.
-- **`DESIGN-artifacts.md` figures are stale** - it still lists «card 22 / …» from before 7.36.
+- **Non-standard apostrophes** - **CLOSED at step 7.74.** It was **168, not 167**, and
+  `design/` was **not** clean: one sits in `kit/docs/btn-census.json`, inside a recorded
+  measurement string. The rest are `voice` 81, `ia` 44, `research` 24, `wireframes` 18, and every
+  one of them is inside Ukrainian prose - *з_явиться, п_ять, обов_язковий, зв_язки* (the `_` standing for U+02BC) - where U+02BC
+  is a common typographic choice and the project's rule says otherwise. `voice/microcopy.html`
+  had already flagged the split in its own words: «Здоров'я» проти «Здоров_я» з U+02BC (різний апостроф!).
+  Replaced character by character: **168 replacements in 34 files, 158 changed lines, and on
+  every line the only difference is the apostrophe** - verified by comparing the minus and plus
+  sides of the diff. None left anywhere in the repository.
+
+- **`'Inter', sans-serif` literals** - **ALREADY CLOSED, and this entry was wrong in both
+  halves.** Not «nine in seven files where `--font-body` exists» but **nine in five files, and
+  `--font-body` exists in none of them.** Seven are on `design/concept/*` pages, which do **not**
+  load `system/index.css` - only `_nav.css` and the font from Google - so there the literal is
+  the only way to say it. The other two are **prose inside `<code>`**, on this sheet's own page
+  and on the «Наявність» stand, describing the finding. **No component file carries it any
+  more**: some later step folded them and the record still said otherwise in three places -
+  here, on `architecture.html`, and on a stand that was **telling a reader something false**.
+  Corrected in all three.
+
+- **74 inline `style=` attributes**, not 75, in 23 files - most in `account-loading` (12) and
+  `product-loading` (7), which are skeleton heights. The judgement «most are data and belong in
+  markup» stands; the one that is not was item F1.
+
+- **`stack-action.css` has one unbalanced `*/`** - **FALSE.** The file is balanced, 15 `/*`
+  against 15 `*/`, and the structural check every step has run since 7.68 returns zero
+  unbalanced across all 76 stylesheets. The line was either stale or never true.
+
+- **`DESIGN-artifacts.md` figures** - **CLOSED at step 7.74. The conclusion holds and every
+  figure was stale.** The gate - accent on a price only from 19px bold - is intact. Measured on
+  all **eight** carriers, taken from the **one** rule that paints a price with the accent
+  (`price.css:166-174`) rather than from guessed selectors:
+
+  | carrier | 390 | 1280 |
+  |---|---|---|
+  | grid card | 20/700 | **24**/700 |
+  | list card | 20/700 | 20/700 |
+  | deal | 30/700 | 30/700 |
+  | buy box | 36/**600** | 36/600 |
+  | pdp tab | 20/700 | 20/700 |
+  | buy bar | 20/700 | 20/700 |
+  | cart row | 20/700 | 20/700 |
+  | checkout line | 20/700 | 20/700 |
+
+  **Of the five figures the doc named, one survived** - «buy box 36». «shelf 19» names a carrier
+  that no longer exists, and three real ones - the pdp tab, the cart row, the checkout line - are
+  missing from the list. The buy box clears the gate **by size and not by weight**: 600 is not
+  bold, but 36px is large text by WCAG regardless of weight.
 
 ---
 

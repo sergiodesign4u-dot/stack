@@ -8478,3 +8478,325 @@ and no product screen at all.**
 The guard is now in the harness. It does not test the height, because Chrome's error page is a
 perfectly tall page; it tests whether the document loaded a stylesheet, which every page in this
 project does and an error page does not. Over 10% failing and the sweep refuses to report.
+
+---
+
+## Step 7.72: a role is a promise, and two of them were promising things nobody could do
+
+**Who asked for it:** the owner - section E, the part that is code.
+
+### Section E re-measured first, and it is 3 right, 1 incomplete, 1 half wrong
+
+| E says | measured |
+|---|---|
+| gallery thumbnails have no `tabindex` | **true**, and precisely: 12 on three screens, 12 with the role, 12 with a label, 0 with a tab stop, 0 with a key handler |
+| the accessible name carries a count | **true**, to the letter |
+| 5 rules key on a Ukrainian `aria-label` | **true** - 4 in `empty-state.css`, 1 in `section-head.css`, matching 5 sections on 5 screens |
+| no `:visited` anywhere | **true** - 0 files |
+| **no `:active` on chips** | **FALSE.** `chip.css:153` carries nine chip selectors with `:active` and `:220` the same set in `.on`. A later step closed it and never came back to this line. Still true for the switch and for pagination |
+| two checkbox mechanisms | **true, and it is a decision, not a defect** - 351 `span.cb` against 1 real `<input>` in the static markup |
+
+### E3 - the thumbnails
+
+A role is a promise about what a control does. These announced `button` to a keyboard that could
+never reach them. `tabindex="0"` and Enter/Space, in `design/_nav.js` beside the block that
+already draws them - the coloured layer is where 7.34 put the same kind of repair, because
+`wireframes/` is frozen.
+
+**Verified by keyboard rather than by attribute.** Baseline: `.focus()` on the third thumbnail
+returns activeElement index **-1** and Enter changes nothing - `on` stays 0, the main photo's
+`transform` stays `none`. Tree: focus lands on index **2**, Enter moves `on` to 2 and the
+transform becomes `matrix(1.75, 0, 0, 1.75, 0, 0)`.
+
+**The four on `product-loading.html` are untouched in both editions** - `.skpulse` skeletons with
+no role and no focus, and that is correct: a placeholder must not be focusable.
+
+**Not converted to `role="tab"`**, which would describe a thumb strip over one panel more
+accurately and would bring arrow keys with it. That is a decision about behaviour, not a repair,
+and it is written next to the code rather than taken quietly.
+
+### E6 - the name that was a run-on
+
+`wireframes/_nav.js:1791` builds `<label class="fopt"><span class="cb"></span> LABEL <span
+class="ct">N</span></label>`, and a label's accessible name is its whole text. Announced, «В
+наявності 71» is «в наявності сімдесят один» - a value, not a tally.
+
+**Fixed with a comma and nothing else.** The count is hidden from the name and put back through
+an explicit `aria-label` assembled from the same two visible strings. **No new word is invented
+here**, because interface wording belongs to `voice/docs/microcopy.md` and not to a behaviour
+file. The edition that says «71 товар» reads better, needs a plural rule - 71 товар, 13 товарів -
+and therefore waits on voice. Measured after: **50 filter rows, all 50 named, «В наявності, 71»,
+and the visible text is unchanged.**
+
+### A/B
+
+**Null pass 0. Difference 0 rows.** Which is the claim: an ARIA and behaviour change must not
+move a pixel, and it did not.
+
+### Opened, not closed - how focus is painted
+
+Adding tab stops made it worth asking what draws focus anywhere. Census over the 40 screens,
+**visible elements only: 3898 focusable.** The system's own ring on **1244 (32%)**, Chrome's
+default blue on **2591 (66%)**, nothing on 63.
+
+**The first run of this census returned 14 989 elements and «74% with no ring».** That was the
+closed mega menu and the closed drawer: a hidden element cannot be focused and its computed
+style is a default, so counting it as «no ring» invents a defect. Third instrument correction in
+four steps, and the same shape as the other two - **the harness answers, and the answer has to be
+checked before it becomes a finding.**
+
+**The real finding is the 66%:** the system declares `--ring-focus` and `--ring-focus-control`
+and two thirds of its focusable elements take the browser's blue instead. That is a look
+decision across the whole product, not a repair.
+
+**The 63 are not claimed as a defect.** A programmatic `.focus()` legitimately suppresses
+`:focus-visible` on some elements, so they need a Tab-driven pass - a different instrument, and
+one that has to be built before anyone says the word «invisible».
+
+### Where the sheet stands
+
+**Eleven closed** plus the shape half of A6, and **two rows of section E** now struck through.
+Four questions still wait on the owner - the 18px checkbox edge, the out-of-stock label, the
+coach box's ink, the size of the product tile - and E adds a fifth: **does the product draw its
+own focus ring, or keep the browser's?**
+
+---
+
+## Step 7.73: the selectors were asking what a thing is CALLED
+
+**Who asked for it:** the owner - section E, «five rules key on a Ukrainian `aria-label` string».
+
+### What they were reaching for
+
+An interface sentence used as a selector, and voice owns that sentence, not a stylesheet. But
+the interesting part is what the label was standing in for. Measured: **`.ei` appears seven
+times in the product, and four of them are an emoji glyph** - a box, a heart, a warning, a
+trolley - inside `.emptybox` or `.empty`. **The other three hold a photograph**, every one of
+those three sits inside one of the two labelled sections, and no `.empty .ei` anywhere else
+does.
+
+So the label was a proxy for one plain fact: **this illustration contains an image.**
+`:has(img)` says exactly that, cannot be broken by a rename, and needs no class in the markup.
+
+The `.sech` rule was the same shape. `desc-block.css:14` already gives `.pdesc`
+`max-width:800px; margin-inline:auto`, so `section[aria-label="Опис"] .sech` means «the head of
+the description column takes the column's measure» - which is `.sech:has(+ .pdesc)`, said
+without asking what anything is called.
+
+### What the two label rules were hiding
+
+They were **byte-identical apart from two numbers**: 126/118 and `--space-8`/`--space-4`. Same
+circle, same overflow, same `font-size: 0`, same `object-fit`, same `object-position`, same
+blend, for the same round face in the same box. And both assets are **1024 x 1024 with the same
+framing**, so nothing in the source explains the 8px.
+
+The shared rule takes **118 and `--space-4`** - what two of the three already draw - and the
+third keeps its own in one line and one class, `.ei--wide`, so nothing moves. **Whether that
+line should exist is the owner's.** It is A6's shape at a smaller scale: one idea, two numbers,
+no stated reason.
+
+### A/B, and the null pass earning its keep
+
+**Difference 282 rows. Eight of them are this step and 274 are the noise floor**, which is the
+first time in this pass that floor has not been zero.
+
+**The 274 are all `design/overview.html@360`, and they are the harness.** Two loads of the SAME
+server disagreed - the page came back 10951.56 tall in one pass and 11070.3 in the other. Chased
+it: with a 600ms settle the page is stable at 360, 390, 720 and 1280, five loads each, 39 `.scr`
+frames every time and fonts loaded. It is the contention failure mode `cdp.mjs` already
+documents at 7.51 - the image-heaviest page in the kit, at the narrowest width, read while other
+work was running. Not the product, and not this step.
+
+**The 8 are the class name and nothing else.** `DIV.ei#1` disappears and `DIV.ei.ei--wide#1`
+appears, because the census keys on `TAG.classes#seq`. Compared as **multisets of digests**,
+which is the instrument for exactly this: `listing-empty.html` at 360 and at 1280, **1654
+elements before and 1654 after, zero digests present in only one edition.** Every computed
+value, every box, every position byte-identical.
+
+### Where the sheet stands
+
+Section E's code is done: **three rows struck through** - the gallery thumbnails and the
+accessible name at 7.72, the label-keyed selectors at 7.73 - and its record corrected in two
+more places. What is left in E is not code: the two checkbox mechanisms (a decision), the grey
+layer's filter panel (a frozen folder), and the focus ring 7.72 opened.
+
+### And the acceptance sweep caught what the measurement had not looked at
+
+`:has(img)` is BROADER than the two label selectors, and one place felt it. My E4 census walked
+`design/*.html` - the 40 screens - and concluded «no `.empty .ei` anywhere else». **It never
+walked the 49 stands.** `design/kit/empty-state.html` has one, and it was 126 because the stand
+wraps its demo in `<section aria-label="Результати">` for exactly the reason its own caption
+gave:
+
+> «Секція навколо не оформлення: саме `section[aria-label]` перетворює значок на круглий портрет
+> ведмедя, і без неї коробка виглядає інакше.»
+
+With the label gone the demo fell to the shared 118 - **8px, on four widths, and the product
+census could not see it because that census does not load the stands.** The sweep does, and it
+did.
+
+Fixed the same step: the demo takes `.ei--wide` like the screen it copies, the code sample beside
+it takes it too, and **the caption that explained the old mechanism is rewritten**, because a
+stand describing a rule the system no longer has is worse than no stand. Verified after: 126 x
+126 on the stand and 126 x 126 on `listing-empty.html`, in both editions.
+
+**Third time in this run that an instrument caught what a reading missed** - the substring
+deletion at 7.69, the dead baseline at 7.71, this now. The reading keeps being confident and
+narrow; the sweep keeps being dumb and wide, and that is why both exist.
+
+---
+
+## Step 7.74: five housekeeping lines, and three of them were not true any more
+
+**Who asked for it:** the owner - section H.
+
+### H1 - the apostrophes. Done, and it was 168 with one inside `design/`
+
+The record said 167 outside `design/`, and «`design/` is clean». It is **168**, and `design/`
+was not clean: one sits in `kit/docs/btn-census.json`, inside a recorded measurement string
+(«39 екранів x 2 в_юпорти», the `_` being U+02BC). The rest: `voice` 81, `ia` 44, `research` 24, `wireframes` 18.
+
+Every one is inside Ukrainian prose - *з_явиться, п_ять, обов_язковий, зв_язки* (the `_` standing for U+02BC) - where U+02BC is
+a common typographic choice and `CLAUDE.md` says «one apostrophe form: `'`». **`voice/microcopy.md`
+had already flagged the split in its own words:** «Здоров'я» проти «Здоров_я» з U+02BC (різний апостроф!).
+
+Replaced character by character, and the sweep proves it did nothing else: **168 replacements in
+34 files, 158 changed lines, and on every one of those lines the only difference is the
+apostrophe** - checked by zipping the minus and plus sides of `git diff -U0` and requiring that
+each pair be equal once the four characters are mapped. Each file also had to come out the same
+LENGTH, with exactly N characters differing. Zero remain in the repository.
+
+`wireframes/` is frozen and 18 of these are in it. That freeze is about what the prototype says
+and how it is built, and this changes neither: it is the same word, spelled with the apostrophe
+the project chose. Said out loud here rather than done quietly.
+
+### H2 - already closed, and the record said otherwise in three places
+
+Not «nine literals in seven files where `--font-body` exists», but **nine in five files, and
+`--font-body` exists in none of them.** Seven are on `design/concept/*`, which load `_nav.css`
+and the Google font and **not** `system/index.css` - there the literal is the only way to say it.
+The other two are **prose inside `<code>`**, on the sheet's own page and on the «Наявність»
+stand, describing the finding.
+
+**No component file carries it any more.** Some later step folded the seven, and three places
+still said it had not happened - `architecture.md`, `architecture.html`, and the stand, which was
+**telling a reader something false about the system it exists to describe.** All three corrected.
+
+### H3 and H4 - a number and a claim
+
+**74, not 75**, in 23 files. The judgement stands.
+
+**`stack-action.css` has one unbalanced `*/` - false.** 15 `/*` against 15 `*/`, and the
+structural check every step has run since 7.68 returns zero unbalanced across all 76 stylesheets.
+
+### H5 - the conclusion held and every figure was stale
+
+`DESIGN-artifacts.md` lists the sizes that clear the accent-on-price gate: «card 22 / mobile 19,
+list 21, buy box 36, shelf 19, buy bar 19». Measured on all **eight** carriers - taken from the
+**one** rule that paints a price with the accent, `price.css:166-174`, rather than from selectors
+I guessed, which the first attempt did and which found three of eight:
+
+| carrier | 390 | 1280 |
+|---|---|---|
+| grid card | 20/700 | **24**/700 |
+| list card | 20/700 | 20/700 |
+| deal | 30/700 | 30/700 |
+| buy box | 36/**600** | 36/600 |
+| pdp tab | 20/700 | 20/700 |
+| buy bar | 20/700 | 20/700 |
+| cart row | 20/700 | 20/700 |
+| checkout line | 20/700 | 20/700 |
+
+**Of the five figures named, one survived** - «buy box 36». «shelf 19» names a carrier that no
+longer exists; the pdp tab, the cart row and the checkout line were missing from the list. **The
+gate itself is intact:** every carrier is at least 20px. The buy box clears it **by size and not
+by weight** - 600 is not bold, but 36px is large text by WCAG regardless of weight, and that
+distinction was not written down anywhere before.
+
+`DESIGN-artifacts.md` is the origin document, so this is not a value being re-derived: those
+figures are a record of what the product draws, the doc frames them that way, and keeping them
+true is what the file is for.
+
+### The sweep broke the prototype, and the A/B said so in one number
+
+**The first A/B came back 211 471 rows.** Not a regression in the design - the whole product had
+stopped building.
+
+`wireframes/_nav.js` is a script, and **an apostrophe inside a single-quoted string is syntax,
+not text.** Three of them were:
+
+```
+health: 'Здоров<U+02BC>я'            ->  health: 'Здоров'я'          <- string ends at «Здоров»
+'Екрани з<U+02BC>являться…'          ->  'Екрани з'являться…'
+'Кам<U+02BC>янець'                   ->  'Кам'янець'
+```
+
+`node --check` on the result: `SyntaxError: Unexpected identifier 'я'`. **The file that builds
+the behaviour of all 40 coloured screens stopped parsing**, so every screen came back as bare
+markup and every element in the census differed.
+
+Repaired by escaping - `'Здоров\'я'` - which keeps the character the project asked for and keeps
+the string a string. Both `_nav.js` files parse. The same trap was then hunted in the markup:
+every changed line scanned for a bare apostrophe inside a single-quoted attribute or an inline
+script, and four sample pages from the four folders fetched to confirm they still serve.
+
+**Re-run, and this time isolated properly.** The baseline on 8992 predates step 7.73, so its 8
+remaining rows are that step's class-key swap, already proven value-identical by the multiset
+check. Comparing the tree **before** 7.74 against the tree **after** it - the only comparison that
+measures this step alone - returns **0 rows.**
+
+**The lesson is narrower than «be careful» and worth the line:** «one apostrophe form» is a rule
+about TEXT, and a mechanical sweep cannot tell text from syntax. In `.md` and in element content
+it is safe; inside a `.js` string, an HTML attribute or an inline handler, the same character is
+a delimiter. The sweep should have excluded `.js` and asked, and it did not.
+
+**Fourth instrument or method failure this run, and the fourth caught the same way** - substring
+deletion at 7.69, dead baseline at 7.71, the stand outside the census at 7.73, and this. Every
+one of them was found by a check that does not care what I believed.
+
+### And then the guard I wrote at 7.71 turned out to be half a guard
+
+The acceptance sweep after the repair reported **«334 of 356 pairs moved, 0 grew»** - every page
+shorter. Same fiction as 7.71, sign flipped: this time it was the **TREE** server that had
+stopped, not the baseline, and the guard only looked at the baseline. It printed nothing and let
+the number through.
+
+Extended to check both sides, and it fired correctly on the next run. **A guard that covers one
+of two symmetrical cases is worse than none**, because it reads as coverage.
+
+Final sweep with both serving: **no sideways scroll on 356 page-widths, 12 pairs moved and all
+12 grew - `architecture.html`, `empty-state.html` and `availability.html`, the three stands this
+step wrote to. Zero product screens.**
+
+### Where the sheet stands
+
+Section H is done: **three rows closed, two corrected as not-true-any-more.** With A closed but
+for A6's size, A9's wording half and the owner's questions, and E's code closed at 7.72-7.73,
+what is left on the sheet is **B** (names, and the rule says after stage 09), **C** (states that
+do not exist - screens, and a scope decision), **D** (`[?]` numbers, which need real data), and
+five questions waiting on the owner.
+
+### One more sweep that was not needed, and the record was right this time
+
+Scanning the changed files afterwards turned up **63 em dashes**, which `CLAUDE.md` bans outright,
+four of them inside `design/`. It looked like the apostrophe finding again.
+
+It is not. `docs/critique-alignment.md` records a sweep that found **3 681 and kept 60** under a
+**named exception with an idle control**: a lone em dash in a table cell is the typographic sign
+for «no value», not punctuation. Classified all 63 today: **62 are exactly that -
+`<td>—</td>` or `| — |` - and the remaining one is inside the document that states the rule.**
+The four in `design/` are nutrition rows with no figure.
+
+**No violation, no finding.** Seven times in this pass a record turned out to be stale and I
+learned to distrust them; this is the case where a record was right and I nearly filed a defect
+over it. The check is the same either way - classify before claiming - and it is worth as much
+when it clears something as when it convicts.
+
+The 516 **en** dashes are left alone and counted rather than swept: `CLAUDE.md` names the em dash
+and says nothing about the en dash, and most of these are ranges. Naming a number the rules do
+not cover is not the same as finding a defect.
+
+**And my own three new documents had been quoting the character they were reporting** - 19
+U+02BC across `architecture.html`, `architecture.md` and this log, in the example words. An
+example is indistinguishable from a leftover to anyone who greps. Rewritten to name the codepoint
+instead, and the repository now carries **zero** U+2019 and **zero** U+02BC.

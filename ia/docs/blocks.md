@@ -103,7 +103,7 @@ Craft source: New Balance (left accordion filter rail + 4-column grid, hideable 
 | 3 | Subcategory chips + **goal chips** | J2 | belok has subcategories in the rail only | goal chips put the concern lens on the listing itself | MVP |
 | 4 | Toolbar: sort, view, active-filter chips | control | shop.app | active filters are removable chips, not a hidden state | MVP |
 | 5 | Filter rail (desktop) / bottom sheet (mobile) | J3 | New Balance rail; belok rail is category+price+discount only | our facets come from `catalog.md` (form, serving, brand, country, goal), so filtering matches how the product is actually chosen | MVP |
-| 6 | Product grid, canonical card + availability states + quick-add + wishlist | J3, J2 | belok card; DoorDash quick-add and stock badge | **availability-first default order** (in stock -> to order -> out of stock last), and out of stock says "Повідомимо, коли зʼявиться" instead of hiding the item | MVP |
+| 6 | Product grid, canonical card + availability states + quick-add + wishlist | J3, J2 | belok card; DoorDash quick-add and stock badge | **availability-first default order** (in stock -> to order -> out of stock last), and out of stock says "Повідомимо, коли з'явиться" instead of hiding the item | MVP |
 | 7 | Load-more **plus** crawlable numbered pagination | SEO | Refero uses load-more; belok listing has no visible pagination | both, because load-more alone makes deep pages uncrawlable | MVP |
 | 8 | SEO text, unique per category, + FAQ | organic entry | belok 10 H2 tail | shorter and answer-shaped; ready copy per category lives in `category-matrix.md` | MVP |
 | 9 | Related brands / categories | internal linking | belok "корисні статті" | | MVP |

@@ -61,7 +61,15 @@
 .lh1 .cnt{ font-size:var(--fs-16); font-weight:var(--fw-semibold); }   /* face + colour -> counter.css, 7.37 */
 .sech .all{ border-radius:var(--radius-8); padding:var(--space-4) var(--space-8); margin:calc(-1 * var(--space-4)) calc(-1 * var(--space-8)); cursor:pointer; }
 .sech .all:hover{ background:var(--bg-surface); }
-section[aria-label="Опис"] .sech{ max-width:800px; margin-inline:auto; }
+/* 7.73: was `section[aria-label="Опис"] .sech`, an interface sentence used as a
+   selector - see empty-state.css for the family. What it means is plainer than
+   the label: this heading stands over the description column, and
+   `desc-block.css:14` gives `.pdesc` exactly this `max-width:800px;
+   margin-inline:auto`. So the rule is «the head of the description column takes
+   the column's measure», and the sibling combinator says it without asking what
+   anything is called. Measured: matches the same two elements, on
+   `product.html` and `product-coach.html`, 800 wide in both editions. */
+.sech:has(+ .pdesc){ max-width:800px; margin-inline:auto; }
 .homeh1{ font-family:var(--font-display); font-weight:var(--fw-medium); font-size:var(--fs-16); letter-spacing:var(--ls-lead); color:var(--text-secondary); }
 .sech h2{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .sech .all{ transition:color .15s ease; }

@@ -583,6 +583,29 @@ function uivCheckboxes(){
     if(!lbl.querySelector('.cb')) return;
     if(!lbl.getAttribute('role')) lbl.setAttribute('role', 'checkbox');
     if(!lbl.hasAttribute('tabindex')) lbl.setAttribute('tabindex', '0');
+    /* step 7.72 - THE NAME WAS A RUN-ON. `architecture.md` E: «the accessible
+       name carries a count - "В наявності 71" reads as one string». Measured on
+       `listing-filtered.html`: the row's name came out exactly that, because
+       `wireframes/_nav.js:1791` builds `<label class="fopt"><span class="cb">
+       </span> LABEL <span class="ct">N</span></label>` and a label's name is its
+       whole text. Announced, that is «в наявності сімдесят один», which sounds
+       like a value and not like a tally.
+       Fixed with a COMMA and nothing else. The count is hidden from the name and
+       put back into an explicit label built from the same two visible strings -
+       no new word is invented here, because interface wording belongs to
+       `voice/docs/microcopy.md` and not to a behaviour file. A version that says
+       «71 товар» would read better and needs a plural rule (71 товар, 13
+       товарів) and therefore a decision from voice; this one loses nothing and
+       waits for it. */
+    var ct = lbl.querySelector('.ct');
+    if(ct && !lbl.hasAttribute('aria-label')){
+      var count = ct.textContent.trim();
+      var words = lbl.textContent.replace(count, '').replace(/\s+/g, ' ').trim();
+      if(words && count){
+        ct.setAttribute('aria-hidden', 'true');
+        lbl.setAttribute('aria-label', words + ', ' + count);
+      }
+    }
     mark(lbl);                                                 /* AT LOAD, not on the first click */
   });
   if(document.body.dataset.uivCb) return;
@@ -920,11 +943,31 @@ function uivPdp(){
       t.style.backgroundPosition = v.p;
       t.setAttribute('role', 'button');
       t.setAttribute('aria-label', 'Фото ' + (i + 1));
-      t.addEventListener('click', function(){
+      /* step 7.72 - IT SAID «BUTTON» TO A KEYBOARD THAT COULD NEVER REACH IT.
+         `architecture.md` E: «gallery thumbnails cannot be reached from a
+         keyboard - `_nav.js` gives them `role="button"` and an `aria-label` and
+         no `tabindex`». Measured before the fix on the three product screens:
+         12 thumbnails, 12 with the role, 12 with a label, 0 with a tab stop and
+         0 with a key handler. A role is a promise about what a control does, and
+         this one had been announcing a button nobody could press.
+         (The four on `product-loading.html` are `.skpulse` skeletons and this
+         block never touches them - a placeholder must not be focusable, and
+         that is why they carry no role either.)
+         `tabindex="0"` on each rather than the roving pattern `uivSegments`
+         uses: those are TABS over one panel, where arrow keys are the promise;
+         these declare themselves buttons, and four buttons in a row are four
+         tab stops. Changing the role to `tab` would read better and is a
+         behaviour decision, not a repair. */
+      t.setAttribute('tabindex', '0');
+      var press = function(){
         thumbs.forEach(function(x){ x.classList.remove('on'); });
         t.classList.add('on');
         img.style.transform = 'scale(' + v.s + ')';
         img.style.objectPosition = v.p;
+      };
+      t.addEventListener('click', press);
+      t.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){ e.preventDefault(); press(); }
       });
     });
   }

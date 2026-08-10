@@ -15,7 +15,7 @@ const WF_STATE_LABEL = {
   tier: 'Вибір тарифу', deadend: 'Глухий кут', cap: 'Ліміт клієнтів',
   addclient: 'Додати клієнта (вибір)', addempty: 'Додати клієнта (порожньо)', priceblock: 'Ціна не підтверджена', newclient: 'Новий клієнт', cart: 'Кошик-полиця',
   confirm: 'Підтвердження', suggest: 'Підказки', 'no-results': 'Нічого не знайдено',
-  protein: 'Протеїн', health: 'Здоровʼя', vitamins: 'Вітаміни',
+  protein: 'Протеїн', health: 'Здоров\'я', vitamins: 'Вітаміни',
   free: 'Тариф Free', cancel: 'Скасування Pro',
   max: 'Максимальний рівень', many: 'Багато (пагінація)',
   add: 'Додати - вибір способу', viddilennia: 'Відділення', postomat: 'Поштомат', courier: 'Кур\'єр',
@@ -236,7 +236,7 @@ function wfTree(elId) {
       }
       html += '</div></div>';
     }
-    if (!(fl.screens || []).length) html += '<div class="wt-screen"><span class="wt-sname planned">Екрани зʼявляться на цьому етапі</span></div>';
+    if (!(fl.screens || []).length) html += '<div class="wt-screen"><span class="wt-sname planned">Екрани з\'являться на цьому етапі</span></div>';
     html += '</div>';
   }
   root.innerHTML = html;
@@ -390,7 +390,7 @@ const WF_GOAL_MENU = [
 ];
 /* canonical served-cities list (node 0.1a) - 23 controlled oblast centres + large hubs; Crimea/occupied excluded */
 const WF_CITIES_POP = ['Київ', 'Харків', 'Дніпро', 'Одеса', 'Львів', 'Запоріжжя', 'Кривий Ріг', 'Миколаїв'];
-const WF_CITIES_ALL = ['Вінниця', 'Дніпро', 'Житомир', 'Запоріжжя', 'Івано-Франківськ', 'Камʼянець', 'Київ', 'Кременчук', 'Кривий Ріг', 'Луцьк', 'Львів', 'Миколаїв', 'Одеса', 'Полтава', 'Рівне', 'Суми', 'Тернопіль', 'Ужгород', 'Харків', 'Херсон', 'Хмельницький', 'Черкаси', 'Чернівці', 'Чернігів'];
+const WF_CITIES_ALL = ['Вінниця', 'Дніпро', 'Житомир', 'Запоріжжя', 'Івано-Франківськ', 'Кам\'янець', 'Київ', 'Кременчук', 'Кривий Ріг', 'Луцьк', 'Львів', 'Миколаїв', 'Одеса', 'Полтава', 'Рівне', 'Суми', 'Тернопіль', 'Ужгород', 'Харків', 'Херсон', 'Хмельницький', 'Черкаси', 'Чернівці', 'Чернігів'];
 
 /* goals middle panel (data-k="g") - the concern lens, shown first by default */
 function wfMegaGoalsPanel() {

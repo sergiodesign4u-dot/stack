@@ -32,14 +32,38 @@
 .empty{  background:var(--bg-surface); }
 .empty .et{ color:var(--text-body); }
 .loadnote{ color:var(--text-secondary); }
-section[aria-label="Результати"] .empty .ei{ width:126px; height:126px; margin:0 auto var(--space-8);
+/* 7.73: FOUR RULES KEYED ON A UKRAINIAN aria-label, AND THEY WERE ASKING THE
+   WRONG QUESTION. `architecture.md` E: «rename the label and the layout
+   changes». They read `section[aria-label="Результати"]` and
+   `section[aria-label="Помилка"]`, which is a sentence in the interface being
+   used as a selector - and voice owns that sentence, not this file.
+
+   What they were actually trying to say, measured: `.ei` appears SEVEN times in
+   the product and four of them are an emoji glyph - a box, a heart, a warning,
+   a trolley - inside `.emptybox` or `.empty`. The other three hold a
+   PHOTOGRAPH. Every one of those three is inside one of the two labelled
+   sections, and no `.empty .ei` anywhere else is. So the label was standing in
+   for one plain fact: this illustration contains an image. `:has(img)` says
+   that, cannot be broken by a rename, and needs no class in the markup.
+
+   The two label rules were otherwise BYTE-IDENTICAL - same circle, same
+   overflow, same `font-size: 0`, same `object-fit`, same `object-position`,
+   same blend. They differed in exactly two numbers: 126/118 and
+   `--space-8`/`--space-4`. The shared rule takes 118 and `--space-4`, which is
+   what two of the three already draw; the third keeps its own in one line
+   below, so nothing moves.
+
+   WHETHER THAT THIRD LINE SHOULD EXIST IS THE OWNER'S. Both mascots are
+   1024 x 1024 with the same framing, both faces do the same job in the same
+   box, and nothing in the source says why one is 8px bigger. It is the shape
+   A6 closed for the product tile, at a smaller scale. */
+.empty .ei:has(img){ width:118px; height:118px; margin:0 auto var(--space-4);
   border-radius:var(--radius-circle); overflow:hidden; font-size:0; }
-section[aria-label="Результати"] .empty .ei img{ width:126px; height:126px; object-fit:cover;
+.empty .ei:has(img) img{ width:118px; height:118px; object-fit:cover;
   object-position:center 12%; mix-blend-mode:multiply; }
-section[aria-label="Помилка"] .empty .ei{ width:118px; height:118px; margin:0 auto var(--space-4);
-  border-radius:var(--radius-circle); overflow:hidden; font-size:0; }
-section[aria-label="Помилка"] .empty .ei img{ width:118px; height:118px; object-fit:cover;
-  object-position:center 12%; mix-blend-mode:multiply; }
+/* the odd one out, and the only reason it is a rule rather than a decision */
+.empty .ei--wide:has(img), .empty .ei--wide:has(img) img{ width:126px; height:126px; }
+.empty .ei--wide:has(img){ margin-bottom:var(--space-8); }
 /* 7.49: TWO MASCOTS LEFT THIS FILE, and neither of them was an empty state.
    `.uiv-bear` went to seo-text.css: measured on 9 coloured screens, every one of
    them inside `SECTION.seotext`, which is where `design/_nav.js:823` puts it.
