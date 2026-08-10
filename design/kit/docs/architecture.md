@@ -924,6 +924,12 @@ Recorded here so it does not happen a third time.
   copy at **4.5px**. There is a floor now at 0.62 and the wrap scrolls sideways below it: a
   scrollbar is honest, a 4.5px letter is not. The same script forgot the padding it sits in and
   clipped the last **2px off all 48 rows**.
+- **The drawer's primary is M, not L - the owner's call at 7.90, said as a value.**
+  `btn--l` -> `btn--accent` on `.cd-cta` and `.cd-fix`. Variable: the size class in the
+  markup of `design/cart.html` and `design/cart-oos.html`. Value: 64px -> 52px. Why: the
+  drawer's foot is a fixed strip on a phone, and the whole of it went 256 -> 219 -> 207,
+  32% -> 26% of an 800-tall screen. The empty drawer's «Обрати ціль» stays L - different
+  slot, centred in `.cd-body`, not competing with anything.
 - **Ask the ROW, not the item - 7.88, and it cost a shipped defect.** Step 7.86 put the
   cart drawer's two actions side by side and reported no overflow. It had asked each
   BUTTON whether its own text fitted; both said yes. The row was never asked. At 390 the

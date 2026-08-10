@@ -126,8 +126,15 @@
    box - and 38 is a rung the scale already has, `--size-38`; 36 would have been a
    number invented here), the hint's bottom margin 16 -> 12, the foot's padding 16 -> 12. Nothing in the kit changed: the primary is still L, and the sizes S/M/L are
    untouched - a link is not a fourth size.
+   And then the owner took the last of it, which is the decision this file could not
+   take for them: the primary went from L to M. It is a MARKUP change on the two screens
+   that draw the foot - `design/cart.html` and `design/cart-oos.html` - because the size
+   of a control is chosen by its caller, which is the contract button.css states; a
+   component reaching in to resize an atom is the shape this stage has spent 89 steps
+   removing. The empty drawer's «Обрати ціль» stays L: it sits in `.cd-body`, centred,
+   with the whole panel to itself, and it is not in this row.
    Measured after, on the same 700-tall viewport the before-number was taken on:
-   256 -> 219. Re-measured at 320, 360, 390, 430 and 1280: the foot's own
+   256 -> 219 -> **207**, the primary 64 -> 52. Re-measured at 320, 360, 390, 430 and 1280: the foot's own
    `scrollWidth - clientWidth` is 0 at every one of them, the drawer's is 0, the page
    does not scroll, and no descendant sits outside the foot's box. That is the check
    7.86 did not run. */
