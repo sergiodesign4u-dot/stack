@@ -28,20 +28,17 @@
 <p class="kp-p">Обидві смуги показані поруч навмисно: у продукті так не буває, а на стенді інакше видно тільки одну.</p>
 <div class="kp-demo">
   <div class="ltool" style="display:flex">
-    <span class="count">Знайдено: 24 товари</span>
+    <span class="ctrl count">Знайдено: 24 товари</span>
     <span class="sp"></span>
-    <button class="btn--outline btn--s btn" type="button">Спочатку популярні ▾</button>
+    <button class="btn--outline btn--s ctrl" type="button"><span class="cap">Сортування:</span> <span class="menu-val">Популярні</span></button>
     <div class="vtoggle"><a href="#" class="on" aria-current="true">▦</a><a href="#">☰</a></div>
   </div>
 </div>
 <div class="kp-cap">десктопна <code>.ltool</code>, висота 57. Ліворуч підпис, праворуч контроли, між ними <code>.sp</code> - порожній <code>flex: 1</code></div>
-<div class="kp-demo">
-  <div class="mtoolbar" style="position:static">
-    <button class="btn--outline btn--s btn mc" type="button">Фільтри <span class="b">3</span></button>
-    <button class="btn--outline btn--s btn" type="button">Сортування ▾</button>
-  </div>
-</div>
+<p class="kp-p">Мобільна смуга показана <b>в рамці шириною 390</b>, і ширина названа не для краси. <code>.mtoolbar</code> це <code>display: none</code> від 860, тож у власній колонці кіта на десктопі вона малювала <b>порожнечу</b> - той самий пустий стенд, який власник знайшов на <code>filter-sheet</code> і <code>tabbar</code> на 7.87. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило стенда цього не вирішує; справжній в'юпорт є лише в рамки. І друга причина та сама: колонка кіта на 360 віддає смузі <b>278px</b>, а телефон на 360 - <b>328</b>, тож дві кнопки M у колонці не вміщались і виїжджали на 7px.</p>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/toolbar.html" style="width:390px;height:110px" data-w="390" title="Мобільна смуга каталогу"></iframe></div>
 <div class="kp-cap">мобільна <code>.mtoolbar</code>, висота 77, <code>position: sticky</code> на 57 згори - рівно під шапкою</div>
+<div class="kp-gap"><h4>Розмір у цьому демо був не той, що в продукті</h4>До 7.91 обидві кнопки ряду стояли тут як <code>btn--outline btn--s</code> - <b>S, 40px</b>, - а в продукті це <code>btn--outline mc</code>, тобто <b>M, 52px</b>, і <code>.mc</code> несуть <b>обидві</b>, а не лише перша. Підпис над цим абзацом весь час казав «висота 77», і 77 це справжня висота смуги в <code>listing.html</code>; демо стільки не мало. Знайшла це не рука, а перевірка, яка звіряє кнопки стенда з кнопками продукту. Заміряно після виправлення: <code>.mtoolbar</code> <b>77</b>, обидві <code>.mc</code> по <b>52</b> - і на стенді, і в <code>design/listing.html</code>.</div>
 <div class="kp-demo">
   <div class="listing">
     <div class="emptybox mini" style="margin:0">рейка фільтрів · 240</div>
@@ -66,7 +63,8 @@
 </tbody></table></div>
 <p class="kp-p">Три правила перемикаються <b>на одному пікселі</b> й жодне не запізнюється: на 859 немає десктопної смуги й немає рейки, на 860 є обидві. Це саме те, що 7.64 виправляв у картки товару, де на 620 малювалась суміш вузького й широкого правила.</p>
 <p class="kp-p"><b>860 - найуживаніша межа системи</b>: 39 оголошень у 15 файлах, і в наборі, який <code>DESIGN-artifacts.md</code> нібито називає, її не було ніколи. Крок 7.70 з'ясував, що набору не існувало, і виписав усі одинадцять меж у <code>tokens.css</code> разом із файлами, що на них спираються.</p>
-<div class="kp-gap"><h4>Мобільна смуга на 20px вища за десктопну</h4>77 проти 57, і в коді не сказано чому. Обидві тримають кнопки <code>btn--s</code> - тобто коробку 40, - тож різниця це відступи: <code>12px</code> згори й знизу проти <code>16px</code> згори. Ні дефект, ні рішення: просто ніде не записано.</div></section>
+<div class="kp-do"><h4>Мобільна смуга на 20px вища за десктопну, і до 7.91 тут була не та причина</h4>Стояло: «обидві тримають <code>btn--s</code>, тож різниця це відступи». <b>Неправда в мобільній половині.</b> Заміряно в <code>design/listing.html</code>: 57 = <b>1</b> пунктирна волосина згори + <b>16</b> поле + <b>40</b> контрол (<code>btn--s</code>, і <code>.count</code> з такою самою <code>min-height</code>); 77 = <b>12</b> + <b>52</b> контрол (<code>.mc</code> без класу розміру, тобто <b>M</b>) + <b>12</b> + <b>1</b> волосина знизу. Двадцять це <b>12 нижнього поля + 12 більшого контрола − 4 меншого верхнього поля</b>.
+<p style="margin-top:8px">І під цим арифметикою стоїть річ, яку код робить і ніде не каже: <b>на телефоні контроли смуги це M (52), на десктопі - S (40)</b>. Більша ціль стоїть саме на пристрої, якого торкаються, - це рішення, а не випадковість, і тепер воно записане.</p></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Що звідси вже поїхало</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Крок</th><th>Що</th><th>Куди і чому</th></tr></thead><tbody>

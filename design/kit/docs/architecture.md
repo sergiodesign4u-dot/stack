@@ -551,6 +551,123 @@ primary audience's whole flow has no colour to polish.
 
 ---
 
+### A14. A stand was right in words and wrong in pixels - CLOSED at step 7.91, and it took the owner to find it
+
+Step 7.90 took `btn--l` off the cart drawer's primary in `design/cart.html` and
+`design/cart-oos.html` - the two product screens that draw the foot - and reported 64 -> 52 with
+the height measured on both. The owner opened `design/kit/cart-drawer.html`, the stand for that
+organism, and the button was still 64.
+
+Both statements were true. **The stand carries its own copy of the markup**, lifted from
+`design/cart.html` when the stand was generated at 7.86, and the demo frame carries a third. A
+change written into markup does not travel; a change written into a rule does - which is what
+CLAUDE.md already says («fix through a rule, not by hand-editing one file: a hand fix does not
+survive the next clone»), and 7.90 wrote a hand fix into two files out of four with a stated
+reason. The reason still holds: the size of a control is chosen by its caller, and a component
+reaching in to resize an atom is the shape this stage spent eighty-nine steps removing. What was
+missing is not the rule but **the check** - nothing in the harness ever asked whether a stand
+still matches the product it photographs.
+
+And the worst of it is not the stale pixel. The stand's own prose, three lines under the demo,
+already read «L -> M, 64 -> 52». **The page contradicted itself, and the render was the wrong
+half.**
+
+**The check, written and run.** For every element carrying a `btn*` class - `design/*.html` on one
+side, `design/kit/*.html` and `design/kit/demo/*.html` on the other - key it by its own
+distinctive class and compare the set of `btn*` classes. It is a photograph test, not a style
+test: it asks whether a stand shows the size and the finish the product shows. It found **three
+more, all real, all fixed:**
+
+| where | the stand said | the product says |
+|---|---|---|
+| `kit/toolbar.html` | `.mc` as `btn--outline btn--s btn` - **S, 40px** | `btn--outline mc` - **M, 52px**, and BOTH buttons of the row carry `.mc`, which the stand had dropped from the second. The stand's caption said «висота 77» while its demo rendered shorter |
+| `kit/restock-note.html` | `.oosbtn` on the contact row's outline submit | `.oosbtn` is the **accent** «🔔 Повідомити про надходження» in `.buyrow`; the contact row's submit carries no name. The stand was showing an outline button under the accent one's name |
+| `kit/button.html` | the writing-guide snippet `btn--accent btn--l co-confirm` | `btn--accent btn--l btn--full co-confirm` - the example omitted the width the product actually uses |
+
+**What the check does not do, said out loud:** buttons only; it keys on the first distinctive
+class, so an element with none is skipped; and it treats `design/*.html` as «the product», so
+markup a script builds at runtime - `cat-overlay`, the city dialog, the toasts - is outside it.
+36 product keys carry a button and those are the ones covered. After the four fixes: **0 drift
+rows.**
+
+**And the sweep that came out of it: every stand, both widths, asked two questions.** The
+7.88 sweep opened the 24 organism stands. This one opened **all 83 pages in `design/kit/`** at 390
+and 1280 - 166 loads - and asked of every `.kp-demo` block: does it paint anything, and does
+anything inside it sit outside its own box?
+
+**Blank, 3 rows, 2 real:**
+
+- **`icon.html`, the anatomy demo, at both widths.** Three text glyphs - `&#9733; &#9679; &#9662;` -
+  inside `.uiv-ic`. Measured: widths 22, 20 and 10, **height zero**, so the demo was 50px of padding
+  and nothing else. That is the atom behaving correctly: `.uiv-ic` is `display: flex` with
+  `line-height: 0` and takes its size from the **SVG inside it**, which a text character does not
+  provide. The page's own first line says «обгортка навколо inline-SVG» - **the demo contradicted
+  the lead.** Rebuilt on `data-glyph`, which `icons.js` fills, the same path a glyph takes on a
+  shop screen. Fixed.
+- **`view-toggle.html` at 390.** `.vtoggle` lives in `.ltool`, the desktop toolbar, which is
+  `display: none` below 860 - so on a phone the demo draws nothing and **the product behaves the
+  same way**. Not a defect; an unexplained blank. Said on the stand instead of masked.
+- `toolbar.html`'s mobile bar was the third, found separately and fixed with a frame (below).
+
+**Container overflow > 4px, 18 rows, and they are five shapes, not eighteen:**
+
+| shape | rows | what it is |
+|---|---|---|
+| `.sech +8` | 6 | `button`, `qa-item`, `section-head`, both widths. Already in the 7.89 container-fit inventory as a known shape |
+| `.lprice-col +37 / +12` | 3 | `product-card`, `discount`, `price` at 390. **A real product defect, not a stand artefact** - below |
+| `.btnset +18` | 1 | `button` at 1280, and it is **identical on the HEAD baseline** - 906 client, 924 scroll on BOTH servers. Pre-existing |
+| `.lfav +6` | 1 | `product-card` at 1280. The heart's `::after{ inset: -12px -6px -12px -13px }` - the documented 18x20 -> 37x44 touch target reaching outside its own box on purpose |
+| unchecked | 7 | `badge` `.lph`, which read **+13 on one pass and +16 on the next** - the only row in the sweep whose number moved, and unexplained, `skeleton` +10 on an unclassed div, `stack-action` `.ti +9`, `trust-strip` `.cs-th +6` (already in the 7.89 list). **Not checked one by one, and said so rather than counted as clean** |
+
+**`.lprice-col` is a product defect and the numbers are the same in both layers.** `.pcard-l` is
+`grid-template-columns: 84px 1fr auto auto`; at 559 and below it becomes `56px 1fr`, so its four
+children wrap and **the price column lands in the 56px photo track**. Measured on
+`design/listing-list.html` at 390 - the product, not a stand: the column's `clientWidth` is **56**
+and its `scrollWidth` is **93**, because «1 520 ₴ −15%» needs 93 and the column declares
+`white-space: nowrap`. Identical numbers on `design/kit/product-card.html`. It does not scroll the
+page - the text paints out over the actions cell beside it - so it has been invisible to every
+sweep that asked about the page rather than the box.
+
+**Not fixed here, and deliberately.** Every straightforward repair moves a track that is shared
+with the photo row: `minmax(56px, auto)` widens the photo column to 93 and pushes the title 37px
+right; `grid-column: 1 / -1` puts the actions on a third row and makes every list card taller.
+This is a layout decision with a visible cost either way, it is not a regression from this step,
+and inventing it at the end of a step about clone drift is exactly how a value gets into the
+system without anybody deciding it. **Stage 09, as a decision.**
+
+**And a blind spot the check has, found while fixing what it found.** It keys an element by its
+own distinctive class, so an element whose distinctive class the STAND DROPPED is invisible to it:
+`.ltool`'s sort button was spelled `btn--outline btn--s btn` on the stand and
+`btn--outline btn--s ctrl` in the product - same render, since neither `.btn` nor `.ctrl` declares
+any geometry, but a different name, and the check could not see it because `btn` is filtered out
+of the key set. Found by hand. Aligned with the product, together with `.count`, which had lost
+`ctrl` the same way.
+
+**One claim under it turned out to be wrong too.** The toolbar stand said the two bars differ by
+20px because of padding, «both hold `btn--s`, i.e. a 40 box». The mobile half was false. Measured
+in `design/listing.html`: 57 = 1 dashed hairline + 16 padding + **40** control; 77 = 12 + **52**
+control + 12 + 1 hairline. The twenty is 12 of bottom padding plus 12 of a bigger control minus 4
+of smaller top padding - and under the arithmetic sits a decision the code makes and never states:
+**the phone's toolbar controls are M and the desktop's are S.** The bigger target is on the device
+that gets touched. Now written down.
+
+**One value moved with it.** `.cd-cont` still wore `btn--l` after 7.89 turned it into a link. Of
+the four things `btn--l` declares - `min-height: 64`, padding, `border-radius: 12`,
+`font-size: 18` - the foot's own rule overrode the first three, so **only the font size still
+landed**, and on desktop the secondary link read at 18 while the primary above it read at 16.
+Variable -> value -> why: `font-size` on the drawer's secondary, **`--fs-18` -> `--fs-16`**,
+because the control stopped being a button at 7.89 and a size class that lands one property out of
+four is a declaration pretending to be a decision. Measured after: 16px at 320, 360, 390, 430 and
+1280.
+
+**The foot, re-measured on the same 700-tall viewport as every earlier number:** 207px in
+`cart.html` at all five widths, 254 in `cart-oos.html` with its extra note, primary 52, secondary
+39, and `scrollWidth - clientWidth` **0** on the foot, on the drawer and on the page. **The
+stand's frame now reads 207 / 52 / 39 - the same three numbers as the product.**
+
+
+---
+
 ## B. Names - Крок 6, after stage 09
 
 Renaming is not a value decision and it moves pixels only by accident. It waits until the
@@ -973,6 +1090,14 @@ Recorded here so it does not happen a third time.
   (7.85). **A list is the right tool only where the members cannot be described** - and
   each of these three could: measure the shape, test the shape against everything the
   product can produce, then key the rule on it.
+- **A fix in markup does not travel; a fix in a rule does.** The kit holds a second and a third
+  copy of every organism's markup - the stand and its demo frame, both lifted from a product
+  screen when the stand was generated. Change the product screen by hand and the copies stay where
+  they were, which is how a page came to state «64 -> 52» in prose three lines above a button
+  rendering 64. Either the change goes into a rule, or the copies are re-synced in the same step
+  and something says so. The check now exists and asks one question: **does every button in a
+  stand wear the size and the finish it wears in the product?** Four drift rows the first time it
+  ran, in four different files, one of them found by the owner first (7.91).
 - **`NAV_ACTIVE` is for pages OUTSIDE the registry.** A page that is in the registry and also
   declares itself a satellite draws its own row twice. The two had been cancelling each other out
   under the wrong `done` flag; correcting one exposed the other.

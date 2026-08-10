@@ -9530,3 +9530,120 @@ The eight owner questions stand, and **A13 joins them as the largest**: the colo
 40 of 142 screens and none of the coach flow. **A10** (the accent gate, both too strict and too
 lenient) and **A11** (one more measurement, then a transfer rather than an invention) are
 unchanged. Sections B, C and D remain blocked on Крок 6, on a scope decision and on real data.
+
+---
+
+## Step 7.91 - the stand was right in words and wrong in pixels, and nothing was checking
+
+**How it was found: the owner opened the page.** Step 7.90 took `btn--l` off the cart drawer's
+primary, measured 64 -> 52 on both product screens that draw the foot, and said so. The owner
+opened `design/kit/cart-drawer.html` - the stand for that same organism - and the button was
+still 64. «Я что-то не увидел изменений.»
+
+**Both were true, and that is the finding.** A kit stand carries its OWN copy of the organism's
+markup, lifted from a product screen when the stand was generated at 7.86, and its demo frame
+carries a third. So the drawer's foot exists in four files, and 7.90 edited two. CLAUDE.md has
+said this in plain words since the beginning - *fix through a rule, not by hand-editing one file:
+a hand fix does not survive the next clone* - and 7.90 wrote a hand fix on purpose, with a reason
+that still holds: the size of a control is chosen by its caller, and a component reaching in to
+resize an atom is the shape this stage spent eighty-nine steps removing. **The rule was not what
+was missing. The check was.**
+
+The sharpest part is not the stale pixel. The stand's own prose, three lines under the demo,
+already said «L -> M, 64 -> 52». The page contradicted itself and the render was the wrong half.
+
+### The check
+
+For every element carrying a `btn*` class - `design/*.html` on one side, `design/kit/*.html` and
+`design/kit/demo/*.html` on the other - key it by its own distinctive class, compare the set of
+`btn*` classes. Not a style test: a **photograph** test. Does a stand show the size and the finish
+the product shows?
+
+**Four drift rows on the first run, in four different files, and only one of them was the drawer:**
+
+| where | stand | product |
+|---|---|---|
+| `kit/cart-drawer.html` + its demo frame | `.cd-cta` with `btn--l` - **L, 64** | without it - **M, 52**, since 7.90 |
+| `kit/toolbar.html` | `.mc` as `btn--outline btn--s btn` - **S, 40** | `btn--outline mc` - **M, 52**, and `.mc` is on BOTH buttons of the row |
+| `kit/restock-note.html` | `.oosbtn` on the contact row's outline submit | `.oosbtn` is the ACCENT «🔔 Повідомити про надходження» in `.buyrow`; the contact submit has no name |
+| `kit/button.html` | the writing-guide example `btn--accent btn--l co-confirm` | `btn--accent btn--l btn--full co-confirm` |
+
+Fixed in one pass over every file carrying the pattern, not four hand edits. After: **0 rows.**
+
+**What it cannot do, stated:** buttons only; an element with no distinctive class is skipped; and
+`design/*.html` stands for «the product», so markup a script builds at runtime - `cat-overlay`,
+the city dialog, the toasts - is outside it. 36 product keys carry a button.
+
+**And its blind spot, found by hand while fixing what it found.** An element whose distinctive
+class the stand DROPPED is invisible to it. `.ltool`'s sort button was `btn--outline btn--s btn`
+on the stand and `btn--outline btn--s ctrl` in the product - identical render, because neither
+`.btn` nor `.ctrl` declares geometry, but a different name, and `btn` is filtered out of the key
+set. Aligned by hand, together with `.count`, which had lost `ctrl` the same way.
+
+### Two claims corrected, one value moved
+
+**`.cd-cont` was still wearing `btn--l` after 7.89 turned it into a link.** Of the four things
+`btn--l` declares - `min-height: 64`, padding, `border-radius: 12`, `font-size: 18` - the foot's
+own rule overrode three, so only the font size still landed, and on desktop the secondary link
+read at 18 while the primary above it read at 16. **Variable -> value -> why:** `font-size` on the
+drawer's secondary, `--fs-18` -> `--fs-16`, because at 7.89 the control stopped being a button, and
+a size class that lands one property out of four is a declaration pretending to be a decision.
+
+**The toolbar stand's «20px» note was wrong in its mobile half.** It said both bars hold `btn--s`,
+a 40 box, so the difference is padding. Measured in `design/listing.html`: 57 = 1 dashed hairline
++ 16 padding + **40**; 77 = 12 + **52** + 12 + 1. The twenty is 12 of bottom padding plus 12 of a
+bigger control minus 4 of smaller top padding. Under it sits a decision the code makes and never
+stated: **the phone's toolbar controls are M, the desktop's are S** - the bigger target on the
+device that gets touched.
+
+
+### The sweep the finding forced
+
+If nothing was checking the stands against the product, nothing was checking the stands at all.
+The 7.88 sweep opened the 24 organism stands; this one opened **all 83 pages in `design/kit/`** at
+390 and 1280 - 166 loads - and asked of every `.kp-demo`: does it paint anything, and does anything
+inside sit outside its own box?
+
+**Blank: 3, two of them real.**
+
+- `icon.html`, the anatomy demo, at both widths. Three text glyphs inside `.uiv-ic`: widths 22, 20,
+  10 and **height zero**, so the demo was 50px of padding. The atom was right and the demo was
+  wrong - `.uiv-ic` is `display: flex` with `line-height: 0` and takes its size from the SVG
+  inside, which a text character never gives it. The page's own lead says «обгортка навколо
+  inline-SVG». **The demo contradicted the lead.** Rebuilt on `data-glyph`. Fixed.
+- `view-toggle.html` at 390: `.vtoggle` sits in `.ltool`, hidden below 860, so the phone reader
+  sees an empty box - and so does the phone user, because the product hides it too. Not a defect;
+  an unexplained blank, now explained on the stand.
+- `toolbar.html`'s mobile bar, found separately: `.mtoolbar` is `display: none` from 860, so at a
+  desktop width the stand drew nothing - **the same blank the owner reported on `filter-sheet` and
+  `tabbar` at 7.87, in a molecule stand that sweep never opened.** And at 360 the kit's column
+  gives the bar 278px where a phone gives it 328, so two M buttons overflowed by 7. One mechanism
+  answers both: a frame of a stated width, `design/kit/demo/toolbar.html` at 390. Measured after:
+  frame 390, bar **77**, overflow **0**, at both stand widths.
+
+**Container overflow > 4px: 18 rows, five shapes.** `.sech +8` six times (a known shape from the
+7.89 inventory), `.lprice-col` three times, `.btnset +18` once - **identical on the HEAD baseline: 906 client, 924 scroll on both servers** - `.lfav +6` once, which is the heart's documented `::after` target
+expansion, and **seven left unchecked and recorded as unchecked**.
+
+**`.lprice-col` is a product defect, and this is the first sweep that could see it.** `.pcard-l` is
+`grid-template-columns: 84px 1fr auto auto`; at 559 and below it becomes `56px 1fr`, its four
+children wrap, and the price column lands in the **56px photo track**. On
+`design/listing-list.html` at 390 - the product - the column's `clientWidth` is 56 and its
+`scrollWidth` is 93, because «1 520 ₴ −15%» needs 93 and the column says `white-space: nowrap`.
+The page does not scroll: the text paints out over the actions cell beside it, which is why every
+sweep that asked about the page rather than the box has passed it. **Not fixed here, deliberately**
+- `minmax(56px, auto)` widens the photo track and pushes the title 37px right, `grid-column: 1/-1`
+adds a third row to every card, and choosing between them at the end of a step about clone drift
+is how a value enters the system with nobody deciding it. Stage 09, as a decision.
+
+### Verification
+
+- The foot re-measured on the same 700-tall viewport as every earlier number: **207px** in
+  `cart.html` at 320, 360, 390, 430 and 1280; **254** in `cart-oos.html` with its extra note;
+  primary **52**, secondary **39**; `scrollWidth - clientWidth` **0** on the foot, on the drawer
+  and on the page at every width.
+- **The stand's frame reads 207 / 52 / 39 - the same three numbers as the product.** That equality
+  is the whole point of the step.
+- The toolbar stand and `design/listing.html` both read `.mtoolbar` **77** with two `.mc` at
+  **52**. Before the fix the stand's demo was shorter than the caption above it claimed.
+- Drift check re-run after every edit: **0 rows.**
