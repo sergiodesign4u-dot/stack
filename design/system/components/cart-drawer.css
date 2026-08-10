@@ -106,6 +106,28 @@
   word-spacing:-.24em; font-weight:var(--fw-bold); font-size:var(--fs-30); color:var(--text-body); }
 .cd-hint{ color:var(--text-muted); font-size:var(--fs-12); }
 /* step 6.6: the drawer's foot is L, and both of its buttons are L. */
+/* step 7.86, on the owner's instruction, and the numbers said out loud before the rule.
+   Measured at 390x800: `.cd-foot` was 256px - 32% of a phone - and 128 of those 256 were
+   two L buttons stacked, 64 each plus 8 between them. A third of the screen spent on a
+   summary of what is visible directly above it.
+   The change is not a size but a LAYOUT: the two actions stand side by side rather than
+   one under the other. «Оформити замовлення» keeps L and keeps the row's free space;
+   «Продовжити покупки» keeps its finish and takes only the width of its own words. Both
+   stay L, so the kit's three sizes are untouched and nothing here invents a fourth.
+   The reason it may shrink at all is principle 2: the drawer already carries a close
+   control, so «continue shopping» repeats an exit that exists, and it should not stand
+   at the same size as the one clear next step.
+   Under 340 the row goes back to stacking - two buttons in 308px would each be shorter
+   than their own text. */
+.cd-foot{ display:grid; grid-template-columns:1fr auto; column-gap:var(--space-8); }
+.cd-foot > .cd-total, .cd-foot > .cd-hint, .cd-foot > .cd-oosnote{ grid-column:1 / -1; }
+.cd-foot > .cd-hint{ margin-bottom:var(--space-12); }
+.cd-foot > .btn--accent{ grid-column:1; }
+.cd-foot > .btn--outline{ grid-column:2; margin-top:0; width:auto; }
+@media (max-width:339px){
+  .cd-foot{ display:block; }
+  .cd-foot > .btn--outline{ width:100%; margin-top:var(--space-8); }
+}
 /* step 6.3: local edition of the outline hover deleted - the finish has it. */
 .cd-empty .ei{ width:118px; height:118px; margin:0 auto var(--space-2); border-radius:var(--radius-circle); overflow:hidden; font-size:0; }
 .cd-empty .ei img{ width:118px; height:118px; object-fit:cover; object-position:center 12%; mix-blend-mode:multiply; }
