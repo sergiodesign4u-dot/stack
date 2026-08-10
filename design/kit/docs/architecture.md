@@ -924,6 +924,20 @@ Recorded here so it does not happen a third time.
   copy at **4.5px**. There is a floor now at 0.62 and the wrap scrolls sideways below it: a
   scrollbar is honest, a 4.5px letter is not. The same script forgot the padding it sits in and
   clipped the last **2px off all 48 rows**.
+- **Ask the ROW, not the item - 7.88, and it cost a shipped defect.** Step 7.86 put the
+  cart drawer's two actions side by side and reported no overflow. It had asked each
+  BUTTON whether its own text fitted; both said yes. The row was never asked. At 390 the
+  foot is 388 wide inside its padding and the two buttons need 222 + 8 + 209 = **439**:
+  `1fr auto` gives each track its own min-content and the grid walks 51px past the edge.
+  An element that fits its own content can sit in a box that does not fit it, and
+  `scrollWidth - clientWidth` on the CONTAINER is the only question that catches it.
+- **The inventory that question produces, and what it is not - 7.89.** Asked of every
+  container on every coloured screen, every grey screen and every demo frame, 594 page x
+  width rows: **340 rows carry at least one box narrower than its content**. It is an
+  UPPER BOUND, not a defect list. 357 of the counts are two shapes - a link over by 4px
+  and a link over by 8px - and the first large one checked by hand, `.acc-links` at 390,
+  turned out to be a legitimate `overflow-x: auto` rail. What the sweep does prove is the
+  negative it was built for: `.cd-foot` appears in none of the 594 rows.
 - **The standard census widths cannot see a breakpoint band.** 360 and 1280 make a rule inside
   `(min-width: 620px)` look dead whenever a `(min-width: 960px)` rule for the same selector
   exists: at 1280 the second one wins, at 360 neither applies, and nothing measures the band
