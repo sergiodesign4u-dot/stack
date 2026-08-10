@@ -30,7 +30,7 @@
       <label class="fopt" role="checkbox" tabindex="0" aria-label="В наявності, 71" aria-checked="false"><span class="cb"></span> В наявності <span class="ct" aria-hidden="true">71</span></label><label class="fopt" role="checkbox" tabindex="0" aria-label="Під замовлення, 13" aria-checked="false"><span class="cb"></span> Під замовлення <span class="ct" aria-hidden="true">13</span></label>
     </div>
     <div class="fgroup" role="group" aria-labelledby="uiv-fh-3"><div class="fh" role="button" tabindex="0" aria-expanded="true" id="uiv-fh-3">Ціна, ₴ <span class="ar"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></span></div>
-      <div class="frange uiv-slider" data-uiv="1"><div class="uiv-track"></div><div class="uiv-fill" style="left: 26.6667%; width: 23.3333%;"></div><input type="range" class="uiv-rmin" min="0" max="3000" step="10" value="800" aria-label="Ціна від" style="z-index: 3;"><input type="range" class="uiv-rmax" min="0" max="3000" step="10" value="1500" aria-label="Ціна до" style="z-index: 4;"></div>
+      <div class="frange uiv-slider"><div class="uiv-track"></div><div class="uiv-fill" style="left: 26.6667%; width: 23.3333%;"></div><input type="range" class="uiv-rmin" min="0" max="3000" step="10" value="800" aria-label="Ціна від" style="z-index: 3;"><input type="range" class="uiv-rmax" min="0" max="3000" step="10" value="1500" aria-label="Ціна до" style="z-index: 4;"></div>
       <div class="frow"><input type="number" class="field field--s field--mono in uiv-num" min="0" max="3000" step="10"><input type="number" class="field field--s field--mono in uiv-num" min="0" max="3000" step="10"></div>
     </div>
     <div class="fgroup" role="group" aria-labelledby="uiv-fh-4"><div class="fh" role="button" tabindex="0" aria-expanded="true" id="uiv-fh-4">Бренд <span class="ar"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></span></div>
@@ -67,9 +67,28 @@
 <script src="../../_nav.js"></script>
 <script>
 (function(){
-  var init = ['uivFixLinks','uivChrome','uivCurrency','uivPriceSlider','uivCheckboxes',
-              'uivSwitches','uivSegments','uivRadioGroups','uivDisclosures','uivFav','uivCrumbs'];
+  /* 7.87: the first list here was all `uiv*` and the steppers stayed dead, because the
+     behaviour of the cart and the checkout is bound by `wf*` functions in the prototype
+     layer - `wfCart` wants a `.cart-drawer` holding `.ci[data-unit]` and binds a
+     delegated click on it. A demo that shows a control and does not run its binder shows
+     something the product does not have. Both families, in the order a screen calls them. */
+  var init = ['wfCart','wfCheckout','wfAuth','wfPdpModals','wfAddrDialog','wfProfileDialogs',
+              'wfToasts','uivFixLinks','uivChrome','uivCurrency','uivPriceSlider','uivCheckboxes',
+              'uivSwitches','uivSegments','uivRadioGroups','uivDisclosures','uivFav','uivCrumbs',
+              'uivCart','uivCheckout','uivPdp','uivPdpTabs','uivStickyHeader','uivPatchMenus',
+              'uivToastMarks','uivDeadLinks','uivFooterIcons','uivMascot','uivAnchorScroll'];
   init.forEach(function(n){ try{ if (typeof window[n] === 'function') window[n](); }catch(e){} });
+  /* 7.87: `uivIcons` walks six named ids and nothing else, so a demo that has none of
+     them keeps its emoji. That is the FOURTH hand-written list this pass has found -
+     after the focus ring's thirteen selectors, `UIV_SIGN_ONLY`, and the Escape handler's
+     eleven calls. Here the frame simply asks it to walk the whole body. */
+  try { if (typeof uivIcons === 'function') uivIcons(document.body); } catch(e) {}
+  try { if (typeof uivMarks === 'function') uivMarks(document.body); } catch(e) {}
+  /* A stand must not navigate: the checkout's «Отримати код» is a submit button, and
+     pressing the first control a reader reaches blanked the demo. */
+  document.querySelectorAll('form').forEach(function(f){
+    f.addEventListener('submit', function(e){ e.preventDefault(); });
+  });
 })();
 </script>
 </body>

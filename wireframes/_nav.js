@@ -489,8 +489,16 @@ function closeMega() { clearTimeout(_megaCloseT); _megaCloseT = setTimeout(funct
 
 /* city selector dialog (node 0.1a) + mobile menu drawer + open/close */
 function wfCityHTML() {
-  let pop = ''; WF_CITIES_POP.forEach(c => { pop += '<button class="city-badge" onclick="wfPickCity(\'' + c + '\')">' + c + '</button>'; });
-  let az = ''; WF_CITIES_ALL.forEach(c => { az += '<button class="city-az" onclick="wfPickCity(\'' + c + '\')">' + c + '</button>'; });
+  /* step 7.87: these two lines built `onclick="wfPickCity('...')"` by pasting the city
+     name straight into a JS string inside an HTML attribute. One of the twenty-four
+     cities is «Кам'янець», and its apostrophe closed the string: clicking it threw
+     `SyntaxError: missing ) after argument list` on all 34 screens that carry the
+     dialog. Escaping the quote would fix that name and leave the class of bug in place.
+     The value never goes into code now - it goes into a data attribute, and one
+     delegated listener reads it back. Nothing a city is called can be syntax again. */
+  const attr = v => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  let pop = ''; WF_CITIES_POP.forEach(c => { pop += '<button class="city-badge" data-city="' + attr(c) + '">' + c + '</button>'; });
+  let az = ''; WF_CITIES_ALL.forEach(c => { az += '<button class="city-az" data-city="' + attr(c) + '">' + c + '</button>'; });
   return '<div class="wf-ov" id="city-ov" onclick="closeCity()"></div>' +
     '<div class="wf-city" id="city-dlg" role="dialog" aria-modal="true" aria-label="Оберіть місто">' +
     '<div class="wf-city-h">Оберіть місто<button class="btn--ghost btn--icon btn--s x" onclick="closeCity()" aria-label="Закрити">✕</button></div>' +
@@ -534,6 +542,11 @@ function wfDrawerHTML() {
 function openCity() { var d = document.getElementById('city-dlg'), o = document.getElementById('city-ov'); if (d) d.classList.add('open'); if (o) o.classList.add('open'); }
 function closeCity() { var d = document.getElementById('city-dlg'), o = document.getElementById('city-ov'); if (d) d.classList.remove('open'); if (o) o.classList.remove('open'); }
 function wfPickCity(name) { document.querySelectorAll('.wfh-city-lbl').forEach(el => el.textContent = name); closeCity(); }
+/* the other half of 7.87: one listener for every city button there will ever be. */
+document.addEventListener('click', function (e) {
+  var b = e.target && e.target.closest ? e.target.closest('[data-city]') : null;
+  if (b) { e.preventDefault(); wfPickCity(b.getAttribute('data-city')); }
+}, false);
 /* the panel hangs off the bottom edge of the sticky header - measured live, so the
    prototype bar, the desktop meta row and the current scroll position all work out */
 function wfDrawerTop() {

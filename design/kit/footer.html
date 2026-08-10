@@ -133,14 +133,22 @@
     try{
       var d = f.contentDocument; if (!d || !d.body) return;
       var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
-      h = Math.min(h, 900);
+      h = Math.min(h, 2400);
       f.style.height = h + 'px';
       var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
-      var avail = wrap.clientWidth - 24;
+      var avail = wrap.clientWidth - 26;
+      /* 7.87, from the sweep: `min(1, avail/declared)` put a 1180 demo into a 332px
+         column at k = 0.28, so 16px body copy drew at 4.5px. A demo nobody can read is
+         not a demo. Below 0.62 the frame keeps its size and the wrap scrolls sideways
+         instead - a scrollbar is honest, a 4.5px letter is not. */
       var k = Math.min(1, avail / declared);
+      if (k < 0.62) k = 0.62;
       f.style.transformOrigin = 'top left';
       f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
-      wrap.style.height = Math.round(h * k) + 'px';
+      wrap.style.overflowX = (declared * k > avail) ? 'auto' : 'hidden';
+      /* and the height it sets must include the padding and border it sits in, or the
+         frame loses its last 2px on every stand - measured on 48 of 48 rows. */
+      wrap.style.height = (Math.round(h * k) + 26) + 'px';
     }catch(e){}
   }
   f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });

@@ -899,6 +899,31 @@ Recorded here so it does not happen a third time.
   once the position is taken away. The mechanism that works leaves every declaration alone: a
   transformed ancestor becomes the containing block for a fixed descendant. It does not catch
   `94vw` / `86vh`, and the stand says so rather than pretending.
+- **The fourth hand-written list, and the first one that was still costing pixels - 7.87.**
+  `uivIcons` walks six named element ids and nothing else, so any block outside them keeps
+  the prototype's emoji. Measured on the client dialog: **12 text glyphs**, three of them
+  visible at rest. After asking it to walk the body instead, 10 of the 12 became marks and
+  **two did not** - `🔳` and `🚚` are in no map at all, which is a gap in the SET, not in
+  the pass. Same shape as the focus ring's thirteen selectors, `UIV_SIGN_ONLY`, and the
+  Escape handler's eleven calls.
+- **A value that goes into code is syntax; a value that goes into an attribute is text - 7.87.**
+  `wireframes/_nav.js` built `onclick="wfPickCity('...')"` by pasting a city name into a JS
+  string inside an HTML attribute. One of the twenty-four cities is «Кам'янець», and its
+  apostrophe closed the string: clicking it threw on all 34 screens that carry the dialog.
+  Escaping the quote would have fixed that one name; the value now goes into `data-city` and
+  a single delegated listener reads it back, so nothing a city can be called is syntax again.
+- **A binder guards itself with a flag, and lifted markup carries the flag - 7.87.** Every
+  `wf*` and `uiv*` initialiser writes `data-wfcart` / `data-wfqty` / `data-uiv*` on the element
+  it has wired. Markup lifted from a running page carries that flag, so in a fresh frame the
+  binder returned before wiring anything and the steppers drew perfectly and answered nothing.
+  **A demo that shows a control without running its binder shows something the product does
+  not have.** Stripping the flags brought 6 of 6 steppers back; the checkout also needed its
+  `.co-wrap` root, because the binder roots one level above the subtree that was lifted.
+- **A frame that scales to fit stops being legible before it stops fitting - 7.87.**
+  `min(1, avail/declared)` put an 1180 demo into a 332px column at k = 0.28, drawing 16px body
+  copy at **4.5px**. There is a floor now at 0.62 and the wrap scrolls sideways below it: a
+  scrollbar is honest, a 4.5px letter is not. The same script forgot the padding it sits in and
+  clipped the last **2px off all 48 rows**.
 - **The standard census widths cannot see a breakpoint band.** 360 and 1280 make a rule inside
   `(min-width: 620px)` look dead whenever a `(min-width: 960px)` rule for the same selector
   exists: at 1280 the second one wins, at 360 neither applies, and nothing measures the band
