@@ -22,7 +22,29 @@
 
 .wf-catov{ display: none; }
 @media (max-width: 859px){
-  .wf-catov{ position: fixed; top: 0; left: 0; right: 0; bottom: 57px; z-index: 49; background: var(--bg-page); flex-direction: column; }
+  /* `--shell-top` AND NOT ZERO, step 7.92, reported by the owner: the overlay's
+     header - its ← and its ✕ - was drawn under the harness's own top bar and
+     could not be tapped at all. Measured: `.uiv-topbar` is fixed at top 0, 40
+     tall, `z-index: 92`; this overlay was at top 0 with `z-index: 49`, and the
+     ✕ sits at 12..40, entirely behind it. `elementFromPoint` at the ✕ returned
+     the harness bar's chevron, so a tap opened the screen list instead of
+     closing the catalogue.
+
+     `--shell-top` is how much of the top of the screen something ABOVE the
+     product has taken, and it exists for exactly this: `.cart-ov`,
+     `.cart-drawer`, `.auth-ov` and `.wfh` all read it since step 7.26. THIS
+     PANEL WAS LEFT OUT OF THAT PASS - the fifth time this stage has found «which
+     things get X» answered by hand and something added later falling outside the
+     list. The fallback keeps the frozen grey layer at 0, where the variable is
+     not declared.
+
+     `bottom: 57px` is the tab bar's height typed as a number and it has drifted:
+     measured at 390, `.wf-tabbar` is 59, so the overlay stops 2px short of it.
+     `buy-bar.css` types the same bar as 61. Two files, two numbers, one bar, and
+     the bar itself declares no height - it is made of paddings. Left as it is
+     and recorded: a token for it is a value decision, and inventing one inside a
+     bug fix is how values get into a system with nobody deciding them. */
+  .wf-catov{ position: fixed; top: var(--shell-top, 0px); left: 0; right: 0; bottom: 57px; z-index: 49; background: var(--bg-page); flex-direction: column; }
   .wf-catov.open{ display: flex; }
   .wf-catov-h{ display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) var(--space-16); border-bottom: 1px solid var(--line-hair);
     position: sticky; top: 0; background: var(--bg-page); min-height: 52px; }

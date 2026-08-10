@@ -627,7 +627,13 @@ function catOverlayGoals() {
   document.getElementById('wf-catov-body').innerHTML = body;
   document.getElementById('wf-catov-body').scrollTop = 0;
 }
-function wfCatTabEl() { return document.querySelector('.wf-tab[href="catalog-page.html"]'); }
+/* 7.92: this read `.wf-tab[href="catalog-page.html"]` - an EXACT literal href,
+   and in the coloured layer the tab's href is rewritten to a relative path, so
+   the selector matched nothing, `openCatOverlay()` added `catov-open` to
+   nothing, and the tab bar kept its bar on whatever page was underneath. Found
+   by the owner on a phone. The tab that opens the overlay is the tab that
+   CARRIES its handler, and that is a shape no link rewriter can move. */
+function wfCatTabEl() { return document.querySelector('.wf-tab[onclick*="wfCatTabClick"]'); }
 function openCatOverlay() { var c = wfCatOverlayEnsure(); catOverlayL0(); c.classList.add('open'); document.body.style.overflow = 'hidden'; var t = wfCatTabEl(); if (t) t.classList.add('catov-open'); }
 function closeCatOverlay() { var c = document.getElementById('wf-catov'); if (c) c.classList.remove('open'); document.body.style.overflow = ''; var t = wfCatTabEl(); if (t) t.classList.remove('catov-open'); }
 function wfCatTabClick(e) { if (e) e.preventDefault(); var c = document.getElementById('wf-catov'); if (c && c.classList.contains('open')) closeCatOverlay(); else openCatOverlay(); return false; }

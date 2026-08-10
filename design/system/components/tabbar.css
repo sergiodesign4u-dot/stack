@@ -27,7 +27,37 @@
 }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.wf-tab[aria-current="page"]::before{ content:""; position:absolute; top:0; left:50%; transform:translateX(-50%);
+/* WHERE YOU ARE IS ONE TAB, and while the catalogue overlay is open it is the
+   catalogue tab - not the page underneath it. Reported by the owner at step
+   7.92: tapping «Каталог» on a phone opened the overlay and left the accent bar
+   sitting on «Головна». Two separate things were wrong and only one of them was
+   in this file. `.catov-open` - the class `openCatOverlay()` puts on that tab -
+   was already read by `mega-menu.css`, for the WORD's ink, and never by the bar,
+   so the tab that had just become current carried no mark of it at all.
+
+   Both states are named on the same line now, and the condition is written ONCE:
+   the page's own tab is current only while the overlay is NOT open. Written as
+   `:not()` rather than as a second rule that undoes the first, because an
+   undo-rule would need a second edition of the resting ink and the resting
+   weight, and a second edition of a value is what this stage keeps deleting.
+   Two bars at once would say the reader is in two places.
+
+   The condition reads the class the tab ALREADY carries. A second class on the
+   bar saying the same thing was written, measured and thrown away: one state,
+   one signal, and `:has()` is how a parent reads a signal that is not its own.
+
+   AND A NOTE ABOUT MEASURING THIS, because the first reading said the rule was
+   broken and the rule was fine. Sampled the instant `openCatOverlay()` adds the
+   class, the bar and the weight have moved and the two captions still carry the
+   ink they had before - which reads exactly like one declaration of a block
+   landing while its neighbour does not. The atom two files up declares
+   `transition: color .15s` on this caption, on purpose and with its own comment,
+   so at t=0 `getComputedStyle` returns the colour the transition is coming FROM.
+   At t=400 both captions are right. A transitioned property has no single value
+   at the moment of the change, and any sweep that samples computed style
+   straight after a state change reads the old one. */
+.wf-tabbar:not(:has(.catov-open)) .wf-tab[aria-current="page"]::before,
+.wf-tab.catov-open::before{ content:""; position:absolute; top:0; left:50%; transform:translateX(-50%);
   width:var(--size-26); height:3px; border-radius:0 0 var(--radius-4) var(--radius-4); background:var(--bg-action); }
 /* THE ACTIVE TAB'S CAPTION, and it has to be said here now - step 7.18. Before
    the merge the caption took its colour by inheritance from `.wf-tab`, so
@@ -37,5 +67,6 @@
    merge, all five captions came out identical and the current tab was left with
    only its accent bar. Where the control IS is the tab bar's sentence, so the
    tab bar says it - at a specificity that beats the atom, on purpose. */
-.wf-tab[aria-current="page"] .tl{ color:var(--text-body); font-weight:var(--fw-black); }
+.wf-tabbar:not(:has(.catov-open)) .wf-tab[aria-current="page"] .tl,
+.wf-tab.catov-open .tl{ color:var(--text-body); font-weight:var(--fw-black); }
 /* step 7.18: the counter's colour went to the atom with the counter. */

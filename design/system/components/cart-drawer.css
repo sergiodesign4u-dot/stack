@@ -45,9 +45,25 @@
    and this line rendered at the size it inherited. 12 is the nearest real rung. */
 .cd-oosnote{ border: 1px solid var(--line-strong); padding: var(--space-12) var(--space-12); font-size: var(--fs-12); margin: var(--space-16) 0 var(--space-2); line-height: var(--lh-airy); }
 .cd-foot{ border-top: 1px solid var(--line-hair); background: var(--bg-page); }
-.cd-total{ display: flex; align-items: baseline; justify-content: space-between; }
+/* THE FOOT IS THE GRID, NOT THE ROW - step 7.93, the owner's call. «Знижка й
+   бонуси» stood on a line of its own under the total, and a line of its own
+   costs its own height plus its own margin. It belongs UNDER THE WORD «Разом»,
+   in the same column, with the sum beside both. That is one row instead of two.
+
+   Written on `.cd-foot` and not on `.cd-total`, and no markup moved. `.cd-total`
+   becomes `display: contents`, so its own two children are placed by the foot's
+   grid directly: the word in column 1 row 1, the sum in column 2 spanning both
+   rows and centred against them, the hint in column 1 row 2. Everything else in
+   the foot - the buttons, the out-of-stock note, the blocked action - keeps the
+   full width it had. Four files draw this foot and none of them changed: the
+   lesson of 7.91 is that a hand edit stops at the file it was typed in. */
+.cd-foot{ display: grid; grid-template-columns: 1fr auto; column-gap: var(--space-12); }
+.cd-foot > *{ grid-column: 1 / -1; }
+.cd-total{ display: contents; }
+.cd-total > span{ grid-column: 1; grid-row: 1; }
+.cd-total > b{ grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+.cd-foot > .cd-hint{ grid-column: 1; grid-row: 2; margin: 0; }
 .cd-total .sub{ font-weight: var(--fw-medium); }
-.cd-hint{ margin: var(--space-4) 0 var(--space-16); }
 .cd-cta, .cd-cont, .cd-fix{ width: 100%; }
 .cd-cont{ margin-top: var(--space-8); }
 /* step 6.5: what OFF looks like is a state, and it lives in button.css. Here
@@ -102,8 +118,13 @@
 .cd-foot{  box-shadow: var(--elevation-bar-top); padding:var(--space-16) var(--space-16) var(--space-16); }
 .cd-total span{ font-size:var(--fs-16); font-weight:var(--fw-semibold); color:var(--text-body); }
 .cd-total .sub{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted); }
+/* variable -> value -> why: `font-size` of the drawer's sum, `--fs-30` ->
+   `--fs-24`, step 7.93, the owner's call. 24 is the rung the scale already has
+   below 30 - the next one down, not a number chosen here. The sum stops being
+   the tallest thing in the foot and starts sitting level with the two lines
+   beside it, which is what let the row absorb the hint. */
 .cd-total b{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
-  word-spacing:-.24em; font-weight:var(--fw-bold); font-size:var(--fs-30); color:var(--text-body); }
+  word-spacing:-.24em; font-weight:var(--fw-bold); font-size:var(--fs-24); color:var(--text-body); }
 .cd-hint{ color:var(--text-muted); font-size:var(--fs-12); }
 /* step 6.6: the drawer's foot is L, and both of its buttons are L. */
 /* step 7.88, and step 7.86's answer to the same question was wrong - it is worth
@@ -139,7 +160,16 @@
    does not scroll, and no descendant sits outside the foot's box. That is the check
    7.86 did not run. */
 .cd-foot{ padding-top: var(--space-12); padding-bottom: var(--space-12); }
-.cd-foot > .cd-hint{ margin-bottom: var(--space-12); }
+/* step 7.93: `.cd-foot > .cd-hint{ margin-bottom: var(--space-12) }` stood here
+   from 7.89 and is gone with the row it belonged to.
+
+   NO ROW GAP, and that is the point of the shape: the hint sits DIRECTLY under
+   the word it qualifies, one line under another, and a gap between them would
+   put the pair back where it started. Air below the pair belongs to the action,
+   which is where every other action in this foot already keeps it - `.cd-cont`
+   and `.cd-blocked` have carried their own `margin-top` since before this step.
+   The primary joins them rather than the foot inventing a second mechanism. */
+.cd-foot > .cd-cta, .cd-foot > .cd-fix{ margin-top: var(--space-12); }
 .cd-foot > .btn--outline{
   border-color: transparent; background: none; box-shadow: none;
   min-height: var(--size-38); padding-top: var(--space-8); padding-bottom: var(--space-8);

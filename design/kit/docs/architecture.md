@@ -668,6 +668,83 @@ stand's frame now reads 207 / 52 / 39 - the same three numbers as the product.**
 
 ---
 
+### A15. Two defects the owner found on a phone, and both were «which things get X» answered by hand - CLOSED at step 7.92
+
+**«Tapping Каталог does not highlight it», and «the top bar covers the close and back buttons».** Two
+reports in one message, two different files, one shape underneath.
+
+**The tab.** `wfCatTabEl()` read `.wf-tab[href="catalog-page.html"]` - an **exact literal href**. In
+the coloured layer `uivFixLinks` rewrites that link to a relative path, so the selector matched
+nothing and `openCatOverlay()` put `catov-open` on **nothing**. The class was correct, the rule
+reading it was correct, and the element never got it. Now the selector reads a **shape**: the tab
+that opens the overlay is the tab that **carries its handler**, and no link rewriter can move that.
+
+**And a second half, in `tabbar.css`.** `.catov-open` was read only by `mega-menu.css`, and only for
+the WORD's ink. The accent bar was given to `[aria-current="page"]` alone, so even with the class
+landing, the tab that had just become current carried no mark of it - while the page underneath
+kept its bar and told the reader they were somewhere they had left. Both states are named on one
+line now, and the condition is written **once**: the page's own tab is current only while the
+overlay is not open. Verified on three screens, open and closed: exactly one bar, on the right tab,
+both ways.
+
+**The overlay.** `.wf-catov` was `position: fixed; top: 0; z-index: 49`. The harness's own
+`.uiv-topbar` is `fixed; top: 0; height: 40; z-index: 92`. The overlay's ✕ sits at 12..40 -
+**entirely underneath it** - and `elementFromPoint` at the ✕'s centre returned the harness bar's
+chevron, so a tap opened the screen list instead of closing the catalogue. `--shell-top` exists for
+exactly this and `.cart-ov`, `.cart-drawer`, `.auth-ov` and `.wfh` have all read it since step 7.26;
+**this panel was left out of that pass.** Fixed with the same fallback the other four use, so the
+frozen grey layer stays at 0. After: overlay from 40, ✕ at 52, `elementFromPoint` returns
+`BUTTON.cx`.
+
+**That is the fifth and sixth instance of the same shape this stage has found** - after the focus
+ring's thirteen selectors, `UIV_SIGN_ONLY`, the Escape handler's eleven calls and `uivIcons`'s six
+element ids. A literal and a hand-kept list of panels, and in both cases what was added later fell
+outside.
+
+**One number left alone, deliberately.** `.wf-catov{ bottom: 57px }` is the tab bar's height typed
+as a constant, and it has drifted: measured at 390, `.wf-tabbar` is **59**. `buy-bar.css` types the
+same bar as **61**. Two files, two numbers, one bar - and the bar declares no height of its own, it
+is made of paddings. A token for it is a value decision; inventing one inside a bug fix is how a
+value enters the system with nobody deciding it. Recorded, stage 09.
+
+---
+
+### A16. The drawer's foot, fourth pass - the owner's shape, and the first one a rule carried on its own (step 7.93)
+
+The owner named the move: «Знижка й бонуси» stood on a line of its own under the total, and a line
+of its own costs its own height plus its own margin. It belongs **under the word «Разом»**, in the
+same column, with the sum beside both - one row instead of two - and the sum a rung smaller.
+
+**Written on `.cd-foot`, and no markup moved.** `.cd-total` becomes `display: contents`, so its two
+children are placed by the foot's own grid: the word in column 1 row 1, the sum in column 2 spanning
+both rows and centred against them, the hint in column 1 row 2. Everything else in the foot keeps
+the full width it had. **No row gap between the word and the hint** - they are one pair, and a gap
+between them would put the pair back where it started; the air below belongs to the action, which
+is where `.cd-cont` and `.cd-blocked` have kept theirs all along, so the primary joins them instead
+of the foot inventing a second mechanism.
+
+**Variable -> value -> why:** `font-size` of the sum, **`--fs-30` -> `--fs-24`**. 24 is the rung the
+scale already has below 30 - the next one down, not a number chosen here. The sum stops being the
+tallest thing in the foot and sits level with the two lines beside it, which is what lets the row
+absorb the hint.
+
+| | height | share of an 800-tall phone |
+|---|---|---|
+| before 7.88 | 256px | 32% |
+| 7.89, the secondary becomes a link | 219px | 27% |
+| 7.90, the primary L -> M | 207px | 26% |
+| **7.93, the foot becomes the grid** | **181px** | **22.6%** |
+
+Out-of-stock 227 with its blocked action. At 320 the foot is 200 because the hint wraps to two
+lines. `scrollWidth - clientWidth` is 0 on the foot, the drawer and the page at 320, 360, 390, 430
+and 1280.
+
+**And the stand's frame read 181 the moment the rule changed** - four files draw this foot and not
+one of them was edited. That is the whole of A14 stated in the positive.
+
+
+---
+
 ## B. Names - Крок 6, after stage 09
 
 Renaming is not a value decision and it moves pixels only by accident. It waits until the
@@ -1098,6 +1175,13 @@ Recorded here so it does not happen a third time.
   and something says so. The check now exists and asks one question: **does every button in a
   stand wear the size and the finish it wears in the product?** Four drift rows the first time it
   ran, in four different files, one of them found by the owner first (7.91).
+- **A transitioned property has no single value at the moment of the change.** Sampled the instant
+  a class lands, `getComputedStyle` returns the value the transition is coming FROM - so the tab
+  bar's caption read «wrong» while the bar and the weight beside it read «right», which looks
+  exactly like one declaration of a block landing and its neighbour not. `.tl` declares
+  `transition: color .15s` two files up, on purpose. At t=400 both were correct and the rule had
+  never been wrong. Any sweep that reads computed style straight after a state change reads the
+  old one (7.92).
 - **`NAV_ACTIVE` is for pages OUTSIDE the registry.** A page that is in the registry and also
   declares itself a satellite draws its own row twice. The two had been cancelling each other out
   under the wrong `done` flag; correcting one exposed the other.

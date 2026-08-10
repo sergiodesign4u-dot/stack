@@ -9647,3 +9647,79 @@ is how a value enters the system with nobody deciding it. Stage 09, as a decisio
 - The toolbar stand and `design/listing.html` both read `.mtoolbar` **77** with two `.mc` at
   **52**. Before the fix the stand's demo was shorter than the caption above it claimed.
 - Drift check re-run after every edit: **0 rows.**
+
+---
+
+## Steps 7.92-7.93 - two defects found on a phone, and the foot's fourth pass
+
+### 7.92, and both halves were «which things get X» answered by hand
+
+The owner reported two things in one message: tapping «Каталог» on a phone opens the catalogue
+overlay and **does not highlight the tab**, and the harness's top bar **covers the overlay's close
+and back buttons**. Different files, same shape underneath.
+
+**The tab, first half - the script.** `wfCatTabEl()` read `.wf-tab[href="catalog-page.html"]`, an
+exact literal href. In the coloured layer `uivFixLinks` rewrites that link to a relative path, so
+the selector matched nothing and `openCatOverlay()` added `catov-open` to **nothing**. The class was
+right, the rule reading it was right, and the element never got it. The selector reads a shape now:
+the tab that opens the overlay is the one that **carries its handler**.
+
+**The tab, second half - the stylesheet.** `.catov-open` was read only by `mega-menu.css`, and only
+for the word's ink. The accent bar belonged to `[aria-current="page"]` alone, so even with the class
+landing, the tab that had just become current had no mark - while the page underneath kept its bar.
+Both states now sit on one line in `tabbar.css`, and the condition is written once: the page's own
+tab is current only while the overlay is not open. Verified on three screens, open and closed:
+exactly one bar, on the right tab, both ways.
+
+**The overlay.** `.wf-catov` was `fixed; top: 0; z-index: 49`; `.uiv-topbar` is
+`fixed; top: 0; height: 40; z-index: 92`. The ✕ sits at 12..40 - under it - and `elementFromPoint`
+at the ✕'s centre returned the harness bar's chevron, so a tap opened the screen list instead of
+closing the catalogue. `--shell-top` exists for this and four panels have read it since 7.26; this
+one was left out of that pass. After: overlay from 40, ✕ at 52, `elementFromPoint` returns
+`BUTTON.cx`.
+
+**One number left alone.** `bottom: 57px` is the tab bar's height typed as a constant and it has
+drifted - measured, `.wf-tabbar` is **59**, and `buy-bar.css` types the same bar as **61**. Two
+files, two numbers, one bar, and the bar declares no height of its own. Recorded, stage 09.
+
+### The instrument lesson, and it cost two wrong theories before the right one
+
+The first reading said the rule was broken: with the overlay open the bar and the font-weight had
+moved and the two captions still carried the ink they had before - which reads exactly like one
+declaration of a block landing while its neighbour does not. Two explanations were written down and
+both were wrong. The first blamed `:has()` invalidation and a second class was added to the tab bar
+to avoid it; the class changed nothing. The truth: `.tl` declares `transition: color .15s`, two
+files up, on purpose and with its own comment. **At t=0 `getComputedStyle` returns the value the
+transition is coming FROM.** At t=400 both captions were correct and the rule had never been wrong.
+The second class was removed - one state, one signal - and the comment that had confidently
+explained the wrong cause was rewritten. **Any sweep that reads computed style straight after a
+state change reads the old value**, and this project's census does exactly that kind of read.
+
+### 7.93 - the foot's fourth pass, the owner's shape
+
+«Знижка й бонуси» stood on a line of its own under the total, and a line of its own costs its own
+height plus its own margin. The owner's call: put it **under the word «Разом»**, same column, sum
+beside both, and make the sum a rung smaller.
+
+Written on `.cd-foot` and **no markup moved**. `.cd-total` becomes `display: contents`, so its two
+children are placed by the foot's grid: word in column 1 row 1, sum in column 2 spanning both rows
+and centred, hint in column 1 row 2. No row gap between the word and the hint - they are one pair,
+and the air below belongs to the action, where `.cd-cont` and `.cd-blocked` already kept theirs.
+
+**Variable -> value -> why:** `font-size` of the sum, `--fs-30` -> `--fs-24` - the rung the scale
+already has below 30, not a number chosen here.
+
+**256 -> 219 -> 207 -> 181px**, 32% of an 800-tall phone down to **22.6%**. Out-of-stock 227. At 320
+the foot is 200 because the hint wraps. `scrollWidth - clientWidth` 0 on the foot, the drawer and
+the page at 320, 360, 390, 430 and 1280.
+
+**And the stand's frame read 181 the moment the rule changed** - four files draw this foot and none
+was edited. That is A14 stated in the positive, one step after it was found.
+
+### Verification
+
+- All **40 coloured screens x 2 widths**, 80 loads: zero page overflow, zero feet overflowing,
+  **never more than one active tab**, zero JS errors.
+- The overlay opened and closed on three screens with a 400ms settle: one bar, right tab, ✕
+  reachable by `elementFromPoint`.
+- The kit's 83 stands re-swept at 390 and 1280.
