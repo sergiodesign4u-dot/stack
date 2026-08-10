@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Пагінація | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Пагінація</h1>
+<p class="kp-lead">Кінець довгого списку: «Показати ще» і номери сторінок під ним. Найменший компонент системи - <b>9 оголошень</b> - і один із чотирьох файлів, де жодне число не написане рукою. Дійшов до цього не одразу: три кроки поспіль звідси виносили те, що вже сказала кнопка.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/pagination.css</span><span class="kp-tag">38 рядків</span><span class="kp-tag">4 селектори</span><span class="kp-tag">9 оголошень</span><span class="kp-tag">7 екранів</span><span class="kp-tag">22 контроли</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>listing.html</code>.</p>
+<div class="kp-demo">
+  <nav class="pgnav" aria-label="Пагінація">
+    <button class="btn--outline loadmore" type="button">Показати ще 24 (з 84)</button>
+    <div class="pages">
+      <a class="btn--outline btn--icon btn--s on" href="#" aria-current="page">1</a>
+      <a class="btn--outline btn--icon btn--s" href="#">2</a>
+      <a class="btn--outline btn--icon btn--s" href="#">3</a>
+      <a class="btn--outline btn--icon btn--s" href="#">4</a>
+      <a class="btn--outline btn--icon btn--s" href="#" aria-label="Наступна сторінка">›</a>
+    </div>
+  </nav>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Стовпчик</b> <code>.pgnav</code> - <code>flex-direction: column</code>, по центру, крок 16. Це вся розкладка компонента, і вона однакова на телефоні й на десктопі: нічого не перебудовується</span></div>
+  <div class="a"><i>2</i><span><b>«Показати ще»</b> - <code>btn--outline</code> і більше нічого. Клас <code>.loadmore</code> не має <b>жодного</b> правила у всій системі: він тільки гачок для скрипта</span></div>
+  <div class="a"><i>3</i><span><b>Номери</b> - <code>btn--outline btn--icon btn--s</code>, коробка 40 з фінішу. До кроку 6.7 тут стояв <code>::after</code>, який розтягував квадрат 34 до цілі 44; тепер ціль це сама коробка</span></div>
+  <div class="a"><i>4</i><span><b>Поточна</b> <code>.on</code> - залита помаранчевим, текст білий. Єдине, що цей файл справді малює</span></div>
+  <div class="a"><i>5</i><span><b>Стрілка</b> - той самий контрол зі знаком <code>›</code> і <code>aria-label</code>. Без ярлика читач з екрана почув би саму лапку</span></div>
+</div>
+<p class="kp-p"><b>Дві навігації, а не одна.</b> Кнопка догортає список на місці, номери переносять на сторінку. Обидві потрібні: перша для того, хто гортає, друга для того, хто хоче повернутись на третю сторінку завтра, - і друга ж потрібна пошуковику.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Третє оголошення виявилось фінішевим</div>
+<div class="kp-code">/* було */
+.pages a.on, .pages button.on { background: var(--bg-action); color: var(--text-oninverse);
+                                border-color: var(--line-action) }
+/* button.css:503 */
+.btn--outline.btn--icon.on { border-color: var(--line-action) }</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Заміряно в браузері</th><th>Значення</th></tr></thead><tbody>
+<tr><td>класи елемента пагінатора</td><td><code>btn--outline btn--icon btn--s on</code></td></tr>
+<tr><td>специфічність <code>.pages a.on</code></td><td>(0,2,1)</td></tr>
+<tr><td>специфічність <code>.btn--outline.btn--icon.on</code></td><td><b>(0,3,0)</b> - виграє завжди</td></tr>
+<tr><td>де перемагав цей рядок</td><td><b>0</b> із 10 заміряних</td></tr>
+<tr><td>колір межі до і після</td><td><code>rgb(255, 90, 0)</code> · <code>rgb(255, 90, 0)</code></td></tr>
+</tbody></table></div>
+<p class="kp-p">Значення збігалось, тож нічого не рухнулось - але межа була оголошена двічі, і найгірше не це. У <code>button.css</code> над тим рядком стояло написане речення: «пагінатор тримає власний <code>.on</code> і <b>цього правила не читає</b>». Читає, і саме ним малюється. Хибним було не оголошення, а <b>запис про нього</b>.</p>
+<div class="kp-dont"><h4>Антиправило</h4><b>Не пиши в коментарі, що правило когось не стосується, доки не спитав браузер.</b> Мертве оголошення коштує рядка. Неправдивий коментар коштує наступного кроку, який на нього спирається.</div>
+<p class="kp-p">Що лишилось тут - справді своє: <b>заливка і чорнило на ній</b>. «Увімкнено» на контурній кнопці означає кольорову межу; на пагінаторі - залитий квадрат, бо це не перемикач, який ви ставите, а місце, де ви стоїте. Одне ім'я класу, два значення; перейменування записане в <code>button.css</code> і йде кроком 6.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Посилання чи кнопка - за тим, що станеться</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Де</th><th>Тег</th><th>Чому</th></tr></thead><tbody>
+<tr><td>каталог, 4 екрани</td><td><code>&lt;a href="?page=2"&gt;</code></td><td>змінюється адреса: сторінку можна відкрити в новій вкладці, зберегти, надіслати</td></tr>
+<tr><td>відгуки, <code>product-reviews</code></td><td><code>&lt;button type="button"&gt;</code></td><td>перегортається список <b>усередині</b> сторінки, адреса не змінюється - посилання нікуди б не вело</td></tr>
+</tbody></table></div>
+<p class="kp-p">Тому селектор і написаний парою: <code>.pages a.on, .pages button.on</code>. Це не про запас - обидві половини живі, 18 посилань і 4 кнопки.</p>
+<div class="kp-do"><h4>Правило</h4><b>Тег обирає наслідок, а не вигляд.</b> Веде на адресу - посилання. Змінює те, що вже на екрані, - кнопка. Виглядають однаково, і це нормально: однаковими їх робить фініш, а не тег.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Три кроки, які винесли звідси все зайве</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Крок</th><th>Що пішло</th><th>Куди</th></tr></thead><tbody>
+<tr><td>6.3</td><td>«Показати ще», оголошена тричі, і ховер пагінатора, написаний двічі</td><td>у фініш <code>btn--outline</code>: межа, колір і ховер там уже були</td></tr>
+<tr><td>6.7</td><td>коробка 34, межа 1px, гарнітура, перехід і <code>::after</code>, що дотягував ціль до 44</td><td>у <code>button.css</code>. Коробка стала 40, і псевдоелемент став непотрібним: ціль тепер сама коробка</td></tr>
+<tr><td>7.77</td><td>колір межі поточної сторінки</td><td>у <code>button.css:503</code>, де він і малювався весь цей час</td></tr>
+</tbody></table></div>
+<p class="kp-p">Файл почав з двадцяти з гаком оголошень і закінчив дев'ятьма. З них шість - розкладка (стовпчик, вирівнювання, два кроки, відступ, ряд), два - заливка поточної сторінки, і жодного числа, написаного рукою: усі шість відступів беруться зі шкали. Таких файлів у системі <b>чотири</b> з 73.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-demo">
+  <div class="pages">
+    <a class="btn--outline btn--icon btn--s on" href="#" aria-current="page">1</a>
+    <a class="btn--outline btn--icon btn--s" href="#">2</a>
+    <a class="btn--outline btn--icon btn--s" href="#">3</a>
+  </div>
+</div>
+<div class="kp-cap">наведіть і натисніть Tab: ховер, натиск і кільце фокуса приходять із фінішу, а не звідси</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Звідки</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>контурний квадрат 40, цифра всередині</td><td><code>button.css</code>, фініш <code>btn--outline btn--icon btn--s</code></td></tr>
+<tr><td><b>поточна</b></td><td>залито <code>--bg-action</code>, текст <code>--text-oninverse</code></td><td><b>цей файл</b> - єдине, що він малює</td></tr>
+<tr><td><b>межа поточної</b></td><td><code>--line-action</code></td><td><code>button.css</code>, з 7.77</td></tr>
+<tr><td><b>наведення</b></td><td>межа бере акцент</td><td>фініш</td></tr>
+<tr><td><b>фокус</b></td><td>кільце <code>--ring-focus-control</code></td><td>фініш, <code>:focus-visible</code></td></tr>
+<tr><td><b>остання сторінка</b></td><td><b>немає</b>: стрілка «далі» не вимикається</td><td>ніде. Записано нижче</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Кнопка каже, скільки лишилось.</b> «Показати ще 24 (з 84)» - людина бачить і крок, і кінець. Це та сама чесність, що й лічильники в рейці фільтрів: натискають упевнено, коли видно, що буде далі.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби нескінченну стрічку без номерів.</b> На третій сторінці нема куди повернутись, нема що надіслати і нема що проіндексувати. Догортування - зручність, номери - адреса; прибирати треба не друге.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власні класи, <b>1</b> стан.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["on","pages","pgnav"], KIT_STS=[".on"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>pagination.css</code>: <b>2</b> семантичні ролі і <b>3</b> примітиви.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (2)</th><th>Примітиви (3)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--text-oninverse</code></td><td><code>--space-8</code> <code>--space-16</code> <code>--space-24</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу <b>нічого</b>. Разом із <code>badge.css</code>, <code>counter.css</code> і <code>overlay.css</code> це один із чотирьох компонентів системи, у якому немає жодного числа, написаного рукою.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Три проходи по 40 екранах на чотирьох ширинах: HEAD, HEAD ще раз і робоче дерево. <b>Нульовий прохід 0, різниця 0</b>, 215 452 елементи з кожного боку.</p>
+<p class="kp-p">Плюс окремий замір межі поточної сторінки на двох екранах: <code>rgb(255, 90, 0)</code> з обох боків. Значення збігалось до видалення - його тут і не мало б бути видно.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Стан «остання сторінка»</b> - стрілка «далі» на четвертій сторінці виглядає так само, як на першій, і натискається</li>
+<li><b>Розрив у довгому списку</b> - показані номери 1-4, а сторінок 84 / 24 = чотири. При більшому каталозі потрібне «1 2 3 … 12», і такого стану немає</li>
+<li><b>«Показати ще» після натиску</b> - ні стану завантаження, ні стану «більше немає»</li>
+<li><b>Перейменування <code>.on</code></b> - один клас на два значення: «увімкнено» на перемикачі й «ви тут» на пагінаторі. Крок 6, після етапу 09</li>
+<li><b><code>.loadmore</code> без жодного правила</b> - той самий випадок, що <code>.pd-block</code> у блоці опису: клас у розмітці, нуль оголошень у системі</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

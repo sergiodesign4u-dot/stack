@@ -1,6 +1,6 @@
 # Architecture: the decision sheet for stage 09
 
-Thirty-two stands in `design/kit/` end with the same sentence: «stage 09 starts from this
+Thirty-eight stands in `design/kit/` end with the same sentence: «stage 09 starts from this
 list, collected in `design/kit/docs/architecture.md`». This is that file, and until step 7.60
 it did not exist. Ninety-eight findings were living in 7300 lines of `consolidation.md`, which
 is a log and is not read.
@@ -454,6 +454,18 @@ names, all measured at 7.36 - 7.39.
 They are grid cells and the grid places them, so nothing is broken - but someone looking for
 why the left column behaves as it does will look for a rule that is not there.
 
+**Two more, measured at steps 7.76 and 7.77.** The shape is the same and so is the verdict:
+the ELEMENT does the work, the NAME does nothing.
+
+| class | instances | where | what the element does |
+|---|---|---|---|
+| `.pd-block` | 8 on 2 screens | `product`, `product-coach` | it is the flex item `.pdesc` puts 32 between; the class is never read |
+| `.loadmore` | 7 on 7 screens | every listing, the PDP reviews teaser, `product-reviews` | it is `btn--outline` plus a hook for a script that is not written yet |
+
+`.loadmore` is the softer of the two: a hook for behaviour that is coming is a defensible reason
+for a class with no rule, and `tokens.css:585` even names it in a comment. `.pd-block` has no
+such excuse - four of them, styled by nobody, on the two most-read screens in the shop.
+
 ### B4. Buttons outside the button set - found at 7.61
 
 Step 6.7 replaced 56 bespoke button names with one closed set, and 7.61's census says the set
@@ -472,8 +484,9 @@ finish handed to a control that already has one written by hand, not a rename.
 
 ## C. States that do not exist
 
-Twelve findings across the pass name a state that no screen draws. They are not CSS work: they
-are screens, and they belong to whoever decides scope.
+Eighteen findings across the pass name a state that no screen draws - twelve up to step 7.74,
+six more from the four stands built at 7.75 - 7.77. They are not CSS work: they are screens, and
+they belong to whoever decides scope.
 
 | state | where it would go | what happens now |
 |---|---|---|
@@ -488,6 +501,12 @@ are screens, and they belong to whoever decides scope.
 | maximum tier reached | the loyalty rung | exists in grey, not in colour |
 | empty bonus ledger | the loyalty ledger | exists in grey, not in colour |
 | order cancelled | the order row | the code has three states, the path has at least four |
+| no description | the description block, `product` | the block is simply absent and no rule says who hides it |
+| no questions yet | the Q&A section, `product` | the head renders over nothing |
+| question not answered yet | `.qaitem` | every answer in the code is the shop's; «waiting» has no look and no words |
+| last page reached | the pager | the «next» arrow on page 4 of 4 looks and presses exactly like page 1's |
+| «Показати ще» after the press | the pager | neither a loading state nor an «that is all» state exists |
+| nothing matched the filter | the filter rail, `listing-empty` | the rail looks identical and no facet is marked as the one that emptied the result |
 | ~~irreversible action~~ | ~~«Видалити адресу» and any delete~~ | **CLOSED at step 7.61** |
 
 **Recommendation was: the last one first**, because a destructive action that looks like every
@@ -500,7 +519,12 @@ unmoved (140x52 before and after), the grey prototype unmoved, and the confirmat
 
 The confirmation DIALOG the recommendation also asked for turned out to exist already, in three
 places, built by `wireframes/_nav.js` - `#addr-del`, `#ce-confirm` and the profile one. What was
-missing was only the finish. Eleven remaining rows above stay open.
+missing was only the finish. **Seventeen remaining rows above stay open.**
+
+The six added at 7.75 - 7.77 have a pattern the first twelve did not: **five of the six are the
+FAR end of a list.** No description, no questions, no answer yet, the last page, «that is all».
+The pass has been good at the empty beginning of a thing and blind to its end - and the end is
+where a person is when they have already read everything and still have not decided.
 
 ---
 
@@ -617,6 +641,23 @@ Recorded here so it does not happen a third time.
 - **A declaration beaten by an inline style the script sets is not dead** when the script
   supplies data the stylesheet cannot know - the gallery thumbnails take four different crops
   of one photograph from `_nav.js:918`.
+  **7.76 sharpened the test and it is worth stating as a question:** is the inline value DATA,
+  or is it LOOK? The script wrote five properties onto `.pd-img`; one named which photograph
+  (data, and it stays) and four named how the box is drawn (look, and they moved to
+  `desc-block.css`). Three of the four merely repeated the stylesheet. The fourth,
+  `background-size: auto 84%`, contradicted it - the file said `contain` and had never once
+  drawn it. That is the real cost: not a dead line, but a stylesheet that reads as false.
+- **A shorthand's `background-image: none` beaten by per-position photographs is a fallback,
+  not a dead line.** `blog-card.css .blogcard .bim` matches 36 times and wins the image never,
+  because all three blog cards have their own `:nth-child` photograph. It is what a fourth card
+  would get. Measured at 7.75 and deliberately left alone.
+- **The standard census widths cannot see a breakpoint band.** 360 and 1280 make a rule inside
+  `(min-width: 620px)` look dead whenever a `(min-width: 960px)` rule for the same selector
+  exists: at 1280 the second one wins, at 360 neither applies, and nothing measures the band
+  between. The 7.75 solver reported `goal-tile.css @620 .goaltiles{ grid-template-columns }` as
+  «matched 4, won 0»; it wins on every width from 620 to 959, which is most phones held
+  sideways and every small tablet. Same lesson 7.70 learned with a different instrument: **a
+  band needs its own widths.**
 - **`--size-40` is a rung of the ladder.** Step 7.58 called a 40px button «off the ladder»; it
   is `.btn--s` exactly.
 - **The grey prototype is not a frozen archive.** All 40 coloured screens load

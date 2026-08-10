@@ -9,7 +9,19 @@
 .pages{ display: flex; gap: var(--space-8); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.pages a.on, .pages button.on{ background:var(--bg-action); color:var(--text-oninverse); border-color:var(--line-action); }
+/* 7.77: THE THIRD DECLARATION HERE WAS THE FINISH'S, AND THE FINISH SAID SO.
+   `button.css:503` declares `.btn--outline.btn--icon.on{ border-color:
+   var(--line-action) }`, and every pager item in the product is exactly
+   `btn--outline btn--icon btn--s on` - (0,3,0) against this line's (0,2,1), so
+   the finish wins the border on every one of the 10 measured, with the identical
+   value. Nothing moved when it went; what changes is that the border is now
+   declared once.
+
+   What is genuinely this file's stays: the FILL and the ink on it. «Engaged» on
+   an outline button means a coloured edge; on a pager it means a filled square,
+   because it is not a toggle you set - it is where you are standing. Same class,
+   two meanings, and `button.css` carries the note about the rename. */
+.pages a.on, .pages button.on{ background:var(--bg-action); color:var(--text-oninverse); }
 /* ---------- step 6.3 ----------------------------------------------------
    Both controls in this file are outline buttons, so the finish carries their
    border, their colour and their hover. What was here before: «Показати ще»

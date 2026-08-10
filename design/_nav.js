@@ -1060,16 +1060,14 @@ function uivPdp(){
     cert.appendChild(seal);
   }
 
-  /* description: product imagery instead of dashed «зображення» boxes */
+  /* description: product imagery instead of dashed «зображення» boxes.
+     7.76: this used to set five inline properties. Four of them were the box's
+     LOOK - the border style, the background position, the repeat and the 84%
+     size - and a look written from a script is invisible to the stylesheet that
+     claims to own it. All four moved to `desc-block.css` unchanged. What is left
+     is the one thing a script is the right place for: which photograph. */
   document.querySelectorAll('.pdesc .pd-img').forEach(function(box, i){
-    var src = UIV_PDP_DESC[i % UIV_PDP_DESC.length];
-    /* white floor: the renders ship with their own soft studio backdrop, so any warm
-       fill under them would read as a grey box around the product */
-    box.style.backgroundImage = 'url(' + src + ')';
-    box.style.backgroundSize = 'auto 84%';
-    box.style.backgroundPosition = 'center';
-    box.style.backgroundRepeat = 'no-repeat';
-    box.style.borderStyle = 'solid';
+    box.style.backgroundImage = 'url(' + UIV_PDP_DESC[i % UIV_PDP_DESC.length] + ')';
     box.textContent = '';
   });
 

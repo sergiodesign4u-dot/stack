@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Блок опису | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Блок опису</h1>
+<p class="kp-lead">Чотири абзаци й чотири кадри на сторінці товару - там, де закінчуються таблиці й починається розповідь. Найменший файл із розібраних, і в ньому знайшлось те, чого в жодному не було: <b>вигляд, який жив у скрипті</b>.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/desc-block.css</span><span class="kp-tag">42 рядки</span><span class="kp-tag">7 селекторів</span><span class="kp-tag">20 оголошень</span><span class="kp-tag">2 екрани</span><span class="kp-tag">8 кадрів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>product.html</code>. Фото підставляє <code>design/_nav.js</code>, як і в продукті.</p>
+<div class="kp-demo">
+  <div class="pdesc">
+    <div class="pd-block">
+      <div class="pd-tx"><b>Gold Standard 100% Whey</b> - еталонний сироватковий протеїн від Optimum Nutrition.
+        Основа формули - ізолят сироватки як перший інгредієнт, тому в кожній порції максимум чистого білка
+        за мінімум зайвого.</div>
+      <div class="pd-img">зображення</div>
+    </div>
+    <div class="pd-block">
+      <div class="pd-tx">Швидке засвоєння, <b>24 г білка</b> та 5.5 г BCAA на порцію роблять його оптимальним
+        вибором для відновлення після тренувань і щоденної норми білка. Підходить і початківцям, і досвідченим.</div>
+      <div class="pd-img">зображення</div>
+    </div>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Колонка</b> <code>.pdesc</code> - 800 у ширину, по центру. Це єдина колонка тексту в продукті, яка себе обмежує: рядок довший за 800 читається гірше, а решта сторінки товару це таблиці й картки, які міряють себе інакше</span></div>
+  <div class="a"><i>2</i><span><b>Абзац</b> <code>.pd-tx</code> - 16 / <code>--lh-airy</code>. Основний кегль, а не зменшений: це не примітка під таблицею, це те, заради чого сюди дочитали</span></div>
+  <div class="a"><i>3</i><span><b>Жирне</b> - <code>--text-primary</code>, на пів тону темніше за абзац. Виділяється назва і число, а не речення</span></div>
+  <div class="a"><i>4</i><span><b>Кадр</b> <code>.pd-img</code> - <code>aspect-ratio: 16/6</code>. Ширину обирає колонка, тож коробка називає пропорцію, а не два числа. Те саме правило, що на квадратах картки товару (7.68), протилежний випадок</span></div>
+  <div class="a"><i>5</i><span><b>Крок 32</b> між блоками - найбільший вертикальний ритм у продукті. Тут він доречний: кожен блок це окрема думка, а не пункт списку</span></div>
+</div>
+<p class="kp-p"><b>Принцип 5 цілком:</b> звичайні слова згори, глибина знизу. Склад, дозування і сертифікат вище на сторінці й у таблицях; тут - те саме людською мовою, для того, хто читає, а не звіряє.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Вигляд, який жив у скрипті</div>
+<div class="kp-code">box.style.backgroundImage = 'url(' + src + ')';
+box.style.backgroundSize = 'auto 84%';
+box.style.backgroundPosition = 'center';
+box.style.backgroundRepeat = 'no-repeat';
+box.style.borderStyle = 'solid';</div>
+<p class="kp-p">П'ять інлайн-властивостей на кожен із восьми кадрів. Дані з них - <b>одна</b>: яке фото. Решта чотири це вигляд коробки, і три з них повторювали те, що таблиця стилів уже казала за два рядки звідси.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Інлайн писав</th><th>Таблиця стилів казала</th><th>Що це було</th></tr></thead><tbody>
+<tr><td><code>borderStyle: solid</code></td><td><code>border: 1px solid var(--line-hair)</code></td><td>повтор</td></tr>
+<tr><td><code>backgroundPosition: center</code></td><td><code>background: ... center ...</code></td><td>повтор</td></tr>
+<tr><td><code>backgroundRepeat: no-repeat</code></td><td><code>background: ... no-repeat</code></td><td>повтор</td></tr>
+<tr><td><code>backgroundSize: auto 84%</code></td><td><code>background: ... center/<b>contain</b> ...</code></td><td><b>розбіжність</b></td></tr>
+<tr><td><code>backgroundImage: url(...)</code></td><td>-</td><td>дані</td></tr>
+</tbody></table></div>
+<p class="kp-p">Четвертий рядок - той, заради якого це знахідка, а не прибирання. <code>contain</code> у файлі <b>жодного разу не намалювався</b>, і при цьому читався як правда: хто відкриє <code>desc-block.css</code>, побачить «вписати в коробку», а на екрані стоїть 84% висоти. Інлайн-стиль тим і поганий, що таблиця стилів його не бачить, а людина, яка читає таблицю стилів, не бачить інлайну.</p>
+<div class="kp-do"><h4>Правило</h4><b>Скрипт ставить дані, таблиця стилів ставить вигляд.</b> «Яке фото» - дані. «Наскільки воно велике в коробці» - вигляд, і він мусить лежати там, де його шукатимуть.</div>
+<p class="kp-p">84% - це власне поле рендера: продуктові знімки приходять зі студійним повітрям навколо, і заливка від краю до краю це повітря зрізала б. Підлога лишається <code>--bg-page</code>, білою, а не теплою поверхнею: у знімків свій м'який фон, і тепла заливка під ними читалась би як сіра коробка, домальована навколо товару.</p>
+<div class="kp-cap">заміряно на обох серверах, три екрани, три ширини: <code>auto 84%</code> · <code>50% 50%</code> · <code>no-repeat</code> · <code>solid</code> - однаково до і після</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Абзац, оголошений двічі</div>
+<div class="kp-code">.pd-tx { line-height: var(--lh-airy) }          /* структура */
+.pdesc .pd-tx { font-size: 16; line-height: var(--lh-airy) }   /* колір */
+.pd-tx { font-size: 16; color: var(--text-body) }              /* колір */</div>
+<p class="kp-p">Середній рядок при (0,2,0) переважив обидва сусідні - і не сказав нічого нового. Його <code>font-size</code> дорівнює тому, що ставить рядок під ним; його <code>line-height</code> дорівнює тому, що ставить структура над ним. Два оголошення виграли, два оголошення померли, і <b>жоден піксель від цього не залежав</b> - але файл читався так, ніби текст опису стилюють у двох місцях.</p>
+<p class="kp-p">Стилюють в одному. Знято; заміряно 16 елементів на двох екранах: 16px / 1.7 до і після.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Хто ще спирається на цю колонку</div>
+<div class="kp-code">.sech:has(+ .pdesc) { max-width: 800px; margin-inline: auto }</div>
+<p class="kp-p">Заголовок «Опис» бере мірку колонки, під якою стоїть. До 7.73 це правило звалось <code>section[aria-label="Опис"] .sech</code> - речення інтерфейсу в ролі селектора, - і його полагодили так: не питати, як секція <b>називається</b>, а спитати, що стоїть <b>після</b> заголовка. Тому <code>.pdesc</code> тут не просто клас: це якір для сусіда, і перейменувати його означає зрушити заголовок.</p>
+<div class="kp-gap"><h4>А <code>.pd-block</code> не оголошений ніде</h4>Вісім екземплярів у розмітці, <b>нуль</b> правил у всій системі. Обгортка справді потрібна - саме вона є елементом флексу і саме між ними лягає крок 32, - але <b>працює елемент, а не ім'я</b>. Клас без жодного правила це або залишок, або гачок на майбутнє, і з коду не видно, що з двох. Записано в перейменування, крок 6, який за правилом іде після етапу 09.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>текст, під ним кадр 16:6</td><td>єдиний стан, який у блока є</td></tr>
+<tr><td><b>до підстановки фото</b></td><td>у коробці слово «зображення», <code>--text-muted</code></td><td>сірий прототип лишає рамку з підписом; у кольорі це видно частку секунди, поки не спрацював скрипт</td></tr>
+<tr><td><b>вужче за 800</b></td><td>колонка стискається до ширини сторінки</td><td><code>max-width</code>, а не <code>width</code>: обмеження зверху, а не розмір</td></tr>
+<tr><td><b>наведення</b></td><td><b>немає</b></td><td>тут нема на що натискати. Ані кадр, ані абзац нікуди не ведуть</td></tr>
+<tr><td><b>фокус</b></td><td><b>немає</b></td><td>жодного контрола в блоці, і це правильно: опис читають, а не керують ним</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Опис розповідає, а не перелічує.</b> Склад і дозування вже стоять таблицею вище; тут те саме словами - для того, хто хоче зрозуміти, а не звірити. Один абзац - одна думка, і кадр поруч показує саме її.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з опису другий продажний блок.</b> Ні знижки, ні кнопки, ні «залишилось мало» посеред тексту. Принцип 4: спокійно й упевнено. Купити пропонують угорі, тут - пояснюють.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власні класи, станів у файлі не оголошено жодного.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["pd-img","pd-tx","pdesc"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>desc-block.css</code>: <b>5</b> семантичних ролей і <b>5</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (5)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code></td><td><code>--fs-16</code> <code>--lh-airy</code> <code>--radius-12</code> <code>--space-12</code> <code>--space-32</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу два числа: <code>1px</code> рамки і <code>800px</code> колонки. Друге - міра читабельного рядка, а не відступ, тож у шкалу відступів воно й не мало б лягти; але воно написане тут і ще раз у <code>section-head.css</code>, і <b>два місця для одного числа</b> - це той самий випадок, що вже закривали для інших значень. Кандидат на токен, рішення - етап 09.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Три проходи по 40 екранах на чотирьох ширинах: HEAD, HEAD ще раз і робоче дерево. <b>Нульовий прохід 0, різниця 0</b>, 215 452 елементи з кожного боку.</p>
+<p class="kp-p">І тут нуль сам по собі нічого не доводить: перепис не заміряє <code>background-size</code>, <code>background-position</code>, <code>background-repeat</code> і <code>border-style</code> - тобто рівно ті чотири властивості, які цей крок переносив. Заміряно окремо, властивість за властивістю, на двох екранах і трьох ширинах, на обох серверах: <b>однаково</b>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Стан «опису ще немає»</b> - у товару без опису блок просто відсутній, і хто його ховає, у коді не сказано</li>
+<li><b><code>.pd-block</code> без жодного правила</b> - вісім екземплярів, нуль оголошень. Перейменування, крок 6</li>
+<li><b>800px у двох файлах</b> - тут і в <code>section-head.css</code>. Кандидат на токен міри тексту</li>
+<li><b>Кадр не має підпису</b> - <code>alt</code> у фонового зображення не буває, і для читача з екрана чотири кадри опису мовчать</li>
+<li><b>Довжина опису не обмежена</b> - «читати більше» тут немає, на відміну від SEO-блока каталогу</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+/* `uivPdp()` is what puts the photographs into these boxes on a screen, and it
+   cannot run here: its root is `main.wf-page` and this page is `main.kp-main` -
+   the same wall `spec-table.html` and `trust-strip.html` describe. So the stand
+   repeats the one line it needs, reading the SAME list the product reads
+   (`UIV_PDP_DESC`, declared at `design/_nav.js:869`) rather than pasting paths.
+   And it sets ONLY the image: after 7.76 the size, the position, the repeat and
+   the border are the stylesheet's, here as there. If they were pasted too, this
+   stand would be showing its own edition of the very thing the step removed. */
+(function(){
+  if (typeof UIV_PDP_DESC === 'undefined') return;
+  document.querySelectorAll('.pdesc .pd-img').forEach(function(box, i){
+    box.style.backgroundImage = 'url(../' + UIV_PDP_DESC[i % UIV_PDP_DESC.length] + ')';
+    box.textContent = '';
+  });
+})();
+</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

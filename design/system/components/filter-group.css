@@ -31,10 +31,25 @@
    option - `margin-left: auto` is what pushes the figure to the right edge, and
    that is the row's layout, not the counter's. */
 .fopt .ct{ margin-left: auto; font-size: var(--fs-12); }
-.frange{ height: 4px; border-radius: var(--radius-4); margin: var(--space-16) var(--space-2) var(--space-8); position: relative; }
-.frange::before, .frange::after{ content: ''; position: absolute; top: -4px; width: 12px; height: 12px; border-radius: var(--radius-circle); }
-.frange::before{ left: 18%; }
-.frange::after{ right: 26%; }
+/* 7.75: THE PRICE BAR WAS DRAWN HERE AND UNPAINTED HERE, four lines apart.
+   `.frange` used to be the grey prototype's picture of a range: a 4px track with
+   two 12px dots pinned at 18% and 26%, none of it draggable, all of it a drawing.
+   The coloured product has a real one - `design/_nav.js:711 uivPriceSlider()`
+   builds a dual-thumb input and `price-slider.css` dresses it - and the way this
+   file got out of its way was to add `.frange.uiv-slider{ background:none;
+   border-radius:0 }` plus a `content:none` on both dots. So the file painted a
+   track, then wrote a second rule to wipe it.
+
+   Measured, not assumed: `.frange` renders TWICE on each of the 7 listing screens
+   - the desktop rail and the mobile sheet, both built at load, both upgraded -
+   and all 28 carry `uiv-slider`. Computed on every one of them before the
+   deletion: `::before` and `::after` `content: none / display: none`,
+   `border-radius: 0px`, background `rgba(0,0,0,0)`, and height, margin and
+   position all won by `price-slider.css .uiv-slider`. Twenty-two declarations,
+   zero of them reaching a pixel.
+
+   Both halves are gone - the drawing and the eraser. The grey prototype keeps its
+   own copy in `wireframes/_wf.css`, where the picture is still the control. */
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .fgroup .fh{ transition:color .15s ease; }
@@ -46,10 +61,10 @@
 /* the 12 between options is the GROUP's rhythm, and the only thing about `.fopt`
    this file still says */
 .fopt{ margin-top:var(--space-12); }
-.frange{ background:var(--bg-track); }
-.frange::before, .frange::after{ background:var(--bg-action); }
-.frange.uiv-slider::before, .frange.uiv-slider::after{ content:none; display:none; }
-.frange.uiv-slider{ background:none; border-radius:0; }
+/* the four `.frange` rules that stood here - the track's fill, the two dots' fill
+   and the two lines that switched all of it off again - left with the structure
+   block above at 7.75. The price control is `price-slider.css`, and this file no
+   longer has an opinion about it. */
 /* ---------- focus, and until step 7.34 there was nothing to focus -------------
    Both of this panel's controls were unreachable, so the question of what a ring
    looks like here had never come up. `design/_nav.js` gives them the tab stop -

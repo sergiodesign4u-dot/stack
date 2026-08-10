@@ -11,5 +11,16 @@
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .qaitem .qq{ font-size:var(--fs-16); }
+/* 7.77: `margin-left: 0` came off with the same broom as the restatements of
+   7.69, but it is a slightly different mistake: it did not restate another
+   rule, it restated the INITIAL VALUE. Nothing in the system gives `.qans` a
+   left margin - the grey indents the answer with `padding-left: var(--space-16)`,
+   and the shorthand below replaces that with 12 on all four sides - so the line
+   was undoing something that was never done. Measured before and after on both
+   screens: `margin: 8px 0px 0px`, unchanged.
+
+   What the accent edge is for: the answer is the shop speaking, the question is
+   the buyer. Two voices in one list need a visible seam, and it is a 2px rule
+   rather than a second bubble because Principle 4 - the page stays calm. */
 .qaitem .qans{ border-left:2px solid var(--line-action); background:var(--bg-surface); border-radius:0 var(--radius-8) var(--radius-8) 0;
-  padding:var(--space-12) var(--space-12); margin-left:0; }
+  padding:var(--space-12) var(--space-12); }

@@ -257,7 +257,7 @@ window.KIT_NAV = [
    {
     "label": "Група фільтра",
     "page": "filter-group.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Тулбар",
@@ -287,7 +287,7 @@ window.KIT_NAV = [
    {
     "label": "Пагінація",
     "page": "pagination.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Логотип бренду",
@@ -307,7 +307,7 @@ window.KIT_NAV = [
    {
     "label": "Блок опису",
     "page": "desc-block.html",
-    "done": false
+    "done": true
    },
    {
     "label": "SEO-текст",
@@ -322,7 +322,7 @@ window.KIT_NAV = [
    {
     "label": "Запитання",
     "page": "qa-item.html",
-    "done": false
+    "done": true
    },
    {
     "label": "Схожі товари",

@@ -12,7 +12,30 @@
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .pdesc{ max-width:800px; margin-inline:auto; }
-.pdesc .pd-tx{ font-size:var(--fs-16); line-height:var(--lh-airy); }
+/* 7.76: `.pdesc .pd-tx{ font-size:16; line-height:airy }` stood here and said
+   nothing new. Its font-size was the same 16 the line below already sets, its
+   line-height the same `--lh-airy` the structure block sets four lines up - but
+   at (0,2,0) it outranked both, so the two declarations under it were dead and
+   the file read as though the description text were styled in two places. It is
+   styled in one. Removed; measured 16 elements on two screens, 16px / 1.7 before
+   and after. */
 .pd-tx{ font-size:var(--fs-16); color:var(--text-body); }
+/* 7.76: THE LOOK OF THIS BOX USED TO LIVE IN A SCRIPT. `design/_nav.js` wrote
+   FIVE inline properties onto every `.pd-img`, and four of them were about
+   appearance, not about data: `borderStyle: 'solid'` (this rule's shorthand
+   already says solid), `backgroundPosition: 'center'` and `backgroundRepeat:
+   'no-repeat'` (both already here), and `backgroundSize: 'auto 84%'` - the one
+   that genuinely differed, and the one an inline style is worst at holding,
+   because nothing in the stylesheet can see it and `contain` two lines above
+   read as the truth while never once drawing.
+
+   The size comes here, where the rest of the frame is; the script keeps the only
+   thing that is data - which photograph. 84% is the render's own margin: the
+   product images ship with studio air around them, and filling the box edge to
+   edge would crop that away.
+
+   The floor stays `--bg-page`, white, not the warm surface: the renders carry
+   their own soft backdrop, and a warm fill behind them reads as a grey box drawn
+   around the product rather than as the page. */
 .pd-img{ border:1px solid var(--line-hair); border-radius:var(--radius-12); font-size:0; aspect-ratio:16/6;
-  background:var(--bg-page) center/contain no-repeat; }
+  background:var(--bg-page) center/auto 84% no-repeat; }

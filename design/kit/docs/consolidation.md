@@ -8800,3 +8800,177 @@ not cover is not the same as finding a defect.
 U+02BC across `architecture.html`, `architecture.md` and this log, in the example words. An
 example is indistinguishable from a leftover to anyone who greps. Rewritten to name the codepoint
 instead, and the repository now carries **zero** U+2019 and **zero** U+02BC.
+
+---
+
+## Step 7.75: the file drew a bar and then wiped it, four lines further down
+
+**Who asked for it:** nobody. The decision sheet is out of code-side work, so this step went back
+to the showcase itself - thirteen molecules with a stylesheet and no stand - and asked the
+browser where the defects actually are before choosing which to build.
+
+### The census first, and it moved the plan
+
+The solver ran over all thirteen files at once: 920 declarations, 89 pages, two widths.
+**Forty-five declarations match an element and never win**, spread over seven files. That list,
+not a hunch, chose the four components this step and the next two take apart.
+
+**Four of the forty-five are not defects, and saying which is the point of running the census
+rather than reading the file.**
+
+- `goal-tile.css @620 .goaltiles{ grid-template-columns }` - «matched 4, won 0». It wins from
+  620 to 959 and the census measures 360 and 1280. **The standard widths cannot see a band**,
+  the same lesson 7.70 learned with a different instrument. Filed under G, not fixed.
+- `goal-tile.css .gtile{ border-color }` in the structure block, beaten by the colour block. That
+  is the stage-08 split working, and every file header says so.
+- `qa-item.css .qaitem .qans{ padding-left }`, same shape.
+- `blog-card.css .blogcard .bim{ background-image }` - 36 matches, 0 wins, beaten by three
+  `:nth-child` photographs. It is a fallback, and it is what a fourth blog card would get.
+
+### `.frange` - 22 declarations, and the file was arguing with itself
+
+The grey prototype draws a price range as a PICTURE: a 4px track with two 12px dots pinned at
+18% and 26%, nothing draggable. The coloured product has a real one - `design/_nav.js:711
+uivPriceSlider()` builds a dual-thumb input, `price-slider.css` dresses it - and the way this
+file got out of the way was to write two more rules that switch its own drawing off:
+
+```
+.frange.uiv-slider::before, .frange.uiv-slider::after { content: none; display: none }
+.frange.uiv-slider { background: none; border-radius: 0 }
+```
+
+**Measured, and one number in my own first reading was wrong.** I read 28 matches as «14 pages x
+2 widths, one bar per page». It is **7 listing screens x 2 widths x TWO bars** - the desktop rail
+and the mobile sheet, and both are built at load, which is why the upgrade catches both. Checked
+directly at 360, 390 and 1280, at rest and with the sheet open: **every `.frange` in the product
+carries `uiv-slider`, always, and none of them ever renders as itself.**
+
+Computed on all of them before the deletion: `::before` and `::after` at `content: none /
+display: none`, `border-radius: 0px`, background `rgba(0,0,0,0)`, and height, margin and
+position won by `price-slider.css`. Both halves removed - the drawing and the eraser.
+`wireframes/_wf.css` keeps its copy, because there the picture IS the control.
+
+**The rule:** a component either draws a thing or hands it to someone else. A line that cancels
+its own line a few rows down is not a setting, it is the trace of a move that was not finished.
+
+---
+
+## Step 7.76: the look of a box lived in a script, and the stylesheet read as false
+
+**Who asked for it:** the 7.75 census - `desc-block.css .pd-img` matched 16 times and lost eight
+properties to `INLINE`.
+
+### Five inline properties, one of them data
+
+`design/_nav.js` wrote all five onto every `.pd-img`:
+
+| inline wrote | the stylesheet said | what it was |
+|---|---|---|
+| `borderStyle: solid` | `border: 1px solid var(--line-hair)` | repeat |
+| `backgroundPosition: center` | `background: ... center ...` | repeat |
+| `backgroundRepeat: no-repeat` | `background: ... no-repeat` | repeat |
+| `backgroundSize: auto 84%` | `background: ... center/**contain** ...` | **contradiction** |
+| `backgroundImage: url(...)` | - | data |
+
+The fourth row is why this is a finding and not tidying. **`contain` never drew, on any screen,
+and it read as the truth**: anyone opening `desc-block.css` saw «fit the box», and the box has
+always been 84% of its own height. An inline style is invisible to the stylesheet that claims to
+own the element, and the person reading the stylesheet cannot see the inline.
+
+Four properties moved into `desc-block.css` unchanged; the script keeps the one thing a script
+is the right place for. **The test, written into section G:** is the inline value DATA - something
+the stylesheet cannot know - or is it LOOK? The gallery's four crops of one photograph are data
+and stay. These four were look.
+
+The reason for 84% moved with it, because it is a design reason and it was living in a comment
+in a behaviour file: the product renders ship with studio air around them, and filling the box
+edge to edge crops that away. Same for the white floor.
+
+### The paragraph was declared twice, at three specificities
+
+```
+.pd-tx        { line-height: var(--lh-airy) }             /* structure */
+.pdesc .pd-tx { font-size: 16; line-height: var(--lh-airy) }   /* colour */
+.pd-tx        { font-size: 16; color: var(--text-body) }       /* colour */
+```
+
+The middle rule at (0,2,0) outranked both neighbours and **said nothing either of them was not
+already saying**. Two declarations won, two died, no pixel depended on it - and the file read as
+though the description text were styled in two places. Removed; 16 elements on two screens,
+16px / 1.7 before and after.
+
+### `.pd-block`: eight in the markup, zero rules in the system
+
+The wrapper is genuinely needed - it is the flex item that `.pdesc` puts 32 between - but the
+NAME is read by nobody. Filed under B3 with `.loadmore`, for the rename pass after stage 09.
+
+---
+
+## Step 7.77: the third declaration belonged to the finish, and the note about it was false
+
+**Who asked for it:** the 7.75 census - `pagination.css .pages a.on{ border-color }` and its
+`button.on` twin, 10 matches, 0 wins.
+
+### `button.css:503` was already drawing it
+
+Every pager item in the product is `btn--outline btn--icon btn--s on`. `.btn--outline.btn--icon.on`
+is (0,3,0) against `.pages a.on`'s (0,2,1), so the finish wins the border everywhere - with the
+identical value, which is why nothing ever looked wrong. Removed from `pagination.css`; the fill
+and the ink on it stay, because those really are the pager's own.
+
+**The worse half of this is not the declaration.** `button.css` carried a sentence above that
+rule: «the pager keeps its own `.on` and **does not read this rule**». It reads it and is drawn
+by it. A dead declaration costs a line; **a false note costs the next step that trusts it** - and
+this pass has now been slowed four separate times by its own stale record. Corrected in place,
+with the measurement.
+
+### `margin-left: 0` was restating the initial value
+
+`qa-item.css .qaitem .qans` carried it. Nothing in the system gives `.qans` a left margin: the
+grey indents with `padding-left: var(--space-16)`, and the colour block replaces that with 12 on
+four sides. The line was undoing something nobody did.
+
+This is a different mistake from the ones the 7.69 broom swept. There, a line repeated a
+NEIGHBOURING line, and comparing two blocks of a file finds it. Here the line repeats **the
+property's initial value**, and no file comparison will ever show it: it wins a contest with no
+other entrant. Measured before and after on both screens: `margin: 8px 0px 0px`.
+
+### Four stands, and the showcase goes 14 -> 18 of 27 molecules
+
+`filter-group.html`, `desc-block.html`, `pagination.html`, `qa-item.html`. All four walked at
+360, 390, 720 and 1280: no sideways scroll, no exceptions, and the idle self-check on each says
+every class of its file is rendered in a demo.
+
+**One of them did not show its component and the walk did not catch it - the eye did.** The
+`.pd-img` boxes on `desc-block.html` came out empty: `uivPdp()` roots itself at `main.wf-page`
+and a stand is `main.kp-main`, the same wall `spec-table.html` and `trust-strip.html` already
+describe. The stand now repeats the one line it needs, reading the SAME `UIV_PDP_DESC` the
+product reads, and setting ONLY the image - if it pasted the four look properties too, the stand
+would be showing its own edition of exactly what 7.76 removed.
+
+### Acceptance, and the sweep's own guard grew a third time
+
+356 page x width pairs: **no sideways scroll, 0 heights moved.** Three census passes: **null 0,
+difference 0**, 215 452 elements a side.
+
+**A zero that had to be earned twice.** The census digests 50 properties and `background-size`,
+`background-position`, `background-repeat`, `border-style` and pseudo-element `content` are not
+among them - that is, exactly what 7.75 and 7.76 moved. A zero diff proved nothing about them,
+so a second instrument asked for those properties directly, on both servers, ten cases across
+four components and three widths.
+
+**And that instrument returned a green «all 10 identical» while measuring nothing.** Its
+expression had `return` alone at the end of a line: automatic semicolon insertion made every
+probe return `undefined`, and the comparison compared `null` to `null`. Fixed and re-run with the
+values printed beside each verdict. Third time this pass that a harness has produced a clean
+result from a broken measurement, after the substring deletion at 7.69 and the dead baseline at
+7.71 - **and the only reason it was caught is the habit of printing the value next to the
+verdict.**
+
+The first acceptance run also reported five account screens shrinking at 360, for a step that
+touches no account screen. Re-read three times a side with a 1200ms settle: identical - the 380ms
+pass had caught `account.html` at 2954 before its photographs landed and at 4545 after, on the
+SAME server. **The sweep now re-reads every moved row at 1200ms before reporting it**, which buys
+certainty about the dozen rows that need it without paying ten minutes for the seven hundred that
+do not.
+

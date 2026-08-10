@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Група фільтра | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Група фільтра</h1>
+<p class="kp-lead">Один розділ рейки каталогу: заголовок, який згортає, і те, що під ним. Найгустіший компонент продукту за кількістю - 140 груп і 350 опцій на семи екранах каталогу. І всередині нього файл малював смугу ціни, а потім сам її стирав.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/filter-group.css</span><span class="kp-tag">99 рядків</span><span class="kp-tag">18 селекторів</span><span class="kp-tag">27 оголошень</span><span class="kp-tag">7 екранів</span><span class="kp-tag">140 груп</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що будує <code>wireframes/_nav.js</code> для десктопної рейки і для мобільного аркуша: <b>одне джерело на два місця</b>, тому телефон ніколи не розходиться з десктопом.</p>
+<div class="kp-demo" style="max-width:280px">
+  <div class="fgroup"><div class="fh">Наявність <span class="ar">▾</span></div>
+    <label class="fopt"><span class="cb on"></span> В наявності <span class="ct">71</span></label>
+    <label class="fopt"><span class="cb"></span> Під замовлення <span class="ct">13</span></label>
+  </div>
+  <div class="fgroup"><div class="fh">Ціна, ₴ <span class="ar">▾</span></div>
+    <div class="frange"></div>
+    <div class="frow"><span class="in">800</span><span class="in">1500</span></div>
+  </div>
+  <div class="fgroup"><div class="fh">Бренд <span class="ar">▾</span></div>
+    <label class="fopt"><span class="cb"></span> Optimum Nutrition <span class="ct">12</span></label>
+    <label class="fopt"><span class="cb"></span> BioTechUSA <span class="ct">9</span></label>
+    <label class="fopt"><span class="cb"></span> Myprotein <span class="ct">7</span></label>
+    <button type="button" class="btn--text fmore">+ ще 11 ▾ · пошук бренду</button>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Шапка</b> <code>.fh</code> - 14/700, стрілка <code>.ar</code> приглушена. Уся шапка це контрол: <code>role="button"</code> і <code>aria-expanded</code> дає <code>design/_nav.js</code> з кроку 7.34, до того панель була недосяжна з клавіатури</span></div>
+  <div class="a"><i>2</i><span><b>Опція</b> <code>.fopt</code> - рядок з прапорцем. Сам прапорець тут не оголошений: квадрат, галочка, ховер, натиск і кільце живуть у <code>checkbox.css</code> з кроку 7.38. Цей файл каже тільки ритм - 12 між опціями</span></div>
+  <div class="a"><i>3</i><span><b>Лічильник</b> <code>.ct</code> - <code>margin-left: auto</code> притискає цифру до правого краю. Це розкладка рядка, а не властивість лічильника, тому вона тут, а не в <code>counter.css</code></span></div>
+  <div class="a"><i>4</i><span><b>Ціна</b> - справжній повзунок із двома ручками. Він не з цього файлу: <code>design/_nav.js</code> будує його, <code>price-slider.css</code> одягає. Спробуйте потягнути</span></div>
+  <div class="a"><i>5</i><span><b>Ще</b> <code>.fmore</code> - 12/вторинний. Не приглушений: приглушений відтінок у цій системі носить <b>вимкнений</b> контрол, а цей живий</span></div>
+</div>
+<p class="kp-p"><b>Це рейка експерта.</b> Тренер знає, що йому потрібно, і йому треба звузити 84 товари до восьми за три дотики - тому групи розгорнуті одразу, а не приховані за акордеоном. Аудиторія <code>primary</code> вирішує.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Смуга, яку файл малював і сам же стирав</div>
+<div class="kp-code">.frange { height: 4px; border-radius: 4px; margin: 16px 2px 8px; position: relative }
+.frange::before, .frange::after { content: ''; width: 12px; height: 12px; ... }
+.frange::before { left: 18% }   .frange::after { right: 26% }
+.frange { background: var(--bg-track) }
+.frange::before, .frange::after { background: var(--bg-action) }
+.frange.uiv-slider::before, .frange.uiv-slider::after { content: none; display: none }
+.frange.uiv-slider { background: none; border-radius: 0 }</div>
+<p class="kp-p">Сім правил, і останні два існували тільки щоб скасувати перші п'ять. Сірий прототип малює повзунок <b>картинкою</b>: смужка і дві крапки, прибиті на 18% і 26%, нічого не тягнеться. У кольорі повзунок справжній, тож файл дописав рядки, які гасять картинку - замість того щоб її не малювати.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Заміряно в браузері до видалення</th><th>Значення</th></tr></thead><tbody>
+<tr><td><code>.frange</code> у кольоровому продукті</td><td><b>14</b> - по дві на кожен із 7 екранів каталогу</td></tr>
+<tr><td>скільки з них лишились <code>.frange</code></td><td><b>0</b>. Усі 14 несуть <code>uiv-slider</code></td></tr>
+<tr><td>обидві рейки будуються</td><td>на завантаженні, тож апгрейд застає обидві</td></tr>
+<tr><td><code>::before</code> / <code>::after</code></td><td><code>content: none</code> · <code>display: none</code></td></tr>
+<tr><td><code>border-radius</code> · фон</td><td><code>0px</code> · <code>rgba(0, 0, 0, 0)</code></td></tr>
+<tr><td>висота, поля, <code>position</code></td><td>виграє <code>price-slider.css .uiv-slider</code></td></tr>
+<tr><td>оголошень, що не доходять до пікселя</td><td><b>22</b></td></tr>
+</tbody></table></div>
+<p class="kp-p">Пішли обидві половини - і малюнок, і гумка. Сірий прототип свою копію зберігає в <code>wireframes/_wf.css</code>, бо там картинка і <b>є</b> контрол.</p>
+<div class="kp-do"><h4>Правило</h4><b>Компонент або малює річ, або віддає її іншому - третього немає.</b> Рядок, що гасить власний рядок кількома лініями нижче, це не налаштування, це слід від переїзду, який не довели до кінця.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що з цього файлу вже поїхало</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Крок</th><th>Що</th><th>Куди і чому</th></tr></thead><tbody>
+<tr><td>7.28</td><td>колір волосини</td><td>читав <code>--bg-skeleton</code> - фон замість лінії. Обидва це <code>--warm-200</code>, тож нуль пікселів; одне ім'я перестало брехати</td></tr>
+<tr><td>7.34</td><td>кільце фокуса</td><td>з'явилось уперше: до того обидва контроли панелі були недосяжні, і питання, який тут вигляд у фокуса, просто не виникало</td></tr>
+<tr><td>7.38</td><td>прапорець</td><td>у <code>checkbox.css</code>. Файл переписував атом на ім'я класу (<code>.fopt .cb</code>), через що кожне оголошення самого атома було мертвим - і тут лежала <b>друга</b> мертва редакція поверх</td></tr>
+<tr><td>7.75</td><td>смуга ціни</td><td>у <code>price-slider.css</code>, де вона й була. Розібрано вище</td></tr>
+</tbody></table></div>
+<p class="kp-p">Файл почав із 80 рядків і чотирьох чужих компонентів усередині. Лишились три речі, які справді його: <b>межа групи, ритм опцій і розкриття</b>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Кільце йде на рядок, а не на квадрат</div>
+<div class="kp-demo" style="max-width:280px">
+  <div class="fgroup"><div class="fh" role="button" tabindex="0" aria-expanded="true">Ціль <span class="ar">▾</span></div>
+    <label class="fopt"><span class="cb on"></span> Набір маси <span class="ct">52</span></label>
+    <label class="fopt"><span class="cb"></span> Схуднення <span class="ct">23</span></label>
+  </div>
+</div>
+<div class="kp-cap">натисніть Tab: спершу шапка, далі кожна опція. Кільце обводить увесь рядок</div>
+<p class="kp-p">Контрол це <b>увесь ярлик</b>: він бере крок табуляції, він відповідає на пробіл, у нього влучає палець. Кільце навколо самого квадрата сказало б, що ціль це квадрат, а слова поруч - оздоблення, і це протилежне до правди. Радіус <code>--radius-4</code> повторює квадрат, навколо якого рядок побудований. <code>:focus-visible</code>, а не <code>:focus</code>, щоб миша не запалювала кільце - той самий рядок тримають чип, кнопка, поле, радіо і посилання.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>групи розділені волосиною, всі розгорнуті</td><td>рейка експерта: фільтри видно одразу, а не за акордеоном</td></tr>
+<tr><td><b>остання група</b></td><td><code>:last-child</code> знімає нижню лінію</td><td>лінія в кінці відрізала б рейку від краю панелі</td></tr>
+<tr><td><b>наведення на шапку</b></td><td>текст і стрілка беруть акцентний колір</td><td>натискається вся шапка, тож підсвічується вся шапка</td></tr>
+<tr><td><b>згорнуто</b></td><td><code>.collapsed</code>: стрілка на 180°, вміст сховано</td><td>селектор <code>&gt; *:not(.fh)</code> - ховається все, крім шапки, і групі не треба знати, що саме всередині</td></tr>
+<tr><td><b>фокус на шапці</b></td><td>кільце <code>--ring-focus-control</code></td><td><code>:focus-visible</code>, розібрано вище</td></tr>
+<tr><td><b>ціна</b></td><td>дві ручки, помаранчева заливка між ними</td><td>не цього файлу: <code>price-slider.css</code></td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Кожна опція називає, скільки за нею стоїть.</b> «В наявності 71» - це не оздоблення, це те, що дає натиснути впевнено: видно, скільки лишиться. Тренер відсіює 84 до восьми, не гадаючи.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не ховай групи за акордеон, щоб рейка виглядала коротшою.</b> Згортання тут - вибір людини, а не стан за замовчуванням. Коротка рейка, у якій нічого не видно, економить піксель і коштує дотику.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>6</b> власних класів і <b>4</b> стани оголошено в <code>filter-group.css</code>.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["ar","ct","fgroup","fh","fmore","fopt"], KIT_STS=[":last-child",":hover",":focus-visible",".collapsed"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>filter-group.css</code>: <b>6</b> семантичних ролей і <b>7</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (7)</th></tr></thead><tbody><tr><td><code>--line-hair</code> <code>--ring-focus-control</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fw-bold</code> <code>--radius-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу лишилось <b>одне</b> число - <code>1px</code> волосини. До 7.75 їх було сім: <code>4px</code> висоти, <code>-4px</code> зсуву, двічі <code>12px</code> на крапку, <code>18%</code> і <code>26%</code> їхніх позицій - шість чисел, і всі шість належали смузі, якої тут більше немає.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Три проходи по 40 екранах на чотирьох ширинах: HEAD, HEAD ще раз і робоче дерево. <b>Нульовий прохід 0, різниця 0</b>, 215 452 елементи з кожного боку.</p>
+<p class="kp-p">Перепис не заміряє <code>content</code> псевдоелемента, тож нуль тут нічого не довів би сам по собі. Заміряно окремо, на обох серверах: <code>.frange</code> на трьох екранах - геометрія, поля, радіус, фон і обидва псевдоелементи <b>однакові</b> до і після.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Стан «нічого не знайдено за фільтром»</b> - є <code>listing-empty.html</code>, але рейка на ньому виглядає так само, і жоден фільтр не позначений як той, що обнулив видачу</li>
+<li><b>Скидання фільтрів</b> - у рейці немає «Очистити». Опції вмикаються, і жодного одного дотику, щоб вимкнути всі</li>
+<li><b>Пошук бренду</b> - <code>.fmore</code> обіцяє «+ ще 11 · пошук бренду», і поля пошуку в коді немає</li>
+<li><b>Числа біля опцій</b> статичні: 71, 13, 12, 9 не перераховуються, коли ввімкнено інший фільтр</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

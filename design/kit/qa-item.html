@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Запитання | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Запитання</h1>
+<p class="kp-lead">Питання покупця і відповідь магазину, одне під одним. Дві репліки в одному списку, і весь компонент - це спосіб показати, що голоси різні, не роблячи з цього чат.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/qa-item.css</span><span class="kp-tag">27 рядків</span><span class="kp-tag">5 селекторів</span><span class="kp-tag">13 оголошень</span><span class="kp-tag">2 екрани</span><span class="kp-tag">4 пари</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>product.html</code>, разом із заголовком секції над нею.</p>
+<div class="kp-demo">
+  <div class="sech"><h2>Питання</h2><button class="btn--text all" type="button">＋ Поставити запитання</button></div>
+  <div class="qaitem">
+    <div class="qq">Чи підходить для схуднення?</div>
+    <div class="qans"><b>Магазин:</b> так, як джерело білка при дефіциті калорій. Для схуднення краще ізолят - підкажемо в чаті.</div>
+  </div>
+  <div class="qaitem">
+    <div class="qq">Скільки порцій виходить з банки 2270 г?</div>
+    <div class="qans"><b>Магазин:</b> ~72 порції по 30 г.</div>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Пара</b> <code>.qaitem</code> - волосина згори і 16 повітря. Не картка: список питань це список, а не колода карток, і найтонше, що є в системі, тут доречніше за межу</span></div>
+  <div class="a"><i>2</i><span><b>Питання</b> <code>.qq</code> - 16/700, <code>--text-primary</code>. Найтемніше чорнило системи, бо це те, що шукають очима, коли гортають</span></div>
+  <div class="a"><i>3</i><span><b>Відповідь</b> <code>.qans</code> - 14, поверхня, скошений правий кут і <b>помаранчева грань 2px зліва</b></span></div>
+  <div class="a"><i>4</i><span><b>«Магазин:»</b> - жирним усередині відповіді. Це не стиль, це підпис: видно, хто відповідає, ще до першого слова відповіді</span></div>
+</div>
+<p class="kp-p"><b>Робота 4, довіра.</b> Початківець боїться помилитись із дозуванням і побічними; питання інших покупців - це те саме сумнівання вголос, а відповідь магазину - те, чого немає в таблиці складу. Принцип 1: спершу зняти сумнів, потім продавати.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Грань замість другої бульбашки</div>
+<div class="kp-code">.qaitem .qans { border-left: 2px solid var(--line-action);
+                background: var(--bg-surface);
+                border-radius: 0 8px 8px 0 }</div>
+<p class="kp-p">Два голоси в одному списку потребують видимого шва. Тут це <b>2px лінії</b>, а не друга бульбашка з іншим фоном і не аватарка: за принципом 4 сторінка лишається спокійною, а не перетворюється на переписку. Радіус нульовий зліва і 8 справа - коробка ніби виїжджає з-під грані, а не стоїть окремим елементом.</p>
+<p class="kp-p">Помаранчевий тут <b>не заклик до дії</b>, і це єдине місце системи, де акцентний колір носить лінія без кнопки поруч. Дозволено тому, що це не текст: <code>DESIGN-artifacts.md</code> тримає акцент на тексті від 19px жирного, а межа під це правило не підпадає. Заливка відповіді - <code>--bg-surface</code>, тепла поверхня, і чорнило на ній звичайне <code>--text-body</code>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Оголошення початкового значення</div>
+<div class="kp-code">/* було */
+.qaitem .qans { ... padding: 12px 12px; margin-left: 0 }</div>
+<p class="kp-p"><code>margin-left: 0</code> не повторювало інше правило - воно повторювало <b>значення за замовчуванням</b>. Ніщо в системі не дає <code>.qans</code> лівого поля: сірий прототип відсуває відповідь через <code>padding-left: 16</code>, а рядок нижче замінює той відступ на 12 з чотирьох боків. Тобто оголошення скасовувало те, чого ніхто не робив.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Заміряно в браузері</th><th>До</th><th>Після</th></tr></thead><tbody>
+<tr><td><code>margin</code></td><td><code>8px 0px 0px</code></td><td><code>8px 0px 0px</code></td></tr>
+<tr><td><code>padding</code></td><td><code>12px</code></td><td><code>12px</code></td></tr>
+<tr><td>ширина на 1280 / 360</td><td>1032 / 328</td><td>1032 / 328</td></tr>
+</tbody></table></div>
+<p class="kp-p">Це трохи інша помилка, ніж ті, що змітала мітла 7.69. Там рядок повторював <b>сусідній рядок</b> - і його можна знайти, порівнявши два блоки файлу. Тут рядок повторював <b>початкове значення властивості</b>, і жодне порівняння файлів його не покаже: він виграє змагання, у якому більше нікого немає.</p>
+<div class="kp-do"><h4>Правило</h4><b>Оголошення має або щось змінити, або щось перебити.</b> Якщо воно не робить ні першого, ні другого, воно не «про всяк випадок» - воно шум, у якому наступного разу загубиться справжній рядок.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що звідси видно про сусідів</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Звідки</th><th>Чому не тут</th></tr></thead><tbody>
+<tr><td>заголовок «Питання» і «＋ Поставити запитання»</td><td><code>section-head.css</code></td><td>заголовок секції однаковий на десятьох екранах; питання - лише на двох</td></tr>
+<tr><td>кнопка «Поставити запитання»</td><td><code>button.css</code>, фініш <code>btn--text</code></td><td>текстова кнопка всередині рядка - одна декларація на весь продукт</td></tr>
+<tr><td>«Показати ще відгуки»</td><td><code>pagination.css</code></td><td>сусідня секція, не ця</td></tr>
+</tbody></table></div>
+<p class="kp-p">Файлу лишається рівно три речі: <b>шов між парами, кегль питання і вигляд відповіді</b>. Тринадцять оголошень на компонент, який на екрані займає пів висоти телефона.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
+<tr><td><b>спокій</b></td><td>питання, під ним відповідь із гранню</td><td>єдиний стан, який у компонента є</td></tr>
+<tr><td><b>перша пара</b></td><td>волосина згори лишається</td><td>вона відділяє список від заголовка секції, а не пари одна від одної</td></tr>
+<tr><td><b>наведення</b></td><td><b>немає</b></td><td>тут нема на що натискати: питання не розгортається, відповідь не ховається</td></tr>
+<tr><td><b>фокус</b></td><td><b>немає</b></td><td>жодного контрола всередині пари. Кнопка «поставити запитання» стоїть у заголовку секції</td></tr>
+<tr><td><b>без відповіді</b></td><td><b>немає</b></td><td>питання, на яке ще не відповіли, у коді не передбачене. Записано нижче</td></tr>
+</tbody></table></div>
+<p class="kp-p">Жодного стану - як і в блока опису, і з тієї самої причини: це текст, а не контрол.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Відповідь підписана.</b> «Магазин:» стоїть першим словом, а не дрібним підписом знизу: читач мусить знати, чий це голос, ще до того, як почав читати зміст.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з цього чат.</b> Ні аватарок, ні часу відповіді, ні «онлайн». Живий чат і консультації - поза MVP, і виглядати так, ніби вони є, гірше, ніж не мати їх зовсім.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власні класи, станів у файлі не оголошено жодного.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["qaitem","qans","qq"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>qa-item.css</code>: <b>5</b> семантичних ролей і <b>7</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (7)</th></tr></thead><tbody><tr><td><code>--bg-surface</code> <code>--line-action</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-primary</code></td><td><code>--fs-14</code> <code>--fs-16</code> <code>--fw-bold</code> <code>--radius-8</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу два числа: <code>1px</code> волосини і <code>2px</code> грані. Обидва - товщини ліній, і шкали товщин у системі немає. Заміряно: роль <code>--line-hair</code> читають <b>178</b> рядків системи, а <code>2px solid</code> написано <b>12</b> разів у <b>10</b> файлах. Кандидат на пару токенів, рішення - етап 09.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">A/B</div>
+<p class="kp-p">Три проходи по 40 екранах на чотирьох ширинах: HEAD, HEAD ще раз і робоче дерево. <b>Нульовий прохід 0, різниця 0</b>, 215 452 елементи з кожного боку.</p>
+<p class="kp-p">Плюс окремий замір <code>.qans</code> на двох ширинах: поле, відступ, товщина й колір грані та ширина коробки - однакові до і після.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Питання без відповіді</b> - «магазин ще не відповів» не має ні вигляду, ні тексту</li>
+<li><b>Відповідь від покупця</b> - на такі питання часто відповідають інші покупці, і другий голос підписаний не «Магазин:» у системі не передбачений</li>
+<li><b>Стан «питань ще немає»</b> - у нового товару секція порожня, і хто її ховає, у коді не сказано</li>
+<li><b>Форма «Поставити запитання»</b> - кнопка є, діалог за нею в кольорі не побудований</li>
+<li><b>Дата питання</b> - у відгуку вона є, тут ні, і незрозуміло, це рішення чи недогляд</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
+      '</b>.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
+      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
+        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

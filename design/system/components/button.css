@@ -493,10 +493,18 @@
    and FILLS itself, and the outline finish couples its border to that ink
    exactly as it already does on hover.
 
-   The pager keeps its own `.on` and does not read this rule: there «engaged»
-   means «you are standing on this page», which is a filled square, not a
-   filled mark. One class name, two meanings - a rename that belongs to the
-   grey layer, logged in consolidation.md. */
+   The pager means something else by `.on` - «you are standing on this page»,
+   which is a filled square, not a filled mark - so it declares its own fill and
+   its own ink, and those two beat this rule on specificity. One class name, two
+   meanings; a rename that belongs to the grey layer, logged in consolidation.md.
+
+   7.77: the sentence here used to read «the pager keeps its own `.on` and does
+   not read this rule», and that was false in a third. The pager's items ARE
+   `btn--outline btn--icon btn--s on`, so the border line below matches them and
+   wins - `.btn--outline.btn--icon.on` is (0,3,0) against `.pages a.on`'s (0,2,1)
+   - and pagination.css was restating a border it never drew. The restatement is
+   gone from there; the border of an engaged pager comes from here, like the
+   border of every other engaged outline button. */
 .btn--icon.on, .btn--text.on{ color: var(--text-action); }
 .btn--icon.on .uiv-ic svg, .btn--text.on .uiv-ic svg{
   fill: currentColor; stroke: currentColor; }
