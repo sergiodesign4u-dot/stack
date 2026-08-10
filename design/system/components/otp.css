@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 1 line here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .otp{ display: flex; margin: var(--space-4) 0 var(--space-8); }
@@ -16,7 +20,7 @@
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .otp{ gap:var(--space-8); }
-.otp .box{ height:60px; border-color:var(--line-strong); border-radius:var(--radius-12); color:var(--text-body);
+.otp .box{ height:60px;  border-radius:var(--radius-12); color:var(--text-body);
   font-family:var(--font-mono); font-size:var(--fs-24); font-weight:var(--fw-semibold);
   transition:border-color .15s ease, box-shadow .15s ease, background .15s ease; }
 .otp .box.on{ border-color:var(--line-inverse); background:var(--bg-page); }

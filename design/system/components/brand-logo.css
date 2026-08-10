@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 1 line here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .brandrow{ display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-12); }
@@ -12,7 +16,7 @@
 .brandbox{ border: 1px solid var(--line-hair); height: 62px; display: flex; align-items: center; justify-content: center; font-weight: var(--fw-bold); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.brandbox{ border-color:var(--line-hair); border-radius:var(--radius-12); background:var(--bg-page); color:var(--text-secondary);
+.brandbox{  border-radius:var(--radius-12); background:var(--bg-page); color:var(--text-secondary);
   font-size:var(--fs-14); padding:var(--space-12) var(--space-16); transition:border-color .15s ease, color .15s ease; }
 .brandbox:hover{ border-color:var(--line-action); color:var(--text-body); }
 .brandbox img{ max-width:100%; max-height:34px; object-fit:contain; filter:grayscale(1); opacity:.86;

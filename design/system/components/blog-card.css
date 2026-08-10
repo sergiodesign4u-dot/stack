@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 1 line here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .blogrow{ display: grid; grid-template-columns: 1fr; gap: var(--space-12); }
@@ -15,7 +19,7 @@
 .blogcard .bdt{ font-size: var(--fs-12); margin-top: var(--space-8); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.blogcard{ border-color:var(--line-hair); border-radius:var(--radius-12); background:var(--bg-page); box-shadow:var(--elevation-1);
+.blogcard{  border-radius:var(--radius-12); background:var(--bg-page); box-shadow:var(--elevation-1);
   transition:transform .15s ease, box-shadow .15s ease; }
 .blogcard:hover{ transform:translateY(-2px); box-shadow: var(--elevation-2); }
 .blogcard .bim{ background:var(--bg-sunken) center/cover no-repeat; height:158px; }

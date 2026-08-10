@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 12 lines here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .pfcard{ border: 1px solid var(--line-hair); padding: var(--space-16); margin-top: var(--space-16); max-width: 620px; }
@@ -43,7 +47,17 @@
    of the whole page. Above 900 the two-column rule already said minmax(0,1fr);
    the one-column rule did not, and that is where the 360 scroll came from. */
 .co-grid{ display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-24); }
-@media (min-width: 900px){
+/* 7.70: 900 -> 860, and it is 7.64's own rule applied to the one case it
+   skipped. That step folded `order-row`'s 820 into 860 because a boundary used
+   by ONE file with a set member 40px away is not a decision, it is a number
+   somebody typed; 900 is one file, four declarations and the same 40px on the
+   other side. Measured before folding, at 860 / 870 / 880 / 899 on all five
+   checkout screens: no sideways scroll, nothing newly clipped (the three hits
+   the detector reports are present at 900 and at 1024 too, so they are not the
+   fold's), and the form column comes out 444 against the money box's fixed 360.
+   The band gets SHORTER, by 410 to 584px depending on the screen, because that
+   is what a second column is for. */
+@media (min-width: 860px){
   .co-grid{ grid-template-columns: minmax(0, 1fr) 360px; align-items: start; }
 }
 .co-sec{ border: 1px solid var(--line-hair); margin-bottom: var(--space-16); }
@@ -104,7 +118,7 @@
 .co-upsell-h{ margin-bottom: var(--space-4); }
 .co-upsell-s{ font-size: var(--fs-14); margin-bottom: var(--space-16); }
 .co-money{ border: 1px solid var(--line-hair); }
-@media (min-width: 900px){
+@media (min-width: 860px){
   .co-money{ position: sticky; top: 78px; }
 }
 .co-money-h{ margin-bottom: var(--space-12); }
@@ -187,7 +201,6 @@
    The rule now lives in design/_stand.css, which is the only file that knows
    whether a harness is there. */
 .smeths{ margin-bottom:var(--space-24); }
-.co-head{ border-bottom-color:var(--line-hair); }
 .co-logo{ font-family:var(--font-display); font-weight:var(--fw-bold); color:var(--text-body); letter-spacing:var(--ls-display);
   display:inline-flex; align-items:baseline; gap:.2em; line-height:var(--lh-flat); }
 .co-logo::before{ content:""; flex:none; height:1.0125em; width:.863em;
@@ -197,7 +210,7 @@
   color:var(--text-body); word-spacing:-.1em; }
 .co-h1{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-30); letter-spacing:var(--ls-lead); color:var(--text-body);
   margin:var(--space-24) 0 var(--space-16); }
-.co-sec{ border-color:var(--line-hair); border-radius:var(--radius-12); padding:var(--space-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.co-sec{  border-radius:var(--radius-12); padding:var(--space-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
 .co-sec-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-20); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .co-sec-h .num{ background:var(--bg-inverse); font-family:var(--font-mono); font-weight:var(--fw-semibold); font-size:var(--fs-12); }
 .co-sec-h .cnt{ font-weight:var(--fw-medium); font-size:var(--fs-14); }   /* face + colour -> counter.css, 7.37 */
@@ -211,7 +224,6 @@
 .co-me .mn{ font-size:var(--fs-16); color:var(--text-body); }
 .co-me .md{ color:var(--text-secondary); font-family:var(--font-mono); font-size:var(--fs-14); }
 /* step 6.3: local edition of the outline hover deleted - the finish has it. */
-.co-line{ border-top-color:var(--line-hair); }
 .co-line .li-img{ background:var(--bg-page) center/86% no-repeat; border:1px solid var(--line-hair); border-radius:var(--radius-8); color:transparent; }
 .co-line:nth-of-type(3n+1) .li-img{ background-image:url(../../visuals/product-whey.png); }
 .co-line:nth-of-type(3n+2) .li-img{ background-image:url(../../visuals/product-creatine.png); }
@@ -239,9 +251,9 @@
 .co-noaddr .uiv-ic{ flex:none; color:var(--text-warning); margin-top:var(--space-2); }
 .co-noaddr .uiv-ic svg{ width:17px; height:17px; }
 .co-cmt-lbl{ color:var(--text-body); }
-.co-money{ border-color:var(--line-hair); border-radius:var(--radius-12); padding:var(--space-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.co-money{  border-radius:var(--radius-12); padding:var(--space-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
 .co-money-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-20); letter-spacing:var(--ls-lead); color:var(--text-body); }
-.co-bonus{ background:var(--bg-surface); border-color:var(--line-hair); border-radius:var(--radius-12); }
+.co-bonus{ background:var(--bg-surface);  border-radius:var(--radius-12); }
 .co-bonus .bl{ color:var(--text-body); }
 .co-bonus .bv{ font-family:var(--font-mono); font-weight:var(--fw-bold); font-size:var(--fs-16);
   color:var(--text-bonus); word-spacing:-.1em; }
@@ -253,7 +265,6 @@
 .co-brow b{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
   font-weight:var(--fw-semibold); color:var(--text-body); word-spacing:-.16em; }
 .co-brow .disc{ color:var(--text-secondary); }
-.co-total{ border-top-color:var(--line-hair); }
 .co-total .tl{ font-size:var(--fs-16); color:var(--text-body); }
 .co-total .tv{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
   font-weight:var(--fw-bold); font-size:var(--fs-30); color:var(--text-body); word-spacing:-.24em; }
@@ -270,24 +281,23 @@
 .co-upsell-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-20); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .co-upsell-s{ color:var(--text-secondary); }
 .co-upsell .pcard.added .cartbtn .uiv-ic svg{ width:19px; height:19px; }
-.co-foot{ background:var(--bg-surface); border-top-color:var(--line-hair); }
+.co-foot{ background:var(--bg-surface); }
 .co-foot-in{ color:var(--text-muted); }
 .co-err-box{ border-color:var(--line-hair); border-radius:var(--radius-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
 .co-err-mark{ border-color:var(--line-danger); color:var(--text-danger); }
 .co-err-mark .uiv-ic svg{ width:var(--size-26); height:var(--size-26); }
 .co-err-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .co-err-s{ color:var(--text-secondary); }
-.co-keep{ background:var(--bg-surface); border-color:var(--line-hair); border-radius:var(--radius-12); }
+.co-keep{ background:var(--bg-surface);  border-radius:var(--radius-12); }
 .co-keep-h{ font-family:var(--font-mono); font-weight:var(--fw-medium); letter-spacing:var(--ls-eyebrow); color:var(--text-muted); }
 .co-keep .kr{ color:var(--text-secondary); }
 .co-keep .kr b{ font-family:var(--font-mono); font-weight:var(--fw-semibold); color:var(--text-body); word-spacing:-.16em; }
-.co-keep .kr.tot{ border-top-color:var(--line-hair); }
 .co-keep .kr.tot .kv{ font-family:var(--font-mono); font-weight:var(--fw-bold); font-size:var(--fs-20);
   color:var(--text-body); word-spacing:-.2em; }
 .co-keep .knote{ color:var(--text-muted); }
 .co-help{ color:var(--text-muted); }
-.co-proc-box{ border-color:var(--line-hair); border-radius:var(--radius-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
-.co-spin{ border-color:var(--line-hair); border-top-color:var(--line-action); animation:uivspin .9s linear infinite; }
+.co-proc-box{  border-radius:var(--radius-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.co-spin{  border-top-color:var(--line-action); animation:uivspin .9s linear infinite; }
 @media (prefers-reduced-motion:reduce){
   .co-spin{ animation:none; }
 }
@@ -296,7 +306,7 @@
 /* step 7.28: the ground moved with the shape, into skeleton.css. */
 .co-proc-note{ color:var(--text-muted); }
 .co-proc-note .uiv-ic svg{ width:14px; height:14px; vertical-align:-2px; }
-.pfcard{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.pfcard{  border-radius:var(--radius-12); box-shadow:var(--elevation-1); background:var(--bg-page); }
 .pf-lbl{ color:var(--text-muted); letter-spacing:var(--ls-caps); }
 .pf-val{ color:var(--text-body); }
 .pf-val .ok{ color:var(--text-success); }

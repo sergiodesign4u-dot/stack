@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 2 lines here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 /* `article.ci`, and the element is doing real work here - step 7.21.
@@ -29,7 +33,10 @@
    `.ci`, and the grey prototype shows the same overlap and the same dash. It
    came here at the step-3 split, which copied selectors unchanged on purpose. */
 article.ci{ display: grid; grid-template-columns: 74px 1fr; gap: var(--space-12); padding: var(--space-16) 0; border-bottom: 1px solid var(--line-hair); }
-.ci-ph{ width: 74px; aspect-ratio: 10/11; border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
+/* 7.68: 10/11 -> 1, the product-photo shape rule in tokens.css. Free: measured
+   before the edit, the box was 81.39 tall in a 185.95 row whose tallest child is
+   `.ci-mid` at 152.95, so the article does not move. */
+.ci-ph{ width: 74px; aspect-ratio: 1; border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
 .ci-mid{ min-width: 0; }
 .ci-brand{ font-size: var(--fs-12); }
 .ci-nm{ display: block; font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-snug); margin: var(--space-2) 0 var(--space-4); }
@@ -62,8 +69,13 @@ article.ci{ display: grid; grid-template-columns: 74px 1fr; gap: var(--space-12)
 /* step 7.36: the owner rule left this file for price.css - it was one of eight
    copies of a rule DESIGN-artifacts.md:65 wrote once precisely so it could not
    drift. The row's own money type left with it. */
-article.ci{ border-bottom-color:var(--line-hair); }   /* scoped with the line above - step 7.21 */
-.ci-ph{ background:var(--bg-page) center/80% no-repeat; border-color:var(--line-hair); border-radius:var(--radius-12); color:transparent; }
+/* 7.69: `article.ci{ border-bottom-color: var(--line-hair) }` stood here and the
+   rule is empty without it, so it is gone. The structure line already says
+   `border-bottom: 1px solid var(--line-hair)` - same token, same selector, so
+   this said it twice. The 7.21 note it carried is worth keeping: the ELEMENT is
+   part of the selector on purpose, because `.ci` is a cart article in one place
+   and a span in the catalogue overlay in another. */
+.ci-ph{ background:var(--bg-page) center/80% no-repeat;  border-radius:var(--radius-12); color:transparent; }
 /* 7.45: `--text-brandline`, AND THIS CLOSES THE SET. tokens.css names three
    readers for that role - `.pcard .pbrand`, `.ci-brand`, `.hdeal .hd-brand` - and
    until three steps ago not one of them took it: the grid card read muted, the

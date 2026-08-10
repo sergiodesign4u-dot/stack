@@ -8108,3 +8108,373 @@ Eighty-nine remain, plus three questions the owner has not answered: the 18px ch
 out-of-stock label, and the coach box's ink.
 
 Next: **A6** - one product tile in four sizes.
+
+---
+
+## Step 7.68: the frame was a placeholder from before the photographs existed
+
+**Who asked for it:** the owner - A6.
+
+### The measurement, and what the record got wrong
+
+**A6 says four sizes of one tile. There are nine names in seven files.** Every box in the
+product that frames a product photograph, read in the browser at 390 and 1280 across 40 screens
+and 49 stands:
+
+| box | rendered | shape | how the size is written |
+|---|---|---|---|
+| `.oh-thumbs i` | 34 x 38 | 0.895 | `var(--size-34)` / `var(--size-38)` |
+| `.cshelf .cs-th` | 40 x 40 | square | `var(--size-40)` |
+| `.aord-thumbs .t` | 46 x 46 | square | `var(--size-46)` |
+| `.rk-ph` | 46 x 46 | square | `var(--size-46)` |
+| `.ob-line .ph` | 52 x 56 | 0.929 | `52px` / `56px` |
+| `.pcard-l .lph` | 84, 56 under 560 | square | literals + `aspect-ratio: 1` |
+| `.co-line .li-img` | 60 x 60 | square | `60px` |
+| `.gal .gthumb` | 70 x 70 | square | `70px` |
+| `.ci-ph` | 74 x 81.39 | 0.909 | `74px` + `aspect-ratio: 10/11` |
+
+**«None is a rung of the size ladder» is false.** Four of the nine are written as ladder tokens,
+and a fifth was a rung written as a literal. **This is the sixth entry in the sheet found
+misread, and the sixth for the same reason: counted from the source text, not measured.**
+
+**And A6 never looked at the big photo.** `.pcard .ph` was `10/11` at the base, `1/1` inside
+`@media (max-width:619px)`, and `1` again inside `.pmini` - one element, two shapes, decided by
+viewport width. By instance: **91 rendered square at 171 on 15 pages, 82 rendered 10/11 at
+244-246.** The majority of the product's card photos were already square.
+
+### What settles it
+
+**The photographs are 2048 x 2048** - read from the PNG headers of all three - and every box
+paints them contained, `center/74%` to `86% no-repeat`. A frame that is not square therefore
+leaves uneven air around a square subject. Measured at 1280 on the grid card: **a 196.8 photo
+inside a 246 x 270.59 box, 24.6 of air beside it and 36.9 above and below.**
+
+`10/11` came from `wireframes/_wf.css:482` at stage 04 - **before any photograph existed** - and
+`DESIGN-artifacts.md` has no entry for it. Its origin is `[?]`. It is a wireframe placeholder
+that nobody re-decided when the photos landed.
+
+**The rule, in `tokens.css` under the size ladder: a box that frames a product photograph is
+square, because the photograph is.**
+
+### The defect nobody had filed
+
+`.skcard .skimg` was `10/11` with no override, so **under 620 the loading skeleton promised a
+shape the card does not draw**. At 390: **171 x 188.09 against 171 x 171, a 17px jump on load** -
+on the phone, which is where 91 of the 171-wide cards live. From 620 up both were 10/11 and
+agreed. The mismatch existed only on mobile, which is the one place this product is built for.
+
+### What moved, and what it cost
+
+Squared on the width and never on the height: **width is what a row packs and what a grid column
+already states, height is free.** Measured before editing, on whether each box is the tallest
+child of its row:
+
+| box | row | tallest child | cost |
+|---|---|---|---|
+| `.ci-ph` 81.39 | `.ci` 185.95 | `.ci-mid` 152.95 | nothing |
+| `.ob-line .ph` 56 | `.ob-line` 82.86 | the text column 67.86 | nothing |
+| `.oh-thumbs i` 38 | `.ord-h`, next tallest 25.59 | itself | **the row loses 4px** |
+
+Five boxes squared - `.pcard .ph`, `.skcard .skimg`, `.ci-ph`, `.ob-line .ph`, `.oh-thumbs i` -
+and **two declarations deleted rather than added**: the `≤619` override and the `.pmini` one
+now restate the base. `.ob-line .ph` also stops being two literals; 52 is a rung and 56 is not.
+
+**Not in the rule: a banner is not a tile.** `.hdeal .hd-ph` (fluid, `min-height:180`),
+`.cart-behind .ph-card` (150 behind the drawer) and `.pd-img` (`16/6`) frame a photograph too
+and are shaped by their slot, not by their subject.
+
+### A/B
+
+**Null pass 0 rows. Difference 11171 rows**, which is what a 24px shorter photo does to every
+card grid beneath it. Classified:
+
+| | rows | |
+|---|---|---|
+| appeared or disappeared | **0** | |
+| moved only | 10304 | displacement under a shorter frame |
+| resized only | 493 | |
+| moved and resized | 296 | |
+| changed a real property | **78** | `grid-template-rows`, and all 44 distinct values are auto tracks reporting new content: `.prow`, `.listing`, `.acc`, `.skgrid`, `.ob-line 56 -> 52`, `.ord-h 50 -> 46` |
+
+**Zero boxes changed width. Zero boxes got taller.** No colour, no weight, no border, no
+spacing, no font moved anywhere in the product.
+
+### Acceptance
+
+**356 page x width pairs** - 40 screens plus 48 stands at 360 / 390 / 720 / 1280, on both
+servers. **No sideways scroll on either.** **54 pairs moved and none grew**: every page is the
+same height or shorter. Deepest `-98` on `listing.html` and `listing-sheet.html` at 1280.
+`listing.html` did **not** move at 360 or 390 - the card was already square there - and
+`listing-loading.html` moved `-69` at 390, which is exactly the skeleton defect being paid off.
+
+`geometry.html` gains the section «Форма кадру товару». Its right-hand frame is a real `.pcard`
+carrying the product's own `.ph`, so the stand **reads** the rule rather than repeating it: if
+that declaration ever leaves 1, the caption on the page says so.
+
+### What stays open
+
+**The SIZE of a tile.** Nine names, eight sizes: 34 / 40 / 46 / 46 / 52 / 56-84 / 60 / 70 / 74.
+Nothing in the source says why a restock line's tile is 46 and a checkout line's is 60, so
+folding them would be taste and not measurement - **the owner's call.** Two things for whoever
+takes it: `.aord-thumbs .t` and `.rk-ph` are the same rule at 46 in two files, and `.ci-ph`
+carries `--radius-12` where the other eight carry `--radius-8`.
+
+### Where the sheet stands
+
+**Eight closed** - F1, F2, C's irreversible action, A1, A3, A4, A5, A8 - **plus half of A2 and
+the shape half of A6.** Eighty-eight remain, and now four questions wait on the owner: the 18px
+checkbox edge, the out-of-stock label, the coach box's ink, and the size of the product tile.
+
+Next: **A7** - `aspect-ratio: 1` against `70px x 70px` in one file, and the 22 structure/colour
+pairs that state a border colour twice.
+
+---
+
+## Step 7.69: one half was never a defect, the other was bigger than its number, and the tool broke
+
+**Who asked for it:** the owner - A7.
+
+### Half one: «two ways to say square» is two kinds of box
+
+Parsed over all 73 component stylesheets. **5 rules say square with `aspect-ratio: 1`; 110 say
+it with two equal numbers.** The line between them is not habit:
+
+- the five are boxes that **do not choose their own width** - `.gal .gmain`, `.pcard .ph` and
+  `.skcard .skimg` declare no width at all, `.ci-ph` takes its 74 from the grid column
+  `article.ci` sets, `.pcard-l .lph` goes 84 to 56 at 560;
+- the 110 own **one fixed number**, and they are glyphs, avatars, spinners and controls, where
+  `width` + `height` is the only spelling that sizes an `<svg>` at all.
+
+`gallery.css` holds one of each because it holds one fluid box and one 70px thumbnail. **A7 read
+that as one file spelling «square» two ways.** Applying its recommendation literally would
+rewrite 110 rules and make most of them worse. Rule written into `tokens.css`, nothing edited.
+
+### Half two: 55, not 22, and 22 is the other side of the same measurement
+
+Comparing property NAMES finds three pairs, because the structure side writes the shorthand and
+the colour side writes the longhand. With shorthands expanded:
+
+| | |
+|---|---|
+| the two sides say the same thing | **55** in 21 files |
+| the colour side genuinely overrides | **22** |
+
+### What settles it, and it is a measurement
+
+The argument for keeping the restatement is that it makes the colour block a complete inventory
+of the component's colour. That is testable. **The structure side names a colour 328 times. The
+colour side restates 54 of them. 274 travel inside a shorthand and are never mentioned.**
+
+**The habit covers 16%**, and only seven files restate everything they name - each of those
+names one to three. So it is not the record of provenance it was taken for. Completing the
+inventory means **adding 274 lines that draw nothing**; the other consistent world is 55 lines
+shorter, and that is the one taken. The rule, in `tokens.css`: **the colour block says where the
+coloured product DIFFERS from the grey prototype.** The structure half carries the prototype's
+own greys inside its shorthands because the prototype has to stand up on its own.
+
+### Two things that look like restatements and stay
+
+**A colour after a RESET.** `.acc-links` has the shorthand in structure, `border: 0` in a
+`max-width: 959px` query - which returns the colour to currentColor - and the colour block puts
+`--line-hair` back. Nothing paints there, the width is 0, but the line is a **restoration**, and
+a rule that removes duplicates must not remove restorations.
+
+**A colour that DIFFERS.** The 22 are the whole point of the block: `--line-strong` relaxing to
+`--line-hair` in seven places, the mega menu's top edge going `--line-inverse` to
+`--line-action` in three, `--line-inverse` to `--line-danger` on the checkout error mark.
+
+### The tool broke, and the A/B is what said so
+
+**The first edition deleted by SUBSTRING.** `re.escape(target)` with `count=1` matched the first
+occurrence of `border-color:var(--line-hair)` anywhere in the file rather than the one inside
+the intended rule. `.acc-prof` and `.co-err-box` lost lines that were never on the list, and
+`.co-err-box`'s was a genuine override: **the census saw its edge go from rgb(233,231,226) to
+rgb(217,217,217)**, plus `.acc-links` to currentColor and a stray `letter-spacing` on `.av`.
+**67 rows where the whole premise was zero.** Nothing in the source review would have caught it;
+the browser did.
+
+Rewritten: comments are masked with spaces of equal length, so parser offsets **are** raw
+offsets, and declarations are deleted **by span, in reverse order**. Defect 2 - the reset case
+above - came out of the same 67 rows and became a rule of its own.
+
+### A/B
+
+**Null pass 0. Difference 0 rows** - 40 screens, four widths, every computed property, box and
+position. 55 declarations removed from 21 files and not one pixel moved, which is exactly the
+claim being tested.
+
+Two rules were left empty by the removal and both got a written reason rather than a blank:
+`article.ci{}` in `cart-row.css` and the `@media (max-width: 639px)` block in `order-row.css`,
+whose single line was a restatement **of a restatement** - and one that could not have drawn
+even had it differed, since `.ord-h:hover .oh-drop` sits at (0,2,0) against its (0,1,0).
+
+### Corrected in place
+
+`product-card.css` said «all 73 such pairs». **73 is the number of component stylesheets**, 45
+of which have a colour section. The pairs were 55.
+
+### Opened, not closed
+
+**11 declarations inside a `@media` that restate the base they sit under**, non-colour:
+`banner.css` 1, `buy-box.css` 1, `product-card.css` 5, `spec-table.css` 1, `trust-strip.css` 3.
+That is the dead-declaration family of 7.3 and 7.51, a separate sweep, and it is listed rather
+than folded in under A7's name.
+
+### Where the sheet stands
+
+**Nine closed** - F1, F2, C's irreversible action, A1, A3, A4, A5, A7, A8 - **plus half of A2
+and the shape half of A6.** Eighty-seven remain. Four questions still wait on the owner: the
+18px checkbox edge, the out-of-stock label, the coach box's ink, and the size of the product
+tile.
+
+Next: **A2's remainder** - does the named breakpoint set gain 860 and 620, or do the components
+carry a written reason each? That one is a decision, not a measurement.
+
+---
+
+## Step 7.70: the remainder of A2 was a question about a set that does not exist
+
+**Who asked for it:** the owner - A2's remainder.
+
+### The premise was false
+
+A2's open half read: «does the named set gain 860 and 620, or do the components that use them
+carry a written reason each?» **There is no named set.** `DESIGN-artifacts.md` has no
+breakpoint, no `@media`, no responsive language and exactly **one** three-digit px value in its
+111 lines - a contrast measurement inside an accessibility paragraph. The line in `tokens.css`
+that said «`DESIGN-artifacts.md` names three of them» was wrong, and the whole question rested
+on it. **Seventh stale reading in this sheet, and the first whose subject turned out not to
+exist.**
+
+So the answer is neither branch. **The block in `tokens.css` IS the set and always was the only
+one**, and it is now written as such: eleven boundaries, each with the files that lean on it,
+and `[?]` wherever nothing in the source says why the number is what it is. A boundary the
+system cannot justify is at least a boundary the system has counted.
+
+### The set, re-measured
+
+**11 boundaries, 110 width features, 76 stylesheets.** 7.64 recorded «18 boundaries, 112
+features»; its own printed table lists 12 after its two folds, so 18 was already wrong when it
+was written.
+
+| | files | |
+|---|---|---|
+| **860** | **21** | the spine, and by a factor of two over anything else |
+| 720 | 9 | |
+| 620 | 9 | `brand-logo`, `cart-drawer`, `cookie-banner`, `goal-tile`, `product-grid`, `product-card`, `section-head`, `review-item`, `skeleton` |
+| 480 | 7 | |
+| 560 | 4 | |
+| 640 | 3 | |
+| 960 · 760 · 1180 · 1040 | 2 each | |
+| 420 | 1 | `restock-note`, a content limit with its measurement written next to it |
+
+### One fold left, and it is 7.64's own rule
+
+7.64 folded `order-row`'s 820 into 860 because **a boundary used by one file with a set member
+40px away is not a decision.** `checkout-form.css` was the only user of **900** - four
+declarations - and 900 is the same 40px on the other side. It skipped it.
+
+**Measured before folding**, at 860 / 870 / 880 / 899 on all five checkout screens: no sideways
+scroll; nothing newly clipped (the three hits the detector reports also appear at 900 and 1024,
+so they are not the fold's); and the form column comes out **444** beside the money box's fixed
+360. The band gets **410 to 584px shorter**, because that is what a second column is for.
+
+### A/B
+
+The standard census cannot see this: its widths are 360 / 390 / 720 / 1280 and the band is
+860-899. Run instead at **840 / 860 / 880 / 899 / 900 / 960**.
+
+**Null pass 0. Difference 3094 rows on exactly nine page-widths** - `checkout.html`,
+`checkout-loggedin.html` and `checkout-noaddr.html` at 860, 880 and 899. Nothing at 840, 900 or
+960, and no other screen at any width.
+
+| property | rows | |
+|---|---|---|
+| position | 3000 | |
+| rect | 728 | |
+| grid-template-columns | 9 | one column becomes two |
+| grid-template-rows | 9 | |
+| align-items | 9 | the grid takes `start` |
+| position | 9 | the money box becomes sticky |
+
+**Zero appeared or disappeared. No colour, no type, no spacing.**
+
+### What stays and why
+
+560, 620, 640, 760, 960 and 1040 each serve two or more files: **a boundary two files agree on
+is a decision, not drift.** 1040 is the one pair in the list that MUST agree - `product-grid`
+and the `skeleton` that stands in for it - and step 7.68 is what happens when such a pair drifts
+apart. Nothing in this set is a fold candidate any more; the next boundary that appears has to
+arrive with its job written into the list.
+
+---
+
+## Step 7.71: a query that changes nothing reads as a decision about that width
+
+**Who asked for it:** the owner, from the finding 7.69 opened and refused to sweep in under A7's
+name.
+
+### Re-measured, and it is 17, not 11
+
+7.69 counted 11 because it was looking only inside the colour section and comparing only against
+the colour section's own base. A pass of its own, over the whole file and both halves:
+**17 declarations in 8 files.**
+
+| file | | |
+|---|---|---|
+| `product-card.css` | 5 | `.pcard .pbrand` margin-bottom · `.pcard .nm` line-height · `.pcard .pmeta2` margin-top, padding-top, gap - all at `max-width:619px` |
+| `order-row.css` | 3 | `.ord-h` align-items · `.oh-drop` border-radius, font-size - at `max-width: 639px` |
+| `trust-strip.css` | 3 | `.truststrip` padding · `.tsx` column-gap · `.tsx .uiv-ic` border-radius - at `max-width:479px` |
+| `account-shell.css` | 2 | `.acc-links` margin-top · `.acc-link` background - at `max-width: 959px` |
+| `banner.css` | 1 | `.recbanner` padding at `max-width: 559px` |
+| `buy-box.css` | 1 | `.bb h1` font-size at `min-width:860px` |
+| `spec-table.css` | 1 | `.pl-panel` padding at `min-width:720px` |
+| `menu.css` | 1 | `.menu-pop` left at `max-width: 479px` |
+
+### The three ways one of these could be alive, all checked
+
+- **a rule between them that can beat the base** - this is the case A7's A/B taught, where
+  `.acc-links` restores a colour after a `border: 0` reset. Checked across the whole system in
+  load order; none.
+- **another stylesheet naming the same selector and property** - none.
+- **`!important` anywhere in the chain** - none.
+
+The four shorthand cases were looked at by hand as well, since a shorthand resets its
+longhands: `trust-strip`'s `.truststrip{ padding }` at `max-width:479` against its
+`padding-right:150px`, which turns out to live inside `min-width:1180` - a different band
+entirely, so they never meet.
+
+### A/B
+
+**Null pass 0. Difference 0 rows.** Every band these queries cover is inside the census widths -
+479 and 559 and 619 and 639 at 360/390, 720 and 860 at 720/1280, 959 at 360/390/720 - so this is
+a real zero and not a blind spot.
+
+`buy-box.css` was left with an empty `@media (min-width:860px){}` and it got a written reason
+rather than a blank: the line above already says `--fs-30` at every width, so the query
+announced a desktop decision about the product title and then made the same one.
+
+### Where the sheet stands
+
+**Eleven closed** - F1, F2, C's irreversible action, A1, **A2 in full**, A3, A4, A5, A7, A8 -
+**plus the shape half of A6.** Eighty-six remain. Four questions still wait on the owner: the
+18px checkbox edge, the out-of-stock label, the coach box's ink, and the size of the product
+tile.
+
+### A second instrument defect, and the mirror of the one this method exists to avoid
+
+The acceptance sweep compares page heights on two servers. Running it after the baseline server
+had been stopped, it reported **334 of 356 page-widths «grew», some by 46 000px** - a
+catastrophic regression that was entirely the harness: a dead 8992 answers every load with
+Chrome's error page, every `scrollHeight` collapses to it, and every delta comes out huge and
+positive.
+
+This is the exact mirror of the rule the method already carries - **«a zero diff is also what a
+broken harness returns»** - with the sign flipped, and it fooled me for one reading. Resolved
+the way the contradiction deserved: restart the baseline, re-run, and get **8 pairs moved,
+`architecture.html` and `geometry.html` at four widths each, the two stands this step wrote to,
+and no product screen at all.**
+
+The guard is now in the harness. It does not test the height, because Chrome's error page is a
+perfectly tall page; it tests whether the document loaded a stylesheet, which every page in this
+project does and an error page does not. Over 10% failing and the sweep refuses to report.

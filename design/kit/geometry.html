@@ -49,6 +49,38 @@
   margin-top:5px; display:flex; justify-content:space-between; }
 .ladnote{ font-size:var(--fs-14); color:var(--text-secondary); margin-top:10px; }
 .ladnote b{ color:var(--text-primary); }
+/* the breakpoint list answers to the window rather than to a caption: every row
+   asks `matchMedia` whether it is open at this width, so the page is showing the
+   reader their own band and not a picture of one. */
+.bpnow{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted);
+  margin-bottom:var(--space-12); }
+.bpnow b{ color:var(--text-primary); }
+#bptbl td:nth-child(1){ width:1%; white-space:nowrap; font-family:var(--font-mono);
+  font-size:var(--fs-12); color:var(--text-muted); }
+#bptbl td:nth-child(2){ font-family:var(--font-mono); font-weight:var(--fw-bold);
+  white-space:nowrap; }
+#bptbl td:nth-child(3){ font-family:var(--font-mono); text-align:right; white-space:nowrap; }
+#bptbl tr.bpon td:nth-child(1), #bptbl tr.bpon td:nth-child(2){ color:var(--text-action); }
+#bptbl td:nth-child(4){ font-size:var(--fs-12); color:var(--text-secondary); }
+#bptbl code{ white-space:nowrap; }
+/* the two shapes, cast rather than described: the right-hand frame carries the
+   real `.pcard .ph` rule, so if the base declaration ever moves off 1 this
+   stand shows it instead of repeating a number. The left frame is the old
+   10/11, hard-coded on purpose - it no longer exists anywhere in the system. */
+.shpair{ display:flex; gap:var(--space-24); flex-wrap:wrap; }
+.shpair > div{ width:190px; }
+/* the right frame is a real `.pcard` so the product's own rule shapes it; the
+   card's own look is switched off, because what is on show here is the shape. */
+.shpair .shcard{ border:0; background:none; box-shadow:none; border-radius:0; overflow:visible; }
+.shpair .shbox{ width:190px; border:1px solid var(--line-hair); border-radius:var(--radius-8);
+  background:var(--bg-page) center/80% no-repeat url(../visuals/product-whey.png); }
+/* the card's own `.pcard:nth-of-type(3n+2) .ph` is (0,3,0) and would put a
+   different jar in the right frame - two products make a worse comparison than
+   two shapes. Matched on specificity, not beaten with `!important`. */
+.kp .shpair .shbox{ background-image:url(../visuals/product-whey.png); }
+.shpair .cap{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted);
+  margin-top:var(--space-8); display:flex; flex-direction:column; gap:var(--space-2); }
+.shpair .cap b{ color:var(--text-primary); }
 </style>
 
 <section class="kp-sec"><div class="kp-sh">Радіус <b>- закрита шкала</b></div>
@@ -63,6 +95,18 @@
 <p class="kp-p">Дев'ять розмірів для квадратних контролів і аватарів. Компонувальні ширини (1200 / 860 / 720) лишились літералами в тому компоненті, який володіє розкладкою: це не шкала, це конкретна сітка.</p>
 <div class="lad" id="sz"></div><div class="ladnote" id="szn"></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Форма кадру товару <b>- квадрат</b></div>
+<p class="kp-p">Усі три фотографії товару - <b>2048 &times; 2048</b>, і кожна рамка малює їх <b>вписаними</b> (<code>center/74-86% no-repeat</code>). Тому рамка, яка не квадратна, лишає навколо квадратного предмета <b>нерівне повітря</b>: на 1280 фото картки виходило 196.8 у коробці 246 &times; 270.59 - <b>24.6</b> збоку і <b>36.9</b> згори й знизу.</p>
+<p class="kp-p">Неквадратна форма була <code>10/11</code>, і вона прийшла з <code>_wf.css:482</code> ще на етапі 04, <b>до того як з'явилась хоч одна фотографія</b>. У <code>DESIGN-artifacts.md</code> запису про неї немає, отже її походження - <code>[?]</code>: це заглушка каркаса, яку ніхто не перерішив, коли приїхали фото.</p>
+<div class="shpair">
+  <div><div class="shbox" style="aspect-ratio:10/11"></div><div class="cap"><span>було <b>10/11</b></span><span id="shwas"></span></div></div>
+  <div><div class="pcard shcard"><div class="ph shbox"></div></div><div class="cap"><span>стало <b>1/1</b></span><span id="shnow"></span></div></div>
+</div>
+<div class="kp-do"><h4>Одне правило, п'ять рамок, на дві декларації менше</h4><p class="kp-p">Продукт уже наполовину пішов від <code>10/11</code> сам: <code>.pcard-l .lph</code> і <code>.gal .gmain</code> стояли на <code>aspect-ratio: 1</code>, п'ять з дев'яти кадрів були квадратні, а <code>.pcard .ph</code> перемикався на <code>1/1</code> під 620 і всередині <code>.pmini</code>. Лишалось, що <b>скелет завантаження обіцяв 10/11 над карткою, яка малює 1/1</b>: на 390 це 171 &times; 188.09 проти 171 &times; 171, <b>стрибок на 17px</b> - саме на телефоні, де живе 91 із 171-піксельних карток.</p><p class="kp-p">Зведені: <code>.pcard .ph</code>, <code>.skcard .skimg</code>, <code>.ci-ph</code>, <code>.ob-line .ph</code>, <code>.oh-thumbs i</code>. Два оголошення при цьому <b>видалені, а не додані</b> - обидва перевизначення, які вже казали <code>1</code>, тепер повторюють базове правило.</p><p class="kp-p">Квадрат беруть <b>по ширині, ніколи по висоті</b>: ширину пакує рядок і вже називає колонка сітки, висота вільна. Два з трьох кадрів не коштували нічого (<code>.ci-ph</code> і <code>.ob-line .ph</code> не найвищі у своєму рядку); стрічка історії замовлень найвища - її рядок став на 4px нижчим.</p></div>
+<p class="kp-p">Це правило <b>не</b> про банер і не про тло. <code>.hdeal .hd-ph</code> (гумовий, <code>min-height:180</code>), <code>.cart-behind .ph-card</code> (150 за шухлядою) і <code>.pd-img</code> (16/6, смуга опису) теж кадрують фотографію, але їхню форму задає їхнє місце, а не предмет у кадрі.</p>
+<p class="kp-p"><b>Розмір</b> кадру - інше питання, і воно ще відкрите: дев'ять імен, вісім розмірів (34 / 40 / 46 / 46 / 52 / 56-84 / 60 / 70 / 74). Чотири з них - щаблі драбини, записані токенами, п'ять - літерали. Див. <a href="architecture.html">аркуш рішень</a>, рядок A6.</p>
+<p class="kp-p"><b>Як коробка каже, що вона квадратна</b> - і це не вибір написання. <code>aspect-ratio: 1</code>, коли коробка <b>не обирає свою ширину</b>: та приходить з колонки сітки, з точки перелому або зі сторінки. <code>width</code> і <code>height</code>, коли розмір - одне фіксоване число, яке коробка тримає сама. Заміряно на 7.69: <b>п'ять</b> правил з першого боку, і всі п'ять - кадри фотографій; <b>110</b> з другого, і це гліфи, аватари, спінери й контроли. <code>gallery.css</code> тримає по одному з кожного - <code>.gal .gmain</code> гумовий, <code>.gal .gthumb</code> рівно 70 - і аркуш рішень прочитав це як «один файл каже квадрат двома способами». Це один файл, у якому лежать <b>дві різні коробки</b>.</p></section>
+
 <section class="kp-sec"><div class="kp-sh">Глибина: драбина висоти</div>
 <p class="kp-p">Тінь відповідає на одне питання - <b>наскільки високо це над поверхнею</b>. Тому відповідь - шкала, а не вигадка в кожному компоненті: було <b>47</b> різних значень у 97 оголошеннях, той самий флаєр стояв на 12/30, 14/34, 16/36 і 18/44 у чотирьох файлах.</p>
 <div class="depthgrid" id="depth"></div>
@@ -71,6 +115,14 @@
 <section class="kp-sec"><div class="kp-sh">Що зведено (крок 6.0)</div>
 <div class="kp-do"><h4>47 значень - 12 рівнів і 3 рінги</h4><p class="kp-p">До кроку тінь була єдиним місцем системи, де рішення ухвалювалось у кожному компоненті заново: <b>97 оголошень, 47 різних значень</b>, і жодної драбини. Діалоги стояли на 20/50, 24/64, 28/70 і 6/24 - чотири висоти для одного «це замість сторінки».</p><p class="kp-p">Рінги винесені з тіні навмисно: <code>0 0 0 3px</code> - це не відстань, а <b>стан, намальований ореолом</b>. Тримати фокус на драбині висот означало б сказати, що поле у фокусі «вище» за сусіднє.</p><p class="kp-p">Пікселі: зрушилось <b>307</b> елементів на 34 екранах - і <b>лише <code>box-shadow</code></b>. Верстка, колір і типографіка не зрушили жодного разу. Плюс <b>4</b> подвійні оголошення прибрано: те саме правило оголошувало тінь двічі - у структурному блоці й у кольоровому - і після зведення обидва казали одне й те саме.</p></div>
 <div class="kp-row" style="align-items:center;gap:22px;padding:18px 4px"><div style="width:170px;height:88px;background:var(--bg-page);border-radius:var(--radius-12);box-shadow:var(--elevation-1)"></div><div class="kp-cap" id="shv"></div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Точки перелому <b>- набір, і він тут</b></div>
+<p class="kp-p">Токенами вони бути не можуть: власна властивість не працює всередині <code>@media</code>, тож набір записується як <b>конвенція</b>, а не як значення. Межа на N пишеться <code>(min-width: Npx)</code> з широкого боку і <code>(max-width: N-1px)</code> з вузького; будь-яке інше написання перекриває один піксель, і на ньому спрацьовують обидва правила.</p>
+<p class="kp-p"><b>До 7.70 цей набір вважали записаним у <code>DESIGN-artifacts.md</code>. Його там немає:</b> ні точки перелому, ні <code>@media</code>, ні слова про адаптивність, і рівно одне тризначне значення в px на 111 рядків - замір контрасту. Тепер набір живе в <code>tokens.css</code> і на цій сторінці, і більше ніде.</p>
+<div class="bpnow" id="bpnow"></div>
+<div class="kp-scroll"><table class="kp-tbl" id="bptbl"><thead><tr><th></th><th>Межа</th><th>Файлів</th><th>Хто на неї спирається</th></tr></thead><tbody></tbody></table></div>
+<div class="ladnote" id="bpn"></div>
+<p class="kp-p"><b>Причина при кожному числі - <code>[?]</code></b>, окрім двох: 760 у <code>seo-text</code> це ширина його ж колонки читання, а 420 у <code>restock-note</code> це <b>межа змісту</b> із заміром, записаним поруч. Решта чисел працює, і жоден файл не каже, чому саме воно. Це не привід їх зводити - <b>межа, на яку погодились два файли, це рішення, а не дрейф</b> - це привід не додавати наступну без причини.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Каркас сторінки з base.css</div>
 <p class="kp-p">Те, що не належить жодному компоненту: ресет, <code>scroll-padding-top:100px</code> під злиплу шапку, <code>overflow-anchor:none</code> проти мерехтіння при її стисканні, <code>padding-bottom:60px</code> на мобільному під таб-бар і поріг <code>16px</code> на текстових полях, нижче якого iOS зумить сторінку.</p></section>
@@ -118,6 +170,21 @@ ladder('sz', SZ, 'szn');
       (r.u? r.u+'x' : 'не читається')+'</span></div></div>'; }).join('');
 })();
 shown.add('--elevation-1'); shown.add('--shadow-1'); el('shv').textContent=val('--shadow-1');
+/* the two frames report themselves. The right one is drawn by the product's own
+   `.pcard .ph`, so its caption is a reading of the system, not a repetition of
+   it: if that declaration ever leaves 1, this line says so on the page. */
+(function(){
+  var boxes=document.querySelectorAll('.shpair .shbox');
+  ['shwas','shnow'].forEach(function(id,i){
+    var b=boxes[i]; if(!b||!el(id)) return;
+    var r=b.getBoundingClientRect();
+    var w=Math.round(r.width*10)/10, h=Math.round(r.height*10)/10;
+    var side=r.width*0.8;
+    var ax=Math.round((r.width-side)/2*10)/10, ay=Math.round((r.height-side)/2*10)/10;
+    el(id).innerHTML=w+' &times; '+h+' · повітря '+ax+' / '+ay+
+      (Math.abs(ax-ay)<0.05? ' <b>рівне</b>' : '');
+  });
+})();
 /* the ladder, read from :root - a level is shown by being cast, not described */
 (function(){
   var DEPTH = [
@@ -135,6 +202,42 @@ shown.add('--elevation-1'); shown.add('--shadow-1'); el('shv').textContent=val('
     return '<div><div class="dsw" style="box-shadow:var('+d[0]+')'+(ring?';border:1px solid var(--line-hair)':'')+'"></div>'+
       '<div class="cap"><b>'+d[0].replace('--','')+'</b><span>'+d[1]+'</span><i>'+val(d[0])+'</i></div></div>';
   }).join('');
+})();
+/* the set, measured at step 7.70 - 11 boundaries, 110 width features, 76 sheets.
+   The count is the number of FILES that lean on the boundary, because that is
+   what decides whether folding it is a value decision or a layout redesign. */
+(function(){
+  var BP = [
+    [860, 21, 'хребет: сторінка перестає бути однією колонкою'],
+    [720,  9, '[?]'],
+    [620,  9, 'brand-logo · cart-drawer · cookie-banner · goal-tile · product-grid · product-card · section-head · review-item · skeleton'],
+    [480,  7, '[?]'],
+    [560,  4, 'banner · checkout-form · product-card · trust-strip'],
+    [640,  3, 'account-shell · order-row · status-pill'],
+    [960,  2, 'account-shell · goal-tile'],
+    [760,  2, 'loyalty-rung · seo-text - і тут число сказане: це колонка читання seo-text'],
+    [1180, 2, 'pdp-tabs · trust-strip'],
+    [1040, 2, 'product-grid і skeleton - єдина пара, яка МУСИТЬ збігатися'],
+    [420,  1, 'restock-note - межа змісту із заміром поруч, не крок сітки']
+  ];
+  function draw(){
+    var w = window.innerWidth, open = [];
+    el('bptbl').querySelector('tbody').innerHTML = BP.map(function(b){
+      var on = window.matchMedia('(min-width: ' + b[0] + 'px)').matches;
+      if(on) open.push(b[0]);
+      return '<tr class="' + (on ? 'bpon' : 'bpoff') + '">' +
+        '<td>' + (on ? 'відкрита' : 'закрита') + '</td>' +
+        '<td>' + b[0] + '</td>' +
+        '<td>' + b[1] + '</td>' +
+        '<td>' + b[2] + '</td></tr>';
+    }).join('');
+    el('bpnow').innerHTML = 'вікно <b>' + w + 'px</b> · відкрито ' +
+      (open.length ? '<b>' + open.sort(function(a,b){return a-b;}).join(' · ') + '</b>' : '<b>жодної</b>');
+    el('bpn').innerHTML = '<b>11</b> меж · <b>110</b> умов ширини · <b>76</b> листів · ' +
+      'найуживаніша <b>860</b> у 21 файлі, вдвічі більше за наступну';
+  }
+  draw();
+  window.addEventListener('resize', draw);
 })();
 function MINE(p){ return /^--(space|radius|size|elevation|ring)-/.test(p)||p==='--shadow-1'||p==='--elevation-1'; }
 

@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 3 lines here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .coachbn{ border: 1px solid var(--line-inverse); margin: var(--space-32) 0; display: flex; flex-wrap: wrap; gap: var(--space-16); align-items: center; justify-content: space-between; }
@@ -14,7 +18,7 @@
 .cg-sub small{ display: block; font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--text-muted); text-align: right; }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.cg-head{ background:var(--bg-surface); border-color:var(--line-hair); border-radius:var(--radius-12); }
+.cg-head{ background:var(--bg-surface);  border-radius:var(--radius-12); }
 .cg-nm{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-16); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .cg-goal{ color:var(--text-secondary); }
 /* step 7.36: `.cprice` is the coach session's price row - the ninth price surface
@@ -26,12 +30,12 @@
    client group's subtitle - so it keeps its own line. */
 .cg-sub{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
   word-spacing:-.24em; font-weight:var(--fw-semibold); color:var(--text-body); }
-.cg-sub small{ color:var(--text-muted); font-weight:var(--fw-medium); }
+.cg-sub small{  font-weight:var(--fw-medium); }
 .cprice{ font-size:var(--fs-16); white-space:nowrap; text-align:right; }
 /* the struck price stacks under the live one here, where every other surface puts
    it above - the row is a right-hand column, not a block, and it has room for one
    line. `display:block` came off price.css with the rest of the row's layout. */
 .cprice .old{ display:block; }
-.coachbn{ background:var(--bg-inverse); border-color:var(--line-inverse); border-radius:var(--radius-16); padding:var(--space-24); overflow:hidden; position:relative; }
+.coachbn{ background:var(--bg-inverse);  border-radius:var(--radius-16); padding:var(--space-24); overflow:hidden; position:relative; }
 .coachbn .ct{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-oninverse); }
 .coachbn .cs{ color:var(--text-oninverse-muted); line-height:var(--lh-airy); }

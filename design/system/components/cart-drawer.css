@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 3 lines here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 /* .cart-ov came from base.css at step 5: it is the cart drawer's own scrim,
@@ -77,11 +81,11 @@
    top 0, bar bottom 40. Both rules read `--shell-top` now, which the harness
    publishes and moves with. */
 .cart-behind h2{ font-family:var(--font-display); font-weight:var(--fw-semibold); letter-spacing:var(--ls-lead); color:var(--text-body); }
-.cart-behind .ph-card{ background:var(--bg-page) center/62% no-repeat; border-color:var(--line-hair); box-shadow:var(--elevation-1); }
+.cart-behind .ph-card{ background:var(--bg-page) center/62% no-repeat;  box-shadow:var(--elevation-1); }
 .cart-behind .ph-card:nth-of-type(3n+1){ background-image:url(../../visuals/product-whey.png); }
 .cart-behind .ph-card:nth-of-type(3n+2){ background-image:url(../../visuals/product-creatine.png); }
 .cart-behind .ph-card:nth-of-type(3n){   background-image:url(../../visuals/product-preworkout.png); }
-.cd-head{ padding:var(--space-16); border-bottom-color:var(--line-hair); }
+.cd-head{ padding:var(--space-16); }
 .cd-head h1{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .cd-head .cd-cnt{ font-family:var(--font-mono); font-weight:var(--fw-medium); font-size:var(--fs-12);
   color:var(--text-muted); word-spacing:-.1em; }
@@ -95,7 +99,7 @@
 .cd-oosnote b{ color:var(--text-body); }
 .cd-oosnote .uiv-ic{ flex:none; color:var(--text-warning); margin-top:var(--space-2); }
 .cd-oosnote .uiv-ic svg{ width:17px; height:17px; }
-.cd-foot{ border-top-color:var(--line-hair); box-shadow: var(--elevation-bar-top); padding:var(--space-16) var(--space-16) var(--space-16); }
+.cd-foot{  box-shadow: var(--elevation-bar-top); padding:var(--space-16) var(--space-16) var(--space-16); }
 .cd-total span{ font-size:var(--fs-16); font-weight:var(--fw-semibold); color:var(--text-body); }
 .cd-total .sub{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-muted); }
 .cd-total b{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;

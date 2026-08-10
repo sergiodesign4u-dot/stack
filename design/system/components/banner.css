@@ -28,7 +28,15 @@
    the molecule count all key off the file name, and folding the deal's names into
    the card's is a markup sweep. Both are Крок 6, after stage 09. What this step
    does is stop the file from lying about what it holds, and take the two facts
-   that are wrong rather than merely crowded. */
+   that are wrong rather than merely crowded.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 4 lines here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css.
+   7.71: 1 declaration inside a `@media` here restated, value for
+   value, what the base rule above already had in force. A query that changes
+   nothing reads as a decision about that width and is not one. Removed; the
+   family is 7.3, 7.51 and 7.69. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .hbanners{ display: grid; gap: var(--space-12); grid-template-columns: 1fr; align-items: start; }
@@ -95,7 +103,7 @@
 .promo .ps{ margin-top: var(--space-8); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.hpromo{ border-color:var(--line-hair); border-radius:var(--radius-16); overflow:hidden; position:relative;
+.hpromo{  border-radius:var(--radius-16); overflow:hidden; position:relative;
   box-shadow:var(--elevation-1); transition:transform .15s ease, box-shadow .15s ease;
   background:var(--bg-page) center 8%/72% no-repeat; }
 .hpromo:hover{ transform:translateY(-2px); box-shadow: var(--elevation-2); }
@@ -104,7 +112,7 @@
 .hpromo .hph{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead);
   line-height:var(--lh-flat); color:var(--text-body); }
 .hpromo .hps{ color:var(--text-secondary); line-height:var(--lh-snug); }
-.hdeal{ border-color:var(--line-hair); border-radius:var(--radius-16); box-shadow:var(--elevation-1); padding:var(--space-16);
+.hdeal{  border-radius:var(--radius-16); box-shadow:var(--elevation-1); padding:var(--space-16);
   transition:transform .15s ease, box-shadow .15s ease; }
 .hdeal:hover{ transform:translateY(-2px); box-shadow: var(--elevation-2); }
 .hdeal .hd-tag{ font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-20);
@@ -142,12 +150,12 @@
 .hdeal:hover .hd-cta{ filter:brightness(.95); }
 .hdots i{ background:var(--bg-track); }
 .hdots i.on{ background:var(--bg-action); }
-.pstrip{ background:var(--bg-surface); border-color:var(--line-hair); border-radius:var(--radius-12); }
+.pstrip{ background:var(--bg-surface);  border-radius:var(--radius-12); }
 .pstrip .pt{ color:var(--text-body); }
 /* step 6.3: the local copy of the outline finish is gone - colour, border and
    hover are the finish now. This file keeps what is the strip's own: type and
    padding for a button standing in a promo row. */
-.tbanners .tbn{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1);
+.tbanners .tbn{  border-radius:var(--radius-12); box-shadow:var(--elevation-1);
   transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease; }
 .tbanners .tbn:hover{ border-color:var(--line-action); transform:translateY(-2px); box-shadow: var(--elevation-2); }
 .tbanners .tbim{ height:104px; background:var(--bg-sunken) center/cover no-repeat; }
@@ -214,7 +222,7 @@
   letter-spacing: var(--ls-lead); color: var(--text-primary); }
 .recbanner .rs { font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-4); line-height: var(--lh-airy); max-width: 62ch; }
 @media (max-width: 559px) {
-  .recbanner { gap: var(--space-12); padding: var(--space-16); }
+  .recbanner { gap: var(--space-12); }
   .recbanner .rbear, .recbanner .rbear img { width: 68px; height: 68px; }
   .recbanner .rt { font-size: var(--fs-18); }
 }

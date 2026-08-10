@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 1 line here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .gal .gmain{ aspect-ratio: 1; border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; color: var(--mark-faint); position: relative; }
@@ -28,8 +32,7 @@
 .gal .gmain img{ mix-blend-mode:multiply; transition:transform .25s ease; }
 .gal .gmain{ background:
     radial-gradient(120% 78% at 50% 108%, var(--shadow-floor) 0%, var(--fade-inverse) 62%),
-    linear-gradient(180deg,var(--bg-page) 0%, var(--bg-surface) 100%);
-  border-color:var(--line-hair); border-radius:var(--radius-16); font-size:0; overflow:hidden; }
+    linear-gradient(180deg,var(--bg-page) 0%, var(--bg-surface) 100%);  border-radius:var(--radius-16); font-size:0; overflow:hidden; }
 .gal .gmain img{ width:100%; height:100%; object-fit:contain; padding:9%; }
 .gal .gmain .gtag{ font-size:var(--fs-10); letter-spacing:var(--ls-caps); border:none; border-radius:var(--radius-pill); padding:var(--space-4) var(--space-12);
   background:var(--bg-inverse); color:var(--text-oninverse); box-shadow: var(--elevation-mark);

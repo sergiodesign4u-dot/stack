@@ -2,7 +2,15 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 2 lines here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css.
+   7.71: 3 declarations inside a `@media` here restated, value for
+   value, what the base rule above already had in force. A query that changes
+   nothing reads as a decision about that width and is not one. Removed; the
+   family is 7.3, 7.51 and 7.69. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .cshelf{ display: flex; align-items: center; gap: var(--space-16); flex-wrap: wrap; border: 1px solid var(--line-inverse); padding: var(--space-12) var(--space-16); margin: var(--space-16) 0; background: var(--bg-page); }
@@ -81,9 +89,9 @@
    closer typed inside a comment ends it, so the sentence above cannot quote one.
    The scanner catches it in the same pass that finds the defect.) */
 @media (max-width:479px){
-  .truststrip{ grid-template-columns:1fr; padding:var(--space-8); }
-  .tsx{ padding:var(--space-12) var(--space-12); column-gap:var(--space-12); }
-  .tsx .uiv-ic{ width:var(--size-38); height:var(--size-38); border-radius:var(--radius-12); }
+  .truststrip{ grid-template-columns:1fr; }
+  .tsx{ padding:var(--space-12) var(--space-12); }
+  .tsx .uiv-ic{ width:var(--size-38); height:var(--size-38); }
   .tsx .uiv-ic svg{ width:var(--size-20); height:var(--size-20); }
   .tsx:nth-child(even), .tsx:nth-child(4){ box-shadow:none; }
   .tsx + .tsx{ box-shadow:inset 0 1px 0 var(--line-hair); }
@@ -93,7 +101,7 @@
 @media (min-width:1180px){
   .truststrip{ padding-right:150px; }
 }
-.trustsec{ border-color:var(--line-hair); border-radius:var(--radius-12); }
+.trustsec{  border-radius:var(--radius-12); }
 .trustsec > summary{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); letter-spacing:var(--ls-lead);
   background:var(--bg-surface); padding:var(--space-16) var(--space-16); }
 .trustsec[open] > summary{ border-bottom:1px solid var(--line-hair); }
@@ -110,7 +118,7 @@
 .cshelf .cs-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-16); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .cshelf .cs-s{ color:var(--text-secondary); }
 .cshelf .cs-s b{ font-family:var(--font-mono); font-weight:var(--fw-semibold); color:var(--text-body); word-spacing:-.1em; }
-.cshelf .cs-th{ background:var(--bg-page) center/82% no-repeat; border-color:var(--line-hair); border-radius:var(--radius-8); color:transparent; }
+.cshelf .cs-th{ background:var(--bg-page) center/82% no-repeat;  border-radius:var(--radius-8); color:transparent; }
 .cshelf .cs-thumbs .cs-th:nth-child(1){ background-image:url(../../visuals/product-whey.png); }
 .cshelf .cs-thumbs .cs-th:nth-child(2){ background-image:url(../../visuals/product-creatine.png); }
 .cshelf .cs-th.more{ background-image:none; color:var(--text-secondary); font-family:var(--font-mono); }

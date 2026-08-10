@@ -2,7 +2,15 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 4 lines here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css.
+   7.71: 3 declarations inside a `@media` here restated, value for
+   value, what the base rule above already had in force. A query that changes
+   nothing reads as a decision about that width and is not one. Removed; the
+   family is 7.3, 7.51 and 7.69. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .aorder .orow{ display: flex; align-items: flex-start; gap: var(--space-12); }
@@ -25,7 +33,14 @@
 .oh-no{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); white-space: nowrap; }
 .oh-date{ font-size: var(--fs-14); color: var(--text-secondary); white-space: nowrap; }
 .oh-thumbs{ display: flex; gap: var(--space-4); margin-left: auto; }
-.oh-thumbs i{ width: var(--size-34); height: var(--size-38); border-radius: var(--radius-8); background: var(--bg-sunken); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-8); color: var(--mark-faint); font-style: normal; }
+/* 7.68: 34 x 38 -> 34 square, the product-photo shape rule in tokens.css. This
+   is the ONE of the three that costs something: measured before the edit, the
+   strip was 38 and the tallest child of `.ord-h`, whose next tallest is 25.59,
+   so the order row loses 4px of height. Squared on the WIDTH and not the height
+   because width is the constrained axis here - the strip sits at `margin-left:
+   auto` beside `.oh-sum`, and three tiles at 38 would take 12px more of a 390
+   row that has none to give. Height is free, width is not. */
+.oh-thumbs i{ width: var(--size-34); height: var(--size-34); border-radius: var(--radius-8); background: var(--bg-sunken); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-8); color: var(--mark-faint); font-style: normal; }
 .oh-thumbs i.more{ font-weight: var(--fw-black); font-size: var(--fs-12); }
 .oh-sum{ font-size: var(--fs-16); color: var(--text-primary); white-space: nowrap; min-width: 72px; text-align: right; }
 .oh-drop{ width: var(--size-30); height: var(--size-30); border-radius: var(--radius-8); border: 1px solid var(--line-strong); display: flex; align-items: center; justify-content: center; font-size: var(--fs-14); flex: none; }
@@ -57,7 +72,13 @@
 }
 .ob-line{ display: grid; grid-template-columns: 52px 1fr auto; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); align-items: start; }
 .ob-line:first-child{ padding-top: var(--space-2); }
-.ob-line .ph{ width: 52px; height: 56px; border-radius: var(--radius-8); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
+/* 7.68: 52 x 56 -> 52 square, the product-photo shape rule in tokens.css, and
+   the pair stops being two literals - 52 is a rung of the ladder and 56 is not.
+   Free: measured before the edit, the box was 56 in an 82.86 row whose tallest
+   child is the text column at 67.86, so the line does not move. The 52 in the
+   grid column above is the same number and stays literal: a column width is the
+   layout's, not the tile's. */
+.ob-line .ph{ width: var(--size-52); height: var(--size-52); border-radius: var(--radius-8); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
 .ln-nm{ font-size: var(--fs-14); font-weight: var(--fw-bold); line-height: var(--lh-snug); }
 /* step 7.30: weight, ink and underline left for link-row.css - this rule keeps
    the component's half: where the link sits in the row and how big it is. */
@@ -77,14 +98,13 @@
   .ob-collapse{ display: flex; width: 100%; margin-top: var(--space-16); font-family: inherit; }
 }
 @media (max-width: 639px){
-  .ord-h{ display: grid; align-items: center; gap: var(--space-4) var(--space-12); grid-template-columns: 1fr auto;
+  .ord-h{ display: grid;  gap: var(--space-4) var(--space-12); grid-template-columns: 1fr auto;
     grid-template-areas: "no date" "stat sum" "thmb thmb" "more more"; }
   .oh-no{ grid-area: no; }
   .oh-date{ grid-area: date; justify-self: end; }
   .oh-sum{ grid-area: sum; justify-self: end; margin-top: var(--space-4); }
   .oh-thumbs{ grid-area: thmb; margin-left: 0; margin-top: var(--space-12); }
-  .oh-drop{ grid-area: more; width: 100%; height: auto; margin-top: var(--space-12); padding: var(--space-12);
-    border-radius: var(--radius-8); gap: var(--space-8); font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
+  .oh-drop{ grid-area: more; width: 100%; height: auto; margin-top: var(--space-12); padding: var(--space-12);  gap: var(--space-8);  font-weight: var(--fw-black); color: var(--text-primary); }
   .oh-drop::before{ content: "Детальніше"; }
   .ord.open .oh-drop{ display: none; }
 }
@@ -109,7 +129,7 @@
 .ob-line .ph{ background:var(--bg-page) center/78% no-repeat; color:transparent; }
 .ln-nm{ color:var(--text-body); }
 .ln-calc, .ln-tot{ font-family:var(--font-mono); }
-.ob-del{ border-color:var(--line-hair); border-radius:var(--radius-12); background:var(--bg-surface); }
+.ob-del{  border-radius:var(--radius-12); background:var(--bg-surface); }
 .aord-info .no{ font-family:var(--font-mono); }
 .aord-info .meta{ color:var(--text-secondary); }
 /* step 7.23: three more editions gone to chip.css. The resting ink was
@@ -118,18 +138,23 @@
    was an outline with an accent label, 3.13:1, where the owner's one edition is
    the accent fill with an ink label. All three are visible changes on
    account-orders and all three are in the step's log. */
-.ord{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
+.ord{  border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
 .oh-no, .oh-date, .oh-sum{ font-family:var(--font-mono); }
 .oh-sum{ font-weight:var(--fw-semibold); word-spacing:-.24em; }
-.oh-drop{ border-color:var(--line-strong); color:var(--text-secondary); transition:border-color .14s ease, color .14s ease; }
+.oh-drop{  color:var(--text-secondary); transition:border-color .14s ease, color .14s ease; }
 .ord-h:hover .oh-drop{ border-color:var(--line-action); color:var(--text-action); }
 .ord.open .oh-drop{ border-color:var(--line-action); color:var(--text-action); }
 .ord-body{ border-color:var(--line-hair); }
 .ord-oos{ border-style:solid; border-color:var(--line-bonus-soft); background:var(--bg-bonus-soft); border-radius:var(--radius-8); }
 .ord-oos b{ color:var(--text-warning); }
-@media (max-width: 639px){
-  .oh-drop{ border-color:var(--line-strong); }
-}
+/* 7.69: `@media (max-width: 639px){ .oh-drop{ border-color: var(--line-strong) } }`
+   stood here and is gone with the block that held it. It was a restatement of a
+   restatement: the structure rule already says `border: 1px solid
+   var(--line-strong)`, the colour line above said it a second time, and this one
+   said it a third - inside a band where the structure side changes the control's
+   width, padding and ink but never its edge colour. It could not have drawn even
+   if the value had differed: `.ord-h:hover .oh-drop` and `.ord.open .oh-drop` sit
+   at (0,2,0) and this was (0,1,0). */
 
 /* ---------- the order's definition list - arrived at 7.46 ---------------------
    `.dl` / `.dk` / `.dv` were in spec-table.css, where they had been since the

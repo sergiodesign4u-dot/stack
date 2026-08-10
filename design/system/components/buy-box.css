@@ -2,7 +2,15 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 1 line here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css.
+   7.71: 1 declaration inside a `@media` here restated, value for
+   value, what the base rule above already had in force. A query that changes
+   nothing reads as a decision about that width and is not one. Removed; the
+   family is 7.3, 7.51 and 7.69. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .bb .eyebrow{ font-size: var(--fs-14); color: var(--text-secondary); }
@@ -58,9 +66,10 @@
    override with no stated reason; written next to the rule it excepts, it reads
    as what it is. The other seven editions of that rule never knew it existed. */
 .bb h1{ font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-30); letter-spacing:var(--ls-lead); }
-@media (min-width:860px){
-  .bb h1{ font-size:var(--fs-30); }
-}
+/* 7.71: `@media (min-width:860px){ .bb h1{ font-size: var(--fs-30) } }` stood
+   here and the query is empty without it. The line above already says 30 at
+   every width, so the query announced a desktop decision about the product
+   title and then made the same one. */
 .bb .eyebrow a{ color:var(--text-body); font-weight:var(--fw-semibold); }
 .bb .eyebrow a:hover{ color:var(--text-action); }
 .bb .bbline{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
@@ -119,7 +128,7 @@
    declaration was dropped and this block rendered at the 16 it inherited.
    14 is the nearest rung of the real scale. */
 .bb .simple{ background:var(--bg-sunken); border-color:transparent; border-radius:var(--radius-12); font-size:var(--fs-14); line-height:var(--lh-airy); }
-.bb .dpblk{ border-color:var(--line-hair); border-radius:var(--radius-12); padding:var(--space-16) var(--space-16); }
+.bb .dpblk{  border-radius:var(--radius-12); padding:var(--space-16) var(--space-16); }
 .bb .dphead{ display:flex; align-items:center; justify-content:space-between; gap:var(--space-12); }
 .bb .dph{ color:var(--text-muted); margin:var(--space-2) 0 var(--space-8); }
 .bb .dph2{ margin-top:var(--space-16); padding-top:var(--space-12); }

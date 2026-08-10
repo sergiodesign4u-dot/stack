@@ -81,7 +81,11 @@
   .skgrid{ grid-template-columns: repeat(4, 1fr); }
 }
 .skcard{ border: 1px solid var(--line-hair); border-radius: var(--radius-12); overflow: hidden; }
-.skcard .skimg{ aspect-ratio: 10/11; background: var(--bg-sunken); }
+/* 7.68: 10/11 -> 1. A skeleton is a promise about the box that replaces it, and
+   under 620 this one was lying: measured at 390, the placeholder came out
+   171 x 188.09 over a card that draws 171 x 171, so the page moved 17px on load
+   at the width where 91 of the product's 171-wide cards live. */
+.skcard .skimg{ aspect-ratio: 1; background: var(--bg-sunken); }
 .skcard .skb{ padding: var(--space-12); }
 /* a standalone box, NOT a card with a picture - the account grid uses it where
    the loaded page will show a panel. It is never nested inside `.skcard`, and

@@ -320,33 +320,58 @@
    and three files closed at `max-width: 640` while `account-shell` opened at
    `min-width: 640`.
 
-   THE SET, MEASURED - 18 boundaries, 112 declarations in 76 stylesheets.
-   `DESIGN-artifacts.md` names three of them. What the code actually leans on:
+   THERE WAS NEVER A NAMED SET - step 7.70, and this block used to say there
+   was. «`DESIGN-artifacts.md` names three of them» is false: that file has no
+   breakpoint, no `@media`, no responsive language, and exactly one three-digit
+   px value in 111 lines - a contrast measurement. A2's remainder was phrased as
+   «does the named set gain 860 and 620», which asks about something that does
+   not exist. **This block IS the set, and it always was the only one.**
 
-       860   39 decls, 15 files   THE MOST USED BOUNDARY IN THE SYSTEM, and it
-                                  is not in the named set. Three product cards
-                                  across, and the point where the page stops
-                                  being one column
-       720   20 decls,  9 files   named
-       480   13 decls,  7 files   named
-       620   10 decls,  9 files   the second unnamed workhorse
-       640    6 decls,  4 files
-       960    6 decls,  3 files
-       560    4 decls,  4 files
-       1180   3 decls,  2 files   named
-       760    3 decls,  2 files
-       420 · 900 · 1040 · 700 · 820   1 to 2 each
+   THE SET, MEASURED at 7.70 - **11 boundaries, 110 width features, 76
+   stylesheets.** Each row names the files that lean on it, because that is
+   what can be read out; where nothing in the source says WHY the number is
+   what it is, the reason is `[?]` and stays `[?]` until someone decides it.
 
-   WHAT 7.64 DID AND DID NOT DO. It fixed the spelling (8 declarations) and
-   folded the two true singletons that had a set member within 40px - 700 to
-   720 and 820 to 860. It did NOT fold 560, 620, 640, 760, 960 or 1040: each is
-   used by two or more files, each marks a content limit rather than a grid
-   step, and folding them is a layout redesign and not a value decision. 419 in
-   `restock-note.css` stays for a reason written next to it.
+       860   21 files   THE SPINE, and by a factor of two over anything else.
+                        `base`, `account-shell`, `buy-bar`, `buy-box`,
+                        `cat-overlay`, `chip`, `filter-rail`, `checkout-form`
+                        and 13 more. Reason: `[?]`
+       720    9 files   Reason: `[?]`
+       620    9 files   `brand-logo`, `cart-drawer`, `cookie-banner`,
+                        `goal-tile`, `product-grid`, `product-card`,
+                        `section-head`, `review-item`, `skeleton`. Reason: `[?]`
+       480    7 files   Reason: `[?]`
+       560    4 files   `banner`, `checkout-form`, `product-card`,
+                        `trust-strip`. Reason: `[?]`
+       640    3 files   `account-shell`, `order-row`, `status-pill`
+       960    2 files   `account-shell`, `goal-tile`
+       760    2 files   `loyalty-rung`, `seo-text` - and `seo-text` also carries
+                        `max-width: 760px` on its reading column, so here the
+                        number IS stated: it is that column
+       1180   2 files   `pdp-tabs`, `trust-strip`
+       1040   2 files   `product-grid` and `skeleton` - the catalogue and the
+                        placeholder that stands in for it, which is the one
+                        pair in this list that MUST agree, and 7.68 is what
+                        happens when such a pair drifts
+       420    1 file    `restock-note`, and it is a CONTENT limit with a
+                        measurement written next to it, not a grid step
 
-   THE HONEST STATE: the named set is not the used set. Either 860 and 620 join
-   the set on the page that names it, or the components that use them get a
-   written reason each. That is A2's remainder and it belongs to the owner.
+   WHAT 7.64 DID. Fixed the spelling of 8 declarations, and folded the two true
+   singletons that had a set member within 40px: 700 to 720, 820 to 860.
+
+   WHAT 7.70 DID. **Applied that same rule to the case 7.64 skipped: 900 to
+   860.** `checkout-form.css` was the only file using 900, four declarations,
+   and 900 is 40px from 860 - the same distance and the same shape as the 820
+   it folded. Measured before folding at 860 / 870 / 880 / 899 on all five
+   checkout screens: no sideways scroll, nothing newly clipped, and the form
+   column comes out 444 beside the money box's fixed 360. A/B at band widths:
+   null 0, 3094 rows on nine page-widths and every one of them layout.
+
+   WHAT STAYS AND WHY. 560, 620, 640, 760, 960 and 1040 each serve two or more
+   files and each marks a limit of CONTENT rather than a step of a grid; a
+   boundary two files agree on is a decision, not drift. 420 keeps its measured
+   reason. **Nothing here is a candidate for folding any more** - the next
+   boundary that appears has to arrive with its job written in this list.
    ========================================================================== */
 
 /* ==========================================================================
@@ -453,6 +478,38 @@
      largest action of a screen should round up rather than lose 2px. */
   --size-64: 64px;
 
+  /* A BOX THAT FRAMES A PRODUCT PHOTOGRAPH IS SQUARE - step 7.68, and this is a
+     shape rule, not a token: there is nothing here to name, only one answer to
+     give in every file that frames a photo.
+     The three photographs are 2048 x 2048 (read from the PNG headers) and every
+     box paints them contained - `center/74%` to `86% no-repeat` - so a frame
+     that is not square leaves uneven air around a square subject. Measured at
+     1280 on the grid card: a 196.8 photo inside a 246 x 270.59 box, 24.6 of air
+     beside it and 36.9 above and below.
+     The non-square shape was `10/11`, and it arrived from `_wf.css:482` in stage
+     04, before any photograph existed. `DESIGN-artifacts.md` has no entry for
+     it, so its origin is [?]: it is a wireframe placeholder that was never
+     re-decided once the photos landed. The product had already half-left it -
+     `.pcard-l .lph` and `.gal .gmain` were `aspect-ratio: 1`, five of the nine
+     photo boxes were square, and `.pcard .ph` itself flipped to 1/1 under 620
+     and inside `.pmini`. What that left was a loading skeleton still promising
+     10/11 over a card drawing 1/1: 171 x 188.09 against 171 x 171 at 390, a 17px
+     jump on the phone, where 91 of the product's 171-wide cards live.
+     Five boxes squared - `.pcard .ph`, `.skcard .skimg`, `.ci-ph`,
+     `.ob-line .ph`, `.oh-thumbs i` - and two declarations DELETED rather than
+     added, because the two overrides that already said 1 now restate the base.
+     Squared on the width, never the height: width is what a row packs and a
+     grid column already states, height is free. Two of the three cost nothing
+     (`.ci-ph` and `.ob-line .ph` are not the tallest child of their row); the
+     order-history strip is, and that row loses 4px.
+     NOT in this rule: a banner or a backdrop is not a tile. `.hdeal .hd-ph`
+     (fluid, min-height 180), `.cart-behind .ph-card` (150 tall behind the
+     drawer) and `.pd-img` (16/6, a description band) also frame a photograph
+     and are shaped by their slot, not by their subject.
+     The SIZE of a tile is a different question and it is still open - nine
+     names, eight sizes: 34 / 40 / 46 / 46 / 52 / 56-84 / 60 / 70 / 74. Four are
+     rungs written as tokens, five are literals. See architecture.md A6. */
+
   /* The only shadow in the product. Depth is a rare signal: if everything
      floats, nothing does. Origin: [?] - not recorded in kit.css and the
      geometry table of DESIGN.md has no origin column. */
@@ -472,6 +529,39 @@
 
    Counts come from design/kit/docs/tokens-audit.md, measured over both
    stylesheets and all 40 coloured screens.
+
+   THE COLOUR BLOCK SAYS WHERE THE COLOURED PRODUCT DIFFERS - step 7.69.
+   Every component file has two halves: `structure`, copied from
+   `wireframes/_wf.css`, and `colour`, copied from `design/kit/kit.css`, and
+   the second wins. The structure half carries the grey prototype's own greys
+   inside its shorthands - `border: 1px solid var(--line-hair)` - because the
+   grey prototype has to stand up on its own. So the colour half has exactly
+   one job: say what the coloured product decided DIFFERENTLY.
+   Measured before the rule was written: the structure side names a colour 328
+   times; the colour side restated 54 of them with the identical token and
+   changed 22. **The restatement was applied to 16% of them**, so it could not
+   be the record of provenance it was taken for - 274 colours travel inside a
+   shorthand and are never mentioned in the colour block at all. Completing
+   that inventory means adding 274 lines that draw nothing; the other
+   consistent world is 55 fewer, and that is the one taken. A/B over 40 screens
+   at four widths: null 0, difference 0.
+   TWO THINGS THAT ARE NOT RESTATEMENTS AND STAY.
+   1. A colour after a RESET. `.acc-links` has the shorthand in structure,
+      `border: 0` in a `max-width: 959px` query - which returns the colour to
+      currentColor - and the colour block puts `--line-hair` back. Nothing
+      paints there, the width is 0, but the line is a restoration.
+   2. A colour that DIFFERS, however slightly. Those 22 are the whole point:
+      `--line-strong` relaxing to `--line-hair` in seven places, the mega
+      menu's top edge going `--line-inverse` to `--line-action` in three.
+
+   HOW A BOX SAYS IT IS SQUARE - step 7.69, and it is not a spelling choice.
+   `aspect-ratio: 1` when the box does not choose its own width - it comes from
+   a grid column, a breakpoint or the page. `width` and `height` when the size
+   is one fixed number the box owns. Measured: five rules on the first side and
+   all five are photo frames, 110 on the second and they are glyphs, avatars,
+   spinners and controls. `gallery.css` holds one of each - `.gal .gmain` is
+   fluid, `.gal .gthumb` is 70 - and architecture.md A7 read that as one file
+   saying «square» two ways. It is one file holding two kinds of box.
    ========================================================================== */
 
   /* ---- ink ---------------------------------------------------------------- */

@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 4 lines here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .frail{ display: none; border: 1px solid var(--line-hair); padding: var(--space-2) 0; align-self: start; position: sticky; }
@@ -37,17 +41,16 @@
 }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.frail{ border-color:var(--line-hair); border-radius:var(--radius-12); }
+.frail{  border-radius:var(--radius-12); }
 .frail{ top:82px; }
-.hrail{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); padding:var(--space-8) 0; }
+.hrail{  border-radius:var(--radius-12); box-shadow:var(--elevation-1); padding:var(--space-8) 0; }
 .hrail a{ color:var(--text-body); font-size:var(--fs-14); transition:background .15s ease, color .15s ease, box-shadow .15s ease; }
 .hrail a:hover, .hrail a.on{ background:var(--bg-surface); color:var(--text-action); box-shadow:inset 2px 0 0 var(--line-action); }
 .hrail a.on .ar, .hrail a:hover .ar{ color:var(--text-action); }
 .hrail a .ic{ color:var(--text-secondary); }
 .hrail a:hover .ic, .hrail a.on .ic{ color:var(--text-action); }
 .hrail a .ic .uiv-ic svg{ width:17px; height:17px; }
-.hrail .rsep{ border-top-color:var(--line-hair); }
-.hrail-fly.wfh-mega{ border-color:var(--line-hair); border-top-color:var(--line-action); border-radius:0 var(--radius-12) var(--radius-12) 0;
+.hrail-fly.wfh-mega{  border-top-color:var(--line-action); border-radius:0 var(--radius-12) var(--radius-12) 0;
   box-shadow: var(--elevation-3); }
 .hrail-wrap:has(.hrail-fly.open) .hrail{ border-top-color:var(--line-action); box-shadow:var(--elevation-1), inset 0 1px 0 var(--line-action); }
 .hrail-scrim{ background:var(--scrim-overlay); }

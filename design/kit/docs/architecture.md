@@ -105,12 +105,45 @@ position, rect, `grid-template-columns`, gaps. No colour, no type.**
 convention-correct narrow side of the 560 boundary, and 759 is the correct partner of
 `min-width: 760` in the same file. Neither is drift.
 
-**Not done, and it is the part that is a decision.** 560, 620, 640, 760, 960 and 1040 each serve
-two or more files and each marks a content limit rather than a grid step; folding them is a
-layout redesign. `restock-note.css`'s 419 stays with a measured reason written next to it: at
-420, 440, 460 and 479 that row does not wrap and does not overflow, so folding it to 479 would
-stack a row that fits. **The remainder of A2 is one question: does the named set gain 860 and
-620, or do the components that use them carry a written reason each?**
+**Not done at 7.64, and it is the part that is a decision.** 560, 620, 640, 760, 960 and 1040
+each serve two or more files and each marks a content limit rather than a grid step; folding
+them is a layout redesign. `restock-note.css`'s 419 stays with a measured reason written next to
+it: at 420, 440, 460 and 479 that row does not wrap and does not overflow, so folding it to 479
+would stack a row that fits.
+
+### A2's remainder - **CLOSED at step 7.70. The question was about a set that does not exist**
+
+**The remainder was phrased «does the named set gain 860 and 620, or do the components carry a
+written reason each?» There is no named set.** `DESIGN-artifacts.md` contains no breakpoint, no
+`@media`, no responsive language, and exactly one three-digit px value in its 111 lines - a
+contrast measurement inside an accessibility paragraph. The line in `tokens.css` that said
+«`DESIGN-artifacts.md` names three of them» was false, and it was the premise of the whole
+question. **Seventh stale reading in this sheet, and the first one whose subject turned out not
+to exist at all.**
+
+**So the answer is neither branch: the block in `tokens.css` IS the set, and it always was the
+only one.** It is now written as such - eleven boundaries, each with the files that lean on it,
+and `[?]` wherever nothing in the source says why the number is what it is. A boundary the
+system cannot justify is at least a boundary the system has counted.
+
+**The set re-measured at 7.70: 11 boundaries, 110 width features, 76 stylesheets.** 7.64
+recorded «18 boundaries, 112 features»; its own printed table lists 12 after its two folds, so
+18 was wrong when it was written.
+
+**One fold was left, and it is 7.64's own rule applied to the case it skipped: 900 to 860.**
+That step folded `order-row`'s 820 into 860 because a boundary used by one file with a set
+member 40px away is not a decision. `checkout-form.css` was the only user of 900 - four
+declarations - and 900 is the same 40px on the other side. **Measured before folding**, at 860,
+870, 880 and 899 on all five checkout screens: no sideways scroll, nothing newly clipped, and
+the form column comes out **444** beside the money box's fixed 360. The band gets 410 to 584px
+**shorter**, because that is what a second column is for. A/B at band widths (840 / 860 / 880 /
+899 / 900 / 960): **null 0, 3094 rows on exactly nine page-widths - the three checkout screens
+at 860, 880 and 899 - and every property that moved is layout.** Nothing at 840, 900 or 960.
+
+**Nothing else folds.** 560, 620, 640, 760, 960, 1040 each serve two or more files: a boundary
+two files agree on is a decision, not drift. 1040 is the one pair that MUST agree - the
+catalogue grid and the skeleton that stands in for it - and step 7.68 is what happens when such
+a pair drifts apart.
 
 ### A9. The only sideways scroll left in the product - found and half fixed at 7.64
 
@@ -283,25 +316,114 @@ pass does not read them as drift.
 before the scale existed, whose type already moved at 7.66. That is a look, taken with the box
 open, not a sweep.
 
-### A6. Four sizes of one product tile
+### A6. The product tile - **SHAPE closed at step 7.68, SIZE still open.** It was nine names, not four
 
-**Measured.** The same «small square with a product photo» is 46 (dashboard preview), 34x38
-(order row), 52x56 (order line), 70 (gallery thumbnail). Three are not square. None is a rung
-of the size ladder (34 / 38 / 40 / 44 / 46 / 52 / 62).
+**This entry was wrong in both of its claims, and both were wrong the same way A1, A3, A2, A4
+and A5 were: counted from a reading of the source, not measured in a browser.**
 
-**Recommendation: two sizes, not four** - a list tile and a gallery tile - and both square.
+**Correction 1 - it is nine names in seven files, not four.** Every box in the product that
+frames a product photograph, rendered:
 
-### A7. Two ways to say «square», two ways to say «the same colour»
+| box | rendered | shape | how the size is written | file |
+|---|---|---|---|---|
+| `.oh-thumbs i` | 34 x 38 | 0.895 | `var(--size-34)` / `var(--size-38)` | `order-row.css` |
+| `.cshelf .cs-th` | 40 x 40 | square | `var(--size-40)` | `trust-strip.css` |
+| `.aord-thumbs .t` | 46 x 46 | square | `var(--size-46)` | `order-row.css` |
+| `.rk-ph` | 46 x 46 | square | `var(--size-46)` | `restock-note.css` |
+| `.ob-line .ph` | 52 x 56 | 0.929 | `52px` / `56px` | `order-row.css` |
+| `.pcard-l .lph` | 84, 56 under 560 | square | `84px` / `56px` + `aspect-ratio: 1` | `product-card.css` |
+| `.co-line .li-img` | 60 x 60 | square | `60px` | `checkout-form.css` |
+| `.gal .gthumb` | 70 x 70 | square | `70px` | `gallery.css` |
+| `.ci-ph` | 74 x 81.39 | 0.909 | `74px` + `aspect-ratio: 10/11` | `cart-row.css` |
 
-**Measured.** `aspect-ratio: 1` on the gallery frame, `70px x 70px` on its thumbnail, in one
-file. Separately: the border colour is named in the structure rule and again in the colour
-rule, from the same token, in 22 places - the stage-08 split, on purpose.
+**Correction 2 - «none is a rung» is false.** Four of the nine are written as ladder tokens
+(34, 38, 40, 46, 46) and a fifth, `.ob-line .ph`, was a rung written as a literal. Five are
+literals off the ladder: 52 (now a token), 56, 60, 70, 74, 84.
 
-**Recommendation: `aspect-ratio` everywhere a box is square by intent.** For the 22 split
-pairs, **decide once whether the system keeps restating a value to record its provenance.**
-Step 7.57 restored one such pair after 7.55 deleted it by accident; the pass has since treated
-the duplication as the file's contract. If that is right, it should be written in
-`tokens.css`; if not, all 22 go together.
+**What the entry never looked at: the big photo.** `.pcard .ph` was `10/11` at the base, `1/1`
+inside `@media (max-width:619px)`, and `1` again inside `.pmini` - one element, two shapes,
+decided by width. Measured across the product, 91 of its instances rendered square at 171 and
+82 rendered 10/11 at 244-246, so the majority of the product's card photos were already square.
+
+**SHAPE - closed. The photograph is 2048 x 2048** (read from the PNG headers of all three), and
+every box paints it contained, `center/74%` to `86% no-repeat`. So a frame that is not square
+leaves uneven air around a square subject: at 1280, a 196.8 photo inside a 246 x 270.59 box,
+24.6 beside it and 36.9 above and below. `10/11` came from `wireframes/_wf.css:482` at stage 04,
+**before any photograph existed**, and `DESIGN-artifacts.md` has no entry for it - its origin is
+`[?]`. It is a wireframe placeholder that nobody re-decided when the photos landed.
+
+**The rule, written into `tokens.css` under the size ladder: a box that frames a product
+photograph is square, because the photograph is.** Five boxes squared - `.pcard .ph`,
+`.skcard .skimg`, `.ci-ph`, `.ob-line .ph`, `.oh-thumbs i` - and **two declarations deleted
+rather than added**, because the two overrides that already said `1` now restate the base.
+Squared on the width and never on the height: width is what a row packs and what a grid column
+already states, height is free.
+
+**The defect this closes, which A6 does not mention.** `.skcard .skimg` was `10/11` with no
+override, so under 620 the loading skeleton promised a shape the card does not draw: measured at
+390, **171 x 188.09 against 171 x 171, a 17px jump on load** - on the phone, where 91 of the
+171-wide cards live.
+
+**Not in the rule: a banner is not a tile.** `.hdeal .hd-ph` (fluid, `min-height:180`),
+`.cart-behind .ph-card` (150 tall behind the drawer) and `.pd-img` (`16/6`, a description band)
+also frame a photograph and are shaped by their slot, not by their subject.
+
+**SIZE - still open, and it is the owner's.** Nine names, eight sizes: 34 / 40 / 46 / 46 / 52 /
+56-84 / 60 / 70 / 74. Nothing in the source says why a restock line's tile is 46 and a checkout
+line's is 60, so folding them would be taste, not measurement. Two observations that belong to
+whoever decides: `.aord-thumbs .t` and `.rk-ph` are the same rule at 46 in two files, and
+`.ci-ph` carries `--radius-12` where the other eight carry `--radius-8`.
+
+### A7. Two ways to say «square», two ways to say «the same colour» - **CLOSED at step 7.69.** One half was never a defect and the other was bigger than the number
+
+**Half one - «two ways to say square» is two kinds of box, not two spellings.** Measured over
+every component stylesheet: **5 rules say square with `aspect-ratio: 1` and 110 say it with two
+equal numbers.** The line between them is not habit. All five `aspect-ratio` rules are boxes
+that **do not choose their own width** - `.gal .gmain`, `.pcard .ph` and `.skcard .skimg` have
+no width at all, `.ci-ph` takes its 74 from the grid column `article.ci` sets, `.pcard-l .lph`
+changes from 84 to 56 at 560. All 110 of the others own one fixed number, and they are glyphs,
+avatars, spinners and controls, where `width` + `height` is the only spelling that sizes an
+`<svg>` at all. `gallery.css` holds one of each because it holds one fluid box and one 70px
+thumbnail. **Applying the recommendation literally would rewrite 110 rules and make most of them
+worse.** The rule is written in `tokens.css` and nothing was edited.
+
+**Half two - it is 55 declarations in 21 files, not 22, and 22 is the number on the other side
+of the same measurement.** Parsed with shorthands expanded, because the structure side writes
+`border: 1px solid var(--line-hair)` and the colour side writes `border-color:
+var(--line-hair)` - comparing property names alone finds three:
+
+| | |
+|---|---|
+| the two sides say the same thing | **55** (34 `border-color`, 9 `border-*-color`, and the rest) |
+| the colour side genuinely overrides | **22** |
+
+**What settles it: the restatement covers 16% of the colours, so it cannot be the record of
+provenance it was taken for.** The structure side names a colour **328** times; 54 are restated
+identically, **274 travel inside a shorthand and are never mentioned in the colour block**.
+Only seven files restate everything they name, and each of those names one to three. Completing
+the inventory means **adding 274 lines that draw nothing**; the other consistent world is 55
+lines shorter, and that is the one taken. A/B: **null 0, difference 0** over 40 screens at four
+widths.
+
+**Two things that look like restatements and stay, both found by the A/B rather than by
+reading.** A colour after a **reset**: `.acc-links` carries the shorthand in structure, `border:
+0` in a `max-width: 959px` query - which returns the colour to currentColor - and the colour
+block puts `--line-hair` back. Nothing paints there, the width is 0, but the line is a
+restoration and a rule that removes duplicates must not remove restorations. And a colour that
+**differs**: the 22 are the whole point of the block - `--line-strong` relaxing to
+`--line-hair` in seven places, the mega menu's top edge going `--line-inverse` to
+`--line-action` in three.
+
+**The 73 in `product-card.css` was the file count.** That comment says «all 73 such pairs»;
+there are 73 component stylesheets, 45 of which have a colour section. Corrected in place.
+
+**Opened by this step and CLOSED at 7.71, and there were 17 of them, not 11.** A declaration
+inside a `@media` that restates, value for value, what the base rule above already has in force.
+7.69 found 11 because it was looking only inside the colour section and comparing only against
+the colour section's own base; the pass of its own re-measured across the whole file and across
+both halves: **17 in 8 files** - `product-card` 5, `order-row` 3, `trust-strip` 3,
+`account-shell` 2, `banner` 1, `buy-box` 1, `spec-table` 1, `menu` 1. **A/B: null 0, difference
+0.** A query that changes nothing reads as a decision about that width and is not one.
 
 ---
 

@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 1 line here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 /* step 7.28: this read `var(--bg-skeleton)` - a hairline painted from a
@@ -36,7 +40,7 @@
 .fgroup .fh{ transition:color .15s ease; }
 .fgroup .fh .ar{ transition:transform .2s ease, color .15s ease; }
 .fgroup .fh:hover, .fgroup .fh:hover .ar{ color:var(--text-action); }
-.fgroup{ border-bottom-color:var(--line-hair); padding:var(--space-16) var(--space-16); }
+.fgroup{  padding:var(--space-16) var(--space-16); }
 .fgroup .fh{ font-size:var(--fs-14); font-weight:var(--fw-bold); color:var(--text-body); }
 .fgroup .fh .ar{ color:var(--text-muted); }
 /* the 12 between options is the GROUP's rhythm, and the only thing about `.fopt`

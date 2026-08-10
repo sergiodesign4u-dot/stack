@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 1 line here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .auth-ov{ display: none; position: fixed; inset: 0; z-index: 60;
@@ -12,7 +16,7 @@
 @media (min-width: 720px){
   .auth-ov{ align-items: center; padding: var(--space-24); }
   .auth-modal{ max-width: 880px; min-height: min(560px, 94vh); max-height: 94vh; border-radius: var(--radius-16);
-    overflow: hidden;  }
+    overflow: hidden; }
 }
 .auth-visual{ display: none; }
 @media (min-width: 720px){
@@ -150,7 +154,7 @@
 .auth-load .lt{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .auth-load .lp{ color:var(--text-secondary); }
 .auth-load .lp b{ color:var(--text-body); font-family:var(--font-mono); font-weight:var(--fw-semibold); font-size:var(--fs-14); }
-.auth-spin{ border-color:var(--line-hair); border-top-color:var(--line-action); animation:uivspin .9s linear infinite; }
+.auth-spin{  border-top-color:var(--line-action); animation:uivspin .9s linear infinite; }
 @keyframes uivspin{ to{ transform:rotate(360deg); } }
 @media (prefers-reduced-motion:reduce){
   .auth-spin{ animation:none; }

@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 2 lines here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .aaddr .adef{ border: 1px solid var(--line-hair); border-radius: var(--radius-8); padding: var(--space-12) var(--space-12); font-size: var(--fs-14); }
@@ -54,9 +58,9 @@
    on top of the finish. The duplication was real; the defect described was not. */
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.addr-card{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.addr-card{  border-radius:var(--radius-12); box-shadow:var(--elevation-1); background:var(--bg-page); }
 .addr-card.def{ border-color:var(--line-action); }
-.addr-tag{ border-color:var(--line-strong); color:var(--text-secondary); }
+.addr-tag{  color:var(--text-secondary); }
 .addr-card.def .addr-tag{ border-color:var(--line-action); color:var(--text-action); }
 .addr-line{ color:var(--text-body); }
 .addr-sub, .addr-type{ color:var(--text-secondary); }

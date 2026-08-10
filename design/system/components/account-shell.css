@@ -2,7 +2,15 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 6 lines here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css.
+   7.71: 2 declarations inside a `@media` here restated, value for
+   value, what the base rule above already had in force. A query that changes
+   nothing reads as a decision about that width and is not one. Removed; the
+   family is 7.3, 7.51 and 7.69. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .only-mobile{ display: block; }
@@ -52,25 +60,24 @@
 .acc-link.buyer{ color: var(--text-secondary); font-weight: var(--fw-bold); border-top: 1px solid var(--line-hair); }
 @media (max-width: 959px){
   .acc-link.buyer{ border-top: 0; }
-  .acc-links{
-    margin-top: var(--space-12); min-width: 0; max-width: 100%;
+  .acc-links{  min-width: 0; max-width: 100%;
     border: 0; border-radius: 0;
     display: flex; gap: var(--space-8); padding-bottom: var(--space-4);
     overflow-x: auto; overflow-y: hidden;
     -webkit-overflow-scrolling: touch; scrollbar-width: none;
-  }
+ }
   .acc-links::-webkit-scrollbar{ display: none; }
   .acc-link{
     width: auto; flex: none; white-space: nowrap;
     border: 1px solid var(--line-strong); border-radius: var(--radius-pill);
-    padding: var(--space-8) var(--space-16); gap: var(--space-8); font-weight: var(--fw-bold); background: var(--bg-page);
-  }
+    padding: var(--space-8) var(--space-16); gap: var(--space-8); font-weight: var(--fw-bold);
+ }
   .acc-link .ar{ display: none; }
   .acc-link .ic{ font-size: var(--fs-14); }
   .acc-link .ct{
     margin-left: var(--space-4); border: 1px solid var(--line-strong);
     border-radius: var(--radius-pill); padding: 0 var(--space-8); color: var(--text-secondary);
-  }
+ }
 }
 .acc-h1{ color: var(--text-primary); }
 .acc-sub{ font-size: var(--fs-14); margin-top: var(--space-4); }
@@ -107,12 +114,12 @@
 }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.acc-prof{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); background:var(--bg-page); }
-.acc-prof .av{ background:var(--bg-sunken); border-color:var(--line-hair); color:var(--text-secondary);
+.acc-prof{  border-radius:var(--radius-12); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.acc-prof .av{ background:var(--bg-sunken);  color:var(--text-secondary);
   font-family:var(--font-display); font-weight:var(--fw-semibold); letter-spacing:var(--ls-caps); }
 .acc-prof .nm{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-16); letter-spacing:var(--ls-lead); }
 .acc-prof .ph{ font-family:var(--font-mono); font-size:var(--fs-12); }
-.acc-tier{ border-color:var(--line-strong); background:var(--bg-page); color:var(--text-body); }
+.acc-tier{  background:var(--bg-page); color:var(--text-body); }
 .acc-tier.free{ border-color:var(--line-strong); background:none; color:var(--text-secondary); }
 .acc-links{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
 .acc-link{ border-color:var(--line-hair); transition:background .14s ease, color .14s ease, box-shadow .14s ease; }
@@ -146,12 +153,11 @@
 }
 .acc-h1{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-30); letter-spacing:var(--ls-lead); }
 .acc-sub{ color:var(--text-secondary); }
-.acard{ border-color:var(--line-hair); border-radius:var(--radius-12); background:var(--bg-page); box-shadow:var(--elevation-1); }
+.acard{  border-radius:var(--radius-12); background:var(--bg-page); box-shadow:var(--elevation-1); }
 /* 7.50: `.mech-kicker` left this list. It named the same two properties with the
    same two tokens that section-head.css already gives it, and won them only
    because this file loads later - import 71 against 63. The class belongs to the
    section head; the account card's own eyebrow stays here. */
-.acard .ah h3{ color:var(--text-muted); letter-spacing:var(--ls-caps); }
 .acard .ah a, .acard .ah .lnk{ color:var(--text-body); transition:color .14s ease; }
 .acard .ah a:hover, .acard .ah .lnk:hover{ color:var(--text-action); }
 .abonus .big{ font-family:var(--font-mono); color:var(--text-action);

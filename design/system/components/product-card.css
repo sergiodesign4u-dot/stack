@@ -2,11 +2,26 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 2 lines here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css.
+   7.71: 5 declarations inside a `@media` here restated, value for
+   value, what the base rule above already had in force. A query that changes
+   nothing reads as a decision about that width and is not one. Removed; the
+   family is 7.3, 7.51 and 7.69. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .pcard{ border: 1px solid var(--line-hair); overflow: hidden; display: flex; flex-direction: column; background: var(--bg-page); position: relative; }
-.pcard .ph{ aspect-ratio: 10/11; display: flex; align-items: center; justify-content: center; font-size: var(--fs-12); position: relative; }
+/* 7.68: `aspect-ratio: 10/11` -> `1`. The photograph is 2048 x 2048 and the box
+   paints it contained, so a taller frame only opened uneven air around a square
+   subject - measured at 1280, a 196.8 photo in a 246 x 270.59 box, 24.6 beside
+   it and 36.9 above. 10/11 came from `_wf.css:482`, stage 04, before a photo
+   existed. The two overrides that already said `1` below - the ≤619 query and
+   `.pmini` - are deleted with it: they now restate this line. Rule and origin
+   in tokens.css, under the size ladder. */
+.pcard .ph{ aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: var(--fs-12); position: relative; }
 /* 7.37: the badge itself went to badge.css. What a card owns is WHERE it sits -
    pinned to the photo, 11px in from its corner - not what it looks like. */
 .pcard .tag{ position: absolute; }
@@ -178,7 +193,7 @@
 /* the wrapper too, not only the drawing: the mark sits in an 18px box that the
    row measured, and a 24px wrapper around an 18px svg overflows it */
 .pcard-l .lfav .uiv-ic{ width:18px; height:18px; }
-.pcard{ border-radius:var(--radius-12); border-color:var(--line-hair); }
+.pcard{ border-radius:var(--radius-12); }
 .pcard .ph{ background-size:80%; }
 .pcard:hover .ph{ background-size:86%; }
 .pcard .bd{ padding:var(--space-16) var(--space-16) var(--space-8); }
@@ -209,18 +224,17 @@
 .pcard .perserv{ text-align:left; }
 .pcard .bonus{ white-space:normal; text-align:right; }
 @media (max-width:619px){
-  .pcard .ph{ aspect-ratio:1/1; }
   .pcard .bd{ padding:var(--space-12) var(--space-12) var(--space-8); }
-  .pcard .pbrand{ font-size:var(--fs-10); margin-bottom:var(--space-4); letter-spacing:var(--ls-lead); }
-  .pcard .nm{ font-size:var(--fs-14); line-height:var(--lh-snug); margin-bottom:var(--space-8); min-height:36px; }
+  .pcard .pbrand{ font-size:var(--fs-10);  letter-spacing:var(--ls-lead); }
+  .pcard .nm{ font-size:var(--fs-14);  margin-bottom:var(--space-8); min-height:36px; }
   .pcard .prow2{ gap:var(--space-8); }
   .pcard .pcol{ flex:1 1 auto; min-width:0; min-height:52px; }
   .pcard .poldline{ flex-wrap:nowrap; white-space:nowrap; gap:var(--space-4); margin-bottom:var(--space-2); }
   .pcard .pold{ font-size:var(--fs-10); white-space:nowrap; }
   .pcard .pnew{ font-size:var(--fs-20); white-space:nowrap; }
-  .pcard .pmeta2{ margin-top:var(--space-4); padding-top:var(--space-4); font-size:var(--fs-10); gap:var(--space-8); }
+  .pcard .pmeta2{   font-size:var(--fs-10); }
 }
-.pcard-l{ border-radius:var(--radius-12); border-color:var(--line-hair); }
+.pcard-l{ border-radius:var(--radius-12); }
 .pcard-l .lnm{ font-size:var(--fs-16); color:var(--text-body); }
 .pcard-l .lprice{ font-size:var(--fs-20); letter-spacing:var(--ls-lead); }
 /* ---------- the title is a link and both cards say so - 7.43 ------------------
@@ -273,7 +287,15 @@
    this pass keeps refusing to delete a grey half by accident - the same refusal
    it made for `.tband` at 7.44, `.led-empty` at 7.48 and `.emptybox` at 7.49.
    Whether the system keeps stating a value twice at all is one decision about
-   all 73 such pairs, and it belongs to stage 09, not to one file. */
+   all 73 such pairs, and it belongs to stage 09, not to one file.
+   7.69 TOOK THAT DECISION, AND 73 WAS THE FILE COUNT. There are 73 component
+   stylesheets, 45 of them with a colour section; the pairs were 55, in 21
+   files. The rule is in tokens.css and it comes out of one measurement: the
+   structure side names a colour 328 times and the colour side restated 54 of
+   them, so the restatement covered 16% and could not be the record of
+   provenance it was taken for. What stays in the colour block is what DIFFERS -
+   22 of them - plus one restoration after a `border: 0`. This file lost two
+   lines, `.pcard` and `.pcard-l`, and neither moved a pixel. */
 .pmini .pmback{ display: block; font-size: var(--fs-14); margin: var(--space-12) var(--space-2) 0;
   padding-top: var(--space-12); border-top: 1px solid var(--line-hair); }
 .pmini .pmback{ color:var(--text-secondary); border-top-color:var(--line-hair); }
@@ -281,7 +303,8 @@
 @media (max-width: 859px){
   .pmini{ order: -1; }
   .pmini .pcard{ display: grid; grid-template-columns: 116px minmax(0, 1fr); align-items: start; }
-  .pmini .pcard .ph{ aspect-ratio: 1; }
+  /* 7.68: `.pmini .pcard .ph{ aspect-ratio: 1 }` deleted here. The base rule now
+     says 1 for every card photo, so this line restated it at (0,3,0). */
   .pmini .pcard .bd{ padding-right: 46px; }
   .pmini .pcard .nm{ min-height: 0; }
 }

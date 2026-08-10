@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 1 line here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .hero-wrap{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin: var(--space-8) 0 var(--space-8); }
@@ -27,7 +31,7 @@
 .hstrip > .hpromo:nth-child(1) .hps{ color:var(--text-onphoto); }
 .hstrip > .hpromo:nth-child(2){ background-image:url(../../visuals/product-creatine.png); }
 .hstrip > .hpromo:nth-child(3){ background-image:url(../../concept/assets/mascot-pose-present.png); background-size:80%; background-position:center 4%; }
-.hvert{ border-color:var(--line-hair); border-radius:var(--radius-16); box-shadow:var(--elevation-1); position:relative;
+.hvert{  border-radius:var(--radius-16); box-shadow:var(--elevation-1); position:relative;
   transition:transform .15s ease, box-shadow .15s ease; overflow:hidden;
   background:var(--bg-page) right -14px bottom -26px/62% no-repeat; }
 .hvert:hover{ transform:translateY(-2px); box-shadow: var(--elevation-2); }

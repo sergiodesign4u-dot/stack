@@ -22,7 +22,11 @@
    «+ Новий клієнт…» - is not a value and stands outside the listbox, as a
    button after it. That distinction is the reason the picker could not stay a
    native select: choosing an option there would have meant «the value is
-   New client», which is false. */
+   New client», which is false.
+   7.71: 1 declaration inside a `@media` here restated, value for
+   value, what the base rule above already had in force. A query that changes
+   nothing reads as a decision about that width and is not one. Removed; the
+   family is 7.3, 7.51 and 7.69. */
 
 .menu{ position: relative; display: inline-flex; max-width: 100%; }
 .menu > .menu-trig{ max-width: 100%; }
@@ -109,9 +113,9 @@
   .menu-scrim.open{
     position: fixed; inset: 0; z-index: 70;
     background: var(--scrim-overlay);
-  }
+ }
   .menu-pop{
-    position: fixed; top: auto; left: 0; right: 0; bottom: 0; z-index: 71;
+    position: fixed; top: auto;  right: 0; bottom: 0; z-index: 71;
     min-width: 0; max-width: none;
     border: none;
     border-radius: var(--radius-16) var(--radius-16) 0 0;
@@ -119,13 +123,13 @@
     /* clears the bottom tab bar and the phone's home indicator: the sheet is
        modal, so it covers the bar rather than stopping above it */
     padding: var(--space-12) var(--space-12) calc(var(--space-24) + env(safe-area-inset-bottom, 0px));
-  }
+ }
   .menu-list{ max-height: 60vh; }
   /* a grab bar, so the sheet reads as a sheet and not as a page that jumped */
   .menu-pop::before{
     content: ''; display: block; width: 36px; height: 4px; margin: 0 auto var(--space-12);
     border-radius: var(--radius-pill); background: var(--bg-rule);
-  }
+ }
   .menu-opt{ font-size: var(--fs-16); min-height: var(--size-52); }
 }
 

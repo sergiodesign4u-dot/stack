@@ -2,7 +2,11 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+   7.69: the colour block says where the coloured product DIFFERS from the
+   grey prototype. 2 lines here restated a value the structure side had
+   already set, drew nothing, and hid the lines that do differ. Removed; the
+   rule is in tokens.css. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 /* `.lintro` AND `.lintro .more` LEFT THIS FILE AT STEP 7.10 for `seo-text.css`.
@@ -72,7 +76,7 @@ table.led td.bal{ color: var(--text-secondary); }
 .loy .lbar{ background:var(--bg-sunken); border-radius:var(--radius-pill); }
 .loy .lbar i, .lbar.maxed i{ background:var(--bg-action); border-radius:var(--radius-pill); }
 .loy .ls b{ font-family:var(--font-mono); color:var(--text-body); }
-.loy .lrung{ border-color:var(--line-hair); border-radius:var(--radius-8); background:var(--bg-surface);
+.loy .lrung{  border-radius:var(--radius-8); background:var(--bg-surface);
   font-family:var(--font-mono); }
 /* 7.40: the literal stack was `'Inter', sans-serif` - Inter and then nothing.
    `--font-body` is Inter plus the four system faces that carry a page when Inter
@@ -86,7 +90,7 @@ table.led td.bal{ color: var(--text-secondary); }
 .loy .lrung.next .rs{ color:var(--text-body); }
 .loy .lrung.locked .rn{ color:var(--text-muted); }
 .loy .lrung .rs .uiv-ic svg{ width:12px; height:12px; }
-.led-wrap{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); background:var(--bg-page); }
+.led-wrap{  border-radius:var(--radius-12); box-shadow:var(--elevation-1); background:var(--bg-page); }
 .led-head h2{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); }
 .led-head a{ color:var(--text-body); transition:color .14s ease; }
 .led-head a:hover{ color:var(--text-action); }
