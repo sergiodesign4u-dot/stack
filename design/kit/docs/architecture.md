@@ -549,6 +549,37 @@ layer grows to the flows that matter, or the files that serve only grey screens 
 does. What must not continue is polishing a component to the pixel on 40 screens while the
 primary audience's whole flow has no colour to polish.
 
+**OWNER'S DECISION, 11 August 2026: colour a SELECTION of the coach flow, six to eight screens -
+not all 42, and not none.** The reasoning the owner gave is the middle one: enough for the system
+to have seen the channel, without 42 screens at once.
+
+**The eight, and not one of them is chosen here by taste.** Six are the destinations the product's
+own coach navigation names in `wireframes/_nav.js`; the other two are named by the locked product
+decisions in `CLAUDE.md`.
+
+| screen | why this one |
+|---|---|
+| `coach-landing` | the way in, and it is already linked from every coloured header - «Для тренерів →» on `index`, `home-buyer`, `home-cart` points at a screen with no colour |
+| `coach-home` | the cabinet's own home page |
+| `coach-clients` | the saved client list - locked decision 1 |
+| `coach-session` | **the primary job itself**: building an order for several people with different goals |
+| `coach-orders` | per-client order history - locked decision 1 |
+| `coach-client` | one client's card and their history |
+| `cart-coach` | the cart with per-client tagging - locked decision 1 |
+| `coach-verify` | the role activated on an existing account - locked decision 1 |
+
+**The 34 screens that stay grey are states, not flows** - loading, empty, error and the confirm
+dialogs of the eight above. They are the right thing to leave: a state is cheap to colour once its
+screen exists, and expensive to colour before it.
+
+**What this changes for stage 09:** the design system stops describing 28% of the product and
+starts describing the channel the product is built around. Six organism files that today have no
+colour block at all - `cat-overlay`, `city-dialog`, `client-dialog`, `cookie-banner`, `nav-drawer`,
+`system-page` - get their first coloured screen to be measured on. A13 is closed as a scope
+question and reopens as work.
+
+
+
 ---
 
 ### A14. A stand was right in words and wrong in pixels - CLOSED at step 7.91, and it took the owner to find it
