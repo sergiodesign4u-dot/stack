@@ -95,3 +95,25 @@
 @import 'components/cookie-banner.css';
 @import 'components/overlay.css';
 @import 'components/price-slider.css';
+
+/* ---------- level 3, the coach flow - step 7.95 ------------------------------
+   The owner's A13 decision brought eight coach screens into colour. Each of them
+   carried its own `<style>` block - a private stylesheet 13 to 76 rules long that
+   no other screen could read and no design system knew about - and these five
+   files are those blocks, moved.
+
+   EVERY SELECTOR IN THEM IS SCOPED TO `.coach` on the body, and that is a
+   decision rather than a habit: sixteen of their class names are already
+   declared by an existing component, and two of them - `.ord` and `.ord-h` -
+   name a different component in each layer. Renaming is Крок 6; scoping is what
+   can be done today without a shipped screen regressing.
+
+   They import LAST on purpose. A scoped rule already outranks the component it
+   sits beside, so order decides nothing here - but if one of these files ever
+   loses its scope, importing last is the difference between a visible mistake
+   and a silent one. */
+@import 'components/coach-landing.css';
+@import 'components/coach-cabinet.css';
+@import 'components/coach-clients.css';
+@import 'components/coach-session.css';
+@import 'components/coach-verify.css';

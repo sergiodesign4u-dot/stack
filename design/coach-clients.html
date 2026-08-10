@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Клієнти - Кабінет тренера - Stack (wireframe 5.3)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+<!-- the block that stood here moved into design/system/components/ at step 7.95: a screen may not carry its own stylesheet. -->
+</head>
+<body class="coach">
+<!-- ============================================================
+  WIREFRAME · node 5.3 Клієнти (base = has clients). Private → noindex.
+  Coach account shell (coach mode) + saved-client list. Each card →
+  coach-client.html (profile) / coach-session.html (new session).
+  States: empty · loading · error · cap (Free limit → Pro upsell).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <span class="cur">Клієнти</span>
+  </nav>
+
+  <div class="acc">
+
+    <!-- ============ COACH SECTION NAV (shared wfCoachNav) ============ -->
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <!-- ============ CONTENT = CLIENTS LIST ============ -->
+    <div class="acc-main">
+      <div class="cl-top">
+        <div>
+          <h1 class="cl-h1">Клієнти</h1>
+          <p class="cl-sub">Збережені клієнти з їхніми цілями та історією замовлень.</p>
+        </div>
+        <div class="cl-acts">
+          <a class="btn--outline btn--s btn" href="coach-client-new.html" onclick="openClientNew();return false">＋ Додати клієнта</a>
+          <a class="btn--accent btn--s btn dark" href="coach-session.html">＋ Нова сесія</a>
+        </div>
+      </div>
+
+      <!-- search / filter row -->
+      <div class="cl-tools">
+        <label class="cl-search">
+          <span aria-hidden="true">🔎</span>
+          <input type="search" placeholder="Пошук клієнта за іменем…" aria-label="Пошук клієнта">
+        </label>
+      </div>
+
+      <!-- CLIENT CARDS -->
+      <div class="clist">
+
+        <article class="ccard">
+          <div class="ccard-hd">
+            <div class="ccard-av">А</div>
+            <div>
+              <div class="ccard-nm">Андрій</div>
+              <span class="ccard-goal">🎯 Набір маси</span>
+            </div>
+          </div>
+          <div class="ccard-meta"><b>8 замовлень</b><span class="dot">·</span>останнє 12 черв. 2026</div>
+          <div class="ccard-acts">
+            <a class="btn--outline btn--s btn" href="coach-client.html">Профіль</a>
+            <a class="btn--accent btn--s btn dark" href="coach-session.html">Нова сесія</a>
+          </div>
+        </article>
+
+        <article class="ccard">
+          <div class="ccard-hd">
+            <div class="ccard-av">М</div>
+            <div>
+              <div class="ccard-nm">Марія</div>
+              <span class="ccard-goal">🎯 Схуднення</span>
+            </div>
+          </div>
+          <div class="ccard-meta"><b>5 замовлень</b><span class="dot">·</span>останнє 3 черв. 2026</div>
+          <div class="ccard-acts">
+            <a class="btn--outline btn--s btn" href="coach-client.html">Профіль</a>
+            <a class="btn--accent btn--s btn dark" href="coach-session.html">Нова сесія</a>
+          </div>
+        </article>
+
+        <article class="ccard">
+          <div class="ccard-hd">
+            <div class="ccard-av">І</div>
+            <div>
+              <div class="ccard-nm">Ігор</div>
+              <span class="ccard-goal">🎯 Витривалість</span>
+            </div>
+          </div>
+          <div class="ccard-meta"><b>2 замовлення</b><span class="dot">·</span>останнє 28 трав. 2026</div>
+          <div class="ccard-acts">
+            <a class="btn--outline btn--s btn" href="coach-client.html">Профіль</a>
+            <a class="btn--accent btn--s btn dark" href="coach-session.html">Нова сесія</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+<div id="wf-client-edit"></div>
+<div id="wf-toast"></div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader('coach'); wfCoachNav('clients'); wfFooter(); wfClientEdit(); wfToasts(); wfBar('coach-clients.html');
+        uivFixLinks(); uivBar(); uivChrome();</script>
+</body>
+</html>

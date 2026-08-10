@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кошик за клієнтами - Stack (wireframe 6.0 · тренер)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+<!-- the block that stood here moved into design/system/components/ at step 7.95: a screen may not carry its own stylesheet. -->
+</head>
+<body class="coach">
+<!-- ============================================================
+  WIREFRAME · node 6.0 Кошик за клієнтами (ТРЕНЕР).
+  Right-side drawer over a dimmed page, GROUPED BY CLIENT.
+  Quick view: items + per-client subtotals + grand total only.
+  Primary CTA → checkout.html (6.1). Secondary → coach-session.html (5.5).
+  State: empty (cart-coach-empty.html).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+
+<!-- dimmed page behind the drawer -->
+<div class="wf-canvas">
+  <header id="wf-header"></header>
+  <main class="cart-behind" aria-hidden="true">
+    <h2>Мультиклієнтська сесія</h2>
+    <p>Сесія замовлення під кошиком - кошик відкрито поверх неї.</p>
+    <div class="ph-grid"><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div></div>
+  </main>
+  <footer id="wf-footer"></footer>
+</div>
+
+<!-- ===== CART DRAWER (coach, grouped by client) ===== -->
+<div class="cart-ov" id="cart-ov"><a href="coach-session.html" aria-label="Закрити кошик" style="position:absolute;inset:0;display:block"></a></div>
+<aside class="cart-drawer" role="dialog" aria-modal="true" aria-label="Кошик за клієнтами">
+  <header class="cd-head">
+    <h1>Кошик <span class="cd-cnt">4 товари · 2 клієнти</span></h1>
+    <a class="btn--ghost btn--icon btn--s cd-x" href="coach-session.html" aria-label="Закрити">✕</a>
+  </header>
+
+  <div class="cd-body">
+
+    <!-- ===== group: Андрій ===== -->
+    <section class="cd-group">
+      <header class="cg-head">
+        <div class="cg-who"><div class="cg-nm">Андрій</div><div class="cg-goal">Ціль: Набір маси</div></div>
+        <div class="cg-sub">2 320 ₴<small>2 товари</small></div>
+      </header>
+
+      <article class="ci">
+        <a href="product.html" class="ci-ph">фото</a>
+        <div class="ci-mid">
+          <div class="ci-brand">BioTechUSA · Угорщина</div>
+          <a href="product.html" class="ci-nm">Hyper Mass 4000 г</a>
+          <div class="ci-row">
+            <div class="ci-qty"><button aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+            <div class="cprice">1 230 ₴<span class="old">1 450 ₴</span><span class="wtag">гурт</span></div>
+          </div>
+          <div class="ci-links"><button class="btn--text ci-lnk">🗑 Видалити</button></div>
+        </div>
+      </article>
+
+      <article class="ci">
+        <a href="product.html" class="ci-ph">фото</a>
+        <div class="ci-mid">
+          <div class="ci-brand">Optimum Nutrition · США</div>
+          <a href="product.html" class="ci-nm">Gold Standard 100% Whey 2270 г</a>
+          <div class="ci-row">
+            <div class="ci-qty"><button aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+            <div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div>
+          </div>
+          <div class="ci-links"><button class="btn--text ci-lnk">🗑 Видалити</button></div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== group: Марія ===== -->
+    <section class="cd-group">
+      <header class="cg-head">
+        <div class="cg-who"><div class="cg-nm">Марія</div><div class="cg-goal">Ціль: Схуднення</div></div>
+        <div class="cg-sub">1 160 ₴<small>2 товари</small></div>
+      </header>
+
+      <article class="ci">
+        <a href="product.html" class="ci-ph">фото</a>
+        <div class="ci-mid">
+          <div class="ci-brand">BioTechUSA · Угорщина</div>
+          <a href="product.html" class="ci-nm">Iso Whey Zero 908 г</a>
+          <div class="ci-row">
+            <div class="ci-qty"><button aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+            <div class="cprice">890 ₴<span class="old">1 050 ₴</span><span class="wtag">гурт</span></div>
+          </div>
+          <div class="ci-links"><button class="btn--text ci-lnk">🗑 Видалити</button></div>
+        </div>
+      </article>
+
+      <article class="ci">
+        <a href="product.html" class="ci-ph">фото</a>
+        <div class="ci-mid">
+          <div class="ci-brand">OstroVit · Польща</div>
+          <a href="product.html" class="ci-nm">L-Carnitine 1000</a>
+          <div class="ci-row">
+            <div class="ci-qty"><button aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+            <div class="cprice">270 ₴<span class="old">320 ₴</span><span class="wtag">гурт</span></div>
+          </div>
+          <div class="ci-links"><button class="btn--text ci-lnk">🗑 Видалити</button></div>
+        </div>
+      </article>
+    </section>
+
+  </div>
+
+  <footer class="cd-foot">
+    <div class="cd-note">Одна доставка на тренера · розподіл за клієнтами зберігається в замовленні · знижка й бонуси - на оформленні.</div>
+    <div class="cd-total"><span>Разом <small>· 2 клієнти</small></span><b>3 480 ₴</b></div>
+    <a class="btn--accent btn--full btn dark cd-cta" href="checkout.html">Оформити замовлення</a>
+    <a class="btn--outline btn--full btn cd-cont" href="coach-session.html">Повернутись до сесії</a>
+  </footer>
+</aside>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader('coach', {cart:4, cartSum:'3 480 ₴'}); wfFooter(); wfBar('cart-coach.html');
+        uivFixLinks(); uivBar(); uivChrome();</script>
+</body>
+</html>

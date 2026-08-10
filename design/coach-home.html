@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет тренера - Огляд - Stack (wireframe 5.2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+<!-- the block that stood here moved into design/system/components/ at step 7.95: a screen may not carry its own stylesheet. -->
+</head>
+<body class="coach">
+<!-- ============================================================
+  WIREFRAME · node 5.2 Кабінет тренера / Огляд (base = has data).
+  Account shell in COACH MODE. Private zone → noindex. Coach = Олена, Pro.
+  Clients: Андрій (Набір маси) · Марія (Схуднення). PRIMARY Job 1 entry.
+  States: loading, error.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <span class="cur">Кабінет тренера</span>
+  </nav>
+
+  <div class="acc">
+
+    <!-- ============ SECTION NAV (shared wfCoachNav; desktop rail / mobile chips) ============ -->
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <!-- ============ CONTENT PANEL = ОГЛЯД (coach dashboard) ============ -->
+    <div class="acc-main">
+      <h1 class="acc-h1">Олено, ось ваш кабінет</h1>
+      <p class="acc-sub">Кабінет тренера: замовлення для клієнтів, гуртові ціни та історія в одному місці.</p>
+
+      <!-- coach status: Pro tier chip + wholesale-active note + savings stat (price = the driver, strategy v5) -->
+      <div class="cstat">
+        <span class="tierchip">Pro</span>
+        <span class="cnote"><b>Гуртові ціни активні</b> · без обмежень на клієнтів · зекономлено цього місяця <b>1 240 ₴</b> <span style="color:var(--light)">[?]</span></span>
+        <a class="cmanage" href="coach-tariff.html">Керувати тарифом</a>
+      </div>
+
+      <!-- BIG primary CTA → multi-client session (5.5) -->
+      <a class="cnew" href="coach-session.html">
+        <span class="cn-ic">＋</span>
+        <span class="cn-tx">
+          <span class="cn-t">Нова сесія</span>
+          <span class="cn-s">Зберіть замовлення одразу для кількох клієнтів в одну сесію</span>
+        </span>
+        <span class="cn-go">→</span>
+      </a>
+
+      <div class="acc-grid">
+
+        <!-- Client-restock nudge (reorder mechanic, coach-level · Job 4 per-client repeat) → new session -->
+        <div class="acard crestock span2">
+          <div class="ah"><h3>↻ Час поповнити клієнтам</h3><a href="coach-clients.html">Усі клієнти →</a></div>
+          <p class="rk-lead">За ритмом замовлень цим клієнтам скоро знадобиться поповнення. Зберіть для них сесію в один дотик.</p>
+          <div class="cli">
+            <div class="cav">А</div>
+            <div class="cinfo"><div class="cn">Андрій · Набір маси</div><div class="cg">Останнє замовлення <b>32 дні тому</b> · протеїн зазвичай на ~30 днів</div></div>
+            <a class="btn dark cgo-btn" href="coach-session.html">↻ У сесію</a>
+          </div>
+          <div class="cli">
+            <div class="cav">М</div>
+            <div class="cinfo"><div class="cn">Марія · Схуднення</div><div class="cg">Останнє замовлення <b>40 днів тому</b> · L-карнітин зазвичай на ~35 днів</div></div>
+            <a class="btn dark cgo-btn" href="coach-session.html">↻ У сесію</a>
+          </div>
+        </div>
+
+        <!-- Clients summary → coach-clients / each → coach-client -->
+        <div class="acard span2">
+          <div class="ah"><h3>Клієнти</h3><a href="coach-clients.html">Усі клієнти →</a></div>
+          <div class="cli">
+            <div class="cav">А</div>
+            <div class="cinfo"><div class="cn">Андрій</div><div class="cg">Ціль: Набір маси · 8 замовлень</div></div>
+            <a class="cgo" href="coach-client.html">Профіль →</a>
+          </div>
+          <div class="cli">
+            <div class="cav">М</div>
+            <div class="cinfo"><div class="cn">Марія</div><div class="cg">Ціль: Схуднення · 5 замовлень</div></div>
+            <a class="cgo" href="coach-client.html">Профіль →</a>
+          </div>
+          <div class="cli">
+            <div class="cav">І</div>
+            <div class="cinfo"><div class="cn">Ігор</div><div class="cg">Ціль: Витривалість · 2 замовлення</div></div>
+            <a class="cgo" href="coach-client.html">Профіль →</a>
+          </div>
+          <div class="cli-add"><a class="btn--outline btn" href="coach-clients.html">＋ Додати клієнта</a></div>
+        </div>
+
+        <!-- Recent coach orders (multi-client) → order/checkout -->
+        <div class="acard span2 cords">
+          <div class="ah"><h3>Останні замовлення</h3><a href="coach-orders.html">Усі замовлення →</a></div>
+          <div class="cord">
+            <div class="co-info">
+              <div class="co-no">Замовлення № К-2041</div>
+              <div class="co-meta">28 червня 2026 · <b>2 клієнти</b> (Андрій, Марія) · 4 товари</div>
+              <span class="co-status">Доставлено</span>
+            </div>
+            <div class="co-sum"><span class="cs-b">3 480 ₴</span><a href="coach-order.html">Деталі</a> <a href="cart-coach.html">↻ Повторити</a></div>
+          </div>
+          <div class="cord">
+            <div class="co-info">
+              <div class="co-no">Замовлення № К-1987</div>
+              <div class="co-meta">14 червня 2026 · <b>1 клієнт</b> (Андрій) · 3 товари</div>
+              <span class="co-status">Доставлено</span>
+            </div>
+            <div class="co-sum"><span class="cs-b">2 020 ₴</span><a href="coach-order.html">Деталі</a> <a href="cart-coach.html">↻ Повторити</a></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Coach wishlist teaser → Обране (7.6, shared). Canonical .pcard -->
+      <section aria-label="Обране тренера">
+        <div class="sech"><h2>Обране</h2><a class="btn--text all" href="coach-wishlist.html">Усі 4 →</a></div>
+        <div class="prow">
+          <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♥</button>
+            <div class="bd"><div class="pbrand">BioTechUSA · Угорщина</div><a href="product.html" class="nm">Hyper Mass 4000 г</a><div class="pavail in">В наявності</div>
+              <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 450 ₴</span></div><span class="pnew">1 230 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+              <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div><div class="pmeta2"><span class="perserv"><b>гурт</b> · ціна Pro</span></div></div></article>
+          <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♥</button>
+            <div class="bd"><div class="pbrand">Optimum Nutrition · США</div><a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a><div class="pavail in">В наявності</div>
+              <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 290 ₴</span></div><span class="pnew">1 090 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+              <div class="rate"><span class="st">★ 4.9</span> · 204 відгуки</div><div class="pmeta2"><span class="perserv"><b>гурт</b> · ціна Pro</span></div></div></article>
+          <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♥</button>
+            <div class="bd"><div class="pbrand">OstroVit · Польща</div><a href="product.html" class="nm">Creatine Monohydrate 500 г</a><div class="pavail pre">Під замовлення</div>
+              <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">549 ₴</span></div><span class="pnew">460 ₴</span></div><button class="btn--outline btn--icon cartbtn notify" aria-label="Повідомити про надходження">🔔</button></div>
+              <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div><div class="pmeta2"><span class="perserv"><b>гурт</b> · ціна Pro</span></div></div></article>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader('coach'); wfCoachNav('overview'); wfFooter(); wfBar('coach-home.html');
+        uivFixLinks(); uivBar(); uivChrome();</script>
+</body>
+</html>

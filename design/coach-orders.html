@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Замовлення тренера - Stack (wireframe 5.6)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+<!-- the block that stood here moved into design/system/components/ at step 7.95: a screen may not carry its own stylesheet. -->
+</head>
+<body class="coach">
+<!-- ============================================================
+  WIREFRAME · node 5.6 Замовлення тренера (base = has orders).
+  List of placed multi-client orders. Row → Деталі 5.7 / ↻ Повторити 6.0.
+  States: empty · loading · error.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <span class="cur">Замовлення</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+    <div class="acc-main">
+
+  <div class="co-top">
+    <div>
+      <h1>Замовлення</h1>
+      <div class="sub">Ваші мультиклієнтські замовлення · гуртові ціни (тариф Pro)</div>
+    </div>
+    <a class="btn dark co-new" href="coach-session.html">＋ Нова сесія</a>
+  </div>
+
+  <!-- light filters -->
+  <div class="co-filters">
+    <button class="co-fil" type="button">Усі клієнти ▾</button>
+    <button class="co-fil" type="button">Будь-який статус ▾</button>
+    <input class="co-search" type="search" placeholder="Пошук за № замовлення…" aria-label="Пошук замовлення">
+  </div>
+
+  <!-- order rows -->
+  <article class="ord">
+    <div class="ord-h">
+      <div><span class="ord-no">Замовлення № К-2075</span> <span class="ord-date">· 1 липня 2026</span></div>
+      <span class="ord-status way">У дорозі</span>
+    </div>
+    <div class="ord-meta"><b>1 клієнт</b> · 2 товари · Нова Пошта, відділення №12 (Одеса)</div>
+    <div class="ord-cli"><span class="ord-chip">👤 Марія · Схуднення</span></div>
+    <div class="ord-foot">
+      <div class="ord-tot">1 160 ₴<small>гуртом, тариф Pro</small></div>
+      <div class="ord-acts">
+        <a class="btn--outline btn--s btn" href="coach-order.html">Деталі</a>
+        <a class="btn--accent btn--s btn dark" href="cart-coach.html">Повторити замовлення</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="ord">
+    <div class="ord-h">
+      <div><span class="ord-no">Замовлення № К-2041</span> <span class="ord-date">· 28 червня 2026</span></div>
+      <span class="ord-status">Доставлено</span>
+    </div>
+    <div class="ord-meta"><b>2 клієнти</b> · 4 товари · Нова Пошта, відділення №12 (Одеса)</div>
+    <div class="ord-cli"><span class="ord-chip">👤 Андрій · Набір маси</span><span class="ord-chip">👤 Марія · Схуднення</span></div>
+    <div class="ord-foot">
+      <div class="ord-tot">3 480 ₴<small>гуртом, тариф Pro</small></div>
+      <div class="ord-acts">
+        <a class="btn--outline btn--s btn" href="coach-order.html">Деталі</a>
+        <a class="btn--accent btn--s btn dark" href="cart-coach.html">Повторити замовлення</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="ord">
+    <div class="ord-h">
+      <div><span class="ord-no">Замовлення № К-1987</span> <span class="ord-date">· 14 червня 2026</span></div>
+      <span class="ord-status">Доставлено</span>
+    </div>
+    <div class="ord-meta"><b>1 клієнт</b> · 3 товари · Самовивіз (Одеса)</div>
+    <div class="ord-cli"><span class="ord-chip">👤 Андрій · Набір маси</span></div>
+    <div class="ord-foot">
+      <div class="ord-tot">2 020 ₴<small>гуртом, тариф Pro</small></div>
+      <div class="ord-acts">
+        <a class="btn--outline btn--s btn" href="coach-order.html">Деталі</a>
+        <a class="btn--accent btn--s btn dark" href="cart-coach.html">Повторити замовлення</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="ord">
+    <div class="ord-h">
+      <div><span class="ord-no">Замовлення № К-1902</span> <span class="ord-date">· 30 травня 2026</span></div>
+      <span class="ord-status">Доставлено</span>
+    </div>
+    <div class="ord-meta"><b>3 клієнти</b> · 6 товарів · Кур'єр Нова Пошта (Одеса)</div>
+    <div class="ord-cli"><span class="ord-chip">👤 Андрій</span><span class="ord-chip">👤 Марія</span><span class="ord-chip">👤 Ігор · Витривалість</span></div>
+    <div class="ord-foot">
+      <div class="ord-tot">4 260 ₴<small>гуртом, тариф Pro</small></div>
+      <div class="ord-acts">
+        <a class="btn--outline btn--s btn" href="coach-order.html">Деталі</a>
+        <a class="btn--accent btn--s btn dark" href="cart-coach.html">Повторити замовлення</a>
+      </div>
+    </div>
+  </article>
+
+  <button class="btn co-more" type="button">Показати більше замовлень</button>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader('coach'); wfCoachNav('orders'); wfFooter(); wfBar('coach-orders.html');
+        uivFixLinks(); uivBar(); uivChrome();</script>
+</body>
+</html>

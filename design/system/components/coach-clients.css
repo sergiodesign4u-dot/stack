@@ -1,0 +1,427 @@
+/* coach-clients.css - the coach's client list and one client's card (level 3)
+   Moved out of the <style> blocks of wireframes/coach-clients.html (node 5.3)
+   and wireframes/coach-client.html (node 5.4) at stage 08 step 7.95, when the
+   owner's A13 decision brought the coach flow into colour. A screen may not
+   carry its own stylesheet: a rule nobody else can read is a rule nobody else
+   can be consistent with.
+   Selectors are unchanged. Colour reads a semantic role, geometry reads a
+   primitive.
+
+   TWO SCREENS, ONE FILE, because they are one component family: the saved
+   client list and the card of the client you pressed. `.ccard` is the list's
+   summary of a person and `.ch-*` is the same person opened; three of the four
+   parts (avatar, name, goal chip) are the same three parts at two sizes. They
+   are kept in one file so the next person who changes the goal chip changes it
+   once. The two sections below are the two screens, in that order.
+
+   NEITHER SCREEN HAS A COLOURED TWIN YET - measured: design/ holds 40 coloured
+   html files and the only coach ones are home-coach.html and
+   product-coach.html. So every rule here renders on 0 screens today, exactly
+   like `.cprice` in price.css and `.wtag` in discount.css, and for the same
+   stated reason: the row should arrive holding the system rather than being
+   re-derived from whatever the grey file happened to say.
+
+   HOW A VALUE WAS TREATED, and there is one rule with two named exceptions.
+   A value that matches a token EXACTLY takes the token. A value that does not
+   stays a literal and says so with `[?]`, because snapping it to a neighbouring
+   rung is a value decision and this step does not take those. tokens.css gives
+   two ROUNDING rules that contradict each other on the same numbers - the 5.5
+   spacing block says ties go UP (10 -> 12, 14 -> 16), the 7.67 sweep says round
+   DOWN to the rung (10 -> 8, 14 -> 12) - and until that is settled out loud,
+   every 9, 10, 11, 13, 14 and 15 in this file is left where the grey file put
+   it. tokens.css 7.67 already names the precedent: the coach box's own
+   15/17/3/7/7/10 stayed literal too, because that is 'a look, taken with that
+   box open, not a sweep'.
+   The two exceptions move no pixels and are both measured decisions already in
+   force across the system:
+     `1.5px` border -> `1px`   step 7.62 measured that Chrome resolves 1.5px to
+                               a used value of 1px before layout. The code now
+                               says the number the screen draws. 23 stylesheets
+                               already did this.
+     `800` weight -> --fw-black  step 7.65 set that token to 700 after measuring
+                               that no 800 face is loaded and 800 never drew.
+                               87 declarations in 38 files ride on it. */
+
+
+/* ============================================================================
+   THE SAME SELECTOR TWICE - the whole reason this file is worth reading.
+
+   THE TWO SCREENS SHARE NO SELECTOR. Checked name by name: coach-clients
+   declares 42 rules over 34 selectors, coach-client 39 rules over 37, and the
+   intersection is empty. So there was nothing to merge and no edition to pick
+   BETWEEN THEM.
+
+   THE COLLISION IS SOMEWHERE ELSE, AND IT IS WORSE. Both screens re-declare
+   selectors that a file they ALREADY LOAD had declared first, and the screen's
+   <style> block sits after `<link href="_wf.css">`, so the private copy wins.
+
+     coach-clients   19 declaration blocks over 16 selectors, the whole `.acc*`
+                     block, already in wireframes/_wf.css:1118-1143 and in this
+                     system's account-shell.css:36-81 + 117-153
+     coach-client     3 rules, `.cprice` `.cprice .old` `.cprice .wtag`
+                     already in wireframes/_wf.css:1710-1712, and in colour in
+                     price.css, client-row.css and discount.css
+
+   BOTH ARE FORKS THAT DRIFTED, and the drift is measurable, so this is not a
+   naming quibble - it is three declarations rendering differently on
+   coach-clients.html than on every other account screen in the grey product:
+
+     .acc      screen `grid-template-columns: 1fr`
+               _wf.css `minmax(0, 1fr)`        the overflow fix, forked away
+     .acc-nav  screen has no `min-width: 0`
+               _wf.css has it                  the same fix, same miss
+     .acc-tier screen `1.5px solid var(--dark)`
+               _wf.css `1px solid var(--hair2)`  an older, heavier chip
+
+   And the fork is INCOMPLETE as well as stale: `.acc-prof .who`,
+   `.acc-tier.free`, `.acc-link.buyer` and the whole `max-width: 959px` mobile
+   pill block exist in _wf.css and were never copied - which is what still makes
+   the page mostly work, and is why nobody noticed. Same shape as the `.uiv-sort`
+   orphan of 7.16: it is invisible precisely because it is half a copy.
+
+   WHICH EDITION IS KEPT: NEITHER, because a third edition is the defect. All 19
+   `.acc*` rules and all 3 `.cprice*` rules are DELETED here and named to their
+   owners below. account-shell.css renders `.acc*` on seven account screens and
+   `wfCoachNav()` in _nav.js emits exactly its markup (`.acc-prof > .av .who .nm
+   .ph`, `.acc-tier`, `.acc-links`, `.acc-link` with `.ic .ct .ar`, `.buyer`,
+   `.logout`) - so it wins on element count 7 screens to 1, and it is the only
+   edition that is complete.
+   ============================================================================ */
+
+
+/* ############################################################################
+   SECTION 1 - the client list (from wireframes/coach-clients.html, node 5.3)
+   ############################################################################ */
+
+/* ---------- structure (from wireframes/coach-clients.html) ---------- */
+
+/* THE ACCOUNT SHELL IS NOT THIS FILE'S - 19 declaration blocks over 16
+   selectors deleted, not copied.
+   `.acc` `.acc-nav` `.acc-prof` `.acc-prof .av` `.acc-prof .nm` `.acc-prof .ph`
+   `.acc-tier` `.acc-links` `.acc-link` `.acc-link:last-child` `.acc-link .ic`
+   `.acc-link .ct` `.acc-link .ar` + its 960 query `.acc-link[aria-current]`
+   `.acc-link[aria-current] .ic` `.acc-link.logout` all belong to
+   account-shell.css, which holds them complete and in colour. The screen's own
+   header comment said so out loud - 'Shell (acc / acc-nav / accard) mirrors
+   account.html, coach mode' - and then mirrored it by retyping it. A mirror
+   that is retyped is a copy, and a copy drifts. See the block above for the
+   three declarations that already had. */
+
+.coach .cl-top{ display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; flex-wrap: wrap; }   /* [?] 14px gap has no rung; the ladder is 12/16 */
+.coach .cl-h1{ font-size: var(--fs-24); font-weight: var(--fw-black); color: var(--text-primary); letter-spacing: var(--ls-lead); }
+.coach .cl-sub{ color: var(--text-secondary); font-size: var(--fs-14); margin-top: var(--space-4); }
+/* THE SAME 9px GAP STANDS ON FOUR ACTION ROWS and is not a rung on any of them:
+   `.cl-acts` and `.ccard-acts` here, `.cc-cta` (10px) and `.oc-actions` (9px) in
+   section 2. Four rows that put two buttons side by side, three numbers between
+   them. One number for 'the gap between two actions' is a stage 09 decision and
+   it is one decision, not four. */
+.coach .cl-acts{ display: flex; gap: 9px; flex-wrap: wrap; }   /* [?] 9px has no rung; the ladder is 8/12 */
+.coach .cl-tools{ display: flex; gap: 9px; margin: 18px 0 var(--space-4); }   /* [?] 9px and 18px have no rung; the ladder is 8/12/16/24 */
+
+/* THIS IS A HAND-BUILT `field-grp` AND THE ATOM CANNOT REACH IT. field.css owns
+   'a field with something attached - the +380 in front of a phone number, the
+   lens and the button around a search', and this is that exact shape: a label
+   wrapper taking the box, a lens glyph, an input that gives up its own edge.
+   The rule is kept rather than deleted because the markup is FROZEN - the label
+   carries `cl-search` and the input carries no class at all, so nothing in
+   field.css matches either of them. Adding `field-grp` + `field` to the markup
+   is a Крок 6 item, and it is the fourth hand-built edition of that shell
+   (`.sys-search`, `.city-search`, `.wfh-search` are the other three). */
+.coach .cl-search{ flex: 1; display: flex; align-items: center; gap: var(--space-8);
+  border: 1px solid var(--line-strong);   /* was 1.5px - see the header note */
+  border-radius: var(--radius-8); padding: 10px var(--space-12);   /* [?] 10px has no rung; the ladder is 8/12 */
+  background: var(--bg-page); }
+/* `font-size: 14px` HERE ONLY RENDERS FROM 860 UP, and that is not this rule's
+   doing. base.css sets `html input[type="search"]{ font-size: var(--fs-16) }`
+   under 860 to stop the iOS zoom, and `html input[type="search"]` (0,1,2) beats
+   `.cl-search input` (0,1,1) on specificity. So on the phone this field is 16px
+   and this declaration draws nothing. Left as written: the fix is to say so in
+   the markup, not to write a bigger selector here. */
+.coach .cl-search input{ flex: 1; border: none; outline: none; font-size: var(--fs-14); font-family: inherit; background: transparent; }
+
+/* `.clist` AND `.acc-grid` ARE THE SAME GRID UNDER TWO NAMES. account-shell.css
+   declares `display:grid; 1fr; gap:--space-16; margin-top:--space-16` and the
+   same `min-width: 640px` two-column flip. This one is 12 and 14 instead of 16
+   and 16. Two names, one grid, three numbers - a stage 09 merge, not a rename
+   this step is allowed to make. */
+.coach .clist{ display: grid; grid-template-columns: 1fr; gap: var(--space-12); margin-top: 14px; }   /* [?] 14px has no rung; the ladder is 12/16 */
+@media (min-width: 640px){
+  .coach .clist{ grid-template-columns: 1fr 1fr; }
+}
+/* AND `.ccard` IS `.acard` UNDER A SECOND NAME - account-shell.css:88 is
+   `border: 1px solid var(--line-hair); padding: var(--space-16)` with
+   `--radius-12` and `--elevation-1` from its colour half. This card is the same
+   card with 14 for the radius and 15/16 for the padding. Same merge as above,
+   same owner. */
+.coach .ccard{ border: 1px solid var(--line-hair); border-radius: 14px;   /* [?] 14px radius has no rung; the ladder is 4/8/12/16 */
+  padding: 15px var(--space-16);   /* [?] 15px has no rung; the ladder is 12/16 */
+  display: flex; flex-direction: column; }
+.coach .ccard-hd{ display: flex; align-items: center; gap: var(--space-12); }
+.coach .ccard-av{ width: var(--size-44); height: var(--size-44); border-radius: var(--radius-circle);
+  background: var(--bg-sunken);   /* grey `--fill` #f4f4f4: the rail and chip fill */
+  border: 1px solid var(--line-hair); flex: none; display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);   /* grey `--light` #999, which is what --text-muted was raised from */
+  font-size: var(--fs-16); font-weight: var(--fw-bold); }
+.coach .ccard-nm{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); }
+/* THE GOAL CHIP IS THE CHIP ATOM UNDER A NINTH NAME. chip.css counted eight
+   names in six files drawing one pressable pill and set two rungs for them; this
+   is a ninth, and `.ch-goal` in section 2 is a tenth. Kept rather than deleted
+   for the frozen-markup reason again: chip.css names its eight explicitly and
+   neither of these is in the list, so deleting the rule leaves an unstyled span.
+   Adding both names to that selector list is safe in both directions and is the
+   same move 7.23 made for `.dr-chip` and `.mgchip`; it needs chip.css open. */
+.coach .ccard-goal{ display: inline-block; font-size: var(--fs-12);   /* [?] 11px has no rung; the ladder is 10/12 */
+  font-weight: var(--fw-bold); color: var(--text-primary);
+  border: 1px solid var(--line-strong);   /* was 1.5px - see the header note */
+  border-radius: var(--radius-pill); padding: var(--space-2) 10px;   /* [?] 10px has no rung; the ladder is 8/12 */
+  margin-top: 5px; }   /* [?] 5px has no rung; the ladder is 4/8 */
+.coach .ccard-meta{ font-size: var(--fs-14);   /* [?] 12.5px is a half-pixel and the scale holds none: the ladder is 12/14. It is the ONLY half-pixel type size left in the system - the 5.6 consolidation resolved all six of the others - and it appears five more times in section 2 */
+  color: var(--text-secondary); margin: 13px 0 14px;   /* [?] 13px and 14px have no rung; the ladder is 12/16 */
+  display: flex; gap: 6px; flex-wrap: wrap; }   /* [?] 6px has no rung; the ladder is 4/8 */
+.coach .ccard-meta b{ color: var(--text-primary); font-weight: var(--fw-bold); }
+/* grey `#ccc`, a raw hex. --mark-disabled IS that value (--grey-cc), and its own
+   note in tokens.css names the breadcrumb separator among its four uses, which is
+   the same job this dot does. --mark-inactive also claims 'the meta separator
+   glyph', at a different value (#D9D9D9); the value decides here, so that the
+   move draws the same pixel it drew before. Which of the two roles a separator
+   belongs to is a stage 09 question - two roles cannot both own separators. */
+.coach .ccard-meta .dot{ color: var(--mark-disabled); }
+.coach .ccard-acts{ display: flex; gap: 9px; margin-top: auto; }   /* [?] 9px has no rung; see the note on .cl-acts */
+/* `.ccard-acts .btn` KEPT ONLY ITS `flex: 1`. `text-align: center` and
+   `padding: 10px 12px` are the BUTTON's, not the row's: button.css:103-109 sets
+   the padding and centres the label for every finish, and its size ladder is
+   40/52/64 with the padding that goes with each rung. A row is allowed to say
+   how wide its children are - that is the row's own grid - and is not allowed to
+   say how tall a button is. This is the molecule-reaching-into-an-atom mistake
+   this codebase has made most often; `.oosbtn { flex: 1 }` in restock-note.css is
+   the same line kept for the same reason. */
+.coach .ccard-acts .btn{ flex: 1; }
+
+
+/* ############################################################################
+   SECTION 2 - one client's card (from wireframes/coach-client.html, node 5.4)
+   ############################################################################ */
+
+/* ---------- structure (from wireframes/coach-client.html) ---------- */
+
+/* [?] 900px is a fourth column width. tokens.css names the set as
+   '1200 / 860 / 720 and the rest' and says a layout width stays literal in the
+   component that owns the layout, so it stays. It is worth a look anyway: 900 is
+   the number 7.70 folded to 860 everywhere it was a BREAKPOINT, and this page is
+   the reading column of a coach's client, which is the same kind of column
+   seo-text.css caps at 760. */
+.coach .cc-wrap{ max-width: 900px; }
+
+/* `.ch` IS `.cl-top` PLUS A MARGIN. Byte for byte the same five declarations -
+   flex, flex-start, space-between, 14px, wrap - and then `margin: 8px 0 6px`.
+   Two screens wrote one header row twice; kept as two names because the markup
+   is frozen, listed here because the merge is one line when a rename is allowed. */
+.coach .ch{ display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;   /* [?] 14px, as on .cl-top */
+  flex-wrap: wrap; margin: var(--space-8) 0 6px; }   /* [?] 6px has no rung; the ladder is 4/8 */
+.coach .ch-id{ display: flex; align-items: center; gap: 14px; min-width: 0; }   /* [?] 14px, as above */
+.coach .ch-av{ width: 56px; height: 56px;   /* [?] 56px has no rung; the size ladder is 46/52/62/64. It is `.ccard-av` (44) one size up, and the pair is one decision: how big is a client's face in the list and how big when the client is open */
+  border-radius: var(--radius-circle);
+  background: var(--bg-sunken);   /* grey `--fill` */
+  border: 1px solid var(--line-hair); flex: none; display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);   /* grey `--light` */
+  font-size: 21px;   /* [?] 21px has no rung; the ladder is 20/24 */
+  font-weight: var(--fw-black); }
+.coach .ch-name{ font-size: var(--fs-24); font-weight: var(--fw-black); color: var(--text-primary); letter-spacing: var(--ls-lead); }
+/* the tenth chip name - see the note on `.ccard-goal`. It takes the INK border
+   where `.ccard-goal` takes the hairline one: grey `--dark` #161616 against grey
+   `--hair2` #cfcfcf. Translated by value, so `--line-inverse` here and
+   `--line-strong` there. That difference may be real (the open client's goal is
+   the thing that drives the whole selection, so it is stated louder than the same
+   goal on a list tile) or it may be two hands; account-shell.css already answered
+   it one way for `.acc-tier`, whose grey was the same `1.5px solid var(--dark)`
+   and which now reads `--line-strong`. Not resolved here: three chips, two edges,
+   one stage 09 decision. */
+.coach .ch-goal{ display: inline-flex; align-items: center; gap: 5px;   /* [?] 5px has no rung */
+  margin-top: 6px;   /* [?] 6px has no rung */
+  font-size: var(--fs-12); font-weight: var(--fw-black);
+  border: 1px solid var(--line-inverse);   /* was 1.5px - see the header note */
+  border-radius: var(--radius-pill); padding: 3px 11px;   /* [?] 3px and 11px have no rung; the ladder is 2/4 and 8/12 */
+  color: var(--text-primary); }
+/* THIS IS A HAND-DRAWN OUTLINE BUTTON. «Редагувати клієнта» is an `<a>` that
+   opens the edit dialog, and it has an edge, a radius, a padding and a nowrap -
+   which is `btn--outline` written out by hand, the exact thing button.css was
+   rebuilt at 6.7 to end. It stays because the markup is frozen and carries no
+   `btn` class, so deleting the rule leaves a bare link. Putting `btn btn--outline
+   btn--s` on that anchor is a Крок 6 markup fix and it deletes this rule outright. */
+.coach .ch-edit{ font-size: var(--fs-14);   /* [?] half-pixel, as on .ccard-meta */
+  font-weight: var(--fw-bold); color: var(--text-primary);
+  border: 1px solid var(--line-strong);   /* was 1.5px - see the header note */
+  border-radius: var(--radius-8); padding: 9px 15px;   /* [?] 9px and 15px have no rung; the ladder is 8/12/16 */
+  white-space: nowrap; }
+
+.coach .cc-note{ font-size: var(--fs-14);   /* [?] half-pixel, as above */
+  color: var(--text-secondary);
+  line-height: var(--lh-airy);   /* grey 1.55. The base rhythm moved 1.55 -> 1.6 at step 5.6, said out loud, and every 1.55 in the product moved with it */
+  border: 1px dashed var(--line-strong); border-radius: 10px;   /* [?] 10px radius has no rung; the ladder is 4/8/12/16 */
+  padding: 11px 13px;   /* [?] 11px and 13px have no rung; the ladder is 8/12/16 */
+  margin: 14px 0 var(--space-4); }   /* [?] 14px has no rung */
+.coach .cc-note b{ color: var(--text-primary); }
+
+.coach .cc-cta{ display: flex; gap: 10px;   /* [?] 10px has no rung; and it is the third number on the four action rows - see the note on .cl-acts */
+  flex-wrap: wrap; margin: 18px 0 26px; }   /* [?] 18px and 26px have no rung; the ladder is 16/24/32 */
+/* `.cc-cta .btn{ padding: 13px 22px }` DELETED - button.css owns the padding of
+   every finish and every rung of its 40/52/64 ladder. 13/22 is not on that ladder
+   and was a hand-typed height for one screen's one button. */
+
+.coach .oh-h{ font-size: var(--fs-16);   /* [?] 15px has no rung; the ladder is 14/16 */
+  font-weight: var(--fw-black); color: var(--text-primary); margin: 0 0 var(--space-12); }
+.coach .ohist{ display: flex; flex-direction: column; gap: 14px; }   /* [?] 14px has no rung */
+.coach .ocard{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  padding: 15px var(--space-16); }   /* [?] 15px has no rung; and it is the same 15/16 as `.ccard` above, so the two cards agree with each other and with nothing else */
+.coach .oc-top{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-12); flex-wrap: wrap; }
+.coach .oc-no{ font-size: var(--fs-14);   /* [?] half-pixel; the ladder is 14/16 */
+  font-weight: var(--fw-black); color: var(--text-primary); }
+.coach .oc-meta{ font-size: var(--fs-14);   /* [?] half-pixel */
+  color: var(--text-secondary); margin-top: 3px; }   /* [?] 3px has no rung; the ladder is 2/4 */
+/* THE FIFTH STATUS PILL. status-pill.css counted four names for one pill -
+   `.oh-status` `.rbadge` `.aord-status` `.ci-oostag` - and set two rungs:
+   12/800 with 4/12 padding for a row, 10/800 with 2/8 for an inline one. This is
+   a row pill written 11/800 with 2/9 padding, which is on neither rung and is a
+   fifth name for the same object. Kept, because the atom's selector list does not
+   include it and the markup is frozen; the fix is to add `.oc-status` to that
+   list, which is one line in status-pill.css and moves this pill onto the row
+   rung. It also has no state variant here - `.ok` `.go` `.wait` all exist in the
+   atom and «● Доставлено» draws its own bullet in the markup instead. */
+.coach .oc-status{ display: inline-block; font-size: var(--fs-12);   /* [?] 11px has no rung; the atom's row rung is 12 */
+  font-weight: var(--fw-black); border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill); padding: var(--space-2) 9px;   /* [?] 9px has no rung; the atom's row rung is 12 */
+  color: var(--text-primary); }
+
+.coach .oc-items{ margin: var(--space-12) 0 var(--space-4); border-top: 1px solid var(--line-hair); }
+.coach .oc-item{ display: grid; grid-template-columns: var(--size-40) 1fr auto; gap: 11px;   /* [?] 11px has no rung */
+  align-items: center; padding: 10px 0;   /* [?] 10px has no rung */
+  border-bottom: 1px solid var(--line-hair); }
+/* the tile is square and 40 on both sides, which is why the grid column above
+   reads the same token: the column IS the tile. tokens.css 7.68 - a box that
+   frames a product photograph is square - and this one already was. */
+.coach .oc-ph{ width: var(--size-40); height: var(--size-40); border-radius: 7px;   /* [?] 7px radius has no rung; the ladder is 4/8/12/16 */
+  background: var(--bg-sunken);   /* grey `--fill` */
+  border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center;
+  color: var(--mark-faint);   /* grey `#bbb`, a raw hex, and --mark-faint IS that value: 'the quiet mark ... the photo placeholder' is this exact element */
+  font-size: var(--fs-8); }
+.coach .oc-nm{ font-size: var(--fs-14);   /* [?] 13px has no rung; the ladder is 12/14 */
+  font-weight: var(--fw-bold); color: var(--text-primary); line-height: var(--lh-snug); }
+.coach .oc-qty{ font-size: var(--fs-12);   /* [?] half-pixel; the ladder is 10/12 */
+  color: var(--text-secondary); margin-top: var(--space-2); }
+
+/* THE PRICE ROW IS NOT THIS FILE'S - 3 rules deleted, and this is the second
+   collision named at the top of the file.
+     `.cprice`        price.css gives the money type (mono, tabular-nums, the
+                      -.24em ₴ kerning), the ink (--text-body, and its absence
+                      from the discount list is a stated product decision: the
+                      struck figure beside it is RETAIL, not a saving) and the
+                      weight (--fw-black). client-row.css gives what is genuinely
+                      the row's: --fs-16, nowrap, right edge.
+     `.cprice .old`   price.css strikes it, sets --text-muted and --fw-regular
+                      through the shared `.old`; client-row.css stacks it under
+                      the live figure with `display: block`.
+     `.cprice .wtag`  discount.css:105 owns it whole - «гурт» at --fs-10,
+                      --fw-black, --line-strong, --radius-4, and the note there
+                      explains why this one tier chip keeps a border when the
+                      others do not.
+   All three were ALREADY IN wireframes/_wf.css:1710-1712, which this screen
+   loads. `.cprice .wtag` was retyped there byte for byte. The other two drifted:
+   `.cprice` is 15px in the shared file and 14px in the screen's copy,
+   `.cprice .old` is 11.5px and 11px. The screen's header comment reads 'Reuses
+   .cprice from coach-session.html' - it did not reuse it, it copied it, and then
+   two numbers moved. The 11 / 11.5 pair is the one thing here with no owner at
+   all: price.css states that 'the size stays with the surface', and neither
+   surface file names a size for a struck coach price. That is a stage 09 value,
+   listed and not guessed. */
+
+.coach .oc-sum{ display: flex; justify-content: space-between; align-items: baseline;
+  padding: var(--space-12) 0 var(--space-2); font-size: var(--fs-14);   /* [?] 13px has no rung */
+  font-weight: var(--fw-bold); color: var(--text-primary); }
+.coach .oc-sum b{ font-size: var(--fs-16); font-weight: var(--fw-black); }
+.coach .oc-actions{ display: flex; gap: 9px;   /* [?] 9px, the fourth action row - see the note on .cl-acts */
+  flex-wrap: wrap; margin-top: 14px; }   /* [?] 14px has no rung */
+/* `.oc-actions .btn{ padding: 10px 18px }` DELETED - button.css, same reason as
+   `.cc-cta .btn` above. Three action rows on these two screens gave the button
+   three different paddings: 10/12, 13/22 and 10/18. The atom has one ladder. */
+
+.coach .cdetails{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  padding: var(--space-2) var(--space-16); margin: var(--space-16) 0 var(--space-4); }
+.coach .cd-h{ font-size: var(--fs-14);   /* [?] 13px has no rung */
+  font-weight: var(--fw-black); color: var(--text-primary); padding: 13px 0 3px; }   /* [?] 13px and 3px have no rung */
+/* DEAD, AND KEPT AS FOUND. base.css:7 is `*{ box-sizing: border-box; margin: 0;
+   padding: 0 }`, so the `<dl>` already has no margin and this rule - its only
+   declaration - draws nothing. The same is true of `margin: 0` on `.cd-row dt`
+   and `.cd-row dd` below. Three declarations restating the reset; the family is
+   7.3, 7.51 and 7.69, and removing them is that step's call, not this one's. */
+.coach .cd-list{ margin: 0; }
+/* [?] 160px is the label column of the client's data list. A layout width, so it
+   stays literal by the tokens.css rule - but it is the only 160 in the system,
+   and spec-table.css draws the same dt/dd pair with its own answer. */
+.coach .cd-row{ display: grid; grid-template-columns: 160px 1fr; gap: var(--space-12);
+  padding: 11px 0;   /* [?] 11px has no rung */
+  border-bottom: 1px solid var(--line-hair); }
+.coach .cd-row:last-child{ border-bottom: 0; }
+.coach .cd-row dt{ font-size: var(--fs-14);   /* [?] half-pixel */
+  color: var(--text-secondary); font-weight: var(--fw-bold); margin: 0; }   /* margin dead - see .cd-list */
+.coach .cd-row dd{ font-size: var(--fs-14);   /* [?] half-pixel; the ladder is 12/14 */
+  color: var(--text-primary); margin: 0;   /* margin dead - see .cd-list */
+  line-height: 1.45; }   /* [?] 1.45 is not a leading of the set; the three are 1 / 1.3 / 1.6. By the JOB rule in tokens.css ('1.6 for anything a person reads as text') this dd is text and should be --lh-airy, but that is a value decision and it moves a line */
+/* [?] 520 IS NOT IN THE BREAKPOINT SET. tokens.css lists eleven boundaries -
+   420 480 560 620 640 720 760 860 960 1040 1180 - and 520 is none of them. It is
+   exactly 40px from 480 and exactly 40px from 560, which is the distance 7.64
+   used to fold a singleton, so the tie-break has no rule to appeal to and the
+   number cannot be folded without someone choosing a side. It is also spelled
+   against the convention in the same file: a boundary at N is `max-width: N-1px`
+   on the narrow side, so as written this fires up to and including 520 and the
+   boundary is really 521. Measured reason for either number: none in the source. */
+@media (max-width: 520px){
+  .coach .cd-row{ grid-template-columns: 1fr; gap: var(--space-2); }
+}
+
+
+/* ############################################################################
+   ---------- colour ----------
+   ############################################################################
+
+   THERE IS NO COLOUR HALF TO MERGE, and that is the honest entry rather than an
+   empty heading. Every other file in this folder was split out of TWO sources -
+   `wireframes/_wf.css` for structure and `design/kit/kit.css` for colour - and
+   the second one won where the two disagreed. These two screens never had a
+   kit.css edition: they are grey-only, which is the whole reason step 7.95
+   exists. So the colour above is the grey prototype's own, translated name by
+   name into the role that carries the same job:
+
+     grey  --strong  #111      -> --text-primary    headings and emphasis
+     grey  --sec     #777      -> --text-secondary  captions and meta
+     grey  --light   #999      -> --text-muted      tertiary; the role's own note
+                                                    says it was raised from #999
+     grey  --hair    #e4e4e4   -> --line-hair       every divider and card edge
+     grey  --hair2   #cfcfcf   -> --line-strong     control borders, 'Ash'
+     grey  --dark    #161616   -> --line-inverse    the ink edge, on .ch-goal
+     grey  --fill    #f4f4f4   -> --bg-sunken       the rail and chip fill
+     raw   #fff                -> --bg-page
+     raw   #ccc                -> --mark-disabled
+     raw   #bbb                -> --mark-faint
+
+   tokens.css 7.69 states why those translations live in the structure block and
+   not here: the colour half exists to say where the coloured product decided
+   DIFFERENTLY, and restating a value that is already in force draws nothing and
+   hides the lines that do differ. Nothing has decided differently yet.
+
+   WHAT STAGE 09 STILL HAS TO SAY, and it is four questions, not a to-do list:
+
+   1. Does a client card take the account card's finish? account-shell.css gives
+      `.acard` and `.acc-prof` `--radius-12`, `--bg-page` and `--elevation-1`.
+      `.ccard`, `.ocard` and `.cdetails` are the same object on a coach screen and
+      currently have an edge and no shadow. One answer covers all five.
+   2. Does a client's NAME take `--font-display`? `.acc-prof .nm` does, in colour,
+      and `.cg-nm` in client-row.css does. `.ccard-nm` and `.ch-name` are the same
+      person's name on the two screens that are actually about that person.
+   3. Does the goal chip get an accent state? A goal is what drives the whole
+      selection - the screen says so in its own copy - and today it is a grey
+      outline. `--line-action` exists for 'the selected state'. This is a look,
+      and it is the one place on these screens where the accent might be earned.
+   4. `.oc-status` and the money column: both are atoms wearing local names, and
+      both are one line in status-pill.css and price.css respectively. Colour
+      arrives with the atom, not with this file.
+   ############################################################################ */

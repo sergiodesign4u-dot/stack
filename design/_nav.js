@@ -29,7 +29,14 @@ var DESIGN_NAV = [
   'index.html', 'home-buyer.html', 'home-coach.html', 'home-cart.html',
   'account.html', 'account-orders.html', 'account-loyalty.html', 'account-addresses.html',
   'account-profile.html', 'account-wishlist.html',
-  'account-empty.html', 'account-loading.html', 'account-error.html'
+  'account-empty.html', 'account-loading.html', 'account-error.html',
+  /* step 7.95, the owner's A13 decision: eight screens of the coach flow. Six are
+     the destinations the product's own coach navigation names, two are named by
+     the locked product decisions in CLAUDE.md. Without this list a link between
+     two coloured coach screens is rewritten back into the grey prototype, which
+     is what `uivFixLinks` is for. */
+  'coach-landing.html', 'coach-home.html', 'coach-clients.html', 'coach-session.html',
+  'coach-orders.html', 'coach-client.html', 'cart-coach.html', 'coach-verify.html'
 ];
 
 function uivFixLinks(){

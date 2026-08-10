@@ -246,6 +246,29 @@ h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing
     бере порядок розколу <code>kit.css</code> на файли, порядок <code>@import</code>, групи стенда і
     раунди збірки.</p>
 
+
+  <div class="section-h" id="coach">
+    <span class="n">08</span>
+    <h2>Потік тренера</h2>
+    <span class="hint">8 екранів · рішення A13, 11.08.2026</span>
+  </div>
+  <p class="foot-note">Первинна аудиторія цього продукту - тренер, і до серпня 2026 <b>жоден із 42 його екранів не мав кольору</b>.
+    Власник вирішив розфарбувати вибірку: шість призначень, які називає власна навігація тренера, і два, названі
+    замкненими продуктовими рішеннями. Кожен із восьми ніс <b>власний блок <code>&lt;style&gt;</code></b> - приватну таблицю стилів,
+    якої не бачив жоден інший екран; усі вісім переїхали в <code>design/system/components/</code>, і кожне правило
+    <b>заскоплено на <code>.coach</code></b>, бо шістнадцять їхніх імен уже належать іншому компоненту, а <code>.ord</code> означає
+    в двох шарах два різні компоненти.</p>
+  <div class="scr-grid">
+    <a class="scr" href="coach-landing.html"><span class="scr-t">Лендінг <span class="badge">вхід</span></span><span class="scr-u">що дає роль тренера, таблиця тарифів Free / Pro, і кнопка, на яку вже вказує кожна кольорова шапка</span></a>
+    <a class="scr" href="coach-verify.html"><span class="scr-t">Підтвердження</span><span class="scr-u">роль активується поверх наявного акаунта - замкнене рішення 1</span></a>
+    <a class="scr" href="coach-home.html"><span class="scr-t">Кабінет</span><span class="scr-u">клієнти, сесії, повторні замовлення - домівка каналу</span></a>
+    <a class="scr" href="coach-clients.html"><span class="scr-t">Клієнти</span><span class="scr-u">збережений список клієнтів - замкнене рішення 1</span></a>
+    <a class="scr" href="coach-client.html"><span class="scr-t">Клієнт</span><span class="scr-u">картка одного клієнта: ціль, дозування, його історія</span></a>
+    <a class="scr" href="coach-session.html"><span class="scr-t">Сесія <span class="badge">Job 1</span></span><span class="scr-u">сама первинна робота: одне замовлення на кількох клієнтів з різними цілями</span></a>
+    <a class="scr" href="cart-coach.html"><span class="scr-t">Кошик тренера</span><span class="scr-u">позиції з позначкою клієнта - замкнене рішення 1</span></a>
+    <a class="scr" href="coach-orders.html"><span class="scr-t">Історія</span><span class="scr-u">замовлення по клієнтах і повтор у два тапи</span></a>
+  </div>
+
   <p class="foot-note">Це засів <b>етапу 06</b>: мова доведена на еталоні й станах. Кожне рішення (колір, форма, шрифт,
     іконка) має пару в <b>DESIGN-artifacts.md</b> / стенді <code>concept.html</code>. Повний UI + Visual - кіт компонентів
     - це <b>етап 07</b>, і він закритий: <a href="kit/kit.html">кіт компонентів</a> зібраний,
@@ -263,7 +286,7 @@ h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing
 
 <script>
 window.NAV_BASE = '../';
-window.NAV_SECTIONS = [{"id": "states", "label": "Доменні стани"}, {"id": "pdp", "label": "Стани картки"}, {"id": "auth", "label": "Кроки входу"}, {"id": "cart", "label": "Стани кошика"}, {"id": "checkout", "label": "Стани оформлення"}, {"id": "home", "label": "Ролі на головній"}, {"id": "account", "label": "Розділи кабінету"}, {"id": "inventory", "label": "Інвентар"}];
+window.NAV_SECTIONS = [{"id": "states", "label": "Доменні стани"}, {"id": "pdp", "label": "Стани картки"}, {"id": "auth", "label": "Кроки входу"}, {"id": "cart", "label": "Стани кошика"}, {"id": "checkout", "label": "Стани оформлення"}, {"id": "home", "label": "Ролі на головній"}, {"id": "account", "label": "Розділи кабінету"}, {"id": "coach", "label": "Потік тренера"}, {"id": "inventory", "label": "Інвентар"}];
 </script>
 <script src="../_nav.js"></script>
 </body>

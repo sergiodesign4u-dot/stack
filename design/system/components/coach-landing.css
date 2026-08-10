@@ -1,0 +1,272 @@
+/* coach-landing.css - the coach programme landing page (level 3)
+   Moved out of the <style> block of wireframes/coach-landing.html at stage 08
+   step 7.95, when the owner's A13 decision brought the coach flow into colour. A
+   screen may not carry its own stylesheet: a rule nobody else can read is a rule
+   nobody else can be consistent with.
+   Selectors are unchanged. Colour reads a semantic role, geometry reads a
+   primitive.
+
+   WHAT THIS FILE HOLDS. Node 5.0 «Для тренерів» is the PUBLIC, indexable front
+   door of the primary business model, and it is a marketing page rather than a
+   product screen: hero, value chips, a four-step explainer, a Free/Pro
+   comparison table and a closing call. Four blocks that appear nowhere else in
+   the product - measured before writing this file, `clh`, `clv`, `cmp-` and
+   `finalcta` return one file each across wireframes/ and design/, this screen.
+   So this is one page's organism and not a shared molecule, and it is filed as
+   level 3 for that reason.
+
+   THE BRIEF NAMED A Q&A BLOCK AND THERE IS NONE. `qa-item.css` was checked for
+   duplication first, as instructed: `coach-landing.html` contains no `qa`
+   substring in markup or in css, so nothing was copied and nothing was deleted.
+   The screen's «Q&A» is the comparison table below, which is a different shape
+   with a different job.
+
+   TYPE IS WHERE THIS FILE HURTS. The component layer carries FOUR raw font
+   sizes in total (38, 50, 36, 60 - the five display literals tokens.css names
+   under «above 34 nothing is a step») and ZERO raw line-heights and ZERO raw
+   letter-spacings. This one block arrives with EIGHT sizes off the scale, two of
+   them half-pixels, plus three leadings and one tracking with no rung. They stay
+   literal and each carries its own `[?]`: the screen was drawn in stage 04,
+   before the scale existed, and snapping it is a look taken with the type stand
+   open, not a side effect of a move. The list is the point of this file. */
+
+/* ---------- structure (from wireframes/coach-landing.html) ---------- */
+
+/* ---- hero ---------------------------------------------------------------
+   The one block on the page that carries a ground, so it reads as the page's
+   opening statement rather than as a card. `--fill2` in the grey was the «zone
+   fill», the warm surface a whole section sits on: `--bg-surface`. */
+.coach .clh{ display: grid; grid-template-columns: 1fr; gap: 22px; /* [?] 22px has no rung; the ladder is 2/4/8/12/16/24/32/40 */ align-items: center;
+  border: 1px solid var(--line-hair); border-radius: var(--radius-16); background: var(--bg-surface);
+  padding: 26px 22px; /* [?] neither 26 nor 22 has a rung; the ladder is 2/4/8/12/16/24/32/40 */
+  margin: 6px 0 var(--space-8); /* [?] 6px has no rung */ }
+/* `align-items: center` does nothing until the second column exists: at one
+   column every row track is auto-sized and there is no free space to centre in.
+   It is the wide layout's rule, written at the narrow one. Left as it stands -
+   moving it into the query is a change, not a translation. */
+@media (min-width: 860px) { .coach .clh{ grid-template-columns: 1.15fr .85fr;
+  padding: var(--space-40) 34px; /* [?] 34px has no rung */
+  gap: 34px; /* [?] same 34 */ } }
+
+/* THE FIFTEENTH EYEBROW, AND THE ONLY ONE AT 11px. tokens.css counts 14 forms of
+   `--ls-caps` at 12px black uppercase - «small service text that NAMES the block
+   under it». This is the same voice one pixel smaller, and one pixel is not a
+   decision, it is drift from before the scale. It also OUTLINES itself, which no
+   other eyebrow does: the pill border makes it a mark on the page rather than a
+   label over a block. Both are stage 09's to rule on. */
+.coach .clh .kicker{ display: inline-block; font-size: var(--fs-12); /* [?] 11px has no rung; the scale is 8/10/12/14/16/18/20/24/30/34 */
+  font-weight: var(--fw-black); letter-spacing: var(--ls-caps); text-transform: uppercase;
+  color: var(--text-primary);
+  /* was `1.5px`: step 7.62 measured that Chrome resolves 1.5 to a used value of
+     1px before layout, so the middle weight was never drawn on any screen at any
+     device ratio. The system has two weights, 1 and 2, and this says the one the
+     browser draws. `--dark` in the grey is the ink border: `--line-inverse`. */
+  border: 1px solid var(--line-inverse); border-radius: var(--radius-pill);
+  padding: var(--space-4) var(--space-12); margin-bottom: 14px; /* [?] 14px has no rung */ }
+.coach .clh h1{ font-size: 26px; /* [?] 26px has no rung; 24 and 30 are the neighbours */
+  line-height: 1.15; /* [?] no rung; the three leadings are 1 / 1.3 / 1.6 */
+  font-weight: var(--fw-black); color: var(--text-primary); letter-spacing: var(--ls-lead); }
+@media (min-width: 860px) { .coach .clh h1{ font-size: var(--fs-34); } }
+.coach .clh .sub{ font-size: var(--fs-16); /* [?] 15px has no rung; 14 and 16 are the neighbours */
+  /* 1.55 -> `--lh-airy`. Not a rounding: step 5.6 moved the product's base
+     rhythm from 1.55 to 1.6 out loud, «because air is calmer», and zero 1.55
+     survive anywhere in the component layer. Applying a decision, not taking one. */
+  line-height: var(--lh-airy); color: var(--text-secondary);
+  margin: 14px 0 6px; /* [?] neither 14 nor 6 has a rung */
+  /* a reading measure, not spacing: 560 is the width this paragraph is allowed
+     to run to. Layout widths stay literal in the component that owns the layout. */
+  max-width: 560px; }
+.coach .clh .sub b{ color: var(--text-primary); font-weight: var(--fw-bold); }
+.coach .clh-cta{ display: flex; flex-wrap: wrap; gap: var(--space-12);
+  margin-top: 20px; /* [?] 20px has no rung; 16 and 24 are the neighbours */ }
+/* `.clh-cta .btn{ padding: 13px 24px; font-size: 14px }` DELETED - button.css
+   owns the size of a button. Those three numbers built a 46px-tall control by
+   hand, and the button's ladder is 40 / 52 / 64 (`--btn--s` / base / `--btn--l`,
+   an equal 12px rung since step 6.7). 46 is not on it, so this rule was a
+   molecule quietly minting a fifth button size for one page. The screen picks a
+   rung instead; which rung is the owner's call, and until it is taken these two
+   actions render at the base M. */
+.coach .clh-note{ font-size: var(--fs-12); color: var(--text-muted); margin-top: var(--space-12); }
+
+/* A HATCHED PLACEHOLDER, and the product already has two of them - the auth
+   dialog's visual panel and the mega menu's «Вибір місяця» slot. Both draw the
+   same 45deg repeat with `--bg-hatch` on `--bg-surface`; this one was drawn on
+   #f3f3f3, which is the grey's `--fill` value rather than its `--fill2`, so it
+   translates by value to `--bg-sunken` and comes out one step darker than its
+   two siblings. Third edition of one pattern, and the base is the only thing
+   that differs - reported rather than silently aligned.
+   `transparent` is correct here and is NOT the trap `--fade-page` names: the
+   stops are hard (1px to 1px, 9px), so nothing interpolates through grey.
+   The 1px stripe on a 9px period is the drawing itself, not spacing. */
+.coach .clh-art{ min-height: 190px; /* [?] a content minimum, not a rung: the art slot's floor */
+  border-radius: var(--radius-12); border: 1px solid var(--line-hair);
+  /* #999 in the grey. By value that is `--text-muted`, but the job here is the
+     LABEL INSIDE A PLACEHOLDER, and both existing hatch slots plus every photo
+     placeholder in the product take `--mark-faint` for it. Chosen by job, and it
+     is the one colour in this file that is not a straight value translation. The
+     element is `aria-hidden`, so this is a mark and not information. */
+  color: var(--mark-faint); font-size: var(--fs-12);
+  display: flex; align-items: center; justify-content: center; text-align: center; padding: var(--space-16);
+  background-color: var(--bg-sunken);
+  background-image: repeating-linear-gradient(45deg, var(--bg-hatch) 0, var(--bg-hatch) 1px, transparent 1px, transparent 9px); }
+
+/* ---- value chips under the hero -----------------------------------------
+   THIS IS THE CHIP ATOM, DRAWN A SECOND TIME UNDER ANOTHER NAME. `.clv span`
+   sets `1px solid --line-strong`, `--radius-pill` and `--bg-page` - which is
+   chip.css's resting rule, declaration for declaration - and then differs only
+   in the three numbers a rung would have given it: 12.5/700/7px 13px against the
+   atom's 14/600/8px 12px.
+   The house answer to this is visible in chip.css itself: when a screen drew a
+   chip under its own name, that name JOINED the atom's selector list, and there
+   are seven of them there already (`.dr-chip`, `.hero-chips a`, `.flink`,
+   `.mgchip`, `.ptab`, `.ord-tab`, `.cegoals button`). `.clv span` is the eighth,
+   and adding it is an edit to chip.css - another file, so not this step's. Kept
+   here whole so the screen renders, and named in the report as the first thing
+   to move. */
+.coach .clv{ display: flex; flex-wrap: wrap; gap: 10px; /* [?] 10px has no rung; 8 and 12 are the neighbours */
+  margin: var(--space-4) 0 var(--space-8); }
+.coach .clv span{ font-size: var(--fs-14); /* [?] a HALF PIXEL, and step 7.66 says a scale cannot hold one - it killed 8.5px for exactly this reason */
+  font-weight: var(--fw-bold); color: var(--text-primary); background: var(--bg-page);
+  border: 1px solid var(--line-strong); /* was 1.5px - see the kicker above, step 7.62 */
+  border-radius: var(--radius-pill); padding: 7px 13px; /* [?] neither 7 nor 13 has a rung */ }
+
+/* ---- how it works, four steps -------------------------------------------
+   Three widths and only two of them are in the product's set. 620 is a real
+   boundary (9 files lean on it); 980 is a SINGLETON and it stands 20px from 960,
+   which two files already use - the same shape and a shorter distance than the
+   820 -> 860 and 900 -> 860 folds steps 7.64 and 7.70 took. Left at 980 because
+   folding a boundary is a measured decision, and it is reported. */
+.coach .steps{ display: grid; grid-template-columns: 1fr; gap: var(--space-12); }
+@media (min-width: 620px) { .coach .steps{ grid-template-columns: 1fr 1fr; } }
+@media (min-width: 980px) { .coach .steps{ grid-template-columns: repeat(4, 1fr); } }
+.coach .step{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  padding: 18px /* [?] 18px has no rung; 16 and 24 are the neighbours */ var(--space-16);
+  background: var(--bg-page); }
+/* the numeral is a mark on an ink disc, so its ink is `--text-oninverse` and not
+   white-by-accident: 17.0:1 on the ink ground. `--dark` in the grey was the
+   single greyscale accent, and as a FILL that is `--bg-inverse` - charcoal was
+   kept there deliberately and not replaced by the accent (tokens.css). */
+.coach .step .n{ width: var(--size-30); height: var(--size-30); border-radius: var(--radius-circle);
+  background: var(--bg-inverse); color: var(--text-oninverse);
+  font-size: var(--fs-14); font-weight: var(--fw-black);
+  display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-12); }
+.coach .step h3{ font-size: var(--fs-16); /* [?] 15px has no rung */
+  font-weight: var(--fw-black); color: var(--text-primary);
+  margin-bottom: 6px; /* [?] 6px has no rung */ line-height: var(--lh-snug); }
+.coach .step p{ font-size: var(--fs-14); /* [?] 13px has no rung; 12 and 14 are the neighbours */
+  color: var(--text-secondary); line-height: var(--lh-airy); /* was 1.55, step 5.6 */ }
+
+/* ---- Free / Pro comparison ----------------------------------------------
+   A table drawn as a grid, so every row states its own columns and the cells
+   carry the rules a <td> would have. `overflow: hidden` is what makes the outer
+   radius cut the first and last rows; without it the corners show square. */
+.coach .cmp{ border: 1px solid var(--line-hair);
+  border-radius: 14px; /* [?] 14px is not a step; the radius ladder is 4/8/12/16 and its ties go DOWN */
+  overflow: hidden; }
+.coach .cmp-row{ display: grid; grid-template-columns: 1.2fr 1fr 1fr; }
+.coach .cmp-row + .cmp-row{ border-top: 1px solid var(--line-hair); }
+.coach .cmp-cell{ padding: 14px 15px; /* [?] neither 14 nor 15 has a rung */
+  font-size: var(--fs-14); /* [?] 13px has no rung */
+  color: var(--text-body); line-height: 1.45; /* [?] no rung; the three leadings are 1 / 1.3 / 1.6 */ }
+/* the feature column and the Pro column take the same ground, and that is the
+   whole visual argument of the table: the row LABEL and the plan being sold are
+   both lifted off the page, the Free column is not. */
+.coach .cmp-cell.feat{ font-weight: var(--fw-bold); color: var(--text-primary); background: var(--bg-surface); }
+.coach .cmp-cell.pro{ background: var(--bg-surface); }
+.coach .cmp-head .cmp-cell{ padding: 18px 15px; /* [?] neither 18 nor 15 has a rung */ }
+.coach .cmp-head .plan{ font-size: var(--fs-18); /* [?] 17px has no rung; 16 and 18 are the neighbours */
+  font-weight: var(--fw-black); color: var(--text-primary); }
+/* `.badge` IS NOT THE BADGE ATOM, and the name collision is real: badge.css
+   declares `.tag.tag-pop, .tag.tag-new` and nothing else, so no file in the
+   system owns the class this markup uses. What it draws is also a different
+   thing - an outlined pill beside a word, no ground, no shadow - where the atom
+   is a filled mark sitting on a photograph. Kept whole because deleting it would
+   leave the pill undrawn, and named in the report: one of the two has to change
+   its name at Крок 6. */
+.coach .cmp-head .plan .badge{ display: inline-block; font-size: var(--fs-10); font-weight: var(--fw-black); text-transform: uppercase;
+  letter-spacing: .03em; /* [?] no token; the two trackings are --ls-caps .04em and --ls-eyebrow .08em */
+  border: 1px solid var(--line-inverse); /* was 1.5px, step 7.62 */ border-radius: var(--radius-pill);
+  padding: var(--space-2) 9px; /* [?] 9px has no rung */
+  margin-left: 7px; /* [?] 7px has no rung */ vertical-align: middle; }
+.coach .cmp-head .price{ font-size: var(--fs-14); /* [?] 13px has no rung */
+  color: var(--text-secondary); font-weight: var(--fw-semibold);
+  margin-top: 5px; /* [?] 5px has no rung */ }
+.coach .cmp-head .price b{ color: var(--text-primary); font-weight: var(--fw-black);
+  font-size: var(--fs-16); /* [?] 15px has no rung. This is a PRICE and price.css owns the
+                      money type on eight surfaces - mono, tabular-nums. This one
+                      is set in the body face and knows nothing about that file. */ }
+.coach .cmp-foot .cmp-cell{ padding: var(--space-16) 15px; /* [?] 15px has no rung */ }
+/* the foot's label cell drops back to the page colour so the two action cells
+   read as a footer and not as a sixth feature row */
+.coach .cmp-foot .cmp-cell.feat{ background: var(--bg-page); }
+.coach .cmp .yes{ font-weight: var(--fw-black); color: var(--text-primary); }
+.coach .cmp .lim{ color: var(--text-secondary); }
+/* THE NARROW SIDE OF 560, SPELLED THE WAY THE SET SPELLS IT. tokens.css states
+   the convention at 7.64 - a boundary at N is `(min-width: Npx)` wide and
+   `(max-width: N-1px)` narrow, or the two sides both fire at exactly N - and all
+   four files that hold this boundary already write 559 (`banner`,
+   `checkout-form`, `product-card`, `trust-strip`). This block was the fifth and
+   the only one still overlapping. One pixel, and it is a spelling, not a value:
+   at exactly 560 the page previously ran the phone layout and the wide layout at
+   once. */
+@media (max-width: 559px) {
+  /* stack the two plans; keep feature label above each pair via data flow */
+  .coach .cmp-row{ grid-template-columns: 1fr 1fr; }
+  .coach .cmp-cell.feat{ grid-column: 1 / -1; padding: 11px 15px; /* [?] neither 11 nor 15 has a rung */
+    font-size: var(--fs-14); /* [?] the second HALF PIXEL in this file - see .clv span */ }
+}
+
+/* ---- the closing call ----------------------------------------------------
+   The only box on the page bordered in ink rather than in the hairline, and it
+   has no ground: the weight comes from the edge alone. That is what makes it the
+   page's one loud block without any colour being spent on it - design principle
+   4, calm and confident. */
+.coach .finalcta{ text-align: center; border: 1px solid var(--line-inverse); /* was 1.5px, step 7.62 */
+  border-radius: var(--radius-16); padding: 30px 22px; /* [?] neither 30 nor 22 has a rung */
+  margin: var(--space-32) 0 var(--space-8); }
+.coach .finalcta h2{ font-size: var(--fs-24); /* [?] 22px has no rung; 20 and 24 are the neighbours */
+  font-weight: var(--fw-black); color: var(--text-primary); }
+.coach .finalcta p{ font-size: var(--fs-14); color: var(--text-secondary);
+  margin: 10px auto 20px; /* [?] neither 10 nor 20 has a rung */
+  max-width: 520px; /* the reading measure of the closing paragraph, not spacing */
+  line-height: var(--lh-airy); /* was 1.55, step 5.6 */ }
+/* `.finalcta .btn{ padding: 13px 26px; font-size: 14px }` DELETED - the same
+   hand-built 46px control as `.clh-cta .btn` above, two pixels wider, which is
+   the tell: the same intention typed twice and landing on two different boxes.
+   button.css owns it. */
+
+/* ---------- colour ----------------------------------------------------------
+   THE GREY NAMES AND WHAT EACH BECAME. This block never passed through
+   design/kit/kit.css - it came straight off a stage-04 screen - so every colour
+   in it is a grey-prototype variable or a literal, and the translation is the
+   whole colour decision. Recorded here rather than restated as declarations,
+   which is the rule tokens.css took at 7.69: a colour that travels inside a
+   shorthand and does not DIFFER is not worth a second line.
+
+       --hair    #e4e4e4  ->  --line-hair       card edge, row divider, hero edge
+       --hair2   #cfcfcf  ->  --line-strong     the chip's heavier control border
+       --fill2   #fafafa  ->  --bg-surface      the hero ground, the feat/pro cells
+       --strong  #111     ->  --text-primary    every heading and every emphasis
+       --ink     #1b1b1b  ->  --text-body       the comparison cell's running text
+       --sec     #777     ->  --text-secondary  captions, step copy, the price line
+       --light   #999     ->  --text-muted      the hero's fine print
+       --dark    #161616  ->  --line-inverse    as a BORDER: kicker, badge, finalcta
+                          ->  --bg-inverse      as a FILL: the step numeral's disc
+       #fff              ->  --bg-page          step card, chip, foot label cell
+       #fff              ->  --text-oninverse   the numeral ON the ink disc
+       #999              ->  --mark-faint       the label inside the hatch - by JOB
+       #f3f3f3           ->  --bg-sunken        the hatch base
+       #e4e4e4           ->  --bg-hatch         the hatch stripe
+
+   ONE ROLE IS USED FOR TWO GROUNDS AND THAT IS DELIBERATE. `--bg-surface`
+   carries the hero AND the comparison table's two lifted columns. In the grey
+   both were `--fill2` and neither knew about the other; in colour they are the
+   same statement - «this is a zone, not a card» - so they stay one role and part
+   company only if the table ever needs its own plate.
+
+   NOT IN THE CODE, and not invented here: this page has no hover, no active and
+   no focus state of its own. Every interactive thing on it is a `.btn` or a link
+   that button.css and base.css already answer for. The comparison table is not
+   interactive at all - its rows do not respond to a finger, which is correct for
+   a table that is read rather than operated, and it is written down so the
+   absence is a decision and not an omission. -> stage 09. */

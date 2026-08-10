@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Сесія замовлення - Кабінет тренера (wireframe 5.5)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+<!-- the block that stood here moved into design/system/components/ at step 7.95: a screen may not carry its own stylesheet. -->
+</head>
+<body class="coach">
+<!-- ============================================================
+  WIREFRAME · node 5.5 Мультиклієнтська сесія замовлення (base).
+  ★ The coach-flow differentiator (Job 1). Client tabs + active-client
+  quick-add + coach-tier priced lines + session summary → cart-coach.
+  States: addclient · loading (quick-add) · oos · priceblock · newclient (client with 0 items) · empty (session with 0 clients).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page cs-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <span class="cur">Сесія замовлення</span>
+  </nav>
+
+  <div class="cs-top">
+    <div>
+      <h1>Сесія замовлення</h1>
+      <div class="cs-meta"><span class="tierchip">Pro</span> гуртові ціни активні · <b>2 клієнти</b> · 4 товари</div>
+    </div>
+    <a class="btn--outline btn--s btn" href="coach-home.html">Зберегти й вийти</a>
+  </div>
+
+  <!-- CLIENT TABS (each with a per-client subtotal) -->
+  <div class="ctabs" role="tablist" aria-label="Клієнти сесії">
+    <button class="ctab on" role="tab" aria-selected="true">
+      <span class="ctn">Андрій</span><span class="cts">2 320 ₴</span><span class="ctg">Набір маси</span>
+    </button>
+    <button class="ctab" role="tab" aria-selected="false">
+      <span class="ctn">Марія</span><span class="cts">1 160 ₴</span><span class="ctg">Схуднення</span>
+    </button>
+    <a class="ctab add" href="coach-session-addclient.html">＋ Клієнт</a>
+  </div>
+
+  <div class="cs-grid">
+
+    <!-- ACTIVE-CLIENT PANEL -->
+    <section class="cs-panel" role="tabpanel" aria-label="Замовлення для клієнта Андрій">
+      <div class="cs-client">
+        <div class="cc-name">Андрій <span class="cc-goal">· ціль: Набір маси</span></div>
+        <a class="cc-repeat" href="cart-coach.html">Повторити замовлення</a>
+      </div>
+      <!-- goal drives selection -->
+      <div class="cc-goals" aria-label="Цілі клієнта">
+        <a class="on" href="coach-session.html">Набір маси</a>
+        <a href="coach-session.html">Відновлення</a>
+        <a href="coach-session.html">Витривалість</a>
+      </div>
+
+      <!-- IN-SESSION QUICK-ADD (not the global search) -->
+      <div class="qadd">
+        <div class="qadd-h">Швидке додавання <span>- підбір за ціллю «Набір маси», не загальний пошук</span></div>
+        <div class="qadd-field">
+          <input type="text" placeholder="Назва або артикул - протеїн, гейнер, креатин…" aria-label="Швидке додавання товару">
+          <a class="btn--accent btn--s btn dark" href="coach-session-loading.html">Знайти</a>
+        </div>
+        <div class="qadd-res">
+          <div class="qa-row">
+            <div class="qa-ph">фото</div>
+            <div class="qa-bd"><div class="qa-nm">OstroVit Creatine Monohydrate 500 г</div><div class="qa-av">В наявності</div></div>
+            <div class="cprice">460 ₴<span class="old">549 ₴</span><span class="wtag">гурт</span></div>
+            <button class="btn qa-add" type="button">Додати клієнту</button>
+          </div>
+          <div class="qa-row">
+            <div class="qa-ph">фото</div>
+            <div class="qa-bd"><div class="qa-nm">Power Pro Gainer 2000 г</div><div class="qa-av low">Залишилось мало</div></div>
+            <div class="cprice">690 ₴<span class="old">820 ₴</span><span class="wtag">гурт</span></div>
+            <button class="btn qa-add" type="button">Додати клієнту</button>
+          </div>
+          <div class="qa-row">
+            <div class="qa-ph">фото</div>
+            <div class="qa-bd"><div class="qa-nm">Olimp BCAA Xplode 250 г</div><div class="qa-av">В наявності</div></div>
+            <div class="cprice">380 ₴<span class="old">450 ₴</span><span class="wtag">гурт</span></div>
+            <button class="btn qa-add" type="button">Додати клієнту</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDER LINES for the active client (coach-tier priced + tagged) -->
+      <div class="cs-lines-h">Товари для клієнта Андрій</div>
+      <div class="cs-lines">
+        <div class="cline">
+          <div class="cl-ph">фото</div>
+          <div class="cl-bd">
+            <div class="cl-nm">BioTechUSA Hyper Mass 4000 г</div>
+            <div class="cl-var">Смак: Ваніль · Угорщина</div>
+            <div class="cl-ctrls">
+              <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
+              <span class="cl-tag">👤 Андрій</span>
+              <button class="cl-rm" type="button">Видалити</button>
+            </div>
+          </div>
+          <div class="cl-right"><div class="cprice">1 230 ₴<span class="old">1 450 ₴</span><span class="wtag">гурт</span></div></div>
+        </div>
+
+        <div class="cline">
+          <div class="cl-ph">фото</div>
+          <div class="cl-bd">
+            <div class="cl-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
+            <div class="cl-var">Смак: Подвійний шоколад · США</div>
+            <div class="cl-ctrls">
+              <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
+              <span class="cl-tag">👤 Андрій</span>
+              <button class="cl-rm" type="button">Видалити</button>
+            </div>
+          </div>
+          <div class="cl-right"><div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div></div>
+        </div>
+
+        <div class="cline-sub"><span>Підсумок по клієнту Андрій</span><b>2 320 ₴</b></div>
+      </div>
+    </section>
+
+    <!-- SESSION SUMMARY (sticky) -->
+    <aside class="cs-summ" aria-label="Сесія - разом">
+      <div class="cs-summ-h">Сесія - разом</div>
+      <div class="cs-cli"><span>Андрій<small>Набір маси · 2 товари</small></span><b>2 320 ₴</b></div>
+      <div class="cs-cli"><span>Марія<small>Схуднення · 2 товари</small></span><b>1 160 ₴</b></div>
+      <div class="cs-tot"><span>Разом (2 клієнти)</span><b>3 480 ₴</b></div>
+      <div class="cs-note">Ціни гуртові (тариф Pro). Доставка - одна на тренера; розподіл за клієнтами зберігається в замовленні. Знижки й бонуси - на оформленні.</div>
+      <a class="btn dark cs-go" href="cart-coach.html">Перейти в кошик →</a>
+      <a class="btn cs-save" href="coach-home.html">Зберегти сесію</a>
+    </aside>
+
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<!-- sticky mobile action bar -->
+<div class="cs-bar">
+  <div class="bt">Разом (2 клієнти)<b>3 480 ₴</b></div>
+  <a class="btn--accent btn--l btn dark" href="cart-coach.html">У кошик →</a>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html');
+        uivFixLinks(); uivBar(); uivChrome();</script>
+</body>
+</html>

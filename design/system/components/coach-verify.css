@@ -1,0 +1,418 @@
+/* coach-verify.css - «Стати тренером» + the coach deltas of the cart (level 3)
+   Moved out of the <style> blocks of wireframes/coach-verify.html and
+   wireframes/cart-coach.html at stage 08 step 7.95, when the owner's A13
+   decision brought the coach flow into colour. A screen may not carry its own
+   stylesheet: a rule nobody else can read is a rule nobody else can be
+   consistent with.
+   Selectors are unchanged. Colour reads a semantic role, geometry reads a
+   primitive.
+
+   TWO SCREENS, ONE FILE, and that is a decision rather than a shortcut.
+   `cart-coach` introduces NO class name of its own - all thirteen of its rules
+   address classes that cart-drawer.css, cart-row.css and stepper.css already
+   draw. It has nothing to be a component OF. What survives after the duplicates
+   and the atoms are removed is nine deltas on somebody else's component, and
+   nine deltas do not earn a file; they earn a named section inside the coach
+   flow's own file, where the next reader of the coach screens will find them.
+
+   THE GREY NAMES AND THE ROLES THEY BECAME. The grey prototype's palette is
+   value-named and does not exist in the system, so each one was translated by
+   the JOB it did in `wireframes/_wf.css:10-21`:
+
+       --strong  #111  «headings / emphasis»   -> --text-primary
+       --ink     #1b1b1b «body text»           -> --text-body   (links, prose)
+       --sec     #777  «secondary text»        -> --text-secondary
+       --light   #999  «tertiary / meta»       -> --text-muted
+       --hair    #e4e4e4 «hairline border»     -> --line-hair
+       --hair2   #cfcfcf «stronger border»     -> --line-strong
+       --fill    #f4f4f4 «rail / chip fill»    -> --bg-sunken
+       --dark    #161616 «selected / primary»  -> --bg-inverse / --line-inverse
+       #fff on a light ground                  -> --bg-page
+       #fff / #ddd on a dark ground            -> --text-oninverse / -muted
+
+   `--strong` splits in two on purpose, the way tokens.css says the pair exists
+   to: --text-primary where the string is a HEADING or a label of a block,
+   --text-body where it is running text or a link a person clicks. Same value
+   today, two jobs, and they can part company later.
+
+   THE BORDERS ARE WRITTEN 1px AND THE GREY BLOCK WROTE 1.5px. That is not a
+   rounding: tokens.css step 7.62 measured that Chrome resolves border-width
+   1.5px to a used value of 1px before layout, at device pixel ratio 1, 2 and 3,
+   and 23 other stylesheets in this system already write the number the browser
+   draws. Nothing moves.
+
+   NO COLOUR SECTION, and it is missing for a reason worth stating. Every other
+   file here has two halves because the value came down two lines - _wf.css for
+   structure, kit.css for colour. These two screens were never coloured, so
+   kit.css has no edition of them and there is no second half to copy. The
+   colour below is the first-ever translation of the grey, and where it implies
+   a look rather than a value it says so and hands the look to stage 09. */
+
+
+/* ==========================================================================
+   SECTION 1 - coach-verify (node 5.1)
+   From the <style> block of wireframes/coach-verify.html.
+   A buyer becomes a coach here: the role activated on top of an existing
+   account. Request -> social-link verification -> tier.
+   ========================================================================== */
+
+/* THE FIRST NINE RULES ARE NOT THIS SCREEN'S, THEY ARE THE FLOW'S - measured
+   before moving them. `.cv-wrap`, `.cv-steps`, `.cv-step`, `.cv-step .n`,
+   `.cv-step b`, `.cv-step.on`, `.cv-step.on .n` and `.cv-step.done .n` are
+   BYTE FOR BYTE IDENTICAL in five `<style>` blocks: coach-verify, -loading,
+   -error, -deadend, -tier. Eight rules typed five times is the whole argument
+   for this step in one place. Written once here, they serve all five.
+   One drift in the five: `coach-verify-tier` says `max-width: 900px` where the
+   other four say 860. 900 is the number step 7.70 folded to 860 in
+   checkout-form.css, for the same reason - a singleton 40px from a member of
+   the set. It is that screen's line to move, not this one's. */
+
+/* [?] 860px is a LAYOUT WIDTH, and tokens.css keeps those literal in the
+   component that owns the layout - the 1200 / 860 / 720 column set. It is also
+   the number of the breakpoint spine, and that is a coincidence of arithmetic:
+   here it is the reading width of a two-column card, not a boundary. */
+.coach .cv-wrap{ max-width: 860px; }
+
+/* progress steps */
+/* [?] 6px and 20px have no rung; the spacing ladder is 2/4/8/12/16/24/32/40.
+   Both stand one to four pixels off a rung, which is the family step 7.67
+   named «air that refused to say so» and rounded DOWN by rule. That sweep was
+   an owner-approved pass over the whole product; repeating it here on two
+   declarations would be a value decision taken by a move. Left as written. */
+.coach .cv-steps{ display: flex; gap: var(--space-8); margin: 6px 0 20px; flex-wrap: wrap; }
+/* [?] 92px is a min-width, a layout floor rather than a control size - the
+   narrowest a step chip may get before its two lines stop reading.
+   [?] 10px radius has no rung; the ladder is 4/8/12/16. The step-5.5
+   consolidation snapped 10 to 8 across 212 declarations, tie DOWN, and this
+   block was outside it because it lives in a screen. Snapping it now is that
+   decision made silently, so the literal stays and stage 09 takes it.
+   [?] 9px has no rung; the ladder is 8/12. */
+.coach .cv-step{ flex: 1; min-width: 92px; border: 1px solid var(--line-strong); border-radius: 10px; padding: 9px var(--space-12); font-size: var(--fs-12); color: var(--text-secondary); background: var(--bg-page); }
+/* [?] 18px has no rung; the size ladder is 20/24/26/30/32/34/38/40/44/46/52/64.
+   [?] 11px has no rung; the type scale is 10/12/14/16/18/20/24/30/34.
+   [?] 7px has no rung; the ladder is 4/8.
+   `--fw-black` and not the literal 800: the token IS the name for «the heaviest
+   thing in its block», which is what 800 meant here, and it resolves to 700
+   because no 800 face is loaded on any product page (tokens.css 7.63-7.65).
+   The number this line drew has not changed. */
+.coach .cv-step .n{ display: inline-flex; width: 18px; height: 18px; border-radius: var(--radius-circle); border: 1px solid var(--line-strong); align-items: center; justify-content: center; font-size: var(--fs-12); font-weight: var(--fw-black); margin-right: 7px; color: var(--text-secondary); }
+/* [?] 12.5px is a half pixel and the scale has none; the rungs are 12 and 14.
+   Step 5.6 deleted six half-pixel sizes from the product by an owner's call and
+   this one survived inside a screen. */
+.coach .cv-step b{ display: block; color: var(--text-primary); font-weight: var(--fw-black); font-size: var(--fs-14); margin-top: var(--space-4); }
+/* THE CURRENT STEP IS INK, AND THE COLOURED PRODUCT SAYS «CHOSEN» IN ACCENT.
+   `--dark` was the grey prototype's single «selected / primary» value, so it
+   translates by value to --line-inverse / --bg-inverse. But radio.css 7.29 and
+   chip.css 7.23 both settled the same question the other way for the coloured
+   layer - «ACCENT IS WHAT CHOSEN LOOKS LIKE» - and a progress step that says
+   «you are here» is the same statement. Translating by value is what this move
+   is allowed to do; the look is stage 09's, with the type stand open. */
+.coach .cv-step.on{ border-color: var(--line-inverse); }
+.coach .cv-step.on .n{ background: var(--bg-inverse); border-color: var(--line-inverse); color: var(--text-oninverse); }
+/* the step behind you: filled, not marked. --fill was the grey rail/chip fill */
+.coach .cv-step.done .n{ background: var(--bg-sunken); }
+
+/* split card */
+/* ONE NAME, FIVE LOOKS - the finding this file cannot fix and must not hide.
+   `.cv-card` is declared in all five coach-verify screens and every one of them
+   means something different by it:
+       coach-verify           flex column, becomes a row at 760, overflow hidden
+       coach-verify-loading   padding 40/24, text centred
+       coach-verify-error     padding 32/24, max-width 560, centred by margin
+       coach-verify-deadend   padding 34/24, max-width 560, centred, text centred
+       coach-verify-tier      absent
+   Below is coach-verify's edition, because that is the screen this move was
+   given. The moment a second one lands in this file they collide on the same
+   selector and the later import wins, which is not a decision anybody took.
+   Either the four states get their own modifier (`.cv-card--panel`) or the
+   split card gets its own name; both are markup, both are Крок 6. */
+.coach .cv-card{ border: 1px solid var(--line-hair); border-radius: var(--radius-16); overflow: hidden; display: flex; flex-direction: column; }
+/* 760 is in the set - tokens.css lists it with `loyalty-rung` and `seo-text`,
+   where it is a CONTENT limit: the width at which a reading column stops
+   growing. Same job here, and it makes the boundary a three-file decision
+   instead of a two-file one. */
+@media (min-width: 760px) { .coach .cv-card{ flex-direction: row; align-items: stretch; } }
+
+/* THIS PANEL IS THE AUTH DIALOG'S VISUAL HALF, BUILT A SECOND TIME.
+   `.cv-aside` carries `.vlogo`, `.vtag` and `.vtag b` - the auth dialog's own
+   child names, which auth-dialog.css draws under `.auth-visual` - and the
+   ground is the same 45-degree hatch, same 10px pitch, same 20px period. The
+   screen's own header comment says it: «Reuses the auth form vocabulary». Two
+   files, one device, and the child names are already shared, so a rule written
+   for one of them under a bare `.vtag` would land on both.
+   The hatch reads the two roles auth-dialog.css reads: #fafafa is --warm-50
+   exactly, which is --bg-surface, and #f2f2f2 is the grey prototype's cold twin
+   of the hatch stop the coloured product already names --bg-hatch. The 10px and
+   20px stops are the pattern's own geometry, not spacing, and stay literal for
+   the same reason auth-dialog.css keeps them.
+   [?] 22px has no rung; the ladder is 16/24. */
+.coach .cv-aside{ padding: 22px; background: repeating-linear-gradient(45deg,var(--bg-surface),var(--bg-surface) 10px,var(--bg-hatch) 10px,var(--bg-hatch) 20px); border-bottom: 1px solid var(--line-hair); }
+/* 38% and not a length: the panel is a ratio of the card. auth-dialog.css gives
+   its own visual half 44%. Two devices, two proportions, and neither is written
+   down anywhere as a decision - stage 09. */
+@media (min-width: 760px) { .coach .cv-aside{ width: 38%; flex: none; border-bottom: none; border-right: 1px solid var(--line-hair); display: flex; flex-direction: column; justify-content: space-between; } }
+.coach .cv-aside .vlogo{ font-size: var(--fs-20); font-weight: var(--fw-black); color: var(--text-primary); letter-spacing: var(--ls-display); }
+/* [?] 13px has no rung; the scale is 12/14. */
+.coach .cv-aside .vtag{ font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-16); }
+/* [?] 14.5px is a half pixel; the rungs are 14 and 16. */
+.coach .cv-aside .vtag b{ color: var(--text-primary); display: block; font-size: var(--fs-14); margin-bottom: var(--space-4); }
+/* [?] 9px has no rung; the ladder is 8/12. */
+.coach .cv-aside ul{ list-style: none; margin: var(--space-16) 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+/* [?] 12.5px is a half pixel; the rungs are 12 and 14. */
+.coach .cv-aside li{ font-size: var(--fs-14); color: var(--text-secondary); display: flex; gap: var(--space-8); align-items: flex-start; }
+/* the tick in front of a benefit. It is a typed glyph in the markup, which is
+   the edition checkbox.css 7.38 replaced with a drawn one for the same reason:
+   a typed mark is read aloud, takes no stroke weight and lands where the font
+   puts it. Frozen markup, so it is named here rather than changed. */
+.coach .cv-aside li .m{ color: var(--text-primary); }
+
+/* [?] 22px has no rung; the ladder is 16/24. */
+.coach .cv-body{ flex: 1; min-width: 0; padding: 22px; }
+/* [?] 30px and 34px have no rung; the ladder is 24/32/40. */
+@media (min-width: 760px) { .coach .cv-body{ padding: 30px 34px; } }
+/* THE TYPE OF THIS HEADING IS THE ONE THING THE MOVE COULD NOT ANSWER. Every
+   H1 in the coloured product is `--font-display` at `--fw-semibold` with
+   `--ls-lead` - .cd-head h1, .cd-empty .et, .cart-behind h2, .cg-nm, all of
+   them - and that pairing came from kit.css, which never had an edition of this
+   screen. Adding Oswald here would be inventing the colour half rather than
+   moving it. Left as the grey wrote it, and it is the first thing to settle
+   when this screen is coloured. */
+.coach .cv-body h1{ font-size: var(--fs-24); font-weight: var(--fw-black); color: var(--text-primary); letter-spacing: var(--ls-lead); }
+/* [?] 13.5px is a half pixel; the rungs are 14 and 12, and 14 is what the
+   product's other 13.5s became at 5.6.
+   [?] 22px has no rung; the ladder is 16/24.
+   [?] 1.55 is not on the leading ladder (1 / 1.3 / 1.6). tokens.css records the
+   base rhythm moving from 1.55 to 1.6 «deliberately, and said out loud, because
+   air is calmer» - so 1.55 is the value that decision replaced, still standing
+   because it lived in a screen. */
+.coach .cv-lead{ font-size: var(--fs-14); color: var(--text-secondary); margin: var(--space-8) 0 22px; line-height: 1.55; }
+
+/* ---------- fields: what this screen may NOT say about them ----------------
+   The block carried a whole form vocabulary and most of it is the atom's.
+
+   `.fld` and `.fld > label` are DELETED, and they were the literal case: those
+   two selectors are declared in field.css (lines 165-172) and in
+   wireframes/_wf.css (1471-1472). `.fld > label` here was byte for byte the
+   _wf.css line - a screen re-typing a global. `.fld{ margin-bottom: 16px }`
+   only disagreed with _wf.css's 14, and 16 is exactly what field.css already
+   says. Nothing is lost.
+
+   `.txt-field` and `.txt-field:focus` are DELETED. `.txt-field` is not a
+   control, it is a POSITION: field.css's whole rewrite at step 7 says «the look
+   hangs on the class, and the old name stays in the markup as a hook that says
+   WHERE the field stands, not what it is», design/kit/field.html demonstrates
+   `class="field txt-field"`, and inventory.md files `.txt-field` under
+   field.css. The box this screen drew (1.5px edge, 10px radius, 13/12 padding,
+   15px type, a 2px ink outline on focus) is one of the nine heights and five
+   sizes that rewrite existed to end - and 15 is the size field.css names in its
+   own header as «not a rung of the scale». The atom draws 44 tall, 1px
+   --line-strong, --radius-12, --fs-16, and a focus that is the accent edge plus
+   --ring-focus.
+   WHAT THIS COSTS: the frozen wireframe writes `class="txt-field"` alone, so
+   the coloured copy of this screen must write `class="field txt-field"`, the
+   way the kit page already does. That is markup, and markup is where it
+   belongs - not a second box in a screen's stylesheet.
+
+   `.link-field`, `.link-field .pre`, `.link-field input` and
+   `.link-field input:focus` are DELETED. That is `.field-grp` and `.ph-field
+   .cc`, whole: field.css's «a field with something attached - the +380 in front
+   of a phone number, the lens and the button around a search. The BOX moves to
+   the wrapper and the field inside gives up its own, which is why the focus
+   ring is drawn once, around the whole thing.» Identical device, identical
+   mechanics, drawn a third time. Its `input:focus{ outline: none }` with no
+   ring on the wrapper is the exact bug the atom's `:focus-within` exists to
+   stop: this control could be focused and say nothing at all.
+
+   `.fhint` STAYS, below, and it is the one field-adjacent rule that is not the
+   atom's - field.css's own section header draws that line: «WHERE a field
+   stands - layout that belongs to the block, not to the atom». It is a third
+   edition of the same sentence all the same: goal-tile.css has `.goalcta .hint`
+   at --fs-14/--text-secondary for the same job. Крок 6. */
+/* [?] 11.5px is a half pixel; the rungs are 12 and 10.
+   [?] 6px has no rung; the ladder is 4/8.
+   [?] 1.5 is not on the leading ladder (1 / 1.3 / 1.6). */
+.coach .fhint{ font-size: var(--fs-12); color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
+
+/* city chip -> dialog */
+/* THE PRODUCT ASKS FOR A CITY IN THREE PLACES AND DRAWS IT THREE WAYS.
+   `.addr-cityfld` in address-card.css is this control - a pressable row with a
+   quiet «Змінити» at its right end, opening the same city dialog - at 1px
+   --line-strong, --radius-8, --space-12, --fs-16, --text-primary. On
+   product-coach the same question is a native `select.field`, and field.css
+   already logged that pair: «two choose-something controls with two different
+   marks». This is the third. Nothing in the system answers to `.city-chip`, so
+   the rule stays and the collision is named instead of deleted.
+   [?] 10px radius has no rung; the ladder is 8/12.
+   [?] 14px has no rung; the ladder is 12/16.
+   [?] 15px has no rung; the type scale is 14/16, and field.css names 15 in its
+   header as a size the rewrite removed. */
+.coach .city-chip{ display: inline-flex; align-items: center; gap: var(--space-8); border: 1px solid var(--line-strong); border-radius: 10px; padding: var(--space-12) 14px; font-size: var(--fs-16); font-weight: var(--fw-bold); color: var(--text-primary); background: var(--bg-page); }
+.coach .city-chip .ch{ font-size: var(--fs-12); color: var(--text-muted); font-weight: var(--fw-bold); }
+
+/* type-of-coach segmented options */
+/* [?] 9px has no rung; the ladder is 8/12. */
+.coach .opt-tiles{ display: grid; grid-template-columns: 1fr; gap: 9px; }
+/* 520 IS NOT IN THE SET, and it is the only boundary in either screen that is
+   not. tokens.css lists eleven, measured over 76 stylesheets: 420, 480, 560,
+   620, 640, 720, 760, 860, 960, 1040, 1180. 520 stands 40px from 480 (7 files)
+   and 40px from 560 (4 files) - the same distance and the same shape as the two
+   singletons step 7.64 folded (700 to 720, 820 to 860) and the one 7.70 folded
+   (900 to 860). It is a fold waiting for a measurement, and the measurement is
+   whether three tiles of «Персональний / Зал / Команда» still read at 480. */
+@media (min-width: 520px) { .coach .opt-tiles{ grid-template-columns: repeat(3,1fr); } }
+/* ---------- .opt-tile, .opt-tile small, .opt-tile.on, .opt-tile.on small:
+   DELETED, AND RADIO.CSS OWNS THEM. The markup says so out loud -
+   `role="radiogroup"` around three `role="radio" aria-checked` buttons - and
+   radio.css's line between itself and chip.css is exactly this case: «a chip
+   filters or switches a VIEW, a radio picks a VALUE. Pressing a chip changes
+   what you see; pressing a radio changes what you buy.» The type of coach goes
+   into the account.
+   It is radio.css's COMPACT rung, described there before this screen was read:
+   «A radio that stands shoulder to shoulder in a set of four is COMPACT: no
+   room for a circle, so the edge itself has to carry the state.» Three
+   shoulder-to-shoulder tiles, no circle, the edge carrying the state.
+   And the state it carried was the fourth edition of «chosen» that 7.29 spent a
+   step removing: ink fill, ink border, white label, #ddd on the sub-label.
+   radio.css settled that on the accent, for all three families it found.
+   WHAT THIS COSTS: radio.css must answer to `.opt-tile` the way it already
+   answers to `.co-opt`, `.vopt` and `.pf-lang`, and stepper.css to `.ci-qty,
+   .co-qty` - one name added to a selector list, never a rename, because the
+   grey layer shares the markup. That is a one-line edit to radio.css and it is
+   not this file's to make. ---------- */
+
+/* consent */
+/* THIRD EDITION OF THE CONSENT ROW, kept because the difference is a value.
+   checkbox.css 7.38 draws `.fopt, .optin` and its comment describes this exact
+   row: «A consent is a paragraph - it wraps - so its box has to sit on the
+   FIRST line, not float to the middle of a block, and it takes 12px because a
+   wider gap reads calmer against multi-line text.» This one takes 10. Folding
+   10 into the atom's 12 is a value decision, so the row stays and the name goes
+   on the Крок 6 list beside `.txt-field` and `.opt-tile`.
+   `.cv-consent input` is DELETED: it sized the box, 16x16, and the box is
+   checkbox.css's, which draws 18. That file's own header is the reason - «THE
+   ATOM WAS BEING OVERWRITTEN BY A MOLECULE ... every declaration this file made
+   about the square was dead». This is the same reach, from a screen instead of
+   from a component. Note that the markup here is a real `<input
+   type="checkbox">` while checkbox.css draws a `.cb` span built by _nav.js, so
+   the coloured copy has a markup question to answer, not a css one.
+   [?] 10px gap has no rung; the ladder is 8/12.
+   [?] 6px and 20px have no rung; the ladder is 4/8 and 16/24.
+   [?] 1.55 is not on the leading ladder (1 / 1.3 / 1.6). */
+.coach .cv-consent{ display: flex; gap: 10px; align-items: flex-start; font-size: var(--fs-12); color: var(--text-secondary); line-height: 1.55; margin: 6px 0 20px; }
+.coach .cv-consent a{ color: var(--text-body); text-decoration: underline; }
+
+/* primary + secondary CTA */
+/* ---------- .cv-cta: DELETED, AND BUTTON.CSS OWNS IT. It was a primary action
+   built by hand - ink fill, ink border, white label, full width, centred, 10px
+   radius, 15px padding, 15px type, 700 - which is `.btn--accent.btn--full`
+   plus a size, and the size is the caller's to choose. Every number in it
+   disagrees with the atom: button.css's ladder is 40 / 52 / 64 by measurement
+   (step 6.7), its radius is on the scale, and its ink is the accent, because
+   `--dark` was the greyscale stand-in for an accent the prototype could not
+   show. It also had no hover, no active, no focus and no off state; the atom
+   has all four, and its focus ring (--ring-focus-control) is the one that reads
+   on an accent fill.
+   THIS DELETION REACHES TWO MORE SCREENS: `.cv-cta` is declared again, with its
+   own numbers, in coach-verify-error.html and coach-verify-deadend.html. All
+   three want `.btn .btn--accent .btn--full` in the markup instead, and that is
+   the same swap design/cart.html already made for `.cd-cta`. ---------- */
+/* [?] 12.5px is a half pixel; the rungs are 12 and 14. */
+.coach .cv-alt{ display: block; text-align: center; margin-top: var(--space-12); font-size: var(--fs-14); color: var(--text-secondary); }
+.coach .cv-alt a{ color: var(--text-body); font-weight: var(--fw-bold); text-decoration: underline; }
+
+
+/* ==========================================================================
+   SECTION 2 - cart-coach (node 6.0, coach)
+   From the <style> block of wireframes/cart-coach.html.
+   The same drawer as the buyer's cart, grouped by client. NOTHING here is a
+   component: every selector belongs to cart-drawer.css, cart-row.css or
+   stepper.css, and these are the numbers a screen wanted to differ by.
+   ========================================================================== */
+
+/* THE SCREEN SAID «only the coach deltas stay here» AND FOUR OF THE THIRTEEN
+   WERE NOT DELTAS. They are removed rather than moved, each for its own reason,
+   and the reasons are below because a deleted rule that leaves no trace comes
+   back next time in the same words.
+
+   1. `.ci{ grid-template-columns: 66px 1fr; gap: 12px; padding: 14px 0 }`
+      DELETED - IT HAS NEVER DRAWN, IN EITHER LAYER. The cart row is scoped by
+      ELEMENT: `article.ci` in cart-row.css and, since the same fix reached the
+      grey layer, `article.ci` in _wf.css:1642 too. That selector is (0,1,1) and
+      a bare `.ci` is (0,1,0), so specificity decides and load order never gets
+      a vote. The row has been rendering 74px / 13px / 16px all along - the
+      component's numbers, not the screen's.
+      The scoping is not a mistake to undo: cart-row.css explains it at length -
+      `.ci` is an `<article>` in the cart and a `<span>` mark in the catalogue
+      overlay, and unscoping it put a grid on a 24px icon box.
+      `gap: 12px` was a duplicate anyway: cart-row.css says `var(--space-12)`.
+      The other two are a real intent that has never been visible, so making it
+      visible now (by writing `article.ci`) would move the row for the first
+      time in the product's life. That is a value decision and it is the
+      owner's. THE VISIBLE CONSEQUENCE TODAY: `.ci-ph` below IS specific enough
+      and does shrink the photo to 66, while the column it sits in stays 74 -
+      so the coach's cart rows carry 8px of dead gutter that nobody chose.
+
+   2. `.ci-qty button{ width: 30px; height: 32px }` and
+      `.ci-qty .qn{ width: 28px }`
+      DELETED - stepper.css owns the quantity counter. And this was not one
+      screen's taste: 30 x 32 and 28 are EXACTLY the checkout's edition of the
+      drift step 7.13 resolved. That step found the counter declared twice -
+      cart-row.css at 32 x 34 with a 30 key, checkout-form.css at 30 x 32 with a
+      28 key - called it «what two files drifting look like», and the owner
+      merged both at the cart's 32 x 34. There was a THIRD copy, in this
+      screen's `<style>` block, holding the edition that lost, and 7.13 could
+      not see it because a screen's stylesheet is invisible to a component
+      sweep. That is this whole step in one rule.
+      Also from stepper.css, and it is the coach's own line: «this file already
+      says the coach's normal order is 30 units». The person who taps this key
+      thirty times is the person whose screen was making it smaller.
+
+   3. `.cd-cta{ margin-top: 12px }`
+      DELETED - a pure duplicate that could not have won. cart-drawer.css says
+      `.cd-foot > .cd-cta, .cd-foot > .cd-fix{ margin-top: var(--space-12) }`:
+      same 12px, and (0,2,0) against this line's (0,1,0). */
+
+/* WHAT FOLLOWS ARE OVERRIDES, AND THEY ARE FLAGGED, NOT ENDORSED. Each one
+   restates a property cart-drawer.css or cart-row.css already sets, at the same
+   specificity, so which value draws is decided by where this file is imported
+   in index.css. That is a decision somebody has to take on purpose; it is
+   written down here so it cannot be taken by accident. */
+
+/* THE COACH'S CART IS THE SAME DRAWER AS THE BUYER'S, and that is the decision
+   this step takes out loud rather than by import order.
+
+   Seven declarations stood here, carried out of the screen's private stylesheet
+   and every one of them a silent override of a component: the drawer 420 -> 440,
+   the body's padding back to its pre-consolidation `0 18px`, the photograph 74 ->
+   66, the row and link margins 12 -> 9, and - the dangerous one - a PADDING
+   SHORTHAND on `.cd-foot` that would have reset, silently, the two longhands
+   carrying a measured decision the owner took at 7.89, 7.90 and 7.93: the foot
+   256 -> 181px at 390x800, re-measured at five widths and at 320.
+
+   They are deleted, not carried, and the reason is not tidiness. This file is
+   imported by `index.css`, which EVERY coloured screen loads - so a rule written
+   here under a bare `.cd-foot` does not land on the coach's cart, it lands on
+   `design/cart.html` as well. A screen-shaped override with a component-shaped
+   selector is not an override, it is a change to the component made from the
+   wrong file.
+
+   And on the merits there is nothing to keep: a cart is a cart. If the coach's
+   panel needs to be wider than the buyer's - which is arguable, four items in two
+   client groups against a flat list - that is a decision about `.cart-drawer`,
+   taken in `cart-drawer.css`, with a measurement. Recorded for stage 09; not
+   taken here by leaving a literal standing.
+
+   ONE VISIBLE CONSEQUENCE, and it is a repair: `.ci-ph{ width: 66px }` DID draw,
+   while the `.ci` grid column that was meant to match it never did - a bare `.ci`
+   is (0,1,0) and `article.ci` in cart-row.css is (0,1,1). So every row of the
+   coach's cart has carried 8px of dead gutter between a 66px photograph and a
+   74px column. Deleting the width closes it. */
+
+/* THE ONE RULE IN THIS SECTION THAT IS GENUINELY THE COACH CART'S OWN.
+   `.ci:last-child` is (0,2,0), so unlike a bare `.ci` it beats `article.ci`. It
+   exists because the coach's cart nests its rows inside `.cd-group`, and
+   cart-drawer.css already draws a `--line-strong` divider under each group:
+   without this line the last row of every group carries a hairline directly
+   above that divider - two rules for one edge. */
+.coach .ci:last-child{ border-bottom: 0; }
+.coach .cd-total span small{ color: var(--text-muted); font-weight: var(--fw-semibold); }

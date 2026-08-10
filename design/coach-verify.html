@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Стати тренером - заявка на перевірку (wireframe 5.1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+<!-- the block that stood here moved into design/system/components/ at step 7.95: a screen may not carry its own stylesheet. -->
+</head>
+<body class="coach">
+<!-- ============================================================
+  WIREFRAME · node 5.1 Стати тренером (BASE = role-request form).
+  Step 1 of 3: заявка → перевірка посилання → тариф. Role added on top
+  of the existing account. Primary «Надіслати на перевірку» → loading.
+  States: loading · error · deadend · tier.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page cv-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <a href="account.html">Кабінет</a><span class="sep">/</span>
+    <span class="cur">Стати тренером</span>
+  </nav>
+
+  <!-- progress -->
+  <div class="cv-steps" aria-label="Кроки">
+    <div class="cv-step on"><span class="n">1</span>Крок 1<b>Заявка</b></div>
+    <div class="cv-step"><span class="n">2</span>Крок 2<b>Перевірка</b></div>
+    <div class="cv-step"><span class="n">3</span>Крок 3<b>Тариф</b></div>
+  </div>
+
+  <div class="cv-card">
+    <!-- context / value aside -->
+    <aside class="cv-aside" aria-label="Навіщо це">
+      <div>
+        <div class="vlogo">Stack</div>
+        <div class="vtag"><b>Гуртовий доступ для тренерів</b>Оптові ціни, мультиклієнтські замовлення й історія по кожному клієнту - на вашому акаунті.</div>
+        <ul>
+          <li><span class="m">✓</span> Ціни, кращі за роздрібні</li>
+          <li><span class="m">✓</span> Замовлення для кількох клієнтів за одну сесію</li>
+          <li><span class="m">✓</span> Роль додається поверх вашого акаунта - окремий вхід не потрібен</li>
+        </ul>
+      </div>
+      <div class="vtag" style="margin-top:22px"><b>Чому перевірка?</b>Гуртові ціни - тільки для справжніх тренерів. Ми перевіримо це за вашим посиланням (Instagram або сайт залу).</div>
+    </aside>
+
+    <!-- request form -->
+    <div class="cv-body">
+      <h1>Стати тренером</h1>
+      <p class="cv-lead">Заповніть коротку заявку. Ми перевіримо, що ви справді тренер - за посиланням на ваш профіль, - і відкриємо гуртовий доступ.</p>
+
+      <form action="coach-verify-loading.html" method="get">
+        <div class="fld">
+          <label for="cvname">Ім'я або назва бренду / залу</label>
+          <input id="cvname" name="name" class="txt-field" type="text" placeholder="Напр. Олена Коваль · FitZone Одеса">
+        </div>
+
+        <div class="fld">
+          <label for="cvcity">Місто</label><br>
+          <button id="cvcity" class="city-chip" type="button" aria-label="Обрати місто">📍 Одеса <span class="ch">Змінити ▾</span></button>
+          <div class="fhint">Основне місто роботи - для гуртової доставки.</div>
+        </div>
+
+        <div class="fld">
+          <label>Тип</label>
+          <div class="opt-tiles" role="radiogroup" aria-label="Тип тренера">
+            <button class="opt-tile on" type="button" role="radio" aria-checked="true">Персональний<small>тренер</small></button>
+            <button class="opt-tile" type="button" role="radio" aria-checked="false">Зал<small>власник / менеджер</small></button>
+            <button class="opt-tile" type="button" role="radio" aria-checked="false">Команда<small>клуб / збірна</small></button>
+          </div>
+        </div>
+
+        <div class="fld">
+          <label for="cvlink">Посилання на профіль для перевірки</label>
+          <div class="link-field">
+            <span class="pre">🔗</span>
+            <input id="cvlink" name="link" type="url" inputmode="url" placeholder="instagram.com/ваш_профіль або сайт залу">
+          </div>
+          <div class="fhint">Instagram, сайт залу чи сторінка команди - щоб ми переконалися, що ви справді тренер.</div>
+        </div>
+
+        <label class="cv-consent">
+          <input type="checkbox" aria-label="Згода">
+          <span>Підтверджую, що дані правдиві, і надаю згоду на їх обробку згідно з
+            <a href="content-legal.html">публічною офертою</a> та
+            <a href="content-legal.html">політикою конфіденційності</a>.</span>
+        </label>
+
+        <a class="cv-cta" href="coach-verify-loading.html">Надіслати на перевірку</a>
+        <div class="cv-alt">Передумали? <a href="account.html">Повернутися в кабінет</a></div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader('buyer'); wfFooter(); wfBar('coach-verify.html');
+        uivFixLinks(); uivBar(); uivChrome();</script>
+</body>
+</html>

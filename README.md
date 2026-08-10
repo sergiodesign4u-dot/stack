@@ -19,8 +19,8 @@ there is no page list to maintain here.
 | 04 | Wireframes | Done - grey clickable prototype, 141 screens + hub |
 | 05 | Voice | Done - rulebook + microcopy inventory, rolled out to the prototype |
 | 06 | Concept | Done - visual language on two screens |
-| 07 | UI + Visual | Done - 40 coloured screens (of 142 grey; the 42 coach screens are not coloured), component kit and inventory |
-| 08 | Tokens + Components | In progress - 73 component files, 72 stands in `design/kit/`: 22 atoms, 27 molecules, 24 organisms, plus the architecture sheet and `pixel-proof.html` (before/after on all 40 coloured screens). Next: the decision list in `kit/docs/architecture.md`, then Крок 6 (rename) after stage 09 |
+| 07 | UI + Visual | Done - component kit and inventory; the coloured layer is 48 screens of 142 (40 buyer + 8 coach, step 7.95) |
+| 08 | Tokens + Components | In progress - 78 component files, 72 stands in `design/kit/`: 22 atoms, 27 molecules, 24 organisms, the architecture sheet and `pixel-proof.html`. The coach flow is in colour (A13, 8 screens). Next: the decision list in `kit/docs/architecture.md`, then Крок 6 (rename) after stage 09 |
 | 09 | Design System | Not started |
 | 10 | Responsive | Not started |
 | 11 | Animation | Not started |

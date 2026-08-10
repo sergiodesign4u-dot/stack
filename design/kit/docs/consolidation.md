@@ -9794,3 +9794,118 @@ showed.
 - The four-column table replaced a six-column one after the screenshot showed the «why» column -
   the only one worth reading twice - falling off the right edge into the scroller.
 - Registry flipped to `done`; the showcase card lit; README's stage-08 row updated.
+
+---
+
+## Step 7.95 - the coach flow enters colour, and what eight private stylesheets were hiding
+
+The owner's A13 decision: colour a selection of the coach flow, eight screens. Six are the
+destinations the product's own coach navigation names in `wireframes/_nav.js`; two are named by the
+locked product decisions in `CLAUDE.md`.
+
+### It was never «add classes to markup»
+
+Measured before starting: **165 of the class names those eight screens use are declared nowhere in
+`design/system/`**. They live in a `<style>` block inside each screen - a private stylesheet, 13 to
+76 rules, that no other screen can read and no design system knows about. 330 rules in total. So
+the move is the one step 3 performed on the buyer flow, eight times over.
+
+### The mechanical half, and it was PROVEN before it was used
+
+Head, script tail, the typed availability dot and the class upgrades are a script, not a hand. And
+the class map is not written - it is **read out of the forty pairs already converted**: 42 hooks
+have a decided API and only two are ambiguous, `btn` and `btn dark`, because which rung a button
+wears depends on where it stands.
+
+The proof that the script is honest: run it on `wireframes/home-coach.html` and diff against
+`design/home-coach.html`, which a hand converted months ago. **It reproduces it exactly**, except
+for the six button sizes it deliberately leaves and the brand logotypes step 7.84 removed from the
+grey layer. The first run also caught its own bug - the map put an icon button's API on the home
+rail's three progress dots, `<i class="on">` - and a state is not a hook.
+
+### The thirty sizes, decided by container
+
+Not thirty hand edits and not taste: `.clh-cta` L because the identical label is already
+`btn--accent btn--l btn dark` in the home banner, `.oc-actions` and `.ord-acts` S because the
+buyer's "Деталі та ТТН" and "↻ Повторити замовлення" are already S, `.cs-bar` L because `.mba` in
+the buy bar has exactly that shape, `.cmp-cell` S because a button inside a table cell is dense.
+One left as `[?]`: the "Знайти" welded to a field, where the field rung is 44 and the button rungs
+are 40 and 52, so **neither matches**. S taken, because the footer's welded «Підписатись» was put
+at S at 6.2, and the four pixels are recorded rather than closed by inventing a rung.
+
+### Two live defects the move found, both fixed
+
+**The single action of the primary job could not be tapped.** Measured at 390x844: `.cs-bar` top
+759, bottom 844, `z-index` 40; `.wf-tabbar` top 785, `z-index` 50; `elementFromPoint` at the centre
+of the bar returned the tab bar's own mark. `.cs-bar` is `.mbuybar` written a second time - same
+fixed, same bottom 0, same z-index, same hairline - and `wireframes/_wf.css:1085` already carries
+the fix in plain words: «at bottom: 0 the tab bar covered it and the page's one action was
+unreachable». The second edition did not carry it. Lifted by the 61 `buy-bar.css` already types,
+transferred rather than chosen. After: bar bottom 783 against the tab bar's top 785, and
+`elementFromPoint` returns the total's own figure.
+
+**The typed dot survived on three screens, and the reason was a list.** The converter's first draft
+named five classes and missed `.qa-av`, `.oc-status` and `.ord-status`. Rewritten as a shape - a
+leading glyph in an element's own text, wherever it stands. Zero left.
+
+### The scope decision, and it is the interesting one
+
+Sixteen class names in the five new files are **already declared by an existing component**: `.ci`
+by the cart row, `.cd-total` by the drawer, `.vtag` by the auth dialog, `.cprice` by the price. Two
+more collide so badly that the agent moving them refused to write either edition: **`.ord` and
+`.ord-h` name a different component in each layer** - the buyer's is an accordion `<button>` with a
+five-area grid on the phone, the coach's a static `<article>` header - and whichever imports last
+takes the other screen apart.
+
+One name for two components has two honest answers: rename one (Крок 6, after stage 09) or scope
+one. **Every selector in the five files is scoped to `.coach` on the body.** It costs one class of
+specificity, it is a shape rather than a list of sixteen exceptions, and it is what can be done
+today without a shipped screen regressing.
+
+And it had to be done, because these files are imported by `index.css`, **which every coloured
+screen loads**. A rule written under a bare `.cd-foot` in a coach file does not land on the coach's
+cart - it lands on `design/cart.html` too. Which is exactly what one of them was: a padding
+SHORTHAND on `.cd-foot` that would have silently reset the two longhands carrying the owner's own
+measured decision from 7.89, 7.90 and 7.93 - the drawer's foot 256 -> 181px. Seven such overrides
+deleted; two kept, both of which draw something no component reaches.
+
+### What the eight screens were hiding, and it is a list for stage 09
+
+- **`coach-clients` carried a stale fork of `account-shell.css`** - 19 blocks, the whole `.acc*`
+  shell, copied and then drifted: `minmax(0, 1fr)` back to `1fr` (the overflow fix, forked away),
+  `min-width: 0` dropped, the tier chip on an ink edge at 1.5px. Incomplete too, which is why
+  nobody noticed. Deleted, `account-shell.css` named - 7 screens to 1.
+- **`cart-coach`'s `.ci` grid has never drawn in either layer.** A bare `.ci` is (0,1,0) and
+  `article.ci` is (0,1,1), so the component always won - but `.ci-ph{ width: 66px }` IS specific
+  enough, so every coach cart row has carried **8px of dead gutter** between a 66px photograph and
+  a 74px column. Closed by deleting the width.
+- **The counter's losing edition, a third time.** `.ci-qty button{ width:30px; height:32px }` is
+  exactly the checkout numbers step 7.13 measured and the owner merged away at 32x34. 7.13 could
+  not see it because a screen's `<style>` block is invisible to a component sweep - which is this
+  whole step in one sentence.
+- **`.cs-panel{ margin-bottom: 76px }` is clearance on the wrong element**: below 940 the summary
+  column and the footer follow the panel, so the 76 drew a hole mid-page and the bar still covered
+  the end of it. The product's own answer is `body:has(...)` padding, and that is what it has now.
+- Seven private names for four atoms that already exist (`.cstat .tierchip`, `.co-fil`,
+  `.co-search`, `.ord-status`, `.cgo`, `.cmanage`, `.ord-chip`); `.clv span` is the chip atom's
+  ninth name; `.cv-aside` is the auth dialog's visual half built a second time; four editions of an
+  order row now exist across four screens.
+- Off-ladder values, kept as `[?]` rather than rounded silently, EXCEPT where the stage had already
+  taken the decision and the value could simply move: `1.5px -> 1px` (7.62, measured), the half
+  pixels and the whole-pixel ties (5.5 and 5.6, enumerated). **77 font sizes folded onto the scale
+  across the five files.**
+
+### Verification
+
+- **The 40 existing coloured screens compared against HEAD, 390, the full claims vector.** Every
+  visual key identical on all 40: font sizes, weights, families, inks, border widths, radii, typed
+  signs, drawn signs, `:root` names, sideways scroll. The only deltas are `els +17`, `shown +17`,
+  `ctrls +8`, `small +8` on every screen - and they are **the harness's own screen switcher**,
+  which went from 17 links to 25 when the eight coach screens were registered. Measured directly:
+  `.uiv-side` 17 -> 25 links, 8 of them coach. The product did not move.
+- The eight new screens at 390 and 1280: **zero page overflow, zero JavaScript errors**, 6 to 9
+  distinct font sizes each (the coloured layer's own average is 8.2), 122 to 148 drawn marks each,
+  `btn--l` exactly where it was decided - three on the landing, one on the session, none anywhere
+  else.
+- `design/overview.html` gained a ninth section; `DESIGN_NAV` gained eight names, without which a
+  link between two coloured coach screens is rewritten back into the grey prototype.
