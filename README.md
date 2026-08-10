@@ -20,7 +20,7 @@ there is no page list to maintain here.
 | 05 | Voice | Done - rulebook + microcopy inventory, rolled out to the prototype |
 | 06 | Concept | Done - visual language on two screens |
 | 07 | UI + Visual | Done - 40 coloured screens (of 142 grey; the 42 coach screens are not coloured), component kit and inventory |
-| 08 | Tokens + Components | In progress - 73 component files, 71 stands in `design/kit/`: 22 atoms, 27 molecules, 24 organisms, all built. Next: `pixel-proof.html`, then Крок 6 (rename) after stage 09 |
+| 08 | Tokens + Components | In progress - 73 component files, 72 stands in `design/kit/`: 22 atoms, 27 molecules, 24 organisms, plus the architecture sheet and `pixel-proof.html` (before/after on all 40 coloured screens). Next: the decision list in `kit/docs/architecture.md`, then Крок 6 (rename) after stage 09 |
 | 09 | Design System | Not started |
 | 10 | Responsive | Not started |
 | 11 | Animation | Not started |

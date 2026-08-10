@@ -192,3 +192,69 @@ a.kp-card:hover{ border-color:var(--line-action); }
   background:var(--bg-sunken); padding:var(--space-12); overflow:hidden; position:relative; }
 .kp-frame{ display:block; border:0; background:var(--bg-page);
   border-radius:var(--radius-8); height:640px; }
+
+/* THE BEFORE / AFTER WIPE - step 7.94, `pixel-proof.html`.
+   Two photographs of the same screen from two trees, one on top of the other, and
+   the top one clipped by a handle the reader drags. A pair of images side by side
+   asks the eye to hold two things at once and compare them from memory; a wipe puts
+   the difference on ONE set of coordinates, so a 4px shift is a 4px shift and not a
+   feeling. The slider is a real `input[type=range]`: it comes with a keyboard, an
+   accessible name and a focus ring already, and none of that had to be built. */
+.pp-cmp{ position:relative; aspect-ratio:390/844; border-radius:var(--radius-8);
+  overflow:hidden; background:var(--bg-sunken); border:1px solid var(--line-hair); }
+.pp-cmp img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  object-position:top center; display:block; }
+.pp-cmp .pp-b{ clip-path:inset(0 0 0 var(--p, 50%)); }
+.pp-cmp .pp-r{ position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0;
+  cursor:ew-resize; -webkit-appearance:none; appearance:none; background:none; z-index:3; }
+.pp-cmp .pp-r:focus-visible{ opacity:1; outline:none; }
+.pp-cmp .pp-r:focus-visible + .pp-h{ box-shadow:var(--ring-focus-control); }
+.pp-cmp .pp-h{ position:absolute; top:0; bottom:0; left:var(--p, 50%); width:2px;
+  background:var(--bg-action); z-index:2; pointer-events:none; }
+.pp-cmp .pp-h::after{ content:''; position:absolute; top:50%; left:50%; width:var(--size-26);
+  height:var(--size-26); margin:calc(var(--size-26) / -2) 0 0 calc(var(--size-26) / -2);
+  border-radius:var(--radius-pill); background:var(--bg-action); }
+.pp-cmp .pp-t{ position:absolute; top:var(--space-8); z-index:2; font-size:var(--fs-10);
+  font-weight:var(--fw-black); text-transform:uppercase; letter-spacing:var(--ls-caps);
+  padding:var(--space-2) var(--space-8); border-radius:var(--radius-pill);
+  background:var(--bg-inverse); color:var(--text-oninverse); }
+.pp-cmp .pp-t.l{ left:var(--space-8); }
+.pp-cmp .pp-t.r{ right:var(--space-8); }
+.pp-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
+  gap:var(--space-16); }
+.pp-cell .n{ font-weight:var(--fw-black); font-size:var(--fs-14); margin-top:var(--space-8); }
+.pp-cell .d{ font-size:var(--fs-12); color:var(--text-muted); margin-top:var(--space-2); }
+.pp-cell .d b{ color:var(--text-body); font-family:var(--font-mono); }
+/* The score card: one claim, its two numbers and the arrow between them. */
+.pp-score{ display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+  gap:var(--space-12); }
+.pp-s{ border:1px solid var(--line-hair); border-radius:var(--radius-12);
+  padding:var(--space-16); background:var(--bg-page); }
+.pp-s .k{ font-size:var(--fs-12); color:var(--text-muted); }
+.pp-s .v{ display:flex; align-items:baseline; gap:var(--space-8); margin-top:var(--space-4);
+  font-family:var(--font-mono); font-variant-numeric:tabular-nums; }
+.pp-s .v .was{ font-size:var(--fs-20); color:var(--text-muted); text-decoration:line-through;
+  text-decoration-color:var(--line-strong); }
+.pp-s .v .ar{ color:var(--mark-faint); font-weight:var(--fw-bold); }
+.pp-s .v .now{ font-size:var(--fs-30); font-weight:var(--fw-bold); color:var(--text-body); }
+.pp-s .w{ font-size:var(--fs-12); color:var(--text-secondary); margin-top:var(--space-8);
+  line-height:var(--lh-snug); }
+.pp-s.good .v .now{ color:var(--text-action); }
+
+/* The move table - step 7.94. Six columns did not fit 1280 and the reason column,
+   which is the only one worth reading twice, was the one that fell off the right
+   edge into the scroller. Four columns fit: the variable rides under the clause
+   it belongs to, and the two values share one cell with the arrow between them,
+   which is how every other page in this kit already writes a change. */
+.pp-mv{ table-layout:fixed; }
+.pp-mv th:nth-child(1), .pp-mv td:nth-child(1){ width:52px; }
+.pp-mv th:nth-child(2), .pp-mv td:nth-child(2){ width:30%; }
+.pp-mv th:nth-child(3), .pp-mv td:nth-child(3){ width:26%; }
+.pp-mv code{ display:inline-block; margin-top:var(--space-4); }
+.pp-mv .fromto{ display:grid; gap:var(--space-2); font-family:var(--font-mono); font-size:var(--fs-12);
+  /* a token list has no spaces to break at, so on a phone the cell walked 148px
+     past its own box - inside a scroller, where nobody would look for it */
+  overflow-wrap:anywhere; }
+.pp-mv .fromto .f{ color:var(--text-muted); }
+.pp-mv .fromto .t{ color:var(--text-body); font-weight:var(--fw-semibold); }
+.pp-mv .fromto .t::before{ content:'\2192\00a0'; color:var(--mark-faint); font-weight:var(--fw-bold); }

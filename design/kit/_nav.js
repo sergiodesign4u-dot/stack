@@ -467,7 +467,7 @@ window.KIT_NAV = [
    {
     "label": "Піксельний доказ",
     "page": "pixel-proof.html",
-    "done": false
+    "done": true
    }
   ]
  }

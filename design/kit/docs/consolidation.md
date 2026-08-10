@@ -9723,3 +9723,74 @@ was edited. That is A14 stated in the positive, one step after it was found.
 - The overlay opened and closed on three screens with a 400ms settle: one bar, right tab, ✕
   reachable by `elementFromPoint`.
 - The kit's 83 stands re-swept at 390 and 1280.
+
+---
+
+## Step 7.94 - the pixel proof, and a union that hid the progress it was measuring
+
+The last unbuilt page in the kit registry. Its card had promised «before / after on every screen»
+since the registry was written; what it carries now is that, and an argument about what a proof is.
+
+**Method.** Baseline `9e44109`, the last commit before stage 08's first step, unpacked by
+`git archive` into its own tree and served by its own server; the working tree served by a second;
+**one** headless Chrome opening both at 390 and 1280, 160 loads. The instrument's own contribution
+is zero by construction, because the instrument is one. Positive control taken first: the two
+servers differ by 52 lines on `design/cart.html`, and the difference is the stage - `_wf.css` plus
+`kit/kit.css` on one side, `system/index.css` on the other.
+
+**Not a per-element diff, and the page states the reason.** The markup itself changed over
+ninety-three steps, so an element diff reports the rebuild, not its effect. The page asks instead
+what the stage CLAIMED, and every claim is a number a browser returns from both trees: 43 -> 28
+distinct font sizes, 16.1 -> 8.2 per screen, 15 -> 9 radii, 32 -> 1 screens at weight 800, 31 -> 2
+with Arial, 1 552 -> 284 signs drawn by the font, 3 668 -> 5 343 drawn by the set, 21 -> 199 names
+in `:root`.
+
+**Two rows are deliberately not victories,** and saying so is what makes the rest readable. Border
+widths read 3 -> 3, and that immobility is the finding: `1.5px` is drawn in neither tree, which is
+exactly what 7.62 measured. Sideways scroll reads 0 -> 0, and that is a control rather than an
+achievement: every overflow this stage fixed lived at 480-620 or at 720, and neither proof width
+touches those bands.
+
+### The mistake this page nearly published
+
+The first draft counted **unions**: distinct weights across all 40 screens, distinct font families
+across all 40. Both read «6 -> 6» - the stage changed nothing. Per screen, the same measurement
+reads **32 -> 1** and **31 -> 2**. One screen keeping a value makes a union look untouched. A union
+answers «does this value still exist anywhere», and the question was «how far did the change
+reach». Caught by checking the number against `index.html` by hand before writing the caption -
+and the card that would have said «6 -> 6, unchanged» is now the one that says 32 -> 1.
+
+### What the measurement found on its own
+
+- **Weight 900 on 17 screens, and on the same 17 before the stage.** On `index.html` it is eight
+  `<b>` with no class. No rung, no loaded face, no step that ever named it. `[?]`
+- **Radii 5 and 6** on `overview` and `product-coach`, neither a rung
+- **Arial on two pages** of the 31 it stood on
+- **No screen reaches zero typed signs**, and the harness is why: `←` and `↗` in the stand's own
+  chrome are on every page. From the product what remains is the minus inside «−15%» and the `≈`
+  in «≈ 18 ₴ / порція» - arithmetic, not a control's mark - and the address marks, two of which,
+  `🔳` and `🚚`, have no entry in the icon set at all
+
+### The page itself
+
+Forty before/after pairs, the same 390x844 first screen from both trees, compared by a **wipe**
+rather than side by side: two images side by side ask the eye to hold both and compare from memory,
+a wipe puts the difference on one set of coordinates, so 4px is 4px and not a feeling. The handle
+is a real `input[type=range]`, which arrives with a keyboard, an accessible name and a focus ring
+already built.
+
+Below them, **all 165 moves** the stage made - step, variable, from, to, why - read out of this
+file and out of nothing else, `[?]` wherever this file states no number. 136 are visible on screen;
+29 are not, and they are there because a proof without them would be a claim that all the work
+showed.
+
+### Verification
+
+- 40 screens x 2 trees x 2 widths, 160 loads; every number on the page comes out of that JSON and
+  none is typed twice - the page is generated.
+- The page itself opened at 360, 390 and 1280: **40 comparisons, 80 images, 165 table rows, 10
+  cards, zero JavaScript errors, zero page overflow** at every width; the slider driven from script
+  moves `--p` and the clip follows it.
+- The four-column table replaced a six-column one after the screenshot showed the «why» column -
+  the only one worth reading twice - falling off the right edge into the scroller.
+- Registry flipped to `done`; the showcase card lit; README's stage-08 row updated.

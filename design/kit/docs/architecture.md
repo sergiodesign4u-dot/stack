@@ -745,6 +745,73 @@ one of them was edited. That is the whole of A14 stated in the positive.
 
 ---
 
+### A17. The pixel proof, and the four things it found that nobody was looking for - step 7.94
+
+`pixel-proof.html` was the last unbuilt page in the kit registry, and its card promised «before /
+after on every screen». What it now carries is that, and an argument.
+
+**The baseline is `9e44109`** - the last commit before the first step of stage 08 - unpacked with
+`git archive` into its own tree and served by its own server. The working tree is served by a
+second. **One headless Chrome opens both**, at the same widths, with the same font and the same
+`prefers-reduced-motion`, so the instrument's own contribution is zero by construction. The
+positive control was taken first: `design/cart.html` differs by **52 lines** between the two
+servers, and the difference is the stage itself - the baseline loads `wireframes/_wf.css` and
+`design/kit/kit.css`, the working tree loads `design/system/index.css`.
+
+**Not an element-by-element diff, and the page says why.** Over ninety-three steps the markup
+itself changed - atoms took classes, wrappers appeared and vanished, signs became SVG - so a
+per-element diff would report the *rebuild* rather than its *effect*. What is asked instead is
+**what the stage claimed**: one edition of every value, a scale with rungs, a target a finger
+reaches, a sign that is drawn rather than typed. Each is a number a browser returns, and it is
+returned from both trees.
+
+| claim, measured on 40 screens at 390 | before | after |
+|---|---|---|
+| distinct rendered font sizes, whole product | 43 | **28** |
+| distinct font sizes on one screen, mean | 16.1 | **8.2** |
+| distinct border radii | 15 | **9** |
+| distinct border widths | 3 | 3 |
+| screens rendering weight 800 | 32 | **1** |
+| screens with Arial in the markup | 31 | **2** |
+| signs drawn by the font | 1 552 | **284** |
+| signs drawn by the set (inline SVG) | 3 668 | **5 343** |
+| names in `:root` | 21 | **199** |
+| screens that scroll sideways | 0 | 0 |
+
+**Two of those rows are deliberately not victories.** Border widths did not move - and that
+immobility IS the finding: `1.5px` is drawn in **neither** tree, because Chrome resolves it to 1
+before layout, which is what step 7.62 measured and why it deleted 33 declarations of a value the
+product never drew. And zero sideways scroll on both sides is a **control**, not an achievement:
+every overflow this stage fixed lived in the 480-620 band or at 720, and neither of the proof's two
+widths touches them.
+
+**And four things the measurement found on its own**, none of which was anybody's task:
+
+- **Weight 900 stands on 17 screens, and stood on exactly the same 17 before the stage.** Measured
+  on `index.html`, it is **eight `<b>` elements with no class**. The scale has no 900, Inter is not
+  loaded with one, and no step in ninety-three ever named it. Whose declaration this is: `[?]`
+- **Radii 5 and 6** survive, on `overview` and `product-coach` - neither is a rung of 4 / 8 / 12 / 16
+- **Arial survives on two pages** of the 31 it stood on: `listing-sheet` and `overview`
+- **No screen reaches zero typed signs**, and the reason is not the product: `←` and `↗` in the
+  harness's own chrome stand on every page. From the product itself what remains is the **minus
+  inside a number** («−15%» in the discount chip) and `≈` in «≈ 18 ₴ / порція» - arithmetic, not a
+  control's mark - plus the address marks, of which `🔳` and `🚚` **have no entry in the icon set at
+  all**, which is the 7.87 finding still open.
+
+**A union hides progress, and this page nearly published that mistake.** The first draft counted
+distinct weights and distinct font families across all 40 screens as sets: both read «6 → 6», which
+says the stage changed nothing. Per screen the same data reads **32 → 1** and **31 → 2**. One screen
+keeping a value makes a union look untouched, and the union was the wrong instrument for a question
+about how far a change reached.
+
+**The page also carries all 165 moves** the stage made - step, variable, from, to and reason - read
+out of `consolidation.md` and out of nothing else, with `[?]` wherever the journal does not state a
+number. 136 of them are visible on screen; the other 29 are dead declarations, misfiled rules and
+names with no readers, each confirmed by an A/B that returned zero.
+
+
+---
+
 ## B. Names - Крок 6, after stage 09
 
 Renaming is not a value decision and it moves pixels only by accident. It waits until the
