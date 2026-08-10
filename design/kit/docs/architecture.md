@@ -720,6 +720,23 @@ They are drawn as real text on real screens. Before launch each needs a source o
   `rgb(0, 95, 204)` and carry no `box-shadow`. That is the 66% made concrete: three link
   components, three browser rings, and the system's own ring declared and unused.
 
+- **Eight panels no keyboard could reach - NEW, found and CLOSED at step 7.85.** The
+  first step on the organisms went to the eleven that do not exist at rest. Measured with
+  a real keyboard on the eight that render: focus moved into the panel **0 of 8 times**,
+  five Tabs put **0 of 40** stops inside, and Escape reached **6 of 8**. Four of them carry
+  `aria-modal="true"` while the keyboard walks through the page behind; the city dialog has
+  34 focusable controls and none was reachable without a mouse.
+
+  Fixed with one pass keyed on a **shape** - `.open` + `position: fixed` + non-zero height
+  + at least one visible focusable - measured against every `.open` element the product can
+  produce before it was written: it catches the eight panels and correctly leaves out three
+  scrims, two inline menus and the language dropdown. After: **40 of 40** tab stops inside,
+  **8 of 8** closed by Escape, and focus returned to the exact control that opened it.
+
+  **It does not add `role` or `aria-modal` to the five panels without them** - `.wf-drawer`
+  is a `<nav>`, and calling it a dialog is a semantic decision. Four combinations of role
+  and modal across regions doing the same job: still open, and now the only part left.
+
 - **The mechanism behind the 66%, found at 7.82 - the ring is opt-in BY NAME.** Read out of the
   stylesheets: **24 rules declare a focus ring**, and they cover every button finish, chips,
   checkboxes, radios, the switch, the stepper, the field, OTP, breadcrumb links, menu options,
@@ -814,6 +831,14 @@ Recorded here so it does not happen a third time.
   second meaning made `design/kit/overview.html` - complete, and edited daily - render as a
   `<span>`, so the showcase was unreachable from the sidebar of the project it documents. How far
   a stage has got belongs ON its page. Fixed at 7.84.
+- **«Which things get X» keeps being answered with a hand-written list, and everything
+  added after the list falls outside it.** Three times in this pass, in three different
+  files: the focus ring through thirteen selectors in `link-row.css` (7.82), the sign map
+  `UIV_SIGN_ONLY` which is why the toast's ✕ was drawn by the font (7.78), and the Escape
+  handler's eleven calls by name, which is why two panels could not be closed at all
+  (7.85). **A list is the right tool only where the members cannot be described** - and
+  each of these three could: measure the shape, test the shape against everything the
+  product can produce, then key the rule on it.
 - **`NAV_ACTIVE` is for pages OUTSIDE the registry.** A page that is in the registry and also
   declares itself a satellite draws its own row twice. The two had been cancelling each other out
   under the wrong `done` flag; correcting one exposed the other.

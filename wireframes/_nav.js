@@ -1903,3 +1903,106 @@ function wfPdpSpy() {
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wfPdpSpy);
 else wfPdpSpy();
 window.addEventListener('load', wfPdpSpy);
+
+/* ============================================================
+   OPEN PANELS: where focus goes, where it stays, and what Escape reaches.
+   Step 7.85, and it is the same defect three other places in this system already
+   had - «which things get X» answered with a HAND-WRITTEN LIST, so everything
+   added after the list falls outside it.
+
+   THE LIST HERE was the Escape handler above: eleven calls by name. Measured with a
+   real keyboard on eight open panels - the login dialog, the menu drawer, the
+   catalog overlay, the city dialog, the filter sheet, the review modal, the address
+   dialog and the cart drawer:
+
+     focus moved into the panel      0 of 8
+     focus stayed inside it          0 of 8 - all five Tabs landed on the page BEHIND
+     Escape closed it                6 of 8; `.ceov` and `.cart-drawer` are not on
+                                     the list, so nothing reached them at all
+
+   Four of the eight carry `aria-modal="true"`, which tells a screen reader the rest
+   of the page is inert while the keyboard walks straight through it. The city dialog
+   has 34 focusable controls and not one of them could be reached without a mouse.
+
+   THE SHAPE, NOT A LIST. A panel here is: an element carrying `.open`, computed
+   `position: fixed`, non-zero height, and at least one focusable inside. Measured
+   against every `.open` element this product can produce - twelve shapes across six
+   screens at two widths - the test catches the eight panels and correctly leaves out
+   the three scrims (fixed, but zero focusables), the sort menu and its right-hand
+   twin (`relative`) and the language menu (`absolute`, zero height). No misses and
+   no false catches, so a twelfth panel added next year is covered by arriving.
+
+   WHAT IT DOES NOT DO, deliberately. It does not add `role` or `aria-modal` to the
+   five panels that lack them: `.wf-drawer` is a `<nav>`, and calling it a dialog is a
+   semantic decision, not a behaviour repair. Logged instead.
+
+   Escape asks the PANEL, not the list: every one of them carries its own close
+   control with `aria-label="Закрити"`, and clicking it runs that region's real close
+   path - its bookkeeping, its scroll unlock, its `aria-expanded`. The eleven-call
+   handler above stays as the fallback for anything without one.
+   ============================================================ */
+(function () {
+  var FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),' +
+                  'textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+  var current = null, restoreTo = null;
+
+  function visible(e) { var r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
+  function inside(panel) { return [].slice.call(panel.querySelectorAll(FOCUSABLE)).filter(visible); }
+
+  /* the shape, and the whole of it */
+  function isPanel(e) {
+    if (!e.classList || !e.classList.contains('open')) return false;
+    if (getComputedStyle(e).position !== 'fixed') return false;
+    if (e.getBoundingClientRect().height <= 0) return false;
+    return inside(e).length > 0;
+  }
+
+  /* the top one, when a dialog opens over a drawer */
+  function topPanel() {
+    var open = [].slice.call(document.querySelectorAll('.open')).filter(isPanel);
+    if (!open.length) return null;
+    return open.sort(function (a, b) {
+      return (parseInt(getComputedStyle(a).zIndex, 10) || 0) - (parseInt(getComputedStyle(b).zIndex, 10) || 0);
+    })[open.length - 1];
+  }
+
+  function sync() {
+    var panel = topPanel();
+    if (panel === current) return;
+    if (panel) {
+      if (!current) restoreTo = document.activeElement;
+      if (!panel.hasAttribute('tabindex')) panel.setAttribute('tabindex', '-1');
+      current = panel;
+      /* the container, not its first control: it announces the panel's own label and
+         does not preselect an action for someone who has not read the panel yet */
+      panel.focus({ preventScroll: true });
+    } else {
+      current = null;
+      if (restoreTo && document.contains(restoreTo)) restoreTo.focus({ preventScroll: true });
+      restoreTo = null;
+    }
+  }
+
+  if (typeof MutationObserver === 'function') {
+    new MutationObserver(sync).observe(document.documentElement,
+      { attributes: true, subtree: true, attributeFilter: ['class'] });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (!current || !document.contains(current) || !isPanel(current)) { if (current) sync(); return; }
+
+    if (e.key === 'Escape') {
+      var x = current.querySelector('[aria-label="Закрити"]');
+      if (x) { e.preventDefault(); x.click(); setTimeout(sync, 0); }
+      return;   /* no close control: the named handler above still runs */
+    }
+
+    if (e.key !== 'Tab') return;
+    var list = inside(current);
+    if (!list.length) return;
+    var first = list[0], last = list[list.length - 1], a = document.activeElement;
+    if (!current.contains(a)) { e.preventDefault(); (e.shiftKey ? last : first).focus(); return; }
+    if (e.shiftKey && (a === first || a === current)) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && a === last) { e.preventDefault(); first.focus(); }
+  }, true);
+})();

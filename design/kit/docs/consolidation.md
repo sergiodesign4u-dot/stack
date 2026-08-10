@@ -9316,3 +9316,96 @@ sidebar** - `nav-item`, `nav-top`, `nav-badge` - which is the roadmap panel redr
 group where two dead rows used to be. **Zero product screens moved.** Kit check: no exceptions,
 27 molecules, 60 live cards.
 
+---
+
+## Step 7.85: eight panels nobody could reach with a keyboard
+
+**First step on the organisms**, and it went to the eleven of the twenty-four that do
+not exist at rest - dialogs, drawers, overlays, sheets. The toast at 7.78 taught the
+shape: a region built or revealed after `uivChrome()` has finished is a region no pass
+has reached, and a resting census reports it as clean because it reports nothing at all.
+
+### Opened, then measured with a real keyboard
+
+Eight panels rendered: the login dialog, the menu drawer, the catalog overlay, the city
+dialog, the filter sheet, the review modal, the address dialog and the cart drawer. Two
+openers did nothing at 390 - the mega menu is desktop-only and the cookie settings need
+the banner - so they are not counted either way.
+
+| | before |
+|---|---|
+| focus moved into the panel | **0 of 8** |
+| five Tabs, stops inside the panel | **0 of 40** - every one landed on the page BEHIND |
+| Escape closed it | 6 of 8 |
+
+**Four of the eight carry `aria-modal="true"`.** That tells a screen reader the rest of
+the page is inert while the keyboard walks straight through it. The city dialog holds
+**34 focusable controls** and not one could be reached without a mouse.
+
+### The defect underneath is one this system has had three times now
+
+The Escape handler is a list of eleven calls by name, and `.ceov` and `.cart-drawer` are
+not on it, so nothing reached them at all. That is the third time this pass:
+
+- the focus ring, opt-in through thirteen hand-written selectors in `link-row.css` (7.82)
+- `UIV_SIGN_ONLY`, which is why the toast's ✕ was drawn by the font (7.78)
+- this
+
+**«Which things get X» keeps being answered with a list, and everything added after the
+list falls outside it.**
+
+### So the fix is keyed on a SHAPE, and the shape was measured first
+
+A panel is: an element carrying `.open`, computed `position: fixed`, non-zero height,
+and at least one visible focusable inside. Tested against every `.open` element this
+product can produce - twelve shapes over six screens at two widths:
+
+- **caught, 8:** `cart-drawer`, `auth-ov`, `ceov`, `fsheet`, `pm`, `wf-catov`, `wf-city`,
+  `wf-drawer`
+- **left out, and each for the right reason:** three scrims (`fsheet-ov`, `wf-ov`,
+  `wfh-scrim`) are fixed with **zero** focusables; the sort menu and its right-hand twin
+  are `position: relative`; the language menu is `absolute` at zero height
+
+No misses, no false catches. A twelfth panel is covered by arriving.
+
+**Escape asks the panel, not the list.** Every one of them carries its own close control
+with `aria-label="Закрити"` - fourteen in the file - and clicking it runs that region's
+real close path with its own bookkeeping, its scroll unlock, its `aria-expanded`. The
+eleven-call handler stays as the fallback.
+
+### After
+
+| | after |
+|---|---|
+| five Tabs, stops inside the panel | **40 of 40** |
+| Escape closed it | **8 of 8** |
+| focus returned to the control that opened it | **3 of 3 tested**, by class, exactly |
+
+And one thing checked rather than assumed: `.wf-drawer` and `.fsheet` keep their height
+after closing, which looked like a panel left on screen. They are slid away by transform
+and set `visibility: hidden` - `elementFromPoint` at the drawer's corner returns the top
+bar, and **0 of 40 tab stops** land inside it. Not a defect.
+
+### What it deliberately does NOT do
+
+It does not add `role` or `aria-modal` to the five panels that lack them. `.wf-drawer` is
+a `<nav>`, and calling it a dialog is a semantic decision, not a behaviour repair. Four
+different combinations of role and modal across regions that do the same job - logged,
+not swept.
+
+### Acceptance
+
+Census over 40 screens at four widths: **difference 0.** The pass acts only on `.open`,
+and nothing is open at rest, which is exactly what had to be proved. 976 page x width
+pairs: 137 overflows, all of them the pre-existing grey footer of A11, unchanged. Kit
+check: no exceptions.
+
+### And the map for the rest of the organisms
+
+The solver ran over all 24 files: **6248 declarations, 193 that match an element and
+never win**, in 14 files - `auth-dialog` 39, `checkout-form` 36, `pdp-tabs` 30,
+`buy-box` 27, `account-shell` 27, `header` 15. Not triaged yet; the molecule pass says
+to expect the benign shapes (structure beaten by colour, a base beaten by its own
+modifier, a media rule beaten by a later one at a width the census cannot see) among
+them, and the point of the list is to know where to look rather than what to fix.
+
