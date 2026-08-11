@@ -39,6 +39,23 @@ had simply never reached the documentation (1 261 in `ia/*.html`, 961 in `voice/
 the "no value" mark, not prose - a bare `-` there reads as a hyphen. 52 spans matched the exception,
 so the exception covers real cases and is not a decorative line in a rules file.
 
+> **SUPERSEDED at step 8.2, and the reasoning above is not withdrawn - it is answered.** The
+> exemption weighed two characters, `—` and `-`, and picked the one that does not read as a minus in
+> a column of numbers. That is correct and it is exactly why a third character ends the exemption
+> instead of documenting it: `–` U+2013 is not the hyphen, is not banned by `CLAUDE.md`, and already
+> lives in the product as the range mark (`А–Я`). All **60** exempted spans became `–` - 34 in
+> `<td>`, 26 in `| … |` - which is the same 60 this log counted, arrived at from the other side.
+> The five em dashes left in the repository are inside backticks in this file and in
+> `design/kit/docs/consolidation.md`, where the character is the subject rather than the text.
+>
+> **And this exemption was nearly overwritten without being read.** The owner was asked which sign
+> an empty cell should carry, answered «я не знаю, дай решение», and the answer was decided from
+> first principles - the same two candidates, the same reasoning, the same conclusion about the
+> minus. The exemption was found only because the sweep reached the md files and the search results
+> printed this paragraph. A rule that lives in a critique log and not in `CLAUDE.md` is a rule the
+> next pass re-derives; the dash rule is in `CLAUDE.md` now, in full, and this entry is what it
+> replaced.
+
 ---
 
 ## Findings

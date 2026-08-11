@@ -84,8 +84,22 @@
 .co-me .mn{ font-weight: var(--fw-bold); }
 .co-me .md{ margin-top: var(--space-2); }
 .co-edit{ flex: none; }
-.co-line{ display: flex; gap: var(--space-12); padding: var(--space-12) 0; border-top: 1px solid var(--line-hair); }
-.co-line:first-of-type{ border-top: none; padding-top: var(--space-2); }
+/* THE DIVIDER BELONGS TO THE GAP BETWEEN TWO ROWS, NOT TO THE FIRST ROW'S
+   POSITION - step 8.5, and it is the FOURTH time this file's family has made the
+   same mistake. It was `.co-line:first-of-type`, and `:first-of-type` means
+   «first among siblings of its TAG»: the section opens with `<div class="co-sec-h">`,
+   so the first `.co-line` is div number two and the rule matched NOTHING.
+   Measured on checkout.html with scripts running: `.co-line` 3, and
+   `.co-line:first-of-type` 0 - so all three rows drew the hairline, including
+   the one sitting directly under the section's own header, and all three kept
+   12px where the first was meant to have 2.
+   `coach-cabinet.css` records this at 7.96 and again at 8.0, `restock-note.css`
+   at 7.60. The `+` idiom has no «which one is first» question to get wrong, and
+   it is what `trust-strip.css`, `coach-landing.css` and `footer.css` already
+   use. Found by an audit that measured every selector in the system against the
+   rendered pages, not by reading. */
+.co-line{ display: flex; gap: var(--space-12); padding: var(--space-2) 0 var(--space-12); }
+.co-line + .co-line{ border-top: 1px solid var(--line-hair); padding-top: var(--space-12); }
 .co-line .li-img{ width: 60px; height: 60px; flex: none; display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
 .co-line .li-bd{ flex: 1; min-width: 0; }
 .co-line .li-nm{ font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-snug); }
@@ -225,9 +239,21 @@
 .co-me .md{ color:var(--text-secondary); font-family:var(--font-mono); font-size:var(--fs-14); }
 /* step 6.3: local edition of the outline hover deleted - the finish has it. */
 .co-line .li-img{ background:var(--bg-page) center/86% no-repeat; border:1px solid var(--line-hair); border-radius:var(--radius-8); color:transparent; }
-.co-line:nth-of-type(3n+1) .li-img{ background-image:url(../../visuals/product-whey.png); }
-.co-line:nth-of-type(3n+2) .li-img{ background-image:url(../../visuals/product-creatine.png); }
-.co-line:nth-of-type(3n)   .li-img{ background-image:url(../../visuals/product-preworkout.png); }
+/* THE PHOTO BELONGS TO THE PRODUCT, NOT TO THE ROW'S ORDINAL - step 8.5.
+   These three were a rotation by position, on the same `:nth-of-type` count the
+   border above got wrong, and they were painting the wrong tub on every row:
+   measured on checkout.html, «Gold Standard 100% Whey» showed the creatine
+   shot, «Iso Whey Zero» the pre-workout, and «Creatine Monohydrate» the whey.
+   Three rows, three wrong pictures, on the screen where a person confirms what
+   they are buying.
+   A rotation cannot be fixed by shifting it one place - the next markup change
+   shifts it back. The row says what it holds now (`data-img`, beside the
+   `data-unit` it already carries), and two whey products showing one whey shot
+   is the correct answer rather than a defect: the set has three photographs and
+   the catalogue has more than three products. */
+.co-line[data-img="whey"]       .li-img{ background-image:url(../../visuals/product-whey.png); }
+.co-line[data-img="creatine"]   .li-img{ background-image:url(../../visuals/product-creatine.png); }
+.co-line[data-img="preworkout"] .li-img{ background-image:url(../../visuals/product-preworkout.png); }
 .co-line .li-nm{ color:var(--text-body); }
 .co-line .li-meta{ color:var(--text-secondary); }
 .co-line .li-acts button{ color:var(--text-secondary); font-size:var(--fs-14); transition:color .15s ease; }

@@ -81,8 +81,18 @@
    invisible to the 7.4 sweep because that one only caught duplicates under the
    SAME selector. */
 .cd-empty > .btn--accent, .cd-empty > .btn--outline{ margin-top: var(--space-8); }
-.cd-group{ border-bottom: 1px solid var(--line-strong); }
-.cd-group:last-child{ border-bottom: 0; }
+/* AND THE SAME FAULT AGAIN, MADE BY STEP 7.97 ITSELF - fixed at 8.5.
+   `:last-child` was true when this was written and stopped being true in the
+   same batch: 7.97 moved `.cd-note` out of the drawer's foot and appended it to
+   `.cd-body`, so the last group is no longer the last child. Measured on
+   cart-coach.html with scripts running: `.cd-group` matches 2 and
+   `.cd-group:last-child` matches 0 - both groups draw the divider, and the
+   `.cd-note` right under the second one draws its own `border-top`. Two
+   horizontal rules a pixel apart, which is the exact symptom this file's own
+   note and `coach-cabinet.css` both describe.
+   The divider belongs to the gap between two groups. `+` cannot be moved out
+   from under itself by an element appended after the list. */
+.cd-group + .cd-group{ border-top: 1px solid var(--line-strong); }
 /* TWO RULES WERE DRAWING ONE EDGE - moved here at step 7.96 from coach-verify.css,
    where it had been living as `.coach .ci:last-child` since 7.95 and had nothing to
    do with the verification screen. It cancels the line above: a group draws a

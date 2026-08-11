@@ -77,7 +77,14 @@ var UIV_EMOJI = {
      search field, so the coach flow drew its one search mark with the font while
      every other search mark in the product came from the set. Both spellings
      answer to one drawing, here and in `UIV_SIGN_ONLY`. */
-  '🛒':'cart','🔍':'search','🔎':'search','📍':'pin','☰':'burger','▦':'grid','▾':'chevron','▲':'chevUp','›':'caret','🔔':'bell',
+  /* `‹` arrived at step 8.1, beside the `›` that has been here since the pager
+     was drawn. One direction had a row and the other did not, because the pager
+     only ever needed «next»; the catalogue overlay's own way back
+     (`<button class="cback">‹ <span>Каталог</span></button>`) was the one place
+     neither route reached - `uivLeadMark` declines it correctly, because the
+     letter sits in a child and the text node is «‹ » alone. `🔳` is the third
+     delivery method, beside the 📦 and 🚚 already below. */
+  '🛒':'cart','🔍':'search','🔎':'search','📍':'pin','☰':'burger','▦':'grid','▾':'chevron','▲':'chevUp','›':'caret','‹':'caretLeft','🔳':'locker','🔔':'bell',
   '🥛':'jar','🍚':'cup','⚗️':'flask','🧬':'dna','⚡':'bolt','🔥':'flame','💧':'drop','🍫':'bar',
   '💊':'capsule','🧴':'dumbbell','🏷️':'tag','🌿':'leaf','🛡️':'shield','💪':'trending','🏃':'pulse',
   '🎯':'target','✦':'spark','🎓':'cap',
@@ -496,6 +503,8 @@ function uivChrome(){
   uivAuth();
   uivFav();
   uivPatchMenus();
+  uivAddrPaint();
+  uivObserve();
   uivTiers();
   uivCurrency();
   /* LAST, so they see the buttons every pass above has finished building - the
@@ -583,13 +592,156 @@ function uivFav(){
 
 /* the mobile catalog overlay (#wf-catov) is (re)built on demand by _nav.js AFTER
    uivChrome already ran, so its category/goal emoji arrive un-iconified. Wrap the
-   three _nav.js builders so the overlay body gets re-iconified after each render. */
+   three _nav.js builders so the overlay gets re-iconified after each render.
+
+   IT WAS THE BODY AND ONLY THE BODY UNTIL 8.1, and the head is half the overlay.
+   `catOvHead` writes into `#wf-catov-h`, a different node, so a pass addressed at
+   `#wf-catov-body` could never see it. Measured on listing.html at 390, with the
+   overlay opened and drilled one level down: the head read «‹ Каталог … ✕» with
+   both drawn by the FONT, while the `›` chevrons in the body two rows below came
+   from the set. The way BACK out of a category and the way to CLOSE the whole
+   thing - the only two controls in that bar.
+   Found while checking a comment I had just written. I had added a `‹` row to
+   `UIV_EMOJI` «for `.cback`» and then went to watch it work; it did not, and the
+   row was not the reason. A claim about a control nobody walked to is the thing
+   this project keeps writing down as the defect.
+
+   TWO PASSES, BECAUSE THE TWO SIGNS ANSWER TO DIFFERENT MAPS. `‹` is in
+   `UIV_EMOJI` and needs `uivIcons`; `✕` is in `UIV_SIGN_ONLY` and needs
+   `uivMarks`. `‹ <span>Каталог</span>` also happens to be the one case
+   `uivLeadMark` correctly declines - the letter is in a child, so the text node
+   is «‹ » with nothing after the space - which is why the region route is the
+   one that has to reach it. Both run over the whole `#wf-catov`, head and body,
+   so a third node added to that overlay later is covered by neither list. */
+/* ============================================================================
+   ANYTHING THAT APPEARS AFTER THE PASSES RAN GETS THE PASSES RUN ON IT.
+   Step 8.4, and it is the end of a list that had been answered eight times.
+
+   THE COUNT WAS THE ARGUMENT AND THE COUNT WAS WRONG. Step 8.3 added the fourth
+   wrapper and wrote «the first time the set is known to be closed», on the
+   evidence of a walk that reported nothing else. Two independent audits and then
+   the walk itself, once repaired, found four more:
+
+       wfAuthDone        header + drawer + tab bar + footer   585 marks over 4 screens
+       wfClientEdit      the coach's three client dialogs       8 marks, x2 openers
+       wfProfileDialogs  the four profile dialogs               6 marks, x4 openers
+       wfCheckout upsell the new line's quantity stepper        2 signs
+
+   `wfAuthDone` is the one that matters: it runs when anybody finishes signing in,
+   on EVERY coloured screen, and it takes the whole chrome back to raw emoji -
+   measured on listing.html, 120 marks to 0. Locked decision 5 sends every role
+   through that dialog, so this was on the main path of the product.
+
+   THE WALK SAID «none» BECAUSE ITS OWN OPENERS WERE A LIST I TYPED. Two of the
+   names were not functions in this product, one opener did not rebuild anything,
+   and `wfAuthDone` was not in it at all. The instrument built to find this defect
+   had this defect. That is the third time in one session, and it is the reason
+   the answer here is not a fifth wrapper.
+
+   WHAT THE OBSERVER MAY DO, AND WHAT IT MAY NOT. `uivMarks` is addressed at a
+   control or a leaf and is safe anywhere - it runs on every added subtree.
+   `uivIcons` is a blanket text-node swap and is NOT safe anywhere: this file
+   records what happened when `→` entered `UIV_EMOJI`, 27 arrows swapped inside
+   the footer's and the drawer's copy. So `uivIcons` keeps exactly the blast
+   radius it has today - the six chrome regions - and the observer runs it only
+   when one of those is what changed. A category glyph like 🥛 lives in
+   `UIV_EMOJI` alone, which is why the header rebuild needs that half at all.
+
+   RE-ENTRANCY. The passes mutate the DOM, so they would wake the observer that
+   called them. A flag held for the duration of the sweep is the whole guard;
+   every pass is idempotent, so a mutation missed while the flag is up would have
+   been a no-op anyway.
+
+   THE THREE WRAPPERS THAT STAY do more than repaint: `uivAuthPaint` also hooks
+   `wfAuthGo` and the dead links, and `uivToastMarks` must set `data-uiv-keep` on
+   the status glyph BEFORE any pass sees it - it is what keeps the ok toast's ✓
+   from being drawn while the info toast has no glyph to be drawn with. It runs
+   synchronously inside `wfToast`; the observer's callback is a microtask after
+   it, so the attribute is always in place first. */
+var UIV_CHROME_IDS = ['wf-header', 'drawer', 'wf-footer', 'wf-tabbar', 'wf-rail', 'wf-sheet'];
+function uivObserve(){
+  if(window.__uivObs || typeof MutationObserver !== 'function') return;
+  var busy = false, queued = [];
+  var sweep = function(){
+    if(!queued.length) return;
+    var nodes = queued; queued = [];
+    busy = true;
+    try{
+      var chrome = {};
+      nodes.forEach(function(n){
+        if(!n || n.nodeType !== 1 || !n.isConnected) return;
+        if(typeof uivMarks === 'function') uivMarks(n);
+        UIV_CHROME_IDS.forEach(function(id){
+          var r = document.getElementById(id);
+          if(r && (r === n || r.contains(n) || n.contains(r))) chrome[id] = r;
+        });
+      });
+      Object.keys(chrome).forEach(function(id){ uivIcons(chrome[id]); });
+    } finally { busy = false; }
+  };
+  var obs = new MutationObserver(function(recs){
+    if(busy) return;
+    recs.forEach(function(r){
+      [].slice.call(r.addedNodes).forEach(function(n){ if(n.nodeType === 1) queued.push(n); });
+    });
+    if(queued.length) requestAnimationFrame(sweep);
+  });
+  obs.observe(document.body, { childList: true, subtree: true });
+  window.__uivObs = obs;
+}
+
+/* ---------- THE ADDRESS DIALOG, AND THE COUNT IS NOW KNOWN - step 8.3 --------
+   `openAddr()` and `openAddrEdit()` both call `wfAddrDialog()`, which writes the
+   whole dialog's innerHTML - so every mark placed by the passes is thrown away
+   the moment a person opens it. Step 8.1 gave 📦 🚚 🔳 their rows in
+   `UIV_SIGN_ONLY` and verified them by adding `.open` to a dialog that was
+   already built; the rebuild was never on that path. Measured through the
+   opener: 17 marks short, twice - `✕` on the close, `›` on all three delivery
+   rows, the three method glyphs, and in edit mode `📍` and `🗑` as well.
+
+   THIS IS THE FOURTH WRAPPER AND THE FIRST TIME THE SET IS KNOWN TO BE CLOSED.
+   `uivPatchMenus`, `uivAuthPaint`, `uivToastMarks` and this one were each added
+   after somebody happened to look at the right screen in the right state, which
+   is why this defect has arrived four times in the same shape. It is not a list
+   any more because it is not remembered any more: the walk opens 22 states on
+   every screen and RE-RUNS the passes, and a state a pass never reached is the
+   one where the second run changes something. Across 16 screens it reports
+   exactly this dialog and nothing else. A MutationObserver would cover the same
+   ground and would also repaint every DOM change the product makes for its own
+   reasons; four named builders with an instrument that can prove there is no
+   fifth is the smaller claim.
+
+   AND IT REPAINTS `#wf-addr`, WHICH IS WHAT THE BUILDER WRITES - not `#addr-dlg`,
+   which is what you see. The first version of this wrapper named the dialog on
+   screen and left 1 mark of 17 behind: `wfAddrDialog` writes ONE innerHTML into
+   `#wf-addr` and that string holds two dialogs, the address form and the delete
+   confirm (`#addr-del`), whose 48px disc carries `🗑`. Caught by the walk on the
+   next run, in the same minute - which is the difference this instrument makes,
+   because the same mistake shipped four times before it existed. The address of a
+   repaint is the node the builder assigns to. */
+function uivAddrPaint(){
+  var fn = window.wfAddrDialog;
+  if(typeof fn !== 'function' || fn.__uiv) return;
+  window.wfAddrDialog = function(){
+    var r = fn.apply(this, arguments);
+    var d = document.getElementById('wf-addr');
+    if(d){ uivIcons(d); if(typeof uivMarks === 'function') uivMarks(d); }
+    return r;
+  };
+  window.wfAddrDialog.__uiv = 1;
+}
+
 function uivPatchMenus(){
-  var bodyIcons = function(){ uivIcons(document.getElementById('wf-catov-body')); };
+  var paint = function(){
+    var ov = document.getElementById('wf-catov');
+    if(!ov) return;
+    uivIcons(ov);
+    uivMarks(ov);
+  };
   ['catOverlayL0', 'catOverlayCat', 'catOverlayGoals'].forEach(function(name){
     var fn = window[name];
     if(typeof fn !== 'function' || fn.__uiv) return;
-    window[name] = function(){ var r = fn.apply(this, arguments); bodyIcons(); return r; };
+    window[name] = function(){ var r = fn.apply(this, arguments); paint(); return r; };
     window[name].__uiv = 1;
   });
 }
@@ -814,11 +966,17 @@ function uivDisclosures(){
       A sweep of those seven files would read as a fix and would not be one - the
       next screen cloned from the grey layer arrives with the same slash, and it
       is the same shape as the nine times this project answered «which things get
-      X» with a hand-written list. So the rule is stated once, here, where the
-      colour layer already reconciles itself with what the frozen markup says:
-      the separator's glyph comes from CSS, so whatever character the markup put
-      inside the box is a second edition of it and goes. The box stays - it is
-      what carries the ::before and the 8px on each side.
+      X» with a hand-written list. So the rule is stated once: the separator's
+      glyph comes from CSS, so whatever character the markup put inside the box
+      is a second edition of it and goes.
+
+      AND IT IS STATED IN design/system/marks.js, NOT HERE - moved at 8.1. It
+      lived here for one step and this file is the SHOP's runtime: the stand
+      loads icons.js and marks.js and nothing else, so `design/kit/kit.html` went
+      on rendering «Дизайн-система // Кіт» while every product page beside it
+      showed one slash. A glyph the markup typed while a stylesheet draws it is
+      what every pass in that file exists to undo; the two attributes below are
+      what the frozen markup cannot SAY, which is this file's half.
 
    Idempotent, and it runs after any pass that rebuilds a page's chrome. */
 function uivCrumbs(){
@@ -827,7 +985,6 @@ function uivCrumbs(){
     if(cur && !cur.hasAttribute('aria-current')) cur.setAttribute('aria-current', 'page');
     [].slice.call(nav.querySelectorAll('.sep')).forEach(function(sep){
       if(!sep.hasAttribute('aria-hidden')) sep.setAttribute('aria-hidden', 'true');
-      if(sep.textContent !== '') sep.textContent = '';
     });
   });
 }

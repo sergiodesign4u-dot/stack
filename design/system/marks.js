@@ -214,7 +214,18 @@ var UIV_SIGN_ONLY = {
      reaches any leaf whose whole text is the sign, wherever it stands. Both maps
      carry the three chrome glyphs so neither route can be the one that misses,
      and 🔗 is here only: a field prefix is not chrome. */
-  '👥':'users', '◈':'gem', '🎽':'cap', '🔗':'link'
+  '👥':'users', '◈':'gem', '🎽':'cap', '🔗':'link',
+  /* step 8.1, and the reason 📦 was missing here is worth keeping. It has been
+     in `UIV_EMOJI` since the account screens were built, so the shop drew it
+     everywhere `uivIcons` runs - the header, the drawer, the tab bar. The
+     address dialog is not one of those regions: `#addr-dlg` is built by
+     `wfAddrDialog` into its own node, so its three delivery marks were the only
+     📦 🚚 in the product coming from the font. Measured at 390 on
+     account-addresses: three of them. Exactly the seam the 🗑 row above
+     describes - a glyph drawn by one route and missed by the other - so the
+     answer is the same one, a row in both maps rather than a call in one more
+     place. 🔳 is new to both; `locker` is drawn in icons.js. */
+  '📦':'box', '🚚':'truck', '🔳':'locker'
 };
 
 /* THE OUTLINE IS THE RIGHT DEFAULT FOR A SIGN, INCLUDING THE STAR - step 7.27.
@@ -310,9 +321,24 @@ function uivSignMark(root){
    `.city-chip`, `.ccard-goal`, `.ord-chip`, `.cl-tag`, `.rbadge`, `h3` - and the
    gap reads the same as the marks `uivCart` has been placing by hand since 6.x,
    which is the control the two routes now share on `cart` and `cart-coach`. */
+/* `←` AND `‹` ARE HERE AND NOWHERE ELSE - step 8.1, and the anchor is why.
+   `UIV_EMOJI` cannot have them: the header of this file records what happened
+   when `→` went in there - `uivIcons` runs over whole REGIONS, so every arrow
+   in the footer's and the drawer's COPY was swapped too, 27 of them on
+   cart-empty.html where the page has zero arrows on a button. A back arrow is
+   the same character a sentence uses. The `^` anchor plus «whitespace then a
+   letter» is what tells «← Змінити номер», a control, from an arrow inside a
+   line, and it is the only place in this system where that question is asked.
+   `‹` is the one guard-3 case that has to be checked by hand rather than
+   assumed: `<button class="cback">‹ <span>Каталог</span></button>` puts the
+   letter in a CHILD, so the text node is «‹ » and the regex correctly declines
+   it. `UIV_EMOJI` had a `›` row and no `‹` - the pager needed one direction and
+   nobody needed the other - so the catalogue overlay's own way back was the one
+   place neither route reached. The row is added there, beside its mirror. */
 var UIV_LEAD_MARK = { '＋':'plus', '🗑️':'trash', '🗑':'trash', '↻':'refresh',
                       '📍':'pin', '🎯':'target', '👤':'user', '✓':'check',
-                      '🔎':'search', '🔍':'search', '🔔':'bell', '⚠️':'alert', '⚠':'alert' };
+                      '🔎':'search', '🔍':'search', '🔔':'bell', '⚠️':'alert', '⚠':'alert',
+                      '←':'arrowLeft', '‹':'caretLeft' };
 var UIV_LEAD_RE = new RegExp('^(\\s*)(' + Object.keys(UIV_LEAD_MARK)
   .sort(function(a, b){ return b.length - a.length; })   /* 🗑️ before 🗑, or FE0F is left behind */
   .join('|') + ')\\s+\\p{L}', 'u');
@@ -376,13 +402,55 @@ function uivWrapDrCat(){
   window.toggleDrCat = wrapped;
 }
 
-/* THREE passes now, in the order that matters: the two ends of a label first -
+/* ---------- THE SEPARATOR IS DRAWN BY CSS, SO THE MARKUP'S COPY GOES ---------
+   Step 8.1, and it is this file's because of the sentence at the top of it: «a
+   design system whose specimen differs from the product is the exact defect this
+   stage exists to remove». The rule was written at 7.99 inside `uivCrumbs` in
+   design/_nav.js, which the shop loads and the STAND does not - so
+   `design/kit/kit.html` went on rendering «Дизайн-система // Кіт», two of them,
+   while every product page beside it showed one. The same seam that had the
+   stand drawing ✕ ♡ −/+ ▦ ☰ with the font until 7.11 moved the passes here.
+
+   WHAT THE TWO FILES OWN, and it is a clean split rather than a move: this is a
+   GLYPH the markup typed while a stylesheet draws it - `.sep::before{ content:
+   '/' }` in breadcrumb.css - which is the one thing every pass in this file
+   exists to undo. `aria-current` and `aria-hidden` stay in `uivCrumbs`, because
+   they are what the frozen markup cannot SAY, not what it wrongly draws.
+
+   The box stays: it carries the `::before` and the 8px on each side.
+
+   AND IT ASKS THE ELEMENT WHETHER A STYLESHEET IS DRAWING ONE. The first version
+   emptied every `.crumb .sep` it found, which is only right where breadcrumb.css
+   is loaded. `ia/product.html` also has `<div class="crumb">` with a typed `/`,
+   loads `_nav.css` and nothing else, and renders ONE slash - measured: `::before`
+   is `none`, the box is 3.55 wide. That layer is correct as it stands, and a pass
+   that assumed the stylesheet would redraw would have deleted all ten of its
+   separators and left the trail reading «ГоловнаКаталогПротеїн».
+   marks.js does not load on those pages today. «Today» is the whole problem: the
+   assumption is invisible until the file is included somewhere new, which is
+   exactly how the stand ended up drawing five signs with the font. So the
+   question is asked of the box - is something painting a glyph in front of you -
+   and the answer decides, not the file list. */
+function uivSepGlyph(root){
+  var scope = root || document;
+  if(!scope.querySelectorAll) return;
+  [].slice.call(scope.querySelectorAll('.crumb .sep')).forEach(function(sep){
+    if(sep.textContent === '') return;
+    var c = getComputedStyle(sep, '::before').content;
+    if(!c || c === 'none' || c === 'normal') return;   /* nobody else is drawing it */
+    sep.textContent = '';
+  });
+}
+
+/* FOUR passes now, in the order that matters: the two ends of a label first -
    the mark that closes it, then the mark that opens it - and a box whose sign IS
-   its whole label is what is LEFT once both ends have been taken. */
+   its whole label is what is LEFT once both ends have been taken. The separator
+   is last and independent of all three. */
 function uivMarks(root){
   uivTrailMark(root);
   uivLeadMark(root);
   uivSignMark(root);
+  uivSepGlyph(root);
   uivWrapDrCat();
 }
 

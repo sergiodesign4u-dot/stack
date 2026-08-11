@@ -59,6 +59,20 @@ var UIV_P = {
      not a different drawing. Ink x 5.6..18.4, y 3.6..20.4 - `arrowRight`'s box
      on its side. */
   arrowDown:'<path d="M12 3.6v16.8"/><path d="M5.6 14l6.4 6.4 6.4-6.4"/>',
+  /* BACK - step 8.1, and the set had no way to say it. Counted across the 48
+     coloured screens: 12 signs that point LEFT and had no drawing, while the two
+     that point right have had one since 7.5. `←` x7 - «Змінити номер» x3 and
+     «Назад до коду» in the login dialog, which locked decision 5 puts on every
+     role's path, plus `.pmback` and `.oosback` on the product screens - and `‹`
+     x5, «Інший спосіб» in the address dialog and «Змінити номер» / «Змінити
+     e-mail» in the profile ones. Going back is half the navigation of every
+     dialog in this product and it was drawn by whatever face the machine has.
+     NEITHER IS A NEW DRAWING. `arrowRight` and `caret` mirrored about x=12, the
+     way `arrowDown` is `arrowRight` turned a quarter: same head, same 45
+     degrees, same ink box on its side. A back arrow that is not the forward
+     arrow reversed is two glyphs to keep in sync. */
+  arrowLeft:'<path d="M20.4 12H3.6"/><path d="M10 5.6 3.6 12l6.4 6.4"/>',
+  caretLeft:'<path d="M14.5 6l-6 6 6 6"/>',
   /* THE THREE SIGNS THAT WERE STILL CHARACTERS - step 7.11. A close, a plus and
      a minus were the last places the product drew with the FONT instead of the
      set: ✕ in every dialog and drawer, ＋ on the drawer's categories, −/+ on the
@@ -101,6 +115,23 @@ var UIV_P = {
   /* footer trust strip */
   truck:'<path d="M3 6.5h11v8.5H3z"/><path d="M14 9h3.6l2.9 3v3H14"/><circle cx="7" cy="17.5" r="1.9"/><circle cx="17" cy="17.5" r="1.9"/>',
   card:'<rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M2.5 10h19"/><path d="M6 14.5h4"/>',
+  /* «Поштомат Нової Пошти» - step 8.1. The address dialog offers three ways to
+     take a parcel and two of them already had a mark: `box` for the branch, and
+     `truck` for the courier. The locker had 🔳 U+1F533, a white square, which is
+     not a picture of anything - so the one method a person picks BECAUSE it is
+     self-service, around the clock, was the one with no drawing.
+     A cabinet of cells, and the cells are UNEQUAL on purpose: that is what a
+     parcel locker looks like, and it is also what keeps this apart from `grid`,
+     which is four separate rounded squares and means the catalogue two taps
+     away in the same drawer. No handle: a 1.9 stroke inside a 5.2 cell leaves
+     1.6 of white above and below it, and the `flask` note above records 1.1 as
+     the width at which two round caps merge into a lump.
+     A column of glyphs is judged against itself, not one at a time - the note on
+     `flame` above says so, and this is the second time it decides a number.
+     Drawn at 14.8 wide first and it read small in the row it actually stands in:
+     `box` is 16.6 across and `truck` 17.5, and the locker sat visibly narrower
+     between them in the address dialog. 16.4 puts it in the same column. */
+  locker:'<rect x="3.8" y="3.4" width="16.4" height="17.2" rx="2.4"/><path d="M3.8 10.6h16.4M3.8 15.8h16.4"/>',
   ret:'<path d="M9.5 5L5 9.5 9.5 14"/><path d="M5 9.5h9.2a5.3 5.3 0 0 1 0 10.6H8"/>',
   clock:'<circle cx="12" cy="12" r="8.3"/><path d="M12 7.4V12l3.2 2"/>',
   /* allergen warning: a triangle, not the error glyph - it cautions, it is not a failure */

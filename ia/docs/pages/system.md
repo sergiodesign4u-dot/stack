@@ -52,8 +52,8 @@ repeat order, errors. Three types - **ok / error / info**. **Auto-dismiss** (~3�
 | 404 | `404` | noindex; full page with search + links; never soft-404 (200) |
 | 500 | `500` | minimal backend-independent template, noindex |
 | Maintenance | `503` + `Retry-After` | temporary, not disappearance |
-| Cookie banner | — | component; only necessary scripts before consent; policy 8.6 |
-| Toasts | — | component; aria-live; SEO-neutral |
+| Cookie banner | – | component; only necessary scripts before consent; policy 8.6 |
+| Toasts | – | component; aria-live; SEO-neutral |
 | Removed product | `301` / `410` | 301 to the category (better than 404) or 410 if gone for good - operational rule [?] |
 
 ## Locked (2026-07-01)

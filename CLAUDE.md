@@ -117,7 +117,10 @@ file, called by a trigger word.
 - Chat - Russian / Ukrainian. Html pages - **Ukrainian** (local market, set once, inherited).
 - Registry labels in `/_nav.js` are render text: same language as the pages. Mixed language in the
   sidebar is a defect.
-- **No em dash in project output files.** One apostrophe form: `'`. The `ви` form throughout.
+- **Three dashes, three jobs.** `-` inside a sentence · `–` a range (`А–Я`) and an empty table cell,
+  which is the "no value" mark · `—` nowhere in project output. The empty cell was an exemption for
+  the em dash until step 8.2, on the true ground that a bare `-` in a column of numbers reads as a
+  minus; `–` answers that without needing an exemption. One apostrophe form: `'`. The `ви` form.
 
 ## Ownership of text and values
 

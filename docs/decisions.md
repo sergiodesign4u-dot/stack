@@ -999,3 +999,398 @@ now three things it can follow, so there are three selectors. Measured after: th
 `border-top: 0` and the two below it are 1px, at 390, 900 and 1280.
 
 `coach-home` at 360 / 390 / 720 / 900 / 1280 / 1440: zero sideways scroll, zero console errors.
+
+## Step 8.1 - the marks that point back, three delivery methods, and two places no pass reached
+
+Working the list from the 48-screen census. Four items closed, and two of them were found by
+checking a claim rather than by looking for a defect.
+
+### Back was not in the set
+
+12 signs point LEFT across the coloured layer and none had a drawing, while the two that point right
+have had one since 7.5. `←` x7 - «Змінити номер» x3 and «Назад до коду» in the login dialog, which
+locked decision 5 puts on every role's path, plus `.pmback` and `.oosback` on the product screens -
+and `‹` x5, «Інший спосіб» in the address dialog and «Змінити номер» / «Змінити e-mail» in the
+profile ones. Going back is half the navigation of every dialog in this product.
+
+**Neither is a new drawing**: `arrowRight` and `caret` mirrored about x=12, the way `arrowDown` is
+`arrowRight` turned a quarter. A back arrow that is not the forward arrow reversed is two glyphs to
+keep in sync.
+
+**They are in `UIV_LEAD_MARK` and NOT in `UIV_EMOJI`**, and the header of `marks.js` says why: when
+`→` went into the region map, every arrow in the footer's and the drawer's COPY was swapped too, 27
+of them on cart-empty.html where the page has zero arrows on a button. A back arrow is the same
+character a sentence uses; the `^` anchor plus «whitespace then a letter» is what tells a control
+from a line of prose.
+
+Measured after, across the 48: `←` 7 -> **1**, `‹` 5 -> **0**.
+
+### The third delivery method had a white square
+
+The address dialog offers three ways to take a parcel. `box` drew the branch and `truck` the
+courier; the locker had 🔳 U+1F533, which is not a picture of anything - so the one method a person
+picks BECAUSE it is self-service, around the clock, was the one with no mark. `locker` is a cabinet
+of unequal cells, which is what a parcel locker looks like and also what keeps it apart from `grid`,
+four separate rounded squares meaning the catalogue two taps away in the same drawer.
+
+**And 📦 and 🚚 were coming from the font there too**, which is the 🗑 seam of 7.13 again: both have
+been in `UIV_EMOJI` since the account screens were built, so the shop drew them everywhere
+`uivIcons` runs - and `#addr-dlg` is not one of those regions. A row in both maps, not a call in one
+more place. Measured after: three marks from the set, and the dialog's own «‹ Інший спосіб» with
+them.
+
+**The locker was redrawn once before it landed.** At 14.8 wide it read small in the row it actually
+stands in - `box` is 16.6 across and `truck` 17.5 - so it went to 16.4. A column of glyphs is judged
+against itself, not one at a time, which is the second time the `flame` note's sentence has decided
+a number.
+
+### The stand had the owner's double slash
+
+`design/kit/kit.html` rendered «Дизайн-система // Кіт», two of them, while every product page beside
+it showed one. The rule written at 7.99 lives in `uivCrumbs` in `design/_nav.js`, which is the
+SHOP's runtime: the stand loads `icons.js` and `marks.js` and nothing else. Exactly the seam that
+had the stand drawing ✕ ♡ −/+ ▦ ☰ with the font until 7.11 moved the passes into `marks.js`.
+
+**A clean split, not a move.** The typed separator is a GLYPH the markup carries while a stylesheet
+draws it, which is the one thing every pass in `marks.js` exists to undo, so `uivSepGlyph` joins the
+three there and `uivMarks` runs it. `aria-current` and `aria-hidden` stay in `uivCrumbs`: they are
+what the frozen markup cannot SAY, not what it wrongly draws.
+
+### And the overlay head, found by checking my own comment
+
+I added a `‹` row to `UIV_EMOJI` and wrote in the comment that it was «for `.cback`, the catalogue
+overlay's own way back». Then I went to watch it work. It did not, and the row was not the reason.
+
+`catOvHead` writes into `#wf-catov-h`; `uivPatchMenus` had been repainting `#wf-catov-body` and only
+that, since it was written. Measured on listing.html at 390 with the overlay opened and drilled one
+level down: the head read «‹ Каталог … ✕» with **both signs drawn by the font**, while the `›`
+chevrons in the body two rows below came from the set. The way back out of a category and the way to
+close the whole thing - the only two controls in that bar.
+
+**Two passes, because the two signs answer to different maps**: `‹` is in `UIV_EMOJI` and needs
+`uivIcons`; `✕` is in `UIV_SIGN_ONLY` and needs `uivMarks`. Both now run over the whole `#wf-catov`,
+head and body, so a third node added to that overlay later is covered by neither list. This is the
+eleventh instance of «a pass runs where somebody remembered to call it», and the first one found by
+refusing to leave an unverified sentence in a comment.
+
+### Acceptance
+
+The stand's own audit on the live set: **59 glyphs, 5 outside the safe area, 8 off centre**, and none
+of the five added since 7.99 in either list. 48 product screens at 390 and 1280, and 86 stand pages
+at 390: zero sideways scroll, zero console errors, zero curly apostrophes, no typed separator
+anywhere, and the only two failures are the em dashes below.
+
+What the font still draws across the 48, and every one of them is a value or prose: `+` x260 (+380,
+amounts), `−` x119 (−15%, ranges), `©` x42, `×` x17 («× 1 од.»), `≈` x3, `→` x2 in running text. Plus
+**the 4 em dashes, which are the open decision**, and six signs on `design/overview.html` - the
+stage's hub page, which loads the project registry and not the shop runtime, so no pass has ever run
+there and `↗` has no drawing in the set at all.
+
+### Two things broke and both were mine
+
+**A comment edit left an orphan `*/` in `icons.js`** and the file stopped parsing. Caught by
+`node --check` on every script touched, and the two measurements taken while it was broken were
+re-run. The check is cheap and it was not being run; it is now part of the walk.
+
+**And one acceptance run reported «0 failures» over 135 pages that it never visited.** The list was
+built into a shell variable and passed as `$P` - and zsh, unlike bash, does not word-split an
+unquoted parameter expansion, so 135 names arrived as ONE argument and the walk visited a single
+page whose name was the whole list. It printed a clean pass. Found because the same two em-dash
+pages failed when asked for by hand a minute later, and the two answers could not both be true. The
+run is recorded here rather than quietly redone: an instrument that cannot fail is the same defect
+as a check built from the list it is checking, which steps 7.6 and 7.7 both shipped. Command
+substitution IS split in zsh, which is why the earlier stand-only run was real; the fix is to pass
+`$(...)` directly and never through a variable.
+
+## Step 8.2 - the empty cell gets a sign, and the sign had already been decided once
+
+Owner: «який знак означає порожню клітинку замість - я не знаю дай решение».
+
+### The decision
+
+**`–` U+2013, the en dash.** Three grounds:
+
+1. A bare `-` in the «% добової норми» column of `product.html` reads as a **minus**, and that is a
+   column of numbers. Exactly where the misreading costs something.
+2. `CLAUDE.md` bans the em dash outright; the en dash is not banned and **already lives in the
+   product** as the range mark (`А–Я`), so it is not a new character in the language.
+3. It is visually apart from the hyphen the project uses to separate parts of a sentence, so a dash
+   in a cell and a dash in a line do not look like one sign doing two jobs.
+
+Verified before replacing: all 34 in html were `<td>—</td>` and all 26 in md were `| — |` - a lone
+em dash in a cell, every single one, no prose among them.
+
+### And this had been decided before, by a pass whose log I nearly overwrote
+
+`docs/critique-alignment.md` carries it in writing: **«Named exception, with idle control. A lone em
+dash inside a table cell is the "no value" mark, not prose - a bare `-` there reads as a hyphen. 52
+spans matched the exception»**, and finding D1 records «3 621 replaced, **60 exempted by a named
+rule**».
+
+Sixty. The sweep today replaced 34 in html and 26 in md: **the same 60, arrived at from the other
+side and without knowing the first count existed.**
+
+The reasoning was the same too - two candidates, `—` and `-`, and the minus is why the hyphen lost.
+That is correct, and it is precisely why a **third** character ends the exemption rather than
+documenting it: `–` answers the objection and needs no exception at all. So the earlier finding is
+not withdrawn, it is answered, and it says so in place - a superseded decision stays visible or it
+comes back next time in the same words.
+
+**It was found by accident.** The owner asked for a decision, the decision was derived from first
+principles, and the exemption surfaced only because the sweep reached the md files and the search
+output printed that paragraph. A rule that lives in a critique log and not in `CLAUDE.md` is a rule
+the next pass re-derives. So `CLAUDE.md` line 120 stops saying «no em dash» and states the whole
+thing - `-` inside a sentence, `–` a range and an empty cell, `—` nowhere - replacing the line it
+grew from, which is the only way that file accepts a rule.
+
+Seven em dashes remain in the repository and every one is inside backticks, in the three documents
+where the character is the subject rather than the text.
+
+### The IA layer was NOT broken, and my own check said it was
+
+Running the walk over `ia/*.html` reported five failures: «typed sep». Measured before touching
+anything: `ia/product.html` has `<div class="crumb">` with a typed `/`, loads `_nav.css` and nothing
+else, `::before` resolves to `none`, and the box is 3.55 wide. **One slash. Correct as it stands.**
+
+The check was asking «is the separator typed» when the real question is «is the glyph drawn twice».
+Typed is only wrong where `breadcrumb.css` supplies a `::before`. Fixed to ask the box.
+
+**And the same wrong assumption was sitting in the fix from 8.1.** `uivSepGlyph` emptied every
+`.crumb .sep` it found. `marks.js` does not load on the IA pages today - and «today» is the whole
+problem, because the assumption is invisible until the file is included somewhere new, which is
+exactly how the stand ended up drawing five signs with the font. Had it been pulled in, all ten IA
+separators would have gone and the trail would read «ГоловнаКаталогПротеїн». It now asks the box
+whether anything is painting a glyph in front of it, and the answer decides.
+
+### Acceptance
+
+48 product screens and 86 stand pages at 390, 12 IA and voice pages at 1280: zero sideways scroll,
+zero console errors, zero em dashes, zero curly apostrophes, no doubled separator. **Zero failures,
+for the first time since the walk was written.**
+
+## Step 8.3 - the walk that opens things, and the reason this defect kept arriving
+
+Owner: «да почему у нас всегда какие то "та сама хибна засновка сиділа в моїй же правці"».
+
+The honest answer is not that the codebase is unusually broken. It is that **every instance of this
+class was found by accident** - by opening the right screen in the right state, or by checking a
+comment, or by a search result printing a paragraph nobody was looking for. There was no way to ask
+the question, so the answer arrived one instance per session, and a fix written from one instance is
+a fix addressed at one instance.
+
+### The instrument, and it took two wrong versions to get right
+
+**Version one asked my question.** It listed every character that has a drawing in the set and is
+still typed. It reported three kinds of thing that are correct on purpose: `−15%` and `+13 ₴` are
+VALUES, and the ok toast's `✓` carries `data-uiv-keep` because the set has `check` and `alert` and no
+info mark, so two of three drawn is worse than three of three typed - a decision written down in
+`design/_nav.js`. An instrument that reports a documented decision as a defect trains you to ignore
+it.
+
+**Version two ran more than the product does.** Re-running the passes is the right question, but the
+probe handed `uivIcons` ten region ids where `uivChrome` passes six, adding `wf-catov`, `addr-dlg`,
+`wf-profile` and `wf-toast` «to be thorough». `uivIcons` does not honour `data-uiv-keep` - that is a
+`marks.js` guard - so the walk drew the toast's `✓` itself and then reported it as a defect, ten
+times over. **An instrument that runs more than the product cannot say what the product does.**
+
+**Version three asks the system.** Open a state, then run the passes AGAIN and see whether anything
+changes. Every pass in `marks.js` is idempotent and says so, so a second run over a state a pass
+already reached does nothing; a state no pass reached is exactly where the second run moves. No list
+of characters, no list of components, nothing of mine to go stale: the rules are the product's own
+and the verdict is a diff. 22 openers x every screen.
+
+### What it found on the first honest run
+
+Sixteen screens, and **one** state: the address dialog, in both modes, **17 marks short each time**.
+`openAddr()` and `openAddrEdit()` both call `wfAddrDialog()`, which writes the whole dialog's
+innerHTML - so every mark the passes placed is thrown away the moment a person opens it. Step 8.1
+had given 📦 🚚 🔳 their rows and verified them by adding `.open` to a dialog that was already built;
+the rebuild was never on that path. Missing: `✕` on the close, `›` on all three delivery rows, the
+three method glyphs, and in edit mode `📍` and `🗑`.
+
+Everything else the walk can open - auth and its four steps, the catalogue overlay and its levels,
+the cart drawer, the city dialog, the mobile drawer, the filter sheet, the client dialogs, the review
+modal, the three profile dialogs, the toast - was already correct.
+
+### And it caught the fix's own mistake in the same minute
+
+The first wrapper repainted `#addr-dlg` and left **1 mark of 17** behind. `wfAddrDialog` writes ONE
+innerHTML into `#wf-addr`, and that string holds two dialogs: the address form and the delete confirm
+`#addr-del`, whose 48px disc carries `🗑`. I had named the container I could see on screen rather
+than the one the builder assigns to - the same shape as everything above, committed while writing the
+note about it.
+
+The walk reported it on the next run. That is the whole difference: the same mistake shipped four
+times before this instrument existed and lasted under a minute after it did.
+
+### The set is four, and now that is a measurement
+
+`uivPatchMenus`, `uivAuthPaint`, `uivToastMarks` and `uivAddrPaint` were each added after somebody
+happened to look at the right screen in the right state. It is not a remembered list any more: the
+walk enumerates the states and reports **none** across twelve screens. A `MutationObserver` would
+cover the same ground and would also repaint every DOM change the product makes for its own reasons;
+four named builders plus an instrument that can prove there is no fifth is the smaller claim.
+
+### What the owner needs to supply, and it is not this
+
+Nothing here needed a decision. The two that do are unchanged and both are about the product, not the
+code: whether to colour `coach-wishlist` / `coach-tariff` / `coach-order` so the coach's own
+navigation stops stepping out of colour into grey, and whether four card-level accent fills may stand
+beside «Нова сесія» on `coach-home` when principle 2 says one main action per screen.
+
+### Acceptance
+
+Twelve screens x 22 states: **none**. 48 product screens at 390: zero failures. The address dialog
+walked in both modes: three delivery marks, three row chevrons, the close and the way back, all from
+the set.
+
+`node --check` on every script touched, before any browser run. It caught the same orphan `*/` twice
+in one session; the check costs nothing and the second one would otherwise have been another
+measurement taken against a file that was not parsing.
+
+## Steps 8.4-8.5 - the list ends, and three audits say what a walk could not
+
+Owner: «да почему у нас всегда какие то "та сама хибна засновка сиділа в моїй же правці"… можешь
+субагентами».
+
+Three read-only audits ran in parallel - hand-written lists in the runtime, on-demand rebuilds, and
+CSS addressed at position rather than role - while the browser walk ran here. The split is the one
+`CLAUDE.md` states: what is falsifiable in the source goes to a reader, what needs a browser stays
+in one.
+
+### The walk said «none» and the walk was wrong
+
+Step 8.3 built an instrument that opens states and re-runs the passes, reported **none** across 32
+screens, and concluded the set of on-demand builders was closed at four. Both audits came back with
+four more. The instrument was right; **its openers were a list I typed from memory**:
+
+- `openClientDlg` and `openClientDel` are not functions in this product. The real names are
+  `openClientEdit` and `openClientNew`, so those two lines were skipped in silence on every run.
+- `profStep` does not rebuild anything. `openProfPhone` does.
+- `wfAuthDone` was not in the list at all.
+- And one early opener NAVIGATED the page, after which the probe said «no `uivMarks` here» and the
+  loop **broke out** - so every opener after it was skipped, on every screen, and the walk printed a
+  clean pass.
+
+The instrument built to find this defect had this defect. It now asks the page what it can open -
+every global function matching the product's own naming convention, enumerated at runtime - and it
+puts the page back when an opener navigates instead of giving up on it.
+
+Re-run, it finds by measurement exactly what the audits found by reading:
+
+| state | marks lost |
+|---|---|
+| `wfAuthDone` - header, drawer, tab bar, footer | **585 across four screens** |
+| `openClientEdit` / `openClientNew` | 8, twice |
+| `openProfPhone` / `Email` / `Lang` / `Delete` | 6, four times |
+| checkout upsell - the new line's stepper | 2 |
+
+**`wfAuthDone` is the one that matters.** It runs when anybody finishes signing in, on every
+coloured screen, and it takes the whole chrome back to raw emoji - measured on listing.html, **120
+marks to 0**. Locked decision 5 sends every role through that dialog.
+
+### So the answer is not a fifth wrapper
+
+Eight instances, one shape, and each time a wrapper was added and the set declared closed. That is
+the definition of the defect. `uivObserve` runs the passes on anything that appears after they
+finished, and what it may do is bounded by what each pass is safe for: **`uivMarks` on every added
+subtree**, because it is addressed at a control or a leaf; **`uivIcons` only when one of the six
+chrome regions is what changed**, because it is a blanket text-node swap and this file records what
+happened when `→` entered `UIV_EMOJI` - 27 arrows swapped inside footer and drawer copy. A category
+glyph like 🥛 lives in `UIV_EMOJI` alone, which is why the header rebuild needs that half at all.
+
+Re-entrancy is one flag held across the sweep; every pass is idempotent, so a mutation missed under
+it would have been a no-op. `uivToastMarks` stays and must: it sets `data-uiv-keep` on the status
+glyph synchronously inside `wfToast`, before the observer's microtask, which is what keeps the ok
+toast's ✓ from being drawn while the info toast has no glyph to be drawn with.
+
+After: the walk reports **none** across every screen it opens, `wfAuthDone` included.
+
+### And the CSS audit found three, one of them mine
+
+**`checkout-form.css` - the fourth `:first-of-type`.** `.co-line:first-of-type` matched **nothing**:
+the section opens with `<div class="co-sec-h">`, so the first order line is div number two. All three
+rows drew the hairline, including the one under the section's own header.
+
+**Worse, in the same file: every product photo was wrong.** The three thumbnails rotated by
+`:nth-of-type` and the same off-by-one shifted them - «Gold Standard 100% Whey» showed the creatine
+tub, «Iso Whey Zero» the pre-workout, «Creatine Monohydrate» the whey. Three rows, three wrong
+pictures, on the screen where a person confirms what they are buying. A rotation cannot be repaired
+by shifting it: the row says what it holds now, `data-img` beside the `data-unit` it already carried.
+
+**`cart-drawer.css` - and step 7.97 made it.** `.cd-group:last-child` was true when it was written
+and stopped being true in the same batch, because 7.97 moved `.cd-note` out of the drawer's foot and
+appended it to `.cd-body`. Measured: `.cd-group` 2, `.cd-group:last-child` 0, two horizontal rules a
+pixel apart under the last client group.
+
+**`city-dialog.css` - drawing on an accident.** `.city-lbl:first-of-type` is correct today only
+because the element above it is an `<input>` rather than a div. It says `.city-search + .city-lbl`
+now, which is the relationship that was the reason for the rule all along.
+
+All three take the `+` idiom the system already uses correctly in `trust-strip.css`,
+`coach-landing.css` and `footer.css`: **the divider belongs to the gap between two rows, not to one
+row's position.**
+
+### Acceptance
+
+48 product screens at 390 and the touched ones at 1280: zero failures. The state walk: none.
+Measured after: checkout row 1 no border and 2px top with the whey photo, rows 2 and 3 a 1px hairline
+and 12px, creatine on the creatine; coach cart one divider between the two groups and the note's own
+line above itself, none doubled; city labels 0 and 16.
+
+### Still the owner's, and unchanged
+
+Colouring `coach-wishlist` / `coach-tariff` / `coach-order` so the coach's navigation stops stepping
+into grey, and the four card-level accent fills beside «Нова сесія» on `coach-home`.
+
+## Step 8.6 - the four accent fills on coach-home: nothing to change, and my framing was the defect
+
+Owner: «що робити з чотирма помаранчевими заливками поруч із "Нова сесія"». The question was mine,
+carried forward from 7.98 as «four card-level actions painted like the page's primary». Measured
+before answering, and the framing does not survive the measurement.
+
+### They are not four card-level actions. They are two other atoms.
+
+| control | what it is | accent instances in the product |
+|---|---|---|
+| `＋ Нова сесія` | this screen's primary | 1 |
+| `↻ Повторити` x2 | the reorder action | **15** - 4 of them in the buyer's own `account-orders` |
+| `🛒 У кошик` x2 | the add-to-cart atom | **96, across 18 screens** |
+
+Neither is painted «like the primary». Each carries the accent by a rule that already runs across the
+product, and reorder's rule is locked decision 4 - «one-tap repeat from order history in MVP».
+Changing them on `coach-home` alone would not tighten the accent; it would make one screen disagree
+with eighteen.
+
+### And no viewport ever shows two of them
+
+Principle 2 says «exactly one main action per screen», and a screen is what a person sees. Measured
+at 390, viewport 844, document 4321:
+
+    y  302   ＋ Нова сесія        white label
+    y  366   Огляд (chosen tab)   ink label
+    y 1707   ↻ Повторити          white label
+    y 1871   ↻ Повторити          white label
+    y 2313   🛒 У кошик  x2        white label
+
+The primary and the nearest «Повторити» are **1353px apart** - a person would have to scroll past a
+viewport and a half to see them together, and they never appear in one. The cart buttons are 2011px
+down.
+
+**The one accent pair that does share a viewport is 8px apart and is already a written decision**:
+`＋ Нова сесія` at 302 and the `Огляд` chip at 366. `DESIGN-artifacts.md` settled that at 7.98 -
+an ACTION takes the white label (3.13:1), a CHOSEN STATE takes the ink label (5.45:1), and the two
+orange grounds standing together is what that note exists to explain.
+
+### The answer
+
+**Nothing changes.** The finding was a count taken with `getComputedStyle` over `<main>` and never
+walked in a browser - it recorded that five fills exist on one document without asking whether any
+two are ever on screen together, or whether the controls belong to this screen at all. Both answers
+were available from the rendered page.
+
+If the accent is ever to be tightened here, the one defensible move is narrower than the finding
+was: outline `↻ Повторити` on the SUMMARY card (`coach-home` shows two of many orders) and keep it
+accent on `coach-orders`, which owns the list. One rule, one file, and it would need measuring on
+both screens. Not recommended today - it would be the only place in the product where reorder
+changes weight by which screen it stands on.

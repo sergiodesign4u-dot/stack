@@ -49,7 +49,7 @@ at the concept stage, not carried into wireframes.
 | **Для тренерів** (emphasized) | Coach front door, accented (like Belok's «Акції») | 5.0 |
 | Info links | Акції · Бренди · Доставка · Повернення · Про нас | 8.x |
 | **Location** → city dialog | City chip opens a large **«Оберіть місто» dialog** (not a narrow dropdown): search + popular-city badges + full A–Z. Default by geo. Feeds delivery/availability + SEO city pages | 2.1a |
-| **Language** dropdown | Укр / Рус (hreflang, locale URLs) | — |
+| **Language** dropdown | Укр / Рус (hreflang, locale URLs) | – |
 
 #### City selector & canonical city list (LOCKED 2026-06-30)
 The location chip opens a **large modal dialog** (the list is long), containing - **simplified
