@@ -1519,3 +1519,152 @@ reads it when they are lost and skips it when they are not», every destination 
 from a control that does clear 44 (the header, the rail, the tab bar), and growing it would push the
 H1 down about 29px on fourteen screens to make a redundant path easier to hit. The same reasoning
 `link-row.css` already applied to `.auth-sub a`.
+
+## Step 8.8 - five things the owner saw on a phone, and one was two halves of one file
+
+All five were found by looking at the rendered screen. Each is measured before and after.
+
+### 1. 28px between the trail and the first card
+
+`.crumb` closes with `padding-bottom: 12` and `.acc` opened with `margin-top: 16`: **28px**, and
+neither rule knew the other existed. `listing` and `product` measure **0** there, because what
+follows their trail carries its own top padding. `breadcrumb.css` owns the air under the trail and
+declares it - 16 above, 12 below - so `.crumb + .acc` takes 0 and the grid keeps its 16 for any page
+that opens without a trail. Measured after: **16 -> 0** on coach-home and on account.
+
+### 2. The white panel behind the mobile chips, and it was not a background
+
+Owner: «у чипсов меню я би убрал белий фон подложку». Measured: the ground was **transparent**. What
+made the panel was a 12px radius and `--elevation-1`, declared in an **unscoped rule at the bottom of
+`account-shell.css`** - seventy lines below the structure block that had already written
+`border: 0; border-radius: 0` for exactly those widths. Two halves of one file deciding one box, and
+the later one won, so a soft card outline floated behind seven pills that each carry their own edge.
+The colour rule now lives inside the same `min-width: 960px` the vertical rail does. After: radius 0,
+shadow none, border 0 under 960.
+
+### 3. «Усі клієнти →» broke before its arrow
+
+Measured at 360: «Усі клієнти →» 91 x 44.8 and «Усі замовлення →» 128.8 x 44.8 - **two lines, with
+the arrow alone on the second**. The link was `flex: 0 1 auto`, so the row shrank the CONTROL and
+left the caption beside it at full width. It is `flex: none; white-space: nowrap` now, and the
+caption is what wraps, which is what a caption is for. After: all three headers one line.
+
+### 4. The restock row squeezed the sentence into a ribbon
+
+At 360 the row is 294 wide and held a 40 avatar, a 97.8 button and two 12 gaps, leaving the text
+**132.2px**: the name broke over two lines and the sentence ran five, for a row **180.7** tall.
+
+`flex-wrap` alone does nothing while every item still fits, and `min-width` alone was worse - with a
+basis of `auto` the sentence's max-content is what the row measures, so the text took a whole line of
+its own and the row grew to **195.2**. `flex: 1 1 200px` is the honest form: 200 is what the text
+needs, it grows into what is left, and the BUTTON is the item that drops. After: **143.2** and the
+name on one line. Above the breakpoint nothing moves - the three fit at their natural sizes and the
+wrap never fires.
+
+### 5. Every goal chip said «a goal» where the product says WHICH goal
+
+Owner: «у нас есть иконки под цели, я би их тут и использовал». There are - the catalogue overlay's
+«За ціллю» list has drawn one mark per goal since the prototype was built, and all six already have a
+drawing and a `UIV_EMOJI` row: 💪 trending · 🔥 flame · 🌿 leaf · ⚡ bolt · 🛡️ shield · 🏃 pulse. The
+client cards typed 🎯 for all of them. The generic target is right on «За ціллю», the ENTRY to the
+list; it is not right on a chip that names one.
+
+`uivGoalMarks` reads the chip's own label and looks it up in `WF_GOAL_MENU`, the map the product
+already keeps - so a client card added on another screen is answered the day it appears, and a
+seventh goal is answered by the row that defines it. It runs after `uivMarks`, so it only swaps the
+drawing inside a box that already exists: if it never runs, the chip keeps a correct generic mark
+rather than losing one.
+
+**And the same chip was optically misaligned.** It was `display: inline-block`, so the drawing was an
+inline box taking `vertical-align: middle` - centre at the baseline plus half an x-height, about 3px
+below the label's own centre at 12px. Measured: icon 699.34..711.94 against text 696.92..711.92, the
+bottoms agreeing and the tops not. `inline-flex` + `align-items: center` is what every chip in
+`chip.css` does and it asks no question about x-heights; the gap has to be declared with it, because
+`marks.js` keeps the space the author typed and that space collapses at the start of a flex line box.
+After: **6.3 above and 6.3 below, on all three chips.**
+
+### Acceptance
+
+51 screens at 390 and at 1280: zero failures. The ten rail screens still scroll their current chip
+into view. The three goal chips carry `trending`, `flame` and `pulse`.
+
+## Step 8.9 - the one link in the mega menu that did nothing
+
+Owner: «в чего у нас не подсвечивается в мега меню» - «Усі товари каталогу →».
+
+Walked with a real mouse, with the panel opened by its own `mega-pinned` class, and every reading
+guarded by `elementFromPoint`: measured at 1440, panel 940 x 625 at (244, 119).
+
+    .ms-lead        NO HOVER    ink, and nothing moves
+    .ms-link        ok          grey -> accent, underline appears
+    .mph            ok          ink -> accent
+    .ms-feat        ok          border -> --line-action
+    .mega-goalcard  ok          border -> --line-action
+    .mgchip         ok          ink -> accent
+
+**The loudest line in the shelf column was the only one that did nothing under the cursor** - and it
+is the way into the whole catalogue. `header.css` already keeps one answer for a text link in that
+panel, so `.ms-lead` joins the list rather than getting a rule of its own: fourth name, same
+declaration. Its arrow is a `currentColor` svg, so the mark moves with the word - the loud rung's own
+rule about a two-tone hover reading as a rendering bug. After: `rgb(28,28,28)` -> `rgb(255,90,0)`,
+word and arrow together.
+
+### Three attempts at the measurement answered about a point that was not there
+
+The first probe scanned `document.styleSheets` for `:hover` selectors and reported **no hover on any
+of the nine link families**, including three that demonstrably have one - it never saw rules nested
+in `@media`. The second used `CSS.forcePseudoState` and disagreed with itself: it said
+`.mega-goalcard` had no hover while the rule was right there in the file. The third moved a real
+mouse and reported `NO CHANGE` for `.ms-link`, `.mega-sub` and `.ms-feat` - because the panel had
+been forced visible with `style.display='block'` rather than opened, so those three sat **off-screen**
+and the cursor was over nothing.
+
+Only the fourth asks the honest question: open the panel the way the CSS does, then ask
+`elementFromPoint` whether the cursor is on the element, and **refuse to answer** where it is not.
+That is the third «instrument that cannot return no» this project has written down, and the first one
+caught before it was believed rather than after.
+
+### Acceptance
+
+51 screens at 390 and at 1280: zero failures.
+
+## Step 8.9b - two corrections on coach-home, and the first one was mine from an hour earlier
+
+### The wrap was written one level too high
+
+Owner: «тут что-то стало плохо, раньше было лучше, там напротив было имени».
+
+Step 8.8 fixed the restock card by putting `flex-wrap: wrap` on `.coach .cli` - and **two cards use
+that row**. The restock nudge needed it; the client summary did not. Measured on the summary after
+8.8: «Профіль →» left the name's line and dropped under the goal on all three rows, and the third row
+pushed its text below the avatar as well. A one-line row became three.
+
+`flex-wrap` now sits on `.coach .crestock .cli`, beside the two rules that were already scoped that
+way in the same edit - so the wrap was scoped correctly in two places out of three, in one sitting.
+Measured after: the summary row is back to **91.2** and `nowrap`; the restock row keeps its **143.2**
+and its wrap.
+
+Same fault this file records at 7.96 (`:first-of-type` matching nothing) and at 8.0 (`.ah + .cli`
+losing its match): a rule that answers one card's question, written where every card can hear it.
+
+### And a rule whose reason expired in the batch that wrote it
+
+Owner: «тут у нас попливли кнопки».
+
+`.coach .cord .co-sum` carried `align-items: baseline`, and the comment beside it gave the reason:
+«the money is the tallest thing in the line and the two buttons should sit on its baseline, not float
+against its box». That was true while the two actions were text LINKS at 78.04 x 19.20 - and **7.96
+turned them into buttons**, which the paragraph directly above records in its own words.
+
+Measured at 360 and 390: the money is 59.5 x 25.6 and each button is 40 tall, so the money became the
+SHORTEST thing in the line and `baseline` was hanging two 40px boxes off a 25.6px baseline. The row
+measured **44.1** where its own controls are 40. `center` is what the row was always describing.
+After: **40.00**, the money's centre on the buttons' centre.
+
+Neither of these is a new class of defect. Both are a REASON that stopped being true while the
+sentence stating it stayed on the page - which is the argument for writing the reason down at all,
+because a rule with no reason beside it cannot be caught this way.
+
+### Acceptance
+
+51 screens at 390 and the five rail screens at 1280: zero failures.

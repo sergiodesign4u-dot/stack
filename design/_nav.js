@@ -1631,6 +1631,41 @@ function uivAccount(){
     };
   }
   uivRailCurrent();
+  uivGoalMarks();
+}
+
+/* ---------- A GOAL CHIP SHOWS ITS OWN GOAL - step 8.8 ------------------------
+   Owner: «у нас есть иконки под цели, я би их тут и использовал». There are: the
+   catalogue overlay's «За ціллю» list has drawn one mark per goal since the
+   prototype was built, and all six already have a drawing and a `UIV_EMOJI` row -
+   💪 trending · 🔥 flame · 🌿 leaf · ⚡ bolt · 🛡️ shield · 🏃 pulse.
+   The client cards typed 🎯 for every one of them, so three chips on
+   coach-clients said «a goal» where the product elsewhere says WHICH goal. The
+   generic target is right on «За ціллю», the entry to the list; it is not right
+   on a chip that names one.
+
+   READ FROM THE LABEL, NOT FROM A LIST OF SCREENS. The chip's own text is the
+   goal's name, and `WF_GOAL_MENU` is the map the product already keeps - so a
+   client card added on another screen tomorrow is answered the day it appears,
+   and a seventh goal is answered by the row that defines it. Nothing here
+   restates a name or a glyph.
+
+   AFTER `uivMarks`, and that is why it is called from here rather than earlier:
+   the lead pass has by then taken the 🎯 out of the text and put a `.uiv-ic` in
+   its place, so this only swaps the drawing inside a box that already exists. If
+   the pass ever fails to run, the chip keeps a correct generic mark rather than
+   losing one. */
+function uivGoalMarks(root){
+  if(typeof WF_GOAL_MENU === 'undefined' || typeof uivIconSvg !== 'function') return;
+  var byName = {};
+  WF_GOAL_MENU.forEach(function(g){ byName[g.name] = UIV_EMOJI[g.ic]; });
+  (root || document).querySelectorAll('.ccard-goal').forEach(function(chip){
+    var key = byName[chip.textContent.trim()];
+    if(!key) return;
+    var box = chip.querySelector('.uiv-ic');
+    var svg = uivIconSvg(key);
+    if(box && svg && box.dataset.uivGoal !== key){ box.innerHTML = svg; box.dataset.uivGoal = key; }
+  });
 }
 
 /* ---------- THE RAIL NEVER SHOWED WHERE YOU WERE - step 8.7 ------------------

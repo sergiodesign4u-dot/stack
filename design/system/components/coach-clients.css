@@ -285,7 +285,20 @@
    neither of these is in the list, so deleting the rule leaves an unstyled span.
    Adding both names to that selector list is safe in both directions and is the
    same move 7.23 made for `.dr-chip` and `.mgchip`; it needs chip.css open. */
-.coach .ccard-goal{ display: inline-block; font-size: var(--fs-12);   /* grey 11 -> 12: 5.6, ties go UP (11 -> 12). See the fourteen-row block at the top */
+/* THE MARK AND THE LABEL SIT ON ONE CENTRE LINE - step 8.8, owner: «чипс набір
+   маси і іконка виглядть невирівняними». Measured at 390 before: the chip was
+   `display: inline-block`, so the drawing was an inline box taking
+   `vertical-align: middle` - which puts its centre at the baseline plus half an
+   x-height, and at 12px that is about 3px below where the label's own centre is.
+   Icon 699.34..711.94, text 696.92..711.92: the bottoms agreed and the tops did
+   not, which is exactly what «не вирівняні» looks like.
+   `inline-flex` + `align-items: center` is what every accepted chip in
+   `chip.css` does, and it asks no question about x-heights. The gap has to be
+   declared because of it: `marks.js` keeps the space the author typed and says
+   so, and that space collapses at the start of a flex line box. 4 is the rung
+   nearest the 3.3px the 12px face was painting. */
+.coach .ccard-goal{ display: inline-flex; align-items: center; gap: var(--space-4);
+  font-size: var(--fs-12);   /* grey 11 -> 12: 5.6, ties go UP (11 -> 12). See the fourteen-row block at the top */
   font-weight: var(--fw-bold); color: var(--text-primary);
   border: 1px solid var(--line-strong);   /* was 1.5px - see the header note */
   border-radius: var(--radius-pill); padding: var(--space-2) 10px;   /* [?] 10px has no rung; the ladder is 8/12 */

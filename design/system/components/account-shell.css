@@ -34,6 +34,16 @@
 .wt-st.base{ border-color: var(--line-inverse); color: var(--text-primary); }
 .wt-st.planned{ color: var(--mark-faint); border-style: dashed; border-color: var(--line-hair); }
 .acc{ display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-24); margin-top: var(--space-16); }
+/* ONE GAP, ONE DECISION - step 8.8, owner: «сильно много пустого пространства
+   между крошками и карточкой». Measured at 390 on coach-home and on account:
+   `.crumb` closes with `padding-bottom: 12` and `.acc` opened with
+   `margin-top: 16`, so 28px stood between the trail and the first card - and
+   neither rule knew the other existed. `listing` and `product` measure 0 there,
+   because what follows their trail carries its own top padding.
+   breadcrumb.css owns the air under the trail; it declares 16 above and 12 below
+   and that is the whole statement. The grid keeps its 16 for every page that
+   opens without a trail. */
+.crumb + .acc{ margin-top: 0; }
 @media (min-width: 960px){
   .acc{ grid-template-columns: 268px minmax(0, 1fr); gap: var(--space-32); }
 }
@@ -98,7 +108,14 @@
 .acard.span2{ grid-column: 1 / -1; }
 .acard .ah{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-12); margin-bottom: var(--space-12); }
 .acard .ah h3{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); }
-.acard .ah a, .acard .ah .lnk{ font-size: var(--fs-14); font-weight: var(--fw-bold); }
+/* THE LABEL AND ITS MARK ARE ONE LINE - step 8.8, owner: «усі кліенти и
+   стрелочка без переноса». Measured at 360: «Усі клієнти →» 91 x 44.8 and «Усі
+   замовлення →» 128.8 x 44.8 - both two lines, with the arrow alone on the
+   second. The link was `flex: 0 1 auto`, so the flex row shrank the CONTROL and
+   left the caption beside it at full width. The caption is the part that may
+   wrap: it is a caption. */
+.acard .ah a, .acard .ah .lnk{ font-size: var(--fs-14); font-weight: var(--fw-bold);
+  flex: none; white-space: nowrap; }
 .abonus .big{ line-height: var(--lh-flat); }
 .abonus .u{ font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-4); }
 .abonus .warn{ font-size: var(--fs-14); margin-top: var(--space-12); border: 1px dashed var(--line-strong); padding: var(--space-8) var(--space-12); }
@@ -130,7 +147,17 @@
 .acc-prof .ph{ font-family:var(--font-mono); font-size:var(--fs-12); }
 .acc-tier{  background:var(--bg-page); color:var(--text-body); }
 .acc-tier.free{ border-color:var(--line-strong); background:none; color:var(--text-secondary); }
-.acc-links{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
+/* THE PANEL IS THE DESKTOP RAIL'S, NOT THE CHIPS' - step 8.8, owner: «у чипсов
+   меню я би убрал белий фон подложку». It was not a background: this declaration
+   sat unscoped at the bottom of the file and put a 12px radius and `--elevation-1`
+   back onto a box whose STRUCTURE half, 70 lines up, had already written
+   `border: 0; border-radius: 0` for the same widths. Two halves of one file
+   deciding one box, and the later one won - so under 960 a soft card outline
+   floated behind seven pills that each carry their own edge.
+   The chips need nothing behind them; the vertical list is a panel and keeps it. */
+@media (min-width: 960px){
+  .acc-links{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
+}
 .acc-link{ border-color:var(--line-hair); transition:background .14s ease, color .14s ease, box-shadow .14s ease; }
 .acc-link .ic{ color:var(--text-secondary); font-size:0; }
 /* SIZE THE DRAWING, NOT SOMEBODY ELSE'S WRAPPER - step 7.24. This said

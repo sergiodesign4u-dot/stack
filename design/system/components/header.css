@@ -211,8 +211,24 @@
 .wfh-langmenu a.on::after{ color:var(--text-action); }
 .wfh-mega .mega-cat .mci .uiv-ic svg{ width:21px; height:21px; }
 .wfh-mega .mega-cat .ar .uiv-ic svg{ width:12px; height:12px; }
-.wfh-mega .mega-sub, .wfh-mega .ms-link, .wfh-mega .mph{ transition:color .12s ease; }
-.wfh-mega .mega-sub:hover, .wfh-mega .ms-link:hover, .wfh-mega .mph:hover{ color:var(--text-action); }
+/* A FOURTH NAME, `.ms-lead` - step 8.9, owner: «в чего у нас не подсвечивается в
+   мега меню». «Усі товари каталогу →» is the way into the whole catalogue, the
+   loudest line in the shelf column, and it was the ONE link in the panel that
+   did nothing under the cursor. Everything around it moves: `.ms-link` grey ->
+   accent with an underline, `.mph` ink -> accent, `.ms-feat` and
+   `.mega-goalcard` take `--line-action` on their border, `.mgchip` goes accent.
+   Walked with a real mouse, with the panel opened by its own `mega-pinned`
+   class and `elementFromPoint` asked whether the cursor was actually on the
+   element before either reading was taken - the first three attempts at this
+   measurement all answered about a point that was off-screen, which is the
+   «instrument that cannot return no» this project has recorded twice.
+   It joins the list rather than getting a rule of its own: the panel already
+   has one answer for a text link and this is the fourth name to take it. The
+   arrow is a `currentColor` svg, so the mark moves with the word - which is the
+   loud rung's own rule about a two-tone hover reading as a rendering bug. */
+.wfh-mega .mega-sub, .wfh-mega .ms-link, .wfh-mega .mph, .wfh-mega .ms-lead{ transition:color .12s ease; }
+.wfh-mega .mega-sub:hover, .wfh-mega .ms-link:hover, .wfh-mega .mph:hover,
+.wfh-mega .ms-lead:hover{ color:var(--text-action); }
 /* step 7.23: the mega chip's hover went with it, and changed on the way - it
    took the accent border and stopped the word at `--text-body`, while every
    other chip took the word to the accent too. One edition now. */

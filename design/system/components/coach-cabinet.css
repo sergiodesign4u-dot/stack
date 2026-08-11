@@ -355,6 +355,32 @@
 .coach .cli{ display: flex; align-items: center; gap: var(--space-12);
   padding: 11px 0;   /* [?] 11px has no rung; 8 and 12 are the neighbours */
   border-top: 1px solid var(--line-hair); }
+/* THE SENTENCE GETS A LINE INSTEAD OF A RIBBON - step 8.8, owner: «на мобильном
+   выглядит как-то не очень». Measured at 360 in the restock card: the row is 294
+   wide and holds a 40 avatar, a 12 gap, a 97.8 button and another 12 gap, so the
+   text column was left **132.2px**. «Андрій · Набір маси» broke over two lines
+   and the sentence under it ran five, for a row 180.7 tall.
+   `flex-wrap` alone does nothing while every item still fits, and `min-width`
+   alone was worse: with a basis of `auto` the sentence's max-content is what the
+   row measures, so the text box did not squeeze beside the avatar - it took a
+   whole line of its own and the row grew 180.7 -> 195.2. `flex: 1 1 200px` is
+   the honest form: 200 is what the text needs, it grows into whatever is left,
+   and the BUTTON is the item that drops. Above the breakpoint nothing moves -
+   the three fit at their natural sizes and the wrap never fires.
+   `margin-left: auto` keeps the button at the right edge of whichever line it
+   lands on. */
+/* AND THE WRAP IS THE RESTOCK CARD'S ALONE - corrected at 8.9, owner: «тут что-то
+   стало плохо, раньше было лучше, там напротив было имени». Step 8.8 put
+   `flex-wrap` on the BASE row and two cards use that row: the restock nudge, which
+   needed it, and the client summary, which did not. Measured on the summary after
+   8.8: «Профіль →» left the name's line and dropped under the goal on all three
+   rows, and the third row pushed its text below the avatar as well - the row went
+   from one line of name-and-way-out to three. A rule written for one card reached
+   the other because it was written one level too high, which is the same fault
+   this file records at 7.96 and 8.0 about `:first-of-type` and `.ah + .cli`. */
+.coach .crestock .cli{ flex-wrap: wrap; }
+.coach .crestock .cli .cinfo{ flex: 1 1 200px; }   /* [?] 200 is a width, not a step on the spacing ladder */
+.coach .crestock .cli .cgo-btn{ margin-left: auto; }
 /* THE RULE THAT MATCHED NOTHING, FIXED AT 7.96 - the same off-by-one
    restock-note.css documented at 7.60, third and fourth instance. It was
    `.cli:first-of-type`, and `:first-of-type` means «first among siblings of its
@@ -524,11 +550,21 @@
    again, but the break falls after «3» and no line starts with a middle dot.
    After, both rows: `Деталі` 65.8 x 40 and `↻ Повторити` 108.9 x 40 on the
    accent, against 78.04 x 19.20 twice.
-   `align-items: baseline` and not `center`: the money is the tallest thing in
-   the line and the two buttons should sit on its baseline, not float against
-   its box. */
+   `align-items: baseline` STOOD HERE AND ITS REASON EXPIRED IN THE SAME BATCH -
+   corrected at 8.9, owner: «тут у нас попливли кнопки». The line above says it:
+   «the money is the tallest thing in the line and the two buttons should sit on
+   its baseline». That was true while the two actions were text LINKS, 78.04 x
+   19.20 - and 7.96 turned them into buttons, which the paragraph above this one
+   records in its own words («the two links became BUTTONS, which is what they
+   always were»). Measured at 360 and 390 after that: the money is 59.5 x 25.6
+   and each button is 40 tall, so the money is now the SHORTEST thing in the
+   line, and baseline was hanging two 40px boxes off a 25.6px box's baseline -
+   which is what «попливли» looks like, and it made the row 44.1 tall where its
+   own controls are 40.
+   `center` is what the row was always describing: everything on one middle line.
+   After: row 40.00, and the money's centre on the buttons' centre. */
 .coach .cord .co-sum{ flex: 1 0 100%; display: flex; flex-wrap: wrap;
-  align-items: baseline; gap: var(--space-8); }
+  align-items: center; gap: var(--space-8); }
 .coach .cord .co-sum .cs-b{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary);
   margin-right: var(--space-4); }
 
