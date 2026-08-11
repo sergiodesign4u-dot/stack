@@ -14,7 +14,29 @@
 .ceact{ display: flex; gap: var(--space-12); margin-top: var(--space-16); }
 .ceact > *{ flex: 1; }   /* two controls, nothing else - step 7.9 */
 .cedel{ margin-top: var(--space-16); padding-top: var(--space-16); border-top: 1px solid var(--line-hair); }
-.cedel button{ display: inline-flex; align-items: center; gap: var(--space-8); font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); border: 1px solid var(--line-strong); border-radius: var(--radius-8); padding: var(--space-8) var(--space-16); background: none; cursor: pointer; }
+/* 7.96: `.cedel button` DELETED - eleven hand declarations (display, align-items,
+   gap, font-size, font-weight, color, border, border-radius, padding, background,
+   cursor), the fourteenth hand-made edition of the outline finish, drawn onto a
+   bare <button> that carried no class. button.css step 7.61 settled what this
+   control is: «the destructive control is the OUTLINE carrying the danger ink»,
+   and step 7.59 deleted address-card.css's nine declarations for its twin - the
+   address opener - for exactly this reason. This is the same button one dialog
+   over, and it was the last one still dressed by hand.
+
+   WHAT IT COST, measured at 390 with the dialog open on design/coach-client.html:
+   «🗑 Видалити клієнта» computed 14/700 in --text-primary on a --line-strong
+   edge, 179.58x40.39, while its twin «🗑 Видалити адресу» computed 14/700 in
+   --text-danger on a --line-danger edge, 162.08x40. The flow read QUIET INK and
+   then RED: the confirmation dialog behind this button was already dressed
+   correctly, so the only warning a coach got arrived after the press. Deleting a
+   client and deleting an address are the same weight of act and now look it.
+
+   Everything the eleven declarations said is in `.btn--outline` (inline-flex,
+   centred, gap 8, radius 8, cursor, 700), `.btn--s` (14px, min-height 40, padding
+   8/12, and 8/8 under 480) and `.btn--outline.btn--danger` (the ink and the
+   edge). `wireframes/_nav.js:983` gives the button those classes. What stays here
+   is what is genuinely the ROW's - `.cedel`'s separator above - and `.dn`, the
+   warning under it. */
 .cedel .dn{ font-size: var(--fs-12); color: var(--text-muted); margin-top: var(--space-8); line-height: var(--lh-airy); }
 .cedlg{ background: var(--bg-page); width: 100%; max-width: 400px; border: 1px solid var(--line-strong); border-radius: var(--radius-12);
   box-shadow: var(--elevation-4); padding: var(--space-24); text-align: center; margin: auto; }

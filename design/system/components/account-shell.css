@@ -79,6 +79,15 @@
     border-radius: var(--radius-pill); padding: 0 var(--space-8); color: var(--text-secondary);
  }
 }
+/* THE COACH CTA LOST ITS TOP MARGIN IN THE MOVE. `wfCoachNav()` emits
+   `.coach-newcta` between `.acc-prof` and `.acc-links`, and this file owns
+   everything else that function emits. Measured at 390 on coach-clients:
+   `.acc-prof` bottom 290.16, `.coach-newcta` top 290.16 - zero gap - then 12 to
+   `.acc-links`. wireframes/_wf.css:1130 gives it `margin-top: 12px`; the colour
+   layer never loads that file and the number was simply dropped. One line, and
+   it lands on every screen that calls the function - 3 coloured today
+   (coach-home, coach-clients, coach-orders), 17 grey behind them. */
+.coach-newcta{ margin-top: var(--space-12); }
 .acc-h1{ color: var(--text-primary); }
 .acc-sub{ font-size: var(--fs-14); margin-top: var(--space-4); }
 .acc-grid{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-16); }

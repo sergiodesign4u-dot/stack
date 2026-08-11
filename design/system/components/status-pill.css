@@ -32,6 +32,45 @@
    a CONTROL, a city you press to choose. It hovers, it is a `<button>`, and a
    status pill does none of that. Shape shared with a control is the button's
    argument, not this file's.
+
+   7.96 - THREE MORE NAMES, AND THEY ARE THE COACH'S. A13 brought eight coach
+   screens into colour and every one of them arrived carrying its own edition of
+   this pill, hand-drawn in its screen file. Read out of the runtime DOM at 390:
+
+     .oc-status   2  coach-client  coach-clients.css  L3  12/800  pad 2/9   no state
+     .co-status   2  coach-home    coach-cabinet.css  L3  12/800  pad 2/9   no state
+     .ord-status  4  coach-orders  coach-cabinet.css  L3  12/800  pad 2/10  .way
+
+   All three rendered «Доставлено» as ink on nothing inside a `--line-strong`
+   outline, so a delivered order, an order on its way and an order still being
+   processed were one picture on the coach's screens - while the buyer read the
+   same word two taps away as `--text-success` on `--bg-success-soft`. Seven names
+   now, and one shape behind all seven.
+
+   THE THREE NEW ONES ARE ON THE ROW RUNG. Each sits in an order card's own
+   header line (`.oc-top`, `.ord-h`) or directly under the order's meta line
+   (`.cord .co-info`), which is what 12 / 4-12 is for; 2/9 and 2/10 were on
+   neither rung and nobody chose them. `.co-status` also joins the top margin at
+   the foot of this file: it is the account pill's position exactly - a pill
+   stacked under the line above it - and it was carrying 7px, which is not a rung.
+
+   `.ord-status.way` IS `.go` UNDER ANOTHER NAME. «У дорозі» already carried a
+   state class in the frozen markup, so the amber needed no markup change at all,
+   only this file learning the word. The seven «Доставлено» pills carried no class
+   and that IS markup - it is the screens' half of this step, not this file's.
+
+   THIS FILE COULD NOT FINISH IT ALONE, and the other two halves landed in the
+   same step. Naming a class here is not enough when a screen file draws the same
+   box at (0,2,0) or (0,3,0) and level 3 loads after level 1: the coach pills
+   would have taken only what those blocks did not name - the leading, the nowrap,
+   the ground - and kept their ink, their padding and their edge from the screen.
+   Measured mid-step, that half state was real: 12px on a 2/9 padding, `--lh-snug`
+   applied, ground applied, ink still `--text-primary`. The hand blocks in
+   coach-clients.css and coach-cabinet.css were deleted and the markup took `ok`,
+   so the three now render off this file entirely. Verified at 390 and 360 on all
+   three screens: `--text-success` on `--bg-success-soft` with the
+   `--line-success-soft` edge, 99.91x25.59 - the same box, to the hundredth, as
+   `.oh-status.ok` in the buyer's own order history.
    ============================================================================ */
 
 /* ---------- the pill ---------------------------------------------------------
@@ -46,8 +85,11 @@
      inline 10     2 / 8     .rbadge
 
    `.aord-status` was 12px with the 10px padding and `.ci-oostag` was 10px with
-   the 12px padding - the two that crossed the ladder, one each way. */
-.oh-status, .rbadge, .aord-status, .ci-oostag{
+   the 12px padding - the two that crossed the ladder, one each way. The three
+   coach names added at 7.96 crossed it a third way: 12px with a 2/9 or 2/10
+   padding, which is the row's size on the inline rung's air. */
+.oh-status, .rbadge, .aord-status, .ci-oostag,
+.oc-status, .co-status, .ord-status{
   display: inline-block;
   font-weight: var(--fw-black);
   line-height: var(--lh-snug);
@@ -55,7 +97,8 @@
   border-radius: var(--radius-pill);
   white-space: nowrap;
 }
-.oh-status, .aord-status{ font-size: var(--fs-12); padding: var(--space-4) var(--space-12); }
+.oh-status, .aord-status,
+.oc-status, .co-status, .ord-status{ font-size: var(--fs-12); padding: var(--space-4) var(--space-12); }
 .rbadge, .ci-oostag{ font-size: var(--fs-10); padding: var(--space-2) var(--space-8); }
 
 /* ---------- the state ---------------------------------------------------------
@@ -68,18 +111,36 @@
    `--bg-success` (#F1F8F3, the calm success PLATE) while taking its border from
    `--line-success-soft`, the pill's border. Half of one pill and half of another,
    and the difference is under a percent of luminance - which is exactly why it
-   survived: nobody could see it, and the system said two things anyway. */
-.oh-status.ok, .aord-status, .rbadge{
+   survived: nobody could see it, and the system said two things anyway.
+
+   THE COACH'S THREE JOIN ALL FOUR SELECTORS, and one of the four needed nothing
+   but the word. `.ord-status.way` is `.go` under another name: «У дорозі» already
+   carried `way` in the frozen markup, so naming it beside `.go` was the whole
+   fix - no markup change, and the coach now reads the same amber the buyer does,
+   `rgb(138,90,14)` on `rgba(138,90,14,.06)`, measured on both screens.
+   `.ok` needed the markup, because a stylesheet cannot write a state a screen
+   does not declare: seven pills said «Доставлено» with no class at all. The
+   screens took `ok` in the same step - design/coach-client.html:79 and :106,
+   coach-home.html:106 and :114, coach-orders.html:72, :88 and :104.
+   The neutral keeps the three bare names anyway, and that is not spare rope: it
+   is what an unclassed pill lands on, and the alternative is ink over nothing,
+   which is exactly the state all seven were found in.
+   No `.wait` compound is written for the three: no coach pill says «Обробляється»
+   today, and if one ever does the bare name below already gives it the neutral.
+   A selector that matches nothing is not symmetry, it is a guess. */
+.oh-status.ok, .aord-status, .rbadge,
+.oc-status.ok, .co-status.ok, .ord-status.ok{
   color: var(--text-success);
   border-color: var(--line-success-soft);
   background: var(--bg-success-soft);
 }
-.oh-status.go{
+.oh-status.go, .ord-status.way{
   color: var(--text-warning);
   border-color: var(--line-bonus-soft);
   background: var(--bg-bonus-soft);
 }
-.oh-status, .oh-status.wait{
+.oh-status, .oh-status.wait,
+.oc-status, .co-status, .ord-status{
   color: var(--text-secondary);
   border-color: var(--line-strong);
   background: var(--bg-surface);
@@ -109,8 +170,13 @@
    discount.css make. The order row moves its pill into a grid area under 640, and
    that rule stays in order-row.css where the grid is declared. What is left here
    is the top margin the account's pill and the review's pill both take, which is
-   the same 8 and was written twice. */
-.aord-status, .rbadge{ margin-top: var(--space-8); }
+   the same 8 and was written twice.
+   7.96: THREE TIMES, and the third was 7px. `.co-status` sits under the order's
+   meta line in the cabinet's «Останні замовлення» card - the account pill's
+   position exactly - and coach-cabinet.css:232 gave it a 7 that is not on the
+   ladder. The other two coach pills take no top margin: they are baseline items
+   in their card's header row (`.oc-top`, `.ord-h`), not stacked under anything. */
+.aord-status, .rbadge, .co-status{ margin-top: var(--space-8); }
 @media (max-width: 639px){
   .oh-status{ grid-area: stat; justify-self: start; margin-top: var(--space-4); }
 }

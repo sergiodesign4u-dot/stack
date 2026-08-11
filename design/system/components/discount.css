@@ -87,18 +87,28 @@
   color: var(--text-secondary);
 }
 
-/* ---------- the ninth name, still grey --------------------------------------
-   `.wtag` is the coach session's edition of the tier chip - «гурт» again, and 0
-   instances in colour, because those screens have no coloured twin yet. Named
-   here for the reason `.cprice` is named in price.css: on Крок 6 the row should
-   arrive holding the atom rather than being re-derived from the grey file.
+/* ---------- the ninth name, and it is drawing now -------------------------
+   `.wtag` is the tier chip on a coach's line - «гурт». This block used to open
+   «0 instances in colour, because those screens have no coloured twin yet» and
+   that stopped being true at 7.95. Counted at 7.96: THIRTEEN instances on three
+   coloured screens - cart-coach 4, coach-session 5, coach-client 4 - and zero on
+   design/cart.html or any of the 40 buyer screens.
+   It was not drawing even so. `coach-session.css` held `.coach .cprice .wtag` at
+   (0,3,0) with its own colour and margin, so this rule lost every contest it
+   entered and the chip was assembled out of two files at once - family and
+   leading from here, everything else from a screen. That override was deleted at
+   7.96 and the ink moved --text-primary -> --text-secondary with it, said out
+   loud as a decision: the chip labels a figure, it is not the figure.
 
-   IT KEEPS A BORDER AND THE OTHERS DO NOT, and that is the row talking: `.wtag`
-   stands at the end of a client line rather than inside a price block, with no
-   struck figure beside it to say «this group is about the price». An edge is what
-   makes it read as a chip out there. Merging the two shapes is a look decision
-   with 2 rendered instances behind it, and it waits for the coach flow to have a
-   colour layer to be looked at in.
+   THE BORDER NOW HAS NO STATED REASON, and the old one has to go rather than be
+   left standing. It read: `.wtag` «stands at the end of a client line rather
+   than inside a price block, with no struck figure beside it». Read out of the
+   markup on all three screens, that is false - the element is
+   `<div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div>`,
+   inside the price block, with the struck figure immediately before it. So the
+   edge is either right for a reason nobody has written down yet, or it is the
+   last difference between this chip and the two beside it and it goes. Thirteen
+   rendered instances to look at now, which is what the old note was waiting for.
    `--font-body` replaces the literal `'Inter', sans-serif` this file carried:
    the token has the system fallbacks after Inter, the literal had only
    `sans-serif`. Four components still write it. */

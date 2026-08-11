@@ -128,7 +128,11 @@
 .aord-thumbs .t, .oh-thumbs i{ background:var(--bg-page) center/78% no-repeat; color:transparent; }
 .ob-line .ph{ background:var(--bg-page) center/78% no-repeat; color:transparent; }
 .ln-nm{ color:var(--text-body); }
-.ln-calc, .ln-tot{ font-family:var(--font-mono); }
+/* `.ln-tot` LEFT for price.css at 7.96 - it had the family and neither the
+   tabular figures nor the ₴ kerning, which is half of one rule kept in two
+   files. `.ln-calc` is «2 x 1 290 ₴», an arithmetic line rather than a price
+   surface, so it stays here with the family alone. */
+.ln-calc{ font-family:var(--font-mono); }
 .ob-del{  border-radius:var(--radius-12); background:var(--bg-surface); }
 .aord-info .no{ font-family:var(--font-mono); }
 .aord-info .meta{ color:var(--text-secondary); }
@@ -139,8 +143,11 @@
    the accent fill with an ink label. All three are visible changes on
    account-orders and all three are in the step's log. */
 .ord{  border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
-.oh-no, .oh-date, .oh-sum{ font-family:var(--font-mono); }
-.oh-sum{ font-weight:var(--fw-semibold); word-spacing:-.24em; }
+.oh-no, .oh-date{ font-family:var(--font-mono); }
+/* the family, the tabular figures and the kerning are price.css's, which took
+   `.oh-sum` at 7.96. The WEIGHT stays: it is what this surface says about its
+   own total, not what the money face says about digits. */
+.oh-sum{ font-weight:var(--fw-semibold); }
 .oh-drop{  color:var(--text-secondary); transition:border-color .14s ease, color .14s ease; }
 .ord-h:hover .oh-drop{ border-color:var(--line-action); color:var(--text-action); }
 .ord.open .oh-drop{ border-color:var(--line-action); color:var(--text-action); }

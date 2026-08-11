@@ -60,8 +60,23 @@
    Starts at `--line-strong` and not `--line-hair`, and that is the rung, not a
    near-miss: four of these sit side by side with 8px between them, so the edge
    is the only thing separating one option from the next. A row has the width of
-   the page to do that with. */
-.vopt{
+   the page to do that with.
+
+   `.opt-tile` JOINED IT AT STEP 7.96, and coach-verify.css asked for exactly
+   this in its own words: «radio.css must answer to `.opt-tile` the way it
+   already answers to `.co-opt`, `.vopt` and `.pf-lang` - one name added to a
+   selector list, never a rename. That is a one-line edit to radio.css and it is
+   not this file's to make.» It was nobody's to make, so the type of coach - the
+   one value that screen exists to collect - rendered as three lines of 16px
+   plain text with no edge and no chosen state, 312 x 25.6 against the rung's 41.
+   NOT in the `.off` selector: `.vopt.off` is a flavour that is out of stock, and
+   a type of coach cannot be out of stock.
+   AND THE SUB-LABEL IS NEW HERE. `.vopt` is one word - a flavour - so the family
+   had never met an option that names itself and then explains itself. The tile's
+   `<small>` is the explanation, so it takes its own line and the quiet ink; the
+   tile is the only member with one, and when a second appears this is the rule
+   it should share rather than restate. */
+.vopt, .opt-tile{
   display: inline-flex; align-items: center;
   border: 1px solid var(--line-strong); border-radius: var(--radius-8);
   padding: var(--space-8) var(--space-12);
@@ -76,8 +91,8 @@
    while its twins did. One sentence now, two values, because the two rungs rest
    on two different edges. */
 .co-opt:hover, .pf-lang:hover{ border-color: var(--line-strong); }
-.vopt:hover{ border-color: var(--line-inverse); }
-.co-opt.on:hover, .pf-lang.on:hover, .vopt.on:hover{ border-color: var(--line-action); }
+.vopt:hover, .opt-tile:hover{ border-color: var(--line-inverse); }
+.co-opt.on:hover, .pf-lang.on:hover, .vopt.on:hover, .opt-tile.on:hover{ border-color: var(--line-action); }
 
 /* ---------- press: the ground, not the edge - step 7.33 ----------------------
    Every state this family had moved a BORDER, and a border is a cursor answer:
@@ -93,11 +108,12 @@
    inert cells are. */
 .co-opt:not(.on):active,
 .pf-lang:not(.on):active,
-.vopt:not(.on):not(.off):active{ background: var(--bg-action-soft); }
+.vopt:not(.on):not(.off):active,
+.opt-tile:not(.on):active{ background: var(--bg-action-soft); }
 
 /* ---------- chosen: ONE edition, and it is the accent ----------------------- */
 .co-opt.on, .pf-lang.on{ border-color: var(--line-action); background: var(--bg-action-soft); }
-.vopt.on{ border-color: var(--line-action); background: var(--bg-page); color: var(--text-body);
+.vopt.on, .opt-tile.on{ border-color: var(--line-action); background: var(--bg-page); color: var(--text-body);
   /* the compact rung has no circle, so its edge doubles to carry the state -
      an inset ring rather than a second border, which would move the box */
   box-shadow: inset 0 0 0 1px var(--line-action); }
@@ -134,10 +150,10 @@
    role and no tabindex. `design/_nav.js` gives them the roles and the arrow keys;
    this line is what the eye needs once they are reachable.
    `:focus-visible`, not `:focus`, so a mouse press does not light it up. */
-.co-opt:focus-visible, .vopt:focus-visible, .pf-lang:focus-visible{
+.co-opt:focus-visible, .vopt:focus-visible, .opt-tile:focus-visible, .pf-lang:focus-visible{
   outline: none; box-shadow: var(--ring-focus-control);
 }
-.vopt.on:focus-visible{ box-shadow: inset 0 0 0 1px var(--line-action), var(--ring-focus-control); }
+.vopt.on:focus-visible, .opt-tile.on:focus-visible{ box-shadow: inset 0 0 0 1px var(--line-action), var(--ring-focus-control); }
 /* the language row keeps a real hidden input, and it is the one family that was
    already right. Its focus lands on the label, so the input must not take it. */
 .pf-lang input{ position: absolute; opacity: 0; pointer-events: none; }
@@ -148,6 +164,11 @@
 .co-opt .otd{ display: block; font-size: var(--fs-12); margin-top: var(--space-2); color: var(--text-secondary); }
 .co-opt .op{ font-size: var(--fs-14); white-space: nowrap;
   font-family: var(--font-mono); font-weight: var(--fw-semibold); color: var(--text-secondary); word-spacing: -.1em; }
+/* the tile names itself on the first line and explains itself on the second */
+.opt-tile{ flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+.opt-tile small{ display: block; font-size: var(--fs-12); font-weight: var(--fw-medium);
+  color: var(--text-secondary); }
+.opt-tile.on small{ color: var(--text-secondary); }
 /* a row that is not chosen hides whatever it would have opened underneath */
 .co-opt:not(.on) + .co-sub{ display: none; }
 

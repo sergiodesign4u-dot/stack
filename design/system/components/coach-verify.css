@@ -14,6 +14,9 @@
    and the atoms are removed is nine deltas on somebody else's component, and
    nine deltas do not earn a file; they earn a named section inside the coach
    flow's own file, where the next reader of the coach screens will find them.
+   7.96 took that further: of the two rules the section still carried, one was
+   dead and is deleted, and the one that survives is named as homeless. Section
+   2 is now a single rule and its own argument for where it should go.
 
    THE GREY NAMES AND THE ROLES THEY BECAME. The grey prototype's palette is
    value-named and does not exist in the system, so each one was translated by
@@ -29,6 +32,13 @@
        --dark    #161616 «selected / primary»  -> --bg-inverse / --line-inverse
        #fff on a light ground                  -> --bg-page
        #fff / #ddd on a dark ground            -> --text-oninverse / -muted
+
+   ONE ROW OF THAT TABLE NO LONGER HOLDS, and 7.96 is where it stopped: `--dark`
+   meant «selected / primary» in ONE value, and the coloured product splits those
+   two jobs. Where it meant PRIMARY it is still the inverse pair; where it meant
+   SELECTED - `.cv-step.on` and its disc - it now reads --bg-action /
+   --line-action, the same tokens `.btn--accent` reads. See the note on that rule
+   for the two files that had already decided it.
 
    `--strong` splits in two on purpose, the way tokens.css says the pair exists
    to: --text-primary where the string is a HEADING or a label of a block,
@@ -46,7 +56,54 @@
    structure, kit.css for colour. These two screens were never coloured, so
    kit.css has no edition of them and there is no second half to copy. The
    colour below is the first-ever translation of the grey, and where it implies
-   a look rather than a value it says so and hands the look to stage 09. */
+   a look rather than a value it says so and hands the look to stage 09.
+   STEP 7.96 CLOSED FOUR OF THOSE OPEN LOOKS, and each one is marked in place
+   with what it measured before and after: the aside's ground, the H1's face,
+   the chosen step's colour, and the city control's second edition of a button.
+
+   WHAT THIS FILE OWNS, said out loud at 7.96 because two squatters are leaving
+   it. It owns `design/coach-verify.html` and the coach's deltas on the cart
+   drawer, and nothing else. A rule whose selector cannot be found on one of
+   those two pages does not belong here - `.cd-total span small` was addressing
+   an element `cart-coach.html` stopped writing this step, and `.ci:last-child`
+   addresses a row `cart-drawer.css` groups. Both were written where the person
+   was standing rather than where the thing lives. Section 2 says what happened
+   to each. */
+
+
+/* ==========================================================================
+   NINE TYPE SIZES IN THIS FILE WERE SNAPPED TO A RUNG BY THE MOVE, AND A MOVE
+   IS NOT ALLOWED TO DO THAT. Recorded at 7.96 as ONE open decision for stage
+   09 and deliberately NOT acted on: the standing rule is «never round it
+   silently», and where the ladder lands is the owner's call, not a repair's.
+   The values below are unchanged by 7.96. Only the notes beside them are.
+
+       grey, wireframes/coach-verify.html     what this file declares now
+       .cv-step .n           11               --fs-12
+       .fhint                11.5             --fs-12
+       .cv-step b            12.5             --fs-14   skips the 12 rung
+       .cv-aside li          12.5             --fs-14   skips the 12 rung
+       .cv-alt               12.5             --fs-14   skips the 12 rung
+       .cv-aside .vtag       13               --fs-14
+       .cv-lead              13.5             --fs-14
+       .cv-aside .vtag b     14.5             --fs-14   <- DOWN, the rare one
+       .city-chip            15               16, and the declaration is gone:
+                                              button.css draws it from 7.96
+
+   IT IS BATCH-WIDE AND NOT THIS SCREEN'S TASTE: 73 sizes moved across the five
+   coach files at 7.95, 71 up and 2 down, eighteen of them 12.5 -> 14, which
+   skips 12 entirely. The review counted nine moved sizes here against twelve
+   notes describing a size as untouched - the worst ratio of the five.
+   `.cv-aside .vtag b` is called out on its own line because it is one of only
+   TWO in the whole batch that went down. The owner should see that the sweep
+   was not uniformly upward: a rounding that goes both ways is a slip, not a
+   policy, and it cannot be undone by one rule.
+   WHY NOBODY CAUGHT IT: every GEOMETRY literal in the same files stayed a
+   literal with a real note beside it - 92, 10, 9, 22, 6, 20, 7, all still
+   written as the grey wrote them. The file looks scrupulous because on the
+   other axis it is. Each of the nine notes below now says the grey value, the
+   declaration standing today, and that a move took it rather than a decision.
+   ========================================================================== */
 
 
 /* ==========================================================================
@@ -89,26 +146,51 @@
    [?] 9px has no rung; the ladder is 8/12. */
 .coach .cv-step{ flex: 1; min-width: 92px; border: 1px solid var(--line-strong); border-radius: 10px; padding: 9px var(--space-12); font-size: var(--fs-12); color: var(--text-secondary); background: var(--bg-page); }
 /* [?] 18px has no rung; the size ladder is 20/24/26/30/32/34/38/40/44/46/52/64.
-   [?] 11px has no rung; the type scale is 10/12/14/16/18/20/24/30/34.
+   [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 11px, which has no
+   rung (the scale is 10/12/14/16/18/20/24/30/34), and this line declares
+   --fs-12. Nobody decided that; 7.95 rounded it while translating. One of the
+   nine in the block at the top of this file - not reverted here.
    [?] 7px has no rung; the ladder is 4/8.
    `--fw-black` and not the literal 800: the token IS the name for «the heaviest
    thing in its block», which is what 800 meant here, and it resolves to 700
    because no 800 face is loaded on any product page (tokens.css 7.63-7.65).
    The number this line drew has not changed. */
 .coach .cv-step .n{ display: inline-flex; width: 18px; height: 18px; border-radius: var(--radius-circle); border: 1px solid var(--line-strong); align-items: center; justify-content: center; font-size: var(--fs-12); font-weight: var(--fw-black); margin-right: 7px; color: var(--text-secondary); }
-/* [?] 12.5px is a half pixel and the scale has none; the rungs are 12 and 14.
-   Step 5.6 deleted six half-pixel sizes from the product by an owner's call and
-   this one survived inside a screen. */
+/* [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 12.5px, a half
+   pixel the scale has none of, and this line declares --fs-14 - which skips the
+   12 rung sitting just as close on the other side. Step 5.6 deleted six
+   half-pixel sizes from the product by an owner's call, this one survived
+   inside a screen, and 7.95 resolved it on its own. One of the nine in the
+   block at the top - not reverted here. */
 .coach .cv-step b{ display: block; color: var(--text-primary); font-weight: var(--fw-black); font-size: var(--fs-14); margin-top: var(--space-4); }
-/* THE CURRENT STEP IS INK, AND THE COLOURED PRODUCT SAYS «CHOSEN» IN ACCENT.
-   `--dark` was the grey prototype's single «selected / primary» value, so it
-   translates by value to --line-inverse / --bg-inverse. But radio.css 7.29 and
-   chip.css 7.23 both settled the same question the other way for the coloured
-   layer - «ACCENT IS WHAT CHOSEN LOOKS LIKE» - and a progress step that says
-   «you are here» is the same statement. Translating by value is what this move
-   is allowed to do; the look is stage 09's, with the type stand open. */
-.coach .cv-step.on{ border-color: var(--line-inverse); }
-.coach .cv-step.on .n{ background: var(--bg-inverse); border-color: var(--line-inverse); color: var(--text-oninverse); }
+/* THE CURRENT STEP MOVES ONTO THE ACTION COLOUR - 7.96, and this is the look
+   the move at 7.95 left open in the paragraph below.
+   MEASURED BEFORE: the chosen tile's edge was `1px solid rgb(28,28,28)` and its
+   `.n` an ink disc, rgb(28,28,28) with white ink - and rgb(255,90,0) appeared
+   NOWHERE inside `.cv-steps` or `.cv-card`. So the loudest object above the
+   fold was a progress marker, while the one action of the screen sat 1545.7px
+   down the page at 390. The screen was pointing at where you are instead of at
+   what to do.
+   `--dark` was the grey prototype's single «selected / primary» value and the
+   move was only allowed to translate it by VALUE. Two files had already closed
+   this exact question for the coloured layer - radio.css 7.29 and chip.css 7.23,
+   both «ACCENT IS WHAT CHOSEN LOOKS LIKE» - and «you are here» is that same
+   statement, so the third file follows the two rather than inventing a fourth
+   answer. The disc reads the three tokens `.btn--accent` reads and no new ones:
+   --bg-action / --line-action / --text-oninverse.
+   AFTER: edge rgb(255,90,0), disc rgb(255,90,0) with white ink, tile height
+   unchanged at 65.6 - this is a colour move, not a geometry one.
+   CONTRAST, computed from the two tokens rather than assumed: --text-oninverse
+   (#FFFFFF) on --bg-action (#FF5A00) is 3.13:1. That clears the 3:1 AA asks of
+   a non-text UI object and does NOT clear the 4.5:1 it asks of 12px type, and
+   it is the product's own accent pair - the same white-on-Signal-Orange every
+   `.btn--accent` already ships in 31 places, not a new pair invented here. What
+   carries the step's meaning is the `<b>` beside the disc («Заявка»), which is
+   --text-primary on --bg-page at 17:1; the numeral only repeats the position
+   the label already states. The tile keeps its --bg-page ground, the way
+   radio.css's `.opt-tile.on` does - accent on the edge, not under the words. */
+.coach .cv-step.on{ border-color: var(--line-action); }
+.coach .cv-step.on .n{ background: var(--bg-action); border-color: var(--line-action); color: var(--text-oninverse); }
 /* the step behind you: filled, not marked. --fill was the grey rail/chip fill */
 .coach .cv-step.done .n{ background: var(--bg-sunken); }
 
@@ -136,29 +218,59 @@
 /* THIS PANEL IS THE AUTH DIALOG'S VISUAL HALF, BUILT A SECOND TIME.
    `.cv-aside` carries `.vlogo`, `.vtag` and `.vtag b` - the auth dialog's own
    child names, which auth-dialog.css draws under `.auth-visual` - and the
-   ground is the same 45-degree hatch, same 10px pitch, same 20px period. The
+   ground WAS the same 45-degree hatch, same 10px pitch, same 20px period. The
    screen's own header comment says it: «Reuses the auth form vocabulary». Two
    files, one device, and the child names are already shared, so a rule written
    for one of them under a bare `.vtag` would land on both.
-   The hatch reads the two roles auth-dialog.css reads: #fafafa is --warm-50
-   exactly, which is --bg-surface, and #f2f2f2 is the grey prototype's cold twin
-   of the hatch stop the coloured product already names --bg-hatch. The 10px and
-   20px stops are the pattern's own geometry, not spacing, and stay literal for
-   the same reason auth-dialog.css keeps them.
+   THE HATCH IS GONE - 7.96 - AND IT WAS SAYING «NO PICTURE YET». tokens.css
+   names --bg-hatch «the diagonal stripe of a HATCHED PLACEHOLDER», so the
+   ground this panel wore was the system's own mark for an image that has not
+   arrived. This panel is not a missing image: it is the trust argument of the
+   screen, the three reasons a coach fills the form in at all.
+   MEASURED BEFORE, at 390: `repeating-linear-gradient(45deg, rgb(250,249,247),
+   rgb(250,249,247) 10px, rgb(233,231,226) 10px, rgb(233,231,226) 20px)` across
+   a box 356 x 442.1, starting 252.8px down the page and standing AHEAD of the
+   H1 - 442 pixels of placeholder texture before the first word of the screen.
+   The coloured edition of the same device settled it already, and settled it
+   the same way: auth-dialog.css writes this identical hatch in its structure
+   half (line 25) and then overwrites it in its colour half (line 122) with a
+   real ground, at the only width where that panel is visible at all. The hatch
+   has never drawn in the coloured product; here it was the untranslated grey.
+   AFTER: a plain --bg-surface, which is the gradient's own FIRST stop
+   (rgb(250,249,247)) - the panel keeps the warm plate that sets it off from the
+   white card and loses the stripe. Geometry untouched: still 356 x 442.1 at 390
+   and 326 x 442.1 at 360.
+   WHAT THIS DOES NOT FIX, and it is the owner's call, not a stylesheet's: the
+   panel still comes FIRST in the DOM, so on a phone the H1 «Стати тренером»
+   starts 716.8px down the page - identical at 390 and at 360, and below an
+   844px fold at both. Reordering it, or folding it under the form, moves a
+   trust argument the screen was built around; that is a decision, and it is
+   named here rather than taken by a colour fix.
    [?] 22px has no rung; the ladder is 16/24. */
-.coach .cv-aside{ padding: 22px; background: repeating-linear-gradient(45deg,var(--bg-surface),var(--bg-surface) 10px,var(--bg-hatch) 10px,var(--bg-hatch) 20px); border-bottom: 1px solid var(--line-hair); }
+.coach .cv-aside{ padding: 22px; background: var(--bg-surface); border-bottom: 1px solid var(--line-hair); }
 /* 38% and not a length: the panel is a ratio of the card. auth-dialog.css gives
    its own visual half 44%. Two devices, two proportions, and neither is written
    down anywhere as a decision - stage 09. */
 @media (min-width: 760px) { .coach .cv-aside{ width: 38%; flex: none; border-bottom: none; border-right: 1px solid var(--line-hair); display: flex; flex-direction: column; justify-content: space-between; } }
 .coach .cv-aside .vlogo{ font-size: var(--fs-20); font-weight: var(--fw-black); color: var(--text-primary); letter-spacing: var(--ls-display); }
-/* [?] 13px has no rung; the scale is 12/14. */
+/* [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 13px, which has no
+   rung (the scale is 12/14), and this line declares --fs-14. One of the nine in
+   the block at the top - not reverted here. */
 .coach .cv-aside .vtag{ font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-16); }
-/* [?] 14.5px is a half pixel; the rungs are 14 and 16. */
+/* [?] THE TYPE MOVED DOWNWARD HERE, AND IT IS ONE OF ONLY TWO IN THE WHOLE
+   BATCH THAT DID: the grey wrote 14.5px, a half pixel between the 14 and 16
+   rungs, and this line declares --fs-14. The heading of a benefit block got
+   half a pixel SMALLER while eight sizes around it got bigger, which is the
+   clearest evidence that the batch was a rounding rather than a decision. One
+   of the nine in the block at the top - not reverted here. */
 .coach .cv-aside .vtag b{ color: var(--text-primary); display: block; font-size: var(--fs-14); margin-bottom: var(--space-4); }
 /* [?] 9px has no rung; the ladder is 8/12. */
 .coach .cv-aside ul{ list-style: none; margin: var(--space-16) 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
-/* [?] 12.5px is a half pixel; the rungs are 12 and 14. */
+/* [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 12.5px, a half
+   pixel, and this line declares --fs-14 - skipping the 12 rung that stands the
+   same half pixel away. The three benefit lines are a pixel and a half bigger
+   than the screen they came from. One of the nine in the block at the top - not
+   reverted here. */
 .coach .cv-aside li{ font-size: var(--fs-14); color: var(--text-secondary); display: flex; gap: var(--space-8); align-items: flex-start; }
 /* the tick in front of a benefit. It is a typed glyph in the markup, which is
    the edition checkbox.css 7.38 replaced with a drawn one for the same reason:
@@ -170,16 +282,30 @@
 .coach .cv-body{ flex: 1; min-width: 0; padding: 22px; }
 /* [?] 30px and 34px have no rung; the ladder is 24/32/40. */
 @media (min-width: 760px) { .coach .cv-body{ padding: 30px 34px; } }
-/* THE TYPE OF THIS HEADING IS THE ONE THING THE MOVE COULD NOT ANSWER. Every
-   H1 in the coloured product is `--font-display` at `--fw-semibold` with
-   `--ls-lead` - .cd-head h1, .cd-empty .et, .cart-behind h2, .cg-nm, all of
-   them - and that pairing came from kit.css, which never had an edition of this
-   screen. Adding Oswald here would be inventing the colour half rather than
-   moving it. Left as the grey wrote it, and it is the first thing to settle
-   when this screen is coloured. */
-.coach .cv-body h1{ font-size: var(--fs-24); font-weight: var(--fw-black); color: var(--text-primary); letter-spacing: var(--ls-lead); }
-/* [?] 13.5px is a half pixel; the rungs are 14 and 12, and 14 is what the
-   product's other 13.5s became at 5.6.
+/* THE TYPE OF THIS HEADING WAS THE ONE THING THE MOVE COULD NOT ANSWER, AND
+   7.96 ANSWERS IT - not by taste, but because two ACCEPTED screens of exactly
+   this shape already agree, and a third file disagreeing with both of them is
+   the drift this stage exists to end. The shape is «one H1 at the top of a
+   one-column form», and both twins write the same five declarations:
+       checkout-form.css  .co-h1    --font-display --fw-semibold --fs-30 --ls-lead --text-body
+       auth-dialog.css    .auth-h1  --font-display --fw-semibold --fs-30 --ls-lead --text-body
+   MEASURED BEFORE: Inter 700 24px, letter-spacing -0.24px, box 312 x 38.4 at
+   390 - the only page heading left in the coloured product wearing the BODY
+   face. AFTER: Oswald 600 30px, letter-spacing -0.3px, the four values above.
+   THE COLOUR IS THE ONE VALUE NOT COPIED, and that is deliberate rather than an
+   oversight: both twins say --text-body, this line says --text-primary, and the
+   two roles resolve to the same --warm-900 today. The translation table at the
+   top of this file assigns a HEADING to --text-primary and running text to
+   --text-body, on purpose, so that the pair can part company later. The pixel
+   is identical either way; the role stays the one this file already declared,
+   and which of the two an H1 should read is a question for the whole product,
+   not for this screen. */
+.coach .cv-body h1{ font-family: var(--font-display); font-size: var(--fs-30); font-weight: var(--fw-semibold); color: var(--text-primary); letter-spacing: var(--ls-lead); }
+/* [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 13.5px, a half
+   pixel, and this line declares --fs-14. 14 is also what the product's other
+   13.5s became at 5.6 - which makes this the most defensible of the nine and
+   still not a decision anyone took for THIS line. One of the nine in the block
+   at the top - not reverted here.
    [?] 22px has no rung; the ladder is 16/24.
    [?] 1.55 is not on the leading ladder (1 / 1.3 / 1.6). tokens.css records the
    base rhythm moving from 1.55 to 1.6 «deliberately, and said out loud, because
@@ -208,10 +334,13 @@
    own header as «not a rung of the scale». The atom draws 44 tall, 1px
    --line-strong, --radius-12, --fs-16, and a focus that is the accent edge plus
    --ring-focus.
-   WHAT THIS COSTS: the frozen wireframe writes `class="txt-field"` alone, so
-   the coloured copy of this screen must write `class="field txt-field"`, the
-   way the kit page already does. That is markup, and markup is where it
-   belongs - not a second box in a screen's stylesheet.
+   IT HAPPENED AT 7.96, and this paragraph records it rather than asking for it
+   again: `design/coach-verify.html:64` writes `class="field txt-field"` now,
+   the way design/kit/field.html always did. Measured at 390, the grey screen
+   against the coloured one: the name field was 312 x 46 with a 10px radius,
+   13/12 padding and a 15px face; it is 312 x 44, --radius-12, 8/12 padding,
+   --fs-16 - the atom's own height, on the ladder. The screen kept the
+   `.txt-field` hook and lost its second box.
 
    `.link-field`, `.link-field .pre`, `.link-field input` and
    `.link-field input:focus` are DELETED. That is `.field-grp` and `.ph-field
@@ -222,32 +351,81 @@
    mechanics, drawn a third time. Its `input:focus{ outline: none }` with no
    ring on the wrapper is the exact bug the atom's `:focus-within` exists to
    stop: this control could be focused and say nothing at all.
+   IT HAPPENED AT 7.96 TOO. `design/coach-verify.html:84-86` writes
+   `<div class="field-grp link-field"><span class="cc pre">🔗</span><input
+   class="field" ...>`. Measured at 390: the wrapper was 312 x 49.69 with the
+   input 267 x 43 inside it and no ring anywhere on focus; it is 312 x 44 with
+   the input 290 x 42, one box, one focus ring on the wrapper. The field grew
+   23px of usable line and the control lost 5.69px of height it had from
+   drawing a border twice.
 
    `.fhint` STAYS, below, and it is the one field-adjacent rule that is not the
    atom's - field.css's own section header draws that line: «WHERE a field
    stands - layout that belongs to the block, not to the atom». It is a third
    edition of the same sentence all the same: goal-tile.css has `.goalcta .hint`
    at --fs-14/--text-secondary for the same job. Крок 6. */
-/* [?] 11.5px is a half pixel; the rungs are 12 and 10.
+/* [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 11.5px, a half pixel
+   between the 10 and 12 rungs, and this line declares --fs-12. One of the nine
+   in the block at the top - not reverted here.
    [?] 6px has no rung; the ladder is 4/8.
    [?] 1.5 is not on the leading ladder (1 / 1.3 / 1.6). */
 .coach .fhint{ font-size: var(--fs-12); color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
 
 /* city chip -> dialog */
-/* THE PRODUCT ASKS FOR A CITY IN THREE PLACES AND DRAWS IT THREE WAYS.
-   `.addr-cityfld` in address-card.css is this control - a pressable row with a
-   quiet «Змінити» at its right end, opening the same city dialog - at 1px
-   --line-strong, --radius-8, --space-12, --fs-16, --text-primary. On
-   product-coach the same question is a native `select.field`, and field.css
-   already logged that pair: «two choose-something controls with two different
-   marks». This is the third. Nothing in the system answers to `.city-chip`, so
-   the rule stays and the collision is named instead of deleted.
-   [?] 10px radius has no rung; the ladder is 8/12.
-   [?] 14px has no rung; the ladder is 12/16.
-   [?] 15px has no rung; the type scale is 14/16, and field.css names 15 in its
-   header as a size the rewrite removed. */
-.coach .city-chip{ display: inline-flex; align-items: center; gap: var(--space-8); border: 1px solid var(--line-strong); border-radius: 10px; padding: var(--space-12) 14px; font-size: var(--fs-16); font-weight: var(--fw-bold); color: var(--text-primary); background: var(--bg-page); }
-.coach .city-chip .ch{ font-size: var(--fs-12); color: var(--text-muted); font-weight: var(--fw-bold); }
+/* ---------- .city-chip's BOX: DELETED AT 7.96, AND BUTTON.CSS OWNS IT.
+   The markup wears `btn--outline btn--full city-chip` from this step, which is
+   the same three classes `design/checkout.html` puts on `.co-city` - the
+   accepted twin of this control - so display, align-items, gap, border,
+   border-radius, padding, background, font-size, font-weight and colour had
+   become a second edition of the atom standing on top of the first. Every one
+   of them is deleted; what the atom draws instead was measured, not assumed:
+
+       declaration this block made      what the atom draws
+       border 1px --line-strong         the same rgb(217,217,217) - a duplicate
+       border-radius 10px               --radius-8, a rung
+       padding --space-12 / 14px        12 / 16, and 12 / 12 below 480
+       font-size --fs-16                the same 16 - and see the note below
+       font-weight --fw-bold            the same 700 - a duplicate
+       colour --text-primary            --text-body, same warm-900 today
+       background --bg-page             transparent, which is the same white here
+       display inline-flex, gap 8       flex + gap 8 from `.btn--full`
+       (nothing)                        min-height 52, and a hover, an active
+                                        and a focus-visible this block never had
+
+   THE FONT-SIZE IS THE NINTH OF THE NINE, and deleting the declaration does not
+   settle it: the grey wrote 15px, the move at 7.95 declared --fs-16, and the
+   atom happens to draw 16 as well - so the rounding is now invisible instead of
+   undone. If stage 09 decides the coach's city control should read at 14 the
+   way the checkout's does below 480, that is a size for the caller to pick from
+   button.css's set, not a literal to write back here. See the block at the top
+   of this file.
+
+   `.addr-cityfld` in address-card.css and the native `select.field` on
+   product-coach are still two more answers to «which city?»; that count is
+   unchanged by this deletion and stays on the Крок 6 list. ---------- */
+/* THE QUIET «Змінити» IS GENUINELY THIS SCREEN'S - AND IT WAS WEARING ANOTHER
+   COMPONENT'S ROW. `.ch` is a two-letter name and coach-clients.css:284 already
+   owns it: `.coach .ch` is the CLIENT HEADER on coach-client.html, a flex row
+   with `margin: var(--space-8) 0 6px`. Every coloured coach screen carries
+   `body.coach`, so that rule reaches this 12px inline label inside the city
+   button, four screens away from the row it was written for.
+   MEASURED. The label came out 81.16 x 15.59 carrying 14px of vertical margin
+   nobody chose, and it is the MARGIN, not the type, that set the control's
+   height: 55.59, which is on no rung, against the 52 the accepted twin
+   `.co-city` measures at both 390 and 360. Isolated in the browser: deleting
+   the trailing chevron inside the label changed nothing (55.59), deleting the
+   label's margin alone gave 52.
+   `display: inline` answers three of the four foreign declarations at once -
+   `gap`, `justify-content` and `align-items` are inert on an inline box - and
+   it is also what this label IS: two words and a chevron inside a sentence, not
+   a row. AFTER: the label 71.16 x 15.59, the control 52.0 at 390 and at 360,
+   which is --size-52, the M rung of button.css's own 40 / 52 / 64 ladder.
+   ANSWERED HERE AND NOT IN coach-clients.css on purpose: this selector is
+   (0,3,0) and reaches exactly one control, while re-scoping `.coach .ch` is a
+   change to a file that draws four screens and is not this file's to make. The
+   re-scope is the real repair and it is named in the report, not fixed by a
+   margin written from the wrong side. */
+.coach .city-chip .ch{ display: inline; margin: 0; font-size: var(--fs-12); color: var(--text-muted); font-weight: var(--fw-bold); }
 
 /* type-of-coach segmented options */
 /* [?] 9px has no rung; the ladder is 8/12. */
@@ -274,11 +452,17 @@
    And the state it carried was the fourth edition of «chosen» that 7.29 spent a
    step removing: ink fill, ink border, white label, #ddd on the sub-label.
    radio.css settled that on the accent, for all three families it found.
-   WHAT THIS COSTS: radio.css must answer to `.opt-tile` the way it already
-   answers to `.co-opt`, `.vopt` and `.pf-lang`, and stepper.css to `.ci-qty,
-   .co-qty` - one name added to a selector list, never a rename, because the
-   grey layer shares the markup. That is a one-line edit to radio.css and it is
-   not this file's to make. ---------- */
+   IT HAPPENED AT 7.96: radio.css answers to `.opt-tile` now, in the same
+   selector lists that already carried `.co-opt`, `.vopt` and `.pf-lang` (its
+   own comment at line 65 quotes this paragraph asking for it), and it draws the
+   `<small>` on its own line. Measured at 390, grey against coloured: the chosen
+   tile was 312 x 66.19 with an ink fill rgb(22,22,22), a white label and a
+   rgb(221,221,221) sub-label at 11px; it is 312 x 61.58 on --bg-page with a
+   rgb(255,90,0) edge, --text-body on the label and --text-secondary at 12 on
+   the sub-label, --radius-8 instead of 10. The fourth edition of «chosen» is
+   gone from the product.
+   STILL OUTSTANDING from this paragraph, and it is a different file: stepper.css
+   must take `.ci-qty, .co-qty` the same way. ---------- */
 
 /* consent */
 /* THIRD EDITION OF THE CONSENT ROW, kept because the difference is a value.
@@ -312,11 +496,23 @@
    show. It also had no hover, no active, no focus and no off state; the atom
    has all four, and its focus ring (--ring-focus-control) is the one that reads
    on an accent fill.
-   THIS DELETION REACHES TWO MORE SCREENS: `.cv-cta` is declared again, with its
-   own numbers, in coach-verify-error.html and coach-verify-deadend.html. All
-   three want `.btn .btn--accent .btn--full` in the markup instead, and that is
-   the same swap design/cart.html already made for `.cd-cta`. ---------- */
-/* [?] 12.5px is a half pixel; the rungs are 12 and 14. */
+   IT HAPPENED AT 7.96 for this screen: `design/coach-verify.html:98` writes
+   `class="btn--accent btn--l btn--full cv-cta"`, the same three classes
+   `checkout.html` puts on `.co-confirm`. Measured at 390, grey against
+   coloured: the action was 312 x 55.25, an ink fill rgb(22,22,22) with a 10px
+   radius and a 15px label, and it answered nothing under a finger; it is
+   312 x 64 now - the L rung of button.css's 40/52/64 ladder - on --bg-action
+   with --radius-12, --fs-16 (the L size steps down from 18 below 480), and it
+   has a hover, an active and a focus ring.
+   STILL OUTSTANDING, and it is not this file's markup: `.cv-cta` is declared
+   again, with its own numbers, in the `<style>` blocks of
+   coach-verify-error.html and coach-verify-deadend.html, and neither screen has
+   a coloured edition in `design/` yet. When they get one they want the same
+   three classes, not a third set of numbers. ---------- */
+/* [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 12.5px, a half
+   pixel, and this line declares --fs-14 - the third of the three 12.5s in this
+   file that all skipped the 12 rung the same way. One of the nine in the block
+   at the top - not reverted here. */
 .coach .cv-alt{ display: block; text-align: center; margin-top: var(--space-12); font-size: var(--fs-14); color: var(--text-secondary); }
 .coach .cv-alt a{ color: var(--text-body); font-weight: var(--fw-bold); text-decoration: underline; }
 
@@ -408,11 +604,20 @@
    coach's cart has carried 8px of dead gutter between a 66px photograph and a
    74px column. Deleting the width closes it. */
 
-/* THE ONE RULE IN THIS SECTION THAT IS GENUINELY THE COACH CART'S OWN.
-   `.ci:last-child` is (0,2,0), so unlike a bare `.ci` it beats `article.ci`. It
-   exists because the coach's cart nests its rows inside `.cd-group`, and
-   cart-drawer.css already draws a `--line-strong` divider under each group:
-   without this line the last row of every group carries a hairline directly
-   above that divider - two rules for one edge. */
-.coach .ci:last-child{ border-bottom: 0; }
-.coach .cd-total span small{ color: var(--text-muted); font-weight: var(--fw-semibold); }
+/* `.cd-total span small` IS DELETED AT 7.96, AND IT WAS ALREADY DEAD.
+   It patched the colour and the weight of the total's qualifier on the coach's
+   cart - `<small>· 2 клієнти</small>` - and left the SIZE and the FAMILY alone,
+   so the string rendered at the user agent's `.8333em` default: 13.3333px, on
+   no rung of the ladder, standing next to a qualifier of 12 on the same screen.
+   Patching two of the four properties is exactly why nobody saw the 13.3333 -
+   the line looked deliberate. `cart-coach.html` writes `<span class="sub">` from
+   this step, which cart-drawer.css:120 has always drawn in --font-mono at
+   --fs-12 / --text-muted, the same as cart-oos.html. VERIFIED IN THE BROWSER
+   after the deletion, at 390 and at 360: the qualifier is 12px IBM Plex Mono,
+   weight 500, rgb(110,106,98), and `document.querySelectorAll('.cd-total
+   small')` returns 0 - there is no `<small>` left on the page for this rule to
+   have reached. A rule matching nothing is not a rule to keep.
+
+   `.ci:last-child` LEFT THIS FILE at 7.96 and now stands in cart-drawer.css,
+   written `.cd-group .ci:last-child`. The argument for the move is written where
+   the rule now lives. */

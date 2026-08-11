@@ -980,7 +980,7 @@ function wfClientEdit() {
     '<div class="cef"><label for="cenote">Нотатки тренера</label><textarea class="field" id="cenote">Алергія на лактозу; тренування вранці</textarea></div>' +
     '<div class="ceact"><button class="btn--outline btn" onclick="closeClientEdit()">Скасувати</button>' +
     '<button class="btn--accent btn dark" onclick="saveClientEdit()">Зберегти зміни</button></div>' +
-    '<div class="cedel"><button onclick="openClientDelete()">🗑 Видалити клієнта</button>' +
+    '<div class="cedel"><button class="btn--outline btn--danger btn--s btn" onclick="openClientDelete()">🗑 Видалити клієнта</button>' +
     '<div class="dn">Клієнта буде вилучено зі списку. Минулі замовлення залишаться в історії.</div></div>' +
     '</div></div>' +
     '<div class="ceov" id="ce-confirm" role="dialog" aria-modal="true" aria-label="Видалити клієнта"><div class="cedlg">' +

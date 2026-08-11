@@ -70,11 +70,52 @@
    product does not have yet, and drawing a state for it here would be inventing
    one. When the case appears, `.vopt.off` is still the shape to copy. */
 
+/* A NINTH NAME, `.cc-goals a` - step 7.96. The coach session's goal switcher is
+   this control: a row where exactly one is on, the same shape `.cegoals button`
+   already wears on the client dialog. Step 7.95 deleted its hand-built rules with
+   the right words - «the chip owns them» - and wrote down what had to happen next
+   («`.cc-goals a` joins chip.css»), and that line was never written. Measured at
+   390: three goals rendering as 16px/400 plain text, no edge, no ground, no
+   selected state, 25.6 tall against the chip's 41. The name is in every list
+   below, including `.on`, so the chosen goal is finally visible.
+   Крок 6 renames it; until then it answers here, the way eight others do. */
+
+/* A TENTH NAME, `.clv span` - step 7.96 - AND THIS ONE IS NOT PRESSED.
+   The coach landing's five value chips drew this atom a second time under a
+   private name: `1px solid --line-strong`, `--radius-pill`, `--bg-page` and
+   `--fs-14` - the resting rule below, declaration for declaration - and then
+   differed only in the numbers a rung would have given them. Measured at 390
+   before this step: 14 / 700 / 7px 13px, 38.4 tall, against the buyer's
+   `.hero-chips a` on design/index.html at 14 / 600 / 8px 12px, 40.4 tall. Two
+   pixels of height and one weight between two editions of one pill, one of them
+   on the public front door of the primary business model. The local block is
+   deleted from coach-landing.css whole; that file keeps the row that places it.
+
+   IT JOINS THE SHAPE LIST AND NOTHING ELSE, and that is this file's own rule
+   rather than a new one. `.afilter` is a chip-shaped `<span>` nobody presses,
+   and 7.31 kept it out of the interaction lists in exactly those words, while
+   `.afilter .x` - the part that IS pressed - is in every one of them. `.clv
+   span` is five inert `<span>`s inside a `<div aria-label>`: `.on` can never
+   match them, `:focus-visible` can never match them (no tab stop, and they
+   should not have one), and `:hover` and `:active` WOULD fire - which would turn
+   five labels orange under a cursor and peach under a finger, 1800px above the
+   one action that page is asking for. `.cc-goals a` took all eight lists one
+   commit earlier because it is an `<a href>` in a set where exactly one is on.
+   This is a label.
+
+   WHAT IS LEFT UNSOLVED, said out loud rather than patched: the shape rule
+   carries `cursor: pointer`, so on a desktop these five now promise a press and
+   answer nothing, and at 40.4 tall they read as the buyer's tappable chips. The
+   markup is frozen, so both honest answers - a class of its own, or no chip
+   shape at all for a thing that is not a control - are Крок 6. A local `cursor`
+   exception here would be a third edition of the pill this file exists to have
+   one of. */
 /* ---------- the shape ---------- */
 .chip,
 .dr-chip, .hero-chips a, .flink,
 .mgchip,
-.ptab, .ord-tab, .cegoals button{
+.ptab, .ord-tab, .cegoals button, .cc-goals a,
+.clv span{
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-pill);
   background: var(--bg-page);
@@ -115,7 +156,7 @@
 .mgchip{ font-size: var(--fs-12); padding: var(--space-4) var(--space-12); }
 
 /* ---------- the segment: exactly one of the set is on ---------- */
-.ptab, .ord-tab, .cegoals button{
+.ptab, .ord-tab, .cegoals button, .cc-goals a{
   font-weight: var(--fw-bold);
   padding: var(--space-8) var(--space-16);
 }
@@ -130,7 +171,7 @@
 .chip:hover,
 .dr-chip:hover, .hero-chips a:hover, .flink:hover,
 .mgchip:hover,
-.ptab:hover, .ord-tab:hover, .cegoals button:hover{
+.ptab:hover, .ord-tab:hover, .cegoals button:hover, .cc-goals a:hover{
   border-color: var(--line-action);
   color: var(--text-action);
 }
@@ -153,7 +194,7 @@
 .chip:active,
 .dr-chip:active, .hero-chips a:active, .flink:active,
 .mgchip:active,
-.ptab:active, .ord-tab:active, .cegoals button:active,
+.ptab:active, .ord-tab:active, .cegoals button:active, .cc-goals a:active,
 .afilter .x:active{
   background: var(--bg-action-soft);
 }
@@ -174,7 +215,7 @@
 .chip:focus-visible,
 .dr-chip:focus-visible, .hero-chips a:focus-visible, .flink:focus-visible,
 .mgchip:focus-visible,
-.ptab:focus-visible, .ord-tab:focus-visible, .cegoals button:focus-visible,
+.ptab:focus-visible, .ord-tab:focus-visible, .cegoals button:focus-visible, .cc-goals a:focus-visible,
 .afilter .x:focus-visible{
   outline: none;
   box-shadow: var(--ring-focus-control);
@@ -199,13 +240,13 @@
 
    `:hover` must not repaint a chip that is already chosen - there is nowhere
    further for it to go, and the accent-on-accent would read as a loading state. */
-.chip.on, .ptab.on, .ord-tab.on, .cegoals button.on,
+.chip.on, .ptab.on, .ord-tab.on, .cegoals button.on, .cc-goals a.on,
 .chip[aria-current="page"]{
   background: var(--bg-action);
   border-color: var(--line-action);
   color: var(--text-body);
 }
-.chip.on:hover, .ptab.on:hover, .ord-tab.on:hover, .cegoals button.on:hover{
+.chip.on:hover, .ptab.on:hover, .ord-tab.on:hover, .cegoals button.on:hover, .cc-goals a.on:hover{
   background: var(--bg-action);
   border-color: var(--line-action);
   color: var(--text-body);
@@ -217,7 +258,7 @@
    `.btn--accent:active` has always given on the same ground. Without this the
    chosen chip would be the only member of the family that stays silent, and it
    is the member most likely to be pressed twice - a filter being turned off. */
-.chip.on:active, .ptab.on:active, .ord-tab.on:active, .cegoals button.on:active,
+.chip.on:active, .ptab.on:active, .ord-tab.on:active, .cegoals button.on:active, .cc-goals a.on:active,
 .chip[aria-current="page"]:active{
   background: var(--bg-action-pressed);
   border-color: var(--bg-action-pressed);

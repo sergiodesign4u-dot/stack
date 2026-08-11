@@ -591,3 +591,84 @@ next month from a defect nobody noticed. It is now in three places that get read
 (`DESIGN-artifacts.md` §3), this journal, and the surface where the roles are actually looked at
 (`design/kit/color.html`). The `₴` mark is deliberately outside the argument: it is a unit of measure
 half the size of the figure beside it, and that figure clears the gate.
+
+## Step 7.96 - the coach flow is reviewed, and one deletion explains most of it
+
+The owner opened the eight coloured coach screens and said there were a lot of problems on them.
+Eight read-only reviewers, one per screen, each working from 390-wide slices plus the markup, the
+component file and the accepted buyer twin; then six fix agents grouped **by component file, never
+by screen**, so two agents could not meet in one file. Everything below was measured in a browser.
+
+### The one cause
+
+**`class="btn"` paints nothing in this system.** `button.css` has no `.btn` rule at all - its base
+block is declared on the four finish classes. At step 7.95 five agents each deleted a screen's
+hand-built button rules for the right reason, «the atom owns it», and each assumed an element
+already wearing `btn` was therefore dressed. Measured: **ten actions on four screens rendering as
+25.6px of unstyled text**, no ground, no edge, no hit area - among them the single action of
+`coach-verify` (which carried no class at all) and all three «Додати клієнту» keys of the primary
+job. The same deletion-without-a-landing hit four atoms as well: `.cq` had lost the stepper,
+`.cc-goals a` the chip, `.opt-tile` the radio, and two fields on `coach-verify` were the user
+agent's own inputs in Arial at 22.5 tall. Every one of those files **said in writing what had to
+happen next**, and none of it had happened. A deleted rule and an unwritten one are the same screen.
+
+### The values, and this is the part that needed saying out loud
+
+**73 type sizes moved during the 7.95 move: 71 up, 2 down**, across all five coach files -
+`coach-session` 20, `coach-cabinet` 19, `coach-clients` 14, `coach-landing` 11, `coach-verify` 9.
+Eighteen of them are 12.5 -> 14, which skips 12 entirely. Every GEOMETRY literal in the same files
+stayed a literal with a real note, which is what makes this a type-only slip rather than a policy -
+and it is why nobody saw it: the files look scrupulous.
+
+**54 `[?]` notes describe a size as untouched while standing beside a declaration that had already
+moved.** «12.5px is a half pixel and the scale has none», next to `var(--fs-14)`. The sentence is
+true about the grey value and false about the line it is attached to. Two reviewers found this
+independently in two different files before it was swept; a hand count in each matched the sweep.
+
+**No value was adjusted.** «Never round it silently» stands, and the ladder decision is the owner's.
+All 54 notes were rewritten to say the grey value, the current one, and that a move took it, and
+each file carries one block listing its share as a single stage-09 decision.
+
+### Two of my own errors, corrected in place
+
+A brief I wrote said the dead `:first-of-type` cost three hairlines on `coach-home` and four on
+`coach-orders`. The agent checked: **coach-orders has no `.cli`, no `.cord` and no such rule.** The
+number came from another screen's report and I spread it without measuring - the exact fault this
+step is about.
+
+I then wrote into `buy-bar.css` that content had been seen in the 18px band under the buy bar. It
+had not. The probe asked `elementFromPoint` what stood there and got the page wrapper, which spans
+its own padding and answers the same whether content reaches the band or not - an instrument that
+cannot return no. The comment now claims only the arithmetic, which stands on its own: the bar is
+89 tall and lifted 61, so it occupies 150px, and the page reserved 132. **`padding-bottom` 132 ->
+150**, and that is the only deliberate change to the buyer's product in this step.
+
+### Scoping: `.coach ` is not a guard
+
+Every coloured coach screen carries `body class="coach"`, so a short name written in one screen's
+file lands on a different control four screens away. Swept: of twelve candidates, **three actually
+leak** - the rest are qualified by an ancestor. `.coach .ci:last-child` was living in
+`coach-verify.css` and drawing the coach cart's group edges; it moved to `cart-drawer.css` as
+`.cd-group .ci:last-child`, where the rule it cancels lives. Counted: `.cd-group` has 2 instances on
+`cart-coach.html` and **0** on `cart.html` and `cart-oos.html`, so it cannot reach the buyer's cart.
+
+### The cart's foot, and a screen that was never alive
+
+The coach cart's foot was **269.75px, 33.6% of an 844 phone**, where the buyer's - after the owner's
+7.89/7.90/7.93 work - is 180.59. All 89px was one box, and the product already knew where that box
+goes: `cart-oos.html` puts a note that qualifies the cart at the **end of the body**. Moved, no CSS
+touched: **269.8 -> 174.2**, and `cart.html` did not move.
+
+**The coach's cart is inert, and always was.** Two presses of «+» leave the value, the line, the
+client subtotal and the grand total unchanged; «Видалити» leaves four rows. The grey
+`wireframes/cart-coach.html` never called `wfCart()` and never carried `data-unit` - the buyer's has
+four. It is a wireframe-stage gap on a frozen layer, not a colour regression, and building
+`wfCartCoach()` is the owner's call: the coach cart has a per-client subtotal and a client count
+that the buyer's recalc has no idea about.
+
+### Acceptance
+
+Eight coach screens at 360 / 390 / 768 / 1280: zero sideways scroll, zero console errors, zero em
+dashes, zero curly apostrophes. All eleven order status pills now read the same green and amber as
+the buyer's, to the hundredth of a pixel. The 40 buyer screens compared against HEAD on fourteen
+visual keys: **three moved, all by +18px of document height**, which is the clearance decided above.

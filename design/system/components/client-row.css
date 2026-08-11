@@ -19,23 +19,81 @@
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .cg-head{ background:var(--bg-surface);  border-radius:var(--radius-12); }
+/* 7.96 - THE CLIENT SUBTOTAL WAS THE ONE FIGURE OFF THE RIGHT MARGIN. A coach
+   reads down cart-coach asking «what does each client cost, what does it all
+   cost». Measured right edges at 390: the item price 374, the grand total 374,
+   the client subtotal 361. The 13px is this header's own 12px padding plus its
+   1px border, because it was drawn as an inset card sitting INSIDE the
+   scrollport rather than as a band across it. Two of the three answers shared an
+   edge and the middle one stepped in.
+   Full bleed: a negative inline margin equal to `.cd-body`'s own side padding,
+   the padding put back on this box, and no edge to inset it. The content box now
+   lands on the row's content box - measured 16..374, exactly the item price's.
+   IT ALSO REMOVES A SECOND THING, visible only mid-scroll: `.cg-head` is
+   `position: sticky`, and while pinned its rounded top corners were clipped by
+   the scrollport edge, so the handoff from one client to the next read as a
+   sliced box. No radius, nothing to slice.
+   SAID OUT LOUD AND NOT FIXED HERE: `.cg-head`'s declarations are ONE screen's -
+   counted in `design/*.html`, 2 instances in the whole coloured layer and both
+   on cart-coach, same for `.cg-who` `.cg-nm` `.cg-goal` `.cg-sub`. A molecule
+   living in a shared level-2 file is a stage 09 question, not a value to change
+   now. */
+.cg-head{ margin-inline: calc(var(--space-16) * -1); padding-inline: var(--space-16);
+  border: 0; border-radius: 0; }
 .cg-nm{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-16); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .cg-goal{ color:var(--text-secondary); }
-/* step 7.36: `.cprice` is the coach session's price row - the ninth price surface
-   and the only one whose screens are still grey-only, so it renders nowhere in
-   colour yet. Its money type went to price.css with the other eight, and what
-   arrives here is what is genuinely the ROW's: 16px, right-aligned, no wrap.
-   Those three lines came off price.css, which had been holding a surface's layout
-   because it had nothing else to hold. `.cg-sub` is not a price - it is the
-   client group's subtitle - so it keeps its own line. */
+/* step 7.36 said `.cprice` was «the ninth price surface and the only one whose
+   screens are still grey-only, so it renders nowhere in colour yet». THAT STOPPED
+   BEING TRUE with A13 (7.95) and nothing re-read it. Counted in `design/*.html`
+   at step 7.96: `.cprice` renders 13 times on THREE coloured screens - cart-coach
+   4, coach-session 5, coach-client 4 - and nowhere else in the product. A stale
+   read-out is worse than no read-out: it is the note a sweep uses to skip a file,
+   and it is why the three defects below survived a whole colour pass.
+
+   What is genuinely the ROW's still lives here - the size, the leading, the right
+   edge, the nowrap. `.cg-sub` is not a price - it is the client group's subtitle -
+   so it keeps its own line.
+
+   THE SIZE COMES FROM price.css's OWN INVARIANT, not from a new number. Section 3
+   there reads «ONE WEIGHT AT ONE SIZE. Every surface below is 20px», and `.cprice`
+   is already named in that list - so the atom has been saying 20 since 7.36 and
+   this file has been answering 16, and 16 won because it is the surface's own
+   file. Measured at 390: `.cprice` 16px/700 against the twin `.ci-sum` 20px/700 in
+   the buyer's cart. The coach's tier price is the trust fact of the whole screen
+   and it was the quietest money on it. This is the surface catching up with the
+   atom.
+
+   THE LEADING WAS THE PROSE ONE. `.cprice` declared no `line-height`, so it
+   inherited 1.6 from body - `--lh-airy`, the value for a paragraph - and three
+   figures became three 25.6px line boxes, 76.78 tall. The twin surface,
+   cart-row.css's `.ci-price`, chose `--lh-snug` for the same stack. Measured
+   consequence on cart-coach at 390: the coach's row cost 195.55 against the
+   buyer's 185.98 while carrying one line and one control LESS, and the 36-tall
+   stepper floated centred in a 76.78 band. The primary audience's list was the
+   loosest thing in the product. */
 .cg-sub{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
   word-spacing:-.24em; font-weight:var(--fw-semibold); color:var(--text-body); }
 .cg-sub small{  font-weight:var(--fw-medium); }
-.cprice{ font-size:var(--fs-16); white-space:nowrap; text-align:right; }
+.cprice{ font-size:var(--fs-20); line-height:var(--lh-snug); white-space:nowrap; text-align:right; }
 /* the struck price stacks under the live one here, where every other surface puts
    it above - the row is a right-hand column, not a block, and it has room for one
-   line. `display:block` came off price.css with the rest of the row's layout. */
-.cprice .old{ display:block; }
+   line. `display:block` came off price.css with the rest of the row's layout.
+
+   THE SIZE, 7.96. price.css owns the strike, the grey and the weight of a struck
+   price and deliberately not its size - «the size stays with the surface» - and
+   this surface named none, so the struck figure inherited `.cprice` and rendered
+   at the SAME size as the live one. Measured at 390: live 16/700, struck 16/400,
+   ratio 1.00, where every other struck price in the product is .39 to .60 of its
+   live one (.pold 10/20 = .50, .bb .old 14/36 = .39, .told .mold .ci-old .li-old
+   12/20 = .60). 12 against the 20 above gives .60 - not a value invented for this
+   row but the exact pair the buyer's cart already renders, `.ci-old` 12 under
+   `.ci-sum` 20, which is the surface this row is a coach's edition of. The grey
+   source said 11.5px, which is not a rung.
+
+   ONE LINE, THREE SCREENS: `.cprice` renders on cart-coach, coach-session and
+   coach-client, so the strike is repaired on all three at once. Verified on all
+   three at 390 and 360. */
+.cprice .old{ display:block; font-size:var(--fs-12); }
 .coachbn{ background:var(--bg-inverse);  border-radius:var(--radius-16); padding:var(--space-24); overflow:hidden; position:relative; }
 .coachbn .ct{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-oninverse); }
 .coachbn .cs{ color:var(--text-oninverse-muted); line-height:var(--lh-airy); }

@@ -83,6 +83,20 @@
 .cd-empty > .btn--accent, .cd-empty > .btn--outline{ margin-top: var(--space-8); }
 .cd-group{ border-bottom: 1px solid var(--line-strong); }
 .cd-group:last-child{ border-bottom: 0; }
+/* TWO RULES WERE DRAWING ONE EDGE - moved here at step 7.96 from coach-verify.css,
+   where it had been living as `.coach .ci:last-child` since 7.95 and had nothing to
+   do with the verification screen. It cancels the line above: a group draws a
+   --line-strong divider under itself, and without this the group's last row adds a
+   --line-hair directly above it. Measured on cart-coach.html at 390 and 360, row 1
+   of each group 195.55 tall with the hairline, row 2 194.55 without, in both groups.
+   `.cd-group ` is the guard and it has to be there. `.coach ` was NOT a guard - every
+   coloured coach screen carries `body class="coach"`, so the rule reached whatever
+   wore `.ci` anywhere in the flow; and a bare `.ci:last-child` in cart-row.css would
+   be worse, because the buyer's last row is a direct child of `.cd-body` with no
+   group under it and carries a real edge. Counted: `.cd-group` has 2 instances on
+   cart-coach.html and 0 on cart.html and cart-oos.html, so this rule cannot reach
+   the buyer's cart at all. */
+.cd-group .ci:last-child{ border-bottom: 0; }
 .cd-note{ border: 1px solid var(--line-strong); padding: var(--space-12) var(--space-12); font-size: var(--fs-12); margin-bottom: var(--space-12); line-height: var(--lh-airy); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */

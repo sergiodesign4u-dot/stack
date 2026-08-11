@@ -2,17 +2,29 @@
 
    THE MOST REPEATED FACT IN THE STORE, AND THE FILE THAT OWNS IT DECLARED NONE
    OF IT. Before this step price.css held `.cprice`, `.cprice .old` and
-   `.uiv-cur`. `.cprice` has ZERO instances on any coloured screen - it is a
-   grey-prototype name from the coach session, whose screens have no coloured
+   `.uiv-cur`. At 7.36 `.cprice` had ZERO instances on any coloured screen - it
+   was a grey-prototype name from the coach flow, whose screens had no coloured
    twin yet. So the atom file described a price nobody sees, and every price a
    person actually reads was declared inside a molecule, scoped to its container.
    The stand proved it before anyone argued: `design/kit/price.html` rendered its
    demo at 16px/400 black, unstyled, and the idle check had been saying so for
    steps.
 
-   EIGHT SURFACES, EIGHT SETS OF NAMES, ONE STRUCTURE. Read out of the runtime
-   DOM at 390 and 1280 across 39 coloured screens - every one of them is the same
-   three lines in the same order:
+   THE NINTH SURFACE STOPPED BEING GREY AT 7.95, AND THIS HEADER WENT ON SAYING
+   IT WAS. A13 coloured eight coach screens; counted in `design/*.html` at 7.96,
+   `.cprice` renders 13 times on THREE of them - cart-coach 4, coach-session 5,
+   coach-client 4 - and nowhere outside the coach flow. The sentence «named here
+   so that when Крок 6 colours the coach flow» describes a future that has
+   already happened. It is corrected rather than deleted because the miss is the
+   finding: a read-out fact that has gone false is what a later sweep uses to skip
+   a file, and the ninth surface's missing row below is exactly where the size
+   ranking broke - nothing ever compared its struck figure with the other eight,
+   so it stayed the same size as the live one until 7.96 measured it.
+
+   NINE SURFACES, NINE SETS OF NAMES, ONE STRUCTURE. Read out of the runtime
+   DOM at 390 and 1280 across 39 coloured screens (the ninth row at 7.96, across
+   the three coach screens) - every one of them is the same three lines in the
+   same order:
 
      [struck]  1 520 ₴   −15%
      [live]    1 290 ₴
@@ -26,6 +38,15 @@
      mobile buy bar .mbp b  3   .mold   3  .mcut   3  buy-bar.css        L3
      cart row       .ci-sum 6   .ci-old 2  .ci-cut 2  cart-row.css       L2
      checkout line  .li-sum 9   .li-old 3  .li-cut 3  checkout-form.css  L3
+     coach line     .cprice 13  .old   13  .wtag  13  client-row.css     L2
+
+   THE NINTH ROW READS DIFFERENTLY IN ITS THIRD COLUMN AND THAT IS THE PRODUCT
+   TALKING, not an inconsistency to tidy: the coach's struck figure is the RETAIL
+   price and the live one is the tier price, so the third element is not a `-N%`
+   chip but `.wtag`, the word «гурт». The exception at section 4 is the same fact
+   written as a colour rule. Its struck figure also stacks BELOW the live one -
+   the one surface of the nine that does - because the row is a right-hand column
+   with room for one line, and that is client-row.css's, not this file's.
 
    EIGHT NAMES FOR THE LIVE PRICE, EIGHT FOR THE ONE IT REPLACED. Not variants -
    the same job on the same kind of surface, written eight times by whoever built
@@ -76,13 +97,46 @@
    because the figure is what has a space in it - the `-N%` chips have none, which
    is why they are not in this list.
 
-   `.cprice` IS IN THESE LISTS ON PURPOSE, with zero instances today. It is the
-   coach session's price row - the ninth surface, and the only one whose screens
-   are still grey-only. It is named here rather than deleted so that when Крок 6
-   colours the coach flow the row arrives already holding the atom, instead of
-   being re-derived from whatever the grey file happened to say. What is genuinely
-   that row's - its 16px, its right edge, its nowrap - went to client-row.css,
-   which is where the row lives. */
+   `.cprice` WAS IN THESE LISTS AHEAD OF ITS SCREENS and it earned it: 7.36 named
+   it with zero rendered instances so that the coach flow would arrive holding the
+   atom instead of re-deriving it from the grey file, and at 7.95 it did exactly
+   that - 13 instances on three screens, mono and kerned from the first frame,
+   with no second edition to reconcile. What is genuinely that row's - its size,
+   its leading, its right edge, its nowrap - is in client-row.css, where the row
+   lives.
+
+   7.96 - THE COACH'S OWN MONEY WAS NOT IN THE MONEY FACE, and it is the same
+   defect in three places, so it is one line here rather than three in three
+   screen files. DESIGN-artifacts.md:77, locked: «IBM Plex Mono for every dose,
+   serving, nutrition figure, and price. Mono numbers are a trust signal.»
+   Measured at 390 before this step:
+
+     .oc-sum b  coach-client  «2 320 ₴»  Inter 16/700, no tabular-nums, ws 0
+     .cs-b      coach-home    «3 480 ₴»  Inter 16/700, no tabular-nums, ws 0
+     .ord-tot   coach-orders  «1 160 ₴»  Inter 18/700, no tabular-nums, ws 0
+
+   `.oc-sum b` is the worst of the three because it is right-aligned in the SAME
+   column as `.cprice`, which is mono with `word-spacing: -.24em`: two stacks of
+   digits, one proportional and one tabular, that do not line up down the card.
+   `coach-cabinet.css:444` recorded the same finding for `.ord-tot` and `.cs-b`
+   and left it, correctly - the family is not a screen's to declare.
+
+   THEY ARE ORDER TOTALS, NOT PRICES, so they take this list and NOT section 3.
+   Their twins are `order-row.css`'s `.oh-sum` (16/600) and `.ln-tot` (14/700),
+   which that file already sets in mono; section 3's rule is «one weight at one
+   size, and the size is 20», which is a statement about the price of ONE thing.
+   Ranking the sizes of a total against a price is a stage 09 question and 16 / 18
+   are left where they are. (Measured while in here, and left: `.oh-sum` and
+   `.ln-tot` took the family but NOT `tabular-nums`, and `.ln-tot` not the ₴
+   kerning either - order-row.css:131 and :142, half of this rule one file over.
+   CLOSED at 7.96, in the same pass that found it from the coach's side: both
+   names are in the list below and the two half-rules are gone from order-row.css.
+   `.ln-tot` gains the kerning it never had. Measured on account-orders at 390,
+   HEAD against the tree: `word-spacing` 0 -> -3.36px and `font-variant-numeric`
+   normal -> tabular-nums, and the BOX does not move - 108.00 and 93.61 before and
+   after, because the figure is right-aligned in a column the row already sized.
+   So the digits tighten and nothing around them shifts, which is the whole reason
+   this is one rule rather than a value per surface.) */
 .pnew, .pold,
 .lprice, .lold,
 .hd-new, .hd-old,
@@ -91,16 +145,66 @@
 .mbp, .mold,
 .ci-price, .ci-old,
 .li-price, .li-old,
-.cprice{
+.cprice,
+.oc-sum b, .cs-b, .ord-tot,
+.oh-sum, .ln-tot{
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   word-spacing: -.24em;
+}
+
+/* 7.96 - THE PLAN PRICE ON THE PUBLIC COACH LANDING, and it takes TWO of the
+   three declarations above rather than joining the list. `.cmp-head .price b` is
+   «Активація одразу · 0 ₴» and «Підписка · ~99 ₴/міс [?]» - the two figures a
+   coach is deciding between on the front door of the primary business model, and
+   measured at 390 they were Inter 16/700 with no `tabular-nums` and no kerning.
+   Family and numerals, taken here. Placement is coach-landing.css's and it has
+   its `nowrap` already: both figures were breaking mid-unit, «... 0» / «₴» and
+   «~99 ₴/» / «міс».
+   NOTE THAT THIS IS THE MONO LIST GROWING, NOT THE SURFACE TABLE. The table in
+   the header gained a ninth ROW (the coach line, `.cprice`) because that is a
+   ninth place a person reads a price against the one it replaced. This is not a
+   surface: it is a plan price with no struck twin and no `-N%` chip. Two lists,
+   two counts, and confusing them is how the ninth surface went unranked for a
+   week.
+
+   THE ₴ MARK STAYS A TYPED GLYPH HERE, and that is a refusal with a reason.
+   `uivCurrency()` in `design/_nav.js` skips any parent under 17px and `.price b`
+   computes to 16, so the mark renders at its full ~11.8px advance where
+   `.uiv-cur` would draw it at .55em, about 8.8. The 17 gate is not a bug - it is
+   what keeps struck prices and fine print holding their ₴ - and lowering it would
+   reshape every 16px hryvnia sign in the product. If the half-size mark is wanted
+   here, the honest lever is the SIZE of `.price b`, which is a value and the
+   owner's. Recorded, not acted on.
+
+   AND THE KERNING IS LEFT OFF BY INSTRUCTION, WITH THE NUMBER, so the owner can
+   settle it in one word: measured in the browser, adding `word-spacing: -.24em`
+   takes «0 ₴» from 28.84 to 25.00 - the mono space is 9.6px at 16 and 5.76 would
+   remain, which is not a collision. `.oh-sum` is the same case already shipping
+   (16px mono, full-size typed ₴, `-.24em` from order-row.css:143), and
+   coach-landing.css:306 names the missing kerning as part of the defect. So this
+   is the one price figure in the store whose ₴ sits at full word space, and it is
+   one word from being the same as the rest. */
+.cmp-head .price b{
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- 2. the price it used to be ---------------------------------------
    Struck, grey, and lighter than the figure that replaced it. Three declarations
    and nothing else - the size stays with the surface, because a struck price is
    10px on a phone card and 14px in a buy box for the same reason the live one is.
+
+   AND ONE SURFACE ANSWERED «NO SIZE», WHICH IS NOT THE SAME AS «MY OWN SIZE».
+   Measured at 7.96: the eight rendered ratios of struck to live are .39 (14/36,
+   buy box), .50 (10/20, grid card), .60 (12/20, shelf · buy bar · cart · checkout
+   line), and the ninth - `.cprice .old` on the three coach screens - was 1.00,
+   because client-row.css named no size and the struck figure simply inherited the
+   live one. Ratio, not size, is what makes the strike readable as history; at
+   1.00 the retail price the coach is NOT paying carried the same weight of
+   attention as the tier price they are. Fixed where it belongs, in
+   client-row.css, at 12 under 20 - the same pair as `.ci-old` under `.ci-sum`,
+   which is the buyer's edition of that exact row.
 
    ONE WEIGHT, AND IT IS 400. Measured: 400 on `.pold` `.lold` `.hd-old` `.old`
    (30 elements), 500 on `.ci-old` `.li-old` (5), 600 on `.told` `.mold` (5). One
@@ -127,6 +231,14 @@
    `.li-sum` `.tnew` `.mbp b` (20). Same size, same job, two weights. 800, by 99
    against 20 and because this figure is the one thing on the row the eye is
    supposed to land on first.
+
+   THE NINTH SURFACE WAS IN THIS LIST AND WAS NOT 20. Measured at 7.96: `.cprice`
+   rendered 16px because client-row.css said 16 and a surface's own file outranks
+   an atom's - so the sentence above was an invariant with a standing exception
+   nobody had written down. It is 20 now, and the change is in client-row.css
+   because that is where the size of a surface lives; the reason it is 20 is this
+   paragraph. The coach's tier price is the trust fact of the coach screens and it
+   had been the quietest money on them, 4px under the same figure in the cart.
 
    THE TWO RUNGS ABOVE 20px KEEP THEIR OWN WEIGHT, and that is a refusal, not an
    omission: the home deal is 30/700 and the buy box is 36/600, one surface each,

@@ -29,19 +29,26 @@
 
    3. `.co-wrap` DELETED - it is checkout's. See section 2.
 
-   4. SEVEN PRIVATE NAMES FOR FOUR ATOMS THAT ALREADY EXIST. Each is kept, because
-      the atom's file does not list the alias and deleting the rule would leave
-      the element bare - but each is written with the atom's own tokens, so the
-      day the name joins the atom's selector list these lines can go and
-      nothing moves:
+   4. SEVEN PRIVATE NAMES FOR FOUR ATOMS THAT ALREADY EXIST. Each was kept at
+      7.95, because the atom's file did not list the alias and deleting the rule
+      would have left the element bare - but each was written with the atom's own
+      tokens, so the day the name joins the atom's selector list these lines can
+      go and nothing moves. STEP 7.96 CLOSED FOUR OF THE SEVEN, and every one of
+      the four closed the way the paragraph below predicts: the ATOM learned the
+      name, and the rule here was deleted rather than rewritten.
 
         .cstat .tierchip   the tier chip   account-shell.css   `.acc-tier`
         .co-fil            the chip        chip.css            8 names listed
-        .co-search         the field       field.css           `.field`
-        .ord-status        the status pill status-pill.css     4 names listed
-        .cord .co-status   the status pill status-pill.css     4 names listed
         .cgo .cmanage      the text link   link-row.css        loud rung
-        .co-sum a          the text link   link-row.css        loud rung
+        ---- closed at 7.96 ----
+        .co-search         the field       field.css           the markup now
+                           carries `field`, and this file keeps placement only
+        .ord-status        the status pill status-pill.css     the atom took
+        .cord .co-status   the status pill status-pill.css     `.ord-status`,
+                           `.co-status` and their `.ok` / `.way` states into its
+                           own lists; the markup gained the state word
+        .co-sum a          the text link   the two links became BUTTONS, which
+                           is what they always were - see section 1
 
       Same shape as 7.23 (chip), 7.30 (link-row) and 7.37 (status pill): every
       one of those steps worked by ADDING a name to an atom's list, never by
@@ -62,6 +69,57 @@
    `.ord-*` names sit in a namespace order-row.css (level 2) already owns. See
    section 2 before adding the line to index.css.
    =========================================================================== */
+
+
+/* ============================================================================
+   THE NINETEEN - ONE OPEN DECISION FOR STAGE 09, AND NO ADJUSTMENT HERE
+
+   7.95 said it moved values and did not change them. On TYPE it changed
+   nineteen. Read selector by selector out of the frozen `<style>` blocks of
+   `wireframes/coach-home.html` and `wireframes/coach-orders.html` against the
+   declarations in this file:
+
+       .cstat .cnote        13   -> 14      .co-top h1        22   -> 24  (del)
+       .cstat .cmanage      12.5 -> 14      .co-top .sub      12.5 -> 14  (del)
+       .cnew .cn-s          13   -> 14      .co-fil           12.5 -> 14
+       .cnew .cn-go         22   -> 24      .co-search        13   -> 14  (del)
+       .cli .cinfo .cg      12.5 -> 14      .ord-no           15   -> 16
+       .cli .cgo            12.5 -> 14      .ord-date         12.5 -> 14
+       .crestock .rk-lead   13   -> 14      .ord-status       11   -> 12  (del)
+       .cord .co-meta       12.5 -> 14      .ord-meta         13   -> 14
+       .cord .co-status     11   -> 12      .ord-chip         11.5 -> 12
+                                            .ord-tot small    11.5 -> 12
+
+   NINETEEN MOVED, NINETEEN UPWARD, NONE DOWN. Seven of them are 12.5 -> 14,
+   which skips 12 entirely; five are 13 -> 14, two 11 -> 12, two 11.5 -> 12, one
+   15 -> 16, two 22 -> 24. The four marked `(del)` no longer exist in this file:
+   7.96 deleted them when the markup took `.acc-h1`, `.acc-sub`, `field` and the
+   status pill's own names, so the value is now the atom's rather than anyone's
+   guess. The other FIFTEEN are live, and each one carries a note beside it.
+
+   THE NOTES WERE THE REAL DEFECT, not the values. Every one of the fifteen used
+   to read as if the grey number were still declared - «[?] half a pixel», «[?]
+   13px has no rung» beside a line that says `var(--fs-14)`. A note that denies a
+   change that happened is worse than no note: it is exactly what stops the next
+   reader from measuring. 7.96 rewrote all fifteen to say what the grey file
+   said, what the declaration says, and that the MOVE took it.
+
+   IT IS A BATCH-WIDE PATTERN, NOT THIS FILE'S. Across the five coach files:
+   **73 sizes moved, 71 up, 2 down**, and eighteen of the 73 are 12.5 -> 14. It
+   was found independently in `coach-landing.css` and in `coach-clients.css`
+   before anyone read this file, which is what makes it a pattern rather than a
+   slip. Every GEOMETRY literal in the same five files stayed a literal with a
+   real note - `padding: 13px 15px`, `border-radius: 14px`, `margin-top: 15px`
+   are all still here, untouched - so this is a type-only pattern, and that
+   asymmetry is itself the finding.
+
+   NOT ADJUSTED, AND NOT TO BE ADJUSTED BY THE NEXT PASS EITHER. The standing
+   rule is «never round a value to a neighbouring rung; rounding is a value
+   decision and it is the owner's». Nineteen roundings are nineteen value
+   decisions, and putting them back is as much a decision as leaving them. The
+   ladder question - whether a `--fs-13` rung exists, or whether the four sizes
+   under 14 in this cabinet are all one size - is stage 09's and the owner's.
+   ============================================================================ */
 
 
 /* ============================================================================
@@ -93,13 +151,51 @@
   border: 1px solid var(--line-inverse);   /* was --dark */
   border-radius: var(--radius-pill);
   padding: 3px var(--space-12); }   /* [?] 3px has no rung; the ladder starts at 2 */
-.coach .cstat .cnote{ font-size: var(--fs-14);   /* [?] 13px has no rung; the scale is 12 / 14 */
+/* `flex-grow: 1` ARRIVED AT 7.96 AND IT IS THE FIX FOR `.cmanage` BELOW, which
+   is why it is written here rather than there. The sentence is the only elastic
+   part of this strip - the chip and the link are both as wide as their words -
+   so the free space belongs to it. `flex-grow: 1` and not `flex: 1`: the second
+   would set `flex-basis: 0`, and a zero basis makes the note fit beside the chip
+   on the first line at 390, where it would be squeezed to 268.3 and run four
+   lines. With `auto` the basis is the note's max-content 600.1, which does not
+   fit at 390, so the phone keeps the layout it had - chip alone, sentence full
+   width under it - and the desktop gets the growth. */
+.coach .cstat .cnote{ flex-grow: 1;
+  font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 13, this line says 14. See THE NINETEEN, top of file. */
   color: var(--text-secondary); }
 .coach .cstat .cnote b{ color: var(--text-primary); }
+/* THE `[?]` MARKER, and until 7.96 it was an inline `style="color:var(--light)"`
+   in coach-home.html painting with a token that does not exist:
+   `getPropertyValue('--light')` on `:root` returns the empty string, so the
+   declaration was dropped and the marker INHERITED - measured rgb(91,91,84) on
+   both, which is exactly `--text-secondary`, the colour of the sentence it is
+   meant to sit quieter than. `--light` is a pre-colour grey-prototype name and
+   three coach files already record its translation as `--text-muted`; that is
+   the one used here. After: rgb(110,106,98) against the sentence's rgb(91,91,84),
+   which is the first time the two have differed. The attribute is gone from the markup: a screen owns no
+   css, and least of all a screen carrying a name the system retired. */
+.coach .cstat .cnote > span{ color: var(--text-muted); }
 /* «Керувати тарифом». link-row.css calls this the LOUD rung: ink, 700, an
    underline in the same ink. What stays here is where it stands and how big it
-   is, which is the split that file states in its own header. */
-.coach .cstat .cmanage{ margin-left: auto; font-size: var(--fs-14);   /* [?] half a pixel; the scale is 12 / 14 */
+   is, which is the split that file states in its own header.
+
+   `margin-left: auto` DELETED at 7.96. It was written for a row that fits on
+   one line, and this row almost never does. Measured: at 390 the strip has
+   wrapped to three rows and `auto` means «hard right of MY row», so the link
+   sat at x=179.2 with the chip and the sentence both at x=32 - a right-aligned
+   line under a left-aligned block, and the entry to the tariff screen is the
+   thing it happened to.
+   The row's own content is 45.7 + 12 + 600.1 + 12 + 133.8 = 803.6, and with the
+   strip's 15px padding and 1px edge it needs a 835.6 box - so one line arrives
+   at a 868 viewport. A media query cannot name that: 868 is not in the set (860
+   is 8px short), and at 960 the shell opens its rail and takes the width back,
+   so the strip wraps AGAIN from 960 to 1439 and only fits a second time at 1440.
+   Two windows, neither on a boundary, for one alignment.
+   `flex-grow: 1` on the sentence above does the whole job with no boundary at
+   all: on one line the note eats the slack and the link lands at the right edge
+   exactly as `auto` put it; on a wrapped row the link starts where every other
+   line starts. */
+.coach .cstat .cmanage{ font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 12.5, this line says 14. See THE NINETEEN, top of file. */
   font-weight: var(--fw-bold); color: var(--text-body); text-decoration: underline; }
 
 /* THE ONE ACTION OF THE SCREEN: «Нова сесія», the entry to Job 1. It is dark
@@ -118,25 +214,40 @@
   display: flex; align-items: center; justify-content: center; font-size: var(--fs-24); }
 .coach .cnew .cn-tx{ min-width: 0; }
 /* `.cn-t` AND `.cn-s` ARE INLINE SPANS INSIDE AN INLINE SPAN, and only `.cn-tx`
-   gets blockified by the flex parent. So the title and the subtitle run
-   together on one line and `margin-top` on an inline box draws nothing. The
-   markup is frozen and this is not a value decision, so the rules move as they
-   are and the defect is reported rather than patched: it belongs to whoever
-   builds the coloured copy of the screen. */
-.coach .cnew .cn-t{ font-size: var(--fs-18); font-weight: var(--fw-black); }
-.coach .cnew .cn-s{ font-size: var(--fs-14);   /* [?] 13px has no rung */
-  margin-top: 3px; }            /* [?] 3px has no rung, and see the note above: it draws nothing */
-.coach .cnew .cn-go{ margin-left: auto; font-size: var(--fs-24);   /* [?] 22px has no rung; the scale is 20 / 24 */
+   gets blockified by the flex parent - so until 7.96 the title and the sentence
+   under it ran together as ONE PARAGRAPH, on the biggest object on the screen.
+   Measured at 390 before: `.cn-t` 96.8 x 21 at x=99 and `.cn-s` 239.2 x 69.4 at
+   the SAME x=99, both `display: inline`, and `margin-top: 3px` on an inline box
+   draws nothing at all. 7.95 moved the rules as they stood and handed this to
+   «whoever builds the coloured copy»; this is that step.
+   `display: block` is the whole fix and it touches no markup: the two spans
+   stop sharing a line, the title gets its rank back, and the 3px that was
+   declared for four stages starts drawing. */
+.coach .cnew .cn-t{ display: block; font-size: var(--fs-18); font-weight: var(--fw-black); }
+.coach .cnew .cn-s{ display: block; font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 13, this line says 14. See THE NINETEEN, top of file. */
+  margin-top: 3px; }            /* [?] 3px has no rung; it draws now, see above */
+.coach .cnew .cn-go{ margin-left: auto; font-size: var(--fs-24);   /* [?] MOVED BY 7.95, not decided: the grey file says 22, this line says 24. See THE NINETEEN, top of file. */
   font-weight: var(--fw-black); }
-/* [?] 520 IS NOT IN THE BREAKPOINT SET. tokens.css lists 11 boundaries and this
-   is not one of them; it is a singleton, and 7.64's folding rule cannot decide
-   it because 480 and 560 are BOTH exactly 40px away. The spelling is wrong too:
-   a boundary at N is `max-width: N-1px` on the narrow side, so this declares a
-   boundary at 521. Left exactly as written - two value decisions in one line,
-   and neither is this step's. */
-@media (max-width: 520px){
-  .coach .cnew .cn-go{ display: none; }
-}
+/* ---- the arrow came back at 7.96, and the 520 breakpoint went with it -------
+   What stood here was `@media (max-width: 520px){ .coach .cnew .cn-go{ display:
+   none } }`, and 7.95 left it alone with two `[?]` against it: 520 is not one of
+   the 11 boundaries tokens.css lists, and a boundary at N is spelled `max-width:
+   N-1px`, so the line actually declared a boundary at 521. Both are still true
+   and neither is why it is gone.
+   It is gone because of what it did. `.cnew` is the ONE action of the coach's
+   dashboard, the entry to Job 1, and on a phone it is a 358 x 122 charcoal
+   block with no arrow, no button edge and - until the rule above - no title
+   rank either. Nothing on it said it could be pressed. The arrow is the only
+   mark that does, and it was hidden on exactly the device the product is built
+   for. Measured at 390 across both fixes together: `.cnew` 358 x 122 -> 358 x
+   141, `.cn-go` back at 27.6 x 27.6 against the right edge, and the text column
+   239.2 -> 210.4, because the arrow and its gap take 28.8 of the row. Nineteen
+   pixels of height, for a title that reads as a title and a mark that says the
+   panel goes somewhere.
+   A singleton breakpoint 7.64 could not fold (480 and 560 are both exactly
+   40px away) is deleted rather than decided, which is the outcome that file
+   asked for: «the next boundary that appears has to arrive with its job written
+   in this list.» This one could not write its job down. */
 
 /* ---------- deleted: account-shell.css owns all six (step 7.95) --------------
    `.acc-grid`, the `@media (min-width: 640px)` under it, `.acard`,
@@ -159,15 +270,20 @@
 .coach .cli{ display: flex; align-items: center; gap: var(--space-12);
   padding: 11px 0;   /* [?] 11px has no rung; 8 and 12 are the neighbours */
   border-top: 1px solid var(--line-hair); }
-/* THIS RULE MATCHES NOTHING, ON EITHER CARD - the same off-by-one restock-note.css
-   documented at 7.60, third and fourth instance. `:first-of-type` means «first
-   among siblings of its TAG», and the first DIV inside `.acard` is `.ah`, the
-   card header. So the rule asks for an element that is both `.cli` and the first
-   div, and there is none: the first client row keeps its top border and the pair
-   of rules that were written as a pair fires half. Left standing, because
-   changing the selector is a fix and this step reports. `.ah + .cli` and
-   `.rk-lead + .cli` are the two selectors that would name it. */
-.coach .cli:first-of-type{ border-top: none; }
+/* THE RULE THAT MATCHED NOTHING, FIXED AT 7.96 - the same off-by-one
+   restock-note.css documented at 7.60, third and fourth instance. It was
+   `.cli:first-of-type`, and `:first-of-type` means «first among siblings of its
+   TAG»: the first DIV inside `.acard` is `.ah`, the card header, so the rule
+   asked for an element that is both `.cli` and the first div and there is none.
+   Measured before: `document.querySelectorAll('.cli:first-of-type').length` is
+   0, and all five `.cli` on coach-home render `border-top: 1px` - three extra
+   hairlines, one straight under each card's own header.
+   TWO CARDS, TWO PARENTS, so it takes two selectors and 7.95 already named
+   them: the client summary is `.ah` then rows, the restock nudge is `.ah`, then
+   the lead sentence, then rows. Adjacent-sibling, exactly as restock-note.css
+   fixed its own half of this at 7.60. */
+.coach .ah + .cli,
+.coach .rk-lead + .cli{ border-top: none; }
 /* THE SECOND AVATAR DISC IN THE PRODUCT. account-shell.css draws `.acc-prof .av`
    at 48 with the same ground, the same hairline and the same centred initial;
    this one is 40. Two sizes, two names, one disc - reported, not merged. */
@@ -178,19 +294,33 @@
   font-weight: var(--fw-black); }
 .coach .cli .cinfo{ min-width: 0; }
 .coach .cli .cinfo .cn{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
-.coach .cli .cinfo .cg{ font-size: var(--fs-14);   /* [?] half a pixel; the scale is 12 / 14 */
+.coach .cli .cinfo .cg{ font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 12.5, this line says 14. See THE NINETEEN, top of file. */
   color: var(--text-secondary); margin-top: var(--space-2); }
 /* «Профіль →», the loud rung again - see `.cmanage`. The third edition of the
    same small underlined link on one screen, at a third size. */
-.coach .cli .cgo{ margin-left: auto; font-size: var(--fs-14);   /* [?] half a pixel */
+.coach .cli .cgo{ margin-left: auto; font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 12.5, this line says 14. See THE NINETEEN, top of file. */
   font-weight: var(--fw-bold); color: var(--text-body); text-decoration: underline;
   white-space: nowrap; }
 /* `padding: 8px 14px` and `white-space: nowrap` deleted here. The element is
-   `<a class="btn dark cgo-btn">`: its box is button.css's - `.btn--s` is 8/12
-   with a 40 minimum - and «A BUTTON NEVER WRAPS» has been that file's rule since
-   step 6.8, so the nowrap said a thing that was already true. What is left is
-   the only thing the ROW owns: where the control sits in it. */
+   `<a class="btn--outline btn--s btn cgo-btn">`: its box is button.css's -
+   `.btn--s` is 8/12 with a 40 minimum - and «A BUTTON NEVER WRAPS» has been that
+   file's rule since step 6.8, so the nowrap said a thing that was already true.
+   What is left is the only thing the ROW owns: where the control sits in it.
+   7.96: the sentence above used to name the element `<a class="btn dark
+   cgo-btn">` and credit `.btn--s` for a box it was not asking for. `class="btn"`
+   alone paints NOTHING in this system - button.css declares its base block on
+   the four finish classes and has no `.btn` rule at all - so this control was
+   an invisible 78-wide link until the finish and the size were put in the
+   markup. Measured after: 86.7 x 40. */
 .coach .cli .cgo-btn{ margin-left: auto; }
+/* «＋ Додати клієнта» WAS THE LOUDEST CONTROL IN THE CONTENT PANEL, and the fix
+   is one class in the markup rather than a line here. Measured before at 390:
+   171.3 x 52 at `--fs-16`, one full rung above every other in-card action on the
+   screen, while putting a client into a session was either an invisible link or
+   a 19px underline. button.css defines S as «a dense row: header, toolbar,
+   strip, card actions» and the twin uses `btn--s` for all four of its own
+   in-card actions, so M here was not a decision, it was a missing class. After:
+   145.2 x 40 at `--fs-14`. The row keeps only where it stands. */
 .coach .cli-add{ margin-top: 13px; }   /* [?] 13px has no rung; 12 and 16 are the neighbours */
 /* THE RESTOCK LEAD IS restock-note.css's SENTENCE, WRITTEN A SECOND TIME. That
    file has `.restock .rk-lead` at `--fs-14` with `calc(-1 * var(--space-4)) 0
@@ -198,7 +328,7 @@
    the parent - at 13 with -4/0/8. The parent classes differ, so the system's
    rule cannot reach this element and the line has to stay; the two are one
    decision typed twice, and the size and the bottom margin disagree. */
-.coach .crestock .rk-lead{ font-size: var(--fs-14);   /* [?] 13px has no rung; restock-note.css says 14 */
+.coach .crestock .rk-lead{ font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 13, this line says 14 - and restock-note.css says 14 for the same sentence, which is the one place the move landed on the system by accident. See THE NINETEEN, top of file. */
   color: var(--text-secondary);
   margin: calc(-1 * var(--space-4)) 0 var(--space-8); }
 .coach .crestock .cg b{ color: var(--text-primary); font-weight: var(--fw-bold); }
@@ -212,35 +342,90 @@
    screens - but the count is what the report is for. */
 .coach .cord{ display: flex; align-items: flex-start; gap: var(--space-12);
   padding: 13px 0;   /* [?] 13px has no rung */
-  border-top: 1px solid var(--line-hair); }
-/* Dead for the same reason as `.cli:first-of-type` above: the first div inside
-   `.acard.cords` is `.ah`. Measured, not assumed - the card's markup is a
-   header div followed by two `.cord` divs. */
-.coach .cord:first-of-type{ border-top: none; }
+  border-top: 1px solid var(--line-hair);
+  /* `flex-wrap` arrived at 7.96 and its reason is written where it is USED, at
+     `.co-sum` below: the sum and the two actions become the row's second line.
+     It is declared here rather than in a second `.coach .cord{ }` block, because
+     one selector twice in one file is the drift this stage exists to remove. */
+  flex-wrap: wrap; }
+/* Was dead for the same reason as `.cli:first-of-type` above, and fixed the same
+   way at 7.96: the first div inside `.acard.cords` is `.ah`. Measured, not
+   assumed - the card's markup is a header div followed by two `.cord` divs, and
+   both rendered `border-top: 1px` before this line changed. */
+.coach .ah + .cord{ border-top: none; }
 .coach .cord .co-info{ min-width: 0; flex: 1; }
 .coach .cord .co-no{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
-.coach .cord .co-meta{ font-size: var(--fs-14);   /* [?] half a pixel */
+/* THE ORDER NUMBER IS SET IN MONO, and this one rule reaches both screens -
+   `.co-no` here on the dashboard and `.ord-no` in section 2 - because it is one
+   wrongness written twice. Measured before: both Inter. The buyer's editions of
+   the same string are both mono and have been since the step-3 split -
+   `order-row.css:133` `.aord-info .no` («Замовлення № 10432») and
+   `order-row.css:142` `.oh-no` («№ 10432») - and DESIGN-artifacts.md:77 locks
+   the family: «IBM Plex Mono for every dose, serving, nutrition figure, and
+   price. Mono numbers are a trust signal.» An order number is the figure a
+   person reads out to support.
+   NOT `--font-mono` on the SUMS: `.ord-tot` and `.cs-b` are prices, price.css
+   owns the price figure with its `tabular-nums` and its -.24em ₴ kerning, and
+   7.96 added those two names to that file's list. Writing the family here as
+   well would be this file restyling an atom, which is item 5 of the header.
+   `.ord-date` and `.co-meta` are NOT in this rule either, and the buyer's
+   `.oh-date` is mono - one date face against another is a value decision and it
+   is reported, not taken here. */
+.coach .cord .co-no,
+.coach .ord-no{ font-family: var(--font-mono); }
+.coach .cord .co-meta{ font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 12.5, this line says 14. See THE NINETEEN, top of file. */
   color: var(--text-secondary); margin-top: 3px; }   /* [?] 3px has no rung */
 .coach .cord .co-meta b{ color: var(--text-primary); }
-/* THE STATUS PILL, fifth name. status-pill.css lists `.oh-status`, `.rbadge`,
-   `.aord-status` and `.ci-oostag` and calls that «one shape, four names, in four
-   files at three levels». This is a fifth, and it is the flattest of them: no
-   state modifier at all, so «Доставлено» reads grey here and green in the
-   buyer's own history two clicks away. Written on the atom's inline rung
-   (10 / 2-8 by its ladder) would be a redraw, so the screen's own 11 / 2-9 is
-   kept and the disagreement is reported. */
-.coach .cord .co-status{ display: inline-block; font-size: var(--fs-12);   /* [?] 11px has no rung; the scale is 10 / 12 */
-  font-weight: var(--fw-black); border: 1px solid var(--line-strong);
-  border-radius: var(--radius-pill);
-  padding: var(--space-2) 9px;   /* [?] 9px has no rung */
-  color: var(--text-primary); margin-top: 7px; }   /* [?] 7px has no rung */
-.coach .cord .co-sum{ text-align: right; white-space: nowrap; }
-.coach .cord .co-sum .cs-b{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); }
-/* «Деталі» and «↻ Повторити», the loud rung a third time on this screen, at a
-   third size. Two links share one line here with no gap between them but the
-   space in the markup. */
-.coach .cord .co-sum a{ display: block; font-size: var(--fs-12); font-weight: var(--fw-bold);
-  color: var(--text-body); text-decoration: underline; margin-top: var(--space-8); }
+/* ---- the status pill went home at 7.96, here too --------------------------
+   `.coach .cord .co-status` stood here as the fifth private edition of a control
+   status-pill.css owns: `display: inline-block`, `--fs-12` (moved up from the
+   grey file's 11), `--fw-black`, a `--line-strong` edge, `--radius-pill`,
+   `padding: var(--space-2) 9px`, `--text-primary` and `margin-top: 7px`. It had
+   no state modifier at all, so «Доставлено» read grey on this card and green in
+   the buyer's own history two clicks away.
+   status-pill.css took `.co-status` and `.co-status.ok` into its lists at 7.96,
+   with the row rung's 12 / 4-12 and the account pill's `margin-top:
+   var(--space-8)` - the 9 and the 7 were on no rung and nobody had chosen them.
+   THE RULE HAD TO GO, not just stop mattering: `.coach .cord .co-status` is
+   (0,3,0) and this file loads at level 3, so leaving it would have beaten the
+   atom on every declaration it names and kept the flat pill on the one screen
+   the atom was extended for. The markup gained `ok` on both «Доставлено», which
+   is the half that file could not write. */
+/* ---- «↻ Повторити» IS THE MVP REORDER ACTION, and it was a 12px link -------
+   Locked product decision 4 is «one-tap repeat from order history». On the
+   coach's own dashboard it was the SMALLEST TEXT ON THE CARD. Measured at 390
+   on both order rows, before: `Деталі` and `↻ Повторити` are 78.04 x 19.20 at
+   12px, stacked 8 apart - two adjacent tap targets, neither over 20 tall, on
+   the primary job of the primary audience.
+   The twin settles it, because it is the same card: `account.html` gives its
+   last order `↻ Повторити замовлення` as `btn--accent btn--s btn dark` with its
+   siblings as `btn--outline btn--s btn`. The two `<a>` here take those exact
+   classes and the rule that stood in for them is deleted - a link that reads as
+   a link because a screen's stylesheet said so, where the system has a finish
+   for it, is the alias defect of item 4 in the header.
+
+   WHAT THE ROW HAD TO GIVE BACK. `.co-sum` was `text-align: right; white-space:
+   nowrap`, and the nowrap was doing two things, both bad. It fixed the column's
+   min-content at the width of «↻ Повторити» (78), which squeezed `.co-info` to
+   234 and left `.co-meta` wrapping «· 3 товари» ONTO A LINE OF ITS OWN, a line
+   that opens with a middle dot. And two 40-tall buttons cannot live in a 78
+   column at all.
+   So the sum-and-actions block becomes the row's SECOND LINE - `flex: 1 0 100%`
+   against `.cord`'s new `flex-wrap: wrap` - which is the shape the twin has in
+   markup (`.orow` then `.aord-actions`) and this screen cannot have in markup,
+   because the money and the two actions share one frozen `<div>`. `.co-meta`
+   goes 234 -> 324 wide, and the orphan goes with it: verified, «14 червня 2026 ·
+   1 клієнт (Андрій) · 3 товари» now sets on ONE line at 390. At 360 it takes two
+   again, but the break falls after «3» and no line starts with a middle dot.
+   After, both rows: `Деталі` 65.8 x 40 and `↻ Повторити` 108.9 x 40 on the
+   accent, against 78.04 x 19.20 twice.
+   `align-items: baseline` and not `center`: the money is the tallest thing in
+   the line and the two buttons should sit on its baseline, not float against
+   its box. */
+.coach .cord .co-sum{ flex: 1 0 100%; display: flex; flex-wrap: wrap;
+  align-items: baseline; gap: var(--space-8); }
+.coach .cord .co-sum .cs-b{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary);
+  margin-right: var(--space-4); }
 
 /* ---------- colour ----------
    What the coloured product decides DIFFERENTLY, per the rule in tokens.css:
@@ -293,18 +478,18 @@
 .coach .co-top{ display: flex; align-items: flex-start; justify-content: space-between;
   gap: 14px;                       /* [?] 14px has no rung; 12 and 16 are the neighbours */
   margin: var(--space-8) 0 14px; } /* [?] the same 14 */
-/* A SECOND PAGE TITLE, and the account has one already. Every other screen of
-   the cabinet writes `.acc-h1`, which account-shell.css sets in Oswald at
-   `--fs-30` with `--ls-lead`; this one is a bare `<h1>` inside `.co-top` at 22 in
-   the body face. The screen is inside `.acc-main` like all the others, so
-   nothing about its slot asks for a different title. Reported, not changed:
-   which title the order history wears is the owner's, and the answer is one
-   class in the markup rather than a rule here. */
-.coach .co-top h1{ font-size: var(--fs-24);   /* [?] 22px has no rung; the scale is 20 / 24 */
-  font-weight: var(--fw-black); color: var(--text-primary);
-  letter-spacing: var(--ls-lead); }
-.coach .co-top .sub{ font-size: var(--fs-14);   /* [?] half a pixel; the scale is 12 / 14 */
-  color: var(--text-secondary); margin-top: var(--space-4); }
+/* ---- the second page title is gone - 7.96 ---------------------------------
+   What stood here was `.coach .co-top h1` at `--fs-24` / `--fw-black` /
+   `--ls-lead` and `.coach .co-top .sub` at `--fs-14` / `--text-secondary` /
+   `margin-top: var(--space-4)`. Measured before: the h1 rendered Inter 24/700,
+   233.4 x 38.4, on a screen sitting inside `.acc-main` exactly like every other
+   screen of the cabinet - and every other one of them writes `.acc-h1`, which
+   account-shell.css sets in Oswald at `--fs-30` with `--ls-lead`. The same word
+   in the same slot, two faces and two sizes apart.
+   Both rules are DELETED rather than rewritten, because the markup now carries
+   `.acc-h1` and `.sub acc-sub` and `.acc-sub` already declares the three things
+   `.sub` declared, byte for byte: `--fs-14`, `--text-secondary`,
+   `margin-top: var(--space-4)`. There was nothing left to keep. */
 /* `<a class="btn dark co-new">`: the button is the atom's, and `flex: none` is
    the only thing `.co-top` owns about it - stop the row from shrinking the
    action into two lines. Nothing else was here, which is the shape every one of
@@ -329,100 +514,56 @@
   border: 1px solid var(--line-strong);   /* 1.5 -> 1, see section 1 */
   border-radius: var(--radius-pill);
   padding: var(--space-8) 13px;   /* [?] 13px has no rung */
-  font-size: var(--fs-14);              /* [?] half a pixel */
+  font-size: var(--fs-14);              /* [?] MOVED BY 7.95, not decided: the grey file says 12.5, this line says 14. See THE NINETEEN, top of file. */
   font-weight: var(--fw-bold); color: var(--text-primary); background: var(--bg-page); }
-/* `.co-search` IS THE FIELD, and it disagrees with field.css about the shape.
-   The atom is a 44-tall box at `--radius-12` with `--fs-16`; this is a PILL at
-   `--radius-pill` with a 13px label. Two of those three are real disagreements
-   and the third is already lost: base.css forces every input under 860 to
-   `--fs-16` for the iOS zoom, at a higher specificity than a class, so the 13
-   here draws on the desktop only and the phone has been rendering 16 all along.
-   A search field shaped like a pill next to two chips shaped like pills is a
-   defensible look; it is just not the look the atom holds, and this file cannot
-   settle it. */
+/* `.co-search` IS THE FIELD, and at 7.96 the markup says so: `class="field
+   co-search"`. What was here drew the whole control by hand - a `--radius-pill`
+   box with a 1px `--line-strong` edge, `padding: var(--space-8) 14px`,
+   `--fs-14` and `font-family: inherit` - and it was WRONG on the two things
+   that are not a look.
+   Measured before: 358 x 35, font-size 14. The atom is `min-height:
+   var(--size-44)` at `--fs-16`. 35 is nine pixels under the finger minimum, and
+   the 14 is not a desktop-only cosmetic: base.css forces every input under 860
+   to 16 precisely so iOS does not zoom the page on focus, and `.coach
+   .co-search` at (0,2,0) outranks `html input[type="search"]` at (0,1,2), so
+   the guard lost. 7.95's comment here asserted the opposite - «the phone has
+   been rendering 16 all along» - and that is measurably false, which is the
+   whole reason nobody looked at this control again.
+   THE PILL WENT WITH IT, and that is a look this file did not get to keep: the
+   field now takes the atom's `--radius-12` while the two chips beside it stay
+   `--radius-pill`. It is reported as the owner's, and it is the honest default -
+   a shape a screen invented for itself is not a shape the system agreed to.
+   Measured after at 390: 358 x 44, font-size 16, radius 12.
+   What is left is placement, which is all this row ever owned. */
 .coach .co-search{ flex: 1;
-  min-width: 160px;   /* [?] a content limit, and no measurement is recorded for it - the
-                         restock-note 419 precedent says a boundary a component earned
-                         carries its measurement next to it. This one carries none. */
-  border: 1px solid var(--line-strong); border-radius: var(--radius-pill);
-  padding: var(--space-8) 14px;   /* [?] 14px has no rung */
-  font-size: var(--fs-14);                /* [?] 13px has no rung, and see above: it draws above 860 only */
-  font-family: inherit; }
+  min-width: 160px; }   /* [?] a content limit, and no measurement is recorded for it - the
+                           restock-note 419 precedent says a boundary a component earned
+                           carries its measurement next to it. This one carries none. */
 
-/* ============================================================================
-   `.ord` AND `.ord-h` ARE NOT WRITTEN HERE, AND NEITHER EDITION IS KEPT
+/* `.ord` AND `.ord-h` ARE ONE NAME FOR TWO COMPONENTS - the whole argument, the
+   two rules and what 7.96 had to reset are at the FOOT of this file, next to
+   the rules themselves. Everything from here to there is `.ord-*`, a namespace
+   order-row.css does not use, so it is only the two names that need the shell
+   scope for a reason. */
 
-   order-row.css (level 2) already owns both names, and they mean something else
-   there. Written out so the decision is a decision and not a diff:
-
-       .ord     buyer   a card that OPENS: no padding of its own, overflow
-                        hidden, `--radius-12`, `--elevation-1`. The padding is
-                        paid by `.ord-h` and `.ord-body` separately, because the
-                        divider between them has to run edge to edge.
-       .ord     coach   a static `<article>`: `padding: 15px 16px`,
-                        `margin-bottom: 12px`, `--radius-12`. Nothing opens.
-
-       .ord-h   buyer   a `<button>`: width 100%, `padding: 16px`, align CENTER,
-                        `cursor: pointer`, `border: 0`, `font: inherit` - and
-                        under 640 it becomes a GRID with five named areas.
-       .ord-h   coach   a `<div>`: align BASELINE, `justify-content:
-                        space-between`, `gap: 12px`. No padding, no cursor.
-
-   MOVING THE COACH EDITION IN BREAKS THE BUYER, both ways at once. This file
-   loads after order-row.css, so `.ord` would gain 15px of interior padding on
-   account-orders.html - doubling the header's own 16 - and `.ord-h` would go to
-   baseline and space-between. Worse, a base declaration written later beats a
-   `@media` written earlier at equal specificity, so `.ord-h{ display: flex }`
-   here would beat `@media (max-width: 639px){ .ord-h{ display: grid } }` there
-   and take the buyer's whole phone layout with it: five `grid-area`
-   declarations with no grid to sit in.
-
-   LEAVING THE BUYER'S EDITION TO WIN BREAKS THE COACH. Its cards would lose
-   their padding and their bottom margin, and every header row would take
-   `cursor: pointer` and, under 640, a grid whose areas name `.oh-*` elements
-   this screen does not have.
-
-   IT IS NOT A VALUE DISAGREEMENT, so no ladder resolves it: it is one name for
-   two components, and only two answers exist.
-     A. The coach's article takes its own names at Крок 6 - `.cord` is already
-        this file's word for it in section 1 - and these rules come back under
-        them. Costs a markup sweep of one screen, and the eight `.ord-*` names
-        below go with it.
-     B. The buyer's accordion and the coach's card become one component with a
-        modifier, which is a real design decision about whether a coach's order
-        should open in place the way a buyer's does.
-   The grey prototype never had to choose, because a private `<style>` block only
-   reaches its own screen. That is the whole argument for this step.
-
-   UNTIL IT IS DECIDED, coach-orders.html renders with order-row.css's geometry:
-   no card padding, a pointer cursor on a row that answers nothing. It is
-   visibly wrong and it is meant to be - the alternative is a regression on a
-   screen that already shipped.
-
-   ONE MORE THING THE GREY LAYER IS ALREADY DOING, and it is why this was found:
-   `_wf.css:1244` gives `.ord-h` `padding: 14px 16px` and `cursor: pointer` for
-   the buyer, and coach-orders.html never resets either. So the coach's card has
-   been paying its 15/16 AND the header's 14/16 on top of it since stage 04, and
-   the row has always had a pointer cursor with nothing under it.
-   ============================================================================ */
-
-.coach .ord-no{ font-size: var(--fs-16);   /* [?] 15px has no rung; the scale is 14 / 16 */
+.coach .ord-no{ font-size: var(--fs-16);   /* [?] MOVED BY 7.95, not decided: the grey file says 15, this line says 16. See THE NINETEEN, top of file. */
   font-weight: var(--fw-black); color: var(--text-primary); }
-.coach .ord-date{ font-size: var(--fs-14);   /* [?] half a pixel */
+.coach .ord-date{ font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 12.5, this line says 14. See THE NINETEEN, top of file. */
   color: var(--text-secondary); }
-/* THE STATUS PILL, sixth name - see `.cord .co-status` in section 1. This one
-   has a state modifier, and the state disagrees with the atom: status-pill.css
-   paints «У дорозі» as `.oh-status.go`, amber ink on the amber tint with the
-   amber soft edge, and here the same words take an INK edge on nothing. Two
-   readings of one state, one screen apart, and the buyer's is the one with a
-   colour system behind it. */
-.coach .ord-status{ display: inline-block; font-size: var(--fs-12);   /* [?] 11px has no rung; the scale is 10 / 12 */
-  font-weight: var(--fw-black); border: 1px solid var(--line-strong);
-  border-radius: var(--radius-pill);
-  padding: var(--space-2) 10px;   /* [?] 10px has no rung */
-  color: var(--text-primary); }
-.coach .ord-status.way{ border-color: var(--line-inverse); }   /* was --dark */
-.coach .ord-meta{ font-size: var(--fs-14);   /* [?] 13px has no rung */
+/* ---- the status pill went home at 7.96 ------------------------------------
+   What stood here was `.coach .ord-status` (11 -> `--fs-12`, `--fw-black`, a
+   `--line-strong` edge, `--radius-pill`, `2 / 10` padding, `--text-primary`)
+   plus `.coach .ord-status.way{ border-color: var(--line-inverse) }`, and the
+   two of them differed by ONE BORDER SHADE. Measured before, all four pills:
+   colour rgb(28,28,28), background transparent, and the only difference between
+   a delivered order and one in transit was rgb(28,28,28) against rgb(217,217,217)
+   on the edge. A status that reports no state is not a status.
+   status-pill.css took `.ord-status`, `.ord-status.ok` and `.ord-status.way`
+   into its own selector lists at 7.96, so «Доставлено» is now the green pill the
+   buyer's history already had and «У дорозі» the amber one; the markup gained
+   the `ok` state word on the three delivered rows. Nothing about this control
+   was ever this screen's, and 7.95 said so where these rules stood. */
+.coach .ord-meta{ font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 13, this line says 14. See THE NINETEEN, top of file. */
   color: var(--text-body); margin: 9px 0 var(--space-2); }   /* [?] 9px has no rung */
 .coach .ord-meta b{ color: var(--text-primary); }
 .coach .ord-cli{ display: flex; gap: 6px;   /* [?] 6px has no rung */
@@ -433,7 +574,7 @@
    pill, same hairline, same quiet ground, 11.5 / 700 / 3-10 here against
    `.afilter`'s 12 / 600 / 8-12. A seventh name for a shape the system has
    already drawn twice. */
-.coach .ord-chip{ font-size: var(--fs-12);   /* [?] half a pixel; the scale is 10 / 12 */
+.coach .ord-chip{ font-size: var(--fs-12);   /* [?] MOVED BY 7.95, not decided: the grey file says 11.5, this line says 12. See THE NINETEEN, top of file. */
   font-weight: var(--fw-bold); color: var(--text-primary);
   background: var(--bg-surface);   /* was --fill2 */
   border: 1px solid var(--line-hair); border-radius: var(--radius-pill);
@@ -441,14 +582,22 @@
 .coach .ord-foot{ display: flex; align-items: center; justify-content: space-between;
   gap: var(--space-12); flex-wrap: wrap; border-top: 1px solid var(--line-hair);
   padding-top: var(--space-12); }
-/* THE MONEY IS NOT IN THE MONEY FACE, and neither is `.cs-b` in section 1. Every
-   other figure in the product that stands for a sum takes `--font-mono` with
-   `word-spacing: -.24em` - `.oh-sum`, `.ln-tot`, `.sr span:last-child`,
-   `.cg-sub` - because the digits have to line up down a column. These two
-   screens were drawn before that face existed. NOT added here: adding a
-   declaration the grey block never had is a change, and this step moves. */
+/* THE MONEY IS IN THE MONEY FACE SINCE 7.96, AND NOT BY A RULE IN THIS FILE.
+   7.95 found the defect and refused it - «adding a declaration the grey block
+   never had is a change, and this step moves» - which was right for a move and
+   wrong to leave standing. Measured before: `.ord-tot` Inter 18/700 with
+   `word-spacing: 0`, and `.cs-b` in section 1 the same, against every other sum
+   in the product in `--font-mono` at -.24em. DESIGN-artifacts.md:77 locks it:
+   «mono numbers are a trust signal».
+   The FIX IS IN price.css, where the price figure lives, and 7.96 added
+   `.ord-tot` and `.cs-b` to its list - the same one-line move the header of this
+   file describes for every other alias. This file writes NO font-family for
+   these two: a molecule that repaints an atom is item 5 of the header, and if
+   the two names ever leave that list the answer is to put them back, not to
+   restate the family here. Size, weight and ink stay, because those are what
+   the ROW decided. */
 .coach .ord-tot{ font-size: var(--fs-18); font-weight: var(--fw-black); color: var(--text-primary); }
-.coach .ord-tot small{ font-size: var(--fs-12);   /* [?] half a pixel */
+.coach .ord-tot small{ font-size: var(--fs-12);   /* [?] MOVED BY 7.95, not decided: the grey file says 11.5, this line says 12. See THE NINETEEN, top of file. */
   font-weight: var(--fw-semibold); color: var(--text-secondary); display: block; }
 .coach .ord-acts{ display: flex; gap: 10px;   /* [?] 10px has no rung */
   flex-wrap: wrap; }
@@ -468,24 +617,59 @@
    here - what «Доставлено» and «У дорозі» are worth in colour - belong to
    status-pill.css and are named above rather than answered here. */
 
-/* ---------- the two rules the move could not write unscoped -----------------
-   `.ord` and `.ord-h` are ONE NAME FOR TWO COMPONENTS. In `order-row.css` the
-   card OPENS: `.ord-h` is a `<button>` with `cursor: pointer`, no padding of its
-   own, and a five-area grid below 640. Here it is a static `<article>` header, a
-   baseline row that does not answer a click. Written unscoped, whichever file
-   imports last takes the other screen apart - and the buyer's phone layout is
-   the one that loses, because a base `display: flex` declared later beats a
-   `display: grid` inside an earlier media query at equal specificity.
+/* ============================================================================
+   `.ord` AND `.ord-h` ARE ONE NAME FOR TWO COMPONENTS, and this is the whole of
+   it - 7.96 collapsed two blocks that said it twice and disagreed about what was
+   actually on the screen.
 
-   Scoped to the shell they are simply two components again, and the coach's
-   order card can have its own geometry without the buyer's history knowing.
-   The RENAME is still the right end state and it is Крок 6; this is what can be
-   done today without a screen regressing.
+       .ord     buyer   a card that OPENS: no padding of its own, overflow
+                        hidden, `--radius-12`, `--elevation-1`. `.ord-h` and
+                        `.ord-body` pay the padding separately, because the
+                        divider between them has to run edge to edge.
+       .ord     coach   a static `<article>` that opens nothing.
+       .ord-h   buyer   a `<button>`: width 100%, `padding: var(--space-16)`,
+                        `cursor: pointer`, and a five-area GRID below 640.
+       .ord-h   coach   a `<div>`: a baseline row, space-between, no padding and
+                        nothing to click.
+
+   Written unscoped, whichever file imports last takes the other screen apart,
+   and the buyer's phone is the one that loses: a base `display: flex` declared
+   later beats a `display: grid` inside an earlier media query at equal
+   specificity, and the buyer would be left with five `grid-area` declarations
+   and no grid. Scoped to the shell they are two components again. The RENAME is
+   still the right end state and it is Крок 6.
+
+   WHAT 7.95 GOT WRONG ABOUT ITS OWN SCREEN, and it is why finding the next
+   defect took another pass. It wrote «UNTIL IT IS DECIDED, coach-orders.html
+   renders with order-row.css's geometry: no card padding, a pointer cursor on a
+   row that answers nothing.» The card DOES have padding - the rule is four lines
+   below - and half a true sentence is what stops the next reader looking.
+
+   WHAT THE HEADER ROW WAS ACTUALLY PAYING. `.coach .ord-h` never reset
+   order-row.css, which declares `padding: var(--space-16)` and `cursor: pointer`
+   on the same name for the buyer's accordion button. Measured at 390 before:
+   `.ord-no` at x=49.0 on all four cards while `.ord-meta`, `.ord-cli` and
+   `.ord-tot` sat at x=33.0 - the card pays 12/16 and the header pays 16 again
+   on top of it, so the one line that names the order was indented past every
+   other line in its own card. Header height 94.8 on card 1 and 120.4 on the
+   other three, because «2026» could not fit and dropped. After `padding: 0`, at
+   390: all four headers 63.2, every `.ord-no` at 33.0, every date back on one
+   line, and the four cards 335.7 / 361.3 / 338.9 / 394.5 -> 304.1 / 304.1 /
+   281.8 / 337.3 - card one gives back 31.6 and the other three 57.2 each,
+   which is the 32 plus the 25.6 the dropped date was costing.
+   AT 360 THE DATE STILL DROPS on three of the four - header 88.8, not 63.2 -
+   and that is the string against a 294 column, not this padding. Left as it
+   falls: shortening «Замовлення № К-2075» is a wording decision.
+   `cursor: auto` goes with it and is the same kind of line - the row answers no
+   click, and a pointer over it is a promise this screen cannot keep. Neither is
+   a restyle of an atom: they are resets of a colliding NAME, which is the one
+   thing a scope like this exists to do.
 
    Values: `15px 16px` was the grey padding and 15 is on no rung - 7.67's rule
    («air that refused to say so» rounds DOWN) sends it to 12, and the card keeps
-   16 at the sides. The 1px hairline is `--line-hair`; 12px radius is a rung. */
+   16 at the sides. The 1px hairline is `--line-hair`; 12px radius is a rung.
+   ============================================================================ */
 .coach .ord{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
   padding: var(--space-12) var(--space-16); margin-bottom: var(--space-12); }
 .coach .ord-h{ display: flex; align-items: baseline; justify-content: space-between;
-  gap: var(--space-12); flex-wrap: wrap; }
+  gap: var(--space-12); flex-wrap: wrap; padding: 0; cursor: auto; }

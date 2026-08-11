@@ -14,12 +14,13 @@
    are kept in one file so the next person who changes the goal chip changes it
    once. The two sections below are the two screens, in that order.
 
-   NEITHER SCREEN HAS A COLOURED TWIN YET - measured: design/ holds 40 coloured
-   html files and the only coach ones are home-coach.html and
-   product-coach.html. So every rule here renders on 0 screens today, exactly
-   like `.cprice` in price.css and `.wtag` in discount.css, and for the same
-   stated reason: the row should arrive holding the system rather than being
-   re-derived from whatever the grey file happened to say.
+   BOTH SCREENS ARE COLOURED AND LIVE - design/coach-clients.html and
+   design/coach-client.html, delivered by the same step 7.95 that wrote this
+   file. The header used to say 'NEITHER SCREEN HAS A COLOURED TWIN YET ...
+   every rule here renders on 0 screens today', which stopped being true inside
+   the step that typed it: the stylesheet and its two screens landed in one
+   commit. Corrected here rather than deleted, because a sentence that was wrong
+   on arrival is the thing the next reader most needs told.
 
    HOW A VALUE WAS TREATED, and there is one rule with two named exceptions.
    A value that matches a token EXACTLY takes the token. A value that does not
@@ -32,6 +33,9 @@
    it. tokens.css 7.67 already names the precedent: the coach box's own
    15/17/3/7/7/10 stayed literal too, because that is 'a look, taken with that
    box open, not a sweep'.
+   THAT RULE WAS BROKEN FOURTEEN TIMES ON TYPE SIZE, and the block below is the
+   list. It is the one correction on this pass that changes no pixel: the notes
+   were lying, the values were not re-decided.
    The two exceptions move no pixels and are both measured decisions already in
    force across the system:
      `1.5px` border -> `1px`   step 7.62 measured that Chrome resolves 1.5px to
@@ -41,6 +45,54 @@
      `800` weight -> --fw-black  step 7.65 set that token to 700 after measuring
                                that no 800 face is loaded and 800 never drew.
                                87 declarations in 38 files ride on it. */
+
+
+/* ============================================================================
+   OPEN DECISION FOR STAGE 09: FOURTEEN TYPE SIZES, ONE VOTE.
+
+   Every size below was moved to a rung of the scale by the 7.95 move, and every
+   one of them then carried a `[?]` note saying it had NOT been moved. The
+   values are left exactly where the move put them - re-deciding them is a value
+   decision and it is the owner's - and each note now says what actually
+   happened. This block is the single question those fourteen notes add up to.
+
+   Read: SELECTOR | screen | grey px | drawn now | where 'nearest rung, ties
+   down' would put it. The scale is 8 10 12 14 16 18 20 24 30 34.
+
+     .ccard-goal   clients | 11   | 12 | 10   tie 10/12
+     .ccard-meta   clients | 12.5 | 14 | 12
+     .ch-edit      client  | 12.5 | 14 | 12
+     .cc-note      client  | 12.5 | 14 | 12
+     .oh-h         client  | 15   | 16 | 14   tie 14/16
+     .oc-no        client  | 14.5 | 14 | 14   already there
+     .oc-meta      client  | 12.5 | 14 | 12
+     .oc-status    client  | 11   | 12 | 10   tie 10/12
+     .oc-nm        client  | 13   | 14 | 12   tie 12/14
+     .oc-qty       client  | 11.5 | 12 | 12   already there
+     .oc-sum       client  | 13   | 14 | 12   tie 12/14
+     .cd-h         client  | 13   | 14 | 12   DECIDED - see below
+     .cd-row dt    client  | 12.5 | 14 | 12
+     .cd-row dd    client  | 13.5 | 14 | 14   already there
+
+   THE NUMBERS. 13 of the 14 came out LARGER than the grey file drew them; one
+   came out smaller (`.oc-no`, 14.5 -> 14). Five skipped the nearer rung
+   outright - the five 12.5 rows, each 0.5 from 12 and 1.5 from 14, all landed
+   on 14. Under 'nearest rung, ties down' over the whole scale, 11 of the 14
+   would move back; counting only the rows whose neighbours are 12 and 14 - the
+   window this file actually argues about - 8 would move: the five 12.5 and the
+   three 13. The remaining three (`.oc-no`, `.oc-qty`, `.cd-row dd`) are already
+   on their nearest rung and no rule moves them.
+
+   ONE ROW IS OFF THE LIST ALREADY. `.cd-h` is a card title and the cabinet has
+   one of those - `--fs-12`, black, uppercase, `--ls-caps`, `--text-muted` in
+   account-shell.css - so it was answered by the eyebrow, not by rounding, and
+   it now reads 12. That leaves 13 rows open, 7 of them inside the 12/14 window.
+
+   WHY IT MATTERS MORE THAN THE PIXELS. The rule the move ran under is 'never
+   round it silently'. Here the value was rounded AND a note was printed beside
+   it denying that it had been - which is worse than either alone, because the
+   next reader trusts the note and stops checking. The notes are the repair.
+   ============================================================================ */
 
 
 /* ============================================================================
@@ -108,7 +160,20 @@
    three declarations that already had. */
 
 .coach .cl-top{ display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; flex-wrap: wrap; }   /* [?] 14px gap has no rung; the ladder is 12/16 */
-.coach .cl-h1{ font-size: var(--fs-24); font-weight: var(--fw-black); color: var(--text-primary); letter-spacing: var(--ls-lead); }
+/* ONE TITLE FOR THE CABINET, AND THIS RULE REACHES BOTH SCREENS. Measured before:
+   `.cl-h1` Inter 24/700 and `.ch-name` Inter 24/700, against `.acc-h1` Oswald
+   30/600 `--ls-lead` on account.html and coach-home.html - so one cabinet was
+   wearing FOUR title treatments (Oswald 30, Inter 24, a bare `<h1>` on
+   coach-orders, and on coach-client no heading element at all). The page title
+   is not a per-screen look; account-shell.css decided it once and these two are
+   the same rank on the same shell, so they take the same four declarations.
+   Both selectors are grouped here rather than repeated in section 2: the next
+   person who moves the cabinet title moves one line.
+   `.ch-name` also became a real `<h1>` in the markup the same step - it is the
+   subject of a 3120px page and was a `<div>`. */
+.coach .cl-h1,
+.coach .ch-name{ font-family: var(--font-display); font-weight: var(--fw-semibold);
+  font-size: var(--fs-30); color: var(--text-primary); letter-spacing: var(--ls-lead); }
 .coach .cl-sub{ color: var(--text-secondary); font-size: var(--fs-14); margin-top: var(--space-4); }
 /* THE SAME 9px GAP STANDS ON FOUR ACTION ROWS and is not a rung on any of them:
    `.cl-acts` and `.ccard-acts` here, `.cc-cta` (10px) and `.oc-actions` (9px) in
@@ -127,17 +192,36 @@
    field.css matches either of them. Adding `field-grp` + `field` to the markup
    is a Крок 6 item, and it is the fourth hand-built edition of that shell
    (`.sys-search`, `.city-search`, `.wfh-search` are the other three). */
+/* THE BOX IS ON THE ATOM'S RUNG NOW, and its height used to be decided by an
+   emoji. Measured at 390 before: 47.59 tall, radius 8. 47.59 was nobody's
+   choice - the box had no `min-height`, so its tallest child set it, and that
+   child is the 🔎 span: 16px x `--lh-airy` 1.6 = 25.59, plus 10 + 10 of padding
+   and 1 + 1 of border. field.css says the ladder is 40 / 44 'and no third rung,
+   because nothing in the product needs one', and 44 is the touch minimum. So
+   this takes the atom's own four numbers - `--size-44` floor, 8/12 padding,
+   `--lh-snug` on the line so the glyph stops sizing the box, `--radius-12` - and
+   lands on 44.00 exactly. The radius moves 8 -> 12 for the same reason: the atom
+   has one radius and this shell is pretending to be it. */
 .coach .cl-search{ flex: 1; display: flex; align-items: center; gap: var(--space-8);
+  box-sizing: border-box; min-height: var(--size-44); line-height: var(--lh-snug);
   border: 1px solid var(--line-strong);   /* was 1.5px - see the header note */
-  border-radius: var(--radius-8); padding: 10px var(--space-12);   /* [?] 10px has no rung; the ladder is 8/12 */
+  border-radius: var(--radius-12); padding: var(--space-8) var(--space-12);
   background: var(--bg-page); }
-/* `font-size: 14px` HERE ONLY RENDERS FROM 860 UP, and that is not this rule's
-   doing. base.css sets `html input[type="search"]{ font-size: var(--fs-16) }`
-   under 860 to stop the iOS zoom, and `html input[type="search"]` (0,1,2) beats
-   `.cl-search input` (0,1,1) on specificity. So on the phone this field is 16px
-   and this declaration draws nothing. Left as written: the fix is to say so in
-   the markup, not to write a bigger selector here. */
-.coach .cl-search input{ flex: 1; border: none; outline: none; font-size: var(--fs-14); font-family: inherit; background: transparent; }
+/* THE 14 IS SCOPED ABOVE 860 NOW, because under 860 it was drawing and it is the
+   size base.css exists to prevent - iOS Safari zooms the page when a focused
+   field is under 16px. Measured at 390 before: this input rendered 14px.
+   The note that used to stand here asserted the opposite ('on the phone this
+   field is 16px and this declaration draws nothing') and gave the sum
+   `html input[type="search"]` (0,1,2) beats `.cl-search input` (0,1,1). That
+   sum was true when it was written and stopped being true in the same step:
+   7.95 scoped every rule in this file `.coach `, which makes the selector
+   (0,2,1) - two classes to base.css's one - so the private 14 won the tie it
+   was described as losing. Above 860 there is no zoom to trigger and the
+   designed size stands, exactly the split field.css states for `.field--s`. */
+.coach .cl-search input{ flex: 1; border: none; outline: none; font-family: inherit; background: transparent; }
+@media (min-width: 860px){
+  .coach .cl-search input{ font-size: var(--fs-14); }
+}
 
 /* `.clist` AND `.acc-grid` ARE THE SAME GRID UNDER TWO NAMES. account-shell.css
    declares `display:grid; 1fr; gap:--space-16; margin-top:--space-16` and the
@@ -148,13 +232,27 @@
 @media (min-width: 640px){
   .coach .clist{ grid-template-columns: 1fr 1fr; }
 }
-/* AND `.ccard` IS `.acard` UNDER A SECOND NAME - account-shell.css:88 is
-   `border: 1px solid var(--line-hair); padding: var(--space-16)` with
-   `--radius-12` and `--elevation-1` from its colour half. This card is the same
-   card with 14 for the radius and 15/16 for the padding. Same merge as above,
-   same owner. */
-.coach .ccard{ border: 1px solid var(--line-hair); border-radius: 14px;   /* [?] 14px radius has no rung; the ladder is 4/8/12/16 */
-  padding: 15px var(--space-16);   /* [?] 15px has no rung; the ladder is 12/16 */
+/* ONE FINISH FOR A SAVED RECORD, AND IT WAS ANSWERED TWICE BEFORE THIS FILE WAS
+   WRITTEN. A saved record with per-item actions is one object, and the cabinet
+   already draws it: account-shell.css gives `.acard` and `.acc-prof`
+   `--radius-12`, `--bg-page` and `--elevation-1`, and address-card.css gives
+   `.addr-card` the same three, byte for byte. Measured at 390 before, on the
+   same page: `.acc-prof` radius 12 + shadow + white ground, and `.ccard` right
+   under it radius 14, `box-shadow: none`, `background: rgba(0,0,0,0)` - the
+   account card with the finish taken off. `.ocard` and `.cdetails` on
+   coach-client were the same two thirds missing, inside the same shell.
+   Three names, one object, one rule. The radius comes 14 -> 12 not by rounding
+   but because that is the answer already in force for this card; the header's
+   `[?]` discipline covers values nobody has decided, and this one has been
+   decided twice.
+   The three keep their own padding below: a list tile, an order and a data
+   panel hold different content and that is the row's business, not the
+   finish's. */
+.coach .ccard,
+.coach .ocard,
+.coach .cdetails{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  background: var(--bg-page); box-shadow: var(--elevation-1); }
+.coach .ccard{ padding: 15px var(--space-16);   /* [?] 15px has no rung; the ladder is 12/16 */
   display: flex; flex-direction: column; }
 .coach .ccard-hd{ display: flex; align-items: center; gap: var(--space-12); }
 .coach .ccard-av{ width: var(--size-44); height: var(--size-44); border-radius: var(--radius-circle);
@@ -170,12 +268,12 @@
    neither of these is in the list, so deleting the rule leaves an unstyled span.
    Adding both names to that selector list is safe in both directions and is the
    same move 7.23 made for `.dr-chip` and `.mgchip`; it needs chip.css open. */
-.coach .ccard-goal{ display: inline-block; font-size: var(--fs-12);   /* [?] 11px has no rung; the ladder is 10/12 */
+.coach .ccard-goal{ display: inline-block; font-size: var(--fs-12);   /* [?] MOVED BY THE MOVE, NOT BY A DECISION: the grey file drew 11px, this draws 12. 11 is a tie between the rungs 10 and 12 and nobody chose the side. See the fourteen-row block at the top */
   font-weight: var(--fw-bold); color: var(--text-primary);
   border: 1px solid var(--line-strong);   /* was 1.5px - see the header note */
   border-radius: var(--radius-pill); padding: var(--space-2) 10px;   /* [?] 10px has no rung; the ladder is 8/12 */
   margin-top: 5px; }   /* [?] 5px has no rung; the ladder is 4/8 */
-.coach .ccard-meta{ font-size: var(--fs-14);   /* [?] 12.5px is a half-pixel and the scale holds none: the ladder is 12/14. It is the ONLY half-pixel type size left in the system - the 5.6 consolidation resolved all six of the others - and it appears five more times in section 2 */
+.coach .ccard-meta{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE, NOT BY A DECISION: the grey file drew 12.5px, this draws 14. 12.5 is a half-pixel the scale does not hold and it is 0.5 from 12 against 1.5 from 14, so the move went PAST the nearer rung. Five declarations did that - this one and four in section 2. See the block at the top */
   color: var(--text-secondary); margin: 13px 0 14px;   /* [?] 13px and 14px have no rung; the ladder is 12/16 */
   display: flex; gap: 6px; flex-wrap: wrap; }   /* [?] 6px has no rung; the ladder is 4/8 */
 .coach .ccard-meta b{ color: var(--text-primary); font-weight: var(--fw-bold); }
@@ -226,7 +324,9 @@
   color: var(--text-muted);   /* grey `--light` */
   font-size: 21px;   /* [?] 21px has no rung; the ladder is 20/24 */
   font-weight: var(--fw-black); }
-.coach .ch-name{ font-size: var(--fs-24); font-weight: var(--fw-black); color: var(--text-primary); letter-spacing: var(--ls-lead); }
+/* `.ch-name` IS DECLARED IN SECTION 1, grouped with `.cl-h1` - the two screens
+   put the same rank on the same shell and the cabinet has one title. Nothing
+   stands here so that the pair cannot drift apart again. */
 /* the tenth chip name - see the note on `.ccard-goal`. It takes the INK border
    where `.ccard-goal` takes the hairline one: grey `--dark` #161616 against grey
    `--hair2` #cfcfcf. Translated by value, so `--line-inverse` here and
@@ -248,13 +348,13 @@
    rebuilt at 6.7 to end. It stays because the markup is frozen and carries no
    `btn` class, so deleting the rule leaves a bare link. Putting `btn btn--outline
    btn--s` on that anchor is a Крок 6 markup fix and it deletes this rule outright. */
-.coach .ch-edit{ font-size: var(--fs-14);   /* [?] half-pixel, as on .ccard-meta */
+.coach .ch-edit{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 12.5px, drawn 14. The second of the five that went past the nearer rung 12 - see .ccard-meta and the block at the top */
   font-weight: var(--fw-bold); color: var(--text-primary);
   border: 1px solid var(--line-strong);   /* was 1.5px - see the header note */
   border-radius: var(--radius-8); padding: 9px 15px;   /* [?] 9px and 15px have no rung; the ladder is 8/12/16 */
   white-space: nowrap; }
 
-.coach .cc-note{ font-size: var(--fs-14);   /* [?] half-pixel, as above */
+.coach .cc-note{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 12.5px, drawn 14. The third of the five that went past 12 */
   color: var(--text-secondary);
   line-height: var(--lh-airy);   /* grey 1.55. The base rhythm moved 1.55 -> 1.6 at step 5.6, said out loud, and every 1.55 in the product moved with it */
   border: 1px dashed var(--line-strong); border-radius: 10px;   /* [?] 10px radius has no rung; the ladder is 4/8/12/16 */
@@ -268,30 +368,31 @@
    every finish and every rung of its 40/52/64 ladder. 13/22 is not on that ladder
    and was a hand-typed height for one screen's one button. */
 
-.coach .oh-h{ font-size: var(--fs-16);   /* [?] 15px has no rung; the ladder is 14/16 */
+/* THE SECTION TITLE STAYS AT 16 and the card title above it comes down to the
+   eyebrow - that pair is the fix, not either half of it. Measured before:
+   «Дані клієнта» 14/700 ink and «Історія замовлень клієнта» 16/700 ink, 2px and
+   one weight apart, which reads as one rank rather than two. `.cd-h` is a card
+   title and the cabinet already draws those as an eyebrow; this is a page
+   section heading and an `<h2>`, so it keeps its size and the two ranks
+   separate. */
+.coach .oh-h{ font-size: var(--fs-16);   /* [?] MOVED BY THE MOVE: grey 15px, drawn 16. 15 is a tie between the rungs 14 and 16 and nobody chose the side. Kept at 16 here for the reason above, but it is still on the fourteen-row list at the top */
   font-weight: var(--fw-black); color: var(--text-primary); margin: 0 0 var(--space-12); }
 .coach .ohist{ display: flex; flex-direction: column; gap: 14px; }   /* [?] 14px has no rung */
-.coach .ocard{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
-  padding: 15px var(--space-16); }   /* [?] 15px has no rung; and it is the same 15/16 as `.ccard` above, so the two cards agree with each other and with nothing else */
+/* the finish (edge, radius, ground, shadow) is the grouped rule in section 1 -
+   `.ccard`, `.ocard` and `.cdetails` are one object under three names. */
+.coach .ocard{ padding: 15px var(--space-16); }   /* [?] 15px has no rung; and it is the same 15/16 as `.ccard` above, so the two cards agree with each other and with nothing else */
 .coach .oc-top{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-12); flex-wrap: wrap; }
-.coach .oc-no{ font-size: var(--fs-14);   /* [?] half-pixel; the ladder is 14/16 */
+.coach .oc-no{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 14.5px, drawn 14. The only one of the fourteen that came out SMALLER, and the only one already sitting on its nearest rung */
   font-weight: var(--fw-black); color: var(--text-primary); }
-.coach .oc-meta{ font-size: var(--fs-14);   /* [?] half-pixel */
+.coach .oc-meta{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 12.5px, drawn 14. The fourth of the five that went past 12 */
   color: var(--text-secondary); margin-top: 3px; }   /* [?] 3px has no rung; the ladder is 2/4 */
-/* THE FIFTH STATUS PILL. status-pill.css counted four names for one pill -
-   `.oh-status` `.rbadge` `.aord-status` `.ci-oostag` - and set two rungs:
-   12/800 with 4/12 padding for a row, 10/800 with 2/8 for an inline one. This is
-   a row pill written 11/800 with 2/9 padding, which is on neither rung and is a
-   fifth name for the same object. Kept, because the atom's selector list does not
-   include it and the markup is frozen; the fix is to add `.oc-status` to that
-   list, which is one line in status-pill.css and moves this pill onto the row
-   rung. It also has no state variant here - `.ok` `.go` `.wait` all exist in the
-   atom and «● Доставлено» draws its own bullet in the markup instead. */
-.coach .oc-status{ display: inline-block; font-size: var(--fs-12);   /* [?] 11px has no rung; the atom's row rung is 12 */
-  font-weight: var(--fw-black); border: 1px solid var(--line-strong);
-  border-radius: var(--radius-pill); padding: var(--space-2) 9px;   /* [?] 9px has no rung; the atom's row rung is 12 */
-  color: var(--text-primary); }
-
+/* `.oc-status` LEFT THIS FILE at 7.96 and now answers to status-pill.css, which
+   took all three coach names in the same step. The block that stood here declared
+   the box a second time at (0,2,0) and would have beaten the atom at (0,1,0), so
+   this screen's two pills would have stayed flat grey while coach-home and
+   coach-orders went green - the very split the atom was opened to close. The
+   markup takes `ok` on the delivered ones, which is the half no stylesheet can
+   write for itself. */
 .coach .oc-items{ margin: var(--space-12) 0 var(--space-4); border-top: 1px solid var(--line-hair); }
 .coach .oc-item{ display: grid; grid-template-columns: var(--size-40) 1fr auto; gap: 11px;   /* [?] 11px has no rung */
   align-items: center; padding: 10px 0;   /* [?] 10px has no rung */
@@ -304,9 +405,9 @@
   border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center;
   color: var(--mark-faint);   /* grey `#bbb`, a raw hex, and --mark-faint IS that value: 'the quiet mark ... the photo placeholder' is this exact element */
   font-size: var(--fs-8); }
-.coach .oc-nm{ font-size: var(--fs-14);   /* [?] 13px has no rung; the ladder is 12/14 */
+.coach .oc-nm{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 13px, drawn 14. 13 is a tie between the rungs 12 and 14 and nobody chose the side */
   font-weight: var(--fw-bold); color: var(--text-primary); line-height: var(--lh-snug); }
-.coach .oc-qty{ font-size: var(--fs-12);   /* [?] half-pixel; the ladder is 10/12 */
+.coach .oc-qty{ font-size: var(--fs-12);   /* [?] MOVED BY THE MOVE: grey 11.5px, drawn 12. A half-pixel, and 12 is its nearest rung - one of the three of the fourteen that no rounding rule would move */
   color: var(--text-secondary); margin-top: var(--space-2); }
 
 /* THE PRICE ROW IS NOT THIS FILE'S - 3 rules deleted, and this is the second
@@ -335,7 +436,7 @@
    listed and not guessed. */
 
 .coach .oc-sum{ display: flex; justify-content: space-between; align-items: baseline;
-  padding: var(--space-12) 0 var(--space-2); font-size: var(--fs-14);   /* [?] 13px has no rung */
+  padding: var(--space-12) 0 var(--space-2); font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 13px, drawn 14. The second of the three 13s, and 13 is a tie */
   font-weight: var(--fw-bold); color: var(--text-primary); }
 .coach .oc-sum b{ font-size: var(--fs-16); font-weight: var(--fw-black); }
 .coach .oc-actions{ display: flex; gap: 9px;   /* [?] 9px, the fourth action row - see the note on .cl-acts */
@@ -344,10 +445,24 @@
    `.cc-cta .btn` above. Three action rows on these two screens gave the button
    three different paddings: 10/12, 13/22 and 10/18. The atom has one ladder. */
 
-.coach .cdetails{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
-  padding: var(--space-2) var(--space-16); margin: var(--space-16) 0 var(--space-4); }
-.coach .cd-h{ font-size: var(--fs-14);   /* [?] 13px has no rung */
-  font-weight: var(--fw-black); color: var(--text-primary); padding: 13px 0 3px; }   /* [?] 13px and 3px have no rung */
+/* the finish is the grouped rule in section 1 - see `.ccard`. */
+.coach .cdetails{ padding: var(--space-2) var(--space-16); margin: var(--space-16) 0 var(--space-4); }
+/* THE CARD TITLE TAKES THE CABINET'S EYEBROW. Measured before: «Дані клієнта»
+   14/700 in `--text-primary`, 2px and one weight from the `<h2>` beneath it, so
+   a card title and a page section title read as the same rank. Every other card
+   title in this cabinet is already an eyebrow - account-shell.css's
+   `.acard .ah h3` draws «БОНУСНИЙ РАХУНОК» and «РІВЕНЬ ЛОЯЛЬНОСТІ» at 12,
+   black, uppercase, `--ls-caps`, `--text-muted` - and this is that object. The
+   five declarations are that rule, copied by value rather than by selector
+   because the markup is frozen: this title is a bare `<div class="cd-h">`, not
+   the `.acard > .ah > h3` the atom's selector needs. Adding `.cd-h` to that
+   selector list is a Крок 6 item and it deletes these five lines.
+   Side effect worth naming: this takes `.cd-h` off the fourteen-row type list at
+   the top of the file - it now reads 12 because the eyebrow says 12, not
+   because 13 was rounded. Thirteen rows left. */
+.coach .cd-h{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase;
+  letter-spacing: var(--ls-caps); color: var(--text-muted);
+  padding: 13px 0 3px; }   /* [?] 13px and 3px have no rung */
 /* DEAD, AND KEPT AS FOUND. base.css:7 is `*{ box-sizing: border-box; margin: 0;
    padding: 0 }`, so the `<dl>` already has no margin and this rule - its only
    declaration - draws nothing. The same is true of `margin: 0` on `.cd-row dt`
@@ -361,9 +476,9 @@
   padding: 11px 0;   /* [?] 11px has no rung */
   border-bottom: 1px solid var(--line-hair); }
 .coach .cd-row:last-child{ border-bottom: 0; }
-.coach .cd-row dt{ font-size: var(--fs-14);   /* [?] half-pixel */
+.coach .cd-row dt{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 12.5px, drawn 14. The fifth and last of the five that went past the nearer rung 12 */
   color: var(--text-secondary); font-weight: var(--fw-bold); margin: 0; }   /* margin dead - see .cd-list */
-.coach .cd-row dd{ font-size: var(--fs-14);   /* [?] half-pixel; the ladder is 12/14 */
+.coach .cd-row dd{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 13.5px, drawn 14. A half-pixel, and 14 is its nearest rung - the third of the three that no rounding rule would move */
   color: var(--text-primary); margin: 0;   /* margin dead - see .cd-list */
   line-height: 1.45; }   /* [?] 1.45 is not a leading of the set; the three are 1 / 1.3 / 1.6. By the JOB rule in tokens.css ('1.6 for anything a person reads as text') this dd is text and should be --lh-airy, but that is a value decision and it moves a line */
 /* [?] 520 IS NOT IN THE BREAKPOINT SET. tokens.css lists eleven boundaries -
@@ -408,15 +523,21 @@
    DIFFERENTLY, and restating a value that is already in force draws nothing and
    hides the lines that do differ. Nothing has decided differently yet.
 
-   WHAT STAGE 09 STILL HAS TO SAY, and it is four questions, not a to-do list:
+   WHAT STAGE 09 STILL HAS TO SAY. Four questions stood here; two of them were
+   answered on the review pass after the screens were opened in a browser, and
+   the answers are the rules above rather than a line in this list:
 
-   1. Does a client card take the account card's finish? account-shell.css gives
-      `.acard` and `.acc-prof` `--radius-12`, `--bg-page` and `--elevation-1`.
-      `.ccard`, `.ocard` and `.cdetails` are the same object on a coach screen and
-      currently have an edge and no shadow. One answer covers all five.
-   2. Does a client's NAME take `--font-display`? `.acc-prof .nm` does, in colour,
-      and `.cg-nm` in client-row.css does. `.ccard-nm` and `.ch-name` are the same
-      person's name on the two screens that are actually about that person.
+   1. ANSWERED - a client card takes the account card's finish. `.ccard`,
+      `.ocard` and `.cdetails` now carry `--radius-12`, `--bg-page` and
+      `--elevation-1` in one grouped rule beside `.ccard`, because
+      account-shell.css and address-card.css had already answered it twice for
+      the same object.
+   2. ANSWERED for the page title - `.cl-h1` and `.ch-name` take the cabinet's
+      `--font-display` / `--fw-semibold` / `--fs-30` / `--ls-lead`, grouped in
+      section 1. STILL OPEN for `.ccard-nm`, the same person's name on a list
+      tile: `.acc-prof .nm` is Oswald at 16 and `.cg-nm` in client-row.css is
+      too, and this one is still Inter 16. It is a smaller decision than the
+      title and it was not taken here.
    3. Does the goal chip get an accent state? A goal is what drives the whole
       selection - the screen says so in its own copy - and today it is a grey
       outline. `--line-action` exists for 'the selected state'. This is a look,
@@ -424,4 +545,6 @@
    4. `.oc-status` and the money column: both are atoms wearing local names, and
       both are one line in status-pill.css and price.css respectively. Colour
       arrives with the atom, not with this file.
+   5. The fourteen type sizes at the top of the file, thirteen of them still
+      open. That is the largest single question these two screens carry.
    ############################################################################ */

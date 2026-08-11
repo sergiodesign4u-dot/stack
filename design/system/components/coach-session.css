@@ -10,9 +10,14 @@
    eight coach screens' `<main>` reads `wf-page cs-wrap`, `wf-page cc-wrap`,
    `wf-page cv-wrap`, `wf-page od-wrap` or `wf-page` alone. So the scope is a
    promise about markup that does not exist yet: the coloured coach screens have
-   to carry `coach` on `<main>` or every rule in these five files matches nothing.
+   to carry `coach` or every rule in these five files matches nothing.
    Written down here because it is one class in eight files, and the day it is
    forgotten the whole flow renders unstyled with no error anywhere.
+   AND IT LANDED ON `<body>`, NOT ON `<main>` - `design/coach-session.html` reads
+   `<body class="coach">`. Corrected here at 7.97 because the sentence above was
+   read as true and cost a rule: `body:has(.coach .cs-bar)` was written on the
+   strength of it, `.coach` is body rather than a descendant of it, and the
+   clearance it declared never applied. See the block at the end of this file.
    Colour reads a semantic role, geometry reads a primitive.
 
    WHAT THE SCREEN IS. node 5.5, and it is the PRIMARY job of the whole product:
@@ -66,6 +71,61 @@
    this component was drawn before the ladder existed and it is the same case the
    spacing note in tokens.css leaves open about the coach box. */
 
+/* ============================================================================
+   THE TWENTY SIZES ARE AN OPEN DECISION, NOT A CLOSED ONE - step 7.97.
+
+   The block above states the snap as a rule («ties go UP») and moves on. It is
+   the same instruction step 5.6 gave the two shared stylesheets, and applying it
+   here was a reading, not a decision anybody made about this screen: no owner
+   was asked, and the twenty new sizes were never written down beside the twenty
+   old ones. They are, once, here. Left column is the frozen grey source
+   (`wireframes/coach-session.html`, the `<style>` block, selector by selector),
+   right column is what this file renders today.
+
+     .cc-name .cc-goal   13   -> 14        .cs-note        11.5 -> 12
+     .cc-repeat          12.5 -> 14        .cs-summ-h      15   -> 16
+     .cl-nm              13.5 -> 14        .cs-top h1      22   -> 24
+     .cl-tag             11   -> 12        .cs-tot b       22   -> 24
+     .cline-sub b        17   -> 18        .ctab .ctg      11   -> 12
+     .cprice .wtag        9.5 -> 10        .ctab .cts      13   -> 14
+     .cs-cli             13   -> 14        .ctab.add       13   -> 14
+     .cs-cli small       11   -> 12        .qa-nm          13   -> 14
+     .cs-lines-h         13   -> 14        .qadd-h         13   -> 14
+     .cs-meta            12.5 -> 14        .tierchip       11   -> 12
+
+   IT IS BATCH-WIDE. All five coach files took the same sweep at 7.95: 73 sizes
+   moved, 71 up and 2 down, and eighteen of the 73 are 12.5 -> 14, which skips
+   the 12 rung entirely. It was found independently in two of the five files
+   before anyone looked at the other three. This file has the largest count and
+   the fewest false notes - two of its twenty carry a `[?]` claiming the size was
+   left alone, against fifteen in coach-cabinet.css and fourteen in
+   coach-clients.css.
+
+   WHAT MAKES IT A SLIP RATHER THAN A POLICY: every GEOMETRY literal in the same
+   five files stayed a literal and got a note saying so (7, 9, 10, 11, 13, 14,
+   15, 18, 20 are all still here). One sweep applied to one of the two ladders,
+   silently.
+
+   NOTHING IS ADJUSTED BY THIS BLOCK. Rounding back is a value decision and it is
+   the owner's; the record is what makes it possible to take.
+
+   TWO OF THE TWENTY LEAVE THE LIST TODAY, because a merge decided their size out
+   loud somewhere else:
+     `.cc-repeat`      12.5 -> 14   the local rule is deleted below and the 14 is
+                                    now `.btn--text`'s, which button.css took at
+                                    7.8 out of five files that each wrote it.
+     `.cprice .wtag`    9.5 -> 10   the local rule is deleted below and the 10 is
+                                    now discount.css's `--fs-10`.
+   The other eighteen stand open.
+
+   AND ONE SIZE THAT IS NOT ON THIS LIST MOVES ANYWAY, so it is not mistaken for
+   a twenty-first: `.cs-bar .bt b` was 16 in the grey source and 16 here - never
+   snapped - and the bar merge below takes it to `--fs-20`, which is what
+   buy-bar.css states for the same figure on `.mbuybar`. `.cs-tot b` (22 -> 24)
+   is a DIFFERENT element, the total inside the summary column, and it stays
+   open.
+   ============================================================================ */
+
 /* ---------- structure (from wireframes/coach-session.html) ---------- */
 
 /* The widest page in the product, and it earns it: the left column holds a
@@ -77,7 +137,14 @@
 .coach .cs-top{ display: flex; align-items: flex-start; justify-content: space-between;
   gap: 14px;                       /* [?] 14px has no rung; the ladder is 12/16 */
   margin: var(--space-8) 0 14px; } /* [?] the same 14 */
-.coach .cs-top h1{ font-size: var(--fs-24);       /* was 22px; step 5.6, «ties go UP (22 -> 24)» */
+/* THE SIXTH BODY-FACE PAGE HEADLINE, and the last of them - 7.96. Five others
+   were found in this batch (`.cv-body h1`, `.cl-h1`, `.ch-name`, `.co-top h1`,
+   `.clh h1`) and every one of them set a page title in Inter while every accepted
+   headline in the system - `.acc-h1`, `.auth-h1`, `.co-h1`, `.bb h1` - is the
+   display face. A missing `font-family` is a slip, so it is taken here; the SIZE
+   is a value and 24 stays where the move left it, on the open list below. */
+.coach .cs-top h1{ font-family: var(--font-display); font-weight: var(--fw-semibold);
+  font-size: var(--fs-24);       /* was 22px; step 5.6, «ties go UP (22 -> 24)» */
   font-weight: var(--fw-black); color: var(--text-primary);
   letter-spacing: var(--ls-lead); }
 .coach .cs-meta{ font-size: var(--fs-14);       /* was 12.5px; 7.66, half a pixel is not a step, and it snaps UP */
@@ -105,7 +172,17 @@
    can cover the strip's hairline: that is what makes a tab look attached to the
    panel under it. The trick only works if the panel is directly under it, and on
    this screen it is not - see `.cs-grid`. */
-.coach .ctab{ flex: 0 0 auto; border: 1px solid var(--line-strong); border-bottom: none;
+/* `border-bottom: 0`, NOT `none`, and the difference drew the heaviest line on
+   the screen - step 7.97. `none` sets the STYLE and leaves the width at its
+   `medium` initial (3px) and the colour at `currentColor`; `.ctab.add` below
+   then says `border-style: dashed`, which resurrects both. Measured on «＋
+   Клієнт»: `border-bottom-width` 3px, style dashed, colour rgb(28,28,28) - a
+   3px black dashed rule under the least important control on the page, against
+   the 1px --line-strong every other edge of the same tile carries. A width of
+   0 cannot be revived by a later style, which is the whole fix; `.ctab.on`
+   still puts its own `1px solid var(--bg-page)` back, because that shorthand
+   sets the width again. */
+.coach .ctab{ flex: 0 0 auto; border: 1px solid var(--line-strong); border-bottom: 0;
   border-radius: 10px 10px 0 0;    /* [?] 10px has no rung; the ladder is 4/8/12/16 */
   background: var(--bg-surface);
   padding: 10px 15px;              /* [?] neither 10 nor 15 has a rung; 8/12 and 12/16 */
@@ -143,8 +220,13 @@
    hanging off the tabs above it - but `.cs-grid` puts 18px of margin between the
    two, so what renders is a box open along its whole top edge, 18px below the
    strip it belongs to. Reported at 7.95, not fixed: closing the gap and removing
-   the radius are two different answers and both are looks. */
-.coach .cs-panel{ border: 1px solid var(--line-hair); border-top: none;
+   the radius are two different answers and both are looks.
+   `border-top: 0`, not `none`, for the reason written on `.ctab` above: `none`
+   leaves the width at its 3px initial and any later `border-style` brings the
+   edge back at full weight. Nothing sets one on this element today, so this is
+   the same trap closed before it fires rather than a defect - the rendering is
+   identical, measured. */
+.coach .cs-panel{ border: 1px solid var(--line-hair); border-top: 0;
   border-radius: 0 0 var(--radius-12) var(--radius-12); padding: var(--space-16);
   min-width: 0; }
 .coach .cs-client{ display: flex; align-items: center; justify-content: space-between;
@@ -153,13 +235,38 @@
 .coach .cc-name{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); }
 .coach .cc-name .cc-goal{ font-size: var(--fs-14);  /* was 13px, same rule */
   font-weight: var(--fw-semibold); color: var(--text-secondary); }
-/* «Повторити замовлення» is a text action with no class from button.css on it -
-   one of the family button.css counted at 7.61 and logged for Крок 6, «controls
-   whose word is an action carrying no class from this file at all». Kept as it
-   stands, because giving it `.btn--text` is a markup change and the markup is
-   frozen. */
-.coach .cc-repeat{ font-size: var(--fs-14);     /* was 12.5px, same rule */
-  font-weight: var(--fw-bold); color: var(--text-primary); text-decoration: underline; }
+/* AN ACTION WRITTEN AS WORDS WAS DRAWN THREE WAYS INSIDE ONE PANEL - step 7.97,
+   and `.cc-repeat` DELETED, all four declarations. Measured at 390 before:
+
+     .cc-repeat  «Повторити замовлення»  14 / 700  primary   underlined  165 x 22
+     .cl-rm      «Видалити»              12 / 600  secondary underlined   58 x 19
+     .cs-save    «Зберегти сесію»        14 / 400  body      none        324 x 22
+
+   Three finishes, one meaning, and the loudest of the three is the reorder job -
+   locked product decision 4, «one-tap repeat from order history». button.css
+   defines exactly one finish for this and counted SEVENTEEN controls at 7.61
+   «whose word is an action carrying no class from this file at all»; two of them
+   are on this screen. The twin draws all of its own the same way - `btn--text
+   .ci-lnk` on the cart row, 14 / 600, no underline, `--text-body`.
+
+   THE MARKUP CARRIES IT NOW, so the rules here go rather than being rewritten:
+   `design/coach-session.html` gained `btn--text ci-lnk` on «Повторити
+   замовлення» and on both «Видалити», and `ci-lnk` on «Зберегти сесію», which
+   already had `btn--text`. `.btn--text` brings the 14 and the ink, `.ci-lnk` the
+   600 - and `.ci-lnk` is cart-row.css's, one declaration, unscoped, so nothing
+   was added to a file this step does not own. The NAME is wrong on a coach
+   screen («ci» is a cart item) and that is a Крок 6 rename, the same one
+   stepper.css writes for `.ci-qty` / `.co-qty`: one atom answering to more than
+   one name until the markup sweep.
+
+   WHAT IT COSTS, said out loud rather than discovered later: the underline goes
+   from both, and «Видалити» grows from 12 / secondary to 14 / body ink. That is
+   the cart's own reading of the same word - button.css's 7.61 note keeps a
+   cart-row «Видалити» in the quiet finish on purpose, «because one press puts
+   the product back» - so this is the twin's decision applied, not a new one.
+   What it does NOT solve: the box is 22 tall against a 44 touch minimum,
+   identical to `.ci-lnk` in the cart (83.58 x 22.39). One reading, and the gap
+   is the atom's, not this screen's. */
 .coach .cc-goals{ display: flex; gap: var(--space-8); flex-wrap: wrap;
   margin: 10px 0 var(--space-4); } /* [?] 10px has no rung; the ladder is 8/12 */
 /* `.cc-goals a` and `.cc-goals a.on` DELETED - the chip owns them. chip.css was
@@ -184,19 +291,35 @@
   margin-bottom: 9px; }            /* [?] 9px has no rung; the ladder is 8/12 */
 .coach .qadd-h span{ font-weight: var(--fw-semibold); color: var(--text-secondary);
   font-size: var(--fs-12); }
-.coach .qadd-field{ display: flex; gap: var(--space-8); }
-/* The field's BOX is gone: `border: 1.5px solid var(--hair2)`, `border-radius:
-   8px`, `padding: 11px 12px`, `font-size: 14px`, `font-family: inherit` and
-   `background: #fff` were the field atom rebuilt by hand, and field.css owns it -
-   `.field` is 44 tall on a --line-strong edge at --radius-12, `.field--s` is the
-   40 rung, and the `font-family: inherit` line is the one field.css says was
-   «the line that was missing 66 times». What stays is where the field STANDS:
-   it takes the rest of the row. Same shape as `.notifyrow input` in
-   restock-note.css, which kept `flex: 1` and gave up its `font` shorthand at
-   step 7.
-   The `<input>` carries no class today, so Крок 6 has to put `.field` on it or
-   this control arrives in colour wearing the browser's own box. */
-.coach .qadd-field input{ flex: 1; }
+/* THE SEARCH BOX OF THE PRIMARY JOB WAS THE BROWSER'S OWN INPUT - step 7.97,
+   and BOTH RULES THAT STOOD HERE ARE DELETED because the markup carries the atom
+   now.
+   7.95 took the hand-built field box off («`border: 1.5px solid var(--hair2)`,
+   `border-radius: 8px`, `padding: 11px 12px`, `font-size: 14px`,
+   `font-family: inherit`, `background: #fff`») and wrote down that «Крок 6 has
+   to put `.field` on it or this control arrives in colour wearing the browser's
+   own box». It arrived wearing the browser's own box. Measured at 390:
+
+       border 2px inset rgb(118,118,118) · border-radius 0 · font-family Arial
+       · padding 0 · colour rgb(0,0,0)
+
+   `rgb(118,118,118)` and `#000` are not in the palette, and Arial is the face
+   field.css calls «the line that was missing 66 times». This is the field a
+   coach types a product into thirty times a session, on the one screen the
+   primary job happens on, and it was the last control on 48 screens still
+   wearing the UA box.
+   THE FIX IS IN THE MARKUP, WITH THE ATOM'S OWN CLASSES: `field-grp
+   field-grp--s` on the wrapper and `field field--s` on the input. That is the
+   header-search shape - one box drawn around the field AND the «Знайти» button,
+   one focus ring around the pair, and `field.css` already gives a direct-child
+   button `border-radius: 0; border-width: 0` so it sits flush inside.
+   Both local declarations become restatements of the atom and go with it:
+   `display: flex` is `.field-grp`'s, and `gap: var(--space-8)` had to go rather
+   than be kept - the group has one border and `overflow: hidden`, so 8px of gap
+   INSIDE it would show the page through the box. `flex: 1` on the input is
+   `.field-grp > .field`'s, word for word.
+   NO FIELD RULE IS WRITTEN HERE, which is the point: the atom keeps its own
+   file. */
 /* `display: flex; flex-direction: column` DELETED from `.qadd-res`: its children
    are block-level grids that already fill the width, so the flex context changed
    nothing. Measured in the browser at 7.95 - identical box on every row. What is
@@ -207,6 +330,41 @@
   align-items: center;
   padding: 9px 0;                  /* [?] 9px again */
   border-top: 1px solid var(--line-hair); }
+/* ---- FOUR COLUMNS ARE A DESKTOP ROW PUT ON A PHONE UNCHANGED - step 7.97 -----
+   Measured at 360 before this block: `documentElement.scrollWidth` 394 against
+   `clientWidth` 360, and the four tracks resolve to
+
+       44 / 91.375 / 44.164 / 128.547   plus 3 x 11 of gap = 341
+
+   inside a 300px content box (360 less 18 + 16 + 13 of page, panel and quick-add
+   padding on each side). `html{ overflow-x: hidden }` in base.css CLIPS the
+   remainder instead of scrolling to it, so the right edge of «Додати клієнту»
+   was cut off and the button could not be pressed at all. At 390 the same 394
+   against 390. The probe names one element: `BUTTON.qa-add L265 R394`.
+   AND THE NAME PAID FOR IT: with the row over-constrained, the `1fr` track falls
+   to its own min-content - the longest word - so «OstroVit Creatine Monohydrate
+   500 г» wrapped to FOUR lines in 91px.
+   AND NOTHING LINED UP. Each `.qa-row` is its own grid, so the tracks are
+   resolved three times over three different strings: the three result prices
+   ended at 248.55 / 254.2 / 233.11, a 21px spread down a three-row list of money
+   a coach is comparing.
+   button.css states the answer in capitals - «A BUTTON NEVER WRAPS... the honest
+   answer is to give it the room (full width, or a row that stacks on a phone),
+   not to fold the word» - and 479 is that file's own phone step, one of the
+   eleven boundaries tokens.css names (480, 7 files). So the row stacks: photo,
+   name and price on the first line, the action across the whole second one. The
+   price sits in the last track before the row's right edge, so the three prices
+   now share one edge instead of three. Nothing about the row above 480 moves. */
+@media (max-width: 479px){
+  .coach .qa-row{ grid-template-columns: var(--size-44) minmax(0, 1fr) auto;
+    grid-template-areas: 'ph bd price'
+                         'add add add'; }
+  .coach .qa-ph{ grid-area: ph; align-self: start; }
+  .coach .qa-bd{ grid-area: bd; }
+  /* placement only - the money's own type is price.css's and client-row.css's */
+  .coach .qa-row .cprice{ grid-area: price; align-self: start; }
+  .coach .qa-add{ grid-area: add; }
+}
 .coach .qa-ph{ width: var(--size-44); height: var(--size-44);
   border-radius: 7px;              /* [?] 7px has no rung; the ladder is 4/8 */
   background: var(--bg-sunken); border: 1px solid var(--line-hair);
@@ -214,17 +372,26 @@
   color: var(--mark-faint); font-size: var(--fs-8); }
 .coach .qa-nm{ font-size: var(--fs-14);           /* was 13px, same rule */
   font-weight: var(--fw-bold); color: var(--text-primary); line-height: var(--lh-snug); }
-/* `.qa-av` KEEPS ONLY ITS PLACE IN THE ROW. The line itself - «В наявності»,
-   «Залишилось мало» - is availability.css's atom, rebuilt at 7.35 out of four
-   names in four files (`.pavail` `.lavail` `.hd-av` `.bbavail`), 12/700 in the
-   body face with the state carried by the ink: --text-success, --text-warning,
-   --text-info, --text-secondary. This was a fifth name at 11.5/regular and a
-   `.low` state that said «darker and bolder» instead of «caution».
-   TWO THINGS HAVE TO HAPPEN TOGETHER, and that is why neither happens here:
-   `.qa-av` joins availability.css's list, AND the `●` typed into this screen's
-   markup goes. Steps 7.8-7.12 took 107 typed dots out of the coloured layer and
-   made the dot a `::before` on the atom - so a coach screen that keeps its typed
-   dot and gains the atom renders two of them. */
+/* `.qa-av` KEEPS ONLY ITS PLACE IN THE ROW, and now that is true - step 7.97.
+   The line itself - «В наявності», «Залишилось мало» - is availability.css's
+   atom, rebuilt at 7.35 out of four names in four files (`.pavail` `.lavail`
+   `.hd-av` `.bbavail`), 12/700 in the body face with the state carried by the
+   ink. `.qa-av` is in all three of its selector lists as of this step, plus the
+   dot.
+   THE BLOCKER THIS NOTE USED TO NAME DOES NOT EXIST. It said the join had to
+   wait for the typed `●` to leave the markup, or the screen would render two
+   dots. That is true of the grey layer (`wireframes/coach-session.html:169`) and
+   FALSE of this one: `design/coach-session.html` contains ZERO `●`, measured, so
+   the atom's `::before` is the only dot there has ever been in colour.
+   WHAT THE ABSENCE COST, measured at 390 before the join: with its own size
+   deleted at 7.95 and the atom's not yet arrived, `.qa-av` inherited the page -
+   16px / 400 in `--text-body` - so «В наявності» was the LARGEST text in the
+   row, one rung above the 14/700 product name it describes, and it wrapped to
+   two lines. `.qa-av.low` computed identically, so «Залишилось мало» and «В
+   наявності» were the same ink: the state existed in the markup and nowhere on
+   the screen. Now 12/700, `--text-success` and `--text-warning`.
+   What stays here is the 2px of air between the name and the line, which is
+   where this line stands in THIS row and nothing to do with what it is. */
 .coach .qa-av{ margin-top: var(--space-2); }
 /* `.qa-add` DELETED, all three declarations. `padding: 8px 13px` + `font-size:
    12.5px` is the S size of a button drawn by hand - button.css's own rung is
@@ -261,21 +428,46 @@
 .coach .cs-lines-h{ font-size: var(--fs-14);      /* was 13px, same rule */
   font-weight: var(--fw-black); color: var(--text-primary);
   margin: var(--space-4) 0 6px; }  /* [?] 6px again */
+/* THE ORDER LINE AND THE CART ROW ARE ONE OBJECT DRAWN TWICE - step 7.97, and
+   two of the three differences are closed here. Measured at 390, `.cline`
+   against `article.ci` in cart-row.css:
+
+       photo      52 x 56, --radius-8    against   74 x 74, --radius-12
+       padding    13px 0                 against   16px 0
+       the rule   on the TOP edge        against   on the BOTTOM edge
+
+   THE EDGE IS THE ONE THAT SHOWED. With the rule on the top edge, the first
+   `.cline` draws a hairline 6px under «Товари для клієнта Андрій», so what a
+   person reads is an underline of the heading rather than a divider between two
+   products. Moved to the bottom edge, which is where every other row in the
+   product carries it.
+   THE PADDING TAKES THE TWIN'S 16, which is also the rung: 13 had no rung and
+   was one of the literals the header's spacing list leaves open. This one is not
+   a decision, it is the same row in the same product, so it is closed rather
+   than listed.
+   WHAT IS NOT TAKEN, and it is a real difference: the SIZE (52 against 74) and
+   the radius (8 against 12) are value decisions about a tile, and architecture.md
+   A6 has them open - nine names, eight sizes. Squaring is a SHAPE rule and does
+   not wait for that; the size does. */
 .coach .cline{ display: grid; grid-template-columns: var(--size-52) 1fr auto;
   gap: var(--space-12);
-  padding: 13px 0;                 /* was 13px, same rule */
-  border-top: 1px solid var(--line-hair); align-items: start; }
+  padding: var(--space-16) 0;      /* was 13px; the twin's, and a rung */
+  border-bottom: 1px solid var(--line-hair); align-items: start; }
+/* the subtotal below the last line draws its OWN rule, 1px --line-strong, 4px
+   under this one - so the last `.cline` would close with two hairlines 4px
+   apart. The stronger of the two is the one that means «this client is added
+   up», so it keeps the edge. */
+.coach .cline:has(+ .cline-sub){ border-bottom: 0; }
 /* 52 x 56 IS NOT SQUARE, and step 7.68 made «a box that frames a product
    photograph is square» a shape rule of the system, measured off the three
    photographs, which are 2048 x 2048. Five boxes were squared that day -
    `.pcard .ph`, `.skcard .skimg`, `.ci-ph`, `.ob-line .ph`, `.oh-thumbs i` - and
-   this one was not in the count because the coach flow was grey. Squaring is
-   done on the WIDTH, never the height, so the answer is 52 x 52 and it costs
-   this row 4px. Not taken here: it is a value decision and it belongs with the
-   owner and the other tile sizes (architecture.md A6, nine names and eight
-   sizes). */
+   this one was not in the count because the coach flow was grey that day. It is
+   the last non-square product frame in the product. Squaring is done on the
+   WIDTH, never the height - width is what a row packs and a grid column already
+   states - so the answer is 52 x 52 and it costs this row 4px. */
 .coach .cl-ph{ width: var(--size-52);
-  height: 56px;                    /* [?] 56px has no rung; the ladder is 52/62/64 */
+  height: var(--size-52);          /* was 56px, which had no rung either */
   border-radius: var(--radius-8); background: var(--bg-sunken);
   border: 1px solid var(--line-hair); display: flex; align-items: center;
   justify-content: center; color: var(--mark-faint);
@@ -300,14 +492,22 @@
    What has to happen: `.cq` joins stepper.css's selector list, one line, the way
    `.ci-qty`/`.co-qty` already share one rule set. The `.qn` inside it is a span
    in this markup, so Крок 6 owns that half. */
+/* A PILL WITH A BORDER THAT CANNOT BE PRESSED - step 7.97, and the box comes
+   off. `.cl-tag` measured 79.5 x 27.2 on a 1px --line-strong edge at
+   --radius-pill, standing in `.cl-ctrls` BETWEEN the 96 x 36 stepper and
+   «Видалити» - a row of real controls, in which the only thing wearing a control
+   edge is the one thing that is a `<span>` and does nothing. badge.css already
+   refuses this shape in its own words: «a mark with no ground that only labels a
+   value is an eyebrow, not a badge», and this is the fourth of them
+   (`.aaddr .adef .tag`, `.cbtier`, `.cprice .wtag`).
+   Border, radius and the padding that only existed to inflate the pill are
+   gone; with no edge to sit inside, 10px of left padding would only push the
+   word out of line with the controls beside it. The type and the ink are
+   untouched - what a label WEIGHS is a look decision and it is not this one. */
 .coach .cl-tag{ font-size: var(--fs-12);          /* was 11px, same rule */
-  font-weight: var(--fw-bold); color: var(--text-primary);
-  border: 1px solid var(--line-strong); border-radius: var(--radius-pill);
-  padding: 3px 10px; }             /* [?] neither 3 nor 10 has a rung; 2/4 and 8/12 */
-/* «Видалити» - a `<button>` with no class from button.css, the same family as
-   `.cc-repeat` above and the seventeen controls button.css counted at 7.61. */
-.coach .cl-rm{ font-size: var(--fs-12); font-weight: var(--fw-semibold);
-  color: var(--text-secondary); text-decoration: underline; }
+  font-weight: var(--fw-bold); color: var(--text-primary); }
+/* «Видалити» - see the `.cc-repeat` note above: both are `btn--text ci-lnk` in
+   the markup now and this rule went with that one. */
 .coach .cl-right{ text-align: right; }
 .coach .cline-sub{ display: flex; justify-content: space-between; align-items: baseline;
   padding: 13px 0 var(--space-2);  /* was 13px, same rule */
@@ -368,47 +568,40 @@
   margin-top: 9px; }               /* [?] 9px again */
 
 /* sticky mobile action bar */
-/* THIS BAR IS THE PDP'S BUY BAR WRITTEN A SECOND TIME, AND IT REPEATS A BUG THAT
-   FILE ALREADY FIXED. `.mbuybar` in wireframes/_wf.css:1071 is the same object -
-   fixed, full width, bottom 0, z-index 40, 10px of vertical padding, a 12px gap,
-   a hairline on top - and 17 lines below it that file carries a comment saying:
-   «the tab bar already owns the bottom edge on mobile (60px + safe area), so the
-   buy bar stacks ABOVE it - at bottom:0 the tab bar (z-index 50) covered it and
-   the page's one action was unreachable».
-   This bar is at bottom 0 with z-index 40 and no offset. Below 860, where
-   `.wf-tabbar` is a fixed 61px strip at z-index 50, the one action of the
-   product's primary job is under it. Not fixed here, because the fix is two
-   declarations that belong to whoever owns the bar's relationship to the tab bar,
-   and because it also decides the clearance below. Reported.
-   The shadow is the depth ladder's: `--elevation-bar-top` is «a bar fixed to the
-   BOTTOM of the screen casts upward», four uses, merged at step 6.0 out of four
-   values that were doing one thing. This was a fifth value (0 -2px 10px
-   rgba(0,0,0,.06)) and a raw alpha, which a role exists to stop. */
-.coach .cs-bar{ position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
-  background: var(--bg-page); border-top: 1px solid var(--line-hair);
-  padding: 10px 14px;              /* [?] 10 and 14 again; `.mbuybar` says 10/16 */
-  display: flex; align-items: center; gap: var(--space-12);
-  box-shadow: var(--elevation-bar-top); }
-.coach .cs-bar .bt{ flex: 1; font-size: var(--fs-12); color: var(--text-secondary); }
-.coach .cs-bar .bt b{ display: block; font-size: var(--fs-16); font-weight: var(--fw-black);
+/* THE BAR IS BUY-BAR.CSS'S NOW - step 7.97, and the whole rule that stood here
+   is gone. 7.95 wrote the diagnosis in capitals - «THIS BAR IS THE PDP'S BUY BAR
+   WRITTEN A SECOND TIME» - and then left every value where it was, so the two
+   editions of one object went on drifting in two files. Measured side by side at
+   390, `.cs-bar` against `.mbuybar`: padding 10px 14px against 12px 16px, the
+   money 16 / 700 against 20 / 700, the action 127.13 x 64 against 248.55 x 64,
+   the bar 85 tall against 89.
+   Merged the way `.cq` joined stepper.css: `.cs-bar` is in buy-bar.css's
+   selector lists and no rule was copied. That file carries the full record of
+   what moved and what deliberately did not join. Three declarations left this
+   file with it - the padding, the money's size, and `.btn{ flex: none }` - and
+   `.bt{ flex: 1 }` had to go with them, because the action now takes `flex: 1`
+   from `.mba` and two items at `flex: 1` would split the row in half instead of
+   giving the caption its content and the action the rest, which is what the twin
+   does. `min-width: 0` in its place so a long caption still shrinks.
+   The 61px lift below 860 comes from the same file now (the tab bar covers this
+   bar exactly as it covered that one). What stays here is the caption's own
+   shape, which the twin has no equivalent of, and the range: this bar lives to
+   939 and `.mbuybar` hides at 860. */
+.coach .cs-bar .bt{ min-width: 0; font-size: var(--fs-12); color: var(--text-secondary); }
+.coach .cs-bar .bt b{ display: block; font-weight: var(--fw-black);
   color: var(--text-primary); }
-.coach .cs-bar .btn{ flex: none; }
 @media (min-width: 940px){
   .coach .cs-bar{ display: none; }
 }
-/* THE CLEARANCE IS ON THE WRONG ELEMENT. 76px is the height of the fixed bar
-   written as air so the page can end above it - tokens.css step 7.67 calls this
-   family «clearance, which is not spacing at all» and keeps it literal, because
-   it answers to another element's size and moves when that moves. But
-   `.cs-panel` is not the last thing on the page: below 940 the summary column
-   and the footer follow it, so what this declaration actually draws is a 76px
-   hole in the middle of the page, and the bar still covers whatever ends up
-   under it. The product's own answer to the same problem is one line further
-   down _wf.css: `body:has(.mbuybar){ padding-bottom: 132px }`. Reported. */
-.coach .cs-panel{ margin-bottom: 76px; }
-@media (min-width: 940px){
-  .coach .cs-panel{ margin-bottom: 0; }
-}
+/* `.coach .cs-panel{ margin-bottom: 76px }` DELETED, with both of its overrides
+   - step 7.97. 76 was the bar's height written as air so the page could end
+   above it, put on the wrong element: `.cs-panel` is not the last thing on the
+   page, so below 940 what the declaration actually drew was a 76px hole in the
+   middle of the page with the summary column and the footer under it, and the
+   bar still covered whatever ended up at the bottom. Measured at 900 x 900: the
+   gap between `.cs-panel` and `.cs-summ` computed to 96 (20 of grid gap + the
+   76), body padding-bottom 0, and the bar sitting at bottom 0 over the footer.
+   The clearance is on the body now - see the block at the end of this file. */
 
 /* ---------- colour ---------- */
 /* There is no second half to merge here. Every other file in this folder was
@@ -433,25 +626,32 @@
 .coach .ctab.on{ background: var(--bg-page); border-color: var(--line-action);
   border-bottom: 1px solid var(--bg-page); }
 
-/* THE «гурт» MARK, AND IT IS THE ONE THING ON THIS SCREEN WITH NO OWNER. It sits
-   inside `.cprice`, which belongs to price.css and client-row.css, so by every
-   rule of this stage it should not be declared in a screen's file - but it is
-   declared in no atom either. badge.css takes `.tag.tag-pop` and `.tag.tag-new`
-   and says in its own header what it will not take: a mark with no ground that
-   only labels a value is «an eyebrow, not a badge». That is what this is, and it
-   is the fourth of them (`.aaddr .adef .tag`, `.cl-tag` above, `.cbtier`).
-   It stays here so the mark does not vanish when the coach flow is coloured, and
-   it is the first line of this file's handover: either client-row.css takes it
-   next to `.cprice`, or the eyebrow finally becomes an atom. Nothing else in the
-   product tells a coach that the figure they are reading is the wholesale one. */
-.coach .cprice .wtag{ display: inline-block;
-  font-size: var(--fs-10);                /* was 9.5px; 7.66 again, and 10 is the
-                                      rung above it - the floor of the scale is 8 */
-  font-weight: var(--fw-black); color: var(--text-primary);
-  border: 1px solid var(--line-strong); border-radius: var(--radius-4);
-  padding: 0 var(--space-4);
-  margin-left: 5px;                /* [?] 5px has no rung; the ladder is 4/8 */
-  vertical-align: middle; }
+/* THE «гурт» MARK IS DELETED FROM THIS FILE - step 7.97, and the handover this
+   note itself wrote down is the reason.
+   7.95 kept `.coach .cprice .wtag` here «so the mark does not vanish when the
+   coach flow is coloured», and named the end state: «either client-row.css takes
+   it next to `.cprice`, or the eyebrow finally becomes an atom». The atom had
+   already existed the whole time. discount.css:105 declares `.wtag` - same
+   inline-block, same --fs-10, same --fw-black, same 1px --line-strong edge, same
+   --radius-4, same `padding: 0 var(--space-4)`, same vertical-align - and it had
+   NEVER DRAWN ONCE. Measured: the chip rendered rgb(28,28,28) at
+   `margin-left: 5px`, which are this rule's values, so the scoped copy won
+   everywhere and the atom's `--text-secondary` and its 4px appeared nowhere in
+   the product. The chip was being assembled out of two files at a time: family
+   and line-height from discount.css, everything else from here.
+   ALL THIRTEEN INSTANCES ARE INSIDE A `.coach` BODY - cart-coach 4,
+   coach-session 5, coach-client 4, and zero on `design/cart.html` or any of the
+   other buyer screens (grepped in both layers), so the deletion cannot reach
+   anything outside the coach flow.
+   ONE PROPERTY IN THIS DELETION IS A VALUE DECISION AND NOT A REFACTOR: the ink
+   goes `--text-primary` -> `--text-secondary`, which is a visible change on
+   three screens. It is the right direction - the chip is a LABEL on a figure,
+   not the figure, and 10px of ink at full weight was competing with the price it
+   annotates - but it is a decision and it is recorded as one rather than
+   arriving as a side effect. Two more values move with it and neither is a
+   decision: `margin-left` 5px -> `var(--space-4)`, a literal with no rung giving
+   way to the rung, and `line-height: var(--lh-flat)`, which the atom declares
+   and this rule left to be inherited from `.cprice`. */
 
 /* ---------- the bar the tab bar was covering - step 7.95 ---------------------
    MEASURED, not suspected: at 390x844 `.cs-bar` stood at top 759, 85 tall,
@@ -474,14 +674,58 @@
    59, `cat-overlay.css` types it as 57, and step 7.92 recorded that three files
    name one bar with three numbers and the bar itself declares no height. One
    wrong number repeated is a bug with a name; a fourth number invented here
-   would be a bug without one. */
+   would be a bug without one.
+   The lift itself is no longer written here: `.cs-bar` joined `.mbuybar`'s
+   `@media (max-width: 859px)` rule in buy-bar.css at 7.97, which is the same
+   declaration this block used to restate.
+
+   ---- AND HALF OF IT WAS SILENTLY DOING NOTHING - step 7.97 -------------------
+
+   `body:has(.coach .cs-bar){ padding-bottom: 146px }` NEVER MATCHED. Measured:
+   `document.body.matches('body:has(.coach .cs-bar)')` returns FALSE and the
+   body's `padding-bottom` computed to 60px, base.css's tab-bar clearance,
+   not the 146 this rule intended. Scrolled to the end of the page,
+   `elementsFromPoint` under the bar returned `.wff-cols`, `.wff-col` and a live
+   `<a>Контакти`: the footer ran under the bar and its links could not be
+   reached, which is the exact bug the lift above had just been written to fix,
+   one element further down.
+
+   THE CAUSE IS EXACT AND IT IS WORTH ONE SENTENCE, because it is invisible in a
+   diff: `:has()` prepends an implicit DESCENDANT combinator to its argument, so
+   `body:has(.coach .cs-bar)` asks for a `.coach` that is a descendant of body -
+   and on these screens `.coach` IS body. The twin, `body:has(.mbuybar)`, has no
+   nested class in its argument and computes its 132 on product.html, which is
+   why the pattern looked proven. The scope belongs on the subject:
+   `body.coach:has(.cs-bar)`.
+   Half of a two-part fix quietly doing nothing is the shape this project keeps
+   finding, and this note is what stops it a third time.
+
+   ---- AND THE RANGE WAS WRONG TOO ---------------------------------------------
+
+   The clearance was bounded at `max-width: 859` while the bar itself lives until
+   939, so between 860 and 939 - an 80px band - the bar sat at `bottom: 0` over
+   the footer with nothing paying for it. Measured at 900 x 900 before this step:
+   `.cs-bar` bottom 0, body padding-bottom 0.
+   So the clearance now covers the bar's REAL range, in two steps, because the
+   bar stands in two different places:
+
+       860 .. 939   bar at bottom 0        the bar's own height          89
+         0 .. 859   bar lifted by 61       61 + the bar's own height    150
+
+   89 IS MEASURED, NOT PICKED: 12 + 12 of padding, a 64 `--l` action and the 1px
+   hairline on top, and it is the same 89 `.mbuybar` measures at 390 after the
+   merge - the bar is the same object and its height does not depend on the
+   width. It replaces the 146 above, which was 61 + the bar's OLD 85.
+   IT IS DELIBERATELY NOT THE TWIN'S 132. `buy-bar.css` pays 132 for a bar that
+   is 89 tall standing 61 up, which is 18px short of its own sum - a number that
+   predates the 12/16 padding and the 20px figure and was never re-measured. This
+   file states what it measures rather than inheriting an arithmetic error; the
+   132 is reported, not copied. (The 61 above is the opposite case and stays
+   transferred: it is a number about ANOTHER element, which this bar cannot
+   measure for itself.) */
+@media (max-width: 939px){
+  body.coach:has(.cs-bar){ padding-bottom: 89px; }
+}
 @media (max-width: 859px){
-  .coach .cs-bar{ bottom: calc(61px + env(safe-area-inset-bottom, 0px)); }
-  /* the page pays for the bar it puts over itself, exactly as `.mbuybar` does.
-     `.cs-panel{ margin-bottom: 76px }` was the grey block's attempt and it is on
-     the wrong element: below 940 the summary column and the footer follow the
-     panel, so the 76 drew a hole in the middle of the page and the bar still
-     covered the end of it. */
-  body:has(.coach .cs-bar){ padding-bottom: 146px; }
-  .coach .cs-panel{ margin-bottom: 0; }
+  body.coach:has(.cs-bar){ padding-bottom: 150px; }
 }

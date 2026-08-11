@@ -25,6 +25,26 @@
    is made, and that is the only real difference in the set - so it is the only
    one this file keeps as a variant.
 
+   AND A FIFTH ARRIVED WITH THE COACH FLOW - `.qa-av`, the line under a search
+   result inside the coach's ordering session, 3 instances on coach-session.html.
+   It was NOT drawn by this file until now and it did not draw itself either:
+   step 7.95 deleted its private size and left only a margin, so measured at 390
+   it came out 16px/400 in `--text-body` - INHERITED from the page, bigger than
+   the 14/700 product name above it, and «Залишилось мало» wrapped to two lines.
+   Both states read the same ink, so the one word that says «hurry» said nothing.
+
+   WHY IT WAITED, AND WHY THE REASON HAD EXPIRED. coach-session.css blocked the
+   join on the grounds that this screen's markup types its own `●`, and that a
+   name joining the atom would render two dots. True of the GREY layer -
+   `wireframes/coach-session.html:169` has them - and false of the coloured one:
+   `design/coach-session.html` contains zero `●`, measured, so there was nothing
+   to double. The dot comes with the atom, as a shape, exactly as it does for the
+   other four.
+   Both state selectors take it: `.qa-av` bare is the in-stock line (the markup
+   writes no `.in`, same as `.hd-av` and `.bbavail`), `.qa-av.low` is the
+   warning. Nothing here is scoped `.coach`: `.qa-av` exists on one screen in the
+   whole product, checked in both layers, and this is a level-1 atom.
+
    AND product-card.css HELD A DEAD DECLARATION: `.lavail.pre, .lavail.out
    { color: --text-secondary }` on line 30 and `.lavail.pre { color: --text-info }`
    on line 90. The first never rendered. Same shape step 7.4 swept 1 038 times.
@@ -47,7 +67,7 @@
    a card must still hold the row below it in line with its neighbours. It stays
    scoped to `.pcard` for exactly that reason - it answers a question the GRID
    asks, and a line standing on its own has nothing to keep aligned. */
-.pavail, .lavail, .hd-av, .bbavail{
+.pavail, .lavail, .hd-av, .bbavail, .qa-av{
   font-size: var(--fs-12);
   font-weight: var(--fw-bold);
   /* AND THE FAMILY IS DECLARED, because one member cannot inherit it. `.bbavail`
@@ -74,8 +94,9 @@
    danger red - an empty shelf is a fact, not an error.
    `--text-info` exists for exactly one of these (`.pre`) and nothing else in the
    product reads it: 2 uses, both this component. */
-.pavail.in,  .lavail.in,  .hd-av,     .bbavail    { color: var(--text-success); }
-.pavail.low, .lavail.low                          { color: var(--text-warning); }
+.pavail.in,  .lavail.in,  .hd-av,     .bbavail,
+.qa-av                                            { color: var(--text-success); }
+.pavail.low, .lavail.low, .qa-av.low              { color: var(--text-warning); }
 .pavail.pre, .lavail.pre                          { color: var(--text-info); }
 .pavail.out, .lavail.out, .bbavail.out            { color: var(--text-secondary); }
 
@@ -106,6 +127,7 @@
    4. `vertical-align: middle` puts the dot's centre on the x-height midline,
    which is within half a pixel of where the glyph's ink sat. */
 .pavail::before, .lavail::before, .hd-av::before, .bbavail::before,
+.qa-av::before,
 .oh-status.ok::before, .oh-status.go::before, .oh-status.wait::before,
 .aord-status::before{
   content: '';

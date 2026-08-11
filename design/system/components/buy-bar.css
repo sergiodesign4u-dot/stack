@@ -2,26 +2,77 @@
    Split out of wireframes/_wf.css (structure) and design/kit/kit.css (colour)
    at stage 08 step 3. Selectors are unchanged; the colour block below is the
    one that wins, exactly as the two stylesheets stacked before the split.
-   Colour reads a semantic role, geometry reads a primitive. */
+   Colour reads a semantic role, geometry reads a primitive.
+
+   ============================================================================
+   THE SECOND NAME - `.cs-bar`, step 7.97.
+
+   `.cs-bar` is the sticky action bar of the coach's ordering session, and it is
+   THIS BAR WRITTEN A SECOND TIME. coach-session.css said so itself, in capitals,
+   at 7.95 - «THIS BAR IS THE PDP'S BUY BAR WRITTEN A SECOND TIME» - and then
+   left the values unmerged, so the two drifted where nobody could see them side
+   by side. Measured in the browser at 390, `.cs-bar` against `.mbuybar`:
+
+       padding        10px 14px      against   12px 16px
+       the money      16px / 700     against   20px / 700
+       the action     127.13 x 64    against   248.55 x 64
+       bar height     85             against   89
+
+   The action is the one that matters. `.mba` is `flex: 1` and `.cs-bar .btn` was
+   `flex: none`, so the screen the whole product is built around - the primary
+   job, «build orders for several clients» - gave its single action HALF the
+   width the product page gives its own. And it stated a whole session's total
+   4px smaller than a single product's price.
+
+   MERGED THE WAY `.cq` JOINED stepper.css: one name added to the lists that
+   already exist, no rule copied. Where a value differed the TWIN'S was taken,
+   so what moved is the coach bar: padding 10/14 -> 12/16, money 16 -> 20,
+   action `flex: none` -> `flex: 1`, height 85 -> 89.
+
+   WHAT DOES NOT JOIN, and each for a reason:
+     `@media (min-width: 860px){ display: none }`   the coach bar lives to 939,
+        not to 859. Its own hide stays in coach-session.css.
+     `body:has(.mbuybar){ padding-bottom }`         the clearance answers to a
+        bar that exists over a WIDER range, so it is two numbers rather than one
+        and it stays with the bar that needs it.
+     `.mbp` and its grid                            the buy bar's money is a
+        struck price, a discount chip and a figure; the coach bar's is a caption
+        and a total. Same rung, different object, so only the SIZE is shared.
+   ============================================================================ */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
-.mbuybar{ position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--bg-page); border-top: 1px solid var(--line-hair); display: flex; gap: var(--space-12); align-items: center; }
+.mbuybar, .cs-bar{ position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--bg-page); border-top: 1px solid var(--line-hair); display: flex; gap: var(--space-12); align-items: center; }
 @media (min-width: 860px){
   .mbuybar{ display: none; }
 }
 .mbuybar .mbp{
   font-size: var(--fs-20); }
-.mbuybar .mba{ flex: 1; }
+/* THE ACTION TAKES THE REST OF THE ROW. `.cs-bar .btn` was `flex: none` and
+   measured 127.13 wide against this bar's 248.55 at the same 390. */
+.mbuybar .mba, .cs-bar .btn{ flex: 1; }
 @media (max-width: 859px){
-  .mbuybar{ bottom: calc(61px + env(safe-area-inset-bottom, 0px)); }
-  body:has(.mbuybar){ padding-bottom: 132px; }
+  .mbuybar, .cs-bar{ bottom: calc(61px + env(safe-area-inset-bottom, 0px)); }
+  /* 61 + 89, the lift plus the bar, and both halves are measured: the bar renders
+     89 tall at 390 and sits `bottom: 61px` above the tab bar, so it occupies the
+     bottom 150px of the viewport. It read 132 until step 7.96, so the page reserved
+     18px less than the bar it was reserving for. Written as the sum rather than as a
+     literal, so whoever moves either number can see which one they moved.
+     WHAT IS NOT CLAIMED HERE: that ink was seen inside those 18px. The first probe
+     asked elementFromPoint what stood in the band and got the page wrapper, which
+     spans its own padding and answers the same whether content reaches the band or
+     not - an instrument that cannot return no. The shortfall is arithmetic and it is
+     enough; the overlap on any given page depends on that page's last child.
+     Found from the other side: 7.96 fixed the same defect on coach-session, where
+     the clearance rule matched nothing at all, and merging the coach bar into this
+     file put the two numbers side by side for the first time. */
+  body:has(.mbuybar){ padding-bottom: 150px; }
 }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 /* step 7.36: the owner rule («reduced is orange») went to price.css with the type,
    the strike, the struck grey and the live weight. What stays is the BAR: where
    the two figures sit in its grid, and how big they are. */
-.mbuybar{ box-shadow: var(--elevation-bar-top); padding:var(--space-12) var(--space-16); }
+.mbuybar, .cs-bar{ box-shadow: var(--elevation-bar-top); padding:var(--space-12) var(--space-16); }
 .mbuybar .mbp{ display:grid; grid-template-columns:auto auto; column-gap:var(--space-8); align-items:center;
   color:var(--text-body); line-height:var(--lh-flat); }
 .mbuybar .mbp .mold{ grid-row:1; grid-column:1; font-size:var(--fs-12); }
@@ -31,8 +82,14 @@
 .mbuybar .mbp .mcut{ grid-row:1; grid-column:2; }
 /* 20px, and the weight is the atom's: this figure was 700 here while the card's
    20px figure was 800, same size and same job - see price.css section 3. */
-.mbuybar .mbp b{ grid-row:2; grid-column:1 / -1; font-size:var(--fs-20); }
+.mbuybar .mbp b{ grid-row:2; grid-column:1 / -1; }
+/* THE FIGURE A FIXED BAR STATES IS 20px, on both bars. The placement above is
+   this bar's grid and does not travel; the SIZE does - `.cs-bar .bt b` was 16,
+   so a whole session's total was set 4px smaller than one product's price. */
+.mbuybar .mbp b, .cs-bar .bt b{ font-size:var(--fs-20); }
+/* the same @media as the structure block above, written twice since the step-3
+   split. Both carry `.cs-bar` so the pair cannot drift while it survives. */
 @media (max-width:859px){
-  .mbuybar{ bottom:calc(61px + env(safe-area-inset-bottom, 0px)); }
-  body:has(.mbuybar){ padding-bottom:132px; }
+  .mbuybar, .cs-bar{ bottom:calc(61px + env(safe-area-inset-bottom, 0px)); }
+  body:has(.mbuybar){ padding-bottom:150px; }
 }
