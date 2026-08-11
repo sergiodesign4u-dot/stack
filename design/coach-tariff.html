@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Тариф - Кабінет тренера (wireframe 5.2a)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+<!-- the screen's own stylesheet moved into design/system/components/ at step 8.7: a screen may not carry its own stylesheet. -->
+</head>
+
+<body class="coach">
+<!-- ============================================================
+  WIREFRAME · node 5.2a Тариф (BASE = Pro active). Manage current plan:
+  see active tariff + next billing, cancel Pro (→ Free) or compare plans.
+  Reached from coach cabinet «Тариф» / «Керувати тарифом» - NOT the
+  registration tier step. States: free (Free active) · cancel (confirm).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <span class="cur">Тариф</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+    <div class="acc-main">
+
+  <h1 class="acc-h1">Тариф</h1>
+  <p class="acc-sub tf-lead">Ваш поточний тариф і керування підпискою. Змінити або скасувати можна будь-коли - гуртові ціни на товари зберігаються на обох тарифах.</p>
+
+  <!-- CURRENT PLAN = Pro active -->
+  <section class="tf-cur" aria-label="Поточний тариф">
+    <div class="tf-cur-h"><span class="tf-plan">Pro</span><span class="oc-status ok">Активний</span></div>
+    <div class="tf-price">99 ₴ <span class="per">/ міс</span> <span class="qm">[?]</span></div>
+    <div class="tf-renew">Наступне списання - <b>12 липня 2026</b> · картка •• 1234</div>
+    <ul class="tf-incl">
+      <li>Максимальна гуртова ціна на всі товари</li>
+      <li>Без обмежень на кількість клієнтів у сесії</li>
+      <li>Мультиклієнтські замовлення та історія по кожному клієнту</li>
+      <li>Пріоритетна підтримка</li>
+    </ul>
+    <div class="tf-actions">
+      <button class="btn--outline btn--danger btn" type="button" onclick="tfCancelOpen()">Скасувати підписку Pro</button>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <h2 class="tf-ch">Порівняння тарифів</h2>
+  <div class="tf-compare">
+    <div class="tf-col">
+      <div class="tf-col-h">Free</div>
+      <div class="tf-col-p">0 ₴</div>
+      <ul>
+        <li>Гуртова ціна, краще за роздріб</li>
+        <li>До 3 клієнтів у сесії</li>
+        <li>Активація миттєва, без оплати</li>
+      </ul>
+    </div>
+    <div class="tf-col on">
+      <div class="tf-col-h">Pro <span class="tf-mini">ваш тариф</span></div>
+      <div class="tf-col-p">99 ₴ <span class="per">/ міс [?]</span></div>
+      <ul>
+        <li>Максимальна гуртова ціна</li>
+        <li>Без обмежень на клієнтів</li>
+        <li>Пріоритетна підтримка</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="tf-note"><b>[?]</b> Ціна Pro (~99 ₴/міс), ліміт клієнтів на Free та умови - гіпотеза, уточнюються (юніт-економіка).</p>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<!-- CANCEL CONFIRM DIALOG (hidden; opened by «Скасувати підписку Pro») -->
+<div class="ceov" id="tf-cancel" role="dialog" aria-modal="true" aria-label="Скасувати підписку Pro">
+  <div class="cedlg tfdlg">
+    <div class="ic" aria-hidden="true">◈</div>
+    <h2>Скасувати підписку Pro?</h2>
+    <p>Pro залишиться активним до <b>12 липня 2026</b>. Після цього тариф автоматично перейде на <b>Free</b>: гуртові ціни збережуться, але кількість клієнтів у сесії буде обмежена (до 3). Повернути Pro можна будь-коли.</p>
+    <div class="act">
+      <button class="btn--outline btn" type="button" onclick="tfCancelClose()">Залишити Pro</button>
+      <a class="btn--outline btn--danger btn dark" href="coach-tariff-free.html">Скасувати підписку</a>
+    </div>
+  </div>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>
+  /* The three functions the dialog is driven by. They stood in the screen's own
+     <script> block in the grey original and were lost with the <style> block when
+     the screen was cloned at step 8.7, so the coloured copy shipped a cancel
+     dialog that no control could open: «Скасувати підписку Pro» threw a
+     ReferenceError on every press. Restored verbatim from
+     wireframes/coach-tariff.html:144-146. */
+  function tfCancelOpen() { document.getElementById('tf-cancel').classList.add('open'); }
+  function tfCancelClose() { document.getElementById('tf-cancel').classList.remove('open'); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') tfCancelClose(); });
+</script>
+<script>wfHeader('coach'); wfFooter(); wfCoachNav('tariff'); wfBar('coach-tariff.html');
+        uivFixLinks(); uivBar(); uivChrome();</script>
+</body>
+</html>

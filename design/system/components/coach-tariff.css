@@ -1,0 +1,360 @@
+/* coach-tariff.css - node 5.2a «Тариф», the coach's plan-management screen (level 3)
+   Moved out of the <style> block of design/coach-tariff.html at stage 08 step 8.7.
+   A screen may not carry its own stylesheet: a rule nobody else can read is a rule
+   nobody else can be consistent with.
+   EVERY SELECTOR IS SCOPED TO `.coach` on the body, for the reason index.css gives
+   at the head of this group - several of these names are already declared by an
+   existing component, and scoping is what can be done today without a shipped
+   screen regressing. Colour reads a semantic role, geometry reads a primitive.
+
+   WHAT THIS FILE HOLDS. The screen is reached from the coach cabinet and it does
+   one job: show the plan that is running, and let a coach leave it. A bordered
+   current-plan card, a two-card Free/Pro comparison, a footnote, and a cancel
+   confirmation over a scrim. What is LEFT in this file after the pass below is
+   the card and the comparison. Everything else on the screen belongs to something
+   the system already owns.
+
+   ############################################################################
+   TWELVE RULES DELETED, ONE CUT TO A SINGLE DECLARATION, ONE MARKUP OVERRIDE
+   REMOVED, TWO RULES WRITTEN - 39 rules in the grey block, 29 here, and every one
+   of the twelve is named to the file that already owned it. Measured in
+   Chrome at 360 / 390 / 768 / 1280 with the dialog closed and open, BEFORE the
+   deletion (the literal port) and AFTER it. Every pair below is a real reading,
+   not a deduction. Numbers quoted at 390 unless a width is named.
+
+   1. `.tf-wrap{ max-width: 760px }` - DEAD, and it was dead in the grey too.
+      Zero elements carry the class in wireframes/coach-tariff*.html or in
+      design/coach-tariff.html. It bounded a wrapper that was replaced by
+      `.acc-main` when the screen moved into the account shell, and the rule
+      outlived the div. Deleted outright, nothing took it.
+
+   2. The H1's INLINE STYLE - `style="font-size:24px;font-weight:800"` - deleted
+      from the markup, and account-shell.css:91,163 owns `.acc-h1`.
+        before  Oswald 24 / 800, 358 x 38.39, ls -0.24px
+        after   Oswald 30 / 600, 358 x 48,    ls -0.30px  (--fs-30, --ls-lead)
+      This is the same defect coach-cabinet.css deleted at 7.96 for its own second
+      page title: every other screen inside `.acc-main` writes a bare `.acc-h1`
+      and gets the display face at 30, and two screens in the product were
+      overriding it inline - this one and account-error.html, which is not mine.
+
+   3. `.tf-lead`'s FACE - `font-size`, `color` and the top margin - account-shell.css
+      :92 and :164 own it as `.acc-sub`, and they are the same three declarations
+      byte for byte: `--fs-14`, `--text-secondary`, `margin-top: var(--space-4)`.
+      The markup now reads `class="acc-sub tf-lead"`.
+        before  14 / 400, rgb(91,91,84), margin 4px 0 22px, 358 x 67.17
+        after   14 / 400, rgb(91,91,84), margin 4px 0 22px, 358 x 67.17
+      Nothing moved, which is the point: the rule was a copy.
+
+   4. THREE LINE-HEIGHTS - `.tf-lead` 1.5, `.tf-note` 1.5, `.tfdlg p` 1.55 - base.css
+      :10 owns them. None of the three has a rung (the ladder is --lh-flat 1,
+      --lh-snug 1.3, --lh-airy 1.6) and `body` already sets `--lh-airy` on every
+      element on the page, so translating them to `--lh-airy` writes a declaration
+      that changes nothing. Measured after deleting all three:
+        .tf-lead   22.4px -> 22.4px      .tf-note  19.2px -> 19.2px
+        dialog p   22.4px -> 22.4px
+      A no-op three times over. The one leading this screen genuinely wanted and
+      did not get is on nothing: there is no third value here.
+
+   5. `.tf-badge` and `.tf-badge.muted` - status-pill.css owns the pill, and the
+      markup takes `.oc-status.ok`. «● Активний» is the file's opening sentence
+      literally - «a small pill that says what state a thing is in» - and after the
+      type snap its geometry IS the atom's row rung, 12px on a 4/12 padding.
+        before  113.00 x 27.19  12/700 UPPERCASE ls 0.48px
+                ink rgb(28,28,28), no ground, border rgb(217,217,217), pad 3/11
+        after    99.22 x 25.59  12/700 no transform, ls normal
+                ink rgb(46,125,70) on rgba(46,125,70,.07),
+                border rgba(46,125,70,.35), pad 4/12
+      THE ATOM DRAWS SOMETHING DIFFERENT AND IT IS NAMED, not restored. Two things
+      changed and one of them is the point of the swap: an active subscription is
+      a good state, and at 7.96 status-pill.css settled that a good state reads
+      `--text-success` on `--bg-success-soft` - seven pills across the buyer's and
+      the coach's screens, one picture. What is LOST is the uppercase and
+      `--ls-caps`, which the atom does not carry for any of its seven names
+      («Доставлено», «У дорозі» are set in sentence case). If the owner wants the
+      caps back it is one declaration in status-pill.css, not a private rule here;
+      and if the green is wrong, dropping the word `ok` from the markup returns the
+      neutral - secondary ink on `--bg-surface` inside `--line-strong` - which is
+      within a hair of what the grey drew.
+      `.muted` was deleted rather than translated: it dresses the Free state, which
+      exists only as wireframes/coach-tariff-free.html, so it matches 0 elements in
+      the colour layer.
+
+   6. `.tfov` (2 rules) - overlay.css:10-12 owns the scrim as `.ceov`, and the
+      markup takes it. Same scrim token, same z-index, same centring.
+        before  390 x 900, rgba(20,20,15,.52), padding 20px
+        after   390 x 900, rgba(20,20,15,.52), padding 24px (--space-24),
+                plus `overflow-y: auto`, which the private rule never had
+      Four px of air and a scroll the private copy was missing. A third edition of
+      a scrim was never in question - this one is byte-comparable to the atom.
+
+   7. `.tfdlg` AND FIVE CHILDREN - client-dialog.css:41-49 owns the confirmation
+      box as `.cedlg`, and the markup takes it. This is the SAME dialog: a 48px
+      outlined disc holding one sign, a title, a paragraph, and a two-control row.
+      The system already runs three of them («Видалити клієнта?», «Видалити
+      адресу?», «Видалити акаунт?») and this is the fourth.
+        box     before 350 x 357.53 @390, 440 x 287.16 @1280, radius 14
+                after  342 x 428.34 @390, 440 x 319.56 @1280, radius 12
+                (ground, 1px rgb(217,217,217) edge, --elevation-4, 24 padding and
+                 the centred text are identical; the heights differ because the
+                 two controls inside are real buttons now - see 9)
+        .ic     before 48 x 48, 2px rgb(28,28,28), 50%, fs 24, margin-bottom 14
+                after  48 x 48, 2px rgb(28,28,28), 50%, fs 24, margin-bottom 16
+        h2      before 292 x 32, 20/700 rgb(28,28,28)
+                after  292 x 32, 20/700 rgb(28,28,28)      unchanged
+        p       before 292 x 134.34, 14/400 rgb(91,91,84), margin 8px 0 20px
+                after  292 x 134.34, 14/400 rgb(91,91,84), margin 8px 0 24px
+        .act    before flex, gap 10        after flex, gap 12 (--space-12)
+        .act .btn{ flex:1; text-align:center } - `.cedlg .act > *{ flex: 1 }` says
+                the first; `.btn--outline` says the second itself, with
+                `justify-content: center`.
+      `.tfdlg p b{ color: var(--strong) }` went with them. `.cedlg` declares no
+      `p b` rule, and that is an answer rather than a gap: the account-deletion
+      dialog already ships `<b>бонуси, що згорять безповоротно</b>` inside a
+      `.cedlg p` and it takes weight without an ink change. One emphasis, one
+      edition.
+
+   8. THE DIALOG'S TWO SURVIVING DECLARATIONS ARE AT THE FOOT OF THIS FILE, and
+      they are what this screen's own pair of labels costs. Not a third edition of
+      the box - one width and one direction. The numbers are in the comment there.
+
+   9. THREE CONTROLS WORE `class="btn"` AND `class="btn dark"`, WHICH PAINT
+      NOTHING. button.css declares no `.btn` rule at all; the base is on
+      `.btn--accent, .btn--outline, .btn--ghost, .btn--text`. Measured before the
+      markup fix, on all four widths:
+        «Скасувати підписку Pro»   25.59 tall, 185.69 wide, Inter 16/400, no edge,
+                                   no ground - a line of text with a click handler
+        «Залишити Pro»             25.59 tall @768 and @1280, 51.19 @360 and @390,
+                                   where it was not taller but WRAPPED to two lines
+        «Скасувати підписку»       the same
+      Three controls under the 44px floor by 18.41px, on the screen where a coach
+      cancels a paid plan. THE MARKUP TOOK THE ATOM'S CLASSES and the finish is
+      the one the system already uses for exactly this act: button.css step 7.61,
+      «the destructive control is the OUTLINE carrying the danger ink», which
+      wireframes/_nav.js applies verbatim to all three existing delete flows -
+      `btn--outline btn--danger` on the opener, `btn--outline` on «Скасувати»,
+      `btn--outline btn--danger` on the confirmation. After: every one of the three
+      is 52.00 tall, `--text-danger` rgb(196,43,28) on its own edge for the two
+      destructive ones, ink on `--line-strong` for «Залишити Pro».
+
+   NOT DELETED, AND THE REASONS ARE NUMBERS
+   ----------------------------------------
+   `.tf-compare` IS NOT `.cmp-*`, and the two were compared side by side before a
+   line was written. coach-landing.css:292-402 draws a MATRIX: one `.cmp` frame,
+   `grid-template-columns: 1.2fr 1fr 1fr`, six `.cmp-row`s that each state a
+   feature in the left column and the two plans' answers beside it, a `.cmp-head`
+   and a `.cmp-foot` carrying the two calls to action, hairlines between rows and
+   `overflow: hidden` so the frame's radius cuts them. This screen draws TWO
+   CARDS: `grid-template-columns: 1fr` stacking to `1fr 1fr` at 640, each card its
+   own bordered box with its own heading, its own price and its own bullet list,
+   no shared row, no feature column, nothing to align across the gap, and one of
+   the two carries a chosen-state ground. Reading down a column of bullets and
+   reading across a row of answers are different acts. Six of the twelve strings
+   even differ between the two screens, because the public front door sells and
+   this screen reports. Same subject, different instrument: the atom is not reused
+   and the duplication would have been in the name only.
+   Measured for the one thing they do share - neither may scroll the page sideways
+   at 360. `.tf-compare` at 360: width 328.00, scrollWidth 328, clientWidth 328,
+   right edge 344.0 inside a 360 viewport. It is a single column there and needs
+   no `overflow-x` of its own.
+
+   `.tf-mini` («ваш тариф») STAYS, and it is the same refusal coach-landing.css
+   made for `.cmp-head .plan .badge` - an outlined uppercase pill beside a plan
+   name, on the same kind of screen, kept whole because no file in the system
+   declares it. It is NOT sent to status-pill.css with its neighbour above: after
+   the snap it is 12px on a 2/8 padding, which is the row rung's SIZE on the
+   inline rung's AIR, and crossing that ladder is precisely what status-pill.css
+   opens by refusing («12px with a 2/9 or 2/10 padding, which is the row's size on
+   the inline rung's air»). Adding a name to that file is safe in both directions
+   and is the one-line fix this alias waits for. Its sibling `.tf-badge` could go
+   because it landed ON a rung, not beside one.
+
+   `.tf-ch` STAYS. section-head.css owns `.sech h2` - Oswald 24, `--ls-lead`,
+   `--text-body`, inside a `.sech` flex wrapper that carries an «Усі товари →»
+   link and 32/16 margins. This is a bare 16/700 ink sub-heading over a two-card
+   block with no link beside it. Different face, different size, different box.
+
+   THE TWO PLAN PRICES ARE NOT SET IN MONO, AND IT IS NOT MINE TO FIX. Measured at
+   every width: `.tf-price` «99 ₴ / міс» renders Inter 26/700 with
+   `font-variant-numeric: normal`, and `.tf-col-p` «0 ₴» and «99 ₴ / міс» render
+   Inter 20/700, the same. DESIGN-artifacts.md section 4 locks «IBM Plex Mono for
+   every dose, serving, nutrition figure, and price», and price.css already holds
+   21 money names that obey it - including `.cmp-head .price b`, the plan price on
+   the coach landing, which that file took at 7.96 for exactly this reason after
+   coach-landing.css reported it. This is the same defect one screen over and it
+   is the same shape of fix: two names added to price.css's mono list. Reported,
+   not taken here, because price.css is not this file's to edit and a second
+   `font-family: var(--font-mono)` written locally is how one rule becomes eight.
+
+   THE CONTRAST GATE HAS NOTHING TO CATCH ON THIS SCREEN, and that was measured
+   rather than assumed. DESIGN-artifacts.md:66: `#FF5A00` on white is 3.13:1, so a
+   price may take the accent only at >=19px bold. Every element in `<main>` and in
+   the dialog was scanned for `color: rgb(255, 90, 0)` at all four widths: ZERO
+   hits. All four figures are `--text-primary` rgb(28,28,28) - 15.9:1 - which is
+   what the price rule asks for, because none of them is a reduced price: 99 ₴ is
+   the plan's list price and 0 ₴ is Free's. Had they been accent they would have
+   cleared the gate on size anyway - 26/700 and 20/700, both over 19 and both bold
+   - so the gate is clear either way and the ink is the rule, not a workaround.
+   The screen's ONE orange is `.coach-newcta` «＋ Нова сесія» in the account rail,
+   `--bg-action` with a white label, 52.00 tall: exactly one action in orange, and
+   it comes from the shell rather than from here. Principle 2 is satisfied without
+   this screen spending the accent on a page whose only local act is a cancellation
+   - and an invitation is what orange means (DESIGN-artifacts.md:61).
+
+   EVERY MONEY AND PLAN FIGURE IS A PLACEHOLDER AND EVERY `[?]` SURVIVES. Three of
+   them render on the page - `.tf-price .qm`, the `[?]` inside `.tf-col-p .per`,
+   and the `<b>[?]</b>` opening `.tf-note` - counted at all four widths, before and
+   after. None was invented, none was removed, and the 99 ₴ they mark is the
+   hypothesis CLAUDE.md files under «a paid coach tier is a hypothesis».
+   ############################################################################ */
+
+/* ---------- the lead ---------------------------------------------------------
+   Face, ink and top margin are `.acc-sub`'s - see 3 in the header. What is left is
+   the air under it, which `.acc-sub` deliberately does not carry: on every other
+   cabinet screen the block below the subtitle brings its own top margin, and here
+   the card does not. 22 is the grey's own value, moved rather than re-derived. */
+.coach .tf-lead{ margin-bottom: 22px; }   /* [?] 22 has no rung; the ladder is 2/4/8/12/16/24/32/40 */
+
+/* ---------- the current plan card ------------------------------------------
+   The one box on the screen bordered in ink rather than in the hairline, which is
+   what makes it read as the statement of record without any colour being spent -
+   the same argument coach-landing.css makes for `.finalcta`. `--dark` in the grey
+   was the single greyscale accent, and as an EDGE that is `--line-inverse`.
+   The edge came down from 1.5px to 1px with the rest of the product at step 7.62. */
+.coach .tf-cur{ border: 1px solid var(--line-inverse);
+  border-radius: 14px;    /* [?] 14 is not a step; the radius ladder is 4/8/12/16 */
+  padding: 20px 22px; }   /* [?] neither 20 nor 22 has a rung; the ladder is 2/4/8/12/16/24/32/40 */
+.coach .tf-cur-h{ display: flex; align-items: center; gap: var(--space-12); flex-wrap: wrap; }
+/* the plan's name, and the largest word on the screen after the H1 */
+.coach .tf-plan{ font-size: var(--fs-24);   /* grey 22 -> 24: step 5.6, ties go UP */
+  font-weight: var(--fw-black); color: var(--text-primary); letter-spacing: var(--ls-lead); }
+/* THE FIGURE THE WHOLE SCREEN IS ABOUT. 26 is left literal on purpose and it is
+   the same case coach-landing.css's `.clh h1` records: 26 sits between the 24 and
+   30 rungs and neither 5.5 nor 5.6 has an instruction for a whole number that is
+   not on their list. Snapping it would be inventing a rounding, and this is a
+   price, so the size is the owner's to move. */
+.coach .tf-price{ font-size: 26px;   /* [?] 26 is not a rung and the ladder does not answer it */
+  font-weight: var(--fw-black); color: var(--text-primary);
+  margin: 14px 0 var(--space-4); }   /* [?] 14 has no rung */
+.coach .tf-price .per{ font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-secondary); }
+/* the placeholder mark, deliberately the quietest thing in the line: it says the
+   number above it is not real yet, and it must not compete with the number */
+.coach .tf-price .qm{ font-size: var(--fs-14);   /* grey 13 -> 14: 5.6, ties go UP */
+  font-weight: var(--fw-black); color: var(--text-muted); }
+.coach .tf-renew{ font-size: var(--fs-14); color: var(--text-secondary); }   /* grey 13 -> 14 */
+.coach .tf-renew b{ color: var(--text-primary); }
+/* what the plan includes. `--text-primary` on the item AND on its tick - the grey
+   set `--strong` on both - because this is the substance of what is being paid
+   for, not a caption under it. */
+.coach .tf-incl{ list-style: none; margin: var(--space-16) 0 0; padding: 0; }
+.coach .tf-incl li{ font-size: var(--fs-14);   /* grey 13.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP */
+  color: var(--text-primary);
+  padding: 6px 0 6px var(--space-24);   /* [?] 6 has no rung */
+  position: relative; }
+/* `content` rather than a character in the markup, for the reason badge.css gives:
+   a typed tick is read aloud, cannot take a size of its own, and cannot be told
+   apart from the word. Ink and not the accent - orange is an invitation, and a
+   list of what you already have is not one. */
+.coach .tf-incl li::before{ content: "\2713"; position: absolute; left: 0;
+  font-weight: var(--fw-black); color: var(--text-primary); }
+/* the card's foot. `.btn--outline.btn--danger` is the only child; the row owns the
+   rule above it and the air, and says nothing about the control - which is the
+   shape every one of these placement rules should have.
+   Measured: 44.59 tall with the unstyled text inside, 71.00 with the real button. */
+.coach .tf-actions{ display: flex;
+  gap: 10px;             /* [?] 10 has no rung; 8 and 12 are the neighbours */
+  flex-wrap: wrap;
+  margin-top: 20px;      /* [?] 20 has no rung */
+  padding-top: 18px;     /* [?] 18 has no rung */
+  border-top: 1px solid var(--line-hair); }
+
+/* ---------- the Free / Pro comparison ---------------------------------------
+   Two cards, not a matrix - see the header for the reading against
+   coach-landing.css's `.cmp-*`, which is the other shape of this question. */
+.coach .tf-ch{ font-size: var(--fs-16);   /* grey 15 -> 16: 5.6, ties go UP */
+  font-weight: var(--fw-black); color: var(--text-primary);
+  margin: 30px 0 14px; }   /* [?] neither 30 nor 14 has a rung */
+.coach .tf-compare{ display: grid; grid-template-columns: 1fr;
+  gap: 14px; }   /* [?] the same 14 */
+/* 640 is the set's own boundary and it is spelled the wide way, `min-width: 640`,
+   which is what tokens.css states at 7.64 for a boundary at N. */
+@media (min-width: 640px){ .coach .tf-compare{ grid-template-columns: 1fr 1fr; } }
+.coach .tf-col{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  padding: 18px; }   /* [?] 18 has no rung */
+/* THE CHOSEN CARD, and its mark is the edge plus the ground rather than the
+   accent. `--fill2` in the grey was the zone fill, the warm surface a whole
+   section sits on: `--bg-surface`. The accent was considered and refused here -
+   DESIGN-artifacts.md:61 reserves it for an invitation, and «this is the plan you
+   are on» is a statement about the account, not a thing to press. The edge does
+   the work, exactly as it does on `.tf-cur` above. */
+.coach .tf-col.on{ border: 1px solid var(--line-inverse); background: var(--bg-surface); }
+.coach .tf-col-h{ font-size: var(--fs-16);   /* grey 15 -> 16 */
+  font-weight: var(--fw-black); color: var(--text-primary);
+  display: flex; align-items: center; gap: var(--space-8); }
+/* «ваш тариф». Kept under its own name - the reasoning and the measured geometry
+   are in the header, section «NOT DELETED». */
+.coach .tf-mini{ font-size: var(--fs-12);   /* grey 10.5 -> 11 -> 12: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes 11 UP to 12 */
+  font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps);
+  border: 1px solid var(--line-strong); border-radius: var(--radius-pill);
+  padding: var(--space-2) var(--space-8); color: var(--text-secondary); }
+.coach .tf-col-p{ font-size: var(--fs-20);   /* grey 19 -> 20: 5.6, ties go UP */
+  font-weight: var(--fw-black); color: var(--text-primary);
+  margin: 6px 0 var(--space-12); }   /* [?] 6 has no rung */
+.coach .tf-col-p .per{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14 */
+  font-weight: var(--fw-semibold); color: var(--text-secondary); }
+.coach .tf-col ul{ list-style: none; margin: 0; padding: 0; }
+.coach .tf-col li{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14 */
+  color: var(--text-secondary);
+  padding: 5px 0 5px 20px;   /* [?] neither 5 nor 20 has a rung */
+  position: relative; }
+.coach .tf-col li::before{ content: "\B7"; position: absolute;
+  left: 6px;   /* [?] 6 has no rung */
+  font-weight: var(--fw-black); color: var(--text-primary); }
+
+/* ---------- the footnote ------------------------------------------------------
+   The quietest text on the screen, and it carries the `[?]` that says every figure
+   above it is a hypothesis. `--light` in the grey is `--text-muted`. */
+.coach .tf-note{ font-size: var(--fs-12); color: var(--text-muted);
+  margin-top: 20px; }   /* [?] 20 has no rung */
+.coach .tf-note b{ color: var(--text-primary); }
+
+/* ---------- what is left of the cancel dialog ---------------------------------
+   The box is client-dialog.css's `.cedlg` and the scrim is overlay.css's `.ceov`;
+   the markup reads `class="cedlg tfdlg"` and these two declarations are the whole
+   of `tfdlg`. Both are about ONE thing: this dialog carries the longest pair of
+   labels any confirmation in the product has, and the atom's 400px box is short
+   for them. Measured, side by side at 768 and above:
+       «Залишити Pro»        181.23
+       gap                    12.00
+       «Скасувати підписку»  196.77
+       ------------------------------
+       the row                390.00   against a 352.00 content box inside a
+                                       400px `.cedlg` - 2.08 over at EVERY width,
+                                       because the pair never fits that box
+   440 is the grey's own `max-width`, unchanged: `wireframes/coach-tariff.html:47`
+   wrote 440 where its three siblings wrote 400, and it wrote it for this reason.
+   A 440 box gives a 390.00 content width, which is the row exactly. The value
+   moves, it is not re-derived. */
+.coach .tfdlg{ max-width: 440px; }
+/* AND BELOW 480 THE PAIR STACKS. On a phone the dialog is the viewport minus the
+   scrim's 48, so 440 buys nothing: at 390 the content box is 292.00 against a
+   338.08 row, and at 360 it is 264.00 - measured before this rule, the two buttons
+   broke out of the white card and the confirmation's right edge landed at 387.1 in
+   a 360 viewport, with the overlay scrolling 27px sideways to reach it. The
+   destructive control on a cancellation screen was the part hanging off the edge.
+   479 is button.css's own phone step, which is the other rule that decides this
+   row's width (it gives every button back one step of side air below 480), so the
+   two rules that set this measurement sit on one boundary. After: 262.00 wide each
+   at 360, 292.00 at 390, 52.00 tall, overlay overflow 0 at every width.
+   `flex-direction` and nothing else - `.cedlg .act > *{ flex: 1 }` already makes
+   them share the axis, and in a column with an auto height that costs no growth. */
+@media (max-width: 479px){ .coach .tfdlg .act{ flex-direction: column; } }
+
+/* ---------- the pill wears no bullet, and seven siblings are the reason -------
+   Step 8.7, found by the glyph census rather than by reading: the grey screen
+   typed «● Активний» and the swap onto `.oc-status.ok` carried the character
+   over. Measured: `status-pill.css` has NO `::before` - it does not draw a disc -
+   and every other `.oc-status` in the coloured layer reads «Доставлено» with
+   nothing in front of it. So this was not two dots the way `.pavail` had two at
+   8.7; it was ONE pill out of eight wearing a mark the component does not use.
+   The ground and the ink already say «active». The character is gone from the
+   markup, which is where it was typed; no rule was added here to hide it. */

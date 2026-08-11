@@ -1,0 +1,377 @@
+/* coach-order.css - the coach's order detail (level 3), node 5.7.
+   Moved out of the <style> block of wireframes/coach-order.html at step 8.7,
+   when the coach rail's last three destinations came into colour. A screen may
+   not carry its own stylesheet: a rule nobody else can read is a rule nobody
+   else can be consistent with.
+
+   EVERY SELECTOR IS SCOPED TO `.coach`, the same decision index.css records for
+   the five files of the A13 batch: this screen declares `.cprice` and `.old`,
+   which are names other layers already own, and scoping is what can be done
+   today without a shipped screen regressing. Renaming is Крок 6.
+
+   ===========================================================================
+   WHAT THE MOVE FOUND
+
+   SIX RULES DELETED OUTRIGHT AND A SEVENTH CUT TO TWO DECLARATIONS. Each was
+   measured in the browser with the ported rule in place and again with it gone,
+   at 390, and both numbers are written beside the deletion.
+
+     .od-status        status-pill.css      the order status pill
+     .cprice           price.css + client-row.css
+     .cprice .old      price.css + client-row.css
+     .cprice .wtag     discount.css
+     .od-paid::before  marks.js + icon.css  the ✓ was a font character
+     .od-back          NOBODY - 0 instances in either layer
+     .od-repeat1       button.css           cut: it loses its colour, its weight
+                                            and its underline and keeps its size,
+                                            plus the touch floor neither file gave it
+
+   THE TYPE MOVED TO THE RUNGS, THE GEOMETRY DID NOT, and that asymmetry is the
+   batch's, written out in coach-cabinet.css: the type ladder has a settled
+   two-move rounding rule (step 5.5 takes a half pixel to the more-read whole,
+   step 5.6 takes that whole to the nine rungs with ties UP) and spacing has
+   none - 5.5 rounds spacing up, the 7.67 sweep rounds it down. So every
+   font-size below is a rung and every spacing literal that is not one carries a
+   `[?]`. Eleven sizes moved and all eleven are what the two moves give:
+
+       .od-back      12.5 -> 13 -> 14  (deleted)   .od-nm        13.5 -> 13 -> 14
+       .od-date      13   -> 14                    .cprice       15   (deleted)
+       .od-status    11.5 -> 12        (deleted)   .cprice .old  11.5 (deleted)
+       .od-fact .fk  11   -> 12                    .cprice .wtag  9.5 (deleted)
+       .od-fact .fv  13   -> 14                    .od-tot .l    15   -> 16
+       .od-fact span 12.5 -> 13 -> 14              .od-tot small 11.5 -> 12
+       .od-grp-h .gs 15   -> 16
+   `.od-no` 20, `.gc` 14, `.gg` 12, `.od-var` 12, `.od-repeat1` 12 and
+   `.od-tot .v` 24 were already on rungs. `.od-ph`'s 9px is not and stays: it is
+   the sibling tile's own number, see the note there.
+
+   RADIUS DID MOVE, because the radius ladder's answer IS written: four steps,
+   4 / 8 / 12 / 16, ties DOWN, and tokens.css:464 names `14 -> 12` in the list
+   of snaps it already made. `.od-head` was 14.
+
+   THE FIVE WEIGHTS BECAME FOUR. 800 -> `--fw-black` (which is 700, and always
+   rendered as 700 - tokens.css:243), 900 on the paid mark -> deleted with the
+   rule that carried it. Inter is requested at 400;500;600;700, so neither 800
+   nor 900 ever drew.
+
+   NOT THIS FILE'S AND MEASURED SO IT IS COUNTED: three controls in `<main>`
+   stand under the touch floor and none of them belongs to this screen. They are
+   the breadcrumb links - «Головна», «Кабінет тренера», «Замовлення» - 15.00 tall
+   at 360, 390, 768 and 1280, drawn by breadcrumb.css:51 as 12px muted text with
+   no box. Every screen in the product that carries a `.crumb` carries the same
+   three, so this is a decision about the trail rather than about node 5.7:
+   link-row.css already writes the exemption an answer would have to argue
+   against (a target «in a sentence or constrained by the line-height of
+   non-target text», WCAG 2.5.8), and a breadcrumb is the strongest case for it.
+   Named, not fixed - the file is not this step's.
+
+   THE GREY EDGE WAS 1.5px IN ONE PLACE, on `.od-tot`. Chrome resolves that to
+   1px before layout (step 7.62), so the system has two line weights and the
+   heavy one asks for 2 out loud. Written as 1px `--line-strong`, which is what
+   it has always drawn and what its twin `.sr.total` in order-row.css declares.
+   =========================================================================== */
+
+/* ---------- the column ------------------------------------------------------
+   A layout width, so it stays a literal: tokens.css:478 keeps the 1200 / 860 /
+   720 column set in the component that owns the layout rather than in the size
+   ladder. 900 is this screen's own and appears nowhere else. */
+.coach .od-wrap{ max-width: 900px; }
+
+/* `.od-back` DELETED, AND IT IS THE ONE DELETION WITH NO ATOM BEHIND IT.
+   `font-size: 12.5px; font-weight: 700; color: var(--strong); text-decoration:
+   underline` stood in the grey block and NOTHING WEARS THE CLASS - counted in
+   both layers, `wireframes/coach-order.html` 0 and `design/coach-order.html` 0.
+   Measured before and after: the rule matched 0 elements in either state, so
+   the A/B is 0 rows by construction. The screen's way back is the third control
+   of `.od-acts` below, which was carrying a bare `btn` and drawing nothing
+   either - two halves of one missing control, one of them a class with no
+   element and the other an element with no class. */
+
+/* ---------- the header card -------------------------------------------------
+   The order's own facts: number, date, status, and the four things a coach
+   checks before reading the goods. Same object as `.ocard` / `.ccard` /
+   `.cdetails` on the client screens - a saved record on the coach's shell - and
+   it takes their radius. It does NOT take their `--elevation-1` and
+   `--bg-page`: the grey source gives this card no ground and no shadow, and
+   adding depth is a look decision with the stand open, not a port. Named here
+   so the next pass over the cabinet's card finish finds it counted. */
+.coach .od-head{ border: 1px solid var(--line-hair);
+  border-radius: var(--radius-12);   /* was 14px; tokens.css:463 already lists 14 -> 12 */
+  padding: 18px;   /* [?] 18px has no rung; the ladder is 16/24 */
+  margin: var(--space-12) 0 var(--space-16); }
+.coach .od-head-t{ display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--space-12); flex-wrap: wrap; }
+.coach .od-no{ font-size: var(--fs-20); font-weight: var(--fw-black);
+  color: var(--text-primary); letter-spacing: var(--ls-lead); }
+.coach .od-date{ font-size: var(--fs-14);   /* was 13px; 5.6, ties go UP */
+  color: var(--text-secondary); }
+
+/* `.od-status` DELETED - status-pill.css owns it, and the markup is what let it
+   in. The atom lists seven names and this was an eighth edition of the same
+   box: `11.5px/800`, `padding: 3px 11px`, a `--line-strong` outline and
+   `--text-primary` ink on no ground - so a DELIVERED order on the coach's
+   detail screen looked exactly like an order still being processed, while the
+   same word two taps away on coach-orders.html reads green on green. That is
+   the same defect status-pill.css:36-48 closed for the coach's other three
+   pills at 7.96, arriving one screen late because this screen was still grey.
+
+   THE FIX IS IN THE MARKUP, not in a selector list this file may not edit:
+   `<span class="od-status ord-status ok">`. Additive, never a rename - `btn`
+   and `dark` have been carried dead beside the finish classes since 7.9 for the
+   same reason, and `.ord-status` is the pill of coach-orders.html, the screen
+   this detail view opens from and the same order object. `.od-status` now draws
+   nothing and is kept only so the grey and the coloured markup still say the
+   same thing about the element.
+
+   MEASURED AT 390, before -> after:
+     box      112.16 x 27.19  ->  99.91 x 25.59   the neighbour's, to the hundredth
+     ink      rgb(28, 28, 28) ->  rgb(46, 125, 70)
+     ground   rgba(0, 0, 0, 0) -> rgba(46, 125, 70, 0.07)
+     edge     1px rgb(217, 217, 217) -> 1px rgba(46, 125, 70, 0.35)
+     padding  3/11 -> 4/12          leading 19.2 -> 15.6
+   The width also lost the `●` the grey markup typed in front of «Доставлено».
+   None of the product's other seven status pills carries a bullet, the box
+   could not match its own twin with one, and the word is untouched. */
+
+.coach .od-facts{ display: grid; grid-template-columns: 1fr; gap: var(--space-12);
+  margin-top: 14px; }   /* [?] 14px has no rung; the ladder is 12/16 */
+@media (min-width: 620px){
+  .coach .od-facts{ grid-template-columns: 1fr 1fr; }
+}
+/* THE EYEBROW, AND IT IS THE PRODUCT'S. Five declarations, and order-row.css's
+   `.dl .dk` - the key over a value in the buyer's own order panel - is the same
+   five: 12, uppercase, `--ls-caps`, `--fw-black`, `--text-muted`. Not deleted,
+   because the atom cannot reach a name it has never been told about and the
+   element would be left bare; written with its tokens, so the day `.od-fact
+   .fk` joins that selector list this rule goes and nothing moves. The grey
+   tracking was .03em and `--ls-caps` is .04 - the eyebrow's own value,
+   tokens.css:302. Same shape for `.fv` against `.dl .dv`. */
+.coach .od-fact .fk{ font-size: var(--fs-12);   /* was 11px; 5.6, ties go UP */
+  color: var(--text-muted); text-transform: uppercase; letter-spacing: var(--ls-caps);
+  font-weight: var(--fw-black); }
+.coach .od-fact .fv{ font-size: var(--fs-14);   /* was 13px; 5.6, ties go UP */
+  color: var(--text-primary); font-weight: var(--fw-semibold);
+  margin-top: 3px; }   /* [?] 3px has no rung; the ladder is 2/4 */
+.coach .od-fact .fv > span{ display: block; font-weight: var(--fw-regular);
+  color: var(--text-secondary);
+  font-size: var(--fs-14); }   /* was 12.5px; 5.5 -> 13, 5.6 -> 14 */
+
+/* `.od-paid::before` DELETED - `content: "✓ "; font-weight: 900`, a check mark
+   drawn with the body font at a weight Inter is not loaded at. marks.js has
+   held `'✓':'check'` in `UIV_LEAD_MARK` since 7.11 and draws it as an inline
+   `<svg>`, which is what the `👤` two rows down and the `←` at the foot of this
+   screen already get. A stylesheet drawing a GLYPH is the one thing every pass
+   in that file exists to undo (marks.js:415).
+   The mark moved into the markup, where the pass can see it:
+   `<span class="od-paid">✓ Сплачено карткою онлайн</span>`. The span is a leaf
+   and not a prose tag, so `uivMarkHosts` reaches it; the regex wants a sign,
+   whitespace and then a letter, and it gets all three.
+   MEASURED AT 390, before -> after: the ✓ was a 400-weight text glyph in the
+   `.fv` line box (the `::before` asked for 900 and Inter is requested at
+   400;500;600;700, so it never drew heavier); after, it is one more `<svg>` in
+   `<main>`, 14.69 square off icon.css's 1.05em, and the count of svg marks in
+   `<main>` goes 3 -> 4. The box does not move: `.od-paid` is 320.00 x 22.39 in
+   both.
+
+   AND IT COST A COMBINATOR, WHICH IS THE FINDING THE MARK UNCOVERED. The grey
+   rule under this one was `.od-fact .fv span`, a DESCENDANT selector written for
+   the second line of a fact («вул. Катерининська, 27, Одеса») - and `.uiv-ic` is
+   a span too. Measured with the mark in and the selector still loose: the mark
+   box took `display: block` and `width: 320`, so the ✓ landed on a line of its
+   own above the sentence and `.od-paid` went 22.39 -> 37.08, `.od-facts`
+   281.48 -> 296.17, the whole page 2851 -> 2998. `>` is the fix and it changes
+   nothing else: both value lines are direct children of `.fv`. A screen rule
+   that reaches an arbitrary depth will paint whatever a later pass puts inside
+   it, and until this step there had been nothing inside it to hit. */
+
+/* ---------- the per-client group -------------------------------------------
+   The grouping mirrors the coach cart (node 6.0): one delivery to the coach,
+   the goods split by client, each group closing with its own subtotal and its
+   own repeat. Job 1 and Job 4 in one card. */
+.coach .od-grp{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  margin-bottom: var(--space-12); overflow: hidden; }
+.coach .od-grp-h{ display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;   /* [?] 10px has no rung; the ladder is 8/12 */
+  padding: var(--space-12) 15px;   /* [?] 15px has no rung; the ladder is 12/16 */
+  background: var(--bg-surface); border-bottom: 1px solid var(--line-hair); }
+.coach .od-grp-h .gc{ font-size: var(--fs-14); font-weight: var(--fw-black);
+  color: var(--text-primary); }
+.coach .od-grp-h .gg{ font-size: var(--fs-12); color: var(--text-secondary);
+  font-weight: var(--fw-semibold); }
+.coach .od-grp-h .gs{ font-size: var(--fs-16);   /* was 15px; 5.6, ties go UP */
+  font-weight: var(--fw-black); color: var(--text-primary); white-space: nowrap; }
+
+.coach .od-line{ display: grid; grid-template-columns: 48px 1fr auto;
+  gap: var(--space-12);
+  padding: var(--space-12) 15px;   /* [?] 15px has no rung; the ladder is 12/16 */
+  border-bottom: 1px solid var(--line-hair); align-items: center; }
+.coach .od-line:last-child{ border-bottom: none; }
+/* 48 x 52 IS NOT SQUARE, and «a box that frames a product photograph is square»
+   is a shape rule of the system since 7.68 - the three photographs are
+   2048 x 2048 and every frame paints them contained, so a frame that is not
+   square leaves uneven air around a square subject. coach-session.css:498
+   squared `.cl-ph` at 7.95 and called it «the last non-square product frame in
+   the product»; it was not, because this screen was still grey that day. This
+   is that one. Squared on the WIDTH and never the height, because the width is
+   what the grid column above already states.
+   FREE, and A/B'd rather than argued: the tile alone was toggled 52 <-> 48 and
+   `.od-line` measures 92.59 at 390 and 101.75 at 360 in BOTH states - the row's
+   tallest child is the price column at 67.59, and 52 was never near it.
+   THE SIZE IS NOT SQUARED WITH IT. 48 is not on the control ladder (46 / 52)
+   and the sibling tile in the coach's own session screen is 52 - one flow, two
+   tile sizes. That is architecture.md A6's open question, nine names and eight
+   sizes, and it is a value decision rather than a shape rule.
+   `9px` is the sibling's own literal too, kept for the same reason. */
+.coach .od-ph{ width: 48px;   /* [?] 48px has no rung; the ladder is 46/52 */
+  height: 48px;   /* was 52px - see above */
+  border-radius: var(--radius-8); background: var(--bg-sunken);
+  border: 1px solid var(--line-hair); display: flex; align-items: center;
+  justify-content: center; color: var(--mark-faint);
+  font-size: 9px; }   /* [?] 9px has no rung; the ladder is 8/10 */
+/* the same four declarations order-row.css gives `.ln-nm` and coach-session.css
+   gives `.cl-nm` - a product's name on a row. Kept here for the same reason as
+   the eyebrow above: no atom holds the name yet. */
+.coach .od-nm{ font-size: var(--fs-14);   /* was 13.5px; 5.5 -> 13, 5.6 -> 14 */
+  font-weight: var(--fw-bold); color: var(--text-primary); line-height: var(--lh-snug); }
+.coach .od-var{ font-size: var(--fs-12); color: var(--text-secondary);
+  margin-top: var(--space-2); }
+
+/* `.cprice`, `.cprice .old` AND `.cprice .wtag` DELETED - all three, and this
+   is the fourth screen to hand them over. coach-clients.css:130 deleted the
+   same three rules off coach-client.html at 7.95 with the same finding: they
+   are the ninth price surface, and price.css, client-row.css and discount.css
+   between them own every declaration this screen was retyping.
+
+     .cprice        price.css 1 + 3   mono, tabular-nums, ₴ kerning, ink, weight
+                    client-row.css    the size, the leading, the right edge
+     .cprice .old   price.css 2       strike, --text-muted, --fw-regular
+                    client-row.css    display:block and the 12
+     .cprice .wtag  discount.css      the tier chip, whole - «гурт»
+
+   MEASURED AT 390, before -> after, and every row of it is a repair rather than
+   a move:
+     .cprice        59.53 x 57.19  ->  69.67 x 67.59   16px -> 20px, the atom's
+                                                       own invariant (price.css
+                                                       3: «one weight at one
+                                                       size, and the size is 20»)
+     .cprice .old   ink rgb(170, 170, 170) -> rgb(110, 106, 98)
+                    the private rule read `--text-price-was`, 2.32:1 on white;
+                    tokens.css:798 says out loud that the atom refuses that
+                    token because what a thing used to cost is a fact a person
+                    checks the discount against. 5.4:1 after.
+                    weight 500 -> 400, the one weight price.css 2 settled on.
+     .cprice .wtag  32.11 x 12  ->  38.11 x 14
+                    a 1px --line-strong outline with no ground and no vertical
+                    padding -> `--bg-sunken` with the family's 2/8. discount.css
+                    settled that pair at 7.98 and gave the contrast: 6.02:1.
+   The struck figure is RETAIL and the live one is the coach's tier price, so
+   the live figure stays ink - price.css:295 states that absence from the
+   `:has()` list is the answer, and this screen inherits it for free. */
+
+.coach .od-grp-f{ padding: 11px 15px;   /* [?] neither 11 nor 15 has a rung */
+  display: flex; justify-content: flex-end; }
+/* `.od-repeat1` KEEPS ITS SIZE AND LOSES EVERYTHING ELSE. It is the per-client
+   repeat - Job 4, the reason this screen groups by client at all - and it was a
+   `<a>` with one class, drawn by four declarations of its own: ink, 700,
+   underline, 12px. button.css's `--text` finish is that control («an action
+   written as words») and `--inline` is the underline, so the markup takes
+   `btn--text btn--inline` and this file keeps only what a component owns: how
+   big the label is, and how heavy.
+
+   AND THE FLOOR, WHICH NEITHER FILE GIVES IT. `.btn--text` declares
+   `min-height: 0` - the finish has no box, on purpose - so the 44 link-row.css
+   put under every loud text link at 7.98 does not reach a text BUTTON. Its
+   argument is the one that applies: «44 is not a SIZE, it is the consequence of
+   being pressable», and a component that decides a control is 12px must not
+   thereby decide that a finger cannot hit it. The `inline-flex` and the
+   centring come from button.css's own base block, so the floor is one line.
+
+   MEASURED AT 390, before -> after:
+     box     141.45 x 19.19  ->  141.45 x 44
+     ink     rgb(28, 28, 28) - unchanged, `.btn--text` reads `--text-body`,
+             which is the same --warm-900 the private rule named as `--strong`
+     hover   none -> `--text-action`; focus -> `--ring-focus-control`; both are
+             states the private rule never had
+   The foot around it grows with the target, 41.19 -> 66: 11px of padding above
+   and below a control that is now 44 rather than 19. The padding is one of the
+   two `[?]` literals on the line above and it is left where the grey put it -
+   re-balancing a row is a look decision with the stand open, not a port. */
+.coach .od-repeat1{ font-size: var(--fs-12); font-weight: var(--fw-bold);
+  min-height: var(--size-44); }
+
+/* ---------- the grand total and the actions --------------------------------
+   `.od-tot` is the buyer's `.sr.total` under another name: a label, a figure
+   and a stronger rule over the top of them. Kept rather than deleted, for the
+   same reason as the eyebrow and the product name above - order-row.css cannot
+   reach a name it has never been told about - and written with that rule's own
+   edge. */
+.coach .od-tot{ display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--space-12);
+  border-top: 1px solid var(--line-strong);   /* was 1.5px; see the header */
+  padding: 14px var(--space-2) var(--space-2);   /* [?] 14px has no rung */
+  margin-top: var(--space-2); }
+.coach .od-tot .l{ font-size: var(--fs-16);   /* was 15px; 5.6, ties go UP */
+  font-weight: var(--fw-black); color: var(--text-primary); }
+.coach .od-tot .l small{ display: block; font-size: var(--fs-12);   /* was 11.5px; 5.5 -> 12 */
+  font-weight: var(--fw-semibold); color: var(--text-secondary); }
+.coach .od-tot .v{ font-size: var(--fs-24); font-weight: var(--fw-black);
+  color: var(--text-primary); }
+
+/* THE COACH'S MONEY IS NOT IN THE MONEY FACE, AND IT IS THE SAME FINDING
+   price.css:108 WROTE FOR THREE OTHER COACH SCREENS. DESIGN-artifacts.md:79,
+   locked: «IBM Plex Mono for every dose, serving, nutrition figure, and price.
+   Mono numbers are a trust signal.» Measured at 390 with the port in place:
+
+     .od-grp-h .gs   «2 320 ₴»   Inter 16/700, no tabular-nums, word-spacing 0
+     .od-tot .v      «3 480 ₴»   Inter 24/700, no tabular-nums, word-spacing 0
+
+   `.gs` is the worst of the two for the same reason `.oc-sum b` was: it is
+   right-aligned in a card whose product prices below it ARE mono and kerned, so
+   two stacks of digits that do not line up down the card. And both are the
+   twins of names price.css already carries in its section-1 list - `.cs-b` and
+   `.ord-tot` are this order's own subtotal and total on coach-home and
+   coach-orders, one tap away.
+
+   THE FIX IS ONE LINE IN price.css, NOT THIS RULE: adding `.od-grp-h .gs` and
+   `.od-tot .v` to the selector list of its section 1. That file is not this
+   step's to edit, so the three declarations stand here written with the atom's
+   own tokens - the same shape coach-cabinet.css calls «a private alias for an
+   atom that already exists», and the day the atom learns the two names this
+   rule goes and nothing moves.
+   Measured, before -> after this rule: `.gs` 60.67 -> 59.53 wide,
+   `.od-tot .v` 85.44 -> 83.59, both right-aligned in columns the row already
+   sized, so nothing around them shifts.
+   ONE OF THE TWO ALSO GAINS THE HALF-SIZE ₴ AND THE OTHER DOES NOT, and that is
+   price.css:171's own gate rather than a difference between them: `uivCurrency()`
+   skips any parent under 17px, so `.od-tot .v` at 24 is wrapped in `.uiv-cur` and
+   `.gs` at 16 keeps a full-size typed ₴ - exactly as `.oh-sum` does at the same
+   size in the buyer's order history. Counted on this screen: 5 `.uiv-cur`, four
+   prices and the grand total. */
+.coach .od-grp-h .gs,
+.coach .od-tot .v{ font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  word-spacing: -.24em; }
+
+/* THE THREE CONTROLS AT THE FOOT WERE WEARING A CLASS THAT PAINTS NOTHING.
+   button.css has no `.btn` rule - the finish IS the button, and the file says so
+   out loud at :30 - so `<a class="btn dark">`, `<button class="btn">` and
+   `<a class="btn">` rendered as bare text: measured at 390, all three 25.59 tall
+   against the 52 an M button stands at, with no ground, no edge, no focus ring
+   and nothing under the finger.
+   THE RANK WAS ALREADY IN THE MARKUP and only the paint was missing: repeat the
+   order is the one thing this screen exists to make easy (Job 4, and design
+   principle 2 asks for exactly one main action), tracking it is a real action
+   beside it, and going back to the list is the way out. So
+   `btn--accent` / `btn--outline` / `btn--ghost`, in that order, at M - the same
+   ladder coach-orders.html and coach-client.html already carry, one size up
+   because this is the screen's own action row rather than a dense card row.
+   The dead `btn` and `dark` stay beside them: 7.9 proved neither name draws
+   anything, and the frozen grey layer shares this markup.
+   MEASURED AT 390, before -> after:
+     Повторити замовлення   182.30 x 25.59  ->  214.61 x 52
+     Відстежити              88.81 x 25.59  ->  119.61 x 52
+     ← Усі замовлення       141.72 x 25.59  ->  178.86 x 52
+   The `←` is drawn by `uivLeadMark` as an `<svg>` in both states - it was
+   already a mark before this step, and what changed is the box around it. */
+.coach .od-acts{ display: flex;
+  gap: 10px;   /* [?] 10px has no rung; the ladder is 8/12 */
+  flex-wrap: wrap; margin-top: var(--space-16); }

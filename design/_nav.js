@@ -36,7 +36,14 @@ var DESIGN_NAV = [
      two coloured coach screens is rewritten back into the grey prototype, which
      is what `uivFixLinks` is for. */
   'coach-landing.html', 'coach-home.html', 'coach-clients.html', 'coach-session.html',
-  'coach-orders.html', 'coach-client.html', 'cart-coach.html', 'coach-verify.html'
+  'coach-orders.html', 'coach-client.html', 'cart-coach.html', 'coach-verify.html',
+  /* step 8.7, and these three are why the list matters. `uivFixLinks` rewrites a
+     link to a screen that has no coloured copy so it lands in the grey layer -
+     which is right, and which is exactly what the coach's own navigation was
+     doing: «Обране» from six coloured screens, «Тариф» from three, «Деталі» of an
+     order from three. A coach in the coloured prototype stepped out of colour
+     mid-task, by an ordinary tap, three times over. */
+  'coach-wishlist.html', 'coach-tariff.html', 'coach-order.html'
 ];
 
 function uivFixLinks(){
@@ -1623,6 +1630,46 @@ function uivAccount(){
       if(box) uivIcons(box);
     };
   }
+  uivRailCurrent();
+}
+
+/* ---------- THE RAIL NEVER SHOWED WHERE YOU WERE - step 8.7 ------------------
+   Found on the rendered screen, not in the source: `coach-wishlist.html` came
+   back from its colouring pass with the section chips reading «Огляд · Клієнти ·
+   Замо…» and no mark on any of them, while `aria-current="page"` sat correctly on
+   «Обране». Measured at 390 across every screen that carries a rail:
+
+       box 358 wide, content 1103 (coach) / 1253 (buyer), scrollLeft 0 always
+
+       coach-home        0..105    visible      account            0..105   visible
+       coach-clients   113..267    visible      account-orders   113..307   visible
+       coach-orders    275..462    OUT          account-loyalty  315..504   OUT
+       coach-wishlist  470..622    OUT          account-wishlist 512..665   OUT
+                                                account-addresses673..826   OUT
+                                                account-profile  834..955   OUT
+
+   SEVEN OF TEN. On a phone the only two sections that show you are standing in
+   them are the first two of each rail; every other one puts its marker off the
+   right edge and a person is told nothing. The rail's whole job is «where am I»,
+   and the accent bar, the ink and the ground that answer it were being drawn
+   outside the 358px anyone can see.
+
+   `scrollLeft` ON THE RAIL, NOT `scrollIntoView()`. The latter scrolls every
+   scrollable ancestor, so on a long account page it would also jump the document
+   to the rail on load. This moves one box on one axis and touches nothing else.
+   The guard is the honest question rather than a width: a rail that does not
+   overflow is the desktop's vertical list, and `scrollWidth > clientWidth` is
+   false there - no breakpoint to keep in sync with account-shell.css. */
+function uivRailCurrent(){
+  document.querySelectorAll('#acc-nav .acc-links').forEach(function(box){
+    if(box.scrollWidth <= box.clientWidth) return;          /* the vertical rail */
+    var cur = box.querySelector('.acc-link[aria-current="page"]');
+    if(!cur) return;
+    var b = box.getBoundingClientRect(), c = cur.getBoundingClientRect();
+    var pad = 16;
+    if(c.right > b.right) box.scrollLeft += (c.right - b.right) + pad;
+    else if(c.left < b.left) box.scrollLeft -= (b.left - c.left) + pad;
+  });
 }
 
 /* The loyalty jar lives in design/system/icons.js with the rest of the set - it is

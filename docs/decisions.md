@@ -1394,3 +1394,128 @@ was: outline `↻ Повторити` on the SUMMARY card (`coach-home` shows tw
 accent on `coach-orders`, which owns the list. One rule, one file, and it would need measuring on
 both screens. Not recommended today - it would be the only place in the product where reorder
 changes weight by which screen it stands on.
+
+## Step 8.7 - the three screens the coach rail pointed at, and the rail that never said where you were
+
+Owner's call: colour `coach-wishlist`, `coach-tariff` and `coach-order`.
+
+### The registry closed the three doors before any paint was applied
+
+`uivFixLinks` rewrites a link whose destination has no coloured copy so that it lands in the grey
+layer - which is correct, and which is exactly what the coach's own navigation was doing: **«Обране»
+from six coloured screens, «Тариф» from three, «Деталі» of an order from three**. A coach in the
+coloured prototype stepped out of colour mid-task, by an ordinary tap.
+
+Registering the three in `DESIGN_NAV` fixed all three the moment the files existed. Measured on the
+rail and the tab bar after: «Обране» -> `coach-wishlist.html`, «Тариф» -> `coach-tariff.html`,
+«Деталі» -> `coach-order.html`, and none of the three appears in the grey-exit list any more.
+
+**One exit stays and it is not the coach's.** The tab bar's «Каталог» still resolves to
+`../wireframes/catalog-page.html` - and the BUYER's tab bar does the same, measured. One shared page
+with no coloured copy, identical for both roles, outside A13.
+
+### And the rendered screen showed something no source read would
+
+`coach-wishlist` came back from its colouring pass with the section chips reading «Огляд · Клієнти ·
+Замо…» and no mark on any of them, while `aria-current="page"` sat correctly on «Обране». The rail is
+a 358px scroller holding 1103px of chips at 390, `scrollLeft` 0 always. Measured across every screen
+that carries one:
+
+    coach-home        0..105   visible      account            0..105   visible
+    coach-clients   113..267   visible      account-orders   113..307   visible
+    coach-orders    275..462   OUT          account-loyalty  315..504   OUT
+    coach-wishlist  470..622   OUT          account-wishlist 512..665   OUT
+                                            account-addresses 673..826  OUT
+                                            account-profile  834..955   OUT
+
+**Seven of ten.** On a phone the only sections that showed you were standing in them were the first
+two of each rail; the accent bar, the ink and the ground that answer «where am I» were being drawn
+outside the 358px anyone can see. Four buyer screens had been like this since the account was
+coloured.
+
+`uivRailCurrent` scrolls the box, not the page: `scrollIntoView()` would move every scrollable
+ancestor and jump a long account page to its own rail on load. The guard is a question rather than a
+width - a rail that does not overflow is the desktop's vertical list, and `scrollWidth >
+clientWidth` is false there, so no breakpoint has to be kept in sync with `account-shell.css`.
+After: ten of ten show their current chip, each with 16px of lead, and the two that were already
+visible did not move.
+
+### What the colouring passes found
+
+`coach-wishlist`: four favourite buttons, three cart buttons and one notify button were rendering as
+**16.8 x 25.59 of unstyled text** - the `class="btn"` defect from 7.95 again, in a screen cloned
+after it. Now 44 x 44 on the atom. And four `.pavail` lines carried a typed `●` while
+`availability.css` has drawn that disc from `::before` since 7.35: every card showed two dots.
+
+`coach-order`: the status pill was a private edition - 112.16 x 27.19, ink `rgb(28,28,28)`, no
+ground - and now reads its twin on `coach-orders.html` to the hundredth of a pixel, ink
+`rgb(46,125,70)` on `rgba(46,125,70,.07)`. `.cprice .old` was `rgb(170,170,170)`, **2.32:1**, and
+took `--text-muted` at **5.4:1**. Three action buttons were unstyled text and are now 52 tall.
+
+**A report that did not survive checking.** The wishlist pass reported that the `♥` in the injected
+empty state stays a font glyph «because that text is injected after `uivMarks()` has run». Measured:
+the empty box holds **2 svg marks, zero font characters, and re-running the passes changes nothing**
+- `uivObserve`, added at 8.4, catches it. The note was read out of a file comment written before the
+observer existed rather than off the running page.
+
+### Acceptance
+
+`coach-wishlist` and `coach-order` at 360 / 390 / 768 / 1280: zero sideways scroll, zero console
+errors, zero em dashes, zero curly apostrophes. The state walk on both: none. The font still draws
+only values on them - `+` in a phone number, `−` in `−15%`, `×` in «×1», `©` in the footer.
+The ten rail screens after the scroll fix: acceptance clean at 390, and no rail scrolls at 1280.
+
+### The third screen, and a bug of mine in the clone
+
+`coach-tariff` came back with something the other two did not have: **its cancel dialog could not
+open at all.** The screen carried its own `tfCancelOpen` / `tfCancelClose` and an Escape handler in
+an inline `<script>`, and the clone script that produced the coloured file cut everything from the
+first `<script` tag onward - so every press threw a ReferenceError. Restored verbatim. Checked the
+other two afterwards: both carried an init line and no functions, so the cut was correct there. One
+screen affected, caught by the pass that owned it.
+
+Its own findings: three controls were **25.59 tall unstyled text**, 18.41px under the floor, and are
+52 now; `.tfov` / `.tfdlg` were a third edition of the scrim and dialog `overlay.css` and
+`client-dialog.css` already own; the confirm pair overflowed a 360 viewport by **27px sideways**,
+with the destructive button the part hanging off the edge. `.tf-compare` was KEPT under its own name
+with the reason written down - `coach-landing.css` draws a shared-row matrix, this is two
+independent cards with nothing to align across the gap.
+
+### Two agent findings that measurement disproved
+
+Both were of the same shape: read out of a file comment written before a fix existed, rather than
+off the running page.
+
+- «The `♥` in the injected empty state stays a font glyph.» Measured: **2 svg marks, zero font
+  characters, re-running the passes changes nothing.** `uivObserve` (8.4) catches it.
+- «The dialog's disc holds `◈`, which is in no icon set.» Measured: `.cedlg .ic` holds **1 svg**, its
+  text is empty. `gem` was drawn for that sign at 7.99 and both maps carry it.
+
+### And one the census caught that no report mentioned
+
+`coach-tariff` typed **«● Активний»** into the status pill. `status-pill.css` has no `::before`, so
+this was not the double dot `.pavail` had - it was one pill of eight wearing a mark the component
+does not use, while every other `.oc-status` in the coloured layer reads «Доставлено» with nothing
+in front of it. The character is gone from the markup, where it was typed.
+
+`•• 1234` on the same screen STAYS: it is a masked card number, the only one in the product, and `•`
+there is content rather than a sign the set should draw. The census flagged it because its
+punctuation list is deliberately narrow, which is the instrument being conservative.
+
+### Acceptance, all of it
+
+**51 screens at 390 and at 1280: zero failures** - no sideways scroll, no console errors, no em
+dashes, no curly apostrophes, no doubled separator. The state walk on all three new screens: none.
+The three destinations no longer appear anywhere in the grey-exit list of the nine coach screens.
+The font draws only values on them: `+` in a phone number, `−` in `−15%`, `×` in «×1», `©` in the
+footer, and the masked card.
+
+### Open, measured, and not this step's
+
+Three `<a>` under the 44 floor on every screen that has a trail: `.crumb a`, **15.00 tall** at all
+four widths, drawn by `breadcrumb.css`. `link-row.css`'s 7.98 census did not include breadcrumbs.
+Recommendation: **leave it.** `breadcrumb.css` calls the trail «orientation, not content - a person
+reads it when they are lost and skips it when they are not», every destination in it is reachable
+from a control that does clear 44 (the header, the rail, the tab bar), and growing it would push the
+H1 down about 29px on fourteen screens to make a redundant path easier to hit. The same reasoning
+`link-row.css` already applied to `.auth-sub a`.

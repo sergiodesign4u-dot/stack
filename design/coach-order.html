@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Замовлення № К-2041 - Кабінет тренера (wireframe 5.7)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+<!-- the screen's own stylesheet moved into design/system/components/ at step 8.7: a screen may not carry its own stylesheet. -->
+</head>
+
+<body class="coach">
+<!-- ============================================================
+  WIREFRAME · node 5.7 Деталі замовлення тренера (base).
+  Order № К-2041, grouped by client. Single delivery to the coach.
+  Per-client repeat (Job 4). ↻ Повторити → cart-coach (6.0).
+  States: loading · error.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page od-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <a href="coach-orders.html">Замовлення</a><span class="sep">/</span>
+    <span class="cur">№ К-2041</span>
+  </nav>
+
+  <!-- header -->
+  <section class="od-head" aria-label="Замовлення № К-2041">
+    <div class="od-head-t">
+      <div><span class="od-no">Замовлення № К-2041</span> <span class="od-date">· 28 червня 2026</span></div>
+      <span class="od-status ord-status ok">Доставлено</span>
+    </div>
+    <div class="od-facts">
+      <div class="od-fact"><div class="fk">Доставка (одна на тренера)</div><div class="fv">Нова Пошта - відділення №12<span>вул. Катерининська, 27, Одеса</span></div></div>
+      <div class="od-fact"><div class="fk">Отримувач</div><div class="fv">Олена<span>+380 ** *** 21 09</span></div></div>
+      <div class="od-fact"><div class="fk">Оплата</div><div class="fv"><span class="od-paid">✓ Сплачено карткою онлайн</span></div></div>
+      <div class="od-fact"><div class="fk">Клієнтів у замовленні</div><div class="fv">2 (Андрій, Марія)<span>4 товари · розподіл нижче</span></div></div>
+    </div>
+  </section>
+
+  <!-- per-client groups -->
+  <section class="od-grp" aria-label="Позиції клієнта Андрій">
+    <div class="od-grp-h"><div><span class="gc">👤 Андрій</span> <span class="gg">· Набір маси</span></div><span class="gs">2 320 ₴</span></div>
+    <div class="od-line">
+      <div class="od-ph">фото</div>
+      <div><div class="od-nm">BioTechUSA Hyper Mass 4000 г</div><div class="od-var">Смак: Ваніль · Угорщина · ×1</div></div>
+      <div class="cprice">1 230 ₴<span class="old">1 450 ₴</span><span class="wtag">гурт</span></div>
+    </div>
+    <div class="od-line">
+      <div class="od-ph">фото</div>
+      <div><div class="od-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div><div class="od-var">Смак: Подвійний шоколад · США · ×1</div></div>
+      <div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div>
+    </div>
+    <div class="od-grp-f"><a class="od-repeat1 btn--text btn--inline" href="cart-coach.html">Повторити замовлення</a></div>
+  </section>
+
+  <section class="od-grp" aria-label="Позиції клієнта Марія">
+    <div class="od-grp-h"><div><span class="gc">👤 Марія</span> <span class="gg">· Схуднення</span></div><span class="gs">1 160 ₴</span></div>
+    <div class="od-line">
+      <div class="od-ph">фото</div>
+      <div><div class="od-nm">BioTechUSA Iso Whey Zero 908 г</div><div class="od-var">Смак: Ваніль · Угорщина · ×1</div></div>
+      <div class="cprice">890 ₴<span class="old">1 050 ₴</span><span class="wtag">гурт</span></div>
+    </div>
+    <div class="od-line">
+      <div class="od-ph">фото</div>
+      <div><div class="od-nm">OstroVit L-Carnitine 1000</div><div class="od-var">Без смаку · Польща · ×1</div></div>
+      <div class="cprice">270 ₴<span class="old">320 ₴</span><span class="wtag">гурт</span></div>
+    </div>
+    <div class="od-grp-f"><a class="od-repeat1 btn--text btn--inline" href="cart-coach.html">Повторити замовлення</a></div>
+  </section>
+
+  <!-- grand total -->
+  <div class="od-tot"><div class="l">Разом за замовленням<small>2 клієнти · 4 товари · гуртом (тариф Pro)</small></div><div class="v">3 480 ₴</div></div>
+
+  <div class="od-acts">
+    <a class="btn--accent btn dark" href="cart-coach.html">Повторити замовлення</a>
+    <button class="btn--outline btn" type="button">Відстежити</button>
+    <a class="btn--ghost btn" href="coach-orders.html">← Усі замовлення</a>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-order.html');
+        uivFixLinks(); uivBar(); uivChrome();</script>
+</body>
+</html>
