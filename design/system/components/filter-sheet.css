@@ -30,6 +30,39 @@
 .fsheet-h{ position: sticky; top: 0; background: var(--bg-page); padding: var(--space-16) var(--space-16); border-bottom: 1px solid var(--line-hair); font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); display: flex; justify-content: space-between; align-items: center; }
 .fsheet-h .x{ font-size: var(--fs-20); }
 .fsheet-foot{ position: sticky; bottom: 0; background: var(--bg-page); display: flex; gap: var(--space-12); padding: var(--space-12) var(--space-16); border-top: 1px solid var(--line-hair); }
+
+/* ---------- A STICKY BAR IS NOT AUTOMATICALLY ON TOP - step 8.16 -------------
+   Scroll this sheet and a checked filter box climbs out through the header: an
+   orange square with a white tick floating above the word «Фільтри», and the
+   label «В наявності» that belongs to it correctly hidden. Found by eye on the
+   kit stand; measured at 390 with the sheet scrolled 260 - the header occupies
+   101.3 to 174.3 and `.cb.on` sits at 167.4, inside it.
+
+   `position: sticky` DOES NOT LIFT ANYTHING. It changes where a box is laid
+   out, not what paints over what. Both the header and the checked box are
+   positioned with `z-index: auto`, so paint order falls back to tree order, and
+   the header is the sheet's FIRST child - every positioned thing in the body
+   comes after it and therefore on top of it. The header's own background hides
+   the rest, which is why only the one positioned element showed through.
+
+   `.cb.on` is positioned for a reason that has nothing to do with layering:
+   checkbox.css turns it `relative` so the drawn tick can be absolute inside it.
+   A component two levels down took a decision about its own tick and, without
+   anyone writing it, took a decision about this sheet's header.
+
+   ONE STACKING CONTEXT FOR THE CONTENT, NOT A BIGGER NUMBER FOR THE BAR. The
+   two range thumbs carry `z-index: 3` and `4` written into the markup, so a bar
+   at 1 or 2 would still lose to them and the answer would be a number chosen to
+   beat whatever is currently highest - which is how a z-index war starts.
+   `.fsheet-body` at `z-index: 0` becomes a stacking context, so 3 and 4 are
+   ranks INSIDE the list and cannot address anything outside it; the bars at 1
+   then sit above the whole content regardless of what it does internally. This
+   is also `.fsheet-body`'s first declaration anywhere - the stand lists it among
+   five names in this markup that no component file declares.
+
+   Measured after, same scroll: nothing of the body paints inside either bar. */
+.fsheet-h, .fsheet-foot{ z-index: 1; }
+.fsheet-body{ position: relative; z-index: 0; }
 /* The footer holds two controls and nothing else, so the split belongs to the
    footer. Step 7.9: this was `.btn` and `.btn.dark` - the last live use of the
    grey layer's colour class anywhere in the colour layer, and the reason the

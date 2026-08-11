@@ -97,3 +97,31 @@
 .coachbn{ background:var(--bg-inverse);  border-radius:var(--radius-16); padding:var(--space-24); overflow:hidden; position:relative; }
 .coachbn .ct{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-oninverse); }
 .coachbn .cs{ color:var(--text-oninverse-muted); line-height:var(--lh-airy); }
+
+/* ---------- THE BAND TOLD ITS TEXT AND FORGOT ITS CONTROLS - step 8.16 -------
+   `.coachbn` is `--bg-inverse`, and the two lines above hand its title and its
+   caption the inverse ink. The three buttons beside them were never told, so
+   «Клієнти» and «Історія» drew `--text-body` - measured on home-coach at 1280:
+   `rgb(28, 28, 28)` ink on an `rgb(28, 28, 28)` ground, the same value byte for
+   byte, contrast 1.00. Two labelled links rendering as two empty boxes.
+
+   THE ACCENT BUTTON BESIDE THEM WAS FINE, and that is why this survived a whole
+   step of looking at the screen: `btn--accent` brings its own orange ground and
+   its own white label, so it does not care what it stands on. `btn--outline`
+   brings only an edge, and an edge assumes a plate. Its border happened to stay
+   visible - `--line-strong` is a light-ground token that reads as a pale outline
+   on ink by accident - which is what made the result look like a deliberate
+   empty box rather than a defect.
+
+   `--line-oninverse-soft` is the token that exists for exactly this: «a hairline
+   drawn ON a dark surface, where --line-inverse (ink) would vanish», already
+   used twice by spec-table.css on its dark strip. The hover keeps the accent
+   edge, because the accent is legible on both grounds and the band should answer
+   a pointer the same way the rest of the product does.
+
+   SCOPED TO `.coachbn` AND NOT MADE A FINISH. One measured ground is not a
+   pattern; `btn--oninverse` earns its name when a second dark surface asks for
+   it, and the two text lines above set the precedent for where a ground tells
+   its children who they are. */
+.coachbn .btn--outline{ color: var(--text-oninverse); border-color: var(--line-oninverse-soft); }
+.coachbn .btn--outline:hover{ color: var(--text-oninverse); border-color: var(--line-action); }

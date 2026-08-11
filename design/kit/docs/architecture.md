@@ -145,7 +145,7 @@ two files agree on is a decision, not drift. 1040 is the one pair that MUST agre
 catalogue grid and the skeleton that stands in for it - and step 7.68 is what happens when such
 a pair drifts apart.
 
-### A9. The only sideways scroll left in the product - found and half fixed at 7.64
+### A9. The only sideways scroll left in the product - found and half fixed at 7.64 - **CLOSED at 8.12**
 
 **Measured: 40 screens at 21 widths from 360 to 1440, 840 loads. Exactly one screen scrolled
 sideways** - `product-oos.html`, in two bands, always the same row: the buy box's
@@ -337,7 +337,7 @@ pass does not read them as drift.
 before the scale existed, whose type already moved at 7.66. That is a look, taken with the box
 open, not a sweep.
 
-### A6. The product tile - **SHAPE closed at step 7.68, SIZE still open.** It was nine names, not four
+### A6. The product tile - **SHAPE closed at step 7.68, SIZE ANSWERED by the owner at 8.12.** It was nine names, not four
 
 **This entry was wrong in both of its claims, and both were wrong the same way A1, A3, A2, A4
 and A5 were: counted from a reading of the source, not measured in a browser.**
@@ -1047,25 +1047,26 @@ they belong to whoever decides scope.
 |---|---|---|
 | ~~no reviews yet~~ | ~~`product-reviews.html`~~ | **CLOSED at 8.15** - the summary is not drawn at all. `0.0` is a false claim, a 50px dash is a headline saying nothing, five hollow stars spell the worst opinion available |
 | no purchase history | the restock note on `account.html` | a new buyer sees a block with no rows |
-| no addresses | `account-addresses.html` | the list renders empty with no words |
-| no orders | `account-orders.html` | the tabs remain above nothing |
+| ~~no addresses~~ | ~~`account-addresses.html`~~ | **CLOSED at 8.13** - the grey layer had drawn it since stage 04; `design/account-addresses-empty.html` |
+| ~~no orders~~ | ~~`account-orders.html`~~ | **CLOSED at 8.13** - same: `design/account-orders-empty.html` |
 | ~~no photo~~ | ~~the gallery~~ | **CLOSED at 8.15** - and «faint» was wrong: the frame sets `font-size: 0`, so in colour the placeholder was INVISIBLE. `.loadnote` inside the frame, `:has()` takes the ground off |
 | ~~no composition data~~ | ~~the spec table~~ | **CLOSED at 8.15** - «Ми не публікуємо склад із чужих джерел». Principle 1: an empty composition is a signal, not an absence |
 | section is empty | any `.sech` | 37 heads, 28 exits, nothing says what an empty section shows |
 | ~~signal not confirmed~~ | ~~the trust strip~~ | **CLOSED at 8.15** - `voice.md:257` bans «сертифіковано» as a slogan without a file, so the strip says «на цю партію - уточнюємо» and its hover does not fire |
-| maximum tier reached | the loyalty rung | exists in grey, not in colour |
-| empty bonus ledger | the loyalty ledger | exists in grey, not in colour |
+| ~~maximum tier reached~~ | ~~the loyalty rung~~ | **CLOSED at 8.14** - `design/account-loyalty-max.html`. This row said «exists in grey, not in colour» and was right; twenty-two others said nothing existed and were wrong |
+| ~~empty bonus ledger~~ | ~~the loyalty ledger~~ | **CLOSED at 8.14** - `design/account-loyalty-empty.html` |
 | order cancelled | the order row | the code has three states, the path has at least four |
 | ~~no description~~ | ~~the description block~~ | **CLOSED at 8.15** - the box stands INSIDE `.pdesc`, because `section-head.css:72` anchors the heading on `.sech:has(+ .pdesc)` and dropping the column sends the heading full width |
 | ~~no questions yet~~ | ~~the Q&A section~~ | **CLOSED at 8.15** - the exit is the section head's existing «＋ Поставити запитання», not a second copy of it inside the box |
 | ~~question not answered yet~~ | ~~`.qaitem`~~ | **CLOSED at 8.15** - `.qans--wait`, 46.4 tall to the pixel of a short answer, so the box grows downward when the answer lands. The accent edge steps back: it marks a VOICE, and there is none yet |
 | ~~last page reached~~ | ~~the pager~~ | **CLOSED at 8.15** - `aria-disabled` + `pointer-events`; the off state was in `button.css` since 7.61 and no markup had ever asked for it |
 | ~~«Показати ще» after the press~~ | ~~the pager~~ | **CLOSED at 8.15** - `aria-busy` for the wait (box unmoved, only the label changes), and the end of the list is a `.loadnote`, not a dead button |
-| nothing matched the filter | the filter rail, `listing-empty` | the rail looks identical and no facet is marked as the one that emptied the result |
+| ~~nothing matched the filter~~ | ~~`listing-empty`~~ | **ALREADY DRAWN, in both layers** - «За вашими фільтрами нічого не знайдено», verified 8.13. The remainder is real and narrower than the row: no facet is marked as the one that emptied the result. Reopened as its own line below |
 | ~~no certificate on this batch~~ | ~~the trust strip~~ | **CLOSED at 8.15** - the two rules that promise «this opens» moved onto `a.certthumb`; the pending sheet is a bare `<span aria-hidden>`, absent from the accessibility tree. Step 7.72's lesson applied structurally |
+| which facet emptied the result | the filter rail | the rail looks identical whether one facet or six produced zero. What the closed row above was really pointing at |
 | no brand logo loaded | the brand row | six words in boxes read as a broken block and nothing notices |
 | a toast that must not be missed | the toast | 4.2 seconds and `aria-live="polite"`; an error that blocks checkout can be neither seen nor heard |
-| «Знайдено: 0» | the catalog toolbar | the bar over an empty result looks exactly like the bar over a full one |
+| ~~«Знайдено: 0»~~ | ~~the catalog toolbar~~ | **ALREADY DRAWN** - `design/listing-empty.html:36` reads «Знайдено: 0 товарів», verified 8.13 |
 | this goal is the one you chose | the goal tiles | the tile leaves no trace; coming back, a person starts again |
 | you are already a coach | the coach banner | «Ви тренер?» is shown to everyone, including a coach |
 | no category description | the SEO block | the block stays, with its heading and nothing under it |

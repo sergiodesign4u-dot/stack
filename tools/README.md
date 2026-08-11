@@ -14,10 +14,12 @@ node tools/accept.mjs                    the gate: every screen, 390
 node tools/accept.mjs 1280 account       one width, named screens
 node tools/states.mjs                    open every state, re-run the passes
 node tools/css-comments.mjs              every stylesheet, one second
+node tools/vars.mjs                      every var(--x), and whether it exists
 node tools/crop.mjs 390 coach-tariff .tf-compare /tmp/t.png
 ```
 
-`accept`, `states` and `css-comments` exit non-zero on a finding, so they compose.
+`accept`, `states`, `css-comments` and `vars` exit non-zero on a finding, so they
+compose.
 
 ---
 
@@ -71,6 +73,35 @@ The stylesheets here carry more prose than rules, which is deliberate and is
 exactly what makes this likely. CSS only, on purpose: the `.js` version reported
 a regex literal as an orphan, and an instrument that reports a correct line
 trains you to ignore it.
+
+## `vars.mjs` - the name that nothing declares
+
+Quieter than the CSS comment, and it reached the product. `var(--dark)` with
+nothing declaring `--dark` does not fall back to black and raises nothing: the
+declaration becomes invalid at computed-value time and the property lands on
+inherit. `background: var(--dark)` disappears, `color: #fff` beside it survives -
+white ink on white paper, drawn exactly as instructed, with no error anywhere.
+`coach-verify-tier` lost both of its tier cards that way, and `accept`, `states`
+and `css-comments` all pass it.
+
+The cause is structural, not a typo: a screen with its own `<style>` block gets
+cloned to colour, the head is swapped from `wireframes/_wf.css` to
+`design/system/index.css`, and the private block keeps speaking the grey layer's
+names. **Thirty screens do this today**, all of them the coach flow.
+
+**Three wrong versions, each lying differently**, and all three are written into
+the file because the next check to read CSS will meet the same three:
+
+1. `@import[^;]*["']([^"']+)["']` **matched 43 times on a file with 43 imports and
+   captured `;\n@import ` every time** - a greedy `[^;]*` settles on the closing
+   quote of one import and the opening quote of the next. The count was right,
+   the content was garbage, and the check then called 86 screens broken over
+   tokens declared exactly where they belong. *A match count is not a result.*
+2. **The comments are most of these files.** They quote the grey names in prose
+   to explain what changed, so an uncommented scan flagged all nine on all 174
+   screens. *A check that fires everywhere is describing itself.*
+3. `var(--x, fallback)` is not a defect, and not every declaration is in a
+   stylesheet - `--p` comes from the markup and `--uiv-side-h` from `_nav.js`.
 
 ## `crop.mjs` - one element, photographed
 

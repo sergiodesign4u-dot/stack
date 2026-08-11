@@ -2479,3 +2479,119 @@ the four product screens: no state a pass failed to reach.
   rather than replaced with a differently-wrong number.
 - **`coach-home-empty` draws an `.emptybox` at 30/18**, which is neither rung.
   Found by the census, not chased.
+
+---
+
+## Step 8.16 - two defects found by eye, and the check that found the third
+
+The owner opened `design/kit/filter-sheet.html` and `design/home-coach.html` and
+found two things. Both were real, both are fixed by a rule, and looking for the
+mechanism behind the second one turned up a class of thirty screens that nothing
+was checking.
+
+### 1. A checked filter box floating above the word «Фільтри»
+
+Scroll the filter sheet and an orange square with a white tick climbs out through
+the sticky header, while the label «В наявності» that belongs to it stays
+correctly hidden. Measured at 390 with the sheet scrolled 260: the header
+occupies 101.3 to 174.3 and `.cb.on` sits at 167.4.
+
+**`position: sticky` does not lift anything.** It changes where a box is laid out,
+not what paints over what. The header and the checked box are both positioned
+with `z-index: auto`, so paint order falls back to tree order - and the header is
+the sheet's FIRST child, so everything positioned in the body comes after it and
+therefore on top of it. The header's own background hid the rest, which is why
+exactly one element showed through.
+
+`.cb.on` is `position: relative` for a reason that has nothing to do with
+layering: checkbox.css turns it relative so the drawn tick can be absolute
+inside it. **A component two levels down took a decision about its own tick and,
+without anyone writing it down, took a decision about this sheet's header.**
+
+The fix is one stacking context for the content rather than a bigger number for
+the bar. The two range thumbs carry `z-index: 3` and `4` in the markup, so a bar
+at 1 or 2 would still lose to them and the answer would be a number picked to
+beat whatever is highest - which is how a z-index war starts. `.fsheet-body` at
+`z-index: 0` becomes a stacking context, so 3 and 4 become ranks INSIDE the list;
+the bars at 1 sit above the whole of it regardless of what it does internally.
+This is also `.fsheet-body`'s first declaration anywhere - the stand lists it
+among five names in this markup that no component file declares.
+
+Verified at five scroll positions on the stand AND on `listing.html`, the real
+screen: nothing of the body paints inside either bar.
+
+### 2. Two labelled buttons rendering as two empty boxes
+
+`.coachbn` is `--bg-inverse`, and client-row.css hands its title and its caption
+the inverse ink. **The three buttons beside them were never told.** Measured on
+`home-coach` at 1280: «Клієнти» and «Історія» drew `rgb(28, 28, 28)` ink on an
+`rgb(28, 28, 28)` ground - the same value byte for byte, contrast 1.00.
+
+The accent button beside them was fine, and that is why this survived a whole
+step of looking at the screen: `btn--accent` brings its own ground and its own
+white label, so it does not care what it stands on. `btn--outline` brings only an
+edge, and an edge assumes a plate. Its border stayed visible by accident -
+`--line-strong` is a light-ground token that happens to read as a pale outline on
+ink - which made the result look like a deliberate empty box rather than a
+defect.
+
+Scoped to `.coachbn` and NOT made a finish: one measured ground is not a pattern.
+`btn--oninverse` earns its name when a second dark surface asks for it.
+
+### 3. `tools/vars.mjs` - and thirty screens speaking a language the system does not
+
+Chasing the second defect asked a bigger question: where else is ink set and
+ground not? A contrast census over all 88 coloured screens returned 38 findings,
+**36 of which were the instrument's fault** - the ground walker read only
+`background-color`, so an ancestor painting a gradient sent it past to the white
+body and it reported white text on white paper for every element on a dark strip.
+Corrected to stop at any background-image and count those separately, the census
+returned two real ones - and both were on `coach-verify-tier`, whose two tier
+cards have no border, no fill, no CTA box and no flag: `Free` and `Pro` are bare
+stacked text.
+
+The cause is not a missing rule. **The screen carries its own `<style>` block
+written against the GREY layer's variable names** - `--dark`, `--hair2`, `--sec`,
+`--light`, `--ink`, `--fill` - and the clone that made it coloured swapped the
+stylesheet link from `wireframes/_wf.css` to `design/system/index.css`, where
+those names do not exist. The head was translated; the private block was not.
+
+**An undefined custom property is the quietest failure CSS has.** `var(--dark)`
+with nothing declaring `--dark` does not fall back to black and raises nothing:
+the whole declaration becomes invalid at computed-value time, so the property
+lands on inherit. `background: var(--dark)` disappears; `color: #fff` on the same
+element, being a literal, survives. White ink on white paper, drawn exactly as
+instructed, with no error anywhere - which is why `accept.mjs`, `states.mjs` and
+`css-comments.mjs` all pass these screens.
+
+`tools/vars.mjs` asks the one question none of them ask: does every name a
+coloured screen uses have a declaration in the sheets that screen actually loads.
+Both halves are read off disk. **Thirty screens fail, all of them the coach flow**,
+over eight names: `--sec` 28, `--hair2` 27, `--hair` 27, `--dark` 26, `--fill` 22,
+`--light` 21, `--fill2` 16, `--ink` 12.
+
+It took three wrong versions to get there, and each one lied differently:
+
+1. **`@import[^;]*["']([^"']+)["']` matched 43 times on a file with 43 imports,
+   and every capture was `;\n@import `.** A greedy `[^;]*` pushes the opening
+   quote as far right as it can, so the pattern settled on the closing quote of
+   one import and the opening quote of the next; the filename between them was
+   never read. The count was right and the content was garbage, so the check
+   declared 86 screens broken over tokens that are declared exactly where they
+   should be. *A match count is not a result.*
+2. **The comments are most of these files.** Every component stylesheet explains
+   what the grey layer used to say, quoting `var(--dark)` and `--hair2` in prose,
+   so an uncommented scan reported all nine grey names as orphans on all 174
+   screens - every screen there is. *A check that fires everywhere is describing
+   itself, not the product.*
+3. **`var(--x, fallback)` carries its own answer** and is not a defect, and a
+   custom property does not have to come from a stylesheet: `--p` is written on
+   the element by the markup and `--uiv-side-h` by `_nav.js` at runtime.
+
+**The thirty screens are NOT fixed in this step.** Seven of the eight names map to
+a role that tokens.css states outright, but `--dark` is the grey prototype's one
+stand-in for «selected / primary», which is two roles in colour - `--line-action`
+where it means selected, `--bg-inverse` where it means a dark plate,
+`--text-primary` where it is ink - and coach-session.css already resolved one
+such case by reading the markup rather than the name. A blind rename would put a
+value in the right slot and the wrong role. Logged as its own step.
