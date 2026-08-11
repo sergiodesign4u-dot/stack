@@ -1,8 +1,18 @@
 /* badge.css - the badge (level 1), rebuilt at step 7.37.
 
-   A MARK ON A PRODUCT PHOTO. «Популярне», «Новинка». It labels the thing it sits
-   on - which is what separates it from the status pill one file away: a pill
-   reports a state that changes, a badge states a kind that does not.
+   A MARK THAT SAYS WHAT KIND A THING IS. «Популярне», «Новинка», «За
+   замовчуванням», «ваш тариф». It labels the thing it sits on - which is what
+   separates it from the status pill one file away: a pill reports a state that
+   changes, a badge states a kind that does not.
+
+   TWO KINDS, AND THE DIFFERENCE IS WHERE IT STANDS. Filled, on a product
+   photograph, where it needs a ground to read over an image (step 7.37, the
+   first half of this file). Outlined, beside a word on the page's own paper,
+   where an outline is enough and a ground would shout (step 8.10, the second
+   half). The first sentence of this header said «A MARK ON A PRODUCT PHOTO»
+   until 8.10, which was true of everything the file drew and not of what the
+   file is - the outlined kind had been rendering on three screens the whole
+   time, in four files that each thought they were alone.
 
    THE FILE HELD NO BADGE. Before this step badge.css declared exactly one class,
    `.gnote`, and `.gnote` is not a badge - it is a GREY-PROTOTYPE ANNOTATION.
@@ -28,6 +38,14 @@
    So this file names `.tag.tag-pop, .tag.tag-new`. The selector is precise today
    because a badge always says WHICH kind it is, and the rename that would make it
    `.tag` outright is Крок 6's, along with a name for the address label.
+
+   AND THAT LAST SENTENCE FOUND THE OUTLINED KIND WITHOUT KNOWING IT. «A name for
+   the address label» was written about `.aaddr .adef .tag` in the GREY layer -
+   borderless, grey, an eyebrow. The COLOURED layer draws the same words as
+   `.addr-tag`, with a border and a pill radius, which is not an eyebrow at all.
+   Two layers, two shapes, one sentence describing only the first: 8.10 measured
+   the coloured one in a browser and found it was the third of four editions of a
+   pill nobody owned. See the outlined block at the foot of this file.
    ============================================================================ */
 
 /* ---------- the badge --------------------------------------------------------
@@ -82,3 +100,74 @@
    `[?]`; it was measured, not deduced. See `cert-thumb.css` for the sweep. */
 .tag.tag-pop::before{ content: '★' / ''; color: var(--text-action); font-size: var(--fs-10); line-height: var(--lh-flat); }
 .tag.tag-new::before{ content: '✦'; font-size: var(--fs-10); line-height: var(--lh-flat); }
+
+/* ---------- the OUTLINED badge, added at step 8.10 ----------------------------
+   THE SECOND KIND, and it is the same idea as the first: a mark that states what
+   KIND a thing is. What separates the two is where it stands. The filled badge
+   sits ON a photograph, so it needs a ground to be legible over an image and a
+   shadow to lift off it. This one stands BESIDE A WORD on the page's own paper,
+   where a ground would make it shout and an outline is enough.
+
+   FOUR NAMES, SEVEN INSTANCES, THREE SCREENS, FOUR FILES, and nothing in the
+   system owned the shape. Read out of the runtime DOM at 390 across all 51
+   coloured screens - not grepped, because a shape is a rendering:
+
+     .addr-tag   3  account-addresses  address-card.css   10/700  pad 2/8
+     .badge      2  coach-landing      coach-landing.css  10/700  pad 2/9
+     .tf-mini    1  coach-tariff       coach-tariff.css   12/700  pad 2/8
+     .kicker     1  coach-landing      coach-landing.css  12/700  pad 4/12
+
+   All four: 1px border, `--radius-pill`, uppercase, `--fw-black`, no ground.
+   They agreed on everything hard and disagreed on the two things that are easy,
+   which is status-pill.css's signature for «four people drawing one thing
+   separately» - and this is that file's finding a second time, one level over.
+
+   TWO OF THEM ARE LITERALLY THE SAME ELEMENT. `coach-landing.html:98` writes
+   `<div class="plan">Free<span class="badge">миттєво</span></div>` and
+   `coach-tariff.html:71` writes `<div class="tf-col-h">Pro <span
+   class="tf-mini">ваш тариф</span></div>` - a plan name with an outlined pill
+   beside it, in two editions of the SAME Free / Pro comparison table, on two
+   screens of the same flow. That is why this is one rule and not three.
+
+   THE LADDER IS status-pill.css's AND IT IS NOT RE-DERIVED HERE. That file
+   measured two rungs out of the product - row 12 / 4-12, inline 10 / 2-8 - and
+   said so at :83. `.addr-tag` was already exactly on the inline rung and
+   `.kicker` exactly on the row rung; the other two crossed it, one each way, in
+   the same two directions status-pill.css's own four crossed it.
+
+   ONE VALUE MOVES, AND IT IS SAID OUT LOUD BECAUSE THE RULE ASKS FOR THAT:
+   `.tf-mini` font-size 12 -> `--fs-10`. WHY: it is `.badge` under another name,
+   and the 12 is an artefact of rounding rather than a decision. In the grey
+   prototype the two were 10.5 and 10 - the same pill, half a pixel apart, drawn
+   by hand on two days. Step 5.6's snap ladder took 10.5 up two rungs to 12 and
+   left its twin's 10 at 10, so a coincidence in the grey became a difference in
+   the colour. `.badge`'s 10 is the one with a reason behind it: badge.css:36
+   states it for the whole family - «deliberately the smallest legible thing,
+   because a badge that competed with the product name would be selling».
+   `.badge` padding 2/9 -> 2/8: 9 has no rung, and coach-landing.css:318 already
+   flagged it `[?]`. `.badge` letter-spacing .03em -> `--ls-caps` (.04em), and
+   `margin-left` 7px -> `--space-8`: two more literals beside a token, which is
+   A5's shape, closed at 7.67 - these are its stragglers.
+
+   `.kicker` IS DELIBERATELY NOT HERE, and the reason is what it does rather than
+   what it looks like. «Тренерам · залам · командам» stands ALONE above the hero
+   headline: it does not label a thing beside it, it names the page under it,
+   which is A3's definition of an eyebrow. It is also already on the row rung, so
+   there is nothing to repair - only a name to settle, and that is Крок 6's.
+
+   THE NAMES THEMSELVES ARE STILL WRONG AND THAT IS ALSO КРОК 6. `.badge` collides
+   with this file's own atom and coach-landing.css:314 already books the rename;
+   `.addr-tag` and `.tf-mini` are two more words for one thing. What 8.10 closes
+   is the SHAPE - one declaration, one ladder, one set of tokens. What it leaves
+   is the vocabulary, which is the rename step's whole job. */
+.addr-tag, .cmp-head .plan .badge, .tf-mini{
+  display: inline-block;
+  font-size: var(--fs-10);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  padding: var(--space-2) var(--space-8);
+}

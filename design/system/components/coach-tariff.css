@@ -168,6 +168,18 @@
    and is the one-line fix this alias waits for. Its sibling `.tf-badge` could go
    because it landed ON a rung, not beside one.
 
+   ---- 8.10: IT DID NOT STAY, AND THE PARAGRAPH ABOVE IS WHY IT TOOK SO LONG. --
+   Everything it measured was right. It named the twin («the same refusal
+   coach-landing.css made»), it named the ladder cross, and it refused the wrong
+   home for the right reason - `.tf-mini` is genuinely not a status. What it did
+   not ask is the next question: if it is not a status and no file declares it,
+   WHICH file should? Two paragraphs, on two screens, each ending at «no file in
+   the system owns this» and each treating that as the end of the sentence rather
+   than the finding. The census at 8.10 opened all 51 screens and counted four
+   editions in four files, and badge.css took the shape - a badge states a KIND,
+   and «ваш тариф» states what kind of column this is.
+   The rule and the value move are at the declaration below.
+
    `.tf-ch` STAYS. section-head.css owns `.sech h2` - Oswald 24, `--ls-lead`,
    `--text-body`, inside a `.sech` flex wrapper that carries an «Усі товари →»
    link and 32/16 margins. This is a bare 16/700 ink sub-heading over a two-card
@@ -184,6 +196,24 @@
    is the same shape of fix: two names added to price.css's mono list. Reported,
    not taken here, because price.css is not this file's to edit and a second
    `font-family: var(--font-mono)` written locally is how one rule becomes eight.
+   TAKEN AT 8.10, in price.css, exactly as described - and the refusal to write
+   it locally is what made it a two-name edit in one file instead of a hunt. The
+   two joined `.cmp-head .price b`'s rule rather than the mono LIST above it, for
+   the reason that rule already gives: a plan price has no struck twin and no
+   `-N%` chip, so it takes the family and the numerals and NOT the ₴ kerning,
+   which stays off across all three until the owner says one word.
+   8.10b - THE OWNER SAID IT, AND THIS SCREEN IS WHY IT MATTERED. The kerning
+   question had been open since 7.96 on a 16px figure where it closes 3.84px.
+   Putting the same figure on this screen at 20 and 26 made it four times wider,
+   because the mono word space scales with the type: measured with a Range over
+   the glyphs, `.tf-price` «99 ₴ / міс [?]» went 154.67 -> 129.72, closing 24.95
+   of its own 154. All three names are in price.css section 1's list now, with
+   the kerning, and the separate rule is gone - the missing declaration was the
+   only thing that had ever told them apart.
+   MEASURE THE GLYPHS, NOT THE BOX, if this is ever re-read: `.tf-price` and
+   `.tf-col-p` are BLOCK elements filling a grid column, so their boxes cannot
+   narrow and a `getBoundingClientRect` A/B reports «saves 0px» for all three.
+   That is what the first measurement at 8.10b returned, and it was wrong.
 
    THE CONTRAST GATE HAS NOTHING TO CATCH ON THIS SCREEN, and that was measured
    rather than assumed. DESIGN-artifacts.md:66: `#FF5A00` on white is 3.13:1, so a
@@ -290,12 +320,25 @@
 .coach .tf-col-h{ font-size: var(--fs-16);   /* grey 15 -> 16 */
   font-weight: var(--fw-black); color: var(--text-primary);
   display: flex; align-items: center; gap: var(--space-8); }
-/* «ваш тариф». Kept under its own name - the reasoning and the measured geometry
-   are in the header, section «NOT DELETED». */
-.coach .tf-mini{ font-size: var(--fs-12);   /* grey 10.5 -> 11 -> 12: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes 11 UP to 12 */
-  font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps);
-  border: 1px solid var(--line-strong); border-radius: var(--radius-pill);
-  padding: var(--space-2) var(--space-8); color: var(--text-secondary); }
+/* «ваш тариф». 8.10 - THE SHAPE WENT TO badge.css AND THE SIZE WENT WITH IT.
+   The header's «NOT DELETED» section refused to send this pill to status-pill.css
+   and gave a good reason: 12px on a 2/8 padding is the row rung's SIZE on the
+   inline rung's AIR, and that file opens by refusing exactly that cross. What
+   the refusal could not see is that the pill is not a status at all - it states
+   what KIND this column is, which is badge.css's definition - and that its twin
+   was one screen over the whole time: `coach-landing.html:98` writes the same
+   markup, `<div class="plan">Free<span class="badge">миттєво</span></div>`,
+   inside the same Free / Pro comparison.
+   THE VALUE MOVE, SAID OUT LOUD: font-size 12 -> `--fs-10`. WHY: in the grey the
+   two were 10.5 and 10 - one pill, half a pixel apart, drawn by hand on two
+   days. Step 5.6's ladder took 10.5 up two rungs and left 10 where it was, so a
+   coincidence became a difference. 10 is the one with a reason: badge.css states
+   it for the whole family - the smallest legible thing, because a badge that
+   competed with the name beside it would be selling.
+   The ink is this screen's and stays here: `--text-secondary` against the
+   landing's inherited ink, because this column heading is already the loudest
+   thing in its row. */
+.coach .tf-mini{ color: var(--text-secondary); }
 .coach .tf-col-p{ font-size: var(--fs-20);   /* grey 19 -> 20: 5.6, ties go UP */
   font-weight: var(--fw-black); color: var(--text-primary);
   margin: 6px 0 var(--space-12); }   /* [?] 6 has no rung */

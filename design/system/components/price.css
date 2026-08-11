@@ -136,7 +136,54 @@
    normal -> tabular-nums, and the BOX does not move - 108.00 and 93.61 before and
    after, because the figure is right-aligned in a column the row already sized.
    So the digits tighten and nothing around them shifts, which is the whole reason
-   this is one rule rather than a value per surface.) */
+   this is one rule rather than a value per surface.)
+
+   8.10 - THE LAST TWO COACH TOTALS, and coach-order.css wrote this line for them
+   before this file could take it. That file's note at :334 reads: «THE FIX IS ONE
+   LINE IN price.css, NOT THIS RULE: adding `.od-grp-h .gs` and `.od-tot .v` to
+   the selector list of its section 1. That file is not this step's to edit, so
+   the three declarations stand here written with the atom's own tokens ... and
+   the day the atom learns the two names this rule goes and nothing moves.»
+   This is that day. The private alias is deleted and the two names are here.
+
+   MEASURED BEFORE THE MOVE, so «nothing moves» is a reading and not a promise:
+   `.gs` 59.53 x 19.20 and `.od-tot .v` 83.59 x 28.80 with the alias in place -
+   the numbers coach-order.css itself recorded when it wrote them. An alias whose
+   declarations are byte-identical to the atom's cannot change a pixel when the
+   atom takes the name, and the A/B at the foot of this step's entry says so out
+   loud rather than assuming it.
+   The two are ORDER TOTALS, like the three above them and for the same reason:
+   their twins `.cs-b` and `.ord-tot` are this order's own subtotal and total on
+   coach-home and coach-orders, one tap away, and they are already in this list.
+
+   8.10b - THE OWNER SAID THE WORD, AND THE THREE PLAN PRICES JOIN THE LIST.
+   `.cmp-head .price b`, `.tf-price` and `.tf-col-p` stood in a rule of their own
+   below this one for exactly one reason, which that rule stated: they took the
+   family and the numerals and NOT the ₴ kerning, «left off by instruction, with
+   the number, so the owner can settle it in one word». The word is said. With
+   the third declaration there is nothing left to tell them apart from this list,
+   and a rule whose only content is «the same as those, minus one line» has no
+   business existing once the line is back. The paragraph that argued for the
+   separate rule is kept below the list, because the ARGUMENT still holds - a
+   plan price is not a price surface, it has no struck twin and no `-N%` chip -
+   and what expired is only the exception it was carrying.
+
+   MEASURED BEFORE, with a Range over the glyphs rather than the element box:
+   the two tariff figures are BLOCK elements filling a grid column, so a box
+   measurement reports «saves 0px» and is wrong about all three.
+
+     .tf-price   26px  «99 ₴ / міс [?]»  154.67 -> 129.72   closes 24.95
+     .tf-col-p   20px  «99 ₴ / міс [?]»  130.88 -> 111.67   closes 19.21
+     .tf-col-p   20px  «0 ₴»              31.27 ->  26.47   closes  4.80
+     .price b    16px  «0 ₴»              28.81 ->  24.97   closes  3.84
+     .price b    16px  «~99 ₴/міс»        86.41 ->  82.56   closes  3.85
+
+   The mono space is proportional to the size, so the 26px figure the whole
+   tariff screen is about carried four times the gap the landing shows at 16 -
+   which is why this was worth asking rather than assuming. What remains after
+   the close is 5.76px of space at 16px, and proportionally more above it: this
+   tightens a gap, it does not collide. `.oh-sum` has been shipping the same case
+   at the same size since before 7.96. */
 .pnew, .pold,
 .lprice, .lold,
 .hd-new, .hd-old,
@@ -147,6 +194,8 @@
 .li-price, .li-old,
 .cprice,
 .oc-sum b, .cs-b, .ord-tot,
+.od-grp-h .gs, .od-tot .v,
+.cmp-head .price b, .tf-price, .tf-col-p,
 .oh-sum, .ln-tot{
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
@@ -177,6 +226,23 @@
    here, the honest lever is the SIZE of `.price b`, which is a value and the
    owner's. Recorded, not acted on.
 
+   8.10 - AND THE SAME TWO FIGURES ONE SCREEN OVER. `coach-tariff.html` carries a
+   second edition of this very comparison - the same Free / Pro table, the same
+   two plan prices - and coach-tariff.css:177 reported it in the same words this
+   rule was written in: «`.tf-price` «99 ₴ / міс» renders Inter 26/700 with
+   `font-variant-numeric: normal`, and `.tf-col-p` «0 ₴» and «99 ₴ / міс» render
+   Inter 20/700, the same ... it is the same shape of fix: two names added to
+   price.css's mono list. Reported, not taken here, because price.css is not this
+   file's to edit and a second `font-family: var(--font-mono)` written locally is
+   how one rule becomes eight.»
+
+   THEY JOIN THIS RULE AND NOT THE LIST ABOVE, and the reason is the one this
+   rule already states rather than a new one: a plan price has no struck twin and
+   no `-N%` chip, so it takes the family and the numerals and NOT the ₴ kerning,
+   which is left off across all three by instruction so the owner can settle it
+   in one word. Three figures now wait on that word instead of one, which is the
+   right number - they are the same figure on two screens.
+
    AND THE KERNING IS LEFT OFF BY INSTRUCTION, WITH THE NUMBER, so the owner can
    settle it in one word: measured in the browser, adding `word-spacing: -.24em`
    takes «0 ₴» from 28.84 to 25.00 - the mono space is 9.6px at 16 and 5.76 would
@@ -184,11 +250,26 @@
    (16px mono, full-size typed ₴, `-.24em` from order-row.css:143), and
    coach-landing.css:306 names the missing kerning as part of the defect. So this
    is the one price figure in the store whose ₴ sits at full word space, and it is
-   one word from being the same as the rest. */
-.cmp-head .price b{
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
+   one word from being the same as the rest.
+
+   ---- 8.10b: THE WORD WAS SAID, AND THE RULE THIS PARAGRAPH GOVERNED IS GONE. --
+   All three names are in section 1's selector list above, with the kerning. The
+   argument is kept here whole and not deleted, because it is still true and it
+   is still doing work: a plan price is NOT a price surface - no struck twin, no
+   `-N%` chip - which is why these three never entered the surface table in the
+   header and must not enter it now. Two lists, two counts, and confusing them is
+   how the ninth surface went unranked for a week.
+   The prediction in it was also worth keeping, because the browser confirmed it
+   to the hundredth: «adding `word-spacing: -.24em` takes «0 ₴» from 28.84 to
+   25.00». Measured at 8.10b on the landing: 28.81 -> 24.97. What that paragraph
+   could not see is that the SAME figure on the tariff is set at 20 and 26, where
+   the mono space scales with the type and the gap it was describing is four
+   times wider - the reason a number should be re-read on every screen it stands
+   on, not on the one it was first measured on.
+   THE ₴ MARK STILL STAYS A TYPED GLYPH HERE, and that refusal is untouched: it
+   is about the 17px gate in `uivCurrency()`, not about word spacing, and the two
+   were only ever in the same paragraph because they are both about the same
+   character. The half-size mark is still a SIZE question and still the owner's. */
 
 /* ---------- 2. the price it used to be ---------------------------------------
    Struck, grey, and lighter than the figure that replaced it. Three declarations

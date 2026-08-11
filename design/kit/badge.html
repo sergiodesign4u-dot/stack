@@ -23,8 +23,9 @@
 
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Бейдж</h1>
-<p class="kp-lead">Мітка на фото товару: «Популярне», «Новинка». Вона називає рід речі, на якій стоїть, і цим відрізняється від статус-пілюлі - пілюля повідомляє стан, який змінюється, бейдж називає рід, який ні.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/badge.css</span><span class="kp-tag">70 рядків</span><span class="kp-tag">26 бейджів</span><span class="kp-tag">12 екранів</span></div>
+<p class="kp-lead">Мітка, яка каже, <b>якого роду</b> річ: «Популярне», «Новинка», «За замовчуванням», «ваш тариф». Вона називає рід речі, на якій стоїть, і цим відрізняється від статус-пілюлі - пілюля повідомляє стан, який змінюється, бейдж називає рід, який ні.</p>
+<p class="kp-lead">Два роди, і різниця в тому, <b>де він стоїть</b>. Залитий - на фото товару, де потрібен фон, щоб читатися поверх знімка. Обведений - поруч зі словом на власному папері сторінки, де досить рамки, а фон кричав би.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/badge.css</span><span class="kp-tag">173 рядки</span><span class="kp-tag">26 залитих</span><span class="kp-tag">6 обведених</span><span class="kp-tag">15 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <div class="kp-demo"><div class="kp-row" style="gap:16px"><span class="tag tag-pop">Популярне</span><span class="tag tag-new">Новинка</span></div></div>
@@ -36,12 +37,13 @@
 
 <section class="kp-sec"><div class="kp-sh">Файл не тримав жодного бейджа</div>
 <p class="kp-p">До цього кроку <code>badge.css</code> оголошував рівно один клас - <code>.gnote</code>, - і це не бейдж, а <b>анотація сірого прототипу</b>. У <code>wireframes/listing.html:173</code> вона каже «↑ Порядок карток (за замовч.): спершу в наявності...» - записка тому, хто читає макет. Кольоровий клон її не взяв, і правильно: вона рендериться на <b>0 з 39</b> кольорових екранів. Стенд повідомляв про це кроками поспіль, і я читав це як проблему стенда.</p>
-<p class="kp-p"><b><code>.tag</code> сам по собі не бейдж</b>, і це заміряно, а не припущено: 27 елементів несуть <code>.tag</code>, 26 з них несуть ще й <code>.tag-pop</code> або <code>.tag-new</code>, а 27-й - це <code>.aaddr .adef .tag</code>, слово «За замовчуванням» усередині картки адреси. Без фону, без рамки, у потоці. Це надзаголовок, а не бейдж - той самий дефект, що <code>.ci</code> на кроці 7.21: одне ім'я, два значення.</p>
+<p class="kp-p"><b><code>.tag</code> сам по собі не бейдж</b>, і це заміряно, а не припущено: 27 елементів несуть <code>.tag</code>, 26 з них несуть ще й <code>.tag-pop</code> або <code>.tag-new</code>, а 27-й - це <code>.aaddr .adef .tag</code>, слово «За замовчуванням» усередині картки адреси <b>в сірому шарі</b>. Без фону, без рамки, у потоці. Це надзаголовок, а не бейдж - той самий дефект, що <code>.ci</code> на кроці 7.21: одне ім'я, два значення.</p>
 <div class="kp-demo"><div class="kp-row" style="gap:24px;align-items:center">
   <span class="tag tag-pop">Популярне</span>
   <span class="aaddr"><span class="adef"><span class="tag">За замовчуванням</span></span></span>
 </div></div>
-<div class="kp-cap">зліва бейдж, справа те, що носить те саме ім'я. Селектор файлу - <code>.tag.tag-pop, .tag.tag-new</code>: він точний сьогодні, бо бейдж завжди каже, <b>якого</b> він роду. Перейменування - Крок 6.</div></section>
+<div class="kp-cap">зліва бейдж, справа те, що носить те саме ім'я. Селектор файлу - <code>.tag.tag-pop, .tag.tag-new</code>: він точний сьогодні, бо бейдж завжди каже, <b>якого</b> він роду. Перейменування - Крок 6.</div>
+<p class="kp-p"><b>І це речення знайшло другий рід, не знаючи про нього.</b> Абзац вище описує СІРИЙ шар. Кольоровий малює ті самі слова як <code>.addr-tag</code> - з рамкою і радіусом пілюлі, - і це вже не надзаголовок. Два шари, дві форми, одне речення про першу з них. Крок 8.10 заміряв кольорову в браузері й побачив, що вона третя з чотирьох редакцій пілюлі, якою не володів ніхто.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Дві поверхні</div>
 <p class="kp-p">Бейдж стоїть тільки на фото - у сітці й у списку. Розмір і місце належать картці: 10px за 11px від кута великої картки, 8.5px за 5px від кута маленької.</p>
@@ -52,6 +54,28 @@
     <div class="pcard-l" style="padding:12px"><div class="lph"><span class="tag tag-new">Новинка</span></div><div class="lbd"><div class="lnm">Whey Protein</div></div></div></div>
 </div></div>
 <div class="kp-cap">8.5px у маленької картки - літерал, а не токен: <code>--fs-10</code> на 56px фото займає третину його ширини. Записано в «Немає в коді»</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Другий рід: обведений <b>-&gt; крок 8.10</b></div>
+<p class="kp-p">Чотири імені, сім входжень, три екрани, чотири файли - і форми не мав ніхто. Прочитано з живого DOM на 390 по всіх 51 кольорових екранах, не з коду: форма - це те, що намальовано.</p>
+<div class="kp-demo"><div class="kp-row" style="gap:16px;align-items:center;flex-wrap:wrap">
+  <span class="addr-tag" style="margin-bottom:0">За замовчуванням</span>
+  <span class="cmp-head"><span class="plan"><span class="badge">опт</span></span></span>
+  <span class="tf-mini">ваш тариф</span>
+</div></div>
+<div class="kp-cap">три з чотирьох: мітка картки адреси, мітка тарифу на лендингу, мітка тарифу в кабінеті. Четверта - <code>.kicker</code> - навмисно не тут, див. нижче</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Ім'я</th><th>Файл</th><th>Було</th><th>На щаблі?</th></tr></thead><tbody>
+<tr><td><code>.addr-tag</code> · 3</td><td>address-card.css</td><td>10 / 700, поля 2 / 8</td><td>рівно на вбудованому</td></tr>
+<tr><td><code>.badge</code> · 2</td><td>coach-landing.css</td><td>10 / 700, поля 2 / 9</td><td>вбудований + 1</td></tr>
+<tr><td><code>.tf-mini</code> · 1</td><td>coach-tariff.css</td><td>12 / 700, поля 2 / 8</td><td>розмір рядкового на повітрі вбудованого</td></tr>
+<tr><td><code>.kicker</code> · 1</td><td>coach-landing.css</td><td>12 / 700, поля 4 / 12</td><td>рівно на рядковому</td></tr>
+</tbody></table></div>
+<p class="kp-p">Усі чотири: рамка 1px, <code>--radius-pill</code>, великі літери, <code>--fw-black</code>, без фону. Вони зійшлися на всьому важкому і розійшлися на двох легких речах - підпис, який <code>status-pill.css</code> залишив для «четверо малювали одне окремо».</p>
+<p class="kp-p"><b>Двоє з них - буквально той самий елемент.</b> <code>coach-landing.html:98</code> пише <code>&lt;div class="plan"&gt;Free&lt;span class="badge"&gt;миттєво&lt;/span&gt;&lt;/div&gt;</code>, а <code>coach-tariff.html:71</code> - <code>&lt;div class="tf-col-h"&gt;Pro &lt;span class="tf-mini"&gt;ваш тариф&lt;/span&gt;&lt;/div&gt;</code>. Назва тарифу з обведеною пілюлею поруч, у двох редакціях ОДНІЄЇ таблиці Free / Pro, на двох екранах одного потоку.</p>
+<p class="kp-p"><b>Обидва файли тяглися до <code>status-pill.css</code> і обидва відмовились правильно</b> - 12px на полі 2/8 перетинає щабель, з відмови від якого той файл починається. Питання, якого не поставив жоден: якщо це не статус і жоден файл його не оголошує, то <b>який файл мав би</b>? Відповідь у власному визначенні цього файлу: пілюля повідомляє стан, бейдж називає рід. «миттєво», «опт», «ваш тариф» і «За замовчуванням» - усі чотири називають рід.</p>
+<p class="kp-p"><b>Щабель узято з <code>status-pill.css</code>, а не виведено заново</b>: рядковий 12 / 4-12, вбудований 10 / 2-8, заміряні з продукту на 7.37. <code>.addr-tag</code> уже стояв рівно на вбудованому, а <code>.kicker</code> рівно на рядковому - саме так форму й упізнали.</p>
+<p class="kp-p"><b>Одне значення зрушило, і сказано вголос: <code>.tf-mini</code> розмір 12 -&gt; <code>--fs-10</code>.</b> ЧОМУ: у сірому прототипі близнюки були 10.5 і 10 - одна пілюля з різницею в піврозміру, намальована руками в різні дні. Щабель кроку 5.6 підняв 10.5 на два щаблі й лишив 10 на місці, тож збіг у сірому став різницею в кольорі. Причина є саме в 10: найменше читабельне, бо мітка, яка змагається з назвою поруч, уже продає.</p>
+<p class="kp-p"><b>Колір рамки лишився на місці</b>, і це не недогляд атома: <code>coach-landing</code> тримає <code>--line-inverse</code>, бо це записано в його власному переліку («--dark #161616 -&gt; --line-inverse як РАМКА: kicker, badge, finalcta»), рівно так само, як <code>.addr-card.def .addr-tag</code> тримає колір дії над тим самим атомом. Колір рамки - це варіант, а не форма.</p>
+<div class="kp-pair"><div class="kp-dont"><h4>Чому <code>.kicker</code> не тут</h4>«Тренерам · залам · командам» стоїть <b>сам</b> над заголовком героя: він не називає річ поруч, він називає сторінку під собою. Це визначення надзаголовка з A3, а не мітки біля слова. І він уже на щаблі - лагодити нічого, лишилось тільки ім'я, а це Крок 6.</div><div class="kp-do"><h4>Що закрито, а що ні</h4>Закрито <b>ФОРМУ</b>: одна декларація, один щабель, один набір токенів. Не закрито <b>словник</b>: <code>.badge</code> стикається з власним атомом цього файлу, а <code>.addr-tag</code> і <code>.tf-mini</code> - ще два слова для одного. Це і є вся робота Кроку 6.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <p class="kp-p">Матриця осей, а не перелік входжень: кожен рядок це питання, на яке відповідає розмітка, і правило, за яким обирають.</p>
@@ -65,33 +89,41 @@
 <p class="kp-p">Не більше однієї на картку. Дві мітки на одному фото - це вже не мітка, а рейтинг з двох пунктів, і жодна з них не читається. Бейдж не каже про ціну: розмір знижки несе <b>Бейдж знижки</b>, наявність - <b>Мітка наявності</b>.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Бейдж завжди каже, якого він роду.</b> <code>.tag</code> без <code>.tag-pop</code> чи <code>.tag-new</code> - це порожня мітка, і в продукті такої немає жодної.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби бейдж з будь-чого маленького й великими літерами.</b> Надзаголовок картки адреси носить те саме ім'я і бейджем не є - і саме тому файл називає рід, а не ім'я.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Фон - тільки на фото.</b> Залитий рід стоїть на знімку, де без фону напис не читається. Обведений стоїть на власному папері сторінки, де фон кричав би: досить рамки. Питання не «чи це важливо», а «що під ним».</div><div class="kp-dont"><h4>Антиправило</h4><b>Не малюй п'яту редакцію.</b> Якщо форма вже десь є, а жоден файл її не оголошує - це діра в системі, а не дозвіл на приватне правило. Чотири файли по черзі написали «цим ніхто не володіє» і зупинились на цьому реченні замість того, щоб прочитати його як знахідку.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
 <p class="kp-p">Станів немає: бейдж нічого не робить у відповідь на палець і не має <code>:hover</code>. Рід - це не стан, це те, чим річ є.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>0</b> станів оголошено в <code>badge.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>6</b> власних класів і <b>0</b> станів оголошено в <code>badge.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["tag-pop","tag-new","tag"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["tag-pop","tag-new","tag","addr-tag","badge","tf-mini"], KIT_STS=[];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>badge.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (6)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-inverse</code> <code>--text-action</code> <code>--text-body</code> <code>--text-oninverse</code></td><td><code>--elevation-mark</code> <code>--fs-10</code> <code>--fw-black</code> <code>--lh-flat</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--radius-pill</code> <code>--space-4</code> <code>--space-12</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (11)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-inverse</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-body</code> <code>--text-oninverse</code></td><td><code>--elevation-mark</code> <code>--fs-10</code> <code>--fw-black</code> <code>--lh-flat</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--radius-pill</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code></td></tr></tbody></table></div>
+<div class="kp-cap"><code>--line-strong</code>, <code>--space-2</code> і <code>--space-8</code> прийшли з обведеним родом на 8.10. Три літерали пішли разом із формою і жоден не був питанням екрана: <code>.03em</code> - третє трекінгове значення при системі з двох, <code>9px</code> і <code>7px</code> - без щабля. Це форма A5, закритої на 7.67; тут були її відсталі, на екрані, який тоді ще був сірим.</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
 <div class="kp-code">&lt;span class="tag tag-pop"&gt;Популярне&lt;/span&gt;
-&lt;span class="tag tag-new"&gt;Новинка&lt;/span&gt;</div>
-<p class="kp-p">Зірка і ромб у розмітці не пишуться: їх малює <code>::before</code>.</p></section>
+&lt;span class="tag tag-new"&gt;Новинка&lt;/span&gt;
+
+&lt;span class="addr-tag"&gt;За замовчуванням&lt;/span&gt;
+&lt;div class="plan"&gt;Free&lt;span class="badge"&gt;миттєво&lt;/span&gt;&lt;/div&gt;
+&lt;div class="tf-col-h"&gt;Pro &lt;span class="tf-mini"&gt;ваш тариф&lt;/span&gt;&lt;/div&gt;</div>
+<p class="kp-p">Зірка і ромб у розмітці не пишуться: їх малює <code>::before</code>. Обведений рід знака не має зовсім.</p>
+<p class="kp-p"><b>Пробіл у розмітці не однаковий, і це має наслідок.</b> Лендинг пише <code>Free&lt;span&gt;</code> без пробілу, тож пілюлі потрібен власний <code>margin-left</code>; тариф пише <code>Pro &lt;span&gt;</code> з пробілом і не потребує нічого. Перший зріз 8.10 відправив цей відступ разом з іншими літералами - і слово з пілюлею злиплися. Знайдено звіркою кожного заявленого числа назад із браузера.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Де вживається</div>
-<p class="kp-p">Якорі: <code>.tag-pop</code> <code>.tag-new</code></p>
-<p class="kp-p">Заміряно в браузері на 390 і 1280: <b>26 бейджів</b> на 12 кольорових екранах - <code>.tag-pop</code> 18 на 11, <code>.tag-new</code> 8 на 8. Плюс один <code>.tag</code>, який бейджем не є.</p></section>
+<p class="kp-p">Якорі: <code>.tag-pop</code> <code>.tag-new</code> <code>.addr-tag</code> <code>.badge</code> <code>.tf-mini</code></p>
+<p class="kp-p">Заміряно в браузері на 390 і 1280: <b>26 залитих</b> на 12 кольорових екранах - <code>.tag-pop</code> 18 на 11, <code>.tag-new</code> 8 на 8. Плюс один <code>.tag</code>, який бейджем не є.</p>
+<p class="kp-p"><b>6 обведених</b> на 3 екранах: <code>.addr-tag</code> 3 на <code>account-addresses</code>, <code>.badge</code> 2 на <code>coach-landing</code>, <code>.tf-mini</code> 1 на <code>coach-tariff</code>.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
 <div class="kp-gap"><h4>Чого бракує</h4><ul>
 <li><b>8.5px написано літералом</b> - токена між 8 і 10 немає, і маленька картка єдина, хто його просить</li>
 <li><b>Одне ім'я на дві речі</b> - <code>.tag</code> бейджа і <code>.tag</code> надзаголовка картки адреси. Крок 6</li>
+<li><b>Чотири імені на одну форму</b> - <code>.addr-tag</code>, <code>.badge</code>, <code>.tf-mini</code> обведеного роду, і <code>.badge</code> ще й стикається з <code>badge.css</code>. Форму закрито на 8.10, словник - Крок 6</li>
 <li><b>Немає правила, скільки бейджів на картку</b> - код дозволяє два, дизайн ні, і ніде це не записано машинно</li>
 </ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 

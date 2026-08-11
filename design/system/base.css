@@ -12,6 +12,49 @@ body{
 }
 a{ color: inherit; text-decoration: none; }
 button{ font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+/* 8.10 - THE OTHER CONTROLS INHERIT THE FAMILY TOO, and until this line three of
+   them did not. A form control does not inherit `font-family` - it takes the user
+   agent's, which is Arial. field.css:10 found this the hard way at step 7 («66 of
+   101 were set in ARIAL. A field does not inherit `font-family`; it has to be
+   told, and only three files told it») and fixed it on `.field`; the line above
+   fixed it on `button`. Both fixed a NAME, and what was left was every control
+   that wears neither.
+   Measured across all 51 coloured screens at 390: exactly three remain -
+   `input[type=range].uiv-rmin` and `.uiv-rmax`, the price sliders on seven
+   listing screens, and one `input[type=checkbox]` on coach-verify.
+   ALL THREE DRAW ZERO GLYPHS, so this changes nothing on any screen today, and
+   saying that out loud is the point: a range and a checkbox render no text, so
+   Arial has been in the computed style of eight elements and on no pixels. What
+   the line buys is the next un-classed `<select>` or `<input>`, which would
+   arrive in Arial in the middle of a page set in Inter and would be found the way
+   the 66 were - by a census, months later. A reset belongs where the reset is. */
+input, select, textarea, optgroup{ font-family: inherit; }
+/* 8.10 - THE SYSTEM HAS FOUR WEIGHTS AND THE MARKUP WAS ASKING FOR A FIFTH.
+   The pixel proof at 7.94 reported «weight 900 stands on 17 screens, and stood on
+   exactly the same 17 before the stage ... the scale has no 900, Inter is not
+   loaded with one, and no step in ninety-three ever named it. Whose declaration
+   this is: `[?]`». It is nobody's, and that is the answer: `<b>` carries the user
+   agent's `font-weight: bolder`, which is RELATIVE - it resolves against the
+   parent, and every parent here is already 600 or 700, so bolder lands on 900.
+   Read out of the runtime DOM at 390 across all 51 screens: 113 elements, 18
+   screens, and every one of them is the rating figure - `<b>4.8</b>` inside
+   `.st` or `.rstars`, whose parent rating.css sets to `--fw-bold`.
+   IT DRAWS 700 TODAY AND THE A/B IS THE PROOF: the same figure measured at 900
+   and at 700 is 21.609px wide both times, on all seven instances of index.html.
+   tokens.css:248 measured the mechanism for Inter when A8 closed - «from 700
+   upward the number stops moving» - and IBM Plex Mono, which the rating is set
+   in, is requested at 500;600 only, so it clamps harder still.
+   SO WHY TOUCH IT AT ALL. Because A8's other branch is one line: «Add 800 to the
+   font request in the 89 pages, set this token back to 800, and the register the
+   type was written for arrives everywhere at once.» The day that happens,
+   `bolder` starts resolving somewhere real and 113 rating figures on 18 screens
+   change weight with nobody deciding it. A value that is invisible only because
+   the font is missing is not a settled value - it is a decision waiting to be
+   made by an unrelated edit. This says the number the screen draws.
+   Any component rule that names a weight on a `b` outranks this line, which is
+   how `.auth-visual .vtag b` keeps its `--fw-semibold`. Measured: 0 of 323 `<b>`
+   elements move, and there are 0 `<strong>` in the product. */
+b{ font-weight: var(--fw-bold); }
 img{ max-width: 100%; display: block; }
 @media (max-width: 859px){
   body{ padding-bottom: 60px; }

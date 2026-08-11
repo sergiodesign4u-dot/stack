@@ -1668,3 +1668,424 @@ because a rule with no reason beside it cannot be caught this way.
 ### Acceptance
 
 51 screens at 390 and the five rail screens at 1280: zero failures.
+
+---
+
+## Step 8.10 - the eight leftovers, and what a census said about six of them
+
+The owner asked what was left and got three piles: the ones that need no decision,
+the ones that are theirs, and the ones that wait for stage 09. This is the first
+pile, done in one step. Every item on it had been recorded by an earlier pass as
+«measured, not taken», which is the right call when a step has a different job -
+and a list of those is worth nothing until someone works it.
+
+**Six of the eight were «which things are X» questions, so none of them was
+answered from a file.** This project has now got that shape wrong eleven times by
+answering it with a hand-typed list, so 8.10 opened all 51 coloured screens at 390
+and asked the rendered DOM five questions at once: which elements compute to weight
+900, which draw a radius of 5 or 6, which resolve to Arial, which are an outlined
+uppercase pill with no ground, and how tall `.acc-link` stands. Two of the answers
+were nothing like what the file notes said.
+
+### The two coach totals, and an alias that deleted itself
+
+`coach-order.css:334` had written the fix out in full a week early: «THE FIX IS ONE
+LINE IN price.css ... the day the atom learns the two names this rule goes and
+nothing moves.» It did. `.od-grp-h .gs` and `.od-tot .v` are in price.css section
+1's selector list and the private rule is gone.
+
+What made this a two-line deletion instead of an excavation is the SHAPE of the
+alias: written with the atom's own tokens, in the screen file, saying out loud
+which file should own it and what would have to happen for it to go. That is worth
+copying every time a step finds a defect in a file it is not allowed to edit.
+
+Measured after, at 390: `.gs` 59.53 wide and `.od-tot .v` 83.59 - to the hundredth
+the two widths that note recorded when it wrote the alias - both mono, both
+tabular, word-spacing -3.84 and -5.76px, and the 5 `.uiv-cur` still 5.
+
+**And the check caught the paragraph lying about the heights.** The first draft of
+the replacement note said «59.53 x 19.20 and 83.59 x 28.80». The widths were right
+and the heights were copied out of price.css's note about a DIFFERENT element on a
+different screen; the real ones are 25.59 and 38.39. A number carried over from a
+neighbouring paragraph is the same failure as a reason that outlives its truth,
+which is what 8.9b cost two defects to learn. It is in the file now with the story
+attached, because a corrected number with no note reads as one that was always
+right.
+
+### The two plan prices, and the same defect on two screens
+
+`coach-tariff.css:177` reported it and refused to fix it locally, in as many words:
+«price.css is not this file's to edit and a second `font-family: var(--font-mono)`
+written locally is how one rule becomes eight». `.tf-price` and `.tf-col-p` joined
+`.cmp-head .price b`'s rule - family and tabular numerals, NOT the ₴ kerning.
+
+They join that rule and not the mono LIST above it for the reason the rule already
+gives: a plan price has no struck twin and no `-N%` chip.
+
+**The kerning is still one word from the owner, and 8.10 made that word matter
+more.** Measured with a Range over the glyphs rather than the element box - the two
+tariff figures are block-level and their boxes cannot narrow, so a box measurement
+reported «saves 0px» and was wrong:
+
+| figure | now | with `-.24em` | closes |
+|---|---|---|---|
+| `.tf-price` 26px «99 ₴ / міс [?]» | 154.67 | 129.72 | 24.95px |
+| `.tf-col-p` 20px «99 ₴ / міс [?]» | 130.88 | 111.67 | 19.21px |
+| `.tf-col-p` 20px «0 ₴» | 31.27 | 26.47 | 4.80px |
+| `.cmp-head .price b` 16px, both | 28.81 / 86.41 | 24.97 / 82.56 | 3.84px |
+
+The mono space is proportional to the size, so at 26px it is four times the gap the
+landing shows at 16. Three figures wait on that word now instead of one, and the
+biggest of them is the number the whole tariff screen is about.
+
+### The outlined pill: four names, seven instances, and no owner
+
+The owner's line read «`.tf-mini` as a ninth outlined mini-pill», which is what an
+earlier note of mine had said. The census says there is no set to be ninth of.
+Read out of the DOM at 390 across all 51 screens:
+
+| name | file | count | size / weight | padding |
+|---|---|---|---|---|
+| `.addr-tag` | address-card.css | 3 | 10 / 700 | 2 / 8 |
+| `.badge` | coach-landing.css | 2 | 10 / 700 | 2 / 9 |
+| `.tf-mini` | coach-tariff.css | 1 | 12 / 700 | 2 / 8 |
+| `.kicker` | coach-landing.css | 1 | 12 / 700 | 4 / 12 |
+
+All four: 1px border, `--radius-pill`, uppercase, `--fw-black`, no ground. They
+agreed on everything hard and disagreed on the two things that are easy, which is
+status-pill.css's signature for «four people drawing one thing separately» - this
+is that file's finding a second time, one level over.
+
+**Two of them are literally the same element.** `coach-landing.html:98` writes
+`<div class="plan">Free<span class="badge">миттєво</span></div>`;
+`coach-tariff.html:71` writes `<div class="tf-col-h">Pro <span
+class="tf-mini">ваш тариф</span></div>`. A plan name with an outlined pill beside
+it, in two editions of the SAME Free / Pro comparison, on two screens of one flow.
+
+**badge.css took the shape, and status-pill.css was the wrong home for a good
+reason.** Both screen files had reached for the pill file and both had refused
+correctly: 12px on a 2/8 padding crosses the ladder that file opens by refusing.
+What neither asked is the next question. If it is not a status and no file declares
+it, WHICH file should? Two paragraphs on two screens, each ending at «no file in
+the system owns this» and each treating that as the end of the sentence rather than
+the finding. badge.css's own definition answers it - «a pill reports a state that
+changes, a badge states a kind that does not» - and «миттєво», «опт», «ваш тариф»
+and «За замовчуванням» all state a kind. So the file has two kinds now: filled, on
+a photograph, where a ground is needed to read over an image; outlined, beside a
+word on the page's own paper, where an outline is enough.
+
+**The ladder is status-pill.css's and was not re-derived** - row 12 / 4-12, inline
+10 / 2-8, measured out of the product at 7.37. `.addr-tag` was already exactly on
+the inline rung and `.kicker` exactly on the row rung, which is how the shape was
+recognised at all.
+
+**One value moved, said out loud: `.tf-mini` font-size 12 -> `--fs-10`.** WHY: in
+the grey prototype the two twins were 10.5 and 10 - one pill, half a pixel apart,
+drawn by hand on two days. Step 5.6's snap ladder took 10.5 up two rungs and left
+10 alone, so a coincidence in the grey became a difference in the colour. 10 is the
+one with a reason behind it, and badge.css states it for the whole family: the
+smallest legible thing, because a badge that competed with the name beside it would
+be selling.
+
+Three `[?]`s went with the shape and none was the screen's to answer: `.badge`'s
+`.03em` was a third tracking beside a system that has two, and `9px` and `7px` have
+no rung. All three are A5's shape, closed at 7.67 - these were its stragglers, on a
+screen that was still grey when A5 ran.
+
+**Two things stayed behind on purpose.** A border COLOUR is a variant, not a shape:
+coach-landing keeps `--line-inverse` because its ledger books it («--dark #161616
+-> --line-inverse as a BORDER: kicker, badge, finalcta»), exactly as
+`.addr-card.def .addr-tag` keeps the action colour over the same atom. And
+`.kicker` is deliberately not in the set - it stands ALONE above the hero headline
+and names the page under it, which is A3's definition of an eyebrow, not a label
+beside a word.
+
+**The names are still wrong and that is Крок 6's.** `.badge` collides with this
+file's own atom; `.addr-tag` and `.tf-mini` are two more words for one thing. 8.10
+closes the SHAPE. The vocabulary is the rename step's whole job.
+
+### The margin the first cut deleted, and the check that found it in a minute
+
+Sending `margin-left: 7px` away with the other two literals was wrong: the landing
+markup writes `Free<span class="badge">` with NO whitespace between the word and
+the pill, so at margin 0 they touch. Its twin writes `Pro <span class="tf-mini">`
+WITH a space and needs none. Put back as `--space-8` on coach-landing only, where a
+position belongs. Caught by reading every claimed number back out of the browser -
+`ml 0px` in a row that should have said 8.
+
+### The rail chip reaches the touch floor
+
+`.acc-link` measured 40.39 at 390 on all 13 screens that draw the rail, 3.61 short,
+on a chip inside a horizontal scroller - the hardest control to hit, because a miss
+scrolls the strip instead of doing nothing. Above 960 the same class is the
+vertical rail and already measures 46.39 to 48.39, which is why the line is inside
+the phone block. 44 is not a new number: link-row.css:223 states it for six control
+families, field.css:41 gives it to every field, coach-wishlist.css:81 took four
+controls to it at 7.97. Measured after: 44.00 on all 13.
+
+### The pixel proof's three leftovers, and two of them were not the product
+
+7.94 reported «radii 5 and 6 survive, on `overview` and `product-coach`» and «Arial
+survives on two pages». The census says:
+
+- **Radius 5/6: 18 elements, 17 of them harness.** `.nav-top`, `.nav-link`,
+  `.nav-section`, `.nav-toggle` come from `/_nav.css`, and `code`, `.eyebrow`, `.n`
+  from the showcase chrome on the hub - which A3 already ruled out of the component
+  count («`design/_stand.css` and `design/kit/_page.css` ... not a product
+  component»). The finding was ONE element wide: `.cbsave` on `product-coach`,
+  `border-radius: 5px` -> `--radius-4`, because 5 is not a rung and the ladder's
+  ties go down. Its sibling `.cbtier` two lines up already draws `--radius-16` on
+  the same kind of plate. Measured: the plate is 81.69 x 18 before and after - a
+  radius does not size a box.
+- **Arial: three controls, and all three draw zero glyphs.** Two
+  `input[type=range]` price sliders on seven listing screens and one
+  `input[type=checkbox]` on coach-verify. A form control does not inherit
+  `font-family`; field.css found this at step 7 («66 of 101 were set in ARIAL») and
+  fixed it on `.field`, base.css fixed it on `button`, and both fixed a NAME. What
+  was left is every control wearing neither. `input, select, textarea, optgroup {
+  font-family: inherit }` in base.css. **It changes nothing on any screen today**
+  and saying so is the point - a range and a checkbox render no text, so Arial has
+  been in the computed style of eight elements and on no pixels. What the line buys
+  is the next un-classed `<select>`.
+
+### Weight 900: the `[?]` was «nobody», and it is one edit away from being visible
+
+The pixel proof left «weight 900 stands on 17 screens ... the scale has no 900,
+Inter is not loaded with one, and no step in ninety-three ever named it. Whose
+declaration this is: `[?]`». It is nobody's. `<b>` carries the user agent's
+`font-weight: bolder`, which is RELATIVE - it resolves against the parent, and
+every parent here is already 600 or 700, so bolder lands on 900. Measured: 113
+elements, 18 screens, and every one is the rating figure - `<b>4.8</b>` inside
+`.st` or `.rstars`, whose parent rating.css sets to `--fw-bold`.
+
+**It draws 700, and the A/B is the proof**: the same figure at 900 and at 700 is
+21.609px wide both times, on all seven instances of `index.html`. tokens.css:248
+measured the mechanism when A8 closed - «from 700 upward the number stops moving» -
+and IBM Plex Mono, which the rating is set in, is requested at 500;600 only.
+
+**So why touch it.** Because A8's other branch is one line: «Add 800 to the font
+request in the 89 pages, set this token back to 800, and the register the type was
+written for arrives everywhere at once.» The day that happens, `bolder` starts
+resolving somewhere real and 113 rating figures on 18 screens change weight with
+nobody deciding it. A value that is invisible only because the font is missing is
+not a settled value - it is a decision waiting to be made by an unrelated edit.
+`b{ font-weight: var(--fw-bold) }` in base.css. Any component rule naming a weight
+on a `b` outranks it, which is how `.auth-visual .vtag b` keeps its
+`--fw-semibold`. 0 of 323 `<b>` move, and there are 0 `<strong>` in the product.
+
+### The orphan comment terminator, third time, and now a machine finds it
+
+Inserting a comment END in the middle of an existing comment leaves the prose after
+it outside the comment and the original terminator orphaned. Twice this session it
+happened in `.js`, where `node --check` said so within a second. The third time it
+happened in **price.css**, and nothing said anything at all: CSS has no parse
+error, it drops declarations until it finds its footing. The only symptom was three
+plan prices - the very ones this step had just fixed - quietly rendering in Inter
+on two screens, and the browser check found it only because those three were on the
+list it was already reading.
+
+`a810lint.mjs` asks the question directly, of every stylesheet, in a second. **All
+of them balance.** It is CSS-only on purpose: the first version ran over `.js` too
+and reported `design/_nav.js:1122`, which is a regex literal whose last two
+characters are the two that end a comment. Telling a regex from a division sign is
+the hard part of lexing JavaScript, `node --check` already cannot be fooled, and an
+instrument that reports a correct line trains you to ignore it. (The comment
+explaining this bug had to be written out in words rather than quoted, because
+quoting it closed that comment - the bug appearing inside its own description, on
+the first save of the file.)
+
+### Two more instruments that returned a confident wrong answer
+
+- **The Arial census matched `-apple-system`.** The first pattern was
+  `/arial|times|-apple-system/i`, and the token stack CONTAINS `-apple-system`, so
+  60 rows of correct buttons came back as findings. A pattern that includes a value
+  the product legitimately uses cannot separate the defect from the norm.
+- **The screenshot tool returned white paper twice.** `Page.captureScreenshot`
+  clips in PAGE coordinates, and a clip outside the current viewport is not painted
+  without `captureBeyondViewport` - with `scroll-behavior: smooth` in base.css,
+  `scrollIntoView` had not finished moving anything by the time the rect was read.
+  A screenshot tool that returns white on a wrong rect is the same class of
+  instrument as a hover test that cannot say «the cursor missed», which cost three
+  tries at 8.9.
+
+### Acceptance
+
+51 screens at 390: zero failures. Ten screens at 1280 including all five that carry
+the rail: zero failures. The state walk over the six touched screens: no state a
+pass failed to reach. Every stylesheet in `design/`, `wireframes/` and the root:
+comments balanced. Five crops read by eye - the landing's plan table, the tariff's
+two cards, the address list, the coach buy box and the account rail.
+
+---
+
+## Step 8.10b - the owner said the word, and three prices lost 3.84 to 24.95 pixels of gap
+
+The kerning on the plan prices had been open since 7.96 with the number attached
+and the decision explicitly left out: «AND THE KERNING IS LEFT OFF BY INSTRUCTION,
+WITH THE NUMBER, so the owner can settle it in one word.» The word is said.
+
+**And 8.10 is what made it worth asking rather than assuming.** The paragraph that
+left it open had measured one figure, `.cmp-head .price b` at 16px, where closing
+the gap saves 3.84px - small enough that leaving it open for a week cost nothing.
+Putting the SAME figure on the tariff screen at 20 and 26 made it four times wider,
+because the mono word space scales with the type. A number measured on the screen
+it was first found on is not a number about the value; it is a number about that
+screen. Measured with a Range over the glyphs:
+
+| figure | before | after | closed |
+|---|---|---|---|
+| `.tf-price` 26px «99 ₴ / міс [?]» | 154.67 | 129.72 | 24.95 |
+| `.tf-col-p` 20px «99 ₴ / міс [?]» | 130.88 | 111.67 | 19.21 |
+| `.tf-col-p` 20px «0 ₴» | 31.27 | 26.47 | 4.80 |
+| `.cmp-head .price b` 16px «0 ₴» | 28.81 | 24.97 | 3.84 |
+| `.cmp-head .price b` 16px «~99 ₴/міс» | 86.41 | 82.56 | 3.85 |
+
+7.96's own prediction for the 16px figure was «28.84 to 25.00». The browser says
+28.81 to 24.97 - within three hundredths, four steps later, on a rule that had
+been rewritten twice in between.
+
+**The separate rule is gone, and that follows from the fix rather than being a
+second decision.** Those three names sat outside price.css section 1's mono list
+for exactly one reason, which the rule stated: they took the family and the
+numerals and NOT the kerning. With the third declaration back there is nothing
+left to tell them apart, and a rule whose whole content is «the same as those,
+minus one line» has no business existing once the line returns. The ARGUMENT that
+built it is kept in the file, because it is still true and still working: a plan
+price is not a price surface - no struck twin, no `-N%` chip - which is why these
+three never entered the surface table and must not enter it now. Two lists, two
+counts, and confusing them is how the ninth surface went unranked for a week.
+
+**Nothing around the figures moved**, A/B'd by switching the kerning back off in
+the live page at 390 and at 1280: `.cmp-head .cmp-cell` 178 x 110.58 and `.price`
+148 x 43.48 at 390, 321.88 x 90.28 and 291.88 x 23.19 at 1280; `.tf-col`
+358 x 210.77 and `.tf-col-p` 320 x 32. **Twenty boxes, two widths, not one of them
+different with the rule on and off.** The digits tighten and the layout does not
+notice, which is the whole reason this is one line in one file rather than a value
+per surface.
+
+**And one note nearly copied a number forward untested.** The replacement paragraph
+in coach-landing.css first said «both cells stay 46.4 tall», taken from the 7.96
+note two paragraphs above it - a measurement of a different element. The A/B says
+110.58. It is in the file with the correction attached, for the same reason 8.10's
+height slip is: a corrected number with no note reads as one that was always right.
+
+**What stays open on these three figures, unchanged:** the ₴ mark is still a typed
+glyph on the landing's 16px figure, because `uivCurrency()` skips any parent under
+17px. That is a SIZE question and still the owner's; it was only ever in the same
+paragraph as the kerning because both are about the same character.
+
+### Acceptance
+
+51 screens at 390 and five at 1280: zero failures. Every stylesheet: comments
+balanced. Both plan tables re-cropped and read by eye.
+
+---
+
+## Step 8.11 - the instruments move into the repo
+
+Three hundred and eighty-three measurement scripts were written across stages 07
+and 08, all of them into a session scratch folder that dies with the session.
+Nearly all of them deserve that: a probe answers one question and is finished.
+**Five did not.** They answer a question this project asks at the end of every
+step, and each one was being rebuilt from memory - which is precisely the failure
+`CLAUDE.md` names for the product, *«a hand fix does not survive the next clone»*,
+applied to the apparatus that checks the product.
+
+They are `tools/` now: `accept.mjs`, `states.mjs`, `css-comments.mjs`, `crop.mjs`,
+the driver `cdp.mjs`, and `lib.mjs` for what they all used to hard-code.
+
+### What moving them fixed, which was not just their address
+
+**Every constant they carried had cost a real failure**, and putting them in one
+place made that visible:
+
+- **The server URL.** Every script wrote `127.0.0.1:8993` and assumed someone had
+  started a static server by hand. A run against a dead server does not fail
+  loudly - the census expression never runs and what comes back is an empty pass
+  that reads like a clean one. `serve()` starts it, waits for it to answer, and
+  stops it.
+- **The profile directory.** An absolute path into one session's job folder, in
+  every file. That is *why* none of these outlived the session that wrote them.
+- **The port.** Two scripts on one port is a silent hang; it happened twice in one
+  afternoon at 8.10. `freePort()` asks the operating system.
+- **The page list**, and this is the one that matters. The scripts took their
+  subject from a shell glob, and on 2026-08-11 an acceptance run over 135 pages
+  reported **«0 failures» after visiting exactly one** - zsh does not word-split an
+  unquoted parameter expansion, so the whole list arrived as a single argument and
+  the walk asked for a page whose name was 135 names long. It printed a pass.
+  `pages()` reads the screens off disk. **An instrument that takes its subject
+  from the caller can be handed the wrong subject; one that finds its own cannot.**
+
+**And one defect the move exposed rather than inherited.** Every script called
+`l.proc.kill()` at its foot and nowhere else, so a script killed by a timeout,
+stopped with ^C or thrown out by an exception left its Chrome and its server
+running - and 8.10 killed several runs by timeout. Server, browser and scratch
+profile now register a teardown that fires on exit, `SIGINT`, `SIGTERM`, `SIGHUP`
+and an uncaught exception. This was invisible while each script owned its own copy
+of the launch code; it became one obvious hole the moment they shared one.
+
+**Verified by the port, not by a process count, and the first attempt to verify it
+was the same defect one level up.** `ps aux | grep http.server` returned 7 and that
+number went into this file - but the machine was also running two static servers
+that have nothing to do with this work (`:8971` with no `--bind`, and `:8080`),
+plus an unrelated python script whose path contains the word. A grep that counts
+anything matching «server» cannot say whose server it counted. The honest form of
+the claim asks about the ONE port the tool chose: started `serve()` and `chrome()`,
+read back **port 56287, one listener and five headless Chrome processes**, sent
+SIGTERM, and asked again - **zero and zero.** The two foreign servers are still up
+and were deliberately left alone.
+
+`node tools/accept.mjs` with no arguments now walks all 51 screens at 390, starts
+and stops its own server, picks its own port, and exits non-zero on a finding.
+
+### What earned a place, and what did not
+
+The bar was: *a check the NEXT step will want to run unchanged.* Not «it was
+useful once» - that describes all 383.
+
+| tool | the question it answers | why it is not a probe |
+|---|---|---|
+| `accept.mjs` | overflow · console error · em dash · curly apostrophe · doubled crumb | the gate; nothing is done until it returns zero |
+| `states.mjs` | is there a state no icon or mark pass reached | ended an eleven-instance defect class |
+| `css-comments.mjs` | is any stylesheet comment orphaned | CSS is silent about this and nothing else checks |
+| `crop.mjs` | what does it actually look like | numbers said 44 tall while two words were touching |
+
+The other ~378 stay where they are. Copying them would turn a folder of
+instruments into a folder of archaeology.
+
+### The wrong versions came with them, and that is the point
+
+Each file carries the versions that lied, because that is the part that does not
+survive a rewrite. `states.mjs` explains why its openers are enumerated at runtime
+(three versions carried a typed list and reported «none» across 32 screens while
+four states were broken, one of them losing 585 marks). `css-comments.mjs`
+explains why it is CSS-only (the `.js` version reported a regex literal as an
+orphan, and an instrument that reports a correct line trains you to ignore it).
+`crop.mjs` explains the two separate reasons it returned blank paper.
+`cdp.mjs` explains why it pauses animations from time zero, why it does **not**
+add `transition: none` - *«the instrument must not be visible in its own
+measurement»* - and why it asks for `prefers-reduced-motion: no-preference`.
+
+A tool with its failures written beside it can be trusted at a glance. A tool
+without them gets rewritten by the next person who does not know why it is shaped
+that way, and the rewrite reintroduces the bug the shape was avoiding.
+
+### CLAUDE.md
+
+Two edits, both by generalizing an existing rule rather than adding beside it, as
+that file requires. **«Acceptance is in the browser»** now names the two commands
+and extends its own second sentence: *«Fix through a rule, not by hand-editing one
+file - and the same applies to the instrument: a check rebuilt from memory each
+step is a hand fix.»* **«Every md gets a visible place on html»** gains `tools/` to
+its list of service files, with the reason: they are read by whoever builds, not
+by whoever decides. The repository-shape block gains one line. **194 of 200** -
+counted after the edits, not estimated before them, which is the mistake this
+file has now caught itself making twice in one day.
+
+### Acceptance
+
+`node tools/css-comments.mjs` - 88 stylesheets, balanced. `node tools/accept.mjs` -
+51 screens at 390, zero failures. `node tools/accept.mjs 1280 account coach-home` -
+zero. `node tools/states.mjs` - no state a pass failed to reach. `node
+tools/crop.mjs` - a picture. All four run from a cold shell with no server, no
+port and no page list given.

@@ -96,8 +96,11 @@ exist and lists what is missing.
 Competitor facts come from a page opened in this session, never from memory.
 
 **Acceptance is in the browser, not in a table.** Open it, walk every state, narrow to 360px, and
-only then say done. Fix through a rule, not by hand-editing one file: a hand fix does not survive
-the next clone.
+only then say done. `node tools/accept.mjs` is the gate and `tools/states.mjs` the state walk; they
+find their own pages, because an instrument handed its subject can be handed the wrong one - a glob
+once reported "0 failures" over 135 pages after visiting one. **Fix through a rule, not by
+hand-editing one file** - and the same applies to the instrument: a check rebuilt from memory each
+step is a hand fix. A repeatable one goes in `tools/` with the wrong versions written beside it.
 
 **Critique runs on two instruments.** Claude and Codex (plugin `codex`, **read-only stated
 explicitly**), sets taken independently before any merge, dedup afterwards. Codex owns what is
@@ -146,7 +149,7 @@ publication" block on it and say so out loud.
 **Every md gets a visible place on html** - its own page, a named section (registered in
 `NAV_SECTIONS`), or a satellite page declaring `NAV_ACTIVE`. An artifact nobody can see in a browser
 does not exist for whoever makes the decision. Service files (`CLAUDE.md`, `AGENTS.md`, `README.md`,
-`docs/decisions.md`) need no page.
+`docs/decisions.md`, `tools/`) need no page - they are read by whoever builds, not by whoever decides.
 
 ## Repository shape
 
@@ -161,6 +164,7 @@ voice/        stage 05            voice.md rulebook + microcopy.md inventory
 design/       stages 06-09        concept/ (how the language was found) ·
                                   kit/ (kit.css + showcase) · system/ (code) · visuals/
 docs/         decisions.md, playbook/
+tools/        the instruments: accept · states · css-comments · crop, and their README
 ```
 
 **`index.html` is the entry point of the folder you opened, and nothing else** - at the repo root it

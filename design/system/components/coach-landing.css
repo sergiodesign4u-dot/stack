@@ -311,12 +311,44 @@
    thing - an outlined pill beside a word, no ground, no shadow - where the atom
    is a filled mark sitting on a photograph. Kept whole because deleting it would
    leave the pill undrawn, and named in the report: one of the two has to change
-   its name at Крок 6. */
-.coach .cmp-head .plan .badge{ display: inline-block; font-size: var(--fs-10); font-weight: var(--fw-black); text-transform: uppercase;
-  letter-spacing: .03em; /* [?] no token; the two trackings are --ls-caps .04em and --ls-eyebrow .08em */
-  border: 1px solid var(--line-inverse); /* was 1.5px, step 7.62 */ border-radius: var(--radius-pill);
-  padding: var(--space-2) 9px; /* [?] 9px has no rung */
-  margin-left: 7px; /* [?] 7px has no rung */ vertical-align: middle; }
+   its name at Крок 6.
+
+   8.10 - AND THAT PARAGRAPH WAS RIGHT ABOUT THE COLLISION AND WRONG ABOUT WHAT
+   FOLLOWED FROM IT. «No file in the system owns the class this markup uses» was
+   read as «so the shape stays here», and the honest reading was «so the shape
+   has no owner» - which is a hole in the system, not a licence for a private
+   rule. The census at 8.10 found FOUR editions of this pill in four files, and
+   this one was not even the oldest. badge.css now draws it, as its outlined
+   kind, and the argument is in that file: a badge states a kind, and «миттєво»
+   and «опт» state what kind of plan each column is.
+   THREE `[?]`s WENT WITH THE SHAPE and none of them was this screen's to answer:
+   `.03em` was a third tracking beside a system that has two, `9px` and `7px` are
+   values with no rung. All three are A5's shape - a literal where a token exists
+   - and A5 closed at 7.67; these were its stragglers, on a screen that was still
+   grey when it ran. What stays below is `vertical-align`, which IS this markup's,
+   because it is about a pill sitting inside a heading and not about the pill.
+
+   THE INK BORDER STAYS, AND IT IS NOT AN OVERSIGHT IN THE ATOM. badge.css's
+   outlined kind defaults to `--line-strong`, the hair, which is what two of the
+   four editions drew. This screen draws `--line-inverse`, and that is a decision
+   with a line in the ledger 130 lines below: «--dark #161616 -> --line-inverse
+   as a BORDER: kicker, badge, finalcta» - the landing's own darker register,
+   carried over from the grey. A border COLOUR is a variant, not a shape, which
+   is exactly how `.addr-card.def .addr-tag` takes the action colour over the
+   same atom in address-card.css. The atom would have to be wrong for all four
+   before this became its business.
+
+   AND THE LEFT MARGIN CAME BACK, BECAUSE THE MARKUP HAS NO SPACE IN IT. The
+   first cut of 8.10 sent `margin-left: 7px` away with the rest of the `[?]`s and
+   the check caught it in the same minute: `coach-landing.html:98` writes
+   `Free<span class="badge">` with no whitespace between the word and the pill, so
+   at `margin-left: 0` the two touch. Its twin on coach-tariff writes `Pro <span
+   class="tf-mini">` WITH a space and needs none, which is why only one of the two
+   carries this line. 7 -> `--space-8`: the literal had no rung, and 8 is the one
+   beside it. A margin is where a thing stands, and where a thing stands has
+   always been the screen file's - the atom was never going to supply it. */
+.coach .cmp-head .plan .badge{ border-color: var(--line-inverse);
+  margin-left: var(--space-8); vertical-align: middle; }
 .coach .cmp-head .price{ font-size: var(--fs-14); /* grey 13 -> 14: 5.6, ties go UP - see the block at the top */
   color: var(--text-secondary); font-weight: var(--fw-semibold);
   margin-top: 5px; /* [?] 5px has no rung */ }
@@ -334,7 +366,21 @@
    price.css's money names, so this price renders Inter 16 / 700, no
    `tabular-nums`, no ₴ kerning, where DESIGN-artifacts.md locks mono for every
    price and price.css already holds 21 names that obey it. That is one line in
-   price.css and it is reported, not taken here. */
+   price.css and it is reported, not taken here.
+   CLOSED IN TWO HALVES, BOTH IN price.css, AND THE SECOND ONE WAS THE OWNER'S.
+   7.96 took the family and the numerals. 8.10 added the two twins on the tariff
+   screen. 8.10b added the ₴ kerning, after the owner said the one word that
+   paragraph had been waiting for - and the name is in section 1's list now
+   rather than in a rule of its own, because the missing kerning WAS the only
+   thing keeping it out. Measured here at 390: «0 ₴» 28.81 -> 24.97 and
+   «~99 ₴/міс» 86.41 -> 82.56.
+   AND NOTHING AROUND THEM MOVED, A/B'd at 390 AND 1280 by switching the kerning
+   back off in the live page: `.cmp-head .cmp-cell` 178 x 110.58 and `.price`
+   148 x 43.48 at 390, 321.88 x 90.28 and 291.88 x 23.19 at 1280 - identical with
+   the rule on and off, on both cells, at both widths. The `nowrap` above is what
+   holds that, and it was not touched. (Written from the A/B and not from the
+   earlier paragraph, which says «both cells stay 46.4 tall» - a number that was
+   about a different element and would have been copied forward untested.) */
 .coach .cmp-head .price b{ color: var(--text-primary); font-weight: var(--fw-black);
   white-space: nowrap;
   font-size: var(--fs-16); /* grey 15 -> 16: 5.6, ties go UP - see the block at the top */ }

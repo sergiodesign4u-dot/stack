@@ -77,8 +77,22 @@
     -webkit-overflow-scrolling: touch; scrollbar-width: none;
  }
   .acc-links::-webkit-scrollbar{ display: none; }
+  /* 8.10 - THE FLOOR, AND IT IS MISSING ONLY HERE. Measured across the 13 screens
+     that draw this rail: 40.39 tall at 390, 3.61 short of the touch minimum, on a
+     control that is a chip in a horizontal scroller - the hardest kind to hit,
+     because a miss scrolls the strip instead of doing nothing. Above 960 the same
+     class is the vertical rail and measures 46.39 to 48.39, already clear, which
+     is why this line is inside the phone block and not on the base rule.
+     44 is not a new number: link-row.css:223 states it for six control families
+     and calls it the atom's, field.css:41 gives it to every field, and
+     coach-wishlist.css:81 took four controls to it at 7.97. This is the same
+     floor arriving at the one control family that never got it.
+     What it costs: the chip grows 3.61px and the block under the rail moves down
+     by that much. Nothing wraps and nothing overflows - the strip scrolls
+     sideways by design and `uivRailCurrent` keeps the current chip in view. */
   .acc-link{
     width: auto; flex: none; white-space: nowrap;
+    box-sizing: border-box; min-height: var(--size-44);
     border: 1px solid var(--line-strong); border-radius: var(--radius-pill);
     padding: var(--space-8) var(--space-16); gap: var(--space-8); font-weight: var(--fw-bold);
  }

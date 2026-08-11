@@ -18,7 +18,14 @@
   .addr-list{ grid-template-columns: 1fr 1fr; }
 }
 .addr-card{ border: 1px solid var(--line-hair); padding: var(--space-16); }
-.addr-tag{ display: inline-block; font-size: var(--fs-10); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); margin-bottom: var(--space-12); }
+/* 8.10 - THE SHAPE LEFT, THE POSITION STAYED. Every declaration this rule used
+   to carry except one is now badge.css's outlined kind, which `.addr-tag` was
+   already drawing exactly - it was the one of four editions that needed nothing
+   changed, which is also how the shape was recognised. What is genuinely this
+   card's is where the pill stands inside it, and that is the line below. The ink
+   and the default-address variant are at :55 in this file's colour block, where
+   they belong: a variant is not a shape. */
+.addr-tag{ margin-bottom: var(--space-12); }
 .addr-type{ font-size: var(--fs-12); color: var(--text-secondary); }
 .addr-line{ font-size: var(--fs-16); font-weight: var(--fw-bold); margin: var(--space-4) 0 var(--space-2); }
 .addr-sub{ font-size: var(--fs-14); color: var(--text-secondary); }

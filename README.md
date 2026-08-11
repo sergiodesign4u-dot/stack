@@ -20,7 +20,7 @@ there is no page list to maintain here.
 | 05 | Voice | Done - rulebook + microcopy inventory, rolled out to the prototype |
 | 06 | Concept | Done - visual language on two screens |
 | 07 | UI + Visual | Done - component kit and inventory; the coloured layer is 50 screens of 142 plus the stage hub, counted 2026-08-11 (39 buyer + 11 coach; A13 brought 8 at step 7.95, and step 8.7 added the three the coach rail links to) |
-| 08 | Tokens + Components | In progress - 81 component files, 87 pages in `design/kit/`: the architecture sheet and `pixel-proof.html` among them. The coach flow is in colour and its own navigation no longer leaves it (A13 + step 8.7, 11 screens). Next: the decision list in `kit/docs/architecture.md`, then Крок 6 (rename) after stage 09 |
+| 08 | Tokens + Components | In progress - 81 component files, 87 pages in `design/kit/`: the architecture sheet and `pixel-proof.html` among them. The coach flow is in colour and its own navigation no longer leaves it (A13 + step 8.7, 11 screens). Step 8.10 cleared the eight leftovers that needed no owner decision, and `badge.css` gained a second kind - the outlined badge, one shape that had been living under four names in four files. Next: the owner's own list in `kit/docs/architecture.md` (A6 tile size, A9's label, section C's 24 missing states, section D's `[?]` numbers), then Крок 6 (rename) after stage 09 |
 | 09 | Design System | Not started |
 | 10 | Responsive | Not started |
 | 11 | Animation | Not started |
@@ -41,10 +41,17 @@ wireframes/   stage 04             grey clickable prototype, frozen after Voice
 voice/        stage 05             voice rulebook + microcopy inventory
 design/       stages 06-09         concept/, colour theme, kit/, system/, product screens
 docs/         decisions.md (why anything is the way it is) + playbook/
+tools/        the checks a step runs before it says done - see tools/README.md
 ```
 
 Each stage folder holds md sources of truth in `docs/` and its html visualization flat in the root.
 `index.html` is always the home page of the folder you opened; a hub is always `overview.html`.
+
+**Before any step says done:** `node tools/accept.mjs` (every screen at 390 - overflow, console
+error, em dash, curly apostrophe, doubled crumb), `node tools/css-comments.mjs` (every stylesheet
+in a second - CSS is silent about an orphaned comment and it once reached a screen), and
+`node tools/states.mjs` when the step touched a dialog, a drawer or an overlay. No server to start
+and no page list to type: each finds its own.
 
 ## Key documents
 

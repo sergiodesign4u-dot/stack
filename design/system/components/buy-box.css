@@ -191,8 +191,25 @@
     word-spacing: -.24em; }
 .coachbox .cbnew { font-size: var(--fs-30); font-weight: var(--fw-semibold); letter-spacing: var(--ls-display); color: var(--text-action); }
 .coachbox .cbold { font-size: var(--fs-14); color: var(--text-muted); text-decoration: line-through; }
+/* 8.10 - `border-radius: 5px` -> `--radius-4`. WHY: 5 is not a rung. The ladder
+   is 4 / 8 / 12 / 16 and its ties go DOWN, which coach-landing.css:139 states
+   while marking its own 14 as `[?]`. This was the LAST radius off the ladder in
+   the product: the pixel proof at 7.94 reported «radii 5 and 6 survive, on
+   overview and product-coach», and 8.10 opened all 51 screens and found that of
+   the 18 elements drawing one, 17 are on `design/overview.html` and every one of
+   those is the harness - `.nav-top`, `.nav-link`, `.nav-section`, `.nav-toggle`
+   from `/_nav.css`, plus the hub's own `code`, `.eyebrow` and `.n` from the
+   showcase chrome. A3 already drew that line: `design/_stand.css` and
+   `design/kit/_page.css` «are not a product component». So the finding was one
+   element wide and this is it.
+   Measured at 390 on product-coach: the plate is 82.55 x 19.20 before and after -
+   a radius does not size a box - and 5 -> 4 is one pixel off each corner of a
+   19px-tall plate. Its sibling `.cbtier` two lines up draws `--radius-16` on the
+   same kind of small tinted plate, so the file already knew where the ladder was.
+   The `3px 7px` padding stays literal and stays `[?]`: it is a value, and a value
+   moves by a decision said out loud, not as a side effect of a radius. */
 .coachbox .cbsave { font-family: var(--font-mono); font-weight: var(--fw-bold); font-size: var(--fs-12); line-height: var(--lh-flat); color: var(--text-danger);
-    background: var(--bg-save); border-radius: 5px; padding: 3px 7px; }
+    background: var(--bg-save); border-radius: var(--radius-4); padding: 3px 7px; /* [?] neither 3 nor 7 has a rung */ }
 /* AND THE SHORTHAND WAS HIDING A DELETED LEADING. `1.55` is the base rhythm the
    system HAD before step 5.6, which moved it to 1.6 and said so out loud: «three
    leadings, and 1.55 to 1.6 deliberately this time, because air is calmer». That

@@ -821,13 +821,36 @@ widths touches them.
 - **Weight 900 stands on 17 screens, and stood on exactly the same 17 before the stage.** Measured
   on `index.html`, it is **eight `<b>` elements with no class**. The scale has no 900, Inter is not
   loaded with one, and no step in ninety-three ever named it. Whose declaration this is: `[?]`
+  **CLOSED at step 8.10, and the `[?]` is «nobody».** `<b>` carries the user agent's
+  `font-weight: bolder`, which is RELATIVE: it resolves against the parent, and every parent here is
+  already 600 or 700, so bolder lands on 900. The census across all 51 screens found **113 elements
+  on 18 screens and every one is the rating figure** - `<b>4.8</b>` inside `.st` or `.rstars`. It
+  draws 700 today (the same figure at 900 and at 700 is 21.609px wide, seven times over), but A8's
+  other branch is one line, and the day 800 is loaded these 113 change weight with nobody deciding
+  it. `b{ font-weight: var(--fw-bold) }` in base.css says the number the screen draws.
 - **Radii 5 and 6** survive, on `overview` and `product-coach` - neither is a rung of 4 / 8 / 12 / 16
+  **CLOSED at 8.10, and the finding was one element wide.** Of the 18 elements drawing one, **17 are
+  the harness**: `.nav-top`, `.nav-link`, `.nav-section`, `.nav-toggle` from `/_nav.css`, and `code`,
+  `.eyebrow`, `.n` from the showcase chrome on the hub - which A3 above already ruled out of the
+  component count. The one that is the product is `.cbsave` on `product-coach`: `5px` ->
+  `--radius-4`, ties go down. The plate is 81.69 x 18 before and after.
 - **Arial survives on two pages** of the 31 it stood on: `listing-sheet` and `overview`
+  **CLOSED at 8.10, and it was three controls that draw no glyphs.** Two `input[type=range]` price
+  sliders across seven listing screens and one `input[type=checkbox]` on coach-verify; the
+  `overview` hit is the harness's own `.nav-toggle`. A form control does not inherit `font-family` -
+  field.css fixed that on `.field` at step 7 and base.css on `button`, and both fixed a NAME.
+  `input, select, textarea, optgroup{ font-family: inherit }` in base.css reaches the ones wearing
+  neither. Zero visible change: Arial was in the computed style of eight elements and on no pixels.
 - **No screen reaches zero typed signs**, and the reason is not the product: `←` and `↗` in the
   harness's own chrome stand on every page. From the product itself what remains is the **minus
   inside a number** («−15%» in the discount chip) and `≈` in «≈ 18 ₴ / порція» - arithmetic, not a
   control's mark - plus the address marks, of which `🔳` and `🚚` **have no entry in the icon set at
   all**, which is the 7.87 finding still open.
+  **THE LAST CLAUSE WAS TRUE WHEN WRITTEN AND STOPPED BEING TRUE AT STEP 8.1**, which gave `📦 🚚 🔳`
+  their rows in `marks.js` and drew `locker` in `icons.js`. This line went on saying «still open»
+  for nine steps because nothing re-reads a sentence once it is written - the same failure 8.9b cost
+  two defects to learn, here in a decision sheet rather than in a rule. Verified at 8.10: `box`,
+  `truck` and `locker` are all three in the icon set and all three in the mark map.
 
 **A union hides progress, and this page nearly published that mistake.** The first draft counted
 distinct weights and distinct font families across all 40 screens as sets: both read «6 → 6», which
@@ -840,6 +863,39 @@ out of `consolidation.md` and out of nothing else, with `[?]` wherever the journ
 number. 136 of them are visible on screen; the other 29 are dead declarations, misfiled rules and
 names with no readers, each confirmed by an A/B that returned zero.
 
+### A18. One shape, four names, and every file that held it said «nobody owns this» and stopped there - step 8.10
+
+Not a finding an earlier step recorded and left. A finding two earlier steps DESCRIBED IN WORDS,
+each on its own screen, and neither recognised as a system-level hole.
+
+`coach-landing.css:308`: «no file in the system owns the class this markup uses. What it draws is
+also a different thing - an outlined pill beside a word, no ground, no shadow.»
+`coach-tariff.css:160`: «the same refusal coach-landing.css made ... kept whole because no file in
+the system declares it.»
+
+Both sentences are correct and both treat «no file owns this» as the end of the sentence rather than
+the finding. Read out of the DOM at 390 across all 51 coloured screens:
+
+| name | file | count | size / weight | padding | on the ladder? |
+|---|---|---|---|---|---|
+| `.addr-tag` | address-card.css | 3 | 10 / 700 | 2 / 8 | inline rung, exactly |
+| `.badge` | coach-landing.css | 2 | 10 / 700 | 2 / 9 | inline rung + 1 |
+| `.tf-mini` | coach-tariff.css | 1 | 12 / 700 | 2 / 8 | row size, inline air |
+| `.kicker` | coach-landing.css | 1 | 12 / 700 | 4 / 12 | row rung, exactly |
+
+All four: 1px border, `--radius-pill`, uppercase, `--fw-black`, no ground - and **two of them are
+literally the same element**, a plan name with an outlined pill beside it, in two editions of the
+same Free / Pro comparison on two screens of one flow.
+
+**Both files reached for status-pill.css and both refused correctly** - 12px on a 2/8 padding
+crosses the ladder that file opens by refusing. The question neither asked: if it is not a status
+and no file declares it, WHICH file should? badge.css's own definition answers it - «a pill reports
+a state that changes, a badge states a kind that does not» - and «миттєво», «опт», «ваш тариф» and
+«За замовчуванням» all state a kind. **badge.css has two kinds now**: filled, on a photograph;
+outlined, beside a word on the page's own paper. `.kicker` is deliberately outside it - it stands
+alone above the hero and names the page under it, which is A3's eyebrow.
+
+**Closed as a SHAPE. The names are still four for one thing and that is B's, at Крок 6.**
 
 ---
 
@@ -962,6 +1018,13 @@ where a person is when they have already read everything and still have not deci
 ---
 
 ## D. Numbers that are `[?]`
+
+**One line left this list at step 8.10b, and it was not a number - it was a decision the
+list was holding a number for.** The ₴ kerning on the three plan prices had been recorded
+since 7.96 with its measurement attached and the choice explicitly deferred: «left off by
+instruction, WITH THE NUMBER, so the owner can settle it in one word». The owner said it.
+Worth keeping as a shape: a `[?]` that carries its own measurement costs one sentence to
+close, and one that does not costs a fresh session in a browser.
 
 `CLAUDE.md` says an invented number poisons every stage below it. These are the ones the
 interface currently shows:
