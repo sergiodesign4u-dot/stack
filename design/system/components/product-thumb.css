@@ -1,0 +1,67 @@
+/* product-thumb.css - the small box that frames a product photograph in a row
+   (level 1), added at step 8.12 by the owner's call on architecture.md A6.
+
+   WHAT A6 ASKED AND WHAT IT DID NOT. A6 measured nine boxes in seven files at
+   eight sizes - 34 / 40 / 46 / 46 / 52 / 56 / 60 / 70 / 74 - and closed their
+   SHAPE at 7.68 (square, because the photograph is 2048x2048 and every box
+   paints it contained). It left the SIZE open and said why: «nothing in the
+   source says why a restock line's tile is 46 and a checkout line's is 60, so
+   folding them would be taste, not measurement».
+
+   THE OWNER TOOK THE MEASURED HALF AND LEFT THE TASTE. Eight sizes stay. What
+   moves is the one pair A6 named as provably the same thing: `.aord-thumbs .t`
+   in order-row.css and `.rk-ph` in restock-note.css, both 46, in two files.
+
+   AND THEY WERE NOT MERELY THE SAME SIZE - THEY WERE THE SAME DECLARATION.
+   Read out of the two files before this one existed, both halves, structure and
+   colour:
+
+     .aord-thumbs .t  width 46 · height 46 · radius-8 · bg-sunken · 1px line-hair
+                      · flex centre · mark-faint · fs-10
+                      + colour: bg-page center/78% no-repeat · transparent
+     .rk-ph           the same nine declarations, plus `flex: none`
+                      + colour: the same two
+
+   Nine declarations, byte for byte, in two files, written on two days. That is
+   not a coincidence worth folding for tidiness - it is one component that was
+   never given a name, which is the same finding badge.css closed at 8.10 for the
+   outlined pill and status-pill.css closed at 7.37 for four editions of a pill.
+
+   WHY A FILE AND NOT A LINE IN ONE OF THEM. Neither owner file outranks the
+   other: an order card's thumb strip and a restock nudge's tile have nothing to
+   do with each other except this box. Putting the shape in either would make the
+   other file's rule a reach into a component it does not own - the exact defect
+   `filter-group.css` records as «restyling the atom's class by name». The system
+   already carries `cert-thumb.css` for the certificate's thumbnail, so a thumb
+   that frames a PRODUCT photograph is the parallel name.
+
+   WHAT STAYS WITH THE SCREENS: `flex: none` on `.rk-ph`, because that is about
+   the row it sits in and not about the box; and every `background-image`, because
+   which photograph goes in which slot is the card's business.
+
+   THE OTHER SEVEN SIZES ARE NOT HERE AND THAT IS THE DECISION, not an oversight.
+   `.oh-thumbs i` (34) is this same shape at another size and shares the colour
+   line in order-row.css already; the day the owner folds the ladder it joins by
+   name and nothing else changes. Until then a size is a value, and a value moves
+   by a decision said out loud.
+   ============================================================================ */
+
+/* ---------- structure ---------- */
+.aord-thumbs .t, .rk-ph{
+  width: var(--size-46); height: var(--size-46);
+  border-radius: var(--radius-8);
+  background: var(--bg-sunken);
+  border: 1px solid var(--line-hair);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--mark-faint);
+  font-size: var(--fs-10);
+}
+
+/* ---------- colour ----------
+   The tile carries the photograph and stops carrying the word. `color:
+   transparent` is not a hack: the markup holds «фото» as a fallback for the grey
+   layer, where there is no image, and the coloured layer has one. */
+.aord-thumbs .t, .rk-ph{
+  background: var(--bg-page) center/78% no-repeat;
+  color: transparent;
+}

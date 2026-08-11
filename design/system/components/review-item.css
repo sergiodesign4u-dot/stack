@@ -69,6 +69,56 @@
    row with its word heavier than its figure. That one is a visible change on
    account-orders.html, four rows, and it is declared in the step's log. */
 
+/* ---------- two states this file does not declare - step 8.16 ---------------
+   Both come off `architecture.md` C, and this file's own stand carried the
+   first under «Немає в коді»: «no reviews yet | product-reviews.html | the
+   rating summary has nothing to summarise». Closed here at a cost of ZERO
+   declarations, which is the finding rather than a shortfall of one.
+
+   1. ZERO REVIEWS: THE SUMMARY IS NOT DRAWN, AND NEITHER IS THE LIST. `.rvhead`
+   holds three things - the 50px figure in `.rvbig`, the five tracks in
+   `.rvbars`, and the «＋ Залишити відгук» button. With no reviews the first two
+   have nothing to say and no smaller way to say it: five tracks all at 0% is a
+   chart of nothing that still reads as a chart, and each of its rows would need
+   its own no-value mark down the left. The figure is `rating.css`'s question
+   and the reasoning against `0.0`, against a 50px dash and against five hollow
+   stars is written out there, beside the mono rule those placeholders would
+   have to borrow.
+   What stands in their place is one `.emptybox.mini` from `empty-state.css`
+   with voice's two decided lines (`microcopy.md:1661-1662`) and the SAME button
+   moved into `.eact` - `btn--accent btn--s btn dark`, byte for byte the control
+   `account-empty.html:72` already carries, so nothing here is restyled.
+   `.emptybox` and not `.empty`: `.empty` is the full-screen shape with a dashed
+   border and a mascot, for a page whose whole result is empty, and this is one
+   section inside a product page that is full of other facts. Nor `.mini` - the
+   three sizes are a scale of SCOPE (screen / section / card), `.mini` is the one
+   for several boxes stacked inside a card, and the first cut of 8.15 reached for
+   it on a stale count printed by `empty-state.html`. All four states built at
+   8.15 carry the section size; see desc-block.css for the census that settled it.
+   NO GLYPH IN THE BOX, deliberately. `.emptybox .ei` would take one, and
+   `UIV_EMOJI` maps `★` to a real drawing in `icons.js`, so it was available -
+   but the only mark this product uses to mean «a review» IS the star, and a
+   34px accent star standing over «Відгуків ще немає» has the shape of a
+   one-star rating, which is the exact claim the state exists to avoid making.
+   `✎` names the exit instead of the absence, and the exit is already a labelled
+   button two lines under it. A box with no `.ei` is not new: the addresses box
+   on `account-empty.html:81` has never had one.
+
+   2. THE END OF THE LIST is the reviews' twin of what `pagination.css` settled
+   for the catalogue at 8.15: «Показати ще» disappears, `.loadnote` takes its
+   place inside `.pgnav`, the page numbers under it stay live, and the last
+   arrow reports `aria-disabled`. Not one of those three names is this file's -
+   `.loadnote` is `empty-state.css`, `.pgnav` and the dead arrow are
+   `pagination.css` - and this file owns only the `.rvitem` list above them, so
+   what it can honestly hold is this note.
+   MEASURED AT 390 on the stand: 40px between the last review and the line,
+   which is `.pgnav`'s own `margin-top: var(--space-24)` plus the atom's
+   `margin-top: var(--space-16)` stacking. Both belong to files this step does
+   not own, both are the values they already draw everywhere else, and the gap
+   reads as breathing room at the end of a list rather than as a defect. Written
+   down because nothing had ever put those two margins on top of each other
+   before: `pagination.css`'s own stand demos the note in a plain flex row. */
+
 /* 7.51: THE THIRD MASCOT LEFT THIS FILE. `.recbanner` and its `.rbear` went to
    banner.css, whole, with the 559px media block. It is a reassurance panel -
    image beside a heading and a line of text - which is structurally the

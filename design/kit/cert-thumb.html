@@ -22,7 +22,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Мініатюра сертифіката</h1>
 <p class="kp-lead">Аркуш паперу завбільшки з візитку, за яким лежить сертифікат відповідності на партію. Робота 4 в одному елементі: показати, що документ <b>існує</b>, ще до того, як його відкрили. І тут знайшлось те, чого перепис у спокої знайти не міг - <b>таблиця стилів писала слово, яке хтось чує</b>.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/cert-thumb.css</span><span class="kp-tag">44 рядки</span><span class="kp-tag">7 селекторів</span><span class="kp-tag">40 оголошень</span><span class="kp-tag">3 екрани</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/cert-thumb.css</span><span class="kp-tag">94 рядки</span><span class="kp-tag">8 селекторів</span><span class="kp-tag">41 оголошення</span><span class="kp-tag">3 екрани</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка звідси - та сама, що на <code>product.html</code>, усередині розкритого блока довіри.</p>
@@ -78,16 +78,25 @@
 <tr><td><b>спокій</b></td><td>аркуш із рядками, міткою й печаткою</td><td>документ видно раніше, ніж прочитано підпис</td></tr>
 <tr><td><b>наведення</b></td><td>край бере акцент, аркуш підіймається на 2px</td><td>той самий підйом, що в картки товару й плитки цілі: це те, що можна відкрити</td></tr>
 <tr><td><b>фокус</b></td><td><b>кільце браузера</b>, синє <code>rgb(0, 95, 204)</code></td><td>заміряно натисканням Tab, <code>:focus-visible</code> справді збігся. Своє кільце система оголошує й тут не використовує - відкрите питання</td></tr>
-<tr><td><b>сертифіката немає</b></td><td><b>немає стану</b></td><td>у товару без документа блок довіри все одно обіцяє його. Записано нижче</td></tr>
-</tbody></table></div></section>
+<tr><td><b><code>.certthumb--pending</code></b></td><td>пунктирний край, <b>без мітки «PDF», без печатки, без підйому</b></td><td>документа на партію ще немає. Аркуш лишається аркушем, але нічого не обіцяє: ні файлу, ні натиску</td></tr>
+</tbody></table></div>
+<div class="kp-demo">
+  <div class="certbox">
+    <span class="certthumb certthumb--pending" aria-hidden="true"></span>
+    <div>Документа на цю партію ще немає. Ми запитали його у постачальника - щойно отримаємо, він з'явиться тут.</div>
+  </div>
+</div>
+<div class="kp-cap">той самий <code>.certbox</code>, і рівно чотири відмінності. Аркуш це <code>&lt;span&gt;</code>, а не <code>&lt;a&gt;</code>: <b>без href, без ролі, без табостопу</b>. Мітка «PDF» і підйом на 2px не зникли - вони переїхали на <code>a.certthumb</code>, тобто на тег, який справді щось відкриває, тож сюди просто не дотягуються. Печатки немає, бо її ставить <code>uivPdp()</code>, а ця розмітка її не просить. Наведіть курсор на обидва аркуші на цій сторінці: верхній підіймається, цей ні</div>
+<p class="kp-p"><b>Це 7.72, дослівно.</b> «Роль - це обіцянка про те, що робить контрол», і тоді дванадцять мініатюр галереї оголошували <code>button</code> клавіатурі, яка не могла до них дійти. Тут та сама помилка на поверх вище: аркуш із печаткою й міткою типу файлу - це обіцянка «є що відкрити», і зробити її там, де відкривати нічого, означає намалювати саме ту підробку, від якої початківець боронився. Заміряно перед тим, як вирішувати: <code>.certthumb</code> рендериться в кольорі <b>3</b> рази - <code>product</code>, <code>product-coach</code>, <code>product-reviews</code> - і всі <b>3</b> це <code>&lt;a href="content-guarantee.html"&gt;</code>. Жодного голого блока, тому перенос на <code>a.certthumb</code> нічого не зачепив: коробка 104x138, мітка 10px IBM Plex Mono зліва 14 / знизу 14, край 1px - однаково до сотої.</p>
+<p class="kp-p">Пунктир - <b>не нова ідея, а власний знак системи</b>: на стенді порожнього стану записано, що пунктир каже «тут МАЄ бути вміст», а суцільна казала б «це блок». Різниця між «документа ще немає» і «місця під документ немає» - рівно ця. Рядки паперу лишились: коробка мусить читатись як аркуш, а обведення без нічого всередині не каже нічого.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
-<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Документ показують, а не описують.</b> Аркуш із печаткою каже «є що відкрити» за півсекунди; речення поруч уточнює, що саме. Порядок такий, а не навпаки.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не малюй печатку там, де документа немає.</b> Знак довіри без файлу за ним - це рівно та підробка, від якої початківець і боронився. Стан «сертифіката на партію немає» мусить існувати раніше, ніж цей блок піде в продакшн.</div></div></section>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Документ показують, а не описують.</b> Аркуш із печаткою каже «є що відкрити» за півсекунди; речення поруч уточнює, що саме. Порядок такий, а не навпаки.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не малюй печатку там, де документа немає.</b> Знак довіри без файлу за ним - це рівно та підробка, від якої початківець і боронився. Стан «сертифіката на партію немає» тепер існує - <code>.certthumb--pending</code>, вище: печатки немає, мітки типу файлу немає, натиснути нема на що.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>2</b> власні класи і <b>1</b> стан.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власні класи і <b>2</b> стани.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["certbox","certthumb"], KIT_STS=[":hover"];</script></section>
+<script>var KIT_CLS=["certbox","certthumb","certthumb--pending"], KIT_STS=[":hover", ".certthumb--pending"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>cert-thumb.css</code>: <b>6</b> семантичних ролей і <b>10</b> примітивів.</p>
@@ -100,7 +109,6 @@
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
 <div class="kp-gap"><h4>Чого бракує</h4><ul>
-<li><b>Стан «сертифіката немає»</b> - блок довіри обіцяє документ незалежно від того, чи він є</li>
 <li><b>Кілька документів</b> - <code>.certbox</code> це флекс із переносом, тобто на кілька аркушів розраховували, але другого в коді немає жодного разу</li>
 <li><b>Своє кільце фокуса</b> - мініатюра бере браузерне, як і <code>.relbox</code> та <code>.brandbox</code>. Питання відкрите</li>
 <li><b>«Детальніше» в <code>order-row.css</code></b> - слово інтерфейсу в таблиці стилів. Крок 6</li>
@@ -114,9 +122,15 @@
 /* the shield seal is put on by `uivPdp()`, whose root is `main.wf-page` while a stand
    is `main.kp-main` - the wall `spec-table.html`, `trust-strip.html` and
    `desc-block.html` all describe. One line repeated, from the same `uivIconSvg()`
-   the product calls, so the stand shows the component and not a picture of it. */
+   the product calls, so the stand shows the component and not a picture of it.
+
+   `a.certthumb` and not `.certthumb`: the pending sheet further down the page is a
+   `<span>`, and a seal on it would be the one thing this component's anti-rule
+   forbids. Document order would have spared it anyway - `querySelector` takes the
+   first - but a demo that is correct by accident stops being correct the moment
+   somebody reorders two sections. */
 (function(){
-  var cert = document.querySelector('.certthumb');
+  var cert = document.querySelector('a.certthumb');
   if(cert && !cert.querySelector('.uiv-seal') && typeof uivIconSvg === 'function'){
     var seal = document.createElement('span');
     seal.className = 'uiv-seal';

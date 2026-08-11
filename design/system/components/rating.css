@@ -101,6 +101,54 @@
 .rvbig .starrow{ display: inline-flex; gap: var(--space-2); margin-bottom: var(--space-4); }
 .rvbig .starrow .uiv-star svg{ width: 18px; height: 18px; }
 
+/* ---------- what the summary shows when it has nothing to summarise ---------
+   Step 8.16, and the answer is that it shows NOTHING: with zero reviews the
+   summary is not drawn at all. `architecture.md` C has carried the row «no
+   reviews yet | product-reviews.html | the rating summary has nothing to
+   summarise» since the pass began, and it has to be answered HERE, because both
+   things such a block would have to fake are this file's - the figure and the
+   five-star row. Three placeholders were considered and all three are worse
+   than the absence.
+
+   NOT `0.0`. A rating of zero is a claim about the product and it is false:
+   nobody rated it badly, nobody rated it at all. It also sorts and compares as
+   a real number the first time anything reads it.
+
+   NOT A DASH AT 50px. The family already HAS an answer for «no rating yet» and
+   it ships on six screens - `★ - · новинка`: the mark kept, the figure replaced
+   by the no-value mark, the count replaced by a word. That works in a 12px row
+   inside a card carrying five other facts, where the dash is one small missing
+   value among many. `.rvbig .n` is 50px of display face and it is the only
+   thing in its block, so a 50px dash is not a missing value - it is a headline
+   that says nothing, set at the size the block uses to say something. Same
+   answer, different scale, different meaning: the row keeps its dash and the
+   summary does not get one.
+
+   NOT FIVE HOLLOW STARS, and this was the closest call. `--mark-inactive` is
+   declared eight lines below and pointing `.rvbig .starrow` at it would cost
+   one declaration. It is still wrong: five unfilled stars is what every rating
+   control on earth draws for «0 of 5», including this file's own picker at
+   rest, so the one shape that means «no opinion given» is spelled exactly like
+   the worst opinion available. The stand's anti-rule already says «не малюй
+   п'ять зірок замість цифри»; drawing five to mean «no figure» is that rule
+   with its meaning turned round.
+
+   THE FIGURE'S OWN REASON IS WHAT DECIDES IT. The block above sets this number
+   in mono because it is COMPARED between cards and a proportional face moves
+   the decimal point from row to row. Comparison is the whole job. With no
+   reviews nothing compares, so there is no job - and a slot held open by a
+   placeholder is a slot that still asks to be compared.
+
+   WHAT STANDS THERE INSTEAD is one `.emptybox.mini` from empty-state.css with
+   voice's two decided lines and the page's existing «＋ Залишити відгук»
+   button moved into its `.eact`; review-item.css records the block half, since
+   `.rvbig` and `.rvbars` are its names. THIS FILE ADDS NOTHING - no rule, no
+   token, no name - and that is the finding rather than the lack of one, the
+   same shape `pagination.css` reached at 8.15 when «the last page needs no css
+   at all» turned out to be the answer and not the excuse. The state is live on
+   design/kit/rating.html, because a state that exists only as prose is the
+   habit these stands were built to break. */
+
 /* ---------- the picker: the one rating you can press ------------------------
    Moved out of review-modal.css at 7.27. A control that sets a rating is the
    rating's own business - the modal only decides where it stands, the same

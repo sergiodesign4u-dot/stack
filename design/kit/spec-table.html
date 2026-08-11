@@ -110,7 +110,20 @@
 <tr><td><b>наведення</b></td><td><b>немає, і це відмова</b></td><td>у таблиці немає цілей: жодна клітинка не клікається. Підсвітити рядок означало б пообіцяти дію, якої немає</td></tr>
 <tr><td><b>зебра</b></td><td><code>.spectbl tr:nth-child(odd)</code> - <code>--bg-surface</code></td><td>дев'ять рядків по два стовпці читаються впоперек, і смуга веде око краще за лінію</td></tr>
 <tr><td><b>без JS</b></td><td><code>.pl-hw .pl-ic:empty</code> малює рамку 26x26</td><td>іконки «як приймати» ставить <code>_nav.js</code>. Сьогодні порожніх нуль - але правило не мертве, це запасний шлях</td></tr>
-</tbody></table></div></section>
+<tr><td><b><code>.specempty</code></b></td><td>замість таблиці - порожній стан на всю секцію</td><td>склад не заповнений. Мовчання не перевіряється, а порожній склад у цьому магазині - не порожнеча, а сигнал</td></tr>
+</tbody></table></div>
+<div class="kp-demo">
+  <div class="emptybox specempty">
+    <div class="ei"></div>
+    <div class="et">Склад ще не отримано</div>
+    <div class="es">Ми не публікуємо склад із чужих джерел. Щойно виробник надішле офіційні дані - вони з'являться тут.</div>
+  </div>
+</div>
+<div class="kp-cap">атом порожнього стану цілком, без другої редакції: рамка, поверхня, радіус, дисплейна гарнітура <code>.et</code> і вторинний колір <code>.es</code> - усе це вже намальовано в <code>empty-state.css</code>. Звідси - рівно одне оголошення, <code>.emptybox.specempty .es{ margin-bottom: 0 }</code>. Значок - <code>clock</code>, а не <code>doc</code>: у наборі всередині <code>doc</code> намальована <b>галочка</b>, а перевіреного документа тут якраз і немає</div>
+<p class="kp-p"><b>Який із трьох розмірів, і перший доказ довелось відкликати.</b> <code>.empty</code> - на цілий екран, з портретом і рядом виходів; <code>.emptybox.mini</code> - усередині картки кабінету; <code>.emptybox</code> без модифікатора - між ними. Спершу взято <code>.emptybox</code> тому, що він ближчий за висотою до таблиці, яку заміщає. Потім стан зібрали й заміряли зі значком на місці, на 390: таблиця <b>212.94</b>, <code>.emptybox</code> <b>243.97</b>, <code>.mini</code> <b>209.16</b>. <b>Ближчий якраз <code>.mini</code>, на 27px.</b> Довід закреслено, а не перенацілено тихцем, - і доводом він не був ніколи: висота цієї таблиці це <b>дані</b>, чотири рядки в цього товару, а склад на дванадцять рядків перевалить за 400 і не збіжиться з жодним.</p>
+<p class="kp-p"><b>Вирішує робота, а вона з даними не міняється.</b> Три розміри - це шкала обсягу: екран, секція, картка. Ця коробка - увесь вміст вкладки «Склад». Записка розміром з картку, сама посеред порожньої вкладки, читається як примітка ні до чого, а <code>.et</code> на 18 замість 16 - саме та сходинка, якою система говорить від імені секції. І це той розмір, якого кольоровий шар не малював жодного разу - усі <b>3</b> екземпляри в продукті це <code>.mini</code>, - тобто половина, яку стенд порожнього стану записав як таку, що чекає.</p>
+<p class="kp-p"><b>Виходів немає навмисно, і це не глухий кут.</b> В усіх інших порожніх станах за реченням іде ряд <code>.eact</code>, і саме заради нього <code>.es</code> носить <code>margin-bottom: 16</code>. Тут за ним не йде нічого: порожня <b>секція</b>, а не екран, - галерея, ціна, кнопка купівлі й смуга довіри нікуди не поділись. Без правки коробка виходить кривою рівно на ці 16px: заміряно на 390, <b>47</b> від верхнього краю до значка проти <b>63</b> від останнього рядка до нижнього, висота <b>259.97</b>. З правкою - <b>47</b> проти <b>47</b> і <b>243.97</b>.</p>
+<div class="kp-gap"><h4>Чому <code>.emptybox.specempty</code>, а не <code>.specempty</code></h4><b>Це не звичка, а єдина вага, яка працює.</b> <code>.emptybox.mini .es</code> задає ту саму властивість із вагою (0,3,0), тож голий <code>.specempty .es</code> з (0,2,0) їй <b>програє</b>. Заміряно: з <code>.mini</code> коробка виходила 209.16 і з правилом, і без нього - виправлення мовчки не робило нічого. Однакова вага плюс місце нижче в <code>index.css</code> (рядок 66 проти 51 в empty-state) вирішують це в обох редакціях.</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Вісь</th><th>Значення</th><th>Правило вибору</th></tr></thead><tbody>
@@ -126,9 +139,9 @@
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Цифра має бути звіряною.</b> Те, що надруковано на упаковці, і те, що написано на сторінці, - одні й ті самі числа в однаковому вигляді. Саме тому макет етикетки стоїть під таблицею, а не замість неї.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не позначай цифру позицією.</b> <code>td:nth-child(2)</code> означає «моноширинна там, де сьогодні число». Додайте колонку - і правило почне фарбувати слова.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>22</b> власних класи і <b>3</b> стани оголошено в <code>spec-table.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>23</b> власних класи і <b>4</b> стани оголошено в <code>spec-table.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["ctable","fullcomp","allerg","algic","algv","spectbl","packlabel","pl-panel","pl-facts","pl-h","pl-serv","pl-cal","pl-t","pl-note","pl-right","pl-how","pl-hw","pl-ic","pl-ing","pl-alg","pl-foot","pl-mark"], KIT_STS=[":empty", "nth-child(odd)", "720px"];</script>
+<script>var KIT_CLS=["ctable","fullcomp","allerg","algic","algv","spectbl","packlabel","pl-panel","pl-facts","pl-h","pl-serv","pl-cal","pl-t","pl-note","pl-right","pl-how","pl-hw","pl-ic","pl-ing","pl-alg","pl-foot","pl-mark","specempty"], KIT_STS=[":empty", "nth-child(odd)", "720px", ".specempty"];</script>
 <p class="kp-p">Цей контроль уже вдруге пересунув клас між файлами: на 7.43 він відправив <code>.packlabel</code> сюди з <code>product-card.css</code>, а на цьому кроці - <code>.dl</code> / <code>.dk</code> / <code>.dv</code> звідси в <code>order-row.css</code>. Заміряно: <b>19 екземплярів, усі на <code>account-orders.html</code></b> у панелі деталей замовлення, і <b>0</b> на сторінці товару.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
@@ -155,7 +168,6 @@
 <li><b>Два сірих у заголовків таблиць</b>: <code>.ctable th</code> бере <code>--text-muted</code>, <code>.pl-t th</code> - <code>--text-secondary</code>, при однакових 12px, 700, капсі й <code>--ls-caps</code>. По одному читачу в кожного, більшості немає - тож це рішення про значення, а не привід його вигадати</li>
 <li><b><code>word-spacing</code>: чотири значення в 11 файлах</b> - див. вище</li>
 <li><b>Три способи позначити цифру</b> - за колонкою, за розміткою, за позицією. Звести їх означає домовитись, як пишеться розмітка</li>
-<li><b>Немає стану «даних немає»</b> - якщо в товару не заповнений склад, таблиця просто не рендериться, і сторінка про це не каже нічого. Для продукту, у якого довіра - принцип 1, порожній склад це не порожнеча, а сигнал</li>
 <li><b>Файл тримає чотири різні речі</b>: три таблиці й макет упаковки на 30+ правил. Той самий вид, що банер. Розбити - Крок 6</li>
 </ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
@@ -222,6 +234,14 @@ uivChrome();
     var ic = document.querySelectorAll('.pl-hw .pl-ic')[i];
     if (ic && !ic.firstChild) ic.innerHTML = uivWrap(key);
   });
+  /* the empty state's mark. `clock` and not `doc`, and the reason is on the page:
+     the set's `doc` glyph has a CHECK drawn inside it, and a checked document is a
+     claim of verification - the exact claim this state exists to stop making. Both
+     keys are in `design/system/icons.js`; nothing is added to the set here. The
+     emoji route (`uivIcons`) cannot deliver this one - `UIV_EMOJI` has no row for a
+     clock - so the stand asks `uivWrap()` directly, as it already does above. */
+  var sei = document.querySelector('.specempty .ei');
+  if (sei && !sei.firstChild) sei.innerHTML = uivWrap('clock');
 })();
 </script>
 <script src="_nav.js"></script>

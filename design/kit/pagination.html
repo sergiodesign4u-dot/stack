@@ -95,16 +95,42 @@
 <tr><td><b>межа поточної</b></td><td><code>--line-action</code></td><td><code>button.css</code>, з 7.77</td></tr>
 <tr><td><b>наведення</b></td><td>межа бере акцент</td><td>фініш</td></tr>
 <tr><td><b>фокус</b></td><td>кільце <code>--ring-focus-control</code></td><td>фініш, <code>:focus-visible</code></td></tr>
-<tr><td><b>остання сторінка</b></td><td><b>немає</b>: стрілка «далі» не вимикається</td><td>ніде. Записано нижче</td></tr>
-</tbody></table></div></section>
+<tr><td><b>остання сторінка</b></td><td>стрілка «далі» вимкнена: блідий знак, курсор «не можна», натиск не проходить</td><td><code>button.css</code>, вимкнений стан + <code>pointer-events</code> звідси</td></tr>
+<tr><td><b>«Показати ще» вантажить</b></td><td><code>aria-busy</code>: коробка не рухається, змінюється лише напис</td><td><b>цей файл</b> - курсор; напис із мікрокопі</td></tr>
+<tr><td><b>кінець списку</b></td><td>кнопки немає, замість неї нотатка; номери лишаються</td><td><code>empty-state.css</code>, <code>.loadnote</code></td></tr>
+</tbody></table></div>
+
+<div class="kp-demo"><div class="kp-lbl">Остання сторінка · четверта з чотирьох</div>
+  <nav class="pgnav" aria-label="Пагінація">
+    <div class="pages">
+      <a class="btn--outline btn--icon btn--s" href="#">1</a>
+      <a class="btn--outline btn--icon btn--s" href="#">2</a>
+      <a class="btn--outline btn--icon btn--s" href="#">3</a>
+      <a class="btn--outline btn--icon btn--s on" href="#" aria-current="page">4</a>
+      <span class="btn--outline btn--icon btn--s" aria-disabled="true" aria-label="Наступна сторінка">›</span>
+    </div>
+  </nav>
+</div>
+<div class="kp-cap">порівняйте зі стрілкою в «Анатомії» вище: там вона натискається, тут ні. Знак блідне до <code>--mark-disabled</code>, курсор стає «не можна», а <code>pointer-events</code> знімає натиск - <b>і жодного нового оголошення вигляду це не коштувало</b>. Вимкнений стан лежав у <code>button.css</code> з кроку 7.61 і чекав на розмітку, яка його попросить</div>
+<div class="kp-demo"><div class="kp-lbl">«Показати ще» · три моменти одного контрола</div>
+  <div class="kp-row" style="flex-direction:column;gap:16px;align-items:center">
+    <button class="btn--outline loadmore" type="button">Показати ще 24 (з 84)</button>
+    <button class="btn--outline loadmore" type="button" aria-busy="true">Завантажуємо товари…</button>
+    <div class="loadnote">Це всі товари категорії</div>
+  </div>
+</div>
+<div class="kp-cap">спокій, вантажить, кінець. <b>Коробка не рухається між першим і другим</b> - <code>aria-busy</code> не чіпає ні розмір, ні фініш, змінюється тільки напис, бо контрол, який змінює розмір під пальцем, зсуває список під ним. «Завантажуємо…» - канон зводу мікрокопі, а не нове слово</div>
+<div class="kp-cap"><b>Кінець списку - це не вимкнена кнопка.</b> Мертвий контрол запрошує натиснути й нічого не відповідає. Тут кнопка зникає зовсім, а на її місце стає <code>.loadnote</code> з <code>empty-state.css</code> - атом, який уже існує саме для рядка тексту під списком. Номери сторінок під нею лишаються робочими, і це єдине прочитання, яке слухається правила «ніколи глухий кут»: список закінчився, навігація ні</div>
+
+<div class="kp-cap"><b>Чому <code>&lt;span&gt;</code>, а не <code>&lt;a&gt;</code> без <code>href</code>.</b> Посилання без адреси все одно лишається в дереві читача посиланням, і його все одно оголосять як ціль. Тут цілі немає взагалі, тож і елемент не вдає, що вона є. <code>aria-disabled</code> - це те, що чує читач з екрана; <code>pointer-events</code> - те, що відчуває палець. Потрібні обидва: перше без другого лишає натиск робочим, друге без першого мовчить</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Кнопка каже, скільки лишилось.</b> «Показати ще 24 (з 84)» - людина бачить і крок, і кінець. Це та сама чесність, що й лічильники в рейці фільтрів: натискають упевнено, коли видно, що буде далі.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби нескінченну стрічку без номерів.</b> На третій сторінці нема куди повернутись, нема що надіслати і нема що проіндексувати. Догортування - зручність, номери - адреса; прибирати треба не друге.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власні класи, <b>1</b> стан.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>5</b> власних класів і <b>3</b> стани. Крок 8.15 додав два класи (<code>.loadmore</code> нарешті з правилом, <code>.loadnote</code> позиченим у <code>empty-state.css</code>) і два стани.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["on","pages","pgnav"], KIT_STS=[".on"];</script></section>
+<script>var KIT_CLS=["on","pages","pgnav","loadmore","loadnote"], KIT_STS=[".on","aria-disabled","aria-busy"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>pagination.css</code>: <b>2</b> семантичні ролі і <b>3</b> примітиви.</p>
@@ -117,11 +143,9 @@
 
 <section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
 <div class="kp-gap"><h4>Чого бракує</h4><ul>
-<li><b>Стан «остання сторінка»</b> - стрілка «далі» на четвертій сторінці виглядає так само, як на першій, і натискається</li>
 <li><b>Розрив у довгому списку</b> - показані номери 1-4, а сторінок 84 / 24 = чотири. При більшому каталозі потрібне «1 2 3 … 12», і такого стану немає</li>
-<li><b>«Показати ще» після натиску</b> - ні стану завантаження, ні стану «більше немає»</li>
 <li><b>Перейменування <code>.on</code></b> - один клас на два значення: «увімкнено» на перемикачі й «ви тут» на пагінаторі. Крок 6, після етапу 09</li>
-<li><b><code>.loadmore</code> без жодного правила</b> - той самий випадок, що <code>.pd-block</code> у блоці опису: клас у розмітці, нуль оголошень у системі</li>
+<li><b><code>.loadmore</code> майже без правил</b> - крок 8.15 дав йому <b>одне</b>, і те про курсор під час <code>aria-busy</code>. Вигляд і далі цілком <code>btn--outline</code>, і це правильно; але клас, у якого одне оголошення, все ще кандидат на те, щоб бути атрибутом, а не класом. Крок 6</li>
 </ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 </main>

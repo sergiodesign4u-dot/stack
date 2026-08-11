@@ -137,3 +137,73 @@
   box-shadow: var(--ring-focus-control);
   border-radius: var(--radius-4);
 }
+
+/* ---------- the native box takes the atom's look - step 8.12 -----------------
+   TWO MECHANISMS, ONE SHAPE, AND THE OWNER PICKED THE SHAPE. Read out of the
+   runtime DOM across all 51 coloured screens: **351 `span.cb`** against **5 real
+   `<input type="checkbox">`** - three in the address dialog, one in the profile
+   delete confirmation, one on `coach-verify` - and those five drew the operating
+   system's box, in the system's blue, on three screens of a product that has one
+   accent colour. `architecture.md` E called it «a decision, not a defect» and
+   `coach-verify.css:496` narrowed it further: «the coloured copy has a markup
+   question to answer, not a css one». The owner answered: `span.cb` is canonical.
+
+   AND THE ANSWER IS STILL CSS, WHICH IS THE INTERESTING PART. «Canonical» is
+   about what a person SEES, and there are two ways to get there:
+
+   1. Delete the five inputs and build `span.cb` in their place. This is what the
+      decision literally says, and it breaks two things. `wireframes/_nav.js`
+      writes four of the five, and that layer is FROZEN after stage 05 - so the
+      colour layer would have to unbuild and rebuild them in script, which is the
+      `uivAddrPaint` shape and is fine. What is not fine: `#pf-del-ok` carries
+      `onchange="...disabled=!this.checked"`, the only thing that enables «Видалити
+      акаунт». Replace the input and that button is disabled forever, on a screen
+      whose whole job is that one irreversible action. A conversion that silently
+      bricks a destructive confirmation is not a look decision.
+   2. Give the native box this atom's look. One rule, no markup, no script, and
+      the control keeps everything a real input has that `span.cb` had to be given
+      by hand in `design/_nav.js` - focus, Space, the accessibility tree, and its
+      own `onchange`. On the a11y ledger this is the BETTER of the two: the five
+      keep semantics the 351 are simulating.
+
+   So the product gets one look on 356 boxes, and where a real control exists it
+   stays a real control. `appearance: none` is what makes the UA stop painting;
+   everything under it is this file's own square, restated for `:checked` because
+   an input has no `.on` class to carry.
+
+   MEASURED, before -> after, at 390: the address dialog's box 13.02 x 13.02 ->
+   18 x 18, `accent-color` blue -> `--bg-action`, and the dialog's own height
+   unchanged. The tick renders: `::after` on an `appearance: none` checkbox is
+   drawn in this engine - checked in the browser rather than assumed, because a
+   replaced element that ignores generated content would have left five empty
+   orange squares and no error anywhere. */
+input[type="checkbox"]{
+  appearance: none; -webkit-appearance: none;
+  width: 18px; height: 18px;
+  flex: none;
+  margin: 0;
+  display: inline-block;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-4);
+  background: var(--bg-page);
+  transition: border-color .15s ease, background .15s ease;
+}
+input[type="checkbox"]:checked{ position: relative; background: var(--bg-action); border-color: var(--line-action); }
+input[type="checkbox"]:checked::after{
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 5px; height: 9px;
+  border: solid var(--line-onink);
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%,-58%) rotate(45deg);
+  font-size: 0;
+}
+/* the row answers the press and carries the ring, exactly as `.fopt` and
+   `.optin` do - the label is the control here too. */
+label:has(> input[type="checkbox"]):hover input[type="checkbox"]{ border-color: var(--line-action); }
+input[type="checkbox"]:focus-visible{
+  outline: none;
+  box-shadow: var(--ring-focus-control);
+}

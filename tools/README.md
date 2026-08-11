@@ -78,6 +78,27 @@ Numbers say a box is 44 tall. Only a picture says the pill still sits beside the
 word - the defect a whole step of correct measurements missed once, when a margin
 was deleted and every number still read right.
 
+**It has returned blank white paper for four different reasons**, and every one of
+them looked identical: a valid PNG of the right size, no error, nothing to
+suggest the target was missed. They are all fixed and all written into the file,
+because the failure mode is silent and the next cause will look the same:
+
+1. **Viewport rect, page clip.** `Page.captureScreenshot` clips in page
+   coordinates; `getBoundingClientRect()` after a scroll is neither.
+2. **`captureBeyondViewport` missing.** A clip outside the current viewport is
+   simply not painted without it.
+3. **The animation freeze.** `cdp.mjs` pins every animation at frame zero on
+   purpose, and a page that fades its sections in has `opacity: 0` there. On
+   `voice/microcopy.html` five elements carry `fadeUp`; the `<h1>` inside them
+   computes opacity 1 and still photographs as white, because the transparent
+   thing is its ancestor. A screenshot wants the settled page, so the animation is
+   removed after the census expression has run.
+4. **Where the file lives, guessed twice.** First `design/<name>.html` was
+   hard-coded, so `voice/microcopy` resolved to a file that does not exist. The
+   fix - "a name with a slash is a path from the root" - then broke
+   `kit/pagination`, which had worked all session because it *is* under design/.
+   It asks the filesystem now. *Two guesses about where a file lives, two wrong.*
+
 ## `cdp.mjs` - the driver, and `lib.mjs` - the plumbing
 
 `cdp.mjs` launches headless Chrome and walks pages. Three things in it are not

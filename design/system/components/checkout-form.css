@@ -11,7 +11,22 @@
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .pfcard{ border: 1px solid var(--line-hair); padding: var(--space-16); margin-top: var(--space-16); max-width: 620px; }
 .pf-lbl{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; }
-.pf-row{ display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); margin-top: var(--space-8); }
+/* 8.14 - THE ROW WRAPS, AND A CLONE IS WHAT SHOWED IT. `.pf-act` is `nowrap` by
+   the line below - correct, an action is not a paragraph - and this row was
+   `nowrap` by omission: no `flex-wrap`, so a value and an action that cannot
+   share 358px simply pushed the page. Measured at 390 on
+   `account-profile-withemail`: «Змінити - код на пошту» is 188.5 wide with its
+   right edge at 441.1, and the document ran 51px past the viewport.
+   THE SCREEN THAT SHOWED IT IS NOT THE SCREEN WITH THE DEFECT. `account-profile`
+   says «не додано» and «Додати - код на пошту» and fits; the state where an
+   e-mail HAS been added carries a real address and a longer verb, and that state
+   had no coloured copy until 8.14. Every screen this rule serves has always been
+   one string away from the same overflow.
+   `wrap` and not a width: a row that fits is untouched, because wrap only fires
+   when the line is short of room - which is the same scoping lesson 8.9b paid
+   two defects for, applied before the fact instead of after. Measured after:
+   over 51 -> 0, and the four rows that already fit are unmoved. */
+.pf-row{ display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-12); margin-top: var(--space-8); }
 .pf-val{ font-size: var(--fs-16); font-weight: var(--fw-bold); }
 .pf-val .ok{ font-size: var(--fs-12); font-weight: var(--fw-black); margin-left: var(--space-8); }
 /* step 7.3: no colour here. The text finish is `--text-body` already, and the

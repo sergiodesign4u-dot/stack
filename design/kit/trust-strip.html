@@ -132,7 +132,29 @@
 <tr><td><b><code>[open]</code></b></td><td>стрілка на 180°, під заголовком волосяна лінія</td><td>лінія з'являється тільки коли є що відділяти</td></tr>
 <tr><td><b><code>.more</code></b></td><td>мініатюра без фото, «+N» моноширинним</td><td>третя і далі позиції кошика не показуються поштучно: полиця нагадує, а не перелічує</td></tr>
 <tr><td><b>натискання</b></td><td><b>немає власного</b></td><td>плитка й заголовок віддають натиск атомам усередині; окремий стан тут дублював би посилання</td></tr>
-</tbody></table></div></section>
+<tr><td><b><code>.tsx--unproven</code></b></td><td>другий рядок каже «на цю партію - уточнюємо», <b>наведення не спрацьовує</b></td><td>сертифіката на партію ще немає. Смуга не знімає обіцянку - вона перестає вдавати, що вже її довела</td></tr>
+</tbody></table></div>
+<div class="kp-demo">
+  <div class="truststrip" id="demo-unproven">
+    <div class="tsx"><b>Оригінал + гарантія</b><span>офіційний імпорт</span></div>
+    <div class="tsx tsx--unproven"><b>Сертифікат</b><span>на цю партію - уточнюємо</span></div>
+    <div class="tsx"><b>Доставка НП</b><span>1-2 дні по Україні</span></div>
+    <div class="tsx"><b>Повернення</b><span>14 днів</span></div>
+  </div>
+  <details class="trustsec" open>
+    <summary>Сертифікація <span class="chev">▾</span></summary>
+    <div class="tsb">
+      <div class="certbox">
+        <span class="certthumb certthumb--pending" aria-hidden="true"></span>
+        <div>Документа на цю партію ще немає. Ми запитали його у постачальника - щойно отримаємо, він з'явиться тут.</div>
+      </div>
+    </div>
+  </details>
+</div>
+<div class="kp-cap">проведіть курсором по всіх чотирьох плитках: три підіймають іконку на 2px і фарбують її в акцент, друга не робить нічого. Це <b>єдине</b>, що тут малює css - решта стану це слова</div>
+<p class="kp-p"><b>Чому «Сертифікат» лишився, а змінився тільки другий рядок.</b> <code>voice/docs/voice.md:257</code> забороняє недоведений claim поіменно - «сертифіковано» гаслом, без файлу - і ставить поруч нашу відмінність: <b>доводити, а не заявляти</b>. Плитка, яка каже «переглянути» там, де переглядати нічого, це рівно такий claim. Обіцянка магазину не змінилась, змінилось те, що він може показати сьогодні, і рядок каже саме це.</p>
+<p class="kp-p"><b>Наведення знято обсягом, а не перекриттям, і це 7.72:</b> «роль - це обіцянка про те, що робить контрол». Заміряно перед правкою: <code>.tsx</code> це <code>&lt;div&gt;</code> на всіх <b>3</b> кольорових екранах зі смугою - <b>12</b> плиток, <b>0</b> посилань, - а на наведення плитка бере <code>--bg-onphoto</code>, іконка йде вгору на 2px і в акцент. Там, де за нею документ, підйом хоча б вказує на щось справжнє; на «уточнюємо» за ним нема нічого. Тому в двох правил наведення дописано <code>:not(.tsx--unproven)</code> - <b>жодного нового оголошення</b>, і дванадцять доведених плиток не зрушили: 290 x 66.38 плитка, 38 x 38 коробка іконки, 308 x 283.5 смуга на 390, до сотої.</p>
+<div class="kp-gap"><h4>Що лишилось і належить не цьому файлу</h4><b>Значок другої плитки досі <code>doc</code> - аркуш із галочкою всередині.</b> Галочка це знак перевірки, а перевіреного документа тут якраз немає. Порядок значків <code>shield · doc · truck · ret</code> ставить <code>uivPdp()</code> в <code>design/_nav.js</code>, а не таблиця стилів, тож у цьому кроці його не чіпано й не домальовано наперед: демо вище показує рівно те, що поставив би продукт.</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
 <p class="kp-p">Смуга - на сторінці товару, під ціною і перед складом. Рівно чотири сигнали: п'ятий на 360 дає п'ятий екран прокрутки, а сумнів знімає перший, не останній. Не на лістингу - там довіру несе картка. Не в кошику - там людина вже вирішила.</p>
@@ -142,9 +164,9 @@
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Кожен сигнал перевіряється.</b> «Сертифікат» веде в документ, «доставка» називає строк, «повернення» - кількість днів. Смуга з чотирьох слів без наслідків - це декор, а не довіра.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не додавайте п'яту плитку і не робіть її яскравою.</b> Помаранчевий тут заборонений: смуга знімає сумнів, а не продає, і принцип 4 не дозволяє їй кричати.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>18</b> власних класів і <b>3</b> стани оголошено в <code>trust-strip.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. <code>.uiv-bearwrap</code> у списку немає навмисно: він у демо рендериться, але оголошений не тут, і саме тому стоїть нижче в переліку прогалин.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>19</b> власних класів і <b>4</b> стани оголошено в <code>trust-strip.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. <code>.uiv-bearwrap</code> у списку немає навмисно: він у демо рендериться, але оголошений не тут, і саме тому стоїть нижче в переліку прогалин.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["truststrip","tsx","trustsec","tsb","chev","uiv-trustbear","uiv-seal","cshelf","cs-ico","cs-tx","cs-h","cs-s","cs-thumbs","cs-th","q","more","cs-sp","cs-act"], KIT_STS=[":hover", "[open]", ".more"];</script></section>
+<script>var KIT_CLS=["truststrip","tsx","tsx--unproven","trustsec","tsb","chev","uiv-trustbear","uiv-seal","cshelf","cs-ico","cs-tx","cs-h","cs-s","cs-thumbs","cs-th","q","more","cs-sp","cs-act"], KIT_STS=[":hover", "[open]", ".more", ".tsx--unproven"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>trust-strip.css</code>, не переписані руками: <b>15</b> семантичних ролей і <b>29</b> примітивів. Колір іде лише через роль, геометрія - напряму з примітива.</p>
@@ -169,7 +191,6 @@
 <li><b>Полиця кошика лежить не у своєму файлі.</b> <code>.cshelf</code> це блок головної, а не сигнал довіри: 11 селекторів, один екран, <code>home-cart</code>. За логікою 7.44 його місце в <code>banner.css</code>, який уже названо таблицею стилів головної. Знайдено, не рухано: це рішення, а не наслідок цього кроку</li>
 <li><b>Обгортка ведмедя оголошена в чужому файлі.</b> <code>.uiv-bearwrap</code> має рівно одного виробника - <code>design/_nav.js:997</code>, який чіпляє його до <code>.truststrip</code>, а два його правила стоять у <code>empty-state.css</code>. Той самий клас питання, що <code>.packlabel</code> на 7.43 і <code>.dl/.dk/.dv</code> на 7.46</li>
 <li><b>Розміри гліфів літералами.</b> 23px в іконки смуги вище 480, 22px у візка полиці, 17px у печатки - три числа повз шкалу <code>--size-*</code>, якою користується решта файлу</li>
-<li><b>Немає стану «сигнал не підтверджено»</b> - якщо сертифіката на партію немає, смуга однаково скаже «Сертифікат». Це питання до IA й до мікрокопії, не до CSS</li>
 </ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 </main>
@@ -186,10 +207,13 @@
 <script>
 (function(){
   var tsIcons = ['shield', 'doc', 'truck', 'ret'];
-  document.querySelectorAll('#demo-strip .tsx').forEach(function(tc, i){
+  /* both strips, and the second one takes the SAME four marks in the same order.
+     A stand that quietly gave the unproven strip a nicer glyph would be showing
+     something the product cannot render: the order lives in `uivPdp()`. */
+  document.querySelectorAll('#demo-strip .tsx, #demo-unproven .tsx').forEach(function(tc, i){
     if(tc.querySelector('.uiv-ic')) return;
     var s = document.createElement('span');
-    s.innerHTML = uivWrap(tsIcons[i] || 'shield');
+    s.innerHTML = uivWrap(tsIcons[i % 4] || 'shield');
     if(s.firstChild) tc.insertBefore(s.firstChild, tc.firstChild);
   });
   var band = document.getElementById('demo-strip');
@@ -204,7 +228,9 @@
     bwrap.appendChild(bear);
     band.appendChild(bwrap);
   }
-  var cert = document.querySelector('.certthumb');
+  /* `a.certthumb`: the pending sheet in the states section is a `<span>`, and
+     `uivPdp()` would never seal a document that does not exist. */
+  var cert = document.querySelector('a.certthumb');
   if(cert && !cert.querySelector('.uiv-seal')){
     var seal = document.createElement('span');
     seal.className = 'uiv-seal';

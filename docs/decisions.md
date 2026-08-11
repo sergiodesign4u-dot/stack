@@ -2089,3 +2089,393 @@ file has now caught itself making twice in one day.
 zero. `node tools/states.mjs` - no state a pass failed to reach. `node
 tools/crop.mjs` - a picture. All four run from a cold shell with no server, no
 port and no page list given.
+
+---
+
+## Step 8.12 - four owner decisions, and two of them were about the wrong thing
+
+The owner worked the list. Three answers landed as CSS this step; the fourth -
+which of section C's 24 missing states to build - is 14 screens of work and goes
+next. What is worth recording is that **two of the four questions had been asked
+with the wrong cause attached**, and only re-measuring found it.
+
+### A6 - the owner took the measured half and left the taste
+
+Nine boxes frame a product photograph, at eight sizes: 34 / 40 / 46 / 46 / 52 /
+56 / 60 / 70 / 74. A6 said folding them «would be taste, not measurement», and
+the owner agreed: **the eight sizes stay.** What moved is the two things A6
+itself named as measurement.
+
+**`.aord-thumbs .t` and `.rk-ph` were not merely the same size - they were the
+same declaration.** Read out of both files: nine declarations byte for byte,
+plus the same two colour declarations, plus `flex: none` on one. One component
+that was never given a name, which is the third time this stage has found that
+shape - status-pill.css at 7.37, badge.css at 8.10, this now. `product-thumb.css`,
+level 1, beside `cert-thumb.css`. It is a file and not a line in one of the two
+because neither owner outranks the other: an order card's thumb strip and a
+restock nudge have nothing in common except this box, and a rule reaching into a
+component it does not own is the defect `filter-group.css` records by name.
+
+**`.ci-ph` carried `--radius-12` where the other eight carry 8.** Nothing in
+`cart-row.css` or `DESIGN-artifacts.md` ever said why the cart's tile is rounder.
+Measured: 74 x 74 before and after - a radius does not size a box.
+
+`.oh-thumbs i` (34) is the same shape at another size and stays out, with the
+line saying so: the day the ladder is folded it joins by name.
+
+### A9 - one width, not two bands, and the label was never the cause
+
+A9 called this «the only sideways scroll left in the product» and reported two
+bands at 7.64. Re-read across eleven widths: **one width scrolls, 480, by 39px.**
+520 is 0. Third recorded number this session to have quietly expired.
+
+**And the cause A9 named was the wrong one.** It said «the label's own min-content
+is 358 inside a 303px column», which is true and reads as a fact about the label -
+which is how the question reached the owner as «shorter word or wider column».
+Measured:
+
+| width | `.bb` | `.buyrow` | button | min-content | |
+|---|---|---|---|---|---|
+| 440 | 408 | 408 | 408 | 406 | fits |
+| 480 | 448 | **302.92** | 357.84 | 356 | scrolls 39 |
+| 620 | 588 | 442.92 | 378.92 | 377 | fits |
+
+Below 480 `.priceblk` is one column. At 480 it becomes `auto minmax(220px, 1fr)`,
+the 36px price takes ~121 and the gap 24, and the row is handed 303. **The row
+did not shrink - the price took the space.** A correct measurement, read as a
+fact about the wrong element.
+
+Fixed with `.bb .priceblk:has(.oosbtn){ grid-template-columns: 1fr }` under 620,
+and **not** a tuned width: the band depends on how wide the price is, so a
+boundary fitted to «1 290 ₴» would be a value with no reason behind it. `:has()`
+states the condition that matters. Measured after: 480 over=0, and the five
+in-stock product screens keep two columns at every width, byte for byte.
+
+**The word was untouched, and that was the point.** «Повідомити про надходження»
+is locked in `voice.md` in four places including its list of the phrasings that
+are RIGHT. Shortening it was a voice decision wearing a layout costume.
+
+### E - `span.cb` is canonical, and the fix is still CSS
+
+351 `span.cb` against **5** real inputs, not the 2 the sheet recorded - three in
+the address dialog, one in the profile delete confirmation, one on `coach-verify`,
+which `coach-verify.css:496` had already flagged as «a markup question to answer,
+not a css one». All five drew the operating system's blue box.
+
+**Deleting them would have bricked a destructive confirmation.** `#pf-del-ok`
+carries `onchange="...disabled=!this.checked"` - the only thing that enables
+«Видалити акаунт». Four of the five are written by `wireframes/_nav.js`, which is
+frozen, so a markup conversion also means unbuilding and rebuilding in script.
+
+So the native box takes the atom's look: `appearance: none` and this file's own
+square. One look on 356 boxes, and where a real control exists it keeps its focus,
+its Space, its accessibility tree and its handler. **On the a11y ledger the five
+are now the better half** - they have natively what the 351 are given by hand.
+Verified past the transition: 18 x 18, `--radius-4`, white on hairline off,
+`--bg-action` with the drawn 5 x 9 tick on, and `disabled` still goes true -> false.
+
+### Three instruments lied on the way, and the third was a new one
+
+- **A live `CSSStyleDeclaration`.** The first probe read `::after` into a variable,
+  restored `checked = false`, then built its report - by which time the pseudo it
+  described was gone. It printed `autoxauto` through a branch that can only run
+  when the width is not `auto`. Snapshot to strings at read time.
+- **A transition.** The second read the background in the same tick as the click
+  and got the value the transition STARTED from - white - while reporting the tick
+  as already drawn, which is impossible for two rules sharing a selector. An
+  instrument that reads a transitioning property immediately after the event that
+  starts it measures the old value and reports it as the new one.
+- **Hand-typed opener names again.** `openProfDel` is not a function in this
+  product; it is `openProfDelete`. Exactly what `states.mjs` paid three versions to
+  learn, repeated in a throwaway probe an hour after writing that lesson down. The
+  probe now enumerates `^open[A-Z]` at runtime, like the walk does.
+
+### Acceptance
+
+51 screens at 390, 8 at 480 and 4 at 1280: zero failures. 89 stylesheets, comments
+balanced. Three crops read by eye - the OOS buy row at 480, the consent box, the
+restock tile.
+
+---
+
+## Step 8.13 - the census before the build, and section C was wrong about a quarter of its own table
+
+The owner picked 14 of section C's 24 missing states: the dead ends, the far end
+of a list, and the trust signals. The step began by asking what already exists -
+and stopped there, because the answer changed the job.
+
+### `wireframes/` has been drawing these since stage 04
+
+Section C opens: «Twenty-five findings across the pass name a state that no screen
+draws.» Counted in both layers at 8.13:
+
+- **`wireframes/` holds 142 screens and 17 of them are empty states** -
+  `account-orders-empty`, `account-addresses-empty`, `account-wishlist-empty`,
+  `account-loyalty-empty`, `coach-clients-empty`, `coach-home-empty`,
+  `coach-orders-empty`, `coach-session-empty`, `cart-coach-empty`, `goal-empty`,
+  `brands-empty`, `listing-empty`, `search-empty` and four more. With their
+  words, their icon and their exit.
+- **Two of the owner's five dead ends are already drawn in COLOUR** and have been:
+  «nothing matched the filter» and «Знайдено: 0» are both on
+  `design/listing-empty.html`, the second on line 36.
+- **Twenty-five grey states of screens that are ALREADY coloured have no coloured
+  twin** - not just empty states: `-error` and `-loading` for six coach screens,
+  `coach-session-oos`, `coach-client-empty`, and the rest.
+
+**And this table already knew the shape.** Two of its own rows read «exists in
+grey, not in colour» - the loyalty rung and the bonus ledger. The other
+twenty-two were written as though the state existed nowhere. A finding recorded
+in the right words for two rows and the wrong words for twenty-two is the same
+defect this project has now hit twelve times: a question of the form «which
+things are X» answered from a reading rather than from a count.
+
+**What it changes.** The 14 the owner chose split three ways: **2 already done**,
+**2 a clone away**, **10 genuinely new**. And beyond the 14 there are 23 more
+cheap clones nobody had costed, because the table made them look expensive.
+
+### What was built: two clones, and not one new word
+
+`design/account-orders-empty.html` and `design/account-addresses-empty.html`,
+cloned from their grey originals by the step-8.7 transform: the stylesheet head,
+the crumb separator emptied because the colour layer DRAWS it, the button ranks
+(`btn dark` -> `btn--accent btn--s`, `btn` -> `btn--outline btn--s`), the five
+script tags, and the colour layer's own passes appended to whatever the screen
+already runs - here a state patch that drops the sidebar count badge.
+
+**Not a word was rewritten.** «Ще немає замовлень», «Ще немає збережених адрес»
+and both bodies are voice's, they exist, and a second edition of a product string
+is what `CLAUDE.md` forbids by name. Colouring a screen is not an occasion to
+re-open its copy.
+
+Both added to `DESIGN_NAV`, without which `uivFixLinks` sends every link on them
+back into the grey layer - the defect step 8.7 exists to record.
+
+**One bug in my own transform, caught by reading the output.** The regex meant to
+match a plain `class="btn"` was written `class="btn"(?! )` - a negative lookahead
+forbidding the space that ALWAYS follows a closing attribute quote, so it matched
+nothing and «До каталогу» rendered as bare text, which is exactly the defect
+step 7.96 found on three coach controls. Found by counting `btn--` in the output
+and getting 1 where 2 were expected.
+
+### Acceptance
+
+53 screens at 390 and both new ones at 1280: zero failures. State walk over the
+two: no state a pass failed to reach. 89 stylesheets balanced. Both read by eye -
+the box icon and the pin are drawn, the actions carry their ranks, the plus in
+«＋ Додати адресу» is a drawn mark.
+
+---
+
+## Step 8.14 - the cheap clones, and the count was 48 rather than 23
+
+The owner asked for «the 23 cheap clones». Counted properly before starting, it is
+**48**, and my 23 came from a `sed` whose suffix list was incomplete - a
+hand-typed list answering «which things are X», the twelfth instance.
+
+### 48, and they are two different jobs
+
+For every grey screen with no coloured twin, the longest already-coloured name it
+starts with is its base. 89 grey screens have no twin; **48 are a state of a
+screen already coloured**, across 13 bases. Splitting those by what they do on
+load, read out of their own scripts rather than guessed from their names:
+
+- **13 auto-open a DIALOG** the coloured base already reaches through its own
+  `open*` function - the six address dialogs, four profile dialogs, three client
+  dialogs. Four of them have a body diff of **0** against their base: the whole
+  state IS the dialog. Cloning those would put a second edition of a state that
+  already exists into the layer, which is what `CLAUDE.md` forbids for strings and
+  what step 8.10 spent a whole finding on for shapes. **Not cloned, and that is a
+  decision, not an omission.**
+- **35 change the PAGE itself** - empty, error, loading, out-of-stock, and the
+  content variants (`-free`, `-max`, `-cap`, `-many`, `-tier`, `-deadend`,
+  `-withemail`, `-priceblock`). These are the clones.
+
+All 35 written. The coloured layer is now **87 screens of 141 plus the stage hub**,
+46 buyer and 41 coach, against 52 before this step.
+
+### The transform is a file now, and it caught its own history
+
+`tools/clone-to-colour.mjs`. This transform had been retyped from memory three
+times and each retyping shipped a defect: 8.7 cut every screen's own inline script
+(`coach-tariff`'s cancel dialog died with a ReferenceError), 8.13 wrote
+`class="btn"(?! )` - a lookahead forbidding the space that always follows a
+closing attribute quote - so «До каталогу» rendered as bare text.
+
+**And writing it down did not stop me repeating the exact lesson it warns about.**
+Its `PASSES` table paired `wfCoachNav(` with `uivCoach()`. There is no `uivCoach`
+in this product and never has been: the coach screens coloured at 7.95 and 8.7
+call three passes and no fourth. Twelve screens loaded with
+`Uncaught ReferenceError`. That is `states.mjs`'s lesson - a function name typed
+from memory - repeated inside the file written to stop hand-typed lists, an hour
+after writing that file's header. The table now **checks itself against
+`design/_nav.js`** and throws if it names a function the product does not declare.
+A rule that can be broken by a typo needs a check, not a comment.
+
+**Two more, both caught by the gate rather than by me.** The colour passes were
+joined on a space - `uivFixLinks() uivBar() uivChrome();` - a SyntaxError that
+took out the whole inline block on all 35 screens at once. And the first anchor
+looked for `wfBar(` at the start of a line, warning on all 35: these screens write
+`wfFooter(); wfBar('x.html','empty');` on one line. **A rule that fails on every
+single input is never telling you about the inputs.**
+
+### One real defect, and the clone is what exposed it
+
+`account-profile-withemail` came back **51px past the viewport at 390**. Not a
+clone defect - a defect in a rule every profile screen shares, which no coloured
+screen had ever been able to show.
+
+`.pf-row` is `display: flex; justify-content: space-between` with `.pf-act` set
+`white-space: nowrap`, and no `flex-wrap`. On `account-profile` the e-mail row
+says «не додано» / «Додати - код на пошту» and fits. **The state where an e-mail
+has been added carries a real address and a longer verb** - «Змінити - код на
+пошту», 188.5 wide, right edge at 441.1 - and that state had no coloured copy
+until this step. Every screen this rule serves has always been one string away
+from the same overflow.
+
+`flex-wrap: wrap`, and not a width: a row that fits is untouched, because wrap
+only fires when the line is short of room. That is 8.9b's scoping lesson applied
+before the fact instead of after. Measured: 51 -> 0, and the rows that already fit
+are unmoved - «Українська / Змінити» still shares its line.
+
+### And a fourth instrument that could not say no
+
+Hunting the 51px, the probe filtered out any element with a scrolling ancestor -
+walking all the way to `<html>`, which `base.css` gives `overflow-x: hidden`. So
+**every element in the product had a scrolling ancestor** and the filter excluded
+all of them: it printed an empty list while the document was 51px wide. A filter
+whose condition is true for every input is not a filter. Stopped at `body`, and
+only `auto`/`scroll` count.
+
+### Acceptance
+
+**88 screens at 390: zero failures.** Five clones at 1280: zero. 89 stylesheets
+balanced. Two read by eye - the coach's empty home, and the profile card where the
+e-mail row now puts its action on a line of its own.
+
+---
+
+## Step 8.15 - the ten states nobody had drawn, and a stale number that reached a design decision
+
+Section C's last ten rows, built. Three subagents on three disjoint sets of
+component files, the copy decided before any of them started, and every claim
+they made read back out of a browser rather than taken.
+
+### The copy came first, and the survey changed what «write copy» meant
+
+`voice/docs/microcopy.md` is 5112 lines and holds every string in the prototype.
+Searched for all ten states before writing one word: **none of them has a row.**
+And `voice.md:266` lists the state inventory the rulebook was written against -
+`empty x16 · loading x16 · error x13 · OOS · no-address · price-block · declined ·
+dead-end · cap · confirm` - and **not one of the ten is in that count.** So this
+was not an edit of existing text, it was text that had never been written.
+
+Sixteen rows, written to `voice.md:285-290` («чому порожньо + одна дія-вихід,
+ніколи глухий кут»), the banned-phrasing table at `:249-260`, and principle 1.
+No sentence promises a date: when a certificate or a composition arrives is `[?]`,
+an operational question, and an invented number would poison the very rows that
+exist to avoid inventing. `voice/microcopy.html` shows the growth as **3220 +16**
+rather than a recount - a second method would give a third number and no truth.
+
+### What ten states cost: four declarations
+
+| file | added |
+|---|---|
+| `qa-item.css` | `.qaitem .qans--wait{ color; border-left-color }` |
+| `gallery.css` | `.gal .gmain:has(.loadnote){ background }` |
+| `cert-thumb.css` | `.certthumb--pending{ border-style: dashed }` |
+| `pagination.css` | `.loadmore[aria-busy]{ cursor }` · `.pages [aria-disabled]{ pointer-events }` |
+| `desc-block.css` `rating.css` `review-item.css` `spec-table.css` `trust-strip.css` | **nothing** - comments only |
+
+Everything else is atoms that already existed. **The last page needed no CSS at
+all**: `button.css`'s off state has carried `[aria-disabled="true"]` since 7.61,
+precisely because «the markup is an `<a>` or a `<span>`, which is also the only
+version a screen reader can hear» - the state was in the system and no markup had
+ever asked for it.
+
+Two re-scopings did more than any declaration. `.certthumb::after` (the «PDF»
+tag) and `.certthumb:hover` (the 2px lift) became **`a.certthumb`**: on a tile
+with no file behind it, «PDF» IS the claim and the lift is a promise. Verified by
+behaviour, not attribute - the pending sheet is `focusable: false`, absent from
+the accessibility tree, `::after` computes to `none`, `:hover` matches `[]`. Step
+7.72's lesson - «a role is a promise about what a control does, and this one
+announced a button nobody could press» - applied structurally.
+
+### The rating summary with zero reviews shows nothing, and three placeholders were rejected
+
+Not `0.0` - a claim about the product that is false, and it sorts as a real
+number the first time anything reads it. Not a 50px dash - the card row already
+answers «no rating yet» with `★ - · новинка`, which works at 12px among five other
+facts; at 50px, alone in its block, a dash is a headline that says nothing. Not
+five hollow stars - that is what every rating control draws for «0 of 5»,
+including this file's own picker at rest, so the one shape meaning «no opinion
+given» would be spelled exactly like the worst opinion available.
+The figure's own reason decides it: it is mono **because it is compared between
+cards**. With no reviews nothing compares, so there is no job.
+
+### A stale number in a stand reached a design decision two steps later
+
+Two agents on the same page picked two sizes for the same box. One argued: «46px
+does not draw anywhere in colour - all three coloured boxes carry `.mini`». That
+sentence was **printed on `empty-state.html`**, it was true when written, and it
+stopped being true at **step 8.13**, which cloned two grey empty screens into
+colour.
+
+Counted across all 88 coloured screens: `.empty` 40px on **6** screens,
+`.emptybox` 46px on **3**, `.emptybox.mini` 24px on **1**. The premise was false
+and neither agent could have known without recounting.
+
+**The size is decided by scope**, which is what the three sizes are a scale of:
+`.empty` when the whole SCREEN is empty, `.emptybox` when a SECTION is, `.mini`
+when several stack in one CARD - and `account-empty`'s three `.mini` boxes sit
+inside `.acard`, which is what fixed the reading. All four states are sections of
+the product page. All four now carry the same box: 220.4 / 198 / 244 / 254 tall
+at 390, one padding, one radius, one frame. The stand's count is corrected.
+
+**This is the reason-that-outlived-its-truth failure wearing a number**, and it is
+the fourth time this session. A stand is read by whoever builds next; a count on
+it that nobody re-runs is a decision waiting to be made wrongly.
+
+### The atom was charging for parts it did not have
+
+Found independently by two of the three agents, which is what made it the atom's
+rather than any component's. `.et` carries a top margin because an icon usually
+sits above it and `.es` a bottom margin because an action usually sits below.
+With neither, both survive. Measured at 390 in a box whose own padding is 24:
+
+| box | air above title | below body |
+|---|---|---|
+| icon + actions | 71.4 | 81 |
+| no icon | 25 | 81 |
+| neither | **33** | **41** |
+
+Thirty-three and forty-one where the box asked for twenty-four - and
+`account-empty.html` had already patched its own copy with `style="margin-top:0"`
+written into the markup, which `empty-state.html` lists as a defect of that file.
+`:first-child` / `:last-child` on the atom, once. It retires the inline style on
+one screen, a private `.emptybox.specempty .es` rule an agent had written for the
+same reason, and every copy the next borrower would have written. Boxes that DO
+have an icon and actions are unmoved - in those the title is not the first child.
+
+### Acceptance
+
+**88 screens at 390: zero failures.** All ten touched stands report **Пройдено**
+with `over=0` and a clean console. 89 stylesheets balanced. The state walk over
+the four product screens: no state a pass failed to reach.
+
+### Left open, reported and not touched
+
+- **`uivPdp` in `design/_nav.js`** puts a `doc` glyph in the trust strip's second
+  tile, and the set's `doc` has a **checkmark drawn inside it**. A checked
+  document beside «уточнюємо» still claims verification. The tile order lives in
+  `_nav.js`, not in CSS.
+- **`.tsx` is a `<div>` on all three coloured screens - 12 tiles, 0 links** - and
+  all four lift on hover. Only the unproven tile had its promise withdrawn; the
+  other three still lift toward pages they merely point at. A product decision.
+- **`.truststrip`'s `min-width: 720px` is a viewport query inside a 578px stand
+  column**, so the kit page overlaps its tiles between roughly 720 and 1024. The
+  product screens are unaffected. Container-query territory, stage 10.
+- **`kp-meta` counts on `trust-strip.html` and `spec-table.html` were already
+  stale** and the counting method could not be reproduced, so they were left
+  rather than replaced with a differently-wrong number.
+- **`coach-home-empty` draws an `.emptybox` at 30/18**, which is neither rung.
+  Found by the census, not chased.

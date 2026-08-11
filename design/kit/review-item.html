@@ -22,7 +22,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Відгук</h1>
 <p class="kp-lead">Чужий голос на сторінці товару: хто, коли, скільки зірок, що сподобалось і що ні, і відповідь магазину під ним. Файл, у якому він жив, ніс три сім'ї, і відгуком була одна з трьох.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/review-item.css</span><span class="kp-tag">82 рядки</span><span class="kp-tag">20 селекторів</span><span class="kp-tag">78 оголошень</span><span class="kp-tag">3 екрани</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/review-item.css</span><span class="kp-tag">128 рядків</span><span class="kp-tag">20 селекторів</span><span class="kp-tag">78 оголошень</span><span class="kp-tag">3 екрани</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Три сім'ї в одному файлі</div>
 <p class="kp-p">Заміряно в браузері на 40 кольорових екранах, на 360, 390, 720 і 1280.</p>
@@ -122,6 +122,41 @@
 <p class="kp-p"><b>Шапка відгуків живе не тут.</b> <code>.rvhead</code> зі своєю сіткою <code>190px 1fr auto</code> оголошена в <code>section-head.css</code>, а <code>.rvbig</code> усередині неї - у цьому файлі. Це не помилка: <code>.rvhead</code> справді заголовок розділу. Але два файли тримають один блок, і про це треба знати, змінюючи будь-який із них.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p"><b>Два стани заведено на 8.16, і обидва не коштували файлу жодного оголошення.</b> Перший - <b>нуль відгуків</b>. Зведення оцінки при цьому не має що показати, і рішення тут таке: воно не показує нічого. Замість <code>.rvhead</code> - цифри 50px, п'яти смужок і кнопки - стає одна коробка <code>.emptybox.mini</code> з <code>empty-state.css</code>, а кнопка переїжджає всередину неї в <code>.eact</code>, тим самим набором класів, що вже стоїть на <code>account-empty.html</code>.</p>
+<div class="kp-demo">
+  <section aria-label="Відгуки">
+    <div class="sech"><h2>Відгуки покупців</h2></div>
+    <div class="emptybox">
+      <div class="et">Відгуків ще немає</div>
+      <div class="es">Цей товар щойно в каталозі. Якщо ви його купували - ваш відгук допоможе обрати іншим.</div>
+      <div class="eact"><button class="btn--accent btn--s btn dark" type="button">＋ Залишити відгук</button></div>
+    </div>
+  </section>
+</div>
+<div class="kp-cap">п'ять смужок по 0% - це графік нічого, який усе одно виглядає як графік, а <b>цифри тут не буде жодної</b>: чому саме - написано в <code>rating.css</code>, бо це питання цифри, а не блока. Значка в коробці немає навмисно - єдиний гліф, яким цей продукт малює відгук, це зірка, а зірка 34px над словами «Відгуків ще немає» має форму оцінки в один бал. Коробка без значка вже є в продукті: <code>account-empty.html</code>, блок адрес</div>
+<p class="kp-p">Другий - <b>кінець списку</b>. Пара до пагінації каталогу, закритої на 8.15: кнопка «Показати ще» зникає, на її місце стає <code>.loadnote</code>, а номери сторінок лишаються робочими - список закінчився, навігація ні.</p>
+<div class="kp-demo">
+  <div class="rvitem">
+    <div class="rvmeta">
+      <div class="rname">Дмитро П.</div>
+      <div class="rdate">28 травня 2026</div>
+      <div class="rstars">★ 5.0</div>
+    </div>
+    <div class="rvbody">
+      <div class="rtext">Порівнював склад із сайтом виробника - усе збігається. Беру постійно.</div>
+    </div>
+  </div>
+  <div class="pgnav">
+    <p class="loadnote">Це всі відгуки</p>
+    <div class="pages">
+      <a class="btn--outline btn--icon btn--s" href="#">1</a>
+      <a class="btn--outline btn--icon btn--s" href="#">2</a>
+      <a class="btn--outline btn--icon btn--s on" href="#" aria-current="page">3</a>
+      <span class="btn--outline btn--icon btn--s" aria-disabled="true" aria-label="Наступна сторінка">›</span>
+    </div>
+  </div>
+</div>
+<div class="kp-cap">рядок і стрілка тут <b>не свої</b>: <code>.loadnote</code> з <code>empty-state.css</code>, <code>.pgnav</code> і вимкнена стрілка з <code>pagination.css</code>. Цей файл володіє тільки <code>.rvitem</code> над ними, і тому в ньому про цей стан лише коментар, а не правило</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
 <tr><td><b>спокій</b></td><td>автор над текстом, лінія-волосина згори</td><td>відгуки читають стрічкою, і розділяє їх найтонше, що є в системі</td></tr>
 <tr><td><b>без відповіді</b></td><td><code>.rvreply</code> просто немає</td><td>4 відгуки з 7 без відповіді, і це нормальний вигляд, а не порожнє місце</td></tr>
@@ -129,15 +164,17 @@
 <tr><td><b>від 620</b></td><td><code>min-width: 620px</code>: автор стає окремою колонкою 180px</td><td>нижче 620 колонка 180 лишає тексту менше половини рядка</td></tr>
 <tr><td><b>від 860</b></td><td><code>min-width: 860px</code>: <code>.revcols</code> розкладається на дві колонки</td><td>зведення вбік має сенс тільки тоді, коли основній колонці лишається не менш ніж 500</td></tr>
 <tr><td><b>наведення</b></td><td><b>немає власного</b></td><td>відгук не натискають. Натискають кнопку в шапці, і вона відповідає своїм фінішем</td></tr>
+<tr><td><b>нуль відгуків</b> <span class="kp-tag">8.16</span></td><td><code>.rvhead</code> зі зведенням і список не малюються зовсім; на їхньому місці <code>.emptybox.mini</code> з наявною кнопкою всередині</td><td>середнє з нічого - не менше число, а не число. Оголошень: <b>0</b>, усе малюють атоми <code>empty-state.css</code></td></tr>
+<tr><td><b>кінець списку</b> <span class="kp-tag">8.16</span></td><td>«Показати ще» зникає, на її місці <code>.loadnote</code>; номери сторінок лишаються</td><td>мертвий контрол запрошує натиснути й нічого не відповідає. Оголошень: <b>0</b>, і форма вже написана в <code>pagination.css</code> на 8.15</td></tr>
 </tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Відповідь магазину має рівно одну лінію акценту і жодного заповнення.</b> Голос продавця під чужим відгуком мусить бути видимим і не мусить бути гучнішим за сам відгук. Принцип 1: спершу довіра, потім продаж.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не фарбуй розподіл оцінок акцентом.</b> П'ять помаранчевих смужок читаються як п'ять кнопок. Це факт про товар, а не дія, тому заливка - <code>--bg-inverse</code>.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>17</b> власних класів і <b>4</b> стани оголошено в <code>review-item.css</code>.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>17</b> власних класів і <b>6</b> станів. Чотири перші оголошені в <code>review-item.css</code>; два останні - <b>нуль відгуків</b> і <b>кінець списку</b> - навпаки, ті, під які файл навмисно не має жодного оголошення. Вони в списку саме тому: у коді їх не видно, тож холостий контроль стежить, щоб їх було видно тут.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["rvbig","n","s","rvbars","rvbar","track","fill","rvitem","rvmeta","rname","rdate","rvbody","prc","rtext","rvreply","rchip","revcols"], KIT_STS=["min-width: 620px","min-width: 860px",":first-child",":last-child"];</script></section>
+<script>var KIT_CLS=["rvbig","n","s","rvbars","rvbar","track","fill","rvitem","rvmeta","rname","rdate","rvbody","prc","rtext","rvreply","rchip","revcols"], KIT_STS=["min-width: 620px","min-width: 860px",":first-child",":last-child","нуль відгуків","кінець списку"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>review-item.css</code>: <b>9</b> семантичних ролей і <b>18</b> примітивів.</p>
@@ -175,7 +212,6 @@
 <li><b>Три точки перелому повз набір</b>: 559 у панелі, 620 і 860 тут - проти 480 / 720 / 1180, якими користується решта</li>
 <li><b>Дві товщини ліній у одному файлі</b>: <code>1px</code> між відгуками, <code>1.5px</code> у плашці «Stack», <code>2px</code> у відповіді. <code>1.5px</code> була частиною рішення на 23 файли, і браузер усе одно малював її одним пікселем - <b>закрито на 7.62</b>, у файлі тепер <code>1px</code> і <code>2px</code></li>
 <li><b>Кегль 50px</b> - шкала не має ні цього кінця, ні протилежного</li>
-<li><b>Немає стану «відгуків ще немає»</b> - порожній стан сторінки відгуків малює <code>empty-state.css</code>, і зведення оцінки при цьому не має що показати</li>
 </ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 
 </main>

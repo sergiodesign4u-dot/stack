@@ -36,8 +36,59 @@
    rule the source can state: both spoken ones sit inside a link, but so does the
    `✦` next door, and that one is silent. `[?]` - measured per instance rather than
    reasoned, and re-measurable the same way. */
-.certthumb::after{ content:"PDF" / ""; position:absolute; left:14px; bottom:14px;
+a.certthumb::after{ content:"PDF" / ""; position:absolute; left:14px; bottom:14px;
   font-family:var(--font-mono); font-weight:var(--fw-semibold); font-size:var(--fs-10); line-height:var(--lh-flat);
   letter-spacing:var(--ls-caps); color:var(--text-body);
   border:1px solid var(--line-strong); border-radius:var(--radius-4); padding:var(--space-4) var(--space-8); }
-.certthumb:hover{ border-color:var(--line-action); transform:translateY(-2px); }
+a.certthumb:hover{ border-color:var(--line-action); transform:translateY(-2px); }
+
+/* ---------- the batch with no document, and a drawing that must not offer itself
+   `voice/docs/voice.md:257` bans an unproven claim by name - «сертифіковано» as a
+   slogan, with no file behind it - and puts the shop's difference in one word: we
+   PROVE, we do not claim. A product whose batch has no certificate on file may
+   therefore not draw one. The sentence beside the sheet is voice's and lives in the
+   markup; what this file owns is the promise the DRAWING makes.
+
+   TWO OF THE FOUR PIECES ARE TAKEN AWAY BY SCOPE, NOT BY AN OVERRIDE. 7.72 read out
+   the rule this state is built on: a role is a promise about what a control does,
+   and twelve gallery thumbnails were announcing `button` to a keyboard that could
+   never reach them. The same shape one layer up. Measured first, because the fix
+   depends on it: `.certthumb` renders 3 times in colour - `product.html:222`,
+   `product-coach.html:245`, `product-reviews.html:49` - and all 3 are
+   `<a href="content-guarantee.html">`. Not one is a bare box. So the two rules that
+   say «this opens something» were moved onto the tag that actually opens something:
+
+     `.certthumb::after` -> `a.certthumb::after`  the «PDF» tag. A file type printed
+                                                  on a tile with no file is the claim
+     `.certthumb:hover`  -> `a.certthumb:hover`   the 2px lift and the accent edge
+
+   Zero new declarations for either, and zero movement on the three live tiles: a
+   `<span>` cannot match `a.certthumb`, so the pending sheet never inherits the tag
+   or the lift, and the working sheet keeps 104 x 138, the 10px IBM Plex Mono tag at
+   left 14 / bottom 14 and its 1px edge, value for value.
+
+   THE SEAL IS NOT TAKEN AWAY HERE, because it was never this file's: `uivPdp()`
+   appends `.uiv-seal`, and the pending markup simply does not ask for it. That is
+   this component's own anti-rule, written on the stand at 7.79 - do not draw a seal
+   where there is no document, because a trust mark with no file behind it is exactly
+   the forgery the beginner was guarding against.
+
+   WHAT STAYS DRAWN, AND THE ONE DECLARATION THAT CHANGES. The paper lines
+   (`::before`) stay: the box still has to read as a sheet, and an outline with
+   nothing inside says nothing at all. The edge goes dashed, and that is not a new
+   idea - it is the system's own mark, written on the empty-state stand beside
+   `.empty`: a dashed edge says «тут МАЄ бути вміст», a solid one would say «це
+   блок». Which is the whole difference between «the document is not here yet» and
+   «there is no place for a document». Same 1px, same `--line-strong`, same
+   104 x 138: measured at 390, the sheet does not move a pixel and the row around it
+   stays 308 wide.
+
+   AND WHY THE OTHER EMPTY STATE BUILT IN THE SAME STEP IS NOT DASHED. `.emptybox`
+   takes a solid `--line-hair` edge in colour - stage 08 decided that, and the
+   composition's empty state reuses the atom rather than re-deciding it. The two are
+   not the same kind of thing. This is a PLACEHOLDER: an outline standing exactly
+   where one specific object, a sheet of paper, will appear, and the dash says that
+   outline is waiting to be filled. `.emptybox` is not waiting to be filled by a box;
+   it is a sentence standing in place of a whole section. Different job, different
+   edge, and both are already written down. */
+.certthumb--pending{ border-style:dashed; }

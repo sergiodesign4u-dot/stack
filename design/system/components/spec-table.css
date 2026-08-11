@@ -107,6 +107,66 @@
 .spectbl td:first-child{ color:var(--text-secondary); }
 .spectbl td b{ font-family:var(--font-mono); font-weight:var(--fw-semibold); color:var(--text-body); }
 
+/* ---------- the composition that has not arrived, and the 16px it does not need ---
+   Until now a product with no composition filled in rendered no table at all and the
+   page said nothing about it. For a shop whose first principle is trust before the
+   sale, an empty composition is not emptiness - it is a signal, and silence is the
+   one answer that cannot be checked. The words are decided and live in the markup;
+   the box is the empty-state atom, reused whole. No second edition of that shape is
+   written here: `.emptybox` already draws the border, the surface, the radius, the
+   display face on `.et` and the secondary colour on `.es`, and every one of those is
+   correct for this state.
+
+   WHICH OF THE THREE SIZES, AND THE FIRST ANSWER WAS WITHDRAWN BY ITS OWN
+   MEASUREMENT. `.empty` is the whole-screen one with the mascot portrait and a row
+   of exits, `.emptybox.mini` is the one that sits inside an account card, and plain
+   `.emptybox` is the one between them. The first draft picked plain `.emptybox`
+   because it was nearest in height to the table it stands in for. Then the state was
+   built and measured with its mark in place, at 390: the table is 212.94, plain
+   `.emptybox` is 243.97 and `.mini` is 209.16. **`.mini` is the nearer of the two, by
+   27px.** The argument is therefore struck out rather than quietly re-aimed - and it
+   was never a real argument, because that table's height is DATA: four rows on this
+   product, and a composition with twelve rows would be past 400 and match neither.
+
+   WHAT DECIDES IT IS THE JOB, WHICH DOES NOT MOVE WITH THE DATA. The three sizes are
+   a scale of scope - screen, section, card - and this box is the whole content of the
+   «Склад» tab. A card-sized note alone in an empty tab reads as an aside about
+   nothing, and `.et` at 18 rather than 16 is the section-statement rung. Plain
+   `.emptybox` is also the one edition the coloured layer has never drawn - all 3
+   instances in the product are `.mini`, the half the empty-state stand recorded as
+   waiting - so this is where that half arrives.
+
+   THE ONE DECLARATION, AND WHY IT IS THIS FILE'S AND NOT THE ATOM'S. `.es` carries
+   `margin-bottom: var(--space-16)` because in every other empty state a row of
+   `.eact` buttons follows the sentence. Here nothing follows it: the decided copy
+   offers no action, and none is needed - the SECTION is empty, the screen is not,
+   and the buy box, the gallery and the trust strip are all still on it. Left alone
+   the box is lopsided by exactly that much: measured at 390, 47px from the top edge
+   to the mark against 63px from the last line to the bottom edge, and the box 259.97
+   tall. With the rule it is 47 against 47 and 243.97. Writing it in `empty-state.css`
+   would state something about the atom that is not true of it; written here it says
+   only what this section knows, which is what follows the sentence, and the answer is
+   nothing.
+
+   `.emptybox.specempty` AND NOT `.specempty` ALONE, and this is not a habit: it is
+   the only weight that works. `.emptybox.mini .es` sets the same property at (0,3,0),
+   so a bare `.specempty .es` at (0,2,0) LOSES to it - measured, `.mini` came back
+   209.16 with the rule and 209.16 without, the fix silently doing nothing. Matching
+   the weight and standing later in `index.css` (line 66 against empty-state's 51)
+   settles it in both editions. */
+/* 8.15b - THIS RULE IS GONE, AND THE ATOM RETIRED IT. It read
+   `.emptybox.specempty .es{ margin-bottom: 0 }` and it was right: `.es` carries
+   16px only because `.eact` normally follows, and nothing follows here. But the
+   same measurement was taken independently on two other components in the same
+   step, and a defect found three times in three files is the ATOM's - so
+   `empty-state.css` now says `.empty .es:last-child, .emptybox .es:last-child{
+   margin-bottom: 0 }`, which asks the DOM the question instead of asking each
+   borrower to remember it. Measured after the atom took it: the box is 243.97
+   with this rule and 243.97 without, so it is a declaration that changes nothing.
+   `.specempty` keeps its name and now declares nothing - it is the markup hook
+   that says «this section shows its empty state», the same shape `.loadmore`
+   holds one file over. A class with no rule is on Крок 6's list, not this one's. */
+
 /* ---------- the pack label's own wrapper - arrived at 7.43 --------------------
    `.packlabel` is the `<figure>` this whole panel sits in, and its caption is the
    «* Добова норма...» line under it. Both were in product-card.css, which is where

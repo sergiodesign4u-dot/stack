@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет - Обране порожнє - Stack (wireframe 7.6 · empty)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.6 Обране - STATE: empty (немає збережених товарів).
+  Ніколи не глухий кут: виходи в каталог / до цілей (♥ на картках повертає сюди).
+  Buyer + coach. noindex.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <a href="account.html">Кабінет</a><span class="sep"></span>
+    <span class="cur">Обране</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Обране</h1>
+      <p class="acc-sub">Збережені товари - додайте в кошик, коли будете готові.</p>
+
+      <div class="emptybox">
+        <div class="ei">♡</div>
+        <div class="et">В обраному поки порожньо</div>
+        <div class="es">Натискайте ♥ на картці товару - і він збережеться тут. Зручно збирати набір і повертатися до нього пізніше.</div>
+        <div class="eact">
+          <a class="btn--accent btn--s btn dark" href="index.html">Обрати ціль</a>
+          <a class="btn--outline btn--s btn" href="catalog-page.html">До каталогу</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>
+  var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
+  wfHeader(isCoach ? 'coach' : 'buyer', { fav: 0 });
+  wfAccountNav('wishlist', isCoach, { counts: { wishlist: 0 } });
+  // state patch: no saved items → drop the sidebar count badge
+  var wlc = document.querySelector('.acc-link[aria-current="page"] .ct'); if (wlc) wlc.remove();
+  wfFooter(); wfBar('account-wishlist.html', 'empty');
+  uivFixLinks(); uivBar(); uivChrome(); uivAccount();
+</script>
+</body>
+</html>

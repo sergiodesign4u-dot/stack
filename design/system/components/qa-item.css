@@ -24,3 +24,77 @@
    rather than a second bubble because Principle 4 - the page stays calm. */
 .qaitem .qans{ border-left:2px solid var(--line-action); background:var(--bg-surface); border-radius:0 var(--radius-8) var(--radius-8) 0;
   padding:var(--space-12) var(--space-12); }
+
+/* ---------- 8.16: the answer that has not been written yet -------------------
+
+   `.qans` is the shop speaking. A question the shop has not answered had no
+   shape at all, so the coloured product could only draw a pair once it was
+   complete - and a question waits days, which is most of the time a buyer sees
+   it. The pending line is the parallel of the answered one, same slot, same box:
+
+     <div class="qans"><b>Магазин:</b> … </div>                   answered
+     <div class="qans qans--wait">Магазин готує відповідь</div>   pending
+
+   A MODIFIER RATHER THAN A SECOND BOX, because the line has to sit exactly where
+   the answer will sit. Measured at 390 on product.html: 8px above, 12px of
+   padding on four sides, the same `--bg-surface` floor and the same
+   `0 8px 8px 0` radius as the answered box - so when the answer arrives the box
+   grows downward and nothing else on the pair moves. One line of 14/22.4 makes
+   it 46.4 tall, which is the answered short box to the pixel.
+
+   TWO DECLARATIONS, and each one is a difference the reader has to be able to
+   see while scrolling, without a badge, a pill or a timestamp (Principle 4, and
+   the component's own antirule: this is not a chat).
+
+   1. THE INK. `--text-secondary` where an answer is `--text-body`. The list is
+      scanned FOR answers; a pending line set in the same ink as an answer sends
+      the eye into a box with nothing in it. It is a note about the answer, not
+      the answer, and the system already says that in one token - the same
+      `--text-secondary` that carries `.empty .es` and every caption.
+   2. THE EDGE. `--line-strong` where an answer is `--line-action`. The orange
+      edge is the one place in the system where the accent colour is worn by a
+      line with no button beside it, and qa-item.html says why it is allowed:
+      it marks a VOICE. There is no voice here yet, so it steps back to the exact
+      ink `.empty` paints its frame with - the system's own way of saying «content
+      is expected in this box». Not `--line-hair`: on `--bg-surface` #FAF9F7 a
+      #E9E7E2 edge is 2px of nothing, while #D9D9D9 still reads as a seam.
+
+   NOT DECLARED, and each was considered: no italic (a second typographic
+   register for one line), no dashed edge (2px of dash over a 46px box reads as a
+   scrap, not as a frame), no icon (see the note in desc-block.css - the emoji to
+   icon bridge is `UIV_EMOJI` in design/_nav.js, and an unmapped glyph would land
+   in a `.ei` set to `font-size: 0`), no date (qa-item.html lists the missing
+   timestamp as an open question, and answering it here would settle by accident
+   a decision that is the owner's). */
+.qaitem .qans--wait{ color:var(--text-secondary); border-left-color:var(--line-strong); }
+
+/* ---------- 8.16: «Питань ще немає», and nothing is declared for it ----------
+
+   A new product's question list is empty, and until now the section simply was
+   not drawn. It is the atom, unmodified:
+
+     <div class="sech"><h2>Питання</h2>
+       <button class="btn--text all">＋ Поставити запитання</button></div>
+     <div class="emptybox mini">
+       <div class="et">Питань ще немає</div>
+       <div class="es">Запитайте про склад, дозування чи сумісність …</div>
+     </div>
+
+   `.emptybox.mini` from empty-state.css draws all of it: solid `--line-hair`,
+   `--bg-surface`, `--radius-12`, 24/16 padding, a 16px display title, a 14px
+   secondary body capped at 440. Measured at 390 on product.html: 358 x 170.8,
+   sitting 16 below the heading - which is `.sech`'s own bottom margin, the same
+   16 the first `.qaitem` hairline sits at, so the section head does not move
+   between the empty state and the list. Zero declarations here, for the reason
+   desc-block.css states at length: the box is drawn once in the system.
+
+   `.mini` rather than `.empty` for the same reason as the description block -
+   the product page around this section is full, and the whole-screen shape with
+   the mascot portrait belongs to a screen that has nothing else on it.
+
+   THE EXIT IS THE BUTTON THAT WAS ALREADY THERE. `.eact` is empty because
+   «＋ Поставити запитання» already stands in the section head, on every product
+   page, answered or not. Repeating it inside the box would put one label twice
+   within 100px and would make the button move when the first question arrives.
+   That is also why nothing here restyles `btn--text`: the exit is borrowed whole,
+   from button.css, in the position section-head.css already gives it. */

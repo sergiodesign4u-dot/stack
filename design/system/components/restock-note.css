@@ -20,7 +20,13 @@
    `(even)` count `.ah` too, so the first item is the EVEN one. It works, it works
    by accident, and swapping it would only move which photo sits on which row. */
 .rk-lead + .rk-item{ padding-top: var(--space-2); }
-.rk-ph{ width: var(--size-46); height: var(--size-46); border-radius: var(--radius-8); background: var(--bg-sunken); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; color: var(--mark-faint); font-size: var(--fs-10); flex: none; }
+/* 8.12 - THE SHAPE LEFT FOR product-thumb.css. What was here and what stood in
+   order-row.css for `.aord-thumbs .t` were the SAME NINE DECLARATIONS, byte for
+   byte, written on two days in two files. A6 measured the pair and called it the
+   one fold that is measurement rather than taste; the owner took it.
+   `flex: none` stays, because it is about this row and not about the box: the
+   nudge is a flex line and the tile must not be squeezed by the words beside it. */
+.rk-ph{ flex: none; }
 .rk-tx{ min-width: 0; }
 .rk-nm{ font-size: var(--fs-14); font-weight: var(--fw-bold); line-height: var(--lh-snug); }
 .rk-cy{ font-size: var(--fs-12); color: var(--text-secondary); margin-top: var(--space-2); }
@@ -72,7 +78,7 @@
    already set `border: 1px solid var(--line-hair)` in their structure rule, so
    that third declaration restated a colour that was already there and drew
    nothing - the dead-declaration family of 7.3 and 7.51. */
-.rk-ph{ background:var(--bg-page) center/78% no-repeat; color:transparent; }
+/* the photograph line went with the shape - see product-thumb.css */
 
 /* .notifyrow input got min-width:0 at step 5.5. A flex item defaults to
    min-width:auto, so once the field grew to 16px it refused to shrink and

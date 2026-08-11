@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет - Замовлення (порожньо) - Stack (wireframe 7.2 · empty)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.2 Замовлення - STATE: empty (ще немає замовлень).
+  Ніколи не глухий кут: виходи в цілі / каталог. Buyer + coach. noindex.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <a href="account.html">Кабінет</a><span class="sep"></span>
+    <span class="cur">Замовлення</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Замовлення</h1>
+      <p class="acc-sub">Історія замовлень, статус доставки та повтор в один дотик.</p>
+
+      <div class="emptybox">
+        <div class="ei">📦</div>
+        <div class="et">Ще немає замовлень</div>
+        <div class="es">Оберіть ціль - і ми підкажемо безпечний набір під ваше завдання, або перегляньте каталог. Після першого замовлення тут з'явиться історія й повтор в один дотик.</div>
+        <div class="eact">
+          <a class="btn--accent btn--s btn dark" href="index.html">Обрати ціль</a>
+          <a class="btn--outline btn--s btn" href="catalog-page.html">До каталогу</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>
+  var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
+  wfHeader(isCoach ? 'coach' : 'buyer');
+  wfAccountNav('orders', isCoach);
+  // state patch: no orders yet → drop the sidebar count badge
+  var oc = document.querySelector('.acc-link[aria-current="page"] .ct'); if (oc) oc.remove();
+  wfFooter(); wfBar('account-orders.html', 'empty');
+  uivFixLinks(); uivBar(); uivChrome(); uivAccount();
+</script>
+</body>
+</html>

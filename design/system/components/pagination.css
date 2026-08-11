@@ -8,6 +8,38 @@
 .pgnav{ display: flex; flex-direction: column; align-items: center; gap: var(--space-16); margin-top: var(--space-24); }
 .pages{ display: flex; gap: var(--space-8); }
 
+/* ---------- the last page, and the end of the list - step 8.15 ---------------
+   Two of the four rows this file's stand kept under «Немає в коді», and the
+   surprise is how little code either needs.
+
+   1. THE LAST PAGE NEEDS NO CSS AT ALL. The stand's own states table read
+   «остання сторінка: НЕМАЄ - стрілка «далі» не вимикається», and the fix is a
+   contract, not a declaration: on the last page the next arrow carries
+   `aria-disabled="true"` and no `href`. `button.css`'s off state already covers
+   it - the boxless finish there takes `--mark-disabled` and `cursor:
+   not-allowed`, and `[aria-disabled="true"]` is in that selector list precisely
+   because «the markup is an `<a>` or a `<span>`, which is also the only version
+   a screen reader can hear». So the state existed in the system and no markup
+   had ever asked for it. Written here rather than only in a stand, because the
+   next person to build a pager needs to find the rule where the pager lives.
+
+   2. `.loadmore` GETS ITS FIRST DECLARATION, and it is a state rather than a
+   look. The stand records that this class «has NO rule in the whole system: it
+   is only a hook for a script», and the look is right to leave to `btn--outline`.
+   What it was missing is what happens AFTER the press: the button reports
+   `aria-busy` while the next page is on the wire, and when there is nothing left
+   it stops being a control at all. `[aria-busy]` keeps the finish and the box -
+   a control that changes size while you are looking at it moves the list under
+   your finger - and only the label changes, which is voice's business and lives
+   in `microcopy.md`.
+   THE END OF THE LIST IS NOT A DISABLED BUTTON. A dead control invites a press
+   and answers nothing; `.loadend` is a NOTE, and `.loadnote` in empty-state.css
+   is already the atom for a line of text under a list. So the button is removed
+   and the note takes its place - which is also the only reading that obeys
+   «ніколи глухий кут»: the numbers below it still go somewhere. */
+.loadmore[aria-busy="true"]{ cursor: progress; }
+.pages a[aria-disabled="true"], .pages button[aria-disabled="true"]{ pointer-events: none; }
+
 /* ---------- colour (from design/kit/kit.css) ---------- */
 /* 7.77: THE THIRD DECLARATION HERE WAS THE FINISH'S, AND THE FINISH SAID SO.
    `button.css:503` declares `.btn--outline.btn--icon.on{ border-color:

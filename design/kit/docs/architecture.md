@@ -165,6 +165,27 @@ widths are gone** (560, 860, 900, 960, 1040 clean; 480 down from 103px to 39px, 
 itself is too long for a button, and that is a wording decision». So the remainder is either a
 shorter label or a wider buy-box column between 480 and 620, and both are the owner's.
 
+**CLOSED at step 8.12 - the owner took the column, and the entry above was wrong about the
+extent AND about the cause.** Re-read across eleven widths from 360 to 860: **one width scrolls,
+480, by 39px.** «520 from 63 to 19» is 0 and has been since something else moved - a number in a
+decision sheet is a reading of one day.
+
+And the cause is not the label. Below 480 `.priceblk` is one column; at 480 it becomes
+`auto minmax(220px, 1fr)`, the 36px price takes ~121 of the 448 and the gap 24, so the row is
+handed 303 for a button whose min-content is 356. **The row did not shrink - the price took the
+space.** The label is the right length for every column except the one this grid gives it, which
+is why «the label is too long» was the wrong reading of a correct measurement.
+
+Fixed with `@media (max-width: 619px){ .bb .priceblk:has(.oosbtn){ grid-template-columns: 1fr } }`
+and NOT a tuned width: the band depends on how wide the PRICE is, so a boundary fitted to
+«1 290 ₴» would be a value with no reason behind it. `:has()` states the condition that actually
+matters - this price block carries the long action. Measured after: 480 over=0; the five in-stock
+product screens keep two columns at every width, byte for byte.
+
+**The word was not touched, and that was the point.** «Повідомити про надходження» is locked in
+`voice/docs/voice.md` in four places, including its list of the phrasings that are RIGHT.
+Shortening it was the other branch and it is a voice decision wearing a layout costume.
+
 ### A3. The eyebrow - **CLOSED at step 7.63.** The count was right and the reading was not
 
 **The count holds.** `--ls-caps` really is 32 declarations in 18 component files. (A repo-wide
@@ -368,11 +389,26 @@ override, so under 620 the loading skeleton promised a shape the card does not d
 `.cart-behind .ph-card` (150 tall behind the drawer) and `.pd-img` (`16/6`, a description band)
 also frame a photograph and are shaped by their slot, not by their subject.
 
-**SIZE - still open, and it is the owner's.** Nine names, eight sizes: 34 / 40 / 46 / 46 / 52 /
-56-84 / 60 / 70 / 74. Nothing in the source says why a restock line's tile is 46 and a checkout
-line's is 60, so folding them would be taste, not measurement. Two observations that belong to
-whoever decides: `.aord-thumbs .t` and `.rk-ph` are the same rule at 46 in two files, and
-`.ci-ph` carries `--radius-12` where the other eight carry `--radius-8`.
+**SIZE - ANSWERED BY THE OWNER AT STEP 8.12, and the answer was «the measured half only».**
+Nine names, eight sizes: 34 / 40 / 46 / 46 / 52 / 56-84 / 60 / 70 / 74. Nothing in the source
+says why a restock line's tile is 46 and a checkout line's is 60, so folding them would be
+taste, not measurement - and **the eight sizes stay**. What moved is the two observations this
+entry named as belonging to whoever decides, because both are measurement:
+
+- **`.aord-thumbs .t` and `.rk-ph` are one component that was never named.** Not merely the same
+  size: read out of both files before the change, the SAME NINE DECLARATIONS byte for byte -
+  46/46, `--radius-8`, `--bg-sunken`, 1px `--line-hair`, flex centre, `--mark-faint`, `--fs-10` -
+  plus the same two colour declarations, plus `flex: none` on one. Now `product-thumb.css`, a
+  level-1 file beside `cert-thumb.css`, because neither owner file outranks the other and a rule
+  reaching into a component it does not own is the defect `filter-group.css` records.
+  `flex: none` stayed with the restock nudge: that is about the row, not the box.
+- **`.ci-ph` carried `--radius-12` where the other eight carry `--radius-8`.** Nothing in
+  `cart-row.css` or in `DESIGN-artifacts.md` ever said why the cart's tile is rounder than the
+  same tile in an order row. `--radius-8`. Measured: 74 x 74 before and after, 10 instances.
+
+**`.oh-thumbs i` (34) is deliberately NOT in the new file.** It is this shape at another size and
+already shares the colour line in `order-row.css`. The day the ladder is folded it joins by name;
+until then a size is a value and a value moves by a decision said out loud.
 
 ### A7. Two ways to say «square», two ways to say «the same colour» - **CLOSED at step 7.69.** One half was never a defect and the other was bigger than the number
 
@@ -965,6 +1001,43 @@ finish handed to a control that already has one written by hand, not a rename.
 
 ## C. States that do not exist
 
+> **THE TITLE IS WRONG FOR AT LEAST FOUR OF THESE ROWS, measured at step 8.13.**
+> Before building anything, both layers were counted. `wireframes/` holds **142
+> screens and 17 of them are empty states**, including `account-orders-empty`,
+> `account-addresses-empty`, `account-wishlist-empty`, `account-loyalty-empty`,
+> `coach-clients-empty`, `coach-home-empty`, `coach-orders-empty`,
+> `coach-session-empty`, `cart-coach-empty`, `listing-empty` and `search-empty`.
+> They have drawn these states since stage 04, with their words, their icon and
+> their exit. What is missing is the COLOUR.
+>
+> **This table already knew the shape and did not apply it.** Two of its rows say
+> «exists in grey, not in colour» - the loyalty rung and the bonus ledger - and
+> the other twenty-two were written as if the state did not exist at all. One row
+> («nothing matched the filter») is drawn in BOTH layers and has been since
+> `design/listing-empty.html` was coloured; so is «Знайдено: 0», on the same
+> screen, line 36.
+>
+> **Counted properly: 25 grey states of screens that are ALREADY coloured have no
+> coloured twin.** That is not a design job, it is the step-8.7 clone, and it is
+> an order of magnitude cheaper than what this table implies. The rows below that
+> genuinely name something nobody has drawn - the far end of a list, the trust
+> signals, the pager - are still real, and they are still the harder half.
+>
+> Closed at 8.13: **no orders** and **no addresses**, cloned into colour from the
+> grey screens that already held them. **Closed at 8.14: 35 more**, which is the
+> real size of the pile - 48 candidates counted across 13 bases, of which 13
+> auto-open a dialog the coloured base already reaches and were deliberately not
+> cloned. The coloured layer went from 52 screens to 87 in one step, and the only
+> new code was a `flex-wrap` on `.pf-row`: `account-profile-withemail` ran 51px
+> past the viewport, because the state where an e-mail HAS been added carries a
+> real address and a longer verb, and no coloured screen had ever been able to
+> show that. **Every screen that rule serves had always been one string away from
+> the same overflow.** What a missing state costs is not the state - it is the
+> defect nobody can see until it is drawn. The words were not rewritten: they are
+> voice's, they exist, and inventing a second edition of a string is what
+> `CLAUDE.md` forbids by name.
+
+
 Twenty-five findings across the pass name a state that no screen draws - twelve up to step 7.74,
 six from the stands built at 7.75 - 7.77, three from 7.78 - 7.80 and four from the last five
 molecules at 7.81 - 7.83. They are not CSS work: they are screens, and
@@ -972,24 +1045,24 @@ they belong to whoever decides scope.
 
 | state | where it would go | what happens now |
 |---|---|---|
-| no reviews yet | `product-reviews.html` | the rating summary has nothing to summarise |
+| ~~no reviews yet~~ | ~~`product-reviews.html`~~ | **CLOSED at 8.15** - the summary is not drawn at all. `0.0` is a false claim, a 50px dash is a headline saying nothing, five hollow stars spell the worst opinion available |
 | no purchase history | the restock note on `account.html` | a new buyer sees a block with no rows |
 | no addresses | `account-addresses.html` | the list renders empty with no words |
 | no orders | `account-orders.html` | the tabs remain above nothing |
-| no photo | the gallery | the frame shows «фото товару» in faint ink |
-| no composition data | the spec table | the table renders with empty cells |
+| ~~no photo~~ | ~~the gallery~~ | **CLOSED at 8.15** - and «faint» was wrong: the frame sets `font-size: 0`, so in colour the placeholder was INVISIBLE. `.loadnote` inside the frame, `:has()` takes the ground off |
+| ~~no composition data~~ | ~~the spec table~~ | **CLOSED at 8.15** - «Ми не публікуємо склад із чужих джерел». Principle 1: an empty composition is a signal, not an absence |
 | section is empty | any `.sech` | 37 heads, 28 exits, nothing says what an empty section shows |
-| signal not confirmed | the trust strip | no certificate on the batch and the strip still claims one |
+| ~~signal not confirmed~~ | ~~the trust strip~~ | **CLOSED at 8.15** - `voice.md:257` bans «сертифіковано» as a slogan without a file, so the strip says «на цю партію - уточнюємо» and its hover does not fire |
 | maximum tier reached | the loyalty rung | exists in grey, not in colour |
 | empty bonus ledger | the loyalty ledger | exists in grey, not in colour |
 | order cancelled | the order row | the code has three states, the path has at least four |
-| no description | the description block, `product` | the block is simply absent and no rule says who hides it |
-| no questions yet | the Q&A section, `product` | the head renders over nothing |
-| question not answered yet | `.qaitem` | every answer in the code is the shop's; «waiting» has no look and no words |
-| last page reached | the pager | the «next» arrow on page 4 of 4 looks and presses exactly like page 1's |
-| «Показати ще» after the press | the pager | neither a loading state nor an «that is all» state exists |
+| ~~no description~~ | ~~the description block~~ | **CLOSED at 8.15** - the box stands INSIDE `.pdesc`, because `section-head.css:72` anchors the heading on `.sech:has(+ .pdesc)` and dropping the column sends the heading full width |
+| ~~no questions yet~~ | ~~the Q&A section~~ | **CLOSED at 8.15** - the exit is the section head's existing «＋ Поставити запитання», not a second copy of it inside the box |
+| ~~question not answered yet~~ | ~~`.qaitem`~~ | **CLOSED at 8.15** - `.qans--wait`, 46.4 tall to the pixel of a short answer, so the box grows downward when the answer lands. The accent edge steps back: it marks a VOICE, and there is none yet |
+| ~~last page reached~~ | ~~the pager~~ | **CLOSED at 8.15** - `aria-disabled` + `pointer-events`; the off state was in `button.css` since 7.61 and no markup had ever asked for it |
+| ~~«Показати ще» after the press~~ | ~~the pager~~ | **CLOSED at 8.15** - `aria-busy` for the wait (box unmoved, only the label changes), and the end of the list is a `.loadnote`, not a dead button |
 | nothing matched the filter | the filter rail, `listing-empty` | the rail looks identical and no facet is marked as the one that emptied the result |
-| no certificate on this batch | the trust strip and its thumbnail | the sheet with its seal is drawn whether or not a document exists behind it |
+| ~~no certificate on this batch~~ | ~~the trust strip~~ | **CLOSED at 8.15** - the two rules that promise «this opens» moved onto `a.certthumb`; the pending sheet is a bare `<span aria-hidden>`, absent from the accessibility tree. Step 7.72's lesson applied structurally |
 | no brand logo loaded | the brand row | six words in boxes read as a broken block and nothing notices |
 | a toast that must not be missed | the toast | 4.2 seconds and `aria-live="polite"`; an error that blocks checkout can be neither seen nor heard |
 | «Знайдено: 0» | the catalog toolbar | the bar over an empty result looks exactly like the bar over a full one |
@@ -1045,10 +1118,24 @@ They are drawn as real text on real screens. Before launch each needs a source o
 - **The filter panel has no keyboard and no screen reader on the grey side.** The coloured
   layer's `design/_nav.js` gives the 201 checkbox rows a role, a tab stop, `aria-checked` and
   Space (7.34); `wireframes/` keeps the whole defect.
-- **Two checkbox mechanisms.** The system's checkbox is a `<span class="cb">` with no input
-  behind it, scripted into a control. Two places use a real `<input type="checkbox">` instead -
-  the address dialog and the profile delete confirmation - and they draw the operating system's
-  box. Neither file says which is canonical. **This is a decision, not a defect.**
+- **Two checkbox mechanisms** - **CLOSED at step 8.12, the owner's call, and the count was
+  three places not two.** Measured across all 51 coloured screens: **351 `span.cb` against 5 real
+  `<input type="checkbox">`** - three in the address dialog, one in the profile delete
+  confirmation, and one on `coach-verify`, which `coach-verify.css:496` had already flagged as
+  «a markup question to answer, not a css one». Those five drew the operating system's box, in
+  the system's blue, in a product with one accent colour. **`span.cb` is canonical.**
+
+  **And the fix is still CSS, which is the part worth keeping.** «Canonical» is about what a
+  person sees, and deleting the five inputs would have broken something: `#pf-del-ok` carries
+  `onchange="...disabled=!this.checked"`, the only thing that enables «Видалити акаунт». A
+  conversion that silently bricks a destructive confirmation is not a look decision. So the
+  native box takes the atom's look through `appearance: none` and this file's own square - one
+  look on 356 boxes, and where a real control exists it keeps its focus, its Space, its place in
+  the accessibility tree and its handler. On the a11y ledger the five are now the BETTER half:
+  they have natively what the 351 are given by hand in `design/_nav.js`.
+  Verified past the 150ms transition: 18 x 18, `--radius-4`, white on hairline when off,
+  `--bg-action` with the 5 x 9 drawn tick when on, and the delete button's `disabled` still
+  goes true -> false.
 - **Gallery thumbnails cannot be reached from a keyboard** - **CLOSED at step 7.72.** Measured
   before the fix on the three product screens: **12 thumbnails, 12 with `role="button"`, 12 with
   an `aria-label`, 0 with a tab stop and 0 with a key handler.** A role is a promise about what

@@ -23,6 +23,32 @@
 .emptybox.mini .ei{ font-size: var(--fs-24); }
 .emptybox.mini .et{ font-size: var(--fs-16); margin: var(--space-8) 0 var(--space-4); }
 .emptybox.mini .es{ font-size: var(--fs-14); margin-bottom: var(--space-16); }
+
+/* ---------- the box pays for parts it does not have - step 8.15 --------------
+   `.et` carries a TOP margin because an icon usually sits above it, and `.es` a
+   BOTTOM margin because an action usually sits below. When the box has neither,
+   both margins survive and charge for absent neighbours. Measured at 390 in a
+   box whose own padding is 24:
+
+     .emptybox.mini, ei + eact   air above title 71.4   below body 81
+     .emptybox.mini, no ei       air above title 25     below body 81
+     .emptybox.mini, neither     air above title 33     below body 41
+
+   Thirty-three and forty-one where the box asked for twenty-four, on both of the
+   boxes step 8.15 added - and `account-empty.html` had already patched its own
+   copy by hand, `style="margin-top:0"` written into the markup, which
+   `empty-state.html` itself lists as a defect of this file. A margin between two
+   things is not a margin when only one of them is there.
+
+   `:first-child` / `:last-child` and not a modifier class: whether the box has an
+   icon is visible in the DOM, so nothing needs to be told. One rule here retires
+   an inline style on one screen today and every copy of it that would have been
+   written by the next component to borrow this box.
+   Measured after: both new boxes 24 above and 24 below, their own padding and
+   nothing more; every box that DOES have an icon and an action is unmoved,
+   because in those the title is not the first child nor the body the last. */
+.empty .et:first-child, .emptybox .et:first-child{ margin-top: 0; }
+.empty .es:last-child, .emptybox .es:last-child{ margin-bottom: 0; }
 .errbox{ border: 1px dashed var(--line-strong); padding: 48px var(--space-24); text-align: center; margin-top: var(--space-24); }
 .errbox .et{ font-size: var(--fs-20); color: var(--text-primary); margin: var(--space-16) 0 var(--space-8); }
 .errbox .es{ font-size: var(--fs-14); margin-bottom: var(--space-24); max-width: 420px; margin-left: auto; margin-right: auto; }

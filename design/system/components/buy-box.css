@@ -122,6 +122,46 @@
 @media (max-width: 479px){
   .bb .buyrow .oosbtn{ flex: 1 1 100%; }
 }
+/* ---- 8.12: A9 closed, and the cause was not the one A9 named ----------------
+   A9 called this «the only sideways scroll left in the product» and reported it
+   at 7.64 as two bands - «480 down from 103px to 39px, 520 from 63 to 19». Read
+   again at 8.12 across eleven widths from 360 to 860: **one width scrolls, 480,
+   by 39px.** 520 is 0 and has been since something else moved. A number in a
+   decision sheet is a reading of one day, and this file has now watched three of
+   them expire in one session.
+
+   AND THE MECHANISM IS NOT THE BUTTON, IT IS THE GRID ABOVE IT. A9 said «the
+   label's own min-content is 358 inside a 303px column», which is true and reads
+   as a fact about the label. Measured:
+
+     width   .bb    .buyrow   button   button min-content
+      440    408     408       408      406      fits
+      480    448     302.92    357.84   356      SCROLLS by 39
+      520    488     342.92    357.84   356      fits on the page, not in its row
+      620    588     442.92    378.92   377      fits
+
+   Below 480 `.priceblk` is one column (step 6.10's rule, four lines up). At 480
+   it becomes `auto minmax(220px, 1fr)`, the 36px price takes ~121 of the 448 and
+   the 24px gap takes 24, so the row is handed 303 for a button that cannot go
+   under 356. The row did not shrink - the price took the space. The label is the
+   right length for every column except the one this grid gives it.
+
+   SO THE COLUMN IS WHAT MOVES, which is the owner's call at 8.12, and the word
+   stays exactly as `voice/docs/voice.md` locks it in four places - including its
+   list of the phrasings that are RIGHT. Shortening «Повідомити про надходження»
+   was the other branch and it is a voice decision wearing a layout costume.
+
+   `:has(.oosbtn)` AND NOT A WIDTH BOUNDARY. The band where this breaks depends
+   on how wide the PRICE is - «1 290 ₴» takes 121, a four-figure price more - so a
+   media query tuned to today's numbers would be a value with no reason behind
+   it. The condition that actually matters is «this price block holds the long
+   action», and `:has()` says exactly that. The five in-stock product screens keep
+   their two columns at every width; only the block that carries the OOS button
+   waits for room. Measured after: 480 over=0, and 520/560/600/619 unchanged. */
+@media (max-width: 619px){
+  .bb .priceblk:has(.oosbtn){ grid-template-columns: 1fr; row-gap: var(--space-16); }
+  .bb .priceblk:has(.oosbtn) .buyrow{ grid-column: 1; }
+}
 /* step 6.10: saved is a state of the button - ink, fill, and the outline
    border that follows the ink. Written once in button.css. */
 /* step 6.10: was var(--fs-14-5), a token that does not exist, so the whole

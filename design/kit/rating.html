@@ -24,7 +24,7 @@
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Рейтинг</h1>
 <p class="kp-lead">Зірка, цифра і кількість відгуків. Цифру несе моношрифт, бо саме її порівнюють між картками, а зірку малює набір - вона на пів пікселя більша за цифру, бо інакше читається меншою.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/rating.css</span><span class="kp-tag">115 рядків</span><span class="kp-tag">8 імен</span><span class="kp-tag">17 з 40 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/rating.css</span><span class="kp-tag">163 рядки</span><span class="kp-tag">8 імен</span><span class="kp-tag">17 з 40 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка тут та сама, що в продукті, знак у знак. До кроку 7.27 на цій сторінці стояла інша: <code>&lt;span class="uiv-star"&gt;★&lt;/span&gt;</code> поруч з <code>.st</code>, з зірочкою, намальованою шрифтом. Такої розмітки в продукті немає жодної.</p>
@@ -65,7 +65,18 @@
 <div class="a"><i>1</i><span><b>Оцінка є</b> - зірка, цифра, кількість. 132 входження</span></div>
 <div class="a"><i>2</i><span><b>Оцінки ще немає</b> - <code>★ - · новинка</code>. 6 входжень на 6 екранах: товар щойно в каталозі, відгуків нема, і рядок каже це словом, а не порожнечею</span></div>
 <div class="a"><i>3</i><span><b>Рядок ще не приїхав</b> - <code>.rate</code> порожній, і його тримає <code>min-height: 15px</code>, щоб картка під ним не стрибала, коли цифра з'явиться</span></div>
-</div></section>
+</div>
+<p class="kp-p"><b>Четвертий стан заведено на 8.16, і він єдиний, під який у файлі немає жодного оголошення.</b> Це <b>нуль відгуків</b> у зведенні на <code>product-reviews.html</code> - те саме, що рядок каже словом «новинка», але на два поверхи вище. Зліва зведення, яке має що показати; праворуч те, що стоїть на його місці, коли не має.</p>
+<div class="kp-demo" style="display:flex;flex-wrap:wrap;gap:var(--space-24);align-items:flex-start">
+  <div class="rvbig" style="width:170px"><div class="n">4.8</div><div class="s"><span class="starrow"><span class="uiv-ic uiv-star"></span><span class="uiv-ic uiv-star"></span><span class="uiv-ic uiv-star"></span><span class="uiv-ic uiv-star"></span><span class="uiv-ic uiv-star"></span></span><br>126 відгуків</div></div>
+  <div class="emptybox" style="flex:1;min-width:200px">
+    <div class="et">Відгуків ще немає</div>
+    <div class="es">Цей товар щойно в каталозі. Якщо ви його купували - ваш відгук допоможе обрати іншим.</div>
+    <div class="eact"><button class="btn--accent btn--s btn dark" type="button">＋ Залишити відгук</button></div>
+  </div>
+</div>
+<div class="kp-cap">жодного числа праворуч немає навмисно. <code>0.0</code> - це твердження про товар, і воно неправдиве; риска в 50px - не пропущене значення, а заголовок, який нічого не каже; п'ять погашених зірок - це малюнок «0 з 5», тобто найгірша можлива оцінка формою знака. Цифру тут ставлять у моношрифт саме тому, що її <b>порівнюють</b> - а коли порівнювати нема з чим, немає й роботи. Коробка - <code>.emptybox.mini</code> зі <code>empty-state.css</code>, кнопка в ній та сама, що була в шапці</div>
+<p class="kp-p"><b>Рядок і зведення відповідають по-різному, і це не суперечність.</b> У картці рейтинг - один факт серед п'яти, тож <code>★ - · новинка</code> тримає місце й не бреше. У зведенні рейтинг - <b>увесь</b> блок, і тримати місце нічим: 50px, віддані риске, кажуть неправду голосніше, ніж 12px. Один принцип - не вигадувати значення - дає дві різні відповіді на двох масштабах.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Вибір оцінки</div>
 <p class="kp-p">Єдиний рейтинг, який натискають. До 7.27 він цілком жив у <code>review-modal.css</code> - модалка вирішувала не лише де він стоїть, а й який він. Модалка вирішує місце; який вигляд має зірка, коли її натиснули, вирішує рейтинг. З усієї родини тільки в нього є кільце фокуса.</p>
@@ -113,9 +124,9 @@
 </section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>8</b> власних класів і <b>3</b> стани оголошено в <code>rating.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (<code>.pcard</code> <code>.pcard-l</code> <code>.lmeta</code> <code>.bb</code> <code>.bbrate</code> <code>.rvbig</code> <code>.rvmeta</code>) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>8</b> власних класів і <b>4</b> стани. Три перші оголошені в <code>rating.css</code>; четвертий - <b>нуль відгуків</b> - навпаки, той, під який файл навмисно не має жодного оголошення, і він у списку саме тому: у коді його не видно, тож холостий контроль стежить, щоб його було видно тут. Нижче - те, чого на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (<code>.pcard</code> <code>.pcard-l</code> <code>.lmeta</code> <code>.bb</code> <code>.bbrate</code> <code>.rvbig</code> <code>.rvmeta</code>) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["uiv-star", "rate", "st", "rstars", "starrow", "pm-stars", "pmst", "on"], KIT_STS=[":hover", ":focus-visible", ".on"];</script></section>
+<script>var KIT_CLS=["uiv-star", "rate", "st", "rstars", "starrow", "pm-stars", "pmst", "on"], KIT_STS=[":hover", ":focus-visible", ".on", "нуль відгуків"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>rating.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива. Єдине число без токена - 18px п'ятизіркового рядка, і воно назване рішенням у самому файлі.</p>

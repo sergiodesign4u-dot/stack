@@ -39,3 +39,79 @@
    around the product rather than as the page. */
 .pd-img{ border:1px solid var(--line-hair); border-radius:var(--radius-12); font-size:0; aspect-ratio:16/6;
   background:var(--bg-page) center/auto 84% no-repeat; }
+
+/* ---------- 8.16: «Опис готуємо», and the rule is that there is no rule -------
+
+   A product whose manufacturer text has not arrived yet used to lose the whole
+   block, heading included, and lose it silently - so the page read as though
+   this product had no description to have. The state now shows:
+
+     <div class="sech"><h2>Опис</h2></div>
+     <div class="pdesc">
+       <div class="emptybox mini">
+         <div class="et">Опис готуємо</div>
+         <div class="es">Склад, дозування і характеристики нижче …</div>
+       </div>
+     </div>
+
+   NOTHING IS DECLARED HERE, and that is the finding rather than the shortcut.
+   `.emptybox.mini` in empty-state.css already draws this exact box - solid
+   `--line-hair`, `--bg-surface`, `--radius-12`, 24/16 of padding, a 16px display
+   title and a 14px secondary body capped at 440. Measured at 390 by standing the
+   box in `.pdesc` on product.html: 358 x 170.8, padding 24/16, floor #FAF9F7,
+   frame 1px #E9E7E2 - ink and frame identical to the three `.emptybox` instances
+   on account-empty.html. A second edition of that shape, keyed on
+   `.pdesc`, would have to be kept in step with the atom forever and would drift
+   the first time one of the two moved.
+
+   THREE CHOICES THAT ARE MINE, and none of them costs a declaration.
+
+   1. `.mini`, not `.empty`. `.empty` is the whole-screen shape: a dashed frame
+      round the mascot portrait, 40/24 of padding, a row of exits. The product
+      page is not empty - gallery, price, buy bar above, composition table and
+      certificate below - and the bear planted in the middle of it would out-shout
+      the very thing the sentence points at.
+   2. `.emptybox` AT THE SECTION SIZE, and the first cut of this step said `.mini`
+      on a premise that was FALSE. It read «46px does not draw anywhere in colour:
+      all three coloured boxes carry `.mini`» - and that sentence was true when
+      `empty-state.html` printed it, and stopped being true at step 8.13, which
+      cloned two grey empty screens into colour. Counted across all 88 coloured
+      screens at 8.15: `.empty` 40px on 6 screens, **`.emptybox` 46px on 3**,
+      `.emptybox.mini` 24px on 1. A stale count in a stand reached a design
+      decision two steps later, which is the same failure this project records
+      for a reason that outlived its truth - here wearing a number.
+      The size is decided by SCOPE, which is what the three sizes are a scale of:
+      `.empty` when the whole SCREEN is empty, `.emptybox` when a SECTION of a
+      page is, `.mini` when several stack inside one CARD - and `account-empty`'s
+      three `.mini` boxes sit inside `.acard`, which is what fixed that reading.
+      This is a section of the product page, and so are the other three states
+      built at 8.15. All four carry the same box, measured at 390: 220.4 / 198 /
+      244 / 254 tall, one padding, one radius, one frame.
+   3. The box stands INSIDE `.pdesc`, not instead of it. section-head.css:72
+      anchors the «Опис» heading with `.sech:has(+ .pdesc)`; drop the column and
+      the heading goes full-page width while the box below it stays at 800. Kept
+      inside, the state inherits the 800 measure and the centre axis for free.
+
+   NO GLYPH, and the reason is measurable rather than a taste. `.emptybox .ei` is
+   `font-size: 0` in empty-state.css and the mark is injected by `uivIcons()`,
+   which reads ONE map: `UIV_EMOJI` in design/_nav.js. `doc` and `chat` are drawn
+   in design/system/icons.js and would both suit, but neither has a row in that
+   map - so a glyph typed here would render either as a raw system emoji beside
+   marks that all come from the set, or, inside `.ei`, as nothing at all. Adding
+   the row is an edit to design/_nav.js, which this step does not own; a state
+   that needs a bridge built for it says so instead of drawing half of one.
+
+   NO EXIT, deliberately. Principle 2 allows exactly one main action per screen
+   and the product page has spent it on «Додати в кошик». A button in an empty
+   description would be a second primary about 200px from the first; the sentence
+   points DOWN the page instead, to the composition and the dosage, which are the
+   trust signals Principle 1 wants leading anyway.
+
+   WHAT THIS STATE FOUND IN A FILE THIS STEP DOES NOT OWN: with no `.ei` above
+   the title and no `.eact` below the body, two of the atom's margins hold
+   nothing - `.emptybox.mini .et` keeps its 8px top and `.emptybox .es` its 16px
+   bottom, so the box measures 32 above the title and 40 below the body inside
+   24px padding. account-empty.html already patches its own copy of this with an
+   inline `style="margin-top:0"`, which empty-state.html lists as a defect. The
+   correction belongs to empty-state.css as `:first-child` / `:last-child` on the
+   atom, once, for every iconless box - not to two component files separately. */

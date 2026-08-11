@@ -75,7 +75,14 @@ article.ci{ display: grid; grid-template-columns: 74px 1fr; gap: var(--space-12)
    this said it twice. The 7.21 note it carried is worth keeping: the ELEMENT is
    part of the selector on purpose, because `.ci` is a cart article in one place
    and a span in the catalogue overlay in another. */
-.ci-ph{ background:var(--bg-page) center/80% no-repeat;  border-radius:var(--radius-12); color:transparent; }
+/* 8.12 - `--radius-12` -> `--radius-8`. WHY: A6 counted nine boxes that frame a
+   product photograph and eight of them draw `--radius-8`; this was the ninth, and
+   nothing in this file or in DESIGN-artifacts.md ever said why the cart's tile is
+   rounder than the same tile in an order row, a restock nudge or a checkout line.
+   A6 named it as one of the two observations that belong to whoever decides, and
+   the owner decided. Measured at 390: the tile is 74 x 74 before and after - a
+   radius does not size a box. 10 instances on three cart screens. */
+.ci-ph{ background:var(--bg-page) center/80% no-repeat;  border-radius:var(--radius-8); color:transparent; }
 /* 7.45: `--text-brandline`, AND THIS CLOSES THE SET. tokens.css names three
    readers for that role - `.pcard .pbrand`, `.ci-brand`, `.hdeal .hd-brand` - and
    until three steps ago not one of them took it: the grid card read muted, the

@@ -43,7 +43,55 @@ var DESIGN_NAV = [
      doing: «Обране» from six coloured screens, «Тариф» from three, «Деталі» of an
      order from three. A coach in the coloured prototype stepped out of colour
      mid-task, by an ordinary tap, three times over. */
-  'coach-wishlist.html', 'coach-tariff.html', 'coach-order.html'
+  'coach-wishlist.html', 'coach-tariff.html', 'coach-order.html',
+  /* step 8.13, and these two came from a census rather than from a design step.
+     architecture.md section C says its 24 rows «name a state that no screen
+     draws», and for these two that is not true: `wireframes/account-orders-empty`
+     and `wireframes/account-addresses-empty` have drawn them since stage 04, with
+     their words, their icon and their exit. What was missing was the COLOUR.
+     Section C knew this shape - two of its own rows read «exists in grey, not in
+     colour» - and did not apply it to the rest of the table. */
+  'account-orders-empty.html', 'account-addresses-empty.html',
+  /* step 8.14 - the rest of the states the grey layer already draws for a screen
+     that is already coloured. 48 candidates were counted, not the 23 an earlier
+     reading guessed; 13 of them auto-open a DIALOG the coloured screen already
+     reaches through its own  function, so cloning those would be a second
+     edition of a state that exists. These 35 change the PAGE. */
+  'account-loyalty-empty.html',
+  'account-loyalty-max.html',
+  'account-profile-withemail.html',
+  'account-wishlist-empty.html',
+  'account-wishlist-many.html',
+  'cart-coach-empty.html',
+  'coach-client-empty.html',
+  'coach-client-error.html',
+  'coach-client-loading.html',
+  'coach-clients-cap.html',
+  'coach-clients-empty.html',
+  'coach-clients-error.html',
+  'coach-clients-loading.html',
+  'coach-home-empty.html',
+  'coach-home-error.html',
+  'coach-home-free.html',
+  'coach-home-loading.html',
+  'coach-order-error.html',
+  'coach-order-loading.html',
+  'coach-orders-empty.html',
+  'coach-orders-error.html',
+  'coach-orders-loading.html',
+  'coach-session-addclient.html',
+  'coach-session-addempty.html',
+  'coach-session-empty.html',
+  'coach-session-loading.html',
+  'coach-session-newclient.html',
+  'coach-session-oos.html',
+  'coach-session-priceblock.html',
+  'coach-tariff-cancel.html',
+  'coach-tariff-free.html',
+  'coach-verify-deadend.html',
+  'coach-verify-error.html',
+  'coach-verify-loading.html',
+  'coach-verify-tier.html'
 ];
 
 function uivFixLinks(){

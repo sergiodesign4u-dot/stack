@@ -34,6 +34,54 @@
     radial-gradient(120% 78% at 50% 108%, var(--shadow-floor) 0%, var(--fade-inverse) 62%),
     linear-gradient(180deg,var(--bg-page) 0%, var(--bg-surface) 100%);  border-radius:var(--radius-16); font-size:0; overflow:hidden; }
 .gal .gmain img{ width:100%; height:100%; object-fit:contain; padding:9%; }
+/* ---------- the frame with no photograph - step 8.16 ------------------------
+   `architecture.md` C: «no photo | the gallery | the frame shows «фото товару»
+   in faint ink». Two things were wrong there and only one of them is the words.
+   In the COLOURED layer the placeholder is not faint, it is INVISIBLE: the rule
+   three lines above declares `font-size: 0` on the frame so the whitespace
+   around an `<img>` cannot push it, and every text node inside `.gmain`
+   inherits that zero. Measured on this file's own stand, which has said so in a
+   caption since it was built - «на стенді фото не підставляється» - and drew a
+   blank square under it. A product with no photograph rendered an empty box
+   with a shadow under it and no word anywhere.
+
+   THE ATOM IS `.loadnote`, CHOSEN OVER `.emptybox.mini`. This is one line of
+   text, not a heading with a body and an exit. The way out of a product with no
+   photograph is the whole page around the frame - name, price, composition, the
+   buy box - so a bordered box with its own button INSIDE the gallery would draw
+   a second empty state on a screen that is not empty. Same reading voice wrote
+   for the empty description at 8.15: «вихід не кнопка, а те, що на сторінці вже
+   є». And `.loadnote` is already a centred line of text on three loading
+   screens, in the same tense as «Завантажуємо товар…»: the thing is coming,
+   this is what is being waited for.
+
+   IT COSTS THIS FILE ONE DECLARATION AND THE ATOM NONE. The note carries its
+   own `font-size: var(--fs-14)`, so it beats the frame's inherited zero without
+   being told to, and its own `--text-secondary`, so it beats the frame's
+   `--mark-faint` - which is the «faint ink» half of the finding, answered by
+   the atom rather than by a rule here. What is left is the GROUND: the frame
+   paints a radial floor shadow and a vertical fall of light, and both are the
+   drawing of an object standing in a box. With no object the shadow is cast by
+   nothing. That is the reading `.skpulse` above already carries in this stand's
+   own words - «порожня рамка не має вдавати, що в ній щось стоїть» - so this
+   state takes the same ground from the same token. It is NOT `.skpulse` itself:
+   a pulse says «wait for this page load», and this frame is not waiting for one.
+
+   NO NEW CLASS IN THE MARKUP, the shape `.empty .ei:has(img)` took at 7.73. The
+   state IS the note being there, so the selector asks that and a rename cannot
+   break it. Checked against the only other `.loadnote` on a product screen:
+   `product-loading.html:48` puts it after `</div>`, outside `.gal` entirely, so
+   a `:has()` scoped inside `.gmain` cannot reach it and the skeleton frame
+   keeps `.skpulse`'s ground. (0,3,0) against the base frame's (0,2,0), so the
+   ground wins on order-independent grounds; it ties with `.gmain.skpulse` and
+   the two never stand on one element.
+   MEASURED AT 390: frame 358 x 358 before and after, so the state moves nothing
+   around it. The line sits 8px below the frame's optical centre, because the
+   atom carries `margin-top: var(--space-16)` and a flex box centres the MARGIN
+   box, not the border box. 8 of 358 is 2.2% - under half the frame's own 16px
+   radius - and winning it back would mean a second edition of the atom living
+   inside this file. Left as the atom draws it. */
+.gal .gmain:has(.loadnote){ background: var(--bg-sunken); }
 .gal .gmain .gtag{ font-size:var(--fs-10); letter-spacing:var(--ls-caps); border:none; border-radius:var(--radius-pill); padding:var(--space-4) var(--space-12);
   background:var(--bg-inverse); color:var(--text-oninverse); box-shadow: var(--elevation-mark);
   display:inline-flex; align-items:center; gap:var(--space-4); }

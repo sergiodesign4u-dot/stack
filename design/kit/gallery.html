@@ -22,7 +22,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Галерея</h1>
 <p class="kp-lead">Головне фото товару й чотири мініатюри під ним. Найвізуальніший компонент продукту й водночас найтихіший: банка стоїть у світлі, а не на білому, і нічого більше на цьому місці не відбувається.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/gallery.css</span><span class="kp-tag">59 рядків</span><span class="kp-tag">13 селекторів</span><span class="kp-tag">64 оголошення</span><span class="kp-tag">4 екрани</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/gallery.css</span><span class="kp-tag">109 рядків</span><span class="kp-tag">14 селекторів</span><span class="kp-tag">64 оголошення</span><span class="kp-tag">4 екрани</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка звідси - та сама, що на <code>product.html</code>.</p>
@@ -102,12 +102,20 @@
 <div class="kp-do"><h4>Не видаляю</h4><code>background: var(--bg-page) center/74% no-repeat</code> віддає п'ять значень, і js перебиває три. Два, що лишаються - колір ґрунту й <code>no-repeat</code> - виграють завжди. А <code>center/74%</code> це <b>запас</b>: те, як мініатюра виглядає, якщо скрипт не відпрацював. Та сама причина, з якої 7.49 лишив <code>.emptybox</code> без <code>.mini</code>, а 7.48 - <code>.led-empty</code>.</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p"><b>Шостий стан заведено на 8.16</b>, і до нього рамка товару без знімка була порожнім квадратом із тінню під ним. Ось він живий:</p>
+<div class="kp-demo">
+  <div class="gal">
+    <div class="gmain"><p class="loadnote">Фото готуємо</p></div>
+  </div>
+</div>
+<div class="kp-cap">мініатюр немає навмисно: якщо немає головного знімка, немає й кадрів із нього. Рядок малює <code>.loadnote</code> з <code>empty-state.css</code> - той самий атом, що несе «Завантажуємо товар…» на трьох екранах завантаження, і той самий час дієслова. Цей файл додає рівно одне оголошення - ґрунт: градієнти малюють предмет, що стоїть у світлі, а коли предмета немає, тінь падає від нічого. Слова й колір слів приносить сам атом</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
 <tr><td><b>спокій</b></td><td>банка в рамці, чотири мініатюри під нею</td><td>жодного руху: фото товару це факт, а не запрошення</td></tr>
 <tr><td><b>обрана мініатюра</b></td><td><code>.on</code>: рамка 2px <code>--line-action</code> замість 1px волосини</td><td>єдине помаранчеве в компоненті, і воно означає «ви дивитесь на це»</td></tr>
 <tr><td><b>наведення на мініатюру</b></td><td>підйом на 2px, перехід 150ms</td><td>найменший рух, який видно. Курсор є тільки на десктопі, тож на телефоні стану немає взагалі</td></tr>
 <tr><td><b>завантаження</b></td><td><code>.skpulse</code>: рамка й мініатюри стають <code>--bg-sunken</code></td><td>градієнти зняті: порожня рамка не вдає, що в ній щось стоїть</td></tr>
 <tr><td><b>немає в наявності</b></td><td><code>.oosgal</code>: фото знебарвлене, мініатюри злиті по яскравості</td><td>дві техніки, бо одна з них висушила б помаранчеве кільце</td></tr>
+<tr><td><b>фото немає</b> <span class="kp-tag">8.16</span></td><td><code>:has(.loadnote)</code>: градієнти зняті, у рамці один рядок «Фото готуємо»</td><td>у кольорі плейсхолдер «фото товару» не блідий, а невидимий - рамка має <code>font-size: 0</code>. Слова ставить атом, файл додає лише ґрунт</td></tr>
 <tr><td><b>до 859 / від 860</b></td><td>ширина <code>min(100%, 430px)</code> / <code>540px</code>, мініатюри по центру на вузькому</td><td>на телефоні галерея - весь екран, на десктопі вона половина сітки й не має розповзатись</td></tr>
 </tbody></table></div></section>
 
@@ -115,9 +123,9 @@
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Банка стоїть у світлі, а не на білому.</b> Два градієнти й <code>multiply</code> дають тінь під дном і теплий схил згори. Товар за 2 000 грн на голому білому виглядає як картинка з прайсу, а не як річ, яку можна взяти в руки.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не став на галерею більше однієї мітки.</b> <code>.gtag</code> - дві на весь продукт. Три значки в кутку фото перетворюють товар на вітрину розпродажу, а принцип 4 каже: спокійно й упевнено, без терміновості.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>8</b> власних класів і <b>5</b> станів оголошено в <code>gallery.css</code>.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>8</b> власних класів і <b>6</b> станів оголошено в <code>gallery.css</code>. Власних класів після 8.16 так само вісім: стан «фото немає» питає <code>:has(.loadnote)</code>, тобто чужий клас усередині свого, і жодного нового імені в розмітку не заводить.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["gal","gmain","gtag","gthumb","gthumbs","on","oosgal","skpulse"], KIT_STS=[".on",":hover","max-width:859px","min-width:860px",".skpulse"];</script></section>
+<script>var KIT_CLS=["gal","gmain","gtag","gthumb","gthumbs","on","oosgal","skpulse"], KIT_STS=[".on",":hover","max-width:859px","min-width:860px",".skpulse",":has(.loadnote)"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>gallery.css</code>: <b>11</b> семантичних ролей і <b>11</b> примітивів.</p>
@@ -134,7 +142,6 @@
 <li><b>Точка перелому 860</b> повз набір 480 / 720 / 1180. Сьома в списку, разом із 419, 559, 620, 640, 820 і 859</li>
 <li><b>Два способи сказати «квадрат»</b> в одному файлі: <code>aspect-ratio: 1</code> у рамці й <code>70px</code> × <code>70px</code> у мініатюрі</li>
 <li><b>Колір рамки названо двічі</b> тим самим токеном - <code>border: 1px solid --line-hair</code> у структурі й <code>border-color: --line-hair</code> у кольорі. Так побудовано весь поділ етапу 08, тож це рішення про угоду, а не про цей файл</li>
-<li><b>Немає стану «фото немає»</b> - якщо у товару взагалі немає знімка, рамка покаже слова «фото товару» блідим, і ніде не сказано, що так задумано</li>
 <li><b>Мініатюри не мають фокуса з клавіатури</b> - <code>_nav.js</code> дає їм <code>role="button"</code> і <code>aria-label</code>, але не <code>tabindex</code>, тож перемкнути кадр можна лише мишею</li>
 </ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
 

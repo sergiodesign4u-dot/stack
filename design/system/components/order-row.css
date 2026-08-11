@@ -15,7 +15,10 @@
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .aorder .orow{ display: flex; align-items: flex-start; gap: var(--space-12); }
 .aord-thumbs{ display: flex; gap: var(--space-8); flex: none; }
-.aord-thumbs .t{ width: var(--size-46); height: var(--size-46); border-radius: var(--radius-8); background: var(--bg-sunken); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; color: var(--mark-faint); font-size: var(--fs-10); }
+/* 8.12 - THE SHAPE LEFT FOR product-thumb.css, and `.rk-ph` in restock-note.css
+   was carrying the same nine declarations byte for byte. A6 named the pair and
+   the owner took it: one box, one file, two names. Nothing here sized it that
+   restock-note.css did not size identically - see that file for the argument. */
 .aord-info{ min-width: 0; }
 .aord-info .no{ font-weight: var(--fw-black); color: var(--text-primary); font-size: var(--fs-14); }
 .aord-info .meta{ font-size: var(--fs-14); margin-top: var(--space-4); }
@@ -125,7 +128,10 @@
    order. `.rk-ph` keeps its own copy in restock-note.css, and the third
    declaration of that group, `border-color: var(--line-hair)`, was dead for all
    three names and did not travel. */
-.aord-thumbs .t, .oh-thumbs i{ background:var(--bg-page) center/78% no-repeat; color:transparent; }
+/* `.oh-thumbs i` keeps this line and `.aord-thumbs .t` does not: the 34 box is
+   the same shape at another SIZE, and a size is a value the owner has not folded.
+   The day it is folded this name joins product-thumb.css and this line goes. */
+.oh-thumbs i{ background:var(--bg-page) center/78% no-repeat; color:transparent; }
 .ob-line .ph{ background:var(--bg-page) center/78% no-repeat; color:transparent; }
 .ln-nm{ color:var(--text-body); }
 /* `.ln-tot` LEFT for price.css at 7.96 - it had the family and neither the
