@@ -672,3 +672,330 @@ Eight coach screens at 360 / 390 / 768 / 1280: zero sideways scroll, zero consol
 dashes, zero curly apostrophes. All eleven order status pills now read the same green and amber as
 the buyer's, to the hundredth of a pixel. The 40 buyer screens compared against HEAD on fourteen
 visual keys: **three moved, all by +18px of document height**, which is the clearance decided above.
+
+## Step 7.97-7.98 - the coach flow's open decisions, closed
+
+The owner said fix them, and allowed subagents. Four in parallel, split by FILE so none could
+meet: the mark passes, the coach cart's arithmetic, the type ladder, and the duplicate primary.
+Everything below was measured in a browser, before and after.
+
+### The rule I got wrong, and the omission that caused it
+
+I reported at 7.96 that 73 type sizes had moved silently at 7.95 and that eighteen of them skipped
+a rung. **All 73 were correct.** The repo's rule is TWO moves, not one, and I had read only the
+second: step 5.5 snaps a half pixel to the nearer whole with the tie going to the **more-read
+neighbour** - a table, `12.5 -> 13`, `13.5 -> 13`, `14.5 -> 14` - and only then does step 5.6 snap
+that whole to the nine rungs, ties UP. So 12.5 reaches 14 by way of 13 and skips nothing, and
+14.5 -> 14 lands on a rung rather than moving the wrong way. `buy-box.css` took the same
+14.5 -> 14 at step 6.10 independently.
+
+Worse than the wrong conclusion: at 7.96 I had four agents rewrite 54 notes to say «moved by the
+move, not by a decision», replacing one falsehood with its opposite. The notes now say what is
+true - the owner decided these at 5.5 and 5.6, and 7.95 applied that decision to screens which had
+been outside it because they lived in `<style>` blocks. **No value was changed, at 7.95, 7.96 or
+here.**
+
+**The root cause is in `tokens.css` and is now fixed there.** That file compressed both moves into
+one paragraph and stated only the tie rule - so the file people open to find out what the ladder is
+could not tell them what happens to a half pixel. Three separate passes over the coach files read
+it, applied a single nearest-rung rule, and each concluded there was a defect. The table is in
+`tokens.css` now, with the two moves named and the cost of the omission written down.
+
+### The marks: an address instead of a list
+
+`uivChrome()` walked six hand-written element ids, and `uivAccount()` - the pass that paints the
+cabinet rail - opened with a comment saying the rail is «injected by wfAccountNav, so uivChrome's
+fixed id list never sees it». Nine buyer screens called it by name in their init. **Eleven screens
+carry `#acc-nav`: eight buyer and three coach, and the three coach ones never called it.** Measured
+at 1280: the buyer's rail drew 8 of 8 icons, the coach's **2 of 7** - five 20px slots at
+`font-size: 0` holding a raw glyph and no drawing. The two that did draw were caught by a different
+pass, because `▦` and `♡` happen to be in `UIV_SIGN_ONLY`.
+
+Fixed by presence, not by a longer list: `uivChrome()` now paints the rail wherever the rail exists.
+And `marks.js` gained the **third shape** - a mapped sign that LEADS a label, which neither of its
+two maps had - addressed at «a control or a leaf», with three guards so that `+380`, `−15%` and
+`× 1 од.` never fire. Font-drawn signs across the 48 coloured screens: **251 -> 174**, SVG marks
+**+77**, and every screen's gain equals its loss exactly. Coach rail 2 of 7 -> **5 of 7**; the two
+that remain are `👥` and `◈`, which have no drawing in the set, and drawing one is the owner's.
+
+### The coach cart counts
+
+Measured by clicking: two presses of «+» left every figure on the screen unchanged, and «Видалити»
+left four rows. The grey `wireframes/cart-coach.html` never called `wfCart()` and carries zero
+`data-unit`; the buyer's has four. Inert since stage 04.
+
+`wfCartCoach()` is a **sibling** of `wfCart()`, not a widening of it: the coach's cart has a
+per-client subtotal and a client count the buyer's recalc knows nothing about, and widening
+`wfCartRecalc` to reach `.cprice` would have reached coach-session and coach-client, which are not
+carts. Now: «+»x2 takes a row 1 230 -> 3 690 ₴, its client 2 320 -> 4 780, the total 3 480 -> 5 940;
+removing a client's last row drops the group and takes the head from «4 товари · 2 клієнти» to
+«2 товари · 1 клієнт».
+
+**And it found a live defect in the buyer's cart.** `wfCartRecalc` wrote the cart's total into the
+«Бонуси» button: measured on `cart.html`, the loyalty button read 3 939 ₴ at load and 5 229 ₴ after
+one «+», where `account-loyalty.html` - which runs no recalc - reads the true 124 ₴. Cause is the
+shape of the selector: `.wfh-act.numbtn` is worn by the cart button AND by «Бонуси», and
+`.wfh-act .hb` by the cart badge AND the wishlist badge. Scoped by href. The loyalty button on the
+cart now reads «Отримати», the string it was meant to show a guest and which the sum had covered.
+
+### Two primaries, one destination
+
+`wfCoachNav` emits a full-width accent «＋ Нова сесія» at y=302; `.cnew` stood at y=709 with the
+same words and the same href, 358x141 in charcoal - and `pixel-proof.html` records step 6.7 taking
+the last two black buttons to accent, «there is no black finish in the set». Deleted from the
+markup, and its eight orphaned rules deleted from `coach-cabinet.css` after checking in the browser
+that `.cnew` matched nothing on any of the 48 screens. **The sentence that explained what a session
+IS went with it, and that is the owner's to re-home** - it is the empty state's job, and this
+screen's base state has three clients and six orders.
+
+**The accent count did not change, and the claim that it would was mine and wrong**: `.cnew` was
+charcoal, so `<main>` holds six accent fills before and after. Four of them are card-level actions
+painted like the page's primary - a real question, and stage 09's.
+
+### The two rules that looked like a contradiction
+
+`DESIGN-artifacts.md` locks «label on an orange fill = white»; `chip.css` chose an ink label for the
+chosen state, on contrast grounds, tabulating four editions. They are consistent and now say so:
+**orange as an invitation takes a white label (3.13), orange as a statement takes ink (5.45)**. Both
+ratios and three sources named, zero pixels moved.
+
+### Acceptance
+
+Eight coach screens at 360/390/768/1280: zero sideways scroll, zero console errors, zero em dashes,
+zero curly apostrophes. The 40 buyer screens against the committed 7.96 on fourteen visual keys:
+thirteen moved and **not one of them moved a font size, a weight, a family, an ink, a border width,
+a radius or a token**. What changed is what was decided - more drawn marks, fewer typed signs, fewer
+controls under the 44px floor, and `account-orders` 79px taller because eight of its links now clear
+that floor.
+
+## Step 7.99 - the coach cabinet gets its last four marks, and the slash stops being drawn twice
+
+Owner, two sightings on the same screen: «нет иконок в боковом меню тренера» and «какой двойной
+слеш в кабинете тренера везде».
+
+### The double slash, and why a sweep would have read as a fix without being one
+
+Step 7.39 moved the breadcrumb separator into CSS - `.sep::before{ content: '/' }`, one place, one
+value - and swept the 47 typed `<span class="sep">/</span>` out of the coloured markup **that
+existed that day**. The grey layer kept its own 211, frozen since stage 05, which is correct. The
+eight coloured coach screens arrived at 7.95 as clones of that frozen layer, brought the typed slash
+with them, and the CSS added the second one. Measured at 390: **13 of them, on all seven coach pages
+that carry a trail**.
+
+Deleting those 13 characters would have fixed the screenshot and nothing else: the next screen
+cloned from the grey layer arrives with the same slash. So the rule is stated once, in `uivCrumbs`
+in `design/_nav.js`, which already exists to say the two things the frozen markup cannot - the last
+crumb is the page, the separator is not read aloud. Now a third: **the glyph comes from CSS, so
+whatever character the markup put in the box is a second edition of it and goes**. The box stays; it
+carries the `::before` and the 8px on each side. Measured after: `sep` text empty, `::before` `"/"`,
+box 4.33px wide - one slash, on all seven.
+
+The characters are deliberately **left in the coloured markup**. That way the guard is exercised on
+every load of those seven pages instead of only on the next cloned screen, so a regression shows
+immediately rather than silently.
+
+### Four marks, and only two of them were a drawing decision
+
+Counted in the browser at 390 by the opposite question - any character in a text node that is not a
+letter, a digit or ordinary punctuation - across the eight coach screens: **13 signs still drawn by
+the font**, in four groups.
+
+| sign | where | count | answer |
+|---|---|---|---|
+| 👥 | «Клієнти», the coach rail | 3 | new glyph `users` |
+| ◈ | «Тариф», the coach rail | 3 | new glyph `gem` |
+| 🎽 | «Кабінет», the coach tab bar | 6 | **no new glyph** - `cap` |
+| 🔗 | the URL field on coach-verify | 1 | new glyph `link` |
+
+**🎽 was never a drawing decision, it was a second mark for one destination.** The coach tab bar
+points at `coach-home.html` and drew a running shirt; the buyer account rail points at the same
+`coach-home.html` and has drawn 🎓 since it was built (`wfAccountNav`, isCoach branch). Two marks,
+one place, in two navigations a coach uses in the same session. The tab takes the mark that was
+already the coach's and the set gains nothing.
+
+**`gem` is the hard one, and the reason is a collision, not a metaphor.** The set holds two marks
+that almost fit «Тариф» and both are taken on the same screen: `tag` is «Бренди» in the mega-menu,
+`card` is «Оплата карткою» in the footer trust strip. Either would have drawn two meanings in two
+navigations a person can see at once - the exact fault `icons.js` records about the star. So the
+glyph is the sign the prototype itself chose at stage 04 and Voice kept: ◈ U+25C8, a lozenge holding
+a lozenge, drawn to the set's anatomy. Not a new metaphor - the same thing `box` did for 📦.
+
+**`users` is `user` with a second person behind**, same head radius, same shoulder curve, same
+weight: a client list is many of the person the account rail already draws. The one behind is two
+arcs rather than a whole figure - a full circle would cross the front figure's stroke, and an
+outline set cannot say which line is in front.
+
+**`link` is on the diagonal**, and that is the whole reason it is not the flat two-C mark every set
+draws. Flat it is 9.9 tall against a set median of 18.5 - the fault the `flame` note records, where
+a small mark floats over its own line while its neighbour fills the cell. Turned 45 degrees it fills
+a 17.4 square, dead centre.
+
+**Both maps carry the three chrome glyphs**, the same discipline the 🗑 row recorded at 7.13:
+`UIV_EMOJI` runs over the shop's regions and reaches the rail and the tab bar; `UIV_SIGN_ONLY` in
+`marks.js` reaches any leaf whose whole text is the sign, and it is what the stand pages run. 🔗 is
+in the second only - a field prefix is not chrome.
+
+### What the glyph exposed: a prefix wearing the country code's class
+
+`coach-verify.html` wrote `<span class="cc pre">🔗</span>` inside a `.field-grp`, copied from the
+phone field at 7.96. **Neither class draws anything there**: the rule is `.ph-field .cc`, and `.pre`
+in this product belongs to availability.css («передзамовлення»), always compounded. Measured at 390:
+the prefix box sat at x 40 inside a group whose inner edge is x 40. **Zero.** The mark was flush
+against the border with the emoji too - a square drawing is simply the first thing in that slot with
+no side bearings of its own to hide it.
+
+The two prefixes are not one thing. `+380` is content the person is not typing, and its ground and
+divider are what say «this part is not yours to edit»; a mark is decoration - it names the field, and
+a divider would state something false. So `field.css` gains a second rule addressed by role,
+`.field-grp > .ic`, not a wider selector on the first. **The numbers are not new**: `.coach
+.cl-search` one screen over is the accepted twin - a lens in front of an input - and it was
+measured, not read. 13 from the box edge (12 of padding + 1 of border), 8 to the text, no colour of
+its own. This rule uses 12 and 8 and declares no colour. Measured after: mark at 12, text at 8,
+group still 44.00.
+
+### Acceptance
+
+The stand's own audit, run on the live set at `design/kit/icons.html`: **56 glyphs, 5 outside the
+safe area (spark, bell, card, cart, cap), 8 off centre (bell, truck, cart, download, heart, ret,
+star, leaf)**. None of the three new ones is in either list.
+
+Eight coach screens at 360/390/768/1280: zero sideways scroll, zero console errors, zero em dashes,
+zero curly apostrophes, and no typed separator anywhere. The 40 buyer screens at 390: the same, and
+two known failures that are not this step's - see below.
+
+Counted again after: on the eight coach screens the font now draws **four things and every one of
+them is a value, not a sign** - `+` in «+380» and the tariff table, `−` in «−15%», `©` in the footer
+legal, and `×` in «× 1 од.».
+
+### Found in passing, not fixed, and each is one decision
+
+- **34 em dashes, every one of them a lone U+2014 in a `<td>`** - the «no value in this cell»
+  placeholder, in
+  `design/product*.html` (4), `wireframes/product*.html` (4), `ia/*.html` (25) and `voice/voice.html`
+  (1). CLAUDE.md forbids the character outright. It is one decision - which character stands for an
+  empty cell - and it touches the frozen grey layer, the IA layer and the voice rulebook page, so it
+  is not a sweep to make inside an icon step.
+- **12 signs that point LEFT and have no drawing**: `←` x7 (four in the auth dialog - «Змінити
+  номер» x3 and «Назад до коду» - which locked decision 5 puts on the coach's own path, plus
+  `.pmback` on product-oos, product-reviews and overview)
+  and `‹` x5 (`.addr-back` on account-addresses and account-profile). The set has `arrowRight` and
+  `caret`, both pointing right. Two mirrored paths and two map rows.
+- **Three delivery marks in an injected panel**: 📦 🔳 🚚 on `.am-ic` in the address dialog. 📦 and 🚚
+  are mapped and still come out as emoji, because `addrStep()` builds that panel after every pass has
+  run - the same defect `uivAuthPaint` had before 7.98, and the same one-line answer.
+
+## Step 8.0 - the wholesale strip is a grid, and the link stops falling below-left
+
+Owner, on `coach-home.html`: «переместить кнопку в правую часть и чуть изменить сам блок
+расположение элементов так чтобы он стал меньше».
+
+### What was measured before anything moved
+
+| width | height | what it did |
+|---|---|---|
+| 360 / 390 | **168.0** | chip / sentence on two lines / link, three rows |
+| 720 / 768 / 860 | **111.2** | chip + sentence, link below and LEFT |
+| 960 | **168.0** | the shell opens its rail, the box narrows, back to three rows |
+| 1280 | **111.2** | link below and left again |
+| 1440 | **72.0** | one row, link at the right - the only width that worked |
+
+**One row at 1440 and nowhere else**, and that is not a bug in the numbers. Flex breaks a line by
+the item's hypothetical size, so the sentence claims its max-content **685.8** before anything is
+allowed to shrink; the link does not fit after it and a new line starts. One row needs
+45.7 + 12 + 685.8 + 12 + 133.8 = **889.3** of content, so a **921.3** box.
+
+Step 7.96 had already traded `margin-left: auto` away for `flex-grow: 1` on exactly this ground, and
+the trade was real: on a wrapped row `auto` means «hard right of MY row», so the link sat alone and
+right-aligned under a left-aligned block. Both options were wrong; the wrapping row was the thing
+making the choice necessary.
+
+### A grid does not ask the question
+
+`1fr` on the sentence is a share of the free space, not a claim on its own content, so the sentence
+takes what is left and **wraps** instead of pushing the link off the line. The link is a column of
+its own with `justify-self: end`, so there is no width at which it can fall below-left.
+
+**Two shapes, one boundary, and the boundary is a layout one.** Under 720 the three-column row would
+hand the sentence 122.5px and it would run six lines, so the phone puts the chip and the link on the
+first row - the link still hard right - and gives the sentence the full width under them. **720 is
+the system's own second breakpoint** (15 uses) and it is named for what it is. That is not the
+boundary 7.96 refused: that one was 868 / 960 / 1440, three unnamed fit thresholds for one
+alignment, and none of them exists any more.
+
+### After
+
+| width | before | after |
+|---|---|---|
+| 360 | 168.0 | 145.2 |
+| 390 / 480 | 168.0 | **122.8** |
+| 719 | 111.2 | 100.4 |
+| 720 / 768 / 860 / 960 / 1280 | 111.2 - 168.0 | **70.8** |
+| 1440 | 72.0 | 70.0 |
+
+The link is at the strip's right edge at every one of those widths. `coach-home` at eleven widths
+from 360 to 1440: zero sideways scroll, zero console errors.
+
+### The three `[?]` numbers left with it, and one of them bought back a line
+
+`margin-top: 15` -> `--space-16`, `padding: 13px 15px` -> `--space-12`. All three were flagged in
+`coach-cabinet.css` as having no rung; the owner asked for a smaller block, so the smaller number
+comes from the ladder rather than from a fresh guess.
+
+**The side inset is 16 only above 720, and that is measured.** At 390 the strip is edge to edge
+inside the page's own 16, so 16 more inside it insets the sentence 32 from the screen: at **324** the
+sentence runs three lines, at **332** it runs two. Eight pixels are a whole line at that width, and
+the line is worth more than the inset on the one width where the two compete.
+
+### And then the sentence became a heading and its detail
+
+Owner, same strip: «надо теперь перенести без обмежень на клієнтів · зекономлено цього місяця
+1 240 ₴ [?] на нижнюю строчку под заголовок».
+
+One `display: block` on the detail does it, and it does it **without a width**: the break is
+structural, so it holds at 360 and at 1440 alike rather than depending on where the line happens to
+run out. Measured: **70.8 at every width from 720 up, unchanged** - the note was already running two
+lines there, so the split costs nothing and buys the hierarchy. On the phone it costs one line:
+122.8 -> 145.2 at 390, because a break the flow did not need is now being asked for.
+
+**One character of copy went with it, and it is the separator, not a word.** The sentence read
+«Гуртові ціни активні · без обмежень…»; the interpunct existed because the two clauses shared a
+line, and a separator at the head of the second line separates a line from nothing. Every word is
+untouched.
+
+**`.qm` is the prototype's own name** for the `[?]` marker - `wireframes/coach-tariff.html` has
+called it that since stage 04. The selector here was `.cnote > span`, which picked the marker only
+while it was a direct child; wrapping the detail line would have handed the whole line the muted
+grey instead of the marker. Measured after: title rgb(28,28,28)/700, detail rgb(91,91,84)/400, the
+sum rgb(28,28,28)/700, the marker rgb(110,106,98)/400 - every one of them what it was before.
+
+**A space between the two, and it is for the reading, not the eye.** Without it `textContent` came
+out «…активнібез обмежень…»: two words fused for a screen reader and for anyone copying the line,
+while the block break hid it from view. The space sits at the end of the title's line box and
+collapses before it is painted - measured before and after, both boxes identical to the tenth of a
+pixel.
+
+### «Додати клієнта» moves above the list and takes the full width
+
+Owner, on the same screen: «давай перенесем додати кліента у вверх над списком и сделаем на всю
+ширину кнопку».
+
+Below the last row it was the end of a list; above it, it is the card's own action. `btn--full` is
+what `button.css` calls «the button is alone in its block» - measured after: 324 x 40 at 390,
+834 x 40 at 900, 698 x 40 at 1280, in every case exactly the card's inner width. It stays
+`btn--outline btn--s`, which is the rung the card's other in-card actions already stand on: full
+width raises its weight enough, and turning it accent would put a second orange fill on a screen
+whose one action is «Нова сесія».
+
+**The margin turns over with it.** `margin-top: 13` becomes `margin-bottom: --space-12`, and the 12
+is not a new number: `.acard .ah` already sits 12 above whatever follows it, so the button now has
+the same air on both sides. 13 was flagged in this file as having no rung.
+
+**And the hairline came back, which is the same fault a third time.** Putting `.cli-add` between
+`.ah` and the first row stopped `.ah + .cli` from matching, so the first client row drew its
+`border-top` again - one line 12px under a full-width outline button that already draws a line of
+its own across the card. That is what the original defect looked like at 7.96, and at 7.60 in
+`restock-note.css` before it. The list's first row is whatever the list starts with, and there are
+now three things it can follow, so there are three selectors. Measured after: the first `.cli` is
+`border-top: 0` and the two below it are 1px, at 390, 900 and 1280.
+
+`coach-home` at 360 / 390 / 720 / 900 / 1280 / 1440: zero sideways scroll, zero console errors.

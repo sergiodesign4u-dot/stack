@@ -206,6 +206,33 @@ select.field{
   line-height: var(--lh-snug);
 }
 
+/* ---- a MARK in front of the field, and it is not the country code ----------
+   Step 7.99, and the glyph is what exposed it. `coach-verify.html` wrote
+   `<span class="cc pre">🔗</span>` inside a `.field-grp` - copied from the phone
+   field at 7.96 - and neither class draws anything there: the rule above is
+   `.ph-field .cc`, and `.pre` in this product belongs to availability.css
+   («передзамовлення»), always compounded. Measured at 390: the prefix box sat at
+   x 40 inside a group whose inner edge is x 40. Zero. The mark was flush against
+   the border with the emoji too; a square drawing is simply the first thing in
+   that slot with no side bearings of its own to hide it.
+
+   THE TWO PREFIXES ARE NOT ONE THING. `+380` is content the person is not
+   typing - a fixed part of their own value - and its ground and its divider are
+   what say «this part is not yours to edit». A mark is decoration: it names the
+   field. Giving it a divider would state something false. So it is a second
+   rule, not a wider selector on the first.
+
+   THE NUMBERS ARE NOT NEW. `.coach .cl-search` one screen over is the accepted
+   twin - the same shape, a lens in front of an input - and it was measured
+   rather than read: the lens sits 13 from the box edge (12 of padding + 1 of
+   border) and 8 from the text, and takes no colour of its own. 12 and 8 are what
+   this rule uses, and no `color` is declared here for the same reason. The
+   difference is only that this one is addressed by ROLE - any mark that leads
+   any group - while `.cl-search` is a hand-built shell that field.css still
+   cannot reach (Крок 6, and coach-clients.css says so at its own rule). */
+.field-grp > .ic{ display: flex; align-items: center; padding-left: var(--space-12); }
+.field-grp > .ic + .field{ padding-left: var(--space-8); }
+
 /* the line under an OTP: how to ask for a new code */
 .resend{ font-size: var(--fs-14); color: var(--text-muted); margin-top: var(--space-16); }
 .resend .cool{ font-family: var(--font-mono); font-weight: var(--fw-semibold); color: var(--text-secondary); }

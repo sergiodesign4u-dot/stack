@@ -29,49 +29,72 @@
    screen was drawn in stage 04, before the scale existed.
 
    ############################################################################
-   ELEVEN SIZES WERE SNAPPED UP, AND THIS FILE SAID THEY WERE NOT - step 7.96.
-   The paragraph above used to end «they stay literal and each carries its own
-   [?], and snapping it is a look taken with the type stand open, not a side
-   effect of a move». That sentence was false the day it was typed. Verified line
-   by line against the frozen `wireframes/coach-landing.html`: eleven sizes MOVED
-   in the move, every one of them moved UP, and every one kept a `[?]` note
-   phrased as though it had been left alone.
+   ELEVEN SIZES WERE SNAPPED, AND THE SNAP IS THE PRODUCT'S OWN RULE - the third
+   and last rewrite of this block, step 7.98.
 
-       grey file          this file          the note used to read
-       .clh .kicker        11     --fs-12    «11px has no rung»
-       .clh .sub           15     --fs-16    «15px has no rung»
-       .clv span           12.5   --fs-14    «a HALF PIXEL»   (now chip.css's)
-       .step h3            15     --fs-16    «15px has no rung»
-       .step p             13     --fs-14    «13px has no rung»
-       .cmp-cell           13     --fs-14    «13px has no rung»
-       .cmp-head .plan     17     --fs-18    «17px has no rung»
-       .cmp-head .price    13     --fs-14    «13px has no rung»
-       .cmp-head .price b  15     --fs-16    «15px has no rung»
-       .cmp-cell.feat@559  13.5   --fs-14    «the second HALF PIXEL»
-       .finalcta h2        22     --fs-24    «22px has no rung»
+   7.95 wrote that the sizes stayed literal, and they had not. 7.96 fixed that
+   and wrote that the eleven were «one open question for stage 09», on the
+   reading that a move had invented a rounding nobody had authorised. That is
+   the half this step corrects. The rule exists, it is the owner's, and it was
+   taken over the whole product two stages before this screen was touched. It is
+   not in tokens.css, which is why three passes over these files missed it:
+   `design/kit/docs/consolidation.md` records the typography consolidation as TWO
+   moves over two steps, and `tokens.css:168` restates only the second.
 
-   WHAT MAKES IT A TYPE-ONLY SLIP AND NOT A POLICY: every GEOMETRY literal in
-   the same file DID stay literal. 5, 6, 7, 9, 10, 11, 14, 15, 18, 20, 22, 30
-   and 34 are all still here, each under its own `[?]`, and several of them stand
-   the same one to two pixels from a rung that the eleven sizes above did. So one
-   pass applied the type scale's tie rule («ties go UP», tokens.css) to type,
-   applied nothing to spacing, and then wrote one note over both. The direction
-   is the rule the scale states, so the values are defensible; taking the
-   rounding without saying so is not, and this file's own header is what forbids
-   it. One TYPE literal survived - the 26 on `.clh h1` - and its note now says
-   out loud that it is left literal on purpose.
+     step 5.5  «Typography, move one: the half-pixel steps». A half pixel snaps
+               to the nearer whole, «and a tie went to the MORE-READ neighbour,
+               because the step the product already leans on is the one that
+               should survive». Every half pixel is a tie, so the six mappings
+               are a TABLE, not arithmetic:
+                  9.5 -> 10   10.5 -> 11   11.5 -> 12
+                 12.5 -> 13   13.5 -> 13   14.5 -> 14
+               210 declarations moved, 26 steps -> 20.
+     step 5.6  the twenty wholes go to nine rungs, ties UP:
+               13 -> 14 · 11 -> 12 · 15 -> 16 · 17 -> 18 · 19 -> 20 · 22 -> 24
 
-   THE VALUES ARE NOT REVERTED HERE. Reverting eleven sizes is as much a value
-   decision as taking them, and it is the owner's either way. What is fixed is
-   the record: each of the eleven notes below now says what the grey file held,
-   what this file declares, and that the MOVE took it rather than a decision.
-   The eleven together are ONE open question for stage 09 - keep the snap, or put
-   the screen back on its measured sizes with the type stand open - and it is
-   not this file's alone. The identical slip is confirmed in `coach-clients.css`
-   (fourteen sizes). `coach-session.css` and `coach-cabinet.css` took the same
-   snap and DID write it down beside each line («was 22px; step 5.6, ties go
-   UP»), which is both the proof that it is one batch-wide pattern and the shape
-   the repair takes.
+       grey file          this file          what the rule gives
+       .clh .kicker        11     --fs-12    5.6 tie up
+       .clh .sub           15     --fs-16    5.6 tie up
+       .clv span           12.5   --fs-14    5.5 -> 13, 5.6 up  (now chip.css's)
+       .step h3            15     --fs-16    5.6 tie up
+       .step p             13     --fs-14    5.6 tie up
+       .cmp-cell           13     --fs-14    5.6 tie up
+       .cmp-head .plan     17     --fs-18    5.6 tie up
+       .cmp-head .price    13     --fs-14    5.6 tie up
+       .cmp-head .price b  15     --fs-16    5.6 tie up
+       .cmp-cell.feat@559  13.5   --fs-14    5.5 -> 13, 5.6 up
+       .finalcta h2        22     --fs-24    5.6 tie up
+
+   ELEVEN FOR ELEVEN, and 7.98 adjusted none of them.
+
+   THE TYPE-ONLY ASYMMETRY IS THE CORRECT ASYMMETRY, not the slip this block
+   used to call it. Every GEOMETRY literal in this file did stay literal - 5, 6,
+   7, 9, 10, 11, 14, 15, 18, 20, 22, 30 and 34 are all still here under their own
+   `[?]` - and several of them stand the same one to two pixels from a rung that
+   the eleven sizes above did. That is because SPACING has no settled rounding
+   rule: tokens.css gives two that contradict each other on the same numbers, the
+   5.5 spacing block («ties go UP», 10 -> 12, 14 -> 16) and the 7.67 sweep
+   («round DOWN to the rung», 10 -> 8, 14 -> 12). RADIUS ties go DOWN, which is
+   why the 14 on `.cmp` below stays 14. TYPE is the one of the three ladders
+   whose answer is written and unambiguous, so type is the one a move could take
+   and the other two are still open. One TYPE literal survived - the 26 on
+   `.clh h1` - and its note says out loud that it is left literal on purpose,
+   because 26 is not a value the ladder answers: it is between the 24 and 30
+   rungs and neither 5.5 nor 5.6 has an instruction for a whole number that is
+   not on their list.
+
+   THE SAME CORRECTION IS APPLIED IN THE OTHER FOUR FILES, which is what makes
+   it one rule rather than one file's opinion: `coach-clients.css` (14 sizes),
+   `coach-cabinet.css` (19), `coach-session.css` (20), `coach-verify.css` (9).
+   73 across the batch, 73 answered by the two moves, and the twenty that read
+   as errors under a one-pass «nearest rung» reading - eighteen 12.5 -> 14 and
+   two 14.5 -> 14 - are the cases where move one does the work before the ladder
+   is ever consulted.
+
+   VERIFIED IN A BROWSER AT 7.98, not by reading the diff: all eight coloured
+   coach screens at 360 / 390 / 768 / 1280, every one of the 73 measured as
+   rendered `font-size`. 0 mismatches, `scrollWidth - clientWidth` 0 everywhere,
+   zero console errors.
    ############################################################################ */
 
 /* ---------- structure (from wireframes/coach-landing.html) ---------- */
@@ -98,7 +121,7 @@
    decision, it is drift from before the scale. It also OUTLINES itself, which no
    other eyebrow does: the pill border makes it a mark on the page rather than a
    label over a block. Both are stage 09's to rule on. */
-.coach .clh .kicker{ display: inline-block; font-size: var(--fs-12); /* [?] the grey file wrote 11px; this declares --fs-12. The move took it, not a decision - see the block at the top */
+.coach .clh .kicker{ display: inline-block; font-size: var(--fs-12); /* grey 11 -> 12: 5.6, ties go UP - see the block at the top */
   font-weight: var(--fw-black); letter-spacing: var(--ls-caps); text-transform: uppercase;
   color: var(--text-primary);
   /* was `1.5px`: step 7.62 measured that Chrome resolves 1.5 to a used value of
@@ -136,17 +159,23 @@
        .coach .ch-name    coach-clients   Inter 24/700  -> Oswald 600 --fs-30
        .coach .co-top h1  coach-cabinet   Inter 24/700  -> DELETED, the markup
                                                           took `.acc-h1`
-       .coach .cs-top h1  coach-session   Inter 24/700  -> still open when this
-                                                          line was written
+       .coach .cs-top h1  coach-session   Inter 24/700  -> Oswald, and 700 not
+                                                          600: that rule declares
+                                                          `font-weight` twice and
+                                                          the first is dead. See
+                                                          the note beside it -
+                                                          measured at 7.98, five
+                                                          headlines, four at 600
+                                                          and that one at 700
    `--text-primary` is kept rather than copied to the twins' `--text-body`: both
    resolve to `--warm-900` today, this file's translation table assigns a HEADING
    to `--text-primary` on purpose, and which of the two an H1 reads is a question
    for the whole product. coach-verify.css took the identical position. */
-.coach .clh h1{ font-family: var(--font-display); font-size: 26px; /* [?] 26px has no rung; 24 and 30 are the neighbours. Left literal ON PURPOSE - see above */
+.coach .clh h1{ font-family: var(--font-display); font-size: 26px; /* [?] 26px has no rung; 24 and 30 are the neighbours, and the ladder has no instruction for a whole number that is not on its own list - 5.6 names ties only. Left literal ON PURPOSE - see above */
   line-height: 1.15; /* [?] no rung; the three leadings are 1 / 1.3 / 1.6 */
   font-weight: var(--fw-semibold); color: var(--text-primary); letter-spacing: var(--ls-lead); }
 @media (min-width: 860px) { .coach .clh h1{ font-size: var(--fs-34); } }
-.coach .clh .sub{ font-size: var(--fs-16); /* [?] the grey file wrote 15px; this declares --fs-16. The move took it - see the block at the top */
+.coach .clh .sub{ font-size: var(--fs-16); /* grey 15 -> 16: 5.6, ties go UP - see the block at the top */
   /* 1.55 -> `--lh-airy`. Not a rounding: step 5.6 moved the product's base
      rhythm from 1.55 to 1.6 out loud, «because air is calmer», and zero 1.55
      survive anywhere in the component layer. Applying a decision, not taking one. */
@@ -250,10 +279,10 @@
   background: var(--bg-inverse); color: var(--text-oninverse);
   font-size: var(--fs-14); font-weight: var(--fw-black);
   display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-12); }
-.coach .step h3{ font-size: var(--fs-16); /* [?] the grey file wrote 15px; this declares --fs-16. The move took it - see the block at the top */
+.coach .step h3{ font-size: var(--fs-16); /* grey 15 -> 16: 5.6, ties go UP - see the block at the top */
   font-weight: var(--fw-black); color: var(--text-primary);
   margin-bottom: 6px; /* [?] 6px has no rung - and this one DID stay literal, which is what makes the type list a slip */ line-height: var(--lh-snug); }
-.coach .step p{ font-size: var(--fs-14); /* [?] the grey file wrote 13px; this declares --fs-14. The move took it - see the block at the top */
+.coach .step p{ font-size: var(--fs-14); /* grey 13 -> 14: 5.6, ties go UP - see the block at the top */
   color: var(--text-secondary); line-height: var(--lh-airy); /* was 1.55, step 5.6 */ }
 
 /* ---- Free / Pro comparison ----------------------------------------------
@@ -266,7 +295,7 @@
 .coach .cmp-row{ display: grid; grid-template-columns: 1.2fr 1fr 1fr; }
 .coach .cmp-row + .cmp-row{ border-top: 1px solid var(--line-hair); }
 .coach .cmp-cell{ padding: 14px 15px; /* [?] neither 14 nor 15 has a rung - and both stayed literal, unlike the size beside them */
-  font-size: var(--fs-14); /* [?] the grey file wrote 13px; this declares --fs-14. The move took it - see the block at the top */
+  font-size: var(--fs-14); /* grey 13 -> 14: 5.6, ties go UP - see the block at the top */
   color: var(--text-body); line-height: 1.45; /* [?] no rung; the three leadings are 1 / 1.3 / 1.6 */ }
 /* the feature column and the Pro column take the same ground, and that is the
    whole visual argument of the table: the row LABEL and the plan being sold are
@@ -274,7 +303,7 @@
 .coach .cmp-cell.feat{ font-weight: var(--fw-bold); color: var(--text-primary); background: var(--bg-surface); }
 .coach .cmp-cell.pro{ background: var(--bg-surface); }
 .coach .cmp-head .cmp-cell{ padding: 18px 15px; /* [?] neither 18 nor 15 has a rung */ }
-.coach .cmp-head .plan{ font-size: var(--fs-18); /* [?] the grey file wrote 17px; this declares --fs-18. The move took it - see the block at the top */
+.coach .cmp-head .plan{ font-size: var(--fs-18); /* grey 17 -> 18: 5.6, ties go UP - see the block at the top */
   font-weight: var(--fw-black); color: var(--text-primary); }
 /* `.badge` IS NOT THE BADGE ATOM, and the name collision is real: badge.css
    declares `.tag.tag-pop, .tag.tag-new` and nothing else, so no file in the
@@ -288,7 +317,7 @@
   border: 1px solid var(--line-inverse); /* was 1.5px, step 7.62 */ border-radius: var(--radius-pill);
   padding: var(--space-2) 9px; /* [?] 9px has no rung */
   margin-left: 7px; /* [?] 7px has no rung */ vertical-align: middle; }
-.coach .cmp-head .price{ font-size: var(--fs-14); /* [?] the grey file wrote 13px; this declares --fs-14. The move took it - see the block at the top */
+.coach .cmp-head .price{ font-size: var(--fs-14); /* grey 13 -> 14: 5.6, ties go UP - see the block at the top */
   color: var(--text-secondary); font-weight: var(--fw-semibold);
   margin-top: 5px; /* [?] 5px has no rung */ }
 /* THE ONE BROKEN THING ON THE SCREEN, and it is the number the coach is
@@ -308,7 +337,7 @@
    price.css and it is reported, not taken here. */
 .coach .cmp-head .price b{ color: var(--text-primary); font-weight: var(--fw-black);
   white-space: nowrap;
-  font-size: var(--fs-16); /* [?] the grey file wrote 15px; this declares --fs-16. The move took it - see the block at the top */ }
+  font-size: var(--fs-16); /* grey 15 -> 16: 5.6, ties go UP - see the block at the top */ }
 .coach .cmp-foot .cmp-cell{ padding: var(--space-16) 15px; /* [?] 15px has no rung */ }
 /* the foot's label cell drops back to the page colour so the two action cells
    read as a footer and not as a sixth feature row */
@@ -354,7 +383,7 @@
   /* stack the two plans; keep feature label above each pair via data flow */
   .coach .cmp-row{ grid-template-columns: 1fr 1fr; }
   .coach .cmp-cell.feat{ grid-column: 1 / -1; padding: 11px 15px; /* [?] neither 11 nor 15 has a rung */
-    font-size: var(--fs-14); /* [?] the grey file wrote 13.5px, a half pixel; this declares --fs-14. The move took it - see the block at the top */ }
+    font-size: var(--fs-14); /* grey 13.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP - see the block at the top */ }
   /* THE TABLE ENDED IN AN EMPTY RULED BAND. The foot row's label cell is empty -
      `<div class="cmp-cell feat"></div>`, a real grid column in the wide layout
      and nothing at all in the narrow one - but the rule above gives every `.feat`
@@ -380,7 +409,7 @@
 .coach .finalcta{ text-align: center; border: 1px solid var(--line-inverse); /* was 1.5px, step 7.62 */
   border-radius: var(--radius-16); padding: 30px 22px; /* [?] neither 30 nor 22 has a rung */
   margin: var(--space-32) 0 var(--space-8); }
-.coach .finalcta h2{ font-size: var(--fs-24); /* [?] the grey file wrote 22px; this declares --fs-24. The move took it - see the block at the top */
+.coach .finalcta h2{ font-size: var(--fs-24); /* grey 22 -> 24: 5.6, ties go UP - see the block at the top */
   font-weight: var(--fw-black); color: var(--text-primary); }
 .coach .finalcta p{ font-size: var(--fs-14); color: var(--text-secondary);
   margin: 10px auto 20px; /* [?] neither 10 nor 20 has a rung */

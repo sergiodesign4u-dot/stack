@@ -43,19 +43,52 @@
       <!-- coach status: Pro tier chip + wholesale-active note + savings stat (price = the driver, strategy v5) -->
       <div class="cstat">
         <span class="tierchip">Pro</span>
-        <span class="cnote"><b>Гуртові ціни активні</b> · без обмежень на клієнтів · зекономлено цього місяця <b>1 240 ₴</b> <span>[?]</span></span>
+        <span class="cnote"><b>Гуртові ціни активні</b> <span class="csub">без обмежень на клієнтів · зекономлено цього місяця <b>1 240 ₴</b> <span class="qm">[?]</span></span></span>
         <a class="cmanage" href="coach-tariff.html">Керувати тарифом</a>
       </div>
 
-      <!-- BIG primary CTA → multi-client session (5.5) -->
-      <a class="cnew" href="coach-session.html">
-        <span class="cn-ic">＋</span>
-        <span class="cn-tx">
-          <span class="cn-t">Нова сесія</span>
-          <span class="cn-s">Зберіть замовлення одразу для кількох клієнтів в одну сесію</span>
-        </span>
-        <span class="cn-go">→</span>
-      </a>
+      <!-- ============================================================
+        `.cnew` DELETED HERE - step 7.98, and this is the reasoning rather than a
+        blank space, because the next person to open the grey twin will see the
+        block and wonder where it went.
+
+        WHAT STOOD HERE: <a class="cnew" href="coach-session.html"> - a 358 x 141
+        charcoal panel carrying «Нова сесія», the sentence «Зберіть замовлення
+        одразу для кількох клієнтів в одну сесію» and an arrow.
+
+        IT WAS THE SECOND OF TWO. Measured at 390 before the deletion:
+        `wfCoachNav` emits `.coach-newcta` - a 358 x 52 accent button, «＋ Нова
+        сесія», href="coach-session.html" - at y=302. `.cnew` stood at y=709 with
+        THE SAME WORDS and THE SAME href. Design principle 2 is «exactly one
+        clear next step», and two blocks with one destination is the case it
+        names. The rail's button is the one that stays: it is shared by all eight
+        coach screens, it is above the fold, and it wears the finish the set
+        actually has.
+
+        AND IT WAS THE LAST BLACK FINISH ON THE SCREEN. `design/kit/pixel-proof.html`
+        records step 6.7 - «the last two black buttons become accent
+        (`.co-getcode`, `.coach-newcta`) - there is no black finish in the set».
+        `.cnew` was a black finish still standing, on the primary audience's daily
+        screen, and `button.css` has held no rule at all for `btn` or `dark` since
+        step 7.9. Measured: filled blocks inside <main> at 390, 2 -> 1 (accent
+        358 x 52 stays, charcoal 358 x 141 goes).
+
+        THE ONE THING THAT GOES WITH IT IS A PRODUCT STRING, AND THAT IS THE
+        OWNER'S, NOT MINE: «Зберіть замовлення одразу для кількох клієнтів в одну
+        сесію». It explains what a session IS, which is a job that belongs to the
+        state where the coach has never run one - node 5.2's empty twin,
+        `wireframes/coach-home-empty.html` - not to this file, whose own header
+        says «base = has data» and whose data is 3 clients and 6 orders. If the
+        owner wants the sentence in the base state it needs a home that is not a
+        second primary; it is NOT reinstated here by a css change, because the
+        duplication is structural and no repaint removes it.
+
+        WHAT THIS COSTS: design/coach-home.html now differs from
+        wireframes/coach-home.html by one block, and the design copies are
+        supposed to own the visual layer only. Said out loud rather than hidden -
+        the grey twin carries the same two-primaries defect and cannot be edited
+        (frozen after stage 05), so the divergence is the price of principle 2.
+      ============================================================ -->
 
       <div class="acc-grid">
 
@@ -78,6 +111,10 @@
         <!-- Clients summary → coach-clients / each → coach-client -->
         <div class="acard span2">
           <div class="ah"><h3>Клієнти</h3><a href="coach-clients.html">Усі клієнти →</a></div>
+          <!-- the way IN to the list stands above it, full width - owner, step 8.0.
+               Below the last row it was the end of a list; above it, it is the
+               card's own action. -->
+          <div class="cli-add"><a class="btn--outline btn--s btn--full btn" href="coach-clients.html">＋ Додати клієнта</a></div>
           <div class="cli">
             <div class="cav">А</div>
             <div class="cinfo"><div class="cn">Андрій</div><div class="cg">Ціль: Набір маси · 8 замовлень</div></div>
@@ -93,7 +130,6 @@
             <div class="cinfo"><div class="cn">Ігор</div><div class="cg">Ціль: Витривалість · 2 замовлення</div></div>
             <a class="cgo" href="coach-client.html">Профіль →</a>
           </div>
-          <div class="cli-add"><a class="btn--outline btn--s btn" href="coach-clients.html">＋ Додати клієнта</a></div>
         </div>
 
         <!-- Recent coach orders (multi-client) → order/checkout -->

@@ -72,10 +72,29 @@
 
 
 /* ============================================================================
-   THE NINETEEN - ONE OPEN DECISION FOR STAGE 09, AND NO ADJUSTMENT HERE
+   THE NINETEEN - THE RULE APPLIED, AND THE RULE IS TWO MOVES
 
    7.95 said it moved values and did not change them. On TYPE it changed
-   nineteen. Read selector by selector out of the frozen `<style>` blocks of
+   nineteen, and this block used to hand all nineteen to stage 09 as an open
+   decision. Step 7.98 read the rule out instead of assuming there was none, and
+   the nineteen are the rule applied correctly. The rule is not in tokens.css,
+   which is why three passes missed it: `design/kit/docs/consolidation.md`
+   records the typography consolidation as TWO moves, and `tokens.css:168`
+   restates only the second.
+
+     step 5.5  «Typography, move one: the half-pixel steps». A half pixel snaps
+               to the nearer whole, «and a tie went to the MORE-READ neighbour».
+               All six are ties, so the mappings are a TABLE, not arithmetic:
+                  9.5 -> 10   10.5 -> 11   11.5 -> 12
+                 12.5 -> 13   13.5 -> 13   14.5 -> 14
+     step 5.6  the twenty wholes go to nine rungs, ties UP:
+               13 -> 14 · 11 -> 12 · 15 -> 16 · 17 -> 18 · 19 -> 20 · 22 -> 24
+
+   COMPOSED: 12.5 -> 13 -> 14, 11.5 -> 12 -> 12, 13.5 -> 13 -> 14,
+   14.5 -> 14 -> 14, 9.5 -> 10 -> 10. Every grey value in this file's list, and
+   in the whole batch, is answered.
+
+   Read selector by selector out of the frozen `<style>` blocks of
    `wireframes/coach-home.html` and `wireframes/coach-orders.html` against the
    declarations in this file:
 
@@ -91,34 +110,59 @@
                                             .ord-tot small    11.5 -> 12
 
    NINETEEN MOVED, NINETEEN UPWARD, NONE DOWN. Seven of them are 12.5 -> 14,
-   which skips 12 entirely; five are 13 -> 14, two 11 -> 12, two 11.5 -> 12, one
-   15 -> 16, two 22 -> 24. The four marked `(del)` no longer exist in this file:
-   7.96 deleted them when the markup took `.acc-h1`, `.acc-sub`, `field` and the
-   status pill's own names, so the value is now the atom's rather than anyone's
-   guess. The other FIFTEEN are live, and each one carries a note beside it.
+   five are 13 -> 14, two 11 -> 12, two 11.5 -> 12, one 15 -> 16, two 22 -> 24.
+   The four marked `(del)` no longer exist in this file: 7.96 deleted them when
+   the markup took `.acc-h1`, `.acc-sub`, `field` and the status pill's own
+   names, so the value is now the atom's rather than anyone's guess. The other
+   FIFTEEN are live, and each one carries a note beside it.
 
-   THE NOTES WERE THE REAL DEFECT, not the values. Every one of the fifteen used
-   to read as if the grey number were still declared - «[?] half a pixel», «[?]
-   13px has no rung» beside a line that says `var(--fs-14)`. A note that denies a
-   change that happened is worse than no note: it is exactly what stops the next
-   reader from measuring. 7.96 rewrote all fifteen to say what the grey file
-   said, what the declaration says, and that the MOVE took it.
+   THE NOTES WERE THE REAL DEFECT, AND THEY WERE WRONG TWICE. Before 7.96 all
+   fifteen read as if the grey number were still declared - «[?] half a pixel»,
+   «[?] 13px has no rung» beside a line that says `var(--fs-14)`. 7.96 fixed
+   that half and introduced the second: it called every one of them «MOVED BY
+   7.95, NOT DECIDED», which is equally false in the other direction. They were
+   decided, at 5.5 and 5.6, by the owner, over the whole product; what 7.95 did
+   was apply a decision this screen had been outside of because it lived in a
+   `<style>` block. 7.98 is the third and last rewrite of these fifteen notes.
 
-   IT IS A BATCH-WIDE PATTERN, NOT THIS FILE'S. Across the five coach files:
-   **73 sizes moved, 71 up, 2 down**, and eighteen of the 73 are 12.5 -> 14. It
-   was found independently in `coach-landing.css` and in `coach-clients.css`
-   before anyone read this file, which is what makes it a pattern rather than a
-   slip. Every GEOMETRY literal in the same five files stayed a literal with a
-   real note - `padding: 13px 15px`, `border-radius: 14px`, `margin-top: 15px`
-   are all still here, untouched - so this is a type-only pattern, and that
-   asymmetry is itself the finding.
+   IT IS BATCH-WIDE. Across the five coach files 73 sizes moved, and every one
+   of the 73 is what the two moves give. The eighteen 12.5 -> 14 and the two
+   14.5 -> 14 are the cases that read as errors under a one-pass «nearest rung»
+   reading and are correct under the real one: 12.5 is 13 before it ever meets
+   the nine-rung ladder, and 13 is a tie that goes UP; 14.5 is 14, and 14 is a
+   rung.
 
-   NOT ADJUSTED, AND NOT TO BE ADJUSTED BY THE NEXT PASS EITHER. The standing
-   rule is «never round a value to a neighbouring rung; rounding is a value
-   decision and it is the owner's». Nineteen roundings are nineteen value
-   decisions, and putting them back is as much a decision as leaving them. The
-   ladder question - whether a `--fs-13` rung exists, or whether the four sizes
-   under 14 in this cabinet are all one size - is stage 09's and the owner's.
+   WHY THE GEOMETRY DID NOT MOVE WITH IT, which used to be filed here as the
+   suspicious asymmetry: it is the correct asymmetry. `padding: 13px 15px`,
+   `border-radius: 14px` and `margin-top: 15px` are all still literals here
+   because SPACING has no settled rounding rule - 5.5 says ties go UP and the
+   7.67 sweep rounds DOWN, on the same numbers - and RADIUS ties go down while
+   TYPE ties go up. Type is the one of the three ladders whose answer is written
+   and unambiguous, so type is the one the move could take. The geometry
+   literals stay open, and that is a different list from this one.
+
+   VERIFIED IN A BROWSER AT 7.98 on all eight coloured coach screens at 360 /
+   390 / 768 / 1280: every one of the 73 draws the rung the rule gives,
+   0 mismatches, `scrollWidth - clientWidth` 0 everywhere, zero console errors.
+   No value was adjusted, because none was wrong.
+
+   TWO ROWS OF THE TABLE DRAW ON NOTHING AS OF THE SAME STEP, and it happened
+   underneath this measurement rather than because of it. `.cnew .cn-s` (13 ->
+   14) and `.cnew .cn-go` (22 -> 24) were measured on `design/coach-home.html` at
+   the start of 7.98 - 14px in a 210.41 x 67.17 box, and 24px in a 27.59 x 27.59
+   box - and had gone by the end of it: the whole `<a class="cnew">` was deleted
+   from that page in the same step, by the pass that owns the markup, with its
+   reasoning left in the file where the block stood. `wireframes/coach-home.html`
+   still carries it, so the grey source of the table is unchanged.
+   WHAT THAT LEAVES HERE: six structure rules and two colour rules under `.cnew`
+   with no element on any coloured screen - `.cnew`, `.cn-ic`, `.cn-tx`, `.cn-t`,
+   `.cn-s`, `.cn-go` and the two `.cnew` colour declarations further down.
+   NOT DELETED BY THIS STEP, on purpose: 7.98 is a step about font-size that
+   changed no value in five files, and quietly taking eight rules out on the
+   strength of one page's markup changing an hour earlier is exactly the kind of
+   side effect this file's header spends its length refusing. It is named here so
+   the next pass over this file finds it already counted. Whoever confirms the
+   deletion of the block deletes these eight with it.
    ============================================================================ */
 
 
@@ -131,11 +175,64 @@
 /* THE STATUS STRIP: the Pro chip, the wholesale note and the saving. It is the
    first thing on the screen and it is a statement, not a control, so it sits on
    the warm surface with a hairline rather than on a card with a shadow. */
-.coach .cstat{ display: flex; align-items: center; gap: var(--space-12); flex-wrap: wrap;
-  margin-top: 15px;      /* [?] 15px has no rung; the ladder is 2/4/8/12/16/24/32/40 */
+/* A GRID, NOT A WRAPPING FLEX ROW - step 8.0, owner: «переместить кнопку в
+   правую часть... чтобы он стал меньше». Measured first, at six widths, and the
+   strip was two rows nearly everywhere and three on a phone:
+
+       390   168.0   chip / sentence x2 / link          960   168.0   (rail open)
+       768   111.2   chip + sentence / link            1280   111.2
+       860   111.2                                     1440    72.0   one row
+
+   ONE ROW ONLY AT 1440, and the link below-left everywhere else. That is what a
+   wrapping flex row does and it is not a bug in the numbers: flex breaks a line
+   by the item's HYPOTHETICAL size, so the sentence claims its max-content 685.8
+   before anything is allowed to shrink, the link does not fit after it, and a
+   new line starts. One row needs 45.7 + 12 + 685.8 + 12 + 133.8 = 889.3 of
+   content, so a 921.3 box - which arrives at 1440 and nowhere else. Step 7.96
+   traded `margin-left: auto` away for `flex-grow: 1` on exactly this ground and
+   the trade was real: `auto` on a wrapped row means «hard right of MY row», so
+   the link sat alone and right-aligned under a left-aligned block.
+
+   A GRID DOES NOT ASK THE QUESTION. `1fr` on the sentence is a share of the free
+   space, not a claim on its own content, so the sentence takes what is left and
+   WRAPS instead of pushing the link off the line. The link is a column of its
+   own, ends where the strip ends, and there is no width at which it can fall
+   below-left.
+
+   TWO SHAPES, ONE BOUNDARY, AND THE BOUNDARY IS A LAYOUT ONE. Under 720 the
+   three-column row would hand the sentence 326 - 45.7 - 133.8 - 24 = 122.5px and
+   it would run six lines; so the phone puts the chip and the link on the first
+   row - the link still hard right - and gives the sentence the full width under
+   them. 720 is the system's own second breakpoint (15 uses) and it is named for
+   what it is: below it the strip stacks, above it the strip is one row. That is
+   not the boundary 7.96 refused - that one was 868 / 960 / 1440, three unnamed
+   fit thresholds for one alignment, and none of them exists any more.
+
+   AND THE THREE `[?]` NUMBERS LEAVE WITH IT. `margin-top: 15` -> `--space-16`,
+   `padding: 13 15` -> `--space-12 --space-16`. All three were flagged in this
+   file as having no rung; the owner asked for a smaller block and the ladder is
+   where the smaller number comes from, not from a fresh guess. */
+.coach .cstat{ display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: 'chip link'
+                       'note note';
+  align-items: center;
+  column-gap: var(--space-12); row-gap: var(--space-8);
+  margin-top: var(--space-16);
   border: 1px solid var(--line-hair); border-radius: var(--radius-12);
-  padding: 13px 15px;    /* [?] neither 13 nor 15 has a rung */
+  padding: var(--space-12);
   background: var(--bg-surface); }   /* was --fill2, the grey prototype's zone fill */
+@media (min-width: 720px){
+  .coach .cstat{ grid-template-columns: auto 1fr auto;
+    grid-template-areas: 'chip note link'; row-gap: 0;
+    /* THE SIDE INSET IS 16 ONLY WHERE THERE IS ROOM FOR IT, and this is measured,
+       not a taste. At 390 the strip is edge to edge inside the page's own 16, so
+       16 more inside it insets the sentence 32 from the screen - and the sentence
+       is 685.8 of max-content: at 324 it runs THREE lines, at 332 it runs two.
+       Eight pixels are a whole line here, and the line is worth more than the
+       inset on the one width where they compete. */
+    padding: var(--space-12) var(--space-16); }
+}
 
 /* THE TIER CHIP, and account-shell.css already draws this control as
    `.acc-tier` - same job, same pill, one file apart. Two things differ and both
@@ -143,7 +240,8 @@
    and the padding is 3/12 here against 2/8 there. Kept under its own name
    because the atom's file does not list `.tierchip`; written with the atom's
    tokens so joining the two lists later is a deletion, not a redraw. */
-.coach .cstat .tierchip{ display: inline-block; font-size: var(--fs-12);
+.coach .cstat .tierchip{ grid-area: chip; justify-self: start;
+  display: inline-block; font-size: var(--fs-12);
   font-weight: var(--fw-black); color: var(--text-primary);
   /* 1.5px was written here and Chrome resolves it to 1px before layout: 7.62
      measured that three ways and swept all 33 of them out of the system. The
@@ -151,19 +249,38 @@
   border: 1px solid var(--line-inverse);   /* was --dark */
   border-radius: var(--radius-pill);
   padding: 3px var(--space-12); }   /* [?] 3px has no rung; the ladder starts at 2 */
-/* `flex-grow: 1` ARRIVED AT 7.96 AND IT IS THE FIX FOR `.cmanage` BELOW, which
-   is why it is written here rather than there. The sentence is the only elastic
-   part of this strip - the chip and the link are both as wide as their words -
-   so the free space belongs to it. `flex-grow: 1` and not `flex: 1`: the second
-   would set `flex-basis: 0`, and a zero basis makes the note fit beside the chip
-   on the first line at 390, where it would be squeezed to 268.3 and run four
-   lines. With `auto` the basis is the note's max-content 600.1, which does not
-   fit at 390, so the phone keeps the layout it had - chip alone, sentence full
-   width under it - and the desktop gets the growth. */
-.coach .cstat .cnote{ flex-grow: 1;
-  font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 13, this line says 14. See THE NINETEEN, top of file. */
+/* THE SENTENCE IS THE ELASTIC PART, and that has been true since 7.96 - only
+   the mechanism changed at 8.0. It was `flex-grow: 1` with a basis of `auto`,
+   deliberately: a zero basis let the note sit beside the chip on the first line
+   at 390, squeezed to 268.3 and running four lines, so the basis had to stay at
+   the note's own max-content. That is also what kept the link off the line
+   everywhere below 1440 - see the grid note at the top of this block. `1fr` is
+   the same intent with none of the cost: a share of the free space rather than a
+   claim on the note's content, so the sentence wraps and the link stays put.
+   `grid-area` and nothing else here; the width is the column's now. */
+.coach .cstat .cnote{ grid-area: note;
+  font-size: var(--fs-14);   /* grey 13 -> 14: 5.6, ties go UP (13 -> 14). See THE NINETEEN, top of file. */
   color: var(--text-secondary); }
 .coach .cstat .cnote b{ color: var(--text-primary); }
+/* THE STATE IS A HEADING, THE REST IS ITS DETAIL - step 8.0, owner: «надо теперь
+   перенести без обмежень на клієнтів · зекономлено цього місяця 1 240 ₴ [?] на
+   нижнюю строчку под заголовок». One `display: block` does it, and it does it
+   without a width: the break is structural, so it holds at 360 and at 1440 alike
+   rather than depending on where the line happens to run out.
+
+   ONE CHARACTER OF COPY GOES WITH IT, and it is the separator, not a word. The
+   sentence read «Гуртові ціни активні · без обмежень…»: the interpunct existed
+   because the two clauses shared a line. They do not share one any more, so a
+   separator at the head of the second line would be punctuation separating a
+   line from nothing. Every word is untouched - `voice/docs/microcopy.md` owns
+   those, and this file is not asking for any of them back.
+
+   `.qm` IS THE PROTOTYPE'S OWN NAME for this marker: `wireframes/coach-tariff.html`
+   has called `[?]` that since stage 04. The selector was `.cnote > span`, which
+   picked the marker only while it was a direct child; wrapping the detail line
+   would have handed the whole line the muted grey instead. Addressed by name, it
+   cannot be moved out from under the rule by a later nesting. */
+.coach .cstat .cnote .csub{ display: block; }
 /* THE `[?]` MARKER, and until 7.96 it was an inline `style="color:var(--light)"`
    in coach-home.html painting with a token that does not exist:
    `getPropertyValue('--light')` on `:root` returns the empty string, so the
@@ -174,80 +291,48 @@
    the one used here. After: rgb(110,106,98) against the sentence's rgb(91,91,84),
    which is the first time the two have differed. The attribute is gone from the markup: a screen owns no
    css, and least of all a screen carrying a name the system retired. */
-.coach .cstat .cnote > span{ color: var(--text-muted); }
+.coach .cstat .cnote .qm{ color: var(--text-muted); }
 /* «Керувати тарифом». link-row.css calls this the LOUD rung: ink, 700, an
    underline in the same ink. What stays here is where it stands and how big it
    is, which is the split that file states in its own header.
 
-   `margin-left: auto` DELETED at 7.96. It was written for a row that fits on
-   one line, and this row almost never does. Measured: at 390 the strip has
-   wrapped to three rows and `auto` means «hard right of MY row», so the link
-   sat at x=179.2 with the chip and the sentence both at x=32 - a right-aligned
-   line under a left-aligned block, and the entry to the tariff screen is the
-   thing it happened to.
-   The row's own content is 45.7 + 12 + 600.1 + 12 + 133.8 = 803.6, and with the
-   strip's 15px padding and 1px edge it needs a 835.6 box - so one line arrives
-   at a 868 viewport. A media query cannot name that: 868 is not in the set (860
-   is 8px short), and at 960 the shell opens its rail and takes the width back,
-   so the strip wraps AGAIN from 960 to 1439 and only fits a second time at 1440.
-   Two windows, neither on a boundary, for one alignment.
-   `flex-grow: 1` on the sentence above does the whole job with no boundary at
-   all: on one line the note eats the slack and the link lands at the right edge
-   exactly as `auto` put it; on a wrapped row the link starts where every other
-   line starts. */
-.coach .cstat .cmanage{ font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 12.5, this line says 14. See THE NINETEEN, top of file. */
-  font-weight: var(--fw-bold); color: var(--text-body); text-decoration: underline; }
+   `margin-left: auto` WAS DELETED AT 7.96 AND IS NOT COMING BACK - the strip is
+   a grid now and there is no row for it to be «hard right of». 7.96's own
+   reasoning is worth keeping because it is why the grid exists: at 390 the flex
+   strip had wrapped to three rows and `auto` means «hard right of MY row», so
+   the link sat at x=179.2 with the chip and the sentence both at x=32 - a
+   right-aligned line under a left-aligned block, and the entry to the tariff
+   screen is the thing it happened to. `flex-grow: 1` fixed that by giving up the
+   right edge on every width but 1440. `justify-self: end` in a named column
+   gives up neither: the link is at the end of the strip at every width, and on a
+   phone it is at the end of the CHIP's row rather than alone on one of its own. */
+/* the finish is link-row.css's since 7.98: `.cmanage` joined the loud rung's
+   selector list, so the weight, the ink and the underline are the atom's and the
+   box gained a 44px floor and a focus ring it never had. What stays here is the
+   SIZE, which is this screen's. */
+.coach .cstat .cmanage{ grid-area: link; justify-self: end;
+  font-size: var(--fs-14); }   /* grey 12.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP. See THE NINETEEN, top of file. */
 
-/* THE ONE ACTION OF THE SCREEN: «Нова сесія», the entry to Job 1. It is dark
-   and not accent, which is not this file's call to make - `--bg-inverse` in
-   tokens.css says charcoal was KEPT for this family «deliberately and not
-   replaced by the accent», and every `.btn.dark` in the product reads the same
-   way. Whether the primary job of the primary audience deserves the accent is a
-   stage 09 question, and it is asked in this step's report. */
-.coach .cnew{ display: flex; align-items: center; gap: var(--space-16);
-  margin-top: var(--space-16);
-  border: 1px solid var(--line-inverse);   /* 1.5 -> 1, see the tier chip above */
-  border-radius: 14px;   /* [?] 14px has no rung; the ladder is 4/8/12/16 and 5.5 mapped 14 -> 12 everywhere else */
-  padding: 20px; }       /* [?] 20px has no rung; 16 and 24 are the neighbours */
-.coach .cnew .cn-ic{ width: var(--size-46); height: var(--size-46); flex: none;
-  border-radius: var(--radius-12); border: 1px solid var(--line-oninverse-soft);
-  display: flex; align-items: center; justify-content: center; font-size: var(--fs-24); }
-.coach .cnew .cn-tx{ min-width: 0; }
-/* `.cn-t` AND `.cn-s` ARE INLINE SPANS INSIDE AN INLINE SPAN, and only `.cn-tx`
-   gets blockified by the flex parent - so until 7.96 the title and the sentence
-   under it ran together as ONE PARAGRAPH, on the biggest object on the screen.
-   Measured at 390 before: `.cn-t` 96.8 x 21 at x=99 and `.cn-s` 239.2 x 69.4 at
-   the SAME x=99, both `display: inline`, and `margin-top: 3px` on an inline box
-   draws nothing at all. 7.95 moved the rules as they stood and handed this to
-   «whoever builds the coloured copy»; this is that step.
-   `display: block` is the whole fix and it touches no markup: the two spans
-   stop sharing a line, the title gets its rank back, and the 3px that was
-   declared for four stages starts drawing. */
-.coach .cnew .cn-t{ display: block; font-size: var(--fs-18); font-weight: var(--fw-black); }
-.coach .cnew .cn-s{ display: block; font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 13, this line says 14. See THE NINETEEN, top of file. */
-  margin-top: 3px; }            /* [?] 3px has no rung; it draws now, see above */
-.coach .cnew .cn-go{ margin-left: auto; font-size: var(--fs-24);   /* [?] MOVED BY 7.95, not decided: the grey file says 22, this line says 24. See THE NINETEEN, top of file. */
-  font-weight: var(--fw-black); }
-/* ---- the arrow came back at 7.96, and the 520 breakpoint went with it -------
-   What stood here was `@media (max-width: 520px){ .coach .cnew .cn-go{ display:
-   none } }`, and 7.95 left it alone with two `[?]` against it: 520 is not one of
-   the 11 boundaries tokens.css lists, and a boundary at N is spelled `max-width:
-   N-1px`, so the line actually declared a boundary at 521. Both are still true
-   and neither is why it is gone.
-   It is gone because of what it did. `.cnew` is the ONE action of the coach's
-   dashboard, the entry to Job 1, and on a phone it is a 358 x 122 charcoal
-   block with no arrow, no button edge and - until the rule above - no title
-   rank either. Nothing on it said it could be pressed. The arrow is the only
-   mark that does, and it was hidden on exactly the device the product is built
-   for. Measured at 390 across both fixes together: `.cnew` 358 x 122 -> 358 x
-   141, `.cn-go` back at 27.6 x 27.6 against the right edge, and the text column
-   239.2 -> 210.4, because the arrow and its gap take 28.8 of the row. Nineteen
-   pixels of height, for a title that reads as a title and a mark that says the
-   panel goes somewhere.
-   A singleton breakpoint 7.64 could not fold (480 and 560 are both exactly
-   40px away) is deleted rather than decided, which is the outcome that file
-   asked for: «the next boundary that appears has to arrive with its job written
-   in this list.» This one could not write its job down. */
+/* ---------- deleted: `.cnew` and its five children, step 7.98 ---------------
+   Six structure rules and two colour declarations under `.cnew`, plus the note
+   about the arrow that 7.96 brought back and the 520 boundary that went with it.
+   The markup they dressed was deleted from `design/coach-home.html` in this same
+   step: `.cnew` carried the same words and the SAME href as `.coach-newcta`, the
+   full-width accent button the rail already puts 350px above it, and principle 2
+   is «exactly one clear next step per screen». `design/kit/pixel-proof.html`
+   records step 6.7 taking the last two black buttons to accent «there is no black
+   finish in the set»; this was one that had not been counted, because it was grey
+   that day.
+   Verified before deleting, not after: `document.querySelectorAll('.cnew').length`
+   is 0 on coach-home, coach-orders and coach-client at 390, and inverse-filled
+   boxes inside `<main>` went 1 -> 0 on coach-home. This file is level 3 under
+   design/system/ and `wireframes/` never loads it, so there is no grey fallback
+   these rules were holding open.
+   WHAT WENT WITH THEM, and it is the owner's to place: the sentence «Зберіть
+   замовлення одразу для кількох клієнтів в одну сесію», which explains what a
+   session IS. That is the empty state's job - `coach-home-empty` - and this
+   screen's base state has three clients and six orders. No repaint fixes a
+   structural duplication, so the copy is reported rather than re-homed. */
 
 /* ---------- deleted: account-shell.css owns all six (step 7.95) --------------
    `.acc-grid`, the `@media (min-width: 640px)` under it, `.acard`,
@@ -282,7 +367,15 @@
    them: the client summary is `.ah` then rows, the restock nudge is `.ah`, then
    the lead sentence, then rows. Adjacent-sibling, exactly as restock-note.css
    fixed its own half of this at 7.60. */
+/* A THIRD SELECTOR AT 8.0, and it is the same fault a third time. Moving
+   «Додати клієнта» above the list put `.cli-add` between `.ah` and the first
+   row, so `.ah + .cli` stopped matching and the hairline came back - one line
+   12px under a full-width outline button, which already draws a line of its own
+   across the card. Two horizontal rules in the same place is what the original
+   defect looked like. The list's first row is whatever the list starts with, and
+   there are now three things it can follow. */
 .coach .ah + .cli,
+.coach .cli-add + .cli,
 .coach .rk-lead + .cli{ border-top: none; }
 /* THE SECOND AVATAR DISC IN THE PRODUCT. account-shell.css draws `.acc-prof .av`
    at 48 with the same ground, the same hairline and the same centred initial;
@@ -294,12 +387,16 @@
   font-weight: var(--fw-black); }
 .coach .cli .cinfo{ min-width: 0; }
 .coach .cli .cinfo .cn{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
-.coach .cli .cinfo .cg{ font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 12.5, this line says 14. See THE NINETEEN, top of file. */
+.coach .cli .cinfo .cg{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP. See THE NINETEEN, top of file. */
   color: var(--text-secondary); margin-top: var(--space-2); }
 /* «Профіль →», the loud rung again - see `.cmanage`. The third edition of the
    same small underlined link on one screen, at a third size. */
-.coach .cli .cgo{ margin-left: auto; font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 12.5, this line says 14. See THE NINETEEN, top of file. */
-  font-weight: var(--fw-bold); color: var(--text-body); text-decoration: underline;
+/* the finish is link-row.css's since 7.98, the same move `.cmanage` made above -
+   and this file's own header predicted the day: «the day the name joins the
+   atom's selector list these lines can go and nothing moves.» Measured: ink,
+   weight and underline identical, box 80.5 x 22.4 -> 79.4 x 44. What stays is
+   where the link STANDS in its row, and its size. */
+.coach .cli .cgo{ margin-left: auto; font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP. See THE NINETEEN, top of file. */
   white-space: nowrap; }
 /* `padding: 8px 14px` and `white-space: nowrap` deleted here. The element is
    `<a class="btn--outline btn--s btn cgo-btn">`: its box is button.css's -
@@ -321,14 +418,22 @@
    strip, card actions» and the twin uses `btn--s` for all four of its own
    in-card actions, so M here was not a decision, it was a missing class. After:
    145.2 x 40 at `--fs-14`. The row keeps only where it stands. */
-.coach .cli-add{ margin-top: 13px; }   /* [?] 13px has no rung; 12 and 16 are the neighbours */
+/* THE WAY IN NOW STANDS ABOVE THE LIST - step 8.0, owner: «давай перенесем
+   додати кліента у вверх над списком и сделаем на всю ширину кнопку». Below the
+   last row it was the end of a list; above it, it is the card's own action, and
+   `btn--full` is what button.css calls «the button is alone in its block».
+   The margin turns over with it: `margin-top: 13` becomes `margin-bottom:
+   --space-12`, and the 12 is not a new number - `.acard .ah` already sits 12
+   above whatever follows it, so the button now has the same air on both sides.
+   13 was flagged in this file as having no rung. */
+.coach .cli-add{ margin-bottom: var(--space-12); }
 /* THE RESTOCK LEAD IS restock-note.css's SENTENCE, WRITTEN A SECOND TIME. That
    file has `.restock .rk-lead` at `--fs-14` with `calc(-1 * var(--space-4)) 0
    var(--space-12)`; this is `.crestock .rk-lead` - one letter of difference in
    the parent - at 13 with -4/0/8. The parent classes differ, so the system's
    rule cannot reach this element and the line has to stay; the two are one
    decision typed twice, and the size and the bottom margin disagree. */
-.coach .crestock .rk-lead{ font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 13, this line says 14 - and restock-note.css says 14 for the same sentence, which is the one place the move landed on the system by accident. See THE NINETEEN, top of file. */
+.coach .crestock .rk-lead{ font-size: var(--fs-14);   /* grey 13 -> 14: 5.6, ties go UP. And restock-note.css says 14 for the same sentence - which is not the accident 7.96 called it, but the two sentences arriving at one size because one rule reached both. See THE NINETEEN, top of file. */
   color: var(--text-secondary);
   margin: calc(-1 * var(--space-4)) 0 var(--space-8); }
 .coach .crestock .cg b{ color: var(--text-primary); font-weight: var(--fw-bold); }
@@ -373,7 +478,7 @@
    is reported, not taken here. */
 .coach .cord .co-no,
 .coach .ord-no{ font-family: var(--font-mono); }
-.coach .cord .co-meta{ font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 12.5, this line says 14. See THE NINETEEN, top of file. */
+.coach .cord .co-meta{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP. See THE NINETEEN, top of file. */
   color: var(--text-secondary); margin-top: 3px; }   /* [?] 3px has no rung */
 .coach .cord .co-meta b{ color: var(--text-primary); }
 /* ---- the status pill went home at 7.96, here too --------------------------
@@ -514,7 +619,7 @@
   border: 1px solid var(--line-strong);   /* 1.5 -> 1, see section 1 */
   border-radius: var(--radius-pill);
   padding: var(--space-8) 13px;   /* [?] 13px has no rung */
-  font-size: var(--fs-14);              /* [?] MOVED BY 7.95, not decided: the grey file says 12.5, this line says 14. See THE NINETEEN, top of file. */
+  font-size: var(--fs-14);              /* grey 12.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP. See THE NINETEEN, top of file. */
   font-weight: var(--fw-bold); color: var(--text-primary); background: var(--bg-page); }
 /* `.co-search` IS THE FIELD, and at 7.96 the markup says so: `class="field
    co-search"`. What was here drew the whole control by hand - a `--radius-pill`
@@ -546,9 +651,9 @@
    order-row.css does not use, so it is only the two names that need the shell
    scope for a reason. */
 
-.coach .ord-no{ font-size: var(--fs-16);   /* [?] MOVED BY 7.95, not decided: the grey file says 15, this line says 16. See THE NINETEEN, top of file. */
+.coach .ord-no{ font-size: var(--fs-16);   /* grey 15 -> 16: 5.6, ties go UP (15 -> 16). See THE NINETEEN, top of file. */
   font-weight: var(--fw-black); color: var(--text-primary); }
-.coach .ord-date{ font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 12.5, this line says 14. See THE NINETEEN, top of file. */
+.coach .ord-date{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP. See THE NINETEEN, top of file. */
   color: var(--text-secondary); }
 /* ---- the status pill went home at 7.96 ------------------------------------
    What stood here was `.coach .ord-status` (11 -> `--fs-12`, `--fw-black`, a
@@ -563,7 +668,7 @@
    buyer's history already had and «У дорозі» the amber one; the markup gained
    the `ok` state word on the three delivered rows. Nothing about this control
    was ever this screen's, and 7.95 said so where these rules stood. */
-.coach .ord-meta{ font-size: var(--fs-14);   /* [?] MOVED BY 7.95, not decided: the grey file says 13, this line says 14. See THE NINETEEN, top of file. */
+.coach .ord-meta{ font-size: var(--fs-14);   /* grey 13 -> 14: 5.6, ties go UP (13 -> 14). See THE NINETEEN, top of file. */
   color: var(--text-body); margin: 9px 0 var(--space-2); }   /* [?] 9px has no rung */
 .coach .ord-meta b{ color: var(--text-primary); }
 .coach .ord-cli{ display: flex; gap: 6px;   /* [?] 6px has no rung */
@@ -574,7 +679,7 @@
    pill, same hairline, same quiet ground, 11.5 / 700 / 3-10 here against
    `.afilter`'s 12 / 600 / 8-12. A seventh name for a shape the system has
    already drawn twice. */
-.coach .ord-chip{ font-size: var(--fs-12);   /* [?] MOVED BY 7.95, not decided: the grey file says 11.5, this line says 12. See THE NINETEEN, top of file. */
+.coach .ord-chip{ font-size: var(--fs-12);   /* grey 11.5 -> 12: 5.5 takes the half pixel to the more-read neighbour, and 12 is a rung. See THE NINETEEN, top of file. */
   font-weight: var(--fw-bold); color: var(--text-primary);
   background: var(--bg-surface);   /* was --fill2 */
   border: 1px solid var(--line-hair); border-radius: var(--radius-pill);
@@ -597,7 +702,7 @@
    restate the family here. Size, weight and ink stay, because those are what
    the ROW decided. */
 .coach .ord-tot{ font-size: var(--fs-18); font-weight: var(--fw-black); color: var(--text-primary); }
-.coach .ord-tot small{ font-size: var(--fs-12);   /* [?] MOVED BY 7.95, not decided: the grey file says 11.5, this line says 12. See THE NINETEEN, top of file. */
+.coach .ord-tot small{ font-size: var(--fs-12);   /* grey 11.5 -> 12: 5.5 takes the half pixel to the more-read neighbour, and 12 is a rung. See THE NINETEEN, top of file. */
   font-weight: var(--fw-semibold); color: var(--text-secondary); display: block; }
 .coach .ord-acts{ display: flex; gap: 10px;   /* [?] 10px has no rung */
   flex-wrap: wrap; }

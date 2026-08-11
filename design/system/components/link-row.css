@@ -15,14 +15,27 @@
       5  .auth-foot a      auth-dialog.css                      «до магазину»
       4  .auth-consent a   auth-dialog.css                      oferta / policy
       4  .promo .ps a      banner.css                           «Усі акції»
-      3  .ln-review        account-shell.css                    «Залишити відгук»
+      3  .ln-review        order-row.css                        «Залишити відгук»
       2  .auth-sub a       auth-dialog.css                      «Змінити номер»
       2  .co-help a        checkout-form.css                    checkout help
       2  .afilters .clear  chip.css                             «Очистити все»
-      1  .ob-receipt       account-shell.css                    «Квитанцію»
+      1  .ob-receipt       order-row.css                        «Квитанцію»
       1  .co-proc-cancel   checkout-form.css                    cancel payment
       4  .more             button.css                           a BUTTON, not a link
       3  overview.html     NOTHING - browser default blue #0000EE
+
+   Two file names in that census were wrong and are corrected above at 7.98:
+   `.ln-review` and `.ob-receipt` are declared in order-row.css:85 and :90, not
+   in account-shell.css. Nothing drew differently because of it - the error was
+   in the prose only - but a census is the instrument the next pass measures
+   against, and an instrument that names the wrong file sends the next reader to
+   the wrong file.
+
+   TWO NAMES ARRIVED AT 7.98, both from the coach cabinet, both already drawn as
+   this rung by `coach-cabinet.css` and neither known to this file:
+
+      1  .cmanage          coach-cabinet.css                    «Керувати тарифом»
+      3  .cli .cgo         coach-cabinet.css                    «Профіль →»
 
    TWO VOLUMES ARE REAL, THE REST WAS DRIFT.
 
@@ -110,7 +123,8 @@
    text and underline together, because a two-tone hover reads as a rendering
    bug at 12px rather than as a state. */
 .linkrow a, .auth-sub a, .promo .ps a,
-.ln-review, .ob-receipt, .afilters .clear{
+.ln-review, .ob-receipt, .afilters .clear,
+.cmanage, .cli .cgo{
   color: var(--text-body);
   font-weight: var(--fw-bold);
   text-decoration: underline;
@@ -119,9 +133,25 @@
   transition: color .14s ease;
 }
 .linkrow a:hover, .auth-sub a:hover, .promo .ps a:hover,
-.ln-review:hover, .ob-receipt:hover, .afilters .clear:hover{
+.ln-review:hover, .ob-receipt:hover, .afilters .clear:hover,
+.cmanage:hover, .cli .cgo:hover{
   color: var(--text-action);
 }
+/* ---------- two names joined the loud rung at 7.98 --------------------------
+   `.cmanage` («Керувати тарифом», 1 instance) and `.cli .cgo` («Профіль →», 3)
+   on `design/coach-home.html`. They are not new controls: `coach-cabinet.css`
+   has drawn both as ink / 700 / underlined since step 7.95 and its own header
+   lists them under «SEVEN PRIVATE NAMES FOR FOUR ATOMS THAT ALREADY EXIST»,
+   naming this file and this rung, and saying the fix is «one line in the atom's
+   selector list, and it is not this file's to write». It is this file's, and
+   this is the line.
+   NOTHING MOVES ON THE COLOUR: `.coach .cstat .cmanage` and `.coach .cli .cgo`
+   are (0,3,0) against this rule's (0,1,0) and (0,2,0), so the screen's file
+   still wins every declaration it makes. What the names GAIN is the two states
+   the screen's file never wrote - the accent hover above and the focus ring
+   below. Measured before: neither had a `:hover` or a `:focus-visible` rule
+   anywhere in the product, on the entry to the tariff screen and on the entry
+   to a client profile. */
 
 /* ---------- focus, and the atom had none -------------------------------------
    `--ring-focus-control` has existed since step 6.2 and no link read it. Four
@@ -138,8 +168,63 @@
 .co-consent a:focus-visible, .co-help a:focus-visible, .co-foot-links a:focus-visible,
 .co-proc-cancel:focus-visible,
 .linkrow a:focus-visible, .auth-sub a:focus-visible, .promo .ps a:focus-visible,
-.ln-review:focus-visible, .ob-receipt:focus-visible, .afilters .clear:focus-visible{
+.ln-review:focus-visible, .ob-receipt:focus-visible, .afilters .clear:focus-visible,
+.cmanage:focus-visible, .cli .cgo:focus-visible{
   outline: none; box-shadow: var(--ring-focus-control); border-radius: var(--radius-4);
+}
+
+/* ---------- the floor, and the loud rung never had one - step 7.98 -----------
+   «Керувати тарифом» measured 135.6 x 22.4 at 390, 360 and 1280 on
+   `design/coach-home.html`: HALF the 44 this system has put under every other
+   control since step 6.2. It is the entry to the tariff screen, on the daily
+   screen of the primary audience, and nothing caught it because this file
+   states what a loud link IS and never stated how small it may get.
+
+   THE FLOOR BELONGS HERE AND NOT IN THE SEVEN COMPONENTS. The split at the top
+   of this file - «the component says where the link stands and how big it is,
+   this file says that it is a link and how loud» - reads at first as if a height
+   were the component's. It is not: 44 is not a SIZE, it is the consequence of
+   being pressable, which is the one thing this file owns. A component that
+   decides a link is 12px must not thereby decide that a finger cannot hit it.
+   The same argument menu.css writes over `.menu-opt`: «a row of a menu is a
+   control, so it stands on the touch minimum like every other control in the
+   set».
+
+   SIX OF THE EIGHT LOUD NAMES ARE IN THE LIST, AND THE TWO THAT ARE NOT ARE THE
+   POINT. `.auth-sub a` («Змінити номер», 106.7 x 17) and `.promo .ps a` («Усі
+   акції», 77.6 x 17) are `display: inline` - words INSIDE a running sentence,
+   not controls standing in a slot. Forcing a 44 box on them would blow the line
+   box of the paragraph they sit in and push the sentence apart, which is a
+   worse defect than the one being fixed; WCAG 2.5.8 exempts exactly this case,
+   a target «in a sentence or constrained by the line-height of non-target
+   text». They keep the underline, which is what makes them findable, and they
+   are named here so the next pass does not read their absence as an oversight.
+
+   Measured at 360, 390 and 1280, before -> after, and the width moves 1-3px
+   because a shrink-to-fit inline-flex box is not a blockified flex item:
+     .cmanage         1  135.6 x 22.4  ->  133.8 x 44    coach-home
+     .cli .cgo        3   80.5 x 22.4  ->   79.4 x 44    coach-home
+     .linkrow a       5  123.1 x 22.4  ->  123.1 x 44    auth-code, -error, -newuser
+     .ob-receipt      4  196.4 x 22.4  ->  193.8 x 44    account-orders (1 visible)
+     .ln-review       4  121.9 x 19.2  ->  118.3 x 44    account-orders (3 visible)
+     .afilters .clear 1   0 x 0 at 390 (`.afilters` is `display:none` under 860),
+                          82.3 x 44 at 1280 on listing-filtered and listing-empty
+   Twenty elements across the 48 coloured screens carry the floor; all 48 hold
+   `scrollWidth - clientWidth === 0` at 360 with no console error.
+   Two rules and not one: the floor is the atom's and reaches all six, while the
+   flex box is only forced where nothing else provides it. `.ln-review` and
+   `.ob-receipt` are ALREADY `display: inline-flex; align-items: center` in
+   order-row.css, so restating it here would be this file seizing a declaration
+   that has a rightful owner - the four in the second rule have no owner for it
+   at all: three are flex ITEMS blockified by their parents, which makes the
+   label sit at the top of a 44 box rather than in the middle of it. */
+.linkrow a, .ln-review, .ob-receipt, .afilters .clear,
+.cmanage, .cli .cgo{
+  min-height: var(--size-44);
+}
+.linkrow a, .afilters .clear, .cmanage, .cli .cgo{
+  display: inline-flex;
+  align-items: center;
 }
 
 /* ---------- press: NOTHING, and it is written here so it stays nothing -------

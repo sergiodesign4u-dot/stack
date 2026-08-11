@@ -170,7 +170,25 @@
      read, so the product's meta type growing 1px is a gain, not a cost.
 
      Above 34 nothing is a step: 38, 44, 50 and 60 stand once each, on a marketing
-     block, and a size used once is a measurement, not a rung. */
+     block, and a size used once is a measurement, not a rung.
+
+     A HALF PIXEL DOES NOT MEET THIS LADDER - it meets step 5.5 FIRST, and this
+     paragraph used to omit that. It is two moves, not one:
+
+       move one, step 5.5    a half snaps to the nearer whole, and every half IS a
+                             tie, so the tie goes to the MORE-READ neighbour, which
+                             makes it a table rather than arithmetic:
+                             9.5 -> 10 · 10.5 -> 11 · 11.5 -> 12
+                             12.5 -> 13 · 13.5 -> 13 · 14.5 -> 14
+       move two, step 5.6    that whole then snaps to the nine rungs above, ties UP
+
+     So 12.5 becomes 14 and not 12, by way of 13 - and it did not skip a rung. The
+     omission of move one cost three separate passes over the coach files: each read
+     «ties go UP» here, applied it as a single nearest-rung rule, found eighteen
+     declarations that appeared to skip 12, and wrote it up as a value decision taken
+     by accident. It was the owner's decision, taken twice, working exactly as
+     recorded in design/kit/docs/consolidation.md. The table lives here now because
+     this is the file people open to find out what the ladder is. */
   --fs-8:   8px;
   --fs-10: 10px;
   --fs-12: 12px;

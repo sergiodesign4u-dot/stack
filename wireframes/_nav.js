@@ -1221,9 +1221,15 @@ function wfCoachNav(active, opts) {
   const chip = (tier === 'Free')
     ? '<span class="acc-tier free">Free · Тренер</span>'
     : '<span class="acc-tier">Pro · Тренер</span>';
+  /* ONE persona, ONE identity. This rail used to say «О» and «Олена» while
+     wfAccountNav (WF_ACC_LINKS above, isCoach branch) said «ОК» and «Олена
+     Кравець» for the same person, two clicks apart. And the one-letter disc sits
+     directly above «+380 ** *** 21 09» in the mono face, so the lone Cyrillic О
+     reads as a zero at the head of the number. Both strings come to the account
+     rail's, and the phone was already the same in both. */
   el.innerHTML =
-    '<div class="acc-prof"><div class="av">О</div><div class="who">' +
-    '<div class="nm">Олена</div><div class="ph">+380 ** *** 21 09</div>' + chip + '</div></div>' +
+    '<div class="acc-prof"><div class="av">ОК</div><div class="who">' +
+    '<div class="nm">Олена Кравець</div><div class="ph">+380 ** *** 21 09</div>' + chip + '</div></div>' +
     '<a class="btn--accent btn--full coach-newcta" href="coach-session.html"><span class="cn-plus">＋</span><span>Нова сесія</span></a>' +
     '<nav class="acc-links" aria-label="Розділи кабінету тренера">' + links + '</nav>';
 }
@@ -1309,10 +1315,11 @@ document.addEventListener('click', e => {
    recomputed from ONE source: data-unit on each .ci line. Line total, «Разом»,
    the item count in the title and the header cart figure therefore cannot drift
    apart the way five hand-typed numbers would.
-   Runs only where the markup declares prices (.ci[data-unit]) - the coach cart
-   groups by client and prices its lines at the tier rate, so it stays out until
-   it is specced. Removing the last line goes to the empty state, never to a
-   blank drawer (voice.md 5 - states give a way out).
+   Runs only where the markup declares prices (.ci[data-unit]). The COACH cart
+   groups by client, prices its lines at the tier rate and prints two figures
+   this one does not, so it is a SIBLING - wfCartCoach() below - and never a
+   widening of this function. Removing the last line goes to the empty state,
+   never to a blank drawer (voice.md 5 - states give a way out).
    ============================================================ */
 function wfMoney(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₴'; }
 function wfPlural(n, one, few, many) {
@@ -1348,9 +1355,17 @@ function wfCartRecalc(drawer) {
   if (total) total.textContent = wfMoney(sum);
   const cnt = drawer.querySelector('.cd-cnt');
   if (cnt) cnt.textContent = lines + ' ' + wfPlural(lines, 'товар', 'товари', 'товарів');
-  /* the header carries the same basket - one truth, two places */
-  document.querySelectorAll('.wfh-act.numbtn .val').forEach(v => { v.textContent = wfMoney(sum); });
-  document.querySelectorAll('.wfh-act .hb, .wf-tab .tbadge').forEach(b => { b.textContent = lines; });
+  /* THE HEADER CARRIES THE SAME BASKET - one truth, two places, and the selector
+     used to reach a third. `.wfh-act.numbtn` is worn by the cart button AND by
+     «Бонуси», and `.wfh-act .hb` by the cart badge AND the wishlist badge, so an
+     unscoped write printed the cart's total over the bonus balance and would have
+     printed its line count over the wishlist count. Measured on cart.html at 1280
+     before this line was scoped: «Бонуси» read 3 939 ₴ at load and 5 229 ₴ after
+     one «+», the cart's figure both times, where account-loyalty.html - which runs
+     no recalc - reads the true 124 ₴. Scoped by href, the way wfCartCoachRecalc
+     had to be written and which is what exposed this one. */
+  document.querySelectorAll('.wfh-act.numbtn[href*="cart"] .val').forEach(v => { v.textContent = wfMoney(sum); });
+  document.querySelectorAll('.wfh-act[href*="cart"] .hb, .wf-tab .tbadge').forEach(b => { b.textContent = lines; });
 }
 /* WHICH WAY A QUANTITY STEP GOES is asked of the LABEL, not of the glyph.
    Both counters - the cart row and the checkout line - used to decide by looking
@@ -1462,6 +1477,134 @@ function wfCart() {
     }
   });
   wfCartRecalc(drawer);
+}
+
+/* ============================================================
+   CART DRAWER, COACH (node 6.0 · тренер) - a SIBLING of wfCart(), not a wider
+   wfCart(). Measured by clicking on design/cart-coach.html before this existed:
+   two presses of «+» on the first row left value="1", the line at 1 230 ₴, the
+   client subtotal at 2 320 ₴ and «Разом» at 3 480 ₴; one «Видалити» left four
+   rows. The screen had been inert since stage 04 - wireframes/cart-coach.html
+   never called wfCart() and carries no data-unit at all.
+
+   Adding the call would not have fixed it, and widening wfCartRecalc would have
+   cost more than it bought:
+     · that guard is .ci[data-unit] and no coach row qualifies;
+     · its writer is .ci-price / .ci-sum / .ci-old, and a coach row prices itself
+       through .cprice / .old from client-row.css, so the rows would be counted
+       and then never printed;
+     · reaching .cprice would also reach coach-session.html and coach-client.html,
+       which print the same class and are not carts;
+     · it writes .cd-cnt as «N товарів», which erases «4 товари · 2 клієнти».
+   The two figures the buyer's drawer has no equivalent for are the whole point of
+   the coach channel: a per-client subtotal (.cg-sub in every .cd-group) and the
+   client count in the head and the footer. So: its own recalc.
+
+   The GREY wireframes/cart-coach.html stays inert on purpose. Its rows carry no
+   data-unit either, so this returns at the guard exactly as wfCart() does there;
+   giving that markup the attributes is an edit to a frozen layer and nobody has
+   asked for one. An ADDED function is safe in both directions and a changed one
+   is not - the same argument that put btn--outline btn--danger in this file.
+   ============================================================ */
+
+/* The live figure inside .cprice and inside .cg-sub is a bare TEXT NODE followed
+   by the elements that have to survive a rewrite: .old + .wtag on a line, <small>
+   under a client subtotal. On the coloured layer that text node has also been
+   split around a <span> carrying the ₴ (design/_nav.js uivCurrency), so neither
+   textContent nor a patch of firstChild.nodeValue is safe - one erases the tail,
+   the other prints the sign twice. Replace everything BEFORE the first surviving
+   element, and nothing at or after it. */
+function wfCoachLead(box, txt, keep) {
+  if (!box) return;
+  while (box.firstChild && !(box.firstChild.nodeType === 1 && box.firstChild.matches(keep)))
+    box.removeChild(box.firstChild);
+  box.insertBefore(document.createTextNode(txt), box.firstChild);
+}
+/* WHICH COPY of a state screen opens. cart-coach-empty.html exists only in
+   wireframes/ - the coloured stand has no copy of it - and uivFixLinks() already
+   answers exactly this for a written <a>: a file the stand does not list falls
+   back to the grey original. A location.href assigned at runtime never passes
+   through it, so it asks the same list itself. DESIGN_NAV exists only on the
+   coloured stand, so on the grey layer this is a plain navigation.
+   wfCart() needs none of this: design/cart-empty.html is a coloured screen. */
+function wfGoState(file) {
+  if (typeof DESIGN_NAV !== 'undefined' && DESIGN_NAV.indexOf(file) < 0) file = '../wireframes/' + file;
+  location.href = file;
+}
+function wfCartCoachRecalc(drawer) {
+  let sum = 0, lines = 0, clients = 0;
+  drawer.querySelectorAll('.cd-group').forEach(g => {
+    let gsum = 0, gn = 0;
+    g.querySelectorAll('.ci').forEach(ci => {
+      const unit = parseFloat(ci.dataset.unit || '0');
+      const q = wfQtyRead(ci.querySelector('.qn'));
+      gn++; gsum += unit * q;
+      wfCoachLead(ci.querySelector('.cprice'), wfMoney(unit * q), '.old, .wtag');
+      /* a tier price keeps its retail reference at any quantity: the struck figure
+         scales with qty exactly like the live one, or the two disagree */
+      const old = parseFloat(ci.dataset.old || '0');
+      const oldEl = ci.querySelector('.cprice .old');
+      if (old && oldEl) oldEl.textContent = wfMoney(old * q);
+    });
+    lines += gn; sum += gsum;
+    if (gn) clients++;                       // a client with no rows left is not in this order
+    const sub = g.querySelector('.cg-sub');
+    if (sub) {
+      wfCoachLead(sub, wfMoney(gsum), 'small');
+      const n = sub.querySelector('small');
+      if (n) n.textContent = gn + ' ' + wfPluralUA(gn, 'товар', 'товари', 'товарів');
+    }
+  });
+  const total = drawer.querySelector('.cd-total b');
+  if (total) total.textContent = wfMoney(sum);
+  /* BOTH counts, in both places that state them - the head and the footer line.
+     Four figures on one screen answer «скільки»; they are computed once here. */
+  const items = lines + ' ' + wfPluralUA(lines, 'товар', 'товари', 'товарів');
+  const who = clients + ' ' + wfPluralUA(clients, 'клієнт', 'клієнти', 'клієнтів');
+  const cnt = drawer.querySelector('.cd-cnt');
+  if (cnt) cnt.textContent = items + ' · ' + who;
+  const foot = drawer.querySelector('.cd-total .sub');
+  if (foot) foot.textContent = '· ' + who;
+  /* the header carries the same basket - one truth, two places. Scoped by href,
+     which wfCartRecalc is not: on a coach page «Бонуси 124 ₴» is a second
+     .wfh-act.numbtn and an unscoped write would print the cart sum into it. */
+  document.querySelectorAll('.wfh-act.numbtn[href*="cart"] .val').forEach(v => { v.textContent = wfMoney(sum); });
+  document.querySelectorAll('a[href*="cart"] .hb, .wf-tab[href*="cart"] .tbadge').forEach(b => { b.textContent = lines; });
+}
+function wfCartCoach() {
+  const drawer = document.querySelector('.cart-drawer');
+  if (!drawer || !drawer.querySelector('.cd-group .ci[data-unit]') || drawer.dataset.wfcart) return;
+  drawer.dataset.wfcart = '1';
+  wfQtyField(drawer, wfCartCoachRecalc);
+  drawer.addEventListener('click', e => {
+    const step = e.target.closest('.ci-qty button');
+    if (step && !step.disabled) {
+      const qn = step.closest('.ci').querySelector('.qn');
+      const q = wfQtyRead(qn);
+      wfQtyWrite(qn, wfStepIsDown(step) ? Math.max(1, q - 1) : Math.min(99, q + 1));
+      wfCartCoachRecalc(drawer);
+      return;
+    }
+    const lnk = e.target.closest('button.ci-lnk');
+    if (!lnk || !/Видалити/.test(lnk.textContent)) return;
+    const row = lnk.closest('.ci');
+    const group = row.closest('.cd-group');
+    row.remove();
+    /* a client whose last line goes is not a client with an empty basket, they are
+       a client who is no longer in this order: the group header and its subtotal
+       go with the row, and the client count follows. An empty .cd-group would
+       otherwise print «0 ₴ · 0 товарів» under a name for no reason. */
+    if (group && !group.querySelector('.ci')) group.remove();
+    if (!drawer.querySelector('.ci')) { wfGoState('cart-coach-empty.html'); return; }
+    wfCartCoachRecalc(drawer);
+    /* neither layer's cart-coach markup carries the toast host - build it on first
+       use rather than add a node to a frozen file (same as the wishlist remove) */
+    if (!document.getElementById('wf-toast')) {
+      const w = document.createElement('div'); w.id = 'wf-toast'; document.body.appendChild(w); wfToasts();
+    }
+    if (typeof wfToast === 'function') wfToast('info', 'Товар прибрано з кошика');
+  });
+  wfCartCoachRecalc(drawer);
 }
 
 /* ============================================================

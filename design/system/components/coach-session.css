@@ -54,16 +54,14 @@
    declarations in this file were written 1.5.
 
    THE TYPE WENT ON THE SCALE AND THE SPACING DID NOT, AND THE DIFFERENCE IS THE
-   RULE, NOT A MOOD. Twenty font-sizes in this block stood off the nine-rung
-   scale - 22, 17, 15, 13.5, 13, 12.5, 11.5, 11 and 9.5 - for one reason: the
-   block was typed into a screen in stage 04, and the step 5.6 consolidation only
-   ever swept the two stylesheets. Every one of them takes the rung ABOVE it,
-   which is the rule 5.6 wrote down together with the pairs it is now applying
-   here: «ties go UP (13 -> 14, 11 -> 12, 15 -> 16, 17 -> 18, 22 -> 24)», plus
-   7.66 for the four half-pixels, «half a pixel is not a step, and a scale cannot
-   hold one». Each line says what it was, because the type on this screen is now
-   1 to 2px larger in twenty places and that is visible - the heading and the
-   session total most of all, 22 -> 24 both.
+   RULE, NOT A MOOD. Twenty font-sizes in this block stood off the scale - 22,
+   17, 15, 13.5, 13, 12.5, 11.5, 11 and 9.5 - for one reason: the block was typed
+   into a screen in stage 04, and the typography consolidation only ever swept the
+   two stylesheets. Every one of them takes the value that consolidation gives,
+   and the consolidation is TWO MOVES, not one - see the block below. Each line
+   says what it was, because the type on this screen is now 1 to 2px larger in
+   twenty places and that is visible - the heading and the session total most of
+   all, 22 -> 24 both.
    SPACING IS NOT SWEPT THE SAME WAY. 7.67 rounded spacing DOWN, and it did it to
    a named set of seven declarations in one banner rather than as a general rule,
    so 5, 6, 7, 9, 10, 11, 13, 14, 15, 18 and 20 stay literal here. Each is marked
@@ -72,15 +70,36 @@
    spacing note in tokens.css leaves open about the coach box. */
 
 /* ============================================================================
-   THE TWENTY SIZES ARE AN OPEN DECISION, NOT A CLOSED ONE - step 7.97.
+   THE TWENTY SIZES ARE THE RULE APPLIED, AND THE RULE IS TWO MOVES - step 7.98.
+   This block used to call them an open decision for stage 09. They are not. The
+   rule was already written down, in a file nobody in this batch had opened.
 
-   The block above states the snap as a rule («ties go UP») and moves on. It is
-   the same instruction step 5.6 gave the two shared stylesheets, and applying it
-   here was a reading, not a decision anybody made about this screen: no owner
-   was asked, and the twenty new sizes were never written down beside the twenty
-   old ones. They are, once, here. Left column is the frozen grey source
-   (`wireframes/coach-session.html`, the `<style>` block, selector by selector),
-   right column is what this file renders today.
+   `design/kit/docs/consolidation.md` records the typography consolidation as TWO
+   separate moves over two steps, and only the second of them is the one
+   `tokens.css:168` restates:
+
+     step 5.5  «Typography, move one: the half-pixel steps». A half pixel snaps
+               to the nearer whole, «and a tie went to the MORE-READ neighbour,
+               because the step the product already leans on is the one that
+               should survive». All six are ties, so the six mappings are a
+               TABLE, not arithmetic, and the table is:
+                  9.5 -> 10   10.5 -> 11   11.5 -> 12
+                 12.5 -> 13   13.5 -> 13   14.5 -> 14
+               210 declarations moved, 26 steps -> 20.
+     step 5.6  the twenty wholes go to nine rungs, ties UP:
+               13 -> 14 · 11 -> 12 · 15 -> 16 · 17 -> 18 · 19 -> 20 · 22 -> 24.
+
+   COMPOSED, THE TWO MOVES ANSWER EVERY GREY VALUE IN THIS BATCH, and the answer
+   is the number already declared:
+
+       9.5 -> 10 -> 10        12.5 -> 13 -> 14        15 -> 16
+       11  -> 12              13   -> 14              17 -> 18
+       11.5 -> 12 -> 12       13.5 -> 13 -> 14        22 -> 24
+                              14.5 -> 14 -> 14
+
+   Left column below is the frozen grey source (`wireframes/coach-session.html`,
+   the `<style>` block, selector by selector), right column is what this file
+   renders today, and the two agree with the rule in all twenty:
 
      .cc-name .cc-goal   13   -> 14        .cs-note        11.5 -> 12
      .cc-repeat          12.5 -> 14        .cs-summ-h      15   -> 16
@@ -93,37 +112,44 @@
      .cs-lines-h         13   -> 14        .qadd-h         13   -> 14
      .cs-meta            12.5 -> 14        .tierchip       11   -> 12
 
-   IT IS BATCH-WIDE. All five coach files took the same sweep at 7.95: 73 sizes
-   moved, 71 up and 2 down, and eighteen of the 73 are 12.5 -> 14, which skips
-   the 12 rung entirely. It was found independently in two of the five files
-   before anyone looked at the other three. This file has the largest count and
-   the fewest false notes - two of its twenty carry a `[?]` claiming the size was
-   left alone, against fifteen in coach-cabinet.css and fourteen in
-   coach-clients.css.
+   WHAT IS WITHDRAWN, and why it looked wrong for three passes. The reading that
+   made this an open question is «one pass of nearest rung, ties UP» over
+   8/10/12/14/16/18/20/24/30/34 - under which 12.5 is 0.5 from 12 and 1.5 from
+   14, so eighteen declarations across the batch look like they skipped the
+   nearer rung, and 14.5 is a tie that should have gone to 16, so two look like
+   they went the wrong way. That reading skips MOVE ONE. 12.5 never meets the
+   nine-rung ladder as 12.5: it is 13 first, by a table the owner signed at 5.5,
+   and 13 is then a tie that goes UP. 14.5 is 14 first, and 14 is a rung. Nothing
+   in this batch skipped a nearer rung and nothing went down.
 
-   WHAT MAKES IT A SLIP RATHER THAN A POLICY: every GEOMETRY literal in the same
-   five files stayed a literal and got a note saying so (7, 9, 10, 11, 13, 14,
-   15, 18, 20 are all still here). One sweep applied to one of the two ladders,
-   silently.
+   THE PRODUCT TOOK THE SAME 14.5 A THIRD TIME, in a file outside this batch:
+   `buy-box.css:129` replaced a dead `var(--fs-14-5)` with `--fs-14` at step 6.10
+   and called 14 «the nearest rung of the real scale». Three 14.5s in the
+   product, one answer, taken twice independently.
 
-   NOTHING IS ADJUSTED BY THIS BLOCK. Rounding back is a value decision and it is
-   the owner's; the record is what makes it possible to take.
+   VERIFIED AT 7.98 IN A BROWSER, not by reading the diff: all 73 movers across
+   the eight coloured coach screens, at 360 / 390 / 768 / 1280. Every one draws
+   the rung the rule gives - 0 mismatches - `scrollWidth - clientWidth` is 0 on
+   every screen at every width, zero console errors, and no string that set on
+   one line sets on two. NO VALUE WAS ADJUSTED BY THAT PASS, because none needed
+   to be; what it changed is this block and the notes below it.
 
-   TWO OF THE TWENTY LEAVE THE LIST TODAY, because a merge decided their size out
-   loud somewhere else:
+   TWO OF THE TWENTY ARE NO LONGER THIS FILE'S, because a merge decided their
+   size out loud somewhere else:
      `.cc-repeat`      12.5 -> 14   the local rule is deleted below and the 14 is
                                     now `.btn--text`'s, which button.css took at
                                     7.8 out of five files that each wrote it.
      `.cprice .wtag`    9.5 -> 10   the local rule is deleted below and the 10 is
                                     now discount.css's `--fs-10`.
-   The other eighteen stand open.
+   Both landed on the rung the rule gives anyway, which is the check on the
+   merge rather than a coincidence.
 
    AND ONE SIZE THAT IS NOT ON THIS LIST MOVES ANYWAY, so it is not mistaken for
    a twenty-first: `.cs-bar .bt b` was 16 in the grey source and 16 here - never
    snapped - and the bar merge below takes it to `--fs-20`, which is what
-   buy-bar.css states for the same figure on `.mbuybar`. `.cs-tot b` (22 -> 24)
-   is a DIFFERENT element, the total inside the summary column, and it stays
-   open.
+   buy-bar.css states for the same figure on `.mbuybar`. That one IS a decision
+   about a value, taken by the merge and recorded there. `.cs-tot b` (22 -> 24)
+   is a DIFFERENT element, the total inside the summary column.
    ============================================================================ */
 
 /* ---------- structure (from wireframes/coach-session.html) ---------- */
@@ -143,11 +169,22 @@
    headline in the system - `.acc-h1`, `.auth-h1`, `.co-h1`, `.bb h1` - is the
    display face. A missing `font-family` is a slip, so it is taken here; the SIZE
    is a value and 24 stays where the move left it, on the open list below. */
-.coach .cs-top h1{ font-family: var(--font-display); font-weight: var(--fw-semibold);
+/* THE DEAD `font-weight` IS GONE, and the live question it was hiding is not.
+   Step 7.96 added the display FAMILY to this rule and prepended a
+   `--fw-semibold` beside it without noticing the rule already ended in
+   `--fw-black` - two weights in one rule, the first one dead. Deleting the dead
+   one moves no pixel: `--fw-black` won before and wins now, verified by rendering
+   the page before and after.
+   WHAT IT WAS HIDING: measured at 390, `.clh h1`, `.cl-h1`, `.ch-name` and
+   `.cv-body h1` all render Oswald 600, and this one renders Oswald 700. So the
+   page title of the product's PRIMARY job is a rung heavier than its four
+   siblings in the same cabinet. That is a look and it is the owner's; it is
+   stated here with the four measurements rather than settled by a font-size pass. */
+.coach .cs-top h1{ font-family: var(--font-display);
   font-size: var(--fs-24);       /* was 22px; step 5.6, «ties go UP (22 -> 24)» */
   font-weight: var(--fw-black); color: var(--text-primary);
   letter-spacing: var(--ls-lead); }
-.coach .cs-meta{ font-size: var(--fs-14);       /* was 12.5px; 7.66, half a pixel is not a step, and it snaps UP */
+.coach .cs-meta{ font-size: var(--fs-14);       /* was 12.5px. 5.5 -> 13, the tie to the more-read neighbour; 5.6 -> 14, ties go UP */
   color: var(--text-secondary);
   margin-top: 5px; }               /* [?] 5px has no rung; the ladder is 4/8 */
 
@@ -472,7 +509,7 @@
   border: 1px solid var(--line-hair); display: flex; align-items: center;
   justify-content: center; color: var(--mark-faint);
   font-size: 9px; }                /* [?] 9px has no rung; the ladder is 8/10 */
-.coach .cl-nm{ font-size: var(--fs-14);         /* was 13.5px; 7.66, half a pixel is not a step, and it snaps UP */
+.coach .cl-nm{ font-size: var(--fs-14);         /* was 13.5px. 5.5 -> 13, the tie to the more-read neighbour; 5.6 -> 14, ties go UP */
   font-weight: var(--fw-bold); color: var(--text-primary); line-height: var(--lh-snug); }
 .coach .cl-var{ font-size: var(--fs-12); color: var(--text-secondary);
   margin: var(--space-2) 0 var(--space-8); }
@@ -510,7 +547,11 @@
    the markup now and this rule went with that one. */
 .coach .cl-right{ text-align: right; }
 .coach .cline-sub{ display: flex; justify-content: space-between; align-items: baseline;
-  padding: 13px 0 var(--space-2);  /* was 13px, same rule */
+  padding: 13px 0 var(--space-2);  /* [?] 13px has no rung; the ladder is 12/16. The note
+                                      here used to read «was 13px, same rule», which is a TYPE
+                                      note copied onto a SPACING literal: this padding never
+                                      moved and no rule has been applied to it. It stays on the
+                                      header's spacing list. */
   border-top: 1px solid var(--line-strong); margin-top: var(--space-4);
   font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); }
 .coach .cline-sub b{ font-size: var(--fs-18);     /* was 17px; step 5.6, «ties go UP (17 -> 18)» */
@@ -548,7 +589,7 @@
                                       session total: the one figure on this screen
                                       the coach came for */
   font-weight: var(--fw-black); color: var(--text-primary); }
-.coach .cs-note{ font-size: var(--fs-12);       /* was 11.5px; 7.66, half a pixel is not a step, and it snaps UP */
+.coach .cs-note{ font-size: var(--fs-12);       /* was 11.5px. 5.5 -> 12, the tie to the more-read neighbour, and 12 is a rung */
   color: var(--text-muted);
   /* 1.55 was the product's old base rhythm and the owner moved it to 1.6 at step
      5.6, out loud, «because air is calmer». The token is that decision. */

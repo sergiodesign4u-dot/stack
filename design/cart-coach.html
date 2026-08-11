@@ -42,6 +42,12 @@
     <a class="btn--ghost btn--icon btn--s cd-x" href="coach-session.html" aria-label="Закрити">✕</a>
   </header>
 
+  <!-- Every figure below is DERIVED, not typed. data-unit is the tier price this
+       markup already printed on the line (1 230 · 1 090 · 890 · 270) and data-old
+       the retail figure struck beside it (1 450 · 1 290 · 1 050 · 320); nothing
+       was invented, and the four add up to the 2 320 / 1 160 subtotals and the
+       3 480 total that were already here. wfCartCoach() in ../wireframes/_nav.js
+       recomputes line, client subtotal, «Разом» and both counts from them. -->
   <div class="cd-body">
 
     <!-- ===== group: Андрій ===== -->
@@ -51,7 +57,7 @@
         <div class="cg-sub">2 320 ₴<small>2 товари</small></div>
       </header>
 
-      <article class="ci">
+      <article class="ci" data-unit="1230" data-old="1450">
         <a href="product.html" class="ci-ph">фото</a>
         <div class="ci-mid">
           <div class="ci-brand">BioTechUSA · Угорщина</div>
@@ -64,7 +70,7 @@
         </div>
       </article>
 
-      <article class="ci">
+      <article class="ci" data-unit="1090" data-old="1290">
         <a href="product.html" class="ci-ph">фото</a>
         <div class="ci-mid">
           <div class="ci-brand">Optimum Nutrition · США</div>
@@ -85,7 +91,7 @@
         <div class="cg-sub">1 160 ₴<small>2 товари</small></div>
       </header>
 
-      <article class="ci">
+      <article class="ci" data-unit="890" data-old="1050">
         <a href="product.html" class="ci-ph">фото</a>
         <div class="ci-mid">
           <div class="ci-brand">BioTechUSA · Угорщина</div>
@@ -98,7 +104,7 @@
         </div>
       </article>
 
-      <article class="ci">
+      <article class="ci" data-unit="270" data-old="320">
         <a href="product.html" class="ci-ph">фото</a>
         <div class="ci-mid">
           <div class="ci-brand">OstroVit · Польща</div>
@@ -128,7 +134,14 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach', {cart:4, cartSum:'3 480 ₴'}); wfFooter(); wfBar('cart-coach.html');
-        uivFixLinks(); uivBar(); uivChrome();</script>
+<script>/* uivChrome() sizes the ₴ down inside every figure over 17px, and a recalculation rewrites
+   those figures, so the sign would come back full size after the first press. design/_nav.js
+   solves this for the buyer's drawer inside uivCart(), which wraps wfCartRecalc; there is no
+   uivCartCoach() yet, so the same wrap is made here, BEFORE wfCartCoach() binds it to the
+   quantity field. It belongs in design/_nav.js next to uivCart(). */
+(function(){ var r = window.wfCartCoachRecalc;
+  window.wfCartCoachRecalc = function(d){ r(d); uivCurrency(d); }; })();
+wfHeader('coach', {cart:4, cartSum:'3 480 ₴'}); wfFooter(); wfCartCoach(); wfBar('cart-coach.html');
+uivFixLinks(); uivBar(); uivChrome();</script>
 </body>
 </html>

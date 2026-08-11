@@ -72,37 +72,60 @@
 
 
 /* ==========================================================================
-   NINE TYPE SIZES IN THIS FILE WERE SNAPPED TO A RUNG BY THE MOVE, AND A MOVE
-   IS NOT ALLOWED TO DO THAT. Recorded at 7.96 as ONE open decision for stage
-   09 and deliberately NOT acted on: the standing rule is «never round it
-   silently», and where the ladder lands is the owner's call, not a repair's.
-   The values below are unchanged by 7.96. Only the notes beside them are.
+   NINE TYPE SIZES IN THIS FILE WERE SNAPPED TO A RUNG BY THE MOVE, AND THE
+   SNAP IS THE PRODUCT'S OWN RULE - step 7.98. 7.96 recorded these nine as one
+   open decision for stage 09 on the reading that a move had invented a
+   rounding. It had not. The rule is not in tokens.css, which is why three
+   passes over these files missed it: `design/kit/docs/consolidation.md` records
+   the typography consolidation as TWO moves, and `tokens.css:168` restates only
+   the second.
 
-       grey, wireframes/coach-verify.html     what this file declares now
-       .cv-step .n           11               --fs-12
-       .fhint                11.5             --fs-12
-       .cv-step b            12.5             --fs-14   skips the 12 rung
-       .cv-aside li          12.5             --fs-14   skips the 12 rung
-       .cv-alt               12.5             --fs-14   skips the 12 rung
-       .cv-aside .vtag       13               --fs-14
-       .cv-lead              13.5             --fs-14
-       .cv-aside .vtag b     14.5             --fs-14   <- DOWN, the rare one
-       .city-chip            15               16, and the declaration is gone:
-                                              button.css draws it from 7.96
+     step 5.5  «Typography, move one: the half-pixel steps». A half pixel snaps
+               to the nearer whole, «and a tie went to the MORE-READ neighbour,
+               because the step the product already leans on is the one that
+               should survive». All six are ties, so the mappings are a TABLE,
+               not arithmetic:
+                  9.5 -> 10   10.5 -> 11   11.5 -> 12
+                 12.5 -> 13   13.5 -> 13   14.5 -> 14
+     step 5.6  the twenty wholes go to nine rungs, ties UP:
+               13 -> 14 · 11 -> 12 · 15 -> 16 · 17 -> 18 · 19 -> 20 · 22 -> 24
 
-   IT IS BATCH-WIDE AND NOT THIS SCREEN'S TASTE: 73 sizes moved across the five
-   coach files at 7.95, 71 up and 2 down, eighteen of them 12.5 -> 14, which
-   skips 12 entirely. The review counted nine moved sizes here against twelve
-   notes describing a size as untouched - the worst ratio of the five.
-   `.cv-aside .vtag b` is called out on its own line because it is one of only
-   TWO in the whole batch that went down. The owner should see that the sweep
-   was not uniformly upward: a rounding that goes both ways is a slip, not a
-   policy, and it cannot be undone by one rule.
-   WHY NOBODY CAUGHT IT: every GEOMETRY literal in the same files stayed a
-   literal with a real note beside it - 92, 10, 9, 22, 6, 20, 7, all still
-   written as the grey wrote them. The file looks scrupulous because on the
-   other axis it is. Each of the nine notes below now says the grey value, the
-   declaration standing today, and that a move took it rather than a decision.
+       grey, wireframes/coach-verify.html   declared now   what the rule gives
+       .cv-step .n           11             --fs-12        5.6 tie up
+       .fhint                11.5           --fs-12        5.5 -> 12, a rung
+       .cv-step b            12.5           --fs-14        5.5 -> 13, 5.6 up
+       .cv-aside li          12.5           --fs-14        5.5 -> 13, 5.6 up
+       .cv-alt               12.5           --fs-14        5.5 -> 13, 5.6 up
+       .cv-aside .vtag       13             --fs-14        5.6 tie up
+       .cv-lead              13.5           --fs-14        5.5 -> 13, 5.6 up
+       .cv-aside .vtag b     14.5           --fs-14        5.5 -> 14, a rung
+       .city-chip            15             16, and the declaration is gone:
+                                            button.css draws it from 7.96, at
+                                            the 16 the rule gives anyway
+
+   NINE FOR NINE. Nothing here needs adjusting and 7.98 adjusted nothing.
+
+   THE ONE THAT WENT DOWN IS THE RULE, NOT THE COUNTER-EXAMPLE. This block used
+   to call `.cv-aside .vtag b` out on its own line as one of only two in the
+   batch that shrank, and read that as proof «the sweep was not uniformly
+   upward: a rounding that goes both ways is a slip, not a policy». Both halves
+   are wrong. 14.5 -> 14 is line six of the 5.5 table - the tie goes to the
+   more-read neighbour, and 14 was more read than 15 - and 14 is then a rung, so
+   5.6 leaves it. The product has taken the same 14.5 -> 14 a third time in a
+   file outside this batch: `buy-box.css:129`, step 6.10, calling 14 «the
+   nearest rung of the real scale». Three 14.5s, one answer.
+
+   WHY THE GEOMETRY DID NOT MOVE WITH THE TYPE, which used to read as the
+   suspicious half of this: it is the correct asymmetry. 92, 10, 9, 22, 6, 20
+   and 7 are all still literals here because SPACING has two contradictory
+   rounding rules in tokens.css (5.5 ties up, 7.67 rounds down) and RADIUS ties
+   go DOWN while type ties go UP. Type is the one of the three ladders whose
+   answer is written and unambiguous, so type is the one the move could take.
+
+   VERIFIED IN A BROWSER AT 7.98: the eight coloured coach screens at 360 / 390
+   / 768 / 1280, all 73 movers measured as rendered `font-size`. 0 mismatches
+   against the rule, `scrollWidth - clientWidth` 0 everywhere, zero console
+   errors.
    ========================================================================== */
 
 
@@ -146,22 +169,19 @@
    [?] 9px has no rung; the ladder is 8/12. */
 .coach .cv-step{ flex: 1; min-width: 92px; border: 1px solid var(--line-strong); border-radius: 10px; padding: 9px var(--space-12); font-size: var(--fs-12); color: var(--text-secondary); background: var(--bg-page); }
 /* [?] 18px has no rung; the size ladder is 20/24/26/30/32/34/38/40/44/46/52/64.
-   [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 11px, which has no
-   rung (the scale is 10/12/14/16/18/20/24/30/34), and this line declares
-   --fs-12. Nobody decided that; 7.95 rounded it while translating. One of the
-   nine in the block at the top of this file - not reverted here.
+   grey 11 -> 12: step 5.6, ties go UP (11 -> 12). One of the nine in the
+   block at the top of this file, and it is the rule applied, not a rounding
+   7.95 invented.
    [?] 7px has no rung; the ladder is 4/8.
    `--fw-black` and not the literal 800: the token IS the name for «the heaviest
    thing in its block», which is what 800 meant here, and it resolves to 700
    because no 800 face is loaded on any product page (tokens.css 7.63-7.65).
    The number this line drew has not changed. */
 .coach .cv-step .n{ display: inline-flex; width: 18px; height: 18px; border-radius: var(--radius-circle); border: 1px solid var(--line-strong); align-items: center; justify-content: center; font-size: var(--fs-12); font-weight: var(--fw-black); margin-right: 7px; color: var(--text-secondary); }
-/* [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 12.5px, a half
-   pixel the scale has none of, and this line declares --fs-14 - which skips the
-   12 rung sitting just as close on the other side. Step 5.6 deleted six
-   half-pixel sizes from the product by an owner's call, this one survived
-   inside a screen, and 7.95 resolved it on its own. One of the nine in the
-   block at the top - not reverted here. */
+/* grey 12.5 -> 13 -> 14. It does not skip the 12 rung, which is what this
+   note used to say: a half pixel never meets the nine-rung ladder as a half
+   pixel. 5.5 takes it to 13, the more-read neighbour of the tie, and 5.6 takes
+   13 UP to 14. One of the nine in the block at the top. */
 .coach .cv-step b{ display: block; color: var(--text-primary); font-weight: var(--fw-black); font-size: var(--fs-14); margin-top: var(--space-4); }
 /* THE CURRENT STEP MOVES ONTO THE ACTION COLOUR - 7.96, and this is the look
    the move at 7.95 left open in the paragraph below.
@@ -253,24 +273,23 @@
    down anywhere as a decision - stage 09. */
 @media (min-width: 760px) { .coach .cv-aside{ width: 38%; flex: none; border-bottom: none; border-right: 1px solid var(--line-hair); display: flex; flex-direction: column; justify-content: space-between; } }
 .coach .cv-aside .vlogo{ font-size: var(--fs-20); font-weight: var(--fw-black); color: var(--text-primary); letter-spacing: var(--ls-display); }
-/* [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 13px, which has no
-   rung (the scale is 12/14), and this line declares --fs-14. One of the nine in
-   the block at the top - not reverted here. */
+/* grey 13 -> 14: step 5.6, ties go UP (13 -> 14). One of the nine in the
+   block at the top. */
 .coach .cv-aside .vtag{ font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-16); }
-/* [?] THE TYPE MOVED DOWNWARD HERE, AND IT IS ONE OF ONLY TWO IN THE WHOLE
-   BATCH THAT DID: the grey wrote 14.5px, a half pixel between the 14 and 16
-   rungs, and this line declares --fs-14. The heading of a benefit block got
-   half a pixel SMALLER while eight sizes around it got bigger, which is the
-   clearest evidence that the batch was a rounding rather than a decision. One
-   of the nine in the block at the top - not reverted here. */
+/* grey 14.5 -> 14, and this is the one that went DOWN. It is line six of
+   the 5.5 table - a half pixel goes to the more-read neighbour of its tie, and
+   14 was more read than 15 - and 14 is a rung, so 5.6 leaves it. The note that
+   stood here called the shrink «the clearest evidence that the batch was a
+   rounding rather than a decision»; it is the opposite, and buy-box.css:129
+   took the same 14.5 to 14 at step 6.10 in a file nobody in this batch had
+   opened. One of the nine in the block at the top. */
 .coach .cv-aside .vtag b{ color: var(--text-primary); display: block; font-size: var(--fs-14); margin-bottom: var(--space-4); }
 /* [?] 9px has no rung; the ladder is 8/12. */
 .coach .cv-aside ul{ list-style: none; margin: var(--space-16) 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
-/* [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 12.5px, a half
-   pixel, and this line declares --fs-14 - skipping the 12 rung that stands the
-   same half pixel away. The three benefit lines are a pixel and a half bigger
-   than the screen they came from. One of the nine in the block at the top - not
-   reverted here. */
+/* grey 12.5 -> 13 -> 14: 5.5 to the more-read neighbour, then 5.6 takes
+   the tie UP. The three benefit lines are a pixel and a half bigger than the
+   screen they came from, and that is the consolidation reaching a screen it had
+   never been able to reach. One of the nine in the block at the top. */
 .coach .cv-aside li{ font-size: var(--fs-14); color: var(--text-secondary); display: flex; gap: var(--space-8); align-items: flex-start; }
 /* the tick in front of a benefit. It is a typed glyph in the markup, which is
    the edition checkbox.css 7.38 replaced with a drawn one for the same reason:
@@ -301,11 +320,9 @@
    and which of the two an H1 should read is a question for the whole product,
    not for this screen. */
 .coach .cv-body h1{ font-family: var(--font-display); font-size: var(--fs-30); font-weight: var(--fw-semibold); color: var(--text-primary); letter-spacing: var(--ls-lead); }
-/* [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 13.5px, a half
-   pixel, and this line declares --fs-14. 14 is also what the product's other
-   13.5s became at 5.6 - which makes this the most defensible of the nine and
-   still not a decision anyone took for THIS line. One of the nine in the block
-   at the top - not reverted here.
+/* grey 13.5 -> 13 -> 14: 5.5 to the more-read neighbour, then 5.6 takes
+   the tie UP. 14 is what the product's other thirty 13.5s became by the same
+   two moves. One of the nine in the block at the top.
    [?] 22px has no rung; the ladder is 16/24.
    [?] 1.55 is not on the leading ladder (1 / 1.3 / 1.6). tokens.css records the
    base rhythm moving from 1.55 to 1.6 «deliberately, and said out loud, because
@@ -364,9 +381,8 @@
    stands - layout that belongs to the block, not to the atom». It is a third
    edition of the same sentence all the same: goal-tile.css has `.goalcta .hint`
    at --fs-14/--text-secondary for the same job. Крок 6. */
-/* [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 11.5px, a half pixel
-   between the 10 and 12 rungs, and this line declares --fs-12. One of the nine
-   in the block at the top - not reverted here.
+/* grey 11.5 -> 12: 5.5 takes the half pixel to the more-read neighbour, and
+   12 is a rung, so 5.6 leaves it. One of the nine in the block at the top.
    [?] 6px has no rung; the ladder is 4/8.
    [?] 1.5 is not on the leading ladder (1 / 1.3 / 1.6). */
 .coach .fhint{ font-size: var(--fs-12); color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
@@ -509,10 +525,9 @@
    coach-verify-error.html and coach-verify-deadend.html, and neither screen has
    a coloured edition in `design/` yet. When they get one they want the same
    three classes, not a third set of numbers. ---------- */
-/* [?] THE TYPE MOVED AND THE MOVE MOVED IT: the grey wrote 12.5px, a half
-   pixel, and this line declares --fs-14 - the third of the three 12.5s in this
-   file that all skipped the 12 rung the same way. One of the nine in the block
-   at the top - not reverted here. */
+/* grey 12.5 -> 13 -> 14, the third of the three 12.5s in this file, and all
+   three take the same path: 5.5 to the more-read neighbour, 5.6 takes the tie
+   UP. One of the nine in the block at the top. */
 .coach .cv-alt{ display: block; text-align: center; margin-top: var(--space-12); font-size: var(--fs-14); color: var(--text-secondary); }
 .coach .cv-alt a{ color: var(--text-body); font-weight: var(--fw-bold); text-decoration: underline; }
 

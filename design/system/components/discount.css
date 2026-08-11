@@ -78,8 +78,12 @@
    about this price here», the colour carries which fact.
 
    `--font-body`, because this one is a word. `.mcut.ttier` rendered it in mono
-   until this step, which set «гурт» in a typeface chosen for digits. */
-.tcut.ttier, .mcut.ttier{
+   until this step, which set «гурт» in a typeface chosen for digits.
+
+   `.wtag` JOINED THIS LIST AT 7.98 - see the block below for why. Fifteen
+   instances of one word are now drawn by one rule: 2 on `product-coach.html`
+   and 13 across the three coloured coach screens. */
+.tcut.ttier, .mcut.ttier, .wtag{
   font-family: var(--font-body);
   font-variant-numeric: normal;
   font-weight: var(--fw-semibold);
@@ -100,28 +104,64 @@
    7.96 and the ink moved --text-primary -> --text-secondary with it, said out
    loud as a decision: the chip labels a figure, it is not the figure.
 
-   THE BORDER NOW HAS NO STATED REASON, and the old one has to go rather than be
-   left standing. It read: `.wtag` «stands at the end of a client line rather
-   than inside a price block, with no struck figure beside it». Read out of the
-   markup on all three screens, that is false - the element is
-   `<div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div>`,
-   inside the price block, with the struck figure immediately before it. So the
-   edge is either right for a reason nobody has written down yet, or it is the
-   last difference between this chip and the two beside it and it goes. Thirteen
-   rendered instances to look at now, which is what the old note was waiting for.
+   THE BORDER IS DECIDED AT 7.98, AND IT COMES OFF. The old reason was read out
+   of the markup and it was false: it said `.wtag` «stands at the end of a client
+   line rather than inside a price block, with no struck figure beside it», and
+   the element on all three screens is
+   `<div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div>`
+   - inside the price block, with the struck figure immediately before it. The
+   thirteen rendered instances the old note was waiting for now exist and they
+   settle it three ways:
+
+   1. IT IS THE TIER CHIP, NOT A THIRD THING. `product-coach.html:48` reads
+      `<span class="told">1 290 ₴</span><span class="tcut ttier">гурт</span>` and
+      :396 the same with `.mcut`. Same word, same fact, same position - directly
+      after the struck figure. So `.wtag` is the third carrier of the mark two
+      lines above already draw, and it now joins their rule instead of being a
+      second edition of it.
+   2. AN EDGE WITH NO GROUND IS THE ONE SHAPE IT MAY NOT HAVE. badge.css:22-27:
+      «no ground, no border, static, 10px uppercase grey - it is an eyebrow, not
+      a badge». `coach-session.css` step 7.97 took the border and the radius off
+      `.cl-tag` on exactly that sentence and named `.cprice .wtag` in the same
+      breath as the next one. A word that labels a figure either sits on a ground
+      or sits on nothing; a 1px control edge says «press me» and this is a
+      `<span>` that does nothing.
+   3. MEASURED, IT WAS NOT READING AS A CHIP ANYWAY. 33 x 12 at 390, of which 2px
+      were the edge, with `padding: 0 var(--space-4)` giving it no vertical room
+      at all - a hairline rectangle clamped onto the letters, standing as the only
+      box in a price column whose other two lines are bare figures.
+
+   THE GROUND ARRIVES WITH THE EDGE LEAVING, and that is a pair, not two changes:
+   `--bg-sunken` is what the two siblings carry, and it is what keeps the mark a
+   MARK once the outline is gone. Contrast of `--text-secondary` #5B5B54 on
+   `--bg-sunken` #F2F0ED is 6.02:1 - AA at any size, which 10px needs; it was
+   6.84:1 on the white the transparent chip inherited, so the ground costs 0.82
+   and buys the chip shape. `padding` moves `0 var(--space-4)` -> the family's
+   `var(--space-2) var(--space-8)`, because a ground with no vertical padding is
+   a highlighter stripe rather than a chip. Measured on all thirteen at 360, 390
+   and 1280: 33 x 12 -> 38.1 x 14, the same 14 the file's other 10px member
+   `.pcut` measures at 40 x 14. `.mcut.ttier` beside it on product-coach is
+   42.1 x 16, which is the 12px rung of the same chip: one family, two sizes,
+   and no third shape left.
+
+   ONE DIFFERENCE IS LEFT STANDING AND IT IS THE OWNER'S. The two siblings are
+   `--fs-12` / `--fw-semibold`; this one stays `--fs-10` / `--fw-black`, declared
+   below so it wins over the list it just joined. The size has a reason - a
+   client line is dense, the same reason `.pcut` and `.lcut` are 10 - and the
+   weight does not: [?] 700 here against 600 two lines up, on one word. What a
+   label WEIGHS is a look decision, 7.97 refused to take it while moving
+   `.cl-tag`, and it is refused here for the same reason rather than settled
+   silently.
    `--font-body` replaces the literal `'Inter', sans-serif` this file carried:
    the token has the system fallbacks after Inter, the literal had only
    `sans-serif`. Four components still write it. */
 .wtag{
   display: inline-block;
-  font-family: var(--font-body);
   font-size: var(--fs-10);
   font-weight: var(--fw-black);
   line-height: var(--lh-flat);
-  color: var(--text-secondary);
-  border: 1px solid var(--line-strong);
   border-radius: var(--radius-4);
-  padding: 0 var(--space-4);
+  padding: var(--space-2) var(--space-8);
   margin-left: var(--space-4);
   vertical-align: middle;
 }

@@ -1,5 +1,5 @@
 /* ============================================================
-   design/system/marks.js - THE two passes that turn a typed sign into a mark
+   design/system/marks.js - THE three passes that turn a typed sign into a mark
    from the set, and the only edition of them.
 
    It moved here from design/_nav.js at step 7.11, and the STAND is why - the
@@ -12,7 +12,8 @@
    defect this stage exists to remove, and the fix is not to retype the stand -
    it is one edition, run by both.
 
-   WHAT LIVES HERE: the two maps and the two walks. What does NOT: the glyphs
+   WHAT LIVES HERE: the three maps, the three walks, and the one address they
+   are allowed to reach (`uivMarkHosts`). What does NOT: the glyphs
    (icons.js - this file is the rule, not the drawing) and the region-wide emoji
    swap `uivIcons()`, which is the shop's own chrome and has no meaning on a
    stand page.
@@ -45,6 +46,51 @@ var UIV_TRAIL_RE = /\s*([→↓▾⌄›＋－])\s*$/;
    the sign, not to the button, so the address widens to everything a person can
    press. Body copy is still out of reach - a paragraph is not in this list. */
 var UIV_TRAIL_SEL = 'a, button, summary, [role="button"], [class*="btn--"]';
+
+/* ---------- WHERE A SIGN IS ALLOWED TO BE A MARK - step 7.96 ----------------
+   `UIV_TRAIL_SEL` is not only a selector, it is an ANSWER: «a sign is a mark
+   where a person can press». Step 7.6 widened it once already, from `btn--` to
+   every pressable, because a mega-menu head and an accordion caret are links and
+   the seam had just moved one class over. The coloured coach flow moves it again,
+   and this time out of the pressables altogether. Measured at 390 across the 48
+   coloured screens: `<span class="ccard-goal">🎯 Набір маси</span>`,
+   `<span class="ord-chip">👤 Марія · Схуднення</span>`,
+   `<div class="rbadge">✓ Купив товар</div>`, `<span class="m">✓</span>` in the
+   coach's benefit list, `<div class="ic">🗑</div>` in the delete dialog. None of
+   them is pressable and every one of them is a LABELLED BOX - an element that
+   holds one short label and nothing else.
+
+   So the address is: a control, OR a leaf. A leaf is an element with no element
+   children, which is the structural way of saying «this box holds text and
+   nothing else» - no list of class names, so a chip added next month is reached
+   the day it appears. That is the whole point: nine times in this project a
+   question of the form «which things get X» was answered with a hand-written
+   list, and everything added later fell outside it.
+
+   ONLY THE TWO SHAPES ANCHORED AT THE START USE IT. `uivTrailMark` keeps the
+   narrow control-only address on purpose and the reason is at the top of this
+   file: `→` at the END of a leaf is a sentence («…з кожного замовлення →» in the
+   account hint), while a mapped sign at the START of a leaf is a mark. The
+   anchor is what makes the difference safe, not the address.
+
+   A paragraph is running text by definition, so it is out even when it is a
+   leaf. `[data-uiv-keep]` is the one way a box can decline a mark; it has
+   exactly one user and it carries its reason there (see `uivToastMarks` in
+   design/_nav.js). */
+var UIV_PROSE = { P: 1, BLOCKQUOTE: 1, FIGCAPTION: 1 };
+function uivMarkHosts(scope){
+  var out = [];
+  [].slice.call(scope.querySelectorAll('*')).forEach(function(el){
+    if(el.hasAttribute('data-uiv-keep')) return;
+    if(el.children.length){                 /* a container: only if it is pressable */
+      if(el.matches && el.matches(UIV_TRAIL_SEL)) out.push(el);
+      return;
+    }
+    if(UIV_PROSE[el.tagName]) return;
+    out.push(el);
+  });
+  return out;
+}
 
 /* THE DEEPEST LAST TEXT, not the last child. The sign turned up in four shapes:
    bare in the control («Для тренерів →»), alone in a span of its own
@@ -133,6 +179,25 @@ var UIV_SIGN_ONLY = {
   '＋':'plus', '+':'plus', '－':'minus', '−':'minus',
   '★':'star', '☆':'star', '♥':'heart', '♡':'heart',
   '▦':'grid', '☰':'list',
+  /* step 7.96. The tick had NO ROW AT ALL, in either map, while `icons.js` has
+     drawn `check` since 7.11 - so `<span class="m">✓</span>` in the coach's
+     benefit list and `<div class="rbadge">✓ Купив товар</div>` on the three
+     review screens were the only glyphs on those pages still coming from the
+     font. Measured at 390: 10 of them. `⚠️` is here for the same reason and it
+     is one decision, not two: `.cedlg .ic` is a 48px disc that holds `🗑` on
+     «Видалити клієнта?» and `⚠️` on «Видалити акаунт?». Mapping one and not the
+     other would leave two dialogs of one family drawing the same slot from two
+     different places, which is the seam this file exists to close. Both forms of
+     the warning, with and without the variation selector, because `.trim()` does
+     not remove U+FE0F. */
+  '✓':'check', '⚠':'alert', '⚠️':'alert',
+  /* step 7.96, and it is a TYPO one codepoint wide. `UIV_EMOJI` in design/_nav.js
+     has 🔍 U+1F50D; `coach-clients.html` types 🔎 U+1F50E in its search field, so
+     the one search glyph in the coach flow was drawn by the font while every
+     other search mark in the product came from the set. Both codepoints answer
+     to the same drawing here and in `UIV_EMOJI`, so neither spelling can miss
+     again. */
+  '🔍':'search', '🔎':'search',
   /* step 7.13. `.wlrm` in the wishlist is `<button ...>🗑</button>` - the sign IS
      the whole label, so it belongs in this map like every other one. It was
      missing because the SHOP already drew it from a different place: `UIV_EMOJI`
@@ -140,7 +205,16 @@ var UIV_SIGN_ONLY = {
      from the set on account-wishlist.html, and the same button left as a raw
      emoji on the stand. Two editions of one swap, which is the seam this file
      was created to close - it just had one row missing. */
-  '🗑':'trash', '🗑️':'trash'
+  '🗑':'trash', '🗑️':'trash',
+  /* step 7.99, the coach cabinet - and the same TWO EDITIONS the 🗑 row above
+     records, one map further on. `UIV_EMOJI` in design/_nav.js runs over the
+     shop's REGIONS, so it reaches the rail and the tab bar; it never reaches
+     `<span class="cc pre">🔗</span>`, which is a field prefix in the middle of
+     coach-verify's form, and it does not run on a stand page at all. This map
+     reaches any leaf whose whole text is the sign, wherever it stands. Both maps
+     carry the three chrome glyphs so neither route can be the one that misses,
+     and 🔗 is here only: a field prefix is not chrome. */
+  '👥':'users', '◈':'gem', '🎽':'cap', '🔗':'link'
 };
 
 /* THE OUTLINE IS THE RIGHT DEFAULT FOR A SIGN, INCLUDING THE STAR - step 7.27.
@@ -171,7 +245,7 @@ function uivSignSwap(host, name, wrap){
 function uivSignMark(root){
   var scope = root || document;
   if(!scope.querySelectorAll) return;
-  [].slice.call(scope.querySelectorAll(UIV_TRAIL_SEL)).forEach(function(c){
+  uivMarkHosts(scope).forEach(function(c){
     if(c.closest && c.closest('.uiv-side, .uiv-topbar')) return;
 
     /* the sign IS the control - `<button aria-label="Закрити">✕</button>` */
@@ -187,6 +261,93 @@ function uivSignMark(root){
       var nm = UIV_SIGN_ONLY[b.textContent.trim()];
       if(nm) uivSignSwap(b, nm, false);
     });
+  });
+}
+
+/* ---------- A SIGN THAT LEADS A LABEL - step 7.96, the THIRD shape ----------
+   `UIV_SIGN_ONLY` fires when the sign is the WHOLE label; `UIV_TRAIL_MARK` when
+   it closes one. A sign that OPENS one was in neither map, so it was in neither
+   pass, and the font drew it. Counted at 390 across the 48 coloured screens
+   before this existed: 80 signs that HAVE a drawing were still coming from the
+   font, and 60 of them were this shape - «＋ Додати клієнта», «🗑 Видалити
+   адресу», «↻ У сесію», «🎯 Набір маси», «👤 Марія · Схуднення», «📍 Одеса»,
+   «✓ Купив товар». (Another 8 were a sign ALONE in a leaf box, which is
+   `UIV_SIGN_ONLY` reaching further than a control; the last 12 were the coach's
+   own section rail, and that one is a missing CALL, not a missing map - see
+   `uivChrome` in design/_nav.js.) The
+   header comment of this file counted 100 close buttons, 32 counter steps and 15
+   rating stars before 7.11 closed the first two shapes. This is the third, and
+   the same sentence applies: a 🗑 from whatever face the machine happens to have
+   is not a decision anyone made.
+
+   PUNCTUATION IS NOT A SIGN, and at the START of a label that rule has to work
+   harder than at the end, because the characters that open a string are exactly
+   the ones that mean something else. Three guards, and all three must hold:
+
+     1. THE GLYPH IS IN THIS MAP. `＋` U+FF0B is here; ASCII `+` is NOT, because
+        «+38 067…» is a phone number and «+13 ₴ бонус» is an amount. `−` and `-`
+        are not here either: a leading dash is a dash. The map is the entire
+        rule, exactly as the two maps above say about themselves.
+     2. THE SIGN IS THE FIRST CHARACTER of the box's own text. `overview.html`
+        describes a screen as «тариф Pro, кабінет і «＋ Нова сесія»» - a mapped
+        glyph, inside a leaf, in running prose. The `^` anchor is what leaves it
+        alone, and it is the reason this pass is safe on a leaf at all.
+     3. WHAT FOLLOWS IS WHITESPACE AND THEN A LETTER. `\p{L}`, never `\p{N}`:
+        «★ 4.8» is a rating and it has its own gold finish in design/_nav.js;
+        «× 1 од.» is arithmetic. A digit after a sign means the sign is being
+        read as a value, not as a mark.
+
+   THE SPACE STAYS, and that is the opposite of what `uivTrailMark` does two
+   screens up. A trailing mark eats its space because a control is a flex row
+   whose `gap` already sets it off on that side, and because `.uiv-ic.uiv-trail`
+   in icon.css hands it a `margin-left` when nobody else does. A leading mark has
+   no such rule and must not need one - this pass may not ask a stylesheet to
+   change - so it keeps the space the author typed: in a chip, a badge or a
+   heading that space is the only thing between the mark and the label, and
+   inside a flex row it costs nothing, because white space at the start of a line
+   box is collapsed away before it is painted. Walked at 390 across every host
+   shape this reaches - `.btn--accent`, `.btn--outline`, `.btn--text.ci-lnk`,
+   `.city-chip`, `.ccard-goal`, `.ord-chip`, `.cl-tag`, `.rbadge`, `h3` - and the
+   gap reads the same as the marks `uivCart` has been placing by hand since 6.x,
+   which is the control the two routes now share on `cart` and `cart-coach`. */
+var UIV_LEAD_MARK = { '＋':'plus', '🗑️':'trash', '🗑':'trash', '↻':'refresh',
+                      '📍':'pin', '🎯':'target', '👤':'user', '✓':'check',
+                      '🔎':'search', '🔍':'search', '🔔':'bell', '⚠️':'alert', '⚠':'alert' };
+var UIV_LEAD_RE = new RegExp('^(\\s*)(' + Object.keys(UIV_LEAD_MARK)
+  .sort(function(a, b){ return b.length - a.length; })   /* 🗑️ before 🗑, or FE0F is left behind */
+  .join('|') + ')\\s+\\p{L}', 'u');
+
+/* THE DEEPEST FIRST TEXT - the mirror of `uivTrailLastText`, and idempotent by
+   the same construction. Once the mark is in, the box's first child is a
+   `<span class="uiv-ic">` whose own first child is an `<svg>` and then a
+   `<path>`, so the walk runs out of children and returns null. A box that
+   already carries its mark is stepped over without a flag being kept anywhere. */
+function uivLeadFirstText(el){
+  var n = el;
+  while(n && n.nodeType === 1){
+    var k = n.firstChild;
+    while(k && k.nodeType === 3 && !k.nodeValue.trim()) k = k.nextSibling;
+    if(!k) return null;
+    n = k;
+  }
+  return n && n.nodeType === 3 ? n : null;
+}
+
+function uivLeadMark(root){
+  var scope = root || document;
+  if(!scope.querySelectorAll) return;
+  uivMarkHosts(scope).forEach(function(c){
+    /* the stand's own bar is not the store - the same line `uivCurrency` draws */
+    if(c.closest && c.closest('.uiv-side, .uiv-topbar')) return;
+    var t = uivLeadFirstText(c);
+    if(!t) return;
+    var m = UIV_LEAD_RE.exec(t.nodeValue);
+    if(!m) return;
+    var svg = uivIconSvg(UIV_LEAD_MARK[m[2]]);
+    if(!svg) return;
+    /* drop the sign and any space in FRONT of it; keep the run behind it */
+    t.nodeValue = t.nodeValue.slice(m[1].length + m[2].length);
+    t.parentElement.insertAdjacentHTML('afterbegin', '<span class="uiv-ic">' + svg + '</span>');
   });
 }
 
@@ -215,10 +376,12 @@ function uivWrapDrCat(){
   window.toggleDrCat = wrapped;
 }
 
-/* both passes, in the order that matters: a control whose sign IS its whole
-   label is what is LEFT after every mark that closes a label has been taken */
+/* THREE passes now, in the order that matters: the two ends of a label first -
+   the mark that closes it, then the mark that opens it - and a box whose sign IS
+   its whole label is what is LEFT once both ends have been taken. */
 function uivMarks(root){
   uivTrailMark(root);
+  uivLeadMark(root);
   uivSignMark(root);
   uivWrapDrCat();
 }

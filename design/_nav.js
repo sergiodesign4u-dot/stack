@@ -72,10 +72,30 @@ if(typeof UIV_P === 'undefined'){
    ★ is only mapped for the chrome (Бонуси); card rating ★ is never touched. */
 var UIV_EMOJI = {
   '🏠':'home','👤':'user','♡':'heart','♥':'heart','❤️':'heart','☆':'star','★':'star',
-  '🛒':'cart','🔍':'search','📍':'pin','☰':'burger','▦':'grid','▾':'chevron','▲':'chevUp','›':'caret','🔔':'bell',
+  /* 🔎 U+1F50E is a row this map was missing, one codepoint from the 🔍 U+1F50D
+     beside it - step 7.96. `coach-clients.html` types the tilted lens in its
+     search field, so the coach flow drew its one search mark with the font while
+     every other search mark in the product came from the set. Both spellings
+     answer to one drawing, here and in `UIV_SIGN_ONLY`. */
+  '🛒':'cart','🔍':'search','🔎':'search','📍':'pin','☰':'burger','▦':'grid','▾':'chevron','▲':'chevUp','›':'caret','🔔':'bell',
   '🥛':'jar','🍚':'cup','⚗️':'flask','🧬':'dna','⚡':'bolt','🔥':'flame','💧':'drop','🍫':'bar',
   '💊':'capsule','🧴':'dumbbell','🏷️':'tag','🌿':'leaf','🛡️':'shield','💪':'trending','🏃':'pulse',
   '🎯':'target','✦':'spark','🎓':'cap',
+  /* THE COACH CABINET, step 7.99. Three rows, and only one of them is a new
+     drawing decision.
+     👥 «Клієнти» and ◈ «Тариф» are the two rows of the coach rail that had no map
+     row anywhere, so they rendered as a raw emoji and a raw lozenge beside five
+     siblings drawn from the set. `users` and `gem` are drawn in icons.js and the
+     reasoning for each is there.
+     🎽 IS NOT A NEW MARK, IT IS A SECOND ONE. The coach's tab bar points at
+     coach-home.html and drew a running shirt; the buyer account rail points at
+     THE SAME coach-home.html and has drawn 🎓 since it was built (see
+     wfAccountNav, isCoach). One destination with two marks in two navigations a
+     coach uses in the same session - so the tab takes the mark that was already
+     the coach's, and no glyph is added. The grey layer keeps its shirt: frozen
+     since stage 05, and this map is exactly the place where the colour layer is
+     allowed to disagree with it. */
+  '👥':'users','◈':'gem','🎽':'cap',
   '✈️':'telegram','✈':'telegram','📲':'viber',
   /* account (7.x) */
   '📦':'box','↻':'refresh','⎋':'logout','✎':'pen','⭳':'download','⌄':'chevron',
@@ -520,6 +540,30 @@ function uivChrome(){
   uivCheckboxes();
   uivDisclosures();
   uivCrumbs();
+  /* step 7.96 - A PASS RUNS WHERE THE THING IT PAINTS IS, NOT WHERE SOMEBODY
+     REMEMBERED TO CALL IT. `uivAccount()` used to be a line in nine screens'
+     init, and eleven screens carry `#acc-nav`: the eight buyer ones that call it
+     and the three coach ones (`coach-home`, `coach-clients`, `coach-orders`)
+     that call `uivFixLinks(); uivBar(); uivChrome();` and nothing else.
+     Measured at 1280 before this line existed: the buyer's rail drew 8 marks of
+     8, the coach's drew 2 of 7. The two that did draw were caught by
+     `uivSignMark` - a different pass - because `▦` and `♡` happen to be in
+     `UIV_SIGN_ONLY`; the other five sat in a 20px slot at `font-size: 0` holding
+     a raw glyph and no svg. An empty box where a mark should be.
+
+     ADDING THE CALL TO THREE MORE SCREENS WOULD BE THE SAME LIST ONE ENTRY
+     LONGER, and the next coach screen with a rail would be wrong again - which
+     is how this project has answered «which things get X» nine times running.
+     A presence test cannot go stale: the pass asks whether the region is on the
+     page, and the page answers. The nine screens that still name it in their
+     own init are harmless - see the guard on `uivAccount` itself.
+
+     LAST, and not with the other region walks at the top, because that is where
+     the call already stood relative to `uivChrome`: the rating star, the fav
+     heart and the tier jars must be real icons before the blanket emoji swap
+     runs over the account panel, or it takes them. Moving the call kept its
+     position in the order; it only stopped depending on being typed out. */
+  uivAccount();
 }
 
 /* make the product-card heart interactive: a click toggles the .on (filled) state
@@ -574,14 +618,29 @@ function uivPatchMenus(){
    and `alert`, and it has NO info mark. Two of three would leave the info toast
    the only one still typed, which is a worse state than three of three. Written
    down as a question, not answered by a sweep - the same discipline `marks.js`
-   states for its own maps. */
+   states for its own maps.
+
+   STEP 7.96 GAVE THAT NOTE TEETH. `✓` now HAS a row in `UIV_SIGN_ONLY` - it had
+   to, because the tick is the whole label of ten boxes on the coach and review
+   screens and `icons.js` has drawn `check` since 7.11 - and `.tt-ic` is a leaf
+   box, so the widened address in `marks.js` reaches it. Without the line below
+   the ok toast would quietly start drawing from the set while the error and info
+   toasts kept their `!` and `i`, which is the exact state the paragraph above
+   argued against, arrived at as a side effect rather than as a decision.
+   `data-uiv-keep` is how a box declines a mark. It has ONE user, it is this one,
+   and the day `icons.js` gains an `info` glyph the honest fix is to map all
+   three and delete this line - not to widen it. */
 function uivToastMarks(){
   var fn = window.wfToast;
   if(typeof fn !== 'function' || fn.__uiv) return;
   window.wfToast = function(){
     var r = fn.apply(this, arguments);
     var wrap = document.getElementById('wf-toast');
-    if(wrap && wrap.lastElementChild && typeof uivMarks === 'function') uivMarks(wrap.lastElementChild);
+    var t = wrap && wrap.lastElementChild;
+    if(!t) return r;
+    var st = t.querySelector('.tt-ic');
+    if(st) st.setAttribute('data-uiv-keep', '');
+    if(typeof uivMarks === 'function') uivMarks(t);
     return r;
   };
   window.wfToast.__uiv = 1;
@@ -743,6 +802,24 @@ function uivDisclosures(){
       The slash is punctuation drawn by CSS now (breadcrumb.css), and
       `aria-hidden` is what keeps a decoration out of the reading.
 
+   3. AND THE SLASH CAME BACK DOUBLE - step 7.99, owner: «какой двойной слеш в
+      кабинете тренера везде». Step 7.39 moved the glyph into CSS
+      (`.sep::before{ content: '/' }`) and swept the 47 typed slashes out of the
+      coloured markup THAT EXISTED THAT DAY. The grey layer kept its own 211,
+      frozen since stage 05 - which is right, and which is also the whole
+      problem: the eight coloured coach screens arrived at 7.95 as clones of that
+      frozen layer, brought the typed `<span class="sep">/</span>` with them, and
+      the CSS added the second one. Measured at 390: 13 of them, on all seven
+      coach pages that carry a trail.
+      A sweep of those seven files would read as a fix and would not be one - the
+      next screen cloned from the grey layer arrives with the same slash, and it
+      is the same shape as the nine times this project answered «which things get
+      X» with a hand-written list. So the rule is stated once, here, where the
+      colour layer already reconciles itself with what the frozen markup says:
+      the separator's glyph comes from CSS, so whatever character the markup put
+      inside the box is a second edition of it and goes. The box stays - it is
+      what carries the ::before and the 8px on each side.
+
    Idempotent, and it runs after any pass that rebuilds a page's chrome. */
 function uivCrumbs(){
   [].slice.call(document.querySelectorAll('.crumb')).forEach(function(nav){
@@ -750,6 +827,7 @@ function uivCrumbs(){
     if(cur && !cur.hasAttribute('aria-current')) cur.setAttribute('aria-current', 'page');
     [].slice.call(nav.querySelectorAll('.sep')).forEach(function(sep){
       if(!sep.hasAttribute('aria-hidden')) sep.setAttribute('aria-hidden', 'true');
+      if(sep.textContent !== '') sep.textContent = '';
     });
   });
 }
@@ -1187,6 +1265,17 @@ function uivAuthPaint(state){
      links that carry its navigation are new elements each time and the pass in
      `uivChrome` only ever saw the first step's. Reached here, on every repaint. */
   if(typeof uivDeadLinks === 'function') uivDeadLinks();
+  /* step 7.96, AND IT IS THE SENTENCE ABOVE WORD FOR WORD - which is how it went
+     unnoticed for six steps. 7.30 wrote «every step replaces its own innerHTML»
+     about the links and fixed the links; the MARKS pass has exactly the same
+     problem and was not brought along. Measured on `account-addresses.html`:
+     at load the dialog's «Закрити» draws `close` from the set, and after one
+     `wfAuthGo('code')` the same button holds a typed ✕ again - a control that is
+     right until somebody uses it. Locked decision 5 sends the coach, the buyer
+     and the beginner through this one dialog, so that is every role and every
+     step but the first. `uivMarks` is idempotent, so repainting a step that is
+     already marked costs a walk and changes nothing. */
+  if(typeof uivMarks === 'function') uivMarks(ov);
 }
 function uivAuth(){
   if(!window.__uivAuth && typeof window.wfAuthGo === 'function'){
@@ -1345,13 +1434,24 @@ function uivHome(){
 /* ============================================================
    ACCOUNT (node 7.x). Thin on purpose: the shell, the cards and every state
    already live in _wf.css, so the colour layer only has to reach the two regions
-   that carry glyphs - the section nav (injected by wfAccountNav, so uivChrome's
-   fixed id list never sees it) and the content panel. It runs AFTER uivChrome, so
-   the rating star, the fav heart and the tier jars are already real icons by then
-   and the blanket swap can no longer take them.
+   that carry glyphs - the section nav (injected by wfAccountNav or wfCoachNav,
+   so uivChrome's fixed id list never sees it) and the content panel. It runs at
+   the END of uivChrome, so the rating star, the fav heart and the tier jars are
+   already real icons by then and the blanket swap can no longer take them.
+
+   CALLED BY PRESENCE, NOT BY A LIST - step 7.96. The reason is written out at
+   the call site in uivChrome(); the guard below is the other half of it. Nine
+   screens still say `uivChrome(); uivAccount();` in their own init, which is now
+   one call too many rather than one call short, so the pass has to be free the
+   second time. It was already idempotent in effect - `uivIcons` finds no emoji
+   left to swap and `uivTiers` finds no tier glyph - but «in effect» is a thing
+   that stops being true quietly, so it is stated.
    ============================================================ */
 function uivAccount(){
-  document.querySelectorAll('#acc-nav, .acc-main').forEach(uivIcons);
+  var slots = document.querySelectorAll('#acc-nav, .acc-main');
+  if(!slots.length || document.body.dataset.uivAcc) return;
+  document.body.dataset.uivAcc = '1';
+  slots.forEach(uivIcons);
   /* tier marks inside the freshly-iconed nav chip (uivChrome ran before it existed) */
   uivTiers(document.getElementById('acc-nav'));
   /* 7.6: emptying the wishlist builds its empty box AFTER this pass, and the theme hides

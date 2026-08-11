@@ -22,6 +22,20 @@
 var UIV_P = {
   home:'<path d="M4 11.4 12 4l8 7.4"/><path d="M6 10.2V20h12v-9.8"/>',
   user:'<circle cx="12" cy="7.6" r="3.4"/><path d="M5.2 20c.4-3.7 3.3-5.9 6.8-5.9s6.4 2.2 6.8 5.9"/>',
+  /* step 7.99. «Клієнти» is the coach's FIRST job, and it was the one row of the
+     coach rail with no drawing: the grey layer types 👥 and no map had a row for
+     it, so on coach-home, coach-clients and coach-orders the label sat against an
+     empty box while «Огляд», «Замовлення», «Обране», «Профіль» and «Вийти» were
+     drawn from the set. It is `user` with a second person BEHIND, not a new
+     figure: same head radius, same shoulder curve, same weight - a coach's client
+     list is many of the person the account rail already draws, and two unrelated
+     drawings for one idea is the seam this file exists to close.
+     The one behind is drawn as two ARCS rather than a whole second figure. A full
+     circle there would cross the front figure's stroke, and an outline set has no
+     way to say which line is in front - the arcs start where the front figure
+     ends, so the two never touch. Ink 3.3..21.35 with the set's 1.9 stroke, which
+     is `arrowRight`'s own right edge, and dead centre on the vertical. */
+  users:'<circle cx="9.2" cy="7.8" r="3.3"/><path d="M3.3 20c.4-3.3 2.9-5.4 5.9-5.4s5.5 2.1 5.9 5.4"/><path d="M15.6 4.5a3.3 3.3 0 0 1 0 6.6"/><path d="M17.2 15.2c1.9.6 3.2 2.4 3.2 4.8"/>',
   heart:'<path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"/>',
   star:'<path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"/>',
   target:'<circle cx="12" cy="12" r="8.3"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".7" fill="currentColor" stroke="none"/>',
@@ -93,6 +107,23 @@ var UIV_P = {
   alert:'<path d="M12 4.3 21 19.7H3z"/><path d="M12 10.2v4.1"/><circle cx="12" cy="17" r=".95" fill="currentColor" stroke="none"/>',
   /* coach tier: a graduation cap - the coach badge on the PDP coach state */
   cap:'<path d="M2.8 9.2 12 5l9.2 4.2-9.2 4.2z"/><path d="M6.8 11.5v4.1c0 1.5 2.3 2.6 5.2 2.6s5.2-1.1 5.2-2.6v-4.1"/><path d="M20.6 9.9v4.4"/>',
+  /* «Тариф» - the coach's plan, Free or Pro, step 7.99. The second row of the
+     coach rail with no drawing, and the harder of the two, because the set
+     already holds two marks that ALMOST fit and both are taken on the same
+     screen: `tag` is «Бренди» in the mega-menu and `card` is «Оплата карткою» in
+     the footer trust strip, so either one would draw two different meanings in
+     two navigations a person can see at once - the exact fault the star note
+     above records.
+     So this is the shape the prototype itself chose and Voice kept: ◈ U+25C8, a
+     lozenge holding a lozenge, drawn to the set's anatomy instead of by whatever
+     face the machine has. It is not a new metaphor, it is the same sign with a
+     drawing - which is what `box` did for 📦 and `cap` for 🎓.
+     THE INNER LOZENGE IS SIZED BY THE WHITE BETWEEN THE TWO, not by a ratio. At
+     half the outer diagonal the two edges run 3.68 apart, and 1.9 of that is
+     stroke: 1.78 of white, which is the gap the `flask` note above records as
+     close enough for two round-capped lines to merge into a lump at 20px. A 3.2
+     half-diagonal opens it to 2.06. */
+  gem:'<path d="M12 3.2 20.8 12 12 20.8 3.2 12z"/><path d="M12 8.8 15.2 12 12 15.2 8.8 12z"/>',
   /* certificate / document with a verified mark (PDP trust strip) */
   doc:'<path d="M6 3.6h7.4L18 8.2V20a.6.6 0 0 1-.6.6H6a.6.6 0 0 1-.6-.6V4.2A.6.6 0 0 1 6 3.6z"/><path d="M13.2 3.8v4.6h4.6"/><path d="M8.6 14.1l2.1 2.1 4.4-4.6"/>',
   /* auth dialog (node 1.x): the SMS with the code, the one-time-code lock,
@@ -101,6 +132,18 @@ var UIV_P = {
   lock:'<rect x="4.6" y="10.3" width="14.8" height="9.7" rx="2.4"/><path d="M8.3 10.3V7.9a3.7 3.7 0 0 1 7.4 0v2.4"/><path d="M12 14.2v2.2"/>',
   mail:'<rect x="3" y="5.4" width="18" height="13.2" rx="2.4"/><path d="M3.7 7.1 12 13l8.3-5.9"/>',
   check:'<path d="M4.8 12.4 9.6 17 19.2 7.4"/>',
+  /* the URL field on coach-verify («Посилання на профіль для перевірки») - step
+     7.99. `.cc.pre` is a field prefix and it held a raw 🔗, the only glyph in the
+     coach flow still drawn by the font once the rail was done. A chain link is
+     what a URL is called everywhere, so the drawing is not a choice; the
+     construction is: `mail`, `lock` and `chat` next door are the other three
+     field marks, and this one had to sit at the same weight beside them.
+     ON THE DIAGONAL, and that is the whole reason it is not the flat two-C mark
+     every set draws. Flat, this glyph is 9.9 tall against a set median of 18.5 -
+     the fault the `flame` note above records, where a small mark floats over its
+     own line while its neighbour fills the cell. Turned 45 degrees it fills a
+     17.4 square, dead centre, ink 3.3..20.7. */
+  link:'<path d="M9.8 9.8 14.2 14.2"/><path d="M14.2 7.4 11.5 4.7a4.8 4.8 0 0 0-6.8 6.8l2.7 2.7"/><path d="M9.8 16.6 12.5 19.3a4.8 4.8 0 0 0 6.8-6.8l-2.7-2.7"/>',
   /* cart drawer (node 6.0): removing a line */
   trash:'<path d="M4.6 6.8h14.8"/><path d="M9.4 6.8V5.2a1.2 1.2 0 0 1 1.2-1.2h2.8a1.2 1.2 0 0 1 1.2 1.2v1.6"/><path d="M6.4 6.8 7.3 19a1.3 1.3 0 0 0 1.3 1.2h6.8a1.3 1.3 0 0 0 1.3-1.2l.9-12.2"/><path d="M10.4 10.2v6M13.6 10.2v6"/>',
   /* buyer account (node 7.x): the order parcel, the repeat arrow, leaving a review,

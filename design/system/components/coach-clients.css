@@ -22,20 +22,19 @@
    commit. Corrected here rather than deleted, because a sentence that was wrong
    on arrival is the thing the next reader most needs told.
 
-   HOW A VALUE WAS TREATED, and there is one rule with two named exceptions.
-   A value that matches a token EXACTLY takes the token. A value that does not
-   stays a literal and says so with `[?]`, because snapping it to a neighbouring
-   rung is a value decision and this step does not take those. tokens.css gives
-   two ROUNDING rules that contradict each other on the same numbers - the 5.5
-   spacing block says ties go UP (10 -> 12, 14 -> 16), the 7.67 sweep says round
-   DOWN to the rung (10 -> 8, 14 -> 12) - and until that is settled out loud,
-   every 9, 10, 11, 13, 14 and 15 in this file is left where the grey file put
-   it. tokens.css 7.67 already names the precedent: the coach box's own
-   15/17/3/7/7/10 stayed literal too, because that is 'a look, taken with that
-   box open, not a sweep'.
-   THAT RULE WAS BROKEN FOURTEEN TIMES ON TYPE SIZE, and the block below is the
-   list. It is the one correction on this pass that changes no pixel: the notes
-   were lying, the values were not re-decided.
+   HOW A VALUE WAS TREATED, and it splits by LADDER, not by luck.
+   A value that matches a token EXACTLY takes the token.
+   SPACING that does not match stays a literal and says so with `[?]`, because
+   spacing has no settled rounding rule: tokens.css gives two that contradict
+   each other on the same numbers - the 5.5 spacing block says ties go UP
+   (10 -> 12, 14 -> 16), the 7.67 sweep says round DOWN to the rung (10 -> 8,
+   14 -> 12) - and until that is settled out loud, every 9, 10, 11, 13, 14 and 15
+   of AIR in this file is left where the grey file put it. tokens.css 7.67
+   already names the precedent: the coach box's own 15/17/3/7/7/10 stayed literal
+   too, because that is 'a look, taken with that box open, not a sweep'.
+   TYPE is the one ladder whose rounding IS settled, in two moves, and the
+   fourteen sizes below are that rule applied rather than the breach the block
+   under this one used to call them. See it for the rule and its source.
    The two exceptions move no pixels and are both measured decisions already in
    force across the system:
      `1.5px` border -> `1px`   step 7.62 measured that Chrome resolves 1.5px to
@@ -48,50 +47,68 @@
 
 
 /* ============================================================================
-   OPEN DECISION FOR STAGE 09: FOURTEEN TYPE SIZES, ONE VOTE.
+   FOURTEEN TYPE SIZES, AND THE RULE THAT DECIDES ALL FOURTEEN - step 7.98.
 
-   Every size below was moved to a rung of the scale by the 7.95 move, and every
-   one of them then carried a `[?]` note saying it had NOT been moved. The
-   values are left exactly where the move put them - re-deciding them is a value
-   decision and it is the owner's - and each note now says what actually
-   happened. This block is the single question those fourteen notes add up to.
+   This block used to be headed 'OPEN DECISION FOR STAGE 09' and it worked from
+   the wrong rule. The right one is not in tokens.css, which is why three passes
+   over these files missed it: `design/kit/docs/consolidation.md` records the
+   typography consolidation as TWO moves over two steps, and `tokens.css:168`
+   restates only the second of them.
 
-   Read: SELECTOR | screen | grey px | drawn now | where 'nearest rung, ties
-   down' would put it. The scale is 8 10 12 14 16 18 20 24 30 34.
+     step 5.5  'Typography, move one: the half-pixel steps'. A half pixel snaps
+               to the nearer whole, 'and a tie went to the MORE-READ neighbour,
+               because the step the product already leans on is the one that
+               should survive'. Every half pixel is a tie, so the six mappings
+               are a TABLE, not arithmetic:
+                  9.5 -> 10   10.5 -> 11   11.5 -> 12
+                 12.5 -> 13   13.5 -> 13   14.5 -> 14
+               210 declarations moved, 26 steps -> 20.
+     step 5.6  the twenty wholes go to nine rungs, ties UP:
+               13 -> 14 · 11 -> 12 · 15 -> 16 · 17 -> 18 · 19 -> 20 · 22 -> 24
 
-     .ccard-goal   clients | 11   | 12 | 10   tie 10/12
-     .ccard-meta   clients | 12.5 | 14 | 12
-     .ch-edit      client  | 12.5 | 14 | 12
-     .cc-note      client  | 12.5 | 14 | 12
-     .oh-h         client  | 15   | 16 | 14   tie 14/16
-     .oc-no        client  | 14.5 | 14 | 14   already there
-     .oc-meta      client  | 12.5 | 14 | 12
-     .oc-status    client  | 11   | 12 | 10   tie 10/12
-     .oc-nm        client  | 13   | 14 | 12   tie 12/14
-     .oc-qty       client  | 11.5 | 12 | 12   already there
-     .oc-sum       client  | 13   | 14 | 12   tie 12/14
-     .cd-h         client  | 13   | 14 | 12   DECIDED - see below
-     .cd-row dt    client  | 12.5 | 14 | 12
-     .cd-row dd    client  | 13.5 | 14 | 14   already there
+   Read: SELECTOR | screen | grey px | drawn now | what the two moves give.
 
-   THE NUMBERS. 13 of the 14 came out LARGER than the grey file drew them; one
-   came out smaller (`.oc-no`, 14.5 -> 14). Five skipped the nearer rung
-   outright - the five 12.5 rows, each 0.5 from 12 and 1.5 from 14, all landed
-   on 14. Under 'nearest rung, ties down' over the whole scale, 11 of the 14
-   would move back; counting only the rows whose neighbours are 12 and 14 - the
-   window this file actually argues about - 8 would move: the five 12.5 and the
-   three 13. The remaining three (`.oc-no`, `.oc-qty`, `.cd-row dd`) are already
-   on their nearest rung and no rule moves them.
+     .ccard-goal   clients | 11   | 12 | 12   5.6 tie up
+     .ccard-meta   clients | 12.5 | 14 | 14   5.5 -> 13, 5.6 tie up
+     .ch-edit      client  | 12.5 | 14 | 14   5.5 -> 13, 5.6 tie up
+     .cc-note      client  | 12.5 | 14 | 14   5.5 -> 13, 5.6 tie up
+     .oh-h         client  | 15   | 16 | 16   5.6 tie up
+     .oc-no        client  | 14.5 | 14 | 14   5.5 -> 14, and 14 is a rung
+     .oc-meta      client  | 12.5 | 14 | 14   5.5 -> 13, 5.6 tie up
+     .oc-status    client  | 11   | 12 | 12   5.6 tie up  (now status-pill.css's)
+     .oc-nm        client  | 13   | 14 | 14   5.6 tie up
+     .oc-qty       client  | 11.5 | 12 | 12   5.5 -> 12, and 12 is a rung
+     .oc-sum       client  | 13   | 14 | 14   5.6 tie up
+     .cd-h         client  | 13   | 12 | -    DECIDED ELSEWHERE - see below
+     .cd-row dt    client  | 12.5 | 14 | 14   5.5 -> 13, 5.6 tie up
+     .cd-row dd    client  | 13.5 | 14 | 14   5.5 -> 13, 5.6 tie up
 
-   ONE ROW IS OFF THE LIST ALREADY. `.cd-h` is a card title and the cabinet has
-   one of those - `--fs-12`, black, uppercase, `--ls-caps`, `--text-muted` in
-   account-shell.css - so it was answered by the eyebrow, not by rounding, and
-   it now reads 12. That leaves 13 rows open, 7 of them inside the 12/14 window.
+   FOURTEEN FOR FOURTEEN. Nothing here needs adjusting, and 7.98 adjusted
+   nothing.
 
-   WHY IT MATTERS MORE THAN THE PIXELS. The rule the move ran under is 'never
-   round it silently'. Here the value was rounded AND a note was printed beside
-   it denying that it had been - which is worse than either alone, because the
-   next reader trusts the note and stops checking. The notes are the repair.
+   WHAT IS WITHDRAWN, in its own words so it does not come back. This block used
+   to test the fourteen against 'nearest rung, ties down' over 8/10/12/14/16/18/
+   20/24/30/34 and reported that 11 of the 14 would move back, five of them
+   'skipping the nearer rung outright'. Two errors in one sentence. The direction
+   for TYPE is UP, not down - down is the RADIUS rule (tokens.css:445) and the
+   two are opposite on purpose. And a half pixel never meets the nine-rung ladder
+   as a half pixel: 12.5 is 13 before the ladder is applied, by a table the owner
+   signed at 5.5, and 13 is then a tie that goes UP. `.oc-no` at 14.5 -> 14 was
+   filed as the anomaly of the batch, 'the only one that came out SMALLER'. It is
+   the 5.5 table, line six, and the product has taken the same 14.5 -> 14 a third
+   time in a file outside this batch: `buy-box.css:129`, step 6.10, calling 14
+   'the nearest rung of the real scale'.
+
+   ONE ROW IS OFF THE LIST ALTOGETHER. `.cd-h` is a card title and the cabinet
+   has one of those - `--fs-12`, black, uppercase, `--ls-caps`, `--text-muted` in
+   account-shell.css - so it reads 12 because the eyebrow says 12, not because
+   the ladder was applied. It is the one of the fourteen whose size is NOT this
+   rule's.
+
+   VERIFIED IN A BROWSER AT 7.98 rather than in this table: the eight coloured
+   coach screens at 360 / 390 / 768 / 1280, all 73 movers of the batch measured
+   as rendered `font-size`. 0 mismatches against the rule, `scrollWidth -
+   clientWidth` 0 everywhere, zero console errors.
    ============================================================================ */
 
 
@@ -268,12 +285,12 @@
    neither of these is in the list, so deleting the rule leaves an unstyled span.
    Adding both names to that selector list is safe in both directions and is the
    same move 7.23 made for `.dr-chip` and `.mgchip`; it needs chip.css open. */
-.coach .ccard-goal{ display: inline-block; font-size: var(--fs-12);   /* [?] MOVED BY THE MOVE, NOT BY A DECISION: the grey file drew 11px, this draws 12. 11 is a tie between the rungs 10 and 12 and nobody chose the side. See the fourteen-row block at the top */
+.coach .ccard-goal{ display: inline-block; font-size: var(--fs-12);   /* grey 11 -> 12: 5.6, ties go UP (11 -> 12). See the fourteen-row block at the top */
   font-weight: var(--fw-bold); color: var(--text-primary);
   border: 1px solid var(--line-strong);   /* was 1.5px - see the header note */
   border-radius: var(--radius-pill); padding: var(--space-2) 10px;   /* [?] 10px has no rung; the ladder is 8/12 */
   margin-top: 5px; }   /* [?] 5px has no rung; the ladder is 4/8 */
-.coach .ccard-meta{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE, NOT BY A DECISION: the grey file drew 12.5px, this draws 14. 12.5 is a half-pixel the scale does not hold and it is 0.5 from 12 against 1.5 from 14, so the move went PAST the nearer rung. Five declarations did that - this one and four in section 2. See the block at the top */
+.coach .ccard-meta{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP. Five declarations in this file take that path - this one and four in section 2. See the block at the top */
   color: var(--text-secondary); margin: 13px 0 14px;   /* [?] 13px and 14px have no rung; the ladder is 12/16 */
   display: flex; gap: 6px; flex-wrap: wrap; }   /* [?] 6px has no rung; the ladder is 4/8 */
 .coach .ccard-meta b{ color: var(--text-primary); font-weight: var(--fw-bold); }
@@ -348,13 +365,13 @@
    rebuilt at 6.7 to end. It stays because the markup is frozen and carries no
    `btn` class, so deleting the rule leaves a bare link. Putting `btn btn--outline
    btn--s` on that anchor is a Крок 6 markup fix and it deletes this rule outright. */
-.coach .ch-edit{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 12.5px, drawn 14. The second of the five that went past the nearer rung 12 - see .ccard-meta and the block at the top */
+.coach .ch-edit{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14, the second of the five - see .ccard-meta and the block at the top */
   font-weight: var(--fw-bold); color: var(--text-primary);
   border: 1px solid var(--line-strong);   /* was 1.5px - see the header note */
   border-radius: var(--radius-8); padding: 9px 15px;   /* [?] 9px and 15px have no rung; the ladder is 8/12/16 */
   white-space: nowrap; }
 
-.coach .cc-note{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 12.5px, drawn 14. The third of the five that went past 12 */
+.coach .cc-note{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14, the third of the five */
   color: var(--text-secondary);
   line-height: var(--lh-airy);   /* grey 1.55. The base rhythm moved 1.55 -> 1.6 at step 5.6, said out loud, and every 1.55 in the product moved with it */
   border: 1px dashed var(--line-strong); border-radius: 10px;   /* [?] 10px radius has no rung; the ladder is 4/8/12/16 */
@@ -375,16 +392,16 @@
    title and the cabinet already draws those as an eyebrow; this is a page
    section heading and an `<h2>`, so it keeps its size and the two ranks
    separate. */
-.coach .oh-h{ font-size: var(--fs-16);   /* [?] MOVED BY THE MOVE: grey 15px, drawn 16. 15 is a tie between the rungs 14 and 16 and nobody chose the side. Kept at 16 here for the reason above, but it is still on the fourteen-row list at the top */
+.coach .oh-h{ font-size: var(--fs-16);   /* grey 15 -> 16: 5.6, ties go UP (15 -> 16). The reason above says why 16 is also the right rank for this heading, so the rule and the rank agree */
   font-weight: var(--fw-black); color: var(--text-primary); margin: 0 0 var(--space-12); }
 .coach .ohist{ display: flex; flex-direction: column; gap: 14px; }   /* [?] 14px has no rung */
 /* the finish (edge, radius, ground, shadow) is the grouped rule in section 1 -
    `.ccard`, `.ocard` and `.cdetails` are one object under three names. */
 .coach .ocard{ padding: 15px var(--space-16); }   /* [?] 15px has no rung; and it is the same 15/16 as `.ccard` above, so the two cards agree with each other and with nothing else */
 .coach .oc-top{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-12); flex-wrap: wrap; }
-.coach .oc-no{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 14.5px, drawn 14. The only one of the fourteen that came out SMALLER, and the only one already sitting on its nearest rung */
+.coach .oc-no{ font-size: var(--fs-14);   /* grey 14.5 -> 14: 5.5 takes the half pixel to the more-read neighbour, and 14 is a rung, so 5.6 leaves it. The only one of the fourteen that came out SMALLER, and it is the rule, not the anomaly it was filed as - buy-box.css:129 took the same 14.5 to 14 at step 6.10 */
   font-weight: var(--fw-black); color: var(--text-primary); }
-.coach .oc-meta{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 12.5px, drawn 14. The fourth of the five that went past 12 */
+.coach .oc-meta{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14, the fourth of the five */
   color: var(--text-secondary); margin-top: 3px; }   /* [?] 3px has no rung; the ladder is 2/4 */
 /* `.oc-status` LEFT THIS FILE at 7.96 and now answers to status-pill.css, which
    took all three coach names in the same step. The block that stood here declared
@@ -405,9 +422,9 @@
   border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center;
   color: var(--mark-faint);   /* grey `#bbb`, a raw hex, and --mark-faint IS that value: 'the quiet mark ... the photo placeholder' is this exact element */
   font-size: var(--fs-8); }
-.coach .oc-nm{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 13px, drawn 14. 13 is a tie between the rungs 12 and 14 and nobody chose the side */
+.coach .oc-nm{ font-size: var(--fs-14);   /* grey 13 -> 14: 5.6, ties go UP (13 -> 14) */
   font-weight: var(--fw-bold); color: var(--text-primary); line-height: var(--lh-snug); }
-.coach .oc-qty{ font-size: var(--fs-12);   /* [?] MOVED BY THE MOVE: grey 11.5px, drawn 12. A half-pixel, and 12 is its nearest rung - one of the three of the fourteen that no rounding rule would move */
+.coach .oc-qty{ font-size: var(--fs-12);   /* grey 11.5 -> 12: 5.5 takes the half pixel to the more-read neighbour, and 12 is a rung */
   color: var(--text-secondary); margin-top: var(--space-2); }
 
 /* THE PRICE ROW IS NOT THIS FILE'S - 3 rules deleted, and this is the second
@@ -436,7 +453,7 @@
    listed and not guessed. */
 
 .coach .oc-sum{ display: flex; justify-content: space-between; align-items: baseline;
-  padding: var(--space-12) 0 var(--space-2); font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 13px, drawn 14. The second of the three 13s, and 13 is a tie */
+  padding: var(--space-12) 0 var(--space-2); font-size: var(--fs-14);   /* grey 13 -> 14: 5.6, ties go UP. The second of the three 13s */
   font-weight: var(--fw-bold); color: var(--text-primary); }
 .coach .oc-sum b{ font-size: var(--fs-16); font-weight: var(--fw-black); }
 .coach .oc-actions{ display: flex; gap: 9px;   /* [?] 9px, the fourth action row - see the note on .cl-acts */
@@ -457,9 +474,10 @@
    because the markup is frozen: this title is a bare `<div class="cd-h">`, not
    the `.acard > .ah > h3` the atom's selector needs. Adding `.cd-h` to that
    selector list is a Крок 6 item and it deletes these five lines.
-   Side effect worth naming: this takes `.cd-h` off the fourteen-row type list at
-   the top of the file - it now reads 12 because the eyebrow says 12, not
-   because 13 was rounded. Thirteen rows left. */
+   Side effect worth naming: `.cd-h` is the one row of the fourteen-row type list
+   at the top of the file whose size is NOT the type ladder's - it reads 12
+   because the eyebrow says 12, not because the two moves put it there. The other
+   thirteen are the rule applied, and 7.98 confirmed all thirteen in a browser. */
 .coach .cd-h{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase;
   letter-spacing: var(--ls-caps); color: var(--text-muted);
   padding: 13px 0 3px; }   /* [?] 13px and 3px have no rung */
@@ -476,9 +494,9 @@
   padding: 11px 0;   /* [?] 11px has no rung */
   border-bottom: 1px solid var(--line-hair); }
 .coach .cd-row:last-child{ border-bottom: 0; }
-.coach .cd-row dt{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 12.5px, drawn 14. The fifth and last of the five that went past the nearer rung 12 */
+.coach .cd-row dt{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14, the fifth and last of the five */
   color: var(--text-secondary); font-weight: var(--fw-bold); margin: 0; }   /* margin dead - see .cd-list */
-.coach .cd-row dd{ font-size: var(--fs-14);   /* [?] MOVED BY THE MOVE: grey 13.5px, drawn 14. A half-pixel, and 14 is its nearest rung - the third of the three that no rounding rule would move */
+.coach .cd-row dd{ font-size: var(--fs-14);   /* grey 13.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP */
   color: var(--text-primary); margin: 0;   /* margin dead - see .cd-list */
   line-height: 1.45; }   /* [?] 1.45 is not a leading of the set; the three are 1 / 1.3 / 1.6. By the JOB rule in tokens.css ('1.6 for anything a person reads as text') this dd is text and should be --lh-airy, but that is a value decision and it moves a line */
 /* [?] 520 IS NOT IN THE BREAKPOINT SET. tokens.css lists eleven boundaries -
@@ -545,6 +563,9 @@
    4. `.oc-status` and the money column: both are atoms wearing local names, and
       both are one line in status-pill.css and price.css respectively. Colour
       arrives with the atom, not with this file.
-   5. The fourteen type sizes at the top of the file, thirteen of them still
-      open. That is the largest single question these two screens carry.
+   5. CLOSED at 7.98, and it was the largest question these two screens were
+      thought to carry: the fourteen type sizes at the top of the file. Thirteen
+      of them are the 5.5 + 5.6 typography consolidation applied - the rule is
+      quoted in that block with its source - and the fourteenth (`.cd-h`) is the
+      eyebrow's. Nothing there is stage 09's.
    ############################################################################ */
