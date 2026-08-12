@@ -2595,3 +2595,111 @@ where it means selected, `--bg-inverse` where it means a dark plate,
 `--text-primary` where it is ink - and coach-session.css already resolved one
 such case by reading the markup rather than the name. A blind rename would put a
 value in the right slot and the wrong role. Logged as its own step.
+
+---
+
+## Step 8.17 - thirty screens learn the system's names
+
+`tools/vars.mjs` found 30 coloured screens whose private `<style>` blocks were
+written against the grey layer's variable names - 637 declarations, eight names,
+every one of them landing on `inherit` in silence. `coach-verify-tier` drew both
+of its tier cards as bare stacked text: no border, no fill, no CTA box, no flag.
+
+**637 became 54.** The same private block is copied across the state screens of
+one flow, so the distinct (selector, declaration) pairs are 54, not 637. Sizing
+the work by occurrences would have described a job ten times bigger than the one
+that exists.
+
+**And 133 of them were already answered.** A second census asked, for each pair,
+whether `design/system/` declares the same property for the same selector - and
+for 133 it does, which means the invalid private declaration drops and the
+system's rule wins. Those screens were never visibly broken. 146 were real
+holes, and that is where every visible defect was.
+
+### What the transform is allowed to do
+
+`tools/grey-vars.mjs`. Seven of the eight names land in exactly ONE property
+family across all 637 uses, measured before anything was written - `--sec` is
+`color` 166 times and nothing else, `--hair2` a border 114 times, `--fill` a
+background 43 - so the role is not in doubt and the map is a rename. The guard is
+what makes it safe: a name is translated only inside the property family it was
+measured in. `--ink` is what the guard was for - 18 colours, plus one background
+and one `border-bottom` that mean something else and went in the table by hand.
+
+`--dark` is the prototype's single stand-in for «selected / primary», which is
+two roles once there is colour, so it gets an explicit (selector, property)
+table where **every row is read off a selector or off a rule the system already
+wrote, never off the name**:
+
+- `.on` / `.now` / `.cur` in the selector - the thing you chose or are on - take
+  `--line-action` / `--bg-action`. `.ctab.on` copies coach-session.css:661
+  verbatim, which resolved this exact case at 7.95.
+- A dark plate takes `--line-inverse` / `--bg-inverse`. The tell survives the
+  dead variable: these boxes have a literal `#fff` label that rendered while the
+  ground did not.
+- `.ord-status.way` is not a selection but a delivery status, and status-pill.css
+  already answers it - taken from there.
+- **The chip edge has two answers in the system already**, and this step adds no
+  third. Grey wrote `1.5px solid var(--dark)` for `.acc-tier`, `.ch-goal`,
+  `.tierchip` and four more; account-shell.css:59 answered `--line-strong` and
+  coach-clients.css answered `--line-inverse`, writing down that the difference
+  «may be real or may be two hands ... three chips, two edges, one stage 09
+  decision». Each row copies whichever answer that class already had, so the
+  stage 09 question stays open and is not quietly closed by a migration.
+
+**`.pro` is not a state, it is a variant name**, and that is the one row the
+photograph changed. Drawn with `--line-action` first, it put a full orange
+rectangle around a card that already carries a dark CTA - two loud marks arguing,
+against principle 4. `.tier.pro` takes the ink edge: it says «this one» without
+spending the action colour, which CLAUDE.md keeps for actions.
+
+### The four it refused to touch, and the note that was waiting for them
+
+`.cv-cta` on `coach-verify-deadend` and `coach-verify-error`. coach-verify.css:505
+wrote the answer at step 7.96 and left it as a handover: «`.cv-cta` is declared
+again, with its own numbers, in the `<style>` blocks of coach-verify-error.html
+and coach-verify-deadend.html ... when they get a coloured edition they want the
+same three classes, not a third set of numbers.» The three are `btn--accent
+btn--l btn--full`. The private rule is deleted on both and the markup carries the
+classes, which is also what retires the hand version's missing hover, active,
+focus ring and off state.
+
+### Two things the file learned about itself
+
+**A table row that matches nothing is a typo, and a typo here is silent.** Six
+rows reported themselves as unmatched on the first run - `/* big primary CTA */
+.cnew` is not `.cnew`, because the transform must leave comments in the file and
+was therefore reading them as part of the selector. The self-check is the only
+reason that surfaced rather than leaving nine declarations quietly untranslated.
+
+**A page that declares the name itself is not speaking the grey layer's
+language.** `design/overview.html` is the design hub, not a product screen: it
+loads `../_nav.css` and nothing of the system, and line 14 declares its own
+`--ink`. The first run renamed seven of its uses to `--text-body`, which that
+page does not have, **turning a page that worked into one that did not**. Caught
+by running `vars.mjs` after the write and seeing a screen fail that had never
+failed before. Reverted, and the guard is in the file: a name is foreign only if
+nothing the page loads declares it.
+
+### Result
+
+`vars.mjs` 175 screens, 0 failures - from 30. `accept` 88 screens @390, 0
+failures. `css-comments` 89 sheets balanced. Photographed: both tier cards, the
+dark `.cnew` tile, the dead-end CTA.
+
+**Not done here, on purpose.** Moving 600 lines of private CSS out of the screens
+and into `design/system/components/` is Крок 6, after stage 09; this step changes
+which name a declaration reaches for, never a value, never a selector, never a
+location. The `1.5px` borders are left as they are - Chrome resolves them to 1px
+anyway, documented in checkbox.css - and are Крок 6's to fold.
+
+**Found and not fixed:** `.cnew .cn-t` and `.cn-s` are inline `<span>`s with no
+`display`, so the title and its caption run together on one line and the
+caption's `margin-top: 3px` does nothing. The grey layer has the identical
+defect, so it is not a colour regression; `wireframes/` is frozen, which makes it
+the colour layer's to fix in its own file, in a step whose subject is layout.
+
+**Left for the owner:** `.cv-step.stop` on coach-verify-deadend is drawn with the
+same mark as `.cv-step.on`, because that is what grey said. Whether a dead end
+should read as danger rather than as the current step is a decision about what a
+dead end looks like, not a translation of what is there.

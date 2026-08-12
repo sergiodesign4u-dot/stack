@@ -17,25 +17,35 @@
    Declining resubmit → the deliberate dead end. flows.md "failed → resubmit". */
 .cv-wrap { max-width: 860px; }
 .cv-steps { display: flex; gap: 8px; margin: 6px 0 20px; flex-wrap: wrap; }
-.cv-step { flex: 1; min-width: 92px; border: 1.5px solid var(--hair2); border-radius: 10px; padding: 9px 12px; font-size: 12px; color: var(--sec); background: #fff; }
-.cv-step .n { display: inline-flex; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--hair2); align-items: center; justify-content: center; font-size: 11px; font-weight: 800; margin-right: 7px; color: var(--sec); }
+.cv-step { flex: 1; min-width: 92px; border:1.5px solid var(--line-strong); border-radius: 10px; padding: 9px 12px; font-size: 12px; color:var(--text-secondary); background: #fff; }
+.cv-step .n { display: inline-flex; width: 18px; height: 18px; border-radius: 50%; border:1.5px solid var(--line-strong); align-items: center; justify-content: center; font-size: 11px; font-weight: 800; margin-right: 7px; color:var(--text-secondary); }
 .cv-step b { display: block; color: var(--text-primary); font-weight: 800; font-size: 12.5px; margin-top: 4px; }
-.cv-step.on { border-color: var(--dark); }
-.cv-step.on .n { background: var(--dark); border-color: var(--dark); color: #fff; }
-.cv-step.done .n { background: var(--fill); color: var(--text-primary); }
-.cv-card { border: 1px solid var(--hair); border-radius: 16px; padding: 32px 24px; max-width: 560px; margin: 0 auto; }
-.cv-badge { width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--dark); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--text-primary); margin-bottom: 16px; }
+.cv-step.on { border-color:var(--line-action); }
+.cv-step.on .n { background:var(--bg-action); border-color:var(--line-action); color: #fff; }
+.cv-step.done .n { background:var(--bg-sunken); color: var(--text-primary); }
+.cv-card { border:1px solid var(--line-hair); border-radius: 16px; padding: 32px 24px; max-width: 560px; margin: 0 auto; }
+.cv-badge { width: 52px; height: 52px; border-radius: 50%; border:2px solid var(--line-inverse); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--text-primary); margin-bottom: 16px; }
 .cv-card h1 { font-size: 22px; font-weight: 800; color: var(--text-primary); }
-.cv-card .lead { font-size: 13.5px; color: var(--sec); margin: 8px 0 20px; line-height: 1.55; }
-.cv-reasons { border: 1px solid var(--hair); border-radius: 12px; padding: 4px 14px; margin-bottom: 22px; }
-.cv-reasons h2 { font-size: 12px; font-weight: 800; color: var(--sec); text-transform: uppercase; letter-spacing: .03em; padding: 14px 0 4px; }
+.cv-card .lead { font-size: 13.5px; color:var(--text-secondary); margin: 8px 0 20px; line-height: 1.55; }
+.cv-reasons { border:1px solid var(--line-hair); border-radius: 12px; padding: 4px 14px; margin-bottom: 22px; }
+.cv-reasons h2 { font-size: 12px; font-weight: 800; color:var(--text-secondary); text-transform: uppercase; letter-spacing: .03em; padding: 14px 0 4px; }
 .cv-reasons ul { list-style: none; margin: 0; padding: 0; }
-.cv-reasons li { font-size: 13px; color: var(--ink); display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-top: 1px solid var(--hair); }
+.cv-reasons li { font-size: 13px; color:var(--text-body); display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-top:1px solid var(--line-hair); }
 .cv-reasons li:first-of-type { border-top: none; }
 .cv-reasons li .m { color: var(--text-primary); font-weight: 800; flex: none; }
-.cv-cta { display: block; width: 100%; text-align: center; background: var(--dark); color: #fff; border: 1.5px solid var(--dark); border-radius: 10px; padding: 15px; font-size: 15px; font-weight: 700; }
+/* .cv-cta: the private rule is GONE and button.css owns it - step 8.17,
+   which is the handover coach-verify.css:505 wrote down at 7.96: «`.cv-cta`
+   is declared again, with its own numbers, in the `<style>` blocks of
+   coach-verify-error.html and coach-verify-deadend.html ... when they get a
+   coloured edition they want the same three classes, not a third set of
+   numbers.» The three are `btn--accent btn--l btn--full`, the same ones
+   coach-verify.html:98 and checkout.html's .co-confirm carry. What the hand
+   version cost: no hover, no active, no focus ring, no off state, a 10px
+   radius and a 15px label that are on no ladder - and, once the head was
+   swapped to the system, an ink fill that resolved to nothing at all, so
+   the white label was drawing on white paper. */
 .btn { display: block; text-align: center; margin-top: 11px; }
-.cv-alt { display: block; text-align: center; margin-top: 18px; font-size: 12.5px; color: var(--sec); line-height: 1.6; }
+.cv-alt { display: block; text-align: center; margin-top: 18px; font-size: 12.5px; color:var(--text-secondary); line-height: 1.6; }
 .cv-alt a { color: var(--text-primary); font-weight: 700; text-decoration: underline; }
 </style>
 </head>
@@ -77,7 +87,7 @@
       </ul>
     </div>
 
-    <a class="cv-cta" href="coach-verify.html">Надіслати інше посилання</a>
+    <a class="btn--accent btn--l btn--full cv-cta" href="coach-verify.html">Надіслати інше посилання</a>
     <a class="btn--outline btn--s btn" href="content-contacts.html">Зв'язатися з підтримкою</a>
 
     <div class="cv-alt">

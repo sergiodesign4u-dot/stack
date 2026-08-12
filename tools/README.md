@@ -1,6 +1,6 @@
 # tools - the instruments, and what each one is for
 
-Four checks and a driver. Every one of them answers a question this project asks
+Four checks, a transform and a driver. Every one of them answers a question this project asks
 at the end of **every** step, and until 2026-08-11 all of them lived in a session
 scratch folder and were rebuilt from memory each time. That is the same failure
 `CLAUDE.md` names for the product - *"a hand fix does not survive the next
@@ -15,6 +15,7 @@ node tools/accept.mjs 1280 account       one width, named screens
 node tools/states.mjs                    open every state, re-run the passes
 node tools/css-comments.mjs              every stylesheet, one second
 node tools/vars.mjs                      every var(--x), and whether it exists
+node tools/grey-vars.mjs [--write]       private blocks learn the system's names
 node tools/crop.mjs 390 coach-tariff .tf-compare /tmp/t.png
 ```
 
@@ -87,7 +88,9 @@ and `css-comments` all pass it.
 The cause is structural, not a typo: a screen with its own `<style>` block gets
 cloned to colour, the head is swapped from `wireframes/_wf.css` to
 `design/system/index.css`, and the private block keeps speaking the grey layer's
-names. **Thirty screens do this today**, all of them the coach flow.
+names. **Thirty screens did this**, all of them the coach flow, until step 8.17
+translated them with `grey-vars.mjs` below. It is 0 now, and it is 0 that this
+check has to keep saying - a screen coloured next month arrives the same way.
 
 **Three wrong versions, each lying differently**, and all three are written into
 the file because the next check to read CSS will meet the same three:
@@ -102,6 +105,30 @@ the file because the next check to read CSS will meet the same three:
    screens. *A check that fires everywhere is describing itself.*
 3. `var(--x, fallback)` is not a defect, and not every declaration is in a
    stylesheet - `--p` comes from the markup and `--uiv-side-h` from `_nav.js`.
+
+## `grey-vars.mjs` - the transform `vars.mjs` asks for
+
+Kept because **Крок 6 will need it again**: 54 grey screens are still to be
+coloured, and each one arrives carrying its own `<style>` block written in the
+same eight names. `node tools/grey-vars.mjs` is a dry run, `--write` applies, and
+`vars.mjs` before and after is the verdict.
+
+Seven of the eight names have one answer and are renamed under a property guard -
+measured, `--sec` is `color` 166 times and nothing else. `--dark` has two answers
+and gets an explicit (selector, property) table, every row read off a state class
+in the selector or off a rule the system already wrote.
+
+Two guards, both of which caught something on the first run:
+
+- **A table row that matches nothing is a typo, and a typo here is silent.** Six
+  rows reported themselves unmatched, because the transform has to leave comments
+  in the file and was reading `/* big primary CTA */ .cnew` as the selector.
+- **A page that declares the name itself is not speaking the grey layer's
+  language.** `design/overview.html` is the design hub - `../_nav.css` only, its
+  own `--ink` on line 14 - and the first run renamed seven of its uses to a token
+  that page does not load, turning a working page into a broken one. Caught by
+  running `vars.mjs` *after* the write. *A migration is not finished when it
+  stops; it is finished when the check that asked for it goes green.*
 
 ## `crop.mjs` - one element, photographed
 

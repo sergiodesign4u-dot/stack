@@ -24,14 +24,14 @@
    coach-specific dashboard styles live here.
    ============================================================ */
 /* coach status strip: Pro chip + wholesale-active note */
-.cstat { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 15px; border: 1px solid var(--hair); border-radius: 12px; padding: 13px 15px; background: var(--fill2); }
-.cstat .tierchip { display: inline-block; font-size: 12px; font-weight: 800; color: var(--text-primary); border: 1.5px solid var(--dark); border-radius: 100px; padding: 3px 12px; }
-.cstat .cnote { font-size: 13px; color: var(--sec); }
+.cstat { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 15px; border:1px solid var(--line-hair); border-radius: 12px; padding: 13px 15px; background:var(--bg-surface); }
+.cstat .tierchip { display: inline-block; font-size: 12px; font-weight: 800; color: var(--text-primary); border:1.5px solid var(--line-inverse); border-radius: 100px; padding: 3px 12px; }
+.cstat .cnote { font-size: 13px; color:var(--text-secondary); }
 .cstat .cnote b { color: var(--text-primary); }
 .cstat .cmanage { margin-left: auto; font-size: 12.5px; font-weight: 700; color: var(--text-primary); text-decoration: underline; }
 
 /* big primary CTA */
-.cnew { display: flex; align-items: center; gap: 16px; margin-top: 16px; border: 1.5px solid var(--dark); border-radius: 14px; padding: 20px; background: var(--dark); color: #fff; }
+.cnew { display: flex; align-items: center; gap: 16px; margin-top: 16px; border:1.5px solid var(--line-inverse); border-radius: 14px; padding: 20px; background:var(--bg-inverse); color: #fff; }
 .cnew .cn-ic { width: 46px; height: 46px; flex: none; border-radius: 12px; border: 1.5px solid rgba(255,255,255,.4); display: flex; align-items: center; justify-content: center; font-size: 24px; }
 .cnew .cn-tx { min-width: 0; }
 .cnew .cn-t { font-size: 18px; font-weight: 800; }
@@ -41,40 +41,40 @@
 
 .acc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
 @media (min-width: 640px) { .acc-grid { grid-template-columns: 1fr 1fr; } }
-.acard { border: 1px solid var(--hair); border-radius: 14px; padding: 16px; }
+.acard { border:1px solid var(--line-hair); border-radius: 14px; padding: 16px; }
 .acard.span2 { grid-column: 1 / -1; }
 .acard .ah { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
-.acard .ah h3 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--sec); }
+.acard .ah h3 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color:var(--text-secondary); }
 .acard .ah a, .acard .ah .lnk { font-size: 12.5px; font-weight: 700; color: var(--text-primary); }
 
 /* clients summary */
-.cli { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid var(--hair); }
+.cli { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top:1px solid var(--line-hair); }
 .cli:first-of-type { border-top: none; }
-.cli .cav { width: 40px; height: 40px; flex: none; border-radius: 50%; background: var(--fill); border: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; color: var(--sec); font-size: 14px; font-weight: 800; }
+.cli .cav { width: 40px; height: 40px; flex: none; border-radius: 50%; background:var(--bg-sunken); border:1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; color:var(--text-secondary); font-size: 14px; font-weight: 800; }
 .cli .cinfo { min-width: 0; }
 .cli .cinfo .cn { font-size: 14px; font-weight: 800; color: var(--text-primary); }
-.cli .cinfo .cg { font-size: 12.5px; color: var(--sec); margin-top: 2px; }
+.cli .cinfo .cg { font-size: 12.5px; color:var(--text-secondary); margin-top: 2px; }
 .cli .cgo { margin-left: auto; font-size: 12.5px; font-weight: 700; color: var(--text-primary); text-decoration: underline; white-space: nowrap; }
 .cli .cgo-btn { margin-left: auto; white-space: nowrap; padding: 8px 14px; }
 .cli-add { margin-top: 13px; }
-.crestock .rk-lead { font-size: 13px; color: var(--sec); margin: -4px 0 8px; }
+.crestock .rk-lead { font-size: 13px; color:var(--text-secondary); margin: -4px 0 8px; }
 .crestock .cg b { color: var(--text-primary); font-weight: 700; }
 
 /* recent coach orders */
-.cord { display: flex; align-items: flex-start; gap: 12px; padding: 13px 0; border-top: 1px solid var(--hair); }
+.cord { display: flex; align-items: flex-start; gap: 12px; padding: 13px 0; border-top:1px solid var(--line-hair); }
 .cord:first-of-type { border-top: none; }
 .cord .co-info { min-width: 0; flex: 1; }
 .cord .co-no { font-size: 14px; font-weight: 800; color: var(--text-primary); }
-.cord .co-meta { font-size: 12.5px; color: var(--sec); margin-top: 3px; }
+.cord .co-meta { font-size: 12.5px; color:var(--text-secondary); margin-top: 3px; }
 .cord .co-meta b { color: var(--text-primary); }
-.cord .co-status { display: inline-block; font-size: 11px; font-weight: 800; border: 1px solid var(--hair2); border-radius: 100px; padding: 2px 9px; color: var(--text-primary); margin-top: 7px; }
+.cord .co-status { display: inline-block; font-size: 11px; font-weight: 800; border:1px solid var(--line-strong); border-radius: 100px; padding: 2px 9px; color: var(--text-primary); margin-top: 7px; }
 .cord .co-sum { text-align: right; white-space: nowrap; }
 .cord .co-sum .cs-b { font-size: 16px; font-weight: 800; color: var(--text-primary); }
 .cord .co-sum a { display: block; font-size: 12px; font-weight: 700; color: var(--text-primary); text-decoration: underline; margin-top: 8px; }
-.emptybox { border: 1.5px dashed var(--hair2); border-radius: 12px; padding: 30px 18px; text-align: center; }
+.emptybox { border:1.5px dashed var(--line-strong); border-radius: 12px; padding: 30px 18px; text-align: center; }
 .emptybox .ei { font-size: 28px; }
 .emptybox .et { font-size: 15px; font-weight: 800; color: var(--text-primary); margin: 10px 0 5px; }
-.emptybox .es { font-size: 13px; color: var(--sec); margin-bottom: 15px; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+.emptybox .es { font-size: 13px; color:var(--text-secondary); margin-bottom: 15px; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.5; }
 .emptybox .eact { display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
 </style>
 </head>

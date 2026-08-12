@@ -15,44 +15,44 @@
 /* node 5.2a Керування тарифом - current plan + manage (cancel Pro / switch).
    Private/coach zone → noindex. Greyscale only. States: free · cancel. */
 .tf-wrap { max-width: 760px; }
-.tf-lead { font-size: 14px; color: var(--sec); margin: 4px 0 22px; line-height: 1.5; }
+.tf-lead { font-size: 14px; color:var(--text-secondary); margin: 4px 0 22px; line-height: 1.5; }
 /* current plan card */
-.tf-cur { border: 1.5px solid var(--dark); border-radius: 14px; padding: 20px 22px; }
+.tf-cur { border:1.5px solid var(--line-action); border-radius: 14px; padding: 20px 22px; }
 .tf-cur-h { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .tf-plan { font-size: 22px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; }
-.tf-badge { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; border: 1px solid var(--hair2); border-radius: 100px; padding: 3px 11px; color: var(--text-primary); }
-.tf-badge.muted { color: var(--sec); }
+.tf-badge { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; border:1px solid var(--line-strong); border-radius: 100px; padding: 3px 11px; color: var(--text-primary); }
+.tf-badge.muted { color:var(--text-secondary); }
 .tf-price { font-size: 26px; font-weight: 800; color: var(--text-primary); margin: 14px 0 4px; }
-.tf-price .per { font-size: 14px; font-weight: 600; color: var(--sec); }
-.tf-price .qm { font-size: 13px; font-weight: 700; color: var(--light); }
-.tf-renew { font-size: 13px; color: var(--sec); }
+.tf-price .per { font-size: 14px; font-weight: 600; color:var(--text-secondary); }
+.tf-price .qm { font-size: 13px; font-weight: 700; color:var(--text-muted); }
+.tf-renew { font-size: 13px; color:var(--text-secondary); }
 .tf-renew b { color: var(--text-primary); }
 .tf-incl { list-style: none; margin: 16px 0 0; padding: 0; }
 .tf-incl li { font-size: 13.5px; color: var(--text-primary); padding: 6px 0 6px 24px; position: relative; }
 .tf-incl li::before { content: "✓"; position: absolute; left: 0; font-weight: 900; color: var(--text-primary); }
-.tf-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--hair); }
+.tf-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; padding-top: 18px; border-top:1px solid var(--line-hair); }
 /* comparison */
 .tf-ch { font-size: 16px; font-weight: 800; color: var(--text-primary); margin: 30px 0 14px; }
 .tf-compare { display: grid; grid-template-columns: 1fr; gap: 14px; }
 @media (min-width: 640px) { .tf-compare { grid-template-columns: 1fr 1fr; } }
-.tf-col { border: 1px solid var(--hair); border-radius: 12px; padding: 18px; }
-.tf-col.on { border: 1.5px solid var(--dark); background: var(--fill2); }
+.tf-col { border:1px solid var(--line-hair); border-radius: 12px; padding: 18px; }
+.tf-col.on { border:1.5px solid var(--line-action); background:var(--bg-surface); }
 .tf-col-h { font-size: 16px; font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
-.tf-mini { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; border: 1px solid var(--hair2); border-radius: 100px; padding: 2px 8px; color: var(--sec); }
+.tf-mini { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; border:1px solid var(--line-strong); border-radius: 100px; padding: 2px 8px; color:var(--text-secondary); }
 .tf-col-p { font-size: 19px; font-weight: 800; color: var(--text-primary); margin: 6px 0 12px; }
-.tf-col-p .per { font-size: 12.5px; font-weight: 600; color: var(--sec); }
+.tf-col-p .per { font-size: 12.5px; font-weight: 600; color:var(--text-secondary); }
 .tf-col ul { list-style: none; margin: 0; padding: 0; }
-.tf-col li { font-size: 12.5px; color: var(--sec); padding: 5px 0 5px 20px; position: relative; }
+.tf-col li { font-size: 12.5px; color:var(--text-secondary); padding: 5px 0 5px 20px; position: relative; }
 .tf-col li::before { content: "·"; position: absolute; left: 6px; font-weight: 900; color: var(--text-primary); }
-.tf-note { font-size: 12px; color: var(--light); margin-top: 20px; line-height: 1.5; }
+.tf-note { font-size: 12px; color:var(--text-muted); margin-top: 20px; line-height: 1.5; }
 .tf-note b { color: var(--text-primary); }
 /* cancel-confirm dialog */
 .tfov { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 55; align-items: center; justify-content: center; padding: 20px; }
 .tfov.open { display: flex; }
-.tfdlg { background: #fff; width: 100%; max-width: 440px; border: 1px solid var(--hair2); border-radius: 14px; box-shadow: 0 6px 24px rgba(0,0,0,.12); padding: 24px; text-align: center; }
+.tfdlg { background: #fff; width: 100%; max-width: 440px; border:1px solid var(--line-strong); border-radius: 14px; box-shadow: 0 6px 24px rgba(0,0,0,.12); padding: 24px; text-align: center; }
 .tfdlg .ic { width: 48px; height: 48px; margin: 0 auto 14px; border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; }
 .tfdlg h2 { font-size: 19px; font-weight: 800; color: var(--text-primary); }
-.tfdlg p { font-size: 13.5px; color: var(--sec); margin: 8px 0 20px; line-height: 1.55; }
+.tfdlg p { font-size: 13.5px; color:var(--text-secondary); margin: 8px 0 20px; line-height: 1.55; }
 .tfdlg p b { color: var(--text-primary); }
 .tfdlg .act { display: flex; gap: 10px; }
 .tfdlg .act .btn { flex: 1; text-align: center; }
