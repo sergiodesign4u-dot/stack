@@ -2816,3 +2816,103 @@ live there: **2050 distinct (page, target) pairs fetched over http, non-200: 0.*
 Then followed by hand in a real browser: coloured checkout → «Доставка й оплата» →
 grey delivery page; `design/kit/hero.html` → «Протеїн» → the COLOURED listing;
 `design/kit/demo/hero.html` → «За ціллю» → the grey catalogue hub.
+
+---
+
+## Step 8.19 - A10 closed by the owner, and the re-count found the record wrong in four places
+
+**The owner's decision, 2026-08-12: «не проходить - це для нас нормально, для
+магазину».** Sub-AA accent text is accepted for this shop. **Nothing on screen
+changes.** Two further decisions taken in the same breath: section D's four `[?]`
+number groups **wait until the end of all stages**, and the 41 grey-only screens
+**stay for Крок 6, after stage 09** - which is where the roadmap already had them.
+
+### The decision was recorded only after counting again, and that was the whole step
+
+A10's census ran at step 7.81 over **40** coloured screens. There are **88**.
+Writing a decision on top of that number would have been step 8.15's defect
+repeated - *a stale number reaching a design decision* - so the census was rebuilt
+first: every element the browser paints `rgb(255,90,0)` **that owns visible
+words**, read against the ground it actually composites onto, at **390 and 1280**,
+with **every state opened**.
+
+**@390: 18 accent-text shapes, 8 fail, 62 instances. @1280: 21 shapes, 12 fail,
+172 instances.** Not different marks - the same product at two widths, and the
+desktop header carries shapes the mobile one does not. **Six classes:** `.on`,
+`.uiv-cur`, `.acc-link`, `.btn--text.btn--inline`, `.cbnew`, `.addr-tag`.
+
+### Four things the sheet had wrong, every one found by counting rather than reading
+
+**1. A10's biggest line had been dead for two steps.** `.badge` «еталон», 28
+instances at 2.91, was the largest single item on the sheet. It is not accent any
+more: step 8.10 folded `.badge`, `.addr-tag` and `.tf-mini` into one shape and the
+colour went with it. Measured on `coach-landing`: «миттєво» and «опт» are ink at
+10/700. `.menu-val` «Популярні», also listed as an accepted 3.13 failure, is ink
+too. **A step about geometry closed a contrast finding as a side effect and no
+record noticed.**
+
+**2. The `₴` was counted as passing.** The sheet reads «eight money shapes,
+20-30/700, passes», and of the digits that is true. The `.uiv-cur` beside them
+renders at **11px/700** and is **56 of the 62** failures at 390 - the second
+biggest shape in the product. The figure and its unit were measured as one thing
+and are two. (The 2026-08-07 line in `DESIGN-artifacts.md` had it right at ~39;
+the 7.81 census lost it, which is exactly what a re-count is for.)
+
+**3. `.acc-link` is 31, not 8**, because the coach cabinet grew at A13 and 8.7 and
+the count did not. One of its grounds, `rgb(242,240,237)` at **2.75**, is the
+worst contrast in the product and appears in no record anywhere.
+
+**4. THE BIGGEST FAILING SHAPE HAD NEVER BEEN RENDERED BY ANY CENSUS.** `.on`
+«Українська» - the current language - is **82 instances on 82 of the 88 screens**
+at 3.13. It lives inside `.wfh-langmenu`, whose box is 0x0 until `toggleLang()`
+opens it, so every census read straight past it and every screenshot was taken
+without it. A record has carried it as an accepted exception since **2026-08-07**,
+at 34 screens, and in all that time nothing had drawn it to look.
+
+### And the instrument's own defect, which is why
+
+`tools/states.mjs` matched openers on `open[A-Z]` **plus two names typed out**.
+Measured against the product's actual globals: **`toggleDrawer` is not a function
+in either layer** - a dead name, precisely like `openClientDlg`, the defect this
+file's own header says it exists to have fixed - while **`toggleBurger`,
+`toggleDrCat` and `toggleLang` are real and were never walked.** Half the typed
+half was wrong and the missing half was three times its size.
+
+**A hand-written list of two is still a hand-written list.** Widened to
+`toggle[A-Z]`; the opener count went 1740 -> 2002 per width. **The widened walk
+still reports «none»**, so what was broken was coverage and not marks - which is
+why this survived so long. The instrument was right about everything it looked at,
+and the question was never what it saw but what it never opened.
+
+### The rule changes out loud, and only because the measurement says to
+
+`DESIGN-artifacts.md` locked «accent on text only from >=19px bold, because
+`#FF5A00` on white is 3.13:1 - AA for large text only». With AA no longer the
+gate, that sentence's stated ground is gone. The line **stays**, on the ground it
+always really had: the accent is the loudest thing in the system and the single
+action colour, so it is spent on large type or not at all. What it stops doing is
+speaking about SIZE when the measurement says the SURFACE decides:
+
+- **Accent on the inverse ground is allowed at any size.** `.hptag` is 12/500 and
+  reads **5.45** - AA everywhere - and a rule written in pixels forbade it for no
+  reason a measurement supports.
+- **A warm surface costs 0.16 and the rule never mentioned it.** `.cbnew` is
+  30/600, large text by WCAG regardless of weight, and still fails at **2.97
+  against 3.0 - by 0.03** - purely for standing on `--bg-surface` rather than
+  white, where the identical mark reads 3.13 and passes.
+
+Said once and then left with the decision: sub-AA text is harder to read for
+low-vision and older buyers, and what an EU/UA storefront is obliged to do is
+`[?]` - no source was opened this session, so nothing is asserted. All six classes
+are named precisely so the call is one move to reverse.
+
+### Carried to every edition, because no product string exists twice
+
+`DESIGN-artifacts.md` (the source) · `DESIGN.md` · `CLAUDE.md` pointer · `_nav.css`
+header · `design/kit/kit.html` · `design/kit/color.html` (the published table,
+rebuilt from the new census) · `design/kit/button.html` (its «лишилось відкритим»
+was this exact question, now closed) · `design/kit/docs/architecture.md` and
+`design/kit/architecture.html` (A10 closed, section D's deferral recorded).
+
+**Verified:** `accept` 88 @390 - 0 · `links` 4591 - 0 dead · `vars` 175 - 0 ·
+`css-comments` 89 balanced · `states` (widened) - «none».

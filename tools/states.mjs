@@ -51,7 +51,20 @@ const srv = await serve();
 const l = await chrome('states');
 const conn = await Conn.open(l.wsUrl);
 
-const AUTO_OPENER = /^(open[A-Z]|toggleDrawer$|toggleCab$)/;
+/* A HAND-WRITTEN LIST OF TWO IS STILL A HAND-WRITTEN LIST - step 8.19, and the
+   defect is the one point 1 above says this file exists to have fixed. The
+   pattern was `open[A-Z]` OR two names typed out, and measured against the
+   product's actual globals: **`toggleDrawer` is not a function in either layer**
+   - a dead name, exactly like `openClientDlg` before it - while **`toggleBurger`,
+   `toggleDrCat` and `toggleLang` are real and were never walked.** Half the typed
+   half was wrong and the missing half was three times its size.
+   Found sideways, which is the part worth keeping: a census for A10 could not
+   find `a.on` «Українська», the accent-coloured current language. It paints
+   `rgb(255,90,0)` on every page in the product and lives inside `.wfh-langmenu`,
+   which `toggleLang` opens - so its box is 0x0 until something opens it, and
+   nothing did. A record has carried it as an accepted contrast exception since
+   2026-08-07 while no walk had ever rendered it. */
+const AUTO_OPENER = /^(open[A-Z]|toggle[A-Z])/;
 /* the few that take an argument stay written out, because a step name cannot be
    guessed - and each is a state of a dialog the enumeration already opens. */
 const ARG_OPENERS = [

@@ -44,10 +44,15 @@ Read out of the live `:root` in `kit.css`. Origin column carried over from `DESI
 **One orange per view.** The accent means exactly one thing: where to press. A second filled orange
 button on a screen means the screen has not decided which step is the main one.
 
-**Accent on text only from 19px bold.** `#FF5A00` on white is **3.13:1** - AA for large text only.
-Consequences, all visible in the build: the price takes the accent at 22px/800 and never at 13px; a
-state caption never takes it; where a small label must be marked, the accent lives in a border or a
-2px marker instead of the type.
+**Accent on text only from 19px bold.** `#FF5A00` on white is **3.13:1**. Consequences, all visible
+in the build: the price takes the accent at 22px/800 and never at 13px; a state caption never takes
+it; where a small label must be marked, the accent lives in a border or a 2px marker instead of the
+type. **Two amendments, 2026-08-12 (A10 closed, owner's call).** The ground is no longer WCAG - the
+owner accepts sub-AA accent text for this shop, so the rule stands on what it always really was:
+the accent is the loudest thing here, so it is spent on large type or not at all. And **the surface
+decides as much as the size** - on the inverse ground the accent reads 5.45 and is allowed at any
+size, on a warm surface it loses 0.16 and a 30px mark can still miss. Five classes ship under AA,
+named and measured in `DESIGN-artifacts.md`.
 
 **The price colour is driven by data, not by hand.** A price **with a discount** takes the accent; a
 price without one stays ink. Implemented with `:has()` on the struck old price, so the colour cannot

@@ -463,7 +463,43 @@ both halves: **17 in 8 files** - `product-card` 5, `order-row` 3, `trust-strip` 
 
 ---
 
-### A10. The accent-on-text gate - **enforced for the first time at step 7.81, and the rule is wrong in both directions**
+### A10. The accent-on-text gate - **CLOSED at step 8.19, the owner's call, and the re-count found the record wrong in four places**
+
+**The owner's decision, 2026-08-12: sub-AA accent text is accepted for this shop. Nothing on screen
+changes.** What follows is the 7.81 census as it was written, then what a fresh one measured - because
+7.81 read **40** coloured screens and there are **88**, and a stale number reaching a decision is the
+failure this pass keeps repeating.
+
+**Re-measured 2026-08-12, all 88 screens, 390 and 1280, every state opened.** At 390: 18 accent-text
+shapes, **8 fail, 62 instances**. At 1280: 21 shapes, **12 fail, 172 instances**. Six classes: `.on`,
+`.uiv-cur`, `.acc-link`, `.btn--text.btn--inline`, `.cbnew`, `.addr-tag`.
+
+**Four things the table below got wrong, and each was found by counting again rather than by reading:**
+
+1. **`.badge` «еталон», 28 instances at 2.91 - the biggest line here - is not accent any more.** Step
+   8.10 folded `.badge`, `.addr-tag` and `.tf-mini` into one shape and the colour went with it;
+   measured on `coach-landing`, «миттєво» and «опт» are ink at 10/700. **A10's largest item had been
+   dead for two steps and the sheet still listed it.** `.menu-val` is ink too.
+2. **The `₴` was counted as passing.** «eight money shapes … passes» is true of the digits; the
+   `.uiv-cur` beside them renders at **11px/700** and is **56 of the 62** failures at 390. The figure
+   and its unit were measured as one thing and are two.
+3. **`.acc-link` is 31, not 8**, and one of its grounds - `rgb(242,240,237)`, **2.75** - is the worst
+   contrast in the product and appears in no record.
+4. **The biggest failing shape had never been rendered by any census at all.** `.on` «Українська» is
+   **82 instances on 82 screens**, and it lives inside `.wfh-langmenu`, which `toggleLang()` opens.
+   `tools/states.mjs` matched `open[A-Z]` **plus two names typed out** - and `toggleDrawer` is not a
+   function in this product while `toggleBurger`, `toggleDrCat` and `toggleLang` are and were never
+   walked. **A hand-written list of two is still a hand-written list**, in the file whose own first
+   lesson is that. Widened to `toggle[A-Z]`; the walk still reports «none», so coverage was the defect
+   and marks were not.
+
+**Both directions the row title claimed are confirmed by the new census**, and they are why the rule
+changed rather than simply being waived: `.hptag` at 12/500 reads **5.45** and was forbidden by a rule
+written in pixels; `.cbnew` at 30/600 is large text by WCAG and fails at **2.97 - by 0.03** - only
+because it stands on the warm surface instead of white. **The size gate now says out loud that the
+surface decides as much as the size** (`DESIGN-artifacts.md`, price colour block).
+
+The 7.81 census, kept because the comparison is the point:
 
 `DESIGN-artifacts.md` locks it: accent on TEXT only from **19px bold**, because `#FF5A00` on
 white is 3.13:1, which is AA for large text only. Step 7.74 applied it to the price. **Nothing
@@ -1111,6 +1147,14 @@ interface currently shows:
 
 They are drawn as real text on real screens. Before launch each needs a source or a visible
 `[?]`.
+
+**DEFERRED BY THE OWNER TO THE END OF ALL STAGES (2026-08-12).** Not «later» in the vague sense -
+these four wait until every stage is done, and then they are settled together. The reason it costs
+nothing to wait is in this section's own opening line: **a `[?]` that carries its own measurement
+closes in one sentence, and one that does not costs a fresh session in a browser.** All four carry
+theirs. What must not happen in the meantime is a stage below reading one of these as though it were
+a fact - `CLAUDE.md`: an invented number poisons every stage below it, and a number the owner has not
+yet given is invented no matter how reasonable it looks.
 
 ---
 

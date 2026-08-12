@@ -63,6 +63,23 @@ were not functions in this product, and `wfAuthDone` - losing 585 marks across
 four screens - was never in it at all. A dialog added next month is walked the
 day it is added.
 
+**And then it kept two of them typed, and both halves of that were wrong (step
+8.19).** The pattern read `open[A-Z]` OR `toggleDrawer` OR `toggleCab`, and
+measured against the product's real globals **`toggleDrawer` is not a function in
+either layer** - a dead name, exactly like `openClientDlg` before it - while
+**`toggleBurger`, `toggleDrCat` and `toggleLang` are, and were never walked**.
+*A hand-written list of two is still a hand-written list.* Now `toggle[A-Z]`.
+
+It surfaced sideways, which is the part worth keeping. A contrast census for A10
+could not find `a.on` «Українська» - the current language, painted
+`rgb(255,90,0)` on **82 of the 88 screens**. It sits inside `.wfh-langmenu`,
+`toggleLang` opens it, and nothing opened it, so its box was 0x0 and every census
+read past it. A record had carried it as an accepted contrast exception since
+2026-08-07 while no walk had ever drawn it. **The widened walk still reports
+«none»**, so what was broken was coverage, not marks - which is the only reason
+this was invisible for so long: the instrument was right about everything it
+looked at.
+
 ## `css-comments.mjs` - the silent one
 
 An edit that inserts a comment end inside an existing comment orphans the

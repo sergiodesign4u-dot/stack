@@ -188,7 +188,8 @@ route is shown by the registry and the README, not by the file system.
 ## Pointers
 
 `DESIGN-artifacts.md` - the visual language and the origin of every value (accent `#FF5A00` is the
-single action colour, allowed on text only from 19px bold; the price colour rule lives there).
+single action colour, on text from 19px bold - but the SURFACE decides as much as the size, and
+five classes ship under AA by the owner's call, 2026-08-12; the price colour rule lives there).
 `wireframes/docs/conventions.md` - prototype contract. `voice/docs/voice.md` - the voice rulebook
 and the locked wording canon. `ia/docs/` - sitemap and per-page specs. `docs/decisions.md` - why
 anything above is the way it is.
