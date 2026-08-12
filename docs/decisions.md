@@ -2703,3 +2703,116 @@ the colour layer's to fix in its own file, in a step whose subject is layout.
 same mark as `.cv-step.on`, because that is what grey said. Whether a dead end
 should read as danger rather than as the current step is a decision about what a
 dead end looks like, not a translation of what is there.
+
+---
+
+## Step 8.18 - 803 links that went nowhere, and the question no gate had asked
+
+**Four checks stood at the gate and not one of them asked whether a link goes
+anywhere.** Asked it: **803 of the 2882 internal hrefs in `design/` resolved to
+nothing, and 0 of the 1579 in `wireframes/` did.** 28% against zero, in a layer
+that is a clone of the other - so every one of them was introduced by the
+colouring, and every one had been clickable since.
+
+**The blind spot has an exact shape, and it is worth naming because it predicts
+the next one.** `accept.mjs` opens a page and asks five questions about what it
+finds there; `vars.mjs`, `states.mjs` and `css-comments.mjs` likewise examine a
+screen. A dead link raises nothing on the page that carries it - the 404 happens
+on the NEXT page, which no pass ever visits. Every instrument in this folder
+looks at a screen, and a link is the one thing that is not on the screen it is
+written on.
+
+### Three causes, and only one of them was a mistake
+
+**1. The stand and its demo are one directory apart and share their markup -
+650 links.** `design/kit/hero.html` and `design/kit/demo/hero.html` hold the same
+rail, so they hold the same hrefs, and one relative path cannot be right at two
+depths. `design/kit/hero.html:35` writes, in ONE LINE,
+`../../wireframes/catalog-page.html` (correct from `design/kit/`) and
+`../../listing.html` - which is the repository root, where there is nothing but
+`index.html`. The first was written for this depth, the second copied up from the
+demo. It fails in both directions: the demo's own `../../wireframes/goal.html`
+lands in `design/wireframes/`, 87 times.
+
+**2. The tirage - 152 links, and not a mistake.** A coloured screen points at
+`content-legal.html`, `goal.html`, `catalog-page.html`; the link was right when
+the page was cloned and the target has not arrived, because 41 of the 142 screens
+are still to be coloured. **The arithmetic closes exactly** - every one of the 152
+targets is one of the 41, which is what proves the reading rather than illustrates
+it.
+
+**3. One typo.** `design/overview.html:8` asked for
+`design/concept/assets/logo-mark.svg` from a file already inside `design/` - the
+design hub's own favicon, missing since it was written.
+
+### The 152 are re-pointed at grey, and that is a transfer, not a new decision
+
+A dead click is not a decision anyone took; it is the absence of one. The
+product already holds the answer: **`design/kit/*.html` renders 193 deliberate,
+resolving links into `../../wireframes/`** for exactly this case - a screen with
+no coloured edition yet. `CLAUDE.md` says values move and are never re-derived,
+and that applies to an answer as much as to a number. So `design/checkout.html`
+now reaches `../wireframes/content-delivery.html`, which is the real screen with
+the real text, and at Крок 6 it re-points to the coloured twin by the same rule.
+
+**Said out loud, because it is visible:** the coloured product now walks into
+grey for those 41 screens, and there is no way back - grey's own links stay
+inside grey. That is one word away from being reversed if the owner would rather
+see a 404 than a leak, and it is the honest picture of how much is left.
+
+**The worst single one was on the primary audience.**
+`design/coach-session-addclient.html:304` carried
+`<a class="ac-new" href="coach-client-new.html">` with **no onclick fallback** -
+a plain 404 on «＋ Новий клієнт», not a dialog that failed to open. Its two
+neighbours (`coach-clients.html:57`, `coach-client.html:48`) have
+`onclick="…;return false"`, so the same dead href was invisible on those.
+
+### The fix is a rule, and the rule is read off the href
+
+`tools/links.mjs`, the fifth check: report by default, `--write` to re-point.
+Never a typed table of corrections - **the href already says what it wants.**
+Drop the `../` run, keep the rest as a tail, find the file whose path ends with
+it. One candidate is the answer; several, and the linking file's own top-level
+folder decides first, then `wireframes/`. That order is what keeps
+`catalog-page.html` off `ia/catalog-page.html`, which is an IA specification page
+and not a screen. **More than one survivor and it writes nothing** - a tiebreak
+typed into the file would be the hand-written list this folder exists to avoid.
+803 links, 56 distinct rewrites, 0 ambiguous.
+
+### Three things the instrument had to be taught before it could be trusted
+
+**An escaped markup sample is not a link, and this one was caught before the file
+existed.** `design/kit/stack-action.html` prints `&lt;a … href="..."&gt;` in its
+«Розмітка» section, and the first probe read the two of them as dead. 16 more hid
+in comments and code samples across the kit. Same shape as `css-comments.mjs`
+reporting a regex literal: an instrument that reports a correct line trains you to
+ignore it.
+
+**A link the page writes at runtime cannot be read statically**, and half-parsing
+it is worse than skipping it - the first probe reported `' + n.file + '` as a dead
+href on `index.html:227` and `ia/structure.html:188`. `<script>` blocks are
+blanked. `_nav.js` building the sidebar from the registry stays outside what this
+check can see, and that is stated in the file rather than left to be discovered.
+
+**Blanking has to keep the length, and that is not tidiness - it is what makes
+the write safe.** The scan runs on the blanked copy and the edit lands on the real
+one, so the two must agree on every offset; a `<script>` collapsed to one space
+shifts everything after it and the splice writes into the middle of the next tag.
+Measured before it was fixed: three files in `design/` carry an href literal both
+live and inside a blanked region - `coach-clients.html` has `coach-session.html`
+3 times live of 4 - so a string-level replace would have edited the copy inside
+the comment too. None of those three was dead this time. **Next time is not a
+plan.**
+
+### Verified
+
+`links.mjs` 4589 hrefs, **0 dead** (from 803). `accept` 88 @390 - 0 · `vars` 175 -
+0 · `css-comments` 89 balanced. 68 files, 252 insertions and 252 deletions, which
+is what a pure re-pointing looks like.
+
+**And the same question asked of the server rather than of the filesystem**,
+because they are not the same question - case, directory indexes and encoding all
+live there: **2050 distinct (page, target) pairs fetched over http, non-200: 0.**
+Then followed by hand in a real browser: coloured checkout → «Доставка й оплата» →
+grey delivery page; `design/kit/hero.html` → «Протеїн» → the COLOURED listing;
+`design/kit/demo/hero.html` → «За ціллю» → the grey catalogue hub.

@@ -1,6 +1,6 @@
 # tools - the instruments, and what each one is for
 
-Four checks, a transform and a driver. Every one of them answers a question this project asks
+Five checks, a transform and a driver. Every one of them answers a question this project asks
 at the end of **every** step, and until 2026-08-11 all of them lived in a session
 scratch folder and were rebuilt from memory each time. That is the same failure
 `CLAUDE.md` names for the product - *"a hand fix does not survive the next
@@ -15,12 +15,13 @@ node tools/accept.mjs 1280 account       one width, named screens
 node tools/states.mjs                    open every state, re-run the passes
 node tools/css-comments.mjs              every stylesheet, one second
 node tools/vars.mjs                      every var(--x), and whether it exists
+node tools/links.mjs [--write]           every href, and whether it goes anywhere
 node tools/grey-vars.mjs [--write]       private blocks learn the system's names
 node tools/crop.mjs 390 coach-tariff .tf-compare /tmp/t.png
 ```
 
-`accept`, `states`, `css-comments` and `vars` exit non-zero on a finding, so they
-compose.
+`accept`, `states`, `css-comments`, `vars` and `links` exit non-zero on a
+finding, so they compose.
 
 ---
 
@@ -105,6 +106,52 @@ the file because the next check to read CSS will meet the same three:
    screens. *A check that fires everywhere is describing itself.*
 3. `var(--x, fallback)` is not a defect, and not every declaration is in a
    stylesheet - `--p` comes from the markup and `--uiv-side-h` from `_nav.js`.
+
+## `links.mjs` - does this link go anywhere
+
+**Four checks stood at the gate and not one of them asked it.** On the first
+run: **803 of the 2882 internal hrefs in `design/` resolved to nothing, and 0 of
+the 1579 in `wireframes/` did** - 28% against zero, in a layer that is a clone
+of the other.
+
+The blind spot has a shape worth naming, because it predicts the next one. Every
+instrument above examines a *screen*, and a dead link raises nothing on the
+screen that carries it: the 404 happens on the NEXT page, which no pass visits.
+A link is the one thing that is not on the page it is written on.
+
+650 of the 803 were one cause. `design/kit/hero.html` and
+`design/kit/demo/hero.html` share their markup and sit one directory apart, and
+one relative path cannot be right at two depths - line 35 of the first writes
+`../../wireframes/catalog-page.html` (correct here) and `../../listing.html`
+(the repository root) in the same line. 152 were the tirage, pointing at the 41
+screens that are still grey-only, and 1 was the design hub's own favicon.
+
+**The correction is read off the href, never typed.** Drop the `../` run, keep
+the rest as a tail, find the file whose path ends with it; one candidate is the
+answer, several and the linking file's own folder decides first, then
+`wireframes/`. More than one survivor and it writes nothing.
+
+**Three things it had to be taught, all three from wrong first runs:**
+
+1. **An escaped markup sample is not a link** - `stack-action.html` prints
+   `&lt;a … href="..."&gt;` as documentation, and 16 more hid in comments and
+   code samples. Caught before the file was written, which is the only time this
+   folder has managed that.
+2. **A link built at runtime cannot be read statically**, and half-parsing it is
+   worse than skipping it: `' + n.file + '` was reported as a dead href on two
+   pages. `<script>` is blanked, and what `_nav.js` renders is outside what this
+   can see - stated in the file rather than left to be found.
+3. **Blanking keeps the length.** The scan runs on the blanked copy and the edit
+   lands on the real one, so every offset has to agree; a `<script>` collapsed to
+   one space shifts the rest and the splice writes into the middle of a tag.
+   Three files carry an href literal both live and inside a blanked region -
+   `coach-clients.html` has `coach-session.html` 3 times live of 4 - so a
+   string-level replace would have edited the commented copy too. None of the
+   three was dead that day. *Next time is not a plan.*
+
+**And the same question asked of the server is not the same question** - case,
+directory indexes and encoding live there and not in `existsSync`. Confirmed
+once, over http: 2050 distinct (page, target) pairs, non-200: 0.
 
 ## `grey-vars.mjs` - the transform `vars.mjs` asks for
 

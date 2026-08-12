@@ -1494,3 +1494,18 @@ Recorded here so it does not happen a third time.
 earlier step recorded, the earlier number is named in the log entry for that step. The stands
 point here; this file points at nothing - it is the end of the chain, and the next thing that
 happens to it is a decision.*
+
+- **803 links that went nowhere** - **found and CLOSED at step 8.18, and the finding is that
+  nothing was asking.** 803 of the 2882 internal hrefs in `design/` resolved to nothing against
+  **0 of the 1579 in `wireframes/`**, so all of them were introduced by the colouring. Four gates
+  passed them because every instrument in `tools/` examines a *screen*, and a dead link raises
+  nothing on the page that carries it - the 404 happens on the next page, which no pass visits.
+  650 were one cause (the kit stand and its demo are one directory apart and share their markup,
+  so one relative path is wrong at one of the two depths, in both directions), 152 were the
+  tirage, 1 was the design hub's own favicon. `tools/links.mjs` is the fifth check.
+
+  **CARRIES INTO Крок 6.** The 152 now point into `../wireframes/`, taken from the answer the kit
+  already gave 193 times rather than decided here. **When a screen is coloured, `links.mjs
+  --write` re-points them by the same rule** - the linking file's own folder wins over grey - so
+  the tirage closes itself and nothing has to be remembered. Until then the coloured product
+  visibly walks into grey for those 41 screens, which is the honest picture of what is left.
