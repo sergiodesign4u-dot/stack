@@ -3230,3 +3230,51 @@ not for two more palette decisions taken quietly inside one.
 Registered in `design/kit/_nav.js` under Основи, next to Колір. Gates: `accept`
 **204** @390 - 0, and the new page also at 360 - 0 · `vars` 204 - 0 ·
 `css-comments` 89 balanced · `links` 4594 - 0 dead.
+
+## Steps 09.1c and 09.2 - the two rungs the ramp never had, and the page that says why
+
+**2026-08-13.** The owner's words were «я чего-то совсем не понимаю что
+происходит», and that is a finding about the reporting, not about the work. Both
+steps here answer it.
+
+### 09.1c - `--warm-400` and `--warm-500`
+
+The preview showed dark secondary text borrowing `--warm-300` and the two-level
+hierarchy going almost flat. The rungs it needed turned out to be **the two
+numbers the ramp never had**: it ran `--warm-300` straight to `--warm-600`, and
+400 and 500 were simply absent - a 41.8 hole in L\*. Step 09.1 found that hole,
+named it and left it alone as «a mid-tone hole, not what a dark theme needs». It
+is exactly what a dark theme needs, one level down from the surfaces.
+
+`--warm-400` `#AA9D8A` (L\* 65.4) · `--warm-500` `#9A8B73` (L\* 58.6). Same rule
+as the surfaces, and the mirror lands to the hundredth on all three grounds:
+
+| role | light: page / surface / sunken | dark: page / surface / sunken |
+|---|---|---|
+| `--text-secondary` | 6.84 / 6.50 / 6.02 | **6.78 / 6.41 / 6.00** |
+| `--text-muted` | 5.38 / 5.12 / 4.73 | **5.42 / 5.12 / 4.80** |
+
+The preview now uses them and the caption reads quiet again. Still primitives:
+nothing in the semantic block moved.
+
+### 09.2 - `design/kit/why.html`
+
+The one page the registry carried as `done: false` since the stage was declared.
+It is deliberately **not** another sheet of numbers - the rest of the stand is
+that. Three parts:
+
+1. **The route as a picture**, with the current step lit, because the confusion
+   was structural: *stage 09 makes values, Крок 7 uses them*, which is why a dark
+   theme can be absent from the screen while stage 09 works on its palette.
+   Every edge carries its reason, and none of them is tidiness.
+2. **The seven decisions everything else stands on**, each with what it produces
+   on screen and where it came from: trust first · one action colour · warm
+   neutral, not clinical white · role not value · values move, never re-derived ·
+   the grey layer is frozen · every number has an origin or is `[?]`. Plus the
+   eighth, about the work rather than the look - fix by a rule, and the same goes
+   for the instrument - with the price it paid on 2026-08-13 written out.
+3. **The three owner decisions visible on screen right now**, each with its cost.
+
+Registered in both registries, `/_nav.js` flipped to `done: true`. Gates:
+`accept` **205** @390 - 0, and the new page also at 360 - 0 · `vars` 205 - 0 ·
+`css-comments` 89 balanced · `links` 4598 - 0 dead.

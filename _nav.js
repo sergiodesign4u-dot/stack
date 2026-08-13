@@ -55,7 +55,7 @@ window.NAV = [
      «UI + візуал» already use. */
   { label: 'Дизайн-система', children: [
       { label: 'Токени і компоненти',    page: 'design/kit/overview.html', done: true  },
-      { label: 'Чому саме так',          page: 'design/kit/why.html',      done: false }
+      { label: 'Чому саме так',          page: 'design/kit/why.html',      done: true  }
   ]},
 
   { label: 'Адаптив',                    page: null },

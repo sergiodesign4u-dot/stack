@@ -67,6 +67,18 @@ not re-derived, it is where the mirror already put it.
 | `--warm-800` | `#2D2821` | dark hairline / rule | 16.4 | 4.67 |
 | `--warm-750` | `#39332A` | dark track / strong line | 21.6 | 3.99 |
 
+**And the two rungs the ramp was always missing - added 2026-08-13, step 09.1c.** The scale ran
+`--warm-300` straight to `--warm-600`: **400 and 500 were simply absent**, a 41.8 hole in L\*. The
+preview showed what that costs - with no rung there, dark secondary text had to borrow `--warm-300`
+and the two-level hierarchy went almost flat, 16.2 for a title against 12.1 for its caption where
+the light theme has 16.2 against 6.5. Same rule, and the mirror lands to the hundredth on all three
+grounds:
+
+| Token | Hex | L\* | Role | Light twin, on page / surface / sunken | Dark, on page / surface / sunken |
+|---|---|---|---|---|---|
+| `--warm-400` | `#AA9D8A` | 65.4 | dark secondary text | 6.84 / 6.50 / 6.02 | **6.78 / 6.41 / 6.00** |
+| `--warm-500` | `#9A8B73` | 58.6 | dark muted text | 5.38 / 5.12 / 4.73 | **5.42 / 5.12 / 4.80** |
+
 **Measured, and it changes what A10 means.** The accent clears **4.5:1 - full AA for normal text - on
 every dark rung a word can sit on**, and only the track falls to 3.99, where no text sits. The
 sub-AA compromise the owner accepted on 2026-08-12 is a property of the **pale grounds**, not of

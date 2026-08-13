@@ -78,6 +78,11 @@ window.KIT_NAV = [
     "label": "Набір іконок",
     "page": "icons.html",
     "done": true
+   },
+   {
+    "label": "Чому саме так",
+    "page": "why.html",
+    "done": true
    }
   ]
  },
