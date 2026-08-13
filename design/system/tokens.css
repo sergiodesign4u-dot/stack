@@ -43,24 +43,38 @@
   --warm-300:   #D9D9D9;   /* plate pixel - "Ash", the stronger border */
   --warm-600:   #6E6A62;   /* raised from #999, which failed AA on white */
   --warm-700:   #5B5B54;   /* picked to pass AA on white */
-  --warm-900:   #1C1C1C;   /* plate pixel - Ink. Also the dark surface. */
+  /* NOT A RUNG OF THIS RAMP, AND NEVER WAS - it left it on 2026-08-13 under the
+     name it has in DESIGN-artifacts.md: «Ink (Soft Charcoal)», a plate pixel,
+     H0 S0, neutral by the designer's decision. Filed at --warm-900 it held the
+     one slot the dark surface needed, so the dark theme's cards, header and
+     footer plates pointed at a NEUTRAL and the owner saw the whole theme go grey
+     at exactly the places you look at. Ink is ink; it stays #1C1C1C and keeps
+     every job it had, on grounds that do not move. See --warm-900 below, which
+     is a rung again. */
+  --charcoal:   #1C1C1C;
 
   /* ---- the dark end of the same ramp - stage 09 step 1, 2026-08-13 --------
      NOT A SECOND SCALE BESIDE THIS ONE. Until today the ramp had eight rungs
      and NO surface between lightness 34 and 11: a dark theme had exactly one
-     value to stand on, `--warm-900`, and one value is not a set of surfaces.
+     value to stand on - #1C1C1C, the Ink, which is `--charcoal` now - and one
+     value is not a set of surfaces.
      THE RULE, so that no number here is invented. Hue and saturation come from
      `#F2F0ED`, the plate's locked Warm Neutral (H 36, S 16.1) - the same
      argument the light end runs on, «warmth in the neutral, anti
      sterile-pharma», which is about neutrals and not about pale ones. Lightness
-     comes from THE LIGHT END'S OWN STEPS, measured in L*: white -> --warm-50 is
-     2.1, then 3.1, 3.2, 5.0. The dark end walks those four upward, anchored so
-     that #1C1C1C lands on the second rung UNCHANGED - it is a plate pixel and
-     the product's ink, so it is not re-derived, the mirror simply agrees with
-     where it already is.
+     came from THE LIGHT END'S OWN STEPS, measured in L*: white -> --warm-50 is
+     2.1, then 3.1, 3.2, 5.0, and the dark end walked those four upward - anchored
+     so that #1C1C1C landed on the second rung UNCHANGED, «the mirror simply
+     agrees with where it already is».
+     THAT ANCHOR WAS THE MISTAKE, and it is corrected below. The mirror was asked
+     about lightness and was never asked about HUE, so it agreed with a neutral.
+     The four dark rungs keep the derivation rule and lose the anchor; their
+     lightnesses are the owner's, 2026-08-13.
      AND THE MEASUREMENT CHANGES WHAT A10 MEANS. `--orange-500` clears 4.5:1 -
-     full AA for normal text - on every rung below that a word can sit on: 5.76,
-     5.45, 5.10, 4.67. Only the track falls to 3.99, and no text sits on a track.
+     full AA for normal text - on every rung below that a word can sit on. It was
+     5.76 / 5.45 / 5.10 / 4.67 and the darker grounds only widen it: 6.32 on the
+     page, 5.82 on the surface, 5.37 on the sunken, 4.67 on the hairline. Only
+     the track stays at 3.99, and no text sits on a track.
      The sub-AA compromise the owner accepted on 2026-08-12 is a property of the
      PALE grounds (2.97 on --bg-surface), not of the accent. A dark theme does
      not inherit it and must not be built as if it did.
@@ -77,15 +91,39 @@
      16.2 against 6.5.
      Same rule as the surfaces: H and S from #F2F0ED, lightness solved so that
      each role stands to the dark grounds exactly as its light twin stands to the
-     light ones. It lands to the hundredth, on all three grounds:
-       --text-secondary   light 6.84 / 6.50 / 6.02   dark 6.78 / 6.41 / 6.00
-       --text-muted       light 5.38 / 5.12 / 4.73   dark 5.42 / 5.12 / 4.80
-     Still primitives: nothing reads them until Крок 7. */
-  --warm-400:   #AA9D8A;   /* derived - dark secondary text, L* 65.4 */
-  --warm-500:   #9A8B73;   /* derived - dark muted text,     L* 58.6 */
+     light ones. It landed to the hundredth on all three grounds - and then the
+     grounds moved under it on 2026-08-13, so both rungs are re-solved on the new
+     ones. One value cannot hit three targets exactly once their spacing changes,
+     so the fit is now +-0.14 where it used to be +-0.08, and that is the honest
+     price of a darker page rather than a number nudged to look tidy:
+       --text-secondary   light 6.84 / 6.50 / 6.02   dark 6.98 / 6.43 / 5.94
+       --text-muted       light 5.38 / 5.12 / 4.73   dark 5.51 / 5.07 / 4.68
+     Keeping the old #AA9D8A / #9A8B73 on the new grounds would have read
+     7.43 / 6.84 / 6.32 - the caption LOUDER in the dark theme than in the light
+     one, which is the exact thing the mirror exists to prevent. */
+  --warm-400:   #A59883;   /* derived - dark secondary text, L* 63.4 */
+  --warm-500:   #95856C;   /* derived - dark muted text,     L* 56.3 */
 
-  --warm-950:   #191612;   /* derived - the dark page,    L* 7.4  */
-  --warm-850:   #26211B;   /* derived - the dark sunken,  L* 13.1 */
+  --warm-950:   #0C0A08;   /* derived - the dark page,    L*  2.8 */
+  /* THE RUNG THIS RAMP NEVER HAD, because its number was held by something that
+     is not a rung. Slot 900 was #1C1C1C - the brand's Ink, H0 S0, neutral by the
+     designer's decision - so the dark theme's --bg-surface pointed at a NEUTRAL
+     while the page, the sunken and every hairline around it were H36 S16, and
+     every card, the header, the search field and the footer plates read grey
+     inside a warm theme. The owner saw it before any instrument did:
+     «шоколадная, но какой-то вдруг серый». Ink is --charcoal now, above, and 900
+     is a rung again.
+     THE THREE LIGHTNESSES ARE THE OWNER'S, TAKEN OFF HIS OWN EXAMPLE and not
+     invented here: page L* 2.8, surface 7.0, sunken 10.9, hairline and track
+     unchanged. Measured off the image he sent - #0B0A08, #181512, #201D15,
+     #2C2822 - and re-derived at the family's H36 S16 rather than copied, because
+     a hand-picked hue drifts (his three read H40 / H30 / H44) and this ramp has
+     one. The dark end is compressed and pushed down: the steps in L* were
+     5.2 / 3.3 / 2.7 / 3.0 and are 5.2 / 5.5 / 3.9 / 4.1, so a card stands off
+     the page MORE than it did (1.09 against 1.06) and the hairline stands off
+     the surface more too (1.25 against 1.16). */
+  --warm-900:   #181511;   /* derived - the dark SURFACE, L*  7.0 */
+  --warm-850:   #201D17;   /* derived - the dark sunken,  L* 10.9 */
   --warm-800:   #2D2821;   /* derived - the dark hairline, L* 16.4 */
   --warm-750:   #39332A;   /* derived - the dark track,   L* 21.6 */
 
@@ -160,7 +198,6 @@
   --scrim-white-10:  rgba(255,255,255,.10);
   --scrim-white-20:  rgba(255,255,255,.20);   /* merged from .18 and .22 */
   --scrim-white-66:  rgba(255,255,255,.66);   /* merged from .62 and .68 */
-  --scrim-white-72:  rgba(255,255,255,.72);
   --scrim-white-94:  rgba(255,255,255,.94);
   --fade-white-0:    rgba(255,255,255,0);   /* gradient endpoints - see --fade-page */
   --fade-warm-0:     rgba(247,243,236,0);
@@ -628,9 +665,9 @@
 
   /* ---- ink ---------------------------------------------------------------- */
 
-  --text-primary:    var(--warm-900);   /* 261 uses - every heading, .lh1, .sech,
+  --text-primary:    var(--charcoal);   /* 261 uses - every heading, .lh1, .sech,
                                            .bb h1. 17.0:1 on white. plate pixel */
-  --text-body:       var(--warm-900);   /* 211 uses - running text: .rvbody .rtext,
+  --text-body:       var(--charcoal);   /* 211 uses - running text: .rvbody .rtext,
                                            .qaitem .qans, .pl-ing. Same value as
                                            primary today, different job: one is
                                            emphasis, one is the paragraph. They can
@@ -670,9 +707,40 @@
                                            TWO USES IS NOT A ROLE YET: it is kept
                                            because pre-order is a real state, and it
                                            goes to step 8 for a verdict. derived */
-  --text-oninverse:  var(--white);      /* the label on every dark and every orange
-                                           fill: .wfh-nav .navbtn, .wf-bar, .btn.dark.
-                                           17.0:1 on ink, 5.4:1 on the accent */
+  --text-oninverse:  var(--white);      /* the label on the INVERSE surface, and only
+                                           that: .wfh-nav .navbtn, .wf-bar, .btn.dark,
+                                           .wf-toast. 17.0:1. Until 2026-08-13 this
+                                           line read «every dark AND every orange
+                                           fill», and the two came apart the day the
+                                           dark theme existed - see --text-onaction */
+
+  /* THE ACTION FILL DOES NOT INVERT, SO ITS INK MUST NOT EITHER, and one role
+     cannot serve both grounds. `--text-oninverse` used to: its own comment named
+     the inverse bar and the orange fill in one breath, and while there was one
+     theme that cost nothing. In the dark theme the bar flips (`--bg-inverse` goes
+     to `--warm-50`, and its ink follows it down to `--warm-900`) while `#FF5A00`
+     stays exactly where it is - so every label on the accent went from white to
+     near-black in one step, and the same happened in the other direction to the
+     ink labels riding `--text-body`. Measured before the split: `.chip.on` 4.78
+     light -> 2.55 dark, `.tag-new` / `.hb` / `.tbadge` / `.q` 5.45 -> 2.97.
+     Two roles, not one, because the fill carries TWO locked decisions:
+       white  - the owner, 27.07.2026: «a label on an orange fill is white at any
+                size», so that one action looks like one action. 3.13:1, and it is
+                inside the A10 compromise the owner accepted on 12.08.2026.
+       ink    - step 7.47: small orange things which are NOT buttons keep the ink
+                label. 5.45:1, and for the 14px chip family it is the only edition
+                that clears AA at all (chip.css says so in its own words).
+     Both halves are equal in the two themes ON PURPOSE - the ground under them is
+     the one colour in this system that does not move. */
+  --text-onaction:     var(--white);      /* 5 uses - the label on the action fill:
+                                             .btn--accent, .hd-cta, .tbuy, .pages .on,
+                                             .cv-step.on .n. 3.13 on #FF5A00,
+                                             3.72 on the pressed #E85200. decision */
+  --text-onaction-ink: var(--charcoal);   /* 7 uses - the ink label on the same fill,
+                                             where the shape is a mark or a chip and
+                                             not a button: .chip.on family, .tag-new,
+                                             .hb, .tbadge, .cs-th .q, .mtoolbar .mc .b,
+                                             .acc-link[aria-current]. 5.45. decision */
 
   /* ---- fill --------------------------------------------------------------- */
 
@@ -682,7 +750,7 @@
                                           derived */
   --bg-sunken:    var(--warm-100);     /* 66 uses - .frail, .seotext, .chip, the
                                           zones a card sits on. plate pixel */
-  --bg-inverse:   var(--warm-900);     /* 65 uses - .wfh main bar, .btn.dark, the
+  --bg-inverse:   var(--charcoal);     /* 65 uses - .wfh main bar, .btn.dark, the
                                           dark surfaces. Charcoal was KEPT here
                                           deliberately and not replaced by the
                                           accent. decision */
@@ -761,7 +829,7 @@
   --line-action:  var(--orange-500);   /* 76 uses - the selected state: .chip.on,
                                           .co-opt.on, .wfh-mega top border. 3.13:1
                                           against white, which passes 1.4.11 */
-  --line-inverse: var(--warm-900);     /* 47 uses - borders on and around dark
+  --line-inverse: var(--charcoal);     /* 47 uses - borders on and around dark
                                           surfaces */
 
   /* ---- decorative --------------------------------------------------------- */
@@ -886,12 +954,39 @@
   --bg-action-hover:       var(--orange-50);          /* 1 use - the goal tile photo under the cursor. */
   --bg-inverse-soft:       var(--grey-24);            /* 1 use - the top of the dark PDP panel gradient, one step above --bg-inverse. */
   --bg-inverse-tint:       var(--scrim-white-10);     /* 1 use - a white veil ON the dark panel, for the block inside a block. */
-  --text-oninverse-muted:  var(--scrim-white-66);     /* 3 uses - the secondary line on a dark surface. --text-oninverse is the full
-     white label; this is the caption under it. */
+  --text-oninverse-muted:  var(--scrim-white-66);     /* 4 uses - the secondary line on a dark surface. --text-oninverse is the full
+     white label; this is the caption under it. 8.02 on --bg-inverse. The fourth
+     reader arrived 2026-08-13 from --text-onphoto, which was deleted: its one
+     use was this plate, and a plate is not a photograph. */
   --line-oninverse-soft:   var(--scrim-white-20);     /* 2 uses - a hairline drawn ON a dark surface, where --line-inverse (ink) would
      disappear. */
-  --text-onphoto:          var(--scrim-white-72);     /* 1 use - the caption over a photograph, where the surface is unknown. */
   --bg-onphoto:            var(--scrim-white-94);     /* 1 use - the favourite button sitting on a product photograph. */
+  /* ---- THE STAGE A PRODUCT PHOTOGRAPH STANDS ON, and it is the ONE ground in
+     this system that does not move with the theme. The owner's decision,
+     2026-08-13, and the sentence that decides it was already in this file one
+     line above: «a photo is a photo in both themes».
+     WHY IT HAD TO BE DECIDED. When the white box came out of the PNGs at 7.12
+     the stage became `--bg-page -> --bg-surface`, which in the dark theme is
+     #0C0A08 -> #181511 - the two darkest values the system has - with a BLACK
+     jar standing on it and a floor shadow of rgba(0,0,0,.22) under it, which on
+     #0C0A08 is nothing at all. The product had nothing to stand on.
+     A photograph is not a surface of the interface: it is a thing being shown,
+     lit the way it was lit when it was taken, and the plate under it is part of
+     the photograph rather than part of the page. That is the same claim
+     `--bg-onphoto` above has been making since it was written.
+     THE PAIR IS DELIBERATELY IDENTICAL, which is not a missing decision - it is
+     the decision. `theme.mjs` check 2b already exempts this shape by RULE and
+     not by list: «a role that declares its own ground, and those grounds do not
+     move». */
+  --bg-photo:              var(--white);              /* 2 uses - the near end of the gallery stage, and the thumbnail beside it. */
+  --bg-photo-far:          var(--warm-50);            /* 1 use - its far end. Together they are the light theme's page and surface,
+     moved here rather than re-derived, so the stage keeps the gradient it was drawn with. */
+  --fade-photo:            var(--fade-ink-0);         /* 1 use - the transparent end of the floor shadow ON that stage. It is its own
+     role rather than `--fade-inverse` because that one has a second reader, the auth visual, which DOES flip. */
+  --bg-photo-mark:         var(--charcoal);           /* 1 use - the mark ON that stage: «Хіт продажів» in the gallery's corner. It is
+     frozen for the same reason the stage is, and it was the first thing to prove the stage needed a family rather than one
+     role: `--bg-inverse` flips to a light warm plate, so a near-white pill landed on a now-white stage. */
+  --text-photo-mark:       var(--white);              /* 1 use - and its label. */
   --scrim-overlay:         var(--scrim-ink-52);       /* 7 uses, and it had SEVEN different values: .25 .36 .44 .46 .50 .52 .52. A scrim
      does one job - hide the layer behind, keep the dialog readable - so it is one
      value. .52 is what the two dialogs that matter (auth, cart) already used. */
@@ -910,9 +1005,16 @@
   --line-danger-soft:      var(--tint-red-30);        /* 1 use - its border. */
   --bg-action-pressed:     var(--orange-600);         /* 2 uses - the catalogue button while the mega menu is open. It was the only
      pressed state in the product and it had no name. */
-  --line-onink:            var(--white);              /* 5 uses - a white ring that separates a mark from a dark ground: the counter on
-     the dark header, the tick in a filled checkbox, the dot of a chosen radio.
-     --line-inverse is the opposite job (an ink border around a light thing). */
+  --line-onink:            var(--white);              /* 1 use - a white line on the INVERSE surface: the error toast's border.
+     --line-inverse is the opposite job (an ink border around a light thing).
+     THE COUNT USED TO SAY 5, AND FOUR OF THEM WERE NOT ON THIS GROUND AT ALL: the tick inside a filled checkbox and the ring
+     around the price knob are drawn on `--bg-action`, which does not invert, so they moved to --line-onaction on 2026-08-13.
+     The old comment also named «the counter on the dark header» (that is --ring-onink, a shadow) and «the dot of a chosen radio»
+     (that is --bg-action, a fill) - a role whose comment lists readers it does not have cannot be checked against anything. */
+  --line-onaction:         var(--white);              /* 4 uses - a white line ON the action fill, and the LINE twin of --text-onaction:
+     the tick in a filled checkbox (both editions) and the 2.5px ring that cuts the price knob out of its track. Equal in both themes
+     for the same reason the ink is - #FF5A00 does not move. In dark the flipping role took the ring to --warm-900, which reads 1.36
+     against the dark track: the knob lost its outline entirely, and that is a 3:1 line failing at a third of its threshold. */
   --bg-action-selected:    var(--tint-orange-10);     /* 1 use - the chosen half of the grid/list toggle. Not --bg-action-soft: that one
      is the pale plate under a whole block, this is a selected control and has to
      hold its own against the unselected half beside it. */
@@ -945,7 +1047,7 @@
    PRIMITIVE - the dark side of the palette
    ==========================================================================
    THE DEBT OF STEP 3, PAID AT STEP 7's DOOR - 2026-08-13. The pack says «пара
-   тем обовʼязкова з першого рядка... роль без пари не існує», and step 3 wrote
+   тем обов'язкова з першого рядка... роль без пари не існує», and step 3 wrote
    the light half only. Step 7 is a STRESS TEST and cannot run on a theme that
    does not exist, so the pairs are written here first, then stress-tested.
 
@@ -970,7 +1072,10 @@
   --orange-950: #2F1300;   /* 1.042                    as --orange-25 is 1.044 */
   --orange-900: #391600;   /* 1.106                    as --orange-50 is 1.105 */
   --amber-800:  #382C16;   /* 1.322                    as --amber-200 is 1.319 */
-  --grey-ed:    #EDEDED;   /* 15.40 - twin of --grey-24, which is 15.52 on white */
+  --warm-150:   #EFEDE9;   /* 15.40 - twin of --grey-24, which is 15.52 on white. It was
+                              --grey-ed #EDEDED until 2026-08-13, the last neutral fill in
+                              the dark theme: its bar is --warm-50 and its step off it was
+                              not. Same H36 S16, same L* to the hundredth (93.80/93.75). */
 
   /* alpha, and here the DIRECTION flips rather than the number: a veil over a
      dark page is dark, a scrim on a light bar is ink. Same opacities. */
@@ -990,6 +1095,7 @@
   --tint-red-d-30:   rgba(232,104,92,.30);
   --scrim-black-40:  rgba(0,0,0,.40);
   --scrim-black-52:  rgba(0,0,0,.52);
+  --scrim-ink-75:    rgba(20,20,15,.75);
 }
 
 /* ==========================================================================
@@ -1010,16 +1116,21 @@
   /* ---- ink ---- */
   --text-primary:    var(--warm-50);      /* 17.1 - as --warm-900 is 17.0 on white */
   --text-body:       var(--warm-50);      /* 17.1 */
-  --text-secondary:  var(--warm-400);     /* 6.78 - as --warm-700 is 6.84 */
-  --text-muted:      var(--warm-500);     /* 5.42 - as --warm-600 is 5.38 */
-  --text-brandline:  var(--warm-500);     /* 5.42 */
+  --text-secondary:  var(--warm-400);     /* 6.98 - as --warm-700 is 6.84 */
+  --text-muted:      var(--warm-500);     /* 5.51 - as --warm-600 is 5.38 */
+  --text-brandline:  var(--warm-500);     /* 5.51 */
   --text-action:     var(--orange-500);   /* 5.76 - does not invert. See above */
   --text-success:    var(--green-400);
   --text-warning:    var(--amber-500);
   --text-danger:     var(--red-400);
   --text-bonus:      var(--amber-500);
   --text-info:       var(--slate-300);
-  --text-oninverse:  var(--warm-900);     /* the inverse bar is LIGHT here, so its ink is dark */
+  --text-oninverse:  var(--charcoal);     /* the inverse bar is LIGHT here, so its ink is dark */
+  /* and these two do NOT follow it, because #FF5A00 is where it was. Equal halves
+     are the exception this file allows only when the ground itself is exempt from
+     the theme - the same reason --text-action and --bg-action are equal above. */
+  --text-onaction:     var(--white);      /* 3.13, unchanged */
+  --text-onaction-ink: var(--charcoal);   /* 5.45, unchanged */
 
   /* ---- fill ---- */
   --bg-page:         var(--warm-950);
@@ -1039,13 +1150,21 @@
   --bg-action-hover: var(--orange-900);
   --bg-action-pressed: var(--orange-700);
   --bg-action-selected: var(--tint-orange-10);
-  --bg-inverse-soft: var(--grey-ed);      /* twin of --grey-24 on the flipped bar */
+  --bg-inverse-soft: var(--warm-150);     /* twin of --grey-24 on the flipped bar */
   --bg-inverse-tint: var(--scrim-ink-10); /* a tint ON the inverse bar, and that bar is light now */
   --bg-success-soft: var(--tint-green-d-07);
   --bg-bonus-soft:   var(--tint-amber-d-06);
   --bg-danger-soft:  var(--tint-red-d-04);
   --bg-save:         var(--red-950);
   --bg-onphoto:      var(--scrim-white-94); /* a photo is a photo in both themes */
+  /* the same three values as the light theme, on purpose - see the block beside
+     `--bg-photo` in `:root`. The pair exists so the claim is written down twice
+     rather than inferred from a role that is simply missing here. */
+  --bg-photo:        var(--white);
+  --bg-photo-far:    var(--warm-50);
+  --fade-photo:      var(--fade-ink-0);
+  --bg-photo-mark:   var(--charcoal);
+  --text-photo-mark: var(--white);
 
   /* ---- line ---- */
   --line-hair:           var(--warm-800);
@@ -1062,7 +1181,17 @@
   --line-bonus-soft:     var(--tint-amber-d-30);
   --line-danger-soft:    var(--tint-red-d-30);
   --line-oninverse-soft: var(--scrim-ink-22);
-  --line-onink:          var(--warm-900);
+  /* --line-onink -> --warm-950, 2026-08-13, and the check found it the moment its
+     exemption became a measurement instead of a name. It read `--charcoal`, which
+     is Ink - H0 S0 - sitting as a LINE on a plate that is warm and light in this
+     theme, the same «neutral patch inside a warm family» the owner named at 7.11.
+     The value is not chosen, it is mirrored: in the light theme this line is
+     `--white` on the Ink plate, that is, the far end of the scale from its own
+     ground. `--warm-950` is that same far end for a ground that is now light,
+     and it carries the family's hue. One reader, `.wf-toast.error`; the line
+     stands at ~19:1 on `--bg-inverse`, where it needs 3. */
+  --line-onink:          var(--warm-950);
+  --line-onaction:       var(--white);       /* does not follow --line-onink down: its ground is the accent, which does not move */
   --line-onphoto:        var(--scrim-white-50);
 
   /* ---- mark ---- */
@@ -1106,20 +1235,28 @@
   --elevation-bar-top:    0 -2px 18px var(--scrim-black-22);
   --elevation-bar-bottom: 0 3px 16px var(--scrim-black-22);
   --elevation-drawer:     -18px 0 60px var(--scrim-black-52);
-  --shadow-floor:         var(--scrim-black-22);
+  /* ONE READER, AND IT IS THE PHOTO STAGE, which does not move - so neither does
+     this. `--scrim-black-22` was the dark theme's answer for a shadow on a dark
+     ground and it drew nothing at all on #0C0A08. */
+  --shadow-floor:         var(--scrim-ink-07);
 
   /* ---- rings: the focus ring is measured at 3:1 against its ground in BOTH
           themes, so it takes a stronger tint here, not the same one. ---- */
   --ring-focus:   0 0 0 3px var(--tint-orange-45);
   --ring-danger:  0 0 0 3px var(--tint-red-d-30);
-  --ring-onink:   0 0 0 2px var(--warm-900);
+  --ring-onink:   0 0 0 2px var(--charcoal);
   --ring-focus-control: 0 0 0 2px var(--bg-page),
                         0 0 0 4px var(--line-action);
 
   /* ---- scrim, veil, fade: the direction flips, the opacity does not ---- */
   --scrim-overlay:    var(--scrim-black-52);
-  --text-oninverse-muted: var(--scrim-ink-52);
-  --text-onphoto:     var(--scrim-white-72);  /* a photo is a photo */
+  /* 3.66 UNTIL 2026-08-13, AGAINST 8.02 IN THE LIGHT, and the line above this
+     block is why: «the direction flips, the opacity does not». It does not hold.
+     The same alpha over the opposite ground is a different contrast, and .52 ink
+     on #FAF9F7 is a caption that has quietly stopped being readable while its
+     light half sits at 8.02. .75 is the alpha that reproduces 8.02 here - 8.03 -
+     and it is solved, not chosen. */
+  --text-oninverse-muted: var(--scrim-ink-75);
   --veil-surface:     var(--veil-dark-96);
   --veil-surface-mid: var(--veil-dark-86);
   --veil-page:        var(--veil-dark-90);

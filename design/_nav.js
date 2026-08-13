@@ -661,6 +661,12 @@ function uivChrome(){
      runs over the account panel, or it takes them. Moving the call kept its
      position in the order; it only stopped depending on being typed out. */
   uivAccount();
+  /* AFTER `uivMarks`, for the reason written above the function: «＋ Нова сесія»
+     takes its mark from `uivLeadMark`, and this pass steps over a row that
+     already has one. Called by presence like the pass above it - the menu is in
+     the header of every logged-in screen and in none of the guest ones, and the
+     header is what answers, not a list of file names. */
+  uivCabMarks();
 }
 
 /* make the product-card heart interactive: a click toggles the .on (filled) state
@@ -1692,6 +1698,92 @@ function uivHome(){
    left to swap and `uivTiers` finds no tier glyph - but «in effect» is a thing
    that stops being true quietly, so it is stated.
    ============================================================ */
+
+/* ---------- THE HEADER'S ACCOUNT MENU IS THE RAIL, IN A POPUP - step 7.17 ----
+   Owner: «дроп виглядит как с вайрфреймов… надо сделать как дизайн + у пунктов
+   меню добавить иконки таки как тут», with the account rail as the picture, and
+   one bridge said out loud: «Кабінет = Огляд».
+
+   Measured on home-buyer at 1280 before this pass existed: the dropdown held
+   FIVE BARE `<a>` ROWS, not one mark among them, while the same five sections in
+   `.acc-links` two clicks away each carry one. It is the only navigation in the
+   product where a section has no mark, and the only region of this header the
+   colour layer never opened - see the note in header.css for what that cost on
+   the cap and the hover.
+
+   THE MARK IS NOT CHOSEN HERE, IT IS ASKED FOR. A destination that already has a
+   mark in the product's own navigation keeps it, so two lists cannot draw one
+   section two ways - the same rule `uivGoalMarks` follows, and for the same
+   reason. The question is put three times, in this order:
+
+     1. BY LABEL, against `WF_ACC_LINKS` - the buyer rail's own table. «Замовлення»
+        and «Адреси» answer here, and they have to be asked by label BEFORE they
+        are asked by destination, because the frozen header points both of them
+        at `account.html` (see «the second finding» below).
+     2. BY DESTINATION, for a row whose wording differs from the rail's:
+        «Кабінет» -> `account.html` -> «Огляд» -> ▦. That is the owner's
+        «Кабінет = Огляд», and it turns out to be a FACT OF THE MARKUP rather
+        than an alias anybody had to invent - both rows lead to the overview.
+     3. `UIV_CAB_MARK`, and it exists only because the frozen layer writes those
+        six rows by hand instead of tabulating them the way `WF_ACC_LINKS` is
+        tabulated. Every value in it is COPIED from the line named beside it.
+
+   `coach-session.html` is deliberately absent from that table: «＋ Нова сесія»
+   carries its own mark, and `uivLeadMark` has drawn it since 7.11. A second one
+   here would be the two-drawings defect this pass exists to close, so the walk
+   steps over any row that already has a mark rather than asking who put it there.
+
+   THE SECOND FINDING, AND IT IS NOT COLOUR. «Замовлення» and «Адреси» both point
+   at `account.html`. The label says one section and the click lands on another,
+   in both themes and in the grey prototype behind it. The rail's own table holds
+   the right two destinations - `account-orders.html`, `account-addresses.html` -
+   so this is not a decision to take, it is a value to MOVE, which is what
+   `CLAUDE.md` says happens to values. The row is re-pointed from the same table
+   that gave it its mark, and only when the destination actually differs: the
+   coach's «Адреси» already carries `account-addresses.html?r=coach` and keeps
+   its query, because the role is part of where that row goes.
+   ---------------------------------------------------------------------------- */
+var UIV_CAB_MARK = {
+  'coach-home.html':      '🎓',   /* wireframes/_nav.js:1182 - the coach cabinet, seen from outside it */
+  'coach-verify.html':    '🎓',   /* wireframes/_nav.js:1183 - the way IN to that same role */
+  'index.html':           '⎋',   /* wireframes/_nav.js:1184 - the way out */
+  'coach-clients.html':   '👥',   /* wireframes/_nav.js:1215 - wfCoachNav, the coach's own rail */
+  'coach-orders.html':    '📦',   /* wireframes/_nav.js:1216 */
+  'account.html?r=coach': '👤'    /* wireframes/_nav.js:1219 - the buyer account under a coach session */
+};
+function uivCabMarks(){
+  var menu = document.getElementById('wfh-cabmenu');
+  if(!menu || typeof WF_ACC_LINKS === 'undefined' || typeof uivIconSvg !== 'function') return;
+  var mark = {}, dest = {};
+  WF_ACC_LINKS.forEach(function(l){ mark[l.label] = l.ic; dest[l.label] = l.href; });
+  var byHref = {};
+  WF_ACC_LINKS.forEach(function(l){ byHref[l.href] = l.ic; });
+  /* the file part only: `uivFixLinks` may have put `../wireframes/` in front, and
+     a row's query is part of where it goes rather than part of which page it is */
+  var file = function(h){ return (h || '').split('/').pop(); };
+  var here = file(location.pathname) || 'index.html';
+  var bare = [];
+  menu.querySelectorAll('a').forEach(function(a){
+    var label = a.textContent.trim();
+    var to = file(a.getAttribute('href'));
+    var q = to.indexOf('?') > -1 ? to.slice(to.indexOf('?')) : '';
+    /* the value moves: the rail knows where this section is */
+    var want = dest[label];
+    if(want && want !== to.split('?')[0]){ a.setAttribute('href', want + q); to = want + q; }
+    if(to.split('?')[0] === here) a.setAttribute('aria-current', 'page');
+    /* already marked - «＋ Нова сесія», drawn by uivLeadMark before this runs */
+    if(a.firstElementChild && a.firstElementChild.classList.contains('uiv-ic')) return;
+    var em = mark[label] || byHref[to] || UIV_CAB_MARK[to];
+    var svg = em && uivIconSvg(UIV_EMOJI[em]);
+    if(!svg){ bare.push(label); return; }
+    a.insertAdjacentHTML('afterbegin', '<span class="uiv-ic">' + svg + '</span>');
+  });
+  /* THE IDLE CONTROL OF A LIST THAT ANSWERS BY LOOKUP: a row nobody answered is
+     named out loud, here and now, rather than showing up as an empty 20px slot
+     that reads like a rendering glitch. Silence is the pass working. */
+  if(bare.length) console.warn('[stand] рядок кабінету без знака: ' + bare.join(' · '));
+}
+
 function uivAccount(){
   var slots = document.querySelectorAll('#acc-nav, .acc-main');
   if(!slots.length || document.body.dataset.uivAcc) return;

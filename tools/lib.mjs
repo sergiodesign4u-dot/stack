@@ -74,12 +74,16 @@ export function profile(tag) {
    `fetch`, module scripts and same-origin reads all behave differently, and a
    prototype that passes on file:// has been measured under different rules than
    the one a person opens. */
-export async function serve() {
+/* `root` arrives 2026-08-13 for `tools/proof.mjs`, which needs TWO trees served
+   at once - the working one and a baseline unpacked out of `git archive` - so
+   that before and after can be photographed by one browser in one moment. Every
+   other caller passes nothing and gets this repository, exactly as before. */
+export async function serve(root = ROOT) {
   const port = await freePort();
   const proc = spawn('python3', ['-m', 'http.server', String(port), '--bind', '127.0.0.1'],
-    { cwd: ROOT, stdio: ['ignore', 'ignore', 'ignore'] });
+    { cwd: root, stdio: ['ignore', 'ignore', 'ignore'] });
   for (let i = 0; i < 100; i++) {
-    try { await fetch(`http://127.0.0.1:${port}/README.md`); break; } catch { await sleep(100); }
+    try { await fetch(`http://127.0.0.1:${port}/`); break; } catch { await sleep(100); }
   }
   const stop = () => { try { proc.kill(); } catch {} };
   onExit(stop);

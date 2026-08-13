@@ -272,7 +272,11 @@
 .btn--accent{
   background: var(--bg-action);
   border-color: var(--line-action);
-  color: var(--text-oninverse);
+  /* `--text-onaction`, not `--text-oninverse` - step 7 of the dark theme, 2026-08-13.
+     The two roles were one until then, and the accent button is where the seam
+     showed: `--bg-action` does not invert, `--text-oninverse` does, so in the dark
+     theme the one action on the screen was reading a near-black label on orange. */
+  color: var(--text-onaction);
 }
 .btn--accent:hover{ opacity: .93; }
 .btn--accent:active{

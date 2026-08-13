@@ -26,7 +26,10 @@
 .cs-top h1 { font-size: 22px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; }
 .cs-meta { font-size: 12.5px; color:var(--text-secondary); margin-top: 5px; }
 .cs-meta b { color: var(--text-primary); }
-.tierchip { display: inline-block; font-size: 11px; font-weight: 800; color: var(--text-primary); border:1.5px solid var(--line-inverse); border-radius: 100px; padding: 2px 9px; }
+/* 7.18: the ink ring was the grey layer's `--dark` translated by value. A small
+   outlined label is badge.css:163's shape - a `--line-strong` HAIRLINE - and an
+   ink ring at 1.5px made a chip shout louder than the card holding it. */
+.tierchip { display: inline-block; font-size: 11px; font-weight: 800; color: var(--text-primary); border:1px solid var(--line-strong); border-radius: 100px; padding: 2px 9px; }
 
 .ctabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; border-bottom:1px solid var(--line-hair); }
 .ctabs::-webkit-scrollbar { display: none; }
@@ -35,8 +38,8 @@
 .ctab .ctn { font-size: 14px; font-weight: 800; }
 .ctab .cts { font-size: 13px; font-weight: 800; color: var(--text-primary); }
 .ctab .ctg { font-size: 11px; color:var(--text-secondary); font-weight: 600; }
-.ctab.on { background: #fff; border-color:var(--line-action); border-bottom: 1px solid #fff; }
-.ctab.add { flex-direction: row; align-items: center; justify-content: center; min-width: 0; background: #fff; border-style: dashed; font-weight: 800; font-size: 13px; }
+.ctab.on { background: var(--bg-page); border-color:var(--line-action); border-bottom: 1px solid var(--bg-page); }
+.ctab.add { flex-direction: row; align-items: center; justify-content: center; min-width: 0; background: var(--bg-page); border-style: dashed; font-weight: 800; font-size: 13px; }
 
 .cs-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; margin-top: 18px; }
 @media (min-width: 940px) { .cs-grid { grid-template-columns: minmax(0,1fr) 320px; align-items: start; } }
@@ -48,22 +51,22 @@
 .cc-repeat { font-size: 12.5px; font-weight: 700; color: var(--text-primary); text-decoration: underline; }
 .cc-goals { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 4px; }
 .cc-goals a { font-size: 12px; font-weight: 700; border:1.5px solid var(--line-strong); border-radius: 100px; padding: 6px 12px; color: var(--text-primary); }
-.cc-goals a.on { border-color:var(--line-action); background:var(--bg-action); color: #fff; }
+.cc-goals a.on { border-color:var(--line-action); background:var(--bg-action); color: var(--text-onaction-ink); }
 
 .qadd { border:1px solid var(--line-hair); border-radius: 10px; background:var(--bg-surface); padding: 13px; margin: 14px 0 18px; }
 .qadd-h { font-size: 13px; font-weight: 800; color: var(--text-primary); margin-bottom: 9px; }
 .qadd-h span { font-weight: 600; color:var(--text-secondary); font-size: 12px; }
 .qadd-field { display: flex; gap: 8px; }
-.qadd-field input { flex: 1; border:1.5px solid var(--line-strong); border-radius: 8px; padding: 11px 12px; font-size: 14px; font-family: inherit; background: #fff; }
+.qadd-field input { flex: 1; border:1.5px solid var(--line-strong); border-radius: 8px; padding: 11px 12px; font-size: 14px; font-family: inherit; background: var(--bg-page); }
 .qadd-res { margin-top: 10px; display: flex; flex-direction: column; }
 .qa-row { display: grid; grid-template-columns: 44px 1fr auto auto; gap: 11px; align-items: center; padding: 9px 0; border-top:1px solid var(--line-hair); }
-.qa-ph { width: 44px; height: 44px; border-radius: 7px; background:var(--bg-sunken); border:1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 8px; }
+.qa-ph { width: 44px; height: 44px; border-radius: 7px; background:var(--bg-sunken); border:1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; color: var(--mark-faint); font-size: 8px; }
 .qa-nm { font-size: 13px; font-weight: 700; color: var(--text-primary); line-height: 1.3; }
 .qa-av { font-size: 11.5px; color:var(--text-secondary); margin-top: 2px; }
 .qa-add { padding: 8px 13px; font-size: 12.5px; white-space: nowrap; }
 
 .cprice { font-size: 15px; font-weight: 800; color: var(--text-primary); white-space: nowrap; text-align: right; }
-.cprice .old { display: block; font-size: 11.5px; font-weight: 500; color: #aaa; text-decoration: line-through; }
+.cprice .old { display: block; font-size: 11.5px; font-weight: 500; color: var(--text-price-was); text-decoration: line-through; }
 .cprice .wtag { display: inline-block; font-size: 9.5px; font-weight: 800; color: var(--text-primary); border:1px solid var(--line-strong); border-radius: 4px; padding: 0 4px; margin-left: 5px; vertical-align: middle; }
 
 .cs-lines-h { font-size: 13px; font-weight: 800; color: var(--text-primary); margin: 4px 0 6px; }
@@ -88,7 +91,7 @@
 .cs-go { display: block; text-align: center; }
 .cs-save { display: block; text-align: center; margin-top: 9px; border-color:var(--line-strong); }
 
-.cs-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: #fff; border-top:1px solid var(--line-hair); padding: 10px 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 -2px 10px rgba(0,0,0,.06); }
+.cs-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--bg-page); border-top:1px solid var(--line-hair); padding: 10px 14px; display: flex; align-items: center; gap: 12px; box-shadow: var(--elevation-bar-top); }
 .cs-bar .bt { flex: 1; font-size: 12px; color:var(--text-secondary); } .cs-bar .bt b { display: block; font-size: 16px; font-weight: 800; color: var(--text-primary); }
 .cs-bar .btn { flex: none; }
 @media (min-width: 940px) { .cs-bar { display: none; } }

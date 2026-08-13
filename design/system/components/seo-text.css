@@ -58,8 +58,22 @@
    makes this block `position: relative` with 310px of right padding from 760 up
    - that padding is the hole the bear stands in, and the two lines lived in
    different files. Values untouched: this is a move. */
+/* `mix-blend-mode: multiply` STOOD HERE UNTIL 2026-08-13, and it was never a
+   blend decision - it was a missing alpha channel. mascot-pose-present.png is
+   848x1264 of RGB with no transparency, drawn on white, and multiply is the one
+   blend that makes white disappear against a LIGHT plate. Against a dark one it
+   does the opposite of what it was hired for: every channel is multiplied by the
+   plate, so the whole bear goes to the plate's own darkness and reads as a
+   silhouette. The owner saw it before any check did.
+   The fix is in the asset, not in the rule: the white is keyed out by a flood
+   fill from the border (not «every white pixel» - that would punch out the
+   highlight in an eye), and the anti-aliased rim keeps its softness by taking
+   a = 255 - min(r,g,b) with the colour un-multiplied back out of white. 56.9%
+   of the image is transparent now, 8461 pixels of soft rim, and the file is
+   30KB SMALLER than the one it replaces. On white it looks the same as it did;
+   on anything else it now looks like itself. */
 .uiv-bear{ position:absolute; right:8px; bottom:-128px; height:362px; width:auto; max-width:none;
-  mix-blend-mode:multiply; pointer-events:none; }
+  pointer-events:none; }
 @media (max-width:759px){
   .uiv-bear{ display:none; }
 }

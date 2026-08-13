@@ -25,17 +25,20 @@
    ============================================================ */
 /* coach status strip: Pro chip + wholesale-active note */
 .cstat { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 15px; border:1px solid var(--line-hair); border-radius: 12px; padding: 13px 15px; background:var(--bg-surface); }
-.cstat .tierchip { display: inline-block; font-size: 12px; font-weight: 800; color: var(--text-primary); border:1.5px solid var(--line-inverse); border-radius: 100px; padding: 3px 12px; }
+/* 7.18: the ink ring was the grey layer's `--dark` translated by value. A small
+   outlined label is badge.css:163's shape - a `--line-strong` HAIRLINE - and an
+   ink ring at 1.5px made a chip shout louder than the card holding it. */
+.cstat .tierchip { display: inline-block; font-size: 12px; font-weight: 800; color: var(--text-primary); border:1px solid var(--line-strong); border-radius: 100px; padding: 3px 12px; }
 .cstat .cnote { font-size: 13px; color:var(--text-secondary); }
 .cstat .cnote b { color: var(--text-primary); }
 .cstat .cmanage { margin-left: auto; font-size: 12.5px; font-weight: 700; color: var(--text-primary); text-decoration: underline; }
 
 /* big primary CTA */
-.cnew { display: flex; align-items: center; gap: 16px; margin-top: 16px; border:1.5px solid var(--line-inverse); border-radius: 14px; padding: 20px; background:var(--bg-inverse); color: #fff; }
-.cnew .cn-ic { width: 46px; height: 46px; flex: none; border-radius: 12px; border: 1.5px solid rgba(255,255,255,.4); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.cnew { display: flex; align-items: center; gap: 16px; margin-top: 16px; border:1.5px solid var(--line-inverse); border-radius: 14px; padding: 20px; background:var(--bg-inverse); color: var(--text-oninverse); }
+.cnew .cn-ic { width: 46px; height: 46px; flex: none; border-radius: 12px; border: 1.5px solid var(--line-oninverse-soft); display: flex; align-items: center; justify-content: center; font-size: 24px; }
 .cnew .cn-tx { min-width: 0; }
 .cnew .cn-t { font-size: 18px; font-weight: 800; }
-.cnew .cn-s { font-size: 13px; color: rgba(255,255,255,.72); margin-top: 3px; }
+.cnew .cn-s { font-size: 13px; color: var(--text-oninverse-muted); margin-top: 3px; }
 .cnew .cn-go { margin-left: auto; font-size: 22px; font-weight: 800; }
 @media (max-width: 520px) { .cnew .cn-go { display: none; } }
 
@@ -108,7 +111,7 @@
       </div>
 
       <!-- upsell to Pro (Free limitation) -->
-      <div class="cstat" style="border-color:var(--dark);background:#fff;margin-top:10px">
+      <div class="cstat" style="border-color:var(--line-inverse);background:var(--bg-page);margin-top:10px">
         <span style="font-size:13px;color:var(--text-primary)"><b>Оновіть до Pro</b> - максимальна гуртова ціна на всі товари та безлімітні клієнти в сесії. ~99 ₴/міс <span style="color:var(--light)">[?]</span>.</span>
         <a class="btn--accent btn--s btn dark" href="coach-tariff.html" style="margin-left:auto">Оформити Pro</a>
       </div>

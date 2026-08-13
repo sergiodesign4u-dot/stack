@@ -583,9 +583,12 @@
    disappear» is exactly this job, and .20 is what 5.9 merged .18 and .22 into.
    The tile's edge gets fainter.
    `rgba(255,255,255,.72)` on the subtitle -> `--text-oninverse-muted`, which is
-   .66. The system holds .72 under `--text-onphoto`, and that role is «the
-   caption over a photograph, where the surface is unknown» - this surface is a
-   flat charcoal fill and is known, so the role wins over the identical value.
+   .66. The system held .72 under `--text-onphoto` - «the caption over a
+   photograph, where the surface is unknown» - and this surface is a flat
+   charcoal fill and is known, so the role won over the identical value. The
+   same reasoning caught up with `--text-onphoto` itself on 2026-08-13: its ONE
+   remaining reader was the hero's promo plate, which is not a photograph
+   either, so the role has no readers and is gone. hero.css:31.
    Both are named here rather than kept as literals because «colour reads a
    semantic role, never a primitive and never a hex» is the rule this move is
    for; both are in the report because a role change is a value decision. */

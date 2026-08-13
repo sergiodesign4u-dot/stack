@@ -1,6 +1,6 @@
 # tools - the instruments, and what each one is for
 
-Five checks, a transform and a driver. Every one of them answers a question this project asks
+Seven checks, a transform and a driver. Every one of them answers a question this project asks
 at the end of **every** step, and until 2026-08-11 all of them lived in a session
 scratch folder and were rebuilt from memory each time. That is the same failure
 `CLAUDE.md` names for the product - *"a hand fix does not survive the next
@@ -16,12 +16,14 @@ node tools/states.mjs                    open every state, re-run the passes
 node tools/css-comments.mjs              every stylesheet, one second
 node tools/vars.mjs                      every var(--x), and whether it exists
 node tools/links.mjs [--write]           every href, and whether it goes anywhere
+node tools/theme.mjs [--source]          the dark theme as a stress test
+node tools/roles.mjs [name...]           does the stand still describe the file
 node tools/grey-vars.mjs [--write]       private blocks learn the system's names
 node tools/crop.mjs 390 coach-tariff .tf-compare /tmp/t.png
 ```
 
-`accept`, `states`, `css-comments`, `vars` and `links` exit non-zero on a
-finding, so they compose.
+`accept`, `states`, `css-comments`, `vars`, `links`, `theme` and `roles` exit
+non-zero on a finding, so they compose.
 
 ---
 
@@ -170,6 +172,71 @@ answer, several and the linking file's own folder decides first, then
 directory indexes and encoding live there and not in `existsSync`. Confirmed
 once, over http: 2050 distinct (page, target) pairs, non-200: 0.
 
+## `theme.mjs` - the dark theme as a stress test
+
+Stage 08 step 7. Four classes, two from the source and two from a browser: a role
+declared in one theme only, a component reading a colour primitive directly, two
+roles of one surface that collapse to a single value in dark, and ink that fails
+its own composited ground in dark.
+
+**The dark number alone does not say whose fault it is.** The first run reported
+25 shapes and I read all 25 as damage the theme had done; with the LIGHT number
+for the same element beside it, 8 of 49 are the theme's and 41 fail in both. The
+light reading costs nothing - the probe already visits that theme - and it is the
+difference between a harvest and a panic.
+
+Two things it refuses to measure rather than guess at, each with its own count
+printed so the exemption cannot go quietly empty:
+
+- **ink with zero alpha is not ink.** Nine photo slots carry the word «фото» at
+  `color: transparent`, alt text behind a real photograph. Read as opaque it is
+  21.00 on the light page and 1.16 on the dark one - two numbers about a word
+  nobody paints. *And the filter did not work the first time*: `\s` written with
+  one backslash inside the probe's template literal is eaten before the string is
+  ever a regex, so it went looking for a literal «s».
+- **a ground it cannot see is said, not guessed.** It reads `backgroundColor` and
+  nothing else, so a photograph or a gradient - `.pl-panel` paints its packaging
+  out of two gradients and no colour at all - is invisible, and the walk then
+  reports the page *behind* the panel. Those readings are listed apart.
+
+**Its subject was 87 pages of 203 until 2026-08-13, and none of them a product
+screen.** The filter read «starts with `kit/`, not `kit/demo/`, not `kit/kit`»,
+which does not look like an omission - it looks like a scope, because the dark
+theme is a property of the system and the pages that document the system are the
+obvious place to measure it. They are not the only place. The first run over the
+whole folder found the panel that walks all 88 coloured screens rendering its
+navigation at **1.05**, white on white. The subject is now everything under
+`design/` except `kit/kit`, which stays out BY KIND, and the count is printed
+before the walk starts.
+
+**And it can no longer pass silently.** `uivTheme('dark')` is a call INTO the
+page; a page without `theme.js` swallows it without a sound, and the probe then
+walks a LIGHT page, calls the reading «dark», compares it with itself and reports
+a perfect result. The probe returns the theme it was actually standing in, the
+caller refuses the reading when it is the wrong one, and both ways a page can
+leave a run unmeasured are counted at the end - `зміряно: 199 з 203`, with the
+four named. A page that was never measured used to be one character on a progress
+line, which is indistinguishable from a page that passed.
+
+## `roles.mjs` - does the stand still describe the file
+
+Every component page prints the list of tokens its CSS reads, and all 69 of those
+lists are typed by hand. On 2026-08-13 one role was split in three, sixteen rules
+moved, and twelve pages went on printing the old names - nothing noticed, because
+nothing was asking.
+
+It asks the OUTPUT on both sides: every `var(--name)` the component file contains
+against every `<code>` inside the page's own table. A token the component
+declares for itself is neither - that is its private business and the page never
+listed it.
+
+**A report, not a rewriter.** The primitive column is ordered by meaning -
+`--space-2 --space-4 --space-8 --space-12`, not alphabetically - and a generator
+would flatten that across 69 pages in order to fix twelve. What the page says is
+the author's; whether it is still true is this file's. Its idle control is the
+two lists it prints at the foot: components with no page, and pages with no
+table.
+
 ## `grey-vars.mjs` - the transform `vars.mjs` asks for
 
 Kept because **Крок 6 will need it again**: 54 grey screens are still to be
@@ -294,3 +361,69 @@ The ~380 one-shot probes each step wrote to answer one question and then
 abandoned. That is the correct life of a probe, and copying them here would turn
 a folder of instruments into a folder of archaeology. What earns a place is a
 check the **next** step will want to run unchanged.
+
+## `proof.mjs` - the pixel proof, both halves, one browser
+
+    node tools/proof.mjs                     re-take all 40 pairs
+    node tools/proof.mjs product cart        just these
+    node tools/proof.mjs --against HEAD      what does the working tree move? writes nothing
+    node tools/proof.mjs --against HEAD --map /tmp/maps   ...and draw where
+
+`design/kit/pixel-proof.html` shows 40 before/after pairs. They were shot **once,
+by hand,** on 2026-08-06, and when the light theme moved a week later there was
+nothing to re-take them with - the conditions of that shoot were never written
+down. This tool is that missing driver.
+
+**It re-shoots BOTH halves,** and that is the finding rather than the plan. The
+first version re-photographed only the working tree and compared with the stored
+«after»: it reported all 40 screens moved, by 2 to 15 percent, and the diff map
+showed every glyph on every screen outlined twice - sub-pixel text rendering, not
+layout. Nothing shot today is comparable with that set. «Before» is `git archive`
+of the commit the page names, unpacked outside the repository and served on its
+own port; one Chrome photographs both, back to back.
+
+**The comparison is by pixel and the answer is an element.** JPEG is Chrome's own
+encoder, so a byte check answers «changed» to everything - an instrument that
+cannot say «no». Both pictures go back to the browser, which decodes them and
+counts pixels over `TOL`; the changed pixels are grouped on an 8px grid and each
+region's centre is handed to `elementFromPoint`. «Every difference is explained
+by a line of a named list» cannot be checked without knowing which element moved.
+
+**The wait is on the page's signature, not on a clock.** A fixed 300ms still gave
+two different answers on two runs: the stand's bar is built by `uivBar()` and its
+chevron swapped by the mark passes afterwards, and each changes the document's
+height, so a capture taken between them shifts everything below by 8px. It now
+polls document height, the bar's height and the svg count until they hold still
+three times. 39 of 40 then repeat exactly; `checkout-loading` does not, because a
+loading state changes itself over time, and that is said on the page.
+
+### `theme.mjs --closed`
+
+Since 2026-08-14 the theme walk **opens every panel before it measures**. A popup
+is 0x0 until somebody opens it and the probe skips anything under 2px, so until
+now this check had been measuring only the part of the product already on screen.
+That blind spot cost twice, both times found by a person opening a menu rather
+than by any instrument: `.on` «Українська» inside `.wfh-langmenu` at step 8.19 -
+the accent's largest failing shape, 82 instances on 82 of 88 screens, carried in
+a record as «accepted» since 2026-08-07 with nothing ever drawing it to look -
+and the header's account menu at 7.17, whose four states had to be measured by
+hand.
+
+Every global matching `open[A-Z]` or `toggle[A-Z]` is called, plus the few that
+take an argument. **All at once**, not one at a time as `states.mjs` does: that
+tool asks whether a state re-renders into an unmarked one and has to isolate each
+opener, while this one asks whether ink reads on its ground, and a ground is
+composited from an element's own ancestor chain - two dialogs overlapping on the
+z axis do not disturb each other's answer. The same sweep runs in both themes, so
+anything it does that is not about colour cancels out of the difference.
+
+**An opener that leaves the page is dropped, and it is discovered rather than
+listed.** One of them does: `openCookieSettings()` navigates to
+`design/system.html`, which is a 404, and the first version of this sweep sent
+every page there - all three test screens came back «the page has no theme». The
+navigation is asynchronous, so a check inside the sweep sees nothing; it has to
+be asked afterwards. Each name is tried once in a session of its own and the
+verdict is cached for the run, so a new opener is judged the day it appears. The
+dropped names are printed with the result.
+
+`--closed` restores the old behaviour, for comparing a run against an older one.

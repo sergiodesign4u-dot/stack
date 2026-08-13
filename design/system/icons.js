@@ -98,7 +98,24 @@ var UIV_P = {
      merge with the walls into a lump instead of a junction. Now the neck is 3.6 wide
      and the line runs wall to wall, which is what a level actually does. */
   flask:'<path d="M9 3.2h6M10.2 3.2v6l-4.6 9.1A2 2 0 0 0 7.6 20.8h8.8a2 2 0 0 0 1.8-2.5L13.8 9.2V3.2"/><path d="M6.5 16.6h11"/>',
-  dna:'<path d="M8 3c0 5 8 6 8 9s-8 4-8 9M16 3c0 5-8 6-8 9s8 4 8 9"/><path d="M9 6.3h6M8.6 17.7h6.8M10 9.4h4M10 14.6h4"/>',
+  /* Redrawn 2026-08-13 (owner: «надо вот цю иконку поправити»), and it is the same
+     fault `flask` was fixed for on 08-05: A JUNCTION THAT DOES NOT MEET IS A LUMP.
+     Every one of the four rungs stopped SHORT of the strand it was drawing to -
+     measured, the rung ended 0.53 to 0.75 before the curve, and with 1.9 of stroke
+     and round caps on both, paint overlapped by 1.07 to 1.75 while the geometry
+     never touched. That is exactly the recipe for a blob: no white left to read
+     the join by, and no join. Now every rung ENDS ON THE CURVE, so each one is a
+     real T with the strand.
+     The helix was also the wrong shape for the set: ink 9.9 x 19.9, the narrowest
+     and the tallest glyph in it, against a median of 18.5. Widened from x 8..16 to
+     7..17 and shortened from y 3..21 to 3.5..20.5 - 11.9 x 18.9 now.
+     THE FOUR HEIGHTS ARE CHOSEN OFF THE WIDTH CURVE, not spaced by eye. The
+     strands cross at y 8.46 and 15.54 and are widest at 12, so a rung placed near
+     a crossing is a stub and one at 12 is an axle through the middle. 6.8 / 10.0 /
+     14.0 / 17.2 sit 1.6 clear of both pinches and come out 5.90 and 6.35 wide -
+     within half a module of each other, which is why the four now read as one
+     ladder instead of four different marks. */
+  dna:'<path d="M7 3.5C7 8.2 17 9.2 17 12s-10 3.8-10 8.5M17 3.5C17 8.2 7 9.2 7 12s10 3.8 10 8.5"/><path d="M9.05 6.8h5.9M8.82 10h6.36M8.82 14h6.36M9.05 17.2h5.9"/>',
   bolt:'<path d="M13 3L6 13h5l-1 8 8-11h-5l1-7z"/>',
   /* Redrawn 2026-08-05 (owner: «не правильно сформирована и размер и сдвиг»). The old
      flame was 9.9 x 13.9 of ink against a set median of 18.5, and it sat 3 modules

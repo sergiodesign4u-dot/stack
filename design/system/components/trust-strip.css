@@ -127,8 +127,12 @@
   .tsx:nth-child(even), .tsx:nth-child(4){ box-shadow:none; }
   .tsx + .tsx{ box-shadow:inset 0 1px 0 var(--line-hair); }
 }
+/* No `mix-blend-mode: multiply` here since 2026-08-13, and it was never a blend
+   decision: the drawing had no alpha channel, and multiply is the one blend that
+   hides white on a LIGHT plate. On a dark one it multiplies the whole image down
+   to the plate. The white is keyed in the asset now - tools/key-alpha.py. */
 .uiv-trustbear{ position:absolute; right:0; top:4px; height:196px; width:auto;
-  max-width:none; mix-blend-mode:multiply; }
+  max-width:none; }
 @media (min-width:1180px){
   .truststrip{ padding-right:150px; }
 }
@@ -174,7 +178,7 @@
    NOT merged into the counter atom, and said out loud: `.hb`/`.tbadge` is 15x15 in
    the body face with a white ring, this is 16x16 in mono with none. Two counters,
    close but not the same shape, and folding the geometry is Крок 6's. */
-.cshelf .cs-th .q{ background:var(--bg-action); color:var(--text-body); font-family:var(--font-mono); }
+.cshelf .cs-th .q{ background:var(--bg-action); color:var(--text-onaction-ink); font-family:var(--font-mono); }
 /* step 6.3: same local copy of the outline finish, same deletion. */
 
 /* ---------- the mascot's clipping wrapper - arrived at 7.49 --------------------

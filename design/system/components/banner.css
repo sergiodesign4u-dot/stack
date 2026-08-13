@@ -145,7 +145,7 @@
    was. The rule was the deal's copy of the card's `.perserv b`, written for markup
    that the deal does not have. The two figures inside it are real and unmarked,
    which is a question for the IA rather than a line of CSS: see below. */
-.hdeal .hd-cta{ background:var(--bg-action); color:var(--text-oninverse); border-radius:var(--radius-12); font-size:var(--fs-16); font-weight:var(--fw-bold);
+.hdeal .hd-cta{ background:var(--bg-action); color:var(--text-onaction); border-radius:var(--radius-12); font-size:var(--fs-16); font-weight:var(--fw-bold);
   padding:var(--space-16); transition:filter .15s ease; }
 .hdeal:hover .hd-cta{ filter:brightness(.95); }
 .hdots i{ background:var(--bg-track); }
@@ -163,8 +163,12 @@
 .tbanners .tbn:nth-child(2) .tbim{ background-image:url(../../visuals/trust-delivery.jpg); }
 .tbanners .tbn:nth-child(3) .tbim{ background-image:url(../../visuals/trust-pay.jpg); }
 .tbanners .tbn:nth-child(4) .tbim{ background-image:url(../../visuals/trust-return.jpg); }
+/* No `mix-blend-mode: multiply` here since 2026-08-13, and it was never a blend
+   decision: the drawing had no alpha channel, and multiply is the one blend that
+   hides white on a LIGHT plate. On a dark one it multiplies the whole image down
+   to the plate. The white is keyed in the asset now - tools/key-alpha.py. */
 .tbanners .tbn:nth-child(5) .tbim{ background:var(--bg-sunken) center 22%/auto 170% no-repeat
-  url(../../visuals/mascot-face-reassure.png); background-blend-mode:multiply; }
+  url(../../visuals/mascot-face-reassure.png); }
 .tbanners .tbx b{ color:var(--text-body); font-size:var(--fs-14); }
 .tbanners .tbx i{ color:var(--text-secondary); }
 /* step 7.27, AND THIS ONE IS A VISIBLE CHANGE: the line here was
@@ -216,8 +220,7 @@
 .recbanner { display: flex; align-items: center; gap: var(--space-16); background: var(--bg-surface);
   border: 1px solid var(--line-hair); border-radius: var(--radius-12); padding: var(--space-16); margin: var(--space-8) 0 var(--space-24); }
 .recbanner .rbear { width: 92px; height: 92px; flex: none; border-radius: var(--radius-circle); overflow: hidden; }
-.recbanner .rbear img { width: 92px; height: 92px; object-fit: cover; object-position: center 12%;
-  mix-blend-mode: multiply; }
+.recbanner .rbear img { width: 92px; height: 92px; object-fit: cover; object-position: center 12%; }
 .recbanner .rt { font-family: var(--font-display); font-weight: var(--fw-semibold); font-size: var(--fs-20);
   letter-spacing: var(--ls-lead); color: var(--text-primary); }
 .recbanner .rs { font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-4); line-height: var(--lh-airy); max-width: 62ch; }

@@ -223,6 +223,65 @@
 .wfh-langmenu{ border-top-color:var(--line-action); }
 .wfh-langmenu a.on{ color:var(--text-action); }
 .wfh-langmenu a.on::after{ color:var(--text-action); }
+/* ---- THE ACCOUNT MENU IS THE ACCOUNT RAIL, IN A POPUP - step 7.17 ----------
+   Owner: «дроп виглядит как с вайрфреймов… надо сделать как дизайн + у пунктов
+   меню добавить иконки таки как тут», with the account rail as the picture.
+
+   IT WAS THE ONE REGION OF THIS HEADER THE COLOUR LAYER NEVER OPENED, and the
+   two lines directly above are the proof: `.wfh-mega` and `.wfh-langmenu` are
+   the other two popups this header drops, and BOTH were given the accent cap
+   here while this one kept the grey prototype's `--line-inverse`. Measured on
+   home-buyer at 1280: five bare rows with no mark, a cap in brand ink among two
+   accent ones, and a hover that moved the ground and left the word where it was
+   - a third hover language in a header that already had one.
+
+   THE ANSWER IS THE RAIL'S, NOT A NEW ONE. `.acc-link` in account-shell.css is
+   the same row - a section of the account, its mark, its word - and it is what
+   the owner pointed at. Restated for this class rather than borrowed by putting
+   `.acc-link` in the markup, and the reason is a measured one: below 960 that
+   class turns into a pill in a horizontal scroller, which is right for a rail
+   and wrong for a popup. It would never fire here, because `.wfh-actions` only
+   appears at 860 - but «it works because it is hidden» is not a rule, it is a
+   coincidence waiting for a breakpoint to move.
+
+   The marks are put in by `uivCabMarks()` in design/_nav.js, which reads them
+   out of the rail's own table so the two lists cannot draw one section two ways.
+   That function also carries the second finding of this step - two rows that
+   pointed at the wrong section - and its own note explains it. */
+.wfh-cabmenu{ border-top-color:var(--line-action); padding:0; overflow:hidden; }
+.wfh-cabmenu .cab-head{ margin-bottom:0; }
+.wfh-cabmenu a{ display:flex; align-items:center; gap:var(--space-12);
+  min-height:var(--size-44); border-bottom:1px solid var(--line-hair);
+  transition:background .14s ease, color .14s ease; }
+.wfh-cabmenu a:last-child{ border-bottom:none; }
+/* the mark's slot is the rail's 20/18: the box holds the row's rhythm, the svg
+   is the drawing. Addressed as `.uiv-ic` and not by a class of our own, because
+   `uivLeadMark` emits exactly this box for «＋ Нова сесія» and one slot has to
+   fit both. */
+.wfh-cabmenu a > .uiv-ic{ flex:none; width:var(--size-20); display:inline-flex;
+  align-items:center; justify-content:center; color:var(--text-secondary); }
+.wfh-cabmenu a > .uiv-ic svg{ width:18px; height:18px; }
+.wfh-cabmenu a:hover{ background:var(--bg-surface); color:var(--text-action); }
+.wfh-cabmenu a:hover > .uiv-ic{ color:var(--text-action); }
+/* WHERE YOU ARE STANDING, and the rail has said it since it was built: the ground
+   comes up, the word goes accent, and a 2px bar marks the edge. The popup never
+   said it at all - you could open it from the orders page and nothing in it knew.
+   `aria-current` is set by the pass, from the file in the address bar. */
+.wfh-cabmenu a[aria-current="page"]{ background:var(--bg-surface); color:var(--text-action);
+  box-shadow:inset 2px 0 0 var(--line-action); }
+.wfh-cabmenu a[aria-current="page"] > .uiv-ic{ color:var(--text-action); }
+/* the way out is quiet until you aim at it - account-shell.css `.acc-link.logout`.
+   Addressed by its destination and not by position: leaving the account is the
+   one row that goes to the store's front door, in both variants of this menu. */
+.wfh-cabmenu a[href="index.html"]{ color:var(--text-secondary); }
+.wfh-cabmenu a[href="index.html"]:hover{ color:var(--text-danger); }
+.wfh-cabmenu a[href="index.html"]:hover > .uiv-ic{ color:var(--text-danger); }
+/* A GROOVE, NOT A SECOND LINE. With every row carrying a hairline, the separator's
+   own `border-top` stacked against the one above it and said nothing; what it has
+   to say is «what follows is a different kind of row», and 8px of the sunken
+   ground says it without adding a line to a list that is already all lines. */
+.wfh-cabmenu .cab-sep{ border-top:0; margin:0; height:var(--space-8);
+  background:var(--bg-sunken); }
 .wfh-mega .mega-cat .mci .uiv-ic svg{ width:21px; height:21px; }
 .wfh-mega .mega-cat .ar .uiv-ic svg{ width:12px; height:12px; }
 /* A FOURTH NAME, `.ms-lead` - step 8.9, owner: «в чего у нас не подсвечивается в

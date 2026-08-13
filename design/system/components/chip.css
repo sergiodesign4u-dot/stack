@@ -240,16 +240,21 @@
 
    `:hover` must not repaint a chip that is already chosen - there is nowhere
    further for it to go, and the accent-on-accent would read as a loading state. */
+/* `--text-onaction-ink` since 2026-08-13, and the role exists BECAUSE of the
+   sentence above it: the ink was chosen here on contrast, and `--text-body` is the
+   one role that cannot keep that promise, since it is the page's ink and the page
+   inverts. Measured before the move: 4.78 light -> 2.55 dark on all six selectors.
+   The new role says «ink on the action fill» and holds still in both themes. */
 .chip.on, .ptab.on, .ord-tab.on, .cegoals button.on, .cc-goals a.on,
 .chip[aria-current="page"]{
   background: var(--bg-action);
   border-color: var(--line-action);
-  color: var(--text-body);
+  color: var(--text-onaction-ink);
 }
 .chip.on:hover, .ptab.on:hover, .ord-tab.on:hover, .cegoals button.on:hover, .cc-goals a.on:hover{
   background: var(--bg-action);
   border-color: var(--line-action);
-  color: var(--text-body);
+  color: var(--text-onaction-ink);
 }
 /* A PRESS IS NOT THE SAME QUESTION AS A HOVER - step 7.33. The pin above exists
    because there is nowhere for a hover to take a chip that is already accent,

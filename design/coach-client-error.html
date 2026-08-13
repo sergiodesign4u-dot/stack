@@ -19,12 +19,15 @@
 .ch-id { display: flex; align-items: center; gap: 14px; min-width: 0; }
 .ch-av { width: 56px; height: 56px; border-radius: 50%; background:var(--bg-sunken); border:1px solid var(--line-hair); flex: none; display: flex; align-items: center; justify-content: center; color:var(--text-muted); font-size: 21px; font-weight: 800; }
 .ch-name { font-size: 24px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; }
-.ch-goal { display: inline-flex; align-items: center; gap: 5px; margin-top: 6px; font-size: 12px; font-weight: 800; border:1.5px solid var(--line-inverse); border-radius: 100px; padding: 3px 11px; color: var(--text-primary); }
+/* 7.18: the ink ring was the grey layer's `--dark` translated by value. A small
+   outlined label is badge.css:163's shape - a `--line-strong` HAIRLINE - and an
+   ink ring at 1.5px made a chip shout louder than the card holding it. */
+.ch-goal { display: inline-flex; align-items: center; gap: 5px; margin-top: 6px; font-size: 12px; font-weight: 800; border:1px solid var(--line-strong); border-radius: 100px; padding: 3px 11px; color: var(--text-primary); }
 .ch-edit { font-size: 12.5px; font-weight: 700; color: var(--text-primary); border:1.5px solid var(--line-strong); border-radius: 8px; padding: 9px 15px; white-space: nowrap; }
 .oh-h { font-size: 15px; font-weight: 800; color: var(--text-primary); margin: 22px 0 12px; }
 
 .err { text-align: center; border:1px solid var(--line-strong); border-radius: 14px; padding: 40px 22px; }
-.err .ic { font-size: 32px; color: #cfcfcf; }
+.err .ic { font-size: 32px; color: var(--mark-disabled); }
 .err h3 { font-size: 17px; font-weight: 800; color: var(--text-primary); margin: 12px 0 6px; }
 .err p { font-size: 13.5px; color:var(--text-secondary); line-height: 1.6; max-width: 420px; margin: 0 auto 20px; }
 .err-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }

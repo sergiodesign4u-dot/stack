@@ -28,7 +28,16 @@
 .hstrip > .hpromo:nth-child(1){ background:var(--bg-inverse); border-color:var(--line-inverse); }
 .hstrip > .hpromo:nth-child(1) .hptag{ color:var(--text-action); }
 .hstrip > .hpromo:nth-child(1) .hph{ color:var(--text-oninverse); font-size:38px; }
-.hstrip > .hpromo:nth-child(1) .hps{ color:var(--text-onphoto); }
+/* `--text-onphoto` UNTIL 2026-08-13, AND THIS WAS ITS ONLY READER IN THE SYSTEM.
+   The role was declared as «the caption over a photograph, where the surface is
+   unknown» - and the surface here is known exactly: the first promo tile is a
+   solid `--bg-inverse` plate, four lines up. A role whose stated ground never
+   existed reads correctly for as long as the value happens to fit, and the dark
+   theme is what asks: `--text-onphoto` stays white in both themes, because a
+   photo is a photo, while the plate under it turns #FAF9F7 - white on #FAF9F7 is
+   1.05. The right role was already there and had three readers on exactly this
+   plate. `--text-onphoto` has none now and is deleted. */
+.hstrip > .hpromo:nth-child(1) .hps{ color:var(--text-oninverse-muted); }
 .hstrip > .hpromo:nth-child(2){ background-image:url(../../visuals/product-creatine.png); }
 .hstrip > .hpromo:nth-child(3){ background-image:url(../../concept/assets/mascot-pose-present.png); background-size:80%; background-position:center 4%; }
 .hvert{  border-radius:var(--radius-16); box-shadow:var(--elevation-1); position:relative;

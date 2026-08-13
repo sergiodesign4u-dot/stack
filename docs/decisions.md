@@ -3293,7 +3293,7 @@ source of truth this session had been working around rather than from.
 - **The dark theme is stage 08 step 7, «Темна тема: стрес-тест системи».** Not a
   finale, not decoration: it goes in EARLY because it breaks whatever is badly
   separated, and early is when that is cheap. `08 - Tokens Components.md`: «пара
-  тем обовʼязкова з першого рядка... роль без пари не існує».
+  тем обов'язкова з першого рядка... роль без пари не існує».
 - **The rollout is stage 12**, after Responsive (10) and Animation (11) - exactly
   as the owner said. `09 - Design System.md`: «у кольорі стоїть вибірка 5-7
   екранів; решта продукту чекає розкотки на етапі 12».
@@ -3470,3 +3470,956 @@ The buy button is right (white on orange is a locked decision), the badges and
 selected chips are not.
 
 Gates: `accept` 204 @390 - 0 · `vars` 204 - 0 · `css-comments` 89 · `links` 4594 - 0.
+
+## The harvest of step 7: one role was carrying two grounds
+
+**2026-08-13.** The pack says the dark theme is a stress test and that a
+component file it forces you to edit is not a failure of the step but its yield:
+«якщо для теми довелося правити хоч один файл компонента - це не провал кроку, а
+його врожай». This is that yield, and it turned out to be one defect wearing
+nine faces.
+
+### What the measurement actually said
+
+`tools/theme.mjs` gained a LIGHT column beside its dark one, and that single
+column reclassified its own output. Twenty-five shapes had been reported as
+damage the theme did, and I had read all twenty-five that way. With both numbers
+in view the final count is **48 shapes: 7 the theme broke, 41 that fail in both
+themes and are older than it**. Three of the instrument's own readings were
+wrong, and each is fixed in the file with the wrong version written beside it:
+
+- **ink with zero alpha is not ink.** Nine photo slots carry the word «фото» at
+  `color: transparent` - alt text behind a real photograph. Read as opaque it
+  came out 21.00 on the light page and 1.16 on the dark one, two numbers about a
+  word nobody paints.
+- **a ground the probe cannot see must be said, not guessed.** `.pl-panel` paints
+  its packaging out of two gradients and no background colour at all, so the walk
+  kept climbing and reported the page behind the panel. That is where 1.02 on
+  «1 мірна ложка» came from. Such readings are now listed apart, uncounted, with
+  their own printed total so the exemption cannot go quietly empty.
+- **and the transparency test itself was wrong twice, which is the part worth
+  keeping.** Written first as a regex it went looking for a literal «s», because
+  a single backslash inside the probe's template literal is eaten before the
+  string is ever a regex. Rewritten to match «, 0)» at the end it then also
+  matched `rgb(255, 90, 0)` - the accent - and silently removed every orange word
+  on the stand from the measurement, including one of the two real findings of
+  this step. Both versions produced a SHORTER list, and a shorter list from a
+  checker reads exactly like progress. It is now a test on the fourth component:
+  a colour is transparent when it has an alpha and that alpha is zero.
+
+The row cap went too. The listing printed 40 of 48 and said nothing about the
+eight, and eight rows dropped in silence are indistinguishable from eight that do
+not exist.
+
+### The defect
+
+`--text-oninverse` was declared with this comment: «the label on every dark **and
+every orange** fill». Two grounds in one role, and while there was one theme it
+cost nothing. The dark theme separates them: `--bg-inverse` flips to `--warm-50`
+and its ink follows down to `--warm-900`, while `#FF5A00` stays exactly where it
+is. So every white label on the accent went near-black in one step - and in the
+other direction the ink labels riding `--text-body` went near-white on the same
+orange. Measured: `.chip.on` 4.78 -> 2.55, `.tag-new` / `.hb` / `.tbadge` /
+`.q` 5.45 -> 2.97.
+
+The accent button is the one the instrument could NOT see, because near-black on
+orange is 5.45 and passes. It broke the locked decision of 27.07.2026 instead of
+a threshold, and a contrast check has nothing to say about that.
+
+The same thing had happened on the LINE surface: `--line-onink` was drawing the
+tick inside a filled checkbox and the ring around the price knob, neither of
+which is on an inverse ground. In dark the ring went to `--warm-900` and read
+**1.36** against its own track - a 3:1 line at a third of its threshold, and the
+knob had no outline at all.
+
+### The fix - three roles, each equal in both themes
+
+Equal halves are the exception this file allows only when the ground itself is
+exempt from the theme, which is exactly the case here and already the case for
+`--text-action` and `--bg-action`.
+
+| role | value | why that value |
+|---|---|---|
+| `--text-onaction` | `--white` | 3.13. The owner, 27.07.2026: a label on an orange fill is white at any size, so that one action looks like one action |
+| `--text-onaction-ink` | `--warm-900` | 5.45. Step 7.47: small orange things which are NOT buttons keep the ink label, and for the 14px chip family it is the only edition that clears AA |
+| `--line-onaction` | `--white` | the line twin of the first, on the same unmoving ground |
+
+Sixteen rules moved across twelve files, plus two private blocks on the stand.
+`--text-oninverse` keeps the inverse surface and only it; `--line-onink` is down
+to its one true reader, the error toast's border. Its old comment claimed five
+readers and four of them were somewhere else entirely - one of them was not even
+a line, it was `--ring-onink`, a shadow.
+
+### And a seventh check, because the stand had gone quiet
+
+Every component page prints the tokens its CSS reads, and all 69 of those lists
+are typed by hand. The role split invalidated twelve of them and nothing in the
+repository noticed, because nothing was asking. `tools/roles.mjs` asks: the left
+side is every `var(--name)` the component file contains, the right side is every
+`<code>` inside the page's own table.
+
+It reports **35 of 82 components adrift**, and only twelve of those are today's.
+The other twenty-three are older - `otp.html` lists five tokens its file does not
+read, `restock-note.html` six, `loyalty-rung.html` still names the two primitives
+that became `--mark-tier-bronze` / `--mark-tier-silver`. Twelve are corrected
+here; the rest is a named list for step 9, not a silent sweep.
+
+The check is a REPORT and not a rewriter on purpose: the primitive column is
+ordered by meaning (`--space-2 --space-4 --space-8 --space-12`), and a generator
+would flatten that across 69 pages to fix twelve.
+
+### What is left after the split
+
+Seven shapes still change for the worse between the themes, and only two of them
+are the product's: `.hptag` and `.hps` below. Four are one swatch on
+`color.html` - `--scrim-white-50`, a 50% white scrim shown over a ground the
+stand chooses - and one is `.ct`, the chip's count, at 4.47 against a 4.5
+threshold it clears by 0.14 in light. Everything the role split touched is now
+equal in both themes, including the accent button, which fails at 3.13 in BOTH -
+that is A10, accepted by the owner on 12.08.2026, and the point is that the theme
+no longer changes the story.
+
+### Left open, and it needs the owner
+
+The hero strip's first tile is a dark card by design - `--bg-inverse` - and in
+the dark theme it turns light, as «inverse» is defined to. Its heading follows
+correctly, its other two lines do not: `.hptag` reads `--text-action` (5.45 ->
+**2.97**) and `.hps` reads `--text-onphoto` (17.04 -> **1.05**) on a card that is
+no longer a photograph and no longer dark. The question is not which role to
+patch: it is whether an INVERSE surface should invert at all, or whether the
+charcoal brand plate stays charcoal in both themes. That answer moves the toast,
+the top bar and the promo card together, so it is the owner's.
+
+Gates: `theme` 90/90 roles paired, 0 primitive leaks · `vars` 204 - 0 ·
+`css-comments` 89 · `links` 4594 - 0 dead.
+
+## Step 7.9 - the panel that walks the screens went white on white, and the reason it was never seen
+
+The owner opened a product screen in the dark theme and asked why the left panel
+was broken there when the design system's own panel next to it was fine. It was
+broken. Every quiet word in it - the flow heads, the node numbers, the arrows,
+the caption, the foot links - was rendering at **1.05** against its own plate.
+
+### The instrument had never opened a product screen
+
+`tools/theme.mjs` chose its subject with three words: «starts with `kit/`, not
+`kit/demo/`, not `kit/kit`». That is **87 pages of 203**. The other 116 include
+all **88 coloured product screens** - the thing the system exists for - and the
+check had not opened one of them since it was written. It did not read like an
+omission. It read like a scope: the dark theme is a property of the SYSTEM, so
+measuring the pages that document the system sounds like the whole job.
+
+Pointed at `design/index.html` for the first time it returned **14 shapes, 42
+instances**, and 32 of those instances were the panel.
+
+The subject is now the whole folder minus `kit/kit`, which stays out BY KIND (the
+frozen stage-07 smoke, and its own line has said so since the file was written).
+Two more holes were closed with it, both of the same family - a page that leaves
+the run unmeasured used to be one character on a progress line:
+
+- **the probe cannot fail silently.** `uivTheme('dark')` is a call INTO the page,
+  and a page without `theme.js` swallows it without a sound. The probe then walks
+  a LIGHT page, calls the reading «dark», compares it against itself and reports
+  a perfect result. It now returns the theme it was actually standing in, and the
+  caller refuses the reading when it is the wrong one.
+- **the two failure buckets are counted.** `зміряно: 199 з 203`, and the four are
+  named: `concept/concept`, `concept/directions`, `concept/logo` (stage 06, their
+  own brand tokens, outside the system on purpose) and `design/overview.html`
+  (the stage hub, built on the roadmap chrome like `/index.html`). None of the
+  four is a product screen, and that is the answer the count was for.
+
+### The defect: a frame painted for a plate that moves
+
+`.uiv-side` stands on `--bg-inverse`. That role flips - «inverse» means «opposite
+of the page», so charcoal `#1C1C1C` becomes `#FAF9F7` when the page goes dark -
+and **the flip is right**: it is how the frame keeps saying «I am not the
+product» after the product itself turns dark. What was wrong is that
+`design/_stand.css` painted **sixteen `rgba(255,255,255,.x)` literals** and read
+**one colour primitive directly** (`--scrim-white-70`, the chevron) onto it. White
+at .5 on charcoal is a quiet grey. White at .5 on `#FAF9F7` is nothing.
+
+The file was invisible to both existing checks by construction: `theme.mjs`'s
+leak check reads `design/system/components/`, and so does `roles.mjs`.
+`_stand.css` is neither a component nor a stand page - it is the frame - and
+«neither» meant «nobody's».
+
+Nine values became **five paired variables**, and the merges are named: the
+caption's .55 joined .66, the flow head's .40 joined .50, three hairlines at
+.08 / .10 / .13 became one, and the hover fill at .07 joined the current row's
+.08 - the current row is said by the orange bar down its left edge, never by a
+1% difference in fill.
+
+**The pair is not the same alpha with a different ink.** It is the alpha that
+reproduces the light half's CONTRAST against the plate it actually has, solved
+per line:
+
+| | light, on `#1C1C1C` | dark, on `#FAF9F7` | |
+|---|---|---|---|
+| `--stand-ink-2` | white .66 | ink .75 | 8.02 -> 8.03 |
+| `--stand-ink-3` | white .50 | ink .63 | 5.17 -> 5.25 |
+| `--stand-ink-4` | white .28 | ink .39 | 2.53 -> 2.50, disabled in both on purpose |
+| `--stand-rule` | white .10 | ink .14 | hairline |
+| `--stand-fill` | white .08 | ink .11 | hover and current |
+
+They are declared in `_stand.css` and read only there. The file exports
+`--shell-top` and `--shell-left` and nothing else; the frame's own greys are the
+frame's business, not the system's.
+
+### The same disease as yesterday, in the file yesterday could not see
+
+Four labels riding the accent fill read `--text-body`: `.us-all`, `.uiv-tag`
+twice and `.us-st.on`. `--text-body` inverts, `#FF5A00` does not, so «Усі екрани»
+and «Базовий» went from ink at 5.45 to near-white at **2.97** on the same orange.
+That is exactly the split of 2026-08-13, and the role for it already existed -
+`--text-onaction-ink`. The twelve component files were corrected that day;
+`_stand.css` was not among them because it is not a component.
+
+### `--text-onphoto` is deleted: its ground never existed
+
+The role was declared «the caption over a photograph, where the surface is
+unknown». It had **one** reader in the whole system - `hero.css:31`, the subtitle
+of the hero's first promo tile - and that tile is a solid `--bg-inverse` plate
+four lines above in the same file. The surface was known, and it was not a
+photograph.
+
+A role whose stated ground is fiction reads correctly for exactly as long as its
+value happens to fit. The dark theme is what asks: `--text-onphoto` stays white
+in both themes (a photo is a photo), the plate under it turns `#FAF9F7`, and
+17.04 becomes **1.05**. The right role was already there with three readers on
+this very plate - `--text-oninverse-muted` - and it has four now.
+`--text-onphoto` has none and is gone, together with `--scrim-white-72`, the
+primitive nothing else read. `color.html` (`S`, `ALPHA`, `ROLE`), the three `USE`
+censuses, `hero.html` and `banner.html` follow.
+
+### And the role it moved to was 3.66 in the dark
+
+`--text-oninverse-muted` is `--scrim-white-66` in the light, **8.02** on
+`--bg-inverse`. Its dark half was `--scrim-ink-52`, **3.66** - a caption that had
+quietly stopped clearing 4.5 while its light twin sat at 8.02. The line above
+that block in `tokens.css` says why: «scrim, veil, fade: the direction flips, the
+opacity does not». **It does not hold.** The same alpha over the opposite ground
+is a different contrast, and this is the third time in two days that a value
+copied across the flip has been the defect. `--scrim-ink-75`, **8.03**, solved
+rather than chosen.
+
+### What the wider subject found that is not this
+
+The full corpus now reports **81 shapes: 28 the theme broke, 53 fail in both** -
+against 48 shapes from a subject less than half the size. Everything the panel
+and the hero subtitle contributed is gone. What is new and NOT closed here is
+named rather than swept, and the first item is most of it:
+
+- **The coach flow's private `<style>` blocks, 21 shapes and 67 instances on 12
+  screens.** `.cn-t` and `.cn-s` on the empty coach home, the whole «add a client
+  to the session» dialog, `.tier-flag` and `.tier-cta` on the tier screen, the
+  outline buttons on three of them, `.ct` on the client list: every one is ink on
+  a ground that stays `#FFFFFF` or `#FAF9F7` when the page goes dark, so 17.04
+  becomes **1.05**. `.tier-flag` is the shape in one line - `color:#fff;
+  background:var(--bg-inverse)` - half a rule speaking roles and half speaking a
+  number. Counted at the source: **25 of the 88 product screens carry a raw
+  colour literal in a private block, and all 25 are coach screens; the other 63
+  carry none.** That is one step with one address, and it is the same disease as
+  this one: a ground written as a number cannot move.
+- **`.hptag`, «Акція тижня», 5.45 -> 2.97 on the hero's promo plate, 6 screens.**
+  Still the owner's, and now the only half of that tile left open: it is an
+  accent word on a pale ground, which is the shape A10 accepted on 12.08.2026 for
+  five named classes. The question is whether A10 extends to it.
+- The rest are the stand's own: four rows of the single `--scrim-white-50` swatch
+  on `kit/color`, whose ink is picked by HSL L instead of L\* (already open), and
+  the `фото` stubs the stand puts where the product puts an image.
+
+**One shape straddles the threshold and changed bucket between two runs of the
+same code**: `span.ct` on `coach-clients-cap` read 4.39 dark / 4.44 light once
+and 4.16 / 4.57 the next time, so it counted as «fails in both» in one run and
+«the theme broke it» in the other. Its ground is a composited alpha and the
+rounding lands either side of 4.5. Written down because a total that moves by one
+between identical runs is worth knowing about before someone diffs two reports.
+
+Gates: `theme` 90 roles paired both ways, 0 primitive leaks, 199 of 203 measured
+and the 4 named · `vars` 204 - 0 · `roles` 30 adrift, all pre-existing, none in
+the files touched here · `css-comments` 89 balanced.
+
+## Step 7.11 - the theme was chocolate everywhere except the surface, and the bear was a silhouette
+
+The owner opened the dark theme and said two things: «шоколадная, но какой-то
+вдруг серый», and «медведь темный почему-то». Both were right, both had one
+sentence of cause each, and no check in the repository was asking either
+question.
+
+### The grey: `--bg-surface` was pointing at the Ink
+
+The dark theme's fills, measured off `tokens.css`:
+
+| role | primitive | value | H | S | L\* |
+|---|---|---|---|---|---|
+| `--bg-page` | `--warm-950` | `#191612` | 34 | 16 | 7.4 |
+| **`--bg-surface`** | **`--warm-900`** | **`#1C1C1C`** | **0** | **0** | **10.3** |
+| `--bg-sunken` | `--warm-850` | `#26211B` | 33 | 17 | 13.1 |
+| `--bg-rule` | `--warm-800` | `#2D2821` | 35 | 15 | 16.4 |
+| `--bg-track` | `--warm-750` | `#39332A` | 36 | 15 | 21.6 |
+
+One row with no hue, and it is the one that paints the most: every card, the
+header, the search field, the category rail, the footer plates. The page around
+them was warm, so the grey did not read as grey - it read as **the theme
+failing** at exactly the places a person looks at.
+
+**The cause is a number, not a colour.** Slot 900 in this ramp is held by
+`#1C1C1C`, which is the brand's **Ink** - a plate pixel, neutral by design - and
+was never a rung of a WARM ramp at all. Its own comment admitted the double job:
+«plate pixel - Ink. Also the dark surface.» Stage 09 step 1 built four dark rungs
+and left this one alone «because the mirror agrees with where it already is». The
+mirror was asked about **lightness** and was never asked about **hue**.
+
+`--warm-880` `#1F1C16`, by the same rule as its four neighbours: H and S from
+`#F2F0ED`, the plate's locked Warm Neutral, lightness solved for the L\* the grey
+already stood at. 10.41 against 10.27, so **no contrast anywhere in the theme
+moves** - this is a hue correction and nothing else. The number is 880 because
+900 is taken, not because the ramp steps that way, and the comment says so.
+
+> **Superseded the same day by step 7.13**, and only the *number* was wrong: the
+> owner sent an example with the whole dark end pushed down, so Ink left the ramp
+> entirely as `--charcoal`, `--warm-900` became a rung again, and the surface is
+> `#181511`. The finding, the cause and the check below all stand.
+
+`--grey-ed` `#EDEDED` went the same way and was the last neutral fill in the
+theme: it is the step off `--bg-inverse`, and that bar is `--warm-50` here.
+`--warm-150` `#EFEDE9`, L\* 93.80 against 93.75.
+
+### The check that was missing, and its negative control
+
+**Nothing was failing.** Every role had both halves, no component read a
+primitive, contrast was right on every surface. The system was correct and the
+theme still did not look like one theme - which is the exact class the pack sends
+step 7 to find and the only class a per-component review cannot see.
+
+`theme.mjs` check **2b**: a dark-theme role that paints an AREA and carries no
+hue. Ink is exempt by kind - Ink is Ink, and on the grounds that do not move it
+is the same colour in both themes. **The exemption is a rule, not a list:** a
+role named `-onaction` / `-onink` / `-onphoto` says in its own name that its
+ground is the orange, the ink plate or a photograph, none of which move with the
+theme. Two roles are exempted today, both printed, and an empty exemption prints
+as a reason to re-read the rule.
+
+Proved by putting the defect back: with `--bg-surface` pointed at `--warm-900`
+again the check prints `--bg-surface  --warm-900  #1C1C1C  S 0%`, and silent
+after. A check that has never been seen to fail has not been seen at all.
+
+### The bear: `mix-blend-mode: multiply` was a missing alpha channel
+
+`mascot-pose-present.png` is 848x1264 of **RGB with no transparency**, drawn on
+white. `multiply` is the one blend that makes white disappear against a LIGHT
+plate, and that is the whole reason it was on the rule. Against a dark plate it
+does the opposite of what it was hired for: every channel is multiplied by the
+plate, so the bear goes to the plate's own darkness and reads as a silhouette.
+
+**The fix is in the asset, not in the rule.** The white is keyed by a flood fill
+from the border - not «every white pixel», which would also punch out the
+highlight in an eye - and the anti-aliased rim keeps its softness by taking
+`a = 255 - min(r,g,b)` with the colour un-multiplied back out of white, the exact
+inverse of what compositing onto white did. 56.9% of the image is transparent,
+8461 pixels of soft rim, and the file is 30KB **smaller** than the one it
+replaces. On white it looks the same as it did; on anything else it now looks
+like itself. `mix-blend-mode` is gone from `.uiv-bear`.
+
+### The rest of that class, counted and not closed
+
+`multiply` is on **seven** rules in the system, and every one of them is the same
+workaround for the same missing channel: `gallery.css` (the product photograph on
+the PDP), `trust-strip.css`, `cart-drawer.css`, `empty-state.css`, `banner.css`
+twice, `seo-text.css` (closed here). **Five PNGs in active use have no alpha**,
+across 25 references: `product-whey` (9), `product-creatine` (8),
+`product-preworkout` (5), `mascot-face-reassure` (2), `mascot-pose-product` (1).
+
+Where nothing blends them at all - the two hero promo tiles use them as a plain
+`background-image` - the white rectangle is simply visible, and on the dark theme
+it is the brightest thing on the screen. In the light theme it never showed,
+because the card behind it is nearly white.
+
+Keying those five the same way would close both symptoms in both themes and would
+change the light theme in seven places by the difference between «multiplied onto
+a near-white plate» and «alpha over the same plate», which is small but is not
+nothing. That is a step of its own and it is not taken here.
+
+Gates: `theme --source` 89 roles paired both ways, 0 primitive leaks, 0 hueless
+fills with 2 exemptions both firing · `accept` 204 @390 - 0 · `vars` 204 - 0 ·
+`links` 4594 - 0 · `css-comments` 89.
+
+## Step 7.13 - the owner sent a picture, and it decided three lightnesses
+
+Step 7.11 made the dark theme warm. The owner looked at it and said: «я би зробив
+фон темніше і інше підкоригував би», with an image.
+
+### The picture is the decision, and it was measured, not eyeballed
+
+A histogram over his image, every third pixel:
+
+| share | value | H | S | L\* | what it is |
+|---|---|---|---|---|---|
+| 35.8% | `#181512` | 30 | 14 | 7.0 | header, category rail, every card |
+| 30.6% | `#0B0A08` | 40 | 16 | 2.8 | the page behind all of it |
+| 4.9% | `#201D15` | 44 | 21 | 10.8 | the sign-in strip |
+| 0.6% | `#2C2822` | 36 | 13 | 16.3 | the hairline |
+
+Against what was on screen - page 7.4, surface 10.4, sunken 13.1, hairline 16.4 -
+the reading is exact: **the dark end goes down and compresses, and the hairline
+stays where it is.** His surface is almost precisely what was the page.
+
+**The lightnesses are taken, the hues are not.** His three grounds read H40 / H30
+/ H44 and S 14-21, which is what happens when colours are picked by hand one at a
+time; this ramp has one hue and one saturation for the family, and re-deriving at
+H36 S16 is what keeps it a ramp rather than three neighbours. So: **page
+`#0C0A08` L\* 2.83, surface `#181511` L\* 6.96, sunken `#201D17` L\* 10.90**,
+hairline and track untouched.
+
+### Ink finally leaves the ramp
+
+Step 7.11 had to call the new surface `--warm-880`, because slot 900 was held by
+`#1C1C1C` - and with the surface now at L\* 7.0, that number was worse than ugly,
+it was **out of order**: 850 read 10.9, 880 read 7.0, and 900 read 10.3, so a
+higher number was lighter than a lower one in a ramp that means the opposite.
+
+`#1C1C1C` is **`--charcoal`** now, the name DESIGN-artifacts.md gives it - «Ink
+(Soft Charcoal)», a plate pixel, neutral by the designer's decision. It keeps
+every job it had (`--text-primary`, `--text-body`, `--bg-inverse`,
+`--line-inverse`, `--text-onaction-ink`, `--line-onink`, `--ring-onink`, and its
+dark half on the flipped bar) - all of them on grounds that do not move. Nine
+`var()` readers in `tokens.css`, five prose mentions in component comments, two
+census lists on `color.html`. **No component file changed**, because components
+read roles and never primitives - which is the claim the two levels were built to
+make, and this is the first time it has been cashed.
+
+The ramp is monotone again: 750 · 800 · 850 · 900 · 950 = 21.6 · 16.4 · 10.9 ·
+7.0 · 2.8.
+
+### What moving the grounds cost, measured rather than assumed
+
+**The steps between rungs.** Were 5.2 / 3.3 / 2.7 / 3.0 in L\*, are 5.2 / 5.5 /
+3.9 / 4.1. A card now stands off the page **more** than it did - 1.09 against
+1.06 - and the hairline stands off the surface more too, 1.25 against 1.16.
+
+**The accent got easier, not harder.** `#FF5A00` was 5.76 / 5.45 / 5.10 / 4.67 on
+the four rungs a word can sit on; it is now **6.32 / 5.82 / 5.37 / 4.67**. Stage
+09's finding - that A10's sub-AA compromise is a property of the pale grounds and
+is not inherited by the dark theme - holds with more room than before.
+
+**The two text rungs had to be re-solved, and this is the part that would have
+been easy to skip.** `--warm-400` and `--warm-500` were derived so that dark
+secondary and muted text stand to the dark grounds exactly as their light twins
+stand to the light ones. Move the grounds and the mirror breaks silently: the old
+`#AA9D8A` on the new grounds reads **7.43 / 6.84 / 6.32** against a target of
+6.84 / 6.50 / 6.02 - the caption LOUDER in the dark theme than in the light one,
+which is the exact thing the mirror exists to prevent. Re-solved: `--warm-400`
+`#A59883` (6.98 / 6.43 / 5.94) and `--warm-500` `#95856C` (5.51 / 5.07 / 4.68).
+
+One value cannot hit three targets exactly once their spacing changes, so the fit
+is ±0.14 where it used to be ±0.08. That is the honest price of a darker page,
+and it is written into the file next to the numbers rather than rounded away.
+
+### One gate caught one thing, and it was mine
+
+`accept` failed on `kit/color.html` with `curly=1`: the paragraph explaining this
+decision used `ʼ` (U+02BC) in «сім'ї» where the project has exactly one
+apostrophe, `'`. Fixed there and in the four other files where the same character
+had come in with quotations from the pack.
+
+Gates: `accept` 204 @390 - **0** · `vars` 204 - 0 · `theme --source` 89 roles
+paired both ways, 0 primitive leaks, 0 hueless fills with both exemptions firing ·
+`css-comments` 89 · `roles` 30 adrift, all pre-existing.
+
+## Steps 7.14-7.16 - four things the owner caught in one sitting, and three were one class
+
+The owner walked the dark theme and sent five screenshots: the trust card's bear
+a silhouette, the SEO bear with a white gash down his side, the PDP photograph
+nearly black, the mascot on a white box in the description, and the coach's
+verify and tier screens with white plates carrying white ink. Plus the `dna`
+icon, which was a separate fault.
+
+### The white gash: the flood fill could not reach it
+
+Step 7.11's key ran a flood fill from the border, and 16402 near-white pixels
+survived it. They are not noise, they are **background the drawing sealed off**:
+a 117x196 pocket between the legs and a 26x150 strip between the arm and the
+body. On a white page they were invisible; on a dark one they were a gash.
+
+`tools/key-alpha.py` now has three rules, and each is there because the naive
+version failed on a real file:
+
+1. **The background is a flood fill from the border**, not «every white pixel» -
+   a global key punches the highlight out of an eye and the shine off a bottle.
+2. **An enclosed pocket is still background**, told apart from a highlight by
+   measurement: big and flat and near-pure-white. Both counts are printed, so the
+   split can be checked instead of trusted. On the mascot it absorbed 2 pockets
+   of 17003 px and kept 53 specks of 215 px inside the drawing.
+3. **The rim is found by connectivity, not by a radius.** A fixed 3px band was
+   the first version and it left the drop shadows behind - a shadow baked for a
+   white page is 20 to 60 pixels wide, so it stayed opaque and read as a pale
+   smear under every mascot. The band now grows from the background through
+   anything lighter than 150, which is where the drawing's own silhouette stops
+   it, and the un-multiply formula is self-limiting anyway: a dark pixel that did
+   get reached keeps a=225 and stays put.
+
+Six assets keyed, 60.5 / 60.3 / 33.8 / 68.3 / 68.3 / 79.1 percent transparent,
+checked by compositing each over `#0C0A08` and over `#F2F0ED` before shipping.
+
+**All seven `multiply` rules are gone**: `banner.css` twice, `cart-drawer.css`,
+`empty-state.css`, `gallery.css`, `trust-strip.css`, `seo-text.css`. None of them
+was a blend decision.
+
+### The coach screens: 119 raw values, and the census is what made it small
+
+25 of the 88 product screens carried a raw colour literal in a private `<style>`
+block, and all 25 were coach screens. Counted before touching anything, it was
+**119 occurrences of twelve distinct values** - and once broken down BY PROPERTY
+rather than by value, every one of them had exactly one honest role:
+
+| what | n | role |
+|---|---|---|
+| `background: #fff` | 42 | `--bg-page` |
+| `color: #bbb` | 17 | `--mark-faint` |
+| `color: #aaa` on `.cprice .old` | 8 | `--text-price-was` (which had 0 rendered uses) |
+| `color: #fff` on `.cc-goals a.on`, `.acgoals button.on` | 8 | `--text-onaction-ink` |
+| `background: #ececec` | 7 | `--bg-rule` |
+| `box-shadow: 0 -2px 10px rgba(0,0,0,.06)` on `.cs-bar` | 7 | `--elevation-bar-top` |
+| `border-bottom: #fff` on `.ctab.on` | 6 | `--bg-page` |
+| `color: #fff` on the step numerals | 5 | `--text-onaction` |
+| `color: #fff` on `.cnew`, `.btn.dark`, `.tier-flag`, `.tier-cta.dark`, `.cv-ok .m` | 6 | `--text-oninverse` |
+| `box-shadow: 0 6px 24px rgba(0,0,0,.12)` on `.acmodal`, `.tfdlg` | 3 | `--elevation-4` |
+| `color: #cfcfcf` on empty and error glyphs | 2 | `--mark-disabled` |
+| `background: rgba(0,0,0,.34 / .4)` | 3 | `--scrim-overlay` |
+| `border: rgba(255,255,255,.4)` | 2 | `--line-oninverse-soft` |
+| `color: rgba(255,255,255,.72)` | 2 | `--text-oninverse-muted` |
+| `color: #ccc` on `.ccard-meta .dot` | 1 | `--mark-faint` |
+
+Two value changes, both named: the separator dot goes `#CCC -> #BBB` because a
+dot is the quiet mark and not a disabled control, and the two shadows take the
+system's geometry (`0 -2px 18px` and `0 24px 64px`) instead of their own.
+
+**The first pass translated 117 of 119 and the two it missed are the instrument's
+own lesson.** The selector was read as everything since the previous `}`, so
+`/* big primary CTA */\n.cnew` matched no key and those two rules kept their
+literal - a comment in front of a selector, and the map never saw it. Corrected
+in the rule, not by hand. The count now: **0 raw colour values in the private
+blocks of all 88 product screens.**
+
+Re-measured on the screens the owner sent: `coach-verify-tier`,
+`coach-verify-loading`, `coach-home-empty`, `coach-session-addclient`,
+`coach-clients-cap`, `product`, `index` - **15 shapes, and only ONE is the
+theme's**, `.hptag`, which is still his call. The other fourteen fail in both
+themes and most of them read BETTER in dark than in light (the struck price 3.38
+against 2.21, the meta dot 3.67 against 1.92).
+
+### `dna`: a junction that does not meet is a lump
+
+The same fault `flask` was fixed for on 08-05. Every one of the four rungs
+stopped SHORT of the strand it was drawing to: measured, the rung ended 0.53 to
+0.75 before the curve, so with 1.9 of stroke and round caps on both, paint
+overlapped by **1.07 to 1.75** while the geometry never touched. No white left to
+read the join by, and no join - a blob.
+
+The helix was also wrong for the set: ink **9.9 x 19.9**, the narrowest and the
+tallest glyph in it against a median of 18.5. Widened from x 8..16 to 7..17 and
+shortened from y 3..21 to 3.5..20.5, so **11.9 x 18.9**.
+
+**The four rung heights are read off the width curve, not spaced by eye.** The
+strands cross at y 8.46 and 15.54 and are widest at 12, so a rung near a crossing
+is a stub and one at 12 is an axle. 6.8 / 10.0 / 14.0 / 17.2 sit 1.6 clear of
+both pinches and come out 5.90 and 6.35 wide - within half a module of each
+other, which is why the four now read as one ladder.
+
+### Left open, and both are the owner's
+
+- **`.hptag`** on the hero promo plate, 5.45 -> 2.97. Unchanged since 7.9.
+- **The PDP photo stage.** With the white box gone, `.gal .gmain` is a gradient
+  from `--bg-page` to `--bg-surface` - the two darkest values in the system - and
+  the product photographed on it is a black jar. It is legible and it is moody,
+  but a black product on the darkest plate has nowhere to stand, and the floor
+  shadow under it is `rgba(0,0,0,.22)` on `#0C0A08`, which does nothing at all.
+  The system already has the sentence for the other answer - «a photo is a photo
+  in both themes» - and applying it here means the product stage stays a LIGHT
+  plate in the dark theme, deliberately this time rather than by accident. Not
+  taken here, because a bright rectangle is exactly what he asked to be rid of
+  and the difference between «by accident» and «on purpose» is his to draw.
+
+### And one more hiding place the census had not looked in
+
+The full sweep still reported two shapes at **1.05 on a pure white ground** on
+`coach-home-free`, after every `<style>` block in the corpus was clean. The white
+was in an **inline `style=` attribute**: `background:#fff` together with
+`var(--dark)`, a grey-layer name that resolves to nothing. Counted across all 88
+product screens, that was the only one - one declaration, one screen - and it is
+`--bg-page` / `--line-inverse` now. A census that reads `<style>` blocks and not
+`style=` attributes is a census with a blind spot, and the blind spot was exactly
+one element wide.
+
+**Before and after, on the whole corpus:** 81 shapes with 28 broken by the theme
+-> **65 shapes with 7**, and the two `coach-home-free` rows above were closed
+after that sweep and verified on their own page, so **5**: `.hptag` on the hero
+plate, and four rows of the single `--scrim-white-50` swatch on `kit/color`.
+
+Gates: `accept` 204 @390 - 0 · `vars` 204 - 0 · `links` 4594 - 0 dead ·
+`css-comments` 89 · `theme --source` 89 roles paired both ways, 0 primitive
+leaks, 0 hueless fills · `roles` 30 adrift, all pre-existing.
+
+## Step 7.17 - the account dropdown was the one region of the header nobody had coloured
+
+**The owner, with two screenshots side by side:** «дроп виглядит как с вайрфреймов
+… надо сделать как дизайн + у пунктов меню добавить иконки таки как тут», the
+second picture being the account rail, and one bridge said out loud: **«Кабінет =
+Огляд»**.
+
+### Three findings, and the third was not colour at all
+
+Measured on `home-buyer` at 1280 with the menu open:
+
+**1. Five bare rows.** `<a href="account.html">Кабінет</a>` and four like it - no
+mark on any of them, while the same five sections in `.acc-links` two clicks away
+each carry one. It is the only navigation in the product where a section has no
+mark.
+
+**2. The cap was the grey prototype's.** This header drops three popups.
+`.wfh-mega` and `.wfh-langmenu` both take `border-top-color: var(--line-action)`
+in header.css, twelve lines apart; `.wfh-cabmenu` still carried
+`--line-inverse` from the structure half, so a brand-ink cap stood between two
+accent ones. Its hover moved the ground and left the word where it was, which is
+a third hover language in a header that already had one.
+
+**3. Two rows pointed at the wrong section.** «Замовлення» and «Адреси» both go to
+`account.html`. The label names one section and the click lands on another - in
+colour, in grey, and since the prototype was built. The rail's own table,
+`WF_ACC_LINKS`, holds the right two destinations.
+
+### The mark is not chosen here, it is asked for
+
+A destination that already has a mark in the product's own navigation keeps it,
+so two lists cannot draw one section two ways - the same rule `uivGoalMarks`
+follows. `uivCabMarks()` puts the question three times, in this order:
+
+1. **By label**, against `WF_ACC_LINKS`. «Замовлення» and «Адреси» answer here,
+   and they have to be asked by label BEFORE they are asked by destination,
+   precisely because of finding 3.
+2. **By destination**: «Кабінет» -> `account.html` -> «Огляд» -> the grid mark.
+   That is the owner's «Кабінет = Огляд», and it turned out to be **a fact of the
+   markup rather than an alias anybody had to invent** - both rows lead to the
+   overview.
+3. **`UIV_CAB_MARK`**, six rows, and it exists only because the frozen layer
+   writes those six by hand instead of tabulating them. Every value is copied
+   from the line named beside it (`wfAccountNav` 1182-1184, `wfCoachNav`
+   1215-1219), never chosen here.
+
+`coach-session.html` is deliberately absent from that table: «＋ Нова сесія»
+carries its own mark and `uivLeadMark` has drawn it since 7.11. A second one
+would be the two-drawings defect this pass exists to close, so the walk steps
+over any row that already has a mark rather than asking who put it there. **The
+idle control** is the row that nobody answered: it is named in the console rather
+than left as an empty 20px slot that reads like a rendering glitch. Silence is
+the pass working, and it is silent on both variants.
+
+### The wrong destinations are a value that moves, not a decision to take
+
+The rail already holds the right answer, and `CLAUDE.md` says values move and are
+never re-derived. So the row is re-pointed **from the same table that gave it its
+mark**, and only when the destination actually differs: the coach's «Адреси»
+already carries `account-addresses.html?r=coach` and keeps its query, because the
+role is part of where that row goes. Said out loud because a click now lands
+somewhere else than it did yesterday: `wireframes/` is untouched and still has
+the defect, being frozen.
+
+### The look is the rail's, restated rather than borrowed
+
+`.acc-link` in account-shell.css is the same row - a section, its mark, its word
+- and it is what the owner pointed at. It is not put into the markup, and the
+reason is measured rather than stylistic: below 960 that class turns into a pill
+in a horizontal scroller, which is right for a rail and wrong for a popup. It
+would never fire here, because `.wfh-actions` only appears at 860 - but «it works
+because it is hidden» is not a rule, it is a coincidence waiting for a breakpoint
+to move.
+
+Row: flex, gap 12, the mark in a 20px slot at 18px, **min-height 44** (the touch
+floor `link-row.css` states for six control families), a hairline between rows,
+and the popup clips them to its own radius. The separator stopped being a line:
+with every row carrying a hairline its own `border-top` stacked against the one
+above it and said nothing, so it is **8px of the sunken ground** - a groove, which
+is what «a different kind of row follows» looks like when the list is already all
+lines.
+
+**And the menu now knows where you are standing.** `aria-current="page"` is set
+from the file in the address bar, and the row takes the rail's answer: the ground
+comes up, the word goes accent, a 2px bar marks the edge. Before this you could
+open the dropdown from the orders page and nothing in it knew. On
+`account-orders` exactly one row lights - which it could not have done before,
+because three rows shared one destination.
+
+### Four states, both themes, measured
+
+| state | light | dark |
+|---|---|---|
+| rest, ink on the popup | 17.04 | 18.78 |
+| current / hover, accent on surface | **2.97** | 5.82 |
+| «Вийти» rest, secondary | 6.84 | 6.98 |
+| «Вийти» hover, danger on surface | 5.38 | 5.69 |
+
+The one number under 4.5 is **A10's own class**: `.acc-link` is one of the six
+the owner accepted under AA on 2026-08-12, and this is that same ink on that same
+ground. It is named here rather than left to be re-discovered, because of what
+step 8.19 found - **a popup is 0x0 until it is opened, so no census sees it**.
+`.on` «Українська» hid there for six days and 82 screens. `tools/theme.mjs`
+reads rendered shapes and skips anything under 2px, so it cannot see this menu
+either; these four readings are by hand, in the browser, with the menu open and
+the cursor really on the row. **That is the second class found inside a closed
+popup, and it is the argument for widening the theme walk the way `states.mjs`
+was widened at 8.19** - proposed, not done, because it will produce a harvest
+that needs the owner.
+
+Walked in both variants: buyer 5 rows, coach 7, every one marked, every one 44
+tall, «Замовлення тренера» on one line at 230 wide. Below 860 the menu does not
+exist - the drawer has no account section and the phone reaches the rail through
+the tab bar - so nothing on a phone changed.
+
+Gates: `accept` 204 @390 - 0 · `vars` 204 - 0 · `links` 4594 - 0 dead ·
+`css-comments` 89 · `theme --source` 89 roles paired both ways, 0 primitive
+leaks, 0 hueless fills · `theme` on the 5 touched screens - the same 5 shapes as
+before, none of them new.
+
+## Step 7.18 - «marked as design» meant the values were translated, not that the design was applied
+
+**The owner, with three screenshots of the «Стати тренером» flow:** «ну у нас тут
+как би єто не сильно похоже на дизайн, хотя страница помечена как в дизайне».
+
+He is right, and the reason is written in `coach-verify.css`'s own header. The
+grey prototype's palette is value-named, and the move into colour translated it
+by the JOB each value did - one row of that table being
+`--dark #161616 «selected / primary» -> --bg-inverse / --line-inverse`. But
+`--dark` was **the greyscale stand-in for an accent the prototype could not
+show**, and the coloured product splits its two jobs: SELECTED is the accent
+(chip.css 7.23, radio.css 7.29, `.cv-step.on` 7.96, all three saying «ACCENT IS
+WHAT CHOSEN LOOKS LIKE»), PRIMARY is `.btn--accent` (button.css). Step 7.96 made
+that split **on `coach-verify.html` only** - the one screen that move was given -
+and the file says so in two places, both beginning «STILL OUTSTANDING».
+
+So the flow was marked coloured because every raw hex had become a role name.
+Every role name was the wrong role.
+
+### What it looked like, and every fix is an answer the system already had
+
+| where | was | is | who had already decided it |
+|---|---|---|---|
+| `coach-verify-loading` «Далі (демо…)» | a local `.btn.dark` painting `--bg-inverse` **over** an anchor that already carried `btn--accent` - a black button with the atom's orange edge still showing round it | rule deleted, `dark` off the markup | button.css owns primary |
+| `coach-verify-loading` `.cv-ring` | ink arc | `--line-action` | `.auth-spin`, `.co-spin` |
+| `coach-home-loading` `.sk-spin` | ink arc | `--line-action` | the same two - this was the third edition |
+| `coach-verify-tier` «Оформити Pro» | hand-built ink fill, radius 10, no hover / active / focus / off | `btn--accent btn--l btn--full` | `.cv-cta` at 7.96 |
+| `coach-verify-tier` «Активувати Free» | hand-built ink border | `btn--outline btn--l btn--full` | the same |
+| `coach-verify-tier` `.cv-ok` | 1.5px ink frame round a filled ink disc | `--bg-success-soft` plate, `--line-success-soft` edge, and the disc is auth-dialog's outlined 46px circle in `--line-success` / `--text-success` | status-pill.css + `auth-dialog.css` `[data-state="newuser"]` |
+| `coach-verify-error` / `-deadend` `.cv-badge` | 2px ink ring | the same outlined disc - danger on the error, quiet on the dead end | `auth-dialog.css` `[data-state="error"]` |
+| `coach-verify-tier` `.tier` | 1.5px `--line-strong`, no ground, no lift | the card face: 1px `--line-hair`, `--radius-12`, `--bg-page`, `--elevation-1` | `.acard` |
+| `coach-verify-tier` `.tier.pro` | ink edge | `--line-action` | the three files above |
+| `coach-verify-tier` `.tier-flag` x2 | ink slabs | the outlined badge: hairline, pill, no fill | badge.css:163, the shape 8.10 folded four names into |
+| `.tierchip` x9, `.ch-goal` x3 | 1.5px ink ring on a small pill | 1px `--line-strong` | badge.css:163 |
+| `coach-session-priceblock` `.wa` | a control built by hand out of an ink border | `btn--outline btn--s` | button.css |
+
+**The screen's own arithmetic is what the owner was seeing.** On `-tier` before
+this step, `rgb(255,90,0)` appeared exactly once above the fold - on the step
+marker - while five objects were ink slabs: two flags, the confirmation disc, the
+Pro card's edge and the Pro CTA. The loudest thing on a page whose entire job is
+«choose one of these two» was a pair of labels. There is now **one accent fill on
+the screen**, on the action the page recommends, one accent LINE round the card
+it recommends (a line and a fill are different surfaces, which is how
+`.opt-tile.on` and a CTA have always coexisted), and the good news is green.
+
+### The count, so the rest is not guessed
+
+Every `design/*.html` private `<style>` block was read for the inverse pair:
+**16 screens, 20 declarations.** 13 screens are closed above by rule. **Seven
+declarations on five screens are left, and they are left on purpose** - they are
+PANELS, and an ink plate with a white label is a legitimate emphasis in this
+system that is not the action colour (`.tag-pop`, `.acc-tier`, the footer, the
+hero promo all use it). Whether these five should stay ink or move to the accent
+is a look, not a defect:
+
+- `coach-home-empty` / `coach-home-free` `.cnew` - the «нова сесія» panel, ink fill
+- `coach-clients-cap` `.upsell` and its progress bar fill
+- `coach-tariff-free` `.tf-upsell`
+- `coach-session-priceblock` `.cs-warn`
+
+**And the wider point, which is the owner's sentence:** «coloured» in the registry
+has meant «every raw hex is a role name» since 8.17. `tools/vars.mjs` and
+`tools/grey-vars.mjs` both check exactly that and both passed on all five of these
+screens the whole time. **No instrument in this repository asks whether the role
+is the RIGHT role** - `--line-inverse` on a spinner is as valid to them as
+`--line-action` is. That is why the owner found it by opening the page, and it is
+the same shape as 8.18: the gate can only see what it was built to ask.
+
+Gates: `vars` 204 - 0 · `links` 4594 - 0 dead · `accept` 204 @390 - 0.
+
+### One stepper, two drawings, and it is one attribute wide
+
+Counted after the fixes above, and it is the reason the flow still does not feel
+like one flow: `coach-verify.css` draws the three-step marker in tokens - 1px,
+`--fs-12`, `--fs-14`, `--radius-circle` - and **the four state screens each
+redeclare the same six selectors in their own `<style>` with hand numbers**
+(1.5px, 12px, 12.5px, 11px, 50%). Measured: the tile is 66.19 tall on
+`coach-verify` and 65 on the other four, with a half-pixel heavier edge.
+
+**The cause is one attribute.** `coach-verify.css` scopes every rule under
+`.coach`, and only `coach-verify.html` carries that class - the four states carry
+none, so the component file reaches none of them and each had to bring its own
+copy. Deleting the copies means adding `coach` to four `<body>` tags, which also
+hands those screens the rest of the file, and `.cv-card` means something
+different on all five (the file's own note, «ONE NAME, FIVE LOOKS», books that
+for Крок 6). So it is stated here and not done in this step: it is one line of
+markup and one collision, and the collision has to be answered first.
+
+## Step 7.19 - the owner closed both open looks of step 7, and one of them rewrote a check
+
+### (a) A10 extends to `.hptag`
+
+**The owner, 2026-08-13: «A10 распространяется».** «Акція тижня» on the hero's
+first promo tile reads 5.45 in the light theme and **2.97** in the dark one, on 6
+screens. Nothing on screen changes. The mechanism is worth keeping written down
+because it will produce more of these: the tile stands on `--bg-inverse`, a
+ground that FLIPS, and the accent word on it does not - `#FF5A00` is the same
+colour in both themes by decision. So a pair that was solved once against a dark
+plate is a different pair against a light one, and no amount of pairing the ROLES
+fixes it, because the failing pair is a role and a constant.
+
+A10 now covers seven classes: `.on`, `.uiv-cur`, `.acc-link`, `.btn--text.btn--inline`,
+`.cbnew`, `.addr-tag` and `.hptag`.
+
+### (b) The product-photo stage does not move with the theme
+
+**The owner: «светлая плита».** The stage under a product photograph, and the
+thumbnails beside it, keep the light theme's values in both themes.
+
+**Why it had to be decided at all.** When the white box came out of the PNGs at
+step 7.12, `.gal .gmain` became `--bg-page -> --bg-surface`, which in the dark
+theme is `#0C0A08 -> #181511` - **the two darkest values the system has** - with a
+BLACK jar standing on it and a floor shadow of `rgba(0,0,0,.22)` underneath,
+which on `#0C0A08` is nothing at all. The product had nothing to stand on.
+
+**The sentence that decides it was already in `tokens.css`,** one line above where
+the new roles went: `--bg-onphoto`'s dark half carries the comment «a photo is a
+photo in both themes». A photograph is not a surface of the interface - it is a
+thing being shown, lit the way it was lit when it was taken, and the plate under
+it belongs to the photograph rather than to the page.
+
+**Five roles, all paired to themselves on purpose:** `--bg-photo` (the near end of
+the gradient and the thumbnail), `--bg-photo-far` (its far end), `--fade-photo`
+(the transparent end of the floor shadow - its own role rather than
+`--fade-inverse`, which has a second reader in the auth visual that DOES flip),
+`--bg-photo-mark` and `--text-photo-mark` (the «Хіт продажів» pill in the corner).
+`--shadow-floor` moved with them: it has exactly one reader, this stage, so its
+dark value went back from `--scrim-black-22` to `--scrim-ink-07`.
+
+**The mark is the part that proves the stage needed a FAMILY and not one role.**
+With only the ground frozen, the pill went on reading `--bg-inverse` /
+`--text-oninverse` - and that plate flips to light warm in the dark theme, so a
+near-white pill landed on a now-white photograph. Measured before the fix:
+`rgb(250,249,247)` on `rgb(255,255,255)`. Anything placed on a frozen ground has
+to be frozen too, and that is a general statement, not a note about one badge.
+
+### And the exemption inside `theme.mjs` check 2b became a MEASUREMENT
+
+Check 2b asks whether a dark-theme fill or line carries the family's hue, and it
+exempted «a role that declares its own ground» with the pattern
+`/-on(action|ink|photo)/`. `--bg-photo` is `#FFFFFF`, makes exactly that claim,
+and does not contain the word «on» - so the check fired on it, correctly by its
+own letter and wrongly by its own reasoning.
+
+**The claim those roles make is «my ground does not move», and a role that means
+it says so in the file: its two halves are the same value.** That is the whole
+test now. Verified against all five roles the old pattern covered -
+`--line-onink`, `--line-onaction`, `--bg-onphoto`, `--line-onphoto`,
+`--text-onaction` - so nothing that was exempt stopped being exempt, and there is
+no name left to remember.
+
+**It found something the name was hiding, in the same minute.** `--line-onink`
+matched the old pattern and has DIFFERENT halves, because its ground genuinely
+moves: the error toast is an ink plate in the light theme and a light warm one in
+the dark. Its dark value was `--charcoal` - Ink, H0 S0 - a neutral line on a warm
+plate, the same «grey patch in a warm family» the owner named at 7.11. **Mirrored
+rather than picked:** in the light theme this line is `--white` on the Ink plate,
+the far end of the scale from its own ground, so in the dark theme it is
+`--warm-950`, the far end for a ground that is now light. One reader, `.wf-toast.error`,
+and the line stands at ~19:1 where a line needs 3.
+
+That is the second time in two days that making a rule measurable instead of
+named turned up a real finding in the space the name had been covering.
+
+## Step 7.20 - the pixel proof could not be re-taken, and that was the finding
+
+The task was «re-shoot the after half under 13.08's changes». The first attempt
+did exactly that - a new `tools/proof.mjs` re-photographed the working tree at
+390x844, scale .75, and compared each result with the stored `-after.jpg`.
+
+**It reported that all 40 screens had moved, by 2 to 15 percent, with channel
+differences up to 255.** The diff map said why in one look: **every glyph on
+every screen was outlined twice.** That is sub-pixel text rendering, not layout.
+The 2026-08-06 set was shot in an environment nobody recorded - Chrome build,
+font state, device scale - so nothing taken today is comparable with it, and no
+amount of care at this end fixes that. **A proof that goes stale the first time
+the product moves is a screenshot, not a proof.**
+
+### So both halves are re-shot, which is what the page always claimed
+
+`pixel-proof.html`'s own «Як це заміряно» reads «два дерева, один браузер, одна
+мить». That was true of the day it was written and had no way to stay true.
+`tools/proof.mjs` now unpacks `git archive 9e44109` into a temp directory
+**outside the repository**, serves it on its own port beside the working tree,
+and photographs both with one Chrome, back to back, per screen. `serve()` in
+lib.mjs takes a root now; every other caller passes nothing and gets what it got.
+
+### Three instrument decisions, each because the naive version failed
+
+**1. By pixel, not by byte.** The first comparison was byte-wise and answered
+«changed» to all 40 - true, and useless: JPEG is Chrome's encoder, so a different
+Chrome writes different bytes for the same picture. An instrument that cannot
+answer «no» is the failure this repository has recorded twice. Both images go
+back to the browser, which decodes them and counts pixels over 12 levels on a
+channel. Re-encoding noise lands at 1-3; the loudest screen that did NOT move
+measures **0.066%**.
+
+**2. The answer is an ELEMENT, not a percentage.** The pack's rule is that every
+difference is explained by a line of a named list, and that cannot be checked
+from a number. Changed pixels are grouped on an 8px grid - so a word is one
+region and not forty - and each region's centre is handed to `elementFromPoint`
+on the page that is still open. Every one of the 19 differences below is named.
+
+**3. The wait is on the page's signature, not on a clock.** 90ms gave two
+different lists on two runs; 300ms plus two animation frames still did. The
+stand's bar is built by `uivBar()` and its chevron swapped by the mark passes
+afterwards, and **each of those changes the document's height**, so a screen
+captured between them has everything below shifted 8px. The tool now polls
+document height, the bar's height and the svg count until they hold still three
+times. **39 of 40 then repeat exactly.** `checkout-loading` does not, because a
+loading state changes itself over time; it is named on the page as a limit.
+
+### What 13.08 actually moved: 19 of 40, and all three causes were already named
+
+`node tools/proof.mjs --against HEAD`, three families:
+
+- **Product photographs and thumbnails** - `img < div.gmain`, `div.gthumb`,
+  `a.ph < article.pcard`, `a.lph`, `a.ci-ph`, `div.li-img`. The seven `multiply`
+  rules and the six keyed PNGs. Loudest: `product-oos` at **2.07%**.
+- **The hero's first promo tile** - `span.hps < a.hpromo`, `a.hpromo`, `a.hvert`.
+  `--text-onphoto` .72 -> `--text-oninverse-muted` .66.
+- **The stand's own bar** - `button.uiv-topbar` and the svg in it. **This is
+  stand chrome standing in the product's photograph**, and the proof has always
+  included it; `design/_stand.css`'s nine raw scrims became five paired
+  `--stand-*` variables at 7.9.
+
+Not in that list although they happened the same day: the 25 coach screens (110
+of 119 replacements were a role in place of a literal of the same value - zero
+pixels; the other 9 are on screens outside these 40), the `dna` glyph (redrawn,
+but no first screen of these 40 shows it) and the dark theme entirely (these 40
+are shot in the light one).
+
+### And the control from the other side
+
+**One screen of 40 measures 0.000% against the stage-08 baseline: `overview`.**
+It is the one screen that is not on the system - the stage hub is built on the
+roadmap chrome `/_nav.css`, like the repository's own `index.html` - so stage 08
+never touched it. A zero here is not an achievement, it is the negative control:
+an instrument that found a difference there would be reporting noise.
+
+`design/kit/pixel-proof.html` carries all of this: the method paragraph, the
+fourth named list as a table of element against cause, and two more lines in
+«Чого цей доказ не доводить».

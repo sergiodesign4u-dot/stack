@@ -113,7 +113,70 @@ console.log('\n===== 2. КОМПОНЕНТ ЧИТАЄ КОЛІРНИЙ ПРИМ�
 if (!leaks.length) console.log('   none - кожен колір у компонентах іде через роль');
 leaks.forEach(l => console.log('   ' + (l.file + ':' + l.line).padEnd(34) + l.token.padEnd(16) + l.text));
 
-if (SOURCE_ONLY) process.exit(onlyLight.length + onlyDark.length + leaks.length ? 1 : 0);
+/* ---------- 2b. a fill or a line in the dark theme with no hue -------------
+   THE OWNER SAW THIS ONE BEFORE ANY INSTRUMENT DID: «шоколадная, но какой-то
+   вдруг серый». `--bg-surface` pointed at `#1C1C1C` - the brand's Ink, H0 S0 -
+   while the page, the sunken and every hairline around it were H35 S15, so
+   every card, the header and the footer plates sat as neutral grey inside a
+   warm theme. Nothing was failing: contrast was right, both halves existed, no
+   primitive had leaked. The system was correct and the theme still did not look
+   like one theme, which is the exact class the pack sends step 7 to find.
+
+   WHY FILL AND LINE AND NOT INK. A word may be neutral - Ink is Ink, and it is
+   the same colour in both themes on the grounds that do not move. An AREA
+   cannot: it is the theme's own surface, and a surface without the family's hue
+   is visible as a patch from across the room.
+
+   THE EXEMPTION IS MEASURED, NOT NAMED - rewritten 2026-08-13, and the rewrite
+   is the point. It used to read `/-on(action|ink|photo)/`: a role whose NAME says
+   its ground is not a theme surface - the orange, the ink plate, a photograph -
+   and none of those move, so neutral there is no mismatch. That was right about
+   every role it covered and it was still a list, spelled as a regex. The owner's
+   decision to freeze the product-photo stage produced `--bg-photo` `#FFFFFF`,
+   which is the SAME claim and does not contain the word «on», and the check
+   fired on it - correctly by its own letter, wrongly by its own reasoning.
+
+   The claim those roles are making is «my ground does not move with the theme»,
+   and a role that means it says so in the file: ITS TWO HALVES ARE THE SAME
+   VALUE. That is now the whole test. Checked against the five roles the old
+   pattern covered - `--line-onink`, `--line-onaction`, `--bg-onphoto`,
+   `--line-onphoto`, `--text-onaction` - all five are byte-for-byte identical in
+   `:root` and in the dark block, so nothing that used to be exempt stops being
+   exempt, and no name has to be remembered. A role that carries the word «on» in
+   its name and DIFFERENT halves is not exempt any more, which is right: it moves.
+   Every exempted role is printed, because an exemption nobody can see covers
+   whatever it likes. */
+const HEX = {};
+for (const m of strip(TOKENS).matchAll(/(--[a-z0-9-]+)\s*:\s*(#[0-9A-Fa-f]{3,8})\s*;/g)) HEX[m[1]] = m[2];
+const sat = hex => {
+  let h = hex.slice(1);
+  if (h.length === 3) h = [...h].map(c => c + c).join('');
+  const [r, g, b] = [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2;
+  if (mx === mn) return 0;
+  return 100 * ((l > .5) ? (mx - mn) / (2 - mx - mn) : (mx - mn) / (mx + mn));
+};
+const darkBody = block(clean, '[data-theme="dark"]');
+/* what each role reads in `:root`, so the dark half can be compared with it */
+const LIGHT_PRIM = {};
+for (const m of block(clean, ':root').matchAll(/(--[a-z0-9-]+)\s*:\s*var\((--[a-z0-9-]+)\)/g)) LIGHT_PRIM[m[1]] = m[2];
+const flat = [], exempt = [];
+for (const m of darkBody.matchAll(/(--[a-z0-9-]+)\s*:\s*var\((--[a-z0-9-]+)\)/g)) {
+  const [, role, prim] = m;
+  if (!/^--(bg|line)-/.test(role)) continue;           /* area only, not ink */
+  const v = HEX[prim];
+  if (!v) continue;                                     /* rgba/alpha: another question */
+  if (sat(v) >= 6) continue;
+  /* the same declaration in the light half - identical halves ARE the exemption */
+  (LIGHT_PRIM[role] === prim ? exempt : flat).push({ role, prim, v, s: sat(v) });
+}
+console.log('\n===== 2b. ЗАЛИВКА АБО ЛІНІЯ ТЕМНОЇ ТЕМИ БЕЗ ВІДТІНКУ =====');
+if (!flat.length) console.log('   none - кожна площина темної теми несе відтінок родини');
+flat.forEach(f => console.log('   ' + f.role.padEnd(24) + f.prim.padEnd(14) + f.v + '   S ' + f.s.toFixed(0) + '%'));
+console.log('   звільнено виміром «обидві половини - те саме значення» (' + exempt.length + '): ' +
+  (exempt.map(e => e.role).join(' ') || 'НІЧОГО, і це вже привід перечитати правило'));
+
+if (SOURCE_ONLY) process.exit(onlyLight.length + onlyDark.length + leaks.length + flat.length ? 1 : 0);
 
 /* ---------- 3 and 4: the computed half ------------------------------------
    Both questions are asked of the SAME page twice, once per theme, and the
@@ -149,13 +212,26 @@ const PROBE = `(() => {
     return { r: n[0] || 0, g: n[1] || 0, b: n[2] || 0, a: n.length > 3 ? n[3] : 1 }; };
   const over = (f, b) => ({ r: f.r * f.a + b.r * (1 - f.a), g: f.g * f.a + b.g * (1 - f.a),
                             b: f.b * f.a + b.b * (1 - f.a), a: 1 });
+  /* A GROUND THIS PROBE CANNOT SEE MUST BE SAID, NOT GUESSED. It reads
+     backgroundColor and nothing else, so a photograph, a gradient or a weave -
+     .pl-panel paints its packaging out of two gradients and no colour at all -
+     is invisible to it, and the walk then keeps climbing and reports the page
+     behind the panel as if it were the panel. That produced 1.02 on «1 мірна
+     ложка», text which is perfectly legible on screen. When any layer in the
+     stack carries a background-image, the reading is marked and reported apart
+     rather than counted as a failure. */
   const ground = e => {
     const stack = [];
-    let p = e;
-    while (p) { const c = parse(getComputedStyle(p).backgroundColor); if (c.a > 0) stack.push(c); p = p.parentElement; }
+    let p = e, img = false;
+    while (p) {
+      const g = getComputedStyle(p);
+      if (g.backgroundImage && g.backgroundImage !== 'none') img = true;
+      const c = parse(g.backgroundColor); if (c.a > 0) stack.push(c);
+      p = p.parentElement;
+    }
     let out = { r: 255, g: 255, b: 255, a: 1 };
     for (let i = stack.length - 1; i >= 0; i--) out = over(stack[i], out);
-    return 'rgb(' + Math.round(out.r) + ', ' + Math.round(out.g) + ', ' + Math.round(out.b) + ')';
+    return { hex: 'rgb(' + Math.round(out.r) + ', ' + Math.round(out.g) + ', ' + Math.round(out.b) + ')', img: img };
   };
   document.querySelectorAll('*').forEach(e => {
     const r = e.getBoundingClientRect();
@@ -163,11 +239,35 @@ const PROBE = `(() => {
     const t = (e.textContent || '').trim();
     if (!t || e.children.length) return;              /* leaf text only */
     const s = getComputedStyle(e);
+    /* INK WITH ZERO ALPHA IS NOT INK. Nine photo slots in this stand carry the
+       word «фото» at color:transparent - alt text behind a real photograph,
+       drawn by nobody. Read as opaque it comes out black, which is 21.00 on the
+       light page and 1.16 on the dark one: two numbers about a word that has
+       never been painted. NO BACKTICKS IN HERE: this comment lives inside the
+       probe's own template literal, and one backtick ends the string.
+       THE TEST IS ON THE FOURTH COMPONENT, NOT ON A PATTERN. Written as a regex
+       for «, 0)» at the end it also matched rgb(255, 90, 0) - the accent - and
+       quietly removed every orange word on the stand from the measurement,
+       including the one real finding on this page. A colour is transparent when
+       it HAS an alpha and that alpha is zero; nothing else is. */
+    const ch = (s.color.match(/[\\d.]+/g) || []).map(Number);
+    if (ch.length > 3 && ch[3] === 0) return;
+    const g = ground(e);
     px.push({ sel: e.tagName.toLowerCase() + (e.className && e.className.toString ? '.' + e.className.toString().trim().split(/\\s+/).slice(0,2).join('.') : ''),
-              ink: s.color, bg: ground(e), size: parseFloat(s.fontSize), weight: s.fontWeight,
+              ink: s.color, bg: g.hex, img: g.img, size: parseFloat(s.fontSize), weight: s.fontWeight,
               txt: t.slice(0, 30) });
   });
-  return JSON.stringify({ val, px: px.slice(0, 400) });
+  /* WHAT THE PAGE ACTUALLY IS, not what it was asked to be. The uivTheme call
+     is a call INTO the page, and a page that does not carry theme.js throws it
+     away without a sound - the probe then walks a LIGHT page, calls the reading
+     «dark», compares it with itself and reports a perfect result. A checker that
+     cannot fail is worse than no checker, so the run says which theme it was
+     standing in and the caller refuses the reading when it is the wrong one.
+     (And no backtick may enter this comment: it lives inside the probe's own
+     template literal, which is the rule written 40 lines below and broken here
+     on the first try.) */
+  return JSON.stringify({ theme: document.documentElement.getAttribute('data-theme') || 'light',
+                          val, px: px.slice(0, 400) });
 })()`;
 
 const cr = (a, b) => {
@@ -183,13 +283,109 @@ const cr = (a, b) => {
    what stage 07 looked like, kept deliberately unchanged, and it assumes a light
    ground in its own markup. Eleven of this check's findings came from it, and
    every one of them would be a lie about the system. */
-const SUBJ = pages().filter(p => p.startsWith('kit/') && !p.startsWith('kit/demo/') && p !== 'kit/kit');
+
+/* THE SUBJECT IS THE WHOLE FOLDER, AND UNTIL 2026-08-13 IT WAS `kit/` ONLY.
+   The filter that stood here - «starts with kit/, not kit/demo/, not kit/kit» -
+   measured 87 stand pages and never opened one of the 88 PRODUCT screens, which
+   are the thing the system exists for. It did not read as an omission, it read
+   as a scope: the dark theme is a property of the SYSTEM, so checking the pages
+   that document the system sounds like the whole job. It is not. The first run
+   after this line changed returned 33 broken shapes on the home screen alone,
+   every one of them in the panel a person looks at while browsing the others.
+   A subject narrower than the corpus is stated with its count, or it is a lie
+   about coverage - the same lesson as the glob that reported «0 failures» over
+   135 pages after visiting one. */
+const named = process.argv.slice(2).filter(a => !a.startsWith('-'));
+const SKIP = ['kit/kit'];
+const ALL = pages();
+const SUBJ = named.length ? named : ALL.filter(p => !SKIP.includes(p));
+if (!named.length)
+  console.log('\nпредмет: ' + SUBJ.length + ' сторінок з ' + ALL.length +
+    ' у design/  ·  поза предметом за родом: ' + SKIP.join(' '));
+/* ---------- THE PANELS ARE OPENED BEFORE THE PAGE IS MEASURED - 2026-08-14 ----
+   A POPUP IS 0x0 UNTIL SOMEBODY OPENS IT, and the probe below skips anything
+   under 2px, so for as long as this check has existed it has been measuring the
+   part of the product that is already on screen. That blind spot has now cost
+   twice, both found by a person opening a menu rather than by any instrument:
+
+     step 8.19  `.on` «Українська» inside `.wfh-langmenu` - the accent's LARGEST
+                failing shape, 82 instances on 82 of 88 screens at 3.13, carried
+                in a record as «accepted» since 2026-08-07 with nothing ever
+                drawing it to look.
+     step 7.17  the header's account menu - five rows with no mark, a cap in
+                brand ink between two accent ones, and four states that had to be
+                measured by hand because this tool could not see them.
+
+   THE OPENERS ARE NOT A LIST, and `states.mjs` learned that the expensive way at
+   8.19: its hand-written pair of names had one dead entry and missed three real
+   ones. Every global matching `open[A-Z]` or `toggle[A-Z]` is called, plus the
+   few that take an argument, which cannot be guessed and are written out there.
+
+   ALL AT ONCE, NOT ONE AT A TIME, and that is the difference from `states.mjs`.
+   That tool asks «does this state re-render into an unmarked one», so it has to
+   isolate each opener. This one asks «does ink read on its ground», and a ground
+   is computed by compositing an element's OWN ancestor chain - so two dialogs
+   overlapping on the z axis do not disturb each other's answer. One sweep per
+   theme instead of two thousand visits.
+
+   IDENTICAL IN BOTH THEMES, which is the whole reason it is safe: the light pass
+   and the dark pass run the same sweep on the same page, so anything the sweep
+   does that is not about colour cancels out of the difference. A toggle called
+   once opens; it is never called twice.
+
+   AN OPENER THAT LEAVES THE PAGE IS DROPPED, and it had to be, because one of
+   them does. Measured on home-buyer: 23 globals match the pattern, and after the
+   sweep the tab was at `design/system.html` - a 404 - so all three test pages
+   came back «the page has no theme». The navigation is asynchronous, so a check
+   written inside the sweep sees nothing; it has to be asked afterwards.
+
+   DISCOVERED, NOT LISTED. Each name is tried ONCE, in a session of its own, and
+   the verdict is cached by name for the whole run - so the cost is one probe per
+   distinct opener in the corpus, not one per opener per page, and a new opener
+   added next month is judged the day it appears instead of being missed by a
+   list somebody forgot to extend. The dropped names are printed with the result,
+   because an exclusion nobody can see excludes whatever it likes. */
+const AUTO_OPENER = '/^(open[A-Z]|toggle[A-Z])/';
+const ARG_OPENERS = ["wfAuthGo('code')", "catOverlayGoals()", "addrStep('post')",
+                     "profStep('pf-phone','enter')", "wfToast('ok','Перевірка')"];
+const NAMES = `JSON.stringify(Object.getOwnPropertyNames(window).filter(k => {
+  try { return ${AUTO_OPENER}.test(k) && typeof window[k] === 'function'; } catch (e) { return false; }
+}))`;
+const sweepOf = list => `(() => { let ran = 0;
+  for (const call of ${JSON.stringify([])}.concat(${JSON.stringify(list)}))
+    { try { (0, eval)(call); ran++; } catch (e) {} }
+  return ran; })()`;
+/* name -> may it be called at all */
+const verdict = new Map();
+async function safeOpeners(sess, url, calls) {
+  const out = [];
+  for (const call of calls) {
+    if (!verdict.has(call)) {
+      const probe = await newSession(conn);
+      await visit(conn, probe.sessionId, url, 1280, 900, '1', probe.inflight);
+      await conn.send('Runtime.evaluate', { expression: `(() => { try { ${call} } catch (e) {} })()`, returnByValue: true }, probe.sessionId);
+      await new Promise(r => setTimeout(r, 400));
+      const here = await conn.send('Runtime.evaluate', { expression: 'location.pathname', returnByValue: true }, probe.sessionId);
+      verdict.set(call, String(here.result.value) === new URL(url).pathname);
+      await conn.send('Target.closeTarget', { targetId: probe.targetId });
+    }
+    if (verdict.get(call)) out.push(call);
+  }
+  return out;
+}
+const CLOSED = process.argv.includes('--closed');
+
 const srv = await serve();
 const l = await chrome('theme');
 const conn = await Conn.open(l.wsUrl);
 
 const collapsed = new Map();   /* "roleA|roleB" -> true */
 const fails = [];
+const unread = [];   /* the ground carries an image: said, not counted */
+const dead = [];     /* the probe threw: nothing was measured here */
+const safeFor = new Map();     /* page -> the openers that do not leave it */
+let opened = 0;
+const noSwitch = []; /* the page has no theme to switch: nothing was measured either */
 let seenLight = null;
 
 for (const p of SUBJ) {
@@ -199,12 +395,34 @@ for (const p of SUBJ) {
   for (const theme of ['light', 'dark']) {
     await visit(conn, s.sessionId, url, 1280, 900, '1', s.inflight);
     await conn.send('Runtime.evaluate', { expression: `uivTheme('${theme}')`, returnByValue: true }, s.sessionId);
+    if (!CLOSED) {
+      if (!safeFor.has(p)) {
+        const nm = await conn.send('Runtime.evaluate', { expression: NAMES, returnByValue: true }, s.sessionId);
+        const calls = JSON.parse(nm.result.value).map(n => n + '()').concat(ARG_OPENERS);
+        safeFor.set(p, await safeOpeners(s, url, calls));
+        await visit(conn, s.sessionId, url, 1280, 900, '1', s.inflight);
+        await conn.send('Runtime.evaluate', { expression: `uivTheme('${theme}')`, returnByValue: true }, s.sessionId);
+      }
+      const sw = await conn.send('Runtime.evaluate', { expression: sweepOf(safeFor.get(p)), returnByValue: true }, s.sessionId);
+      opened += Number(sw.result.value) || 0;
+      await new Promise(r => setTimeout(r, 160));
+      /* AND THE THEME IS SET AGAIN AFTERWARDS. Measured on the first run: all
+         three test pages came back «the page has no theme», because something in
+         the sweep puts the document back the way it found it - a reload keeps the
+         address, so the navigation guard above cannot see it. Re-asserting the
+         theme costs one call and makes the guard unnecessary for that case; if it
+         still does not take, the page is reported as unmeasured, which is what
+         that branch has always been for. */
+      await conn.send('Runtime.evaluate', { expression: `uivTheme('${theme}')`, returnByValue: true }, s.sessionId);
+      await new Promise(r => setTimeout(r, 80));
+    }
     await new Promise(r => setTimeout(r, 120));
     const q = await conn.send('Runtime.evaluate', { expression: PROBE, returnByValue: true }, s.sessionId);
     try { out[theme] = JSON.parse(q.result.value); } catch { out[theme] = null; }
   }
   await conn.send('Target.closeTarget', { targetId: s.targetId });
-  if (!out.light || !out.dark) { process.stdout.write('x'); continue; }
+  if (!out.light || !out.dark) { dead.push(p); process.stdout.write('x'); continue; }
+  if (out.dark.theme !== 'dark') { noSwitch.push(p); process.stdout.write('-'); continue; }
 
   /* 3. roles that held two values in light and one in dark */
   if (!seenLight) {
@@ -224,12 +442,26 @@ for (const p of SUBJ) {
     }
   }
 
-  /* 4. ink that fails its own ground in dark, at the threshold of its size */
-  for (const e of out.dark.px) {
+  /* 4. ink that fails its own ground in dark, at the threshold of its size.
+
+     THE DARK NUMBER ALONE DOES NOT SAY WHOSE FAULT IT IS, and reading it as if
+     it did cost a whole round on 2026-08-13: twenty-five rows came back and I
+     read all twenty-five as damage the theme had done. Nine of them are photo
+     stubs that fail in BOTH themes - the stand draws the word «фото» on a plate
+     where the product puts an image, so the theme is innocent and so is the
+     product. What separates the two cases is the LIGHT number for the same
+     element, and it costs nothing: the probe already ran there. The pairing is
+     by index because both runs walk the same DOM in the same order.
+       light passes, dark fails  -> the theme broke it, and that is the harvest
+       both fail                 -> older than the theme, a finding of its own
+       light fails, dark passes  -> the dark end is the healthier one */
+  for (let i = 0; i < out.dark.px.length; i++) {
+    const e = out.dark.px[i], lit = out.light.px[i];
     const large = e.size >= 24 || (e.size >= 18.66 && Number(e.weight) >= 700);
     const need = large ? 3 : 4.5;
     const got = cr(e.ink, e.bg);
-    if (got < need) fails.push({ page: p, ...e, got, need });
+    const litGot = lit && lit.sel === e.sel ? cr(lit.ink, lit.bg) : null;
+    if (got < need) (e.img ? unread : fails).push({ page: p, ...e, got, need, litGot });
   }
   process.stdout.write('.');
 }
@@ -243,6 +475,8 @@ if (!collapsed.size) console.log('   none - жодна пара ролей не 
 console.log('\n===== 4. ЧОРНИЛО, ЯКЕ ПРОВАЛЮЄ СВОЄ ТЛО В ТЕМНІЙ =====');
 console.log('   (ґрунт складається з альфою; те, що стоїть на ФОТО або на ґрунті,');
 console.log('    якого демо стенду не дає, цей прилад прочитати не може)');
+console.log('   колонка «світла» каже, ЧИЯ це провина: пройшла - зламала тема,');
+console.log('   провалилась теж - дефект старший за тему і живе окремо');
 const byKey = new Map();
 for (const f of fails) {
   const k = f.sel + '|' + Math.round(f.got * 100);
@@ -250,9 +484,41 @@ for (const f of fails) {
   const e = byKey.get(k); e.n++; e.pages.add(f.page);
 }
 if (!byKey.size) console.log('   none - кожне чорнило бере свій поріг');
-[...byKey.values()].sort((a, b) => a.got - b.got).slice(0, 25).forEach(e =>
-  console.log('   ' + e.got.toFixed(2).padStart(5) + ' / ' + e.need + '  ' + e.sel.padEnd(30) +
-    String(e.n).padStart(4) + 'x  «' + e.txt + '»  [' + [...e.pages].slice(0, 2).join(', ') + ']'));
+console.log('   темна  світла  поріг  що це');
+/* no cap: a list that quietly stops at 40 of 47 reads as «those are all of them»,
+   and the seven it drops are indistinguishable from seven that do not exist */
+const rows = [...byKey.values()].sort((a, b) => a.got - b.got);
+rows.forEach(e => {
+  const lit = e.litGot == null ? '  ?  '
+    : (e.litGot >= e.need ? ' ' : '!') + e.litGot.toFixed(2).padStart(5);
+  console.log('   ' + e.got.toFixed(2).padStart(5) + ' ' + lit + '  /' + String(e.need).padStart(4) +
+    '  ' + e.sel.padEnd(28) + String(e.n).padStart(3) + 'x  ' + e.bg.replace(/\s/g, '') +
+    '  «' + e.txt + '»  [' + [...e.pages].slice(0, 2).join(', ') + ']');
+});
+const broke = rows.filter(e => e.litGot != null && e.litGot >= e.need).length;
+console.log('   ' + rows.length + ' форм: ' + broke + ' зламала тема, ' +
+  (rows.length - broke) + ' провалюються в обох');
+
+/* the idle control on the exemption: an exemption that never fires is a lie
+   about coverage just as loudly as a case that was never declared */
+console.log('\n   не зміряно (під чорнилом лежить зображення або градієнт): ' + unread.length);
+const un = new Map();
+for (const f of unread) un.set(f.sel + '|' + f.page, (un.get(f.sel + '|' + f.page) || 0) + 1);
+[...un.entries()].slice(0, 12).forEach(([k, n]) =>
+  console.log('     ' + k.split('|')[0].padEnd(28) + String(n).padStart(3) + 'x  [' + k.split('|')[1] + ']'));
+
+/* AND THE TWO WAYS A PAGE LEAVES THIS RUN WITHOUT BEING MEASURED. Neither is a
+   defect of the theme and both used to be a single character on a progress line,
+   which is how «visited 203, measured 175» reads exactly like «measured 203». */
+if (!CLOSED) {
+  const dropped = [...verdict.entries()].filter(([, ok]) => !ok).map(([c]) => c);
+  console.log('\n   відкрито панелей перед заміром: ' + opened + ' викликів на ' + (SUBJ.length * 2) + ' проходів');
+  console.log('   відкидано, бо покидають сторінку (' + dropped.length + '): ' +
+    (dropped.join(' ') || 'ЖОДНОГО, і це вже привід перечитати правило'));
+}
+console.log('\n   зміряно: ' + (SUBJ.length - dead.length - noSwitch.length) + ' з ' + SUBJ.length);
+if (dead.length) console.log('   проба впала (' + dead.length + '): ' + dead.join(' '));
+if (noSwitch.length) console.log('   теми на сторінці немає (' + noSwitch.length + '): ' + noSwitch.join(' '));
 
 l.stop(); srv.stop();
 process.exit(onlyLight.length + onlyDark.length + leaks.length + collapsed.size + byKey.size ? 1 : 0);

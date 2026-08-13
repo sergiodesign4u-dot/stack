@@ -203,7 +203,11 @@
 .cd-foot > .btn--outline:hover{ color: var(--text-action); text-decoration-color: currentColor; }
 
 .cd-empty .ei{ width:118px; height:118px; margin:0 auto var(--space-2); border-radius:var(--radius-circle); overflow:hidden; font-size:0; }
-.cd-empty .ei img{ width:118px; height:118px; object-fit:cover; object-position:center 12%; mix-blend-mode:multiply; }
+/* No `mix-blend-mode: multiply` here since 2026-08-13, and it was never a blend
+   decision: the drawing had no alpha channel, and multiply is the one blend that
+   hides white on a LIGHT plate. On a dark one it multiplies the whole image down
+   to the plate. The white is keyed in the asset now - tools/key-alpha.py. */
+.cd-empty .ei img{ width:118px; height:118px; object-fit:cover; object-position:center 12%; }
 .cd-empty .et{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .cd-empty .es{ color:var(--text-secondary); line-height:var(--lh-airy); }
 /* step 6.3: colour and border are the outline finish's - one label colour for

@@ -29,10 +29,19 @@
   .gal{ max-width:min(100%, 430px); margin-inline:auto; }
   .gal .gthumbs{ justify-content:center; }
 }
-.gal .gmain img{ mix-blend-mode:multiply; transition:transform .25s ease; }
+/* No `mix-blend-mode: multiply` here since 2026-08-13, and it was never a blend
+   decision: the drawing had no alpha channel, and multiply is the one blend that
+   hides white on a LIGHT plate. On a dark one it multiplies the whole image down
+   to the plate. The white is keyed in the asset now - tools/key-alpha.py. */
+.gal .gmain img{ transition:transform .25s ease; }
+/* THE STAGE DOES NOT MOVE WITH THE THEME - the owner, 2026-08-13. It read
+   `--bg-page -> --bg-surface`, so in the dark theme a black jar stood on the two
+   darkest values in the system with an invisible shadow under it. The three
+   roles below are paired to themselves on purpose; the reasoning is in
+   tokens.css beside `--bg-photo`. */
 .gal .gmain{ background:
-    radial-gradient(120% 78% at 50% 108%, var(--shadow-floor) 0%, var(--fade-inverse) 62%),
-    linear-gradient(180deg,var(--bg-page) 0%, var(--bg-surface) 100%);  border-radius:var(--radius-16); font-size:0; overflow:hidden; }
+    radial-gradient(120% 78% at 50% 108%, var(--shadow-floor) 0%, var(--fade-photo) 62%),
+    linear-gradient(180deg,var(--bg-photo) 0%, var(--bg-photo-far) 100%);  border-radius:var(--radius-16); font-size:0; overflow:hidden; }
 .gal .gmain img{ width:100%; height:100%; object-fit:contain; padding:9%; }
 /* ---------- the frame with no photograph - step 8.16 ------------------------
    `architecture.md` C: «no photo | the gallery | the frame shows «фото товару»
@@ -82,11 +91,14 @@
    radius - and winning it back would mean a second edition of the atom living
    inside this file. Left as the atom draws it. */
 .gal .gmain:has(.loadnote){ background: var(--bg-sunken); }
+/* the mark stands ON the stage, so it is frozen with the stage: `--bg-inverse`
+   flips to a light warm plate and put a near-white pill on a now-white photo. */
 .gal .gmain .gtag{ font-size:var(--fs-10); letter-spacing:var(--ls-caps); border:none; border-radius:var(--radius-pill); padding:var(--space-4) var(--space-12);
-  background:var(--bg-inverse); color:var(--text-oninverse); box-shadow: var(--elevation-mark);
+  background:var(--bg-photo-mark); color:var(--text-photo-mark); box-shadow: var(--elevation-mark);
   display:inline-flex; align-items:center; gap:var(--space-4); }
 .gal .gmain .gtag::before{ content:'★'; color:var(--text-action); font-size:var(--fs-10); line-height:var(--lh-flat); }
-.gal .gthumb{ width:70px; height:70px; border-radius:var(--radius-8); background:var(--bg-page) center/74% no-repeat;
+/* the thumbnail holds the same photographs, so it stands on the same ground */
+.gal .gthumb{ width:70px; height:70px; border-radius:var(--radius-8); background:var(--bg-photo) center/74% no-repeat;
   border:1px solid var(--line-hair); cursor:pointer; transition:border-color .15s ease, transform .15s ease; }
 .gal .gthumb:hover{ transform:translateY(-2px); }
 .gal .gthumb.on{ border:2px solid var(--line-action); }

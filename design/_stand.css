@@ -14,10 +14,12 @@
    components/cat-overlay.css now, and the goal chip's mark went home to
    chip.css. This file draws the frame; it does not draw what is inside it.
 
-   HOW THE FRAME TELLS THE PRODUCT IT IS THERE - the two variables below, and
-   they are the only thing this file exports. A product rule may read them; it
-   may not know the numbers. Off the stand they are 0 and every rule that reads
-   them is a no-op, which is the whole point. */
+   HOW THE FRAME TELLS THE PRODUCT IT IS THERE - `--shell-top` and
+   `--shell-left`, and they are the only thing this file EXPORTS. A product rule
+   may read them; it may not know the numbers. Off the stand they are 0 and every
+   rule that reads them is a no-op, which is the whole point. The `--stand-*`
+   scrims below are the opposite: declared here, read here, and read nowhere
+   else - the frame's own greys are the frame's business, not the system's. */
 
 /* ---------- the frame's two numbers -----------------------------------------
    `--shell-top`  how much of the top of the screen the harness has taken
@@ -32,6 +34,46 @@
    that belongs to a fifth is not a style question, it is the same fact written
    five times, and the fifth edition moved. */
 :root{ --shell-top: 0px; --shell-left: 0px; }
+
+/* ---------- the frame's own scrims, and why they have two halves ------------
+   THE PANEL STANDS ON `--bg-inverse`, WHICH MOVES. «Inverse» means «opposite of
+   the page», so in the dark theme the plate goes from charcoal #1C1C1C to
+   #FAF9F7 - and that is correct, it is how the frame keeps saying «I am not the
+   product» when the product itself goes dark. What was not correct is that this
+   file painted sixteen `rgba(255,255,255,.x)` literals onto it. White at .5 on
+   charcoal is a quiet grey; white at .5 on #FAF9F7 is nothing at all. Measured
+   2026-08-13 on design/index.html in the dark theme: the flow heads, the node
+   numbers, the caption, the arrows and the foot links all read **1.05** - 32
+   words of navigation, invisible, on the panel a person uses to walk the other
+   87 screens.
+
+   THE PAIR IS NOT THE SAME ALPHA WITH A DIFFERENT INK. It is the alpha that
+   reproduces the light half's CONTRAST against the plate it actually has, solved
+   per line: .66 white on #1C1C1C is 8.02, and 8.03 on #FAF9F7 needs ink at .75,
+   not at .66. tokens.css says «the direction flips, the opacity does not» over
+   its own scrim block, and that sentence is what put --text-oninverse-muted at
+   3.66 in the dark against 8.02 in the light.
+
+   Five variables where there were nine values, and the merges are named: the
+   caption's .55 joined .66 (8.02), the flow head's .40 joined .50 (5.17), three
+   hairlines at .08 / .10 / .13 became one, and the hover fill at .07 joined the
+   current row's .08 - the current row is said by the orange bar down its left
+   edge, never by a 1% difference in fill. */
+:root{
+  --stand-ink-2: rgba(255,255,255,.66);   /* 8.02 - the second line: caption, state row, foot link */
+  --stand-ink-3: rgba(255,255,255,.50);   /* 5.17 - the quiet mark: node number, flow head, grey row */
+  --stand-ink-4: rgba(255,255,255,.28);   /* 2.53 - a state this screen does not have. Disabled, and it
+                                             fails its threshold in BOTH themes on purpose */
+  --stand-rule:  rgba(255,255,255,.10);   /* every hairline of the frame */
+  --stand-fill:  rgba(255,255,255,.08);   /* hover and the current row */
+}
+[data-theme="dark"]{
+  --stand-ink-2: rgba(20,20,15,.75);      /* 8.03 */
+  --stand-ink-3: rgba(20,20,15,.63);      /* 5.25 */
+  --stand-ink-4: rgba(20,20,15,.39);      /* 2.50 */
+  --stand-rule:  rgba(20,20,15,.14);
+  --stand-fill:  rgba(20,20,15,.11);
+}
 
 .wf-canvas{ min-height: 100vh; margin-left: var(--shell-left); }
 .wf-page{ max-width: 1200px; margin: 0 auto; padding: 0 var(--space-16) var(--space-40); }
@@ -56,39 +98,39 @@ body:has(.cart-drawer) .wf-bar{ position: relative; z-index: 80; }
   position:fixed; top:0; left:0; bottom:0; width:216px; z-index:90;
   background:var(--bg-inverse); color:var(--text-oninverse); display:flex; flex-direction:column;
   font-family:'Inter',system-ui,sans-serif; font-size:var(--fs-14); line-height:var(--lh-snug);
-  border-right:1px solid rgba(255,255,255,.08);
+  border-right:1px solid var(--stand-rule);
 }
-.uiv-side .us-top{ padding:var(--space-16) var(--space-16) var(--space-12); border-bottom:1px solid rgba(255,255,255,.08); }
+.uiv-side .us-top{ padding:var(--space-16) var(--space-16) var(--space-12); border-bottom:1px solid var(--stand-rule); }
 .uiv-side .us-all{ display:flex; align-items:center; justify-content:space-between; gap:var(--space-8);
-  background:var(--bg-action); color:var(--text-body); font-weight:var(--fw-bold); text-decoration:none;
+  background:var(--bg-action); color:var(--text-onaction-ink); font-weight:var(--fw-bold); text-decoration:none;
   border-radius:var(--radius-8); padding:var(--space-12) var(--space-12); font-size:var(--fs-14); letter-spacing:var(--ls-lead);
   transition:filter .15s ease; }
 .uiv-side .us-all:hover{ filter:brightness(1.06); }
 .uiv-side .us-tagrow{ display:flex; align-items:center; gap:var(--space-8); margin-top:var(--space-12); }
-.uiv-side .uiv-tag{ background:var(--bg-action); color:var(--text-body); font-weight:var(--fw-bold); letter-spacing:var(--ls-caps);
+.uiv-side .uiv-tag{ background:var(--bg-action); color:var(--text-onaction-ink); font-weight:var(--fw-bold); letter-spacing:var(--ls-caps);
   border-radius:var(--radius-4); padding:var(--space-2) var(--space-8); text-transform:uppercase; font-size:var(--fs-10); }
-.uiv-side .us-cap{ font-size:var(--fs-12); color:rgba(255,255,255,.55); }
+.uiv-side .us-cap{ font-size:var(--fs-12); color:var(--stand-ink-2); }
 .uiv-side .us-nav{ flex:1; overflow-y:auto; padding:var(--space-16) var(--space-12) var(--space-12); }
 .uiv-side .us-nav::-webkit-scrollbar{ width:0; }
 .uiv-side .us-flow{ font-size:var(--fs-12); letter-spacing:var(--ls-caps); text-transform:uppercase;
-  color:rgba(255,255,255,.4); padding:var(--space-2) var(--space-8) var(--space-8); }
+  color:var(--stand-ink-3); padding:var(--space-2) var(--space-8) var(--space-8); }
 .uiv-side .us-page{ display:block; font-weight:var(--fw-bold); color:var(--text-oninverse); text-decoration:none;
   padding:var(--space-8) var(--space-12); border-radius:var(--radius-8); }
-.uiv-side .us-page:hover{ background:rgba(255,255,255,.07); }
-.uiv-side .us-page.on{ background:rgba(255,255,255,.08); box-shadow:inset 2px 0 0 var(--line-action); }
+.uiv-side .us-page:hover{ background:var(--stand-fill); }
+.uiv-side .us-page.on{ background:var(--stand-rule); box-shadow:inset 2px 0 0 var(--line-action); }
 .uiv-side .us-page .nd{ font-family:var(--font-mono); font-size:var(--fs-12);
-  color:rgba(255,255,255,.5); }
-.uiv-side .us-states{ margin:var(--space-4) 0 var(--space-4) var(--space-8); padding-left:var(--space-8); border-left:1px solid rgba(255,255,255,.13); }
-.uiv-side .us-st{ display:block; color:rgba(255,255,255,.66); text-decoration:none;
+  color:var(--stand-ink-3); }
+.uiv-side .us-states{ margin:var(--space-4) 0 var(--space-4) var(--space-8); padding-left:var(--space-8); border-left:1px solid var(--stand-rule); }
+.uiv-side .us-st{ display:block; color:var(--stand-ink-2); text-decoration:none;
   padding:var(--space-8) var(--space-12); border-radius:var(--radius-8); font-size:var(--fs-14); margin-bottom:var(--space-2); }
-.uiv-side .us-st:hover{ color:var(--text-oninverse); background:rgba(255,255,255,.07); }
-.uiv-side .us-st.on{ color:var(--text-body); background:var(--bg-action); font-weight:var(--fw-bold); }
-.uiv-side .us-st.off{ color:rgba(255,255,255,.28); }
-.uiv-side .us-st.grey{ color:rgba(255,255,255,.5); }
+.uiv-side .us-st:hover{ color:var(--text-oninverse); background:var(--stand-fill); }
+.uiv-side .us-st.on{ color:var(--text-onaction-ink); background:var(--bg-action); font-weight:var(--fw-bold); }
+.uiv-side .us-st.off{ color:var(--stand-ink-4); }
+.uiv-side .us-st.grey{ color:var(--stand-ink-3); }
 .uiv-side .us-st.grey .gr{ font-size:var(--fs-10); opacity:.55; margin-left:var(--space-2); }
-.uiv-side .us-foot{ border-top:1px solid rgba(255,255,255,.08); padding:var(--space-12) var(--space-16) var(--space-16);
+.uiv-side .us-foot{ border-top:1px solid var(--stand-rule); padding:var(--space-12) var(--space-16) var(--space-16);
   display:flex; flex-direction:column; gap:var(--space-8); }
-.uiv-side .us-foot a{ color:rgba(255,255,255,.66); text-decoration:none; font-size:var(--fs-12); }
+.uiv-side .us-foot a{ color:var(--stand-ink-2); text-decoration:none; font-size:var(--fs-12); }
 .uiv-side .us-foot a:hover{ color:var(--text-oninverse); }
 /* 1076, AND THE NUMBER IS 216 + 860 - step 7.25. The panel is 216 wide and it
    PUSHES the canvas, but the product inside the canvas switches layouts on
@@ -116,12 +158,12 @@ body:has(.cart-drawer) .wf-bar{ position: relative; z-index: 80; }
   .uiv-topbar{ display:flex; align-items:center; justify-content:space-between; gap:var(--space-12);
     position:fixed; top:0; left:0; right:0; height:var(--size-40); z-index:92; padding:0 var(--space-12);
     background:var(--bg-inverse); color:var(--text-oninverse); border:none; cursor:pointer;
-    border-bottom:1px solid rgba(255,255,255,.1); font-family:'Inter', system-ui, sans-serif; }
+    border-bottom:1px solid var(--stand-rule); font-family:'Inter', system-ui, sans-serif; }
   .uiv-topbar .ut-l{ display:inline-flex; align-items:center; gap:var(--space-8); }
   .uiv-topbar .ut-label{ font-weight:var(--fw-bold); font-size:var(--fs-14); }
-  .uiv-topbar .uiv-tag{ background:var(--bg-action); color:var(--text-body); font-weight:var(--fw-bold);
+  .uiv-topbar .uiv-tag{ background:var(--bg-action); color:var(--text-onaction-ink); font-weight:var(--fw-bold);
     border-radius:var(--radius-4); padding:var(--space-2) var(--space-8); font-size:var(--fs-10); text-transform:uppercase; letter-spacing:var(--ls-caps); }
-  .uiv-topbar .ut-chev{ color:var(--scrim-white-70); transition:transform .2s ease; }
+  .uiv-topbar .ut-chev{ color:var(--stand-ink-2); transition:transform .2s ease; }
   body.uiv-side-open .uiv-topbar .ut-chev{ transform:rotate(180deg); }
   /* `margin-left:0` is gone: `--shell-left` is already 0 in this range, and a
      second answer to the same question is how the four component files got out
@@ -131,7 +173,7 @@ body:has(.cart-drawer) .wf-bar{ position: relative; z-index: 80; }
     max-height:0; overflow:hidden; border-right:none; border-bottom:none; box-shadow:none;
     transform:none; transition:max-height .24s ease; }
   body.uiv-side-open .uiv-side{ max-height:var(--uiv-side-h, calc(100vh - var(--shell-top))); overflow-y:auto;
-    border-bottom:1px solid rgba(255,255,255,.1); }
+    border-bottom:1px solid var(--stand-rule); }
   body.uiv-side-open .wf-canvas{ margin-top:calc(var(--shell-top) + var(--uiv-side-h, 0px)); }
   .uiv-side .us-tagrow{ display:none; }
   .uiv-sidescrim{ display:none !important; }

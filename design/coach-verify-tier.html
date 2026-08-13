@@ -18,15 +18,33 @@
    All numbers [?]. Both → coach-home.html. flows.md "verified". */
 .cv-wrap { max-width: 900px; }
 .cv-steps { display: flex; gap: 8px; margin: 6px 0 20px; flex-wrap: wrap; }
-.cv-step { flex: 1; min-width: 92px; border:1.5px solid var(--line-strong); border-radius: 10px; padding: 9px 12px; font-size: 12px; color:var(--text-secondary); background: #fff; }
+.cv-step { flex: 1; min-width: 92px; border:1.5px solid var(--line-strong); border-radius: 10px; padding: 9px 12px; font-size: 12px; color:var(--text-secondary); background: var(--bg-page); }
 .cv-step .n { display: inline-flex; width: 18px; height: 18px; border-radius: 50%; border:1.5px solid var(--line-strong); align-items: center; justify-content: center; font-size: 11px; font-weight: 800; margin-right: 7px; color:var(--text-secondary); }
 .cv-step b { display: block; color: var(--text-primary); font-weight: 800; font-size: 12.5px; margin-top: 4px; }
 .cv-step.on { border-color:var(--line-action); }
-.cv-step.on .n { background:var(--bg-action); border-color:var(--line-action); color: #fff; }
+.cv-step.on .n { background:var(--bg-action); border-color:var(--line-action); color: var(--text-onaction); }
 .cv-step.done .n { background:var(--bg-sunken); color: var(--text-primary); }
 /* verified banner */
-.cv-ok { display: flex; gap: 12px; align-items: center; border:1.5px solid var(--line-inverse); border-radius: 12px; padding: 14px 16px; margin-bottom: 22px; }
-.cv-ok .m { width: 38px; height: 38px; border-radius: 50%; background:var(--bg-inverse); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; flex: none; }
+/* A CONFIRMATION IS THE SUCCESS PLATE, and the system already had both halves.
+   status-pill.css settled the ground: `--bg-success-soft` with the
+   `--line-success-soft` edge, «the same word two taps away», seven names across
+   three screens. auth-dialog.css settled the disc: `.auth-visual .vmid .vi` is a
+   46px circle on `--bg-page` whose EDGE and GLYPH carry the state, and its
+   `[data-state="newuser"]` line is exactly this state - `--line-success` /
+   `--text-success`.
+   What was here was neither: a 1.5px ink frame round a filled ink disc, which is
+   the grey prototype's `--dark` translated by value. «Вас підтверджено як
+   тренера» is the good news of the whole flow and it was drawn as the heaviest,
+   most neutral object on the page. */
+.cv-ok { display: flex; gap: var(--space-12); align-items: center;
+  border:1px solid var(--line-success-soft); background: var(--bg-success-soft);
+  border-radius: var(--radius-12); padding: var(--space-16); margin-bottom: 22px; }
+.cv-ok .m { width: var(--size-46); height: var(--size-46); border-radius: var(--radius-circle);
+  background: var(--bg-page); border:1px solid var(--line-success); color: var(--text-success);
+  display: flex; align-items: center; justify-content: center; font-size: var(--fs-18); flex: none; }
+/* the glyph inside a 46px disc is 22, which is auth-dialog.css's number for the
+   same disc - `font-size` reaches the emoji and not the svg marks.js puts there */
+.cv-ok .m .uiv-ic svg { width: 22px; height: 22px; }
 .cv-ok b { color: var(--text-primary); font-size: 15px; }
 .cv-ok span { display: block; font-size: 12.5px; color:var(--text-secondary); margin-top: 2px; }
 h1.cv-h1 { font-size: 24px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; }
@@ -34,11 +52,29 @@ h1.cv-h1 { font-size: 24px; font-weight: 800; color: var(--text-primary); letter
 /* two tier cards */
 .tiers { display: grid; grid-template-columns: 1fr; gap: 16px; }
 @media (min-width: 720px) { .tiers { grid-template-columns: 1fr 1fr; align-items: start; } }
-.tier { border:1.5px solid var(--line-strong); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; }
-.tier.pro { border-color:var(--line-inverse); }
+/* THE CARD TAKES THE CARD FACE. `.acard` in account-shell.css is the product's
+   card - 1px `--line-hair`, `--radius-12`, `--bg-page`, `--elevation-1` - and
+   this one was a 1.5px `--line-strong` box with no ground and no lift, which is
+   the grey prototype's outline drawn in a role's name.
+   AND THE RECOMMENDED CARD IS ACCENT ON ITS EDGE, which is the third file to
+   say it rather than a fourth answer: chip.css 7.23 and radio.css 7.29 both
+   «ACCENT IS WHAT CHOSEN LOOKS LIKE», and `.cv-step.on` took the same line at
+   7.96. The edge is a LINE and the CTA below is a FILL - two surfaces, so the
+   card can point at itself without competing with its own action. */
+.tier { border:1px solid var(--line-hair); border-radius: var(--radius-12); background: var(--bg-page);
+  box-shadow: var(--elevation-1); padding: var(--space-16); display: flex; flex-direction: column; }
+.tier.pro { border-color:var(--line-action); }
 .tier-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
 .tier-name { font-size: 18px; font-weight: 800; color: var(--text-primary); }
-.tier-flag { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; color: #fff; background:var(--bg-inverse); border-radius: 5px; padding: 3px 8px; }
+/* THE OUTLINED BADGE, badge.css:163 - the shape step 8.10 folded `.addr-tag`,
+   `.cmp-head .plan .badge` and `.tf-mini` into: 10/900, caps, `--ls-caps`, a
+   `--line-strong` hairline, `--radius-pill`, and NO fill. Both flags were ink
+   slabs, so the two loudest objects on a screen whose job is «choose one of
+   these two» were the labels rather than the choice. A flag names a card; the
+   card's own edge and its button are what say which one to take. */
+.tier-flag { font-size: var(--fs-10); font-weight: var(--fw-black); text-transform: uppercase;
+  letter-spacing: var(--ls-caps); color: var(--text-secondary); background: none;
+  border:1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); }
 .tier-price { font-size: 22px; font-weight: 800; color: var(--text-primary); margin: 8px 0 2px; }
 .tier-price small { font-size: 13px; font-weight: 600; color:var(--text-secondary); }
 .tier-sub { font-size: 12px; color:var(--text-muted); margin-bottom: 16px; }
@@ -47,8 +83,17 @@ h1.cv-h1 { font-size: 24px; font-weight: 800; color: var(--text-primary); letter
 .tier li .m { color: var(--text-primary); font-weight: 800; flex: none; }
 .tier li.muted { color:var(--text-muted); }
 .tier li.muted .m { color:var(--text-muted); }
-.tier-cta { display: block; text-align: center; border:1.5px solid var(--line-inverse); border-radius: 10px; padding: 14px; font-size: 14px; font-weight: 700; color: var(--text-primary); }
-.tier-cta.dark { background:var(--bg-inverse); color: #fff; }
+/* `.tier-cta` AND `.tier-cta.dark`: DELETED, AND BUTTON.CSS OWNS THEM - the same
+   move step 7.96 made on `.cv-cta` one screen back, and its note there is the
+   reasoning: a primary action built by hand out of an ink fill, an ink border
+   and a white label is `.btn--accent.btn--full` plus a size, `--dark` having
+   been the greyscale stand-in for an accent the prototype could not show.
+   Every number disagreed with the atom (radius 10 against the scale, 14px
+   padding against the 40/52/64 ladder measured at 6.7) and neither had a hover,
+   an active, a focus ring or an off state; the atom has all four.
+   Free takes `btn--outline`, Pro takes `btn--accent`: ONE accent fill on the
+   screen, on the action the page recommends. */
+.tier-cta { display: block; }
 .tier-note { font-size: 11px; color:var(--text-muted); text-align: center; margin-top: 9px; }
 .cv-foot { font-size: 12px; color:var(--text-muted); margin-top: 22px; line-height: 1.6; }
 .cv-foot a { color: var(--text-primary); font-weight: 700; text-decoration: underline; }
@@ -98,7 +143,7 @@ h1.cv-h1 { font-size: 24px; font-weight: 800; color: var(--text-primary); letter
         <li><span class="m">✓</span> Збережені клієнти та історія по кожному</li>
         <li class="muted"><span class="m">-</span> Без максимальної гуртової знижки</li>
       </ul>
-      <a class="tier-cta" href="coach-home.html">Активувати Free</a>
+      <a class="btn--outline btn--l btn--full tier-cta" href="coach-home.html">Активувати Free</a>
       <div class="tier-note">Активується миттєво, без оплати</div>
     </div>
 
@@ -113,7 +158,7 @@ h1.cv-h1 { font-size: 24px; font-weight: 800; color: var(--text-primary); letter
         <li><span class="m">✓</span> Збережені клієнти, історія, швидке повторне замовлення</li>
         <li><span class="m">✓</span> Пріоритетні сповіщення про наявність <span style="color:var(--light)">[пізніше]</span></li>
       </ul>
-      <a class="tier-cta dark" href="coach-home.html">Оформити Pro</a>
+      <a class="btn--accent btn--l btn--full tier-cta" href="coach-home.html">Оформити Pro</a>
       <div class="tier-note">Підписку можна скасувати будь-коли · ціна [?]</div>
     </div>
   </div>

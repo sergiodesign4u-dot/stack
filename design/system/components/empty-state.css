@@ -85,8 +85,12 @@
    A6 closed for the product tile, at a smaller scale. */
 .empty .ei:has(img){ width:118px; height:118px; margin:0 auto var(--space-4);
   border-radius:var(--radius-circle); overflow:hidden; font-size:0; }
+/* No `mix-blend-mode: multiply` here since 2026-08-13, and it was never a blend
+   decision: the drawing had no alpha channel, and multiply is the one blend that
+   hides white on a LIGHT plate. On a dark one it multiplies the whole image down
+   to the plate. The white is keyed in the asset now - tools/key-alpha.py. */
 .empty .ei:has(img) img{ width:118px; height:118px; object-fit:cover;
-  object-position:center 12%; mix-blend-mode:multiply; }
+  object-position:center 12%; }
 /* the odd one out, and the only reason it is a rule rather than a decision */
 .empty .ei--wide:has(img), .empty .ei--wide:has(img) img{ width:126px; height:126px; }
 .empty .ei--wide:has(img){ margin-bottom:var(--space-8); }
