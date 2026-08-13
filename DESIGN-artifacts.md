@@ -45,6 +45,41 @@ Core palette (locked, transcribed from `brand-plate-d-2.png`, not read off the p
 | Ash Grey | `#D9D9D9` | surfaces, dividers, borders, disabled | A1 |
 | Warm Neutral | `#F2F0ED` | warm section backgrounds. Keeps neutrals human, not clinical white | A3 warmth in the neutral (anti sterile-pharma) |
 
+**The dark end of the ramp - four rungs, derived, added 2026-08-13 at stage 09 step 1.** Nothing on
+screen changes today: these are primitives with no semantic role until Крок 7 declares
+`[data-theme="dark"]`. They exist because the scale had **eight rungs and no surface between
+lightness 34 and 11** - a dark theme had exactly one value to stand on, `#1C1C1C`, and one value is
+not a set of surfaces.
+
+**The rule, so no number here is invented.** Every dark rung takes its **hue and saturation from
+`#F2F0ED`**, the plate's locked Warm Neutral (H 36, S 16.1) - the same argument as the light end,
+*A3 warmth in the neutral, anti sterile-pharma*, which is about neutrals and not about pale ones -
+and its **lightness from the light end's own step sizes**, measured in L\*: white → `--warm-50` is
+2.1, then 3.1, then 3.2, then 5.0. The dark end walks those same four steps upward, anchored so that
+**`#1C1C1C` lands on the second rung unchanged**. It is a plate pixel and the product's ink; it is
+not re-derived, it is where the mirror already put it.
+
+| Token | Hex | Role it is being built for | L\* | Accent `#FF5A00` on it |
+|---|---|---|---|---|
+| `--warm-950` | `#191612` | dark page | 7.4 | 5.76 |
+| `--warm-900` | `#1C1C1C` | dark surface - **unchanged, the locked Ink** | 10.3 | 5.45 |
+| `--warm-850` | `#26211B` | dark sunken | 13.1 | 5.10 |
+| `--warm-800` | `#2D2821` | dark hairline / rule | 16.4 | 4.67 |
+| `--warm-750` | `#39332A` | dark track / strong line | 21.6 | 3.99 |
+
+**Measured, and it changes what A10 means.** The accent clears **4.5:1 - full AA for normal text - on
+every dark rung a word can sit on**, and only the track falls to 3.99, where no text sits. The
+sub-AA compromise the owner accepted on 2026-08-12 is a property of the **pale grounds**, not of
+`#FF5A00`: on `--bg-surface` the same mark reads 2.97, here it reads 5.10. A dark theme does not
+inherit that compromise and must not be built as if it did.
+
+**Rejected, and the rejection is the evidence.** The other candidate mirrored hue and saturation
+**per rung** from the light pair, which is equally underived - but three of the five pairs (white,
+`--warm-50` via the fixed Ink, `--warm-300`) are themselves neutral, so the dark ramp came out
+`#171717` / `#1C1C1C` / warm / warm / `#343434`: a visible temperature wobble with the track reading
+cool between two warm neighbours. Rendered both at 1100 and chosen by eye, which is where a ramp is
+decided.
+
 **Semantic** (proposed, tuned to `voice.md` principle 5 "states tell the truth"; validate at Step 6 / 8, not read off the plate):
 
 - Success `#2E7D46` - muted green, calm not celebratory

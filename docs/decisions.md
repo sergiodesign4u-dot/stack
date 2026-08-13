@@ -2916,3 +2916,268 @@ was this exact question, now closed) · `design/kit/docs/architecture.md` and
 
 **Verified:** `accept` 88 @390 - 0 · `links` 4591 - 0 dead · `vars` 175 - 0 ·
 `css-comments` 89 balanced · `states` (widened) - «none».
+
+---
+
+## Step 8.20 - the route to the end, written down because it fell out of a summary
+
+**2026-08-13.** The owner asked a one-line question - «а как же крок 7 темная тема и крок 8
+перевірка?» - and it was a correction. The 8.19 report closed with «stage 09 → Крок 6 → section D»
+and **two steps were missing from it**, and `README.md` carried the same omission in its «Next:»
+line. Nothing had been cancelled; the steps were live in the task list and dropped out of the
+sentence that a person actually reads.
+
+### The decision
+
+**The dark theme is IN the MVP.** Until today it was in neither list in `CLAUDE.md` - not In, not
+Out - which made it **unratified**, not deferred: the step had entered the stage plan as a technical
+consequence of the semantic roles, with no decision under it. Every other item of scope in that file
+is named. Now it is too.
+
+**And the order:** stage 08's last three steps all run **after stage 09**, in the order
+`09 → Крок 6 → Крок 7 → Крок 8 → section D`. Крок 6 was already moved past 09 by the owner on
+2026-08-12; the other two follow it, for a reason that is not tidiness:
+
+- **A theme built before the tirage is verified on 47 coloured screens out of 88.** The other 41 go
+  colour at Крок 6 and would meet the theme from behind. That sentence is already written on the
+  stand once - `design/kit/system-page.html`, the «темна тема» row: «не бачена - перевірити немає на
+  чому, кольорового екрана з цими класами не існує». Building early writes it forty-one more times.
+- **The dark rungs of the warm scale are stage 09's subject**, not a leftover of 08. A palette is
+  decided where palettes are decided.
+
+### Measured before writing it, not assumed
+
+- **Precondition met.** 4512 role reads and **0** raw colour values across the component files.
+  `consolidation.md` claimed exactly this at step 5.9 and it is still true, so the theme really is
+  an override of the semantic block and nothing else.
+- **The palette has no dark surfaces.** `--warm-700` is lightness 34, `--warm-900` is 11, and there
+  is no rung between them. Eight rungs, a 23-point hole where the theme has to stand.
+- **`[data-theme="dark"]` does not exist in the code.** One occurrence in the whole repository, and
+  it is prose on `color.html` saying the block is missing.
+- **One inline colour literal on the whole coloured product**: `design/coach-home-free.html:111`,
+  `background:#fff`, inherited byte for byte from the frozen grey twin at
+  `wireframes/coach-home-free.html:106`. Inline beats every token, so the theme cannot reach it; the
+  fix is one declaration, in the coloured copy only.
+- **The concept stand's 32 literals are not in the way** - `concept.html` 27, `directions.html` 5. A
+  palette swatch showing `#FF5A00` has to be a literal or it stops being a swatch.
+
+### And the measurement found a published number that had been wrong since 7.30
+
+`design/kit/button.html` carried «**six** footer links have an inline `style` … a finished wall
+standing in front of the dark theme». **Both halves were wrong.**
+
+1. **It is three, not six.** Measured at `wireframes/_nav.js:1940`: three links, all `.wff-soc`, all
+   carrying `color:inherit` and no second declaration. Six was true until **step 7.30**, which took
+   the inline off the legal row - and that step *wrote the three down itself*, in the «Found, not
+   fixed» list of `consolidation.md`, and nobody carried it back to the page. **The same defect
+   shape as `.badge` at 8.19: a later step made a number false and the page never heard.**
+2. **`color:inherit` is not a wall for a theme at all.** The colour comes from the parent, the
+   parent is themed, so the three links switch on their own. What survives of the finding is
+   narrower and still true: those three cannot carry a role of their own.
+
+Both editions corrected, and the withdrawn wording left visible beside the correction.
+
+### Where the route lives
+
+**`README.md`, under «The route to the end»** - one place, because status has two homes in this
+project and a third only drifts. `CLAUDE.md` gained the scope decision (the dark theme in the In
+list) and not the order; it points at README for that. The visible edition for whoever decides is
+`design/kit/color.html`, whose «Темна тема» section stopped saying «немає в коді» and now carries
+the decision, the measured obstacles and the withdrawn number.
+
+---
+
+## Step 8.21 - the gate could see 88 of 203 pages, and the first look at the rest found two defects
+
+**2026-08-13.** Written down at the foot of 8.20: `accept.mjs` takes its subject
+from `pages()` in `lib.mjs`, and `pages()` read **one directory level**. So
+`design/` meant the 88 product screens, and the stand's 87 pages, its 25 demos
+and the 3 concept pages were outside every walk that trusted it. The gate had
+been printing «88 screens, failures: 0» over a folder that holds **203**.
+
+`vars.mjs` had the same defect in its own hand - two directories typed out,
+`design` and `design/kit` - which is why its number was 175 for so long and
+`design/kit/demo/` was never read at all.
+
+### The fix is one walking finder, not three lists
+
+`pages()` now walks, and `accept`, `states` and `vars` all take their subject
+from it. `vars.mjs`'s two hand-typed directories are deleted. *A finder that
+looks one level deep is the same defect as a list typed from memory - point 1 of
+`states.mjs` - it just fails where nobody thinks to check, and prints a number
+that sounds like coverage.*
+
+### What the first run that could see them found
+
+Two defects on `design/concept/`, published since **stage 06**, on pages no gate
+had ever opened:
+
+1. **`sections is not defined`, thrown on every load** of `concept/concept.html`
+   and `concept/directions.html`. A gutted `<script>` block: six blank lines
+   where the declarations used to be and one surviving line calling them. The
+   page's own scrollspy was replaced by `/_nav.js`, which runs the
+   IntersectionObserver over `NAV_SECTIONS` itself (`_nav.js:221`); the
+   declarations went and the call stayed. Both blocks removed.
+2. **53px of sideways scroll at 390** on `concept/concept.html`, and the same 443
+   at 360. One element: the contrast table, whose four columns of prose resolve
+   to a min-content of 423 that beats its own `width: 100%`. Wrapped in
+   `.tscroll{overflow-x:auto}` - the same rule `.kp-scroll` states on the kit
+   stand. The table scrolls inside its own box, the page never does.
+
+### And a third, which is NOT fixed here because it is a step, not a defect
+
+Running the gate at **360**, which is the width `CLAUDE.md` names («narrow to
+360px, and only then say done») and not the 390 the gate defaults to, **four
+coach screens scroll sideways by 10px**: `coach-session-addclient`,
+`-addempty`, `-oos`, `-priceblock`. One element on each, `button.btn.qa-add`,
+«Додати клієнту».
+
+**That button already has a fix, written at step 7.97**, and the comment above it
+in `coach-session.css` is three paragraphs long. The fix is a
+`@media (max-width: 479px)` block that stacks the row so the button gets a full
+second line - and every selector in it is gated on `.coach`.
+
+**The six state screens of the coach session do not carry `.coach` and never
+received it.** Measured:
+
+| screen | private declarations | raw values |
+|---|---|---|
+| `coach-session` (the base) | **0** | **0** |
+| `coach-session-addclient` | 446 | 234 |
+| `coach-session-addempty` | 443 | 234 |
+| `coach-session-priceblock` | 340 | 181 |
+| `coach-session-oos` | 330 | 177 |
+| `coach-session-loading` | 320 | 174 |
+| `coach-session-newclient` | 261 | 140 |
+
+The base screen is fully migrated to the system; its six states are the
+**pre-Крок-5 edition**, carrying the component restated by hand in raw values -
+`44px`, `13px`, `#bbb`, `#aaa`, `1.5px`, `background:#fff`. They pass `vars.mjs`
+because the names they do use are declared; the architecture was never the thing
+that file asks about.
+
+**Across all 88 coloured screens: 57 carry no private CSS, 31 carry 4898
+declarations with 2634 raw values between them**, and the twelve largest are
+almost all coach screens - the primary audience. The task list sizes this piece
+of Крок 6 as «~600 lines of private CSS»; the measurement says otherwise, and
+that estimate is now replaced by the count.
+
+Not started here. It is Крок 6's subject, it needs the owner's word on ordering
+against stage 09, and a 6-screen migration folded silently into a step about an
+instrument is exactly the kind of thing this file exists to prevent.
+
+### And the state walk, on the same widened subject, found a fourth
+
+`states.mjs` over 203 pages came back with two rows, both on `kit/toast` - the
+only stand page that also loads the product's runtime, so the only one the walk
+can open anything on. Both said the same thing: **one `←` still typed, turned
+into a glyph the moment the pass ran again.**
+
+It was not the toast. It was **`a.kn-back`, «← Вся система», the stand's own back
+link**, rendered by `design/kit/_nav.js:501` as `&#8592;`. `marks.js:341` maps
+that character to `arrowLeft` and states in capitals that «`←` and `‹` are here
+and nowhere else» - but the kit nav renders **after** `uivChrome()` has already
+run on the page, so nothing had ever marked it. **112 stand pages drew that arrow
+in the body font while the product beside them drew it from the set**, and no
+pass had ever looked, because no walk could see the stand.
+
+One line, and it is the rule rather than the instance: the nav marks the subtree
+it just rendered, `uivMarks` is idempotent, so it survives a re-render and costs
+nothing. Verified on `kit/toast` after an opener, on a plain kit page and on a
+demo page: zero typed arrows left. The walk now says «none» again.
+
+**Gates after the step:** `accept` **203** @390 - 0 · `states` **203** - «none» ·
+`vars` **203** - 0 · `css-comments` 89 balanced · `links` 4591 - 0 dead.
+Two of those numbers were 88 and 175 this morning.
+
+---
+
+# STAGE 09 - DESIGN SYSTEM
+
+## Step 09.1 - the dark end of the warm ramp
+
+**2026-08-13.** First step of the stage, taken because it is the only thing in
+the route that **blocks a later one**: Крок 7 cannot stand a dark theme on a
+scale that has nowhere dark to stand it.
+
+### What was measured first
+
+The warm ramp, read off `tokens.css` and computed rather than eyeballed:
+
+| token | hex | H | S | L\* |
+|---|---|---|---|---|
+| `--white` | `#FFFFFF` | – | 0 | 100.0 |
+| `--warm-50` | `#FAF9F7` | 40 | 23.1 | 97.9 |
+| `--warm-100` | `#F2F0ED` | 36 | 16.1 | 94.9 |
+| `--warm-200` | `#E9E7E2` | 43 | 13.7 | 91.7 |
+| `--warm-300` | `#D9D9D9` | – | 0 | 86.7 |
+| `--warm-600` | `#6E6A62` | 40 | 5.8 | 44.9 |
+| `--warm-700` | `#5B5B54` | 60 | 4.0 | 38.5 |
+| `--warm-900` | `#1C1C1C` | – | 0 | 10.3 |
+
+**Two holes, and the published record named only one.** `color.html` said «no
+rung between lightness 11 and 34», which is true; there is a **larger** one
+between `--warm-300` and `--warm-600`, 41.8 in L\*. That one is a mid-tone hole
+and not what a dark theme needs, so it is named here and left alone.
+
+**And the light end is not warm all the way through**: `--warm-300` and
+`--warm-900` are both **S 0**, pure neutral greys inside a ramp called warm
+neutrals. Both are plate pixels, so that is what the plate gave.
+
+### The rule, so that no number is invented
+
+Hue and saturation from **`#F2F0ED`**, the plate's locked Warm Neutral (H 36,
+S 16.1). The ground is the light end's own: *A3, warmth in the neutral, anti
+sterile-pharma* - an argument about neutrals, not about pale ones.
+
+Lightness from **the light end's own step sizes in L\***: white → `--warm-50` is
+2.1, then 3.1, 3.2, 5.0. The dark end walks those four upward, anchored so that
+**`#1C1C1C` lands on the second rung unchanged**. It is a plate pixel and the
+product's ink; it is not re-derived, the mirror simply agrees with where it is.
+
+| token | hex | role it is built for | L\* | accent on it |
+|---|---|---|---|---|
+| `--warm-950` | `#191612` | dark page | 7.4 | 5.76 |
+| `--warm-900` | `#1C1C1C` | dark surface - **unchanged** | 10.3 | 5.45 |
+| `--warm-850` | `#26211B` | dark sunken | 13.1 | 5.10 |
+| `--warm-800` | `#2D2821` | dark hairline | 16.4 | 4.67 |
+| `--warm-750` | `#39332A` | dark track | 21.6 | 3.99 |
+
+Resulting dark steps: 2.5 / 3.2 / 3.1 / 5.2 against the light end's 2.1 / 3.1 /
+3.2 / 5.0. **Primitives only.** The semantic block is untouched and
+`[data-theme="dark"]` is Крок 7's to write.
+
+### The rejected candidate is the evidence, so it stays written down
+
+The other rule was equally underived: mirror hue and saturation **per rung** from
+the light pair. But three of the five pairs are themselves neutral - white, the
+fixed Ink, `--warm-300` - so the ramp came out `#171717` / `#1C1C1C` / warm /
+warm / `#343434`: a **visible temperature wobble**, the track reading cool
+between two warm neighbours. Both were rendered at 1100 with real text, ink and
+accent on every rung, and chosen by eye, because that is where a ramp is decided.
+
+### And it changes what A10 means
+
+`#FF5A00` clears **4.5:1, full AA for normal text, on every dark rung a word can
+sit on**: 5.76, 5.45, 5.10, 4.67. Only the track falls to 3.99, and no text sits
+on a track. **The sub-AA compromise the owner accepted on 2026-08-12 is a
+property of the pale grounds, not of the accent** - the same mark reads 2.97 on
+`--bg-surface` and 5.10 on `--warm-850`. The decision stands for the light theme
+and **is not inherited** by the dark one.
+
+### The page caught the change, and then the change caught the page
+
+`color.html` has a self-check that lists tokens declared in the file and not
+shown on it. It would have flagged all four - the ramp list on that page is
+typed - so the four names were added and the check now reads **«all 130 tokens
+shown»**.
+
+**Then the new rungs broke its duplicate detector**, and that is the better
+finding. It compared neighbours at **ΔL ≤ 2 in HSL L**, which is not
+perceptually uniform: it compresses at the dark end, so the ramp's own single
+step reads as **4** between `--warm-100` and `--warm-200` and as **2** between
+`--warm-850` and `--warm-800` - the same 3.2 apart in L\*. The pair would have
+been reported as one colour under two names while the identical light pair went
+unmentioned. The detector now measures in **L\***; the cards still print HSL
+because that is what the token names are shaped like, but nothing that decides
+uses it. Both panels read «пройдено».

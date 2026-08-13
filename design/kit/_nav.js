@@ -515,6 +515,15 @@ window.KIT_NAV = [
     h += '</div>';
   });
   nav.innerHTML = h;
+  /* AND THEN MARK IT - step 8.21, found by the state walk the first time it
+     could see this stand. `&#8592;` in the back link is a typed character that
+     `uivMarks` turns into the `arrowLeft` glyph (marks.js:341, «← and ‹ are here
+     and nowhere else»), and this nav renders AFTER `uivChrome()` has already run
+     on the page, so nothing had ever marked it: 112 stand pages drew the arrow
+     in the body font while the product beside them drew it from the set. The
+     pass is idempotent, so calling it on our own subtree costs nothing and
+     survives a re-render. */
+  if (typeof uivMarks === 'function') uivMarks(nav);
   var cur = nav.querySelector('.kn-l.on');
   if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: 'center' });
 })();

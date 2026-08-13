@@ -20,11 +20,11 @@
    «does every name a coloured screen uses have a declaration in the sheets that
    screen actually loads». Both halves are read off disk, neither is typed here.
 
-     node tools/vars.mjs                 every design/*.html and design/kit/*.html
+     node tools/vars.mjs                 every .html under design/, at any depth
      node tools/vars.mjs coach-verify-tier                       named screens   */
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
-import { ROOT, subject } from './lib.mjs';
+import { ROOT, subject, pages } from './lib.mjs';
 
 /* Names declared by a stylesheet, and names it asks for. A declaration is
    `--x:` at the head of a declaration; a use is `var(--x`. The two patterns
@@ -102,8 +102,10 @@ const args = process.argv.slice(2);
 const named = args.filter(a => !a.startsWith('-'));
 const SCREENS = named.length
   ? named.map(n => (n.includes('/') ? n : 'design/' + n) + '.html')
-  : [...readdirSync(join(ROOT, 'design')).filter(f => f.endsWith('.html')).map(f => 'design/' + f),
-     ...readdirSync(join(ROOT, 'design/kit')).filter(f => f.endsWith('.html')).map(f => 'design/kit/' + f)].sort();
+  /* was two directories named by hand here - `design` and `design/kit` - which
+     is why 175 was the number for so long and design/kit/demo/ was never read.
+     One shared finder now, and it walks. */
+  : pages().map(p => 'design/' + p + '.html');
 
 let bad = 0, checked = 0;
 const tally = new Map();

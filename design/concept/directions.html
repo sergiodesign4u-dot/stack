@@ -467,15 +467,11 @@ img{display:block; max-width:100%}
 
 </div>
 
-<script>
-  
-  
-  
-  
-  
-  
-  sections.forEach(function(s){ observer.observe(s); });
-</script>
+<!-- The page's own scrollspy was replaced by /_nav.js, which runs the
+     IntersectionObserver over NAV_SECTIONS itself (_nav.js:221). Its declarations
+     were deleted and the last line that called them was left behind - six blank
+     lines and «sections is not defined» on every load since. Removed 13.08.2026,
+     the first time a gate could see this page. -->
 <script>
 window.NAV_BASE = '../../';
 window.NAV_SECTIONS = [{"id": "d1", "label": "Спокійна вітрина"}, {"id": "d2", "label": "Щільна вітрина"}, {"id": "d3", "label": "Гід із ведмедем"}];

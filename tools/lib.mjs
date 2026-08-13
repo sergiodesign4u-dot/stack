@@ -97,13 +97,27 @@ export async function chrome(tag) {
   return { ...l, stop, profileDir: prof.dir };
 }
 
-/* Every screen in a folder, found rather than typed. `index` is included: it is
-   the product's home page inside design/, not the repo's entry point. */
+/* Every screen in a folder, found rather than typed - AND THE FOLDER HAS
+   SUBFOLDERS. Until 2026-08-13 this read ONE directory level, so `design/` meant
+   the 88 product screens and nothing else: the stand's 87 pages, its 25 demos
+   and the 3 concept pages were outside every walk that trusted this function.
+   The gate printed «88 screens, failures: 0» over a folder holding 203, and the
+   sentence a person read was «the product passes».
+   The first run that could see them found two defects on pages no gate had ever
+   opened: a gutted <script> block on both concept pages, six blank lines where
+   the declarations were and one surviving call to them («sections is not
+   defined»), and 53px of sideways scroll at 390 from a contrast table with no
+   scroll box. Both had been published since stage 06.
+   A finder that looks one level deep is the same defect as a list typed from
+   memory - point 1 of states.mjs, again. It just fails somewhere nobody thinks
+   to look, and reports a number that sounds like coverage.
+   `index` is included: it is the product's home page inside design/, not the
+   repo's entry point. */
 export function pages(dir = 'design') {
-  return readdirSync(join(ROOT, dir))
-    .filter(f => f.endsWith('.html'))
-    .map(f => f.slice(0, -5))
-    .sort();
+  const walk = d => readdirSync(join(ROOT, d), { withFileTypes: true }).flatMap(e =>
+    e.isDirectory() ? walk(d + '/' + e.name)
+      : e.name.endsWith('.html') ? [(d + '/' + e.name).slice(dir.length + 1, -5)] : []);
+  return walk(dir).sort();
 }
 
 /* argv after the flags, or every page in `dir` when the caller named none.

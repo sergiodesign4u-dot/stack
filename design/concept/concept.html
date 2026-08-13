@@ -54,6 +54,11 @@ section.block{margin-top:clamp(40px,6vw,72px)}
 .sw .meta .hex{font-family:"IBM Plex Mono",monospace; font-size:.8rem; color:var(--muted); margin:2px 0 6px}
 .sw .meta .role{font-size:.82rem; color:var(--ink-2); line-height:1.4}
 .sw .meta .att{margin-top:8px}
+/* A table's min-content wins over width:100% - four columns of prose needed 423
+   in a 390 viewport, and the whole page scrolled sideways by 53px on a phone
+   from stage 06 until 13.08.2026. The table scrolls inside its own box, the page
+   never does. Same rule as .kp-scroll on the kit stand. */
+.tscroll{overflow-x:auto}
 .ctable{width:100%; border-collapse:collapse; margin-top:20px; font-size:.9rem}
 .ctable th,.ctable td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line)}
 .ctable th{font:600 11px/1 Inter; letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
@@ -263,7 +268,7 @@ section.block{margin-top:clamp(40px,6vw,72px)}
       <div class="sw"><div class="chip" style="background:#C42B1C"></div><div class="meta"><div class="nm">Error</div><div class="hex">#C42B1C</div><div class="role">Помилка. Навмисно відділений від Signal Orange - помилка не читається як бренд-акцент чи свято.</div><span class="att">voice.md · помилка каже правду</span></div></div>
     </div>
 
-    <table class="ctable">
+    <div class="tscroll"><table class="ctable">
       <thead><tr><th>Пара текст / тло</th><th>Контраст</th><th>Вердикт</th><th>Застосування</th></tr></thead>
       <tbody>
         <tr><td><span class="pair"><i style="background:#1C1C1C;color:#fff">A</i> Ink на Canvas</span></td><td class="ratio">16.1 : 1</td><td><span class="verdict aaa">AAA</span></td><td>основний текст</td></tr>
@@ -276,7 +281,7 @@ section.block{margin-top:clamp(40px,6vw,72px)}
         <tr><td><span class="pair"><i style="background:#fff;color:#8A5A0E">A</i> Gold на Canvas</span></td><td class="ratio">5.5 : 1</td><td><span class="verdict aa">AA</span></td><td>текст бонусу (темна амбра)</td></tr>
         <tr><td><span class="pair"><i style="background:#fff;color:#C9821E">A</i> Warning на Canvas</span></td><td class="ratio">3.0 : 1</td><td><span class="verdict large">AA large</span></td><td>лише крапка / великий, не дрібний текст</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </section>
 
   <!-- ===== 3. ТИПОГРАФІКА ===== -->
@@ -430,15 +435,11 @@ section.block{margin-top:clamp(40px,6vw,72px)}
 
 </div>
 
-<script>
-  
-  
-  
-  
-  
-  
-  sections.forEach(function(s){ observer.observe(s); });
-</script>
+<!-- The page's own scrollspy was replaced by /_nav.js, which runs the
+     IntersectionObserver over NAV_SECTIONS itself (_nav.js:221). Its declarations
+     were deleted and the last line that called them was left behind - six blank
+     lines and «sections is not defined» on every load since. Removed 13.08.2026,
+     the first time a gate could see this page. -->
 <script>
 window.NAV_BASE = '../../';
 window.NAV_SECTIONS = [{"id": "lang", "label": "Мова живцем"}, {"id": "palette", "label": "Палітра"}, {"id": "type", "label": "Типографіка"}, {"id": "form", "label": "Форма"}, {"id": "photo", "label": "Фото"}, {"id": "mascot", "label": "Маскот"}, {"id": "icons", "label": "Іконки"}, {"id": "components", "label": "Компоненти"}, {"id": "screen", "label": "На екрані"}];

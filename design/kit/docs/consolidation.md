@@ -1006,6 +1006,13 @@ Two bugs of my own, found by this pass and fixed:
   step 8, and it costs +196px of footer height on mobile.
 - **Six footer links carry an inline `style`** (`color:inherit`, `text-decoration:underline`).
   Inline beats every token, so this is a finished wall standing in front of the dark theme.
+  **WITHDRAWN 2026-08-13, and both halves of it were wrong.** Step 7.30 took the inline off the
+  legal row, leaving three on `.wff-soc` - that step wrote the three down (see «Found, not fixed»
+  below) and never carried it back here. And `color:inherit` is not a wall for a theme at all: the
+  colour comes from the parent, the parent is themed, so those three switch on their own. The wall
+  is a **literal**, and on the whole coloured product there is exactly one -
+  `design/coach-home-free.html:111`, `background:#fff`, inherited byte for byte from the frozen
+  grey twin. What survives of this finding: the three links cannot carry a role of their own.
 - **«Змінити згоду» is a button written as a link.** The markup lives in the frozen grey `_nav.js`,
   so it is fixed when that layer is unfrozen, not before.
 - **The newsletter placeholder truncates** at 1280 - the string needs ~164px and the column gives

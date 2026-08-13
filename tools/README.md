@@ -252,6 +252,25 @@ asked for a page whose name was 135 names long. *An instrument that takes its
 subject from the caller can be handed the wrong subject; one that finds its own
 cannot.*
 
+**And finding its own is not enough if it looks one level deep - 2026-08-13.**
+`pages()` read a single directory, so `design/` meant the 88 product screens and
+stopped there: **the stand's 87 pages, its 25 demos and the 3 concept pages were
+outside every walk that trusted this function.** The gate printed «88 screens,
+failures: 0» over a folder that holds **203**, and the sentence a person read off
+that was «the product passes». `vars.mjs` had the same defect in its own hand:
+two directories typed out, `design` and `design/kit`, which is why its number was
+175 for so long and `design/kit/demo/` was never read at all. One walking finder
+now, shared by `accept`, `states` and `vars`.
+
+**The first run that could see them found two defects on pages no gate had ever
+opened**, both published since stage 06: a gutted `<script>` block on
+`concept/concept.html` and `concept/directions.html` - six blank lines where the
+declarations used to be and one surviving call to them, `sections is not
+defined`, thrown on every load - and **53px of sideways scroll at 390** from a
+contrast table whose min-content beat its own `width: 100%`. *A finder that looks
+one level deep is the same defect as a list typed from memory; it just fails
+where nobody thinks to check, and prints a number that sounds like coverage.*
+
 **Nothing a tool starts outlives it.** The `stop()` calls at the foot of each
 script only run on the happy path - a script killed by a timeout, stopped with
 ^C, or thrown out by an exception used to leave its Chrome and its server up, and

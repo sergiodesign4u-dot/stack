@@ -53,7 +53,10 @@ trust signals leading, not buried · catalog with smart filtering · reorder fro
 checkout and buyer account (orders, addresses, wishlist, loyalty) · **order status notification by
 e-mail or SMS** (added to MVP 2026-08-04 from CJM zone Z3: the As-Is bottom is silence during the
 wait, and status inside the account only reaches someone who thinks to look. A notification, not a
-screen, so the 19 MVP screens are unchanged).
+screen, so the 19 MVP screens are unchanged) · **a dark theme** (added to MVP 2026-08-13: the
+semantic layer was built for it - 4512 role reads and **0** raw colour values in the component
+files - so it is an override of `tokens.css` and nothing else. It runs after the tirage, or it is
+verified on 47 coloured screens out of 88. Order lives in `README.md`).
 
 Out: native app · loyalty gamification · live chat and coach consulting · custom formulation ·
 private label. A paid coach tier (Free / Pro) is a **hypothesis**, not a commitment.
