@@ -3278,3 +3278,81 @@ that. Three parts:
 Registered in both registries, `/_nav.js` flipped to `done: true`. Gates:
 `accept` **205** @390 - 0, and the new page also at 360 - 0 · `vars` 205 - 0 ·
 `css-comments` 89 balanced · `links` 4598 - 0 dead.
+
+---
+
+# CORRECTION - 2026-08-13. The pipeline packs exist, and I had not opened them
+
+The owner's words: «я не понимаю почему мы пошли в разрез етапов... вот скилл
+/dp-pipeline /dp-tokens-components /dp-design-system... все остальное по урокам».
+They were right on every count, and the packs in `AI Design Workflow/` are the
+source of truth this session had been working around rather than from.
+
+## What the packs actually say
+
+- **The dark theme is stage 08 step 7, «Темна тема: стрес-тест системи».** Not a
+  finale, not decoration: it goes in EARLY because it breaks whatever is badly
+  separated, and early is when that is cheap. `08 - Tokens Components.md`: «пара
+  тем обовʼязкова з першого рядка... роль без пари не існує».
+- **The rollout is stage 12**, after Responsive (10) and Animation (11) - exactly
+  as the owner said. `09 - Design System.md`: «у кольорі стоїть вибірка 5-7
+  екранів; решта продукту чекає розкотки на етапі 12».
+- **Stage 09 has six steps**: patterns and prohibitions from screens · pattern
+  showcase · `why.html` · contribution rule · next product screen assembled from
+  the system · check and final. `why.html` is its **step 3**, with its content
+  specified (from `concept.md` and `references.md`, plus a «Беклог системи»
+  section).
+- Stage 08's steps 6, 8 and 9 are «звід системи з продуктом», «переїзд вибірки»
+  and «перевірка і фінал» - not what the task list had paraphrased them into.
+
+## What I had invented
+
+The route written at step 8.20 - «тираж → тема → доступність», with the argument
+that a theme built before the tirage would be verified on 47 screens of 88. The
+logic is backwards: the selection is MEANT to stay a selection, the theme is the
+stress test on it, and the rollout copies a FINISHED system at the end. The owner
+agreed to that route because I presented it as read out of the files. It was not.
+
+Withdrawn in every edition rather than deleted: `README.md` (the section now
+states the correction), `CLAUDE.md` (the MVP scope entry), and
+`design/kit/why.html`, where the old route stands next to the real one with the
+reason. A route corrected silently returns in the same words.
+
+`design/kit/dark-preview.html` deleted and unregistered: it was a substitute for
+the switch that should have existed, and the real theme replaced it. What it
+found before that stands - the flat two-level hierarchy that produced
+`--warm-400` and `--warm-500`.
+
+## Stage 08 step 7, and the debt under it
+
+Step 7 could not run: it stress-tests a theme, and the theme did not exist.
+`[data-theme="dark"]` was **0 lines** in the whole repository, so steps 3 and 5
+had each delivered half their contract, and step 4's theme switch was missing
+too. Written now, before the stress test:
+
+- **23 dark-side primitives**, one rule and no invented number: each keeps the
+  hue and saturation of its light twin and solves its lightness so it stands to
+  `--warm-950` exactly as the light one stands to white. `--green-400` 5.09 where
+  `--green-600` is 5.07 · `--amber-500` 5.93 / 5.92 · `--red-400` 5.64 / 5.66 ·
+  `--slate-300` 7.52 / 7.53. Plates keep their distance off the page: `--green-950`
+  1.076 where `--green-50` is 1.079, and so on. Alphas flip direction, not opacity.
+- **85 semantic roles** given their dark half. The action colour does NOT invert
+  and that is the point of the semantic layer: the ground flips, the ink flips,
+  and «action» is still action - `#FF5A00` even gains, 5.76 here against 3.13 on
+  white.
+- **`design/system/theme.js`**, loaded in `<head>` of all 114 stand pages, applies
+  the stored choice **before the first paint**; the pack names the defect it
+  prevents («щоб сторінка не блимала світлим»). Two states, not three: an `auto`
+  mode following `prefers-color-scheme` would need all 85 roles declared a second
+  time inside a media query, and two copies of 85 values diverge on the first edit.
+- **The switch in the stand's panel** (`design/kit/_nav.js`), which is step 4's
+  debt. The product's own switch is step 8's, when the screens move onto the system.
+
+Verified in the browser: `data-theme="dark"` on `<html>`, body `rgb(25,22,18)`
+= `--warm-950`, ink `rgb(250,249,247)` = `--warm-50`. Gates: `accept` 204 @390 - 0 ·
+`vars` 204 - 0 · `css-comments` 89 balanced · `links` 4594 - 0 dead.
+
+**Not done here, and it is the actual step 7:** the stress test itself - walking
+the whole stand in dark looking for neighbourhood failures (surfaces that merged,
+two roles that collapsed into one value, a component that reads a primitive
+directly). That is the next step, and it is what step 7 is for.

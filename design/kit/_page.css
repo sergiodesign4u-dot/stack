@@ -18,8 +18,24 @@
 .kn-back:hover{ text-decoration:underline; }
 .kn-t{ font-family:var(--font-display); font-size:var(--fs-18); font-weight:var(--fw-bold);
   color:var(--text-primary); margin-bottom:var(--space-4); }
-.kn-sub{ font-size:var(--fs-12); color:var(--text-muted); margin-bottom:var(--space-16);
+.kn-sub{ font-size:var(--fs-12); color:var(--text-muted); margin-bottom:var(--space-12);
   font-family:var(--font-mono); }
+/* the theme switch of the STAND. Every colour here is a role, like everywhere
+   else, so the button restyles itself when it flips the theme it controls. */
+.kn-theme{ display:flex; align-items:center; gap:var(--space-8); width:100%;
+  margin-bottom:var(--space-16); padding:var(--space-8) var(--space-12);
+  border:1px solid var(--line-hair); border-radius:var(--radius-8);
+  background:var(--bg-surface); color:var(--text-secondary);
+  font-family:inherit; font-size:var(--fs-12); font-weight:var(--fw-semibold);
+  cursor:pointer; text-align:left; }
+.kn-theme:hover{ border-color:var(--line-strong); color:var(--text-primary); }
+.kn-theme:focus-visible{ outline:none; box-shadow:var(--ring-focus); }
+/* the mark is a filled half-circle: one shape that reads as «two themes» in
+   both themes, and it needs no glyph from the set. */
+.kn-theme-i{ width:var(--size-20); height:var(--size-20); border-radius:var(--radius-circle);
+  border:1.5px solid var(--line-strong); flex:none;
+  background:linear-gradient(90deg, var(--text-primary) 50%, transparent 50%); }
+.kn-theme[aria-pressed="true"] .kn-theme-i{ transform:rotate(180deg); }
 .kn-g{ margin-top:var(--space-16); }
 .kn-gh{ font-size:var(--fs-10); font-weight:var(--fw-black); letter-spacing:var(--ls-eyebrow);
   text-transform:uppercase; color:var(--text-muted); margin-bottom:var(--space-8);

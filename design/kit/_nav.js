@@ -60,11 +60,6 @@ window.KIT_NAV = [
     "done": true
    },
    {
-    "label": "Темна тема - прев'ю",
-    "page": "dark-preview.html",
-    "done": true
-   },
-   {
     "label": "Типографіка",
     "page": "typography.html",
     "done": true
@@ -508,9 +503,21 @@ window.KIT_NAV = [
   window.KIT_NAV.forEach(function (g) {
     g.items.forEach(function (i) { total++; if (i.done) done++; });
   });
+  /* THE THEME SWITCH BELONGS TO THE PANEL, THE THEME ITSELF DOES NOT - the
+     pack, step 4: «перемикачі теми свої на кожній поверхні: у design/kit/_nav.js
+     на кроці 4... у design/_nav.js на кроці 8. Кореневий /_nav.js не чіпаємо».
+     The button only CALLS `uivTheme()` from design/system/theme.js, which has
+     already applied the stored choice from <head> - before the first paint, so
+     the page never flashes light. A switch that lived here alone would flash on
+     every load, because this file runs at the end of the body. */
+  var mode = (typeof uivThemeNow === 'function') ? uivThemeNow() : 'light';
   var h = '<a class="kn-back" href="overview.html">&#8592; Вся система</a>' +
           '<div class="kn-t">Дизайн-система</div>' +
-          '<div class="kn-sub">' + done + ' / ' + total + ' сторінок</div>';
+          '<div class="kn-sub">' + done + ' / ' + total + ' сторінок</div>' +
+          '<button class="kn-theme" type="button" id="knTheme" aria-pressed="' + (mode === 'dark') + '">' +
+            '<span class="kn-theme-i" aria-hidden="true"></span>' +
+            '<span class="kn-theme-t">' + (mode === 'dark' ? 'Темна тема' : 'Світла тема') + '</span>' +
+          '</button>';
   window.KIT_NAV.forEach(function (g) {
     var d = g.items.filter(function (i) { return i.done; }).length;
     h += '<div class="kn-g"><div class="kn-gh"><span>' + g.label + '</span><i>' +
@@ -534,6 +541,12 @@ window.KIT_NAV = [
      pass is idempotent, so calling it on our own subtree costs nothing and
      survives a re-render. */
   if (typeof uivMarks === 'function') uivMarks(nav);
+  var tb = nav.querySelector('#knTheme');
+  if (tb && typeof uivTheme === 'function') tb.addEventListener('click', function () {
+    var m = uivTheme();
+    tb.setAttribute('aria-pressed', m === 'dark');
+    tb.querySelector('.kn-theme-t').textContent = m === 'dark' ? 'Темна тема' : 'Світла тема';
+  });
   var cur = nav.querySelector('.kn-l.on');
   if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: 'center' });
 })();

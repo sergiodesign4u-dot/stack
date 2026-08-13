@@ -922,3 +922,179 @@
      component page under "Not in the code -> stage 09" and collected into
      design/kit/docs/architecture.md at step 8. */
 }
+
+/* ==========================================================================
+   PRIMITIVE - the dark side of the palette
+   ==========================================================================
+   THE DEBT OF STEP 3, PAID AT STEP 7's DOOR - 2026-08-13. The pack says «пара
+   тем обовʼязкова з першого рядка... роль без пари не існує», and step 3 wrote
+   the light half only. Step 7 is a STRESS TEST and cannot run on a theme that
+   does not exist, so the pairs are written here first, then stress-tested.
+
+   ONE RULE, AND IT NEEDS NO INVENTED NUMBER: every dark-side hue keeps the
+   hue and saturation of its light twin, and its lightness is solved so that it
+   stands to `--warm-950` exactly as the light one stands to white. What the
+   light theme decided about a colour is therefore preserved, and only the
+   ground it is measured against changes.
+   Every value below is followed by the pair it reproduces. */
+:root{
+  /* hues that carry meaning - contrast on the dark page = contrast on white */
+  --green-400:  #389A56;   /* 5.09 on --warm-950, as --green-600 is 5.07 on white */
+  --amber-500:  #CB8515;   /* 5.93                as --amber-700 is 5.92 */
+  --red-400:    #E8685C;   /* 5.64                as --red-600   is 5.66 */
+  --slate-300:  #9EA8BA;   /* 7.52                as --slate-600 is 7.53 */
+  --orange-700: #C74700;   /* 3.72 - the pressed action, as --orange-600 is 3.72 */
+
+  /* tinted plates - a plate sits the same distance off its page in both themes */
+  --green-950:  #112116;   /* 1.076 off the dark page, as --green-50  is 1.079 off white */
+  --red-950:    #391109;   /* 1.080                    as --red-50    is 1.083 */
+  --amber-950:  #251A08;   /* 1.056                    as --amber-50  is 1.059 */
+  --orange-950: #2F1300;   /* 1.042                    as --orange-25 is 1.044 */
+  --orange-900: #391600;   /* 1.106                    as --orange-50 is 1.105 */
+  --amber-800:  #382C16;   /* 1.322                    as --amber-200 is 1.319 */
+  --grey-ed:    #EDEDED;   /* 15.40 - twin of --grey-24, which is 15.52 on white */
+
+  /* alpha, and here the DIRECTION flips rather than the number: a veil over a
+     dark page is dark, a scrim on a light bar is ink. Same opacities. */
+  --veil-dark-96:   rgba(25,22,18,.96);
+  --veil-dark-86:   rgba(25,22,18,.86);
+  --veil-dark-90:   rgba(25,22,18,.90);
+  --veil-light-42:  rgba(250,249,247,.42);
+  --fade-dark-0:    rgba(25,22,18,0);
+  --fade-surface-dark-0: rgba(28,28,28,0);
+  --fade-light-0:   rgba(250,249,247,0);
+  --tint-green-d-07: rgba(56,154,86,.07);
+  --tint-green-d-35: rgba(56,154,86,.35);
+  --tint-amber-d-06: rgba(203,133,21,.06);
+  --tint-amber-d-30: rgba(203,133,21,.30);
+  --tint-red-d-04:   rgba(232,104,92,.04);
+  --tint-red-d-10:   rgba(232,104,92,.10);
+  --tint-red-d-30:   rgba(232,104,92,.30);
+  --scrim-black-40:  rgba(0,0,0,.40);
+  --scrim-black-52:  rgba(0,0,0,.52);
+}
+
+/* ==========================================================================
+   [data-theme="dark"] - THE SECOND HALF OF EVERY ROLE
+   ==========================================================================
+   NOT A SECOND SYSTEM. Only the semantic block is redeclared here; primitive
+   values, geometry and type are not touched, and no component file knows this
+   block exists. That is the whole claim the two levels were built for, and the
+   only thing that can prove it.
+   THE MIRROR, role by role: white <-> --warm-950, --warm-50 <-> --warm-900,
+   --warm-100 <-> --warm-850, --warm-200 <-> --warm-800, --warm-300 <-> --warm-750,
+   --warm-900 <-> --warm-50, --warm-700 <-> --warm-400, --warm-600 <-> --warm-500.
+   THE ACTION COLOUR DOES NOT INVERT, and that is the point of the semantic
+   layer: the background flips, the ink flips, and «action» is still action.
+   #FF5A00 even gains - 5.76 here against 3.13 on white. */
+[data-theme="dark"]{
+
+  /* ---- ink ---- */
+  --text-primary:    var(--warm-50);      /* 17.1 - as --warm-900 is 17.0 on white */
+  --text-body:       var(--warm-50);      /* 17.1 */
+  --text-secondary:  var(--warm-400);     /* 6.78 - as --warm-700 is 6.84 */
+  --text-muted:      var(--warm-500);     /* 5.42 - as --warm-600 is 5.38 */
+  --text-brandline:  var(--warm-500);     /* 5.42 */
+  --text-action:     var(--orange-500);   /* 5.76 - does not invert. See above */
+  --text-success:    var(--green-400);
+  --text-warning:    var(--amber-500);
+  --text-danger:     var(--red-400);
+  --text-bonus:      var(--amber-500);
+  --text-info:       var(--slate-300);
+  --text-oninverse:  var(--warm-900);     /* the inverse bar is LIGHT here, so its ink is dark */
+
+  /* ---- fill ---- */
+  --bg-page:         var(--warm-950);
+  --bg-surface:      var(--warm-900);
+  --bg-sunken:       var(--warm-850);
+  --bg-inverse:      var(--warm-50);      /* inverse means «opposite of the page», so it flips too */
+  --bg-action:       var(--orange-500);   /* does not invert */
+  --bg-success:      var(--green-950);
+  --bg-danger:       var(--red-950);
+  --bg-warning:      var(--amber-950);
+  --bg-action-soft:  var(--orange-950);
+  --bg-rule:         var(--warm-800);
+  --bg-track:        var(--warm-750);
+  --bg-hatch:        var(--warm-800);
+  --bg-discount:     var(--red-950);
+  --bg-notice:       var(--amber-950);
+  --bg-action-hover: var(--orange-900);
+  --bg-action-pressed: var(--orange-700);
+  --bg-action-selected: var(--tint-orange-10);
+  --bg-inverse-soft: var(--grey-ed);      /* twin of --grey-24 on the flipped bar */
+  --bg-inverse-tint: var(--scrim-ink-10); /* a tint ON the inverse bar, and that bar is light now */
+  --bg-success-soft: var(--tint-green-d-07);
+  --bg-bonus-soft:   var(--tint-amber-d-06);
+  --bg-danger-soft:  var(--tint-red-d-04);
+  --bg-save:         var(--red-950);
+  --bg-onphoto:      var(--scrim-white-94); /* a photo is a photo in both themes */
+
+  /* ---- line ---- */
+  --line-hair:           var(--warm-800);
+  --line-strong:         var(--warm-750);
+  --line-rule:           var(--warm-800);
+  --line-action:         var(--orange-500);
+  --line-inverse:        var(--warm-50);
+  --line-control-hover:  var(--warm-500);
+  --line-control-filled: var(--warm-400);
+  --line-success:        var(--green-400);
+  --line-warning:        var(--amber-500);
+  --line-danger:         var(--red-400);
+  --line-notice:         var(--amber-800);
+  --line-success-soft:   var(--tint-green-d-35);
+  --line-bonus-soft:     var(--tint-amber-d-30);
+  --line-danger-soft:    var(--tint-red-d-30);
+  --line-oninverse-soft: var(--scrim-ink-22);
+  --line-onink:          var(--warm-900);
+  --line-onphoto:        var(--scrim-white-50);
+
+  /* ---- mark ---- */
+  --mark-inactive:   var(--warm-750);
+  --mark-rating:     var(--gold-500);     /* evidence, not an action: stays gold */
+  --mark-faint:      var(--warm-600);
+  --mark-disabled:   var(--warm-700);
+  --text-price-was:  var(--warm-600);
+
+  /* ---- the select's caret is a BACKGROUND IMAGE and cannot take currentColor,
+          so its ink is frozen in the URL and the theme redraws the whole line.
+          #AA9D8A = --warm-400 = --text-secondary here, exactly as #5B5B54 is
+          --warm-700 = --text-secondary in the light theme. ---- */
+  --field-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23AA9D8A' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9.5l6 6 6-6'/%3E%3C/svg%3E");
+
+  /* ---- depth: a shadow on a dark ground has to be DEEPER to be seen at all.
+          Whether it is seen ENOUGH is the neighbourhood question, and that is
+          step 7's to answer on the full stand, not step 3's to guess. ---- */
+  --elevation-1:  0 1px 2px var(--scrim-black-22), 0 10px 30px var(--scrim-black-12);
+  --elevation-2:  0 10px 28px var(--scrim-black-22);
+  --elevation-3:  0 14px 34px var(--scrim-black-40);
+  --elevation-4:  0 24px 64px var(--scrim-black-52);
+  --elevation-mark: 0 2px 7px var(--scrim-black-40);
+  --elevation-control: 0 2px 10px var(--scrim-black-22);
+  --elevation-knob: 0 1px 4px var(--scrim-black-40);
+  --elevation-knob-active: 0 2px 9px var(--tint-orange-45);
+  --elevation-action-hover: 0 6px 18px var(--tint-orange-15);
+  --elevation-bar-top:    0 -2px 18px var(--scrim-black-22);
+  --elevation-bar-bottom: 0 3px 16px var(--scrim-black-22);
+  --elevation-drawer:     -18px 0 60px var(--scrim-black-52);
+  --shadow-floor:         var(--scrim-black-22);
+
+  /* ---- rings: the focus ring is measured at 3:1 against its ground in BOTH
+          themes, so it takes a stronger tint here, not the same one. ---- */
+  --ring-focus:   0 0 0 3px var(--tint-orange-45);
+  --ring-danger:  0 0 0 3px var(--tint-red-d-30);
+  --ring-onink:   0 0 0 2px var(--warm-900);
+  --ring-focus-control: 0 0 0 2px var(--bg-page),
+                        0 0 0 4px var(--line-action);
+
+  /* ---- scrim, veil, fade: the direction flips, the opacity does not ---- */
+  --scrim-overlay:    var(--scrim-black-52);
+  --text-oninverse-muted: var(--scrim-ink-52);
+  --text-onphoto:     var(--scrim-white-72);  /* a photo is a photo */
+  --veil-surface:     var(--veil-dark-96);
+  --veil-surface-mid: var(--veil-dark-86);
+  --veil-page:        var(--veil-dark-90);
+  --veil-inverse:     var(--veil-light-42);
+  --fade-page:        var(--fade-dark-0);
+  --fade-surface:     var(--fade-surface-dark-0);
+  --fade-inverse:     var(--fade-light-0);
+}
