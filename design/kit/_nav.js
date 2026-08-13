@@ -60,6 +60,11 @@ window.KIT_NAV = [
     "done": true
    },
    {
+    "label": "Темна тема - прев'ю",
+    "page": "dark-preview.html",
+    "done": true
+   },
+   {
     "label": "Типографіка",
     "page": "typography.html",
     "done": true

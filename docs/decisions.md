@@ -3181,3 +3181,52 @@ been reported as one colour under two names while the identical light pair went
 unmentioned. The detector now measures in **L\***; the cards still print HSL
 because that is what the token names are shaped like, but nothing that decides
 uses it. Both panels read «пройдено».
+
+## Step 09.1b - the dark theme, made visible before it is built
+
+**2026-08-13.** The owner asked why they could not see a dark theme. Two answers,
+and both were true at once.
+
+**There was none to see.** Step 09.1 added four values to the palette and
+**zero rules read them** - measured, and `color.html` prints it on the cards
+themselves as «не читається». The theme is `[data-theme="dark"]` overriding the
+semantic block, which is Крок 7's, after the tirage.
+
+**And nothing was published.** The last commit was step 8.19; three steps of work
+sat uncommitted, so the live site showed none of it. That half was on me: every
+report ended with «не комітив» and none of them said that this is *why nothing is
+visible*.
+
+### `design/kit/dark-preview.html`
+
+One page. A wrapper class redefines **fourteen roles and not one component**, and
+the same markup runs inside it and beside it - byte for byte, real product
+classes (`btn--accent`, `btn--outline`, `btn--ghost`, `field`, `tag-new`,
+`tag-pop`, `pnew`, `pold`).
+
+**The override block lives in the page, not in `tokens.css`.** That is the point:
+the owner has not seen the theme yet, so the theme does not exist in the system
+yet. What the page proves is the claim step 5.9 made - that a theme here is an
+override of the semantic block and nothing else. Everything followed: the
+inverse bar flipped, the field inverted, the badges inverted, the accent stayed
+put. **Nothing leaked a raw colour**, which is the strongest evidence yet that
+the components really are free of values.
+
+### What it made visible, which a table would not have
+
+**The two-level text hierarchy goes almost flat.** Measured inside the card, on
+`--bg-surface`: light gives 16.2 for the title and **6.5** for the caption under
+it, 2.5x quieter. Dark gives the same 16.2 and **12.1**, only 1.3x. The cause is
+already recorded: `--text-secondary` and `--text-muted` have **no dark rung**.
+The mirror needs L\* **65.4** and **58.5**, and those land inside the ramp's
+**other** hole - `--warm-300` 86.7 to `--warm-600` 44.9 - the one step 09.1 found
+and deliberately left alone as «not what a dark theme needs». It is exactly what
+a dark theme needs, one level down from the surfaces.
+
+By the same rule the values would be `#AA9D8A` and `#9A8B73`. **Written nowhere
+and left `[?]`** until the owner takes them: this step was asked for a preview,
+not for two more palette decisions taken quietly inside one.
+
+Registered in `design/kit/_nav.js` under Основи, next to Колір. Gates: `accept`
+**204** @390 - 0, and the new page also at 360 - 0 · `vars` 204 - 0 ·
+`css-comments` 89 balanced · `links` 4594 - 0 dead.
