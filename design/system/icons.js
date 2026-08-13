@@ -47,6 +47,11 @@ var UIV_P = {
   list:'<path d="M8.5 6.5h12M8.5 12h12M8.5 17.5h12"/><circle cx="4.3" cy="6.5" r="1.15"/><circle cx="4.3" cy="12" r="1.15"/><circle cx="4.3" cy="17.5" r="1.15"/>',
   grid:'<rect x="3.6" y="3.6" width="6.8" height="6.8" rx="1.8"/><rect x="13.6" y="3.6" width="6.8" height="6.8" rx="1.8"/><rect x="3.6" y="13.6" width="6.8" height="6.8" rx="1.8"/><rect x="13.6" y="13.6" width="6.8" height="6.8" rx="1.8"/>',
   chevron:'<path d="M6 9.5l6 6 6-6"/>',
+  /* the theme switch, stage 08 step 7. Two glyphs, one job, and the set's own
+     stroke: the sun is a disc with eight rays, the moon a crescent cut by the
+     same circle geometry, so they read as one pair at 20px. */
+  sun:'<circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.4 5.4l1.9 1.9M16.7 16.7l1.9 1.9M18.6 5.4l-1.9 1.9M7.3 16.7l-1.9 1.9"/>',
+  moon:'<path d="M20 14.4A8.4 8.4 0 0 1 9.6 4a8.4 8.4 0 1 0 10.4 10.4z"/>',
   chevUp:'<path d="M6 14.5l6-6 6 6"/>',
   caret:'<path d="M9.5 6l6 6-6 6"/>',
   /* step 7.5. The head keeps `caret`'s 45 degrees, so the two marks read as one

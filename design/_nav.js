@@ -480,7 +480,40 @@ function uivIcons(root){
    font while the shop drew them from the set. `uivChrome()` calls `uivMarks()`
    at its end. */
 
+/* THE THEME SWITCH OF THE PRODUCT - stage 08 step 7, at the owner's word.
+   It is INJECTED, not typed into the markup, and that is the whole point: the
+   top bar is rendered by `wireframes/_nav.js`, the frozen grey layer, and
+   «колір ніколи не лягає на wireframes». The grey prototype keeps one theme and
+   knows nothing about this button; the coloured layer adds it to what the grey
+   layer already drew, which is exactly the split every other visual decision
+   here follows.
+   `design/system/theme.js` has already applied the stored choice from <head>,
+   before the first paint, so this function only draws the control and calls it.
+   Idempotent: it returns early if the button is already there, so re-running
+   uivChrome() after a dialog rebuilds the header does not stack two of them. */
+function uivThemeBtn(){
+  if(typeof uivTheme !== 'function') return;
+  var wrap = document.querySelector('.wfh-meta .wfh-lang-wrap');
+  if(!wrap || document.getElementById('uivTheme')) return;
+  var b = document.createElement('button');
+  b.id = 'uivTheme';
+  b.type = 'button';
+  b.className = 'wfh-theme';
+  var paint = function(m){
+    /* the button shows what it will DO, not what is on: a moon means «switch to
+       dark». A control labelled with the current state is the older half of a
+       toggle, and it reads as «you are here» rather than «press me». */
+    b.setAttribute('aria-label', m === 'dark' ? 'Увімкнути світлу тему' : 'Увімкнути темну тему');
+    b.setAttribute('aria-pressed', m === 'dark');
+    b.innerHTML = '<span class="uiv-ic">' + uivIconSvg(m === 'dark' ? 'sun' : 'moon') + '</span>';
+  };
+  paint(uivThemeNow());
+  b.addEventListener('click', function(){ paint(uivTheme()); });
+  wrap.parentNode.insertBefore(b, wrap.nextSibling);
+}
+
 function uivChrome(){
+  uivThemeBtn();
   /* the JS-injected regions that carry emoji: header (+ mega + city dialog),
      the mobile menu panel (#drawer - lives on <body> since it unfolds under the
      header), footer, mobile tab bar, the filter rail, and the mobile filter sheet */

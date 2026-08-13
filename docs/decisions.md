@@ -3438,3 +3438,35 @@ harvest rather than its failure: «якщо для теми довелося п�
 компонента - це не провал кроку, а його врожай».
 
 Gates: `accept` 204 @390 - 0 · `vars` 204 - 0 · `css-comments` 89 balanced.
+
+## The product's theme switch - the owner asked for it in the top bar
+
+**2026-08-13.** The pack puts the product's switch at step 8 («перемикач у
+продуктовій панелі `design/_nav.js` поставить крок 8, коли екрани переїдуть на
+систему»). The screens are already on `system/index.css` - that migration
+happened - so the condition behind step 8 is met and the owner asked for it now.
+
+**Sun and moon, in the top bar beside «Одеса» and «Укр»**, at the owner's own
+pointing. Two new glyphs in `icons.js`, drawn on the set's grid and stroke.
+
+**It is INJECTED, not typed into the markup**, and that is the whole architecture
+in one control: the top bar is rendered by `wireframes/_nav.js`, the frozen grey
+layer, and «колір ніколи не лягає на wireframes». The grey prototype keeps one
+theme and knows nothing about the button; the coloured layer adds it to what the
+grey layer drew. `uivThemeBtn()` is idempotent, so a dialog that rebuilds the
+header does not stack a second one.
+
+**The label says what it will DO, not what is on**: a moon means «switch to
+dark». A control labelled with its current state reads as «you are here» rather
+than «press me». Verified by a real click: `aria-pressed` and the label both
+follow, and the glyph swaps.
+
+`design/system/theme.js` now loads in the `<head>` of the 87 product screens as
+well, so the stored choice is applied before the first paint here too.
+
+**Not fixed yet, and it is visible in dark**: the 25 shapes / 44 instances of «an
+accent fill with a label reading `--text-primary`» that the stress test found.
+The buy button is right (white on orange is a locked decision), the badges and
+selected chips are not.
+
+Gates: `accept` 204 @390 - 0 · `vars` 204 - 0 · `css-comments` 89 · `links` 4594 - 0.

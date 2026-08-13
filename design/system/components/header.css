@@ -202,6 +202,20 @@
 .wfh-meta a{ transition:color .15s ease; }
 .wfh-meta a:hover{ color:var(--text-action); }
 .wfh-meta .wfh-loc, .wfh-meta .wfh-lang{ display:inline-flex; align-items:center; gap:var(--space-4); }
+/* THE THEME SWITCH lives in the top bar beside the city and the language, and
+   it is drawn only by the coloured layer - the markup is injected by
+   design/_nav.js, because the bar itself is rendered by the frozen grey
+   `wireframes/_nav.js` and colour never lands there.
+   Its ink is --text-secondary, the same as its two neighbours, so the row reads
+   as one row; --brand-ink sizes the glyph the way every other icon here is
+   sized, and 20 matches the caret beside «Укр». */
+.wfh-meta .wfh-theme{ --brand-ink: var(--size-20);
+  display:inline-flex; align-items:center; justify-content:center;
+  margin-left:var(--space-12); padding:0; border:0; background:none;
+  color:var(--text-secondary); cursor:pointer; line-height:0; }
+.wfh-meta .wfh-theme .uiv-ic svg{ width:var(--size-20); height:var(--size-20); }
+.wfh-meta .wfh-theme:hover{ color:var(--text-primary); }
+.wfh-meta .wfh-theme:focus-visible{ outline:none; box-shadow:var(--ring-focus); border-radius:var(--radius-4); }
 .wfh-meta .wfh-loc .uiv-ic:first-child svg{ width:14px; height:14px; }
 .wfh-meta .wfh-loc .uiv-ic:last-child svg,
 .wfh-meta .wfh-lang .uiv-ic svg{ width:10px; height:10px; stroke-width:2.4; }
