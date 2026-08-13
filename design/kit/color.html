@@ -125,7 +125,14 @@ function lstar(c){ var f=function(v){ v/=255; return v<=0.04045 ? v/12.92 : Math
   return y>0.008856 ? 116*Math.pow(y,1/3)-16 : 903.3*y; }
 function card(n, alpha){
   shown.add(n);
-  var v=val(n), c=toRGB(v), H=hsl(c), ink = (H[2]<55 && c[3]>0.5) ? '#fff' : 'var(--text-primary)';
+  /* THE SWATCH'S INK IS A LITERAL, NOT A ROLE - stage 08 step 7 found this the
+     first time the stand ran in dark. The card's ground is a fixed VALUE, so its
+     ink has to be fixed too; `var(--text-primary)` follows the theme and turned
+     light, which put light ink on the white, warm-50, orange-25 and green-50
+     swatches - 1.00 to 1.05 against a bar of 4.5. A swatch is the one place in
+     this system where a role is the wrong answer. */
+    var v=val(n), c=toRGB(v), H=hsl(c),
+        ink = c[3]<=0.5 ? 'var(--text-primary)' : (H[2]<55 ? '#FFFFFF' : '#1C1C1C');
   var u=USE[n]||0, ro=ROLE[n]||0;
   var bg = alpha ? 'linear-gradient(90deg,var(--bg-page),var(--bg-page)),'+v : v;
   var step=n.replace(/^--/,'');

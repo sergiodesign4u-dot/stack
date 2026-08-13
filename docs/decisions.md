@@ -3356,3 +3356,85 @@ Verified in the browser: `data-theme="dark"` on `<html>`, body `rgb(25,22,18)`
 the whole stand in dark looking for neighbourhood failures (surfaces that merged,
 two roles that collapsed into one value, a component that reads a primitive
 directly). That is the next step, and it is what step 7 is for.
+
+---
+
+## Stage 08 step 7 - the stress test, and `tools/theme.mjs`
+
+**2026-08-13.** The pack's own question, and it is not step 5's: there it was
+about ONE file («did I just write a literal»), here about **neighbourhood**, which
+on a single component cannot be asked at all. Four classes, in the pack's order,
+and the first two need no browser.
+
+`tools/theme.mjs` is the sixth check. It reads the ink/fill/line table off
+`color.html`, where the project already declares which surface each role paints -
+one declaration, two readers - because the threshold depends on the surface and
+`--bg-rule` is a fill that draws a line.
+
+### The instrument was wrong three times before it was right, and each is written in it
+
+1. **«0 roles in `:root`, all 86 missing.»** The marker `SEMANTIC - roles` is
+   itself a comment, and the file stripped comments *before* searching, so
+   `indexOf` returned -1 and `slice(-1)` handed the check one character. Visible
+   only because the number was absurd - «3 missing» would have been believed.
+2. **28 primitives reported as roles without a light half.** «Everything after
+   the marker» swept in the dark-side primitives, which live in a `:root` of
+   their own further down. Now it stops at the end of its own block.
+3. **Nine of the first twenty class-4 findings were the probe's alpha bug.** Half
+   the roles here are tinted plates - `rgba(56,154,86,.07)` - and taking that as
+   solid returns the pill's own hue as its own ground, so ink and ground come out
+   identical and a perfectly readable pill reports 1.00. The ground is composited
+   now, through the whole ancestor chain.
+
+### What it found, and what was done
+
+- **1 - a role with only one half:** `--line-rule`, declared in the dark block and
+  read by nobody. Deleted. Now **87 / 87**.
+- **2 - a component reading a colour primitive directly:** `loyalty-rung.css`,
+  `--brown-600` and `--slate-400` on `.uiv-tier.t1` and `.t2`, so two of the four
+  tier marks did not follow the theme while their siblings (t0 on `--text-muted`,
+  t3 on `--text-action`) did. **Why step 5 looked past them:** step 5.9 recorded
+  them as the exemption «two loyalty metals where the value IS the meaning» -
+  true, and not a reason to skip the role. They are `--mark-tier-bronze` and
+  `--mark-tier-silver` now, and both halves hold the same value **on purpose**:
+  the mark is a glyph, its bar is 3:1, and both clear it in both themes (bronze
+  4.66 / 3.87, silver 3.86 / 4.67). A silver darkened to match its light contrast
+  stops looking like silver.
+- **4 - the swatch cards on `color.html`** picked ink by the swatch's own
+  lightness but wrote `var(--text-primary)`, which flips with the theme: light ink
+  on the white, `warm-50`, `orange-25` and `green-50` swatches, 1.00 to 1.05.
+  A swatch's ground is a fixed VALUE, so its ink is a literal now - except on the
+  alpha swatches, whose ground genuinely is themed, and there the role is right.
+
+### Withdrawn on verification, and the withdrawal stays
+
+`--mark-faint` + `--text-price-was` collapse onto `--warm-600`. Spreading them
+produced a **second** collapse one rung down, which is the signal that the check
+over-reported rather than that the system was wrong. The pack's rule carries a
+clause the checker did not: «зійшлись в одне значення, **тож два різні компоненти
+стали невідрізнюваними**». A placeholder and a struck price are told apart by
+position and by the strike, and the same file says «дві ролі = два токени, навіть
+якщо значення сьогодні однакове». Class 3 is labelled **candidates** now.
+
+`kit/kit.html` is excluded by kind - the pack calls it «ЗАМОРОЖЕНИЙ смоук етапу
+07», a deliberate snapshot that assumes a light ground. Eleven findings came from
+it and every one would have been a lie about the system.
+
+### Open, measured, and the next fix - the label on an accent fill
+
+**25 shapes, 44 instances, across 8 stand pages.** `.tag-new`, `.hptag`, `.hb`,
+`.tbadge`, `.q`, the selected chips: an accent fill with a label that reads
+`--text-primary`. In light that is ink on orange, **5.45**, and
+`DESIGN-artifacts.md` locked it deliberately. In dark `--text-primary` flips to
+`--warm-50`, so the same label becomes near-white on the same orange: **2.97**,
+and the chips **2.70**.
+
+**No component is broken and each reads its role correctly** - which is the exact
+sentence the pack uses for this class. The fill does not invert, so the ink on it
+must not either: the fix is a role that means «ink on the action colour», equal in
+both themes, and the components that hard-read `--text-primary` on an accent
+ground move onto it. That is the next step, and per the pack it is step 7's
+harvest rather than its failure: «якщо для теми довелося правити хоч один файл
+компонента - це не провал кроку, а його врожай».
+
+Gates: `accept` 204 @390 - 0 · `vars` 204 - 0 · `css-comments` 89 balanced.

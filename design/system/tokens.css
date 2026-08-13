@@ -766,6 +766,24 @@
 
   /* ---- decorative --------------------------------------------------------- */
 
+  /* THE TWO LOYALTY METALS BECOME ROLES - stage 08 step 7, and the finding is
+     the pack's own: «компонент, який у темній темі виглядає зламано: він читає
+     primitive напряму». `loyalty-rung.css` read --brown-600 and --slate-400
+     straight, so two of the four tier marks did not follow the theme while
+     their two siblings (t0 on --text-muted, t3 on --text-action) did.
+     WHY STEP 5 LOOKED PAST THEM: step 5.9 recorded these two as the exemption
+     «two loyalty metals where the value IS the meaning», and that is true - it
+     is just not a reason to skip the role. A role is what a component READS;
+     whether its two halves differ is a separate question, and the pack answers
+     it: «дві ролі = два токени, навіть якщо значення сьогодні однакове».
+     AND HERE THE TWO HALVES ARE THE SAME, MEASURED. The mark is a GLYPH, not
+     text (`.uiv-tier svg`), so its bar is 3:1 for a non-text graphic, and both
+     clear it in both themes: bronze 4.66 light / 3.87 dark, silver 3.86 / 4.67.
+     Nudging them to match their light contrast would cost the thing that makes
+     them readable - a metal is identified by its own lightness, and a silver
+     darkened to 3.85 on a dark ground stops looking like silver. */
+  --mark-tier-bronze: var(--brown-600);
+  --mark-tier-silver: var(--slate-400);
   --mark-inactive: var(--warm-300);    /* 2 uses - the empty star .pm-stars .pmst and
                                           the meta separator glyph .bb .bbmeta
                                           .art::before. 1.5:1 on white, which is why
@@ -1032,7 +1050,6 @@
   /* ---- line ---- */
   --line-hair:           var(--warm-800);
   --line-strong:         var(--warm-750);
-  --line-rule:           var(--warm-800);
   --line-action:         var(--orange-500);
   --line-inverse:        var(--warm-50);
   --line-control-hover:  var(--warm-500);
@@ -1049,8 +1066,21 @@
   --line-onphoto:        var(--scrim-white-50);
 
   /* ---- mark ---- */
+  --mark-tier-bronze: var(--brown-600);  /* 3.87 on the dark page, and the bar is 3:1 - a glyph, not text */
+  --mark-tier-silver: var(--slate-400);  /* 4.67 - it stays light, because that is what silver is */
   --mark-inactive:   var(--warm-750);
   --mark-rating:     var(--gold-500);     /* evidence, not an action: stays gold */
+  /* WITHDRAWN ON VERIFICATION, and the withdrawal stays written. The stress
+     test reported --mark-faint and --text-price-was as a collapse: #BBBBBB and
+     #AAAAAA in light, both --warm-600 here. Spreading them created a SECOND
+     collapse one rung down (--mark-disabled onto --mark-inactive), which is the
+     signal that the check was over-reporting rather than that the system was
+     wrong. The pack's rule is narrower than the checker was: «дві ролі, що
+     зійшлись в одне значення в темній, ТОЖ ДВА РІЗНІ КОМПОНЕНТИ СТАЛИ
+     НЕВІДРІЗНЮВАНИМИ». A placeholder and a struck price are told apart by
+     position and by the strike, never by six points of lightness - and the
+     same file says out loud that «дві ролі = два токени, навіть якщо значення
+     сьогодні однакове». Two tokens they are; equal values are allowed. */
   --mark-faint:      var(--warm-600);
   --mark-disabled:   var(--warm-700);
   --text-price-was:  var(--warm-600);
