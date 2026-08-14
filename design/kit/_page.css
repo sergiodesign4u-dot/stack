@@ -8,6 +8,34 @@
 
 .kp{ min-height:100vh; }
 
+/* ---------------- the ink of a colour sample (color.html) ----------------
+   THE STAND OWNS THIS PAIR, AND THAT IS THE POINT. color.html paints a label
+   ON a swatch, and the swatch is a raw primitive on display - not a surface
+   the product owns and not one the theme moves. Its ink therefore belongs to
+   the thing that shows it, the same call step 7.9 made when the stand frame
+   got five `--stand-*` variables instead of borrowing product roles.
+
+   IT USED TO BORROW, and the borrowing was visible in the numbers. The page
+   chose between `--text-onaction-ink` and `--text-onaction` - a pair picked
+   for one true property, «this ground does not move», and for a name that
+   says «the label on the ACTION fill», which a swatch is not. The deepest ink
+   in that pair is `--charcoal`, and `--charcoal` cannot lift `--slate-400`:
+   4.41 against a bar of 4.5, with white at 3.86 on the other side.
+
+   `--warm-950` is the system's deepest value and it is already an ink in
+   everything but name - `--line-onink` reads it. On `--slate-400` it measures
+   5.05, and because it is darker than `--charcoal` everywhere, no swatch that
+   passed can fail. NO NEW VALUE ENTERS: both halves are primitives the file
+   above already declares.
+
+   DECLARED ONCE, WITH NO DARK HALF, ON PURPOSE - the 7.19 rule. A role whose
+   two halves are identical is saying «my ground does not move», and a swatch
+   is the purest case of that in the repository: it IS the value. */
+:root{
+  --stand-swatch-ink:   var(--warm-950);
+  --stand-swatch-onink: var(--white);
+}
+
 /* ---------------- side panel (kit registry) ---------------- */
 #kitnav{ position:fixed; inset:0 auto 0 0; width:236px; overflow-y:auto; z-index:40;
   background:var(--bg-surface); border-right:1px solid var(--line-hair);
@@ -40,7 +68,12 @@
 .kn-gh{ font-size:var(--fs-10); font-weight:var(--fw-black); letter-spacing:var(--ls-eyebrow);
   text-transform:uppercase; color:var(--text-muted); margin-bottom:var(--space-8);
   display:flex; justify-content:space-between; }
-.kn-gh i{ font-style:normal; font-family:var(--font-mono); opacity:.7; }
+/* The `.7` here is gone for the reason the fades on color.html went, and it was
+   found by the same probe in the same run: `--text-muted` measures 5.05 on the
+   panel and .7 of it measures 2.84, so the counter was reading a third under
+   the bar while the label beside it passed. Mono against caps, and the flex row
+   pushing it to the far edge, already say «this is the count». */
+.kn-gh i{ font-style:normal; font-family:var(--font-mono); }
 /* The layout rule takes .kn-l, not a.kn-l: a not-done row is a <span> and it
    still has to be a row. Only the interactive part is scoped to the anchor. */
 #kitnav .kn-l{ display:block; font-size:var(--fs-14); color:var(--text-secondary);

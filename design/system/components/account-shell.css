@@ -13,14 +13,14 @@
    family is 7.3, 7.51 and 7.69. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
-.only-mobile{ display: block; }
-@media (min-width: 860px){
-  .only-mobile{ display: none; }
-}
-.only-desk{ display: none; }
-@media (min-width: 860px){
-  .only-desk{ display: block; }
-}
+/* `.only-mobile` and `.only-desk` DELETED - step 6, list 3, owner's call
+   2026-08-14. Two display utilities and their two 860 media blocks, six rules
+   in all, worn by NOBODY: 0 instances in 141 grey screens and 0 in 87 coloured
+   ones, measured by the census walk with panels open, not by grep. They came
+   across from `_wf.css` with the rest of the structure half and never found a
+   wearer on either side. Nothing in the product hides a block by width through
+   a class - the screens that change at 860 do it in their own media queries,
+   which is stage 10's subject and not a utility's. */
 .wt-flow{ border: 1px solid var(--line-hair); border-radius: var(--radius-12); margin-bottom: var(--space-16); overflow: hidden; }
 .wt-fh{ background: var(--bg-sunken); padding: var(--space-12) var(--space-16); font-weight: var(--fw-black); color: var(--text-primary); display: flex; align-items: center; gap: var(--space-12); flex-wrap: wrap; }
 .wt-fh .soon{ background: var(--bg-inverse); color: var(--text-oninverse); font-size: var(--fs-10); font-weight: var(--fw-black); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); text-transform: uppercase; letter-spacing: var(--ls-caps); }

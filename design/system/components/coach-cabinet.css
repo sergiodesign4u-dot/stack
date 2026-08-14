@@ -574,9 +574,12 @@
    shorthands, so only the on-ink family is left, and it is left because two of
    its alphas MOVED. */
 
-/* The dark CTA. `--dark` was one grey doing three jobs - a fill, a border and
-   the ground the label sits on - and the role layer has a name for each. */
-.coach .cnew{ background: var(--bg-inverse); color: var(--text-oninverse); }
+/* THE BIG CTA. `--dark` was one grey doing three jobs - a fill, a border and
+   the ground the label sits on - and the role layer has a name for each. It
+   named them by VALUE, which is how this panel stayed an ink slab through the
+   whole move; the owner called it accent on 2026-08-14 and the fill is the one
+   the system already has for «this is the main action». */
+.coach .cnew{ background: var(--bg-action); color: var(--text-onaction); }
 /* [?] TWO ALPHAS MOVED, and both are visible on the strip.
    `rgba(255,255,255,.4)` on the ＋ tile's edge -> `--line-oninverse-soft`, which
    is .20: «a hairline drawn ON a dark surface, where --line-inverse would
@@ -591,8 +594,17 @@
    either, so the role has no readers and is gone. hero.css:31.
    Both are named here rather than kept as literals because «colour reads a
    semantic role, never a primitive and never a hex» is the rule this move is
-   for; both are in the report because a role change is a value decision. */
-.coach .cnew .cn-s{ color: var(--text-oninverse-muted); }
+   for; both are in the report because a role change is a value decision.
+
+   AND BOTH ARE NOW MOOT ON THIS PANEL, because the ground under them is the
+   accent and not the inverse. The subtitle takes plain `--text-onaction`: the
+   locked rule of 27.07.2026 says a label on an orange fill is white at any
+   size, so there is no muted rung to reach for, and the hierarchy that the
+   .72 alpha used to carry is already in the size (18 against 13) and the
+   weight (800 against regular). The tile's edge goes the same way, to
+   `--line-onaction`, the LINE twin of that same white. */
+.coach .cnew .cn-s{ color: var(--text-onaction); }
+.coach .cnew .cn-ic{ border-color: var(--line-onaction); }
 
 
 /* ============================================================================

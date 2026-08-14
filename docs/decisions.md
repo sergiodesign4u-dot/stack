@@ -2824,8 +2824,11 @@ grey delivery page; `design/kit/hero.html` → «Протеїн» → the COLOUR
 **The owner's decision, 2026-08-12: «не проходить - це для нас нормально, для
 магазину».** Sub-AA accent text is accepted for this shop. **Nothing on screen
 changes.** Two further decisions taken in the same breath: section D's four `[?]`
-number groups **wait until the end of all stages**, and the 41 grey-only screens
+number groups **wait until the end of all stages**, and the grey-only screens
 **stay for Крок 6, after stage 09** - which is where the roadmap already had them.
+(The count was written here as 41 and step 6 measured **54** on 2026-08-14: 142
+files in `wireframes/` against 88 in `design/`, with no coloured screen lacking a
+grey twin. The decision is unchanged, the number was stale.)
 
 ### The decision was recorded only after counting again, and that was the whole step
 
@@ -4669,3 +4672,278 @@ shot on 2026-08-06 and are **older than the code**, and `proof.mjs` does not
 take them - it reads its frame from `proof/*-before.jpg`, the first screen at
 390x844, while these are a full page in two different sizes. Re-shooting them
 with that instrument is its own step, named rather than forgotten.
+
+## Step 7.26 - three owner decisions, and each one moved a rule rather than a screen
+
+The three looks left open at 7.24-7.25 were called on 2026-08-14: **(a) чорнило ·
+(b) підняти прозорість · (c) акцент**. None of the three turned out to be a
+question about the screen it was asked on.
+
+### (a) The swatch's ink stopped being borrowed
+
+`--slate-400` `#7E8288` could not be lifted by either candidate: **4.41** on
+`--charcoal`, the darkest INK the system owns, and **3.86** on white. Two ways
+out - move the token's value, or deepen the ink. The owner said ink, and that is
+the right side: `--slate-400` is the silver tier's mark and it looks the way
+silver looks. Nothing is wrong with it.
+
+What the answer exposed is that **this page was borrowing.** It chose between
+`--text-onaction-ink` and `--text-onaction` - a pair picked for one true
+property, «this ground does not move», wearing a name that says «the label on
+the ACTION fill», which a swatch is not. So the pair moved to where it belongs:
+`--stand-swatch-ink` / `--stand-swatch-onink` in `kit/_page.css`, owned by the
+STAND, the same call step 7.9 made when the stand frame got five `--stand-*`
+variables instead of borrowing product roles.
+
+The deep half is `--warm-950`, **already an ink in everything but name** -
+`--line-onink` reads it - and on `--slate-400` it measures **5.05**. No swatch
+that passed can fail, because the new ink is darker than the old one on every
+ground, and **no new value enters the system**: both halves are primitives
+`tokens.css` already declares. Declared once with no dark half, on purpose: the
+7.19 rule, and a swatch is the purest case in the repository of a ground that
+does not move, because it IS the value.
+
+### (b) The fade could not be raised, so it went
+
+Solved on the worst swatch rather than argued: `.use` and `.rg` needed **.90 to
+reach 4.62, and .85 gives 4.35 and fails.** A fade that has to sit at .9 is no
+longer a hierarchy device, it is a rounding error that costs contrast. So the
+hierarchy moved onto **weight**, which costs none - the token's name is black,
+its value semibold, the two derived lines regular.
+
+`.sc .st u` went with it: it faded a `<u>` inside the token's name and `card()`
+has never written one. **The third list of the step-6 sweep is «a class nobody
+wears», and a stand page is not exempt from it.**
+
+**`kit/color` measures 0 shapes.** The page that produced the largest single
+block of the corpus list is clean, and the last one to go was not on the page at
+all - `.kn-gh i`, the count in the stand's own side panel, at `.7` of
+`--text-muted`: **2.84** beside a label at 5.05.
+
+### (c) The five panels take the accent, and four of them take it as an EDGE
+
+`--dark` in the grey layer meant «primary» in one value; the move to roles
+translated the VALUE and kept the look, which is how this flow shipped with its
+emphasis drawn in ink. The owner called it accent.
+
+Only `.cnew` is a fill, and it is a fill because it is the whole screen's one
+main action - a single `<a>` wrapping the panel, marked «BIG primary CTA» in the
+markup since the grey layer. `--bg-action` with `--text-onaction`, and the
+subtitle takes the same white the title does: the locked rule of 27.07.2026 says
+a label on an orange fill is white at any size, there is no muted rung on the
+accent, and the hierarchy is already in the size (18 against 13) and the weight.
+
+`.upsell` + its bar, `.tf-upsell` and `.cs-warn` take `--line-action` on the
+edge and keep `--bg-surface` under it. **Each of the three holds its own accent
+button**, so an accent PLATE would have put the colour of «act here» on the
+block and on the action inside it at once - and the accent is the single action
+colour by the oldest rule in `DESIGN-artifacts.md`.
+
+**One of the five differs in kind and is written down as differing.**
+`.cs-warn` is `role="alert"` and it blocks checkout; the system owns a warning
+family (`--line-warning`, `--bg-warning`) and that is the other honest reading.
+Taken as accent because the alert's whole content is an instruction - «оновіть
+ціни», with the button to do it inside the panel - and because the edge says
+«act here» without spending the fill. One word from the owner moves it.
+
+### Three things the work walked into, all of the same family
+
+**`var(--light)` is not defined anywhere and five places read it** - all of them
+inline `style=` attributes around a `[?]` mark, on `coach-home-free` and
+`coach-verify-tier`. An undefined custom property is silent (step 8.17's whole
+subject), and the inline attribute is the one hiding place a census does not
+read (step 7.16 found the same thing, one declaration wide). `--text-muted`, by
+7.25's rule: a `[?]` is a word.
+
+**Step 7.25 fixed the component files and reached eight pages that do not read
+them.** `.qa-ph` / `.cl-ph` / `.od-ph` still measured **1.69** on eight coach
+state screens, because each carries a private copy of the rule in its own
+`<style>` block - the identical disease as 7.23, where a stepper scoped to
+`.coach` reached one screen of five. **13 declarations swept by rule**, and the
+note on each points at the file where the reasoning lives instead of repeating
+it eight times.
+
+**`.cline.oos` dims a whole row to `opacity: .5`** - and everything in it goes
+with it: the placeholder to 1.97, the struck price to 1.47. That is not a
+mistake, it is how the row says «unavailable», and it is the fourth member of
+the family this stage keeps finding since the probe learnt to composite. Named,
+not touched: how an unavailable line should read is a look, not a bug.
+
+**And one dead thing counted but left alone.** `class="... dark"` appears **105
+times in `design/*.html` and no stylesheet in the coloured layer defines
+`.dark`** - the ghost of `--dark`, left behind when 7.18 deleted the rules.
+Harmless to render and misleading to read. It is not being swept by hand,
+because `tools/clone-to-colour.mjs` would put it back: the fix is one rule in
+the transform plus a sweep, which is its own step.
+
+## Step 6 of the pack - the sweep of system against product, and the instrument that had to exist first
+
+Stage 08's step 6 had never been run. Steps 7 and 8 went ahead of it, and everything
+recorded since under 7.9-7.26 is repair rather than the pack's own list. Opening it,
+the first thing missing was not a document - it was the prilad.
+
+### Finding zero: «the script is the artifact, not the table», and the script was not kept
+
+The pack asks for **два заміри одним приладом**: step 1 walks the corpus before the
+system, step 6 walks it after and proves every line of the first is closed. `census.md`
+produced 22 229 observations over 180 screens and ends with that sentence about its own
+script. Only `btn-census.json` survived, which is the RESULT. Rebuilding a checker from
+memory is the hand fix this repository bans for tools as loudly as for pages, so
+`tools/census.mjs` is rebuilt **from the written method**: two viewports, in a browser
+and never by grep, computed style, and the control test verbatim - `a`/`button`/`label`/
+`[role=button]`/`[onclick]`, or an element that INTRODUCES `cursor:pointer` its parent
+does not have. It stays in `tools/`, so the third measurement costs one command.
+
+**What is not reproduced is said rather than tuned.** The 24-form folding and the
+exclusion list lived in the lost script and appear nowhere in the prose. Tuning until
+the numbers matched a published table would prove only that they can be tuned.
+
+### The number that reprices every census this project has taken
+
+| | static walk | with panels opened |
+|---|---|---|
+| clickable observations | 35 714 | **63 154** |
+| boxy controls | 7 118 | **14 896** |
+| panels opened first | – | **11 946** |
+
+**43% of the product's clickable surface is behind a state.** Step 1's own 22 229 were
+taken statically, which is the honest reason the two measurements do not reconcile
+arithmetically - and the reason the opener sweep moved from `theme.mjs` into `lib.mjs`
+rather than being typed a second time. `theme.mjs` imports it now; so does the census.
+
+### The three lists
+
+**1 - product to system: nothing is missing.** Two candidates came back and both sat on
+`wireframes/overview.html`, the hub that LISTS screens rather than being one. **22
+controls are tirage, not gaps** - every occurrence is on one of the 54 grey-only screens.
+
+**2 - system to product, and this is the body of the work left.** 31 screens carry a
+private `<style>` block, **1 154 rules**, of which **886 redraw a class the system
+already owns** and 210 declare something that exists only there. The twelve loudest
+screens are all in the coach flow.
+
+**And that list is not cosmetic, which one measured defect proves.**
+`coach-session.css` answers the phone with `@media (max-width: 479px)` - `.qa-row`
+stacks and the action takes the second line. The base screen reads it and passes at 360.
+The four state screens carry a private copy of `.qa-row` WITHOUT the media query, a
+private block beats a linked sheet, and «Додати клієнту» hangs 10px past the viewport
+which `html{ overflow-x: hidden }` CLIPS rather than scrolls. `accept.mjs 360` returns
+**4 failures over 204 screens**; at 390 and 1280 the same corpus returns 0.
+
+**It is also why stage 10 cannot start on top of this.** 222 media blocks: 170 in the
+system, **52 in the private blocks of those 31 screens**, adding 7 boundaries of their
+own. A scale cannot consolidate what does not live in the system.
+
+**3 - a class nobody wears: zero remain.** Six deleted by the owner 2026-08-14, the
+seventh an error of the instrument. Beside them, 30 classes behind a state the walk
+cannot reach (a script writes each, so they are live - the walk cannot SCROLL and does
+not advance a flow past its first step) and 43 waiting for their screen.
+
+### The instrument was wrong four times, and all four errors had one shape
+
+Each answered the question NEXT to the one being asked, and each returned a plausible
+number - which from a checker is indistinguishable from a finding.
+
+| reported | cause |
+|---|---|
+| **962** dead classes, `coach` and `wfh` among them | the map was built from CONTROL rows: «never worn» meant «worn by nothing clickable» |
+| `svg` `jpg` `png` `html` are dead component classes | tails of `url(../../visuals/...jpg)` and of an href attribute selector |
+| 12 classes of `cat-overlay.css` are dead | nothing had OPENED the overlay - `census.md` withdrew this exact finding once, about `.tbuy` |
+| `menu-pop` is dead | `design/system/menu.js:39` sets it at wire time and CSS hides it until it opens; the collector skipped `display:none` |
+
+**The fourth cost the walk twice**, and not because of the bug: the correction was
+announced before it was verified, the patch had never applied (a python assert failed
+into a backgrounded launch), and the re-run produced a byte-identical record - 1518
+distinct classes, 50 417 total, in both files. **The identity is what exposed it.** A
+tool that returns exactly what it returned before has not been changed, and saying so
+out loud is cheaper than a second 35-minute walk.
+
+Twice more the probe's template literal was broken by backticks inside a comment about
+backticks - the third and fourth time in this repository. Both are written into
+`census.mjs` beside the rule.
+
+### Six deletions, and three of them were not lint
+
+`.only-mobile` / `.only-desk` (6 rules) closed a question `account-shell.html` had held
+open since step 5. `.field--err` cost nothing: the selector read `.field--err, .field.err`,
+the runtime writes `.err`, and no declaration changed. But `.certthumb--pending`,
+`.qans--wait` and `.tsx--unproven` were **designed states nobody had applied** - a
+certificate not yet on file, an answer the shop is preparing, a trust claim not yet
+proven. Deleting them removes capability, not clutter, and «trust first» is principle 1.
+Every word of their reasoning is kept verbatim in `backlog.md` so re-adding any is one
+line of CSS and a paste. Five stand pages were edited the same step, because a stand that
+demos a class the system no longer has is «worse than no stand» - menu.css's own words.
+
+### And the page about false positives caused one
+
+`links.mjs` reported a dead link, and it was the literal `href` inside the table
+explaining where `svg`/`jpg`/`png`/`html` came from. The tool scans raw html and cannot
+tell a link from its quotation - a class it already carries written in its own header.
+Fixed on the page with an entity rather than in the tool: teaching a scanner to tell a
+citation from the thing cited reliably costs more than not writing the citation so it
+looks like the thing.
+
+## Step 6, second half - the migration was measured, applied, and reverted by its own proof
+
+The 886 rules that redraw what the system already owns are step 6's remaining body of
+work. Before moving any of them, the question nobody had asked: how many of the private
+rules **draw anything at all**. A source count says a rule EXISTS; it does not say it
+CHANGES something, and moving the two kinds as if they were one is how a migration of
+this size goes wrong.
+
+### The measurement, and the two kinds it separated
+
+`tools/private-css.mjs` (the ninth check) deletes a rule and asks the browser whether
+anything moved. **262 of 1 185 top-level private rules are inert**:
+
+- **215 match no element on their own page.** Clone residue: `clone-to-colour.mjs` copies
+  a full screen's private block into its empty and loading states whole, CSS for cards
+  that will never be there included. `coach-order-loading` is 37 of 42.
+- **47 match elements and move no value** - a copy of what the system already says. This
+  is the kind step 6 is about, and it is the smaller one: the private blocks do not
+  duplicate the system, they **draw instead of it**.
+
+### The cut shipped, and the proof caught it
+
+`tools/tree-diff.mjs` (the tenth) exists because `proof.mjs` covers only the 40 screens
+with a baseline JPEG, and the risk here is not «is the rule inert» but «did the CUT
+mangle the file» - a regex that eats one closing brace leaves valid CSS with the wrong
+meaning and every source check still passes. It git-archives the reference into its own
+tree, serves both, opens both in one Chrome and compares the computed style of every
+element on 40 properties at both widths.
+
+**9 movements on 5 screens**: `coach-clients-cap`, `-empty`, `-error`, `-loading`,
+`coach-home-loading`. At 390 a rail link went **orange**, at 1280 the page grew 555px.
+Everything reverted; the re-check is 0.
+
+**The cause is the method.** The probe tested each rule ALONE with every neighbour in
+place, which answers «is this redundant GIVEN all the others». **Inertness is not
+additive**: `coach-clients-cap` held `.acc-nav` and `.acc-link[aria-current="page"]`,
+neither alone changed anything, and losing both turned the rail into the mobile chip
+strip whose current chip `account-shell.css` paints `--bg-action` under
+`@media (max-width: 959px)`.
+
+Two corrections went in, both right and neither sufficient: the walk is cumulative
+against a **full-document** snapshot (a rule restyles only what it matches, but LAYOUT
+travels), and the set found at one width is re-offered at the other, because their
+**union was never tested anywhere**. The probe still clears rules a fresh page does not.
+The remaining difference is most likely between MUTATING a loaded document and LOADING
+one without those rules - the page's scripts have run and reacted to what they saw. That
+is written down as a hypothesis, because it has not been measured.
+
+**So the deletion waits and the proof stays the gate.** Nothing about the measurement is
+wasted: the 262 are identified, the two kinds are apart, and tree-diff will name any page
+a future cut moves, down to the element and the property.
+
+### And the instruments were wrong five more times, all one shape
+
+`private-css.mjs` answered «0 rules» about a block the browser had just said held 77 - a
+`for...of` over a `CSSRuleList` inside a `try` that swallowed the reason. `tree-diff` hung
+with no output because it opened two tabs before visiting either; compared its own two
+server PORTS inside `background-image` and reported that as a finding; broke its own probe
+with a regex literal whose backslashes the template literal ate before the browser saw
+them; and silently dropped `argv[0]` when `--dir` was absent, so a PAGE became the git ref.
+
+Every one of them is the same fault this stage keeps meeting: **an instrument answering
+the question next to the one it was asked, or answering with silence.** All five are
+written into the files beside the fix, with the wrong version stated.

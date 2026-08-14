@@ -34,11 +34,21 @@
 .cstat .cmanage { margin-left: auto; font-size: 12.5px; font-weight: 700; color: var(--text-primary); text-decoration: underline; }
 
 /* big primary CTA */
-.cnew { display: flex; align-items: center; gap: 16px; margin-top: 16px; border:1.5px solid var(--line-inverse); border-radius: 14px; padding: 20px; background:var(--bg-inverse); color: var(--text-oninverse); }
-.cnew .cn-ic { width: 46px; height: 46px; flex: none; border-radius: 12px; border: 1.5px solid var(--line-oninverse-soft); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+/* THE BIG CTA IS THE ACCENT NOW - owner's call, 2026-08-14; the reasoning is
+   written once, on coach-home-empty.html, and this screen carries the same
+   panel with the same job. */
+.cnew { display: flex; align-items: center; gap: 16px; margin-top: 16px; border:1.5px solid var(--line-action); border-radius: 14px; padding: 20px; background:var(--bg-action); color: var(--text-onaction); }
+.cnew .cn-ic { width: 46px; height: 46px; flex: none; border-radius: 12px; border: 1.5px solid var(--line-onaction); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+/* `display:block` ADDED, and it is a repair rather than a decision: `.cn-t` and
+   `.cn-s` are <span>s inside a <span>, so the title and the subtitle rendered on
+   ONE run-on line at every width. The frozen layer proves the intent against
+   itself - it puts `margin-top: 3px` on `.cn-s`, which does nothing at all to an
+   inline box. Left standing in `wireframes/`, which is frozen and whose defect
+   this is; said here rather than fixed there. */
 .cnew .cn-tx { min-width: 0; }
+.cnew .cn-t, .cnew .cn-s { display: block; }
 .cnew .cn-t { font-size: 18px; font-weight: 800; }
-.cnew .cn-s { font-size: 13px; color: var(--text-oninverse-muted); margin-top: 3px; }
+.cnew .cn-s { font-size: 13px; color: var(--text-onaction); margin-top: 3px; }
 .cnew .cn-go { margin-left: auto; font-size: 22px; font-weight: 800; }
 @media (max-width: 520px) { .cnew .cn-go { display: none; } }
 
@@ -104,15 +114,15 @@
       <p class="acc-sub">Кабінет тренера: замовлення для клієнтів, гуртові ціни та історія в одному місці.</p>
 
       <!-- coach status: FREE tier - better-than-retail, but capped clients + upsell to Pro -->
-      <div class="cstat" style="background:var(--fill)">
-        <span class="tierchip" style="border-color:var(--hair2)">Free</span>
-        <span class="cnote"><b>Ціни краще за роздрібні</b> · <b>до 3 клієнтів</b> у сесії <span style="color:var(--light)">[?]</span></span>
+      <div class="cstat" style="background:var(--bg-sunken)">
+        <span class="tierchip" style="border-color:var(--line-strong)">Free</span>
+        <span class="cnote"><b>Ціни краще за роздрібні</b> · <b>до 3 клієнтів</b> у сесії <span style="color:var(--text-muted)">[?]</span></span>
         <a class="cmanage" href="coach-tariff.html">Керувати тарифом</a>
       </div>
 
       <!-- upsell to Pro (Free limitation) -->
       <div class="cstat" style="border-color:var(--line-inverse);background:var(--bg-page);margin-top:10px">
-        <span style="font-size:13px;color:var(--text-primary)"><b>Оновіть до Pro</b> - максимальна гуртова ціна на всі товари та безлімітні клієнти в сесії. ~99 ₴/міс <span style="color:var(--light)">[?]</span>.</span>
+        <span style="font-size:13px;color:var(--text-primary)"><b>Оновіть до Pro</b> - максимальна гуртова ціна на всі товари та безлімітні клієнти в сесії. ~99 ₴/міс <span style="color:var(--text-muted)">[?]</span>.</span>
         <a class="btn--accent btn--s btn dark" href="coach-tariff.html" style="margin-left:auto">Оформити Pro</a>
       </div>
 

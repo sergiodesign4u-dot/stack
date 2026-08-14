@@ -1,0 +1,231 @@
+# Backlog - what the sweep of system against product left open
+
+Stage 08, step 6. Page: `design/kit/backlog.html`.
+
+This file is the output of the step the pack calls **«звід системи з продуктом»**: three lists,
+taken by walking the whole corpus in a browser after the system was built, against the same walk
+taken before it. It is not a table of opinions - every line below has a number behind it and an
+instrument that will reproduce the number: `node tools/census.mjs`.
+
+## The instrument had to be built first, and that is finding zero
+
+Step 1 produced `census.md` - 22 229 observations over 180 screens - and closes with its own
+sentence: **«the script is the artifact, not the table»**. The script was not kept. Only
+`btn-census.json`, which is the result. So «два заміри одним приладом» was impossible until there
+was an instrument, and rebuilding one from memory is exactly the hand fix this repository bans for
+tools as loudly as for pages.
+
+`tools/census.mjs` is rebuilt from the METHOD as `census.md` states it: two viewports (390 and
+1280, because the desktop header and the mega menu do not exist at mobile width), in a browser and
+never by grep (the header is injected by `_nav.js` and is not in the markup at all), computed
+style rather than the written rule, and the control test verbatim - `a` / `button` / `label` /
+`[role=button]` / `[onclick]`, **or** an element that INTRODUCES `cursor:pointer` its parent does
+not have.
+
+**What is not reproduced is said rather than tuned.** `census.md` folds its boxy controls into 24
+forms on four axes and excludes chips, tabs, thumbnails, pagination and fields from the action
+family - by a list of classes that lived in the lost script and appears nowhere in the prose.
+Tuning until the numbers matched a published table would prove only that they can be tuned.
+
+## The corpus, and the number that changes what any earlier census is worth
+
+| | static walk | with panels opened |
+|---|---|---|
+| loads (screen x width) | 460 | 460 |
+| panels opened first | – | **11 946** |
+| clickable observations | 35 714 | **63 154** |
+| boxy controls | 7 118 | **14 896** |
+
+**43% of the product's clickable surface is behind a state**, and a walk that only reads what is
+already painted cannot see any of it. That applies to step 1's own 22 229 as well: it was taken
+statically, which is the honest reason the two measurements do not reconcile arithmetically.
+
+## List 1 - product to system
+
+**Nothing is missing from the system.** Every control that renders in the grey layer either has a
+component, or lives on a screen that has never been coloured.
+
+Two candidates came back and both were on `wireframes/overview.html`, the hub that LISTS the
+screens rather than being one - `flowlink` and `sm-item`. The hub is excluded by the same line
+already drawn through `kit/` and `concept/`; CLAUDE.md draws it by name.
+
+**22 controls are tirage, not gaps** - every occurrence sits on one of the 54 grey-only screens:
+
+`addr-save` (4 screens) · `bsearch` (3) · `uachip` · `bcard` · `chub-goal` · `chub-cat` · `thumb` ·
+`ttl` · `read` · `cert` · `moz` · `cta` · `rev-google` · `q-exit` · `sc-goal` · `sc-chip` · `clr` ·
+`ov-row` · `ov-cb` · `ov-prod` · `ov-chip` · `ov-all`
+
+They close when their screens are coloured, which the roadmap already parks after stage 09.
+
+## List 2 - system to product, and this is the whole of the remaining work
+
+| | |
+|---|---|
+| screens carrying a private `<style>` block | **31** |
+| private rules in total | **1 154** |
+| of them redrawing a class the system already owns | **886** |
+| of them declaring something that exists only there | **210** |
+
+The twelve loudest screens are **all in the coach flow**, which is the primary audience:
+
+| screen | private rules overriding the system |
+|---|---|
+| `coach-session-addclient` | 74 |
+| `coach-session-addempty` | 74 |
+| `coach-session-priceblock` | 67 |
+| `coach-session-oos` | 65 |
+| `coach-session-loading` | 64 |
+| `coach-session-newclient` | 52 |
+| `coach-home-empty` | 44 |
+| `coach-home-free` | 39 |
+| `coach-tariff-cancel` | 34 |
+| `coach-order-error` / `coach-order-loading` | 33 each |
+| `coach-clients-cap` | 30 |
+
+**This list is not cosmetic debt, and one measured defect proves it.** `coach-session.css` answers
+the phone with `@media (max-width: 479px)`: `.qa-row` stacks, and the action takes the whole second
+line. The base screen reads that and passes at 360. The four state screens carry a private copy of
+`.qa-row` **without** the media query, a private block wins over a linked sheet, the row never
+stacks, and «Додати клієнту» hangs 10px past the viewport - which `html{ overflow-x: hidden }`
+CLIPS rather than scrolls, so the right edge of the button cannot be reached at all.
+
+`node tools/accept.mjs 360` returns **4 failures over 204 screens**, all four that page. At 390 and
+at 1280 the same corpus returns 0.
+
+**And it is why stage 10 cannot start on top of this.** The product carries 222 media blocks: 170
+in the system and **52 in the private blocks of these 31 screens**, adding 7 boundaries of their
+own on top of the system's. A responsive scale cannot consolidate what does not live in the system.
+
+## List 3 - a class nobody wears
+
+**Zero dead classes remain.** Six were deleted by the owner on 2026-08-14; the seventh was an
+error of the instrument.
+
+Two further buckets are named rather than counted, because neither is a defect:
+
+- **30 classes behind a state the walk cannot reach.** A script writes each of them, so they are
+  live. The walk calls every `open*` / `toggle*` global, but it cannot SCROLL (`stuck` and
+  `pdp-stuck` in pdp-tabs, `uiv-scrolled` in the header) and it does not advance a flow past its
+  first step (`auth-load`, `auth-spin` - the dialog after submitting). This is a named limit of
+  `census.mjs`, not a hole in the system.
+- **43 classes waiting for their screen.** Worn by the grey layer, with no coloured twin yet -
+  mostly `system-page.css` (16), `cookie-banner.css` (15) and `account-shell.css` (10).
+
+### The instrument was wrong four times, and every error had the same shape
+
+Each answered a question NEXT to the one being asked, and each produced a plausible number:
+
+| reported | actual cause |
+|---|---|
+| **962** dead classes, `coach` and `wfh` among them | the map was built from CONTROL rows, so «never worn» meant «worn by nothing clickable» |
+| `svg` `jpg` `png` `html` are dead component classes | they are the tails of `url(../../visuals/…jpg)` and `a[href="index.html"]` |
+| 12 classes of `cat-overlay.css` are dead | nothing had OPENED the overlay - `census.md` withdrew this exact finding once, about `.tbuy` |
+| `menu-pop` is dead | `design/system/menu.js:39` sets it at wire time and CSS hides it until it opens; the collector skipped `display:none` |
+
+The fourth cost a 35-minute walk twice over: the correction was announced before it was verified,
+the patch had not applied, and the re-run produced a byte-identical record - 1518 distinct classes,
+50 417 total, in both files. **The identity is what exposed it.**
+
+### Deleted 2026-08-14, and what each deletion cost
+
+Two were lint, one was free, three removed a designed state. The reasoning of the three is kept
+here verbatim so re-adding any of them is one line of CSS and a paste.
+
+**`.only-mobile` / `.only-desk`** (`account-shell.css`, 6 rules including two 860 media blocks).
+Lint: 0 wearers on 141 grey screens and 87 coloured ones. This CLOSED a question `account-shell.html`
+had held open since step 5 - «два імені є тільки в css і в жодному html. Або утилітний файл, або
+видалення». The page's note «three different breakpoints for one thought» is now two: 860 left
+with the utilities, and the scale of boundaries is stage 10's subject.
+
+**`.field--err`** (`field.css`). Free: the selector read `.field--err, .field.err`, and the measurement
+ended the argument written above it - the runtime writes `.err` and something wears it, the tidy
+name is worn by nothing. **No declaration changed.** The state fires exactly as before.
+
+**`.certthumb--pending`** (`cert-thumb.css`, one declaration). *What the system can no longer say:*
+«this certificate is claimed but not yet on file». Verbatim:
+
+> пунктирний край, без мітки «PDF», без печатки, без підйому - документа на партію ще немає.
+> Аркуш лишається аркушем, але нічого не обіцяє: ні файлу, ні натиску.
+
+**`.qans--wait`** (`qa-item.css`, one rule). *What the system can no longer say:* «the shop is
+preparing an answer». Verbatim, including the five anatomy notes and the 390 measurements:
+
+> Питання чекає на відповідь днями, і саме таким його бачить більшість читачів. Досі пару можна
+> було намалювати лише завершеною: `.qans` це магазин, який говорить, а мовчання вигляду не мало
+> зовсім.
+>
+> 390 на `product.html`: обидві коробки 358 завширшки, поле 12 з чотирьох боків, відступ 8 згори,
+> радіус `0 8 8 0` · очікування 46.4 заввишки - рівно стільки, скільки коротка відповідь.
+>
+> 1. **Модифікатор, а не друга коробка.** Рядок мусить стояти рівно там, де стане відповідь: коли
+>    вона прийде, коробка виросте вниз, і більше в парі не зрушить нічого.
+> 2. **Чорнило** - `--text-secondary` замість `--text-body`. Список гортають у пошуках відповідей;
+>    рядок тим самим чорнилом, що й відповідь, заводить око в коробку, де нічого немає. Це примітка
+>    про відповідь, а не відповідь.
+> 3. **Грань** - `--line-strong` замість `--line-action`. Помаранчева грань - єдине місце системи,
+>    де акцент носить лінія без кнопки поруч, і дозволено це тому, що вона позначає голос. Голосу
+>    тут ще немає, тож грань відступає до того самого чорнила, яким `.empty` малює свою рамку.
+> 4. **Не `--line-hair`.** На поверхні #FAF9F7 грань #E9E7E2 це 2px нічого; #D9D9D9 ще читається як
+>    шов. Заміряно на обох.
+> 5. **Ні курсиву, ні пунктиру, ні дати.** Курсив - другий типографічний регістр заради одного
+>    рядка. Пунктир на 46px висоти читається як обрізок, а не як рамка.
+
+**`.tsx--unproven`** (`trust-strip.css`, the class plus two `:not()` that were always true).
+*What the system can no longer say:* the difference between a proven trust signal and an unproven
+one - and «trust first» is design principle 1. **Not one tile moved**: 290 x 66.38 tile,
+38 x 38 icon box, 308 x 283.5 strip at 390, to the hundredth, the same figures measured when the
+exception was added. Verbatim:
+
+> другий рядок каже «на цю партію - уточнюємо», наведення не спрацьовує - сертифіката на партію ще
+> немає. Смуга не знімає обіцянку, вона перестає вдавати, що вже її довела. 7.72: «роль - це
+> обіцянка про те, що робить контрол». Там, де за плиткою документ, підйом хоча б вказує на щось
+> справжнє; на «уточнюємо» за ним нема нічого.
+
+## The migration was attempted, measured, applied and reverted - and that is the record
+
+**262 of the 1 185 top-level private rules measure as inert** - 215 matching no element on their
+own page (clone residue: `clone-to-colour.mjs` copies the full screen's block into its empty and
+loading states whole) and 47 matching elements without moving a single value. `coach-order-loading`
+alone is 37 of 42.
+
+**The cut was applied and then reverted, because the proof caught it.** `tools/tree-diff.mjs` -
+git archive the reference into its own tree, serve both, one Chrome, compare the computed style of
+every element on 40 properties at 390 and 1280 - found **9 movements on 5 screens**:
+`coach-clients-cap`, `-empty`, `-error`, `-loading` and `coach-home-loading`. At 390 a rail link
+turned **orange** (`rgb(242,240,237)` to `rgb(255,90,0)`); at 1280 the page grew 555px.
+
+**The cause is the method, not a bug.** The probe tested each rule ALONE, with every neighbour in
+place, which answers «is this rule redundant GIVEN all the others». **Inertness is not additive.**
+`coach-clients-cap` held both `.acc-nav` and `.acc-link[aria-current="page"]`; neither alone changed
+anything, and losing both turned the rail into the mobile chip strip whose current chip
+`account-shell.css` paints with `--bg-action` under `@media (max-width: 959px)`.
+
+Two corrections went in and both are right: the walk is cumulative now, against a **full-document**
+snapshot (a rule restyles only what it matches, but LAYOUT travels - a parent grows with its child
+and is not in the selector), and the set found at one width is re-offered at the other, because
+their **union was never tested anywhere**: 390 may clear {A,B} and 1280 {A,C}, and {A,B,C} is a
+configuration no browser was asked about.
+
+**They did not close the gap.** The probe still clears rules the fresh page does not. The remaining
+difference is between MUTATING a loaded document and LOADING one without those rules - the page's
+own scripts have already run and have reacted to what they saw. That is a hypothesis, not a
+measurement, and it is written here as one.
+
+**So the deletion waits for a probe that can be trusted, and the proof stays the gate.** The
+measurement is not wasted: the 262 are identified, the two kinds are separated, and
+`tools/tree-diff.mjs` will name any page a future cut moves, at any width, to the element and the
+property.
+
+## What step 6 still owes
+
+1. **Move the 886 overriding rules into their components.** This is the step's own remaining body
+   of work and the precondition for stage 10. The 262 inert ones go first, once the probe agrees
+   with the proof.
+2. **Decide the 210 local declarations**: a component each, or a deletion each.
+3. **105 dead `class="dark"` in `design/*.html`** - no stylesheet in the coloured layer defines
+   `.dark`. Not swept by hand, because `tools/clone-to-colour.mjs` would put them back: the fix is
+   one rule in the transform plus a sweep.
+4. **`.cline.oos` dims a whole row to `opacity: .5`**, taking its text to 1.47 and its placeholder
+   to 1.97. That is how the row says «unavailable» - a look to decide, not a bug to fix.
+5. **Two stale records**: `design/overview.html` says 50 coloured screens (it is 87 plus the hub)
+   and the step-8.19 note says 41 grey-only screens (it is 54). The README stage-07 row is right.

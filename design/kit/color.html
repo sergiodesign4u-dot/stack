@@ -30,11 +30,23 @@
 .sc{ border-radius:var(--radius-12); padding:12px 13px 11px; min-height:104px;
      display:flex; flex-direction:column; justify-content:space-between;
      border:1px solid var(--line-hair); }
+/* THE FADE IS GONE FROM ALL THREE SECONDARY LINES, and it was measured out
+   rather than argued out. `.use` sat at .62 and `.rg` at .72, which nothing
+   could see until the probe learnt to composite opacity (7.24): the readings
+   were 2.57 to 3.05 where the file believed 4.6 to 8.5. Solved on the worst
+   swatch, --slate-400, whose ink clears the bar by the least: .85 gives 4.35
+   and fails, .90 gives 4.62 and passes. A fade that has to sit at .9 is not a
+   hierarchy device any more, it is a rounding error that costs contrast, so
+   the hierarchy moves onto WEIGHT, which costs none - the token's name is
+   black, its value semibold, the two derived lines regular. */
 .sc .st{ font-size:var(--fs-12); font-weight:var(--fw-black); letter-spacing:.01em; }
-.sc .st u{ text-decoration:none; opacity:.62; font-weight:var(--fw-semibold); }
-.sc .hx{ font-family:var(--font-mono); font-size:var(--fs-12); text-align:right; }
-.sc .rg{ font-family:var(--font-mono); font-size:var(--fs-12); text-align:right; opacity:.72; }
-.sc .use{ font-family:var(--font-mono); font-size:var(--fs-12); opacity:.62; }
+.sc .hx{ font-family:var(--font-mono); font-size:var(--fs-12); text-align:right; font-weight:var(--fw-semibold); }
+.sc .rg{ font-family:var(--font-mono); font-size:var(--fs-12); text-align:right; }
+.sc .use{ font-family:var(--font-mono); font-size:var(--fs-12); }
+/* `.sc .st u` DELETED - it faded a `<u>` inside the token's name, and card()
+   has never written one: 0 occurrences in this file. The third list of the
+   step-6 sweep is «a class nobody wears», and a stand page is not exempt
+   from it. */
 .rampnote{ font-size:var(--fs-14); color:var(--text-secondary); margin:10px 0 4px; }
 .rampnote b{ color:var(--text-primary); }
 </style>
@@ -200,11 +212,19 @@ el('ra').innerHTML = ALPHA.map(function(n){ return card(n); }).join('');
    move». A swatch IS that ground - a fixed primitive value on display, not a
    surface the theme owns.
 
-   ONE SWATCH STILL FAILS AND NO ROLE IN THIS SYSTEM CAN LIFT IT: --slate-400
-   #7E8288 reads 4.41 on --charcoal and 3.86 on white, and --charcoal is the
-   darkest ink the system owns. Pure black would give 5.44. That is a decision
-   about a token, not about this page. */
-var INK=['--text-onaction-ink','--text-onaction'];
+   AND THE PAIR IS NO LONGER BORROWED - owner's call, «чорнило», 2026-08-14.
+   --slate-400 #7E8288 could not be lifted by either half: 4.41 on --charcoal,
+   which is the darkest INK the system owns, and 3.86 on white. The two ways
+   out were to move the token's value or to deepen the ink, and the ink is what
+   moved, because --slate-400 is not broken - it is the silver tier's mark and
+   it looks the way silver looks. The candidates now read --stand-swatch-ink /
+   --stand-swatch-onink, declared in _page.css and owned by the STAND, which is
+   what a swatch's ink always was; the deep half is --warm-950, already an ink
+   in everything but name (--line-onink reads it), and --slate-400 measures
+   5.05. Nothing that passed can fail, because the new ink is darker than the
+   old one on every ground. Why this file stopped borrowing is written where
+   the pair is declared. */
+var INK=['--stand-swatch-ink','--stand-swatch-onink'];
 function inkPass(){
   var cand=INK.map(function(r){ return {role:r, c:toRGB(val(r))}; });
   Array.prototype.forEach.call(document.querySelectorAll('.sc'), function(sc){

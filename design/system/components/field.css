@@ -134,10 +134,15 @@ select.field{
 .field.has{ border-color: var(--line-control-filled); }
 
 /* error: the edge and the halo, never the typed text - a person must be able
-   to read what they wrote in order to fix it. `.err` as well as `.field--err`
-   because the runtime already writes `.err` (wfPmInput in wireframes/_nav.js)
-   and a state the code can reach is worth more than a tidy name. */
-.field--err, .field.err{
+   to read what they wrote in order to fix it. The selector used to carry
+   `.field--err` as well, on the argument that «a state the code can reach is
+   worth more than a tidy name» - and step 6 measured the ending of that
+   argument: `.err` is worn (coach-client-error), `.field--err` is worn by
+   nothing, in either layer. The tidy name lost, so it is gone. Nothing about
+   the STATE changes: the same two declarations fire on the same element for
+   the same runtime class, and `wfPmInput` in wireframes/_nav.js still writes
+   it. This is the one deletion of the seven that costs the product nothing. */
+.field.err{
   border-color: var(--line-danger);
   box-shadow: var(--ring-danger);
 }

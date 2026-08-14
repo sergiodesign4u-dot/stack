@@ -77,10 +77,15 @@
    after, on the stand and on `product.html`: tile 290 x 66.38, icon box 38 x 38,
    strip 308 x 283.5 - identical to the hundredth.
 
-   `.tsx--unproven` therefore declares nothing of its own anywhere in this file, and
-   that is the finding rather than a gap: the whole visual difference between a
-   proven signal and an unproven one is a sentence and a hover that does not fire. */
-.tsx:not(.tsx--unproven):hover{ background:var(--bg-onphoto); }
+   `.tsx--unproven` used to be the other half of that: the tile whose claim is not
+   backed, marked by a sentence and by a hover that does not fire. DELETED at step
+   6, list 3, owner's call 2026-08-14 - `.tsx` renders on three screens and the
+   modifier on none, in either layer, so both `:not()` were always true and the
+   two selectors below say exactly what they said before. WHAT GOES WITH IT: the
+   strip can no longer distinguish a proven trust signal from an unproven one,
+   and «trust first» is principle 1 - re-adding it is a design decision, which is
+   why it is named here and in backlog.md rather than left as a silent absence. */
+.tsx:hover{ background:var(--bg-onphoto); }
 @media (min-width:720px){
   .tsx + .tsx{ box-shadow:inset 1px 0 0 var(--line-hair); }
 }
@@ -92,9 +97,9 @@
 .tsx .uiv-ic{ flex:none; width:var(--size-44); height:var(--size-44); border-radius:var(--radius-12); background:var(--bg-page); color:var(--text-body);
   box-shadow: var(--elevation-control);
   transition:transform .15s ease, color .15s ease; }
-/* the second half of the withdrawn affordance above - same `:not()`, same reason,
-   and it is the half that actually moves: the icon is what lifts and goes accent */
-.tsx:not(.tsx--unproven):hover .uiv-ic{ transform:translateY(-2px); color:var(--text-action); }
+/* the second half of the affordance above, and the half that actually moves:
+   the icon is what lifts and goes accent */
+.tsx:hover .uiv-ic{ transform:translateY(-2px); color:var(--text-action); }
 .tsx .uiv-ic svg{ width:23px; height:23px; }
 .tsx b{ font-size:var(--fs-14); line-height:var(--lh-snug); }
 .tsx span:not(.uiv-ic){ display:block; margin-top:var(--space-4); line-height:var(--lh-snug); }

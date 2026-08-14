@@ -473,6 +473,11 @@ window.KIT_NAV = [
     "label": "Піксельний доказ",
     "page": "pixel-proof.html",
     "done": true
+   },
+   {
+    "label": "Що лишилось",
+    "page": "backlog.html",
+    "done": true
    }
   ]
  }

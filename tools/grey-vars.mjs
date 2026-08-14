@@ -78,8 +78,16 @@ const TABLE = {
      which is the tell that survives the dead variable: the literal `#fff`
      rendered while the ground did not. */
   '.btn.dark|||background':           '--bg-inverse',
-  '.cnew|||background':               '--bg-inverse',   /* coach-cabinet.css:592 gives .cn-s inverse ink */
-  '.cnew|||border':                   '--line-inverse',
+  /* THE FIVE PANELS BELOW WERE INK AND THE OWNER CALLED THEM ACCENT ON
+     2026-08-14 (step 7.26), so their rows move with them. A translation table
+     that still answers `--bg-inverse` here is not stale documentation, it is a
+     LOADED GUN: the next clone would re-ink the panels and the screens would
+     drift back without anybody deciding it. `.cnew` is the fill, because it is
+     the screen's one main action; the other three carry the accent on the EDGE
+     and keep `--bg-surface` under it, because each already holds its own accent
+     button and the action colour is spent once. */
+  '.cnew|||background':               '--bg-action',    /* coach-cabinet.css gives .cn-s --text-onaction */
+  '.cnew|||border':                   '--line-action',
   '.cv-ok|||border':                  '--line-inverse',
   '.cv-ok .m|||background':           '--bg-inverse',
   '.cv-badge|||border':               '--line-inverse',
@@ -90,10 +98,9 @@ const TABLE = {
   '.section-h|||border-bottom':       '--line-inverse',
   '.cv-ring|||border-top-color':      '--line-inverse',
   '.sk-spin|||border-top-color':      '--line-inverse',
-  /* A progress fill is not an action - nothing is pressed and nothing is
-     chosen - so it takes the plate rather than the accent. CLAUDE.md keeps
-     `#FF5A00` for the single action colour. */
-  '.upsell .ubar i|||background':     '--bg-inverse',
+  /* The bar goes with its panel: it is the same statement drawn as a length,
+     and after 7.26 that statement is the accent. */
+  '.upsell .ubar i|||background':     '--bg-action',
   /* `.pro` IS NOT A STATE, IT IS A VARIANT NAME, and that is the whole
      difference. `.on`, `.now` and `.cur` above say «this is the one you chose or
      the one you are on», which is what --line-action means. `.tier.pro` says
@@ -115,10 +122,10 @@ const TABLE = {
   '.ch-goal|||border':                '--line-inverse',  /* coach-clients.css */
   '.tierchip|||border':               '--line-inverse',
   '.cstat .tierchip|||border':        '--line-inverse',
-  '.cs-warn|||border':                '--line-inverse',
+  '.cs-warn|||border':                '--line-action',
   '.cs-warn .wa|||border':            '--line-inverse',
-  '.tf-upsell|||border':              '--line-inverse',
-  '.upsell|||border':                 '--line-inverse',
+  '.tf-upsell|||border':              '--line-action',
+  '.upsell|||border':                 '--line-action',
 };
 
 /* ---- the file checks itself before it edits anything -----------------------
@@ -199,8 +206,72 @@ if (unused.length && !done) { console.log('\nTABLE ROWS THAT MATCHED NOTHING - a
 if (unused.length && done)
   console.log('\nМІГРАЦІЮ ЗАВЕРШЕНО: жоден рядок таблиці вже не має що перекладати (' +
     unused.length + ' з ' + Object.keys(TABLE).length + ' - історія, не помилки).\n' +
-    'Сторож, який лишається чинним, це tools/vars.mjs: він питає браузер, чи якась\n' +
-    'властивість лишається без значення, і це та перевірка, що впіймає нову сіру назву.');
+    'Але таблиця ловить лише ті імена, які в ній є. Друга перевірка нижче не має\n' +
+    'таблиці зовсім - і саме вона лишається чинним сторожем.');
 if (left.length) { console.log('\nLEFT ALONE, needs a person (' + left.length + '):');
   for (const l of [...new Set(left)]) console.log('  ' + l); }
-process.exit(unused.length && !done ? 1 : 0);
+
+/* =========================================================================
+   CHECK 2 - EVERY `var(--x)` THAT IS READ HAS TO BE DECLARED, AND THIS ONE
+   HAS NO TABLE.
+
+   THE SENTENCE THAT USED TO STAND HERE WAS WRONG, and it was wrong in the
+   flattering direction, which is the third time this stage has caught that
+   shape. It said the guard after the migration is `tools/vars.mjs`, «бо він
+   питає браузер, чи якась властивість лишається без значення». A browser
+   never answers that: an undefined custom property makes the declaration
+   INVALID AT COMPUTED-VALUE TIME, and the property then takes its inherited
+   or initial value - `color` inherits, `background-color` goes transparent,
+   `border-color` goes currentColor. Every one of those is a perfectly valid
+   computed value, so `vars.mjs` reported 0 failures over 204 screens on
+   2026-08-14 while ELEVEN reads of three undeclared names sat in the tree.
+
+   All eleven were in `style=` attributes, which is the hiding place step 7.16
+   already named once and nothing had been taught to read since.
+
+   The question here is answered from the SOURCE and needs nothing remembered:
+   collect every name DECLARED in what a design page loads, collect every name
+   READ, subtract. A read carrying a fallback - `var(--x, 12px)` - is valid by
+   construction and is not counted. */
+/* COMMENTS ARE BLANKED, NOT SKIPPED, and the check found that out about itself
+   on its first run: `design/kit/button.html` reported --space-20 and --fs-11 as
+   undeclared, and both were inside the comment that TELLS THE STORY of step
+   6.10 deleting exactly those two names. A checker that reads prose about a
+   defect and calls the prose the defect is the same shape as the 404 that
+   loaded as a clean page. Blanked rather than removed, so line numbers survive
+   into the report. */
+const strip = t => t.replace(/\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->/g,
+  m => m.replace(/[^\n]/g, ' '));
+const DECL = /(?:^|[{;"'\s])(--[a-z0-9-]+)\s*:/g;
+const READ = /var\(\s*(--[a-z0-9-]+)\s*([,)])/g;
+const global = new Set();
+const globalSrc = ['design/system/tokens.css', 'design/system/base.css',
+                   'design/_stand.css', 'design/kit/_page.css'];
+for (const f of globalSrc)
+  for (const m of strip(readFileSync(join(ROOT, f), 'utf8')).matchAll(DECL)) global.add(m[1]);
+for (const f of readdirSync(join(ROOT, 'design/system/components')))
+  for (const m of strip(readFileSync(join(ROOT, 'design/system/components', f), 'utf8')).matchAll(DECL))
+    global.add(m[1]);
+
+const pages = [];
+for (const d of ['design', 'design/kit'])
+  for (const f of readdirSync(join(ROOT, d)).filter(x => x.endsWith('.html')))
+    pages.push(join(d, f));
+
+const orphan = [];
+for (const p of pages) {
+  const t = strip(readFileSync(join(ROOT, p), 'utf8'));
+  const own = new Set(global);
+  for (const m of t.matchAll(DECL)) own.add(m[1]);          /* a page may declare its own */
+  const lines = t.split('\n');
+  lines.forEach((ln, i) => {
+    for (const m of ln.matchAll(READ))
+      if (m[2] === ')' && !own.has(m[1])) orphan.push(p + ':' + (i + 1) + '  ' + m[1]);
+  });
+}
+console.log('\n' + pages.length + ' сторінок · читань невизначених імен: ' + orphan.length);
+if (orphan.length) {
+  console.log('НЕОГОЛОШЕНЕ ІМʼЯ - декларація мовчки недійсна, властивість бере успадковане:');
+  for (const o of orphan) console.log('  ' + o);
+}
+process.exit((unused.length && !done) || orphan.length ? 1 : 0);

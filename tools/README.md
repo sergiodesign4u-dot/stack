@@ -427,3 +427,75 @@ verdict is cached for the run, so a new opener is judged the day it appears. The
 dropped names are printed with the result.
 
 `--closed` restores the old behaviour, for comparing a run against an older one.
+
+---
+
+## `census.mjs` - the control census, and this time it is an instrument
+
+Step 6 of stage 08 asks for **два заміри одним приладом**: step 1 walks the corpus before the
+system, step 6 walks it after. Opening that step, the prilad was gone. `census.md` produced 22 229
+observations over 180 screens and closes with its own sentence - «the script is the artifact, not
+the table» - and the script was never kept; only `btn-census.json`, which is the result.
+
+Rebuilt **from the written method**, not from memory: two viewports (390 and 1280, because the
+desktop header and the mega menu do not exist at mobile width), in a browser and **never by grep**
+(the header is injected by `_nav.js` and is not in the markup at all), computed style rather than
+the written rule, and the control test verbatim - `a` / `button` / `label` / `[role=button]` /
+`[onclick]`, **or** an element that INTRODUCES `cursor:pointer` its parent does not have.
+
+**The 24-form folding of step 1 is NOT reproduced**, and that is said rather than tuned: the
+exclusion list lived in the lost script and appears nowhere in the prose. Tuning until the numbers
+matched a published table would prove only that they can be tuned.
+
+**The number that reprices every earlier census: 35 714 clickable observations become 63 154 with
+panels open.** 43% of the product's clickable surface is behind a state, step 1's 22 229 included.
+
+`--lists <raw.json>` computes step 6's three lists off a finished walk. Its own errors are worth
+the space, because all four had one shape - **answering the question next to the one asked**:
+
+| reported | cause |
+|---|---|
+| 962 dead classes, `coach` and `wfh` among them | the map was built from CONTROL rows, so «never worn» meant «worn by nothing clickable» |
+| `svg` `jpg` `png` `html` are dead component classes | tails of `url(...jpg)` and of an href attribute selector |
+| 12 classes of `cat-overlay.css` are dead | nothing had OPENED the overlay |
+| `menu-pop` is dead | `menu.js` sets it at wire time and CSS hides it until it opens; the collector skipped `display:none` |
+
+The fourth cost the 35-minute walk twice, and not because of the bug: the correction was announced
+before it was verified, the patch had never applied, and the re-run produced a **byte-identical**
+record - 1 518 distinct classes, 50 417 total, in both files. The identity is what exposed it.
+
+## `private-css.mjs` - which private rules draw anything
+
+31 coloured screens carry a private `<style>` block, 1 185 top-level rules. A source count says a
+rule EXISTS, not that it CHANGES anything. This deletes a rule and asks the browser whether
+anything moved: **215 match no element on their own page** (clone residue) and **47 match and move
+no value** (a copy of what the system already says).
+
+**Its verdict is not yet trusted, and the reason is written into the file.** The first version
+tested each rule ALONE with every neighbour in place - **inertness is not additive**, and a cut
+built on that answer moved 5 screens. Two corrections went in: the walk is cumulative against a
+**full-document** snapshot (a rule restyles only what it matches, but LAYOUT travels), and the set
+found at one width is re-offered at the other (their **union was never tested anywhere**). Neither
+closed the gap. Until it closes, `tree-diff.mjs` is the gate.
+
+`--closed` skips the opener sweep · `--apply` writes · `--json` keeps the raw record.
+
+## `tree-diff.mjs` - did the working tree move anything, element by element
+
+`proof.mjs` answers this in pixels for the 40 screens that have a baseline JPEG. This answers it
+for anything: git archive the reference into its own tree, serve both, open both in ONE Chrome and
+compare the **computed style of every element** on 40 properties at 390 and 1280.
+
+**Take the positive control before trusting a zero.** `coach-home-empty` answers «11 elements at
+390, 12 at 1280» for the accent change of 7.26; a comparator that cannot say «moved» cannot testify
+to «did not». It caught the private-css cut on 5 screens and named the property: a rail link
+`rgb(242,240,237)` to `rgb(255,90,0)` at 390.
+
+Three of its own faults, all the shape this directory keeps meeting: it **hung with no output** by
+opening two tabs before visiting either; it compared its own two server **PORTS** inside
+`background-image` and reported that as a finding; and its regex literal was eaten by the template
+literal holding it, so the escapes arrived as a bare slash - built with `new RegExp` now, from a
+plain string.
+
+`--dir <path>` compares against a directory instead of a ref, which is what a migration needs: the
+reference is «the tree five minutes ago», and that has no commit to name.

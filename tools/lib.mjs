@@ -147,3 +147,56 @@ export function subject(argv, dir = 'design') {
   }
   return named;
 }
+
+/* ============================================================================
+   THE OPENER SWEEP - shared, because it was born in theme.mjs at step 7.21 and
+   census.mjs needed the identical thing at step 6. Retyping it into a second
+   file is the hand fix this repository bans for instruments as loudly as for
+   pages, so it lives here and both import it.
+
+   A popup is 0x0 until somebody opens it, and any walk that only reads what is
+   already on screen is blind to every dialog, drawer, mega menu and overlay in
+   the product. That blind spot has cost three times now: `.on` «Українська» at
+   8.19, the account menu at 7.17, and the category overlay at step 6, where a
+   census called twelve live classes dead because nothing had opened the thing
+   that wears them.
+
+   AN OPENER THAT LEAVES THE PAGE IS DISCOVERED, NOT LISTED - openCookieSettings()
+   falls back to a file that does not exist under design/, and the navigation is
+   asynchronous, so a check written inside the sweep sees nothing. Each name is
+   tried once in a session of its own and the verdict is cached by name. */
+export const AUTO_OPENER = '/^(open[A-Z]|toggle[A-Z])/';
+export const ARG_OPENERS = ["wfAuthGo('code')", "catOverlayGoals()", "addrStep('post')",
+                     "profStep('pf-phone','enter')", "wfToast('ok','Перевірка')"];
+export const NAMES = `JSON.stringify(Object.getOwnPropertyNames(window).filter(k => {
+  try { return ${AUTO_OPENER}.test(k) && typeof window[k] === 'function'; } catch (e) { return false; }
+}))`;
+export const sweepOf = list => `(() => { let ran = 0;
+  for (const call of ${JSON.stringify(list)})
+    { try { (0, eval)(call); ran++; } catch (e) {} }
+  return ran; })()`;
+
+/* name -> may it be called at all. One map per process, shared by every caller.
+   Exposed through a reader rather than the map itself: the dropped names have to
+   be PRINTED with every result - «an exclusion nobody can see excludes whatever
+   it likes» - and a caller that has to remember to filter would eventually not. */
+const verdict = new Map();
+export const droppedOpeners = () =>
+  [...verdict.entries()].filter(([, ok]) => !ok).map(([c]) => c);
+export async function safeOpeners(deps, url, calls) {
+  const { conn, newSession, visit } = deps;
+  const out = [];
+  for (const call of calls) {
+    if (!verdict.has(call)) {
+      const probe = await newSession(conn);
+      await visit(conn, probe.sessionId, url, 1280, 900, '1', probe.inflight);
+      await conn.send('Runtime.evaluate', { expression: `(() => { try { ${call} } catch (e) {} })()`, returnByValue: true }, probe.sessionId);
+      await new Promise(r => setTimeout(r, 400));
+      const here = await conn.send('Runtime.evaluate', { expression: 'location.pathname', returnByValue: true }, probe.sessionId);
+      verdict.set(call, String(here.result.value) === new URL(url).pathname);
+      await conn.send('Target.closeTarget', { targetId: probe.targetId });
+    }
+    if (verdict.get(call)) out.push(call);
+  }
+  return out;
+}

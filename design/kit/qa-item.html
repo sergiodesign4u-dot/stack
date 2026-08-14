@@ -79,33 +79,19 @@
 <tr><td><b>перша пара</b></td><td>волосина згори лишається</td><td>вона відділяє список від заголовка секції, а не пари одна від одної</td></tr>
 <tr><td><b>наведення</b></td><td><b>немає</b></td><td>тут нема на що натискати: питання не розгортається, відповідь не ховається</td></tr>
 <tr><td><b>фокус</b></td><td><b>немає</b></td><td>жодного контрола всередині пари. Кнопка «поставити запитання» стоїть у заголовку секції</td></tr>
-<tr><td><b>без відповіді</b></td><td><code>.qans--wait</code>: та сама коробка, чорнило вторинне, грань <code>--line-strong</code> замість помаранчевої</td><td>грань позначає голос, а голосу ще немає. Коробка лишається на місці, щоб пара не стрибнула, коли відповідь прийде</td></tr>
 <tr><td><b>питань ще немає</b></td><td>замість списку - коробка <code>.emptybox.mini</code>, вихід лишається в заголовку секції</td><td>у нового товару питати ще ніхто не встиг, а запросити спитати треба</td></tr>
 </tbody></table></div>
 <p class="kp-p">Два стани на компонент з тринадцяти оголошень, і разом вони коштували <b>два</b> нові: чорнило й колір грані. Решту - коробку, поле, рамку, радіус - малює те, що вже намальоване.</p></section>
 
-<section class="kp-sec"><div class="kp-sh">Магазин готує відповідь</div>
-<p class="kp-p">Питання чекає на відповідь днями, і саме таким його бачить більшість читачів. Досі пару можна було намалювати лише завершеною: <code>.qans</code> це магазин, який <b>говорить</b>, а мовчання вигляду не мало зовсім.</p>
-<div class="kp-demo">
-  <div class="qaitem">
-    <div class="qq">Чи підходить для схуднення?</div>
-    <div class="qans qans--wait">Магазин готує відповідь</div>
-  </div>
-  <div class="qaitem">
-    <div class="qq">Скільки порцій виходить з банки 2270 г?</div>
-    <div class="qans"><b>Магазин:</b> ~72 порції по 30 г.</div>
-  </div>
-</div>
-<div class="kp-cap">390 на <code>product.html</code>: обидві коробки 358 завширшки, поле 12 з чотирьох боків, відступ 8 згори, радіус <code>0 8 8 0</code> · очікування 46.4 заввишки - рівно стільки, скільки коротка відповідь</div>
-<div class="kp-anat">
-  <div class="a"><i>1</i><span><b>Модифікатор, а не друга коробка.</b> Рядок мусить стояти рівно там, де стане відповідь: коли вона прийде, коробка виросте вниз, і більше в парі не зрушить нічого</span></div>
-  <div class="a"><i>2</i><span><b>Чорнило</b> - <code>--text-secondary</code> замість <code>--text-body</code>. Список гортають <b>у пошуках відповідей</b>; рядок тим самим чорнилом, що й відповідь, заводить око в коробку, де нічого немає. Це примітка про відповідь, а не відповідь</span></div>
-  <div class="a"><i>3</i><span><b>Грань</b> - <code>--line-strong</code> замість <code>--line-action</code>. Помаранчева грань - єдине місце системи, де акцент носить лінія без кнопки поруч, і дозволено це тому, що вона позначає <b>голос</b>. Голосу тут ще немає, тож грань відступає до того самого чорнила, яким <code>.empty</code> малює свою рамку: системний спосіб сказати «тут МАЄ бути вміст»</span></div>
-  <div class="a"><i>4</i><span><b>Не <code>--line-hair</code>.</b> На поверхні #FAF9F7 грань #E9E7E2 це 2px нічого; #D9D9D9 ще читається як шов. Заміряно на обох</span></div>
-  <div class="a"><i>5</i><span><b>Ні курсиву, ні пунктиру, ні дати.</b> Курсив - другий типографічний регістр заради одного рядка. Пунктир на 46px висоти читається як обрізок, а не як рамка. Дата - відкрите питання нижче, і закривати його побічно цей крок не має права</span></div>
-</div>
-<p class="kp-p"><b>Антиправило компонента діє й тут:</b> це не чат. Ні «онлайн», ні «відповідаємо за 24 години», ні лічильника. Живий чат поза MVP, і рядок, який обіцяє швидкість, обіцяв би те, чого немає.</p></section>
-
+<!-- SECTION DELETED - «Магазин готує відповідь», step 6, list 3, owner's call
+     2026-08-14. It documented `.qans--wait`, one declaration that no screen has
+     ever worn: `.qans` renders on two, the modifier on none, measured in a
+     browser with panels open. The page cannot keep a section about a state the
+     system no longer has - «a stand that disagrees with the shop is worse than
+     no stand», menu.css says it in those words. The five anatomy notes and the
+     390 measurements are kept VERBATIM in design/kit/docs/backlog.md, under
+     «candidates to re-add», so putting it back is one line of CSS and a paste,
+     not archaeology. -->
 <section class="kp-sec"><div class="kp-sh">Питань ще немає</div>
 <p class="kp-p">У нового товару список порожній, і досі секція просто не малювалась. Тепер це <b>атом без жодного модифікатора</b>: <code>.emptybox.mini</code> з <code>empty-state.css</code>, і в <code>qa-item.css</code> під нього не написано нічого.</p>
 <div class="kp-demo">
@@ -125,11 +111,11 @@
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>4</b> власні класи і <b>2</b> стани. Другий стан класу не додає - коробку він позичає в <code>empty-state.css</code>, і в списку класів компонента її немає навмисно.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["qaitem","qans","qq","qans--wait"], KIT_STS=[".qans--wait",".emptybox.mini"];</script></section>
+<script>var KIT_CLS=["qaitem","qans","qq"], KIT_STS=[".emptybox.mini"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>qa-item.css</code>: <b>7</b> семантичних ролей і <b>7</b> примітивів. Дві нові ролі - обидві з очікування, і жодного нового примітива: стан не додав системі ані числа.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (7)</th><th>Примітиви (7)</th></tr></thead><tbody><tr><td><code>--bg-surface</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-strong</code> <code>--text-body</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fs-16</code> <code>--fw-bold</code> <code>--radius-8</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (7)</th></tr></thead><tbody><tr><td><code>--bg-surface</code> <code>--line-action</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-primary</code></td><td><code>--fs-14</code> <code>--fs-16</code> <code>--fw-bold</code> <code>--radius-8</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
 <p class="kp-p">Повз шкалу два числа: <code>1px</code> волосини і <code>2px</code> грані. Обидва - товщини ліній, і шкали товщин у системі немає. Заміряно: роль <code>--line-hair</code> читають <b>178</b> рядків системи, а <code>2px solid</code> написано <b>12</b> разів у <b>10</b> файлах. Кандидат на пару токенів, рішення - етап 09.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">A/B</div>

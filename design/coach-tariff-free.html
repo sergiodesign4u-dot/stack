@@ -30,7 +30,11 @@
 .tf-incl li.off { color:var(--text-muted); }
 .tf-incl li.off::before { content: "✕"; color:var(--text-muted); }
 .tf-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; padding-top: 18px; border-top:1px solid var(--line-hair); }
-.tf-upsell { border:1.5px solid var(--line-inverse); border-radius: 14px; background:var(--bg-surface); padding: 20px 22px; margin-top: 18px; }
+/* THE PANEL'S EDGE IS THE ACCENT NOW - owner's call, 2026-08-14, same shape and
+   same reasoning as `.upsell` on coach-clients-cap.html: the edge carries the
+   emphasis, the fill stays the surface, and the accent fill is left free for
+   the button this panel exists to point at. */
+.tf-upsell { border:1.5px solid var(--line-action); border-radius: 14px; background:var(--bg-surface); padding: 20px 22px; margin-top: 18px; }
 .tf-upsell h2 { font-size: 17px; font-weight: 800; color: var(--text-primary); margin: 0 0 6px; }
 .tf-upsell p { font-size: 13px; color:var(--text-secondary); margin: 0 0 8px; line-height: 1.5; }
 .tf-upsell .tf-price2 { font-size: 20px; font-weight: 800; color: var(--text-primary); margin: 8px 0 14px; }

@@ -32,7 +32,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { Conn, newSession, visit } from './cdp.mjs';
-import { serve, chrome, pages, ROOT } from './lib.mjs';
+import { serve, chrome, pages, ROOT, ARG_OPENERS, NAMES, sweepOf, safeOpeners, droppedOpeners } from './lib.mjs';
 
 const SOURCE_ONLY = process.argv.includes('--source');
 const TOKENS = readFileSync(join(ROOT, 'design/system/tokens.css'), 'utf8');
@@ -384,34 +384,9 @@ if (!named.length)
    added next month is judged the day it appears instead of being missed by a
    list somebody forgot to extend. The dropped names are printed with the result,
    because an exclusion nobody can see excludes whatever it likes. */
-const AUTO_OPENER = '/^(open[A-Z]|toggle[A-Z])/';
-const ARG_OPENERS = ["wfAuthGo('code')", "catOverlayGoals()", "addrStep('post')",
-                     "profStep('pf-phone','enter')", "wfToast('ok','Перевірка')"];
-const NAMES = `JSON.stringify(Object.getOwnPropertyNames(window).filter(k => {
-  try { return ${AUTO_OPENER}.test(k) && typeof window[k] === 'function'; } catch (e) { return false; }
-}))`;
-const sweepOf = list => `(() => { let ran = 0;
-  for (const call of ${JSON.stringify([])}.concat(${JSON.stringify(list)}))
-    { try { (0, eval)(call); ran++; } catch (e) {} }
-  return ran; })()`;
-/* name -> may it be called at all */
-const verdict = new Map();
-async function safeOpeners(sess, url, calls) {
-  const out = [];
-  for (const call of calls) {
-    if (!verdict.has(call)) {
-      const probe = await newSession(conn);
-      await visit(conn, probe.sessionId, url, 1280, 900, '1', probe.inflight);
-      await conn.send('Runtime.evaluate', { expression: `(() => { try { ${call} } catch (e) {} })()`, returnByValue: true }, probe.sessionId);
-      await new Promise(r => setTimeout(r, 400));
-      const here = await conn.send('Runtime.evaluate', { expression: 'location.pathname', returnByValue: true }, probe.sessionId);
-      verdict.set(call, String(here.result.value) === new URL(url).pathname);
-      await conn.send('Target.closeTarget', { targetId: probe.targetId });
-    }
-    if (verdict.get(call)) out.push(call);
-  }
-  return out;
-}
+/* AUTO_OPENER, ARG_OPENERS, NAMES, sweepOf and safeOpeners moved to lib.mjs
+   at step 6 - census.mjs needed the identical sweep, and a second copy typed by
+   hand is the defect this file spends its own comments warning about. */
 const CLOSED = process.argv.includes('--closed');
 
 const srv = await serve();
@@ -439,7 +414,7 @@ for (const p of SUBJ) {
       if (!safeFor.has(p)) {
         const nm = await conn.send('Runtime.evaluate', { expression: NAMES, returnByValue: true }, s.sessionId);
         const calls = JSON.parse(nm.result.value).map(n => n + '()').concat(ARG_OPENERS);
-        safeFor.set(p, await safeOpeners(s, url, calls));
+        safeFor.set(p, await safeOpeners({ conn, newSession, visit }, url, calls));
         await visit(conn, s.sessionId, url, 1280, 900, '1', s.inflight);
         await conn.send('Runtime.evaluate', { expression: `uivTheme('${theme}')`, returnByValue: true }, s.sessionId);
       }
@@ -564,7 +539,7 @@ for (const f of unread) un.set(f.sel + '|' + f.page, (un.get(f.sel + '|' + f.pag
    defect of the theme and both used to be a single character on a progress line,
    which is how «visited 203, measured 175» reads exactly like «measured 203». */
 if (!CLOSED) {
-  const dropped = [...verdict.entries()].filter(([, ok]) => !ok).map(([c]) => c);
+  const dropped = droppedOpeners();
   console.log('\n   відкрито панелей перед заміром: ' + opened + ' викликів на ' + (SUBJ.length * 2) + ' проходів');
   console.log('   відкидано, бо покидають сторінку (' + dropped.length + '): ' +
     (dropped.join(' ') || 'ЖОДНОГО, і це вже привід перечитати правило'));

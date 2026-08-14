@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Що лишилось | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Перевірка</div>
+<h1 class="kp-h1">Що лишилось</h1>
+<p class="kp-lead">Крок 6 етапу 08 зводить систему з продуктом і питає <b>три</b> питання: чого система не має, що продукт малює сам замість неї, і що вона носить даремно. Тут відповіді - з числом за кожним рядком і з приладом, який це число повторить: <code>node tools/census.mjs</code>.</p>
+<div class="kp-meta"><span class="kp-tag">229 екранів</span><span class="kp-tag">390 і 1280</span><span class="kp-tag">460 завантажень</span><span class="kp-tag">63 154 спостереження</span><span class="kp-tag">джерело: <code>docs/backlog.md</code></span></div>
+
+<section class="kp-sec"><div class="kp-sh">Спершу довелось зібрати прилад, і це знахідка нуль</div>
+<p class="kp-p">Крок 1 дав <code>census.md</code> - 22 229 спостережень на 180 екранах - і закінчується власним реченням: <b>«the script is the artifact, not the table»</b>. Скрипт не зберегли. Лишився <code>btn-census.json</code>, тобто <b>результат</b>. Отже вимога паку «два заміри одним приладом» була нездійсненною, доки приладу немає, а зібрати його з пам&#39;яті - це рівно та ручна правка, яку репозиторій забороняє для інструментів так само гучно, як для сторінок.</p>
+<p class="kp-p"><code>tools/census.mjs</code> зібраний <b>з методу</b>, як його описує <code>census.md</code>: дві ширини (390 і 1280, бо десктопної шапки й мегаменю на 390 не існує), <b>у браузері й ніколи грепом</b> (шапку вставляє <code>_nav.js</code>, у розмітці її немає), обчислений стиль замість написаного правила, і тест на контрол дослівно - <code>a</code> / <code>button</code> / <code>label</code> / <code>[role=button]</code> / <code>[onclick]</code>, <b>або</b> елемент, який <b>вводить</b> <code>cursor:pointer</code>, якого немає в батька.</p>
+<div class="kp-do"><h4>Чого не відтворено, і це сказано, а не підігнано</h4><code>census.md</code> згортає коробчасті контроли у 24 форми на чотирьох осях і виключає чіпи, таби, мініатюри, пагінацію та поля зі сім'ї дії - за списком класів, який жив у втраченому скрипті й ніде в прозі не записаний. Підганяти числа, доки вони не зійдуться з опублікованою таблицею, довело б лише те, що їх можна підігнати.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Корпус, і число, яке міняє ціну будь-якого попереднього перепису</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th></th><th>статичний обхід</th><th>з розгортанням панелей</th></tr></thead><tbody>
+<tr><td>завантажень (екран x ширина)</td><td>460</td><td>460</td></tr>
+<tr><td>відкрито панелей перед читанням</td><td>–</td><td><b>11 946</b></td></tr>
+<tr><td>спостережень клікабельного</td><td>35 714</td><td><b>63 154</b></td></tr>
+<tr><td>коробчастих контролів</td><td>7 118</td><td><b>14 896</b></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>43% клікабельної поверхні продукту лежить за станом</b>, і обхід, який читає лише намальоване, не бачить жодного відсотка з них. Це стосується й 22 229 кроку 1: той замір знято статично, і саме тому два заміри не зводяться арифметично.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Список 1 - продукт до системи</div>
+<p class="kp-p"><b>Системі не бракує нічого.</b> Кожен контрол сірого шару або має компонент, або живе на екрані, якого ніхто не фарбував.</p>
+<p class="kp-p">Два кандидати повернулись, і обидва стояли на <code>wireframes/overview.html</code> - хабі, який <b>перелічує</b> екрани, а не є одним з них: <code>flowlink</code> і <code>sm-item</code>. Хаб виключено тією самою межею, що вже проведена через <code>kit/</code> і <code>concept/</code>; CLAUDE.md проводить її поіменно.</p>
+<div class="kp-gap"><h4>22 контроли - це тираж, а не діра</h4>Кожне входження сидить на одному з 54 ще-сірих екранів: <code>addr-save</code> (4 екрани) · <code>bsearch</code> (3) · <code>uachip</code> · <code>bcard</code> · <code>chub-goal</code> · <code>chub-cat</code> · <code>thumb</code> · <code>ttl</code> · <code>read</code> · <code>cert</code> · <code>moz</code> · <code>cta</code> · <code>rev-google</code> · <code>q-exit</code> · <code>sc-goal</code> · <code>sc-chip</code> · <code>clr</code> · <code>ov-row</code> · <code>ov-cb</code> · <code>ov-prod</code> · <code>ov-chip</code> · <code>ov-all</code>.<br>Вони закриються, коли їхні екрани отримають колір - роадмеп уже ставить це після етапу 09.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Список 2 - система до продукту, і це вся робота, що лишилась</div>
+<div class="kp-scroll"><table class="kp-tbl"><tbody>
+<tr><td>екранів із приватним блоком <code>&lt;style&gt;</code></td><td><b>31</b></td></tr>
+<tr><td>приватних правил усього</td><td><b>1 154</b></td></tr>
+<tr><td>з них перемальовують клас, який система вже має</td><td><b>886</b></td></tr>
+<tr><td>з них оголошують те, чого немає більше ніде</td><td><b>210</b></td></tr>
+</tbody></table></div>
+<p class="kp-p">Дванадцять найгучніших екранів - <b>усі в потоці тренера</b>, тобто в первинній аудиторії:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>екран</th><th>приватних правил, що перебивають систему</th></tr></thead><tbody>
+<tr><td><code>coach-session-addclient</code></td><td>74</td></tr>
+<tr><td><code>coach-session-addempty</code></td><td>74</td></tr>
+<tr><td><code>coach-session-priceblock</code></td><td>67</td></tr>
+<tr><td><code>coach-session-oos</code></td><td>65</td></tr>
+<tr><td><code>coach-session-loading</code></td><td>64</td></tr>
+<tr><td><code>coach-session-newclient</code></td><td>52</td></tr>
+<tr><td><code>coach-home-empty</code></td><td>44</td></tr>
+<tr><td><code>coach-home-free</code></td><td>39</td></tr>
+<tr><td><code>coach-tariff-cancel</code></td><td>34</td></tr>
+<tr><td><code>coach-order-error</code> · <code>coach-order-loading</code></td><td>по 33</td></tr>
+<tr><td><code>coach-clients-cap</code></td><td>30</td></tr>
+</tbody></table></div>
+<div class="kp-dont"><h4>Це не косметичний борг, і один заміряний дефект це доводить</h4><code>coach-session.css</code> відповідає телефону через <code>@media (max-width: 479px)</code>: <code>.qa-row</code> складається у два рядки, і дія бере весь другий. Базовий екран це правило читає і на 360 проходить. <b>Чотири екрани станів несуть приватну копію <code>.qa-row</code> без тієї медіа-умови</b>, приватний блок виграє в підключеного стилю, ряд ніколи не складається, і «Додати клієнту» звисає на 10px за край - а <code>html{ overflow-x: hidden }</code> ці 10px <b>обрізає</b>, а не прокручує, тож правий край кнопки недосяжний.<br><code>node tools/accept.mjs 360</code> дає <b>4 провали на 204 екранах</b>, усі чотири - ця сторінка. На 390 і на 1280 той самий корпус дає 0.</div>
+<p class="kp-p"><b>І саме тому етап 10 не може початись поверх цього.</b> У продукті 222 медіа-блоки: 170 у системі і <b>52 у приватних блоках цих 31 екрана</b>, які додають 7 власних меж поверх системних. Шкала не зводить того, що не лежить у системі.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Список 3 - клас, якого ніхто не носить</div>
+<p class="kp-p"><b>Мертвих не лишилось.</b> Шість видалив власник 2026-08-14; сьомий був помилкою приладу.</p>
+<p class="kp-p">Ще дві купи названі, а не пораховані як дефект: <b>30 класів за станом, якого обхід не досягає</b> - кожен пише скрипт, отже вони живі; обхід кличе всі <code>open*</code> / <code>toggle*</code>, але не вміє <b>скролити</b> (<code>stuck</code>, <code>pdp-stuck</code>, <code>uiv-scrolled</code>) і не проходить потік далі першого кроку (<code>auth-load</code>, <code>auth-spin</code>). І <b>43 чекають на свій екран</b> - носить сірий шар, кольорового двійника ще немає; здебільшого <code>system-page.css</code> (16), <code>cookie-banner.css</code> (15) і <code>account-shell.css</code> (10).</p>
+<div class="kp-dont"><h4>Прилад помилився чотири рази, і всі чотири помилки однієї форми</h4>Кожна відповідала на питання <b>поруч</b> із поставленим, і кожна давала правдоподібне число.<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>повідомив</th><th>справжня причина</th></tr></thead><tbody>
+<tr><td><b>962</b> мертвих класи, серед них <code>coach</code> і <code>wfh</code></td><td>мапа будувалась із рядків <b>контролів</b>, тож «не носить ніхто» означало «не носить нічого клікабельного»</td></tr>
+<tr><td><code>svg</code> <code>jpg</code> <code>png</code> <code>html</code> - мертві класи компонентів</td><td>це хвости <code>url(../../visuals/…jpg)</code> і <code>a[href=&quot;index.html&quot;]</code></td></tr>
+<tr><td>12 класів <code>cat-overlay.css</code> мертві</td><td>оверлей ніхто не <b>відкрив</b> - <code>census.md</code> уже знімав цю саму знахідку про <code>.tbuy</code></td></tr>
+<tr><td><code>menu-pop</code> мертвий</td><td><code>design/system/menu.js:39</code> ставить його під час зв'язування, а CSS ховає до відкриття; збирач пропускав <code>display:none</code></td></tr>
+</tbody></table></div>Четверта коштувала 35-хвилинного обходу <b>двічі</b>: виправлення оголосили до перевірки, латка не застосувалась, і повтор дав байт-у-байт той самий запис - 1518 різних класів, 50 417 сумарно, в обох файлах. <b>Саме ця однаковість його й викрила.</b></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Видалено 2026-08-14, і чого кожне видалення коштувало</div>
+<p class="kp-p">Два були сміттям, одне безкоштовним, три забрали <b>спроєктований стан</b>. Міркування трьох збережені дослівно в <code>docs/backlog.md</code>, тож повернути будь-яке коштує рядок CSS і вставку.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>клас</th><th>рід</th><th>чого система більше не вміє сказати</th></tr></thead><tbody>
+<tr><td><code>.only-mobile</code> <code>.only-desk</code></td><td>сміття, 6 правил</td><td>нічого. Закрило питання, яке <code>account-shell.html</code> тримав відкритим із кроку 5</td></tr>
+<tr><td><code>.field--err</code></td><td>дубль імені</td><td>нічого. <b>Жодне оголошення не змінилось</b>: рантайм пише <code>.err</code>, і стан спрацьовує як раніше</td></tr>
+<tr><td><code>.certthumb--pending</code></td><td>стан</td><td>«сертифікат заявлений, але файлу ще немає»</td></tr>
+<tr><td><code>.qans--wait</code></td><td>стан</td><td>«магазин готує відповідь»</td></tr>
+<tr><td><code>.tsx--unproven</code></td><td>стан</td><td>різницю між доведеним і недоведеним знаком довіри - а «спершу довіра» це принцип 1</td></tr>
+</tbody></table></div>
+<div class="kp-cap">Жодна плитка смуги довіри не зрушила: 290 x 66.38 плитка, 38 x 38 коробка іконки, 308 x 283.5 смуга на 390 - до сотої ті самі числа, що були заміряні, коли виняток додавали</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Міграцію спробували, наклали й відкотили - і це запис</div>
+<p class="kp-p"><b>262 з 1185</b> приватних правил верхнього рівня міряються як інертні: <b>215</b> не ловлять на своїй сторінці жодного елемента (залишок клону - <code>clone-to-colour.mjs</code> копіює блок повного екрана в його порожній і завантажувальний стани цілком), <b>47</b> ловлять і не рухають жодного значення. Сам лише <code>coach-order-loading</code> це 37 із 42.</p>
+<div class="kp-dont"><h4>Розріз наклали, і доказ його спіймав</h4><code>tools/tree-diff.mjs</code> - <code>git archive</code> еталона в окреме дерево, два сервери, один Chrome, порівняння обчисленого стилю кожного елемента по 40 властивостях на 390 і 1280 - знайшов <b>9 зрушень на 5 екранах</b>: <code>coach-clients-cap</code>, <code>-empty</code>, <code>-error</code>, <code>-loading</code> і <code>coach-home-loading</code>. На 390 рядок рейки став <b>помаранчевим</b> (<code>rgb(242,240,237)</code> -&gt; <code>rgb(255,90,0)</code>), на 1280 сторінка виросла на 555px. Усе відкочено, повторна звірка дає нуль.</div>
+<p class="kp-p"><b>Причина - метод, а не баг.</b> Прилад міряв кожне правило <b>поодинці</b>, з усіма сусідами на місці, тобто відповідав на питання «чи зайве це правило <b>за наявності всіх інших</b>». <b>Інертність не додається.</b> На <code>coach-clients-cap</code> приватний блок тримав і <code>.acc-nav</code>, і <code>.acc-link[aria-current="page"]</code>: кожне окремо не міняло нічого, а зникнення обох перетворило рейку на мобільну стрічку чіпів, де поточний чіп <code>account-shell.css</code> фарбує через <code>--bg-action</code> під <code>@media (max-width: 959px)</code>.</p>
+<p class="kp-p">Два виправлення пішли в прилад і обидва правильні: обхід тепер <b>накопичувальний</b> і проти <b>повного знімка документа</b> (правило перефарбовує лише те, що ловить, але <b>розкладка мандрує</b> - батько росте слідом за дитиною і в селекторі його немає), а набір, знайдений на одній ширині, пропонується назад на іншій, бо їхнього <b>об'єднання не бачив жоден браузер</b>: на 390 прохід може зняти {A,B}, на 1280 {A,C}, і {A,B,C} не перевіряв ніхто.</p>
+<p class="kp-p"><b>Розриву вони не закрили.</b> Прилад далі очищає правила, яких свіжа сторінка не очищає. Різниця, найімовірніше, між <b>мутацією завантаженого</b> документа і <b>завантаженням без</b> цих правил - скрипти сторінки вже відпрацювали й відреагували на те, що бачили. Це <b>гіпотеза, а не вимір</b>, і записана вона саме так.</p>
+<p class="kp-p">Тож видалення чекає на прилад, якому можна вірити, а доказ лишається воротами. Вимір не змарновано: 262 знайдені, два роди розділені, і <code>tree-diff</code> назве будь-яку сторінку, яку зрушить майбутній розріз - із ширинею, елементом і властивістю.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Що крок 6 ще винен</div>
+<ol class="kp-p">
+<li><b>Перенести 886 перемальовуючих правил у їхні компоненти.</b> Це власне тіло роботи, що лишилась, і передумова етапу 10.</li>
+<li><b>Вирішити 210 локальних оголошень</b>: компонент кожному або видалення кожному.</li>
+<li><b>105 мертвих <code>class="dark"</code></b> у <code>design/*.html</code> - у кольоровому шарі <code>.dark</code> не малює жодне правило. Руками не мету: <code>tools/clone-to-colour.mjs</code> поверне їх назад, тож правка - одне правило в трансформі плюс прохід.</li>
+<li><b><code>.cline.oos</code> гасить цілий рядок до <code>opacity: .5</code></b>, зносячи його текст до 1.47, а плейсхолдер до 1.97. Так рядок каже «недоступно» - це вигляд на рішення, а не баг.</li>
+<li><b>Два застарілі записи</b>: <code>design/overview.html</code> каже 50 кольорових екранів (їх 87 плюс хаб), а примітка кроку 8.19 каже 41 ще-сірий (їх 54). Рядок етапу 07 у README правильний.</li>
+</ol></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_nav.js"></script>
+</body>
+</html>
