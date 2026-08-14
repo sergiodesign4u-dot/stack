@@ -181,8 +181,26 @@ for (const f of readdirSync(join(ROOT, 'design')).filter(n => n.endsWith('.html'
 
 const unused = Object.keys(TABLE).filter(k => !used.has(k));
 console.log((APPLY ? 'WROTE ' : 'DRY   ') + hits + ' names translated across ' + files + ' screens');
-if (unused.length) { console.log('\nTABLE ROWS THAT MATCHED NOTHING - a typo, silently:');
+/* THE IDLE CONTROL HAS TWO READINGS AND ONLY ONE OF THEM IS A DEFECT - 7.23.
+   A row that matched nothing WHILE OTHER ROWS MATCHED is a typo: the migration is
+   still running and this row is not taking part in it. A row that matched nothing
+   when NOTHING matched at all is history - the rename it describes has already
+   happened, and printing 22 such rows under «a typo, silently» sends the next
+   reader hunting for twenty-two defects that do not exist.
+   Measured on 2026-08-14: `0 names translated across 0 screens`, and 22 of the 43
+   rows unmatched, because step 7.18 translated the coach flow's private blocks
+   and 7.23 deleted the four copies of the stepper outright. The guard that still
+   matters after that is not this table - it is `tools/vars.mjs`, which asks the
+   BROWSER whether any custom property resolves to nothing, and it reports 0 over
+   204 screens. This tool's own exit code follows the same split. */
+const done = hits === 0;
+if (unused.length && !done) { console.log('\nTABLE ROWS THAT MATCHED NOTHING - a typo, silently:');
   for (const u of unused) console.log('  ' + u); }
+if (unused.length && done)
+  console.log('\nМІГРАЦІЮ ЗАВЕРШЕНО: жоден рядок таблиці вже не має що перекладати (' +
+    unused.length + ' з ' + Object.keys(TABLE).length + ' - історія, не помилки).\n' +
+    'Сторож, який лишається чинним, це tools/vars.mjs: він питає браузер, чи якась\n' +
+    'властивість лишається без значення, і це та перевірка, що впіймає нову сіру назву.');
 if (left.length) { console.log('\nLEFT ALONE, needs a person (' + left.length + '):');
   for (const l of [...new Set(left)]) console.log('  ' + l); }
-process.exit(unused.length ? 1 : 0);
+process.exit(unused.length && !done ? 1 : 0);

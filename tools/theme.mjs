@@ -252,9 +252,48 @@ const PROBE = `(() => {
        it HAS an alpha and that alpha is zero; nothing else is. */
     const ch = (s.color.match(/[\\d.]+/g) || []).map(Number);
     if (ch.length > 3 && ch[3] === 0) return;
+    /* OPACITY IS PART OF THE INK, and for as long as this probe existed it was
+       not. It read the color property and nothing else, so a word set in a
+       strong ink and then faded to .62 was graded on the ink it was WRITTEN in
+       rather than on the one a person sees. Found 2026-08-14 by an agent
+       measuring kit/color: .use at .62 reported 4.75 and gives 2.69, .rg at .72
+       reported 8.54 and gives 4.69. Every number this tool has printed for a
+       faded element was the wrong number, and it was always the FLATTERING one -
+       which from a checker reads exactly like health.
+       NO BACKTICKS IN HERE - this comment lives inside the probe's own template
+       literal, and the rule is written twice in this file because it has been
+       broken twice.
+       THE WALK STOPS AT THE GROUND. Opacity fades a whole subtree together, so an
+       ancestor that both carries it AND supplies the ground fades ink and ground
+       equally and changes nothing between them; only the fade applied BETWEEN the
+       ink and its ground counts. That is the shape modelled here. */
+    let op = 1;
+    /* AND A THING THAT IS NOT SHOWN IS NOT INK EITHER - the same sentence the
+       zero-alpha rule above makes, arriving from the second direction the moment
+       opacity started counting. Measured on the first corpus run after that
+       change: span.tt-m «Перевірка» reported 1.00 on 113 screens, ink exactly
+       equal to its ground, which is what a TOAST looks like before it is fired -
+       toast.css keeps it in the document at opacity 0 and slides it in. An
+       element faded to nothing has no contrast to have, and reporting it as the
+       worst defect in the product is the checker inventing 113 of them. */
+    for (let q = e; q; q = q.parentElement) {
+      const qs = getComputedStyle(q);
+      const o = parseFloat(qs.opacity);
+      if (o < 1) op *= o;
+      if (qs.visibility === 'hidden') return;
+      const qb = parse(qs.backgroundColor);
+      if (qb.a > 0) break;
+    }
+    if (op === 0) return;
     const g = ground(e);
+    /* the ink a person actually sees: its own alpha, times the fade above it,
+       composited onto the ground the walk found */
+    const ic = parse(s.color);
+    const eff = over({ r: ic.r, g: ic.g, b: ic.b, a: ic.a * op }, parse(g.hex));
+    const inkSeen = 'rgb(' + Math.round(eff.r) + ', ' + Math.round(eff.g) + ', ' + Math.round(eff.b) + ')';
     px.push({ sel: e.tagName.toLowerCase() + (e.className && e.className.toString ? '.' + e.className.toString().trim().split(/\\s+/).slice(0,2).join('.') : ''),
-              ink: s.color, bg: g.hex, img: g.img, size: parseFloat(s.fontSize), weight: s.fontWeight,
+              ink: inkSeen, faded: op < 1 ? +op.toFixed(2) : 0,
+              bg: g.hex, img: g.img, size: parseFloat(s.fontSize), weight: s.fontWeight,
               txt: t.slice(0, 30) });
   });
   /* WHAT THE PAGE ACTUALLY IS, not what it was asked to be. The uivTheme call
@@ -386,6 +425,7 @@ const dead = [];     /* the probe threw: nothing was measured here */
 const safeFor = new Map();     /* page -> the openers that do not leave it */
 let opened = 0;
 const noSwitch = []; /* the page has no theme to switch: nothing was measured either */
+const onSystem = new Set();    /* ...and whether it was ever supposed to have one */
 let seenLight = null;
 
 for (const p of SUBJ) {
@@ -417,6 +457,19 @@ for (const p of SUBJ) {
       await new Promise(r => setTimeout(r, 80));
     }
     await new Promise(r => setTimeout(r, 120));
+    if (theme === 'light' && !onSystem.has(p)) {
+      /* IS THIS PAGE EVEN ON THE SYSTEM? Asked of the page, not of a list. A
+         screen that does not load `system/index.css` has no semantic layer to
+         override, so «the page has no theme» is the right answer for it and not
+         a finding - `design/overview.html` and the three `concept/` pages are on
+         the ROADMAP chrome, `/_nav.css`, exactly like the repository's own
+         index.html. Reported apart from the pages that ARE on the system and
+         still swallow the switch, because those two things are not the same
+         defect and lumping them together buried a real one for a week. */
+      const sys = await conn.send('Runtime.evaluate', { returnByValue: true, expression:
+        `[...document.styleSheets].some(ss => (ss.href || '').includes('system/index.css'))` }, s.sessionId);
+      if (sys.result.value) onSystem.add(p);
+    }
     const q = await conn.send('Runtime.evaluate', { expression: PROBE, returnByValue: true }, s.sessionId);
     try { out[theme] = JSON.parse(q.result.value); } catch { out[theme] = null; }
   }
@@ -518,7 +571,11 @@ if (!CLOSED) {
 }
 console.log('\n   зміряно: ' + (SUBJ.length - dead.length - noSwitch.length) + ' з ' + SUBJ.length);
 if (dead.length) console.log('   проба впала (' + dead.length + '): ' + dead.join(' '));
-if (noSwitch.length) console.log('   теми на сторінці немає (' + noSwitch.length + '): ' + noSwitch.join(' '));
+const offSystem = noSwitch.filter(p => !onSystem.has(p));
+const shouldSwitch = noSwitch.filter(p => onSystem.has(p));
+if (offSystem.length) console.log('   поза системою за родом, теми й не мусить бути (' + offSystem.length + '): ' + offSystem.join(' '));
+if (shouldSwitch.length) console.log('   НА СИСТЕМІ, А ТЕМА НЕ ПЕРЕМИКАЄТЬСЯ (' + shouldSwitch.length + '): ' + shouldSwitch.join(' '));
+if (false) console.log('   теми на сторінці немає (' + noSwitch.length + '): ' + noSwitch.join(' '));
 
 l.stop(); srv.stop();
 process.exit(onlyLight.length + onlyDark.length + leaks.length + collapsed.size + byKey.size ? 1 : 0);

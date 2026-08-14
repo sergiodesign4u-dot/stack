@@ -116,27 +116,42 @@ function hsl(c){ var r=c[0]/255,g=c[1]/255,b=c[2]/255,mx=Math.max(r,g,b),mn=Math
   if(mx!==mn){ var d=mx-mn; s=l>0.5?d/(2-mx-mn):d/(mx+mn);
     h = mx===r ? (g-b)/d+(g<b?6:0) : mx===g ? (b-r)/d+2 : (r-g)/d+4; h*=60; }
   return [Math.round(h),Math.round(s*100),Math.round(l*100)]; }
+/* sRGB relative luminance, and it is written ONCE because two things on this
+   page decide with it - the duplicate detector below and the ink chooser. Two
+   copies of the same formula drift on the first edit, which is the defect the
+   whole tokens stage exists downstream of. */
+function lum(c){ var f=function(v){ v/=255; return v<=0.04045 ? v/12.92 : Math.pow((v+0.055)/1.055,2.4); };
+  return 0.2126*f(c[0])+0.7152*f(c[1])+0.0722*f(c[2]); }
 /* CIE L* - perceptual lightness, 0 to 100. The cards below print HSL L because
    that is what the token names are shaped like, but nothing that has to DECIDE
    may use it: HSL L calls the ramp's own single step 4 at the light end and 2 at
    the dark one. Same sRGB luminance the contrast ratios are built on. */
-function lstar(c){ var f=function(v){ v/=255; return v<=0.04045 ? v/12.92 : Math.pow((v+0.055)/1.055,2.4); };
-  var y=0.2126*f(c[0])+0.7152*f(c[1])+0.0722*f(c[2]);
+function lstar(c){ var y=lum(c);
   return y>0.008856 ? 116*Math.pow(y,1/3)-16 : 903.3*y; }
-function card(n, alpha){
+/* WCAG 2 contrast ratio - byte for byte the formula tools/theme.mjs grades this
+   page with, so the page cannot pass its own check and fail the tool's. */
+function cr(a,b){ var x=lum(a), y=lum(b);
+  return (Math.max(x,y)+0.05)/(Math.min(x,y)+0.05); }
+/* alpha over an opaque back, and the composited ground of an element: a
+   translucent swatch has no colour of its own until something is painted under
+   it, and what is under it here is the page, which the theme moves. */
+function over(f,b){ var a=f[3];
+  return [f[0]*a+b[0]*(1-a), f[1]*a+b[1]*(1-a), f[2]*a+b[2]*(1-a), 1]; }
+function groundOf(e){ var stack=[], p=e;
+  while(p){ var c=toRGB(getComputedStyle(p).backgroundColor); if(c[3]>0) stack.push(c); p=p.parentElement; }
+  var out=[255,255,255,1];
+  for(var i=stack.length-1;i>=0;i--) out=over(stack[i],out);
+  return out; }
+/* THE CARD IS DRAWN WITHOUT INK AND INKED AFTERWARDS, by inkPass() below. It has
+   to be that way round: the ink is chosen from the swatch's COMPOSITED colour,
+   and a translucent swatch has no composited colour until it is in the document
+   and something is painted behind it. */
+function card(n){
   shown.add(n);
-  /* THE SWATCH'S INK IS A LITERAL, NOT A ROLE - stage 08 step 7 found this the
-     first time the stand ran in dark. The card's ground is a fixed VALUE, so its
-     ink has to be fixed too; `var(--text-primary)` follows the theme and turned
-     light, which put light ink on the white, warm-50, orange-25 and green-50
-     swatches - 1.00 to 1.05 against a bar of 4.5. A swatch is the one place in
-     this system where a role is the wrong answer. */
-    var v=val(n), c=toRGB(v), H=hsl(c),
-        ink = c[3]<=0.5 ? 'var(--text-primary)' : (H[2]<55 ? '#FFFFFF' : '#1C1C1C');
+  var v=val(n), c=toRGB(v), H=hsl(c);
   var u=USE[n]||0, ro=ROLE[n]||0;
-  var bg = alpha ? 'linear-gradient(90deg,var(--bg-page),var(--bg-page)),'+v : v;
   var step=n.replace(/^--/,'');
-  return '<div class="sc" style="background:'+v+';color:'+ink+'">'+
+  return '<div class="sc" style="background:'+v+'">'+
     '<div><div class="st">'+step+'</div>'+
     '<div class="use">'+(ro? 'роль x'+ro+(u?' · пряме x'+u:'') : (u? 'пряме x'+u : 'не читається'))+'</div></div>'+
     '<div><div class="hx">'+v+'</div><div class="rg">L'+H[2]+' · S'+H[1]+' · H'+H[0]+'</div></div></div>'; }
@@ -149,7 +164,59 @@ RAMPS.forEach(function(g,i){
     + ' · світлота від <b>'+rows[rows.length-1].L+'</b> до <b>'+rows[0].L+'</b>'
     + (dead? ' · <b>'+dead+'</b> ніхто не читає' : ' · читаються всі');
 });
-el('ra').innerHTML = ALPHA.map(function(n){ return card(n,true); }).join('');
+el('ra').innerHTML = ALPHA.map(function(n){ return card(n); }).join('');
+
+/* THE INK IS MEASURED ON THE SWATCH, NOT GUESSED FROM ITS NAME OR ITS HSL L.
+   The rule here was «HSL L under 55 takes white ink, over 55 takes dark», and
+   HSL L is not what an eye reads: --gold-500 #F6A800 sits at HSL L 48, so the
+   light-ink half of the rule fired on a colour brighter than most of the ramp
+   and its four cells measured 2.00:1 against a bar of 4.5. Four more failed the
+   same way - --slate-400 3.86, --warm-500 3.59, --orange-600 3.72, --orange-500
+   3.13 - plus one that only the LIGHT run of tools/theme.mjs can see and it
+   prints only the dark one: --scrim-ink-52 at 3.71. Measured now: 8.54 · 4.41 ·
+   4.75 · 4.58 · 5.45, the same figure in both themes because this ink pair does
+   not move, and 4.59 for the scrim in the theme where it was failing.
+
+   THE GROUND IS COMPOSITED FIRST, AND IT MOVES. --scrim-white-50 is
+   rgba(255,255,255,.50) drawn on --bg-page: white in the light theme,
+   --warm-950 in the dark one, so the same token stands on rgb(255,255,255)
+   there and on rgb(134,133,132) here - 17.04 against 3.50 with one ink. So the
+   choice cannot be baked at load. It is re-made when <html> gains or loses
+   data-theme, which is the one signal BOTH callers pass through: the panel
+   button in kit/_nav.js calls uivTheme(), and tools/theme.mjs calls the same
+   function from the debugger without ever clicking anything. A click listener
+   would be measured as working and would be dead under the tool.
+
+   WHY THIS PAIR AND NOT --text-primary / --text-oninverse, which is the other
+   opposed pair in the file. Those two follow the theme, and stage 08 step 7
+   already paid for that once: --text-primary alone turned light in the dark
+   theme and left 1.00 to 1.05 on the white, warm-50, orange-25 and green-50
+   swatches. Measuring both candidates stops that from repeating, but the pair
+   is still the worse one - in dark its light half is --warm-50 and not white,
+   which costs --brown-600 4.66 -> 4.43 and pushes under the bar a swatch that
+   was already clearing it. The onaction pair holds the same value in both
+   halves on purpose; tokens.css says why, and it is this page's case word for
+   word: «the ground under them is the one colour in this system that does not
+   move». A swatch IS that ground - a fixed primitive value on display, not a
+   surface the theme owns.
+
+   ONE SWATCH STILL FAILS AND NO ROLE IN THIS SYSTEM CAN LIFT IT: --slate-400
+   #7E8288 reads 4.41 on --charcoal and 3.86 on white, and --charcoal is the
+   darkest ink the system owns. Pure black would give 5.44. That is a decision
+   about a token, not about this page. */
+var INK=['--text-onaction-ink','--text-onaction'];
+function inkPass(){
+  var cand=INK.map(function(r){ return {role:r, c:toRGB(val(r))}; });
+  Array.prototype.forEach.call(document.querySelectorAll('.sc'), function(sc){
+    var g=groundOf(sc), best=cand[0], top=cr(cand[0].c,g);
+    for(var i=1;i<cand.length;i++){ var x=cr(cand[i].c,g); if(x>top){ top=x; best=cand[i]; } }
+    sc.style.color='var('+best.role+')';
+  });
+}
+inkPass();
+if(typeof MutationObserver==='function')
+  new MutationObserver(inkPass).observe(document.documentElement,
+    { attributes:true, attributeFilter:['data-theme'] });
 (function(){
   var out=[];
   RAMPS.forEach(function(g){

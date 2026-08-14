@@ -42,7 +42,7 @@ const semantic = (() => {
     if (s[i] === '{') d++;
     else if (s[i] === '}') { if (d === 0) { end = i; break; } d--; }
   }
-  return new Set([...s.slice(0, end).matchAll(/^\s*(--[a-z0-9-]+)\s*:/gm)].map(m => m[1]));
+  return new Set([...s.slice(0, end).matchAll(/(?:^|[{;])\s*(--[a-z0-9-]+)\s*:/gm)].map(m => m[1]));
 })();
 
 const want = process.argv.slice(2).filter(a => !a.startsWith('-'));
@@ -60,7 +60,15 @@ for (const name of files) {
   const body = strip(css);
 
   /* what the component declares for ITSELF is not a token it reads */
-  const own = new Set([...body.matchAll(/^\s*(--[a-z0-9-]+)\s*:/gm)].map(m => m[1]));
+  /* A COMPONENT'S OWN VARIABLE IS NOT A TOKEN IT READS, and the anchor decided
+     that by line position instead of by syntax. `^\s*` only saw a declaration
+     that starts its own line, so `icon.css:64` - `.uiv-brand{ --brand-ink: 1.05em;
+     display:inline-flex; ...}`, the declaration sharing the line with its
+     selector - was counted as a token read, and `icon.html` was reported adrift
+     for correctly saying it is not one. Found 2026-08-14 by an agent that
+     believed the page over the checker and went to look. A declaration begins
+     after `{` or `;` or a line start; that is the whole rule. */
+  const own = new Set([...body.matchAll(/(?:^|[{;])\s*(--[a-z0-9-]+)\s*:/gm)].map(m => m[1]));
   const reads = new Set([...body.matchAll(/var\(\s*(--[a-z0-9-]+)/g)]
     .map(m => m[1]).filter(t => !own.has(t)));
 

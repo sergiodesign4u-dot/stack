@@ -666,7 +666,7 @@ function uivChrome(){
      already has one. Called by presence like the pass above it - the menu is in
      the header of every logged-in screen and in none of the guest ones, and the
      header is what answers, not a list of file names. */
-  uivCabMarks();
+  uivChromePaint();
 }
 
 /* make the product-card heart interactive: a click toggles the .on (filled) state
@@ -771,6 +771,10 @@ function uivObserve(){
         });
       });
       Object.keys(chrome).forEach(function(id){ uivIcons(chrome[id]); });
+      /* step 7.22: and then the passes that paint what the builder wrote. The
+         marks above are the GLYPHS; these are the tier jar, the account menu's
+         own row and the rail's «you are here». See uivChromePaint. */
+      if(Object.keys(chrome).length) uivChromePaint();
     } finally { busy = false; }
   };
   var obs = new MutationObserver(function(recs){
@@ -1751,6 +1755,33 @@ var UIV_CAB_MARK = {
   'coach-orders.html':    '📦',   /* wireframes/_nav.js:1216 */
   'account.html?r=coach': '👤'    /* wireframes/_nav.js:1219 - the buyer account under a coach session */
 };
+/* ---------- THE PASSES THAT PAINT WHAT THE CHROME BUILDERS WRITE - step 7.22 --
+   Owner, with a screenshot of the account menu open on `product.html`: «почему
+   где-то нет иконок как должно быть». Reproduced: `product.html` renders a GUEST
+   header, so there is no account menu at load; logging in through the auth
+   dialog makes `wfAuthDone()` rebuild the header, and the menu that appears then
+   has never met any of the passes. Measured: 0 marks of 5, `🥈` drawn by the
+   font instead of the loyalty jar, and the two wrong destinations back.
+
+   THIS IS THE FIFTH TIME THIS SHAPE HAS ARRIVED, and `uivAddrPaint`'s own note -
+   «this is the fourth wrapper and the first time the set is known to be closed» -
+   is what says the answer is not a sixth wrapper. `uivObserve()` already exists
+   for exactly this: it watches the six chrome regions and re-runs `uivMarks` and
+   `uivIcons` on whatever a builder rewrites. What it did not re-run is the
+   passes that paint the chrome's own CONTENTS, because those were a handful of
+   calls typed out at the end of `uivChrome()` and nowhere else.
+
+   So they get a name. `uivChrome()` calls this set once and the observer calls
+   the SAME set after every rebuild, which means a pass added to it next month is
+   re-run after a rebuild the day it is added - instead of being the sixth
+   defect of this family. Every member is idempotent by its own guard, so being
+   called twice on a page nothing rebuilt costs a walk and changes nothing. */
+function uivChromePaint(root){
+  if(typeof uivTiers === 'function') uivTiers(root);
+  uivCabMarks();
+  uivRailCurrent();
+}
+
 function uivCabMarks(){
   var menu = document.getElementById('wfh-cabmenu');
   if(!menu || typeof WF_ACC_LINKS === 'undefined' || typeof uivIconSvg !== 'function') return;

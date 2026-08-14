@@ -430,10 +430,18 @@
 /* the tile is square and 40 on both sides, which is why the grid column above
    reads the same token: the column IS the tile. tokens.css 7.68 - a box that
    frames a product photograph is square - and this one already was. */
+/* 7.25: THE PLACEHOLDER'S INK, and step 8.16 already settled the principle for
+   the gallery's own frame: «in the COLOURED layer the placeholder is not faint,
+   it is INVISIBLE». Measured with the probe that now counts opacity - 1.28 to
+   1.69 in the light theme on `--bg-sunken`, at 8px. A word nobody can read is
+   not a quiet word, it is an absent one, and the tile then says nothing about
+   what belongs in it. `--mark-faint` is the right role for a chevron on a row,
+   which is a SHAPE; this is a WORD, and a word takes the muted rung: 5.0 on the
+   same ground, the same size, one token wider. */
 .coach .oc-ph{ width: var(--size-40); height: var(--size-40); border-radius: 7px;   /* [?] 7px radius has no rung; the ladder is 4/8/12/16 */
   background: var(--bg-sunken);   /* grey `--fill` */
   border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center;
-  color: var(--mark-faint);   /* grey `#bbb`, a raw hex, and --mark-faint IS that value: 'the quiet mark ... the photo placeholder' is this exact element */
+  color: var(--text-muted);   /* was `#bbb` in grey, then --mark-faint, and 7.25 took it one rung wider - see the note above */
   font-size: var(--fs-8); }
 .coach .oc-nm{ font-size: var(--fs-14);   /* grey 13 -> 14: 5.6, ties go UP (13 -> 14) */
   font-weight: var(--fw-bold); color: var(--text-primary); line-height: var(--lh-snug); }

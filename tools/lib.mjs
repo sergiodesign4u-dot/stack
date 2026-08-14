@@ -24,7 +24,7 @@
    caller can be handed the wrong subject; one that finds its own cannot. */
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
-import { readdirSync, mkdtempSync, rmSync } from 'node:fs';
+import { readdirSync, mkdtempSync, rmSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -128,7 +128,22 @@ export function pages(dir = 'design') {
    Defaulting to «all of them» rather than to «none» is deliberate: a walk given
    nothing should do the most work, not the least, because the failure mode of
    the other choice is a green run that visited nothing. */
+/* AND A NAME THAT IS NOT A PAGE STOPS THE RUN - 2026-08-14, found by an agent
+   probing the checker rather than the product: `node tools/accept.mjs kit/zzz-nope`
+   printed «OK  kit/zzz-nope  over=0 em=0 curly=0» and «204 screens failures: 0».
+   A 404 loads as an empty document, and every question this walk asks about an
+   empty document answers «clean». That is the same family as the glob which
+   reported 0 failures over 135 pages after visiting one, and as the check whose
+   both sides came from one source: an instrument that cannot say «no» is not
+   evidence. The filesystem knows, so it is asked. */
 export function subject(argv, dir = 'design') {
   const named = argv.filter(a => !a.startsWith('-'));
-  return named.length ? named : pages(dir);
+  if (!named.length) return pages(dir);
+  const missing = named.filter(n => !existsSync(join(ROOT, dir, n + '.html')));
+  if (missing.length) {
+    console.log('НЕМАЄ ТАКОЇ СТОРІНКИ (' + missing.length + '): ' +
+      missing.map(m => dir + '/' + m + '.html').join(' '));
+    process.exit(2);
+  }
+  return named;
 }

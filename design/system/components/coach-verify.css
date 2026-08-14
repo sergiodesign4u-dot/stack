@@ -159,7 +159,7 @@
    named «air that refused to say so» and rounded DOWN by rule. That sweep was
    an owner-approved pass over the whole product; repeating it here on two
    declarations would be a value decision taken by a move. Left as written. */
-.coach .cv-steps{ display: flex; gap: var(--space-8); margin: 6px 0 20px; flex-wrap: wrap; }
+.cv-steps{ display: flex; gap: var(--space-8); margin: 6px 0 20px; flex-wrap: wrap; }
 /* [?] 92px is a min-width, a layout floor rather than a control size - the
    narrowest a step chip may get before its two lines stop reading.
    [?] 10px radius has no rung; the ladder is 4/8/12/16. The step-5.5
@@ -167,7 +167,26 @@
    block was outside it because it lives in a screen. Snapping it now is that
    decision made silently, so the literal stays and stage 09 takes it.
    [?] 9px has no rung; the ladder is 8/12. */
-.coach .cv-step{ flex: 1; min-width: 92px; border: 1px solid var(--line-strong); border-radius: 10px; padding: 9px var(--space-12); font-size: var(--fs-12); color: var(--text-secondary); background: var(--bg-page); }
+/* THE STEPPER DROPS THE `.coach` SCOPE - step 7.23, and the scope was buying
+   nothing while costing five editions of one object.
+   This file scopes every rule under `.coach`, and only `coach-verify.html`
+   carries that class: the four STATE screens of the same flow carry none, so the
+   file reached none of them and each had to bring its own copy of the marker in
+   its `<style>` block. Measured at 1280 before this line, the same three-step
+   marker on five screens of one flow:
+
+       coach-verify        tile 65.59  edge 1px    numeral 12px  label 14px
+       the other four      tile 65.47  edge 1.5px  numeral 11px  label 12.5px
+
+   `.cv-step` occurs in exactly six files - the five screens of this flow and this
+   one - so the name is already the scope, and the extra `.coach` only meant «the
+   one screen that happens to say so». Restoring the copies to the four pages
+   would have been the same defect written out four more times; putting `coach`
+   on their `<body>` would hand them the rest of this file, and `.cv-card` means
+   something different on all five (see the note further down), which is markup
+   and is booked for Крок 6.
+   The four copies are deleted from the pages by this step, so one file draws it. */
+.cv-step{ flex: 1; min-width: 92px; border: 1px solid var(--line-strong); border-radius: 10px; padding: 9px var(--space-12); font-size: var(--fs-12); color: var(--text-secondary); background: var(--bg-page); }
 /* [?] 18px has no rung; the size ladder is 20/24/26/30/32/34/38/40/44/46/52/64.
    grey 11 -> 12: step 5.6, ties go UP (11 -> 12). One of the nine in the
    block at the top of this file, and it is the rule applied, not a rounding
@@ -177,12 +196,12 @@
    thing in its block», which is what 800 meant here, and it resolves to 700
    because no 800 face is loaded on any product page (tokens.css 7.63-7.65).
    The number this line drew has not changed. */
-.coach .cv-step .n{ display: inline-flex; width: 18px; height: 18px; border-radius: var(--radius-circle); border: 1px solid var(--line-strong); align-items: center; justify-content: center; font-size: var(--fs-12); font-weight: var(--fw-black); margin-right: 7px; color: var(--text-secondary); }
+.cv-step .n{ display: inline-flex; width: 18px; height: 18px; border-radius: var(--radius-circle); border: 1px solid var(--line-strong); align-items: center; justify-content: center; font-size: var(--fs-12); font-weight: var(--fw-black); margin-right: 7px; color: var(--text-secondary); }
 /* grey 12.5 -> 13 -> 14. It does not skip the 12 rung, which is what this
    note used to say: a half pixel never meets the nine-rung ladder as a half
    pixel. 5.5 takes it to 13, the more-read neighbour of the tie, and 5.6 takes
    13 UP to 14. One of the nine in the block at the top. */
-.coach .cv-step b{ display: block; color: var(--text-primary); font-weight: var(--fw-black); font-size: var(--fs-14); margin-top: var(--space-4); }
+.cv-step b{ display: block; color: var(--text-primary); font-weight: var(--fw-black); font-size: var(--fs-14); margin-top: var(--space-4); }
 /* THE CURRENT STEP MOVES ONTO THE ACTION COLOUR - 7.96, and this is the look
    the move at 7.95 left open in the paragraph below.
    MEASURED BEFORE: the chosen tile's edge was `1px solid rgb(28,28,28)` and its
@@ -209,10 +228,17 @@
    --text-primary on --bg-page at 17:1; the numeral only repeats the position
    the label already states. The tile keeps its --bg-page ground, the way
    radio.css's `.opt-tile.on` does - accent on the edge, not under the words. */
-.coach .cv-step.on{ border-color: var(--line-action); }
-.coach .cv-step.on .n{ background: var(--bg-action); border-color: var(--line-action); color: var(--text-onaction); }
+.cv-step.on{ border-color: var(--line-action); }
+.cv-step.on .n{ background: var(--bg-action); border-color: var(--line-action); color: var(--text-onaction); }
 /* the step behind you: filled, not marked. --fill was the grey rail/chip fill */
-.coach .cv-step.done .n{ background: var(--bg-sunken); }
+.cv-step.done .n{ background: var(--bg-sunken); }
+/* THE THIRD STATE, and until 7.23 it lived on one screen only. `coach-verify-deadend`
+   marks its step `.stop` - the flow ended here and there is no step after it - and
+   drew it with its own copy of the two `.on` declarations. Same meaning as «you are
+   here», the same three tokens, so it joins `.on` rather than getting a fourth
+   answer; what makes it a dead end is the WORD beside it, not a different colour. */
+.cv-step.stop{ border-color: var(--line-action); }
+.cv-step.stop .n{ background: var(--bg-action); border-color: var(--line-action); color: var(--text-onaction); }
 
 /* split card */
 /* ONE NAME, FIVE LOOKS - the finding this file cannot fix and must not hide.

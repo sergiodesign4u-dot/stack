@@ -4423,3 +4423,249 @@ an instrument that found a difference there would be reporting noise.
 `design/kit/pixel-proof.html` carries all of this: the method paragraph, the
 fourth named list as a table of element against cause, and two more lines in
 «Чого цей доказ не доводить».
+
+## Step 7.21 - the theme walk opens the panels, and 7.22 - the fifth wrapper is a named set instead
+
+### The walk now opens what it measures
+
+**A popup is 0x0 until somebody opens it, and the probe skips anything under
+2px** - so for as long as this check has existed it measured only the part of
+the product already on screen. That blind spot had already cost twice, both
+found by a person opening a menu rather than by any instrument: `.on`
+«Українська» inside `.wfh-langmenu` at 8.19 - the accent's largest failing
+shape, 82 instances on 82 of 88 screens, carried in a record as «accepted» since
+2026-08-07 with nothing ever drawing it to look - and the account menu at 7.17,
+whose four states had to be measured by hand.
+
+Every global matching `open[A-Z]` or `toggle[A-Z]` is called before the probe,
+plus the few that take an argument. **All at once**, unlike `states.mjs`: that
+tool asks whether a state re-renders into an unmarked one and has to isolate each
+opener, while this one asks whether ink reads on its ground - and a ground is
+composited from an element's own ancestor chain, so two dialogs overlapping on
+the z axis do not disturb each other's answer. The sweep is identical in both
+themes, so anything it does that is not about colour cancels out of the
+difference.
+
+**An opener that leaves the page is dropped, and it is discovered rather than
+listed** - because one of them does. `openCookieSettings()` falls back to
+`location.href = 'system.html'` when the cookie dialog is not on the page, and
+that file does not exist under `design/`; the first sweep sent every page to a
+404 and all three test screens came back «the page has no theme». The navigation
+is asynchronous, so a check written inside the sweep sees nothing - it has to be
+asked afterwards. Each name is tried once in a session of its own and the verdict
+is cached for the run.
+
+**The harvest: 57 shapes, 5 broken by the theme, 52 failing in both**, from
+**5890 opener calls over 406 passes**, 199 of 203 pages measured. What is new is
+almost entirely INSIDE things: `button.btn--accent.btn--l` «Підтвердити» at 113
+instances and `a.btn--accent.btn--l` at 18 are dialog actions this check had
+never seen. All of them are the locked white-on-orange pair (3.13, failing in
+both themes by the owner's 27.07.2026 rule), so the widening added no new
+decision - it added the evidence that was missing.
+
+### And one page in four turned out not to be a debt at all
+
+The walk reported four pages with no theme: `design/overview.html` and the three
+`concept/` ones. `overview` was on the harvest list as item (f), «the stage hub
+has no theme». It loads `../_nav.css` and nothing else - **it is on the ROADMAP
+chrome, like the repository's own `index.html`** - so it has no semantic layer to
+override and «no theme» is the right answer for it.
+
+So the check asks the page instead: does it load `system/index.css`? Two lines
+now, «поза системою за родом» and «НА СИСТЕМІ, А ТЕМА НЕ ПЕРЕМИКАЄТЬСЯ», because
+those are not the same defect and lumping them together is how a real one hides
+behind three correct ones. Today the second line is empty.
+
+## Step 7.22 - the account menu after logging in, and the fifth wrapper
+
+**The owner, with a screenshot of the menu open on `product.html`: «почему
+где-то нет иконок как должно быть».**
+
+Reproduced exactly. `product.html` renders a GUEST header, so there is no account
+menu at load; logging in through the auth dialog makes `wfAuthDone()` rebuild the
+header, and the menu that appears then has never met any of the passes. Measured
+after `openAuth('phone'); wfAuthDone()`: **0 marks of 5**, `🥈` drawn by the font
+instead of the loyalty jar, and both of the wrong destinations 7.17 had just
+corrected, back again.
+
+**This is the fifth time this shape has arrived**, and `uivAddrPaint`'s own note -
+«this is the fourth wrapper and the first time the set is known to be closed» -
+is what says the answer is not a sixth wrapper. `uivObserve()` already exists for
+exactly this: it watches the six chrome regions and re-runs `uivMarks` and
+`uivIcons` on whatever a builder rewrites. What it did not re-run is the passes
+that paint the chrome's own CONTENTS, because those were a handful of calls typed
+out at the end of `uivChrome()` and nowhere else.
+
+So they have a name now. `uivChromePaint()` holds `uivTiers`, `uivCabMarks` and
+`uivRailCurrent`; `uivChrome()` calls it once and the observer calls **the same
+set** after every rebuild - which means a pass added to it next month is re-run
+after a rebuild the day it is added, instead of being the sixth defect of this
+family. Every member is idempotent by its own guard, so a second call on a page
+nothing rebuilt costs a walk and changes nothing.
+
+Measured after: 5 marks of 5, the tier jar an svg, `account-orders.html` and
+`account-addresses.html` back in place - on `product`, `listing`, `cart` and
+`index`, none of which shows this menu until somebody logs in.
+
+## Step 7.23 - one stepper, five drawings, and the scope was buying nothing
+
+Named as a finding at 7.18 and left there because it looked like it needed
+markup. It did not.
+
+`coach-verify.css` scopes every rule under `.coach`, and only `coach-verify.html`
+carries that class. The four STATE screens of the same flow carry none, so the
+component file reached none of them and each brought its own copy of the
+three-step marker in its `<style>` block. Measured at 1280:
+
+| | coach-verify | the other four |
+|---|---|---|
+| tile edge | 1px | **1.5px** |
+| numeral | 12px | **11px** |
+| label | 14px | **12.5px** |
+
+**`.cv-step` occurs in exactly six files** - the five screens of this flow and the
+component - so the name was already the scope, and the extra `.coach` only ever
+meant «the one screen that happens to carry the class». Two roads were rejected
+before this one: copying the file's numbers into the four pages is the same
+defect written out four more times, and putting `coach` on their `<body>` hands
+them the rest of the file, where `.cv-card` means something different on all five
+(the file's own «ONE NAME, FIVE LOOKS» note, booked for Крок 6).
+
+So the scope comes off the seven rules that draw the marker, and **28 declarations
+are deleted from the four pages** - seven selectors each. Measured after: all five
+screens draw a 1px edge, a 12px numeral, a 14px label, and an accent edge with an
+accent disc on the current step. The residual difference in tile HEIGHT, 65.59
+against 67.39, is the container's width and not the component's: every declared
+property now matches to the pixel, and `.cv-wrap` is each screen's own business.
+
+**And the flow's third state came into the file.** `coach-verify-deadend` marks
+its step `.stop` - the flow ended here, there is no step after it - and drew it
+with its own copy of `.on`'s two declarations. Same meaning, same three tokens, so
+it joins `.on` rather than becoming a fourth answer to «you are here»; what makes
+it a dead end is the word beside it, not a different colour.
+
+Gates: `accept` on the five - 0 · `css-comments` 89 balanced.
+
+## Step 7.24 - two agents, and the three defects they found were all in the INSTRUMENTS
+
+Two read-only-scoped agents ran in parallel on the two pieces of debt the step-7
+harvest had left: the stand's role tables and the colour page's swatch ink. Both
+delivered, and both came back with findings about the CHECKERS rather than about
+the product - which is the pattern this stage keeps producing.
+
+### The role tables: 31 adrift, 0 adrift
+
+`tools/roles.mjs` compares what a stand page CLAIMS a component uses against what
+the component's CSS actually reads. Thirty components were brought into line, and
+**five more that the checker cannot see at all**, because it compares names and
+never counts: `pdp-tabs`, `blog-card`, `breadcrumb`, `seo-text`, `status-pill`
+printed totals that contradicted their own tables (`status-pill` said 8/7 beside
+a table of 10/12). Three roles - `--elevation-mark`, `--elevation-1`,
+`--ring-focus-control` - sat in the «primitives» cell; `roles.mjs` merges the two
+cells before comparing, so it never saw the mistake.
+
+**And the last one adrift was the instrument's own.** `icon.html` says out loud
+that `--brand-ink` is not a token but the component's own variable, and the
+checker called the page wrong: it excluded a self-declaration with `/^\s*--name:/`,
+anchored to the start of a LINE, while `icon.css:64` writes the declaration on
+the same line as its selector. A declaration begins after `{`, `;` or a line
+start; that is the whole rule, and with it the count is **0**.
+
+### The colour page: the ink was chosen by the wrong lightness, twice over
+
+`card()` decided a swatch's ink with `H[2] < 55` - **HSL lightness**, which is not
+perceptual - and read the swatch value **unpremultiplied**, so a translucent token
+was judged by the colour it would have been if it were opaque. Both are now one
+pass that composites the real ground up the ancestor chain and takes the ink with
+the higher WCAG ratio, re-run on a `MutationObserver` for `data-theme`. Measured:
+`--gold-500` **2.00 -> 8.54**, `--orange-500` 3.13 -> 5.45, `--scrim-white-50`
+3.50 -> 4.60 in the dark theme, `--scrim-ink-52` 3.71 -> 4.59 in the light one -
+and that last was failing in the LIGHT theme, where section 4 does not look.
+
+**`--slate-400` cannot pass with any ink this system owns.** `#7E8288` gives 4.41
+against `--charcoal`, the darkest ink there is, and 3.86 against white. Pure black
+would give 5.44 and `--warm-950` 5.12, but neither is an ink role. Left for the
+owner: it is a decision about a token, not about a page.
+
+### And the finding that changes every number this tool has ever printed
+
+The agent measured `kit/color` by hand and found the tool's answer was not what
+the eye gets: `.use` renders at `opacity: .62` and `.rg` at `.72`, and **the probe
+read `color` and ignored `opacity` entirely.** So «4.75» on `--warm-500` is
+really **2.69**, and «8.54» on `--gold-500` is **3.67**.
+
+Every reading this check has produced for a faded element was wrong, and **it was
+always the flattering direction** - which from a checker reads exactly like
+health. The probe now multiplies the ink's alpha by the fade above it and
+composites onto the ground, stopping the walk at the element that supplied the
+ground (opacity fades a subtree together, so an ancestor that carries both fades
+ink and ground equally and changes nothing between them).
+
+The correction was written into the probe's template literal and **broke the file
+on the first try, on the rule the file itself states two lines away**: no
+backticks inside the probe, because one backtick ends the string. It is now
+written there twice, because it has now been broken twice.
+
+### One more, and it is the oldest shape in this repository
+
+`node tools/accept.mjs kit/zzz-nope` printed «OK · over=0 em=0 curly=0» and
+«1 screens · failures: 0». **A 404 loads as an empty document, and every question
+that walk asks of an empty document answers «clean».** Same family as the glob
+that reported 0 failures over 135 pages after visiting one. `subject()` in
+lib.mjs asks the filesystem now and stops the run with the names it could not
+find - which is one line, and it guards every tool that shares that helper.
+
+## Step 7.25 - the corrected probe named a false positive before it named a defect
+
+The fix at the end of 7.24 - the probe multiplies the ink's alpha by every fade
+above it - changes every number this check has printed for a faded element, so
+the whole corpus was re-walked. The first thing it returned was not a defect.
+
+### 113 screens at 1.00, and none of them wrong
+
+Top of the list, by a distance: `span.tt-m` «Перевірка», **1.00 on 113 screens**
+- ink exactly equal to its ground. That is the toast **before it is called**:
+`toast.css:13` keeps `.wf-toast.out` in the document at `opacity: 0` and the
+animation brings it in. An element faded to nothing has no contrast to have, and
+calling it the product's worst defect would have invented 113 defects out of one
+correct line of CSS.
+
+`if (op === 0) return;` plus a skip on `visibility: hidden`. It is the same
+sentence the probe already carries two lines up - «ink at zero alpha is not ink»
+- said from the other side, and it is worth writing down that **the correction
+and its false positive arrived in the same run**: a checker made sharper finds
+more of everything, and the first thing it finds more of is noise.
+
+**Corpus with the clean probe: 79 shapes, 8 broken by the theme, 71 failing in
+both.** 199 of 203 pages measured, the 4 named. The list is now dominated by
+`kit/color`'s own swatches - which is the honest picture, because that page is a
+wall of colour samples and the accent rows are A10's, closed by the owner.
+
+### The photo placeholder: a word, not a mark
+
+Four classes, **37 instances** across the coach flow - `.oc-ph`, `.od-ph`,
+`.qa-ph`, `.cl-ph` - wrote the word «фото» in `--mark-faint` on `--bg-sunken` at
+8px: **1.28 to 1.69**. Step 8.16 had already settled the principle on the
+gallery's own frame, in its own words: «in the COLOURED layer the placeholder is
+not faint, it is INVISIBLE».
+
+A word nobody can read is not a quiet word, it is an absent one, and the tile
+then says nothing about what belongs in it. `--mark-faint` is the right role for
+a chevron on a row, because a chevron is a SHAPE and its job survives being
+barely there; this is a WORD. A word takes the muted rung: **5.0** on the same
+ground, at the same size, one token wider. Three component files, and the note
+stands in the file that changed.
+
+### The four screenshots nobody could reach
+
+`design/kit/screens/` holds four full-height shots of `kit.html`, before and
+after the step-8 move, 2.7MB - and a search of the repository finds **no html
+and no md that links to any of them**. The project's rule is that an artifact
+with no visible place does not exist for whoever decides, so they got a section
+on `pixel-proof.html` with a table and links, not a deletion.
+
+Said out loud there, because it is the part that would rot quietly: they were
+shot on 2026-08-06 and are **older than the code**, and `proof.mjs` does not
+take them - it reads its frame from `proof/*-before.jpg`, the first screen at
+390x844, while these are a full page in two different sizes. Re-shooting them
+with that instrument is its own step, named rather than forgotten.
