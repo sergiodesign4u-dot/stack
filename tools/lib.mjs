@@ -148,6 +148,25 @@ export function subject(argv, dir = 'design') {
   return named;
 }
 
+/* THE PROPERTY SET EVERY VISUAL COMPARISON ASKS ABOUT. Born in `tree-diff.mjs`
+   at step 6 and needed verbatim by `scope.mjs` the next day, so it lives here
+   rather than in two files: a list retyped into a second instrument is the same
+   hand fix this repository bans for pages.
+
+   Deliberately WIDE - box, type, colour, layout - because the whole point of a
+   comparison is to catch what the author did not think to look at. Deliberately
+   NOT «all properties»: those include a hundred that never differ and would
+   triple the cost of every run for nothing. */
+export const STYLE_PROPS = ['display', 'position', 'width', 'height', 'margin-top',
+  'margin-right', 'margin-bottom', 'margin-left', 'padding-top', 'padding-right',
+  'padding-bottom', 'padding-left', 'border-top-width', 'border-right-width',
+  'border-bottom-width', 'border-left-width', 'border-top-color', 'border-top-style',
+  'border-radius', 'background-color', 'background-image', 'color', 'font-size',
+  'font-weight', 'font-family', 'line-height', 'letter-spacing', 'text-align',
+  'text-decoration-line', 'opacity', 'visibility', 'box-shadow', 'flex-direction',
+  'justify-content', 'align-items', 'gap', 'grid-template-columns', 'overflow-x',
+  'overflow-y', 'z-index'];
+
 /* ============================================================================
    THE OPENER SWEEP - shared, because it was born in theme.mjs at step 7.21 and
    census.mjs needed the identical thing at step 6. Retyping it into a second

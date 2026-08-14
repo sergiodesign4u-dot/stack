@@ -20,6 +20,7 @@ node tools/theme.mjs [--source]          the dark theme as a stress test
 node tools/roles.mjs [name...]           does the stand still describe the file
 node tools/grey-vars.mjs [--write]       private blocks learn the system's names
 node tools/crop.mjs 390 coach-tariff .tf-compare /tmp/t.png
+node tools/scope.mjs [--apply]           is a screen inside the scope its components need
 ```
 
 `accept`, `states`, `css-comments`, `vars`, `links`, `theme` and `roles` exit
@@ -499,3 +500,36 @@ plain string.
 
 `--dir <path>` compares against a directory instead of a ref, which is what a migration needs: the
 reference is «the tree five minutes ago», and that has no commit to name.
+
+The 40-property list moved into `lib.mjs` as `STYLE_PROPS` when `scope.mjs` needed the same one.
+
+---
+
+## `scope.mjs` - is this screen inside the scope its components are written against
+
+The coach components are scoped - `.coach .qa-row`, 360 selector occurrences across 18 files - and
+the class went onto eleven screens by hand at 7.95. `clone-to-colour.mjs` reads `wireframes/`, and
+the grey layer has **142 bare `<body>` tags**, so 23 state screens arrived without it and the whole
+coach layer of the system was **inert** on them: not overridden, not outranked, never matching.
+
+**No other check in this folder can see that.** `vars` and `grey-vars` read declarations, `roles`
+reads values, `links` reads hrefs, `accept` reads a page that renders and sees something rendering.
+The answer is not in any file - it is the difference between the page with the class and the page
+without it, so the question goes to the browser as exactly that: add the class, read the computed
+style of every element, take it away, read again.
+
+**The measurement and the decision are two different questions**, and the output keeps them apart.
+Moving is measured; belonging is read off `wfBar('<base>.html', ...)`, because a state wears what
+its base wears. Five screens move and must never be written - `concept/directions` moves 203
+elements from 2 selectors - and those are the evidence the namespace is load-bearing.
+
+`--apply` is the sweep, and it lives here rather than in the transform: the scope is a property of
+the CSS, not of the markup being cloned, so the file being copied cannot know.
+
+Two of its own faults, and both reported plausible numbers. It tested `r.cssRules` before
+`r.selectorText`, and since CSS Nesting **every** `CSSStyleRule` carries an empty (and therefore
+truthy) `CSSRuleList`, so the walk recursed into nothing for every rule in the product. It also
+treated `@import` as a grouping rule; `design/system/index.css` is nothing but imports, so the
+whole component layer was invisible. Both came back as «0 selectors» on a page that moved 87
+elements - **the two numbers disagreeing is what exposed it**, and one number alone would have read
+as a clean pass.

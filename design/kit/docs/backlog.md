@@ -57,6 +57,42 @@ already drawn through `kit/` and `concept/`; CLAUDE.md draws it by name.
 
 They close when their screens are coloured, which the roadmap already parks after stage 09.
 
+## The scope was missing on 23 screens, and it changes what list 2 means
+
+Step 7.95 moved eight private stylesheets of the coach flow into
+`design/system/components/` and scoped every selector in them: `.coach .qa-row`, `.coach .cnew`,
+**360 selector occurrences across 18 files**. The scope class went onto the eleven screens of that
+step by hand, on `<body>`.
+
+Nothing else ever put it anywhere. `clone-to-colour.mjs` takes a screen out of `wireframes/`, and
+the grey layer has **no body class at all** - 142 files, 142 bare `<body>` tags - so every state
+screen coloured at 8.13 and 8.14 arrived without it. On those screens the whole coach layer of the
+system is **inert**: not overridden, not losing on specificity, simply never matching.
+
+`tools/scope.mjs` puts the question to the browser as a difference rather than as a name list: add
+the class, read the computed style of every element, take it away, read again. **23 screens moved.**
+
+| | |
+|---|---|
+| coloured screens whose base wears a scope they lack | **23** |
+| of them moving 40 or more elements | 9 |
+| the loudest - `coach-session-priceblock` | 87 of 1 434 elements, 56 selectors on 87 |
+
+**Which screen a scope belongs to is written in the screen, not guessed.** Every state ends its
+script with `wfBar('<base>.html', '<state>')` and every base names itself, so a state wears exactly
+what its base wears. The alternative offered itself and was wrong: pairing the scope with
+`wfHeader('coach')` / `wfCoachNav(` catches 36 screens and misses three that already carry the
+class - `cart-coach`, `coach-landing`, `coach-verify` are coach screens without the coach rail.
+
+**Five more screens move and must NOT be painted**, and they are the evidence that the scope is
+load-bearing rather than decorative: `concept/directions` (203 elements from 2 selectors),
+`account-orders` (67 from 2), `kit/order-row`, `kit/badge`, `checkout-loggedin`. There `.coach .x`
+would collide with an `x` that means something else, which is what a namespace is for. The check
+reports them in a list of their own and never writes them.
+
+One screen wears the scope for nothing - `cart-coach`, where no scoped selector bites. That is the
+idle control of the same list, and it is a decision to take, not a defect.
+
 ## List 2 - system to product, and this is the whole of the remaining work
 
 | | |
@@ -65,6 +101,11 @@ They close when their screens are coloured, which the roadmap already parks afte
 | private rules in total | **1 154** |
 | of them redrawing a class the system already owns | **886** |
 | of them declaring something that exists only there | **210** |
+
+**«Overriding» was measured as «the system owns this class too», and on the coach state screens
+that was not the same thing** - until 2026-08-14 the system did not reach them at all, so the
+private block was the only paint on the page rather than a layer on top of one. The counts stand;
+the word did not, and the sweep below is what makes it true.
 
 The twelve loudest screens are **all in the coach flow**, which is the primary audience:
 
@@ -82,15 +123,23 @@ The twelve loudest screens are **all in the coach flow**, which is the primary a
 | `coach-order-error` / `coach-order-loading` | 33 each |
 | `coach-clients-cap` | 30 |
 
-**This list is not cosmetic debt, and one measured defect proves it.** `coach-session.css` answers
-the phone with `@media (max-width: 479px)`: `.qa-row` stacks, and the action takes the whole second
-line. The base screen reads that and passes at 360. The four state screens carry a private copy of
-`.qa-row` **without** the media query, a private block wins over a linked sheet, the row never
-stacks, and «Додати клієнту» hangs 10px past the viewport - which `html{ overflow-x: hidden }`
-CLIPS rather than scrolls, so the right edge of the button cannot be reached at all.
+**This list is not cosmetic debt, and one measured defect proved it - though not for the reason
+first written here.** `coach-session.css` answers the phone with `@media (max-width: 479px)`:
+`.qa-row` stacks, and the action takes the whole second line. The base screen reads that and passes
+at 360. The four state screens did not, «Додати клієнту» hung 10px past the viewport, and
+`html{ overflow-x: hidden }` CLIPPED those 10px rather than scrolling, so the right edge of the
+button could not be reached at all. `node tools/accept.mjs 360` returned **4 failures over 204
+screens**, all four that page.
 
-`node tools/accept.mjs 360` returns **4 failures over 204 screens**, all four that page. At 390 and
-at 1280 the same corpus returns 0.
+**The cause written here was wrong, and the wrong cause is kept because it is instructive.** It
+said «a private block wins over a linked sheet». It does not: `.qa-row` is one class and
+`.coach .qa-row` is two, so the system already outranked the copy. The rule never matched, because
+the page was never inside `.coach`. **Specificity was blamed for what a missing scope did**, and the
+sentence was plausible enough that nobody asked the browser.
+
+Fixed 2026-08-14 by `tools/scope.mjs --apply`. `accept.mjs 360` now returns **0 over 205 screens**.
+The private `.qa-row` copies are still on those pages and now lose to the system on every
+declaration, which moves them out of «overriding» and into the inert set below.
 
 **And it is why stage 10 cannot start on top of this.** The product carries 222 media blocks: 170
 in the system and **52 in the private blocks of these 31 screens**, adding 7 boundaries of their
@@ -218,14 +267,23 @@ property.
 
 ## What step 6 still owes
 
-1. **Move the 886 overriding rules into their components.** This is the step's own remaining body
+1. **36 controls wear `btn` with no rank and render as bare text.** `button.css` has no `.btn`
+   rule - the finish IS the rank - and `clone-to-colour.mjs` matches `class="btn"` and
+   `class="btn dark"` as whole strings, so every button carrying a utility class beside them slipped
+   through: `btn qa-add` (14), `btn cs-save` (7), `btn dark cs-go` (6), `btn dark co-new` (3),
+   `btn dark cgo-btn` (2), and four more. Six of them are marked `dark`, which is the grey layer
+   saying **primary action**. Same family as the 8.13 lookahead: a pattern tight enough to be right
+   about the case in front of it and wrong about the set.
+2. **Move the 886 overriding rules into their components.** This is the step's own remaining body
    of work and the precondition for stage 10. The 262 inert ones go first, once the probe agrees
    with the proof.
-2. **Decide the 210 local declarations**: a component each, or a deletion each.
-3. **105 dead `class="dark"` in `design/*.html`** - no stylesheet in the coloured layer defines
+3. **Decide the 210 local declarations**: a component each, or a deletion each.
+4. **105 dead `class="dark"` in `design/*.html`** - no stylesheet in the coloured layer defines
    `.dark`. Not swept by hand, because `tools/clone-to-colour.mjs` would put them back: the fix is
    one rule in the transform plus a sweep.
-4. **`.cline.oos` dims a whole row to `opacity: .5`**, taking its text to 1.47 and its placeholder
+5. **`.cline.oos` dims a whole row to `opacity: .5`**, taking its text to 1.47 and its placeholder
    to 1.97. That is how the row says «unavailable» - a look to decide, not a bug to fix.
-5. **Two stale records**: `design/overview.html` says 50 coloured screens (it is 87 plus the hub)
+6. **`cart-coach` wears `.coach` for nothing.** Keep it as a statement of which flow the screen
+   belongs to, or drop it as a class that paints nothing. A decision, either way.
+7. **Two stale records**: `design/overview.html` says 50 coloured screens (it is 87 plus the hub)
    and the step-8.19 note says 41 grey-only screens (it is 54). The README stage-07 row is right.

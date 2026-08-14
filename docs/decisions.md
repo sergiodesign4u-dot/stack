@@ -4947,3 +4947,87 @@ them; and silently dropped `argv[0]` when `--dir` was absent, so a PAGE became t
 Every one of them is the same fault this stage keeps meeting: **an instrument answering
 the question next to the one it was asked, or answering with silence.** All five are
 written into the files beside the fix, with the wrong version stated.
+
+## Step 6, third pass - the scope was missing on 23 screens, and every number about them was measured against the wrong premise
+
+The 4 failures at 360 were closed, and the sentence that explained them was wrong.
+
+`design/kit/docs/backlog.md` said the four `coach-session` state screens carry a private
+copy of `.qa-row` without `coach-session.css`'s `@media (max-width: 479px)`, and that «a
+private block wins over a linked sheet». It does not: `.qa-row` is one class and
+`.coach .qa-row` is two, so the system already outranked the copy. **The rule never
+matched at all**, because the page was never inside `.coach`.
+
+### What was actually true
+
+Step 7.95 moved eight private stylesheets of the coach flow into
+`design/system/components/` and scoped every selector: **360 occurrences across 18 files**.
+The class went onto `<body>` by hand, on the eleven screens that step coloured, and 8.7
+added three more. Nothing else ever put it anywhere, and `tools/clone-to-colour.mjs` reads
+`wireframes/`, where there is **no body class at all - 142 files, 142 bare `<body>` tags**.
+
+So every state screen cloned at 8.13 and 8.14 arrived outside the scope, and the entire
+coach layer of the system was **inert** on it. It looked plausible, because the clone
+brings the grey screen's own `<style>` along, and that block was the only paint on the
+page.
+
+Which reframes step 6's own list 2. **«886 rules overriding the system» was measured as
+«the system owns this class too»**, and on the coach state screens those were not the same
+statement: nothing was being overridden, because nothing was reaching them. The counts
+stand; the word did not.
+
+### The instrument: `tools/scope.mjs`
+
+The question cannot be asked of any file, so it is asked of the browser as a difference:
+add the class, read the computed style of every element, take it away, read again. **23
+screens moved** - `coach-session-priceblock` by 87 elements of 1 434, from 56 selectors.
+
+**Whose scope it is, is read out of the product and never typed.** Every state ends its
+script with `wfBar('<base>.html', '<state>')` and every base names itself, so a state wears
+what its base wears. The obvious alternative was tried and rejected on the evidence:
+pairing the scope with `wfHeader('coach')` / `wfCoachNav(` catches 36 screens and misses
+three that already carry the class - `cart-coach`, `coach-landing` and `coach-verify` are
+coach screens without the coach rail. A signal that disagrees with the product on three of
+eleven is a guess.
+
+**Five screens move and must never be painted**, and they are the evidence that the
+namespace is load-bearing rather than decorative: `concept/directions` (203 elements from
+2 selectors), `account-orders` (67 from 2), `kit/order-row`, `kit/badge`,
+`checkout-loggedin`. There `.coach .x` collides with an `x` that means something else. They
+get a list of their own and the sweep never writes them. `cart-coach` wears the scope and
+nothing bites - the idle control of the same list, left as a decision.
+
+The sweep lives in the check and not in the transform, because the transform cannot know:
+the scope is a property of the CSS, not of the markup being copied. `clone-to-colour.mjs`
+now says so and points here.
+
+### Measured, not argued
+
+`accept.mjs 360`: **4 failures over 204 screens before, 0 over 205 after**. `tree-diff HEAD`
+reports all 46 comparisons moved, which is the intended repaint and not a finding - the
+system taking over screens it had never reached. The rest of the gates are unchanged:
+`accept` @390 0, `vars` 0, `links` 4601 hrefs 0 dead, `roles` 82 components 0 adrift,
+`css-comments` 89 balanced, `grey-vars` 177 pages 0 undeclared.
+
+### And the instrument was wrong twice on the way, both times plausibly
+
+It tested `r.cssRules` before `r.selectorText`. Since CSS Nesting **every `CSSStyleRule`
+carries an empty `CSSRuleList`, and an empty `CSSRuleList` is truthy**, so the walk
+recursed into nothing for every rule in the product. It also treated `@import` as a
+grouping rule, and `design/system/index.css` is nothing but 84 imports, so the whole
+component layer was invisible. Both returned «0 selectors» for a page that moved 87
+elements. **The two numbers disagreeing is what exposed it** - a single number would have
+read as a clean pass. Same family as everything else this stage has found in its own tools.
+
+A fifth backtick was eaten by a template literal on the way, in the comment explaining the
+import bug. The ban is now written in the file for the third time.
+
+### What this turned up next
+
+`button.css` has no `.btn` rule - the finish IS the rank - and `clone-to-colour.mjs`
+matches `class="btn"` and `class="btn dark"` as whole strings. **36 controls in the
+coloured layer wear `btn` with no rank and render as bare text**: `btn qa-add` (14),
+`btn cs-save` (7), `btn dark cs-go` (6), `btn dark co-new` (3), `btn dark cgo-btn` (2) and
+four more. Six carry `dark`, which is the grey layer saying **primary action**. Recorded in
+the backlog as item 1; same family as the 8.13 lookahead - a pattern tight enough to be
+right about the case in front of it and wrong about the set.

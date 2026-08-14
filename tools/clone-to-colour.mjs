@@ -106,6 +106,23 @@ export function transform(src, name) {
   /* a token the split renamed, and the grey layer still speaks the old name */
   s = s.replace(/var\(--strong\)/g, 'var(--text-primary)');
 
+  /* THE SCOPE CLASS IS NOT SET HERE, AND THAT OMISSION COST 23 SCREENS.
+     Step 7.95 scoped every selector of the coach components - `.coach .qa-row`,
+     360 occurrences across 18 files - and put the class on `<body>` by hand on
+     the eleven screens it coloured. This transform reads `wireframes/`, and the
+     grey layer has NO body class at all: 142 files, 142 bare `<body>` tags. So
+     every state screen cloned at 8.13 and 8.14 arrived outside the scope, and
+     the whole coach layer of the system was inert on it - not overridden, not
+     outranked, never matching. It looked fine, because the clone brings the grey
+     screen's private `<style>` along and that was the only paint on the page.
+     It failed the 360 gate on four screens, and the failure was written up as a
+     specificity problem, which it was not.
+     THE FIX BELONGS TO `tools/scope.mjs`, NOT HERE, and the reason is that this
+     file cannot know: the scope is a property of the CSS, not of the markup
+     being copied. `scope.mjs` asks the browser whether the class changes
+     anything and reads WHOSE scope it is off `wfBar('<base>.html', ...)`. Run
+     `node tools/scope.mjs --apply` after any clone. */
+
   /* THE SCREEN'S OWN SCRIPT IS KEPT WHOLE and the colour passes are APPENDED to
      it. 8.7 replaced the block instead and took a live dialog out with it. */
   const wants = ['uivFixLinks()', 'uivBar()', 'uivChrome()']

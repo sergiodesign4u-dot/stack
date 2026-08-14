@@ -27,7 +27,7 @@
        - which is what a migration needs: the reference is «the tree five
        minutes ago», and that has no commit to name. */
 import { Conn, newSession, visit } from './cdp.mjs';
-import { serve, chrome, ROOT } from './lib.mjs';
+import { serve, chrome, ROOT, STYLE_PROPS } from './lib.mjs';
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, existsSync, readdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -62,14 +62,9 @@ if (FIXED) {
 }
 if (!PAGES.length) { console.log('нічого порівнювати: жодна сторінка design/*.html не змінилась'); process.exit(0); }
 
-const P = ['display', 'position', 'width', 'height', 'margin-top', 'margin-right',
-  'margin-bottom', 'margin-left', 'padding-top', 'padding-right', 'padding-bottom',
-  'padding-left', 'border-top-width', 'border-right-width', 'border-bottom-width',
-  'border-left-width', 'border-top-color', 'border-top-style', 'border-radius',
-  'background-color', 'background-image', 'color', 'font-size', 'font-weight',
-  'font-family', 'line-height', 'letter-spacing', 'text-align', 'text-decoration-line',
-  'opacity', 'visibility', 'box-shadow', 'flex-direction', 'justify-content',
-  'align-items', 'gap', 'grid-template-columns', 'overflow-x', 'overflow-y', 'z-index'];
+/* the list moved to lib.mjs at step 6.1, unchanged, because scope.mjs asks the
+   same question of one page that this asks of two trees */
+const P = STYLE_PROPS;
 
 /* No backtick between here and the closing quote. */
 const M = `(() => {
