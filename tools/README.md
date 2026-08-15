@@ -365,6 +365,23 @@ abandoned. That is the correct life of a probe, and copying them here would turn
 a folder of instruments into a folder of archaeology. What earns a place is a
 check the **next** step will want to run unchanged.
 
+## One rule about editing text, because this shape has now cost eight repairs
+
+**Never run a text substitution through `node -e '...'` when the replacement
+contains an apostrophe.** zsh closes the single-quoted argument at the first `'`
+inside it, so the shell hands node a truncated program and the REST OF THE SCRIPT
+becomes literal text - which the substitution then writes into the file. Step 8.19
+put `).replace(/’/g,` into a published page while removing a curly apostrophe from
+it, and `accept` failed on the same page for the same reason it had failed a
+minute earlier, which is what made it visible.
+
+Same family, different door: a backtick inside a template literal (seven times), a
+`*/` written inside the comment explaining comment terminators, and this. All three
+are the shell or the parser reading a delimiter the author meant as content.
+
+Use `Edit` on the file, or write a `.mjs` to the scratchpad and run it. Both are
+shorter than the repair.
+
 ## `proof.mjs` - the pixel proof, both halves, one browser
 
     node tools/proof.mjs                     re-take all 40 pairs
@@ -608,6 +625,19 @@ which is the arithmetic saying the same thing twice.
 
 The 40-property list moved into `lib.mjs` as `STYLE_PROPS` when `scope.mjs` needed the same one.
 
+**A sixth, 2026-08-15, and it is a cap rather than a bug.** The output printed **four** moved
+elements per page and three properties each, with no total per family. That is enough for the
+question the tool was built for - «did the cut mangle anything», where the right answer is zero -
+and useless for the question it grew into. Removing the retyped cabinet shell from four screens
+moved **149 elements**, all of them intended, and the report showed four `height` changes on
+`HTML` / `BODY` / `wf-canvas` / `wf-page`: a reader could neither confirm the change nor spot a
+stray. A silent cap reads as «here is what moved».
+
+Now the sample stays and a **roll-up** is printed under it - by element family and by property, top
+eight each - so the 149 read as `::before 26 · ::after 26 · ic 17 · path 13 · acc-link 7` and
+`font-size 114 · font-weight 102`, which is the rail and its icons and nothing else. `--full`
+prints every row with every changed property.
+
 ---
 
 ## `scope.mjs` - is this screen inside the scope its components are written against
@@ -682,3 +712,36 @@ output, so a fresh clone never writes one.
   the now-dead word behind and need a second run to converge.
 - **The count that fails the gate is what is LEFT, not what fired** - the same lesson the decision
   map above already paid for.
+
+---
+
+## `gap.mjs` - the distance between two elements, not the margin declared on one
+
+Every other browser instrument here compares **computed style** - `inert`, `tree-diff`,
+`private --diff` all read `getComputedStyle` over a fixed property set. That is the right question
+for «did this rule change anything the engine resolved», and it is blind to a whole class of
+nothing.
+
+**Margin collapse.** Two adjacent block siblings do not add their facing margins; the larger wins
+outright. `coach-clients-loading` declared `margin-bottom: 4px` on `.cl-sub` next to `.skclist`'s
+`margin-top: 18px`. Measured gap with the rule: **18px**. Without it: **18px**. Computed
+`margin-bottom` either way: **4px**. The rule was alive to every instrument in this folder and dead
+on the screen, and it survived the cut that removed 655 of its neighbours at step 6.
+
+The same blindness covers every case where a declared number resolves to no distance: a vertical
+margin on an inline element, a margin inside a flex or grid container whose own `gap` already
+exceeds it, a bottom margin on a last child under a padded parent.
+
+```
+node tools/gap.mjs '[["coach-clients-loading",".cl-sub",".skclist"]]'
+node tools/gap.mjs '[[page, selA, selB], ...]'  [--width 390,1280]
+```
+
+**It does not find its own subjects, and that is deliberate.** «Which two elements should be a known
+distance apart» is a question about the design, not about the document - a walk that guessed would
+produce thousands of pairs and no finding. This is the instrument you reach for when a rule LOOKS
+live and you want to know whether anybody can see it.
+
+It marks two readings: a distance **smaller** than the larger facing margin, and a distance
+**equal** to the larger one when both are non-zero - the ordinary collapse, and the one that hides
+a dead rule.

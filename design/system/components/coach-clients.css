@@ -191,7 +191,21 @@
 .coach .cl-h1,
 .coach .ch-name{ font-family: var(--font-display); font-weight: var(--fw-semibold);
   font-size: var(--fs-30); color: var(--text-primary); letter-spacing: var(--ls-lead); }
-.coach .cl-sub{ color: var(--text-secondary); font-size: var(--fs-14); margin-top: var(--space-4); }
+/* THE 4px BELONGED TO THE TITLE AND WAS DECLARED ON THE SUBTITLE, which is a
+   difference nobody sees until a screen has no subtitle. `.cl-sub` carried
+   `margin-top: --space-4`, so the two clients screens that show `.empty`
+   instead of a subtitle - empty and error - got nothing, and each re-declared
+   the same 4px from the other side, on `.cl-h1`, in its own `<style>` block.
+   Step 8.18 turns it round: the gap under the cabinet title is the TITLE's, it
+   is stated once, and it holds whatever comes next. On the three screens that
+   do have a subtitle the two margins were adjacent siblings and collapsed, so
+   the measured gap was 4px before and is 4px after - moving it changes no
+   pixel and removes two private rules.
+   `.ch-name` is deliberately NOT in this line: it sits beside `.ch-goal` in a
+   header of its own, and giving it a bottom margin would be a look nobody
+   asked for. The typography above is shared; the spacing is not. */
+.coach .cl-h1{ margin-bottom: var(--space-4); }
+.coach .cl-sub{ color: var(--text-secondary); font-size: var(--fs-14); }
 /* THE SAME 9px GAP STANDS ON FOUR ACTION ROWS and is not a rung on any of them:
    `.cl-acts` and `.ccard-acts` here, `.cc-cta` (10px) and `.oc-actions` (9px) in
    section 2. Four rows that put two buttons side by side, three numbers between

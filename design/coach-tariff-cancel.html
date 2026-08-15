@@ -13,11 +13,6 @@
 <link rel="stylesheet" href="_stand.css">
 <style>
 
-.tf-lead { font-size: 14px; color:var(--text-secondary); margin: 4px 0 22px; line-height: 1.5; }
-
-
-
-.tf-badge { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; border:1px solid var(--line-strong); border-radius: 100px; padding: 3px 11px; color: var(--text-primary); }
 
 
 
@@ -34,24 +29,28 @@
 
 
 
-.tf-mini { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; border:1px solid var(--line-strong); border-radius: 100px; padding: 2px 8px; color:var(--text-secondary); }
 
 
 
 
 
-.tf-note { font-size: 12px; color:var(--text-muted); margin-top: 20px; line-height: 1.5; }
 
-/* cancel-confirm dialog */
-.tfov { display: none; position: fixed; inset: 0; background: var(--scrim-overlay); z-index: 55; align-items: center; justify-content: center; padding: 20px; }
-.tfov.open { display: flex; }
-.tfdlg { background: var(--bg-page); width: 100%; max-width: 440px; border:1px solid var(--line-strong); border-radius: 14px; box-shadow: var(--elevation-4); padding: 24px; text-align: center; }
-.tfdlg .ic { width: 48px; height: 48px; margin: 0 auto 14px; border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-.tfdlg h2 { font-size: 19px; font-weight: 800; color: var(--text-primary); }
-.tfdlg p { font-size: 13.5px; color:var(--text-secondary); margin: 8px 0 20px; line-height: 1.55; }
-.tfdlg p b { color: var(--text-primary); }
-.tfdlg .act { display: flex; gap: 10px; }
-.tfdlg .act .btn { flex: 1; text-align: center; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
 </head>
 <body class="coach">
@@ -76,12 +75,12 @@
     <aside class="acc-nav" id="acc-nav"></aside>
     <div class="acc-main">
 
-  <h1 class="acc-h1" style="font-size:24px;font-weight:800">Тариф</h1>
-  <p class="tf-lead">Ваш поточний тариф і керування підпискою. Змінити або скасувати можна будь-коли - гуртові ціни на товари зберігаються на обох тарифах.</p>
+  <h1 class="acc-h1">Тариф</h1>
+  <p class="acc-sub tf-lead">Ваш поточний тариф і керування підпискою. Змінити або скасувати можна будь-коли - гуртові ціни на товари зберігаються на обох тарифах.</p>
 
   <!-- CURRENT PLAN = Pro active -->
   <section class="tf-cur" aria-label="Поточний тариф">
-    <div class="tf-cur-h"><span class="tf-plan">Pro</span><span class="tf-badge">● Активний</span></div>
+    <div class="tf-cur-h"><span class="tf-plan">Pro</span><span class="oc-status ok">Активний</span></div>
     <div class="tf-price">99 ₴ <span class="per">/ міс</span> <span class="qm">[?]</span></div>
     <div class="tf-renew">Наступне списання - <b>12 липня 2026</b> · картка •• 1234</div>
     <ul class="tf-incl">
@@ -91,7 +90,7 @@
       <li>Пріоритетна підтримка</li>
     </ul>
     <div class="tf-actions">
-      <button class="btn--outline btn--s btn" type="button" onclick="tfCancelOpen()">Скасувати підписку Pro</button>
+      <button class="btn--outline btn--danger btn" type="button" onclick="tfCancelOpen()">Скасувати підписку Pro</button>
     </div>
   </section>
 
@@ -127,14 +126,14 @@
 </div>
 
 <!-- CANCEL CONFIRM DIALOG (hidden; opened by «Скасувати підписку Pro») -->
-<div class="tfov open" id="tf-cancel" role="dialog" aria-modal="true" aria-label="Скасувати підписку Pro">
-  <div class="tfdlg">
+<div class="ceov open" id="tf-cancel" role="dialog" aria-modal="true" aria-label="Скасувати підписку Pro">
+  <div class="cedlg tfdlg">
     <div class="ic" aria-hidden="true">◈</div>
     <h2>Скасувати підписку Pro?</h2>
     <p>Pro залишиться активним до <b>12 липня 2026</b>. Після цього тариф автоматично перейде на <b>Free</b>: гуртові ціни збережуться, але кількість клієнтів у сесії буде обмежена (до 3). Повернути Pro можна будь-коли.</p>
     <div class="act">
-      <button class="btn--outline btn--s btn" type="button" onclick="tfCancelClose()">Залишити Pro</button>
-      <a class="btn--accent btn--s btn" href="coach-tariff-free.html">Скасувати підписку</a>
+      <button class="btn--outline btn" type="button" onclick="tfCancelClose()">Залишити Pro</button>
+      <a class="btn--outline btn--danger btn" href="coach-tariff-free.html">Скасувати підписку</a>
     </div>
   </div>
 </div>

@@ -53,7 +53,9 @@ const FIXED = DIRI > -1 ? argv[DIRI + 1] : null;
    drops argv[0], so `tree-diff HEAD coach-home-empty` made the PAGE the ref and
    git answered «bad revision». An off-by-one that only fires when the flag is
    absent is exactly the branch nobody tries. */
-const rest = DIRI > -1 ? argv.filter((a, i) => i !== DIRI && i !== DIRI + 1) : argv;
+const FULL = argv.includes('--full');
+const rest = (DIRI > -1 ? argv.filter((a, i) => i !== DIRI && i !== DIRI + 1) : argv)
+  .filter(a => a !== '--full');
 const REF = FIXED ? null : (rest[0] || 'HEAD');
 let PAGES = FIXED ? rest : rest.slice(1);
 
@@ -133,10 +135,32 @@ for (const p of PAGES) {
       moved++;
       console.log('  ' + p + ' @' + w + ': зрушило елементів ' + diff.length +
         (renamed.length ? ' (плюс ' + renamed.length + ' лише перейменованих)' : ''));
-      for (const i of diff.slice(0, 4)) {
+      /* FOUR OF 149 IS NOT A REPORT, IT IS A SAMPLE - and until step 8.19 that
+         was the whole output. It is enough for the question this tool was built
+         for («did the cut mangle anything», where the answer should be zero) and
+         useless for the question it grew into: a DELIBERATE change, where the
+         reader has to check that all 149 belong to the thing that was changed.
+         A cap that prints no total per family reads as «here is what moved».
+         So: the sample stays, and a roll-up by element family and by property
+         is printed under it. `--full` prints every row. */
+      const SHOW = FULL ? diff.length : 4;
+      for (const i of diff.slice(0, SHOW)) {
         const x = ra[i].split('|'), y = rb[i].split('|');
         const props = P.map((n, k) => x[k + 1] !== y[k + 1] ? n + ' ' + x[k + 1] + ' -> ' + y[k + 1] : null).filter(Boolean);
-        console.log('      ' + x[0] + '   ' + props.slice(0, 3).join(' · '));
+        console.log('      ' + x[0] + '   ' + (FULL ? props : props.slice(0, 3)).join(' · '));
+      }
+      if (diff.length > SHOW) {
+        const byFam = {}, byProp = {};
+        for (const i of diff) {
+          const x = ra[i].split('|'), y = rb[i].split('|');
+          const fam = (x[0].split('.')[1] || x[0]).split(/\s/)[0] || x[0];
+          byFam[fam] = (byFam[fam] || 0) + 1;
+          P.forEach((n, k) => { if (x[k + 1] !== y[k + 1]) byProp[n] = (byProp[n] || 0) + 1; });
+        }
+        const top = (o, n) => Object.entries(o).sort((a, b) => b[1] - a[1]).slice(0, n)
+          .map(([k, v]) => k + ' ' + v).join(' · ');
+        console.log('      ... ще ' + (diff.length - SHOW) + '. За родом: ' + top(byFam, 8));
+        console.log('      За властивістю: ' + top(byProp, 8));
       }
     } else if (renamed.length) {
       console.log('  ' + p + ' @' + w + ': ' + renamed.length + ' рядків перейменовано, жодна властивість не зрушила');

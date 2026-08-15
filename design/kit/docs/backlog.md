@@ -325,7 +325,86 @@ property.
    before the scope fix made the system reach these screens at all, and 655 rules have since left
    the corpus it was taken over. It is not restated here as a smaller number, because that number
    would be arithmetic rather than a measurement.
-3. **Decide the 210 local declarations**: a component each, or a deletion each.
+3. **Decide the 210 local declarations**: a component each, or a deletion each. **In progress.**
+   `tools/private.mjs` splits what is left by how many homes the class has in the system, and the
+   first pile - «one home, so every difference is a gap or a resurrection» - is being walked rule by
+   rule.
+
+   | | at the start | now |
+   |---|---|---|
+   | private rules on the coloured screens | 468 | **324** |
+   | of them with exactly one home | 157 | **41** |
+   | private `@media` blocks | 19 | **4** |
+
+   **Every rule closed so far was a state re-opening a decision its base had already taken**, and
+   after 109 of them that is the mechanism rather than a pattern: `clone-to-colour.mjs` reads
+   `wireframes/`, so a cloned state arrives carrying the grey layer's answers to questions the
+   coloured base had already answered differently. The seven `coach-session-*` screens were the
+   clearest case - 31 rules, and `coach-session.css` and `stepper.css` had DELETED all four of them
+   with the reason written beside each deletion. One was a live defect on all seven: a
+   `margin-bottom: 76px` meant as clearance for the sticky bar, put on an element that is not last
+   on the page, so it drew a 76px hole in the middle of the screen instead. Measured 96px between
+   `.cs-panel` and `.cs-summ` on the states against 20px on the base; 20px on all of them now.
+
+   **The biggest entry in the pile was not a rule, it was a block.** 48 private rules on the four
+   `coach-clients-*` screens were `account-shell.css` retyped by hand - a decision taken and written
+   down at 7.95 and only partly executed. It had drifted on five properties (`.acc` gap 20/28
+   against 24/32, `.acc-prof` 15/14/13 against 16/12/12, `.acc-tier` 11px against 12, `.acc-link`
+   13/15 against 8/16, and `1fr` where the system writes `minmax(0, 1fr)`) **and it cancelled the
+   phone pattern outright**: the copy's `.acc-link{ width: 100% }` outranks the system's chip strip
+   below 960 by document order, so four cabinet screens showed ONE full-width row where every other
+   cabinet screen shows a scrollable strip of chips. Deleted; `account-shell.css` draws it now.
+
+   **This is the change June measured, called a regression and reverted** - «на 390 рядок рейки
+   став помаранчевим», recorded above in item 2's own history. That orange is the current chip
+   taking `--bg-action`, which is what `coach-home` and `account` have been showing all along. The
+   revert was right for its instruments and wrong about the screen.
+
+   **Three exceptions to the mechanism so far, and each is worth its own line.** One was the system
+   being wrong (`.qadd-res`). One a genuine gap (`.cnew .cn-tx`). And one - `.cv-card` - was the
+   system being right about the screen it was written for and wrong about three it reached, which is
+   the expensive kind: it laid the three coach-verify state screens out **in a row** on every
+   desktop, and the private rules were the only thing keeping them survivable at 390. Photographed
+   before and after; the record is in `docs/decisions.md`, step 6 eighth pass.
+
+   **One rule was dead in a way nothing in `tools/` could see.** A `margin-bottom: 4px` adjacent to
+   a `margin-top: 18px` collapses, and the larger wins - the measured gap is 18px with the rule and
+   18px without it, while computed `margin-bottom` reads 4px either way. Every instrument here
+   compares computed style, so all of them called it alive. What told the difference was reading the
+   DISTANCE between two elements; that check is `tools/gap.mjs` now.
+
+   **The `.cnew` card answered differently on its two screens, and that is the case against a
+   blanket sweep.** `coach-cabinet.css` had ended 7.98 with a note to whoever came next - «Whoever
+   confirms the deletion of the block deletes these eight with it» - after removing the same card
+   from `coach-home` for carrying the rail button's words and href. Measured at 390:
+   `coach-home-free` said «Нова сесія» to `coach-session.html`, 515px under a rail button saying
+   «Нова сесія» to `coach-session.html`, so it went, and accent fills on that screen went 4 -> 3.
+   `coach-home-empty` says «Зібрати першу сесію» and carries the sentence 7.98 itself named as the
+   empty state's job, so it stayed and its six structure rules moved into the component. **Open, and
+   the owner's:** that screen still points two accent fills at one destination with different words.
+   Principle 2 says one clear next step; which of the two carries it is a look, not a measurement.
+
+   **The largest single finding was a rename map executed on a base and never carried to its
+   states.** `coach-tariff.css` opens with nine numbered items - «TWELVE RULES DELETED, ONE CUT TO A
+   SINGLE DECLARATION, ONE MARKUP OVERRIDE REMOVED, TWO RULES WRITTEN» - each with a real reading at
+   four widths. `coach-tariff.html` carries it and has an empty `<style>` block. Its two states had
+   none of it: the H1's inline override, the bare `.tf-lead`, `.tf-badge` instead of the status pill,
+   `.tfov` / `.tfdlg` instead of the system's scrim and dialog, and - item 9 - **`btn--accent` on
+   «Скасувати підписку»**, the orange fill on the control that ends a paid subscription, where
+   `button.css` settled at 7.61 that «the destructive control is the OUTLINE carrying the danger
+   ink». Executing the map reproduced its measurements to the hundredth of a pixel on a screen it was
+   never taken on: the dialog «before 350 x 357.53, radius 14 -> after 342 x 428.34, radius 12»
+   arrived as 342 x 428.344, radius 12. `coach-tariff-cancel`'s `<style>` block is now empty.
+
+   Remaining in pile 1, 41 rules on 19 screens: `coach-cabinet.css`
+   `.cord .co-sum` / `.co-top h1` (6) · `coach-verify.css` `.cv-card` (6, the state panel's honest
+   remainder) · `empty-state.css` (5) · `account-shell.css` `.sk-prof` (5) · `buy-box.css` `.tier`
+   (4) · `coach-tariff.css` `.tf-upsell` (4) · `cart-drawer.css` (3) · `coach-session.css` (3) · four
+   singletons. `.ctab.add` on
+   `coach-session-empty` is held back for a look rather than a measurement - the tab there has a
+   bottom edge the base lacks AND a different height, 44 against 90, so it may be a deliberate «a tab
+   with nothing under it». After pile 1: 156 local names with no home, 109 multi-component rules, 28
+   partially new, 2 with no class.
 4. ~~**105 dead `class="dark"` in `design/*.html`** - no stylesheet in the coloured layer defines
    `.dark`.~~ **Closed 2026-08-15: 105 removed from 57 screens, and nothing moved.**
 

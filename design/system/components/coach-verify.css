@@ -240,26 +240,51 @@
 .cv-step.stop{ border-color: var(--line-action); }
 .cv-step.stop .n{ background: var(--bg-action); border-color: var(--line-action); color: var(--text-onaction); }
 
-/* split card */
-/* ONE NAME, FIVE LOOKS - the finding this file cannot fix and must not hide.
-   `.cv-card` is declared in all five coach-verify screens and every one of them
-   means something different by it:
+/* split card + state panel */
+/* ONE NAME, FIVE LOOKS - written here at 7.95 as «the finding this file cannot
+   fix and must not hide», and step 8.18 both fixed it and photographed the
+   damage it had already done. What the five screens meant by `.cv-card`:
        coach-verify           flex column, becomes a row at 760, overflow hidden
        coach-verify-loading   padding 40/24, text centred
        coach-verify-error     padding 32/24, max-width 560, centred by margin
        coach-verify-deadend   padding 34/24, max-width 560, centred, text centred
        coach-verify-tier      absent
-   Below is coach-verify's edition, because that is the screen this move was
-   given. The moment a second one lands in this file they collide on the same
-   selector and the later import wins, which is not a decision anybody took.
-   Either the four states get their own modifier (`.cv-card--panel`) or the
-   split card gets its own name; both are markup, both are Крок 6. */
-.coach .cv-card{ border: 1px solid var(--line-hair); border-radius: var(--radius-16); overflow: hidden; display: flex; flex-direction: column; }
+   The file had shipped coach-verify's edition under the shared name, and that
+   edition IS a layout: `display:flex` plus `flex-direction:row` above 760. So
+   the three state screens, whose own rules say nothing about display, inherited
+   it and laid their six children OUT IN A ROW on any desktop - badge, heading,
+   lead, sub, actions, alt side by side in a 560px box, the accent button spilling
+   past the card's own edge. Measured and photographed at 1280 before the fix.
+   That is worth naming precisely: the private rules were not hiding the defect,
+   they were the only thing that made the screens look survivable at 390, where
+   `flex-direction: column` reads almost exactly like a block. A conflict that is
+   invisible at the width you test at is not a smaller conflict.
+
+   THE SPLIT CARD IS THE ONE THAT GETS A NEW NAME, of the two exits written
+   above, for two reasons. Count: three screens of four mean «panel» by
+   `.cv-card`, one means «split». Cost: renaming the split is one class in one
+   markup file, renaming the panels is three. `.cv-aside` and `.cv-body` are
+   addressed on their own names, so nothing else moves.
+   What stays under `.cv-card` is what all four screens agree on - the edge, the
+   radius, and the panel's padding. Everything the three state screens still
+   disagree about (max-width 560 on two of three, text-align centre on two of
+   three, 40/24 padding on loading) stays in their own blocks: it is a real
+   difference, not a drift, and one of those two answers has to become the panel's
+   in stage 09. The drift that WAS a drift is settled here - see below. */
+.coach .cv-split{ border: 1px solid var(--line-hair); border-radius: var(--radius-16); overflow: hidden; display: flex; flex-direction: column; }
 /* 760 is in the set - tokens.css lists it with `loyalty-rung` and `seo-text`,
    where it is a CONTENT limit: the width at which a reading column stops
    growing. Same job here, and it makes the boundary a three-file decision
    instead of a two-file one. */
-@media (min-width: 760px) { .coach .cv-card{ flex-direction: row; align-items: stretch; } }
+@media (min-width: 760px) { .coach .cv-split{ flex-direction: row; align-items: stretch; } }
+/* THE STATE PANEL. padding -> `--space-32` `--space-24`, and that is the one
+   value this step changed: 34px on coach-verify-deadend is on no rung, the
+   ladder runs 24/32/40, and the neighbouring screen drawing the SAME panel with
+   the same border and the same 560px column already said 32. Two pixels, one
+   rung, one number where there were two. coach-verify-loading keeps 40/24 in
+   its own block - 40 IS a rung, so it is a choice about that screen and not a
+   drift, and un-choosing it is stage 09's call, not a side effect of this one. */
+.coach .cv-card{ border: 1px solid var(--line-hair); border-radius: var(--radius-16); padding: var(--space-32) var(--space-24); }
 
 /* THIS PANEL IS THE AUTH DIALOG'S VISUAL HALF, BUILT A SECOND TIME.
    `.cv-aside` carries `.vlogo`, `.vtag` and `.vtag b` - the auth dialog's own

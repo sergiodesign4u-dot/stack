@@ -18,21 +18,17 @@
 
 
 
-/* big primary CTA */
-/* THE BIG CTA IS THE ACCENT NOW - owner's call, 2026-08-14; the reasoning is
-   written once, on coach-home-empty.html, and this screen carries the same
-   panel with the same job. */
-.cnew { display: flex; align-items: center; gap: 16px; margin-top: 16px; border:1.5px solid var(--line-action); border-radius: 14px; padding: 20px; background:var(--bg-action); color: var(--text-onaction); }
-.cnew .cn-ic { width: 46px; height: 46px; flex: none; border-radius: 12px; border: 1.5px solid var(--line-onaction); display: flex; align-items: center; justify-content: center; font-size: 24px; }
 
-.cnew .cn-t, .cnew .cn-s { display: block; }
-.cnew .cn-t { font-size: 18px; font-weight: 800; }
-.cnew .cn-s { font-size: 13px; color: var(--text-onaction); margin-top: 3px; }
-.cnew .cn-go { margin-left: auto; font-size: 22px; font-weight: 800; }
-@media (max-width: 520px) { .cnew .cn-go { display: none; } }
 
-.acc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
-@media (min-width: 640px) { .acc-grid { grid-template-columns: 1fr 1fr; } }
+
+
+
+
+
+
+
+
+
 .acard { border:1px solid var(--line-hair); border-radius: 14px; padding: 16px; }
 
 .acard .ah { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
@@ -103,15 +99,21 @@
         <a class="btn--accent btn--s btn" href="coach-tariff.html" style="margin-left:auto">Оформити Pro</a>
       </div>
 
-      <!-- BIG primary CTA → multi-client session (5.5) -->
-      <a class="cnew" href="coach-session.html">
-        <span class="cn-ic">＋</span>
-        <span class="cn-tx">
-          <span class="cn-t">Нова сесія</span>
-          <span class="cn-s">Зберіть замовлення одразу для кількох клієнтів в одну сесію</span>
-        </span>
-        <span class="cn-go">→</span>
-      </a>
+      <!-- `.cnew` DELETED HERE - step 8.20, and it is step 7.98's decision arriving
+           at the screen the base's own repair had missed. 7.98 removed the same
+           block from design/coach-home.html because «`.cnew` carried the same
+           words and the SAME href as `.coach-newcta`, the full-width accent
+           button the rail already puts 350px above it, and principle 2 is
+           'exactly one clear next step per screen'».
+           Measured here before deleting, the same way: `.coach-newcta` at y=286,
+           358x52, «Нова сесія», href="coach-session.html"; `.cnew` at y=801,
+           358x115, «Нова сесія», href="coach-session.html". Same words, same
+           destination, 515px apart, both on the accent fill. Accent fills inside
+           <main> plus the rail went 4 -> 3.
+           Its subtitle - «Зберіть замовлення одразу для кількох клієнтів в одну
+           сесію» - is the sentence 7.98 named as the EMPTY state's job, and
+           coach-home-empty carries its own edition of it. Nothing is lost here
+           that is not said better one screen over. -->
 
       <div class="acc-grid">
 

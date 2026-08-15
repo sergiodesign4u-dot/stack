@@ -342,7 +342,17 @@
 .coach .tf-col-p{ font-size: var(--fs-20);   /* grey 19 -> 20: 5.6, ties go UP */
   font-weight: var(--fw-black); color: var(--text-primary);
   margin: 6px 0 var(--space-12); }   /* [?] 6 has no rung */
-.coach .tf-col-p .per{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14 */
+.coach .tf-col-p .per,
+/* `.tf-price2 .per` JOINS THE LINE, 2026-08-15 (step 8.21) rather than getting a
+   third edition. It is the upsell panel's price on `coach-tariff-free`, and that
+   screen had it privately at 12.5px - the same grey number the two rules above
+   already carry as `--fs-14` under the same «grey 12.5 -> 13 -> 14» note. Three
+   places on one screen say «per month» in small type; one of them was saying it
+   1.5px smaller than the other two, and nobody chose that.
+   The panel around it, `.tf-upsell`, is still private: it has no home in the
+   system yet and is on item 3's «local, no home» list. A rule about a `.per` is
+   this file's whether or not its wrapper has moved. */
+.coach .tf-price2 .per{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14 */
   font-weight: var(--fw-semibold); color: var(--text-secondary); }
 .coach .tf-col ul{ list-style: none; margin: 0; padding: 0; }
 .coach .tf-col li{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14 */

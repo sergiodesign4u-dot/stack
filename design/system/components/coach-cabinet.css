@@ -463,6 +463,54 @@
    else; it is in the system because that is where a rule about a component
    belongs, not because a third screen is waiting for it. */
 .coach .cnew .cn-tx{ min-width: 0; }
+/* THE REST OF `.cnew` COMES BACK, 2026-08-15 (step 8.20), and it closes the
+   handover this file wrote at 7.98: «Whoever confirms the deletion of the block
+   deletes these eight with it.» The confirmation went the other way on one
+   screen of the two, and the reasoning is the same reasoning read twice.
+
+   7.98 deleted the block from `coach-home` because «`.cnew` carried the same
+   words and the SAME href as `.coach-newcta`, the full-width accent button the
+   rail already puts 350px above it». Measured on both survivors at 390:
+
+       coach-home-free   `.coach-newcta` y=286 «Нова сесія»        -> coach-session.html
+                         `.cnew`         y=801 «Нова сесія»        -> coach-session.html
+       coach-home-empty  `.coach-newcta` y=286 «Нова сесія»        -> coach-session.html
+                         `.cnew`         y=719 «Зібрати першу сесію» -> coach-session.html
+
+   `coach-home-free` matched the deleted case word for word and lost its block
+   the same way. `coach-home-empty` did not: its words are different, and the
+   subtitle it carries is the sentence 7.98 named as belonging to the empty state
+   («That is the empty state's job - coach-home-empty»). So the block stays there
+   and its six structure rules stop being a private copy.
+
+   OPEN, AND IT IS THE OWNER'S: `coach-home-empty` still shows TWO accent fills
+   pointing at `coach-session.html`, the rail's button and this card. Different
+   words, one destination. Principle 2 says one clear next step; deciding which of
+   the two carries it is a look, not a measurement, and no repaint answers it.
+
+   TWO VALUES SETTLED, both from this file's own drift table 300 lines up, where
+   they are marked as measured and then orphaned when the markup went: `.cn-s`
+   13 -> `--fs-14` and `.cn-go` 22 -> `--fs-24`. Nineteen rows of that table moved
+   upward and these are two of them; they are not new numbers, they are the two
+   the table never got to apply. */
+.coach .cnew{ display: flex; align-items: center; gap: var(--space-16);
+  margin-top: var(--space-16);
+  border: 1.5px solid var(--line-action);   /* [?] 1.5px is on no rung; the set is 1 / 2 */
+  border-radius: 14px;                      /* [?] 14px has no rung; the ladder is 12/16 */
+  padding: 20px; }                          /* [?] 20px has no rung; the ladder is 16/24 */
+.coach .cnew .cn-ic{ width: var(--size-46); height: var(--size-46); flex: none;
+  border-radius: var(--radius-12); border: 1.5px solid var(--line-onaction);
+  display: flex; align-items: center; justify-content: center; font-size: var(--fs-24); }
+.coach .cnew .cn-t, .coach .cnew .cn-s{ display: block; }
+.coach .cnew .cn-t{ font-size: var(--fs-18); font-weight: var(--fw-black); }
+.coach .cnew .cn-s{ font-size: var(--fs-14); margin-top: 3px; }   /* [?] 3px has no rung; the ladder is 2/4 */
+.coach .cnew .cn-go{ margin-left: auto; font-size: var(--fs-24); font-weight: var(--fw-black); }
+/* The arrow is decoration next to a card that is entirely a link, and below 520
+   the card needs its width for the sentence. Same boundary the private block
+   used; it is the only 520 in this file. */
+@media (max-width: 520px){
+  .coach .cnew .cn-go{ display: none; }
+}
 /* THE RESTOCK LEAD IS restock-note.css's SENTENCE, WRITTEN A SECOND TIME. That
    file has `.restock .rk-lead` at `--fs-14` with `calc(-1 * var(--space-4)) 0
    var(--space-12)`; this is `.crestock .rk-lead` - one letter of difference in

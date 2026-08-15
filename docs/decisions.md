@@ -5327,3 +5327,298 @@ which nobody had noticed, because the gate was being read through `tail -1` and 
 the pipe's. An idle namespace is now reported and does not fail. What fails is the direction nobody
 had been asking: **a screen wearing a scope its base does NOT wear**, a screen claiming a flow it is
 not in. Currently 0, and that is the list's real idle control.
+
+## Step 6, eighth pass - one class name meant two things, and the desktop had been broken for it
+
+Item 3's first pile is «every difference is a gap»: a private rule whose class has exactly one home
+in the system. Two names came up together, and they turned out to be the two opposite failures a
+shared name can produce.
+
+### `.cv-card` - the system reached four screens and laid three of them out in a row
+
+`coach-verify.css:244` had written the finding down at 7.95 and called it «the finding this file
+cannot fix and must not hide»: five coach-verify screens declare `.cv-card` and every one means
+something different by it. The file shipped `coach-verify`'s edition under the shared name, because
+that was the screen the move was given.
+
+**That edition IS a layout.** `display: flex` plus `flex-direction: row` above 760px. The three
+state screens - deadend, error, loading - say nothing about `display` in their own blocks, so they
+inherited it, and their six children stood **side by side on every desktop**: badge, heading, lead,
+sub, actions, alt in a 560px box, the accent button spilling past the card's own edge. Measured at
+1280 and photographed before the fix.
+
+**The private rules were not hiding the defect; they were the only thing keeping it survivable at
+390**, where `flex-direction: column` reads almost exactly like a block. That is the part worth
+carrying forward: a conflict invisible at the width you test at is not a smaller conflict, and this
+one had been live since 7.95 with every gate passing.
+
+> Variable: which object owns the name `.cv-card`. Value: the split card is renamed `.cv-split`;
+> `.cv-card` becomes the state panel - edge, radius, and `--space-32` / `--space-24` padding. Why:
+> three screens of four already mean «panel» by the name, and renaming the split costs one class in
+> one markup file against three. `.cv-aside` and `.cv-body` are addressed on their own names, so
+> nothing else moves.
+
+> Variable: `coach-verify-deadend` panel padding. Value: 34px -> `--space-32`. Why: 34 is on no rung
+> - the ladder runs 24/32/40 - and the neighbouring screen drawing the same panel, with the same
+> border and the same 560px column, already said 32. Two pixels, one rung, one number where there
+> were two. `coach-verify-loading` keeps 40/24 in its own block: 40 IS a rung, so it is a choice
+> about the waiting screen and not a drift, and un-choosing it is stage 09's call.
+
+What stays private is what the three states genuinely disagree about - `max-width: 560px` on two of
+three, `text-align: center` on two of three - because that is a difference, not a drift, and one of
+the two answers has to become the panel's in stage 09.
+
+Proof: `tree-diff HEAD` over the five coach-verify screens, 10 comparisons. `coach-verify` itself:
+**3 rows renamed, no property moved** - the class change and nothing else. The three states moved
+exactly where they were meant to, `display flex -> block` and `overflow-x hidden -> visible`, and
+grew taller at 1280 by 127px, 6px and 137px, which is a row becoming a column.
+
+### `.cl-h1` - the gap belonged to the title and was declared on the subtitle
+
+`coach-clients.css` gave `.cl-sub` a `margin-top: --space-4`. That is invisible until a screen has
+no subtitle: `coach-clients-empty` and `coach-clients-error` show `.empty` instead, got nothing, and
+each re-declared the same 4px from the other side, on `.cl-h1`, in its own `<style>` block. Five of
+their six declarations were already dead on specificity - `.coach .cl-h1` outranks a bare `.cl-h1` -
+so a rule that looked like a whole title treatment was one live number.
+
+> Variable: where the gap under the cabinet title is declared. Value: moved from `.cl-sub`'s
+> `margin-top` to `.cl-h1`'s `margin-bottom`, same `--space-4`. Why: the gap belongs to the title
+> and has to hold whatever comes next, subtitle or not. `.ch-name` is deliberately left out of it -
+> it sits beside `.ch-goal` in a header of its own.
+
+**And the third rule was dead in a way no instrument here can see.** `coach-clients-loading` gave
+`.cl-sub` a `margin: 4px 0 4px`; the bottom 4px was adjacent to `.skclist`'s `margin-top: 18px`, and
+adjacent block siblings **collapse** - the larger wins outright. The measured gap was 18px with the
+rule and is 18px without it. `inert.mjs` and `tree-diff.mjs` both read computed style, and computed
+`margin-bottom` is 4px either way: **a collapsed margin is alive to every instrument in `tools/` and
+dead on the screen.** The only thing that could tell was a reading of the DISTANCE between two
+elements, which is now `gap.mjs` in the scratchpad and belongs in `tools/`.
+
+Proof, and it needed two instruments pointing opposite ways. `tree-diff HEAD` reports **6 moved** -
+every one a declared margin changing hands, `margin-bottom 0 -> 4px` on the title against
+`margin-top 4px -> 0` on the subtitle. The distances are unchanged on all five screens at both
+widths: title to subtitle 4px, title to `.empty` 4px, subtitle to skeleton list 18px, before and
+after. Three private rules gone, no pixel moved.
+
+## Step 6, ninth pass - the cabinet shell was retyped on four screens, and June had reverted the fix
+
+The first pile's biggest entry was not an odd rule, it was a **block**: 48 private rules on the four
+`coach-clients-*` screens, all of them `account-shell.css` written out a second time by hand.
+`coach-clients.css:170` had already named it - «The screen's own header comment said so out loud,
+'Shell (acc / acc-nav / accard) mirrors account.html, coach mode', and then mirrored it by retyping
+it. A mirror that is retyped is a copy, and a copy drifts.» Three declarations had been moved then;
+the other twelve, times four screens, had not.
+
+**It had drifted, and not by a pixel.** Measured at 390 against `coach-home`, which carries no
+private `.acc*` rule at all - nor does `account`, nor `coach-orders`:
+
+| | system | the copy |
+|---|---|---|
+| `.acc` gap | 24 / 32 at 960 | 20 / 28 |
+| `.acc` desktop column | `268px minmax(0, 1fr)` | `268px 1fr` |
+| `.acc-prof` | padding 16, radius 12, gap 12 | 15, 14, 13 |
+| `.acc-tier` | 12px, border 1, gap 4, pad 2/8 | 11px, 1.5, 5, 2/9 |
+| `.acc-link` | pad 8/16, gap 8, `--fw-bold` | 13/15, 11, 600 |
+
+`minmax(0, 1fr)` against `1fr` is the one that is not cosmetic: `1fr` will not shrink below
+min-content, so the copy could be widened by its own contents.
+
+**And the whole mobile pattern was cancelled.** `account-shell.css` turns the rail into a
+horizontal chip strip below 960 - `width: auto`, `flex: none`, `--radius-pill`, 44px floor, the
+current chip on `--bg-action` - and the copy's `.acc-link{ width: 100% }`, written without a media
+query, outranks it by document order. Photographed at 390: `coach-home` shows three chips and the
+next one cut by the edge; `coach-clients-empty` showed **one full-width row**, everything else
+behind a scroll nobody can see, inside a 14px-radius box the copy drew round it. Four screens of the
+cabinet navigated one way and the rest another.
+
+> Variable: who owns the cabinet shell on the four `coach-clients-*` screens. Value: the 48 private
+> rules are deleted; `account-shell.css` draws it, as it already does on `account`, `coach-home` and
+> `coach-orders`. Why: the decision was taken and written down at 7.95 and only partly executed. One
+> shell may not have two editions, and the second edition had already drifted on five properties and
+> cancelled the phone pattern outright.
+
+**This is the change June measured and reverted, and the revert was right at the time.** The step-6
+record reads: «9 movements on 5 screens ... на 390 рядок рейки став ПОМАРАНЧЕВИМ (`rgb(242,240,237)`
+-> `rgb(255,90,0)`)», all rolled back. That orange is the current chip taking `--bg-action` - the
+system's own answer, the one `coach-home` has been showing all along. It was read as a regression
+because the instrument could not say what it belonged to and nobody had put the two rails side by
+side. **The reverted diff was the fix.** What changed since is not courage, it is that
+`private.mjs` names the owner of every private rule, `inert.mjs` decides by loading rather than by
+mutating, and `crop.mjs` can photograph a claim.
+
+Proof: `tree-diff HEAD` on the four, both widths. **149 elements at 390, 145 at 1280**, and the
+roll-up says where: `::before 26 · ::after 26 · ic 17 · path 13 · acc-link 7 · svg 7`, by property
+`font-size 114 · font-weight 102`. Outside the rail exactly five rows move, all on 1280 and all the
+same cause - the content column is 4px narrower because the grid gap went 28 -> 32. Page height
+moves 1.19px at 390 and 11px at 1280. `accept` at 360 and 390 on the four: 0.
+
+Private rules **438 -> 390**; single-home **127 -> 95**.
+
+### The proof was showing four rows out of 149, and calling that the report
+
+`tree-diff.mjs` printed four moved elements per page and three properties each, with no total per
+family. For its original question - «did the cut mangle anything», where the answer should be zero -
+that is enough. For a DELIBERATE change it is a sample presented as a report: the four rows shown
+were `height` on `HTML`, `BODY`, `wf-canvas` and `wf-page`, from which nobody can tell whether the
+other 145 belong to the rail or to something nobody meant to touch.
+
+**A cap that prints no total reads as completeness**, which is the same family as the glob that
+reported 0 failures over 135 pages after visiting one. The tool now prints a roll-up under the
+sample - by element family and by property - and takes `--full` for every row. That roll-up is what
+made the five stray rows on 1280 findable, and findable is what let them be explained.
+
+## Step 6, tenth pass - seven session screens carrying four decisions the base had already unmade
+
+The cleanest batch of the whole item, and it needed no judgement at all: **31 private rules across
+the seven `coach-session-*` state screens, every one of them a rule `coach-session.css` or
+`stepper.css` had DELETED on purpose, with the reason written beside the deletion.** The base,
+`coach-session.html`, carries an empty `<style>` block. The states carry the grey layer's answers.
+
+| the state re-declared | what the system had already written |
+|---|---|
+| `.cs-panel{ margin-bottom: 76px }` + its `@940` override, x7 | «DELETED, with both of its overrides - step 7.97. 76 was the bar's height written as air, put on the wrong element» |
+| `.cs-save{ ... border-color: --line-strong }`, x7 | «`border-color: var(--hair2)` DELETED. It was softening the grey `.btn`'s ink border down to a control edge, which is exactly what `.btn--outline` is» |
+| `.qa-add{ padding: 8px 13px; font-size: 12.5px; white-space: nowrap }`, x5 | «DELETED, all three declarations ... the S size of a button drawn by hand» + «A BUTTON NEVER WRAPS» |
+| `.cq button{ width: 30px; height: 32px }`, x5 | stepper.css draws 32 x 34, chosen with the hit-area reasoning written above it |
+
+**The 76px one was a live defect on all seven, and its own record predicted the shape.** `.cs-panel`
+is not the last thing on the page, so below 940 the declaration drew a 76px hole in the MIDDLE of
+the screen with the summary column and the footer under it, while the sticky bar went on covering
+whatever ended at the bottom. Measured before and after: the gap between `.cs-panel` and `.cs-summ`
+was 96px on the states (20 of grid gap plus the 76) and is 20px now - the same 20 the base has been
+showing since 7.97.
+
+The other three are the same story in miniature: three buttons drawn by hand at a size button.css
+has a rung for, and a stepper key two pixels short of the size stepper.css chose on purpose.
+
+Proof: `tree-diff HEAD` over the base and its seven states, both widths, 16 comparisons. Page height
+drops 72-76px at 390 on every state - that is the hole closing - and the roll-up says the rest is
+`btn--outline` (6-9 per screen, `font-size` and `padding`), `qa-row` re-tracking because its button
+grew, and `BUTTON` inside `.cq`. The base does not move. `accept` at 360 and 390 on all eight: 0.
+
+Private rules **390 -> 359**; single-home **95 -> 64**; private `@media` blocks **15 -> 8**.
+
+**And the count that matters more than the total: nothing in this batch needed a decision.** Every
+one of the 31 had been decided already, in the same files, in writing, by the step that built the
+component - and then re-appeared because a state screen was cloned from a grey original rather than
+from its own coloured base. That is now the confirmed mechanism behind the pile, not a hypothesis:
+`clone-to-colour.mjs` reads `wireframes/`, and `wireframes/` is where all four of these numbers
+still live.
+
+## Step 6, eleventh pass - the coach CTA card, and a handover this file had written to itself
+
+`coach-cabinet.css` ended step 7.98 with a sentence addressed to whoever came next: **«Whoever
+confirms the deletion of the block deletes these eight with it.»** The block is `<a class="cnew">`,
+the big accent card that opens a multi-client session. 7.98 had removed it from `design/coach-home.html`
+because «`.cnew` carried the same words and the SAME href as `.coach-newcta`, the full-width accent
+button the rail already puts 350px above it, and principle 2 is 'exactly one clear next step per
+screen'» - and left the component's six structure rules standing, on purpose, rather than take eight
+rules out as a side effect of a step about font-size.
+
+Two screens still carried the block, and **the answer is different on each**, which is why a blanket
+deletion would have been wrong. Measured at 390 before touching either:
+
+| | rail button | the card |
+|---|---|---|
+| `coach-home-free` | y=286, «Нова сесія» -> coach-session.html | y=801, **«Нова сесія»** -> coach-session.html |
+| `coach-home-empty` | y=286, «Нова сесія» -> coach-session.html | y=719, **«Зібрати першу сесію»** -> coach-session.html |
+
+> Variable: the `.cnew` card on `coach-home-free`. Value: deleted, markup and its seven private
+> rules. Why: same words, same destination, 515px apart, both on the accent fill - the case 7.98
+> decided, arriving at the screen the base's repair had missed. Accent fills inside `<main>` plus
+> the rail went 4 -> 3.
+
+> Variable: the `.cnew` card on `coach-home-empty`. Value: kept; its six structure rules move into
+> `coach-cabinet.css` beside the two colour declarations already there. Why: its words are NOT the
+> rail's, and its subtitle is the sentence 7.98 named as the empty state's own job - «That is the
+> empty state's job - coach-home-empty». A rule about a component belongs in the component.
+
+**Two values settled on the way in, and neither is new.** This file's own drift table, three hundred
+lines up, lists `.cnew .cn-s` 13 -> 14 and `.cnew .cn-go` 22 -> 24 among nineteen rows that «moved
+upward, none down» - and then records that these two were orphaned mid-step when the markup went.
+Applying them now is the table finishing its own sentence.
+
+**A third movement needs naming because the proof shows it and it changes nothing:** `font-weight
+800 -> 700` on `.cn-t` and `.cn-go`. That is `--fw-black: 700`, the owner's answer at 7.65, recorded
+in `tokens.css` as «WAS 800 - it never drew as 800». The declaration now says what the screen was
+already drawing.
+
+**Left open, and it is the owner's.** `coach-home-empty` still shows TWO accent fills pointing at
+`coach-session.html` - the rail's button and this card. Different words, one destination. Principle
+2 says one clear next step; which of the two carries it is a look rather than a measurement, and no
+repaint answers it. Written into `coach-cabinet.css` beside the rules, not left in a backlog line.
+
+Proof: `tree-diff HEAD`. `coach-home-empty` moves 27 elements at each width, and the full listing
+accounts for all of them - `.cn-t` weight, `.cn-s` 13->14 with its line box, `.cn-go` 22->24,
+`.acc-grid` giving up its retyped `gap: 14 / margin-top: 18` for the system's 16/16, and the
+ancestors' heights following. `coach-home-free` drops from 4761 rows to 4725: **markup left, so the
+comparator declines to compare** - the accent count is the evidence there, 4 -> 3, plus the
+photograph. `accept` at 360 and 390 over the five cabinet screens: 0.
+
+Private rules **359 -> 341**; single-home **64 -> 46**; private `@media` blocks **8 -> 4**.
+
+### What the proof cannot say when the markup changes
+
+`tree-diff` compares element N against element N in document order. Delete an element and every row
+after it shifts, so the tool correctly refuses and prints only the counts - which means **a markup
+deletion has no regression proof from this instrument at all**. That is not a fault to fix here: a
+comparator that tried to realign two different trees would be guessing. It is a limit to state, and
+the answer is to bring a different instrument - the accent-fill census and a photograph, both of
+which name what was supposed to change and show that it did.
+
+## Step 6, twelfth pass - the rename map was executed on the base and never carried to its states
+
+`coach-tariff.css` opens with the fullest rename map in the folder: nine numbered findings, «TWELVE
+RULES DELETED, ONE CUT TO A SINGLE DECLARATION, ONE MARKUP OVERRIDE REMOVED, TWO RULES WRITTEN»,
+every pair a real reading at 360 / 390 / 768 / 1280, before and after. It was carried out on
+`design/coach-tariff.html`, whose `<style>` block is empty.
+
+**Its two state screens got none of it.** `coach-tariff-cancel` and `coach-tariff-free` still wore
+the pre-map markup and the pre-map private block, and the map had already measured what each was
+worth. So this pass had no decisions to make either - it had a document to execute.
+
+| map item | what the states still carried |
+|---|---|
+| 2. the H1's inline style | `style="font-size:24px;font-weight:800"` on both |
+| 3. `.tf-lead`'s face is `.acc-sub` | bare `class="tf-lead"` plus the private copy |
+| 4. three line-heights are base.css's | `line-height: 1.5` / `1.55` privately |
+| 5. `.tf-badge` is `.oc-status.ok` | `class="tf-badge"` plus the private pill |
+| 6. `.tfov` is overlay.css's `.ceov` | `class="tfov open"` plus two private rules |
+| 7. `.tfdlg` is client-dialog.css's `.cedlg` | `class="tfdlg"` plus six private rules |
+| 9. the destructive control is `btn--outline btn--danger` | **`btn--accent` on «Скасувати підписку»** |
+
+**Item 9 was a live defect and the worst kind of one.** On `coach-tariff-cancel` the confirmation's
+destructive button carried `btn--accent` - the orange fill, the single most inviting control on the
+screen - on the action that ends a paid subscription. `button.css` settled this at 7.61: «the
+destructive control is the OUTLINE carrying the danger ink», and all three existing delete flows
+apply it. The opener was `btn--outline` with no danger ink, 12px under the 44 floor as well.
+
+**The proof is the map's own numbers arriving on a different screen.** Item 7 recorded the dialog as
+«before 350 x 357.53 @390, radius 14 -> after 342 x 428.34 @390, radius 12». Measured here after the
+markup swap: **342 x 428.344, radius 12**. Item 6 recorded «padding 20px -> 24px plus `overflow-y:
+auto`, which the private rule never had»; measured: exactly that. Item 5's pill went from
+`rgb(91,91,84)` on nothing, 11.5/800 uppercase, to `rgb(46,125,70)` on `rgba(46,125,70,.07)`,
+12/700 sentence case. A map written three steps ago, applied to a screen it was not measured on,
+reproducing to the hundredth of a pixel - that is what a rename map is FOR, and it is why the note
+in the file is worth more than the deletion it justified.
+
+> Variable: `.tf-price2 .per`, the upsell panel's price on `coach-tariff-free`. Value: 12.5px ->
+> `--fs-14`, joined to the line that already holds `.tf-price .per` and `.tf-col-p .per`. Why: three
+> places on one screen say «per month» in small type and one of them was 1.5px smaller than the other
+> two - the same «grey 12.5 -> 13 -> 14» those two rules already carry. The panel around it,
+> `.tf-upsell`, stays private: it has no home in the system yet.
+
+**One statement in the file went stale and is corrected rather than left standing.** Item 5 says
+`.tf-badge.muted` «dresses the Free state, which exists only as wireframes/coach-tariff-free.html,
+so it matches 0 elements in the colour layer». `design/coach-tariff-free.html` exists now. The class
+`.muted` still matches nothing - the screen dimmed its pill with a private `color` instead - so the
+conclusion holds and the premise does not. Both screens now show the same green «Активний» pill,
+which is the one question this pass had to answer rather than execute: a Free plan that is running
+is a good state by the same reading Pro's is.
+
+Proof: `tree-diff HEAD`, three screens, both widths. `coach-tariff` does not move. The two states
+move 24 and 65 elements, and the full listing accounts for every one against the map. `accept` at
+360 and 390: 0. `links`: 4600 internal hrefs, 0 dead.
+
+`coach-tariff-cancel`'s `<style>` block is now **empty**, the fourth screen in the corpus to reach
+that. Private rules **341 -> 324**; single-home **46 -> 41**.
