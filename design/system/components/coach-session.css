@@ -357,11 +357,23 @@
    `.field-grp > .field`'s, word for word.
    NO FIELD RULE IS WRITTEN HERE, which is the point: the atom keeps its own
    file. */
-/* `display: flex; flex-direction: column` DELETED from `.qadd-res`: its children
-   are block-level grids that already fill the width, so the flex context changed
-   nothing. Measured in the browser at 7.95 - identical box on every row. What is
-   left is the air above the first result. */
-.coach .qadd-res{ margin-top: 10px; }     /* [?] 10px again */
+/* `display: flex; flex-direction: column` DELETED from `.qadd-res` at 7.95: its
+   children are block-level grids that already fill the width, so the flex context
+   changed nothing. Measured in the browser then - identical box on every row.
+   RESTORED 2026-08-15, BECAUSE THAT MEASUREMENT LOOKED AT THE ROWS AND NOT AT THE
+   BOX AROUND THEM. The rows were indeed identical; the CONTAINER was not. A flex
+   context does not collapse the margins between its children, and block does, so
+   `coach-session-priceblock` is **8px shorter at 390** without it - measured
+   against the tree from five minutes earlier, on the page as a whole:
+   3951.56 -> 3943.56.
+   The claim was true about what it measured and false about what it concluded,
+   which is why the state screens kept their own copy for four steps and looked
+   right while the base quietly lost 8px of air. `wireframes/coach-session.html`
+   is the frozen structural authority and it has the flex; the coloured layer
+   changes the visual half and not the structural one, so the base is the screen
+   that had drifted. */
+.coach .qadd-res{ margin-top: 10px;       /* [?] 10px again */
+  display: flex; flex-direction: column; }
 .coach .qa-row{ display: grid; grid-template-columns: var(--size-44) 1fr auto auto;
   gap: 11px;                       /* [?] 11px has no rung; the ladder is 8/12 */
   align-items: center;

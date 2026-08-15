@@ -49,7 +49,7 @@
    is no longer there is worse than no comment, and the notes in this repository
    are long. */
 import { Conn, newSession, visit } from './cdp.mjs';
-import { serve, chrome, subject, ROOT, snapshotExpr } from './lib.mjs';
+import { serve, chrome, subject, ROOT, snapshotExpr, topRules, withNotes } from './lib.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -65,54 +65,9 @@ const M = snapshotExpr();
 const T0 = Date.now();
 const clock = () => new Date(Date.now() - T0).toISOString().slice(11, 19);
 
-/* ---------------------------------------------------------------- the parser
-
-   A CSS rule is found by counting braces, and the two things that break a brace
-   counter are comments and strings: `content: "}"` and a `/* } *\/` note both
-   close a block that was never open. Both are skipped as units. */
-function topRules(css) {
-  const out = [];
-  let i = 0, start = null, depth = 0;
-  while (i < css.length) {
-    const c = css[i];
-    if (c === '/' && css[i + 1] === '*') {
-      const j = css.indexOf('*/', i + 2);
-      i = j < 0 ? css.length : j + 2;
-      continue;
-    }
-    if (c === '"' || c === "'") {
-      let j = i + 1;
-      while (j < css.length && css[j] !== c) { if (css[j] === '\\') j++; j++; }
-      i = j + 1;
-      continue;
-    }
-    if (depth === 0 && start === null && !/\s/.test(c)) start = i;
-    if (c === '{') depth++;
-    else if (c === '}') { depth--; if (depth === 0 && start !== null) { out.push({ start, end: i + 1 }); start = null; } }
-    else if (c === ';' && depth === 0 && start !== null) { out.push({ start, end: i + 1 }); start = null; }
-    i++;
-  }
-  return out;
-}
-
-/* THE NOTE BELONGS TO THE RULE. A span is grown backwards over any comment
-   blocks that sit between it and the rule before it, separated by whitespace
-   only - which is how every note in this repository is written. A comment that
-   explains a rule nobody can find is the worst of the three possible states. */
-function withNotes(css, spans) {
-  let floor = 0;
-  return spans.map(s => {
-    let a = s.start;
-    for (;;) {
-      const head = css.slice(floor, a);
-      const m = head.match(/\/\*[\s\S]*?\*\/\s*$/);
-      if (!m) break;
-      a = floor + m.index;
-    }
-    floor = s.end;
-    return { ...s, start: a };
-  });
-}
+/* THE PARSER MOVED TO lib.mjs ON 2026-08-15, unchanged, because `private.mjs`
+   asks the same question of the same blocks and the two must agree on where a
+   rule starts and ends. Two parsers over one corpus disagree silently. */
 
 /* ---------------------------------------------------------------- the subject */
 /* THE GUARD tree-diff.mjs ALREADY PAID FOR, AND THE THIRD FORM OF IT KILLED FOR

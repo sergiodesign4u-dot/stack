@@ -287,3 +287,57 @@ export async function safeOpeners(deps, url, calls) {
   }
   return out;
 }
+
+/* ---------------------------------------------------------------- the CSS parser
+   ONE PARSER, TWO INSTRUMENTS. `inert.mjs` cuts private rules and `private.mjs`
+   classifies them, and both have to agree on where a rule STARTS and ENDS or
+   their numbers describe different corpora. A list retyped into a second
+   instrument is the hand fix this repository bans for pages; a parser retyped is
+   worse, because the disagreement is silent.
+
+   A CSS rule is found by counting braces, and the two things that break a brace
+   counter are comments and strings: `content: "}"` and a note holding a brace
+   both close a block that was never open. Both are skipped as units. */
+export function topRules(css) {
+  const out = [];
+  let i = 0, start = null, depth = 0;
+  while (i < css.length) {
+    const c = css[i];
+    if (c === '/' && css[i + 1] === '*') {
+      const j = css.indexOf('*/', i + 2);
+      i = j < 0 ? css.length : j + 2;
+      continue;
+    }
+    if (c === '"' || c === "'") {
+      let j = i + 1;
+      while (j < css.length && css[j] !== c) { if (css[j] === '\\') j++; j++; }
+      i = j + 1;
+      continue;
+    }
+    if (depth === 0 && start === null && !/\s/.test(c)) start = i;
+    if (c === '{') depth++;
+    else if (c === '}') { depth--; if (depth === 0 && start !== null) { out.push({ start, end: i + 1 }); start = null; } }
+    else if (c === ';' && depth === 0 && start !== null) { out.push({ start, end: i + 1 }); start = null; }
+    i++;
+  }
+  return out;
+}
+
+/* THE NOTE BELONGS TO THE RULE. A span is grown backwards over any comment
+   blocks that sit between it and the rule before it, separated by whitespace
+   only - which is how every note in this repository is written. A comment that
+   explains a rule nobody can find is the worst of the three possible states. */
+export function withNotes(css, spans) {
+  let floor = 0;
+  return spans.map(s => {
+    let a = s.start;
+    for (;;) {
+      const head = css.slice(floor, a);
+      const m = head.match(/\/\*[\s\S]*?\*\/\s*$/);
+      if (!m) break;
+      a = floor + m.index;
+    }
+    floor = s.end;
+    return { ...s, start: a };
+  });
+}
