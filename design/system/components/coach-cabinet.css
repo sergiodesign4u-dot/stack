@@ -453,6 +453,16 @@
    above whatever follows it, so the button now has the same air on both sides.
    13 was flagged in this file as having no rung. */
 .coach .cli-add{ margin-bottom: var(--space-12); }
+/* `.cnew .cn-tx` ARRIVES FROM TWO PRIVATE BLOCKS, 2026-08-15, and it is a gap
+   rather than an override: nothing in the system declared it, so the two state
+   screens were the only thing holding the text column back from overflowing.
+   `min-width: 0` is what lets a grid or flex child be narrower than its content
+   - the default `auto` makes a long client name push the card wide. It is
+   `wireframes/coach-home.html`'s own line, moved rather than re-decided.
+   The element exists only on those two screens today, so this reaches nothing
+   else; it is in the system because that is where a rule about a component
+   belongs, not because a third screen is waiting for it. */
+.coach .cnew .cn-tx{ min-width: 0; }
 /* THE RESTOCK LEAD IS restock-note.css's SENTENCE, WRITTEN A SECOND TIME. That
    file has `.restock .rk-lead` at `--fs-14` with `calc(-1 * var(--space-4)) 0
    var(--space-12)`; this is `.crestock .rk-lead` - one letter of difference in

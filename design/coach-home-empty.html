@@ -12,19 +12,7 @@
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
 <style>
-/* ============================================================
-   node 5.2 Кабінет тренера = the ACCOUNT SHELL (7.x) in COACH MODE.
-   Reuses the account shell primitives (left section-nav + content panel /
-   mobile menu-hub) verbatim; adds the coach dashboard (Pro chip, big
-   «Нова сесія» CTA, clients summary, recent multi-client orders, wishlist).
-   Greyscale only. Coach is a ROLE on top of the buyer account.
-   Shell primitives (.acc, .acc-nav, .acc-prof, .acc-links, .acc-link, .acc-h1,
-   .acc-grid, .acard, …) come from _wf.css - SAME as the buyer account, so the
-   coach gets the mobile swipeable-chips nav + width fix for free. Only the
-   coach-specific dashboard styles live here.
-   ============================================================ */
-/* coach status strip: Pro chip + wholesale-active note */
-.cstat { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 15px; border:1px solid var(--line-hair); border-radius: 12px; padding: 13px 15px; background:var(--bg-surface); }
+
 
 
 
@@ -40,13 +28,7 @@
    and inventing one would re-open the split of step 7. */
 .cnew { display: flex; align-items: center; gap: 16px; margin-top: 16px; border:1.5px solid var(--line-action); border-radius: 14px; padding: 20px; background:var(--bg-action); color: var(--text-onaction); }
 .cnew .cn-ic { width: 46px; height: 46px; flex: none; border-radius: 12px; border: 1.5px solid var(--line-onaction); display: flex; align-items: center; justify-content: center; font-size: 24px; }
-/* `display:block` ADDED, and it is a repair rather than a decision: `.cn-t` and
-   `.cn-s` are <span>s inside a <span>, so the title and the subtitle rendered on
-   ONE run-on line at every width. The frozen layer proves the intent against
-   itself - it puts `margin-top: 3px` on `.cn-s`, which does nothing at all to an
-   inline box. Left standing in `wireframes/`, which is frozen and whose defect
-   this is; said here rather than fixed there. */
-.cnew .cn-tx { min-width: 0; }
+
 .cnew .cn-t, .cnew .cn-s { display: block; }
 .cnew .cn-t { font-size: 18px; font-weight: 800; }
 .cnew .cn-s { font-size: 13px; color: var(--text-onaction); margin-top: 3px; }

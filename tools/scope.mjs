@@ -183,7 +183,15 @@ for (const p of PAGES) {
     const r = JSON.parse(await visit(conn, s.sessionId, `${srv.base}/design/${p}.html`, W, 900, M(sc), s.inflight));
     await conn.send('Target.closeTarget', { targetId: s.targetId });
     if (r.blind.length) console.log('  СЛІПА ТАБЛИЦЯ СТИЛІВ на ' + p + ': ' + r.blind.join(' '));
-    if (r.moved || r.had) rows.push({ p, sc, ...r });
+    /* EVERY PAGE ENTERS THE RECORD, and this line is where the hole actually
+       lived. It used to read `if (r.moved || r.had)`, so a page that neither
+       moved nor already wore the class was dropped BEFORE any question was asked
+       of it - and «a page whose private block replicates the scoped rules» is
+       exactly a page that does not move. Widening the filter downstream on
+       2026-08-15 changed nothing for that reason: the evidence had been thrown
+       away one step earlier. An instrument that discards its own negative cases
+       can only ever confirm. */
+    rows.push({ p, sc, ...r });
   }
 }
 l.stop(); srv.stop();
@@ -199,7 +207,23 @@ const inherits = r => {
   return b && b !== r.p && SRC[b] !== undefined && bodyScope(SRC[b]).has(r.sc);
 };
 const moved = rows.filter(r => !r.had && r.moved > 0);
-const missing = moved.filter(inherits);
+/* AND «MISSING» WAS GATED ON «MOVED», WHICH IS THE HOLE THAT SURVIVED THE 23.
+   Until 2026-08-15 this read `moved.filter(inherits)`, so a page could only be
+   reported as scope-less if adding the class CHANGED something. A page whose
+   private block happens to replicate the scoped rules exactly changes nothing
+   when the class arrives - and is therefore invisible to the check, while being
+   the very worst case: the system does not reach it at all and a copy is holding
+   the screen up.
+   Found from the other end on 2026-08-15. `coach-orders-empty` and
+   `coach-orders-error` carry `<body>` bare, declare `wfBar('coach-orders.html')`,
+   and their base wears `.coach`. `private.mjs` reported their `.co-top` and
+   `.co-new` as GAPS - the system silent - which cannot be true of a rule
+   `coach-cabinet.css` declares word for word, and is only true if the scoped
+   selector never matches. It never matches, because the page is not in the scope.
+   The two questions stay separate, which is the point of the list: BELONGING is
+   a name question answered by the base, and MOVEMENT is a browser question. The
+   defect is the first one. The second is what makes it interesting. */
+const missing = rows.filter(r => !r.had && inherits(r));
 const foreign = moved.filter(r => !inherits(r));
 const idle = rows.filter(r => r.had && r.moved === 0);
 /* AND THE REAL DEFECT IS THE OTHER DIRECTION, which nothing had been asking.
