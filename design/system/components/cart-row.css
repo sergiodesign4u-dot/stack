@@ -124,4 +124,30 @@ article.ci{ display: grid; grid-template-columns: 74px 1fr; gap: var(--space-12)
    `.oosgal .gmain img` keeps its .85 and is not in this set - that is one large
    photograph on the product page rather than a row, and it is muted by blending
    rather than by fading. */
-.ci.oos .ci-ph, .ci.oos .ci-nm, .ci.oos .ci-price{ opacity:.5; }
+/* 2026-08-15, THE OWNER HANDED THE LOOK BACK AND THE MEASUREMENT DECIDED IT.
+   One instrument was doing two jobs on two SURFACES, which is the axis this
+   system splits roles by, and only one of the two has a contrast floor:
+
+     the photograph   decoration, no threshold      opacity .5 stays
+     name and price   INK, and ink needs 4.5:1      measured 3.30:1  <- fails
+
+   `rgb(28,28,28)` on white is 17.04:1; composited at `opacity: .5` it is
+   **3.30:1**, measured in the browser on `cart-oos` and `coach-session-oos` at
+   390. (The backlog said 1.47 - that number was a raw multiply, not a
+   composite, and it is corrected here.) 3.30 passes the 3:1 NON-text threshold
+   and fails the 4.5:1 one that applies to what this actually is, and the name is
+   the very thing a buyer or a coach needs in order to choose a substitute.
+
+   Variable: how an unavailable product's row is muted. Value: photograph keeps
+   `opacity: .5`; name and price take `--text-secondary`. Why: opacity changes
+   contrast without declaring a role, and this system says a colour meaning is
+   carried by a role. `--text-secondary` is the existing muted-ink role, 265 uses,
+   **6.84:1** on white - secondary to the eye, legible to a reader.
+
+   AND THE STATE ITSELF WAS NEVER CARRIED BY THE FADE. `.ci-oostag` says «Немає в
+   наявності» in words, which is what states a state; the fade is emphasis. Same
+   split applied to `.pcard.dim` / `.pcard-l.dim` in product-card.css and to
+   `.cline.oos` in coach-session.css, because one meaning may not have two
+   treatments - all four measured 3.30:1 before the change. */
+.ci.oos .ci-ph{ opacity:.5; }
+.ci.oos .ci-nm, .ci.oos .ci-price{ color: var(--text-secondary); }

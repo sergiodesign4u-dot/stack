@@ -202,6 +202,14 @@ const moved = rows.filter(r => !r.had && r.moved > 0);
 const missing = moved.filter(inherits);
 const foreign = moved.filter(r => !inherits(r));
 const idle = rows.filter(r => r.had && r.moved === 0);
+/* AND THE REAL DEFECT IS THE OTHER DIRECTION, which nothing had been asking.
+   A screen wearing a scope its BASE does not wear is a screen claiming a flow it
+   is not in - that is a mistake. A screen wearing a scope its base wears, on
+   which no scoped selector happens to bite today, is a NAMESPACE and nothing
+   more. Until 2026-08-15 the second was failing this gate and the first was not
+   being asked at all. */
+const wrongFlow = rows.filter(r => r.had && BASE(r.p) && BASE(r.p) !== r.p &&
+  !bodyScope(SRC[BASE(r.p)] || '').has(r.sc));
 
 const line = r => '  ' + r.p.padEnd(30) + '.' + r.sc.padEnd(8) +
   'зрушить ' + String(r.moved).padStart(4) + ' з ' + String(r.elements).padEnd(5) +
@@ -217,8 +225,27 @@ if (foreign.length) {
   for (const r of foreign.sort((a, b) => b.moved - a.moved))
     console.log(line(r) + '   база: ' + (BASE(r.p) || 'немає wfBar'));
 }
+if (wrongFlow.length) {
+  console.log('\nСКОУП ЧУЖОГО ПОТОКУ (' + wrongFlow.length + ') - база його не носить:');
+  for (const r of wrongFlow) console.log('  ' + r.p.padEnd(30) + '.' + r.sc + '   база: ' + BASE(r.p));
+}
 if (idle.length) {
-  console.log('\nСКОУП НОСИТЬСЯ ДАРМА (' + idle.length + '), нічого не змінює:');
+  /* 2026-08-15, THE OWNER'S CALL ON `cart-coach`, AND IT IS NOT A SHRUG.
+     The one rule that used `.coach` there was `.coach .ci:last-child`, moved to
+     `.cd-group .ci:last-child` at step 7.96 with its reason written into
+     cart-drawer.css: `.coach` was not a guard, because every coloured coach
+     screen carries it, so the rule reached whatever wore `.ci` anywhere in the
+     flow. Nothing is broken on that screen - it renders exactly as designed, and
+     the rule that needed a guard got a correct one.
+     `cart-coach` IS a coach screen (locked product decision 1: the cart with
+     per-client tagging), the scope is written from the base by rule rather than
+     by hand, and stripping it would leave the single coach screen without the
+     namespace - so the next scoped selector would silently miss it. That is the
+     23-screen defect this stage has already paid for once. A namespace that
+     catches nothing today costs one class token; a namespace missing from one
+     screen costs a class of silent bugs.
+     So this list REPORTS and does not fail. What fails is the list above it. */
+  console.log('\nСКОУП НІЧОГО НЕ ЛОВИТЬ (' + idle.length + ') - неймспейс потоку, не дефект:');
   for (const r of idle) console.log('  ' + r.p.padEnd(30) + '.' + r.sc);
 }
 
@@ -238,5 +265,5 @@ if (APPLY && missing.length) {
 
 console.log('\n' + PAGES.length + ' сторінок @' + W + ' · скоупи: ' + SCOPES.map(s => '.' + s).join(' ') +
   ' · без свого скоупа: ' + missing.length + ' · чужий скоуп зачепив би: ' + foreign.length +
-  ' · носиться дарма: ' + idle.length);
-process.exit(missing.length || idle.length ? 1 : 0);
+  ' · скоуп чужого потоку: ' + wrongFlow.length + ' · нічого не ловить: ' + idle.length);
+process.exit(missing.length || wrongFlow.length ? 1 : 0);

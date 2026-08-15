@@ -596,6 +596,16 @@ carried `border-top-color` and none of the other three sides, and never read pse
 properties became **85**, element plus `::before` plus `::after`. The step-6 reading of «9
 movements on 5 screens» was taken with the narrow list.
 
+**A fifth: a RENAME was being counted as a MOVE.** Every row begins with `TAG.className`, so
+changing a class - which is what half the repairs in this stage do - made the row string differ
+while all 85 properties stood still. Sweeping the dead `dark` off 105 controls came back as «114
+comparisons, **114 moved**» with an empty property list under every one of them, and a reader who
+trusted the headline would have reverted a correct change. They are different findings and both
+are worth seeing: a moved property is a visual regression, a renamed row is the markup edit you
+meant to make. **Moved counts properties only; renames are named beside it.** The same sweep now
+reads «114 comparisons, 0 moved, 630 rows renamed» - and 630 is 105 controls x 3 rows x 2 widths,
+which is the arithmetic saying the same thing twice.
+
 The 40-property list moved into `lib.mjs` as `STYLE_PROPS` when `scope.mjs` needed the same one.
 
 ---
@@ -657,3 +667,18 @@ out. The map runs **after** the base, not before - the first version asked it fi
 control asks **«is the decision still visible in the product»**, not «did it fire»: every entry
 stops firing the moment `--apply` works, so the other question would have turned the gate red one
 run after it went green.
+
+**It also sweeps the dead `dark`, 2026-08-15: 105 of them on 57 screens.** `wireframes/_wf.css`
+declares `.btn.dark`; nothing under `design/` declares `.dark` at all, so the word paints nothing
+in colour - it is the grey layer's way of saying «primary», and the rank has replaced it. It is
+INPUT to `clone-to-colour.mjs`, which reads it to pick a starting rank and now drops it from the
+output, so a fresh clone never writes one.
+
+- **The guard is what makes it a sweep and not a `sed`:** a `dark` is dead only where a `btn--*`
+  rank has replaced it. Anything else wearing the word is listed and left alone, because a word can
+  be reused and a sweep that cannot say «not this one» will take a live class with it one day.
+- **The order is load-bearing.** The sweep runs AFTER the ranks are written and reads the updated
+  sources: a control arriving as `btn dark cs-go` is unranked, so a sweep placed first would leave
+  the now-dead word behind and need a second run to converge.
+- **The count that fails the gate is what is LEFT, not what fired** - the same lesson the decision
+  map above already paid for.

@@ -5207,3 +5207,123 @@ scope fix let the system reach these screens at all, and 655 rules have since le
 was counted over. Restating it as a smaller number would be arithmetic, not a measurement. The 499
 rules that remain are the honest subject of item 2, and item 3's 210 local declarations sit inside
 them.
+
+## Step 6, fifth pass - the dead `dark` swept, and the proof learned to tell a rename from a move
+
+**105 dead `class="dark"` removed from 57 screens.** `tree-diff HEAD`: 114 comparisons, **0 moved,
+630 rows renamed**, and 630 is 105 controls x 3 rows (element, `::before`, `::after`) x 2 widths -
+the arithmetic saying the same thing the comparator says. `accept` at 360 and 390 over the 57: 0.
+
+### Measured before it was touched, and the measurement is what made it safe
+
+All 105 sat on controls that already carry a `btn--*` rank, so the word had been superseded rather
+than forgotten. `wireframes/_wf.css:583` declares `.btn.dark`; nothing under `design/` declares
+`.dark` at all - the mentions in `tokens.css`, `button.css` and `filter-sheet.css` are comments
+recording that it used to matter, and `design/kit/_page.css` has `.kp-demo.dark`, which is the
+stand's own demo canvas, not this class on a product control. No JS touches it either: every
+`dark` in `design/_nav.js` and `design/system/theme.js` is the theme MODE string, and the one
+comment that says «Популярне = dark + ★» describes a chip the code writes as `tag-pop`.
+
+### The fix is in two places, and one of them is the transform
+
+`clone-to-colour.mjs` reads `dark` to decide whether a cloned control starts as `btn--accent` or
+`btn--outline`, and carried it into the result. **`dark` is INPUT to that transform, not output**,
+so it is dropped there and a fresh clone never writes one. The sweep of what already shipped lives
+in `btn-rank.mjs`, which owns button class attributes in `design/*.html` - the file had already
+written «removing those is a sweep of its own», and this is it.
+
+Three things make it a sweep rather than a `sed`:
+
+- **The guard.** A `dark` is dead only where a rank has replaced it. Anything else wearing the word
+  is listed and left alone, because a word can be reused and a sweep that cannot say «not this one»
+  will take a live class with it one day.
+- **The order.** It runs AFTER the ranks are written and reads the updated sources: a control
+  arriving as `btn dark cs-go` is unranked, so a sweep placed first would leave the now-dead word
+  behind and need a second run to converge.
+- **The count that fails the gate is what is LEFT, not what fired** - the lesson the decision map
+  in the same file already paid for.
+
+### And the proof was about to call a correct change a regression
+
+The first run answered «114 comparisons, **114 moved**» - with an empty property list under every
+single one. Every row of the snapshot begins with `TAG.className`, so changing a class makes the
+row string differ while all 85 properties stand still, and **half the repairs in this stage are
+class changes**. A reader who trusted that headline would have reverted the sweep.
+
+A rename and a move are different findings and both are worth seeing: a moved property is a visual
+regression, a renamed row is the markup edit you meant to make. `tree-diff.mjs` now counts MOVED on
+properties only and names renames beside it. This is the fifth fault found in that comparator, and
+the second in two days that was about to bless or damn the biggest change of the stage - the other
+being the exit code of 0 over zero comparisons.
+
+**The pattern is worth stating plainly, because it has now happened five times in three days:**
+every instrument in `tools/` has had a failure mode nobody had measured, and each reported in the
+direction that made the work look finished. The remedy that keeps working is not more care, it is a
+NULL PASS and an idle control on every list - ask the instrument a question whose answer you
+already know, and check that a declared exception still covers something real.
+
+## Step 6, sixth pass - the owner handed back two decisions, and the measurement answered both
+
+### Item 5. The out-of-stock row: it was a bug, and the entry's own number was wrong
+
+The backlog said `opacity: .5` took the row's text to **1.47:1**. Composited against the surface
+rather than multiplied raw, `rgb(28,28,28)` at `.5` on white is **3.30:1** - measured in the
+browser on `cart-oos`, `coach-session-oos`, `listing` and `listing-list` at 390, all four
+identical. 3.30 clears the 3:1 non-text threshold and fails the 4.5:1 one that applies to what this
+actually is. The placeholder's 1.97 was right and does not matter: a placeholder box is decoration.
+
+**One instrument was doing two jobs on two SURFACES**, which is the axis this system splits roles
+by, and only one of them has a floor:
+
+| | | |
+|---|---|---|
+| the photograph | decoration, no threshold | `opacity: .5` stays |
+| name and price | ink, 4.5:1 | 3.30 -> **6.84:1** via `--text-secondary` |
+
+> Variable: how an unavailable product is muted. Value: photograph keeps `opacity: .5`; name and
+> price take `--text-secondary`. Why: opacity changes contrast without declaring a role, and this
+> system says a colour meaning is carried by a role. The product name is exactly what a coach reads
+> in order to choose a substitute - the last thing that may go faint. `--text-secondary` is the
+> existing muted-ink role, 265 uses, 6.84:1 on white.
+
+Applied to all four places that share the meaning, because one meaning may not have two
+treatments: `.ci.oos` in cart-row.css, `.pcard.dim` and `.pcard-l.dim` in product-card.css, and
+`.cline.oos`, which **moved out of the private block of `coach-session-oos.html` into
+`coach-session.css`** - one rule off item 2's pile as well. The state itself was never carried by
+the fade: `.ci-oostag` and `.pavail.out` say «Немає в наявності» in words, and that is what states
+a state.
+
+**Measuring AFTER the change caught a mistake that reasoning had missed, and it is the useful half
+of this record.** `color` on `.prow2` is INHERITED, and inheritance loses to any declaration of its
+own however weak - `.pnew` has one, so the grid card came back at **17.04:1**: not muted at all,
+the exact opposite of the defect being fixed. The role had to land on the price element itself.
+The same measurement showed the old fade had also been dimming `.cartbtn.notify`, «Повідомити про
+надходження» - **the one action still possible on that card**. It now stands at full strength,
+which is right: the product is unavailable, the notification is not.
+
+Proof: `tree-diff --dir`, 88 pages, 176 comparisons, **10 moved - the 5 affected screens at both
+widths and nothing else** - every movement either `opacity 0.5 -> 1` or `rgb(28,28,28) ->
+rgb(91,91,84)`. `accept` at 360 and 390 on the five: 0.
+
+### Item 6. `cart-coach` keeps its scope, and the check was wrong to call it a defect
+
+**Nothing is broken there, and the answer was already written in the code.** The one rule that ever
+used the scope on that screen was `.coach .ci:last-child`, moved to `.cd-group .ci:last-child` at
+step 7.96 with its reason recorded in `cart-drawer.css`: `.coach` was **not a guard**, because every
+coloured coach screen carries it, so the rule reached whatever wore `.ci` anywhere in the flow.
+`.cd-group` is the true guard - 2 instances on `cart-coach.html`, 0 on `cart.html` and
+`cart-oos.html`. The rule that needed a guard got a correct one; the namespace simply has nothing
+to bite there today.
+
+**Kept, and the reasoning is asymmetric on purpose.** `cart-coach` IS a coach screen - locked
+product decision 1, the cart with per-client tagging. The scope is written from the base by rule
+rather than by hand. Stripping it would leave the single coach screen without the namespace, so the
+next `.coach`-scoped selector would silently miss it: **the 23-screen defect this stage has already
+paid for once**. A namespace that catches nothing today costs one class token; a namespace missing
+from one screen costs a class of silent bugs.
+
+**And `scope.mjs` had been failing the gate on it all along** - `process.exit(missing || idle)` -
+which nobody had noticed, because the gate was being read through `tail -1` and the exit code was
+the pipe's. An idle namespace is now reported and does not fail. What fails is the direction nobody
+had been asking: **a screen wearing a scope its base does NOT wear**, a screen claiming a flow it is
+not in. Currently 0, and that is the list's real idle control.

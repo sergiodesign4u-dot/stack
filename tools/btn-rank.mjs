@@ -105,6 +105,45 @@ for (const p of NAMES) {
   }
 }
 
+/* ---------------------------------------------------------------- the dead `dark`
+
+   `dark` IS THE GREY LAYER'S WORD FOR «PRIMARY», AND IN COLOUR IT PAINTS NOTHING.
+   `wireframes/_wf.css:583` declares `.btn.dark{ background: var(--dark) }`; no
+   stylesheet under `design/` declares `.dark` at all - the three mentions in
+   `tokens.css`, `button.css` and `filter-sheet.css` are comments recording that
+   it used to matter, and `design/kit/_page.css` has `.kp-demo.dark`, which is the
+   stand's own demo canvas and not this class on a product control.
+
+   IT IS INPUT TO THE TRANSFORM, NOT OUTPUT. `clone-to-colour.mjs` reads `dark`
+   to decide whether a cloned control starts as `btn--accent` or `btn--outline`,
+   and then used to carry it through into the result, where it means nothing. The
+   token is dropped there now, so a fresh clone never produces one, and this sweep
+   is what clears the ones already written - the file said above that «removing
+   those is a sweep of its own», and this is it.
+
+   THE GUARD IS WHAT MAKES IT SAFE, and it is the whole reason this is not a
+   `sed`. A `dark` is only dead once the RANK has replaced it: the element carries
+   a `btn--*`. Anything else wearing the word is reported and left alone, because
+   a word can be reused, and a sweep that cannot say «not this one» is a sweep
+   that will one day take a live class with it. */
+/* IT RUNS AFTER THE RANKS ARE WRITTEN, AND THE ORDER IS LOAD-BEARING. A control
+   arriving as `btn dark cs-go` is unranked, so this sweep must not see it until
+   the rank has been added - otherwise one `--apply` ranks it and leaves the now
+   dead `dark` behind, and the tool needs a second run to converge. Reading the
+   sweep off the UPDATED sources makes one run enough. */
+const darkSweep = () => {
+  const rows = [], keep = [];
+  for (const p of NAMES) {
+    for (const m of attrs(SRC[p])) {
+      const t = toks(m[1]);
+      if (!t.includes('dark')) continue;
+      if (ranked(t)) rows.push({ p, was: m[1], now: t.filter(x => x !== 'dark').join(' ') });
+      else keep.push({ p, was: m[1] });
+    }
+  }
+  return { rows, keep };
+};
+
 /* THE IDLE CONTROL IS «IS THE DECISION STILL VISIBLE», NOT «DID IT FIRE».
    The first version failed an entry that stopped firing - which is what happens
    to EVERY entry the moment --apply does its work, so the gate would have gone
@@ -140,12 +179,38 @@ if (APPLY && done.length) {
     let s = SRC[p];
     for (const r of done.filter(x => x.p === p))
       s = s.split('class="' + r.was + '"').join('class="' + r.now + '"');
+    SRC[p] = s;
     writeFileSync(join(DIR, p + '.html'), s);
     wrote++;
   }
   console.log('\nпереписано ' + done.length + ' контролів на ' + wrote + ' сторінках');
 }
 
+const dark = darkSweep();
+if (dark.keep.length) {
+  console.log('\n`dark` НЕ НА КНОПЦІ З РАНГОМ (' + dark.keep.length + ') - не чіпаю, це може бути живе:');
+  for (const r of dark.keep) console.log('  ' + r.p.padEnd(28) + '"' + r.was + '"');
+}
+let darkLeft = dark.rows.length;
+if (dark.rows.length) {
+  const pages = new Set(dark.rows.map(r => r.p));
+  console.log('\nМЕРТВИЙ `dark` (' + dark.rows.length + ' на ' + pages.size + ' сторінках), ранг уже його заступив');
+  if (APPLY) {
+    for (const p of pages) {
+      let s = SRC[p];
+      for (const r of dark.rows.filter(x => x.p === p))
+        s = s.split('class="' + r.was + '"').join('class="' + r.now + '"');
+      SRC[p] = s;
+      writeFileSync(join(DIR, p + '.html'), s);
+    }
+    console.log('знято ' + dark.rows.length + ' на ' + pages.size + ' сторінках');
+    /* the count that matters is what is LEFT, not what fired - the same lesson
+       the DECIDED control above already paid for */
+    darkLeft = darkSweep().rows.length;
+  }
+}
+
 console.log('\n' + NAMES.length + ' сторінок · без рангу: ' + rows.length +
-  ' · читається з бази: ' + done.length + ' · без відповіді: ' + open.length);
-process.exit(open.length || idle.length ? 1 : 0);
+  ' · читається з бази: ' + done.length + ' · без відповіді: ' + open.length +
+  ' · мертвий dark: ' + darkLeft);
+process.exit(open.length || idle.length || darkLeft ? 1 : 0);

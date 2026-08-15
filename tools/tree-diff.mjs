@@ -89,7 +89,7 @@ const b = await serve(ROOT);
 const l = await chrome('treediff');
 const conn = await Conn.open(l.wsUrl);
 
-let moved = 0, checked = 0, missing = 0;
+let moved = 0, checked = 0, missing = 0, renames = 0;
 for (const p of PAGES) {
   if (!existsSync(join(dir, 'design', p + '.html'))) { missing++; console.log('  нова сторінка, порівнювати нема з чим: ' + p); continue; }
   for (const w of [390, 1280]) {
@@ -111,21 +111,43 @@ for (const p of PAGES) {
       moved++; console.log('  ' + p + ' @' + w + ': елементів ' + ra.length + ' -> ' + rb.length);
       continue;
     }
-    const diff = [];
-    for (let i = 0; i < ra.length; i++) if (ra[i] !== rb[i]) diff.push(i);
+    /* A RENAME IS NOT A MOVE, AND UNTIL 2026-08-15 THIS COULD NOT TELL THEM APART.
+       Every row begins with `TAG.className`, so changing a class - which is what
+       half the repairs in this stage DO - made the row string differ while all 85
+       properties stayed identical. Sweeping a dead `dark` off 105 controls came
+       back as «114 comparisons, 114 moved» with an empty property list under
+       every one of them, and a reader who trusted the headline would have
+       reverted a correct change.
+       They are genuinely different findings and both are worth seeing: a moved
+       property is a visual regression, a renamed row is the markup edit you meant
+       to make. So the count of MOVED is properties only, and renames are said out
+       loud beside it rather than folded in or hidden. */
+    const diff = [], renamed = [];
+    for (let i = 0; i < ra.length; i++) {
+      if (ra[i] === rb[i]) continue;
+      const x = ra[i].split('|'), y = rb[i].split('|');
+      (P.some((n, k) => x[k + 1] !== y[k + 1]) ? diff : renamed).push(i);
+    }
+    if (renamed.length) renames += renamed.length;
     if (diff.length) {
       moved++;
-      console.log('  ' + p + ' @' + w + ': зрушило елементів ' + diff.length);
+      console.log('  ' + p + ' @' + w + ': зрушило елементів ' + diff.length +
+        (renamed.length ? ' (плюс ' + renamed.length + ' лише перейменованих)' : ''));
       for (const i of diff.slice(0, 4)) {
         const x = ra[i].split('|'), y = rb[i].split('|');
         const props = P.map((n, k) => x[k + 1] !== y[k + 1] ? n + ' ' + x[k + 1] + ' -> ' + y[k + 1] : null).filter(Boolean);
         console.log('      ' + x[0] + '   ' + props.slice(0, 3).join(' · '));
       }
+    } else if (renamed.length) {
+      console.log('  ' + p + ' @' + w + ': ' + renamed.length + ' рядків перейменовано, жодна властивість не зрушила');
+      const i = renamed[0];
+      console.log('      ' + ra[i].split('|')[0] + '  ->  ' + rb[i].split('|')[0]);
     }
   }
 }
 l.stop(); a.stop(); b.stop();
 console.log('\n' + PAGES.length + ' сторінок · ' + checked + ' порівнянь (2 ширини) · зрушило: ' + moved +
+  (renames ? ' · перейменовано рядків: ' + renames : '') +
   (missing ? ' · нових сторінок без пари: ' + missing : ''));
 /* A WALK THAT COMPARED NOTHING IS NOT A PASS, and until 2026-08-15 it exited 0.
    Found by a shell mistake rather than by thought: zsh does not word-split an

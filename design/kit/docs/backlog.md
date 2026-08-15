@@ -90,8 +90,11 @@ load-bearing rather than decorative: `concept/directions` (203 elements from 2 s
 would collide with an `x` that means something else, which is what a namespace is for. The check
 reports them in a list of their own and never writes them.
 
-One screen wears the scope for nothing - `cart-coach`, where no scoped selector bites. That is the
-idle control of the same list, and it is a decision to take, not a defect.
+One screen wears the scope for nothing - `cart-coach`, where no scoped selector bites. **Decided
+2026-08-15: kept, and the check stopped calling it a defect** - see item 6. The rule that used it
+there moved to a correct guard at step 7.96, and a namespace with nothing to bite costs one class
+token, where a namespace missing from one screen costs a class of silent bugs. What the check asks
+now is the opposite direction: a screen wearing a scope its base does NOT wear.
 
 ## List 2 - system to product, and this is the whole of the remaining work
 
@@ -323,13 +326,95 @@ property.
    the corpus it was taken over. It is not restated here as a smaller number, because that number
    would be arithmetic rather than a measurement.
 3. **Decide the 210 local declarations**: a component each, or a deletion each.
-4. **105 dead `class="dark"` in `design/*.html`** - no stylesheet in the coloured layer defines
-   `.dark`. Not swept by hand, because `tools/clone-to-colour.mjs` would put them back: the fix is
-   one rule in the transform plus a sweep.
-5. **`.cline.oos` dims a whole row to `opacity: .5`**, taking its text to 1.47 and its placeholder
-   to 1.97. That is how the row says «unavailable» - a look to decide, not a bug to fix.
-6. **`cart-coach` wears `.coach` for nothing.** Keep it as a statement of which flow the screen
-   belongs to, or drop it as a class that paints nothing. A decision, either way.
+4. ~~**105 dead `class="dark"` in `design/*.html`** - no stylesheet in the coloured layer defines
+   `.dark`.~~ **Closed 2026-08-15: 105 removed from 57 screens, and nothing moved.**
+
+   **Measured before it was touched, and the measurement is what made it safe.** All 105 sat on
+   controls that already carry a `btn--*` rank, so the word had been superseded rather than
+   forgotten. `wireframes/_wf.css:583` declares `.btn.dark`; nothing under `design/` declares
+   `.dark` at all - the mentions in `tokens.css`, `button.css` and `filter-sheet.css` are comments
+   recording that it used to matter, and `design/kit/_page.css` has `.kp-demo.dark`, which is the
+   stand's own demo canvas and not this class on a product control. No JS reads or writes it
+   either: every `dark` in `design/_nav.js` and `design/system/theme.js` is the THEME mode string.
+
+   **The fix is in two places, and one of them is the transform.** `clone-to-colour.mjs` reads
+   `dark` to decide whether a cloned control starts as `btn--accent` or `btn--outline` and used to
+   carry it into the result - so `dark` is INPUT to the transform and is now dropped from its
+   output. The sweep of what already shipped lives in `btn-rank.mjs`, which owns button class
+   attributes in `design/*.html`, **and it runs after the ranks are written**: a control arriving
+   as `btn dark cs-go` is unranked, so a sweep placed before the ranking would leave the dead word
+   behind and need a second run to converge.
+
+   **The guard is what makes it a sweep and not a `sed`:** a `dark` is dead only where a rank has
+   replaced it. Anything else wearing the word is listed and left alone.
+
+   Proof: `tree-diff HEAD`, 57 pages, 114 comparisons, **0 moved, 630 rows renamed** - which is
+   105 controls x 3 rows (element, `::before`, `::after`) x 2 widths, exactly. `accept` at 360 and
+   390 over the 57: 0 failures.
+5. ~~**`.cline.oos` dims a whole row to `opacity: .5`.**~~ **Decided and built 2026-08-15, the
+   owner handing the look back.** It was a bug after all, and the measurement is what settled it.
+
+   **The number in this entry was wrong, and the true one is worse in the place that matters.**
+   Composited against the surface rather than multiplied raw, `rgb(28,28,28)` at `opacity: .5` on
+   white is **3.30:1**, not 1.47 - measured in the browser on `cart-oos`, `coach-session-oos`,
+   `listing` and `listing-list` at 390, all four the same figure. 3.30 clears the 3:1 non-text
+   threshold and fails the 4.5:1 one that applies to what this actually is. The placeholder's 1.97
+   was right and does not matter: a placeholder box is decoration.
+
+   **One instrument was doing two jobs on two surfaces**, which is the axis this system splits
+   roles by, and only one of the two has a floor:
+
+   | | | |
+   |---|---|---|
+   | the photograph | decoration, no threshold | `opacity: .5` stays |
+   | name and price | ink, 4.5:1 | 3.30 -> **6.84:1** via `--text-secondary` |
+
+   > Variable: how an unavailable product is muted. Value: photograph keeps `opacity: .5`; name and
+   > price take `--text-secondary`. Why: opacity changes contrast without declaring a role, and the
+   > product name is exactly what a coach reads in order to choose a substitute - the last thing
+   > that may go faint. `--text-secondary` is the existing muted-ink role, 265 uses, 6.84:1 on white.
+
+   Applied to all four places that share the meaning, because one meaning may not have two
+   treatments: `.ci.oos` (cart-row.css), `.pcard.dim` / `.pcard-l.dim` (product-card.css), and
+   `.cline.oos`, which **moved out of the private block of `coach-session-oos.html` into
+   `coach-session.css`** where it belongs - one rule off item 2's pile as well.
+
+   **The state was never carried by the fade.** `.ci-oostag` and `.pavail.out` say «Немає в
+   наявності» in words, which is what states a state; the fade is emphasis.
+
+   **And measuring after the change caught a mistake reasoning had missed.** `color` on `.prow2` is
+   INHERITED, and inheritance loses to any declaration of its own however weak - `.pnew` has one,
+   so the grid card came back at 17.04:1, not muted at all, the exact opposite of the fix. The role
+   had to land on the price element. The same measurement showed the old fade had also been
+   dimming `.cartbtn.notify`, «Повідомити про надходження» - **the one action still possible on
+   that card**. It now stands at full strength, which is right: the product is unavailable, the
+   notification is not.
+
+   Proof: `tree-diff --dir`, 88 pages, 176 comparisons, **10 moved - the 5 affected screens at both
+   widths and nothing else**, every movement either `opacity 0.5 -> 1` or `rgb(28,28,28) ->
+   rgb(91,91,84)`. `accept` at 360 and 390 on the five: 0.
+6. ~~**`cart-coach` wears `.coach` for nothing.**~~ **Closed 2026-08-15: kept, and the check was
+   wrong to call it a defect.**
+
+   **Nothing is broken on that screen, and the answer was already written in the code.** The one
+   rule that ever used the scope there was `.coach .ci:last-child`, moved to
+   `.cd-group .ci:last-child` at step 7.96 with its reason recorded in `cart-drawer.css`: `.coach`
+   was **not a guard**, because every coloured coach screen carries it, so the rule reached
+   whatever wore `.ci` anywhere in the flow. `.cd-group` is the true guard - 2 instances on
+   `cart-coach.html`, 0 on `cart.html` and `cart-oos.html`. The rule that needed a guard got a
+   correct one; the namespace simply has nothing to bite on that screen today.
+
+   **Kept, and the reasoning is asymmetric on purpose.** `cart-coach` IS a coach screen - locked
+   product decision 1, the cart with per-client tagging. The scope is written from the base by
+   rule, not by hand. Stripping it would leave the single coach screen without the namespace, so
+   the next `.coach`-scoped selector would silently miss it - **the 23-screen defect this stage has
+   already paid for once**. A namespace that catches nothing today costs one class token; a
+   namespace missing from one screen costs a class of silent bugs.
+
+   **`scope.mjs` had been failing the gate on it, and now asks the right question instead.** An
+   idle namespace is reported and does not fail. What fails is the direction nobody had been
+   asking: **a screen wearing a scope its base does not wear** - a screen claiming a flow it is not
+   in. Currently 0.
 7. ~~**Two stale records**: `design/overview.html` says 50 coloured screens (it is 87 plus the hub)
    and the step-8.19 note says 41 grey-only screens (it is 54).~~ **Closed 2026-08-15, and the
    entry was stale about itself.** Both had already been corrected in their own files -

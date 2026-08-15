@@ -46,7 +46,22 @@
 .pcard .pmeta2{ display: flex; justify-content: space-between; }
 .pcard .perserv{ color: var(--text-secondary); }
 .pcard .perserv b{ color: var(--text-primary); }
-.pcard.dim .ph, .pcard.dim .prow2{ opacity: .5; }
+/* 2026-08-15: the surface split - see the long note in cart-row.css. The
+   photograph is decoration and keeps its fade; the price is INK and measured
+   3.30:1 under `opacity: .5`, where text needs 4.5:1. `--text-secondary` is
+   6.84:1 and still reads as secondary. The card's own price row holds no accent
+   - measured `rgb(28,28,28)` on both `listing` and `listing-list` - so the role
+   lands on the row and reaches the currency mark with it. */
+.pcard.dim .ph{ opacity: .5; }
+/* THE ROLE HAS TO LAND ON THE PRICE, NOT ON THE ROW, and measuring is the only
+   reason that is known. `color` on `.prow2` is INHERITED, and inheritance loses
+   to any declaration of its own no matter how weak - `.pnew` has one, so the
+   dimmed card came back at 17.04:1: not muted at all, the opposite of the
+   defect being fixed. The card also holds the ONE action that is still possible
+   here - `.cartbtn.notify`, «Повідомити про надходження» - and the old fade over
+   the whole row muted that too. It now stands at full strength, which is right:
+   the product is unavailable, the notification is not. */
+.pcard.dim .pnew, .pcard.dim .pold, .pcard.dim .pcut{ color: var(--text-secondary); }
 .pcard-l{ display: grid; grid-template-columns: 84px 1fr auto auto; gap: var(--space-16); border: 1px solid var(--line-hair); padding: var(--space-12); align-items: center; }
 .pcard-l .lph{ width: 84px; aspect-ratio: 1; border-radius: var(--radius-8); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); position: relative; }
 /* 7.37: this line kept `background: var(--bg-page)` and a border, and the
@@ -102,7 +117,8 @@
 .pcard-l .lfav:not(.on):hover{ color: var(--text-action); }
 .pcard-l .lfav{ font-size: var(--fs-18); line-height: var(--lh-flat); position: relative; }
 .pcard-l .lfav::after{ content: ''; position: absolute; inset: -12px -6px -12px -13px; }  /* 18x20 -> 37x44 */
-.pcard-l.dim .lph, .pcard-l.dim .lprice{ opacity: .5; }
+.pcard-l.dim .lph{ opacity: .5; }
+.pcard-l.dim .lprice{ color: var(--text-secondary); }
 @media (max-width: 559px){
   .pcard-l{ grid-template-columns: 56px 1fr; row-gap: var(--space-12); }
   .pcard-l .lph{ width: 56px; }

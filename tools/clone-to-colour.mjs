@@ -114,11 +114,18 @@ export function transform(src, name) {
      this default wherever the base has an answer. */
   const before = (s.match(/class="[^"]*\bbtn\b[^"]*"/g) || [])
     .filter(c => !/\bbtn--/.test(c)).length;
+  /* AND `dark` IS INPUT TO THIS TRANSFORM, NOT OUTPUT. It is the grey layer's
+     word for «primary» and no stylesheet under `design/` declares `.dark` at
+     all, so carrying it into the result wrote a class that paints nothing -
+     **105 of them on 57 screens** by 2026-08-15, every one on a control that had
+     since been given a real rank. Once the rank has been read off it, the word
+     has said everything it has to say. Swept out of what already shipped by
+     `btn-rank.mjs`, which owns button class attributes in `design/*.html`. */
   s = s.replace(/class="([^"]*)"/g, (m, cl) => {
     const t = cl.split(/\s+/).filter(Boolean);
     if (!t.includes('btn') || t.some(x => x.startsWith('btn--'))) return m;
     const rank = t.includes('dark') ? ['btn--accent', 'btn--s'] : ['btn--outline', 'btn--s'];
-    return 'class="' + [...rank, ...t].join(' ') + '"';
+    return 'class="' + [...rank, ...t.filter(x => x !== 'dark')].join(' ') + '"';
   });
   const left = (s.match(/class="[^"]*\bbtn\b[^"]*"/g) || [])
     .filter(c => !/\bbtn--/.test(c)).length;
