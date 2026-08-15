@@ -621,6 +621,19 @@ layer grows to the flows that matter, or the files that serve only grey screens 
 does. What must not continue is polishing a component to the pixel on 40 screens while the
 primary audience's whole flow has no colour to polish.
 
+> **Those three numbers are the state of 11 August 2026, and the decision recorded below is what
+> answered them. Re-measured 2026-08-14 by step 6: the coloured layer is 87 screens plus the stage
+> hub (46 buyer + 41 coach), the grey prototype is 141 screens plus its own hub, so 54 remain
+> grey-only. The coach flow named in the table below is in colour since step 7.95, and «42 coach
+> screens with no colour at all» is closed rather than outstanding.**
+>
+> The paragraph is kept rather than rewritten, because it is the question the owner was answering
+> and the answer is meaningless without it. The note exists because a reader arriving today would
+> otherwise read a settled scope decision as an open one - which is exactly the failure the rule
+> «md is alive, html does not freeze» is written against. Found 2026-08-15 while closing backlog
+> item 7, which named two stale records; both of those had already been corrected in their own
+> files, and this third one was on no list.
+
 **OWNER'S DECISION, 11 August 2026: colour a SELECTION of the coach flow, six to eight screens -
 not all 42, and not none.** The reasoning the owner gave is the middle one: enough for the system
 to have seen the channel, without 42 screens at once.

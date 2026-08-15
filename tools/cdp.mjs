@@ -50,12 +50,36 @@ export class Conn {
     };
     return c;
   }
-  send(method, params = {}, sessionId) {
+  /* EVERY REQUEST HAS A DEADLINE, AND THE ABSENCE OF ONE COST A NIGHT.
+     `once()` below has always had its 20s and resolves `null`; `send()` had
+     nothing at all. A reply that never arrives - a message lost on the socket, a
+     renderer that stops answering - left the promise in `pending` forever, and
+     the whole instrument simply stood there. Measured on 2026-08-15: the full
+     `inert` walk lived 3h13m, spent 28.85s of CPU, and printed nothing after the
+     first 47 minutes. Chrome was fine, its tab was open, the server answered
+     200; node was waiting on a promise that could not settle.
+     A hang is the worst failure this folder can have, because it is the one
+     shape that never reaches a report: a crash is read, a wrong number is
+     argued with, silence is mistaken for work in progress. No CDP call in this
+     repository legitimately takes a minute, so the deadline is generous enough
+     to never fire by accident and finite enough to always fire. */
+  send(method, params = {}, sessionId, timeoutMs = 60000) {
     const id = ++this.id;
     const msg = { id, method, params };
     if (sessionId) msg.sessionId = sessionId;
     this.ws.send(JSON.stringify(msg));
-    return new Promise((res, rej) => this.pending.set(id, { res, rej }));
+    return new Promise((res, rej) => {
+      const t = setTimeout(() => {
+        if (!this.pending.has(id)) return;
+        this.pending.delete(id);
+        rej(new Error('CDP мовчить ' + Math.round(timeoutMs / 1000) + 'с: ' + method));
+      }, timeoutMs);
+      t.unref?.();
+      this.pending.set(id, {
+        res: v => { clearTimeout(t); res(v); },
+        rej: e => { clearTimeout(t); rej(e); },
+      });
+    });
   }
   once(method, sessionId, timeoutMs = 20000) {
     return new Promise((res) => {
@@ -123,14 +147,34 @@ export async function newSession(conn) {
      settle there. This is the signal that was missing. */
   const inflight = new Set();
   inflight.stamp = 0;
-  conn.handlers.push((m) => {
+  /* 2026-08-15: AND THE HANDLER USED TO OUTLIVE ITS SESSION. Every session
+     pushed one of these and nothing ever took it off, so `conn.handlers` grew by
+     one per load and EVERY message from EVERY tab was then run through all of
+     them. A walk that opens fifty tabs per screen is quadratic by its thirtieth
+     screen, which is the honest reason the `inert` pass slowed to nine minutes a
+     page while doing the same work as the first one. It leaked memory too: each
+     dead handler holds its `inflight` Set alive.
+     The handler now takes itself off when its target detaches, so a caller that
+     forgets to tidy up is still tidy. */
+  const h = (m) => {
+    if (m.method === 'Target.detachedFromTarget' && m.params && m.params.sessionId === sessionId) {
+      conn.handlers = conn.handlers.filter(x => x !== h);
+      return;
+    }
     if (m.sessionId !== sessionId || !m.method.startsWith('Network.')) return;
     inflight.stamp++;
     if (m.method === 'Network.requestWillBeSent') inflight.add(m.params.requestId);
     else if (m.method === 'Network.loadingFinished' || m.method === 'Network.loadingFailed')
       inflight.delete(m.params.requestId);
-  });
-  return { targetId, sessionId, inflight };
+  };
+  conn.handlers.push(h);
+  /* and the explicit form, for a caller that closes tabs in a loop: this drops
+     the handler BEFORE the round trip rather than one event later. */
+  const close = async () => {
+    conn.handlers = conn.handlers.filter(x => x !== h);
+    try { await conn.send('Target.closeTarget', { targetId }); } catch {}
+  };
+  return { targetId, sessionId, inflight, close };
 }
 
 // One load: fresh cache, fixed viewport, fonts settled, then the expression.

@@ -95,13 +95,35 @@ export function transform(src, name) {
   /* THE BUTTON RANKS. The grey layer says WHICH control is primary by adding
      `dark`; it never says how a button is drawn, because it draws none. The
      coloured layer's `button.css` has NO `.btn` rule - the finish IS the rank -
-     so a control that arrives wearing only `btn` renders as bare text. Order
-     matters: the two-class form must go first or the plain rule eats its prefix. */
-  const before = (s.match(/class="btn(?: dark)?"/g) || []).length;
-  s = s.replace(/class="btn dark"/g, 'class="btn--accent btn--s btn dark"');
-  s = s.replace(/class="btn"/g, 'class="btn--outline btn--s btn"');
-  const ranked = (s.match(/btn--(accent|outline)/g) || []).length;
-  if (before !== ranked) notes.push(`BUTTONS ${before} found, ${ranked} ranked`);
+     so a control that arrives wearing only `btn` renders as bare text.
+
+     AND THE FIRST VERSION MATCHED WHOLE STRINGS, WHICH LET 36 CONTROLS THROUGH.
+     It read `class="btn"` and `class="btn dark"` exactly, so every button
+     carrying a utility class beside them - `btn qa-add`, `btn cs-save`,
+     `btn dark cs-go` - kept the grey markup and rendered as bare text on 13
+     coloured screens. Same shape as the 8.13 lookahead recorded above: a pattern
+     tight enough to be right about the case in front of it and wrong about the
+     set. It now matches `btn` as a TOKEN, wherever it sits in the attribute.
+
+     THE DEFAULT HERE IS A STARTING RANK, NOT THE DECISION. A state screen must
+     take the rank its BASE settled on, and the base often disagrees with `dark`:
+     `cs-go`, `co-new` and `cgo-btn` are `dark` in the grey layer and
+     `btn--outline` in the coloured base, because the review at 7.95 and 8.7
+     decided there is one accent fill per screen and these were not it. Run
+     `node tools/btn-rank.mjs` after a clone: it reads the base and overwrites
+     this default wherever the base has an answer. */
+  const before = (s.match(/class="[^"]*\bbtn\b[^"]*"/g) || [])
+    .filter(c => !/\bbtn--/.test(c)).length;
+  s = s.replace(/class="([^"]*)"/g, (m, cl) => {
+    const t = cl.split(/\s+/).filter(Boolean);
+    if (!t.includes('btn') || t.some(x => x.startsWith('btn--'))) return m;
+    const rank = t.includes('dark') ? ['btn--accent', 'btn--s'] : ['btn--outline', 'btn--s'];
+    return 'class="' + [...rank, ...t].join(' ') + '"';
+  });
+  const left = (s.match(/class="[^"]*\bbtn\b[^"]*"/g) || [])
+    .filter(c => !/\bbtn--/.test(c)).length;
+  const ranked = before - left;
+  if (left) notes.push(`BUTTONS ${before} found, ${ranked} ranked, ${left} STILL BARE`);
 
   /* a token the split renamed, and the grey layer still speaks the old name */
   s = s.replace(/var\(--strong\)/g, 'var(--text-primary)');

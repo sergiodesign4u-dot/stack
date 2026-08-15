@@ -157,15 +157,83 @@ export function subject(argv, dir = 'design') {
    comparison is to catch what the author did not think to look at. Deliberately
    NOT «all properties»: those include a hundred that never differ and would
    triple the cost of every run for nothing. */
+/* WIDENED 2026-08-14, AND THE HOLE IT CLOSED WAS EMBARRASSING: the list carried
+   `border-top-color` and `border-top-style` and NOT the other three sides. A rule
+   that repaints only the bottom edge of a row - which is most of what a list of
+   rows is made of - moved nothing this could see. `coach-clients-cap` is where it
+   surfaced: computed style blessed a 46-rule cut that a screenshot refused, and
+   the properties that actually moved were `border-bottom-color` x39,
+   `border-left-color` x39, `border-right-color` x39.
+   The additions are the INDEPENDENT ones only. `block-size`, `inline-size`,
+   `padding-block-*` and `border-block-*` also showed up in that measurement and
+   are aliases of what is already here; `column-rule-color`, `text-emphasis-color`
+   and `-webkit-text-fill-color` default to `currentColor` and move whenever
+   `color` does. Adding an alias costs a column and proves nothing. */
 export const STYLE_PROPS = ['display', 'position', 'width', 'height', 'margin-top',
   'margin-right', 'margin-bottom', 'margin-left', 'padding-top', 'padding-right',
   'padding-bottom', 'padding-left', 'border-top-width', 'border-right-width',
-  'border-bottom-width', 'border-left-width', 'border-top-color', 'border-top-style',
-  'border-radius', 'background-color', 'background-image', 'color', 'font-size',
-  'font-weight', 'font-family', 'line-height', 'letter-spacing', 'text-align',
-  'text-decoration-line', 'opacity', 'visibility', 'box-shadow', 'flex-direction',
-  'justify-content', 'align-items', 'gap', 'grid-template-columns', 'overflow-x',
-  'overflow-y', 'z-index'];
+  'border-bottom-width', 'border-left-width', 'border-top-color', 'border-right-color',
+  'border-bottom-color', 'border-left-color', 'border-top-style', 'border-right-style',
+  'border-bottom-style', 'border-left-style',
+  'border-radius', 'background-color', 'background-image', 'background-position',
+  'background-size', 'background-repeat', 'color', 'font-size',
+  'font-weight', 'font-family', 'font-style', 'line-height', 'letter-spacing', 'text-align',
+  'text-decoration-line', 'text-decoration-color', 'text-decoration-thickness',
+  'text-transform', 'text-indent', 'text-shadow', 'white-space', 'word-break',
+  'list-style-type', 'vertical-align', 'float', 'transform', 'filter',
+  'outline-color', 'outline-style', 'outline-width',
+  'opacity', 'visibility', 'box-shadow', 'flex-direction', 'flex-wrap',
+  'flex-grow', 'flex-shrink', 'flex-basis', 'align-self', 'order',
+  'justify-content', 'align-items', 'gap', 'grid-template-columns', 'grid-template-rows',
+  'max-width', 'min-width', 'max-height', 'min-height', 'box-sizing', 'object-fit',
+  'top', 'right', 'bottom', 'left', 'content', 'fill', 'stroke',
+  'overflow-x', 'overflow-y', 'z-index'];
+
+/* THE SNAPSHOT ITSELF, and it belongs here for the same reason the list does.
+   `tree-diff.mjs` compares two trees, `inert.mjs` compares one page against the
+   same page with rules cut out of it, and «what a page looks like, as a string»
+   has to be ONE reading or the two instruments can disagree about the answer
+   while agreeing about the question. That disagreement is exactly what step 6
+   spent a day on.
+
+   No backtick between here and the closing quote. */
+export const snapshotExpr = () => `(() => {
+  const all = document.querySelectorAll('*');
+  const P = ${JSON.stringify(STYLE_PROPS)};
+  /* BUILT WITH new RegExp AND NOT A LITERAL, because this whole expression is a
+     template literal in the file above: a backslash inside it is consumed
+     before the browser ever sees it, so the escapes in /http:\\/\\/127…/ arrive
+     as a bare slash and end the regex on the spot. Same family as the backtick
+     ban this directory states three times - a literal that is really a string
+     cannot hold the syntax of the thing it looks like. */
+  const PORT = new RegExp('http://127.0.0.1:[0-9]+', 'g');
+  const out = [];
+  /* AND ::before / ::after ARE READ, which they were not until 2026-08-14.
+     querySelectorAll cannot see a pseudo-element, and this codebase draws with
+     them constantly - the check mark in every feature list, every crumb
+     separator, every content: "✓". A change confined to a pseudo-element was
+     invisible to a comparator whose whole job is «did anything move».
+     Three rows per element instead of one; the number of loads does not change.
+     NO BACKTICK IN THIS COMMENT: it lives inside a template literal, and this is
+     the sixth time that has been learned in this repository. */
+  for (let i = 0; i < all.length * 3; i++) {
+    const e = all[(i / 3) | 0], k = i % 3;
+    const cs = getComputedStyle(e, k === 0 ? null : (k === 1 ? '::before' : '::after'));
+    let row = e.tagName + '.' + (typeof e.className === 'string' ? e.className.trim() : '') +
+      (k === 0 ? '' : (k === 1 ? '::before' : '::after')) + '|';
+    for (let j = 0; j < P.length; j++) {
+      /* THE ORIGIN IS THE COMPARATOR'S OWN, NOT THE PAGE'S. Two trees mean two
+         servers mean two ports, and a computed background-image is absolute:
+         url("http://127.0.0.1:55765/...") against url("http://127.0.0.1:55771/...")
+         is a difference the tool INTRODUCED and would otherwise report as a
+         finding. Every check in this repository that compared two sources has
+         hit this shape once; here it is the port. */
+      row += cs.getPropertyValue(P[j]).replace(PORT, '@') + '|';
+    }
+    out.push(row);
+  }
+  return JSON.stringify(out);
+})()`;
 
 /* ============================================================================
    THE OPENER SWEEP - shared, because it was born in theme.mjs at step 7.21 and

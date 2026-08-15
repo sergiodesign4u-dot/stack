@@ -21,13 +21,26 @@
    for the accent change of 7.26. A comparator that cannot say «moved» cannot
    testify to «did not».
 
+   AND THIS COMPARATOR HAS A NOISE FLOOR, WHICH NOTHING HAD EVER MEASURED. Read
+   the SAME unchanged page four times and the answers are not always equal:
+   `coach-session-priceblock` @390 came back 39.19px taller on one read of four,
+   78 rows differing, `width` on 56 of them. It is the webfont fallback - the
+   race the settle loop in `cdp.mjs` is written against and does not always win
+   under load.
+   So a SMALL non-zero from this tool is a question, not a verdict: re-run it.
+   That applies backwards as well - the «9 movements on 5 screens» that reverted
+   the private-css cut at step 6 were taken with this reading, and some of those
+   nine may have been the coin. `inert.mjs` answers the same question by reading
+   until two reads agree; this one does not, because it walks each page once by
+   design.
+
      node tools/tree-diff.mjs HEAD                every changed design page
      node tools/tree-diff.mjs HEAD coach-order-loading   just these
      node tools/tree-diff.mjs --dir /tmp/before   against a directory, not a ref
        - which is what a migration needs: the reference is «the tree five
        minutes ago», and that has no commit to name. */
 import { Conn, newSession, visit } from './cdp.mjs';
-import { serve, chrome, ROOT, STYLE_PROPS } from './lib.mjs';
+import { serve, chrome, ROOT, STYLE_PROPS, snapshotExpr } from './lib.mjs';
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, existsSync, readdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -66,34 +79,10 @@ if (!PAGES.length) { console.log('нічого порівнювати: жодн�
    same question of one page that this asks of two trees */
 const P = STYLE_PROPS;
 
-/* No backtick between here and the closing quote. */
-const M = `(() => {
-  const all = document.querySelectorAll('*');
-  const P = ${JSON.stringify(P)};
-  /* BUILT WITH new RegExp AND NOT A LITERAL, because this whole expression is a
-     template literal in the file above: a backslash inside it is consumed
-     before the browser ever sees it, so the escapes in /http:\\/\\/127…/ arrive
-     as a bare slash and end the regex on the spot. Same family as the backtick
-     ban this directory states twice - a literal that is really a string cannot
-     hold the syntax of the thing it looks like. */
-  const PORT = new RegExp('http://127.0.0.1:[0-9]+', 'g');
-  const out = [];
-  for (let i = 0; i < all.length; i++) {
-    const e = all[i], cs = getComputedStyle(e);
-    let row = e.tagName + '.' + (typeof e.className === 'string' ? e.className.trim() : '') + '|';
-    for (let j = 0; j < P.length; j++) {
-      /* THE ORIGIN IS THE COMPARATOR'S OWN, NOT THE PAGE'S. Two trees mean two
-         servers mean two ports, and a computed background-image is absolute:
-         url("http://127.0.0.1:55765/...") against url("http://127.0.0.1:55771/...")
-         is a difference this tool INTRODUCED and would otherwise report as a
-         finding. Every check in this repository that compared two sources has
-         hit this shape once; here it is the port. */
-      row += cs.getPropertyValue(P[j]).replace(PORT, '@') + '|';
-    }
-    out.push(row);
-  }
-  return JSON.stringify(out);
-})()`;
+/* the snapshot moved to lib.mjs at step 6.2 - inert.mjs asks the same
+   question of one page that this asks of two trees, and two readings of «what
+   this page looks like» is how two instruments come to disagree. */
+const M = snapshotExpr();
 
 const a = await serve(dir);
 const b = await serve(ROOT);
@@ -138,4 +127,17 @@ for (const p of PAGES) {
 l.stop(); a.stop(); b.stop();
 console.log('\n' + PAGES.length + ' сторінок · ' + checked + ' порівнянь (2 ширини) · зрушило: ' + moved +
   (missing ? ' · нових сторінок без пари: ' + missing : ''));
+/* A WALK THAT COMPARED NOTHING IS NOT A PASS, and until 2026-08-15 it exited 0.
+   Found by a shell mistake rather than by thought: zsh does not word-split an
+   unquoted `$PAGES`, so 31 names arrived as ONE argument, every one of them was
+   «a new page with nothing to compare against», and the foot of the run read
+   «зрушило: 0» with a success code. The proof of a 655-rule cut would have been
+   a green line over zero comparisons.
+   This is the same family as the glob that reported «0 failures» over 135 pages
+   after visiting one, and as `accept.mjs` blessing `kit/zzz-nope`: an instrument
+   that cannot say «no» is not evidence. */
+if (!checked) {
+  console.log('ЖОДНОГО ПОРІВНЯННЯ НЕ ЗРОБЛЕНО - це не «нічого не зрушило», це відсутність доказу.');
+  process.exit(2);
+}
 process.exit(moved ? 1 : 0);

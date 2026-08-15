@@ -21,6 +21,8 @@ node tools/roles.mjs [name...]           does the stand still describe the file
 node tools/grey-vars.mjs [--write]       private blocks learn the system's names
 node tools/crop.mjs 390 coach-tariff .tf-compare /tmp/t.png
 node tools/scope.mjs [--apply]           is a screen inside the scope its components need
+node tools/btn-rank.mjs [--apply]        a control wearing only `btn` renders as bare text
+node tools/inert.mjs [--apply]           which private rules can go, decided by loading without them
 ```
 
 `accept`, `states`, `css-comments`, `vars`, `links`, `theme` and `roles` exit
@@ -465,7 +467,86 @@ The fourth cost the 35-minute walk twice, and not because of the bug: the correc
 before it was verified, the patch had never applied, and the re-run produced a **byte-identical**
 record - 1 518 distinct classes, 50 417 total, in both files. The identity is what exposed it.
 
-## `private-css.mjs` - which private rules draw anything
+## `inert.mjs` - which private rules can go, decided by LOADING the page without them
+
+**Replaces `private-css.mjs`, and the reason is the whole point.** That probe deleted one rule at a
+time out of the LOADED document; the cut it blessed was applied and `tree-diff` reverted it. The
+gap was written down as a hypothesis - mutating a document whose scripts have already run is not
+the same experiment as loading one without those rules. This tool does not test that hypothesis, it
+removes the difference: every verdict IS a load, and the probe and the proof now share one reading
+(`snapshotExpr()` in `lib.mjs`).
+
+**The search is sound about sets.** «Inertness is not additive» is built in: the whole block is
+tried first, and on a failure each chunk is offered on top of what is already proven safe, so an
+accepted set has been tested whole at every step.
+
+Three faults of its own, all found by measuring rather than reasoning:
+
+- **The cache.** `cdp.mjs` disables the cache once per connection and re-enables it - right for
+  every walk, fatal for the one tool that rewrites a page and asks for the same URL. Measured:
+  `styles: [6166]` after writing an empty block, `[0]` only on the second load. So the first width
+  of every test read the UNCUT page and answered «nothing moved», and the first run reported a
+  27-rule block as entirely removable. Fixed per session, and a **guard** now runs first: cut a page
+  to nothing and stop unless the browser says the stylesheet got shorter.
+- **A screenshot as the third reading.** The probe and the proof share a reading on purpose, and a
+  shared reading has a shared blind spot. Every accepted set is photographed whole and cut, both
+  widths, PNG hashed. The screenshot is what caught the cache while computed style said «identical».
+- **The read is not deterministic, and nothing here had ever measured it.** Four reads of an
+  unchanged page: `coach-session-priceblock` @390 came back 39.19px taller on the fourth, 78 rows
+  differing. That noise is why the same two pages first answered «38 of 41», then «0», then «2».
+  The direction is worth knowing - noise makes a removal look DANGEROUS, never safe, so it cost
+  coverage rather than damage. Fixed anyway: a baseline is read until the same answer arrives twice,
+  and a difference is re-read once before it is believed.
+
+**Three more, found on 2026-08-15 when the first full walk hung.** It lived 3h13m, spent 28.85s of
+CPU and printed nothing after minute 47, while Chrome was fine, its tab was open and the server
+answered 200.
+
+- **`Conn.send()` had no deadline at all** (`once()` always had its 20s). One lost reply parked a
+  promise forever. A hang is the worst failure this folder can have, because it is the only shape
+  that never reaches a report: a crash is read, a wrong number is argued with, **silence is
+  mistaken for work in progress**. Every request now has 60 seconds; every READ has 120, retries
+  once with a fresh tab, and on a second death ends the PAGE, not the walk - it goes into the report
+  as «не відповіла», which is a result someone can act on.
+- **The CDP handler leak, and it was quadratic.** Every session pushed a listener onto
+  `conn.handlers` and nothing ever removed it, so a walk opening fifty tabs per screen ran every
+  message from every tab through every dead listener it had ever made. That is the honest reason a
+  pass slowed from two minutes a page to nine while doing identical work. Handlers now unhook
+  themselves when their target detaches. **Fixed in `cdp.mjs`, so every instrument here got faster.**
+- **The subject was 69 pages when the question was 31.** `subject()` reads subfolders - widened on
+  purpose so no walk could miss the stand - so «every design page with a private `<style>`» included
+  the stand's 35 demos and 3 concept pages. More than half of a five-hour estimate was going to be
+  spent cutting CSS out of the showcase. `kit/` and `concept/` are excluded by name now, the line
+  CLAUDE.md already draws.
+
+**The log has to move while the work moves.** One line per page meant nine minutes of work and nine
+minutes of a corpse looked identical from outside. A line per trial with a clock on it is what a
+watcher should read - and a watcher that asks «does the output file exist» and «is the pid alive»
+is the same defect in a different costume: both answered «fine» for three hours.
+
+**`--shard k/n` splits the walk.** Safe here and nowhere else in this folder: a page is cut in
+place and no two pages share a file, and `serve()`/`chrome()` already take a free port and a fresh
+profile each. Three shards took the full corpus from ~5 hours to **48 minutes**. Three, not four,
+for a reason written in `cdp.mjs`: parallel passes raise the noise floor, and noise here costs
+coverage.
+
+**`--from <json>` applies a decision already taken, and it exists because the owner asked for the
+wall clock back.** `--apply` measures and then writes, which is right as a default and costs the
+same fifty minutes twice. The proof does not depend on it: `tree-diff --dir` compares against the
+tree as it stood before the cut, so a cut applied from a saved decision is proven or refuted by the
+same gate. Re-measuring buys a second opinion, not the proof. It is the SAME parser and the SAME
+`write()`, only the decision loaded instead of measured - **not a second code path**, which is what
+this tool exists to avoid. The guard is the whole safety of it: a saved decision is a list of rule
+INDICES, so the top-level rule count is checked per page and a mismatch stops everything before a
+byte is written.
+
+**Result, 2026-08-15: 655 of 1 154 private rules removed from all 31 screens, `tree-diff --dir`
+answering 62 comparisons and 0 elements moved**, plus `accept` at 360 and 390 over 205 screens with
+0 failures.
+
+---
+
+## `private-css.mjs` - which private rules draw anything (SUPERSEDED by `inert.mjs`)
 
 31 coloured screens carry a private `<style>` block, 1 185 top-level rules. A source count says a
 rule EXISTS, not that it CHANGES anything. This deletes a rule and asks the browser whether
@@ -501,6 +582,20 @@ plain string.
 `--dir <path>` compares against a directory instead of a ref, which is what a migration needs: the
 reference is «the tree five minutes ago», and that has no commit to name.
 
+**A fourth fault, and it was about to bless the biggest cut this stage has made.** The tool exited
+**0 after making zero comparisons**. Found by a shell mistake rather than by thought: zsh does not
+word-split an unquoted `$PAGES`, so 31 page names arrived as ONE argument, each was reported as «a
+new page with nothing to compare against», and the foot of the run read «зрушило: 0» with a success
+code. The proof of a 655-rule cut would have been a green line over nothing. **Zero comparisons is
+now exit 2**, with the words «це не „нічого не зрушило“, це відсутність доказу» - the same family as
+the glob that reported 0 failures over 135 pages after visiting one, and as `accept.mjs` blessing
+`kit/zzz-nope`. An instrument that cannot say «no» is not evidence.
+
+**Also widened 2026-08-14, with `scope.mjs`, because both read through `STYLE_PROPS`:** the list
+carried `border-top-color` and none of the other three sides, and never read pseudo-elements. 40
+properties became **85**, element plus `::before` plus `::after`. The step-6 reading of «9
+movements on 5 screens» was taken with the narrow list.
+
 The 40-property list moved into `lib.mjs` as `STYLE_PROPS` when `scope.mjs` needed the same one.
 
 ---
@@ -533,3 +628,32 @@ treated `@import` as a grouping rule; `design/system/index.css` is nothing but i
 whole component layer was invisible. Both came back as «0 selectors» on a page that moved 87
 elements - **the two numbers disagreeing is what exposed it**, and one number alone would have read
 as a clean pass.
+
+---
+
+## `btn-rank.mjs` - a control wearing only `btn` renders as bare text
+
+`button.css` has no `.btn` rule at all: **the finish IS the rank**. An element carrying `btn` and
+nothing else gets no background, no border, no padding and no focus ring, and still reads as a link
+to a screen reader - so nothing but a pair of eyes catches it. `clone-to-colour.mjs` matched
+`class="btn"` and `class="btn dark"` as whole strings, so every button with a utility class beside
+them slipped through: **36 controls across 13 screens**.
+
+**The rank is read off the base screen and never chosen here**, and that is the whole design. The
+grey layer marks a primary action `dark`; the coloured bases did not all keep it - `cs-go`,
+`co-new` and `cgo-btn` are `dark` in `wireframes/` and `btn--outline` in the base, because the
+review at 7.95 and 8.7 decided there is one accent fill per screen and these were not it. A state
+screen must not reopen a decision its base already took. Whose base is whose comes from
+`wfBar('<base>.html', ...)`, the same reading `scope.mjs` uses.
+
+**Collapse on equality, not on count.** The first version required a unique match in the base and
+called all 16 `qa-add` rows ambiguous - three identical rows are one answer repeated. Take the set
+first, then ask whether it holds one thing.
+
+Two controls the product cannot answer (`cart-coach-empty .cont`, the bar's `.blocked` on
+`coach-session-priceblock`) are decided in a map inside the file, each with its neighbour written
+out. The map runs **after** the base, not before - the first version asked it first and its
+`blocked` entry ate `cs-go blocked` too, handing the sidebar the bottom bar's accent. Its idle
+control asks **«is the decision still visible in the product»**, not «did it fire»: every entry
+stops firing the moment `--apply` works, so the other question would have turned the gate red one
+run after it went green.

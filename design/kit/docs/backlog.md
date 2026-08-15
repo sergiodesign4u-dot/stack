@@ -267,16 +267,61 @@ property.
 
 ## What step 6 still owes
 
-1. **36 controls wear `btn` with no rank and render as bare text.** `button.css` has no `.btn`
-   rule - the finish IS the rank - and `clone-to-colour.mjs` matches `class="btn"` and
-   `class="btn dark"` as whole strings, so every button carrying a utility class beside them slipped
-   through: `btn qa-add` (14), `btn cs-save` (7), `btn dark cs-go` (6), `btn dark co-new` (3),
-   `btn dark cgo-btn` (2), and four more. Six of them are marked `dark`, which is the grey layer
-   saying **primary action**. Same family as the 8.13 lookahead: a pattern tight enough to be right
-   about the case in front of it and wrong about the set.
+1. ~~**36 controls wear `btn` with no rank and render as bare text.**~~ **Closed 2026-08-14.**
+   `button.css` has no `.btn` rule - the finish IS the rank - and `clone-to-colour.mjs` matched
+   `class="btn"` and `class="btn dark"` as whole strings, so every button carrying a utility class
+   beside them slipped through: `btn qa-add` (14), `btn cs-save` (7), `btn dark cs-go` (6),
+   `btn dark co-new` (3), `btn dark cgo-btn` (2), and four more, over 13 screens. Same family as the
+   8.13 lookahead: a pattern tight enough to be right about the case in front of it and wrong about
+   the set.
+
+   **The rank came off each screen's base and was never chosen by hand**, which mattered: the grey
+   layer marks `cs-go`, `co-new` and `cgo-btn` as `dark` - its word for a primary action - and the
+   coloured bases had deliberately made all three `btn--outline` at 7.95 and 8.7, because a screen
+   carries one accent fill and these were not it. Ranking them off `dark` would have put three new
+   orange fills into the coach flow and called it a bug fix. **34 of 36 were answered by the base**;
+   the two the product could not answer are decided in `tools/btn-rank.mjs` with their neighbour
+   written beside them - `cart-coach-empty .cont` takes `btn--outline btn--s` from the buyer's own
+   `cart-empty`, and the bar's `.blocked` on `coach-session-priceblock` takes the base bar's
+   `btn--accent btn--l`, its `aria-disabled="true"` already being something `button.css` answers.
+
+   The transform now matches `btn` as a **token** rather than as a whole attribute, and hands the
+   final say to `btn-rank.mjs`: its own default is a starting rank, not the decision.
 2. **Move the 886 overriding rules into their components.** This is the step's own remaining body
-   of work and the precondition for stage 10. The 262 inert ones go first, once the probe agrees
-   with the proof.
+   of work and the precondition for stage 10.
+
+   **The inert half is gone, 2026-08-15: 655 of 1 154 private rules removed from all 31 screens,
+   and the proof says nothing moved.** `tools/tree-diff.mjs --dir` compared the computed style of
+   every element on both widths against the tree as it stood minutes before the cut: **62
+   comparisons, 0 elements moved.** That is the same comparison that refused the June attempt with
+   9 movements on 5 screens.
+
+   | | before | after |
+   |---|---|---|
+   | private rules on the 31 screens | 1 154 | **499** |
+   | private `@media` blocks | 52 | **19** |
+   | bytes inside the `<style>` blocks | – | 67 723 |
+
+   **The old probe measured 262 inert; this one found 655, and the difference is the method.**
+   `private-css.mjs` deleted one rule at a time out of a LOADED document and asked whether anything
+   moved, which answers «is this rule redundant given all the others» - and inertness is not
+   additive. `inert.mjs` decides by LOADING the page without the rules, tries the whole block
+   first, and on a failure halves it and offers each chunk **on top of what is already proven
+   safe**, so every accepted set has been tested as a set. Both readings are then taken again:
+   computed style on 85 properties including `::before` and `::after`, and a PNG hash.
+
+   **The shape of the result is the clone transform, not chance.** The states cloned from a
+   coloured base give up 88-93% (`coach-order-loading` 38 of 41, `coach-orders-loading` 28 of 31),
+   because `clone-to-colour.mjs` copies the base screen's whole block into a state that does not
+   contain most of the elements it paints. The states with an anatomy of their own give up almost
+   nothing: `coach-verify-tier` 2 of 27, `coach-home-loading` 1 of 19, `coach-home-error` 0 of 5.
+   **The 499 that remain are the honest subject of this item** - what is left is either a real
+   override to move into its component or one of the 210 local declarations of item 3.
+
+   **The count nobody has re-taken is 886.** It was measured as «the system owns this class too»,
+   before the scope fix made the system reach these screens at all, and 655 rules have since left
+   the corpus it was taken over. It is not restated here as a smaller number, because that number
+   would be arithmetic rather than a measurement.
 3. **Decide the 210 local declarations**: a component each, or a deletion each.
 4. **105 dead `class="dark"` in `design/*.html`** - no stylesheet in the coloured layer defines
    `.dark`. Not swept by hand, because `tools/clone-to-colour.mjs` would put them back: the fix is
@@ -285,5 +330,32 @@ property.
    to 1.97. That is how the row says «unavailable» - a look to decide, not a bug to fix.
 6. **`cart-coach` wears `.coach` for nothing.** Keep it as a statement of which flow the screen
    belongs to, or drop it as a class that paints nothing. A decision, either way.
-7. **Two stale records**: `design/overview.html` says 50 coloured screens (it is 87 plus the hub)
-   and the step-8.19 note says 41 grey-only screens (it is 54). The README stage-07 row is right.
+7. ~~**Two stale records**: `design/overview.html` says 50 coloured screens (it is 87 plus the hub)
+   and the step-8.19 note says 41 grey-only screens (it is 54).~~ **Closed 2026-08-15, and the
+   entry was stale about itself.** Both had already been corrected in their own files -
+   `design/overview.html:283` carries «87 екранів + хаб (46 покупця, 41 тренера), перераховано
+   2026-08-14 кроком 6» with the old 50 named as the number that froze at stage 07, and
+   `docs/decisions.md` marks the 41 as stale beside step 6's 54. The README stage-07 row was right
+   all along.
+
+   **A third one was found in their place, and it was on no list.**
+   `design/kit/docs/architecture.md` and its page said «the coloured layer is 40 screens; the grey
+   prototype is 142. The 42 coach screens have no colour at all», and then put a scope decision to
+   the owner on the strength of it. Both numbers were made false by this stage's own work: 87 plus
+   the hub are in colour, and the coach flow has been coloured since step 7.95. The record is
+   **noted rather than rewritten** - it is the question the owner answered on 11 August, and the
+   answer does not read without it - but a reader arriving today would have taken a settled
+   decision for an open one.
+
+   **What the pattern is worth saying out loud:** a list of stale records goes stale. Two entries
+   were fixed at the point of the fix and the list never heard, while the record that nobody had
+   listed kept its numbers for four days. The lesson is the one already written above about
+   `.badge` at 8.19 - a later step makes a number false and the page never hears - and the only
+   defence that scales is asking the OUTPUT rather than keeping a list: the count of coloured
+   screens has one measurable source, and any page stating a different one is stale by
+   construction. That check does not exist yet; it is item 8.
+8. **No instrument asks whether a published number is still true.** Every count on the stand was
+   right when it was written and nothing re-asks. Three have been caught by hand in two days (50,
+   41, 40/42), each by someone reading the page for another reason. The shape of the check is known
+   from the ones that already work: take the claim from the page, take the number from the corpus,
+   and fail when they differ - `grey-vars.mjs` and `vars.mjs` already do exactly this for values.

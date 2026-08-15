@@ -25,13 +25,10 @@
    ============================================================ */
 /* coach status strip: Pro chip + wholesale-active note */
 .cstat { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 15px; border:1px solid var(--line-hair); border-radius: 12px; padding: 13px 15px; background:var(--bg-surface); }
-/* 7.18: the ink ring was the grey layer's `--dark` translated by value. A small
-   outlined label is badge.css:163's shape - a `--line-strong` HAIRLINE - and an
-   ink ring at 1.5px made a chip shout louder than the card holding it. */
-.cstat .tierchip { display: inline-block; font-size: 12px; font-weight: 800; color: var(--text-primary); border:1px solid var(--line-strong); border-radius: 100px; padding: 3px 12px; }
-.cstat .cnote { font-size: 13px; color:var(--text-secondary); }
-.cstat .cnote b { color: var(--text-primary); }
-.cstat .cmanage { margin-left: auto; font-size: 12.5px; font-weight: 700; color: var(--text-primary); text-decoration: underline; }
+
+
+
+
 
 /* big primary CTA */
 /* THE BIG CTA IS THE ACCENT NOW - owner's call, 2026-08-14; the reasoning is
@@ -55,34 +52,32 @@
 .acc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
 @media (min-width: 640px) { .acc-grid { grid-template-columns: 1fr 1fr; } }
 .acard { border:1px solid var(--line-hair); border-radius: 14px; padding: 16px; }
-.acard.span2 { grid-column: 1 / -1; }
+
 .acard .ah { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
 .acard .ah h3 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color:var(--text-secondary); }
 .acard .ah a, .acard .ah .lnk { font-size: 12.5px; font-weight: 700; color: var(--text-primary); }
 
-/* clients summary */
-.cli { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top:1px solid var(--line-hair); }
-.cli:first-of-type { border-top: none; }
-.cli .cav { width: 40px; height: 40px; flex: none; border-radius: 50%; background:var(--bg-sunken); border:1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; color:var(--text-secondary); font-size: 14px; font-weight: 800; }
-.cli .cinfo { min-width: 0; }
-.cli .cinfo .cn { font-size: 14px; font-weight: 800; color: var(--text-primary); }
-.cli .cinfo .cg { font-size: 12.5px; color:var(--text-secondary); margin-top: 2px; }
-.cli .cgo { margin-left: auto; font-size: 12.5px; font-weight: 700; color: var(--text-primary); text-decoration: underline; white-space: nowrap; }
+
+
+
+
+
+
+
 .cli .cgo-btn { margin-left: auto; white-space: nowrap; padding: 8px 14px; }
 .cli-add { margin-top: 13px; }
-.crestock .rk-lead { font-size: 13px; color:var(--text-secondary); margin: -4px 0 8px; }
-.crestock .cg b { color: var(--text-primary); font-weight: 700; }
 
-/* recent coach orders */
-.cord { display: flex; align-items: flex-start; gap: 12px; padding: 13px 0; border-top:1px solid var(--line-hair); }
-.cord:first-of-type { border-top: none; }
-.cord .co-info { min-width: 0; flex: 1; }
-.cord .co-no { font-size: 14px; font-weight: 800; color: var(--text-primary); }
-.cord .co-meta { font-size: 12.5px; color:var(--text-secondary); margin-top: 3px; }
-.cord .co-meta b { color: var(--text-primary); }
+
+
+
+
+
+
+
+
 .cord .co-status { display: inline-block; font-size: 11px; font-weight: 800; border:1px solid var(--line-strong); border-radius: 100px; padding: 2px 9px; color: var(--text-primary); margin-top: 7px; }
 .cord .co-sum { text-align: right; white-space: nowrap; }
-.cord .co-sum .cs-b { font-size: 16px; font-weight: 800; color: var(--text-primary); }
+
 .cord .co-sum a { display: block; font-size: 12px; font-weight: 700; color: var(--text-primary); text-decoration: underline; margin-top: 8px; }
 </style>
 </head>
@@ -145,12 +140,12 @@
           <div class="cli">
             <div class="cav">А</div>
             <div class="cinfo"><div class="cn">Андрій · Набір маси</div><div class="cg">Останнє замовлення <b>32 дні тому</b> · протеїн зазвичай на ~30 днів</div></div>
-            <a class="btn dark cgo-btn" href="coach-session.html">↻ У сесію</a>
+            <a class="btn--outline btn--s btn dark cgo-btn" href="coach-session.html">↻ У сесію</a>
           </div>
           <div class="cli">
             <div class="cav">М</div>
             <div class="cinfo"><div class="cn">Марія · Схуднення</div><div class="cg">Останнє замовлення <b>40 днів тому</b> · L-карнітин зазвичай на ~35 днів</div></div>
-            <a class="btn dark cgo-btn" href="coach-session.html">↻ У сесію</a>
+            <a class="btn--outline btn--s btn dark cgo-btn" href="coach-session.html">↻ У сесію</a>
           </div>
         </div>
 

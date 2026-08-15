@@ -3921,7 +3921,7 @@ and it is written into the file next to the numbers rather than rounded away.
 ### One gate caught one thing, and it was mine
 
 `accept` failed on `kit/color.html` with `curly=1`: the paragraph explaining this
-decision used `ʼ` (U+02BC) in «сім'ї» where the project has exactly one
+decision used `'` (U+02BC) in «сім'ї» where the project has exactly one
 apostrophe, `'`. Fixed there and in the four other files where the same character
 had come in with quotations from the pack.
 
@@ -5031,3 +5031,179 @@ coloured layer wear `btn` with no rank and render as bare text**: `btn qa-add` (
 four more. Six carry `dark`, which is the grey layer saying **primary action**. Recorded in
 the backlog as item 1; same family as the 8.13 lookahead - a pattern tight enough to be
 right about the case in front of it and wrong about the set.
+
+## Step 6, item 1 - 36 controls rendered as bare text, and the rank came off the base rather than off `dark`
+
+`button.css` has no `.btn` rule. **The finish IS the rank** - `btn--accent`, `btn--outline`,
+`btn--ghost`, `btn--text`, plus a size - so an element carrying `btn` and nothing else
+gets no background, no border, no padding and no focus ring, while still reading as a link
+to a screen reader. Nothing but a pair of eyes on the page catches that.
+
+`clone-to-colour.mjs` ranks the buttons it clones, and its rule matched `class="btn"` and
+`class="btn dark"` as **whole strings**. Every control carrying a utility class beside them
+slipped through: `btn qa-add` (14), `btn cs-save` (7), `btn dark cs-go` (6),
+`btn dark co-new` (3), `btn dark cgo-btn` (2), `btn dark pf-save`, `btn cont`,
+`btn cs-go blocked`, `btn blocked` - **36 controls on 13 screens**. Same family as the 8.13
+lookahead the file already records: a pattern tight enough to be right about the case in
+front of it and wrong about the set.
+
+### The rank is read off the base, and that is not a detail
+
+The obvious repair was to rank from the grey layer's own mark: `dark` means primary, so
+`dark` becomes `btn--accent`. **It would have been wrong on 11 of the 36.** The coloured
+base screens did not keep `dark` where the grey layer put it: `cs-go`, `co-new` and
+`cgo-btn` are `dark` in `wireframes/` and `btn--outline` in the coloured base, because the
+review of the coach flow at 7.95 and 8.7 decided a screen carries ONE accent fill and these
+were not it. Ranking off `dark` would have put three new orange fills into the primary
+flow and called it a defect fix.
+
+So a state screen takes the rank its BASE settled on, read through
+`wfBar('<base>.html', ...)` - the same reading `scope.mjs` uses, one step earlier. **34 of
+36 were answered by the base.** The `dark` token is left where it lies; removing the dead
+ones is a sweep of its own, item 4.
+
+### The two the product could not answer
+
+Both are recorded in `tools/btn-rank.mjs` with the neighbour that decided them:
+
+- **`cart-coach-empty .cont`** («До списку клієнтів») takes `btn--outline btn--s`. It is the
+  secondary beside `btn--accent btn--s btn dark`, the private rule
+  `.cd-empty .btn.cont{ border-color: --line-strong }` is the grey layer saying OUTLINE, and
+  the buyer's own `cart-empty` ranks its secondary the same way.
+- **the bar's `.blocked` on `coach-session-priceblock`** takes `btn--accent btn--l`. The
+  base's `.cs-bar` action is `btn--accent btn--l btn dark`, and this is that same action
+  disabled: the element already carries `aria-disabled="true"`, which `button.css` answers
+  for every rank. The private `.cs-bar .btn.blocked` rule is now redundant.
+
+### Three faults of the instrument, and the third is the interesting one
+
+It required a **unique** match in the base, so three identical `qa-add` rows read as three
+answers in conflict and 16 controls came back «ambiguous». Three identical rows are one
+answer repeated: take the set first, then ask whether it holds one thing.
+
+It asked the decision map **before** the base, and the `blocked` entry then ate
+`btn cs-go blocked` as well - handing the sidebar's outline the bottom bar's accent. A
+fallback that runs before the evidence is not a fallback.
+
+And its idle control asked «did this entry fire», which is a question that turns false for
+**every** entry the moment `--apply` does its work: the gate would have gone red one run
+after it went green. What has to stay true is the record, so it now asks **«is the decision
+still visible in the product»** - the control is still on that page and still wears the rank
+the decision gave it. Overwrite it by hand and the check says so.
+
+### Measured
+
+`accept` @390 0 · @360 0 · `tree-diff HEAD` 13 screens, 26 comparisons, all moved, which is
+the repair · `scope` 0 without their own scope · `links` 4601 0 dead · `vars` 205 0.
+Photographed before and after at 390 and 1280: «Додати клієнту» from bare text to an
+outlined row action, «До списку клієнтів» from bare text to an outlined secondary,
+«Перейти в кошик» from a flat grey bar to the system's disabled button, «Зберегти сесію»
+to `btn--text` at 600.
+
+## Step 6, fourth pass - the inert half of the private blocks is gone, and the instruments were the work
+
+**655 of 1 154 private rules removed from all 31 coloured screens, and every element stands where
+it stood.** `tools/tree-diff.mjs --dir` compared the computed style of every element at 390 and
+1280 against the tree as it was minutes before the cut: **62 comparisons, 0 moved.** `accept` at
+360 and 390 over 205 screens: 0 failures. `links` 4601 hrefs 0 dead · `vars` 205 screens 0 ·
+`roles` 82 components 0 · `css-comments` 89 stylesheets balanced · `grey-vars` 177 pages 0 ·
+`btn-rank` 88 pages 0 unranked · `scope` 205 screens 0 without their own scope.
+
+| | before | after |
+|---|---|---|
+| private rules on the 31 screens | 1 154 | **499** |
+| private `@media` blocks | 52 | **19** |
+
+The second row is the one stage 10 was waiting for: a responsive scale cannot consolidate
+boundaries that do not live in the system, and two thirds of the private ones have left.
+
+**1 154 is also a cross-check nobody arranged.** `backlog.md` published that exact total four days
+earlier from a different instrument by a different method. The parser sees the same corpus.
+
+### The old probe said 262 and this one says 655, and the difference is the method
+
+`private-css.mjs` deleted one rule at a time out of a LOADED document, which answers «is this rule
+redundant GIVEN all the others». Inertness is not additive, and the cut built on that answer moved
+five screens and was reverted. `inert.mjs` decides by LOADING the page without the rules; it tries
+the whole block first, and on a failure halves it and offers each chunk **on top of what is already
+proven safe**, so every accepted set has been tested as a set. Then both readings are taken again:
+computed style over 85 properties including `::before` and `::after`, and a PNG hash, three shots a
+side, accepted when the two sets intersect.
+
+**The shape of the result is the clone transform, not luck.** States cloned from a coloured base
+give up 88-93 per cent, because `clone-to-colour.mjs` copies the base screen's whole block into a
+state that does not contain most of the elements it paints. States with an anatomy of their own
+give up almost nothing: `coach-verify-tier` 2 of 27, `coach-home-loading` 1 of 19,
+`coach-home-error` 0 of 5.
+
+### The walk hung for three hours, and three instrument faults came out of one night
+
+It lived 3h13m, spent **28.85 seconds** of CPU, and printed nothing after minute 47. Chrome was
+fine, its tab was open, the server answered 200.
+
+1. **`Conn.send()` had no deadline** - `once()` always had its 20s, `send()` had nothing, so one
+   lost reply parked a promise forever. **A hang is the worst failure this repository can have,
+   because it is the only shape that never reaches a report:** a crash is read, a wrong number is
+   argued with, silence is mistaken for work in progress. Every request now has 60 seconds, every
+   read has 120 with one retry, and a read that dies twice ends the PAGE rather than the walk - it
+   enters the report as «не відповіла», which is a result someone can act on.
+2. **A quadratic handler leak in `cdp.mjs`.** Every session pushed a listener onto `conn.handlers`
+   and nothing ever removed it, so a walk opening fifty tabs per screen ran every message from
+   every tab through every dead listener it had made. That is the honest reason a pass slowed from
+   two minutes a page to nine while doing identical work. **The fix is in the shared driver, so
+   every instrument in the folder got faster.**
+3. **The subject was 69 pages when the question was 31.** `subject()` reads subfolders - widened on
+   purpose in August so no walk could miss the stand - so «every design page with a private
+   `<style>`» swept in the stand's 35 demos and 3 concept pages. More than half of a five-hour
+   estimate was going to be spent cutting CSS out of the showcase. Nobody typed a list wrong; the
+   default was wider than the sentence it answered.
+
+**And the watcher could not tell.** It asked «does the output file exist» and «is the process
+alive». Both answered «fine» for three hours. That is the same defect as the instruments it was
+watching, in a different costume: a control that can only say yes. It now reads the log's growth,
+and the log now moves per trial with a clock on it, because one line per page made nine minutes of
+work and nine minutes of a corpse look identical from outside.
+
+### `--from`, and the owner taking back the wall clock
+
+`--apply` measures and then writes. That is the right default - every verdict in this tool is a
+load - and it costs the same fifty minutes twice. The owner said so out loud on 2026-08-15, and the
+honest answer was that **the proof does not depend on the re-measurement**: `tree-diff --dir`
+compares against the tree before the cut, so a cut applied from a saved decision is proven or
+refuted by the same gate. Re-measuring buys a second opinion, not the proof.
+
+`--from <json>` is the SAME parser and the SAME `write()`, with the decision loaded instead of
+measured - deliberately not a second code path, which is the failure this tool was built to remove.
+The guard carries its safety: a saved decision is a list of rule INDICES, meaningful only against
+the file it was taken from, so the top-level rule count is checked per page and a mismatch stops
+everything before a byte is written. **The cut took a second instead of fifty minutes.**
+
+### `tree-diff` was about to bless the whole thing over zero comparisons
+
+The page list was passed as `$PAGES`, unquoted, and **zsh does not word-split** - 31 names arrived
+as one argument, every one of them was «a new page with nothing to compare against», and the run
+ended «зрушило: 0» with a success code. The proof of a 655-rule cut would have been a green line
+over nothing. Zero comparisons is **exit 2** now. Same family as the glob that reported 0 failures
+over 135 pages after visiting one, and as `accept.mjs` blessing `kit/zzz-nope`.
+
+### Backlog item 7 was stale about itself, and a third record was on no list
+
+Both named records had already been corrected in their own files - `design/overview.html:283` and
+`docs/decisions.md` - while the entry saying they were stale stood for four days. In their place:
+`design/kit/docs/architecture.md` still said «the coloured layer is 40 screens... the 42 coach
+screens have no colour at all» and put a scope decision to the owner on that basis - a decision the
+owner took on 11 August and step 7.95 carried out. **Noted rather than rewritten**, because it is
+the question the owner was answering and the answer does not read without it.
+
+**A list of stale records goes stale.** Two entries were fixed at the point of the fix and the list
+never heard; the record nobody listed kept its numbers. The only defence that scales is asking the
+OUTPUT rather than keeping a list, which is what `vars.mjs` and `grey-vars.mjs` already do for
+values. That instrument does not exist for published COUNTS, and it is now backlog item 8.
+
+### What this does not close
+
+**886 has not been re-taken.** It was measured as «the system owns this class too», before the
+scope fix let the system reach these screens at all, and 655 rules have since left the corpus it
+was counted over. Restating it as a smaller number would be arithmetic, not a measurement. The 499
+rules that remain are the honest subject of item 2, and item 3's 210 local declarations sit inside
+them.
