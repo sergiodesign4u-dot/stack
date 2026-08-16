@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Блок покупки</title>
+<title>Коробка покупки - тренер</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <!-- the frame loads the product's entry point and nothing of the showcase -->
 <link rel="stylesheet" href="../../system/index.css">
@@ -15,30 +15,37 @@
 </style>
 </head>
 <body>
-<div style="max-width:580px;margin:0 auto"><div class="bb">
+<!-- 8.34c: the COACH buy box, and nine of this file's classes exist nowhere else -
+     `.coachbox` with `.cbh`, `.cbrow`, `.cbtier`, `.cbold`, `.cbnew`, `.cbsave`,
+     `.cbnote` and `.clientpick`. `design/product-coach.html` is their only screen,
+     and it is the primary audience's product page: the same buy box, plus the block
+     that says what this costs at the coach tier and who it is being bought for.
+     Taken from that screen; handlers stripped, links lifted a level. -->
+<div style="max-width:420px;padding:24px">
+<div class="bb retailref">
       <div class="eyebrow"><a href="../../listing.html">Optimum Nutrition</a> · США</div>
       <h1>Gold Standard 100% Whey 2270 г</h1>
       <!-- one line: availability + SKU left, rating right (owner's call 2026-07-27) -->
       <div class="bbline">
         <div class="bbmeta"><span class="bbavail">В наявності</span><span class="art">Артикул: ON-GS-2270</span></div>
-        <div class="bbrate"><a href="#rev"><span class="st"><span class="uiv-ic uiv-star"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span><b>4.8</b></span> · 126 відгуків</a></div>
+        <div class="bbrate"><a href="#rev"><span class="st">★ 4.8</span> · 126 відгуків</a></div>
       </div>
 
       <div class="vgroup">
-        <div class="vlbl">Фасування<span class="vsel">2270 г</span></div>
-        <div class="vopts" role="radiogroup">
-          <span class="vopt" role="radio" aria-checked="false" tabindex="-1" style="cursor: pointer;">908 г</span>
-          <span class="vopt on" role="radio" aria-checked="true" tabindex="0" style="cursor: pointer;">2270 г</span>
-          <span class="vopt" role="radio" aria-checked="false" tabindex="-1" style="cursor: pointer;">4540 г</span>
+        <div class="vlbl">Фасування</div>
+        <div class="vopts">
+          <span class="vopt">908 г</span>
+          <span class="vopt on">2270 г</span>
+          <span class="vopt">4540 г</span>
         </div>
       </div>
       <div class="vgroup">
-        <div class="vlbl">Смак<span class="vsel">Подвійний шоколад</span></div>
-        <div class="vopts" role="radiogroup">
-          <span class="vopt on" role="radio" aria-checked="true" tabindex="0" style="cursor: pointer;">Подвійний шоколад</span>
-          <span class="vopt" role="radio" aria-checked="false" tabindex="-1" style="cursor: pointer;">Ваніль</span>
-          <span class="vopt" role="radio" aria-checked="false" tabindex="-1" style="cursor: pointer;">Полуниця</span>
-          <span class="vopt off" role="radio" aria-checked="false" aria-disabled="true" tabindex="-1">Печиво-крем</span>
+        <div class="vlbl">Смак</div>
+        <div class="vopts">
+          <span class="vopt on">Подвійний шоколад</span>
+          <span class="vopt">Ваніль</span>
+          <span class="vopt">Полуниця</span>
+          <span class="vopt off">Печиво-крем</span>
         </div>
       </div>
 
@@ -49,17 +56,37 @@
       <div class="priceblk">
         <div class="pbl">
           <div class="oldrow"><span class="old">1 520 ₴</span><span class="cut">−15%</span></div>
-          <div class="new">1 290 <span class="uiv-cur">₴</span></div>
-          <!-- Coach-tier price shown ONLY in coach mode (product-coach state), not to buyers -
-               so regular buyers don't hold off waiting for a cheaper coach price. -->
+          <div class="new">1 290 ₴</div>
         </div>
         <div class="buyrow">
-          <a class="btn--accent btn--l addcart" href="../../cart.html">У кошик</a>
-          <button class="btn--outline btn--icon btn--l wish" aria-label="В обране"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span></button>
+          <a class="btn--accent btn--l addcart" href="../../coach-session.html">Додати клієнту</a>
+          <button class="btn--outline btn--icon btn--l wish" aria-label="В обране">♡</button>
         </div>
         <!-- per-serving + bonus sit UNDER both columns, so the figure and the action
              stay on one baseline and the small print never pushes them apart -->
-        <div class="perserv">≈ 18 ₴ / порція · +13 ₴ бонус на рахунок</div>
+        <div class="perserv">Роздрібна ціна · ≈ 18 ₴ / порція</div>
+      </div>
+
+      <!-- COACH-TIER PRICE - shown ONLY in coach mode, never to regular buyers -->
+      <div class="coachbox">
+        <div class="cbh">🎓 Гуртова ціна тренера <span class="cbtier">Pro</span></div>
+        <div class="cbrow">
+          <span class="cbnew">1 090 ₴</span>
+          <span class="cbold">1 290 ₴</span>
+          <span class="cbsave">−200 ₴ / шт</span>
+        </div>
+        <div class="cbnote">Ваша тарифна ціна для замовлень клієнтам. Що більше товарів у сесії -
+          то вигідніша поставка.</div>
+      </div>
+
+      <div class="clientpick">
+        <label for="cl">Додати клієнту</label>
+        <select class="field" id="cl" aria-label="Оберіть клієнта">
+          <option>Андрій - Набір маси</option>
+          <option>Марія - Схуднення</option>
+          <option>Ігор - Витривалість</option>
+          <option>+ Новий клієнт…</option>
+        </select>
       </div>
 
       <div class="simple">Сироватковий протеїн для росту та відновлення м'язів. 24 г білка на порцію - базова добавка для набору маси й підтримки форми.</div>
@@ -67,7 +94,7 @@
       <div class="dpblk">
         <div class="dphead">
           <div class="dph">Доставка</div>
-          <button class="btn--outline btn--s dpcity" type="button" onclick="openCity()">Одеса <span class="dpcar uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></button>
+          <button class="btn--outline btn--s dpcity" type="button">Одеса <span class="dpcar">▾</span></button>
         </div>
         <!-- carrier logo instead of a generic icon on the Нова Пошта rows; the brand
              is in the mark, so the titles stay short and dash-free -->
@@ -82,7 +109,7 @@
           <div class="dpp">від 70 ₴</div>
         </div>
         <div class="dprow">
-          <span class="dpic"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c4.5-4.2 6.8-7.3 6.8-10.5A6.8 6.8 0 0 0 5.2 10.5C5.2 13.7 7.5 16.8 12 21z"></path><circle cx="12" cy="10.4" r="2.5"></circle></svg></span></span>
+          <span class="dpic"></span>
           <div class="dpt"><b>Самовивіз в Одесі</b><span>завтра</span></div>
           <div class="dpp free">безкоштовно</div>
         </div>
@@ -94,7 +121,8 @@
           <span class="paych">Готівка при самовивозі</span>
         </div>
       </div>
-    </div></div>
+    </div>
+</div>
 <!-- The frame loads exactly what a coloured product screen loads, in the same order,
      and calls the same initialisers. Anything less and the demo is a photograph:
      the price slider, the checkboxes and the switch are all JS-driven, and a stand

@@ -77,7 +77,7 @@
         <button class="btn--accent btn dark">Застосувати (47)</button>
       </div>
     </div></div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Підкладка</b> <code>.fsheet-ov</code> - fixed, <code>inset: 0</code>, z-index 50, фарба <code>--scrim-overlay</code>, <code>display: none</code> / <code>.open{ display: block }</code>. У демо її немає: вона сусідка панелі, а не її частина</span></div><div class="a"><i>2</i><span><b>Панель</b> <code>.fsheet</code> - fixed знизу, z-index 51, <code>max-height: 88vh</code>, радіус 16 тільки зверху. Заміряно при 360: <b>360x792</b>, а від 860 <code>display: none</code></span></div><div class="a"><i>3</i><span><b>Закрита</b> - <code>translateY(100%)</code> плюс <code>visibility: hidden</code>, і <code>visibility</code> вимикається із затримкою на час зсуву. Це <b>та сама редакція трьох рядків</b>, що в <code>.wf-drawer</code>: одна хвороба, одні ліки, двічі написані</span></div><div class="a"><i>4</i><span><b>Шапка</b> <code>.fsheet-h</code> - sticky зверху, назва 16 чорна, закриття <code>.x</code> розміром <code>--fs-20</code> - той самий рядок ще в чотирьох файлах</span></div><div class="a"><i>5</i><span><b>Тіло</b> <code>.fsheet-body</code> - <b>клас без файлу</b>: його пише <code>wireframes/_nav.js:1846</code>, і жоден css у системі його не оголошує. Скрол тримає сама панель, тож видимих наслідків немає - але ім'я в розмітці є, а власника в нього немає</span></div><div class="a"><i>6</i><span><b>Підвал</b> <code>.fsheet-foot</code> - sticky знизу, <code>&gt; *{ flex: 1 }</code> і <code>.btn--accent{ flex: 2 }</code>. Подвійна частка належить <b>акцентному фінішу</b>, а не позиції в ряду: акцент означає одну дію області, і саме тому вона ширша</span></div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Підкладка</b> <code>.fsheet-ov</code> - fixed, <code>inset: 0</code>, z-index 50, фарба <code>--scrim-overlay</code>, <code>display: none</code> / <code>.open{ display: block }</code>. До 8.33 у демо її не було, і причина була механічна: збирач ішов деревом панелі, а підкладка їй <b>сусідка</b>, а не дитина. Тепер у рамці стоять обидві, як на <code>listing-sheet.html</code>: 50 під панеллю на 51</span></div><div class="a"><i>2</i><span><b>Панель</b> <code>.fsheet</code> - fixed знизу, z-index 51, <code>max-height: 88vh</code>, радіус 16 тільки зверху. Заміряно при 360: <b>360x792</b>, а від 860 <code>display: none</code></span></div><div class="a"><i>3</i><span><b>Закрита</b> - <code>translateY(100%)</code> плюс <code>visibility: hidden</code>, і <code>visibility</code> вимикається із затримкою на час зсуву. Це <b>та сама редакція трьох рядків</b>, що в <code>.wf-drawer</code>: одна хвороба, одні ліки, двічі написані</span></div><div class="a"><i>4</i><span><b>Шапка</b> <code>.fsheet-h</code> - sticky зверху, назва 16 чорна, закриття <code>.x</code> розміром <code>--fs-20</code> - той самий рядок ще в чотирьох файлах</span></div><div class="a"><i>5</i><span><b>Тіло</b> <code>.fsheet-body</code> - <b>клас без файлу</b>: його пише <code>wireframes/_nav.js:1846</code>, і жоден css у системі його не оголошує. Скрол тримає сама панель, тож видимих наслідків немає - але ім'я в розмітці є, а власника в нього немає</span></div><div class="a"><i>6</i><span><b>Підвал</b> <code>.fsheet-foot</code> - sticky знизу, <code>&gt; *{ flex: 1 }</code> і <code>.btn--accent{ flex: 2 }</code>. Подвійна частка належить <b>акцентному фінішу</b>, а не позиції в ряду: акцент означає одну дію області, і саме тому вона ширша</span></div></div>
 <div class="kp-gap"><h4>Один <code>!important</code> тут, і ще чотири в шарі</h4>У всьому шарі компонентів рівно п'ять <code>!important</code>, і чотири з них - одна форма: <code>@media</code> гасить панель на дальньому боці межі 860, бо власний <code>.open</code> цього файлу ставить <code>display</code> селектором на клас довшим і без прапорця виграв би. Тут це <code>.fsheet, .fsheet-ov{ display: none !important }</code>, і б'є він <b>свій же</b> <code>.fsheet-ov.open{ display: block }</code>. Пара в <code>filter-rail.css</code> та сама форма з іншого боку тієї самої межі: <code>.hrail-fly.wfh-mega</code> і <code>.hrail-scrim</code> гаснуть нижче 859, бо рейка десктопна, а шит телефонний. П'ятий, у <code>nav-drawer.css</code>, не б'є нічого.</div></section>
 
 <section class="kp-sec"><div class="kp-sh">Стани</div>
@@ -110,43 +110,7 @@
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
 <script src="_idle.js"></script>
-<script>
-/* The frame is a viewport, so it has to be sized like one and not like a box.
-   Two numbers are read from the frame itself rather than typed here: its content
-   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
-   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
-   the media query inside sees - the frame is still 1180 wide to itself, which is
-   the whole reason the frame exists. */
-(function(){
-  var f = document.querySelector('.kp-frame'); if (!f) return;
-  var wrap = f.parentNode;
-  function fit(){
-    try{
-      var d = f.contentDocument; if (!d || !d.body) return;
-      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
-      h = Math.min(h, 2400);
-      f.style.height = h + 'px';
-      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
-      var avail = wrap.clientWidth - 26;
-      /* 7.87, from the sweep: `min(1, avail/declared)` put a 1180 demo into a 332px
-         column at k = 0.28, so 16px body copy drew at 4.5px. A demo nobody can read is
-         not a demo. Below 0.62 the frame keeps its size and the wrap scrolls sideways
-         instead - a scrollbar is honest, a 4.5px letter is not. */
-      var k = Math.min(1, avail / declared);
-      if (k < 0.62) k = 0.62;
-      f.style.transformOrigin = 'top left';
-      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
-      wrap.style.overflowX = (declared * k > avail) ? 'auto' : 'hidden';
-      /* and the height it sets must include the padding and border it sits in, or the
-         frame loses its last 2px on every stand - measured on 48 of 48 rows. */
-      wrap.style.height = (Math.round(h * k) + 26) + 'px';
-    }catch(e){}
-  }
-  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
-  addEventListener('resize', fit);
-  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
-})();
-</script>
+<script src="_frame.js"></script>
 <script src="_nav.js"></script>
 </body>
 </html>

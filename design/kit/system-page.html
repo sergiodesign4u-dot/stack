@@ -46,6 +46,14 @@
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Дві половини, які не зустрічаються.</b> Вісім класів - екран повідомлення: <code>.sys-min</code>, <code>.sys-logo</code>, <code>.sys-code</code>, <code>.sys-h</code>, <code>.sys-s</code>, <code>.sys-acts</code>, <code>.sys-search</code>, <code>.sys-links</code>. Вісім - каталог станів: <code>.sysgrid</code>, <code>.syscard</code>, <code>.sc-code</code>, <code>.sc-t</code>, <code>.sc-d</code>, <code>.sc-open</code>, <code>.sysdemo</code>, <code>.demo-btns</code>. Друга вісімка є тільки на <code>wireframes/system.html</code> і з першою на одному екрані не перетинається жодного разу</span></div><div class="a"><i>2</i><span><b>І чотири екрани теж не однакові.</b> <code>wireframes/404.html</code> носить <code>.sys-code</code>, <code>.sys-h</code>, <code>.sys-s</code>, <code>.sys-search</code> і <code>.sys-links</code> - і <b>не має обгортки <code>.sys-min</code></b>; <code>500.html</code> та <code>maintenance.html</code> носять однаковий набір із шести, з <code>.sys-min</code> і <code>.sys-logo</code>. Жоден екран не бере більше половини файлу</span></div><div class="a"><i>3</i><span><b>Стовп</b> <code>.sys-min</code> - <code>min-height: 78vh</code>, колонка по центру за обома осями. Єдина міра висоти у файлі і єдиний <code>vh</code> у ньому. Код повідомлення <code>.sys-code</code> - <code>font-size: 60px</code>, і це єдиний кегль у файлі не з <code>--fs-*</code></span></div><div class="a"><i>4</i><span><b>Каталог</b> <code>.sysgrid</code> - одна колонка, від 720 три; картка <code>.syscard</code> з чотирма частинами (<code>.sc-code</code>, <code>.sc-t</code>, <code>.sc-d</code> з <code>flex: 1</code>, <code>.sc-open</code>) і смуга <code>.sysdemo</code> з <code>.demo-btns</code> під нею</span></div><div class="a"><i>5</i><span><b>Поле пошуку</b> <code>.sys-search input</code> - до 859 кегль підіймається до <code>--fs-16</code>. <b>Це правило зайве, і файл сам про це написав</b>: рівно над ним стоїть коментар, що правило про кегль поля на телефоні переїхало в <code>base.css</code>, «і цей коментар разом з ним». У <code>404.html</code> поле це <code>input type="search"</code>, а <code>base.css</code> накриває його селектором на один елемент довшим, тож виграє саме <code>base.css</code>. Коментар і код під ним суперечать одне одному</span></div><div class="a"><i>6</i><span><b>Фарба говорить іменами прототипу.</b> П'ять семантичних ролей файлу - <code>--text-primary</code>, <code>--text-secondary</code>, <code>--text-muted</code>, <code>--line-hair</code>, <code>--line-strong</code>. Продуктового <code>--text-body</code> тут немає жодного разу, хоч <code>tokens.css</code> дає обом іменам одне значення <code>--warm-900</code>. Це не помилка кольору, це слід того, що колірного блоку не було кому написати</span></div></div>
 </section>
 
+<section class="kp-sec"><div class="kp-sh">Дві решти файлу, і обидві бачать систему вперше</div>
+<p class="kp-p">Рамка вгорі показує шаблон 500 - шість класів із шістнадцяти. Решта десять лежать на двох інших сірих екранах, у яких так само немає кольорового двійника: <code>.sys-search</code> і <code>.sys-links</code> на <code>wireframes/404.html</code>, а вісім <code>.sysgrid</code> / <code>.syscard</code> / <code>.sysdemo</code> / <code>.sc-*</code> / <code>.demo-btns</code> - на <code>wireframes/system.html</code>. Обидві рамки вантажать <code>system/index.css</code>, тобто це <b>перший раз, коли ці класи видно під системою</b>, а не під <code>_wf.css</code>.</p>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/system-page-404.html" style="width:390px" data-w="390" title="Сторінка 404"></iframe></div>
+<div class="kp-cap"><code>.sys-search</code> - форма пошуку прямо на сторінці помилки, <code>.sys-links</code> - п'ять швидких посилань під нею. Разом вони і є те, що <code>system.html</code> називає «не глухий кут»</div>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/system-page-status.html" style="width:1180px" data-w="1180" title="Сторінка стану системи"></iframe></div>
+<div class="kp-cap">Обробники зняті: кнопки там запускають справжні тости й відкривають діалог cookie, а стенд не має виконувати побічні дії сторінки, щоб показати її форму</div>
+<div class="kp-dont"><h4>І під системою відразу видно те, що казав перепис</h4>П'ять кнопок у двох <code>.demo-btns</code> малюються <b>голим текстом</b> - «Показати банер знову», «Показати ok» і решта. Вони носять <code>class="btn"</code> без рангу, а в <code>button.css</code> правила <code>.btn</code> немає взагалі: <b>оздоблення і є ранг</b>. Це не новий дефект і не дефект цієї сторінки - це рівно та сім'я, яку крок 8.14 закрив на 36 контролах, і рівно ті «22 контроли тиражу», що лишились на 54 сірих екранах без кольорового двійника. Вони закриються разом зі своїми екранами; тут вони просто вперше <b>видно</b>.</div></section>
+
 <section class="kp-sec"><div class="kp-sh">Стани</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
 <tr><td><b>404 · не знайдено</b></td><td><code>.sys-code</code> з номером, <code>.sys-h</code>, <code>.sys-s</code>, поле <code>.sys-search</code> і рядок <code>.sys-links</code></td><td>єдиний з чотирьох, що дає вихід пошуком, і єдиний без обгортки <code>.sys-min</code></td></tr>
@@ -76,43 +84,7 @@
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
 <script src="_idle.js"></script>
-<script>
-/* The frame is a viewport, so it has to be sized like one and not like a box.
-   Two numbers are read from the frame itself rather than typed here: its content
-   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
-   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
-   the media query inside sees - the frame is still 1180 wide to itself, which is
-   the whole reason the frame exists. */
-(function(){
-  var f = document.querySelector('.kp-frame'); if (!f) return;
-  var wrap = f.parentNode;
-  function fit(){
-    try{
-      var d = f.contentDocument; if (!d || !d.body) return;
-      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
-      h = Math.min(h, 2400);
-      f.style.height = h + 'px';
-      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
-      var avail = wrap.clientWidth - 26;
-      /* 7.87, from the sweep: `min(1, avail/declared)` put a 1180 demo into a 332px
-         column at k = 0.28, so 16px body copy drew at 4.5px. A demo nobody can read is
-         not a demo. Below 0.62 the frame keeps its size and the wrap scrolls sideways
-         instead - a scrollbar is honest, a 4.5px letter is not. */
-      var k = Math.min(1, avail / declared);
-      if (k < 0.62) k = 0.62;
-      f.style.transformOrigin = 'top left';
-      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
-      wrap.style.overflowX = (declared * k > avail) ? 'auto' : 'hidden';
-      /* and the height it sets must include the padding and border it sits in, or the
-         frame loses its last 2px on every stand - measured on 48 of 48 rows. */
-      wrap.style.height = (Math.round(h * k) + 26) + 'px';
-    }catch(e){}
-  }
-  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
-  addEventListener('resize', fit);
-  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
-})();
-</script>
+<script src="_frame.js"></script>
 <script src="_nav.js"></script>
 </body>
 </html>

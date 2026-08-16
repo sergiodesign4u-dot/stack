@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Шухляда кошика - тренер</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<!-- 8.34b: the coach cart, the only place `.cd-group` and `.cd-note` exist -
+     lines grouped per client, with the divider that step 7.97 spent a measurement
+     on. Taken from `design/cart-coach.html`. -->
+<main class="cart-behind" aria-hidden="true">
+    <h2>Мультиклієнтська сесія</h2>
+    <p>Сесія замовлення під кошиком - кошик відкрито поверх неї.</p>
+    <div class="ph-grid"><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div></div>
+  </main>
+<div class="cart-ov open" id="cart-ov"><a href="../../coach-session.html" aria-label="Закрити кошик" style="position:absolute;inset:0;display:block"></a></div>
+<aside class="cart-drawer open" role="dialog" aria-modal="true" aria-label="Кошик за клієнтами">
+  <header class="cd-head">
+    <h1>Кошик <span class="cd-cnt">4 товари · 2 клієнти</span></h1>
+    <a class="btn--ghost btn--icon btn--s cd-x" href="../../coach-session.html" aria-label="Закрити">✕</a>
+  </header>
+
+  <!-- Every figure below is DERIVED, not typed. data-unit is the tier price this
+       markup already printed on the line (1 230 · 1 090 · 890 · 270) and data-old
+       the retail figure struck beside it (1 450 · 1 290 · 1 050 · 320); nothing
+       was invented, and the four add up to the 2 320 / 1 160 subtotals and the
+       3 480 total that were already here. wfCartCoach() in ../wireframes/_nav.js
+       recomputes line, client subtotal, «Разом» and both counts from them. -->
+  <div class="cd-body">
+
+    <!-- ===== group: Андрій ===== -->
+    <section class="cd-group">
+      <header class="cg-head">
+        <div class="cg-who"><div class="cg-nm">Андрій</div><div class="cg-goal">Ціль: Набір маси</div></div>
+        <div class="cg-sub">2 320 ₴<small>2 товари</small></div>
+      </header>
+
+      <article class="ci" data-unit="1230" data-old="1450">
+        <a href="../../product.html" class="ci-ph">фото</a>
+        <div class="ci-mid">
+          <div class="ci-brand">BioTechUSA · Угорщина</div>
+          <a href="../../product.html" class="ci-nm">Hyper Mass 4000 г</a>
+          <div class="ci-row">
+            <div class="ci-qty"><button aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+            <div class="cprice">1 230 ₴<span class="old">1 450 ₴</span><span class="wtag">гурт</span></div>
+          </div>
+          <div class="ci-links"><button class="btn--text ci-lnk">🗑 Видалити</button></div>
+        </div>
+      </article>
+
+      <article class="ci" data-unit="1090" data-old="1290">
+        <a href="../../product.html" class="ci-ph">фото</a>
+        <div class="ci-mid">
+          <div class="ci-brand">Optimum Nutrition · США</div>
+          <a href="../../product.html" class="ci-nm">Gold Standard 100% Whey 2270 г</a>
+          <div class="ci-row">
+            <div class="ci-qty"><button aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+            <div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div>
+          </div>
+          <div class="ci-links"><button class="btn--text ci-lnk">🗑 Видалити</button></div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== group: Марія ===== -->
+    <section class="cd-group">
+      <header class="cg-head">
+        <div class="cg-who"><div class="cg-nm">Марія</div><div class="cg-goal">Ціль: Схуднення</div></div>
+        <div class="cg-sub">1 160 ₴<small>2 товари</small></div>
+      </header>
+
+      <article class="ci" data-unit="890" data-old="1050">
+        <a href="../../product.html" class="ci-ph">фото</a>
+        <div class="ci-mid">
+          <div class="ci-brand">BioTechUSA · Угорщина</div>
+          <a href="../../product.html" class="ci-nm">Iso Whey Zero 908 г</a>
+          <div class="ci-row">
+            <div class="ci-qty"><button aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+            <div class="cprice">890 ₴<span class="old">1 050 ₴</span><span class="wtag">гурт</span></div>
+          </div>
+          <div class="ci-links"><button class="btn--text ci-lnk">🗑 Видалити</button></div>
+        </div>
+      </article>
+
+      <article class="ci" data-unit="270" data-old="320">
+        <a href="../../product.html" class="ci-ph">фото</a>
+        <div class="ci-mid">
+          <div class="ci-brand">OstroVit · Польща</div>
+          <a href="../../product.html" class="ci-nm">L-Carnitine 1000</a>
+          <div class="ci-row">
+            <div class="ci-qty"><button aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+            <div class="cprice">270 ₴<span class="old">320 ₴</span><span class="wtag">гурт</span></div>
+          </div>
+          <div class="ci-links"><button class="btn--text ci-lnk">🗑 Видалити</button></div>
+        </div>
+      </article>
+    </section>
+
+    <div class="cd-note">Одна доставка на тренера · розподіл за клієнтами зберігається в замовленні · знижка й бонуси - на оформленні.</div>
+
+  </div>
+
+  <footer class="cd-foot">
+    <div class="cd-total"><span>Разом <span class="sub">· 2 клієнти</span></span><b>3 480 ₴</b></div>
+    <a class="btn--accent btn--full btn cd-cta" href="../../checkout.html">Оформити замовлення</a>
+    <a class="btn--outline btn--full btn cd-cont" href="../../coach-session.html">Повернутись до сесії</a>
+  </footer>
+</aside>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

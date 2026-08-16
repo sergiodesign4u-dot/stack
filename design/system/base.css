@@ -85,3 +85,31 @@ input[type="checkbox"], input[type="radio"]{ accent-color:var(--bg-action); }
   html input[type="password"], html input:not([type]),
   html textarea, html select{ font-size: var(--fs-16); }
 }
+
+/* AN OPEN PANEL DOES NOT WEAR A FOCUS RING ON ITS OWN BOX - 8.35, owner's call.
+   variable -> value -> why: `outline` on the container an open panel puts focus on,
+   Chrome's default `auto 1px rgb(0, 95, 204)` -> `none`, because that blue exists
+   in no palette of this system and the container is not a target.
+
+   WHAT IT WAS. Step 7.85's focus trap sets `tabindex="-1"` on the top open fixed
+   panel and focuses the CONTAINER, deliberately, with the reason written beside it:
+   «the container, not its first control: it announces the panel's own label and does
+   not preselect an action for someone who has not read the panel yet». That is
+   right. What nobody ever declared is a ring for that container - the system
+   declares `:focus-visible` per component, for controls - so the UA default drew.
+   Measured on three coloured screens rather than on the stand: `#fsheet` on
+   `listing.html`, `#city-dlg` on `index.html`, `#wf-catov` on `product.html`, all
+   three `auto 1px rgb(0, 95, 204)`.
+
+   WHY `.open` IS IN THE SELECTOR, and it is the whole safety of this rule. A bare
+   `[tabindex="-1"]:focus` would have been an accessibility REGRESSION, not a fix:
+   asked of the rendered DOM across 88 screens, `tabindex="-1"` is worn by
+   `div.menu-opt` on 87 of them, `label.co-opt` on 15, `div.menu-list` on 15,
+   `span.ptab` on 12, `span.vopt` on 10, `span.ord-tab` on 2. Those are roving
+   tabindex - the inactive members of a composite widget, which arrow keys DO move
+   focus to and which must keep their ring. None of them ever carries `.open`; every
+   panel the trap focuses does.
+
+   The ring inside the panel is untouched: every control there keeps its own
+   `:focus-visible` from its own component. */
+[tabindex="-1"].open:focus{ outline: none; }

@@ -32,7 +32,20 @@
 /* 7.36b: `.bb .cut` went to discount.css whole. Its weight was the only 800 of the
    eight, and its 12 was one of six copies of the chip's own number. */
 .bb .perserv{ font-size: var(--fs-14); }
-.bb .tier{ font-size: var(--fs-14); color: var(--text-primary); font-weight: var(--fw-bold); border: 1px dashed var(--line-strong); border-radius: var(--radius-8); padding: var(--space-8) var(--space-12); margin-top: var(--space-12); display: inline-block; }
+/* 8.34c: `.bb .tier` DELETED - the third list of step 6, «a class nobody wears».
+   Asked of the rendered DOM on every screen that carries `.bb` (four of them, at
+   1280): `.bb .tier` matched **0**. Asked of the grey layer too, because that is
+   the corpus for counting occurrences: the only `.tier` in the repository is on
+   `wireframes/coach-verify-tier.html`, and that one is the plan card - `.coach`
+   scope, `plan-card.css`, level 3 - never inside a buy box.
+   It reads as an earlier name for the wholesale pill, and `.cbtier` is what
+   `design/product-coach.html` actually wears. Its declarations differ from
+   `.cbtier`'s (dashed edge, --fs-14, --fw-bold against the pill's inverse fill and
+   --fs-10 caps), so this was not a duplicate that could be merged - it was a
+   second answer to a question the coach box had already answered elsewhere.
+   AND IT IS THE SAME STRING that made the first sorting probe at 8.32 call this
+   page's debt «JS-written»: `.tier` occurs in `wireframes/_nav.js` for `acc-tier`
+   and `cab-tier`. Two instruments misled by one name in a row. */
 .bb .vgroup{ margin: var(--space-16) 0; }
 .bb .vlbl{ font-weight: var(--fw-bold); margin-bottom: var(--space-8); }
 /* step 7.29: `.vopts`, `.vopt` and `.vopt.off` went to radio.css. Choosing a
@@ -112,8 +125,12 @@
 .bb .vlbl .vsel{ margin-left:var(--space-8); text-transform:none; letter-spacing:0; font-size:var(--fs-14);
   font-weight:var(--fw-bold); color:var(--text-body); }
 /* step 7.29: the colour half of `.vopt` went to radio.css with the shape. */
-.bb .qty{ border-radius:var(--radius-12); }
-.bb .qty .qn{ font-family:var(--font-mono); }
+/* 8.34c: `.bb .qty` and `.bb .qty .qn` DELETED, same list and same measurement:
+   0 matches on all four screens that carry `.bb`. The product counts quantity
+   under three other names, each in its own file - `.ci-qty` in the cart drawer,
+   `.co-qty` in the checkout, `.oc-qty` on the coach's client page - and none of
+   them is inside `.bb`. The buy box has a stepper only in the CART, never on the
+   product page, where the quantity is chosen after the product is added. */
 /* step 6.8, the no-wrap rule. In stock the row is «У кошик» + the heart and both
    fit. Out of stock the action is «Повідомити про надходження», which needs the
    whole 328px of a phone column - sharing the row with a 52px heart pushed the

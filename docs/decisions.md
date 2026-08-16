@@ -6615,3 +6615,314 @@ components, 0 diverged. `css-comments` 91 balanced. `links` 4606/0. `vars` 207 s
 
 Stand debt **179 classes on 19 pages -> 159 on 15 pages, and every one of the 159 is now a demo the
 page owes**, which is the first time that sentence has been true of the whole number.
+
+## Step 6, twenty-fifth pass - the first five stand pages, and what the first real demo found
+
+Item 3b, with the census now honest: 15 pages owing 159 demos. This pass took the five cheapest -
+`filter-sheet`, `overlay`, `product-grid`, `restock-note`, `pdp-tabs`, six classes between them -
+and none of the six turned out to be a decoration.
+
+- **`.fsheet-ov`** was missing for a mechanical reason the page had already written down: the
+  extractor walks the panel's own tree, and the scrim is the panel's SIBLING, not its child. The
+  frame now carries both, 50 under the panel's 51, exactly as `listing-sheet.html` carries them.
+- **`.ceov`** could not join `.wf-ov` in the same viewport: two `position: fixed` scrims on
+  `inset: 0` read as one dark rectangle. It went onto its own stage with a real child, `.cedlg`,
+  because holding a dialog is the whole of its job - it draws paint, centring and `--space-24`, and
+  everything visible inside belongs to `client-dialog.css`.
+- **`.oosbtn`** had been taken off this page deliberately at 7.91, for the good reason that the
+  stand was drawing an outline button under the name of the accent one. Now it stands where the
+  product puts it, inside `.bb .buyrow`, where its single declaration - `flex: 1` - has a flex row
+  to act on.
+- **`.pdp`** is not a strip at all but the product page's grid, and it shares the file for a reason
+  worth showing rather than stating: from 960 the grid moves the buy rail into a second column, the
+  purchase stops being in front of the reader, and the strip answers by growing a price and a buy
+  button. One mechanism, two class names.
+- **`.ptabs`** is an unrelated tab strip - three declarations, a wrapping flex row of `.ptab` chips
+  on four home screens, zero shared code with `.pdp-tabs`. That two things share a file is a stage
+  09 question, not a fact about either.
+
+### The first real demo found a live defect on a shipped buyer screen
+
+Putting two genuine `.pcard-l` rows on the stand made it visible immediately, and then it was
+measured rather than eyeballed: on `design/listing-list.html`, first card, the «★ Популярне» badge
+**overlaps the product title by 10 x 14px at 390 and at 360**, and is clean at 1280.
+
+Under 559 `.pcard-l` becomes a `56px 1fr` grid and the photo narrows to 56, but the badge inside it
+is `position: absolute` with no width bound and is 77px wide, so it crosses into a text column that
+starts at 101. `.lph` declares no `overflow`, so nothing holds it. The «✦ Новинка» badge is 13px
+narrower and misses the title **by luck** rather than by a rule.
+
+**Not fixed, and the reason is the rule about what a decision is.** Clipping the word, ellipsing it,
+or reducing the badge to its star are three different answers about what the screen SAYS at the
+primary width - which is the phone, for a mobile-first product. That is the owner's call, booked
+against `product-card.css`.
+
+### And the gate caught an invention of mine within the same pass
+
+The first `pdp-tabs` frame put the strip INSIDE `.pdp`, which felt natural and is not what the
+product does - on `design/product.html` the two are siblings, strip first. `accept` returned
+**over=185 at 390** on the frame, and the cause is exact: below 960 `.pdp` is a bare `1fr`, whose
+floor is min-content, and a strip carrying `overflow-x: auto` and non-wrapping tabs inside such a
+column pushes the column to their full width. **A component keeps its own `overflow` only until it
+is put in a column that does not know about it.** Structure restored to the product's; the finding
+is written onto the page rather than quietly reverted.
+
+### Proof
+
+`accept` over the corpus at 390: **207 screens, 10 failures**, all IDLE, all booked - down from 15.
+The five touched pages at a measured 360 and at 390: 0 failures. `idle` on those five: 0 owed,
+0 states, 0 parked exemptions. Photographed at 390: the `.ceov` stage, the `.buyrow`, the `.plist`
+pair and the `.ptabs` row; at 1180: the `.pdp` grid inside its frame. `css-comments` 91 balanced,
+`links` 4610/0, `vars` 207/0, `roles` 84 components 0 diverged.
+
+Stand debt **159 classes on 15 pages -> 153 on 10**.
+
+## Step 6, twenty-sixth pass - three pages, sixteen classes, and all of them the same shape
+
+`filter-rail`, `auth-dialog`, `cat-overlay`. Sixteen classes, and not one of them was a variant of
+something already on the page: **every one was a face of the component that does not exist in
+repose**, for one of two reasons.
+
+**A width that does not draw it.** `.hrail` is the home page's category rail with a flyout, and it
+shares `filter-rail.css` with the listing rail `.frail` while sharing no code with it. It is
+`display: none` below 960 and its flyout and scrim carry `display: none !important` below 860, so
+at the width the listing rail is shown, this entire family - `.hrail` `.hrail-wrap` `.hrail-fly`
+`.hrail-scrim` `.rsep` - draws nothing at all, and no rule of the stand can change that: a media
+query reads the viewport. A second frame, not a second demo.
+
+**A body that is rewritten rather than re-dressed.** The auth dialog has six states and the
+overlay three levels; both replace their panel wholesale. `.auth-load` `.auth-spin` `.lp`
+`.auth-note` exist only in `loading`, `.auth-alt` only in `error`, `.cback` `.wf-catov-all`
+`.wf-catov-sub` only on the category level, `.wf-catov-goal` with `.cg` `.gn` only on the goals
+level.
+
+**Not one of the five new frames types markup.** Each calls the product's own builder -
+`wfHomeRail({open: true})`, `wfAuthGo('loading')`, `wfAuthGo('error')`, `catOverlayCat(0)`,
+`catOverlayGoals()`. The stand presses; it does not transcribe. A page that retypes what a builder
+emits is showing its own copy of the component, which is the habit this stage set out to break.
+
+### The blocking piece was another 24 copies of one script
+
+The frame-fit mechanism - the thing that gives an `<iframe>` the height of its content and scales a
+1180 viewport into a narrower column - lived inline in 24 pages, **byte-identical**, which is luck
+rather than discipline: the idle control started the same way and had drifted into five editions by
+the time it was read. It carried one limit that had never been a decision: `querySelector`,
+singular. A stand page could hold exactly one frame; a second would have loaded and then sat at its
+default 150px, unfitted and unmentioned.
+
+`design/kit/_frame.js`, `querySelectorAll`, a per-frame closure, and nothing else changed. This was
+not a tidy-up done in passing - `filter-rail` needs two frames, `auth-dialog` three, and several of
+the pages still owed need more than one as well.
+
+### Proof
+
+`accept` over the corpus at 390: **212 screens** (five new demo files), **7 failures**, all IDLE,
+all booked - down from 10. The three touched pages at a measured 360: 0 failures. `idle`: 0 owed on
+those three, and **0 states and 0 parked exemptions across the whole stand**. Photographed at 1180:
+the home rail with its flyout open and its scrim, both auth states; at 390: both overlay levels.
+`css-comments` 91, `links` 4615/0, `vars` 212 screens 0, `roles` 84 components 0 diverged.
+
+Stand debt **153 classes on 10 pages -> 137 on 7**.
+
+## Step 6, twenty-seventh pass - two more pages, a third extraction, and a blue ring on every panel
+
+`cookie-banner` and `cart-drawer`, 20 classes. The settings dialog is written by `wfCookie()`
+alongside the bar and stays shut until something presses «Налаштувати», so ten of the fifteen
+classes had no resting form at all; the frame calls `wfCookie(); openCookieSettings()`. The cart's
+other three faces live on three other screens, and **the page behind the drawer belongs to this
+file too** - `.cart-behind` `.cart-ov` `.ph-grid` `.ph-card` are the drawer's siblings, the same
+shape that hid the filter sheet's scrim, and the whole point of `.cart-behind` is that the cart is
+a drawer over a page rather than a page of its own.
+
+### The third extraction of the day, and it was not cosmetic
+
+The frames' boot block - the init list that makes a demo behave rather than pose - existed in **33
+identical copies**. `design/kit/demo/_boot.js` now holds it, with two things no copy had:
+
+**`FRAME_STATE`, called at one exact point.** A frame showing a state the page does not open by
+itself needs its own call, and where that call sits is load-bearing: after the initialisers, so the
+builders it needs exist, and BEFORE the icon and mark passes, so markup the state builds gets its
+glyphs like everything else. Put at the end - which is where a straight extraction would have left
+it - a freshly built panel stays in emoji. That is the defect 7.78 fixed for the toast and 7.87 for
+the catalogue overlay, and it would have come back by placement alone.
+
+**The asset path a builder types by hand.** `design/_nav.js` has four builders that write a
+DOCUMENT-relative `src` into an element they create - `visuals/product-whey.png` at :563,
+`concept/assets/mascot-pose-present.png` at :1228 and :1425, `visuals/mascot-face-reassure.png` at
+:1566. On a coloured screen that is correct, because the screen sits in `design/`. A frame sits two
+levels deeper, so the same string resolves into `design/kit/demo/visuals/...` and 404s. Found by
+the empty cart drawing a broken image where the bear should be. `uivFixLinks` solves exactly this
+problem for `<a href>` and only for those.
+
+### And an open panel produced a finding bigger than either component
+
+**Every open fixed panel draws Chrome's default focus ring on its container** - computed
+`auto 1px rgb(0, 95, 204)`, a blue that appears in no palette of this system.
+
+The cause is not in any of these files. Step 7.85's focus trap sets `tabindex="-1"` on the top open
+panel and focuses **the container**, deliberately, with its reason written beside it: «the
+container, not its first control: it announces the panel's own label and does not preselect an
+action for someone who has not read the panel yet». That is right. What nobody declared is a ring
+for that container - the system declares `:focus-visible` per component, for controls.
+
+Measured on three real coloured screens rather than on the stand: `#fsheet` on `listing.html`,
+`#city-dlg` on `index.html`, `#wf-catov` on `product.html`. All three, same value.
+
+**Not fixed, and the reason is the same as the badge at 8.33:** «take the ring off a container that
+is not a target» and «give the container the system's `--color-focus`» are different answers about
+whether someone on a keyboard should see that focus moved into the panel. Owner's decision.
+
+### Proof
+
+`accept` over the corpus at 390: **216 screens, 5 failures**, all IDLE, all booked - down from 7.
+The two touched pages at a measured 360: 0 failures. `idle`: 0 owed on those two, 0 states, 0 parked
+exemptions. Photographed at 390: the settings dialog, the empty drawer (bear restored), the blocked
+drawer, the coach drawer; at 1180: the home rail, still in its icons after the hook moved.
+`css-comments` 91, `links` 4648/0, `vars` 216/0, `roles` 84 components 0 diverged.
+
+Stand debt **137 classes on 7 pages -> 117 on 5**.
+
+## Step 6, twenty-eighth pass - three pages, and two classes that were not demos at all
+
+`header`, `system-page`, `buy-box`, 31 classes. Two of the 31 turned out not to belong to this item.
+
+**`.mega-pinned` and the scrim's `.pinned` are not runtime states**, and the grep that says so is
+short: the only things in the repository that set them are the four grey screens
+`wireframes/megamenu*.html`, and `wireframes/docs/screens.md` states the purpose outright -
+«`.mega-pinned` тримає відкритим для демо». A class whose whole reason for existing is that a demo
+can hold the panel open is not faked by a demo holding the panel open. The frame builds the header
+with `wfHeader()` and then pins it exactly the way those four screens do.
+
+**The cabinet menu needed two frames, not one.** `.cab-lvl` is the buyer's loyalty line and
+`.cab-tier` the coach's plan pill, and one `.cab-head` answers both roles - so a single frame could
+only ever have shown half of it.
+
+**`system-page` saw the system for the first time.** All sixteen of its classes live on four grey
+screens with no coloured twin, and the file has no colour block at all. The two new frames load
+`system/index.css`, so this is the first time `.sysgrid`, `.syscard`, `.sysdemo`, `.sc-*`,
+`.demo-btns`, `.sys-search` and `.sys-links` have been seen under the system. What that immediately
+shows is the known one: **five buttons in the two `.demo-btns` render as bare text**, because they
+wear `class="btn"` with no rank and `button.css` has no `.btn` rule - the finish IS the rank. Not a
+new defect and not this page's: it is the same family step 8.14 closed on 36 controls, and the same
+«22 controls are tirage, not gaps» that sit on grey-only screens. They close with their screens.
+
+### Two of buy-box's eleven were dead code, and that is list 3
+
+`.bb .tier` and `.bb .qty` are worn by **nothing**. Asked of the rendered DOM rather than the
+markup, because this box is partly built by JS: four screens carry `.bb`, and `.bb .tier` and
+`.bb .qty` matched **0** on every one. Asked of the grey layer too, since that is the corpus for
+counting occurrences: the only `.tier` in the repository is on `wireframes/coach-verify-tier.html`
+and belongs to the plan card - `.coach` scope, `plan-card.css` - never inside a buy box.
+
+`.bb .tier` reads as an earlier name for the wholesale pill, and its declarations differ from
+`.cbtier`'s (dashed edge, 14/bold against the pill's inverse fill and 10/caps), so it was a second
+answer rather than a duplicate. Quantity is counted under three other names, each in its own file -
+`.ci-qty` in the cart drawer, `.co-qty` in the checkout, `.oc-qty` on the coach's client page - and
+none of them sits inside `.bb`. Deleted, with the measurement written beside each deletion.
+`--line-strong` left the file with them, and left the page's token table in the same step, which is
+`roles.mjs` doing its job.
+
+**`.tier` is also the string that misled the first sorting probe at 8.32**, which called this page's
+debt JavaScript-written because `acc-tier` and `cab-tier` occur in `wireframes/_nav.js`. Two
+instruments misled by one name in a row, and both times the correction was the same: ask the
+rendered page, not the source text.
+
+### Proof
+
+`accept` over the corpus at 390: **222 screens, 2 failures** - `account-shell` and `checkout-form`,
+the last two - down from 5. The three touched pages at a measured 360: 0 failures. `idle`: 0 owed on
+those three. `roles` 84 components, 0 diverged, after it caught `--line-strong` going stale.
+`css-comments` 91, `links` 4664/0, `vars` 222/0. Photographed at 1280: the pinned mega panel, the
+coach cabinet menu; at 1180: the status page and the coach buy box; at 390: the 404.
+
+Stand debt **117 classes on 5 pages -> 86 on 2**.
+
+## Step 6, twenty-ninth pass - the three open questions answered, and one of the answers was nearly a regression
+
+The owner took all three as recommended. Each is written where the instrument can act on it, not
+into the markup alone.
+
+### 1. The photo keeps its 84 on a phone
+
+`product-card.css`, `@media (max-width: 559px)`: **`56px` -> `84px`**, and the `.lph` override
+deleted rather than retyped, so the base value stands.
+
+The defect: on `design/listing-list.html`, first card, «★ Популярне» overlapped the product name by
+**10 x 14px at 390 and at 360**, clean at 1280. Three remedies were measured on the live screen
+before one was chosen, and the table is what decided it:
+
+| | overlap | badge | title width @390 | card height |
+|---|---|---|---|---|
+| as it was      | 10x14 | «★ Популярне» 77 | 250 | 225 |
+| photo stays 84 | none  | «★ Популярне» 77 | 207 | **225** |
+| star only      | none  | «★» 23           | 250 | 225 |
+| ellipsis       | none  | «★ Попул…» 46    | 250 | 225 |
+
+All three remove the overlap. This one is the only one that keeps the WORD, and the height column
+is why it is cheap: the card measures **225 in all four variants**, because the name wraps to two
+lines either way. The narrowing to 56 was buying nothing visible and paying for it with a collision.
+Re-measured after: no overlap at 360, 390 or 1280; the text column now starts at 129 against the
+badge's right edge at 111.
+
+### 2. The ring comes off the panel container, and `.open` is the whole safety of the rule
+
+`base.css`: **`[tabindex="-1"].open:focus{ outline: none }`**. Chrome's default
+`auto 1px rgb(0, 95, 204)` -> `none` on the container 7.85's focus trap focuses. Every control
+inside the panel keeps its own `:focus-visible` from its own component.
+
+**The obvious selector would have been an accessibility regression.** A bare
+`[tabindex="-1"]:focus` was the first thing to reach for, so the blast radius was measured before
+anything was written - asked of the rendered DOM across 88 screens:
+
+```
+87  div.menu-opt      15  label.co-opt     15  div.menu-list
+12  span.ptab         10  span.vopt         2  span.ord-tab
+ 5  div#wf-auth.auth-ov.open   2  div.ceov.open   1  div#fsheet.fsheet.open
+```
+
+The first six are **roving tabindex** - the inactive members of a composite widget, which arrow
+keys DO move focus to and which must keep their ring. Suppressing it there would have removed a
+real signal from every menu, tab strip and variant picker in the product. None of them ever carries
+`.open`; every panel the trap focuses does. Verified after: `[tabindex="-1"].open` matches four
+element kinds across the corpus, all of them panels, and the three measured screens now compute
+`outline-style: none`.
+
+### 3. The six finish questions are answered, and the answers live in the instrument
+
+`btn-rank.mjs` never wrote a finish, on purpose - «what a screen recommends is the screen's own».
+But a question that is never closed is a list nobody reads, and six had been standing. The answers
+go into a `FINISH_DECIDED` table in the tool rather than into the markup, because a screen
+re-cloned from grey would lose a hand edit and the table can redo it.
+
+**Three written (`take: 'base'`): `coach-clients-cap`.** The three «Нова сесія» on the client cards
+were `btn--accent` where the base `coach-clients` draws `btn--outline`. Counted at 390:
+
+```
+coach-clients       3 accent fills   Нова сесія (bar) · Додати клієнта · Підписатись
+coach-clients-cap   6 accent fills   Нова сесія (bar) · Оформити Pro
+                                     Нова сесія · Нова сесія · Нова сесія · Підписатись
+```
+
+The screen says «you have hit the client cap», so its one clear next step is «Оформити Pro» - and
+it was one of six orange fills, four of which called in two different directions. Now 3 against the
+base's 3, and the loudest new thing on the screen is the upgrade.
+
+**Three blessed (`take: 'screen'`): `home-buyer`, `home-cart`, `home-coach`.** The `.pstrip` action
+is `btn--outline` where the guest home draws `btn--accent`, and reading the strip settles it: the
+guest is told «Увійдіть, щоб бачити персональні знижки та бонуси» and invited in accent; the
+logged-in buyer is told «ваш рівень: 🥈 Срібний · 124 ₴ бонусів» and has nowhere left to be
+invited. Deliberate, and now recorded so the question does not return a third time.
+
+**The table has an idle control, and its two halves ask different things.** A `screen` entry that
+matches no live disagreement is STALE - it blesses something that is gone, and the run fails. A
+`base` entry stops matching the moment `--apply` has done its work, which is success rather than
+staleness, so what is checked there is weaker and still real: the page must exist and still contain
+the slot the decision names. Run, applied, re-run: converged in one pass, exit 0.
+
+### Proof
+
+`btn-rank` after: 88 pages, unranked 0, dead `dark` 0, size-or-decided-finish 0, **open finishes 0**,
+decisions 4, decisions with no subject 0. `accept` over the corpus at 390: 222 screens, 2 failures -
+`account-shell` and `checkout-form`, the last two stand pages. `listing-list`, `coach-clients-cap`,
+`listing` and `product` at a measured 360: 0 failures. `roles` 84 components 0 diverged,
+`css-comments` 91, `links` 4664/0, `vars` 222/0, `scope` exit 0.

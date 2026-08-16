@@ -628,7 +628,109 @@ property.
      idle control of its own in `idle.mjs`, narrowed to the only kind that could be parked there: a
      bare identifier the component's own css declares as a class and no script toggles.
 
-   **Left: 15 pages, 159 classes, every one of them a demo the page owes.** One page at a time, each
+   **First five pages closed 2026-08-16 (8.33): `filter-sheet` `overlay` `product-grid` `restock-note`
+   `pdp-tabs`, 6 classes.** None of the six was a decoration. `.fsheet-ov` was missing because the
+   extractor walked the panel's own tree and the scrim is its SIBLING; `.ceov` had to stand apart
+   from `.wf-ov`, since two `position: fixed` scrims on `inset: 0` in one viewport read as one dark
+   rectangle; `.oosbtn` had been deliberately taken OFF this page at 7.91 for being drawn under the
+   wrong finish, and is now shown where the product puts it, inside `.bb .buyrow`; `.pdp` moved into
+   the frame around its own strip, because the strip grows a price at 960 precisely BECAUSE `.pdp`
+   moved the buy rail into a second column; and `.ptabs` turned out to be an unrelated tab strip
+   sharing a file, which is a stage 09 question.
+
+   **And the first real demo found a live defect on a shipped buyer screen.** `design/listing-list.html`,
+   first card: the «★ Популярне» badge overlaps the product title by **10 x 14px at 390 and at 360**,
+   clean at 1280. Under 559 `.pcard-l` becomes a `56px 1fr` grid and the photo narrows to 56, but the
+   badge inside it is `position: absolute` with no width bound and is 77px wide, so it crosses into a
+   text column that starts at 101; `.lph` has no `overflow`. The «✦ Новинка» badge is 13px narrower
+   and misses the title BY LUCK, not by a rule. Three remedies were measured before one was chosen -
+   clipping the word, ellipsing it, or the photo keeping its 84 - and all three remove the overlap
+   at the same card height, 225. **DECIDED 2026-08-16, owner: the photo keeps its 84.** It is the
+   only one that keeps the WORD, and it costs 43px of title width and nothing in height: the name
+   wraps to two lines either way, so narrowing to 56 was buying nothing visible and paying for it
+   with a collision. Written into `product-card.css` with the table.
+
+   **Three more closed 2026-08-16 (8.34): `filter-rail` `auth-dialog` `cat-overlay`, 16 classes,
+   and all sixteen were the same shape - a face of the component that does not exist in repose.**
+   `.hrail` and its flyout are `display: none` below 960 and `!important`-hidden below 860, so at
+   the width the listing rail is shown that whole family draws nothing. `.auth-load` `.auth-spin`
+   `.lp` `.auth-note` live only in the dialog's `loading` state and `.auth-alt` only in `error` -
+   the panel is rebuilt whole, not re-dressed. `.cback` `.wf-catov-all` `.wf-catov-sub` and
+   `.wf-catov-goal` with `.cg` `.gn` live on the overlay's second and third levels, whose body is
+   rewritten by a function.
+
+   **None of the five new frames types markup: each one CALLS the product's own builder** -
+   `wfHomeRail({open: true})`, `wfAuthGo('loading')`, `wfAuthGo('error')`, `catOverlayCat(0)`,
+   `catOverlayGoals()`. A stand that retypes what a builder emits is showing its own copy.
+
+   **And that needed a second instrument extraction.** The frame-fit script was 24 byte-identical
+   inline copies, and the copy carried a limit nobody had decided: `querySelector`, singular, so a
+   page could hold exactly ONE frame and a second would have sat unfitted at 150px. Now
+   `design/kit/_frame.js` with `querySelectorAll`; nothing about the sizing changed. Several of the
+   pages left need two or three frames, so this was the blocking piece rather than a tidy-up.
+
+   **Two more closed 2026-08-16 (8.34b): `cookie-banner` and `cart-drawer`, 20 classes.** The
+   cookie settings dialog is written by `wfCookie()` together with the bar and stays shut until
+   something presses «Налаштувати», so ten classes had no resting form; the frame calls
+   `wfCookie(); openCookieSettings()`. The cart's other three faces live on three other screens -
+   `.cd-empty` on `cart-empty`, `.cd-oosnote` `.cd-blocked` `.cd-fix` on `cart-oos`, `.cd-group`
+   `.cd-note` on `cart-coach` - and **the page BEHIND the drawer belongs to this file too**:
+   `.cart-behind` `.cart-ov` `.ph-grid` `.ph-card` are the drawer's siblings, and the whole point
+   of `.cart-behind` is that the cart is a drawer over a page rather than a page of its own.
+
+   **Third instrument extraction of the day, and this one found a live class of bug.** The frames'
+   boot block - the init list that makes a demo behave rather than pose - was **33 identical
+   copies**. Now `design/kit/demo/_boot.js`, with two things the copies did not have:
+   - **`FRAME_STATE`, called at one exact point**: after the initialisers, so the builders exist,
+     and BEFORE the icon and mark passes, so markup a state builds gets its glyphs. Placed at the
+     end instead, a freshly built panel stays in emoji - the defect 7.78 fixed for the toast and
+     7.87 for the catalogue overlay, which would have returned by placement alone.
+   - **The asset path a builder types by hand.** Four builders in `design/_nav.js` write a
+     DOCUMENT-relative `src` into an element they create (`:563`, `:1228`, `:1425`, `:1566`).
+     Correct on a screen that sits in `design/`; a frame sits two levels deeper, so the same string
+     404s. Found by the empty cart drawing a broken image. `uivFixLinks` solves exactly this for
+     `<a href>` and only for those.
+
+   **And an open panel produced a finding bigger than any of these components.** The container of
+   every open fixed panel draws **Chrome's default focus ring, `auto 1px rgb(0, 95, 204)`** - a blue
+   that is in no palette. 7.85's focus trap sets `tabindex="-1"` on the panel and focuses the
+   CONTAINER deliberately, «so it announces the panel's own label and does not preselect an action»;
+   nobody ever declared a ring for that container, because the system declares focus per component,
+   for controls. Measured on three real coloured screens: `#fsheet` on `listing.html`, `#city-dlg`
+   on `index.html`, `#wf-catov` on `product.html`. **DECIDED 2026-08-16, owner: take the ring off the
+   container** - `[tabindex="-1"].open:focus{ outline: none }` in `base.css`. Every control inside
+   the panel keeps its own `:focus-visible`. **`.open` in that selector is the whole safety of the
+   rule:** a bare `[tabindex="-1"]:focus` would have been an accessibility REGRESSION, because
+   across 88 screens that attribute is worn by `div.menu-opt` on 87, `label.co-opt` on 15,
+   `div.menu-list` on 15, `span.ptab` on 12, `span.vopt` on 10 - roving tabindex, the inactive
+   members of composite widgets that arrow keys DO focus and that must keep their ring. None of
+   them ever carries `.open`; every panel the trap focuses does.
+
+   **Three more closed 2026-08-16 (8.34c): `header`, `system-page`, `buy-box`, 31 classes.**
+   `.mega-pinned` and the scrim's `.pinned` turned out not to be runtime states at all - the only
+   things that set them are the four grey `wireframes/megamenu*.html` screens, and `screens.md`
+   says why: «`.mega-pinned` тримає відкритим для демо». A class whose purpose IS the demo, shown
+   by the demo, is the honest reading. The cabinet menu needed two frames rather than one, because
+   `.cab-lvl` is the buyer's loyalty line and `.cab-tier` the coach's plan pill, and one
+   `.cab-head` answers both. `system-page` got its 404 and its status page - the first time either
+   is seen under `system/index.css`, since none of the four grey screens has a coloured twin.
+   `buy-box` got the coach's box from `design/product-coach.html`, nine classes that exist on that
+   one screen: retail price and coach price side by side, never one instead of the other.
+
+   **And two of `buy-box`'s eleven were not demos owed but DEAD CODE - list 3, closed by
+   deletion.** `.bb .tier` and `.bb .qty` are worn by **nothing**: asked of the rendered DOM on all
+   four screens that carry `.bb`, 0 matches, and the grey layer has none either. `.bb .tier` reads
+   as an earlier name for the wholesale pill that `.cbtier` now carries, with different
+   declarations - a second answer, not a duplicate. Quantity is counted under three other names,
+   each in its own file (`.ci-qty`, `.co-qty`, `.oc-qty`), and never inside `.bb`. Deleted with the
+   measurement written beside each; `--line-strong` left the file with them and left the page's
+   token table the same step, which `roles.mjs` caught.
+
+   **`.tier` is also the string that misled the first sorting probe at 8.32**, because it occurs in
+   `wireframes/_nav.js` as `acc-tier` and `cab-tier`. Two instruments misled by one name in a row,
+   and both times the fix was to ask the rendered page rather than the source text.
+
+   **Left: 2 pages, 86 classes: `account-shell` 29 and `checkout-form` 57.** One page at a time, each
    decided by reading - a mechanical sweep would hide real gaps behind a heuristic, which is what the
    first probe nearly did.
 

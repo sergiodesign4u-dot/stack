@@ -113,6 +113,12 @@
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Шапка</b> <code>.bbline</code> - flex зі <code>space-between</code>, у ньому <code>.bbmeta</code> (наявність і артикул) ліворуч і <code>.bbrate</code> праворуч. <code>.art</code> відбивається крапкою через <code>::before</code>, а не символом у тексті</span></div><div class="a"><i>2</i><span><b>Ціновий блок</b> <code>.priceblk</code> - grid <code>auto minmax(220px, 1fr)</code>: <code>.pbl</code> з <code>.oldrow</code> у першій колонці, <code>.buyrow</code> у другій, <code>.perserv</code> через обидві. До 479 колонка одна. 220 і 36 - літерали</span></div><div class="a"><i>3</i><span><b>Рядок дії</b> <code>.buyrow</code> - <code>flex-wrap</code> стоїть на рядку, а не всередині ширини (крок 7.64): доти він жив тільки у телефонному блоці, і в двох смугах - 480 до ~600 та 860 до ~1100 - це був єдиний бічний скрол, що лишався в продукті. <code>.addcart</code> тягне решту ширини, серце коробки не оголошує зовсім</span></div><div class="a"><i>4</i><span><b>Доставка</b> <code>.dpblk</code> - <code>.dphead</code> з кнопкою міста <code>.dpcity</code>, три рядки <code>.dprow</code> у сітці <code>auto minmax(0,1fr) auto</code>, потім <code>.dph2</code> і чипи оплати <code>.dppay</code> / <code>.paych</code>. <code>.dpic.np</code> - логотип перевізника картинкою з <code>font-size:0</code>, тож літери «НП» у розмітці лишаються для тих, хто читає код, і зникають з екрана. <code>.dpp.free</code> - єдине місце, де ціна йде не моно, а <code>--font-body</code></span></div><div class="a"><i>5</i><span><b>Коробка тренера</b> <code>.coachbox</code> - у демо її немає, бо демо знято з екрана покупця. <code>.cbh</code> із чипом <code>.cbtier</code>, рядок <code>.cbrow</code> з <code>.cbnew</code>, <code>.cbold</code> і <code>.cbsave</code>, під ним <code>.cbnote</code>. Знак у заголовку набраний символом у розмітці, а <code>marks.js</code> робить із нього мітку, якій файл дає 17px</span></div><div class="a"><i>6</i><span><b>Вибір клієнта</b> <code>.clientpick</code> - підпис і один &lt;select&gt;. Обидва класи є рівно на одному кольоровому екрані, <code>design/product-coach.html</code></span></div></div>
 <div class="kp-gap"><h4><code>.perserv</code> - одна назва, дві редакції, і файл це знає</h4>Клас належить і цьому файлу, і <code>product-card.css</code>. Тут увесь рядок «≈ 18 ₴ / порція · +13 ₴ бонус» іде моно, слова разом із цифрами; картка пише <code>&lt;b&gt;18 ₴&lt;/b&gt; / порція</code> і моноспейсить <b>лише число</b> - те, чого просить <code>DESIGN-artifacts.md:77</code>. Звести їх - це <code>&lt;b&gt;</code> у цій розмітці плюс рішення, чи бонусу взагалі місце на цьому рядку. Рішення IA, і файл каже це вголос у коментарі, а не мовчить. Одна з 126 неоднозначних назв шару, і єдина в наборі, де обидва власники малюють по-різному <b>навмисно</b>.</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Коробка тренера, і дев'ять класів файлу є тільки в ній</div>
+<p class="kp-p">Рамка вгорі знята з <code>design/product.html</code> - товарної сторінки покупця. У <b>первинної</b> аудиторії та сама коробка має ще один поверх: <code>.coachbox</code> з <code>.cbh</code>, <code>.cbrow</code>, <code>.cbtier</code>, <code>.cbold</code>, <code>.cbnew</code>, <code>.cbsave</code>, <code>.cbnote</code> і <code>.clientpick</code> під ним. Дев'ять класів, один екран - <code>design/product-coach.html</code>, - і поза ним їх немає ніде.</p>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/buy-box-coach.html" style="width:1180px" data-w="1180" title="Коробка покупки - тренер"></iframe></div>
+<div class="kp-cap">Роздрібна ціна лишається на місці й не ховається: тренер бачить <b>обидві</b> - те, що заплатив би клієнт, і те, що платить він. <code>.cbsave</code> називає різницю на штуку, <code>.clientpick</code> питає, кому це, а <code>.cbtier</code> каже, за яким тарифом</div>
+<div class="kp-do"><h4>Тут же знявся хибний спрацьовок першої проби</h4><code>.tier</code> з цієї сторінки перша проба сортування назвала «пише JS», бо цей рядок трапляється у <code>wireframes/_nav.js</code> для <b>іншого</b> компонента - і саме цей випадок був записаний у беклог як відома хиба. Насправді <code>.bb .tier</code> - це пігулка гуртової ціни всередині коробки, звичайна розмітка, і сторінка була винна їй демо, як і решті десяти.</div></section>
+
 <section class="kp-sec"><div class="kp-sh">Стани</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
 <tr><td><b>спокій</b></td><td>заголовок 30 <code>--font-display</code>, метарядок 12 моно <code>--text-muted</code>, ціна 36 <code>--fw-semibold</code></td><td>ціна - найбільша річ на екрані, і вона одна така</td></tr>
@@ -127,10 +133,11 @@
 <p class="kp-p">У файлі <b>2</b> медіа-умови, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width: 479px)</code></li><li><code>@media (max-width:479px)</code></li></ul></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>36</b> власних класів і <b>1</b> стан.</p><div id="idle"></div><script>var KIT_CLS=["addcart", "art", "bbline", "bbmeta", "buyrow", "cbh", "cbnew", "cbnote", "cbold", "cbrow", "cbsave", "cbtier", "clientpick", "coachbox", "dpblk", "dpcity", "dph", "dph2", "dphead", "dpic", "dpp", "dppay", "dprow", "dpt", "eyebrow", "np", "oldrow", "paych", "pbl", "priceblk", "qty", "simple", "tier", "vgroup", "vlbl", "vsel"], KIT_STS=[":hover"];</script></section>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>34</b> власні класи і <b>1</b> стан.</p>
+<p class="kp-p"><b>Було 36.</b> <code>.bb .tier</code> і <code>.bb .qty</code> видалено з файлу на 8.34c як третій список кроку 6 - «клас, якого ніхто не носить»: питання поставлено рендеру на всіх чотирьох екранах із <code>.bb</code>, відповідь <b>0</b>, і в сірому шарі теж нічого. Причина кожного видалення виписана в самому <code>buy-box.css</code>.</p><div id="idle"></div><script>var KIT_CLS=["addcart", "art", "bbline", "bbmeta", "buyrow", "cbh", "cbnew", "cbnote", "cbold", "cbrow", "cbsave", "cbtier", "clientpick", "coachbox", "dpblk", "dpcity", "dph", "dph2", "dphead", "dpic", "dpp", "dppay", "dprow", "dpt", "eyebrow", "np", "oldrow", "paych", "pbl", "priceblk", "simple", "vgroup", "vlbl", "vsel"], KIT_STS=[":hover"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
-<p class="kp-p">Прочитані з <code>buy-box.css</code>: <b>16</b> семантичних ролей і <b>28</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (16)</th><th>Примітиви (28)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-save</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--mark-inactive</code> <code>--text-action</code> <code>--text-body</code> <code>--text-danger</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-success</code></td><td><code>--font-body</code> <code>--font-display</code> <code>--font-mono</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-30</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-regular</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--ls-display</code> <code>--ls-lead</code> <code>--radius-12</code> <code>--radius-16</code> <code>--radius-4</code> <code>--radius-8</code> <code>--size-34</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<p class="kp-p">Прочитані з <code>buy-box.css</code>: <b>15</b> семантичних ролей і <b>28</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (15)</th><th>Примітиви (28)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-save</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--mark-inactive</code> <code>--text-action</code> <code>--text-body</code> <code>--text-danger</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-success</code></td><td><code>--font-body</code> <code>--font-display</code> <code>--font-mono</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-30</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-regular</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--ls-display</code> <code>--ls-lead</code> <code>--radius-12</code> <code>--radius-16</code> <code>--radius-4</code> <code>--radius-8</code> <code>--size-34</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
 <p class="kp-p">Вирішувач по всіх 57 селекторах: <b>27 оголошень збігаються з елементами й ніде не виграють</b>, і це три різні форми. <b>П'ятнадцять</b> - базове правило, яке б'є власна ж уточнена версія з того самого файлу: <code>.bb .bbmeta</code> проти <code>.bb .bbline .bbmeta</code> (7 оголошень), <code>.bb .buyrow</code> проти <code>.bb .priceblk .buyrow</code> (4), <code>.bb .addcart</code> проти <code>.bb .buyrow .addcart</code> (3), <code>.bb .perserv</code> проти <code>.bb .priceblk .perserv</code> (1). Жоден екземпляр у продукті не стоїть поза уточнювачем, тож <b>файл описує вільніше розміщення, ніж продукт колись уживає</b>. <b>П'ять</b> - той самий селектор, написаний двічі: <code>.bb .simple</code> віддає рамці колір угорі й гасить його <code>transparent</code> унизу (4), <code>.bb .vlbl</code> двічі каже про накреслення (1). <b>Сім</b> - обидва блоки <code>@media (max-width: 479px)</code> структурної половини, повторені слово в слово в колірній.</p><div class="kp-gap"><h4>І ще 35 оголошень не збігаються ні з чим</h4><code>.bb .tier</code> - 30 оголошень, <code>.bb .qty</code> - 4, <code>.bb .qty .qn</code> - 1. Це не стан, який вмикає JavaScript, і не залишок сірого прототипу: <b>такої розмітки немає ніде</b>. Крамниця пише <code>.ci-qty</code>, оформлення - <code>.co-qty</code>, голого класу <code>qty</code> немає в жодному з двох шарів; <code>tier</code> голим є рівно на одному сірому екрані, <code>wireframes/coach-verify-tier.html</code>, і ніколи всередині <code>.bb</code>. Лічильник кількості <b>прибрано навмисно</b> - розмітка продукту каже це коментарем: кількість це робота кошика, а на сторінці товару вона лише відкладає одну ясну дію. А тарифну ціну тренера тепер малює <code>.coachbox</code> з <code>.cbtier</code>. Тобто 35 оголошень - це два рішення про товар, ухвалені й не прибрані з файлу.</div></section>
@@ -143,43 +150,7 @@
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
 <script src="_idle.js"></script>
-<script>
-/* The frame is a viewport, so it has to be sized like one and not like a box.
-   Two numbers are read from the frame itself rather than typed here: its content
-   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
-   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
-   the media query inside sees - the frame is still 1180 wide to itself, which is
-   the whole reason the frame exists. */
-(function(){
-  var f = document.querySelector('.kp-frame'); if (!f) return;
-  var wrap = f.parentNode;
-  function fit(){
-    try{
-      var d = f.contentDocument; if (!d || !d.body) return;
-      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
-      h = Math.min(h, 2400);
-      f.style.height = h + 'px';
-      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
-      var avail = wrap.clientWidth - 26;
-      /* 7.87, from the sweep: `min(1, avail/declared)` put a 1180 demo into a 332px
-         column at k = 0.28, so 16px body copy drew at 4.5px. A demo nobody can read is
-         not a demo. Below 0.62 the frame keeps its size and the wrap scrolls sideways
-         instead - a scrollbar is honest, a 4.5px letter is not. */
-      var k = Math.min(1, avail / declared);
-      if (k < 0.62) k = 0.62;
-      f.style.transformOrigin = 'top left';
-      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
-      wrap.style.overflowX = (declared * k > avail) ? 'auto' : 'hidden';
-      /* and the height it sets must include the padding and border it sits in, or the
-         frame loses its last 2px on every stand - measured on 48 of 48 rows. */
-      wrap.style.height = (Math.round(h * k) + 26) + 'px';
-    }catch(e){}
-  }
-  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
-  addEventListener('resize', fit);
-  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
-})();
-</script>
+<script src="_frame.js"></script>
 <script src="_nav.js"></script>
 </body>
 </html>

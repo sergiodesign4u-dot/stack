@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Оверлей</title>
+<title>Налаштування cookie</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <!-- the frame loads the product's entry point and nothing of the showcase -->
 <link rel="stylesheet" href="../../system/index.css">
@@ -15,7 +15,14 @@
 </style>
 </head>
 <body>
-<div class="wf-ov open" id="city-ov" onclick="closeCity()"></div>
+<!-- 8.34b: the SETTINGS dialog, and it is where ten of the file's classes live -
+     `.wf-ckset` with its head, body and foot, and inside them `.ck-cat`, `.ck-cat-t`,
+     `.ck-cat-d`, `.ck-lock`, `.ck-tog`, `.ck-note`. None of them exists while the bar
+     is at rest, because `wfCookie()` writes all three pieces at once and the dialog
+     stays closed until something presses «Налаштувати».
+     Built the product's way: an empty `#wf-cookie`, `wfCookie()` to fill it, then
+     `openCookieSettings()` - the function the third button on the bar calls. -->
+<div id="wf-cookie"></div>
 <!-- The frame loads exactly what a coloured product screen loads, in the same order,
      and calls the same initialisers. Anything less and the demo is a photograph:
      the price slider, the checkboxes and the switch are all JS-driven, and a stand
@@ -27,6 +34,9 @@
 <script src="../../system/fields.js"></script>
 <script src="../../system/menu.js"></script>
 <script src="../../_nav.js"></script>
+<script>function FRAME_STATE(){
+  try { wfCookie(); openCookieSettings(); } catch(e) {}
+}</script>
 <script src="_boot.js"></script>
 </body>
 </html>

@@ -34,6 +34,15 @@
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Оверлей</b> <code>.auth-ov</code> - <code>position:fixed</code>, <code>inset:0</code>, <code>z-index:60</code>, фон <code>--scrim-overlay</code>. 5 екземплярів на 5 екранах (<code>auth.html</code>, <code>auth-code</code>, <code>auth-error</code>, <code>auth-loading</code>, <code>auth-newuser</code>). На решті 9 з 14 екранів оверлея немає в розмітці взагалі: там лише <code>.bt</code> і <code>.lt</code> - імена, які цей файл ділить з іншими</span></div><div class="a"><i>2</i><span><b>Модалка</b> <code>.auth-modal</code> - від 720 дві колонки. Ширина сказана двічі: <code>max-width:880px</code> у структурі й <code>max-width:920px</code> у кольорі. Змінна рядка теж: <code>--auth-row</code> це 34px у структурі й 42px у кольорі</span></div><div class="a"><i>3</i><span><b>Візуал</b> <code>.auth-visual</code> - до 720 <code>display:none</code>. Вище: 42% у структурі, 44% у кольорі; штрихування змінюється на фотографію мaскота з градієнтною вуаллю (<code>--veil-page</code> ... <code>--veil-inverse</code>)</span></div><div class="a"><i>4</i><span><b>Логотип двічі</b> <code>.auth-mlogo</code> і <code>.vlogo</code> - до 719 знак стоїть у верхньому рядку форми, від 720 він ховається і його роль бере логотип візуалу. Два елементи, одна робота, розділені межею</span></div><div class="a"><i>5</i><span><b>Форма</b> <code>.auth-form</code> <code>.auth-h1</code> <code>.auth-cta</code> <code>.auth-or</code> <code>.auth-alt</code> - бічні поля 40 у структурі й <b>38 у кольорі, записані сирим числом</b>: 38 немає на шкалі відступів. Хрестик <code>.auth-x</code> це <code>--fs-20</code>, і коментар у файлі пам'ятає, що крок 6.7 знайшов його на 16, коли решта закриттів була на 20</span></div><div class="a"><i>6</i><span><b>Чекання</b> <code>.auth-load</code> <code>.auth-spin</code> <code>.lp</code> <code>.auth-note</code> - по одному екземпляру, і всі на <code>auth-loading.html</code>. <code>.auth-alt</code> так само один, на <code>auth-error.html</code>: у кольорі кожен стан діалогу має свій окремий екран, а не одну сторінку з перемикачем</span></div></div>
 <div class="kp-gap"><h4>Одна межа, два правописи</h4>У файлі <b>сім блоків на межі 720</b>: п'ять написано <code>(min-width: 720px)</code> з пробілом (структура) і два <code>(min-width:720px)</code> без нього (колір). Перепис групує медіа-умови за рядком, тому бачить чотири різні умови там, де межі три. <br><br><b>Числа стенда всередині продукту.</b> Крок 7.26 вийняв звідси <code>@media(min-width:900px){ .auth-ov{ left:216px } }</code> і <code>@media(max-width:899px){ .auth-ov{ top:40px } }</code>: 216 це ширина панелі стенда, 40 висота його смуги, 899/900 його власна межа. Коли стенд переїхав на 1076, а файл лишився на 899, між 900 і 1075 діалог від'їжджав на 216 праворуч від панелі, якої там уже не було. Тепер це <code>--shell-left</code> і <code>--shell-top</code>, нулі поза стендом - і саме тому <code>inset:0</code> зі структури програє свої <code>top</code> і <code>left</code>.</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Ще два обличчя, і без них п'ять класів файлу не існує ніде</div>
+<p class="kp-p">Діалог має <b>шість станів</b>, і рамка вище показує лише перший, <code>phone</code>. Решта п'яти класів живуть у двох інших: <code>.auth-load</code>, <code>.auth-spin</code>, <code>.lp</code> і <code>.auth-note</code> - у стані <code>loading</code>, <code>.auth-alt</code> - у стані <code>error</code>. Це не варіанти оформлення: у спокої першої рамки їх немає взагалі, бо панель <b>перебудовується цілком</b>.</p>
+<p class="kp-p"><b>Стан не підроблено.</b> Обидві рамки викликають <code>wfAuthGo('loading')</code> і <code>wfAuthGo('error')</code> - ту саму функцію, яку натискає «Отримати код» у продукті, - і панель збирає <code>wfAuthPanel()</code>. Стенд не пише розмітки: він натискає.</p>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/auth-dialog-loading.html" style="width:1180px" data-w="1180" title="Діалог входу - надсилаємо код"></iframe></div>
+<div class="kp-cap"><code>.auth-load</code> - блок з <code>aria-live="polite"</code>, тож очікування <b>чують</b>, а не тільки бачать. <code>.auth-spin</code> - кільце, <code>.lp</code> - рядок «На номер», <code>.auth-note</code> - замок під дією</div>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/auth-dialog-error.html" style="width:1180px" data-w="1180" title="Діалог входу - невірний код"></iframe></div>
+<div class="kp-cap"><code>.auth-alt</code> - «Надіслати новий код» під акцентною «Спробувати ще раз»: дві дії різної ваги, і саме це різниця, заради якої клас існує. Контурний фініш тут з <code>button.css</code>, а не свій</div>
+<div class="kp-do"><h4>Три рамки на одній сторінці стали можливі тільки цим кроком</h4>До 8.34 підгонка рамки брала <code>querySelector('.kp-frame')</code>, однину, і друга рамка лишилась би не підігнаною. Тепер це <code>design/kit/_frame.js</code>, один файл на 24 сторінки, з <code>querySelectorAll</code>.</div></section>
+
 <section class="kp-sec"><div class="kp-sh">Стани</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
 <tr><td><b>спокій</b></td><td><code>.auth-ov</code> - <code>display:none</code></td><td><b>на кольорових екранах не трапляється жодного разу</b>: там, де оверлей є, він уже відкритий, а на решті екранів його немає в розмітці</td></tr>
@@ -64,43 +73,7 @@
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
 <script src="_idle.js"></script>
-<script>
-/* The frame is a viewport, so it has to be sized like one and not like a box.
-   Two numbers are read from the frame itself rather than typed here: its content
-   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
-   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
-   the media query inside sees - the frame is still 1180 wide to itself, which is
-   the whole reason the frame exists. */
-(function(){
-  var f = document.querySelector('.kp-frame'); if (!f) return;
-  var wrap = f.parentNode;
-  function fit(){
-    try{
-      var d = f.contentDocument; if (!d || !d.body) return;
-      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
-      h = Math.min(h, 2400);
-      f.style.height = h + 'px';
-      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
-      var avail = wrap.clientWidth - 26;
-      /* 7.87, from the sweep: `min(1, avail/declared)` put a 1180 demo into a 332px
-         column at k = 0.28, so 16px body copy drew at 4.5px. A demo nobody can read is
-         not a demo. Below 0.62 the frame keeps its size and the wrap scrolls sideways
-         instead - a scrollbar is honest, a 4.5px letter is not. */
-      var k = Math.min(1, avail / declared);
-      if (k < 0.62) k = 0.62;
-      f.style.transformOrigin = 'top left';
-      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
-      wrap.style.overflowX = (declared * k > avail) ? 'auto' : 'hidden';
-      /* and the height it sets must include the padding and border it sits in, or the
-         frame loses its last 2px on every stand - measured on 48 of 48 rows. */
-      wrap.style.height = (Math.round(h * k) + 26) + 'px';
-    }catch(e){}
-  }
-  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
-  addEventListener('resize', fit);
-  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
-})();
-</script>
+<script src="_frame.js"></script>
 <script src="_nav.js"></script>
 </body>
 </html>

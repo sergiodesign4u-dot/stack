@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Шухляда кошика - порожня</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<!-- 8.34b: the empty drawer, the only place `.cd-empty` exists. Taken from
+     `design/cart-empty.html`; handlers stripped, links lifted a level. -->
+<main class="cart-behind" aria-hidden="true">
+    <h2>Каталог</h2>
+    <p>Сторінка під кошиком - кошик відкрито поверх неї.</p>
+    <div class="ph-grid"><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div></div>
+  </main>
+<div class="cart-ov open" id="cart-ov"><a href="../../index.html" aria-label="Закрити кошик" style="position:absolute;inset:0;display:block"></a></div>
+<aside class="cart-drawer open" role="dialog" aria-modal="true" aria-label="Кошик">
+  <header class="cd-head">
+    <h1>Кошик <span class="cd-cnt">0 товарів</span></h1>
+    <a class="btn--ghost btn--icon btn--s cd-x" href="../../index.html" aria-label="Закрити">✕</a>
+  </header>
+
+  <div class="cd-body">
+    <div class="cd-empty">
+      <div class="ei">🛒</div>
+      <div class="et">Кошик порожній</div>
+      <div class="es">Оберіть ціль, і ми підкажемо безпечний набір, або перегляньте каталог.</div>
+      <a class="btn--accent btn--l btn--full btn" href="../../index.html">Обрати ціль</a>
+      <a class="btn--outline btn--s btn--full btn gh" href="../../listing.html">До каталогу</a>
+    </div>
+  </div>
+</aside>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

@@ -34,6 +34,14 @@
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Перемикач на 860</b> - <code>.wf-catov{ display: none }</code> стоїть <b>поза</b> медіа-умовою, а <code>.wf-catov.open{ display: flex }</code> - <b>усередині</b> <code>@media (max-width: 859px)</code>. Тому вище 859 клас <code>.open</code> нічого не вмикає, і <code>!important</code> тут не потрібен</span></div><div class="a"><i>2</i><span><b>Панель</b> - fixed, <code>top: 0</code>, <code>bottom: 57px</code>, z-index <b>49</b>, тобто <b>нижче</b> за нижню панель вкладок (z-index 50), з якої її й відкривають. Висота йде за вікном: заміряно 643 при вікні 700 і 943 при 1000, обидва рази рівно вікно мінус 57</span></div><div class="a"><i>3</i><span><b>Шапка</b> <code>.wf-catov-h</code> - sticky, <code>min-height: 52px</code> (число поза шкалою), у ній <code>.ctitle</code>, на другому рівні <code>.ctitle.sub</code> і <code>.cback</code>, праворуч <code>.cx</code></span></div><div class="a"><i>4</i><span><b>Рядок</b> <code>.wf-catov-row</code> - у демо їх 13: один <code>.lead</code> («За ціллю») плюс 12 категорій. Усередині знак <code>.ci</code>, назва <code>.cl</code> з <code>overflow-wrap: anywhere</code> і шеврон <code>.car</code> кольору <code>--mark-faint</code></span></div><div class="a"><i>5</i><span><b>Рівні 2 і 3</b> - <code>.wf-catov-all</code>, <code>.wf-catov-sub</code>, <code>.wf-catov-goal</code> з <code>.cg</code>, <code>.gn</code> і <code>.gc</code>. У демо їх немає, бо будівник пише їх лише після тапу по категорії: те, що ви бачите нижче, це рівень 0</span></div><div class="a"><i>6</i><span><b>Знаки</b> - три правила поза медіа-умовою: акцент на «За ціллю» і на цілях, чорнило на простому списку категорій, і <code>19px</code> замість <code>1.05em</code>, бо в рядку 14px em дав би 14.7, а мальований знак на такому кеглі читається тонше за друкований</span></div></div>
 <div class="kp-gap"><h4>Одна межа, дві техніки, один крок</h4>Цей файл і <code>nav-drawer.css</code> написані на кроці 7.26 і роблять на 860 те саме - гасять панель, якої на десктопі не існує. Тут <code>.open</code> сховано <b>всередину</b> медіа-умови, і правило поза нею вимикає панель тихо. Там - <code>display: none !important</code>. Обидві техніки працюють, але в системі мають бути не дві, а одна, і другу треба обрати вголос: у шарі компонентів рівно п'ять <code>!important</code>, і всі п'ять саме про це.</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Два нижні рівні, і шість класів файлу існують лише там</div>
+<p class="kp-p">Оверлей має <b>три рівні</b>, і рамка вище показує лише перший. Він не перемикається класом - <b>тіло переписується цілком</b>, тож у спокої першого рівня решти розмітки не існує ніде: <code>.cback</code> у шапці, <code>.wf-catov-all</code> і <code>.wf-catov-sub</code> на рівні категорії, <code>.wf-catov-goal</code> з двома дітьми <code>.cg</code> і <code>.gn</code> - на рівні цілей.</p>
+<p class="kp-p"><b>Рівні не підроблені.</b> Рамки викликають <code>catOverlayCat(0)</code> і <code>catOverlayGoals()</code> - ті самі функції, які натискають рядки першого рівня. Стенд натискає, а не набирає.</p>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/cat-overlay-cat.html" style="width:390px" data-w="390" title="Каталог - другий рівень"></iframe></div>
+<div class="kp-cap"><code>.cback</code> - «‹ Каталог» ліворуч, і поруч <code>.ctitle.sub</code> з назвою категорії: шлях назад і місце, де ви є, в одному рядку. <code>.wf-catov-all</code> - перший рядок тіла, вихід у всю категорію; <code>.wf-catov-sub</code> - підкатегорії під ним</div>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/cat-overlay-goals.html" style="width:390px" data-w="390" title="Каталог - за ціллю"></iframe></div>
+<div class="kp-cap"><code>.wf-catov-goal</code> - рядок цілі з двома рядками тексту: <code>.cg</code> це стовпчик, <code>.gn</code> - назва, під нею перелік категорій. Шість цілей MVP, той самий набір, що на плитках головної</div></section>
+
 <section class="kp-sec"><div class="kp-sh">Стани</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
 <tr><td><b>рівень 0</b></td><td><code>catOverlayL0()</code>: рядок «За ціллю» плюс 12 категорій</td><td>це те, що показано в демо, і єдине, що будівник пише одразу</td></tr>
@@ -67,43 +75,7 @@
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
 <script src="_idle.js"></script>
-<script>
-/* The frame is a viewport, so it has to be sized like one and not like a box.
-   Two numbers are read from the frame itself rather than typed here: its content
-   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
-   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
-   the media query inside sees - the frame is still 1180 wide to itself, which is
-   the whole reason the frame exists. */
-(function(){
-  var f = document.querySelector('.kp-frame'); if (!f) return;
-  var wrap = f.parentNode;
-  function fit(){
-    try{
-      var d = f.contentDocument; if (!d || !d.body) return;
-      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
-      h = Math.min(h, 2400);
-      f.style.height = h + 'px';
-      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
-      var avail = wrap.clientWidth - 26;
-      /* 7.87, from the sweep: `min(1, avail/declared)` put a 1180 demo into a 332px
-         column at k = 0.28, so 16px body copy drew at 4.5px. A demo nobody can read is
-         not a demo. Below 0.62 the frame keeps its size and the wrap scrolls sideways
-         instead - a scrollbar is honest, a 4.5px letter is not. */
-      var k = Math.min(1, avail / declared);
-      if (k < 0.62) k = 0.62;
-      f.style.transformOrigin = 'top left';
-      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
-      wrap.style.overflowX = (declared * k > avail) ? 'auto' : 'hidden';
-      /* and the height it sets must include the padding and border it sits in, or the
-         frame loses its last 2px on every stand - measured on 48 of 48 rows. */
-      wrap.style.height = (Math.round(h * k) + 26) + 'px';
-    }catch(e){}
-  }
-  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
-  addEventListener('resize', fit);
-  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
-})();
-</script>
+<script src="_frame.js"></script>
 <script src="_nav.js"></script>
 </body>
 </html>

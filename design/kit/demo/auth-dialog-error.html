@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Оверлей</title>
+<title>Діалог входу - невірний код</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <!-- the frame loads the product's entry point and nothing of the showcase -->
 <link rel="stylesheet" href="../../system/index.css">
@@ -15,7 +15,11 @@
 </style>
 </head>
 <body>
-<div class="wf-ov open" id="city-ov" onclick="closeCity()"></div>
+<!-- 8.34: the `error` face, and the only place `.auth-alt` exists - «Надіслати новий
+     код», the outline twin standing under the accent «Спробувати ще раз». Two actions of
+     different weight, which is the whole reason the class is there. Built by the
+     product's own `wfAuthGo('error')`. -->
+<div style="max-width:1064px;margin:0 auto"><div class="auth-ov open" id="wf-auth" aria-label="Вхід або реєстрація" data-state="phone" tabindex="-1"></div></div>
 <!-- The frame loads exactly what a coloured product screen loads, in the same order,
      and calls the same initialisers. Anything less and the demo is a photograph:
      the price slider, the checkboxes and the switch are all JS-driven, and a stand
@@ -27,6 +31,9 @@
 <script src="../../system/fields.js"></script>
 <script src="../../system/menu.js"></script>
 <script src="../../_nav.js"></script>
+<script>function FRAME_STATE(){
+  try { wfAuthGo('error'); } catch(e) {}
+}</script>
 <script src="_boot.js"></script>
 </body>
 </html>

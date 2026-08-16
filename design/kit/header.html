@@ -65,6 +65,16 @@
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Верхня смуга</b> <code>.wfh-meta</code> - <code>display:none</code> до 859 і <code>block</code> від 860. Стеля <code>max-height:52px</code> і перехід 220ms: на прокрутці смуга згортається в нуль, а не зникає стрибком</span></div><div class="a"><i>2</i><span><b>Головний рядок</b> <code>.wfh-main</code> - <code>position:relative</code>, і саме від нього міряється мегапанель. Крок 7.25: доти вона висіла на кнопці «Каталог» і при вікні 900 виїжджала правим краєм на 1155 при сторінці 885</span></div><div class="a"><i>3</i><span><b>Мегапанель</b> <code>.wfh-mega</code> - <code>226px minmax(0, 1fr) 196px</code>, стеля <code>max-width:940px</code>. При 1280 заміряно <b>940x595</b>: панель стоїть рівно у своїй стелі. Її нутрощі описує <code>mega-menu.css</code>, а флайаут рейки на головній бере цей самий клас і переписує його</span></div><div class="a"><i>4</i><span><b>Кнопка-лічильник</b> <code>.wfh-act.numbtn</code> - <code>min-width:124px</code>. Підлога взята з найширшого ПОРОЖНЬОГО стану: чотири заміряні при 1280 стани дали 124 / 98.6 / 100 / 103, і хедер смикався на 25px просто від того, що приходив баланс</span></div><div class="a"><i>5</i><span><b>Висота рядка</b> <code>.wfh-actions .wfh-act</code> - <code>--size-44</code>, і пошук <code>.wfh-search</code> тягнеться до тієї самої сходинки. 44 - це пальцева сходинка системи, а не третя висота поруч з 40 і 46</span></div><div class="a"><i>6</i><span><b>Мобільний ряд знаків</b> <code>.wfh-mi</code> - коробка 21x32 не може ширшати, не штовхнувши сусіда, тому ціль розтягує <code>a::after{ inset:-6px -8px }</code>: 8 виміряно по проміжку, тож ціль зупиняється ПЕРЕД сусіднім знаком, а не накриває його</span></div></div>
 <div class="kp-gap"><h4>Єдине <code>!important</code> файлу</h4>Це <code>@media (max-width: 859px){ .wfh-scrim{ display:none !important } }</code>, і б'є воно <code>.wfh-scrim.open, .wfh-scrim.pinned{ display:block }</code> - два класи проти одного. Без нього скрим лишався б на телефоні, якби JavaScript встиг покласти на нього <code>.open</code>. У всьому шарі <code>!important</code> рівно <b>п'ять</b>, у чотирьох файлах, і всі п'ять - одне речення на межі 860: три вимикають десктопне нижче межі, два - мобільне вище. Системі просто нема чим сказати «цього компонента на цій ширині не існує», крім жорсткого перебиття.<br><br><b>Чого немає в демо.</b> Розмітку знято з <code>design/index.html</code>, а це гість, тож сім класів меню кабінету - <code>.wfh-cab</code> <code>.wfh-cabmenu</code> <code>.cab-head</code> <code>.cab-nm</code> <code>.cab-tier</code> <code>.cab-lvl</code> <code>.cab-sep</code> - тут не показані, хоча на <code>account*.html</code> вони малюються. <code>.wfh-scrim</code> лежить сусідом, поза коренем. Мегапанель у розмітці є, але закрита - як у спокої. А <code>.drawer-open</code>, <code>.wfh-menuopen</code>, <code>.mega-pinned</code> і <code>.pinned</code> - це класи станів, які кладе JavaScript.</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Три обличчя, яких у гостьовій шапці немає</div>
+<p class="kp-p"><b><code>.mega-pinned</code> і <code>.pinned</code> - не стани продукту, а <b>власна мета цих класів</b>.</b> У всьому репозиторії їх ставлять рівно чотири сірі екрани, <code>wireframes/megamenu*.html</code>, і <code>wireframes/docs/screens.md</code> каже прямо: «<code>.mega-pinned</code> тримає відкритим для демо». Тобто це клас <b>для показу</b>, і рамка нижче робить із ним те саме, що ті чотири екрани, - шапку будує <code>wfHeader()</code>, далі панель приколюють.</p>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/header-mega.html" style="width:1280px" data-w="1280" title="Шапка - мега-панель приколота"></iframe></div>
+<div class="kp-cap"><code>.wfh-scrim</code> - на <code>&lt;body&gt;</code>, а не всередині шапки: шапка тримає власний контекст накладання, тож дитина ніколи не змогла б лягти під неї. На тілі скрим сидить на 28, під шапкою на 30, і сторінка гасне, поки шапка лишається чіткою</div>
+<p class="kp-p"><b>Меню кабінету є лише у ввійшлого</b>, і воно різне для двох ролей: <code>.cab-lvl</code> - рядок рівня лояльності покупця, <code>.cab-tier</code> - пігулка тарифу тренера. Одне <code>.cab-head</code>, дві відповіді, тож і рамок дві. Обидві будує <code>wfHeader(role)</code>, відкриває <code>toggleCab()</code>.</p>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/header-cab.html" style="width:1280px" data-w="1280" title="Шапка - меню кабінету, покупець"></iframe></div>
+<div class="kp-cap">Покупець: <code>.cab-nm</code> з іменем і <code>.cab-lvl</code> «🥈 Срібний рівень» під ним</div>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/header-cab-coach.html" style="width:1280px" data-w="1280" title="Шапка - меню кабінету, тренер"></iframe></div>
+<div class="kp-cap">Тренер: та сама голова, але <code>.cab-tier</code> «Pro» - <b>твердження про акаунт</b>, а не рівень. І чотири пункти замість двох, бо тренерський потік - первинний</div></section>
+
 <section class="kp-sec"><div class="kp-sh">Стани</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
 <tr><td><b>спокій</b></td><td>sticky на <code>var(--shell-top, 0px)</code>, z-index 30, знизу волосина <code>--line-hair</code>, тіні немає</td><td>поза стендом <code>--shell-top</code> дорівнює 0: правило системне, число - стендове</td></tr>
@@ -95,43 +105,7 @@
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
 <script src="_idle.js"></script>
-<script>
-/* The frame is a viewport, so it has to be sized like one and not like a box.
-   Two numbers are read from the frame itself rather than typed here: its content
-   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
-   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
-   the media query inside sees - the frame is still 1180 wide to itself, which is
-   the whole reason the frame exists. */
-(function(){
-  var f = document.querySelector('.kp-frame'); if (!f) return;
-  var wrap = f.parentNode;
-  function fit(){
-    try{
-      var d = f.contentDocument; if (!d || !d.body) return;
-      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
-      h = Math.min(h, 2400);
-      f.style.height = h + 'px';
-      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
-      var avail = wrap.clientWidth - 26;
-      /* 7.87, from the sweep: `min(1, avail/declared)` put a 1180 demo into a 332px
-         column at k = 0.28, so 16px body copy drew at 4.5px. A demo nobody can read is
-         not a demo. Below 0.62 the frame keeps its size and the wrap scrolls sideways
-         instead - a scrollbar is honest, a 4.5px letter is not. */
-      var k = Math.min(1, avail / declared);
-      if (k < 0.62) k = 0.62;
-      f.style.transformOrigin = 'top left';
-      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
-      wrap.style.overflowX = (declared * k > avail) ? 'auto' : 'hidden';
-      /* and the height it sets must include the padding and border it sits in, or the
-         frame loses its last 2px on every stand - measured on 48 of 48 rows. */
-      wrap.style.height = (Math.round(h * k) + 26) + 'px';
-    }catch(e){}
-  }
-  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
-  addEventListener('resize', fit);
-  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
-})();
-</script>
+<script src="_frame.js"></script>
 <script src="_nav.js"></script>
 </body>
 </html>

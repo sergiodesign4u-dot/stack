@@ -15,6 +15,18 @@
 </style>
 </head>
 <body>
+<!-- 8.34b: the page BEHIND the drawer belongs to this file too, and the first
+     extraction missed it for the same reason the filter sheet's scrim was missed -
+     `.cart-behind`, `.cart-ov`, `.ph-grid` and `.ph-card` are the drawer's SIBLINGS,
+     not its children. The whole point of `.cart-behind` is that the cart is a drawer
+     over a page and never a page of its own, and that is invisible with the page cut
+     away. Taken from `design/cart.html`; the handler on the scrim stripped. -->
+<main class="cart-behind" aria-hidden="true">
+    <h2>Каталог</h2>
+    <p>Сторінка під кошиком - кошик відкрито поверх неї.</p>
+    <div class="ph-grid"><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div></div>
+  </main>
+<div class="cart-ov open" id="cart-ov"><a href="../../index.html" aria-label="Закрити кошик" style="position:absolute;inset:0;display:block"></a></div>
 <aside class="cart-drawer open" role="dialog" aria-modal="true" aria-label="Кошик">
   <header class="cd-head">
     <h1>Кошик <span class="cd-cnt">3 товари</span></h1>
@@ -95,31 +107,6 @@
 <script src="../../system/fields.js"></script>
 <script src="../../system/menu.js"></script>
 <script src="../../_nav.js"></script>
-<script>
-(function(){
-  /* 7.87: the first list here was all `uiv*` and the steppers stayed dead, because the
-     behaviour of the cart and the checkout is bound by `wf*` functions in the prototype
-     layer - `wfCart` wants a `.cart-drawer` holding `.ci[data-unit]` and binds a
-     delegated click on it. A demo that shows a control and does not run its binder shows
-     something the product does not have. Both families, in the order a screen calls them. */
-  var init = ['wfCart','wfCheckout','wfAuth','wfPdpModals','wfAddrDialog','wfProfileDialogs',
-              'wfToasts','uivFixLinks','uivChrome','uivCurrency','uivPriceSlider','uivCheckboxes',
-              'uivSwitches','uivSegments','uivRadioGroups','uivDisclosures','uivFav','uivCrumbs',
-              'uivCart','uivCheckout','uivPdp','uivPdpTabs','uivStickyHeader','uivPatchMenus',
-              'uivToastMarks','uivDeadLinks','uivFooterIcons','uivMascot','uivAnchorScroll'];
-  init.forEach(function(n){ try{ if (typeof window[n] === 'function') window[n](); }catch(e){} });
-  /* 7.87: `uivIcons` walks six named ids and nothing else, so a demo that has none of
-     them keeps its emoji. That is the FOURTH hand-written list this pass has found -
-     after the focus ring's thirteen selectors, `UIV_SIGN_ONLY`, and the Escape handler's
-     eleven calls. Here the frame simply asks it to walk the whole body. */
-  try { if (typeof uivIcons === 'function') uivIcons(document.body); } catch(e) {}
-  try { if (typeof uivMarks === 'function') uivMarks(document.body); } catch(e) {}
-  /* A stand must not navigate: the checkout's «Отримати код» is a submit button, and
-     pressing the first control a reader reaches blanked the demo. */
-  document.querySelectorAll('form').forEach(function(f){
-    f.addEventListener('submit', function(e){ e.preventDefault(); });
-  });
-})();
-</script>
+<script src="_boot.js"></script>
 </body>
 </html>

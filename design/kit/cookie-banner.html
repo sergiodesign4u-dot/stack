@@ -34,6 +34,13 @@
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Смуга</b> <code>.wf-cookie</code> - fixed знизу, z-index 55, рамка зверху <code>2px</code> <code>--line-inverse</code>, <code>--elevation-bar-top</code>, <code>flex-wrap</code>. Від 620 падінги 16 -> 24, і це єдина медіа-умова файлу</span></div><div class="a"><i>2</i><span><b>Текст</b> <code>.ck-txt</code> - <code>flex: 1</code> і <code>min-width: 240px</code>. Саме це число вирішує, коли три кнопки падають під текст, і воно поза шкалою</span></div><div class="a"><i>3</i><span><b>Три дії</b> <code>.ck-btn</code> - <b>власна кнопка, а не фініш з <code>button.css</code></b>: своя рамка, свій радіус <code>--radius-8</code>, свій падінг, свій кегль, а <code>.ck-btn.ghost</code> робить третю тихішою. У підвалі діалогу поруч стоять уже <code>.btn--outline</code> і <code>.btn--accent</code> - дві системи кнопок в одному компоненті</span></div><div class="a"><i>4</i><span><b>Діалог</b> <code>.wf-ckset</code> - fixed по центру, 480 / 94vw / 88vh, <code>--elevation-4</code>, z-index <b>61</b>: той самий поверх, що в <code>.cart-drawer</code>, <code>.wf-city</code> і <code>.pm</code>. Чотири панелі на одному числі, і жодного токена порядку в шарі немає</span></div><div class="a"><i>5</i><span><b>Перемикач</b> <code>.ck-tog</code> - 42x24 з кулькою <code>i</code> 18px, зсув на 20px, три сирі числа. Класи <code>.on</code> і <code>.locked</code> ставить <code>wfCkTog()</code>; <code>.locked</code> це <code>opacity: .6</code> і <code>cursor: not-allowed</code></span></div><div class="a"><i>6</i><span><b>Категорії</b> <code>.ck-cat</code> з назвою <code>.ck-cat-t</code>, поясненням <code>.ck-cat-d</code> (шириною до 300) і замком <code>.ck-lock</code>, під ними примітка <code>.ck-note</code>, а внизу <code>.wf-ckset-h</code> / <code>.wf-ckset-b</code> / <code>.wf-ckset-f</code>: три рядки - необхідні (замкнені), аналітика, маркетинг</span></div></div>
 <div class="kp-gap"><h4>Посилання у футері, яке нікуди не веде</h4>Футер малюється на <b>31</b> кольоровому екрані, і в ньому є «Змінити згоду»: <code>&lt;a href="#" onclick="openCookieSettings()"&gt;</code>, <code>wireframes/_nav.js:1777</code>. Далі за кодом: <code>openCookieSettings()</code> шукає <code>#ckset</code>, а не знайшовши - робить <code>location.href = 'system.html'</code>. <code>#ckset</code> пише тільки <code>wfCookie()</code>, тобто тільки там, де є <code>id="wf-cookie"</code>. У теці <code>design/</code> файлу <code>system.html</code> немає. Це прочитано по коду, а не натиснуто в браузері, і кожна ланка перевіряється одним грепом.</div><div class="kp-gap"><h4>Інвентар каже інше</h4><code>design/kit/kit.html:213</code> у таблиці компонентів пише про цей файл «вузол S, на всіх сторінках». У репозиторії - одна сіра сторінка й нуль кольорових. Одне з двох тверджень треба зняти, і це рішення власника, а не правка вітрини.</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Діалог налаштувань, і в ньому десять із п'ятнадцяти класів файлу</div>
+<p class="kp-p"><code>wfCookie()</code> пише <b>три речі одразу</b> - смугу, підкладку і діалог, - але діалог лишається закритим, доки хтось не натисне «Налаштувати». Тому у спокої смуги десяти класів не існує ніде: <code>.wf-ckset</code> з головою, тілом і підвалом, а всередині <code>.ck-cat</code>, <code>.ck-cat-t</code>, <code>.ck-cat-d</code>, <code>.ck-lock</code>, <code>.ck-tog</code>, <code>.ck-note</code>.</p>
+<p class="kp-p"><b>Рамка нижче нічого не набирає:</b> порожній <code>#wf-cookie</code>, потім <code>wfCookie()</code> і <code>openCookieSettings()</code> - та сама функція, яку викликає третя кнопка смуги.</p>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/cookie-banner-settings.html" style="width:390px" data-w="390" title="Налаштування cookie"></iframe></div>
+<div class="kp-cap">Три категорії, перша замкнена: <code>.ck-tog.on.locked</code> - <code>opacity: .6</code> і <code>cursor: not-allowed</code>. У підвалі <b>дві системні кнопки</b>, <code>.btn--outline</code> і <code>.btn--accent</code>, тоді як на смузі стоять власні <code>.ck-btn</code> - дві системи кнопок в одному компоненті, і це вже записано вище</div>
+<div class="kp-dont"><h4>А відкрита панель привела знахідку, більшу за цей компонент</h4><b>Контейнер панелі малює синє кільце фокусу Chrome</b> - <code>auto 1px rgb(0, 95, 204)</code>, синій, якого немає в палітрі. Причина не в цьому файлі: пастка фокусу з 7.85 ставить <code>tabindex="-1"</code> на <b>кожну</b> відкриту фіксовану панель і фокусує саме контейнер - навмисно, «щоб він оголосив власну назву й не вибирав дію за того, хто ще не прочитав панель». Кільце для цього контейнера ніхто не оголошував: у системі фокус описаний покомпонентно, для контролів.<br><br><b>Заміряно на трьох справжніх кольорових екранах</b>, не тут: <code>#fsheet</code> на <code>listing.html</code>, <code>#city-dlg</code> на <code>index.html</code>, <code>#wf-catov</code> на <code>product.html</code> - усі три <code>auto 1px rgb(0, 95, 204)</code>. Не полагоджено: «зняти кільце з контейнера» і «дати контейнеру системне <code>--color-focus</code>» - це різні відповіді про те, чи людина з клавіатурою має бачити, що фокус переїхав. Рішення власника.</div></section>
+
 <section class="kp-sec"><div class="kp-sh">Стани</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
 <tr><td><b>смуга у спокої</b></td><td>три дії однакової ваги: «Прийняти всі», «Тільки необхідні», «Налаштувати»</td><td>згода за українським правилом дається до, а не після, і відмова не має бути важчою за згоду</td></tr>
@@ -65,43 +72,7 @@
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
 <script src="_idle.js"></script>
-<script>
-/* The frame is a viewport, so it has to be sized like one and not like a box.
-   Two numbers are read from the frame itself rather than typed here: its content
-   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
-   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
-   the media query inside sees - the frame is still 1180 wide to itself, which is
-   the whole reason the frame exists. */
-(function(){
-  var f = document.querySelector('.kp-frame'); if (!f) return;
-  var wrap = f.parentNode;
-  function fit(){
-    try{
-      var d = f.contentDocument; if (!d || !d.body) return;
-      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
-      h = Math.min(h, 2400);
-      f.style.height = h + 'px';
-      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
-      var avail = wrap.clientWidth - 26;
-      /* 7.87, from the sweep: `min(1, avail/declared)` put a 1180 demo into a 332px
-         column at k = 0.28, so 16px body copy drew at 4.5px. A demo nobody can read is
-         not a demo. Below 0.62 the frame keeps its size and the wrap scrolls sideways
-         instead - a scrollbar is honest, a 4.5px letter is not. */
-      var k = Math.min(1, avail / declared);
-      if (k < 0.62) k = 0.62;
-      f.style.transformOrigin = 'top left';
-      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
-      wrap.style.overflowX = (declared * k > avail) ? 'auto' : 'hidden';
-      /* and the height it sets must include the padding and border it sits in, or the
-         frame loses its last 2px on every stand - measured on 48 of 48 rows. */
-      wrap.style.height = (Math.round(h * k) + 26) + 'px';
-    }catch(e){}
-  }
-  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
-  addEventListener('resize', fit);
-  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
-})();
-</script>
+<script src="_frame.js"></script>
 <script src="_nav.js"></script>
 </body>
 </html>

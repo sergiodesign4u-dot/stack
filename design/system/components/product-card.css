@@ -119,9 +119,35 @@
 .pcard-l .lfav::after{ content: ''; position: absolute; inset: -12px -6px -12px -13px; }  /* 18x20 -> 37x44 */
 .pcard-l.dim .lph{ opacity: .5; }
 .pcard-l.dim .lprice{ color: var(--text-secondary); }
+/* 8.35, owner's call: THE PHOTO KEEPS ITS 84 ON A PHONE.
+   variable -> value -> why: `.pcard-l` first column and `.pcard-l .lph` width under
+   559, 56px -> 84px (the base value, so the override is deleted rather than
+   retyped), because 56 was putting the badge on top of the product name.
+
+   The defect it fixes, measured on `design/listing-list.html`, first card: «★
+   Популярне» overlapped `.lnm` by 10 x 14px at 390 AND at 360, clean at 1280. The
+   badge is `position: absolute` inside `.lph` with no width bound and is 77px wide;
+   at 56 the text column starts at 101 and the badge runs to 111. `.lph` declares no
+   `overflow`, so nothing held it. «✦ Новинка» is 13px narrower and missed the title
+   BY LUCK rather than by a rule - the same collision was one long word away.
+
+   Three remedies were measured on the live screen before this one was chosen:
+
+   | | overlap | badge | title width @390 | card height |
+   |---|---|---|---|---|
+   | as it was      | 10x14 | «★ Популярне» 77 | 250 | 225 |
+   | photo stays 84 | none  | «★ Популярне» 77 | 207 | 225 |
+   | star only      | none  | «★» 23           | 250 | 225 |
+   | ellipsis       | none  | «★ Попул…» 46    | 250 | 225 |
+
+   All three remove the overlap. This one is the only one that keeps the WORD, and
+   it costs 43px of title width and NOTHING in height: the card measures 225 in all
+   four variants, because the name wraps to two lines either way. So the narrowing
+   to 56 was buying nothing visible and paying for it with a collision.
+   `grid-template-columns` still drops to two columns here - that part is the phone
+   layout and stays. */
 @media (max-width: 559px){
-  .pcard-l{ grid-template-columns: 56px 1fr; row-gap: var(--space-12); }
-  .pcard-l .lph{ width: 56px; }
+  .pcard-l{ grid-template-columns: 84px 1fr; row-gap: var(--space-12); }
   .pcard-l .lprice-col{ align-items: flex-start; }
   .pcard-l .lactions{ justify-content: flex-end; }
 }

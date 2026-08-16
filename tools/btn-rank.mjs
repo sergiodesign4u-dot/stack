@@ -311,15 +311,69 @@ for (const p of NAMES) {
   }
 }
 
-const sized = disagree.filter(d => d.kind === 'size');
-const finished = disagree.filter(d => d.kind === 'finish');
+/* THE OWNER'S ANSWERS TO THE FINISH QUESTIONS - 8.35.
+   A finish disagreement is the screen's own call, so this tool never wrote one. But
+   an open question that is never closed is just a list nobody reads, and there were
+   six standing. Answered 2026-08-16; the answers live HERE rather than in the
+   markup, because a screen re-cloned from grey would lose a hand edit and this table
+   can redo it.
+
+   `take: 'base'` - the screen was wrong, `--apply` writes the base's finish in.
+   `take: 'screen'` - the screen was right, and the reason is written so the question
+   does not come back a third time.
+
+   IDLE CONTROL, and the two halves are not the same question. A `screen` entry that
+   matches no live disagreement is STALE - it blesses something that is gone, and the
+   run fails. A `base` entry stops matching the moment `--apply` has done its work,
+   which is success, not staleness - so what is checked there is weaker and still
+   real: the page must still exist and still contain the slot the decision names. */
+const FINISH_DECIDED = [
+  { p: 'coach-clients-cap', hook: 'у .ccard-acts', take: 'base', why:
+    'екран каже «ви вперлись у ліміт клієнтів», і його один чіткий наступний крок - ' +
+    '«Оформити Pro». Заміряно на 390: база coach-clients несе 3 акцентні заливки, ' +
+    'а цей екран 6 - та сама смуга, «Оформити Pro», ТРИ «Нова сесія» на картках і ' +
+    '«Підписатись». Чотири з шести кличуть у два різні боки на екрані, чия робота - ' +
+    'один крок. Зводимо до бази: 6 -> 3.' },
+  { p: 'home-buyer', hook: 'у .pt', take: 'screen', why:
+    'у гостя смуга каже «Увійдіть, щоб бачити персональні знижки та бонуси» і кнопка ' +
+    'акцентна - це запрошення. У ввійшлого вона каже «ваш рівень: Срібний · 124 ₴ ' +
+    'бонусів» і кнопка контурна, бо запрошувати вже нема куди. Різниця свідома.' },
+  { p: 'home-cart', hook: 'у .pt', take: 'screen', why: 'те саме, що home-buyer.' },
+  { p: 'home-coach', hook: 'у .pt', take: 'screen', why: 'те саме, що home-buyer.' },
+];
+
+const decidedFor = d => FINISH_DECIDED.find(x => x.p === d.p && x.hook === d.hook);
+const sized = [...disagree.filter(d => d.kind === 'size'),
+               ...disagree.filter(d => d.kind === 'finish' && decidedFor(d)?.take === 'base')];
+const finished = disagree.filter(d => d.kind === 'finish' && !decidedFor(d));
+const blessed = disagree.filter(d => d.kind === 'finish' && decidedFor(d)?.take === 'screen');
+
+/* the idle control of the decision table, run before anything is written */
+const staleFin = [];
+for (const x of FINISH_DECIDED) {
+  const hit = disagree.some(d => d.p === x.p && d.hook === x.hook);
+  if (hit) continue;
+  if (x.take === 'screen') { staleFin.push([x, 'нічого не благословляє']); continue; }
+  const slot = x.hook.replace(/^у \./, '');
+  if (!(x.p in SRC)) staleFin.push([x, 'сторінки немає']);
+  else if (!SRC[x.p].includes('class="' + slot) && !SRC[x.p].includes(slot + '"')) staleFin.push([x, 'слота ' + slot + ' немає на сторінці']);
+}
+if (staleFin.length) {
+  console.log('\nРІШЕННЯ, ЯКЕ НІ ДО ЧОГО НЕ ПРИКЛАДАЄТЬСЯ (' + staleFin.length + '):');
+  for (const [x, why] of staleFin) console.log('  ' + x.p.padEnd(28) + x.hook.padEnd(20) + why);
+}
+if (blessed.length) {
+  console.log('\nФІНІШ ВИРІШЕНО НА КОРИСТЬ ЕКРАНА (' + blessed.length + '):');
+  for (const d of blessed)
+    console.log('  ' + d.p.padEnd(28) + d.hook.padEnd(20) + d.have + ' лишається (база ' + d.b + ' малює ' + d.want + ')');
+}
 const show = (title, list) => {
   if (!list.length) return;
   console.log('\n' + title + ' (' + list.length + '):');
   for (const d of list)
     console.log('  ' + d.p.padEnd(28) + d.hook.padEnd(34) + d.have + '  ->  ' + d.want + '   (база ' + d.b + ')');
 };
-show('РОЗМІР, ЩО НЕ ЗБІГАЄТЬСЯ З БАЗОЮ - це дефект', sized);
+show('РОЗМІР ЧИ ВИРІШЕНИЙ ФІНІШ - пишу', sized);
 show('ФІНІШ, ЩО НЕ ЗБІГАЄТЬСЯ З БАЗОЮ - це РІШЕННЯ, не пишу', finished);
 if (finished.length) console.log('  (принцип 2: що екран радить, вирішує екран. Прилад показує, не зводить.)');
 if (sized.length) {
@@ -356,7 +410,8 @@ if (sized.length) {
 
 console.log('\n' + NAMES.length + ' сторінок · без рангу: ' + rows.length +
   ' · читається з бази: ' + done.length + ' · без відповіді: ' + open.length +
-  ' · мертвий dark: ' + darkLeft + ' · розмір проти бази: ' + (APPLY ? 0 : sized.length) + ' · фініш проти бази: ' + finished.length);
+  ' · мертвий dark: ' + darkLeft + ' · пишу: ' + (APPLY ? 0 : sized.length) +
+  ' · фініш відкритий: ' + finished.length + ' · фініш вирішено: ' + FINISH_DECIDED.length + ' · рішення без предмета: ' + staleFin.length);
 /* a finish disagreement does NOT fail the run - it is a question for the
    owner, and a gate that goes red on an open question stops being read. */
-process.exit(open.length || idle.length || darkLeft || (!APPLY && sized.length) ? 1 : 0);
+process.exit(open.length || idle.length || darkLeft || staleFin.length || (!APPLY && sized.length) ? 1 : 0);

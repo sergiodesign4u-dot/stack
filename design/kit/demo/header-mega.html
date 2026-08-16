@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Оверлей</title>
+<title>Шапка - мега-панель приколота</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <!-- the frame loads the product's entry point and nothing of the showcase -->
 <link rel="stylesheet" href="../../system/index.css">
@@ -15,7 +15,12 @@
 </style>
 </head>
 <body>
-<div class="wf-ov open" id="city-ov" onclick="closeCity()"></div>
+<!-- 8.34c: `.mega-pinned` and the scrim's `.pinned` are not runtime states of the
+     product - they exist so a demo can HOLD the panel open, and the four grey screens
+     `wireframes/megamenu*.html` use them for exactly that (`screens.md`: «.mega-pinned
+     тримає відкритим для демо»). So this frame is the class's own purpose, not a fake:
+     the header is built by `wfHeader()` and then pinned the way those screens pin it. -->
+<header id="wf-header" class="wfh" role="banner"></header>
 <!-- The frame loads exactly what a coloured product screen loads, in the same order,
      and calls the same initialisers. Anything less and the demo is a photograph:
      the price slider, the checkboxes and the switch are all JS-driven, and a stand
@@ -27,6 +32,9 @@
 <script src="../../system/fields.js"></script>
 <script src="../../system/menu.js"></script>
 <script src="../../_nav.js"></script>
+<script>function FRAME_STATE(){
+  try { wfHeader(); document.querySelector(".wfh").classList.add("mega-pinned"); document.getElementById("wfh-scrim").classList.add("pinned"); } catch(e) {}
+}</script>
 <script src="_boot.js"></script>
 </body>
 </html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Шухляда кошика - товар недоступний</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<!-- 8.34b: the blocked drawer - `.cd-oosnote` in the body, `.cd-blocked` and
+     `.cd-fix` in the foot. The only screen where a cart cannot be checked out.
+     Taken from `design/cart-oos.html`. -->
+<main class="cart-behind" aria-hidden="true">
+    <h2>Каталог</h2>
+    <p>Сторінка під кошиком - кошик відкрито поверх неї.</p>
+    <div class="ph-grid"><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div></div>
+  </main>
+<div class="cart-ov open" id="cart-ov"><a href="../../index.html" aria-label="Закрити кошик" style="position:absolute;inset:0;display:block"></a></div>
+<aside class="cart-drawer open" role="dialog" aria-modal="true" aria-label="Кошик">
+  <header class="cd-head">
+    <h1>Кошик <span class="cd-cnt">3 товари</span></h1>
+    <a class="btn--ghost btn--icon btn--s cd-x" href="../../index.html" aria-label="Закрити">✕</a>
+  </header>
+
+  <div class="cd-body">
+    <!-- available item -->
+    <article class="ci" data-unit="1290" data-old="1520">
+      <a href="../../product.html" class="ci-ph">фото</a>
+      <div class="ci-mid">
+        <div class="ci-brand">Optimum Nutrition · США</div>
+        <a href="../../product.html" class="ci-nm">Gold Standard 100% Whey 2270 г</a>
+        <div class="ci-var">Смак: Подвійний шоколад</div>
+        <div class="ci-row">
+          <div class="ci-qty"><button aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+          <div class="ci-price"><span class="ci-oldline"><span class="ci-old">1 520 ₴</span><span class="ci-cut">−15%</span></span><span class="ci-sum">1 290 ₴</span><span class="ci-per"></span></div>
+        </div>
+        <div class="ci-links">
+          <button class="btn--text ci-lnk">♡ В обране</button>
+          <button class="btn--text ci-lnk">🗑 Видалити</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- OOS item -->
+    <article class="ci oos" data-unit="1050">
+      <a href="../../product.html" class="ci-ph">фото</a>
+      <div class="ci-mid">
+        <div class="ci-brand">BioTechUSA · Угорщина</div>
+        <a href="../../product.html" class="ci-nm">Iso Whey Zero 908 г</a>
+        <div class="ci-var">Смак: Ваніль</div>
+        <div class="ci-oostag">Немає в наявності</div>
+        <div class="ci-row">
+          <div class="ci-qty"><button aria-label="Менше" disabled>−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість" disabled><button aria-label="Більше" disabled>+</button></div>
+          <div class="ci-price"><span class="ci-sum">1 050 ₴</span></div>
+        </div>
+        <div class="ci-links">
+          <a class="btn--text ci-lnk strong" href="../../cart.html">🗑 Видалити</a>
+          <a class="btn--text ci-lnk" href="../../product.html">🔔 Повідомити про надходження</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- available item -->
+    <article class="ci" data-unit="549">
+      <a href="../../product.html" class="ci-ph">фото</a>
+      <div class="ci-mid">
+        <div class="ci-brand">OstroVit · Польща</div>
+        <a href="../../product.html" class="ci-nm">Creatine Monohydrate 500 г</a>
+        <div class="ci-var">Без смаку</div>
+        <div class="ci-row">
+          <div class="ci-qty"><button aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button aria-label="Більше">+</button></div>
+          <div class="ci-price"><span class="ci-sum">549 ₴</span><span class="ci-per"></span></div>
+        </div>
+        <div class="ci-links">
+          <button class="btn--text ci-lnk">♡ В обране</button>
+          <button class="btn--text ci-lnk">🗑 Видалити</button>
+        </div>
+      </div>
+    </article>
+
+    <div class="cd-oosnote"><span class="m"><b>Один товар недоступний.</b> Оформити замовлення з недоступним товаром не можна - видаліть його, і решта товарів залишиться в кошику.</span></div>
+  </div>
+
+  <footer class="cd-foot">
+    <div class="cd-total"><span>Разом <span class="sub">(доступні товари)</span></span><b>1 839 ₴</b></div>
+    <div class="cd-hint">Знижка й бонуси - на оформленні</div>
+    <a class="btn--accent btn--full btn cd-fix" href="../../cart.html">Видалити недоступний товар</a>
+    <span class="btn--outline btn--full cd-blocked" role="button" aria-disabled="true" tabindex="0">Оформити замовлення</span>
+    <a class="btn--outline btn--full btn cd-cont" href="../../index.html">Продовжити покупки</a>
+  </footer>
+</aside>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

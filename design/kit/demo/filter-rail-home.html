@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Рейка головної</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+  /* the rail is a grid column on the home page - 249 is the width it holds there,
+     and without it the rail would take the whole frame and the flyout would have
+     nothing to sit beside */
+  .hero-wrap{ display:grid; grid-template-columns:249px 1fr; gap:var(--space-16); padding:var(--space-24); }
+</style>
+</head>
+<body>
+<!-- 8.34: the SECOND rail of `filter-rail.css`, and it needed a frame of its own.
+     `.hrail` is `display: none` below 960 and its flyout carries `display: none
+     !important` below 860, so at the width the listing rail is shown this whole
+     family draws nothing at all. The markup is built by `wfHomeRail()`, the same
+     function `design/index.html` calls, and `{open: true}` is its own argument -
+     it runs `hcFly('g')`, which is what a hover does on the home page. -->
+<div class="hero-wrap">
+  <div class="hrail-wrap">
+    <nav class="hrail" id="home-rail" aria-label="Категорії"></nav>
+    <div class="hrail-fly wfh-mega" id="home-fly" role="menu"></div>
+  </div>
+  <div></div>
+</div>
+<div class="hrail-scrim" id="home-scrim"></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script>function FRAME_STATE(){
+  try { wfHomeRail({ open: true }); } catch(e) {}
+}</script>
+<script src="_boot.js"></script>
+</body>
+</html>

@@ -104,6 +104,16 @@
 <p style="margin-top:8px">Написано на <code>.cd-foot</code>, а не на <code>.cd-total</code>, і розмітка не зрушила: <code>.cd-total</code> стає <code>display: contents</code>, і його двоє дітей розставляє сітка підвалу - слово в колонку 1 рядок 1, сума в колонку 2 через обидва рядки й по центру, підказка в колонку 1 рядок 2. Між словом і підказкою <b>відступу немає</b>: вони одна пара, а повітря під парою належить дії, як воно вже належало <code>.cd-cont</code> і <code>.cd-blocked</code>. Змінна -&gt; значення -&gt; чому: кегль суми <code>--fs-30</code> -&gt; <b><code>--fs-24</code></b> - щабель, який у шкалі вже є нижче 30, а не число, обране тут.</p>
 <p style="margin-top:8px"><b>Разом за чотири кроки: 256 -&gt; 219 -&gt; 207 -&gt; 181px</b>, тобто <b>-29%</b> і 22,6% замість 32% висоти телефона. Стан «немає в наявності» - 227. На 320 підвал 200: підказка там переходить у два рядки. Переповнення <code>0</code> на 320, 360, 390, 430 і 1280. <b>І рамка стенда показала 181 одразу</b> - бо цього разу змінилось правило, а не розмітка.</p><p style="margin-top:8px"><b>І те, чого 7.90 не зробив.</b> Правку внесли у два продуктові екрани, а <b>копій цієї розмітки чотири</b>: ще стенд і його рамка, зняті з <code>design/cart.html</code> на 7.86. Тож цей абзац казав «64 -&gt; 52», а кнопка на кілька рядків вище малювалась 64 - сторінка суперечила сама собі, і неправою була картинка. Виправлено на 7.91 одним проходом по всіх чотирьох файлах, і заведено перевірку, яка питає, чи носить кожна кнопка стенда той самий розмір і ту саму обробку, що в продукті: разом із шухлядою вона знайшла ще три розбіжності - на <code>toolbar</code>, на <code>restock-note</code> і в прикладі коду на <code>button</code>. Тим же кроком з другої дії знято <code>btn--l</code>: з чотирьох її оголошень підвал перебивав три, приземлявся лише кегль, і на десктопі посилання читалось 18 проти 16 у головної кнопки над ним. <b>--fs-18 -&gt; --fs-16.</b></p><p style="margin-top:8px"><b>Разом: 256 -> 219 -> 207px.</b> І цього разу питали ряд: на 320, 360, 390, 430 і 1280 <code>scrollWidth - clientWidth</code> підвалу <b>0</b>, шухляди <b>0</b>, сторінка вбік не їде, жоден нащадок не стоїть за межами коробки підвалу.</p></div><div class="kp-gap"><h4>Ширину сказано двічі</h4><code>.cd-cta, .cd-cont, .cd-fix{ width: 100% }</code> і <code>.cd-blocked{ width: 100% }</code>. У кольоровій розмітці ці класи стоять на чотирьох елементах, і <b>кожен з чотирьох уже несе <code>btn--full</code></b>, а <code>.btn--full</code> це рівно <code>width: 100%</code>. Вирішувач такого не бачить: обидва оголошення кажуть одне й те саме, тож жодне ніде не програє. Це той самий вид, який крок 7.9 упіймав <b>одним правилом нижче</b> - у <code>.cd-empty</code> ширину зняли саме з цією формулою («обидві дії вже несуть <code>btn--full</code>»), а два правила над нею лишились.</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Ще три обличчя шухляди, і сторінка під нею</div>
+<p class="kp-p"><b>Сторінка під шухлядою належить цьому ж файлу</b>, і перший знімок її не взяв - з тієї самої причини, з якої не взяв підкладку шита фільтрів: <code>.cart-behind</code>, <code>.cart-ov</code>, <code>.ph-grid</code> і <code>.ph-card</code> - <b>сусіди</b> шухляди, а не її діти. Уся суть <code>.cart-behind</code> у тому, що кошик - це шухляда <b>поверх сторінки</b>, а не сторінка сама по собі, і з відрізаною сторінкою цього не видно. Рамка вгорі тепер її несе.</p>
+<p class="kp-p">Решта шести класів живе на трьох інших екранах, і кожен з них - окрема відповідь, а не варіант оформлення.</p>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/cart-drawer-empty.html" style="width:390px" data-w="390" title="Шухляда кошика - порожня"></iframe></div>
+<div class="kp-cap"><code>.cd-empty</code> з <code>cart-empty.html</code>. <code>.cd-body:has(.cd-empty)</code> перемикає тіло на <code>flex</code> і центрує - тобто порожній стан <b>міняє розкладку тіла</b>, а не тільки його вміст. Ведмедя ставить <code>uivCart()</code>, замінюючи 🛒</div>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/cart-drawer-oos.html" style="width:390px" data-w="390" title="Шухляда кошика - товар недоступний"></iframe></div>
+<div class="kp-cap"><code>.cd-oosnote</code> в тілі, <code>.cd-blocked</code> і <code>.cd-fix</code> у підвалі - єдиний екран, де кошик <b>не можна оформити</b>: головна дія стає «Видалити недоступний товар», а оформлення падає рангом нижче</div>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/cart-drawer-coach.html" style="width:390px" data-w="390" title="Шухляда кошика - тренер"></iframe></div>
+<div class="kp-cap"><code>.cd-group</code> і <code>.cd-note</code> з <code>cart-coach.html</code>: рядки згруповані по клієнтах. Роздільник тут - <code>.cd-group + .cd-group</code>, і саме на ньому 7.97 витратив замір: <code>:last-child</code> не збігався з жодною групою, тож обидві малювали грань, а примітка під другою малювала свою</div></section>
+
 <section class="kp-sec"><div class="kp-sh">Стани</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
 <tr><td><b>спокій</b></td><td>панель намальована завжди: класу <code>.open</code> на ній немає в жодному з десяти файлів обох шарів, і жоден скрипт його не додає</td><td>три екрани кошика і є її відкритим станом</td></tr>
@@ -134,43 +144,7 @@
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
 <script src="_idle.js"></script>
-<script>
-/* The frame is a viewport, so it has to be sized like one and not like a box.
-   Two numbers are read from the frame itself rather than typed here: its content
-   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
-   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
-   the media query inside sees - the frame is still 1180 wide to itself, which is
-   the whole reason the frame exists. */
-(function(){
-  var f = document.querySelector('.kp-frame'); if (!f) return;
-  var wrap = f.parentNode;
-  function fit(){
-    try{
-      var d = f.contentDocument; if (!d || !d.body) return;
-      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
-      h = Math.min(h, 2400);
-      f.style.height = h + 'px';
-      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
-      var avail = wrap.clientWidth - 26;
-      /* 7.87, from the sweep: `min(1, avail/declared)` put a 1180 demo into a 332px
-         column at k = 0.28, so 16px body copy drew at 4.5px. A demo nobody can read is
-         not a demo. Below 0.62 the frame keeps its size and the wrap scrolls sideways
-         instead - a scrollbar is honest, a 4.5px letter is not. */
-      var k = Math.min(1, avail / declared);
-      if (k < 0.62) k = 0.62;
-      f.style.transformOrigin = 'top left';
-      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
-      wrap.style.overflowX = (declared * k > avail) ? 'auto' : 'hidden';
-      /* and the height it sets must include the padding and border it sits in, or the
-         frame loses its last 2px on every stand - measured on 48 of 48 rows. */
-      wrap.style.height = (Math.round(h * k) + 26) + 'px';
-    }catch(e){}
-  }
-  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
-  addEventListener('resize', fit);
-  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
-})();
-</script>
+<script src="_frame.js"></script>
 <script src="_nav.js"></script>
 </body>
 </html>

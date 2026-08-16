@@ -15,6 +15,13 @@
 </style>
 </head>
 <body>
+<!-- 8.33: the strip declares `top: 112px`, which is the height of the header shelf
+     it lives under on `design/product.html`. With nothing above it the sticky rule
+     pushes it DOWN to 112 at scroll 0 and it lands on whatever follows - which is
+     what happened the moment `.pdp` was added below. The spacer is that shelf, and
+     it is a spacer rather than a copy of the header for the same reason the columns
+     below are stand-ins: this frame is about the strip. -->
+<div style="height:112px"></div>
 <nav class="pdp-tabs" aria-label="Розділи товару" data-uiv-stick="1" style="top: 112px; --shelf-top: 112px; --shelf-h: 55px;">
     <a class="on" href="#pro">Про товар</a>
     <a href="#sklad">Склад</a>
@@ -31,6 +38,17 @@
     </span>
     <a class="tbuy" href="../../cart.html">У кошик</a>
   </nav>
+<!-- 8.33: `.pdp` is the block the strip sits ABOVE, and in `design/product.html` the
+     two are siblings in exactly this order - the strip first, the layout under it.
+     That order is the whole reason they share a file: from 960 the grid moves the
+     buy rail into a second column, the purchase stops being in front of the reader,
+     and the strip answers by growing a price and a buy button. Shown apart, the
+     strip's own media query looks arbitrary. Both columns here are stand-ins: the
+     real gallery and buy box would drag two more files into a frame about the strip. -->
+<div class="pdp">
+  <div style="border:1px dashed var(--line-strong); border-radius:var(--radius-12); padding:var(--space-24); color:var(--text-secondary); font-size:var(--fs-14)">колонка товару - <b>minmax(0, 1fr)</b></div>
+  <aside style="border:1px dashed var(--line-strong); border-radius:var(--radius-12); padding:var(--space-24); color:var(--text-secondary); font-size:var(--fs-14)">рейка покупки <b>.bb</b> - 420 від 960, 540 від 1200, 580 від 1440</aside>
+</div>
 <!-- The frame loads exactly what a coloured product screen loads, in the same order,
      and calls the same initialisers. Anything less and the demo is a photograph:
      the price slider, the checkboxes and the switch are all JS-driven, and a stand
@@ -42,31 +60,6 @@
 <script src="../../system/fields.js"></script>
 <script src="../../system/menu.js"></script>
 <script src="../../_nav.js"></script>
-<script>
-(function(){
-  /* 7.87: the first list here was all `uiv*` and the steppers stayed dead, because the
-     behaviour of the cart and the checkout is bound by `wf*` functions in the prototype
-     layer - `wfCart` wants a `.cart-drawer` holding `.ci[data-unit]` and binds a
-     delegated click on it. A demo that shows a control and does not run its binder shows
-     something the product does not have. Both families, in the order a screen calls them. */
-  var init = ['wfCart','wfCheckout','wfAuth','wfPdpModals','wfAddrDialog','wfProfileDialogs',
-              'wfToasts','uivFixLinks','uivChrome','uivCurrency','uivPriceSlider','uivCheckboxes',
-              'uivSwitches','uivSegments','uivRadioGroups','uivDisclosures','uivFav','uivCrumbs',
-              'uivCart','uivCheckout','uivPdp','uivPdpTabs','uivStickyHeader','uivPatchMenus',
-              'uivToastMarks','uivDeadLinks','uivFooterIcons','uivMascot','uivAnchorScroll'];
-  init.forEach(function(n){ try{ if (typeof window[n] === 'function') window[n](); }catch(e){} });
-  /* 7.87: `uivIcons` walks six named ids and nothing else, so a demo that has none of
-     them keeps its emoji. That is the FOURTH hand-written list this pass has found -
-     after the focus ring's thirteen selectors, `UIV_SIGN_ONLY`, and the Escape handler's
-     eleven calls. Here the frame simply asks it to walk the whole body. */
-  try { if (typeof uivIcons === 'function') uivIcons(document.body); } catch(e) {}
-  try { if (typeof uivMarks === 'function') uivMarks(document.body); } catch(e) {}
-  /* A stand must not navigate: the checkout's «Отримати код» is a submit button, and
-     pressing the first control a reader reaches blanked the demo. */
-  document.querySelectorAll('form').forEach(function(f){
-    f.addEventListener('submit', function(e){ e.preventDefault(); });
-  });
-})();
-</script>
+<script src="_boot.js"></script>
 </body>
 </html>

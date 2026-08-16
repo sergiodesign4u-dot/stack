@@ -30,7 +30,10 @@
 <p class="kp-p">Усередині кореня <b>жодного класу іншого компонента</b>, і дітей у нього <b>0</b>. Це не «організм ні з чого не складений» - це корінь, який нічого не містить: затемнення або підкладка, а те, що вона затемнює, лежить не в ній.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
-<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/index.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень. Цей організм у спокої не існує - він <code>display: none</code>, доки щось не додасть <code>open</code>, - тож стенд додає цей клас сам. Показано на сцені: трансформований предок стає для <code>position: fixed</code> тим блоком, від якого рахується його <code>inset</code>, тож панель не накриває сторінку й не втрачає жодного свого оголошення.</p><p class="kp-p">Показано <b>в рамці шириною 390</b>, і ширина названа не для краси: це ширина, на якій цей організм у продукті стоїть. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/overlay.html" style="width:390px" data-w="390" title="Оверлей"></iframe></div><div class="kp-demo kp-stage" hidden><div class="wf-ov open" id="city-ov"></div></div>
+<p class="kp-p">Розмітка тут - <b>не переписана від руки</b>. Її знято з <code>design/index.html</code> у цій же сесії, обробники зняті, посилання підняті на рівень. Цей організм у спокої не існує - він <code>display: none</code>, доки щось не додасть <code>open</code>, - тож стенд додає цей клас сам. Показано на сцені: трансформований предок стає для <code>position: fixed</code> тим блоком, від якого рахується його <code>inset</code>, тож панель не накриває сторінку й не втрачає жодного свого оголошення.</p><p class="kp-p">Показано <b>в рамці шириною 390</b>, і ширина названа не для краси: це ширина, на якій цей організм у продукті стоїть. Медіа-умова читає <b>в'юпорт</b>, а не контейнер, тож жодне правило самого стенда цього не вирішує - тільки справжній в'юпорт, а він є лише в рамки.</p><div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/overlay.html" style="width:390px" data-w="390" title="Оверлей"></iframe></div>
+<p class="kp-p"><b>Другий клас файлу стоїть окремо, і інакше не можна.</b> Обидва <code>position: fixed</code> на <code>inset: 0</code>, тож в одному в'юпорті вони лягли б один на одного і сторінка показала б подвійне затемнення замість двох компонентів. <code>.ceov</code> - на сцені нижче: він <b>тримає</b> діалог, а не гасить порожнечу, тож усередині справжня дитина, <code>.cedlg</code> з <code>client-dialog.css</code>. Сам <code>.ceov</code> не малює нічого, крім фарби, центрування й <code>padding: var(--space-24)</code> - усе, що ви бачите всередині, належить дитині, і в цьому вся його робота.</p>
+<div class="kp-demo kp-stage"><div class="ceov open" role="dialog" aria-modal="true" aria-label="Видалити клієнта"><div class="cedlg"><div class="ic">🗑</div><h2>Видалити клієнта?</h2><p>Ігор Ткаченко зникне зі списку. Історія його замовлень залишиться у ваших замовленнях.</p><div class="act"><button class="btn--outline btn" type="button">Скасувати</button><button class="btn--outline btn--danger btn" type="button">Видалити</button></div></div></div></div>
+<div class="kp-cap">Сцена - це трансформований предок, тож <code>inset: 0</code> рахується від неї, а не від сторінки: <code>.ceov</code> не втрачає жодного свого оголошення й нічого не накриває</div>
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Затемнення</b> <code>.wf-ov</code> - <code>position:fixed</code>, <code>inset:0</code>, <code>z-index:60</code>, фон <code>--scrim-overlay</code>. Порожній <code>&lt;div&gt;</code>: 37 екземплярів на 34 екранах і <b>0 дітей</b></span></div><div class="a"><i>2</i><span><b>Три різні панелі під одним класом</b> - <code>#city-ov</code> закриває діалог міста, <code>#pm-ov</code> закриває модалки товару, <code>#ckset-ov</code> закриває налаштування cookie. Три екрани товару несуть <b>по два</b> <code>.wf-ov</code> одразу - через це 37, а не 34</span></div><div class="a"><i>3</i><span><b>Контейнер</b> <code>.ceov</code> - теж fixed і теж <code>inset:0</code>, але <code>display:flex</code> по центру, <code>padding: var(--space-24)</code>, <code>overflow-y:auto</code>, <code>z-index:55</code>. Його дитина - <code>.cemodal</code> або <code>.cedlg</code>. 6 екземплярів на 2 екранах</span></div><div class="a"><i>4</i><span><b>Сходинка 55 і 60</b> - діалог адреси (<code>.ceov</code>, 55) відкриває діалог міста (<code>.wf-ov</code> 60 плюс <code>.wf-city</code> 61) прямо зі свого поля міста. Порядок тримається саме тому, що ці числа різні</span></div><div class="a"><i>5</i><span><b>Один токен на вісім затемнень</b> - <code>--scrim-overlay</code> читають <code>.ceov</code> <code>.wf-ov</code> <code>.auth-ov</code> <code>.cart-ov</code> <code>.fsheet-ov</code> <code>.wfh-scrim</code> <code>.hrail-scrim</code> <code>.menu-scrim</code> - вісім класів у сімох файлах. Коментар біля токена в <code>tokens.css</code> пам'ятає сім колишніх значень (.25 .36 .44 .46 .50 .52 .52) і рахує <b>сім</b> ужитків. Їх вісім</span></div><div class="a"><i>6</i><span><b>Єдиний примітив</b> <code>--space-24</code> - відступ <code>.ceov</code>. Семантичних ролей у файлі нуль, а токен, на якому він увесь стоїть, не належить до жодного з двох списків перепису: родина <code>--scrim-*</code> полиці не має</span></div></div>
 <div class="kp-gap"><h4>Що це таке і чим воно не є</h4><code>.wf-ov</code> <b>не є</b> компонентом, оболонкою чи предком чогось: він не має дітей ні на одному з 34 екранів. Він <b>є</b> одним прямокутником фарби, який ловить клік, - і навіть цей клік не в цьому файлі, а в атрибуті <code>onclick</code> розмітки. Файл затемнює, не знаючи, що саме, і закриває, не знаючи, що саме.<br><br>Решта шару так не робить: шість інших затемнень живуть у файлі того компонента, який вони гасять (<code>header.css</code>, <code>cart-drawer.css</code>, <code>filter-sheet.css</code>, <code>filter-rail.css</code>, <code>menu.css</code>, <code>auth-dialog.css</code>). Два лишилися тут, і причина в них різна: <code>.wf-ov</code> служить трьом панелям одразу, тож не належить жодній, а <code>.ceov</code> служить дев'ятьом діалогам, побудованим на льоту.</div></section>
 
@@ -63,43 +66,7 @@
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
 <script src="_idle.js"></script>
-<script>
-/* The frame is a viewport, so it has to be sized like one and not like a box.
-   Two numbers are read from the frame itself rather than typed here: its content
-   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
-   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
-   the media query inside sees - the frame is still 1180 wide to itself, which is
-   the whole reason the frame exists. */
-(function(){
-  var f = document.querySelector('.kp-frame'); if (!f) return;
-  var wrap = f.parentNode;
-  function fit(){
-    try{
-      var d = f.contentDocument; if (!d || !d.body) return;
-      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
-      h = Math.min(h, 2400);
-      f.style.height = h + 'px';
-      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
-      var avail = wrap.clientWidth - 26;
-      /* 7.87, from the sweep: `min(1, avail/declared)` put a 1180 demo into a 332px
-         column at k = 0.28, so 16px body copy drew at 4.5px. A demo nobody can read is
-         not a demo. Below 0.62 the frame keeps its size and the wrap scrolls sideways
-         instead - a scrollbar is honest, a 4.5px letter is not. */
-      var k = Math.min(1, avail / declared);
-      if (k < 0.62) k = 0.62;
-      f.style.transformOrigin = 'top left';
-      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
-      wrap.style.overflowX = (declared * k > avail) ? 'auto' : 'hidden';
-      /* and the height it sets must include the padding and border it sits in, or the
-         frame loses its last 2px on every stand - measured on 48 of 48 rows. */
-      wrap.style.height = (Math.round(h * k) + 26) + 'px';
-    }catch(e){}
-  }
-  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
-  addEventListener('resize', fit);
-  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
-})();
-</script>
+<script src="_frame.js"></script>
 <script src="_nav.js"></script>
 </body>
 </html>

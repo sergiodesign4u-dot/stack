@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Сторінка стану системи</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<!-- 8.34c: the status page's own body - `.sysgrid` of `.syscard`s and the two
+     `.sysdemo` blocks - eight classes that live only on `wireframes/system.html`.
+     Handlers stripped: the buttons there fire real toasts and open the cookie dialog,
+     and a stand must not run a page's side effects to show its shape. -->
+<main class="wf-page" style="max-width:1100px;margin:0 auto;padding:24px 16px">
+<div class="sysgrid">
+    <div class="syscard">
+      <div class="sc-code">HTTP 404 · noindex</div>
+      <div class="sc-t">Сторінку не знайдено</div>
+      <div class="sc-d">Повноцінна сторінка з хедером/футером: пошук + швидкі посилання + рекомендовані
+        товари. Ніколи не soft-404 (200). Не глухий кут.</div>
+      <a class="sc-open" href="../../../wireframes/404.html">Відкрити 404 →</a>
+    </div>
+    <div class="syscard">
+      <div class="sc-code">HTTP 500 · noindex</div>
+      <div class="sc-t">Помилка сервера</div>
+      <div class="sc-d">Мінімальний шаблон, незалежний від бекенду (він сам може лежати): лого + «Оновити»
+        / «На головну» / «Підтримка».</div>
+      <a class="sc-open" href="../../../wireframes/500.html">Відкрити 500 →</a>
+    </div>
+    <div class="syscard">
+      <div class="sc-code">HTTP 503 · Retry-After</div>
+      <div class="sc-t">Технічні роботи</div>
+      <div class="sc-d">Запланований стан, не збій. 503 + Retry-After - щоб пошук трактував як тимчасове,
+        а не зникнення сайту. Без зворотного таймера.</div>
+      <a class="sc-open" href="../../../wireframes/maintenance.html">Відкрити тех. роботи →</a>
+    </div>
+  </div>
+
+  <!-- Cookie banner demo -->
+  <div class="sysdemo">
+    <h3>Cookie-банер (Закон України «Про захист персональних даних»)</h3>
+    <p>Cookie ставимо <b>лише після згоди</b> (бездіяльність ≠ згода). Три рівнозначні дії -
+      «Прийняти всі» / «Тільки необхідні» / «Налаштувати»; відмова така ж проста, як згода.
+      Категорії Аналітика/Маркетинг <b>вимкнені за замовчуванням</b> (opt-in), Необхідні -
+      завжди активні. Банер живий унизу сторінки; «Змінити згоду» також є у футері.</p>
+    <div class="demo-btns">
+      <button class="btn">Показати банер знову</button>
+      <button class="btn">Відкрити «Налаштувати»</button>
+    </div>
+  </div>
+
+  <!-- Toasts demo -->
+  <div class="sysdemo">
+    <h3>Тости / сповіщення (глобальний компонент)</h3>
+    <p>Легкий зворотний зв'язок для дій: додано в кошик, збережено адресу, підписка, відгук.
+      Три типи - <b>ok / error / info</b>, авто-зникнення (~4 c) + закриття, <code>aria-live="polite"</code>.
+      Критичні рішення - діалог, не тост. Без спаму.</p>
+    <div class="demo-btns">
+      <button class="btn dark">Показати ok</button>
+      <button class="btn">Показати error</button>
+      <button class="btn">Показати info</button>
+    </div>
+  </div>
+</main>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

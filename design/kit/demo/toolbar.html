@@ -34,20 +34,6 @@
 <script src="../../system/fields.js"></script>
 <script src="../../system/menu.js"></script>
 <script src="../../_nav.js"></script>
-<script>
-(function(){
-  var init = ['wfCart','wfCheckout','wfAuth','wfPdpModals','wfAddrDialog','wfProfileDialogs',
-              'wfToasts','uivFixLinks','uivChrome','uivCurrency','uivPriceSlider','uivCheckboxes',
-              'uivSwitches','uivSegments','uivRadioGroups','uivDisclosures','uivFav','uivCrumbs',
-              'uivCart','uivCheckout','uivPdp','uivPdpTabs','uivStickyHeader','uivPatchMenus',
-              'uivToastMarks','uivDeadLinks','uivFooterIcons','uivMascot','uivAnchorScroll'];
-  init.forEach(function(n){ try{ if (typeof window[n] === 'function') window[n](); }catch(e){} });
-  try { if (typeof uivIcons === 'function') uivIcons(document.body); } catch(e) {}
-  try { if (typeof uivMarks === 'function') uivMarks(document.body); } catch(e) {}
-  document.querySelectorAll('form').forEach(function(f){
-    f.addEventListener('submit', function(e){ e.preventDefault(); });
-  });
-})();
-</script>
+<script src="_boot.js"></script>
 </body>
 </html>

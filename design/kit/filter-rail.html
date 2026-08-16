@@ -73,6 +73,14 @@
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Колонка фільтрів</b> <code>.frail</code> - <code>display:none</code>, від 860 <code>block</code>; <code>position:sticky</code> з <code>top:82px</code>, рамка волосиною, радіус 12. На телефоні її роль бере нижній лист <code>filter-sheet.css</code></span></div><div class="a"><i>2</i><span><b>Рейка категорій</b> <code>.hrail</code> - той самий вимикач на 860, але тінь <code>--elevation-1</code> і падінг 8 зверху й знизу. Перший рядок <code>a.lead</code> - «За ціллю» у <code>--fw-black</code>, під ним роздільник <code>.rsep</code></span></div><div class="a"><i>3</i><span><b>Флайаут</b> <code>.hrail-fly.wfh-mega</code> - бере клас панелі хедера й одразу його переписує: <code>absolute</code> від <code>top:0</code> до <code>bottom:0</code>, <code>left: calc(100% - 1px)</code>, 600px завширшки зі стелею <code>calc(100vw - 249px)</code>, сітка з трьох колонок скасована на <code>grid-template-columns:none</code>. <b>Це навмисне повторне вживання, а не збіг</b></span></div><div class="a"><i>4</i><span><b>Шов</b> <code>.hrail-wrap:has(.hrail-fly.open) .hrail</code> - поки флайаут відкритий, права пара кутів рейки випрямляється, а зверху лягає <code>inset 0 1px 0 var(--line-action)</code>. Два прямокутники читаються як один</span></div><div class="a"><i>5</i><span><b>Знак</b> <code>.hrail a .ic</code> - коробка 18px у структурі, а всередині svg 17px. Емодзі сірого прототипу міняє на набір іконок <code>uivIcons()</code> у <code>design/_nav.js</code>: сірий шар володіє блоками, колірний - тільки заповнювачами</span></div><div class="a"><i>6</i><span><b>Скрим флайаута</b> <code>.hrail-scrim</code> - <code>fixed inset:0</code>, z-index 20, <code>--scrim-overlay</code>. Він нижчий за <code>.hrail-wrap</code> (25) і за сам флайаут (38), тож затемнює сторінку, не чіпаючи рейку</span></div></div>
 <div class="kp-gap"><h4>Обидва <code>!important</code> кажуть одне речення</h4><code>@media (max-width: 859px){ .hrail-fly.wfh-mega{ display:none !important } }</code> б'є <code>.hrail-fly.wfh-mega.open{ display:block }</code> - три класи проти двох. <code>.hrail-scrim{ display:none !important }</code> б'є <code>.hrail-scrim.open</code> - два проти одного. В обох випадках перебивають НЕ чужий файл, а власний стан: нижче 860 флайаута не існує, хоч би що JavaScript лишив на елементі.<br><br>У всьому шарі <code>!important</code> рівно <b>п'ять</b>, у чотирьох файлах, і всі п'ять однакові за змістом: <code>display:none</code> на межі 860. Два тут, одне в <code>header.css</code> (скрим мегапанелі), і ще два з протилежного боку - <code>filter-sheet.css</code> і <code>nav-drawer.css</code> вимикають мобільне вище 860. <b>Це не п'ять недбалостей, а один брак механізму</b>: системі нічим сказати «цього компонента на цій ширині не існує».<br><br><b>Демо порожнє, поки вікно вужче за 860.</b> Це не помилка сторінки: <code>.frail</code> у продукті так само <code>display:none</code> нижче межі, і заміряно там 0x0. Розширте вікно - або подивіться <code>filter-sheet.css</code>, який робить цю роботу на телефоні.</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Друга рейка того самого файлу, і в цьому в'юпорті її не існує</div>
+<p class="kp-p"><b><code>.hrail</code> - не варіант <code>.frail</code>, а окремий організм</b>: рейка категорій на головній, яка на наведення розкриває флайаут <code>.hrail-fly</code> праворуч і гасить решту сторінки підкладкою <code>.hrail-scrim</code>. Спільного в них тільки слово «рейка»: одна фільтрує список, друга веде в каталог.</p>
+<p class="kp-p"><b>Чому її тут не було видно, і це не недогляд сторінки.</b> <code>.hrail</code> - <code>display: none</code> до 960, а флайаут і підкладка несуть <code>display: none !important</code> до 860. На ширині, де стоїть рейка фільтрів, уся ця сім'я не малює <b>нічого</b>, і жодне правило стенда цього не змінює - медіа-умова читає в'юпорт. Тому друга рамка, а не друге демо.</p>
+<p class="kp-p">Розмітку пише <code>wfHomeRail()</code> - та сама функція, яку викликає <code>design/index.html</code>, - і відкриває флайаут її власний аргумент <code>{ open: true }</code>, тобто <code>hcFly('g')</code>, те саме, що робить наведення. Ширина колонки рейки <b>249px</b> - та, яку вона займає на головній; без неї флайаут не мав би до чого притулитись.</p>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/filter-rail-home.html" style="width:1180px" data-w="1180" title="Рейка головної з флайаутом"></iframe></div>
+<div class="kp-cap"><code>.rsep</code> - волосяна лінія під «За ціллю»: єдиний розділювач рейки, і він відділяє ціль від решти каталогу, а не групує категорії</div>
+<div class="kp-do"><h4>І саме тут знадобилась друга рамка на сторінці</h4>До 8.34 механізм підгонки рамки брав <code>querySelector('.kp-frame')</code>, однину, тож сторінка могла тримати рівно одну: друга завантажилась би й лишилась не підігнаною, на типових 150px. Це не було рішенням - це була копія, повторена в <b>24 сторінках</b> побайтно. Тепер один <code>design/kit/_frame.js</code> і <code>querySelectorAll</code>; більше в підгонці не змінилось нічого.</div></section>
+
 <section class="kp-sec"><div class="kp-sh">Стани</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
 <tr><td><b>спокій</b></td><td>рядок рейки <code>--text-body</code> / 14, стрілка <code>.ar</code> у <code>--mark-faint</code></td><td>рейка тихіша за товари поруч: вона орієнтир, а не заклик</td></tr>
@@ -102,43 +110,7 @@
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
 <script src="_idle.js"></script>
-<script>
-/* The frame is a viewport, so it has to be sized like one and not like a box.
-   Two numbers are read from the frame itself rather than typed here: its content
-   height, so a 55px shelf does not sit in 640px of nothing, and the scale that
-   makes a 1180-wide viewport fit a narrower column. Scaling does NOT change what
-   the media query inside sees - the frame is still 1180 wide to itself, which is
-   the whole reason the frame exists. */
-(function(){
-  var f = document.querySelector('.kp-frame'); if (!f) return;
-  var wrap = f.parentNode;
-  function fit(){
-    try{
-      var d = f.contentDocument; if (!d || !d.body) return;
-      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight, 80);
-      h = Math.min(h, 2400);
-      f.style.height = h + 'px';
-      var declared = parseInt(f.dataset.w, 10) || f.offsetWidth;
-      var avail = wrap.clientWidth - 26;
-      /* 7.87, from the sweep: `min(1, avail/declared)` put a 1180 demo into a 332px
-         column at k = 0.28, so 16px body copy drew at 4.5px. A demo nobody can read is
-         not a demo. Below 0.62 the frame keeps its size and the wrap scrolls sideways
-         instead - a scrollbar is honest, a 4.5px letter is not. */
-      var k = Math.min(1, avail / declared);
-      if (k < 0.62) k = 0.62;
-      f.style.transformOrigin = 'top left';
-      f.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : 'none';
-      wrap.style.overflowX = (declared * k > avail) ? 'auto' : 'hidden';
-      /* and the height it sets must include the padding and border it sits in, or the
-         frame loses its last 2px on every stand - measured on 48 of 48 rows. */
-      wrap.style.height = (Math.round(h * k) + 26) + 'px';
-    }catch(e){}
-  }
-  f.addEventListener('load', function(){ fit(); setTimeout(fit, 300); setTimeout(fit, 900); });
-  addEventListener('resize', fit);
-  if (f.contentDocument && f.contentDocument.readyState === 'complete'){ fit(); setTimeout(fit, 300); }
-})();
-</script>
+<script src="_frame.js"></script>
 <script src="_nav.js"></script>
 </body>
 </html>
