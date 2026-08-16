@@ -86,7 +86,16 @@ body:has(.co-head){ padding-left: var(--shell-left); padding-top: var(--shell-to
 .wf-states b{ color: var(--text-primary); text-transform: uppercase; letter-spacing: var(--ls-caps); font-size: var(--fs-12); }
 .wf-states a{ color: var(--text-secondary); text-decoration: underline; }
 .wf-states a.cur{ color: var(--text-primary); font-weight: var(--fw-black); text-decoration: none; }
-.wf-bar{ background: var(--bg-inverse); color: var(--text-oninverse); font-size: var(--fs-12); padding: var(--space-8) var(--space-16); display: flex; gap: var(--space-8) var(--space-12); flex-wrap: wrap; align-items: center; }
+/* THE STAND BAR STAYS ABOVE A SCRIM, and that is a stand rule rather than a
+   product one - step 8.31b. Two screens had it privately as `#wf-bar{ position:
+   relative; z-index: 80 }`, because they open a modal over the page and
+   `overlay.css` puts its scrim at 55: without it the bar that says WHICH SCREEN
+   YOU ARE LOOKING AT disappears under the dimming on exactly the screens whose
+   subject is the modal. Every state screen that opens one needs it, so it belongs
+   here with the frame and not in two `<style>` blocks. `position` is what makes
+   `z-index` mean anything on a static element. */
+.wf-bar{ position: relative; z-index: 80;
+  background: var(--bg-inverse); color: var(--text-oninverse); font-size: var(--fs-12); padding: var(--space-8) var(--space-16); display: flex; gap: var(--space-8) var(--space-12); flex-wrap: wrap; align-items: center; }
 .wf-bar a{ color: var(--text-oninverse); opacity: .8; }
 .wf-bar a:hover{ opacity: 1; text-decoration: underline; }
 .wf-bar .sepb{ opacity: .35; }

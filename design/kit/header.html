@@ -78,7 +78,8 @@
 <p class="kp-p">У файлі <b>2</b> медіа-умови, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width: 859px)</code></li><li><code>@media (min-width: 860px)</code></li></ul></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>47</b> власних класів і <b>1</b> стан.</p><div id="idle"></div><script>var KIT_CLS=["bi-close", "bi-open", "cab-head", "cab-lvl", "cab-nm", "cab-sep", "cab-tier", "cav", "drawer-open", "mega-open", "mega-pinned", "mgl", "mgt", "mph", "ms-fb", "ms-feat", "ms-fh", "ms-fs", "ms-ftag", "ms-lead", "ms-link", "ms-ph", "navbtn", "numbtn", "pinned", "strongl", "val", "wfh-act", "wfh-actions", "wfh-burger", "wfh-cab", "wfh-cabmenu", "wfh-cat", "wfh-in", "wfh-lang", "wfh-lang-wrap", "wfh-langmenu", "wfh-loc", "wfh-logo", "wfh-main", "wfh-menuopen", "wfh-meta", "wfh-mi", "wfh-nav", "wfh-scrim", "wfh-search", "wfh-sp"], KIT_STS=[":hover"];</script></section>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>44</b> власні класи і <b>4</b> стани.</p>
+<p class="kp-p">Три класи стоять у станах, а не в класах, бо всі три дописує <code>classList</code> у мить дії, і кожен - <b>на шапку, а не всередині неї</b>: <code>.drawer-open</code> на <code>#wf-header</code>, поки відкрита шухляда; <code>.mega-open</code> на <code>.wfh</code>, поки розкрито мегаменю; <code>.wfh-menuopen</code> на <code>.wfh-meta</code>, поки розкрито меню кабінету. Шапка тримає їх, щоб знати, що поверх неї щось стоїть; у спокої жодного з них не існує.</p><div id="idle"></div><script>var KIT_CLS=["bi-close", "bi-open", "cab-head", "cab-lvl", "cab-nm", "cab-sep", "cab-tier", "cav", "mega-pinned", "mgl", "mgt", "mph", "ms-fb", "ms-feat", "ms-fh", "ms-fs", "ms-ftag", "ms-lead", "ms-link", "ms-ph", "navbtn", "numbtn", "pinned", "strongl", "val", "wfh-act", "wfh-actions", "wfh-burger", "wfh-cab", "wfh-cabmenu", "wfh-cat", "wfh-in", "wfh-lang", "wfh-lang-wrap", "wfh-langmenu", "wfh-loc", "wfh-logo", "wfh-main", "wfh-meta", "wfh-mi", "wfh-nav", "wfh-scrim", "wfh-search", "wfh-sp"], KIT_STS=[":hover", "drawer-open", "mega-open", "wfh-menuopen"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>header.css</code>: <b>22</b> семантичні ролі і <b>24</b> примітиви.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (22)</th><th>Примітиви (24)</th></tr></thead><tbody><tr><td><code>--bg-hatch</code> <code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--elevation-3</code> <code>--elevation-action-hover</code> <code>--elevation-bar-bottom</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--mark-faint</code> <code>--ring-focus</code> <code>--scrim-overlay</code> <code>--text-action</code> <code>--text-body</code> <code>--text-danger</code> <code>--text-muted</code> <code>--text-oninverse</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-display</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-20</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-flat</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--ls-display</code> <code>--radius-12</code> <code>--radius-4</code> <code>--radius-8</code> <code>--radius-pill</code> <code>--shell-top</code> <code>--size-20</code> <code>--size-44</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
@@ -93,38 +94,7 @@
 </main>
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
-<script>
-(function(){
-  var rendered = new Set(), named = new Set();
-  document.querySelectorAll('.kp-demo *').forEach(function(e){
-    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
-  });
-  document.querySelectorAll('code, .kp-code').forEach(function(e){
-    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
-    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
-      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
-    });
-  });
-  var page = document.body.textContent;
-  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
-  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
-  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
-  var box = document.getElementById('idle');
-  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
-  if(!onlyNamed.length && !missing.length && !missSts.length){
-    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
-      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
-  } else {
-    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
-      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
-        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
-      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
-        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
-      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
-        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
-  }
-})();
-</script>
+<script src="_idle.js"></script>
 <script>
 /* The frame is a viewport, so it has to be sized like one and not like a box.
    Two numbers are read from the frame itself rather than typed here: its content

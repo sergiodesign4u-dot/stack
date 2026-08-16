@@ -89,23 +89,6 @@
 
 
 
-/* addclient state - capture modal over the dimmed session */
-#wf-bar { position: relative; z-index: 80; }
-.acov { position: fixed; inset: 0; background: var(--scrim-overlay); z-index: 55; display: flex; align-items: center; justify-content: center; padding: 20px; }
-.acmodal { background: var(--bg-page); width: 100%; max-width: 440px; border:1px solid var(--line-strong); border-radius: 14px; box-shadow: var(--elevation-4); padding: 22px; }
-.acmodal h2 { font-size: 19px; font-weight: 800; color: var(--text-primary); }
-.acmodal p { font-size: 13px; color:var(--text-secondary); margin: 6px 0 16px; line-height: 1.5; }
-
-
-
-
-
-
-.acact { display: flex; gap: 10px; margin-top: 18px; }
-.acact .btn { flex: 1; text-align: center; }
-/* pick-from-existing list + «new client» launcher */
-.ac-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-.ac-x { background: none; border: none; font-size: 19px; color:var(--text-muted); cursor: pointer; line-height: 1; }
 
 
 
@@ -114,13 +97,28 @@
 
 
 
-.ac-new { display: flex; align-items: center; gap: 10px; margin-top: 12px; border:1.5px dashed var(--line-strong); border-radius: 10px; padding: 12px; color: var(--text-primary); font-weight: 800; font-size: 13.5px; }
-.ac-new .ic { font-size: 18px; line-height: 1; }
-.ac-new .ac-new-sub { display: block; font-weight: 600; font-size: 11.5px; color:var(--text-secondary); margin-top: 2px; }
-.ac-empty { text-align: center; padding: 26px 14px; border:1.5px dashed var(--line-strong); border-radius: 10px; }
-.ac-empty .ei { font-size: 26px; }
-.ac-empty .et { font-size: 14px; font-weight: 800; color: var(--text-primary); margin: 8px 0 4px; }
-.ac-empty .es { font-size: 12.5px; color:var(--text-secondary); line-height: 1.5; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
 </head>
 <body class="coach">
@@ -266,13 +264,13 @@
 </div>
 
 <!-- ADD CLIENT to session (modal over the session): PICK from saved clients + create-new launcher -->
-<div class="acov" role="dialog" aria-modal="true" aria-label="Додати клієнта в сесію">
-  <div class="acmodal">
-    <div class="ac-top"><h2>Додати клієнта в сесію</h2><a class="ac-x" href="coach-session.html" aria-label="Закрити">✕</a></div>
-    <p>У вашому списку ще немає збережених клієнтів - створіть першого, і він з'явиться тут для наступних сесій.</p>
+<div class="ceov open" role="dialog" aria-modal="true" aria-label="Додати клієнта в сесію">
+  <div class="cemodal">
+    <div class="ce-top"><h2>Додати клієнта в сесію</h2><a class="btn--ghost btn--icon btn--s ce-x" href="coach-session.html" aria-label="Закрити">✕</a></div>
+    <p class="sub">У вашому списку ще немає збережених клієнтів - створіть першого, і він з'явиться тут для наступних сесій.</p>
 
     <!-- empty: no saved clients to pick -->
-    <div class="ac-empty">
+    <div class="emptybox mini">
       <div class="ei">👥</div>
       <div class="et">Немає збережених клієнтів</div>
       <div class="es">Додайте клієнта (ім'я + ціль) - і зможете замовляти для нього в сесії.</div>
@@ -284,7 +282,7 @@
       <span>Додати клієнта<span class="ac-new-sub">повне додавання: ім'я, ціль, телефон, e-mail, нотатки</span></span>
     </a>
 
-    <div class="acact">
+    <div class="ceact">
       <a class="btn--outline btn--s btn" href="coach-session.html">Скасувати</a>
       <a class="btn--accent btn--l btn" href="../wireframes/coach-client-new.html">Додати першого клієнта</a>
     </div>

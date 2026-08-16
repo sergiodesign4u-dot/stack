@@ -6415,3 +6415,203 @@ that showed up in a number rather than in an argument.
 
 Private rules **228 -> 138**; the session family **138 -> 48**; multi-component **88 -> 21**; local
 **113 -> 90**.
+
+
+## Step 6, twenty-third pass - the add-client modal, and a control nobody was reading
+
+`coach-session-addclient` and `coach-session-addempty` open a modal over the dimmed session, and
+between them they carried **32 private rules**. It is `client-dialog.css`'s EDITOR dialog under six
+other names.
+
+**The file ships two dialogs and the private copy had built the wrong one from scratch.** `.cedlg` is
+the CONFIRMATION - a 48px disc, a title, a paragraph, two controls. `.cemodal` is the EDITOR - a
+`.ce-top` head row holding an h2 and a close button, a `.sub` paragraph, a body, a `.ceact` row. The
+second is this modal's anatomy line for line, and the map was read against `wireframes/_nav.js`,
+which renders the system's own two instances of it («Новий клієнт», «Редагувати клієнта»).
+
+    .acov      -> .ceov open      the scrim, and `open` because a state screen is already open
+    .acmodal   -> .cemodal        440 at radius 14  ->  460 at --radius-12
+    .ac-top    -> .ce-top
+    .ac-x      -> btn--ghost btn--icon btn--s ce-x
+    <p>        -> <p class="sub">
+    .acact     -> .ceact
+    .ac-search -> .cl-search      coach-clients.css, the same control on the same subject
+    .ac-empty  -> .emptybox mini  THE EIGHTH private edition of that box in this pile
+    .ac-cli .cav / .cg -> joined `.cli .cav` and `.cli .cinfo .cg` in coach-cabinet.css
+
+**The close control had no hover, no focus ring and no touch target.** It was a bare `<a>` at 19px
+with a hand-written colour, where this file's own two instances write `btn--ghost btn--icon btn--s`
+and get all three from button.css. On the modal whose only way out it is.
+
+**Three moves were genuinely new and went into the component:**
+
+> `.ac-list` - the editor dialog had never had a LIST to choose from, because its two instances edit
+> ONE client and this one picks several. `max-height: 240px` is the private value moved rather than
+> re-derived: about four rows, which is what says «there are more below» without the dialog growing
+> past the scrim's padding.
+
+> `.ac-new` - the launcher out of the picker and into the full new-client flow. Dashed, because
+> empty-state.css and `.ctab.add` both already use a dashed edge for «the thing that is not there
+> yet». 1.5px -> 1px with the rest of the product at 7.62, radius 10 -> `--radius-12`, 13.5 ->
+> `--fs-14`, 11.5 -> `--fs-12`.
+
+> `#wf-bar{ position: relative; z-index: 80 }` -> `design/_stand.css`. It is a STAND rule: the bar
+> that says which screen you are looking at sits at z-index 80 so a scrim at 55 does not swallow it,
+> and every state screen that opens a modal needs it. Two `<style>` blocks had a copy each.
+
+### And the same 27 pixels the tariff dialog measured at 8.7
+
+At 360 «Додати першого клієнта» beside «Скасувати» runs **154..387 in a 360 viewport** - 27px past
+the edge - and it does **not** scroll the page: the scrim clips it, so the right edge of the primary
+action is simply unreachable and every gate reads 0. `coach-tariff.css` wrote the answer for its own
+dialog at 8.7 with its own measurement («the pair never fits that box - 2.08 over at EVERY width»).
+
+**Two dialogs, one measurement each, so it is the component's answer and not a screen's.** The rule
+moved into `client-dialog.css` for both boxes at once and the tariff copy is gone:
+
+    @media (max-width: 479px){ .ceact, .cedlg .act{ flex-direction: column; } }
+
+479 is button.css's own phone step, so the two rules that decide this row's width sit on one
+boundary.
+
+### The stand page's idle control had been red, and nothing was reading it
+
+Every component page ends with a box comparing the classes its file declares against the classes its
+demos render. **`kit/client-dialog.html` had been printing «5 named in words, not shown in a demo»
+for as long as it existed** - `.cedlg`, `.act`, `.cedel`, `.dn` and `.mode-edit`. Checked against the
+tree before this pass touched it: the same five.
+
+**A control nobody reads is not a control.** `accept.mjs` now collects that verdict - the box's own
+words, not a re-implementation, because re-deriving it would make two instruments that can disagree.
+The confirmation dialog and the delete row are rendered on the page now; `.mode-edit` moved from the
+class list to the STATE list, which is not a softening: JavaScript writes that class at the moment of
+the act, so in repose it exists nowhere and showing it would mean faking it - forbidden by the same
+rule as an invented role.
+
+**And the gate caught five curly apostrophes I had just typed** into the new prose. Ninth in that
+family.
+
+### Then the gate was run over the whole stand, and it was nineteen pages, not one
+
+`kit/client-dialog.html` was not an exception. First full run: **19 pages red, 179 classes.**
+
+| | |
+|---|---|
+| classes JavaScript writes - a state, not a demo | **70** |
+| classes the page genuinely owes a demo | **109** |
+
+`checkout-form` owes **53 of its 94**: the stand page for the largest organism in the system shows
+barely a third of its file. `account-shell` owes 11, `cart-drawer` 10, `system-page` 10.
+
+**The two halves are different work and this pass deliberately did neither.** A mechanical
+reclassification of the 70 would be a heuristic hiding real gaps: the probe that sorted them matches
+`classList.add` and `class="..."` across the five scripts, and it already has a known false positive
+- it calls `buy-box`'s `.tier` JS-written because that string appears in `wireframes/_nav.js` for a
+different component. Nineteen pages decided by reading is the work; a sweep would produce a green
+gate and a wrong answer, which is the one outcome worse than red.
+
+Booked as backlog item 3b with the census, and the gate stays as it is. **A gate that is red for a
+reason somebody wrote down is doing its job; the failure mode to avoid is a gate red for a reason
+nobody records, which is exactly the state these nineteen pages were in until today.**
+
+### Proof
+
+`accept` at 360 and 390 on the two modal screens, both tariff screens, `coach-client`,
+`coach-clients` and `account-addresses` - everything the dialog rules could reach: 0 failures, with
+the new `idle` and `dot` columns reading clean. `roles` 84 components, 0 diverged, after it caught
+`client-dialog.html`'s token table going stale on the three primitives the launcher introduced.
+`css-comments` 91 balanced. Photographed at 360 and 390: both modals, before and after the stack.
+
+Private rules **138 -> 106**; local **90 -> 69**; partially new **22 -> 15**; multi-component
+**21 -> 19**.
+
+## Step 6, twenty-fourth pass - the sorting that flattered, and one check where there were 74
+
+Backlog item 3b said nineteen stand pages show less than their file, and it said the 179 classes
+split **70 that JavaScript writes** and **109 the page owes a demo**. The item also said the sorting
+was not trustworthy enough to apply mechanically. This pass started by testing that warning, and the
+warning was right in a bigger way than it knew.
+
+### The probe was asking where the file lives, not what the class is
+
+The seven smallest pages were meant to be the easy ones - `auth-dialog`, `cat-overlay`,
+`cookie-banner`, `filter-sheet`, `mega-menu`, `nav-drawer`, `overlay`, 26 classes, all of them
+sorted «JS writes it». Printing the EVIDENCE LINE for each instead of the flag: **23 of the 26 were
+`class="x"` inside a template string** in `wireframes/_nav.js`, and three were real.
+
+That is not a near miss, it is the wrong question. `wireframes/_nav.js` is the BUILDER of the grey
+prototype - most of the product's markup lives inside JS string literals in it - so «does this class
+string appear in a JS file» answers yes for almost everything. Markup is markup wherever it is
+stored, and a stand page can render it in repose.
+
+The narrow, falsifiable signature is `classList.add|toggle|remove('x')` on an element that already
+exists. `.className = '...'` stays out: in this repo it always dresses a node the same script just
+created, which is markup again.
+
+| | first probe | measured |
+|---|---|---|
+| a class a script writes - a state, not a demo | 70 | **9** |
+| a class the page genuinely owes a demo | 109 | **163** |
+
+The instrument is `tools/idle.mjs`, with both wrong versions written into its header, and it reads
+each page's verdict in **the box's own `<code>` pills** rather than re-deriving the three sets - a
+check whose both sides come from one source proves consistency, not correctness.
+
+### Its own declared list needed a control, and the first one was noise
+
+`KIT_STS` is an exemption, and the cheapest way to green this gate is to park a class there. So
+every declared state is asked back. The first edition asked all of them «does a script toggle you»
+and flagged **143 across 61 pages** - because `KIT_STS` is not a list of runtime classes at all. It
+holds five kinds of condition: pseudo-classes (`:hover`), media queries (`min-width: 860px`),
+attributes (`[disabled]`), classes the product writes at runtime (`mode-edit`), and plain prose
+(«нуль відгуків»). Asking a media query about `classList` is not a control, it is noise, and noise
+in a gate is how nineteen red boxes went unread in the first place.
+
+Narrowed to the only kind that could be parked there - a bare identifier the component's own css
+declares as a class and no script toggles - it covers 8 entries in the whole stand and finds **2**,
+both on `address-card`: `.addr-del-row` and `.addr-back` are drawn on that page already, and what
+switches them is the `hidden` ATTRIBUTE and `.mode-edit` on the modal, neither of which is these
+classes. Removed from the exemption, with the reason written on the page.
+
+### The check itself existed 74 times, in five editions
+
+Every stand page carried the control inline. Three of the five editions differed only in where a
+string wrapped. The fourth, on `plan-card` and `upsell`, had **the states clause deleted** - those
+two pages could not have reported an unnamed state if they had one. The fifth was `icon.html`, and
+it held the one rule the other 73 had lost, written in its own note at 7.16:
+
+> *«AFTER THE PASSES, not at parse time. `.uiv-trail` is put on the mark by `system/marks.js`, which
+> waits for DOMContentLoaded, so the check counted a class the page renders as one it only names.
+> The check exists to measure what a person SEES. The other kit pages still check at parse time;
+> there it changes nothing, because their demos carry their classes in the markup.»*
+
+The last sentence was true about those demos and false about the rule, and it is why the timing fix
+stayed on one page for a month. Now `design/kit/_idle.js`, one file, included once per page; the
+page keeps only its two lists and, where it can perform the act itself, a `KIT_EXTRA` hook - which
+is `toast`, and only `toast`.
+
+**And the frame hypothesis died measured, which is worth recording because it looked large.**
+Twenty-five pages show their organism in an `<iframe class="kp-frame">` and the check counted only
+its own document, so `account-shell` reporting 29 of its 32 classes unshown looked explained. It was
+not: that frame holds the nav and nothing else, the same three classes already counted. Across the
+nineteen pages the frame is worth **4 classes of 162** - `toolbar`'s three and `co-wrap`. Built
+anyway, because a page red for a reason that is not true is the thing this item is about.
+
+### All nine states closed, and none of them was a class the stand could have drawn
+
+Each moved into `KIT_STS` with a sentence on its page naming what writes it. Two are not even on the
+component: `dr-lock` goes on `<html>` so the page behind the drawer cannot scroll, and `pdp-stuck`
+on `<body>` of the product page - rendering either would dress the STAND, not the demo.
+`catov-open` lands on the bottom tab, an element `mega-menu.html` does not contain. `hidden` is the
+cookie bar's absence, `added` the trace of an act on the upsell shelf, and `drawer-open` /
+`mega-open` / `wfh-menuopen` sit on the header while something stands over it.
+
+### Proof
+
+`accept` over the corpus at 390: **207 screens, 15 failures, all of them IDLE** - down from 18, and
+the three that left are the three this pass closed (`address-card`, `nav-drawer`, `mega-menu`).
+`idle` on the nine touched pages: 0 states left, 0 parked exemptions, 0 unnamed states. `roles` 84
+components, 0 diverged. `css-comments` 91 balanced. `links` 4606/0. `vars` 207 screens, 0.
+
+Stand debt **179 classes on 19 pages -> 159 on 15 pages, and every one of the 159 is now a demo the
+page owes**, which is the first time that sentence has been true of the whole number.

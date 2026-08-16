@@ -403,7 +403,12 @@
    at 360, 292.00 at 390, 52.00 tall, overlay overflow 0 at every width.
    `flex-direction` and nothing else - `.cedlg .act > *{ flex: 1 }` already makes
    them share the axis, and in a column with an auto height that costs no growth. */
-@media (max-width: 479px){ .coach .tfdlg .act{ flex-direction: column; } }
+/* 8.31b - THIS RULE IS client-dialog.css's NOW, for both of its dialogs. The
+   add-client modal reproduced the same finding from the other end - «Додати
+   першого клієнта» beside «Скасувати» runs 27px past a 360 viewport, clipped by
+   the scrim rather than scrolling, so every gate read 0 - and the same number
+   twice is a component's answer, not a screen's. The measurement above stands
+   and is why the rule exists; it just no longer lives here. */
 
 /* ---------- the pill wears no bullet, and seven siblings are the reason -------
    Step 8.7, found by the glyph census rather than by reading: the grey screen

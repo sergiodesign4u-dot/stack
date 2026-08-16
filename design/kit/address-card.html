@@ -147,9 +147,10 @@
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Спершу «як», потім «куди».</b> Три способи доставки вимагають різних полів. Питати все одразу означає показати форму, де половина полів зайва, а людина не знає, які саме.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби видалення схожим на решту дій.</b> Кнопка «Видалити адресу» відрізняється від сусідів лише піктограмою й тим, що стоїть за лінією - а після 7.59 вона взяла той самий контурний фініш, що й «Редагувати». Це найменше, що можна зробити, і цього мало: стан для незворотної дії в системі ще не описаний, і саме тому дублювання прибрали, а не поглибили.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>28</b> власних класів і <b>5</b> станів оголошено в <code>address-card.css</code>.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>28</b> власних класів і <b>3</b> стани оголошено в <code>address-card.css</code>.</p>
+<p class="kp-p"><code>.addr-del-row</code> і <code>.addr-back</code> <b>стояли в станах і не є станами</b> - обидва тут-таки намальовані вище, а вмикає їх не клас: рядок видалення ховає <b>атрибут <code>hidden</code></b> (<code>r.hidden = !edit</code>), а «інший спосіб» ховає <code>.mode-edit</code> на самій модалці. Умова справжня, носій у неї інший, і в таблиці нижче вона описана словами.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["aaddr","addr-2col","addr-acts","addr-add","addr-back","addr-card","addr-check","addr-cityfld","addr-del-row","addr-hint","addr-line","addr-list","addr-method","addr-methods","addr-modal","addr-note","addr-sub","addr-tag","addr-type","adef","am-ar","am-ic","am-tx","amore","chg","def","line","tag"], KIT_STS=[".def",":hover","min-width: 720px","addr-del-row","addr-back"];</script></section>
+<script>var KIT_CLS=["aaddr","addr-2col","addr-acts","addr-add","addr-back","addr-card","addr-check","addr-cityfld","addr-del-row","addr-hint","addr-line","addr-list","addr-method","addr-methods","addr-modal","addr-note","addr-sub","addr-tag","addr-type","adef","am-ar","am-ic","am-tx","amore","chg","def","line","tag"], KIT_STS=[".def",":hover","min-width: 720px"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>address-card.css</code>: <b>13</b> семантичних ролей і <b>18</b> примітивів.</p>
@@ -176,39 +177,7 @@
 </main>
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
-<script>
-(function(){
-  var rendered = new Set(), named = new Set();
-  document.querySelectorAll('.kp-demo *').forEach(function(e){
-    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
-  });
-  document.querySelectorAll('code, .kp-code').forEach(function(e){
-    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
-    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
-      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
-    });
-  });
-  var page = document.body.textContent;
-  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
-  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
-  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
-  var box = document.getElementById('idle');
-  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
-  if(!onlyNamed.length && !missing.length && !missSts.length){
-    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
-      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
-      '</b>.</div>';
-  } else {
-    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
-      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
-        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
-      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
-        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
-      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
-        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
-  }
-})();
-</script>
+<script src="_idle.js"></script>
 <script src="_nav.js"></script>
 </body>
 </html>

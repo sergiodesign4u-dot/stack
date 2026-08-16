@@ -405,8 +405,15 @@
 .coach .rk-lead + .cli{ border-top: none; }
 /* THE SECOND AVATAR DISC IN THE PRODUCT. account-shell.css draws `.acc-prof .av`
    at 48 with the same ground, the same hairline and the same centred initial;
-   this one is 40. Two sizes, two names, one disc - reported, not merged. */
-.coach .cli .cav{ width: var(--size-40); height: var(--size-40); flex: none;
+   this one is 40. Two sizes, two names, one disc - reported, not merged.
+   8.31b - AND THE THIRD SIZE JOINED RATHER THAN BECAME A FOURTH. The add-client
+   picker drew its own at 34 with 13px initials, which is this disc one rung
+   smaller for no reason anybody wrote down: the modal's row is 12/16 padded now
+   that it stands on radio.css's rung, so there is room. 34 -> 40 and 13 -> 14 are
+   the two moves, and they close the picker's disc against the cabinet's rather
+   than opening a third answer beside the 48 this file already reports. */
+.coach .cli .cav,
+.coach .ac-cli .cav{ width: var(--size-40); height: var(--size-40); flex: none;
   border-radius: var(--radius-circle); background: var(--bg-sunken);
   border: 1px solid var(--line-hair); display: flex; align-items: center;
   justify-content: center; color: var(--text-secondary); font-size: var(--fs-14);
@@ -442,7 +449,10 @@
    client's NAME belongs where the client's name is decided. */
 .coach .cli .cinfo .cn,
 .coach .ac-cli .cn{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
-.coach .cli .cinfo .cg{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP. See THE NINETEEN, top of file. */
+/* the line under the client's name, and the picker writes it too - 12 -> 14 and
+   a 1px top margin -> `--space-2`, the same join the name got at 8.22. */
+.coach .cli .cinfo .cg,
+.coach .ac-cli .cg{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP. See THE NINETEEN, top of file. */
   color: var(--text-secondary); margin-top: var(--space-2); }
 /* «Профіль →», the loud rung again - see `.cmanage`. The third edition of the
    same small underlined link on one screen, at a third size. */

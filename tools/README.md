@@ -1,6 +1,8 @@
 # tools - the instruments, and what each one is for
 
-Seven checks, a transform and a driver. Every one of them answers a question this project asks
+Checks, two transforms and a driver - the list below is the count, and it is not
+repeated in a sentence here, because a number typed twice drifts. Every one of
+them answers a question this project asks
 at the end of **every** step, and until 2026-08-11 all of them lived in a session
 scratch folder and were rebuilt from memory each time. That is the same failure
 `CLAUDE.md` names for the product - *"a hand fix does not survive the next
@@ -18,6 +20,7 @@ node tools/vars.mjs                      every var(--x), and whether it exists
 node tools/links.mjs [--write]           every href, and whether it goes anywhere
 node tools/theme.mjs [--source]          the dark theme as a stress test
 node tools/roles.mjs [name...]           does the stand still describe the file
+node tools/idle.mjs [name...]            what each stand page is not showing, sorted
 node tools/grey-vars.mjs [--write]       private blocks learn the system's names
 node tools/crop.mjs 390 coach-tariff .tf-compare /tmp/t.png
 node tools/scope.mjs [--apply]           is a screen inside the scope its components need
@@ -254,6 +257,47 @@ would flatten that across 69 pages in order to fix twelve. What the page says is
 the author's; whether it is still true is this file's. Its idle control is the
 two lists it prints at the foot: components with no page, and pages with no
 table.
+
+## `idle.mjs` - what each stand page is not showing, and whose fault it is
+
+`roles.mjs` asks whether the page still names the right TOKENS. This one asks the
+other half: whether the page ever SHOWS the classes its file declares. Each stand
+page already answers that itself - `KIT_CLS` against what its demos render, in a
+box at the foot - and nineteen of those boxes had been red for days, because the
+verdict is drawn in a browser and nothing collected it. `accept.mjs` reads the
+pass/fail at 8.31b; this reads the detail, in the box's own `<code>` pills rather
+than a second implementation of the same set logic.
+
+**The sorting question is the instrument.** A class a script adds at the moment
+of an act cannot be rendered in repose, and showing it would mean faking it -
+banned by the same rule as an invented role - so it belongs in `KIT_STS`, where
+the control asks whether the page NAMES it. Everything else is a demo the page
+owes.
+
+**Wrong version 1, and it flattered.** The first edition asked «does this class
+string appear in a JS file», matching `classList.add` OR `class="x"` inside a
+script, and reported **70 states / 109 demos**. But `wireframes/_nav.js` is the
+BUILDER of the grey prototype: most of the product's markup lives inside JS
+string literals, so `class="x"` there means nothing at all. Of the 26 classes on
+the seven smallest pages, 23 were markup in a template and 3 were real. The
+narrow signature - `classList.add|toggle|remove('x')` on an element that already
+exists - gives **9 states / 163 demos**. `.className = '...'` is deliberately
+excluded: in this repo it always dresses a node the same script just created,
+which is markup again.
+
+**Wrong version 2, one run later.** `KIT_STS` is a declared exemption, so it
+needs an idle control - the cheapest way to green this gate is to park a class
+there. The first control asked every entry «does a script toggle you» and flagged
+**143** across 61 pages, because `KIT_STS` holds five kinds of condition:
+pseudo-classes, media queries, attributes, runtime classes and plain prose.
+Asking a media query about `classList` is noise, and noise in a gate is how the
+nineteen red boxes went unread in the first place. Narrowed to the only kind that
+could be parked there - a bare identifier the component's own css declares as a
+class and no script toggles - it is 8 entries in the whole stand and finds 2.
+
+The page-side half lives in **`design/kit/_idle.js`**, one file where there were
+74 inline copies in five editions. See its header for what the copies had drifted
+into, including the one page that held the correct timing rule.
 
 ## `grey-vars.mjs` - the transform `vars.mjs` asks for
 

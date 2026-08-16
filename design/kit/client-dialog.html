@@ -34,6 +34,28 @@
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Коробка</b> <code>.cemodal</code> - не більше 460, <code>--radius-12</code>, <code>--elevation-4</code>, <code>margin:auto</code>. <b>Вона не fixed</b>: центрує й тримає її <code>.ceov</code> з <code>overlay.css</code>. 4 екземпляри на 2 екранах</span></div><div class="a"><i>2</i><span><b>Шапка</b> <code>.ce-top</code> і закриття <code>.ce-x</code> - і хрестик тут <b>досі надрукований шрифтом</b>. Знято з <code>design/account-addresses.html</code> на 390 після <code>openAddr('choose')</code>: 117 елементів, 342x585, і в шапці символ, а не знак із набору</span></div><div class="a"><i>3</i><span><b>Дві дії</b> <code>.ceact</code> - <code>display:flex</code> і <code>> * { flex:1 }</code>, «два контроли й нічого більше» кроку 7.9. Те саме речення написане ще двічі: <code>.cedlg .act</code> у цьому ж файлі й <code>.pm-f</code> у модалці відгуку</span></div><div class="a"><i>4</i><span><b>Підтвердження</b> <code>.cedlg</code> <code>.ic</code> <code>.act</code> - вужча коробка на 400, текст по центру, коло 48px із <code>--line-inverse</code>. <code>.ic</code> називають три файли: account-shell, client-dialog, filter-rail</span></div><div class="a"><i>5</i><span><b>Небезпечна дія</b> <code>.cedel</code> і <code>.dn</code> - блок «Видалити клієнта». <b>З 7.96 носить <code>btn--outline btn--danger btn--s</code>, як і близнюк в адресах. Не рендериться на жодному кольоровому екрані</b>, і 51 з 52 незбіглих властивостей вирішувача - звідси</span></div><div class="a"><i>6</i><span><b>Режим редагування</b> <code>.cemodal.mode-edit .addr-back</code> - <code>.mode-edit</code> дописує JavaScript у <code>_nav.js:1046</code> і лише після <code>openAddrEdit()</code>. Перепис у спокої його не бачить ніколи</span></div></div>
 <div class="kp-gap"><h4><code>.dn</code>: сто двадцять шосте ім'я, якого перепис не бачить</h4>У цьому файлі <code>.dn</code> це попередження під кнопкою видалення клієнта. На трьох екранах чекауту це <code>&lt;span class="dn"&gt;Нова Пошта&lt;/span&gt;</code> - назва доставки. <code>owners.json</code> дає <code>.dn</code> <b>одного</b> власника, тож у 126 неоднозначних імен шару воно не входить: друге значення живе в розмітці, де css немає взагалі. Наслідок заміряно: <code>.dn</code> рендериться на трьох кольорових екранах і <b>не оформлений на жодному</b>, бо єдине правило для нього вимагає предка <code>.cedel</code>, якого колір не малює. <b>126 - це нижня межа, а не підсумок</b>: перепис звіряє файл із файлом і не бачить зіткнення файлу з розміткою.<br><br><b>Чому хрестик друкований.</b> <code>openAddr()</code> викликає <code>wfAddrDialog()</code>, а той щоразу переписує <code>innerHTML</code> контейнера - уже після того, як <code>uivMarks()</code> відпрацював на завантаженні. Діалог міста й модалка відгуку будуються один раз і далі лише отримують <code>.open</code>, тому їхні хрестики намальовані набором. Ця сама форма вже двічі має обгортку в <code>design/_nav.js</code>: <code>uivPatchMenus</code> для оверлея каталогу і <code>uivToastMarks</code> для тостів. Тут обгортки немає.</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Дві частини, яких у діалога не було: список і запуск</div>
+<p class="kp-p">Обидва прийшли з модалки «Додати клієнта в сесію» на 8.31b, і обидва справді нові: цей діалог ніколи не мав <b>СПИСКУ, з якого обирають</b>, бо два його штатні екземпляри редагують одного клієнта, а цей набирає кількох.</p>
+<div class="kp-demo">
+  <div class="ac-list" role="group" aria-label="Збережені клієнти">
+    <label class="ac-cli on"><input type="checkbox" checked><span class="cav">І</span><span class="ac-info"><span class="cn">Ігор</span><span class="cg">Ціль: Витривалість · 2 замовлення</span></span></label>
+    <label class="ac-cli"><input type="checkbox"><span class="cav">О</span><span class="ac-info"><span class="cn">Олег</span><span class="cg">Ціль: Набір маси · 5 замовлень</span></span></label>
+  </div>
+  <a class="ac-new" href="#"><span class="ic">＋</span><span>Додати клієнта<span class="ac-new-sub">повне додавання: ім'я, ціль, телефон, e-mail, нотатки</span></span></a>
+</div>
+<p class="kp-p"><b>Список прокручується, а діалог - ні.</b> <code>max-height: 240px</code> - це значення приватного блоку, перенесене, а не виведене заново: приблизно чотири рядки, і саме це каже «нижче є ще», не змушуючи саму коробку вилізти за падінг скрима. <b>Запуск пунктирний</b>, бо <code>empty-state.css</code> і <code>.ctab.add</code> вже вживають пунктир для «того, чого ще немає» - тут те саме речення в рядку.</p>
+<p class="kp-p"><b>І друга коробка цього ж файлу - підтвердження</b>, яку сторінка досі називала словами й не показувала. Її холостий контроль був червоний і цього ніхто не читав, бо вердикт малюється в браузері, а жоден гейт туди не дивився. З 8.31b дивиться <code>accept.mjs</code>.</p>
+<div class="kp-demo">
+  <div class="cedlg">
+    <div class="ic">🗑</div>
+    <h2>Видалити клієнта?</h2>
+    <p>Історія замовлень цього клієнта залишиться у ваших замовленнях, але його профіль і ціль буде видалено.</p>
+    <div class="act"><a class="btn--outline btn" href="#">Скасувати</a><a class="btn--outline btn--danger btn" href="#">Видалити</a></div>
+    <div class="cedel"><a class="btn--outline btn--danger btn--s btn" href="#">🗑 Видалити клієнта</a><div class="dn">Дію не можна скасувати.</div></div>
+  </div>
+</div>
+<p class="kp-p">Сам рядок списку - <b>не</b> цього файлу: <code>.ac-cli</code> це п'яте ім'я рядкового рунґа <code>radio.css</code>, і воно пішло туди на 8.30. Тут лишились контейнер і запуск.</p></section>
+
 <section class="kp-sec"><div class="kp-sh">Стани</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан</th><th>Що робить</th><th>Чому так</th></tr></thead><tbody>
 <tr><td><b>вибір способу</b></td><td><code>data-step="choose"</code> - три способи доставки</td><td>перший крок спільного діалогу адреси; кроки перемикає <code>addrStep()</code> атрибутом <code>hidden</code>, а не класом</td></tr>
@@ -45,13 +67,13 @@
 </tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Межі</div>
-<p class="kp-p">У файлі <b>жодної медіа-умови</b>: одна редакція на всі ширини.</p></section>
+<p class="kp-p"><b>Одна медіа-умова, і вона з'явилась на 8.31b</b>, коли другий діалог уперся в те саме: під 480 пара дій стає стовпчиком. <code>coach-tariff.css</code> написав це правило для <code>.tfdlg</code> ще на 8.7 зі своїм заміром («пара ніколи не влазить у цю коробку - 2.08 за край на КОЖНІЙ ширині»), а модалка додавання клієнта відтворила знахідку з іншого кінця: «Додати першого клієнта» поруч зі «Скасувати» іде 154..387 у в'юпорті 360, тобто <b>27px за край</b>, і сторінку це <b>не</b> прокручує - скрим обрізає, тож правий край головної дії просто недосяжний, а всі гейти читають 0. Два діалоги, по одному заміру кожен - і це вже відповідь компонента, а не екрана. Межа 479 - та сама, що в <code>button.css</code> для його власного телефонного кроку.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>9</b> власних класів і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["act", "ce-top", "ce-x", "ceact", "cedel", "cedlg", "cemodal", "dn", "mode-edit"], KIT_STS=[];</script></section>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>12</b> власних класів і <b>1</b> стан. <code>.mode-edit</code> стоїть у станах, а не в класах, і це не послаблення контролю: цей клас дописує JavaScript у момент дії, тож у спокої його не існує ніде - показати його можна лише підробкою, а підроблений стан заборонено тим самим правилом, що й вигадану роль.</p><div id="idle"></div><script>var KIT_CLS=["act", "ac-list", "ac-new", "ac-new-sub", "ce-top", "ce-x", "ceact", "cedel", "cedlg", "cemodal", "dn", "ic"], KIT_STS=["mode-edit"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
-<p class="kp-p">Прочитані з <code>client-dialog.css</code>: <b>8</b> семантичних ролей і <b>13</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (13)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--elevation-4</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-20</code> <code>--fs-24</code> <code>--fw-black</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--radius-12</code> <code>--radius-circle</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<p class="kp-p">Прочитані з <code>client-dialog.css</code>: <b>8</b> семантичних ролей і <b>16</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (16)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--elevation-4</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-18</code> <code>--fs-20</code> <code>--fs-24</code> <code>--fw-black</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--radius-12</code> <code>--radius-circle</code> <code>--space-2</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code></td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
 <p class="kp-p">Оголошень, які збігаються з елементами й не виграють, - <b>жодного</b>. Зате <b>52 властивості не збігаються з жодним елементом</b>, і всі вони приходять із <b>чотирьох</b> з 17 селекторів файлу: <code>.cedel</code>, <code>.cedel button</code>, <code>.cedel .dn</code> і <code>.cemodal.mode-edit .addr-back</code>.</p><p class="kp-p">Це <b>дві різні речі під одним показником</b>, і плутати їх не можна. <code>.mode-edit</code> - <b>стан, який дописує JavaScript у момент дії</b>: розмітка є, просто перепис у спокої її не застає. <code>.cedel</code> - <b>розмітка, що існує тільки в сірому прототипі</b>, і не тому, що її забули, а тому, що вона на екранах тренера, яких у кольорі немає. Перше лікується заміром у русі, друге - роботою етапу 09. Мертвого коду тут немає ні там, ні там.</p></section>
@@ -63,38 +85,7 @@
 </main>
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
-<script>
-(function(){
-  var rendered = new Set(), named = new Set();
-  document.querySelectorAll('.kp-demo *').forEach(function(e){
-    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
-  });
-  document.querySelectorAll('code, .kp-code').forEach(function(e){
-    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
-    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
-      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
-    });
-  });
-  var page = document.body.textContent;
-  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
-  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
-  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
-  var box = document.getElementById('idle');
-  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
-  if(!onlyNamed.length && !missing.length && !missSts.length){
-    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
-      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
-  } else {
-    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
-      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
-        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
-      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
-        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
-      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
-        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
-  }
-})();
-</script>
+<script src="_idle.js"></script>
 <script>
 /* The frame is a viewport, so it has to be sized like one and not like a box.
    Two numbers are read from the frame itself rather than typed here: its content

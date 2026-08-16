@@ -98,7 +98,23 @@
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>7</b> власних класів і <b>2</b> стани оголошено в <code>toast.css</code>.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["error","out","tt-ic","tt-m","tt-x","wf-toast","wf-toasts"], KIT_STS=[".out",".error"];</script></section>
+<script>var KIT_CLS=["error","out","tt-ic","tt-m","tt-x","wf-toast","wf-toasts"], KIT_STS=[".out",".error"];
+/* the toast classes only exist once a toast has been fired, and the stand must
+   not claim otherwise: fire one of each, put the last one into its exit state -
+   which is what the shop does by itself after 4.2 seconds - read the classes,
+   then clear the stack. The first run of this check failed honestly: `.out` was
+   named in words and rendered by nothing.
+   This is the `KIT_EXTRA` hatch `_idle.js` describes, and it is open only to a
+   page that can perform the act ITSELF. */
+function KIT_EXTRA(rendered){
+  ['ok','error','info'].forEach(function(t){ wfToast(t, 'перевірка'); });
+  var last = document.querySelector('#wf-toast .wf-toast:last-child');
+  if(last) last.classList.add('out');
+  document.querySelectorAll('#wf-toast, #wf-toast *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.getElementById('wf-toast').innerHTML = '';
+}</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>toast.css</code>: <b>6</b> семантичних ролей і <b>9</b> примітивів.</p>
@@ -137,51 +153,7 @@ function kpFade(){
   var t = document.querySelector('#wf-toast .wf-toast:last-child');
   setTimeout(function(){ if(t) t.classList.add('out'); }, 700);
 }</script>
-<script>
-(function(){
-  var rendered = new Set(), named = new Set();
-  document.querySelectorAll('.kp-demo *').forEach(function(e){
-    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
-  });
-  /* the toast classes only exist once a toast has been fired, and the stand must
-     not claim otherwise: fire one of each, put the last one into its exit state -
-     which is what the shop does by itself after 4.2 seconds - read the classes,
-     then clear the stack. The first run of this check failed honestly: `.out` was
-     named in words and rendered by nothing. */
-  ['ok','error','info'].forEach(function(t){ wfToast(t, 'перевірка'); });
-  var last = document.querySelector('#wf-toast .wf-toast:last-child');
-  if(last) last.classList.add('out');
-  document.querySelectorAll('#wf-toast, #wf-toast *').forEach(function(e){
-    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
-  });
-  document.getElementById('wf-toast').innerHTML = '';
-  document.querySelectorAll('code, .kp-code').forEach(function(e){
-    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
-    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
-      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
-    });
-  });
-  var page = document.body.textContent;
-  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
-  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
-  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
-  var box = document.getElementById('idle');
-  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
-  if(!onlyNamed.length && !missing.length && !missSts.length){
-    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
-      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length +
-      '</b>.</div>';
-  } else {
-    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
-      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
-        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
-      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
-        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
-      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
-        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
-  }
-})();
-</script>
+<script src="_idle.js"></script>
 <script src="_nav.js"></script>
 </body>
 </html>

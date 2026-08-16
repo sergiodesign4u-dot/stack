@@ -13,6 +13,21 @@
 .cemodal .sub{ font-size: var(--fs-14); color: var(--text-secondary); margin: var(--space-8) 0 var(--space-16); line-height: var(--lh-airy); }
 .ceact{ display: flex; gap: var(--space-12); margin-top: var(--space-16); }
 .ceact > *{ flex: 1; }   /* two controls, nothing else - step 7.9 */
+/* AND BELOW 480 THE PAIR STACKS - step 8.31b, and it is the SECOND dialog to
+   need it, which is what makes it the component's answer rather than a screen's.
+   coach-tariff.css wrote this rule for `.tfdlg` at 8.7 with its own measurement
+   («the pair never fits that box - 2.08 over at EVERY width»), and the add-client
+   modal reproduced the finding from the other end: «Додати першого клієнта»
+   beside «Скасувати» runs 154..387 in a 360 viewport, 27px past the edge, and it
+   does NOT scroll the page - the scrim clips it, so the right edge of the primary
+   action is simply unreachable and every gate reads 0.
+   Two dialogs, one measurement each, the same 479 boundary button.css uses for
+   its own phone step. `flex-direction` and nothing else: `> *{ flex: 1 }` already
+   makes them share the axis, and in a column with an auto height that costs no
+   growth. */
+@media (max-width: 479px){
+  .ceact, .cedlg .act{ flex-direction: column; }
+}
 .cedel{ margin-top: var(--space-16); padding-top: var(--space-16); border-top: 1px solid var(--line-hair); }
 /* 7.96: `.cedel button` DELETED - eleven hand declarations (display, align-items,
    gap, font-size, font-weight, color, border, border-radius, padding, background,
@@ -48,3 +63,38 @@
 .cedlg .act{ display: flex; gap: var(--space-12); }
 .cedlg .act > *{ flex: 1; }   /* two controls, nothing else - step 7.9 */
 .cemodal.mode-edit .addr-back{ display: none; }
+
+/* ---------- the picker's two parts, step 8.31b ------------------------------
+   `coach-session-addclient` and `coach-session-addempty` open this file's EDITOR
+   dialog under six other names - `.acov`, `.acmodal`, `.ac-top`, `.ac-x`,
+   `.acact` and a bare `<p>` - and the private copy had built the wrong one from
+   scratch: it wrote its own 440px box at radius 14 where `.cemodal` is 460 at
+   `--radius-12`, and its close control was a bare `<a>` at 19px with no hover, no
+   focus ring and no touch target, where this file's own two instances write
+   `btn--ghost btn--icon btn--s ce-x` and get all three from button.css.
+   What is NOT in this file already is these two, and both are genuinely new: the
+   editor dialog had never had a LIST to choose from, because its two instances
+   edit one client and this one picks several.
+
+   THE LIST SCROLLS AND THE DIALOG DOES NOT. 240px is the private value, moved
+   rather than re-derived: it is about four rows, which is what says «there are
+   more below» without the dialog itself growing past the scrim's padding. */
+.ac-list{ display: flex; flex-direction: column; gap: var(--space-8);
+  max-height: 240px;   /* [?] 240 has no rung; it is «about four rows» */
+  overflow: auto; }
+/* THE LAUNCHER OUT OF THE PICKER AND INTO THE FULL FLOW. Dashed, because
+   empty-state.css and `.ctab.add` both already use a dashed edge for «the thing
+   that is not there yet» - this is the same sentence in a row.
+   1.5px -> 1px with the rest of the product at 7.62; radius 10 -> `--radius-12`,
+   the ladder's; 13.5 -> `--fs-14`, and 11.5 -> `--fs-12` on the sub-line; gap and
+   padding onto the ladder. `--fw-black` renders as 700, which is what 800 drew. */
+.ac-new{ display: flex; align-items: center; gap: var(--space-12);
+  margin-top: var(--space-12);
+  border: 1px dashed var(--line-strong); border-radius: var(--radius-12);
+  padding: var(--space-12);
+  color: var(--text-primary); font-weight: var(--fw-black); font-size: var(--fs-14); }
+.ac-new .ic{ font-size: var(--fs-18); line-height: var(--lh-flat); }
+/* the second line under the label: what «повне додавання» actually costs in
+   fields. The quietest thing in the row, and it is a sentence, not a caption. */
+.ac-new .ac-new-sub{ display: block; font-weight: var(--fw-semibold);
+  font-size: var(--fs-12); color: var(--text-secondary); margin-top: var(--space-2); }

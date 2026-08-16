@@ -74,8 +74,20 @@ const M = `(() => {
     if (MARKS.indexOf(ch) > -1)
       doubled.push((typeof e.className === 'string' && e.className ? '.' + e.className.split(' ')[0] : e.tagName) + ' ' + ch);
   }
+  /* THE STAND PAGE'S OWN IDLE CONTROL, READ BY THE GATE - step 8.31b.
+     Every component page ends with a box that compares the classes its file
+     declares against the classes its demos actually render, and prints a verdict.
+     Nothing had ever collected those verdicts: the box draws in the browser, and
+     kit/client-dialog.html had been printing «5 named in words, not shown in a
+     demo» for as long as it existed. A control nobody reads is not a control.
+     The check is the box's own words, not a re-implementation - re-deriving the
+     verdict here would make two instruments that can disagree. */
+  const idle = document.getElementById('idle');
+  const idleBad = idle && /не повністю/.test(idle.textContent)
+    ? idle.textContent.replace(/\s+/g, ' ').trim().slice(0, 90) : null;
   return JSON.stringify({
     over: de.scrollWidth - de.clientWidth,
+    idleBad: idleBad,
     dots: doubled.length, dotsWhat: [...new Set(doubled)].slice(0, 3),
     errs: (window.__errs||[]).slice(0,2),
     em: (t.match(/\\u2014/g)||[]).length,
@@ -90,12 +102,12 @@ for (const p of PAGES) {
   const s = await newSession(conn);
   await conn.send('Page.addScriptToEvaluateOnNewDocument', { source: ERRS }, s.sessionId);
   const d = JSON.parse(await visit(conn, s.sessionId, `${srv.base}/design/${p}.html`, W, 844, M, s.inflight));
-  const ok = d.over === 0 && !d.errs.length && d.em === 0 && d.curly === 0 && !d.crumbBad && d.dots === 0;
+  const ok = d.over === 0 && !d.errs.length && d.em === 0 && d.curly === 0 && !d.crumbBad && d.dots === 0 && !d.idleBad;
   if (!ok) bad++;
   console.log((ok ? 'OK   ' : 'FAIL ') + p.padEnd(20) + 'over=' + String(d.over).padEnd(4) + 'em=' + String(d.em).padEnd(3)
     + 'curly=' + String(d.curly).padEnd(3) + 'dot=' + String(d.dots).padEnd(3) + 'svg=' + String(d.svg).padEnd(4)
     + (d.dots ? ' DOT:' + d.dotsWhat.join(', ') : '')
-    + (d.crumbBad ? ' CRUMB:' + d.crumbBad : '') + (d.errs.length ? ' ERR:' + JSON.stringify(d.errs) : ''));
+    + (d.crumbBad ? ' CRUMB:' + d.crumbBad : '') + (d.idleBad ? ' IDLE:' + d.idleBad : '') + (d.errs.length ? ' ERR:' + JSON.stringify(d.errs) : ''));
   await conn.send('Target.closeTarget', { targetId: s.targetId });
 }
 console.log('\n@' + W + '  ' + PAGES.length + ' screens  failures: ' + bad);

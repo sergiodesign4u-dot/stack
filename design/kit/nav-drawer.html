@@ -48,7 +48,8 @@
 <p class="kp-p">У файлі <b>1</b> медіа-умова, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (min-width: 860px)</code></li></ul></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>12</b> власних класів і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["dc-ic", "dr-b", "dr-cat", "dr-catwrap", "dr-city", "dr-lbl", "dr-link", "dr-lock", "dr-sub", "dr-suball", "dr-subs", "wf-drawer"], KIT_STS=[];</script></section>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>11</b> власних класів і <b>1</b> стан.</p>
+<p class="kp-p"><code>.dr-lock</code> стоїть у станах, а не в класах: його дописує <code>classList.add</code> на <b>сам <code>&lt;html&gt;</code></b>, поки шухляда відкрита, щоб сторінка під нею не прокручувалась. Стенд не може його показати навіть теоретично - намалювати його означало б заблокувати прокрутку <b>цієї</b> сторінки, а не демо. Тому він названий, а не відрендерений.</p><div id="idle"></div><script>var KIT_CLS=["dc-ic", "dr-b", "dr-cat", "dr-catwrap", "dr-city", "dr-lbl", "dr-link", "dr-sub", "dr-suball", "dr-subs", "wf-drawer"], KIT_STS=["dr-lock"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>nav-drawer.css</code>: <b>7</b> семантичних ролей і <b>14</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (7)</th><th>Примітиви (14)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--elevation-3</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--dr-top</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--ls-caps</code> <code>--size-20</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-32</code> <code>--space-8</code></td></tr></tbody></table></div></section>
@@ -63,38 +64,7 @@
 </main>
 <script src="../_nav.js"></script>
 <script>uivChrome(); uivCurrency();</script>
-<script>
-(function(){
-  var rendered = new Set(), named = new Set();
-  document.querySelectorAll('.kp-demo *').forEach(function(e){
-    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
-  });
-  document.querySelectorAll('code, .kp-code').forEach(function(e){
-    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
-    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
-      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
-    });
-  });
-  var page = document.body.textContent;
-  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
-  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
-  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
-  var box = document.getElementById('idle');
-  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
-  if(!onlyNamed.length && !missing.length && !missSts.length){
-    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
-      '</b> класів файлу відрендерені в демо, названо станів: <b>' + KIT_STS.length + '</b>.</div>';
-  } else {
-    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
-      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
-        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
-      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
-        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') +
-      (missSts.length ? '<p style="margin-top:8px"><b>' + missSts.length + ' з ' + KIT_STS.length +
-        '</b> - стільки станів оголошено і не названо: ' + pill(missSts) + '</p>' : '') + '</div>';
-  }
-})();
-</script>
+<script src="_idle.js"></script>
 <script>
 /* The frame is a viewport, so it has to be sized like one and not like a box.
    Two numbers are read from the frame itself rather than typed here: its content

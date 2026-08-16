@@ -332,7 +332,7 @@ property.
 
    | | at the start | now |
    |---|---|---|
-   | private rules on the coloured screens | 468 | **138** |
+   | private rules on the coloured screens | 468 | **106** |
    | of them with exactly one home | 157 | **3** |
    | screens still carrying rules (of 88) | 31 | **29** |
    | private `@media` blocks | 19 | **4** |
@@ -549,6 +549,25 @@ property.
    every availability line: 31 typed marks on seven screens, one of them a buyer screen shipping a
    doubled dot on twelve lines. Third time for that shape, so it is a gate now.
 
+   **Pile 2, second block: the add-client modal, 32 rules -> 0 on the screens.** It is
+   `client-dialog.css`'s EDITOR dialog under six other names, and the private copy had built the
+   WRONG one of that file's two dialogs from scratch - its own 440px box at radius 14 against
+   `.cemodal`'s 460 at `--radius-12`, and a close control that was a bare `<a>` at 19px with no
+   hover, no focus ring and no touch target on the modal whose only way out it is. Three moves were
+   genuinely new: the picker's scrolling list and its dashed launcher went into the component, and
+   `#wf-bar{ z-index: 80 }` went to `design/_stand.css`, where it belongs - every state screen that
+   opens a modal needs the bar to stay above a scrim at 55.
+
+   **And the same 27 pixels the tariff dialog measured at 8.7.** «Додати першого клієнта» beside
+   «Скасувати» runs 154..387 in a 360 viewport and does NOT scroll the page - the scrim clips it, so
+   the right edge of the primary action is unreachable and every gate reads 0. Two dialogs, one
+   measurement each, so the stacking rule is the component's now and the tariff copy is gone.
+
+   **The stand page's idle control had been red and nothing was reading it.**
+   `kit/client-dialog.html` had been printing «5 named in words, not shown in a demo» for as long as
+   it existed - verified against the tree before this pass touched it. `accept.mjs` collects that
+   verdict now, using the box's own words rather than a second implementation of them.
+
    **And the inventory turned out not to be one.** Adding `plan-card.css`'s row showed that
    `inventory.md` lists none of the eight coach components that entered at 7.95 and 8.7, files
    `upsell.css` as a molecule while its own stand page called it level 3, and carries a «Lines»
@@ -556,6 +575,63 @@ property.
    written into the file itself, under the table. The second is the one with a rule behind it: **the
    coach group in `index.css` is a SCOPE group, not a level group**, so any file put there loses the
    one place its level was readable.
+3b. **NINETEEN STAND PAGES ARE SHOWING LESS THAN THEIR FILE, and the control that says so had
+   never been read.** Opened 2026-08-16 by step 8.31b.
+
+   Every component page ends with an idle control: a box comparing the classes its css file declares
+   against the classes its demos actually render, printing «Пройдено» or naming what is missing. The
+   box draws in the browser. **No gate had ever collected the verdict**, so
+   `kit/client-dialog.html` had been printing «5 named in words, not shown in a demo» for as long as
+   it existed - and it was one of nineteen.
+
+   `accept.mjs` reads it now, in the box's own words rather than a second implementation of the same
+   check. First run over the corpus: **19 pages red, 179 classes**, and a scratchpad probe sorted
+   them **70 JavaScript-written / 109 demos owed**.
+
+   **THE SORTING WAS WRONG, AND IT WAS WRONG IN THE DIRECTION THAT FLATTERS** - step 8.32 refused to
+   apply it mechanically and read the evidence line by line instead. The probe asked «does this class
+   string appear in a JS file», matching `classList.add` OR `class="x"` inside a script. In this
+   repository the second half means nothing: `wireframes/_nav.js` is the BUILDER of the grey
+   prototype, so most of the product's markup lives inside JS string literals. Of the 26 classes on
+   the seven smallest pages, 23 were `class="x"` in a template string - ordinary markup, which a
+   stand can render in repose - and only three were real. The question had quietly become «where does
+   this file live».
+
+   `tools/idle.mjs` asks the narrow, falsifiable version: `classList.add|toggle|remove('x')` on an
+   element that already exists. Honest census:
+
+   | | first probe | measured |
+   |---|---|---|
+   | classes a script writes - a state, not a demo | 70 | **9** |
+   | classes the page genuinely owes a demo | 109 | **163** |
+
+   **All nine states are closed** (8.32). Each moved into `KIT_STS` with a sentence on its own page
+   saying what writes it and why it cannot stand in repose: `dr-lock` and `pdp-stuck` are put on
+   `<html>` and `<body>`, so rendering them would dress the STAND rather than the demo;
+   `catov-open` lands on the bottom tab, an element that page does not contain; `hidden` is the
+   cookie bar's absence; `added` is the trace of an act. `checkout-form` owes **57 of its 93** - the
+   stand page for the largest organism in the system shows barely a third of its file.
+
+   **Two more findings came out of building the instrument, both closed:**
+
+   - **The page-side control existed in 74 hand copies, in five editions.** Three differed only in
+     where a string wrapped. The fourth - `plan-card` and `upsell` - had the states clause DELETED,
+     so those two pages could not have reported an unnamed state if they had one. The fifth was
+     `icon.html`, and it held the one rule the other 73 had lost: **measure after the passes have
+     run, never at parse time**, because `marks.js` adds `.uiv-trail` on DOMContentLoaded. Now one
+     `design/kit/_idle.js`, included once per page, and it also reads into the demo frame - worth
+     exactly 4 classes of 162, `toolbar`'s three and `co-wrap`, but a page red for a reason that is
+     not true is what this item is about.
+   - **`address-card` had two classes parked in `KIT_STS` that are not states.** `.addr-del-row` and
+     `.addr-back` are both drawn on that page already; what switches them is the `hidden` ATTRIBUTE
+     and `.mode-edit` on the modal, neither of which is these classes. The exemption list now has an
+     idle control of its own in `idle.mjs`, narrowed to the only kind that could be parked there: a
+     bare identifier the component's own css declares as a class and no script toggles.
+
+   **Left: 15 pages, 159 classes, every one of them a demo the page owes.** One page at a time, each
+   decided by reading - a mechanical sweep would hide real gaps behind a heuristic, which is what the
+   first probe nearly did.
+
 4. ~~**105 dead `class="dark"` in `design/*.html`** - no stylesheet in the coloured layer defines
    `.dark`.~~ **Closed 2026-08-15: 105 removed from 57 screens, and nothing moved.**
 
