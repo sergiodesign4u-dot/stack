@@ -42,8 +42,20 @@
    the frozen grey layer shares. Same line 7.23 drew for `.dr-chip`, 7.27 for
    `.rstars`, 7.28 for `.sl`. */
 
-/* ---------- the row rung ---------------------------------------------------- */
-.co-opt, .pf-lang{
+/* ---------- the row rung ----------------------------------------------------
+   8.30 - `.ac-cli` IS THE FIFTH NAME ON THIS RUNG, and this file wrote the
+   instruction for its own growth at 7.96: «one name added to a selector list,
+   never a rename». It is the row that picks a client in the add-client modal on
+   coach-session-addclient.html - a `<label>` holding a checkbox, an avatar, a
+   name and a line under it - and it had been drawn privately with 1.5px
+   `--line-strong`, radius 10, padding 10/12 and a gap of 11. Picking a client
+   out of a list is choosing an option out of several, which is what this rung
+   is; that its input is a checkbox rather than a radio is the INPUT's business,
+   and checkbox.css already dresses it.
+   WHAT THE ROW GAINS BY JOINING: a hover, a press, a focus ring and the family's
+   chosen ground. It had none of the four - a bordered box you click that
+   answered nothing until you clicked it. */
+.co-opt, .pf-lang, .ac-cli{
   display: flex; align-items: flex-start; gap: var(--space-12);
   border: 1px solid var(--line-hair); border-radius: var(--radius-12);
   padding: var(--space-12) var(--space-16);
@@ -90,9 +102,9 @@
    did nothing at all - two instances of a control that did not answer the cursor
    while its twins did. One sentence now, two values, because the two rungs rest
    on two different edges. */
-.co-opt:hover, .pf-lang:hover{ border-color: var(--line-strong); }
+.co-opt:hover, .pf-lang:hover, .ac-cli:hover{ border-color: var(--line-strong); }
 .vopt:hover, .opt-tile:hover{ border-color: var(--line-inverse); }
-.co-opt.on:hover, .pf-lang.on:hover, .vopt.on:hover, .opt-tile.on:hover{ border-color: var(--line-action); }
+.co-opt.on:hover, .pf-lang.on:hover, .ac-cli.on:hover, .vopt.on:hover, .opt-tile.on:hover{ border-color: var(--line-action); }
 
 /* ---------- press: the ground, not the edge - step 7.33 ----------------------
    Every state this family had moved a BORDER, and a border is a cursor answer:
@@ -108,11 +120,16 @@
    inert cells are. */
 .co-opt:not(.on):active,
 .pf-lang:not(.on):active,
+.ac-cli:not(.on):active,
 .vopt:not(.on):not(.off):active,
 .opt-tile:not(.on):active{ background: var(--bg-action-soft); }
 
 /* ---------- chosen: ONE edition, and it is the accent ----------------------- */
-.co-opt.on, .pf-lang.on{ border-color: var(--line-action); background: var(--bg-action-soft); }
+.co-opt.on, .pf-lang.on, .ac-cli.on{ border-color: var(--line-action); background: var(--bg-action-soft); }
+/* the picker's private edition put `--bg-sunken` under the chosen row: the same
+   edge, a different ground. `--bg-action-soft` is the family's, and it is the one
+   the press state above lands on, so a row that rests on sunken would flash to a
+   different colour on the way to being chosen. */
 .vopt.on, .opt-tile.on{ border-color: var(--line-action); background: var(--bg-page); color: var(--text-body);
   /* the compact rung has no circle, so its edge doubles to carry the state -
      an inset ring rather than a second border, which would move the box */
@@ -150,7 +167,8 @@
    role and no tabindex. `design/_nav.js` gives them the roles and the arrow keys;
    this line is what the eye needs once they are reachable.
    `:focus-visible`, not `:focus`, so a mouse press does not light it up. */
-.co-opt:focus-visible, .vopt:focus-visible, .opt-tile:focus-visible, .pf-lang:focus-visible{
+.co-opt:focus-visible, .vopt:focus-visible, .opt-tile:focus-visible, .pf-lang:focus-visible,
+.ac-cli:focus-visible{
   outline: none; box-shadow: var(--ring-focus-control);
 }
 .vopt.on:focus-visible, .opt-tile.on:focus-visible{ box-shadow: inset 0 0 0 1px var(--line-action), var(--ring-focus-control); }

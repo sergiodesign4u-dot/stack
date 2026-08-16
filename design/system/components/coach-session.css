@@ -594,6 +594,14 @@
   display: block;
   font-size: var(--fs-12); }               /* was 11px, same rule */
 .coach .cs-cli b{ color: var(--text-primary); font-weight: var(--fw-black); white-space: nowrap; }
+/* NOTHING YET, 2026-08-15 (step 8.27), and it is a gap rather than an override.
+   `coach-session-newclient` is the moment a client has been added and the
+   session still has no items, so the summary's figures are all zero. The screen
+   held that in its own block; nothing in the system said anything about it, so
+   the count read at full ink and looked like a real number.
+   `--text-muted` is the same role `.cs-tot` and `.cprice.pend` use for a figure
+   that is not final. Moved rather than re-decided. */
+.coach .cs-cli.zero b{ color: var(--text-muted); }
 .coach .cs-tot{ display: flex; justify-content: space-between; align-items: baseline;
   padding: var(--space-12) 0 var(--space-2); margin-top: var(--space-4); }
 .coach .cs-tot span{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }

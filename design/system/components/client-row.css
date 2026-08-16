@@ -94,6 +94,23 @@
    coach-client, so the strike is repaired on all three at once. Verified on all
    three at 390 and 360. */
 .cprice .old{ display:block; font-size:var(--fs-12); }
+/* A PENDING PRICE IS A SENTENCE, NOT A FIGURE - step 8.31, and it is a real gap
+   the private block had been hiding rather than a value that moved.
+   `coach-session-priceblock` puts «Ціна уточнюється» in the price slot, and
+   everything this file and price.css give `.cprice` is written for a NUMBER: the
+   mono face, tabular numerals, the kerning, `--fs-20` and - the one that bit -
+   `white-space: nowrap`. The screen's private rule only changed the ink and the
+   weight, and its own `font-size: 15px` was small enough to hide the rest. The
+   moment the component's 20 applied, measured at 390: `.cl-right` 205..392 on a
+   390 viewport, `scrollWidth` 392 against `clientWidth` 390. Two pixels of
+   sideways scroll on the screen that tells a coach a price is not final.
+   Three declarations and each answers one of the three: it wraps because it is a
+   phrase, it drops to the body rung because 20 is the figure's size and a sentence
+   at 20 shouts, and it leaves the mono face because these are WORDS. Ink and
+   weight are the private rule's own, moved rather than re-derived. */
+.cprice.pend{ font-family:var(--font-body); font-size:var(--fs-14);
+  font-weight:var(--fw-bold); color:var(--text-secondary);
+  white-space:normal; word-spacing:normal; font-variant-numeric:normal; }
 .coachbn{ background:var(--bg-inverse);  border-radius:var(--radius-16); padding:var(--space-24); overflow:hidden; position:relative; }
 .coachbn .ct{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-oninverse); }
 .coachbn .cs{ color:var(--text-oninverse-muted); line-height:var(--lh-airy); }

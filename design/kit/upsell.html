@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Панель Pro | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+</head>
+<body class="kp coach">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Панель Pro</h1>
+<p class="kp-lead">«Ви досягли ліміту тарифу Free». Єдине місце, де система просить грошей, - і тому єдине, де кожне рішення про наголос коштує довіри. Компонент народився не з макета, а з <b>двох приватних блоків, які малювали одне й те саме під двома іменами</b>, і один із них цитував другий у коментарі.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/upsell.css</span><span class="kp-tag">75 рядків</span><span class="kp-tag">11 селекторів</span><span class="kp-tag">42 оголошення</span><span class="kp-tag">2 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>coach-clients-cap.html</code>. Це повна форма: заголовок, смуга, речення, список, дії, дрібний підпис.</p>
+<div class="kp-demo">
+  <section class="upsell" aria-label="Ліміт тарифу Free">
+    <div class="ut">Ви досягли ліміту тарифу Free</div>
+    <div class="ubar"><i></i></div>
+    <div class="up">На тарифі Free можна додати до <b>3 клієнтів</b>. Оновіть до <b>Pro</b>, щоб додавати необмежену кількість клієнтів і замовляти для всіх в одну сесію.</div>
+    <ul class="ulist">
+      <li>Необмежена кількість клієнтів</li>
+      <li>Мультиклієнтська сесія без обмежень</li>
+      <li>Максимальна гуртова ціна</li>
+    </ul>
+    <div class="uacts">
+      <a class="btn--accent btn--s btn" href="#">Оформити Pro</a>
+      <a class="btn--outline btn--s btn" href="#">Не зараз</a>
+    </div>
+    <div class="un">Вартість Pro та ліміти уточнюються [?].</div>
+  </section>
+</div>
+<p class="kp-p">І коротка форма - <code>coach-tariff-free.html</code>. Заголовок тут <code>&lt;h2&gt;</code>, речення <code>&lt;p&gt;</code>: компонент бере обидві пари імен, бо один екран прийшов із класами, а другий з елементами, і жодна з двох редакцій не варта того, щоб переписувати розмітку.</p>
+<div class="kp-demo">
+  <section class="upsell" aria-label="Оформити Pro">
+    <h2>Перейдіть на Pro</h2>
+    <p>Зніміть ліміт на кількість клієнтів у сесії й отримайте максимальну гуртову ціну та пріоритетну підтримку.</p>
+    <div class="tf-price2">99 ₴ <span class="per">/ міс [?]</span></div>
+    <a class="btn--accent btn--s btn" href="#">Оформити Pro</a>
+  </section>
+</div>
+<p class="kp-p">Ціна тут <b>не</b> компонентова: <code>.tf-price2</code> живе в <code>plan-card.css</code> поруч із <code>.tf-col-p</code> (крок 8.29 переніс їх туди з <code>coach-tariff.css</code>), бо це ціна ТАРИФУ, а панель лише її показує. Частини опційні - панель із самим заголовком, реченням і дією все одно ця панель.</p>
+<p class="kp-p"><b>І вона йшла не тим шрифтом.</b> Крок 8.28 переніс <code>.tf-price2</code> у правило <code>.tf-col-p</code> по розміру, вазі й маргіну - і не пішов за <b>родиною</b>, яка живе в <code>price.css</code>, за файл звідти. Панель показувала «99 ₴ / міс [?]» шрифтом Inter, коли той самий рядок за два екрани звідси стоїть у IBM Plex Mono. Полагоджено на 8.29, одним іменем у наявний список; мій недогляд, знайдений четвертим екраном.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Дві назви для одного, і друга цитувала першу</div>
+<p class="kp-p"><code>.upsell</code> на <code>coach-clients-cap</code> і <code>.tf-upsell</code> на <code>coach-tariff-free</code> - обидва рамка з акцентною гранню, що каже «ви вперлись у стелю Free, ось Pro», обидва закінчуються тим самим <code>btn--accent</code> на ту саму адресу. І приватний коментар тарифного екрана називав сусіда вголос:</p>
+<div class="kp-quote">THE PANEL'S EDGE IS THE ACCENT NOW - owner's call, 2026-08-14, same shape and same reasoning as <code>.upsell</code> on coach-clients-cap.html</div>
+<p class="kp-p"><b>Два файли, що погоджуються прозою й розходяться числами, - це визначення компонента, якого ніхто не написав.</b></p></section>
+
+<section class="kp-sec"><div class="kp-sh">Рішення власника, 2026-08-14</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Грань несе наголос, заливка лишається поверхнею.</b> Панель уже тримає акцентну кнопку, заради якої вона існує. Акцентна ПЛИТА поставила б колір «дій тут» водночас на блок і на дію всередині нього, і людина не знала б, куди тиснути.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби з ліміту поразки.</b> Ні червоного, ні лічильника, ні «залишилось». Смуга показує факт (3 з 3), список показує, що дає Pro, підпис чесно каже <code>[?]</code> там, де числа ще немає. Принцип 4: спокійно й упевнено.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Три значення зведено, бо дві редакції не можуть бути правильними обидві</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Було</th><th>Стало</th><th>Чому</th></tr></thead><tbody>
+<tr><td>падінг</td><td>18px проти 20/22</td><td><b>18px</b></td><td>старша редакція і квадратна; жодне з трьох не на драбині, тож вибирали не рунґ, а простіше число</td></tr>
+<tr><td>тло</td><td>прозоре проти <code>--bg-surface</code></td><td><b><code>--bg-surface</code></b></td><td>панель, що просить грошей, має лежати НА сторінці, а не бути діркою в ній. Прозорою вона була лише тому, що в сірого прототипу не було ролі поверхні</td></tr>
+<tr><td>заголовок</td><td>16px проти 17px</td><td><b><code>--fs-16</code></b></td><td>17 не на драбині взагалі</td></tr>
+</tbody></table></div>
+<p class="kp-p">Жодне з трьох не рухає більш ніж на 2px. Записані рядком «змінна -&gt; значення -&gt; чому» в <code>docs/decisions.md</code>, крок 6, дев'ятнадцятий прохід.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p"><b>Станів не має, не інтерактивний.</b> Панель це блок, а не контрол: наводять і натискають кнопки всередині неї, і вони відповідають своїм фінішем із <code>button.css</code>. Наведення на саму панель було б вигаданою роллю.</p>
+<p class="kp-p">Єдине, що в ній рухається, - ширина заливки <code>.ubar i</code>, і це <b>вимір</b>, а не стан: скільки клієнтів із ліміту вже зайнято. Сьогодні вона стоїть на 100%, бо екран показує момент, коли ліміт вичерпано.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>7</b> власних класів оголошено в <code>upsell.css</code>.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["ubar","uacts","ulist","un","up","upsell","ut"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>upsell.css</code>: <b>8</b> семантичних ролей і <b>9</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (9)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fw-black</code> <code>--lh-airy</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу тут чотири числа, і всі позначені <code>[?]</code> у файлі: <code>1.5px</code> грань (набір 1 / 2), <code>14px</code> радіус (драбина 12 / 16), <code>18px</code> падінг і маргін (16 / 24), <code>6px</code> радіус смуги і два маргіни (4 / 8). Це успадкований дрейф двох приватних блоків, а не нові значення - етап 09 їх або пристібне до драбини, або залишить із написаною причиною.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Смуга не має варіантів заповнення.</b> <code>.ubar i</code> стоїть на <code>width: 100%</code> жорстко. Щойно ліміт стане справжнім числом, ширина має приходити з розмітки - <code>style="width:66%"</code> або токен-змінна, і це рішення про механізм, а не про вигляд.</li>
+<li><b>Чотири числа повз драбину</b> - див. розділ токенів.</li>
+<li><b>Панель ніде не показує, ЩО саме вичерпано, крім тексту.</b> Смуга без підпису «3 з 3» - це форма без числа; сьогодні число живе в реченні. Чи має воно стояти на смузі - питання етапу 09.</li>
+</ul></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо; станів компонент не має, і це сказано вголос.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

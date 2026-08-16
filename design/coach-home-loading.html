@@ -12,28 +12,41 @@
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
 <style>
-/* node 5.2 Кабінет тренера - LOADING skeleton (static, no animation). Greyscale. */
-.acc { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 16px; }
-@media (min-width: 960px) { .acc { grid-template-columns: 268px 1fr; gap: 28px; } }
 
-.sk { background:var(--bg-sunken); border-radius: 8px; border:1px solid var(--line-hair); }
-.sk.line { height: 12px; }
-.sk-prof { border:1px solid var(--line-hair); border-radius: 14px; padding: 15px 16px; display: flex; gap: 13px; align-items: center; }
-.sk-prof .av { width: 48px; height: 48px; border-radius: 50%; flex: none; }
-.sk-prof .who { flex: 1; display: flex; flex-direction: column; gap: 7px; }
-.sk-links { margin-top: 12px; border:1px solid var(--line-hair); border-radius: 14px; overflow: hidden; }
-.sk-links .row { padding: 15px; border-bottom:1px solid var(--line-hair); }
-.sk-links .row:last-child { border-bottom: none; }
-.sk-h1 { height: 26px; width: 55%; }
-.sk-sub { height: 13px; width: 80%; margin-top: 10px; }
-.sk-strip { height: 48px; margin-top: 15px; border-radius: 12px; }
-.sk-cta { height: 86px; margin-top: 16px; border-radius: 14px; }
-.acc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
-.sk-card { height: 150px; border-radius: 14px; }
-.sk-load { display: flex; align-items: center; gap: 10px; margin-top: 22px; color:var(--text-secondary); font-size: 13px; font-weight: 600; justify-content: center; }
-/* 7.18: the moving arc is the action colour - auth-dialog.css `.auth-spin` and
-   checkout-form.css `.co-spin` both settled it. This was the third edition. */
-.sk-spin { width: 16px; height: 16px; border:2px solid var(--line-strong); border-top-color:var(--line-action); border-radius: 50%; }
+
+
+/* FIFTEEN RULES LEFT THIS BLOCK AT STEP 8.30 AND NOTHING REPLACED THEM: every
+   one was a second name for something `skeleton.css`, `account-shell.css` or
+   `empty-state.css` already declares, and the buyer's twin of this screen -
+   `account-loading.html`, the same shell, the same job - carries no private rule
+   at all. The mapping, and each pair was read on both running pages:
+
+     .sk / .sk.line       -> .skline        the bar. `.sk` also carried a 1px
+                                            hairline the system's bar does not
+                                            have, and `height: 12px` is the
+                                            single instance skeleton.css names in
+                                            its own comment: «24 and 10, not 24
+                                            and 12, because 12 was one instance
+                                            disagreeing with 78». This was that one.
+     .sk-prof / .av / .who -> .acc-prof and its two children
+     .sk-links / .row      -> .acc-links / .acc-link
+     .sk-h1 / .sk-sub      -> .acc-h1sk / .acc-subsk
+     .sk-card / .sk-strip  -> .skcardbox
+     .sk-load              -> .loadnote
+     .sk-spin              -> DELETED WITH NOTHING TAKING IT. Its own comment
+                              said «this was the third edition» of the spinner and
+                              named the two that settled it - and skeleton.css
+                              answers the question that comment did not ask:
+                              «It says "still going", not "broken": one slow
+                              breath, NEVER A SPINNER.» A skeleton screen that
+                              also spins is two loading languages at once.
+
+   `.skpulse` came WITH the classes rather than being added: it is a modifier on
+   the container, and taking `.acc-nav`, `.acc-grid` and the two bars means the
+   page breathes the way every other loading screen in the product does. And the
+   rail's phone shape came with them too - below 960 `.acc-links` is a scrollable
+   chip strip, which is what four cabinet screens got back at step 8.22 for
+   exactly the same reason. */
 </style>
 </head>
 <body class="coach">
@@ -48,31 +61,52 @@
     <span class="cur">Кабінет тренера</span>
   </nav>
 
+  <!-- THE SKELETON IS A PROMISE ABOUT THE BOX THAT REPLACES IT - skeleton.css's own
+       sentence, and this screen was breaking it four ways at once. Step 8.30
+       rewrote it onto the same classes account-loading.html uses, which is the
+       buyer's twin of this exact screen and carries NO private rule at all.
+       What the private version promised against what coach-home.html draws,
+       measured at 390 before the change:
+         the rail   5 stacked rows, 358 x 216   ->  a 48-tall chip strip below 960
+         the strip  358 x 48                    ->  358 x 145.17  (`.cstat`)
+         a CTA      358 x 86                    ->  NOTHING. `.cnew` was deleted
+                    from coach-home.html at step 7.98 and the skeleton kept promising it
+         the grid   2 boxes side by side, 316   ->  3 full-width cards, 1265.34
+       and none of it breathed: `.skpulse` was on no element on this page, while
+       every skeleton on the buyer's side pulses. -->
   <div class="acc" aria-busy="true">
-    <aside class="acc-nav">
-      <div class="sk-prof">
-        <div class="sk av"></div>
-        <div class="who"><div class="sk line" style="width:60%"></div><div class="sk line" style="width:85%"></div></div>
+    <aside class="acc-nav skpulse">
+      <div class="acc-prof">
+        <div class="av"></div>
+        <div class="who"><div class="skline m"></div><div class="skline l"></div></div>
       </div>
-      <div class="sk-links">
-        <div class="row"><div class="sk line" style="width:50%"></div></div>
-        <div class="row"><div class="sk line" style="width:65%"></div></div>
-        <div class="row"><div class="sk line" style="width:45%"></div></div>
-        <div class="row"><div class="sk line" style="width:60%"></div></div>
-        <div class="row"><div class="sk line" style="width:40%"></div></div>
+      <div class="acc-links">
+        <div class="acc-link"><div class="skline m"></div></div>
+        <div class="acc-link"><div class="skline s"></div></div>
+        <div class="acc-link"><div class="skline l"></div></div>
+        <div class="acc-link"><div class="skline s"></div></div>
+        <div class="acc-link"><div class="skline m"></div></div>
+        <div class="acc-link"><div class="skline m"></div></div>
+        <div class="acc-link"><div class="skline m"></div></div>
       </div>
     </aside>
 
     <div class="acc-main">
-      <div class="sk sk-h1"></div>
-      <div class="sk sk-sub"></div>
-      <div class="sk sk-strip"></div>
-      <div class="sk sk-cta"></div>
-      <div class="acc-grid">
-        <div class="sk sk-card"></div>
-        <div class="sk sk-card"></div>
+      <div class="acc-h1sk skpulse"></div>
+      <div class="acc-subsk skpulse"></div>
+
+      <!-- `.cstat`, the tier chip + wholesale note + «керувати тарифом» -->
+      <div class="skcardbox skpulse" style="margin-top:16px">
+        <div class="skline s"></div><div class="skline l"></div>
       </div>
-      <div class="sk-load"><span class="sk-spin" aria-hidden="true"></span> Завантажуємо кабінет…</div>
+
+      <!-- three full-width cards, which is what coach-home.html actually draws -->
+      <div class="acc-grid skpulse">
+        <div class="skcardbox span2"><div class="skline s"></div><div class="skline m" style="margin:14px 0"></div><div class="skline l"></div><div class="skline m"></div></div>
+        <div class="skcardbox span2"><div class="skline s"></div><div class="skline m" style="margin:14px 0"></div><div class="skline l"></div><div class="skline m"></div></div>
+        <div class="skcardbox span2"><div class="skline s"></div><div class="skline m" style="margin:14px 0"></div><div class="skline l"></div></div>
+      </div>
+      <p class="loadnote">Завантажуємо кабінет…</p>
     </div>
   </div>
 </main>

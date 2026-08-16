@@ -50,8 +50,33 @@ const M = `(() => {
     }).length;
     if(typed) crumbBad = typed + ' doubled sep';
   }
+  /* A MARK THE COMPONENT ALREADY DRAWS, TYPED INTO THE TEXT AS WELL - the
+     breadcrumb check above, widened to the family it turned out to belong to.
+     Step 8.31: account-wishlist-many shows TWO dots on every availability line -
+     availability.css's 6px ::before and a U+25CF typed into the string - and it
+     had been shipping that. Seven screens carried it, and the third time this
+     shape appears is when it stops being a screen's mistake and becomes a gate.
+     Four glyphs, and each is one a component in this system draws: the
+     availability / status dot, the tick of an included line, the middle dot of a
+     list, the cross of an excluded one. The test is deliberately narrow - the
+     element's OWN first text node, not a descendant's - so a word that merely
+     contains the character is not a finding.
+     NO BACKTICKS IN THIS NOTE: it lives inside the template literal that carries
+     the probe, and this file already paid for that lesson once, two checks up. */
+  const MARKS = '\u25CF\u2713\u00B7\u2715';
+  const doubled = [];
+  for (const e of document.querySelectorAll('body *')) {
+    const c = getComputedStyle(e, '::before').content;
+    if (!c || c === 'none' || c === 'normal') continue;
+    const n = [].slice.call(e.childNodes).filter(x => x.nodeType === 3 && x.textContent.trim())[0];
+    if (!n) continue;
+    const ch = n.textContent.trim()[0];
+    if (MARKS.indexOf(ch) > -1)
+      doubled.push((typeof e.className === 'string' && e.className ? '.' + e.className.split(' ')[0] : e.tagName) + ' ' + ch);
+  }
   return JSON.stringify({
     over: de.scrollWidth - de.clientWidth,
+    dots: doubled.length, dotsWhat: [...new Set(doubled)].slice(0, 3),
     errs: (window.__errs||[]).slice(0,2),
     em: (t.match(/\\u2014/g)||[]).length,
     curly: (t.match(/[\\u2019\\u02BC]/g)||[]).length,
@@ -65,10 +90,11 @@ for (const p of PAGES) {
   const s = await newSession(conn);
   await conn.send('Page.addScriptToEvaluateOnNewDocument', { source: ERRS }, s.sessionId);
   const d = JSON.parse(await visit(conn, s.sessionId, `${srv.base}/design/${p}.html`, W, 844, M, s.inflight));
-  const ok = d.over === 0 && !d.errs.length && d.em === 0 && d.curly === 0 && !d.crumbBad;
+  const ok = d.over === 0 && !d.errs.length && d.em === 0 && d.curly === 0 && !d.crumbBad && d.dots === 0;
   if (!ok) bad++;
   console.log((ok ? 'OK   ' : 'FAIL ') + p.padEnd(20) + 'over=' + String(d.over).padEnd(4) + 'em=' + String(d.em).padEnd(3)
-    + 'curly=' + String(d.curly).padEnd(3) + 'svg=' + String(d.svg).padEnd(4)
+    + 'curly=' + String(d.curly).padEnd(3) + 'dot=' + String(d.dots).padEnd(3) + 'svg=' + String(d.svg).padEnd(4)
+    + (d.dots ? ' DOT:' + d.dotsWhat.join(', ') : '')
     + (d.crumbBad ? ' CRUMB:' + d.crumbBad : '') + (d.errs.length ? ' ERR:' + JSON.stringify(d.errs) : ''));
   await conn.send('Target.closeTarget', { targetId: s.targetId });
 }

@@ -323,6 +323,30 @@ export function topRules(css) {
   return out;
 }
 
+/* WHERE THE SELECTOR ENDS, ONCE THE NOTE IS PART OF THE SPAN. `withNotes` grows a
+   span backwards over its comment, so `text.indexOf('{')` no longer finds the
+   rule's own brace - it finds the first brace ANYWHERE in the span, and this
+   repository writes css examples inside its notes constantly. Step 8.31:
+   `coach-session-empty`'s note quotes `.cs-empty .btn{ padding: 13px 24px }`, and
+   `private.mjs` read the whole paragraph as a selector and filed it under
+   «частково нове». A comment counted as a rule inflates every total the file
+   prints, and it does it silently.
+   The skipping is `topRules`'s own, which is the point: one parser, one answer to
+   «is this position inside a comment». */
+export function braceAfterNotes(text) {
+  let i = 0;
+  while (i < text.length) {
+    if (text[i] === '/' && text[i + 1] === '*') {
+      const j = text.indexOf('*/', i + 2);
+      i = j < 0 ? text.length : j + 2;
+      continue;
+    }
+    if (text[i] === '{') return i;
+    i++;
+  }
+  return -1;
+}
+
 /* THE NOTE BELONGS TO THE RULE. A span is grown backwards over any comment
    blocks that sit between it and the rule before it, separated by whitespace
    only - which is how every note in this repository is written. A comment that

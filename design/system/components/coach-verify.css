@@ -370,7 +370,17 @@
    is identical either way; the role stays the one this file already declared,
    and which of the two an H1 should read is a question for the whole product,
    not for this screen. */
-.coach .cv-body h1{ font-family: var(--font-display); font-size: var(--fs-30); font-weight: var(--fw-semibold); color: var(--text-primary); letter-spacing: var(--ls-lead); }
+/* THE STATE SCREENS' TITLE JOINS IT, 2026-08-15 (step 8.23), and this is the
+   THIRD flow found wearing two faces for one rank. `coach-clients.css:181`
+   recorded the first - «one cabinet was wearing FOUR title treatments» -
+   `coach-cabinet.css:696` the second, on coach-orders. Here the base draws its
+   heading Oswald 30/600 inside `.cv-body`, and the three state screens drew
+   theirs Inter 22/800 inside `.cv-card`, from their own `<style>` blocks. Same
+   flow, same rank, same slot, two faces and eight pixels apart.
+   Joined rather than deleted-and-left: `.cv-card` is not `.cv-body`, so nothing
+   would have reached these three, and the page title is not a per-screen look. */
+.coach .cv-body h1,
+.coach .cv-card h1{ font-family: var(--font-display); font-size: var(--fs-30); font-weight: var(--fw-semibold); color: var(--text-primary); letter-spacing: var(--ls-lead); }
 /* grey 13.5 -> 13 -> 14: 5.5 to the more-read neighbour, then 5.6 takes
    the tie UP. 14 is what the product's other thirty 13.5s became by the same
    two moves. One of the nine in the block at the top.

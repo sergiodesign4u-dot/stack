@@ -458,6 +458,16 @@ window.KIT_NAV = [
     "label": "Оверлей каталогу",
     "page": "cat-overlay.html",
     "done": true
+   },
+   {
+    "label": "Панель Pro",
+    "page": "upsell.html",
+    "done": true
+   },
+   {
+    "label": "Картка тарифу",
+    "page": "plan-card.html",
+    "done": true
    }
   ]
  },

@@ -210,7 +210,153 @@ if (dark.rows.length) {
   }
 }
 
+/* ---------------------------------------------------- THE RANK THAT DISAGREES
+   Step 8.31, and it is this tool's own blind spot one variant deeper. Everything
+   above asks «is there a rank?». It never asked «is it the BASE's rank?», so a
+   control wearing the wrong size passed every run in silence.
+
+   What that cost, measured at 390: the sticky bar's action on the coach ordering
+   session - «У кошик →», the one act the whole flow leads to - is
+   `btn--accent btn--l btn` on the base, 64.00 tall, and `btn--accent btn--s btn`
+   on SIX of its state screens, 40.00 tall. Under the 44px touch floor, on the
+   primary audience's daily screen, on six screens at once. The tool had already
+   decided this exact control once, by hand, in DECIDED - `coach-session-priceblock`
+   `.blocked` takes «the bar action of the base» - and could not see that its six
+   neighbours were asking the same question.
+
+   THE TEST IS THE SAME ONE THE RANKING ABOVE USES: match by utility class against
+   the base, and act only when the base holds ONE answer. What is added is that the
+   control may already be ranked - and then the disagreement is the finding.
+   A control the base does not carry at all is not reported: a state has controls a
+   base does not have, and that is what a state IS.
+
+   AND THE FIRST WRITING OF IT FOUND NOTHING, WHICH IS THE INTERESTING PART. The
+   control that prompted it - the session bar's «У кошик →» - wears
+   `btn--accent btn--s btn` and NOTHING ELSE: no utility class at all, because what
+   identifies it is the block it sits in, `.cs-bar`. A tool that reads class
+   attributes out of source has no parents, so it reported 0 and the defect stood.
+   The second key is the DESTINATION. `<a href="cart-coach.html">` is what that
+   control is: the same flow, going to the same place, twice, at two sizes. Where a
+   control has no class of its own, its href is the only thing about it that is
+   still the same fact on the base and on the state.
+   WHAT THIS STILL CANNOT SEE, said rather than papered over: a control with
+   neither a utility class nor an href - a `<button>` identified only by its
+   container. That one needs a browser and a parent, and it is not guessed at from
+   here. */
+const RANKS = new Set(['btn--accent', 'btn--outline', 'btn--ghost', 'btn--text']);
+const SIZES = new Set(['btn--s', 'btn--l', 'btn--icon', 'btn--full']);
+const rankOf = t => t.filter(x => RANKS.has(x) || SIZES.has(x)).sort().join(' ');
+
+const disagree = [];
+for (const p of NAMES) {
+  const b = base(p);
+  if (!b || b === p || !SRC[b]) continue;
+  for (const m of attrs(SRC[p])) {
+    const t = toks(m[1]);
+    if (!ranked(t)) continue;                       // the unranked are the section above
+    const u = utility(t).filter(x => !RANKS.has(x) && !SIZES.has(x));
+    let cand;
+    if (u.length) {
+      cand = [...new Set(attrs(SRC[b]).map(x => toks(x[1]))
+        .filter(bt => ranked(bt) && utility(bt).filter(x => !RANKS.has(x) && !SIZES.has(x)).some(x => u.includes(x)))
+        .map(bt => rankOf(bt)))];
+    } else {
+      /* no class of its own - ask the destination. `m.index` is where the class
+         attribute sits, and the href of the same tag is within a short reach of it. */
+      const near = SRC[p].slice(Math.max(0, m.index - 120), m.index + 200);
+      const href = (near.match(/href="([^"]+)"/) || [])[1];
+      if (!href) continue;
+      /* AND THE DESTINATION ALONE IS NOT THE CONTROL. First writing matched on
+         href only and reported `coach-client-empty` - «＋ Нова сесія» to
+         coach-session.html - against `coach-client`'s. Same words, same
+         destination, and NOT the same control: the base's stands alone in
+         `.cc-cta` at the default size, the state's sits in an empty state's
+         `.eact`, where `btn--s` is what empty-state.css's own demos write. The
+         same destination in two different containers is two controls, and writing
+         one onto the other would have shrunk a standalone CTA into a row control.
+         So the container has to agree too - the nearest class attribute before
+         the control, which for the case this section exists for is `cs-bar` on
+         both sides. It is a source-level stand-in for a parent, and it is named
+         as one: a control whose real parent carries no class is invisible to it. */
+      const holder = t2 => { const a = [...t2.matchAll(/class="([^"]*)"/g)]; return a.length > 1 ? a[a.length - 2][1] : null; };
+      const mine = holder(SRC[p].slice(Math.max(0, m.index - 400), m.index + 8));
+      if (!mine) continue;
+      /* THE SLOT FIRST, THE DESTINATION ONLY AS A TIEBREAK - and that ordering is
+         the difference between finding five of six and finding six. The session
+         bar's action on `coach-session-empty` goes to `coach-session-addclient`
+         rather than to the cart, because an empty session has nothing to send;
+         it is the SAME SLOT doing a different job, and a destination key cannot
+         see that. What a slot is worth is the slot's decision. */
+      const inHolder = bt => ranked(bt) && !utility(bt).filter(y => !RANKS.has(y) && !SIZES.has(y)).length;
+      const bySlot = attrs(SRC[b]).map(x => [x, toks(x[1])])
+        .filter(([x, bt]) => inHolder(bt) && holder(SRC[b].slice(Math.max(0, x.index - 400), x.index + 8)) === mine);
+      let pick = bySlot;
+      if (bySlot.length > 1) pick = bySlot.filter(([x]) =>
+        (SRC[b].slice(Math.max(0, x.index - 120), x.index + 200).match(/href="([^"]+)"/) || [])[1] === href);
+      cand = [...new Set(pick.map(([, bt]) => rankOf(bt)))];
+      u.push('у .' + mine);
+    }
+    if (cand.length !== 1) continue;                // no single answer in the base
+    if (cand[0] === rankOf(t)) continue;            // agrees
+    /* A SIZE THAT DISAGREES IS A DEFECT; A FINISH THAT DISAGREES IS A DECISION.
+       Size is a touch target and the weight of one control - 40 against 64 is a
+       measurement, and the smaller one is under the 44 floor. Finish is «what this
+       screen RECOMMENDS», and design principle 2 says that is the screen's own to
+       choose: an empty state may well put the accent on the act the base treats as
+       secondary. So the two are separated here rather than swept together, and
+       only the first is written by `--apply`. */
+    const fin = x => x.split(' ').filter(y => RANKS.has(y)).join(' ');
+    const kind = fin(cand[0]) === fin(rankOf(t)) ? 'size' : 'finish';
+    disagree.push({ p, b, was: m[1], at: m.index, hook: u.join(' '), want: cand[0], have: rankOf(t), kind });
+  }
+}
+
+const sized = disagree.filter(d => d.kind === 'size');
+const finished = disagree.filter(d => d.kind === 'finish');
+const show = (title, list) => {
+  if (!list.length) return;
+  console.log('\n' + title + ' (' + list.length + '):');
+  for (const d of list)
+    console.log('  ' + d.p.padEnd(28) + d.hook.padEnd(34) + d.have + '  ->  ' + d.want + '   (база ' + d.b + ')');
+};
+show('РОЗМІР, ЩО НЕ ЗБІГАЄТЬСЯ З БАЗОЮ - це дефект', sized);
+show('ФІНІШ, ЩО НЕ ЗБІГАЄТЬСЯ З БАЗОЮ - це РІШЕННЯ, не пишу', finished);
+if (finished.length) console.log('  (принцип 2: що екран радить, вирішує екран. Прилад показує, не зводить.)');
+if (sized.length) {
+  if (APPLY) {
+    const byPage = {};
+    for (const d of sized) (byPage[d.p] ||= []).push(d);
+    let wrote = 0;
+    /* BY POSITION, AND THE FIRST WRITING WAS BY STRING - which replaced EVERY
+       control on the page wearing that exact class attribute. On five session
+       screens `class="btn--accent btn--s btn"` is worn by the bar's action AND by
+       «Знайти» in the quick-add field, so upsizing the bar upsized the field's
+       button with it. The next plain run reported those five as fresh size
+       disagreements against `.qadd-field`, which is the idle control doing its job
+       and is the only reason this is a paragraph rather than a shipped defect.
+       Descending order, so an earlier splice cannot move a later index. */
+    for (const [pg, ds] of Object.entries(byPage)) {
+      let src = SRC[pg];
+      for (const d of [...ds].sort((a, c) => c.at - a.at)) {
+        const keep = toks(d.was).filter(x => !RANKS.has(x) && !SIZES.has(x));
+        const next = [...d.want.split(' '), ...keep].join(' ');
+        const head = 'class="' + d.was + '"';
+        if (src.slice(d.at, d.at + head.length) !== head) {
+          console.log('  ! ' + pg + ': позиція зрушила, не пишу');
+          continue;
+        }
+        src = src.slice(0, d.at) + 'class="' + next + '"' + src.slice(d.at + head.length);
+      }
+      writeFileSync(join(DIR, pg + '.html'), src);
+      SRC[pg] = src; wrote++;
+    }
+    console.log('переписано ' + sized.length + ' контролів на ' + wrote + ' сторінках');
+  }
+}
+
 console.log('\n' + NAMES.length + ' сторінок · без рангу: ' + rows.length +
   ' · читається з бази: ' + done.length + ' · без відповіді: ' + open.length +
-  ' · мертвий dark: ' + darkLeft);
-process.exit(open.length || idle.length || darkLeft ? 1 : 0);
+  ' · мертвий dark: ' + darkLeft + ' · розмір проти бази: ' + (APPLY ? 0 : sized.length) + ' · фініш проти бази: ' + finished.length);
+/* a finish disagreement does NOT fail the run - it is a question for the
+   owner, and a gate that goes red on an open question stops being read. */
+process.exit(open.length || idle.length || darkLeft || (!APPLY && sized.length) ? 1 : 0);

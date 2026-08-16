@@ -195,7 +195,19 @@
 .cprice,
 .oc-sum b, .cs-b, .ord-tot,
 .od-grp-h .gs, .od-tot .v,
-.cmp-head .price b, .tf-price, .tf-col-p,
+/* 8.29 - THE OTHER TWO PLAN PRICES, and one of them is my own miss from 8.28.
+   The product has four figures that state what a plan costs, and until this step
+   two of them were mono and two were Inter:
+     .tf-price     coach-tariff, the plan you are on        mono 26   (7.96)
+     .tf-col-p     coach-tariff, the comparison column      mono 20   (8.10)
+     .tf-price2    coach-tariff-free, the upsell panel      Inter 20  <- 8.28
+     .tier-price   coach-verify-tier, choosing a plan       Inter 22  <- never
+   `.tf-price2` renders the SAME STRING as `.tf-price` - «99 ₴ / міс [?]» - two
+   screens apart, one mono and one not. Step 8.28 moved it into `.tf-col-p`'s rule
+   for size, weight and margin and did not follow the FAMILY, which lives here and
+   not there. That is the shape of miss this list exists to prevent, and it took a
+   fourth screen to surface it. */
+.cmp-head .price b, .tf-price, .tf-col-p, .tf-price2, .tier-price,
 .oh-sum, .ln-tot{
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;

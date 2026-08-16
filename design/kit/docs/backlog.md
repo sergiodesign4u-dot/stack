@@ -332,9 +332,15 @@ property.
 
    | | at the start | now |
    |---|---|---|
-   | private rules on the coloured screens | 468 | **324** |
-   | of them with exactly one home | 157 | **41** |
+   | private rules on the coloured screens | 468 | **138** |
+   | of them with exactly one home | 157 | **3** |
+   | screens still carrying rules (of 88) | 31 | **29** |
    | private `@media` blocks | 19 | **4** |
+   | components in the system | 82 | **84** |
+
+   **PILE 1 IS CLOSED.** The three that remain are `.cv-card` on the three `coach-verify` state
+   screens, deferred to stage 09 on purpose: one of its two answers has to become the panel's, and
+   that is a decision rather than a move.
 
    **Every rule closed so far was a state re-opening a decision its base had already taken**, and
    after 109 of them that is the mechanism rather than a pattern: `clone-to-colour.mjs` reads
@@ -396,15 +402,160 @@ property.
    never taken on: the dialog «before 350 x 357.53, radius 14 -> after 342 x 428.34, radius 12»
    arrived as 342 x 428.344, radius 12. `coach-tariff-cancel`'s `<style>` block is now empty.
 
-   Remaining in pile 1, 41 rules on 19 screens: `coach-cabinet.css`
-   `.cord .co-sum` / `.co-top h1` (6) · `coach-verify.css` `.cv-card` (6, the state panel's honest
-   remainder) · `empty-state.css` (5) · `account-shell.css` `.sk-prof` (5) · `buy-box.css` `.tier`
-   (4) · `coach-tariff.css` `.tf-upsell` (4) · `cart-drawer.css` (3) · `coach-session.css` (3) · four
-   singletons. `.ctab.add` on
-   `coach-session-empty` is held back for a look rather than a measurement - the tab there has a
-   bottom edge the base lacks AND a different height, 44 against 90, so it may be a deliberate «a tab
-   with nothing under it». After pile 1: 156 local names with no home, 109 multi-component rules, 28
-   partially new, 2 with no class.
+   **The same map turned up on a second flow, and with it a control class the instruments cannot
+   see.** `coach-orders`'s three states still wore a bare `<h1>` and a bare `.sub` where 7.96 had
+   moved the base to `.acc-h1` and `.sub acc-sub` - the title went Inter 22/800 to Oswald 30/600, the
+   face every other cabinet screen wears. And `coach-home-free`'s order rows carried
+   `<a href="coach-order.html">Деталі</a>` with **no class at all**, dressed by a private
+   `text-decoration: underline` at 12px, where the base draws `btn--outline btn--s` and
+   `btn--accent btn--s`. That is item 1's family, and `btn-rank.mjs` walks past it: it finds a control
+   «wearing `btn` without a rank», because that is the shape the transform produces, and a control
+   wearing NOTHING never enters its subject. **The transform's output got an instrument; its input did
+   not.** Written into `tools/README.md` beside the tool rather than fixed by guessing which anchors
+   are prose links.
+
+   **A THIRD flow was found wearing two title faces for one rank**, after the cabinet and
+   `coach-orders`: `coach-verify`'s base draws its heading Oswald 30/600 inside `.cv-body` and its
+   three state screens drew theirs Inter 22/800 inside `.cv-card`. Joined rather than deleted -
+   `.cv-card` is not `.cv-body`, so a deletion would have left the three with nothing.
+
+   **And the instrument itself had been handing out wrong homes.** `private.mjs` read every class in
+   a selector, so `.loy .lrung.now` registered `.now` as `loyalty-rung.css`'s and a private
+   `.cv-steps2 li.now` - a verification checklist - came back as «one home: loyalty-rung.css», which
+   reads as an instruction to move it there. Within one compound only the FIRST class names the
+   thing now. The reclassification moves rules **both ways** - two files lose a spurious entry, four
+   gain real ones - which is what says the old reading was wrong rather than merely loose. None of
+   the twelve earlier passes rested on a modifier match; that was checked, not assumed.
+
+   **A third name for the skeleton card, and an anatomy nobody had answered.** `coach-clients-loading`
+   drew its skeletons as `.skccard` - radius 14, its own `.skline` tone and radius, its own
+   45/68/88 widths against the system's 50/72/90 - while `listing-loading` and `account-loading` wear
+   `skeleton.css`'s `.skcard` with no private rule at all. Renamed in the markup, five rules gone.
+   And the reason both coach loading screens had grown the same private `padding: 15px 16px` is that
+   `.skcard` puts its padding on `.skb` and these two have no `.skb`: the box had no inside. **The
+   same number appearing on two screens is a component's answer, not a screen's** -
+   `.skcard:not(:has(.skb)){ padding: var(--space-16) }`, and the two screens that DO wrap in `.skb`
+   measured 0 moved, which is the whole risk of that guard.
+
+   **The empty state was written in element names on one screen and oversized on another.**
+   `empty-state.css` draws its box with `.ei` `.et` `.es` `.eact` and five coloured screens write
+   them; `coach-client-empty` wrote `.ic` / `<h3>` / `<p>`, so its whole look came from five private
+   rules - including a **solid** `--line-hair` edge where the system draws a **dashed**
+   `--line-strong` one, which is the difference between a panel and a placeholder. And
+   `coach-home-empty` had shrunk the full-page `.emptybox` privately to fit inside `.acard`, where
+   the component already offers **`.emptybox.mini`** and `account-empty` takes it for exactly that
+   reason. Both fixed in the markup; ten private rules gone, and `coach-client-empty`'s `<style>`
+   block is now empty.
+
+   **At the tail of the pile the verdict starts being true about a NAME and wrong about the object,
+   and the instrument was not printing its grounds.** «One home» means the class is declared in
+   exactly one component - but `buy-box.css` declares `.bb .tier`, a wholesale-price badge inside the
+   buy box, while `coach-verify-tier`'s private `.tier` is a whole plan card. **Three of the last
+   eight homes were that shape** (`.bb .tier`, `.acc-prof .av` against a skeleton's `.sk-prof .av`,
+   `.goalcta .hint` against `.cs-empty .hint`). `private.mjs` now prints the selector that produced
+   each home, so a wrong one reads as wrong in a glance. Same repair `tree-diff` got two passes
+   earlier: **do not soften the verdict, show what it rests on.**
+
+   **`.ctab.add` was the one rule held back «for a look», and reading answered it.** The note said
+   the tab has a bottom edge the base lacks AND a different height, 44 against 90, so it might be a
+   deliberate «a tab with nothing under it». `coach-session.css` declares **both** `.coach .ctab` -
+   three lines, `min-width: 118px`, `border-bottom: 0`, because the tab joins the panel below it -
+   and `.coach .ctab.add`, one row, `min-width: 0`, dashed. So 44 against 90 is the difference
+   between the add-tab and a client tab, not between two editions of one tab, and the bottom edge was
+   the private rule redrawing `.ctab` from scratch without knowing the system removes it. **The look
+   would have seen a tab that looks fine; what answered it was two rules read side by side.**
+
+   **The first component born out of the private blocks.** `.upsell` on `coach-clients-cap` and
+   `.tf-upsell` on `coach-tariff-free` were the same panel under two names, and the second one cited
+   the first in its own comment - «same shape and same reasoning as `.upsell` on
+   coach-clients-cap.html». Two files agreeing in prose while disagreeing in numbers is the
+   definition of a component nobody wrote. `upsell.css` is that component, with the full five: css,
+   `design/kit/upsell.html`, a row in the stand registry, a line in `inventory.md`, and an
+   `@import` into the level-3 coach group. Three values settled (padding 18, ground `--bg-surface`,
+   heading `--fs-16`), none moving more than 2px.
+
+   **The second component, and its copy cited the atom by name before retyping it.** `.tier` on
+   `coach-verify-tier` and `.tf-col` on the two `coach-tariff` screens are the Free / Pro card in two
+   editions: same job, agreeing in prose, disagreeing in every number. Both had also typed out the
+   FACE of `.acard` - grand, radius, ground, lift, padding - and `.tier`'s own comment NAMED the
+   atom in the sentence above the copy. Read off the running pages at 390 the two were identical on
+   all five properties, which makes it re-derivation with the source cited: every value right, every
+   token right, and the next change to the product's card reaching one of the two.
+   `plan-card.css` is the component; the markup wears `acard` on all three screens; the five
+   declarations are gone. **`.tier.pro` and `.tf-col.on` stayed two states on purpose** - one says
+   «we recommend this» (accent, an invitation), the other «you are on this» (ink, a statement about
+   the account) - and folding them would have put one screen's meaning on the other's.
+   Four defects came out with it, all measured: the choose screen's price was set in **Inter** where
+   the same figures on the tariff screen are mono (`.tier-price` joins price.css's list, **and so
+   does `.tf-price2`, which is my own miss from 8.28** - that pass took the rank and the air and did
+   not follow the family); `.tier-flag` was the fifth edition of badge.css's pill and stood 3px
+   taller than `.tf-mini` because the copy omitted the one declaration it never wrote, `line-height`;
+   the list ticks were typed into the markup as `<span class="m">✓</span>`; and `.tier-cta`'s
+   `display: block` had been quietly turning `.btn--full`'s flex box back into a block. Two lists on
+   ONE screen had been drawing the same sentence two ways - a tick on body ink above, a middle dot
+   on secondary below - and now draw it once. `tree-diff` accounts for all 33 moved elements on each
+   tariff screen and 4 renamed rows.
+
+   **The last four rules of pile 1 were four different files, and none of them was a name collision
+   after all.** Every one had a real home the census had pointed at from the wrong angle.
+
+   `.sk-prof` on `coach-home-loading` was not «account-shell's `.av`» - it was **15 rules retyping
+   the buyer's loading screen**, which carries none. And the skeleton it drew was a promise about a
+   screen that no longer exists: 5 stacked rail rows where the phone draws a 48-tall chip strip, a
+   48 strip against the real 145.17, an 86px CTA for a block deleted at 7.98, 2 side-by-side boxes
+   against 3 full-width cards, and `.skpulse` on no element of the page while every buyer skeleton
+   breathes. Its `.sk-spin` said «this was the third edition» in its own comment and never asked the
+   next question; skeleton.css answers it - «one slow breath, NEVER A SPINNER».
+
+   **Then the photograph found what every number had passed.** The rewritten screen matched its twin
+   on every measurement and the picture was empty - a blank profile card and seven empty pills, and
+   the twin had been shipping that at 390 all along. These bars are PERCENTAGES and below 960 their
+   containers size to them: `.acc-prof .who` is a flex child with nothing to stretch it, `.acc-link`
+   is a chip that sizes to its content. Two declarations on the holders, the inline widths out of
+   both markups (an inline style beats any rule a component can write), and `:has(.skline)` so the
+   three shipped account screens read **0 moved** rather than «nothing renders differently».
+
+   `.ac-cli` is **radio.css's fifth row-rung name** - picking a client from a list is choosing an
+   option out of several - and it gained a hover, a press, a focus ring and the family's chosen
+   ground, none of which it had. `.tf-incl li.off` went home beside the tick it is the opposite of,
+   and settled the mark 8.29 had got wrong (`\2715`, not an en dash - the dash rule is about dashes
+   in TEXT). `.cs-empty` was a sixth private `.emptybox`, the third in this pile.
+
+   After pile 1: 111 local names with no home, 88 multi-component rules, 24 partially new, 2 with no
+   class.
+
+   **Pile 2, first block: the ordering session, 138 rules -> 48.** The seven state screens of the
+   coach's session carried the largest single block left, and their base carries **no `<style>` at
+   all**: the base was migrated and its states never were, the same shape as `coach-tariff` and
+   `coach-orders` at four times the size. Three class attributes make the map (`.cc-repeat`,
+   `.qadd-field`, `.cl-rm`, plus the field's input), applied by a transform that READS the base
+   rather than by six hand edits; fifteen selectors were pure resurrection of buy-bar, client-row,
+   price, discount, availability and chip.
+
+   What the states had been drawing instead, at 390: the sticky bar's action **100.50 x 40 against
+   243.30 x 64** - under the 44px touch floor, on the control the whole session leads to; «В
+   наявності» in **secondary** where availability.css says `--text-success`, on the primary
+   audience's trust signal; a struck price in **rgb(170,170,170)**, a grey in no palette; the
+   quick-add input drawing **a box inside a box**; goal chips 33.19 tall.
+
+   **And four instruments learned something.** `private.mjs` was reading a NOTE as a selector -
+   `withNotes` grows a span over its comment and this repository writes css inside its comments, so
+   two rules were misfiled and both notes were the two previous passes' own. `btn-rank.mjs` had never
+   asked whether a rank AGREES with the base, and it took three keys to ask it soundly - the slot,
+   not the class and not the destination - plus a split that is now a rule: **a size that disagrees
+   is a defect, a finish that disagrees is a decision**, and it writes the first and only reports the
+   second. Its `--apply` was a string replace that upsized a second control per page, caught by its
+   own next run. And `accept.mjs` gained a `dot=` column after a photograph showed **two dots** on
+   every availability line: 31 typed marks on seven screens, one of them a buyer screen shipping a
+   doubled dot on twelve lines. Third time for that shape, so it is a gate now.
+
+   **And the inventory turned out not to be one.** Adding `plan-card.css`'s row showed that
+   `inventory.md` lists none of the eight coach components that entered at 7.95 and 8.7, files
+   `upsell.css` as a molecule while its own stand page called it level 3, and carries a «Lines»
+   column that is a step-5 snapshot - `tabbar.css` reads 25 there and 72 on disk. All three are
+   written into the file itself, under the table. The second is the one with a rule behind it: **the
+   coach group in `index.css` is a SCOPE group, not a level group**, so any file put there loses the
+   one place its level was readable.
 4. ~~**105 dead `class="dark"` in `design/*.html`** - no stylesheet in the coloured layer defines
    `.dark`.~~ **Closed 2026-08-15: 105 removed from 57 screens, and nothing moved.**
 

@@ -34,7 +34,7 @@ non-zero on a finding, so they compose.
 
 `CLAUDE.md`: *"Acceptance is in the browser, not in a table. Open it, walk every
 state, narrow to 360px, and only then say done."* This is the browser half, over
-every screen at once. Five questions per page, each one a defect somebody found
+every screen at once. Six questions per page, each one a defect somebody found
 by eye after a step had already said it was finished:
 
 | question | what it catches |
@@ -44,11 +44,26 @@ by eye after a step had already said it was finished:
 | em dash | `—` appears nowhere in project output |
 | curly apostrophe | one apostrophe form in the product: `'` |
 | doubled separator | the crumb draws its slash in CSS; a typed one shows twice |
+| **doubled mark** (`dot=`) | a component draws a mark with `::before` and the markup types it too |
 
 **The crumb check asks "is it drawn twice", not "is it typed"**, and that is the
 whole difference between an instrument and a nuisance. `ia/*.html` type their
 slash and load no stylesheet that draws one, so they are correct - an earlier
 version called five of them a failure.
+
+**The `dot=` column is that same check, widened at 8.31 to the family it turned
+out to belong to.** `.pavail` had a doubled dot at 8.7; the tariff pill had one at
+8.7; the third time a shape appears it stops being a screen's mistake. The census
+found **31 on seven screens**, including `account-wishlist-many` - a buyer screen,
+twelve lines, shipping two dots each. Four glyphs, each one a component in this
+system draws: `●` the availability / status dot, `✓` an included line, `·` a list
+bullet, `✕` an excluded one. The test is deliberately narrow - the element's OWN
+first text node, never a descendant's - so a word that merely contains the
+character is not a finding.
+
+**Do not put a backtick in a note inside `accept.mjs`.** The probe lives in a
+template literal, and the first writing of the `dot=` note closed it early. Ninth
+in that family, and the file now says so where the note is.
 
 ## `states.mjs` - the walk that opens things
 
@@ -579,6 +594,62 @@ closed the gap. Until it closes, `tree-diff.mjs` is the gate.
 
 `--closed` skips the opener sweep · `--apply` writes · `--json` keeps the raw record.
 
+---
+
+## `private.mjs` - what is LEFT in the private blocks, sorted by who should own it
+
+`inert.mjs` answers «can this rule go». This answers the harder half: **the rule draws something, so
+where does it belong.** Every private rule is classified by asking which component file DECLARES its
+classes - one home, several, none, partly new, or no class at all - and the result is the work-list
+for item 3 of the backlog.
+
+Ownership is read from the **parser**, never from a grep: `button.css` discusses `.dark` at length
+and declares it nowhere, and a grep would have called that ownership.
+
+`--diff` adds the browser half - neuter the rule (`selectorText = '.__stack_none__'`), re-read the
+same elements, restore - and reports per property whether the system says something else (a
+conflict) or nothing at all (a gap). Both widths: 35 rules once read as «changed nothing» were
+inside a private `@media (min-width:)` and the 390-only pass could not see them.
+
+**Two faults, both reporting plausibly.** The selector was read back to the last comment terminator,
+which lands *inside* the declaration block when a rule carries a trailing note - **16 rules
+vanished under a heading that looked like an answer**. Comments are stripped first now.
+
+**And the verdict was printed without its ground, which is the fault that matters at the tail of the
+list** (step 8.26). «One home» is a claim about a NAME. A name can be worn by two different objects,
+and by the time the honest matches are closed, the collisions are all that is left: `buy-box.css`
+declares `.bb .tier`, a wholesale-price badge inside the buy box, and `coach-verify-tier`'s private
+`.tier` is a whole plan card. Three of eight homes in the final list were that shape. The output now
+prints the SELECTOR that produced each home - «бо buy-box.css оголошує `.bb .tier`» - so a wrong one
+reads as wrong in a glance. The verdict is unchanged; **do not soften the answer, show what it rests
+on** is the same repair `tree-diff` got in the same week.
+
+And, step 8.23: **a modifier was naming a component.** It read every class in a selector, so
+`.loy .lrung.now` registered `.now` as `loyalty-rung.css`'s, and a private `.cv-steps2 li.now` - a
+checklist on the verification screen - came back as «one home: loyalty-rung.css», which reads as an
+instruction to move it there. Now: **within one compound only the FIRST class names the thing**;
+across a descendant combinator every compound still counts, because `.loy .lrung` does mean the file
+owns both. Adjectives (`.now`, `.on`, `.off`, `.oos`, `.done`, `.open`) are shared across twenty
+files and any of them matching as a home is noise dressed as an answer. The fix moved rules **both
+ways** - two files lost a spurious entry, four gained real ones - which is what tells you the old
+reading was wrong rather than merely loose.
+
+### Its fifth fault: a NOTE read as a selector (8.31)
+
+`withNotes` grows a rule's span backwards over the comment above it, so the span text is
+**note + rule**. `text.indexOf('{')` then finds the first brace ANYWHERE in that span - and this
+repository writes css inside its notes constantly.
+
+Two rules were misfiled, and both notes were written by the two passes before this one, to record
+what had LEFT the block: `coach-session-empty`'s quotes `.cs-empty .btn{ padding: 13px 24px }` and
+`coach-verify-tier`'s quotes `.tier-cta{ display: block }`. The paragraph became the selector, the
+real rule under it was never classified, and the totals the tool printed were wrong in the split
+rather than in the sum - which is the hardest kind to notice.
+
+`braceAfterNotes` is in `lib.mjs` beside the parser, and it skips comments exactly the way `topRules`
+does. **One parser, one answer to «is this position inside a comment».** `dropline.mjs` in the
+scratchpad takes it too, for the same reason.
+
 ## `tree-diff.mjs` - did the working tree move anything, element by element
 
 `proof.mjs` answers this in pixels for the 40 screens that have a baseline JPEG. This answers it
@@ -715,6 +786,37 @@ output, so a fresh clone never writes one.
 
 ---
 
+### The second question, 8.31: is the rank the BASE's rank?
+
+The section above asks «is there a rank?». It never asked whether the rank AGREES with the base, so
+`btn--accent btn--s btn` passed every run on six screens whose base writes `btn--l` - the sticky bar
+of the coach ordering session, 40.00 tall against 64.00, under the 44px touch floor, on the primary
+audience's daily flow.
+
+**Three keys were tried and only the third is sound:**
+
+| key | result |
+|---|---|
+| utility class | **nothing.** The bar's action has no utility class at all - what identifies it is the block it sits in, and a tool reading class attributes out of source has no parents. |
+| destination (`href`) | six, and two false. `coach-client-empty`'s «＋ Нова сесія» against `coach-client`'s: same words, same href, different container - one stands alone in `.cc-cta`, the other sits in an empty state's `.eact`. The same destination in two containers is two controls. |
+| **the slot**, destination only as a tiebreak | all six, none false. `coach-session-empty`'s bar goes to `coach-session-addclient` rather than the cart, because an empty session has nothing to send: the same slot doing a different job, which a destination key cannot see. |
+
+The slot is read as **the nearest class attribute before the control** - a source-level stand-in for
+a parent, and it is named as one: a control whose real parent carries no class is invisible to it.
+
+**A SIZE THAT DISAGREES IS A DEFECT; A FINISH THAT DISAGREES IS A DECISION.** Size is a touch target
+and the weight of one control. Finish is «what this screen recommends», and design principle 2 says
+that belongs to the screen: `--apply` writes sizes and never finishes, and a finish disagreement does
+not fail the run - a gate that goes red on an open question stops being read. Six stand open today,
+and one of them is correct by design (on `index` the strip's action is «Увійти» in accent; on the
+signed-in screens it is «Мій кабінет» in outline - an invitation against navigation).
+
+**And `--apply` was a string replace.** `class="btn--accent btn--s btn"` is worn on five session
+screens by the bar's action AND by «Знайти» in the quick-add field, so upsizing one upsized the
+other. The plain re-run reported five fresh disagreements against `.qadd-field`, which is the idle
+control working. Writes are position-targeted now, applied in descending order, and each verifies the
+slice before touching it.
+
 ## `gap.mjs` - the distance between two elements, not the margin declared on one
 
 Every other browser instrument here compares **computed style** - `inert`, `tree-diff`,
@@ -745,3 +847,17 @@ live and you want to know whether anybody can see it.
 It marks two readings: a distance **smaller** than the larger facing margin, and a distance
 **equal** to the larger one when both are non-zero - the ordinary collapse, and the one that hides
 a dead rule.
+
+**Its blind spot has a name, and it is the whole other half of the family.** This finds a control
+wearing `btn` **without a rank**, because that is the shape `clone-to-colour.mjs` produces. A control
+wearing **no class at all** never enters the subject: there is no token to match on. Found by hand at
+step 8.22 on `coach-home-free`, whose order rows carried `<a href="coach-order.html">Деталі</a>` and
+`<a href="cart-coach.html">↻ Повторити</a>` with a private `text-decoration: underline` at 12px,
+where the base draws `btn--outline btn--s` and `btn--accent btn--s`. «↻ Повторити» is Job 2 entire.
+
+The general shape is worth keeping: **the transform's OUTPUT got an instrument, its INPUT did not.**
+`btn`-without-rank was something the transform did, so it was somebody's subject. A class-less anchor
+in the grey original was never the transform's doing, so nobody owned the question. Widening this
+tool to «any `<a>` or `<button>` inside a component the base ranks» is possible and is not free -
+it would have to know which anchors are prose links - so it is written down here rather than guessed
+at.

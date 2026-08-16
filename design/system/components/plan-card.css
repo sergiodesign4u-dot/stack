@@ -1,0 +1,259 @@
+/* plan-card.css - the Free / Pro plan card (level 3), stage 08 step 8.29.
+   Born out of the private <style> block of design/coach-verify-tier.html and the
+   `.tf-col*` half of coach-tariff.css. Level 3 by the ladder's own test: the card
+   CONTAINS `.acard` (a molecule), a badge, a price and a button, and a component
+   that contains a molecule is an organism. Scoped to `.coach` like every file in
+   this group - all three screens that carry it are the coach's.
+
+   ############################################################################
+   THE CARD FACE WAS TYPED OUT BY HAND, TWICE, AND THE ATOM WAS ALREADY THERE.
+   `.tier`'s five face declarations against `.acard`, read off the running pages
+   at 390 - not from the source, which is how the copy survived two passes:
+
+       property              .tier (coach-verify-tier)   .acard (account)
+       border-top            1px solid rgb(233,231,226)  1px solid rgb(233,231,226)
+       border-radius         12px                        12px
+       background            rgb(255,255,255)            rgb(255,255,255)
+       box-shadow            rgba(20,20,15,.05) 0 1px 2px, rgba(20,20,15,.05) 0 10px 30px
+                                                     ... the same two shadows
+       padding               16px                        16px
+
+   Byte for byte on all five. The private comment above the rule even NAMED the
+   atom - «`.acard` in account-shell.css is the product's card - 1px `--line-hair`,
+   `--radius-12`, `--bg-page`, `--elevation-1`» - and then retyped its values
+   instead of taking its class. That is re-derivation with the source cited, which
+   is the hardest kind to see: every value is right, every token is right, and the
+   next change to the product's card reaches one of the two.
+   The markup now reads `class="acard tier"`, and the five declarations are gone.
+
+   `.tf-col` is the SAME card minus two declarations - no ground, no lift - and
+   with 18px where the atom has 16. It takes `acard` too. What that costs the
+   tariff screen is measured at the foot of this header.
+
+   THE NAME `.acard` IS WRONG FOR WHAT IT IS AND THAT IS BOOKED, NOT FIXED HERE.
+   It is a card that happens to live in the account shell's file, which makes a
+   level-3 organism the home of a molecule. badge.css:158 books the same kind of
+   debt for `.addr-tag` / `.tf-mini` / `.badge` and gives the reason: what a pass
+   closes is the SHAPE, one declaration and one ladder; the vocabulary is the
+   rename step's, and doing half of it here would leave the product carrying two
+   half-vocabularies instead of one whole wrong one.
+
+   TWO NAME SETS, ONE COMPONENT - the same answer upsell.css gave at 8.28. The
+   choose screen came with `.tier*`, the manage screen with `.tf-col*`, and every
+   selector below carries both. Renaming three screens' markup would touch
+   price.css's mono list and badge.css's shape list on the way, for no pixel.
+
+       .tier          .tf-col        the card
+       .tier.pro      .tf-col.on     the marked card - AND THEY ARE NOT ONE STATE
+       .tier-top      .tf-col-h      the head row
+       .tier-name     .tf-col-h      the plan's name (`.tf-col-h` is both)
+       .tier-flag     .tf-mini       the badge beside it
+       .tier-price    .tf-col-p      the figure
+       .tier-sub      -              full form only
+       .tier li       .tf-col li     what the plan gives
+       .tier-cta      -              full form only
+       .tier-note     -              full form only
+
+   `.pro` AND `.on` ARE TWO DIFFERENT STATES AND BOTH ANSWERS ARE RIGHT. This is
+   the one place the two editions disagreed for a reason rather than by drift.
+     `.tf-col.on` = «this is the plan you are ON». Ink edge on `--bg-surface`, and
+       coach-tariff.css refused the accent out loud: DESIGN-artifacts.md:61 reserves
+       orange for an INVITATION, and a statement about your account is not one.
+     `.tier.pro` = «this is the plan we RECOMMEND». Accent edge, and its own note
+       cited chip.css 7.23 and radio.css 7.29 - «ACCENT IS WHAT CHOSEN LOOKS LIKE».
+   Same shape, opposite sentences. Folding them would have picked one screen's
+   meaning and put it on the other's. The edge is a LINE and the CTA inside is a
+   FILL - two surfaces, so a card can point at itself without competing with its
+   own action.
+
+   ---- WHAT MOVED, AND EVERY NUMBER IS A READING ---------------------------
+   Measured in Chrome at 360 / 390 / 1280 on all three screens, before and after.
+
+   ON coach-verify-tier (the full form)
+   1. THE PRICE WAS SET IN INTER, on the screen where a coach picks a plan.
+      `.tier-price` «0 ₴» and «~99 ₴ / міс [?]» rendered Inter 22/800 with
+      `font-variant-numeric: normal` and no kerning, while the SAME two figures on
+      coach-tariff render IBM Plex Mono 20/700 tabular with -4.8px word-spacing.
+      DESIGN-artifacts.md section 4 locks mono for every price; price.css:198 holds
+      the list. This is the fourth plan price in the product and the third to need
+      the same one-name edit - see 5 for the fourth.
+        font-size 22 -> `--fs-20`. WHY: 22 has no rung, 20 is the one the other
+        three plan prices already stand on. `small` 13 -> `--fs-14`, the same.
+   2. `.tier-flag` WAS THE FIFTH EDITION OF badge.css:163's PILL - and it was
+      identical to `.tf-mini` in every declaration it wrote. What it did not write
+      is what told them apart: the atom sets `line-height: var(--lh-snug)`, the
+      private copy inherited `--lh-airy` from the body.
+        .tf-mini    83.66 x 19     line-height 13px
+        .tier-flag  72.50 x 22     line-height 16px
+      One pill, 3px apart, because one took the class and one retyped its
+      declarations. The name joins the shape list; the ink stays here beside
+      `.tf-mini`'s, which is the same one declaration for the same reason.
+   3. THE TICK WAS TYPED INTO THE MARKUP - `<span class="m">✓</span>` on every
+      line of both cards. coach-tariff.css and upsell.css both refused that once
+      already, and badge.css states the ground: a typed tick is read aloud by a
+      screen reader, cannot take a size of its own, and cannot be told apart from
+      the word beside it. It is `::before` now, `content: "\2713"`, which is what
+      `.tf-incl li` on the tariff screen has always done.
+      `.muted` (a line the plan does NOT give) keeps a mark of its own: `\2013`,
+      which is this project's «no value» mark - CLAUDE.md, three dashes.
+   4. `.tier-cta{ display: block }` DELETED. `.btn--full` declares
+      `display: flex; width: 100%`, the private rule loaded after it and won by
+      document order, and it was turning the atom's flex box back into a block on
+      the two controls the screen exists for. Measured after deleting it: 324 x 64
+      at 390 and 372 x 64 at 1280, both unchanged - the label was centred by
+      `text-align` either way, so nothing moved. It was an override that had no
+      effect and no reason, which is exactly the kind that survives a review.
+   5. `.tier-name` 18 -> `--fs-16`, and `.tier-top`'s `justify-content:
+      space-between` DELETED. Both are the same finding: the badge belongs BESIDE
+      the name it labels, not at the far edge of the card. badge.css's opening
+      definition is that a badge names the thing next to it, and `.tf-col-h` and
+      `.cmp-head .plan .badge` both sit it at a `--space-8` gap. The 16 is the one
+      with a written origin («grey 15 -> 16: 5.6, ties go UP» in coach-tariff.css);
+      18 was a bare literal beside a bare `font-weight: 800`, and 800 has not drawn
+      as 800 since 7.65.
+      THIS IS THE ONE MOVE THE OWNER MAY WANT BACK: the plan name is the title of
+      a card on the screen whose whole job is «Оберіть тариф», and it gets 2px
+      quieter. One declaration if the answer is no.
+   6. `.tiers` breakpoint 720 -> 640 and `align-items: start` DELETED. 640 is the
+      set's own boundary - `.acc-grid` and `.tf-compare` both stand on it and 720
+      was one file's. `align-items: start` contradicted `.tier ul{ flex: 1 }` in
+      the same block: the `flex: 1` exists to push the CTA to the card's foot so
+      the two buttons line up, and a card sized to its own content has no foot to
+      push into. Measured at 1280 before the change: both cards 381.98 - the
+      contradiction cost nothing today because the two happen to hold the same
+      number of lines at that width, and it would have cost a misaligned pair the
+      first time a string grew.
+   7. `.tier li` line-height 1.45 -> inherited `--lh-airy`, gap 9 -> the tick's
+      own `--space-24` indent, `--text-body` kept. 1.45 is on no rung and the
+      whole product reads at 1.6.
+
+   ON coach-tariff AND coach-tariff-cancel (the short form)
+   8. `.tf-col` GAINS THE GROUND AND THE LIFT and loses 2px of padding, because it
+      takes `acard`. This is the visible half of the consolidation and it is the
+      third named source of visual change the stage allows.
+        padding 18 -> 16          (18 was flagged `[?]`, 16 is the ladder)
+        background - -> #FFF      (`--bg-page`, the atom's)
+        box-shadow none -> `--elevation-1`
+      `.tf-col.on` keeps `--bg-surface` over the atom's white: that ground IS its
+      state and it outranks the atom by scope.
+   9. `.tf-col li` ink `--text-secondary` -> `--text-body`, bullet «·» -> the tick.
+      Two lists on ONE screen were drawing the same sentence two ways: `.tf-incl`
+      in the current-plan card above used a tick on body-weight ink, `.tf-col li`
+      in the comparison below used a middle dot on secondary. A list of what a plan
+      gives is body copy, not a caption under something. The tick also says
+      «included», which is what the list is for; «·» says nothing.
+  10. `.tf-compare` gap 14 -> `--space-16`. 14 has no rung.
+  11. `.tf-price2` (the upsell panel's figure on coach-tariff-free) JOINS THE MONO
+      LIST TOO, and it is my own miss from 8.28: that pass moved `.tf-price2` into
+      `.tf-col-p`'s rule for size, weight and margin and did not check the FAMILY,
+      which lives one file away in price.css. Measured today: «99 ₴ / міс [?]»
+      Inter 20/700, `font-variant-numeric: normal`, word-spacing 0 - the same
+      string that renders mono two screens over. Two names into one existing list.
+
+   WHAT IS DELIBERATELY LEFT, AND NAMED SO IT IS NOT LOST
+   - `.tf-cur` IS THE THIRD FORM OF THIS CARD - the plan you are on, with a name, a
+     price and a list. It is NOT taken here: its face is an ink edge on 14px radius
+     with 20/22 padding, which is a statement of record rather than the product's
+     card, and coach-tariff.css argues that out loud. Whether a statement card is a
+     variant of this component or a component of its own is stage 09's, and it is
+     ONE question, not a discovery to make again.
+   - THREE INLINE `style="color:var(--text-muted)"` ON coach-verify-tier's `[?]`
+     MARKS. The system names that mark - `.coach .tf-price .qm` in coach-tariff.css
+     - but the selector needs a `.tf-price` ancestor, so generalising it is an edit
+     to that file's scope and not this component's. Counted, not touched: three
+     spans, all in the tier cards.
+   ############################################################################ */
+
+/* ---------- the two-card grid ------------------------------------------------
+   Declared here rather than borrowed from `.acc-grid`, and the line between the
+   two cases is what the declaration DECIDES. The card's face picks a hairline, a
+   radius, a ground and a lift - four role choices that must have exactly one home,
+   which is why `.acard` is taken by class. A one-column grid that becomes two at
+   640 decides nothing about the visual language; it is this component's layout,
+   and `.acc-grid` carries a `margin-top` that a comparison on a non-account screen
+   has no reason to inherit. */
+.coach .tiers,
+.coach .tf-compare{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); }
+/* 640 spelled the wide way, which is what tokens.css states at 7.64 for a
+   boundary at N. It is `.acc-grid`'s boundary and `.tf-compare`'s own. */
+@media (min-width: 640px){
+  .coach .tiers,
+  .coach .tf-compare{ grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- the card ---------------------------------------------------------
+   The FACE is `.acard`'s and is not written here - see the header. What is left is
+   the one thing a plan card adds to a card: a column, so the list can grow and
+   the button stays at the foot. Only the full form needs it; the short form has no
+   foot to push, and giving it a flex context would stop its children's margins
+   collapsing for no gain. */
+.coach .tier{ display: flex; flex-direction: column; }
+
+/* THE MARKED CARD, TWICE, BECAUSE IT IS TWO SENTENCES - see the header. */
+.coach .tier.pro{ border-color: var(--line-action); }
+.coach .tf-col.on{ border-color: var(--line-inverse); background: var(--bg-surface); }
+
+/* ---------- the head ---------------------------------------------------------
+   `.tf-col-h` is both the row and the name, so it takes both rules. */
+.coach .tier-top,
+.coach .tf-col-h{ display: flex; align-items: center; gap: var(--space-8); }
+.coach .tier-top{ margin-bottom: var(--space-4); }
+.coach .tier-name,
+.coach .tf-col-h{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); }
+/* the badge's SHAPE is badge.css:163's, taken by name there. This is the ink, and
+   it is one declaration for the same reason on both screens: the plan name beside
+   it is already the loudest thing in the row. */
+.coach .tf-mini,
+.coach .tier-flag{ color: var(--text-secondary); }
+
+/* ---------- the figure -------------------------------------------------------
+   THE PRICE OF A PLAN, all three names. The FAMILY is price.css's - mono, tabular,
+   kerned - and only the rank and the air are here. `.tf-price2` is the upsell
+   panel's copy of the same figure: the panel shows a price, it does not own one. */
+.coach .tf-col-p,
+.coach .tf-price2,
+.coach .tier-price{ font-size: var(--fs-20);   /* grey 19 -> 20: 5.6, ties go UP */
+  font-weight: var(--fw-black); color: var(--text-primary);
+  margin: 6px 0 var(--space-12); }   /* [?] 6 has no rung */
+.coach .tf-col-p .per,
+.coach .tf-price2 .per,
+.coach .tier-price small{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14 */
+  font-weight: var(--fw-semibold); color: var(--text-secondary); }
+
+/* ---------- the subtitle, full form only -------------------------------------
+   «безкоштовно, активація одразу» - what the price MEANS, under the price. */
+.coach .tier-sub{ font-size: var(--fs-12); color: var(--text-muted);
+  margin-bottom: var(--space-16); }
+
+/* ---------- what the plan gives ----------------------------------------------
+   `flex: 1` on the full form is what puts the two CTAs on one line: the list takes
+   the slack, so a card with one extra bullet does not push its button down past
+   its neighbour's. */
+.coach .tier ul,
+.coach .tf-col ul{ list-style: none; margin: 0; padding: 0; }
+.coach .tier ul{ flex: 1; margin-bottom: var(--space-16); }   /* grey 20, off the ladder */
+.coach .tier li,
+.coach .tf-col li{ font-size: var(--fs-14); color: var(--text-body);
+  padding: 6px 0 6px var(--space-24);   /* [?] 6 has no rung - `.tf-incl`'s own geometry */
+  position: relative; }
+/* `content` rather than a character in the markup - see 3 in the header. */
+.coach .tier li::before,
+.coach .tf-col li::before{ content: "\2713"; position: absolute; left: 0;
+  font-weight: var(--fw-black); color: var(--text-primary); }
+/* A LINE THE PLAN DOES NOT GIVE, and the mark is `.tf-incl li.off`'s.
+   8.29 wrote `\2013` here on the ground that CLAUDE.md calls the en dash the «no
+   value» mark. 8.30 found the product already had an answer one screen over -
+   coach-tariff-free.html had been drawing this exact line as `\2715` since the
+   grey - and took it: the dash rule is about DASHES IN TEXT, and importing it
+   into a list marker was reasoning from the wrong rule. A cross against a tick
+   is one pair saying opposite things; a dash beside a tick is two conventions.
+   The value moves, it is not re-derived. */
+.coach .tier li.muted{ color: var(--text-muted); }
+.coach .tier li.muted::before{ content: "\2715"; color: var(--text-muted); }
+
+/* ---------- the foot, full form only ------------------------------------------
+   The CTA itself is `.btn--accent.btn--l.btn--full` and `.btn--outline...`; this
+   component says nothing about it, which is the shape every placement rule should
+   have. One accent fill per card, on the action that card recommends. */
+.coach .tier-note{ font-size: var(--fs-12); color: var(--text-muted);
+  text-align: center; margin-top: var(--space-8); }   /* grey 11 / 9, neither on a rung */

@@ -38,52 +38,26 @@
 .cv-ok span { display: block; font-size: 12.5px; color:var(--text-secondary); margin-top: 2px; }
 h1.cv-h1 { font-size: 24px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; }
 
-/* two tier cards */
-.tiers { display: grid; grid-template-columns: 1fr; gap: 16px; }
-@media (min-width: 720px) { .tiers { grid-template-columns: 1fr 1fr; align-items: start; } }
-/* THE CARD TAKES THE CARD FACE. `.acard` in account-shell.css is the product's
-   card - 1px `--line-hair`, `--radius-12`, `--bg-page`, `--elevation-1` - and
-   this one was a 1.5px `--line-strong` box with no ground and no lift, which is
-   the grey prototype's outline drawn in a role's name.
-   AND THE RECOMMENDED CARD IS ACCENT ON ITS EDGE, which is the third file to
-   say it rather than a fourth answer: chip.css 7.23 and radio.css 7.29 both
-   «ACCENT IS WHAT CHOSEN LOOKS LIKE», and `.cv-step.on` took the same line at
-   7.96. The edge is a LINE and the CTA below is a FILL - two surfaces, so the
-   card can point at itself without competing with its own action. */
-.tier { border:1px solid var(--line-hair); border-radius: var(--radius-12); background: var(--bg-page);
-  box-shadow: var(--elevation-1); padding: var(--space-16); display: flex; flex-direction: column; }
-.tier.pro { border-color:var(--line-action); }
-.tier-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
-.tier-name { font-size: 18px; font-weight: 800; color: var(--text-primary); }
-/* THE OUTLINED BADGE, badge.css:163 - the shape step 8.10 folded `.addr-tag`,
-   `.cmp-head .plan .badge` and `.tf-mini` into: 10/900, caps, `--ls-caps`, a
-   `--line-strong` hairline, `--radius-pill`, and NO fill. Both flags were ink
-   slabs, so the two loudest objects on a screen whose job is «choose one of
-   these two» were the labels rather than the choice. A flag names a card; the
-   card's own edge and its button are what say which one to take. */
-.tier-flag { font-size: var(--fs-10); font-weight: var(--fw-black); text-transform: uppercase;
-  letter-spacing: var(--ls-caps); color: var(--text-secondary); background: none;
-  border:1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); }
-.tier-price { font-size: 22px; font-weight: 800; color: var(--text-primary); margin: 8px 0 2px; }
-.tier-price small { font-size: 13px; font-weight: 600; color:var(--text-secondary); }
-.tier-sub { font-size: 12px; color:var(--text-muted); margin-bottom: 16px; }
-.tier ul { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-.tier li { font-size: 13px; color:var(--text-body); display: flex; gap: 9px; align-items: flex-start; line-height: 1.45; }
-.tier li .m { color: var(--text-primary); font-weight: 800; flex: none; }
-.tier li.muted { color:var(--text-muted); }
-.tier li.muted .m { color:var(--text-muted); }
-/* `.tier-cta` AND `.tier-cta.dark`: DELETED, AND BUTTON.CSS OWNS THEM - the same
-   move step 7.96 made on `.cv-cta` one screen back, and its note there is the
-   reasoning: a primary action built by hand out of an ink fill, an ink border
-   and a white label is `.btn--accent.btn--full` plus a size, `--dark` having
-   been the greyscale stand-in for an accent the prototype could not show.
-   Every number disagreed with the atom (radius 10 against the scale, 14px
-   padding against the 40/52/64 ladder measured at 6.7) and neither had a hover,
-   an active, a focus ring or an off state; the atom has all four.
-   Free takes `btn--outline`, Pro takes `btn--accent`: ONE accent fill on the
-   screen, on the action the page recommends. */
-.tier-cta { display: block; }
-.tier-note { font-size: 11px; color:var(--text-muted); text-align: center; margin-top: 9px; }
+/* THE TWO TIER CARDS LEFT THIS BLOCK WHOLE at step 8.29, into
+   design/system/components/plan-card.css - `.tiers`, `.tier`, `.tier.pro`,
+   `.tier-top`, `.tier-name`, `.tier-flag`, `.tier-price`, `.tier-price small`,
+   `.tier-sub`, `.tier ul`, `.tier li`, `.tier li .m`, `.tier li.muted`,
+   `.tier li.muted .m`, `.tier-cta`, `.tier-note` and one `@media`.
+
+   THE FACE WAS `.acard`'S, TYPED OUT BY HAND. The comment that stood here named
+   the atom - «`.acard` in account-shell.css is the product's card - 1px
+   `--line-hair`, `--radius-12`, `--bg-page`, `--elevation-1`» - and then wrote
+   its five values again instead of taking its class. Read off both running
+   pages at 390 they were identical on all five, so the markup takes `acard` and
+   the copy is gone. That file's header holds the readings, the two name sets and
+   the reason `.tier.pro` and `.tf-col.on` stay two states rather than one.
+
+   `.tier-cta{ display: block }` went with them and nothing replaced it:
+   `.btn--full` declares `display: flex; width: 100%`, this rule loaded after the
+   atom and turned its flex box back into a block, and deleting it moved nothing
+   at either width. The rest of what that comment said is still true and now
+   lives beside the rule it describes - Free takes `btn--outline`, Pro takes
+   `btn--accent`, one accent fill per card. */
 .cv-foot { font-size: 12px; color:var(--text-muted); margin-top: 22px; line-height: 1.6; }
 .cv-foot a { color: var(--text-primary); font-weight: 700; text-decoration: underline; }
 </style>
@@ -122,30 +96,30 @@ h1.cv-h1 { font-size: 24px; font-weight: 800; color: var(--text-primary); letter
 
   <div class="tiers">
     <!-- FREE -->
-    <div class="tier free">
+    <div class="acard tier free">
       <div class="tier-top"><span class="tier-name">Free</span><span class="tier-flag">миттєво</span></div>
       <div class="tier-price">0 ₴</div>
       <div class="tier-sub">безкоштовно, активація одразу</div>
       <ul>
-        <li><span class="m">✓</span> Гуртові ціни, кращі за роздрібні</li>
-        <li><span class="m">✓</span> Мультиклієнтські замовлення - до 3 клієнтів у сесії <span style="color:var(--text-muted)">[?]</span></li>
-        <li><span class="m">✓</span> Збережені клієнти та історія по кожному</li>
-        <li class="muted"><span class="m">-</span> Без максимальної гуртової знижки</li>
+        <li>Гуртові ціни, кращі за роздрібні</li>
+        <li>Мультиклієнтські замовлення - до 3 клієнтів у сесії <span style="color:var(--text-muted)">[?]</span></li>
+        <li>Збережені клієнти та історія по кожному</li>
+        <li class="muted">Без максимальної гуртової знижки</li>
       </ul>
       <a class="btn--outline btn--l btn--full tier-cta" href="coach-home.html">Активувати Free</a>
       <div class="tier-note">Активується миттєво, без оплати</div>
     </div>
 
     <!-- PRO -->
-    <div class="tier pro">
+    <div class="acard tier pro">
       <div class="tier-top"><span class="tier-name">Pro</span><span class="tier-flag">максимум опту</span></div>
       <div class="tier-price">~99 ₴ <small>/ міс <span style="color:var(--text-muted)">[?]</span></small></div>
       <div class="tier-sub">підписка · для 5–30+ клієнтів</div>
       <ul>
-        <li><span class="m">✓</span> Максимальна гуртова ціна</li>
-        <li><span class="m">✓</span> Безлімітні клієнти в мультиклієнтській сесії</li>
-        <li><span class="m">✓</span> Збережені клієнти, історія, швидке повторне замовлення</li>
-        <li><span class="m">✓</span> Пріоритетні сповіщення про наявність <span style="color:var(--text-muted)">[пізніше]</span></li>
+        <li>Максимальна гуртова ціна</li>
+        <li>Безлімітні клієнти в мультиклієнтській сесії</li>
+        <li>Збережені клієнти, історія, швидке повторне замовлення</li>
+        <li>Пріоритетні сповіщення про наявність <span style="color:var(--text-muted)">[пізніше]</span></li>
       </ul>
       <a class="btn--accent btn--l btn--full tier-cta" href="coach-home.html">Оформити Pro</a>
       <div class="tier-note">Підписку можна скасувати будь-коли · ціна [?]</div>

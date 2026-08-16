@@ -411,8 +411,37 @@
   border: 1px solid var(--line-hair); display: flex; align-items: center;
   justify-content: center; color: var(--text-secondary); font-size: var(--fs-14);
   font-weight: var(--fw-black); }
-.coach .cli .cinfo{ min-width: 0; }
-.coach .cli .cinfo .cn{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
+/* `.ac-info` is the picker's `.cinfo` - the text column beside the avatar. Step
+   8.30, with the row itself going to radio.css's rung.
+   `min-width: 0` is shared: without it a flex child refuses to shrink below its
+   content and the name pushes the row wider than the modal.
+   THE COLUMN IS NOT SHARED, AND THE FIRST WRITING OF THIS RULE GOT THAT WRONG.
+   It dropped `display: flex; flex-direction: column` as «what a block already does
+   with two block children» - and `.cinfo`'s children ARE divs, while `.ac-info`'s
+   are `<span class="cn">` and `<span class="cg">`. Two inline spans in a block run
+   on ONE line: photographed at 390, «ІгорЦіль: Витривалість · 2 замовлення».
+   The claim said «measured with and without, 0 moved» and nothing had been
+   measured; the photograph is what caught it, one gate after the assertion. */
+.coach .cli .cinfo,
+.coach .ac-cli .ac-info{ min-width: 0; }
+.coach .ac-cli .ac-info{ display: flex; flex-direction: column; }
+/* AND ONE DECLARATION THE RUNG CANNOT GIVE IT. radio.css sets `align-items:
+   flex-start` on the row, and states why `.pf-lang` overrides it - «it has no
+   second line under the title». This row HAS a second line and still centres,
+   because what stands at its head is not a control: `.co-opt`'s radio is an 18px
+   circle that belongs beside the first line, and this row's `.cav` is a 34px
+   avatar that reads as the person. `.cli` in the cabinet above centres for the
+   same reason and with the same avatar. */
+.coach .ac-cli{ align-items: center; }
+/* THE CLIENT'S NAME IS ONE OBJECT UNDER TWO PARENTS, 2026-08-15 (step 8.22).
+   `.ac-cli .cn` is the same name in the add-client picker on
+   `coach-session-addclient`, and it was declared privately with the same three
+   things this line has said all along - 14px, black weight, primary ink. Joined
+   rather than given a second edition; the picker's own wrapper, `.ac-cli`, is
+   still private and is on item 3's «local, no home» list. A rule about the
+   client's NAME belongs where the client's name is decided. */
+.coach .cli .cinfo .cn,
+.coach .ac-cli .cn{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
 .coach .cli .cinfo .cg{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14: 5.5 takes the half pixel to the more-read neighbour, 5.6 takes the tie UP. See THE NINETEEN, top of file. */
   color: var(--text-secondary); margin-top: var(--space-2); }
 /* «Профіль →», the loud rung again - see `.cmanage`. The third edition of the

@@ -35,27 +35,15 @@
 
 
 
-.cc-repeat { font-size: 12.5px; font-weight: 700; color: var(--text-primary); text-decoration: underline; }
-
-.cc-goals a { font-size: 12px; font-weight: 700; border:1.5px solid var(--line-strong); border-radius: 100px; padding: 6px 12px; color: var(--text-primary); }
 
 
 
 
 
-.qadd-field { display: flex; gap: 8px; }
-.qadd-field input { flex: 1; border:1.5px solid var(--line-strong); border-radius: 8px; padding: 11px 12px; font-size: 14px; font-family: inherit; background: var(--bg-page); }
 
 
-  
-.qa-av { font-size: 11.5px; color:var(--text-secondary); margin-top: 2px; }
-.qa-av.low { color: var(--text-primary); font-weight: 700; }
 
 
-/* coach-tier price (bold) vs struck retail - the key coach primitive */
-.cprice { font-size: 15px; font-weight: 800; color: var(--text-primary); white-space: nowrap; text-align: right; }
-.cprice .old { display: block; font-size: 11.5px; font-weight: 500; color: var(--text-price-was); text-decoration: line-through; }
-.cprice .wtag { display: inline-block; font-size: 9.5px; font-weight: 800; color: var(--text-primary); border:1px solid var(--line-strong); border-radius: 4px; padding: 0 4px; margin-left: 5px; vertical-align: middle; }
 
 
 
@@ -64,15 +52,13 @@
 
 
 
-.cq .qn { width: 26px; text-align: center; font-weight: 700; font-size: 13px; }
-
-.cl-rm { font-size: 12px; font-weight: 600; color:var(--text-secondary); text-decoration: underline; }
 
 
 
 
 
 
+  
 
 
 
@@ -84,10 +70,22 @@
 
 
 
-/* sticky mobile action bar */
-.cs-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--bg-page); border-top:1px solid var(--line-hair); padding: 10px 14px; display: flex; align-items: center; gap: 12px; box-shadow: var(--elevation-bar-top); }
-.cs-bar .bt { flex: 1; font-size: 12px; color:var(--text-secondary); } .cs-bar .bt b { display: block; font-size: 16px; font-weight: 800; color: var(--text-primary); }
-.cs-bar .btn { flex: none; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
 
 
 
@@ -171,7 +169,7 @@
     <section class="cs-panel" role="tabpanel" aria-label="Замовлення для клієнта Андрій">
       <div class="cs-client">
         <div class="cc-name">Андрій <span class="cc-goal">· ціль: Набір маси</span></div>
-        <a class="cc-repeat" href="cart-coach.html">Повторити замовлення</a>
+        <a class="btn--text ci-lnk cc-repeat" href="cart-coach.html">Повторити замовлення</a>
       </div>
       <!-- goal drives selection -->
       <div class="cc-goals" aria-label="Цілі клієнта">
@@ -183,26 +181,26 @@
       <!-- IN-SESSION QUICK-ADD (not the global search) -->
       <div class="qadd">
         <div class="qadd-h">Швидке додавання <span>- підбір за ціллю «Набір маси», не загальний пошук</span></div>
-        <div class="qadd-field">
-          <input type="text" placeholder="Назва або артикул - протеїн, гейнер, креатин…" aria-label="Швидке додавання товару">
+        <div class="qadd-field field-grp field-grp--s">
+          <input class="field field--s" type="text" placeholder="Назва або артикул - протеїн, гейнер, креатин…" aria-label="Швидке додавання товару">
           <a class="btn--accent btn--s btn" href="coach-session-loading.html">Знайти</a>
         </div>
         <div class="qadd-res">
           <div class="qa-row">
             <div class="qa-ph">фото</div>
-            <div class="qa-bd"><div class="qa-nm">OstroVit Creatine Monohydrate 500 г</div><div class="qa-av">● В наявності</div></div>
+            <div class="qa-bd"><div class="qa-nm">OstroVit Creatine Monohydrate 500 г</div><div class="qa-av">В наявності</div></div>
             <div class="cprice">460 ₴<span class="old">549 ₴</span><span class="wtag">гурт</span></div>
             <button class="btn--outline btn--s btn qa-add" type="button">Додати клієнту</button>
           </div>
           <div class="qa-row">
             <div class="qa-ph">фото</div>
-            <div class="qa-bd"><div class="qa-nm">Power Pro Gainer 2000 г</div><div class="qa-av low">● Залишилось мало</div></div>
+            <div class="qa-bd"><div class="qa-nm">Power Pro Gainer 2000 г</div><div class="qa-av low">Залишилось мало</div></div>
             <div class="cprice">690 ₴<span class="old">820 ₴</span><span class="wtag">гурт</span></div>
             <button class="btn--outline btn--s btn qa-add" type="button">Додати клієнту</button>
           </div>
           <div class="qa-row">
             <div class="qa-ph">фото</div>
-            <div class="qa-bd"><div class="qa-nm">Olimp BCAA Xplode 250 г</div><div class="qa-av">● В наявності</div></div>
+            <div class="qa-bd"><div class="qa-nm">Olimp BCAA Xplode 250 г</div><div class="qa-av">В наявності</div></div>
             <div class="cprice">380 ₴<span class="old">450 ₴</span><span class="wtag">гурт</span></div>
             <button class="btn--outline btn--s btn qa-add" type="button">Додати клієнту</button>
           </div>
@@ -220,7 +218,7 @@
             <div class="cl-ctrls">
               <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
               <span class="cl-tag">👤 Андрій</span>
-              <button class="cl-rm" type="button">Видалити</button>
+              <button class="btn--text ci-lnk cl-rm" type="button">Видалити</button>
             </div>
           </div>
           <div class="cl-right"><div class="cprice">1 230 ₴<span class="old">1 450 ₴</span><span class="wtag">гурт</span></div></div>
@@ -234,7 +232,7 @@
             <div class="cl-ctrls">
               <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
               <span class="cl-tag">👤 Андрій</span>
-              <button class="cl-rm" type="button">Видалити</button>
+              <button class="btn--text ci-lnk cl-rm" type="button">Видалити</button>
             </div>
           </div>
           <div class="cl-right"><div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div></div>
@@ -264,7 +262,7 @@
 <!-- sticky mobile action bar -->
 <div class="cs-bar">
   <div class="bt">Разом (2 клієнти)<b>3 480 ₴</b></div>
-  <a class="btn--accent btn--s btn" href="cart-coach.html">У кошик →</a>
+  <a class="btn--accent btn--l btn" href="cart-coach.html">У кошик →</a>
 </div>
 
 <!-- ADD CLIENT to session (modal over the session): PICK from saved clients + create-new launcher -->
@@ -288,7 +286,7 @@
 
     <div class="acact">
       <a class="btn--outline btn--s btn" href="coach-session.html">Скасувати</a>
-      <a class="btn--accent btn--s btn" href="../wireframes/coach-client-new.html">Додати першого клієнта</a>
+      <a class="btn--accent btn--l btn" href="../wireframes/coach-client-new.html">Додати першого клієнта</a>
     </div>
   </div>
 </div>

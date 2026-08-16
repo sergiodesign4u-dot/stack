@@ -123,3 +123,15 @@
 @import 'components/coach-wishlist.css';
 @import 'components/coach-tariff.css';
 @import 'components/coach-order.css';
+/* step 8.28 - the Pro upsell panel, which two screens had been drawing under two
+   names. Same group and same scope; it imports after coach-tariff.css because
+   `coach-tariff-free` carries both, and the panel's frame should not be able to
+   lose to the tariff file's own rules on a name they might ever share. */
+@import 'components/upsell.css';
+/* step 8.29 - the Free / Pro plan card, which three screens had been drawing
+   under two name sets, both of them hand copies of `.acard`. It imports LAST in
+   the group for one reason: it is the only file here that shares selectors with
+   coach-tariff.css's own names (`.tf-col*`, `.tf-mini`, `.tf-price2` all still
+   appear in that file's comments and one of them in a live rule), so the
+   component must not be able to lose a tie to the screen file it came out of. */
+@import 'components/plan-card.css';

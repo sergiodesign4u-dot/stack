@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Картка тарифу | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+</head>
+<body class="kp coach">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Картка тарифу</h1>
+<p class="kp-lead">Free або Pro, поруч, у два стовпці від 640. Три екрани малювали її під <b>двома наборами імен</b>, і обидва набори власноруч переписали грань, радіус, тло, тінь і падінг картки, яку система вже має - <code>.acard</code>. Приватний коментар навіть <b>назвав</b> той атом, а тоді набрав його п'ять значень заново.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/plan-card.css</span><span class="kp-tag">252 рядки</span><span class="kp-tag">19 селекторів</span><span class="kp-tag">48 оголошень</span><span class="kp-tag">3 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія - повна форма</div>
+<p class="kp-p">Розмітка звідси - та сама, що на <code>coach-verify-tier.html</code>, де тренер <b>обирає</b> тариф. Картка носить <code>class="acard tier"</code>: обличчя - атома, стовпчик - компонента.</p>
+<div class="kp-demo">
+  <div class="tiers">
+    <div class="acard tier free">
+      <div class="tier-top"><span class="tier-name">Free</span><span class="tier-flag">миттєво</span></div>
+      <div class="tier-price">0 ₴</div>
+      <div class="tier-sub">безкоштовно, активація одразу</div>
+      <ul>
+        <li>Гуртові ціни, кращі за роздрібні</li>
+        <li>Мультиклієнтські замовлення - до 3 клієнтів у сесії</li>
+        <li>Збережені клієнти та історія по кожному</li>
+        <li class="muted">Без максимальної гуртової знижки</li>
+      </ul>
+      <a class="btn--outline btn--l btn--full tier-cta" href="#">Активувати Free</a>
+      <div class="tier-note">Активується миттєво, без оплати</div>
+    </div>
+    <div class="acard tier pro">
+      <div class="tier-top"><span class="tier-name">Pro</span><span class="tier-flag">максимум опту</span></div>
+      <div class="tier-price">~99 ₴ <small>/ міс [?]</small></div>
+      <div class="tier-sub">підписка · для 5–30+ клієнтів</div>
+      <ul>
+        <li>Максимальна гуртова ціна</li>
+        <li>Безлімітні клієнти в мультиклієнтській сесії</li>
+        <li>Збережені клієнти, історія, швидке повторне замовлення</li>
+      </ul>
+      <a class="btn--accent btn--l btn--full tier-cta" href="#">Оформити Pro</a>
+      <div class="tier-note">Підписку можна скасувати будь-коли · ціна [?]</div>
+    </div>
+  </div>
+</div>
+<p class="kp-p"><code>.tier ul{ flex: 1 }</code> - ось навіщо картці стовпчик: список забирає люфт, і дві кнопки стають на одну лінію, навіть коли в одній картці на пункт більше. Приватна редакція мала <code>flex: 1</code> <b>і</b> <code>align-items: start</code> на сітці, тобто сама ж і скасовувала його: картці за висотою власного вмісту нема куди тиснути кнопку. Зміряно до правки на 1280 - обидві по 381.98, бо на тій ширині в них випадково однакова кількість рядків.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія - коротка форма</div>
+<p class="kp-p"><code>coach-tariff.html</code> і <code>coach-tariff-cancel.html</code>: тут тариф не обирають, а <b>читають</b> той, що вже діє. Ні підзаголовка, ні кнопки, ні підпису - і саме тому картці не потрібен стовпчик.</p>
+<div class="kp-demo">
+  <div class="tf-compare">
+    <div class="acard tf-col">
+      <div class="tf-col-h">Free</div>
+      <div class="tf-col-p">0 ₴</div>
+      <ul>
+        <li>Гуртова ціна, краще за роздріб</li>
+        <li>До 3 клієнтів у сесії</li>
+        <li>Активація миттєва, без оплати</li>
+      </ul>
+    </div>
+    <div class="acard tf-col on">
+      <div class="tf-col-h">Pro <span class="tf-mini">ваш тариф</span></div>
+      <div class="tf-col-p">99 ₴ <span class="per">/ міс [?]</span></div>
+      <ul>
+        <li>Максимальна гуртова ціна</li>
+        <li>Без обмежень на клієнтів</li>
+        <li>Пріоритетна підтримка</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<p class="kp-p">Ціна тарифу має <b>третє</b> ім'я і воно не на картці: <code>.tf-price2</code> у панелі Pro на <code>coach-tariff-free.html</code>. Панель ціну <b>показує</b>, а не володіє нею, тож правило одне на всі три:</p>
+<div class="kp-demo"><div class="tf-price2">99 ₴ <span class="per">/ міс [?]</span></div></div>
+<p class="kp-p">Компонент бере <b>обидва набори імен</b>, як <code>upsell.css</code> на кроці 8.28. Перейменувати розмітку трьох екранів означало б дорогою зачепити список моно в <code>price.css</code> і список форми в <code>badge.css</code> - і жодного пікселя за це.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Повна форма</th><th>Коротка</th><th>Що це</th></tr></thead><tbody>
+<tr><td><code>.tier</code></td><td><code>.tf-col</code></td><td>картка</td></tr>
+<tr><td><code>.tier.pro</code></td><td><code>.tf-col.on</code></td><td>позначена картка - <b>і це не один стан</b></td></tr>
+<tr><td><code>.tier-top</code></td><td><code>.tf-col-h</code></td><td>рядок шапки</td></tr>
+<tr><td><code>.tier-name</code></td><td><code>.tf-col-h</code></td><td>назва тарифу (<code>.tf-col-h</code> це обидва)</td></tr>
+<tr><td><code>.tier-flag</code></td><td><code>.tf-mini</code></td><td>бейдж поруч із назвою</td></tr>
+<tr><td><code>.tier-price</code></td><td><code>.tf-col-p</code></td><td>цифра</td></tr>
+<tr><td><code>.tier-sub</code></td><td>–</td><td>лише повна форма</td></tr>
+<tr><td><code>.tier li</code></td><td><code>.tf-col li</code></td><td>що тариф дає</td></tr>
+<tr><td><code>.tier-cta</code> · <code>.tier-note</code></td><td>–</td><td>лише повна форма</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">П'ять оголошень, набраних руками поверх атома</div>
+<p class="kp-p">Зміряно на живих сторінках на 390 - не в джерелі, бо саме тому копія пережила два проходи:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Властивість</th><th><code>.tier</code></th><th><code>.acard</code></th></tr></thead><tbody>
+<tr><td>грань</td><td>1px solid rgb(233,231,226)</td><td>1px solid rgb(233,231,226)</td></tr>
+<tr><td>радіус</td><td>12px</td><td>12px</td></tr>
+<tr><td>тло</td><td>rgb(255,255,255)</td><td>rgb(255,255,255)</td></tr>
+<tr><td>тінь</td><td colspan="2" style="text-align:center">rgba(20,20,15,.05) 0 1px 2px · rgba(20,20,15,.05) 0 10px 30px</td></tr>
+<tr><td>падінг</td><td>16px</td><td>16px</td></tr>
+</tbody></table></div>
+<p class="kp-p">Байт у байт по всіх п'яти. <b>Це перевиведення з посиланням на джерело</b>, і його найважче побачити: кожне значення правильне, кожен токен правильний, і наступна зміна картки продукту дійде рівно до однієї з двох. <code>.tf-col</code> - та сама картка без двох оголошень і з 18px замість 16.</p>
+<p class="kp-p">Ім'я <code>.acard</code> при цьому <b>не</b> те, що потрібно: це картка, яка живе у файлі оболонки акаунта, тобто молекула в організмі. Записано як борг, не полагоджено тут - <code>badge.css:158</code> уже тримає такий самий борг і називає причину: прохід закриває <b>форму</b>, словник закриває крок перейменування, а половина словника гірша за цілий неправильний.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Дві позначки, два речення</div>
+<div class="kp-pair"><div class="kp-do"><h4><code>.tier.pro</code> - акцент</h4>«Ось цей ми <b>радимо</b>». Акцентна грань, і це третій файл, що каже те саме, а не четверта відповідь: <code>chip.css</code> 7.23 і <code>radio.css</code> 7.29 обидва «ACCENT IS WHAT CHOSEN LOOKS LIKE». Грань це <b>лінія</b>, а CTA всередині - <b>заливка</b>: дві поверхні, тож картка вказує на себе, не змагаючись із власною дією.</div><div class="kp-dont"><h4><code>.tf-col.on</code> - чорнило</h4>«Ось на цьому ви <b>зараз</b>». Чорнильна грань на <code>--bg-surface</code>, і акцент тут відхилено вголос: DESIGN-artifacts.md:61 віддає помаранчевий <b>запрошенню</b>, а твердження про ваш акаунт - не запрошення. Звести їх в один стан означало б узяти сенс одного екрана й покласти на інший.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що зрушило, і кожне число - замір</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Було</th><th>Стало</th><th>Чому</th></tr></thead><tbody>
+<tr><td>ціна на екрані вибору</td><td>Inter 22/800</td><td><b>моно <code>--fs-20</code></b></td><td>четверта цифра тарифу в продукті, і друга з чотирьох, що йшла не тим шрифтом; 22 не на драбині</td></tr>
+<tr><td><code>.tf-price2</code> (панель Pro)</td><td>Inter 20</td><td><b>моно</b></td><td>мій власний недогляд кроку 8.28: перенесли ранг і повітря, не пішли за <b>родиною</b>, яка живе в <code>price.css</code></td></tr>
+<tr><td><code>.tier-flag</code></td><td>72.5 × <b>22</b></td><td>72.5 × <b>19</b></td><td>п'ята редакція пілюлі <code>badge.css:163</code>. Різнило їх те, чого копія <b>не</b> написала: без <code>line-height</code> пілюля успадковує <code>--lh-airy</code></td></tr>
+<tr><td>галочка в списку</td><td><code>&lt;span class="m"&gt;✓&lt;/span&gt;</code></td><td><b><code>::before</code></b></td><td>набраний символ читається вголос, не має власного розміру і не відрізняється від слова</td></tr>
+<tr><td><code>.tf-col li</code></td><td>secondary · «·»</td><td><b>body · «✓»</b></td><td>два списки на ОДНОМУ екрані малювали те саме двома способами; «·» не каже нічого, «✓» каже «входить»</td></tr>
+<tr><td><code>.tf-col</code></td><td>18px, без тла й тіні</td><td><b>16px, <code>acard</code></b></td><td>видима половина зводу; 18 було позначене <code>[?]</code></td></tr>
+<tr><td><code>.tier-name</code></td><td>18/800</td><td><b><code>--fs-16</code></b></td><td>у 16 є записане походження, у 18 - ні, а 800 не малюється як 800 від 7.65</td></tr>
+<tr><td><code>.tiers</code></td><td>720px · <code>align-items:start</code></td><td><b>640px</b></td><td>640 це межа набору; <code>align-items:start</code> суперечило <code>flex:1</code> у тому ж блоці</td></tr>
+<tr><td><code>.tier-cta</code></td><td><code>display:block</code></td><td><b>видалено</b></td><td><code>.btn--full</code> оголошує <code>display:flex</code>; приватне правило вантажилось після атома й вигравало порядком. Після видалення: 324 × 64 і 372 × 64, без руху</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Одне з них власник може захотіти назад</b>: назва тарифу на екрані, чия єдина робота - «Оберіть тариф», стала на 2px тихішою. Це одне оголошення, якщо відповідь «ні».</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p"><b>Станів не має, не інтерактивна.</b> Картка це блок, а не контрол: наводять і натискають кнопку всередині неї, і вона відповідає своїм фінішем із <code>button.css</code>. <code>.pro</code> і <code>.on</code> - не стани взаємодії, а <b>твердження про тариф</b>: одне радить, друге доповідає.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>18</b> власних класів оголошено в <code>plan-card.css</code>.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["muted","on","per","pro","tf-col","tf-col-h","tf-col-p","tf-compare","tf-mini","tf-price2","tier","tier-flag","tier-name","tier-note","tier-price","tier-sub","tier-top","tiers"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>plan-card.css</code>: <b>7</b> семантичних ролей і <b>11</b> примітивів. Обличчя картки не рахується тут - воно в <code>.acard</code>, і саме тому цей файл такий короткий.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (7)</th><th>Примітиви (11)</th></tr></thead><tbody><tr><td><code>--bg-surface</code> <code>--line-action</code> <code>--line-inverse</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-20</code> <code>--fw-black</code> <code>--fw-semibold</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code></td></tr></tbody></table></div>
+<p class="kp-p">Повз шкалу тут одне число, позначене <code>[?]</code> у файлі: <code>6px</code> верхній маргін цифри і вертикальний падінг рядка списку. Обидва успадковані - перше від <code>.tf-col-p</code>, друге від <code>.tf-incl</code>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b><code>.tf-cur</code> - третя форма цієї ж картки.</b> Тариф, що діє, з назвою, ціною і списком, на <code>coach-tariff.html</code>. Її сюди <b>не</b> взято: обличчя - чорнильна грань на радіусі 14 з падінгом 20/22, тобто твердження про запис, а не картка продукту, і <code>coach-tariff.css</code> це аргументує вголос. Чи є картка-твердження варіантом цього компонента - <b>одне</b> питання етапу 09, а не відкриття, яке доведеться зробити ще раз.</li>
+<li><b>Три інлайнові <code>style="color:var(--text-muted)"</code></b> на мітках <code>[?]</code> в <code>coach-verify-tier</code>. Система цю мітку називає - <code>.coach .tf-price .qm</code> - але селектор вимагає предка <code>.tf-price</code>, тож узагальнення це правка скоупу того файла, не цього компонента. Пораховано, не зачеплено.</li>
+<li><b>Ім'я <code>.acard</code>.</b> Молекула у файлі організму; борг записано разом із боргом <code>badge.css</code> на крок перейменування.</li>
+</ul></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script>
+(function(){
+  var rendered = new Set(), named = new Set();
+  document.querySelectorAll('.kp-demo *').forEach(function(e){
+    if(e.classList) e.classList.forEach(function(c){ rendered.add(c); });
+  });
+  document.querySelectorAll('code, .kp-code').forEach(function(e){
+    (e.textContent.match(/[.]([a-zA-Z][\w-]*)/g) || []).forEach(function(c){ named.add(c.slice(1)); });
+    (e.textContent.match(/class="([^"]+)"/g) || []).forEach(function(m){
+      m.slice(7, -1).split(/\s+/).forEach(function(c){ named.add(c); });
+    });
+  });
+  var page = document.body.textContent;
+  var onlyNamed = KIT_CLS.filter(function(c){ return !rendered.has(c) && named.has(c); });
+  var missing = KIT_CLS.filter(function(c){ return !rendered.has(c) && !named.has(c); });
+  var missSts = KIT_STS.filter(function(st){ return page.indexOf(st) === -1; });
+  var box = document.getElementById('idle');
+  var pill = function(a){ return '<code>' + a.join('</code> <code>') + '</code>'; };
+  if(!onlyNamed.length && !missing.length && !missSts.length){
+    box.innerHTML = '<div class="kp-do"><h4>Пройдено</h4>Усі <b>' + KIT_CLS.length +
+      '</b> класів файлу відрендерені в демо; станів компонент не має, і це сказано вголос.</div>';
+  } else {
+    box.innerHTML = '<div class="kp-gap"><h4>Файл показано не повністю</h4>' +
+      (missing.length ? '<p><b>' + missing.length + ' з ' + KIT_CLS.length +
+        '</b> класів на сторінці немає взагалі: ' + pill(missing) + '</p>' : '') +
+      (onlyNamed.length ? '<p style="margin-top:8px"><b>' + onlyNamed.length +
+        '</b> лише названо словами, але не показано в демо: ' + pill(onlyNamed) + '</p>' : '') + '</div>';
+  }
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

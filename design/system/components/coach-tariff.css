@@ -286,6 +286,18 @@
    list of what you already have is not one. */
 .coach .tf-incl li::before{ content: "\2713"; position: absolute; left: 0;
   font-weight: var(--fw-black); color: var(--text-primary); }
+/* THE LINE THE PLAN DOES NOT GIVE - step 8.30, off the `<style>` block of
+   coach-tariff-free.html, where the Free plan states what Pro adds. It is the
+   only screen that needs it, because it is the only one showing a plan that is
+   missing something; two rules, and the component had no answer for them.
+   `\2715` AGAINST `\2713` IS ONE PAIR, and this is the mark plan-card.css takes
+   too. It arrived here first, so it is the one that moves rather than the one
+   that gets re-derived - and a cross against a tick reads as the same family
+   saying the opposite, which a dash beside a tick does not.
+   The ink is `--text-muted` on both the word and the mark: principle 4, and the
+   plan-card stand's own anti-rule - a missing feature is a fact, not a defeat. */
+.coach .tf-incl li.off{ color: var(--text-muted); }
+.coach .tf-incl li.off::before{ content: "\2715"; color: var(--text-muted); }
 /* the card's foot. `.btn--outline.btn--danger` is the only child; the row owns the
    rule above it and the air, and says nothing about the control - which is the
    shape every one of these placement rules should have.
@@ -303,23 +315,32 @@
 .coach .tf-ch{ font-size: var(--fs-16);   /* grey 15 -> 16: 5.6, ties go UP */
   font-weight: var(--fw-black); color: var(--text-primary);
   margin: 30px 0 14px; }   /* [?] neither 30 nor 14 has a rung */
-.coach .tf-compare{ display: grid; grid-template-columns: 1fr;
-  gap: 14px; }   /* [?] the same 14 */
-/* 640 is the set's own boundary and it is spelled the wide way, `min-width: 640`,
-   which is what tokens.css states at 7.64 for a boundary at N. */
-@media (min-width: 640px){ .coach .tf-compare{ grid-template-columns: 1fr 1fr; } }
-.coach .tf-col{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
-  padding: 18px; }   /* [?] 18 has no rung */
-/* THE CHOSEN CARD, and its mark is the edge plus the ground rather than the
-   accent. `--fill2` in the grey was the zone fill, the warm surface a whole
-   section sits on: `--bg-surface`. The accent was considered and refused here -
-   DESIGN-artifacts.md:61 reserves it for an invitation, and «this is the plan you
-   are on» is a statement about the account, not a thing to press. The edge does
-   the work, exactly as it does on `.tf-cur` above. */
-.coach .tf-col.on{ border: 1px solid var(--line-inverse); background: var(--bg-surface); }
-.coach .tf-col-h{ font-size: var(--fs-16);   /* grey 15 -> 16 */
-  font-weight: var(--fw-black); color: var(--text-primary);
-  display: flex; align-items: center; gap: var(--space-8); }
+/* ---- THE COMPARISON IS A COMPONENT NOW, step 8.29 --------------------------
+   `.tf-compare`, its `@media`, `.tf-col`, `.tf-col.on`, `.tf-col-h`, `.tf-mini`'s
+   ink, `.tf-col-p` (with `.tf-price2`), `.tf-col ul`, `.tf-col li` and its
+   `::before` all moved to design/system/components/plan-card.css, which holds the
+   OTHER edition of the same card as well - `.tier*` on coach-verify-tier.html,
+   where a coach picks a plan rather than reads the one they are on.
+   The two agreed in prose and disagreed in every number, which is the definition
+   of a component nobody wrote. What is left in this file is the screen's own
+   furniture: the lead, the current-plan card, the sub-heading over the comparison,
+   the footnote and the cancel dialog.
+
+   THE HEADER'S «NOT DELETED» READING AGAINST coach-landing.css's `.cmp-*` STILL
+   STANDS and is not undone by this move: a matrix and two cards are still two
+   instruments. What changed is that the two CARDS turned out to be two, not one.
+
+   `.tf-col` NOW WEARS `acard` IN THE MARKUP, and gains the product card's ground
+   and lift with 2px less padding. `.tf-col.on` keeps `--bg-surface` over the
+   atom's white - that ground IS its state, and the accent is still refused here
+   for the reason this file gave: DESIGN-artifacts.md:61 reserves orange for an
+   invitation, and «this is the plan you are on» is a statement about the account.
+   The recommendation card on the choose screen is the one that gets the accent,
+   and plan-card.css keeps the two apart on purpose.
+
+   `.tf-mini`'S OWN PARAGRAPH went with the declaration; the value move it records
+   - font-size 12 -> `--fs-10`, and why - is quoted in plan-card.css beside its new
+   home so that reading is not lost. What that paragraph said next, verbatim: */
 /* «ваш тариф». 8.10 - THE SHAPE WENT TO badge.css AND THE SIZE WENT WITH IT.
    The header's «NOT DELETED» section refused to send this pill to status-pill.css
    and gave a good reason: 12px on a 2/8 padding is the row rung's SIZE on the
@@ -337,31 +358,13 @@
    competed with the name beside it would be selling.
    The ink is this screen's and stays here: `--text-secondary` against the
    landing's inherited ink, because this column heading is already the loudest
-   thing in its row. */
-.coach .tf-mini{ color: var(--text-secondary); }
-.coach .tf-col-p{ font-size: var(--fs-20);   /* grey 19 -> 20: 5.6, ties go UP */
-  font-weight: var(--fw-black); color: var(--text-primary);
-  margin: 6px 0 var(--space-12); }   /* [?] 6 has no rung */
-.coach .tf-col-p .per,
-/* `.tf-price2 .per` JOINS THE LINE, 2026-08-15 (step 8.21) rather than getting a
-   third edition. It is the upsell panel's price on `coach-tariff-free`, and that
-   screen had it privately at 12.5px - the same grey number the two rules above
-   already carry as `--fs-14` under the same «grey 12.5 -> 13 -> 14» note. Three
-   places on one screen say «per month» in small type; one of them was saying it
-   1.5px smaller than the other two, and nobody chose that.
-   The panel around it, `.tf-upsell`, is still private: it has no home in the
-   system yet and is on item 3's «local, no home» list. A rule about a `.per` is
-   this file's whether or not its wrapper has moved. */
-.coach .tf-price2 .per{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14 */
-  font-weight: var(--fw-semibold); color: var(--text-secondary); }
-.coach .tf-col ul{ list-style: none; margin: 0; padding: 0; }
-.coach .tf-col li{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14 */
-  color: var(--text-secondary);
-  padding: 5px 0 5px 20px;   /* [?] neither 5 nor 20 has a rung */
-  position: relative; }
-.coach .tf-col li::before{ content: "\B7"; position: absolute;
-  left: 6px;   /* [?] 6 has no rung */
-  font-weight: var(--fw-black); color: var(--text-primary); }
+   thing in its row.
+   8.29 - «here» is plan-card.css now, and the ink is shared with `.tier-flag`,
+   which turned out to be the same pill a fifth time. The two were identical in
+   every declaration the private copy wrote; what it did NOT write is what told
+   them apart - the atom's `line-height: var(--lh-snug)`, without which the pill
+   inherits `--lh-airy` and stands 3px taller. Measured: 83.66 x 19 against
+   72.50 x 22. */
 
 /* ---------- the footnote ------------------------------------------------------
    The quietest text on the screen, and it carries the `[?]` that says every figure

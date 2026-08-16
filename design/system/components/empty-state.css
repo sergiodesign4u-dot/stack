@@ -19,6 +19,18 @@
 .emptybox .et{ font-size: var(--fs-18); color: var(--text-primary); margin: var(--space-12) 0 var(--space-8); }
 .emptybox .es{ font-size: var(--fs-14); margin-bottom: var(--space-16); max-width: 440px; margin-left: auto; margin-right: auto; line-height: var(--lh-airy); }
 .emptybox .eact{ display: inline-flex; gap: var(--space-12); flex-wrap: wrap; justify-content: center; }
+/* THE LINE UNDER THE ACTION - step 8.30, off coach-session-empty.html, which is
+   the only screen in the product whose empty state has something to add AFTER the
+   button: «Клієнти зі списку підтягуються автоматично». Not a second body - `.es`
+   says what the state IS and stands above the action, this says what happens next
+   and stands below it, and the two are never both the loudest thing.
+   The quietest ink and a rung under the body: 11.5 -> `--fs-12`, margin-top
+   14 -> `--space-12`. `.hint` is the name the markup already wrote; it is scoped
+   to `.emptybox` here, so `account-empty`'s own `.hint` inside `.acard.abonus` -
+   a third, undeclared edition that this file does not reach - is untouched. That
+   one is written down rather than swept: it is a different parent and a different
+   sentence, and guessing at it from here is how one rule becomes eight. */
+.emptybox .hint{ font-size: var(--fs-12); color: var(--text-muted); margin-top: var(--space-12); }
 .emptybox.mini{ border-radius: var(--radius-12); padding: var(--space-24) var(--space-16); margin-top: 0; }
 .emptybox.mini .ei{ font-size: var(--fs-24); }
 .emptybox.mini .et{ font-size: var(--fs-16); margin: var(--space-8) 0 var(--space-4); }

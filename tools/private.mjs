@@ -34,7 +34,7 @@
    not this file's. */
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { subject, ROOT, topRules, withNotes } from './lib.mjs';
+import { subject, ROOT, topRules, withNotes, braceAfterNotes } from './lib.mjs';
 
 const argv = process.argv.slice(2);
 const BY_PAGE = argv.includes('--by-page');
@@ -81,9 +81,31 @@ if (!PAGES.length) { console.log('жодної сторінки з приват�
    is not owned, which is why the selector text is taken from the parser rather
    than from a grep over the whole file: `button.css` discusses `.dark` at length
    and declares it nowhere, and a grep would have called that ownership. */
+/* A MODIFIER DOES NOT NAME A COMPONENT - step 8.23, and it had been handing out
+   wrong homes quietly. `classesOf` reads every class in a selector, so
+   `.loy .lrung.now` registered `.now` as loyalty-rung.css's, and a private
+   `.cv-steps2 li.now` - a checklist on the verification screen, with nothing
+   whatever to do with a loyalty tier - came back as «one home: loyalty-rung.css».
+   The report then reads as an instruction to move it there.
+   The rule: within one compound (`.lrung.now`, `.ci.oos`, `.btn--outline.btn`),
+   only the FIRST class names the thing; the rest qualify it. Across the
+   descendant combinator every compound still counts, because `.loy .lrung` means
+   this file owns both names. Adjectives - `.now`, `.on`, `.off`, `.oos`, `.done`,
+   `.open` - are shared vocabulary across twenty files, and any of them matching
+   as a home is noise dressed as an answer. */
 const SYS = join(ROOT, 'design/system/components');
 const owner = new Map();          // class -> Set(file)
-const classesOf = sel => [...sel.matchAll(/\.(-?[_a-zA-Z][\w-]*)/g)].map(m => m[1]);
+/* WHERE the file declares it, so «one home» can be checked rather than believed
+   - step 8.26. `buy-box.css` declares `.bb .tier`, a wholesale-price badge INSIDE
+   the buy box; `coach-verify-tier` has `.tier`, a whole plan card. The verdict
+   «one home: buy-box.css» is true about the name and useless about the object,
+   and nothing in the output said which selector produced it. The verdict is
+   unchanged and the GROUND is now printed under it. Same repair as tree-diff's
+   roll-up: do not soften the answer, show what it rests on. */
+const ownerSel = new Map();       // class|file -> first declaring selector
+const classesOf = sel => sel.split(/[\s>+~,]+/).filter(Boolean)
+  .map(part => (part.match(/\.(-?[_a-zA-Z][\w-]*)/) || [])[1])
+  .filter(Boolean);
 
 const collect = (css, file) => {
   for (const s of topRules(css)) {
@@ -97,6 +119,8 @@ const collect = (css, file) => {
     for (const c of classesOf(head)) {
       if (!owner.has(c)) owner.set(c, new Set());
       owner.get(c).add(file);
+      const k = c + '|' + file;
+      if (!ownerSel.has(k)) ownerSel.set(k, head.split(',')[0].replace(/\s+/g, ' ').trim());
     }
   }
 };
@@ -110,7 +134,10 @@ const rows = [];
 const walk = (css, page, media) => {
   for (const s of withNotes(css, topRules(css))) {
     const text = css.slice(s.start, s.end);
-    const brace = text.indexOf('{');
+    /* 8.31 - NOT `indexOf`, because the span now carries its note and this
+       repository writes css inside its notes. See `braceAfterNotes` in lib.mjs
+       for the paragraph that was being read as a selector. */
+    const brace = braceAfterNotes(text);
     /* THE SELECTOR IS WHAT IS LEFT AFTER THE COMMENTS ARE TAKEN OUT, and the
        first version cut at the LAST comment terminator in the whole span - which
        lands inside the declaration block whenever a rule carries a trailing note,
@@ -129,13 +156,15 @@ const walk = (css, page, media) => {
     if (brace < 0) continue;                        // a bare declaration, not a rule
     const cls = [...new Set(classesOf(head))];
     const files = new Set();
+    const ground = [];
     let unknown = 0;
     for (const c of cls) {
       const o = owner.get(c);
-      if (o) for (const f of o) files.add(f); else unknown++;
+      if (o) { for (const f of o) { files.add(f); ground.push(ownerSel.get(c + '|' + f)); } }
+      else unknown++;
     }
     rows.push({ page, sel: head.replace(/\s+/g, ' '), media, cls, unknown,
-      files: [...files],
+      files: [...files], ground: [...new Set(ground)],
       kind: !cls.length ? 'без класу' : unknown === cls.length ? 'локальне'
         : files.size === 1 ? 'один компонент' : unknown ? 'частково нове' : 'кілька компонентів' });
   }
@@ -421,8 +450,15 @@ if (BY_PAGE) {
     dest.set(f, (dest.get(f) || 0) + 1);
   }
   console.log('\nМАЮТЬ ОДИН ДІМ У СИСТЕМІ (' + (kinds['один компонент'] || 0) + ' правил):');
-  for (const [f, n] of [...dest].sort((a, b) => b[1] - a[1]))
+  for (const [f, n] of [...dest].sort((a, b) => b[1] - a[1])) {
     console.log('  ' + String(n).padStart(3) + '  -> ' + f);
+    /* the ground under the verdict: which selector in that file put the class
+       there. «one home» is a claim about a NAME, and a name can be shared by two
+       different objects - see the header. */
+    const mine = rows.filter(r => r.kind === 'один компонент' && r.files[0] === f);
+    for (const g of [...new Set(mine.flatMap(r => r.ground || []))].slice(0, 4))
+      console.log('        бо ' + f + ' оголошує  ' + g);
+  }
 }
 
 console.log('\n' + PAGES.length + ' сторінок · ' + rows.length + ' правил · ' +

@@ -23,11 +23,11 @@
 
 
 
-.empty { text-align: center; border:1px solid var(--line-hair); border-radius: 14px; padding: 40px 22px; background:var(--bg-surface); }
-.empty .ic { font-size: 34px; color: var(--mark-disabled); }
-.empty h3 { font-size: 17px; font-weight: 800; color: var(--text-primary); margin: 12px 0 6px; }
-.empty p { font-size: 13.5px; color:var(--text-secondary); line-height: 1.6; max-width: 420px; margin: 0 auto 20px; }
-.empty .btn { padding: 13px 24px; }
+
+
+
+
+
 </style>
 </head>
 <body class="coach">
@@ -59,12 +59,20 @@
   <p class="cc-note">Ціль клієнта <b>«Набір маси»</b> формує підбір товарів у сесії замовлення.</p>
 
   <h2 class="oh-h">Історія замовлень клієнта</h2>
+  <!-- `.ic` / `<h3>` / `<p>` -> `.ei` / `.et` / `.es` / `.eact`, step 8.25.
+       empty-state.css draws this box with those four names and five other
+       screens in the colour layer already write them - coach-clients-empty,
+       coach-clients-error, listing-empty, listing-error, product-error. This
+       one kept the grey original's element-name version, so its whole look was
+       coming from five private rules instead. -->
   <div class="empty">
-    <div class="ic">📦</div>
-    <h3>Ще немає замовлень</h3>
-    <p>Для цього клієнта ви ще нічого не замовляли. Створіть сесію - підбір товарів
-      автоматично враховуватиме ціль «Набір маси».</p>
-    <a class="btn--accent btn--s btn" href="coach-session.html">＋ Нова сесія</a>
+    <div class="ei">📦</div>
+    <div class="et">Ще немає замовлень</div>
+    <div class="es">Для цього клієнта ви ще нічого не замовляли. Створіть сесію - підбір товарів
+      автоматично враховуватиме ціль «Набір маси».</div>
+    <div class="eact">
+      <a class="btn--accent btn--s btn" href="coach-session.html">＋ Нова сесія</a>
+    </div>
   </div>
 </main>
 

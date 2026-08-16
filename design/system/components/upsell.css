@@ -1,0 +1,74 @@
+/* upsell.css - the Pro upsell panel (level 3)
+   Written at stage 08 step 8.28 out of the `<style>` blocks of
+   design/coach-clients-cap.html and design/coach-tariff-free.html, which drew the
+   SAME panel under two names. Colour reads a semantic role, geometry reads a
+   primitive; every selector is scoped to `.coach`, like the rest of this group.
+
+   ONE PANEL, TWO NAMES, AND THE SECOND ONE CITED THE FIRST. `.upsell` on
+   coach-clients-cap and `.tf-upsell` on coach-tariff-free are both a bordered
+   block that says «you have hit the Free ceiling, here is Pro», both end in the
+   same `btn--accent` to the same destination, and the tariff screen's own private
+   comment names the other one out loud: «THE PANEL'S EDGE IS THE ACCENT NOW -
+   owner's call, 2026-08-14, same shape and same reasoning as `.upsell` on
+   coach-clients-cap.html». Two files agreeing in prose while disagreeing in
+   numbers is the definition of a component that was never written.
+
+   WHAT THE OWNER DECIDED, 2026-08-14, and it is the reason this panel looks the
+   way it does: the EDGE carries the emphasis and the fill stays a surface,
+   because the panel already holds the accent button it exists to point at. An
+   accent PLATE would put «act here» on the block and on the action inside it at
+   once. Both private editions had already been moved to that shape; this file
+   inherits it rather than re-deciding it.
+
+   THE PARTS ARE OPTIONAL AND THAT IS THE POINT. The cap screen shows a progress
+   bar and a list of what Pro adds; the tariff screen shows a price. Neither is
+   required, and a panel with only a heading, a sentence and an action is still
+   this panel. What is shared is the frame, the type ranks and the action row.
+
+   THREE VALUES SETTLED HERE, because two editions cannot both be right:
+       padding    18px against 20/22  -> 18px, the older and the square one
+       ground     none against --bg-surface -> --bg-surface: a panel that asks
+                  for money should sit ON the page rather than be a hole in it,
+                  and the cap screen's edition was transparent only because the
+                  grey prototype had no surface role to reach for
+       heading    16px against 17px   -> --fs-16, and 17 is on no rung at all
+   None of the three moves more than 2px. They are named in tokens-audit.md's
+   own terms - «змінна -> значення -> чому» - in docs/decisions.md, step 6,
+   nineteenth pass. */
+
+/* ---------- structure ---------- */
+.coach .upsell{ border: 1.5px solid var(--line-action);   /* [?] 1.5px is on no rung; the set is 1 / 2 */
+  border-radius: 14px;                                    /* [?] 14px has no rung; the ladder is 12/16 */
+  background: var(--bg-surface);
+  padding: 18px;                                          /* [?] 18px has no rung; the ladder is 16/24 */
+  margin-top: 18px; }                                     /* [?] the same 18 */
+/* the heading, whichever element carries it - the cap screen writes `.ut`, the
+   tariff screen an `<h2>`, and the panel does not care which */
+.coach .upsell .ut,
+.coach .upsell h2{ font-size: var(--fs-16); font-weight: var(--fw-black);
+  color: var(--text-primary); display: flex; align-items: center; gap: var(--space-8);
+  margin: 0 0 6px; }                                      /* [?] 6px has no rung; the ladder is 4/8 */
+.coach .upsell .up,
+.coach .upsell p{ font-size: var(--fs-14);                /* grey 13 -> 14: 5.6, ties go UP */
+  color: var(--text-secondary); margin: 0 0 var(--space-8); line-height: var(--lh-airy); }
+.coach .upsell .up b,
+.coach .upsell p b{ color: var(--text-primary); }
+
+/* the progress bar - "3 of 3 clients used". Only the cap screen has one, and it
+   is the one part of this panel that is a MEASUREMENT rather than a claim. */
+.coach .upsell .ubar{ height: var(--space-8); background: var(--bg-sunken);
+  border-radius: 6px;                                     /* [?] 6px has no rung; the ladder is 4/8 */
+  overflow: hidden; margin: var(--space-12) 0 var(--space-8); }
+.coach .upsell .ubar i{ display: block; height: 100%; width: 100%; background: var(--bg-action); }
+
+/* what Pro adds. The tick is content, not an icon: it is three words wide and
+   never stands alone, so icons.js has nothing to replace here. */
+.coach .upsell .ulist{ font-size: var(--fs-14);           /* grey 13 -> 14, same rule */
+  color: var(--text-body); margin: var(--space-12) 0; padding-left: var(--space-2); list-style: none; }
+.coach .upsell .ulist li{ padding: var(--space-4) 0; }
+.coach .upsell .ulist li::before{ content: '\2713\A0'; font-weight: var(--fw-black); color: var(--text-primary); }
+
+.coach .upsell .uacts{ display: flex; gap: var(--space-12); flex-wrap: wrap; margin-top: 6px; }
+/* the small print under the action - «number to be confirmed», never a warning */
+.coach .upsell .un{ font-size: var(--fs-12);              /* grey 11.5 -> 12, same rule */
+  color: var(--text-muted); margin-top: var(--space-8); }

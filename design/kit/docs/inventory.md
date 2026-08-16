@@ -113,6 +113,7 @@ the unscoped base form, not the component.
 | Заголовок секції | `section-head.css` | `.sech`, `.relh`, `.rvhead` | 58 | 36 |
 | Рядок клієнта | `client-row.css` | `.cg`, `.coachbn` | 8 + **JS** | 31 |
 | Плитка цілі | `goal-tile.css` | `.gcard`, `.gtile`, `.goaltiles` | 4 | 29 |
+| Панель Pro | `upsell.css` | `.upsell`, `.ubar`, `.ulist`, `.uacts` | 2 | 29 |
 | Картка блогу | `blog-card.css` | `.blogcard`, `.blogrow` | 6 | 28 |
 | Нотатка про поповнення | `restock-note.css` | `.restock`, `.rk` | 3 | 26 |
 | Пагінація | `pagination.css` | `.pgnav`, `.loadmore`, `.pages` | 12 + **JS** | 24 |
@@ -153,8 +154,31 @@ the unscoped base form, not the component.
 | Мобільний шит фільтрів | `filter-sheet.css` | `.fsheet` | **JS** | 23 |
 | Сітка товарів | `product-grid.css` | `.prow`, `.prow2`, `.plist` | 31 | 22 |
 | Оверлей діалогу | `overlay.css` | `.wf-ov`, `.ceov` | **JS** | 16 |
+| Картка тарифу | `plan-card.css` | `.tier`, `.tf-col`, `.tiers`, `.tf-compare` | 4 | 252 |
 
-**22 files, 1745 lines.**
+**23 files, 1997 lines.**
+
+### Three things this table does not say, found while adding the row above (8.29)
+
+1. **Eight coach components are not in this inventory at all** - `coach-landing.css`,
+   `coach-cabinet.css`, `coach-clients.css`, `coach-session.css`, `coach-verify.css`,
+   `coach-wishlist.css`, `coach-tariff.css`, `coach-order.css`. They entered the system at steps
+   7.95 and 8.7, after this document was written at step 5, and nothing asked it to grow with them.
+   An inventory that does not list eight of its files is not an inventory, it is a snapshot of one
+   afternoon. The idle control this list never had is the one every declared list is owed.
+2. **`upsell.css` is filed as a molecule here and called «рівень 3» on its own stand page**, and the
+   `@import` puts it in the level-3 coach group. Three copies of one fact, two of them wrong: it
+   contains atoms and no molecule, so it is level 2. THE IMPORT GROUP IS THE REAL PROBLEM - the
+   coach group in `index.css` is a SCOPE group, not a level group, and any file put there loses the
+   one place its level was readable. `plan-card.css` is genuinely level 3 (it contains `.acard`,
+   which is a molecule), so it lands in that group correctly, which is luck rather than a rule.
+3. **The «Lines» column is a step-5 snapshot and most of it has drifted.** Read today:
+   `tabbar.css` 25 -> 72, `client-dialog.css` 27 -> 50, `city-dialog.css` 29 -> 37,
+   `system-page.css` 33 -> 37; `overlay.css`, `product-grid.css` and `price-slider.css` are within
+   one line. The files did not gain rules, they gained the comments that record why the rules are
+   what they are - which is the intended growth, measured against a number nobody re-asked. This is
+   backlog item 8 with a name and a column: `grey-vars.mjs` and `vars.mjs` ask whether a VALUE is
+   still true, and nothing asks it of a COUNT.
 
 ## One-off (not components)
 
