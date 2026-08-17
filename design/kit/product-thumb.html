@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Мініатюра товару | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 1</div>
+<h1 class="kp-h1">Мініатюра товару</h1>
+<p class="kp-lead">Квадратна коробка 46, у якій стоїть фотографія товару в рядку. Найменший файл у системі й єдиний, що не має власного імені: він оголошує форму, а називають її класи двох інших компонентів.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/product-thumb.css</span><span class="kp-tag">68 рядків</span><span class="kp-tag">4 селектори</span><span class="kp-tag">12 оголошень</span><span class="kp-tag">1 екран</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<div class="kp-demo" style="display:flex;gap:var(--space-24);flex-wrap:wrap;align-items:flex-start">
+  <div class="aord-thumbs" style="display:flex;gap:var(--space-8)">
+    <span class="t">фото</span><span class="t">фото</span><span class="t">фото</span>
+  </div>
+  <div class="rk-item" style="display:flex;gap:var(--space-12);align-items:center">
+    <div class="rk-ph">фото</div>
+    <div class="rk-tx"><div class="rk-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div></div>
+  </div>
+</div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Квадрат 46</b> - <code>--size-46</code> на обидві сторони, бо фотографія 2048x2048 і кожна коробка ставить її <code>contain</code></span></div><div class="a"><i>2</i><span><b>Западина під фото</b> - <code>--bg-sunken</code> і волосяна рамка, щоб порожній слот був видимий, а не діркою</span></div><div class="a"><i>3</i><span><b>Слово всередині</b> - «фото», <code>color: transparent</code> у кольорі. Це не хак: сірий шар зображення не має, і там це слово читається</span></div></div>
+<p class="kp-p">Обидві коробки вище - <b>розмітка продукту</b>, узята з <code>account.html</code> як є. Ліворуч смужка мініатюр останнього замовлення (<code>.aord-thumbs .t</code>, три штуки), праворуч плитка нотатки про поповнення (<code>.rk-ph</code>). Розкладка навколо них - <code>order-row.css</code> і <code>restock-note.css</code>; цей файл не знає ні про смужку, ні про рядок.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Компонент без власного імені</div>
+<p class="kp-p">Кожен інший файл системи оголошує класи, яких не оголошує ніхто, - <b>якорі</b>, і саме за ними <code>tools/inventory.mjs</code> рахує, на скількох екранах компонент стоїть. У цього якорів <b>нуль</b>, тож у реєстрі його колонка «Screens» стоїть прочерком, і це не пропуск заміру.</p>
+<p class="kp-p">Причина в тому, як компонент народився. <code>architecture.md</code> A6 зміряв дев'ять коробок у семи файлах на восьми розмірах і закрив їхню <b>форму</b>, лишивши <b>розмір</b> відкритим. Власник узяв зміряну половину: пара, яку A6 назвав доказово однією річчю, - <code>.aord-thumbs .t</code> в <code>order-row.css</code> і <code>.rk-ph</code> в <code>restock-note.css</code>, обидві 46, - виявилась не просто однакового розміру, а <b>тими самими дев'ятьма оголошеннями, байт у байт, написаними двома різними днями</b>.</p>
+<p class="kp-p"><b>Файл, а не рядок в одному з двох</b>: жоден із власників не старший за іншого, і покласти форму в будь-який означало б, що правило одного файла тягнеться в компонент, якого він не має. Це рівно той дефект, який <code>filter-group.css</code> записує як «перефарбовує клас атома на ім'я». Але з цього ж і випливає, що нового імені компонент не отримав - обидва класи лишились у своїх розмітках, тож ім'я в системи є, а в розмітки немає.</p>
+<div class="kp-cap">Це єдиний файл системи в такому становищі. Якщо їх стане двоє, «якір» перестане бути надійним ключем для заміру екранів.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Варіанти і розміри</div>
+<p class="kp-p">Драбина A6 повністю, і сюди зведено рівно один її щабель. Решта - не пропуск, а рішення: розмір це значення, а значення рухається озвученим рішенням.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Розмір</th><th>Клас</th><th>Де</th><th>Статус</th></tr></thead><tbody>
+<tr><td><b>46</b></td><td><code>.aord-thumbs .t</code></td><td>смужка мініатюр замовлення</td><td><b>тут</b></td></tr>
+<tr><td><b>46</b></td><td><code>.rk-ph</code></td><td>плитка поповнення запасів</td><td><b>тут</b></td></tr>
+<tr><td>34</td><td><code>.oh-thumbs i</code></td><td>історія замовлень</td><td>та сама форма, інший розмір</td></tr>
+<tr><td>40 · 46 · 52 · 56 · 60 · 70 · 74</td><td>–</td><td>сім інших коробок у семи файлах</td><td>лишились на місці</td></tr>
+</tbody></table></div>
+<p class="kp-p"><code>.oh-thumbs i</code> названий окремим рядком навмисно: це та сама форма на іншому розмірі, і колірну лінію він уже ділить із <code>.aord-thumbs .t</code> усередині <code>order-row.css</code>. Того дня, коли власник згорне драбину, він приєднається сюди <b>одним іменем у списку селекторів</b>, і більше не зміниться нічого.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Там, де фотографія товару стоїть у <b>рядку</b> і не є підметом: підсумок замовлення, нагадування про поповнення. Job 3 - регулярний покупець: він упізнає свій товар по банці швидше, ніж по назві, і саме тому рядок узагалі має картинку.</p>
+<p class="kp-p">Коли фотографія <b>є</b> підметом - картка в каталозі, галерея на сторінці товару - це не цей компонент. Там коробка більша, у неї свої правила співвідношення й свій стан завантаження.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Форма тут, фотографія у власника.</b> Цей файл каже, яка коробка; який знімок ляже в який слот, вирішує картка: <code>order-row.css</code> роздає три знімки через <code>:nth-child</code>, <code>restock-note.css</code> - два через <code>:nth-of-type(odd|even)</code>. Так само лишився і <code>flex: none</code> на <code>.rk-ph</code>: він про рядок, а не про коробку.</div>
+<div class="kp-dont"><h4>Антиправило</h4><b>Не додавай сюди восьмий розмір, щоб «звести всі мініатюри».</b> A6 сказав прямо, чому: у джерелі немає нічого, що пояснило б, чому плитка поповнення 46, а рядок чекауту 60. Звести їх зараз означало б смак, а не замір, і <b>значення поїхало б як побічний ефект рефакторингу</b>.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
+<p class="kp-p"><b>Станів не має, не інтерактивний.</b> Це рамка навколо зображення: ні наведення, ні натиску, ні фокусу. Клікабельним буває рядок, у якому вона стоїть, і стан належить йому.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власні класи і <b>0</b> станів оголошено в <code>product-thumb.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["aord-thumbs", "t", "rk-ph"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>product-thumb.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (3)</th></tr></thead><tbody>
+<tr><td><code>--bg-sunken</code></td><td><code>--size-46</code></td></tr>
+<tr><td><code>--line-hair</code></td><td><code>--radius-8</code></td></tr>
+<tr><td><code>--mark-faint</code></td><td><code>--fs-10</code></td></tr>
+<tr><td><code>--bg-page</code></td><td>–</td></tr>
+</tbody></table></div>
+<p class="kp-p">Дві заливки на одному класі й це навмисно: структурна половина ставить <code>--bg-sunken</code>, щоб порожній слот був западиною в сірому шарі, а колірна перекриває її на <code>--bg-page</code> з фотографією зверху. Скасувати перше не можна - без нього коробка без знімка зникає.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;div class="aord-thumbs"&gt;
+  &lt;span class="t"&gt;фото&lt;/span&gt;&lt;span class="t"&gt;фото&lt;/span&gt;&lt;span class="t"&gt;фото&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="rk-ph"&gt;фото&lt;/div&gt;</div>
+<p class="kp-p">Слово «фото» лишається в html і не видно на екрані: у сірому шарі зображення немає, і там воно єдине, що каже, чим ця коробка буде. У кольорі його ховає <code>color: transparent</code> - не приховування вмісту, а та сама пара «запасний варіант і справжній», що й у <code>.emptybox .ei</code>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <b>немає</b> - див. розділ «Компонент без власного імені».</p>
+<p class="kp-p"><b>1 кольоровий екран</b>: <code>account.html</code>, три мініатюри в смужці останнього замовлення і дві плитки в нотатці про поповнення. У <code>wireframes/</code> - той самий <code>account.html</code>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Немає стану завантаження</b> - фотографія приходить мережею, а коробка про це не каже нічого. Скелетон системи (<code>.skline</code>) сюди не годиться: тут потрібен квадрат, а не смуга</li>
+<li><b>Немає відповіді на «знімка немає»</b> - у продукті кожен слот має картинку, тож випадок не траплявся; коробка при цьому вже вміє його показати, бо західина під фото лишилась</li>
+<li><b>Драбина розмірів не згорнута</b> - вісім значень у семи файлах, і рішення про них лишилось за власником</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script src="_idle.js"></script>
+</main>
+<script src="_nav.js"></script>
+</body>
+</html>

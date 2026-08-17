@@ -193,6 +193,11 @@ window.KIT_NAV = [
     "label": "Бейдж",
     "page": "badge.html",
     "done": true
+   },
+   {
+    "label": "Мініатюра товару",
+    "page": "product-thumb.html",
+    "done": true
    }
   ]
  },
@@ -467,6 +472,16 @@ window.KIT_NAV = [
    {
     "label": "Картка тарифу",
     "page": "plan-card.html",
+    "done": true
+   },
+   {
+    "label": "Лендинг тренера",
+    "page": "coach-landing.html",
+    "done": true
+   },
+   {
+    "label": "Перевірка тренера",
+    "page": "coach-verify.html",
     "done": true
    }
   ]

@@ -34,6 +34,19 @@
    until two reads agree; this one does not, because it walks each page once by
    design.
 
+   AND «MOVED» HERE MEANS COMPUTED STYLE, NOT RENDER - named at step 8.42, where
+   it cost a paragraph of alarm. Deleting six dead rules off `.wf-bar` in
+   `_stand.css` reported «зрушило елементів 39» on EVERY design page. The bar is
+   `display: none` on this layer and has been since 2026-08-06, so nothing on
+   screen changed by a pixel; `querySelectorAll('*')` sees a hidden element all
+   the same, and its colour and padding are still computed. The arithmetic closed
+   it: the bar's subtree is 13 elements on coach-home, 12 on index, 11 on
+   coach-tariff-cancel, times the three rows this tool reads per element - 39, 36
+   and 33, exactly the numbers reported, with no row outside that subtree.
+   So a non-zero confined to a hidden subtree is not a regression. `proof.mjs`
+   is the instrument that answers in pixels, and it is the one to ask when this
+   one reports movement nobody can see.
+
      node tools/tree-diff.mjs HEAD                every changed design page
      node tools/tree-diff.mjs HEAD coach-order-loading   just these
      node tools/tree-diff.mjs --dir /tmp/before   against a directory, not a ref

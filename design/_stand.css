@@ -86,22 +86,38 @@ body:has(.co-head){ padding-left: var(--shell-left); padding-top: var(--shell-to
 .wf-states b{ color: var(--text-primary); text-transform: uppercase; letter-spacing: var(--ls-caps); font-size: var(--fs-12); }
 .wf-states a{ color: var(--text-secondary); text-decoration: underline; }
 .wf-states a.cur{ color: var(--text-primary); font-weight: var(--fw-black); text-decoration: none; }
-/* THE STAND BAR STAYS ABOVE A SCRIM, and that is a stand rule rather than a
-   product one - step 8.31b. Two screens had it privately as `#wf-bar{ position:
-   relative; z-index: 80 }`, because they open a modal over the page and
-   `overlay.css` puts its scrim at 55: without it the bar that says WHICH SCREEN
-   YOU ARE LOOKING AT disappears under the dimming on exactly the screens whose
-   subject is the modal. Every state screen that opens one needs it, so it belongs
-   here with the frame and not in two `<style>` blocks. `position` is what makes
-   `z-index` mean anything on a static element. */
-.wf-bar{ position: relative; z-index: 80;
-  background: var(--bg-inverse); color: var(--text-oninverse); font-size: var(--fs-12); padding: var(--space-8) var(--space-16); display: flex; gap: var(--space-8) var(--space-12); flex-wrap: wrap; align-items: center; }
-.wf-bar a{ color: var(--text-oninverse); opacity: .8; }
-.wf-bar a:hover{ opacity: 1; text-decoration: underline; }
-.wf-bar .sepb{ opacity: .35; }
-.wf-bar .cur{ font-weight: var(--fw-black); }
-body:has(.cart-drawer) .wf-bar{ position: relative; z-index: 80; }
+/* THE STAND BAR DOES NOT RENDER ON THIS LAYER, AND SIX RULES WERE PAINTING IT -
+   step 8.42, measured rather than read: `getComputedStyle` gives `.wf-bar`
+   `display: none` and height 0 on coach-home, coach-tariff-cancel,
+   coach-session-addclient and cart-coach-empty at 390. The one line below has
+   said so since 2026-08-06, when the sidebar `.uiv-side` took over as this
+   layer's chrome. The element still EXISTS, because `wireframes/_nav.js` builds
+   it and the grey layer shows it - one script, two layers, and the design side
+   hides what it does not use.
 
+   What went, and not one of them could draw: `background`, `color`, `font-size`,
+   `padding`, `display: flex`, `gap`, `flex-wrap` and `align-items` on `.wf-bar`;
+   `.wf-bar a`, `.wf-bar a:hover`, `.wf-bar .sepb`, `.wf-bar .cur`; and
+   `body:has(.cart-drawer) .wf-bar{ position: relative; z-index: 80 }`, which was
+   ALSO a verbatim repeat of the rule it followed.
+
+   AND ALL SIX ARE `wireframes/_wf.css:1093-1097` AND `:1612`, TOKENISED. The
+   grey layer draws its bar and needs every one of them; this file took the copy
+   across at the colour split and hid it four lines later. Nothing here is
+   missing from the prototype, which is why deleting them costs the grey layer
+   nothing - it never read this file.
+
+   AND THIS IS WHERE STEP 8.31b PUT TWO PRIVATE RULES. It lifted
+   `#wf-bar{ position: relative; z-index: 80 }` off coach-session-addclient and
+   coach-session-addempty and wrote nine lines on why the bar must stay above
+   overlay.css's scrim at 55. The reasoning is right about the grey layer and the
+   subject had been hidden ten days earlier, by this file, four lines further
+   down. A migration that verifies the DESTINATION and never asks whether the
+   subject renders moves dead code INTO the system and gives it a home.
+
+   `!important` stays. The markup writes `id="wf-bar"` next to the class, and an
+   id selector outranks a class: it is the one thing that could switch the bar
+   back on by accident. */
 .wf-bar{ display:none !important; }
 .uiv-side{
   position:fixed; top:0; left:0; bottom:0; width:216px; z-index:90;

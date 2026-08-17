@@ -98,12 +98,16 @@ now is the opposite direction: a screen wearing a scope its base does NOT wear.
 
 ## List 2 - system to product, and this is the whole of the remaining work
 
-| | |
-|---|---|
-| screens carrying a private `<style>` block | **31** |
-| private rules in total | **1 154** |
-| of them redrawing a class the system already owns | **886** |
-| of them declaring something that exists only there | **210** |
+| | at step 6 | 2026-08-17 |
+|---|---|---|
+| screens carrying a private rule | **31** | **2** |
+| private rules in total | **1 154** | **2** |
+| of them redrawing a class the system already owns | **886** | **2** |
+| of them declaring something that exists only there | **210** | **0** |
+
+The two are one deferred decision, not two jobs: `.cv-card` on `coach-verify-error` and
+`coach-verify-deadend`, held for stage 09. A third stood here until 2026-08-17 and had never drawn. The right-hand column is a re-measurement by the same instrument, not
+1 154 minus what left - see item 2 below for why that distinction was worth the wait.
 
 **«Overriding» was measured as «the system owns this class too», and on the coach state screens
 that was not the same thing** - until 2026-08-14 the system did not reach them at all, so the
@@ -290,8 +294,9 @@ property.
 
    The transform now matches `btn` as a **token** rather than as a whole attribute, and hands the
    final say to `btn-rank.mjs`: its own default is a starting rank, not the decision.
-2. **Move the 886 overriding rules into their components.** This is the step's own remaining body
-   of work and the precondition for stage 10.
+2. **Move the 886 overriding rules into their components.** This was the step's own remaining body
+   of work and the precondition for stage 10. **CLOSED 2026-08-17: 886 -> 3, and the three are the
+   same three item 3 deferred.**
 
    **The inert half is gone, 2026-08-15: 655 of 1 154 private rules removed from all 31 screens,
    and the proof says nothing moved.** `tools/tree-diff.mjs --dir` compared the computed style of
@@ -321,10 +326,72 @@ property.
    **The 499 that remain are the honest subject of this item** - what is left is either a real
    override to move into its component or one of the 210 local declarations of item 3.
 
-   **The count nobody has re-taken is 886.** It was measured as «the system owns this class too»,
-   before the scope fix made the system reach these screens at all, and 655 rules have since left
-   the corpus it was taken over. It is not restated here as a smaller number, because that number
-   would be arithmetic rather than a measurement.
+   **The count nobody had re-taken was 886**, and it was deliberately never restated as a smaller
+   number: it had been measured as «the system owns this class too», before the scope fix made the
+   system reach these screens at all, and 655 rules had left the corpus since. Subtracting would
+   have been arithmetic rather than a measurement.
+
+   **TAKEN AGAIN 2026-08-17, BY THE SAME INSTRUMENT ASKING THE SAME QUESTION: 3.** `private.mjs`
+   walks the corpus and classifies each private rule by how many homes its classes have in the
+   system. Every category is empty except one: **3 rules, one home, `coach-verify.css`** - and they
+   are the `.cv-card` set item 3 deferred to stage 09 by decision. There is nothing behind this item
+   that is not already behind that one; the two halves of list 2 converged on a single open decision.
+
+   **AND ONE OF THE THREE HAD NEVER DRAWN, WHICH THE SAME RUN FOUND: 3 -> 2.** With the subject line
+   fixed, `inert.mjs` walks 3 pages instead of 30 and finished in 42 seconds, so it was worth asking:
+   `coach-verify-loading` answered **1 of 1 removable, whole block, pixels identical**. Its rule was
+   `.cv-card{ padding: 40px 24px }` and the system writes `.coach .cv-card` - (0,2,0) against
+   (0,1,0), so the screen has been rendering `--space-32` since 8.40 took the anatomy over. The note
+   above it read «40 is a rung, so the waiting screen's padding is a choice rather than a drift, and
+   unmaking a choice is stage 09's call»; the cascade had unmade it a day earlier and nobody asked
+   the browser. Deferring that rule was deferring nothing. **This is `.qa-row` from list 2 in
+   mirror image** - there a private rule was blamed for winning when it never matched, here a
+   private rule was preserved as a decision when it was already losing. Both times the sentence was
+   plausible and the reading was not taken.
+
+   **AND ITEM 2 DID NOT CLOSE ITSELF - IT WAS CLOSED BY ITEM 3'S SWEEP, WHICH IS WHY THE NUMBER HAD
+   TO BE TAKEN RATHER THAN REASONED.** The split into «886 overriding» and «210 local» was a
+   forecast of two different jobs, and the work turned out to be one: a rule copied from a component
+   and a rule invented on the screen were answered by the same walk, screen by screen, and neither
+   pile could be finished without the other. The forecast was useful and the boundary inside it was
+   not real.
+
+   **THE ITEM ALSO PUBLISHED A NUMBER THAT HAD STOPPED BEING TRUE: «31 screens carrying a private
+   `<style>` block».** On 2026-08-17 that was still what both walks counted, and it was reading 30 -
+   with 3 rules under it. Twenty-seven of those thirty declared nothing at all: 22 carried the note
+   left where their rules had been, and **5 carried nothing but the blank lines the rules used to
+   occupy** (`cart-coach-empty`, `coach-client-empty`, `coach-session-addclient`,
+   `coach-session-addempty`, `coach-tariff-cancel`). The subject line of `private.mjs` and
+   `inert.mjs` asked «is there a `<style>` element» where the question was «is there a rule»; it is
+   one predicate in `lib.mjs` now, shared, and the report names the note-only pages and the blank
+   shells separately so neither can hide inside the other again. The five shells were given the note
+   their twenty-two siblings carry, each destination read out of the system by name.
+
+   **AND WRITING ONE OF THOSE FIVE NOTES FOUND WHERE A MIGRATION HAD MOVED DEAD CODE INTO THE
+   SYSTEM.** Step 8.31b lifted `#wf-bar{ position: relative; z-index: 80 }` off the two
+   `coach-session-add*` screens into `design/_stand.css`, with nine lines on why the stand bar must
+   stay above `overlay.css`'s scrim at 55 - «the bar that says WHICH SCREEN YOU ARE LOOKING AT
+   disappears under the dimming on exactly the screens whose subject is the modal». The reasoning is
+   correct about the grey layer. On the coloured layer the bar has been **`display: none`** since
+   2026-08-06, hidden by that same file four lines below the rule, because `.uiv-side` replaced it
+   as this layer's chrome; measured 2026-08-17, `getComputedStyle` gives `display: none` and height
+   0 on every screen tried. Five more rules were painting it, and `body:has(.cart-drawer) .wf-bar{
+   position: relative; z-index: 80 }` was in addition a **verbatim repeat** of the rule above it.
+   All six are gone; `display: none !important` stays as the file's one statement about the bar,
+   `!important` because the markup writes `id="wf-bar"` and an id outranks a class.
+
+   **A migration that verifies the DESTINATION and never asks whether the SUBJECT renders will move
+   dead code into the system and give it a home** - and every gate passes, because the rule is real,
+   the values are tokens and the component is the right one. `--text-oninverse`'s use list in
+   `tokens.css` lost `.wf-bar` along with the paint.
+
+   **`tree-diff` reported «зрушило елементів 39» on every design page for that deletion, and the
+   screen did not move by a pixel.** It reads computed style, and `querySelectorAll('*')` sees a
+   hidden element. The arithmetic closes it exactly: the bar's subtree is 13 elements on
+   `coach-home`, 12 on `index`, 11 on `coach-tariff-cancel`, times the three rows the tool reads per
+   element - 39, 36 and 33, the numbers reported, with no differing row outside that subtree. The
+   limit is written into the instrument now, because the next person to delete a rule off a hidden
+   element will read the same alarming number.
 3. **Decide the 210 local declarations**: a component each, or a deletion each. **CLOSED 2026-08-16,
    except three rules deferred to stage 09 by decision.**
    `tools/private.mjs` splits what is left by how many homes the class has in the system, and the
@@ -333,9 +400,9 @@ property.
 
    | | at the start | now |
    |---|---|---|
-   | private rules on the coloured screens | 468 | **3** |
-   | of them with exactly one home | 157 | **3** |
-   | screens still carrying rules (of 88) | 31 | **3** |
+   | private rules on the coloured screens | 468 | **2** |
+   | of them with exactly one home | 157 | **2** |
+   | screens still carrying rules (of 88) | 31 | **2** |
    | private `@media` blocks | 19 | **0** |
    | components in the system | 82 | **84** |
 
@@ -345,9 +412,11 @@ property.
    was ever a wrong measurement, and both were a wrong published number - which is exactly the class
    `tools/inventory.mjs` was built for and the class it does not yet reach.
 
-   **PILE 1 IS CLOSED.** The three that remain are `.cv-card` on the three `coach-verify` state
-   screens, deferred to stage 09 on purpose: one of its two answers has to become the panel's, and
-   that is a decision rather than a move.
+   **PILE 1 IS CLOSED.** The two that remain are `.cv-card{ max-width: 560px; margin: 0 auto }` on
+   `coach-verify-error` and `coach-verify-deadend`, deferred to stage 09 on purpose: whether 560
+   becomes the panel's width is a decision rather than a move. A third stood beside them until
+   2026-08-17, `.cv-card{ padding: 40px 24px }` on `coach-verify-loading`, and it was not a deferred
+   decision at all - it loses to `.coach .cv-card` on specificity and had never drawn. See item 2.
 
    **PILE 2, FIRST BATCH: THE SKELETON. 20 rules on 5 screens to zero, and no declaration replaced
    them.** `skeleton.css` opens with a census - the bar «written SIX times in FOUR files» - taken at
@@ -1062,6 +1131,15 @@ property.
    idle namespace is reported and does not fail. What fails is the direction nobody had been
    asking: **a screen wearing a scope its base does not wear** - a screen claiming a flow it is not
    in. Currently 0.
+
+   **AND «ONE SCREEN» IS FOUR AS OF 2026-08-17, WHICH IS THE DECISION WORKING RATHER THAN DRIFTING.**
+   `cart-coach`, `cart-coach-empty`, `coach-home-error` and `coach-home-loading` now wear `.coach`
+   and catch nothing with it. Nothing was added: the private rules that used the namespace on those
+   screens were migrated into their components by the item 3 sweep, and a rule that moves into
+   `coach-cabinet.css` no longer needs the screen to say `.coach` for it. Every screen that loses
+   its last scoped selector joins this list, so the list GROWS as the work finishes - which is why
+   it is reported and does not fail. The number is written here rather than left at «one», because
+   a published count that quietly went stale is exactly item 8.
 7. ~~**Two stale records**: `design/overview.html` says 50 coloured screens (it is 87 plus the hub)
    and the step-8.19 note says 41 grey-only screens (it is 54).~~ **Closed 2026-08-15, and the
    entry was stale about itself.** Both had already been corrected in their own files -
@@ -1112,6 +1190,88 @@ property.
    carried was a note beside a number saying «this is wrong and here is why». **And the file's own
    note about the gap had drifted too** - it said eight components were missing, the real number was
    thirteen. All of it is measured now and the run exits 0.
+
+   **SECOND SUBJECT WIRED 2026-08-17, AND IT IS THE ONE A PERSON ACTUALLY READS.** The registry is
+   one copy of «how big is this component»; the `kp-meta` strip on each `design/kit/<component>.html`
+   is a SECOND, and the second copy is the one that drifts. Question **H** in the same instrument,
+   over the 75 stand pages that name a component file:
+
+   | | tags | wrong |
+   |---|---|---|
+   | `рівень` | 75 | **0** |
+   | `N рядків` | 73 | **53** |
+   | `N селекторів` | 51 | **40** |
+   | `N оголошень` | 46 | **19** |
+   | `N екранів` | 56 | **37** |
+   | **total numeric tags** | **270** | **143** |
+
+   **Level at zero is what makes the other four readable.** A check that finds everything wrong is
+   as suspect as one that finds nothing; one family coming back entirely clean says the parser and
+   the corpus agree, and the drift is real.
+
+   **The vocabulary was read off the pages rather than chosen.** `loyalty-rung.html` publishes «49
+   селекторів · 61 правило», and its file measures 67 selectors and exactly **61** rules - so the
+   stand already distinguishes the two words, and the check keeps the distinction: a selector is one
+   comma-separated member of a rule head at any depth, a rule is one block. `pdp-tabs.html` pinned
+   the other two, shipping 85 lines and 102 declarations both exact against a stale selector count.
+   Twenty pages had a correct line count and twenty-seven a correct declaration count, which is how
+   the conventions were confirmed instead of invented.
+
+   **Agreement travels with the number, because these tags are render text.** `button.html` shipped
+   «461 рядків» where 561 wants «рядок»; `breadcrumb.html` «22 екранів» where the count wants
+   «екрани». `--apply` writes the ending the new number takes: 1 -> рядок, 2-4 -> рядки, 5+ ->
+   рядків, and 11-14 take the last form against their last digit.
+
+   **AND THE FIRST `--apply` DAMAGED THIRTEEN TAGS BEFORE ANYTHING WAS COMMITTED.** The tag matcher
+   anchored at the start of the string, so it read the head of a COMPOSITE claim - «3 екрани +
+   значок на 14», «14 екранів, діалог на 5», «291 оголошення без елемента» - as the count it
+   recognises, and the rewrite replaced the whole tag with two words. Two of the three were not even
+   the same quantity: cookie-banner's 291 is declarations that match no element. Reverted, and the
+   matcher now requires the tag to be EXACTLY number + noun; anything longer is a claim of its own
+   and goes to «not reached». Same family as `btn-rank.mjs`'s string replace at 8.31, caught the
+   same way - by looking at what the tool wrote.
+
+   **44 numeric tags are named as out of reach rather than passed over**: 13 composite claims, and
+   31 corpus counts that need a browser and a different question («106 екземплярів», «470
+   лічильників», «5 291 входження»). The composite thirteen still carry whatever they carried; they
+   need a person who knows what each sentence means, not a regex.
+
+   **AND A DASH READ AS ZERO HAD ALREADY DESTROYED TWO PUBLISHED NUMBERS, 2026-08-17.** The check
+   failed `product-thumb.html` within a minute of its being written: «1 екран» against a registry
+   cell that reads «–». The registry was right. `inventory.mjs` parsed that cell as
+   `sc ? Number(sc[0]) : 0`, deliberately - the comment beside it said «a missing one reads as 0
+   rather than as unknown», which was true while every row carried a number. `product-thumb.css` is
+   the row that broke it, because it declares no class of its own and the anchor walk cannot count
+   its screens at all. **A limit of the instrument had been flattened into a fact about the
+   product** - and `--apply` had already used that zero: `counter.html` went from «19 екранів» to
+   «0», `icon.html` from «39» to «0». Both restored, both now reported as **not reached**, which is
+   the honest state: nothing in this repository can confirm 19 or 39 today. An instrument that
+   cannot say «I do not know» says a number instead.
+
+   **QUESTION I, 2026-08-17: the level is written in FOUR places and only two were being checked.**
+   The file declares `(level N)`; `inventory.md` puts its row in one of three tables; `index.css`
+   imports it into one of three groups; `design/kit/_nav.js` files its page under one of three
+   headings. C and D compared the first two. The ladder is the whole architecture of this stage - an
+   atom imported after the molecules can be overridden by them, the exact inversion the order exists
+   to prevent - and the last two had never been looked at.
+
+   | file | file says | `index.css` | stand registry |
+   |---|---|---|---|
+   | `product-thumb.css` | 1 | **2** | 1 |
+   | `menu.css` | 2 | **3** | **1** |
+   | `upsell.css` | 2 | **3** | **3** |
+
+   A mismatch with a reason written above it is not a defect: `upsell.css` carries four lines saying
+   why it imports where it does, `product-thumb.css` carried nothing, so the check asks for the
+   comment and reports the two kinds apart. `product-thumb.css` moved into the atom group and
+   `tree-diff` over five screens at both widths found every differing row inside the hidden
+   `.wf-bar` subtree and none outside it.
+
+   **The other two are the owner's, and they are two different questions.** `menu.css` has three
+   placements and three answers - file molecule, import organism, registry atom - and nothing in the
+   source says which is right. `upsell.css` has two INDEPENDENT placements agreeing against the
+   file: both the import and the registry call the Pro panel an organism, and only its own opening
+   comment says molecule.
 
    Still open under this item: every other published count on the stand - the per-page «N власних
    класів», the census tables, the numbers in `architecture.html`. The shape is proven; the subjects

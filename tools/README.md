@@ -334,6 +334,15 @@ declared elsewhere, so their cell reads `–`. That does not fail the run; what
 fails is the pair going out of step, in either direction. Without the second half
 the dash would be a place to hide a number nobody wants to take.
 
+**`--measure <component>` turns the check around.** It prints the meta strip one
+stand page should carry - level, path, lines, selectors, rules, declarations,
+screens - with the Ukrainian endings the numbers take, from the same `measure()`
+the check runs. Added at 8.45, writing the first of the eight coach organism
+pages: until then a strip was typed by hand and caught by question H afterwards,
+which is the expensive half, because by then the page is written and read. Screens
+keeps its `–` here too - a component with no anchor cannot be counted from either
+direction.
+
 ## `grey-vars.mjs` - the transform `vars.mjs` asks for
 
 Kept because **Крок 6 will need it again**: 54 grey screens are still to be
@@ -384,6 +393,40 @@ because the failure mode is silent and the next cause will look the same:
    fix - "a name with a slash is a path from the root" - then broke
    `kit/pagination`, which had worked all session because it *is* under design/.
    It asks the filesystem now. *Two guesses about where a file lives, two wrong.*
+
+## `demo.mjs` - a stand frame, taken off the coloured screen
+
+    node tools/demo.mjs <screen> <name> --sel '<css>' [--strip '<css>'] [--state "js"] [--max N] [--pad N]
+    node tools/demo.mjs coach-landing coach-landing --sel '.clh' --sel '.clv' --max 1200 --pad 16
+
+Writes `design/kit/demo/<name>.html`. **53 of these frames were built one at a
+time between 7.87 and 8.34b**, each by reading markup off a screen and pasting it,
+which is the hand fix `CLAUDE.md` bans applied to the showcase: the paste drifts
+the moment the screen changes. This reads the page in a browser at build time.
+
+Three things it does that a paste does not:
+
+1. **The markup comes from the LIVE page**, after the builders have run. Parts of
+   several screens exist in no file at all - `wfAccountNav()` writes the rail's
+   head, `wfHeader()` writes the header - so a file-level extractor would ship a
+   frame missing exactly what the stand is trying to show.
+2. **The body class travels with the markup.** This is the whole reason the tool
+   exists for the eight coach organisms: every selector in all eight files is
+   scoped to `.coach`, so a frame that drops the class renders a blank page and
+   looks like a broken component rather than a broken frame.
+3. **Document-relative `href` and `src` are lifted two levels**, because a frame
+   sits at `design/kit/demo/` and its screen sits at `design/`. `uivFixLinks`
+   does links at runtime; doing both in the file means the frame is correct
+   before a script runs.
+
+`--pad` exists for one reason worth writing down: the screen's own gutter lives in
+`.wf-page`, which is **stand chrome** (`design/_stand.css`) and must not be loaded
+into a frame. Without it a block that stops 16px from the page edge in the product
+runs to the frame edge in the stand, and reads as a bleed the product does not have.
+
+**What it deliberately does not do is choose the fragment.** Which part of a screen
+is the component is a reading, not a measurement, and the wrong guess is a frame
+that looks right.
 
 ## `cdp.mjs` - the driver, and `lib.mjs` - the plumbing
 

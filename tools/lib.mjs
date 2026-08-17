@@ -347,6 +347,25 @@ export function braceAfterNotes(text) {
   return -1;
 }
 
+/* IS THERE PRIVATE CSS ON THIS PAGE - WHICH IS NOT THE QUESTION «IS THERE A
+   <style> ELEMENT», and step 8.42 is where the difference started costing.
+   Both walks over the private blocks picked their subject by the presence of the
+   element, so `private.mjs` printed «30 сторінок · 3 правил»: twenty-seven of
+   those thirty declare NOTHING. Twenty-two carry the note left where their rules
+   used to be, which is the record this repository wants kept, and five carried
+   nothing but the blank lines the rules had occupied. A subject line that counts
+   a note as debt reports the remaining work as ten times its size, in the one
+   number `backlog.md` publishes.
+   `topRules` skips a comment as a unit, so a non-empty list from it IS «has a
+   rule», and the blank shell and the note answer alike. One predicate for both
+   walks, for the same reason `topRules` itself lives here: two parsers over one
+   corpus disagree silently. */
+export function privateBlock(html) {
+  const m = html.match(/<style>([\s\S]*?)<\/style>/);
+  if (!m) return null;
+  return { css: m[1], rules: topRules(m[1]).length, note: /\/\*[\s\S]*?\*\//.test(m[1]) };
+}
+
 /* THE NOTE BELONGS TO THE RULE. A span is grown backwards over any comment
    blocks that sit between it and the rule before it, separated by whitespace
    only - which is how every note in this repository is written. A comment that

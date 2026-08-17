@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Лендинг тренера | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Лендинг тренера</h1>
+<p class="kp-lead">Публічні вхідні двері первинної бізнес-моделі: вузол 5.0 «Для тренерів». Єдина сторінка продукту, яку індексує пошук і яка продає, а не обслуговує. Чотири блоки, яких немає більше ніде, - шапка, стрічка переваг, пояснення в чотири кроки і таблиця Free / Pro.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-landing.css</span><span class="kp-tag">527 рядків</span><span class="kp-tag">38 селекторів</span><span class="kp-tag">136 оголошень</span><span class="kp-tag">1 екран</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка тут <b>не переписана від руки</b>. Її знято з <code>design/coach-landing.html</code> у цій же сесії інструментом <code>tools/demo.mjs</code>: обробники зняті, посилання підняті на два рівні, <b>клас <code>coach</code> на <code>&lt;body&gt;</code> перенесено разом із розміткою</b>. Останнє тут не дрібниця - усі 38 селекторів файлу починаються з <code>.coach</code>, тож у рамці без цього класу не намалювалося б нічого.</p>
+<p class="kp-p">Рамки шириною <b>1180</b>, бо медіа-умова читає в'юпорт, а не контейнер: розкладку від 860 і чотири колонки від 980 видно тільки в справжньому в'юпорті, а він є лише в рамки.</p>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-landing.html" style="width:1180px" data-w="1180" title="Лендинг тренера - шапка"></iframe></div>
+<div class="kp-cap"><code>.clh</code> - єдиний блок сторінки з ґрунтом, і саме тому читається як заява, а не як картка</div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Надзаголовок</b> <code>.kicker</code> - <b>п'ятнадцятий eyebrow системи і єдиний, що обводить себе рамкою</b>. Решта чотирнадцять - це 12px <code>--fw-black</code> з <code>--ls-caps</code>, підпис НАД блоком; цей має пігулку з <code>--line-inverse</code>, тож він мітка на сторінці, а не підпис</span></div>
+<div class="a"><i>2</i><span><b>Заголовок</b> <code>.clh h1</code> - <code>--font-display</code> / <code>--fw-semibold</code> / <code>--ls-lead</code>, 26px, від 860 <code>--fs-34</code></span></div>
+<div class="a"><i>3</i><span><b>Дії</b> <code>.clh-cta</code> - тільки ряд і проміжок. Розмір кнопок належить <code>button.css</code>: локальні <code>padding: 13px 24px</code> видалено, вони будували руками контрол 46px, а драбина кнопки це 40 / 52 / 64</span></div>
+<div class="a"><i>4</i><span><b>Слот під ілюстрацію</b> <code>.clh-art</code> - штрихування 45°, 10px / 10px, період 20. Це <b>домашня редакція</b>, узята байт у байт із <code>auth-dialog.css</code> і <code>coach-verify.css</code>, три проти одного</span></div>
+<div class="a"><i>5</i><span><b>Стрічка переваг</b> <code>.clv</code> - <b>тільки ряд</b>. Саму пігулку малює <code>chip.css</code>; цей файл тримає контейнер, як той файл і вимагає</span></div></div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-landing-steps.html" style="width:1180px" data-w="1180" title="Лендинг тренера - чотири кроки"></iframe></div>
+<div class="kp-cap"><code>.steps</code> - 1 колонка · від 620 дві · від 980 чотири. Цифра <code>.step .n</code> - диск <code>--bg-inverse</code>, чорнило <code>--text-oninverse</code>, 17.0:1</div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-landing-cmp.html" style="width:1180px" data-w="1180" title="Лендинг тренера - Free / Pro, широка розкладка"></iframe></div>
+<div class="kp-cap">Таблиця, намальована сіткою: кожен рядок оголошує свої колонки, а <code>overflow: hidden</code> - те, що зрізає перший і останній рядок по зовнішньому радіусу</div>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-landing-cmp.html" style="width:390px" data-w="390" title="Лендинг тренера - Free / Pro, вузька розкладка"></iframe></div>
+<div class="kp-cap">Той самий файл на 390. Різниця названа нижче і вона одна: підпис рядка стає смугою на всю ширину, а порожня клітинка підвалу ховається</div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-landing-cta.html" style="width:1180px" data-w="1180" title="Лендинг тренера - закриття"></iframe></div>
+<div class="kp-cap"><code>.finalcta</code> - єдина коробка сторінки в чорнильній рамці й без ґрунту. Вага йде з краю, і на це не витрачено жодного кольору</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Чому це організм, а не молекула</div>
+<p class="kp-p">Питання чесне: сторінка з шапкою, стрічкою, картками і таблицею схожа на набір молекул. Відповідь - замір, а не смак. Чотири родини класів цього файлу - <code>clh</code>, <code>clv</code>, <code>cmp-</code> і <code>finalcta</code> - зустрічаються рівно в <b>одному</b> файлі на весь <code>wireframes/</code> і весь <code>design/</code>, і це та сама сторінка. Компонент, який ніде не повторюється, не молекула: він оболонка одного екрана, а це стеля драбини.</p>
+<p class="kp-p"><b>38 селекторів і 38 правил</b> - тобто в цьому файлі немає жодного правила, яке зібрало б кілька селекторів під одні оголошення. Для порівняння: <code>chip.css</code> тримає десять імен в одному правилі саме тому, що збирає форму, яку носять десятеро.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Що цей файл віддав атомам</div>
+<p class="kp-p">Організм тим і вимірюється, чого він <b>не</b> малює. Тут це видно точно, бо блок прийшов зі сторінки етапу 04 і ніколи не проходив через <code>kit.css</code>: усе, що нижче, було локальним правилом і пішло до власника.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що було локальним</th><th>Кому віддано</th><th>Що з цього вийшло</th></tr></thead><tbody>
+<tr><td><code>.clv span</code> - пігулка переваги</td><td><code>chip.css</code></td><td>Друга редакція атома під приватним іменем: та сама рамка, той самий радіус, той самий ґрунт - і 38.4 проти 40.4 у висоту та 700 проти 600 у вазі. Тепер це <b>десяте ім'я</b> у списку форми <code>chip.css</code></td></tr>
+<tr><td><code>.badge</code> - пігулка біля назви тарифу</td><td><code>badge.css</code></td><td>Перепис 8.10 знайшов <b>чотири</b> редакції цієї пігулки в чотирьох файлах, і ця не була найстаршою. Тут лишилось те, що справді про це місце: колір рамки й лівий відступ</td></tr>
+<tr><td><code>.clh-cta .btn</code> і <code>.finalcta .btn</code></td><td><code>button.css</code></td><td>Двічі надрукований намір, що дав <b>дві різні коробки</b>: 13px 24px і 13px 26px. Обидві будували контрол 46px, якого немає на драбині 40 / 52 / 64</td></tr>
+<tr><td><code>.cmp-head .price b</code> - число ціни</td><td><code>price.css</code></td><td>Ціна рендерилась Inter 16/700, без <code>tabular-nums</code> і без кернінгу ₴, тоді як <code>price.css</code> тримає 21 ім'я, що слухається моно. Закрито двома половинами, друга - рішення власника</td></tr>
+<tr><td>вся сім'я <code>.acard</code> (у сусіда по кроку)</td><td><code>account-shell.css</code></td><td>Названо тут як міра: приватні блоки цього кроку переписували чужі правила байт у байт заради одного пікселя</td></tr>
+</tbody></table></div>
+<p class="kp-p">Те, що лишилось після цього, - <b>розкладка і ґрунт</b>: де стоїть ряд, скільки в ньому колонок на якій ширині, який блок має поверхню, а який лише край. Це і є визначення організму в цій системі.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Типографіка: одинадцять розмірів, знятих чужим рішенням</div>
+<p class="kp-p">Блок намальовано на етапі 04, <b>до того як з'явилась шкала</b>, тож він приїхав з вісьмома розмірами поза драбиною, двома з них у півпікселя. Жодне число тут не вигадано: обидва ходи належать власникові й були взяті на всьому продукті за два етапи до того, як цей екран узагалі торкнулись.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Сірий</th><th>Стало</th><th>Яке правило</th></tr></thead><tbody>
+<tr><td><code>.clh .kicker</code></td><td>11</td><td><code>--fs-12</code></td><td>крок 5.6, нічия вгору</td></tr>
+<tr><td><code>.clh .sub</code></td><td>15</td><td><code>--fs-16</code></td><td>крок 5.6, нічия вгору</td></tr>
+<tr><td><code>.clv span</code></td><td>12.5</td><td><code>--fs-14</code></td><td>5.5 → 13, далі 5.6 вгору <i>(тепер це <code>chip.css</code>)</i></td></tr>
+<tr><td><code>.step h3</code></td><td>15</td><td><code>--fs-16</code></td><td>крок 5.6</td></tr>
+<tr><td><code>.step p</code></td><td>13</td><td><code>--fs-14</code></td><td>крок 5.6</td></tr>
+<tr><td><code>.cmp-cell</code></td><td>13</td><td><code>--fs-14</code></td><td>крок 5.6</td></tr>
+<tr><td><code>.cmp-head .plan</code></td><td>17</td><td><code>--fs-18</code></td><td>крок 5.6</td></tr>
+<tr><td><code>.cmp-head .price</code></td><td>13</td><td><code>--fs-14</code></td><td>крок 5.6</td></tr>
+<tr><td><code>.cmp-head .price b</code></td><td>15</td><td><code>--fs-16</code></td><td>крок 5.6</td></tr>
+<tr><td><code>.cmp-cell.feat</code> @559</td><td>13.5</td><td><code>--fs-14</code></td><td>5.5 → 13, далі 5.6 вгору</td></tr>
+<tr><td><code>.finalcta h2</code></td><td>22</td><td><code>--fs-24</code></td><td>крок 5.6</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Півпіксель знімається таблицею, а не арифметикою.</b> Крок 5.5 сказав це вголос: половина - це завжди нічия, а нічию бере <b>більш читаний сусід</b>, тож 13.5 іде вниз до 13, а 12.5 - до 13, і лише потім 5.6 підіймає обидва до 14. Одноходове читання «до найближчого щабля» дало б тут двадцять помилок на всю п'ятірку файлів кроку 7.95.</p>
+<div class="kp-pair"><div class="kp-do"><h4>Один розмір лишився літералом навмисно</h4><code>.clh h1</code> - <b>26px</b>. Драбина не має інструкції для цілого числа, якого немає в її власному списку: 24 і 30 - сусіди, а 5.6 називає тільки нічиї. Перенести 26 на <code>--fs-30</code> - це рішення про <b>значення</b>, і воно за власником.</div>
+<div class="kp-dont"><h4>А ось геометрія лишилась уся, і це правильна асиметрія</h4>У файлі <b>28</b> позначок <code>[?]</code>: 5, 6, 9, 10, 11, 14, 15, 18, 20, 22, 26, 30, 34. Типографіка - єдина з трьох драбин, чия відповідь записана однозначно. Відступи мають <b>два правила, що суперечать</b> одне одному на тих самих числах (5.5 «нічия вгору», 7.67 «округляй униз»), а радіус бере нічию вниз - тому 14 на <code>.cmp</code> лишається 14.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Заголовок сторінки в шрифті інтерфейсу</div>
+<p class="kp-p">Це був <b>єдиний заголовок сторінки в усьому кольоровому продукті</b>, лишений у тілесному шрифті - і це перший рядок публічних вхідних дверей первинної бізнес-моделі. Заміряно на 390: Inter 26 / 700, коробка 312 x 59.8. При цьому наступний заголовок нижче на цій же сторінці, <code>.sech h2</code> «Як це працює», рендерився Oswald 24 / 600.</p>
+<p class="kp-p"><b>Тобто заголовок другого рівня був брендованіший за перший</b>, на кожній ширині: 766px між ними на 390, 422 на 860 і 346 на 1280. Виправлено сім'ю і вагу, <b>не розмір</b>: відсутній <code>font-family</code> - це недогляд, ніхто ніколи не вирішував ставити H1 в Inter, він просто не сказав, який шрифт. Розмір - це значення.</p>
+<div class="kp-cap">Одне рішення на шість рядків: те саме сталося в <code>coach-verify</code>, <code>coach-clients</code> (двічі), <code>coach-cabinet</code> і <code>coach-session</code></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Таблиця, з якої прибрали жирний</div>
+<p class="kp-p">До кроку 7.96 таблиця Free / Pro носила карту акцентів. Заміряно на 390:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Скільки клітинок</th><th>Як малювався</th></tr></thead><tbody>
+<tr><td><code>.yes</code></td><td>3 з 5 клітинок Pro</td><td><code>--fw-black</code> + <code>--text-primary</code></td></tr>
+<tr><td>без класу</td><td>інші 2 клітинки Pro</td><td>успадкований, 400</td></tr>
+<tr><td>без класу</td><td>4 з 5 клітинок Free</td><td>успадкований, 400</td></tr>
+<tr><td><code>.lim</code></td><td>1 клітинка Free</td><td><code>--text-secondary</code>, 400</td></tr>
+</tbody></table></div>
+<p class="kp-p">Тобто <b>єдина клітинка, яка називає справжню межу Free</b> - «до 3 клієнтів у сесії» - була найсвітлішим текстом у таблиці, а три її сусіди по тій самій колонці стояли на цілу роль темніше. Межа, намальована пригніченим чорнилом, читається як закреслена спроможність, а не як факт. Водночас два рядки, де тарифи <b>рівні</b> («Так» / «Так»), не мали позначки взагалі - отже жирний не означав і «це краща відповідь».</p>
+<div class="kp-pair"><div class="kp-do"><h4>Рішення сказано вголос: <code>.yes</code> іде, а не росте до п'яти</h4>Колонка Pro уже несе весь візуальний аргумент таблиці <b>ґрунтом</b>. Жирний поверх ґрунту - це той самий аргумент, сказаний двічі, тепер ще й словами. Розширити його до п'яти означало б зробити колонку рівномірно гучнішою за Free, тобто ту саму переконливість, тільки прибрану.</div>
+<div class="kp-dont"><h4>Принцип 4, і він тут коштує грошей</h4>«Спокійно і впевнено: жодних таймерів, жодного святкування». Таблицю читає тренер, який <b>приймає рішення</b>, і палець на терезах коштує рівно тієї довіри, заради якої вся сторінка написана. Після правки кожне значення в таблиці - <code>--text-body</code> 400, а єдина вага, що лишилась, - це підпис рядка, тобто структура.</div></div>
+<div class="kp-cap"><code>.yes</code> лишився в замороженій розмітці як ненамальований гачок: Крок 6 або зніме клас, або дасть йому роботу</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Знайдено на цій сторінці: бежева літера Г на 390</div>
+<p class="kp-p">Заміряно обчисленим стилем на обох ширинах, по всіх семи рядках таблиці. Клітинка Free - <code>rgba(0,0,0,0)</code>, тобто просто сторінка; підпис рядка і клітинка Pro - <code>rgb(250,249,247)</code>, тобто <code>--bg-surface</code>. Виняток один: підпис підвалу, який навмисно падає назад на <code>--bg-page</code>.</p>
+<p class="kp-p">На <b>1180</b> це три вертикальні смуги, і аргумент читається так, як його описано: дві колонки підняті над сторінкою, одна ні. На <b>390</b> підпис розтягується на всю ширину <b>всередині того самого рядка</b>, без лінії під собою, - тож його бежевий <b>стикається</b> з бежевим Pro під ним. Разом вони дають суцільну літеру Г, а клітинка Free стає білим прорізом у ній.</p>
+<div class="kp-cap">Це той самий аргумент, що й видалений <code>.yes</code>, тільки зроблений ґрунтом, і на телефоні він сильніший, ніж на десктопі. Не правлено тут: ґрунт таблиці - рішення власника, і воно вже стоїть відкритим у <code>coach-landing.css</code></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">У файлі <b>чотири</b> межі, і жодну з них не видно зсередини стандартних ширин перепису.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Умова</th><th>Що змінює</th><th>Стан</th></tr></thead><tbody>
+<tr><td><code>(max-width: 559px)</code></td><td>таблиця стає двоколонковою, підпис на всю ширину, порожня клітинка підвалу ховається</td><td><b>559, а не 560</b> - цей блок був п'ятим і єдиним, що перекривався. На рівно 560 сторінка раніше вмикала телефонну й широку розкладку одночасно</td></tr>
+<tr><td><code>(min-width: 620px)</code></td><td>кроки в дві колонки</td><td>справжня межа, на неї спирається 9 файлів</td></tr>
+<tr><td><code>(min-width: 860px)</code></td><td>шапка в дві колонки, H1 на <code>--fs-34</code></td><td>у наборі є</td></tr>
+<tr><td><code>(min-width: 980px)</code></td><td>кроки в чотири колонки</td><td><b>одинак</b>, стоїть за 20px від 960, яку вже вживають два файли. Не згорнуто: згортання межі - це замір, і його названо, а не зроблено мовчки</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Порожня смуга, якої не бачив жоден замір чисел</h4>Підвал таблиці має порожній підпис - <code>&lt;div class="cmp-cell feat"&gt;&lt;/div&gt;</code>. У широкій розкладці це справжня колонка сітки; у вузькій те саме правило дає йому <code>grid-column: 1 / -1</code>, і на 390 він ставав смугою <b>358 x 22</b> кольору сторінки з волосяною лінією над нею - рівно там, де мав би стояти шостий рядок переваги. <code>.cmp-foot</code> був 95 у висоту: 22 порожнього поля плюс 72 пари клітинок. Заховано <b>тільки у вузькій умові</b>: вище 560 це справжня колонка, і двом діям потрібно, щоб вона тримала їх під своїми тарифами. Стало 72, бежевий Pro сходиться з лінією.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Ніколи вдруге. Це оболонка одного вузла - 5.0 «Для тренерів», єдиної <b>публічної та індексованої</b> сторінки тренерського потоку. Усе інше в потоці стоїть за входом.</p>
+<p class="kp-p">Практичне питання, на яке ця сторінка відповідає замість себе: <b>де взяти шматок цієї сторінки для іншого екрана</b>. Стрічку переваг дає <code>chip.css</code>, пігулку тарифу - <code>badge.css</code>, кнопки - <code>button.css</code>, ціну - <code>price.css</code>. Із власного тут немає нічого, що варто позичити: чотири блоки, які ніде не повторюються.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Організм тримає розкладку і ґрунт, атом тримає форму.</b> Ряд, колонки, межі й поверхні - тут. Пігулка, кнопка, бейдж і ціна - у своїх файлах, навіть коли цей екран був єдиним, хто їх носить. <code>chip.css</code> формулює це з іншого боку: контейнер належить тому, хто ставить ряд.</div>
+<div class="kp-dont"><h4>Антиправило</h4><b>Не малюй тут вагу заради переконливості.</b> Ґрунт колонки Pro - це вже весь аргумент таблиці. Другий шар - жирний, третій - колір - не додають інформації, вони додають тиску, а тиск на сторінці, яка просить довіри, коштує саме довіри. Те саме про рамку: <code>.finalcta</code> гучний <b>без жодного кольору</b>.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
+<p class="kp-p"><b>Станів немає жодного, і це записано як рішення, а не як пропуск.</b> У файлі нуль <code>:hover</code>, нуль <code>:active</code> і нуль <code>:focus-visible</code>. Усе інтерактивне на цій сторінці - це <code>.btn</code> або посилання, і за них уже відповідають <code>button.css</code> і <code>base.css</code>.</p>
+<p class="kp-p">Таблиця порівняння <b>не інтерактивна взагалі</b>: її рядки не відповідають на палець. Для таблиці, яку читають, а не якою керують, це правильно - і сказано вголос, щоб відсутність була рішенням.</p>
+<div class="kp-cap">Одне невирішене поруч: п'ять пігулок <code>.clv span</code> дістали від атома <code>cursor: pointer</code> і на десктопі обіцяють натиск, якого немає. Розмітка заморожена, тож обидві чесні відповіді - Крок 6</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>21</b> клас і <b>0</b> станів оголошено в <code>coach-landing.css</code>. Нижче - ті, яких на цій сторінці немає ні в рамці, ні в розмітці. <code>.coach</code> не рахується: це скоуп, а не частина компонента, і його носять ще сім файлів.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["clh", "clh-art", "clh-cta", "clh-note", "clv", "cmp", "cmp-cell", "cmp-foot", "cmp-head", "cmp-row", "feat", "finalcta", "kicker", "lim", "n", "plan", "price", "pro", "step", "steps", "sub"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>coach-landing.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива. <b>Жодного сирого кольору у файлі немає</b>, хоча блок ніколи не проходив через <code>kit.css</code>: він приїхав просто зі сторінки етапу 04, і переклад сірих імен у ролі - це і є вся колірна робота кроку.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (12)</th><th>Примітиви (25)</th></tr></thead><tbody>
+<tr><td><code>--bg-hatch</code></td><td><code>--font-display</code></td></tr>
+<tr><td><code>--bg-inverse</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code></td></tr>
+<tr><td><code>--bg-page</code></td><td><code>--fs-18</code> <code>--fs-24</code> <code>--fs-34</code></td></tr>
+<tr><td><code>--bg-surface</code></td><td><code>--fw-semibold</code> <code>--fw-bold</code> <code>--fw-black</code></td></tr>
+<tr><td><code>--line-hair</code></td><td><code>--lh-snug</code> <code>--lh-airy</code></td></tr>
+<tr><td><code>--line-inverse</code></td><td><code>--ls-caps</code> <code>--ls-lead</code></td></tr>
+<tr><td><code>--mark-faint</code></td><td><code>--radius-12</code> <code>--radius-16</code></td></tr>
+<tr><td><code>--text-body</code></td><td><code>--radius-circle</code> <code>--radius-pill</code></td></tr>
+<tr><td><code>--text-muted</code></td><td><code>--size-30</code></td></tr>
+<tr><td><code>--text-oninverse</code></td><td><code>--space-4</code> <code>--space-8</code> <code>--space-12</code></td></tr>
+<tr><td><code>--text-primary</code></td><td><code>--space-16</code> <code>--space-32</code> <code>--space-40</code></td></tr>
+<tr><td><code>--text-secondary</code></td><td>–</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Одна роль на два ґрунти, і це навмисно.</b> <code>--bg-surface</code> несе шапку І дві підняті колонки таблиці. У сірому обидва були <code>--fill2</code> і не знали одне про одного; у кольорі це одна й та сама заява - «це зона, а не картка», - тож вони лишаються однією роллю і розійдуться лише тоді, коли таблиці знадобиться власна плита.</p>
+<div class="kp-cap">Одна роль узята за <b>роботою</b>, а не за значенням: <code>--mark-faint</code> на підписі всередині штрихування. За значенням це <code>--text-muted</code>, але напис усередині заповнювача в усьому продукті бере <code>--mark-faint</code>, і елемент <code>aria-hidden</code>, тож це мітка, а не інформація</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;section class="clh"&gt;
+  &lt;div&gt;
+    &lt;span class="kicker"&gt;Тренерам · залам · командам&lt;/span&gt;
+    &lt;h1&gt;…&lt;/h1&gt;
+    &lt;p class="sub"&gt;… &lt;b&gt;…&lt;/b&gt; …&lt;/p&gt;
+    &lt;div class="clh-cta"&gt;&lt;a class="btn--accent btn--l btn"&gt;…&lt;/a&gt;…&lt;/div&gt;
+    &lt;div class="clh-note"&gt;…&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="clh-art" aria-hidden="true"&gt;…&lt;/div&gt;
+&lt;/section&gt;
+
+&lt;div class="clv" aria-label="Чому Stack для тренерів"&gt;&lt;span&gt;…&lt;/span&gt;…&lt;/div&gt;
+
+&lt;div class="steps"&gt;&lt;article class="step"&gt;&lt;div class="n"&gt;1&lt;/div&gt;&lt;h3&gt;…&lt;/h3&gt;&lt;p&gt;…&lt;/p&gt;&lt;/article&gt;…&lt;/div&gt;
+
+&lt;div class="cmp"&gt;
+  &lt;div class="cmp-row cmp-head"&gt;
+    &lt;div class="cmp-cell feat"&gt;Тариф&lt;/div&gt;
+    &lt;div class="cmp-cell"&gt;&lt;span class="plan"&gt;Free&lt;span class="badge"&gt;миттєво&lt;/span&gt;&lt;/span&gt;
+      &lt;div class="price"&gt;Активація одразу · &lt;b&gt;0 ₴&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="cmp-cell pro"&gt;…&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="cmp-row"&gt;…&lt;span class="lim"&gt;…&lt;/span&gt;…&lt;/div&gt;
+  &lt;div class="cmp-row cmp-foot"&gt;&lt;div class="cmp-cell feat"&gt;&lt;/div&gt;…&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;section class="finalcta"&gt;&lt;h2&gt;…&lt;/h2&gt;&lt;p&gt;…&lt;/p&gt;&lt;a class="btn--accent btn--l btn"&gt;…&lt;/a&gt;&lt;/section&gt;</div>
+<p class="kp-p"><code>Free&lt;span class="badge"&gt;</code> написано <b>без пробілу</b>, і саме тому пігулка тут несе <code>margin-left</code>, а її двійник на екрані тарифу - ні: там у розмітці пробіл є. Відступ - це те, де річ стоїть, а де річ стоїть, завжди належало файлу екрана; атом його ніколи не мав видавати.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.clh</code> <code>.clv</code> <code>.cmp</code> <code>.finalcta</code></p>
+<p class="kp-p"><b>1 кольоровий екран</b>: <code>design/coach-landing.html</code>. У <code>wireframes/</code> - той самий <code>coach-landing.html</code>. Це найменше число серед восьми тренерських організмів і найбільша сторінка з них за вагою рішення: за нею стоїть увесь потік.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>26px на H1</b> - розмір, якого драбина не називає. 24 і 30 - сусіди, інструкції для цілого числа поза списком немає. Рішення про значення</li>
+<li><b>Ґрунт таблиці на 390</b> - бежева літера Г вище. Або підпис рядка втрачає поверхню у вузькій розкладці, або Pro її втрачає, або так і лишається. Це рішення про візуальний аргумент, тож власникове</li>
+<li><b>980 - межа-одинак</b> за 20px від 960. Згорнути можна, але згортання межі - замір, і його треба зробити на всьому наборі, а не на одному файлі</li>
+<li><b>П'ятнадцятий eyebrow</b> - єдиний на 11px і єдиний з рамкою. Один піксель - це не рішення, це дрейф з часів до шкали; рамка ж може виявитись потрібною саме тут</li>
+<li><b>Штрихування header.css</b> - 8/8 з періодом 16 проти домашніх 10/10. Одне число, один файл, і згортання його - етапу 09</li>
+<li><b>Пігулки без натиску</b> - <code>.clv span</code> носить <code>cursor: pointer</code> від атома. Крок 6</li>
+<li><b>Ненамальований <code>.yes</code></b> у замороженій розмітці. Крок 6 знімає клас або дає йому роботу</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script src="_idle.js"></script>
+<script src="_frame.js"></script>
+</main>
+<script src="_nav.js"></script>
+</body>
+</html>

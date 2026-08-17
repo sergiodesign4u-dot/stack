@@ -18,9 +18,20 @@
    section 1b there - `.lead` was `.cv-lead` with one word missing, a bare
    `.btn{ display: block }` turned the main action's `btn--full` back into a
    block, and the lead had no measure on any of them.
-   40 is a rung, so the waiting screen's padding is a choice rather than a drift,
-   and unmaking a choice is stage 09's call. */
-.cv-card { padding: 40px 24px; }
+   THE LAST RULE WENT AT 8.42, AND IT HAD NEVER DRAWN. This block ended
+   yesterday with `.cv-card{ padding: 40px 24px }` and the sentence «40 is a rung,
+   so the waiting screen's padding is a choice rather than a drift, and unmaking
+   a choice is stage 09's call». The choice had already been unmade by the
+   cascade: the system writes `.coach .cv-card` at (0,2,0) and this copy is
+   `.cv-card` at (0,1,0), so the system outranks it and the screen has been
+   rendering `--space-32` - 32px, not 40 - since the file took the anatomy over
+   at 8.40. `inert.mjs` said so from a load: 1 of 1 removable, whole block, pixels
+   identical.
+   Deferring it to stage 09 was deferring nothing. If 40 is wanted on the waiting
+   screen it is still stage 09's to decide, and it now gets decided knowing the
+   product ships 32. Same family as the `.qa-row` finding in backlog.md: a
+   private rule believed to be winning, losing on specificity, with the belief
+   written down where the browser was never asked. */
 </style>
 </head>
 <body class="coach">

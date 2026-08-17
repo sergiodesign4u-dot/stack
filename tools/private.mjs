@@ -34,7 +34,7 @@
    not this file's. */
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { subject, ROOT, topRules, withNotes, braceAfterNotes } from './lib.mjs';
+import { subject, ROOT, topRules, withNotes, braceAfterNotes, privateBlock } from './lib.mjs';
 
 const argv = process.argv.slice(2);
 const BY_PAGE = argv.includes('--by-page');
@@ -67,12 +67,30 @@ for (let i = 0; i < argv.length; i++) {
    YESTERDAY'S PUBLISHED NUMBERS INCLUDE IT and stay reconstructable: 31 screens,
    1 154 rules, 655 cut - of which the hub was 33 rules and 3 of the cut. Without
    it the subject is 30 screens. */
+/* AND THE SUBJECT IS «HAS A RULE», NOT «HAS A <style>» - step 8.42. The two
+   were the same thing while the blocks were full and stopped being the same the
+   moment the migration started leaving notes where the rules had been. See
+   `privateBlock` in lib.mjs for what that cost. The two other outcomes are
+   printed rather than dropped: a page holding only a note is the record, a page
+   holding only blank lines is residue, and neither is visible if the filter
+   simply swallows both. */
 const HUB = 'overview';
+const NOTE_ONLY = [], BLANK = [];
 const PAGES = subject(NAMED, 'design').filter(p => {
   if (!NAMED.length && (/^(kit|concept)\//.test(p) || p === HUB)) return false;
-  return /<style>[\s\S]*?<\/style>/.test(readFileSync(join(ROOT, 'design', p + '.html'), 'utf8'));
+  const b = privateBlock(readFileSync(join(ROOT, 'design', p + '.html'), 'utf8'));
+  if (!b) return false;
+  if (b.rules) return true;
+  (b.note ? NOTE_ONLY : BLANK).push(p);
+  return false;
 });
-if (!PAGES.length) { console.log('жодної сторінки з приватним <style>'); process.exit(0); }
+const TAIL = () => {
+  console.log('ще ' + NOTE_ONLY.length + ' сторінок несуть <style> ЛИШЕ із запискою про те, ' +
+    'що звідти пішло і куди - це запис, а не борг.');
+  console.log('порожніх оболонок <style> без жодного слова: ' + BLANK.length +
+    (BLANK.length ? '  ' + BLANK.join(' ') : ''));
+};
+if (!PAGES.length) { console.log('жодної сторінки з приватним ПРАВИЛОМ'); TAIL(); process.exit(0); }
 
 /* ------------------------------------------------ what the system already owns
 
@@ -391,6 +409,7 @@ if (DIFF) {
   console.log('\n' + PAGES.length + ' сторінок · правил зміряно: ' + measured +
     ' · з них щось міняють: ' + changing + ' · різних різниць: ' + group.size +
     ' · різних властивостей: ' + props.size);
+  TAIL();
   if (JSON_OUT) writeFileSync(JSON_OUT, JSON.stringify([...group].map(([k, g]) =>
     ({ diff: k, n: g.n, pages: [...g.pages], sels: [...g.sels] })), null, 1));
   process.exit(0);
@@ -463,4 +482,5 @@ if (BY_PAGE) {
 
 console.log('\n' + PAGES.length + ' сторінок · ' + rows.length + ' правил · ' +
   Object.entries(kinds).map(([k, v]) => k + ': ' + v).join(' · '));
+TAIL();
 if (JSON_OUT) writeFileSync(JSON_OUT, JSON.stringify(rows, null, 1));

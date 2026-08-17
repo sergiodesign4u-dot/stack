@@ -7454,3 +7454,532 @@ over 88 coloured screens. `idle` 74 pages 0 red, `roles` 84 components 0 diverge
 **Backlog item 3 is closed.** What step 6 still owes is item 2 - the overriding half - and its count
 of 886 has not been re-taken since the scope fix, deliberately: it would be arithmetic rather than a
 measurement.
+
+## Step 6, thirty-seventh pass - item 2 closed by measurement, and a migration caught moving dead code
+
+**886 -> 3.** The last open item of step 6 was «move the 886 overriding rules into their
+components», and the number had deliberately never been restated as a smaller one: it was measured
+before the scope fix let the system reach the coach state screens at all, and 655 rules had left
+the corpus since, so subtracting would have been arithmetic. Taken again by the same instrument
+asking the same question: **3 rules, one home, `coach-verify.css`** - the `.cv-card` set item 3
+deferred to stage 09. Every other category is empty. The two halves of list 2 converged on one open
+decision, and there is nothing behind item 2 that is not already behind item 3.
+
+**The item did not close itself; item 3's sweep closed it, which is why the number had to be taken
+rather than reasoned.** «886 overriding» and «210 local» was a forecast of two different jobs. The
+work turned out to be one: a rule copied off a component and a rule invented on a screen were
+answered by the same walk, screen by screen, and neither pile could finish without the other. The
+forecast was useful; the boundary inside it was not real.
+
+### The subject line of both walks was wrong, and it published the wrong size of the remaining work
+
+`private.mjs` printed **«30 сторінок · 3 правил»**. Twenty-seven of those thirty declare nothing.
+Twenty-two carry the note left where their rules had been - the record this repository wants kept -
+and **five carried nothing at all**: `<style>` holding the blank lines the rules used to occupy, on
+`cart-coach-empty`, `coach-client-empty`, `coach-session-addclient`, `coach-session-addempty` and
+`coach-tariff-cancel`. Both walks selected their subject by asking whether a `<style>` ELEMENT
+exists, which was the same question as «is there a rule» right up until the migration started
+leaving notes behind.
+
+The predicate is `privateBlock` in `lib.mjs` now, shared by `private.mjs` and `inert.mjs` for the
+reason `topRules` lives there: two parsers over one corpus disagree silently. The report names the
+note-only pages and the blank shells on separate lines, so neither can hide inside the other, and
+the blank count is printed even at zero - a list with no idle control is read as «nothing to see».
+`inert.mjs` also stops loading twenty-seven pages to find out whether comments paint.
+
+The five shells were given the note their twenty-two siblings carry, each destination read out of
+the system by name rather than remembered: `cart-drawer.css` for the coach cart's four rules (and
+the drawer's own numbers now stand - 420 rather than 440, 8/16 rather than 0/18), `empty-state.css`
+for `coach-client-empty` (whose record was already in its markup, above `.empty`), `client-dialog.css`
+plus `overlay.css` for the two add-client screens, `coach-tariff.css` and `plan-card.css` for the
+tariff screen, where `.tfov` is the one name that was deleted rather than moved.
+
+### A migration that verified the destination and never asked whether the subject renders
+
+Writing the third of those notes found it. **Step 8.31b lifted `#wf-bar{ position: relative;
+z-index: 80 }` off the two `coach-session-add*` screens into `design/_stand.css`**, with nine lines
+on why the stand bar must stay above `overlay.css`'s scrim at 55: «the bar that says WHICH SCREEN
+YOU ARE LOOKING AT disappears under the dimming on exactly the screens whose subject is the modal».
+
+The reasoning is right about the grey layer. **On the coloured layer that bar has been
+`display: none` since 2026-08-06**, hidden by the same file four lines below the rule, because
+`.uiv-side` replaced it as this layer's chrome. Measured 2026-08-17: `getComputedStyle` gives
+`display: none` and height 0 on `coach-home`, `index`, `coach-tariff-cancel`, `cart-coach-empty` and
+`coach-session-addclient`, with zero children of any height. Five further rules were painting it,
+and `body:has(.cart-drawer) .wf-bar{ position: relative; z-index: 80 }` was on top of that a
+**verbatim repeat** of the rule above it, both dated 2026-08-06.
+
+All six are gone. `display: none !important` stays as the file's one statement about the bar, and
+the `!important` is kept on a stated ground: the markup writes `id="wf-bar"` beside the class, and
+an id selector outranks a class - it is the one thing that could switch the bar back on by accident.
+`--text-oninverse`'s use list in `tokens.css` lost `.wf-bar` along with the paint; the other three
+users stand.
+
+**The lesson is the one worth carrying into stage 09.** A migration checks that the destination
+component is the right one, that the values are tokens, that nothing moved. All three passed here.
+Nothing asked whether the element the rule points at is drawn, and every gate in this repository
+would have said yes for as long as the rule stayed.
+
+### tree-diff said 39 elements moved, and not one pixel did
+
+The deletion reported **«зрушило елементів 39»** on every design page. It reads computed style, and
+`querySelectorAll('*')` sees a hidden element: colour and padding are still computed on a subtree
+that is never drawn. The arithmetic closes it exactly - the bar's subtree is 13 elements on
+`coach-home`, 12 on `index`, 11 on `coach-tariff-cancel`, times the three rows the tool reads per
+element (the element, `::before`, `::after`): **39, 36 and 33**, the numbers reported, with no
+differing row outside that subtree on any of the seven pages walked. The limit is written into
+`tree-diff.mjs` itself, next to the noise-floor paragraph, because the next person to delete a rule
+off a hidden element will read the same alarming number and `proof.mjs` is the instrument that
+answers in pixels.
+
+### And one of the three deferred rules had never drawn: 3 -> 2
+
+With the subject line fixed, `inert.mjs` walks 3 pages instead of 30 and finishes in 42 seconds, so
+the question was cheap enough to ask. **`coach-verify-loading` answered «1 of 1 removable, whole
+block, pixels identical».** Its rule was `.cv-card{ padding: 40px 24px }`; the system writes
+`.coach .cv-card`, which is (0,2,0) against (0,1,0), so the screen has been rendering `--space-32`
+since step 8.40 took that anatomy over. The note above it read «40 is a rung, so the waiting
+screen's padding is a choice rather than a drift, and unmaking a choice is stage 09's call» - and
+the cascade had unmade it a day earlier. Deferring that rule was deferring nothing; if 40 is wanted
+on the waiting screen, stage 09 now decides it knowing the product ships 32.
+
+**This is `.qa-row` in mirror image.** There a private rule was blamed for winning a fight it never
+entered, because `.qa-row` is one class and `.coach .qa-row` is two and the page was not inside
+`.coach`. Here a private rule was preserved as an open decision while already losing the same way.
+Both sentences were plausible, both were written down, and neither had asked the browser. The
+remaining two are `.cv-card{ max-width: 560px; margin: 0 auto }` on `coach-verify-error` and
+`coach-verify-deadend`, where the system declares neither property - a gap, not a conflict, and
+`inert.mjs` reads 0 of 1 on both.
+
+### Gates
+
+`private` **2 rules on 2 screens**, 28 note-only pages, **0 blank shells** · `accept` 234 screens,
+**0 failures at 390 and 0 at 360** · `inert` 3 pages, 1 removable, applied · `tree-diff` on the
+seven pages walked: every differing row inside the hidden `.wf-bar` subtree, none outside ·
+`inventory` 84 files / 84 rows (22/29/33), 0 `Lines`, 0 levels drifted · `roles` 84 components,
+0 diverged · `idle` 74 pages, 0 red · `scope` 0 screens without their own namespace, 0 claiming a
+foreign flow, **4 idle namespaces** (was 1 - see backlog item 6) · `links` 4 716 / 0 · `vars`
+234 / 0 · `css-comments` 91 balanced · `node --check` over `tools/*.mjs` clean.
+
+## Step 6, thirty-eighth pass - the number a person actually reads, and 143 of 270 were wrong
+
+Backlog item 8's first instrument took the registry, `inventory.md`. Its second subject is the
+place nobody was checking and everybody reads: **the `kp-meta` strip at the top of each
+`design/kit/<component>.html`**. The registry is one copy of «how big is this component»; the stand
+page is a second, and the second copy is the one that drifts.
+
+Question **H** in `inventory.mjs`, over the 75 stand pages that name a component file:
+
+| | tags | wrong |
+|---|---|---|
+| `рівень` | 75 | **0** |
+| `N рядків` | 73 | **53** |
+| `N селекторів` | 51 | **40** |
+| `N оголошень` | 46 | **19** |
+| `N екранів` | 56 | **37** |
+| **numeric tags in total** | **270** | **143** |
+
+`address-card.html` was the first page opened and four of its five numbers were false: 52 lines
+against 76, 34 selectors against 40, 151 declarations against 130, 2 screens against 3. Only its
+level was right. The declaration count had gone DOWN while the line count went UP, which is exactly
+this stage's own shape - notes added, duplicate declarations removed - and no single direction of
+drift would have caught both.
+
+**Level at zero is what makes the other four readable.** A check that finds everything wrong is as
+suspect as one that finds nothing. One family coming back entirely clean says the parser and the
+corpus agree, and that the drift is real rather than a convention mismatch.
+
+### The vocabulary was read off the pages rather than chosen
+
+`loyalty-rung.html` publishes «49 селекторів · 61 правило». Its file measures 67 selectors and
+**exactly 61 rules** - so the stand already distinguishes the two words, and the check keeps the
+distinction: a selector is one comma-separated member of a rule head at any nesting depth, a rule is
+one block. `pdp-tabs.html` pinned the other two, shipping 85 lines and 102 declarations both exact
+against a selector count that is not. Twenty pages had a correct line count and twenty-seven a
+correct declaration count; the conventions were confirmed on those rather than invented for them.
+
+**Agreement travels with the number, because these tags are render text in Ukrainian.**
+`button.html` shipped «461 рядків» where 561 wants «рядок», `chip.html` «261 рядків» likewise,
+`breadcrumb.html` «22 екранів» where the count wants «екрани». `--apply` writes the ending the new
+number takes: 1 -> singular, 2-4 -> paucal, 5+ -> genitive plural, and 11-14 take the last form
+against their last digit.
+
+### The first --apply damaged thirteen tags, and its own next run found them
+
+The tag matcher anchored only at the start of the string, so it read the head of a COMPOSITE claim -
+«3 екрани + значок на 14», «14 екранів, діалог на 5», «291 оголошення без елемента» - as the count
+it recognises, and the rewrite replaced the entire tag with two words. Two of the three were not
+even the same quantity: cookie-banner's 291 is declarations that match no element, which is not that
+file's declaration count at all. Reverted with `git checkout` before anything was committed.
+
+Two repairs, both from failures this repository has already paid for once:
+- the matcher now requires the tag to be **exactly** number + noun. Anything longer is a claim of
+  its own and goes to «not reached», where a person decides it.
+- the rewrite happens **inside the meta block and nowhere else**. A whole-file `replace` would take
+  the first `kp-tag` span anywhere on the page, and these pages quote their own markup in code
+  blocks - the same shape as `btn-rank.mjs`'s string replace at 8.31, which upsized a second control
+  per page.
+
+**44 numeric tags are named as out of reach rather than passed over**: 13 composite claims and 31
+corpus counts that need a browser and a different question («106 екземплярів», «470 лічильників»,
+«5 291 входження»). The composite thirteen still carry what they carried. They need a person who
+knows what each sentence means, not a regex, and that is written down rather than quietly counted
+as covered.
+
+**143 corrections applied across 64 pages**, one line each, and the run now reports 0.
+
+### Gates
+
+`inventory` 84 files / 84 rows (22/29/33), 0 `Lines`, 0 levels, **0 meta tags diverged over 270**,
+and the `Screens` column re-measured in a browser over the coloured corpus, 0 diverged ·
+`accept` 234 screens, **0 failures at 390 and 0 at 360** · `roles` 84 components, 0 diverged ·
+`links` 4 716 / 0 · `css-comments` 91 balanced · `node --check` over `tools/*.mjs` clean.
+
+Standing debt unchanged and reported by `roles.mjs` on every run: **9 components with no stand
+page** (`coach-cabinet`, `coach-clients`, `coach-landing`, `coach-order`, `coach-session`,
+`coach-tariff`, `coach-verify`, `coach-wishlist`, `product-thumb`) and **4 stand pages with no token
+table** (`availability`, `chip`, `menu`, `stack-action`). Nine of those pages are the stage's own
+five-fold rule unpaid, and they are the loudest thing left before the closing ritual.
+
+## Step 6, thirty-ninth pass - the last atom without a page, and the level written in four places
+
+`roles.mjs` has reported the same nine components with no stand page on every run since step 8.33:
+eight coach organisms and one atom. **The atom is done: `design/kit/product-thumb.html`**, with the
+five-fold complete - css, page, a row in the stand registry's own level group, a row in
+`inventory.md`, and the `@import`. Eight remain, all level 3, all in the coach flow.
+
+`product-thumb.css` is 68 lines and the smallest file in the system, and it is also the only one
+with **no name of its own**. It declares `.aord-thumbs .t, .rk-ph` - two classes that belong to
+`order-row.css` and `restock-note.css` - because A6 found the two were not merely the same size but
+the same NINE DECLARATIONS, byte for byte, written on two different days, and neither owner file
+outranked the other. So the system has a name for the box and the markup does not, its anchor set is
+empty, and `inventory.md` carries «–» where every other row carries a screen count. The page says
+that in a section of its own rather than leaving a dash to be read as zero.
+
+### And a dash read as zero had already destroyed two published numbers
+
+The check added yesterday failed the page within a minute of its being written: «1 екран» against
+a registry that says «–». The registry was right and the parser was not. `inventory.mjs` read the
+Screens cell as `sc ? Number(sc[0]) : 0`, with a comment saying so deliberately - «a missing one
+reads as 0 rather than as unknown» - which was true while every row carried a number.
+`product-thumb` is the row that broke it: **a limit of the instrument had been flattened into a fact
+about the product.**
+
+Worse, and caught only because the new page collided with it: `--apply` had already used that zero.
+`counter.html` went from «19 екранів» to «0 екранів» and `icon.html` from «39 екранів» to «0
+екранів» in yesterday's sweep - the two other components with no anchors. Both restored to what they
+carried, and both now report as **not reached** rather than as measured, which is the honest state:
+the registry cannot count them, so nothing in this repository can confirm 19 or 39 today.
+
+`null` for a dash now, and every reader of the column decides what to do with it. The general shape
+is the one this stage keeps paying for: **an instrument that cannot say «I do not know» will say a
+number instead.**
+
+### The level is written in four places and only two were checked
+
+The file declares `(level N)`; `inventory.md` puts its row in one of three tables; `index.css`
+imports it into one of three groups; `design/kit/_nav.js` files its page under one of three
+headings. Questions C and D compared the first two. Nothing had ever looked at the last two, and the
+ladder is the whole architecture of this stage - **an atom imported after the molecules can be
+overridden by them, which is the inversion the order exists to prevent.**
+
+Question **I** now asks both. First run, and every finding is real:
+
+| file | file says | index.css | stand registry |
+|---|---|---|---|
+| `product-thumb.css` | 1 | **2** | 1 |
+| `menu.css` | 2 | **3** | **1** |
+| `upsell.css` | 2 | **3** | **3** |
+
+**A mismatch with a reason written above it is not a defect.** `upsell.css` carries four lines
+saying why it imports where it does; `product-thumb.css` carried nothing. So the check asks for the
+comment - the way this repository declares every other exception - and reports the two kinds apart.
+
+`product-thumb.css` moved into the atom group, after `price.css`. Measured rather than assumed:
+`tree-diff` over `account`, `cart`, `checkout`, `listing` and `product` at both widths reports every
+differing row inside the hidden `.wf-bar` subtree from pass 37 and **not one row outside it** -
+36 rows on `account`, which is its bar's twelve elements times three. Nothing that wears the thumb
+moved.
+
+**The other two are the owner's, and they are not the same question.**
+- `menu.css` has THREE placements and three answers: the file says molecule, the import says
+  organism, the stand registry says atom. One of the three is right and nothing in the source says
+  which.
+- `upsell.css` has two INDEPENDENT placements agreeing with each other and disagreeing with the
+  file: both the import and the registry call the Pro panel an organism, and only its own opening
+  comment says molecule. When two placements agree against the declaration, the declaration is the
+  likelier error - but a level is an architectural claim, so it moves by a decision said out loud.
+
+### Gates
+
+`inventory` 84 files / 84 rows (22/29/33), 0 `Lines`, 0 levels, **0 meta tags diverged over 274**,
+**0 imports outside their level group without a written reason** (2 with one), 2 stand-registry
+groups diverging and both named above as the owner's · `accept` **235 screens, 0 failures at 390 and
+0 at 360** · `roles` 84 components, 0 diverged, **8 without a page** (was 9) · `idle` on the new page
+0 red · `links` 4 719 / 0 · `css-comments` 91 balanced · `tree-diff` on five screens: nothing outside
+the hidden bar subtree · `node --check` over `tools/*.mjs` clean.
+
+## Step 6, fortieth pass - the first coach organism gets a page, and the frame gets an instrument
+
+Eight coach organisms had no stand page. **The first is done: `design/kit/coach-landing.html`** -
+node 5.0 «Для тренерів», the public, indexable front door of the primary business model and the one
+screen in the coach flow that sells rather than serves. Seven remain, all level 3.
+
+It was taken first because it is the smallest of the eight by decision weight per line: 527 lines,
+38 selectors, 136 declarations and **1 screen**, against `coach-clients` at 10 screens and
+`coach-cabinet` at 8. A first page in a family sets the shape the next seven copy, and setting it on
+the file with the fewest moving parts is cheaper than setting it on the largest.
+
+### The frame is now built by a tool, and 53 before it were built by hand
+
+An organism only exists inside its own scope. Every selector in all eight coach files begins with
+`.coach`, so a fragment pasted into a stand page draws **nothing at all** - and a blank frame reads
+as a broken component rather than as a broken frame. The 53 frames under `design/kit/demo/` were
+each built by reading markup off a screen and pasting it, between 7.87 and 8.34b. That is the hand
+fix `CLAUDE.md` bans, applied to the showcase: the paste is correct on the day and drifts the moment
+the screen changes.
+
+**`tools/demo.mjs`** reads the page in a browser at build time instead:
+
+    node tools/demo.mjs coach-landing coach-landing --sel '.clh' --sel '.clv' --max 1200 --pad 16
+
+Three things it does that a paste does not. The markup comes from the **live** page after the
+builders have run, because parts of several screens exist in no file at all - `wfAccountNav()` writes
+the account rail's head, `wfHeader()` writes the header. The **body class travels with the markup**,
+which is the whole reason the tool exists for these eight. And document-relative `href` and `src` are
+lifted two levels, because a frame sits at `design/kit/demo/` and its screen sits at `design/`.
+
+`--pad` is there for one reason worth writing down: the screen's own gutter lives in `.wf-page`,
+which is **stand chrome** and may not be loaded into a frame. Without it a block that stops 16px from
+the page edge in the product runs to the frame edge in the stand, and reads as a bleed the product
+does not have.
+
+**What it deliberately does not do is choose the fragment.** Which part of a screen is the component
+is a reading, not a measurement, and the wrong guess is a frame that looks right. Four frames were
+named by hand for this page: the hero with its chip strip, the four-step explainer, the comparison
+table, and the closing call.
+
+### And the meta strip is now read off the file before the page exists
+
+`inventory.mjs --measure <component>` prints the strip a stand page should carry - level, path,
+lines, selectors, rules, declarations, screens - with the Ukrainian endings the numbers take, from
+the same `measure()` question H runs. Until now a strip was typed by hand and caught **afterwards**,
+which is the expensive half: by then the page is written and read. Screens keeps its `–` here too, so
+the dash-as-zero defect of 8.43 cannot come back through the other door.
+
+It paid for itself on this page. `coach-landing.css` grew by 7 lines in this same pass (the ordinal
+correction below), and the strip, the `inventory.md` row and the file disagreed within the hour. The
+check named it; both were moved to 527.
+
+### What the page found: a beige letter Г at 390
+
+Measured with computed style over all seven rows of the comparison table, at 390 and at 1180. The
+Free cell is `rgba(0,0,0,0)` - the page itself. The row label and the Pro cell are both
+`rgb(250,249,247)`, which is `--bg-surface`. One exception, and it is deliberate: the footer's label
+cell falls back to `--bg-page`.
+
+At **1180** that is three vertical bands and the argument reads exactly as the file describes it: two
+columns lifted off the page, one not. At **390** the label spans the full width **inside the same
+row**, with no line beneath it, so its beige **meets** the Pro cell's beige below. Together they draw
+a continuous letter Г, and the Free cell becomes a white notch cut into it.
+
+That is the same argument as the `.yes` bold that step 7.96 deleted from this table, made with
+ground instead of weight - **and on a phone it is stronger than on a desktop**. Not fixed here: the
+table's ground is the owner's decision, and it is already standing open in `coach-landing.css`, which
+says in its own words that «the Pro column already carries the table's whole visual argument in its
+ground». Naming the narrow half is this page's contribution to that open question, not an answer to
+it. Principle 4 is what is at stake: the table is read by a coach who is deciding.
+
+### A contradiction between two files about one fact, at the smallest possible scale
+
+`chip.css` calls `.clv span` «A TENTH NAME» and carries ten selectors in its shape rule.
+`coach-landing.css` called the same event «the ninth time it has been given» and enumerated eight
+predecessors - leaving out `.chip`, the atom's own name. Both readings are defensible; two files
+publishing two ordinals for one fact is not. **The owner of a list decides how its own list counts**,
+so `coach-landing.css` now says TENTH, with the correction written beside it rather than silently
+applied. This is the second-copy drift at its smallest, and it is worth the seven lines precisely
+because nothing about it was load-bearing: it drifted anyway.
+
+### And a second finding, which is the showcase's and not this component's
+
+Building the frames put five new ones beside 53 existing, and two of the five sat in visibly more
+box than content. Asked of every frame on the stand, by running the proposed fix as the experiment -
+collapse the frame to 80px, ask the document how tall it wants to be, restore:
+
+**57 frames. 18 are viewport-bound** - they answer 80 or less when collapsed, because their content
+is a dialog, an overlay or a fixed panel, and `min-height: 100vh` in the demo template is exactly
+what gives them ground. **39 carry flow content, and 13 of those hold more than 100px of nothing**,
+3 930px in total. The worst is `demo/price-slider.html`: 96px of content in a 704px frame. Next are
+`account-shell-wltop` (147 in 640) and `buy-bar` (150 in 640).
+
+The mechanism is one line and it is in the template, not in any page. `body{ min-height: 100vh }`
+makes `body.scrollHeight` at least the frame's own height, and `_frame.js` fits by reading exactly
+that - so **a frame can grow and can never shrink**. It settles at whatever `.kp-frame`'s declared
+`height: 640px` gave it and stays there.
+
+**Not fixed in this pass, and the reason is the scope rather than the difficulty.** It is one
+file - `_frame.js` would collapse, measure, then set, with the 640 floor kept for the 18 that need
+the viewport - but it repaints 13 frames across 9 published stand pages, and a change to a published
+page is verified in a browser on every one of them. That is its own step. Two of the thirteen are
+this pass's own (`coach-landing-cta` 325px, `coach-landing-steps` 307px), which is said out loud
+rather than left for the next reader to find.
+
+### Gates
+
+`accept` **240 screens, 0 failures at 390 and 0 at 360** (five new files: the stand page and four
+frames) · `inventory` 84 files / 84 rows (22/29/33), 0 `Lines`, 0 levels, **0 meta tags diverged over
+278**, 0 imports outside their group without a written reason (2 with one), 2 stand-registry groups
+still diverging and both named at pass 39 as the owner's · `roles` 84 components, 0 diverged,
+**7 without a page** (was 8) · `idle` on the new page 0 red · `links` 4 731 / 0 · `css-comments` 91
+balanced.
+
+One defect the gate caught in this pass and it was the page's own text: **8 curly apostrophes**
+(U+02BC) in `coach-landing.html`, which `accept` reports as `curly=8`. Normalised to ASCII `'`. The
+third pass in a row to ship one; the keyboard is not the problem, the check is the reason it never
+reaches a reader.
+
+Standing debt: **7 components with no stand page** (`coach-cabinet`, `coach-clients`, `coach-order`,
+`coach-session`, `coach-tariff`, `coach-verify`, `coach-wishlist`) and **4 stand pages with no token
+table** (`availability`, `chip`, `menu`, `stack-action`).
+
+## Step 6, forty-first pass - the frame could grow and could never shrink
+
+Pass 40 measured 3 930px of dead space inside the stand's demo frames and left the fix for its own
+step, because one file repaints 13 frames on 9 published pages and a published page is verified in a
+browser on every one. **This is that step, and the fix is in `design/kit/_frame.js` alone.**
+
+**The file's own header stated the intent and the code never reached it.** «Two numbers are read
+from the frame itself rather than typed here: its content height, **so a 55px shelf does not sit in
+640px of nothing**» - written at 8.34, true as a description of what was wanted, false as a
+description of what ran. A sentence like that is the reason nobody looks: it answers the question
+before it is asked.
+
+### The mechanism is one line, and it is not in this file
+
+Every demo document carries `body{ min-height: 100vh }`, and that line is correct and necessary: 18
+of the 57 frames hold a dialog, an overlay or a fixed panel, and a fixed panel in a document with no
+viewport has nothing to sit in. But **`100vh` inside a frame is the frame's own height**, so
+`body.scrollHeight` can never come back smaller than the height the frame already has - and
+`scrollHeight` is exactly what the fitter read. The frame could grow and could never shrink. It
+settled at whatever `.kp-frame`'s declared `height: 640px` gave it and stayed there.
+
+### The question is asked at a collapsed size, and the probe height was checked rather than chosen
+
+The frame is set to 80px, the document is asked how tall it wants to be, and the height is put back,
+all inside one synchronous block - so no paint happens at 80 and there is no flash. A document whose
+content is viewport-bound answers 80 or less, because a fixed panel contributes nothing to scroll
+height. **That answer is the signal**, and those frames keep the old reading and their 640.
+
+A fitter that reads a number which moves with its own probe is measuring itself, so every one of the
+57 was asked from three heights - 80, 300 and 1000. **All 57 answer `max(content, probe)`**:
+`account-shell` 392 / 392 / 1012, `cart-drawer` 470 / 470 / 1000, and the eighteen viewport-bound
+ones give the probe back verbatim. So the probe is a FLOOR rather than a measurement, and 80 is the
+floor the fitter already carried in `Math.max(..., 80)`. A 1000px probe would have hidden every short
+frame on the stand - the same bug one order of magnitude larger.
+
+The split measured clean: **18 at or below 80, 39 above 90, nothing in between**, so the threshold is
+not a tuned number sitting in a grey band.
+
+### Before and after
+
+| frame | before | after |
+|---|---|---|
+| `price-slider` | 704 | 96 |
+| `account-shell-wltop` | 640 | 147 |
+| `buy-bar` | 640 | 150 |
+| `header` | 503 | 113 |
+| `coach-landing-cta` | 604 | 279 |
+| `coach-landing-steps` | 503 | 196 |
+| `system-page-404` | 640 | 376 |
+| `pdp-tabs` | 503 | 256 |
+| `cart-drawer`, `-empty`, `-oos` | 640 | 470 |
+| `cart-drawer-coach` | 640 | 493 |
+| `account-shell` | 541 | 392 |
+
+**0 of the 39 flow frames now hold more than 100px of nothing**, against 13 before. The 18
+viewport-bound frames are unchanged, checked in a browser on `auth-dialog` and `cart-drawer`: the
+dialog still has its ground and the drawer still shows its sticky foot.
+
+### Gates
+
+`accept` **240 screens, 0 failures at 390 and 0 at 360** · `idle` 76 pages with their own control,
+**0 red** · `node --check` on `_frame.js` clean.
+
+## Step 6, forty-second pass - the coach's gate, and the brand word in two editions
+
+`design/kit/coach-verify.html`, the second of the eight coach organisms. Node 5.1: a buyer becomes a
+coach, and between the form and the wholesale price stands a human check on a profile link. **Six
+remain.**
+
+### One spine, five bodies
+
+The file looks like five screens sewn together; the measurement says it precisely. Every class was
+checked against the markup of all five coloured screens:
+
+- **5 of 5**: `.cv-wrap`, `.cv-steps`, `.cv-step` and its four states. The three-place progress
+  marker is the only object every screen sees.
+- **3**: `.cv-card`, `.cv-alt`. **2**: `.cv-badge`, `.cv-actions`.
+- **1**: sixteen classes live on exactly one screen each.
+
+That is the argument for one file rather than five, and it is not theoretical: **before step 7.23 the
+eight rules of the marker stood byte for byte in five private blocks.** Measured at 1280 as they were
+deleted - `coach-verify` tile 65.59 / edge 1px / numeral 12px / label 14px, the other four 65.47 /
+1.5px / 11px / 12.5px. One object, five editions, diverged by a quarter of a pixel, half a pixel of
+edge and a pixel and a half of text: exactly far enough that nobody notices.
+
+**The marker is also the one thing in the file that drops the `.coach` scope, and that is a decision.**
+`.cv-step` occurs in exactly six files - the five screens and this one - so the name already IS the
+scope. Restoring the copies would have written the defect four more times; putting `coach` on their
+`<body>` hands them the whole file, and `.cv-card` means different things on different screens.
+
+### What the page found: the brand word renders in two faces, and one has no mark
+
+The trust panel opens with the word **Stack** in `.vlogo` - the auth dialog's own child name, which
+the file admits («this panel is the auth dialog's visual half, built a second time»). One class name,
+two objects. Measured with computed style:
+
+| | face | size | tracking | mark |
+|---|---|---|---|---|
+| `.auth-visual .vlogo` | **Oswald** | 24px | -0.48px | **yes**, `::before` with `logo-mark.svg` |
+| `.cv-aside .vlogo` | **Inter** | 20px | -0.4px | **none** |
+
+**And the rule names the face it meant.** It declares `letter-spacing: var(--ls-display)` - the
+*display* tracking - and declares no `font-family`. That is the same shape as the H1 on
+`coach-landing`: the tracking token names a face the declaration never asked for.
+
+Asked of the whole coloured corpus, because the question is bigger than one component. **Ten rules
+read `--ls-display`**: four render Oswald (`.auth-visual .vlogo` 24, `.co-logo` 20, `.wfh-logo` 20,
+`.lh1` 30), two render IBM Plex Mono (`.bb .new`, `.coachbox .cbnew` - money, mono by the price
+rule), and **four render Inter**: `.cv-aside .vlogo` 20, `.wff-col a.wff-phone` 24,
+`.sys-min .sys-logo` 24, `.sys-code` 60.
+
+So the word-lockup has **five editions in four files**. Three carry the mark and the display face -
+header, checkout, auth dialog, with `logo-mark.svg` painted from four different component files. Two
+carry neither: the 404 page and **this trust panel**. On the screen where a coach decides whether to
+hand over their data, the brand stands in the UI face with no mark; on the login screen the same
+class name stands in the brand face.
+
+**Not fixed here, and not because it is small.** A logo is a VALUE, it has five sites in four files,
+and folding them means introducing a component the system does not have - `brand-logo.css` is the row
+of MANUFACTURER logos in the catalogue, not this. Stage 09.
+
+### A defect in `demo.mjs`, found by `links.mjs` on its first run over the new frames
+
+The rewrite that lifts document-relative paths two levels **skipped anything already starting with
+`../`**, on the reading that a path which already climbs is already correct. It is not: it climbs
+from `design/`, and a frame stands two levels deeper. `../wireframes/x.html` has to become
+`../../../wireframes/x.html` - which is what prefixing `../../` gives, the same prefix that turns
+`account.html` into `../../account.html`. **One rule covers both; the skip was the bug.**
+
+Two consent links on the verify frames pointed at a folder that does not exist from where they stand.
+`uivFixLinks` repairs it at runtime, which is precisely why the file could stay wrong and look right -
+and precisely why the check asks the FILE. All nine frames rebuilt; `links.mjs` 4 757 / 0 / 0.
+
+### Gates
+
+`accept` **246 screens, 0 failures at 390 and 0 at 360** · `inventory` 84 files / 84 rows, 0 `Lines`,
+0 levels, **0 meta tags diverged over 282** · `roles` 84 components, 0 diverged, **6 without a page** ·
+`idle` on both coach pages 0 red · `links` 4 757 / 0 dead / 0 re-pointed.
+
+Standing debt: **6 components with no stand page** (`coach-cabinet`, `coach-clients`, `coach-order`,
+`coach-session`, `coach-tariff`, `coach-wishlist`) and **4 stand pages with no token table**.

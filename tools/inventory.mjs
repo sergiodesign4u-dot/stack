@@ -33,16 +33,60 @@
         `.tag` - are declared by several files and are excluded by that same rule,
         which is why the count is of anchors rather than of every class.
 
-     node tools/inventory.mjs             coverage, Lines, level, totals
+   The seventh, G, is announced at its own place below rather than here: the
+   frozen `kit.html` carries the same totals in prose, and one claim in two places
+   is how this whole item started.
+
+   AND THE EIGHTH, ADDED AT STEP 8.43, WHICH IS THE SAME QUESTION ASKED OF THE
+   PLACE A PERSON ACTUALLY READS:
+
+     H  the `kp-meta` strip of every `design/kit/<component>.html`. The registry
+        is one copy of «how big is this component»; the stand page is a SECOND,
+        and the second copy is the one that drifts. Measured on 2026-08-17, over
+        the 75 stand pages that name a component file: **53** wrong line counts,
+        **40** wrong selector counts, **19** wrong declaration counts, **37**
+        wrong screen counts. Level: **0**, which is what makes the other four
+        readable as findings rather than as a broken parser.
+
+        THE VOCABULARY IS READ OFF THE PAGES, NOT INVENTED. `loyalty-rung.html`
+        publishes «49 селекторів · 61 правило» and its file measures 67 selectors
+        and exactly 61 rules, so the stand already distinguishes the two words and
+        this check keeps that distinction: a selector is one comma-separated
+        member of a rule head at any nesting depth, a rule is one block.
+        `pdp-tabs.html` fixes the other two: 85 lines and 102 declarations, both
+        exact today, against a selector count that is not.
+
+        A NUMERIC TAG WHOSE NOUN IS NOT IN THAT VOCABULARY IS REPORTED AS NOT
+        REACHED, never passed over. «106 екземплярів», «470 лічильників», «36
+        карток» are corpus counts that need a browser and a different question;
+        they are listed so the coverage of this check is visible rather than
+        assumed.
+
+        AND THE AGREEMENT IS CHECKED WITH THE NUMBER, because these tags are
+        render text in Ukrainian and a count that changes changes the ending:
+        1 -> рядок, 2-4 -> рядки, 5+ -> рядків, with 11-14 taking the last form
+        against the last digit. `button.html` ships «461 рядків» and `chip.html`
+        «261 рядків», both of which want «рядок»; `breadcrumb.html` ships «22
+        екранів», which wants «екрани».
+
+     node tools/inventory.mjs             coverage, Lines, level, totals, meta
      node tools/inventory.mjs --screens   and the Screens column, in a browser
+     node tools/inventory.mjs --measure <component>
+       the strip ONE stand page should carry, printed before the page exists.
+       Same `measure`, same endings, so a page is written from the file rather
+       than from memory and question H has nothing left to catch.
+     node tools/inventory.mjs --apply     rewrite every wrong meta number, with
+       the ending the new number takes. Writes nothing else, ever - the registry
+       and the totals are decisions with prose around them and are fixed by hand.
 
    Exit is non-zero on any finding, so it composes with the rest of the gate. */
-import { readdirSync, readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { ROOT, serve, chrome, pages } from './lib.mjs';
+import { ROOT, serve, chrome, pages, topRules } from './lib.mjs';
 import { Conn, newSession, visit } from './cdp.mjs';
 
 const SCREENS = process.argv.includes('--screens');
+const APPLY = process.argv.includes('--apply');
 const SCREENS_QUIET = false;
 
 const CDIR = join(ROOT, 'design/system/components');
@@ -79,9 +123,19 @@ SECTIONS.forEach((s, i) => {
        annotation was there because the old count was a grep that could not see
        markup a script writes; the browser walk sees it, so the cell is now a
        plain number and a missing one reads as 0 rather than as «unknown». */
-    const sc = (cells[cells.length - 3] || '').match(/^\d+/);
+    /* AND «–» IS NOT ZERO - corrected at step 8.43, by the check added that day
+       reporting a page it had no right to fail. This line used to read «a missing
+       one reads as 0 rather than as «unknown»», which was true while every row
+       carried a number. `product-thumb.css` is the row that broke it: it declares
+       no class of its own, so the anchor walk cannot count its screens at all and
+       the cell is a deliberate «–». Flattening that to 0 turned a LIMIT OF THE
+       INSTRUMENT into a fact about the product, and question H then demanded that
+       the stand page publish «0 екранів» for a component that renders on one.
+       `null` here, and every reader of the column decides what to do with it. */
+    const cell = cells[cells.length - 3] || '';
+    const sc = cell.match(/^\d+/);
     rows.push({ file, level: s.level, lines: Number(cells[cells.length - 2]),
-      screens: sc ? Number(sc[0]) : 0, raw: line });
+      screens: sc ? Number(sc[0]) : (/^–/.test(cell) ? null : 0), raw: line });
   }
 });
 
@@ -193,6 +247,220 @@ const want = new RegExp('<b>' + rows.length + ' компонент' + UK + ':\\s
 const kitBad = want.test(kitHtml) ? null :
   'kit.html не несе сьогоднішнього числа ' + rows.length + ' (' + counts.join('/') + ')';
 if (kitBad) console.log('\nДРУГЕ МІСЦЕ ТОГО САМОГО ТВЕРДЖЕННЯ:\n  ' + kitBad);
+
+/* ---------- H: the meta strip of every stand page ----------
+   The page says WHICH component it describes - the css path is a tag of its own
+   in the same strip - so the subject is taken from the page rather than guessed
+   off its file name. A page that names no component file is not a component page
+   and is counted out loud below. */
+const kitDir = join(ROOT, 'design/kit');
+const NOUNS = {
+  lines:  ['рядок', 'рядки', 'рядків'],
+  sels:   ['селектор', 'селектори', 'селекторів'],
+  rules:  ['правило', 'правила', 'правил'],
+  decls:  ['оголошення', 'оголошення', 'оголошень'],
+  screens:['екран', 'екрани', 'екранів'],
+};
+/* 1 -> singular, 2-4 -> paucal, everything else -> genitive plural, and the
+   teens take the last form against their last digit. Written out rather than
+   borrowed: this is the ending on a number a person reads. */
+const form = (n, kind) => {
+  const f = NOUNS[kind], a = Math.abs(n) % 100, b = a % 10;
+  if (a > 10 && a < 20) return f[2];
+  if (b === 1) return f[0];
+  if (b >= 2 && b <= 4) return f[1];
+  return f[2];
+};
+const NOUN_RE = { lines: /^рядо?к|^рядкі?в|^рядки/, sels: /^селектор/, rules: /^правил/,
+  decls: /^оголошен/, screens: /^екран/ };
+const stripC = s => s.replace(/\/\*[\s\S]*?\*\//g, '');
+const measure = file => {
+  const css = readFileSync(join(ROOT, file), 'utf8');
+  let rules = 0, sels = 0, decls = 0;
+  const walk = text => {
+    for (const s of topRules(text)) {
+      const t = text.slice(s.start, s.end);
+      const b = t.indexOf('{');
+      if (b < 0) continue;
+      const head = stripC(t.slice(0, b)).trim();
+      if (/^@/.test(head)) { walk(t.slice(b + 1, t.lastIndexOf('}'))); continue; }
+      rules++;
+      sels += head.split(',').filter(x => x.trim()).length;
+      decls += stripC(t.slice(b + 1, t.lastIndexOf('}'))).split(';').filter(x => x.trim()).length;
+    }
+  };
+  walk(css);
+  return { lines: css.split('\n').length, sels, rules, decls };
+};
+
+/* ONE COMPONENT, ON DEMAND - the strip its stand page should carry.
+   Added at step 8.45, building the first of the eight coach organisms. The strip
+   is the only thing on a stand page that is not prose, and until now it was typed
+   by hand and caught afterwards by question H - which is the expensive half, since
+   catching it after publication means editing a file that is already read. The
+   number now comes off the file BEFORE the page exists, from the same `measure`
+   the check uses, with the same endings. Screens comes from the registry and keeps
+   its «–»: a component with no anchor of its own cannot be counted here either. */
+if (process.argv.includes('--measure')) {
+  const arg = process.argv[process.argv.indexOf('--measure') + 1] || '';
+  const file = arg.replace(/^.*\//, '').replace(/\.css$/, '') + '.css';
+  const g = measure('design/system/components/' + file);
+  const row = rows.find(r => r.file === file);
+  const tag = (n, k) => n + ' ' + form(n, k);
+  console.log([
+    'рівень ' + levelOf(file),
+    'design/system/components/' + file,
+    tag(g.lines, 'lines'), tag(g.sels, 'sels'), tag(g.rules, 'rules'), tag(g.decls, 'decls'),
+    !row ? 'НЕМАЄ РЯДКА В inventory.md'
+         : row.screens === null ? '– екранів (у реєстрі прочерк, якорів немає)'
+         : tag(row.screens, 'screens'),
+  ].join('  ·  '));
+  process.exit(0);
+}
+
+const metaBad = [], metaForm = [], metaUnreached = [], metaNoComponent = [];
+/* page -> its component file, taken from the page's own meta strip, so question I
+   can ask about the stand registry without guessing a file name from a page name */
+const metaFileOf = new Map();
+let metaPages = 0, metaTags = 0;
+for (const f of readdirSync(kitDir).filter(x => x.endsWith('.html')).sort()) {
+  const html = readFileSync(join(kitDir, f), 'utf8');
+  const m = html.match(/<div class="kp-meta">([\s\S]*?)<\/div>/);
+  const page = f.replace(/\.html$/, '');
+  if (!m) { metaNoComponent.push(page + '  (немає kp-meta)'); continue; }
+  const tags = [...m[1].matchAll(/<span class="kp-tag">([\s\S]*?)<\/span>/g)]
+    .map(x => x[1].replace(/<[^>]+>/g, '').trim());
+  const file = tags.find(x => /^design\/system\/components\/[a-z0-9-]+\.css$/.test(x));
+  if (!file || !files.includes(file.split('/').pop())) { metaNoComponent.push(page); continue; }
+  metaFileOf.set(page, file.split('/').pop());
+  metaPages++;
+  const base = file.split('/').pop();
+  const got = measure(file);
+  const row = rows.find(r => r.file === base);
+  const truth = { ...got, screens: row ? row.screens : null };
+  for (const tag of tags) {
+    /* THE WHOLE TAG, OR NOTHING - and the first draft of this line anchored only
+       at the start, which was wrong in a way that only writing showed. It matched
+       the head of a COMPOSITE claim - «3 екрани + значок на 14», «14 екранів,
+       діалог на 5», «291 оголошення без елемента» - read the leading number as
+       the count it recognises, and `--apply` replaced the entire tag with two
+       words, deleting the rest of the sentence. Two of those three were not even
+       about the same quantity: cookie-banner's 291 is declarations that match no
+       element, which is not this file's declaration count at all.
+       A composite tag is a claim of its own, so it goes to «not reached» and a
+       person decides it. Requiring the tag to be EXACTLY number + noun is the
+       only form this check can rewrite without reading Ukrainian. */
+    const num = tag.match(/^([\d ]+)\s+(\S+)$/);
+    if (!/^[\d ]+\s+\S/.test(tag)) continue;
+    metaTags++;
+    if (!num) { metaUnreached.push(page.padEnd(20) + tag + '  (складений тег)'); continue; }
+    const n = Number(num[1].replace(/ /g, ''));
+    const noun = num[2];
+    const kind = Object.keys(NOUN_RE).find(k => NOUN_RE[k].test(noun));
+    if (!kind) { metaUnreached.push(page.padEnd(20) + tag); continue; }
+    if (kind === 'screens' && truth.screens === null) {
+      metaUnreached.push(page.padEnd(20) + tag + (row ? '  (у реєстрі «–»: власних імен немає, рахувати нічим)'
+        : '  (немає рядка в реєстрі)')); continue;
+    }
+    if (n !== truth[kind]) metaBad.push([page, base, tag, kind, n, truth[kind]]);
+    else if (noun !== form(n, kind)) metaForm.push([page, base, tag, kind, n, truth[kind]]);
+  }
+}
+say('META СТЕНДА РОЗІЙШЛАСЬ ІЗ ФАЙЛОМ', metaBad,
+  ([p, , tag, kind, , t]) => p.padEnd(20) + ('«' + tag + '»').padEnd(22) + '-> ' + t + ' ' + form(t, kind));
+say('ЧИСЛО ПРАВИЛЬНЕ, ЗАКІНЧЕННЯ НІ', metaForm,
+  ([p, , tag, kind, n]) => p.padEnd(20) + ('«' + tag + '»').padEnd(22) + '-> ' + n + ' ' + form(n, kind));
+say('ЧИСЛОВИЙ ТЕГ, ЯКОГО ЦЯ ПЕРЕВІРКА НЕ ДІСТАЄ', metaUnreached, x => x);
+console.log('\nсторінок стенда з компонентом: ' + metaPages + ' · числових тегів на них: ' + metaTags +
+  ' · поза предметом (не сторінка компонента): ' + metaNoComponent.length);
+
+/* ---------- I: the level is written in FOUR places, and only two were checked
+   Step 8.43. The file declares `(level N)` in its opening comment; `inventory.md`
+   puts its row in one of three tables (question D); `index.css` imports it into
+   one of three groups; and `design/kit/_nav.js` lists its page under one of three
+   headings. The ladder is the whole architecture of this stage - an atom imported
+   after the molecules can be overridden by them, which is the inversion the order
+   exists to prevent - and nothing had ever compared the last two.
+   Found on the first run: `product-thumb.css` (level 1) imported inside the
+   molecule group, `menu.css` (level 2) imported inside the organism group and
+   listed under Атоми on the stand, `upsell.css` (level 2) placed at organism by
+   BOTH the import and the registry.
+   A MISMATCH WITH A REASON WRITTEN ABOVE IT IS NOT A DEFECT. `upsell.css` carries
+   four lines saying why it imports where it does; `product-thumb.css` and
+   `menu.css` carry nothing. So the check asks for the comment, which is how this
+   repository declares every other exception, and reports the two kinds apart. */
+const idx = readFileSync(join(ROOT, 'design/system/index.css'), 'utf8').split('\n');
+const importBad = [], importSaid = [];
+let grp = null;
+for (let i = 0; i < idx.length; i++) {
+  const g = idx[i].match(/---- level (\d)/);
+  if (g) { grp = Number(g[1]); continue; }
+  const m = idx[i].match(/@import 'components\/([a-z0-9-]+\.css)'/);
+  if (!m || grp === null) continue;
+  const lvl = levelOf(m[1]);
+  if (lvl === null || lvl === grp) continue;
+  const above = idx.slice(Math.max(0, i - 8), i).join('\n');
+  (/\*\//.test(above.trimEnd()) ? importSaid : importBad)
+    .push([m[1], 'файл каже рівень ' + lvl + ', імпорт у групі ' + grp, i + 1]);
+}
+say('IMPORT НЕ В СВОЇЙ ГРУПІ РІВНЯ, І ПРИЧИНИ НЕ НАПИСАНО', importBad,
+  ([f, why, ln]) => f.padEnd(22) + why + '   index.css:' + ln);
+say('IMPORT НЕ В СВОЇЙ ГРУПІ, ПРИЧИНА НАПИСАНА ПОРУЧ', importSaid,
+  ([f, why, ln]) => f.padEnd(22) + why + '   index.css:' + ln);
+
+/* the fourth place: the heading the stand's own registry files the page under */
+const navSrc = readFileSync(join(ROOT, 'design/kit/_nav.js'), 'utf8');
+const NAVGRP = { 'Атоми': 1, 'Молекули': 2, 'Організми': 3 };
+const navBad = [];
+let ng = null, navPages = 0;
+for (const line of navSrc.split('\n')) {
+  const g = line.match(/"label":\s*"(Атоми|Молекули|Організми)"/);
+  if (g) { ng = NAVGRP[g[1]]; continue; }
+  const p = line.match(/"page":\s*"([a-z0-9-]+)\.html"/);
+  if (!p || ng === null) continue;
+  const css = metaFileOf.get(p[1]);
+  if (!css) continue;
+  navPages++;
+  const lvl = levelOf(css);
+  if (lvl !== null && lvl !== ng) navBad.push([p[1], 'у реєстрі стенда група ' + ng + ', файл каже рівень ' + lvl]);
+}
+say('ГРУПА В РЕЄСТРІ СТЕНДА РОЗІЙШЛАСЬ ІЗ РІВНЕМ ФАЙЛА', navBad, ([p, why]) => p.padEnd(22) + why);
+console.log('сторінок у групах реєстру стенда: ' + navPages + ' · розійшлось: ' + navBad.length +
+  ' · імпортів не у своїй групі: ' + importBad.length + ' без причини, ' + importSaid.length + ' з причиною');
+
+if (APPLY) {
+  const byPage = new Map();
+  for (const x of [...metaBad, ...metaForm]) {
+    if (!byPage.has(x[0])) byPage.set(x[0], []);
+    byPage.get(x[0]).push(x);
+  }
+  let written = 0;
+  for (const [page, list] of byPage) {
+    const p = join(kitDir, page + '.html');
+    const html = readFileSync(p, 'utf8');
+    /* THE REWRITE HAPPENS INSIDE THE meta BLOCK AND NOWHERE ELSE. A whole-file
+       `replace` would take the first `<span class="kp-tag">…` anywhere in the
+       page, and these pages quote their own markup in code blocks - the same
+       shape as `btn-rank.mjs`'s string replace at 8.31, which upsized a second
+       control per page and was caught by its own next run. Cut the block out,
+       edit it, put it back at the same offset. */
+    const mm = html.match(/<div class="kp-meta">([\s\S]*?)<\/div>/);
+    let block = mm[0];
+    for (const [, , tag, kind, , truth] of list) {
+      /* plain digits, no thousands separator: every number this rewrites is a
+         count of lines, selectors, declarations or screens, and the largest in
+         the corpus is 561. A locale separator would put an invisible NBSP into
+         render text, which is the class of byte `accept` has to grep for. */
+      const want = String(truth) + ' ' + form(truth, kind);
+      const from = '<span class="kp-tag">' + tag + '</span>';
+      if (!block.includes(from)) { console.log('  НЕ ЗНАЙДЕНО ТЕГА, пропущено: ' + page + ' «' + tag + '»'); continue; }
+      block = block.replace(from, '<span class="kp-tag">' + want + '</span>');
+    }
+    writeFileSync(p, html.slice(0, mm.index) + block + html.slice(mm.index + mm[0].length));
+    written++;
+  }
+  console.log('переписано сторінок: ' + written);
+}
 
 console.log('\n' + files.length + ' файлів компонентів · рядків у таблицях: ' + rows.length +
   ' (' + counts.join('/') + ')' +

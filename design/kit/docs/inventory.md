@@ -148,7 +148,7 @@ the unscoped base form, not the component.
 | Перевірка тренера | `coach-verify.css` | `.cv-wrap`, `.cv-steps`, `.cv-step` | 5 | 865 |
 | Сесія замовлення | `coach-session.css` | `.cs-wrap`, `.cs-top`, `.cs-meta` | 8 | 850 |
 | Клієнти тренера | `coach-clients.css` | `.cl-top`, `.cl-h1`, `.ch-name` | 10 | 621 |
-| Лендинг тренера | `coach-landing.css` | `.clh`, `.kicker`, `.clh-cta` | 1 | 520 |
+| Лендинг тренера | `coach-landing.css` | `.clh`, `.kicker`, `.clh-cta` | 1 | 527 |
 | Тариф тренера | `coach-tariff.css` | `.tf-lead`, `.tf-cur`, `.tf-cur-h` | 3 | 422 |
 | Замовлення тренера | `coach-order.css` | `.od-wrap`, `.od-head`, `.od-head-t` | 3 | 401 |
 | Форма чекауту | `checkout-form.css` | `.co`, `.smeths`, `.pf` | 26 | 367 |

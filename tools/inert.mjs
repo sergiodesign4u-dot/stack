@@ -49,7 +49,7 @@
    is no longer there is worse than no comment, and the notes in this repository
    are long. */
 import { Conn, newSession, visit } from './cdp.mjs';
-import { serve, chrome, subject, ROOT, snapshotExpr, topRules, withNotes } from './lib.mjs';
+import { serve, chrome, subject, ROOT, snapshotExpr, topRules, withNotes, privateBlock } from './lib.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -105,11 +105,17 @@ for (let i = 0; i < argv.length; i++) {
    `overview` STAYS: it is a design/ page carrying a private block and it is
    inside step 6's published 31. Dropping it would move a number by preference
    rather than by measurement. */
+/* AND «CARRIES A PRIVATE BLOCK» BECAME «CARRIES A PRIVATE RULE» ON 2026-08-17,
+   step 8.42: twenty-seven of the thirty pages this filter selected hold a note
+   and no declaration, and cutting a comment out of a page to see whether the
+   render moves is five hours spent proving that comments do not paint. The
+   predicate is `privateBlock` in lib.mjs, shared with `private.mjs` so the two
+   walks cannot disagree about what their subject is. */
 const STAND = argv.includes('--stand');
 let PAGES = subject(NAMED, 'design').filter(p => {
   if (!STAND && !NAMED.length && /^(kit|concept)\//.test(p)) return false;
-  const s = readFileSync(join(ROOT, 'design', p + '.html'), 'utf8');
-  return /<style>[\s\S]*?<\/style>/.test(s);
+  const b = privateBlock(readFileSync(join(ROOT, 'design', p + '.html'), 'utf8'));
+  return !!b && b.rules > 0;
 });
 /* SHARDING IS SAFE HERE AND WOULD NOT BE ANYWHERE ELSE IN THIS FOLDER: a page is
    cut IN PLACE, and no two pages share a file. `serve()` and `chrome()` already

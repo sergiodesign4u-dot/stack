@@ -12,110 +12,18 @@
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
 <style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* NOTHING PRIVATE LEFT HERE - step 8.42. The add-client modal was 74 rules and
+   left at step 8.31b; the shell stayed behind as blank lines.
+   Where it went: `.acov` / `.acmodal` / `.ac-top` / `.ac-x` / `.acact` are the
+   system's dialog under its own names - `.ceov` from overlay.css, and
+   `.cemodal` / `.ce-top` / `.ce-x` / `.ceact` from client-dialog.css, which also
+   declares `.ac-list` and `.ac-new`. The picker row `.ac-cli` joined radio.css's
+   row rung and `.ac-cli .ac-info` joined `.cli .cinfo` in coach-cabinet.css.
+   ONE OF THOSE RULES SHOULD NOT HAVE MOVED, AND THE MEASUREMENT IS AT 8.42:
+   `#wf-bar{ position: relative; z-index: 80 }` went into _stand.css so the stand
+   bar would stay above the scrim, and `.wf-bar` reads `display: none` on every
+   coloured screen, hidden by that same file since 2026-08-06. The rule was
+   extracted for an element that does not render. See _stand.css. */
 </style>
 </head>
 <body class="coach">

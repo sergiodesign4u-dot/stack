@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Перевірка тренера | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Перевірка тренера</h1>
+<p class="kp-lead">Вузол 5.1: покупець стає тренером. Роль активується поверх наявного акаунта, і між заявкою та гуртовою ціною стоїть людська перевірка - за посиланням на профіль. П'ять екранів одного потоку в одному файлі, і спільного в них рівно один об'єкт.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-verify.css</span><span class="kp-tag">865 рядків</span><span class="kp-tag">67 селекторів</span><span class="kp-tag">257 оголошень</span><span class="kp-tag">5 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Один хребет, п'ять тіл</div>
+<p class="kp-p">Файл виглядає як п'ять екранів, зшитих разом, але замір каже точніше. Кожен клас звірено з розміткою всіх п'яти кольорових екранів:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Скільки екранів</th><th>Класи</th><th>Що це означає</th></tr></thead><tbody>
+<tr><td><b>5 з 5</b></td><td><code>.cv-wrap</code> <code>.cv-steps</code> <code>.cv-step</code> (+<code>.n</code> <code>b</code> <code>.on</code> <code>.done</code> <code>.stop</code>)</td><td><b>Хребет.</b> Тримісний маркер прогресу - єдине, що бачать усі п'ять</td></tr>
+<tr><td>3</td><td><code>.cv-card</code> <code>.cv-alt</code></td><td>картка стану і рядок «передумали»</td></tr>
+<tr><td>2</td><td><code>.cv-badge</code> <code>.cv-actions</code></td><td>значок результату і ряд дій під ним</td></tr>
+<tr><td><b>1</b></td><td><code>.cv-split</code> <code>.cv-body</code> <code>.cv-aside</code> <code>.opt-tiles</code> <code>.city-chip</code> <code>.cv-consent</code> <code>.fhint</code> <code>.cv-ring</code> <code>.cv-steps2</code> <code>.cv-btnrow</code> <code>.cv-note</code> <code>.cv-reasons</code> <code>.cv-sub</code> <code>.cv-h1</code> <code>.cv-ok</code> <code>.cv-foot</code></td><td><b>Шістнадцять класів живуть на одному екрані кожен.</b> Це не марнотратство: стан має право виглядати як стан</td></tr>
+</tbody></table></div>
+<p class="kp-p">Саме тому це <b>один файл, а не п'ять</b>. Хребет був би скопійований п'ять разів, і він уже був: до кроку 7.23 вісім правил маркера стояли <b>байт у байт</b> у п'яти приватних блоках. Заміряно на 1280 у ту мить, коли їх видаляли:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Екран</th><th>Плитка</th><th>Край</th><th>Цифра</th><th>Підпис</th></tr></thead><tbody>
+<tr><td><code>coach-verify</code></td><td>65.59</td><td>1px</td><td>12px</td><td>14px</td></tr>
+<tr><td>інші чотири</td><td>65.47</td><td>1.5px</td><td>11px</td><td>12.5px</td></tr>
+</tbody></table></div>
+<div class="kp-cap">Одна річ, п'ять редакцій, і розійшлись вони на чверть пікселя, півпікселя краю і півтора пікселя тексту - тобто рівно настільки, щоб ніхто не помітив</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Маркер прогресу знімає скоуп <code>.coach</code>, і це не недогляд</div>
+<p class="kp-p">Усі 67 селекторів файлу починаються з <code>.coach</code> - <b>крім восьми правил маркера</b>. <code>.cv-step</code> трапляється рівно в шести файлах: п'ять екранів цього потоку і цей. <b>Ім'я вже і є скоуп</b>, а зайвий <code>.coach</code> означав лише «той єдиний екран, який здогадався так сказати».</p>
+<p class="kp-p">Альтернативи були обидві гірші. Повернути копії на чотири сторінки - це той самий дефект, виписаний ще чотири рази. Поставити <code>coach</code> на їхній <code>&lt;body&gt;</code> - це віддати їм <b>весь</b> файл, а <code>.cv-card</code> означає різні речі на різних екранах. У сірому прототипі всі п'ять і досі мають голий <code>&lt;body&gt;</code>; у кольорі всі п'ять несуть <code>class="coach"</code>, тож сьогодні хребет дістає їх обома шляхами - і саме тому знятий скоуп нічого не ламає, а копії не повертаються.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітку знято з п'яти кольорових екранів у цій сесії через <code>tools/demo.mjs</code>, разом із класом <code>coach</code> на <code>&lt;body&gt;</code>. Хлібні крихти зняті - це <code>breadcrumb.css</code>. Рамки на <b>860</b>, бо стільки дає <code>.cv-wrap</code>: це ширина читання двоколонкової картки, а не межа.</p>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-verify.html" style="width:1180px" data-w="1180" title="Перевірка тренера - заявка"></iframe></div>
+<div class="kp-cap">Крок 1. Єдиний з п'яти екранів із формою, і єдиний, де маркер стоїть на <code>.on</code> без жодного <code>.done</code> перед ним</div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Маркер</b> <code>.cv-steps</code> / <code>.cv-step</code> - <code>flex: 1</code>, мінімум 92px, чотири стани: спокій · <code>.on</code> поточний · <code>.done</code> пройдений · <code>.stop</code> зупинений</span></div>
+<div class="a"><i>2</i><span><b>Розкол</b> <code>.cv-split</code> - одна колонка, від 760 дві. Ліва <code>.cv-aside</code> бере <b>38%</b>, і це частка, а не довжина; діалог входу дає своїй половині 44%</span></div>
+<div class="a"><i>3</i><span><b>Панель довіри</b> <code>.cv-aside</code> - три причини, чому тренер узагалі заповнює форму. <code>--bg-surface</code>, і <b>штрихування звідси прибрано</b>: <code>--bg-hatch</code> у системі означає «картинки ще немає», а це не відсутня картинка</span></div>
+<div class="a"><i>4</i><span><b>Форма</b> <code>.cv-body</code> - поле, місто, тип, посилання, згода. Жоден контрол у ній не належить цьому файлу</span></div>
+<div class="a"><i>5</i><span><b>Плитки типу</b> <code>.opt-tiles</code> - тільки сітка. Саму плитку малює <code>radio.css</code>, і вибраний стан бере ту саму дію, що й маркер</span></div></div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-verify-loading.html" style="width:900px" data-w="900" title="Перевірка тренера - очікування"></iframe></div>
+<div class="kp-cap">Крок 2. <code>.cv-ring</code> - кільце очікування · <code>.cv-steps2</code> - другий, дрібніший список кроків усередині картки, з <code>.now</code> на поточному. <b>Два списки кроків на одному екрані</b>, і це названо нижче</div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-verify-error.html" style="width:900px" data-w="900" title="Перевірка тренера - не підтвердили"></iframe></div>
+<div class="kp-cap"><code>.cv-badge.bad</code> і <code>.cv-reasons</code> - значок відмови й список причин. Картка <b>не</b> <code>.mid</code>: текст ліворуч, бо його читають, а не сприймають</div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-verify-deadend.html" style="width:900px" data-w="900" title="Перевірка тренера - глухий кут"></iframe></div>
+<div class="kp-cap"><code>.cv-step.stop</code> - четвертий стан маркера, і єдиний, який каже, що далі шляху немає. Картка <code>.mid</code>, тобто по центру</div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-verify-tier.html" style="width:900px" data-w="900" title="Перевірка тренера - тариф"></iframe></div>
+<div class="kp-cap">Крок 3. <code>.cv-ok</code> - підтвердження, <code>.cv-h1</code> - заголовок поза карткою і поза <code>.cv-body</code>, <code>.cv-foot</code> - дрібний рядок під вибором. Самі тарифи малює <code>plan-card.css</code></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Знайдено на цій сторінці: бренд у двох редакціях</div>
+<p class="kp-p">Панель довіри починається зі слова <b>Stack</b> у класі <code>.vlogo</code>. Це <b>ім'я діалогу входу</b>: <code>auth-dialog.css</code> малює <code>.auth-visual .vlogo</code>, і файл сам це визнає - «ця панель це візуальна половина діалогу входу, побудована вдруге». Але однакове ім'я малює <b>дві різні речі</b>. Заміряно обчисленим стилем:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Де</th><th>Шрифт</th><th>Розмір</th><th>Трекінг</th><th>Знак бренду</th><th>Коробка</th></tr></thead><tbody>
+<tr><td><code>.auth-visual .vlogo</code> - діалог входу</td><td><b>Oswald</b></td><td>24px</td><td>-0.48px</td><td><b>є</b>, <code>::before</code> з <code>logo-mark.svg</code></td><td>356 x 42</td></tr>
+<tr><td><code>.cv-aside .vlogo</code> - ця панель</td><td><b>Inter</b></td><td>20px</td><td>-0.4px</td><td><b>немає</b></td><td>269 x 32</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>І правило само каже, який шрифт мало на увазі.</b> Воно оголошує <code>letter-spacing: var(--ls-display)</code> - трекінг <b>дисплейного</b> накреслення - і не оголошує <code>font-family</code>. Це рівно та сама форма, що й H1 на лендингу тренера: токен трекінгу називає накреслення, якого декларація не попросила.</p>
+<p class="kp-p">Питання ширше за цей компонент, тож зміряно по всьому кольоровому корпусу. <code>--ls-display</code> читають <b>десять</b> правил, і рендеряться вони так:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Накреслення</th><th>Скільки</th><th>Які</th></tr></thead><tbody>
+<tr><td><b>Oswald</b>, дисплейне</td><td>4</td><td><code>.auth-visual .vlogo</code> 24 · <code>.co-logo</code> 20 · <code>.wfh-logo</code> 20 · <code>.lh1</code> 30</td></tr>
+<tr><td>IBM Plex Mono</td><td>2</td><td><code>.bb .new</code> 36 · <code>.coachbox .cbnew</code> 30 - це гроші, і моно тут за правилом ціни</td></tr>
+<tr><td><b>Inter</b>, шрифт інтерфейсу</td><td>4</td><td><code>.cv-aside .vlogo</code> 20 · <code>.wff-col a.wff-phone</code> 24 · <code>.sys-min .sys-logo</code> 24 · <code>.sys-code</code> 60</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Логотип-слово має п'ять редакцій, і дві з них без знака</h4><b>Три несуть знак і дисплейне накреслення</b> - хедер, чекаут, діалог входу; <code>logo-mark.svg</code> малюється з чотирьох різних файлів компонентів. <b>Дві не несуть нічого</b>: сторінка 404 і <b>ця панель</b>. Тобто на екрані, де тренер вирішує, чи довіряти магазину свої дані, бренд стоїть у шрифті інтерфейсу без знака - а на екрані входу той самий клас стоїть у фірмовому.<br>Не правлено тут, і не тому, що дрібниця: логотип - це <b>значення</b>, у нього п'ять місць у чотирьох файлах, і звести їх означає завести компонент, якого система не має. <code>brand-logo.css</code> - це не він, а ряд логотипів <b>виробників</b> у каталозі. Етап 09.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що цей файл віддав, і що взяв назад</div>
+<p class="kp-p">Ці два екрани ніколи не проходили через <code>kit.css</code>: у них немає колірної половини, бо їх ніколи не фарбували. Тож усе нижче - перший в історії переклад сірого, і кожен рядок його або віддано власникові, або названо як відкрите.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що було локальним</th><th>Кому віддано</th><th>Що з цього вийшло</th></tr></thead><tbody>
+<tr><td><code>.fld</code>, <code>.fld &gt; label</code></td><td><code>field.css</code></td><td>Літеральний випадок: обидва селектори вже оголошені в <code>field.css</code>, а <code>.fld &gt; label</code> був <b>байт у байт</b> рядком із <code>wireframes/_wf.css</code>. Екран перенабирав глобальне правило</td></tr>
+<tr><td><code>.txt-field</code>, <code>.txt-field:focus</code></td><td><code>field.css</code></td><td>Коробка, яку малював екран - край 1.5px, радіус 10, поля 13/12, тип 15, чорнильний контур 2px на фокусі - одна з <b>дев'яти висот і п'яти розмірів</b>, заради яких переписували поле. <code>.txt-field</code> це не контрол, а <b>позиція</b></td></tr>
+<tr><td><code>.city-chip</code> - кнопка вибору міста</td><td><code>button.css</code></td><td>Друга редакція кнопки. Лишився <b>один</b> селектор, <code>.city-chip .ch</code> - назва міста всередині</td></tr>
+<tr><td><code>.cv-cta</code></td><td><code>button.css</code></td><td>Первинна дія, побудована руками. Розмітка носить <code>btn--accent btn--l btn--full cv-cta</code>, тобто три класи кнопки вже стоять поруч</td></tr>
+<tr><td>плитка типу тренера</td><td><code>radio.css</code></td><td>Тут лишилась <b>тільки сітка</b> <code>.opt-tiles</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>А назад узято заголовок.</b> Дві прийняті сторінки тієї самої форми - <code>.co-h1</code> в чекауті й <code>.auth-h1</code> у діалозі входу - пишуть однакові п'ять оголошень. Ця форма писала шосте. Заміряно до правки: Inter 700 24px, трекінг -0.24px, коробка 312 x 38.4 на 390 - <b>єдиний заголовок сторінки в кольоровому продукті, що лишався в тілесному шрифті</b>. Стало Oswald 600 30px.</p>
+<p class="kp-p">І це <b>третій потік</b>, знайдений у двох накресленнях для одного рангу: перший записав <code>coach-clients.css</code> («один кабінет носив ЧОТИРИ трактування заголовка»), другий - <code>coach-cabinet.css</code>. Тут база малювала Oswald 30/600 усередині <code>.cv-body</code>, а три екрани стану - Inter 22/800 усередині <code>.cv-card</code>, зі своїх приватних блоків. Один потік, один ранг, один слот, два накреслення й вісім пікселів різниці.</p>
+<div class="kp-cap">Селектор тому й потрійний: <code>.cv-body h1, .cv-card h1, .cv-h1</code>. Третє ім'я додано на 8.40, коли знайшлось, що заголовок екрана тарифу не лежить у жодному з двох</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Типографіка: дев'ять розмірів, знятих чужим рішенням</div>
+<p class="kp-p">Те саме правило, що й на лендингу тренера, і воно ж належить власникові: крок 5.5 знімає півпікселі <b>таблицею</b> (нічия йде до більш читаного сусіда), крок 5.6 підіймає цілі до дев'яти щаблів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Сірий</th><th>Стало</th><th>Яке правило</th></tr></thead><tbody>
+<tr><td><code>.cv-step .n</code></td><td>11</td><td><code>--fs-12</code></td><td>5.6, нічия вгору</td></tr>
+<tr><td><code>.fhint</code></td><td>11.5</td><td><code>--fs-12</code></td><td>5.5 → 12, і 12 це щабель</td></tr>
+<tr><td><code>.cv-step b</code></td><td>12.5</td><td><code>--fs-14</code></td><td>5.5 → 13, далі 5.6 вгору</td></tr>
+<tr><td><code>.cv-aside li</code></td><td>12.5</td><td><code>--fs-14</code></td><td>те саме</td></tr>
+<tr><td><code>.cv-alt</code></td><td>12.5</td><td><code>--fs-14</code></td><td>те саме</td></tr>
+<tr><td><code>.cv-aside .vtag</code></td><td>13</td><td><code>--fs-14</code></td><td>5.6, нічия вгору</td></tr>
+<tr><td><code>.cv-lead</code></td><td>13.5</td><td><code>--fs-14</code></td><td>5.5 → 13, далі 5.6 вгору</td></tr>
+<tr><td><code>.cv-aside .vtag b</code></td><td>14.5</td><td><code>--fs-14</code></td><td>5.5 → 14, і 14 це щабель</td></tr>
+<tr><td><code>.city-chip</code></td><td>15</td><td>16</td><td>оголошення пішло: <code>button.css</code> дає 16 і без цього</td></tr>
+</tbody></table></div>
+<div class="kp-pair"><div class="kp-do"><h4>Той, що пішов ВНИЗ, - це правило, а не виняток</h4><code>.cv-aside .vtag b</code> з 14.5 у 14 колись читали як доказ, що «замітання йшло не тільки вгору, а двобічне округлення - це недогляд». Обидві половини хибні: 14.5 → 14 це <b>шостий рядок таблиці 5.5</b>, нічия до більш читаного сусіда, а 14 уже щабель, тож 5.6 його не чіпає. Продукт узяв те саме 14.5 → 14 <b>утретє</b> в <code>buy-box.css</code>, у файлі поза цією партією.</div>
+<div class="kp-dont"><h4>Геометрія лишилась уся, і це правильна асиметрія</h4><b>20</b> позначок <code>[?]</code> у файлі. 92, 10, 9, 22, 6, 20 і 7 - усе ще літерали, бо відступи мають <b>два правила, що суперечать</b> одне одному (5.5 нічия вгору, 7.67 округляй униз), а радіус бере нічию вниз. Типографіка - єдина з трьох драбин з однозначною записаною відповіддю.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Один раз, на вході в роль тренера. Це <b>ворота первинної бізнес-моделі</b>: усе, що коштує грошей і дає гуртову ціну, стоїть за цим екраном. Job 1 починається тут.</p>
+<p class="kp-p">Практичне: <b>маркер прогресу з цього файлу - єдине, що можна позичити</b>, і позичати його поки нікуди. <code>.cv-step</code> зустрічається в шести файлах, і всі шість - цей потік. Коли з'явиться другий багатокроковий процес, це буде рівно та мить, коли маркер стане молекулою і поїде звідси у свій файл.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Стан має право на власний вигляд, ранг - ні.</b> Шістнадцять класів живуть на одному екрані кожен, і це нормально: кільце очікування нема де вживати вдруге. Але заголовок сторінки - це <b>ранг</b>, і він однаковий на всіх п'яти; саме тому селектор заголовка потрійний, а не п'ятиразовий.</div>
+<div class="kp-dont"><h4>Антиправило</h4><b>Не переписуй хребет у стан.</b> Копія маркера в приватному блоці екрана виглядає безпечно рівно доти, доки їх не стане п'ять і вони не розійдуться на півпікселя. Якщо стану треба інший маркер - це новий стан маркера (<code>.stop</code>), а не нова редакція маркера.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
+<p class="kp-p">У файлі <b>нуль</b> <code>:hover</code>, нуль <code>:active</code> і нуль <code>:focus-visible</code>. Усе, що відповідає на палець, - це <code>.btn</code>, поле, радіо або чекбокс, і за них відповідають їхні атоми.</p>
+<p class="kp-p">Стани тут <b>класи, а не псевдокласи</b>, бо це стани процесу, а не взаємодії - їх ставить сервер, а не курсор:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Що каже</th><th>Чим малює</th></tr></thead><tbody>
+<tr><td><code>.cv-step.on</code></td><td>ви тут</td><td><code>--line-action</code> на краю, диск <code>--bg-action</code> з <code>--text-onaction</code></td></tr>
+<tr><td><code>.cv-step.done</code></td><td>пройдено</td><td>диск гасне, всередину стає галочка</td></tr>
+<tr><td><code>.cv-step.stop</code></td><td>далі шляху немає</td><td><code>--line-danger</code>, <code>--text-danger</code></td></tr>
+<tr><td><code>.cv-badge.bad</code></td><td>не підтвердили</td><td>значок у небезпечній ролі замість успішної</td></tr>
+<tr><td><code>.cv-steps2 li.now</code></td><td>оце робиться зараз</td><td>той самий <code>--bg-action</code>, на пів розміру менший</td></tr>
+</tbody></table></div>
+<div class="kp-cap">Поточний крок переїхав на колір дії на 7.96. До того найгучнішим об'єктом над згином був <b>маркер прогресу</b>, а єдина дія екрана стояла на 1545.7px нижче на 390: екран показував, де ви, замість того що робити</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">Дві, і обидві свої.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Умова</th><th>Що змінює</th></tr></thead><tbody>
+<tr><td><code>(min-width: 760px)</code></td><td>розкол стає двоколонковим, панель довіри бере 38% і міняє нижню рамку на праву, поля форми ростуть з 22 до 30/34</td></tr>
+<tr><td><code>(min-width: 520px)</code></td><td>ряд дій під карткою перестає бути стовпчиком</td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>35</b> класів і <b>0</b> станів оголошено в <code>coach-verify.css</code>. <code>.coach</code> не рахується - це скоуп. <code>.uiv-ic</code> теж - це <code>icon.css</code>, і тут компонент лише стоїть усередині нього.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["bad", "ch", "city-chip", "cv-actions", "cv-alt", "cv-aside", "cv-badge", "cv-body", "cv-btnrow", "cv-card", "cv-consent", "cv-foot", "cv-h1", "cv-lead", "cv-note", "cv-ok", "cv-reasons", "cv-ring", "cv-split", "cv-step", "cv-steps", "cv-steps2", "cv-sub", "cv-wrap", "done", "fhint", "m", "mid", "n", "now", "on", "opt-tiles", "stop", "vlogo", "vtag"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>coach-verify.css</code>, не переписані руками. <b>Жодного сирого кольору</b>, хоча колірної половини у цих двох екранів ніколи не було: сірі імена перекладено за <b>роботою</b>, яку кожне з них виконувало в <code>wireframes/_wf.css</code>.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (18)</th><th>Примітиви (26)</th></tr></thead><tbody>
+<tr><td><code>--bg-action</code> <code>--bg-page</code></td><td><code>--font-display</code></td></tr>
+<tr><td><code>--bg-success-soft</code> <code>--bg-sunken</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code></td></tr>
+<tr><td><code>--bg-surface</code></td><td><code>--fs-18</code> <code>--fs-20</code> <code>--fs-24</code> <code>--fs-30</code></td></tr>
+<tr><td><code>--line-action</code> <code>--line-danger</code></td><td><code>--fw-semibold</code> <code>--fw-bold</code> <code>--fw-black</code></td></tr>
+<tr><td><code>--line-hair</code> <code>--line-strong</code></td><td><code>--ls-display</code> <code>--ls-lead</code></td></tr>
+<tr><td><code>--line-success</code> <code>--line-success-soft</code></td><td><code>--radius-8</code> <code>--radius-12</code> <code>--radius-16</code></td></tr>
+<tr><td><code>--text-body</code> <code>--text-danger</code></td><td><code>--radius-circle</code></td></tr>
+<tr><td><code>--text-muted</code> <code>--text-onaction</code></td><td><code>--size-46</code> <code>--size-52</code></td></tr>
+<tr><td><code>--text-primary</code> <code>--text-secondary</code></td><td><code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code></td></tr>
+<tr><td><code>--text-success</code></td><td><code>--space-16</code> <code>--space-24</code> <code>--space-32</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Один рядок таблиці перекладу більше не тримає.</b> Сіре <code>--dark</code> означало «вибране / первинне» <b>одним значенням</b>, а кольоровий продукт розділяє ці дві роботи. Де воно означало ПЕРВИННЕ - це й досі інверсна пара; де ВИБРАНЕ, тобто <code>.cv-step.on</code> і його диск, - це тепер <code>--bg-action</code> / <code>--line-action</code>, ті самі токени, що читає <code>.btn--accent</code>. Питання закрили до цього файлу два інші: <code>radio.css</code> і <code>chip.css</code>.</p>
+<div class="kp-cap">Так само <code>--strong</code> розійшлось надвоє навмисно: <code>--text-primary</code> там, де рядок це <b>заголовок</b>, <code>--text-body</code> там, де це текст або посилання. Сьогодні однакове значення, дві роботи, і вони можуть розійтися пізніше</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;main class="wf-page cv-wrap"&gt;
+  &lt;div class="cv-steps" aria-label="Кроки"&gt;
+    &lt;div class="cv-step on"&gt;&lt;span class="n"&gt;1&lt;/span&gt;Крок 1&lt;b&gt;Заявка&lt;/b&gt;&lt;/div&gt;
+    &lt;div class="cv-step"&gt;&lt;span class="n"&gt;2&lt;/span&gt;Крок 2&lt;b&gt;Перевірка&lt;/b&gt;&lt;/div&gt;
+    &lt;div class="cv-step"&gt;&lt;span class="n"&gt;3&lt;/span&gt;Крок 3&lt;b&gt;Тариф&lt;/b&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="cv-split"&gt;
+    &lt;aside class="cv-aside" aria-label="Навіщо це"&gt;
+      &lt;div class="vlogo"&gt;Stack&lt;/div&gt;
+      &lt;div class="vtag"&gt;&lt;b&gt;…&lt;/b&gt;…&lt;/div&gt;
+      &lt;ul&gt;&lt;li&gt;&lt;span class="m"&gt;✓&lt;/span&gt; …&lt;/li&gt;…&lt;/ul&gt;
+    &lt;/aside&gt;
+    &lt;div class="cv-body"&gt;
+      &lt;h1&gt;Стати тренером&lt;/h1&gt;
+      &lt;p class="cv-lead"&gt;…&lt;/p&gt;
+      &lt;div class="fld"&gt;&lt;label&gt;…&lt;/label&gt;&lt;input class="field txt-field"&gt;&lt;/div&gt;
+      &lt;div class="fhint"&gt;…&lt;/div&gt;
+      &lt;div class="opt-tiles" role="radiogroup"&gt;…&lt;/div&gt;
+      &lt;label class="cv-consent"&gt;…&lt;/label&gt;
+      &lt;div class="cv-alt"&gt;Передумали? &lt;a&gt;…&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/main&gt;</div>
+<p class="kp-p">Галочка перед перевагою - <b>набраний гліф</b> у розмітці, <code>&lt;span class="m"&gt;✓&lt;/span&gt;</code>. Це та сама редакція, яку <code>checkbox.css</code> на кроці 7.38 замінив мальованою: набраний знак читається вголос, не має товщини штриха і стає туди, куди його поставить шрифт. Розмітка заморожена, тож це названо, а не змінено.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.cv-wrap</code> <code>.cv-steps</code> <code>.cv-step</code> <code>.cv-card</code> <code>.cv-aside</code></p>
+<p class="kp-p"><b>5 кольорових екранів</b>: <code>coach-verify</code> · <code>-loading</code> · <code>-error</code> · <code>-deadend</code> · <code>-tier</code>. Плюс <b>секція 2</b> файлу - дельти тренера на шухляді кошика (<code>cart-coach</code>), які не заробили власного файлу: після видалення дублікатів і атомів від них лишилось <b>одне правило</b>, і воно названо бездомним у самому файлі.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Панель довіри стоїть першою в DOM</b> - на телефоні H1 «Стати тренером» починається на <b>716.8px</b> згори, однаково на 390 і на 360, тобто нижче згину на обох. Переставити її або згорнути - це рух аргументу довіри, на якому екран побудований. Рішення власника</li>
+<li><b>Логотип-слово в двох редакціях</b> - див. вище. П'ять місць, чотири файли, немає компонента</li>
+<li><b>Два списки кроків на екрані очікування</b> - <code>.cv-steps</code> угорі й <code>.cv-steps2</code> усередині картки. Другий детальніший, але це той самий процес, названий двічі</li>
+<li><b>38% проти 44%</b> - цей файл дає боковій панелі 38%, діалог входу своїй 44%. Дві пропорції, і жодна ніде не записана як рішення</li>
+<li><b><code>.cv-card</code> має 40px поля в одному місці</b> - 40 <b>є</b> щаблем, тож це вибір про той екран, а не дрейф, і скасувати його можна лише рішенням</li>
+<li><b><code>max-width: 900px</code> на екрані тарифу</b> проти 860 на чотирьох інших. 900 - це число, яке крок 7.70 уже згорнув до 860 в <code>checkout-form.css</code>. Рядок того екрана, не цього</li>
+<li><b>Набрана галочка</b> в панелі довіри, при мальованій у чекбоксі. Розмітка заморожена, Крок 6</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script src="_idle.js"></script>
+<script src="_frame.js"></script>
+</main>
+<script src="_nav.js"></script>
+</body>
+</html>
