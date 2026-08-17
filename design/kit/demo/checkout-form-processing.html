@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Чекаут - обробка платежу</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<!-- 8.36: `checkout-loading`, seven classes and one screen: `.co-proc-box` with
+     `.co-spin`, `.co-proc-h`, `.co-proc-s`, `.co-proc-note` and `.co-proc-go`. The
+     screen that says «we are talking to the bank» and gives exactly one thing to
+     do - wait - without a countdown, which principle 4 forbids. -->
+<div style="padding:24px;max-width:760px">
+<main class="co-proc">
+  <div class="co-proc-box" role="status" aria-live="polite">
+    <div class="co-spin" aria-hidden="true"></div>
+    <div class="co-proc-h">Обробляємо оплату…</div>
+    <p class="co-proc-s">Перенаправляємо на захищену сторінку банку (LiqPay / Wayforpay). Не закривайте вкладку - це займе кілька секунд.</p>
+    <div class="co-skel" aria-hidden="true">
+      <div class="sl m"></div>
+      <div class="sl s"></div>
+    </div>
+    <p class="co-proc-note">🔒 Дані картки вводяться на стороні банку - ми їх не зберігаємо.</p>
+    <!-- prototype: happy path forward (у продукті - авто-редірект після підтвердження банку) -->
+    <a class="btn--accent btn--l btn--full co-proc-go" href="../../../wireframes/order-placed.html">Оплату підтверджено →</a>
+    <a class="co-proc-cancel" href="../../cart.html">Скасувати та повернутися до кошика</a>
+  </div>
+</main>
+</div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

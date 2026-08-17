@@ -21,18 +21,28 @@
    wearer on either side. Nothing in the product hides a block by width through
    a class - the screens that change at 860 do it in their own media queries,
    which is stage 10's subject and not a utility's. */
-.wt-flow{ border: 1px solid var(--line-hair); border-radius: var(--radius-12); margin-bottom: var(--space-16); overflow: hidden; }
-.wt-fh{ background: var(--bg-sunken); padding: var(--space-12) var(--space-16); font-weight: var(--fw-black); color: var(--text-primary); display: flex; align-items: center; gap: var(--space-12); flex-wrap: wrap; }
-.wt-fh .soon{ background: var(--bg-inverse); color: var(--text-oninverse); font-size: var(--fs-10); font-weight: var(--fw-black); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); text-transform: uppercase; letter-spacing: var(--ls-caps); }
-.wt-fnote{ font-size: var(--fs-12); color: var(--text-secondary); font-weight: var(--fw-medium); }
-.wt-screen{ border-top: 1px solid var(--line-hair); padding: var(--space-12) var(--space-16); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8) var(--space-16); }
-.wt-sname{ font-weight: var(--fw-bold); color: var(--text-primary); font-size: var(--fs-14); min-width: 190px; }
-.wt-sname .node{ color: var(--text-muted); font-weight: var(--fw-semibold); font-size: var(--fs-12); margin-left: var(--space-8); }
-.wt-sname.planned{ color: var(--text-muted); }
-.wt-states{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
-.wt-st{ border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: var(--space-4) var(--space-12); font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--text-secondary); }
-.wt-st.base{ border-color: var(--line-inverse); color: var(--text-primary); }
-.wt-st.planned{ color: var(--mark-faint); border-style: dashed; border-color: var(--line-hair); }
+/* `.wt-*` DELETED - step 6, list 3, owner's call 2026-08-16, and it is the same
+   question `.only-mobile` and `.only-desk` answered above. TWELVE rules: `.wt-flow`
+   `.wt-fh` `.wt-fnote` `.wt-screen` `.wt-sname` `.wt-states` `.wt-st` with the
+   modifiers `.base` `.node` `.planned` `.soon`.
+
+   THEY ARE NOT THE ACCOUNT SHELL. They are the ROADMAP TREE: built by `wfTree()`
+   and called by exactly one page in the repository, `wireframes/overview.html` -
+   the prototype hub that LISTS the screens rather than being one, which CLAUDE.md
+   excludes from the component corpus by name.
+
+   Three measurements, all agreeing, and none of them a grep over this file:
+   1. that page loads `_wf.css` and never `design/system/index.css`;
+   2. `_wf.css` declares the whole family itself, so the hub keeps its look;
+   3. no page that DOES load the system contains any of the markup - asked of the
+      rendered DOM, because the tree is written by JavaScript.
+   So this copy was unreachable from the moment `_wf.css` was split at stage 08
+   step 3: it came across with the rest of the structure half and never had a page.
+
+   WHAT IT COST, and the number was already published on the stand page: **136 of
+   this file's 169 declarations that match no element in the product.** That is why
+   the deletion is worth twelve rules of comment - the file now describes the
+   cabinet and only the cabinet. */
 .acc{ display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-24); margin-top: var(--space-16); }
 /* ONE GAP, ONE DECISION - step 8.8, owner: «сильно много пустого пространства
    между крошками и карточкой». Measured at 390 on coach-home and on account:

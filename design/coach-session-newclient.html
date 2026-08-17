@@ -12,77 +12,16 @@
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
 <style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-/* empty-client state */
-.cs-empty { border:1.5px dashed var(--line-strong); border-radius: 12px; padding: 26px 18px; text-align: center; margin-top: 4px; }
-.cs-empty .ico { font-size: 26px; }
-.cs-empty h3 { font-size: 15px; font-weight: 800; color: var(--text-primary); margin: 8px 0 4px; }
-.cs-empty p { font-size: 12.5px; color:var(--text-secondary); line-height: 1.55; max-width: 360px; margin: 0 auto; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
+/* THE SEVENTH PRIVATE EDITION OF `.emptybox` IS GONE - 4 rules, step 8.41, and
+   8.30 had already removed the SIXTH from `coach-session-empty.html` - the
+   sibling of this screen, in the same flow, with the same block. A rename map
+   executed on one screen and not on the next, which is the mechanism this whole
+   item keeps finding. Written in element names (`.ico`, `h3`, `p`) exactly as
+   `coach-client-empty` was before 8.30; the markup takes `.emptybox` with
+   `.ei`, `.et`, `.es`, and every value comes with it - 1.5px dashed -> 1px
+   (7.62: Chrome resolves 1.5 to 1 before layout, so it never drew), radius 12
+   -> `--radius-12`, padding 26/18 -> 46/24, title 15/800 -> the display face at
+   `--fs-18`, body 12.5 -> `--fs-14` with the box's own 440 measure. */
 </style>
 </head>
 <body class="coach">
@@ -166,11 +105,11 @@
 
       <!-- EMPTY LINES for this client -->
       <div class="cs-lines-h">Товари для клієнта Ігор</div>
-      <div class="cs-empty">
-        <div class="ico">🛒</div>
-        <h3>Для Ігоря ще нічого не додано</h3>
-        <p>Скористайтеся швидким додаванням вище - підбір іде за ціллю клієнта «Витривалість».
-          Товари, додані на цій вкладці, автоматично закріплюються за Ігорем.</p>
+      <div class="emptybox">
+        <div class="ei">📦</div>
+        <div class="et">Для Ігоря ще нічого не додано</div>
+        <div class="es">Скористайтеся швидким додаванням вище - підбір іде за ціллю клієнта «Витривалість».
+          Товари, додані на цій вкладці, автоматично закріплюються за Ігорем.</div>
       </div>
     </section>
 

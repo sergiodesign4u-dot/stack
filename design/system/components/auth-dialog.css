@@ -66,6 +66,12 @@
    and this line rendered at the size it inherited. 12 is the nearest real rung. */
 .auth-consent{ font-size: var(--fs-12); line-height: var(--lh-airy); margin: var(--space-16) 0 var(--space-4); }
 .auth-or{ display: flex; align-items: center; gap: var(--space-12); }
+/* 8.36: `.smeths` ARRIVED from checkout-form.css, both declarations byte for byte.
+   It is the column of social sign-in buttons under «або», written by
+   `wfAuthPanel()`, and it exists in no markup at all - which is exactly why it sat
+   in the wrong file unnoticed until `checkout-form`'s stand page was asked to show
+   a class its own five screens do not contain. */
+.smeths{ display: flex; flex-direction: column; gap: var(--space-12); }
 .auth-or::before, .auth-or::after{ content: ''; flex: 1; height: 1px; }
 .auth-foot{ font-size: var(--fs-12); }
 .auth-load{ display: flex; flex-direction: column; align-items: center; text-align: center; margin: var(--space-24) 0 var(--space-8); }
@@ -147,6 +153,7 @@
 /* step 6.3: local edition of the outline hover deleted - the finish has it. */
 .auth-consent{ color:var(--text-muted); }
 .auth-consent b{ color:var(--text-secondary); }
+.smeths{ margin-bottom:var(--space-24); }
 .auth-or{ color:var(--text-muted); font-family:var(--font-mono);
   font-size:var(--fs-12); letter-spacing:var(--ls-eyebrow); text-transform:uppercase; margin:var(--space-24) 0; }
 .auth-or::before, .auth-or::after{ background:var(--bg-rule); }

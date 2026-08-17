@@ -54,8 +54,11 @@
 
 
 
-.skln { height: 12px; border-radius: 6px; background: var(--bg-rule); margin: 8px 0; }
-.skgrp { border:1px solid var(--line-hair); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+/* THE SKELETON BLOCK IS GONE - 2 rules, step 8.38. `.skgrp` was a fourth name
+   for the card (`.skcard`, `.skccard`, `.skcardbox` were the other three) and
+   `.od-grp` is the box this screen actually loads; `.skln` was the bar written
+   for the seventh time, and on `--bg-rule` - which is `--warm-200`, the
+   hairline colour - where every other skeleton in the product is `--warm-100`. */
 </style>
 </head>
 <body class="coach">
@@ -78,9 +81,9 @@
   </nav>
 
   <div aria-busy="true" aria-label="Завантажуємо замовлення">
-    <div class="skgrp"><div class="skln" style="width:38%;height:18px"></div><div class="skln" style="width:60%;margin-top:14px"></div><div class="skln" style="width:50%"></div></div>
-    <div class="skgrp"><div class="skln" style="width:30%"></div><div class="skln" style="width:80%"></div><div class="skln" style="width:70%"></div></div>
-    <div class="skgrp"><div class="skln" style="width:30%"></div><div class="skln" style="width:80%"></div><div class="skln" style="width:70%"></div></div>
+    <div class="od-grp skpulse"><div class="skline s"></div><div class="skline m"></div><div class="skline s"></div></div>
+    <div class="od-grp skpulse"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div></div>
+    <div class="od-grp skpulse"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div></div>
   </div>
 
 </main>

@@ -6926,3 +6926,531 @@ decisions 4, decisions with no subject 0. `accept` over the corpus at 390: 222 s
 `account-shell` and `checkout-form`, the last two stand pages. `listing-list`, `coach-clients-cap`,
 `listing` and `product` at a measured 360: 0 failures. `roles` 84 components 0 diverged,
 `css-comments` 91, `links` 4664/0, `vars` 222/0, `scope` exit 0.
+
+## Step 6, thirtieth pass - the last two pages, and one class that was living in the wrong file
+
+`checkout-form` and `account-shell`, the two biggest organisms. **86 owed classes -> 11**, and the
+eleven that remain are not a demo owed at all.
+
+### checkout-form: eight faces and two addresses, closed
+
+The largest file in the system took eight frames, because it holds eight things and none of them is
+a variant of another.
+
+**Its own chrome.** `.co-head` with `.co-logo` and `.co-support`, `.co-h1`, `.co-foot` - stripped on
+purpose: no menu, no search, no catalogue. A screen someone is paying on gets one way out and no way
+sideways, and that is a decision the stand had never shown.
+
+**Three states, each on one screen.** `checkout-declined` holds twelve classes nothing else has -
+`.co-err-box` with its mark, heading and actions, and under it `.co-keep`, the order held while the
+payment is retried, with `.kr` / `.kv` rows, `.tot` and `.knote`. `checkout-loading` holds seven,
+including `.co-spin` and `.co-proc-note`: the screen that says «we are talking to the bank» and
+offers exactly one thing to do, without a countdown, which principle 4 forbids. `checkout-noaddr`
+holds `.co-noaddr`, `.co-confirm-note` and `.req`.
+
+**The logged-in variant** carries what a guest checkout never draws: `.co-me` and `.co-edit` (who
+this order is for), `.co-saved`, and the bonus row `.bv` / `.disc` / `.co-accrual` - what the order
+earns and what it spends.
+
+**The second address.** `.pfcard` on `design/account-profile.html` shares no code with the checkout,
+and two of its classes exist only inside dialogs the profile opens: `.pf-resend` at the SECOND step
+of the phone-change dialog, `.pf-delcheck` on the delete-account confirmation - the only place in
+the product where a destructive act is gated by an explicit «I understand». Both frames call the
+product's own openers.
+
+### One class was in the wrong file, and it hid because it has no markup
+
+`.smeths` - the column of social sign-in buttons under «або» - was declared in `checkout-form.css`
+and occurs in **no markup anywhere**, grey or coloured. The only thing that emits it is
+`wfAuthPanel()`, which is the auth dialog. Moved to `auth-dialog.css`, both declarations byte for
+byte, each kept in its own block so the file's structure/colour split stands.
+
+It had sat in the wrong file precisely BECAUSE it has no markup: no census of occurrences could
+point at it, and nothing asked until this page was told to show a class its own five screens do not
+contain. That is the idle control finding a class of defect nobody had a probe for.
+
+### The last eleven are not the account shell, and they are an owner's decision
+
+`.wt-flow` `.wt-fh` `.wt-fnote` `.wt-screen` `.wt-sname` `.wt-st` `.wt-states`, with `.base`
+`.node` `.planned` `.soon`, are the ROADMAP TREE - built by `wfTree()` and called by exactly one
+page in the repository, `wireframes/overview.html`. That is the prototype hub which lists the
+screens rather than being one, and `CLAUDE.md` excludes it from the component corpus by name.
+
+Three measurements, and they agree: the page loads `_wf.css` and never `system/index.css`;
+`_wf.css` declares the family itself; and no page that does load the system contains any of the
+markup. So the copy in `account-shell.css` is unreachable - and the page's own note already counts
+what it costs: **136 of that file's 169 declarations that match no element in the product.**
+
+The precedent sits on the same page: `.only-mobile` and `.only-desk` were the identical question -
+declared in `_wf.css` and in this file, worn by nothing on 141 grey and 87 coloured screens - and
+the owner closed it by deletion on 2026-08-14. **Recommended: delete, same as then.** Not done
+unilaterally, because the previous one was explicitly the owner's call and this is twelve times
+larger.
+
+### Proof
+
+`accept` over the corpus at 390: **234 screens** (fourteen new frames), **1 failure** - the eleven
+above, which are the pending decision. `checkout-form` and `auth-dialog` at a measured 360: clean.
+`idle`: `checkout-form` 0 owed of 92, `account-shell` 11 of 32. `roles` 84 components 0 diverged
+after the move. `css-comments` 91, `vars` 234/0, `links` **4716/0** after the extraction rule
+learned that a screen sits one level under the root and a frame three, so `../wireframes/x.html`
+moves by two more.
+
+Stand debt **86 classes on 2 pages -> 11 on 1**, and the 11 are a question, not work.
+
+## Step 6, thirty-first pass - item 3b closed, and the first fully green corpus
+
+The owner took the recommendation: **the twelve `.wt-*` rules are deleted from
+`account-shell.css`.** They were the roadmap tree - built by `wfTree()` for
+`wireframes/overview.html`, the hub CLAUDE.md excludes from the component corpus by name - and the
+copy in a product component had been unreachable since the `_wf.css` split at stage 08 step 3.
+
+**The hub was measured after, not assumed.** `wireframes/overview.html` still draws 6 flows, 50
+screens and 141 state pills, with `1px solid rgb(228,228,228)` on the flow box, a 12px radius, and
+the pills at 100px radius and 71x25 - all of it from `_wf.css`, which declares the family itself.
+Nothing there moved, which is what «unreachable» had to mean if the reading was right.
+
+Four tokens left the file with the rules and left the page's token table in the same step -
+`--bg-inverse`, `--line-inverse`, `--fs-10`, `--fw-medium` - and `roles.mjs` is what caught each
+one. That is twice in three passes it has caught a token table going stale behind a deletion.
+
+### Item 3b is done
+
+**74 stand pages, 0 red. `accept` over 234 screens at 390, 0 failures.** The first fully green
+corpus of this stage.
+
+The debt ran **179 classes on 19 pages -> 0**, and what it produced along the way was not demos:
+
+- **Three instrument extractions**, all the same shape - one mechanism retyped into every page that
+  needed it. `_idle.js` (74 copies, five editions, one of which had the states clause deleted and
+  one of which held the only correct timing rule), `_frame.js` (24 copies carrying a
+  `querySelector` that silently capped a page at one frame), `_boot.js` (33 copies, plus a hook
+  whose placement is load-bearing and an asset path four builders type by hand).
+- **Two deletions of dead code** - `.bb .tier` / `.bb .qty`, and the `.wt-*` family.
+- **One rule living in the wrong file** - `.smeths`, which hid because it has no markup at all, so
+  no census of occurrences could ever have pointed at it.
+- **One live defect on a shipped buyer screen** - the badge over the product title at 390 and 360.
+- **One across the whole panel layer** - Chrome's blue focus ring on every open panel's container.
+
+None of those was reachable by the probes this repository already had. They were all answers to a
+question nothing was asking: **does the page actually SHOW what its file declares.**
+
+### Proof
+
+`accept` 234 screens at 390, **0 failures**; `account-shell` at a measured 360, clean. `idle` 74
+pages: 0 owed, 0 states, 0 parked exemptions, 0 unnamed states. `roles` 84 components 0 diverged.
+`btn-rank` 88 pages: 0 unranked, 0 open finishes, 4 decisions, 0 without a subject. `css-comments`
+91, `links` 4716/0, `vars` 234/0.
+
+## Step 6, thirty-second pass - backlog item 8, and what the inventory turned out to be
+
+Item 8 was written as a question rather than a task: **something should ask whether a published
+number is still true.** `vars.mjs` and `grey-vars.mjs` ask that of a VALUE, `roles.mjs` of a TOKEN
+LIST, and nothing asked it of a COUNT. The obvious subject was `inventory.md`, the registry of the
+component layer - three tables by level, a `Lines` column, a `Screens` column and a totals
+paragraph, every number measured once at step 5 and typed in.
+
+`tools/inventory.mjs` asks six questions, all of them of the files rather than of the file's prose:
+coverage both ways, `Lines` against disk, the level table against the level the component declares
+in its own opening comment, the totals paragraph against the tables it summarises, and - behind
+`--screens`, because it costs a browser - the `Screens` column.
+
+### What the first run found
+
+| | |
+|---|---|
+| components on disk / rows in the tables | **84 / 73** |
+| rows pointing at a file that no longer exists | 2 |
+| `Lines` cells that had drifted | **66 of 73** |
+| `Screens` cells that had drifted | **58 of 73** |
+| level filed against what the component says about itself | 1 |
+| totals paragraph | «70 components: 22/27/21» against 73 (22/28/23) in its own tables |
+
+**And the file's own note about the gap had drifted too.** It said eight coach components were
+missing; the real number was thirteen - `cat-overlay.css`, `menu.css`, `nav-drawer.css`,
+`product-thumb.css` and `stack-action.css` were missing as well and nobody had noticed, because the
+note was written by hand from one afternoon's reading, exactly like the table it was describing.
+
+### The Screens column could never have been right, and that is the interesting half
+
+The old column was a markup scan, and a third of this product's chrome is written by
+`wireframes/_nav.js` at load. So it read `footer.css` **1** where the footer is on **77** screens,
+`tabbar.css` **0** against **82**, `header.css` **5** against **82**, `overlay.css` **0** against
+**82**. The `**JS**` annotation the column carried was standing in for exactly that blindness -
+a note beside a number saying «this number is wrong and here is why».
+
+Asked of the rendered DOM instead, the blindness goes and so does the need for the annotation. A
+component's **anchors** are the classes its own file declares and no other component file does; a
+screen carries the component if at least one anchor renders. Naming ambiguity is handled by the same
+rule that makes the count possible, rather than by a list of exceptions.
+
+**The exemption it produces has a control.** Three components have no anchor at all - `counter`,
+`icon`, `product-thumb` - because every class they declare is also declared somewhere else. Their
+cell reads `–`, the project's «no value» mark, and that does not fail the run. What fails is the
+pair going out of step in either direction: a component with no anchors and a number in its cell, or
+a `–` against a component that does have anchors. Without the second half the dash would be a place
+to hide a number nobody wants to take.
+
+### One level was settled by the ladder, not by a vote
+
+`upsell.css` said «level 3» in its own header, «рівень 2» on its stand page, and sat under molecules
+in the inventory. Three published claims and no agreement. The tool's rule - trust what the file says
+about itself - would have moved it to organisms, so the rule was overruled by the thing the rule is
+supposed to serve: **a molecule contains atoms, an organism contains molecules or is a screen
+shell.** The panel is a bordered block with a heading, a line of text and one `btn--accent`. Atoms
+only, so level 2, and the header is corrected in the file with the reasoning beside it. The
+`@import` group proves nothing either way, because the coach group in `index.css` is a SCOPE group
+rather than a level group - the finding 8.29 recorded next to this one.
+
+### The same claim was in a second place, which is how this started
+
+`design/kit/kit.html` publishes the triple in prose too, and it read **«51 компонент: 18 атомів,
+18 молекул, 15 організмів»** - a generation older than the inventory's own 70. That page is the
+FROZEN smoke test of stage 07, and frozen is a decision about the page rather than a licence for a
+number to be wrong: CLAUDE.md allows a visible «updated after publication» block instead of a
+rebuild, so it has one, naming today's numbers and the instrument that keeps them.
+
+The tool checks that block, and writing that check produced its own small lesson: **`\w` is
+ASCII-only in JavaScript**, so the first regex could not match «організми» and reported a page that
+was in fact correct. An instrument that cries wolf is the one failure mode it may not have, so the
+Cyrillic range is spelled out with the reason beside it.
+
+### Proof
+
+`inventory` after: 84 files, 84 rows (22/29/33), 0 without a row, 0 rows without a file, 0 `Lines`
+diverged, 0 levels diverged, 0 `Screens` diverged over 88 coloured screens, totals paragraph
+agreeing with its tables, `kit.html` carrying the current triple, exit 0 on both the plain and the
+`--screens` run. `accept` 234 screens at
+390, 0 failures. `idle` 74 pages, 0 red. `roles` 84 components, 0 diverged. `css-comments` 91,
+`links` 4716/0, `vars` 234/0.
+
+**Backlog item 8 is closed.**
+
+## Step 6, thirty-third pass - pile 2 opens on the skeleton, and the promise becomes the box
+
+Pile 1 of item 3 closed last pass with three rules deliberately left for stage 09. Pile 2 is what
+remains: 103 private rules whose class names the system has never declared, so each is a component,
+a move, or a deletion. The first batch is the skeleton - **20 rules on 5 screens, to zero, and not
+one declaration replaced them.**
+
+### The census in the file was right, and it was taken before the subject existed
+
+`skeleton.css` opens with a measurement: the bar - the single most-used piece - «written SIX times
+in FOUR files», counted in a browser over 40 colour screens at step 7.28. The coach flow entered
+colour at 7.95. So the census was never wrong; it was taken before half its subject existed, which
+is the same failure the inventory had last pass and the reason item 8 exists at all.
+
+Counted again over the five coach loading screens, the bar is written **nine** times:
+
+| | height | radius | ground | where |
+|---|---|---|---|---|
+| `.sk-line` | 13px | 6px | `--bg-sunken` | `coach-client-loading` |
+| `.skln` | 12px | 6px | `--bg-rule` | `coach-order-loading`, `coach-orders-loading` |
+| `.qa-skel .sk` | 12px | 6px | `--bg-rule` | `coach-session-loading` |
+| `.skline` | **10px** | **4px** | **`--bg-sunken`** | the system, and 78 bars of 84 |
+
+**`--bg-rule` is `--warm-200`, which is `--line-hair`.** Three coach screens were painting a
+skeleton bar in the hairline colour while every other skeleton in the product paints `--warm-100`.
+Measured by `tree-diff`, 21 bars: `rgb(233, 231, 226)` -> `rgb(242, 240, 237)`. The file states the
+answer in one line - «the ground of a skeleton bar is `--bg-sunken` and is stated once» - and three
+screens had re-opened it without reading it.
+
+### And the rows around the bars were the real component, retyped
+
+Not a family resemblance. The same declarations, side by side:
+
+| private | the system, same numbers |
+|---|---|
+| `.sk-row` 40 / 1fr, gap 11, hairline | `.coach .oc-item` `--size-40` / 1fr, gap 11, hairline |
+| `.sk-ph` 40 square, radius 7 | `.coach .oc-ph` `--size-40` square, radius 7 |
+| `.sk-top` flex, space-between | `.coach .oc-top` flex, space-between |
+| `.sk-actions` gap 9, margin-top 14 | `.coach .oc-actions` gap 9, margin-top 14 |
+| `.qa-skel` 44 / 1fr, gap 11, padding 9/0 | `.coach .qa-row` `--size-44` / 1fr, gap 11, padding 9/0 |
+| `.skhd` flex, centre, gap 12 | `.coach .ccard-hd` flex, centre, gap 12 |
+| `.skav` 44 circle | `.coach .ccard-av` `--size-44` circle |
+| `.skclist` grid 1fr -> 2 at 640, gap 12 | `.coach .clist` grid 1fr -> 2 at 640, gap 12 |
+| `.skgrp` hair edge, radius 12 | `.coach .od-grp` hair edge, radius 12 |
+
+So the answer is not «move these into a component». It is **7.68's rule read to the end**. That step
+fixed a `.skcard` that promised 10/11 over a card drawing 1/1 and wrote the sentence: a skeleton is a
+promise about the box that replaces it. The promise that cannot drift is **the box itself**. The
+markup on the five screens now wears `.ocard`, `.oc-item`, `.oc-ph`, `.ccard`, `.ccard-hd`,
+`.ccard-acts`, `.clist`, `.od-grp`, `.ord` and `.qa-row` - the real thing, standing empty, with
+`.skline` inside. `.skpulse` has been exactly this shape since 7.28 and says so in the file: «the
+container is usually a real component».
+
+### Exactly two declarations were added, and both had been written twice already
+
+The button placeholder - `.sk-btn` (38 x 120, radius 8) and `.skacts i` (38 tall, `flex: 1`, radius
+8) - is one object under two names, and **both were 2px short of the button they promise**: each row
+holds `btn--s`, whose `min-height` is `--size-40`. `flex: 1` is the half they shared and it needs no
+width literal, so `.skbtn` is three declarations. `.load-note`, the sentence under a skeleton, took
+`--fs-12` (12.5, and 5.5 takes the half pixel to the more-read neighbour) and `--space-24` (20, and a
+tie in spacing goes up).
+
+Three further rules read the anatomy the way 8.30's two do, and live where the skeleton lives rather
+than in the component being borrowed: what `.od-grp` and `.ord` need when they hold bars instead of
+their real children, and what a bar needs in a flex row or an `auto` grid track. That last one is
+**the percentage-of-nothing defect 8.30 measured in the account rail, in its second habitat** - a
+`.skline` is a fraction of its holder, and `.oc-top` and the price track have no width of their own
+to be a fraction of.
+
+### And one of those three rules was written from one screen's markup
+
+The holder rule read `.od-grp:not(:has(.od-grp-h)), .ord:not(:has(.ord-body))` for one draft, on the
+reasonable-sounding ground that both boxes let their children carry the inset. Checked against the
+corpus instead of against the screen in front of me, **both halves of the `.ord` clause were wrong**:
+`coach-cabinet.css` gives `.coach .ord` a padding of its own, so the rule was answering a question
+nobody had asked - and only `account-orders` writes `.ord-body`, so the guard would have matched the
+four **real** order cards on `coach-orders.html` too. Same family as item 1's `class="btn"`
+whole-string match: a pattern tight enough to be right about the case in front of it and wrong about
+the set. Removed, with the reading written beside it. The control that caught it was reading the
+markup of every screen that wears `.ord`, and the control that proves the removal is `tree-diff`:
+**the six loaded screens these skeletons stand in front of moved 0 elements at both widths.**
+
+### This completes 8.24 rather than reversing it
+
+Step 8.24 took `coach-clients-loading` off a third skeleton-card name (`.skccard`) and onto
+`.skcard`. The same reading one step further says it is not a skeleton card at all: it is the client
+card standing empty. `.skcard`, `.skgrid` and `.skcardbox` keep the catalogue and the account, where
+the box that replaces them is a `.pcard` - **naming those is stage 09's, and it is named here rather
+than done, because this step has not measured it.**
+
+### Two things the batch found that nothing was asking
+
+**Four of the eight loading screens were not breathing.** `.skpulse` has been in the system since
+7.28 with its own `prefers-reduced-motion` answer, and `coach-client-loading`, `coach-order-loading`,
+`coach-orders-loading` and `coach-session-loading` never got it - the last of them said so in its own
+comment, «static, motion deferred». All eight now.
+
+**And one class was dead from the other end.** `.skel` on `coach-orders-loading` is declared by
+nothing, in this layer or the grey one. List 3 asks «which class does no markup wear»; this is the
+mirror question - which class does no stylesheet declare - and no instrument in `tools/` asks it.
+
+### Two published cells did not survive re-measurement
+
+Item 3's own table said «29 screens still carrying rules» and «4 private `@media` blocks». Counted
+again: **23** screens going into this batch and **1** media block. Both were taken before the last
+batches of pile 1 and never re-taken. Neither was ever a wrong measurement and both were a wrong
+published number, which is exactly the class `tools/inventory.mjs` was built for last pass and
+exactly the class it does not yet reach. The numbers now read 19 screens and **0** media blocks -
+the private layer has no responsive answer of its own left anywhere in the coloured product, which
+is the precondition stage 10 was waiting on.
+
+### Proof
+
+`private` 106 -> **86** rules, 19 screens, 0 private `@media`. `tree-diff --dir` against the tree
+minutes before the cut: every movement on the five screens accounted for by the table above - the
+bar's height, radius and ground, the row's tracks, the card's padding and shadow. Photographed at
+390: all five. `accept` **234 screens, 0 failures at 390 and 0 at 360**. `inventory` 84 files, 84
+rows, 0 `Lines`, 0 levels, 0 `Screens` over 88 coloured screens - and it caught the stale
+`skeleton.css` line count itself, one pass after being built. `idle` 74 pages 0 red, `roles` 84
+components 0 diverged, `css-comments` 91, `links` 4716/0, `vars` 234/0.
+
+## Step 6, thirty-fourth pass - the error box, and a component nobody in the coach flow had read
+
+Pile 2's second batch: **26 rules on 7 screens to zero.** Same shape as the skeleton, one layer up -
+except that this time what the copies could not retype is the part that carries the meaning.
+
+### The rule was written, published and unread
+
+`empty-state.css` has said since 7.28 that empty and broken are different things, and its stand page
+says it in a sentence: «нічого не знайдено» is the result of a person's choice and its exits lead
+forward; «не вдалося завантажити» is our breakage and its one exit is to try again. **No screen in
+the coach flow had read it.** `.errbox` was worn by exactly one screen in the product -
+`account-error` - and `--line-danger-soft` had exactly one use in the whole system: that box's
+border.
+
+| box | edge | radius | padding | glyph |
+|---|---|---|---|---|
+| `.err` · `coach-client-error` | 1px solid `--line-strong` | 14 | 40/22 | 32px on `--mark-disabled` |
+| `.cerr` · `coach-home-error` | 1.5px dashed `--line-strong` | 16 | 44/26 | a 60px ring, `--text-secondary` |
+| `.ord-err` · `coach-order-error`, `-orders-` | 1px `--line-hair` | 14 | 44/24 | **none** |
+| `.empty` · `coach-clients-error` | – | – | – | the catalogue's illustrated nothing-here-yet plate |
+| **`.errbox`** | **1px `--line-danger-soft`** | **`--radius-12`** | **48/24** | **`--text-danger`, 34** |
+
+**Not one of the four carried the danger role.** Not a different red - no red at all. Flat grey, and
+on `coach-client-error` the warning glyph sat on `--mark-disabled`, the ink for something switched
+OFF. Four screens of the primary audience, in the worst minute of its journey, and the product was
+saying nothing about what had happened. The skeleton batch found nine editions of a grey rectangle;
+this one found four editions of a sentence the system had already written and none of them said it.
+
+The fifth was wrong by name rather than by number: `coach-clients-error` put an error inside
+`.empty`, which is the catalogue's illustrated plate - three of its six wearers hold a mascot
+photograph and the colour block is written for them.
+
+### What the copies drew by hand went with them
+
+`.err-btns .btn{ padding: 13px 24px }` - a size on top of `btn--s`, the same deletion 8.30 made for
+`.cs-empty .btn`, and the atom owns the ladder. `.ord-empty, .ord-err` shared **one selector**: one
+plate for two opposite jobs, which is the confusion above written as CSS. And `p.lead` on the two
+client screens is `.es` under another name, carrying **42ch on one screen and 46ch on the other** -
+two screens cloned from each other, one line, two measures.
+
+### The measure was missing from the box, which is why both screens grew it
+
+`.emptybox .es` is capped at 440 and `.errbox .es` at 420. `.empty .es` had no cap at all, so on a
+wide column its body ran the full width of whatever held it. Measured at 1280: **660px on
+`coach-clients-empty`, 726 on `listing-error`, 818 on `coach-client-empty`, 982 on `product-error`**
+- up to a hundred characters on one line, on three shipped screens nobody had complained about.
+
+One declaration, 440, the number the sibling box already carries so the family says it once.
+`tree-diff` gives the blast radius exactly: **one element on each of those four screens, and nothing
+at 390**, where the box is narrower than 440 anyway.
+
+**That is the argument for doing this work at all.** The private rule was not debt on those two coach
+screens - it was the only place in the product where somebody had noticed the box has no measure, and
+they noticed it twice, with different numbers, because there was nowhere to write it down once.
+
+### One look decision, said out loud
+
+Two screens were given the `⚠️` glyph every other error box carries. That is a decision, not a
+measurement, and it is reversible by one word in the markup. It also keeps 8.15's rule honest:
+`.errbox` is deliberately NOT in that rule's `:first-child` selector, because after this step no
+error box lacks a glyph, and a selector that covers nothing is the same noise as an empty exemption.
+The reasoning is written at the rule rather than here, where the next person to add an error box will
+be standing.
+
+### And a published count was left alone rather than rewritten
+
+`kit/empty-state.html` carried five numbers in its header: 56 lines, 26 selectors, 35 rules, 247
+declarations, 7 screens. Lines and screens are what `inventory.mjs` measures, and both were stale -
+**146** and **19**. The other three were taken at step 5 from the **two source stylesheets before the
+split**, not from this file, and no instrument here reproduces that method. They are removed with the
+reason on the page rather than replaced: substituting a number whose method cannot be reproduced
+passes a guess off as a measurement, which is the failure this whole item is about.
+
+### Proof
+
+`private` 86 -> **60** rules, 19 -> **12** screens. `tree-diff --dir`: 9 untouched empty/error
+screens **0 moved** before the measure went in; after it, exactly 1 element on each of the 4 `.empty`
+screens and 0 at 390. Photographed at 390 and 1280. `accept` 234 screens, **0 failures at 390 and 0
+at 360**. `inventory` 84/84, 0 `Lines`, 0 levels, 0 `Screens` over 88 coloured screens. `idle` 74
+pages 0 red, `roles` 84 components 0 diverged, `css-comments` 91, `links` 4716/0, `vars` 234/0.
+
+## Step 6, thirty-fifth pass - the verify flow, and a claim the browser refused
+
+Pile 2's third batch: **32 rules on 4 screens to zero**, and the three deliberately deferred
+`.cv-card` rules are all that is left of the flow. Every name in those blocks was prefixed `cv-` -
+`coach-verify.css`'s own anatomy, carried by the four state screens while the base carried none of
+it.
+
+### Four things the copies cost
+
+**`.lead` is `.cv-lead` with one word missing.** The file has declared `.coach .cv-lead` since the
+split - `--fs-14`, `--text-secondary`, `margin: --space-8 0 22px`, line-height 1.55. Three state
+screens wrote `class="lead"`, a name one word away from the one that would have inherited it, so each
+grew its own: **14px / 13.5px / 13.5px**, three margins, two measures. `coach-verify-tier`, which
+does write `cv-lead`, is the control that says this was a typo rather than an intent: it never needed
+a rule.
+
+**And `.cv-lead` had no measure**, so tier rendered it **828px wide at 1280** - 93 characters on one
+line, on a shipped screen. Identical to `.empty .es` last pass, identical answer: 440, the number the
+product already carries twice. The base measures 444 in its own column and moves 4px.
+
+**`h1.cv-h1` at 24/800 Inter.** This flow's heading rank is the display face at `--fs-30`, declared
+for `.cv-body h1` and `.cv-card h1` - and tier's h1 is inside neither, so the selector never reached
+it and the screen typed its own. **The fourth heading carrying two faces for one rank**, after the
+cabinet, `coach-orders` and this flow's own states. Joined to the selector list rather than deleted,
+same as the third.
+
+**A bare `.btn{ display: block }` on two screens** - third occurrence of the shape, after
+`.tier-cta{ display: block }` at 8.29 and `.cs-empty .btn` at 8.30.
+
+### The first draft of that fourth line was wrong, and the browser said so
+
+It read: the rule turned the main action's `btn--full` back into a block, on the two screens where
+the main action is the whole point. Plausible - `button.css` has no `.btn` rule, the private one loads
+after `system/index.css`, and `.btn--full` is (0,1,0) exactly like it. **`cv-cta` is written
+`btn--accent btn--l btn--full` with no bare `btn`, so the rule never reached it.**
+
+Measured on `coach-verify-error` at 1280, before and after, it reached the SECONDARY action - and
+there it was doing real work: the outline button was **510 x 40 with `margin-top: 11px`**, and the
+atom alone makes it **203 x 40 with no margin**. A natural-width control glued to the bottom edge of
+a full-width one. So the answer was not to keep a bare `.btn`: two stacked actions are a GROUP, this
+file already had the class for it - `.cv-actions`, worn by the dead end - and the error screen simply
+was not wearing it. Wrapped; measured after at 510 / 510 with a 12px gap.
+
+**A claim that survives one screen and dies on the next is exactly what the browser is for**, and
+this is the second time in three passes: 8.38's `.ord` guard was refused the same way. Both were
+written from the markup in front of me and both were checked against the corpus before they shipped.
+The correction is kept in the file above the rule, not smoothed away.
+
+### `text-align: center` came out of the deferred set on purpose
+
+What stays private is three rules: `.cv-card{ max-width: 560px }` twice and `{ padding: 40px 24px }`
+once. Which of the card's answers becomes the panel's is a decision, and 8.30 said so. Centring is
+not part of that question - it splits the four screens on **what they hold** rather than on a value.
+The waiting screen and the dead end centre one message; the error screen keeps its text left because
+it carries a LIST. So it is `.cv-card.mid` in the component, and everything that follows from
+centring - the disc, the ring, the lead, the sub, the note, the action column's 340 cap - follows
+from it in one place instead of four.
+
+### Proof
+
+`private` 60 -> **28** rules, 12 -> **11** screens, and the three remaining `.cv-card` rules now read
+as exactly what they are: `один компонент: 3`. `tree-diff --dir`: `coach-verify` **1 element** - the
+lead's 444 -> 440, which is the whole blast radius on the base. Photographed at 390: all four states.
+`accept` 234 screens, **0 failures at 390 and 0 at 360**. `inventory` 84/84, 0 `Lines`, 0 levels, 0
+`Screens` over 88 coloured screens - and it caught `coach-verify.css` at 700 against 865 on disk.
+`idle` 74 pages 0 red, `roles` 84 components 0 diverged, `css-comments` 91, `links` 4716/0,
+`vars` 234/0.
+
+## Step 6, thirty-sixth pass - pile 2 closes, and a fix that had to be reverted the same step
+
+**25 rules on 8 screens, and item 3 is done**: 468 private rules at the start of the pile, **3**
+today, and all three are the `.cv-card` set deferred to stage 09 by decision. Eleven screens carried
+rules yesterday; three do now, and `private.mjs` prints them as exactly what they are - `один
+компонент: 3`.
+
+### The last batch was the same three atoms, a third time
+
+**The card, typed out by hand on two screens.** `account-shell.css` declares `.acard` and its colour
+block adds `--radius-12`, `--bg-page`, `--elevation-1`. `coach-home-free` and `coach-home-empty`
+wrote radius **14** and neither the plate nor the shadow, and won on load order. `.ah`, `.ah h3` and
+`.ah a` are declared there too and all three had drifted - gap 10 against `--space-12`, the caps
+label on `--text-secondary` against `--text-muted`, the link at 12.5 against `--fs-14`. This is
+8.29's `plan-card.css` finding a second time, in the same flow.
+
+**The pill, twice.** `.cord .co-status` overrode `status-pill.css`'s own class at (0,2,0) and cut it
+off from its `.ok` state; the word on that screen is «Доставлено», so the markup takes `ok` - 7.96
+settled that this half is the markup's. `.cl-oostag` was `.ci-oostag` under another name.
+
+**The empty box a seventh time**, on the sibling of the screen 8.30 took the sixth from.
+
+**Four button paddings, two of which the system had deleted BY NAME** - `coach-clients.css:411` and
+`:332` both name the exact rules two state screens were still carrying.
+
+### The fix that was measured, found to be a regression, and reverted
+
+`.emptybox .ei` sets `font-size: 0` and shows the SVG `marks.js` puts there. The private box had no
+such rule, so its `🛒` was drawn by the font - and `marks.js` does not map `🛒`; `UIV_EMOJI` in
+`design/_nav.js` does. The moment the component took over, the icon slot measured **259 x 0**: not a
+faint mark, an absent one. That is the same seam `marks.js` records twice in its own comments - `🗑`
+at 7.13, `📦` at 8.1 - and the answer both times was a row in the second map.
+
+**Adding the row cost two shipped buyer screens.** `.ei` is also the slot `design/_nav.js:1566` fills
+with the mascot on `cart-empty` and `cart-coach-empty`; `'🛒':'cart'` replaced the mascot with a cart
+outline on both. Reverted, and the box takes `📦` - the glyph its three sibling empty states already
+use.
+
+**The lesson is not «measure your changes», it is narrower than that.** A two-map seam closes with a
+row in the second map only while those two maps are the only writers. Here a THIRD route writes into
+the same element, and it does not announce itself in either map - which is exactly why the check that
+caught it was `tree-diff` reading the element's own content, and not any rule-level probe. This is
+the third claim in four passes that survived the screen in front of me and died on the corpus, after
+8.38's `.ord` guard and 8.40's `btn--full`. All three are kept in the files, in the wrong words
+first, with the reading beside them.
+
+### Proof
+
+`private` 28 -> **3** rules, 11 -> **3** screens. `tree-diff --dir` on the 11 touched screens plus
+`coach-home`, `coach-clients`, `coach-session`, `cart-empty` and `cart-coach-empty`: every movement
+accounted for by the tables above, and the two cart screens back to **0** after the revert. `accept`
+234 screens, **0 failures at 390 and 0 at 360**. `inventory` 84/84, 0 `Lines`, 0 levels, 0 `Screens`
+over 88 coloured screens. `idle` 74 pages 0 red, `roles` 84 components 0 diverged, `css-comments` 91,
+`links` 4716/0, `vars` 234/0.
+
+**Backlog item 3 is closed.** What step 6 still owes is item 2 - the overriding half - and its count
+of 886 has not been re-taken since the scope fix, deliberately: it would be arithmetic rather than a
+measurement.

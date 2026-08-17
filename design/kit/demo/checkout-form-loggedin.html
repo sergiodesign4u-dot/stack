@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Чекаут - ввійшлий покупець</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<!-- 8.36: `checkout-loggedin` and `checkout-noaddr` between them hold the classes a
+     GUEST checkout never draws: `.co-me` (who this order is for), `.co-edit`,
+     `.co-saved`, `.bv` and `.disc` and `.co-accrual` (the bonus row - what this
+     order earns and what it spends), `.mn`, `.star`, `.md`, and the `.co-noaddr` /
+     `.co-confirm-note` / `.req` of the screen with no address yet. -->
+<div style="padding:24px">
+<div class="co-grid">
+
+    <!-- LEFT COLUMN -->
+    <div>
+
+      <!-- 1 · КОНТАКТ (logged-in - collapsed, prefilled) -->
+      <section class="co-sec" aria-label="Контакт">
+        <div class="co-sec-h"><span class="num">1</span> Контакт</div>
+        <div class="co-me">
+          <div>
+            <div class="mn">Вікторія Коваль · 🥈 Срібний рівень</div>
+            <div class="md">+380 67 123 45 67 · viktoriia@example.com</div>
+          </div>
+          <a class="btn--outline btn--s co-edit" href="../../account.html">Змінити</a>
+        </div>
+      </section>
+
+      <!-- ВАШЕ ЗАМОВЛЕННЯ (line items moved here from the right rail) -->
+      <section class="co-sec" aria-label="Ваше замовлення">
+        <div class="co-sec-h">🛒 Ваше замовлення <span class="cnt">· 3 товари</span></div>
+
+        <div class="co-line" data-unit="1290" data-old="1520" data-img="whey">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
+            <div class="li-meta">Смак: Подвійний шоколад · США</div>
+            <div class="li-acts">
+              <button type="button">♡ В обране</button>
+              <button type="button">🗑 Видалити</button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button type="button" aria-label="Більше">+</button></div>
+            <div class="li-price"><span class="li-oldline"><span class="li-old">1 520 ₴</span><span class="li-cut">−15%</span></span><span class="li-sum">1 290 ₴</span><span class="li-per"></span></div>
+          </div>
+        </div>
+
+        <div class="co-line" data-unit="1050" data-img="whey">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">BioTechUSA Iso Whey Zero 908 г</div>
+            <div class="li-meta">Смак: Ваніль · Угорщина</div>
+            <div class="li-acts">
+              <button type="button">♡ В обране</button>
+              <button type="button">🗑 Видалити</button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="2" aria-label="Кількість"><button type="button" aria-label="Більше">+</button></div>
+            <div class="li-price"><span class="li-oldline"></span><span class="li-sum">2 100 ₴</span><span class="li-per">1 050 ₴ / шт</span></div>
+          </div>
+        </div>
+
+        <div class="co-line" data-unit="549" data-img="creatine">
+          <div class="li-img">фото</div>
+          <div class="li-bd">
+            <div class="li-nm">OstroVit Creatine Monohydrate 500 г</div>
+            <div class="li-meta">Без смаку · Польща</div>
+            <div class="li-acts">
+              <button type="button">♡ В обране</button>
+              <button type="button">🗑 Видалити</button>
+            </div>
+          </div>
+          <div class="li-right">
+            <div class="co-qty"><button type="button" aria-label="Менше">−</button><input class="qn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="1" aria-label="Кількість"><button type="button" aria-label="Більше">+</button></div>
+            <div class="li-price"><span class="li-oldline"></span><span class="li-sum">549 ₴</span><span class="li-per"></span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 · ДОСТАВКА (saved address preselected) -->
+      <section class="co-sec" aria-label="Доставка">
+        <div class="co-sec-h"><span class="num">2</span> Доставка</div>
+
+        <label class="co-opt on" data-price="60" data-label="Нова Пошта">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Нова Пошта - відділення / поштомат</span><span class="otd">1–2 дні по Україні</span></span>
+          <span class="op">від 50 ₴</span>
+        </label>
+        <div class="co-sub">
+          <div class="co-saved"><b>📍 Одеса · Відділення №12</b>, вул. Катерининська, 27 <a href="../../account.html" class="ch">· змінити</a></div>
+        </div>
+
+        <label class="co-opt" data-price="80" data-label="Кур'єр НП">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Кур'єр Нова Пошта - на адресу</span><span class="otd">Доставка до дверей, 1–2 дні</span></span>
+          <span class="op">від 70 ₴</span>
+        </label>
+        <div class="co-sub">
+          <button type="button" class="btn--outline btn--full co-city">📍 Одеса <span style="color:var(--text-muted);font-weight:600">· змінити</span></button>
+          <input class="field co-input" type="text" placeholder="Вулиця, будинок, квартира">
+        </div>
+
+        <label class="co-opt" data-price="0" data-label="Самовивіз Одеса">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Самовивіз - Одеса</span><span class="otd">вул. Дерибасівська, 1 · за наявності на точці</span></span>
+          <span class="op">безкоштовно</span>
+        </label>
+      </section>
+
+      <!-- 3 · ОПЛАТА -->
+      <section class="co-sec" aria-label="Оплата">
+        <div class="co-sec-h"><span class="num">3</span> Оплата</div>
+
+        <label class="co-opt on">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Картка онлайн - LiqPay / Wayforpay</span><span class="otd">Visa · Mastercard · безпечна оплата на сторінці банку</span></span>
+        </label>
+        <label class="co-opt">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Apple Pay / Google Pay</span><span class="otd">Оплата в один дотик</span></span>
+        </label>
+        <label class="co-opt">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Накладений платіж</span><span class="otd">Оплата при отриманні на Новій Пошті</span></span>
+        </label>
+        <label class="co-opt">
+          <span class="co-radio"></span>
+          <span class="ot"><span class="otn">Готівка при самовивозі</span><span class="otd">Оплата на точці в Одесі</span></span>
+        </label>
+
+        <div class="co-cmt-lbl">Коментар до замовлення (необов'язково)</div>
+        <textarea class="field co-cmt" placeholder="Наприклад: подзвоніть перед доставкою"></textarea>
+      </section>
+    </div>
+
+    <!-- RIGHT COLUMN - money only, sticky -->
+    <aside class="co-money" aria-label="Разом">
+      <div class="co-money-h">Разом</div>
+
+      <!-- bonus module - state «є бонуси», списання off (toggle it: the whole column recomputes) -->
+      <div class="co-bonus" data-balance="240">
+        <div class="co-bonus-top"><span class="bl">Бонусний рахунок</span><span class="bv">240 ₴</span></div>
+        <div class="bnote">Можна оплатити бонусами частину замовлення (діють 3 місяці)</div>
+        <div class="btn--text co-toggle" role="button" tabindex="0" aria-pressed="false"><span class="co-sw"></span> Списати бонуси</div>
+      </div>
+
+      <div class="co-brow" data-row="items"><span>Сума товарів (<span class="n">3</span>)</span><b>3 939 ₴</b></div>
+      <div class="co-brow" data-row="discount" data-rate="0.05"><span class="disc">Знижка лояльності 🥈 Срібло −5%</span><b>−197 ₴</b></div>
+      <div class="co-brow" data-row="delivery"><span>Доставка · <span class="dn">Нова Пошта</span></span><b>60 ₴</b></div>
+      <div class="co-total"><span class="tl">До сплати</span><span class="tv">3 802 ₴</span></div>
+
+      <div class="co-accrual"><span class="star">★</span><span class="m">Нарахуємо <b>+38 ₴</b> бонусів за це замовлення (~1%)</span></div>
+
+      <a class="btn--accent btn--l btn--full co-confirm" href="../../checkout-loading.html">Підтвердити замовлення</a>
+
+      <div class="co-trust">🔒 Безпечна оплата · 14 днів на повернення · Гарантія оригіналу</div>
+    </aside>
+
+  </div>
+</div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

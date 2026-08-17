@@ -12,41 +12,15 @@
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
 <style>
-
-/* edge, radius and 32/24 padding are coach-verify.css `.cv-card` now - this is
-   the screen whose numbers became the panel's. What is left is its own. */
+/* THE STATE SCREEN'S ANATOMY IS coach-verify.css NOW - 9 rules, step 8.40.
+   Every name here was prefixed `cv-`, which is that file's own; the four state
+   screens carried it and the base did not. What each copy cost is written in
+   section 1b there - `.lead` was `.cv-lead` with one word missing, a bare
+   `.btn{ display: block }` turned the main action's `btn--full` back into a
+   block, and the lead had no measure on any of them.
+   What is left is the deferred one: whether 560 becomes the panel's width is
+   stage 09's decision, not this step's move. */
 .cv-card { max-width: 560px; margin: 0 auto; }
-/* THE STATE DISC IS OUTLINED AND CARRIES ITS STATE'S COLOUR - auth-dialog.css
-   `.auth-visual .vmid .vi` settled it: a 46px circle on `--bg-page` whose EDGE
-   and GLYPH move with the state, `--line-danger` / `--text-danger` on error and
-   `--line-success` / `--text-success` on success. This drew a 2px ink ring, the
-   mechanical translation of the grey layer's `--dark`, on the one screen whose
-   whole message is «something went wrong». */
-.cv-badge { width: var(--size-46); height: var(--size-46); border-radius: var(--radius-circle);
-  border:1px solid var(--line-danger); background: var(--bg-page); color: var(--text-danger);
-  display: flex; align-items: center; justify-content: center; font-size: var(--fs-24); margin-bottom: var(--space-16); }
-
-.cv-card .lead { font-size: 13.5px; color:var(--text-secondary); margin: 8px 0 20px; line-height: 1.55; }
-.cv-reasons { border:1px solid var(--line-hair); border-radius: 12px; padding: 4px 14px; margin-bottom: 22px; }
-.cv-reasons h2 { font-size: 12px; font-weight: 800; color:var(--text-secondary); text-transform: uppercase; letter-spacing: .03em; padding: 14px 0 4px; }
-.cv-reasons ul { list-style: none; margin: 0; padding: 0; }
-.cv-reasons li { font-size: 13px; color:var(--text-body); display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-top:1px solid var(--line-hair); }
-.cv-reasons li:first-of-type { border-top: none; }
-.cv-reasons li .m { color: var(--text-primary); font-weight: 800; flex: none; }
-/* .cv-cta: the private rule is GONE and button.css owns it - step 8.17,
-   which is the handover coach-verify.css:505 wrote down at 7.96: «`.cv-cta`
-   is declared again, with its own numbers, in the `<style>` blocks of
-   coach-verify-error.html and coach-verify-deadend.html ... when they get a
-   coloured edition they want the same three classes, not a third set of
-   numbers.» The three are `btn--accent btn--l btn--full`, the same ones
-   coach-verify.html:98 and checkout.html's .co-confirm carry. What the hand
-   version cost: no hover, no active, no focus ring, no off state, a 10px
-   radius and a 15px label that are on no ladder - and, once the head was
-   swapped to the system, an ink fill that resolved to nothing at all, so
-   the white label was drawing on white paper. */
-.btn { display: block; text-align: center; margin-top: 11px; }
-
-
 </style>
 </head>
 <body class="coach">
@@ -74,9 +48,9 @@
   </div>
 
   <div class="cv-card">
-    <div class="cv-badge" aria-hidden="true">⚠</div>
+    <div class="cv-badge bad" aria-hidden="true">⚠</div>
     <h1>Не вдалося підтвердити</h1>
-    <p class="lead">За вашим посиланням ми не змогли переконатися, що ви тренер. Це можна виправити - надішліть інше посилання.</p>
+    <p class="cv-lead">За вашим посиланням ми не змогли переконатися, що ви тренер. Це можна виправити - надішліть інше посилання.</p>
 
     <div class="cv-reasons">
       <h2>Можливі причини</h2>
@@ -87,8 +61,10 @@
       </ul>
     </div>
 
-    <a class="btn--accent btn--l btn--full cv-cta" href="coach-verify.html">Надіслати інше посилання</a>
-    <a class="btn--outline btn--s btn" href="../wireframes/content-contacts.html">Зв'язатися з підтримкою</a>
+    <div class="cv-actions">
+      <a class="btn--accent btn--l btn--full cv-cta" href="coach-verify.html">Надіслати інше посилання</a>
+      <a class="btn--outline btn--s btn" href="../wireframes/content-contacts.html">Зв'язатися з підтримкою</a>
+    </div>
 
     <div class="cv-alt">
       Немає іншого посилання для перевірки?

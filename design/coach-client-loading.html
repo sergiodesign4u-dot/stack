@@ -12,28 +12,12 @@
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
 <style>
-
-
-
-
-
-
-
-
-.cc-cta .btn { padding: 13px 22px; }
-
-
-/* skeleton */
-.sk { background:var(--bg-sunken); border-radius: 6px; }
-
-
-.sk-top { display: flex; justify-content: space-between; }
-.sk-line { height: 13px; }
-.sk-row { display: grid; grid-template-columns: 40px 1fr 70px; gap: 11px; align-items: center; padding: 12px 0; border-top:1px solid var(--line-hair); margin-top: 10px; }
-.sk-ph { width: 40px; height: 40px; border-radius: 7px; }
-.sk-actions { display: flex; gap: 9px; margin-top: 14px; }
-.sk-btn { height: 38px; width: 120px; border-radius: 8px; }
-.load-note { text-align: center; font-size: 12.5px; color:var(--text-muted); margin-top: 20px; }
+/* THE LAST RULE ON THIS SCREEN IS GONE - step 8.41, and it is the rule the
+   system had already deleted BY NAME: `coach-clients.css:411` reads
+   «`.cc-cta .btn{ padding: 13px 22px }` DELETED - button.css owns the padding»,
+   with the note that three action rows on these two screens gave the button
+   three different paddings. The base screen took the deletion at 7.96; its
+   loading state kept the copy. */
 </style>
 </head>
 <body class="coach">
@@ -65,18 +49,22 @@
 
   <h2 class="oh-h">Історія замовлень клієнта</h2>
   <div class="ohist" aria-hidden="true">
-    <div class="skcard">
-      <div class="sk-top"><div class="sk sk-line" style="width:130px"></div><div class="sk sk-line" style="width:90px"></div></div>
-      <div class="sk-row"><div class="sk sk-ph"></div><div class="sk sk-line" style="width:70%"></div><div class="sk sk-line"></div></div>
-      <div class="sk-row"><div class="sk sk-ph"></div><div class="sk sk-line" style="width:55%"></div><div class="sk sk-line"></div></div>
-      <div class="sk-actions"><div class="sk sk-btn"></div><div class="sk sk-btn" style="width:90px"></div></div>
-    </div>
-    <div class="skcard">
-      <div class="sk-top"><div class="sk sk-line" style="width:130px"></div><div class="sk sk-line" style="width:90px"></div></div>
-      <div class="sk-row"><div class="sk sk-ph"></div><div class="sk sk-line" style="width:65%"></div><div class="sk sk-line"></div></div>
-      <div class="sk-row"><div class="sk sk-ph"></div><div class="sk sk-line" style="width:50%"></div><div class="sk sk-line"></div></div>
-      <div class="sk-actions"><div class="sk sk-btn"></div><div class="sk sk-btn" style="width:90px"></div></div>
-    </div>
+    <article class="ocard skpulse">
+      <div class="oc-top"><div class="skline"></div><div class="skline"></div></div>
+      <div class="oc-items">
+        <div class="oc-item"><div class="oc-ph"></div><div class="skline m"></div><div class="skline"></div></div>
+        <div class="oc-item"><div class="oc-ph"></div><div class="skline s"></div><div class="skline"></div></div>
+      </div>
+      <div class="oc-actions"><div class="skbtn"></div><div class="skbtn"></div></div>
+    </article>
+    <article class="ocard skpulse">
+      <div class="oc-top"><div class="skline"></div><div class="skline"></div></div>
+      <div class="oc-items">
+        <div class="oc-item"><div class="oc-ph"></div><div class="skline m"></div><div class="skline"></div></div>
+        <div class="oc-item"><div class="oc-ph"></div><div class="skline s"></div><div class="skline"></div></div>
+      </div>
+      <div class="oc-actions"><div class="skbtn"></div><div class="skbtn"></div></div>
+    </article>
   </div>
   <p class="load-note">Завантажуємо історію клієнта…</p>
 </main>

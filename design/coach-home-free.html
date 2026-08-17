@@ -12,51 +12,24 @@
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
 <style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.acard { border:1px solid var(--line-hair); border-radius: 14px; padding: 16px; }
-
-.acard .ah { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
-.acard .ah h3 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color:var(--text-secondary); }
-.acard .ah a, .acard .ah .lnk { font-size: 12.5px; font-weight: 700; color: var(--text-primary); }
-
-
-
-
-
-
-
-
-.cli .cgo-btn { margin-left: auto; white-space: nowrap; padding: 8px 14px; }
-
-
-
-
-
-
-
-
-
-
-.cord .co-status { display: inline-block; font-size: 11px; font-weight: 800; border:1px solid var(--line-strong); border-radius: 100px; padding: 2px 9px; color: var(--text-primary); margin-top: 7px; }
-
-
-
+/* THE CARD WAS `.acard`, TYPED OUT BY HAND - 6 rules, step 8.41, and it is the
+   same finding `plan-card.css` recorded at 8.29 in the same flow. account-shell.css
+   declares `.acard` (1px `--line-hair`, `--space-16`) and its colour block adds
+   `--radius-12`, `--bg-page` and `--elevation-1`; the copy wrote radius **14** and
+   neither the plate nor the shadow, and it wins on load order. `.ah`, `.ah h3` and
+   `.ah a` are all declared there too, and all three had drifted: gap 10 against
+   `--space-12`, the caps label on `--text-secondary` against `--text-muted`, the
+   link at 12.5 against `--fs-14`.
+   TWO MORE WENT WITH IT. `.cli .cgo-btn` declared three things and the system
+   already declares all three: `margin-left: auto` at coach-cabinet.css:477,
+   `white-space: nowrap` at button.css:116, and the padding is the atom's ladder -
+   the fourth action-row padding of the four `coach-clients.css` names in its own
+   note. And `.cord .co-status` was status-pill.css's own class overridden at
+   (0,2,0): an 11px/800 pill on `--line-strong` where the atom draws `--fs-12` on
+   `--space-4/--space-12`, and the override also cut the pill off from its `.ok`
+   state. The word on this screen is «Доставлено», so the markup takes `ok` -
+   status-pill.css:7.96 says that half is the markup's and no stylesheet can
+   write it */
 </style>
 </head>
 <body class="coach">
@@ -161,7 +134,7 @@
             <div class="co-info">
               <div class="co-no">Замовлення № К-2041</div>
               <div class="co-meta">28 червня 2026 · <b>2 клієнти</b> (Андрій, Марія) · 4 товари</div>
-              <span class="co-status">Доставлено</span>
+              <span class="co-status ok">Доставлено</span>
             </div>
             <div class="co-sum"><span class="cs-b">3 480 ₴</span><a class="btn--outline btn--s btn" href="coach-order.html">Деталі</a> <a class="btn--accent btn--s btn" href="cart-coach.html">↻ Повторити</a></div>
           </div>
@@ -169,7 +142,7 @@
             <div class="co-info">
               <div class="co-no">Замовлення № К-1987</div>
               <div class="co-meta">14 червня 2026 · <b>1 клієнт</b> (Андрій) · 3 товари</div>
-              <span class="co-status">Доставлено</span>
+              <span class="co-status ok">Доставлено</span>
             </div>
             <div class="co-sum"><span class="cs-b">2 020 ₴</span><a class="btn--outline btn--s btn" href="coach-order.html">Деталі</a> <a class="btn--accent btn--s btn" href="cart-coach.html">↻ Повторити</a></div>
           </div>

@@ -89,10 +89,13 @@
 
 
 
-/* loading state - quick-add skeleton (static, motion deferred) */
-.qa-skel { display: grid; grid-template-columns: 44px 1fr 70px; gap: 11px; align-items: center; padding: 9px 0; border-top:1px solid var(--line-hair); }
-.qa-skel .sk { height: 12px; border-radius: 6px; background: var(--bg-rule); }
-.qa-skel .sk-ph { width: 44px; height: 44px; border-radius: 7px; }
+/* THE SKELETON BLOCK IS GONE - 3 rules, step 8.38. `.qa-skel` was
+   `coach-session.css`'s own `.qa-row` retyped (44 / 1fr, gap 11, padding 9/0,
+   hairline top) and `.qa-skel .sk-ph` was `.qa-ph`; the bar was the ninth
+   edition, 12px on `--bg-rule` against the system's 10 on `--bg-sunken`. The
+   markup wears the row it is promising, so the stack it grew at 7.97 for 360
+   now covers the waiting state too. «motion deferred» is answered as well -
+   `.skpulse` is in the system with its own reduced-motion rule. */
 </style>
 </head>
 <body class="coach">
@@ -156,9 +159,9 @@
         </div>
         <div class="qadd-res" aria-busy="true">
           <div class="qadd-h" style="font-weight:700;color:var(--text-secondary);margin:2px 0 6px">Шукаємо товари й гуртові ціни…</div>
-          <div class="qa-skel"><span class="sk sk-ph"></span><span class="sk"></span><span class="sk" style="width:60px"></span></div>
-          <div class="qa-skel"><span class="sk sk-ph"></span><span class="sk"></span><span class="sk" style="width:60px"></span></div>
-          <div class="qa-skel"><span class="sk sk-ph"></span><span class="sk"></span><span class="sk" style="width:60px"></span></div>
+          <div class="qa-row skpulse"><span class="qa-ph"></span><span class="skline m"></span><span class="skline"></span></div>
+          <div class="qa-row skpulse"><span class="qa-ph"></span><span class="skline m"></span><span class="skline"></span></div>
+          <div class="qa-row skpulse"><span class="qa-ph"></span><span class="skline m"></span><span class="skline"></span></div>
           <!-- prototype: loading resolves forward (flows.md slqa → q4) -->
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
             <a class="btn--accent btn--l btn" href="coach-session.html" style="font-size:12.5px">Товари завантажено - до сесії →</a>

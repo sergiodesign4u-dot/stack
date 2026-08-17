@@ -150,6 +150,97 @@
 .co-skel{ margin: var(--space-24) auto var(--space-8); max-width: 320px; }
 .auth-skel{ width: 100%; max-width: 300px; margin: var(--space-24) auto 0; }
 
+/* ---------- THE SKELETON WEARS THE COMPONENT IT PROMISES - step 8.38 --------
+   The census at the top of this file counted the bar «written SIX times in FOUR
+   files». It was taken over 40 colour screens at 7.28, and the coach flow
+   entered colour at 7.95. Counted again today over the five coach loading
+   screens, the bar is written NINE times, and the three new editions disagree
+   with the six and with each other:
+
+     .sk-line     13px  radius 6  --bg-sunken   coach-client-loading
+     .skln        12px  radius 6  --bg-rule     coach-order-loading, -orders-
+     .qa-skel .sk 12px  radius 6  --bg-rule     coach-session-loading
+     .skline      10px  radius 4  --bg-sunken   this file, and 78 of 84 bars
+
+   `--bg-rule` IS `--warm-200`, WHICH IS `--line-hair`. Three coach screens were
+   painting a skeleton bar in the hairline colour while every other skeleton in
+   the product paints `--warm-100`, and this file states the answer in one line
+   above: «The ground of a skeleton bar is --bg-sunken and is stated once».
+
+   AND THE ROWS AROUND THE BARS WERE THE REAL COMPONENT, RETYPED. Not a family
+   resemblance - the same declarations, side by side:
+
+     .sk-row   40px 1fr 70px · gap 11 · hairline   .coach .oc-item   --size-40 1fr auto · gap 11 · hairline
+     .sk-ph    40 x 40 · radius 7                  .coach .oc-ph     --size-40 square · radius 7
+     .sk-top   flex · space-between                .coach .oc-top    flex · space-between
+     .sk-actions flex · gap 9 · margin-top 14      .coach .oc-actions flex · gap 9 · margin-top 14
+     .qa-skel  44px 1fr 70px · gap 11 · pad 9/0    .coach .qa-row    --size-44 1fr auto auto · gap 11 · pad 9/0
+     .skhd     flex · align center · gap 12        .coach .ccard-hd  flex · align center · gap 12
+     .skav     44 circle · --bg-sunken             .coach .ccard-av  --size-44 circle · --bg-sunken
+     .skacts   flex · gap 9                        .coach .ccard-acts flex · gap 9
+     .skclist  grid 1fr -> 2 at 640 · gap 12       .coach .clist     grid 1fr -> 2 at 640 · gap 12
+     .skgrp    hair edge · radius 12               .coach .od-grp    hair edge · radius 12
+
+   So the rule is not «move these into a component». It is 7.68's rule read to
+   the end: A SKELETON IS A PROMISE ABOUT THE BOX THAT REPLACES IT, and the only
+   promise that cannot drift is the box itself. The markup on those five screens
+   now wears `.ocard`, `.oc-item`, `.oc-ph`, `.ccard`, `.ccard-hd`, `.clist`,
+   `.od-grp`, `.qa-row` - the real thing, standing empty with `.skline` inside -
+   and 20 private rules went to zero without a single declaration replacing them.
+   `.skpulse` was already this shape and says so above: «the container is usually
+   a real component».
+
+   THIS COMPLETES 8.24 RATHER THAN REVERSING IT. That step took
+   `coach-clients-loading` off a third skeleton-card name and onto `.skcard`;
+   the same reading one step further says it is not a skeleton card at all, it is
+   the client card standing empty. `.skcard` keeps the catalogue and the account,
+   where the box that replaces it is a `.pcard` - naming those is a question for
+   stage 09, not a move this step has measured.
+
+   WHAT A REAL BOX NEEDS WHEN IT STANDS EMPTY is the only thing added here, and
+   it is the same shape as the account rail's two holders above: rules that read
+   the anatomy, fire on nothing but a skeleton, and are written where the
+   skeleton lives rather than in the component being borrowed. */
+
+/* the button placeholder, and it was written twice - `.sk-btn` (38 x 120,
+   radius 8) and `.skacts i` (38 tall, `flex: 1`, radius 8). Both rows hold
+   `btn--s`, whose `min-height` is `--size-40`, so both placeholders were 2px
+   short of the button they promised. `flex: 1` is the shared half: it is what
+   `.ccard-acts .btn` already does, and it needs no width literal. */
+.skbtn{ height: var(--size-40); border-radius: var(--radius-8);
+  background: var(--bg-sunken); flex: 1; }
+
+/* the sentence under a skeleton. 12.5 -> `--fs-12` (5.5 takes the half pixel to
+   the more-read neighbour, and 12 is a rung); 20 -> `--space-24` (a tie in
+   spacing goes UP). */
+.load-note{ text-align: center; font-size: var(--fs-12); color: var(--text-muted);
+  margin-top: var(--space-24); }
+
+/* A BOX WHOSE REAL CHILDREN CARRY THE INSET, HOLDING BARS INSTEAD. `.od-grp` has
+   no padding of its own because `.od-grp-h` and `.od-line` do, so a bar dropped
+   straight into one sits on the edge. Same sentence as
+   `.skcard:not(:has(.skb))` above, same instrument.
+
+   `.ord` WAS IN THIS SELECTOR FOR ONE DRAFT AND CAME OUT MEASURED. Its skeleton
+   is inset on `coach-orders-loading` - but by `coach-cabinet.css`, which gives
+   `.coach .ord` a padding of its own, so the rule here was answering a question
+   nobody had asked. It would also have been WRONG in the other direction: only
+   `account-orders` writes `.ord-body`, so `:not(:has(.ord-body))` matches the
+   four real order cards on `coach-orders.html` as well. A guard written from the
+   shape of one screen's markup instead of from the whole corpus - the same
+   family as the `class="btn"` whole-string match of item 1. */
+.od-grp:not(:has(.od-grp-h)){ padding: var(--space-16); }
+
+/* A BAR IN A TRACK THAT SIZES TO ITS CONTENT IS A BAR OF NOTHING - the defect
+   8.30 measured in the account rail, in its second habitat. `.oc-item` and
+   `.qa-row` end in an `auto` track holding the price, and `.oc-top` is a flex
+   row: neither gives a percentage anything to be a percentage OF. So the marks
+   that stand in them take a width, exactly as `.acc-link .skline` does. */
+.oc-top > .skline{ width: 130px; }              /* [?] 130 has no rung - it stands for «Замовлення № К-204» */
+.oc-top > .skline + .skline{ width: 90px; }     /* [?] 90 has no rung - it stands for the status pill */
+.oc-item > .skline:last-child,
+.qa-row > .skline:last-child{ width: var(--size-64); }   /* the price mark. 70 and 60 were the two editions; 64 is the rung between them */
+
 /* ---------- the pulse, and it is a MODIFIER, not a piece --------------------
    `.skpulse` is put on the CONTAINER, and the container is usually a real
    component: `.bb`, `.gmain`, `.gthumb`, `.acc-nav`, `.acc-cardgrid`, `.skgrid`.

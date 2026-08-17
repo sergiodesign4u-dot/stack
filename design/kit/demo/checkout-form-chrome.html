@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Чекаут - власна оболонка</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<!-- 8.36: the checkout has a CHROME OF ITS OWN, and none of it was on the stand -
+     `.co-head` with `.co-logo` and `.co-support`, `.co-h1`, and `.co-foot` at the
+     bottom. It is stripped on purpose: no menu, no search, no catalogue - a screen
+     someone is paying on should have one way out and no way sideways. Taken from
+     `design/checkout.html`; handlers stripped. -->
+<div>
+<header class="co-head" role="banner">
+  <div class="co-head-in">
+    <a class="co-logo" href="../../index.html">Stack</a>
+    <div class="co-support">
+      <span class="sh">Центр підтримки · Пн–Нд 9:00–21:00</span><br>
+      <b>0 800 000 000</b>
+    </div>
+  </div>
+</header>
+<h1 class="co-h1">Оформлення замовлення</h1>
+<section class="co-upsell" aria-label="Не забудьте додати">
+    <div class="co-upsell-h">Не забудьте додати</div>
+    <div class="co-upsell-s">Дрібниці, які часто беруть із цим замовленням</div>
+    <div class="prow">
+      <article class="pcard" data-unit="49" data-meta="Power Pro · Україна"><a href="../../product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Power Pro · Україна</div>
+          <a href="../../product.html" class="nm">Протеїновий батончик Power Pro 60 г</a>
+          <div class="pavail in">В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">49 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="Додати до замовлення">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.6</span> · 78 відгуків</div>
+        </div>
+      </article>
+
+      <article class="pcard" data-unit="39" data-meta="Powerade · Польща"><a href="../../product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Powerade · Польща</div>
+          <a href="../../product.html" class="nm">Ізотонік Powerade 500 мл</a>
+          <div class="pavail in">В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">39 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="Додати до замовлення">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.5</span> · 42 відгуки</div>
+        </div>
+      </article>
+
+      <article class="pcard" data-unit="89" data-meta="Olimp · Польща"><a href="../../product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Olimp · Польща</div>
+          <a href="../../product.html" class="nm">BCAA-шот Olimp 60 мл</a>
+          <div class="pavail in">В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">89 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="Додати до замовлення">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.7</span> · 56 відгуків</div>
+        </div>
+      </article>
+
+      <article class="pcard" data-unit="129" data-meta="Stack · Україна"><a href="../../product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+        <div class="bd">
+          <div class="pbrand">Stack · Україна</div>
+          <a href="../../product.html" class="nm">Шейкер Stack 700 мл</a>
+          <div class="pavail in">В наявності</div>
+          <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">129 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="Додати до замовлення">🛒</button></div>
+          <div class="rate"><span class="st">★ 4.9</span> · 210 відгуків</div>
+        </div>
+      </article>
+    </div>
+  </section>
+<footer class="co-foot" role="contentinfo">
+  <div class="co-foot-in">
+    <span>© 2026 Stack. Спортивне харчування в Україні.</span>
+    <span class="co-foot-links">
+      <a href="../../../wireframes/content-legal.html">Публічна оферта</a>
+      <a href="../../../wireframes/content-legal.html">Конфіденційність</a>
+      <a href="../../../wireframes/content-delivery.html">Доставка й оплата</a>
+      <a href="../../../wireframes/content-contacts.html">Підтримка</a>
+    </span>
+    <span>Visa · Mastercard · Apple Pay · Google Pay</span>
+  </div>
+</footer>
+</div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

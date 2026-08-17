@@ -801,6 +801,49 @@
    4.5:1 is the floor. The name is exactly what a coach reads in order to choose
    a substitute, so it is the last thing that may go faint.
    `--text-secondary` measures 6.84:1 on white. The state is said in words by
-   `.cl-oostag` - «Немає в наявності» - and that has always been the carrier. */
+   `.ci-oostag` - «Немає в наявності» - and that has always been the carrier.
+   (It was `.cl-oostag` here until 8.41, drawn by a private rule on the one screen
+   that shows it. status-pill.css owns the tag; the name in this sentence moved
+   with the markup.) */
 .coach .cline.oos .cl-ph{ opacity: .5; }
 .coach .cline.oos .cl-nm, .coach .cline.oos .cprice{ color: var(--text-secondary); }
+
+
+/* ==========================================================================
+   SECTION 4 - THE STATE SCREENS' OWN ANATOMY (step 8.41)
+   From the <style> blocks of coach-session-empty / -newclient / -oos /
+   -priceblock. Ten rules; four of them were an atom retyped and left with the
+   atom, and these six are the flow's own.
+   ========================================================================== */
+
+/* the line the summary shows when the session holds nothing yet. 12.5 ->
+   --fs-12 (5.5 to the more-read neighbour, and 12 is a rung); the 8/14 padding
+   -> --space-8 / --space-16, a spacing tie going up. */
+.coach .cs-summ-empty{ font-size: var(--fs-12); color: var(--text-secondary);
+  line-height: 1.55; padding: var(--space-8) 0 var(--space-16);
+  border-bottom: 1px solid var(--line-hair); }
+
+/* the notice above the list when one item has gone out of stock. Radius 10 ->
+   --radius-8 (a radius tie goes DOWN, the opposite of spacing); 11/13 ->
+   --space-12; 12.5 -> --fs-12. */
+.coach .cs-banner{ border: 1px solid var(--line-strong); background: var(--bg-surface);
+  border-radius: var(--radius-8); padding: var(--space-12); font-size: var(--fs-12);
+  color: var(--text-body); margin: 0 0 var(--space-12); line-height: 1.5; }
+
+/* THE BLOCKED STATE OF THE STICKY BAR - the panel that says why the session
+   cannot be sent, and the note under the disabled action.
+   1.5px -> 1px, and that is not a rounding: 7.62 measured that Chrome resolves
+   1.5px to 1px before layout ever sees it, so the half pixel has never drawn
+   anywhere in this product. Radius 10 -> --radius-8; 13/15 -> --space-12 /
+   --space-16; 14 and 4 -> --space-16 and --space-4. Type: 13.5 -> --fs-14,
+   12.5 -> --fs-12, 11.5 -> --fs-12, the same three paths as the nine-line table
+   in coach-verify.css. */
+.coach .cs-warn{ border: 1px solid var(--line-action); background: var(--bg-surface);
+  border-radius: var(--radius-8); padding: var(--space-12) var(--space-16);
+  margin: var(--space-16) 0 var(--space-4); }
+.coach .cs-warn .wt{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
+.coach .cs-warn .ws{ font-size: var(--fs-12); color: var(--text-secondary);
+  margin-top: var(--space-4); line-height: 1.5; }
+.coach .cs-warn .wa{ margin-top: var(--space-8); }
+.coach .cs-blocknote{ font-size: var(--fs-12); color: var(--text-secondary);
+  text-align: center; margin-top: var(--space-8); }

@@ -12,54 +12,14 @@
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
 <style>
-
-/* verified banner */
-/* A CONFIRMATION IS THE SUCCESS PLATE, and the system already had both halves.
-   status-pill.css settled the ground: `--bg-success-soft` with the
-   `--line-success-soft` edge, «the same word two taps away», seven names across
-   three screens. auth-dialog.css settled the disc: `.auth-visual .vmid .vi` is a
-   46px circle on `--bg-page` whose EDGE and GLYPH carry the state, and its
-   `[data-state="newuser"]` line is exactly this state - `--line-success` /
-   `--text-success`.
-   What was here was neither: a 1.5px ink frame round a filled ink disc, which is
-   the grey prototype's `--dark` translated by value. «Вас підтверджено як
-   тренера» is the good news of the whole flow and it was drawn as the heaviest,
-   most neutral object on the page. */
-.cv-ok { display: flex; gap: var(--space-12); align-items: center;
-  border:1px solid var(--line-success-soft); background: var(--bg-success-soft);
-  border-radius: var(--radius-12); padding: var(--space-16); margin-bottom: 22px; }
-.cv-ok .m { width: var(--size-46); height: var(--size-46); border-radius: var(--radius-circle);
-  background: var(--bg-page); border:1px solid var(--line-success); color: var(--text-success);
-  display: flex; align-items: center; justify-content: center; font-size: var(--fs-18); flex: none; }
-/* the glyph inside a 46px disc is 22, which is auth-dialog.css's number for the
-   same disc - `font-size` reaches the emoji and not the svg marks.js puts there */
-.cv-ok .m .uiv-ic svg { width: 22px; height: 22px; }
-.cv-ok b { color: var(--text-primary); font-size: 15px; }
-.cv-ok span { display: block; font-size: 12.5px; color:var(--text-secondary); margin-top: 2px; }
-h1.cv-h1 { font-size: 24px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; }
-
-/* THE TWO TIER CARDS LEFT THIS BLOCK WHOLE at step 8.29, into
-   design/system/components/plan-card.css - `.tiers`, `.tier`, `.tier.pro`,
-   `.tier-top`, `.tier-name`, `.tier-flag`, `.tier-price`, `.tier-price small`,
-   `.tier-sub`, `.tier ul`, `.tier li`, `.tier li .m`, `.tier li.muted`,
-   `.tier li.muted .m`, `.tier-cta`, `.tier-note` and one `@media`.
-
-   THE FACE WAS `.acard`'S, TYPED OUT BY HAND. The comment that stood here named
-   the atom - «`.acard` in account-shell.css is the product's card - 1px
-   `--line-hair`, `--radius-12`, `--bg-page`, `--elevation-1`» - and then wrote
-   its five values again instead of taking its class. Read off both running
-   pages at 390 they were identical on all five, so the markup takes `acard` and
-   the copy is gone. That file's header holds the readings, the two name sets and
-   the reason `.tier.pro` and `.tf-col.on` stay two states rather than one.
-
-   `.tier-cta{ display: block }` went with them and nothing replaced it:
-   `.btn--full` declares `display: flex; width: 100%`, this rule loaded after the
-   atom and turned its flex box back into a block, and deleting it moved nothing
-   at either width. The rest of what that comment said is still true and now
-   lives beside the rule it describes - Free takes `btn--outline`, Pro takes
-   `btn--accent`, one accent fill per card. */
-.cv-foot { font-size: 12px; color:var(--text-muted); margin-top: 22px; line-height: 1.6; }
-.cv-foot a { color: var(--text-primary); font-weight: 700; text-decoration: underline; }
+/* THE STATE SCREEN'S ANATOMY IS coach-verify.css NOW - 8 rules, step 8.40.
+   Every name here was prefixed `cv-`, which is that file's own; the four state
+   screens carried it and the base did not. What each copy cost is written in
+   section 1b there - `.lead` was `.cv-lead` with one word missing, a bare
+   `.btn{ display: block }` turned the main action's `btn--full` back into a
+   block, and the lead had no measure on any of them.
+   This screen already wrote `cv-lead` and never needed a rule for it - it is the
+   control that says the other three had simply mistyped the name. */
 </style>
 </head>
 <body class="coach">

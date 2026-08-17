@@ -33,16 +33,12 @@
 
 
 
-/* client-card skeletons */
-.skclist { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
-@media (min-width: 640px) { .skclist { grid-template-columns: 1fr 1fr; } }
-
-.skhd { display: flex; align-items: center; gap: 12px; }
-.skav { width: 44px; height: 44px; border-radius: 50%; background:var(--bg-sunken); flex: none; }
-
-  
-.skacts { display: flex; gap: 9px; margin-top: 16px; }
-.skacts i { flex: 1; height: 38px; border-radius: 8px; background:var(--bg-sunken); display: block; }
+/* THE SKELETON BLOCK IS GONE - 6 rules and the last private media block
+   on this screen, step 8.38. `.skclist` was a fourth name for `.clist` (same grid, same
+   640 flip, same gap 12); `.skhd` `.skav` `.skacts` were `.ccard-hd`
+   `.ccard-av` `.ccard-acts` retyped. 8.24 took this screen off its own skeleton
+   card and onto `.skcard`; the same reading one step further says it is not a
+   skeleton card at all, it is the client card standing empty. */
 </style>
 </head>
 <body class="coach">
@@ -65,11 +61,11 @@
       <h1 class="cl-h1">Клієнти</h1>
       <p class="cl-sub">Завантажуємо список клієнтів…</p>
 
-      <div class="skclist">
-        <div class="skcard skpulse"><div class="skhd"><span class="skav"></span><div style="flex:1"><div class="skline m"></div><div class="skline s"></div></div></div><div class="skline l"></div><div class="skacts"><i></i><i></i></div></div>
-        <div class="skcard skpulse"><div class="skhd"><span class="skav"></span><div style="flex:1"><div class="skline m"></div><div class="skline s"></div></div></div><div class="skline l"></div><div class="skacts"><i></i><i></i></div></div>
-        <div class="skcard skpulse"><div class="skhd"><span class="skav"></span><div style="flex:1"><div class="skline m"></div><div class="skline s"></div></div></div><div class="skline l"></div><div class="skacts"><i></i><i></i></div></div>
-        <div class="skcard skpulse"><div class="skhd"><span class="skav"></span><div style="flex:1"><div class="skline m"></div><div class="skline s"></div></div></div><div class="skline l"></div><div class="skacts"><i></i><i></i></div></div>
+      <div class="clist">
+        <article class="ccard skpulse"><div class="ccard-hd"><span class="ccard-av"></span><div style="flex:1"><div class="skline m"></div><div class="skline s"></div></div></div><div class="skline l"></div><div class="ccard-acts"><i class="skbtn"></i><i class="skbtn"></i></div></article>
+        <article class="ccard skpulse"><div class="ccard-hd"><span class="ccard-av"></span><div style="flex:1"><div class="skline m"></div><div class="skline s"></div></div></div><div class="skline l"></div><div class="ccard-acts"><i class="skbtn"></i><i class="skbtn"></i></div></article>
+        <article class="ccard skpulse"><div class="ccard-hd"><span class="ccard-av"></span><div style="flex:1"><div class="skline m"></div><div class="skline s"></div></div></div><div class="skline l"></div><div class="ccard-acts"><i class="skbtn"></i><i class="skbtn"></i></div></article>
+        <article class="ccard skpulse"><div class="ccard-hd"><span class="ccard-av"></span><div style="flex:1"><div class="skline m"></div><div class="skline s"></div></div></div><div class="skline l"></div><div class="ccard-acts"><i class="skbtn"></i><i class="skbtn"></i></div></article>
       </div>
     </div>
   </div>

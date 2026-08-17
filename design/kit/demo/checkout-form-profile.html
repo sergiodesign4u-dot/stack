@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Картка профілю</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<!-- 8.36: THE FILE'S SECOND ADDRESS. Under one name this component holds the
+     checkout `.co-*` on five screens and the profile card `.pfcard` on exactly one,
+     `design/account-profile.html` - ten classes that share no code with the
+     checkout at all. Whether that is one component or two is a stage 09 question;
+     showing both is this page's job either way. -->
+<div style="padding:24px;max-width:760px">
+<div class="acc-main">
+      <h1 class="acc-h1">Профіль</h1>
+      <p class="acc-sub">Особисті дані та сповіщення. Вхід - за кодом, без пароля.</p>
+
+      <div class="pfcard">
+
+        <!-- name -->
+        <div class="pfield">
+          <div class="pf-lbl">Ім'я</div>
+          <input class="field pf-input" type="text" value="Вікторія Коваль" aria-label="Ім'я">
+        </div>
+
+        <!-- phone (primary, verified) -->
+        <div class="pfield">
+          <div class="pf-lbl">Телефон</div>
+          <div class="pf-row">
+            <div class="pf-val">+380 ** *** 45 67 <span class="ok">✓ підтверджено</span></div>
+            <button type="button" class="btn--text pf-act pf-actbtn">Змінити - код у SMS</button>
+          </div>
+          <div class="pf-hint">Основний спосіб входу. Зміна підтверджується кодом зі SMS.</div>
+        </div>
+
+        <!-- email (optional) -->
+        <div class="pfield">
+          <div class="pf-lbl">E-mail</div>
+          <div class="pf-row">
+            <div class="pf-val" style="color:var(--text-secondary);font-weight:600">не додано</div>
+            <button type="button" class="btn--text pf-act pf-actbtn">Додати - код на пошту</button>
+          </div>
+          <div class="pf-hint">Необов'язково. Підтвердження - кодом на пошту (без пароля).</div>
+        </div>
+
+        <!-- language -->
+        <div class="pfield">
+          <div class="pf-lbl">Мова інтерфейсу</div>
+          <div class="pf-row">
+            <div class="pf-val">Українська</div>
+            <button type="button" class="btn--text pf-act pf-actbtn">Змінити</button>
+          </div>
+        </div>
+
+        <!-- newsletter consent toggle -->
+        <div class="pfield">
+          <div class="pf-lbl">Розсилка та нагадування</div>
+          <div class="pf-row">
+            <div>
+              <div class="pf-val" style="font-size:14px">Отримувати листи й нагадування про поповнення</div>
+              <div class="pf-hint">Нагадування про закінчення запасів - за оцінкою циклу споживання.</div>
+            </div>
+            <span class="sw" id="nl-toggle" role="switch" aria-checked="true" aria-label="Згода на розсилку"><i></i></span>
+          </div>
+        </div>
+
+      </div>
+
+      <button type="button" class="btn--accent btn--s btn pf-save">Зберегти</button>
+
+      <div class="pf-note"><b>Без пароля.</b> Ваш акаунт захищено входом за одноразовим кодом (SMS або e-mail) - немає пароля й немає «забули пароль».</div>
+
+      <div class="pf-danger"><button type="button" class="btn--text btn--danger pf-dangerbtn">Видалити акаунт</button></div>
+
+    </div>
+</div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

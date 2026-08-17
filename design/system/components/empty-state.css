@@ -13,7 +13,16 @@
 .empty{ border: 1px dashed var(--line-strong); border-radius: var(--radius-12); padding: var(--space-40) var(--space-24); text-align: center; }
 .empty .ei{ font-size: var(--fs-30); }
 .empty .et{ font-size: var(--fs-18); font-weight: var(--fw-black); margin: var(--space-12) 0 var(--space-8); }
-.empty .es{ font-size: var(--fs-14); color: var(--text-secondary); margin-bottom: var(--space-16); }
+/* THE MEASURE WAS MISSING ON THIS BOX AND PRESENT ON THE OTHER TWO - step 8.39.
+   `.emptybox .es` is capped at 440 and `.errbox .es` at 420; `.empty .es` had no
+   cap at all, so on a wide column its body ran the full width of whatever held
+   it - measured on `coach-clients-empty` at 1280: 660px, about 90 characters on
+   one line. Both coach screens that wear this box had grown the same private
+   rule to fix it, in TWO sizes (42ch and 46ch), which is the signature of a
+   component gap rather than a screen decision. 440, the number the sibling box
+   already carries, so the family says it once. */
+.empty .es{ font-size: var(--fs-14); color: var(--text-secondary); margin-bottom: var(--space-16);
+  max-width: 440px; margin-left: auto; margin-right: auto; }
 .empty .eact{ display: inline-flex; gap: var(--space-12); flex-wrap: wrap; justify-content: center; }
 .emptybox{ border: 1px dashed var(--line-strong); padding: 46px var(--space-24); text-align: center; margin-top: var(--space-16); }
 .emptybox .et{ font-size: var(--fs-18); color: var(--text-primary); margin: var(--space-12) 0 var(--space-8); }
@@ -59,6 +68,16 @@
    Measured after: both new boxes 24 above and 24 below, their own padding and
    nothing more; every box that DOES have an icon and an action is unmoved,
    because in those the title is not the first child nor the body the last. */
+/* THE THIRD BOX IS NOT IN THIS SELECTOR, AND THAT IS CHECKED RATHER THAN
+   OVERLOOKED - step 8.39. `.errbox` has the same two margins and the same
+   exposure, and two screens arrived at this step wearing an error box with no
+   glyph at all (`coach-order-error`, `coach-orders-error`), which is exactly
+   the case above. They were given the `⚠️` every other error box in the
+   product carries, because a box the component paints `--text-danger` for is a
+   box that expects one - so `.errbox .et` is never `:first-child` anywhere,
+   and a selector added for it would match nothing. An exemption that covers
+   nothing fails as loudly as an undeclared case; so does a rule. If an error
+   box without a glyph is ever a deliberate look, this is the line it joins. */
 .empty .et:first-child, .emptybox .et:first-child{ margin-top: 0; }
 .empty .es:last-child, .emptybox .es:last-child{ margin-bottom: 0; }
 .errbox{ border: 1px dashed var(--line-strong); padding: 48px var(--space-24); text-align: center; margin-top: var(--space-24); }

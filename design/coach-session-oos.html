@@ -12,88 +12,14 @@
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
 <style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-/* oos state - a line went out of stock: substitute or skip */
-.cs-banner { border:1px solid var(--line-strong); background:var(--bg-surface); border-radius: 10px; padding: 11px 13px; font-size: 12.5px; color:var(--text-body); margin: 0 0 12px; line-height: 1.5; }
-
-.cl-oostag { display: inline-block; font-size: 11px; font-weight: 800; color: var(--text-primary); border:1px solid var(--line-strong); border-radius: 100px; padding: 2px 9px; margin: 2px 0 8px; }
-.cl-fix { font-size: 12px; font-weight: 700; color: var(--text-primary); text-decoration: underline; }
+/* THREE RULES GONE - step 8.41. `.cs-banner` moved into `coach-session.css`.
+   `.cl-oostag` was `.ci-oostag` under another name - status-pill.css draws the
+   out-of-stock tag in mono at `--fs-10` on `--bg-sunken`, with the reason
+   written there («Principle 4 - calm and confident, written as a weight ...
+   nothing here is green, amber or red»), and this copy was 11px/800 Inter on
+   nothing. `.cl-fix` was a text button typed as a link: `btn--text btn--inline`
+   is the atom, and it brings the hover, the focus ring and the underline offset
+   the copy had none of. */
 </style>
 </head>
 <body class="coach">
@@ -185,9 +111,9 @@
           <div class="cl-ph">фото</div>
           <div class="cl-bd">
             <div class="cl-nm">BioTechUSA Hyper Mass 4000 г</div>
-            <div class="cl-oostag">Немає в наявності</div>
+            <div class="ci-oostag">Немає в наявності</div>
             <div class="cl-ctrls">
-              <a class="cl-fix" href="coach-session.html">Замінити на аналог</a>
+              <a class="btn--text btn--inline btn" href="coach-session.html">Замінити на аналог</a>
               <a class="btn--text ci-lnk cl-rm" href="coach-session.html">Пропустити товар</a>
             </div>
           </div>

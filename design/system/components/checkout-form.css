@@ -41,7 +41,12 @@
 .pf-danger{ margin-top: var(--space-24); }
 /* step 6.4: .pf-actbtn is the text finish, whole. Nothing of it is this file's. */
 .pf-dangerbtn{ font-size: var(--fs-14); font-weight: var(--fw-bold); }
-.smeths{ display: flex; flex-direction: column; gap: var(--space-12); }
+/* 8.36: `.smeths` MOVED to auth-dialog.css - a rule in the wrong file, found by
+   this page owing a demo for a class its own screens do not contain. The stack of
+   social sign-in buttons is written by `wfAuthPanel()` and appears in the AUTH
+   DIALOG and nowhere else: zero occurrences across `design/` and `wireframes/`
+   markup, and the only builder that emits it is the dialog's. Nothing here was
+   changed by value - the two declarations moved byte for byte. */
 .pf-resend{ font-weight: var(--fw-bold); color: var(--text-primary); text-decoration: underline; cursor: pointer; }
 /* step 7.29: the whole `.pf-lang` block went to radio.css. It is the same
    control as `.co-opt` - a row you pick one of - and it was the third file
@@ -229,7 +234,6 @@
    measured: padding-left 216, padding-top 0, head top 0, bar bottom 40.
    The rule now lives in design/_stand.css, which is the only file that knows
    whether a harness is there. */
-.smeths{ margin-bottom:var(--space-24); }
 .co-logo{ font-family:var(--font-display); font-weight:var(--fw-bold); color:var(--text-body); letter-spacing:var(--ls-display);
   display:inline-flex; align-items:baseline; gap:.2em; line-height:var(--lh-flat); }
 .co-logo::before{ content:""; flex:none; height:1.0125em; width:.863em;

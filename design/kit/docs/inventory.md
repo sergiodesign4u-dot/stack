@@ -27,17 +27,28 @@ survive contact:
 Nothing in v1 was invented; it simply was never asked to cover the stylesheet, because until stage
 08 nothing depended on it doing so. Under the owner's decision to absorb both layers into
 `design/system/`, every line has to land in a file or it is lost, so the list is now derived FROM the
-stylesheets rather than checked against them. **51 -> 70 components.**
+stylesheets rather than checked against them. **51 -> 70 components** at step 5, and **84** today -
+the layer has kept growing, and until 8.37 nothing was counting.
 
 ## How the numbers are taken
 
-- **Lines** is the real size of `design/system/components/<file>.css` after the split: structure from
-  `_wf.css` and colour from `kit.css`, in that order, selectors unchanged.
-- **Screens** counts wireframe files carrying any of the component's anchor classes in markup.
-  **JS** means the component is also (or only) produced by a render function in
-  `wireframes/_nav.js`, where a markup scan finds nothing while the component is on every screen at
-  runtime. That is why a screen count is a bad measure of importance and stands here as context, not
-  as a ranking.
+**Every number in the three tables below is measured, and `tools/inventory.mjs` re-measures it.**
+That sentence was not true until 2026-08-16: the tables were a step-5 snapshot, and when something
+finally asked, **66 of 73 `Lines` cells and 58 of 73 `Screens` cells had drifted**, thirteen
+components had no row at all and two rows pointed at files that no longer exist.
+
+- **Lines** is the real size of `design/system/components/<file>.css`. Checked on every run.
+- **Screens** is how many of the **88 coloured screens** actually carry the component, asked of the
+  **rendered DOM** rather than of the markup - a third of this product's chrome is written by
+  `wireframes/_nav.js` at load, so a markup scan sees nothing while the component is on every
+  screen. The old column carried a `**JS**` annotation for exactly that blindness; the browser walk
+  removes the need for it, and the difference is not small - `footer.css` read 1 and measures **77**,
+  `tabbar.css` read 0 and measures **82**. Checked by `node tools/inventory.mjs --screens`.
+- A component's **anchors** for that count are the classes its own file declares and no other
+  component file does. Three components have none - `counter.css`, `icon.css`, `product-thumb.css` -
+  because every class they declare is also declared elsewhere, so their Screens cell reads `–`.
+  That is a finding about naming, not a gap in the count.
+- A screen count is still a bad measure of importance and stands here as context, not as a ranking.
 
 ## Level
 
@@ -63,28 +74,28 @@ the unscoped base form, not the component.
 
 | Component | css file | Anchors | Screens | Lines |
 |---|---|---|---|---|
-| Поле | `field.css` | `.fld`, `.cef`, `.txt-field` | 7 + **JS** | 59 |
-| Кнопка | `button.css` | `.btn`, `.navbtn`, `.go` | 92 + **JS** | 42 |
-| OTP-комірка | `otp.css` | `.otp` | **JS** | 34 |
-| Чип | `chip.css` | `.mgchip`, `.dr-chip`, `.dr-chips` | 6 + **JS** | 33 |
-| Скелетон | `skeleton.css` | `.sk`, `.skgrid`, `.skcard` | 11 | 31 |
-| Радіо | `radio.css` | `.co-radio`, `.co-opt` | 3 + **JS** | 31 |
-| Перемикач вигляду | `view-toggle.css` | `.vtoggle` | 13 | 28 |
-| Кнопка-іконка (у кошик) | `cart-button.css` | `.cartbtn` | 31 + **JS** | 27 |
-| Рядок посилань | `link-row.css` | `.linkrow`, `.seolink`, `.flinks` | **JS** | 25 |
-| Рейтинг | `rating.css` | `.rate`, `.st` | 32 + **JS** | 24 |
-| Мітка наявності | `availability.css` | `.pavail` | 30 | 23 |
-| Обране | `favourite.css` | `.fav`, `.wlrm` | 30 + **JS** | 21 |
-| Статус-пілюля | `status-pill.css` | `.oh-status`, `.aord-status`, `.pill` | 3 | 21 |
-| Бейдж знижки | `discount.css` | `.pcut`, `.wtag` | 34 | 18 |
-| Чекбокс | `checkbox.css` | `.cb`, `.optin` | 2 + **JS** | 18 |
-| Перемикач | `switch.css` | `.sw` | 9 + **JS** | 17 |
-| Лічильник кількості | `stepper.css` | `.ctrl` | 13 | 16 |
-| Іконка | `icon.css` | `.uiv-ic`, `.chev` | 4 | 15 |
-| Ціна | `price.css` | `.pnew`, `.pold`, `.perserv` | 40 | 13 |
-| Лічильник у бейджі | `counter.css` | `.cnt`, `.hbadge`, `.tbadge` | 18 + **JS** | 12 |
-| Бейдж / тег | `badge.css` | `.tag`, `.gnote` | 36 | 9 |
-| Роздільник | `separator.css` | `.sep`, `.sepb` | 111 + **JS** | 9 |
+| Кнопка | `button.css` | `.btn`, `.navbtn`, `.go` | 86 | 561 |
+| Ціна | `price.css` | `.pnew`, `.pold`, `.perserv` | 44 | 418 |
+| Чип | `chip.css` | `.mgchip`, `.dr-chip`, `.dr-chips` | 82 | 312 |
+| Рядок посилань | `link-row.css` | `.linkrow`, `.seolink`, `.flinks` | 81 | 270 |
+| Скелетон | `skeleton.css` | `.skline`, `.skcard`, `.skbtn` | 11 | 259 |
+| Поле | `field.css` | `.fld`, `.cef`, `.txt-field` | 85 | 249 |
+| Дія стовпчиком | `stack-action.css` | `.btn--stack`, `.ti`, `.tbadge` | 82 | 213 |
+| Чекбокс | `checkbox.css` | `.cb`, `.optin` | 8 | 210 |
+| Радіо | `radio.css` | `.co-radio`, `.co-opt` | 9 | 196 |
+| Статус-пілюля | `status-pill.css` | `.oh-status`, `.aord-status`, `.pill` | 11 | 183 |
+| Бейдж | `badge.css` | `.tag`, `.gnote` | 11 | 180 |
+| Бейдж знижки | `discount.css` | `.pcut`, `.wtag` | 21 | 168 |
+| Рейтинг | `rating.css` | `.rate`, `.st` | 21 | 164 |
+| Лічильник кількості | `stepper.css` | `.ctrl` | 12 | 142 |
+| Мітка наявності | `availability.css` | `.pavail` | 26 | 141 |
+| Перемикач вигляду | `view-toggle.css` | `.vtoggle` | 7 | 139 |
+| Перемикач | `switch.css` | `.sw` | 2 | 99 |
+| Іконка | `icon.css` | `.uiv-ic`, `.chev` | – | 89 |
+| Мініатюра товару | `product-thumb.css` |  | – | 68 |
+| Лічильник | `counter.css` | `.cnt`, `.hbadge`, `.tbadge` | – | 62 |
+| Обране | `favourite.css` | `.fav`, `.wlrm` | 20 | 47 |
+| OTP-комірка | `otp.css` | `.otp` | 4 | 35 |
 
 > **Оновлено після публікації (крок 6.2).** `cart-button.css` більше немає: іконкова
 > кнопка стала обробкою в `button.css`, а рядок вище описує стан до того кроку. Чому саме
@@ -97,34 +108,35 @@ the unscoped base form, not the component.
 
 | Component | css file | Anchors | Screens | Lines |
 |---|---|---|---|---|
-| Картка товару | `product-card.css` | `.pcard`, `.packlabel` | 32 + **JS** | 143 |
-| Банер | `banner.css` | `.banner`, `.tbanner`, `.tbanners` | 13 + **JS** | 126 |
-| Таблиця складу | `spec-table.css` | `.spectbl`, `.ctable`, `.dl` | 4 | 121 |
-| Смуга довіри | `trust-strip.css` | `.trustsec`, `.truststrip`, `.tsx` | 4 | 104 |
-| Щабель лояльності | `loyalty-rung.css` | `.lrung`, `.lbar`, `.loy` | 37 | 83 |
-| Рядок замовлення | `order-row.css` | `.oh`, `.ocard`, `.aord` | 11 | 70 |
-| Відгук | `review-item.css` | `.rvitem`, `.rvbody`, `.rvmeta` | 6 + **JS** | 68 |
-| Рядок кошика | `cart-row.css` | `.ci` | 3 + **JS** | 67 |
-| Порожній стан | `empty-state.css` | `.emptybox`, `.es`, `.empty` | 34 + **JS** | 61 |
-| Картка адреси | `address-card.css` | `.addr`, `.addr-card`, `.addr-list` | 9 + **JS** | 56 |
-| Галерея | `gallery.css` | `.gal`, `.pmini` | 5 | 56 |
-| Група фільтра | `filter-group.css` | `.fgroup`, `.fopt`, `.frange` | **JS** | 51 |
-| Тулбар | `toolbar.css` | `.ltool`, `.mtoolbar`, `.listing` | 13 + **JS** | 38 |
-| Заголовок секції | `section-head.css` | `.sech`, `.relh`, `.rvhead` | 58 | 36 |
-| Рядок клієнта | `client-row.css` | `.cg`, `.coachbn` | 8 + **JS** | 31 |
-| Плитка цілі | `goal-tile.css` | `.gcard`, `.gtile`, `.goaltiles` | 4 | 29 |
-| Панель Pro | `upsell.css` | `.upsell`, `.ubar`, `.ulist`, `.uacts` | 2 | 29 |
-| Картка блогу | `blog-card.css` | `.blogcard`, `.blogrow` | 6 | 28 |
-| Нотатка про поповнення | `restock-note.css` | `.restock`, `.rk` | 3 | 26 |
-| Пагінація | `pagination.css` | `.pgnav`, `.loadmore`, `.pages` | 12 + **JS** | 24 |
-| Логотип бренду | `brand-logo.css` | `.brandbox`, `.brandrow` | 4 | 22 |
-| Тост | `toast.css` | `.wf-toast`, `.wf-toasts` | **JS** | 21 |
-| Мініатюра сертифіката | `cert-thumb.css` | `.certthumb`, `.certbox` | 3 | 21 |
-| Блок опису | `desc-block.css` | `.pdesc`, `.pd` | 2 | 19 |
-| SEO-текст | `seo-text.css` | `.seotext` | 21 | 18 |
-| Хлібні крихти | `breadcrumb.css` | `.crumb` | 111 | 16 |
-| Запитання і відповідь | `qa-item.css` | `.qaitem` | 2 | 16 |
-| Схожі товари | `related.css` | `.relbox`, `.relrow` | 9 | 15 |
+| Картка товару | `product-card.css` | `.pcard`, `.packlabel` | 21 | 360 |
+| Банер | `banner.css` | `.banner`, `.tbanner`, `.tbanners` | 6 | 232 |
+| Рядок замовлення | `order-row.css` | `.oh`, `.ocard`, `.aord` | 2 | 208 |
+| Смуга довіри | `trust-strip.css` | `.trustsec`, `.truststrip`, `.tsx` | 5 | 201 |
+| Таблиця складу | `spec-table.css` | `.spectbl`, `.ctable`, `.dl` | 2 | 180 |
+| Рядок кошика | `cart-row.css` | `.ci` | 11 | 154 |
+| Порожній стан | `empty-state.css` | `.emptybox`, `.errbox`, `.empty` | 19 | 146 |
+| Меню вибору | `menu.css` | `.menu`, `.menu-trig`, `.menu-val` | 8 | 150 |
+| Рядок клієнта | `client-row.css` | `.cg`, `.coachbn` | 6 | 145 |
+| Відгук | `review-item.css` | `.rvitem`, `.rvbody`, `.rvmeta` | 3 | 133 |
+| Галерея | `gallery.css` | `.gal`, `.pmini` | 4 | 122 |
+| Блок опису | `desc-block.css` | `.pdesc`, `.pd` | 2 | 118 |
+| Щабель лояльності | `loyalty-rung.css` | `.lrung`, `.lbar`, `.loy` | 26 | 118 |
+| Запитання | `qa-item.css` | `.qaitem` | 2 | 104 |
+| Нотатка про поповнення | `restock-note.css` | `.restock`, `.rk` | 2 | 103 |
+| Мініатюра сертифіката | `cert-thumb.css` | `.certthumb`, `.certbox` | 3 | 101 |
+| Група фільтра | `filter-group.css` | `.fgroup`, `.fopt`, `.frange` | 7 | 99 |
+| SEO-текст | `seo-text.css` | `.seotext` | 12 | 80 |
+| Хлібні крихти | `breadcrumb.css` | `.crumb` | 87 | 78 |
+| Заголовок секції | `section-head.css` | `.sech`, `.relh`, `.rvhead` | 24 | 77 |
+| Картка адреси | `address-card.css` | `.addr`, `.addr-card`, `.addr-list` | 3 | 76 |
+| Панель Pro | `upsell.css` | `.upsell`, `.ubar`, `.ulist`, `.uacts` | 2 | 83 |
+| Пагінація | `pagination.css` | `.pgnav`, `.loadmore`, `.pages` | 8 | 70 |
+| Тулбар | `toolbar.css` | `.ltool`, `.mtoolbar`, `.listing` | 7 | 55 |
+| Плитка цілі | `goal-tile.css` | `.gcard`, `.gtile`, `.goaltiles` | 4 | 50 |
+| Тост | `toast.css` | `.wf-toast`, `.wf-toasts` | 20 | 42 |
+| Картка блогу | `blog-card.css` | `.blogcard`, `.blogrow` | 6 | 31 |
+| Логотип бренду | `brand-logo.css` | `.brandbox`, `.brandrow` | 4 | 26 |
+| Схожі товари | `related.css` | `.relbox`, `.relrow` | 2 | 14 |
 
 **27 files, 1366 lines.**
 
@@ -132,53 +144,65 @@ the unscoped base form, not the component.
 
 | Component | css file | Anchors | Screens | Lines |
 |---|---|---|---|---|
-| Форма чекауту | `checkout-form.css` | `.co`, `.smeths`, `.pf` | 17 + **JS** | 331 |
-| Хедер | `header.css` | `.wfh` | 5 + **JS** | 185 |
-| Оболонка кабінету | `account-shell.css` | `.acc`, `.acard`, `.abonus` | 45 + **JS** | 173 |
-| Діалог авторизації | `auth-dialog.css` | `.auth-modal`, `.auth` | **JS** | 172 |
-| Блок покупки | `buy-box.css` | `.bb` | 4 | 148 |
-| Шухляда кошика | `cart-drawer.css` | `.cart-drawer`, `.cart-behind`, `.cd` | 6 + **JS** | 108 |
-| Вкладки картки товару | `pdp-tabs.css` | `.pdp`, `.ptab`, `.ptabs` | 8 + **JS** | 80 |
-| Модалка відгуку | `review-modal.css` | `.pm` | 1 + **JS** | 69 |
-| Рейка фільтрів | `filter-rail.css` | `.frail`, `.hrail` | 21 + **JS** | 57 |
-| Футер | `footer.css` | `.wff`, `.fh` | 1 + **JS** | 46 |
-| Мега-меню | `mega-menu.css` | `.mega`, `.catov` | 5 + **JS** | 44 |
-| Банер cookie | `cookie-banner.css` | `.wf-cookie`, `.wf-ckset`, `.ck` | **JS** | 42 |
-| Липка смуга покупки | `buy-bar.css` | `.mbuybar` | 3 | 41 |
-| Головний блок | `hero.css` | `.hero`, `.hvert`, `.hside` | 14 | 41 |
-| Повзунок ціни | `price-slider.css` | `.uiv-slider`, `.uiv-track`, `.uiv-fill` | 0 | 33 |
-| Системна сторінка | `system-page.css` | `.sys`, `.syscard`, `.sysdemo` | 4 | 33 |
-| Діалог міста | `city-dialog.css` | `.wf-city`, `.city` | 4 + **JS** | 29 |
-| Діалог клієнта | `client-dialog.css` | `.cemodal`, `.cedlg`, `.ce` | 2 + **JS** | 27 |
-| Мобільний таб-бар | `tabbar.css` | `.wf-tab`, `.wf-tabbar` | **JS** | 25 |
-| Мобільний шит фільтрів | `filter-sheet.css` | `.fsheet` | **JS** | 23 |
-| Сітка товарів | `product-grid.css` | `.prow`, `.prow2`, `.plist` | 31 | 22 |
-| Оверлей діалогу | `overlay.css` | `.wf-ov`, `.ceov` | **JS** | 16 |
-| Картка тарифу | `plan-card.css` | `.tier`, `.tf-col`, `.tiers`, `.tf-compare` | 4 | 252 |
+| Кабінет тренера | `coach-cabinet.css` | `.cstat`, `.cnote`, `.csub` | 8 | 929 |
+| Перевірка тренера | `coach-verify.css` | `.cv-wrap`, `.cv-steps`, `.cv-step` | 5 | 865 |
+| Сесія замовлення | `coach-session.css` | `.cs-wrap`, `.cs-top`, `.cs-meta` | 8 | 850 |
+| Клієнти тренера | `coach-clients.css` | `.cl-top`, `.cl-h1`, `.ch-name` | 10 | 621 |
+| Лендинг тренера | `coach-landing.css` | `.clh`, `.kicker`, `.clh-cta` | 1 | 520 |
+| Тариф тренера | `coach-tariff.css` | `.tf-lead`, `.tf-cur`, `.tf-cur-h` | 3 | 422 |
+| Замовлення тренера | `coach-order.css` | `.od-wrap`, `.od-head`, `.od-head-t` | 3 | 401 |
+| Форма чекауту | `checkout-form.css` | `.co`, `.smeths`, `.pf` | 26 | 367 |
+| Хедер | `header.css` | `.wfh` | 82 | 354 |
+| Блок покупки | `buy-box.css` | `.bb` | 4 | 290 |
+| Картка тарифу | `plan-card.css` | `.tier`, `.tf-col`, `.tiers`, `.tf-compare` | 3 | 260 |
+| Обране тренера | `coach-wishlist.css` | `.cw-note` | 1 | 254 |
+| Оболонка кабінету | `account-shell.css` | `.acc`, `.acard`, `.abonus` | 33 | 240 |
+| Шухляда кошика | `cart-drawer.css` | `.cart-drawer`, `.cart-behind`, `.cd` | 5 | 216 |
+| Діалог входу | `auth-dialog.css` | `.auth-modal`, `.auth` | 5 | 178 |
+| Діалог клієнта | `client-dialog.css` | `.cemodal`, `.cedlg`, `.ce` | 13 | 101 |
+| Оверлей каталогу | `cat-overlay.css` | `.wf-catov`, `.wf-catov-h`, `.ctitle` | 0 | 97 |
+| Смуга покупки | `buy-bar.css` | `.mbuybar` | 3 | 96 |
+| Вкладки товару | `pdp-tabs.css` | `.pdp`, `.ptab`, `.ptabs` | 8 | 85 |
+| Шит фільтрів | `filter-sheet.css` | `.fsheet` | 7 | 80 |
+| Футер | `footer.css` | `.wff`, `.fh` | 77 | 79 |
+| Шухляда меню | `nav-drawer.css` | `.wf-drawer`, `.dr-lock`, `.dr-b` | 82 | 75 |
+| Таб-бар | `tabbar.css` | `.wf-tab`, `.wf-tabbar` | 82 | 73 |
+| Модалка відгуку | `review-modal.css` | `.pm` | 3 | 59 |
+| Рейка фільтрів | `filter-rail.css` | `.frail`, `.hrail` | 11 | 57 |
+| Головний блок | `hero.css` | `.hero`, `.hvert`, `.hside` | 4 | 54 |
+| Мега-меню | `mega-menu.css` | `.mega`, `.catov` | 82 | 43 |
+| Банер cookie | `cookie-banner.css` | `.wf-cookie`, `.wf-ckset`, `.ck` | 0 | 42 |
+| Діалог міста | `city-dialog.css` | `.wf-city`, `.city` | 82 | 38 |
+| Системна сторінка | `system-page.css` | `.sys`, `.syscard`, `.sysdemo` | 0 | 38 |
+| Повзунок ціни | `price-slider.css` | `.uiv-slider`, `.uiv-track`, `.uiv-fill` | 7 | 33 |
+| Сітка товарів | `product-grid.css` | `.prow`, `.prow2`, `.plist` | 20 | 22 |
+| Оверлей | `overlay.css` | `.wf-ov`, `.ceov` | 82 | 16 |
 
 **23 files, 1997 lines.**
 
-### Three things this table does not say, found while adding the row above (8.29)
+### Three things this table did not say, found at 8.29 and closed at 8.37
 
-1. **Eight coach components are not in this inventory at all** - `coach-landing.css`,
-   `coach-cabinet.css`, `coach-clients.css`, `coach-session.css`, `coach-verify.css`,
-   `coach-wishlist.css`, `coach-tariff.css`, `coach-order.css`. They entered the system at steps
-   7.95 and 8.7, after this document was written at step 5, and nothing asked it to grow with them.
-   An inventory that does not list eight of its files is not an inventory, it is a snapshot of one
-   afternoon. The idle control this list never had is the one every declared list is owed.
-2. **`upsell.css` is filed as a molecule here and called «рівень 3» on its own stand page**, and the
-   `@import` puts it in the level-3 coach group. Three copies of one fact, two of them wrong: it
-   contains atoms and no molecule, so it is level 2. THE IMPORT GROUP IS THE REAL PROBLEM - the
-   coach group in `index.css` is a SCOPE group, not a level group, and any file put there loses the
-   one place its level was readable. `plan-card.css` is genuinely level 3 (it contains `.acard`,
-   which is a molecule), so it lands in that group correctly, which is luck rather than a rule.
-3. **The «Lines» column is a step-5 snapshot and most of it has drifted.** Read today:
-   `tabbar.css` 25 -> 72, `client-dialog.css` 27 -> 50, `city-dialog.css` 29 -> 37,
-   `system-page.css` 33 -> 37; `overlay.css`, `product-grid.css` and `price-slider.css` are within
-   one line. The files did not gain rules, they gained the comments that record why the rules are
-   what they are - which is the intended growth, measured against a number nobody re-asked. This is
-   backlog item 8 with a name and a column: `grey-vars.mjs` and `vars.mjs` ask whether a VALUE is
-   still true, and nothing asks it of a COUNT.
+All three were the same defect wearing three faces: **a declared list with no idle control.**
+
+1. **Eight coach components were not in this inventory at all** - and the note that said so had
+   drifted too: the real gap was **thirteen**, the other five being `cat-overlay.css`, `menu.css`,
+   `nav-drawer.css`, `product-thumb.css` and `stack-action.css`. An inventory that does not list
+   thirteen of its files is not an inventory, it is a snapshot of one afternoon. All thirteen have
+   rows now, and `tools/inventory.mjs` fails the run if a fourteenth ever appears without one.
+2. **`upsell.css` was filed as a molecule here and called «рівень 3» in its own file header**, with
+   its stand page's eyebrow saying «рівень 2». Three published claims, and the header was the odd
+   one out. **The ladder settles it, not the count of witnesses:** the panel is a bordered block
+   with a heading, a line of text and one `btn--accent` - atoms only, so level 2. The header is
+   corrected in the file, with the reasoning beside it. THE IMPORT GROUP PROVES NOTHING either way,
+   and that stands as the finding it was: the coach group in `index.css` is a SCOPE group, not a
+   level group, so any file put there loses the one place its level was readable.
+3. **The «Lines» column was a step-5 snapshot** - and so was `Screens`, which nobody had suspected.
+   66 of 73 line counts and 58 of 73 screen counts were wrong, some of them by an order of
+   magnitude in the direction that flatters a grep: `header.css` read 5 screens and carries 82.
+   The files did not gain rules, they gained the comments that record why the rules are what they
+   are, which is the intended growth measured against a number nobody re-asked. **This was backlog
+   item 8, and `tools/inventory.mjs` is its answer:** `vars.mjs` and `grey-vars.mjs` ask whether a
+   VALUE is still true, `roles.mjs` whether a TOKEN LIST is, and now something asks it of a COUNT.
 
 ## One-off (not components)
 
@@ -194,8 +218,9 @@ of the product**, so they are now `system-page.css` at level 3.
 
 ## What the inventory says about the product
 
-- **70 components: 22 atoms, 27 molecules, 21 organisms.** Every one has a css file in
-  `design/system/components/`; the page and the registry row arrive at step 4.
+- **84 components: 22 atoms, 29 molecules, 33 organisms.** Every one has a css file in
+  `design/system/components/`, and `tools/inventory.mjs` fails if that stops being true. The number
+  read 70 from step 5 until 2026-08-16, which is fourteen components of drift in one column.
 - **The heaviest file is `checkout-form.css`.** Checkout is a quarter of the product's CSS and had
   no component at all in v1 - it was the single biggest hole the correction closed.
 - **11 components come out of `wireframes/_nav.js`** rather than markup - the shared chrome. The

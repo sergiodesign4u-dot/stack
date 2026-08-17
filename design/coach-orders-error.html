@@ -38,11 +38,13 @@
 
 
 
-.ord-empty, .ord-err { text-align: center; border:1px solid var(--line-hair); border-radius: 14px; padding: 44px 24px; }
-
-.ord-empty .et, .ord-err .et { font-size: 19px; font-weight: 800; color: var(--text-primary); margin: 12px 0 6px; }
-.ord-empty .es, .ord-err .es { font-size: 13.5px; color:var(--text-secondary); max-width: 460px; margin: 0 auto 20px; line-height: 1.5; }
-.ord-acts-c { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+/* THE BOX IS GONE - 4 rules, step 8.39. `.ord-err` and `.ord-empty` were ONE
+   private rule doing two opposite jobs: the same flat grey plate for «nothing
+   here yet» and for «it broke». `empty-state.css` keeps them apart on purpose -
+   `.emptybox` is a hairline on the surface, `.errbox` is `--bg-danger-soft` with
+   a `--text-danger` glyph - and this copy said neither. It is the third private
+   edition of the error box in the coach flow, and the only one that also stood
+   in for the empty one. */
 
 
 
@@ -77,10 +79,11 @@
     <a class="btn--outline btn--s btn co-new" href="coach-session.html">＋ Нова сесія</a>
   </div>
 
-  <div class="ord-err" role="alert">
+  <div class="errbox" role="alert">
+    <div class="ei" aria-hidden="true">⚠️</div>
     <div class="et">Не вдалося завантажити замовлення</div>
     <div class="es">Перевірте з'єднання й спробуйте ще раз. Ваші дані нікуди не зникли.</div>
-    <div class="ord-acts-c">
+    <div class="eact">
       <a class="btn--accent btn--s btn" href="coach-orders.html">Спробувати ще раз</a>
       <a class="btn--outline btn--s btn" href="coach-home.html">До кабінету</a>
     </div>

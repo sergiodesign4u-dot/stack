@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Оболонка кабінету - огляд</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body>
+<!-- 8.36: the shell itself, which the first extraction never took - it walked the
+     nav and stopped. `.acc` is the two-column grid, `.acc-nav` the rail, and the
+     rail's own head - `.acc-prof` with `.av`, `.who` and `.acc-tier` - is written by
+     `wfAccountNav()` at runtime, so it exists in no markup anywhere. The frame calls
+     the same function `design/account.html` calls, with the same argument. -->
+<div style="padding:24px"><div class="acc">
+
+    <!-- ============ SECTION NAV (shared component; desktop aside / mobile hub) ============ -->
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <!-- ============ CONTENT PANEL = ОГЛЯД (dashboard snapshot) ============ -->
+    <div class="acc-main">
+      <h1 class="acc-h1">Вікторіє, ось ваш кабінет</h1>
+      <p class="acc-sub">Ваш кабінет: бонуси, замовлення, обране та адреси в одному місці.</p>
+
+      <div class="acc-grid">
+
+        <!-- Restock nudge (reorder mechanic, Decision 4 · Job 3-restock) → repeat to cart. Calm. -->
+        <div class="acard restock span2" id="restock-card">
+          <div class="ah"><h3>↻ Час поповнити запаси</h3><a class="lnk" href="../../account-orders.html">Усі покупки →</a></div>
+          <p class="rk-lead">За вашим ритмом купівлі ці товари скоро закінчаться. Додайте в кошик в один дотик.</p>
+          <div class="rk-item">
+            <div class="rk-ph">фото</div>
+            <div class="rk-tx">
+              <div class="rk-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
+              <div class="rk-cy">Купували 34 дні тому · зазвичай вистачає на <b>~30 днів</b></div>
+            </div>
+            <button class="btn--accent btn--s btn rk-add" type="button">У кошик</button>
+          </div>
+          <div class="rk-item">
+            <div class="rk-ph">фото</div>
+            <div class="rk-tx">
+              <div class="rk-nm">NOW Foods Omega-3 1000 мг, 200 капсул</div>
+              <div class="rk-cy">Купували 88 днів тому · зазвичай вистачає на <b>~100 днів</b></div>
+            </div>
+            <button class="btn--accent btn--s btn rk-add" type="button">У кошик</button>
+          </div>
+        </div>
+
+        <!-- Bonus balance → Лояльність (7.4) -->
+        <div class="acard abonus">
+          <div class="ah"><h3>Бонусний рахунок</h3><a class="lnk" href="../../account-loyalty.html">Детальніше →</a></div>
+          <div class="big">124 ₴</div>
+          <div class="u">бонусів на рахунку · 1 бонус = 1 ₴</div>
+          <div class="warn"><b>18 ₴ згорять 20.09.2026.</b> Використайте бонуси в кошику під час наступного замовлення.</div>
+        </div>
+
+        <!-- Loyalty progress (Job 6) → Лояльність (7.4) -->
+        <div class="acard loy">
+          <div class="ah"><h3>Рівень лояльності</h3><a class="lnk" href="../../account-loyalty.html">Як це працює →</a></div>
+          <div class="lt">🥈 Срібний</div>
+          <div class="lbar"><i style="width:62%"></i></div>
+          <div class="ls">Куплено на <b>18 400 ₴</b> · до 🥇 Золотого ще <b>6 600 ₴</b></div>
+          <div class="ladder">
+            <div class="lrung done"><span class="rn">🥉 Бронза</span>−3%<span class="rs">✓ отримано</span></div>
+            <div class="lrung now"><span class="rn">🥈 Срібло</span>−5%<span class="rs">ваш рівень</span></div>
+            <div class="lrung next"><span class="rn">🥇 Золото</span>−8%<span class="rs">наступний</span></div>
+          </div>
+        </div>
+
+        <!-- Last order + Повторити (Job 4) → Замовлення (7.2/7.3) -->
+        <div class="acard aorder span2">
+          <div class="ah"><h3>Останнє замовлення</h3><a class="lnk" href="../../account-orders.html">Усі замовлення →</a></div>
+          <div class="orow">
+            <div class="aord-thumbs">
+              <span class="t">фото</span><span class="t">фото</span><span class="t">фото</span>
+            </div>
+            <div class="aord-info">
+              <div class="no">Замовлення № 10432</div>
+              <div class="meta">12 червня 2026 · 3 товари · 2 340 ₴</div>
+              <span class="aord-status">Доставлено</span>
+            </div>
+          </div>
+          <div class="aord-actions">
+            <a class="btn--accent btn--s btn" href="../../cart.html">↻ Повторити замовлення</a>
+            <a class="btn--outline btn--s btn" href="../../account-orders.html">Деталі та ТТН</a>
+            <a class="btn--outline btn--s btn" href="../../product-reviews.html">Залишити відгук</a>
+          </div>
+        </div>
+
+        <!-- Saved addresses → Адреси (7.5) -->
+        <div class="acard aaddr">
+          <div class="ah"><h3>Адреси доставки</h3><a class="lnk" href="../../account-addresses.html">Керувати →</a></div>
+          <div class="adef">
+            <div class="tag">За замовчуванням</div>
+            <div class="line">Нова Пошта, відділення № 12</div>
+            <div style="font-size:12.5px;color:var(--text-secondary);margin-top:2px">Одеса · Вікторія Коваль</div>
+          </div>
+          <div class="amore">Ще 1 збережена адреса (кур'єр НП, Одеса).</div>
+        </div>
+
+        <!-- Become-a-coach (or, if already a coach, go-to-cabinet) - role-aware via JS -->
+        <div class="acard" id="coach-banner" style="display:flex;flex-direction:column;justify-content:center">
+          <div class="ah"><h3>Ви тренер?</h3></div>
+          <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:14px">Активуйте роль тренера: гуртові ціни та замовлення одразу для кількох клієнтів в одну сесію.</p>
+          <a class="btn--outline btn--s btn" id="coach-cta" href="../../coach-verify.html" style="align-self:flex-start">Стати тренером</a>
+        </div>
+
+      </div>
+
+      <!-- Wishlist preview → Обране (7.6). Canonical .pcard -->
+      <section aria-label="Обране">
+        <div class="sech"><h2>Обране</h2><a class="btn--text all" href="../../account-wishlist.html">Усі 6 →</a></div>
+        <div class="prow">
+          <article class="pcard"><a href="../../product.html" class="ph">фото</a><button class="btn--text btn--icon fav on" aria-label="В обраному">♥</button>
+            <div class="bd"><div class="pbrand">BioTechUSA · Угорщина</div><a href="../../product.html" class="nm">Iso Whey Zero 908 г</a><div class="pavail in">В наявності</div>
+              <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+              <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div><div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div></div></article>
+          <article class="pcard"><a href="../../product.html" class="ph">фото</a><button class="btn--text btn--icon fav on" aria-label="В обраному">♥</button>
+            <div class="bd"><div class="pbrand">Optimum Nutrition · США</div><a href="../../product.html" class="nm">Micronized Creatine Powder 317 г</a><div class="pavail in">В наявності</div>
+              <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">720 ₴</span><span class="pcut">−11%</span></div><span class="pnew">640 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+              <div class="rate"><span class="st">★ 4.9</span> · 204 відгуки</div><div class="pmeta2"><span class="perserv"><b>10 ₴</b> / порція</span><span class="bonus">+6 ₴ бонус</span></div></div></article>
+          <article class="pcard"><a href="../../product.html" class="ph">фото</a><button class="btn--text btn--icon fav on" aria-label="В обраному">♥</button>
+            <div class="bd"><div class="pbrand">Scitec Nutrition · Угорщина</div><a href="../../product.html" class="nm">100% Whey Protein Professional 920 г</a><div class="pavail pre">Під замовлення</div>
+              <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">845 ₴</span></div><button class="btn--outline btn--icon cartbtn notify" aria-label="Повідомити про надходження">🔔</button></div>
+              <div class="rate"><span class="st">★ 4.6</span> · 64 відгуки</div><div class="pmeta2"><span class="perserv"><b>31 ₴</b> / порція</span><span class="bonus">+8 ₴ бонус</span></div></div></article>
+        </div>
+      </section>
+
+    </div>
+  </div></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph:
+     the price slider, the checkboxes and the switch are all JS-driven, and a stand
+     that shows them without their behaviour shows something the product does not have. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script>function FRAME_STATE(){
+  try { wfAccountNav('overview', false); } catch(e) {}
+}</script>
+<script src="_boot.js"></script>
+</body>
+</html>

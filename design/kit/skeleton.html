@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Скелетон</h1>
 <p class="kp-lead">Сірі фігури на місці контенту, поки він вантажиться. Функційна підказка, а не декорація: форма скелетона це обіцянка того, що приїде.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/skeleton.css</span><span class="kp-tag">111 рядків</span><span class="kp-tag">16 імен</span><span class="kp-tag">5 екранів завантаження</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/skeleton.css</span><span class="kp-tag">259 рядків</span><span class="kp-tag">18 імен</span><span class="kp-tag">11 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка та сама, що в продукті. До кроку 7.28 тут стояло <code>&lt;div class="skcardbox"&gt;&lt;div class="skcard"&gt;…</code> - коробка всередині коробки, чого в продукті немає жодного разу, тому демо малювало подвійну рамку. Сітка була придушена інлайновим <code>style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px"</code>, тобто показувала не <code>.skgrid</code>, а інлайн поверх нього. І пульсації в демо не було зовсім, хоча анатомія її називала.</p>
@@ -79,6 +79,25 @@
 <p class="kp-p"><b>І тепер вона зупиняється.</b> На кроці 7.28 додано <code>@media (prefers-reduced-motion: reduce)</code>: підказка про завантаження не має права бути тим, від чого людині зле. Форма лишається, дихання зупиняється, прозорість фіксується на 0.78 - посередині циклу, щоб стан читався так само.</p>
 </section>
 
+<section class="kp-sec"><div class="kp-sh">Скелетон вбирається в той компонент, який обіцяє - крок 8.38</div>
+<p class="kp-p">Перепис угорі цього файлу рахував смугу «шість разів у чотирьох файлах». Його знімали по 40 кольорових екранах на 7.28, а тренерський потік увійшов у колір на 7.95. Перерахунок по п'ятьох тренерських екранах завантаження дав <b>дев'ять</b> редакцій, і три нові не згодні ні з шістьма, ні між собою.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Смуга</th><th>Висота</th><th>Радіус</th><th>Ґрунт</th><th>Де</th></tr></thead><tbody>
+<tr><td><code>.sk-line</code></td><td>13px</td><td>6px</td><td><code>--bg-sunken</code></td><td>coach-client-loading</td></tr>
+<tr><td><code>.skln</code></td><td>12px</td><td>6px</td><td><code>--bg-rule</code></td><td>coach-order-loading, coach-orders-loading</td></tr>
+<tr><td><code>.qa-skel .sk</code></td><td>12px</td><td>6px</td><td><code>--bg-rule</code></td><td>coach-session-loading</td></tr>
+<tr><td><code>.skline</code></td><td><b>10px</b></td><td><b>4px</b></td><td><b><code>--bg-sunken</code></b></td><td>цей файл, і 78 смуг із 84</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b><code>--bg-rule</code> - це <code>--warm-200</code>, тобто <code>--line-hair</code>.</b> Три тренерські екрани фарбували скелетонну смугу кольором волосини, поки решта продукту фарбувала <code>--warm-100</code>. Зміряно: <code>rgb(233,231,226)</code> проти <code>rgb(242,240,237)</code>.</p>
+<p class="kp-p">А рядки навколо смуг були <b>тим самим компонентом, передрукованим руками</b>. Не схожість - ті самі оголошення поруч: <code>.sk-row</code> = <code>.oc-item</code> (40 / 1fr, gap 11, волосина), <code>.sk-ph</code> = <code>.oc-ph</code> (40 квадрат, радіус 7), <code>.qa-skel</code> = <code>.qa-row</code> (44 / 1fr, gap 11, padding 9/0), <code>.skhd</code> = <code>.ccard-hd</code>, <code>.skav</code> = <code>.ccard-av</code>, <code>.skclist</code> = <code>.clist</code>, <code>.skgrp</code> = <code>.od-grp</code>.</p>
+<p class="kp-p">Тому правило не «перенести їх у компонент», а правило 7.68, дочитане до кінця: <b>скелетон - це обіцянка про коробку, яка його замінить, і єдина обіцянка, що не може розійтися, - сама коробка</b>. Розмітка тих п'ятьох екранів тепер носить <code>.ocard</code>, <code>.oc-item</code>, <code>.oc-ph</code>, <code>.ccard</code>, <code>.clist</code>, <code>.od-grp</code>, <code>.qa-row</code> - справжнє, порожнє, зі <code>.skline</code> всередині. <b>20 приватних правил пішли в нуль, і жодне оголошення їх не замінило.</b></p>
+<p class="kp-p">Додалось рівно двоє: заглушка кнопки, яку писали двічі (<code>.sk-btn</code> 38&nbsp;×&nbsp;120 і <code>.skacts i</code> 38 із <code>flex: 1</code>) - обидві на 2px нижчі за <code>btn--s</code>, чий <code>min-height</code> = <code>--size-40</code>; і речення під скелетоном.</p>
+<div class="kp-demo" style="max-width:340px">
+  <div class="ccard skpulse"><div class="ccard-hd"><span class="ccard-av"></span><div style="flex:1"><div class="skline m"></div><div class="skline s"></div></div></div><div class="skline l"></div><div class="ccard-acts"><i class="skbtn"></i><i class="skbtn"></i></div></div>
+  <p class="load-note">Завантажуємо список клієнтів…</p>
+</div>
+<p class="kp-p">Це <b>доводить 8.24 до кінця, а не скасовує його.</b> Той крок зняв <code>coach-clients-loading</code> з третього імені скелетонної картки і поставив на <code>.skcard</code>; те саме читання на крок далі каже, що це взагалі не скелетонна картка, а картка клієнта, що стоїть порожня. <code>.skcard</code> лишається каталогу й кабінету, де коробка-замінник це <code>.pcard</code>; назвати їх - питання етапу 09, а не рух, який цей крок зміряв.</p>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токен, що ніколи не фарбував скелетон</div>
 <p class="kp-p">Був <code>--bg-skeleton</code> = <code>#E9E7E2</code>. Його називали три оголошення - <code>.acc-h1sk</code>, <code>.acc-subsk</code>, <code>.skcardbox .skline</code> - і всі три перекривались одним пізнішим рядком у <code>account-shell.css</code>, який повертав їх на <code>--bg-sunken</code>. Тому всі 140 виміряних елементів дали <code>#F2F0ED</code>, і жоден - <code>#E9E7E2</code>.</p>
 <p class="kp-p">Те, що він справді фарбував: дві штрихові підкладки (<code>.auth-visual</code>, <code>.wfh-mega .ms-ph</code>) і одна волосина (<code>.fgroup</code>). Жодне з трьох не скелетон.</p>
@@ -86,19 +105,19 @@
 </section>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
-<p class="kp-p">На кожному екрані, де дані приходять мережею: каталог, PDP, кабінет, чекаут, діалог входу. Принцип 2 - «ніколи порожній погляд». У продукті таких екранів п'ять, і на кожному скелетон повторює форму саме того, що там буде.</p></section>
+<p class="kp-p">На кожному екрані, де дані приходять мережею: каталог, PDP, кабінет, чекаут, діалог входу. Принцип 2 - «ніколи порожній погляд». У продукті таких екранів <b>11</b> - зміряно <code>tools/inventory.mjs</code> по 88 кольорових екранах, за якорями цього файлу, - і на кожному скелетон повторює форму саме того, що там буде. На 7.28 їх було 5: тренерський потік увійшов у колір на 7.95, а на 8.38 його п'ять екранів завантаження перестали малювати власні скелетони.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Форма скелетона = форма контенту.</b> Тоді завантаження виглядає як проявлення, а не як перебудова. Тому <code>.skcard</code> має те саме співвідношення знімка, що й картка товару.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не став спінер замість нього на списках.</b> Спінер каже «чекай», скелетон каже «ось що буде». Для однієї дії (надсилання форми) спінер доречний - див. <b>Форма чекауту</b>. І не малюй смугу власної висоти «бо тут заголовок» - для заголовка є <code>.acc-h1sk</code>.</div></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>16</b> власних класів і <b>1</b> стан оголошено в <code>skeleton.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>18</b> власних класів і <b>1</b> стан оголошено в <code>skeleton.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["skline", "s", "m", "l", "skgrid", "skcard", "skimg", "skb", "skcardbox", "span2", "skpulse", "sl", "acc-h1sk", "acc-subsk", "co-skel", "auth-skel"], KIT_STS=["prefers-reduced-motion"];</script></section>
+<script>var KIT_CLS=["skline", "s", "m", "l", "skgrid", "skcard", "skimg", "skb", "skcardbox", "span2", "skpulse", "sl", "acc-h1sk", "acc-subsk", "co-skel", "auth-skel", "skbtn", "load-note"], KIT_STS=["prefers-reduced-motion"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>skeleton.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива. Два числа без токена: 10px смуги і 240/320px двох іменованих смуг кабінету - вони названі рішеннями в самому файлі.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (3)</th><th>Примітиви (8)</th></tr></thead><tbody><tr><td><code>--bg-sunken</code> <code>--elevation-1</code> <code>--line-hair</code></td><td><code>--radius-12</code> <code>--radius-4</code> <code>--size-24</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (12)</th></tr></thead><tbody><tr><td><code>--bg-sunken</code> <code>--elevation-1</code> <code>--line-hair</code> <code>--text-muted</code></td><td><code>--fs-12</code> <code>--radius-12</code> <code>--radius-4</code> <code>--radius-8</code> <code>--size-24</code> <code>--size-40</code> <code>--size-64</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-8</code></td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
 <div class="kp-code">&lt;div class="skgrid skpulse"&gt;

@@ -12,53 +12,11 @@
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
 <style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* big empty-session prompt */
-/* SIX RULES GONE AT STEP 8.30: `.cs-empty` was a sixth private edition of
-   `.emptybox`, and this is the third screen in the pile to have grown one -
-   `coach-client-empty` wrote it in element names, `coach-home-empty` shrank the
-   real one by hand, and this one retyped the box. The markup takes the component
-   and every value comes with it: 1.5px dashed -> 1px, radius 12 -> `--radius-12`
-   through the component, padding 40/20 -> 46/24, title 17/800 -> the display face
-   at `--fs-18`, body 13 -> `--fs-14` with a 440 measure.
-   `.cs-empty .btn{ padding: 13px 24px }` went with NOTHING taking it: it was a
-   size written on top of `btn--s`, and the atom owns the ladder.
-   ONE MEMBER WAS A REAL GAP AND IT IS IN empty-state.css NOW - the hint line
-   under the action. `.emptybox` had no answer for it, and this is the only
-   emptybox in the product that needs one. */
-
-
-
-
-.cs-summ-empty { font-size: 12.5px; color:var(--text-secondary); line-height: 1.55; padding: 8px 0 14px; border-bottom:1px solid var(--line-hair); }
-
-
-
-
-
-
-
-
- 
-
-
-
-
+/* THE LAST RULE ON THIS SCREEN IS GONE - step 8.41. `.cs-summ-empty` is the
+   line the summary shows when nothing is in the session, and it moved into
+   `coach-session.css` beside `.cs-summ` itself. The block above it went at 8.30:
+   `.cs-empty` was the sixth private edition of `.emptybox`, and its sibling
+   `coach-session-newclient` carried the seventh until today. */
 </style>
 </head>
 <body class="coach">

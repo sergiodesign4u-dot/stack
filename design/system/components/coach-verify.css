@@ -380,7 +380,8 @@
    Joined rather than deleted-and-left: `.cv-card` is not `.cv-body`, so nothing
    would have reached these three, and the page title is not a per-screen look. */
 .coach .cv-body h1,
-.coach .cv-card h1{ font-family: var(--font-display); font-size: var(--fs-30); font-weight: var(--fw-semibold); color: var(--text-primary); letter-spacing: var(--ls-lead); }
+.coach .cv-card h1,
+.coach .cv-h1{   /* 8.40: `coach-verify-tier`'s h1 is inside neither, so it had typed its own 24/800 Inter */ font-family: var(--font-display); font-size: var(--fs-30); font-weight: var(--fw-semibold); color: var(--text-primary); letter-spacing: var(--ls-lead); }
 /* grey 13.5 -> 13 -> 14: 5.5 to the more-read neighbour, then 5.6 takes
    the tie UP. 14 is what the product's other thirty 13.5s became by the same
    two moves. One of the nine in the block at the top.
@@ -389,7 +390,8 @@
    base rhythm moving from 1.55 to 1.6 «deliberately, and said out loud, because
    air is calmer» - so 1.55 is the value that decision replaced, still standing
    because it lived in a screen. */
-.coach .cv-lead{ font-size: var(--fs-14); color: var(--text-secondary); margin: var(--space-8) 0 22px; line-height: 1.55; }
+.coach .cv-lead{ font-size: var(--fs-14); color: var(--text-secondary); margin: var(--space-8) 0 22px; line-height: 1.55;
+  max-width: 440px; }   /* 8.40: the measure was missing, and `coach-verify-tier` rendered this line 828px wide at 1280. 440 is the family's number; the base measures 444 in its own column and moves 4px */
 
 /* ---------- fields: what this screen may NOT say about them ----------------
    The block carried a whole form vocabulary and most of it is the atom's.
@@ -591,6 +593,169 @@
    UP. One of the nine in the block at the top. */
 .coach .cv-alt{ display: block; text-align: center; margin-top: var(--space-12); font-size: var(--fs-14); color: var(--text-secondary); }
 .coach .cv-alt a{ color: var(--text-body); font-weight: var(--fw-bold); text-decoration: underline; }
+
+
+/* ==========================================================================
+   SECTION 1b - THE FOUR STATE SCREENS (step 8.40)
+   From the <style> blocks of coach-verify-loading / -error / -deadend / -tier.
+   32 rules, and every one of them is prefixed `cv-`: this file's own anatomy,
+   living in four screens instead of in the file that already carries the base.
+
+   WHAT THE COPIES COST, and it is not tidiness in any of the four cases:
+
+   1. `.lead` IS `.cv-lead` WITH ONE WORD MISSING. This file has declared
+      `.coach .cv-lead` since the split - --fs-14, --text-secondary,
+      `margin: --space-8 0 22px`, line-height 1.55. Three state screens wrote
+      `class="lead"`, a name one word away from the one that would have
+      inherited it, so each grew its own: 14px / 13.5px / 13.5px, with three
+      different margins and two different measures. `coach-verify-tier`, which
+      DOES write `cv-lead`, is the control: it takes the component and has never
+      needed a rule.
+   2. A BARE `.btn{ display: block }` ON TWO SCREENS. button.css has no `.btn`
+      rule at all - the finish IS the rank - so this private one was the only
+      thing declaring it, and it loads after `system/index.css`.
+      THE FIRST DRAFT OF THIS NOTE SAID IT TURNED THE MAIN ACTION'S `btn--full`
+      BACK INTO A BLOCK, AND THE BROWSER SAID NO: `cv-cta` is written
+      `btn--accent btn--l btn--full` with no bare `btn`, so the rule never
+      reached it. Measured on `coach-verify-error` at 1280 before and after, it
+      reached the SECONDARY action, and there it was doing real work: the outline
+      button was 510 x 40 with `margin-top: 11px`, and the atom alone makes it
+      203 x 40 with no margin - a natural-width control glued to the bottom edge
+      of a full-width one. So the answer is not to keep a bare `.btn`: it is that
+      two stacked actions are a GROUP, this file already had the class for it
+      (`.cv-actions`, on the dead end), and the error screen simply was not
+      wearing it. Third occurrence of the shape all the same:
+      `.tier-cta{ display: block }` went at 8.29 and `.cs-empty .btn` at 8.30.
+   3. `h1.cv-h1` AT 24/800 INTER. The heading rank of this flow is the display
+      face at --fs-30 / --fw-semibold, declared four lines up for
+      `.cv-body h1` and `.cv-card h1`. `coach-verify-tier`'s h1 is not inside
+      either, so the selector never reached it and the screen typed its own -
+      the FOURTH heading with two faces for one rank, after the cabinet,
+      coach-orders and this flow's own states.
+   4. `.cv-lead` HAD NO MEASURE, so `coach-verify-tier` rendered it 828px wide
+      at 1280 - 93 characters on one line, on a shipped screen. Same shape as
+      `.empty .es` at 8.39 and the same answer: 440, the number the product
+      already carries twice. The base measures 444 in its own column, so it
+      moves 4px.
+
+   WHAT STAYS PRIVATE, and it is three rules: `.cv-card{ max-width: 560px }` on
+   two screens and `{ padding: 40px 24px }` on the third. Those are the deferred
+   item - which of the card's two answers becomes the panel's is a decision, not
+   a move. `text-align: center` is NOT part of that question, because it splits
+   the four screens on what they hold rather than on a value: the waiting screen
+   and the dead end centre one message, the error screen keeps its text left
+   because it carries a LIST. So it is `.mid` here, and everything that follows
+   from centring follows from it.
+   ========================================================================== */
+
+.coach .cv-card.mid{ text-align: center; }
+.coach .cv-card.mid .cv-badge,
+.coach .cv-card.mid .cv-ring,
+.coach .cv-card.mid .cv-lead,
+.coach .cv-card.mid .cv-sub,
+.coach .cv-card.mid .cv-note{ margin-inline: auto; }
+/* the action column narrows only where the card is centred - on the error screen
+   the same group runs the full width of the card, which is what it drew before */
+.coach .cv-card.mid .cv-actions{ max-width: 340px; margin-inline: auto; }
+
+/* ---- the state disc ---------------------------------------------------------
+   The same object as auth-dialog.css's `.auth-visual .vmid .vi`, and that file
+   settled the shape: a 46px circle on --bg-page whose EDGE and GLYPH carry the
+   state. Quiet by default, because a dead end is «we could not confirm you» and
+   not a failure of the system - principle 4, and the deadend screen's own
+   comment had already argued it. `.bad` is the one screen whose whole message is
+   that something went wrong.
+   18 -> --space-16: a spacing tie goes UP, and 18 sits nearer 16 than 24. */
+.coach .cv-badge{ width: var(--size-46); height: var(--size-46);
+  border-radius: var(--radius-circle); border: 1px solid var(--line-strong);
+  background: var(--bg-page); color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-24); margin-bottom: var(--space-16); }
+.coach .cv-badge.bad{ border-color: var(--line-danger); color: var(--text-danger); }
+
+/* ---- the spinner ring -------------------------------------------------------
+   The moving arc is the action colour, and two files had already said so:
+   auth-dialog.css `.auth-spin` and checkout-form.css `.co-spin` both take
+   `border-top-color: var(--line-action)`. */
+.coach .cv-ring{ width: var(--size-52); height: var(--size-52);
+  border-radius: var(--radius-circle); border: 4px solid var(--line-hair);
+  border-top-color: var(--line-action); margin-bottom: var(--space-16); }
+
+/* ---- the quiet line under the lead, and the note under the actions ----------
+   12.5 -> --fs-12: 5.5 takes the half pixel to the more-read neighbour, and 12
+   is a rung. 26 and 20 -> --space-24, a tie goes UP. 420 and 460 -> 440, the
+   measure `.cv-lead` above now carries and `.emptybox .es` has carried since
+   7.28: one reading width for the family, said once. */
+.coach .cv-sub{ font-size: var(--fs-12); color: var(--text-muted);
+  max-width: 440px; margin-bottom: var(--space-24); line-height: 1.55; }
+.coach .cv-note{ font-size: var(--fs-12); color: var(--text-muted);
+  max-width: 440px; margin-bottom: var(--space-24); line-height: 1.55; }
+
+/* ---- the two action groups -------------------------------------------------
+   A column on the dead end, a row on the waiting screen, and both had a gap
+   nobody chose: 11 and 10 -> --space-12, the ladder being 8/12.
+   `.btnrow` was a BARE, unprefixed name in a file every coloured screen loads -
+   the shape this file's own SECTION 2 header warns about at length - so it is
+   `.cv-btnrow` here and in the markup. */
+.coach .cv-actions{ display: flex; flex-direction: column; gap: var(--space-12); }
+.coach .cv-btnrow{ display: flex; gap: var(--space-12); justify-content: center; flex-wrap: wrap; }
+
+/* ---- the reasons panel (error) ---------------------------------------------
+   13 -> --fs-14 and 12.5 -> --fs-14 are the nine-line table at the top of this
+   file; 14 -> --space-16 and 22 -> --space-24 are ties going up; 9 -> --space-8
+   goes down to the nearer rung. */
+.coach .cv-reasons{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  padding: var(--space-4) var(--space-16); margin-bottom: var(--space-24); }
+.coach .cv-reasons h2{ font-size: var(--fs-12); font-weight: var(--fw-black);
+  color: var(--text-secondary); text-transform: uppercase; letter-spacing: .03em;
+  padding: var(--space-16) 0 var(--space-4); }
+.coach .cv-reasons ul{ list-style: none; margin: 0; padding: 0; }
+.coach .cv-reasons li{ font-size: var(--fs-14); color: var(--text-body);
+  display: flex; gap: var(--space-12); align-items: flex-start;
+  padding: var(--space-8) 0; border-top: 1px solid var(--line-hair); }
+.coach .cv-reasons li:first-of-type{ border-top: none; }
+.coach .cv-reasons li .m{ color: var(--text-primary); font-weight: var(--fw-black); flex: none; }
+
+/* ---- the checklist of what is happening (loading) --------------------------
+   Radius 10 -> --radius-8: a radius tie goes DOWN, which is this project's rule
+   and the opposite of the spacing one. 420 -> 440, the family's measure. */
+.coach .cv-steps2{ list-style: none; margin: 0 auto var(--space-24); padding: 0;
+  max-width: 440px; text-align: left; display: flex; flex-direction: column; gap: var(--space-12); }
+.coach .cv-steps2 li{ display: flex; gap: var(--space-12); align-items: flex-start;
+  font-size: var(--fs-14); color: var(--text-secondary);
+  border: 1px solid var(--line-hair); border-radius: var(--radius-8); padding: var(--space-12); }
+.coach .cv-steps2 li .m{ width: 22px; height: 22px;   /* [?] 22 has no rung; `.cv-step .n` above is 18 and they are two different marks */
+  border-radius: var(--radius-circle); background: var(--bg-sunken);
+  border: 1px solid var(--line-strong); display: inline-flex;
+  align-items: center; justify-content: center; font-size: var(--fs-12);
+  font-weight: var(--fw-black); color: var(--text-primary); flex: none; }
+.coach .cv-steps2 li.now{ border-color: var(--line-action); color: var(--text-primary); font-weight: var(--fw-bold); }
+.coach .cv-steps2 li.now .m{ background: var(--bg-action); color: var(--text-onaction); border-color: var(--line-action); }
+
+/* ---- the confirmation plate (tier) -----------------------------------------
+   status-pill.css settled the ground - --bg-success-soft with the
+   --line-success-soft edge - and auth-dialog.css settled the disc. What stood
+   here before 8.28 was neither: a 1.5px ink frame round a filled ink disc, the
+   grey prototype's `--dark` translated by value, on the good news of the whole
+   flow. 15 -> --fs-16 is the same tie the `.city-chip` line takes. */
+.coach .cv-ok{ display: flex; gap: var(--space-12); align-items: center;
+  border: 1px solid var(--line-success-soft); background: var(--bg-success-soft);
+  border-radius: var(--radius-12); padding: var(--space-16); margin-bottom: var(--space-24); }
+.coach .cv-ok .m{ width: var(--size-46); height: var(--size-46);
+  border-radius: var(--radius-circle); background: var(--bg-page);
+  border: 1px solid var(--line-success); color: var(--text-success);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-18); flex: none; }
+/* the glyph inside a 46px disc is 22, which is auth-dialog.css's number for the
+   same disc - `font-size` reaches the emoji and not the svg marks.js puts there */
+.coach .cv-ok .m .uiv-ic svg{ width: 22px; height: 22px; }
+.coach .cv-ok b{ color: var(--text-primary); font-size: var(--fs-16); }
+.coach .cv-ok span{ display: block; font-size: var(--fs-12); color: var(--text-secondary); margin-top: var(--space-2); }
+
+/* ---- the footnote under the tier cards -------------------------------------- */
+.coach .cv-foot{ font-size: var(--fs-12); color: var(--text-muted);
+  margin-top: var(--space-24); line-height: 1.6; }
+.coach .cv-foot a{ color: var(--text-primary); font-weight: var(--fw-bold); text-decoration: underline; }
 
 
 /* ==========================================================================

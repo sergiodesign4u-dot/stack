@@ -12,12 +12,13 @@
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
 <style>
-/* node 5.2 Кабінет тренера - ERROR. No dead end: retry → base + go home. Greyscale. */
-.cerr { max-width: 520px; margin: 40px auto 60px; text-align: center; border:1.5px dashed var(--line-strong); border-radius: 16px; padding: 44px 26px; }
-.cerr .ic { width: 60px; height: 60px; margin: 0 auto 18px; border-radius: 50%; border:1.5px solid var(--line-strong); display: flex; align-items: center; justify-content: center; font-size: 28px; color:var(--text-secondary); }
-.cerr h1 { font-size: 21px; font-weight: 800; color: var(--text-primary); }
-.cerr p { font-size: 14px; color:var(--text-secondary); margin-top: 10px; line-height: 1.6; }
-.cerr .acts { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+/* THE ERROR BOX IS GONE - 5 rules, step 8.39. `.cerr` was the SECOND private
+   edition of `.errbox` in this flow and disagreed with the first on every value:
+   1.5px dashed against 1px solid, radius 16 against 14, the glyph in a 60px
+   ring on `--text-secondary` against a bare 32px on `--mark-disabled`. Neither
+   carried the danger role the component states. The box takes the page's full
+   width now, which is what its own sibling `coach-home-empty` has always done
+   with `.emptybox` on this same bare `wf-page`. */
 </style>
 </head>
 <body class="coach">
@@ -32,11 +33,11 @@
     <span class="cur">Кабінет тренера</span>
   </nav>
 
-  <section class="cerr" role="alert">
-    <div class="ic" aria-hidden="true">⚠</div>
-    <h1>Не вдалося завантажити кабінет</h1>
-    <p>Сталася помилка під час завантаження даних кабінету тренера. Перевірте з'єднання та спробуйте ще раз.</p>
-    <div class="acts">
+  <section class="errbox" role="alert">
+    <div class="ei" aria-hidden="true">⚠</div>
+    <h1 class="et">Не вдалося завантажити кабінет</h1>
+    <div class="es">Сталася помилка під час завантаження даних кабінету тренера. Перевірте з'єднання та спробуйте ще раз.</div>
+    <div class="eact">
       <a class="btn--accent btn--s btn" href="coach-home.html">Спробувати ще раз</a>
       <a class="btn--outline btn--s btn" href="index.html">На головну</a>
     </div>

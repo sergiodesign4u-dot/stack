@@ -12,56 +12,14 @@
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
 <style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.acard { border:1px solid var(--line-hair); border-radius: 14px; padding: 16px; }
-
-.acard .ah { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
-.acard .ah h3 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color:var(--text-secondary); }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* THE CARD WAS `.acard`, TYPED OUT BY HAND - 3 rules, step 8.41, and it is the
+   same finding `plan-card.css` recorded at 8.29 in the same flow. account-shell.css
+   declares `.acard` (1px `--line-hair`, `--space-16`) and its colour block adds
+   `--radius-12`, `--bg-page` and `--elevation-1`; the copy wrote radius **14** and
+   neither the plate nor the shadow, and it wins on load order. `.ah`, `.ah h3` and
+   `.ah a` are all declared there too, and all three had drifted: gap 10 against
+   `--space-12`, the caps label on `--text-secondary` against `--text-muted`, the
+   link at 12.5 against `--fs-14`. */
 </style>
 </head>
 <body class="coach">

@@ -21,6 +21,7 @@ node tools/links.mjs [--write]           every href, and whether it goes anywher
 node tools/theme.mjs [--source]          the dark theme as a stress test
 node tools/roles.mjs [name...]           does the stand still describe the file
 node tools/idle.mjs [name...]            what each stand page is not showing, sorted
+node tools/inventory.mjs [--screens]     is the published count still true
 node tools/grey-vars.mjs [--write]       private blocks learn the system's names
 node tools/crop.mjs 390 coach-tariff .tf-compare /tmp/t.png
 node tools/scope.mjs [--apply]           is a screen inside the scope its components need
@@ -298,6 +299,40 @@ class and no script toggles - it is 8 entries in the whole stand and finds 2.
 The page-side half lives in **`design/kit/_idle.js`**, one file where there were
 74 inline copies in five editions. See its header for what the copies had drifted
 into, including the one page that held the correct timing rule.
+
+## `inventory.mjs` - is the published count still true
+
+Backlog item 8, and the shape of the gap is one sentence: `vars.mjs` and
+`grey-vars.mjs` ask whether a **value** is still true, `roles.mjs` whether a
+**token list** is, and nothing asked it of a **count**.
+
+`design/kit/docs/inventory.md` is the registry of the component layer - three
+tables by level, a `Lines` column, a `Screens` column and a totals paragraph.
+Every number in it was measured once at step 5 and typed in. Asked on
+2026-08-16, the file listed **73** components against **84** on disk, carried two
+rows for files that no longer exist, and had **66 of 73** line counts and
+**58 of 73** screen counts wrong. Its own note about the gap named eight of the
+thirteen missing files, so the note had drifted too.
+
+Six questions, all answered from the files rather than from the file's prose:
+coverage both ways (a component with no row, a row with no component), `Lines`
+against disk, the level table against the level the component declares in its own
+opening comment, the totals paragraph against the tables it summarises, and -
+behind `--screens`, because it costs a browser - the `Screens` column.
+
+**`Screens` cannot be grepped**, and the old column proves it: `footer.css` read
+1 and measures **77**, `tabbar.css` read 0 and measures **82**. A third of this
+product's chrome is written by `wireframes/_nav.js` at load, so the question goes
+to the rendered DOM over all 88 coloured screens. A component's **anchors** are
+the classes its own file declares and no other component file does; a screen
+carries the component if at least one anchor renders. The old `**JS**` annotation
+existed for exactly the blindness this removes.
+
+**Its exemption has a control.** Three components have no anchor at all -
+`counter`, `icon`, `product-thumb` - because every class they declare is also
+declared elsewhere, so their cell reads `–`. That does not fail the run; what
+fails is the pair going out of step, in either direction. Without the second half
+the dash would be a place to hide a number nobody wants to take.
 
 ## `grey-vars.mjs` - the transform `vars.mjs` asks for
 
