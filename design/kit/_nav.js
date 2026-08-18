@@ -17,41 +17,6 @@
    No em dash in this file. */
 window.KIT_NAV = [
  {
-  "label": "Перепис",
-  "items": [
-   {
-    "label": "Кнопки",
-    "page": "census.html",
-    "done": true
-   },
-   {
-    "label": "Поля",
-    "page": "census-field.html",
-    "done": true
-   },
-   {
-    "label": "Рядок посилань",
-    "page": "census-link.html",
-    "done": true
-   },
-   {
-    "label": "Картки",
-    "page": "census-card.html",
-    "done": true
-   },
-   {
-    "label": "Чипи",
-    "page": "census-chip.html",
-    "done": true
-   },
-   {
-    "label": "Іконки",
-    "page": "census-icon.html",
-    "done": true
-   }
-  ]
- },
- {
   "label": "Основи",
   "items": [
    {
@@ -512,6 +477,41 @@ window.KIT_NAV = [
    {
     "label": "Обране тренера",
     "page": "coach-wishlist.html",
+    "done": true
+   }
+  ]
+ },
+ {
+  "label": "Перепис",
+  "items": [
+   {
+    "label": "Кнопки",
+    "page": "census.html",
+    "done": true
+   },
+   {
+    "label": "Поля",
+    "page": "census-field.html",
+    "done": true
+   },
+   {
+    "label": "Рядок посилань",
+    "page": "census-link.html",
+    "done": true
+   },
+   {
+    "label": "Картки",
+    "page": "census-card.html",
+    "done": true
+   },
+   {
+    "label": "Чипи",
+    "page": "census-chip.html",
+    "done": true
+   },
+   {
+    "label": "Іконки",
+    "page": "census-icon.html",
     "done": true
    }
   ]

@@ -36,7 +36,11 @@ article.ci{ display: grid; grid-template-columns: 74px 1fr; gap: var(--space-12)
 /* 7.68: 10/11 -> 1, the product-photo shape rule in tokens.css. Free: measured
    before the edit, the box was 81.39 tall in a 185.95 row whose tallest child is
    `.ci-mid` at 152.95, so the article does not move. */
-.ci-ph{ width: 74px; aspect-ratio: 1; border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
+/* 8.57: 74 -> 84, question A6. Three rungs for the product frame, each one a job:
+   44 the thumbnail on a list row, 52 the tile on a row with an action, 84 the
+   picture on a horizontal card. The cart row IS a horizontal card - the same
+   object `.pcard-l` draws at 84 - and 74 was on no ladder at all. */
+.ci-ph{ width: 84px; aspect-ratio: 1; border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
 .ci-mid{ min-width: 0; }
 .ci-brand{ font-size: var(--fs-12); }
 .ci-nm{ display: block; font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-snug); margin: var(--space-2) 0 var(--space-4); }

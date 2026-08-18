@@ -43,7 +43,23 @@
    because width is the constrained axis here - the strip sits at `margin-left:
    auto` beside `.oh-sum`, and three tiles at 38 would take 12px more of a 390
    row that has none to give. Height is free, width is not. */
-.oh-thumbs i{ width: var(--size-34); height: var(--size-34); border-radius: var(--radius-8); background: var(--bg-sunken); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-8); color: var(--mark-faint); font-style: normal; }
+/* 8.58: 34 -> 40, AND THE NUMBER IS THE STRIP'S RATHER THAN THIS ROW'S. Three
+   places in the product draw the same object - three product thumbnails plus a
+   «+N» counter, standing for goods nobody is being asked to press - and they
+   drew it at three sizes: `.oh-thumbs i` 34, `.cshelf .cs-th` 40,
+   `.aord-thumbs .t` 46. Two of the three are declared in THIS file, which is the
+   sharpest part: one file, one job, two numbers.
+   40 rather than 34, 46 or 44, for three reasons said out loud:
+     - it is the middle, so no strip moves more than 6px and one does not move
+       at all (`.cshelf .cs-th` is already 40);
+     - it is a rung the system already uses for exactly this kind of small
+       square, `--size-40`;
+     - it stays BELOW 44, the smallest rung of the tile ladder, and that gap is
+       the point: a strip of thumbnails must not read as a tile on a row.
+   NOT decided by the touch floor, and that was checked rather than assumed: the
+   whole `.ord-h` is a `<button>`, so the `<i>` inside it is not a target of its
+   own and 44 does not apply to it. */
+.oh-thumbs i{ width: var(--size-40); height: var(--size-40); border-radius: var(--radius-8); background: var(--bg-sunken); border: 1px solid var(--line-hair); display: flex; align-items: center; justify-content: center; font-size: var(--fs-8); color: var(--mark-faint); font-style: normal; }
 .oh-thumbs i.more{ font-weight: var(--fw-black); font-size: var(--fs-12); }
 .oh-sum{ font-size: var(--fs-16); color: var(--text-primary); white-space: nowrap; min-width: 72px; text-align: right; }
 .oh-drop{ width: var(--size-30); height: var(--size-30); border-radius: var(--radius-8); border: 1px solid var(--line-strong); display: flex; align-items: center; justify-content: center; font-size: var(--fs-14); flex: none; }

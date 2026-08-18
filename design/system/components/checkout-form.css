@@ -120,7 +120,11 @@
    rendered pages, not by reading. */
 .co-line{ display: flex; gap: var(--space-12); padding: var(--space-2) 0 var(--space-12); }
 .co-line + .co-line{ border-top: 1px solid var(--line-hair); padding-top: var(--space-12); }
-.co-line .li-img{ width: 60px; height: 60px; flex: none; display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
+/* 8.58: 60 -> 52, the owner's ladder. `.co-line` is one product per row and the
+   row carries `.li-acts`, so this is the middle rung by definition - «a tile on a
+   row that carries an action». 60 was on no ladder at all and was the only 60 in
+   the product. */
+.co-line .li-img{ width: var(--size-52); height: var(--size-52); flex: none; display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); }
 .co-line .li-bd{ flex: 1; min-width: 0; }
 .co-line .li-nm{ font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-snug); }
 .co-line .li-meta{ font-size: var(--fs-12); margin-top: var(--space-4); }

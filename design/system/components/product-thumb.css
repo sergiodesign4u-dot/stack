@@ -47,8 +47,23 @@
    ============================================================================ */
 
 /* ---------- structure ---------- */
+/* 8.58: THE TWO SIZES PART, AND THE ATOM THAT JOINED THEM WAS READING SHAPE
+   RATHER THAN JOB. The owner's ladder for a product frame is three rungs and
+   each one is a JOB: 44 the thumbnail on a list row, 52 the tile on a row that
+   carries an action, 84 the picture on a horizontal card. Measured, these two do
+   different work:
+     .aord-thumbs .t   three in a strip inside one order card, no action of
+                       their own - a SET standing for «these were the goods»
+     .rk-ph            one per row in `.rk-item`, and that row ends in
+                       `btn--accent btn--s` «У кошик» - one tile, one action
+   So they take different rungs, and everything else about them stays shared:
+   the radius, the ground, the edge, the centring, the caption size and the whole
+   colour half below. ONE RULE BECOMES TWO DECLARATIONS, not two rules.
+   The strip's own number is 40 and its reasoning is in order-row.css, where the
+   other two strips live. */
+.aord-thumbs .t{ width: var(--size-40); height: var(--size-40); }
+.rk-ph{ width: var(--size-52); height: var(--size-52); }
 .aord-thumbs .t, .rk-ph{
-  width: var(--size-46); height: var(--size-46);
   border-radius: var(--radius-8);
   background: var(--bg-sunken);
   border: 1px solid var(--line-hair);

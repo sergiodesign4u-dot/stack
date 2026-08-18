@@ -568,7 +568,11 @@
 .coach .cnew{ display: flex; align-items: center; gap: var(--space-16);
   margin-top: var(--space-16);
   border: 1.5px solid var(--line-action);   /* [?] 1.5px is on no rung; the set is 1 / 2 */
-  border-radius: 14px;                      /* [?] 14px has no rung; the ladder is 12/16 */
+  border-radius: var(--radius-12);   /* 8.57: was 14px. The radius ladder is the one geometry
+                                        ladder whose rounding IS written - 4/8/12/16, ties DOWN -
+                                        and tokens.css already lists 14 -> 12 among the snaps it
+                                        made. coach-order.css applied it at 8.7; these four never
+                                        did. Owner's call, 8.57. */
   padding: 20px; }                          /* [?] 20px has no rung; the ladder is 16/24 */
 .coach .cnew .cn-ic{ width: var(--size-46); height: var(--size-46); flex: none;
   border-radius: var(--radius-12); border: 1.5px solid var(--line-onaction);

@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Мініатюра товару</h1>
 <p class="kp-lead">Квадратна коробка 46, у якій стоїть фотографія товару в рядку. Найменший файл у системі й єдиний, що не має власного імені: він оголошує форму, а називають її класи двох інших компонентів.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/product-thumb.css</span><span class="kp-tag">68 рядків</span><span class="kp-tag">4 селектори</span><span class="kp-tag">12 оголошень</span><span class="kp-tag">1 екран</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/product-thumb.css</span><span class="kp-tag">83 рядки</span><span class="kp-tag">6 селекторів</span><span class="kp-tag">14 оголошень</span><span class="kp-tag">1 екран</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <div class="kp-demo" style="display:flex;gap:var(--space-24);flex-wrap:wrap;align-items:flex-start">
@@ -35,7 +35,7 @@
     <div class="rk-tx"><div class="rk-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div></div>
   </div>
 </div>
-<div class="kp-anat"><div class="a"><i>1</i><span><b>Квадрат 46</b> - <code>--size-46</code> на обидві сторони, бо фотографія 2048x2048 і кожна коробка ставить її <code>contain</code></span></div><div class="a"><i>2</i><span><b>Западина під фото</b> - <code>--bg-sunken</code> і волосяна рамка, щоб порожній слот був видимий, а не діркою</span></div><div class="a"><i>3</i><span><b>Слово всередині</b> - «фото», <code>color: transparent</code> у кольорі. Це не хак: сірий шар зображення не має, і там це слово читається</span></div></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Квадрат</b> - на обидві сторони, бо фотографія 2048x2048 і кожна коробка ставить її <code>contain</code>. <b>8.58: розмір тут більше не один.</b> Обидва входження були 46; драбина рамок, названа власником, читає РОБОТУ, а не форму, і ці двоє роблять різне - <code>.aord-thumbs .t</code> це смуга з трьох під однією карткою замовлення (<code>--size-40</code>), <code>.rk-ph</code> це одна плитка на рядку, який закінчується кнопкою «У кошик» (<code>--size-52</code>). Розійшлась одна декларація розміру; радіус, ґрунт, край, центрування і вся половина кольору лишились спільними</span></div><div class="a"><i>2</i><span><b>Западина під фото</b> - <code>--bg-sunken</code> і волосяна рамка, щоб порожній слот був видимий, а не діркою</span></div><div class="a"><i>3</i><span><b>Слово всередині</b> - «фото», <code>color: transparent</code> у кольорі. Це не хак: сірий шар зображення не має, і там це слово читається</span></div></div>
 <p class="kp-p">Обидві коробки вище - <b>розмітка продукту</b>, узята з <code>account.html</code> як є. Ліворуч смужка мініатюр останнього замовлення (<code>.aord-thumbs .t</code>, три штуки), праворуч плитка нотатки про поповнення (<code>.rk-ph</code>). Розкладка навколо них - <code>order-row.css</code> і <code>restock-note.css</code>; цей файл не знає ні про смужку, ні про рядок.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Компонент без власного імені</div>
@@ -72,8 +72,8 @@
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>product-thumb.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (3)</th></tr></thead><tbody>
-<tr><td><code>--bg-sunken</code></td><td><code>--size-46</code></td></tr>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (4)</th></tr></thead><tbody>
+<tr><td><code>--bg-sunken</code></td><td><code>--size-40</code> <code>--size-52</code></td></tr>
 <tr><td><code>--line-hair</code></td><td><code>--radius-8</code></td></tr>
 <tr><td><code>--mark-faint</code></td><td><code>--fs-10</code></td></tr>
 <tr><td><code>--bg-page</code></td><td>–</td></tr>

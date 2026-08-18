@@ -297,7 +297,11 @@
    carry the rules a <td> would have. `overflow: hidden` is what makes the outer
    radius cut the first and last rows; without it the corners show square. */
 .coach .cmp{ border: 1px solid var(--line-hair);
-  border-radius: 14px; /* [?] 14px is not a step; the radius ladder is 4/8/12/16 and its ties go DOWN */
+  border-radius: var(--radius-12);   /* 8.57: was 14px. The radius ladder is the one geometry
+                                        ladder whose rounding IS written - 4/8/12/16, ties DOWN -
+                                        and tokens.css already lists 14 -> 12 among the snaps it
+                                        made. coach-order.css applied it at 8.7; these four never
+                                        did. Owner's call, 8.57. */
   overflow: hidden; }
 .coach .cmp-row{ display: grid; grid-template-columns: 1.2fr 1fr 1fr; }
 .coach .cmp-row + .cmp-row{ border-top: 1px solid var(--line-hair); }

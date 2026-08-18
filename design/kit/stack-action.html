@@ -102,6 +102,18 @@
 <p class="kp-p">Кільце <b>зовнішнє</b>, а не всередині: бар не ставить <code>overflow</code>, а вкладка досить широка, щоб внутрішнє кільце читалось як рамка навколо підпису.</p>
 <div class="kp-cap">Зміряно дотиком на 390 x 844: вкладка прозора <code>-> #FFF9F5</code>. Кільце на сусідній вкладці не зрізане нижнім краєм</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>stack-action.css</code>, не переписані руками. <b>Шість ролей на десять примітивів</b>, і в цьому наборі <b>два кільця фокусу</b> - єдиний компонент системи, який читає обидва.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (10)</th></tr></thead><tbody>
+<tr><td><code>--bg-action</code> <code>--bg-action-soft</code></td><td><code>--fs-10</code> <code>--fs-12</code></td></tr>
+<tr><td><code>--ring-focus-control</code></td><td><code>--fw-semibold</code> <code>--fw-black</code> <code>--lh-flat</code></td></tr>
+<tr><td><code>--ring-onink</code></td><td><code>--radius-8</code> <code>--radius-pill</code></td></tr>
+<tr><td><code>--text-onaction-ink</code></td><td><code>--size-20</code></td></tr>
+<tr><td><code>--text-secondary</code></td><td><code>--space-2</code> <code>--space-4</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Два кільця, бо той самий контрол стоїть на двох різних ґрунтах.</b> На сторінці працює <code>--ring-focus-control</code>. На темній смузі шапки кільце тієї самої ролі зникло б у власному тлі, тож там працює <code>--ring-onink</code> - <b>біле гало, викарбуване саме для цього випадку</b>. Це і є той поділ за ПОВЕРХНЕЮ, який етап оголосив третьою віссю: роль каже не лише «яким кольором», а й «на чому».</p>
+<p class="kp-p">Пари ґрунту рівно дві - <code>--bg-action</code> і <code>--bg-action-soft</code>, - і другий це ховер. Жодного власного токена стану компонент не заводить: усе, що йому було потрібно, семантичний рівень уже мав.</p></section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>9</b> власних класів і <b>1</b> стан оголошено в <code>stack-action.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>

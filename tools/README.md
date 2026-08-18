@@ -1117,3 +1117,60 @@ off, **on markup that never existed, so no amount of looking at the screen could
 it: twelve `.skcard` today, not one without a `.skb`, and on the two screens the rule names the word
 survives only in a comment. **A rule can be right when written and wrong later without anybody
 editing it** - which is the argument for sweeping the whole corpus rather than what a step touched.
+
+---
+
+## `dry-run.mjs` - can the system build the screens it has never seen
+
+```
+node tools/dry-run.mjs              every grey screen with no coloured twin
+node tools/dry-run.mjs content-faq  only those
+```
+
+**The check that replaces a rollout.** Stage 08 has no розкотка: a screen is assembled once, when
+the system is finished, and that is stage 12. The rollout was the completeness test - the moment a
+missing component announces itself - so the pack puts three cheaper instruments in its place, and
+this is the third. A component found here costs one file; the same component found at stage 11 drags
+its states, its pattern, its breakpoints and its motion behind it.
+
+The classes are read off the **loaded** page, because `wireframes/_nav.js` builds the header, the
+bar, the drawers and much of the body at runtime. The answer side is every class any component
+declares at any depth. What is left over is what the system has no name for, grouped by prefix,
+sorted by how many screens carry it.
+
+### Three «not a finding» rules, each declared and counted
+
+- **`wf-` / `uiv-` / `sk` prefixes** - the prototype's scaffolding and the mark passes.
+- **1-2 letter names** (`h`, `t`, `bd`, `ic`) - the grey layer's local shorthands inside a block.
+  They ride their parent: covered parent, no question; uncovered parent, they come along with it.
+- **A class that also lives on ANSWERED territory** - a grey screen that already has a coloured
+  twin. The system was built against those, so a class there that nothing declares is chrome the
+  colour layer dropped or a dead name the transform carries (`stack`, `dark`), and it belongs to
+  `btn-rank.mjs` rather than here. A zero here fails the run.
+
+### Two wrong versions, and the second one is the more instructive
+
+1. **Reading `<main>` instead of `<body>`.** It looks right - the product is what is inside the page
+   - and it is blind to exactly the components that are hardest to build: an overlay, a drawer, a
+   dialog and a sheet all live outside `<main>`. `search-suggest` came back with **nothing at all**
+   while its markup holds **68 `ov-*` classes**, and the screen did not appear in the report. Same
+   family as a finder that reads one directory level: it fails where nobody looks.
+2. **«Does this class appear anywhere in `design/`?»** as the answered-territory test. It dropped
+   **233 classes** and took `info-*`, `op-*`, `loy-*`, `art-*` and the whole quiz with them - because
+   **a screen that has never been coloured has no class in `design/` by construction.** The question
+   and the exclusion were the same question, which is the check whose both sides come from one source
+   wearing a new costume. The fix compares against grey screens that HAVE a twin, and both sides are
+   then read the same way in the same browser pass.
+
+### What the first run found
+
+54 grey screens with no coloured twin, 1 153 classes known to the system: **228 classes in 79
+families with no component**, 16 dropped as answered chrome, 19 shorthands.
+
+**Exactly one family crosses more than two screens.** `info-*` - `info-body` `info-card` `info-stat`
+`info-stats` `info-steps` `info-toc` `info-updated` `info-vals` - on six: about, contacts, delivery,
+guarantee, legal, returns. Everything else is one or two screens, which is that screen's own block
+rather than a component; the ladder's own rule is that a pattern needs three.
+
+The runner-up by SIZE is `q-*`, 35 classes - and it is one screen, the quiz, which locked decision 2
+puts post-launch. **The biggest pile in the report is the one that must not shape the system.**

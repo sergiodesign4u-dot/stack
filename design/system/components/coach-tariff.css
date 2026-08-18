@@ -251,7 +251,11 @@
    was the single greyscale accent, and as an EDGE that is `--line-inverse`.
    The edge came down from 1.5px to 1px with the rest of the product at step 7.62. */
 .coach .tf-cur{ border: 1px solid var(--line-inverse);
-  border-radius: 14px;    /* [?] 14 is not a step; the radius ladder is 4/8/12/16 */
+  border-radius: var(--radius-12);   /* 8.57: was 14px. The radius ladder is the one geometry
+                                        ladder whose rounding IS written - 4/8/12/16, ties DOWN -
+                                        and tokens.css already lists 14 -> 12 among the snaps it
+                                        made. coach-order.css applied it at 8.7; these four never
+                                        did. Owner's call, 8.57. */
   padding: 20px 22px; }   /* [?] neither 20 nor 22 has a rung; the ladder is 2/4/8/12/16/24/32/40 */
 .coach .tf-cur-h{ display: flex; align-items: center; gap: var(--space-12); flex-wrap: wrap; }
 /* the plan's name, and the largest word on the screen after the H1 */

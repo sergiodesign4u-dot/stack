@@ -23,10 +23,10 @@
 <nav id="kitnav"></nav>
 <main class="kp-main">
 
-<div class="kp-eyebrow">Компонент · рівень 2</div>
+<div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Меню вибору</h1>
 <p class="kp-lead">Одне значення зі списку. <b>Крок 7.2.</b> До нього продукт мав два способи вибрати одне зі списку, і жоден не був цілим: сортування - список, зібраний руками, який відповідав <b>лише миші</b>, а на телефоні не відкривався взагалі; вибір клієнта - нативний <code>&lt;select&gt;</code>, у якого все це є безкоштовно, але розкритий список малює операційна система. Тепер обидва - один атом.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/menu.css</span><span class="kp-tag">design/system/menu.js</span><span class="kp-tag">2 вживання</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/menu.css</span><span class="kp-tag">design/system/menu.js</span><span class="kp-tag">2 вживання</span></div>
 
 <style>
 .mset{ display:grid; gap:var(--space-24); }
@@ -82,6 +82,18 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Меню обирає значення, кнопка робить дію.</b> Список - це <code>listbox</code> зі значень; усе, що не є значенням, стоїть під роздільником окремою кнопкою. Обраний рядок несе акцент <b>і</b> галочку: колір сам по собі не працює для того, хто його не бачить.<br><br><b>Одне меню за раз.</b> Відкриття закриває будь-яке інше: два розкриті списки - це дві відповіді на одне питання.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби меню з того, що веде.</b> Мова, кабінет, мега-меню - це навігація: там вибір нічого не обирає, а переносить. Їхній список не <code>listbox</code>, і галочки в ньому бути не може.<br><br><b>Не лишай нативний select там, де в списку є дія.</b> Це єдина причина, з якої пікер клієнта перестав бути селектом - не вигляд.</div></div>
 </section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>menu.css</code>, не переписані руками. <b>Одинадцять ролей на шістнадцять примітивів</b>, і в цьому наборі є одна пара, якої немає більше ніде: <b>дві висоти тіні в одному компоненті</b>.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (11)</th><th>Примітиви (16)</th></tr></thead><tbody>
+<tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-rule</code></td><td><code>--fs-14</code> <code>--fs-16</code></td></tr>
+<tr><td><code>--elevation-3</code> <code>--elevation-4</code></td><td><code>--fw-medium</code> <code>--fw-semibold</code> <code>--lh-snug</code></td></tr>
+<tr><td><code>--scrim-overlay</code></td><td><code>--radius-8</code> <code>--radius-12</code> <code>--radius-16</code> <code>--radius-pill</code></td></tr>
+<tr><td><code>--line-strong</code> <code>--ring-focus-control</code></td><td><code>--size-20</code> <code>--size-44</code> <code>--size-52</code></td></tr>
+<tr><td><code>--text-action</code> <code>--text-body</code> <code>--text-muted</code></td><td><code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-24</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b><code>--elevation-3</code> на десктопі і <code>--elevation-4</code> на телефоні - це не непослідовність, це та сама відстань до різного тла.</b> Спадне меню лягає на сторінку і мусить читатись відірваним від неї на один крок. Шторка на телефоні лягає на <code>--scrim-overlay</code>, тобто на затемнену сторінку, і крок від затемненого тла коштує дорожче - інакше вона читалась би приклеєною до скрима.</p>
+<p class="kp-p">Чотири радіуси в одному файлі - <code>8</code> для рядка, <code>12</code> для коробки, <code>16</code> для шторки, <code>pill</code> для ручки, - і всі чотири це щаблі драбини. <b>Жодного літерала геометрії у файлі немає взагалі</b>, що для компонента з двома в'юпортними формами трапляється нечасто.</p></section>
 
 </main>
 <script>

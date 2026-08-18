@@ -14,10 +14,6 @@ channel** as its primary business model: coaches and gyms order in bulk for thei
 beginners and regulars are secondary audiences. Ukraine only. Mobile-first, fully responsive,
 scaling up to desktop; a native app is out of MVP scope.
 
-Core differentiator: a trusted, guided path from "I want to achieve X" to "here is the safe, right
-product set for you" - through the coach as the trusted intermediary, and through transparent
-product information (composition, dosage, origin, certification) for the self-guided buyer.
-
 ## Jobs (selected)
 
 **Primary.** When I am a coach or gym manager ordering supplements for my clients, I want to quickly
@@ -51,13 +47,8 @@ In: coach ordering flow (saved client list, per-client order tagging, per-client
 tier price) · goal-to-product guidance (6 goal tiles; the quiz is post-launch) · product pages with
 trust signals leading, not buried · catalog with smart filtering · reorder from order history ·
 checkout and buyer account (orders, addresses, wishlist, loyalty) · **order status notification by
-e-mail or SMS** (added to MVP 2026-08-04 from CJM zone Z3: the As-Is bottom is silence during the
-wait, and status inside the account only reaches someone who thinks to look. A notification, not a
-screen, so the 19 MVP screens are unchanged) · **a dark theme** (added to MVP 2026-08-13, built
-2026-08-13 as stage 08 step 7: `[data-theme="dark"]` overrides the semantic block and nothing
-else - 4512 role reads and **0** raw colour values in the components are what makes that possible.
-The theme is the **stress test** of that claim, not decoration; the switch lives in the stand's
-panel, the product's own is stage 08 step 8).
+e-mail or SMS** · **a dark theme**, which is the stress test of «colour reads a role, never a
+literal» rather than decoration.
 
 Out: native app · loyalty gamification · live chat and coach consulting · custom formulation ·
 private label. A paid coach tier (Free / Pro) is a **hypothesis**, not a commitment.
@@ -106,6 +97,12 @@ once reported "0 failures" over 135 pages after visiting one. **Fix through a ru
 hand-editing one file** - and the same applies to the instrument: a check rebuilt from memory each
 step is a hand fix. A repeatable one goes in `tools/` with the wrong versions written beside it.
 
+**Ask the OUTPUT, and ask it of the whole corpus.** A rule stated in a comment has no check under it,
+and **a claim about the corpus goes stale in silence** - the event that stales it happens in another
+file - so it is re-asked, not re-read. **A comparison whose two sides differ in more than the thing
+being measured is not a proof:** name the reference by hand when the tree holds earlier work, and
+read the whole report - one read through `tail` is not a read.
+
 **Critique runs on two instruments.** Claude and Codex (plugin `codex`, **read-only stated
 explicitly**), sets taken independently before any merge, dedup afterwards. Codex owns what is
 falsifiable in the source (contradiction between files, orphan without a parent, state absent from
@@ -125,9 +122,8 @@ file, called by a trigger word.
 - Registry labels in `/_nav.js` are render text: same language as the pages. Mixed language in the
   sidebar is a defect.
 - **Three dashes, three jobs.** `-` inside a sentence · `–` a range (`А–Я`) and an empty table cell,
-  which is the "no value" mark · `—` nowhere in project output. The empty cell was an exemption for
-  the em dash until step 8.2, on the true ground that a bare `-` in a column of numbers reads as a
-  minus; `–` answers that without needing an exemption. One apostrophe form: `'`. The `ви` form.
+  which is the "no value" mark · `—` nowhere in project output. One apostrophe form: `'`. The `ви`
+  form.
 
 ## Ownership of text and values
 
@@ -138,10 +134,11 @@ toasts) belong to `voice/docs/microcopy.md`; the IA node states WHAT information
 the wording. No product string exists in two editions.
 
 **Values move, they are never re-derived.** One line runs through the stages and is not recomputed
-once: `DESIGN-artifacts.md` (origin of every value) -> `design/_theme.css` -> `design/kit/kit.css`
-(git mv, `:root` byte for byte) -> `design/system/tokens.css` (primitive + semantic). Each step adds
-a level, never rewrites what is already there. A value changes only by a decision said out loud as
-"variable -> value -> why", never as a side effect of a refactor.
+once: `DESIGN-artifacts.md` (origin of every value) -> `design/_theme.css` -> `design/system/
+tokens.css` (primitive + semantic; `kit.css` was the middle link and was deleted at stage 08 step 8).
+Each step adds a level, never rewrites what is already there. A value changes only by a decision said
+out loud as "variable -> value -> why", never as a side effect of a refactor - and **a geometric
+relation is written as the relation, not as the number it resolves to today.**
 
 **`personas.md` has one writer** - CJM step 4. Other stages read it read-only; a contradiction is
 reported back into the persona as a finding, not patched silently and not re-described locally.
@@ -166,9 +163,9 @@ ia/           stage 03            base layer (flows, concept-map) + detail layer
 wireframes/   stage 04            grey clickable prototype, FROZEN after Voice
 voice/        stage 05            voice.md rulebook + microcopy.md inventory
 design/       stages 06-09        concept/ (how the language was found) ·
-                                  kit/ (kit.css + showcase) · system/ (code) · visuals/
+                                  kit/ (showcase + docs) · system/ (code) · visuals/
 docs/         decisions.md, playbook/
-tools/        the instruments: accept · states · css-comments · crop, and their README
+tools/        the instruments and their README, which is their index
 ```
 
 **`index.html` is the entry point of the folder you opened, and nothing else** - at the repo root it
@@ -183,17 +180,16 @@ rule.** The only manual edit is a row in the registry and `done: true` when a pa
 active / Next / Soon, the accordion and relative links are computed.
 
 **Colour never lands on `wireframes/`.** The grey prototype owns structure, text and states; colour
-lives in copies under `design/`, which own the visual layer only. `wireframes/` is frozen after
-stage 05 - Voice is the last stage that edits text there.
+lives in copies under `design/`, which own the visual layer only.
 
 **A folder is created by its own stage.** No empty folders ahead of the work, no `.gitkeep`: the
 route is shown by the registry and the README, not by the file system.
 
 ## Pointers
 
-`DESIGN-artifacts.md` - the visual language and the origin of every value (accent `#FF5A00` is the
-single action colour, on text from 19px bold - but the SURFACE decides as much as the size, and
-five classes ship under AA by the owner's call, 2026-08-12; the price colour rule lives there).
+`DESIGN-artifacts.md` - the visual language and the origin of every value: the accent, the contrast
+exemptions and the price colour rule. `design/kit/docs/architecture.md` - the open geometry questions
+and the ladders that close them; **a ladder is read by JOB, not by shape**.
 `wireframes/docs/conventions.md` - prototype contract. `voice/docs/voice.md` - the voice rulebook
 and the locked wording canon. `ia/docs/` - sitemap and per-page specs. `docs/decisions.md` - why
 anything above is the way it is.

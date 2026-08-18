@@ -337,7 +337,59 @@ pass does not read them as drift.
 before the scale existed, whose type already moved at 7.66. That is a look, taken with the box
 open, not a sweep.
 
-### A6. The product tile - **SHAPE closed at step 7.68, SIZE ANSWERED by the owner at 8.12.** It was nine names, not four
+### A6. The product tile - **CLOSED. SHAPE at 7.68, SIZE at 8.57-8.58: three rungs, one strip number, one named exception** It was nine names, not four
+
+> **8.57, AND THE ENTRY IS NOW BIGGER THAN THE DECISION.** The owner answered the size question
+> with **three rungs, each one a job**: `44` the thumbnail on a list row, `52` the tile on a row
+> that carries an action, `84` the picture on a horizontal card. Three tiles were moved to it -
+> `.oc-ph` 40 -> 44, `.od-ph` 48 -> 52, `.ci-ph` 74 -> 84 - and the A/B over 88 screens at both
+> widths shows those three and nothing else.
+>
+> **THE QUESTION WAS PUT ON A SHORT LIST, AND THAT IS THIS ENTRY'S OWN LESSON REPEATING.** The
+> sweep behind it asked thirteen selector names chosen by hand, and this table already knew of
+> four it did not contain. Measured again afterwards over the UNION of both lists, 88 screens at
+> 390: **17 name-size pairs, every one of them square, ten distinct sizes** -
+> 34 · 40 · 44 · 46 · 52 · 60 · 70 · 84 · 116 · 171. The last two are the grid card's own photo
+> and are a different object. Of the eight small frames, three are now on the three rungs and
+> **five are not**:
+>
+> | frame | size | file |
+> |---|---|---|
+> | `.oh-thumbs i` | 34 | `order-row.css` |
+> | `.cshelf .cs-th` | 40 | `trust-strip.css` |
+> | `.aord-thumbs .t` · `.rk-ph` | 46 | `order-row.css` · `restock-note.css` |
+> | `.co-line .li-img` | 60 | `checkout-form.css` |
+> | `.gal .gthumb` | 70 | `gallery.css` |
+>
+> **8.58 - THE OWNER SAW THE FIVE AND CLOSED THEM, AND THE ANSWER IS NOT «EXTEND THE LADDER».**
+> Measured in the browser, the five do three different jobs, and only two of them are the job the
+> rungs name:
+>
+> | frame | was | is | why |
+> |---|---|---|---|
+> | `.rk-ph` | 46 | **52** | one tile on `.rk-item`, and that row ends in `btn--accent btn--s` «У кошик» |
+> | `.co-line .li-img` | 60 | **52** | one tile on a row carrying `.li-acts`. 60 was the only 60 in the product |
+> | `.oh-thumbs i` | 34 | **40** | a STRIP of three plus «+N» |
+> | `.aord-thumbs .t` | 46 | **40** | the same strip, in the same file, at a second number |
+> | `.cshelf .cs-th` | 40 | 40 | the same strip again, and the number the other two came to |
+> | `.gal .gthumb` | 70 | **70, off the ladder** | not a frame but a CONTROL: four of them switch the main photo, with an `.on` ring and a hover lift. No frame on the ladder has a state at all |
+>
+> **A strip of thumbnails is a different object from a tile on a row**, and the gap between 40 and 44
+> is what keeps it readable as one. The strip's number is 40 because it is the middle of 34/40/46, so
+> no strip moves more than 6px and one does not move at all; because `--size-40` is a rung the system
+> already uses for this kind of small square; and because it stays BELOW the smallest tile rung.
+> **Not decided by the touch floor, and that was checked rather than assumed**: the whole `.ord-h` is
+> a `<button>`, so the `<i>` inside it is not a target of its own and 44 does not reach it.
+>
+> The atom that held `.aord-thumbs .t` and `.rk-ph` in one rule split its size line in two and kept
+> everything else shared - **it had been reading SHAPE where the ladder reads JOB.**
+>
+> Ten distinct sizes became **seven**: 40 the strip · 44 / 52 / 84 the three tile rungs · 70 the
+> gallery control, named · 116 / 171 the grid card's own photo, a different object again. The shape
+> half is closed by measurement over the full list rather than a chosen one: **0 non-square in 17.**
+>
+> The table below is the reading of 7.68 and is left standing as the record of that day. Three of
+> its rows have since been squared and two resized, so it no longer describes the product.
 
 **This entry was wrong in both of its claims, and both were wrong the same way A1, A3, A2, A4
 and A5 were: counted from a reading of the source, not measured in a browser.**
@@ -981,6 +1033,43 @@ outlined, beside a word on the page's own paper. `.kicker` is deliberately outsi
 alone above the hero and names the page under it, which is A3's eyebrow.
 
 **Closed as a SHAPE. The names are still four for one thing and that is B's, at Крок 6.**
+
+### A19. The dry run's verdict: the system is missing exactly one component, and it is not built yet - step 8.59
+
+`tools/dry-run.mjs`, the check that stands in for a rollout stage 08 does not have. 54 grey screens
+with no coloured twin against the 1 153 classes the system declares: **228 classes in 79 families
+with no component**, and the shape of that number is the finding rather than the number itself.
+
+| family | classes | screens | what it is |
+|---|---|---|---|
+| **`info-*`** | 8 | **6** | the content page: body, card, stats, steps, table of contents, «updated» |
+| `q-*` | 35 | 1 | the quiz |
+| `op-*` | 24 | 2 | order placed |
+| `ov-*` | 12 | 1 | the search suggest overlay |
+| `loy-*` | 12 | 2 | the loyalty content pages |
+| the other 74 | 1-10 | 1-4 | one screen's own block each |
+
+**Exactly one family crosses more than two screens.** `info-*` serves `content-about`,
+`content-contacts`, `content-delivery`, `content-guarantee`, `content-legal` and `content-returns`,
+and the ladder's own rule is that a pattern needs three. Everything at one or two screens is that
+screen's work and stage 09 to 12 will do it without touching the system.
+
+**The biggest pile is the one that must not shape the system.** `q-*` is 35 classes, half again the
+next - and it is the quiz, which locked decision 2 puts post-launch.
+
+### AND IT IS DEFERRED ON PURPOSE, WHICH IS A DIFFERENT THING FROM BEING OVERLOOKED
+
+The port is possible today: `wireframes/content-about.html` carries **17 `info-*` rules in its own
+`<style>` block**, which is the same source every one of the 84 components came from, and the
+missing kit.css colour half is a case `coach-wishlist.css` already has an honest entry for.
+
+**What stops it is the other end.** The six screens are still grey, so a component built now would
+be worn by nobody - and «a class nobody wears» is the third list of the step-6 sweep, the one whose
+job is to DELETE such components. Building it would create the defect another instrument exists to
+find. The component and the screens that wear it arrive together, at stage 09 to 12.
+
+**So the dry run has done what the pack asks of it: the missing component is FOUND, named, sized and
+sourced.** One family, eight classes, six screens, 17 rules waiting in a `<style>` block.
 
 ---
 

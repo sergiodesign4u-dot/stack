@@ -25,8 +25,21 @@
    its own phone step. `flex-direction` and nothing else: `> *{ flex: 1 }` already
    makes them share the axis, and in a column with an auto height that costs no
    growth. */
+/* 8.57, THE OWNER'S CALL, AND THE MEASUREMENT UNDER IT. Asked of the whole
+   product at 8.55: every confirm dialog was made to point at its destructive
+   control, at 390 and at 900. There are eight - account-addresses and -empty,
+   account-profile and -withemail, coach-client and coach-clients, coach-tariff
+   and -cancel - and in all eight the destructive one is SECOND of two.
+   In a row that is the ordinary convention: at 900 both sit at y 532.8 and left
+   to right reads «safe, then destructive». The column inherits the same source
+   order and turns it into something else - at 390 the two y values part, 523.2
+   against 587.2, and the lower button is the one a thumb arrives at first.
+   A COLUMN TURNS READING ORDER INTO REACH ORDER, AND REACH ORDER SAYS THE
+   OPPOSITE. `column-reverse` and nothing else: the source order stays as it is
+   for a screen reader and for the row above 480, and only the stacked geometry
+   flips. One declaration, eight screens. */
 @media (max-width: 479px){
-  .ceact, .cedlg .act{ flex-direction: column; }
+  .ceact, .cedlg .act{ flex-direction: column-reverse; }
 }
 .cedel{ margin-top: var(--space-16); padding-top: var(--space-16); border-top: 1px solid var(--line-hair); }
 /* 7.96: `.cedel button` DELETED - eleven hand declarations (display, align-items,

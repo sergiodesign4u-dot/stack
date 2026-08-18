@@ -252,7 +252,19 @@
    every badge in the product is `.tag-pop` or `.tag-new`, and both overrode it
    two lines down. Dead since before this stage.
    `top`/`left` stay - they are the card pinning the badge to its photo. */
-.pcard .tag{ top:11px; left:11px; }
+/* 8.58, THE OWNER'S CALL: THE BADGE STANDS ON THE HEART'S LINE. Measured on
+   `listing` and `product` at 390 and 1280, all four identical: the pill is
+   106.25 x 21 with `top: 11px`, so its centre sits 21.5 from the top of the
+   photo; the mark opposite it is 44 x 44 at `top: 3px`, so ITS optical centre
+   sits at 25. Three and a half pixels apart, which is exactly the amount that
+   reads as «not quite aligned» without reading as a different row.
+   WRITTEN AS THE RELATION AND NOT AS A NUMBER. `top: 14.5px` would be the same
+   pixels today and a half-pixel literal that goes stale the moment the pill's
+   height or the mark's box changes. `top: 25px` IS the mark's optical centre -
+   3 + 44/2, the two values favourite.css declares - and `translateY(-50%)` puts
+   the pill's own centre there whatever the pill turns out to be.
+   The left edge does not move: 11 is the badge's own inset from the photo. */
+.pcard .tag{ top:25px; left:11px; transform:translateY(-50%); }
 /* 7.43: `--text-brandline`, not `--text-muted`. The role was minted for exactly
    this line and its comment in tokens.css names `.pcard .pbrand` as one of its
    seven readers - which was not true: the grid card read muted and only the list

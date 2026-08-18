@@ -8663,3 +8663,375 @@ pages with the system.
 
 Standing debt: 4 stand pages with no token table (`availability`, `chip`, `menu`, `stack-action`),
 the four unsnapped 14px radii, and the two owner decisions on `menu.css` and `upsell.css` levels.
+
+## Step 6, fifty-second pass - four token tables, and seven decisions the owner took
+
+Two pieces of stage 08's step 9 closed in one pass: the last mechanical debt on the stand, and the
+seven questions that had been accumulating with measurements under them and no answer.
+
+### The four missing token tables, and both idle controls green at once
+
+`availability`, `chip`, `menu` and `stack-action` had a stand page and no list of the tokens their
+css reads - the second half of `roles.mjs`'s idle control, red since the check was written. Each got
+one, read out of the file rather than typed, and each carries a reading rather than a legend:
+
+- **`availability` has no fill at all.** Four ink roles for four shelf states, and the line is colour
+  on the page's own ground, never a plate - which is the difference from the status pill it keeps
+  being confused with. `--text-info` exists for exactly one use, and that is where «two roles = two
+  tokens» meets «one single use is not a role» and the first wins: a pre-order is a state of the
+  shelf, not a stray colour.
+- **`chip` is the only atom with more roles than primitives** - 14 to 10, seven of them interaction.
+  `--bg-action-pressed` exists because hover already spent `--bg-action-soft`: a selected chip
+  already stands on the orange fill, so press has nowhere lighter to go and steps DARKER instead.
+- **`menu` carries two elevations**, and they are not an inconsistency: `--elevation-3` on the page,
+  `--elevation-4` on the phone sheet, because the sheet lies on `--scrim-overlay` and a step away
+  from a darkened ground costs more. Four radii, all four rungs, **no geometry literal at all**.
+- **`stack-action` is the only component reading two focus rings.** `--ring-focus-control` on the
+  page, `--ring-onink` on the header's dark bar, where a ring of the first role would vanish into
+  its own ground. That is the surface axis stated as plainly as it gets.
+
+`roles.mjs` now prints one line: **84 components, 0 diverged, 0 without a page, 0 without a table.**
+
+### The seven decisions, and what moved
+
+| | decision | pixels |
+|---|---|---|
+| confirm dialogs | **column reversed below 480** | `.ceact` / `.act` on 4 comparisons |
+| radius 14 | **snapped 14 -> 12**, four files | 12 comparisons |
+| `menu.css` | **atom, level 1** - header, import and registry now agree | 0 |
+| `upsell.css` | **organism, level 3** | 0 |
+| product tile | **three rungs: 44 / 52 / 84** | 8 + 8 comparisons |
+| status pill | **sentence case stays** | 0, recorded only |
+| renames | **deferred to stage 09** | 0, recorded only |
+
+`tree-diff --dir` against a tree that differs only in these files, 88 product screens, both widths:
+**31 comparisons moved, and every single movement is one of four kinds** - `border-radius 14 -> 12`
+x12, `width/height 48 -> 52` x8, `74 -> 84` x6, `40 -> 44` x8, `flex-direction column ->
+column-reverse` x4, plus 13 consequential heights on `coach-client-loading` where four tiles growing
+4px each push the document down 16. Nothing else in the product moved, which is the point of
+naming the reference by hand: **moving `menu.css` between import groups changed the cascade order of
+an atom and cost zero pixels.**
+
+### The dialog decision, in one sentence and one declaration
+
+`flex-direction: column-reverse`, once, in `client-dialog.css`. The source order is untouched - a
+screen reader and the row above 480 read «safe, then destructive» as before - and only the stacked
+geometry flips, so on a phone the thumb now arrives at the reversible control first.
+
+### A6 was answered on a short list, and the entry is now bigger than the decision
+
+**The sweep behind the tile question asked thirteen selector names chosen by hand, and
+`architecture.md` already knew of four it did not contain.** Measured again over the UNION of both
+lists, 88 screens at 390: **17 name-size pairs, every one square, ten distinct sizes** -
+34 · 40 · 44 · 46 · 52 · 60 · 70 · 84 · 116 · 171. Of the eight small frames three are now on the
+three rungs and **five are not**: `.oh-thumbs i` 34, `.cshelf .cs-th` 40, `.aord-thumbs .t` and
+`.rk-ph` 46, `.co-line .li-img` 60, `.gal .gthumb` 70.
+
+They are not moved and not moved on purpose: the rungs were chosen against six names, and extending
+the answer to five the owner never saw is a second decision rather than the same one. A6 stays open
+on those five, and its shape half is now closed by measurement over the full list rather than a
+chosen one - **0 non-square in 17**.
+
+**And it is this entry's own lesson repeating**: A6 exists because the first version of it was
+counted from a reading of the source rather than measured, and the question this pass put to the
+owner was scoped by a list I typed instead of found. An instrument handed its subject can be handed
+the wrong one.
+
+### Gates
+
+`accept` **275 screens, 0 failures at 390 and at 360** · `tree-diff --dir` 88 screens, 176
+comparisons, 31 moved and all 31 explained · `roles` 84 / 0 diverged, 0 without a page, **0 without a
+table** · `inventory` 84/84, 0 `Lines`, 0 levels, **0 imports out of their group, with a reason or
+without** · `idle` 83 pages, 0 red · `links` 4 921 / 0 / 0 · `css-comments` 91 balanced ·
+`dead-sel` 0 dead over 271 pages.
+
+## Step 6, fifty-third pass - A6 closed, and the answer was not «extend the ladder»
+
+The owner saw the five frames the 8.57 question had missed and closed them. **The answer is three
+jobs, not one ladder**, and it came out of measuring what each of the five actually does.
+
+### Two of the five are the job the rungs name
+
+`.rk-ph` 46 -> **52** and `.co-line .li-img` 60 -> **52**. Both are one tile on one row, and both
+rows carry an action - `.rk-item` ends in `btn--accent btn--s` «У кошик», `.co-line` holds
+`.li-acts` - which is the middle rung's definition word for word. 60 was the only 60 in the product.
+
+### Three of the five are a STRIP, and that is a different object
+
+Three places draw the same thing - three product thumbnails plus a «+N» counter, standing for goods
+nobody is being asked to press - and they drew it at three sizes: `.oh-thumbs i` 34,
+`.cshelf .cs-th` 40, `.aord-thumbs .t` 46. **Two of the three are declared in one file**, which is
+the sharpest part of it: one file, one job, two numbers.
+
+**40, and the three reasons are said out loud.** It is the middle, so no strip moves more than 6px
+and one does not move at all; `--size-40` is a rung the system already uses for this kind of small
+square; and it stays BELOW 44, the smallest tile rung, which is the point - **a strip of thumbnails
+must not read as a tile on a row.**
+
+**NOT decided by the touch floor, and that was checked rather than assumed.** The first draft of the
+argument was «one of the three is clickable, so the family must clear 44». Reading the markup:
+`.oh-thumbs i` sits inside `<button class="ord-h">`, so the whole row is the target and the `<i>` is
+not a target of its own. The argument was wrong and the number would have been right for the wrong
+reason, which is worse than being wrong.
+
+### One of the five is not a frame at all
+
+`.gal .gthumb` 70 **stays, off the ladder, with the reason in the file.** Four of them switch the
+main photograph; it carries an `.on` state with a 2px `--line-action` ring and a hover that lifts the
+box 2px. **No frame on the ladder has a state at all.** Putting it on the ladder would say the two
+are one thing.
+
+### The atom that held two of them was reading SHAPE where the ladder reads JOB
+
+`product-thumb.css` declared `.aord-thumbs .t, .rk-ph` in one rule at 46, and its own header said
+«the day the owner folds the ladder it joins by name and nothing else changes». It did not join - it
+SPLIT, because the two do different work. One size line became two declarations and everything else
+stayed shared: radius, ground, edge, centring, caption size and the whole colour half.
+
+**Ten distinct sizes became seven**: 40 the strip · 44 / 52 / 84 the three tile rungs · 70 the
+gallery control, named · 116 / 171 the grid card's own photo, a different object again. Measured over
+the union of A6's list and the sweep's: **17 name-size pairs, 0 non-square.** A6 is closed.
+
+### The badge stands on the heart's line
+
+Measured on `listing` and `product` at 390 and 1280, all four identical: the pill is 106.25 x 21 at
+`top: 11px`, centre 21.5 from the top of the photo; the mark opposite it is 44 x 44 at `top: 3px`,
+optical centre **25**. Three and a half pixels apart - **exactly the amount that reads as «not quite
+aligned» without reading as a different row.**
+
+**Written as the relation and not as a number.** `top: 14.5px` would be the same pixels today and a
+half-pixel literal that goes stale the moment the pill's height or the mark's box changes.
+`top: 25px` IS the mark's optical centre - `3 + 44/2`, the two values `favourite.css` declares - and
+`transform: translateY(-50%)` puts the pill's own centre there whatever the pill turns out to be.
+Measured after: centre 25 against centre 25, both widths. The left inset does not move.
+
+### The census moved to the foot of the stand
+
+Six pages of `census-*` - 22 229 observations over 180 screens in two viewports - stood FIRST in the
+sidebar, above the foundations. That is backwards for a reader: the census is the audit of the state
+BEFORE the system, and it opened the system. It is not deleted, because it is **the source citation
+under a large share of the component pages** - «eight names in six files drew the same pill» has no
+artifact behind it without the census, and this stage's rule is that nothing is invented and
+everything is read out. Moved to sit between the organisms and the checks, so the stand now reads
+foundations -> atoms -> molecules -> organisms -> the audit behind them -> the checks on them.
+
+### Gates
+
+`accept` **275 screens, 0 failures at 390 and at 360** · `tree-diff --dir` 88 screens, 176
+comparisons, **30 moved and every one of them traced**: 48 badges, 12 `.li-img`, 9 `.oh-thumbs i`,
+1 `.rk-ph`, 1 `.aord-thumbs .t` and the text columns and page heights that reflow beside them ·
+`roles` 84 / 0 · `inventory` 84/84, 0 `Lines`, 0 levels, 0 imports out of group · `idle` 83 pages,
+0 red · `links` 4 921 / 0 / 0 · `css-comments` 91 balanced.
+
+**And a process note worth keeping: a report read through `tail` is a report that has not been read.**
+The first A/B of this pass was launched piped through `tail -60`, and the head of it - every tile
+movement - was discarded before it reached the file. Reasoning resumed from the surviving tail and
+concluded the instrument had a blind spot. It did not. The rerun was captured whole.
+
+## Step 6, fifty-fourth pass - the closing ritual, and the status row that had become the journal
+
+Stage 08's closing ritual, run in its own order: gather, classify, delete, count, write.
+
+### The finding the ritual itself produced
+
+**The README status row for stage 08 was 32 034 characters.** Every finished stage's row is 30 to
+286. The log had grown INSIDE the status board - which is the exact failure `CLAUDE.md`'s opening
+paragraph names in the other direction: «status lives in `README.md` and `/_nav.js`, and nowhere
+else - a third copy only drifts from the other two». Nobody wrote a third copy of the status; the
+status quietly became a third copy of `docs/decisions.md`, step by step, each addition reasonable on
+its own.
+
+Replaced with 721 characters of the same shape as its neighbours: where the stage is, what the gates
+read, what step 9 still owes, and one pointer to the 53 passes that hold the why.
+
+### Four rules in, and every one of them replaced or extended rather than sat beside
+
+- **Ask the OUTPUT, and ask it of the whole corpus.** Three findings of this stage fold into one
+  paragraph under the instruments rule: a rule stated in a comment has no check under it; **a claim
+  about the corpus goes stale in silence, and the event that stales it happens in another file**, so
+  it is re-asked rather than re-read; and **a comparison whose two sides differ in more than the
+  thing being measured is not a proof** - name the reference by hand when the tree holds earlier
+  work, and read the whole report, because one read through `tail` is not a read.
+- **A geometric relation is written as the relation, not as the number it resolves to today** -
+  appended to «values move, they are never re-derived», where it belongs: it is the same rule about
+  a value not being retyped, one level further down.
+- **A ladder is read by JOB, not by shape** - a pointer to `architecture.md`, not a copy of it.
+
+### Six deletions, and what each one was
+
+| removed | lines | why |
+|---|---|---|
+| the MVP's dark-theme and notification histories | −7 | RECORDS, not rules. «A dark theme is in MVP» is the rule; when and out of which CJM zone it arrived is `decisions.md` |
+| the dash exemption's history | −2 | the rule is three dashes and three jobs; why an exemption once existed is a record |
+| the values copied into the `DESIGN-artifacts.md` pointer | −3 | **a pointer that copies its target is a second copy**, and this file's own opening says which one drifts first |
+| «Core differentiator» | −4 | restates the Jobs section and principle 1 in marketing prose |
+| «`wireframes/` is frozen after stage 05» | −1 | the repository map two paragraphs above already says FROZEN |
+| `kit.css` in the repo map and in the value chain | corrected | it was **deleted at step 8**; the chain now ends at `tokens.css` and says so |
+| `tools/` listed as «accept · states · css-comments · crop» | corrected | there are 22 instruments; a partial list is drift, and the index is `tools/README.md` |
+
+**Budget: 199 -> 195.** Four lines of headroom, which is the point of counting: the file went over
+nothing, and the additions bought their room from statements that had stopped acting.
+
+### What was NOT touched, and why
+
+`/_nav.js` at the repo root keeps `done: true` on «Токени і компоненти», because in that file `done`
+means one thing only - the page exists - and step 7.84 records what happened the day it was used for
+«the stage is finished»: the showcase rendered as a `<span>` and was unreachable from the sidebar of
+the project it documents. How far a stage has got is shown ON its page.
+
+The stage 09 row in README is 1 816 characters and describes work done under stage 08's number. Named
+here rather than rewritten: it is not this stage's row.
+
+## Step 6, fifty-fifth pass - the dry run, and the system is missing exactly one component
+
+Stage 08 step 9's completeness check, built as `tools/dry-run.mjs` rather than read by eye. The
+question it answers is narrow and worth the step: **does the system need a component before stage 09
+freezes it, and if so which.**
+
+### Why an instrument and not a reading
+
+The pack frames this as «a dry run over the still-grey screens», and eyeballing six of them is what
+I proposed at first. The eyeball was wrong twice in the same hour: it said `search-suggest`'s
+`ov-*` overlay was uncovered (right, but for a reason the first instrument could not see) and it
+guessed the FAQ and blog were covered (right, by luck). A class-by-class question over the whole
+corpus costs one file and answers all 54 screens instead of six.
+
+### The answer
+
+54 grey screens with no coloured twin against 1 153 classes the system declares: **228 classes in 79
+families with no component.** Sorted by how many screens carry them, the shape of that number is the
+finding:
+
+| family | classes | screens | what it is |
+|---|---|---|---|
+| **`info-*`** | 8 | **6** | the content page: body, card, stats, steps, table of contents, «updated» |
+| `q-*` | 35 | 1 | the quiz |
+| `op-*` | 24 | 2 | order placed |
+| `ov-*` | 12 | 1 | the search suggest overlay |
+| `loy-*` | 12 | 2 | the loyalty content pages |
+| the other 74 | 1-10 | 1-4 | one screen's own block each |
+
+**Exactly one family crosses more than two screens.** `info-*` serves about, contacts, delivery,
+guarantee, legal and returns - six of the fourteen content pages - and it is the one thing here that
+is a component rather than a screen. The ladder's own rule is that a pattern needs three screens;
+everything below two is that screen's work, and stage 09 to 12 will do it without dragging the
+system.
+
+**And the biggest pile is the one that must not shape the system.** `q-*` is 35 classes, the largest
+in the report by a factor of one and a half - and it is the quiz, which locked decision 2 puts
+post-launch. A system built to fit it would be built for something the MVP does not ship.
+
+### Three «not a finding» rules, each declared and counted rather than filtered in silence
+
+`wf-` / `uiv-` / `sk` prefixes are the prototype's scaffolding. One- and two-letter names are the
+grey layer's local shorthands and ride their parent. And **a class that also lives on ANSWERED
+territory** - a grey screen that already has a coloured twin - is chrome the colour layer dropped or
+a dead name the transform carries; 16 of those, including `stack` and `dark`, which belong to
+`btn-rank.mjs`.
+
+### Two wrong versions, and the second is the more instructive
+
+**Reading `<main>` instead of `<body>`.** It looks right and it is blind to exactly the components
+that are hardest to build: an overlay, a drawer, a dialog and a sheet all live outside `<main>`.
+`search-suggest` came back with **nothing at all** while its markup holds **68 `ov-*` classes**, and
+the screen did not appear in the report. Same family as a finder that reads one directory level.
+
+**«Does this class appear anywhere in `design/`?» as the answered-territory test.** It dropped **233
+classes** and took `info-*`, `op-*`, `loy-*`, `art-*` and the whole quiz with them - because **a
+screen that has never been coloured has no class in `design/` by construction.** The question and the
+exclusion were the same question, which is the check whose both sides come from one source in a new
+costume, and it produced a beautifully clean report of 26 findings that was worth nothing. The fix
+compares against grey screens that HAVE a twin, and both sides are then read the same way in the same
+browser pass.
+
+### What this leaves for the owner
+
+One decision: **build `info-*` now as a component, or let the fourteen content pages carry their own
+block later.** Building it now is one file plus a stand page. Leaving it costs whatever six screens
+of prose cost at stage 11, when a new component also needs its states, its breakpoints and its
+motion. Nothing was built by this pass - the dry run is a question, and a component is the owner's.
+
+## Step 6, fifty-sixth pass - the audit, and it found the one dimension no instrument here measures
+
+`/impeccable audit` over five screens - `coach-session`, `product`, `listing`, `checkout`,
+`coach-tariff` - read-only, findings only, nothing edited. **I recommended deferring this twice and
+was wrong**, and the reason is worth writing down rather than smoothing over: the 22 instruments in
+`tools/` all ask falsifiable structural questions, and **not one of them asks what anything costs to
+load or to paint.** The audit's weakest dimension is the dimension this repository has no instrument
+for, which is exactly the shape of a blind spot.
+
+### Score 17/20
+
+| dimension | score | key finding |
+|---|---|---|
+| Accessibility | 3 | contrast measured 0 failures in both themes; the touch floor is not met by `.crumb a` (15.00 on every page with a trail) and `.pcard .nm` (36 below 619), both named and owner-deferred |
+| **Performance** | **2** | **11 MB of PNGs, no responsive sizes, no lazy path, and one layout-property transition firing on every scroll** |
+| Theming | 4 | two token levels, dark theme over the semantic block, 0 raw colour values in components, contrast read in both themes |
+| Responsive | 4 | 275 screens at 390 and 360, 0 horizontal overflow, measured every step |
+| Implementation integrity | 4 | coherent and product-specific; one duplication found, below |
+
+### Performance, measured rather than felt
+
+| file | pixels | bytes |
+|---|---|---|
+| `product-creatine.png` | 2048 x 2048 | 2 446 389 |
+| `product-whey.png` | 2048 x 2048 | 2 386 308 |
+| `product-preworkout.png` | 2048 x 2048 | 1 571 458 |
+| `mascot-face-*.png` x3 | 1024 x 1024 | 1 559 396 · 1 307 718 · 1 736 820 |
+
+**~11 MB in seven files.** `listing` paints `.pcard .ph` at **171 x 171, 113 times**, and every one of
+them is a 2048 x 2048 PNG scaled down - roughly 12x the pixels a 2x screen needs at that box. The
+browser caches three files, so this is a first-paint cost rather than a per-card one, and it is still
+the largest single number anywhere in this project.
+
+**There is no `<img>` and no `loading="lazy"` anywhere in the coloured layer**: every photograph is a
+CSS `background-image`. That is a deliberate consequence of the frame rules - the box paints the
+photo `contain` and the markup carries «фото» as the grey layer's fallback - and it also means the
+native lazy path does not exist here at all. Named, not fixed: responsive images are a build
+decision, not a token decision.
+
+**Four layout-property transitions in the whole system**, which is a good number: three are `left` on
+a switch knob (an 18px absolutely-positioned dot, bounded and cheap) and the fourth is
+`header.css:321`, `transition: max-height .22s` on `.wfh-meta` - the meta bar that collapses on
+scroll, on every page. `will-change` appears **0** times, which is the right answer.
+
+### The one integrity finding, and my instruments could not have found it
+
+`.qaitem .qans` (qa-item.css:25) and `.rvreply` (review-item.css:59) are **byte-identical, four
+declarations each**: `border-left: 2px solid var(--line-action)`, `background: var(--bg-surface)`,
+`border-radius: 0 var(--radius-8) var(--radius-8) 0`, `padding: var(--space-12) var(--space-12)`.
+Both are the same object - **the shop replying inside a list the buyer writes in**, an answer under a
+question and a reply under a review.
+
+This is the «one shape, N names» family the stage has closed four times (badge, plan-card, upsell,
+product-thumb) and it survived all of them. **No instrument in `tools/` asks it**: `dead-sel` asks
+whether a selector matches, `inert` whether a declaration is overridden, `roles` whether a token is
+listed - none asks whether two files declare the same thing. The detector found it through a taste
+rule about coloured left borders, which is a different question that happened to point at the same
+lines.
+
+`qa-item.css` argues the shape well - «the answer is the shop speaking, the question is the buyer;
+two voices in one list need a visible seam, and it is a 2px rule rather than a second bubble because
+Principle 4 keeps the page calm» - and the argument is right in both files. It is the second copy
+that is the defect.
+
+### One false positive, verified and withdrawn
+
+`gallery.css:51`, «broken-image `<img>`». There is no tag and no rule: the detector matched the
+characters `<img>` inside a comment paragraph explaining why the placeholder is invisible in the
+coloured layer. Withdrawn, and left visible here, because a withdrawn finding returns next time in
+the same words otherwise.
+
+### One finding that is a decision, not a defect
+
+Inter is flagged on all five screens as an overused face. It is the body face of a three-face set -
+Oswald display, Inter body, IBM Plex Mono for money - chosen at stage 06 from a brand plate, with its
+origin recorded in `DESIGN-artifacts.md`. The skill's own first rule is that the brief wins. Reported
+so the owner sees it was said; not a defect against the system.
+
+### What this means for the stage
+
+Step 9 is complete: the closing ritual, the dry run and the audit have all run. Nothing was edited by
+this pass. Three things go to the owner: **the reply block's second copy** (a Крок 6 rename plus one
+deletion), **the image weight** (a build decision, not a token one), and **`.wfh-meta`'s max-height
+transition** (one rule, `grid-template-rows` is the usual answer).

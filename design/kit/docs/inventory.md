@@ -75,6 +75,7 @@ the unscoped base form, not the component.
 | Component | css file | Anchors | Screens | Lines |
 |---|---|---|---|---|
 | Кнопка | `button.css` | `.btn`, `.navbtn`, `.go` | 86 | 571 |
+| Меню вибору | `menu.css` | `.menu`, `.menu-trig`, `.menu-val` | 8 | 157 |
 | Ціна | `price.css` | `.pnew`, `.pold`, `.perserv` | 44 | 418 |
 | Чип | `chip.css` | `.mgchip`, `.dr-chip`, `.dr-chips` | 82 | 312 |
 | Рядок посилань | `link-row.css` | `.linkrow`, `.seolink`, `.flinks` | 81 | 270 |
@@ -92,7 +93,7 @@ the unscoped base form, not the component.
 | Перемикач вигляду | `view-toggle.css` | `.vtoggle` | 7 | 139 |
 | Перемикач | `switch.css` | `.sw` | 2 | 99 |
 | Іконка | `icon.css` | `.uiv-ic`, `.chev` | – | 89 |
-| Мініатюра товару | `product-thumb.css` |  | – | 68 |
+| Мініатюра товару | `product-thumb.css` |  | – | 83 |
 | Лічильник | `counter.css` | `.cnt`, `.hbadge`, `.tbadge` | – | 62 |
 | Обране | `favourite.css` | `.fav`, `.wlrm` | 20 | 47 |
 | OTP-комірка | `otp.css` | `.otp` | 4 | 35 |
@@ -108,17 +109,16 @@ the unscoped base form, not the component.
 
 | Component | css file | Anchors | Screens | Lines |
 |---|---|---|---|---|
-| Картка товару | `product-card.css` | `.pcard`, `.packlabel` | 21 | 367 |
+| Картка товару | `product-card.css` | `.pcard`, `.packlabel` | 21 | 379 |
 | Банер | `banner.css` | `.banner`, `.tbanner`, `.tbanners` | 6 | 232 |
-| Рядок замовлення | `order-row.css` | `.oh`, `.ocard`, `.aord` | 2 | 208 |
+| Рядок замовлення | `order-row.css` | `.oh`, `.ocard`, `.aord` | 2 | 224 |
 | Смуга довіри | `trust-strip.css` | `.trustsec`, `.truststrip`, `.tsx` | 5 | 201 |
 | Таблиця складу | `spec-table.css` | `.spectbl`, `.ctable`, `.dl` | 2 | 189 |
-| Рядок кошика | `cart-row.css` | `.ci` | 11 | 154 |
+| Рядок кошика | `cart-row.css` | `.ci` | 11 | 158 |
 | Порожній стан | `empty-state.css` | `.emptybox`, `.errbox`, `.empty` | 19 | 157 |
-| Меню вибору | `menu.css` | `.menu`, `.menu-trig`, `.menu-val` | 8 | 150 |
 | Рядок клієнта | `client-row.css` | `.cg`, `.coachbn` | 6 | 145 |
 | Відгук | `review-item.css` | `.rvitem`, `.rvbody`, `.rvmeta` | 3 | 133 |
-| Галерея | `gallery.css` | `.gal`, `.pmini` | 4 | 122 |
+| Галерея | `gallery.css` | `.gal`, `.pmini` | 4 | 131 |
 | Блок опису | `desc-block.css` | `.pdesc`, `.pd` | 2 | 118 |
 | Щабель лояльності | `loyalty-rung.css` | `.lrung`, `.lbar`, `.loy` | 26 | 118 |
 | Запитання | `qa-item.css` | `.qaitem` | 2 | 104 |
@@ -129,7 +129,6 @@ the unscoped base form, not the component.
 | Хлібні крихти | `breadcrumb.css` | `.crumb` | 87 | 78 |
 | Заголовок секції | `section-head.css` | `.sech`, `.relh`, `.rvhead` | 24 | 77 |
 | Картка адреси | `address-card.css` | `.addr`, `.addr-card`, `.addr-list` | 3 | 76 |
-| Панель Pro | `upsell.css` | `.upsell`, `.ubar`, `.ulist`, `.uacts` | 2 | 86 |
 | Пагінація | `pagination.css` | `.pgnav`, `.loadmore`, `.pages` | 8 | 70 |
 | Тулбар | `toolbar.css` | `.ltool`, `.mtoolbar`, `.listing` | 7 | 55 |
 | Плитка цілі | `goal-tile.css` | `.gcard`, `.gtile`, `.goaltiles` | 4 | 50 |
@@ -144,14 +143,14 @@ the unscoped base form, not the component.
 
 | Component | css file | Anchors | Screens | Lines |
 |---|---|---|---|---|
-| Кабінет тренера | `coach-cabinet.css` | `.cstat`, `.cnote`, `.csub` | 8 | 962 |
+| Кабінет тренера | `coach-cabinet.css` | `.cstat`, `.cnote`, `.csub` | 8 | 966 |
 | Перевірка тренера | `coach-verify.css` | `.cv-wrap`, `.cv-steps`, `.cv-step` | 5 | 908 |
 | Сесія замовлення | `coach-session.css` | `.cs-wrap`, `.cs-top`, `.cs-meta` | 8 | 850 |
-| Клієнти тренера | `coach-clients.css` | `.cl-top`, `.cl-h1`, `.ch-name` | 10 | 621 |
-| Лендинг тренера | `coach-landing.css` | `.clh`, `.kicker`, `.clh-cta` | 1 | 527 |
-| Тариф тренера | `coach-tariff.css` | `.tf-lead`, `.tf-cur`, `.tf-cur-h` | 3 | 422 |
-| Замовлення тренера | `coach-order.css` | `.od-wrap`, `.od-head`, `.od-head-t` | 3 | 440 |
-| Форма чекауту | `checkout-form.css` | `.co`, `.smeths`, `.pf` | 26 | 367 |
+| Клієнти тренера | `coach-clients.css` | `.cl-top`, `.cl-h1`, `.ch-name` | 10 | 627 |
+| Лендинг тренера | `coach-landing.css` | `.clh`, `.kicker`, `.clh-cta` | 1 | 531 |
+| Тариф тренера | `coach-tariff.css` | `.tf-lead`, `.tf-cur`, `.tf-cur-h` | 3 | 426 |
+| Замовлення тренера | `coach-order.css` | `.od-wrap`, `.od-head`, `.od-head-t` | 3 | 446 |
+| Форма чекауту | `checkout-form.css` | `.co`, `.smeths`, `.pf` | 26 | 371 |
 | Хедер | `header.css` | `.wfh` | 82 | 360 |
 | Блок покупки | `buy-box.css` | `.bb` | 4 | 290 |
 | Картка тарифу | `plan-card.css` | `.tier`, `.tf-col`, `.tiers`, `.tf-compare` | 3 | 260 |
@@ -159,7 +158,7 @@ the unscoped base form, not the component.
 | Оболонка кабінету | `account-shell.css` | `.acc`, `.acard`, `.abonus` | 33 | 240 |
 | Шухляда кошика | `cart-drawer.css` | `.cart-drawer`, `.cart-behind`, `.cd` | 5 | 216 |
 | Діалог входу | `auth-dialog.css` | `.auth-modal`, `.auth` | 5 | 178 |
-| Діалог клієнта | `client-dialog.css` | `.cemodal`, `.cedlg`, `.ce` | 13 | 101 |
+| Діалог клієнта | `client-dialog.css` | `.cemodal`, `.cedlg`, `.ce` | 13 | 114 |
 | Оверлей каталогу | `cat-overlay.css` | `.wf-catov`, `.wf-catov-h`, `.ctitle` | 0 | 97 |
 | Смуга покупки | `buy-bar.css` | `.mbuybar` | 3 | 96 |
 | Вкладки товару | `pdp-tabs.css` | `.pdp`, `.ptab`, `.ptabs` | 8 | 93 |
@@ -177,6 +176,7 @@ the unscoped base form, not the component.
 | Повзунок ціни | `price-slider.css` | `.uiv-slider`, `.uiv-track`, `.uiv-fill` | 7 | 33 |
 | Сітка товарів | `product-grid.css` | `.prow`, `.prow2`, `.plist` | 20 | 22 |
 | Оверлей | `overlay.css` | `.wf-ov`, `.ceov` | 82 | 16 |
+| Панель Pro | `upsell.css` | `.upsell`, `.ubar`, `.ulist`, `.uacts` | 2 | 99 |
 
 **23 files, 1997 lines.**
 
