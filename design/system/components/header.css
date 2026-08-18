@@ -217,7 +217,13 @@
 .wfh-meta .wfh-theme:hover{ color:var(--text-primary); }
 .wfh-meta .wfh-theme:focus-visible{ outline:none; box-shadow:var(--ring-focus); border-radius:var(--radius-4); }
 .wfh-meta .wfh-loc .uiv-ic:first-child svg{ width:14px; height:14px; }
-.wfh-meta .wfh-loc .uiv-ic:last-child svg,
+/* 8.54: the location's TRAILING mark was written and never drawn. `.wfh-loc`
+   holds one mark - the pin, which is `:first-child` and sized by the line above
+   - and the caret this rule sizes belongs to `.wfh-lang` alone. Asked of 263
+   pages by `tools/dead-sel.mjs`: the language member matches, the location
+   member matches nothing, and neither does its host. The two were paired
+   because 10px is the same answer for both, which is how a selector list grows
+   a member the product never asked for. */
 .wfh-meta .wfh-lang .uiv-ic svg{ width:10px; height:10px; stroke-width:2.4; }
 .wfh-meta.wfh-menuopen{ overflow:visible; }
 .wfh-langmenu{ border-top-color:var(--line-action); }

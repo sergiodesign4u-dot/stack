@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>coach-order-error</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body class="coach">
+<!-- Built by tools/demo.mjs off design/coach-order-error.html - not retyped. The body class
+     is the screen's own: an organism scoped to it draws nothing without it. -->
+<div style="max-width:900px;margin:0 auto;padding:0 16px"><main class="wf-page od-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="../../index.html">Головна</a><span class="sep" aria-hidden="true"></span>
+    <a href="../../coach-home.html">Кабінет тренера</a><span class="sep" aria-hidden="true"></span>
+    <a href="../../coach-orders.html">Замовлення</a><span class="sep" aria-hidden="true"></span>
+    <span class="cur" aria-current="page">№ К-2041</span>
+  </nav>
+
+  <div class="errbox" role="alert">
+    <div class="ei" aria-hidden="true"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.3 21 19.7H3z"></path><path d="M12 10.2v4.1"></path><circle cx="12" cy="17" r=".95" fill="currentColor" stroke="none"></circle></svg></span></div>
+    <div class="et">Не вдалося завантажити замовлення</div>
+    <div class="es">Перевірте з'єднання й спробуйте ще раз.</div>
+    <div class="eact">
+      <a class="btn--accent btn--s btn" href="../../coach-order.html">Спробувати ще раз</a>
+      <a class="btn--outline btn--s btn" href="../../coach-orders.html"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 12H3.6"></path><path d="M10 5.6 3.6 12l6.4 6.4"></path></svg></span> Усі замовлення</a>
+    </div>
+  </div>
+
+</main></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

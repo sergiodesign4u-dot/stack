@@ -78,8 +78,19 @@
    and a selector added for it would match nothing. An exemption that covers
    nothing fails as loudly as an undeclared case; so does a rule. If an error
    box without a glyph is ever a deliberate look, this is the line it joins. */
-.empty .et:first-child, .emptybox .et:first-child{ margin-top: 0; }
-.empty .es:last-child, .emptybox .es:last-child{ margin-bottom: 0; }
+/* 8.54: AND THE PARAGRAPH ABOVE WAS RIGHT ABOUT THE THIRD BOX AND WRONG ABOUT
+   THE FIRST. It reasoned that `.errbox .et` is never `:first-child`, so a
+   selector for it would match nothing - and then wrote two selectors for
+   `.empty`, which is never `:first-child` either. `tools/dead-sel.mjs` over 263
+   pages: `.emptybox .et:first-child` and `.emptybox .es:last-child` match,
+   `.empty .et:first-child` and `.empty .es:last-child` match nothing. Every
+   `.empty` in the product carries a glyph above the title and an action below
+   the body, which is exactly the shape the reasoning describes.
+   A rule stated in a comment has no check under it. This is the fourth time
+   that sentence has been paid for here, and the first time an instrument
+   collected. */
+.emptybox .et:first-child{ margin-top: 0; }
+.emptybox .es:last-child{ margin-bottom: 0; }
 .errbox{ border: 1px dashed var(--line-strong); padding: 48px var(--space-24); text-align: center; margin-top: var(--space-24); }
 .errbox .et{ font-size: var(--fs-20); color: var(--text-primary); margin: var(--space-16) 0 var(--space-8); }
 .errbox .es{ font-size: var(--fs-14); margin-bottom: var(--space-24); max-width: 420px; margin-left: auto; margin-right: auto; }

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Кабінет тренера - панель</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body class="coach">
+<!-- Built by tools/demo.mjs off design/coach-home.html - not retyped. The body class
+     is the screen's own: an organism scoped to it draws nothing without it. -->
+<div style="max-width:732px;margin:0 auto;padding:0 16px"><div class="acc-main">
+      <h1 class="acc-h1">Олено, ось ваш кабінет</h1>
+      <p class="acc-sub">Кабінет тренера: замовлення для клієнтів, гуртові ціни та історія в одному місці.</p>
+
+      <!-- coach status: Pro tier chip + wholesale-active note + savings stat (price = the driver, strategy v5) -->
+      <div class="cstat">
+        <span class="tierchip">Pro</span>
+        <span class="cnote"><b>Гуртові ціни активні</b> <span class="csub">без обмежень на клієнтів · зекономлено цього місяця <b>1 240 ₴</b> <span class="qm">[?]</span></span></span>
+        <a class="cmanage" href="../../coach-tariff.html">Керувати тарифом</a>
+      </div>
+
+      <!-- ============================================================
+        `.cnew` DELETED HERE - step 7.98, and this is the reasoning rather than a
+        blank space, because the next person to open the grey twin will see the
+        block and wonder where it went.
+
+        WHAT STOOD HERE: <a class="cnew" href="coach-session.html"> - a 358 x 141
+        charcoal panel carrying «Нова сесія», the sentence «Зберіть замовлення
+        одразу для кількох клієнтів в одну сесію» and an arrow.
+
+        IT WAS THE SECOND OF TWO. Measured at 390 before the deletion:
+        `wfCoachNav` emits `.coach-newcta` - a 358 x 52 accent button, «＋ Нова
+        сесія», href="coach-session.html" - at y=302. `.cnew` stood at y=709 with
+        THE SAME WORDS and THE SAME href. Design principle 2 is «exactly one
+        clear next step», and two blocks with one destination is the case it
+        names. The rail's button is the one that stays: it is shared by all eight
+        coach screens, it is above the fold, and it wears the finish the set
+        actually has.
+
+        AND IT WAS THE LAST BLACK FINISH ON THE SCREEN. `design/kit/pixel-proof.html`
+        records step 6.7 - «the last two black buttons become accent
+        (`.co-getcode`, `.coach-newcta`) - there is no black finish in the set».
+        `.cnew` was a black finish still standing, on the primary audience's daily
+        screen, and `button.css` has held no rule at all for `btn` or `dark` since
+        step 7.9. Measured: filled blocks inside <main> at 390, 2 -> 1 (accent
+        358 x 52 stays, charcoal 358 x 141 goes).
+
+        THE ONE THING THAT GOES WITH IT IS A PRODUCT STRING, AND THAT IS THE
+        OWNER'S, NOT MINE: «Зберіть замовлення одразу для кількох клієнтів в одну
+        сесію». It explains what a session IS, which is a job that belongs to the
+        state where the coach has never run one - node 5.2's empty twin,
+        `wireframes/coach-home-empty.html` - not to this file, whose own header
+        says «base = has data» and whose data is 3 clients and 6 orders. If the
+        owner wants the sentence in the base state it needs a home that is not a
+        second primary; it is NOT reinstated here by a css change, because the
+        duplication is structural and no repaint removes it.
+
+        WHAT THIS COSTS: design/coach-home.html now differs from
+        wireframes/coach-home.html by one block, and the design copies are
+        supposed to own the visual layer only. Said out loud rather than hidden -
+        the grey twin carries the same two-primaries defect and cannot be edited
+        (frozen after stage 05), so the divergence is the price of principle 2.
+      ============================================================ -->
+
+      <div class="acc-grid">
+
+        <!-- Client-restock nudge (reorder mechanic, coach-level · Job 4 per-client repeat) → new session -->
+        <div class="acard crestock span2">
+          <div class="ah"><h3><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 12a8.2 8.2 0 1 1-2.5-5.9"></path><path d="M20.4 4.2v4.6h-4.6"></path></svg></span> Час поповнити клієнтам</h3><a href="../../coach-clients.html">Усі клієнти<span class="uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 12h16.8"></path><path d="M14 5.6l6.4 6.4-6.4 6.4"></path></svg></span></a></div>
+          <p class="rk-lead">За ритмом замовлень цим клієнтам скоро знадобиться поповнення. Зберіть для них сесію в один дотик.</p>
+          <div class="cli">
+            <div class="cav">А</div>
+            <div class="cinfo"><div class="cn">Андрій · Набір маси</div><div class="cg">Останнє замовлення <b>32 дні тому</b> · протеїн зазвичай на ~30 днів</div></div>
+            <a class="btn--outline btn--s btn cgo-btn" href="../../coach-session.html"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 12a8.2 8.2 0 1 1-2.5-5.9"></path><path d="M20.4 4.2v4.6h-4.6"></path></svg></span> У сесію</a>
+          </div>
+          <div class="cli">
+            <div class="cav">М</div>
+            <div class="cinfo"><div class="cn">Марія · Схуднення</div><div class="cg">Останнє замовлення <b>40 днів тому</b> · L-карнітин зазвичай на ~35 днів</div></div>
+            <a class="btn--outline btn--s btn cgo-btn" href="../../coach-session.html"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 12a8.2 8.2 0 1 1-2.5-5.9"></path><path d="M20.4 4.2v4.6h-4.6"></path></svg></span> У сесію</a>
+          </div>
+        </div>
+
+        <!-- Clients summary → coach-clients / each → coach-client -->
+        <div class="acard span2">
+          <div class="ah"><h3>Клієнти</h3><a href="../../coach-clients.html">Усі клієнти<span class="uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 12h16.8"></path><path d="M14 5.6l6.4 6.4-6.4 6.4"></path></svg></span></a></div>
+          <!-- the way IN to the list stands above it, full width - owner, step 8.0.
+               Below the last row it was the end of a list; above it, it is the
+               card's own action. -->
+          <div class="cli-add"><a class="btn--outline btn--s btn--full btn" href="../../coach-clients.html"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.4v15.2"></path><path d="M4.4 12h15.2"></path></svg></span> Додати клієнта</a></div>
+          <div class="cli">
+            <div class="cav">А</div>
+            <div class="cinfo"><div class="cn">Андрій</div><div class="cg">Ціль: Набір маси · 8 замовлень</div></div>
+            <a class="cgo" href="../../coach-client.html">Профіль<span class="uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 12h16.8"></path><path d="M14 5.6l6.4 6.4-6.4 6.4"></path></svg></span></a>
+          </div>
+          <div class="cli">
+            <div class="cav">М</div>
+            <div class="cinfo"><div class="cn">Марія</div><div class="cg">Ціль: Схуднення · 5 замовлень</div></div>
+            <a class="cgo" href="../../coach-client.html">Профіль<span class="uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 12h16.8"></path><path d="M14 5.6l6.4 6.4-6.4 6.4"></path></svg></span></a>
+          </div>
+          <div class="cli">
+            <div class="cav">І</div>
+            <div class="cinfo"><div class="cn">Ігор</div><div class="cg">Ціль: Витривалість · 2 замовлення</div></div>
+            <a class="cgo" href="../../coach-client.html">Профіль<span class="uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 12h16.8"></path><path d="M14 5.6l6.4 6.4-6.4 6.4"></path></svg></span></a>
+          </div>
+        </div>
+
+        <!-- Recent coach orders (multi-client) → order/checkout -->
+        <div class="acard span2 cords">
+          <div class="ah"><h3>Останні замовлення</h3><a href="../../coach-orders.html">Усі замовлення<span class="uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 12h16.8"></path><path d="M14 5.6l6.4 6.4-6.4 6.4"></path></svg></span></a></div>
+          <div class="cord">
+            <div class="co-info">
+              <div class="co-no">Замовлення № К-2041</div>
+              <div class="co-meta">28 червня 2026 · <b>2 клієнти</b> (Андрій, Марія) · 4 товари</div>
+              <span class="co-status ok">Доставлено</span>
+            </div>
+            <div class="co-sum"><span class="cs-b">3 480 ₴</span><a class="btn--outline btn--s btn" href="../../coach-order.html">Деталі</a> <a class="btn--accent btn--s btn" href="../../cart-coach.html"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 12a8.2 8.2 0 1 1-2.5-5.9"></path><path d="M20.4 4.2v4.6h-4.6"></path></svg></span> Повторити</a></div>
+          </div>
+          <div class="cord">
+            <div class="co-info">
+              <div class="co-no">Замовлення № К-1987</div>
+              <div class="co-meta">14 червня 2026 · <b>1 клієнт</b> (Андрій) · 3 товари</div>
+              <span class="co-status ok">Доставлено</span>
+            </div>
+            <div class="co-sum"><span class="cs-b">2 020 ₴</span><a class="btn--outline btn--s btn" href="../../coach-order.html">Деталі</a> <a class="btn--accent btn--s btn" href="../../cart-coach.html"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 12a8.2 8.2 0 1 1-2.5-5.9"></path><path d="M20.4 4.2v4.6h-4.6"></path></svg></span> Повторити</a></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Coach wishlist teaser → Обране (7.6, shared). Canonical .pcard -->
+      <section aria-label="Обране тренера">
+        <div class="sech"><h2>Обране</h2><a class="btn--text all" href="../../coach-wishlist.html">Усі 4<span class="uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 12h16.8"></path><path d="M14 5.6l6.4 6.4-6.4 6.4"></path></svg></span></a></div>
+        <div class="prow">
+          <article class="pcard"><a href="../../product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span></button>
+            <div class="bd"><div class="pbrand">BioTechUSA · Угорщина</div><a href="../../product.html" class="nm">Hyper Mass 4000 г</a><div class="pavail in">В наявності</div>
+              <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 450 ₴</span></div><span class="pnew">1 230 <span class="uiv-cur">₴</span></span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 4h2.1l1.9 10.2a1.7 1.7 0 0 0 1.7 1.4h8.1a1.7 1.7 0 0 0 1.7-1.3L19.9 7.2H6.1"></path><circle cx="9" cy="19.6" r="1.5"></circle><circle cx="17.2" cy="19.6" r="1.5"></circle></svg></span></button></div>
+              <div class="rate"><span class="st"><span class="uiv-ic uiv-star"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span><b>4.7</b></span> · 88 відгуків</div><div class="pmeta2"><span class="perserv"><b>гурт</b> · ціна Pro</span></div></div></article>
+          <article class="pcard"><a href="../../product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span></button>
+            <div class="bd"><div class="pbrand">Optimum Nutrition · США</div><a href="../../product.html" class="nm">Gold Standard 100% Whey 2270 г</a><div class="pavail in">В наявності</div>
+              <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 290 ₴</span></div><span class="pnew">1 090 <span class="uiv-cur">₴</span></span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 4h2.1l1.9 10.2a1.7 1.7 0 0 0 1.7 1.4h8.1a1.7 1.7 0 0 0 1.7-1.3L19.9 7.2H6.1"></path><circle cx="9" cy="19.6" r="1.5"></circle><circle cx="17.2" cy="19.6" r="1.5"></circle></svg></span></button></div>
+              <div class="rate"><span class="st"><span class="uiv-ic uiv-star"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span><b>4.9</b></span> · 204 відгуки</div><div class="pmeta2"><span class="perserv"><b>гурт</b> · ціна Pro</span></div></div></article>
+          <article class="pcard"><a href="../../product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2C4 15.3 3.6 10.3 3.6 9.1 3.6 6.6 5.5 5 7.6 5c1.7 0 3.3 1 4.4 2.7C13.1 6 14.7 5 16.4 5c2.1 0 4 1.6 4 4.1 0 1.2-.4 6.2-8.4 11.1z"></path></svg></span></button>
+            <div class="bd"><div class="pbrand">OstroVit · Польща</div><a href="../../product.html" class="nm">Creatine Monohydrate 500 г</a><div class="pavail pre">Під замовлення</div>
+              <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">549 ₴</span></div><span class="pnew">460 <span class="uiv-cur">₴</span></span></div><button class="btn--outline btn--icon cartbtn notify" aria-label="Повідомити про надходження"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 10.5a5.5 5.5 0 0 1 11 0c0 4.8 2 6.3 2 6.3H4.5s2-1.5 2-6.3z"></path><path d="M9.8 20a2.3 2.3 0 0 0 4.4 0"></path></svg></span></button></div>
+              <div class="rate"><span class="st"><span class="uiv-ic uiv-star"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.1 2.7 1-5.7-4.2-4 5.7-.8z"></path></svg></span><b>4.6</b></span> · 64 відгуки</div><div class="pmeta2"><span class="perserv"><b>гурт</b> · ціна Pro</span></div></div></article>
+        </div>
+      </section>
+
+    </div></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

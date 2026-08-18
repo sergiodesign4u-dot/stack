@@ -34,7 +34,7 @@
    not this file's. */
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { subject, ROOT, topRules, withNotes, braceAfterNotes, privateBlock } from './lib.mjs';
+import { subject, ROOT, topRules, withNotes, braceAfterNotes, privateBlock, outOfPrivateSubject } from './lib.mjs';
 
 const argv = process.argv.slice(2);
 const BY_PAGE = argv.includes('--by-page');
@@ -74,10 +74,20 @@ for (let i = 0; i < argv.length; i++) {
    printed rather than dropped: a page holding only a note is the record, a page
    holding only blank lines is residue, and neither is visible if the filter
    simply swallows both. */
-const HUB = 'overview';
-const NOTE_ONLY = [], BLANK = [];
+/* AND THE EXCLUSIONS MOVED TO lib.mjs ON 2026-08-17, step 8.48 - the two names
+   above were the half `inert.mjs` did not share, and the two walks answered the
+   same question differently for two days without either saying so. See
+   `outOfPrivateSubject` there for what that cost and why it only showed at zero. */
+const NOTE_ONLY = [], BLANK = [], DROPPED = [];
 const PAGES = subject(NAMED, 'design').filter(p => {
-  if (!NAMED.length && (/^(kit|concept)\//.test(p) || p === HUB)) return false;
+  if (!NAMED.length) {
+    const why = outOfPrivateSubject(p);
+    if (why) {
+      const b0 = privateBlock(readFileSync(join(ROOT, 'design', p + '.html'), 'utf8'));
+      if (b0 && b0.rules) DROPPED.push(p + '  (' + b0.rules + ')');
+      return false;
+    }
+  }
   const b = privateBlock(readFileSync(join(ROOT, 'design', p + '.html'), 'utf8'));
   if (!b) return false;
   if (b.rules) return true;
@@ -89,6 +99,8 @@ const TAIL = () => {
     'що звідти пішло і куди - це запис, а не борг.');
   console.log('порожніх оболонок <style> без жодного слова: ' + BLANK.length +
     (BLANK.length ? '  ' + BLANK.join(' ') : ''));
+  console.log('поза предметом, із правилами: ' + DROPPED.length +
+    (DROPPED.length ? ' - вітрина і хаб, той самий список, що в inert.mjs' : ' –'));
 };
 if (!PAGES.length) { console.log('жодної сторінки з приватним ПРАВИЛОМ'); TAIL(); process.exit(0); }
 

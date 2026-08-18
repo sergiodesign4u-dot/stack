@@ -61,6 +61,13 @@
    here - `.cartbtn.notify`, «Повідомити про надходження» - and the old fade over
    the whole row muted that too. It now stands at full strength, which is right:
    the product is unavailable, the notification is not. */
+/* 8.54: `.pold` and `.pcut` KEPT, and the verdict against them is about the demo
+   data. `tools/dead-sel.mjs` finds `.pcard.dim .pnew` alive and the other two
+   dead on all 263 pages: dimmed cards exist, struck prices exist, and no card in
+   this catalogue is both at once. An out-of-stock product that is also on
+   discount is an ordinary Tuesday in a shop, and it is exactly the card where a
+   struck price left at full strength would shout loudest. Declared in the
+   instrument as `KEPT_ON_PURPOSE`. */
 .pcard.dim .pnew, .pcard.dim .pold, .pcard.dim .pcut{ color: var(--text-secondary); }
 .pcard-l{ display: grid; grid-template-columns: 84px 1fr auto auto; gap: var(--space-16); border: 1px solid var(--line-hair); padding: var(--space-12); align-items: center; }
 .pcard-l .lph{ width: 84px; aspect-ratio: 1; border-radius: var(--radius-8); display: flex; align-items: center; justify-content: center; font-size: var(--fs-10); position: relative; }

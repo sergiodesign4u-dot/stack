@@ -7983,3 +7983,683 @@ and precisely why the check asks the FILE. All nine frames rebuilt; `links.mjs` 
 
 Standing debt: **6 components with no stand page** (`coach-cabinet`, `coach-clients`, `coach-order`,
 `coach-session`, `coach-tariff`, `coach-wishlist`) and **4 stand pages with no token table**.
+
+## Step 6, forty-third pass - the last private rule, and the zero that exposed a disagreement
+
+**Backlog item 2 ends at 0.** 886 -> 3 -> 2 -> 0. There is no page in the product carrying a private
+CSS rule.
+
+### The last two needed a decision, and the decision needed a measurement nobody had taken
+
+`.cv-card{ max-width: 560px; margin: 0 auto }` stood on `coach-verify-error` and
+`coach-verify-deadend`, byte for byte identical, deferred at 8.40 in honest words: «whether 560
+becomes the panel's width is stage 09's decision, not this step's move».
+
+**What the deferral did not say is that a THIRD screen carries `.cv-card` and was already shipping
+the other answer.** Measured at 1280:
+
+| screen | class | width | text |
+|---|---|---|---|
+| `coach-verify-error` | `.cv-card` | 560 | left |
+| `coach-verify-deadend` | `.cv-card.mid` | 560 | centred |
+| `coach-verify-loading` | `.cv-card.mid` | **828** | centred, H1 box **778** |
+
+No selector separates the two that declared the rule from the one that did not, so it could not be
+moved without deciding. **Decided, and written beside the rule as «variable -> value -> why»**:
+`.coach .cv-card` gains `max-width: 560px; margin-inline: auto`.
+
+1. **Two of three declare exactly this, identically.** A rule two screens write the same way is not a
+   per-screen choice; it is a component rule standing in the wrong file.
+2. **The system already caps what is inside the card** - `.cv-lead` 440, `.cv-card.mid .cv-actions`
+   340 - so a width for the card is what those two caps are already half saying.
+3. **`.mid` MEANS centred, and 828 is too wide to centre in.** The loading screen centred a headline
+   across a 778px box while its two siblings centred the same rank across 510.
+
+**A/B'd in the live pages**, rule injected and removed, at 1280 / 900 / 390: `error` and `deadend`
+**byte-identical at every width and every number** - a pure move. `loading` 828 -> 560 at 1280 and
+900, its button row wrapping from one line to two, the card 571 -> 623 tall; **identical at 390**,
+because the cap never binds on a phone. `scrollWidth - clientWidth` 0 everywhere, both ways. Two of
+the three buttons in that row are the prototype's own demo switches, not product controls.
+`tree-diff` against HEAD over all five verify screens: four unchanged at both widths, `loading` 11
+elements at 1280 and one computed value at 390.
+
+**Reversible in one declaration**, and the whole cost of being wrong is 268px on one desktop screen.
+
+### And zero is what exposed two instruments disagreeing about their subject
+
+`private.mjs` printed «no page carries a private rule». `inert.mjs`, in the same minute, printed
+«1 page, 30 rules» - and spent 3m51s getting there.
+
+`inert.mjs` says of the shared predicate that it exists «so the two walks cannot disagree about what
+their subject is». **They disagreed anyway, because the disagreement was never in the predicate.** It
+was in the exclusions above it: on 2026-08-15 `private.mjs` measured the stage hub out of its subject
+- `design/overview.html` does not link `system/index.css` at all, so «which private rules override the
+system» does not apply to it - and `inert.mjs`'s note, written the day before, still said «`overview`
+STAYS».
+
+**Invisible while the count was 2.** Both printed a number, the numbers were about different corpora,
+and nobody compared the subjects because the subject was not the interesting part. A count that
+agrees while it is wrong is the whole reason the exclusions now live in `lib.mjs` as
+`outOfPrivateSubject`, one place for both walks - and why both now PRINT what they dropped and why:
+**75 pages, showcase and hub, the same list from both.** An exemption nobody can see is the same
+defect as an exemption that covers nothing.
+
+### Gates
+
+`private` **0 pages with a private rule**, 30 carrying only their record, 0 blank shells, 75 out of
+subject · `inert` the same 75, nothing left to ask · `accept` **246 screens, 0 failures at 390 and 0
+at 360** · `tree-diff` HEAD over the five verify screens: 2 of 10 comparisons moved, both the
+intended one · `inventory` 84/84, 0 `Lines`, 0 levels, 0 of 282 meta tags · `roles` 84/0, 6 without a
+page · `idle` 0 red · `links` 4 757 / 0 / 0 · `css-comments` 91 balanced.
+
+## Step 6, forty-fourth pass - the coach's cabinet, and a note that was true for exactly one day
+
+`design/kit/coach-cabinet.html`, the third of the eight coach organisms and the largest file in the
+system: 962 lines, 70 selectors, 201 declarations, 8 screens, 47 classes. **Five remain.**
+
+Two nodes in one file - 5.2, the dashboard, and 5.6, the multi-client order history - because they
+are one organism: the same account shell, the same client names, the same money. Five frames, one of
+them from a screen that belongs to another component, because two of this file's classes draw a row
+inside the session's add-client dialog.
+
+### What the page found: a comment that carried an instruction, and the instruction was wrong
+
+The file holds a paragraph ending in a directive: «six structure rules and two colour rules under
+`.cnew`, **with no element on any coloured screen**... whoever confirms the deletion of the block
+deletes these eight with it.»
+
+| date | what happened |
+|---|---|
+| 2026-08-11 | the note is written, and it is **correct**: `.cnew` had just left `coach-home` and `design/coach-home-empty.html` **did not exist** |
+| 2026-08-12 | that screen is created - one of the 35 clones of steps 8.12-8.15 - carrying `<a class="cnew">` with all five children |
+| since | the note reads «no element on any coloured screen» while a screen carries the element. **Eleven commits.** |
+
+Measured in the browser over all 88 coloured screens: `.cnew` renders on exactly one,
+`coach-home-empty`, at **732 x 119** at 1280, `--bg-action` ground, `--text-onaction` ink, with
+`.cn-ic` 46 x 46, `.cn-t` 18px, `.cn-s` 14px and `.cn-go` 28 x 28 all drawing. **It is the loudest
+object on that screen and the only action on it**: «Зібрати першу сесію». It is also the file's only
+use of `--bg-action`.
+
+So obeying that last line would have stripped the one action from the one screen where the coach has
+nothing else to do. **A note that carries an instruction is a rule with no check under it**, and this
+one had five days to be obeyed.
+
+**The class matters more than the instance.** A comment that states an ABSENCE is a claim about the
+CORPUS, and the corpus is not in that file. It goes stale silently, and the clone step is precisely
+the event that stales it: 35 screens arrived in one commit and nothing re-read the notes written the
+day before. Grepped across the whole component layer - **this is the only claim of its kind**, so a
+singleton and not a family. The correction is written under the original rather than replacing it,
+so the shape of the mistake stays visible. The nine rules stay.
+
+### And `css-comments.mjs` earned its keep in the same minute
+
+Writing that correction closed a comment twice - `########## */` on top of the block's own
+`========== */` - and the check named the line in one second. In CSS nothing else would have: no
+parse error, the parser simply drops declarations until it finds its footing. That is the whole
+reason the file exists, and it is the third time it has caught this exact shape.
+
+### `.ord` and `.ord-h` are one name for two components, and the page states it with numbers
+
+`order-row.css` (level 2) and this file (level 3) declare the same two names for different objects:
+for the buyer `.ord` is a card that OPENS and `.ord-h` is a full-width `<button>` with a five-area
+grid below 640; for the coach `.ord` is a static `<article>` and `.ord-h` a baseline row that opens
+nothing. Written unscoped, whichever imports last takes the other screen apart, and **the buyer's
+phone is what loses**.
+
+What the header row was actually paying, measured at 390 before the reset: `.ord-no` at **x=49.0** on
+all four cards while `.ord-meta`, `.ord-cli` and `.ord-tot` sat at **x=33.0** - the card pays 12/16
+and the header paid 16 again on top, so the one line that names the order was indented past every
+other line in its own card. After `padding: 0`: all four headers 63.2 instead of 94.8 and 120.4,
+every `.ord-no` at 33.0, every date back on one line, cards 335.7 / 361.3 / 338.9 / 394.5 ->
+**304.1 / 304.1 / 281.8 / 337.3**. The rename is still the right end state and it is Крок 6.
+
+### Gates
+
+`accept` **252 screens, 0 failures at 390 and 0 at 360** (five new frames and the page) ·
+`inventory` 84 files / 84 rows, 0 `Lines`, 0 levels, 0 meta tags diverged · `roles` 84 components,
+0 diverged, **5 without a page** · `idle` on the new page 0 red, after a fifth frame was built for
+the two classes that live on another component's screen · `links` 4 803 / 0 / 0 · `css-comments` 91
+balanced.
+
+Standing debt: **5 components with no stand page** (`coach-clients`, `coach-order`, `coach-session`,
+`coach-tariff`, `coach-wishlist`) and 4 stand pages with no token table.
+
+## Step 6, forty-fifth pass - the client list, and `.coach` is not a scope between two coach files
+
+`design/kit/coach-clients.html`, the fourth of the eight coach organisms: node 5.3, the saved client
+list, and node 5.4, one client's card. **Ten coloured screens, the most in the flow**, which is what
+locked decision #1 looks like in files - «coach-as-buyer: saved client list, per-client order tagging,
+per-client history». **Four remain.**
+
+Two screens in one file because three of their four parts are the same three parts at two sizes:
+avatar 40 / 56, name (`.ccard-nm` / `.ch-name`), goal chip. They are kept together so the next person
+who changes the goal chip changes it once - the alternative is what happened to the progress marker
+in `coach-verify`, five editions a quarter of a pixel apart.
+
+### What the page found: `.ch` is one name for three components, and the scope separates only two
+
+| selector | file | what it is |
+|---|---|---|
+| `.coach .ch` | **coach-clients.css** | the client card's header ROW - flex, `space-between`, `gap: 14px` |
+| `.coach .city-chip .ch` | coach-verify.css | the city name inside the city button |
+| `.co-saved .ch` | checkout-form.css | the «· change» link beside a saved address |
+
+**The checkout is safe: it is outside `.coach`.** `coach-verify` is not, because it is inside `.coach`
+too - so `.coach .ch` at (0,2,0) really does reach the city button's label, and the four declarations
+`.coach .city-chip .ch` does not reset - `align-items`, `justify-content`, `gap`, `flex-wrap` - land
+on it.
+
+**Today that costs zero pixels, and it is measured rather than assumed.** A/B in the live page, the
+four declarations neutered and restored, at 1280 / 900 / 390 / 360: the label **67.16 x 15.61 at the
+same coordinate**, the button 444.13 x 52.00 (312.00 and 282.00 on a phone) - geometry identical at
+all four widths. A full computed-tree walk moved **1 row of 4 023**, and that row is the label with
+the four properties being neutered.
+
+It survives on two independent accidents: `gap` / `justify-content` / `align-items` do nothing except
+on a flex or grid container, and the label is `display: block` because the `display: inline` written
+in `coach-verify.css` is **blockified** by its flex parent. That is the same sentence
+`coach-cabinet.css` already writes about the `co-` namespace: *luck, not design*. The rename is Крок 6
+and which file keeps the short name `.ch` is the owner's.
+
+**A methodological correction inside the same measurement.** The first A/B inserted its probe
+`<style>` BETWEEN the two snapshots, which shifted every index and reported **3 086 rows moved** - a
+diff measuring its own probe. The node is now inserted empty before the first read and only filled
+between them, so both walks see the same tree.
+
+### The largest single saving in the whole 7.95 batch is what is NOT in the file
+
+**19 declaration blocks over 16 selectors of the account shell were deleted, not copied**: `.acc`,
+`.acc-nav`, `.acc-prof` and its three children, `.acc-tier`, `.acc-links`, `.acc-link` in six forms
+with its 960 query, `.acc-link.logout`. The screen's own header said it out loud - «Shell (acc /
+acc-nav / accard) mirrors account.html, coach mode» - and then mirrored it by retyping it. **A mirror
+that is retyped is a copy, and a copy drifts**; three of those declarations already had.
+
+### Gates
+
+`accept` **257 screens, 0 failures at 390 and 0 at 360** · `inventory` 84 files / 84 rows, 0 `Lines`,
+0 levels, 0 meta tags diverged · `roles` 84 components, 0 diverged, **4 without a page** · `idle` on
+the new page 0 red · `links` 4 833 / 0 / 0 · `css-comments` 91 balanced.
+
+Standing debt: **4 components with no stand page** (`coach-order`, `coach-session`, `coach-tariff`,
+`coach-wishlist`) and 4 stand pages with no token table.
+
+## Step 6, forty-sixth pass - the primary job gets its page, and every product frame is square
+
+`design/kit/coach-session.html`, the fifth of the eight coach organisms: node 5.5, **the primary job
+of the whole product**. One coach, several clients, several goals, one sitting. 850 lines, 73
+selectors, 266 declarations, **45 own classes - the most in the system**, and seven of its eight
+screens are states of the first one. **Three remain.**
+
+### What the page verified: the square rule holds across the whole product
+
+`coach-session.css` says `.cl-ph` was **the last non-square product frame in the product** - 52 x 56,
+squared to 52 x 52 at 7.68's shape rule, measured off the three photographs, which are 2048 x 2048.
+Squaring is done on the WIDTH, never the height: width is what a row packs and a grid column already
+states.
+
+Asked of all 88 coloured screens, every product photo frame at once - `.pcard .ph`, `.skcard .skimg`,
+`.ci-ph`, `.ob-line .ph`, `.oh-thumbs i`, `.cl-ph`, `.qa-ph`, `.rk-ph`, `.aord-thumbs .t`, `.oc-ph`:
+**21 distinct sizes, 0 non-square.** The claim is closed and now verified rather than asserted.
+
+**The SIZE ladder is a different question and it is still open**: 34 (`.oh-thumbs i`), 40 (`.oc-ph`),
+44 (`.qa-ph`), 46 (`.rk-ph` and `.aord-thumbs .t`), 52 (`.cl-ph`), 74 (`.ci-ph`) - six values on small
+frames, and nothing in the source says why a restock tile is 46 and a cart row 74. That is A6 and the
+owner's.
+
+### The three defects this screen carried, all closed before this page was written
+
+**An action written as words was drawn three ways inside one panel.** Measured at 390:
+`.cc-repeat` «Повторити замовлення» 14/700 primary underlined 165 x 22; `.cl-rm` «Видалити» 12/600
+secondary underlined 58 x 19; `.cs-save` «Зберегти сесію» 14/400 body, no underline, 324 x 22. Three
+finishes, one meaning, **and the loudest of the three is the reorder job - locked product decision
+4**. `button.css` counted seventeen such controls at 7.61; two of them were here.
+
+**The search box of the primary job was the browser's own input.** 7.95 took the hand-built box off
+and wrote that Крок 6 had to put `.field` on it. It arrived wearing the UA box: `border: 2px inset
+rgb(118,118,118)`, `border-radius: 0`, `font-family: Arial`, `padding: 0`, `color: rgb(0,0,0)`. None
+of those values is in the palette. **This is the field a coach types a product into thirty times a
+session, on the one screen where the primary job happens**, and it was the last control on 48 screens
+still wearing the operating system's box.
+
+**The order line and the cart row are one object drawn twice.** Photo 52 x 56 / `--radius-8` against
+74 x 74 / `--radius-12`; padding 13 against 16; the rule on the TOP edge against the BOTTOM. The edge
+is the one that showed: on the top edge the first `.cline` drew a hairline 6px under «Товари для
+клієнта Андрій», so what a person read was **an underline of the heading** rather than a divider
+between two products.
+
+### And the scope is a promise about markup that did not exist
+
+No element in `wireframes/` carries `class="coach"`. The scope all five files of the 7.95 batch took
+is a promise the coloured screens have to keep, and **the day it is forgotten the whole flow renders
+unstyled with no error anywhere** - CSS does not report a selector that matched nothing. It landed on
+`<body>`, not `<main>`, and reading the sentence the other way already cost one rule:
+`body:has(.coach .cs-bar)` was written on it, `.coach` IS body rather than a descendant, and the
+clearance it declared never applied.
+
+### Gates
+
+`accept` **263 screens, 0 failures at 390 and 0 at 360** · `inventory` 84 files / 84 rows, 0 `Lines`,
+0 levels, 0 meta tags diverged · `roles` 84 components, 0 diverged, **3 without a page** · `idle` on
+the new page 0 red, after a fifth frame was built for `.cs-bar`, `.bt` and `.cs-cli.zero` - the
+sticky bar is `position: fixed` and lives outside `<main>`, so no frame of the page body could hold
+it · `links` 4 878 / 0 / 0 · `css-comments` 91 balanced.
+
+Standing debt: **3 components with no stand page** (`coach-order`, `coach-tariff`, `coach-wishlist`)
+and 4 stand pages with no token table.
+
+## Step 6, forty-seventh pass - a rule that had never once matched, and the instrument that could not have found it
+
+`design/kit/coach-order.html`, the sixth of the eight coach organisms. Node 5.7: one order of the
+coach's, opened, with the goods grouped **by client** - each group closing with its own subtotal and
+its own repeat, Job 1 and Job 4 in one card. 440 lines, 27 selectors, **106 declarations**, which is
+four per selector and the leanest of the batch. It got that lean on the 8.7 move: six rules deleted
+outright and a seventh cut to two declarations, every one of them measured with the rule in place and
+again with it gone.
+
+### The selector that found nothing, and had found nothing since it was written
+
+The page's own measurement was not «does this look right» but **«does each of these 26 selectors
+match anything»**, asked of the browser over all three of the file's screens. On `coach-order.html`
+25 of 26 found elements. The one that did not:
+
+    .coach .od-line:last-child{ border-bottom: none }
+
+It was authored to take the hairline off the bottom row of the list. The last child of `.od-grp` is
+`.od-grp-f`, the foot carrying the per-client repeat, and it has been the last child since the group
+was written. **The rule never fired, not once.**
+
+The line it meant to remove is on the screen, and it is not wrong there: it is the boundary between
+the last product and the action band, and the band at the top of the same card draws its own. So the
+pixel is right and the OWNER is wrong - the boundary above the foot was being drawn by the row above
+it, which is exactly why a rule aimed at the row could not reach it. Rewritten so each edge belongs
+to what it bounds, one rule for one rule and the declaration count still 106:
+
+| was | is | what it bounds |
+|---|---|---|
+| `.od-line{ border-bottom }` | `.od-line + .od-line{ border-top }` | between two products |
+| `.od-line:last-child{ none }` *dead* | `.od-grp-f{ border-top }` | above the action band |
+
+The first row needs nothing: `.od-grp-h` already closes with its own `border-bottom`, the same 1px
+`--line-hair`. `tree-diff HEAD` over all three screens at 360 / 390 / 1280: **six elements move and
+nothing on the screen does.** Per group the first row is -1, the second 0 (its bottom edge becomes a
+top edge) and the foot +1 - and the sums prove it: `.od-grp` 340.28 / 303.78 at 360 and
+331.13 / 303.78 at 390, document 3034 / 2984 / 1793, none of them changed.
+
+### The finding is the instrument, and the next step is the sweep
+
+Nothing in `tools/` asks whether a shipped selector ever matched. `inert.mjs` asks whether a
+DECLARATION is overridden by another rule, which is a different question and structurally blind to a
+selector that matched nothing - there is no losing declaration to find. `.od-back` in this same file
+was caught at 8.7 **by counting instances by hand**, and hand counting is precisely why the one four
+lines below it survived that step. A check rebuilt from memory each step is a hand fix; the sweep
+over all 84 components is its own step.
+
+### What the three screens actually get from this file
+
+| | coach-order | -loading | -error |
+|---|---|---|---|
+| selectors that match | 25 of 26 | **2** | **1** |
+| what they are | the screen | `.od-wrap` + `.od-grp` x3 | `.od-wrap` |
+
+Two of the three screens take a column width from this component and, on one of them, a skeleton's
+outline. The `3` in the Screens column is honest by anchor count and says nothing about how much of
+the file stands on each.
+
+### The skeleton promises the wrong page
+
+It took `.od-grp` as a box and put **three** of them. The count is right - the facts card plus two
+groups is also three - and **each height is out by a factor of three and a half**: 96 against 428.67,
+96 against 331.13, 96 against 303.78, plus a total row and three actions it does not stand in for at
+all. Document 1990 against 2984 at 390. 288px of skeleton standing in for 1064px of content. Markup
+of the screen rather than this file, but the number is now measured rather than felt.
+
+### The tile that was the last non-square frame, and was the second thing to be called that
+
+`coach-session.css:498` squared `.cl-ph` at 7.95 and called it «the last non-square product frame in
+the product». **That was untrue the day it was written** - this screen was still grey - and it became
+true at 8.7 when `.od-ph` went 48 x 52 to 48 x 48. The sweep of all 88 coloured screens over ten
+frame names at 8.51 found 21 distinct sizes and 0 non-square, so the claim is now closed by
+measurement rather than by the file that made it. The SIZE is not settled and is not pretended to be:
+48 is not on the control ladder (46 / 52) and the sibling tile in the coach's own session screen is
+52. One flow, two tile sizes - question A6.
+
+### Gates
+
+`accept` **267 screens, 0 failures at 390 and 0 at 360** · `inventory` 84 files / 84 rows, 0 `Lines`,
+0 levels diverged · `roles` 84 components, 0 diverged, **2 without a page**, 4 pages without a token
+table · `idle` on the new page 0 red · `links` 4 899 / 0 / 0 · `css-comments` 91 balanced.
+
+Standing debt: **2 components with no stand page** (`coach-tariff`, `coach-wishlist`), 4 stand pages
+with no token table, and the dead-selector sweep now named as the next instrument.
+
+## Step 6, forty-eighth pass - the instrument for a question nothing was asking, and 37 findings that became 16
+
+`tools/dead-sel.mjs`. Named out loud at 8.52 and built here, because the defect it exists to find was
+caught twice by hand in one file and the second time only because the first had happened:
+`coach-order.css` lost `.od-back` at 8.7 by counting instances in both layers, and kept
+`.od-line:last-child` four lines below it until 8.52. Hand counting stops when the counter is
+satisfied.
+
+### Why no existing instrument could see it
+
+`inert.mjs` asks whether a DECLARATION is overridden by another rule. A selector that never matched
+has no losing declaration to find, so the question is not merely unanswered there - it is
+unaskable. `roles.mjs` compares tokens read against tokens listed. `idle.mjs` asks whether a class
+the page NAMES is a class the page SHOWS, which is about the stand rather than the product. **The
+hole was not that the check was weak. It was that the question had never been posed.**
+
+### Two passes, and the second one is the sorting pass idle.mjs had to invent first
+
+Pass A asks the browser the selector **as written**, over every page that loads `system/index.css`.
+One match anywhere is enough. Pass B runs only on what pass A could not place: **a rule that applies
+only during an act cannot be found in repose**, so the condition is stripped and the question becomes
+«does the HOST exist». `.coach .cs-save:hover` becomes `.coach .cs-save`; `.kp-tag::after` becomes
+`.kp-tag`. `:last-child` is NOT stripped - it is structural, true or false in repose - and that is
+the whole reason the instrument can find what it was built for.
+
+### Three wrong versions, and the third produced twenty-one findings that were not there
+
+1. **Asking the source instead of the browser.** Half this product's markup is written at runtime by
+   `wfHeader()` and `_nav.js` and exists in no html file, so real elements read as absent; a class in
+   a JS template string no branch renders reads as present. Wrong in both directions at once.
+2. **Stripping every pseudo-class.** `:` as the mark of a state turns `.od-line:last-child` into
+   `.od-line`, which is alive, and the defect reports healthy.
+3. **Stripping inside parentheses.** `:not(.on)` holds an ARGUMENT, not a condition of this element.
+   Take `.on` out because a script toggles it and the selector becomes `:not()`, which no browser
+   parses - the host query throws, the host reads as absent, and **eleven healthy `:hover` and
+   `:active` rules on radios, steppers and the view toggle report as dead**. The count went 37 to 16
+   when this was fixed. The mistake flatters, which is the dangerous direction: **a broken instrument
+   that produces findings is read as a productive one.**
+
+A fourth was caught before it shipped: stopping the walk once every probe has gone green. Real
+speedup, and it costs the census - a run that stops at page 47 has not looked at pages 48 to 267, and
+it reported «0 pages without the system» on a repository that has four.
+
+### The corpus question is asked of the document, not of the file, and this is why
+
+`design/overview.html` mentions `system/index.css` **inside a comment**. A source grep counts that as
+a link, and the page is deliberately off the system - so a rule that never painted there would have
+been lent liveness by it. Asked as `document.styleSheets`, the answer is 263 pages with the system
+and 4 without, named out loud: the three concept pages and the stage hub.
+
+### What the first sweep found: 16 of 2925
+
+Seven of the sixteen are **one shape - a comma list completed for symmetry where only one member has
+an element**: `.btn--outline .uiv-brand` is alive and the accent, ghost and `--l` editions are not;
+`.field-grp > .btn--accent` is alive and outline and ghost are not; `.emptybox .et:first-child` is
+alive and `.empty .et:first-child` is not.
+
+**The last one is the sharpest, and it is a lesson about writing rules down.** `empty-state.css` had
+already written the finding four lines above the defect: «`.errbox .et` is never `:first-child`
+anywhere, and a selector added for it would match nothing. An exemption that covers nothing fails as
+loudly as an undeclared case; so does a rule.» Then it wrote two. **A rule stated in a comment has
+no check under it**, which is the same sentence this repository has now paid for four times.
+
+The other nine are not one family: `.pcard.dim .pold` and `.pcut` (dimmed cards exist, struck prices
+exist, no card is both), `.pdp-tabs .tprice:not(:has(.told)) .tnew`, `.skcard:not(:has(.skb))`,
+`.pl-hw .pl-ic:empty`, `.wfh-meta .wfh-loc .uiv-ic:last-child svg`, `.btn--stack .tl .uiv-ic svg`,
+`.resend a`, `.coach .upsell p b`.
+
+**«Dead» means «matched nothing on these 263 pages», never «can never match».** A rule with no
+possible host is deleted; a combination the corpus never shows is a question about the demo data. The
+instrument reports the fact and refuses to guess which - the reading is a person's and belongs beside
+the fix, not inside the tool.
+
+### Its three exemptions, each with a control
+
+**Born at an act** - an element a script creates, where pass B cannot help because the host is the
+thing that is missing. Declared by hand per file with the line that builds it: today only
+`toast.css`, `t.className = 'wf-toast ' + type` at `wireframes/_nav.js:1242`. `idle.mjs` deliberately
+REFUSED that same `className =` signature, on the ground that it dresses a node the script just
+created, which is markup and can be shown in repose. **The same fact read for the opposite question,
+and both readings are right.** The control fails if a declared file turns out to have every selector
+alive. **Pages without the system** - counted and named; a zero fails. **Selectors this engine will
+not parse** - the four `::-moz-range-*` rules in `price-slider.css` are correct rules for another
+engine; reported, not failed.
+
+Published as backlog item 9 in `design/kit/docs/backlog.md` and rebuilt into `backlog.html` the same
+step. Nothing is repaired under it: the sweep is the step, the sixteen readings are not.
+
+### Gates
+
+`accept` on the rebuilt page 0 failures at 390 and at 360 · `links` 4 899 / 0 / 0 ·
+`dead-sel` 2925 selectors, 84 files, 263 pages, **16 dead** and every exemption non-empty.
+
+## Step 6, forty-ninth pass - sixteen readings, twelve deletions, and the two that no screen could have shown
+
+The sweep of 8.53 found 16 selectors in the shipped component layer that had never matched anything.
+This pass reads all sixteen. **Twelve deleted, four kept with a reason, `dead-sel` 0.**
+
+### The measurement that proves nothing alive was touched
+
+2925 selectors before, **2913 after, and the live count unchanged at 2534.** Pixels: `tree-diff
+--dir` over all 88 product screens at both widths, **176 comparisons, 0 elements moved.** Both
+numbers are needed and neither is enough alone: the live count says no surviving rule lost a member,
+the tree-diff says no pixel moved.
+
+**AND THE REFERENCE HAD TO BE BUILT, WHICH IS ITSELF A FINDING ABOUT THE INSTRUMENT.** Asked as
+`tree-diff HEAD`, it reports 4 comparisons moved and all four belong to earlier steps still
+uncommitted in this tree - the border-ownership rewrite on `coach-order` at 8.52 and the 560 on
+`coach-verify-loading` from item 2. **A comparison whose two sides differ in more than the thing
+being measured is not a proof**, and twelve uncommitted steps is a lot more. Worse: with no page
+named, `tree-diff` asks git which `design/*.html` changed and gets two, **neither of them affected by
+a stylesheet edit** - a component-layer change touches every page that loads the component and no
+html file at all, so its default subject is structurally blind to exactly this kind of edit. The
+reference used here is the working tree with only the ten stylesheets restored from HEAD, compared
+with `--dir`.
+
+### The twelve, and each deletion is a sentence about the PRODUCT
+
+Not one of them is «this selector is unused». Every reading says what the product is:
+
+- **A brand mark names a third-party provider, and a provider is never the one action of a region
+  nor a ghost.** `button.css` declared `--brand-ink` for accent, outline, ghost, `--s` and `--l`;
+  outline and `--s` have elements, the other three never will, because the auth dialog draws Google
+  and Apple as outlines on purpose. Three selectors.
+- **A control welded to the right-hand edge of a field is the one that SUBMITS it**, which is an
+  accent by rank; an outline or a ghost in that slot would be a second action inside one box.
+  `field.css`, two.
+- **`.wfh-loc` holds one mark - the pin - and the caret belongs to the language menu alone.** The two
+  were paired because 10px is the same answer for both. `header.css`.
+- **`.tl` is the tab bar's caption**, written into a stacked control as if the two captions were
+  interchangeable. `stack-action.css`.
+- **Every `.empty` carries a glyph above the title and an action below the body** - which is exactly
+  what the paragraph four lines above the rule had already worked out about `.errbox`, before writing
+  two selectors that fail the same way. `empty-state.css`, two.
+- **The panel's bold word is real in one of its two paragraph shapes and not the other.**
+  `upsell.css`.
+
+### Two of the twelve say something about the other instruments
+
+**`.resend a`** was four declarations for an anchor that is not there. `.resend` holds «Не отримали
+код? <span class="cool">Надіслати ще (0:45)</span>» - a span, because during the countdown there is
+nothing to press - and the live resend link is `<a class="pf-resend">` inside `.otp-note`, already
+drawn by `checkout-form.css:50` as bold, `--text-primary`, underlined. The dead rule was that
+control's ninth-edition twin, one token off at `--text-body`, **on markup that never existed. No
+amount of looking at the screen could have found it**, and every visual instrument this repository
+owns looks at a screen.
+
+**`.skcard:not(:has(.skb))`** was correct the day it was written. 8.24 wrote it for two named coach
+screens whose skeletons had rows straight inside the card, and recorded the measurement. Today there
+are twelve `.skcard` and **not one without a `.skb`**; `coach-client-loading` carries no `.skcard` at
+all and on `coach-clients-loading` the word survives only in a comment. **A rule can be right when
+written and wrong later without anybody editing it.** That is the argument for sweeping the whole
+corpus rather than what a step touched - and the record above the rule was kept, because being
+overtaken is not the same as being mistaken.
+
+### The four kept, and an exemption that fails in both directions
+
+Three are states of a SHOP that this catalogue's demo data does not contain, and deleting them would
+be repairing the product to suit the fixture: a product at full price (`pdp-tabs.css` - without the
+line its figure sits on grid row 2 with an empty row above it), and an out-of-stock product that is
+also discounted (`product-card.css`, two - `.pnew` is alive and its two neighbours are not).
+
+The fourth is **the mirror of the toast, and it earns its own name: KILLED by an act.** The markup
+ships `<span class="pl-ic"></span>` empty and `design/_nav.js:1461` fills all three with `jar` /
+`cup` / `clock` on every load, so `:empty` is false by the time anything is measured. Between the two
+moments the rule is the slot's only box. The toast is born at an act; this dies at one; **both are
+invisible to a probe that reads a settled page, for opposite reasons.**
+
+`KEPT_ON_PURPOSE` lives in `tools/dead-sel.mjs`, one selector at a time with its reason, and its
+control fails **both ways**: an entry that goes alive means the case arrived and the note must go; an
+entry naming a selector no file declares means the exemption outlived its rule. **A list that can
+only grow is not an exemption, it is a silence.**
+
+### Gates
+
+`dead-sel` **0 dead**, 365 conditional, 6 born at an act, 4 kept on purpose, 4 unparseable here, 263
+pages with the system · `tree-diff HEAD` over 88 product screens, both widths, **0 elements moved** ·
+`inventory` 84/84, 0 `Lines`, 0 meta tags diverged after `--apply` rewrote 9 stand pages and the
+`Lines` column was synced for 10 · `roles` 84 / 0 diverged - no deletion took the last read of a
+token · `css-comments` 91 balanced · `accept` on the 11 rebuilt stand pages 0 failures.
+
+Backlog item 9 closed in `design/kit/docs/backlog.md` and rebuilt into `backlog.html` the same step.
+
+## Step 6, fiftieth pass - the tariff, and the column turns reading order into reach order
+
+`design/kit/coach-tariff.html`, the seventh of the eight coach organisms. Node 5.2a: the plan that is
+running and the way out of it - the one screen where the locked decision about a **paid coach tier**
+is visible whole, with an honest `[?]` printed inside the price itself. 422 lines, 19 selectors,
+**55 declarations**: seven lines of reasoning per declaration, fifth-densest in the system.
+
+### Twelve rules handed over, and what is left is a card and a comparison
+
+39 rules in the grey block, 19 here, each deletion named to the file that already owned it and
+measured at 360 / 390 / 768 / 1280 with the dialog shut and open, before and after. `.tf-wrap` was
+**dead in the grey too** - a wrapper replaced by `.acc-main` when the screen moved into the account
+shell, and the rule outlived its div. The H1's inline `24/800` went to `.acc-h1` and came back Oswald
+`30/600`. Three line-heights - 1.5, 1.5, 1.55, none of them on a rung - went to `base.css` and moved
+nothing three times over, because `body` already sets `--lh-airy` on everything.
+
+### Asked of the whole product: where does the destructive control stand
+
+The measurement was not about this screen. **Every confirm dialog in the product was asked to point
+at its destructive control**, at 390 and at 900. There are eight, and all eight answer the same:
+`account-addresses` and `-empty`, `account-profile` and `-withemail`, `coach-client` and
+`coach-clients`, `coach-tariff` and `-cancel`. **The destructive one is second of two, every time.**
+
+At 900 the pair is a row and both sit at y 532.8 - left to right that reads «safe, then
+destructive», which is the ordinary convention. Below 480 the same row stacks, and the two y values
+part: **523.2 against 587.2.**
+
+**A column turns reading order into reach order, and reach order says the opposite.** On a phone the
+lower button is the one a thumb arrives at first, and on all eight screens that is the one that
+cannot be undone. This is **one decision and not eight defects** - `client-dialog.css` owns the row,
+and reversing the column costs one `flex-direction` in one file. Named with the numbers under it;
+the call is the owner's.
+
+### 440 is not a round number, it is the width of a button row
+
+Three neighbouring dialogs write `max-width: 400px`; this one writes **440**, and so did the grey
+original. The reason is measured: the pair «Залишити Pro» + «Скасувати підписку» is **390.00** wide,
+and the content box inside a 400px dialog is **352.00** - 2.08 over at every width, because the pair
+never fits that box. 440 gives exactly 390.00. **The value moved; it was not re-derived.**
+
+Below 480 it stacks, and that is the other half of the same measurement: before the rule, the row at
+360 was 338.08 in a 264.00 box, the buttons broke out of the white card, the confirmation's right
+edge landed at 387.1 in a 360 viewport, and the overlay scrolled 27px sideways to reach it. **The
+part hanging off the edge was the destructive control on a cancellation screen.**
+
+### The empty cell in the token table is the whole radius finding
+
+16 tokens, 5 roles, no colour of action anywhere - and **not one radius token in the file.** The
+screen's most prominent box, the only one edged in ink rather than in a hairline, rounds its corners
+with a `14px` literal.
+
+That is not an open question the way spacing is. **The radius ladder is the one geometry ladder whose
+rounding rule is written**: four steps 4 / 8 / 12 / 16, ties DOWN, and `tokens.css:464` already lists
+`14 -> 12` among the snaps it made. `coach-order.css` applied it at 8.7 and took 14 off `.od-head` in
+one line. **Four files never made that snap, and all four are the coach's**: `coach-cabinet.css`,
+`coach-landing.css`, `coach-tariff.css`, `upsell.css` - against 88 uses of `--radius-12` and 22 of
+`--radius-16` in the system. So on this screen the record card is 14 and the two comparison cards and
+the dialog are 12, all three visible at once.
+
+Not changed by this step: it is a value on four screens, and a value moves by a decision said out
+loud. But it is **an unapplied rule rather than an open question**, and the two are not the same kind
+of debt.
+
+### Gates
+
+`accept` 4 new pages, 0 failures at 390 and at 360 · `inventory` 84/84, 0 `Lines`, 0 meta ·
+`roles` 84 / 0 diverged, **1 component without a page** · `idle` on the new page 0 red ·
+`links` 4 907 / 0 / 0 · `css-comments` 91 balanced · `dead-sel` 0 dead over 267 pages with the system.
+
+Standing debt: **1 component with no stand page** (`coach-wishlist` - 254 lines for 8 declarations,
+the highest lines-per-declaration ratio in the system at 31.75), 4 stand pages with no token table,
+and the four unsnapped radii.
+
+## Step 6, fifty-first pass - the last coach organism, and the file whose whole content is what it did not do
+
+`design/kit/coach-wishlist.html`, the eighth of eight. **Every one of the 84 components now has a
+stand page** - `roles.mjs` has printed «без сторінки» on every run since the count was taken, and
+today it prints nothing.
+
+Node 5.8 is the strangest file in the system: 278 lines, **two selectors, seven declarations.** Forty
+lines of reasoning per declaration, and almost all of it about what the file does NOT do.
+
+### Two rules, twenty-six controls, and none of the twenty-six is its own
+
+The private block carried `.cw-note` and `.cw-note b` and nothing else, while `<main>` holds
+**26 controls** - counted in the browser, not in the markup. That ratio is the inverse of what step
+7.95 met, where `index.css` records private stylesheets at 13 to 76 rules each and the work was
+deleting what an atom already owned. Here the port had nothing to delete, **because the deletion had
+already happened one layer down and one step earlier**: the screen stopped loading
+`wireframes/_wf.css` the moment it was cloned, four rules died there, and two atoms took them.
+
+What was left to do was not in the stylesheet at all. **`class="btn"` paints nothing in this system**
+- `button.css` declares its base on the four finishes and has no `.btn` rule - so a control naming no
+finish renders as unstyled text. Measured identical at 360 / 390 / 768 / 1280 before the classes went
+on: `.cartbtn` and `.cartbtn.notify` both **16.8 x 25.59**, display block, no ground, no border, no
+radius - and the second of those is supposed to be the one control on the screen that differs from
+its neighbours. After: 44 x 44 each. **Four controls went from 25.59 to 44, and the fix was markup.**
+
+### The claims this file makes about the corpus were re-asked, and two had gone stale
+
+The file states three things that are not about itself, and a claim about the corpus is not in the
+file that makes it. All three were asked again in the browser and in the source:
+
+**Held.** Eleven boxes in seven files declare `1px dashed var(--line-strong)` in their structure half,
+twelve in eight with this one - exact. Five of the eleven are turned back to `border-style: solid` on
+a tinted ground **by the colour half of the very same file**: `.pf-note`, `.co-noaddr`,
+`.abonus .warn`, `.addr-hint`, `.ord-oos`. Five files, one answer, taken five times independently -
+and it is one decision about twelve boxes rather than twelve about one each.
+
+**Stale by deletion.** The list of six that stay dashed names `.bb .tier`, which was **deleted at
+8.34c** by the sweep's third list, «a class nobody wears», measured at 0 instances in both layers.
+`.ac-new` in `client-dialog.css` took its place and did not exist the day the paragraph was written.
+
+**Stale by repair.** `.acc-link` is recorded here as «40.39 tall at 360 / 390 / 768», a control
+standing 4px under the touch floor. Re-measured on the same screen today: **44.00** at all three and
+47.39 at 1280. Somebody in `account-shell.css` cleared it, and this file did not know.
+
+**A claim about the corpus goes stale silently, and the event that stales it happens in another
+file.** Third time this repository has paid for that sentence - `.cnew` at 7.96, `.skcard` at 8.54,
+these two now - and the first time a stand page collected. Both corrections are written under the
+original readings rather than over them: the readings were true when taken, and being overtaken is
+not the same as being mistaken.
+
+### One object, two names, three numbers
+
+`.cw-note` and `.cc-note` are the same note in the same flow drawn by two hands. Both `--fs-14`,
+`--text-secondary`, 1px dashed `--line-strong`, both leaning on the same inherited 1.6 - measured at
+360 today, 22.4px on each. They differ in three numbers and nothing else: radius 8 against 10,
+padding 10/12 against 11/13, margin 14/0 against 14/4. Neither set was decided; the second is already
+marked `[?]` three times in `coach-clients.css`. Shown on the page as two frames, because the named
+difference IS the whole content of the comparison.
+
+### Six controls under the floor, and not one of them this file's
+
+Of the 26, six stand under 44: two `.crumb a` at **15.00 at all four widths** (`breadcrumb.css`, and
+the trail is on every listing, product and account page) and four `.pcard .nm` at 36 below 619, where
+the base rule is `min-height: var(--size-44)`. Every control this screen is responsible for clears
+it: `.wlrm` and `.cartbtn` at 44 x 44 at all four widths, `.coach-newcta` at 328 x 52 at 360.
+
+### Gates
+
+`accept` 4 new pages, 0 failures at 390 and at 360 · `roles` 84 components, 0 diverged,
+**0 without a page** · `inventory` 84/84, 0 `Lines`, 0 meta · `idle` **83 pages with their own
+control, 0 red** · `links` 4 921 / 0 / 0 · `css-comments` 91 balanced · `dead-sel` 0 dead over 271
+pages with the system.
+
+Standing debt: 4 stand pages with no token table (`availability`, `chip`, `menu`, `stack-action`),
+the four unsnapped 14px radii, and the two owner decisions on `menu.css` and `upsell.css` levels.

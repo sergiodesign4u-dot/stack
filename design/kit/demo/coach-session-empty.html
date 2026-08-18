@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Сесія замовлення - порожня</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body class="coach">
+<!-- Built by tools/demo.mjs off design/coach-session-empty.html - not retyped. The body class
+     is the screen's own: an organism scoped to it draws nothing without it. -->
+<div style="max-width:1200px;margin:0 auto;padding:0 16px"><main class="wf-page cs-wrap">
+  
+
+  <div class="cs-top">
+    <div>
+      <h1>Сесія замовлення</h1>
+      <div class="cs-meta"><span class="tierchip">Pro</span> гуртові ціни активні · <b>0 клієнтів</b> · 0 товарів</div>
+    </div>
+    <a class="btn--outline btn--s btn" href="../../coach-home.html">Зберегти й вийти</a>
+  </div>
+
+  <!-- CLIENT TABS - none yet, only the add-tab -->
+  <div class="ctabs" role="tablist" aria-label="Клієнти сесії">
+    <a class="ctab add" href="../../coach-session-addclient.html"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.4v15.2"></path><path d="M4.4 12h15.2"></path></svg></span> Клієнт</a>
+  </div>
+
+  <div class="cs-grid">
+
+    <!-- EMPTY-SESSION PROMPT -->
+    <section class="cs-panel" aria-label="Порожня сесія">
+      <!-- `.emptybox`, not a sixth private edition of it - step 8.30. The `<h3>` keeps
+           its element and takes the component's class: `.emptybox .et` is a class
+           selector and does not care what tag carries it, so the heading level
+           survives the move. -->
+      <div class="emptybox">
+        <div class="ei"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.2" cy="7.8" r="3.3"></circle><path d="M3.3 20c.4-3.3 2.9-5.4 5.9-5.4s5.5 2.1 5.9 5.4"></path><path d="M15.6 4.5a3.3 3.3 0 0 1 0 6.6"></path><path d="M17.2 15.2c1.9.6 3.2 2.4 3.2 4.8"></path></svg></span></div>
+        <h3 class="et">У сесії ще немає клієнтів</h3>
+        <div class="es">Додайте першого клієнта - вкажіть ім'я та ціль. Далі для кожного клієнта окремо
+          збиратимете товари через швидке додавання за гуртовими цінами.</div>
+        <div class="eact"><a class="btn--accent btn--l btn" href="../../coach-session-addclient.html"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.4v15.2"></path><path d="M4.4 12h15.2"></path></svg></span> Додати першого клієнта</a></div>
+        <div class="hint">Клієнти зі списку підтягуються автоматично - можна вибрати збереженого.</div>
+      </div>
+    </section>
+
+    <!-- SESSION SUMMARY (empty) -->
+    <aside class="cs-summ" aria-label="Сесія - разом">
+      <div class="cs-summ-h">Сесія - разом</div>
+      <div class="cs-summ-empty">Ще немає клієнтів і товарів. Додайте клієнта, щоб почати замовлення.</div>
+      <div class="cs-tot"><span>Разом</span><b>0 <span class="uiv-cur">₴</span></b></div>
+      <div class="cs-note">Ціни гуртові (тариф Pro). Доставка - одна на тренера. Знижки й бонуси - на оформленні.</div>
+      <a class="btn--outline btn--full btn cs-go" href="../../cart-coach.html" aria-disabled="true">Перейти в кошик<span class="uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 12h16.8"></path><path d="M14 5.6l6.4 6.4-6.4 6.4"></path></svg></span></a>
+      <a class="btn--text ci-lnk btn--full btn cs-save" href="../../coach-home.html">Зберегти сесію</a>
+    </aside>
+
+  </div>
+</main></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

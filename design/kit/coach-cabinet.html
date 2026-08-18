@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Кабінет тренера | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Кабінет тренера</h1>
+<p class="kp-lead">Щоденний екран первинної аудиторії: вузол 5.2 «панель» і вузол 5.6 «історія замовлень». Два екрани в одному файлі, бо це один організм - та сама оболонка кабінету, ті самі імена клієнтів, ті самі гроші. Найбільший файл системи.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-cabinet.css</span><span class="kp-tag">962 рядки</span><span class="kp-tag">70 селекторів</span><span class="kp-tag">201 оголошення</span><span class="kp-tag">8 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітку знято з кольорових екранів у цій сесії через <code>tools/demo.mjs</code>, разом із класом <code>coach</code> на <code>&lt;body&gt;</code>. Рамки на <b>732</b>, бо саме стільки має колонка вмісту в продукті на 1280: <code>.acc</code> це 1032, з яких 268 бере рейка кабінету.</p>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-cabinet.html" style="width:1180px" data-w="1180" title="Кабінет тренера - панель"></iframe></div>
+<div class="kp-cap">Вузол 5.2. Усе, що не смуга статусу, картки клієнтів, замовлень і поповнення, - чуже: заголовок і рейку дає <code>account-shell.css</code>, картки товару - <code>product-card.css</code></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Смуга статусу</b> <code>.cstat</code> - перше на екрані і <b>заява, а не контрол</b>: тепла поверхня з волосяною лінією, без картки й без тіні. Усередині <code>.tierchip</code>, <code>.cnote</code> з <code>.csub</code> і <code>.qm</code>, і посилання <code>.cmanage</code></span></div>
+<div class="a"><i>2</i><span><b>Нотатка про поповнення</b> <code>.crestock</code> з <code>.rk-lead</code> - ритм замовлень клієнта, перерахований у «скоро знадобиться». Це <b>Job 3 для чужих людей</b>: тренер стежить за запасом не своїм, а клієнтським</span></div>
+<div class="a"><i>3</i><span><b>Список клієнтів</b> <code>.cli</code> · <code>.cli-add</code> · <code>.cinfo</code> · <code>.cn</code> · <code>.cg</code> · <code>.cgo</code> · <code>.cav</code> · <code>.cgo-btn</code>. Аватар, ім'я, ціль, кількість замовлень, посилання в профіль</span></div>
+<div class="a"><i>4</i><span><b>Останні замовлення</b> <code>.cord</code> · <code>.co-meta</code> · <code>.co-info</code> · <code>.co-status</code> · <code>.co-sum</code> · <code>.co-no</code> · <code>.cs-b</code>. Те саме, що на 5.6, але коротко і без фільтрів</span></div>
+<div class="a"><i>5</i><span><b>Оболонка</b> <code>.ah</code>, <code>.ac-info</code>, <code>.ac-cli</code> - місця, де цей файл дописує рядок у чужу картку. Імпорт мусить іти <b>після</b> <code>account-shell.css</code>, і це записано у файлі окремо</span></div></div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-cabinet-empty.html" style="width:1180px" data-w="1180" title="Кабінет тренера - порожній"></iframe></div>
+<div class="kp-cap"><b>Єдиний екран, де живе <code>.cnew</code></b> - велика первинна дія «Зібрати першу сесію»: <code>.cn-ic</code>, <code>.cn-tx</code>, <code>.cn-t</code>, <code>.cn-s</code>, <code>.cn-go</code>. Про неї - наступний розділ, і це найважливіше, що знайшла ця сторінка</div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-cabinet-free.html" style="width:1180px" data-w="1180" title="Кабінет тренера - смуга Free"></iframe></div>
+<div class="kp-cap">Та сама смуга на тарифі Free: чип міняє слово, речення міняє зміст, розкладка не міняється нічим. Один клас, два тарифи</div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-cabinet-picker.html" style="width:900px" data-w="900" title="Кабінет тренера - рядок вибору клієнта"></iframe></div>
+<div class="kp-cap"><b>Два класи цього файлу живуть на чужому екрані</b>: <code>.ac-cli .cav</code> і <code>.ac-cli .ac-info</code> дописують рядок вибору клієнта в діалозі сесії. Сам рядок - це <code>radio.css</code>, форму аватара й текстової колонки дає кабінет, бо це <b>той самий рядок клієнта</b>, лише всередині вибору</div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-cabinet-orders.html" style="width:1180px" data-w="1180" title="Кабінет тренера - історія замовлень"></iframe></div>
+<div class="kp-cap">Вузол 5.6: <code>.co-top</code> · <code>.co-new</code> · <code>.co-filters</code> з <code>.co-fil</code> і <code>.co-search</code> · чотири <code>.ord</code> з <code>.ord-h</code>, <code>.ord-no</code>, <code>.ord-date</code>, <code>.ord-meta</code>, <code>.ord-cli</code>, <code>.ord-chip</code>, <code>.ord-foot</code>, <code>.ord-tot</code>, <code>.ord-acts</code> · і <code>.co-more</code> унизу</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Знайдено на цій сторінці: записка, яка була правдою рівно один день</div>
+<p class="kp-p">У файлі стоїть абзац, який закінчується інструкцією: «шість структурних правил і два колірні під <code>.cnew</code> - <b>без елемента на жодному кольоровому екрані</b>... хто підтвердить видалення блоку, видаляє ці вісім разом із ним».</p>
+<p class="kp-p"><b>Це неправда, і неправда вже п'ять днів.</b> Зміряно в браузері по всіх 88 кольорових екранах:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Дата</th><th>Що сталось</th></tr></thead><tbody>
+<tr><td>11.08.2026</td><td>записку написано, і вона <b>правильна</b>: <code>.cnew</code> щойно пішов із <code>coach-home</code>, а <code>design/coach-home-empty.html</code> <b>ще не існував</b></td></tr>
+<tr><td>12.08.2026</td><td>цей екран <b>створено</b> - один із 35 клонів кроків 8.12-8.15 - і він несе <code>&lt;a class="cnew"&gt;</code> з усіма п'ятьма дітьми</td></tr>
+<tr><td>відтоді</td><td>записка каже «без елемента на жодному екрані», поки екран несе елемент. <b>Одинадцять комітів.</b></td></tr>
+</tbody></table></div>
+<p class="kp-p">І малює вона не дрібницю. На <code>coach-home-empty</code> при 1280 <code>.cnew</code> - <b>732 x 119</b>, ґрунт <code>--bg-action</code>, чорнило <code>--text-onaction</code>; <code>.cn-ic</code> 46 x 46, <code>.cn-t</code> 18px, <code>.cn-s</code> 14px, <code>.cn-go</code> 28 x 28, усе малює. Це <b>найгучніший об'єкт екрана і єдина дія на ньому</b>: «Зібрати першу сесію».</p>
+<div class="kp-gap"><h4>Записка з інструкцією - це правило без перевірки під ним</h4>Виконати останній рядок того абзацу означало б зняти <b>єдину дію</b> на єдиному екрані, де тренерові більше нічого робити. І в неї було п'ять днів на те, щоб її виконали.<br><br><b>Клас важливіший за випадок.</b> Коментар, який стверджує <b>відсутність</b>, - це твердження про <b>корпус</b>, а корпус лежить не в цьому файлі. Він старіє мовчки, і крок клонування - рівно та подія, яка його старить: 35 екранів приїхали одним комітом, і ніхто не перечитав записки, написані напередодні. Прогрепано по всьому шару компонентів: <b>це єдине твердження такого роду</b>, тож одинак, а не родина. Дев'ять правил лишаються.</div></section>
+
+<section class="kp-sec"><div class="kp-sh"><code>.ord</code> і <code>.ord-h</code> - одне ім'я, два компоненти</div>
+<p class="kp-p">Найдорожча відкрита річ у файлі, і вона названа, а не полагоджена, бо перейменування розмітки - це Крок 6. <code>order-row.css</code> (рівень 2) і цей файл (рівень 3) оголошують ті самі два імені для <b>різних об'єктів</b>:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Ім'я</th><th>У покупця</th><th>У тренера</th></tr></thead><tbody>
+<tr><td><code>.ord</code></td><td>картка, яка <b>розкривається</b>: без власних полів, <code>overflow: hidden</code>, <code>--radius-12</code>, <code>--elevation-1</code>. Поля платять <code>.ord-h</code> і <code>.ord-body</code> окремо, бо розділювач між ними має йти від краю до краю</td><td>статичний <code>&lt;article&gt;</code>, який не розкриває нічого</td></tr>
+<tr><td><code>.ord-h</code></td><td><code>&lt;button&gt;</code>: ширина 100%, <code>padding: var(--space-16)</code>, <code>cursor: pointer</code> і <b>сітка з п'яти зон</b> нижче 640</td><td><code>&lt;div&gt;</code>: рядок по базовій лінії, <code>space-between</code>, без полів і без чого натискати</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Написані без скоупа, вони розбирають одне одного</b>, і програє телефон покупця: базовий <code>display: flex</code>, оголошений пізніше, б'є <code>display: grid</code> усередині ранішої медіа-умови при рівній специфічності, - і в покупця лишились би п'ять оголошень <code>grid-area</code> без сітки. Прив'язані до оболонки, вони знову два компоненти.</p>
+<div class="kp-pair"><div class="kp-dont"><h4>Що платив рядок заголовка, поки цього не зміряли</h4><code>.coach .ord-h</code> ніколи не скидав <code>order-row.css</code>, який оголошує на тому самому імені <code>padding: var(--space-16)</code> і <code>cursor: pointer</code>. Зміряно на 390: <code>.ord-no</code> стояв на <b>x=49.0</b> на всіх чотирьох картках, а <code>.ord-meta</code>, <code>.ord-cli</code> і <code>.ord-tot</code> - на <b>x=33.0</b>. Картка платить 12/16, заголовок платить 16 <b>ще раз зверху</b>, і єдиний рядок, який називає замовлення, стояв із відступом більшим за всі інші рядки своєї ж картки.</div>
+<div class="kp-do"><h4>Після <code>padding: 0</code></h4>Усі чотири заголовки 63.2 замість 94.8 і 120.4, кожен <code>.ord-no</code> на 33.0, кожна дата назад в один рядок. Картки 335.7 / 361.3 / 338.9 / 394.5 → <b>304.1 / 304.1 / 281.8 / 337.3</b>. <code>cursor: auto</code> пішов разом із ним: рядок не відповідає на клік, а вказівник над ним - обіцянка, якої цей екран не виконає.<br><b>Це не перефарбовування атома, а скидання імені, яке зіткнулось</b> - рівно те, для чого скоуп і існує.</div></div>
+<div class="kp-cap">На 360 дата й далі падає на трьох картках із чотирьох - заголовок 88.8, а не 63.2. Це рядок проти колонки 294, а не поля: скоротити «Замовлення № К-2075» - рішення про <b>слова</b></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Сім приватних імен для чотирьох атомів, чотири вже вдома</div>
+<p class="kp-p">Приватний псевдонім - <b>не той самий дефект</b>, що заліз у чужий компонент: тут ніщо не перемальовує ім'я, яке атом тримає, - тут малюють ім'я, про яке атомові ніхто не сказав. Виправлення - один рядок у списку селекторів атома, і писати його не цьому файлу.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Приватне ім'я</th><th>Чий це насправді атом</th><th>Стан</th></tr></thead><tbody>
+<tr><td><code>.cstat .tierchip</code></td><td><code>account-shell.css</code>, <code>.acc-tier</code></td><td><b>відкрито</b></td></tr>
+<tr><td><code>.co-fil</code></td><td><code>chip.css</code> - там уже вісім імен</td><td><b>відкрито</b></td></tr>
+<tr><td><code>.cgo</code> <code>.cmanage</code></td><td><code>link-row.css</code>, гучний щабель</td><td><b>відкрито</b></td></tr>
+<tr><td><code>.co-search</code></td><td><code>field.css</code></td><td>закрито 7.96 - розмітка взяла <code>field</code>, тут лишилось лише місце</td></tr>
+<tr><td><code>.ord-status</code>, <code>.cord .co-status</code></td><td><code>status-pill.css</code></td><td>закрито 7.96 - атом узяв імена і стани <code>.ok</code> / <code>.way</code></td></tr>
+<tr><td><code>.co-sum a</code></td><td>–</td><td>закрито 7.96 - два посилання стали <b>кнопками</b>, чим і були</td></tr>
+</tbody></table></div>
+<p class="kp-p">Кожен із чотирьох закрився так, як абзац і передбачав: <b>атом вивчив ім'я, а правило тут видалили, а не переписали</b>. Та сама форма, що й на кроках 7.23 (чип), 7.30 (рядок посилань) і 7.37 (статус-пілюля): усі три працювали <b>додаванням імені</b> в список атома, і жоден - перейменуванням розмітки, яку ділить заморожений сірий шар.</p>
+<div class="kp-cap">Видалено ж без розмов те, що атом уже має <b>за іменем</b>: <code>.cli .cgo-btn</code> і <code>.co-more</code> стоять на елементах, що носять <code>btn</code>, тож їхні поля, ширина і рамка - це <code>button.css</code></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Простір імен, у якому пощастило</div>
+<p class="kp-p">Файл відкривався правилом <code>.co-wrap{ max-width: 940px }</code>, а елемента <code>.co-wrap</code> на цьому екрані немає взагалі. Тобто на своєму екрані воно не малювало нічого - і намалювало б чимало на чужому: <code>co-</code> це простір імен <b>чекауту</b>, де <code>.co-wrap</code> оголошено як обгортку сторінки на 1200, а цей файл вантажиться <b>після</b> <code>checkout-form.css</code>. Один рядок звузив би всі п'ять екранів чекауту до 940 заради елемента, якого не існує.</p>
+<p class="kp-p"><b>І сам простір імен - це і є знахідка.</b> <code>.co-top</code>, <code>.co-new</code>, <code>.co-filters</code>, <code>.co-fil</code>, <code>.co-search</code>, <code>.co-more</code> усі сидять у префіксі чекауту, і жоден <b>сьогодні</b> не стикається - звірено ім'я за іменем. Це щастя, а не задум, і наступне <code>co-</code>, яке вигадає будь-який із двох екранів, - підкидання монети.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Типографіка: дев'ятнадцять</div>
+<p class="kp-p">Найбільша партія розмірів серед п'яти тренерських файлів, і жоден із них тут не вирішено: обидва ходи належать власникові й узяті на всьому продукті два етапи тому. <b>Дев'ятнадцять зрушили, дев'ятнадцять угору, жоден униз.</b> Сім із них 12.5 → 14, п'ять 13 → 14, два 11 → 12, два 11.5 → 12, один 15 → 16, два 22 → 24.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Сірий → стало</th><th>Клас</th><th>Сірий → стало</th></tr></thead><tbody>
+<tr><td><code>.cstat .cnote</code></td><td>13 → 14</td><td><code>.co-top h1</code></td><td>22 → 24 <i>(видалено)</i></td></tr>
+<tr><td><code>.cstat .cmanage</code></td><td>12.5 → 14</td><td><code>.co-top .sub</code></td><td>12.5 → 14 <i>(видалено)</i></td></tr>
+<tr><td><code>.cnew .cn-s</code></td><td>13 → 14</td><td><code>.co-fil</code></td><td>12.5 → 14</td></tr>
+<tr><td><code>.cnew .cn-go</code></td><td>22 → 24</td><td><code>.co-search</code></td><td>13 → 14 <i>(видалено)</i></td></tr>
+<tr><td><code>.cli .cinfo .cg</code></td><td>12.5 → 14</td><td><code>.ord-no</code></td><td>15 → 16</td></tr>
+<tr><td><code>.cli .cgo</code></td><td>12.5 → 14</td><td><code>.ord-date</code></td><td>12.5 → 14</td></tr>
+<tr><td><code>.crestock .rk-lead</code></td><td>13 → 14</td><td><code>.ord-status</code></td><td>11 → 12 <i>(видалено)</i></td></tr>
+<tr><td><code>.cord .co-meta</code></td><td>12.5 → 14</td><td><code>.ord-meta</code></td><td>13 → 14</td></tr>
+<tr><td><code>.cord .co-status</code></td><td>11 → 12</td><td><code>.ord-chip</code></td><td>11.5 → 12</td></tr>
+<tr><td>–</td><td>–</td><td><code>.ord-tot small</code></td><td>11.5 → 12</td></tr>
+</tbody></table></div>
+<p class="kp-p">Чотири рядки з позначкою <i>(видалено)</i> у файлі більше не існують: 7.96 зняв їх, коли розмітка взяла <code>.acc-h1</code>, <code>.acc-sub</code>, <code>field</code> і власні імена статус-пілюлі. <b>Значення тепер атомове, а не чиясь здогадка.</b></p>
+<div class="kp-pair"><div class="kp-dont"><h4>Записки були справжнім дефектом, і хибними двічі</h4>До 7.96 усі п'ятнадцять читались так, ніби сіре число й досі оголошене - «[?] півпікселя», «[?] 13px не має щабля» <b>поруч із рядком, який каже <code>var(--fs-14)</code></b>. 7.96 виправив цю половину і завів другу: назвав кожну «ПЕРЕНЕСЕНО 7.95, НЕ ВИРІШЕНО», що так само хибно з іншого боку.</div>
+<div class="kp-do"><h4>Вони були вирішені, і не тут</h4>Вирішені на 5.5 і 5.6, власником, на всьому продукті. 7.95 лише <b>застосував</b> рішення, поза яким цей екран стояв, бо жив у приватному <code>&lt;style&gt;</code>. 7.98 - третій і останній перепис цих п'ятнадцяти записок. <b>28</b> позначок <code>[?]</code> у файлі, і всі вони про геометрію: відступи мають два правила, що суперечать, радіус бере нічию вниз.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Це <b>щоденний екран первинної аудиторії</b> - те, що тренер відкриває, коли просто заходить. Усе на ньому міряється однією міркою: скільки дотиків від «зайшов» до «замовлення для трьох клієнтів у дорозі».</p>
+<p class="kp-p">Позичати звідси нема чого і не треба: усі 33 власні класи - це розкладка двох конкретних екранів. Усе, що має форму, вже належить комусь іншому, і сім псевдонімів у таблиці вище - це список того, наскільки саме.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Скоуп існує, щоб розводити імена, які зіткнулись, а не щоб перефарбовувати атоми.</b> <code>.coach .ord-h{ padding: 0; cursor: auto }</code> - це <b>скидання</b> чужого правила, яке дісталось не свого елемента. <code>.coach .cli .cgo-btn{ padding: … }</code> було б перефарбовуванням кнопки, і його видалено.</div>
+<div class="kp-dont"><h4>Антиправило</h4><b>Не пиши в коментарі, чого немає на екранах.</b> Файл знає свої правила і не знає корпусу. «Цього немає ніде» застаріває мовчки - і найшвидше саме тоді, коли корпус росте пачкою клонів. Якщо твердження про корпус потрібне, воно має бути <b>заміром із датою</b>, а не реченням.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
+<p class="kp-p"><b>Нуль</b> <code>:hover</code>, нуль <code>:active</code>, нуль <code>:focus-visible</code>. Усе, що відповідає на палець, - кнопка, чип, поле, посилання або статус-пілюля, і за них відповідають їхні файли.</p>
+<p class="kp-p">Стани тут - <b>варіанти даних</b>, а не взаємодії: тариф Pro проти Free у <code>.cstat</code>, порожній кабінет проти повного, «Доставлено» проти «У дорозі» на пілюлі. Жоден із них не малює цей файл; він лише дає їм місце.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Умова</th><th>Що змінює</th></tr></thead><tbody>
+<tr><td><code>(min-width: 640px)</code></td><td>картки оболонки в дві колонки</td></tr>
+<tr><td><code>(min-width: 720px)</code></td><td>смуга статусу з двох рядків в один</td></tr>
+<tr><td><code>(max-width: 520px)</code></td><td>стрілка <code>.cn-go</code> ховається: картка <code>.cnew</code> уся є посиланням, а нижче 520 їй потрібна ширина під речення. <b>Єдина 520 у файлі</b></td></tr>
+</tbody></table></div>
+<p class="kp-p">Смуга статусу стала <b>сіткою, а не рядком, що переноситься</b>, на кроці 8.0 - і причина в замірі, а не в смаку. Гнучкий рядок ламає лінію за <b>гіпотетичним</b> розміром елемента: речення заявляло свої 685.8 <code>max-content</code> перш ніж будь-що дозволяли стиснути, посилання після нього не вміщалось, починався новий рядок. Один рядок потребував 889.3 вмісту, тобто коробки 921.3 - <b>а це приходить на 1440 і більше ніде</b>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>47</b> класів і <b>0</b> станів оголошено в <code>coach-cabinet.css</code>. <code>.coach</code> не рахується - це скоуп.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["ac-cli", "ac-info", "ah", "cav", "cg", "cgo", "cgo-btn", "cinfo", "cli", "cli-add", "cmanage", "cn", "cn-go", "cn-ic", "cn-s", "cn-t", "cn-tx", "cnew", "cnote", "co-fil", "co-filters", "co-info", "co-meta", "co-more", "co-new", "co-no", "co-search", "co-sum", "co-top", "cord", "crestock", "cs-b", "cstat", "csub", "ord", "ord-acts", "ord-chip", "ord-cli", "ord-date", "ord-foot", "ord-h", "ord-meta", "ord-no", "ord-tot", "qm", "rk-lead", "tierchip"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>coach-cabinet.css</code>, не переписані руками. Найменша частка токенів на рядок серед тренерських файлів, і це правильно: 201 оголошення на 962 рядки означає, що дві третини файлу - <b>записки про те, чого в ньому вже немає</b>.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (14)</th><th>Примітиви (19)</th></tr></thead><tbody>
+<tr><td><code>--bg-action</code> <code>--bg-page</code></td><td><code>--font-mono</code></td></tr>
+<tr><td><code>--bg-sunken</code> <code>--bg-surface</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code></td></tr>
+<tr><td><code>--line-action</code> <code>--line-hair</code></td><td><code>--fs-18</code> <code>--fs-24</code></td></tr>
+<tr><td><code>--line-inverse</code> <code>--line-onaction</code></td><td><code>--fw-semibold</code> <code>--fw-bold</code> <code>--fw-black</code></td></tr>
+<tr><td><code>--line-strong</code></td><td><code>--radius-12</code> <code>--radius-circle</code> <code>--radius-pill</code></td></tr>
+<tr><td><code>--text-body</code> <code>--text-muted</code></td><td><code>--size-40</code> <code>--size-46</code></td></tr>
+<tr><td><code>--text-onaction</code> <code>--text-primary</code></td><td><code>--space-2</code> <code>--space-4</code> <code>--space-8</code></td></tr>
+<tr><td><code>--text-secondary</code></td><td><code>--space-12</code> <code>--space-16</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><code>--bg-action</code> тут лише в одному місці - <code>.cnew</code>, тій самій картці з розділу вище. Це <b>єдина суцільна акцентна заливка</b> в кабінеті, і стоїть вона на екрані, де тренерові більше нічого натиснути.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;div class="acc-main"&gt;
+  &lt;h1 class="acc-h1"&gt;…&lt;/h1&gt;&lt;p class="acc-sub"&gt;…&lt;/p&gt;
+
+  &lt;div class="cstat"&gt;
+    &lt;span class="tierchip"&gt;Pro&lt;/span&gt;
+    &lt;div class="cnote"&gt;&lt;b&gt;…&lt;/b&gt;&lt;span class="csub"&gt;… &lt;span class="qm"&gt;[?]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;a class="cmanage"&gt;Керувати тарифом&lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;a class="cnew" href="coach-session.html"&gt;
+    &lt;span class="cn-ic"&gt;＋&lt;/span&gt;
+    &lt;span class="cn-tx"&gt;&lt;span class="cn-t"&gt;…&lt;/span&gt;&lt;span class="cn-s"&gt;…&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="cn-go"&gt;→&lt;/span&gt;
+  &lt;/a&gt;
+
+  &lt;div class="cli"&gt;
+    &lt;a class="btn cli-add"&gt;Додати клієнта&lt;/a&gt;
+    &lt;div class="cinfo"&gt;&lt;span class="cav"&gt;А&lt;/span&gt;&lt;span class="cn"&gt;Андрій&lt;/span&gt;
+      &lt;span class="cg"&gt;Ціль: …&lt;/span&gt;&lt;a class="cgo"&gt;Профіль&lt;/a&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;article class="ord"&gt;
+    &lt;div class="ord-h"&gt;&lt;span class="ord-no"&gt;…&lt;/span&gt;&lt;span class="ord-date"&gt;…&lt;/span&gt;
+      &lt;span class="ord-status ok"&gt;Доставлено&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="ord-meta"&gt;…&lt;/div&gt;
+    &lt;div class="ord-cli"&gt;&lt;span class="ord-chip"&gt;Марія · Схуднення&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="ord-foot"&gt;&lt;span class="ord-tot"&gt;…&lt;small&gt;…&lt;/small&gt;&lt;/span&gt;
+      &lt;span class="ord-acts"&gt;…&lt;/span&gt;&lt;/div&gt;
+  &lt;/article&gt;
+&lt;/div&gt;</div>
+<p class="kp-p">Розмітка заморожена, тож перейменування <code>.ord</code> і <code>.ord-h</code> - Крок 6, а не цей файл. Доти скоуп <code>.coach</code> тримає два компоненти нарізно, і саме тому <b>ці два імені єдині у файлі, яким скоуп справді потрібен</b>: усе інше в просторі <code>.ord-*</code>, якого <code>order-row.css</code> не займає.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.cstat</code> <code>.cnote</code> <code>.csub</code></p>
+<p class="kp-p"><b>8 кольорових екранів</b>: <code>coach-home</code> · <code>-empty</code> · <code>-free</code> · <code>-loading</code> · <code>-error</code> і <code>coach-orders</code> · <code>-empty</code> · <code>-loading</code> · <code>-error</code>. Плюс два класи, <code>.ac-info</code> і <code>.ac-cli</code>, дописують рядок у діалог додавання клієнта на <code>coach-session-addclient</code> - там цей файл дістає чужий екран.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b><code>.ord</code> і <code>.ord-h</code> перейменувати</b> - одне ім'я на два компоненти, і поки що їх розводить лише скоуп. Крок 6 для розмітки, рішення про імена - власника</li>
+<li><b>Три псевдоніми чекають одного рядка в атомі</b>: <code>.tierchip</code> в <code>account-shell.css</code>, <code>.co-fil</code> у <code>chip.css</code>, <code>.cgo</code> і <code>.cmanage</code> в <code>link-row.css</code></li>
+<li><b>Простір імен <code>co-</code> ділиться з чекаутом</b>, і сьогодні не стикається лише випадково</li>
+<li><b>28 геометричних літералів</b> під <code>[?]</code>: 14, 15, 9, 6, 13, 20, 3. Відступи мають два правила, що суперечать одне одному, тож жоден із них не рухається без рішення</li>
+<li><b>Дата падає на 360</b> на трьох картках із чотирьох. Це рядок проти колонки 294 - рішення про слова, не про CSS</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script src="_idle.js"></script>
+<script src="_frame.js"></script>
+</main>
+<script src="_nav.js"></script>
+</body>
+</html>

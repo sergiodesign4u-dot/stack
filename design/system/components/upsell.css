@@ -59,8 +59,11 @@
 .coach .upsell .up,
 .coach .upsell p{ font-size: var(--fs-14);                /* grey 13 -> 14: 5.6, ties go UP */
   color: var(--text-secondary); margin: 0 0 var(--space-8); line-height: var(--lh-airy); }
-.coach .upsell .up b,
-.coach .upsell p b{ color: var(--text-primary); }
+/* 8.54: the panel really does not care which element carries the paragraph - but
+   only one of the two ever carries a bold word inside it. `tools/dead-sel.mjs`
+   over 263 pages: `.coach .upsell .up b` matches, `.coach .upsell p b` matches
+   nothing. The pairing above is right and this pairing was copied from it. */
+.coach .upsell .up b{ color: var(--text-primary); }
 
 /* the progress bar - "3 of 3 clients used". Only the cap screen has one, and it
    is the one part of this panel that is a MEASUREMENT rather than a claim. */

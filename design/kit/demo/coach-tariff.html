@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>coach-tariff</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body class="coach">
+<!-- Built by tools/demo.mjs off design/coach-tariff.html - not retyped. The body class
+     is the screen's own: an organism scoped to it draws nothing without it. -->
+<div style="max-width:732px;margin:0 auto"><div class="acc-main">
+
+  <h1 class="acc-h1">Тариф</h1>
+  <p class="acc-sub tf-lead">Ваш поточний тариф і керування підпискою. Змінити або скасувати можна будь-коли - гуртові ціни на товари зберігаються на обох тарифах.</p>
+
+  <!-- CURRENT PLAN = Pro active -->
+  <section class="tf-cur" aria-label="Поточний тариф">
+    <div class="tf-cur-h"><span class="tf-plan">Pro</span><span class="oc-status ok">Активний</span></div>
+    <div class="tf-price">99 <span class="uiv-cur">₴</span> <span class="per">/ міс</span> <span class="qm">[?]</span></div>
+    <div class="tf-renew">Наступне списання - <b>12 липня 2026</b> · картка •• 1234</div>
+    <ul class="tf-incl">
+      <li>Максимальна гуртова ціна на всі товари</li>
+      <li>Без обмежень на кількість клієнтів у сесії</li>
+      <li>Мультиклієнтські замовлення та історія по кожному клієнту</li>
+      <li>Пріоритетна підтримка</li>
+    </ul>
+    <div class="tf-actions">
+      <button class="btn--outline btn--danger btn" type="button">Скасувати підписку Pro</button>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <h2 class="tf-ch">Порівняння тарифів</h2>
+  <div class="tf-compare">
+    <div class="acard tf-col">
+      <div class="tf-col-h">Free</div>
+      <div class="tf-col-p">0 <span class="uiv-cur">₴</span></div>
+      <ul>
+        <li>Гуртова ціна, краще за роздріб</li>
+        <li>До 3 клієнтів у сесії</li>
+        <li>Активація миттєва, без оплати</li>
+      </ul>
+    </div>
+    <div class="acard tf-col on">
+      <div class="tf-col-h">Pro <span class="tf-mini">ваш тариф</span></div>
+      <div class="tf-col-p">99 <span class="uiv-cur">₴</span> <span class="per">/ міс [?]</span></div>
+      <ul>
+        <li>Максимальна гуртова ціна</li>
+        <li>Без обмежень на клієнтів</li>
+        <li>Пріоритетна підтримка</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="tf-note"><b>[?]</b> Ціна Pro (~99 ₴/міс), ліміт клієнтів на Free та умови - гіпотеза, уточнюються (юніт-економіка).</p>
+    </div></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

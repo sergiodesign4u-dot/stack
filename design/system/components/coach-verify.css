@@ -284,7 +284,50 @@
    rung, one number where there were two. coach-verify-loading keeps 40/24 in
    its own block - 40 IS a rung, so it is a choice about that screen and not a
    drift, and un-choosing it is stage 09's call, not a side effect of this one. */
-.coach .cv-card{ border: 1px solid var(--line-hair); border-radius: var(--radius-16); padding: var(--space-32) var(--space-24); }
+/* 560 IS THE CARD'S WIDTH - the decision, said out loud, step 8.48.
+   `--` variable: `.coach .cv-card` gains `max-width` · value: 560px · why: below.
+   This is the LAST private rule in the product, and closing it needed a decision
+   because there is no selector that separates the two screens which declared it
+   from the third which did not. Backlog item 2 ends at 0 here.
+
+   WHAT WAS THERE. `coach-verify-error` and `coach-verify-deadend` each carried
+   `.cv-card{ max-width: 560px; margin: 0 auto }` in a private <style>, byte for
+   byte identical. `coach-verify-loading` carries `.cv-card` too and carried no
+   such rule. Three screens, one class, two widths, and nothing said which was
+   meant. 8.40 deferred it in the honest words «whether 560 becomes the panel's
+   width is stage 09's decision» - and did not say that a third screen was
+   already shipping the other answer.
+
+   MEASURED AT 1280 BEFORE:
+       coach-verify-error     .cv-card       560 wide, text left
+       coach-verify-deadend   .cv-card.mid   560 wide, text centred
+       coach-verify-loading   .cv-card.mid   828 wide, text centred, h1 box 778
+
+   THREE REASONS, AND THE THIRD IS THE ONE THAT DECIDES IT.
+   1. Two of the three declare exactly this rule, identically. A rule two screens
+      write the same way is not a per-screen choice; it is a component rule
+      standing in the wrong file.
+   2. The system already narrows what is INSIDE the card - `.cv-lead` 440,
+      `.cv-card.mid .cv-actions` 340 - so a width for the card itself is the
+      statement those two caps are already half-making.
+   3. `.mid` MEANS centred, and 828 is too wide to centre in. The loading screen
+      centred a headline across a 778px box while its two siblings centred the
+      same rank across 510. Centring is a thing you do to a narrow column.
+
+   A/B'd IN THE LIVE PAGES, rule injected and removed, at 1280 / 900 / 390:
+       error, deadend    IDENTICAL at every width, every number. A pure move.
+       loading @1280,900 card 828 -> 560, its button row 1 line -> 2, height
+                         571 -> 623. Two of those three buttons are the
+                         prototype's own demo switches («Далі (демо: перевірку
+                         пройдено)», «Демо: не пройдено»), not product controls.
+       loading @390      IDENTICAL - the cap never binds on a phone.
+       `scrollWidth - clientWidth` 0 everywhere, before and after.
+
+   REVERSIBLE IN ONE DECLARATION if the owner reads it the other way: delete the
+   `max-width` line and give the two state screens back their private rule. The
+   whole cost of being wrong here is 268px on one desktop screen. */
+.coach .cv-card{ border: 1px solid var(--line-hair); border-radius: var(--radius-16); padding: var(--space-32) var(--space-24);
+  max-width: 560px; margin-inline: auto; }
 
 /* THIS PANEL IS THE AUTH DIALOG'S VISUAL HALF, BUILT A SECOND TIME.
    `.cv-aside` carries `.vlogo`, `.vtag` and `.vtag b` - the auth dialog's own

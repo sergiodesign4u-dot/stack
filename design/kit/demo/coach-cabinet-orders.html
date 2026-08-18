@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Кабінет тренера - історія замовлень</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body class="coach">
+<!-- Built by tools/demo.mjs off design/coach-orders.html - not retyped. The body class
+     is the screen's own: an organism scoped to it draws nothing without it. -->
+<div style="max-width:732px;margin:0 auto;padding:0 16px"><div class="acc-main">
+
+  <div class="co-top">
+    <div>
+      <h1 class="acc-h1">Замовлення</h1>
+      <div class="sub acc-sub">Ваші мультиклієнтські замовлення · гуртові ціни (тариф Pro)</div>
+    </div>
+    <a class="btn--outline btn--s btn co-new" href="../../coach-session.html"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.4v15.2"></path><path d="M4.4 12h15.2"></path></svg></span> Нова сесія</a>
+  </div>
+
+  <!-- light filters -->
+  <div class="co-filters">
+    <button class="co-fil" type="button">Усі клієнти<span class="uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></button>
+    <button class="co-fil" type="button">Будь-який статус<span class="uiv-ic uiv-trail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg></span></button>
+    <input class="field co-search" type="search" placeholder="Пошук за № замовлення…" aria-label="Пошук замовлення">
+  </div>
+
+  <!-- order rows -->
+  <article class="ord">
+    <div class="ord-h">
+      <div><span class="ord-no">Замовлення № К-2075</span> <span class="ord-date">· 1 липня 2026</span></div>
+      <span class="ord-status way">У дорозі</span>
+    </div>
+    <div class="ord-meta"><b>1 клієнт</b> · 2 товари · Нова Пошта, відділення №12 (Одеса)</div>
+    <div class="ord-cli"><span class="ord-chip"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.6" r="3.4"></circle><path d="M5.2 20c.4-3.7 3.3-5.9 6.8-5.9s6.4 2.2 6.8 5.9"></path></svg></span> Марія · Схуднення</span></div>
+    <div class="ord-foot">
+      <div class="ord-tot">1 160 <span class="uiv-cur">₴</span><small>гуртом, тариф Pro</small></div>
+      <div class="ord-acts">
+        <a class="btn--outline btn--s btn" href="../../coach-order.html">Деталі</a>
+        <a class="btn--accent btn--s btn" href="../../cart-coach.html">Повторити замовлення</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="ord">
+    <div class="ord-h">
+      <div><span class="ord-no">Замовлення № К-2041</span> <span class="ord-date">· 28 червня 2026</span></div>
+      <span class="ord-status ok">Доставлено</span>
+    </div>
+    <div class="ord-meta"><b>2 клієнти</b> · 4 товари · Нова Пошта, відділення №12 (Одеса)</div>
+    <div class="ord-cli"><span class="ord-chip"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.6" r="3.4"></circle><path d="M5.2 20c.4-3.7 3.3-5.9 6.8-5.9s6.4 2.2 6.8 5.9"></path></svg></span> Андрій · Набір маси</span><span class="ord-chip"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.6" r="3.4"></circle><path d="M5.2 20c.4-3.7 3.3-5.9 6.8-5.9s6.4 2.2 6.8 5.9"></path></svg></span> Марія · Схуднення</span></div>
+    <div class="ord-foot">
+      <div class="ord-tot">3 480 <span class="uiv-cur">₴</span><small>гуртом, тариф Pro</small></div>
+      <div class="ord-acts">
+        <a class="btn--outline btn--s btn" href="../../coach-order.html">Деталі</a>
+        <a class="btn--accent btn--s btn" href="../../cart-coach.html">Повторити замовлення</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="ord">
+    <div class="ord-h">
+      <div><span class="ord-no">Замовлення № К-1987</span> <span class="ord-date">· 14 червня 2026</span></div>
+      <span class="ord-status ok">Доставлено</span>
+    </div>
+    <div class="ord-meta"><b>1 клієнт</b> · 3 товари · Самовивіз (Одеса)</div>
+    <div class="ord-cli"><span class="ord-chip"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.6" r="3.4"></circle><path d="M5.2 20c.4-3.7 3.3-5.9 6.8-5.9s6.4 2.2 6.8 5.9"></path></svg></span> Андрій · Набір маси</span></div>
+    <div class="ord-foot">
+      <div class="ord-tot">2 020 <span class="uiv-cur">₴</span><small>гуртом, тариф Pro</small></div>
+      <div class="ord-acts">
+        <a class="btn--outline btn--s btn" href="../../coach-order.html">Деталі</a>
+        <a class="btn--accent btn--s btn" href="../../cart-coach.html">Повторити замовлення</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="ord">
+    <div class="ord-h">
+      <div><span class="ord-no">Замовлення № К-1902</span> <span class="ord-date">· 30 травня 2026</span></div>
+      <span class="ord-status ok">Доставлено</span>
+    </div>
+    <div class="ord-meta"><b>3 клієнти</b> · 6 товарів · Кур'єр Нова Пошта (Одеса)</div>
+    <div class="ord-cli"><span class="ord-chip"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.6" r="3.4"></circle><path d="M5.2 20c.4-3.7 3.3-5.9 6.8-5.9s6.4 2.2 6.8 5.9"></path></svg></span> Андрій · Набір маси</span><span class="ord-chip"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.6" r="3.4"></circle><path d="M5.2 20c.4-3.7 3.3-5.9 6.8-5.9s6.4 2.2 6.8 5.9"></path></svg></span> Марія · Схуднення</span><span class="ord-chip"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.6" r="3.4"></circle><path d="M5.2 20c.4-3.7 3.3-5.9 6.8-5.9s6.4 2.2 6.8 5.9"></path></svg></span> Ігор · Витривалість</span></div>
+    <div class="ord-foot">
+      <div class="ord-tot">4 260 <span class="uiv-cur">₴</span><small>гуртом, тариф Pro</small></div>
+      <div class="ord-acts">
+        <a class="btn--outline btn--s btn" href="../../coach-order.html">Деталі</a>
+        <a class="btn--accent btn--s btn" href="../../cart-coach.html">Повторити замовлення</a>
+      </div>
+    </div>
+  </article>
+
+  <button class="btn--outline btn--s btn--full co-more" type="button">Показати більше замовлень</button>
+
+    </div></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

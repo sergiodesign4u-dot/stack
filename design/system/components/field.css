@@ -113,8 +113,12 @@ select.field{
    child that keeps a min-height of its own pushes the box past its rung -
    measured 43 and 45 where the ladder says 40 and 44 */
 .field-grp > *{ min-height: 0; }
-.field-grp > .btn--accent, .field-grp > .btn--outline,
-.field-grp > .btn--ghost{ border-radius: 0; border-width: 0; }
+/* 8.54: two of the three had no element - `tools/dead-sel.mjs` over 263 pages
+   finds `.field-grp > .btn--accent` and neither of the others. A control welded
+   to the right-hand edge of a field is the one that SUBMITS what the field
+   holds, and that is an accent by rank; an outline or a ghost in that slot would
+   be a second action inside a single box. Symmetry wrote them, not the product. */
+.field-grp > .btn--accent{ border-radius: 0; border-width: 0; }
 .field-grp > .field:hover, .field-grp > .field:focus{ border: none; box-shadow: none; }
 
 /* ---- states --------------------------------------------------------------
@@ -241,8 +245,15 @@ select.field{
 /* the line under an OTP: how to ask for a new code */
 .resend{ font-size: var(--fs-14); color: var(--text-muted); margin-top: var(--space-16); }
 .resend .cool{ font-family: var(--font-mono); font-weight: var(--fw-semibold); color: var(--text-secondary); }
-.resend a{ color: var(--text-body); font-weight: var(--fw-bold); text-decoration: underline;
-  text-decoration-color: var(--line-strong); cursor: pointer; }
+/* 8.54: `.resend a` DELETED - four declarations for an anchor that is not there.
+   `.resend` holds «Не отримали код? <span class="cool">Надіслати ще (0:45)</span>»
+   (wireframes/_nav.js:856) and nothing else; the countdown is a span because
+   during the count there is nothing to press.
+   THE LIVE RESEND LINK IS SOMEWHERE ELSE ENTIRELY and already has an owner:
+   `<a class="pf-resend">` inside `.otp-note` on the profile forms, drawn by
+   checkout-form.css:50 as bold, `--text-primary`, underlined. This rule was the
+   same control's ninth-edition twin, one token off (`--text-body`), on markup
+   that never existed - so it could not even be caught by looking at the screen. */
 
 /* the client editor's own margin */
 .cef{ margin-bottom: var(--space-16); }

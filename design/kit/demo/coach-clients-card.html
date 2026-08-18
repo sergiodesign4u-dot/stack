@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Клієнти тренера - картка клієнта</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body class="coach">
+<!-- Built by tools/demo.mjs off design/coach-client.html - not retyped. The body class
+     is the screen's own: an organism scoped to it draws nothing without it. -->
+<div style="max-width:860px;margin:0 auto;padding:0 16px"><main class="wf-page cc-wrap">
+  
+
+  <!-- CLIENT HEADER: name + goal chip (goal drives selection) + edit -->
+  <div class="ch">
+    <div class="ch-id">
+      <div class="ch-av">А</div>
+      <div>
+        <!-- the client's name is the subject of this page and had no heading
+             element at all: it was a <div class="ch-name">, so a 3120px page
+             carried no <h1>. The class is unchanged - the look is in
+             coach-clients.css, grouped with `.cl-h1` as the cabinet's one title. -->
+        <h1 class="ch-name">Андрій</h1>
+        <span class="ch-goal"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.3"></circle><circle cx="12" cy="12" r="4"></circle><circle cx="12" cy="12" r=".7" fill="currentColor" stroke="none"></circle></svg></span> Ціль: Набір маси</span>
+      </div>
+    </div>
+    <a class="ch-edit" href="../../../wireframes/coach-client-edit.html">Редагувати клієнта</a>
+  </div>
+
+  <p class="cc-note">Ціль клієнта <b>«Набір маси»</b> формує підбір товарів у сесії замовлення -
+    швидке додавання показує релевантні гейнери, протеїн і креатин за цією ціллю.</p>
+
+  <!-- CLIENT DATA (mirrors the edit modal - name/goal/phone/email/notes) -->
+  <section class="cdetails" aria-label="Дані клієнта">
+    <div class="cd-h">Дані клієнта</div>
+    <dl class="cd-list">
+      <div class="cd-row"><dt>Ціль</dt><dd>Набір маси</dd></div>
+      <div class="cd-row"><dt>Телефон</dt><dd>+380 67 123 45 67</dd></div>
+      <div class="cd-row"><dt>E-mail</dt><dd>andriy.koval@email.com</dd></div>
+      <div class="cd-row"><dt>Нотатки тренера</dt><dd>Алергія на лактозу; тренування вранці</dd></div>
+    </dl>
+  </section>
+
+  <div class="cc-cta">
+    <a class="btn--accent btn" href="../../coach-session.html"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.4v15.2"></path><path d="M4.4 12h15.2"></path></svg></span> Нова сесія</a>
+  </div>
+
+  <!-- PER-CLIENT ORDER HISTORY (coach-tier priced) → one-tap repeat (Job 4) -->
+  <h2 class="oh-h">Історія замовлень клієнта</h2>
+  <div class="ohist">
+
+    <article class="ocard">
+      <div class="oc-top">
+        <div>
+          <div class="oc-no">Замовлення № К-204</div>
+          <div class="oc-meta">12 черв. 2026 · 2 товари</div>
+        </div>
+        <span class="oc-status ok">Доставлено</span>
+      </div>
+      <div class="oc-items">
+        <div class="oc-item">
+          <div class="oc-ph">фото</div>
+          <div><div class="oc-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div><div class="oc-qty">Смак: Подвійний шоколад · ×1</div></div>
+          <div class="cprice">1 090 <span class="uiv-cur">₴</span><span class="old">1 290 ₴</span><span class="wtag">гурт</span></div>
+        </div>
+        <div class="oc-item">
+          <div class="oc-ph">фото</div>
+          <div><div class="oc-nm">BioTechUSA Hyper Mass 4000 г</div><div class="oc-qty">Смак: Ваніль · ×1</div></div>
+          <div class="cprice">1 230 <span class="uiv-cur">₴</span><span class="old">1 450 ₴</span><span class="wtag">гурт</span></div>
+        </div>
+      </div>
+      <div class="oc-sum"><span>Разом (гуртові ціни)</span><b>2 320 ₴</b></div>
+      <div class="oc-actions">
+        <a class="btn--accent btn--s btn" href="../../cart-coach.html">Повторити замовлення</a>
+        <a class="btn--outline btn--s btn" href="../../coach-order.html">Деталі</a>
+      </div>
+    </article>
+
+    <article class="ocard">
+      <div class="oc-top">
+        <div>
+          <div class="oc-no">Замовлення № К-176</div>
+          <div class="oc-meta">28 трав. 2026 · 2 товари</div>
+        </div>
+        <span class="oc-status ok">Доставлено</span>
+      </div>
+      <div class="oc-items">
+        <div class="oc-item">
+          <div class="oc-ph">фото</div>
+          <div><div class="oc-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div><div class="oc-qty">Смак: Полуниця · ×1</div></div>
+          <div class="cprice">1 090 <span class="uiv-cur">₴</span><span class="old">1 290 ₴</span><span class="wtag">гурт</span></div>
+        </div>
+        <div class="oc-item">
+          <div class="oc-ph">фото</div>
+          <div><div class="oc-nm">OstroVit Creatine Monohydrate 500 г</div><div class="oc-qty">Без смаку · ×1</div></div>
+          <div class="cprice">460 <span class="uiv-cur">₴</span><span class="old">549 ₴</span><span class="wtag">гурт</span></div>
+        </div>
+      </div>
+      <div class="oc-sum"><span>Разом (гуртові ціни)</span><b>1 550 ₴</b></div>
+      <div class="oc-actions">
+        <a class="btn--accent btn--s btn" href="../../cart-coach.html">Повторити замовлення</a>
+        <a class="btn--outline btn--s btn" href="../../coach-order.html">Деталі</a>
+      </div>
+    </article>
+
+  </div>
+</main></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

@@ -201,11 +201,49 @@
 .coach .od-grp-h .gs{ font-size: var(--fs-16);   /* was 15px; 5.6, ties go UP */
   font-weight: var(--fw-black); color: var(--text-primary); white-space: nowrap; }
 
+/* 8.52: `.od-line:last-child` MATCHED NOTHING, AND IT HAD NEVER MATCHED.
+   Asked of the browser rather than of the file: each of this file's 26
+   selectors was run against all three of its screens, and 25 of 26 found
+   elements on `coach-order.html`. The one that found none was
+   `.od-line:last-child{ border-bottom: none }` - because the last child of
+   `.od-grp` is `.od-grp-f`, the foot with the per-client repeat, and it has
+   been the last child since the group was written. The rule was authored to
+   take the hairline off the bottom row of the list and has never once fired.
+
+   The line it meant to remove IS on the screen, and it is not wrong there: it
+   is the separator between the last product and the action band, and the band
+   at the top of the same card draws its own. So the pixel is right and the
+   OWNER is wrong - the boundary above the foot was being drawn by the row
+   above it, which is why a rule aimed at the row could not reach it.
+
+   Rewritten so each edge belongs to what it bounds, and the declaration count
+   stays 106 - one rule replaces one rule:
+     .od-line + .od-line   border-TOP   the boundary between two products
+     .od-grp-f             border-TOP   the boundary above the action band
+   The first row needs nothing: `.od-grp-h` already closes with its own
+   `border-bottom`, which is the same 1px `--line-hair`.
+
+   A/B'd rather than argued, `tools/tree-diff.mjs HEAD` over all three screens
+   at 360 / 390 / 1280. SIX ELEMENTS MOVE AND NOTHING ON THE SCREEN DOES, which
+   is the whole point of the rewrite: the 1px changes hands and stays at the
+   same y. Per group, first row -1 (loses a bottom edge it had), second row 0
+   (bottom edge becomes top edge), foot +1 - and the sums are what prove it:
+     .od-grp   340.28 / 303.78 at 360, 331.13 / 303.78 at 390 - unchanged
+     document  3034 at 360, 2984 at 390, 1793 at 1280 - unchanged
+   `coach-order-loading` and `coach-order-error` do not move at all; neither
+   carries an `.od-line`.
+
+   AND THE INSTRUMENT IS THE FINDING. Nothing in `tools/` asks whether a shipped
+   selector matches anything: `inert.mjs` asks whether a DECLARATION is
+   overridden, which is a different question and cannot see a selector that
+   never matched. `.od-back` in this same file was caught by counting by hand at
+   8.7, and hand counting is why this one survived that step. The sweep over all
+   84 components is the next step, not this one. */
 .coach .od-line{ display: grid; grid-template-columns: 48px 1fr auto;
   gap: var(--space-12);
   padding: var(--space-12) 15px;   /* [?] 15px has no rung; the ladder is 12/16 */
-  border-bottom: 1px solid var(--line-hair); align-items: center; }
-.coach .od-line:last-child{ border-bottom: none; }
+  align-items: center; }
+.coach .od-line + .od-line{ border-top: 1px solid var(--line-hair); }
 /* 48 x 52 IS NOT SQUARE, and «a box that frames a product photograph is square»
    is a shape rule of the system since 7.68 - the three photographs are
    2048 x 2048 and every frame paints them contained, so a frame that is not
@@ -277,6 +315,7 @@
    `:has()` list is the answer, and this screen inherits it for free. */
 
 .coach .od-grp-f{ padding: 11px 15px;   /* [?] neither 11 nor 15 has a rung */
+  border-top: 1px solid var(--line-hair);   /* 8.52: taken over from the row above; see there */
   display: flex; justify-content: flex-end; }
 /* `.od-repeat1` KEEPS ITS SIZE AND LOSES EVERYTHING ELSE. It is the per-client
    repeat - Job 4, the reason this screen groups by client at all - and it was a

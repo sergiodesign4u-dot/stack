@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Обране тренера | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Обране тренера</h1>
+<p class="kp-lead">Вузол 5.8 - збережені товари тренера. <b>Восьмий і останній</b> тренерський організм, і найдивніший файл системи: 278 рядків, <b>два селектори, сім оголошень</b>. Майже сорок рядків пояснення на кожне оголошення - рекорд, і майже все з них про те, чого цей файл НЕ робить.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-wishlist.css</span><span class="kp-tag">278 рядків</span><span class="kp-tag">2 селектори</span><span class="kp-tag">7 оголошень</span><span class="kp-tag">1 екран</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Приватний блок був двома правилами, а в <code>&lt;main&gt;</code> двадцять шість контролів</div>
+<p class="kp-p">Це співвідношення і є весь файл, і воно протилежне тому, що зустрів крок 7.95: <code>index.css</code> записує приватні таблиці того кроку по <b>13-76 правил</b> кожна, тож там робота полягала у видаленні того, чим уже володів атом. Цей екран ніс <code>.cw-note</code> і <code>.cw-note b</code>, і більше нічого - бо його зібрано з <b>канонічної сітки <code>.pcard</code></b>, а в кожної її частини вже є власник:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що на екрані</th><th>Хто це малює</th></tr></thead><tbody>
+<tr><td><code>.prow</code></td><td><code>product-grid.css</code> - набір колонок <code>auto-fill</code></td></tr>
+<tr><td><code>.pcard</code> <code>.ph</code> <code>.bd</code> <code>.nm</code></td><td><code>product-card.css</code></td></tr>
+<tr><td><code>.pavail.in</code> <code>.pre</code></td><td><code>availability.css</code> - рядок полиці і його крапка</td></tr>
+<tr><td><code>.pold</code> <code>.pnew</code></td><td><code>price.css</code></td></tr>
+<tr><td><code>.wlrm</code></td><td><code>favourite.css</code> каже ДЕ, <code>button.css</code> каже ЯК ВИГЛЯДАЄ</td></tr>
+<tr><td><code>.crumb</code> · <code>.acc</code> <code>.acc-nav</code> <code>.acc-h1</code></td><td><code>breadcrumb.css</code> · <code>account-shell.css</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Тож видаляти переїзду не було чого. Видалення вже сталося - шаром нижче й кроком раніше.</b> <code>wireframes/_wf.css</code> малював чотири з цих рядків, і екран перестав його підключати тієї миті, коли його клонували. Чотири правила померли там, і два атоми їх забрали.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Чотири контроли їхали з 25.59 на 44, і причина була в розмітці</div>
+<p class="kp-p"><b><code>class="btn"</code> у цій системі не малює нічого</b>: <code>button.css</code> оголошує базовий блок на чотирьох фінішах і правила <code>.btn</code> не має взагалі. Тож контрол, який не називає фінішу, рендериться як неформатований текст - і таблиця стилів виправити це за себе не може.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Контрол</th><th>До, на всіх чотирьох ширинах</th><th>Після</th></tr></thead><tbody>
+<tr><td><code>.cartbtn</code></td><td><b>16.8 x 25.59</b> · <code>display: block</code>, без ґрунту, без рамки, без радіуса</td><td><b>44 x 44</b> · <code>--bg-action</code>, <code>--radius-8</code>, svg 20</td></tr>
+<tr><td><code>.cartbtn.notify</code></td><td>16.8 x 25.59 - <b>той самий вигляд</b>, хоча це єдиний контрол екрана, який мусить відрізнятись від сусідів</td><td>44 x 44 · прозорий ґрунт, край <code>--line-strong</code></td></tr>
+<tr><td><code>.wlrm</code></td><td>44 x 44 коробка від <code>favourite.css</code>, але чорнило <code>--text-body</code>, svg 16.8 і <b>жодного стану</b></td><td>44 x 44 · <code>--text-secondary</code>, svg 20, hover / press / focus</td></tr>
+</tbody></table></div>
+<p class="kp-p">Коло під міткою обране пішло навмисне: <code>favourite.css</code> записує на 6.2, що сірий файл оголошував його <b>тричі, і рендерилось лише третє</b> - тобто коло вже було невидиме в тому шарі, який ним володів.</p>
+<p class="kp-p"><b>І крапка була і набрана, і намальована.</b> <code>.pavail::before</code> - диск 6px від 7.35, коли <code>●</code> прибрали зі <b>107 рядків розмітки</b>. Клон цього екрана символ ще ніс, тож усі чотири картки показували диск І знак. Зміряно до: <code>innerText</code> тримав <b>4 x U+25CF</b>, а <code>::before</code> був на місці й малював. Сьогодні: <b>0</b>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітку знято з кольорового екрана через <code>tools/demo.mjs</code>. Колонку обмежено до <b>732</b> - ширини <code>.acc-main</code> в оболонці акаунта на 1280.</p>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-wishlist.html" style="width:1180px" data-w="1180" title="Обране тренера"></iframe></div>
+<div class="kp-cap">Увесь екран, і <b>власного тут лише останній абзац</b>. Сітка 158 / 173 / 234.66 / 233.33 на чотирьох ширинах, рамка фото квадратна на кожній: 156 · 171 · 232.66 · 231.33</div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Сітка</b> <code>.prow</code> - <code>auto-fill</code>, дві колонки на телефоні і три від 768. Це <code>product-grid.css</code>, і цей файл не каже про неї нічого</span></div>
+<div class="a"><i>2</i><span><b>Картка</b> <code>.pcard</code> - радіус 12, край <code>--line-hair</code>. Знову не цей файл</span></div>
+<div class="a"><i>3</i><span><b>Мітка обране</b> <code>.wlrm</code> - <b>два файли на один контрол</b>: <code>favourite.css</code> ставить її в кут (44 x 44, зверху-справа 3), <code>button.css</code> каже, що це тихий текстовий значок без кола і без ґрунту</span></div>
+<div class="a"><i>4</i><span><b>Дія картки</b> <code>.cartbtn</code> - <code>btn--accent btn--icon</code>, і третя картка носить <code>.notify</code>, тобто <code>btn--outline</code>. <b>Єдина відмінність на екрані намальована рангом, а не окремим правилом</b></span></div>
+<div class="a"><i>5</i><span><b>Записка</b> <code>.cw-note</code> - <b>єдине правило, яке цей файл справді має</b>: один список обраного служить і тренерові, і покупцеві, і це тренерський погляд на нього</span></div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Одне правило, і три драбини, перед якими воно звітує</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Властивість</th><th>Сіре</th><th>Малює зараз</th><th>Чому</th></tr></thead><tbody>
+<tr><td><code>font-size</code></td><td>12.5px</td><td><code>--fs-14</code></td><td><b>два кроки типографіки</b>: 5.5 веде півпікселя до сусіда, якого більше читають (12.5 → 13), 5.6 веде ціле на дев'ять щаблів, нічия ВГОРУ (13 → 14)</td></tr>
+<tr><td><code>color</code></td><td><code>--sec</code> <code>#777</code></td><td><code>--text-secondary</code></td><td>переклад за роботою</td></tr>
+<tr><td><code>border</code></td><td>1px dashed <code>#cfcfcf</code></td><td>1px dashed <code>--line-strong</code></td><td>переклад за роботою</td></tr>
+<tr><td><code>border-radius</code></td><td>8px</td><td><code>--radius-8</code></td><td>вже щабель</td></tr>
+<tr><td><code>padding</code></td><td>10px 12px</td><td>10px / <code>--space-12</code></td><td>12 щабель, <b>10 ні</b></td></tr>
+<tr><td><code>margin-top</code></td><td>14px</td><td>14px</td><td><b>не щабель</b></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Тип - єдина драбина, чиє округлення вирішене, і вирішене двома ходами, а не одним.</b> Відступи - драбина, яка не вирішена: <code>tokens.css</code> дає два правила, що суперечать одне одному на цих самих числах - блок 5.5 бере нічиї ВГОРУ (10 → 12, 14 → 16), а обхід 7.67 округляє ВНИЗ до щабля (10 → 8, 14 → 12). Доки це не сказано вголос, зрушити їх означало б <b>ухвалити рішення про значення випадково</b>.</p>
+<p class="kp-p"><b>А міжрядковий інтервал не оголошено, і оголошувати не треба.</b> Сіре правило не ставило <code>line-height</code>, тож записка успадковує <code>base.css</code>: <b>22.4px при 14</b>, тобто 1.6 - рівно те, що <code>.cc-note</code> оголошує руками. Додати оголошення означало б намалювати нічого і зробити другий файл відповідальним за значення, яким уже володіє <code>base.css</code>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Знайдено на цій сторінці: один об'єкт під двома іменами, і три числа різниці</div>
+<p class="kp-p"><code>.cw-note</code> і <code>.cc-note</code> - <b>та сама записка в тому самому потоці, намальована двома руками</b>. Обидві - пунктирне речення в підвалі тренерського екрана; обидві <code>--fs-14</code> <code>--text-secondary</code> на 1px dashed <code>--line-strong</code>; обидві спираються на той самий успадкований 1.6. Зміряно сьогодні в браузері на 360:</p>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-wishlist-note.html" style="width:560px" data-w="560" title="Записка обраного"></iframe></div>
+<div class="kp-cap"><code>.cw-note</code> - радіус <b>8</b>, padding <b>10 / 12</b>, margin <b>14 / 0</b></div>
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-client-note.html" style="width:560px" data-w="560" title="Записка клієнта"></iframe></div>
+<div class="kp-cap"><code>.cc-note</code> - радіус <b>10</b>, padding <b>11 / 13</b>, margin <b>14 / 4</b></div>
+<p class="kp-p"><b>Різниця вся тут: три числа і жодного більше.</b> Обидва набори ніхто не вирішував, і другий уже позначено <code>[?]</code> тричі у <code>coach-clients.css</code>. Одне ім'я й один набір чисел - це перейменування Кроку 6, і воно потребує обох файлів відкритими одночасно.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Пунктирна записка не має атома, і п'ятеро вже пішли з пунктиру</div>
+<p class="kp-p">Перевірено сьогодні заново, бо це <b>твердження про корпус</b>, а корпус не лежить у цьому файлі. Одинадцять коробок у семи файлах оголошують <code>1px dashed var(--line-strong)</code> у своїй СТРУКТУРНІЙ половині - дванадцять із цією, у восьми файлах. <b>Число тримається.</b> І п'ятеро з одинадцяти <b>тією ж половиною кольору того самого файлу</b> повертаються в <code>solid</code> на тонованому ґрунті:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Коробка</th><th>Оголошує пунктир</th><th>Той самий файл повертає</th></tr></thead><tbody>
+<tr><td><code>.pf-note</code></td><td><code>checkout-form.css:39</code></td><td><code>:360</code> solid · <code>--line-hair</code> · <code>--bg-surface</code></td></tr>
+<tr><td><code>.co-noaddr</code></td><td><code>checkout-form.css:149</code></td><td><code>:292</code> solid · <code>--line-notice</code> · <code>--bg-warning</code></td></tr>
+<tr><td><code>.abonus .warn</code></td><td><code>account-shell.css:145</code></td><td><code>:225</code> solid · <code>--line-hair</code> · <code>--bg-surface</code></td></tr>
+<tr><td><code>.addr-hint</code></td><td><code>address-card.css:34</code></td><td><code>:74</code> solid · <code>--line-hair</code> · <code>--bg-surface</code></td></tr>
+<tr><td><code>.ord-oos</code></td><td><code>order-row.css:62</code></td><td><code>:161</code> solid · <code>--line-bonus-soft</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>П'ять файлів, одна відповідь, узята п'ять разів незалежно</b>: кольоровий продукт перетворює пунктирну записку сірого прототипу на суцільну плашку з м'яким ґрунтом. Шестеро лишаються пунктирними - <code>.addr-note</code>, <code>.empty</code>, <code>.emptybox</code>, <code>.errbox</code>, <code>.ac-new</code> і <code>.cc-note</code>, - і останні дві з тієї ж причини, що й ця: <b>ні в тренерської записки, ні в діалогу клієнта ніколи не було редакції в <code>kit.css</code>, тож жодна з них цієї відповіді не зустріла</b>.</p>
+<div class="kp-dont"><h4>І перевірка знайшла у власному списку файлу застаріле ім'я</h4>Файл перелічує шістку як «<code>.addr-note</code>, <code>.empty</code>, <code>.emptybox</code>, <code>.errbox</code>, <code>.bb .tier</code> і <code>.cc-note</code>». <b><code>.bb .tier</code> видалено на 8.34c</b> - тим самим третім списком зводу, «клас, якого ніхто не носить», де його зміряли на <b>0</b> входжень в обох шарах. На його місце стала <code>.ac-new</code> з <code>client-dialog.css</code>, якої на день написання ще не було. Число одинадцять правильне; двоє з одинадцяти імен - уже ні. <b>Твердження про корпус старіє мовчки, і подія, яка його старить, стається в іншому файлі.</b></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Двадцять шість контролів, шість під підлогою, і жоден із шести не цього файлу</div>
+<p class="kp-p">Зміряно в браузері всередині <code>&lt;main&gt;</code>, не в розмітці: <b>26 контролів</b>. Під підлогою дотику 44 стоять шість, і кожен належить чужому файлу:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Контрол</th><th>360 / 390</th><th>768 / 1280</th><th>Чий</th></tr></thead><tbody>
+<tr><td><code>.crumb a</code> x2</td><td><b>15.00</b></td><td><b>15.00</b></td><td><code>breadcrumb.css</code> - і слід є на кожній сторінці каталогу, товару й акаунта</td></tr>
+<tr><td><code>.pcard .nm</code> x4</td><td><b>36.00</b> / 36.38</td><td>44.00</td><td><code>product-card.css</code>: база каже <code>min-height: var(--size-44)</code>, а запит 619 зводить її до 36</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>А третій із трьох, який файл називає, підлогу вже перейшов.</b> <code>.acc-link</code> записано тут як «40.39 на 360 / 390 / 768»; зміряно сьогодні - <b>44.00</b> на всіх трьох і 47.39 на 1280. Хтось це полагодив, і файл про це не знає: <b>та сама сім'я, що й <code>.bb .tier</code> двома розділами вище</b>, тільки в інший бік - там твердження застаріло видаленням, тут виправленням.</p>
+<p class="kp-p">Кожен контрол, за який цей екран відповідає, підлогу проходить: <code>.wlrm</code> і <code>.cartbtn</code> по <b>44 x 44</b> на всіх чотирьох ширинах, <code>.coach-newcta</code> <b>328 x 52</b> на 360.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>coach-wishlist.css</code>. <b>Три ролі й три примітиви на сім оголошень</b> - найкоротша таблиця на стенді, і кожен рядок лівої колонки це переклад сірого імені в роль, яка робить ту саму роботу.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (3)</th><th>Було в сірому</th><th>Примітиви (3)</th></tr></thead><tbody>
+<tr><td><code>--line-strong</code></td><td><i>--hair2</i> <i>#cfcfcf</i>, «Ash»</td><td><code>--fs-14</code></td></tr>
+<tr><td><code>--text-primary</code></td><td><i>--strong</i> <i>#111</i></td><td><code>--radius-8</code></td></tr>
+<tr><td><code>--text-secondary</code></td><td><i>--sec</i> <i>#777</i></td><td><code>--space-12</code></td></tr>
+</tbody></table></div>
+<p class="kp-p">Права колонка написана курсивом навмисне: це <b>імена з іншої епохи</b>, не токени. <code>tokens.css</code> 7.69 каже, чому переклади живуть біля правила, а не тут - половина кольору існує, щоб сказати, де кольоровий продукт вирішив ІНАКШЕ, а переказ уже чинного значення нічого не малює й ховає ті рядки, які справді відрізняються. <b>Тут інакше не вирішив ніхто.</b></p>
+<p class="kp-p"><b>Половини кольору тут немає, і це чесний запис, а не порожній заголовок.</b> Кожен файл, розколотий на кроці 3, вийшов із ДВОХ джерел - <code>wireframes/_wf.css</code> для структури і <code>design/kit/kit.css</code> для кольору, - і друге перемагало там, де вони не сходились. У цього екрана редакції в <code>kit.css</code> не було ніколи: він один із трьох, доданих кроком 8.7 після пачки 7.95, і <b>саме через те, що він був лише сірим, обидва ці кроки й існують</b>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p">Станів <b>немає</b>, і не тому, що їх забули: у файлі два правила, і жодне з них не описує інтерактивний елемент. <code>.cw-note</code> - речення в рамці. Усі 26 контролів екрана носять класи атомів і беруть стани звідти.</p>
+<p class="kp-p">Це і є найчистіший вимір усього етапу 08: <b>екран із двадцятьма шістьма контролями, який власною таблицею стилів не малює жодної взаємодії</b>, бо всі вони вже намальовані там, де їх видно всім.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>1</b> клас і <b>0</b> станів оголошено в <code>coach-wishlist.css</code>. <code>.coach</code> не рахується - це скоуп, а <code>b</code> усередині записки це тег, а не клас. Найкоротший <code>KIT_CLS</code> на стенді.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["cw-note"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;main class="wf-page acc-main"&gt;
+  &lt;h1 class="acc-h1"&gt;Обране&lt;/h1&gt;
+  &lt;div class="prow"&gt;                         &lt;!-- product-grid.css --&gt;
+    &lt;article class="pcard"&gt;                  &lt;!-- product-card.css --&gt;
+      &lt;a class="ph"&gt;…&lt;/a&gt;
+      &lt;button class="btn btn--text btn--icon wlrm"&gt;…&lt;/button&gt;
+      &lt;div class="bd"&gt;
+        &lt;a class="nm"&gt;BioTechUSA Hyper Mass 4000 г&lt;/a&gt;
+        &lt;div class="pavail in"&gt;В наявності&lt;/div&gt;   &lt;!-- без ● --&gt;
+        &lt;div class="prow2"&gt;&lt;span class="pold"&gt;…&lt;/span&gt;&lt;span class="pnew"&gt;…&lt;/span&gt;
+          &lt;button class="btn btn--accent btn--icon cartbtn"&gt;…&lt;/button&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+
+  &lt;p class="cw-note"&gt;&lt;b&gt;Один список&lt;/b&gt; служить і тренерові, і покупцеві …&lt;/p&gt;
+&lt;/main&gt;</div>
+<p class="kp-p">У цій розмітці <b>рівно один клас належить цьому файлові</b>. Усе інше - імена, які він читає і не оголошує, і саме тому «переїзд» тут звівся до того, щоб <b>дописати фініші в розмітку</b>, а не переписати таблицю стилів.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.cw-note</code></p>
+<p class="kp-p"><b>1 кольоровий екран</b>: <code>coach-wishlist</code>. У покупця той самий екран живе під іншим ім'ям - <code>account-wishlist</code>, <code>-empty</code>, <code>-many</code>, - і в нього <code>●</code> не було відтоді, як його розфарбували.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b><code>.cw-note</code> і <code>.cc-note</code> - один об'єкт під двома іменами</b>, три числа різниці, обидва набори невирішені. Крок 6, і потрібні обидва файли</li>
+<li><b>Пунктирна записка не має атома</b>: 12 коробок у 8 файлах, і 5 з них уже пішли в <code>solid</code> на тонованому ґрунті. <b>Це одне рішення про дванадцять коробок, а не дванадцять про одну</b></li>
+<li><b><code>.crumb a</code> - 15.00 на всіх чотирьох ширинах</b>, і слід є на кожній сторінці каталогу, товару й акаунта. Рішення про слід, не про вузол 5.8</li>
+<li><b><code>.pcard .nm</code> - 36 нижче 619</b>, при базі <code>min-height: var(--size-44)</code>. 91 із 171-піксельних карток продукту стоять на цій ширині</li>
+<li><b>Два літерали під <code>[?]</code></b> - 10 і 14, - і обидва в одному правилі. Драбина відступів має два правила, які на цих самих числах дають протилежні відповіді</li>
+<li><b>Два твердження про корпус у цьому файлі застаріли</b>, і обидва знайдено перевіркою, а не читанням. Тверджень про корпус у коментарях більше, ніж хтось перевіряє</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script src="_idle.js"></script>
+<script src="_frame.js"></script>
+</main>
+<script src="_nav.js"></script>
+</body>
+</html>

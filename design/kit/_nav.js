@@ -483,6 +483,36 @@ window.KIT_NAV = [
     "label": "Перевірка тренера",
     "page": "coach-verify.html",
     "done": true
+   },
+   {
+    "label": "Кабінет тренера",
+    "page": "coach-cabinet.html",
+    "done": true
+   },
+   {
+    "label": "Клієнти тренера",
+    "page": "coach-clients.html",
+    "done": true
+   },
+   {
+    "label": "Сесія замовлення",
+    "page": "coach-session.html",
+    "done": true
+   },
+   {
+    "label": "Замовлення тренера",
+    "page": "coach-order.html",
+    "done": true
+   },
+   {
+    "label": "Тариф тренера",
+    "page": "coach-tariff.html",
+    "done": true
+   },
+   {
+    "label": "Обране тренера",
+    "page": "coach-wishlist.html",
+    "done": true
    }
   ]
  },

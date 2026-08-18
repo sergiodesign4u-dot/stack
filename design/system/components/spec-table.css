@@ -29,6 +29,15 @@
 .pl-cal span{ color: var(--text-secondary); }
 .pl-cal b{ color: var(--text-primary); }
 .pl-t td{ color: var(--text-body); }
+/* 8.54: KEPT, AND IT IS THE MIRROR OF THE TOAST. `tools/dead-sel.mjs` never
+   finds this alive and never can: the markup ships the slot empty
+   (`<span class="pl-ic"></span>`, product.html:189) and `design/_nav.js:1461`
+   fills all three with `jar` / `cup` / `clock` on every load, so by the time
+   anything is measured `:empty` is false everywhere. The toast is born at an
+   act; this is KILLED by one. Between the two moments the rule is the only
+   thing giving the slot a box, and without it the three steps of the pack label
+   would lay out at zero width and jump when the marks arrive. Declared in the
+   instrument as `KEPT_ON_PURPOSE`. */
 .pl-hw .pl-ic:empty{ width: var(--size-26); height: var(--size-26); border: 1px solid var(--line-strong); border-radius: var(--radius-8); margin-bottom: var(--space-4); }
 .pl-ing b{ color: var(--text-primary); }
 .pl-mark{ border-radius: var(--radius-4); }

@@ -90,7 +90,12 @@
    1.15em of a trailing mark is right in a line of running text and wrong here,
    where the caption's box is budgeted - measured at step 7.17, «Кабінет ▾» came
    out with 1px of air against 5 on the control beside it. */
-.btn--stack .lbl .uiv-ic svg, .btn--stack .tl .uiv-ic svg{ width: 1em; height: 1em; }
+/* 8.54: `.tl` never appears inside `.btn--stack` - `tools/dead-sel.mjs` over 263
+   pages finds the `.lbl` member and neither the selector nor its host for the
+   other. `.tl` is the tab bar's own caption class, and this rule was written as
+   if the two captions were interchangeable inside a stacked control. Deleted;
+   the day the tab bar's caption moves in here, it takes `.lbl` with it. */
+.btn--stack .lbl .uiv-ic svg{ width: 1em; height: 1em; }
 
 /* ---------- the one state the atom owns - step 7.20 ------------------------
    THE CAPTION FOLLOWS THE CONTROL. Measured in the header at 1280: at rest the

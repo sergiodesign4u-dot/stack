@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>coach-order</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body class="coach">
+<!-- Built by tools/demo.mjs off design/coach-order.html - not retyped. The body class
+     is the screen's own: an organism scoped to it draws nothing without it. -->
+<div style="max-width:900px;margin:0 auto;padding:0 16px"><main class="wf-page od-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="../../index.html">Головна</a><span class="sep" aria-hidden="true"></span>
+    <a href="../../coach-home.html">Кабінет тренера</a><span class="sep" aria-hidden="true"></span>
+    <a href="../../coach-orders.html">Замовлення</a><span class="sep" aria-hidden="true"></span>
+    <span class="cur" aria-current="page">№ К-2041</span>
+  </nav>
+
+  <!-- header -->
+  <section class="od-head" aria-label="Замовлення № К-2041">
+    <div class="od-head-t">
+      <div><span class="od-no">Замовлення № К-2041</span> <span class="od-date">· 28 червня 2026</span></div>
+      <span class="od-status ord-status ok">Доставлено</span>
+    </div>
+    <div class="od-facts">
+      <div class="od-fact"><div class="fk">Доставка (одна на тренера)</div><div class="fv">Нова Пошта - відділення №12<span>вул. Катерининська, 27, Одеса</span></div></div>
+      <div class="od-fact"><div class="fk">Отримувач</div><div class="fv">Олена<span>+380 ** *** 21 09</span></div></div>
+      <div class="od-fact"><div class="fk">Оплата</div><div class="fv"><span class="od-paid"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.8 12.4 9.6 17 19.2 7.4"></path></svg></span> Сплачено карткою онлайн</span></div></div>
+      <div class="od-fact"><div class="fk">Клієнтів у замовленні</div><div class="fv">2 (Андрій, Марія)<span>4 товари · розподіл нижче</span></div></div>
+    </div>
+  </section>
+
+  <!-- per-client groups -->
+  <section class="od-grp" aria-label="Позиції клієнта Андрій">
+    <div class="od-grp-h"><div><span class="gc"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.6" r="3.4"></circle><path d="M5.2 20c.4-3.7 3.3-5.9 6.8-5.9s6.4 2.2 6.8 5.9"></path></svg></span> Андрій</span> <span class="gg">· Набір маси</span></div><span class="gs">2 320 ₴</span></div>
+    <div class="od-line">
+      <div class="od-ph">фото</div>
+      <div><div class="od-nm">BioTechUSA Hyper Mass 4000 г</div><div class="od-var">Смак: Ваніль · Угорщина · ×1</div></div>
+      <div class="cprice">1 230 <span class="uiv-cur">₴</span><span class="old">1 450 ₴</span><span class="wtag">гурт</span></div>
+    </div>
+    <div class="od-line">
+      <div class="od-ph">фото</div>
+      <div><div class="od-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div><div class="od-var">Смак: Подвійний шоколад · США · ×1</div></div>
+      <div class="cprice">1 090 <span class="uiv-cur">₴</span><span class="old">1 290 ₴</span><span class="wtag">гурт</span></div>
+    </div>
+    <div class="od-grp-f"><a class="od-repeat1 btn--text btn--inline" href="../../cart-coach.html">Повторити замовлення</a></div>
+  </section>
+
+  <section class="od-grp" aria-label="Позиції клієнта Марія">
+    <div class="od-grp-h"><div><span class="gc"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.6" r="3.4"></circle><path d="M5.2 20c.4-3.7 3.3-5.9 6.8-5.9s6.4 2.2 6.8 5.9"></path></svg></span> Марія</span> <span class="gg">· Схуднення</span></div><span class="gs">1 160 ₴</span></div>
+    <div class="od-line">
+      <div class="od-ph">фото</div>
+      <div><div class="od-nm">BioTechUSA Iso Whey Zero 908 г</div><div class="od-var">Смак: Ваніль · Угорщина · ×1</div></div>
+      <div class="cprice">890 <span class="uiv-cur">₴</span><span class="old">1 050 ₴</span><span class="wtag">гурт</span></div>
+    </div>
+    <div class="od-line">
+      <div class="od-ph">фото</div>
+      <div><div class="od-nm">OstroVit L-Carnitine 1000</div><div class="od-var">Без смаку · Польща · ×1</div></div>
+      <div class="cprice">270 <span class="uiv-cur">₴</span><span class="old">320 ₴</span><span class="wtag">гурт</span></div>
+    </div>
+    <div class="od-grp-f"><a class="od-repeat1 btn--text btn--inline" href="../../cart-coach.html">Повторити замовлення</a></div>
+  </section>
+
+  <!-- grand total -->
+  <div class="od-tot"><div class="l">Разом за замовленням<small>2 клієнти · 4 товари · гуртом (тариф Pro)</small></div><div class="v">3 480 <span class="uiv-cur">₴</span></div></div>
+
+  <div class="od-acts">
+    <a class="btn--accent btn" href="../../cart-coach.html">Повторити замовлення</a>
+    <button class="btn--outline btn" type="button">Відстежити</button>
+    <a class="btn--ghost btn" href="../../coach-orders.html"><span class="uiv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 12H3.6"></path><path d="M10 5.6 3.6 12l6.4 6.4"></path></svg></span> Усі замовлення</a>
+  </div>
+</main></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

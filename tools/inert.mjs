@@ -49,7 +49,7 @@
    is no longer there is worse than no comment, and the notes in this repository
    are long. */
 import { Conn, newSession, visit } from './cdp.mjs';
-import { serve, chrome, subject, ROOT, snapshotExpr, topRules, withNotes, privateBlock } from './lib.mjs';
+import { serve, chrome, subject, ROOT, snapshotExpr, topRules, withNotes, privateBlock, outOfPrivateSubject } from './lib.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -111,12 +111,28 @@ for (let i = 0; i < argv.length; i++) {
    render moves is five hours spent proving that comments do not paint. The
    predicate is `privateBlock` in lib.mjs, shared with `private.mjs` so the two
    walks cannot disagree about what their subject is. */
+/* AND THE HUB LEAVES ON 2026-08-17, step 8.48. The paragraph above says
+   `overview` STAYS, and it was right on the day it was written; `private.mjs`
+   measured it out the next day and this file never heard. The exclusions now come
+   from `outOfPrivateSubject` in lib.mjs, one place for both walks, and what was
+   dropped is printed rather than assumed. Yesterday's published numbers still
+   reconstruct: the hub was 33 rules of the 1 154 and 3 of the 655 cut. */
 const STAND = argv.includes('--stand');
+const DROPPED = [];
 let PAGES = subject(NAMED, 'design').filter(p => {
-  if (!STAND && !NAMED.length && /^(kit|concept)\//.test(p)) return false;
+  if (!NAMED.length) {
+    const why = outOfPrivateSubject(p, { stand: STAND });
+    if (why) {
+      const b0 = privateBlock(readFileSync(join(ROOT, 'design', p + '.html'), 'utf8'));
+      if (b0 && b0.rules) DROPPED.push(p + '  (' + b0.rules + ' правил)  - ' + why);
+      return false;
+    }
+  }
   const b = privateBlock(readFileSync(join(ROOT, 'design', p + '.html'), 'utf8'));
   return !!b && b.rules > 0;
 });
+const dropTail = () => console.log('поза предметом, із правилами (' + DROPPED.length + '):'
+  + (DROPPED.length ? '\n  ' + DROPPED.join('\n  ') : ' –'));
 /* SHARDING IS SAFE HERE AND WOULD NOT BE ANYWHERE ELSE IN THIS FOLDER: a page is
    cut IN PLACE, and no two pages share a file. `serve()` and `chrome()` already
    take a free port and a fresh mkdtemp profile each, so shards never collide on
@@ -131,7 +147,7 @@ if (SHARD) {
   SHARD_TAG = k + '/' + n + ' ';
   console.log('гілка ' + k + ' з ' + n + ': ' + PAGES.length + ' сторінок');
 }
-if (!PAGES.length) { console.log('жодної сторінки з приватним <style>'); process.exit(0); }
+if (!PAGES.length) { console.log('жодної сторінки з приватним ПРАВИЛОМ'); dropTail(); process.exit(0); }
 
 /* ------------------------------------------------- applying a decision already taken
 
@@ -501,3 +517,4 @@ console.log('\n' + PAGES.length + ' сторінок · ' + totalRules + ' пр�
   totalDropped + ' · завантажень: ' + loads + ' · за ' + clock() +
   (DEAD.length ? ' · НЕ ВІДПОВІЛИ: ' + DEAD.join(', ') : '') +
   (APPLY ? '  ЗАПИСАНО' : '  (нічого не записано)'));
+dropTail();

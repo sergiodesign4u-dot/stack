@@ -366,6 +366,34 @@ export function privateBlock(html) {
   return { css: m[1], rules: topRules(m[1]).length, note: /\/\*[\s\S]*?\*\//.test(m[1]) };
 }
 
+/* AND THE PREDICATE WAS NEVER THE HALF THEY DISAGREED ON - step 8.48.
+   `inert.mjs` says of `privateBlock` that it is «shared with private.mjs so the
+   two walks cannot disagree about what their subject is». They disagreed anyway,
+   because the disagreement sat in the exclusions ABOVE the predicate: on
+   2026-08-15 `private.mjs` measured the stage hub out of its subject -
+   `design/overview.html` does not link `system/index.css` at all, so «which
+   private rules override the system» is not a question that applies to it - and
+   `inert.mjs`'s own note, written a day earlier and never revisited, still says
+   «`overview` STAYS».
+
+   THE CONTRADICTION WAS INVISIBLE UNTIL THE COUNT REACHED ZERO. While two rules
+   remained, both walks printed a number and nobody compared the subjects. The
+   moment the product hit zero, `private.mjs` printed «no page carries a private
+   rule» and `inert.mjs` printed «1 page, 30 rules» - two answers to one question,
+   in the same minute. A count that agrees while it is wrong is the reason this
+   goes in one place.
+
+   The exclusions are named rather than tested inline, and the caller PRINTS what
+   it dropped: an exemption that covers nothing has to fail as loudly as an
+   undeclared case, and an exemption nobody can see is the same thing. */
+export const PRIVATE_HUB = 'overview';
+export const PRIVATE_SHOWCASE = /^(kit|concept)\//;
+export function outOfPrivateSubject(p, { stand = false } = {}) {
+  if (p === PRIVATE_HUB) return 'хаб етапу: не підключає system/index.css, тож питання «чи перебиває це систему» до нього не стосується';
+  if (!stand && PRIVATE_SHOWCASE.test(p)) return 'вітрина: приватний блок стенда це показ системи, а не продукт';
+  return null;
+}
+
 /* THE NOTE BELONGS TO THE RULE. A span is grown backwards over any comment
    blocks that sit between it and the rule before it, separated by whitespace
    only - which is how every note in this repository is written. A comment that

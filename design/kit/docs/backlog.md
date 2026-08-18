@@ -100,14 +100,15 @@ now is the opposite direction: a screen wearing a scope its base does NOT wear.
 
 | | at step 6 | 2026-08-17 |
 |---|---|---|
-| screens carrying a private rule | **31** | **2** |
-| private rules in total | **1 154** | **2** |
-| of them redrawing a class the system already owns | **886** | **2** |
+| screens carrying a private rule | **31** | **0** |
+| private rules in total | **1 154** | **0** |
+| of them redrawing a class the system already owns | **886** | **0** |
 | of them declaring something that exists only there | **210** | **0** |
 
-The two are one deferred decision, not two jobs: `.cv-card` on `coach-verify-error` and
-`coach-verify-deadend`, held for stage 09. A third stood here until 2026-08-17 and had never drawn. The right-hand column is a re-measurement by the same instrument, not
-1 154 minus what left - see item 2 below for why that distinction was worth the wait.
+**Zero.** The last two were one deferred decision, not two jobs - `.cv-card{ max-width: 560px }` on
+`coach-verify-error` and `coach-verify-deadend` - and it was taken on 2026-08-17 rather than deferred
+again, because the measurement the deferral lacked turned out to decide it. See item 2. The
+right-hand column is a re-measurement by the same instrument, not 1 154 minus what left.
 
 **«Overriding» was measured as «the system owns this class too», and on the coach state screens
 that was not the same thing** - until 2026-08-14 the system did not reach them at all, so the
@@ -295,8 +296,30 @@ property.
    The transform now matches `btn` as a **token** rather than as a whole attribute, and hands the
    final say to `btn-rank.mjs`: its own default is a starting rank, not the decision.
 2. **Move the 886 overriding rules into their components.** This was the step's own remaining body
-   of work and the precondition for stage 10. **CLOSED 2026-08-17: 886 -> 3, and the three are the
-   same three item 3 deferred.**
+   of work and the precondition for stage 10. **CLOSED 2026-08-17: 886 -> 3 -> 2 -> 0.**
+
+   **THE LAST TWO NEEDED A DECISION, AND THE DECISION NEEDED A MEASUREMENT NOBODY HAD TAKEN.**
+   `.cv-card{ max-width: 560px; margin: 0 auto }` stood on `coach-verify-error` and
+   `coach-verify-deadend`, byte for byte identical, deferred in the honest words «whether 560 becomes
+   the panel's width is stage 09's decision». What the deferral did not say is that a THIRD screen
+   carries `.cv-card` - `coach-verify-loading` - and shipped the other answer: 828px at 1280, with a
+   centred headline in a 778px box, while its two siblings centred the same rank across 510.
+
+   There is no selector separating the two that declared it from the one that did not, so the rule
+   could not be moved without deciding. It was decided, and written beside the rule as «variable ->
+   value -> why»: `.coach .cv-card` gains `max-width: 560px; margin-inline: auto`, because (1) two of
+   three declare exactly this, identically, and a rule two screens write the same way is a component
+   rule in the wrong file; (2) the system already caps what is inside the card - `.cv-lead` 440,
+   `.cv-card.mid .cv-actions` 340 - so a width for the card is what those two caps are already half
+   saying; (3) `.mid` MEANS centred, and 828 is too wide to centre in.
+
+   **A/B'd in the live pages at 1280 / 900 / 390**, rule injected and removed: `error` and `deadend`
+   byte-identical at every width and every number, `loading` 828 -> 560 at 1280 and 900 with its
+   button row wrapping to two lines and the card 52px taller, `loading` identical at 390 because the
+   cap never binds there. `scrollWidth - clientWidth` 0 everywhere, both ways. Two of the three
+   buttons in that row are the prototype's own demo switches, not product controls.
+   **Reversible in one declaration**, and the whole cost of being wrong is 268px on one desktop
+   screen.
 
    **The inert half is gone, 2026-08-15: 655 of 1 154 private rules removed from all 31 screens,
    and the proof says nothing moved.** `tools/tree-diff.mjs --dir` compared the computed style of
@@ -412,11 +435,12 @@ property.
    was ever a wrong measurement, and both were a wrong published number - which is exactly the class
    `tools/inventory.mjs` was built for and the class it does not yet reach.
 
-   **PILE 1 IS CLOSED.** The two that remain are `.cv-card{ max-width: 560px; margin: 0 auto }` on
-   `coach-verify-error` and `coach-verify-deadend`, deferred to stage 09 on purpose: whether 560
-   becomes the panel's width is a decision rather than a move. A third stood beside them until
-   2026-08-17, `.cv-card{ padding: 40px 24px }` on `coach-verify-loading`, and it was not a deferred
-   decision at all - it loses to `.coach .cv-card` on specificity and had never drawn. See item 2.
+   **PILE 1 IS CLOSED, AND SO IS EVERYTHING ELSE.** The two that remained were
+   `.cv-card{ max-width: 560px; margin: 0 auto }` on `coach-verify-error` and `coach-verify-deadend`,
+   deferred to stage 09 on purpose - and taken on 2026-08-17 instead, once the third screen carrying
+   the same class was measured. A third rule stood beside them until that day,
+   `.cv-card{ padding: 40px 24px }` on `coach-verify-loading`, and it was not a deferred decision at
+   all - it lost to `.coach .cv-card` on specificity and had never drawn. See item 2 for both.
 
    **PILE 2, FIRST BATCH: THE SKELETON. 20 rules on 5 screens to zero, and no declaration replaced
    them.** `skeleton.css` opens with a census - the bar «written SIX times in FOUR files» - taken at
@@ -1276,3 +1300,90 @@ property.
    Still open under this item: every other published count on the stand - the per-page «N власних
    класів», the census tables, the numbers in `architecture.html`. The shape is proven; the subjects
    are not wired yet.
+
+9. **16 selectors in the shipped component layer have never matched anything.** Found 2026-08-17 by
+   `tools/dead-sel.mjs`, built for this question because nothing here was asking it: `inert.mjs`
+   asks whether a DECLARATION is overridden and is structurally blind to a selector with no element
+   - there is no losing declaration to find. Two had already been caught by hand in one file, and
+   the second only because the first was: `coach-order.css` lost `.od-back` at 8.7 by counting
+   instances, and kept `.od-line:last-child` four lines below it until 8.52.
+
+   2925 selectors in 84 files (2215 distinct), asked of the browser over 263 pages that load
+   `system/index.css`: **16 dead**, 365 conditional with a live host, 6 born at an act (the toast,
+   declared with the line that builds it), 4 this engine will not parse (`::-moz-range-*`).
+
+   **Seven of the sixteen are one shape - a comma list completed for symmetry where only one member
+   has an element.**
+
+   | file | alive | dead beside it |
+   |---|---|---|
+   | `button.css` | `.btn--outline .uiv-brand` · `.btn--s .uiv-brand` | `.btn--accent` · `.btn--ghost` · `.btn--l` |
+   | `field.css` | `.field-grp > .btn--accent` | `> .btn--outline` · `> .btn--ghost` |
+   | `empty-state.css` | `.emptybox .et:first-child` · `.emptybox .es:last-child` | `.empty .et:first-child` · `.empty .es:last-child` |
+
+   The last one is the sharpest, because **the file had already written the rule down four lines
+   above**: «`.errbox .et` is never `:first-child` anywhere, and a selector added for it would match
+   nothing. An exemption that covers nothing fails as loudly as an undeclared case; so does a rule.»
+   Then it wrote two.
+
+   The other nine are not one family and are not one decision:
+
+   | selector | file | what it is |
+   |---|---|---|
+   | `.pcard.dim .pold` · `.pcard.dim .pcut` | `product-card.css` | dimmed cards exist, struck prices exist, **no card is both** |
+   | `.pdp-tabs .tprice:not(:has(.told)) .tnew` | `pdp-tabs.css` | a price with no old price - the demo product always has one |
+   | `.skcard:not(:has(.skb))` | `skeleton.css` | a skeleton card with no button block |
+   | `.pl-hw .pl-ic:empty` | `spec-table.css` | an icon slot with nothing in it |
+   | `.wfh-meta .wfh-loc .uiv-ic:last-child svg` | `header.css` | the host is not there either |
+   | `.btn--stack .tl .uiv-ic svg` | `stack-action.css` | the host is not there either |
+   | `.resend a` | `field.css` | the block is built by a script and holds no anchor |
+   | `.coach .upsell p b` | `upsell.css` | the Pro panel's paragraph lost its bold |
+
+   **«Dead» here means «matched nothing on these 263 pages», never «can never match»**, and the two
+   kinds are repaired differently - a rule with no possible host is deleted, a combination the corpus
+   never shows is a question about the demo data. The instrument reports the fact and refuses to
+   guess; the reading is a person's.
+
+   **CLOSED 2026-08-17: sixteen read, twelve deleted, four kept with a reason. `dead-sel` 0.**
+
+   The twelve deletions each carry the reading beside the rule, and every one of them is a sentence
+   about the product rather than about the selector: a brand mark names a third-party provider, and a
+   provider is never the one action of a region nor a ghost (`button.css`, three); a control welded
+   to the edge of a field is the one that submits it, which is an accent by rank (`field.css`, two);
+   `.wfh-loc` holds one mark and the caret belongs to the language menu alone (`header.css`); `.tl`
+   is the tab bar's caption and was written into a stacked control as if the two were interchangeable
+   (`stack-action.css`); every `.empty` carries a glyph above the title and an action below the body,
+   which is what the paragraph four lines up had already worked out (`empty-state.css`, two); the
+   panel's bold is real in one of its two paragraph shapes (`upsell.css`).
+
+   Two deletions are worth their own line. **`.resend a`** was four declarations for an anchor that
+   is not there: `.resend` holds a countdown in a `<span>`, because during the count there is nothing
+   to press, and the live resend link is `<a class="pf-resend">` in `.otp-note`, already drawn by
+   `checkout-form.css:50`. The dead rule was that control's ninth-edition twin, one token off, **on
+   markup that never existed - so no amount of looking at the screen could have found it.**
+   **`.skcard:not(:has(.skb))`** was right the day it was written (8.24, for two named coach screens)
+   and the corpus moved out from under it: twelve `.skcard` today, not one without a `.skb`, and on
+   the two screens it was written for the word survives only in a comment. That is the case for
+   sweeping the whole corpus rather than what a step touched.
+
+   The four kept are declared in `tools/dead-sel.mjs` as `KEPT_ON_PURPOSE`, each with its reason, and
+   the control there **fails in both directions**: an entry that goes alive means the case arrived
+   and the note must go; an entry naming a selector no file declares means the exemption outlived its
+   rule. Three are states of a SHOP the demo catalogue does not contain - a full-price product
+   (`pdp-tabs.css`), an out-of-stock product that is also discounted (`product-card.css`, two).
+   The fourth is the mirror of the toast: `.pl-hw .pl-ic:empty` is **killed by an act**, because the
+   markup ships the slot empty and `design/_nav.js:1461` fills all three on every load, so `:empty`
+   is false by the time anything is measured.
+
+   **2925 selectors before, 2913 after, and the live count unchanged at 2534** - which is the proof
+   that nothing alive was touched. Pixels: **`tree-diff --dir` over all 88 product screens at both
+   widths, 176 comparisons, 0 elements moved.**
+
+   **And the reference had to be built, because `tree-diff HEAD` could not answer this.** Asked
+   against HEAD it reports 4 comparisons moved, and all four belong to earlier steps still sitting
+   uncommitted in the tree - the border-ownership rewrite on `coach-order` (8.52) and the 560 on
+   `coach-verify-loading` (item 2). Worse, with no page named it asks git which `design/*.html`
+   changed and gets two, **neither of them affected by a stylesheet edit at all**: a component-layer
+   change touches every page that loads it and no html file at all. So the reference is the working
+   tree with only the ten stylesheets restored from HEAD, and `--dir` compares against that. A
+   comparison whose two sides differ in more than the thing being measured is not a proof.

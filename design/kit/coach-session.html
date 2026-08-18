@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Сесія замовлення | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Сесія замовлення</h1>
+<p class="kp-lead">Вузол 5.5, і це <b>первинна робота всього продукту</b>: один тренер, кілька клієнтів, кілька цілей, одне сидіння. Вкладки клієнтів, кожна зі своїм підсумком; панель активного клієнта з його цілями; швидке додавання, що шукає <b>всередині цілі</b>, а не по каталогу; рядки замовлення за гуртовою ціною проти закресленої роздрібної; звід, який складає клієнтів.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-session.css</span><span class="kp-tag">850 рядків</span><span class="kp-tag">73 селектори</span><span class="kp-tag">266 оголошень</span><span class="kp-tag">8 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Найширша сторінка продукту, і вона це заробила</div>
+<p class="kp-p">Ліва колонка тримає рядки замовлення, права - звід, який має лишатись видимим, поки тренер додає товари. Це єдиний екран, де дві колонки не декорація: <b>сума, заради якої тренер прийшов, мусить бути на очах у мить, коли він її змінює</b>.</p>
+<p class="kp-p"><b>45 власних класів</b> - найбільше в системі. Сім інших екранів - це стани цього одного, і кожен із них носив власну копію цього блоку, поки крок 7.95 не звів їх в один файл.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітку знято з кольорових екранів через <code>tools/demo.mjs</code>. Рамки на <b>1280</b>, бо дві колонки вмикаються від 940, а нижче - одна.</p>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-session.html" style="width:1280px" data-w="1280" title="Сесія замовлення - робота"></iframe></div>
+<div class="kp-cap">Первинна робота цілком: <code>.cs-top</code> · <code>.ctabs</code> з <code>.ctab</code> і <code>.add</code> · <code>.cs-grid</code> з <code>.cs-panel</code> ліворуч і <code>.cs-summ</code> праворуч</div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Шапка</b> <code>.cs-top</code> з <code>.cs-meta</code> і <code>.tierchip</code> - «Pro» тут <b>не прикраса</b>: від нього залежить кожна ціна на екрані</span></div>
+<div class="a"><i>2</i><span><b>Вкладки клієнтів</b> <code>.ctabs</code> / <code>.ctab</code> з <code>.ctn</code>, <code>.cts</code>, <code>.ctg</code> - ім'я, підсумок, ціль. Вкладка стоїть <b>на 1px нижче</b> своєї смуги, щоб власний нижній край обраної перекрив лінію смуги</span></div>
+<div class="a"><i>3</i><span><b>Панель клієнта</b> <code>.cs-panel</code> - намальована як <b>тіло смуги вкладок і не торкається її</b>. Усередині <code>.cs-client</code>, <code>.cc-name</code>, <code>.cc-goal</code> і <code>.cc-goals</code> - перемикач цілей, який <code>chip.css</code> тримає дев'ятим ім'ям</span></div>
+<div class="a"><i>4</i><span><b>Швидке додавання</b> <code>.qadd</code> з <code>.qadd-h</code>, <code>.qa-add</code>, <code>.qa-row</code>, <code>.qa-ph</code>, <code>.qa-nm</code>, <code>.qa-bd</code>, <code>.qa-av</code>, <code>.qadd-res</code>. Шукає <b>в межах цілі</b>, і саме це відрізняє його від каталогу</span></div>
+<div class="a"><i>5</i><span><b>Рядки замовлення</b> <code>.cline</code> з <code>.cl-ph</code>, <code>.cl-nm</code>, <code>.cl-var</code>, <code>.cl-ctrls</code>, <code>.cl-tag</code>, <code>.cl-right</code>, і <code>.cline-sub</code> - підсумок по клієнту</span></div>
+<div class="a"><i>6</i><span><b>Звід</b> <code>.cs-summ</code> з <code>.cs-summ-h</code>, <code>.cs-cli</code>, <code>.cs-tot</code>, <code>.cs-note</code>, <code>.cs-go</code>, <code>.cs-save</code>. <code>.cs-tot b</code> - <b>та єдина цифра, по яку тренер прийшов</b></span></div></div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-session-empty.html" style="width:1280px" data-w="1280" title="Сесія замовлення - порожня"></iframe></div>
+<div class="kp-cap">Сесія без клієнтів: <code>.cs-summ-empty</code> замість зводу, і жодної вкладки, крім <code>.add</code></div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-session-oos.html" style="width:1280px" data-w="1280" title="Сесія замовлення - товару немає"></iframe></div>
+<div class="kp-cap"><code>.oos</code> - товар у рядку скінчився. Ім'я ділить із <code>cart-row.css</code>, і це правильно: <b>та сама подія в тому самому рядку</b>, лише на іншому екрані</div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-session-newclient.html" style="width:900px" data-w="900" title="Сесія замовлення - новий клієнт і липка смуга"></iframe></div>
+<div class="kp-cap">Звід із <b>щойно доданим клієнтом</b>: <code>.cs-cli.zero</code> ставить нуль у <code>--text-muted</code>, і видно, що це <b>не сума, а порожнє місце</b>. Знизу - липка смуга <code>.cs-bar</code> з <code>.bt</code>, яку малює <code>buy-bar.css</code>: у рамці вона стоїть, бо рамка <b>і є</b> в'юпорт</div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-session-priceblock.html" style="width:1280px" data-w="1280" title="Сесія замовлення - ціна заблокована"></iframe></div>
+<div class="kp-cap"><code>.cs-warn</code> і <code>.cs-blocknote</code> - панель, яка каже, <b>чому сесію не можна оформити</b>. Липку смугу малює <code>buy-bar.css</code>, а цей файл дає їй лише стан</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Скоуп <code>.coach</code> - обіцянка про розмітку, якої ще не існувало</div>
+<p class="kp-p">Жоден елемент у <code>wireframes/</code> <b>не носить</b> <code>class="coach"</code>. <code>&lt;main&gt;</code> восьми тренерських екранів читається <code>wf-page cs-wrap</code>, <code>cc-wrap</code>, <code>cv-wrap</code>, <code>od-wrap</code> або просто <code>wf-page</code>. Тобто скоуп, який узяли всі п'ять файлів партії 7.95, був <b>обіцянкою про розмітку</b>: кольорові екрани мусять понести <code>coach</code>, інакше кожне правило в п'яти файлах не збігається ні з чим.</p>
+<div class="kp-gap"><h4>Один клас у восьми файлах, і день, коли його забудуть, увесь потік рендериться голим - без жодної помилки</h4>Клас приземлився на <code>&lt;body&gt;</code>, а не на <code>&lt;main&gt;</code>. Речення вище прочитали як «десь усередині» - і воно коштувало правила: <code>body:has(.coach .cs-bar)</code> було написане на цій підставі, а <code>.coach</code> <b>і є</b> body, а не його нащадок, тож оголошений там відступ ніколи не спрацював. Виправлено на 7.97.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Дія, написана словами, була намальована трьома способами в одній панелі</div>
+<p class="kp-p">Зміряно на 390 до правки, три контроли в одній панелі:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Слово</th><th>Як малювався</th><th>Коробка</th></tr></thead><tbody>
+<tr><td><code>.cc-repeat</code></td><td>«Повторити замовлення»</td><td>14 / 700, <code>--text-primary</code>, підкреслений</td><td>165 x 22</td></tr>
+<tr><td><code>.cl-rm</code></td><td>«Видалити»</td><td>12 / 600, <code>--text-secondary</code>, підкреслений</td><td>58 x 19</td></tr>
+<tr><td><code>.cs-save</code></td><td>«Зберегти сесію»</td><td>14 / 400, <code>--text-body</code>, без підкреслення</td><td>324 x 22</td></tr>
+</tbody></table></div>
+<p class="kp-p">Три фініші, один зміст - <b>і найгучніший із трьох це робота повтору замовлення</b>, тобто locked-рішення 4, «повтор у один дотик з історії». <code>button.css</code> визначає для цього рівно один фініш і на кроці 7.61 нарахував <b>сімнадцять</b> контролів, «чиє слово є дією й не несе жодного класу з цього файлу»; два з них на цьому екрані.</p>
+<p class="kp-p"><b>Тепер це носить розмітка</b>, тож правила пішли, а не переписались: розмітка отримала <code>btn--text ci-lnk</code>. <code>.btn--text</code> дає 14 і чорнило, <code>.ci-lnk</code> - вагу 600, і це одне оголошення <code>cart-row.css</code>, тож у чужий файл нічого не додавали. Ім'я на тренерському екрані хибне («ci» це рядок кошика) - і це перейменування Кроку 6, те саме, яке <code>stepper.css</code> уже записав для <code>.ci-qty</code> / <code>.co-qty</code>.</p>
+<div class="kp-cap">Ціна названа вголос: підкреслення пішло в обох, а «Видалити» виросло з 12 / secondary до 14 / body</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Поле пошуку первинної роботи було власною коробкою браузера</div>
+<p class="kp-p">Крок 7.95 зняв зібрану руками коробку поля й записав: «Крок 6 має поставити <code>.field</code> на нього, інакше контрол приїде в колір у власній коробці браузера». <b>Він приїхав у власній коробці браузера.</b> Зміряно на 390:</p>
+<div class="kp-code">border: 2px inset rgb(118,118,118)   ·   border-radius: 0
+font-family: Arial                   ·   padding: 0
+color: rgb(0,0,0)</div>
+<p class="kp-p"><code>rgb(118,118,118)</code> і <code>#000</code> у палітрі відсутні, а Arial - те накреслення, яке <code>field.css</code> називає «рядком, якого бракувало 66 разів». Це поле, у яке тренер набирає товар <b>тридцять разів за сесію</b>, на єдиному екрані, де відбувається первинна робота - і воно було останнім контролом на 48 екранах, що й далі носив коробку операційної системи.</p>
+<div class="kp-cap">Полагоджено в розмітці класами атома: <code>field-grp field-grp--s</code> на обгортці й <code>field field--s</code> на самому полі - форма пошуку в хедері, одна коробка навколо поля <b>і</b> кнопки «Знайти»</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Рядок замовлення і рядок кошика - один об'єкт, намальований двічі</div>
+<p class="kp-p">Зміряно на 390: <code>.cline</code> проти <code>article.ci</code> з <code>cart-row.css</code>.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Сесія</th><th>Кошик</th><th>Стан</th></tr></thead><tbody>
+<tr><td>фото</td><td>52 x 56, <code>--radius-8</code></td><td>74 x 74, <code>--radius-12</code></td><td><b>розмір відкритий</b>, форму закрито</td></tr>
+<tr><td>поля</td><td>13px 0</td><td>16px 0</td><td><b>закрито</b>: узято 16, і це щабель</td></tr>
+<tr><td>лінія</td><td>на <b>верхньому</b> краю</td><td>на <b>нижньому</b> краю</td><td><b>закрито</b>: перенесено вниз</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Край - це та різниця, яку було видно.</b> З лінією на верхньому краю перший <code>.cline</code> малював волосяну лінію за 6px під заголовком «Товари для клієнта Андрій», тож людина читала <b>підкреслення заголовка</b>, а не розділювач між двома товарами.</p>
+<div class="kp-pair"><div class="kp-do"><h4>Форма - правило, і воно тепер тримає весь продукт</h4>Крок 7.68 зробив «коробка, яка обрамляє фотографію товару, - квадрат» правилом системи, зміряним по трьох фотографіях 2048 x 2048. Цей файл ніс <b>останню неквадратну рамку</b>: 52 x 56 → <b>52 x 52</b>, і квадратять по <b>ширині</b>, бо саме ширину пакує ряд і саме її вже називає колонка сітки.<br><br><b>Перевірено зараз, по всіх 88 кольорових екранах</b>: 21 різний розмір рамки товару, <b>0 неквадратних</b>.</div>
+<div class="kp-dont"><h4>А розмір лишається відкритим, і це інша драбина</h4>Малі рамки сьогодні: <b>34</b> (<code>.oh-thumbs i</code>) · <b>40</b> (<code>.oc-ph</code>) · <b>44</b> (<code>.qa-ph</code>) · <b>46</b> (<code>.rk-ph</code>, <code>.aord-thumbs .t</code>) · <b>52</b> (<code>.cl-ph</code>) · <b>74</b> (<code>.ci-ph</code>). Шість значень, і в джерелі немає нічого, що пояснило б, чому плитка поповнення 46, а рядок кошика 74. Це A6, і зводити їх зараз означало б смак замість заміру.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Один раз, і це <b>той екран, заради якого написано весь продукт</b>. Первинна робота з `jobs`: «швидко зібрати замовлення для кількох людей із різними цілями й дозуванням». Усе інше в тренерському потоці або веде сюди, або показує, що звідси вийшло.</p>
+<p class="kp-p">Позичати звідси нічого. Навпаки - цей файл найбільше <b>віддав</b>: поле, кнопку, чип, ціну, липку смугу, рядок кошика і навіть слово «гурт».</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Дія, яка є словом, - це кнопка.</b> <code>btn--text</code> існує рівно для цього, і три різні підкреслення в одній панелі означали не три різні дії, а три різні дні, коли їх писали.</div>
+<div class="kp-dont"><h4>Антиправило</h4><b>Не пиши скоуп, якого розмітка ще не носить, не сказавши цього вголос.</b> <code>.coach</code> у восьми файлах - обіцянка. Вона виконана, але день, коли її забудуть, дасть повністю голий потік <b>без жодної помилки в консолі</b>: CSS не повідомляє про селектор, який ні з чим не збігся.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
+<p class="kp-p"><b>Нуль</b> <code>:hover</code>, нуль <code>:active</code>, нуль <code>:focus-visible</code>. Кожен інтерактивний елемент екрана - кнопка, чип, поле, лічильник - приносить свої стани зі свого файлу.</p>
+<p class="kp-p">Стани тут <b>класи процесу</b>, і їх п'ять:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Що каже</th></tr></thead><tbody>
+<tr><td><code>.ctab.on</code></td><td>цей клієнт відкритий. У сірому це було <code>--dark</code>, у кольорі - <code>--line-action</code>, ті самі токени, що читає <code>.btn--accent</code></td></tr>
+<tr><td><code>.cline.oos</code></td><td>товару в рядку немає - ім'я спільне з <code>cart-row.css</code></td></tr>
+<tr><td><code>.cs-cli.zero</code></td><td>у клієнта поки нуль товарів. Цифра йде в <code>--text-muted</code>: <b>та сама роль, якою <code>.cs-tot</code> і <code>.cprice.pend</code> позначають нефінальну суму</b></td></tr>
+<tr><td><code>.cs-warn</code>, <code>.cs-blocknote</code></td><td>сесію не можна оформити, і чому саме</td></tr>
+<tr><td><code>.qadd-res</code></td><td>результати швидкого додавання - є або немає</td></tr>
+</tbody></table></div>
+<div class="kp-cap"><code>.cs-cli.zero</code> - приклад того, як стан має з'являтись: екран тримав нуль у власному блоці, система про нього не знала нічого, і цифра малювалась повним чорнилом, тобто <b>виглядала як справжнє число</b></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<p class="kp-p">Шість медіа-умов, найбільше у файлі системи, і це ціна двоколонкового екрана, який мусить працювати на телефоні.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Умова</th><th>Скільки</th><th>Що змінює</th></tr></thead><tbody>
+<tr><td><code>(min-width: 940px)</code></td><td>3</td><td>дві колонки, звід стає липким</td></tr>
+<tr><td><code>(max-width: 939px)</code></td><td>1</td><td>вузька сторона тієї самої межі, написана як 939 - <b>конвенція набору</b></td></tr>
+<tr><td><code>(max-width: 859px)</code></td><td>2</td><td>вузька сторона 860</td></tr>
+<tr><td><code>(max-width: 479px)</code></td><td>1</td><td>вузька сторона 480: ряди контролів у рядку замовлення переносяться</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>26 позначок <code>[?]</code></b>, усі про геометрію. Межі ж написані парами як слід: <code>940</code> / <code>939</code> - це один рубіж із двох боків, а не два числа.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>52</b> класи і <b>0</b> станів оголошено в <code>coach-session.css</code>. <code>.coach</code> не рахується - це скоуп.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["add", "bt", "cc-goal", "cc-goals", "cc-name", "cl-ctrls", "cl-nm", "cl-ph", "cl-right", "cl-tag", "cl-var", "cline", "cline-sub", "cprice", "cs-banner", "cs-bar", "cs-blocknote", "cs-cli", "cs-client", "cs-go", "cs-grid", "cs-lines-h", "cs-meta", "cs-note", "cs-panel", "cs-save", "cs-summ", "cs-summ-empty", "cs-summ-h", "cs-top", "cs-tot", "cs-warn", "cs-wrap", "ctab", "ctabs", "ctg", "ctn", "cts", "on", "oos", "qa-add", "qa-av", "qa-bd", "qa-nm", "qa-ph", "qa-row", "qadd", "qadd-h", "qadd-res", "tierchip", "wa", "ws", "wt", "zero"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>coach-session.css</code>, не переписані руками. Ці два екрани ніколи не проходили через <code>kit.css</code>, тож переклад сірих імен - і є вся колірна робота: кожне з них перекладено за <b>роботою</b>, яку воно виконувало в <code>wireframes/_wf.css</code>.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (11)</th><th>Примітиви (23)</th></tr></thead><tbody>
+<tr><td><code>--bg-page</code> <code>--bg-sunken</code></td><td><code>--font-display</code></td></tr>
+<tr><td><code>--bg-surface</code></td><td><code>--fs-8</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code></td></tr>
+<tr><td><code>--line-action</code> <code>--line-hair</code></td><td><code>--fs-18</code> <code>--fs-24</code></td></tr>
+<tr><td><code>--line-inverse</code> <code>--line-strong</code></td><td><code>--fw-semibold</code> <code>--fw-bold</code> <code>--fw-black</code></td></tr>
+<tr><td><code>--text-body</code> <code>--text-muted</code></td><td><code>--lh-snug</code> <code>--lh-airy</code> <code>--ls-lead</code></td></tr>
+<tr><td><code>--text-primary</code></td><td><code>--radius-8</code> <code>--radius-12</code> <code>--radius-pill</code></td></tr>
+<tr><td><code>--text-secondary</code></td><td><code>--size-44</code> <code>--size-52</code></td></tr>
+<tr><td>–</td><td><code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Одне сіре ім'я розійшлось надвоє за роботою</b>, і це найцікавіший рядок перекладу. <code>--dark</code> сірий прототип сам називав «єдиним темним акцентом: вибране / первинне (у сірому)». У кольорі ці дві роботи розходяться в ту мить, коли з'являється тон: на темній поверхні це <code>--line-inverse</code>, а там, де воно каже «оце обране», - <code>--line-action</code>, тобто <b>помаранчевий</b>. Обрана вкладка клієнта - другий випадок.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;main class="wf-page cs-wrap"&gt;
+  &lt;div class="cs-top"&gt;…&lt;span class="tierchip"&gt;Pro&lt;/span&gt;&lt;div class="cs-meta"&gt;…&lt;/div&gt;&lt;/div&gt;
+
+  &lt;div class="ctabs"&gt;
+    &lt;button class="ctab on"&gt;&lt;span class="ctn"&gt;Андрій&lt;/span&gt;
+      &lt;span class="cts"&gt;2 320 ₴&lt;/span&gt;&lt;span class="ctg"&gt;Набір маси&lt;/span&gt;&lt;/button&gt;
+    &lt;button class="ctab"&gt;…&lt;/button&gt;
+    &lt;button class="add"&gt;+ Клієнт&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div class="cs-grid"&gt;
+    &lt;div class="cs-panel"&gt;
+      &lt;div class="cs-client"&gt;&lt;span class="cc-name"&gt;Андрій&lt;/span&gt;
+        &lt;span class="cc-goal"&gt;ціль: Набір маси&lt;/span&gt;
+        &lt;a class="btn--text ci-lnk"&gt;Повторити замовлення&lt;/a&gt;&lt;/div&gt;
+      &lt;div class="cc-goals"&gt;&lt;a class="on"&gt;Набір маси&lt;/a&gt;…&lt;/div&gt;
+
+      &lt;div class="qadd"&gt;&lt;div class="qadd-h"&gt;…&lt;/div&gt;
+        &lt;div class="field-grp field-grp--s"&gt;&lt;input class="field field--s"&gt;
+          &lt;button class="btn"&gt;Знайти&lt;/button&gt;&lt;/div&gt;
+        &lt;div class="qadd-res"&gt;&lt;div class="qa-row"&gt;&lt;span class="qa-ph"&gt;фото&lt;/span&gt;
+          &lt;span class="qa-nm"&gt;…&lt;/span&gt;&lt;span class="qa-av"&gt;…&lt;/span&gt;
+          &lt;span class="qa-bd"&gt;…&lt;/span&gt;&lt;button class="qa-add"&gt;Додати клієнту&lt;/button&gt;
+        &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+
+      &lt;div class="cs-lines-h"&gt;Товари для клієнта Андрій&lt;/div&gt;
+      &lt;div class="cline"&gt;&lt;span class="cl-ph"&gt;фото&lt;/span&gt;
+        &lt;div&gt;&lt;div class="cl-nm"&gt;…&lt;/div&gt;&lt;div class="cl-var"&gt;…&lt;/div&gt;
+          &lt;div class="cl-ctrls"&gt;…&lt;span class="cl-tag"&gt;Андрій&lt;/span&gt;
+            &lt;a class="btn--text ci-lnk"&gt;Видалити&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div class="cl-right"&gt;…&lt;/div&gt;&lt;/div&gt;
+      &lt;div class="cline-sub"&gt;Підсумок по клієнту Андрій …&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;aside class="cs-summ"&gt;&lt;div class="cs-summ-h"&gt;Сесія - разом&lt;/div&gt;
+      &lt;div class="cs-cli"&gt;…&lt;/div&gt;&lt;div class="cs-tot"&gt;&lt;span&gt;Разом&lt;/span&gt;&lt;b&gt;3 480 ₴&lt;/b&gt;&lt;/div&gt;
+      &lt;p class="cs-note"&gt;…&lt;/p&gt;&lt;a class="btn cs-go"&gt;Перейти в кошик&lt;/a&gt;
+      &lt;a class="btn--text ci-lnk cs-save"&gt;Зберегти сесію&lt;/a&gt;&lt;/aside&gt;
+  &lt;/div&gt;
+&lt;/main&gt;</div>
+<p class="kp-p"><code>btn--text ci-lnk</code> у трьох місцях - це і є та правка, яка звела три фініші в один. Ім'я <code>ci-lnk</code> на тренерському екрані хибне і чекає на Крок 6.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.cs-wrap</code> <code>.ctabs</code> <code>.ctab</code> <code>.cline</code> <code>.qadd</code></p>
+<p class="kp-p"><b>8 кольорових екранів</b>: <code>coach-session</code> · <code>-empty</code> · <code>-loading</code> · <code>-oos</code> · <code>-priceblock</code> · <code>-newclient</code> · <code>-addclient</code> · <code>-addempty</code>. Усі сім, крім першого, - <b>стани того самого екрана</b>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Розмір рамки товару</b> - шість значень на малих рамках (34 / 40 / 44 / 46 / 52 / 74). Форму закрито й перевірено по всьому продукту, розмір - A6 і власника</li>
+<li><b><code>.ci-lnk</code> на тренерському екрані</b> - один атом під двома іменами. Крок 6, той самий, що для <code>.ci-qty</code> / <code>.co-qty</code></li>
+<li><b><code>.qa-row</code> ділить ім'я зі <code>skeleton.css</code></b>, а <code>.qa-av</code> - з <code>availability.css</code>. Сьогодні не заважає, завтра - як пощастить</li>
+<li><b>26 геометричних літералів</b> під <code>[?]</code></li>
+<li><b>Немає станів наведення й натиску в самого файлу</b>, і це правильно: усе, що натискають, - чужі атоми. Але <code>.ctab</code> - <b>власна кнопка</b> цього файлу, і в неї немає ні наведення, ні фокусу</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script src="_idle.js"></script>
+<script src="_frame.js"></script>
+</main>
+<script src="_nav.js"></script>
+</body>
+</html>

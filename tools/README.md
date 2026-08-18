@@ -508,7 +508,7 @@ check the **next** step will want to run unchanged.
 contains an apostrophe.** zsh closes the single-quoted argument at the first `'`
 inside it, so the shell hands node a truncated program and the REST OF THE SCRIPT
 becomes literal text - which the substitution then writes into the file. Step 8.19
-put `).replace(/’/g,` into a published page while removing a curly apostrophe from
+put `).replace(/'/g,` into a published page while removing a curly apostrophe from
 it, and `accept` failed on the same page for the same reason it had failed a
 minute earlier, which is what made it visible.
 
@@ -620,6 +620,28 @@ the space, because all four had one shape - **answering the question next to the
 The fourth cost the 35-minute walk twice, and not because of the bug: the correction was announced
 before it was verified, the patch had never applied, and the re-run produced a **byte-identical**
 record - 1 518 distinct classes, 50 417 total, in both files. The identity is what exposed it.
+
+## The subject of both private-rule walks, in one place
+
+`private.mjs` and `inert.mjs` ask the same corpus two different questions, and they must agree on WHO
+they are asking. Until 2026-08-17 they did not, and the disagreement was invisible for two days
+because the count was not yet zero.
+
+`inert.mjs` says of the shared predicate that it exists «so the two walks cannot disagree about what
+their subject is». They disagreed anyway, because **the disagreement was not in the predicate** - it
+was in the exclusions above it. `private.mjs` measured the stage hub out of its subject on 2026-08-15
+(`design/overview.html` does not link `system/index.css` at all, so «which private rules override the
+system» is not a question that applies to it); `inert.mjs`'s own note, written the day before and
+never revisited, still said «`overview` STAYS».
+
+**The moment the product reached zero, the two printed different answers in the same minute**:
+`private.mjs` «no page carries a private rule», `inert.mjs` «1 page, 30 rules». A count that agrees
+while it is wrong is exactly why this now lives in `lib.mjs` as `outOfPrivateSubject`, and why both
+walks PRINT what they dropped and why - 75 pages, showcase and hub. An exemption nobody can see is
+the same defect as an exemption that covers nothing.
+
+Side effect worth naming: `inert.mjs` used to spend 3m51s answering «can these go» about a hub that
+does not load the system. It now finishes instantly with nothing to ask.
 
 ## `inert.mjs` - which private rules can go, decided by LOADING the page without them
 
@@ -983,3 +1005,115 @@ in the grey original was never the transform's doing, so nobody owned the questi
 tool to «any `<a>` or `<button>` inside a component the base ranks» is possible and is not free -
 it would have to know which anchors are prose links - so it is written down here rather than guessed
 at.
+
+---
+
+## `dead-sel.mjs` - does this selector ever match anything at all
+
+```
+node tools/dead-sel.mjs                 all 84 components
+node tools/dead-sel.mjs coach-order     only those
+```
+
+The question nothing in this folder was asking. `inert.mjs` asks whether a **declaration** is
+overridden by another rule and is structurally blind to a selector that never matched - there is no
+losing declaration to find, because there is no element for anything to be declared on. `roles.mjs`
+compares tokens read against tokens listed. `idle.mjs` asks whether a class the page NAMES is a class
+the page SHOWS. None of them can see a rule in a shipped stylesheet that has never painted a pixel.
+
+**Two were found by hand, in one file, and that is the whole argument.** `coach-order.css` lost
+`.od-back` at 8.7 - counted instance by instance in both layers, 0 and 0 - and kept
+`.od-line:last-child` four lines below it, dead for exactly the same reason, because hand counting
+stops when the counter is satisfied.
+
+Pass A asks the browser the selector **as written**, over every page that loads `system/index.css`.
+One match anywhere is enough. Pass B runs only on what pass A could not place, and it is the sorting
+pass `idle.mjs` had to invent first: **a rule that applies only during an act cannot be found in
+repose.** The condition is stripped and the question becomes «does the HOST exist»:
+
+| selector | host asked | verdict |
+|---|---|---|
+| `.coach .cs-save:hover` | `.coach .cs-save` | condition, host exists |
+| `.kp-tag::after` | `.kp-tag` | condition, host exists |
+| `.coach .od-line:last-child` | *unchanged* | **dead** |
+
+`:last-child` is structural - true or false in repose - so it stays in pass A's question. The strip
+list is a list of **acts and states**, never of structure. Strip `:nth-child` and the instrument
+stops being able to find the defect it was built for.
+
+### What a verdict says, and what it does not
+
+«МЕРТВИЙ» means «matched nothing on these 263 pages», never «can never match». Both kinds land in the
+same list and are repaired differently: `.btn--accent .uiv-brand` has no possible host (the brand
+mark only ever sits on the outline finish), while `.pcard.dim .pold` is a **combination the corpus
+never shows** - dimmed cards exist, struck prices exist, no card is both. The tool reports the fact
+and refuses to guess which; the reading is a person's and belongs beside the fix.
+
+### Three wrong versions, written down so they are not rebuilt
+
+1. **Asking the source instead of the browser.** Grepping class names across `design/*.html` looks
+   equivalent and fails in both directions: half this product's markup is written at runtime by
+   `wfHeader()` and `_nav.js` and exists in no html file, so real elements read as absent; and a
+   class in a JS template string that no branch renders reads as present.
+2. **Stripping every pseudo-class.** The first draft treated `:` as the mark of a state. That turns
+   `.od-line:last-child` into `.od-line`, which is alive, and the one defect the file exists to find
+   reports healthy.
+3. **Stripping inside parentheses.** `:not(.on)` holds an argument, not a condition of this element.
+   Strip `.on` out because a script toggles it and the selector becomes `:not()`, which no browser
+   parses - so the host query throws, the host reads as absent, and **eleven healthy `:hover` rules
+   on radios, steppers and the view toggle reported as dead**. 37 findings became 16 when this was
+   fixed. The mistake flatters, which is the dangerous direction: it produces findings.
+
+A fourth was caught before it shipped: **stopping the walk once every probe has gone green.** It is a
+real speedup and it costs the corpus census - a run that stops at page 47 has not looked at pages 48
+to 267 and reported «0 pages without the system» on a repository that has four. The per-page work
+still shrinks, because only selectors still unplaced are asked; the walk does not.
+
+### Its exemptions, and the control on each
+
+- **Born at an act.** An element that does not exist on a loaded page because a script creates it.
+  Pass B cannot help: the host is the thing that is missing. Declared by hand, per file, with the
+  line of code that builds it - today only `toast.css`, whose strip is `t.className = 'wf-toast '
+  + type` at `wireframes/_nav.js:1242`. `idle.mjs` refused that same `className =` signature on the
+  ground that it dresses a node the script just created, which is markup and can be shown in repose:
+  **the same fact read for the opposite question, and both readings are right.** The control fails if
+  a declared file turns out to have every selector alive.
+- **Pages without the system.** A class in markup is a class in markup whether or not a stylesheet
+  reached it, so the four pages deliberately off the system would lend liveness to rules that never
+  painted on them. Asked in the browser (`document.styleSheets`), never of the file - `design/
+  overview.html` mentions `system/index.css` **in a comment**, and a source grep counts that as a
+  link. Named out loud, and a zero here fails.
+- **Selectors this engine will not parse.** `::-moz-range-track` and its three siblings in
+  `price-slider.css` are correct rules for another engine. Reported, not failed.
+
+### What the first full sweep found
+
+2925 selectors in 84 files (2215 distinct), 263 pages with the system: **16 dead**, 365 conditional
+with a live host, 6 born at an act, 4 unparseable here. Seven of the sixteen are one shape - **a
+comma list completed for symmetry where only one member has an element**: `.btn--outline .uiv-brand`
+is alive and the accent, ghost and `--l` editions are not; `.field-grp > .btn--accent` is alive and
+outline and ghost are not; `.emptybox .et:first-child` is alive and `.empty .et:first-child` is not.
+That last one is the sharpest: `empty-state.css` had **already written the rule down** four lines
+above - «a selector added for it would match nothing. An exemption that covers nothing fails as
+loudly as an undeclared case; so does a rule» - and then wrote two.
+
+**Read and closed the same day: twelve deleted, four kept, `dead-sel` 0.** 2925 selectors before,
+2913 after, **live count unchanged at 2534** - which is what proves nothing alive was touched;
+`tree-diff --dir` over all 88 product screens at both widths, 176 comparisons, **0 elements moved**.
+The reference had to be built by hand and that is worth knowing before trusting `tree-diff HEAD` for
+a stylesheet edit: against HEAD it answers 4, all of them earlier uncommitted steps, and with no page
+named its default subject is «which `design/*.html` did git see change» - **two pages, neither of
+them one this edit could reach.** A component-layer change touches every page that loads it and no
+html file at all. The four kept are
+declared as `KEPT_ON_PURPOSE` with a reason each, and that control fails **in both directions**: an
+entry that goes alive means the case has arrived and the note must go, an entry naming a selector no
+file declares means the exemption outlived its rule.
+
+Two of the twelve are worth remembering for what they say about other instruments. **`.resend a`**
+was four declarations for an anchor that is not there - the live resend link is `.pf-resend` inside
+`.otp-note`, already drawn by `checkout-form.css:50`, and this was its ninth-edition twin one token
+off, **on markup that never existed, so no amount of looking at the screen could have found it.**
+**`.skcard:not(:has(.skb))`** was correct the day it was written and the corpus moved out from under
+it: twelve `.skcard` today, not one without a `.skb`, and on the two screens the rule names the word
+survives only in a comment. **A rule can be right when written and wrong later without anybody
+editing it** - which is the argument for sweeping the whole corpus rather than what a step touched.

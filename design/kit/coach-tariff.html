@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Тариф тренера | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Тариф тренера</h1>
+<p class="kp-lead">Вузол 5.2a - екран, який показує тариф, що діє, і дає з нього піти. Це єдиний екран продукту, де locked-рішення про <b>платний тариф тренера</b> видно цілком, разом із чесним <code>[?]</code> у самій ціні. Сьомий із восьми тренерських організмів.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-tariff.css</span><span class="kp-tag">422 рядки</span><span class="kp-tag">19 селекторів</span><span class="kp-tag">55 оголошень</span><span class="kp-tag">3 екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Дванадцять правил віддано, і що лишилось - це картка і порівняння</div>
+<p class="kp-p">У сірому блоці було <b>39 правил</b>, тут лишилось <b>19</b>, і кожне з дванадцяти видалень названо тому файлу, який уже володів ним. Заміряно в Chrome на 360 / 390 / 768 / 1280, із закритим і відкритим діалогом, <b>до</b> видалення і <b>після</b>. Це не найбільша чистка етапу за числом, але найгустіша за часткою: <b>55 оголошень на 422 рядки</b> - сім рядків пояснення на кожне оголошення, п'яте місце в системі.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що пішло</th><th>Кому</th><th>Що це виправило</th></tr></thead><tbody>
+<tr><td><code>.tf-wrap</code></td><td><b>нікому</b></td><td><b>Було мертвим і в сірому теж.</b> Обгортка, яку замінив <code>.acc-main</code>, коли екран переїхав у оболонку акаунта - правило пережило свій <code>div</code></td></tr>
+<tr><td>інлайн-стиль H1</td><td><code>account-shell.css</code></td><td><code>24/800</code> руками → <code>.acc-h1</code> - Oswald <b>30/600</b>, <code>--ls-lead</code>. Той самий дефект, що <code>coach-cabinet.css</code> прибрав на 7.96</td></tr>
+<tr><td><code>.tf-lead</code> - обличчя</td><td><code>account-shell.css</code></td><td>Три оголошення, <b>байт у байт ті самі</b>, що в <code>.acc-sub</code>. Після видалення нічого не зрушило - у цьому й суть: правило було копією</td></tr>
+<tr><td>три <code>line-height</code></td><td><code>base.css</code></td><td>1.5 · 1.5 · 1.55 - <b>жодне не має щабля</b>, а <code>body</code> вже ставить <code>--lh-airy</code> на все. 22.4 → 22.4, 19.2 → 19.2, 22.4 → 22.4. Тричі поспіль нічого</td></tr>
+<tr><td><code>.tf-badge</code></td><td><code>status-pill.css</code></td><td>113.00 x 27.19 без ґрунту → <b>99.22 x 25.59</b>, чорнило <code>rgb(28,28,28)</code> → <code>rgb(46,125,70)</code> на <code>rgba(46,125,70,.07)</code>. Втрачено верхній регістр і <code>--ls-caps</code>, і це <b>названо, а не відновлено</b></td></tr>
+</tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітку знято з кольорових екранів через <code>tools/demo.mjs</code>, разом із класом <code>coach</code> на <code>&lt;body&gt;</code>. Колонку обмежено до <b>732</b> - це ширина, яку <code>.acc-main</code> займає в оболонці акаунта на 1280. Витягнута з неї, вона розтяглась би на всю рамку.</p>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-tariff.html" style="width:1180px" data-w="1180" title="Тариф тренера - Pro"></iframe></div>
+<div class="kp-cap">Pro, що діє: <code>.tf-cur</code> з <code>.tf-cur-h</code>, <code>.tf-plan</code>, <code>.tf-price</code>, <code>.tf-renew</code>, <code>.tf-incl</code>, <code>.tf-actions</code> · <code>.tf-ch</code> і порівняння · <code>.tf-note</code></div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Картка запису</b> <code>.tf-cur</code> - <b>єдина коробка екрана з краєм у чорнилі</b>, а не у волосяній лінії. Саме це робить її твердженням про стан справ, не витративши жодного кольору: той самий аргумент, що <code>coach-landing.css</code> робить для <code>.finalcta</code></span></div>
+<div class="a"><i>2</i><span><b>Плашка</b> - не своя, а <code>status-pill.css</code>: 84.97 x 25.59, зелена. І вона зелена <b>на обох тарифах</b>, бо каже про СТАН підписки, а не про її рівень: Free теж активний</span></div>
+<div class="a"><i>3</i><span><b>Ціна</b> <code>.tf-price</code> - 26px, і 26 лишено літералом навмисне. Воно між щаблями 24 і 30, а <b>ні крок 5.5, ні 5.6 не мають інструкції для цілого числа поза їхнім списком</b>. Приснапити його означало б вигадати округлення, а це ціна</span></div>
+<div class="a"><i>4</i><span><b>Знак <code>[?]</code></b> <code>.tf-price .qm</code> - навмисне найтихіше в рядку: він каже, що число над ним ще не справжнє, і не має з ним змагатись</span></div>
+<div class="a"><i>5</i><span><b>Список включеного</b> <code>.tf-incl li::before</code> - галочка <code>content</code>, а не символ у розмітці: набрана галочка читається вголос, не має власного розміру і не відрізняється від слова. Чорнило, <b>не акцент</b>: помаранчевий це запрошення, а список того, що у вас уже є, ним не є</span></div>
+<div class="a"><i>6</i><span><b>Підвал картки</b> <code>.tf-actions</code> - рядок володіє лінією над собою і повітрям і <b>нічого не каже про контрол</b>. Це форма, яку мусить мати кожне правило розміщення. 44.59 із голим текстом усередині, <b>71.00</b> зі справжньою кнопкою</span></div>
+<div class="a"><i>7</i><span><b>Виноска</b> <code>.tf-note</code> - «Ціна Pro (~99 ₴/міс), ліміт клієнтів на Free та умови - гіпотеза». Правило «кожне число, якому потрібні реальні дані, лишається <code>[?]</code>» тут <b>надруковане на екрані</b>, а не сховане в md</span></div></div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-tariff-free.html" style="width:1180px" data-w="1180" title="Тариф тренера - Free"></iframe></div>
+<div class="kp-cap">Free, що діє. Два пункти носять <code>.off</code> - <b>рядок, якого тариф не дає</b>, - і панель Pro малює <code>upsell.css</code>. Порівняння тут не показано взагалі: коли ти на нижчому тарифі, порівняння замінює панель</div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-tariff-cancel.html" style="width:390px" data-w="390" title="Скасування підписки - 390"></iframe></div>
+<div class="kp-cap">Підтвердження на <b>390</b>: діалог 342 завширшки (в'юпорт мінус 48 скрима), пара кнопок <b>стовпчиком</b></div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-tariff-cancel.html" style="width:900px" data-w="900" title="Скасування підписки - 900"></iframe></div>
+<div class="kp-cap">Той самий діалог на <b>900</b>: <code>.tfdlg</code> впирається у власні <b>440</b>, пара стає рядом. Різниця названа й одна - <b>межа 480</b></div></section>
+
+<section class="kp-sec"><div class="kp-sh">440 - це не кругле число, це ширина рядка кнопок</div>
+<p class="kp-p">Три сусідні діалоги продукту пишуть <code>max-width: 400px</code>, цей пише <b>440</b>, і сірий оригінал написав 440 саме тут (<code>wireframes/coach-tariff.html:47</code>). Причина зміряна: пара «Залишити Pro» + «Скасувати підписку» це <b>390.00</b> завширшки, а коробка вмісту всередині 400px діалога дає <b>352.00</b> - <b>2.08 понад край на КОЖНІЙ ширині</b>, бо пара в ту коробку не влазить ніколи. 440 дає рівно 390.00. <b>Значення переїхало, а не було виведене заново.</b></p>
+<p class="kp-p">А нижче 480 стовпчик, і це друга половина того самого заміру: на телефоні діалог це в'юпорт мінус 48, тож 440 не купує нічого. До правила рядок на 360 був <b>338.08</b> у коробці <b>264.00</b> - <b>дві кнопки вилазили з білої картки</b>, правий край підтвердження опинявся на 387.1 у в'юпорті 360, а оверлей скролився на 27px убік, щоб до нього дотягнутись. <b>Частиною, що звисала за край, був руйнівний контрол на екрані скасування.</b></p>
+<p class="kp-p">479 - це власний телефонний щабель <code>button.css</code>, який теж вирішує ширину цього рядка, тож два правила, що задають цей вимір, сидять на одній межі. Саме правило з 8.31b живе вже в <code>client-dialog.css</code>: додавання клієнта відтворило ту саму знахідку з іншого кінця, а <b>те саме число двічі - це відповідь компонента, а не екрана</b>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Знайдено на цій сторінці: стовпчик міняє порядок читання на порядок дотягування</div>
+<p class="kp-p">Питання поставлено всьому продукту, а не цьому екрану: <b>у кожному діалозі підтвердження знайти руйнівний контрол і зміряти, де він стоїть</b>. Їх вісім, і відповідь у всіх вісьмох однакова.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Екран</th><th>Безпечна</th><th>Руйнівна</th></tr></thead><tbody>
+<tr><td><code>account-addresses</code> · <code>-empty</code></td><td>Скасувати</td><td>Видалити</td></tr>
+<tr><td><code>account-profile</code> · <code>-withemail</code></td><td>Скасувати</td><td>Видалити акаунт</td></tr>
+<tr><td><code>coach-client</code> · <code>coach-clients</code></td><td>Скасувати</td><td>Видалити клієнта</td></tr>
+<tr><td><code>coach-tariff</code> · <code>-cancel</code></td><td>Залишити Pro</td><td>Скасувати підписку</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Вісім із восьми: руйнівна - друга з двох.</b> На 900 це ряд, і обидві на одному <code>y</code> - 532.8 і 532.8, - тобто порядок зліва направо читається як «спершу безпечна, потім руйнівна», що є звичною конвенцією. На 390 той самий рядок стає стовпчиком, і тоді <code>y</code> розходяться: <b>523.2 проти 587.2</b>.</p>
+<p class="kp-p"><b>Стовпчик перетворює порядок читання на порядок дотягування, і дотягування каже протилежне.</b> Нижня кнопка на телефоні - та, до якої великий палець дістає першою, і на всіх восьми екранах це кнопка, яку не можна відмінити. Це <b>одне рішення, а не вісім дефектів</b>: рядок задає <code>client-dialog.css</code>, і поміняти порядок у стовпчику коштує один <code>flex-direction: column-reverse</code> в одному файлі. Рішення власника - тут названо з числами під ним.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Два радіуси на одному екрані, і драбина вже дала відповідь</div>
+<p class="kp-p">На екрані тарифу три коробки, і вони не сходяться:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Коробка</th><th>Радіус</th><th>Звідки</th></tr></thead><tbody>
+<tr><td><code>.tf-cur</code> - картка запису</td><td><b>14px</b></td><td>літерал під <code>[?]</code></td></tr>
+<tr><td><code>.tf-col</code> - картка порівняння</td><td>12px</td><td><code>--radius-12</code>, <code>plan-card.css</code></td></tr>
+<tr><td><code>.tfdlg</code> - діалог</td><td>12px</td><td><code>--radius-12</code>, <code>client-dialog.css</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>І це не питання без відповіді, на відміну від відступів.</b> Драбина радіуса - єдина геометрична драбина, чиє правило округлення записане: чотири щаблі 4 / 8 / 12 / 16, <b>нічиї йдуть УНИЗ</b>, а <code>tokens.css:464</code> уже перелічує <code>14 → 12</code> серед снапів, які зробив. <code>coach-order.css</code> застосував його на 8.7 і зняв 14 з <code>.od-head</code> одним рядком.</p>
+<p class="kp-p"><b>Чотири файли того снапу не зробили</b>, і всі чотири тренерські: <code>coach-cabinet.css</code>, <code>coach-landing.css</code>, <code>coach-tariff.css</code> і <code>upsell.css</code>. Проти <b>88</b> вживань <code>--radius-12</code> і <b>22</b> вживань <code>--radius-16</code> у системі це чотири літерали, які правило вже вміє відповісти. Не змінено цим кроком, бо це <b>значення на чотирьох екранах</b>, а значення рухається озвученим рішенням - але це вже не відкрите питання, а незастосоване правило.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>coach-tariff.css</code>, не переписані руками. <b>П'ять ролей на шістнадцять токенів</b>, і серед них <b>жодного кольору дії</b>: екран, який керує платною підпискою, увесь у нейтральних ролях. Помаранчевий сюди приносить лише панель Pro на екрані Free, а червоне - <code>btn--danger</code>, і це єдиний руйнівний колір у потоці тренера.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (11)</th></tr></thead><tbody>
+<tr><td><code>--line-hair</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-24</code></td></tr>
+<tr><td><code>--line-inverse</code></td><td><code>--fw-semibold</code> <code>--fw-black</code></td></tr>
+<tr><td><code>--text-muted</code></td><td><code>--ls-lead</code></td></tr>
+<tr><td><code>--text-primary</code></td><td><code>--space-4</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code></td></tr>
+<tr><td><code>--text-secondary</code></td><td>–</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>І порожня клітинка внизу правої колонки - це і є попередній розділ, сказаний одним фактом: у цьому файлі НЕМАЄ ЖОДНОГО ТОКЕНА РАДІУСА.</b> Із 84 файлів системи радіус читають десятки; тут єдиний закруглений кут на екрані - <code>14px</code> літералом. Драбина, чиє правило записане, до цього файлу не дійшла жодним значенням.</p>
+<p class="kp-p"><code>--line-inverse</code> тут <b>одне вживання на весь файл</b> - край картки запису, - і саме воно несе всю ієрархію екрана. Роль обрано за <b>поверхнею</b>: це ЛІНІЯ, а не чорнило й не заливка, і поріг для неї 3:1, а не 4.5:1.</p>
+<p class="kp-p">Ваг рівно дві - <code>--fw-semibold</code> і <code>--fw-black</code>. Ані <code>--fw-regular</code>, ані <code>--fw-bold</code> файл не називає: звичайну вагу дає <code>base.css</code>, а все, що цей екран підкреслює, підкреслює найважчим.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p">Власних станів компонент <b>не має</b>: жодного <code>:hover</code>, <code>:focus-visible</code> чи <code>:disabled</code> у файлі немає. Єдиний інтерактивний контрол екрана - «Скасувати підписку Pro» - носить <code>btn--outline btn--danger</code> і бере стани звідти. Це і є вимір переїзду: файл на 422 рядки, який <b>не малює жодної взаємодії</b>, бо всі вони вже намальовані.</p>
+<p class="kp-p">Умовних форм у файлі теж лише дві, і обидві структурні, а не інтерактивні: <code>.tf-incl li.off</code> і <code>.tf-incl li.off::before</code>. <code>\2715</code> проти <code>\2713</code> - <b>одна пара</b>: хрест проти галочки читається як та сама сім'я, що каже протилежне, а тире поруч із галочкою - ні. Чорнило <code>--text-muted</code> і на слові, і на мітці: <b>відсутня можливість це факт, а не поразка</b>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>16</b> класів і <b>0</b> станів оголошено в <code>coach-tariff.css</code>. <code>.coach</code> не рахується - це скоуп; <code>.tf-col*</code>, <code>.tf-mini</code>, <code>.tf-price2</code> і <code>.tf-compare</code> теж ні - вони пішли в <code>plan-card.css</code> на 8.29 і живуть на цьому екрані як чужі гості.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["off", "per", "qm", "tf-actions", "tf-ch", "tf-cur", "tf-cur-h", "tf-incl", "tf-lead", "tf-note", "tf-plan", "tf-price", "tf-renew", "tfdlg"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;main class="acc-main"&gt;
+  &lt;h1 class="acc-h1"&gt;Тариф&lt;/h1&gt;
+  &lt;p class="acc-sub tf-lead"&gt;Ваш поточний тариф і керування підпискою …&lt;/p&gt;
+
+  &lt;section class="tf-cur"&gt;
+    &lt;div class="tf-cur-h"&gt;&lt;span class="tf-plan"&gt;Pro&lt;/span&gt;
+      &lt;span class="oc-status ok"&gt;Активний&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="tf-price"&gt;99 ₴ &lt;span class="per"&gt;/міс&lt;/span&gt;
+      &lt;span class="qm"&gt;[?]&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="tf-renew"&gt;Наступне списання - &lt;b&gt;12 липня 2026&lt;/b&gt; · картка •• 1234&lt;/div&gt;
+    &lt;ul class="tf-incl"&gt;
+      &lt;li&gt;Максимальна гуртова ціна на всі товари&lt;/li&gt;
+      &lt;li class="off"&gt;Мультиклієнтські замовлення&lt;/li&gt;   &lt;!-- лише на Free --&gt;
+    &lt;/ul&gt;
+    &lt;div class="tf-actions"&gt;
+      &lt;button class="btn btn--outline btn--danger"&gt;Скасувати підписку Pro&lt;/button&gt;&lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;h2 class="tf-ch"&gt;Порівняння тарифів&lt;/h2&gt;
+  &lt;div class="tf-compare"&gt;…&lt;/div&gt;   &lt;!-- plan-card.css, не цей файл --&gt;
+  &lt;p class="tf-note"&gt;&lt;b&gt;[?]&lt;/b&gt; Ціна Pro (~99 ₴/міс) … гіпотеза&lt;/p&gt;
+&lt;/main&gt;
+
+&lt;div class="ceov open" role="dialog" aria-modal="true"&gt;
+  &lt;div class="cedlg tfdlg"&gt;…&lt;/div&gt;&lt;/div&gt;</div>
+<p class="kp-p"><code>class="acc-sub tf-lead"</code> - <b>додавання, ніколи перейменування</b>: обличчя належить оболонці акаунта, а цьому файлу лишилось повітря під ним, якого <code>.acc-sub</code> навмисне не несе. <code>class="cedlg tfdlg"</code> те саме: коробка діалогу спільна, а 440 - власні.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.tf-lead</code> <code>.tf-cur</code> <code>.tf-cur-h</code></p>
+<p class="kp-p"><b>3 кольорові екрани</b>: <code>coach-tariff</code> · <code>-free</code> · <code>-cancel</code>. Перший і третій це <b>одна розмітка</b> - різниця в класі <code>open</code> на скримі, - тож насправді екранів два, а третій це стан першого.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b>Руйнівна кнопка нижча за безпечну на всіх 8 діалогах</b> нижче 480. Один <code>flex-direction</code> в одному файлі, рішення власника</li>
+<li><b>Чотири літерали <code>14px</code> радіуса</b>, яким драбина вже дала відповідь <code>14 → 12</code>. Незастосоване правило, не відкрите питання</li>
+<li><b>Дев'ять геометричних літералів</b> під <code>[?]</code>: 22 (двічі) · 20 (двічі) · 18 · 14 (тричі) · 10 · 6 · 30. Драбина відступів має два правила, які сперечаються</li>
+<li><b>26px ціни</b> - між щаблями 24 і 30, і в жодного з двох кроків округлення немає інструкції для цілого числа поза їхнім списком. Це ціна, тож розмір рухає власник</li>
+<li><b>Верхній регістр плашки втрачено</b> при переїзді на <code>status-pill.css</code>. Повернути це одне оголошення в атомі, а не приватне правило тут</li>
+<li><b>99 ₴ надруковано на екрані тричі</b> - у картці, у колонці порівняння і у виносці, - і всі три це та сама гіпотеза. Коли число стане справжнім, місць для правки три</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script src="_idle.js"></script>
+<script src="_frame.js"></script>
+</main>
+<script src="_nav.js"></script>
+</body>
+</html>

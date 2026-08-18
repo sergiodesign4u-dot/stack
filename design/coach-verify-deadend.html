@@ -18,9 +18,14 @@
    section 1b there - `.lead` was `.cv-lead` with one word missing, a bare
    `.btn{ display: block }` turned the main action's `btn--full` back into a
    block, and the lead had no measure on any of them.
-   What is left is the deferred one: whether 560 becomes the panel's width is
-   stage 09's decision, not this step's move. */
-.cv-card { max-width: 560px; margin: 0 auto; }
+   AND THE LAST ONE WENT AT 8.48: `.cv-card{ max-width: 560px; margin: 0 auto }`
+   is now `.coach .cv-card` in that file. It was the deferred rule - «whether 560
+   becomes the panel's width is stage 09's decision» - and what closed it was the
+   measurement the deferral did not have: THREE screens carry `.cv-card`, two
+   declared this rule byte for byte and the third shipped 828px instead. A/B'd in
+   the live page: this screen is byte-identical at 1280, 900 and 390 with the rule
+   moved. The decision and its cost are written beside the rule.
+   This block is a record of what left and where. It declares nothing. */
 </style>
 </head>
 <body class="coach">

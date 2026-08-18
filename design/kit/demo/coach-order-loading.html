@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>coach-order-loading</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- the frame loads the product's entry point and nothing of the showcase -->
+<link rel="stylesheet" href="../../system/index.css">
+<style>
+  /* the frame IS the viewport, so a fixed panel has nothing to escape into */
+  html,body{ margin:0; padding:0; background:var(--bg-page); }
+  body{ min-height:100vh; }
+</style>
+</head>
+<body class="coach">
+<!-- Built by tools/demo.mjs off design/coach-order-loading.html - not retyped. The body class
+     is the screen's own: an organism scoped to it draws nothing without it. -->
+<div style="max-width:900px;margin:0 auto;padding:0 16px"><main class="wf-page od-wrap">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="../../index.html">Головна</a><span class="sep" aria-hidden="true"></span>
+    <a href="../../coach-home.html">Кабінет тренера</a><span class="sep" aria-hidden="true"></span>
+    <a href="../../coach-orders.html">Замовлення</a><span class="sep" aria-hidden="true"></span>
+    <span class="cur" aria-current="page">№ К-2041</span>
+  </nav>
+
+  <div aria-busy="true" aria-label="Завантажуємо замовлення">
+    <div class="od-grp skpulse"><div class="skline s"></div><div class="skline m"></div><div class="skline s"></div></div>
+    <div class="od-grp skpulse"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div></div>
+    <div class="od-grp skpulse"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div></div>
+  </div>
+
+</main></div>
+<!-- The frame loads exactly what a coloured product screen loads, in the same order,
+     and calls the same initialisers. Anything less and the demo is a photograph. -->
+<script src="../../../wireframes/_nav.js"></script>
+<script src="../../system/theme.js"></script>
+<script src="../../system/icons.js"></script>
+<script src="../../system/marks.js"></script>
+<script src="../../system/fields.js"></script>
+<script src="../../system/menu.js"></script>
+<script src="../../_nav.js"></script>
+<script src="_boot.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Клієнти тренера | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Клієнти тренера</h1>
+<p class="kp-lead">Вузол 5.3 - збережений список людей, і вузол 5.4 - картка однієї з них. Це серце locked-рішення «тренер як покупець»: без цього списку тренерський канал не існує. Два екрани в одному файлі, бо три з чотирьох частин у них однакові й лише різного розміру.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-clients.css</span><span class="kp-tag">621 рядок</span><span class="kp-tag">57 селекторів</span><span class="kp-tag">229 оголошень</span><span class="kp-tag">10 екранів</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Список і картка - одна людина двічі</div>
+<p class="kp-p">Файл тримає дві половини, і вони не випадкові сусіди. <code>.ccard</code> - це <b>підсумок людини</b> в списку, <code>.ch-*</code> - <b>та сама людина, відкрита</b>. Аватар, ім'я і чип цілі є в обох, просто різного розміру:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Частина</th><th>У списку (5.3)</th><th>У картці (5.4)</th></tr></thead><tbody>
+<tr><td>аватар</td><td><code>.ccard-av</code> - 40</td><td><code>.ch-av</code> - <b>56</b></td></tr>
+<tr><td>ім'я</td><td><code>.ccard-nm</code></td><td><code>.ch-name</code> - те саме правило, що й <code>.cl-h1</code>: <b>заголовок сторінки</b></td></tr>
+<tr><td>чип цілі</td><td><code>.ccard-goal</code> - 12px</td><td><code>.ch-goal</code> - 12px, рамка <code>--line-inverse</code></td></tr>
+<tr><td>дії</td><td><code>.ccard-acts</code> - «Профіль» і «Нова сесія»</td><td><code>.ch-edit</code> - «Редагувати клієнта»</td></tr>
+</tbody></table></div>
+<p class="kp-p">Їх тримають разом на одну причину: <b>наступний, хто змінить чип цілі, змінить його один раз</b>. Розділені по файлах, вони розійшлись би так само, як розійшлись п'ять редакцій маркера в <code>coach-verify</code>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітку знято з кольорових екранів через <code>tools/demo.mjs</code>, разом із класом <code>coach</code> на <code>&lt;body&gt;</code>. Список показано на <b>732</b> - ширина колонки кабінету на 1280; картка на <b>860</b>, бо вона живе не в кабінеті, а на власній сторінці.</p>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-clients.html" style="width:1180px" data-w="1180" title="Клієнти тренера - список"></iframe></div>
+<div class="kp-cap">Вузол 5.3: <code>.cl-top</code> з <code>.cl-h1</code>, <code>.cl-sub</code>, <code>.cl-acts</code> · <code>.cl-tools</code> з <code>.cl-search</code> · <code>.clist</code> у дві колонки від 640</div>
+<div class="kp-anat"><div class="a"><i>1</i><span><b>Шапка</b> <code>.cl-top</code> - заголовок і дія в один ряд, що переноситься. <code>.cl-h1</code> ділить правило з <code>.ch-name</code>: одне ім'я для заголовка сторінки на обох екранах</span></div>
+<div class="a"><i>2</i><span><b>Пошук</b> <code>.cl-search</code> - <b>зібраний руками <code>field-grp</code></b>, до якого атом не дотягується: розмітка не носить його класів. Коробка вже на щаблі атома, але група - ні</span></div>
+<div class="a"><i>3</i><span><b>Сітка</b> <code>.clist</code> - одна колонка, від 640 дві. Картка <code>.ccard</code> ділить рамку, радіус і тінь із <code>.ocard</code> і <code>.cdetails</code>: <b>один фініш для збереженого запису</b></span></div>
+<div class="a"><i>4</i><span><b>Мета-рядок</b> <code>.ccard-meta</code> з <code>.dot</code> - «8 замовлень · останнє 12 черв. 2026». Крапка тут <b>намальована</b>, а не набрана: <code>accept.mjs</code> ловить набрані двійники окремою перевіркою</span></div>
+<div class="a"><i>5</i><span><b>Чип цілі</b> <code>.ccard-goal</code> - <b>дев'яте ім'я чипа</b>, і мітка з підписом стоять на одній центральній лінії з кроку 8.8</span></div></div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-clients-cap.html" style="width:1180px" data-w="1180" title="Клієнти тренера - ліміт Free"></iframe></div>
+<div class="kp-cap">Стан «досягнуто ліміту Free»: панель <code>upsell.css</code> над списком і <code>.cl-sech</code> - <b>єдиний eyebrow цього файлу</b>, який відділяє список від панелі. Сам ліміт - <code>[?]</code>, і на екрані він так і написаний</div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-clients-card.html" style="width:1180px" data-w="1180" title="Клієнти тренера - картка клієнта"></iframe></div>
+<div class="kp-cap">Вузол 5.4: <code>.ch</code> з <code>.ch-id</code>, <code>.ch-av</code>, <code>.ch-name</code>, <code>.ch-goal</code>, <code>.ch-edit</code> · <code>.cc-note</code> · <code>.cdetails</code> з <code>.cd-h</code>, <code>.cd-list</code>, <code>.cd-row</code> · <code>.cc-cta</code> · <code>.oh-h</code> і <code>.ohist</code> з <code>.ocard</code></div>
+
+<div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-clients-cardempty.html" style="width:1180px" data-w="1180" title="Клієнти тренера - клієнт без замовлень"></iframe></div>
+<div class="kp-cap">Той самий клієнт без жодного замовлення. Порожній стан малює <code>empty-state.css</code> - цей файл віддає йому місце й не малює нічого</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Знайдено на цій сторінці: <code>.coach</code> не є скоупом для двох тренерських файлів</div>
+<p class="kp-p">Цей файл оголошує <code>.coach .ch</code> - <b>рядок шапки картки клієнта</b>, флекс-контейнер. Ім'я <code>.ch</code> оголошують ще два файли, і всі три означають різне:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Селектор</th><th>Файл</th><th>Що це</th><th>Де</th></tr></thead><tbody>
+<tr><td><code>.coach .ch</code></td><td><b>цей</b></td><td>рядок шапки картки: флекс, <code>space-between</code>, <code>gap: 14px</code></td><td>4 екрани клієнта</td></tr>
+<tr><td><code>.coach .city-chip .ch</code></td><td><code>coach-verify.css</code></td><td>назва міста всередині кнопки вибору</td><td><code>coach-verify</code></td></tr>
+<tr><td><code>.co-saved .ch</code></td><td><code>checkout-form.css</code></td><td>посилання «· змінити» біля збереженої адреси</td><td><code>checkout-loggedin</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Чекаут захищений: він поза <code>.coach</code>.</b> А ось <code>coach-verify</code> - ні, бо він теж усередині <code>.coach</code>. Тож чотири оголошення цього файлу <b>справді долітають</b> до підпису кнопки міста: <code>align-items</code>, <code>justify-content</code>, <code>gap</code> і <code>flex-wrap</code> - ті, яких <code>.coach .city-chip .ch</code> не скидає.</p>
+<div class="kp-pair"><div class="kp-do"><h4>Сьогодні це коштує нуль пікселів, і це зміряно</h4>A/B у живій сторінці, чотири оголошення знято й повернуто, на 1280 / 900 / 390 / 360: підпис <b>67.16 x 15.61</b> на тій самій координаті, кнопка 444.13 x 52.00 (312.00 і 282.00 на телефоні) - <b>геометрія ідентична на всіх чотирьох ширинах</b>. Повний обхід дерева обчислених стилів: зрушив <b>один</b> рядок із 4 023, і це сам підпис із чотирма властивостями, які я й знімав.</div>
+<div class="kp-dont"><h4>Але рятує його випадковість, а не задум</h4><code>gap</code>, <code>justify-content</code> і <code>align-items</code> не діють ні на що, крім флекс- і грід-контейнера, а підпис - <code>display: block</code>: <code>display: inline</code>, оголошений у <code>coach-verify.css</code>, <b>блокифікується</b> флекс-батьком. Тобто два незалежні збіги. Наступне спільне ім'я між двома тренерськими файлами - підкидання монети, і це <b>той самий рядок</b>, що вже стоїть у <code>coach-cabinet.css</code> про простір імен <code>co-</code>.</div></div>
+<div class="kp-cap">Не правлено: перейменування - Крок 6, а вибір, кому лишити коротке ім'я <code>.ch</code>, - рішення власника</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що цей файл віддав, і чого він не скопіював</div>
+<p class="kp-p">Найбільша одинична економія в усій партії 7.95 - і вона в тому, чого тут <b>немає</b>.</p>
+<div class="kp-gap"><h4>Оболонка кабінету - не цього файлу: 19 блоків оголошень на 16 селекторах видалено, а не скопійовано</h4><code>.acc</code> · <code>.acc-nav</code> · <code>.acc-prof</code> і три його дитини · <code>.acc-tier</code> · <code>.acc-links</code> · <code>.acc-link</code> і шість його форм разом із запитом на 960 · <code>.acc-link.logout</code> - усе це <code>account-shell.css</code>, який тримає їх повністю і в кольорі.<br><br>Власний коментар екрана казав це <b>вголос</b>: «Shell (acc / acc-nav / accard) mirrors account.html, coach mode» - і потім віддзеркалював його перенабором. <b>Дзеркало, набране руками, - це копія, а копія розходиться.</b> Три оголошення вже встигли.</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що було локальним</th><th>Кому віддано</th></tr></thead><tbody>
+<tr><td><code>.oc-status</code> - статус замовлення</td><td><code>status-pill.css</code></td></tr>
+<tr><td>рядок ціни в картці замовлення, 3 правила</td><td><code>price.css</code> - і це вже вдруге в цьому потоці</td></tr>
+<tr><td><code>.ccard-acts .btn</code></td><td><code>button.css</code>. Тут лишилось одне <code>flex: 1</code> - <b>як контрол стоїть у ряду</b>, а не який він</td></tr>
+<tr><td>порожній стан картки клієнта</td><td><code>empty-state.css</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>А одне лишилось і назване чесно.</b> <code>.ch-edit</code> - «Редагувати клієнта» - це <code>&lt;a&gt;</code> з краєм, радіусом, полями і <code>nowrap</code>, тобто <b><code>btn--outline</code>, виписаний руками</b>: рівно те, заради чого кнопку переписували на 6.7. Правило стоїть, бо розмітка заморожена і не носить класу <code>btn</code>, тож видалення лишило б голе посилання. Поставити <code>btn btn--outline btn--s</code> на той якір - Крок 6, і він видаляє це правило одним рухом.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Типографіка: чотирнадцять</div>
+<p class="kp-p">Те саме правило власника у два ходи, що й у решті партії. <b>Чотирнадцять із чотирнадцяти</b>, і 7.98 не поправив жодного.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Екран</th><th>Сірий</th><th>Стало</th><th>Правило</th></tr></thead><tbody>
+<tr><td><code>.ccard-goal</code></td><td>список</td><td>11</td><td>12</td><td>5.6, нічия вгору</td></tr>
+<tr><td><code>.ccard-meta</code></td><td>список</td><td>12.5</td><td>14</td><td>5.5 → 13, 5.6 вгору</td></tr>
+<tr><td><code>.ch-edit</code></td><td>картка</td><td>12.5</td><td>14</td><td>те саме</td></tr>
+<tr><td><code>.cc-note</code></td><td>картка</td><td>12.5</td><td>14</td><td>те саме</td></tr>
+<tr><td><code>.oh-h</code></td><td>картка</td><td>15</td><td>16</td><td>5.6, нічия вгору</td></tr>
+<tr><td><code>.oc-no</code></td><td>картка</td><td>14.5</td><td><b>14</b></td><td>5.5 → 14, і 14 це щабель</td></tr>
+<tr><td><code>.oc-meta</code></td><td>картка</td><td>12.5</td><td>14</td><td>5.5 → 13, 5.6 вгору</td></tr>
+<tr><td><code>.oc-status</code></td><td>картка</td><td>11</td><td>12</td><td>5.6 <i>(тепер <code>status-pill.css</code>)</i></td></tr>
+<tr><td><code>.oc-nm</code></td><td>картка</td><td>13</td><td>14</td><td>5.6, нічия вгору</td></tr>
+<tr><td><code>.oc-qty</code></td><td>картка</td><td>11.5</td><td>12</td><td>5.5 → 12, і 12 це щабель</td></tr>
+<tr><td><code>.oc-sum</code></td><td>картка</td><td>13</td><td>14</td><td>5.6, нічия вгору</td></tr>
+<tr><td><code>.cd-h</code></td><td>картка</td><td>13</td><td>12</td><td>вирішено деінде: заголовок узяв <b>eyebrow кабінету</b></td></tr>
+<tr><td><code>.cd-row dt</code></td><td>картка</td><td>12.5</td><td>14</td><td>5.5 → 13, 5.6 вгору</td></tr>
+<tr><td><code>.cd-row dd</code></td><td>картка</td><td>13.5</td><td>14</td><td>те саме</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Що знято при перевірці, і записано власними словами, щоб не повернулось</h4>Цей блок колись перевіряв ті самі чотирнадцять проти «найближчий щабель, нічия вниз» і повідомляв, що <b>11 із 14 поїдуть назад</b>, п'ять із них «перескочивши ближчий щабель». <b>Дві помилки в одному реченні.</b> Напрям для ТИПУ - вгору, а не вниз; вниз - це правило РАДІУСА, і вони протилежні навмисно. І півпіксель <b>ніколи не зустрічає</b> дев'ятищаблеву драбину як півпіксель: 12.5 стає 13 <b>до</b> драбини, за таблицею, яку власник підписав на 5.5, а 13 - це вже нічия, яка йде вгору.<br><br><code>.oc-no</code> з 14.5 у 14 записали як аномалію партії, «єдиний, що вийшов МЕНШИМ». Це шостий рядок таблиці 5.5, і продукт узяв те саме 14.5 → 14 <b>утретє</b> в <code>buy-box.css</code>, у файлі поза цією партією.</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Це <b>реалізація locked-рішення №1</b>: «coach-as-buyer - збережений список клієнтів, тегування замовлень по клієнту, історія по клієнту». Без цих двох екранів тренерського каналу немає взагалі, і саме тому вони мають найбільше екранів у потоці - <b>десять</b>.</p>
+<p class="kp-p">Позичати звідси нічого: 38 власних класів - розкладка двох конкретних вузлів. Але <b>одну річ звідси вже позичили</b>: <code>.cl-search</code> стоїть і на <code>coach-session-addclient</code>, тобто пошук списку клієнтів працює і в діалозі вибору. Це той самий пошук, і він правильно один.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Одна людина - одне правило, у двох розмірах.</b> Аватар, ім'я і чип цілі описані так, щоб зміна дійшла до списку й до картки одночасно. Заголовок сторінки взагалі один селектор на два екрани: <code>.cl-h1, .ch-name</code>.</div>
+<div class="kp-dont"><h4>Антиправило</h4><b>Не віддзеркалюй чужу оболонку перенабором.</b> Екран, який каже «shell mirrors account.html» і потім набирає ті самі 19 блоків, отримує копію, а не дзеркало. Три оголошення з тих 19 уже встигли розійтись до того, як їх видалили.</div></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
+<p class="kp-p"><b>Нуль</b> <code>:hover</code>, нуль <code>:active</code>, нуль <code>:focus-visible</code>. Кнопки, чипи, поле, статус-пілюля і порожній стан приносять свої стани самі.</p>
+<p class="kp-p">Єдиний стан, який малює цей файл, - <b>структурний</b>: <code>.cd-row:last-child</code> знімає нижню лінію останнього рядка даних. Решта «станів» тут - <b>варіанти даних</b>: клієнт із замовленнями і без, список у межах ліміту і на ліміті, і за панель ліміту відповідає <code>upsell.css</code>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Межі</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Умова</th><th>Що змінює</th></tr></thead><tbody>
+<tr><td><code>(min-width: 640px)</code></td><td><code>.clist</code> у дві колонки</td></tr>
+<tr><td><code>(min-width: 860px)</code></td><td>відступ 14 вмикається лише тут - <b>нижче 860 він малював і не мав</b></td></tr>
+<tr><td><code>(max-width: 520px)</code></td><td>ряд дій картки перестає бути рядом</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>41 позначка <code>[?]</code></b> - найбільше у всій системі, і всі про геометрію: 9, 11, 14, 15, 21, 56, 160. Відступи мають два правила, що суперечать одне одному на тих самих числах, тож жодне з них не рухається без рішення. Окремо названо <b>160</b> - колонка підписів у списку даних клієнта: це <b>єдине 160 у системі</b>, а <code>spec-table.css</code> малює ту саму пару <code>dt</code>/<code>dd</code> зі своєю власною відповіддю.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>44</b> класи і <b>0</b> станів оголошено в <code>coach-clients.css</code>. <code>.coach</code> не рахується - це скоуп, а <code>.btn</code> тут не компонент, а місце в ряду.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["cc-cta", "cc-note", "cc-wrap", "ccard", "ccard-acts", "ccard-av", "ccard-goal", "ccard-hd", "ccard-meta", "ccard-nm", "cd-h", "cd-list", "cd-row", "cdetails", "ch", "ch-av", "ch-edit", "ch-goal", "ch-id", "ch-name", "cl-acts", "cl-h1", "cl-search", "cl-sech", "cl-sub", "cl-tools", "cl-top", "clist", "dot", "oc-actions", "oc-item", "oc-items", "oc-meta", "oc-nm", "oc-no", "oc-ph", "oc-qty", "oc-sum", "oc-top", "ocard", "oh-h", "ohist"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>coach-clients.css</code>, не переписані руками. <b>Жодного кольору дії в усьому файлі</b> - ні <code>--bg-action</code>, ні <code>--text-action</code>: помаранчевий на цих екранах приносять кнопки й панель Pro, а сам список клієнтів увесь у нейтральних ролях. Для екрана, який тренер відкриває щодня, це правильно.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (10)</th><th>Примітиви (24)</th></tr></thead><tbody>
+<tr><td><code>--bg-page</code> <code>--bg-sunken</code></td><td><code>--font-display</code></td></tr>
+<tr><td><code>--elevation-1</code></td><td><code>--fs-8</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-30</code></td></tr>
+<tr><td><code>--line-hair</code> <code>--line-inverse</code></td><td><code>--fw-semibold</code> <code>--fw-bold</code> <code>--fw-black</code></td></tr>
+<tr><td><code>--line-strong</code></td><td><code>--lh-snug</code> <code>--lh-airy</code></td></tr>
+<tr><td><code>--mark-disabled</code></td><td><code>--ls-caps</code> <code>--ls-lead</code></td></tr>
+<tr><td><code>--text-muted</code></td><td><code>--radius-8</code> <code>--radius-12</code> <code>--radius-circle</code> <code>--radius-pill</code></td></tr>
+<tr><td><code>--text-primary</code></td><td><code>--size-40</code> <code>--size-44</code></td></tr>
+<tr><td><code>--text-secondary</code></td><td><code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr>
+</tbody></table></div>
+<p class="kp-p"><code>--fs-8</code> тут єдине вживання в потоці тренера: це <b>крапка-роздільник</b> <code>.ccard-meta .dot</code>, намальована, а не набрана. <code>--mark-disabled</code> - її колір, і роль обрано за <b>роботою</b>: це мітка, а не текст.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;div class="cl-top"&gt;
+  &lt;div&gt;&lt;h1 class="cl-h1"&gt;Клієнти&lt;/h1&gt;&lt;p class="cl-sub"&gt;…&lt;/p&gt;&lt;/div&gt;
+  &lt;div class="cl-acts"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cl-tools"&gt;&lt;div class="cl-search"&gt;&lt;input&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="clist"&gt;
+  &lt;article class="ccard"&gt;
+    &lt;div class="ccard-hd"&gt;&lt;span class="ccard-av"&gt;А&lt;/span&gt;
+      &lt;div&gt;&lt;div class="ccard-nm"&gt;Андрій&lt;/div&gt;
+        &lt;span class="ccard-goal"&gt;Набір маси&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="ccard-meta"&gt;&lt;b&gt;8 замовлень&lt;/b&gt;&lt;span class="dot"&gt;&lt;/span&gt;останнє …&lt;/div&gt;
+    &lt;div class="ccard-acts"&gt;&lt;a class="btn …"&gt;Профіль&lt;/a&gt;&lt;a class="btn …"&gt;Нова сесія&lt;/a&gt;&lt;/div&gt;
+  &lt;/article&gt;
+&lt;/div&gt;
+
+&lt;main class="wf-page cc-wrap"&gt;
+  &lt;div class="ch"&gt;
+    &lt;div class="ch-id"&gt;&lt;span class="ch-av"&gt;А&lt;/span&gt;
+      &lt;div&gt;&lt;h1 class="ch-name"&gt;Андрій&lt;/h1&gt;&lt;span class="ch-goal"&gt;Набір маси&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;a class="ch-edit"&gt;Редагувати клієнта&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p class="cc-note"&gt;…&lt;/p&gt;
+  &lt;section class="cdetails"&gt;&lt;h2 class="cd-h"&gt;Дані клієнта&lt;/h2&gt;
+    &lt;dl class="cd-list"&gt;&lt;div class="cd-row"&gt;&lt;dt&gt;…&lt;/dt&gt;&lt;dd&gt;…&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;&lt;/section&gt;
+  &lt;div class="cc-cta"&gt;…&lt;/div&gt;
+  &lt;h2 class="oh-h"&gt;Історія замовлень&lt;/h2&gt;
+  &lt;div class="ohist"&gt;&lt;article class="ocard"&gt;…&lt;/article&gt;&lt;/div&gt;
+&lt;/main&gt;</div>
+<p class="kp-p"><code>.ch-edit</code> без класу <code>btn</code> - це і є той рядок розмітки, який тримає намальовану руками кнопку живою. <code>.dot</code> - порожній <code>&lt;span&gt;</code>, тобто крапка справді намальована.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Де вживається</div>
+<p class="kp-p">Якорі: <code>.cl-top</code> <code>.cl-h1</code> <code>.ch-name</code></p>
+<p class="kp-p"><b>10 кольорових екранів</b> - найбільше в потоці: <code>coach-clients</code> · <code>-cap</code> · <code>-empty</code> · <code>-error</code> · <code>-loading</code> і <code>coach-client</code> · <code>-empty</code> · <code>-error</code> · <code>-loading</code>. Плюс <code>.cl-search</code> на <code>coach-session-addclient</code>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді <b>-&gt; етап 09</b></div>
+<div class="kp-gap"><h4>Чого бракує</h4><ul>
+<li><b><code>.ch</code> - одне ім'я на три компоненти</b>, і <code>.coach</code> не розводить два з них. Сьогодні коштує нуль пікселів, зміряно; завтра - як пощастить</li>
+<li><b><code>.ch-edit</code> - <code>btn--outline</code> руками</b>. Один клас у розмітці видаляє це правило цілком. Крок 6</li>
+<li><b><code>.cl-search</code> - <code>field-grp</code> руками</b>, до якого атом не дотягується, бо розмітка не носить його імен</li>
+<li><b>Три мертві оголошення</b>: <code>.cd-list{ margin: 0 }</code> і <code>margin: 0</code> на <code>dt</code> і <code>dd</code> переказують скидання з <code>base.css:7</code>. Лишені як знайдено - їхня родина це кроки 7.3, 7.51 і 7.69</li>
+<li><b>160px - єдине в системі</b>: колонка підписів списку даних. <code>spec-table.css</code> малює ту саму пару зі своєю відповіддю</li>
+<li><b>41 геометричний літерал</b> під <code>[?]</code> - найбільше у файлі системи</li>
+</ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<script src="_idle.js"></script>
+<script src="_frame.js"></script>
+</main>
+<script src="_nav.js"></script>
+</body>
+</html>
