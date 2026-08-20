@@ -542,9 +542,34 @@
 /* [?] 160px is the label column of the client's data list. A layout width, so it
    stays literal by the tokens.css rule - but it is the only 160 in the system,
    and spec-table.css draws the same dt/dd pair with its own answer. */
+/* ---------- THE SYSTEM'S FIRST CONTAINER THRESHOLD, and it took the split view
+   to earn one. `160px 1fr` is right when this list stands on `coach-client.html`,
+   where `.cc-wrap` gives it 900; it is wrong the moment the same list stands in
+   the split's panel, which is 224 at the shell point. Measured before the rule:
+   `.cd-row` came out 265 wide inside a 190 box and pushed the page sideways at 860
+   and at 900.
+   AND IT HAS TO BE `@container`, not `@media`. The window is 860 in both cases -
+   the DIFFERENCE is the box, 900 on its own screen against 224 beside the list.
+   A media query would answer the wrong question and would have to be wrong on one
+   of the two screens. This is the pack's «медіазапит питає про ЕКРАН, контейнерний
+   - про МІСЦЕ», arriving with the first component that stands in two places.
+   THE PLACER DECLARES IT, and here the placer is safe: `.cdetails` is a definition
+   list in a bordered box and holds nothing `position: fixed`. `container-type`
+   implies `contain: layout`, which re-anchors fixed descendants - which is why the
+   page frame could not be the container and this can. */
+.coach .cdetails{ container-type: inline-size; }
 .coach .cd-row{ display: grid; grid-template-columns: 160px 1fr; gap: var(--space-12);
   padding: 11px 0;   /* [?] 11px has no rung */
   border-bottom: 1px solid var(--line-hair); }
+/* AND IT STANDS AFTER THE BASE RULE, not before it. The first writing put the
+   container block above `.cd-row` and it drew nothing: same specificity, and the
+   later declaration wins. The measurement said so - 265 into 190, unchanged. */
+@container (max-width: 22rem){
+  /* 352px. Below it the term stops sharing the line with its value and stands
+     above it - the same shape the row already takes on a phone. */
+  .coach .cd-row{ grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+  .coach .cd-row dd{ padding-bottom: var(--space-4); }
+}
 .coach .cd-row:last-child{ border-bottom: 0; }
 .coach .cd-row dt{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14, the fifth and last of the five */
   color: var(--text-secondary); font-weight: var(--fw-bold); margin: 0; }   /* margin dead - see .cd-list */
@@ -635,3 +660,43 @@
 .coach .cl-sech{ font-size: var(--fs-14); font-weight: var(--fw-black);
   color: var(--text-secondary); text-transform: uppercase;
   letter-spacing: var(--ls-caps); margin: 22px 0 var(--space-2); }   /* [?] 22 has no rung; it is the gap BETWEEN two sections and stage 09 owns it with the label */
+
+/* ---------- STAGE 10 STEP 5: THE SPLIT VIEW ---------------------------------
+   THE ONE PIECE OF NEW BEHAVIOUR THIS STAGE BUILDS, and its source is the main
+   job stated literally: «build a complete order for each client IN ONE SESSION».
+   On a phone the coach walks back and forth between the list and that client -
+   two screens, one at a time, which is right for a phone. From the shell point
+   there is room for both, and walking becomes looking.
+
+   IT DOES NOT CANCEL THE DETAIL SCREEN. `coach-client.html` keeps its URL, its
+   breadcrumbs and its direct entry; the pack is explicit about this and so is the
+   card's «Профіль» button, which still goes there. From 860 the same content is
+   shown ADDITIONALLY, beside the list, and that is the whole difference.
+
+   THE LIST BECOMES ONE COLUMN INSIDE THE RAIL. Below the point `.clist` is one
+   column at 360 and two from 620; inside the split it is one again, because the
+   rail is 280 wide and a two-column grid of 130px cards is not a list, it is a
+   grid of fragments. (0,3,0) against the base rule's (0,2,0), so it wins without
+   `!important`. */
+.coach .clsplit{ display: grid; gap: var(--space-24); }
+.coach .cldetail{ display: none; }
+@media (min-width: 860px){
+  .coach .clsplit{ grid-template-columns: minmax(0, 17.5rem) minmax(0, 1fr); align-items: start; }
+  .coach .clsplit .clist{ grid-template-columns: minmax(0, 1fr); }
+  /* the panel follows the eye down a long list rather than scrolling away from it */
+  .coach .cldetail{ display: block; position: sticky; top: var(--space-16); }
+}
+
+/* THE SELECTED ROW, and it is a BORDER rather than a fill. `--line-action` is the
+   same mark the focus ring and the open filter already use, so a coach who has
+   seen one has seen this. A fill would have made the card compete with the one
+   accent the screen is allowed - the list's own «Додати клієнта». */
+.coach .ccard[aria-current="true"]{ border-color: var(--line-action); }
+.coach .clsplit .ccard{ cursor: pointer; }
+
+/* THE STATE THAT NEVER EXISTED ON A PHONE. There is no «nothing is selected» on a
+   one-screen-at-a-time flow: you are either in the list or in a client. The split
+   invents it, so the string is new product copy and lives in `microcopy.md` like
+   every other string, not here. */
+.coach .cldetail-empty{ border: 1px dashed var(--line-strong); border-radius: var(--radius-12);
+  padding: var(--space-32) var(--space-24); text-align: center; }

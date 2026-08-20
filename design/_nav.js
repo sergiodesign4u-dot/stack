@@ -2130,3 +2130,129 @@ function uivBar(){
   while(tmp.firstChild) frag.appendChild(tmp.firstChild);
   document.body.appendChild(frag);
 }
+
+/* ============================================================================
+   wfClientSplit - stage 10 step 5, the coach list-and-client split view.
+
+   WHY THERE IS ANY SCRIPT HERE AT ALL. Every other width behaviour in this stage
+   is CSS: a grid gains a column, a row wraps, a size ramps. This one is not, and
+   the pack says why in one line - «split-view тягне новий стан, керування фокусом
+   і роботу з історією». A second pane that shows one of several records has to
+   know WHICH, and no stylesheet can hold that.
+
+   THE POINT IS READ ONCE FROM THE TOKEN, not typed. `--bp-shell-wide` is the
+   registry entry; asking `matchMedia` with a literal here would have been the
+   third copy of 860 in the project, and the one nobody greps.
+
+   HISTORY IS REPLACED, NOT PUSHED, and that is a decision rather than a shortcut.
+   At the wide width, choosing a client is a change of VIEW, not of place: the page
+   is still «Клієнти», the breadcrumbs do not move, and the list stays where it
+   was. Pushing would make the back button walk backwards through six clients
+   before it left the screen, which is the behaviour people complain about in every
+   mail client that does it. The URL still carries `?client=`, so the view is
+   linkable and survives a reload - which is the half of «history» that is worth
+   having.
+
+   BELOW THE POINT THE SCRIPT DOES NOTHING. There is no second pane to fill, the
+   cards are not selectable, and «Профіль» is a plain link to a real screen with a
+   real URL. The detail screen is not cancelled by this - it is what a phone gets,
+   and what a shared link opens. */
+function wfClientSplit() {
+  var wrap = document.querySelector('.clsplit');
+  if (!wrap) return;
+  var list   = wrap.querySelector('.clist');
+  var empty  = wrap.querySelector('#clDetailEmpty');
+  var body   = wrap.querySelector('#clDetailBody');
+  if (!list || !body) return;
+
+  var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+  var raw = getComputedStyle(document.documentElement).getPropertyValue('--bp-shell-wide').trim();
+  var px  = /rem$/.test(raw) ? parseFloat(raw) * rem : parseFloat(raw);
+  var wide = window.matchMedia('(min-width: ' + px + 'px)');
+
+  function cards() { return [].slice.call(list.querySelectorAll('.ccard[data-client]')); }
+
+  function fill(card) {
+    var g = function (n) { return card.getAttribute('data-' + n) || ''; };
+    body.querySelector('#clAv').textContent    = g('name').charAt(0);
+    body.querySelector('#clName').textContent  = g('name');
+    body.querySelector('#clGoal').textContent  = '🎯 Ціль: ' + g('goal');
+    body.querySelector('#clGoal2').textContent = g('goal');
+    body.querySelector('#clPhone').textContent = g('phone');
+    body.querySelector('#clMail').textContent  = g('mail');
+    body.querySelector('#clNote').textContent  = g('note');
+    body.hidden = false;
+    if (empty) empty.hidden = true;
+  }
+
+  function clear() {
+    body.hidden = true;
+    if (empty) empty.hidden = false;
+    cards().forEach(function (c) { c.removeAttribute('aria-current'); });
+  }
+
+  function select(card, moveFocus) {
+    if (!card) return;
+    cards().forEach(function (c) { c.removeAttribute('aria-current'); });
+    card.setAttribute('aria-current', 'true');
+    fill(card);
+    var id = card.getAttribute('data-client');
+    try {
+      var u = new URL(location.href);
+      u.searchParams.set('client', id);
+      history.replaceState(null, '', u);
+    } catch (e) {}
+    /* focus goes to the heading of what just appeared, not to the panel box: a
+       screen reader then announces the client's name rather than «region». */
+    if (moveFocus) { var h = body.querySelector('#clName'); if (h) h.focus(); }
+  }
+
+  /* the whole card is the control, EXCEPT its own links: «Профіль» and «Нова
+     сесія» are real destinations and must keep working as destinations. */
+  list.addEventListener('click', function (e) {
+    if (!wide.matches) return;
+    if (e.target.closest('a, button')) return;
+    var card = e.target.closest('.ccard[data-client]');
+    if (card) select(card, true);
+  });
+
+  /* and the keyboard, because a card is not a link and Tab must still reach it */
+  cards().forEach(function (c) {
+    c.setAttribute('tabindex', '0');
+    c.setAttribute('role', 'button');
+  });
+  list.addEventListener('keydown', function (e) {
+    if (!wide.matches) return;
+    var card = e.target.closest && e.target.closest('.ccard[data-client]');
+    if (!card) return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(card, true); }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      var all = cards(), i = all.indexOf(card) + (e.key === 'ArrowDown' ? 1 : -1);
+      if (all[i]) { all[i].focus(); select(all[i], false); }
+    }
+  });
+
+  /* Esc returns to the list from the panel - the way back a phone gets for free */
+  body.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var cur = list.querySelector('.ccard[aria-current="true"]');
+    if (cur) cur.focus();
+  });
+
+  function sync() {
+    if (!wide.matches) { clear(); return; }
+    var want = null;
+    try { want = new URL(location.href).searchParams.get('client'); } catch (e) {}
+    var card = want ? list.querySelector('.ccard[data-client="' + want + '"]') : null;
+    /* THE PANEL OPENS EMPTY AND THAT IS THE DECISION. Auto-selecting the first
+       client would put a record on screen that nobody asked for, and on a list
+       whose order changes it would be a different record each visit. The empty
+       state is a real state with a real string, not a placeholder. */
+    if (card) select(card, false);
+  }
+  if (wide.addEventListener) wide.addEventListener('change', sync);
+  else if (wide.addListener) wide.addListener(sync);
+  sync();
+}
+
