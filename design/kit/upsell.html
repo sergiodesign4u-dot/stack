@@ -22,7 +22,7 @@
 <div class="kp-eyebrow">Компонент · рівень 3</div>
 <h1 class="kp-h1">Панель Pro</h1>
 <p class="kp-lead">«Ви досягли ліміту тарифу Free». Єдине місце, де система просить грошей, - і тому єдине, де кожне рішення про наголос коштує довіри. Компонент народився не з макета, а з <b>двох приватних блоків, які малювали одне й те саме під двома іменами</b>, і один із них цитував другий у коментарі.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/upsell.css</span><span class="kp-tag">99 рядків</span><span class="kp-tag">13 селекторів</span><span class="kp-tag">42 оголошення</span><span class="kp-tag">2 екрани</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/upsell.css</span><span class="kp-tag">102 рядки</span><span class="kp-tag">13 селекторів</span><span class="kp-tag">39 оголошень</span><span class="kp-tag">2 екрани</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка звідси - та сама, що на <code>coach-clients-cap.html</code>. Це повна форма: заголовок, смуга, речення, список, дії, дрібний підпис.</p>
@@ -75,10 +75,17 @@
 <p class="kp-p"><b>Станів не має, не інтерактивний.</b> Панель це блок, а не контрол: наводять і натискають кнопки всередині неї, і вони відповідають своїм фінішем із <code>button.css</code>. Наведення на саму панель було б вигаданою роллю.</p>
 <p class="kp-p">Єдине, що в ній рухається, - ширина заливки <code>.ubar i</code>, і це <b>вимір</b>, а не стан: скільки клієнтів із ліміту вже зайнято. Сьогодні вона стоїть на 100%, бо екран показує момент, коли ліміт вичерпано.</p></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U9</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Ряд дій панелі береться патерном <code>.actions</code>.</p></section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>7</b> власних класів оголошено в <code>upsell.css</code>.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["ubar","uacts","ulist","un","up","upsell","ut"], KIT_STS=[];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> жодного. Блок допродажу плинний: він ставить сітку карток, а колонки рахує <code>product-grid.css</code>. Раунд організмів його не чіпав.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>upsell.css</code>: <b>8</b> семантичних ролей і <b>9</b> примітивів.</p>

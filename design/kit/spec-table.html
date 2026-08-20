@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Таблиця складу</h1>
 <p class="kp-lead">Найважливіший компонент продукту за принципом 1: склад, дозування, походження й алергени - це те, чим довіра доводиться, а не заявляється. І це не одна таблиця, а три, плюс макет самої етикетки.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/spec-table.css</span><span class="kp-tag">189 рядків</span><span class="kp-tag">64 селектори</span><span class="kp-tag">3 таблиці + етикетка</span><span class="kp-tag">2 екрани</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/spec-table.css</span><span class="kp-tag">193 рядки</span><span class="kp-tag">64 селектори</span><span class="kp-tag">3 таблиці + етикетка</span><span class="kp-tag">2 екрани</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Три таблиці, і кожна каже «тут число» по-своєму</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Таблиця</th><th>Що показує</th><th>Як позначено цифру</th></tr></thead><tbody>
@@ -144,6 +144,9 @@
 <div id="idle"></div>
 <script>var KIT_CLS=["ctable","fullcomp","allerg","algic","algv","spectbl","packlabel","pl-panel","pl-facts","pl-h","pl-serv","pl-cal","pl-t","pl-note","pl-right","pl-how","pl-hw","pl-ic","pl-ing","pl-alg","pl-foot","pl-mark","specempty"], KIT_STS=[":empty", "nth-child(odd)", "720px", ".specempty"];</script>
 <p class="kp-p">Цей контроль уже вдруге пересунув клас між файлами: на 7.43 він відправив <code>.packlabel</code> сюди з <code>product-card.css</code>, а на цьому кроці - <code>.dl</code> / <code>.dk</code> / <code>.dv</code> звідси в <code>order-row.css</code>. Заміряно: <b>19 екземплярів, усі на <code>account-orders.html</code></b> у панелі деталей замовлення, і <b>0</b> на сторінці товару.</p></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-grid-2col</code>. <b>Що саме міняється:</b> панель складу і панель «як приймати» стають поруч. <b>Було 720</b>, поза реєстром. Колонки задані як <code>1.05fr</code> і <code>1fr</code> - навмисна асиметрія, якої <code>auto-fit</code> не вміє сказати, тож це лишається точкою. Зміряно на 620 із примусовим запитом: 246.9 + 235.1, нічого не обрізано.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>spec-table.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>

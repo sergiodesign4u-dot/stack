@@ -295,10 +295,18 @@ function wfBar(baseFile, currentState) {
   /* The bar paints ABOVE modals (z 80) so the stand stays usable with a dialog open -
      which clipped the head of any dialog pinned to the top of the viewport (the cart
      drawer). It wraps, so its height is not a constant: publish the measured value and
-     let the drawer start below it. */
-  const barH = () => document.documentElement.style.setProperty('--wfbar-h', bar.offsetHeight + 'px');
+     let the drawer start below it.
+     We publish ONLY when the bar actually renders, because on the coloured layer it is
+     hidden and the unconditional write broke the width readout in DevTools: an inline
+     style mutation on <html> on every frame of a drag makes DevTools repaint the root
+     node in Elements, and its frontend stops keeping up with the number. */
+  const barH = () => {
+    const v = bar.offsetHeight + 'px';
+    if (v !== document.documentElement.style.getPropertyValue('--wfbar-h'))
+      document.documentElement.style.setProperty('--wfbar-h', v);
+  };
   barH();
-  window.addEventListener('resize', barH);
+  if (bar.offsetHeight) window.addEventListener('resize', barH);
 }
 
 /* ============================================================

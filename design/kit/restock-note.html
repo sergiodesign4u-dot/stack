@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Нотатка про поповнення</h1>
 <p class="kp-lead">«За вашим ритмом купівлі ці товари скоро закінчаться». Робота 3 цілком: постійний покупець не має перевідкривати каталог, щоб купити те саме вчетверте. Файл маленький і чистий - і всередині нього знайшовся селектор, який не збігається <b>ні з чим</b>.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/restock-note.css</span><span class="kp-tag">103 рядки</span><span class="kp-tag">21 селектор</span><span class="kp-tag">41 оголошення</span><span class="kp-tag">2 екрани</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/restock-note.css</span><span class="kp-tag">133 рядки</span><span class="kp-tag">20 селекторів</span><span class="kp-tag">42 оголошення</span><span class="kp-tag">2 екрани</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка звідси - та сама, що на <code>account.html</code>.</p>
@@ -120,6 +120,9 @@
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>12</b> власних класів і <b>4</b> стани оголошено в <code>restock-note.css</code>.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["notifyrow","oosback","oosbtn","oosnote","restock","rk-add","rk-cy","rk-item","rk-lead","rk-nm","rk-ph","rk-tx"], KIT_STS=[":last-child",":first-of-type",":nth-of-type","max-width: 419px"];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> жодного - <b>запит зник</b>, і разом з ним відкрився дефект. Було <code>@media (max-width: 419px)</code> із коментарем кроку 7.64, який відмовлявся його складати: «на 420, 440, 460 і 479 цей ряд НЕ переноситься, його двоє дітей виходять 26 + 350». <b>26 + 350 це і є дефект:</b> кнопка носить <code>btn--full</code>, її <code>width: 100%</code> вигравала на флекс-лінії, і поле e-mail було <b>26 пікселів завширшки від 420 і до 1600</b> - зміряно на <code>product-oos</code>: 26 + 410 на 480, 26 + 650 на 720. Запит нижче 419 це ховав. Тепер <code>flex-wrap</code> стоїть у базі, обидві дитини мають підлогу <code>13rem</code>, і ряд ламає свою лінію сам. <b>На 419 і нижче не зрушило нічого</b> (311.2, 328, 387 - однакові до пікселя).</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>restock-note.css</code>: <b>3</b> семантичні ролі і <b>9</b> примітивів.</p>

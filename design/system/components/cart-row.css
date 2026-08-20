@@ -57,7 +57,18 @@ article.ci{ display: grid; grid-template-columns: 74px 1fr; gap: var(--space-12)
 .ci-price .ci-old{ font-size: var(--fs-12); }   /* weight and strike -> price.css, 7.36 */
 .ci-price .ci-per{ display: block; text-align: right; }
 .ci-price .ci-per:empty{ display: none; }
-.ci-links{ display: flex; gap: var(--space-16); margin-top: var(--space-12); }
+/* 9.1: `display: flex` and the wrap moved to patterns/action-row.css - one row, one
+   rule, fifty-three container names. What stays here is what this container does
+   DIFFERENTLY, and nothing else. */
+/* THE DEVIATION HAS TO OUTWEIGH THE PATTERN, and the first cut at 9.1 forgot it.
+   `.actions` and a bare container class weigh the same (0,1,0), and patterns
+   import last, so the pattern's `gap` silently won and this row moved 4px.
+   Written as a pair with `.actions` it reads as what it is: this container is an
+   action row AND it differs from one. The scoped `.coach .*` rows needed nothing,
+   which is why the defect showed up on exactly the four unscoped ones. */
+.ci-links{ margin-top: var(--space-12); }
+.ci-links.actions{ gap: var(--space-16);   /* [?] 16 against the row's own 12 - backlog, 9.1 */
+  flex-wrap: nowrap; }   /* said out loud at 9.1: two links, and they never fall to a second line */
 /* step 7.3 pulled the size to one line in this file - it used to say 12 here and
    14 in the colour block below, and 14 is what the browser drew. Step 7.8 found
    the same 14 written in four OTHER files for the same finish and moved it to

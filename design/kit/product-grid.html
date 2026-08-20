@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Організм · рівень 3</div>
 <h1 class="kp-h1">Сітка товарів</h1>
 <p class="kp-lead">Найменший організм, який щось важить: <b>2 селектори, 10 оголошень, 2 класи і жодної семантичної ролі</b>. Це чиста розкладка - файл не називає жодного кольору. Корінь <code>.prow</code> стоїть на 15 кольорових екранах, до двох на екран, і на 1280 тримає <b>311 елементів</b> при власних 732x959; на 390 це 358x1177.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/product-grid.css</span><span class="kp-tag">22 рядки</span><span class="kp-tag">6 селекторів</span><span class="kp-tag">10 оголошень</span><span class="kp-tag">20 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/product-grid.css</span><span class="kp-tag">34 рядки</span><span class="kp-tag">3 селектори</span><span class="kp-tag">6 оголошень</span><span class="kp-tag">20 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">З чого складається</div>
 <p class="kp-p">Сітка не малює нічого свого: всі 311 елементів усередині - чужі, і найбільше їх дає картка товару.</p>
@@ -204,11 +204,18 @@
 <section class="kp-sec"><div class="kp-sh">Межі</div>
 <p class="kp-p">У файлі <b>3</b> медіа-умови, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (min-width: 1040px)</code></li><li><code>@media (min-width: 620px)</code></li><li><code>@media (min-width:620px)</code></li></ul></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U6</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Один список товарів на екран.</p></section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>2</b> власні класи і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["plist", "prow"], KIT_STS=[];</script></section>
 
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> жодного - <b>обидва запити зникли, і два інші виявились мертвими</b>. <b>1) Мертві:</b> структурна половина файлу писала <code>repeat(3, 1fr)</code> на 620 і <code>repeat(4, 1fr)</code> на 1040, а кольорова половина нижче перевизначає <code>.prow</code> із тією самою вагою - тож жоден із двох не малював ніколи. Перепис кроку 1 порахував 1040 діючою межею продукту; вона не діяла, і сказати це міг лише замір виходу. <b>2) Сітка йшла НАЗАД:</b> 1 колонка на 320, 2 на 360, <b>3 на 520</b>, <b>2 на 620</b>, 3 на 680, 4 на 880 - на 620 підлога стрибала зі 150 на 200 і коробка 588 переставала вміщати три, тобто ряд карток губив колонку в ту мить, коли вікно ширшало, і саме на точці, названій «ряд карток перестає бути однією колонкою». Одна підлога цього не лікує (три на 620 вимагають 185 або менше, чотири на 1280 - 194 або більше), тож дефектом є сам перемикач, і його замінив <b>пандус</b> <code>--grid-col-fluid</code>. <b>Ціна названа:</b> стан «три колонки» на 520-619 (три картки по 154.7px) стає двома по 244.</div>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
-<p class="kp-p">Прочитані з <code>product-grid.css</code>: <b>0</b> семантичних ролей і <b>2</b> примітиви.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (0)</th><th>Примітиви (2)</th></tr></thead><tbody><tr><td>-</td><td><code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div></section>
+<p class="kp-p">Прочитані з <code>product-grid.css</code>: <b>0</b> семантичних ролей і <b>4</b> примітиви.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (0)</th><th>Примітиви (3)</th></tr></thead><tbody><tr><td>-</td><td><code>--space-12</code> <code>--grid-col-fluid</code> <code>--grid-gap-fluid</code></td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
 <p class="kp-p">Вирішувач по обох селекторах: <b>2 оголошення з 10 не виграють ніколи</b>, і обидва це <code>grid-template-columns</code> на <code>.prow</code> - одне в <code>@media (min-width: 620px)</code>, друге в <code>@media (min-width: 1040px)</code>, обидва зі структурної половини. Їх б'є базове правило колірної половини: та сама специфічність, нижче за текстом. Наслідок читається просто: <b>з трьох меж файлу жива одна</b> - <code>620</code> з колірного блоку. Чотири колонки на 1040 написані і не намальовані жодного разу, а <b>1040 це межа, яку файл називає й ніколи не переходить</b>.</p><p class="kp-p">Двадцять відсотків оголошень файлу мертві, і це найбільша частка в наборі - при тому, що сам файл найкоротший. Мала кількість правил не рятує від суперечності, вона тільки робить її помітною.</p></section>

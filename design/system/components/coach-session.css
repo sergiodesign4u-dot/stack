@@ -404,7 +404,12 @@
    name and price on the first line, the action across the whole second one. The
    price sits in the last track before the row's right edge, so the three prices
    now share one edge instead of three. Nothing about the row above 480 moves. */
-@media (max-width: 479px){
+/* 10.4 round 3: 479 -> 619 for the question row's reflow. The file's OTHER pair,
+   939/940, is deliberately untouched: that is the coach split-view, which the width
+   audit named as the one genuinely new behaviour of this stage, and it belongs to
+   step 5. Folding it here would decide in a molecule-and-organism round what step 5
+   exists to decide. */
+@media (max-width: 619px){
   .coach .qa-row{ grid-template-columns: var(--size-44) minmax(0, 1fr) auto;
     grid-template-areas: 'ph bd price'
                          'add add add'; }

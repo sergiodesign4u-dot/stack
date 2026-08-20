@@ -270,16 +270,23 @@
      by accident. It was the owner's decision, taken twice, working exactly as
      recorded in design/kit/docs/consolidation.md. The table lives here now because
      this is the file people open to find out what the ladder is. */
-  --fs-8:   8px;
-  --fs-10: 10px;
-  --fs-12: 12px;
-  --fs-14: 14px;
-  --fs-16: 16px;
-  --fs-18: 18px;
-  --fs-20: 20px;
-  --fs-24: 24px;
-  --fs-30: 30px;
-  --fs-34: 34px;
+  /* THE RAMP MOVED FROM px TO rem AT STAGE 10 STEP 2, value for value.
+     At the default root of 16px every rung resolves to the same number it held
+     before, so no screen moves by a pixel. What changes is the reader who set
+     their browser font to 20px: in px the whole scale ignored them, and they got
+     the tight mobile measure on a wide monitor. The names keep their px figure
+     because that figure IS the rung: renaming ten tokens to `--fs-0-875` would
+     cost every reader in the system and buy nothing. */
+  --fs-8:  0.5rem;    /*  8px */
+  --fs-10: 0.625rem;  /* 10px */
+  --fs-12: 0.75rem;   /* 12px */
+  --fs-14: 0.875rem;  /* 14px */
+  --fs-16: 1rem;      /* 16px */
+  --fs-18: 1.125rem;  /* 18px */
+  --fs-20: 1.25rem;   /* 20px */
+  --fs-24: 1.5rem;    /* 24px */
+  --fs-30: 1.875rem;  /* 30px */
+  --fs-34: 2.125rem;  /* 34px */
 
   /* THE SCALE HAS A FLOOR AND NO CEILING - step 7.66.
      `--fs-8` is new and it is a real rung: three declarations sit on it - the
@@ -613,6 +620,115 @@
      floats, nothing does. Origin: [?] - not recorded in kit.css and the
      geometry table of DESIGN.md has no origin column. */
   --shadow-1: 0 1px 2px rgba(20,20,15,.05), 0 10px 30px rgba(20,20,15,.05);
+
+
+  /* ---- WIDTH: the registry of points, the container and the grid - stage 10 step 2
+
+     THESE TOKENS HAVE NO THEME PAIR, AND THAT IS NOT AN OMISSION. A pair in
+     `:root` / `[data-theme="dark"]` is a property of the semantic level, which is
+     colour. Width, container and gap are geometry: they live on the primitive
+     level and a theme does not change them.
+
+     REGISTRY OF POINTS, AND WHY THE NUMBER IS WRITTEN TWICE.
+     `@media` is evaluated BEFORE the cascade of custom properties, so
+     `@media (min-width: var(--bp-shell-wide))` does not work: there is no error,
+     the rule simply never fires. So the query carries the literal and this block
+     stays the source of truth and the registry. That is not two sources: step 6
+     greps every `@media` in `design/system/` and each one must give exactly one of
+     the two numbers below. Any other number in a product query is a defect.
+
+     WHY TWO, AND WHERE THE NUMBERS CAME FROM. Step 1 counted 36 raw width values
+     in the project, 27 after mirroring (`max-width: 859` is the mirror of the 860
+     boundary), 18 of them acting in the product. These two are the densest by a
+     long way - 860 carries 107 of the occurrences and six of the seven behaviour
+     changes the audit found, 620 carries 32 and the rest. The other 16 are either
+     mirrors of these two or drift, and step 4 moves them onto these. */
+  --bp-grid-2col:  38.75rem;   /* 620px. Audit part A: the row of cards stops being
+     one column. `product-grid.css` (.prow), `goal-tile.css` (.goaltiles),
+     `review-item.css`, `section-head.css`, `coach-order.css` all turn at exactly
+     this width, 32 occurrences. Below it a card in two columns no longer holds
+     its title on one line. */
+  --bp-shell-wide: 53.75rem;   /* 860px. Audit part B: the shell changes the carrier
+     of its top-level navigation, and with it six behaviours turn at once - the
+     filter sheet becomes a permanent rail, the PDP puts gallery and buy box side by
+     side and drops the sticky buy bar, checkout puts form and summary side by side,
+     the mega menu becomes a flyout. 107 occurrences, the densest number in the
+     project. */
+
+  /* CONTAINER AND LINE MEASURE. The most visible defect of a mobile-first product
+     on a large monitor is a paragraph 1400px wide, in which the eye cannot find the
+     start of the next line. */
+  --container-page: 75rem;     /* 1200px. Read today by `design/_stand.css .wf-page`,
+     which is where the page frame has lived since stage 07. `checkout-form.css`
+     (.co-wrap, 1200) and `coach-clients.css` (.cc-wrap, 900) still write their own
+     number by hand: they move onto this token at step 4. */
+  --container-text: 68ch;      /* prose only. 68 characters sits inside the 60-75 the
+     typographic literature gives, and `banner.css .promo .pt` already measures in
+     `ch` (22ch), so the unit is not new to this system. `empty-state.css` records a
+     hand fix in TWO sizes, 42ch and 46ch, which is exactly the signature this token
+     removes. */
+
+  /* GRID. THE NUMBER OF COLUMNS IS NOT A TOKEN. The grid is written as
+     `repeat(auto-fit, minmax(min(var(--grid-col-min), 100%), 1fr))` - the `min()` is the
+     guard that stops a floor wider than its box from pushing the page sideways, and
+     every grid in this system writes it - and counts its own columns:
+     at 1100px there are three, and nobody planned 1100px. A `--col-count-wide` token
+     would have to be switched, and switching is what this whole stage avoids. */
+  --grid-col-min-narrow: 9.375rem; /* 150px, the floor BELOW the point. Read out of
+     `product-grid.css`, which wrote `minmax(min(150px, 100%), 1fr)` by hand, and now
+     also by `skeleton.css`, so the promise and the box it promises cannot drift. */
+  --grid-col-min: 12.5rem;     /* 200px, the floor FROM `--bp-grid-2col`. Same origin.
+     Two floors and not one, because a 200px card does not fit twice in a 328px column
+     and a card row on a phone is two cards wide: stage 10 step 4 found that out the
+     hard way, by making the skeleton one column at 360 and measuring it. */
+  --grid-col-min-panel: 19rem; /* 304px, the floor of a PANEL card - one that holds a
+     form-sized body rather than a photo and a price. Two readers, which is what earns
+     it a name: `address-card.css .addr-list` and `loyalty-rung.css .loy-two`, both of
+     which used to say «two columns» with a query (720 and 760, neither in the
+     registry).
+     304 AND NOT 352, AND THE FIRST DRAFT SAID 352. It was measured at the two widths
+     anyone looks at - 360 and 1280 - and both agreed, so it read as right. The width
+     sweep disagreed in between: the account shell takes its own nav column at 960 and
+     leaves this grid a 628px box, where a 352 floor fits one card and the query it
+     replaced fitted two. 304 is the width those cards actually get at 960 today, so
+     the token now reproduces every column count the query gave and adds one the query
+     refused - two cards from a 656px window instead of one. */
+  /* THE FLOOR RAMPS, AND THAT DAY ARRIVED AT ROUND 3. The two floors above were a
+     SWITCH at `--bp-grid-2col`, and the width sweep showed what a switch costs here:
+     the card row ran 1 -> 2 at 360 -> **3 at 520** -> **2 at 620** -> 3 at 680, losing a
+     column at the exact point named «the row of cards stops being one column». The
+     floor jumps 33% there and the box of 588 stops fitting three. No single floor
+     fixes it - keeping three at 620 needs 185 or less, keeping four at 1280 needs 194
+     or more - so the switch itself is the defect, and a ramp is what replaces it.
+     Both ends are the values above, so 360 and 1280 do not move. */
+  --grid-col-fluid: clamp(var(--grid-col-min-narrow), 7rem + 10.3vw, var(--grid-col-min));
+  /* 150px at 360, 200px from 860. The preferred term deliberately falls just outside
+     the clamp at both ends so they resolve exactly rather than to 149.08 and 200.58. */
+  --grid-gap-fluid: clamp(var(--space-12), 0.35rem + 1.7vw, var(--space-16));
+  /* 12px at 360, 16px from 620, and it has to move with the floor: a gap that steps
+     while the floor ramps makes the skeleton 2.7px wider than the box it promises. */
+  /* `--grid-gap` AS A PLAIN ALIAS IS STILL NOT HERE, and the two above are not it.
+     The pack asked for `--grid-gap`; a second name for `--space-16` would have been a
+     second edition of one value, and this file's own rule kills it: «a value used once
+     is a value, not a token». What earned a name is not the value but the RAMP, and it
+     has two readers - `product-grid.css` and `skeleton.css` - which is the same test
+     every other token here passed. The refusal written at step 10.2 said «if the grid
+     ever needs a rhythm the ramp does not have, it earns a token that day». */
+
+  /* FLUID DISPLAY SIZE - and the ramp above it stays fixed, on purpose.
+     The ramp is GENERIC: `--fs-30` is worn by a page H1, by the live price in the
+     hero deal and by the glyph in an empty state. Wrapping a rung in `clamp()`
+     would make an icon breathe with the viewport, which is not a size decision
+     anyone took. So the fluid size is a SEPARATE token with a named reader list,
+     and the ramp keeps its job.
+     BOTH ENDS ARE IN rem AND THE MIDDLE CARRIES A rem TERM. A pure `vw` middle
+     ignores the reader's font size and stops the page scaling under zoom, which
+     fails WCAG 1.4.4. The knee is set at exactly 360px: 1.58rem + 1.3vw resolves
+     to 29.96px there, just under the 30px floor, so at 360 the clamp returns the
+     floor and the screen does not move by a pixel. The ceiling is reached at
+     1440px. font-size is NEVER switched at a point: that would jump while the
+     reader is dragging the edge of the window. */
+  --fs-display: clamp(1.875rem, 1.58rem + 1.3vw, 2.75rem);   /* 30px -> 44px */
 
 
 /* ==========================================================================

@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Рядок замовлення</h1>
 <p class="kp-lead">Замовлення, яке вже зроблено: номер, дата, стан, мініатюри, сума. Натиснули - і під ним відкривається все інше. Найбільший файл системи на кількість оголошень до кількості екранів: <b>240 оголошень на два екрани</b>.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/order-row.css</span><span class="kp-tag">224 рядки</span><span class="kp-tag">82 селектори</span><span class="kp-tag">222 оголошення</span><span class="kp-tag">2 екрани</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/order-row.css</span><span class="kp-tag">241 рядок</span><span class="kp-tag">84 селектори</span><span class="kp-tag">223 оголошення</span><span class="kp-tag">2 екрани</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Файл, який збирали чотири кроки</div>
 <p class="kp-p">Замовлення було розкидано по чотирьох файлах. Кожен шматок лежав там, куди його занесла історія, а не там, де він працює.</p>
@@ -177,10 +177,18 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Стан несе контейнер, а не кнопка.</b> <code>.ord.open</code> вмикає і тіло, і поворот шеврона, і зникнення розкривача на телефоні. Один клас на <code>.ord</code> - і весь рядок узгоджений; поставте його на кнопку, і три правила почнуть розходитись.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не ховай перешкоду під кнопку повтору.</b> «1 товар зараз недоступний» стоїть <b>над</b> «Повторити замовлення», а не в тості після натискання. Дізнатись про заміну після того, як кошик уже зібрано, це не інформація, а сюрприз.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U9</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Ряд дій замовлення береться патерном <code>.actions</code>. Власний <code>gap: 8</code> лишився тут як відхилення.</p></section>
+
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>41</b> власний клас і <b>5</b> станів оголошено в <code>order-row.css</code>.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["accrual","aord-actions","aord-info","aord-thumbs","aorder","chev","dk","dl","dv","ln-calc","ln-nm","ln-review","ln-right","ln-tot","meta","more","no","ob-collapse","ob-del","ob-grid","ob-line","ob-receipt","ob-repeat","ob-sum","oh-date","oh-drop","oh-no","oh-sum","oh-thumbs","open","ord","ord-body","ord-h","ord-list","ord-oos","ord-tabs","orow","ph","sr","t","total"], KIT_STS=[".ord.open","max-width: 640px","min-width: 820px",":hover",":first-child"];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-grid-2col</code> дзеркалом <code>619</code> і <code>--bp-shell-wide</code>. <b>Що саме міняється:</b> нижче 619 шапка замовлення перекладається у сітку з областями (<code>no date</code> / <code>stat sum</code> / <code>thmb</code> / <code>more</code>) і показує кнопку «Детальніше»; від 860 бланк замовлення стає двоколонковим. <b>Було 639</b> - дзеркало 640, якого в реєстрі немає. Раунд атомів записав це число як «винне раунду організмів»; запис був хибний, бо <code>order-row</code> це молекула, і борг належав цьому раунду.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>order-row.css</code>: <b>17</b> семантичних ролей і <b>22</b> примітиви.</p>

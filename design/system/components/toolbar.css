@@ -6,9 +6,6 @@
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .ltool{ display: none; align-items: center; gap: var(--space-12); flex-wrap: wrap; margin-top: var(--space-16); padding-top: var(--space-16); border-top: 1px dashed var(--line-strong); }
-@media (min-width: 860px){
-  .ltool{ display: flex; }
-}
 .ltool .sp{ flex: 1; }
 /* «Знайдено: 24 товари» is a LABEL, not a control - it shares the `.ctrl` class
    with the sort button and nothing else. Step 6.7 gave `.ctrl` to the button and
@@ -18,13 +15,24 @@
   background: var(--bg-page); font-size: var(--fs-14);
   color: var(--text-muted); font-weight: var(--fw-semibold); }
 .listing{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-16); }
-@media (min-width: 860px){
-  .listing{ grid-template-columns: 240px 1fr; }
-}
 .mtoolbar{ position: sticky; top: 57px; z-index: 20; background: var(--bg-page); display: flex; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); }
 .mtoolbar .mc{ flex: 1; }
 .mtoolbar .mc .b{ border-radius: var(--radius-pill); font-size: var(--fs-12); font-weight: var(--fw-black); padding: var(--space-2) var(--space-8); }
+/* 10.4: THREE QUERIES, ONE BEHAVIOUR, ONE BLOCK. This file used to state
+   `min-width: 860` three times, each tucked under the rule it modified, and read
+   as three separate opinions about a number. They are one sentence: at the shell
+   point the listing grows a filter rail on the left, the rail's toolbar appears,
+   and the sticky strip that stood in for it on a phone goes away. Cut and pasted,
+   not retyped - the three declarations are the ones that stood above.
+
+   `.listing` IS A SCREEN LAYOUT LIVING IN A COMPONENT FILE, and that is said out
+   loud rather than fixed here: the two-column listing frame belongs with the
+   shell of step 3, not with the toolbar that happens to sit in its left column.
+   Moving it is an organism-round question, and moving it silently inside a
+   molecule round would hide it. */
 @media (min-width: 860px){
+  .ltool{ display: flex; }
+  .listing{ grid-template-columns: 240px 1fr; }
   .mtoolbar{ display: none; }
 }
 

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ціль «Схуднення» - немає товарів у наявності (wireframe 2.2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- WIREFRAME · 2.2 STATE = empty (no in-stock products for this goal).
+     Exit: pick another goal (→ home goal selector) / go to catalog.
+     Reconciled with flows.md Job 2 (empty collection → back to goal selector) - never a dead end. -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <a href="../wireframes/catalog-page.html">Каталог</a><span class="sep"></span>
+    <span class="cur">Схуднення</span>
+  </nav>
+
+  <section aria-label="Заголовок цілі">
+    <h1 class="lh1">Схуднення <span class="cnt">0 товарів</span></h1>
+    <p class="lintro">Безпечний, підібраний набір добавок для контрольованого зниження ваги:
+      ізолят, жироспалювачі, L-карнітин та амінокислоти. Показуємо склад, походження і сертифікат, з чіткою дозою на порцію.</p>
+  </section>
+
+  <div class="ltool">
+    <span class="ctrl count">Знайдено: 0 товарів</span>
+    <span class="sp"></span>
+    <button class="btn--outline btn--s ctrl" type="button"><span class="cap">Сортування:</span> <span class="menu-val">Популярні</span></button><span class="vtoggle"><span class="on">▦</span><span>☰</span></span>
+  </div>
+
+  <div class="mtoolbar">
+    <button class="btn--outline mc" onclick="openSheet()">Фільтри</button>
+    <button class="btn--outline mc" type="button"><span class="menu-val">Популярні</span></button>
+  </div>
+
+  <div class="listing">
+    <aside class="frail" id="wf-rail"></aside>
+
+    <section aria-label="Результати">
+      <!-- EMPTY: no in-stock products for this goal - visible exits: choose another goal / catalog -->
+      <div class="empty">
+        <div class="ei">🎯</div>
+        <div class="et">Зараз немає товарів у наявності для цієї цілі</div>
+        <div class="es">Оберіть іншу ціль - підберемо безпечний набір під ваше завдання -
+          або перегляньте весь каталог.</div>
+        <div class="eact">
+          <a class="btn--accent btn" href="index.html">Обрати іншу ціль</a>
+          <a class="btn--outline btn" href="../wireframes/catalog-page.html">До каталогу</a>
+          <a class="btn--outline btn" href="goal.html">Набір маси</a>
+          <a class="btn--outline btn" href="goal.html">Відновлення</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- SEO text stays (crawlable) even on an empty result -->
+  <section class="seotext" id="seo" aria-label="Опис цілі">
+    <div class="h">Схуднення - добавки для зниження ваги в магазині Stack</div>
+    <p>Ціль «Схуднення» - це підібраний набір спортивного харчування для контрольованого зниження
+      ваги без втрати м'язів: сироватковий ізолят, жироспалювачі, L-карнітин і амінокислоти BCAA.
+      Для кожного товару показуємо склад, походження і сертифікат, з чіткою дозою на порцію.</p>
+    <p>Як обрати безпечно: почніть з ізоляту як основного джерела білка, додайте L-карнітин перед
+      кардіо, а термогеніки використовуйте курсом і за інструкцією. Швидка доставка Новою Поштою,
+      оплата картою чи готівкою, повернення протягом 14 днів.</p>
+  </section>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<div id="wf-sheet"></div>
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/menu.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); wfBar('goal.html', 'empty');  uivFixLinks(); uivBar(); uivChrome();
+</script>
+</body>
+</html>

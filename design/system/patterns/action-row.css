@@ -1,0 +1,98 @@
+/* action-row.css - two actions standing side by side. Stage 09, step 1.
+
+   WHAT IT IS. A block ends and offers a choice: confirm or cancel, save or
+   discard, open the client or delete them. The two controls stand in a row, one
+   gap apart, and the primary one is a `btn--accent` while its neighbour is a
+   `btn--outline`. Nothing here is new: the row is assembled from `button.css`
+   and the spacing scale, and this file owns only the composition.
+
+   WHY IT IS A PATTERN AND NOT A COMPONENT. `tools/pattern.mjs` over 142 grey
+   screens and 88 coloured ones: the composition stands on 70 grey screens and 58
+   coloured ones - and it does so under FIFTY-THREE different container names.
+   THOSE 58 ARE NOT THE 15 THE STAND PAGE PRINTS, and the two must never be read
+   as one pair. 58 is where the COMPOSITION stands today, under any of the 53
+   names. 15 is where the CLASS is worn after this step, because the conversion
+   took the 13 names whose rule lived in a component file and could be cut out of
+   it. The other 40 names carry no rule anywhere, so converting them would move
+   nothing into this file and would be a markup edit with no proof attached; they
+   are stage 12's, which rebuilds those screens in colour anyway. The gap is 43
+   coloured screens, it is not a list of defects, and it is written here because
+   a step that prints «70 / 15» on one page and «70 / 58» on another, explaining
+   neither, has told the reader two different things in one breath.
+   `.eact` `.act` `.ceact` `.addr-acts` `.ccard-acts` `.cl-acts` `.oc-actions`
+   `.cc-cta` `.od-acts` `.ord-acts` `.ord-acts-c` `.aord-actions` `.cv-actions`
+   `.cv-btnrow` `.btnrow` `.cta` `.me-cta` `.nl-cta` `.q-cta` `.clh-cta`
+   `.err-btns` `.co-err-acts` `.sys-acts` `.uacts` `.buyrow` `.lactions`
+   `.pstrip` `.cd-foot` `.cs-act` `.ci-links` `.acts` `.acact` `.op-steps`
+   `.pages` and nineteen more. Nineteen of them carry a rule in fifteen different
+   component files; TEN carry no rule at all, and on those screens the row exists
+   only because two buttons happen to be next to each other in the markup.
+   That is the definition the stage works to: a composition repeated by hand
+   rather than named once.
+
+   THE DRIFT THIS MAKES VISIBLE, and one file had already noticed it. The same
+   row is written with FIVE different gaps - `--space-12` ten times, `--space-8`
+   four times, a bare 9px three times, a bare 10px twice, `--space-16` once - and
+   `coach-clients.css` says so in its own comment beside `.cl-acts`: «the third
+   number on the four action rows». 9px and 10px are on no rung; the ladder is
+   4 / 8 / 12 / 16.
+   THEY ARE NOT SNAPPED HERE. This step is a refactor and its acceptance is zero
+   pixels moved, so each deviating container keeps its own `gap` in its own file
+   and the snap is written into `backlog.md` as a decision for the owner, in the
+   form the project requires: variable, value, why. Folding a value change into a
+   move is exactly how a refactor becomes unprovable.
+
+   WRAPPING IS THE DEFAULT, and that is a statement rather than a majority vote:
+   two actions that cannot fit 360px must fall onto a second line rather than
+   overflow the screen. Eleven of the THIRTEEN converted containers already said
+   `flex-wrap: wrap`; the other two must NOT wrap, because their two controls
+   share the width instead - and they say so in two different places, which is
+   the point rather than an inconsistency. `.ccard-acts` says it IN THE MARKUP,
+   as `actions--even`, and its own `flex-wrap: nowrap` and `.btn{ flex: 1 }` were
+   DELETED from `coach-clients.css` at 9.1, because the modifier is exactly that
+   pair of declarations. `.ci-links` says `flex-wrap: nowrap` in `cart-row.css`,
+   because it holds two text LINKS rather than two buttons and must not share the
+   width. Nothing moved a pixel either way - both had no `flex-wrap` at all and
+   were relying on the initial value.
+   THE NUMBERS ABOVE WERE WRONG UNTIL 9.6, and the way they were wrong is why
+   they are spelled out here: the first writing said «eleven of the sixteen» and
+   «the remaining four», which is 15 of 16 and neither figure is the 13 this
+   file's own list below contains. A count typed beside a list the reader can add
+   up is a count that will be checked.
+
+   WHERE IT IS SHOWN: design/kit/action-row.html (stage 09 step 2).
+   WHAT MOVED IN, file by file, cut from there and pasted here:
+     upsell.css          .uacts        display, gap, flex-wrap
+     coach-verify.css    .cv-btnrow    display, gap, flex-wrap, justify-content
+     coach-landing.css   .clh-cta      display, gap, flex-wrap
+     address-card.css    .addr-acts    display, flex-wrap        (gap 8 stays)
+     order-row.css       .aord-actions display, flex-wrap        (gap 8 stays)
+     coach-order.css     .od-acts      display, flex-wrap        (gap 10px stays)
+     coach-cabinet.css   .ord-acts     display, flex-wrap        (gap 10px stays)
+     coach-clients.css   .cl-acts      display, flex-wrap        (gap 9px stays)
+                         .ccard-acts   display                   (gap 9px stays)
+                         .cc-cta       display, flex-wrap        (gap 10px stays)
+                         .oc-actions   display, flex-wrap        (gap 9px stays)
+     trust-strip.css     .cs-act       display, flex-wrap        (gap 8 stays)
+     cart-row.css        .ci-links     display                   (gap 16 stays)
+
+   WHAT DID NOT MOVE, said out loud rather than left to be noticed later:
+     .ceact and .cedlg .act - the client dialog's own action row, on eight grey
+     screens and two coloured ones. Its markup is built by `wireframes/_nav.js`,
+     the shared script BOTH corpora load, and this stage does not edit the grey
+     corpus. The rule stays in client-dialog.css and the conversion is written
+     into backlog.md for stage 12, which rebuilds those screens anyway.
+     .sys-acts - the system page's row. Zero coloured occurrences, so there is
+     nothing here to prove with pixels. Same list, same reason.
+   Both are the case the stage names in advance: a pattern may be entered with
+   grey occurrences and no coloured ones, but it is said in a line of its own. */
+
+.actions{ display: flex; flex-wrap: wrap; gap: var(--space-12); }
+
+/* the two controls share the width - a dialog foot, a card foot, a 360 screen
+   where neither label may be truncated */
+.actions--even{ flex-wrap: nowrap; }
+.actions--even > *{ flex: 1; }
+
+/* centred under a block that is itself centred: an empty state, a verify card */
+.actions--center{ justify-content: center; }

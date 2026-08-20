@@ -13,10 +13,18 @@
 .aaddr .adef .tag{ font-size: var(--fs-10); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-secondary); }
 .aaddr .adef .line{ color: var(--text-primary); font-weight: var(--fw-bold); margin-top: var(--space-4); }
 .aaddr .amore{ font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-12); }
-.addr-list{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-16); }
-@media (min-width: 720px){
-  .addr-list{ grid-template-columns: 1fr 1fr; }
-}
+/* 10.4: THE QUERY IS GONE and the number moved into the component. A person has
+   one address or seven; nothing here is a fixed count, so `auto-fit` is the
+   honest mechanism - the row fills, and 720 stops being a claim about a device
+   and becomes a claim about how narrow an address card may be. Measured against
+   the query it replaces: at 1280 both give 358px per card, at 760 both give two
+   columns of 356, and the split now lands at 752 instead of 720. */
+/* AND THE FLOOR IS WRAPPED IN `min(..., 100%)`, which is not decoration: a bare
+   `minmax(19rem, 1fr)` makes the track 304px wide inside a 288px box at 360 and
+   pushes the page sideways. `product-grid.css` and `skeleton.css` already write
+   the guard; this is the same idiom, not a new one. */
+.addr-list{ display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-col-min-panel), 100%), 1fr));
+  gap: var(--space-16); margin-top: var(--space-16); }
 .addr-card{ border: 1px solid var(--line-hair); padding: var(--space-16); }
 /* 8.10 - THE SHAPE LEFT, THE POSITION STAYED. Every declaration this rule used
    to carry except one is now badge.css's outlined kind, which `.addr-tag` was
@@ -29,7 +37,17 @@
 .addr-type{ font-size: var(--fs-12); color: var(--text-secondary); }
 .addr-line{ font-size: var(--fs-16); font-weight: var(--fw-bold); margin: var(--space-4) 0 var(--space-2); }
 .addr-sub{ font-size: var(--fs-14); color: var(--text-secondary); }
-.addr-acts{ display: flex; gap: var(--space-8); margin-top: var(--space-16); flex-wrap: wrap; }
+/* 9.1: `display: flex` and the wrap moved to patterns/action-row.css - one row, one
+   rule, fifty-three container names. What stays here is what this container does
+   DIFFERENTLY, and nothing else. */
+/* THE DEVIATION HAS TO OUTWEIGH THE PATTERN, and the first cut at 9.1 forgot it.
+   `.actions` and a bare container class weigh the same (0,1,0), and patterns
+   import last, so the pattern's `gap` silently won and this row moved 4px.
+   Written as a pair with `.actions` it reads as what it is: this container is an
+   action row AND it differs from one. The scoped `.coach .*` rows needed nothing,
+   which is why the defect showed up on exactly the four unscoped ones. */
+.addr-acts{ margin-top: var(--space-16); }
+.addr-acts.actions{ gap: var(--space-8); }   /* [?] 8 against the row's own 12 - backlog, 9.1 */
 .addr-add{ margin-top: var(--space-16); }
 .addr-hint{ font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-16); border: 1px dashed var(--line-strong); padding: var(--space-12) var(--space-12); line-height: var(--lh-airy); }
 .addr-modal{ max-height: 90vh; overflow: auto; }

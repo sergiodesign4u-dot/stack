@@ -17,7 +17,8 @@ node tools/accept.mjs 1280 account       one width, named screens
 node tools/states.mjs                    open every state, re-run the passes
 node tools/css-comments.mjs              every stylesheet, one second
 node tools/vars.mjs                      every var(--x), and whether it exists
-node tools/links.mjs [--write]           every href, and whether it goes anywhere
+node tools/links.mjs [--write]           every href AND src, and whether it goes anywhere
+node tools/paths.mjs                     every path an md NAMES, and whether it still exists
 node tools/theme.mjs [--source]          the dark theme as a stress test
 node tools/roles.mjs [name...]           does the stand still describe the file
 node tools/idle.mjs [name...]            what each stand page is not showing, sorted
@@ -27,6 +28,9 @@ node tools/crop.mjs 390 coach-tariff .tf-compare /tmp/t.png
 node tools/scope.mjs [--apply]           is a screen inside the scope its components need
 node tools/btn-rank.mjs [--apply]        a control wearing only `btn` renders as bare text
 node tools/inert.mjs [--apply]           which private rules can go, decided by loading without them
+node tools/tab-walk.mjs [pages...]       press Tab and see where focus actually lands
+node tools/comp-width.mjs [--md] [level] what each component knows about width
+node tools/grid-sweep.mjs [file.css]     how many columns a grid really has, width by width
 ```
 
 `accept`, `states`, `css-comments`, `vars`, `links`, `theme` and `roles` exit
@@ -147,6 +151,30 @@ the file because the next check to read CSS will meet the same three:
    screens. *A check that fires everywhere is describing itself.*
 3. `var(--x, fallback)` is not a defect, and not every declaration is in a
    stylesheet - `--p` comes from the markup and `--uiv-side-h` from `_nav.js`.
+
+## `paths.mjs` - does the file this sentence name still exist
+
+Stage 09 step 6. `links.mjs` reads html attributes, so a path written inside md prose is invisible
+to it, and a full two-instrument critique had just passed over the repository without noticing that
+`CLAUDE.md` - the one file every session reads first - named a `_theme.css` under `design/` in its
+value chain, and no such file exists or has existed for several stages. **A rule file that points at a dead path teaches the dead path.**
+
+Three things make it work, and two of them are mistakes it made first:
+
+- **A path in prose is a TAIL, not an address.** Resolving against the md's own directory reported
+  61 dead paths, all alive. Resolving against the repository root reported 150, almost all alive -
+  `ia/docs/sitemap.md` writes `pages/home.md` and means its own `pages/`. Dropping the `../` run and
+  matching any file whose path ENDS with the tail is the rule `links.mjs` had already written down.
+- **A record names history; a rule names an address.** `docs/decisions.md` says
+  a `flows.md` under `research/docs/` because that is what the file was called that day, and
+  rewriting it would
+  falsify the record. The record files are listed by name in `RECORD`, not guessed at, and the list
+  has an idle control: a name in it that is not an md on disk fails the run.
+- **A quoted dead path is not a dead link.** `tools/README.md` names `design/system.html` as the 404
+  an early sweep produced; the sentence is ABOUT the dead path. Those live in `KNOWN_GONE` with a
+  reason each, and an entry that stops matching anything fails the run just as loudly as a dead path.
+
+Today: 1256 paths named across 63 md, **0 dead**, 32 in the record files, 6 declared gone.
 
 ## `links.mjs` - does this link go anywhere
 
@@ -342,6 +370,33 @@ pages: until then a strip was typed by hand and caught by question H afterwards,
 which is the expensive half, because by then the page is written and read. Screens
 keeps its `–` here too - a component with no anchor cannot be counted from either
 direction.
+
+
+### What stage 09 added to it, and two of the three were latent bugs
+
+**Three new questions, because the system grew a second level and a hub that lies quietly.**
+A pattern with no inventory row, a pattern with no stand page, a registry page with no card in
+`overview.html`, a card with no registry row, and a group heading whose count disagrees with the
+cards under it. Every question in this file was written when the system had one level and when the
+hub happened to be current.
+
+The hub question is the one that paid for itself immediately: `overview.html` carried **73 component
+cards for 84 files** and its own heading read «Організми 24 / 24» about a group of 34. The heading
+was true the afternoon it was typed; eleven components arrived afterwards, and each of them was
+added by editing a DIFFERENT file, so nothing the hub could see ever changed. **A hub that misses a
+card does not 404 and does not look broken - it looks finished**, which is the more expensive
+failure. Positive control was run in both directions before the number was trusted.
+
+**Wrong version 1: the last level table ran to the end of the file.** Each level section was scanned
+until the next level heading, and the LAST one until `md.length`. The patterns table appended below
+it was read as a thirty-fifth organism and the level check called it diverged. Any table appended
+under the last level would have been swallowed the same way, silently, and the count would still
+have looked like coverage.
+
+**Wrong version 2: `--apply` could not close its own finding.** It rewrote the stand pages' meta
+tags and left the `Lines` column in `inventory.md` alone, so the run that «applied everything» still
+reported ten wrong numbers on its next pass. The number comes off disk and this file knows both
+halves; it writes both now.
 
 ## `grey-vars.mjs` - the transform `vars.mjs` asks for
 
@@ -1174,3 +1229,175 @@ rather than a component; the ladder's own rule is that a pattern needs three.
 
 The runner-up by SIZE is `q-*`, 35 classes - and it is one screen, the quiz, which locked decision 2
 puts post-launch. **The biggest pile in the report is the one that must not shape the system.**
+
+## `pattern.mjs` - does a composition repeat, and on how many SCREENS
+
+Stage 09 step 1 asks two things of one walk: what stands on three or more screens (a pattern) and
+what never happens twice on one screen (a rule of use). One pass, both harvests.
+
+    node tools/pattern.mjs --mode=comp|pair|cls|raw|rawv [--min=3] [--width=390]
+                           [--json=<file>] [--from=<file>] [--screens]
+
+`--json` stores the walk so the reports can be re-read without re-opening 230 pages; `--from`
+reads it back. `comp` is the full ordered child sequence of a named container, `pair` every
+adjacent pair under one, `cls` the normalised per-screen class count, `raw` the same unnormalised,
+`rawv` only what has a box on it at that moment.
+
+Five wrong versions, all of them still written in the file's own header:
+
+1. **No ownership question.** Without asking which component file declares a class, it reported
+   268 compositions on three or more screens, most of them the inside of a card. A threshold that
+   returns a quarter of the corpus has measured nothing.
+2. **The signature was the whole child sequence.** One extra block on one screen split one
+   composition in two: «section head plus a row of cards» came back as four rows of four screens
+   instead of one of sixteen. Adjacent pairs were added beside it, not instead of it - the filter
+   rail's `.frail > .fgroup+` has no adjacent pair at all and only `comp` sees it.
+3. **`btn--*` was dropped to align the two corpora, and that broke the one row that mattered.**
+   Stage 08 renamed the grey `.btn.dark` to `.btn--accent`, so dropping the modifier left the
+   child with no class, the pair rule threw it away as unnamed, and «a row of two actions» read
+   70 grey screens against **0 coloured**. Now any class carrying `--` collapses to its base.
+4. **A run is a pair too.** Two identical adjacent children collapse into one run and the
+   adjacent-pair loop never fired on it - which is exactly the case «two buttons side by side».
+   28 screens instead of 76.
+5. **Chrome was decided by the whole key.** `wireframes/_nav.js` builds the header, footer, mega
+   menu, drawer, city dialog and tab bar, and BOTH corpora load it, so those compositions stand on
+   134 of 142 grey screens while already living in one function. The rule «every class here was
+   injected» answered «no» for the entire header, because `btn` and `field` are also written by
+   hand elsewhere: one shared name let 66 chrome rows back in as findings. The container decides
+   now - if the element the composition hangs off was put there by a script, so was the
+   composition.
+
+And one caveat that is not a bug: the walk runs at ONE width. At 390 the desktop filter rail and
+desktop toolbar have no box, so `rawv` reports them on zero screens. Read `raw` for anything whose
+visibility is a breakpoint's decision, and say which reading a claim came from.
+
+## `tab-walk.mjs` - press Tab and see where focus actually lands
+
+Born at stage 10 step 3, and it exists because a shell that changes shape with the
+width has one failure mode nothing else here can see: **the carrier that is no
+longer drawn stays in the tab order**. Hidden by opacity, by a negative offset or
+by a zero-size clip, it is invisible to the eye and fully reachable by keyboard, so
+a person walks a navigation they cannot see. `accept.mjs` asks the output about
+text and overflow, `theme.mjs` about colour, and neither of them presses a key.
+
+It dispatches a real `Tab` through CDP and reads `document.activeElement` at each
+stop, tagging the stop with the shell region it landed in.
+
+| it reports | why |
+|---|---|
+| **focus on an invisible element** | `checkVisibility({checkOpacity, checkVisibilityCSS})` false, or a box measuring 0 in either axis. This is the defect the file exists for, and it fails the run |
+| **the same entry in two carriers at once** | asked as a set intersection of the two carriers, not from the walk. Reported, not failed - see below |
+| **a positive `tabindex`** | it would make DOM order and focus order disagree and quietly invalidate every other reading here |
+
+**Two wrong versions, both written down in the file.**
+
+The first did not press anything. It listed every focusable descendant of `.wfh`,
+filtered on the element's own `display`, and called the rest «hidden but
+focusable»: **196 at 360 and 183 at 1280**. Every one was a false positive - an
+element under a `display: none` ANCESTOR is not in the tab order at all, so what
+the number described was the closed mega-menu, the closed drawer and the language
+dropdown. A count of «not visible» is not a count of «reachable while invisible».
+
+The second counted repeated labels among the stops and reported **six** - «В
+обране», «У кошик», «фото» on a listing, «У сесію», «Усі клієнти», «Профіль» in the
+coach cabinet. Every one was a control repeated per row, which is what a list is. A
+duplicate only matters when the SAME top-level entry is carried by two different
+carriers at the same width, so that question is now asked directly of the two
+carriers and the walk no longer guesses at it.
+
+**The intersection is reported and does not fail the run**, and that is deliberate:
+at mobile this product carries the cart in both by an IA decision written in
+`ia/docs/pages/navigation.md`. An instrument that fails on a decision teaches its
+reader to ignore it.
+
+
+---
+
+## `grid-sweep.mjs` - how many columns a grid really has, width by width
+
+Stage 10 replaces breakpoints with `auto-fit`, and neither half of what it promises
+can be checked by reading CSS. `repeat(3, 1fr)` under a query and
+`repeat(auto-fit, minmax(180px, 1fr))` are the same three columns at ONE width and
+different everywhere else, and the width where they part is written in neither
+declaration. So the count is asked of the output: `getComputedStyle(el).gridTemplateColumns`
+comes back as a resolved track list, which is the column count and the column width
+in the same string.
+
+```
+node tools/grid-sweep.mjs                    every grid in the system
+node tools/grid-sweep.mjs goal-tile.css      one component file
+node tools/grid-sweep.mjs --sel .goaltiles   one selector
+node tools/grid-sweep.mjs --step 10          finer than the default 40px
+```
+
+It finds its own subjects: the selectors are read out of `design/system/**/*.css` -
+every rule that declares `grid-template-columns`, base rules and rules inside a
+query alike - and the pages come from `pages()`. When a rewrite deletes a selector
+the sweep stops reporting it rather than silently sweeping the neighbour.
+
+**The width is the measured width.** Every row carries
+`document.documentElement.clientWidth` as read from the page, and the run exits
+non-zero if any row's measured width differs from the requested one. A scrollbar
+turning a requested 360 into an actual 345 is how a whole class of defect gets
+tested at a width where it does not reproduce.
+
+**It resizes rather than reloads.** 33 widths x 90 pages is 2 970 page loads and
+about two hours. The page is loaded once and the viewport moves under it, which is
+also the gesture the fluid way has to survive.
+
+**Two wrong versions, both written down in the file.**
+
+The first counted the raw track list. `auto-fit` COLLAPSES the tracks it has no item
+for and `getComputedStyle` still lists them, as `0px`, so the five trust banners were
+reported standing in **eight columns at 1360**. A collapsed track is not a column.
+
+The second asked «is this selector on any page» of the product corpus alone -
+`design/*.html` minus `kit/`, minus `concept/`, minus the hub, which is the right
+corpus for a width audit and the wrong one for «does this exist». It printed
+«`.addr-2col` stands on no coloured page», which reads as dead and was one edit from
+being published as a finding. It stands on `design/kit/client-dialog.html`. A
+selector missing from the product corpus is now looked for in the stand as well, and
+the answer says which of the two it found.
+
+---
+
+## `bp.mjs` - every width the product asks about is a width the registry names
+
+Stage 10 puts two points in `tokens.css` and then cannot use them:
+`@media (min-width: var(--bp-shell-wide))` does not work, because a media query is
+evaluated before the cascade of custom properties. There is no error - the rule simply
+never fires. So the query has to carry the literal, and the moment it does, the token
+stops being the only source and becomes a source plus a promise. This file turns the
+promise back into a source: the registry is READ OUT of `tokens.css`, and every
+`@media` in the product is asked to give one of its numbers.
+
+```
+node tools/bp.mjs            every query, product and stand alike
+node tools/bp.mjs --all      also print the queries that pass
+```
+
+Four classes fail the run, and each was proved to fail by being introduced on purpose
+and then reverted:
+
+| class | why it is silent otherwise |
+|---|---|
+| a number that is not in the registry | the rule works, the look is fine, and the system quietly has three points instead of two |
+| an `@media` in a screen file | it works, it is local, nothing fails - and at stage 12 twenty subagents each invent one, exactly as inline CSS scattered at stage 04 |
+| `var()` inside a query | evaluated before custom properties: no error, the rule never fires |
+| `@container` with no `container-type` declared anywhere | the component silently always looks the way it does in a wide place |
+
+**The mirror is part of the number.** A point at 620 is written `min-width: 620` on one
+side and `max-width: 619` on the other; both are the same decision, so 619 and 859 pass
+while 621 and 861 do not.
+
+**Every declared list is itself checked.** `EXCUSED` names the numbers deliberately not
+on the registry yet and why; `NOT_PRODUCT` names the three presentation pages of stage
+06 plus the folder hub. An entry that matches nothing fails the run exactly as loudly
+as an undeclared number - a list nobody maintains is worse than no list, because it
+reads as coverage.
+
+**One wrong version, written down in the file.** The first run reported eight failures
+and every one was on `design/concept/*` or `design/overview.html` - the presentation
+pages and the hub, which `dead-sel.mjs` and `theme.mjs` both name out loud for the same
+reason. An instrument that treats a presentation page as a product screen reports drift
+that does not exist, and after the second such report a reader stops looking.

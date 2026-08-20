@@ -51,7 +51,25 @@
    two of them as dead links - the same shape as `css-comments.mjs` reporting a
    regex literal, and the same lesson: an instrument that reports a correct line
    trains you to ignore it. 16 more hid in comments and code samples across the
-   kit. */
+   kit.
+
+   ---- THE WRONG VERSION, AND IT ANSWERED «0» FOR TWO WEEKS -------------------
+
+   **IT ASKED ONLY `href` AND CALLED THE ANSWER «every link».** Stage 09 step 6,
+   and the finding is Codex's: its own scan reported 24 dead paths on pages this
+   file had just cleared with «5077 scanned, 0 dead». Twenty-two of the 24 were
+   inside `&lt;...&gt;` samples, which is exactly what `blank()` above exists to
+   drop - so on hrefs this file was right and the second instrument was wrong.
+   The other two were `<img src>`, live, and this file had never looked at a
+   `src` at all: line 117 matched `href="([^"]+)"` and nothing else. A picture
+   that does not load is not a smaller defect than a page that does not open -
+   on `design/kit/brand-logo.html` it fired the component's own fallback on two
+   of six boxes, and the stand's measurement table one screen below still read
+   «6 / 6», because it was measured on the product.
+   THE LESSON IS THE ONE THE HOVER PROBE TAUGHT THE SAME DAY: a zero from an
+   instrument that cannot see the class is not a zero. The scan now takes
+   `(href|src)` in one pass and prints the `src` half of the count separately,
+   so the two can never again hide inside one number. */
 import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname, resolve, relative } from 'node:path';
 import { ROOT } from './lib.mjs';
@@ -106,7 +124,7 @@ function resolveTail(fromDir, href) {
 }
 
 const APPLY = process.argv.includes('--write');
-let scanned = 0, dead = 0, fixed = 0;
+let scanned = 0, dead = 0, fixed = 0, scannedSrc = 0, deadSrc = 0;
 const ambiguous = [], missing = [], byDir = {}, plan = {};
 
 for (const f of HTML) {
@@ -114,14 +132,14 @@ for (const f of HTML) {
   const src = readFileSync(abs, 'utf8');
   const scan = blank(src);
   const edits = [];
-  for (const m of scan.matchAll(/href="([^"]+)"/g)) {
-    const raw = m[1];
+  for (const m of scan.matchAll(/(href|src)="([^"]+)"/g)) {
+    const attr = m[1], raw = m[2];
     if (/^(https?:|mailto:|tel:|#|data:|javascript:)/.test(raw)) continue;
     const path = raw.split('#')[0].split('?')[0];
     if (!path) continue;
-    scanned++;
+    scanned++; if (attr === 'src') scannedSrc++;
     if (existsSync(resolve(dirname(abs), path))) continue;
-    dead++;
+    dead++; if (attr === 'src') deadSrc++;
     byDir[dirname(f)] = (byDir[dirname(f)] || 0) + 1;
     const line = src.slice(0, m.index).split('\n').length;
     const { cands } = resolveTail(dirname(f), path);
@@ -131,7 +149,7 @@ for (const f of HTML) {
        for a sibling and `../wireframes/goal.html` for a jump - both already the
        forms this repository uses, so nothing is prepended on top of them. */
     const to = relative(dirname(abs), join(ROOT, cands[0])) + raw.slice(path.length);
-    edits.push([m.index, m[0].length, 'href="' + to + '"']);
+    edits.push([m.index, m[0].length, attr + '="' + to + '"']);
     const k = dirname(f) + '  ' + raw + '   ->   ' + to;
     plan[k] = (plan[k] || 0) + 1;
   }
@@ -149,7 +167,8 @@ for (const f of HTML) {
   writeFileSync(abs, out);
 }
 
-console.log((APPLY ? 'WROTE ' : 'DRY   ') + scanned + ' internal hrefs, ' + dead + ' dead, ' + fixed + ' re-pointed');
+console.log((APPLY ? 'WROTE ' : 'DRY   ') + scanned + ' internal href+src, ' + dead + ' dead, ' + fixed + ' re-pointed'
+  + '   (of those, src: ' + scannedSrc + ' scanned, ' + deadSrc + ' dead)');
 if (dead) {
   console.log('\nby directory:');
   for (const [d, n] of Object.entries(byDir).sort((a, b) => b[1] - a[1])) console.log('  ' + String(n).padStart(4) + '  ' + d);

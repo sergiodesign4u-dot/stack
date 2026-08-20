@@ -17,13 +17,15 @@
 .bb h1{ color: var(--text-primary); line-height: var(--lh-snug); margin: var(--space-4) 0 var(--space-8); }
 .bb .bbmeta{ margin: var(--space-8) 0; flex-wrap: wrap; }
 .bb .bbline .bbmeta{ align-items: center; gap: var(--space-12); }
-@media (max-width: 479px){
+/* 10.4 round 3: 479 -> 619, five blocks. Two of them are the structure/colour pair of
+   stage 08 restating the same two rules, and they fold together. */
+@media (max-width: 619px){
   .bb .bbline{ gap: var(--space-4) var(--space-16); }
   .bb .bbline .bbrate{ order: -1; }
 }
 .bb .simple{ color: var(--text-body); border: 1px solid var(--line-hair); padding: var(--space-12) var(--space-12); margin: var(--space-12) 0; }
 .bb .priceblk{ margin: var(--space-16) 0; }
-@media (max-width: 479px){
+@media (max-width: 619px){
   .bb .priceblk{ grid-template-columns: 1fr; row-gap: var(--space-16); }
   .bb .priceblk .buyrow{ grid-column: 1; }
 }
@@ -93,7 +95,7 @@
 .bb .bbmeta .art::before{ content:"·"; margin-right:var(--space-12); color:var(--mark-inactive); }
 .bb .bbrate{ font-size:var(--fs-14); color:var(--text-secondary); white-space:nowrap; }
 .bb .bbrate a:hover{ text-decoration:underline; }
-@media (max-width:479px){
+@media (max-width:619px){
   .bb .bbline{ gap:var(--space-4) var(--space-16); }
   .bb .bbline .bbrate{ order:-1; }
 }
@@ -104,7 +106,7 @@
 .bb .priceblk .buyrow{ grid-column:2; margin:0; }
 .bb .priceblk .perserv{ grid-column:1 / -1; margin-top:0; }
 .bb .buyrow .addcart{ flex:1; }
-@media (max-width:479px){
+@media (max-width:619px){
   .bb .priceblk{ grid-template-columns:1fr; row-gap:var(--space-16); }
   .bb .priceblk .buyrow{ grid-column:1; }
 }
@@ -136,7 +138,7 @@
    whole 328px of a phone column - sharing the row with a 52px heart pushed the
    buy box to 371 and scrolled the page sideways. So below 480 the row wraps and
    the notify button takes a line of its own. */
-@media (max-width: 479px){
+@media (max-width: 619px){
   .bb .buyrow .oosbtn{ flex: 1 1 100%; }
 }
 /* ---- 8.12: A9 closed, and the cause was not the one A9 named ----------------

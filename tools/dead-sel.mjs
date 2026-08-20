@@ -90,12 +90,18 @@
 
      node tools/dead-sel.mjs                 all 84 components
      node tools/dead-sel.mjs coach-order     only those */
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { Conn, newSession, visit } from './cdp.mjs';
 import { serve, chrome, pages, ROOT, topRules } from './lib.mjs';
 
 const CDIR = join(ROOT, 'design/system/components');
+/* 9.1: A PATTERN'S SELECTORS ARE ASKED THE SAME QUESTION. Stage 09 put a second
+   folder inside the system, and this walk read only the first - so `.actions` and
+   its two modifiers, shipped in `index.css` like everything else, were the one
+   part of the system nothing checked. A dead selector in a pattern costs exactly
+   what a dead selector in a component costs. */
+const PDIR = join(ROOT, 'design/system/patterns');
 const stripC = s => s.replace(/\/\*[\s\S]*?\*\//g, '');
 
 /* the at-rules that hold selectors, and the ones whose braces hold something
@@ -108,7 +114,8 @@ const SKIP = /^@(keyframes|font-face|property|import|charset|counter-style|page)
    walk and same comma split `inventory.mjs` counts with, so the two instruments
    cannot disagree about the denominator. */
 function selectorsOf(file) {
-  const css = readFileSync(join(CDIR, file), 'utf8');
+  const css = readFileSync(join(file.startsWith('patterns/') ? PDIR : CDIR,
+    file.startsWith('patterns/') ? file.slice(9) : file), 'utf8');
   const out = [];
   const lineAt = i => css.slice(0, i).split('\n').length;
   const walk = (text, base) => {
@@ -227,8 +234,9 @@ const KEPT_ON_PURPOSE = {
 };
 
 const want = process.argv.slice(2).filter(a => !a.startsWith('-'));
-const files = readdirSync(CDIR).filter(f => f.endsWith('.css'))
-  .filter(f => !want.length || want.includes(f.slice(0, -4))).sort();
+const files = [...readdirSync(CDIR).filter(f => f.endsWith('.css')).sort(),
+  ...(existsSync(PDIR) ? readdirSync(PDIR).filter(f => f.endsWith('.css')).sort().map(f => 'patterns/' + f) : [])]
+  .filter(f => !want.length || want.includes(f.replace(/^patterns\//, '').slice(0, -4)));
 if (!files.length) { console.log('НЕМАЄ ТАКОГО КОМПОНЕНТА: ' + want.join(' ')); process.exit(2); }
 
 const all = [];

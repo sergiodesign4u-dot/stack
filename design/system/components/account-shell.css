@@ -54,11 +54,22 @@
    and that is the whole statement. The grid keeps its 16 for every page that
    opens without a trail. */
 .crumb + .acc{ margin-top: 0; }
-@media (min-width: 960px){
+/* 10.4 round 3: 960/959 -> 860/859, and 640 -> 620. THE ACCOUNT IS A SECOND SHELL,
+   and its width was in no registry. The pack allows a third point, but only as a
+   decision the owner says out loud; none was said, so the number folds onto the two
+   that exist. Measured before folding, on `account` with the pair forced to 860/859:
+   the nav column stays 268 and the content column comes out 528 against today's 628 at
+   960, with no new clipping. `.acc-grid` and `.acc-cardgrid` said «one column becomes
+   two» at 640, which is what `--bp-grid-2col` is named for.
+   AND THE PAIR HAD TO MOVE TOGETHER: `.acc-links` is a horizontal scroller below the
+   point and a bordered card above it, so folding one half alone puts a 1253px strip
+   inside a 268px column. `skeleton.css` carried the same 959 for the chip inside that
+   strip and moves with it. */
+@media (min-width: 860px){
   .acc{ grid-template-columns: 268px minmax(0, 1fr); gap: var(--space-32); }
 }
 .acc-nav{ align-self: start; min-width: 0; }
-@media (min-width: 960px){
+@media (min-width: 860px){
   .acc-nav{ position: sticky; top: 120px; }
 }
 .acc-prof{ border: 1px solid var(--line-hair); padding: var(--space-16) var(--space-16); display: flex; gap: var(--space-12); align-items: center; }
@@ -73,12 +84,12 @@
 .acc-link .ic{ width: var(--size-20); text-align: center; }
 .acc-link .ct{ margin-left: auto; font-size: var(--fs-12); font-weight: var(--fw-black); }
 .acc-link .ar{ margin-left: var(--space-8); color: var(--mark-faint); font-weight: var(--fw-bold); }
-@media (min-width: 960px){
+@media (min-width: 860px){
   .acc-link .ar{ display: none; }
 }
 .acc-link.logout{ font-weight: var(--fw-bold); }
 .acc-link.buyer{ color: var(--text-secondary); font-weight: var(--fw-bold); border-top: 1px solid var(--line-hair); }
-@media (max-width: 959px){
+@media (max-width: 859px){
   .acc-link.buyer{ border-top: 0; }
   .acc-links{  min-width: 0; max-width: 100%;
     border: 0; border-radius: 0;
@@ -125,7 +136,7 @@
 .acc-h1{ color: var(--text-primary); }
 .acc-sub{ font-size: var(--fs-14); margin-top: var(--space-4); }
 .acc-grid{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-16); }
-@media (min-width: 640px){
+@media (min-width: 620px){
   .acc-grid{ grid-template-columns: 1fr 1fr; }
 }
 .acard{ border: 1px solid var(--line-hair); padding: var(--space-16); }
@@ -159,7 +170,7 @@
    way: it was one instance against 78 that already said 10, and nothing about a
    subtitle asks for its own number. */
 .acc-cardgrid{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-24); }
-@media (min-width: 640px){
+@media (min-width: 620px){
   .acc-cardgrid{ grid-template-columns: 1fr 1fr; }
 }
 
@@ -179,7 +190,7 @@
    deciding one box, and the later one won - so under 960 a soft card outline
    floated behind seven pills that each carry their own edge.
    The chips need nothing behind them; the vertical list is a panel and keeps it. */
-@media (min-width: 960px){
+@media (min-width: 860px){
   .acc-links{ border-color:var(--line-hair); border-radius:var(--radius-12); box-shadow:var(--elevation-1); }
 }
 .acc-link{ border-color:var(--line-hair); transition:background .14s ease, color .14s ease, box-shadow .14s ease; }
@@ -206,12 +217,12 @@
 .acc-link.logout{ color:var(--text-secondary); }
 .acc-link.logout:hover{ color:var(--text-danger); }
 .acc-link.logout:hover .ic{ color:var(--text-danger); }
-@media (max-width: 959px){
+@media (max-width: 859px){
   .acc-link[aria-current="page"]{ background:var(--bg-action); border-color:var(--line-action); color:var(--text-onaction-ink); box-shadow:none; }
   .acc-link[aria-current="page"] .ic{ color:var(--text-body); }
   .acc-link[aria-current="page"] .ct{ border-color:var(--line-hair); color:var(--text-body); }
 }
-.acc-h1{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-30); letter-spacing:var(--ls-lead); }
+.acc-h1{ /* 10.2: fluid page heading, see section-head.css */ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-display); letter-spacing:var(--ls-lead); }
 .acc-sub{ color:var(--text-secondary); }
 .acard{  border-radius:var(--radius-12); background:var(--bg-page); box-shadow:var(--elevation-1); }
 /* 7.50: `.mech-kicker` left this list. It named the same two properties with the

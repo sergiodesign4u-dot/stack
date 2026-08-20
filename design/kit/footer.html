@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Організм · рівень 3</div>
 <h1 class="kp-h1">Футер</h1>
 <p class="kp-lead">Тридцять один екран закінчується цим блоком, і він єдиний організм, який людина бачить на кожному з них. Сімдесят один рядок, і в них <b>дві межі, два оголошення з чужого компонента й одна причина, чому сірий прототип їде вбік на 720</b>.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/footer.css</span><span class="kp-tag">79 рядків</span><span class="kp-tag">29 селекторів</span><span class="kp-tag">102 оголошення</span><span class="kp-tag">77 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/footer.css</span><span class="kp-tag">84 рядки</span><span class="kp-tag">29 селекторів</span><span class="kp-tag">102 оголошення</span><span class="kp-tag">77 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">З чого складається</div>
 <p class="kp-p">Футер майже нічого не складає: він тримає власну сітку, а всередині неї - рядок посилань, поле розсилки й кнопку, які належать своїм файлам.</p>
@@ -72,8 +72,15 @@
 <section class="kp-sec"><div class="kp-sh">Межі</div>
 <p class="kp-p">У файлі <b>2</b> медіа-умови, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width:479px)</code></li><li><code>@media (min-width: 720px)</code></li></ul></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U1 · U2 · U3</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Один підвал на екран. У флоу оформлення і на службових сторінках підвала немає; на п'яти екранах входу <b>шапка є, а підвала немає</b> - це не пропуск, це заміряне правило.</p></section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>15</b> власних класів і <b>1</b> стан.</p><div id="idle"></div><script>var KIT_CLS=["mi", "th", "ts", "uiv-tc-ic", "wff", "wff-bot", "wff-col", "wff-cols", "wff-msg", "wff-news", "wff-phone", "wff-seo", "wff-soc", "wff-tc", "wff-trust"], KIT_STS=[":hover"];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від яких порогів:</b> обох. <b>Що саме міняється:</b> смуга довіри читається <b>1 → 2 → 4 колонки</b> на двох точках реєстру. <b>Було 479 і 720</b>, обидва поза реєстром. Зміряно: на 600 одна колонка це 568px, на 620 дві по 286, на 860 чотири по 198. Варіант «просто зняти вузьке правило» відкинуто заміром - на 320 дві клітинки по 138px і текст майже подвоює висоту. <b>Ціна названа:</b> 480-619 втрачає ті дві колонки, які має сьогодні, і читається однією.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>footer.css</code>: <b>7</b> семантичних ролей і <b>17</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (7)</th><th>Примітиви (17)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-surface</code> <code>--line-hair</code> <code>--text-action</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-24</code> <code>--fw-black</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--ls-caps</code> <code>--ls-display</code> <code>--radius-12</code> <code>--size-24</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-32</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>

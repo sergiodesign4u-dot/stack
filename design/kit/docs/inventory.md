@@ -38,7 +38,7 @@ finally asked, **66 of 73 `Lines` cells and 58 of 73 `Screens` cells had drifted
 components had no row at all and two rows pointed at files that no longer exist.
 
 - **Lines** is the real size of `design/system/components/<file>.css`. Checked on every run.
-- **Screens** is how many of the **88 coloured screens** actually carry the component, asked of the
+- **Screens** is how many of the **92 coloured pages** actually carry the component, asked of the
   **rendered DOM** rather than of the markup - a third of this product's chrome is written by
   `wireframes/_nav.js` at load, so a markup scan sees nothing while the component is on every
   screen. The old column carried a `**JS**` annotation for exactly that blindness; the browser walk
@@ -49,6 +49,25 @@ components had no row at all and two rows pointed at files that no longer exist.
   because every class they declare is also declared elsewhere, so their Screens cell reads `–`.
   That is a finding about naming, not a gap in the count.
 - A screen count is still a bad measure of importance and stands here as context, not as a ranking.
+
+## Width - the column stage 10 filled, and it was filled ALL AT ONCE
+
+**`Width` says what each component knows about width, and it is DERIVED, not typed.** Every cell is
+read out of the file itself: the `@media` numbers it holds after the comments are stripped, plus
+`ramp` when it carries a `clamp()` and `fluid` when it carries `auto-fit`, `auto-fill`, `minmax()`
+or `flex-wrap`. `620` and `860` are the two registry points, and a mirror (`619`, `859`) reads as
+its point because it is the same decision written from the other side. `step 5` is the one pair of
+numbers deliberately left off the registry - `coach-session`'s split-view.
+
+**It was filled after all four rounds and not before, on purpose.** A column filled for one level of
+four says «unknown» about the other three in a shape that reads like «nothing to say». Atoms were
+closed at round 1, molecules at round 2, organisms at round 3 and the single pattern at round 4;
+only then did the column mean the same thing on every row.
+
+**An empty cell here would mean «behaves unknown on a wide screen».** There are none: a component
+that deliberately does not adapt carries `–`, which is an answer - its box is set by its own
+content and it travels with the container that adapts. 14 atoms, 4 molecules and 2 organisms read
+that way, and each one is named in `responsive.md` under its round.
 
 ## Level
 
@@ -72,113 +91,113 @@ the unscoped base form, not the component.
 
 ## Atoms (level 1)
 
-| Component | css file | Anchors | Screens | Lines |
-|---|---|---|---|---|
-| Кнопка | `button.css` | `.btn`, `.navbtn`, `.go` | 86 | 571 |
-| Меню вибору | `menu.css` | `.menu`, `.menu-trig`, `.menu-val` | 8 | 157 |
-| Ціна | `price.css` | `.pnew`, `.pold`, `.perserv` | 44 | 418 |
-| Чип | `chip.css` | `.mgchip`, `.dr-chip`, `.dr-chips` | 82 | 312 |
-| Рядок посилань | `link-row.css` | `.linkrow`, `.seolink`, `.flinks` | 81 | 270 |
-| Скелетон | `skeleton.css` | `.skline`, `.skcard`, `.skbtn` | 11 | 266 |
-| Поле | `field.css` | `.fld`, `.cef`, `.txt-field` | 85 | 260 |
-| Дія стовпчиком | `stack-action.css` | `.btn--stack`, `.ti`, `.tbadge` | 82 | 218 |
-| Чекбокс | `checkbox.css` | `.cb`, `.optin` | 8 | 210 |
-| Радіо | `radio.css` | `.co-radio`, `.co-opt` | 9 | 196 |
-| Статус-пілюля | `status-pill.css` | `.oh-status`, `.aord-status`, `.pill` | 11 | 183 |
-| Бейдж | `badge.css` | `.tag`, `.gnote` | 11 | 180 |
-| Бейдж знижки | `discount.css` | `.pcut`, `.wtag` | 21 | 168 |
-| Рейтинг | `rating.css` | `.rate`, `.st` | 21 | 164 |
-| Лічильник кількості | `stepper.css` | `.ctrl` | 12 | 142 |
-| Мітка наявності | `availability.css` | `.pavail` | 26 | 141 |
-| Перемикач вигляду | `view-toggle.css` | `.vtoggle` | 7 | 139 |
-| Перемикач | `switch.css` | `.sw` | 2 | 99 |
-| Іконка | `icon.css` | `.uiv-ic`, `.chev` | – | 89 |
-| Мініатюра товару | `product-thumb.css` |  | – | 83 |
-| Лічильник | `counter.css` | `.cnt`, `.hbadge`, `.tbadge` | – | 62 |
-| Обране | `favourite.css` | `.fav`, `.wlrm` | 20 | 47 |
-| OTP-комірка | `otp.css` | `.otp` | 4 | 35 |
+| Component | css file | Anchors | Width | Screens | Lines |
+|---|---|---|---|---|---|
+| Кнопка | `button.css` | `.btn`, `.navbtn`, `.go` | ramp | 86 | 590 |
+| Меню вибору | `menu.css` | `.menu`, `.menu-trig`, `.menu-val` | 620 | 8 | 166 |
+| Ціна | `price.css` | `.pnew`, `.pold`, `.perserv` | – | 44 | 418 |
+| Чип | `chip.css` | `.mgchip`, `.dr-chip`, `.dr-chips` | 860 · fluid | 82 | 320 |
+| Рядок посилань | `link-row.css` | `.linkrow`, `.seolink`, `.flinks` | fluid | 81 | 270 |
+| Скелетон | `skeleton.css` | `.skline`, `.skcard`, `.skbtn` | 860 · fluid | 11 | 275 |
+| Поле | `field.css` | `.fld`, `.cef`, `.txt-field` | – | 85 | 260 |
+| Дія стовпчиком | `stack-action.css` | `.btn--stack`, `.ti`, `.tbadge` | – | 82 | 218 |
+| Чекбокс | `checkbox.css` | `.cb`, `.optin` | – | 8 | 210 |
+| Радіо | `radio.css` | `.co-radio`, `.co-opt` | fluid | 9 | 196 |
+| Статус-пілюля | `status-pill.css` | `.oh-status`, `.aord-status`, `.pill` | – | 11 | 190 |
+| Бейдж | `badge.css` | `.tag`, `.gnote` | – | 11 | 180 |
+| Бейдж знижки | `discount.css` | `.pcut`, `.wtag` | – | 21 | 168 |
+| Рейтинг | `rating.css` | `.rate`, `.st` | – | 21 | 164 |
+| Лічильник кількості | `stepper.css` | `.ctrl` | – | 12 | 142 |
+| Мітка наявності | `availability.css` | `.pavail` | – | 26 | 141 |
+| Перемикач вигляду | `view-toggle.css` | `.vtoggle` | 860 | 7 | 144 |
+| Перемикач | `switch.css` | `.sw` | – | 2 | 99 |
+| Іконка | `icon.css` | `.uiv-ic`, `.chev` | – | – | 89 |
+| Мініатюра товару | `product-thumb.css` |  | – | – | 83 |
+| Лічильник | `counter.css` | `.cnt`, `.hbadge`, `.tbadge` | – | – | 62 |
+| Обране | `favourite.css` | `.fav`, `.wlrm` | – | 20 | 47 |
+| OTP-комірка | `otp.css` | `.otp` | – | 4 | 35 |
 
 > **Оновлено після публікації (крок 6.2).** `cart-button.css` більше немає: іконкова
 > кнопка стала обробкою в `button.css`, а рядок вище описує стан до того кроку. Чому саме
 > так - у `consolidation.md`.
 
 
-**22 files, 526 lines.**
+**23 files, 4467 lines.**
 
 ## Molecules (level 2)
 
-| Component | css file | Anchors | Screens | Lines |
-|---|---|---|---|---|
-| Картка товару | `product-card.css` | `.pcard`, `.packlabel` | 21 | 379 |
-| Банер | `banner.css` | `.banner`, `.tbanner`, `.tbanners` | 6 | 232 |
-| Рядок замовлення | `order-row.css` | `.oh`, `.ocard`, `.aord` | 2 | 224 |
-| Смуга довіри | `trust-strip.css` | `.trustsec`, `.truststrip`, `.tsx` | 5 | 201 |
-| Таблиця складу | `spec-table.css` | `.spectbl`, `.ctable`, `.dl` | 2 | 189 |
-| Рядок кошика | `cart-row.css` | `.ci` | 11 | 158 |
-| Порожній стан | `empty-state.css` | `.emptybox`, `.errbox`, `.empty` | 19 | 157 |
-| Рядок клієнта | `client-row.css` | `.cg`, `.coachbn` | 6 | 145 |
-| Відгук | `review-item.css` | `.rvitem`, `.rvbody`, `.rvmeta` | 3 | 133 |
-| Галерея | `gallery.css` | `.gal`, `.pmini` | 4 | 131 |
-| Блок опису | `desc-block.css` | `.pdesc`, `.pd` | 2 | 118 |
-| Щабель лояльності | `loyalty-rung.css` | `.lrung`, `.lbar`, `.loy` | 26 | 118 |
-| Запитання | `qa-item.css` | `.qaitem` | 2 | 104 |
-| Нотатка про поповнення | `restock-note.css` | `.restock`, `.rk` | 2 | 103 |
-| Мініатюра сертифіката | `cert-thumb.css` | `.certthumb`, `.certbox` | 3 | 101 |
-| Група фільтра | `filter-group.css` | `.fgroup`, `.fopt`, `.frange` | 7 | 99 |
-| SEO-текст | `seo-text.css` | `.seotext` | 12 | 80 |
-| Хлібні крихти | `breadcrumb.css` | `.crumb` | 87 | 78 |
-| Заголовок секції | `section-head.css` | `.sech`, `.relh`, `.rvhead` | 24 | 77 |
-| Картка адреси | `address-card.css` | `.addr`, `.addr-card`, `.addr-list` | 3 | 76 |
-| Пагінація | `pagination.css` | `.pgnav`, `.loadmore`, `.pages` | 8 | 70 |
-| Тулбар | `toolbar.css` | `.ltool`, `.mtoolbar`, `.listing` | 7 | 55 |
-| Плитка цілі | `goal-tile.css` | `.gcard`, `.gtile`, `.goaltiles` | 4 | 50 |
-| Тост | `toast.css` | `.wf-toast`, `.wf-toasts` | 20 | 42 |
-| Картка блогу | `blog-card.css` | `.blogcard`, `.blogrow` | 6 | 31 |
-| Логотип бренду | `brand-logo.css` | `.brandbox`, `.brandrow` | 4 | 26 |
-| Схожі товари | `related.css` | `.relbox`, `.relrow` | 2 | 14 |
+| Component | css file | Anchors | Width | Screens | Lines |
+|---|---|---|---|---|---|
+| Картка товару | `product-card.css` | `.pcard`, `.packlabel` | 620 · 860 · fluid | 21 | 383 |
+| Банер | `banner.css` | `.banner`, `.tbanner`, `.tbanners` | 620 · ramp · fluid | 6 | 262 |
+| Рядок замовлення | `order-row.css` | `.oh`, `.ocard`, `.aord` | 620 · 860 · fluid | 2 | 241 |
+| Смуга довіри | `trust-strip.css` | `.trustsec`, `.truststrip`, `.tsx` | 620 · 860 · ramp · fluid | 5 | 225 |
+| Таблиця складу | `spec-table.css` | `.spectbl`, `.ctable`, `.dl` | 620 · fluid | 2 | 193 |
+| Рядок кошика | `cart-row.css` | `.ci` | fluid | 11 | 169 |
+| Порожній стан | `empty-state.css` | `.emptybox`, `.errbox`, `.empty` | fluid | 19 | 157 |
+| Рядок клієнта | `client-row.css` | `.cg`, `.coachbn` | fluid | 6 | 145 |
+| Відгук | `review-item.css` | `.rvitem`, `.rvbody`, `.rvmeta` | 620 · 860 · fluid | 3 | 133 |
+| Галерея | `gallery.css` | `.gal`, `.pmini` | 860 | 4 | 131 |
+| Блок опису | `desc-block.css` | `.pdesc`, `.pd` | – | 2 | 118 |
+| Щабель лояльності | `loyalty-rung.css` | `.lrung`, `.lbar`, `.loy` | fluid | 26 | 125 |
+| Запитання | `qa-item.css` | `.qaitem` | – | 2 | 104 |
+| Нотатка про поповнення | `restock-note.css` | `.restock`, `.rk` | fluid | 2 | 133 |
+| Мініатюра сертифіката | `cert-thumb.css` | `.certthumb`, `.certbox` | fluid | 3 | 101 |
+| Група фільтра | `filter-group.css` | `.fgroup`, `.fopt`, `.frange` | – | 7 | 99 |
+| SEO-текст | `seo-text.css` | `.seotext` | 860 | 12 | 91 |
+| Хлібні крихти | `breadcrumb.css` | `.crumb` | – | 87 | 78 |
+| Заголовок секції | `section-head.css` | `.sech`, `.relh`, `.rvhead` | 620 · fluid | 24 | 92 |
+| Картка адреси | `address-card.css` | `.addr`, `.addr-card`, `.addr-list` | fluid | 3 | 94 |
+| Пагінація | `pagination.css` | `.pgnav`, `.loadmore`, `.pages` | – | 8 | 70 |
+| Тулбар | `toolbar.css` | `.ltool`, `.mtoolbar`, `.listing` | 860 · fluid | 7 | 63 |
+| Плитка цілі | `goal-tile.css` | `.gcard`, `.gtile`, `.goaltiles` | 620 · 860 · fluid | 4 | 58 |
+| Тост | `toast.css` | `.wf-toast`, `.wf-toasts` | – | 20 | 42 |
+| Картка блогу | `blog-card.css` | `.blogcard`, `.blogrow` | 620 | 6 | 37 |
+| Логотип бренду | `brand-logo.css` | `.brandbox`, `.brandrow` | 620 | 4 | 26 |
+| Схожі товари | `related.css` | `.relbox`, `.relrow` | fluid | 2 | 14 |
 
-**27 files, 1366 lines.**
+**27 files, 3384 lines.**
 
 ## Organisms (level 3)
 
-| Component | css file | Anchors | Screens | Lines |
-|---|---|---|---|---|
-| Кабінет тренера | `coach-cabinet.css` | `.cstat`, `.cnote`, `.csub` | 8 | 966 |
-| Перевірка тренера | `coach-verify.css` | `.cv-wrap`, `.cv-steps`, `.cv-step` | 5 | 908 |
-| Сесія замовлення | `coach-session.css` | `.cs-wrap`, `.cs-top`, `.cs-meta` | 8 | 850 |
-| Клієнти тренера | `coach-clients.css` | `.cl-top`, `.cl-h1`, `.ch-name` | 10 | 627 |
-| Лендинг тренера | `coach-landing.css` | `.clh`, `.kicker`, `.clh-cta` | 1 | 531 |
-| Тариф тренера | `coach-tariff.css` | `.tf-lead`, `.tf-cur`, `.tf-cur-h` | 3 | 426 |
-| Замовлення тренера | `coach-order.css` | `.od-wrap`, `.od-head`, `.od-head-t` | 3 | 446 |
-| Форма чекауту | `checkout-form.css` | `.co`, `.smeths`, `.pf` | 26 | 371 |
-| Хедер | `header.css` | `.wfh` | 82 | 360 |
-| Блок покупки | `buy-box.css` | `.bb` | 4 | 290 |
-| Картка тарифу | `plan-card.css` | `.tier`, `.tf-col`, `.tiers`, `.tf-compare` | 3 | 260 |
-| Обране тренера | `coach-wishlist.css` | `.cw-note` | 1 | 278 |
-| Оболонка кабінету | `account-shell.css` | `.acc`, `.acard`, `.abonus` | 33 | 240 |
-| Шухляда кошика | `cart-drawer.css` | `.cart-drawer`, `.cart-behind`, `.cd` | 5 | 216 |
-| Діалог входу | `auth-dialog.css` | `.auth-modal`, `.auth` | 5 | 178 |
-| Діалог клієнта | `client-dialog.css` | `.cemodal`, `.cedlg`, `.ce` | 13 | 114 |
-| Оверлей каталогу | `cat-overlay.css` | `.wf-catov`, `.wf-catov-h`, `.ctitle` | 0 | 97 |
-| Смуга покупки | `buy-bar.css` | `.mbuybar` | 3 | 96 |
-| Вкладки товару | `pdp-tabs.css` | `.pdp`, `.ptab`, `.ptabs` | 8 | 93 |
-| Шит фільтрів | `filter-sheet.css` | `.fsheet` | 7 | 80 |
-| Футер | `footer.css` | `.wff`, `.fh` | 77 | 79 |
-| Шухляда меню | `nav-drawer.css` | `.wf-drawer`, `.dr-lock`, `.dr-b` | 82 | 75 |
-| Таб-бар | `tabbar.css` | `.wf-tab`, `.wf-tabbar` | 82 | 73 |
-| Модалка відгуку | `review-modal.css` | `.pm` | 3 | 59 |
-| Рейка фільтрів | `filter-rail.css` | `.frail`, `.hrail` | 11 | 57 |
-| Головний блок | `hero.css` | `.hero`, `.hvert`, `.hside` | 4 | 54 |
-| Мега-меню | `mega-menu.css` | `.mega`, `.catov` | 82 | 43 |
-| Банер cookie | `cookie-banner.css` | `.wf-cookie`, `.wf-ckset`, `.ck` | 0 | 42 |
-| Діалог міста | `city-dialog.css` | `.wf-city`, `.city` | 82 | 38 |
-| Системна сторінка | `system-page.css` | `.sys`, `.syscard`, `.sysdemo` | 0 | 38 |
-| Повзунок ціни | `price-slider.css` | `.uiv-slider`, `.uiv-track`, `.uiv-fill` | 7 | 33 |
-| Сітка товарів | `product-grid.css` | `.prow`, `.prow2`, `.plist` | 20 | 22 |
-| Оверлей | `overlay.css` | `.wf-ov`, `.ceov` | 82 | 16 |
-| Панель Pro | `upsell.css` | `.upsell`, `.ubar`, `.ulist`, `.uacts` | 2 | 99 |
+| Component | css file | Anchors | Width | Screens | Lines |
+|---|---|---|---|---|---|
+| Кабінет тренера | `coach-cabinet.css` | `.cstat`, `.cnote`, `.csub` | 620 · fluid | 8 | 972 |
+| Перевірка тренера | `coach-verify.css` | `.cv-wrap`, `.cv-steps`, `.cv-step` | 620 · 860 · fluid | 5 | 914 |
+| Сесія замовлення | `coach-session.css` | `.cs-wrap`, `.cs-top`, `.cs-meta` | 620 · 860 · step 5 · fluid | 8 | 855 |
+| Клієнти тренера | `coach-clients.css` | `.cl-top`, `.cl-h1`, `.ch-name` | 620 · 860 · fluid | 10 | 638 |
+| Лендинг тренера | `coach-landing.css` | `.clh`, `.kicker`, `.clh-cta` | 620 · 860 · fluid | 1 | 537 |
+| Тариф тренера | `coach-tariff.css` | `.tf-lead`, `.tf-cur`, `.tf-cur-h` | fluid | 3 | 426 |
+| Замовлення тренера | `coach-order.css` | `.od-wrap`, `.od-head`, `.od-head-t` | 620 · fluid | 3 | 448 |
+| Форма чекауту | `checkout-form.css` | `.co`, `.smeths`, `.pf` | 620 · 860 · ramp · fluid | 26 | 375 |
+| Хедер | `header.css` | `.wfh` | 860 · fluid | 82 | 364 |
+| Блок покупки | `buy-box.css` | `.bb` | 620 · fluid | 4 | 292 |
+| Картка тарифу | `plan-card.css` | `.tier`, `.tf-col`, `.tiers`, `.tf-compare` | 620 | 3 | 261 |
+| Обране тренера | `coach-wishlist.css` | `.cw-note` | – | 1 | 278 |
+| Оболонка кабінету | `account-shell.css` | `.acc`, `.acard`, `.abonus` | 620 · 860 · fluid | 33 | 251 |
+| Шухляда кошика | `cart-drawer.css` | `.cart-drawer`, `.cart-behind`, `.cd` | 620 | 5 | 216 |
+| Діалог входу | `auth-dialog.css` | `.auth-modal`, `.auth` | 860 | 5 | 184 |
+| Діалог клієнта | `client-dialog.css` | `.cemodal`, `.cedlg`, `.ce` | 620 | 13 | 115 |
+| Оверлей каталогу | `cat-overlay.css` | `.wf-catov`, `.wf-catov-h`, `.ctitle` | 860 | 0 | 97 |
+| Смуга покупки | `buy-bar.css` | `.mbuybar` | 860 | 3 | 96 |
+| Вкладки товару | `pdp-tabs.css` | `.pdp`, `.ptab`, `.ptabs` | 860 · ramp · fluid | 8 | 95 |
+| Шит фільтрів | `filter-sheet.css` | `.fsheet` | 860 | 7 | 80 |
+| Футер | `footer.css` | `.wff`, `.fh` | 620 · 860 · fluid | 77 | 84 |
+| Шухляда меню | `nav-drawer.css` | `.wf-drawer`, `.dr-lock`, `.dr-b` | 860 | 82 | 75 |
+| Таб-бар | `tabbar.css` | `.wf-tab`, `.wf-tabbar` | 860 | 82 | 80 |
+| Модалка відгуку | `review-modal.css` | `.pm` | – | 3 | 59 |
+| Рейка фільтрів | `filter-rail.css` | `.frail`, `.hrail` | 860 | 11 | 57 |
+| Головний блок | `hero.css` | `.hero`, `.hvert`, `.hside` | 860 · ramp | 4 | 55 |
+| Мега-меню | `mega-menu.css` | `.mega`, `.catov` | 860 · fluid | 82 | 43 |
+| Банер cookie | `cookie-banner.css` | `.wf-cookie`, `.wf-ckset`, `.ck` | 620 · fluid | 0 | 42 |
+| Діалог міста | `city-dialog.css` | `.wf-city`, `.city` | 620 · fluid | 82 | 39 |
+| Системна сторінка | `system-page.css` | `.sys`, `.syscard`, `.sysdemo` | 620 · 860 · fluid | 0 | 42 |
+| Повзунок ціни | `price-slider.css` | `.uiv-slider`, `.uiv-track`, `.uiv-fill` | – | 7 | 33 |
+| Сітка товарів | `product-grid.css` | `.prow`, `.prow2`, `.plist` | fluid | 20 | 34 |
+| Оверлей | `overlay.css` | `.wf-ov`, `.ceov` | – | 82 | 16 |
+| Панель Pro | `upsell.css` | `.upsell`, `.ubar`, `.ulist`, `.uacts` | – | 2 | 102 |
 
-**23 files, 1997 lines.**
+**34 files, 8255 lines.**
 
 ### Three things this table did not say, found at 8.29 and closed at 8.37
 
@@ -204,6 +223,35 @@ All three were the same defect wearing three faces: **a declared list with no id
    item 8, and `tools/inventory.mjs` is its answer:** `vars.mjs` and `grey-vars.mjs` ask whether a
    VALUE is still true, `roles.mjs` whether a TOKEN LIST is, and now something asks it of a COUNT.
 
+## Patterns - the level above a component (stage 09)
+
+The inventory now describes BOTH levels of the system, not only the components. A pattern is a
+stable composition of components that the product repeats on three or more screens; it declares
+composition only and no colour, and it imports after every component in `index.css`.
+
+| Патерн | css | Сторінка стенда | З чого зібраний | Екрани `design/` | Сірих екранів | Правил |
+|---|---|---|---|---|---|---|
+| Ряд дій | `patterns/action-row.css` | `kit/action-row.html` | – | `button.css` + `--space-12` | 15 | 70 | 4 |
+
+**Where the 15 coloured screens are**, and the list is the pattern's proof of existence rather than
+an illustration: `account` · `account-addresses` · `cart` · `cart-coach` · `cart-oos` ·
+`coach-client` · `coach-client-loading` · `coach-clients` · `coach-clients-cap` ·
+`coach-clients-loading` · `coach-landing` · `coach-order` · `coach-orders` ·
+`coach-verify-loading` · `home-cart`.
+
+**Thirteen container names carry it**, and their own component files kept only what differs:
+`.uacts` `.cv-btnrow` `.clh-cta` `.addr-acts` `.aord-actions` `.od-acts` `.ord-acts` `.cl-acts`
+`.ccard-acts` `.cc-cta` `.oc-actions` `.cs-act` `.ci-links`. Two more were measured and NOT
+converted, and both are named in `backlog.md` list 4 rather than left to be noticed: `.ceact` and
+`.cedlg .act`, whose markup is built by `wireframes/_nav.js` - the shared script both corpora load,
+and the grey corpus is not edited by this stage - and `.sys-acts`, which has zero coloured
+occurrences and so has nothing to prove with pixels.
+
+**51 compositions stand on exactly two screens**; `kit/patterns.html` shows the **eight** nearest to a third occurrence, named one by one, and says so on the page. They are not
+patterns and they are not lost: a composition that happened twice stays markup and waits for a third
+occurrence. Half of them live on screens that are still grey, so stage 12 will supply the third by
+itself.
+
 ## One-off (not components)
 
 Kept out of the kit deliberately, so the kit does not grow a shelf for things used once: the
@@ -218,7 +266,7 @@ of the product**, so they are now `system-page.css` at level 3.
 
 ## What the inventory says about the product
 
-- **84 components: 22 atoms, 29 molecules, 33 organisms.** Every one has a css file in
+- **84 components: 23 atoms, 27 molecules, 34 organisms.** Every one has a css file in
   `design/system/components/`, and `tools/inventory.mjs` fails if that stops being true. The number
   read 70 from step 5 until 2026-08-16, which is fourteen components of drift in one column.
 - **The heaviest file is `checkout-form.css`.** Checkout is a quarter of the product's CSS and had

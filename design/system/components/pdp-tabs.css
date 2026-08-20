@@ -72,11 +72,13 @@ body.pdp-stuck .wfh.uiv-scrolled{ box-shadow:none; }
   border-radius:var(--radius-8); padding:var(--space-8) var(--space-16); }
 .pdp-tabs .tbuy:hover{ opacity:.93; }
 @media (min-width:860px){
-  .pdp{ grid-template-columns:minmax(0,1fr) 540px; gap:var(--space-40); }
+  .pdp{ grid-template-columns:minmax(0,1fr) clamp(33.75rem, -5.4rem + 47.5vw, 36.25rem); gap:var(--space-40); }
 }
-@media (min-width:1180px){
-  .pdp{ grid-template-columns:minmax(0,1fr) 580px; }
-}
+/* 10.4 round 4: THE QUERY IS GONE AND THE COLUMN RAMPS. 1180 did exactly one thing -
+   widen the right column from 540 to 580 - and 1180 is in no registry. A 40px step is
+   a SIZE, so it ramps between the two values that stood there. Measured on `product`:
+   248 + 540 at 860 and 312 + 580 at 1180, before and after. The left column keeps
+   reading `minmax(0,1fr)`, so it still takes whatever is left. */
 /* step 7.23: colour, hover and the chosen state went to chip.css. The chosen
    state changed on the way: the label was `--text-oninverse` on the accent fill,
    which measures 3.13:1 and does not pass AA at 14px. It reads `--text-body` on

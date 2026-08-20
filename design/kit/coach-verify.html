@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 3</div>
 <h1 class="kp-h1">Перевірка тренера</h1>
 <p class="kp-lead">Вузол 5.1: покупець стає тренером. Роль активується поверх наявного акаунта, і між заявкою та гуртовою ціною стоїть людська перевірка - за посиланням на профіль. П'ять екранів одного потоку в одному файлі, і спільного в них рівно один об'єкт.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-verify.css</span><span class="kp-tag">908 рядків</span><span class="kp-tag">67 селекторів</span><span class="kp-tag">259 оголошень</span><span class="kp-tag">5 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-verify.css</span><span class="kp-tag">914 рядків</span><span class="kp-tag">66 селекторів</span><span class="kp-tag">255 оголошень</span><span class="kp-tag">5 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Один хребет, п'ять тіл</div>
 <p class="kp-p">Файл виглядає як п'ять екранів, зшитих разом, але замір каже точніше. Кожен клас звірено з розміткою всіх п'яти кольорових екранів:</p>
@@ -131,6 +131,11 @@
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Стан має право на власний вигляд, ранг - ні.</b> Шістнадцять класів живуть на одному екрані кожен, і це нормально: кільце очікування нема де вживати вдруге. Але заголовок сторінки - це <b>ранг</b>, і він однаковий на всіх п'яти; саме тому селектор заголовка потрійний, а не п'ятиразовий.</div>
 <div class="kp-dont"><h4>Антиправило</h4><b>Не переписуй хребет у стан.</b> Копія маркера в приватному блоці екрана виглядає безпечно рівно доти, доки їх не стане п'ять і вони не розійдуться на півпікселя. Якщо стану треба інший маркер - це новий стан маркера (<code>.stop</code>), а не нова редакція маркера.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U9</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Ряд дій береться патерном <code>.actions actions--center</code>, і власного правила в цього контейнера більше немає взагалі.</p></section>
+
+
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
 <p class="kp-p">У файлі <b>нуль</b> <code>:hover</code>, нуль <code>:active</code> і нуль <code>:focus-visible</code>. Усе, що відповідає на палець, - це <code>.btn</code>, поле, радіо або чекбокс, і за них відповідають їхні атоми.</p>
 <p class="kp-p">Стани тут <b>класи, а не псевдокласи</b>, бо це стани процесу, а не взаємодії - їх ставить сервер, а не курсор:</p>
@@ -154,6 +159,9 @@
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>35</b> класів і <b>0</b> станів оголошено в <code>coach-verify.css</code>. <code>.coach</code> не рахується - це скоуп. <code>.uiv-ic</code> теж - це <code>icon.css</code>, і тут компонент лише стоїть усередині нього.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["bad", "ch", "city-chip", "cv-actions", "cv-alt", "cv-aside", "cv-badge", "cv-body", "cv-btnrow", "cv-card", "cv-consent", "cv-foot", "cv-h1", "cv-lead", "cv-note", "cv-ok", "cv-reasons", "cv-ring", "cv-split", "cv-step", "cv-steps", "cv-steps2", "cv-sub", "cv-wrap", "done", "fhint", "m", "mid", "n", "now", "on", "opt-tiles", "stop", "vlogo", "vtag"], KIT_STS=[];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від яких порогів:</b> <code>--bp-shell-wide</code> і <code>--bp-grid-2col</code>. <b>Що саме міняється:</b> від широкої точки екран верифікації стає двома панелями; від вузької плитки опцій стають трьома. <b>Було 760 і 520</b>, обидва поза реєстром. <b>Яку з двох брати - зміряно, а не вибрано:</b> примусовий ряд на 620 робить бічну панель 222.7 і <b>обрізає</b> плитки (324 у 319), а на 860 виходить 313.9 + 512.1 чисто. Плитки ж ідуть у зворотний бік: на 620 вони по 174.7 і не обрізають нічого проти 141.3 на 520 сьогодні.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>coach-verify.css</code>, не переписані руками. <b>Жодного сирого кольору</b>, хоча колірної половини у цих двох екранів ніколи не було: сірі імена перекладено за <b>роботою</b>, яку кожне з них виконувало в <code>wireframes/_wf.css</code>.</p>

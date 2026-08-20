@@ -1387,3 +1387,238 @@ property.
    change touches every page that loads it and no html file at all. So the reference is the working
    tree with only the ten stylesheets restored from HEAD, and `--dir` compares against that. A
    comparison whose two sides differ in more than the thing being measured is not a proof.
+
+## List 4 - what stage 09 step 1 found and deliberately did not fix
+
+The pattern step is a refactor, and its acceptance is zero pixels moved. Every value below is a
+value the move made VISIBLE; snapping any of them is a separate decision, said out loud in the
+form this project requires (variable, value, why), and none of them is taken here. Folding a value
+change into a move is exactly how a refactor stops being provable.
+
+**1. The action row is written with five gaps for one job.** `tools/pattern.mjs`: one composition,
+70 grey screens and 58 coloured ones, under 53 container names. Of the sixteen that carry a rule,
+the gap is `--space-12` ten times, `--space-8` four times, a bare **9px** three times and a bare
+**10px** twice, `--space-16` once. **9px and 10px are on no rung** - the ladder is 4 / 8 / 12 / 16 -
+and `coach-clients.css` had already written the finding into its own comment beside `.cl-acts`:
+«the third number on the four action rows». After the move each deviation is one declaration in
+one file, written as `.x.actions{ gap }` so that it outweighs the pattern:
+
+| variable | today | candidate | why it is not decided here |
+|---|---|---|---|
+| `.coach .cl-acts` gap | 9px | `--space-8` | 1px on four coach screens, and the four rows should agree with each other first |
+| `.coach .ccard-acts` gap | 9px | `--space-8` | the same 1px, on the client card |
+| `.coach .oc-actions` gap | 9px | `--space-8` | the same 1px, on the order card |
+| `.coach .cc-cta` gap | 10px | `--space-12` | 2px, and this row is the screen's own call to action |
+| `.coach .od-acts` gap | 10px | `--space-12` | 2px on the coach order |
+| `.coach .ord-acts` gap | 10px | `--space-12` | 2px on the coach cabinet |
+| `.addr-acts` gap | `--space-8` | `--space-12` | on a rung already; the question is whether an address card's actions are a tighter row on purpose |
+| `.aord-actions` gap | `--space-8` | `--space-12` | the same question on the order row |
+| `.cshelf .cs-act` gap | `--space-8` | `--space-12` | the same question on the trust shelf |
+| `.ci-links` gap | `--space-16` | `--space-12` | the only one that is WIDER than the pattern, and it holds two text links rather than two buttons |
+
+**2. Two action rows were not converted, and both are named rather than left to be noticed.**
+`.ceact` and `.cedlg .act` - the client dialog's own row, on eight grey screens and two coloured
+ones. Its markup is built by `wireframes/_nav.js`, the shared script BOTH corpora load, and this
+stage does not edit the grey corpus. `.sys-acts` - the service page's row, zero coloured
+occurrences, so there is nothing to prove with pixels. Stage 12 rebuilds both sets of screens and
+should take the pattern then.
+
+**3. The product's page container lives in a file that is not part of the system.**
+`.wf-canvas` and `.wf-page` stand on 129 and 122 grey screens and are declared in
+`design/_stand.css`, which opens by saying it is «prototype and stand chrome, NOT part of the
+system». `.wf-page{ max-width: 1200px; margin: 0 auto; padding: 0 16 40 }` is not chrome - it is
+the product's content column, and stage 10 will need it. It was left where it is on purpose: the
+file's placement is a recorded decision of step 7.26, and moving product layout out of it is an
+owner's call, not a side effect of a pattern step.
+
+**4. The system has no class that means «this is the screen's main action».**
+**And two documents of this project disagree in writing.** `DESIGN.md` line 44: «One orange per
+view. The accent means exactly one thing: where to press. A second filled orange button on a screen
+means the screen has not decided which step is the main one». `button.css` line 20: `.btn--accent`
+is «the one action of a REGION». `conventions.md` line 130 sides with the region: «Each zone has one
+main action; the screen's main action is a real `<a href>` to the next». The product obeys the
+region reading on every listing screen, so **the `DESIGN.md` line is the one that is stale** - and
+it is the line a new reader meets first, because it sits under «The rules colour obeys».
+The coloured layer has no way to check either reading. Visible `.btn--accent`
+reaches 13 on one screen because every product card carries an accent cart button; the grey
+layer's own primary marker `dark` reaches 5. The finish is the rank, and the rank is being asked
+to mean two different things. Whether the system needs a separate `btn--primary` role, or whether
+the rule belongs to zones and stays uncheckable by class, is an owner decision. Rule U8 in
+`architecture.md` states the measurement; it does not invent the class.
+
+**5. `.acc-main` is declared by no component file at all.** It stands on 43 grey and 31 coloured
+screens as the second half of the account shell, beside `.acc` and `.acc-nav`, which
+`account-shell.css` does declare. The same holds for `.stack`, `.navlink`, `.ctrl`, `.frange` and
+`.wfh-cabbtn`. None of them is dead - `tools/dead-sel.mjs` asks the opposite question and answers
+0 - they are classes the markup wears that no stylesheet in the system names.
+
+**6. The roadmap sidebar's own text is under 4.5:1, in BOTH themes, on every page that carries it.**
+`tools/theme.mjs`, measured: `a.nav-top` «Дослідження» **4.14 dark / 4.33 light** against
+`rgb(242,241,238)`, 14 occurrences; `a.nav-link` «Чому саме так» the same pair; the row label
+«дизайн-процес» the same; and `span.nav-badge-soon` **3.79 / 3.79**. The «light» column is what says
+whose fault it is, and it says the theme is innocent: **the defect is older than the dark theme and
+lives in `/_nav.css`**, the look of the root registry.
+
+Stage 09 step 3 did not create it, but it did widen its reach by one page: giving `why.html` the
+roadmap panel - which the pack requires of a roadmap item - brought a second `design/` page into the
+same reading. The walk's subject is `design/`, so it reports two pages; the panel is on every stage
+hub in the repository, so the real reach is every one of them.
+
+Not fixed here for a reason that is a rule rather than a preference: `/_nav.css` is the look of the
+project registry, owned by no design stage, and its ink is a value. Changing it is «variable ->
+value -> why», said out loud by the owner. The measurement is what this step owed.
+
+## List 5 - the self-sufficiency test, stage 09 step 5
+
+The next real page of the product, assembled from the finished system and nothing else: **node 2.2,
+Ціль-колекція**, base plus its three states, four files. Chosen by the owner from 54 grey screens
+that have no coloured twin, on the measure the pack names - it covers **38 of the 84 components**,
+more than any other candidate, and it stands in the flow between two screens that are already
+coloured (`index` -> `goal` -> `listing`).
+
+**Zero styles were written on the screen.** The four files carry no `<style>` element and no `style`
+attribute; they load `system/index.css` and the stand chrome, exactly like every other product page.
+Everything below is what the system could NOT do, recorded rather than drawn by hand.
+
+| What is missing | What needed it | Which level of the system closes it | Priority |
+|---|---|---|---|
+| **`.gnote`** - the note under the grid that explains the default card order («в наявності first, then …») has no component and no rule anywhere in the system | `goal` - a goal collection sorts differently from a plain listing, and the screen has to say so | component (a quiet note under a block), or a variant of `seo-text` | medium - it is one paragraph on one screen today, and every goal collection will carry it |
+| **`.actions` has no inline variant** | `goal-empty` and `goal-error` - the empty state's action row is `inline-flex` and centred, so it shrink-wraps under a centred block. The pattern is `flex`, which stretches | pattern variant (`.actions--inline`) | medium - it is why `.eact` was NOT converted at step 1, and it holds for every empty state in the product |
+| **`.ctrl` is declared by no stylesheet** | all four screens, and `listing` before them | component or a deletion - the class is markup nobody styles | low - already recorded as item 5 of list 4, confirmed here on a new screen |
+
+**And one thing that is NOT a system gap, named so it is not mistaken for one.** The view toggle's
+«Списком» cell on `goal` is a dead `<span>`, because **`goal-list.html` does not exist in the
+product at all**. That is a missing SCREEN and therefore an IA decision, recorded on the
+`view-toggle` stand page since stage 08 as the single real defect of that control. The coloured copy
+inherits it unchanged; drawing a «disabled» look for it here would be inventing a state, which step
+7.31 already refused for the chip on the same grounds.
+
+**The backlog is not empty, and that is the answer the step owed.** Three system gaps and one IA
+gap, from a screen that a person would otherwise have called finished.
+
+**Two more, found by the critique pass and by a positive control rather than by eye.**
+
+| What is missing | What needed it | Which level | Priority |
+|---|---|---|---|
+| **`pagination.css` does not draw its own cells.** `.pages a` gets no box, no border and no size from the component; on `listing` every link was hand-dressed at stage 08 as `btn--outline btn--icon btn--s`. The new screen's pagination therefore renders as bare text, and no map can fix it: the links carry no identity class, so there is no key to read a finish from | `goal` - a goal collection is paginated | component (the pagination should style `.pages a` itself, the way `button.css` refuses to style a bare `.btn`) | **high** - it is the only finding here that makes a control invisible, and it reaches six more coloured screens |
+| **The «next page» link has no accessible name.** `<a href="?page=2">›</a>` - a chevron and nothing else | `goal`, and the same markup stands in the grey layer of six other coloured screens | microcopy plus markup, owned by the grey layer | medium |
+
+**The keyboard pass was read against a control, not in isolation, and that changed the report.** The
+first reading of `goal` said «78 focusable elements with no focus ring» and a list of hit targets
+under 44px. The same probe on `listing`, the accepted twin, answers **78 and the same list** - so
+both belong to the shared shell and neither was introduced here. What the control DID isolate is one
+delta: three unnamed focusables against the twin's two, and that third one is the pagination chevron
+above. A finding that both screens share is a corpus finding; only the difference is news.
+
+**And one that reaches far past this screen, found by the critique's positive control.**
+`clone-to-colour.mjs` line 138 always appended **`btn--s`** to every control it ranked - a 40px
+button - while the hand-built screens write `btn--accent btn` with no size and get `button.css`'s
+own 52px. So the main action of an empty state came out **under the 44px touch target on every
+screen the transform ever cloned**, and nothing said so: the button is ranked, visible and
+clickable, and only a comparison with a hand-built twin shows it.
+
+The split is clean and it is the proof: `listing-empty`, `listing-error`, `cart-empty`,
+`product-oos` - built by hand - carry **0**. `account-empty` carries 5 and `coach-home-empty` 3,
+both cloned. Across `design/` the invented size stands on **114 controls over 43 screens**.
+
+The instrument is fixed (the rank is read off the grey layer's `dark`; the SIZE is not the grey
+layer's to give) and the four screens of this step were corrected to match their twin. **The other
+43 were not touched**: undoing a size on 114 shipped controls is a value change across the corpus,
+which is «variable -> value -> why» and the owner's call, not a side effect of a step about
+patterns. Every one of them is a main action that a thumb has to hit.
+
+### Withdrawn on verification, and both were mine
+
+The critique's design-review pass disagreed with two rows above, and the source settled it against me
+both times. **A withdrawn finding stays visible with its reason, or it comes back next time in the
+same words.**
+
+**«`pagination.css` does not draw its own cells» - WITHDRAWN.** The component declares the row, the
+disabled state and the fill of the current cell, and draws no box **on purpose**: the cell IS a
+button, composed on the screen as `btn--outline btn--icon btn--s`, which is exactly what the accepted
+twin `listing.html:184` writes. Nothing was missing from the system; classes were missing from my
+screen, together with `aria-current` and a name on the chevron. Measured before the fix: cells of
+9.6 x 25.6px of bare text against 40 x 40 on the twin, and Tab drawing Chrome's default blue outline
+on a warm neutral ground. Fixed by a pass in `clone-to-colour.mjs`, because the finish map cannot
+reach links that carry no identity class.
+
+**«`.gnote` needs a component» - WITHDRAWN, and the opposite is true: the markup had to go.**
+`badge.css` records the decision in writing - `.gnote` is a GREY-PROTOTYPE ANNOTATION, «the coloured
+clone dropped it, correctly, which is why it renders on 0 of 39 coloured screens» - and the class
+left the system at step 8.10. The twin keeps the same rule as an HTML comment, «kept out of the
+visible UI». My screen was the fortieth, and the one that rendered it: 16px full-ink text, the
+loudest block in the lower half of the page, louder than the SEO body under it. **Ordering a
+component for it would have put back into the system exactly what the system had deliberately
+removed.** The drop had been done by hand at 8.10, so the transform never learned it; it is a pass
+now.
+
+**And one sharpened rather than withdrawn.** The view toggle is worse than «the «Списком» cell is
+dead»: on `goal` BOTH cells are `<span>` - the grey original writes them that way while
+`wireframes/listing.html` writes both as `<a href>` - so the whole control is out of the Tab order
+while still advertising `cursor: pointer`. It is a defect of the frozen grey layer, and it needs the
+owner rather than a coloured patch.
+
+## List 6 - the one hole the dark theme opened, stage 09 step 6
+
+`tools/theme.mjs` over 276 of 280 coloured pages, ink against its own ground, threshold 4.5:1.
+**35 forms sit under it. 34 of them fail in the LIGHT theme too**, which means they are older than
+the theme and belong to A10, the accent-on-pale decision already recorded: `#FF5A00` on a pale ground
+is 3.13:1 and every `btn--accent` label inherits it.
+
+**Exactly one form was broken BY the theme, and that is the whole value of running this check:**
+
+| what | light | dark | where |
+|---|---|---|---|
+| `span.hptag` - the eyebrow of the first home promo tile, «Акція тижня» | **5.45** | **2.97** | `home-buyer` · `home-cart`, 6 instances |
+
+The tile paints its ground with `var(--bg-page)` behind a photo (`banner.css:108`), and the eyebrow
+takes `--text-action` on the first tile only (`hero.css:29`). The light pair works because the pale
+ground sits under a light photo; in dark the ground inverts and the photo does not, so the ink loses
+its footing while the role itself is perfectly paired. **A role can have both halves and still fail:
+the pair is about the token, the contrast is about the SURFACE it lands on**, which is the third axis
+stage 08 wrote down and this is its first real catch.
+
+Not fixed here. It is a value decision in the form the project requires - variable, value, why - and
+it is the owner's: either the eyebrow stops reading `--text-action` on a photo tile, or the photo
+tile gets a scrim role of its own. Choosing here would fold a value change into a step about patterns.
+
+
+## The header search collapses between the shell point and ~1010 - found by the owner, stage 10
+
+**Measured on `design/index.html`, the search input's own width:**
+
+| viewport | `.wfh-search` | the input inside it |
+|---|---|---|
+| 860 | 121 | **44.5** |
+| 900 | 161 | 84.5 |
+| 907 | 168 | 91.5 |
+| 960 | 221 | 144.5 |
+| 1020 | 281 | 204.5 |
+| 1280 | 325 | 248.5 |
+
+The placeholder is «Пошук товарів, брендів...» and at 44px the field shows «Пс». The row at 907 holds
+logo 65 + nav 198 + search 168 + actions 408 with four gaps, 839 of the 875 available: the search is
+the only item with `flex: 1` and no floor, so it absorbs every shortfall alone. It is the same shape
+as the restock row's 26px e-mail field, one level up.
+
+**Not fixed in step 4, and the reason is that both repairs are SHELL decisions.**
+
+- **Give the search a floor and let the row wrap** (`flex: 1 1 18rem` + `flex-wrap` on `.wfh-in`).
+  Measured consequence: below ~1010 the search takes its own full-width line, which grows the header
+  by one row - and three sticky offsets read the header's height as a literal (`.pmini` `top: 88`,
+  `.acc-nav` `top: 120`, `.mtoolbar` `top: 57`). They would all need to follow, which is what
+  `--shell-top` exists for.
+- **Let the action labels go and keep one line.** The four actions take 408px with their words; at
+  859 they are already icons only. Deciding where the words come back is a decision about the
+  action row, not about the search.
+
+The shell's form was chosen by the owner at step 3 and its height is what three components measure
+themselves against, so neither repair belongs inside a component round.
+
+## The bonus action has no bonus icon - noticed by the owner, stage 10
+
+«БОНУСИ / Отримати» in the header action row stands beside «Увійти» (a person), «Обране» (a heart)
+and «Кошик» (a cart), and wears a generic container glyph. A set of four marks where three name
+their job and one does not reads as a gap rather than as a choice. This is an addition to the icon
+set, which is stage 08's territory and `design/kit/icons.html`'s page: a new glyph, its row in the
+set, and the same 30-size / 6-weight discipline every other mark in the set carries.

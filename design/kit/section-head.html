@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Заголовок секції</h1>
 <p class="kp-lead">Найменший файл системи з тих, що лишились, і найпростіша робота: сказати, де починається розділ, і дати з нього вихід. Крок, який його розібрав, знайшов не поламану верстку, а рядок, що називав п'ять речей, з яких цьому файлу належала одна.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/section-head.css</span><span class="kp-tag">77 рядків</span><span class="kp-tag">19 селекторів</span><span class="kp-tag">88 оголошень у спокої</span><span class="kp-tag">37 заголовків на 10 екранах</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/section-head.css</span><span class="kp-tag">92 рядки</span><span class="kp-tag">19 селекторів</span><span class="kp-tag">88 оголошень у спокої</span><span class="kp-tag">37 заголовків на 10 екранах</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка звідси - та сама, що на <code>home-buyer.html</code> і <code>listing.html</code>.</p>
@@ -57,7 +57,7 @@
 <section class="kp-sec"><div class="kp-sh">Поправка від 7.56: у тому рядку було мертве й оголошення</div>
 <p class="kp-p">Цей крок розібрав рядок із п'яти імен і лишив <code>.lh1</code> собі. Через шість кроків статичний скан знайшов, що <b>сама властивість була мертва ще до переїзду</b>:</p>
 <div class="kp-code">.lh1{ font-family:var(--font-display); letter-spacing:var(--ls-lead); }
-.lh1{ font-size:var(--fs-30); font-weight:var(--fw-bold); letter-spacing:var(--ls-display); }</div>
+.lh1{ font-size:var(--fs-display); font-weight:var(--fw-bold); letter-spacing:var(--ls-display); }</div>
 <p class="kp-p">Той самий селектор, та сама специфічність, наступний рядок. <code>--ls-lead</code> це <code>-.01em</code>, <code>--ls-display</code> це <code>-.02em</code>, і на екран потрапляло друге. Крок читав той рядок як <b>п'ять імен</b> і не спитав, чи виживає властивість для того імені, яке лишилось. Ім'я було правильне, оголошення вже було мертве. Знято, A/B нуль.</p>
 <div class="kp-dont"><h4>Знайшов не браузер</h4>Вирішувач у браузері складав вердикти під ключем «селектор + властивість», тож два правила з однією властивістю під одним селектором зливались в одну відповідь «іноді виграє». Знайшов <b>статичний скан</b>: та сама властивість, той самий селектор, та сама медіа-умова, двічі в одному файлі. 200 мілісекунд на 74 листи проти восьми хвилин на один. Дешевший інструмент побачив те, чого не бачив дорогий.</div></section>
 
@@ -125,9 +125,12 @@
 <div id="idle"></div>
 <script>var KIT_CLS=["lh1","relh","homeh1","sech","all","rvhead","mech-kicker"], KIT_STS=[":hover", "aria-label=\"Опис\"", "min-width: 620px"];</script></section>
 
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-grid-2col</code>. <b>Що саме міняється:</b> шапка блоку відгуків стає трьома колонками (<code>190px 1fr auto</code>). Число вже стояло на реєстрі; раунд молекул нічого не складав.</div>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>section-head.css</code>: <b>6</b> семантичних ролей і <b>19</b> примітивів.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (19)</th></tr></thead><tbody><tr><td><code>--bg-surface</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-display</code> <code>--fs-12</code> <code>--fs-16</code> <code>--fs-24</code> <code>--fs-30</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-medium</code> <code>--fw-semibold</code> <code>--ls-caps</code> <code>--ls-display</code> <code>--ls-lead</code> <code>--radius-8</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-32</code></td></tr></tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (19)</th></tr></thead><tbody><tr><td><code>--bg-surface</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--font-display</code> <code>--fs-12</code> <code>--fs-16</code> <code>--fs-24</code> <code>--fs-display</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-medium</code> <code>--fw-semibold</code> <code>--ls-caps</code> <code>--ls-display</code> <code>--ls-lead</code> <code>--radius-8</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-32</code></td></tr></tbody></table></div>
 <p class="kp-p">Три числа повз шкалу: <code>190px</code> (колонка шапки відгуків), <code>620px</code> і <code>800px</code> (дві точки перелому, обидві не з набору 480 / 720 / 1180, яким користується решта системи).</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>

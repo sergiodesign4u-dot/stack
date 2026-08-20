@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Скелетон</h1>
 <p class="kp-lead">Сірі фігури на місці контенту, поки він вантажиться. Функційна підказка, а не декорація: форма скелетона це обіцянка того, що приїде.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/skeleton.css</span><span class="kp-tag">266 рядків</span><span class="kp-tag">18 імен</span><span class="kp-tag">11 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/skeleton.css</span><span class="kp-tag">275 рядків</span><span class="kp-tag">18 імен</span><span class="kp-tag">11 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка та сама, що в продукті. До кроку 7.28 тут стояло <code>&lt;div class="skcardbox"&gt;&lt;div class="skcard"&gt;…</code> - коробка всередині коробки, чого в продукті немає жодного разу, тому демо малювало подвійну рамку. Сітка була придушена інлайновим <code>style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px"</code>, тобто показувала не <code>.skgrid</code>, а інлайн поверх нього. І пульсації в демо не було зовсім, хоча анатомія її називала.</p>
@@ -104,6 +104,11 @@
 <p class="kp-p"><b>Перейменовано на слово власника, крок 7.28.</b> Штриховка лишила значення й отримала ім'я того, що малює - <code>--bg-hatch</code>, 4 вживання (два елементи по дві зупинки градієнта). Волосина пішла на <code>--line-hair</code>, і це <b>той самий</b> <code>--warm-200</code>: примітив у себе в нотатці так і зветься - «plate pixel - the hairline». Нуль пікселів змінилось, одне ім'я перестало брехати. Ґрунт скелетонної смуги - <code>--bg-sunken</code>, і тепер він сказаний один раз у <code>skeleton.css</code>.</p>
 </section>
 
+<div class="kp-gap"><h4>І остання умова пішла разом із сіткою, яку скелет обіцяє - раунд 3</h4>Раунд 1 звів тут три числа до двох підлог із перемиканням на 620. Раунд 3 показав розгорткою, що саме це перемикання робить у <code>product-grid.css</code>: ряд карток губив колонку на 620, бо підлога стрибала зі 150 на 200. Сітка перейшла на <b>пандус</b>, а скелет, що лишився б із перемикачем, почав би брехати рівно на тій ширині - тобто повернув би дефект, який раунд 1 тут і полагодив. Тепер обидва читають <code>--grid-col-fluid</code> і <code>--grid-gap-fluid</code>, одним оголошенням без жодної умови. <b>І 959 пішло</b>: воно стояло в парі з 960 у <code>account-shell.css</code>, тому раунд 1 і лишив його винним - обидва склались на <code>--bp-shell-wide</code> разом.</div>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-grid-2col</code> (620), і <b>більше жодного</b>. Було три фіксовані кількості колонок на двох умовах - <code>1fr 1fr</code>, потім три на 620, потім чотири на 1040, - і 1040 немає в реєстрі. <b>Що саме міняється:</b> сітка тепер <code>auto-fill</code> з тими самими двома підлогами, що й <code>product-grid.css</code> (<code>--grid-col-min-narrow</code> 150px і <code>--grid-col-min</code> 200px), і з тим самим проміжком. <b>І це виправило дефект, якого ніхто не бачив:</b> на 1280 справжня сітка товарів дає <b>три колонки по 248px</b>, а скелет малював <b>чотири по 185</b> - обіцяв розкладку, якої сторінка не приносила. Тепер обидві дають 248 x 3, піксель у піксель.</div>
+
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
 <p class="kp-p">На кожному екрані, де дані приходять мережею: каталог, PDP, кабінет, чекаут, діалог входу. Принцип 2 - «ніколи порожній погляд». У продукті таких екранів <b>11</b> - зміряно <code>tools/inventory.mjs</code> по 88 кольорових екранах, за якорями цього файлу, - і на кожному скелетон повторює форму саме того, що там буде. На 7.28 їх було 5: тренерський потік увійшов у колір на 7.95, а на 8.38 його п'ять екранів завантаження перестали малювати власні скелетони.</p></section>
 
@@ -117,7 +122,7 @@
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>skeleton.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива. Два числа без токена: 10px смуги і 240/320px двох іменованих смуг кабінету - вони названі рішеннями в самому файлі.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (12)</th></tr></thead><tbody><tr><td><code>--bg-sunken</code> <code>--elevation-1</code> <code>--line-hair</code> <code>--text-muted</code></td><td><code>--fs-12</code> <code>--radius-12</code> <code>--radius-4</code> <code>--radius-8</code> <code>--size-24</code> <code>--size-40</code> <code>--size-64</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (14)</th></tr></thead><tbody><tr><td><code>--bg-sunken</code> <code>--elevation-1</code> <code>--line-hair</code> <code>--text-muted</code></td><td><code>--fs-12</code> <code>--radius-12</code> <code>--radius-4</code> <code>--radius-8</code> <code>--size-24</code> <code>--size-40</code> <code>--size-64</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-8</code> <code>--grid-col-fluid</code> <code>--grid-gap-fluid</code></td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
 <div class="kp-code">&lt;div class="skgrid skpulse"&gt;

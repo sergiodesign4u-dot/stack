@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Організм · рівень 3</div>
 <h1 class="kp-h1">Діалог міста</h1>
 <p class="kp-lead">Найтиражніший діалог шару: він лежить на <b>34 з 40</b> кольорових екранів, і в ньому <b>816 кнопок міст</b> плюс 272 бейджі популярних. При цьому вирішувач каже, що <code>.wf-city.open</code> <b>не збігся з жодним елементом</b>: у спокої його не намальовано розкритим ніде. 29 рядків, і <b>колірного блоку немає взагалі</b> - один із шести файлів організмів, де розділ етапу 08 лишив другу половину порожньою.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/city-dialog.css</span><span class="kp-tag">38 рядків</span><span class="kp-tag">16 селекторів</span><span class="kp-tag">65 оголошень</span><span class="kp-tag">82 екрани</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/city-dialog.css</span><span class="kp-tag">39 рядків</span><span class="kp-tag">16 селекторів</span><span class="kp-tag">65 оголошень</span><span class="kp-tag">82 екрани</span></div>
 
 <section class="kp-sec"><div class="kp-sh">З чого складається</div>
 <p class="kp-p">Складає всього два файли - поле й кнопку. Решту, включно з сіткою міст і бейджами, малює сам.</p>
@@ -47,8 +47,15 @@
 <section class="kp-sec"><div class="kp-sh">Межі</div>
 <p class="kp-p">У файлі <b>1</b> медіа-умова, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width: 479px)</code></li></ul></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U1 · U2</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Один діалог міста на екран; у флоу оформлення і на службових сторінках його немає.</p></section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>10</b> власних класів і <b>1</b> стан.</p><div id="idle"></div><script>var KIT_CLS=["city-az", "city-badge", "city-lbl", "city-list", "city-note", "city-pop", "city-search", "wf-city", "wf-city-b", "wf-city-h"], KIT_STS=[":hover"];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-grid-2col</code> дзеркалом <code>619</code>. <b>Що саме міняється:</b> список міст іде з трьох колонок у дві. <b>Було 479</b>, поза реєстром: телефонна межа, яку продукт писав у шести файлах і жодного разу однаково.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>city-dialog.css</code>: <b>8</b> семантичних ролей і <b>16</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (16)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--elevation-4</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-18</code> <code>--fs-20</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--ls-caps</code> <code>--radius-12</code> <code>--radius-8</code> <code>--radius-pill</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>

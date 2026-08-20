@@ -57,7 +57,22 @@
    file - 200ms across 74 stylesheets, where the browser solver takes eight
    minutes for one. The cheap instrument was the one that could see it. */
 .lh1{ font-family:var(--font-display); }
-.lh1{ font-size:var(--fs-30); font-weight:var(--fw-bold); letter-spacing:var(--ls-display); }
+/* 10.2: THE PAGE HEADING BREATHES, AND ONLY THE PAGE HEADING.
+   `--fs-display` has three readers in the whole system and they are named here,
+   on `architecture.md` and on `kit/responsive.html`: `.lh1` (the listing family
+   H1), `.acc-h1` (the account H1) and `.co-h1` (the checkout H1). All three head
+   a FULL-WIDTH page, which is the only place a viewport-fluid size is honest.
+   Deliberately NOT readers, each for its own reason:
+     `.bb h1`      the PDP title sits in a narrow column beside the gallery; it is
+                   sized by its PLACE, not by the screen, so it belongs to
+                   `@container` at step 4
+     `.auth-h1`, `.coach .cv-h1`   a dialog and a centred form, both capped near
+                   420-560; a heading that grows with the window inside a box that
+                   does not is a defect, not an adaptation
+     `.hdeal .hd-new`, `.coachbox .cbnew`, `.empty .ei`, `.pm-stars .pmst`
+                   a price, a figure and two glyphs. They wear the 30 rung because
+                   30 is their size, not because they are headings. */
+.lh1{ font-size:var(--fs-display); font-weight:var(--fw-bold); letter-spacing:var(--ls-display); }
 .lh1 .cnt{ font-size:var(--fs-16); font-weight:var(--fw-semibold); }   /* face + colour -> counter.css, 7.37 */
 .sech .all{ border-radius:var(--radius-8); padding:var(--space-4) var(--space-8); margin:calc(-1 * var(--space-4)) calc(-1 * var(--space-8)); cursor:pointer; }
 .sech .all:hover{ background:var(--bg-surface); }

@@ -140,13 +140,22 @@
 .co-line .li-old{ font-size: var(--fs-12); }   /* weight and strike -> price.css, 7.36 */
 .co-line .li-per{ display: block; }
 .co-line .li-per:empty{ display: none; }
-@media (max-width: 559px){
+/* 10.4 round 3: 559 -> 619 and 480 -> 620. This file wrote BOTH sides of one boundary
+   as two numbers, 479 and 480, and neither was in the registry. */
+@media (max-width: 619px){
   .co-line{ display: grid; grid-template-columns: 60px minmax(0, 1fr); column-gap: var(--space-12); row-gap: var(--space-12); }
   .co-line .li-right{ grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; }
   .co-line .li-acts button{ white-space: nowrap; }
 }
 .co-sub{ margin: 0 0 var(--space-12) var(--space-32); display: flex; flex-direction: column; gap: var(--space-8); }
-.co-city{ align-self: flex-start; }
+/* 10.4 round 3: TWO SIZES STEPPED AT 479 AND NOW THEY RAMP. `@media (max-width:479px)`
+   held `font-size: var(--fs-14)` and an 18px glyph against the 16 and 20 above it -
+   measured on `checkout`: 14/18 at 479, 16/20 at 480. A font-size switched at a point is
+   the thing this stage names outright, and the glyph beside it has to travel with the
+   word. Both ends are the values that stood there. */
+.co-city{ align-self: flex-start; font-size: clamp(var(--fs-14), 0.48rem + 1.75vw, var(--fs-16)); }
+.co-city .uiv-ic svg{ width: clamp(1.125rem, 0.74rem + 1.7vw, 1.25rem);
+  height: clamp(1.125rem, 0.74rem + 1.7vw, 1.25rem); }   /* 18px at 360 -> 20px at 480 */
 .co-saved{ border: 1px solid var(--line-inverse); padding: var(--space-12) var(--space-12); font-size: var(--fs-14); }
 .co-saved b{ font-weight: var(--fw-bold); }
 .co-saved .ch{ font-size: var(--fs-12); font-weight: var(--fw-semibold); margin-left: var(--space-8); }
@@ -190,28 +199,23 @@
 .co-keep .kr.tot{ border-top: 1px solid var(--line-hair); margin-top: var(--space-8); padding-top: var(--space-12); }
 .co-keep .knote{ font-size: var(--fs-12); margin-top: var(--space-8); }
 .co-err-acts{ display: flex; flex-direction: column; gap: var(--space-12); margin-top: var(--space-8); }
-@media (min-width: 480px){
+@media (min-width: 620px){
   .co-err-acts{ flex-direction: row; }
 }
 .co-err-acts > *{ flex: 1; }   /* two controls, nothing else - step 7.9 */
 .co-help{ font-size: var(--fs-12); margin-top: var(--space-16); line-height: var(--lh-airy); }
 .co-proc{ max-width: 520px; margin: 56px auto; padding: 0 var(--space-16); text-align: center; }
-.co-proc-box{ border: 1px solid var(--line-hair); padding: var(--space-40) var(--space-24); }
+/* 10.4 round 3: the same, for the box's own side padding: 16 below 479, 24 above. */
+.co-proc-box{ border: 1px solid var(--line-hair);
+  padding: var(--space-40) clamp(var(--space-16), -0.6rem + 7vw, var(--space-24)); }
 /* «Оберіть місто · обов'язково» is a whole sentence, not a verb, and below 480
    it does not fit a 247px column at the M type - the button may not wrap. So at
    that width this chooser IS the S size. The component picks WHICH size of the
    set it wears; it does not invent one, and the two numbers below are the set's
    own S values. */
-@media (max-width: 479px){
-  .co-city{ font-size: var(--fs-14); }
-  .co-city .uiv-ic svg{ width: 18px; height: 18px; }
-}
 /* below 480 the card gives its side padding to the button inside it: the
    button may not wrap, and «Оплату підтверджено - продовжити» is 11px wider
    than the 24px version of this card leaves for it. */
-@media (max-width: 479px){
-  .co-proc-box{ padding-left: var(--space-16); padding-right: var(--space-16); }
-}
 .co-spin{ width: var(--size-46); height: var(--size-46); border: 4px solid var(--line-hair); border-radius: var(--radius-circle); margin: 0 auto var(--space-24); }
 .co-proc-h{ margin-bottom: var(--space-8); }
 .co-proc-s{ font-size: var(--fs-14); line-height: var(--lh-airy); }
@@ -245,7 +249,7 @@
 .co-support .sh{ color:var(--text-muted); }
 .co-support b{ font-family:var(--font-mono); font-weight:var(--fw-semibold); font-size:var(--fs-14);
   color:var(--text-body); word-spacing:-.1em; }
-.co-h1{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-30); letter-spacing:var(--ls-lead); color:var(--text-body);
+.co-h1{ /* 10.2: fluid page heading, see section-head.css */ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-display); letter-spacing:var(--ls-lead); color:var(--text-body);
   margin:var(--space-24) 0 var(--space-16); }
 .co-sec{  border-radius:var(--radius-12); padding:var(--space-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
 .co-sec-h{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-20); letter-spacing:var(--ls-lead); color:var(--text-body); }

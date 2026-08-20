@@ -153,7 +153,11 @@
    to 56 was buying nothing visible and paying for it with a collision.
    `grid-template-columns` still drops to two columns here - that part is the phone
    layout and stays. */
-@media (max-width: 559px){
+/* 10.4: 559 -> 619, the mirror of `--bp-grid-2col`. The list card reflowing from
+   four columns to two is a BEHAVIOUR, so it stays a point; the only question was
+   which of the product's two, and 620 is the one named «the row of cards stops
+   being one column». The phone layout now holds 60px longer. */
+@media (max-width: 619px){
   .pcard-l{ grid-template-columns: 84px 1fr; row-gap: var(--space-12); }
   .pcard-l .lprice-col{ align-items: flex-start; }
   .pcard-l .lactions{ justify-content: flex-end; }

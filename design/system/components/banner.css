@@ -40,7 +40,14 @@
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .hbanners{ display: grid; gap: var(--space-12); grid-template-columns: 1fr; align-items: start; }
-@media (min-width: 720px){
+/* 10.4: 720 -> 620, `--bp-grid-2col`. `2fr 1fr` plus explicit placement is a
+   COMPOSITION, and `auto-fit` has no way to say it, so the hero keeps a point.
+   Which of the two was measured rather than picked: at 620 the deal column comes
+   out 192px, and at 860 - where `.hero-wrap` gains a companion column and squeezes
+   this grid to 562 - the same card is already 183px. So 192 is not a new low, it
+   is wider than what the design ships one point up. Folding to 860 instead would
+   have cost the home page its two-column hero from 620 to 859. */
+@media (min-width: 620px){
   .hbanners{ grid-template-columns: 2fr 1fr; }
   .hbanners:has(.hdeal) .hslider{ grid-column: 1; grid-row: 1; }
   .hbanners:has(.hdeal) .hside{ grid-column: 1; grid-row: 2; grid-template-columns: 1fr 1fr; }
@@ -65,10 +72,21 @@
 .hdeal .hd-meta{ font-size: var(--fs-12); }
 .hdeal .hd-cta{ margin-top: var(--space-12); text-align: center; }
 .hslider{ min-width: 0; }
-.hpromo{ scroll-snap-align: start; flex: 0 0 62%; min-height: 300px; border: 1px solid var(--line-hair);
+/* 10.4: THE HEIGHT RAMPS, THE BASIS SWITCHES, and the two parted company on
+   purpose. `min-height` was 300 below 720 and 340 above it - a SIZE stepping at a
+   point, which this stage does not do; it is now a `clamp()` that reaches 340
+   exactly where the hero splits. `flex-basis` is a different kind of thing: 62%
+   makes the next card peek and 46% fits two, and how many cards a person sees is
+   a behaviour, so it stays a query and folds onto 620 with the grid above. */
+.hpromo{ scroll-snap-align: start; flex: 0 0 62%;
+  /* the preferred term is set to fall just OUTSIDE the clamp at both ends, so 360
+     resolves to exactly 300 and 620 to exactly 340 rather than to 300.008: this
+     stage's promise at 360 is zero movement, and a sub-pixel is movement. */
+  min-height: clamp(18.75rem, 15.25rem + 15.5vw, 21.25rem);   /* 300px at 360 -> 340px at 620 */
+  border: 1px solid var(--line-hair);
   padding: var(--space-16); display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-4); }
-@media (min-width: 720px){
-  .hpromo{ flex-basis: 46%; min-height: 340px; }
+@media (min-width: 620px){
+  .hpromo{ flex-basis: 46%; }
 }
 .hpromo .hps{ font-size: var(--fs-14); }
 .hdots{ display: flex; gap: var(--space-8); justify-content: center; margin-top: var(--space-12); }
@@ -89,10 +107,16 @@
    would mean re-deriving it from the grey layer then. Not dead. Waiting. */
 .tband{ display: flex; flex-wrap: wrap; gap: var(--space-12) var(--space-24); padding: var(--space-12) var(--space-16); border: 1px solid var(--line-hair); border-radius: var(--radius-12); background: var(--bg-surface); font-size: var(--fs-14); color: var(--text-secondary); margin: var(--space-24) 0; }
 .tband span b{ color: var(--text-primary); }
-.tbanners{ display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-12); margin: var(--space-24) 0; }
-@media (min-width: 720px){
-  .tbanners{ grid-template-columns: repeat(5, 1fr); }
-}
+/* 10.4: THE QUERY IS GONE. Five banners, and unlike the six goal tiles this row
+   never insisted on a balanced arrangement - it already shipped 2+2+1 on a phone -
+   so `auto-fit` is free to fill. The floor is 8rem and it is a LITERAL rather than
+   a token, by this system's own rule that a value used once is a value: 128px is
+   the width the design already accepts for these cards at 720, measured, and no
+   second reader wants it. Against the query it replaces, on `index`: at 360 both
+   give 2 x 158, at 720 both give 5 x 128. Between them the row now steps 3 at 440
+   and 4 at 568 instead of holding two columns for 360 pixels. */
+.tbanners{ display: grid; grid-template-columns: repeat(auto-fit, minmax(min(8rem, 100%), 1fr));
+  gap: var(--space-12); margin: var(--space-24) 0; }
 .tbanners .tbn{ border: 1px solid var(--line-hair); overflow: hidden; display: flex; flex-direction: column; background: var(--bg-page); }
 .tbanners .tbim{ display: block; flex: none; }
 .tbanners .tbx{ padding: var(--space-12) var(--space-12) var(--space-12); display: flex; flex-direction: column; gap: var(--space-4); }
@@ -217,15 +241,21 @@
    evidence, not by a louder button. The banner is a warm panel, the proof
    (certificate, reviews) is the content, and the only orange is the way
    forward. */
-.recbanner { display: flex; align-items: center; gap: var(--space-16); background: var(--bg-surface);
+/* 10.4: THREE SIZES STEPPED AT 559 AND NOW THEY RAMP. The query held a gap, a
+   portrait and a font-size, and a `font-size` switched at a point is the one thing
+   this stage names outright. Each end of each ramp is the value that stood there
+   before - `--space-12` and `--space-16`, 68px and 92px, `--fs-18` and `--fs-20` -
+   so at 360 nothing moves and from 560 nothing moves; only the 200px between them
+   stopped being a cliff. The two rungs are named rather than resolved, because a
+   ramp between two rungs of the spacing set is still the set's business. */
+.recbanner { --rbear: clamp(4.25rem, 1.55rem + 12vw, 5.75rem);   /* 68px at 360 -> 92px at 560 */
+  display: flex; align-items: center;
+  gap: clamp(var(--space-12), 0.3rem + 2vw, var(--space-16)); background: var(--bg-surface);
   border: 1px solid var(--line-hair); border-radius: var(--radius-12); padding: var(--space-16); margin: var(--space-8) 0 var(--space-24); }
-.recbanner .rbear { width: 92px; height: 92px; flex: none; border-radius: var(--radius-circle); overflow: hidden; }
-.recbanner .rbear img { width: 92px; height: 92px; object-fit: cover; object-position: center 12%; }
-.recbanner .rt { font-family: var(--font-display); font-weight: var(--fw-semibold); font-size: var(--fs-20);
+.recbanner .rbear { width: var(--rbear); height: var(--rbear); flex: none; border-radius: var(--radius-circle); overflow: hidden; }
+.recbanner .rbear img { width: var(--rbear); height: var(--rbear); object-fit: cover; object-position: center 12%; }
+.recbanner .rt { font-family: var(--font-display); font-weight: var(--fw-semibold);
+  font-size: clamp(var(--fs-18), 0.9rem + 1vw, var(--fs-20));
   letter-spacing: var(--ls-lead); color: var(--text-primary); }
 .recbanner .rs { font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-4); line-height: var(--lh-airy); max-width: 62ch; }
-@media (max-width: 559px) {
-  .recbanner { gap: var(--space-12); }
-  .recbanner .rbear, .recbanner .rbear img { width: 68px; height: 68px; }
-  .recbanner .rt { font-size: var(--fs-18); }
-}
+

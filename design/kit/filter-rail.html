@@ -93,8 +93,15 @@
 <section class="kp-sec"><div class="kp-sh">Межі</div>
 <p class="kp-p">У файлі <b>2</b> медіа-умови, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width: 859px)</code></li><li><code>@media (min-width: 860px)</code></li></ul></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U6</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Одна рейка на екран, і вона <b>десктопна половина пари</b>: на 390 її не видно ніде в корпусі, там її роботу робить <code>filter-sheet</code>.</p></section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>6</b> власних класів і <b>1</b> стан.</p><div id="idle"></div><script>var KIT_CLS=["frail", "hrail", "hrail-fly", "hrail-scrim", "hrail-wrap", "rsep"], KIT_STS=[":hover"];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-shell-wide</code>, парою <code>859/860</code>, уже реєстровою. <b>Що саме міняється:</b> нижче точки рейки фільтрів немає - її роботу робить шит. Раунд організмів нічого не складав.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>filter-rail.css</code>: <b>13</b> семантичних ролей і <b>11</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (13)</th><th>Примітиви (11)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-surface</code> <code>--elevation-1</code> <code>--elevation-3</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--mark-faint</code> <code>--scrim-overlay</code> <code>--text-action</code> <code>--text-body</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--radius-12</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>

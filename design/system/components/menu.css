@@ -116,7 +116,16 @@
    Below 480 a list anchored to its trigger either runs off the screen or sits
    under the thumb. The product already answers this with a bottom sheet for
    filters, so the menu uses the same shape rather than inventing a second one. */
-@media (max-width: 479px){
+/* 10.4: 479 -> 619, the mirror of `--bp-grid-2col`. The number was not in the
+   registry and the stage gives such a number three ends: fold it into a registered
+   point, name it a container threshold, or make it disappear. It folds. What the
+   rule does is turn an open dropdown into a full-screen sheet with a scrim, and that
+   IS a behaviour, so it stays a point rather than becoming fluid; the only question
+   was which point, and the product has two. Below 620 a dropdown list has no room to
+   be a dropdown - the same reason the card row stops being one column there.
+   The consequence, said out loud: between 480 and 619 an open menu now takes the
+   sheet form it used to take only below 480. At 360 nothing moves. */
+@media (max-width: 619px){
   .menu-scrim.open{
     position: fixed; inset: 0; z-index: 70;
     background: var(--scrim-overlay);

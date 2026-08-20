@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Організм · рівень 3</div>
 <h1 class="kp-h1">Діалог клієнта</h1>
 <p class="kp-lead">Файл названо діалогом клієнта, і <b>саме діалог клієнта тут не має кольору</b>. <code>.cemodal</code> і <code>.cedlg</code> це спільна коробка, яку <code>wireframes/_nav.js</code> будує на льоту для <b>дев'яти</b> діалогів: новий клієнт, редагування клієнта, видалення клієнта, адреса, видалення адреси, телефон, e-mail, мова, видалення акаунта. Кольору сягають шість, і всі шість - про покупця.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/client-dialog.css</span><span class="kp-tag">114 рядків</span><span class="kp-tag">22 селектори</span><span class="kp-tag">84 оголошення</span><span class="kp-tag">5 екранів, діалог на 2</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/client-dialog.css</span><span class="kp-tag">115 рядків</span><span class="kp-tag">22 селектори</span><span class="kp-tag">84 оголошення</span><span class="kp-tag">5 екранів, діалог на 2</span></div>
 
 <section class="kp-sec"><div class="kp-sh">З чого складається</div>
 <p class="kp-p">Коробка не має власного вмісту: 24 з її дитячих класів належать шістьом іншим файлам, бо всередину кладе той потік, який її відкрив.</p>
@@ -69,8 +69,15 @@
 <section class="kp-sec"><div class="kp-sh">Межі</div>
 <p class="kp-p"><b>Одна медіа-умова, і вона з'явилась на 8.31b</b>, коли другий діалог уперся в те саме: під 480 пара дій стає стовпчиком. <code>coach-tariff.css</code> написав це правило для <code>.tfdlg</code> ще на 8.7 зі своїм заміром («пара ніколи не влазить у цю коробку - 2.08 за край на КОЖНІЙ ширині»), а модалка додавання клієнта відтворила знахідку з іншого кінця: «Додати першого клієнта» поруч зі «Скасувати» іде 154..387 у в'юпорті 360, тобто <b>27px за край</b>, і сторінку це <b>не</b> прокручує - скрим обрізає, тож правий край головної дії просто недосяжний, а всі гейти читають 0. Два діалоги, по одному заміру кожен - і це вже відповідь компонента, а не екрана. Межа 479 - та сама, що в <code>button.css</code> для його власного телефонного кроку.</p></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U9</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Ряд дій діалогу <b>ще не переведений</b>, і це сказано вголос: його розмітку будує <code>wireframes/_nav.js</code>, спільний скрипт обох корпусів, а сірий корпус цей етап не редагує. Переведення записане в беклог для етапу 12.</p></section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>12</b> власних класів і <b>1</b> стан. <code>.mode-edit</code> стоїть у станах, а не в класах, і це не послаблення контролю: цей клас дописує JavaScript у момент дії, тож у спокої його не існує ніде - показати його можна лише підробкою, а підроблений стан заборонено тим самим правилом, що й вигадану роль.</p><div id="idle"></div><script>var KIT_CLS=["act", "ac-list", "ac-new", "ac-new-sub", "ce-top", "ce-x", "ceact", "cedel", "cedlg", "cemodal", "dn", "ic"], KIT_STS=["mode-edit"];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-grid-2col</code> дзеркалом <code>619</code>. <b>Що саме міняється:</b> ряд дій діалогу складається в стовпчик, зворотним порядком. <b>Було 479</b>, поза реєстром.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>client-dialog.css</code>: <b>8</b> семантичних ролей і <b>16</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (16)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--elevation-4</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-18</code> <code>--fs-20</code> <code>--fs-24</code> <code>--fw-black</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--radius-12</code> <code>--radius-circle</code> <code>--space-2</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code></td></tr></tbody></table></div></section>

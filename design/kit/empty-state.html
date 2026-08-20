@@ -139,10 +139,18 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Порожній екран мусить мати вихід, і бажано названий.</b> Не «спробуйте змінити фільтри», а кнопка «Очистити фільтри» поруч із двома цілями. Порожнеча - це місце, де людина найближча до того, щоб піти.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не вибачайся і не жартуй.</b> Ведмідь тут заспокоює, а не розважає; текст називає стан і наступний крок. Принцип 4 діє і тоді, коли показувати нічого.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U5</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Один порожній стан <b>на екран</b> - але <code>.emptybox</code> це порожнеча <b>блока</b>, і їх буває три на одному екрані (<code>account-empty</code>). Плутати два класи не можна: <code>.empty</code> каже «екран порожній», <code>.emptybox</code> - «порожня ця картка».</p></section>
+
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>9</b> власних класів і <b>4</b> стани оголошено в <code>empty-state.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["empty","emptybox","errbox","loadnote","ei","et","es","eact","mini","hint"], KIT_STS=[".mini", "aria-label=\"Результати\"", "aria-label=\"Помилка\"", ":hover"];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> жодного. Порожній стан плинний і має свою міру рядка; єдине, що етап 10 йому дав, - <code>--container-text</code> замість двох рукописних <code>ch</code>. Раунд молекул не додав нічого.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>empty-state.css</code>: <b>10</b> семантичних ролей і <b>19</b> примітивів.</p>

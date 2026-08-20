@@ -23,10 +23,17 @@
 .loy .lrung{ flex: 1; border: 1px solid var(--line-hair); padding: var(--space-8) var(--space-8); text-align: center; font-size: var(--fs-12); color: var(--text-secondary); }
 .loy .lrung .rn{ display: block; font-weight: var(--fw-black); color: var(--text-primary); font-size: var(--fs-12); }
 .loy .lrung .rs{ display: block; margin-top: var(--space-4); font-size: var(--fs-12); color: var(--text-muted); }
-.loy-two{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-16); }
-@media (min-width: 760px){
-  .loy-two{ grid-template-columns: 1fr 1fr; }
-}
+/* 10.4: THE QUERY IS GONE. Two cards, and `auto-fit` over two items can only
+   ever return one column or two, so the mechanism is exact here rather than
+   approximate - there is no third arrangement for it to invent. 760 was the only
+   number this file held and it was in no registry. Measured: at 760 the pair is
+   356 + 356, the same two boxes the query gave, and at 740 it stacks. */
+/* AND THE FLOOR IS WRAPPED IN `min(..., 100%)`, which is not decoration: a bare
+   `minmax(19rem, 1fr)` makes the track 304px wide inside a 288px box at 360 and
+   pushes the page sideways. `product-grid.css` and `skeleton.css` already write
+   the guard; this is the same idiom, not a new one. */
+.loy-two{ display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-col-min-panel), 100%), 1fr));
+  gap: var(--space-16); margin-top: var(--space-16); }
 .loy-two .acard{ padding: var(--space-16); }
 .lbar.maxed i{ background: var(--bg-inverse); }
 /* ---------- the column the phone could not reach - 7.48 ----------------------

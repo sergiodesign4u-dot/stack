@@ -13,13 +13,19 @@
   align-items: stretch; justify-content: center; }
 .auth-ov.open{ display: flex; }
 .auth-modal{ background: var(--bg-page); width: 100%; display: flex; overflow-y: auto; }
-@media (min-width: 720px){
+/* 10.4 round 3: 720/719 -> 860/859, eight blocks, one behaviour: the dialog stops
+   being a phone sheet and becomes a two-pane modal. 860 and not 620, and the reason is
+   a measurement rather than a preference - at 620 the modal is capped by the window,
+   so the two panes come out 243.8 and 310.3 and the FORM column ends up narrower than
+   the single-pane form it replaced (618). At 860 they are 349.4 and 444.6. A form is
+   better wide, so the second pane waits for the shell point. */
+@media (min-width: 860px){
   .auth-ov{ align-items: center; padding: var(--space-24); }
   .auth-modal{ max-width: 880px; min-height: min(560px, 94vh); max-height: 94vh; border-radius: var(--radius-16);
     overflow: hidden; }
 }
 .auth-visual{ display: none; }
-@media (min-width: 720px){
+@media (min-width: 860px){
   .auth-visual{ display: flex; flex-direction: column; justify-content: space-between;
     width: 42%; flex: none; padding: var(--space-24); color: var(--text-secondary); font-size: var(--fs-12);
     background: repeating-linear-gradient(45deg,var(--bg-surface),var(--bg-surface) 10px,var(--bg-hatch) 10px,var(--bg-hatch) 20px);
@@ -30,12 +36,12 @@
 .auth-visual .vtag b{ display: block; }
 .auth-form{ flex: 1; min-width: 0; padding: var(--space-24) var(--space-24) var(--space-32); display: flex; flex-direction: column;
   overflow-y: auto; }
-@media (min-width: 720px){
+@media (min-width: 860px){
   .auth-form{ padding: var(--space-32) var(--space-40); }
 }
 .auth-top{ display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-8); }
 .auth-mlogo{ font-size: var(--fs-18); font-weight: var(--fw-black); color: var(--text-primary); }
-@media (min-width: 720px){
+@media (min-width: 860px){
   .auth-mlogo{ display: none; }
   .auth-form{ position: relative; }
   .auth-modal{ --auth-row: 34px; }
@@ -53,7 +59,7 @@
   display: flex; align-items: center; justify-content: center; font-size: var(--fs-18); flex: none; }
 .auth-banner .bt{ font-size: var(--fs-14); color: var(--text-secondary); }
 .auth-banner .bt b{ display: block; }
-@media (min-width: 720px){
+@media (min-width: 860px){
   .auth-banner{ display: none; }
 }
 /* step 7.30: `.auth-sub a`, `.auth-consent a` and `.auth-foot a` are gone from
@@ -97,7 +103,7 @@
    is no harness. */
 .auth-ov{ left: var(--shell-left, 0px); top: var(--shell-top, 0px); }
 .auth-ov{ background:var(--scrim-overlay); }
-@media (min-width:720px){
+@media (min-width:860px){
   .auth-ov{ padding:var(--space-32); }
 }
 .auth-modal{ border:1px solid var(--line-hair); border-radius:var(--radius-16);
@@ -123,7 +129,7 @@
   box-shadow: var(--elevation-mark); }
 .auth-visual .vtag b{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-16);
   letter-spacing:var(--ls-lead); color:var(--text-body); margin-bottom:var(--space-4); }
-@media (min-width:720px){
+@media (min-width:860px){
   .auth-visual{ width:44%; padding:var(--space-24); position:relative; overflow:hidden; border-right:none;
     background:var(--bg-sunken) url(../../visuals/mascot-gym-a.jpg) 52% 34%/cover no-repeat; }
   .auth-visual::before{ content:""; position:absolute; inset:0; pointer-events:none;
@@ -135,7 +141,7 @@
   .auth-visual .vmid .vi{ margin:0; box-shadow: var(--elevation-mark); }
   .auth-form{ padding:var(--space-32) 38px var(--space-32); }
 }
-@media (max-width:719px){
+@media (max-width:859px){
   .auth-mlogo{ display:inline-flex; align-items:center; gap:.36em; font-family:var(--font-display);
     font-weight:var(--fw-bold); color:var(--text-body); }
   .auth-mlogo::before{ content:""; flex:none; height:1.0125em; width:.863em;

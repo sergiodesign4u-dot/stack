@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 3</div>
 <h1 class="kp-h1">Клієнти тренера</h1>
 <p class="kp-lead">Вузол 5.3 - збережений список людей, і вузол 5.4 - картка однієї з них. Це серце locked-рішення «тренер як покупець»: без цього списку тренерський канал не існує. Два екрани в одному файлі, бо три з чотирьох частин у них однакові й лише різного розміру.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-clients.css</span><span class="kp-tag">627 рядків</span><span class="kp-tag">57 селекторів</span><span class="kp-tag">229 оголошень</span><span class="kp-tag">10 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-clients.css</span><span class="kp-tag">638 рядків</span><span class="kp-tag">56 селекторів</span><span class="kp-tag">221 оголошення</span><span class="kp-tag">10 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Список і картка - одна людина двічі</div>
 <p class="kp-p">Файл тримає дві половини, і вони не випадкові сусіди. <code>.ccard</code> - це <b>підсумок людини</b> в списку, <code>.ch-*</code> - <b>та сама людина, відкрита</b>. Аватар, ім'я і чип цілі є в обох, просто різного розміру:</p>
@@ -106,6 +106,11 @@
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Одна людина - одне правило, у двох розмірах.</b> Аватар, ім'я і чип цілі описані так, щоб зміна дійшла до списку й до картки одночасно. Заголовок сторінки взагалі один селектор на два екрани: <code>.cl-h1, .ch-name</code>.</div>
 <div class="kp-dont"><h4>Антиправило</h4><b>Не віддзеркалюй чужу оболонку перенабором.</b> Екран, який каже «shell mirrors account.html» і потім набирає ті самі 19 блоків, отримує копію, а не дзеркало. Три оголошення з тих 19 уже встигли розійтись до того, як їх видалили.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U9</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Чотири ряди дій цього файлу беруться патерном <code>.actions</code>. Три власні <code>gap</code> - 9px, 9px, 10px - лишились тут; цей файл сам назвав їх «третім числом на чотирьох рядах дій» ще до того, як патерн з'явився.</p></section>
+
+
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
 <p class="kp-p"><b>Нуль</b> <code>:hover</code>, нуль <code>:active</code>, нуль <code>:focus-visible</code>. Кнопки, чипи, поле, статус-пілюля і порожній стан приносять свої стани самі.</p>
 <p class="kp-p">Єдиний стан, який малює цей файл, - <b>структурний</b>: <code>.cd-row:last-child</code> знімає нижню лінію останнього рядка даних. Решта «станів» тут - <b>варіанти даних</b>: клієнт із замовленнями і без, список у межах ліміту і на ліміті, і за панель ліміту відповідає <code>upsell.css</code>.</p></section>
@@ -122,6 +127,9 @@
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>44</b> класи і <b>0</b> станів оголошено в <code>coach-clients.css</code>. <code>.coach</code> не рахується - це скоуп, а <code>.btn</code> тут не компонент, а місце в ряду.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["cc-cta", "cc-note", "cc-wrap", "ccard", "ccard-acts", "ccard-av", "ccard-goal", "ccard-hd", "ccard-meta", "ccard-nm", "cd-h", "cd-list", "cd-row", "cdetails", "ch", "ch-av", "ch-edit", "ch-goal", "ch-id", "ch-name", "cl-acts", "cl-h1", "cl-search", "cl-sech", "cl-sub", "cl-tools", "cl-top", "clist", "dot", "oc-actions", "oc-item", "oc-items", "oc-meta", "oc-nm", "oc-no", "oc-ph", "oc-qty", "oc-sum", "oc-top", "ocard", "oh-h", "ohist"], KIT_STS=[];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від яких порогів:</b> <code>--bp-grid-2col</code> і його дзеркало. <b>Що саме міняється:</b> список клієнтів іде з однієї колонки у дві; нижче точки рядок клієнта складається в стовпчик. <b>Було 640 і 520</b>, обидва поза реєстром. 520 це <b>власне число потоку тренера</b>, яке трапилось тричі - тут, у <code>coach-cabinet</code> і в <code>coach-verify</code> - і не було зареєстроване жодного разу.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>coach-clients.css</code>, не переписані руками. <b>Жодного кольору дії в усьому файлі</b> - ні <code>--bg-action</code>, ні <code>--text-action</code>: помаранчевий на цих екранах приносять кнопки й панель Pro, а сам список клієнтів увесь у нейтральних ролях. Для екрана, який тренер відкриває щодня, це правильно.</p>

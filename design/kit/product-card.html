@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Картка товару</h1>
 <p class="kp-lead">Найповторюваніша поверхня продукту: 198 штук на 17 кольорових екранах. Два варіанти однієї картки - сіткою і списком, - і до цього кроку вони були двома різними компонентами з однією назвою.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/product-card.css</span><span class="kp-tag">379 рядків</span><span class="kp-tag">103 селектори</span><span class="kp-tag">184 сіткою · 14 списком</span><span class="kp-tag">21 екран</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/product-card.css</span><span class="kp-tag">383 рядки</span><span class="kp-tag">103 селектори</span><span class="kp-tag">184 сіткою · 14 списком</span><span class="kp-tag">21 екран</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка тут - та сама, що на <code>listing.html</code> і <code>listing-list.html</code>, скопійована рядок у рядок. Стенд на вигаданій розмітці показує намір, а не компонент.</p>
@@ -125,11 +125,19 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Два варіанти однієї картки - один компонент з однією анатомією.</b> Частина, що робить ту саму роботу, бере те саме обличчя й той самий набір станів. Розходитись можуть щільність і розкладка - і тільки там, де за це відповідає поверхня.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не давай варіанту власний стан.</b> Якщо список відповідає на курсор інакше, ніж сітка, людина вчить дві картки замість однієї - а це та сама картка, просто повернута боком.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U8</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Акцентна кнопка «У кошик» на картці - це <b>фініш дії</b>, а не головна дія екрана. Саме тому їх на екрані буває 13.</p></section>
+
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>32</b> власних класів і <b>3</b> стани оголошено в <code>product-card.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["pcard","pcard-l","ph","lph","tag","bd","lbd","pbrand","lbrand","nm","lnm","pavail","lavail","prow2","pcol","poldline","lold-row","pold","lold","pnew","lprice","lprice-col","pcut","lcut","rate","st","pmeta2","perserv","bonus","lmeta","lactions","dim"], KIT_STS=[":hover", ".dim", "--line-action"];</script>
 <p class="kp-p">Цей контроль щойно себе виправдав: <b><code>.packlabel</code> і його <code>figcaption</code> пішли з файлу</b> - це були єдині два класи, які демо картки не могло відрендерити, бо вони не картка. <code>.packlabel</code> - це <code>&lt;figure&gt;</code> навколо знімка етикетки на сторінці товару; 38 правил для всього, що <b>всередині</b> нього, уже лежали в <code>spec-table.css</code>, а обгортка - ні.</p></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-grid-2col</code>, дзеркалом <code>619</code>. <b>Що саме міняється:</b> картка-список іде з чотирьох колонок у дві - фото, текст, а ціна і дії під ними. <b>Було 559</b>, числа, якого немає в реєстрі; тепер телефонна розкладка тримається на 60px довше. Решта чисел файлу - <code>619</code>, <code>859</code> і <code>860</code> - уже стояли на реєстрі: <code>.pmini</code> перевертається на точці оболонки. <b>Подвоєний блок 860 лишено навмисно</b> - це розкол «структура / колір» етапу 08, а не дублікат.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>product-card.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>

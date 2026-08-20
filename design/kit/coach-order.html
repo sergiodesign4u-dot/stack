@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 3</div>
 <h1 class="kp-h1">Замовлення тренера</h1>
 <p class="kp-lead">Вузол 5.7 - одне замовлення тренера, відкрите. Товари згруповані <b>по клієнтах</b>, кожна група закривається власною сумою і власним «повторити»: Job 1 і Job 4 в одній картці. Шостий із восьми тренерських організмів.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-order.css</span><span class="kp-tag">446 рядків</span><span class="kp-tag">27 селекторів</span><span class="kp-tag">106 оголошень</span><span class="kp-tag">3 екрани</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-order.css</span><span class="kp-tag">448 рядків</span><span class="kp-tag">27 селекторів</span><span class="kp-tag">104 оголошення</span><span class="kp-tag">3 екрани</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Шість правил видалено, сьоме врізано - і файл лишився 27 селекторів</div>
 <p class="kp-p">Це найменший тренерський організм за оголошеннями (<b>106</b> на 27 селекторів - по чотири), і таким він став на переїзді 8.7. Кожне видалення зміряно в браузері з правилом і без нього, обидва числа записані поруч із ним у файлі.</p>
@@ -97,6 +97,9 @@
 <p class="kp-p">Власних станів компонент <b>не має</b>: жодного <code>:hover</code>, <code>:focus-visible</code> чи <code>:disabled</code> у файлі немає. Усі три інтерактивні контроли на екрані носять класи атомів і беруть стани звідти - <code>.od-repeat1</code> дістав <code>hover</code> на <code>--text-action</code> і <code>focus</code> на <code>--ring-focus-control</code> саме тому, що перестав малювати себе руками. Це і є вимір переїзду: <b>приватне правило станів не мало, публічний фініш має</b>.</p>
 <p class="kp-p">Три дії підвалу на 390: 214.61 · 119.61 · 178.86, усі <b>52</b> заввишки, <code>flex-wrap</code>, проміжок 10px <code>[?]</code>. Один акцент, один контур, один привид - рангів рівно три, і вони не сперечаються.</p></section>
 
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-grid-2col</code>, уже реєстрове. Раунд організмів нічого не складав.</div>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>coach-order.css</code>, не переписані руками. <b>Сім ролей на двадцять п'ять токенів</b> - і жодного кольору дії: ні <code>--bg-action</code>, ні <code>--text-action</code> у файлі немає. Помаранчевий на цьому екрані приносить рівно одна кнопка з <code>button.css</code>, а сам звіт про замовлення весь у нейтральних ролях. Для екрана, який тренер відкриває, щоб <b>перевірити</b>, це правильно.</p>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (7)</th><th>Примітиви (18)</th></tr></thead><tbody>
@@ -157,6 +160,10 @@
 <li><b><code>.cprice</code> і <code>.old</code> у розмітці</b> - імена, які вже належать іншим шарам. Скоуп <code>.coach</code> тримає їх сьогодні; перейменування це Крок 6</li>
 <li><b>Три посилання хлібних крихт під підлогою дотику</b> - 15.00 заввишки на всіх чотирьох ширинах. Це рішення про слід, а не про вузол 5.7: кожен екран продукту з <code>.crumb</code> носить ті самі три</li>
 </ul><p style="margin-top:8px">Не домальовано наперед і не замовчано: етап 09 стартує з цього списку, зведеного в <code>design/kit/docs/architecture.md</code>.</p></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U9</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Ряд дій замовлення береться патерном <code>.actions</code>; <code>gap: 10px</code> лишився тут як відхилення.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>24</b> класи і <b>0</b> станів оголошено в <code>coach-order.css</code>. <code>.coach</code> не рахується - це скоуп; <code>.od-status</code>, <code>.cprice</code>, <code>.old</code> і <code>.wtag</code> теж ні - файл їх більше не оголошує, вони лишились у розмітці і належать чужим атомам.</p>

@@ -38,7 +38,8 @@
    OPPOSITE. `column-reverse` and nothing else: the source order stays as it is
    for a screen reader and for the row above 480, and only the stacked geometry
    flips. One declaration, eight screens. */
-@media (max-width: 479px){
+/* 10.4 round 3: 479 -> 619. The dialog's action row stacks in reverse on a phone. */
+@media (max-width: 619px){
   .ceact, .cedlg .act{ flex-direction: column-reverse; }
 }
 .cedel{ margin-top: var(--space-16); padding-top: var(--space-16); border-top: 1px solid var(--line-hair); }

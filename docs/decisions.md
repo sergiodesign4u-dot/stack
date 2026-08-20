@@ -9035,3 +9035,1091 @@ Step 9 is complete: the closing ritual, the dry run and the audit have all run. 
 this pass. Three things go to the owner: **the reply block's second copy** (a Крок 6 rename plus one
 deletion), **the image weight** (a build decision, not a token one), and **`.wfh-meta`'s max-height
 transition** (one rule, `grid-template-rows` is the usual answer).
+
+## Stage 09, step 1 - one pattern out of fifty-three names, nine rules of use, and five wrong instruments
+
+**The step in one line.** `design/system/patterns/` exists, holds one file, and 15 coloured screens
+were converted onto it with **zero pixels moved over 30 comparisons**. The same walk produced nine
+rules of use, which are the stage's second and more expensive harvest.
+
+### The instrument, and it was wrong five times before it was right
+
+`tools/pattern.mjs` walks 142 grey screens and 88 coloured ones and asks three things: the full
+child sequence of a named container, every adjacent pair under one, and how many times each class
+stands on each screen. Two harvests from one pass, because a pattern and a prohibition are the same
+counter read in opposite directions.
+
+Every wrong version is written in the file's header, because each one produced a confident number:
+
+1. **No ownership question** - 268 compositions on three or more screens, most of them the inside
+   of a card. A threshold that returns a quarter of the corpus has measured nothing.
+2. **The signature was the whole child sequence** - one extra block on one screen split one
+   composition in two.
+3. **`btn--*` dropped to align the corpora** - and stage 08 had renamed the grey `.btn.dark` to
+   exactly `.btn--accent`, so the child lost its class, the pair rule discarded it as unnamed, and
+   the most repeated composition in the product read **70 grey screens against 0 coloured**.
+4. **A run is not a pair** - two identical adjacent children collapse into one run, which is
+   precisely «two buttons side by side»: 28 screens instead of 76.
+5. **Chrome decided by the whole key** - `wireframes/_nav.js` builds the header, footer, mega menu,
+   drawer, city dialog and tab bar, and BOTH corpora load it, so those stand on 134 of 142 grey
+   screens while already living in one function. The rule «every class here was injected» answered
+   «no» for the whole header, because `btn` and `field` are also hand-written elsewhere. The
+   container decides now, and 115 rows moved out of the findings.
+
+### Two things the walk said about the corpus itself
+
+**`wireframes/` is not frozen.** Sixteen commits touched `wireframes/_nav.js` during stages 07 and
+08, seven touched `_wf.css`. Since steps 7.3-7.6 that script writes `btn--accent`, `btn--outline`
+and `btn--ghost` into the GREY dom. That is not an accident to be undone - the script is shared
+infrastructure both corpora load - but it means the grey corpus renders with system class names,
+and any claim of the form «the grey layer does not know about the system» is false.
+
+**The chrome is already single-sourced.** The top twenty-five compositions by screen count are all
+header, footer, mega menu, drawer and tab bar. Carving a pattern out of any of them would move a
+rule from one single source to another and call it progress.
+
+### What was extracted, and what was refused
+
+**One pattern: `action-row.css`.** The composition is a row of two actions, and it stands on 70 grey
+and 58 coloured screens **under 53 different container names**. Nineteen of them carry a rule in
+fifteen component files; ten carry no rule at all. The file owns three declarations and two
+modifiers, and every deviation stayed in its own component file.
+
+**Everything else was refused on the same test: where does this rule live today?** `toolbar.css`,
+`filter-rail.css`, `section-head.css`, `breadcrumb.css`, `product-grid.css` and `empty-state.css`
+each already hold their composition in exactly one place. The page shell - 129 grey screens, the
+widest composition in the product - was refused too, and this one is worth the sentence: `.wf-canvas`
+and `.wf-page` are declared in `design/_stand.css`, which opens by saying it is prototype chrome and
+not part of the system. That placement is a recorded decision of step 7.26. The finding that the
+product's content column lives outside the system is real and goes to `backlog.md` as a decision for
+the owner, not into a pattern as a side effect.
+
+### The pixel proof found my mistake, which is what it is for
+
+First run: **10 of 30 comparisons moved.** The cause was specificity, not layout. `.actions` and a
+bare container class both weigh (0,1,0), and patterns import last, so the pattern's `gap: 12` beat
+`.ci-links`'s own 16 and `.addr-acts`'s own 8. The `.coach .x` rows survived untouched at (0,2,0),
+which is why the defect appeared on exactly the four unscoped containers. The fix is a rule, not a
+screen: a deviation is written `.x.actions{ }`, which reads as what it is - this container is an
+action row AND it differs from one. Second run: **0 moved, 240 rows renamed.**
+
+`tree-diff.mjs` gained a `--widths=` argument in the same step, because the pack asks for 360 and
+the file had 390 hard-coded. A comparator that can only be asked at the width its author picked
+cannot answer the question the acceptance rule states.
+
+### `dead-sel.mjs` decided the shape of the pattern
+
+The pattern shipped with `.actions--even` and nothing wearing it, and `dead-sel.mjs` said so - two
+MERTVYI selectors - the moment the folder was added to its subject, which it had not been. The
+choice between «use it or delete it» became a measurement: `.ccard-acts` had `flex-wrap: nowrap` and
+`.ccard-acts .btn{ flex: 1 }` written by hand, which IS the modifier. Both declarations were deleted
+and the markup says `actions--even`. Back to 0 dead, and the pattern folder is now inside the walk
+that asks whether a shipped selector ever matches.
+
+### Nine rules of use, and the one that says the system is missing a class
+
+They live in `architecture.md` section I, rebuilt onto `architecture.html`, with an «Обмеження»
+sub-item added to **27 component pages** that links back. Each carries its own source: the counter,
+`conventions.md`, or the stage-04 critique log.
+
+The expensive one is U8. `conventions.md` line 130 says «Each zone has one main action; the screen's
+main action is a real `<a href>` to the next» - and the coloured layer has nothing to check it with.
+Visible `.btn--accent` reaches **13 on one screen**, because every product card carries an accent
+cart button; the grey layer's own primary marker `dark` reaches 5. The finish is the rank, and the
+rank is being asked to mean two things. The rule states the measurement; it does not invent a
+`btn--primary` role. That is an owner decision and it is in the backlog.
+
+Two more that came out of reading the counter twice. **Presence is not visibility**:
+`account-profile` carries seven elements marked `dark`, and four are the confirm buttons of three
+closed dialogs. And **the walk ran at one width**: at 390 the desktop filter rail and desktop
+toolbar have no box at all, so a visible-only counter would have called both dead. Both readings are
+kept, and every rule says which one it came from.
+
+### Gates
+
+`accept` 275 screens 0 failures at **390 and at a measured 360** · `tree-diff` 30 comparisons 0
+moved · `dead-sel` 2921 selectors in 85 files, 0 dead · `links` 4948 hrefs 0 dead · `idle` 83 pages
+0 red · `roles` 84 components 0 diverged · `vars` 275 screens 0 · `css-comments` 92 stylesheets
+balanced · `theme` clean.
+
+The pattern has no stand page, no registry row and no inventory line yet - that is step 2, and the
+pack puts them there on purpose.
+
+## Stage 09, step 2 - the showcase of one pattern, and a hub that had gone quietly stale
+
+**What the step owed.** `patterns.html` with the rule of choice, a page per pattern, a registry
+group after Organisms, cards in the hub and rows in the inventory. All five are done. What the step
+did not owe, and what it found on the way, is the more useful half.
+
+### `patterns.html` answers a question, it does not list files
+
+The pack asks for «when to take a pattern and when separate components» as the page's main content,
+written with examples from this product rather than in the abstract. The page carries three, and
+only the first is a pattern:
+
+- **the action row** - the same composition, different content, on 70 grey screens. Take the pattern.
+- **the cart drawer's foot** - two actions side by side too, but a `grid` whose hint drops onto its
+  own line under both. The composition differs in ORDER, and gluing it to the action row would make
+  a pattern that describes nothing exactly. It stays in `cart-drawer.css`.
+- **the listing toolbar** - `.ltool` + `.mtoolbar` + `.listing` on 13 grey screens, over the
+  threshold. Refused anyway, because **its rule already lives in one file**. A pattern there would
+  move a rule from one single source to another and call it progress.
+
+So the question is not «does this composition repeat» but **«where does its rule live today»**, and
+the page says that in those words. The same test refused the filter rail, the section head, the
+breadcrumb and the product grid.
+
+**The 51 two-screen candidates are on the page**, eight of them in a table with their screens named.
+Half live on screens that are still grey - `order-placed`, `content-loyalty`, `checkout` - so stage
+12 will supply the third occurrence by itself. Without the block, the next round would search for
+them from scratch.
+
+### The hub was claiming 24 organisms out of a group of 34
+
+`overview.html` carried **73 component cards for 84 files**, and its own heading read «Організми
+24 / 24». That heading was true the afternoon it was typed. Eleven components arrived afterwards -
+the eight coach organisms, `plan-card`, `upsell`, `product-thumb` - and each of them was added by
+editing a DIFFERENT file, so nothing the hub could see ever changed. `why.html` and `backlog.html`
+were missing too: 100 registry pages, 87 reachable from the hub.
+
+This is the failure mode this project has now paid for six times, and it is worth naming precisely:
+**a hub that misses a card does not 404 and does not look broken. It looks finished.** The registry
+sidebar was complete the whole time, so every route worked - only the page whose job is to show what
+the system contains was showing 87% of it.
+
+`tools/inventory.mjs` asks three new questions now, and its positive control was run in both
+directions: a registry page with no card, a card with no registry row, and **a group heading whose
+count disagrees with the cards under it** - because the heading is a second claim about the same
+set, and trusting it is how «24 / 24» survived.
+
+### Two more instrument fixes, both of them latent bugs rather than new features
+
+**The level-3 table ran to the end of the file.** `inventory.mjs` scanned each level section until
+the next level heading, and the LAST one until `md.length` - so the patterns table appended below it
+was read as a thirty-fifth organism, and the level check called it diverged. Any table appended
+under the last level would have been swallowed the same way, silently, and the count would still
+have looked like coverage.
+
+**`--apply` could not close its own finding.** It rewrote the stand pages' meta tags and left the
+`Lines` column in `inventory.md` untouched, so the run that «applied everything» still reported ten
+wrong numbers on its next pass. A repair that cannot close its own finding is a half-instrument.
+Ten line counts were rewritten from disk, and the check now reads 0.
+
+**And the second level of the system is asked the component's questions.** A pattern with no
+inventory row and no stand page would have passed silently, because every question in that file was
+written when the system had one level.
+
+### Gates
+
+`links` 4982 hrefs 0 dead · `idle` 84 pages 0 red · `inventory` 84 files, 84 rows, Lines 0, level 0,
+registry 0, hub 0 · `dead-sel` 0 dead in 85 files. The registry now reads
+Основи -> Атоми -> Молекули -> Організми -> **Патерни** -> Перепис -> Перевірка, which is the order
+of `@import` and the ladder of levels, so the panel is read bottom-up the same way the system is
+assembled.
+
+## Stage 09, step 3 - the guide, and the sidebar it had been carrying was the wrong one
+
+**What was there.** `why.html` already existed - 86 lines, written at an off-pack step 09.2 and
+already the roadmap row «Чому саме так» in the root registry. So the step was an extension rather
+than a build, and the first thing to check was whether the existing page answered the questions the
+pack asks. It answered two of nine and carried the wrong shell.
+
+**The shell was wrong, and it mattered.** The page carried `<nav id="kitnav">`, the STAND panel, and
+loaded `design/kit/_nav.js`. A roadmap item has to carry the roadmap panel from the root registry -
+`../../_nav.css`, an empty `<aside id="sidebar">`, `NAV_BASE='../../'`, its own `NAV_SECTIONS` and
+`../../_nav.js` - exactly as `overview.html` does for stage 08. The two-part pattern is the same one
+`wireframes/` and `ia/` use: the hub answers «where am I in the project», a page answers «where am I
+in the system». A guide written for someone who has never seen the system was answering the second
+question.
+
+**Nine sections now, each in `NAV_SECTIONS`.** Verified in a browser at a measured 360 and at 1280:
+nine section links, nine section ids, they match one to one, the active roadmap row reads «Чому саме
+так», and there is no horizontal overflow at either width.
+
+### The section the stage exists for
+
+«Чому система така» is written out of `concept.md` and `references.md`, and this stage is **the only
+reader `references.md` has below stage 06** - not taken here, it stays a file nobody opens.
+
+Each of the five attributes is a row of «attribute -> what it means IN THE SYSTEM -> where it is
+visible», with links to the foundation page or the component. The pack asks for concreteness over
+adjectives, and the difference is the whole point: not «warm and human» but **«a warm sand ground
+instead of white, because the category's catalogues read as institutional in the research, and the
+anti-reference "sterile pharmacy" was rejected by name»**.
+
+The three references are named with what was taken and **what was deliberately not taken**: Seed's
+muted single-hue family on a warm off-white and the mono face reserved for technical data, but not
+its green; Alpine Bio's one rule that a muted accent is NEVER promoted to the primary action, and
+nothing else of its look; SAP's single vivid accent used only at the moment of high attention, but
+not its black-on-white loudness. Both rejected category reflexes are on the page with their reasons:
+«beast mode» feeds the exact fear the product exists to reduce, «cosy spa» reads as tea.
+
+### The value line, in four boxes
+
+Plate pixel -> `DESIGN-artifacts.md` -> the stage 06 theme -> the stage 07 kit -> `tokens.css`, with
+what each step adds written under it. Three sentences, not a retelling of the decks. Its practical
+consequence is the rule that matters downstream: a value changes only by a decision said out loud as
+«variable -> value -> why», never as a side effect of a refactor, and **a geometric relation is
+written as the relation rather than as the number it resolves to today**.
+
+### Four entrances, and the fourth is named out loud
+
+«Which component», «which composition already exists», «which rules», and **«ЧОГО НЕ МОЖНА»** as its
+own card linking straight to `architecture.html#rules`. The pack is right about why it must not be
+folded into the third: someone assembling a screen for the first time is looking for PERMISSION, and
+meets the prohibition only after doing it their own way.
+
+Plus the rule of choice in three steps, and the third is the whole difference between a system and a
+folder of styles: **no component -> that is an order for the system, not an exception on the screen**.
+
+### Two deliberate deviations from the pack, both said out loud
+
+**The registry row stays `done: true`.** The pack says register it `done:false` until step 6. In this
+repository `done` means ONE thing, fixed by the step 7.84 decision after it had meant two: **the page
+exists**. It does. How far a stage has got is shown ON its page, which is where it can be true.
+
+**No cross-link block at the foot of the stand panel.** The pack asks for one so the stand can reach
+the guide. The stand registry already lists `why.html` under «Основи», so a foot block would put two
+entries for one page in one panel - which is precisely the defect step 7.84 removed, where a page
+declared itself a satellite of itself and the sidebar showed it twice.
+
+**And the backlog section is not the empty placeholder the pack describes.** It asks for a stub
+saying «filled at step 5». This project's `backlog.md` has been alive since stage 08 and gained list
+4 at step 9.1, so the section carries the real table now and says the self-sufficiency test's rows
+arrive at step 5. A stub over a live file would have been the only false thing on the page.
+
+### Gates
+
+`accept` 0 failures at 390 and at a measured 360 · `links` 5020 hrefs 0 dead · `idle` 84 pages 0 red
+· `inventory` all counters 0 · `private` 0 empty style shells · `css-comments` 92 balanced.
+
+## Stage 09, step 4 - the contribution rule, in four places with four readers
+
+One sentence: **new appears in `design/system/` first, then on the screen, never the other way
+round.** A screen declares no styles of its own; what it lacks is an order for the system rather than
+an exception on the page. Three of the four places are written; the fourth, the root `CLAUDE.md`, is
+prepared and held, because that file is edited only after the deletion list has been shown.
+
+**`design/kit/docs/architecture.md`, section J**, rebuilt onto `architecture.html` as a table of
+«what you are adding -> where it goes -> when it is NOT finished». The two rows written in capitals
+are the registry group and the `@import` group, and the note says why they are the two that get
+skipped: the system is already assembled, so appending a file at the end LOOKS harmless. That is
+exactly how the ladder of levels comes apart a few months later, and by then nothing in the file says
+which group it should have been in.
+
+**`design/system/CLAUDE.md`, new, ten rules**, read on every entry into the folder. Seven of them
+restate what the stage-08 files already prove; three are this stage's: a state is a token and not a
+style, a state token has a value in both themes and the two are not mirrors, a pattern exists only
+from three named screens and declares no styles of its own.
+
+**`DESIGN.md`, sections 7 and 8.** Section 8 is the contribution rule in the document's own language.
+Section 7 is the state tokens with **both halves of every pair, measured in a browser in both themes
+rather than transcribed**: eleven tokens, their light and dark values, and the ratio each one makes
+against the page. The table says which rows the 3:1 non-text threshold actually judges - the lines
+and the rings, because they are the boundary a person has to perceive - and the focus ring on a
+control clears it in both themes because its outer band IS `--line-action`: **3.13 light, 6.32 dark**.
+
+**`--ring-focus` is left without a number on purpose.** It is a 3px halo of an alpha tint on a field,
+so its ratio is a composite over whatever ground the field sits on, and the probe that resolved the
+solid tokens could not resolve a box-shadow. A wrong number written confidently is worse than a named
+absence; the CONTROL ring, which is what the keyboard path depends on, is measured.
+
+**`README.md`** gained a «The design system» section with five entrances and the contribution rule in
+one line. The pack asks that the route from the repository root actually work in two clicks, so it
+was walked in a browser rather than assumed: the root sidebar renders «Дизайн-система» as one row
+pointing at `overview.html`, and the branch expands only once you are inside it - so click one lands
+on the showcase, click two on the guide. Verified on both pages.
+
+**`CLAUDE.md`: 195 -> exactly 200, written after the owner's «го» and not before.** The pack expects
+to REPLACE a stage-08 edition of the «залишаємо» trigger - **there is none in this file.** It was
+removed at the stage-08 closing ritual, so this is an addition rather than a replacement, and saying
+so matters: an instruction to replace something that does not exist is how a second, contradictory
+edition gets written beside the first.
+
+Five deletions paid for the nine new lines, and each is the same kind of thing - a COPY rather than a
+rule with a path, which is what the closing ritual says to hunt:
+
+| Deleted | Why |
+|---|---|
+| «a dark theme, **which is the stress test of «colour reads a role»** rather than decoration» | the theme is built; the rule now lives in `design/system/CLAUDE.md` line 8 and `DESIGN.md` section 7. MVP scope needs the fact, not the argument |
+| «a glob **once reported "0 failures" over 135 pages** after visiting one» | an anecdote, not a rule. «An instrument finds its own subject» stands in the same sentence, and the case is recorded in this file |
+| «`kit.css` **was the middle link and was deleted** at stage 08 step 8» | the history of a file that no longer exists |
+| three of the five examples of Codex's radius | five examples where the rule is one: «Codex owns what is falsifiable in the source» |
+| in Pointers: «the accent, **the contrast exemptions and the price colour rule**», and the description of `architecture.md` as the geometry questions | a copy of the contents. The ritual asks for the rule and the PATH; a second copy is the one that drifts, and `architecture.md` is no longer only geometry - it now holds the rules of use and the contribution rule |
+
+**And the sixth backlog item came out of a gate that finished while this step ran.** `theme.mjs`:
+the roadmap sidebar's own text measures **4.14 dark / 4.33 light** against its ground, under the 4.5
+threshold, and the badge «Soon» measures 3.79 in both. The «light» column is the instrument's way of
+saying whose fault it is, and it says the theme is innocent - the defect is older and lives in
+`/_nav.css`. Step 3 did not create it but widened its reach by one page, because a roadmap item has
+to carry the roadmap panel. Measured, recorded, and left for the owner: `/_nav.css` belongs to no
+design stage, and its ink is a value.
+
+## Stage 09, step 5 - the self-sufficiency test, and five holes in a system that looked finished
+
+**The owner chose node 2.2, Ціль-колекція**, base plus its three states, from 54 grey screens with no
+coloured twin. It covers 38 of the 84 components - more than any other candidate - and stands in the
+flow between two screens that are already coloured. IA was not touched: the node exists, it is MVP,
+and it took the pack's own first branch.
+
+**The four files carry no `<style>` element and no `style` attribute.** That was the whole rule, and
+it held.
+
+### The test found what a hand-check would not, because it compared against an accepted twin
+
+`goal` is the listing template with a goal scope - `screens.md` says so - and `listing` is that
+template already accepted in colour. Comparing the two, class by class and script by script, is what
+turned this from an impression into a list:
+
+1. **Two scripts were missing.** Every coloured screen of this family loads five of the system's
+   scripts; the clone transform wrote three. Without `theme.js` the page flashes light on every load
+   for a person who chose dark - and no settled-page probe can see a flash. Without `menu.js` the
+   sort control is furniture. **Neither absence raises anything**: the screen loads, renders and
+   passes every gate.
+2. **Every control was unranked.** `button.css` has no `.btn` rule, so a control that arrives without
+   a finish renders as bare text - and `btn-rank.mjs`, which exists to catch exactly that, reported
+   «без рангу: 0». Zero, because it asks «which control WEARING `btn` has no finish» and these
+   controls wore nothing at all. **A checker that can only see its own subject cannot report an
+   empty one.**
+3. **The grey layer types the dot, the coloured layer draws it.** Eleven `●` in `.pavail`, doubled
+   against the `::before` that `availability.css` draws. `accept.mjs` caught it because it asks the
+   OUTPUT rather than the source.
+4. **The sort control was a `<span>`.** It cannot be focused, cannot be tabbed to and announces
+   nothing; every coloured screen of the family writes a real `<button>` with `menu-val` instead.
+
+All four are now rules inside `clone-to-colour.mjs`, because stage 12 will colour fifty more screens
+of this family: the finish is read off a named accepted twin (`--like`), the mark classes are read
+out of the stylesheets, and the two scripts are in the list.
+
+**And the map was wrong twice before it was right**, both times in the shape this repository keeps
+paying for. It keyed on `on`, a STATE, so a view-toggle cell became a small outline icon button on
+four screens. Then it treated `notify` as a state too, which collapsed `.cartbtn` and
+`.cartbtn.notify` into one ambiguous key and left every cart button unranked. A state is not an
+identity; a variant is not a state; and an ambiguous key is dropped rather than guessed.
+
+### The nine rules of use, checked by name on a screen they had never seen
+
+U1, U2, U4, U5, U6, U7 **hold**, measured in the browser at 360 and 1280. U3 does not apply.
+**U8 holds and it is the interesting one**: `stackedZones = 0` - no zone holds two visible filled
+accents - while the screen carries **twelve visible `btn--accent`**, which is precisely what U8
+states: the accent is a finish, not the rank «the screen's main action».
+
+**U9 is broken here, and the violation is the system's rather than the screen's.** The empty state's action
+row holds four buttons and does not carry `.actions`, because `.eact` is `inline-flex` and centred
+while the pattern is `flex`. That is why step 1 did not convert it, and the accepted twin
+`listing-empty` does not carry it either. It goes to the backlog as a missing pattern variant, not
+onto the screen as an exception.
+
+### `/impeccable critique`, degraded on purpose
+
+⚠️ Single-context, and the reason is a project rule rather than a missing tool: this repository
+forbids spawning agents unless the owner asks. The detector ran and returned **four findings, all
+one rule** - «overused font: Inter» - which is the committed visual world of stage 06, recorded in
+`DESIGN.md`. The brief wins; nothing to fix.
+
+**The keyboard pass was read against a control, and that changed the report.** The first reading said
+«78 focusable elements with no focus ring» plus a list of hit targets under 44px. The same probe on
+`listing` answers **78 and the same list**: both belong to the shared shell, and neither was
+introduced here. What the control isolated was one delta - three unnamed focusables against two - and
+that third is the pagination chevron. **A finding both screens share is a finding about the corpus;
+only the difference is news.**
+
+That delta led to the most valuable hole of the step: **`pagination.css` does not draw its own
+cells.** `.pages a` gets no box, no border and no size from the component; on `listing` every link
+was hand-dressed at stage 08 as three button classes. No finish map can repair it, because those
+links carry no identity class and therefore no key. The pagination on the new screen renders as bare
+text, and the same is true wherever a future screen writes `.pages` without hand-dressing it.
+
+### The backlog is not empty, which is the answer the step owed
+
+Five system gaps and one IA gap: `pagination.css` drawing nothing (high), `.gnote` with no component,
+`.actions` with no inline variant, `.ctrl` declared by nothing, the unnamed «next page» link, and the
+dead «Списком» cell - the last being a MISSING SCREEN (`goal-list.html` does not exist) and therefore
+IA's decision, inherited unchanged rather than papered over with an invented disabled state.
+
+### Gates
+
+`accept` 4 screens 0 failures at 390 and at a measured 360 · `states` every state reached · `links`
+5077 hrefs 0 dead after `--write` re-pointed six into the grey layer by the recorded rule ·
+`btn-rank` 0 unranked · `scope` 0 · detector 4 findings, all the committed font.
+
+
+## Stage 09, step 6 - the closing check, and four instruments that had been answering zero
+
+Two instruments, sets taken independently, dedup afterwards: **28 confirmed findings, 5 withdrawn on
+verification**. The merge is published as a table with a «who found it» column on
+`design/kit/pixel-proof.html`, section «Етап 09», beside a second table nothing else in this project
+has: the stage contract read as a checklist.
+
+### The finding that mattered was not a defect in the product, it was a defect in the instruments
+
+Three of the 28 were holes in checks that had been reporting a clean zero, and a fourth was found
+after the merge, in the file every session reads first. The class is now a rule in `CLAUDE.md`:
+**a zero from an instrument that cannot see the class is not a zero.**
+
+1. **`links.mjs` had never read a `src`.** It matched `href` only, so every `<img>`, `<script>` and
+   `<link>` in the corpus was outside its subject. It had answered «0 dead» for weeks over a corpus
+   in which it was measuring roughly 95% of what it claimed. Codex reported 24 broken links; 22 were
+   false positives (it reads raw bytes, so `&lt;a href="..."&gt;` markup samples counted, and the
+   `blank()` guard already handles those) - but **the other two were real**, and diagnosing them is
+   what exposed the blind spot. Both attributes are now matched in one pass with the `src` half
+   counted separately, so the number can never again hide behind the total: **5333 scanned, 0 dead,
+   of those 258 `src`**.
+2. **`proof.mjs` could only prove a screen that already had a stored baseline.** Ten of the fifteen
+   converted screens appeared at 8.48 and have none, so the pixel claim covered five. The new
+   `--against <ref>` mode serves the baseline from `git archive` of a named commit, unpacked outside
+   the repository, and shoots both halves live in one browser: **15 of 15, loudest 0.000%**, working
+   tree against `c07e2c8`. Nothing is written to disk, which is why the stored screen pairs the pack
+   asks for are marked «свідомо пропущено» rather than quietly produced.
+3. **`inventory.mjs` had never asked its own per-table summaries.** It checked every row and never
+   the three lines that add the rows up, which is exactly where all three stale numbers lived.
+4. **`tools/paths.mjs`, new: every path an md NAMES, and whether it still exists.** It was born from
+   a dead path in `CLAUDE.md` itself - the value chain led through `design/_theme.css`, a file that
+   does not exist. Neither instrument could have found it: `links.mjs` reads html attributes, and
+   Codex had been asked about status, language and numbers in that file, not about path resolution.
+
+### `paths.mjs` was wrong twice first, and the two wrong versions are mirror images
+
+Resolving against the md's own directory gave **61 false dead**. Resolving against the repository
+root gave **150 false dead**, because `ia/docs/sitemap.md` writes `pages/home.md` and means its own
+`pages/`. The right answer was already written in `links.mjs::resolveTail()` and it took a second
+instrument to notice it applies here too: **a path in prose is a TAIL, not an address.** Strip the
+`../`, then find any file whose path ends with it. No directory enters the calculation at all, so
+neither wrong version can come back. Both are written into the file's header.
+
+Two separations keep it from being noise, and both have an idle control that fails the run:
+
+- **A record names history, a rule names an address.** `docs/decisions.md` may write
+  `research/docs/flows.md` because that is what the file was called that day; rewriting it would
+  forge the record. Five record files plus `docs/playbook/` are named explicitly - **32 hits**.
+- **A quoted dead path is not a dead link.** `tools/README.md` names `design/system.html` as the 404
+  an early sweep produced; the sentence is ABOUT the dead path. Six entries, each with its reason.
+
+The tool immediately flagged **my own new prose** in `tools/README.md` for quoting two dead paths in
+backticks, which is correct behaviour, and it found one live defect nobody had looked for:
+`design/visuals/README.md` told the next person to put a new CSS rule in `kit.css` - **a rule
+pointing at a file deleted at 8.8**. Final run: **1266 paths in 63 md, 0 dead**.
+
+### The second taxonomy pass caught the repair, three times
+
+Codex read-only, narrowly over the 16 files the repair had changed: **8 findings, 3 of them errors in
+the repair itself**, which is the entire reason that pass exists. The loudest: `pixel-proof.html`
+claimed «`DESIGN.md` no longer names the deleted `kit.css`» while `DESIGN.md:18` and `:26` still did -
+only the header had been fixed. The second: widening the comment in `action-row.css` made «78 рядків»
+stale in the two places the same repair had written. **A repair is re-checked by the instrument that
+found the defect** is now a rule, and so is its answer: **a number nobody maintains is removed, not
+corrected** - the file is 80% comment, so «4 правила, 3 класи» is what does not drift.
+
+Three findings were withdrawn: the em dash appearing three times in `docs/decisions.md` is **the sign
+quoting itself** inside the decision about it. Removing it would make the record unreadable. All 281
+product pages give `em=0`.
+
+### `inventory.md` had no visible place in any html for the whole stage
+
+The rule «every md gets a visible place on html» had been broken since stage 08 for the one document
+that holds the level tables - and that is where all three stale summaries were living, undisturbed,
+which is the rule's own argument. A section «Інвентар» now stands on `design/kit/overview.html` with
+`NAV_SECTIONS` registered, and the numbers there are written by `inventory.mjs --apply`, not by hand.
+
+### The third instrument: the contract as a checklist
+
+Claude with a browser and Codex over the source both read what EXISTS, so a gate that never ran is
+invisible to both - there is no file in which a step that did not happen appears. One pass over
+«Вхід і вихід», the gates and «Готово, коли», answering «done / not done / deliberately skipped» on
+every line, published as a separate table. It produced exactly one «свідомо пропущено» (the stored
+screen pairs) and one «не зроблено» (this ritual), and that pair is the idle control: a checklist
+that is all green checked nothing.
+
+### The closing ritual
+
+`CLAUDE.md` was at 200 of 200, so every new rule had to displace one. **Entered:** the instrument
+rules above, `a path in prose is a tail`, `a record names history and a rule names an address`, and
+**counting happens on the grey corpus while proving happens on the coloured one** - the rule stages
+10 and 12 will need first. **Left, and this is the half that matters:** the three full JTBD job
+statements and the persona detail, which were a second copy of `research/docs/jtbd.md` and
+`research/docs/personas.md`; the two instruments named by filename in the acceptance rule, which was
+a second copy of the index in `tools/README.md`; and `design/kit/kit.css` in the value chain, a
+deleted file standing in a rulebook as a live address - the very defect `paths.mjs` was built for,
+applied to the file that states the rule. **200 lines exactly, before and after.**
+
+The README status table was also carrying a defect of its own: it listed twelve stages ending at
+Handoff, while its own prose three paragraphs below says «the rollout is stage 12, after Responsive
+(10) and Animation (11)». Rollout had no row, in the table or in the root registry. Both now have it.
+
+### Gates
+
+`accept` 281 screens 0 failures at 390 and at a measured 360 · `links` 5333 href and src, 0 dead ·
+`paths` 1266, 0 dead · `dead-sel` 0 of 2920 · `roles` 84/0 · `theme` 94 roles with both halves, 0
+colour primitives read directly · `btn-rank` 92 pages 0 unranked · `idle` 84 pages 0 red · `scope`
+281 pages 0 without their own scope · `css-comments` 92 balanced · `private-css` 61 rules 0 idle ·
+`inventory` 0 · `proof --against HEAD` 15 of 15 at 0.000% · `wireframes/` 0 files changed.
+
+## Stage 10, steps 1 and 2 - the product had 27 different widths and a name for none of them
+
+### Step 1 measured before it decided, and that order is the whole point
+
+An audit made without the census would have added a third point beside two already living in the
+code, and nobody would have noticed. So step 1 wrote no css at all and produced three tables.
+
+**The census, by grep, over four corpora whose fate is different.** `design/system/` is the home,
+`design/*.html` a foreign place, `design/kit/` the stand and not the product, `wireframes/` a frozen
+witness that is read and never touched. **53 of the 88 files in `design/system/` already carry an
+`@media`** - 170 rules. The single `@media` living in a screen file is `design/overview.html:24`, the
+stage hub rather than a product screen, so the ban step 4 writes down was in practice already held.
+
+**The headline number: 36 raw width values, 27 after mirroring** (`max-width: 859` is the mirror of
+the 860 boundary), **18 of them acting in the product**. The method expects five to eight. Densest by
+far: 860 with 107 occurrences, then 720 (50), 960 (40), 940 (36), 620 (32).
+
+**Three seams overlap.** 520, 620 and 760 are each written both as `min-width: N` and as
+`max-width: N`, so at exactly N both rules fire. Three boundaries written twice with a one pixel
+fault, not six boundaries.
+
+**What did not exist at all:** `@container` 0, `container-type` 0, `clamp()` 0, `rem` inside a media
+query 0, and **not one token for width, container or grid**. `minmax(` appears 27 times but
+`auto-fit` only 3, so most grids carried a fixed column count.
+
+### The width audit said «new behaviour» on 39 screens, and the honest reading is eight
+
+The method says to say it out loud above three or four. 39 is a count of SCREENS; the count of
+BEHAVIOURS is eight, and seven already stand in the code: the shell changes its navigation carrier at
+860, the catalogue rail opens from home, the mega menu is a flyout rather than a drawer, the filter
+sheet becomes a permanent rail, the PDP puts gallery and buy box side by side and drops the sticky
+bar, the cart is a panel rather than a drawer at 620, checkout puts form and summary side by side.
+
+**The eighth is missing and it is the only new work: split view for the coach flow**, 11 screens.
+The source is not a preference. The product's main job says literally «build a complete order for
+each client in one session», and on a phone the coach walks back and forth between the client list
+and that client's basket. It is the candidate for step 5.
+
+### The quietest trap fired, and only the third table could have caught it
+
+The registry is per COMPONENT, read out of `inventory.md` rather than derived from the audit, and the
+reason is that there is no one-to-one mapping in either direction. **13 components stand on screens
+in the category «wider» or «new behaviour» and know nothing about width** - `breadcrumb.css` on
+**111 screens**, then `discount`, `price`, `availability`, `favourite` on about 30 each. Not one of
+them would have appeared in a per-screen audit even once, and each would have ridden into stage 12 to
+be placed somewhere it does not understand.
+
+Both idle controls are two-sided and clean: **141 screens, 141 rows, 0 without a row**;
+**85 files on disk, 85 rows, 0 without a row, 0 rows without a file.**
+
+### Step 2 turned 18 product boundaries into two tokens, named by the change
+
+`--bp-grid-2col` **38.75rem** (620) and `--bp-shell-wide` **53.75rem** (860). `--bp-tablet` and
+`--bp-desktop` are banned as names: a tablet has a different width next year, and the word «desktop»
+puts the three-versions model back in the reader's head even when the code does not hold it. Both in
+`rem`, because a point has to answer the reader's own font size as well as the window.
+
+**`@media` cannot read `var()`**, so the query carries the literal and the token block is the source
+of truth and the registry. That is not two sources: step 6 greps every `@media` in `design/system/`
+and each must give exactly one of the two numbers.
+
+`--container-page` 75rem, first read by `design/_stand.css .wf-page`, which has been the page frame
+of every coloured screen since stage 07. `--container-text` **68ch**, read by `seo-text.css`:
+`.lintro` was writing `max-width: 760px`, which at 14px is about 95 characters, well past the 60-75
+the eye holds, and `.seotext p` had no measure at all and ran the full 1200 of the page frame.
+`--grid-col-min` 12.5rem, the figure `product-grid.css` already wrote by hand.
+
+**`--grid-gap` was NOT created, and the omission is a decision.** The gap of a card grid is
+`--space-16`, a rung of the spacing ramp; an alias would be a second name for one value, and
+`tokens.css` already carries the rule that kills it - «a value used once is a value, not a token».
+
+### The type ramp moved to rem, and the ramp itself deliberately stayed fixed
+
+Ten rungs from `px` to `rem`, value for value: at the default root of 16px each resolves to the
+number it held before, so nothing moves for a reader on defaults, and the reader who set their
+browser font to 20px stops being ignored. That is WCAG 1.4.4 and it is the cheapest half of the
+stage.
+
+**No rung was wrapped in `clamp()`, because the ramp is GENERIC.** `--fs-30` is worn by a page H1, by
+the live price in the hero deal and by the glyph of an empty state; making the rung fluid would have
+made an icon breathe with the viewport, which is not a size decision anybody took. So the fluid size
+is a separate token with a named reader list: **`--fs-display`, read by `.lh1`, `.acc-h1` and
+`.co-h1`**, all three heading a full-width page. Deliberately not readers: `.bb h1` (the PDP title in
+a narrow column beside the gallery - sized by its PLACE, so it belongs to `@container` at step 4),
+`.auth-h1` and `.coach .cv-h1` (a dialog and a centred form capped near 420-560), and the price, the
+figure and the two glyphs that wear the 30 rung because 30 is their size.
+
+**The knee sits at exactly 360px.** `1.58rem + 1.3vw` resolves to 29.96px there, just under the 30px
+floor, so at 360 the clamp returns the floor. Both ends in `rem` and the middle carries a `rem` term,
+because a pure `vw` middle stops the page scaling under zoom.
+
+### The proof had to be isolated before it meant anything
+
+The first run of `tree-diff.mjs HEAD` reported every page as moved, and the reason was not the
+tokens: the working tree carries 95 changed files, including a new row in `/_nav.js`, and the sidebar
+renders into every page - **+6 elements everywhere**. A comparison whose two sides differ in more than
+the thing being measured is not a proof. So the baseline was rebuilt as the working tree with only
+the seven step-2 files reverted to `HEAD`, verified to differ in exactly those seven, and measured
+against that.
+
+**At 360: 0 boxes moved.** The only report was the computed `max-width` of three paragraphs changing
+from `760px` to `600.578px`, which binds nothing at a 328px column. At 1280 the three page headings
+read 41.92px instead of 30, and the prose narrows to 600.578px - both explained by a row in
+`tokens-audit.md` and by the «wider, air» row of the audit.
+
+### Two deviations from the method, both said out loud
+
+**The page frame did not go into `base.css`.** The method puts the container there, but this project
+already has a page frame and it lives in `design/_stand.css` as `.wf-page`. Putting a second one in
+`base.css` would have created two page containers, which is the defect the token exists to remove.
+
+**`responsive.md` is rendered onto `responsive.html` in full, not linked as a file.** The first
+version put `<a href="docs/responsive.md">` on the page, and a grep found it was the only raw `.md`
+link in 194 html files in this repository. The rule is that an md gets a VISIBLE place, and every
+other document here got a page or a section. Both tables now stand on the page, 226 rows, inside the
+scroll container the wide-content rule requires.
+
+### The registry learned a third flag, and it is temporary
+
+`/_nav.js` had `done` and nothing else, so the roadmap could say «this page exists» and «this page
+does not», but not «this stage is being built right now» - the one state no file in the tree can
+prove on its own. `wip: true` now outranks `Next` and `Soon` in the badge, and the header of the file
+says it is removed by the closing step of the stage that set it. It does not go into `CLAUDE.md`,
+because it will not outlive stage 10.
+
+The README status table also gained the row it had been missing since the route was written: Rollout
+is stage 12 by the pipeline's own registry and by README's own prose, and it had no row in the table
+or in the registry.
+
+## Stage 10, step 3 - the shell was already form A, and the step's job was to prove it
+
+### The fork was answered by the IA, not by taste
+
+The method asks three questions of the navigation model of stage 03a and gives three legal answers.
+Read out of `ia/docs/pages/navigation.md`, node 0.1:
+
+1. **Five top-level entries**, locked 2026-06-29: Головна · Каталог · Кошик · Обране · Акаунт.
+   Search is deliberately not a tab - it lives in the persistent top bar, which frees a slot. Five or
+   fewer is the criterion for form A.
+2. **No second level that must stay permanently visible** in the global navigation: the catalogue is
+   a flyout. The one permanent second level in the product is the filter rail from 860, and it
+   belongs to the page, not the shell.
+3. **Yes, a screen takes side space**: the coach split view, 11 screens, the step 5 candidate, wants
+   the left column for the client list.
+
+The last two are not neutral answers, they are the argument against form B. A vertical rail on the
+left would collide with the filter rail on a listing - **two left columns on one screen** - and again
+with the split view at step 5. **The owner chose A.**
+
+### Nothing had to be built, and that is the honest report
+
+Form A was already in the code. `tabbar.css` opens with `.wf-tabbar{ display: none }` and only turns
+it on inside `@media (max-width: 859px)`; `header.css` opens the meta bar, the menu, the search field
+and the action zone at `min-width: 860px` and hides the burger and the mobile icon row. Both numbers
+are the registry's: 859 is the mirror of `--bp-shell-wide`. The `899` still visible in `header.css`
+lives **only inside a comment** about a rule removed at 7.25.
+
+So the step named it, measured it and wrote it down: a «behaviour on width» sub-item in the anatomy
+block of `header.html` and `tabbar.html`, a comment in each shell file saying why its literal is that
+literal, the «Оболонка» section of `responsive.html` with the three answers and the live shell in
+both forms as two iframes of the real product page at 360 and 1100, and the same in `responsive.md`
+for stages 12 and 13 to read.
+
+### The measurement needed a new instrument, and it was wrong twice first
+
+**`tools/tab-walk.mjs`** presses a real `Tab` through CDP and reads `document.activeElement`. At
+**1280 there is exactly one carrier** - the header with 17 focusable entries - and the tab bar yields
+zero, because `display: none` takes it out of the accessibility tree along with the pixels. At **360**
+there are two carriers by role: the bar is primary navigation, the header is utilities. **Focus on an
+invisible element: 0** at both widths, no positive `tabindex` anywhere, focus order matches visual
+order.
+
+**Wrong version one reported 196.** It did not press anything: it listed every focusable descendant
+of `.wfh` and filtered on the element's own `display`, calling the rest «hidden but focusable» - 196
+at 360, 183 at 1280. Every one was a false positive, because an element under a `display: none`
+ANCESTOR is not in the tab order at all. What the number described was the closed mega-menu, the
+closed drawer and the language dropdown. **A count of «not visible» is not a count of «reachable
+while invisible», and only a real walk separates them.**
+
+**Wrong version two reported six.** It counted repeated labels among the stops: «В обране», «У
+кошик», «фото» on a listing, «У сесію», «Усі клієнти», «Профіль» in the coach cabinet. Every one was
+a control repeated per row, which is what a list is. The duplicate that matters is the same top-level
+entry carried by two different carriers at the same width, so it is now asked as a set intersection
+of the two carriers, directly, and the walk no longer guesses at it.
+
+Both versions are written into the file's header and into `tools/README.md`.
+
+### The finding the corrected instrument did produce
+
+At mobile, **two entries stand in both carriers**. «Кошик» is an IA decision - `navigation.md` says
+«a slim top bar kept for logo, search and cart» - so the duplicate is deliberate, and it is still a
+duplicate in the accessibility tree. **«Обране» is not in the specification**, which names the logo,
+search and the cart. That is a finding about the IA, and fixing it in css is forbidden here: how many
+entries there are and where they live was decided at stage 03a. This stage changes the layout of the
+shell, never the model.
+
+The intersection is **reported and does not fail the run**, deliberately: an instrument that fails on
+a decision teaches its reader to ignore it.
+
+### `shell.html` does not exist here, and `paths.mjs` learned a second kind of absence
+
+The method assumes an assembled `design/kit/shell.html`. There is none, and there never was: the
+shell lives as two components with their own pages. Writing that sentence into `responsive.md` made
+`paths.mjs` report a dead path - correctly, because the sentence names a path that is not on disk.
+
+The entry went into `KNOWN_GONE`, and the block's own description had to widen: it said «deliberately
+named DELETED files», and this one was never deleted. There are two kinds of declared absence - the
+file that existed and went, and the file that never existed while a document says so - and the
+header now names both. The idle control is unchanged: an entry that stops appearing anywhere fails
+the run as loudly as a dead path.
+
+## Stage 10, step 4 round 1 - the atoms, and a registry that had been measured wrong three times
+
+### The roll-call found the instrument before it found a component
+
+The method makes the level roll-call a separate sub-step, and its argument is that the width audit is
+sorted by SCREEN, so a component nobody's audit row named is not skipped on purpose - it is never
+seen. Taking that roll-call is what exposed that **the registry it reads from was wrong**, three
+times over, and each wrong version was found by the next:
+
+1. **It asked the grey corpus.** The rename map of stage 08 step 6 ran on `design/*.html` and not on
+   `wireframes/`, frozen since stage 05, so the system's own class names do not exist in the grey
+   layer at all. `button.css` answered **zero screens**. The pack's rule «count on the grey corpus,
+   prove on the coloured one» is right for counting SCREENS and wrong for locating a SYSTEM CLASS -
+   a third case the pack does not name, and now written into `tools/comp-width.mjs`.
+2. **It read the source instead of the DOM.** Moved to the coloured corpus and still static, it put
+   **68 of 85 rows** at odds with the `Screens` column `inventory.mjs --screens` measures live:
+   `icons.js`, `marks.js` and `fields.js` add classes at load.
+3. **It took every class token in the file.** An anchor is a class **only one file owns**, a rule
+   `inventory.mjs` already had. Without it `otp.css` - three rules about a one-time-code field -
+   answered «91 screens», because its selectors also name `.field` and `.btn`.
+
+And a fourth thing the corrected tool had to learn: **four files have no class of their own** -
+`badge`, `icon`, `product-thumb`, `counter` - so the walk cannot ask about them at all. They print
+`–`, never `0`. That false zero is the one this repository keeps paying for.
+
+**The published claim «13 components stand on a wider screen and know nothing about width» was
+wrong** and is corrected on the page, in `responsive.md` and in the README.
+
+### The widest-category column does not discriminate at the atom level, and that is a finding
+
+An atom stands on 85 to 90 of the 91 coloured screens - listing, PDP, cart and checkout among them -
+so almost every atom reads «new behaviour». The column earns its keep at the organism level. What
+decides an atom's verdict is the question «must this box change with its place», and that is answered
+by reading, not by a counter. Said out loud rather than hidden behind a table that looks decisive.
+
+### N = 23, M = 9, K = 14
+
+**Four off-registry numbers left the system this round.**
+
+`button.css` had `@media (max-width: 479px)`, and 479 is not in the registry. The stage gives such a
+number three ends and only three: fold it into a registered point, name it a container threshold, or
+make it disappear. It disappeared: the horizontal padding is a `clamp()` from the exact value the old
+rule gave a phone to the value the base rule gave everything else, knee at 360 and ceiling at 860.
+**The `font-size` switch went with it** - `.btn--l` read `--fs-16` below 480 and `--fs-18` above, and
+this stage forbids switching a size at a point outright.
+
+`menu.css` had the same 479 and it folded to 619 instead of disappearing, because what the rule does
+is turn an open dropdown into a full-screen sheet, and that is a BEHAVIOUR. The only question was
+which of the product's two points, and the answer is the one where a card row stops being one column.
+Said out loud: between 480 and 619 an open menu now takes the sheet form it used to take only below
+480.
+
+`skeleton.css` had three: 620, 959 and 1040. **The grid rewrote itself as `auto-fill` on the same two
+floors `product-grid.css` uses, and that uncovered a defect nobody had looked for.** At 1280 the real
+product grid gives **three columns of 248px** in a 776px box; the skeleton was drawing **four of
+185** - a promise about a layout the page never delivered. Both now give 248 x 3 to the pixel, gap
+included.
+
+**And the first version of that rewrite broke the mobile promise**, which is exactly what the
+asymmetric check is for. Reading `--grid-col-min` (200px) at every width made the skeleton one column
+at 360 where it had been two, and `tree-diff` reported it on three pages before anything was
+published. The grid has TWO floors, not one - 150px below the point and 200px from it - and both are
+tokens now, read by `product-grid.css` and `skeleton.css` alike, so the promise and the box it
+promises cannot drift again.
+
+`status-pill.css` had `@media (max-width: 639px){ .oh-status{ grid-area: stat } }`, and it was **not
+the pill's rule**. `grid-area: stat` only means something beside the `grid-template-areas` that
+`order-row.css` declares inside its own query at the same width - four lines of a reflow this file
+held one line of. A pill does not reposition itself; the row repositions and hands it a cell. Moved,
+cut not copied, and the atom now carries no width rule at all.
+
+### Two screen-scope exceptions, both named and both on a registered point
+
+`chip.css` hides the hero goal chips from 860 and `view-toggle.css` shows the grid/list toggle from
+860. Neither is about the component's own box: the chips go because from that width the goal TILES
+are visible on the same screen and the chips would be a second copy of the same six goals, and the
+toggle appears because below that width the listing has one column and there is nothing to toggle
+between. A container query cannot ask either question. Both are listed in `responsive.md` so the grep
+at step 6 can tell them from an oversight.
+
+### Container thresholds after round 1: zero, and that is the answer
+
+No atom needed one. An atom's box is set by its own content, so it has no place-dependent behaviour
+to describe. The single candidate turned out to be the row's rule, not the pill's.
+
+### Two numbers owed to a later round, named rather than left
+
+`max-width: 959` in `skeleton.css` mirrors `account-shell.css`'s 960, which is the account shell's own
+boundary: resolving one without the other would split a pair, so both go to the organism round.
+`max-width: 639` in `order-row.css` is the reflow that just absorbed the pill's line; the organism
+round either folds it onto `--bp-grid-2col` or names it a container threshold.
+
+### The proof, and it is asymmetric
+
+At 360, `tools/tree-diff.mjs` over **all 92 coloured pages** against a baseline that differed in this
+round's files and nothing else: **0 boxes moved**. At 1280 three pages moved - `listing-loading`,
+`goal-loading`, `account-loading` - and all three are the skeleton grid coming into agreement with
+the grid it promises, which the audit row «listing / goal = new behaviour, fluid grid» predicted.
+
+## Stage 10, step 4 round 2 - the molecules, and what `auto-fit` physically cannot say
+
+**The roll-call went to the owner as a proposal and the measurement overruled a third of it.**
+Seven of the 27 molecules were put forward as `auto-fit` candidates on the reading that a query
+saying «three columns now» is a query a fluid grid absorbs. Four cannot be absorbed, and the
+reason is one sentence: `repeat(auto-fit, minmax(F, 1fr))` FILLS the row, and a fixed number of
+items has balanced arrangements only at its divisors. Six goal tiles want 2, 3 or 6 and never
+4+2 or 5+1. Six brand logos want 3 or 6. Three blog cards want 1 or 3. No floor gives the
+divisors and skips the rest, so the ladder's first rung genuinely cannot do it and those stay
+points. `brand-logo` turned out to need nothing at all - its 620 was already the registry - which
+is the roll-call's own correction, printed rather than quietly dropped.
+
+**Which means the round's real question was not «fluid or point» but «is the count fixed».**
+Where it is not - a person has one address or seven - `auto-fit` is exact and the number stops
+being a claim about a device and becomes a claim about how narrow the card may be. Three grids
+went that way: `.addr-list` (720 gone), `.loy-two` (760 gone) and `.tbanners` (720 gone).
+
+**37 queries over 14 widths became 30 over 11, and all seven off-registry numbers left are in
+two files held for the owner.** `trust-strip` (479, 559, 719, 720, 1180) and `seo-text`
+(759, 760), on three questions named below. Everything else at this level now asks only about
+620 and 860.
+
+**`--grid-col-min-panel` = 19rem, and the first draft of it was 22rem.** variable -> value -> why:
+the floor of a card that holds a form-sized body rather than a photo and a price, read by
+`address-card.css` and `loyalty-rung.css`, two readers, which is what earns a name. 22rem agreed
+with the query it replaced at 360 and at 1280 - the two widths anyone looks at - and the width
+sweep found it wrong in between: the account shell takes its own nav column at 960 and leaves the
+address list a 628px box, where a 352 floor fits one card and the query fitted two. **The page
+container is not monotonic in the viewport width, and only a fluid floor can see that.** A media
+query asks the window and knows nothing about the 216px the shell took; this is the pack's
+«a media query asks about the SCREEN, a container query about the PLACE», arriving from the
+opposite direction.
+
+**The defect the round found, in the one file that had refused to be touched.** `restock-note`
+carried `max-width: 419` and a comment from step 7.64 defending it by measurement: «at 420, 440,
+460 and 479 this row does NOT wrap, its two children come out 26 + 350». Those numbers are the
+defect. The button wears `btn--full`, its `width: 100%` won on the flex line, and the e-mail
+field was **26 pixels wide from 420 all the way to 1600** - 26 + 410 at 480, 26 + 650 at 720,
+measured on `product-oos`. The query below 419 hid it, so nothing ever asked. What replaces the
+number is the content floor the old comment said the number stood for: `flex-wrap` in the base
+rule and a `13rem` basis on both children. At and below 419 the row renders to the pixel as
+before. **A boundary a component earned is not drift - but a boundary that hides what happens
+above it is not a boundary either.**
+
+**Three sizes stepping at a point became three ramps.** `banner .recbanner` switched gap, portrait
+and `font-size` at 559, and a `font-size` switched at a point is the thing this stage names
+outright. Each ramp ends on the value that stood there before - `--space-12`/`--space-16`, 68/92,
+`--fs-18`/`--fs-20` - so both ends are unmoved. `.hpromo`'s `min-height` went the same way, and its
+preferred term is deliberately set to fall just outside the clamp at both ends so 360 resolves to
+exactly 300 rather than to 300.008: at 360 this stage's promise is zero movement, and a sub-pixel
+is movement.
+
+**`order-row`'s 639 was a misfiled debt.** Round 1 recorded it as «owed to the organism round».
+`order-row` is a molecule, so it was owed to this one. Folded onto 619 on both of the file's
+blocks. `skeleton`'s 959 is still owed to the organisms, and correctly: it is paired with
+`account-shell`'s 960.
+
+**A new instrument, and it was wrong twice before it was right.** `tools/grid-sweep.mjs` asks
+`getComputedStyle(el).gridTemplateColumns` at every width from 320 to 1600, which is the column
+count and the column width in one string. It finds its own subjects out of the component files and
+its own pages off disk, records the MEASURED width on every row, and resizes rather than reloads
+(33 widths x 90 pages is 2 970 loads and two hours; the viewport moving under one load is also the
+gesture the fluid way has to survive). Wrong version 1: it counted the raw track list, and
+`auto-fit` collapses the tracks it has no item for while `getComputedStyle` still lists them as
+`0px` - the five trust banners were reported standing in eight columns at 1360. Wrong version 2:
+it asked «is this selector on any page» of the product corpus alone and printed «`.addr-2col`
+stands on no coloured page», which reads as dead and was one edit from being published as a
+finding. It stands in the STAND, on `design/kit/client-dialog.html`. **A zero from an instrument
+that cannot see the class is not a zero**, and this is the fifth time this stage has paid that
+tuition; the instrument now looks in both corpora and says which one answered.
+
+**Measured, and the promise held asymmetric.** `tree-diff` over all 92 coloured pages against a
+baseline differing only in this round's ten files, at 360 and 1280: 6 differences in 184
+comparisons. Four are `.tbanners` at 1280 gaining two `0px` entries in the computed track list
+while the five real tracks stay 196.797 x4 + 196.812 - not a pixel. Two are `product-oos`: at 360
+only `flex-basis` changed and both boxes stayed 328 x 44 and 328 x 64; at 1280 the field went from
+26px to 284px, which is the repair. **At 360 not one box moved.** Everything else this round
+changed lives between the two widths, which is the ground a two-width comparison cannot see and
+the sweep can.
+
+**Three questions were left to the owner rather than answered.** The mascot's number (one
+behaviour, «it appears when there is room beside the text», written as 760 in one file and 1180 in
+another, neither in the registry - `@container` would make these the system's first two container
+thresholds, folding both onto 860 is the other answer). The trust strip's separators (the hairlines
+are `nth-child` box-shadows that must know the column count, which `auto-fit` makes unknowable, so
+either the points stay and fold onto 620/860 or the lines are redrawn as a cell border, and that
+needs a pixel check). And `.cs-act` at 559, which looks like it belongs to the pattern round because
+`patterns/action-row.css` has owned the wrap for 53 container names since 9.1. **Picking any of the
+three silently would have invented a design decision**, which is the one thing this pipeline does
+not do with a missing input.
+
+**And one thing was said out loud instead of fixed.** `.listing{ grid-template-columns: 240px 1fr }`
+lives in `toolbar.css` and is the listing SCREEN's frame, not the toolbar's. It is legal where it
+stands and it belongs with the shell of step 3; moving it quietly inside a molecule round would
+hide it, so it goes to the organism round in writing.
+
+## Stage 10, step 4 round 3 - the organisms, two dead queries and a grid that ran backwards
+
+**The heaviest level of the four, and it fell twice over.** Before the round the 34 organism files
+held **86 queries over 19 distinct widths, 15 of them off the registry** - more than the atoms and
+the molecules together. After it: **80 queries over 7 widths, 3 off-registry**, and all three are in
+files held on purpose. Across the whole of `design/system/` the count is **117 queries on 13 widths**,
+and every off-registry number now lives in exactly four files: `trust-strip` and `seo-text` (the
+molecule round's owner questions), `coach-session` (step 5) and `pdp-tabs` (paired with the mascot).
+
+**`product-grid` carried two queries that had never painted.** The structure half of the file wrote
+`repeat(3, 1fr)` at 620 and `repeat(4, 1fr)` at 1040; the colour half re-declares `.prow` further
+down with equal specificity, so it won at every width. Step 1's census counted 1040 among the
+boundaries acting in the product. It was not acting, and nothing but asking the OUTPUT could have
+said so - `getComputedStyle` never once returned four equal tracks. Deleted rather than folded: a
+query that draws nothing has no width to fold.
+
+**And underneath them the live grid was losing a column as the window grew.** Measured on ten pages:
+1 column at 320, 2 at 360, **3 at 520**, **2 at 620**, 3 at 680, 4 at 880. At 620 the floor jumps
+150 -> 200 and a 588px box stops fitting three - at the very point named «the row of cards stops
+being one column». No single floor repairs it: keeping three at 620 needs 185 or less, keeping four
+at 1280 needs 194 or more. **The switch itself is the defect**, so it became a ramp -
+`--grid-col-fluid` and `--grid-gap-fluid`, read by `product-grid.css` and `skeleton.css`, which is
+what earns them names. The row now reads 1 -> 2 (360) -> 3 (580) -> 4 (880) -> 5 (1320), monotonic,
+with 360 and 1280 unmoved; the price is the 3-column state at 520-619, three cards of 154.7px, which
+becomes two of 244. Both defects predate this stage - the floors and the dead pair came out of the
+stage-08 split - and survived stages 07, 08 and 09 because a comparison at 360 and 1280 cannot see a
+dip at 620. **This is what the pack means by «the defect lives BETWEEN the points».**
+
+**The `--grid-gap` refusal was overturned by its own terms.** Step 10.2 declined to create the token
+the pack asked for, on the rule «a value used once is a value, not a token», and wrote: «if the grid
+ever needs a rhythm the ramp does not have, it earns a token that day». That day arrived. What
+earned a name is not the value but the RAMP, and it has two readers. The refusal is kept in
+`tokens.css` beside the two new tokens rather than deleted, because a plain `--grid-gap` alias is
+still not there and the distinction is the whole point.
+
+**The account is a second shell, and folding it was a decision taken by default rather than made.**
+From its point the account grows a 268px nav column and below it the same links become a horizontal
+scroller. The number was 960, in no registry. The pack allows a third point but only as a decision
+the owner says out loud; the owner was asked at the round's roll-call and said «го» without naming
+one, so it folded onto `--bp-shell-wide`. Measured first: at 860 the nav column stays 268 and the
+content column comes out 528 against today's 628, with no new clipping. **The pair had to move
+together** - `.acc-links` is a scroller below the point and a bordered card above it, so folding one
+half alone puts a 1253px strip inside a 268px column - and `skeleton`'s 959, which round 1 left owed
+for exactly that reason, moved with it. If the owner later wants the account to keep its own width,
+that is one number in two files and the record is here.
+
+**Where a fold had two candidates, the measurement chose and the preference did not.** `auth-dialog`
+went to 860 rather than 620 because at 620 the modal is capped by the window: the two panes come out
+243.8 and 310.3, and the FORM column ends up narrower than the single-pane form it replaced (618).
+At 860 they are 349.4 and 444.6. `coach-verify` went to 860 for a harder reason - forcing `.cv-split`
+into a row at 620 CLIPS `.opt-tiles`, 324 into 319 - while its own tiles went the other way, to 620,
+where they measure 174.7 and clip nothing. `footer` kept its narrow rule rather than deleting it,
+because two 138px cells at 320 nearly double the height of their text.
+
+**Three zeros were read rather than believed.** `comp-width.mjs` reports `cat-overlay`,
+`cookie-banner` and `system-page` standing on zero screens. None is dead: the first two are born in
+an act (`_nav.js` inserts them on an event, so they are not in the DOM the walk measures) and the
+third has one screen, `wireframes/system.html`, with no coloured twin at all. Three zeros, three
+different reasons, and not one of them «delete the file». Each is written on its own stand page, not
+only here.
+
+**Measured, and the promise held.** `tree-diff` over all 92 coloured pages against a baseline
+differing only in this round's 17 files, at 360 and 1280: **0 differences in 184 comparisons.** That
+is not a weaker result than round 2's six - it is the expected one. Every number this round folded
+(479, 520, 559, 640, 720, 760, 960, 980) lies strictly between the two anchors, so a two-width
+comparison is blind to all of it by construction. The instrument that can see it is `grid-sweep`,
+and its readings are quoted above.
+
+**And the round found a defect it did not cause.** `product-oos` scrolls sideways at 320. Checked
+against the baseline before reporting: it is pre-existing. `accept` runs at 360 and 390, so nothing
+had asked; 320 is inside the stage's sweep, so the sweep asked.
+
+## Stage 10, step 4 round 4 - the pattern needed nothing, and the four held files were resolved
+
+**The shortest round of the four, and that is a result rather than an omission.**
+`patterns/action-row.css` is the system's only pattern and it holds **zero media queries**:
+`flex-wrap: wrap` has been in its base rule since step 9.1, and `.actions--even` says «share the
+width» with a markup modifier rather than a number. A composition assembled from components that
+already understand width has no width answer of its own. **N = 1, M = 1, K = 0.**
+
+**`seo-text`'s mascot folded cleanly and `trust-strip`'s did not, and the measurement said so
+before the edit.** Both files carried the same behaviour - «the mascot appears when there is room
+beside the text» - written as 760 in one and 1180 in the other, neither on the registry. At 860 the
+SEO text's column measures 500 against 400 at 760 today and nothing clips. The trust strip, forced
+on at 860 with its full 150px reserve, gives four cells of 167 and **two of them clip their text**.
+The reserve is what the strip gives up, so the reserve is what ramps: 108px at 860, 150px at 1180,
+with the mascot's crop box ramping alongside (108 -> 180), because a 180px bear would otherwise
+hang 72px over the fourth cell. Measured after: cells 177.5 at 860, nothing clipped, and both back
+to full size at 1180. The crop box exists to crop this bear; cropping it harder where there is less
+room is the mechanism doing its job.
+
+**The strip's column counts stay POINTS, and this is the clearest case in the stage of the ladder
+answering «no».** The hairlines between cells are `nth-child` box-shadows, so they must KNOW the
+column count - and `auto-fit` is precisely the mechanism that makes it unknowable to CSS. Redrawing
+them as a cell border was the other route and was not taken: it changes how every line in the strip
+is painted, and this round's acceptance is measured in pixels.
+
+**`pdp-tabs`' 1180 did exactly one thing and is gone.** It widened the right column from 540 to
+580. A 40px step is a SIZE, so it ramps between the two values that stood there: 248 + 540 at 860
+and 312 + 580 at 1180, before and after.
+
+**A third point was the other answer to the mascot, and it was not taken - twice.** The pack allows
+one, but only as a decision the owner says out loud, and the owner was asked at two roll-calls.
+
+**The container-threshold section closed empty, and the reason is mechanical rather than
+aesthetic.** The mascot is a question about the PLACE, so `@container` was the honest mechanism and
+would have been the system's first threshold. `container-type: inline-size` implies
+`contain: layout`, which makes the element a containing block for every `position: fixed`
+descendant. The only placer available is the page frame, and twelve component files put fixed
+elements inside it - the buy bar, the drawers, the toasts, the cookie banner. Declaring the
+container there would have re-anchored all of them in order to place a decoration. So the section
+says «empty, and here is why», `tools/bp.mjs` fails the run on `@container` with no `container-type`
+anywhere, and the day a placer exists that holds nothing fixed, the mascot is the first candidate.
+
+**Where the system stands after four rounds: 116 queries on SIX widths** - 619, 620, 859, 860, and
+the pair 939 / 940 that step 5 owns. Step 1's census found **27 different width values acting in
+the product and not one token for any of them**. What is left is two tokens, their two mirrors and
+one deliberately deferred behaviour.
+
+**`tools/bp.mjs` is what keeps it that way, and it was shown to fail before it was believed.** It
+reads the registry out of `tokens.css` - so the token stays the source and the literal in the query
+stays a copy that is checked - and fails on four classes: a number off the registry, an `@media`
+inside a screen file, `var()` inside a query, and `@container` with no `container-type` anywhere.
+Each was introduced on purpose and reverted. Every declared list inside it is itself checked for
+covering something. Its own wrong version is in its header: the first run counted the three
+presentation pages of stage 06 and the folder hub as product screens and reported eight failures
+that were not there.
+
+**The ban is written in two places, as the pack requires**, and one of its two halves is the part no
+grep can see: `design/system/CLAUDE.md` rules 11 and 12, and `architecture.md` section J. Rule 12 is
+the one every reader needs - **a COUNT and a BEHAVIOUR may step at a point, a SIZE may not.**
+
+**The `Width` column landed in `inventory.md` after all four rounds and not before.** A column
+filled for one level of four says «unknown» about the other three in a shape that reads like
+«nothing to say». It is derived from each file rather than typed, so it cannot drift, and no cell is
+empty: a component that deliberately does not adapt carries `–`, which is an answer.
+
+## The design system got its own front door - asked for by the owner, stage 10
+
+**The system was split across two sidebars and the seam showed.** `overview.html`, `why.html` and
+`responsive.html` carried the ROADMAP panel while the other ninety-odd kit pages carried the
+system's own. The system's panel already listed «Адаптив» - so clicking it from inside the design
+system threw the reader OUT of the design system, into the roadmap. `overview.html` was in no
+registry at all and was reachable only by a back-arrow.
+
+Four changes, and the third is the one that made the other three possible:
+
+1. **`Огляд` is the first row of the system's panel**, in a new group «Система» together with «Чому
+   саме так», which moved out of «Основи». The back-arrow said «← Вся система» and pointed at the
+   same page the new row points at, so it now says «← Дизайн-процес» and leaves for the roadmap.
+   A panel that lists the whole system does not also need an arrow to it.
+2. **The three pages moved onto the system's panel.** Opening the design system now keeps you in it.
+3. **The system's panel learned to render `NAV_SECTIONS`.** Without this the move would have traded
+   one defect for another: `responsive.html` alone has ten sections, `why.html` eighteen. The
+   classes are `kn-s`, not the root panel's `nav-section` - kit pages load `_page.css` and never
+   `_nav.css`, so borrowing the root's names would have styled nothing.
+4. **The roadmap row «Дизайн-система» is one row again**, pointing at the overview. Its two children
+   both live in the system's own panel now, and a roadmap that repeats the system's table of
+   contents is a second copy of it - which drifts. The roadmap says «here is the stage»; the panel
+   inside says «here is what is in it».
+
+Plus the census section moved to the foot of `overview.html`: it is the record of what the product
+looked like BEFORE the system, and it was standing between the reader and the system itself.

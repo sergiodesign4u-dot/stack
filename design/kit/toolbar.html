@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Тулбар</h1>
 <p class="kp-lead">Смуга над каталогом: скільки знайдено, як сортувати, як показувати. <b>Їх два, і вони ніколи не бачать одне одного</b> - до 860 працює мобільна, від 860 десктопна, і на жодній ширині немає обох.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/toolbar.css</span><span class="kp-tag">55 рядків</span><span class="kp-tag">11 селекторів</span><span class="kp-tag">39 оголошень</span><span class="kp-tag">7 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/toolbar.css</span><span class="kp-tag">63 рядки</span><span class="kp-tag">11 селекторів</span><span class="kp-tag">39 оголошень</span><span class="kp-tag">7 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Обидві смуги показані поруч навмисно: у продукті так не буває, а на стенді інакше видно тільки одну.</p>
@@ -89,10 +89,18 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Смуга каже, скільки залишилось після фільтра.</b> «Знайдено: 24 товари» - це відповідь на щойно натиснуте, а не заголовок. Разом із лічильниками в рейці це те, що дає тренеру звужувати впевнено.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби одну смугу з прихованими частинами.</b> Кнопка «Фільтри» на десктопі не потрібна, а смуга з <code>display: none</code> тримає в розмітці контрол, якого на цій ширині не існує, і рано чи пізно хтось його сфокусує табуляцією.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U6</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Одна панель інструментів на екран. <code>.ltool</code> - десктопна половина: на 390 її не видно ніде, там стоїть <code>.mtoolbar</code>.</p></section>
+
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>7</b> власних класів і <b>1</b> стан.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["b","count","listing","ltool","mc","mtoolbar","sp"], KIT_STS=["min-width: 860px"];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-shell-wide</code>, і це <b>три запити, складені в один</b>. Файл казав <code>min-width: 860</code> тричі, кожен під своїм правилом, і читалось це як три окремі думки про число. Думка одна: на точці оболонки лістинг відрощує ліву колонку фільтрів, з'являється її тулбар, а липка смуга, яка заміняла його на телефоні, зникає. <b>І одне сказано вголос, а не полагоджено:</b> <code>.listing{ grid-template-columns: 240px 1fr }</code> це рамка ЕКРАНА лістингу, а не тулбара, і належить оболонці кроку 3. Переносити її тихо всередині раунду молекул означало б це сховати.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>toolbar.css</code>: <b>6</b> семантичних ролей і <b>11</b> примітивів.</p>

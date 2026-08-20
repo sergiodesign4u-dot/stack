@@ -9,7 +9,15 @@
 @media (min-width: 620px){
   .goaltiles{ grid-template-columns: repeat(3, 1fr); }
 }
-@media (min-width: 960px){
+/* 10.4: 960 -> 860, `--bp-shell-wide`. THE QUERY STAYS A QUERY, and that is the
+   ladder answering «no» for once. Six tiles have exactly three balanced
+   arrangements - 2, 3 and 6 - because those are the divisors of six;
+   `repeat(auto-fit, minmax(F, 1fr))` cannot be told that, and at any floor that
+   gives 6 at the wide end it also produces 4+2 and 5+1 on the way there.
+   Measured before folding, on `index` with the query forced: at 860 the six tiles
+   come out 128 x 116.4 and clip nothing, the same height they have at 960 with
+   144.7 of width. So the fold costs 16.7px of tile and buys the registry. */
+@media (min-width: 860px){
   .goaltiles{ grid-template-columns: repeat(6, 1fr); }
 }
 .gtile{ border: 1px solid var(--line-strong); text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-8); }

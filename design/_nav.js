@@ -20,6 +20,15 @@
 var DESIGN_NAV = [
   'listing.html', 'listing-empty.html', 'listing-error.html', 'listing-loading.html',
   'listing-filtered.html', 'listing-list.html', 'listing-sheet.html',
+  /* stage 09 step 5 - node 2.2, the goal collection, assembled from the finished
+     system. THE ROW MATTERS FOR THREE THINGS AT ONCE, which is why missing it was
+     invisible: the stand rail paints an unregistered screen's chip `grey`, so the
+     current-state chip read 1.71:1 in the light theme; `uivFixLinks()` rewrites every
+     link to a screen that is not listed here into `../wireframes/`, so the error
+     screen's «Спробувати ще раз» walked out of colour; and the rail grew a row from
+     its own fallback. One absent line, three measured symptoms, none of them on the
+     screen it came from. */
+  'goal.html', 'goal-empty.html', 'goal-error.html', 'goal-loading.html',
   'product.html', 'product-loading.html', 'product-error.html', 'product-oos.html',
   'product-reviews.html', 'product-coach.html',
   'auth.html', 'auth-loading.html', 'auth-code.html', 'auth-error.html', 'auth-newuser.html',

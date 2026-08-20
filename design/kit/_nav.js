@@ -17,6 +17,21 @@
    No em dash in this file. */
 window.KIT_NAV = [
  {
+  "label": "Система",
+  "items": [
+   {
+    "label": "Огляд",
+    "page": "overview.html",
+    "done": true
+   },
+   {
+    "label": "Чому саме так",
+    "page": "why.html",
+    "done": true
+   }
+  ]
+ },
+ {
   "label": "Основи",
   "items": [
    {
@@ -35,13 +50,13 @@ window.KIT_NAV = [
     "done": true
    },
    {
-    "label": "Набір іконок",
-    "page": "icons.html",
+    "label": "Адаптив",
+    "page": "responsive.html",
     "done": true
    },
    {
-    "label": "Чому саме так",
-    "page": "why.html",
+    "label": "Набір іконок",
+    "page": "icons.html",
     "done": true
    }
   ]
@@ -482,6 +497,21 @@ window.KIT_NAV = [
   ]
  },
  {
+  "label": "Патерни",
+  "items": [
+   {
+    "label": "Коли брати патерн",
+    "page": "patterns.html",
+    "done": true
+   },
+   {
+    "label": "Ряд дій",
+    "page": "action-row.html",
+    "done": true
+   }
+  ]
+ },
+ {
   "label": "Перепис",
   "items": [
    {
@@ -570,8 +600,42 @@ window.KIT_NAV = [
      already applied the stored choice from <head> - before the first paint, so
      the page never flashes light. A switch that lived here alone would flash on
      every load, because this file runs at the end of the body. */
+  /* 10.4: THE PANEL LEARNED TO SHOW THE SECTIONS OF THE PAGE IT IS ON, and until
+     it did, three of the longest pages in this system could not live here at all.
+     `overview.html`, `why.html` and `responsive.html` carried the ROADMAP sidebar -
+     which does render `NAV_SECTIONS` - so opening «Адаптив» from inside the design
+     system threw the reader out of the design system. Moving them here without this
+     would have traded one defect for another: `responsive.html` alone has ten
+     sections. The classes are `kn-s`, not the root panel's `nav-section`: kit pages
+     load `_page.css` and never `_nav.css`, so borrowing the root's names would have
+     styled nothing. The panel keeps one visual language, its own. */
+  function sectionsBlock() {
+    var secs = window.NAV_SECTIONS;
+    if (!secs || !secs.length) return '';
+    return '<div class="kn-ss">' + secs.map(function (s) {
+      return '<a class="kn-s" href="#' + String(s.id).replace(/[<>&"]/g, '') +
+        '" data-sec="' + String(s.id).replace(/[<>&"]/g, '') + '">' +
+        String(s.label).replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</a>';
+    }).join('') + '</div>';
+  }
+
+  function observeSections() {
+    var secs = window.NAV_SECTIONS;
+    if (!secs || !secs.length || !('IntersectionObserver' in window)) return;
+    var links = {};
+    nav.querySelectorAll('.kn-s').forEach(function (a) { links[a.dataset.sec] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        Object.keys(links).forEach(function (k) { links[k].classList.remove('is-current'); });
+        if (links[e.target.id]) links[e.target.id].classList.add('is-current');
+      });
+    }, { rootMargin: '-10% 0px -75% 0px' });
+    secs.forEach(function (s) { var el = document.getElementById(s.id); if (el) io.observe(el); });
+  }
+
   var mode = (typeof uivThemeNow === 'function') ? uivThemeNow() : 'light';
-  var h = '<a class="kn-back" href="overview.html">&#8592; Вся система</a>' +
+  var h = '<a class="kn-back" href="../../index.html">&#8592; Дизайн-процес</a>' +
           '<div class="kn-t">Дизайн-система</div>' +
           '<div class="kn-sub">' + done + ' / ' + total + ' сторінок</div>' +
           '<button class="kn-theme" type="button" id="knTheme" aria-pressed="' + (mode === 'dark') + '">' +
@@ -588,6 +652,7 @@ window.KIT_NAV = [
       h += i.done
         ? '<a class="kn-l' + on + '" href="' + i.page + '">' + i.label + '</a>'
         : '<span class="kn-l" style="opacity:.45;cursor:default">' + i.label + '</span>';
+      if (on) h += sectionsBlock();
     });
     h += '</div>';
   });
@@ -601,6 +666,7 @@ window.KIT_NAV = [
      pass is idempotent, so calling it on our own subtree costs nothing and
      survives a re-render. */
   if (typeof uivMarks === 'function') uivMarks(nav);
+  observeSections();
   var tb = nav.querySelector('#knTheme');
   if (tb && typeof uivTheme === 'function') tb.addEventListener('click', function () {
     var m = uivTheme();

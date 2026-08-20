@@ -76,7 +76,11 @@
 }
 
 .wf-canvas{ min-height: 100vh; margin-left: var(--shell-left); }
-.wf-page{ max-width: 1200px; margin: 0 auto; padding: 0 var(--space-16) var(--space-40); }
+/* 10.2: the page frame reads `--container-page` instead of writing 1200. It is the
+   first reader of the token, and it is the right one - this rule has been the page
+   frame of every coloured screen since stage 07. `.co-wrap` and `.cc-wrap` still
+   write their own number and move onto it at step 4. */
+.wf-page{ max-width: var(--container-page); margin: 0 auto; padding: 0 var(--space-16) var(--space-40); }
 /* checkout is the one flow with no `.wf-canvas` - it draws its own bare header -
    so the margin above cannot reach it and the page is offset directly. The rule
    came out of checkout-form.css at 7.26: whether a harness is there is this

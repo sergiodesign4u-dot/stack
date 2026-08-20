@@ -177,6 +177,13 @@
    ladder. The other two coach pills take no top margin: they are baseline items
    in their card's header row (`.oc-top`, `.ord-h`), not stacked under anything. */
 .aord-status, .rbadge, .co-status{ margin-top: var(--space-8); }
-@media (max-width: 639px){
-  .oh-status{ grid-area: stat; justify-self: start; margin-top: var(--space-4); }
-}
+/* 10.4: THE LINE THAT STOOD HERE WAS THE ROW'S, NOT THE PILL'S, and it moved to
+   `order-row.css`. It read
+       @media (max-width: 639px){ .oh-status{ grid-area: stat; ... } }
+   and `grid-area: stat` only means anything because `.ord-h` declares
+   `grid-template-areas: "no date" "stat sum" ...` inside its OWN query at the same
+   width, four lines of a reflow this file held one line of. A pill does not
+   reposition itself: the row repositions, and hands it a cell.
+   So this atom now carries no width rule at all, and that is its verdict: a status
+   pill is an inline mark whose box is its own word. Cut, not copied - a duplicate in
+   two files is a future divergence with a green check over it. */

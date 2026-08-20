@@ -7,14 +7,19 @@
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .wff{ border-top: 1px solid var(--line-hair); margin-top: var(--space-32); background: var(--bg-surface); }
 .wff-trust{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); max-width: 1200px; margin: 0 auto; padding: var(--space-24) var(--space-16); }
-@media (min-width: 720px){
+/* 10.4 round 3: 479 -> 619 and 720 -> 860, so the trust strip reads 1 -> 2 -> 4
+   columns on the registry's own two points. Measured: at 600 one column is 568 wide,
+   at 620 two are 286, at 860 four are 198, and deleting the narrow rule instead would
+   have put two 138px cells at 320 where the text nearly doubles in height. The cost is
+   named: 480-619 loses the two columns it has today and reads as one. */
+@media (min-width: 860px){
   .wff-trust{ grid-template-columns: repeat(4, 1fr); }
 }
 .wff-tc{ border: 1px solid var(--line-hair); border-radius: var(--radius-12); background: var(--bg-page); padding: var(--space-12) var(--space-16); }
 .wff-tc .th{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
 .wff-tc .ts{ font-size: var(--fs-12); color: var(--text-secondary); margin-top: var(--space-4); }
 .wff-cols{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); max-width: 1200px; margin: 0 auto; padding: var(--space-8) var(--space-16) var(--space-24); }
-@media (min-width: 720px){
+@media (min-width: 860px){
   .wff-cols{ grid-template-columns: 1.5fr repeat(4, 1fr); }
 }
 .wff-col h4{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); margin-bottom: var(--space-8); }
@@ -46,7 +51,7 @@
    the solver. */
 .wff-tc{ display:grid; grid-template-columns:auto 1fr; column-gap:var(--space-16);
   align-items:center; align-content:center; }
-@media (max-width:479px){
+@media (max-width:619px){
   .wff-trust{ grid-template-columns:1fr; gap:0; padding:var(--space-16) var(--space-16); }
   .wff-tc{ border:none; border-radius:0; background:none; padding:var(--space-12) var(--space-2); column-gap:var(--space-12); }
   .wff-tc + .wff-tc{ box-shadow:inset 0 1px 0 var(--line-hair); }
@@ -69,7 +74,7 @@
    1.05em. A class rule belongs to its component, never to base. */
 .uiv-tc-ic{ grid-row:1 / span 2; align-self:center; color:var(--text-action); display:inline-flex; }
 .uiv-tc-ic svg{ width:27px; height:27px; }
-@media (max-width:479px){
+@media (max-width:619px){
   .uiv-tc-ic svg{ width:var(--size-24); height:var(--size-24); }
 }
 

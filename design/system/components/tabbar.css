@@ -5,6 +5,13 @@
    Colour reads a semantic role, geometry reads a primitive. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
+/* 10.3: THE ONE NUMBER IN THIS FILE IS THE REGISTRY'S. 859 is the mirror of the
+   860 boundary declared as `--bp-shell-wide` in tokens.css; `@media` cannot read
+   `var()`, so the literal stands here and the token stays the source of truth.
+   Form A of the shell fork: five top-level entries, so they move into the header
+   and this carrier is not drawn at all above the point. `display: none` and not
+   opacity, so it leaves the accessibility tree with the pixels - measured by
+   tools/tab-walk.mjs, not asserted. */
 .wf-tabbar{ display: none; }
 @media (max-width: 859px){
   .wf-tabbar{ display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;

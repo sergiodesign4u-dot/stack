@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ряд дій | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Патерн</div>
+<h1 class="kp-h1">Ряд дій</h1>
+<p class="kp-lead">Блок закінчився і пропонує вибір: підтвердити або скасувати, зберегти або відмовитись, відкрити клієнта або почати сесію. Дві дії стоять поруч, на один відступ, і залита рівно одна з них.</p>
+<div class="kp-meta"><span class="kp-tag">патерн</span><span class="kp-tag">design/system/patterns/action-row.css</span><span class="kp-tag">4 правила</span><span class="kp-tag">70 сірих / 15 кольорових екранів</span><span class="kp-tag">заведено на кроці 9.1</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Чому це патерн, а не компонент</div>
+<p class="kp-p">Композицію знайшов <code>tools/pattern.mjs</code> по 142 сірих і 88 кольорових екранах. Вона стоїть на <b>70 сірих</b> екранах - і робить це під <b>53 різними іменами контейнера</b>.</p>
+<div class="kp-code">.eact  .act  .ceact  .addr-acts  .ccard-acts  .cl-acts  .oc-actions  .cc-cta
+.od-acts  .ord-acts  .ord-acts-c  .aord-actions  .cv-actions  .cv-btnrow
+.btnrow  .cta  .me-cta  .nl-cta  .q-cta  .clh-cta  .err-btns  .co-err-acts
+.sys-acts  .uacts  .buyrow  .lactions  .pstrip  .cd-foot  .cs-act  .ci-links
+.acts  .acact  .op-steps  .pages   ... і ще дев'ятнадцять</div>
+<p class="kp-p">Дев'ятнадцять із них несли правило в <b>п'ятнадцяти різних файлах компонентів</b>. <b>Десять не несли жодного</b>: ряд існував лише тому, що дві кнопки випадково стояли поруч у розмітці. Це і є визначення, з яким працює етап - композиція, повторена руками замість того, щоб бути названою один раз.</p>
+<div class="kp-dont"><h4>Компонент цього не вирішує</h4>Кнопка вже є компонентом, і вона правильна. Неправильним було те, <b>як їх ставлять поруч</b>: п'ять різних відступів для однієї роботи, з них два - <code>9px</code> і <code>10px</code> - не на щаблі драбини 4 / 8 / 12 / 16. <code>coach-clients.css</code> помітив це сам і записав у власному коментарі: «третє число на чотирьох рядах дій».</div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Живий патерн, з реальними рядками з продукту. Розмітка взята з <code>account-addresses.html</code>, не намальована для стенда.</p>
+<div class="kp-demo"><div class="actions"><a class="btn--outline btn--s" href="#">Редагувати</a><a class="btn--danger btn--s" href="#">Видалити</a></div></div>
+<div class="kp-cap">картка адреси: обидві дії контурні, бо жодна з них не є головним кроком екрана</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Контейнер</b> - <code>.actions</code>, і це ВСЕ, що патерн оголошує: <code>display: flex</code>, <code>gap</code> і перенос. Ні кольору, ні рамки, ні розміру</span></div>
+  <div class="a"><i>2</i><span><b>Дії</b> - <a class="kp-a" href="button.html">кнопка</a> своїм фінішем: <code>btn--accent</code> на головній, <code>btn--outline</code> на сусідній. Патерн не знає, який фініш обрано, і не має знати: ранг - робота кнопки</span></div>
+  <div class="a"><i>3</i><span><b>Відступ</b> - <code>--space-12</code>, найчастіше вживаний з п'яти, які продукт носив до переїзду</span></div>
+  <div class="a"><i>4</i><span><b>Перенос</b> - <code>flex-wrap: wrap</code> у <code>.actions</code>, і це твердження, а не підрахунок голосів: дві дії, що не влазять у 360px, мають упасти на другий рядок, а не виїхати за екран. Ряд, що ділить ширину замість переносу, каже <code>.actions--even</code></span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Варіанти</div>
+<p class="kp-p">Три, і кожен вичитаний з екранів, а не придуманий тут.</p>
+<div class="kp-demo"><div class="actions"><a class="btn--accent btn--s" href="#">Оформити Pro</a><a class="btn--outline btn--s" href="#">Не зараз</a></div></div>
+<div class="kp-cap"><code>.actions</code> - основа. Панель Pro на <code>coach-clients-cap</code>: залита рівно одна дія</div>
+<div class="kp-demo"><div class="actions actions--center"><a class="btn--outline btn--s" href="#">Скасувати й повернутись</a><a class="btn--accent btn--s" href="#">Далі</a></div></div>
+<div class="kp-cap"><code>.actions--center</code> - під блоком, який сам відцентрований: картка верифікації, порожній стан</div>
+<div class="kp-demo" style="max-width:320px"><div class="actions actions--even"><a class="btn--outline btn--s" href="#">Профіль</a><a class="btn--accent btn--s" href="#">Нова сесія</a></div></div>
+<div class="kp-cap"><code>.actions--even</code> - дві дії ділять ширину порівну і <b>не переносяться</b>: підвал картки, де жоден підпис не можна обрізати</div>
+<div class="kp-gap"><h4>Четвертого варіанта немає, і це перевірено приладом</h4><code>.actions--even</code> вийшов у світ без жодного носія, і <code>tools/dead-sel.mjs</code> сказав це двома рядками «МЕРТВИЙ» у ту саму мить, коли теку патернів додали в його предмет. Вибір «вжити або видалити» став заміром, а не вподобанням: <code>.ccard-acts</code> тримав <code>flex-wrap: nowrap</code> і <code>.ccard-acts .btn{ flex: 1 }</code> руками, а це <b>і є</b> цей модифікатор. Обидва оголошення видалено, розмітка каже <code>actions--even</code>.</div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">У трьох місцях шляху, і всі три - момент рішення, а не момент перегляду.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Місце шляху</th><th>Що там за вибір</th><th>Екран</th></tr></thead><tbody>
+<tr><td><b>Підвал картки</b></td><td>об'єкт у списку пропонує дві дії над собою: подивитись або продовжити</td><td><code>coach-clients</code> · <code>account-addresses</code> · <code>account</code></td></tr>
+<tr><td><b>Кінець блока</b></td><td>блок дочитано, і він пропонує наступний крок плюс відмову</td><td><code>coach-clients-cap</code> · <code>coach-landing</code> · <code>home-cart</code></td></tr>
+<tr><td><b>Підвал діалогу</b></td><td>підтвердити або скасувати, і скасування завжди перше</td><td>ще не переведено, див. «Обмеження»</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Головний тест - «One orange per view» з <code>DESIGN.md</code></b>: акцент означає рівно одне, «тут натиснути». Ряд дій - це місце, де правило перевіряється найчастіше, бо в ньому дві кнопки поруч. Залита - одна.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
+<div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Беріть патерн, коли поруч стоять дві дії одного блока.</b> Ім'я контейнера при цьому лишається своє - <code>class="ccard-acts actions"</code>: воно каже, ЧИЙ це ряд, а патерн каже, ЩО це ряд.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не заводьте п'ятдесят четверте ім'я контейнера.</b> Саме так виникли попередні п'ятдесят три: кожен екран називав свій ряд по-своєму, і одне правило довелось написати дев'ятнадцять разів у п'ятнадцяти файлах.</div></div>
+<p class="kp-p"><b>Коли патерн НЕ береться:</b> коли композиція одноразова або відрізняється порядком. Підвал шухляди кошика (<code>.cd-foot</code>) - це <code>grid</code> з підказкою під кнопками, а не ряд; смуга покупки (<code>.buyrow</code>) вирівнює вміст по центру і тримає лічильник між кнопками. Обидві лишились собою і це правильно: патерн - стала композиція, а не будь-які дві кнопки в одному батькові.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей патерн: <b>U9</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Новий ряд дій пише <code>class="actions"</code>. <b>Відхилення пишеться <code>.x.actions{ }</code> у власному файлі компонента, ніколи на екрані</b> - і саме тут крок 9.1 помилився вперше: <code>.actions</code> і голий клас контейнера важать однаково <b>(0,1,0)</b>, а патерни імпортуються останніми, тож відступ патерна тихо перебивав власний відступ контейнера і зсував розкладку на 4px. Скоупнуті <code>.coach .x</code> вижили при (0,2,0), і дефект вилетів рівно на чотирьох нескоупнутих.</p>
+<p class="kp-p"><b>Два ряди дій ще не переведені, і це сказано вголос.</b> <code>.ceact</code> і <code>.cedlg .act</code> - власний ряд <a class="kp-a" href="client-dialog.html">діалогу клієнта</a>, вісім сірих екранів і два кольорові: його розмітку будує <code>wireframes/_nav.js</code>, спільний скрипт ОБОХ корпусів, а сірий корпус цей етап не редагує. <code>.sys-acts</code> - ряд <a class="kp-a" href="system-page.html">службової сторінки</a>, нуль кольорових входжень, тож доводити пікселями нема чого. Обидва в беклозі для етапу 12.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Де стоїть</div>
+<p class="kp-p">Доказ існування патерна, а не ілюстрація: <b>15 кольорових екранів</b> поіменно, і кожен відкривається.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Контейнер</th><th>Що це за ряд</th><th>Екрани</th></tr></thead><tbody>
+<tr><td><code>.ccard-acts</code></td><td>підвал картки клієнта, дві дії ділять ширину</td><td><a class="kp-a" href="../coach-clients.html">coach-clients</a> · <a class="kp-a" href="../coach-clients-cap.html">coach-clients-cap</a> · <a class="kp-a" href="../coach-clients-loading.html">coach-clients-loading</a></td></tr>
+<tr><td><code>.ci-links</code></td><td>два посилання рядка кошика</td><td><a class="kp-a" href="../cart.html">cart</a> · <a class="kp-a" href="../cart-coach.html">cart-coach</a> · <a class="kp-a" href="../cart-oos.html">cart-oos</a></td></tr>
+<tr><td><code>.cc-cta</code> · <code>.oc-actions</code></td><td>заклик картки клієнта і дії картки замовлення</td><td><a class="kp-a" href="../coach-client.html">coach-client</a> · <a class="kp-a" href="../coach-client-loading.html">coach-client-loading</a></td></tr>
+<tr><td><code>.addr-acts</code></td><td>«Редагувати / Видалити» на картці адреси</td><td><a class="kp-a" href="../account-addresses.html">account-addresses</a></td></tr>
+<tr><td><code>.aord-actions</code></td><td>дії рядка замовлення в кабінеті</td><td><a class="kp-a" href="../account.html">account</a></td></tr>
+<tr><td><code>.cl-acts</code></td><td>інструменти списку клієнтів</td><td><a class="kp-a" href="../coach-clients.html">coach-clients</a></td></tr>
+<tr><td><code>.uacts</code></td><td>дії панелі Pro</td><td><a class="kp-a" href="../coach-clients-cap.html">coach-clients-cap</a></td></tr>
+<tr><td><code>.clh-cta</code></td><td>заклик шапки лендінгу тренера</td><td><a class="kp-a" href="../coach-landing.html">coach-landing</a></td></tr>
+<tr><td><code>.od-acts</code> · <code>.ord-acts</code></td><td>дії замовлення тренера і його списку</td><td><a class="kp-a" href="../coach-order.html">coach-order</a> · <a class="kp-a" href="../coach-orders.html">coach-orders</a></td></tr>
+<tr><td><code>.cv-btnrow</code></td><td>дії картки верифікації, відцентровані</td><td><a class="kp-a" href="../coach-verify-loading.html">coach-verify-loading</a></td></tr>
+<tr><td><code>.cs-act</code></td><td>дії полиці кошика на головній</td><td><a class="kp-a" href="../home-cart.html">home-cart</a></td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Переведення доведено пікселями:</b> <code>tools/tree-diff.mjs</code> проти дерева до правки, <b>30 порівнянь на 360 і 1280, зрушило 0</b>, перейменовано 240 рядків. Позитивний контроль у приладу є: перший прогін цього ж набору казав «зрушило 10» і назвав рід кожного зсуву.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Що переїхало, файл за файлом</div>
+<p class="kp-p">Вирізано звідти, вставлено сюди - не скопійовано. Правило, що лишилось одночасно у двох місцях, це дефект, а не підстраховка.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Файл компонента</th><th>Контейнер</th><th>Що переїхало</th><th>Що лишилось на місці</th></tr></thead><tbody>
+<tr><td><code>upsell.css</code></td><td><code>.uacts</code></td><td>display, gap, flex-wrap</td><td><code>margin-top: 6px</code></td></tr>
+<tr><td><code>coach-verify.css</code></td><td><code>.cv-btnrow</code></td><td>усе правило цілком</td><td>–</td></tr>
+<tr><td><code>coach-landing.css</code></td><td><code>.clh-cta</code></td><td>display, gap, flex-wrap</td><td><code>margin-top: 20px</code></td></tr>
+<tr><td><code>address-card.css</code></td><td><code>.addr-acts</code></td><td>display, flex-wrap</td><td><code>gap: --space-8</code></td></tr>
+<tr><td><code>order-row.css</code></td><td><code>.aord-actions</code></td><td>display, flex-wrap</td><td><code>gap: --space-8</code></td></tr>
+<tr><td><code>coach-order.css</code></td><td><code>.od-acts</code></td><td>display, flex-wrap</td><td><code>gap: 10px</code></td></tr>
+<tr><td><code>coach-cabinet.css</code></td><td><code>.ord-acts</code></td><td>display, flex-wrap</td><td><code>gap: 10px</code></td></tr>
+<tr><td rowspan="4"><code>coach-clients.css</code></td><td><code>.cl-acts</code></td><td>display, flex-wrap</td><td><code>gap: 9px</code></td></tr>
+<tr><td><code>.ccard-acts</code></td><td>display, <b>nowrap і <code>.btn{flex:1}</code></b></td><td><code>gap: 9px</code>, <code>margin-top: auto</code></td></tr>
+<tr><td><code>.cc-cta</code></td><td>display, flex-wrap</td><td><code>gap: 10px</code></td></tr>
+<tr><td><code>.oc-actions</code></td><td>display, flex-wrap</td><td><code>gap: 9px</code></td></tr>
+<tr><td><code>trust-strip.css</code></td><td><code>.cs-act</code></td><td>display, flex-wrap</td><td><code>gap: --space-8</code></td></tr>
+<tr><td><code>cart-row.css</code></td><td><code>.ci-links</code></td><td>display</td><td><code>gap: --space-16</code>, nowrap</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>П'ять відступів на одну роботу - це не полагоджено тут навмисно.</b> Крок з патерном це рефакторинг, і його приймання - нуль зрушених пікселів. Кожне відхилення лежить одним оголошенням в одному файлі й записане в <a class="kp-a" href="backlog.html">беклог</a> списком 4 у формі «змінна -&gt; значення -&gt; чому». Вкласти зміну значення в переїзд - це рівно те, як рефакторинг перестає бути доказовим.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власні класи. <b>Станів патерн не має і не може мати</b> - він не інтерактивний: інтерактивні тут кнопки всередині, і їхні чотири стани показує <a class="kp-a" href="button.html">їхня сторінка</a>.</p>
+<div id="idle"></div>
+<script>var KIT_CLS=["actions","actions--center","actions--even"], KIT_STS=[];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> жодного, і це відповідь раунду 4 цілком. Патерн у цій системі один, і в ньому <b>нуль медіазапитів</b>: <code>flex-wrap: wrap</code> стоїть у базовому правилі з кроку 9.1, а <code>.actions--even</code> каже «поділіть ширину» модифікатором розмітки, а не числом. <b>N = 1, M = 1, K = 0.</b> Композиція, зібрана з компонентів, які вже вміють ширину, не має власної відповіді на неї - і саме тому раунд патернів найкоротший із чотирьох, а не тому, що його зробили формально. <b>Одне правило перевірено і лишилось не тут:</b> <code>.cs-act</code> у <code>trust-strip.css</code> нижче точки бере всю лінію і ділить її порівну - друга половина цього і є <code>.actions--even</code>. Модифікатор не вмикається за шириною без запиту, тож правило лишається у свого контейнера, складене на <code>619</code>.</div>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>action-row.css</code>, не переписані руками. <b>Кольору тут немає жодного</b>, і це не випадковість: патерн збирається з компонентів і токенів, а колір несе роль, яку оголошує компонент.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (0)</th><th>Примітиви (1)</th></tr></thead><tbody><tr><td>–</td><td><code>--space-12</code></td></tr></tbody></table></div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Розмітка</div>
+<div class="kp-code">&lt;!-- ряд дій блока: власне ім'я плюс патерн --&gt;
+&lt;div class="ccard-acts actions"&gt;
+  &lt;a class="btn--outline btn--s" href="#"&gt;Профіль&lt;/a&gt;
+  &lt;a class="btn--accent btn--s" href="#"&gt;Нова сесія&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;!-- дві дії ділять ширину і не переносяться --&gt;
+&lt;div class="actions actions--even"&gt; ... &lt;/div&gt;
+
+&lt;!-- під відцентрованим блоком --&gt;
+&lt;div class="actions actions--center"&gt; ... &lt;/div&gt;</div>
+<p class="kp-p">Файл: <code>design/system/patterns/action-row.css</code>, підключений у <code>design/system/index.css</code> <b>після компонентів</b> - патерн збирається з них, тож у каскаді стоїть нижче.</p>
+</section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_nav.js"></script>
+</body>
+</html>

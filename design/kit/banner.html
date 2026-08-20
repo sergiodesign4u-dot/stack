@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Банер</h1>
 <p class="kp-lead">Шість непов'язаних блоків під одним ім'ям файлу, і всі шість живуть рівно на чотирьох екранах - головній у чотирьох станах. Це не компонент, це стилевий лист головної сторінки.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/banner.css</span><span class="kp-tag">232 рядки</span><span class="kp-tag">79 селекторів</span><span class="kp-tag">6 блоків</span><span class="kp-tag">6 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/banner.css</span><span class="kp-tag">262 рядки</span><span class="kp-tag">74 селектори</span><span class="kp-tag">6 блоків</span><span class="kp-tag">6 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Шість блоків, чотири екрани</div>
 <p class="kp-p">Заміряно в браузері на 390, 720 і 1280 по всіх 39 кольорових екранах. Кожен блок цього файлу рендериться на <code>home-buyer</code>, <code>home-cart</code>, <code>home-coach</code> і <code>index</code> - і більше ніде.</p>
@@ -142,10 +142,18 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Банер продає ідею, картка продає товар.</b> Якщо в блоці з'явились ціна, наявність і кнопка «у кошик» - це вже картка, і вона має брати анатомію картки, а не власну.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не заводь нове ім'я для тієї самої частини.</b> Три набори імен для одного бренда, однієї назви й однієї ціни - це не три компоненти, це один, у якого тричі забули спитати, як він зветься.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U8</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Коли на сторінці є кошик-полиця, головна дія належить їй, а залита дія смуги стає контурною - правило записане ще на етапі 07 у <code>wireframes/docs/critique.md</code>.</p></section>
+
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>30</b> власних класів і <b>3</b> стани оголошено в <code>banner.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["hbanners","hslider","hside","hpromo","hptag","hph","hps","hdots","on","hdeal","hd-tag","hd-ph","hd-brand","hd-nm","hd-price","hd-oldline","hd-old","hd-new","hd-meta","hd-cta","pstrip","pt","psp","tband","tbanners","tbn","tbim","tbx","promo","ps"], KIT_STS=[":hover", ".on", "--elevation-2"];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Три різні відповіді в одному файлі, і це навмисно.</b> <b>1)</b> <code>.tbanners</code> - <b>запит зник</b>: п'ять смуг довіри заповнюють ряд через <code>auto-fit</code> з підлогою <code>8rem</code>. На 360 обидві редакції дають 2 x 158, на 720 - 5 x 128; між ними ряд тепер стає трьома на 440 і чотирма на 580 замість того, щоб тримати дві колонки 360 пікселів поспіль. <b>2)</b> <code>.hbanners</code> і <code>.hpromo</code> - <b>720 -> 620</b>: <code>2fr 1fr</code> з явним розміщенням це композиція, і <code>auto-fit</code> її не вміє. Зміряно: на 620 колонка акції виходить 192px, а на 860, де <code>.hero-wrap</code> бере собі компаньйона і тисне цю сітку до 562, та сама картка вже 183px. <b>3)</b> <code>.recbanner</code> - <b>запит зник</b>: гап, портрет і кегль стрибали на 559, тепер це три пандуси, кожен кінчається тим числом, яке там і стояло. <code>.hpromo</code> <code>min-height</code> пішла тим самим шляхом: 300 на 360, 340 від 620.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>banner.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>

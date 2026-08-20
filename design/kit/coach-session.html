@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 3</div>
 <h1 class="kp-h1">Сесія замовлення</h1>
 <p class="kp-lead">Вузол 5.5, і це <b>первинна робота всього продукту</b>: один тренер, кілька клієнтів, кілька цілей, одне сидіння. Вкладки клієнтів, кожна зі своїм підсумком; панель активного клієнта з його цілями; швидке додавання, що шукає <b>всередині цілі</b>, а не по каталогу; рядки замовлення за гуртовою ціною проти закресленої роздрібної; звід, який складає клієнтів.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-session.css</span><span class="kp-tag">850 рядків</span><span class="kp-tag">73 селектори</span><span class="kp-tag">266 оголошень</span><span class="kp-tag">8 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-session.css</span><span class="kp-tag">855 рядків</span><span class="kp-tag">73 селектори</span><span class="kp-tag">266 оголошень</span><span class="kp-tag">8 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Найширша сторінка продукту, і вона це заробила</div>
 <p class="kp-p">Ліва колонка тримає рядки замовлення, права - звід, який має лишатись видимим, поки тренер додає товари. Це єдиний екран, де дві колонки не декорація: <b>сума, заради якої тренер прийшов, мусить бути на очах у мить, коли він її змінює</b>.</p>
@@ -121,6 +121,9 @@ color: rgb(0,0,0)</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>52</b> класи і <b>0</b> станів оголошено в <code>coach-session.css</code>. <code>.coach</code> не рахується - це скоуп.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["add", "bt", "cc-goal", "cc-goals", "cc-name", "cl-ctrls", "cl-nm", "cl-ph", "cl-right", "cl-tag", "cl-var", "cline", "cline-sub", "cprice", "cs-banner", "cs-bar", "cs-blocknote", "cs-cli", "cs-client", "cs-go", "cs-grid", "cs-lines-h", "cs-meta", "cs-note", "cs-panel", "cs-save", "cs-summ", "cs-summ-empty", "cs-summ-h", "cs-top", "cs-tot", "cs-warn", "cs-wrap", "ctab", "ctabs", "ctg", "ctn", "cts", "on", "oos", "qa-add", "qa-av", "qa-bd", "qa-nm", "qa-ph", "qa-row", "qadd", "qadd-h", "qadd-res", "tierchip", "wa", "ws", "wt", "zero"], KIT_STS=[];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>619</code>, дзеркало <code>--bp-grid-2col</code>, для перекладання рядка питання. <b>Було 479</b>. <b>А ДРУГА ПАРА ФАЙЛУ, 939/940, НЕ ЧІПАНА НАВМИСНО:</b> це і є коуч-спліт-в'ю - сесія дістає колонку підсумку 320px і ховає липку смугу - а аудит ширини назвав його <b>єдиною справді новою поведінкою цього етапу</b>, тобто предметом кроку 5. Скласти число тут означало б вирішити в раунді компонентів те, заради чого існує окремий крок.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>coach-session.css</code>, не переписані руками. Ці два екрани ніколи не проходили через <code>kit.css</code>, тож переклад сірих імен - і є вся колірна робота: кожне з них перекладено за <b>роботою</b>, яку воно виконувало в <code>wireframes/_wf.css</code>.</p>

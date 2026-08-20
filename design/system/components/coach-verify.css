@@ -276,7 +276,12 @@
    where it is a CONTENT limit: the width at which a reading column stops
    growing. Same job here, and it makes the boundary a three-file decision
    instead of a two-file one. */
-@media (min-width: 760px) { .coach .cv-split{ flex-direction: row; align-items: stretch; } }
+/* 10.4 round 3: 760 -> 860 and 520 -> 620, both onto the registry. Which of the two
+   was measured, not picked: forcing `.cv-split` into a row at 620 makes the aside 222.7
+   and CLIPS `.opt-tiles` (324 into 319), while at 860 it comes out 313.9 + 512.1 clean.
+   The tiles' own query goes the other way - three fixed tiles at 620 are 174.7 wide and
+   clip nothing, against 141.3 at 520 today. */
+@media (min-width: 860px) { .coach .cv-split{ flex-direction: row; align-items: stretch; } }
 /* THE STATE PANEL. padding -> `--space-32` `--space-24`, and that is the one
    value this step changed: 34px on coach-verify-deadend is on no rung, the
    ladder runs 24/32/40, and the neighbouring screen drawing the SAME panel with
@@ -365,7 +370,7 @@
 /* 38% and not a length: the panel is a ratio of the card. auth-dialog.css gives
    its own visual half 44%. Two devices, two proportions, and neither is written
    down anywhere as a decision - stage 09. */
-@media (min-width: 760px) { .coach .cv-aside{ width: 38%; flex: none; border-bottom: none; border-right: 1px solid var(--line-hair); display: flex; flex-direction: column; justify-content: space-between; } }
+@media (min-width: 860px) { .coach .cv-aside{ width: 38%; flex: none; border-bottom: none; border-right: 1px solid var(--line-hair); display: flex; flex-direction: column; justify-content: space-between; } }
 .coach .cv-aside .vlogo{ font-size: var(--fs-20); font-weight: var(--fw-black); color: var(--text-primary); letter-spacing: var(--ls-display); }
 /* grey 13 -> 14: step 5.6, ties go UP (13 -> 14). One of the nine in the
    block at the top. */
@@ -394,7 +399,7 @@
 /* [?] 22px has no rung; the ladder is 16/24. */
 .coach .cv-body{ flex: 1; min-width: 0; padding: 22px; }
 /* [?] 30px and 34px have no rung; the ladder is 24/32/40. */
-@media (min-width: 760px) { .coach .cv-body{ padding: 30px 34px; } }
+@media (min-width: 860px) { .coach .cv-body{ padding: 30px 34px; } }
 /* THE TYPE OF THIS HEADING WAS THE ONE THING THE MOVE COULD NOT ANSWER, AND
    7.96 ANSWERS IT - not by taste, but because two ACCEPTED screens of exactly
    this shape already agree, and a third file disagreeing with both of them is
@@ -559,7 +564,7 @@
    singletons step 7.64 folded (700 to 720, 820 to 860) and the one 7.70 folded
    (900 to 860). It is a fold waiting for a measurement, and the measurement is
    whether three tiles of «Персональний / Зал / Команда» still read at 480. */
-@media (min-width: 520px) { .coach .opt-tiles{ grid-template-columns: repeat(3,1fr); } }
+@media (min-width: 620px) { .coach .opt-tiles{ grid-template-columns: repeat(3,1fr); } }
 /* ---------- .opt-tile, .opt-tile small, .opt-tile.on, .opt-tile.on small:
    DELETED, AND RADIO.CSS OWNS THEM. The markup says so out loud -
    `role="radiogroup"` around three `role="radio" aria-checked` buttons - and
@@ -741,7 +746,8 @@
    the shape this file's own SECTION 2 header warns about at length - so it is
    `.cv-btnrow` here and in the markup. */
 .coach .cv-actions{ display: flex; flex-direction: column; gap: var(--space-12); }
-.coach .cv-btnrow{ display: flex; gap: var(--space-12); justify-content: center; flex-wrap: wrap; }
+/* 9.1: the whole rule moved to patterns/action-row.css - the markup now says
+   `actions actions--center` and this container declares nothing of its own. */
 
 /* ---- the reasons panel (error) ---------------------------------------------
    13 -> --fs-14 and 12.5 -> --fs-14 are the nine-line table at the top of this

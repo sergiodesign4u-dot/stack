@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Картка адреси</h1>
 <p class="kp-lead">Куди везти. Три збережені адреси в кабінеті - і діалог, у якому їх заводять. Найщільніший із дрібних файлів системи: <b>34 селектори на 52 рядки</b>, і половина з них - не картка.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/address-card.css</span><span class="kp-tag">76 рядків</span><span class="kp-tag">40 селекторів</span><span class="kp-tag">130 оголошень</span><span class="kp-tag">3 екрани</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/address-card.css</span><span class="kp-tag">94 рядки</span><span class="kp-tag">40 селекторів</span><span class="kp-tag">127 оголошень</span><span class="kp-tag">3 екрани</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія картки</div>
 <p class="kp-p">Розмітка звідси - та сама, що на <code>account-addresses.html</code>.</p>
@@ -146,15 +146,23 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Спершу «як», потім «куди».</b> Три способи доставки вимагають різних полів. Питати все одразу означає показати форму, де половина полів зайва, а людина не знає, які саме.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби видалення схожим на решту дій.</b> Кнопка «Видалити адресу» відрізняється від сусідів лише піктограмою й тим, що стоїть за лінією - а після 7.59 вона взяла той самий контурний фініш, що й «Редагувати». Це найменше, що можна зробити, і цього мало: стан для незворотної дії в системі ще не описаний, і саме тому дублювання прибрали, а не поглибили.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U9</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Ряд дій картки береться патерном <code>.actions</code>. Власний <code>gap: 8</code> проти патернових 12 лишився тут як відхилення і записаний у беклог.</p></section>
+
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>28</b> власних класів і <b>3</b> стани оголошено в <code>address-card.css</code>.</p>
 <p class="kp-p"><code>.addr-del-row</code> і <code>.addr-back</code> <b>стояли в станах і не є станами</b> - обидва тут-таки намальовані вище, а вмикає їх не клас: рядок видалення ховає <b>атрибут <code>hidden</code></b> (<code>r.hidden = !edit</code>), а «інший спосіб» ховає <code>.mode-edit</code> на самій модалці. Умова справжня, носій у неї інший, і в таблиці нижче вона описана словами.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["aaddr","addr-2col","addr-acts","addr-add","addr-back","addr-card","addr-check","addr-cityfld","addr-del-row","addr-hint","addr-line","addr-list","addr-method","addr-methods","addr-modal","addr-note","addr-sub","addr-tag","addr-type","adef","am-ar","am-ic","am-tx","amore","chg","def","line","tag"], KIT_STS=[".def",":hover","min-width: 720px"];</script></section>
 
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> жодного - <b>запит зник</b>. Було <code>@media (min-width: 720px)</code>, поза реєстром. <b>Що саме міняється:</b> список адрес заповнює ряд через <code>auto-fit</code> з підлогою <code>--grid-col-min-panel</code>. Адрес буває одна або сім, тобто фіксованої кількості тут немає, і саме тому заповнення чесніше за точку. <b>Зміряно:</b> одна колонка до 660, дві від 660 (сьогодні було 720), на 1280 - 358px на картку, як і з запитом. <b>І одне знято при перевірці:</b> розгортка спершу сказала, що <code>.addr-2col</code> не стоїть на жодній сторінці - вона стоїть, у стенді, на <a class="kp-a" href="client-dialog.html">client-dialog.html</a>, а корпус приладу це продукт.</div>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>address-card.css</code>: <b>13</b> семантичних ролей і <b>18</b> примітивів.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (13)</th><th>Примітиви (18)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--mark-faint</code> <code>--text-action</code> <code>--text-body</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--elevation-1</code></td><td><code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fs-24</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--ls-caps</code> <code>--radius-8</code> <code>--radius-12</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (13)</th><th>Примітиви (19)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--mark-faint</code> <code>--text-action</code> <code>--text-body</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--elevation-1</code></td><td><code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fs-24</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--ls-caps</code> <code>--radius-8</code> <code>--radius-12</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--grid-col-min-panel</code></td></tr></tbody></table></div>
 <p class="kp-p">Повз шкалу тільки чотири числа: <code>1px</code> і <code>1.5px</code> (дві товщини ліній, і <b>браузер малює обидві однаково</b> - 7.49), <code>18px</code> прапорця, <code>90vh</code> висоти діалогу, <code>720px</code> точки перелому. <b>Найчистіший файл після нотатки про поповнення.</b></p></section>
 
 <section class="kp-sec"><div class="kp-sh">A/B</div>

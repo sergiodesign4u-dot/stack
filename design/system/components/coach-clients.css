@@ -211,7 +211,10 @@
    section 2. Four rows that put two buttons side by side, three numbers between
    them. One number for 'the gap between two actions' is a stage 09 decision and
    it is one decision, not four. */
-.coach .cl-acts{ display: flex; gap: 9px; flex-wrap: wrap; }   /* [?] 9px has no rung; the ladder is 8/12 */
+/* 9.1: `display: flex` and the wrap moved to patterns/action-row.css - one row, one
+   rule, fifty-three container names. What stays here is what this container does
+   DIFFERENTLY, and nothing else. */
+.coach .cl-acts{ gap: 9px; }   /* [?] 9px has no rung; the ladder is 8/12 - backlog, 9.1 */
 .coach .cl-tools{ display: flex; gap: 9px; margin: 18px 0 var(--space-4); }   /* [?] 9px and 18px have no rung; the ladder is 8/12/16/24 */
 
 /* THIS IS A HAND-BUILT `field-grp` AND THE ATOM CANNOT REACH IT. field.css owns
@@ -260,7 +263,10 @@
    and 16. Two names, one grid, three numbers - a stage 09 merge, not a rename
    this step is allowed to make. */
 .coach .clist{ display: grid; grid-template-columns: 1fr; gap: var(--space-12); margin-top: 14px; }   /* [?] 14px has no rung; the ladder is 12/16 */
-@media (min-width: 640px){
+/* 10.4 round 3: 640 -> 620 and 520 -> 619. The client list saying «one column
+   becomes two» is `--bp-grid-2col` by definition; 520 is the coach flow's own number,
+   shared with `coach-cabinet` and `coach-verify`, and in no registry. */
+@media (min-width: 620px){
   .coach .clist{ grid-template-columns: 1fr 1fr; }
 }
 /* ONE FINISH FOR A SAVED RECORD, AND IT WAS ANSWERED TWICE BEFORE THIS FILE WAS
@@ -328,7 +334,12 @@
    move draws the same pixel it drew before. Which of the two roles a separator
    belongs to is a stage 09 question - two roles cannot both own separators. */
 .coach .ccard-meta .dot{ color: var(--mark-disabled); }
-.coach .ccard-acts{ display: flex; gap: 9px; margin-top: auto; }   /* [?] 9px has no rung; see the note on .cl-acts */
+.coach .ccard-acts{ gap: 9px; margin-top: auto; }   /* [?] 9px has no rung; see the note on .cl-acts */
+/* `flex-wrap: nowrap` and `.ccard-acts .btn{ flex: 1 }` BOTH DELETED at 9.1 - they are
+   `.actions--even`, and the markup says so now. This is the modifier's only user in the
+   product, and it is here rather than invented: `dead-sel.mjs` reported both of its
+   selectors MERTVYI the moment the pattern shipped, which is the check that made the
+   choice between «use it or delete it» a measurement instead of a preference. */
 /* `.ccard-acts .btn` KEPT ONLY ITS `flex: 1`. `text-align: center` and
    `padding: 10px 12px` are the BUTTON's, not the row's: button.css:103-109 sets
    the padding and centres the label for every finish, and its size ladder is
@@ -337,7 +348,7 @@
    say how tall a button is. This is the molecule-reaching-into-an-atom mistake
    this codebase has made most often; `.oosbtn { flex: 1 }` in restock-note.css is
    the same line kept for the same reason. */
-.coach .ccard-acts .btn{ flex: 1; }
+
 
 
 /* ############################################################################
@@ -406,8 +417,8 @@
   margin: 14px 0 var(--space-4); }   /* [?] 14px has no rung */
 .coach .cc-note b{ color: var(--text-primary); }
 
-.coach .cc-cta{ display: flex; gap: 10px;   /* [?] 10px has no rung; and it is the third number on the four action rows - see the note on .cl-acts */
-  flex-wrap: wrap; margin: 18px 0 26px; }   /* [?] 18px and 26px have no rung; the ladder is 16/24/32 */
+.coach .cc-cta{ gap: 10px;   /* [?] 10px has no rung; the third number on the four action rows - see the note on .cl-acts */
+  margin: 18px 0 26px; }   /* [?] 18px and 26px have no rung; the ladder is 16/24/32 */
 /* `.cc-cta .btn{ padding: 13px 22px }` DELETED - button.css owns the padding of
    every finish and every rung of its 40/52/64 ladder. 13/22 is not on that ladder
    and was a hand-typed height for one screen's one button. */
@@ -497,8 +508,8 @@
   padding: var(--space-12) 0 var(--space-2); font-size: var(--fs-14);   /* grey 13 -> 14: 5.6, ties go UP. The second of the three 13s */
   font-weight: var(--fw-bold); color: var(--text-primary); }
 .coach .oc-sum b{ font-size: var(--fs-16); font-weight: var(--fw-black); }
-.coach .oc-actions{ display: flex; gap: 9px;   /* [?] 9px, the fourth action row - see the note on .cl-acts */
-  flex-wrap: wrap; margin-top: 14px; }   /* [?] 14px has no rung */
+.coach .oc-actions{ gap: 9px;   /* [?] 9px, the fourth action row - see the note on .cl-acts */
+  margin-top: 14px; }   /* [?] 14px has no rung */
 /* `.oc-actions .btn{ padding: 10px 18px }` DELETED - button.css, same reason as
    `.cc-cta .btn` above. Three action rows on these two screens gave the button
    three different paddings: 10/12, 13/22 and 10/18. The atom has one ladder. */
@@ -548,7 +559,7 @@
    against the convention in the same file: a boundary at N is `max-width: N-1px`
    on the narrow side, so as written this fires up to and including 520 and the
    boundary is really 521. Measured reason for either number: none in the source. */
-@media (max-width: 520px){
+@media (max-width: 619px){
   .coach .cd-row{ grid-template-columns: 1fr; gap: var(--space-2); }
 }
 

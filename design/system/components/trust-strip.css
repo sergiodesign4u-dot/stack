@@ -22,13 +22,25 @@
 .cshelf .cs-th .q{ position: absolute; top: -6px; right: -6px; min-width: 16px; height: 16px; border-radius: var(--radius-pill); font-size: var(--fs-10); font-weight: var(--fw-black); display: flex; align-items: center; justify-content: center; padding: 0 var(--space-4); }
 .cshelf .cs-th.more{ font-size: var(--fs-12); font-weight: var(--fw-black); }
 .cshelf .cs-sp{ flex: 1; min-width: 12px; }
-.cshelf .cs-act{ display: flex; gap: var(--space-8); flex-wrap: wrap; }
-@media (max-width: 559px){
+/* 9.1: `display: flex` and the wrap moved to patterns/action-row.css - one row, one
+   rule, fifty-three container names. What stays here is what this container does
+   DIFFERENTLY, and nothing else. */
+.cshelf .cs-act{ gap: var(--space-8); }   /* [?] 8 against the row's own 12 - backlog, 9.1 */
+/* 10.4 round 4: this file held FIVE numbers and not one was in the registry - 479 and
+   719/720 for the 1 -> 2 -> 4 column strip, 559 for the action row, 1180 for the
+   mascot. All five are gone. The column counts stay POINTS rather than becoming
+   `auto-fit`, and that is the ladder answering «no» for a reason worth writing down:
+   the hairlines between cells are `nth-child` box-shadows, so they have to KNOW the
+   column count, and `auto-fit` is exactly the mechanism that makes it unknowable to
+   CSS. Redrawing them as a cell border was the other route and was not taken - it
+   changes how every line in the strip is painted, and this round's acceptance is
+   measured in pixels. */
+@media (max-width: 619px){
   .cshelf .cs-act{ width: 100%; }
   .cshelf .cs-act > *{ flex: 1; }   /* two controls, nothing else - step 7.9 */
 }
 .truststrip{ display: grid; grid-template-columns: 1fr 1fr; }
-@media (min-width: 720px){
+@media (min-width: 860px){
   .truststrip{ grid-template-columns: repeat(4, 1fr); }
 }
 .tsx{ font-size: var(--fs-14); }
@@ -86,10 +98,10 @@
    and «trust first» is principle 1 - re-adding it is a design decision, which is
    why it is named here and in backlog.md rather than left as a silent absence. */
 .tsx:hover{ background:var(--bg-onphoto); }
-@media (min-width:720px){
+@media (min-width:860px){
   .tsx + .tsx{ box-shadow:inset 1px 0 0 var(--line-hair); }
 }
-@media (max-width:719px){
+@media (max-width:859px){
   .tsx:nth-child(even){ box-shadow:inset 1px 0 0 var(--line-hair); }
   .tsx:nth-child(n+3){ box-shadow:inset 0 1px 0 var(--line-hair); }
   .tsx:nth-child(4){ box-shadow:inset 1px 0 0 var(--line-hair), inset 0 1px 0 var(--line-hair); }
@@ -124,7 +136,7 @@
    (And writing this note walked into 7.42's own trap a second time: a comment
    closer typed inside a comment ends it, so the sentence above cannot quote one.
    The scanner catches it in the same pass that finds the defect.) */
-@media (max-width:479px){
+@media (max-width:619px){
   .truststrip{ grid-template-columns:1fr; }
   .tsx{ padding:var(--space-12) var(--space-12); }
   .tsx .uiv-ic{ width:var(--size-38); height:var(--size-38); }
@@ -138,8 +150,17 @@
    to the plate. The white is keyed in the asset now - tools/key-alpha.py. */
 .uiv-trustbear{ position:absolute; right:0; top:4px; height:196px; width:auto;
   max-width:none; }
-@media (min-width:1180px){
-  .truststrip{ padding-right:150px; }
+/* 10.4 round 4: 1180 -> 860, AND THE RESERVE RAMPS, because folding alone broke the
+   cells. Measured on `product` with the mascot forced on at 860 and the reserve left
+   at its full 150: the four cells come out 167 wide and TWO OF THEM CLIP their text.
+   The reserve is what the strip gives up, so the reserve is what has to ramp - 108 at
+   860, 150 at 1180 - and the mascot's own crop box ramps with it, or a 180px bear
+   would hang 72px over the fourth cell. At 860 the cells then measure 177.5 and clip
+   nothing; at 1180 the bear is back to its full 180 and the strip to its 150.
+   A THIRD POINT WAS THE OTHER ANSWER AND IT WAS NOT TAKEN: the pack allows one, but
+   only as a decision the owner says out loud. */
+@media (min-width:860px){
+  .truststrip{ padding-right:clamp(6.75rem, -0.36rem + 13.2vw, 9.375rem); }   /* 108px at 860 -> 150px at 1180 */
 }
 .trustsec{  border-radius:var(--radius-12); }
 .trustsec > summary{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); letter-spacing:var(--ls-lead);
@@ -195,6 +216,9 @@
    was already here. Values untouched: this is a move. */
 .uiv-bearwrap{ display:none; position:absolute; right:6px; top:-34px; bottom:0; width:180px;
   overflow:hidden; pointer-events:none; border-bottom-right-radius:17px; }
-@media (min-width:1180px){
-  .uiv-bearwrap{ display:block; }
+@media (min-width:860px){
+  /* the crop box ramps with the reserve above: 108px at 860 -> 180px at 1180. This
+     wrapper's whole job has always been to crop this bear, so cropping it harder
+     while there is less room is the mechanism doing what it was built for. */
+  .uiv-bearwrap{ display:block; width:clamp(6.75rem, -5.4rem + 22.6vw, 11.25rem); }
 }

@@ -78,6 +78,11 @@
   background: var(--bg-page);
   overflow: hidden;
 }
+/* 10.4: the second and last screen-scope exception, listed in `responsive.md` beside
+   the first. The grid/list toggle exists only from the shell point, because below it
+   the listing has one column and there is nothing to toggle between. That is a fact
+   about the screen's layout, not about the toggle's own box. The number is the
+   registry's - `--bp-shell-wide`. */
 @media (min-width: 860px){
   .vtoggle{ display: inline-flex; }
 }

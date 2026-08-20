@@ -111,6 +111,10 @@
    column every row track is auto-sized and there is no free space to centre in.
    It is the wide layout's rule, written at the narrow one. Left as it stands -
    moving it into the query is a change, not a translation. */
+/* 10.4 round 3: 980 -> 860 and 559 -> 619. Four steps in a row is a shell-width
+   statement, not a 980 one; the comparison table collapsing to two columns with the
+   feature name spanning both is the phone layout, and it now ends where every other
+   phone layout in this system ends. */
 @media (min-width: 860px) { .coach .clh{ grid-template-columns: 1.15fr .85fr;
   padding: var(--space-40) 34px; /* [?] 34px has no rung */
   gap: 34px; /* [?] same 34 */ } }
@@ -185,8 +189,10 @@
      to run to. Layout widths stay literal in the component that owns the layout. */
   max-width: 560px; }
 .coach .clh .sub b{ color: var(--text-primary); font-weight: var(--fw-bold); }
-.coach .clh-cta{ display: flex; flex-wrap: wrap; gap: var(--space-12);
-  margin-top: 20px; /* [?] 20px has no rung; 16 and 24 are the neighbours */ }
+/* 9.1: `display: flex` and the wrap moved to patterns/action-row.css - one row, one
+   rule, fifty-three container names. What stays here is what this container does
+   DIFFERENTLY, and nothing else. */
+.coach .clh-cta{ margin-top: 20px; }   /* [?] 20px has no rung; 16 and 24 are the neighbours */
 /* `.clh-cta .btn{ padding: 13px 24px; font-size: 14px }` DELETED - button.css
    owns the size of a button. Those three numbers built a 46px-tall control by
    hand, and the button's ladder is 40 / 52 / 64 (`--btn--s` / base / `--btn--l`,
@@ -274,7 +280,7 @@
    folding a boundary is a measured decision, and it is reported. */
 .coach .steps{ display: grid; grid-template-columns: 1fr; gap: var(--space-12); }
 @media (min-width: 620px) { .coach .steps{ grid-template-columns: 1fr 1fr; } }
-@media (min-width: 980px) { .coach .steps{ grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 860px) { .coach .steps{ grid-template-columns: repeat(4, 1fr); } }
 .coach .step{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
   padding: 18px /* [?] 18px has no rung; 16 and 24 are the neighbours */ var(--space-16);
   background: var(--bg-page); }
@@ -436,7 +442,7 @@
    the only one still overlapping. One pixel, and it is a spelling, not a value:
    at exactly 560 the page previously ran the phone layout and the wide layout at
    once. */
-@media (max-width: 559px) {
+@media (max-width: 619px) {
   /* stack the two plans; keep feature label above each pair via data flow */
   .coach .cmp-row{ grid-template-columns: 1fr 1fr; }
   .coach .cmp-cell.feat{ grid-column: 1 / -1; padding: 11px 15px; /* [?] neither 11 nor 15 has a rung */

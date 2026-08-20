@@ -107,19 +107,28 @@
    real screens read exactly 0. Same instrument `.skcard:not(:has(.skb))` uses. */
 .acc-prof .who:has(.skline){ flex: 1; }
 .acc-link .skline{ margin: 0; }
-@media (max-width: 959px){
+/* 10.4 round 3: 959 -> 859, with `account-shell.css`. Round 1 left this number owed
+   to the organism round precisely because resolving one half of the pair without the
+   other would split it. */
+@media (max-width: 859px){
   /* one width for every chip: below 960 the strip scrolls, so what a chip
      promises is «a chip is loading here», not how long its word is. */
   .acc-link .skline{ width: 56px; }   /* [?] 56 has no rung; the size set stops at 46 */
 }
 
-.skgrid{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); }
-@media (min-width: 620px){
-  .skgrid{ grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 1040px){
-  .skgrid{ grid-template-columns: repeat(4, 1fr); }
-}
+/* 10.4: A SKELETON IS A PROMISE ABOUT THE BOX THAT REPLACES IT, so it counts its
+   columns the same way that box does. This was three fixed counts on two queries -
+   1fr 1fr, then three at 620, then four at 1040 - and 1040 was not in the registry
+   of points. `product-grid.css` already reads `--grid-col-min` through `auto-fill`,
+   so the skeleton now reads it too: both queries disappear, the two grids can no
+   longer drift apart, and at a width nobody planned they still agree. */
+/* 10.4 round 3: and the last query went with the grid it promises. `product-grid.css`
+   dropped its floor switch because the switch made the card row lose a column at 620;
+   a skeleton that kept the switch would have started lying again at exactly that
+   width, which is the defect round 1 fixed here. Same two tokens, same ramp, one
+   declaration. */
+.skgrid{ display: grid; gap: var(--grid-gap-fluid);
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-fluid), 100%), 1fr)); }
 .skcard{ border: 1px solid var(--line-hair); border-radius: var(--radius-12); overflow: hidden; }
 /* 7.68: 10/11 -> 1. A skeleton is a promise about the box that replaces it, and
    under 620 this one was lying: measured at 390, the placeholder came out

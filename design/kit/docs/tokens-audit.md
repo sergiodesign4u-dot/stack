@@ -526,3 +526,80 @@ the class was real, the count was wrong, and the wrong count was Claude's.
 3. **The inventory grew 51 -> 70** (section 6). That is 19 more component pages at step 4 and 19
    more rows in the registry. It is not a padding of the list: every one of the 19 is a block that
    already exists in the product and had nowhere to live.
+
+---
+
+## 10. Stage 10 step 2 - the values this stage changed on purpose
+
+The rule is one for the whole pipeline: a value never changes silently. Every line here is
+`variable -> was -> became -> why`, and the pixel proof at step 6 is checked against this list. The
+promise this stage makes is **asymmetric**: at 360 nothing moves at all, because the mobile layout is
+the base of a mobile-first product and it was not supposed to change; on wide widths the look changes
+on purpose, and every difference has to point back at a row here or at a row of the width audit in
+`responsive.md`.
+
+### 10.1 The type ramp moved from `px` to `rem`
+
+| variable | was | became | why |
+|---|---|---|---|
+| `--fs-8` | `8px` | `0.5rem` | ten rungs, one reason |
+| `--fs-10` | `10px` | `0.625rem` | |
+| `--fs-12` | `12px` | `0.75rem` | |
+| `--fs-14` | `14px` | `0.875rem` | |
+| `--fs-16` | `16px` | `1rem` | |
+| `--fs-18` | `18px` | `1.125rem` | |
+| `--fs-20` | `20px` | `1.25rem` | |
+| `--fs-24` | `24px` | `1.5rem` | |
+| `--fs-30` | `30px` | `1.875rem` | |
+| `--fs-34` | `34px` | `2.125rem` | |
+
+**Why.** At the default root of 16px every rung resolves to the same number it held before, so the
+change is invisible to a reader on defaults and the pixel proof at 360 gives zero. What it buys is
+the reader who set their browser font to 20px: in `px` the whole scale ignored them and they got the
+tight mobile measure on a wide monitor. This is WCAG 1.4.4 territory, and it is the cheapest half of
+this stage.
+
+**The names keep their px figure** because that figure IS the rung. Renaming ten tokens to
+`--fs-0-875` would cost every reader in the system and buy nothing.
+
+### 10.2 A fluid page heading, and the ramp deliberately left fixed
+
+| variable | was | became | why |
+|---|---|---|---|
+| `--fs-display` | did not exist | `clamp(1.875rem, 1.58rem + 1.3vw, 2.75rem)` | 30px on a phone, 44px from 1440 up |
+| `.lh1` | `var(--fs-30)` | `var(--fs-display)` | the listing family H1 |
+| `.acc-h1` | `var(--fs-30)` | `var(--fs-display)` | the account H1 |
+| `.co-h1` | `var(--fs-30)` | `var(--fs-display)` | the checkout H1 |
+
+**Why a separate token instead of a fluid rung.** The ramp is generic: `--fs-30` is worn by a page
+H1, by `.hdeal .hd-new` (the live price in the hero deal) and by `.empty .ei` (a glyph). Wrapping the
+rung in `clamp()` would have made an icon breathe with the viewport, which is not a size decision
+anybody took.
+
+**Why these three readers and not the others.** All three head a full-width page, which is the only
+place a viewport-fluid size is honest. `.bb h1` is the PDP title in a narrow column beside the
+gallery: it is sized by its PLACE, not by the screen, so it belongs to `@container` at step 4.
+`.auth-h1` and `.coach .cv-h1` sit in a dialog and a centred form capped near 420-560; a heading that
+grows with the window inside a box that does not is a defect, not an adaptation.
+
+**Both ends in `rem`, and the middle carries a `rem` term.** A pure `vw` middle ignores the reader's
+font size and stops the page scaling under zoom, which fails WCAG 1.4.4. The knee sits at exactly
+360px: `1.58rem + 1.3vw` resolves to 29.96px there, just under the 30px floor, so at 360 the clamp
+returns the floor. Measured with `tools/tree-diff.mjs --widths=360` against a baseline that differed
+in these seven files and nothing else: **0 boxes moved.** At 1280 the same three headings read
+41.92px, and that is the intended change.
+
+### 10.3 The line measure stopped being a pixel figure
+
+| variable | was | became | why |
+|---|---|---|---|
+| `--container-text` | did not exist | `68ch` | inside the 60-75 characters the eye holds |
+| `.lintro` `max-width` | `760px` | `var(--container-text)` | 760px at 14px is about 95 characters |
+| `.seotext p` `max-width` | none at all | `var(--container-text)` | it ran the full 1200 of the page frame |
+| `--container-page` | did not exist | `75rem` | 1200px, the figure `.wf-page` already wrote |
+| `.wf-page` `max-width` | `1200px` | `var(--container-page)` | the page frame stops writing its own number |
+| `--grid-col-min` | did not exist | `12.5rem` | 200px, the figure `product-grid.css` already wrote |
+
+At 360 neither figure binds - the column is 328 wide - so the mobile layout does not move. On wide
+widths the prose narrows from 1200 to 600.578px, and that difference is explained by the audit row
+«WIDER, air» in `responsive.md`.

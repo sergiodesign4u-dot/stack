@@ -139,3 +139,11 @@
    appear in that file's comments and one of them in a live rule), so the
    component must not be able to lose a tie to the screen file it came out of. */
 @import 'components/plan-card.css';
+
+/* ---------- patterns, and they import LAST -----------------------------------
+   A pattern is assembled from the components above it, so in the cascade it has
+   to stand below them. It also owns nothing they own: `action-row.css` declares
+   composition only - display, gap, wrap, justification - and every container it
+   replaced keeps its own deviations in its own component file, where a higher
+   specificity settles them without either side guessing. Stage 09, step 1. */
+@import 'patterns/action-row.css';

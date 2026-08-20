@@ -80,7 +80,7 @@
        and the totals are decisions with prose around them and are fixed by hand.
 
    Exit is non-zero on any finding, so it composes with the rest of the gate. */
-import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { ROOT, serve, chrome, pages, topRules } from './lib.mjs';
 import { Conn, newSession, visit } from './cdp.mjs';
@@ -111,7 +111,15 @@ if (SECTIONS.length !== 3) {
 }
 const rows = [];
 SECTIONS.forEach((s, i) => {
-  const end = i + 1 < SECTIONS.length ? SECTIONS[i + 1].at : md.length;
+  /* THE LAST TABLE USED TO RUN TO THE END OF THE FILE, and stage 09 walked into
+     it: the patterns section is appended below level 3, so its one row was read
+     as a thirty-fifth organism and the level check called it diverged. The range
+     ends at the next `## ` heading now. This is a latent bug fixed, not a new
+     rule - any table appended under the last level would have been swallowed the
+     same way, silently, and the count would still have looked like coverage. */
+  const nextH = md.slice(s.at + 3).search(/\n## /);
+  const hardEnd = nextH === -1 ? md.length : s.at + 3 + nextH;
+  const end = Math.min(i + 1 < SECTIONS.length ? SECTIONS[i + 1].at : md.length, hardEnd);
   for (const line of md.slice(s.at, end).split('\n')) {
     if (!line.startsWith('| ') || !line.includes('.css`')) continue;
     const cells = line.split('|').map(x => x.trim());
@@ -139,12 +147,68 @@ SECTIONS.forEach((s, i) => {
   }
 });
 
+/* PER-LEVEL SUMMARY LINES, AND THEY OUTLIVED THE STAGE BECAUSE NOBODY ASKED.
+   Stage 09 step 6, and the finding is Codex's: each level table is followed by a
+   line «**N files, M lines.**», and all three had drifted - atoms said 22 files
+   and 526 lines against 23 and 4410, organisms said 23 and 1997 against 34 and
+   8173. The totals paragraph below was checked from step one and the three lines
+   above it were not, so the file could fail its own arithmetic while passing its
+   own gate. `--apply` rewrites them from the tables, the same way it rewrites the
+   `Lines` column: a summary is a SUM, and nothing that is a sum is typed here. */
+const levelSums = [1, 2, 3].map(l => {
+  const r = rows.filter(x => x.level === l);
+  return { level: l, files: r.length, lines: r.reduce((a, x) => a + (x.lines || 0), 0) };
+});
+const SUM_RE = /\*\*(\d+)\s+files,\s*([\d\s]+?)\s+lines\.\*\*/g;
+const saidSums = [...md.matchAll(SUM_RE)].map(m => ({
+  at: m.index, text: m[0], files: Number(m[1]), lines: Number(m[2].replace(/\s/g, '')) }));
+const sumsBad = saidSums.length !== 3
+  ? ['підсумкових рядків рівня знайдено ' + saidSums.length + ', а рівнів три']
+  : saidSums.map((s2, i) => s2.files === levelSums[i].files && s2.lines === levelSums[i].lines ? null
+      : 'рівень ' + (i + 1) + ': сказано ' + s2.files + ' файлів / ' + s2.lines + ' рядків, у таблиці '
+        + levelSums[i].files + ' / ' + levelSums[i].lines).filter(Boolean);
+if (sumsBad.length) console.log('\nПІДСУМОК ПІД ТАБЛИЦЕЮ РІВНЯ РОЗІЙШОВСЯ (' + sumsBad.length + '):\n  ' + sumsBad.join('\n  '));
+
 /* the totals paragraph */
 const tot = md.match(/\*\*(\d+)\s+components:\s*(\d+)\s+atoms,\s*(\d+)\s+molecules,\s*(\d+)\s+organisms\.?\*\*/);
 
 const seen = new Set(rows.map(r => r.file));
 const noRow = files.filter(f => !seen.has(f));
 const noFile = rows.filter(r => !files.includes(r.file));
+/* THE SECOND LEVEL OF THE SYSTEM IS ASKED THE SAME QUESTIONS. Stage 09 added
+   `design/system/patterns/`, and every question below was written when the system
+   had one level: a pattern with no row and no stand page would have passed
+   silently, which is exactly the failure this file exists to prevent. */
+const PDIR = join(ROOT, 'design/system/patterns');
+const patFiles = existsSync(PDIR) ? readdirSync(PDIR).filter(f => f.endsWith('.css')).sort() : [];
+const patRows = md.split('\n').filter(l => l.startsWith('| ') && l.includes('patterns/') && l.includes('.css`'))
+  .map(l => (l.match(/`patterns\/([a-z0-9-]+\.css)`/) || [])[1]).filter(Boolean);
+const patNoRow = patFiles.filter(f => !patRows.includes(f));
+const patNoPage = patFiles.filter(f => !existsSync(join(ROOT, 'design/kit', f.replace('.css', '.html'))));
+const patRowNoFile = patRows.filter(f => !patFiles.includes(f));
+
+/* DOES THE HUB STILL ROUTE TO EVERYTHING THE REGISTRY LISTS? Nothing asked, and
+   the answer at stage 09 was no: `overview.html` carried 73 component cards for
+   84 files and its own heading said «Організми 24 / 24» about a group of 34. The
+   heading was true the afternoon it was typed. Eleven components were added
+   afterwards - the eight coach organisms among them - and every one of them
+   edited a DIFFERENT file, which is why the stale claim never raised anything.
+   A hub that misses a card does not 404 and does not look broken: it looks
+   finished, which is the more expensive failure. */
+const HUB = join(ROOT, 'design/kit/overview.html');
+const hubHtml = readFileSync(HUB, 'utf8');
+const hubCards = new Set([...hubHtml.matchAll(/class="kp-card" href="([a-z0-9-]+)\.html"/g)].map(m => m[1]));
+const regPages = [];
+const navEarly = readFileSync(join(ROOT, 'design/kit/_nav.js'), 'utf8');
+for (const m of navEarly.matchAll(/"page":\s*"([a-z0-9-]+)\.html"/g)) regPages.push(m[1]);
+const hubMissing = [...new Set(regPages)].filter(x => !hubCards.has(x));
+const hubOrphan = [...hubCards].filter(x => !regPages.includes(x));
+/* the headings count their own group, and they are a second claim about the same
+   set - so they are asked separately rather than trusted */
+const hubHeads = [...hubHtml.matchAll(/<div class="kp-sh">([^<]+)<b>(\d+) \/ (\d+)<\/b><\/div>([\s\S]*?)<\/section>/g)]
+  .map(m => ({ name: m[1].trim(), said: Number(m[2]), real: (m[4].match(/class="kp-card"/g) || []).length }))
+  .filter(h => h.said !== h.real);
+
 const wrongLines = rows.filter(r => files.includes(r.file) && r.lines !== linesOf(r.file));
 const wrongLevel = rows.filter(r => files.includes(r.file) && levelOf(r.file) !== null && levelOf(r.file) !== r.level);
 const noLevelDeclared = files.filter(f => levelOf(f) === null);
@@ -156,6 +220,12 @@ const say = (title, list, fmt) => {
 };
 say('НЕМАЄ РЯДКА В ІНВЕНТАРІ', noRow, f => f.padEnd(24) + 'рівень ' + (levelOf(f) ?? '?') + ' · ' + linesOf(f) + ' рядків');
 say('РЯДОК ПРО ФАЙЛ, ЯКОГО НЕМАЄ', noFile, r => r.file);
+say('СТОРІНКА РЕЄСТРУ БЕЗ КАРТКИ В ХАБІ', hubMissing, x => x + '.html');
+say('КАРТКА В ХАБІ БЕЗ РЯДКА В РЕЄСТРІ', hubOrphan, x => x + '.html');
+say('ЗАГОЛОВОК ХАБА РАХУЄ НЕ ТЕ', hubHeads, h => h.name + ' каже ' + h.said + ', карток ' + h.real);
+say('ПАТЕРН БЕЗ РЯДКА В ІНВЕНТАРІ', patNoRow, f => f);
+say('ПАТЕРН БЕЗ СТОРІНКИ СТЕНДА', patNoPage, f => f);
+say('РЯДОК ПАТЕРНА БЕЗ ФАЙЛА', patRowNoFile, f => f);
 say('КОЛОНКА Lines РОЗІЙШЛАСЬ', wrongLines, r => r.file.padEnd(24) + 'у файлі ' + r.lines + ' · на диску ' + linesOf(r.file));
 say('РІВЕНЬ РОЗІЙШОВСЯ З ТИМ, ЩО КОМПОНЕНТ КАЖЕ ПРО СЕБЕ', wrongLevel,
   r => r.file.padEnd(24) + 'у таблиці ' + r.level + ' · у файлі ' + levelOf(r.file));
@@ -429,6 +499,74 @@ console.log('сторінок у групах реєстру стенда: ' + n
   ' · імпортів не у своїй групі: ' + importBad.length + ' без причини, ' + importSaid.length + ' з причиною');
 
 if (APPLY) {
+  /* THE `Lines` COLUMN IS REWRITTEN HERE TOO, and until stage 09 it was not.
+     `--apply` fixed the stand pages' meta tags and left the table that feeds this
+     very check untouched, so the run that «applied everything» still reported ten
+     wrong numbers on its next pass. A repair that cannot close its own finding is
+     a half-instrument: the number comes off disk, and this is the only place that
+     knows both halves. Only the last numeric cell of a matched row is touched. */
+  if (wrongLines.length) {
+    let text = md, n = 0;
+    for (const r of wrongLines) {
+      const truth = linesOf(r.file);
+      const re = new RegExp('^(\\|[^\\n]*`' + r.file.replace('.', '\\.') + '`[^\\n]*\\|\\s*)' + r.lines + '(\\s*\\|\\s*)$', 'm');
+      if (re.test(text)) { text = text.replace(re, '$1' + truth + '$2'); n++; }
+    }
+    if (n) { writeFileSync(join(ROOT, 'design/kit/docs/inventory.md'), text); console.log('Lines переписано: ' + n); }
+  }
+
+  /* the three per-level summary lines, from the tables as they stand on disk.
+     Read back rather than reused: the `Lines` rewrite above may have just moved
+     them, and a sum computed before that write would put a fresh wrong number
+     where an old wrong number was. */
+  if (sumsBad.length && saidSums.length === 3) {
+    let text = readFileSync(INV, 'utf8');
+    const fresh = [...text.matchAll(SUM_RE)];
+    const cur = [1, 2, 3].map(l => {
+      const r = rows.filter(x => x.level === l);
+      return { files: r.length, lines: r.reduce((a, x) => a + (linesOf(x.file) || x.lines || 0), 0) };
+    });
+    let n = 0;
+    for (let i = fresh.length - 1; i >= 0; i--) {
+      const want2 = '**' + cur[i].files + ' files, ' + cur[i].lines + ' lines.**';
+      if (fresh[i][0] === want2) continue;
+      text = text.slice(0, fresh[i].index) + want2 + text.slice(fresh[i].index + fresh[i][0].length);
+      n++;
+    }
+    if (n) { writeFileSync(INV, text); console.log('підсумків рівня переписано: ' + n); }
+  }
+
+  /* THE SECOND VISIBLE PLACE OF THE SAME CLAIM, repaired rather than only
+     reported. `kit.html` is the frozen stage-07 smoke page, and the rule for a
+     frozen page is not «leave it wrong» but «carry a visible updated-after-
+     publication block» - it already does, and the block held the OLD split
+     22/29/33 while the md it quotes had moved to 23/27/34. A block that goes
+     stale is worse than no block: it is a second edition claiming to be current. */
+  if (kitBad) {
+    const kre = new RegExp('<b>' + rows.length + ' компонент' + UK + ':\\s*\\d+ атом' + UK +
+      ',\\s*\\d+ молекул' + UK + ',\\s*\\d+ організм' + UK + '</b>');
+    const m2 = kitHtml.match(kre);
+    if (m2) {
+      const to = '<b>' + rows.length + ' компоненти:\n      ' + counts[0] + ' атоми, ' +
+        counts[1] + ' молекул, ' + counts[2] + ' організми</b>';
+      writeFileSync(KIT, kitHtml.replace(m2[0], to));
+      console.log('kit.html переписано: ' + m2[0].replace(/\s+/g, ' ') + '  ->  ' + to.replace(/\s+/g, ' '));
+    }
+  }
+
+  /* the totals paragraph, for the same reason and by the same rule. It was
+     REPORTED from step one and never repaired, so «сказано 84 (22/29/33)» could
+     be read out on every run for a week without anything closing it. */
+  if (totalsBad && tot) {
+    let text = readFileSync(INV, 'utf8');
+    const want2 = '**' + rows.length + ' components: ' + counts[0] + ' atoms, ' +
+      counts[1] + ' molecules, ' + counts[2] + ' organisms.**';
+    if (text.includes(tot[0]) && tot[0] !== want2) {
+      writeFileSync(INV, text.replace(tot[0], want2));
+      console.log('підсумковий абзац переписано: ' + tot[0] + '  ->  ' + want2);
+    }
+  }
+
   const byPage = new Map();
   for (const x of [...metaBad, ...metaForm]) {
     if (!byPage.has(x[0])) byPage.set(x[0], []);
@@ -471,4 +609,4 @@ console.log(SCREENS ? 'колонка Screens зміряна в браузері
   'колонка Screens НЕ перевірена - потрібен прапорець --screens (обхід корпусу браузером)');
 
 process.exit(noRow.length || noFile.length || wrongLines.length || wrongLevel.length ||
-  noLevelDeclared.length || totalsBad || kitBad || wrongScreens.length || noAnchor.length ? 1 : 0);
+  noLevelDeclared.length || totalsBad || sumsBad.length || kitBad || wrongScreens.length || noAnchor.length ? 1 : 0);

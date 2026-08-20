@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 3</div>
 <h1 class="kp-h1">Кабінет тренера</h1>
 <p class="kp-lead">Щоденний екран первинної аудиторії: вузол 5.2 «панель» і вузол 5.6 «історія замовлень». Два екрани в одному файлі, бо це один організм - та сама оболонка кабінету, ті самі імена клієнтів, ті самі гроші. Найбільший файл системи.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-cabinet.css</span><span class="kp-tag">966 рядків</span><span class="kp-tag">70 селекторів</span><span class="kp-tag">201 оголошення</span><span class="kp-tag">8 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-cabinet.css</span><span class="kp-tag">972 рядки</span><span class="kp-tag">70 селекторів</span><span class="kp-tag">199 оголошень</span><span class="kp-tag">8 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітку знято з кольорових екранів у цій сесії через <code>tools/demo.mjs</code>, разом із класом <code>coach</code> на <code>&lt;body&gt;</code>. Рамки на <b>732</b>, бо саме стільки має колонка вмісту в продукті на 1280: <code>.acc</code> це 1032, з яких 268 бере рейка кабінету.</p>
@@ -113,6 +113,11 @@
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Скоуп існує, щоб розводити імена, які зіткнулись, а не щоб перефарбовувати атоми.</b> <code>.coach .ord-h{ padding: 0; cursor: auto }</code> - це <b>скидання</b> чужого правила, яке дісталось не свого елемента. <code>.coach .cli .cgo-btn{ padding: … }</code> було б перефарбовуванням кнопки, і його видалено.</div>
 <div class="kp-dont"><h4>Антиправило</h4><b>Не пиши в коментарі, чого немає на екранах.</b> Файл знає свої правила і не знає корпусу. «Цього немає ніде» застаріває мовчки - і найшвидше саме тоді, коли корпус росте пачкою клонів. Якщо твердження про корпус потрібне, воно має бути <b>заміром із датою</b>, а не реченням.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U9</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Ряд дій береться патерном <code>.actions</code>; <code>gap: 10px</code> лишився тут і чекає рішення власника.</p></section>
+
+
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
 <p class="kp-p"><b>Нуль</b> <code>:hover</code>, нуль <code>:active</code>, нуль <code>:focus-visible</code>. Усе, що відповідає на палець, - кнопка, чип, поле, посилання або статус-пілюля, і за них відповідають їхні файли.</p>
 <p class="kp-p">Стани тут - <b>варіанти даних</b>, а не взаємодії: тариф Pro проти Free у <code>.cstat</code>, порожній кабінет проти повного, «Доставлено» проти «У дорозі» на пілюлі. Жоден із них не малює цей файл; він лише дає їм місце.</p></section>
@@ -129,6 +134,9 @@
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>47</b> класів і <b>0</b> станів оголошено в <code>coach-cabinet.css</code>. <code>.coach</code> не рахується - це скоуп.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["ac-cli", "ac-info", "ah", "cav", "cg", "cgo", "cgo-btn", "cinfo", "cli", "cli-add", "cmanage", "cn", "cn-go", "cn-ic", "cn-s", "cn-t", "cn-tx", "cnew", "cnote", "co-fil", "co-filters", "co-info", "co-meta", "co-more", "co-new", "co-no", "co-search", "co-sum", "co-top", "cord", "crestock", "cs-b", "cstat", "csub", "ord", "ord-acts", "ord-chip", "ord-cli", "ord-date", "ord-foot", "ord-h", "ord-meta", "ord-no", "ord-tot", "qm", "rk-lead", "tierchip"], KIT_STS=[];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від яких порогів:</b> <code>--bp-grid-2col</code> і його дзеркало. <b>Що саме міняється:</b> смуга статусу кладе чип, примітку і лінк в один рядок; нижче точки ховається швидкий перехід. <b>Було 720 і 520</b>, обидва поза реєстром.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>coach-cabinet.css</code>, не переписані руками. Найменша частка токенів на рядок серед тренерських файлів, і це правильно: 201 оголошення на 962 рядки означає, що дві третини файлу - <b>записки про те, чого в ньому вже немає</b>.</p>

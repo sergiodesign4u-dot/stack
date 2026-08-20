@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Картка блогу</h1>
 <p class="kp-lead">Три статті внизу головної й сторінки товару. Єдине місце, де Stack говорить, нічого не продаючи, - і тому єдина картка системи <b>без ціни, без кнопки й без наявності</b>.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/blog-card.css</span><span class="kp-tag">31 рядок</span><span class="kp-tag">14 селекторів</span><span class="kp-tag">26 оголошень</span><span class="kp-tag">6 екранів</span><span class="kp-tag">36 карток</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/blog-card.css</span><span class="kp-tag">37 рядків</span><span class="kp-tag">14 селекторів</span><span class="kp-tag">26 оголошень</span><span class="kp-tag">6 екранів</span><span class="kp-tag">36 карток</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка звідси - та сама, що на <code>index.html</code>. Фото приходять із того самого правила, що в крамниці: <b>по позиції в ряду</b>.</p>
@@ -78,6 +78,9 @@
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>6</b> власних класів і <b>3</b> стани.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["bdt","bim","blogcard","blogrow","bt","btx"], KIT_STS=[":hover",":nth-child","min-width: 720px"];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-grid-2col</code>. <b>Що саме міняється:</b> ряд статей іде з однієї колонки в три. <b>Було 720</b>, поза реєстром. <b>Чому не <code>auto-fit</code>:</b> карток три, і три має дві збалансовані розкладки - одну і три; заповнення дорогою поставило б дві в ряд і лишило третю саму внизу. Зміряно на 620: 188 x 288.9, нічого не обрізано (на 720 сьогодні 221.3 x 270.8 - картка вужчає і виростає на рядок заголовка).</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>blog-card.css</code>: <b>7</b> семантичних ролей і <b>9</b> примітивів.</p>

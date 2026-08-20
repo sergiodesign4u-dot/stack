@@ -82,6 +82,15 @@
 #kitnav a.kn-l.on{ color:var(--text-primary); font-weight:var(--fw-bold);
   background:var(--bg-sunken); border-left-color:var(--text-action); }
 
+/* 10.4: the sections of the page the panel is standing on. They only ever appear
+   under the ACTIVE row, so the indent is what says «inside this page» - the same
+   thing the root panel says with the same shape and its own class names. */
+#kitnav .kn-ss{ padding:var(--space-2) 0 var(--space-8); }
+#kitnav .kn-s{ display:block; padding:var(--space-2) var(--space-8) var(--space-2) var(--space-24);
+  font-size:var(--fs-12); color:var(--text-muted); text-decoration:none; border-radius:var(--radius-4); }
+#kitnav .kn-s:hover{ color:var(--text-primary); background:var(--bg-sunken); }
+#kitnav .kn-s.is-current{ color:var(--text-action); font-weight:var(--fw-semibold); }
+
 /* ---------------- page frame ---------------- */
 .kp-main{ padding:var(--space-24) var(--space-16) var(--space-40); max-width:1020px; }
 @media(min-width:900px){ .kp-main{ margin-left:236px; padding:var(--space-32) var(--space-32) var(--space-40); } }

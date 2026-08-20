@@ -37,6 +37,14 @@ Magnific is not reachable from the assistant in this session (no MCP, no API key
 - `design/concept/assets/brand-plate-b.png`
 - `design/concept/assets/brand-plate-c.png`
 
+**What actually landed, and the names differ - noted at stage 09 step 6, when `tools/paths.mjs`
+asked this file whether the paths it names exist.** The plates came back in several takes each and
+were saved numbered: `brand-plate-a-1.png` `brand-plate-a-2.png` `brand-plate-b-1.png`
+`brand-plate-b-2.png` `brand-plate-c-1.png` `brand-plate-c-2.png` `brand-plate-c-3.png`, plus a
+fourth direction that did not exist when this instruction was written - `brand-plate-d-1.png` and
+`brand-plate-d-2.png`, and **`brand-plate-d-2.png` is the one the owner chose**. The three names
+above are kept as the instruction that was given, not corrected into a description of the result.
+
 Then say go, and Step 3b writes the root `DESIGN.md` from the plate you pick (identity, palette, typography, icon language, UI direction), transcribing exact values from the "Starting values" blocks below (image models render hex and long text poorly, so this file, not the picture, is the source of truth for the numbers).
 
 Note: no old root `DESIGN.md` exists, so nothing was renamed to `DESIGN-artifacts.md`. The product `DESIGN.md` is born fresh at Step 3b.

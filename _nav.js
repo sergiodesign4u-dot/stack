@@ -3,7 +3,9 @@
    (depth to repo root, e.g. '../'), optionally window.NAV_SECTIONS (its own sections)
    and, when it is not in the registry, window.NAV_ACTIVE + window.NAV_ACTIVE_LABEL.
    Everything else - active / Next / SOON, the accordion, relative links - is computed here.
-   The only manual edit is a row in NAV and done:true when a page is ready.
+   The only manual edit is a row in NAV, done:true when a page is ready, and wip:true
+   while a stage is being built - the one thing no file in the tree can prove on its own.
+   wip is TEMPORARY and is removed by the closing step of the stage that set it.
    Look lives in /_nav.css, never on the page. */
 
 window.NAV = [
@@ -53,13 +55,17 @@ window.NAV = [
      not a stage beside it - and split into children so that the half which is built and
      the half which is not stay visible as separate rows, the same shape «Концепт» and
      «UI + візуал» already use. */
-  { label: 'Дизайн-система', children: [
-      { label: 'Токени і компоненти',    page: 'design/kit/overview.html', done: true  },
-      { label: 'Чому саме так',          page: 'design/kit/why.html',      done: true  }
-  ]},
+  /* 10.4: ONE ROW, AND IT OPENS THE SYSTEM RATHER THAN A PAGE ABOUT IT. This was
+     two children - «Токени і компоненти» and «Чому саме так» - and both of those
+     pages now stand in the design system's own panel, `design/kit/_nav.js`, where
+     «Чому саме так» already lived. A roadmap that repeats the system's table of
+     contents is a second copy of it, and a second copy drifts. The roadmap says
+     «here is the stage», the panel inside says «here is what is in it». */
+  { label: 'Дизайн-система',             page: 'design/kit/overview.html', done: true },
 
-  { label: 'Адаптив',                    page: null },
+  { label: 'Адаптив',                    page: 'design/kit/responsive.html', done: true, wip: true },
   { label: 'Анімація',                   page: null },
+  { label: 'Розкотка',                   page: null },
   { label: 'Хендоф',                     page: null }
 ];
 
@@ -146,9 +152,11 @@ window.NAV = [
       // ---- top line of the stage ----
       var badge = '';
       if (state !== 'done') {
-        badge = i === nextIndex
-          ? '<span class="nav-badge nav-badge-next">Next</span>'
-          : '<span class="nav-badge nav-badge-soon">Soon</span>';
+        badge = stage.wip
+          ? '<span class="nav-badge nav-badge-wip">WIP</span>'
+          : i === nextIndex
+            ? '<span class="nav-badge nav-badge-next">Next</span>'
+            : '<span class="nav-badge nav-badge-soon">Soon</span>';
       }
       var single = !stage.children && stage.page;
       var topHref = single ? (stage.done ? base + stage.page : null) : (isActive ? null : collapsedHref(stage));

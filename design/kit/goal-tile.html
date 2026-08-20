@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Плитка цілі</h1>
 <p class="kp-lead">Шість плиток на головній - <b>увесь механізм наведення для початківця в MVP</b>. Рішення 2 сказане вголос: шість цілей зараз, діалог-квіз - після запуску. Найбільш «продуктовий» компонент системи: він не малює дані, він ставить питання.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/goal-tile.css</span><span class="kp-tag">50 рядків</span><span class="kp-tag">13 селекторів</span><span class="kp-tag">43 оголошення</span><span class="kp-tag">4 екрани</span><span class="kp-tag">48 плиток</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/goal-tile.css</span><span class="kp-tag">58 рядків</span><span class="kp-tag">13 селекторів</span><span class="kp-tag">43 оголошення</span><span class="kp-tag">4 екрани</span><span class="kp-tag">48 плиток</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка звідси - та сама, що на <code>index.html</code>. Знак у кружку ставить <code>uivChrome()</code>, як і в крамниці.</p>
@@ -90,6 +90,9 @@
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>6</b> власних класів і <b>3</b> стани.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["goalcta","goaltiles","gph","gt","gtile","hint"], KIT_STS=[":hover","min-width: 620px","min-width: 960px"];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-grid-2col</code> і <code>--bp-shell-wide</code>. <b>Що саме міняється:</b> плитки цілей ідуть 2 -> 3 -> 6 колонок. <b>Було 620 і 960</b>, друге поза реєстром. <b>Чому не <code>auto-fit</code>:</b> плиток рівно шість, а шість має рівно три збалансовані розкладки - 2, 3 і 6, свої дільники. Заповнення не можна про це попередити: за будь-якої підлоги, що дає шістку вгорі, дорогою туди з'являться 4+2 і 5+1. Зміряно перед складанням: на 860 шість плиток виходять 128 x 116.4 і нічого не обрізають - та сама висота, що на 960 при ширині 144.7.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>goal-tile.css</code>: <b>11</b> семантичних ролей і <b>9</b> примітивів.</p>

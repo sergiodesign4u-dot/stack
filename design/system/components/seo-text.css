@@ -35,9 +35,16 @@
 .seotext .h{ font-size: var(--fs-18); font-weight: var(--fw-black); color: var(--text-primary); margin-bottom: var(--space-12); }
 .seotext .h{ font-family: var(--font-display); letter-spacing: var(--ls-lead); }
 .seotext p{ font-size: var(--fs-14); color: var(--text-secondary); margin-bottom: var(--space-8); line-height: var(--lh-airy); }
+/* 10.2: and the block at the foot of the page had NO measure at all - it ran the
+   full 1200 of the page frame. Same token, same reason. */
+.seotext p{ max-width: var(--container-text); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.lintro{ font-size:var(--fs-14); line-height:var(--lh-airy); max-width:760px; color:var(--text-secondary); }
+/* 10.2: the line measure is a token and it is measured in characters, not pixels.
+   760px at 14px is about 95 characters, well past the 60-75 the eye holds; 68ch is
+   inside it and moves with the font, which a px figure cannot. At 360 neither figure
+   binds - the column is 328 wide - so the mobile layout does not move. */
+.lintro{ font-size:var(--fs-14); line-height:var(--lh-airy); max-width:var(--container-text); color:var(--text-secondary); }
 /* The accent here is louder than the paragraph it sits in, which is the point -
    but it is 14px, and `DESIGN-artifacts.md` gates accent TEXT at 19px bold
    (3.13:1 on white, AA for large text only). The gate was applied to the price
@@ -46,7 +53,11 @@
 .lintro .more:hover{ opacity:.75; }
 .seotext{ background:var(--bg-sunken); }
 .seotext{ position:relative; overflow:hidden; }
-@media (min-width:760px){
+/* 10.4 round 4: 760/759 -> 860/859. The mascot beside the SEO text folds cleanly
+   where the trust strip's could not: measured on `listing` at 860 the text column
+   comes out 500 wide against 400 at 760 today, and nothing clips. One behaviour, one
+   registry point, two files that had been writing it as 760 and as 1180. */
+@media (min-width:860px){
   .seotext{ padding-right:310px; min-height:244px; }
 }
 
@@ -74,6 +85,6 @@
    on anything else it now looks like itself. */
 .uiv-bear{ position:absolute; right:8px; bottom:-128px; height:362px; width:auto; max-width:none;
   pointer-events:none; }
-@media (max-width:759px){
+@media (max-width:859px){
   .uiv-bear{ display:none; }
 }

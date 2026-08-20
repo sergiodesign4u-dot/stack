@@ -16,11 +16,12 @@
 .hstrip{ display: flex; gap: var(--space-12); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: var(--space-2); }
 .hstrip::-webkit-scrollbar{ display: none; }
 .hside{ display: grid; gap: var(--space-12); grid-template-columns: 1fr; }
-.hvert{ border: 1px solid var(--line-hair); min-height: 130px;
+/* 10.4 round 3: THE QUERY IS GONE AND THE HEIGHT RAMPS. `min-height` was 130 below
+   720 and 164 above it - a SIZE stepping at a point, which this stage does not do.
+   Both ends are the values that stood there, so 360 and 720 do not move. */
+.hvert{ border: 1px solid var(--line-hair);
+  min-height: clamp(8.125rem, 5.9rem + 9.75vw, 10.25rem);   /* 130px at 360 -> 164px at 720 */
   padding: var(--space-16) var(--space-16); display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-4); }
-@media (min-width: 720px){
-  .hvert{ min-height: 164px; }
-}
 .hvert .hvt{ max-width: 60%; }
 .hvert .hvs{ font-size: var(--fs-12); max-width: 60%; }
 

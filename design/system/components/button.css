@@ -186,13 +186,32 @@
    height and the padding above and below do not move: the touch target is not
    negotiable. It sits here, above `--icon`, so an icon button's zero padding
    still outranks it. */
-@media (max-width: 479px){
-  .btn--accent, .btn--outline, .btn--ghost{
-    padding-left: var(--space-12); padding-right: var(--space-12); }
-  .btn--s{ padding-left: var(--space-8); padding-right: var(--space-8); }
-  .btn--l{ padding-left: var(--space-16); padding-right: var(--space-16);
-    font-size: var(--fs-16); }
-}
+/* 10.4: THE PHONE STEP BECAME A RAMP, and the query went with it.
+   It was `@media (max-width: 479px)`, and 479 was not in the registry of points -
+   the stage allows three ends for such a number and only three: fold it into a
+   registered point, name it a container threshold, or make it disappear. It
+   disappears here, because nothing about a button's BEHAVIOUR changed at 480: only
+   the amount of air around the word did, and air is the fluid way's own job.
+
+   Each ramp starts at exactly the value the old rule gave a phone and ends at the
+   value the base rule gave everything else, with the knee at 360 and the ceiling at
+   860. At 360 the resolved number is identical to before, to the pixel; between 361
+   and 859 a button now gains its air gradually instead of jumping at 480.
+
+   AND THE `font-size` SWITCH IS GONE. `.btn--l` used to read `--fs-16` below 480 and
+   `--fs-18` above it. This stage forbids switching a size at a point outright: the
+   jump happens in the instant a person is dragging the edge of the window. It is the
+   same ramp, in rem, both ends declared. */
+.btn--accent, .btn--outline, .btn--ghost{
+  /* 12px at 360 -> 16px from 860 */
+  padding-inline: clamp(0.75rem, 0.57rem + 0.8vw, 1rem); }
+.btn--s{
+  /* 8px at 360 -> 12px from 860 */
+  padding-inline: clamp(0.5rem, 0.32rem + 0.8vw, 0.75rem); }
+.btn--l{
+  /* 16px at 360 -> 24px from 860, and the word grows 16 -> 18 with it */
+  padding-inline: clamp(1rem, 0.64rem + 1.6vw, 1.5rem);
+  font-size: clamp(1rem, 0.91rem + 0.4vw, 1.125rem); }
 
 /* ---- width --------------------------------------------------------------- */
 /* Width is not a size: it never changes which finish a button has. Measured at

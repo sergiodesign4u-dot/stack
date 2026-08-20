@@ -5,17 +5,29 @@
    Colour reads a semantic role, geometry reads a primitive. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
+/* 10.4 round 3: TWO QUERIES DELETED HERE, AND NEITHER OF THEM EVER DREW.
+   `@media (min-width: 620px){ .prow{ grid-template-columns: repeat(3, 1fr) } }` and
+   `@media (min-width: 1040px){ .prow{ repeat(4, 1fr) } }` stood here since the
+   stage-08 split. The colour half below re-declares `.prow` with the same weight and
+   stands later in the file, so it won at every width and these two painted nothing.
+   The census of step 1 counted 1040 among the boundaries acting in the product; it
+   was not acting, and only asking the OUTPUT could have said so - `getComputedStyle`
+   never once returned four equal tracks. Deleted rather than folded: a query that
+   draws nothing has no width to fold. */
 .prow{ display: grid; }
-@media (min-width: 620px){
-  .prow{ grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 1040px){
-  .prow{ grid-template-columns: repeat(4, 1fr); }
-}
 .plist{ display: flex; flex-direction: column; gap: var(--space-12); }
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
-.prow{ grid-template-columns:repeat(auto-fill, minmax(min(150px, 100%), 1fr)); gap:var(--space-12); }
-@media (min-width:620px){
-  .prow{ grid-template-columns:repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap:var(--space-16); }
-}
+/* 10.4 round 3: THE QUERY IS GONE AND THE FLOOR RAMPS, because the switch was making
+   the row of cards go BACKWARDS. Measured on ten pages before the change: 1 column at
+   320, 2 at 360, **3 at 520**, **2 at 620**, 3 at 680, 4 at 880. At 620 the floor
+   jumped 150 -> 200 and the 588px box stopped fitting three, so the grid lost a column
+   as the window got wider - at the very point named «the row of cards stops being one
+   column». Two fixed knife-edge snapshots at 360 and 1280 cannot see that, which is
+   why it survived stages 07, 08 and 09 unasked.
+   The count of columns is still nobody's decision: `auto-fill` reads it off the width.
+   What changed is that the number it reads it against now moves smoothly. The price is
+   the 3-column state at 520-619, three cards of 154.7px on a 520 window, which the
+   ramp turns into two of 244. Origin of both ends: tokens.css, under the grid block. */
+.prow{ grid-template-columns:repeat(auto-fill, minmax(min(var(--grid-col-fluid), 100%), 1fr));
+  gap:var(--grid-gap-fluid); }

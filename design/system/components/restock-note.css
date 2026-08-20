@@ -57,10 +57,22 @@
 /* step 7: align-items:center, because the field is 44 by the ladder and the
    button beside it is L. Stretch made the field 64 - a height no rung of the
    set has, borrowed from whatever stood next to it. */
-.notifyrow { display: flex; align-items: center; gap: var(--space-12); margin-top: var(--space-12); }
+/* 10.4: `flex-wrap` came up here out of the query at the foot of the file. The
+   row wraps at every width now, and WHETHER it wraps is decided by the field's
+   own floor two lines down rather than by a number about the window. */
+.notifyrow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-12); margin-top: var(--space-12); }
 /* step 7: the `font` shorthand that lived here carried 15px and a hard-coded
    family - 15 is not a rung of the scale, and the family is the field's. */
-.notifyrow input{ flex: 1; min-width: 0; }
+/* 10.4: `flex: 1` -> `flex: 1 1 13rem`. The basis is what breaks the line: two
+   items of 208 plus a 12 gap need 428, so the row stacks below that and stands
+   side by side above it. `min-width: 0` stays for the reason written below. */
+.notifyrow input{ flex: 1 1 13rem; min-width: 0; }
+/* AND THE BUTTON HAD TO BE LET GO OF ITS `width: 100%`. The screen wears
+   `btn--full` here so the button fills the row when the row is stacked, and on a
+   flex line that declaration was winning: the button took 350 of 376 and left
+   the e-mail field 26 pixels. `flex: 1 1 13rem` gives it the same floor as the
+   field, so the two of them break the line together or share it equally. */
+.notifyrow .btn{ width: auto; flex: 1 1 13rem; }
 /* `.notifyrow .btn{ white-space: nowrap }` deleted at step 7.9: `button.css`
    already forbids a wrap on all four finishes («A BUTTON NEVER WRAPS»), so this
    line said a thing that was already true. */
@@ -89,14 +101,32 @@
    grid column they sit in inherits that min-content and pushes the page 8px wide.
    The answer is to stack, not to shrink the field below the 16px that stops the
    iOS zoom, and not to let the button truncate its verb. */
-/* 419 IS A CONTENT LIMIT AND IT STAYS - step 7.64. `architecture.md` A2 listed
-   it among the singletons to fold into the nearest set member, 480. Measured
-   before folding: at 420, 440, 460 and 479 this row does NOT wrap, its two
-   children come out 26 + 350 and the page does not scroll sideways. Folding to
-   479 would stack a row that fits, on every width from 420 up. The number was
-   found by measurement at 7.9 and it answers to the field's 16px minimum and
-   the button's verb, not to a grid. A boundary a component earned is not drift. */
-@media (max-width: 419px){
-  .notifyrow{ flex-wrap: wrap; }
-  .notifyrow > *{ flex: 1 1 100%; }   /* the field and its button, step 7.9 */
-}
+
+/* 10.4: 419 IS GONE, AND STEP 7.64 REFUSED TO FOLD IT ON EVIDENCE THAT WAS THE
+   DEFECT ITSELF. That refusal is quoted here rather than deleted, because it was
+   right about the principle and wrong about the reading:
+
+     «Measured before folding: at 420, 440, 460 and 479 this row does NOT wrap,
+      its two children come out 26 + 350 and the page does not scroll sideways.»
+
+   26 + 350 is not a row that fits. It is an e-mail field squeezed to twenty-six
+   pixels by a button wearing `width: 100%`, and it holds from 420 all the way to
+   1600: measured on `product-oos`, 26 + 350 at 420, 26 + 410 at 480, 26 + 650 at
+   720. The query below 419 was hiding it, which is why nothing ever asked.
+
+   What replaces the number is the thing the old comment said the number stood
+   for - «the field's 16px minimum and the button's verb». That is a content
+   floor, so it is written as one, on the two children, and the row breaks its own
+   line. Measured against the query it replaces, on `product-oos`:
+
+   | width | before | after |
+   |---|---|---|
+   | 320 | stacked 311.2 + 311.2 | stacked 311.2 + 311.2 |
+   | 360 | stacked 328 + 328     | stacked 328 + 328     |
+   | 419 | stacked 387 + 387     | stacked 387 + 387     |
+   | 420 | row 26 + 350          | stacked 388 + 388     |
+   | 480 | row 26 + 410          | row 218 + 218         |
+   | 720 | row 26 + 650          | row 338 + 338         |
+
+   Zero movement at and below 419, which is the stage's promise, and the row
+   above it stops being broken. */

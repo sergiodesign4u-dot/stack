@@ -22,7 +22,17 @@
 .aord-info{ min-width: 0; }
 .aord-info .no{ font-weight: var(--fw-black); color: var(--text-primary); font-size: var(--fs-14); }
 .aord-info .meta{ font-size: var(--fs-14); margin-top: var(--space-4); }
-.aord-actions{ display: flex; gap: var(--space-8); margin-top: var(--space-16); flex-wrap: wrap; }
+/* 9.1: `display: flex` and the wrap moved to patterns/action-row.css - one row, one
+   rule, fifty-three container names. What stays here is what this container does
+   DIFFERENTLY, and nothing else. */
+/* THE DEVIATION HAS TO OUTWEIGH THE PATTERN, and the first cut at 9.1 forgot it.
+   `.actions` and a bare container class weigh the same (0,1,0), and patterns
+   import last, so the pattern's `gap` silently won and this row moved 4px.
+   Written as a pair with `.actions` it reads as what it is: this container is an
+   action row AND it differs from one. The scoped `.coach .*` rows needed nothing,
+   which is why the defect showed up on exactly the four unscoped ones. */
+.aord-actions{ margin-top: var(--space-16); }
+.aord-actions.actions{ gap: var(--space-8); }   /* [?] 8 against the row's own 12 - backlog, 9.1 */
 .ord-tabs{ display: flex; gap: var(--space-8); flex-wrap: wrap; margin: var(--space-16) 0 var(--space-4); }
 /* step 7.23: `.ord-tab` went to chip.css as a SEGMENT. Its edge was 1px here
    while every other chip in the product WROTE 1.5, so 7.23 wrote 1.5 too and
@@ -109,18 +119,25 @@
 .ob-receipt{ display: inline-flex; align-items: center; gap: var(--space-8); margin-top: var(--space-16); font-size: var(--fs-14); }
 .ob-repeat{ width: 100%; }
 .ob-del{ border: 1px solid var(--line-hair); padding: var(--space-16); margin-top: var(--space-16); display: flex; flex-direction: column; gap: var(--space-12); }
-@media (max-width: 639px){
-  /* step 6.6: size, border and colour are the set's; here stays only what makes
+@media (max-width: 619px){
+  /* 10.4: 639 -> 619, the mirror of `--bp-grid-2col`, on both blocks. Round 1
+     recorded this number as «owed to the organism round»; that was a misfiling -
+     `order-row` is a molecule, so the debt was owed to this round. 639 was the
+     mirror of 640, and 640 is in no registry.
+     step 6.6: size, border and colour are the set's; here stays only what makes
      this control appear at all below 640, and that it fills the row. `display`
      is that "appear at all" - the rule above hides it, so the button class
      cannot bring it back on its own. */
   .ob-collapse{ display: flex; width: 100%; margin-top: var(--space-16); font-family: inherit; }
 }
-@media (max-width: 639px){
+@media (max-width: 619px){
   .ord-h{ display: grid;  gap: var(--space-4) var(--space-12); grid-template-columns: 1fr auto;
     grid-template-areas: "no date" "stat sum" "thmb thmb" "more more"; }
   .oh-no{ grid-area: no; }
   .oh-date{ grid-area: date; justify-self: end; }
+  /* 10.4: came in from status-pill.css, where one line of this reflow had been
+     living. `grid-area: stat` is only meaningful beside the template above. */
+  .oh-status{ grid-area: stat; justify-self: start; margin-top: var(--space-4); }
   .oh-sum{ grid-area: sum; justify-self: end; margin-top: var(--space-4); }
   .oh-thumbs{ grid-area: thmb; margin-left: 0; margin-top: var(--space-12); }
   .oh-drop{ grid-area: more; width: 100%; height: auto; margin-top: var(--space-12); padding: var(--space-12);  gap: var(--space-8);  font-weight: var(--fw-black); color: var(--text-primary); }

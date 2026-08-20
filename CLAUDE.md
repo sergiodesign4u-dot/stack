@@ -1,11 +1,10 @@
 # Stack - project rules
 
-Rules that must act in the next session. Not a journal and not a status board.
-**What was done and why lives in `docs/decisions.md`** (never loaded). **Status lives in
-`README.md` and `/_nav.js`, and nowhere else** - a third copy only drifts from the other two.
-Budget: **200 lines**. A new rule enters by replacing or generalizing an existing one, never
-by being added alongside. Over budget is not "the file got big", it is a signal that two rules
-inside already contradict each other.
+Rules that must act in the next session. Not a journal and not a status board. **What was done and
+why lives in `docs/decisions.md`** (never loaded). **Status lives in `README.md` and `/_nav.js`, and
+nowhere else** - a third copy only drifts from the other two. Budget: **200 lines**. A new rule
+enters by replacing or generalizing an existing one, never by being added alongside. Over budget is
+not "the file got big", it is a signal that two rules inside already contradict each other.
 
 ## What Stack is
 
@@ -16,27 +15,20 @@ scaling up to desktop; a native app is out of MVP scope.
 
 ## Jobs (selected)
 
-**Primary.** When I am a coach or gym manager ordering supplements for my clients, I want to quickly
-build orders for multiple people with different goals and dosages, so that I can serve my athletes
-reliably and keep their trust in my recommendations.
-
-**Secondary 1.** When I am a beginner overwhelmed by the catalog, I want to answer a few simple
-questions and get a clear, safe, credible product set for my goal, so that I can start confidently.
-
-**Secondary 2.** When I am a regular buyer running low on my staples, I want to reorder in one or two
-taps without rediscovering what I need.
-
-Supporting jobs: verify a product is safe, certified and correctly dosed (Job 4, the trust job);
-get bulk pricing through my coach; review loyalty status (Job 6).
+**Primary.** A coach or gym manager builds orders for several athletes at once, each with a different
+goal and dosage, and keeps their athletes' trust. **Secondary 1.** A beginner answers a few simple
+questions and gets a safe, credible set for one goal. **Secondary 2.** A regular repeats their staples
+without rediscovering them. Supporting: verify a product is safe, certified and correctly dosed
+(Job 4, the trust job); get bulk pricing through the coach; review loyalty status (Job 6). **The full
+wording lives in `research/docs/jtbd.md` and is not re-typed here.**
 
 ## Audience
 
 - **Primary - coaches and gyms** (25-45, buying for 5-30+ athletes). Domain experts. They need
   speed, bulk ordering and account management, not guidance. Driver: operational efficiency.
-- **Secondary - beginners** (18-35, little or no knowledge). Low trust, afraid of side effects and
-  wrong dosage. Driver: confidence and clarity. Safety and credibility signals are critical.
-- **Supporting - regulars** (22-40, same 2-5 products repeatedly). Already converted. Driver:
-  convenience and reliability, one-tap reorder, never running out.
+- **Secondary - beginners** (18-35). Low trust, afraid of side effects and wrong dosage; safety and
+  credibility signals are critical. **Supporting - regulars** (22-40, the same 2-5 products): already
+  converted, driven by one-tap reorder and never running out. Both in `research/docs/personas.md`.
 
 **`primary` decides.** Where two decisions conflict, the coach wins. Secondary scenarios must work,
 but the interface is not built around them.
@@ -47,9 +39,7 @@ In: coach ordering flow (saved client list, per-client order tagging, per-client
 tier price) · goal-to-product guidance (6 goal tiles; the quiz is post-launch) · product pages with
 trust signals leading, not buried · catalog with smart filtering · reorder from order history ·
 checkout and buyer account (orders, addresses, wishlist, loyalty) · **order status notification by
-e-mail or SMS** · **a dark theme**, which is the stress test of «colour reads a role, never a
-literal» rather than decoration.
-
+e-mail or SMS** · **a dark theme**.
 Out: native app · loyalty gamification · live chat and coach consulting · custom formulation ·
 private label. A paid coach tier (Free / Pro) is a **hypothesis**, not a commitment.
 
@@ -59,8 +49,7 @@ private label. A paid coach tier (Free / Pro) is a **hypothesis**, not a commitm
    dosage, origin and certification are the lead, not a detail under a fold.
 2. **One clear next step.** Never a blank stare; exactly one main action per screen.
 3. **The coach is a channel, not an edge case.** Multi-client ordering is a first-class flow.
-4. **Calm and confident.** No countdown timers, no urgency, no celebration. Serious for people who
-   take it seriously.
+4. **Calm and confident.** No countdown timers, no urgency, no celebration.
 5. **Plain language, deep information.** Everyday words in labels and navigation; depth below.
 
 Conflicts resolve to #1.
@@ -91,11 +80,11 @@ exist and lists what is missing.
 Competitor facts come from a page opened in this session, never from memory.
 
 **Acceptance is in the browser, not in a table.** Open it, walk every state, narrow to 360px, and
-only then say done. `node tools/accept.mjs` is the gate and `tools/states.mjs` the state walk; they
-find their own pages, because an instrument handed its subject can be handed the wrong one - a glob
-once reported "0 failures" over 135 pages after visiting one. **Fix through a rule, not by
-hand-editing one file** - and the same applies to the instrument: a check rebuilt from memory each
-step is a hand fix. A repeatable one goes in `tools/` with the wrong versions written beside it.
+only then say done. The instruments live in `tools/` and its README is their index; they find their
+own pages, because an instrument handed its subject can be handed the wrong one. **Fix
+through a rule, not by hand-editing one file** - and the same applies to the instrument: a check
+rebuilt from memory each step is a hand fix. A repeatable one goes in `tools/` with its wrong
+versions written beside it.
 
 **Ask the OUTPUT, and ask it of the whole corpus.** A rule stated in a comment has no check under it,
 and **a claim about the corpus goes stale in silence** - the event that stales it happens in another
@@ -103,11 +92,21 @@ file - so it is re-asked, not re-read. **A comparison whose two sides differ in 
 being measured is not a proof:** name the reference by hand when the tree holds earlier work, and
 read the whole report - one read through `tail` is not a read.
 
+**A zero from an instrument that cannot see the class is not a zero.** Before a green counter is
+believed, name what would turn it red: a check that has never failed has not been shown to work.
+Every declared list gets the same test - an allow-list, a registry row or an exception that covers
+nothing fails as loudly as an undeclared case. **A repair is re-checked by the instrument that found
+the defect**, because a repair stales its own neighbours. **A number nobody maintains is removed,
+not corrected.**
+
+**A path named in prose is a TAIL, not an address** (`tools/paths.mjs`): it resolves against the
+tree, not against the folder it was typed in. **A record names history, a rule names an address** -
+`docs/decisions.md` may keep a file's old name, this file may not.
+
 **Critique runs on two instruments.** Claude and Codex (plugin `codex`, **read-only stated
 explicitly**), sets taken independently before any merge, dedup afterwards. Codex owns what is
-falsifiable in the source (contradiction between files, orphan without a parent, state absent from
-the code, value drifted from its token, broken link). "Breaks at 360" and pixel checks stay with
-Claude in a browser. Every critique log carries **who found it** and **withdrawn on verification**
+falsifiable in the source: a contradiction between files, an orphan, a value drifted from its token.
+"Breaks at 360" and pixel checks stay with Claude in a browser. Every critique log carries **who found it** and **withdrawn on verification**
 with a reason - a withdrawn finding stays visible, or it returns next time in the same words.
 
 **A repeated prompt is a rule.** Typing the same instruction a third time means it belongs in this
@@ -134,11 +133,10 @@ toasts) belong to `voice/docs/microcopy.md`; the IA node states WHAT information
 the wording. No product string exists in two editions.
 
 **Values move, they are never re-derived.** One line runs through the stages and is not recomputed
-once: `DESIGN-artifacts.md` (origin of every value) -> `design/_theme.css` -> `design/system/
-tokens.css` (primitive + semantic; `kit.css` was the middle link and was deleted at stage 08 step 8).
-Each step adds a level, never rewrites what is already there. A value changes only by a decision said
-out loud as "variable -> value -> why", never as a side effect of a refactor - and **a geometric
-relation is written as the relation, not as the number it resolves to today.**
+once: `DESIGN-artifacts.md` (origin of every value) -> `design/system/tokens.css`, primitive then
+semantic. Each step adds a level, never rewrites what is there. A value changes only by a decision
+said out loud as "variable -> value -> why", never as a side effect of a refactor - and **a geometric
+relation is written as the relation, not the number it resolves to.**
 
 **`personas.md` has one writer** - CJM step 4. Other stages read it read-only; a contradiction is
 reported back into the persona as a finding, not patched silently and not re-described locally.
@@ -162,16 +160,14 @@ ia/           stage 03            base layer (flows, concept-map) + detail layer
                                   structure, blocks, docs/pages/<node>.md + ia/<node>.html)
 wireframes/   stage 04            grey clickable prototype, FROZEN after Voice
 voice/        stage 05            voice.md rulebook + microcopy.md inventory
-design/       stages 06-09        concept/ (how the language was found) ·
-                                  kit/ (showcase + docs) · system/ (code) · visuals/
+design/       stages 06-09        concept/ · kit/ (showcase + docs) · system/ (code) · visuals/
 docs/         decisions.md, playbook/
 tools/        the instruments and their README, which is their index
 ```
 
 **`index.html` is the entry point of the folder you opened, and nothing else** - at the repo root it
 is the project, inside a stage folder it is the home page of the product. A hub is always
-`overview.html` (`wireframes/overview.html`, `design/overview.html`). The one exception by name is
-the detail-IA hub `ia/structure.html`, which shows node chips rather than a page list.
+`overview.html`; the one exception by name is the detail-IA hub `ia/structure.html`.
 
 **The sidebar has one source.** Structure comes from `/_nav.js`, look from `/_nav.css`. A page
 carries an empty `<aside id="sidebar"></aside>`, declares `NAV_BASE`, optionally `NAV_SECTIONS`, and
@@ -180,16 +176,25 @@ rule.** The only manual edit is a row in the registry and `done: true` when a pa
 active / Next / Soon, the accordion and relative links are computed.
 
 **Colour never lands on `wireframes/`.** The grey prototype owns structure, text and states; colour
-lives in copies under `design/`, which own the visual layer only.
+lives in copies under `design/`, which own the visual layer only. **Counting happens on the grey
+corpus** (the whole product), **proving happens on the coloured one** (a selection); neither replaces
+the other, and a share measured on the selection is not a share of the product.
 
-**A folder is created by its own stage.** No empty folders ahead of the work, no `.gitkeep`: the
-route is shown by the registry and the README, not by the file system.
+**A folder is created by its own stage** - no empty folders ahead of the work, no `.gitkeep`.
+
+## Contribution to the system
+
+**New appears in `design/system/` first, then on the screen, never the other way round.** A screen
+declares no styles of its own; what it lacks is an order for the system and goes to `backlog.md`.
+«Залишаємо» about a VALUE -> a token of its level in `tokens.css`, both themes if it is a state;
+about a COMPONENT -> `components/<name>.css` plus its page, registry row, inventory row and
+`@import`, all four **in its own LEVEL group**; about a COMPOSITION -> `patterns/<name>.css` plus its
+page, from three named screens. Addresses: `architecture.md` J; in code: `design/system/CLAUDE.md`.
 
 ## Pointers
 
-`DESIGN-artifacts.md` - the visual language and the origin of every value: the accent, the contrast
-exemptions and the price colour rule. `design/kit/docs/architecture.md` - the open geometry questions
-and the ladders that close them; **a ladder is read by JOB, not by shape**.
-`wireframes/docs/conventions.md` - prototype contract. `voice/docs/voice.md` - the voice rulebook
-and the locked wording canon. `ia/docs/` - sitemap and per-page specs. `docs/decisions.md` - why
-anything above is the way it is.
+`DESIGN-artifacts.md` - the visual language and the origin of every value.
+`design/kit/docs/architecture.md` - the decision sheet, the rules of use and the contribution rule;
+**a ladder is read by JOB, not by shape**. `wireframes/docs/conventions.md` - prototype contract.
+`voice/docs/voice.md` - the voice rulebook and the locked wording canon. `ia/docs/` - sitemap and
+per-page specs. `docs/decisions.md` - why anything above is the way it is.

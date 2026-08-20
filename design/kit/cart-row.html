@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Рядок кошика</h1>
 <p class="kp-lead">Товар, який людина вже вибрала: фото, назва, варіант, лічильник і сума. Шість рядків на двох екранах - найменша молекула з узятих, і саме на ній набір «одного товару під різними іменами» нарешті стало видно цілком.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/cart-row.css</span><span class="kp-tag">158 рядків</span><span class="kp-tag">29 селекторів</span><span class="kp-tag">158 рядків</span><span class="kp-tag">11 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/cart-row.css</span><span class="kp-tag">169 рядків</span><span class="kp-tag">30 селекторів</span><span class="kp-tag">169 рядків</span><span class="kp-tag">11 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка звідси - та сама, що на <code>cart.html</code>, скопійована рядок у рядок.</p>
@@ -118,10 +118,18 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Рядок кошика показує рішення, а не пропозицію.</b> Товар уже вибрано, тому головне тут - сума й кількість, а не фото й назва: вони менші, ніж у картці, і це навмисно.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби рядок клікабельним цілком.</b> У ньому п'ять окремих цілей, і рядок-посилання поверх них означає, що палець ніколи не знає, у що влучив.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U9</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Два посилання рядка кошика - це ряд дій: <code>.actions</code> плюс власні <code>gap: 16</code> і <code>flex-wrap: nowrap</code>, які лишились у цьому файлі.</p></section>
+
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>17</b> власних класів і <b>3</b> стани оголошено в <code>cart-row.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
 <script>var KIT_CLS=["ci","ci-ph","ci-mid","ci-brand","ci-nm","ci-var","ci-row","ci-price","ci-oldline","ci-old","ci-sum","ci-per","ci-links","ci-lnk","ci-oostag","oos","strong"], KIT_STS=[":hover", ".oos", ".strong"];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> жодного, і ніколи не було. Рядок кошика плинний зроду - фото фіксоване, текстова колонка тягнеться, керування переноситься. Раунд молекул його не чіпав.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>cart-row.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>

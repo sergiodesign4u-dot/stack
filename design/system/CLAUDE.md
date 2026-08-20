@@ -1,0 +1,14 @@
+# design/system - the rules of this folder
+
+1. This folder is the CODE the product loads. `design/kit/` is the showcase that shows it to a person. A product class in the stand, or a stand style in a component file, is a defect.
+2. Colour reads a ROLE through a semantic token; geometry reads a primitive directly. A component that reads a colour primitive is a hole the first theme finds.
+3. A value never appears here first. It arrives from `DESIGN-artifacts.md` through the theme and the kit, and changes only by a decision said out loud as «variable -> value -> why».
+4. A geometric relation is written as the relation, not as the number it resolves to today.
+5. `index.css` imports tokens first, then components BY LEVEL, then patterns. A new file goes into its own level group, never at the end.
+6. A component is not finished without its page in `design/kit/`, its row in `inventory.md` with a level, and its `@import` in its level group.
+7. A state is a TOKEN, not a style: `:hover` reads `--bg-*-hover`, `:focus-visible` reads a ring token, disabled reads a mark token. No new hex or number appears inside a component class.
+8. A state token has a value in BOTH themes, and the two are not mirrors: contrast is measured against the opposite ground, so the dark side takes a stronger tint, not the same one. A role without a pair is a defect.
+9. A pattern lives in `patterns/`, exists only from THREE named screens, and is assembled from existing components with no styles of its own. Needed a new style? That means a component or a variant is missing: build that first.
+10. NEW APPEARS HERE FIRST, THEN ON THE SCREEN. Never the other way round. A screen declares no styles of its own; what it lacks is an order for the system, written into `design/kit/docs/backlog.md`.
+11. **A screen file never carries an `@media`. Ever.** Adaptation lives in a token, a component, a pattern or the shell. This is the most expensive trap of stage 10 and it is not paid here - it is paid at the rollout, where twenty subagents each invent their own query and the adaptive layer scatters across twenty files, exactly as inline CSS scattered at stage 04. Every `@media` in this folder gives one of the two registry numbers, `--bp-grid-2col` (620, mirror 619) or `--bp-shell-wide` (860, mirror 859); the query carries the literal because `@media` is evaluated before custom properties, and the token is the source of truth and the registry. `tools/bp.mjs` reads the registry out of `tokens.css` and fails the run on both classes, plus `var()` inside a query and `@container` with no `container-type` anywhere.
+12. **A size never steps at a point.** A `font-size`, a padding, a min-height or a track width that jumps at a width is a jolt delivered in the same instant a person drags the edge of the window. It ramps with `clamp()`, and each end of the ramp is the value that stood there before, so neither anchor moves. A COUNT and a BEHAVIOUR may step; a SIZE may not.

@@ -102,10 +102,24 @@ function unpack(ref) {
 const all = readdirSync(DIR).filter(f => f.endsWith('-before.jpg')).map(f => f.replace('-before.jpg', '')).sort();
 const SUBJ = named.length ? named : all;
 const missing = SUBJ.filter(n => !all.includes(n));
-if (missing.length) { console.log('немає базового знімка (' + missing.length + '): ' + missing.join(' ')); process.exit(2); }
+/* A SCREEN WITH NO STORED BASELINE STILL HAS A «BEFORE», and refusing it was
+   this file's own blind spot - found at stage 09 step 6. `--against` writes
+   nothing and reads nothing: both halves are shot live, one from the working
+   tree and one from a `git archive` of the ref. Yet the subject list was gated
+   on `design/kit/proof/`, so the ten coach screens added at 8.48 - the ones the
+   pattern step actually converted - answered «немає базового знімка» and the
+   proof covered 5 of 15. The frame is the one place a stored image was needed,
+   and it is a CONSTANT of the page rather than a property of the file: every
+   baseline is 293x633, a 390x844 first screen at scale .75, which is what the
+   header above already states. So in `--against` mode a missing baseline takes
+   that constant and is named in the run, and only the writing mode still
+   insists on a pair it would have to keep consistent. */
+const FRAME = { w: 293, h: 633 };
+if (missing.length && !AGAINST) { console.log('немає базового знімка (' + missing.length + '): ' + missing.join(' ')); process.exit(2); }
 
 const OTHER_REF = AGAINST || BASE_REF;
-console.log('предмет: ' + SUBJ.length + ' екранів з ' + all.length + ' у design/kit/proof/');
+console.log('предмет: ' + SUBJ.length + ' екранів з ' + all.length + ' у design/kit/proof/'
+  + (AGAINST && missing.length ? '\n  без збереженого базового знімка, кадр за константою 390x844 .75 (' + missing.length + '): ' + missing.join(' ') : ''));
 console.log(AGAINST
   ? 'режим: порівняння робочого дерева з ' + AGAINST + ' - на диск не пишеться нічого'
   : 'режим: перезняти обидві половини одним браузером - «до» це git archive ' + BASE_REF);
@@ -230,7 +244,9 @@ async function diff(aData, bData) {
 
 const moved = [], same = [], skipped = [];
 for (const name of SUBJ) {
-  const dim = jpegSize(readFileSync(join(DIR, name + '-before.jpg')));
+  const dim = all.includes(name)
+    ? jpegSize(readFileSync(join(DIR, name + '-before.jpg')))
+    : FRAME;
   if (!dim) { skipped.push(name + ' (базовий знімок не читається)'); process.stdout.write('x'); continue; }
   if (!existsSync(join(ROOT, 'design', name + '.html'))) { skipped.push(name + ' (немає сторінки)'); process.stdout.write('x'); continue; }
   const scale = dim.w / 390;

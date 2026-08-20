@@ -255,7 +255,11 @@
   border: 1px solid var(--line-hair); border-radius: var(--radius-12);
   padding: var(--space-12);
   background: var(--bg-surface); }   /* was --fill2, the grey prototype's zone fill */
-@media (min-width: 720px){
+/* 10.4 round 3: 720 -> 620 and 520 -> 619. `.cstat` laying its chip, note and link
+   into one row is the same «one column becomes several» the point is named for; the
+   hidden shortcut at 520 is the coach flow's third sighting of a number nobody
+   registered. */
+@media (min-width: 620px){
   .coach .cstat{ grid-template-columns: auto 1fr auto;
     grid-template-areas: 'chip note link'; row-gap: 0;
     /* THE SIDE INSET IS 16 ONLY WHERE THERE IS ROOM FOR IT, and this is measured,
@@ -584,7 +588,7 @@
 /* The arrow is decoration next to a card that is entirely a link, and below 520
    the card needs its width for the sentence. Same boundary the private block
    used; it is the only 520 in this file. */
-@media (max-width: 520px){
+@media (max-width: 619px){
   .coach .cnew .cn-go{ display: none; }
 }
 /* THE RESTOCK LEAD IS restock-note.css's SENTENCE, WRITTEN A SECOND TIME. That
@@ -889,8 +893,10 @@
 .coach .ord-tot{ font-size: var(--fs-18); font-weight: var(--fw-black); color: var(--text-primary); }
 .coach .ord-tot small{ font-size: var(--fs-12);   /* grey 11.5 -> 12: 5.5 takes the half pixel to the more-read neighbour, and 12 is a rung. See THE NINETEEN, top of file. */
   font-weight: var(--fw-semibold); color: var(--text-secondary); display: block; }
-.coach .ord-acts{ display: flex; gap: 10px;   /* [?] 10px has no rung */
-  flex-wrap: wrap; }
+/* 9.1: `display: flex` and the wrap moved to patterns/action-row.css - one row, one
+   rule, fifty-three container names. What stays here is what this container does
+   DIFFERENTLY, and nothing else. */
+.coach .ord-acts{ gap: 10px; }   /* [?] 10px has no rung - backlog, 9.1 */
 
 /* `display: block`, `width: 100%`, `text-align: center` and `border-color`
    deleted. The element is `<button class="btn co-more">` and all four are the

@@ -92,7 +92,10 @@
 .coach .upsell .ulist li{ padding: var(--space-4) 0; }
 .coach .upsell .ulist li::before{ content: '\2713\A0'; font-weight: var(--fw-black); color: var(--text-primary); }
 
-.coach .upsell .uacts{ display: flex; gap: var(--space-12); flex-wrap: wrap; margin-top: 6px; }
+/* 9.1: `display: flex` and the wrap moved to patterns/action-row.css - one row, one
+   rule, fifty-three container names. What stays here is what this container does
+   DIFFERENTLY, and nothing else. */
+.coach .upsell .uacts{ margin-top: 6px; }
 /* the small print under the action - «number to be confirmed», never a warning */
 .coach .upsell .un{ font-size: var(--fs-12);              /* grey 11.5 -> 12, same rule */
   color: var(--text-muted); margin-top: var(--space-8); }

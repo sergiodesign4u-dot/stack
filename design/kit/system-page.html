@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Організм · рівень 3</div>
 <h1 class="kp-h1">Системна сторінка</h1>
 <p class="kp-lead">Файл є, класи є, і <b>кольору в ньому немає жодного рядка</b>: шапка обіцяє колірний блок нижче, а колірного блоку у файлі нема - тільки структурний. Усі 16 класів зустрічаються рівно на чотирьох сірих екранах - <code>wireframes/404.html</code>, <code>wireframes/500.html</code>, <code>wireframes/maintenance.html</code> і <code>wireframes/system.html</code>, - і в жодного з них немає кольорового двійника: <code>design/404.html</code>, <code>design/500.html</code>, <code>design/maintenance.html</code> і <code>design/system.html</code> не існують. Файл виділили при розколі на кроці 3 етапу 08, він поїхав у кольорову систему разом з рештою, і <b>колір цього організму не намальовано ніде</b>.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/system-page.css</span><span class="kp-tag">38 рядків</span><span class="kp-tag">22 селектори</span><span class="kp-tag">93 оголошення</span><span class="kp-tag">жодного екрана</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/system-page.css</span><span class="kp-tag">42 рядки</span><span class="kp-tag">22 селектори</span><span class="kp-tag">93 оголошення</span><span class="kp-tag">жодного екрана</span></div>
 
 <section class="kp-sec"><div class="kp-sh">З чого складається</div>
 <p class="kp-p">Складу немає з чого міряти: корінь <code>.sys-min</code> шукали на всіх сорока кольорових екранах і не знайшли, тож речення нижче означає не «організм простий», а «організму в кольорі не існує».</p>
@@ -67,8 +67,15 @@
 <section class="kp-sec"><div class="kp-sh">Межі</div>
 <p class="kp-p">У файлі <b>2</b> медіа-умови, і кожна з них - межа, якої стандартні ширини перепису (360 / 390 / 720 / 1280) не бачать зсередини смуги. Заміряти їх треба власними ширинами, по одній з кожного боку.</p><ul class="kp-ul"><li><code>@media (max-width: 859px)</code></li><li><code>@media (min-width: 720px)</code></li></ul></section>
 
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U9</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
+<p class="kp-p">Ряд дій службової сторінки <b>ще не переведений</b>: кольорових входжень нуль, тож доводити пікселями нема чого.</p></section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>16</b> власних класів і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["demo-btns", "sc-code", "sc-d", "sc-open", "sc-t", "sys-acts", "sys-code", "sys-h", "sys-links", "sys-logo", "sys-min", "sys-s", "sys-search", "syscard", "sysdemo", "sysgrid"], KIT_STS=[];</script></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-grid-2col</code>. <b>Що саме міняється:</b> три системні плитки стають рядом. <b>Було 720</b>, поза реєстром. <b>І окремо про нуль:</b> єдиний екран цього файлу - <code>wireframes/system.html</code>, у якого немає кольорового двійника, тож обхід кольорового корпусу не бачить його взагалі. Це говорить корпус приладу, а не мертвий файл.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>system-page.css</code>: <b>5</b> семантичних ролей і <b>16</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (16)</th></tr></thead><tbody><tr><td><code>--line-hair</code> <code>--line-strong</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fs-16</code> <code>--fs-24</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--ls-display</code> <code>--radius-12</code> <code>--radius-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-4</code> <code>--space-40</code> <code>--space-8</code></td></tr></tbody></table></div></section>

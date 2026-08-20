@@ -57,6 +57,7 @@ the image and a wordmark shows instead - so a missing logo degrades rather than 
 
 1. Generate with the recipe above, referencing an existing file for light.
 2. Drop it here, add a row to the register with **where it stands**.
-3. If it needs a new CSS rule, that rule goes in `kit.css`, never on the page.
+3. If it needs a new CSS rule, that rule goes into `design/system/` by the contribution rule in
+   `CLAUDE.md`, never on the page. `kit.css` was this address until stage 08 step 8 deleted it.
 
 An image with no row here, or a row with no screen, is the same defect in two directions.

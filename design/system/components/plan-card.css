@@ -176,7 +176,8 @@
 .coach .tf-compare{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); }
 /* 640 spelled the wide way, which is what tokens.css states at 7.64 for a
    boundary at N. It is `.acc-grid`'s boundary and `.tf-compare`'s own. */
-@media (min-width: 640px){
+/* 10.4 round 3: 640 -> 620. Two tiers side by side is «one column becomes two». */
+@media (min-width: 620px){
   .coach .tiers,
   .coach .tf-compare{ grid-template-columns: 1fr 1fr; }
 }

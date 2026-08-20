@@ -67,8 +67,15 @@ const FIXED = DIRI > -1 ? argv[DIRI + 1] : null;
    git answered «bad revision». An off-by-one that only fires when the flag is
    absent is exactly the branch nobody tries. */
 const FULL = argv.includes('--full');
+/* THE WIDTHS ARE AN ARGUMENT NOW, and the reason is stage 09 step 1: the pack
+   asks for the pair at 360 and at desktop, and 390 was hard-coded here because
+   that is the phone this project draws at. A comparator that can only be asked
+   at the width its author picked cannot answer the question the acceptance rule
+   states. Default unchanged, so every earlier invocation still means the same. */
+const WI = argv.findIndex(a => a.startsWith('--widths='));
+const WIDTHS = WI > -1 ? argv[WI].split('=')[1].split(',').map(Number) : [390, 1280];
 const rest = (DIRI > -1 ? argv.filter((a, i) => i !== DIRI && i !== DIRI + 1) : argv)
-  .filter(a => a !== '--full');
+  .filter(a => a !== '--full' && !a.startsWith('--widths='));
 const REF = FIXED ? null : (rest[0] || 'HEAD');
 let PAGES = FIXED ? rest : rest.slice(1);
 
@@ -107,7 +114,7 @@ const conn = await Conn.open(l.wsUrl);
 let moved = 0, checked = 0, missing = 0, renames = 0;
 for (const p of PAGES) {
   if (!existsSync(join(dir, 'design', p + '.html'))) { missing++; console.log('  нова сторінка, порівнювати нема з чим: ' + p); continue; }
-  for (const w of [390, 1280]) {
+  for (const w of WIDTHS) {
     /* ONE SESSION AT A TIME, opened and closed. The first version made both
        tabs before visiting either and hung with no output at all - two live
        targets sharing one connection while the first is still loading is not a

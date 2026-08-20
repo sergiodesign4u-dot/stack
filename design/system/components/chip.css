@@ -281,6 +281,14 @@
 .flinks{ margin-top: var(--space-8); }
 .hero-chips{ display: flex; gap: var(--space-8); overflow-x: auto; padding-bottom: var(--space-4); scrollbar-width: none; }
 .hero-chips::-webkit-scrollbar{ display: none; }
+/* 10.4: A SCREEN-SCOPE RULE IN A COMPONENT FILE, AND IT IS NAMED AS ONE.
+   The stage says a component measures its CONTAINER and only the shell measures the
+   viewport. This rule is the exception and it is listed in `responsive.md` under
+   «Screen-scope exceptions outside the shell» with the reason: the goal chips in the
+   hero are hidden above the point not because their box got wide, but because from
+   860 the goal TILES are visible on the same screen and the chips would be a second
+   copy of the same six goals. That is a fact about what the screen shows, and no
+   container query can ask it. The number is the registry's - `--bp-shell-wide`. */
 @media (min-width: 860px){
   .hero-chips{ display: none; }
 }

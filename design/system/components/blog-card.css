@@ -10,7 +10,13 @@
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .blogrow{ display: grid; grid-template-columns: 1fr; gap: var(--space-12); }
-@media (min-width: 720px){
+/* 10.4: 720 -> 620, `--bp-grid-2col`. Three cards, and three has two balanced
+   arrangements: one and three. `auto-fit` would put two of them in a row on the
+   way up and leave the third alone underneath, so this one stays a point.
+   Measured on `index` with the query forced to 620: 188 x 288.9 per card, nothing
+   clipped; at 720 today it is 221.3 x 270.8. The card gets narrower and taller by
+   one line of title, which is what a card does. */
+@media (min-width: 620px){
   .blogrow{ grid-template-columns: repeat(3, 1fr); }
 }
 .blogcard{ border: 1px solid var(--line-hair); overflow: hidden; }

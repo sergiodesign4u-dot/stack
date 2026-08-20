@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Патерни | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Рівень над компонентом</div>
+<h1 class="kp-h1">Патерни</h1>
+<p class="kp-lead">Компонент - одна цеглина. Патерн - стала композиція цеглин, яку продукт повторює на трьох і більше екранах. Токен зняв повтор значення; патерн знімає повтор розкладки.</p>
+<div class="kp-meta"><span class="kp-tag">1 патерн</span><span class="kp-tag">design/system/patterns/</span><span class="kp-tag">імпортується після компонентів</span><span class="kp-tag">заведено на етапі 09, крок 1</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Коли брати патерн, а коли окремі компоненти</div>
+<p class="kp-p">Це головне питання цієї сторінки, і відповідь на нього не абстрактна. Ось три композиції з цього продукту, і патерн серед них рівно один.</p>
+
+<div class="kp-do"><h4>Патерн: ряд із двох дій</h4>«Профіль / Нова сесія» на картці клієнта, «Редагувати / Видалити» на картці адреси, «Оформити Pro / Не зараз» під панеллю тарифу. <b>Однакова композиція, різний зміст</b>, і продукт повторює її на 70 сірих екранах. Беремо патерн: потрібна саме ця стала композиція цілком.</div>
+
+<div class="kp-dont"><h4>Не патерн: підвал шухляди кошика</h4><code>.cd-foot</code> теж тримає дві дії поруч - але це <code>grid</code> з підказкою, яка лягає під обидві кнопки на власний рядок. <b>Композиція відрізняється порядком</b>, і склеювати її з рядом дій означало б зробити патерн, який нічого не описує точно. Лишається собою, у <code>cart-drawer.css</code>.</div>
+
+<div class="kp-dont"><h4>Не патерн: шапка списку з фільтром і лічильником</h4><code>.ltool</code> + <code>.mtoolbar</code> + <code>.listing</code> стоять разом на 13 сірих екранах, і поріг вони проходять. Але правило цієї композиції <b>вже лежить в одному місці</b> - у <code>toolbar.css</code>. Патерн переніс би його з одного єдиного джерела в інше і назвав це прогресом. Те саме з рейкою фільтрів, шапкою секції, крихтами і сіткою карток: усі перевірені, усі відхилені з тієї самої причини.</div>
+
+<p class="kp-p"><b>Тобто питання не «чи повторюється композиція», а «де зараз лежить її правило».</b> Якщо в одному файлі компонента - патерн не потрібен. Якщо в п'ятнадцяти файлах під п'ятдесятьма трьома іменами, як було з рядом дій, - потрібен.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Умова існування: три екрани, названі поіменно</div>
+<p class="kp-p"><b>Не можете назвати три екрани, де композиція вже стоїть - це не патерн.</b> Два входження доводять, що композиція можлива; три - що вона стала. Той самий поріг обережності, що на етапі 08 звучав як «одне вживання ще не роль».</p>
+<p class="kp-p"><b>Лічильник іде по <code>wireframes/</code>, а не по <code>design/</code>.</b> У кольорі до етапу 12 стоїть вибірка, а сірий корпус - це весь продукт, 142 екрани з етапу 04. Композиція, яка стоїть на трьох КОЛЬОРОВИХ екранах із п'ятнадцяти, це «майже скрізь у вибірці», а не патерн.</p>
+<p class="kp-p"><b>Патерн не заводить власних стилів.</b> Він збирається з наявних компонентів і токенів: у ньому тільки композиційне - сітка, порядок, відступи через примітив. Знадобився новий стиль - це сигнал, що бракує компонента або варіанта, і тоді спершу компонент за п'ятіркою етапу 08, а патерн потім.</p>
+<div class="kp-gap"><h4>Звідки береться композиція, яку виносять</h4>Вона вже десь лежить, бо екрани якось її малюють - найчастіше в css одного з компонентів. Ці правила <b>переїжджають</b> у файл патерна: вирізати звідти, вставити сюди, а не скопіювати. Правило, що лишилось одночасно у двох місцях, це дефект: каскад вирішить його порядком <code>@import</code>, звірка покаже «збіглось», і система тихо носитиме мертвий дубль, який розійдеться з першою ж правкою.</div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Патерни системи</div>
+<div class="kp-demo"><div class="actions"><a class="btn--outline btn--s" href="#">Профіль</a><a class="btn--accent btn--s" href="#">Нова сесія</a></div></div>
+<div class="kp-cap">жива мініатюра патерна, тим самим <code>index.css</code>, що й продукт</div>
+<div class="kp-grid"><a class="kp-card" href="action-row.html"><div class="n">Ряд дій</div><div class="f">action-row.css</div><div class="d">дві дії поруч, залита рівно одна; зібраний з кнопки і відступу</div><div class="m"><span>70 сірих · 15 кольорових</span><span>53 імені контейнера</span></div></a></div>
+<p class="kp-p"><b>Один - це відповідь, а не провал.</b> Обхід перевірив <b>937</b> композицій за повною послідовністю і <b>1512</b> за сусідніми парами. На трьох і більше сірих екранах стоять 259, і з них <b>87 пише скрипт</b> (шапка, підвал, мегаменю, шухляда, діалог міста, таб-бар - усі вже в одній функції), <b>90 - власна анатомія одного компонента</b>, а 82 - розмітка, яку екрани повторюють руками. Із цих 82 поріг «де лежить правило» пройшла одна.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Кандидати: композиції з двох екранів</div>
+<p class="kp-p">Вони <b>не патерни</b>, але видимі: інакше наступний раунд шукатиме їх наново. Композиція, що трапилась двічі, нікуди не зникає - вона лишається розміткою і чекає третього входження. Усього таких <b>51</b>; нижче ті, що найближче до порога.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Композиція</th><th>Що це</th><th>На яких двох екранах</th><th>Чого бракує</th></tr></thead><tbody>
+<tr><td><code>.loy-q &gt; .qq .qa</code></td><td>питання і відповідь</td><td><code>content-loyalty</code> · <code>content-loyalty-buyer</code></td><td>третього екрана - і <code>qa-item</code> уже малює те саме під іншим ім'ям</td></tr>
+<tr><td><code>.pd-block &gt; .pd-tx .pd-img</code></td><td>блок опису: текст і картинка</td><td><code>product</code> · <code>product-coach</code></td><td>третього екрана</td></tr>
+<tr><td><code>.ci-row &gt; .ci-qty .ci-price</code></td><td>кількість і ціна в рядку кошика</td><td><code>cart</code> · <code>cart-oos</code></td><td>третього екрана</td></tr>
+<tr><td><code>.cli &gt; .cav .cinfo .cgo-btn</code></td><td>клієнт у списку тренера</td><td><code>coach-home</code> · <code>coach-home-free</code></td><td>третього екрана</td></tr>
+<tr><td><code>.op-item &gt; .op-thumb .op-in .op-price</code></td><td>товар у підсумку замовлення</td><td><code>order-placed</code> · <code>order-placed-account-end</code></td><td>третього екрана; <b>жоден із чотирьох класів не оголошений компонентом</b></td></tr>
+<tr><td><code>.op-fact &gt; .fk .fv</code></td><td>рядок факту «ключ - значення»</td><td><code>order-placed</code> · <code>order-placed-account-end</code></td><td>третього екрана</td></tr>
+<tr><td><code>.co-sec &gt; .co-sec-h label.co-opt+</code></td><td>секція оформлення з варіантами вибору</td><td><code>checkout</code> · <code>checkout-loggedin</code></td><td>третього екрана</td></tr>
+<tr><td><code>.ce-ph &gt; .h .bar .bar</code></td><td>скелет сторінки редагування</td><td><code>coach-client-edit</code> · <code>coach-client-edit-confirm</code></td><td>третього екрана</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Половина кандидатів живе на екранах, які ще сірі</b> - <code>order-placed</code>, <code>content-loyalty</code>, <code>checkout</code>. Розкотка етапу 12 додасть їм кольорових двійників, і тоді третє входження з'явиться саме собою. Дивитись сюди варто на початку 12, а не наприкінці.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Куди це читається далі</div>
+<p class="kp-p"><b>Етап 10</b> адаптує патерн цілим, а не кожен екран окремо: сталу композицію переносить один медіазапит у файлі патерна. <b>Етап 11</b> анімує їх так само. <b>Етап 12</b> отримує їх готовими і збирає з них решту продукту одним підключенням. <b>Етап 13</b> віддає ці сторінки розробнику замість переказу в чаті.</p>
+<p class="kp-p">Правила вживання, виведені тим самим проходом, що й патерн, лежать на <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>, а те, що крок навмисно не полагодив, - у <a class="kp-a" href="backlog.html">беклозі</a>, список 4.</p>
+</section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_nav.js"></script>
+</body>
+</html>

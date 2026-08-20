@@ -25,7 +25,7 @@
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Чип</h1>
 <p class="kp-lead">Пілюля зі словом, яку натискають, щоб обрати. Фільтр, категорія, вкладка, ціль - одна форма на всі чотири роботи.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/chip.css</span><span class="kp-tag">312 рядків</span><span class="kp-tag">8 імен</span><span class="kp-tag">6 файлів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/chip.css</span><span class="kp-tag">320 рядків</span><span class="kp-tag">8 імен</span><span class="kp-tag">6 файлів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <div class="kp-demo" style="display:flex;gap:var(--space-12);align-items:center;flex-wrap:wrap">
@@ -87,6 +87,9 @@
 </div>
 <div class="kp-cap">рейку <code>.hero-chips</code> видно лише до 859 - вище вона <code>display:none</code>, тож звужте вікно, щоб побачити її живою</div>
 <p class="kp-p"><b>Застосований фільтр - інша робота</b>, і тому він єдиний лишився зі своїм виглядом. Це не вибір, а <b>квитанція</b>: він каже, що фільтр уже увімкнено, і пропонує зняти його. Звідси тихіший розмір, підкладка замість білого і хрестик, якого немає більше ні в кого.</p></section>
+
+<div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
+<b>Від якого порогу:</b> <code>--bp-shell-wide</code> (860). <b>Що саме міняється:</b> чипи цілей у геро ховаються. <b>Чому це виняток:</b> етап каже, що компонент міряє свій <b>контейнер</b>, а в'юпорт міряє лише оболонка. Це правило - один із двох названих винятків, і причина в тому, що ховаються вони не тому, що їхня коробка стала широкою, а тому, що від 860 на тому самому екрані видно <b>плитки</b> тих самих шести цілей. Це факт про те, що показує екран, і жоден контейнерний запит його не спитає. Виняток перелічений у <code>responsive.md</code>.</div>
 
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
 <p class="kp-p"><b>Фільтр</b> - у рейці й шиті фільтрів, у мега-меню, на рейці категорій телефона. <b>Сегмент</b> - там, де з набору увімкнено рівно один. Job 2, новачок: чип це найдешевший спосіб почати не з каталогу, а з наміру - одне слово замість форми.</p></section>

@@ -1655,3 +1655,140 @@ happens to it is a decision.*
   --write` re-points them by the same rule** - the linking file's own folder wins over grey - so
   the tirage closes itself and nothing has to be remembered. Until then the coloured product
   visibly walks into grey for those 41 screens, which is the honest picture of what is left.
+
+## I. Rules of use - stage 09, step 1
+
+The stage's other harvest, taken by the same counter read backwards. A pattern is what repeated
+three times or more; a rule of use is what never happened ONCE, though it could have.
+
+Measured by `tools/pattern.mjs` over 142 grey screens and 88 coloured ones at 390px, in two
+readings that are not the same question: `raw` counts what stands in the document, `rawv` what has
+a box on it at that moment. The difference is a finding of its own - `account-profile` carries
+SEVEN elements marked `dark`, the grey layer's primary marker, and four of them are the confirm
+buttons of three closed dialogs. Every number below says which reading it comes from.
+
+TWO CAVEATS ARE PART OF THE MEASUREMENT, not footnotes to it.
+One: the walk ran at 390 only, so `.frail` and `.ltool` - the desktop filter rail and the desktop
+listing toolbar - are never VISIBLE anywhere in the corpus. A rule about them is read off the
+document, and a counter that only looked at what is painted would have called both dead.
+Two: the pack tells this substep to count over `design/*.html`, which contradicts the same pack's
+own two-corpora rule two pages earlier. Counted over the coloured sample alone, «one per screen»
+would be a claim about 88 screens, 34 of which are states of another. Both corpora are printed on
+every row; where they disagree the row says so.
+
+| # | Rule, in the terms of the system's classes | Kind | Taken from | Components | Checked on a new screen by |
+|---|---|---|---|---|---|
+| U1 | One shell per screen, and it is CALLED rather than written: `wfHeader()` / `wfFooter()` build it | composition | counter: `.wfh` `.wff` `.wf-tabbar` `.wf-drawer` `.wf-city` max 1 on every one of 142 grey and 88 coloured screens, in both readings | header, footer, tabbar, nav-drawer, city-dialog | one `header.wfh` in the document, and it came from the script |
+| U2 | The shell does not appear in the checkout flow or on a service page | context | counter: absent on exactly 8 grey screens - `checkout` `checkout-declined` `checkout-loading` `checkout-loggedin` `checkout-noaddr` `500` `maintenance` `overview`. Plus `wireframes/docs/conventions.md` section 7: «Checkout uses the simplified header (logo + support only) per `cart.md`, not the full header» | header, footer, tabbar, nav-drawer, city-dialog | on a checkout screen there is no `header.wfh` at all |
+| U3 | An auth screen carries a header and no footer | context | counter: `.wff` is additionally absent on `auth` `auth-code` `auth-error` `auth-loading` `auth-newuser`, where `.wfh` is present | footer | five auth screens, zero `footer.wff` |
+| U4 | A breadcrumb stands only on a screen that has a parent | context | counter: `.crumb` max 1 on the 111 grey screens that carry one, absent on 31 - the four home states and `index`, four cart states, five auth, five checkout, four mega-menu, two `order-placed`, `404`, `500`, `maintenance`, `overview`, `content-newsletter` | breadcrumb | a home, cart, checkout or auth screen has no `nav.crumb` |
+| U5 | One screen-level empty state; the block-level one is a different class | composition | counter: `.empty` max 1 on its 12 grey screens, `.errbox` max 1, but `.emptybox` max 3 on `account-empty` in both readings and both corpora | empty-state | `.empty` once; `.emptybox` only inside a card, never as the screen's own |
+| U6 | One filter rail, one listing toolbar, one grid | composition | counter, document reading: `.frail` `.fsheet` `.ltool` `.listing` max 1 on the 12-13 grey screens that carry them. Visible reading at 390 shows `.frail` and `.ltool` on zero screens - they are the desktop half of a pair | filter-rail, filter-sheet, toolbar, product-grid | one of each in the document, and the phone shows the sheet while the desktop shows the rail |
+| U7 | One account rail per screen | composition | counter: `.acc-nav` max 1 on 44 grey and 33 coloured screens, both readings | account-shell | one `aside.acc-nav` |
+| U8 | `btn--accent` is a FINISH, not the rank «this is the screen's main action» | composition | counter: visible `.btn--accent` reaches 13 on one coloured screen (`home-cart`) and 3 in grey, because every product card carries an accent cart button; the grey layer's own primary marker `dark` reaches 5 visible (`coach-client-new`). **Two documents of this project disagree in writing, and the counter settles it:** `DESIGN.md` line 44 says «One orange per view. The accent means exactly one thing: where to press. A second filled orange button on a screen means the screen has not decided which step is the main one», while `button.css` line 20 says `.btn--accent` is «the one action of a REGION». The product obeys the region reading, so the `DESIGN.md` line is the stale one - and it is the line a new reader meets first, because it stands under «The rules colour obeys». `conventions.md` line 130 sides with the region: «Each zone has one main action; the screen's main action is a real `<a href>` to the next». `wireframes/docs/critique.md` line 384 already wrote the collision rule at stage 07: «коли на сторінці є кошик-полиця, головна дія належить їй ... `.cshelf ~ .pstrip .btn.dark` стає контурною» | button, product-card, banner, trust-strip | two filled accent controls never stand one above the other inside one zone |
+| U9 | A row of two actions is taken from the pattern, never from a new container name | composition | counter: one composition, 70 grey screens and 58 coloured ones, under 53 container names; 19 of them carry a rule in 15 component files and 10 carry no rule at all | action-row (pattern), button, the 10 component files it moved out of, and the two it deliberately did NOT - client-dialog and system-page, whose rows stay in their own files and are named in `patterns/action-row.css` under WHAT DID NOT MOVE | a new action row says `class="actions"`; a deviation is written `.x.actions{ }` in the component's own file, never on the screen |
+
+WHAT IS DELIBERATELY NOT A RULE HERE, because the three classes of prohibition are not
+interchangeable. «A tag is needed here, not a badge» is a REPLACEMENT, and a replacement stays an
+anti-rule on the component's own page, where there is something else to reach for. The nine above
+are composition and context: the component is right, and what is wrong is how many of it there
+are or where it stands. Neither can be written as an anti-rule, because no other component would
+help, and that is why they live in a section of their own.
+
+EACH RULE IS VISIBLE IN TWO PLACES AND HAS ONE AUTHOR. This section is the author; the pages of
+the components a rule names carry an «Обмеження» sub-item that quotes it and links back here.
+
+## J. Contribution to the system - stage 09, step 4
+
+One rule, and everything below is its address book: **NEW APPEARS IN `design/system/` FIRST, THEN ON
+THE SCREEN. NEVER THE OTHER WAY ROUND.** A screen declares no styles of its own; what it lacks is an
+order for the system, not an exception on the page. That single sentence is what separates a design
+system from a folder of stylesheets, and it is the reason this section exists in four places at once
+(here, the root `CLAUDE.md`, `design/system/CLAUDE.md` and `DESIGN.md`) - each of them has a
+different reader.
+
+### A new COMPONENT - five things, and it is not finished until all five exist
+
+1. `design/system/components/<name>.css` - the code. Colour through a semantic role, geometry
+   through a primitive, no hex and no bare number inside a class.
+2. `design/kit/<name>.html` - the page, with all five blocks: anatomy, variants and sizes, when to
+   use, rule and anti-rule, states. Plus the «Обмеження» sub-item if any rule of use names it.
+3. A row in `design/kit/_nav.js` **IN ITS OWN LEVEL GROUP** - atoms, molecules or organisms.
+4. A row in `design/kit/docs/inventory.md` **WITH ITS LEVEL**.
+5. `@import` in `design/system/index.css` **INTO ITS OWN LEVEL GROUP, NOT AT THE END OF THE FILE.**
+
+**States come in both themes in the same pass.** Four of them on anything interactive - rest,
+`:hover`, `:active`, `:focus-visible` - each reading a token, none inventing a value. A badge, a
+heading and a divider get none, and their pages say so out loud.
+
+**The last two points are written in capitals because they are the two that get skipped**, and the
+reason they get skipped is structural rather than careless: the system is already assembled, so
+appending a file at the end looks harmless. It is exactly how the ladder of levels comes apart a few
+months later, and by then nothing in the file says which group it should have been in.
+
+### A new RULE OF USE
+
+A row in section I above, with «taken from» FILLED IN - counted on the screens, decided by a stage
+above, or caught by a critique log. Plus an «Обмеження» sub-item on the page of every component the
+rule names, linking back here. **A rule that lives only in someone's head or only in a chat will not
+fire next time.** One author, two visible places, exactly as with SEO copy and microcopy.
+
+### A new COMPOSITION
+
+Repeats on **three** named screens - a file in `design/system/patterns/`, a page in `design/kit/`, a
+row in the registry group «Патерни», a row in the inventory. It is assembled from existing
+components and declares no styles of its own; needing a new style means a component or a variant is
+missing, and that is built first.
+
+Repeats on **two** - it stays markup and goes into the candidates table on `patterns.html`. It is
+not lost and it is not promoted: two occurrences prove a composition is possible, three prove it has
+become standard.
+
+### A new VALUE
+
+Into `design/system/tokens.css`, at its own level: a colour ROLE is semantic, a raw value is
+primitive. **A state token is written in both themes at once**, and the two values are not mirrors -
+contrast is measured against the opposite ground, so the dark side takes a stronger tint rather than
+the same one. A role without a pair does not exist.
+
+### New on the SCREEN with none of the four above
+
+**Forbidden.** This is the whole rule stated from the other end. A local override on a screen is
+invisible to every instrument in `tools/`, survives no rebuild, and is found by whoever assembles
+the next twenty screens - at the most expensive moment. What the system cannot do is written into
+`design/kit/docs/backlog.md` and stays visible there.
+
+### A new ADAPTATION - stage 10, step 4
+
+**No `@media` ever enters a screen file.** Adaptation lives in exactly four places, and the ladder
+picks between them top down:
+
+| where | mechanism | when |
+|---|---|---|
+| the token | `clamp()` on a value read by two or more files | a SIZE that would otherwise step |
+| the component | `clamp`, `%`, `minmax(auto-fit)`, `flex-wrap`, `aspect-ratio` | the content can stretch by itself |
+| the component | `@container` | the behaviour depends on the PLACE, not on the window |
+| the shell | `@media`, carrying a literal from the registry | the behaviour depends on the SCREEN |
+
+**The price of breaking it is not paid here.** A screen with its own query looks harmless: it works,
+it is local, nothing fails. It is paid at stage 12, where twenty subagents assemble the rest of the
+product and each one invents its own number - and the adaptive layer scatters across twenty files in
+exactly the way inline CSS scattered at stage 04. That is why the rule is written in code
+(`design/system/CLAUDE.md`, rules 11 and 12) and checked by an instrument
+(`tools/bp.mjs`) rather than trusted to memory.
+
+**Two mechanical classes fail the run**, and both are silent otherwise:
+
+- **an `@media` in a file under `design/` that is not a component, a pattern or the base.** It never
+  announces itself; it simply keeps working while the system stops being one place.
+- **a number in a query that is not in the registry.** `--bp-grid-2col` is 620 (mirror 619) and
+  `--bp-shell-wide` is 860 (mirror 859). `@media` is evaluated before the cascade of custom
+  properties, so `@media (min-width: var(--bp-shell-wide))` does not fire and does not error - the
+  query carries the literal and the token stays the source of truth AND the registry. Two sources
+  would drift; a source plus a check does not.
+
+**And a SIZE never steps at a point.** A `font-size`, a padding, a `min-height` or a track width that
+jumps at a width delivers a jolt in the same instant a person drags the edge of the window. It ramps
+with `clamp()`, and each end of the ramp is the value that stood there before, so neither anchor
+moves. A COUNT and a BEHAVIOUR may step; a SIZE may not. Every ramp in this system was written that
+way and each one carries the two numbers it interpolates between, in a comment beside it.

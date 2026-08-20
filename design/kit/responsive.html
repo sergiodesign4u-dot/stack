@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Адаптив | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- The ROADMAP panel, not the stand panel: this page is the roadmap item of
+     stage 10, exactly as why.html is the item of stage 09. -->
+<link rel="stylesheet" href="../../_nav.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<script>
+window.NAV_SECTIONS = [
+ { "id": "ways",      "label": "Три способи" },
+ { "id": "points",    "label": "Точки" },
+ { "id": "container", "label": "Контейнер і міра рядка" },
+ { "id": "grid",      "label": "Сітка" },
+ { "id": "type",      "label": "Типографіка" },
+ { "id": "shell",     "label": "Оболонка" },
+ { "id": "behaviour", "label": "Раунд 1: атоми" },
+ { "id": "behaviour2","label": "Раунд 2: молекули" },
+ { "id": "behaviour3","label": "Раунд 3: організми" },
+ { "id": "behaviour4","label": "Раунд 4: патерни" },
+ { "id": "audit",     "label": "Перепис і аудит" }
+];</script>
+<style>
+  /* 10.4: THE ROADMAP OFFSET IS GONE, and its removal is the other half of moving
+     this page into the design system's own panel. It read «margin-left: 0, then 220
+     from 860» - the geometry of the ROADMAP panel - while `_page.css` gives every
+     page here 236 from 900, the geometry of the panel this page now carries. Two
+     offsets for one page put the text under the panel. There is nothing to replace
+     it with: the stand's own rule was always right for a stand page. */
+
+  /* THE LIVE HALF OF THIS PAGE. Every demo below is the real mechanism, not a
+     picture of it: drag the edge of the window and it answers. The styles live
+     here because this is the stand, and stand geometry has never been a product
+     rule - `design/kit/_page.css` and the inline block on geometry.html are the
+     precedent. Nothing here declares a product class. */
+  .rdemo{ border:1px solid var(--line-hair); border-radius:var(--radius-12); background:var(--bg-surface);
+          padding:var(--space-16); margin:var(--space-12) 0; }
+  .rdemo .rcap{ font-size:var(--fs-12); color:var(--text-muted); font-family:var(--font-mono); margin-bottom:var(--space-8); }
+  .rfluid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(var(--grid-col-min), 1fr)); gap:var(--space-12); }
+  .rfluid > i{ font-style:normal; display:grid; place-items:center; height:72px; border-radius:var(--radius-8);
+               background:var(--bg-sunken); font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-secondary); }
+  .rmeasure{ max-width:var(--container-text); }
+  .rwide{ max-width:none; color:var(--text-muted); }
+  .rpoint{ padding:var(--space-12); border-radius:var(--radius-8); background:var(--bg-sunken);
+           font-family:var(--font-mono); font-size:var(--fs-12); }
+  .rpoint b{ color:var(--text-secondary); }
+  @media (min-width:620px){ .rpoint{ background:var(--bg-action-soft); } .rpoint .p1{ display:inline; } }
+  @media (min-width:860px){ .rpoint{ background:var(--bg-action-soft); } .rpoint .p2{ display:inline; } }
+  .rpoint .p1, .rpoint .p2{ display:none; }
+  .rnow{ display:flex; flex-wrap:wrap; gap:var(--space-8) var(--space-16); align-items:baseline;
+         font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-secondary); }
+  .rnow b{ color:var(--text-primary); font-size:var(--fs-16); }
+  .rdisp{ font-family:var(--font-display); font-weight:var(--fw-semibold); letter-spacing:var(--ls-lead);
+          font-size:var(--fs-display); color:var(--text-primary); line-height:var(--lh-flat); }
+  .rfixed{ font-family:var(--font-display); font-weight:var(--fw-semibold); letter-spacing:var(--ls-lead);
+           font-size:var(--fs-30); color:var(--text-muted); line-height:var(--lh-flat); }
+  /* the wide form is 1100 wide and the page may be 360: it scrolls INSIDE its own
+     box, never the document. `minmax(0, 1fr)` and `min-width: 0` are both required -
+     a grid item's automatic minimum is its content, so a 1fr column alone would
+     still be widened by the iframe and the whole page would scroll sideways. */
+  .rshell{ display:grid; gap:var(--space-16); grid-template-columns:minmax(0,1fr); }
+  @media (min-width:860px){ .rshell{ grid-template-columns:360px minmax(0,1fr); align-items:start; } }
+  .rshell figure{ display:grid; gap:var(--space-8); min-width:0; max-width:100%; }
+  .rshell figcaption{ font-size:var(--fs-12); color:var(--text-muted); font-family:var(--font-mono); }
+  .rshell iframe{ border:1px solid var(--line-hair); border-radius:var(--radius-8); background:var(--bg-page); display:block; max-width:none; }
+  .rshell figure:first-child iframe{ max-width:100%; }
+  .rscroll{ overflow-x:auto; max-width:100%; min-width:0; }
+  .rsoon{ border:1px dashed var(--line-strong); border-radius:var(--radius-12);
+          padding:var(--space-16); color:var(--text-muted); font-size:var(--fs-14); }
+</style>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Основи</div><h1 class="kp-h1">Адаптив</h1>
+<p class="kp-lead">Адаптив у цьому продукті <b>вже був</b>: 170 медіазапитів у 53 файлах із 88, і жодного названого. Цей етап його не додає, він його <b>називає</b>, вкладає в токен і зводить <b>27 різних меж ширини до двох</b>. Значення прочитані з живого <code>:root</code>.</p>
+
+<div class="rdemo"><div class="rcap">жива ширина цієї сторінки</div>
+<div class="rnow" id="rnow"><span>вимірюю…</span></div></div>
+
+<section class="kp-sec" id="ways"><div class="kp-sh">Три способи, і точка остання</div>
+<p class="kp-p">Драбина читається згори вниз. Береш плинне; не виходить - контейнер; не виходить і це - аж тоді точка, і в аудиті стоїть рядок, <b>чому плинне не змогло</b>. «Так зручніше писати» причиною не є.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th></th><th>Плинне</th><th>Контейнер</th><th>Точка</th></tr></thead><tbody>
+<tr><td>Питання</td><td>вміст сам розтягнеться?</td><td>рядок не задовгий?</td><td>поведінка інша?</td></tr>
+<tr><td>Механізм</td><td><code>clamp()</code>, <code>%</code>, <code>minmax(auto-fit)</code>, <code>flex-wrap</code></td><td><code>max-width</code> + <code>margin-inline</code></td><td><code>@media</code> для оболонки, <code>@container</code> для компонента</td></tr>
+<tr><td>Скільки в продукті</td><td>без обмежень</td><td>два: <code>--container-page</code>, <code>--container-text</code></td><td><b>два</b>: <code>--bp-grid-2col</code>, <code>--bp-shell-wide</code></td></tr>
+<tr><td>Чим доводиться</td><td>тягнеш ширину, нічого не ламається</td><td>вимірювана міра рядка в <code>ch</code></td><td>рядок аудиту, який каже, чому плинне не змогло</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Медіазапит питає про ЕКРАН, контейнерний - про МІСЦЕ</h4>Картка не знає, стоїть вона в одноколонковій стрічці чи в сітці на три, і <code>@media</code> дасть їй неправильну відповідь: на широкому екрані теж буває вузька колонка. Оболонка міряє в'юпорт, компонент міряє свій контейнер, а <code>container-type</code> оголошує <b>той, хто ставить</b> компонент, бо місце не є властивістю цеглини. Сьогодні в системі <b>нуль</b> контейнерних запитів; вони приходять на кроці 4.</div>
+</section>
+
+<section class="kp-sec" id="points"><div class="kp-sh">Дві точки, і обидві названі зміною</div>
+<p class="kp-p">Ім'я точки називає <b>що на ній відбувається</b>, а не чийсь пристрій. <code>--bp-tablet</code> і <code>--bp-desktop</code> заборонені як імена: планшет через рік має іншу ширину, а слово «десктоп» повертає в голову модель «три версії продукту» навіть тоді, коли в коді її немає.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Токен</th><th>rem</th><th>px</th><th>Що на ній вмикається</th><th>Звідки число</th></tr></thead><tbody>
+<tr><td><code>--bp-grid-2col</code></td><td><code>38.75rem</code></td><td>620</td><td>ряд карток перестає бути однією колонкою</td><td>перепис: 32 входження, тут повертають <code>product-grid</code>, <code>goal-tile</code>, <code>review-item</code>, <code>section-head</code>, <code>coach-order</code></td></tr>
+<tr><td><code>--bp-shell-wide</code></td><td><code>53.75rem</code></td><td>860</td><td>оболонка міняє носія навігації, і з нею повертають ще шість поведінок</td><td>перепис: 107 входжень, найгустіше число в проєкті</td></tr>
+</tbody></table></div>
+<div class="rdemo"><div class="rcap">жива точка: цей блок міняє тло на 620 і додає рядок на 860</div>
+<div class="rpoint">до 620 - одна колонка<b class="p1"> · від 620 - сітка у дві та більше</b><b class="p2"> · від 860 - широка оболонка</b></div></div>
+<div class="kp-gap"><h4><code>@media</code> не вміє читати <code>var()</code>, і число тому написане двічі</h4><code>@media (min-width: var(--bp-shell-wide))</code> <b>тихо не працює</b>: медіазапит обчислюється до каскаду змінних, помилки немає, правило просто ніколи не спрацьовує. Тому в запиті стоїть літерал, а токен лишається джерелом правди і <b>реєстром</b>. Це не два джерела: на кроці 6 греп проходить кожен <code>@media</code> у <code>design/system/</code> і кожен мусить дати рівно одне з цих двох чисел. Будь-яке інше число в запиті продукту - дефект.</div>
+<div class="kp-gap"><h4>Чому саме дві, і що сталося з рештою</h4>Перепис знайшов <b>36 сирих значень ширини, 27 після дзеркалення</b> (<code>max-width: 859</code> це дзеркало межі 860), <b>18 із них діють у продукті</b>. Ці дві найгустіші з великим відривом. Решта 16 це або дзеркала цих двох, або дрейф, і крок 4 переводить їх сюди. <b>Три шви перекриваються</b>: 520, 620 і 760 написані і як <code>min-width: N</code>, і як <code>max-width: N</code>, тож рівно на N діють обидва правила.</div>
+<div class="kp-gap"><h4>Ці токени пари теми не мають, і це не пропуск</h4>Пара <code>:root</code> / <code>[data-theme="dark"]</code> це властивість <b>semantic</b>-рівня, тобто кольору. Ширина, контейнер і відступ це геометрія: вона живе на primitive-рівні й у темі не змінюється. Шукати тут пару не треба.</div>
+</section>
+
+<section class="kp-sec" id="container"><div class="kp-sh">Контейнер і міра рядка</div>
+<p class="kp-p">Найпомітніший дефект mobile-first продукту на великому моніторі це абзац на 1400px, у якому око не знаходить початку наступного рядка. Лікується не точкою, а контейнером.</p>
+<div class="rdemo"><div class="rcap">згори - у межах <code>--container-text</code> (68ch), знизу - те саме без міри</div>
+<p class="kp-p rmeasure">Креатин моногідрат це найдослідженіша спортивна добавка з усіх, що є на ринку, і саме тому вона стоїть першою в наборі для набору маси. Доза 3-5 грамів на добу, приймати щодня, зокрема у дні без тренування.</p>
+<p class="kp-p rwide">Креатин моногідрат це найдослідженіша спортивна добавка з усіх, що є на ринку, і саме тому вона стоїть першою в наборі для набору маси. Доза 3-5 грамів на добу, приймати щодня, зокрема у дні без тренування.</p></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Токен</th><th>Значення</th><th>Перший читач</th><th>Решта</th></tr></thead><tbody>
+<tr><td><code>--container-page</code></td><td><code>75rem</code> (1200px)</td><td><code>design/_stand.css .wf-page</code>, рамка сторінки кожного кольорового екрана з етапу 07</td><td><code>.co-wrap</code> (1200) і <code>.cc-wrap</code> (900) досі пишуть своє число, переїжджають на кроці 4</td></tr>
+<tr><td><code>--container-text</code></td><td><code>68ch</code></td><td><code>seo-text.css</code>: <code>.lintro</code> і <code>.seotext p</code></td><td>проза сторінок <code>content-*</code> ще сіра, це етап 12</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Чому <code>ch</code>, а не пікселі</h4><code>.lintro</code> писав <code>max-width: 760px</code>, а 760px при 14px це близько <b>95 символів</b> у рядку, далеко за межею 60-75, яку тримає око. <code>68ch</code> усередині цієї межі й <b>рухається разом зі шрифтом</b>, чого піксельна цифра не вміє. Одиниця системі не нова: <code>banner.css</code> уже міряє <code>.promo .pt</code> у <code>22ch</code>. А <code>empty-state.css</code> несе запис про ручну правку <b>у двох розмірах</b>, 42ch і 46ch, і це рівно той підпис, який токен прибирає.</div>
+</section>
+
+<section class="kp-sec" id="grid"><div class="kp-sh">Сітка: кількість колонок токеном не є</div>
+<p class="kp-p">Сітка написана як <code>repeat(auto-fit, minmax(var(--grid-col-min), 1fr))</code> і <b>рахує колонки сама</b>. На 1100px їх три, хоча такої ширини ніхто не передбачав. Токен <code>--col-count-wide</code> довелося б перемикати, а перемикання це саме те, чого весь цей етап уникає.</p>
+<div class="rdemo"><div class="rcap">жива сітка: кількість колонок не задана ніде, тягніть край вікна</div>
+<div class="rfluid"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i></div></div>
+<div class="kp-gap"><h4><code>--grid-gap</code> НЕ заведено, і це рішення</h4>Проміжок сітки це <code>--space-16</code>, щабель шкали відступів. Аліас <code>--grid-gap</code> був би другим іменем для одного значення, а <code>tokens.css</code> уже несе правило, яке його вбиває: <b>«значення, вжите один раз, це значення, а не токен»</b>. Коли сітці знадобиться ритм, якого шкала не має, вона заробить токен того самого дня.</div>
+</section>
+
+<section class="kp-sec" id="type"><div class="kp-sh">Типографіка теж адаптується, і теж плинно</div>
+<div class="rdemo"><div class="rcap">згори - <code>--fs-display</code>, плинний; знизу - <code>--fs-30</code>, сталий. Тягніть край вікна</div>
+<div class="rdisp">Спортивне харчування</div>
+<div class="rfixed" style="margin-top:10px">Спортивне харчування</div></div>
+<p class="kp-p"><b>Шкала переїхала з <code>px</code> у <code>rem</code>, значення в значення.</b> При типовому корені 16px кожен щабель дає те саме число, що й до цього, тож жоден екран не зрушив на піксель. Купує це читача, який поставив у браузері шрифт 20px: у <code>px</code> шкала його просто ігнорувала, і він отримував тісну мобільну міру на широкому моніторі.</p>
+<div class="kp-gap"><h4>А сама шкала лишилась сталою, і це навмисно</h4>Шкала <b>загальна</b>: <code>--fs-30</code> носить і H1 сторінки, і живу ціну в геро-плитці (<code>.hdeal .hd-new</code>), і гліф порожнього стану (<code>.empty .ei</code>). Обгорнути щабель у <code>clamp()</code> означало б змусити <b>іконку дихати разом із в'юпортом</b>, а такого рішення про розмір ніхто не ухвалював. Тому плинний розмір це окремий токен з <b>поіменним списком читачів</b>.</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Читач?</th><th>Чому</th></tr></thead><tbody>
+<tr><td><code>.lh1</code></td><td><b>так</b></td><td>H1 родини листингу, повна ширина сторінки</td></tr>
+<tr><td><code>.acc-h1</code></td><td><b>так</b></td><td>H1 кабінету, повна ширина</td></tr>
+<tr><td><code>.co-h1</code></td><td><b>так</b></td><td>H1 оформлення, повна ширина</td></tr>
+<tr><td><code>.bb h1</code></td><td>ні</td><td>назва товару стоїть у вузькій колонці поруч із галереєю: її розмір задає <b>місце</b>, а не екран, тож це <code>@container</code> на кроці 4</td></tr>
+<tr><td><code>.auth-h1</code>, <code>.coach .cv-h1</code></td><td>ні</td><td>діалог і центрована форма, обидва обмежені близько 420-560. Заголовок, що росте з вікном усередині коробки, яка не росте, це дефект, а не адаптація</td></tr>
+<tr><td><code>.hdeal .hd-new</code>, <code>.coachbox .cbnew</code>, <code>.empty .ei</code>, <code>.pm-stars .pmst</code></td><td>ні</td><td>ціна, цифра і два гліфи. Вони носять щабель 30, бо 30 це їхній розмір, а не бо вони заголовки</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Обидва кінці в <code>rem</code>, і середній член несе <code>rem</code>-доданок</h4><code>clamp(1.875rem, 1.58rem + 1.3vw, 2.75rem)</code>. Чистий <code>vw</code> у середньому члені ігнорує розмір шрифту читача і зупиняє масштабування сторінки зумом, що є провалом <b>WCAG 1.4.4</b>. Коліно поставлене рівно на 360px: <code>1.58rem + 1.3vw</code> дає там 29.96px, трохи нижче підлоги 30px, тож на 360 <code>clamp</code> повертає підлогу і <b>екран не рухається на піксель</b>. Заміряно <code>tools/tree-diff.mjs --widths=360</code> проти базового дерева, що відрізнялось цими сімома файлами й нічим більше: <b>0 зрушених боксів</b>. Стеля досягається на 1440.</div>
+<div class="kp-gap"><h4><code>font-size</code> на точці не перемикається ніколи</h4>Перемикання дає стрибок рівно в ту мить, коли людина тягне край вікна, і лишає ширини між точками, на яких заголовок або завеликий, або замалий. Це та сама драбина, лише для тексту.</div>
+</section>
+
+<section class="kp-sec" id="shell"><div class="kp-sh">Оболонка: форма A, обрана власником</div>
+<p class="kp-p">Оболонка це <b>шапка плюс носій навігації верхнього рівня плюс контейнер сторінки</b>. Форма на широкій ширині не обирається на смак - вона виводиться з навігаційної моделі етапу 03a трьома питаннями.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Питання до моделі</th><th>Відповідь</th><th>Що з неї випливає</th></tr></thead><tbody>
+<tr><td>Скільки пунктів верхнього рівня</td><td><b>П'ять</b>, залоковані 2026-06-29: Головна · Каталог · Кошик · Обране · Акаунт. Пошук навмисно <b>не</b> таб - він у постійній верхній смузі</td><td>п'ять або менше це критерій форми <b>A</b></td></tr>
+<tr><td>Чи є другий рівень, який мусить бути постійно видимим</td><td>У глобальної навігації <b>ні</b>: каталог це флайаут, а не постійне дерево. Постійний другий рівень у продукті один - <b>рейка фільтрів</b> від 860, але вона належить сторінці</td><td>рейл зліва не потрібен, а на листингу він став би <b>другою</b> лівою колонкою</td></tr>
+<tr><td>Чи забирає якийсь екран бічний простір під нову поведінку</td><td><b>Так.</b> Split-view потоку тренера, 11 екранів, кандидат кроку 5, хоче ліву колонку під список клієнтів</td><td>другий аргумент проти рейла: оболонка зіткнулась би зі split-view</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Рішення: A - пункти переїжджають у шапку, таб-бар на широкій ширині не рендериться</h4>Обрано власником. Будувати не довелось нічого: <b>ця форма вже стояла в коді</b>, і крок її назвав, заміряв і записав. Уся зміна живе у двох файлах оболонки, <code>header.css</code> і <code>tabbar.css</code>, і в жодному файлі екрана.</div>
+<div class="rdemo"><div class="rcap">жива оболонка в обох формах: та сама сторінка продукту, дві ширини</div>
+<div class="rshell">
+  <figure><figcaption>вузька форма, 360: таб-бар несе п'ять пунктів, шапка - утиліти</figcaption>
+    <iframe src="../index.html" width="360" height="420" loading="lazy" title="Оболонка на 360"></iframe></figure>
+  <figure><figcaption>широка форма, 1100: шапка несе все, таб-бара немає в дереві</figcaption>
+    <div class="rscroll"><iframe src="../index.html" width="1100" height="420" loading="lazy" title="Оболонка на 1100"></iframe></div></figure>
+</div></div>
+<div class="kp-gap"><h4>Рівно один носій навігації верхнього рівня, і це заміряно, а не написано</h4><code>tools/tab-walk.mjs</code> тисне Tab і читає <code>document.activeElement</code>. На <b>1280</b>: носій <b>один</b>, шапка з 17 пунктами, таб-бар дає нуль фокусованих, бо він <code>display: none</code> і йде з дерева доступності разом із пікселями. На <b>360</b>: носіїв два <b>за ролями</b> - смуга це первинна навігація, шапка це утиліти. <b>Фокус на невидимому: 0</b> на обох ширинах, <code>tabindex &gt; 0</code> ніде, порядок фокусу збігається з візуальним.</div>
+<div class="kp-gap"><h4>Два пункти стоять в обох носіях на вузькій ширині</h4><b>«Кошик»</b> - за рішенням IA: <code>navigation.md</code> каже «a slim top bar kept for logo, search and cart». Дубль свідомий, але він усе одно дубль у дереві доступності. <b>«Обране»</b> - а цього специфікація <b>не передбачає</b>: там названо логотип, пошук і кошик. Це знахідка про IA, і виправляти її версткою заборонено: скільки пунктів і де вони - рішення етапу 03a. <b>Навігаційна модель цим етапом не переглядається</b>: міняється розкладка оболонки, а не набір, порядок чи стани пунктів.</div>
+<div class="kp-gap"><h4>Сторінки <code>shell.html</code> у цьому проєкті немає, і це сказано вголос</h4>Пак припускає зібрану <code>design/kit/shell.html</code>. Тут її нема і ніколи не було: оболонка живе двома компонентами зі своїми сторінками, <code>header.html</code> і <code>tabbar.html</code>, і обидві щойно отримали підпункт «Поведінка на ширині». Заводити третю сторінку заради показу означало б завести артефакт без читача.</div>
+</section>
+
+<section class="kp-sec" id="behaviour"><div class="kp-sh">Поведінка компонентів: раунд 1, атоми</div>
+<p class="kp-p">Крок 4 іде рівнями знизу вгору. <b>Усі чотири раунди закриті.</b> Затриманим лишився один файл, <code>coach-session</code>, і не на питанні, а на кроці: його пара 939/940 це коуч-спліт-в'ю, предмет кроку 5. Колонка «поведінка на ширині» лягає в <code>inventory.md</code>, коли зроблені всі чотири: колонка, заповнена на один рівень із чотирьох, каже «невідомо» про три інші у формі, яка читається як «нема чого сказати».</p>
+<div class="kp-gap"><h4>N = 23, M = 9 адаптуються, K = 14 свідомо ні. M + K = N</h4>Перекличка взята з <b>реєстру компонентів</b>, а не з аудиту ширини: аудит відсортований за екранами, і атом, що стоїть лише на екранах «однаково», у ньому не трапляється жодного разу.</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що сталося</th><th>Атоми</th></tr></thead><tbody>
+<tr><td>уже плинні, нічого не змінилось</td><td><code>field</code> · <code>link-row</code> · <code>radio</code> · <code>stack-action</code></td></tr>
+<tr><td><b>запит зник у пандус</b></td><td><code>button</code>: <code>@media (max-width: 479px)</code> немає; паддінг це <code>clamp()</code>, 12px на 360 і 16px від 860, і перемикання кегля на <code>.btn--l</code> пішло разом із ним</td></tr>
+<tr><td><b>запит згорнувся на реєстрову точку</b></td><td><code>menu</code>: 479 стало 619, дзеркало <code>--bp-grid-2col</code>. Випадайка, що стає повноекранним шитом, це <b>поведінка</b>, тож вона лишається точкою</td></tr>
+<tr><td><b>три запити стали одним, і разом із ними пішов дефект</b></td><td><code>skeleton</code>: 620 / 959 / 1040 стали <code>auto-fill</code> на тих самих двох підлогах, що в <code>product-grid.css</code>. На 1280 справжня сітка дає <b>три колонки по 248px</b>, а скелет малював <b>чотири по 185</b> - обіцянку, якої сторінка не приносила. Тепер обидві дають 248 x 3, піксель у піксель</td></tr>
+<tr><td><b>правило переїхало до свого господаря</b></td><td><code>status-pill</code>: рядок <code>@media (max-width: 639px){ .oh-status{ grid-area: stat } }</code> переїхав у <code>order-row.css</code>, чий власний запит на тій самій ширині і оголошує <code>grid-template-areas</code>, без яких <code>stat</code> нічого не значить. Вирізано, не скопійовано</td></tr>
+<tr><td>лишились названим екранним винятком</td><td><code>chip</code> · <code>view-toggle</code>, обидва на <code>--bp-shell-wide</code></td></tr>
+<tr><td><b>свідомо не адаптуються (14)</b></td><td><code>price</code> · <code>rating</code> · <code>availability</code> · <code>discount</code> · <code>favourite</code> · <code>checkbox</code> · <code>stepper</code> · <code>otp</code> · <code>switch</code> · <code>status-pill</code> · <code>badge</code> · <code>icon</code> · <code>product-thumb</code> · <code>counter</code>. Причина одна на всіх: коробку вбудованого знака задає його власний вміст, і він їде разом із контейнером, що адаптується</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Заміряно, і обіцянка асиметрична</h4>На <b>360</b>: <code>tools/tree-diff.mjs</code> по <b>всіх 92 кольорових сторінках</b> проти базового дерева, що відрізнялось лише цим раундом - <b>0 зрушених боксів</b>. На <b>1280</b> зрушили три сторінки, і всі три це скелет, що приходить у згоду із сіткою, яку обіцяє.</div>
+<div class="kp-gap"><h4>Два екранні винятки поза оболонкою, обидва на реєстровій точці</h4><code>chip.css</code> ховає чипи цілей від 860 <b>не тому</b>, що їхня коробка стала широкою, а тому, що там на тому самому екрані видно плитки тих самих шести цілей: це факт про те, що показує <b>екран</b>, і контейнерний запит його не спитає. <code>view-toggle.css</code> - те саме: нижче точки листинг має одну колонку, і перемикатись немає між чим.</div>
+<div class="kp-gap"><h4>Контейнерних порогів після раунду 1 нуль, і це відповідь</h4>Жодному атому він не знадобився: коробку атома задає його вміст, тож поведінки, залежної від місця, у нього немає. Єдиний кандидат - <code>status-pill</code> на 639 - виявився не тим: перебудовується <b>рядок</b>, а пілюлі він видає комірку.</div>
+</section>
+
+<section class="kp-sec" id="behaviour2"><div class="kp-sh">Поведінка компонентів: раунд 2, молекули</div>
+<div class="kp-gap"><h4>N = 27, M = 23 адаптуються, K = 4 свідомо ні. M + K = N</h4>Перекличка була <b>пропозицією, і замір скасував третину її</b>. Сім файлів пішли в неї кандидатами на <code>auto-fit</code>; чотири з них заповнення не бере, і причина в усіх чотирьох одна: <code>repeat(auto-fit, minmax(F, 1fr))</code> заповнює ряд, а <b>фіксована</b> кількість елементів має збалансовані розкладки лише на своїх дільниках. Шість плиток цілей хочуть 2, 3 або 6 і ніколи 4+2; шість логотипів - 3 або 6; три картки блогу - 1 або 3. Підлоги, яка дає дільники і пропускає решту, не існує.</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що сталося</th><th>Молекули</th></tr></thead><tbody>
+<tr><td><b>запит зник у <code>auto-fit</code></b></td><td><code>address-card</code> (720) · <code>loyalty-rung</code> (760) · <code>banner .tbanners</code> (720). У всіх трьох кількість або змінна, або дорівнює двом, тож заповнення тут точне, а не приблизне. Перші два читають новий токен <code>--grid-col-min-panel</code>, третій пише літерал <code>8rem</code>, бо читач у нього один</td></tr>
+<tr><td><b>запит зник у базове правило</b></td><td><code>restock-note</code>: 419 немає. <code>flex-wrap</code> піднявся в базу, поле несе підлогу <code>13rem</code>, і ряд ламає свою лінію сам</td></tr>
+<tr><td><b>три розміри стрибали на точці, тепер ідуть пандусом</b></td><td><code>banner .recbanner</code>: гап, портрет і <code>font-size</code> - усі троє стрибали на 559. Кожен пандус кінчається тим самим числом, що стояло там раніше, тож обидва кінці не зрушили, а перестали бути урвищем тільки 200px між ними. <code>.hpromo</code> <code>min-height</code> вийшла зі свого запиту так само</td></tr>
+<tr><td><b>складено на реєстрову точку</b></td><td><code>goal-tile</code> 960 -> 860 · <code>blog-card</code> 720 -> 620 · <code>spec-table</code> 720 -> 620 · <code>banner</code> 720 -> 620 · <code>product-card</code> 559 -> 619 · <code>order-row</code> 639 -> 619</td></tr>
+<tr><td>уже на реєстровій точці</td><td><code>section-head</code> · <code>review-item</code> · <code>gallery</code> · <code>brand-logo</code> · <code>toolbar</code>, чиї три окремі блоки 860 стали одним</td></tr>
+<tr><td>уже плинні, нічого не міняли</td><td><code>empty-state</code> · <code>toast</code> · <code>cart-row</code> · <code>client-row</code> · <code>cert-thumb</code> · <code>desc-block</code> · <code>related</code></td></tr>
+<tr><td><b>затримано на власникові (2)</b></td><td><code>trust-strip</code> (479, 559, 719, 720, 1180) і <code>seo-text</code> (759, 760). Три відкриті питання, нижче</td></tr>
+<tr><td><b>свідомо не адаптуються (4)</b></td><td><code>breadcrumb</code> · <code>pagination</code> · <code>filter-group</code> · <code>qa-item</code> - і це <b>зміряно</b>, а не прочитано</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Числа</h4>До раунду рівень молекул тримав <b>37 запитів на 14 різних ширинах</b>, чотири з них у реєстрі. Після: <b>30 запитів на 11 ширинах</b>, і всі сім, що досі поза реєстром, стоять у двох затриманих файлах. Більше ніщо на цьому рівні не питає про ширину, якої реєстр не називає.</div>
+<div class="kp-gap"><h4>Четвірку «без механізму» зміряно, бо прилад шукає п'ять маркерів плинного, і рядковий текст не з них</h4><b><code>breadcrumb</code></b>, 91 екран, найносиміша молекула продукту: на 360 стежка переносить рядок рівно на <b>7 сторінках із 72</b> - три <code>coach-order</code> і чотири <code>product</code>, 47.2 -&gt; 66.4px - і не переповнює ніде. <b><code>pagination</code></b>: нуль рефлоу на всіх 9; <code>.pages</code> це 87.2px і на 360, і на 1280. <b><code>filter-group</code></b>: на 360 у групи <b>немає коробки взагалі</b> (0x0), на 1280 вона 238 x 345.7 - адаптується її <b>місце</b>. <b><code>qa-item</code></b>: 157.8 -&gt; 113px, це переноситься текст.</div>
+<div class="kp-gap"><h4>Дефект, який знайшов цей раунд, у файлі, який відмовлявся, щоб його чіпали</h4><code>restock-note</code> ніс запит <code>max-width: 419</code> і коментар кроку 7.64 на його захист: «на 420, 440, 460 і 479 цей ряд НЕ переноситься, його двоє дітей виходять 26 + 350». <b>Ці числа і є дефект.</b> Кнопка носить <code>btn--full</code>, її <code>width: 100%</code> вигравала на флекс-лінії, і поле e-mail було <b>26 пікселів завширшки від 420 і до 1600</b>: 26 + 410 на 480, 26 + 650 на 720. Запит нижче 419 це ховав, тому ніхто ніколи й не питав.</div>
+<div class="kp-gap"><h4>Контейнер сторінки НЕ монотонний за шириною вікна, і виявило це саме заповнення</h4>Перша підлога для <code>--grid-col-min-panel</code> була 22rem. Вона сходилась із запитом на 360 і на 1280 - двох ширинах, на які всі дивляться - і розгортка знайшла її хибною між ними: кабінет бере собі колонку навігації на 960 і лишає списку адрес коробку 628px, де підлога 352 вміщає одну картку, а запит вміщав дві. На 19rem відтворюються всі кількості колонок, які давав запит, і додається одна, якої він не давав. <b>Медіазапит питає вікно і не бачить 216px, які забрала оболонка; плинна підлога питає коробку і не може їх не побачити.</b></div>
+<div class="kp-gap"><h4>Заміряно, і обіцянка асиметрична</h4><code>tools/tree-diff.mjs</code> по всіх 92 кольорових сторінках проти базового дерева, що відрізнялось лише десятьма файлами цього раунду, на 360 і 1280: <b>6 різниць на 184 порівняння</b>, і кожну названо. Чотири - це <code>.tbanners</code> на 1280, де обчислений список треків набув двох записів <code>0px</code>: п'ять справжніх треків це 196.797 x4 + 196.812 до і після, бо <code>auto-fit</code> згортає треки, для яких немає елемента, а обчислене значення їх усе одно перелічує. Дві - на <code>product-oos</code>: на 360 змінилась лише <code>flex-basis</code>, а обидві коробки лишились 328 x 44 і 328 x 64; на 1280 поле пішло з 26px на 284px, і це та сама полагоджена діра. <b>На 360 не зрушив жоден бокс.</b></div>
+<div class="kp-gap"><h4>Три питання затримано, і два файли з ними</h4><b>1. Число талісмана.</b> Одна поведінка - «талісман з'являється, коли поруч є місце» - записана двома неузгодженими числами, 759/760 у <code>seo-text</code> і 1180 у <code>trust-strip</code>, і жодного немає в реєстрі. Це питання про МІСЦЕ, тож чесний механізм тут <code>@container</code>, і це були б перші два контейнерні пороги системи; згорнути обидва на 860 - інша відповідь. <b>2. Розділювачі смуги довіри.</b> Смуга йде 1 -&gt; 2 -&gt; 4 колонки, а волосини між клітинками це тіні через <code>nth-child</code>, які мусять знати кількість колонок; <code>auto-fit</code> робить її невідомою для CSS. Або дві точки лишаються і сідають на 620/860, або лінії перемальовуються рамкою клітинки - і це міняє те, як вони намальовані, тобто потребує піксельної звірки. <b>3. <code>.cs-act</code> на 559</b> - це переноситься ряд дій, а <code>patterns/action-row.css</code> володіє переносом для 53 імен контейнерів із кроку 9.1: схоже, правило належить раунду 4.</div>
+<div class="kp-gap"><h4>Два сказано вголос, а не полагоджено тихо</h4><code>.listing{ grid-template-columns: 240px 1fr }</code> живе в <code>toolbar.css</code> і є рамкою <b>екрана</b> лістингу, а не тулбара: воно належить оболонці кроку 3, і переносити його тихо всередині раунду молекул означало б це сховати. А ще одну знахідку знято при перевірці: розгортка сказала, що <code>.addr-2col</code> не стоїть на жодній кольоровій сторінці, що читається як «мертвий». Він стоїть - у <b>стенді</b>, на <a class="kp-a" href="client-dialog.html">client-dialog.html</a>, а корпус цього приладу це продукт. <b>Нуль від приладу, який не бачить класу, не є нулем</b>; прилад тепер шукає в стенді те, чого не знайшов на продукті, і каже, де саме знайшов.</div>
+<div class="kp-gap"><h4>Контейнерних порогів після раунду 2 і далі нуль</h4>Жодній молекулі він теж не знадобився: кожна поведінка, залежна від місця, на цьому рівні виявилась або фіксованою кількістю (яку точка каже краще), або заповненням (яке <code>auto-fit</code> каже взагалі без порогу). Єдиний справжній кандидат - талісман - це перше з трьох затриманих питань.</div>
+</section>
+
+<section class="kp-sec" id="behaviour3"><div class="kp-sh">Поведінка компонентів: раунд 3, організми</div>
+<div class="kp-gap"><h4>N = 34, M = 32 адаптуються, K = 2 свідомо ні. M + K = N</h4><b>Найважчий рівень із чотирьох, і він упав удвічі двічі.</b> До раунду 34 файли організмів тримали <b>86 запитів на 19 різних ширинах, 15 із них поза реєстром</b> - більше, ніж атоми і молекули разом. Після: <b>80 запитів на 7 ширинах, 3 поза реєстром</b>, і всі три стоять у затриманих файлах. По всій <code>design/system/</code> тепер <b>117 запитів на 13 ширинах</b>, і кожне позареєстрове число живе рівно в чотирьох файлах: <code>trust-strip</code> і <code>seo-text</code> (три питання власника з раунду 2), <code>coach-session</code> (крок 5) і <code>pdp-tabs</code> (у парі з талісманом).</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що сталося</th><th>Організми</th></tr></thead><tbody>
+<tr><td><b>два запити видалено, бо вони ніколи не малювали</b></td><td><code>product-grid</code> - найбільша знахідка раунду, нижче</td></tr>
+<tr><td><b>запит зник у пандус</b></td><td><code>product-grid</code> і <code>skeleton</code> (перемикач підлоги став <code>--grid-col-fluid</code>) · <code>hero</code> (<code>min-height</code> 130/164) · <code>checkout-form</code> (кегль, гліф і бічний паддінг)</td></tr>
+<tr><td><b>друга оболонка склалась на першу</b></td><td><code>account-shell</code>: 960/959 → 860/859 і 640 → 620. Винне <code>skeleton</code> 959 поїхало разом</td></tr>
+<tr><td><b>складено на реєстрову точку</b></td><td><code>auth-dialog</code> 720/719 → 860/859 (вісім блоків) · <code>coach-verify</code> 760 → 860, 520 → 620 · <code>footer</code> 479 → 619, 720 → 860 · <code>coach-landing</code> 980 → 860, 559 → 619 · <code>coach-clients</code> · <code>coach-cabinet</code> · <code>plan-card</code> · <code>system-page</code> · <code>buy-box</code> (п'ять блоків) · <code>city-dialog</code> · <code>client-dialog</code> · <code>coach-session</code> · <code>checkout-form</code></td></tr>
+<tr><td>уже на реєстровій точці</td><td><code>header</code> · <code>nav-drawer</code> · <code>tabbar</code> · <code>mega-menu</code> · <code>filter-rail</code> · <code>filter-sheet</code> · <code>buy-bar</code> · <code>cart-drawer</code> · <code>coach-order</code> · <code>cat-overlay</code> · <code>cookie-banner</code></td></tr>
+<tr><td>уже плинні або тримаються контейнером</td><td><code>price-slider</code> · <code>coach-tariff</code> · <code>review-modal</code> · <code>upsell</code></td></tr>
+<tr><td><b>затримано навмисно</b></td><td><code>coach-session</code> 939/940 - коуч-спліт-в'ю, предмет <b>кроку 5</b> · <code>pdp-tabs</code> 1180 - те саме число, що в затриманого талісмана</td></tr>
+<tr><td><b>свідомо не адаптуються (2)</b></td><td><code>overlay</code> · <code>coach-wishlist</code></td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Найбільша знахідка: <code>product-grid</code> ніс два мертві запити і сітку, яка йшла назад</h4><b>1) Мертві.</b> Структурна половина файлу писала <code>repeat(3, 1fr)</code> на 620 і <code>repeat(4, 1fr)</code> на 1040, а кольорова половина нижче перевизначає <code>.prow</code> із тією самою вагою - тож <b>жоден із двох не малював ніколи</b>. Перепис кроку 1 порахував 1040 діючою межею продукту; вона не діяла, і сказати це міг лише замір виходу.<br><br><b>2) Сітка губила колонку, коли вікно ширшало.</b> Зміряно на десяти сторінках: <b>1 колонка на 320, 2 на 360, 3 на 520, 2 на 620, 3 на 680, 4 на 880</b>. На 620 підлога стрибає зі 150 на 200 і коробка 588 перестає вміщати три - і це на точці, названій «ряд карток перестає бути однією колонкою». Одна підлога цього не лікує (три на 620 вимагають 185 або менше, чотири на 1280 - 194 або більше), тож дефектом є <b>сам перемикач</b>, і його замінив пандус. Тепер ряд читається 1 → 2 (360) → 3 (580) → 4 (880) → 5 (1320), монотонно, а 360 і 1280 не зрушили. <b>Ціна названа:</b> стан «три колонки» на 520-619 стає двома по 244.<br><br>Дефект старший за етап - обидві підлоги і мертва пара прийшли з розколу 08 - і пережив етапи 07, 08 і 09, бо звірка на двох ширинах, 360 і 1280, провалля на 620 не бачить.</div>
+<div class="kp-gap"><h4>Кабінет це друга оболонка, і складання було рішенням за замовчуванням</h4>Від своєї точки кабінет відрощує колонку навігації 268px, а нижче ті самі посилання стають горизонтальним скролером. Число було 960 і в жодному реєстрі не стояло. <b>Пак дозволяє третю точку, але лише як рішення власника, назване вголос</b> - його не було, тож число склалось на <code>--bp-shell-wide</code>. Спершу зміряно: на 860 колонка навігації лишається 268, колонка вмісту виходить 528 проти сьогоднішніх 628, нового обрізання немає. <b>Пара мусила їхати разом</b> - скласти лише одну половину означало б покласти смугу 1253px у колонку 268px - і винне <code>skeleton</code> 959, яке раунд 1 лишив саме через цю пару, поїхало з нею.</div>
+<div class="kp-gap"><h4>Де в складання було два кандидати, вибирав замір</h4><code>auth-dialog</code> пішов на 860, а не на 620, бо на 620 модал обмежений вікном: панелі виходять 243.8 і 310.3, і колонка <b>форми</b> стає вужчою за однопанельну форму, яку вона замінила (618); на 860 вони 349.4 і 444.6. <code>coach-verify</code> - з тієї ж причини і з жорсткішої: примусовий ряд <code>.cv-split</code> на 620 <b>обрізає</b> <code>.opt-tiles</code>, 324 у 319. Самі плитки пішли в інший бік, на 620, де вони по 174.7 і не обрізають нічого.</div>
+<div class="kp-gap"><h4>Три нулі прочитано, а не повірено</h4><code>comp-width.mjs</code> показує <code>cat-overlay</code>, <code>cookie-banner</code> і <code>system-page</code> на нулі екранів, і жоден із трьох не мертвий. Перші два <b>народжуються в акті</b>: їх ставить <code>_nav.js</code> на подію, тож у завантаженому DOM, який міряє обхід, їх немає. У третього один екран, <code>wireframes/system.html</code>, і кольорового двійника в нього немає взагалі. Три нулі, три різні причини, і жодна з них не «видали файл».</div>
+</section>
+
+<section class="kp-sec" id="behaviour4"><div class="kp-sh">Поведінка компонентів: раунд 4, патерни</div>
+<div class="kp-gap"><h4>N = 1, M = 1, K = 0, і це результат, а не пропуск</h4><code>patterns/action-row.css</code> це єдиний патерн системи, і в ньому <b>нуль медіазапитів</b>: <code>flex-wrap: wrap</code> стоїть у базовому правилі з кроку 9.1, а <code>.actions--even</code> каже «поділіть ширину» модифікатором розмітки, а не числом. Композиція, зібрана з компонентів, які вже вміють ширину, власної відповіді на неї не має. <b>Одне правило перевірено і лишилось не тут:</b> <code>.cs-act</code> у <code>trust-strip.css</code> нижче точки бере всю лінію і ділить її порівну - друга половина цього і є <code>.actions--even</code>, але модифікатор не вмикається за шириною без запиту, тож правило лишається у свого контейнера, складене на 619.</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Затриманий файл</th><th>Було</th><th>Стало</th><th>Чому саме так</th></tr></thead><tbody>
+<tr><td><code>seo-text</code></td><td>760 / 759</td><td>860 / 859</td><td>талісман біля SEO-тексту складається чисто: на 860 текстова колонка виходить <b>500 проти 400 на 760 сьогодні</b>, не обрізає нічого</td></tr>
+<tr><td><code>pdp-tabs</code></td><td>1180</td><td>немає</td><td>1180 робило рівно одне - розширювало праву колонку з 540 до 580. 40px це РОЗМІР, тож він пандус між тими самими значеннями: 248 + 540 на 860 і 312 + 580 на 1180, до і після</td></tr>
+<tr><td><code>trust-strip</code></td><td>479, 559, 719/720, 1180</td><td>619, 619, 859/860, 860 + два пандуси</td><td>нижче</td></tr>
+<tr><td><code>coach-session</code></td><td>939 / 940</td><td><b>досі затримано</b></td><td>коуч-спліт-в'ю. Аудит ширини назвав його єдиною справді новою поведінкою етапу, а це предмет кроку 5</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Смуга довіри - там, де талісман відмовився складатись, і замір сказав це до правки</h4>Увімкнений на 860 із повним резервом 150px, він робить чотири клітинки по 167 і <b>дві з них обрізають текст</b>. Резерв - це те, що смуга віддає, тож пандусом стає резерв: 108px на 860, 150px на 1180, а кроп-бокс ведмедя їде разом (108 → 180), бо інакше 180-піксельний ведмідь звисав би на 72px над четвертою клітинкою. Тоді на 860 клітинки виходять 177.5 і не обрізає нічого, а на 1180 обидва повертаються до повного розміру. Кроп-бокс для того й існує, щоб різати цього ведмедя, тож різати сильніше там, де менше місця, - це механізм робить свою роботу.</div>
+<div class="kp-gap"><h4>А кількості колонок смуги лишились ТОЧКАМИ</h4>Волосини між клітинками намальовані тінями через <code>nth-child</code>, тобто мусять ЗНАТИ кількість колонок - а <code>auto-fit</code> саме той механізм, що робить її невідомою для CSS. Перемалювати лінії рамкою клітинки було іншим шляхом і його не взято: це міняє те, як намальована кожна лінія смуги, а приймання раунду міряється в пікселях. <b>Третя точка була іншою відповіддю на талісмана, двічі, і її не взято:</b> пак дозволяє одну, але лише як рішення власника, назване вголос.</div>
+<div class="kp-gap"><h4>Де система стоїть після чотирьох раундів</h4><b>116 запитів на ШЕСТИ ширинах</b> по всіх файлах <code>design/system/</code>: 619, 620, 859, 860 - і пара 939/940, якою володіє крок 5. Це все. Перепис кроку 1 знайшов <b>27 різних значень ширини, що діяли в продукті, і жодного токена під жодне з них</b>; лишилось два токени, два їхні дзеркала і одна свідомо відкладена поведінка.<br><br><code>tools/bp.mjs</code> це те, що тримає стан: він читає реєстр із <code>tokens.css</code> і питає кожен запит продукту дати одне з його чисел, падає на <code>@media</code> у файлі екрана, на <code>var()</code> усередині запиту і на <code>@container</code> без жодного оголошеного <code>container-type</code>. Усі чотири класи доведено падінням - їх вносили навмисно і відкочували. Кожен оголошений список усередині нього сам перевірений на те, що покриває бодай щось.</div>
+<div class="kp-gap"><h4>Заборона записана у двох місцях</h4><code>design/system/CLAUDE.md</code>, правила 11 і 12, та <code>architecture.md</code>, розділ J, «A new ADAPTATION». Правило 12 - те, якого не бачить жоден grep і яке потрібне кожному читачеві: <b>КІЛЬКІСТЬ і ПОВЕДІНКА можуть стрибати на точці, РОЗМІР не може.</b></div>
+</section>
+
+<section class="kp-sec" id="audit"><div class="kp-sh">Перепис і аудит: три таблиці кроку 1</div>
+<p class="kp-p">Повні таблиці лежать у <code>design/kit/docs/responsive.md</code>. Нижче - те, що з них видно з одного погляду.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Корпус</th><th>Файлів</th><th>Точка</th><th>Плинне</th><th>Контейнер</th><th>Доля</th></tr></thead><tbody>
+<tr><td><code>design/system/</code></td><td>88</td><td>170</td><td>113</td><td>316</td><td>дім, тут воно й має жити</td></tr>
+<tr><td><code>design/*.html</code></td><td>92</td><td><b>1</b></td><td>10</td><td>13</td><td>чуже місце, переїжджає на кроці 4</td></tr>
+<tr><td><code>design/kit/</code></td><td>104</td><td>56</td><td>115</td><td>223</td><td>стенд, у правила продукту не входить</td></tr>
+<tr><td><code>wireframes/</code></td><td>143</td><td>176</td><td>210</td><td>390</td><td>заморожений свідок, звідси нічого не переносимо</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Чого немає взагалі</h4><code>@container</code> <b>0</b> · <code>container-type</code> <b>0</b> · <code>clamp()</code> <b>0</b> · <code>rem</code> усередині медіазапиту <b>0</b> · токен ширини, контейнера чи сітки <b>0</b>. Усі 27 меж у <code>px</code>, усі міряють в'юпорт. <code>minmax(</code> зустрічається 27 разів, а <code>auto-fit</code> лише тричі: більшість сіток у системі несе <b>фіксовану</b> кількість колонок.</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Категорія аудиту</th><th>Екранів зі 141</th></tr></thead><tbody>
+<tr><td>ОДНАКОВО</td><td>64</td></tr>
+<tr><td>ШИРШЕ · сітка</td><td>24</td></tr>
+<tr><td>ШИРШЕ · повітря</td><td>14</td></tr>
+<tr><td><b>НОВА ПОВЕДІНКА</b></td><td><b>39</b></td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>39 це набагато більше за три-чотири, і ось чесне читання</h4>39 це число <b>екранів</b>. Число <b>поведінок</b> вісім, і сім із них уже стоять у коді: оболонка міняє носія навігації на 860 · рейка категорій з головної · мега-меню флайаутом замість шухляди · рейка фільтрів замість шита на 860 · PDP кладе галерею і бай-бокс поруч і прибирає липку смугу · кошик панеллю замість шухляди на 620 · оформлення формою і підсумком поруч. <b>Восьмої немає: split-view потоку тренера</b>, 11 екранів. Джерело не вподобання - головний job каже дослівно «build a complete order for each client in one session», а на телефоні тренер ходить між списком клієнтів і кошиком клієнта туди-сюди. Це кандидат кроку 5.</div>
+<div class="kp-gap"><h4>Реєстр перезаміряно на кроці 4, і перший був неправильний тричі</h4><b>Опубліковане тут число «13 компонентів нічого не знають про ширину» було хибним.</b> Перший реєстр питав <b>сірий</b> корпус, де власних імен системи немає взагалі (мапа перейменувань етапу 08 пройшла лише по <code>design/*.html</code>), тож <code>button.css</code> відповів «нуль екранів». Другий читав <code>class="..."</code> із джерела - <b>68 рядків із 85</b> розійшлись із живим заміром, бо скрипти дописують класи на завантаженні. Третій брав <b>кожен</b> клас у файлі, і <code>otp.css</code> відповів «91 екран», бо його селектори називають ще й <code>.field</code>. Якір це клас, яким володіє <b>рівно один</b> файл, і питати треба <b>браузером по кольоровому корпусу</b>. Прилад: <code>tools/comp-width.mjs</code>, усі три хибні версії в його шапці. <b>Чотири файли не мають власного класу</b> - <code>badge</code>, <code>icon</code>, <code>product-thumb</code>, <code>counter</code> - і друкують <code>-</code>, а не <code>0</code>.</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Рівень</th><th>Компонент</th><th>Файл</th><th>Екранів</th><th>Найширша категорія</th><th>Ширина сьогодні</th></tr></thead><tbody>
+<tr><td>атом</td><td>Кнопка</td><td><code>button.css</code></td><td>90</td><td>НОВА ПОВЕДІНКА</td><td>плинне</td></tr>
+<tr><td>атом</td><td>Поле</td><td><code>field.css</code></td><td>89</td><td>НОВА ПОВЕДІНКА</td><td>плинне</td></tr>
+<tr><td>атом</td><td>Чип</td><td><code>chip.css</code></td><td>86</td><td>НОВА ПОВЕДІНКА</td><td>@media 860 · плинне</td></tr>
+<tr><td>атом</td><td>Дія стовпчиком</td><td><code>stack-action.css</code></td><td>86</td><td>НОВА ПОВЕДІНКА</td><td>плинне · контейнер</td></tr>
+<tr><td>атом</td><td>Рядок посилань</td><td><code>link-row.css</code></td><td>85</td><td>НОВА ПОВЕДІНКА</td><td>плинне</td></tr>
+<tr><td>атом</td><td>Ціна</td><td><code>price.css</code></td><td>45</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Рейтинг</td><td><code>rating.css</code></td><td>22</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Мітка наявності</td><td><code>availability.css</code></td><td>22</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Бейдж знижки</td><td><code>discount.css</code></td><td>21</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Обране</td><td><code>favourite.css</code></td><td>21</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Меню вибору</td><td><code>menu.css</code></td><td>12</td><td>НОВА ПОВЕДІНКА</td><td>@media 619 · плинне · контейнер</td></tr>
+<tr><td>атом</td><td>Скелетон</td><td><code>skeleton.css</code></td><td>12</td><td>НОВА ПОВЕДІНКА</td><td>@media 620, 959 · плинне · контейнер</td></tr>
+<tr><td>атом</td><td>Чекбокс</td><td><code>checkbox.css</code></td><td>12</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Лічильник кількості</td><td><code>stepper.css</code></td><td>12</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Статус-пілюля</td><td><code>status-pill.css</code></td><td>11</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Перемикач вигляду</td><td><code>view-toggle.css</code></td><td>11</td><td>НОВА ПОВЕДІНКА</td><td>@media 860</td></tr>
+<tr><td>атом</td><td>Радіо</td><td><code>radio.css</code></td><td>9</td><td>НОВА ПОВЕДІНКА</td><td>плинне</td></tr>
+<tr><td>атом</td><td>OTP-комірка</td><td><code>otp.css</code></td><td>4</td><td>ОДНАКОВО</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Перемикач</td><td><code>switch.css</code></td><td>2</td><td>ОДНАКОВО</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Бейдж</td><td><code>badge.css</code></td><td>–</td><td>без свого класу</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Іконка</td><td><code>icon.css</code></td><td>–</td><td>без свого класу</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Мініатюра товару</td><td><code>product-thumb.css</code></td><td>–</td><td>без свого класу</td><td>нічого</td></tr>
+<tr><td>атом</td><td>Лічильник</td><td><code>counter.css</code></td><td>–</td><td>без свого класу</td><td>нічого</td></tr>
+<tr><td>молекула</td><td>Хлібні крихти</td><td><code>breadcrumb.css</code></td><td>91</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>молекула</td><td>Заголовок секції</td><td><code>section-head.css</code></td><td>28</td><td>НОВА ПОВЕДІНКА</td><td>@media 620 · плинне · контейнер</td></tr>
+<tr><td>молекула</td><td>Порожній стан</td><td><code>empty-state.css</code></td><td>27</td><td>НОВА ПОВЕДІНКА</td><td>плинне · контейнер</td></tr>
+<tr><td>молекула</td><td>Щабель лояльності</td><td><code>loyalty-rung.css</code></td><td>26</td><td>НОВА ПОВЕДІНКА</td><td>@media 760 · плинне</td></tr>
+<tr><td>молекула</td><td>Картка товару</td><td><code>product-card.css</code></td><td>22</td><td>НОВА ПОВЕДІНКА</td><td>@media 559, 619, 859, 860 · плинне · контейнер</td></tr>
+<tr><td>молекула</td><td>Тост</td><td><code>toast.css</code></td><td>20</td><td>НОВА ПОВЕДІНКА</td><td>плинне · контейнер</td></tr>
+<tr><td>молекула</td><td>SEO-текст</td><td><code>seo-text.css</code></td><td>17</td><td>НОВА ПОВЕДІНКА</td><td>@media 759, 760 · контейнер</td></tr>
+<tr><td>молекула</td><td>Відгук</td><td><code>review-item.css</code></td><td>13</td><td>НОВА ПОВЕДІНКА</td><td>@media 620, 860 · плинне · контейнер</td></tr>
+<tr><td>молекула</td><td>Рядок кошика</td><td><code>cart-row.css</code></td><td>11</td><td>НОВА ПОВЕДІНКА</td><td>плинне</td></tr>
+<tr><td>молекула</td><td>Група фільтра</td><td><code>filter-group.css</code></td><td>11</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>молекула</td><td>Тулбар</td><td><code>toolbar.css</code></td><td>11</td><td>НОВА ПОВЕДІНКА</td><td>@media 860 · плинне</td></tr>
+<tr><td>молекула</td><td>Пагінація</td><td><code>pagination.css</code></td><td>9</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>молекула</td><td>Банер</td><td><code>banner.css</code></td><td>6</td><td>НОВА ПОВЕДІНКА</td><td>@media 559, 720 · плинне · контейнер</td></tr>
+<tr><td>молекула</td><td>Картка блогу</td><td><code>blog-card.css</code></td><td>6</td><td>НОВА ПОВЕДІНКА</td><td>@media 720</td></tr>
+<tr><td>молекула</td><td>Смуга довіри</td><td><code>trust-strip.css</code></td><td>5</td><td>НОВА ПОВЕДІНКА</td><td>@media 479, 559, 719, 720, 1180 · плинне · контейнер</td></tr>
+<tr><td>молекула</td><td>Рядок клієнта</td><td><code>client-row.css</code></td><td>5</td><td>НОВА ПОВЕДІНКА</td><td>плинне · контейнер</td></tr>
+<tr><td>молекула</td><td>Галерея</td><td><code>gallery.css</code></td><td>4</td><td>НОВА ПОВЕДІНКА</td><td>@media 859, 860 · плинне · контейнер</td></tr>
+<tr><td>молекула</td><td>Плитка цілі</td><td><code>goal-tile.css</code></td><td>4</td><td>НОВА ПОВЕДІНКА</td><td>@media 620, 960 · плинне</td></tr>
+<tr><td>молекула</td><td>Логотип бренду</td><td><code>brand-logo.css</code></td><td>4</td><td>НОВА ПОВЕДІНКА</td><td>@media 620 · плинне · контейнер</td></tr>
+<tr><td>молекула</td><td>Мініатюра сертифіката</td><td><code>cert-thumb.css</code></td><td>3</td><td>НОВА ПОВЕДІНКА</td><td>плинне</td></tr>
+<tr><td>молекула</td><td>Картка адреси</td><td><code>address-card.css</code></td><td>3</td><td>ШИРШЕ</td><td>@media 720 · плинне</td></tr>
+<tr><td>молекула</td><td>Схожі товари</td><td><code>related.css</code></td><td>3</td><td>НОВА ПОВЕДІНКА</td><td>плинне</td></tr>
+<tr><td>молекула</td><td>Рядок замовлення</td><td><code>order-row.css</code></td><td>2</td><td>ШИРШЕ</td><td>@media 639, 860 · плинне · контейнер</td></tr>
+<tr><td>молекула</td><td>Таблиця складу</td><td><code>spec-table.css</code></td><td>2</td><td>НОВА ПОВЕДІНКА</td><td>@media 720 · плинне</td></tr>
+<tr><td>молекула</td><td>Блок опису</td><td><code>desc-block.css</code></td><td>2</td><td>НОВА ПОВЕДІНКА</td><td>плинне · контейнер</td></tr>
+<tr><td>молекула</td><td>Запитання</td><td><code>qa-item.css</code></td><td>2</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>молекула</td><td>Нотатка про поповнення</td><td><code>restock-note.css</code></td><td>2</td><td>НОВА ПОВЕДІНКА</td><td>@media 419 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Хедер</td><td><code>header.css</code></td><td>86</td><td>НОВА ПОВЕДІНКА</td><td>@media 859, 860 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Шухляда меню</td><td><code>nav-drawer.css</code></td><td>86</td><td>НОВА ПОВЕДІНКА</td><td>@media 860 · плинне</td></tr>
+<tr><td>організм</td><td>Таб-бар</td><td><code>tabbar.css</code></td><td>86</td><td>НОВА ПОВЕДІНКА</td><td>@media 859 · контейнер</td></tr>
+<tr><td>організм</td><td>Мега-меню</td><td><code>mega-menu.css</code></td><td>86</td><td>НОВА ПОВЕДІНКА</td><td>@media 859 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Діалог міста</td><td><code>city-dialog.css</code></td><td>86</td><td>НОВА ПОВЕДІНКА</td><td>@media 479 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Оверлей</td><td><code>overlay.css</code></td><td>86</td><td>НОВА ПОВЕДІНКА</td><td>нічого</td></tr>
+<tr><td>організм</td><td>Футер</td><td><code>footer.css</code></td><td>81</td><td>НОВА ПОВЕДІНКА</td><td>@media 479, 720 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Смуга покупки</td><td><code>buy-bar.css</code></td><td>69</td><td>НОВА ПОВЕДІНКА</td><td>@media 859, 860 · контейнер</td></tr>
+<tr><td>організм</td><td>Форма чекауту</td><td><code>checkout-form.css</code></td><td>36</td><td>НОВА ПОВЕДІНКА</td><td>@media 479, 480, 559, 860 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Оболонка кабінету</td><td><code>account-shell.css</code></td><td>33</td><td>НОВА ПОВЕДІНКА</td><td>@media 640, 959, 960 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Сітка товарів</td><td><code>product-grid.css</code></td><td>21</td><td>НОВА ПОВЕДІНКА</td><td>@media 620, 1040 · плинне</td></tr>
+<tr><td>організм</td><td>Рейка фільтрів</td><td><code>filter-rail.css</code></td><td>15</td><td>НОВА ПОВЕДІНКА</td><td>@media 859, 860 · контейнер</td></tr>
+<tr><td>організм</td><td>Діалог клієнта</td><td><code>client-dialog.css</code></td><td>13</td><td>НОВА ПОВЕДІНКА</td><td>@media 479 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Шит фільтрів</td><td><code>filter-sheet.css</code></td><td>11</td><td>НОВА ПОВЕДІНКА</td><td>@media 860</td></tr>
+<tr><td>організм</td><td>Повзунок ціни</td><td><code>price-slider.css</code></td><td>11</td><td>НОВА ПОВЕДІНКА</td><td>плинне</td></tr>
+<tr><td>організм</td><td>Клієнти тренера</td><td><code>coach-clients.css</code></td><td>10</td><td>НОВА ПОВЕДІНКА</td><td>@media 520, 640, 860 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Замовлення тренера</td><td><code>coach-order.css</code></td><td>9</td><td>НОВА ПОВЕДІНКА</td><td>@media 620 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Кабінет тренера</td><td><code>coach-cabinet.css</code></td><td>8</td><td>НОВА ПОВЕДІНКА</td><td>@media 520, 720 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Сесія замовлення</td><td><code>coach-session.css</code></td><td>8</td><td>НОВА ПОВЕДІНКА</td><td>@media 479, 859, 939, 940 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Вкладки товару</td><td><code>pdp-tabs.css</code></td><td>8</td><td>НОВА ПОВЕДІНКА</td><td>@media 860, 1180 · плинне</td></tr>
+<tr><td>організм</td><td>Перевірка тренера</td><td><code>coach-verify.css</code></td><td>5</td><td>ОДНАКОВО</td><td>@media 520, 760 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Шухляда кошика</td><td><code>cart-drawer.css</code></td><td>5</td><td>НОВА ПОВЕДІНКА</td><td>@media 620 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Діалог входу</td><td><code>auth-dialog.css</code></td><td>5</td><td>ОДНАКОВО</td><td>@media 719, 720 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Головний блок</td><td><code>hero.css</code></td><td>4</td><td>НОВА ПОВЕДІНКА</td><td>@media 720, 860 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Тариф тренера</td><td><code>coach-tariff.css</code></td><td>3</td><td>ШИРШЕ</td><td>плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Блок покупки</td><td><code>buy-box.css</code></td><td>3</td><td>НОВА ПОВЕДІНКА</td><td>@media 479, 619 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Картка тарифу</td><td><code>plan-card.css</code></td><td>3</td><td>ШИРШЕ</td><td>@media 640</td></tr>
+<tr><td>організм</td><td>Модалка відгуку</td><td><code>review-modal.css</code></td><td>3</td><td>НОВА ПОВЕДІНКА</td><td>контейнер</td></tr>
+<tr><td>організм</td><td>Панель Pro</td><td><code>upsell.css</code></td><td>2</td><td>НОВА ПОВЕДІНКА</td><td>плинне</td></tr>
+<tr><td>організм</td><td>Лендинг тренера</td><td><code>coach-landing.css</code></td><td>1</td><td>ШИРШЕ</td><td>@media 559, 620, 860, 980 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Обране тренера</td><td><code>coach-wishlist.css</code></td><td>1</td><td>ШИРШЕ</td><td>нічого</td></tr>
+<tr><td>організм</td><td>Оверлей каталогу</td><td><code>cat-overlay.css</code></td><td>0</td><td>не стоїть</td><td>@media 859 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Банер cookie</td><td><code>cookie-banner.css</code></td><td>0</td><td>не стоїть</td><td>@media 620 · плинне · контейнер</td></tr>
+<tr><td>організм</td><td>Системна сторінка</td><td><code>system-page.css</code></td><td>0</td><td>не стоїть</td><td>@media 720, 859 · плинне · контейнер</td></tr>
+<tr><td>патерн</td><td>Ряд дій</td><td><code>action-row.css</code></td><td>15</td><td>НОВА ПОВЕДІНКА</td><td>плинне</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Таблиця аудиту: рядок на кожен зі 141 екрана</h4>Ідл-контроль: 141 екран у корпусі, 141 рядок, <b>0 без рядка</b>. Стан екрана успадковує категорію своєї бази: скелет сітки це теж сітка.</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Екран</th><th>Що людина тут робить</th><th>Категорія</th><th>Чим досягається</th></tr></thead><tbody>
+<tr><td><code>404</code></td><td>читає одне повідомлення і йде далі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>500</code></td><td>читає одне повідомлення і йде далі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account</code></td><td>оглядає кабінет: замовлення, бонуси, адреси</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit) + контейнер</td></tr>
+<tr><td><code>account-addresses</code></td><td>переглядає свій список</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit)</td></tr>
+<tr><td><code>account-addresses-add</code></td><td>заповнює форму адреси в діалозі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-addresses-courier</code></td><td>заповнює форму адреси в діалозі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-addresses-delete</code></td><td>заповнює форму адреси в діалозі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-addresses-edit</code></td><td>заповнює форму адреси в діалозі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-addresses-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-addresses-postomat</code></td><td>заповнює форму адреси в діалозі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-addresses-viddilennia</code></td><td>заповнює форму адреси в діалозі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-empty</code></td><td>оглядає кабінет: замовлення, бонуси, адреси</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit) + контейнер</td></tr>
+<tr><td><code>account-error</code></td><td>читає помилку і повторює спробу</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-loading</code></td><td>оглядає кабінет: замовлення, бонуси, адреси</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit) + контейнер</td></tr>
+<tr><td><code>account-loyalty</code></td><td>переглядає свій список</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit)</td></tr>
+<tr><td><code>account-loyalty-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-loyalty-max</code></td><td>переглядає свій список</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit)</td></tr>
+<tr><td><code>account-orders</code></td><td>переглядає свій список</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit)</td></tr>
+<tr><td><code>account-orders-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-profile</code></td><td>править одне поле профілю</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-profile-delete</code></td><td>править одне поле профілю</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-profile-email</code></td><td>править одне поле профілю</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-profile-lang</code></td><td>править одне поле профілю</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-profile-phone</code></td><td>править одне поле профілю</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-profile-withemail</code></td><td>править одне поле профілю</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-wishlist</code></td><td>переглядає свій список</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit)</td></tr>
+<tr><td><code>account-wishlist-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>account-wishlist-many</code></td><td>переглядає свій список</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit)</td></tr>
+<tr><td><code>auth</code></td><td>вводить номер і код зі SMS</td><td>ОДНАКОВО</td><td>контейнер ~420</td></tr>
+<tr><td><code>auth-code</code></td><td>вводить номер і код зі SMS</td><td>ОДНАКОВО</td><td>контейнер ~420</td></tr>
+<tr><td><code>auth-error</code></td><td>вводить номер і код зі SMS</td><td>ОДНАКОВО</td><td>контейнер ~420</td></tr>
+<tr><td><code>auth-loading</code></td><td>вводить номер і код зі SMS</td><td>ОДНАКОВО</td><td>контейнер ~420</td></tr>
+<tr><td><code>auth-newuser</code></td><td>вводить номер і код зі SMS</td><td>ОДНАКОВО</td><td>контейнер ~420</td></tr>
+<tr><td><code>brands</code></td><td>обирає бренд або категорію з набору плиток</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit)</td></tr>
+<tr><td><code>brands-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>brands-error</code></td><td>читає помилку і повторює спробу</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>brands-loading</code></td><td>обирає бренд або категорію з набору плиток</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit)</td></tr>
+<tr><td><code>cart</code></td><td>переглядає кошик</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 620 (панель замість шухляди)</td></tr>
+<tr><td><code>cart-coach</code></td><td>переглядає кошик</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 620 (панель замість шухляди)</td></tr>
+<tr><td><code>cart-coach-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>cart-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>cart-oos</code></td><td>переглядає кошик</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 620 (панель замість шухляди)</td></tr>
+<tr><td><code>catalog-page</code></td><td>обирає бренд або категорію з набору плиток</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit)</td></tr>
+<tr><td><code>catalog-page-error</code></td><td>читає помилку і повторює спробу</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>catalog-page-loading</code></td><td>обирає бренд або категорію з набору плиток</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit)</td></tr>
+<tr><td><code>checkout</code></td><td>оформлює замовлення</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (форма і підсумок поруч)</td></tr>
+<tr><td><code>checkout-declined</code></td><td>чекає або читає, що оплату не завершено</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>checkout-loading</code></td><td>чекає або читає, що оплату не завершено</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>checkout-loggedin</code></td><td>оформлює замовлення</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (форма і підсумок поруч)</td></tr>
+<tr><td><code>checkout-noaddr</code></td><td>оформлює замовлення</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (форма і підсумок поруч)</td></tr>
+<tr><td><code>coach-client</code></td><td>веде список клієнтів і відкриває профіль</td><td>НОВА ПОВЕДІНКА · НЕМАЄ</td><td>точка 860, split-view список + деталь</td></tr>
+<tr><td><code>coach-client-edit</code></td><td>заповнює або підтверджує картку клієнта в діалозі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-client-edit-confirm</code></td><td>заповнює або підтверджує картку клієнта в діалозі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-client-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-client-error</code></td><td>читає помилку і повторює спробу</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-client-loading</code></td><td>веде список клієнтів і відкриває профіль</td><td>НОВА ПОВЕДІНКА · НЕМАЄ</td><td>точка 860, split-view список + деталь</td></tr>
+<tr><td><code>coach-client-new</code></td><td>заповнює або підтверджує картку клієнта в діалозі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-clients</code></td><td>веде список клієнтів і відкриває профіль</td><td>НОВА ПОВЕДІНКА · НЕМАЄ</td><td>точка 860, split-view список + деталь</td></tr>
+<tr><td><code>coach-clients-cap</code></td><td>веде список клієнтів і відкриває профіль</td><td>НОВА ПОВЕДІНКА · НЕМАЄ</td><td>точка 860, split-view список + деталь</td></tr>
+<tr><td><code>coach-clients-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-clients-error</code></td><td>читає помилку і повторює спробу</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-clients-loading</code></td><td>веде список клієнтів і відкриває профіль</td><td>НОВА ПОВЕДІНКА · НЕМАЄ</td><td>точка 860, split-view список + деталь</td></tr>
+<tr><td><code>coach-home</code></td><td>оглядає кабінет тренера</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit) + контейнер</td></tr>
+<tr><td><code>coach-home-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-home-error</code></td><td>читає помилку і повторює спробу</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-home-free</code></td><td>оглядає кабінет тренера</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit) + контейнер</td></tr>
+<tr><td><code>coach-home-loading</code></td><td>оглядає кабінет тренера</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit) + контейнер</td></tr>
+<tr><td><code>coach-landing</code></td><td>читає лендинг гуртового доступу</td><td>ШИРШЕ · сітка</td><td>плинне + контейнер</td></tr>
+<tr><td><code>coach-order</code></td><td>читає одне замовлення тренера, по клієнтах</td><td>ШИРШЕ · сітка</td><td>плинне + контейнер</td></tr>
+<tr><td><code>coach-order-error</code></td><td>читає помилку і повторює спробу</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-order-loading</code></td><td>читає одне замовлення тренера, по клієнтах</td><td>ШИРШЕ · сітка</td><td>плинне + контейнер</td></tr>
+<tr><td><code>coach-orders</code></td><td>переглядає список замовлень</td><td>ШИРШЕ · сітка</td><td>плинне</td></tr>
+<tr><td><code>coach-orders-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-orders-error</code></td><td>читає помилку і повторює спробу</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-orders-loading</code></td><td>переглядає список замовлень</td><td>ШИРШЕ · сітка</td><td>плинне</td></tr>
+<tr><td><code>coach-session</code></td><td>збирає замовлення на кількох клієнтів за одну сесію</td><td>НОВА ПОВЕДІНКА · НЕМАЄ</td><td>точка 860, split-view клієнти + кошик клієнта</td></tr>
+<tr><td><code>coach-session-addclient</code></td><td>збирає замовлення на кількох клієнтів за одну сесію</td><td>НОВА ПОВЕДІНКА · НЕМАЄ</td><td>точка 860, split-view клієнти + кошик клієнта</td></tr>
+<tr><td><code>coach-session-addempty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-session-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-session-loading</code></td><td>збирає замовлення на кількох клієнтів за одну сесію</td><td>НОВА ПОВЕДІНКА · НЕМАЄ</td><td>точка 860, split-view клієнти + кошик клієнта</td></tr>
+<tr><td><code>coach-session-newclient</code></td><td>збирає замовлення на кількох клієнтів за одну сесію</td><td>НОВА ПОВЕДІНКА · НЕМАЄ</td><td>точка 860, split-view клієнти + кошик клієнта</td></tr>
+<tr><td><code>coach-session-oos</code></td><td>збирає замовлення на кількох клієнтів за одну сесію</td><td>НОВА ПОВЕДІНКА · НЕМАЄ</td><td>точка 860, split-view клієнти + кошик клієнта</td></tr>
+<tr><td><code>coach-session-priceblock</code></td><td>збирає замовлення на кількох клієнтів за одну сесію</td><td>НОВА ПОВЕДІНКА · НЕМАЄ</td><td>точка 860, split-view клієнти + кошик клієнта</td></tr>
+<tr><td><code>coach-tariff</code></td><td>порівнює два тарифи поруч</td><td>ШИРШЕ · сітка</td><td>плинне (flex-wrap)</td></tr>
+<tr><td><code>coach-tariff-cancel</code></td><td>підтверджує скасування тарифу в діалозі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-tariff-free</code></td><td>порівнює два тарифи поруч</td><td>ШИРШЕ · сітка</td><td>плинне (flex-wrap)</td></tr>
+<tr><td><code>coach-verify</code></td><td>подає заявку на гуртовий доступ, чекає, читає відповідь</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-verify-deadend</code></td><td>подає заявку на гуртовий доступ, чекає, читає відповідь</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-verify-error</code></td><td>подає заявку на гуртовий доступ, чекає, читає відповідь</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-verify-loading</code></td><td>подає заявку на гуртовий доступ, чекає, читає відповідь</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-verify-tier</code></td><td>подає заявку на гуртовий доступ, чекає, читає відповідь</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>coach-wishlist</code></td><td>переглядає обране тренера</td><td>ШИРШЕ · сітка</td><td>плинне (auto-fit)</td></tr>
+<tr><td><code>content-about</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>content-article</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>content-blog</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>content-contacts</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>content-delivery</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>content-faq</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>content-guarantee</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>content-legal</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>content-loyalty</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>content-loyalty-buyer</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>content-newsletter</code></td><td>читає, що підписку підтверджено</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>content-promo</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>content-returns</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>content-reviews</code></td><td>читає суцільний текст</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка в ch</td></tr>
+<tr><td><code>goal</code></td><td>фільтрує видачу</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (постійна рейка фільтрів проти шита) + плинна сітка</td></tr>
+<tr><td><code>goal-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>goal-error</code></td><td>читає помилку і повторює спробу</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>goal-loading</code></td><td>фільтрує видачу</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (постійна рейка фільтрів проти шита) + плинна сітка</td></tr>
+<tr><td><code>home-buyer</code></td><td>входить у продукт: геро, цілі, добірки</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (оболонка) + плинне</td></tr>
+<tr><td><code>home-cart</code></td><td>входить у продукт: геро, цілі, добірки</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (оболонка) + плинне</td></tr>
+<tr><td><code>home-catalog</code></td><td>відкриває каталог рейкою категорій</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (оверлей проти рейки)</td></tr>
+<tr><td><code>home-coach</code></td><td>входить у продукт: геро, цілі, добірки</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (оболонка) + плинне</td></tr>
+<tr><td><code>index</code></td><td>входить у продукт: геро, цілі, добірки</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (оболонка) + плинне</td></tr>
+<tr><td><code>listing</code></td><td>фільтрує видачу</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (постійна рейка фільтрів проти шита) + плинна сітка</td></tr>
+<tr><td><code>listing-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>listing-error</code></td><td>читає помилку і повторює спробу</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>listing-filtered</code></td><td>фільтрує видачу</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (постійна рейка фільтрів проти шита) + плинна сітка</td></tr>
+<tr><td><code>listing-list</code></td><td>фільтрує видачу</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (постійна рейка фільтрів проти шита) + плинна сітка</td></tr>
+<tr><td><code>listing-loading</code></td><td>фільтрує видачу</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (постійна рейка фільтрів проти шита) + плинна сітка</td></tr>
+<tr><td><code>listing-sheet</code></td><td>фільтрує видачу</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (постійна рейка фільтрів проти шита) + плинна сітка</td></tr>
+<tr><td><code>maintenance</code></td><td>читає одне повідомлення і йде далі</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>megamenu</code></td><td>розкриває каталог із шапки</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (флайаут проти шухляди)</td></tr>
+<tr><td><code>megamenu-health</code></td><td>розкриває каталог із шапки</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (флайаут проти шухляди)</td></tr>
+<tr><td><code>megamenu-protein</code></td><td>розкриває каталог із шапки</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (флайаут проти шухляди)</td></tr>
+<tr><td><code>megamenu-vitamins</code></td><td>розкриває каталог із шапки</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (флайаут проти шухляди)</td></tr>
+<tr><td><code>order-placed</code></td><td>читає підтвердження, номер і наступний крок</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>order-placed-account-end</code></td><td>читає підтвердження, номер і наступний крок</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>product</code></td><td>вивчає товар і додає в кошик</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (галерея і бай-бокс поруч, липка смуга зникає)</td></tr>
+<tr><td><code>product-coach</code></td><td>вивчає товар і додає в кошик</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (галерея і бай-бокс поруч, липка смуга зникає)</td></tr>
+<tr><td><code>product-error</code></td><td>читає помилку і повторює спробу</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>product-loading</code></td><td>вивчає товар і додає в кошик</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (галерея і бай-бокс поруч, липка смуга зникає)</td></tr>
+<tr><td><code>product-oos</code></td><td>вивчає товар і додає в кошик</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (галерея і бай-бокс поруч, липка смуга зникає)</td></tr>
+<tr><td><code>product-reviews</code></td><td>читає відгуки і сертифікат</td><td>ШИРШЕ · повітря</td><td>контейнер + міра рядка</td></tr>
+<tr><td><code>quiz</code></td><td>відповідає на питання по одному</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>search</code></td><td>фільтрує видачу</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (постійна рейка фільтрів проти шита) + плинна сітка</td></tr>
+<tr><td><code>search-empty</code></td><td>бачить порожній стан і один вихід із нього</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>search-loading</code></td><td>фільтрує видачу</td><td>НОВА ПОВЕДІНКА · є в коді</td><td>точка 860 (постійна рейка фільтрів проти шита) + плинна сітка</td></tr>
+<tr><td><code>search-suggest</code></td><td>бачить підказки під полем пошуку</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+<tr><td><code>system</code></td><td>службовий індекс прототипу, не екран продукту</td><td>ОДНАКОВО</td><td>контейнер</td></tr>
+</tbody></table></div>
+
+</section>
+
+</main>
+<script>
+(function(){
+  var el = document.getElementById('rnow');
+  function draw(){
+    var w = document.documentElement.clientWidth;
+    var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    var pt = w >= 860 ? '--bp-shell-wide' : w >= 620 ? '--bp-grid-2col' : 'жодна';
+    el.innerHTML = '<span>ширина <b>' + w + 'px</b></span>' +
+                   '<span>корінь <b>' + rem + 'px</b></span>' +
+                   '<span>у rem <b>' + (w / rem).toFixed(2) + '</b></span>' +
+                   '<span>активна точка <b>' + pt + '</b></span>';
+  }
+  draw();
+  window.addEventListener('resize', draw);
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>
